@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-06-24T20:24:47.394Z</lastBuildDate>
+    <lastBuildDate>2026-07-04T00:48:17.813Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -129,7 +129,7 @@
     <item>
         <g:id>consulting-hourly</g:id>
         <g:title>Senior Compliance Specialist — Retainer + Outcomes</g:title>
-        <g:description>Compliance expertise without long-term lock-in. Retainer model with hours mapped to captain-hat outcomes (CSRD report, EU AI Act gap, NIS2 audit) across 16 captain hats covering 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages because that&apos;s what regulators audit.</g:description>
+        <g:description>Three-pillar consulting: (1) capability training on 80+ agent capabilities across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.</g:description>
         <g:link>https://dws10.com/products/consulting.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>250.00 EUR</g:price>
@@ -283,7 +283,7 @@
     <item>
         <g:id>firehorse-coach</g:id>
         <g:title>EU AI Act Literacy Training</g:title>
-        <g:description>Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.</g:description>
+        <g:description>Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on 80+ agent capabilities across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.</g:description>
         <g:link>https://dws10.com/buy/page3/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>499.00 EUR</g:price>
@@ -384,23 +384,6 @@
         <g:content_language>fi</g:content_language>
     </item>
     <item>
-        <g:id>agentti-sanasto</g:id>
-        <g:title>Agentti Sanasto Englanti-Suomi</g:title>
-        <g:description>Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.</g:description>
-        <g:link>https://dws10.com/buy/page4/</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-        <g:price>0.99 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Lifetime</g:brand>
-        <g:mpn>AGENT-GLOSSARY-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-        <g:custom_label_0>digital</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>fi</g:content_language>
-    </item>
-    <item>
         <g:id>devops-lead</g:id>
         <g:title>Assessment</g:title>
         <g:description>Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.</g:description>
@@ -437,7 +420,7 @@
     <item>
         <g:id>cloud-ready-teams</g:id>
         <g:title>EU On-Demand AI &amp; Cloud Engineers (Sovereign)</g:title>
-        <g:description>EU-resident, pre-vetted AI and cloud engineers — no CLOUD Act exposure, no US payroll, no 3-month recruitment cycle. Sovereign by construction: the engineer, the keyboard, and the data stay in the EU. Skip the recruitment cycle and start building this week.</g:description>
+        <g:description>Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by 80+ agent capabilities — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.</g:description>
         <g:link>https://dws10.com/buy/page4/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>950.00 EUR</g:price>
@@ -469,9 +452,78 @@
         <g:content_language>fi</g:content_language>
     </item>
     <item>
+        <g:id>claude-code-coaching-3day</g:id>
+        <g:title>Claude Code Coaching — Lecture + Workshop (3 Days)</g:title>
+        <g:description>The complete Claude Code Coaching programme: a 1-day foundations lecture plus a 2-day hands-on workshop. Your engineering team goes from AI-curious to shipping real changes through a governed plan → review → ship workflow — without your code or IP leaving the EU jurisdiction. EU AI Act Article 4 AI-literacy evidence included.</g:description>
+        <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:price>5900.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>CC-COACH-3DAY-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>claude-code-coaching-lecture</g:id>
+        <g:title>Claude Code Coaching — 1-Day Lecture</g:title>
+        <g:description>A 1-day in-house lecture that gives leadership and engineers a shared vocabulary for agentic engineering with Claude Code: the 12 rules of engineering discipline, context engineering, MCP tools, and the GREEN/YELLOW/RED trust boundary. Establishes EU AI Act Article 4 AI literacy across the team.</g:description>
+        <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:price>1900.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>CC-COACH-LEC-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>claude-code-coaching-workshop</g:id>
+        <g:title>Claude Code Coaching — 2-Day Workshop</g:title>
+        <g:description>A 2-day hands-on workshop where your team makes Claude Code productive on your own repository: authoring CLAUDE.md project memory, building skills and slash commands, wiring MCP tools, and running the plan → qa → review → ship discipline gates. Each participant ships a real change in a capstone.</g:description>
+        <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:price>4500.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>CC-COACH-WS-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>claude-code-coaching-project</g:id>
+        <g:title>Claude Code Coaching — Client Project Work</g:title>
+        <g:description>Optional embedded delivery: senior engineers apply Claude Code to a real backlog item end-to-end alongside your team — co-building skills and agents, setting up CI discipline gates, and transferring knowledge. EU-sovereign throughout. Scoped and quoted per engagement.</g:description>
+        <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:price>7500.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>CC-COACH-PROJ-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
         <g:id>ai-consulting-agentic</g:id>
         <g:title>Agentic Software Development for EU Teams</g:title>
-        <g:description>Anthropic&apos;s Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — without your IP leaving the jurisdiction. The Anthropic-backed US services firms can ship the workflow; only we can ship it without data egress to a US-controlled cloud.</g:description>
+        <g:description>Pillar 2: Industry-Specific Compliance Workflow Development. Anthropic&apos;s Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We develop and deploy industry-specific intelligent compliance workflows to production — from assessment through AGENTS.md workshops to quality governance — without your IP leaving the jurisdiction.</g:description>
         <g:link>https://dws10.com/products/ai-consulting.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>2500.00 EUR</g:price>

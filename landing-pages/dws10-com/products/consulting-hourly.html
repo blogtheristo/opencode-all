@@ -1,175 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Consulting - Hourly Rate | Lifetime Firehorse™Store</title>
-    <link rel="stylesheet" href="../static/css/style.css" />
-    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
-         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
-         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Compliance Specialist — Retainer + Outcomes | Lifetime Firehorse™Store</title>
+    <link rel="stylesheet" href="../static/css/style.css">
     <style>
-      :root {
-        --color-gold: #b8860b;
-        --color-gold-light: #d4a843;
-      }
-      body {
-        font-family: "IBM Plex Sans", system-ui, sans-serif;
-        background: #0f172a;
-        color: #e2e8f0;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      .container {
-        max-width: 800px;
-        margin: 40px auto;
-        background: rgba(30, 41, 59, 0.5);
-        padding: 40px;
-        border-radius: 10px;
-        border: 1px solid rgba(212, 168, 67, 0.18);
-        border-top: 3px solid var(--color-gold-light);
-        flex-grow: 1;
-      }
-      h1 {
-        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
-        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-      }
-      h2 {
-        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
-        color: var(--color-gold-light);
-      }
-      .price {
-        font-size: 2rem;
-        color: #4ade80;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      a.buy-btn {
-        display: inline-block;
-        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-        color: #0f172a;
-        padding: 15px 30px;
-        border-radius: 5px;
-        text-decoration: none;
-        font-weight: 800;
-        letter-spacing: 0.01em;
-        margin-top: 20px;
-        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-      a.buy-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
-      }
-      .page-version {
-        color: #64748b;
-        font-size: 0.72rem;
-        letter-spacing: 0.04em;
-        margin-top: 28px;
-        text-align: right;
-      }
-      a.back-link {
-        color: #94a3b8;
-        text-decoration: none;
-        display: block;
-        margin-bottom: 20px;
-      }
+        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 800px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }
+        h1 { color: #60a5fa; }
+        .price { font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 20px; }
+        a.buy-btn { display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+        a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
 
-      .nav-header {
-        background: #1e293b;
-        padding: 20px;
-        border-bottom: 1px solid #334155;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .nav-brand {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: white;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .nav-links {
-        display: flex;
-        gap: 20px;
-      }
-      .nav-links a {
-        color: #cbd5e1;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-      }
-      .nav-links a:hover {
-        color: #60a5fa;
-      }
+        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #60a5fa; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="nav-header">
-      <a href="../../" class="nav-brand"> DWS IQ Platform </a>
-      <div class="nav-links">
-        <a href="../../">Home</a>
-        <a href="../../buy/">Store</a>
-      </div>
+        <a href="../../" class="nav-brand">
+            DWS IQ Platform
+        </a>
+        <div class="nav-links">
+            <a href="../../">Home</a>
+            <a href="../../buy/">Store</a>
+        </div>
     </div>
     <div class="container">
-      <a href="../" class="back-link">← Back to Store</a>
-      <h1>Consulting - Hourly Rate</h1>
-      <div class="price">€250</div>
-      <div class="content">
-        <p>
-          Expert compliance guidance without a long-term commitment. Book by the hour for Fit for
-          55, CSRD, EU AI Act, or governance challenges across all 25 EU-regulated industries. Most
-          clients start with a 4-hour assessment.
-        </p>
-        <p>
-          Advisory delivered alongside the DWS IQ Industrial Intelligence suite — the same sovereign
-          engine behind DWS IQ 6 and the Aegis dual-use tier, so guidance lands as deployable agent
-          workflows.
-        </p>
-        <ul>
-          <li>Expert compliance guidance</li>
-          <li>All 25 EU-regulated industries covered</li>
-          <li>Flexible hourly booking</li>
-        </ul>
-      </div>
-      <a href="https://dws10.com/book" class="buy-btn">📅 Book Session</a>
-      <p class="page-version">Consulting — Hourly Rate — page v1.1 · 2026-06-23</p>
+        <a href="../" class="back-link">← Back to Store</a>
+        <h1>Senior Compliance Specialist — Retainer + Outcomes</h1>
+        <div class="price">€250</div>
+        <div class="content">
+            <p>Three-pillar consulting: (1) capability training on 80+ agent capabilities across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.</p><ul><li>Three-pillar model: train capabilities, develop workflows, ensure continuity</li><li>80+ agent capabilities across 10 LWM ontology classes</li><li>Fit for 55, CSRD, EU AI Act, NIS2 specialisation</li></ul>
+        </div>
+        <a href="mailto:risto@lifetime.fi?subject=Order Inquiry: Senior Compliance Specialist — Retainer + Outcomes (consulting-hourly)" class="buy-btn">Contact Sales to Order</a>
     </div>
-    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem">
-      <p><strong>LEGAL NOTICE</strong></p>
-      <p>
-        <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo,
-        Finland).
-      </p>
-      <p>
-        <strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere
-        to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the
-        NIS2 Directive, and the EU AI Act.
-      </p>
-      <p style="margin-top: 20px">Copyright © 2025 Lifetime Oy. All Rights Reserved.</p>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
+        <p><strong>LEGAL NOTICE</strong></p>
+        <p><strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland).</p>
+        <p><strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.</p>
+        <p style="margin-top: 20px;">Copyright © 2025 Lifetime Oy. All Rights Reserved.</p>
     </footer>
-    <script src="../shared-assets/nav/product-actions.js"></script>
-  </body>
+</body>
 </html>

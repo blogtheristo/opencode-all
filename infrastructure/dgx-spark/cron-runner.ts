@@ -222,7 +222,11 @@ const jobs: CronJob[] = [
   },
 
   // --- BIWEEKLY / MONTHLY ---
-  // security-scan-biweekly: HOST-ONLY. node:22-slim has no python3.
+  // security-scan-biweekly: disabled here (node:22-slim container has no python3).
+  // Superseded 2026-07-03: scripts/weekly/security-audit.sh now runs
+  // scan_critical_bugs.py --full weekly via day-runner.sh's shell-script host
+  // (which does have python3) — a shorter interval than this job ever ran at,
+  // so leaving this disabled is correct rather than a gap.
   {
     name: 'security-scan-biweekly',
     schedule: '30 2 1 * *',
@@ -231,8 +235,14 @@ const jobs: CronJob[] = [
       'python3 scripts/scan_critical_bugs.py --full --output /app/logs/critical-bugs-report.md',
     enabled: false,
   },
-  // biweekly-auth-security-audit: GHA-only (no standalone script)
-  // monthly-security-audit-enhanced: GHA-only (no standalone script)
+  // biweekly-auth-security-audit: not in this heartbeat-mirror list because its
+  // GHA workflow never had a DGX-failover check step — but scripts/weekly/auth-security-audit.sh
+  // DOES exist and runs via day-runner.sh's folder convention (1st/15th of month), independent
+  // of this file. "No standalone script" was stale/incorrect as of 2026-07-03.
+  // monthly-security-audit-enhanced: genuinely GHA-only, no DGX script exists — and should
+  // NOT be given one without first fixing scripts/security_audit.py, which is a hardcoded
+  // placeholder (always reports "85/100") rather than a real audit. See scripts/weekly/security-audit.sh
+  // header for detail.
 ];
 
 // ---------------------------------------------------------------------------

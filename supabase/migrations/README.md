@@ -1,6 +1,13 @@
 # Supabase Migrations — DWS6
 
-> VERSION: 1.0 | Date: 2026-04-07 | Owner: Marcus (Systems Architect)
+> VERSION: 1.1 | Date: 2026-07-02 | Owner: Marcus (Systems Architect)
+>
+> v1.1 changes (supabase/aiven audit): fixed stale `*_OLD.sql` naming (now
+> `*_DEPRECATED.sql`, see `#superseded-migrations-_deprecated`); corrected
+> the unused-sequence-numbers list (050 is in fact used); added
+> `073_erp_integration_tables.sql` for the ERP connector module's
+> previously-unmigrated tables (`erp_integrations`, `erp_webhook_events`,
+> `erp_sync_operations`).
 
 ## Migration Strategy
 
@@ -13,7 +20,7 @@ Supabase Dashboard SQL Editor or `supabase db push`.
 | Pattern                    | Purpose                                              |
 | -------------------------- | ---------------------------------------------------- |
 | `NNN_name.sql`             | Individual migration (applied in order)              |
-| `NNN_name_OLD.sql`         | Superseded/dead migration — NOT applied              |
+| `NNN_name_DEPRECATED.sql`  | Superseded/dead migration — NOT applied              |
 | `consolidated_035_053.sql` | Meta-migration for fresh installs (combines 035–053) |
 | `run-pending-030-037.sql`  | Batch runner for migrations 030–037                  |
 | `test_NNN_*.sql`           | Test harness for a specific migration                |
@@ -56,8 +63,11 @@ fresh installs.
 
 ### Unused Sequence Numbers
 
-These numbers were never used: 001, 009, 010, 016–022, 050. They are
-available for future use but prefer continuing from 057+.
+These numbers were never used: 001, 009, 010, 016–022. They are
+available for future use but prefer continuing from 073+.
+(Corrected 2026-07-02 — 050 was previously listed here but
+`050_memory_consolidation.sql` exists and is applied; it was a
+documentation error, not a real gap.)
 
 ## Transaction Safety (HARD RULE — 056+)
 
@@ -101,18 +111,19 @@ Migration `039_fix_security_definer_views.sql` converted construction_leads
 views to `SECURITY INVOKER`. Remaining DEFINER functions are tracked in
 the schema health check (migration 056).
 
-## Superseded Migrations (\_OLD)
+## Superseded Migrations (\_DEPRECATED)
 
-Files renamed to `*_OLD.sql` are dead code — they were superseded by later
-migrations or reference banned services. They are kept for git history
-reference and MUST NOT be applied:
+Files renamed to `*_DEPRECATED.sql` (formerly `*_OLD.sql`, renamed
+2026-06-27 per the Document Standard lifecycle-suffix convention) are dead
+code — they were superseded by later migrations or reference banned
+services. They are kept for git history reference and MUST NOT be applied:
 
-| File                                   | Reason                                        |
-| -------------------------------------- | --------------------------------------------- |
-| `035_grok_consent_OLD.sql`             | Superseded by 041_fix_partial_runs.sql        |
-| `036_grok_audit_immutability_OLD.sql`  | Depends on superseded 035                     |
-| `037_resend_delivery_tracking_OLD.sql` | Resend banned (Clawdbot incident, 2026-03-26) |
-| `040_grok_consent_OLD.sql`             | Superseded by 041_fix_partial_runs.sql        |
+| File                                          | Reason                                        |
+| --------------------------------------------- | --------------------------------------------- |
+| `035_grok_consent_DEPRECATED.sql`             | Superseded by 041_fix_partial_runs.sql        |
+| `036_grok_audit_immutability_DEPRECATED.sql`  | Depends on superseded 035                     |
+| `037_resend_delivery_tracking_DEPRECATED.sql` | Resend banned (Clawdbot incident, 2026-03-26) |
+| `040_grok_consent_DEPRECATED.sql`             | Superseded by 041_fix_partial_runs.sql        |
 
 ## Drift Detection
 
