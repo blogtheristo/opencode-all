@@ -20,7 +20,7 @@
  *   --serve <dir>       Serve <dir> on a local port and resolve <url|path> against it
  *   --width <n>         Viewport width (default 1280)
  *   --height <n>        Viewport height (default 900)
- *   --scale <n>         deviceScaleFactor — raise for crisp zoom (default 2)
+ *   --scale <n>         deviceScaleFactor (default 3 → 3840px/4K output at default width)
  *   --selector <css>    Screenshot only this element (tight crop; great for zoom)
  *   --no-full           Viewport-only instead of full page
  *   --text [selector]   Also print innerText of selector (default: body) to stdout
@@ -59,7 +59,9 @@ const opts = {
   serve: flag('--serve', null),
   width: Number(flag('--width', 1280)),
   height: Number(flag('--height', 900)),
-  scale: Number(flag('--scale', 2)),
+  // PNG Export Rule (CLAUDE.md): deliverable PNGs are always 4K — default
+  // width 1280 x scale 3 = 3840 px output width. Override only for non-deliverable debug shots.
+  scale: Number(flag('--scale', 3)),
   selector: flag('--selector', null),
   full: !argv.includes('--no-full'),
   text: argv.includes('--text') ? flag('--text', 'body') : null,

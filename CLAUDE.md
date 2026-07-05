@@ -127,6 +127,10 @@ When editing thesis content, apply this split: implementation evidence → maste
 
 For standalone downloadable HTML documents (CV/profile/report style), embed images as Base64 data URLs instead of relative paths.
 
+## PNG Export Rule
+
+Every deliverable PNG (chart, roadmap, screenshot handed to the user) is rendered at 4K resolution — at least 3840 px on the long side. Use `scripts/screenshot.mjs`, whose defaults (width 1280 × scale 3) enforce this; lower resolutions are for debug-only shots.
+
 ## Security Coding Rules
 
 - No `exec()` with interpolated strings for shelling out; use safe argument-based execution.
