@@ -8,14 +8,20 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'src/**'
-      - 'package.json'
-      - 'tsconfig.json'
-      - 'vitest.config.ts'
+      - "src/**"
+      - "tests/**"
+      - "dws10.com/shared-assets/footer/**"
+      - "dws10.com/free-audit/**"
+      - "package.json"
+      - "tsconfig.json"
+      - "vitest.config.ts"
   push:
     branches: [main]
     paths:
-      - 'src/**'
+      - "src/**"
+      - "tests/**"
+      - "dws10.com/shared-assets/footer/**"
+      - "dws10.com/free-audit/**"
 
 concurrency:
   group: test-${{ github.ref }}
