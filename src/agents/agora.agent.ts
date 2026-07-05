@@ -53,7 +53,7 @@ export class AgoraAgent extends BaseAgent {
         'collective-intelligence',
         'decision-support',
       ],
-      model: 'claude-sonnet-4-6',
+      model: 'claude-sonnet-5',
       modelTier: 'heavy',
       loop: {
         maxIterations: 10,
