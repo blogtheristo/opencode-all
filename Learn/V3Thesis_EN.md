@@ -6,10 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.73
-
+Version: 3.76
 Sessions & Modifications:
 
+- Version: 3.76 | Tool: Claude Code | Session: claude/physical-ai-first-person-3mmu70 | Date: 05.07.2026 | Changes: Lockstep version bump 3.75 → 3.76 across all 4 thesis files per CLAUDE.md thesis rule. The v3.76 substantive content (Jensen Huang's "digital robot" framing of agentic AI and his identification of first-person data — against the world's overwhelmingly third-person video corpus — as the hardest problem in physical AI; the re-identification of the LWM Phase-3 gating input as first-person operational data rather than compute or alignment; the element-for-element mapping of Huang's five-element physical-AI stack — data engine / simulator / reward / runtime / computer — onto the Brain–Memory–Body–Hands architecture; the specification of Perception Capital's production mechanism; and a sovereign, consent-governed, EU-resident first-person-data-provenance predicate extending the four-track KYA suite) is a market signal / scientific framing and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.35 (The First-Person Data Bottleneck) and Key Contribution #42. Section/version/KC numbers advanced from the original v3.71/§14.33/#39 draft to v3.76/§14.35/#42 to avoid collision with main's already-landed §14.33/§14.34 and KC #39–#41. No implementation has shipped for this signal (thesis/strategy-first decision), so this file receives a lockstep-only version-bump entry and no new sections. `Learn/` HTML regenerated at v3.76 via scripts/gen-thesis-html.cjs. Primary source: Jensen Huang (NVIDIA), public remarks on agentic and physical AI, 2026.
+- Version: 3.75 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Lockstep version bump only. Substantive content (Finnish Ministry of Finance security-oriented information management guide, VM 2026:27, mapped to DWS's Control Room/Situation Room retention model) is regulatory-pipeline/market-signal framing per §1.4 master-vs-PhD scope rule, so it lives in `docs/PHD_FIREHORSE_EN.md` §14.34 and Key Contribution #41. No implementation content added here.
+- Version: 3.74 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: CSRD scope refined to the FINAL post-Omnibus figure (Council 24.02.2026): "After Omnibus" = fewer than ~5,000 large companies (>1,000 employees AND >450M EUR turnover), replacing the interim ~10,000; flat "50,000+ by 2028" market-timing claims corrected to post-Omnibus reality + Scope-3 value-chain pull. Lockstep across all 4 thesis files per CLAUDE.md thesis rule; DWS_TRUTH_STANDARD v2.5 section 2C. Learn/ HTML regeneration (Pandoc) + PhD-side figure references PENDING.
 - Version: 3.73 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 28.06.2026 | Changes: Merge conflict resolution: merged branch claude/article-research-phd-tvmskz (v3.71 RQGM §14.33) with origin/main (v3.71 interruption-cost §14.20.8 + v3.72 capability-ontology V3Thesis §10.24). KC#39 numbering collision resolved: main used KC#39 for capability ontology (V3Thesis §10.24), this branch used KC#39 for RQGM (PHD §14.33) → RQGM renumbered to KC#40. All 4 thesis files bumped to v3.73 in lockstep.
 - Version: 3.72 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §10.24 (Capability Ontology and Three-Pillar Consulting GTM — from agent taxonomy to enterprise delivery). Implementation evidence: 10 LWM-based knowledge graph classes organising 80+ agent capabilities (62 existing + 18 new), three-pillar consulting model (capability training, industry-specific compliance workflow development, disruption-free project continuity with Keskeytyslaskuri integration), Aegis Defence honest capability correction (SAR orbital detection only — no drone detection), and lifetime.fi website deployment with three-pillar consulting section. Companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5 (Consultant Handbook 2026). Key Contribution #39. All 4 thesis files bumped to v3.72 in lockstep per CLAUDE.md thesis rule.
 - Version: 3.71 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 27.06.2026 | Changes: Lockstep version bump 3.70 → 3.71 across all 4 thesis files per CLAUDE.md thesis rule. The v3.71 substantive content (the Red Queen Gödel Machine signal — RQGM, Iacob et al., arXiv:2606.26294v1, 24.06.2026, Cambridge / NVIDIA / Flower Labs / MBZUAI / Inria — an evolutionary framework for recursive self-improvement under non-stationary utilities via controlled utility evolution; names the conformance-temporal gap where fixed evaluators degrade as agents improve, empirically 1.91× over-acceptance; extends the KYA four-track suite with epoch subscripts requiring evaluator re-validation; derives an Article 12 evaluator-calibration requirement; identifies Flower Labs federated learning as sovereignty-preserving transport for co-evolutionary improvement) is a market-signal / scientific-framing contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.33 and Key Contribution #40. No implementation has shipped; this file receives a lockstep-only version-bump entry. Companion artefact: docs/field-notes/2026-06-27-red-queen-godel-machine-rqgm.md.
@@ -584,13 +586,13 @@ The European Commission adopted the Omnibus simplification package on 26.2.2025,
 
 **Key changes to CSRD reporting:**
 
-| Change                | Before                    | After Omnibus                           |
-| --------------------- | ------------------------- | --------------------------------------- |
-| **CSRD scope**        | ~50,000 companies         | ~10,000 companies (>1,000 employees)    |
-| **SME obligations**   | Mandatory                 | Voluntary standard (EFRAG SME)          |
-| **Assurance level**   | "Limited" -> "Reasonable" | Stays at "Limited"                      |
-| **Timeline**          | 2026-2027                 | +2 year postponement ("stop the clock") |
-| **Estimated savings** | -                         | EUR 4.4 billion/year                    |
+| Change                | Before                    | After Omnibus                                                      |
+| --------------------- | ------------------------- | ------------------------------------------------------------------ |
+| **CSRD scope**        | ~50,000 companies         | fewer than ~5,000 companies (>1,000 employees AND >€450M turnover) |
+| **SME obligations**   | Mandatory                 | Voluntary standard (EFRAG SME)                                     |
+| **Assurance level**   | "Limited" -> "Reasonable" | Stays at "Limited"                                                 |
+| **Timeline**          | 2026-2027                 | +2 year postponement ("stop the clock")                            |
+| **Estimated savings** | -                         | EUR 4.4 billion/year                                               |
 
 **Critical observation: Climate targets remain unchanged**
 
@@ -2921,7 +2923,7 @@ The DWS connector architecture follows the ERP integration patterns established 
 
 4. **Community validation:** Emission factor databases change annually. Open source connectors enable community-driven maintenance — when the EEA publishes updated GHG inventory data, any contributor can submit a PR updating the factor feed, and the change is reviewed in the open.
 
-The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the 50,000+ EU companies requiring CSRD compliance by 2028 can adopt the infrastructure without vendor dependency.
+The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the largest EU companies requiring CSRD compliance (fewer than ~5,000 post-Omnibus, >1,000 employees and >€450M turnover) — and the far larger population of suppliers pulled in via Scope-3 value-chain reporting — can adopt the infrastructure without vendor dependency.
 
 #### 10.17.6 Research Contribution
 
@@ -2931,7 +2933,7 @@ This concluding section contributes three findings:
 
 2. **Cross-vertical intelligence thesis:** A multi-industry carbon ledger produces emergent intelligence that single-vertical tools cannot replicate. A steel mill's ETS surrender correlates with a construction sector CSRD disclosure from the same supply chain. This correlation is only visible when both industries share one ledger format — validating the platform architecture described throughout this thesis.
 
-3. **Funding infrastructure, not features:** The carbon balance sheet represents the transition from "compliance reporting tool" to "compliance infrastructure" — the same distinction as between a spreadsheet and an ERP system. This architectural choice has strategic implications for enterprise stickiness (switching cost equivalent to changing your financial ledger), market timing (50,000+ EU companies need this by 2028), and network effects (more industries on the ledger = more accurate cross-regulation data).
+3. **Funding infrastructure, not features:** The carbon balance sheet represents the transition from "compliance reporting tool" to "compliance infrastructure" — the same distinction as between a spreadsheet and an ERP system. This architectural choice has strategic implications for enterprise stickiness (switching cost equivalent to changing your financial ledger), market timing (fewer than ~5,000 large EU companies mandated post-Omnibus, plus their value chains via Scope 3), and network effects (more industries on the ledger = more accurate cross-regulation data).
 
 The Firehorse Product Manufacturing Operating Model, documented across the preceding 16 sections, provided the engineering foundation — harness architecture, multi-agent orchestration, edge deployment, and regulatory intelligence — required to build this carbon balance sheet infrastructure. The conclusion is that the platform's competitive moat is not any single agent or regulation module, but the ledger that connects them all.
 
