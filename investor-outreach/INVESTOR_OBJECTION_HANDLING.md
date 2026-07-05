@@ -103,7 +103,7 @@ The architecture is validated by the broader world models category (LeCun's AMI 
 
 Persefoni raised $9.7M Series A on $1.8M ARR in carbon accounting (April 2021). Sweep raised $22M Series A pre-meaningful-revenue in carbon management (December 2021). Both pure-play compliance SaaS without edge deployment or regulatory knowledge graphs.
 
-Lifetime has EUR 7K MRR, 100% retention, a 7-year head start on a regulatory intelligence engine spanning 20 EU industries, and EUR 17K/year edge deployment vs EUR 350K/year cloud.
+Lifetime has EUR 7K MRR, 100% retention, a 7-year head start on a regulatory intelligence engine spanning 25 EU-regulated industries, and EUR 17K/year edge deployment vs EUR 350K/year cloud.
 
 EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a higher implied valuation with less traction. Lifetime has more customers, a government payer, edge deployment, and a 7-year knowledge graph they do not have.
 
