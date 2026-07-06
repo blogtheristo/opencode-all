@@ -4,14 +4,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
-- Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Registered `DWS_ROLES_REGISTRY.md` v1.0 in §7 Related Documents. Canonical 25-role enterprise taxonomy + 5 buying-journey stages extracted from the Outokumpu case. Source for every standard's optional Roles chapter and per-customer outreach wedge matrices.
-- Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Registered sibling meta-standard `DWS_TRUTH_STANDARD.md` v1.0 in §7 Related Documents. The Truth Standard catalogs internal canonical files (industries, products, KYA, captain framework, brand, security, document format, deployment) — the parallel index to this file's external-standards registry. Founded after the 16→25+ EU industries propagation incident (commit d4abb4d) revealed that DWS had no master index of source-of-truth files.
-- Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/model-performance-notes-4x3or | Date: 18.05.2026 | Changes: Registered `DWS_MODEL_STANDARD.md` v1.0 — new master standard for which LLMs and multimodal models DWS runs, where, and under which jurisdiction + sensitivity constraints. Defines a 9-model Approved Slate across 5 tiers (Frontier API, Sovereign Reasoning, In-House Brain, Edge Multimodal, Partner Laptop), the (Jurisdiction × Room) Loadout Table, Firehorse use-case and 25-industry-cluster bindings, the No-Cloud-Fallback Rule for EU-Sovereign × Defence workloads, and the Approval & Evaluation Gate. Catalogue is consumed by `DWS_DEPLOYMENT_STANDARD.md` §3 + §6 per-Surface Brain assignments. Empirical basis: `docs/field-notes/2026-05-18-models-worth-building-on-3090-5090-dgx-spark.md`.
-- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Registered `DWS_DEPLOYMENT_STANDARD.md` v1.0 — new master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer, Store). Added §4 Standards per Enterprise Integration row for the **Deployment** integration. Added entry to §7 Related Documents.
+- Version: 1.6 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Registered `DWS_ROLES_REGISTRY.md` v1.0 in §7 Related Documents. Canonical 25-role enterprise taxonomy + 5 buying-journey stages extracted from the Outokumpu case. Source for every standard's optional Roles chapter and per-customer outreach wedge matrices.
+- Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Registered sibling meta-standard `DWS_TRUTH_STANDARD.md` v1.0 in §7 Related Documents. The Truth Standard catalogs internal canonical files (industries, products, KYA, captain framework, brand, security, document format, deployment) — the parallel index to this file's external-standards registry. Founded after the 16→25+ EU industries propagation incident (commit d4abb4d) revealed that DWS had no master index of source-of-truth files.
+- Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/model-performance-notes-4x3or | Date: 18.05.2026 | Changes: Registered `DWS_MODEL_STANDARD.md` v1.0 — new master standard for which LLMs and multimodal models DWS runs, where, and under which jurisdiction + sensitivity constraints. Defines a 9-model Approved Slate across 5 tiers (Frontier API, Sovereign Reasoning, In-House Brain, Edge Multimodal, Partner Laptop), the (Jurisdiction × Room) Loadout Table, Firehorse use-case and 25-industry-cluster bindings, the No-Cloud-Fallback Rule for EU-Sovereign × Defence workloads, and the Approval & Evaluation Gate. Catalogue is consumed by `DWS_DEPLOYMENT_STANDARD.md` §3 + §6 per-Surface Brain assignments. Empirical basis: `docs/field-notes/2026-05-18-models-worth-building-on-3090-5090-dgx-spark.md`.
+- Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Registered `DWS_DEPLOYMENT_STANDARD.md` v1.0 — new master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer, Store). Added §4 Standards per Enterprise Integration row for the **Deployment** integration. Added entry to §7 Related Documents.
+- Version: 1.2 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/nordic-industrial-ai-sales-Jni0E | Date: 10.05.2026 | Changes: Added Section 8 Sales Standards — Pitch Standard (PITCH_STANDARD.md v1.1, four-part structure for Client and Investor pitch types) and Weekly Sales Field Notes format.
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added Section 3.6 Sovereignty Tier Map (Tier 1 Full EU Sovereign / Tier 2 EU Operational / Tier 3 EU Region, US Ownership) to anchor honest vendor positioning. Red Hat Confirmed Sovereign Support classified as strong Tier 2; Aiven, Scaleway, OVHcloud, IONOS, SUSE anchored as Tier 1. Referenced from `/sovereignty-assess` skill and the partner-note blog post `onelifetime.world/posts/redhat-sovereign-move-three-tiers.html`.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/expand-standards-knowledge-oAULz | Date: 19.04.2026 | Changes: Initial creation — SPICE + SQuaRE + integration-standards map triggered by Teemu Vesala advisor engagement (see docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md). Indexes all DWS-adopted standards with version, scope, DWS application, and owner.
 
@@ -206,3 +207,40 @@ When an agent (or human) needs to determine which standards apply to a given pro
 - `docs/DWS6_TO_DWS7_UPDATE.md` Section 8 — Certification path
 - `docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md` — Advisor engagement for ASPICE + SQuaRE
 - `dws10.com/enterprise-integrations/` — Customer-facing integration catalogue with standards shown
+
+---
+
+## 8. Sales Standards
+
+Standards governing how DWS IQ 6 / Lifetime Oy sales and investor outreach is structured and executed.
+
+### 8.1 Pitch Standard
+
+**Document:** `PITCH_STANDARD.md`
+**Version:** 1.1 (Active)
+**Scope:** All outbound sales and investor pitches originating from Lifetime Oy / DWS IQ 6.
+
+**Rule:** The word "pitch" always means a four-part deliverable, produced in order:
+
+| #   | Part                   | Purpose                                                 |
+| --- | ---------------------- | ------------------------------------------------------- |
+| 1   | DD (Due Diligence)     | Research on target company or investor firm             |
+| 2   | Person Investigation   | Research on the specific named contact                  |
+| 3   | Letter Wedge Formation | Outbound message ≤250 words, four-beat structure        |
+| 4   | Appendix by Case       | Tailored evidence — regulatory, traction, or deal terms |
+
+**Pitch types:**
+
+| Type     | Target                      | Storage path                                             |
+| -------- | --------------------------- | -------------------------------------------------------- |
+| Client   | Enterprise buyer            | `sales-outreach/PITCH_<COMPANY>_<CONTACT>_<YYYYMMDD>.md` |
+| Investor | VC / PE / angel / strategic | `investor-outreach/PITCH_<FIRM>_<PERSON>_<YYYYMMDD>.md`  |
+
+A document missing any part is not a pitch. Full quality gate and part specifications: see `PITCH_STANDARD.md`.
+
+### 8.2 Weekly Sales Field Notes
+
+**Format:** `docs/field-notes/YYYY-MM-DD-<topic>-digest-wNN.md`
+**Purpose:** Weekly Nordic/EU market intelligence feeding Part 1 DD across all active pitches. Covers sovereign cloud, regulatory deadlines, industrial AI demand, and geopolitical supply chain signals.
+
+**Companion pitch list format:** `sales-outreach/YYYY-MM-DD-<region>-targeted-pitch-list.md`
