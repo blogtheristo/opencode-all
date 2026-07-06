@@ -188,6 +188,12 @@ const posts = [
     date: '25 Jun 2026',
   },
   {
+    file: 'nvidia-jetson-thor-physical-ai.html',
+    title:
+      'NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It.',
+    date: '26 Jun 2026',
+  },
+  {
     file: 'industrial-intelligence-weekly-2026-06-28.html',
     title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
     date: '28 Jun 2026',
