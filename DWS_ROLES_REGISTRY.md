@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Session: claude/outokumpu-customer-strategy-p01zeu | Date: 01.07.2026 | Changes: R11 Plant Director notes cell updated to add Kemi as a third Outokumpu instance alongside Tornio + Avesta, following identification of Henri Simpanen (VP Kemi mine) as a second, independent door into the Outokumpu account. Detail in `docs/field-notes/2026-07-01-outokumpu-henri-simpanen-kemi-mine-second-door.md`. Append-only correction per §6 maintenance rule; no role or stage renumbering.
 - Version: 1.2 | Tool: Claude Code (Opus 4.8) | Session: claude/santander-ai-governance-mhd8rj | Date: 22.06.2026 | Changes: Appended a second financial-services industry variant to §4 — "Financial services — AI governance" (Door #1 R15 CISO, wedge: EU AI Act high-risk AI decisions). Triggered by the SantanderAI open-source release as a market signal; full wedge matrix in `docs/regulatory-radar/SANTANDER_AI_GOVERNANCE_BRIEF.md`. The existing financed-emissions (SFDR) variant is unchanged — this is an append, not a replacement.
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Boardy usability audit shipped to §5 — added naming patterns (`/<domain>-<artifact>-standard` for skills, `/<domain>-<artifact>-gate` for workflows), revenue-lever rule ("lead with the role that has the strongest revenue or cost lever, not the role with the most authority"), and CBAM Disclosure Standard worked example (Boardy fill, verbatim). R26 Business-line/Commercial Owner explicitly deferred per Boardy ("avoid registry getting muddy").
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Initial canonical registry. Extracted from sales-outreach/INTRO_ARI_HIRVONEN_OUTOKUMPU.md (Outokumpu case, 2026-05-18) — the 14 grouped roles split into 25 distinct titles. Registered in DWS_TRUTH_STANDARD.md §2. Each standard's optional Roles & Responsibilities chapter pulls from this list.
@@ -15,7 +16,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 25.05.2026
-- Last Modified: 22.06.2026
+- Last Modified: 01.07.2026
 - Language: English
 - Publication Status: ACTIVE
 - Document Type: Canonical Registry
@@ -65,7 +66,7 @@ Each entry has: ID, title, stage, default ownership scope, and notes for when th
 | R08 | Head of Sustainability             | 2 — Operational owner | CSRD / CBAM / ESRS day-to-day execution                               | Deputy or peer to CSO                                                    |
 | R09 | Head of Application Engineering    | 2 — Operational owner | Per-customer technical specification                                  | Often combined with Customer Engineering (R10)                           |
 | R10 | Head of Customer Engineering       | 2 — Operational owner | Customer-facing technical fulfillment, Scope 3 forms                  | The "manual fulfilment desk" pain in the Outokumpu case                  |
-| R11 | Plant Director                     | 2 — Operational owner | Single-plant operations                                               | Multiple per company (Outokumpu: Tornio + Avesta)                        |
+| R11 | Plant Director                     | 2 — Operational owner | Single-plant operations                                               | Multiple per company (Outokumpu: Tornio, Avesta, Kemi)                   |
 | R12 | Operations Director                | 2 — Operational owner | Multi-plant or operational-network leadership                         | Often above Plant Director, below COO                                    |
 | R13 | CIO                                | 3 — Tech approver     | Enterprise architecture, vendor consolidation, IT strategy            | Combined with Head of IT (R14) in smaller orgs                           |
 | R14 | Head of IT                         | 3 — Tech approver     | IT operations, integration, helpdesk, day-to-day infrastructure       | Deputy or peer to CIO                                                    |
