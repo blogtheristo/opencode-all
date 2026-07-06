@@ -108,6 +108,30 @@ cmd_test() {
   send_all
 }
 
+cmd_force() {
+  # Bypass lock AND time guard. Useful when the daily run was stale or skipped.
+  rm -f "$LOCK_FILE"
+  export BRIEF_FORCE=1
+  export SKIP_TIME_CHECK=true
+  send_all
+  mark_sent_today
+}
+
+cmd_preview() {
+  # Generate HTML preview only — no email sent. Default path: logs/morning-brief-preview.html
+  cd "$PROJECT_DIR"
+  if [ -f .env ]; then set -a; source .env; set +a; fi
+  export SKIP_TIME_CHECK=true
+  export BRIEF_PREVIEW=1
+  "$NPX_BIN" tsx scripts/send-morning-brief-v2.ts --preview "$@"
+  local preview_path="${BRIEF_HTML_OUT:-logs/morning-brief-preview.html}"
+  echo ""
+  echo "Preview written. Open it locally:"
+  echo "  xdg-open $PROJECT_DIR/$preview_path   # Linux"
+  echo "  start    $PROJECT_DIR/$preview_path   # Windows PowerShell"
+  echo "  open     $PROJECT_DIR/$preview_path   # macOS"
+}
+
 cmd_install() {
   local service_dir="$HOME/.config/systemd/user"
   mkdir -p "$service_dir"
@@ -181,13 +205,17 @@ cmd_uninstall() {
 case "${1:-send}" in
   send)      cmd_send ;;
   test)      cmd_test ;;
+  force)     shift; cmd_force "$@" ;;
+  preview)   shift; cmd_preview "$@" ;;
   install)   cmd_install ;;
   status)    cmd_status ;;
   uninstall) cmd_uninstall ;;
   *)
-    echo "Usage: $0 {send|test|install|status|uninstall}"
+    echo "Usage: $0 {send|test|force|preview|install|status|uninstall}"
     echo "  send      — Run all morning emails (default, skips if already sent today)"
     echo "  test      — Send all immediately (no lock check)"
+    echo "  force     — Clear today's lock and re-send immediately (use after a stale brief)"
+    echo "  preview   — Build HTML to logs/morning-brief-preview.html, NO email sent"
     echo "  install   — Install systemd timer (05:00 Helsinki) + login trigger"
     echo "  status    — Show timer status and recent logs"
     echo "  uninstall — Remove systemd units"

@@ -2,13 +2,13 @@
 
 Tracked in Supabase `outreach_contacts` table (pipeline = 'partner').
 
-**Last updated:** 2026-02-24
+**Last updated:** 2026-05-18
 
 ## Priority Targets
 
 | # | Company | Type | Contact | Why | Status | Pitch Doc | Next Action |
 |---|---------|------|---------|-----|--------|-----------|-------------|
-| 1 | **One Click LCA** | Technology | Panu Pasanen (CEO) via Simon Sim | Their LCA output = our input. Helsinki. | **Pitch ready** | [ONECLICKLCA_PARTNERSHIP_PITCH.md](ONECLICKLCA_PARTNERSHIP_PITCH.md) | Send Simon Sim intro TODAY |
+| 1 | **One Click LCA** | Technology | Suzana Delanghe (CRO) + Partner Program; escalate via Panu Pasanen | Their LCA output = our input. Helsinki. | **Pitch v2.0 ready** | [ONECLICKLCA_PARTNERSHIP_PITCH.md](ONECLICKLCA_PARTNERSHIP_PITCH.md) | Submit partner program form + DM Suzana same day |
 | 2 | **IFS Cloud** | Integration | ISV Partner Program | Our best ERP connector. Asset-intensive industries. | **Pitch ready** | [IFS_CLOUD_PARTNERSHIP_PITCH.md](IFS_CLOUD_PARTNERSHIP_PITCH.md) | Submit ISV application this week |
 | 3 | **SAP** | Integration | SAP PartnerEdge Build | Largest ERP. Sustainability Control Tower gap. | **Pitch ready** | [SAP_PARTNEREDGE_PITCH.md](SAP_PARTNEREDGE_PITCH.md) | Submit Build application this week |
 | 4 | **GreeniumDC** | Strategic Alliance | Anna Gueorguieva (CSO) | Data aggregation + predictive analytics. 50+ asset managers. | **Follow-up due** | [GREENIUMDC_FOLLOWUP.md](GREENIUMDC_FOLLOWUP.md) | Day 5 follow-up Feb 25 |
