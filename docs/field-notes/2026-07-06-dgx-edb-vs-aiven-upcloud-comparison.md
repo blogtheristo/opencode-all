@@ -77,6 +77,10 @@ region for an existing service.
 - "UpCloud MaxIOPS up to 100k IOPS" and "no data transfer fees on UpCloud" — not
   verified this session; confirm on the Leevi call or from UpCloud pricing before
   using in customer-facing material.
+- Cost signal (Risto, 2026-07-06): **UpCloud developer mode is currently free.**
+  If it applies to the Aiven-on-UpCloud path (verify: free tier limits, and
+  whether via Aiven or only direct on UpCloud), sandbox attempt #2 could test the
+  sovereign UpCloud region at zero cost.
 
 ## Where to use this comparison
 

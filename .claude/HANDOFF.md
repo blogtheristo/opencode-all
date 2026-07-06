@@ -25,11 +25,16 @@ session's context automatically.
 - **Branch:** claude/aiven-partnership-intro-vm1fgk
 - **Task:** Record Aiven inbound contact (Leevi Lindfors, account manager,
   2026-07-06) and draft Risto's reply.
-- **State:** `Partners/outreach/2026-04-18-aiven.md` updated to v1.1 — named
-  contact added, sandbox status recorded (attempt #1 failed, attempt #2 in
-  progress), FI + EN reply drafts in §8. Email send is RED zone: Risto sends.
-- **Next steps:** Risto reviews/sends the §8 reply; book the best-practices
-  call; report sandbox attempt #2 outcome back into the partner record.
+- **State:** Partner record at v1.2 — first call with Leevi held 2026-07-06;
+  agreed: mutual NDA, reseller-or-consulting track, Aiven sends materials.
+  NDA draft prepared at `Partners/NDA_AIVEN_2026.md` (Aiven legal identifiers
+  marked `[CONFIRM]`). Field note
+  `docs/field-notes/2026-07-06-dgx-edb-vs-aiven-upcloud-comparison.md` records
+  the DGX/EDB vs Aiven/UpCloud analysis + UpCloud-region sovereignty angle
+  (§17.5 exception) and the "UpCloud developer mode currently free" signal.
+- **Next steps:** Risto confirms Aiven legal IDs + sends NDA (RED zone);
+  review Leevi's materials on arrival; decide reseller vs consulting;
+  raise UpCloud region + free developer mode for sandbox attempt #2.
 - **Blockers:** None.
 
 ---
