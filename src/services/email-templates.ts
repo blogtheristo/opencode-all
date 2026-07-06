@@ -381,7 +381,7 @@ export function captainPreBriefingTemplate(
       Your Captain Briefing Is Confirmed
     </h1>
     <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-      Hi ${escapedName}, your briefing call with Risto Paarni (CEO, Lifetime Oy) is confirmed.
+      Hi ${escapedName}, your briefing call with Risto Anton Päärni (Founder, CEO, Lifetime Oy) is confirmed.
       Here's what to review before the call so we can make the most of our time together.
     </p>
 
@@ -514,7 +514,7 @@ export function investorOutreachTemplate(
       Hi ${escapedName},
     </p>
     <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-      I'm Risto Paarni, Founder of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
+      I'm Risto Anton Päärni, Founder, CEO of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
       platform for ${escapedIndustry}. We have €7k MRR, 5 paying customers with 100% retention,
       and are raising a SAFE round at a €3.8M cap.
     </p>
@@ -600,7 +600,7 @@ export function investorOutreachTemplate(
     </p>
 
     <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-      Risto Anton Paarni &middot; CEO, Lifetime Oy &middot; Helsinki, Finland<br>
+      Risto Anton Päärni &middot; Founder, CEO, Lifetime Oy &middot; Helsinki, Finland<br>
       <a href="https://dws10.com" style="color: #60a5fa; text-decoration: none;">dws10.com</a> &middot;
       <a href="https://www.crunchbase.com/organization/lifetime-oy" style="color: #60a5fa; text-decoration: none;">Crunchbase</a>
     </p>

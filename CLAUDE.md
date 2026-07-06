@@ -2,6 +2,45 @@
 
 This file defines concise operating rules for AI agents working in the DWS6 repository.
 
+## Sender Identity (Use Exactly — Do Not Improvise)
+
+Every email, letter, intro note, signature block, "From:" line, author field, or first-person draft produced on behalf of the user **must** use:
+
+- **Name:** Risto Anton Päärni _(umlauts on both a's — Päärni, NOT Paarni)_
+- **Title:** Founder, CEO
+- **Company:** Lifetime Oy
+- **Phone (always include in signatures):** +358 400 319 010
+
+**Email — three addresses, three contexts (do not mix):**
+
+| Context                                                       | Email                          |
+| ------------------------------------------------------------- | ------------------------------ |
+| Sales outreach as Lifetime Oy (cold/warm prospects, partners) | `risto.paarni2024@lifetime.fi` |
+| DWS IQ product email (From + Reply-To on platform-sent mail)  | `risto@onelifetime.world`      |
+| Legal / contract / invoice / statutory                        | `risto.paarni@lifetime.fi`     |
+
+The substring `paarni` (no umlauts) is allowed **only** inside an email address or other login/account data. Everywhere else the name carries umlauts: **Päärni**.
+
+**Short sig (Lifetime Oy sales outreach, default):**
+
+```
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy
+risto.paarni2024@lifetime.fi · +358 400 319 010
+```
+
+**DWS IQ product sig (emails sent by the platform):**
+
+```
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy
+risto@onelifetime.world · +358 400 319 010
+```
+
+**Full sig (legal / contract / MNDA / invoice):** see `Legal Identity Rule` section below; uses `risto.paarni@lifetime.fi`.
+
+If any draft is produced without this exact spelling and title, treat it as a bug and fix before sending.
+
 ## Core Principle
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
@@ -165,8 +204,9 @@ Use these identifiers in legal/contract docs:
 - Business ID: 0772407-9
 - VAT ID: FI07724079
 - Address: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
-- CEO: Risto Anton Paarni
-- Email: risto.paarni@lifetime.fi
+- Founder, CEO: Risto Anton Päärni
+- Email: risto.paarni@lifetime.fi (email is ASCII; the legal name carries umlauts: **Päärni**, not Paarni)
+- Phone: +358 400 319 010 (always include in signature blocks)
 
 ## Agent Productization Rule
 
