@@ -11,6 +11,7 @@ import DiaryScreen from '../screens/DiaryScreen';
 import InspectionScreen from '../screens/InspectionScreen';
 import CarbonReportScreen from '../screens/CarbonReportScreen';
 import DashboardScreen from '../screens/DashboardScreen';
+import AlertsScreen from '../screens/AlertsScreen';
 import OmnichannelScreen from '../screens/OmnichannelScreen';
 import ControlRoomScreen from '../screens/ControlRoomScreen';
 import SituationRoomScreen from '../screens/SituationRoomScreen';
@@ -46,20 +47,27 @@ function CustomDrawerContent(props: any) {
         {/* Dashboard Section */}
         <Text style={styles.sectionTitle}>DASHBOARDS</Text>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Home')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Home')}>
           <Icon name="view-dashboard" size={22} color={nordicColors.primary} />
           <Text style={styles.menuText}>Overview</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Dashboard')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Dashboard')}>
           <Icon name="chart-box" size={22} color={nordicColors.primary} />
           <Text style={styles.menuText}>DWS IQ 6 Dashboard</Text>
+        </TouchableOpacity>
+
+        <Divider style={styles.divider} />
+
+        {/* NCC Portfolio Section — folded in from the retired mobile-dashboard shell */}
+        <Text style={styles.sectionTitle}>NCC PORTFOLIO</Text>
+
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Alerts')}>
+          <Icon name="bell-alert" size={22} color={nordicColors.secondary} />
+          <Text style={styles.menuText}>Portfolio Alerts</Text>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>NCC</Text>
+          </View>
         </TouchableOpacity>
 
         <Divider style={styles.divider} />
@@ -78,18 +86,12 @@ function CustomDrawerContent(props: any) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Automation')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Automation')}>
           <Icon name="robot" size={22} color={nordicColors.secondary} />
           <Text style={styles.menuText}>Automation</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Report')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Report')}>
           <Icon name="file-chart" size={22} color={nordicColors.primary} />
           <Text style={styles.menuText}>Report Engine</Text>
         </TouchableOpacity>
@@ -99,10 +101,7 @@ function CustomDrawerContent(props: any) {
         {/* Field Operations */}
         <Text style={styles.sectionTitle}>FIELD OPERATIONS</Text>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Diary')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Diary')}>
           <Icon name="notebook" size={22} color={nordicColors.secondary} />
           <Text style={styles.menuText}>Diary</Text>
           <View style={styles.badge}>
@@ -110,10 +109,7 @@ function CustomDrawerContent(props: any) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Inspection')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Inspection')}>
           <Icon name="clipboard-check" size={22} color={nordicColors.secondary} />
           <Text style={styles.menuText}>Inspection</Text>
         </TouchableOpacity>
@@ -153,10 +149,7 @@ function CustomDrawerContent(props: any) {
         <Divider style={styles.divider} />
 
         {/* Settings */}
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Settings')}
-        >
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Settings')}>
           <Icon name="cog" size={22} color={nordicColors.textSecondary} />
           <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity>
@@ -221,6 +214,11 @@ export default function DrawerNavigator() {
         options={{ title: 'DWS IQ 6 Dashboard' }}
       />
       <Drawer.Screen
+        name="Alerts"
+        component={AlertsScreen}
+        options={{ title: 'Portfolio Alerts' }}
+      />
+      <Drawer.Screen
         name="Omnichannel"
         component={OmnichannelScreen}
         options={{ title: 'Omnichannel' }}
@@ -230,16 +228,8 @@ export default function DrawerNavigator() {
         component={AutomationScreen}
         options={{ title: 'Automation' }}
       />
-      <Drawer.Screen
-        name="Report"
-        component={ReportScreen}
-        options={{ title: 'Report Engine' }}
-      />
-      <Drawer.Screen
-        name="Diary"
-        component={DiaryScreen}
-        options={{ title: 'Diary' }}
-      />
+      <Drawer.Screen name="Report" component={ReportScreen} options={{ title: 'Report Engine' }} />
+      <Drawer.Screen name="Diary" component={DiaryScreen} options={{ title: 'Diary' }} />
       <Drawer.Screen
         name="Inspection"
         component={InspectionScreen}
@@ -260,11 +250,7 @@ export default function DrawerNavigator() {
         component={SituationRoomScreen}
         options={{ title: 'Situation Room' }}
       />
-      <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ title: 'Settings' }}
-      />
+      <Drawer.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
     </Drawer.Navigator>
   );
 }

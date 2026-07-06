@@ -61,15 +61,15 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| **Orchestration** | MCP Hub (`mcp-hub/server.py`) | Central coordination, workflow patterns |
-| **Fast Inference** | Groq API (Llama 3.1 70B) | High-speed agent responses |
-| **Complex Reasoning** | Claude Sonnet 4.5 | Deep analysis, planning |
-| **Multi-Agent** | LlamaStack | Agent orchestration |
-| **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
-| **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
-| **Notifications** | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts |
+| Layer                 | Technology                                              | Purpose                                 |
+| --------------------- | ------------------------------------------------------- | --------------------------------------- |
+| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)                           | Central coordination, workflow patterns |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                       | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                              | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                           | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                        | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
@@ -241,7 +241,7 @@ PHASE 4 (Enhancements - Optional)
 
 **Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:mcp-hub`  
 **Signals Emitted:** `expo-setup`, `redux-store`, `navigation`, `dashboard-screen`, `projects-screen`, `offline-sync`, `v1-mobile`  
-**Reference:** `V1_FEATURE_LIST.md` Section 5, `mobile-dashboard/` directory
+**Reference:** `V1_FEATURE_LIST.md` Section 5, `Firehorse/mobile-app/` (NCC scope folded in 2026-07-04; `mobile-dashboard_RETIRED/` for the original shell)
 
 #### Agent-06: Enterprise Integrations
 
@@ -357,15 +357,15 @@ The deployment phases above are now enforced in the TypeScript agent runtime via
 `AgentConfig.autonomyPhase` (`silent_pilot` | `advisor` | `autonomous`, default
 `silent_pilot`). The "observe → act" loop is implemented by:
 
-| Concern | Module |
-| ------- | ------ |
-| What to watch + 2×2 "worth interrupting" gate | `src/agents/signal-catalogue.ts` |
-| Phase ladder + comparison | `src/agents/autonomy.ts` |
-| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts` |
-| Background observation cron + escalation sweep | `src/agents/signal-poller.ts` |
-| Confirm / Override / Dismiss / Investigate handling | `src/agents/nudge-response-handler.ts` |
-| `send_notification` agent tool (KYA phase-gated, BLUE) | `src/agents/tools.ts` |
-| Persisted nudge state | `supabase/migrations/069_agent_nudges.sql` |
+| Concern                                                    | Module                                     |
+| ---------------------------------------------------------- | ------------------------------------------ |
+| What to watch + 2×2 "worth interrupting" gate              | `src/agents/signal-catalogue.ts`           |
+| Phase ladder + comparison                                  | `src/agents/autonomy.ts`                   |
+| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts`              |
+| Background observation cron + escalation sweep             | `src/agents/signal-poller.ts`              |
+| Confirm / Override / Dismiss / Investigate handling        | `src/agents/nudge-response-handler.ts`     |
+| `send_notification` agent tool (KYA phase-gated, BLUE)     | `src/agents/tools.ts`                      |
+| Persisted nudge state                                      | `supabase/migrations/069_agent_nudges.sql` |
 
 **Currently promoted to Phase 2 (advisor):** `sitesense`, `compliance`,
 `customer-sat`. All other agents remain `silent_pilot` and cannot send nudges.
