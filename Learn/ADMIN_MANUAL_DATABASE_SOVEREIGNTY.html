@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DWS Database Sovereignty &amp; Cloud Fit Plan — Lifetime Oy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      body { font-family: 'Inter','Segoe UI',Tahoma,Geneva,Verdana,sans-serif; max-width: 900px; margin: 0 auto; padding: 0 20px 60px; line-height: 1.7; color: #1a1a2e; background: #fafafa; }
+      h1 { color: #0f172a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; }
+      h2 { color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 40px; }
+      h3 { color: #334155; margin-top: 28px; } h4 { color: #475569; }
+      code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+      table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+      th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
+      th { background: #1e3a5f; color: white; } tr:nth-child(even) { background: #f8fafc; }
+      blockquote { border-left: 4px solid #fbbf24; margin: 20px 0; padding: 10px 20px; background: #fffbeb; color: #334155; }
+      a { color: #2563eb; } strong { color: #0f172a; } li { margin: 4px 0; }
+      hr { border: none; border-top: 1px solid #e2e8f0; margin: 32px 0; }
+      .dws-version-banner { background: #1e293b; color: #e2e8f0; padding: 14px 24px; margin: 0 -20px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; }
+      .dws-version-badge { background: #fbbf24; color: #0f172a; font-weight: 700; padding: 4px 14px; border-radius: 20px; font-size: 0.9rem; letter-spacing: 0.04em; }
+      .dws-version-meta { color: #94a3b8; font-size: 0.8rem; } .dws-version-title { color: #e2e8f0; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <div class="dws-version-banner">
+      <span class="dws-version-title">DWS Database Sovereignty &amp; Cloud Fit Plan</span>
+      <span class="dws-version-badge">v1.1</span>
+      <span class="dws-version-meta">Lifetime Oy · whitepaper</span>
+    </div>
+    <h1>DWS Database Sovereignty &amp; Cloud Fit Plan</h1>
+    <hr />
+    <h1>VERSION AND AGENT HISTORY</h1>
+    <p>Version: 1.1</p>
+    <p>Sessions &amp; Modifications:</p>
+    <ul>
+    <li>Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added Pillar 5 (Agentic Commerce Data — <code>payment_events</code>/<code>subscription_plans</code>, Stripe webhook connector, card-data-never-in-our-DB rule) and Pillar 6 (KYA / Know Your Agent Data — Shufti Pro EU-only residency, trust-score audit-log treatment, destructive-action gating template). Renumbered Phased Roadmap to §8 and Cross-References to §9.</li>
+    <li>Version: 1.0 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Initial plan — four-pillar database strategy (sovereignty, cloud-fit decision framework, connector integration, security compliance), phased roadmap, and audit of current database estate against <code>DWS_SECURITY_STANDARD.md</code> §17.5.</li>
+    </ul>
+    <p>Session Links &amp; References:</p>
+    <ul>
+    <li>Claude Code (claude/database-sovereignty-cloud-plan-j8wuy7): https://github.com/blogtheristo/dws6/commits/claude/database-sovereignty-cloud-plan-j8wuy7</li>
+    </ul>
+    <p>Document Status:</p>
+    <ul>
+    <li>Created: 05.07.2026</li>
+    <li>Last Modified: 05.07.2026</li>
+    <li>Language: English</li>
+    <li>Languages Available: English</li>
+    <li>Publication Status: DRAFT — pending founder review</li>
+    </ul>
+    <hr />
+    <h2 id="0-scope-how-to-read-this">0. Scope &amp; How to Read This</h2>
+    <p>This is a <strong>plan</strong>, not an executed change. It answers four standing questions the founder raised:</p>
+    <ol>
+    <li>Are our databases <strong>sovereign</strong> (EU-owned infrastructure, no unmitigated CLOUD Act exposure)?</li>
+    <li>When should we use a <strong>cloud-based (managed) database</strong> rather than self-hosted, and how do we decide — including reacting to <strong>market signals</strong> (pricing, feature velocity, new EU-sovereign entrants)?</li>
+    <li>How do databases <strong>work with our connectors</strong> (ERP connectors, MCP tool servers, Cloudflare edge storage)?</li>
+    <li>How do we keep this <strong>compliant</strong> with <code>DWS_SECURITY_STANDARD.md</code> and GDPR/EU AI Act obligations?</li>
+    </ol>
+    <p>Per this repo's auto-mode trust boundary: authoring migration <strong>files</strong> under <code>supabase/migrations/*.sql</code> is a reviewable text artifact (green zone). <strong>Applying</strong> migrations to a live database (<code>supabase db push</code>, <code>psql</code>, <code>mcp__Supabase__apply_migration</code>) is red zone — it requires an explicit human action. Nothing in this plan proposes an agent apply a migration or move production data unattended.</p>
+    <hr />
+    <h2 id="1-current-state-audited-05072026">1. Current State (audited 05.07.2026)</h2>
+    <table>
+    <thead>
+    <tr>
+    <th>Database / store</th>
+    <th>Provider</th>
+    <th>Region</th>
+    <th>CLOUD Act status</th>
+    <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>DWS 6 primary (<code>dws6.com</code>)</td>
+    <td>Supabase (managed Postgres)</td>
+    <td>EU (Frankfurt/Helsinki)</td>
+    <td>Supabase Inc. is US-domiciled — same exposure class as the Aiven exception below</td>
+    <td>Primary OLTP: auth, RLS-scoped tenant data, agent logging, migrations <code>supabase/migrations/*.sql</code> (85+ files)</td>
+    </tr>
+    <tr>
+    <td>Aiven PostgreSQL sandbox (<code>dws-test</code>)</td>
+    <td>Aiven (Finnish, US-VC-backed) on <code>google-europe-north1</code></td>
+    <td>EU (Finland, GCP-hosted)</td>
+    <td><strong>Explicit sovereignty exception</strong>, founder-approved 2026-07-02 (<code>DWS_SECURITY_STANDARD.md</code> §17.5) — residual risk recorded, not resolved</td>
+    <td>Agent workspace, LWM training mirror, disaster-recovery secondary (daily mirror from Supabase)</td>
+    </tr>
+    <tr>
+    <td>Cloudflare D1 / Hyperdrive (available, not yet provisioned)</td>
+    <td>Cloudflare (US-owned)</td>
+    <td>Configurable (can pin EU)</td>
+    <td>Same "content/edge" class as Cloudflare Pages/Workers — treated as edge-cache, not system of record</td>
+    <td>Not yet in use; MCP connector present in this session (<code>Cloudflare_Developer_Platform</code>)</td>
+    </tr>
+    <tr>
+    <td>pgvector (embeddings)</td>
+    <td>Same Supabase instance</td>
+    <td>EU</td>
+    <td>Same as row 1</td>
+    <td>Semantic search, LWM memory (<code>065_firehorse_memory.sql</code>, <code>047_hybrid_memory_search.sql</code>)</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Honest finding:</strong> DWS's <em>database layer</em> today runs entirely on providers with US-ownership exposure (Supabase, Aiven) even though compute is migrating toward EU-sovereign hosts (Scaleway, UpCloud). §17.5's own residual-risk note flags this directly: the DB is now "the last GCP/US-resident piece" once the compute migration completes. This plan's Pillar 1 exists to close that gap on a schedule, not to re-litigate whether it matters.</p>
+    <hr />
+    <h2 id="2-pillar-1-sovereignty">2. Pillar 1 — Sovereignty</h2>
+    <p><strong>Objective:</strong> No customer data lives on infrastructure with unmitigated CLOUD Act exposure, in line with <code>DWS_SECURITY_STANDARD.md</code> §17.5 (permanent rule).</p>
+    <p><strong>Actions:</strong></p>
+    <ol>
+    <li><strong>Tiering, not a single migration.</strong> Match database residency to the customer tier already defined in <code>docs/CLOUD_ENVIRONMENTS.md</code> §3.2.1:</li>
+    </ol>
+    <ul>
+    <li>Tier 1 (default EU, current pilot customers): Supabase EU stays acceptable short-term — it is a <em>documented, founder-approved exception</em>, not silently accepted.</li>
+    <li>Tier 2 (customer explicitly requests sovereignty / non-CLOUD-Act jurisdiction): database must sit on an EU-sovereign provider from the approved list (Scaleway managed Postgres, UpCloud Managed Database, Hetzner-hosted PostgreSQL/Aiven-on-Hetzner if available, or self-hosted Postgres on Scaleway/UpCloud compute with our own backup pipeline).</li>
+    <li>Full Sovereignty (Aegis, EU AI Act Art. 12 customers): dedicated single-tenant Postgres instance on UpCloud/Hetzner, no shared schema, own encryption keys.</li>
+    </ul>
+    <ol>
+    <li><strong>Track the exception, don't let it go stale.</strong> Add a recurring line item (quarterly, tied to the existing <code>/cron audit</code>) to re-check whether Aiven/Supabase ownership status has changed and whether an EU-sovereign managed-Postgres alternative has closed the feature gap (see Pillar 2). Owning doc: this file + <code>DWS_SECURITY_STANDARD.md</code> §17.5.</li>
+    <li><strong>Encryption &amp; key ownership.</strong> Confirm at-rest encryption keys for Tier 2+ databases are customer- or DWS-managed (not the cloud provider's default), matching the sovereignty-pillars-assess SIB/CSB/EAB scoring (<code>/sovereignty-pillars-assess</code>).</li>
+    <li><strong>Data residency proof, not just a claim.</strong> Use <code>mcp__Supabase__get_project_url</code> / project settings to confirm the actual region string per project, and record it in this table at every review — don't rely on provider marketing copy.</li>
+    </ol>
+    <p><strong>Do not:</strong> migrate the live Tier 1 Supabase database as a reflex action. It is a founder-accepted exception with a documented rationale; moving it is a Tier-2-trigger decision (first non-CLOUD-Act customer, or the quarterly review above concluding the risk profile changed), not a default.</p>
+    <hr />
+    <h2 id="3-pillar-2-cloud-based-database-chosen-by-fit-market-signal-driven">3. Pillar 2 — Cloud-Based Database, Chosen by Fit (Market-Signal-Driven)</h2>
+    <p><strong>Objective:</strong> Don't default to "always self-host" or "always managed cloud." Pick per workload, and revisit the pick when the market changes underneath us.</p>
+    <p><strong>Decision framework</strong> — use a managed cloud database when <em>all</em> of these hold, self-host/sovereign-managed otherwise:</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Signal</th>
+    <th>Favors managed cloud DB</th>
+    <th>Favors self-hosted / sovereign-managed</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Customer tier</td>
+    <td>Tier 1 pilot, internal tooling</td>
+    <td>Tier 2+, Aegis, regulated customer</td>
+    </tr>
+    <tr>
+    <td>Operational load</td>
+    <td>Small team, no dedicated DBA capacity</td>
+    <td>Capacity to run backups/HA ourselves exists or is budgeted</td>
+    </tr>
+    <tr>
+    <td>Feature velocity needed</td>
+    <td>Yes — pgvector, realtime, auto-scaling, branching (Supabase branches) save build time</td>
+    <td>No — workload is stable, standard Postgres suffices</td>
+    </tr>
+    <tr>
+    <td>CLOUD Act exposure tolerance</td>
+    <td>Explicit, documented exception accepted (Pillar 1)</td>
+    <td>Zero-tolerance customer requirement</td>
+    </tr>
+    <tr>
+    <td>Cost at current scale</td>
+    <td>Managed tier cheaper below usage threshold</td>
+    <td>Self-hosted cheaper once scale crosses provider's per-seat/row pricing knee</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Market-signal watch list</strong> (review quarterly alongside the sovereignty exception review in Pillar 1 — same cadence, same meeting, don't run two separate processes):</p>
+    <ul>
+    <li>New EU-sovereign managed-Postgres entrants closing the feature gap with Supabase (branching, realtime, auto-generated REST/GraphQL). If one appears, it becomes the Tier 2 default candidate before we build a bespoke self-hosted equivalent.</li>
+    <li>Cloudflare D1 (SQLite at the edge) / Hyperdrive (connection pooling in front of existing Postgres) — these MCP tools are already connected in this workspace (<code>Cloudflare_Developer_Platform</code>). Treat D1 as an <strong>edge cache / read-path accelerator</strong> in front of the sovereign system of record, never as the primary store for customer PII — Cloudflare is US-owned, same class as Cloudflare Pages/Workers today (content-only, not sovereign data plane, per <code>docs/CLOUD_ENVIRONMENTS.md</code> §2.2).</li>
+    <li>Aiven's own roadmap (since we already have a founder-approved exception with them) — if Aiven ships a genuinely EU-owned region/entity structure, that resolves the residual risk in §17.5 without a migration.</li>
+    <li>Supabase pricing/region changes — re-run the cost row of the table above whenever Supabase changes its EU pricing tier.</li>
+    </ul>
+    <p><strong>Concretely, next review is due:</strong> first quarterly cron audit after this plan lands — register alongside <code>/cron audit</code> rather than as a new manual reminder (Script Automation Rule: no human-memory-dependent follow-ups).</p>
+    <hr />
+    <h2 id="4-pillar-3-work-with-our-connectors">4. Pillar 3 — Work With Our Connectors</h2>
+    <p><strong>Objective:</strong> Every database interaction goes through a reviewed connector or MCP tool — no ad hoc direct-<code>psql</code> scripts scattered across the codebase.</p>
+    <p><strong>Current connector inventory:</strong></p>
+    <table>
+    <thead>
+    <tr>
+    <th>Connector class</th>
+    <th>Location</th>
+    <th>Talks to DB how</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>ERP connectors (SAP, Dynamics 365, IFS, Jeeves, Visma)</td>
+    <td><code>src/integrations/erp/connectors/*.ts</code>, shared <code>base-connector.ts</code></td>
+    <td>Pull external ERP data → normalize → write into Supabase tables (e.g. <code>073_erp_integration_tables.sql</code>) via the app's own DB client, never direct connector-to-Postgres</td>
+    </tr>
+    <tr>
+    <td>ESG connector (Worldfavor)</td>
+    <td><code>src/integrations/esg/worldfavor-connector.ts</code></td>
+    <td>Same pattern — external API → app layer → Supabase</td>
+    </tr>
+    <tr>
+    <td>Supabase MCP tools</td>
+    <td><code>mcp__Supabase__*</code> (list_tables, execute_sql, get_advisors, apply_migration, etc.)</td>
+    <td>Direct project-scoped access; <code>apply_migration</code>/<code>execute_sql</code> are the only tools that mutate schema/data — both are RED zone per this repo's trust boundary and require human confirmation</td>
+    </tr>
+    <tr>
+    <td>Cloudflare Developer Platform MCP (D1/Hyperdrive/KV/R2)</td>
+    <td>Session MCP server, not yet wired into app code</td>
+    <td>Available for edge-cache or edge-KV use cases; not a system of record (Pillar 2)</td>
+    </tr>
+    <tr>
+    <td>Agent memory / LWM connectors</td>
+    <td><code>065_firehorse_memory.sql</code>, <code>047_hybrid_memory_search.sql</code></td>
+    <td>pgvector-backed; same Supabase instance, no separate connector class needed</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Actions:</strong></p>
+    <ol>
+    <li><strong>New ERP/data connectors follow <code>BaseERPConnector</code>'s pattern</strong> (axios client, auth-header interceptor, rate-limit tracking, structured <code>SyncResult</code>/<code>SyncError</code> types) — don't invent a second connector shape. This is Rule 11 (match codebase conventions).</li>
+    <li><strong>Any new connector that reaches the database earns a skill entry</strong> per the Agent Productization Rule: CLI path, structured JSON output, <code>skills/manifest.json</code> registration. If a connector is reused by more than one agent, it's a candidate for MCP exposure rather than being buried in <code>src/integrations/</code>.</li>
+    <li><strong>Cloudflare D1/Hyperdrive stays edge-only until a named use case exists.</strong> Do not provision a D1 database speculatively (Rule 2, simplicity first) — wait for a concrete read-path latency problem the sovereign Postgres can't solve directly.</li>
+    <li><strong>MCP-mutation tools stay gated.</strong> <code>mcp__Supabase__apply_migration</code> and <code>execute_sql</code> (write path) require the same human-in-the-loop step as any RED-zone action in this repo's trust boundary — this plan does not change that gate, it documents why it exists (schema/data mutation is exactly the kind of hard-to-reverse action CLAUDE.md's "Executing actions with care" section calls out).</li>
+    </ol>
+    <hr />
+    <h2 id="5-pillar-4-security-compliance">5. Pillar 4 — Security &amp; Compliance</h2>
+    <p><strong>Objective:</strong> Every database change stays inside <code>DWS_SECURITY_STANDARD.md</code> and this repo's non-negotiable rules — no exceptions carved out for expediency.</p>
+    <p><strong>Non-negotiables already in force (reaffirmed, not re-invented):</strong></p>
+    <ol>
+    <li><strong>RLS stays on for every tenant-scoped table.</strong> New tables added under Pillar 3 connectors must ship RLS policies in the same migration file that creates them — see <code>031_supabase_advisor_fixes.sql</code>, <code>039_fix_security_definer_views.sql</code>, <code>072_fix_v_booked_slots_security_invoker.sql</code> for the established remediation pattern when RLS/security-definer issues are found.</li>
+    <li><strong>Migrations are reviewable SQL files, applying them is not automatic.</strong> Author in <code>supabase/migrations/</code>, run <code>mcp__Supabase__get_advisors</code> after any schema change to catch missing RLS / security-definer regressions before a human applies it.</li>
+    <li><strong>Secrets never move through migration files or connector code as literals.</strong> <code>SUPABASE_SERVICE_ROLE_KEY</code>, ERP API credentials, etc. stay in env vars / Secret Manager per the existing <code>Provision-DwsIqSecrets.ps1</code> pattern (<code>docs/CLOUD_ENVIRONMENTS.md</code> §4.5) — this applies equally to any new sovereign-hosted database's credentials.</li>
+    <li><strong>Validate at the boundary.</strong> New connector endpoints that accept external data (ERP webhooks, ESG feeds) go through Zod validation before touching the DB layer, per <code>DWS_SECURITY_STANDARD.md</code> §15.2.</li>
+    <li><strong>Audit trail.</strong> Anything touching Article 12 / audit-log tables (<code>038_article12_audit_log.sql</code>, <code>071_command_audit_log.sql</code>) must preserve immutability — no <code>UPDATE</code>/<code>DELETE</code> migrations against those tables; append-only per the existing <code>036_grok_audit_immutability_DEPRECATED.sql</code> lesson (deprecated because the <em>feature</em> was retired, not because immutability was wrong — don't repeat the mutable-audit-log mistake in new tables).</li>
+    <li><strong>Quarterly advisor sweep.</strong> Run <code>mcp__Supabase__get_advisors</code> (security + performance) as part of the same quarterly review cadence as Pillars 1–2, so sovereignty, cloud-fit, and security review happen in one sitting instead of three separate untracked habits.</li>
+    </ol>
+    <hr />
+    <h2 id="6-pillar-5-agentic-commerce-data">6. Pillar 5 — Agentic Commerce Data</h2>
+    <p><strong>Objective:</strong> Payment and checkout data generated by agent-initiated commerce (cart, checkout, subscription agents; ACP/AP2-style protocols per <code>docs/architecture/AGENTIC_COMMERCE_REFERENCE.md</code>) gets the same sovereignty and RLS treatment as any other customer data — plus the card-data-specific rule that we never store what Stripe already tokenizes.</p>
+    <p><strong>Current state:</strong></p>
+    <table>
+    <thead>
+    <tr>
+    <th>Table / component</th>
+    <th>Location</th>
+    <th>Contains</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>payment_events</code></td>
+    <td><code>supabase/migrations/008_payment_integration.sql</code></td>
+    <td>Stripe event mirror (invoice, charge, subscription lifecycle) — references only, no raw card data</td>
+    </tr>
+    <tr>
+    <td><code>subscription_plans</code></td>
+    <td><code>supabase/migrations/008_payment_integration.sql</code></td>
+    <td>Plan/pricing metadata, sourced from <code>dws10.com/config/products.json</code> (single pricing source per this repo's Store/Product Pricing rule)</td>
+    </tr>
+    <tr>
+    <td>Stripe webhook connector</td>
+    <td><code>src/routes/stripe-webhook.routes.ts</code>, <code>docs/CLOUD_ENVIRONMENTS.md</code> §4.5</td>
+    <td>HMAC-verified event ingestion → writes into <code>payment_events</code>; <code>STRIPE_SECRET_KEY</code>/<code>STRIPE_WEBHOOK_SECRET</code> in Secret Manager, never in the DB</td>
+    </tr>
+    <tr>
+    <td>Stripe MCP tools</td>
+    <td><code>mcp__Stripe__*</code> (this session)</td>
+    <td>Read/query Stripe resources directly; not a substitute for the DB mirror — Stripe remains system of record for card data, our DB remains system of record for order/entitlement state</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Actions:</strong></p>
+    <ol>
+    <li><strong>Card data never enters our database.</strong> Stripe (PCI Level 1) holds card tokens; our tables store only Stripe object IDs, amounts, and status. Any new agentic-commerce table follows this split — if a migration ever adds a raw PAN/CVV column, that is a Rule-1-violating design error, not a style choice.</li>
+    <li><strong>Agent-initiated purchases carry an audit trail.</strong> When an autonomous agent (not a human clicking checkout) triggers a charge or subscription change, the originating agent/session ID must be recorded alongside the <code>payment_events</code> row it produced — reuse the <code>command_audit_log</code> pattern (<code>071_command_audit_log.sql</code>) rather than inventing a parallel log.</li>
+    <li><strong>Sovereignty applies to the mirror, not just the processor.</strong> <code>payment_events</code>/<code>subscription_plans</code> live in the same Supabase project as everything else (Pillar 1's Tier 1 exception) — a Tier 2/Aegis customer's agentic-commerce data migrates with the rest of their tenant data, not separately.</li>
+    <li><strong>Pricing stays single-sourced.</strong> No agentic-commerce connector or migration hardcodes a price; it reads <code>dws10.com/config/products.json</code> (synced to the <code>landing-pages/dws10-com/</code> mirror in the same commit per this repo's Dual Folder Sync rule).</li>
+    </ol>
+    <hr />
+    <h2 id="7-pillar-6-kya-know-your-agent-data">7. Pillar 6 — KYA (Know Your Agent) Data</h2>
+    <p><strong>Objective:</strong> Identity-binding and trust-score data that gates agent actions (the KYA system — <code>.claude/commands/kya.md</code>, <code>src/routes/kya-webhook.routes.ts</code>, TC-4 Leash Snap) is treated as sensitive-identity data, not ordinary application state — because it is, functionally, KYC data plus a security control.</p>
+    <p><strong>Current state:</strong></p>
+    <table>
+    <thead>
+    <tr>
+    <th>Component</th>
+    <th>Location</th>
+    <th>Contains</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>KYA engine / webhook</td>
+    <td><code>src/routes/kya-webhook.routes.ts</code>, <code>POST/GET /api/v1/kya/*</code></td>
+    <td>Session trust score, identity binding, TC-4 Leash Snap (chain termination) triggers</td>
+    </tr>
+    <tr>
+    <td>Identity provider</td>
+    <td>Shufti Pro (KYC/identity verification)</td>
+    <td><code>DPA_LIFETIME_SHUFTI_v1.1</code>, <code>DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v1.5</code> — EU-only processing addendum already in force</td>
+    </tr>
+    <tr>
+    <td>Audit trail</td>
+    <td><code>071_command_audit_log.sql</code>, <code>048_memory_audit_log.sql</code></td>
+    <td>Append-only record of agent actions correlated to a session/trust-score snapshot</td>
+    </tr>
+    <tr>
+    <td>Forensic dumps</td>
+    <td>Per <code>docs/KYA_BYO_LIFECYCLE.md</code></td>
+    <td>Generated on a Leash Snap; retention policy defined there, not in this DB layer</td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>Actions:</strong></p>
+    <ol>
+    <li><strong>KYA identity data inherits the strictest residency requirement in the stack.</strong> Shufti Pro's own sub-processor list carries flagged entities (<code>DWS_SECURITY_STANDARD.md</code> §1604–1609: TeleSign, Twilio/SendGrid elevated-risk sub-processors) — any DWS-side table storing trust scores or identity-binding results must stay EU-only per the existing <code>DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v1.5</code> addendum, independent of which provider (Supabase/Aiven/Tier-2-sovereign) hosts it.</li>
+    <li><strong>Trust-score/identity tables get RLS + append-only audit, same as Article 12 tables.</strong> Follow the same "no <code>UPDATE</code>/<code>DELETE</code> on audit rows" rule from Pillar 4 — a trust score's <em>history</em> is itself an audit artifact (it's what a TC-4 Leash Snap investigation reconstructs from).</li>
+    <li><strong>KYA mutation stays gated the same way migrations do.</strong> <code>kya snap</code> is already documented as a DESTRUCTIVE, human-confirmed action (<code>Admin/SECURITY_COMPLIANCE.md</code>, <code>.claude/commands/kya.md</code>) — this plan doesn't add a new gate, it notes that the pattern (dry-run first, confirm session ID, audit-logged) is the template for any other destructive database-adjacent action this plan introduces (e.g. a future Tier 2 migration cutover).</li>
+    <li><strong>Don't let KYA data sprawl into a new bespoke store.</strong> If trust-score/identity data grows beyond what fits in the existing audit-log tables, extend those tables/add a companion migration in the same Supabase project — don't stand up a separate "identity database" without a concrete driver (Rule 2, simplicity first).</li>
+    </ol>
+    <hr />
+    <h2 id="8-phased-roadmap">8. Phased Roadmap</h2>
+    <table>
+    <thead>
+    <tr>
+    <th>Phase</th>
+    <th>Timing</th>
+    <th>Deliverable</th>
+    <th>Zone</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><strong>Now</strong></td>
+    <td>This session</td>
+    <td>This plan document; audit table in §1 committed</td>
+    <td>Green (doc only)</td>
+    </tr>
+    <tr>
+    <td><strong>Next</strong></td>
+    <td>Before next Tier 2 customer signs</td>
+    <td>Pick and document the specific EU-sovereign managed-Postgres provider for Tier 2 (Scaleway vs UpCloud vs self-hosted-on-Hetzner), write the migration runbook (not execute it)</td>
+    <td>Green (planning + migration <em>files</em>)</td>
+    </tr>
+    <tr>
+    <td><strong>Next</strong></td>
+    <td>Same window</td>
+    <td>Register the quarterly sovereignty + cloud-fit + security-advisor review as a single cron-tracked item (Script Automation Rule) — do not rely on this document being reread from memory</td>
+    <td>Yellow (cron registration)</td>
+    </tr>
+    <tr>
+    <td><strong>Later</strong></td>
+    <td>On first non-CLOUD-Act customer requirement, or Aiven/Supabase ownership change</td>
+    <td>Execute the Tier 2 migration runbook — human-applied, per RED zone gate</td>
+    <td>Red (human required)</td>
+    </tr>
+    <tr>
+    <td><strong>Later</strong></td>
+    <td>When a concrete edge-latency use case exists</td>
+    <td>Provision Cloudflare D1/Hyperdrive for that specific read path only</td>
+    <td>Green→Yellow (provisioning is MCP, not migration)</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+    <h2 id="9-cross-references">9. Cross-References</h2>
+    <ul>
+    <li><code>DWS_SECURITY_STANDARD.md</code> §17.5 — Infrastructure Sovereignty Rule (canonical CLOUD Act policy)</li>
+    <li><code>DWS_SECURITY_STANDARD.md</code> §1604-1609 — Shufti Pro sub-processor risk register (Pillar 6)</li>
+    <li><code>docs/CLOUD_ENVIRONMENTS.md</code> §3.2.1, §9 — deployment tier choice, data residency &amp; sovereignty</li>
+    <li><code>Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md</code> — day-to-day Supabase operations, RLS, migration mechanics</li>
+    <li><code>Admin/ADMIN_MANUAL_AUDIT.md</code> — audit-trail inventory for external auditors</li>
+    <li><code>.claude/commands/sovereignty-assess.md</code>, <code>.claude/commands/sovereignty-pillars-assess.md</code> — scoring tools for this plan's quarterly review</li>
+    <li><code>src/integrations/erp/base-connector.ts</code> — canonical connector pattern for Pillar 3</li>
+    <li><code>docs/architecture/AGENTIC_COMMERCE_REFERENCE.md</code> — agentic commerce reference architecture (Pillar 5)</li>
+    <li><code>.claude/commands/kya.md</code>, <code>docs/KYA_BYO_LIFECYCLE.md</code>, <code>DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v1.5</code> — KYA operational + legal basis (Pillar 6)</li>
+    </ul>
+  </body>
+</html>
