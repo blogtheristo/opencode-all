@@ -9,6 +9,17 @@ Last-Updated: 2026-07-06
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code
 History:
+  - 1.4 | 2026-07-06 | Jehl policy article (16 Jun 2026, provided by
+                       Risto): Matthieu Jehl, President Stainless
+                       Europe, publicly fronts the keep-ETS-strong /
+                       strengthen-CBAM position. Named as the
+                       business-line executive sponsor above Müller;
+                       policy-asks-as-intelligence angle added
+                       (benchmark reduction, downstream scope,
+                       anti-circumvention = scenario-modeling sale);
+                       new facts: EU's only chromium mine at 67%
+                       lower intensity, World Bank 28%-of-emissions
+                       carbon-price stat.
   - 1.3 | 2026-07-06 | Outokumpu CBAM Fact Sheet (Feb 2026, provided
                        by Risto as PDF) fully extracted: worked CBAM
                        math (€649/t on Indonesian cold-rolled at
@@ -121,6 +132,21 @@ Claims they put in writing: PCF up to **75% below global industry average**, Cir
 
 Their own disclaimer ("calculations reflect EC proposals published December 2025 and may evolve... always check the latest guidance") is also our opening: static PDF math goes stale with every carbon-price tick and default-value revision — a live, per-CN-code engine does not.
 
+### The policy voice — Jehl article, 16 Jun 2026 ("ETS1 and CBAM Will Decide Europe's Clean Industrial Future")
+
+**Matthieu Jehl — President, business line Stainless Europe** (outokumpu.com Policy Compass, on file) — is the P&L owner above Jörg Müller, and he personally signs the CBAM-offense narrative at policy level. The campaign's contact ladder is now complete: **Hartikainen (data/ESG, R08 lane) → Müller (sales, R18 lane, the door) → Jehl (business-line executive sponsor)**. Note: the roles registry deliberately defers a "business-line owner" R-ID (Boardy, registry v1.1); treat Jehl as the R22-equivalent at business-line level, not a new registry entry.
+
+**His public asks — each one is sellable intelligence.** The article demands: keep the ETS linear reduction factor; continue free-allocation phase-out in CBAM sectors; keep international credits out; **reduce European benchmarks toward best-in-class**; include steel-intensive downstream products "as quickly as possible"; strengthen anti-circumvention rules. Every ask, granted or denied, moves the tender math this campaign sells:
+
+- Benchmark cut (their ask: below the current 1.27 tCO₂/t) → importer certificate volume rises on every tonne — and the fact-sheet math changes. A live engine re-prices the day the delegated act lands; a PDF doesn't.
+- Downstream inclusion (2028 proposal they want accelerated) → their importing _customers'_ customers enter scope — the funnel widens.
+- Anti-circumvention rules → origin-verification and supplier-provenance data become tender requirements — pillar 1 machinery.
+- And the risk side he doesn't say aloud: if an Omnibus-style round ever touches CBAM, the first-mover who bet the balance sheet on carbon pricing needs the earliest possible warning. That is the regulatory-radar retainer, sold to the business line that just published its dependence on the rules holding.
+
+**Strategic read:** Outokumpu is the _counterweight_ in the Omnibus dynamic — first movers lobbying to keep the carbon price strong while others lobby for relief. Jehl's line "Europe should reward companies that invest early in decarbonisation, not protect those that postpone it" is the campaign thesis in their words, signed by the business-line president. He also confirms efficacy: "In stainless steel, we are already seeing CBAM help reduce the risk of carbon leakage."
+
+**New citable facts from the article:** Outokumpu operates the **EU's only chromium mine** (Kemi) at **67% lower emission intensity** — a strategic-autonomy claim that pairs CBAM with the CRM/sovereignty story; ~28% of global emissions now carry a carbon price, across economies covering nearly two-thirds of global GDP (their World Bank citation); the 75%-below-global-average footprint claim is repeated at policy level, consistent with the fact sheet.
+
 ## Relationship to the live Ari Hirvonen motion — do not collide
 
 `INTRO_ARI_HIRVONEN_OUTOKUMPU.md` (door #1, R02 IP Director) is at the Step-3 pilot hinge (€24k / 3 months / one Forta line — `LETTER_ARI_HIRVONEN_OUTOKUMPU_REPLY2_CLARIFICATION.md`). Rules of engagement:
@@ -151,12 +177,12 @@ Pillar 3 is the bridge that keeps both motions coherent: the campaign sells prem
 
 ## Roles by stage (per `DWS_ROLES_REGISTRY.md`; revenue-lever rule → lead R19)
 
-| Stage                            | Role (R-ID)                                                                                                                    | What this campaign says to them                                                               | What they win                                                                                                               |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| 4 — Commercial driver (**lead**) | **R19 CRO / R18 Head of Commercial** — named: **Jörg Müller, Head of Sales Stainless Europe** (CBAM webinar presenter)         | Every tender against imported stainless has a CBAM number in it — is it yours or the buyer's? | Premium defended with math, not adjectives. Win-rate lift on regulated tenders; pricing power on Forta / Circle Green SKUs. |
-| 2 — Operational owner            | R07 CSO / R08 Head of Sustainability — named: **Ernesto Hartikainen, Head of ESG Policy & Reporting** (CBAM webinar presenter) | Your verified data becomes a revenue instrument, not a filing cost.                           | One signed pipeline feeds CBAM, CSRD, EPD, and the sales deck — no more per-OEM bespoke forms.                              |
-| 1 — Strategic sponsor            | R02 IP Director (Ari — already open)                                                                                           | Premium capture makes your governance pilot the platform the CRO sells from.                  | Board-visible upside attached to the disclosure-governance spend.                                                           |
-| 5 — Executive sponsor            | R22 CEO / R23 CFO + R24 Head of IR                                                                                             | The CBAM premium, quantified per SKU, is an analyst-day line.                                 | Margin (premium captured) + moat (proof machinery competitors lack) in one investor narrative.                              |
+| Stage                            | Role (R-ID)                                                                                                                                                                   | What this campaign says to them                                                                                                                           | What they win                                                                                                                    |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| 4 — Commercial driver (**lead**) | **R19 CRO / R18 Head of Commercial** — named: **Jörg Müller, Head of Sales Stainless Europe** (CBAM webinar presenter)                                                        | Every tender against imported stainless has a CBAM number in it — is it yours or the buyer's?                                                             | Premium defended with math, not adjectives. Win-rate lift on regulated tenders; pricing power on Forta / Circle Green SKUs.      |
+| 2 — Operational owner            | R07 CSO / R08 Head of Sustainability — named: **Ernesto Hartikainen, Head of ESG Policy & Reporting** (CBAM webinar presenter)                                                | Your verified data becomes a revenue instrument, not a filing cost.                                                                                       | One signed pipeline feeds CBAM, CSRD, EPD, and the sales deck — no more per-OEM bespoke forms.                                   |
+| 1 — Strategic sponsor            | R02 IP Director (Ari — already open)                                                                                                                                          | Premium capture makes your governance pilot the platform the CRO sells from.                                                                              | Board-visible upside attached to the disclosure-governance spend.                                                                |
+| 5 — Executive sponsor            | R22 CEO / R23 CFO + R24 Head of IR; business-line level: **Matthieu Jehl, President Stainless Europe** (R22-equivalent; fronts the CBAM policy narrative — see §Policy voice) | The rules you lobby for are scenario inputs — see every ask's tender impact the day it lands, and get the earliest warning if the rules move against you. | Margin (premium captured) + moat (proof machinery competitors lack) in one investor narrative; policy bets monitored, not hoped. |
 
 Diagonal rule holds: the CRO's premium math is generated by the CSO's data, governed by Ari's policy, and reported by IR — each role's win lights up the next.
 
@@ -172,17 +198,19 @@ Diagonal rule holds: the CRO's premium math is generated by the CSO's data, gove
 
 ## Facts — verified vs. confirm-before-asserting (Rule 1 / Rule 12)
 
-| Claim                                                                                                                                                       | Status                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Outokumpu: world's largest stainless producer, HQ Helsinki, listed OUT1V                                                                                    | ✔ per existing INTRO (public)                                                                                                    |
-| ~90% recycled content, EAF route, low-CO₂ ferrochrome (Tornio)                                                                                              | ✔ per existing INTRO (public)                                                                                                    |
-| Circle Green = lowest-CO₂ stainless on market, branded SKU                                                                                                  | ✔ per existing INTRO — refresh against current Outokumpu claims before external use                                              |
-| CBAM definitive period from 1 Jan 2026; ~50t de-minimis; ~99% emissions covered                                                                             | ✔ canonical, `DWS_TRUTH_STANDARD.md` §2C                                                                                         |
-| Import-route intensities: China/Indonesia ~8.8 tCO₂e/t; Indonesia cold-rolled default 9.56 tCO₂/t; EU benchmark 1.27 tCO₂/t; worked cost €649/t at €78/tCO₂ | ✔ per Outokumpu Fact Sheet Feb 2026 (cite as their figures; reflects EC proposals Dec 2025 — re-verify defaults at publish time) |
-| Current EU carbon / CBAM certificate price and per-tonne cost figures                                                                                       | ⚠ live number — pull at publish time, never hardcode                                                                             |
-| Outokumpu PCF 1.6 tCO₂e/t avg (2024, LCA); Circle Green down to 0.5; 75% / 93% below global average; third-party verified; ResponsibleSteel mills           | ✔ Outokumpu-published (Fact Sheet Feb 2026) — citable with source; quote-level per-product numbers still come from the pilot     |
-| Free-allocation phase-out schedule through 2034                                                                                                             | ⚠ verify current schedule (post-Omnibus adjustments) before external use                                                         |
-| Certificate sales open 1 Feb 2027; first surrender by end-Sep 2027; default values reassessed by Dec 2027; downstream expansion proposed from 2028          | ✔ per Outokumpu webinar/Q&A + EC Q&A (Jul 2026 search); re-verify at publish time                                                |
+| Claim                                                                                                                                                             | Status                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Outokumpu: world's largest stainless producer, HQ Helsinki, listed OUT1V                                                                                          | ✔ per existing INTRO (public)                                                                                                    |
+| ~90% recycled content, EAF route, low-CO₂ ferrochrome (Tornio)                                                                                                    | ✔ per existing INTRO (public)                                                                                                    |
+| Circle Green = lowest-CO₂ stainless on market, branded SKU                                                                                                        | ✔ per existing INTRO — refresh against current Outokumpu claims before external use                                              |
+| CBAM definitive period from 1 Jan 2026; ~50t de-minimis; ~99% emissions covered                                                                                   | ✔ canonical, `DWS_TRUTH_STANDARD.md` §2C                                                                                         |
+| Import-route intensities: China/Indonesia ~8.8 tCO₂e/t; Indonesia cold-rolled default 9.56 tCO₂/t; EU benchmark 1.27 tCO₂/t; worked cost €649/t at €78/tCO₂       | ✔ per Outokumpu Fact Sheet Feb 2026 (cite as their figures; reflects EC proposals Dec 2025 — re-verify defaults at publish time) |
+| Current EU carbon / CBAM certificate price and per-tonne cost figures                                                                                             | ⚠ live number — pull at publish time, never hardcode                                                                             |
+| Outokumpu PCF 1.6 tCO₂e/t avg (2024, LCA); Circle Green down to 0.5; 75% / 93% below global average; third-party verified; ResponsibleSteel mills                 | ✔ Outokumpu-published (Fact Sheet Feb 2026) — citable with source; quote-level per-product numbers still come from the pilot     |
+| Free-allocation phase-out schedule through 2034                                                                                                                   | ⚠ verify current schedule (post-Omnibus adjustments) before external use                                                         |
+| Certificate sales open 1 Feb 2027; first surrender by end-Sep 2027; default values reassessed by Dec 2027; downstream expansion proposed from 2028                | ✔ per Outokumpu webinar/Q&A + EC Q&A (Jul 2026 search); re-verify at publish time                                                |
+| EU's only chromium mine (Kemi), 67% lower emission intensity; ~28% of global emissions carbon-priced across ~2/3 of global GDP (World Bank)                       | ✔ per Jehl article 16 Jun 2026 (cite as Outokumpu/World Bank figures)                                                            |
+| Outokumpu policy asks: keep LRF, continue free-allocation phase-out, no international credits, cut EU benchmarks, accelerate downstream scope, anti-circumvention | ✔ public position, Jehl article 16 Jun 2026 — quotable in conversation with any Outokumpu contact                                |
 
 Deprecated framings (do not use): pre-Omnibus "49,000/50,000 companies must file"; any "CBAM was gutted by Omnibus" framing — the canonical line is _coverage held (~99%), paperwork fell_.
 
@@ -204,6 +232,7 @@ Deprecated framings (do not use): pre-Omnibus "49,000/50,000 companies must file
 - [ ] Draft LinkedIn post (a) — Omnibus asymmetry angle, reusing `Myyntikirje_3_Omnibus_Pivot.md` "targets did not change, only the paperwork did" line.
 - [ ] Re-verify default values and certificate price at publish time (fact sheet reflects EC proposals Dec 2025; defaults review due Dec 2027; price used €78/tCO₂ is illustrative).
 - [ ] On pilot landing: spawn `LETTER_<CRO>_OUTOKUMPU_CBAM_PREMIUM.md` (FI-first, bilingual) from pillar 2, per the Kemira material-package pattern.
+- [ ] Register Jehl's six policy asks as tracked signals in the regulatory-radar flow (`/regulatory-radar`): benchmark revision, downstream-scope delegated act, anti-circumvention rules, LRF changes, free-allocation schedule, international-credits question. Each resolution is an outreach trigger with pre-written relevance ("the ask you published on 16 June just resolved — here is the tender impact").
 
 ## Related files
 
@@ -214,3 +243,5 @@ Deprecated framings (do not use): pre-Omnibus "49,000/50,000 companies must file
 - `DWS_ROLES_REGISTRY.md` — role taxonomy; steel variant + revenue-lever rule.
 - `DWS_TRUTH_STANDARD.md` §2C — canonical CBAM/CSRD scope figures.
 - `dws10.com/sovereign-cbam-disclosure/` — live sector-pattern page (mirror: `landing-pages/dws10-com/sovereign-cbam-disclosure/`).
+- Outokumpu "CBAM and Stainless Steel" Fact Sheet, Feb 2026 (PDF, provided by Risto 2026-07-06) — source of the worked math and footprint ladder.
+- Jehl, M.: "ETS1 and CBAM Will Decide Europe's Clean Industrial Future", Outokumpu Policy Compass, 16 Jun 2026 — `outokumpu.com/en/expertise/industrial-evolution-insights/2026/ets1-and-cbam-european-clean-industrial-future`.
