@@ -79,6 +79,16 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
   echo "WARNING: On main branch. Create a feature branch before making changes."
 fi
 
+# Surface the cross-session handoff log (git-committed memory that survives
+# ephemeral cloud containers). Cap output so a bloated file can't flood context.
+HANDOFF_FILE=".claude/HANDOFF.md"
+if [ -f "$HANDOFF_FILE" ]; then
+  echo ""
+  echo "## Session Handoff (from $HANDOFF_FILE — update it at checkpoints and before ending the session)"
+  echo ""
+  awk '/^## CURRENT HANDOFF/,/^## HANDOFF HISTORY/' "$HANDOFF_FILE" | grep -v '^## HANDOFF HISTORY' | head -60
+fi
+
 # Auto-discover and index all skills (Anthropic Skills paradigm)
 SKILLS_DIR="skills"
 if [ -d "$SKILLS_DIR" ]; then

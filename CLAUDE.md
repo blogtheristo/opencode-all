@@ -222,6 +222,7 @@ Use existing tools only. Keep changes type-safe and aligned with repository conv
 ## Session/Workflow Expectations
 
 - Branch naming examples: `claude/<feature>-<id>`, `feature/<name>`, `fix/<name>`.
+- Cloud-session memory: `.claude/HANDOFF.md` is the git-committed cross-session handoff log (surfaced by `session-start.sh`). Update its CURRENT HANDOFF section at checkpoints and before ending a session; ephemeral cloud containers keep no other working memory.
 - Resolve merge conflicts locally when practical; otherwise hand off clearly for PR web resolution.
 - Keep worktree hygiene strict (`.env` copied per worktree, `.venv` symlinked, clean `git status` before commit/push).
 - For mobile workflows without `gh`, provide compare URL:

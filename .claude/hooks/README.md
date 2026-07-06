@@ -10,7 +10,7 @@
 
 | Hook                      | Event        | Matcher                | Purpose                                                                                                                                                                          |
 | ------------------------- | ------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `session-start.sh`        | SessionStart | all                    | Trust boundary injection (GREEN/YELLOW/RED zones), branch + MCP checks                                                                                                           |
+| `session-start.sh`        | SessionStart | all                    | Trust boundary injection (GREEN/YELLOW/RED zones), branch + MCP checks, surfaces `.claude/HANDOFF.md` CURRENT HANDOFF (cross-session memory)                                     |
 | `pretooluse-guard.sh`     | PreToolUse   | Bash                   | Master deny list: rm -rf, force push, hard reset, git rm, sudo, pipe-to-shell, ollama + secret-file read-bypass guard (cat/grep/env/printenv of .env\*/\*.pem/\*.key/\*secret\*) |
 | `secret-scan.sh`          | PreToolUse   | Bash, Edit, Write      | Scans tool **input** via shared `secret-patterns.sh` (provider keys, bare JWT, DSN creds, Bearer, DB passwords, OAuth secrets)                                                   |
 | `secret-output-scan.sh`   | PostToolUse  | Bash                   | Scans command **output**; advisory warning not to persist any secret that surfaced at runtime                                                                                    |
