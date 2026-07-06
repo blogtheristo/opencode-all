@@ -226,6 +226,7 @@ Use existing tools only. Keep changes type-safe and aligned with repository conv
 - Keep worktree hygiene strict (`.env` copied per worktree, `.venv` symlinked, clean `git status` before commit/push).
 - For mobile workflows without `gh`, provide compare URL:
   `https://github.com/blogtheristo/dws6/compare/main...<branch-name>`
+- Standard tmux layout on Unix nodes: `./scripts/dws6-tmux-session.sh [dev|remote|full]`. Persistent panes survive disconnects; reattach with `tmux attach -t dws6`.
 
 ## Terminology Guardrail
 
