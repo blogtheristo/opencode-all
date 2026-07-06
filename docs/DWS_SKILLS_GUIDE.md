@@ -15,6 +15,8 @@ Sessions & Modifications:
 - Version: 1.13 | Agent: GitHub Copilot CLI (GPT-5.4) | Date: 19.06.2026 | Session: copilot/skills-surface-manifest-6c0b226c | Changes: Added `skills/manifest.json` as the canonical skills registry, wired sync/verification tooling (`scripts/skill-manifest-sync.mjs`), introduced the generated surface compatibility matrix and Antigravity scope section, shortened bloated slash-command descriptions to fit prompt-budget limits, and aligned `/dream-on` with the repo's cross-surface verification rule.
 - Version: 1.12 | Agent: GitHub Copilot CLI (GPT-5.4) | Date: 19.06.2026 | Session: copilot/skills-guide-latest-6c0b226c | Changes: Reconciled the guide with the live repository inventory: updated active counts to 36 slash commands and 14 active skill directories, documented `/qa`, `/cron`, and `/designer`, expanded Quick Reference coverage, and clarified the current `skills/` structure (`RESOLVER.md`, active packs, and `_OLD` archives).
 
+- Version: 1.13 | Agent: Claude Code (Opus 4.8) | Date: 15.06.2026 | Session: claude/human-token-capital-ai-i4m0ve | Changes: Added the DWS-specific third capital form — `/edge-control-room-capital` slash command + `skills/edge-control-room-capital/SKILL.md` (section 14.3). Audited and warranted in the field note (`docs/field-notes/2026-06-15-human-token-capital.md` § DWS Extension): physical sense-and-actuate substrate (edge devices, sensors, robots, Control Room / Situation Room) passes all four capital-form tests for an industrial/robotics/edge firm. Attribution recorded: human + token capital are Satya Nadella's; edge control-room capital is the DWS extension. Chains `/human-capital` → `/edge-control-room-capital` → `/token-capital`. Bumped count from 38 to 39 (36 slash + 3 discipline). Added Quick Reference row and `skills/RESOLVER.md` trigger.
+- Version: 1.12 | Agent: Claude Code (Opus 4.8) | Date: 15.06.2026 | Session: claude/human-token-capital-ai-i4m0ve | Changes: Added `/human-capital` and `/token-capital` slash commands + `skills/human-capital/SKILL.md` and `skills/token-capital/SKILL.md` (new section 14, "Capital & the Learning Loop"). Operationalises the Human Capital / Token Capital field note (`docs/field-notes/2026-06-15-human-token-capital.md`): `/human-capital` inventories and scores people-side capital and its capture into the loop; `/token-capital` inventories the four loop components and runs the model-swap sovereignty test. Bumped count from 36 to 38 (35 slash + 3 discipline). Added two Quick Reference rows and two `skills/RESOLVER.md` triggers.
 - Version: 1.11 | Agent: Claude Code (Opus 4.8) | Date: 09.06.2026 | Session: claude/truth-claims-lint | Changes: Added `/truth-check` slash command (section 7.3) — lints public copy against the canonical truth registry (`scripts/lint-truth-claims.mjs`; FAIL on deprecated phrases, WARN on ambiguous-without-context, approved allow-list). Bumped count from 35 to 36 (33 slash + 3 discipline). Added Quick Reference row. Operationalises `DWS_TRUTH_STANDARD.md` §5/§7/§8.
 - Version: 1.10 | Agent: Claude Code (Opus 4.7) | Date: 22.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Post-merge reconciliation against main — folded in `/clawdbot` (section 3.7), `/promote-proposal` (3.8), `/dream-on` (3.9), and `/gcr-skill` (6.1b) introduced in `1abd4eaa docs: migrate Cloud Run deploy auth to GitHub OIDC`. Bumped count from 31 to 35 (32 slash + 3 discipline). Added Quick Reference rows for the four new skills. No content lost on either side.
 - Version: 1.9 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Added `/learn` slash command (section 3.6) — closes the learning loop by diarizing mediocre retro / CI / audit-log outcomes and emitting read-only skill-edit plans to `docs/learning-loops/`. Bumped count from 30 to 31 (28 slash + 3 discipline). Added Quick Reference row. Linked from `CLAUDE.md` Skill Codification Rule.
@@ -40,7 +42,7 @@ Document Status:
 
 ## 1. Overview
 
-DWS IQ 6 currently exposes **52 live skill artifacts** for AI coding agents — **38 active slash command wrappers** in `.claude/commands/` and **14 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **11** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
+DWS IQ 6 currently exposes **58 live skill artifacts** for AI coding agents — **41 active slash command wrappers** in `.claude/commands/` and **17 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **14** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
 
 **Canonical registry:** `skills/manifest.json` is the machine-readable source of truth for skill status, visibility, transport, and surface support. Use `node scripts/skill-manifest-sync.mjs --check` to verify that this guide, `.claude/commands/`, `skills/`, and `.antigravity/agents/` stay aligned.
 
@@ -66,7 +68,7 @@ Counts below reflect the live repository state on **19.06.2026** and are reconci
 
 **Discipline skills** are passive — agents discover and follow them automatically when relevant context is detected. They enforce process discipline.
 
-**Specialist skill packs** currently present in `skills/`: `clawdbot`, `compliance`, `cron`, `dream-on`, `firehorse-report`, `loop`, `material-oracle`, `promote-proposal`, `risto`, `sitesense`, `skill-cleaner`.
+**Specialist skill packs** currently present in `skills/`: `clawdbot`, `compliance`, `cron`, `dream-on`, `firehorse-report`, `loop`, `material-oracle`, `edge-control-room-capital`, `human-capital`, `promote-proposal`, `risto`, `sitesense`, `skill-cleaner`, `token-capital`.
 
 ## 3. gstack Development Workflow (Garry Tan)
 
@@ -723,6 +725,9 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Check agent trust / kill chain | /kya | Safety |
 | Compile wiki / ask KB | /kb | Knowledge |
 | Check a claim vs truth registry | /truth-check | Safety |
+| Inventory people-side capital | /human-capital | Capital |
+| Inventory owned AI capability | /token-capital | Capital |
+| Inventory edge/robot/sensor estate | /edge-control-room-capital | Capital |
 | Code feels bloated | /simplify | Quality |
 | Turn design intent into code | /designer | Quality |
 | Add/audit language bar | /multilingual | i18n |
@@ -810,7 +815,77 @@ Source: Garry Tan, May 2026 — "Thin harness, fat skills." Reinforced by `CLAUD
 - `AI_AGENT_GUIDELINES.md` §10 → "Skill Codification: Asked Twice = Failure"
 - Tan, "Thin Harness, Fat Skills" (May 2026)
 
-## 14. Surface Compatibility Matrix
+## 14. Capital & the Learning Loop
+
+Three chained skills operationalise the capital field note
+(`docs/field-notes/2026-06-15-human-token-capital.md`). They are not four-files-with-a-noun:
+each inventories a distinct asset class with its own dimensions, inputs, and scoring.
+**Human capital directs; edge control-room capital senses and acts; token capital learns.**
+The output of each is an input to the next, chained human → edge → token → (back to human),
+mapping to Brain-Memory-Body-Hands (human = the "who"; token = Brain + Memory; edge
+control-room = Body + Hands).
+
+**Attribution:** _human capital_ and _token capital_ were coined by **Satya Nadella**;
+_edge control-room capital_ is the **DWS extension** (Risto Päärni / Lifetime Oy), warranted
+for an industrial/robotics/edge firm by the audit in the field note's § DWS Extension. A pure
+SaaS firm should run only the first two — for them the third folds into token capital.
+
+### 14.1 /human-capital
+
+**When to use:** Inventorying the people-side capital of a firm or customer — knowledge,
+judgment, relationships, ingenuity, pattern recognition — and deciding which of it is being
+_captured into the loop_ versus _left in heads/scrollback where it commoditises on exit_.
+
+**What it does:** Scores the five dimensions, computes a capture rate, flags commoditisation
+risk (high-value items an off-the-shelf model could absorb and resell that the firm has not
+encoded), and recommends the concrete encode path per item (`skills/<name>/SKILL.md` for
+judgment, `kb/raw/` for knowledge, a private eval for outcomes, a documented workflow for
+process). Enforces "Asked twice = failure": recurring judgment must become a skill.
+
+**Trigger phrases:** "human capital", "encode our experts", "company veteran expertise",
+"what knowledge are we losing", "tacit knowledge inventory", "is our judgment being captured".
+
+**Skill:** `skills/human-capital/SKILL.md`.
+
+### 14.2 /token-capital
+
+**When to use:** Inventorying the AI capability a firm builds and **owns** — private evals,
+private RL environments, knowledge base, and the learning loop on top of models — and running
+the model-swap sovereignty test. (Token capital ≠ token _spend_: it is owned capability, not
+a billing line.)
+
+**What it does:** Inventories the four loop components, then runs the core deliverable — the
+sovereignty verdict **SOVEREIGN | PARTIAL | RENTING**: if you replaced the generalist model
+tomorrow, how much company-veteran expertise survives? Scores compounding (CLOSED vs OPEN
+loop — does each run improve the next?) and names the next loop-closing artefact. Composes
+with `/sovereignty-assess`, `/sovereignty-pillars-assess`, `/kb`, `/learn`, `/dream-on`.
+
+**Trigger phrases:** "token capital", "learning loop", "do we own our AI IP", "hill climbing
+machine", "private evals", "swap the model", "is our AI capability ours or the vendor's".
+
+**Skill:** `skills/token-capital/SKILL.md`.
+
+### 14.3 /edge-control-room-capital
+
+**When to use:** Inventorying the physical sense-and-actuate substrate a firm **owns** — edge
+AI devices, sensors, robots, and the Control Room / Situation Room command centres — and
+testing whether its proprietary real-world traces actually close the loop into token capital.
+The DWS-specific third capital form; industrial/robotics/edge firms only. (Edge control-room
+capital ≠ hardware capex: it is the owned, proprietary-data-generating substrate.)
+
+**What it does:** Inventories the four substrate layers (edge compute, sensors, robots /
+actuation, command centres), then runs the core deliverable — the loop-closure verdict
+**CAPITAL | LEAKY | COST**: do captured traces feed token capital's loop (`/kb`, RL traces,
+`docs/learning-loops/`) or dead-end? Tests edge sovereignty **SOVEREIGN | PARTIAL | EXPOSED**
+(capture + inference + storage in-jurisdiction?). Composes with `/remote-control` (live
+interface), `/sovereignty-assess`, `/sovereignty-pillars-assess`, `/kb`, `/token-capital`.
+
+**Trigger phrases:** "edge capital", "edge control room capital", "robots and sensors", "fleet
+capital", "do our sensors feed the loop", "control room capital", "physical AI moat".
+
+**Skill:** `skills/edge-control-room-capital/SKILL.md`.
+
+## 15. Surface Compatibility Matrix
 
 Source of truth: `skills/manifest.json`. The matrix below is generated by `node scripts/skill-manifest-sync.mjs --write-guide`.
 
@@ -877,7 +952,7 @@ Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsu
 
 <!-- skills-surface-matrix:end -->
 
-## 15. Antigravity Scope
+## 16. Antigravity Scope
 
 Antigravity is **not** the general DWS skill runtime. In this repository it is scoped to **Google `admin@dws6.com` environment tweaks** — chiefly Cloud Run / GCP admin flows represented by `/gcr-skill`.
 
