@@ -4387,6 +4387,39 @@
         "contentLanguage": "en"
       }
     },
+    "DWS-IQ-FREE-2026": {
+      "id": "DWS-IQ-FREE-2026",
+      "gtin": null,
+      "mpn": "DWSIQ-FREE-2026",
+      "name": "DWS IQ Free — 1 project, CSRD-ready",
+      "price": 0,
+      "currency": "EUR",
+      "type": "subscription",
+      "description": "Start your first CSRD project free. 1 active project, up to 50 ESG line items, 1 seat — audit-defensible output, EU-sovereign hosting, no credit card. Upgrade when you hit the cap or invite a teammate. Built for Sustainability Directors who need to start before the EU CSRD deadline.",
+      "features": [
+        "1 active CSRD project — audit-defensible output from day 1",
+        "Up to 50 ESG line items, 1 seat, EU-sovereign hosting",
+        "Upgrade gates: 2nd project, 51st line item, or 2nd seat"
+      ],
+      "priceNote": "Free forever within caps · upgrade to DWS IQ Report (€1,999) on first cap breach",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq-free.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 1
+    },
     "AIS-EU-SOV-OC": {
       "id": "AIS-EU-SOV-OC",
       "gtin": null,
