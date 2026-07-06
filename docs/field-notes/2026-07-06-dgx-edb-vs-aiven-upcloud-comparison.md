@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/aiven-partnership-intro-vm1fgk | Date: 06.07.2026 | Changes: Added the DWS response ("DWS-vastine") section — DWS IQ 6 and DWS IQ Aegis positioned against the Gemini comparison's DGX-vs-managed-cloud dichotomy, grounded in DWS_TRUTH_STANDARD.md Row 20 (product taxonomy), DWS_SECURITY_STANDARD.md §17.5 (infra table), and DWS_DEPLOYMENT_STANDARD.md (Aegis Sovereign cloud jurisdiction)
 - Version: 1.0 | Tool: Claude Code | Session: claude/aiven-partnership-intro-vm1fgk | Date: 06.07.2026 | Changes: Recorded Risto's DGX+EDB vs Aiven/UpCloud comparison, checked it against DWS canonical sovereignty facts (DWS_SECURITY_STANDARD.md §17.5), and derived the DWS-specific conclusion + Aiven call action item
 
 Document Status:
@@ -81,6 +82,38 @@ region for an existing service.
   If it applies to the Aiven-on-UpCloud path (verify: free tier limits, and
   whether via Aiven or only direct on UpCloud), sandbox attempt #2 could test the
   sovereign UpCloud region at zero cost.
+
+## DWS-vastine — DWS IQ 6 ja DWS IQ Aegis Geminin vertailukehyksessä
+
+(Finnish by design: response text intended to be fed back into the Gemini
+conversation / used in FI-market positioning. Facts sourced from
+`DWS_TRUTH_STANDARD.md` Row 20, `DWS_SECURITY_STANDARD.md` §17.5,
+`DWS_DEPLOYMENT_STANDARD.md`.)
+
+Geminin vertailu asettaa valinnan kahden ääripään välille: paikallinen
+GPU-raakateho (DGX + EDB) tai hallittu EU-pilvi (Aiven/UpCloud). Säännellylle
+eurooppalaiselle ostajalle tämä on väärä dikotomia — DWS tuotteistaa koko
+janan kahtena tierinä samasta moottorista:
+
+| Ominaisuus           | **DWS IQ 6** (core-moottori, multi-tenant SaaS)                                                                                          | **DWS IQ Aegis** (single-tenant sovereign / dual-use)                                                                                                   |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Arkkitehtuuri        | EU-pilvi: Scaleway serverless -compute + Aiven-managed PostgreSQL; orkestroitu agenttikerros saman datan päällä                          | Single-tenant: UpCloud Managed Kubernetes (UKS, Helsinki) + Helm; asiakaskohtainen instanssi                                                            |
+| Laitteistokiihdytys  | Ei DB-tasolla (pgvector CPU:lla) — paikallinen LLM-inferenssi NVIDIA DGX Spark -laitteella, kun promptin data ei saa poistua talosta     | NVIDIA-laajennus optiona (on-prem inferenssihalo), ei pakollinen — suvereniteetti ei nojaa rautaan vaan EU-omisteiseen infraan ja hallintomalliin (KYA) |
+| Ylläpito ja hallinta | Täysin hallittu DB (Aiven) + serverless: ei DBA- eikä konesalivaatimusta                                                                 | Hallittu K8s EU-omisteisella pilvellä; Lifetime operoi, asiakas ei tarvitse infra-tiimiä                                                                |
+| Data-suvereniteetti  | EU-first; nykyinen Aiven-palvelu GCP-regionissa kirjattuna eksplisiittisenä poikkeuksena (ei piilotettuna) — UpCloud-siirto arvioinnissa | Tier 1: non-CLOUD-Act-vaatimus sisäänrakennettu (Aegis Sovereign -cloud-jurisdiktio); dual-use/defence-kelpoinen                                        |
+| Kustannusmalli       | OpEx                                                                                                                                     | OpEx — DGX-luokan suvereniteettitakuut ilman DGX-luokan CapEx-seinää; on-prem-laajennus lisätään vain jos vaatimus on aito                              |
+| Optimaalinen käyttö  | EU-compliance-raportointi ja -orkestrointi (CSRD / ETS / CBAM / EU AI Act / NIS2) monivuokralaisena SaaS:na                              | Puolustus/dual-use ja asiakkaat, joilla ehdoton residenssi- ja non-CLOUD-Act-vaatimus (myyntialue NO/DK/FI)                                             |
+
+**Ydinviesti Geminin kehykseen:** Geminin "valitse DGX tai valitse
+Aiven/UpCloud" olettaa, että suvereniteetti saavutetaan vain omalla raudalla.
+Aegis osoittaa kolmannen tien: **suvereniteetti hallintomallina** —
+EU-omisteinen pilvi (UpCloud, non-CLOUD-Act) + single-tenant-eristys +
+KYA-agenttihallinta — jolloin air-gap-tason vaatimuksiin vastataan ilman
+konesali-investointia, ja NVIDIA-rauta lisätään halona vain sinne, missä
+inferenssin on pakko pysyä paikan päällä (DWS:llä itsellään: DGX Spark).
+DWS IQ 6 puolestaan on täsmälleen se "valitse Aiven/UpCloud" -profiilin
+tuote, jonka Gemini kuvaa — sillä erotuksella, että ostaja ei osta
+tietokantaa vaan hallitun compliance-lopputuloksen sen päältä.
 
 ## Where to use this comparison
 
