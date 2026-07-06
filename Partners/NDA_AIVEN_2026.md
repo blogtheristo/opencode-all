@@ -267,6 +267,8 @@ ARTICLE 8: DATA PROTECTION (GDPR COMPLIANCE)
 
 8.2 The Receiving Party shall ensure that any persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
 
+8.3 For clarity: this Agreement alone does not constitute a legal basis or instruction for either Party to disclose personal data concerning its own customers or end users to the other Party. Any such disclosure requires a separate, documented GDPR basis (e.g. a data processing agreement and, where applicable, customer consent) agreed in writing before disclosure.
+
 ARTICLE 9: GENERAL PROVISIONS
 
 9.1 Entire Agreement
