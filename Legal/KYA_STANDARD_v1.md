@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 1.9.1
 
 Sessions & Modifications:
+
+- Version: 1.9.1 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: (1) Schema-stability notes added to §14.2.1 and §14.3 per Boardy review — the JSON blocks are illustrative until KYA v2.0; buyer materials quote policy semantics, not field names; the executable Zod validator is the normative shape. (2) §14.2 enforcement point is now REAL CODE: `evaluateMandateGate()` + `tenantGatingProfileSchema` implemented in `src/identity/ats-engine.ts` (deny-by-default, HIC binding required, immovable floors, tighten-only tenant profiles, ceiling/scope violations flagged for §9.2 enforcement), 21 passing tests in `src/__tests__/mandate-gate.test.ts`. Patch version (not 2.0): v2.0 is reserved for the schema freeze after the Supabase mandate-events migration and one end-to-end tenant profile exercise.
 
 - Version: 1.9 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14.2.1 Tenant Policy Profiles per Boardy review of v1.8 — ATS gating bands, ceilings, and HNP availability are per-tenant configurable under a tighten-only rule with two immovable platform floors (no mandates below ATS 0.50; HNP minimum band 0.90 raisable, never lowerable). Industry default profiles across the 25-industry platform; Aegis tier (21-industry defence scope) defaults to HNP disabled + human-signed Payment Mandates regardless of ATS. Profile changes are HIC-signed policy events on the §14.5 evidence chain, non-retroactive for live sessions. Corrected Boardy's "21 industries" framing to platform 25 / Aegis 21 per DWS_TRUTH_STANDARD row 1.
 
@@ -1016,7 +1018,7 @@ KYA v1.7 and earlier governed what an agent may **do**; it said nothing about wh
 
 ### 14.2 Mandate Gating Rule
 
-An agent may sign or present a payment-protocol mandate **only** within the privileges of its ATS band. Bands extend §3.2; enforcement point is the same pre-execution gate as path access (`src/identity/ats-engine.ts`, evaluated before any mandate signature).
+An agent may sign or present a payment-protocol mandate **only** within the privileges of its ATS band. Bands extend §3.2; enforcement point is the same pre-execution gate as path access — **implemented as `evaluateMandateGate()` in `src/identity/ats-engine.ts`**, evaluated before any mandate signature (test coverage: `src/__tests__/mandate-gate.test.ts`).
 
 | ATS Range | Mandate privileges                                                      | Human Not Present                                | Decision       |
 | --------- | ----------------------------------------------------------------------- | ------------------------------------------------ | -------------- |
@@ -1056,6 +1058,8 @@ Everything else is tenant-settable: ceilings, currencies, merchant categories, a
 
 Profile changes are policy events: logged to the §14.5 evidence chain, signed by the tenant's HIC, and applied only to sessions started after the change (no retroactive loosening of a live session's gates).
 
+> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — quote the policy semantics (tighten-only rule, immovable floors), not the field names. The executable validator (`tenantGatingProfileSchema`, `src/identity/ats-engine.ts`) is the normative shape at any point in time.
+
 ### 14.3 Capability Manifest v1.3 — `spend_authority` Extension
 
 The Capability Manifest (§9.1) gains a spend-authority block. Absent block = zero spend authority (deny-by-default).
@@ -1077,6 +1081,8 @@ The Capability Manifest (§9.1) gains a spend-authority block. Absent block = ze
 ```
 
 `hic` binds spend authority to the verified human (Pillar 1 / L1 identity attribution) who is accountable for it — no anonymous spend authority, ever.
+
+> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — buyer-facing materials quote the commitments (deny-by-default, HIC binding, ceilings), not the field names, which may track AP2's VC vocabulary as FIDO moves it toward 1.0.
 
 ### 14.4 Manifests as W3C Verifiable Credentials
 
