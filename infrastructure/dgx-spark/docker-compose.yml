@@ -136,6 +136,80 @@ services:
           memory: 1G
 
   # ==========================================================================
+  # MCP Gateway — Supabase + GitHub tools for remote Claude Code sessions
+  # (mobile/desktop). Ported from Cloud Run per docs/CLOUD_ENVIRONMENTS.md
+  # §12.9 — DGX Spark is priority 1 for this workload (zero marginal cost,
+  # EU-sovereign); the gateway's in-process MCP session state needs no
+  # porting here since this is a persistent host, unlike Workers isolates.
+  # No host port — reached only via the cloudflare-tunnel service below, over
+  # the internal dws-network.
+  # ==========================================================================
+  mcp-gateway:
+    build:
+      context: ../../mcp-servers/cloud-run-gateway-ts
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    container_name: dws-mcp-gateway
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+
+  # ==========================================================================
+  # Cloudflare Tunnel — public HTTPS ingress for mcp-gateway without opening
+  # any port on the DGX host. Same image/pattern as the (deprecated) hybrid
+  # compose file's cloudflare-tunnel service. Requires CLOUDFLARE_TUNNEL_TOKEN
+  # in .env (create the tunnel + token in the Cloudflare Zero Trust dashboard,
+  # then route its public hostname to the mcp-gateway service in the tunnel's
+  # ingress config — this half is a manual, one-time step outside this repo).
+  # Opt-in via the "gateway" profile so it doesn't start on hosts that haven't
+  # provisioned a tunnel yet.
+  # ==========================================================================
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:2024.12.2
+    container_name: dws-cloudflare-tunnel
+    command: tunnel --no-autoupdate run
+    restart: unless-stopped
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      mcp-gateway:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    profiles:
+      - gateway
+
+  # ==========================================================================
   # Firehorse Report Engine
   # ==========================================================================
   firehorse-reports:
@@ -261,6 +335,7 @@ services:
       CHECK_ASPIRE: http://aspire-dashboard:18888/health
       CHECK_RUNNER: http://host.docker.internal:9800/healthz
       CHECK_STATE_OBSERVER: http://state-observer:9801/health
+      CHECK_MCP_GATEWAY: http://mcp-gateway:8080/health
       # GitHub repository for status reporting
       GITHUB_REPOSITORY: blogtheristo/dws6
     depends_on:
