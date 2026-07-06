@@ -35,8 +35,8 @@ session's context automatically.
   8.3 position + DPA ask + partner-org intro ask + UpCloud/sandbox ask +
   Wärtsilä public-link ask).
 - **Next steps:** WAITING on Aiven: partner-org intro, UpCloud answer,
-  platform DPA, Wärtsilä link. WAITING on Risto: DocuSign signature — run
-  locally (container lacks DOCUSIGN\_\* keys): see §4 one-liner. On partner-
+  platform DPA, Wärtsilä link. NDA envelope `f7382f1c-4342-856a-81df-9fc4f27206db` SENT via DocuSign
+  2026-07-06 17:03 EEST — Risto signs, downloads, returns to Leevi. On partner-
   org response: validate consulting terms against §4 checklist + §5.2 stance.
 - **Blockers:** DocuSign only possible on local machine with .env keys.
 
