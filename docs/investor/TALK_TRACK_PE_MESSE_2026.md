@@ -1,6 +1,6 @@
 # PE Meeting + German Messe Talk Track — 2026 Q2 SAFE Round
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -9,6 +9,7 @@ Version: 1.0
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor talk-track package for 2026 Q2 SAFE round. Covers 30-second elevator, 2-minute pitch, 8-slide deck outline, Q&A bank pointer, and DE / FI translations of the elevator + 2-minute pitch for Messe Germany and Finnish-language investor conversations. Companion to INVESTOR_ONE_PAGER_2026Q2.md and INVESTOR_QA_BANK_2026Q2.md.
+- Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added §2.5 "The 4P Moat Beat" — the drop-in answer to "why you / why can't a competitor catch up", mapping Prompt / People / Plant / Perception to the valuation re-rate and naming Perception as the lever (still-being-proven). Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
 
 Session Links & References:
 
@@ -25,7 +26,7 @@ Document Status:
 - Languages Available: English · Deutsch (Messe) · Suomi (Lifetime Oy context)
 - Publication Status: ACTIVE — internal, used live in PE meetings and at Messe Germany
 
-***
+---
 
 ## 0. Brand Architecture (read first)
 
@@ -50,7 +51,7 @@ The spine — in every conversation, on every slide:
 > distribution. Raising €650k SAFE at €3.8M cap to ride Messe Germany this
 > autumn."
 
-**One number to lead with**: *"Six-to-eight EU FTE replaced, €200k a year, margin above 80% and rising."*
+**One number to lead with**: _"Six-to-eight EU FTE replaced, €200k a year, margin above 80% and rising."_
 
 ---
 
@@ -70,20 +71,45 @@ The spine — in every conversation, on every slide:
 
 ---
 
+## 2.5 The 4P Moat Beat (drop-in when an investor asks "why you?")
+
+> "We accumulate four durable capital classes — the **4P model**. **Prompt** —
+> the codified intelligence: 30+ skills, a 50-agent foundry, eval datasets.
+> **People** — seven months of calibrated HIL judgment a new entrant cannot
+> hire around. **Plant** — an EU-resident, audit-logged, mobile two-room
+> Control Room and Situation Room stack, deployable at a site or in a fleet
+> vehicle. **Perception** — a governed world model and a closed
+> sense-decide-act loop; the only class with data-network effects, and the
+> lever that takes the comp from a SaaS multiple to an industrial-AI multiple.
+> A competitor can buy the hardware; they cannot buy a year of our governed
+> observations or skip the seven-month HIL phase."
+
+**Valuation translation (only if the investor pushes on the multiple):** Prompt
+and People move the comp off the SaaS curve onto the labor curve; Plant makes the
+revenue durable; **Perception is the re-rate lever**. Keep it qualitative unless
+they ask for the cap math — then point to the one-pager's "4P Capital Classes"
+section and `IMPACT_FORECAST.md` §2.1.1.
+
+**Honesty beat (say it before they find it):** "Perception is the youngest of
+the four and **still being proven** — we name it as upside, not as banked moat."
+Naming the caveat buys credibility on the other three.
+
+---
+
 ## 3. 8-Slide Deck Outline (Outlines Only — Gamma Renders Separately)
 
 > **Do not build the deck here.** Gamma is triggered separately and only after Risto signs off the outline below. Slide order is locked; per-slide content stays at headline + 3–5 bullet beats.
 
-| # | Slide | Headline | Bullet beats |
-|---|-------|----------|--------------|
-| 1 | **Thesis** | Price AI like labor, not like a tool. | Tool→labor shift · DWS 365 Skilled Agents on the labor side · @dhaber attribution · spine in one line. |
-| 2 | **Shift Table** | What changes when AI does the work itself. | Buyer, unit, anchor, pricing, value, procure, risk, margin — tool vs labor lens. |
-| 3 | **Unit Economics** | Sixteen agents = six-to-eight EU FTE at a fraction of the cost. | Per-outcome anchor · per-agent-month anchor · bundle replaces 6–8 FTE for €199,990/yr · GM >80% and rising. |
-| 4 | **Demand Engine** | Regulation is hiring our customer's compliance team. | CSRD · CBAM · EU AI Act · NIS2 · Fit-for-55 · 24-month enforcement calendar. |
-| 5 | **Distribution** | MACC-burn + AppExchange = enterprise field as our channel. | Azure MACC math · Microsoft co-sell credit · AppExchange "digital labor" frame · channel-conflict-free pricing. |
-| 6 | **Product Catalog Teaser** | Sixteen Skilled Agents, T0→T4 upsell ladder, consult-plus-keep bundles. | Single-agent SKUs (Compliance / Material Oracle / SiteSense / Schedule Genius / Sovereignty Monitor / Themis) · Function-as-a-Service bundles · Consulting-plus-agent land-motion. |
-| 7 | **Traction** | €7k MRR, 100% retention, €550k–€1.07M booked target, Messe in September. | Q1 pilots signed · Q2 launch · Q3 Messe pickup · Year-2 attach math (+40–80% per landed account). |
-| 8 | **Ask** | €650k SAFE @ €3.8M cap. | Round structure · use of funds (60 / 25 / 15) · two calendar slots · Messe stand option. |
+| #   | Slide                      | Headline                                                                 | Bullet beats                                                                                                                                                                       |
+| --- | -------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Thesis**                 | Price AI like labor, not like a tool.                                    | Tool→labor shift · DWS 365 Skilled Agents on the labor side · @dhaber attribution · spine in one line.                                                                             |
+| 2   | **Shift Table**            | What changes when AI does the work itself.                               | Buyer, unit, anchor, pricing, value, procure, risk, margin — tool vs labor lens.                                                                                                   |
+| 3   | **Unit Economics**         | Sixteen agents = six-to-eight EU FTE at a fraction of the cost.          | Per-outcome anchor · per-agent-month anchor · bundle replaces 6–8 FTE for €199,990/yr · GM >80% and rising.                                                                        |
+| 4   | **Demand Engine**          | Regulation is hiring our customer's compliance team.                     | CSRD · CBAM · EU AI Act · NIS2 · Fit-for-55 · 24-month enforcement calendar.                                                                                                       |
+| 5   | **Distribution**           | MACC-burn + AppExchange = enterprise field as our channel.               | Azure MACC math · Microsoft co-sell credit · AppExchange "digital labor" frame · channel-conflict-free pricing.                                                                    |
+| 6   | **Product Catalog Teaser** | Sixteen Skilled Agents, T0→T4 upsell ladder, consult-plus-keep bundles.  | Single-agent SKUs (Compliance / Material Oracle / SiteSense / Schedule Genius / Sovereignty Monitor / Themis) · Function-as-a-Service bundles · Consulting-plus-agent land-motion. |
+| 7   | **Traction**               | €7k MRR, 100% retention, €550k–€1.07M booked target, Messe in September. | Q1 pilots signed · Q2 launch · Q3 Messe pickup · Year-2 attach math (+40–80% per landed account).                                                                                  |
+| 8   | **Ask**                    | €650k SAFE @ €3.8M cap.                                                  | Round structure · use of funds (60 / 25 / 15) · two calendar slots · Messe stand option.                                                                                           |
 
 Slide cosmetics, lengths, and visual style are owned by the Gamma render — **do not** specify those here.
 

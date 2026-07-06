@@ -14,6 +14,7 @@ Sessions & Modifications:
 - Version: 3.6 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Customer Sensor Data Retention — Control Room / Situation Room" section — operator-facing summary of the four-layer retention model (72h raw / 13mo ontologised / 7yr Article 12 audit trail / 24mo Situation Room rollup), ontology-node ownership and quarterly access-review responsibilities, and a compliance checklist. Canonical source: `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`.
 - Version: 3.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added "NemoClaw Agent Runtime (DGX Spark / sovereign edge)" section — one-runtime-per-room-profile model (Control Room / Situation Room / Mobile Command-Situation Room are config overlays, not separate builds), the per-box secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled), and operate/health/migration pointers. Cross-links DWS_DEPLOYMENT_STANDARD.md and the OpenClaw→NemoClaw migration plan.
 - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added NVIDIA AI Workbench on DGX Spark section — enterprise sovereign training workflow, mode-switch architecture (training-mode.sh / production-mode.sh), QLoRA fine-tuning procedures, 4-stage sovereign training cascade reference, CR-1/CR-2 memory budget guidance
+- Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added "Company Capital Model — The 4P Capital Classes" section documenting Prompt / People / Plant / Perception Capital as the canonical capital model (canon: DWS_BRAND_STANDARD.md §23); added an Ontology Series entry to a new Content Registry sub-section; registered the future `4p-diligence` assessment lens per the Agent Productization Rule (CLI path `dws diligence-4p`, structured JSON output, MCP + skill registration intent).
 - Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
 - Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
 - Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
@@ -56,6 +57,52 @@ Document Status:
 ---
 
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
+
+---
+
+## Company Capital Model — The 4P Capital Classes
+
+DWS is not a SaaS vendor; it is a **System of Action operator**. The company's
+capital model — the way it names the durable value it accumulates — is the **4P
+Capital Classes**. This is canonical in `DWS_BRAND_STANDARD.md` §23 and registered
+in `DWS_TRUTH_STANDARD.md` §2 row 25 (structured mirror `dws10.com/config/capitals.json`).
+
+| #   | Capital Class (4P)     | Finnish        | Was                  | What it is                                                                                                                                                                                  |
+| --- | ---------------------- | -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Prompt Capital**     | Prompt-pääoma  | Token Capital        | Codified intelligence — validated prompts, skills, agent configs, eval datasets, automation.                                                                                                |
+| 2   | **People Capital**     | Ihmispääoma    | Human Capital        | Calibrated operator judgment from the HIL phase (human-in-the-loop → human-in-control).                                                                                                     |
+| 3   | **Plant Capital**      | Laitospääoma   | Control Room Capital | The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle.                                                                                     |
+| 4   | **Perception Capital** | Havaintopääoma | _new_                | The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics). The only class with data-network effects and a physical-AI character — the re-rate lever. |
+
+**Order is fixed** (Prompt, People, Plant, Perception — the mnemonic depends on it).
+**Deprecated in new copy:** "three-capital model", "Token Capital", "Control Room
+Capital" as primary terms; "Human Capital" only as a parenthetical. `/truth-check`
+enforces this on public copy.
+
+### Content Registry
+
+Canonical long-form explainers of the company's positioning and capital model.
+Treat these as the source for any derived deck, blog, or sales copy.
+
+| Asset                        | Location                                                                          | Scope                                                                                                                                                                                                                                         |
+| ---------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **4P Capital Classes canon** | `DWS_BRAND_STANDARD.md` §23                                                       | The canonical terminology, usage rules, and deprecations.                                                                                                                                                                                     |
+| **4P field note (v2.0)**     | `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md` | The theory: how the HIL phase forms each class; the Nadella signal; capital-as-a-service.                                                                                                                                                     |
+| **Ontology Series**          | `onelifetime.world/posts/` (+ `landing-pages/onelifetime-world/posts/` mirror)    | Public, qualitative arc — 5 posts: `point-it-at-the-ontology`, `four-capital-classes`, `software-vs-world-model`, `the-ontology-lives-in-the-team` (EN) and `ontologia-tiimin-aivoissa` (FI). Cross-linked via `scripts/inject-blog-nav.cjs`. |
+| **Theory + Kaukopää case**   | `docs/PHD_FIREHORSE_EN.md` §14.26–§14.27                                          | Scientific framing of the 4P model and the tacit-ontology (People + Perception walk-out) risk.                                                                                                                                                |
+| **Architecture mapping**     | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` §10.23.7                        | How the 4P classes map to the DWS IQ Brain-Memory-Body-Hands architecture.                                                                                                                                                                    |
+
+### Future Assessment Lens — `4p-diligence` (registration intent)
+
+Per the **Agent Productization Rule** (CLAUDE.md), the 4P model should become an
+agent-accessible **diligence lens** that scores any agentic operator (a target, a
+partner, or DWS itself) on the four classes. Registered here as intent — to be
+built and approved before shipping:
+
+- **CLI path:** `dws diligence-4p --target <name> [--json]` — score Prompt / People / Plant / Perception 0–100, with the shrinking-team risk flag (People + Perception walking out together — the Kaukopää failure mode).
+- **Structured output:** JSON `{ target, scores: { prompt, people, plant, perception }, walkOutRisk, notes[] }` for downstream MCP / report consumption.
+- **MCP exposure:** expose as an MCP tool once the CLI stabilizes, consistent with the other DWS assessment skills (`/kya`, `/sovereignty-assess`, `/compliance-check`).
+- **Skill registration:** add `skills/4p-diligence/SKILL.md` (parameterized: `TARGET`, optional `MODE=invest|acquire|self`) and register in `docs/DWS_SKILLS_GUIDE.md` when approved.
 
 ---
 

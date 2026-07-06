@@ -1012,7 +1012,7 @@
       "price": 5294,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. This is Plant Capital in the 4P sense: intelligence that operates inside your own building, not SaaS you log into — the sovereign edge half of the two-room Control Room + Situation Room stack. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
         "1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €4,299 hardware",
         "NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
@@ -1046,7 +1046,7 @@
       "price": 10093,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Together with the Control Room it forms the two-room stack that carries your Plant Capital — intelligence that operates, not SaaS you rent. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
         "2× Acer Veriton GN100 bridged (40 cores · 256 GB unified memory · NVIDIA ConnectX-7 200 Gbps link) — 2× €4,299 hardware",
         "NVIDIA model installation for the bridged pair — €1,495 (tensor-parallel sharding, dual-node Article 12 log replica, failover)",
