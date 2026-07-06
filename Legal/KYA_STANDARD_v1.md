@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
+- Version: 1.8 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14 Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — closes the payment-authority gap surfaced by the 2026-07-06 agent-infrastructure scorecard (`docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md`): mandate-gating rule mapping ATS bands (§3.2) to AP2 Intent/Cart/Payment Mandate privileges incl. Human Not Present pre-authorization; Capability Manifest v1.3 `spend_authority` extension; manifests expressible as W3C Verifiable Credentials for AP2 interop; AP2 Verifiable Intent log bound to KYA forensic trail + EU AI Act Article 12 record-keeping as one evidence chain; FIDO Alliance governance tracking (AP2 v0.2 donated 28.04.2026). Protocol-neutral stance across AP2 / UCP / ACP. Conclusion renumbered §14 → §15.
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in Regulatory Penalty Avoidance — corrected from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context, per PR #976 sweep pattern
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added memory audit trail references — KYA-S v1.5 (§10 Memory Audit Trail), KYA-O v1.7 (§12 Memory-Driven Financial Intelligence); dual LWM+client memory architecture; fact extraction governance (PR-254); KYA-first PR ordering for agent memory roadmap; updated split document references
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
@@ -20,7 +21,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 09.03.2026
-- Last Modified: 05.04.2026
+- Last Modified: 06.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -41,6 +42,9 @@ Related Documents:
 - src/integrations/iceye/client.ts (ICEYE SAR satellite API client)
 - src/integrations/iceye/types.ts (Orbital target labeling type definitions)
 - .claude/commands/orbital-eye.md (Orbital Eye skill for Claude Code)
+- docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md (Agent-infrastructure scorecard that motivated §14)
+- google-agentic-commerce/AP2 v0.2, FIDO Alliance (external — Agent Payments Protocol, W3C Verifiable Credential mandates)
+- DWS_ARTICLE_12_LOGGING_STANDARD.md (EU AI Act Article 12 record-keeping — evidence chain for §14.5)
 
 ---
 
@@ -314,11 +318,11 @@ A = autoresearch improvement factor (capped, validated on industry proxy metrics
 ### 3.2 KYA Trust Score Ranges (v1.4 — with Financial Multiplier)
 
 | ATS Range | KYA Score | Permission Level                  | Financial Multiplier (25+ industries) | Decision          |
-| --------- | --------- | --------------------------------- | ------------------------------------ | ----------------- |
-| >= 0.80   | >= 80     | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr             | **GO + Monetize** |
-| 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                             | **GO** (limited)  |
-| < 0.50    | < 50      | Suspended — human review required | —                                    | **NO_GO**         |
-| = 0.00    | = 0       | Frozen — agent terminated         | —                                    | **NO_GO**         |
+| --------- | --------- | --------------------------------- | ------------------------------------- | ----------------- |
+| >= 0.80   | >= 80     | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr              | **GO + Monetize** |
+| 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                              | **GO** (limited)  |
+| < 0.50    | < 50      | Suspended — human review required | —                                     | **NO_GO**         |
+| = 0.00    | = 0       | Frozen — agent terminated         | —                                     | **NO_GO**         |
 
 ---
 
@@ -994,7 +998,72 @@ Following the nanochat methodology, DWS IQ can deploy optimization agents to tun
 
 ---
 
-## 14. Conclusion
+## 14. Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — v1.8
+
+KYA v1.7 and earlier governed what an agent may **do**; it said nothing about what an agent may **spend**. That gap closed externally in H1 2026: the payment industry shipped the wire formats for agent transactions, and none of them decide whether a given agent should be trusted to transact. KYA supplies that decision. This section is protocol-neutral by design — KYA gates mandates on all three rails.
+
+### 14.1 Protocol Landscape (as of 06.07.2026)
+
+| Protocol                              | Steward                                                                                                 | State                                      | What it standardizes                                                                                                                                                                                                                          |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **AP2** — Agent Payments Protocol     | Google → donated to **FIDO Alliance** (28.04.2026, v0.2)                                                | v0.2, ~60 member orgs                      | Three signed **Mandates** — Intent, Cart, Payment — each a **W3C Verifiable Credential**; **Human Not Present (HNP)** pre-authorized execution; **Verifiable Intent** tamper-proof action log (co-developed with Mastercard, donated to FIDO) |
+| **UCP** — Universal Commerce Protocol | Google + Shopify + Walmart; Tech Council incl. Amazon, Meta, Microsoft, Salesforce, Stripe (24.04.2026) | Launched NRF 11.01.2026                    | Full commerce journey: discovery → cart → checkout → post-purchase                                                                                                                                                                            |
+| **ACP** — Agentic Commerce Protocol   | OpenAI + Stripe                                                                                         | Live in ChatGPT production since late 2025 | Structured checkout flow inside agent surfaces; 4% platform fee                                                                                                                                                                               |
+
+**KYA position:** the protocols define how a mandate is _carried_; KYA decides whether this agent may _hold_ one. AP2's HNP payments are precisely the scenario where a merchant, issuer, or insurer needs a checkable trust score before honoring a pre-authorization — that score is the ATS (§3).
+
+### 14.2 Mandate Gating Rule
+
+An agent may sign or present a payment-protocol mandate **only** within the privileges of its ATS band. Bands extend §3.2; enforcement point is the same pre-execution gate as path access (`src/identity/ats-engine.ts`, evaluated before any mandate signature).
+
+| ATS Range | Mandate privileges                                                      | Human Not Present                                | Decision       |
+| --------- | ----------------------------------------------------------------------- | ------------------------------------------------ | -------------- |
+| >= 0.90   | Intent + Cart + Payment                                                 | **Allowed**, within `spend_authority` ceilings   | GO + Transact  |
+| 0.80–0.89 | Intent + Cart + Payment                                                 | Denied — human confirms above `per_task_ceiling` | GO (confirmed) |
+| 0.50–0.79 | Intent + Cart only — agent assembles, a human signs the Payment Mandate | Denied                                           | GO (limited)   |
+| < 0.50    | **No mandates** — consistent with §3.2 NO_GO                            | Denied                                           | NO_GO          |
+
+A mandate attempt outside the band, or a spend attempt above a manifest ceiling, is a **KYA Violation**: same enforcement sequence as §9.2 (session terminated, −40 trust points, operator alerted), **plus revocation of all live mandates issued in that session**.
+
+### 14.3 Capability Manifest v1.3 — `spend_authority` Extension
+
+The Capability Manifest (§9.1) gains a spend-authority block. Absent block = zero spend authority (deny-by-default).
+
+```json
+{
+  "manifest_version": "1.3",
+  "spend_authority": {
+    "currency": "EUR",
+    "per_task_ceiling": 100.0,
+    "per_day_ceiling": 500.0,
+    "allowed_merchant_categories": ["cloud-compute", "data-services"],
+    "mandate_types_allowed": ["intent", "cart"],
+    "human_not_present": false,
+    "protocols": ["ap2", "acp", "ucp"],
+    "hic": "<verified-human-identity-ref>"
+  }
+}
+```
+
+`hic` binds spend authority to the verified human (Pillar 1 / L1 identity attribution) who is accountable for it — no anonymous spend authority, ever.
+
+### 14.4 Manifests as W3C Verifiable Credentials
+
+AP2 mandates travel as W3C Verifiable Credentials. Capability Manifests SHOULD be expressible in the same envelope, so a counterparty can verify the agent's KYA manifest and its AP2 mandate in **one trust chain**: verified human → signed manifest (with ATS at signing, §9.1 `kya_score_at_sign`) → signed mandate. This turns the ATS from an internal score into a portable, checkable credential — the agent's track record, presentable at transaction time.
+
+### 14.5 One Evidence Chain: Verifiable Intent ↔ KYA Forensics ↔ Article 12
+
+AP2's Verifiable Intent log (tamper-proof record of user-authorized agent actions) maps onto the existing KYA forensic trail. Rule: **every mandate event (issue, present, execute, revoke) is logged to both** the Firehorse audit trail and the Article 12 record-keeping layer (`DWS_ARTICLE_12_LOGGING_STANDARD.md`), keyed by `session_id` + mandate VC id. The result is a single evidence chain that satisfies the payment network _and_ the EU AI Act deployer obligation — the differentiator none of the three (US-led) protocols address.
+
+### 14.6 Governance Tracking
+
+- AP2 governance now sits at the **FIDO Alliance**; KYA tracks FIDO releases and adopts mandate-format changes from there, not from any single vendor.
+- Stripe sits in both the ACP and UCP camps — protocol consolidation is likely; KYA remains rail-agnostic and re-maps §14.2 privileges onto whichever mandate vocabulary survives.
+- Review trigger: any AP2/UCP/ACP change to mandate types, HNP semantics, or VC format reopens this section.
+
+---
+
+## 15. Conclusion
 
 The KYA Standard v1.4 delivers **agent self-optimization governance** — the infrastructure for autonomous agents that improve themselves safely, auditably, and with financial accountability. Hardware isolation, real-time identity triggers, governed autoresearch, and the Orchestrator Layer make enterprise agent swarms audit-ready and liability-contained.
 

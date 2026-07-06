@@ -15,6 +15,7 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Date: 06.07.2026 | Changes: Added the §13 protocol addendum after researching Google's agentic commerce stack (AP2 v0.2 at FIDO Alliance, UCP, ACP): the wire protocol points 11/13 anticipated has arrived, and the KYA Standard was updated to v1.8 (§14 Agentic Commerce Mandate Gating) in the same session — mandate gating by ATS band, Capability Manifest v1.3 spend_authority, W3C VC interop, Verifiable Intent ↔ Article 12 evidence chain.
 - Version: 1.0 | Tool: Claude Code | Date: 06.07.2026 | Changes: Initial field note — Greg Isenberg's 21-point "build startups for agents" X thread mapped point-by-point against what DWS already ships, what is partial, and what is an honest gap. Each answer cites the repo artifact or standard that backs it. Thesis extracted: points 6, 7, 8, 9, 10, 14 are one product (KYA governance), not six startups, and EU AI Act Article 12 makes that layer mandatory — the Doctrine Shift pillar applied to agent infrastructure.
 
 Document Status:
@@ -114,6 +115,8 @@ Lived and solved internally: `src/agents/model-selector.ts` runs a tier-based mu
 ## 13. Agent-to-agent negotiation protocol — GAP (with a defined position)
 
 Does not exist here, and Greg is right that it barely exists anywhere. What DWS has is the precondition stack: inter-agent signaling (READY / COMPLETE / ERROR / BLOCKED dependency protocol in `AGENTS.md`) and priced capability manifests. Position: negotiation between unidentified, unscored agents is adversarial noise — millisecond haggling only works after both sides can check the other's ATS (point 6) and authority binding (point 7). When an open negotiation protocol emerges (A2A-class), DWS adopts it and supplies the trust layer underneath rather than competing on the wire format.
+
+> **Addendum 06.07.2026 (v1.1):** the wire protocols this point (and points 7/11) anticipated have arrived on the _commerce_ side: Google's **AP2** (Agent Payments Protocol, v0.2, donated to the FIDO Alliance 28.04.2026 — Intent/Cart/Payment Mandates as W3C Verifiable Credentials, Human Not Present payments, Verifiable Intent logs), **UCP** (Google/Shopify/Walmart + Amazon/Meta/Microsoft/Salesforce/Stripe on the Tech Council), and **ACP** (OpenAI/Stripe, live in ChatGPT). Exactly per this point's position, DWS adopted rather than competed: **KYA Standard v1.8 §14 (Agentic Commerce Mandate Gating)** now gates all three rails by ATS band, extends the Capability Manifest with `spend_authority` (v1.3), and binds AP2 Verifiable Intent to the Article 12 evidence chain. Points 7 and 11's "DWS supplies the authorization signal" is now a written standard, not just a stance.
 
 ## 14. Legal and insurance layer for agent actions — PARTIAL, and the DWS wedge
 
