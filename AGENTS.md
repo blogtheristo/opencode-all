@@ -456,6 +456,43 @@ docker mcp add stripe --activate
 
 ## 7. Agent Guidelines & Conventions
 
+### Platform Agents (`src/agents/`)
+
+Code-backed agents (one `*.agent.ts` per row). This table is verified against
+the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
+or removing an agent.
+
+| Agent                    | Role                                              |
+| ------------------------ | ------------------------------------------------- |
+| `agora`                  | Collective intelligence / multi-agent consensus   |
+| `argus`                  | Geospatial SAR signal intelligence (orbital)      |
+| `auditor`                | Audit trail + explainability (XAI)                |
+| `cassandra`              | Predictive analytics + recommendations            |
+| `chronos`                | Regulatory deadline & scheduling intelligence     |
+| `compliance`             | EU regulatory compliance (Fit for 55, CBAM, CSRD) |
+| `compliance-researcher`  | Regulatory research & deadline tracking           |
+| `construction`           | Construction project compliance orchestrator      |
+| `customer-sat`           | Customer satisfaction & churn analysis            |
+| `daedalus`               | Tool composition + MCP bridge                     |
+| `deepwiki-extractor`     | Code extraction from GitHub repositories          |
+| `designer`               | Design-to-code bridge                             |
+| `emissions-data-analyst` | Natural-language queries on emissions data        |
+| `kb`                     | Knowledge base compile / query                    |
+| `logistics`              | Fleet & supply-chain compliance orchestrator      |
+| `material-oracle`        | Carbon footprint & procurement (LCA)              |
+| `minerva`                | Knowledge transfer + explainability               |
+| `mnemosyne`              | Long-term memory oracle                           |
+| `panacea`                | Self-improving / adaptive optimization            |
+| `quality-gate`           | Quality-gate / QA verification                    |
+| `sales-outreach`         | B2B lead research & personalized outreach         |
+| `schedule-genius`        | Timeline & critical-path optimization             |
+| `sitesense`              | Site monitoring & safety analysis                 |
+| `sovereignty-monitor`    | Database sovereignty assessment                   |
+| `synthetic-data`         | CBAM synthetic-data pipeline                      |
+| `themis`                 | Legal intelligence + case coordinator             |
+| `viability`              | Unit economics & carbon-credit valuation          |
+| `vision-oracle`          | Vision language model / image analysis            |
+
 ### Documentation Standards
 
 All AI agents follow `AI_AGENT_GUIDELINES.md`:

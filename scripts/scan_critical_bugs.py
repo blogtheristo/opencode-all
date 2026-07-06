@@ -300,6 +300,10 @@ class CriticalBugScanner:
             "claude-sessions",
             "tests",
             "__tests__",
+            # Leftover PR worktree snapshots / build artifacts — not product source.
+            # Scanning them produced false-positive findings against copies of this
+            # very script (see issues #1348–#1352).
+            "artifacts",
         }
 
         files_to_scan = []
