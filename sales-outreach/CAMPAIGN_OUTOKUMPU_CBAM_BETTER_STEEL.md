@@ -9,6 +9,16 @@ Last-Updated: 2026-07-06
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code
 History:
+  - 1.2 | 2026-07-06 | Recon results folded in: named presenters
+                       (Hartikainen ESG / Müller Sales Europe) as
+                       campaign-lane contacts; Outokumpu CBAM content
+                       stack mapped (webinar + insights article +
+                       Q&A page + EY advisory doc); certificate
+                       timeline precised (sales 1 Feb 2027, first
+                       surrender Sep 2027, defaults review Dec 2027,
+                       downstream expansion proposed 2028). Sources:
+                       outokumpu.com pages via web search (direct
+                       fetch blocked by network policy).
   - 1.1 | 2026-07-06 | Added §Market signal: Outokumpu's own paid
                        X/Twitter ad ("CBAM and Stainless Steel"
                        webinar, ~4.9M impressions, screenshot from
@@ -59,6 +69,25 @@ What this changes:
 3. **A webinar funnel needs fulfilment machinery.** 4.9M impressions of "we reduce your CBAM complexity" generates inbound buyer questions their sales engineering must answer — per-CN-code numbers, verifier-grade proof, supplier data forms. That is exactly the manual-fulfilment-desk pain in the existing INTRO (R10 Head of Customer Engineering) — now amplified by their own marketing spend. The DWS line: _"Your marketing just promised CBAM simplicity to 4.9 million people. We're the machinery that keeps that promise at quote time."_
 4. **Recon before outreach.** Watch the webinar; note what math they show (do they quote certificate prices? per-origin intensities?), who presents (names = campaign-lane contacts), and what they _can't_ show (live per-tender math, verifier-grade per-quote proof, IP-governed disclosure) — that gap list is the first-meeting agenda.
 
+### Recon results (2026-07-06, page-level; video itself still unwatched)
+
+**Named campaign-lane contacts (webinar presenters):**
+
+- **Ernesto Hartikainen — Head of ESG Policy & Reporting.** Owns CBAM/carbon-pricing policy expertise and emissions calculation. Maps to the R08 operational-owner lane; the person whose data pipeline pillar 1 automates.
+- **Jörg Müller — Head of Sales, Stainless Europe.** Owns pricing, sourcing, and competitiveness narrative — "how CBAM and new trade measures influence import flows and why European low-emission stainless steel will play an increasingly important role." Maps to the R18 commercial-driver lane — **the campaign's named door** once the hold lifts.
+- The pairing itself is a signal: Outokumpu already runs the ESG×Sales diagonal this campaign describes — compliance function and commercial function on one stage, selling CBAM together.
+
+**Outokumpu's public CBAM content stack** (they are building a funnel, not a one-off):
+
+- Webinar: `outokumpu.com/en/expertise/webinars-and-events/cbam/cbam-and-stainless-steel`
+- Insights article: "How CBAM will reshape the stainless steel value chain" (2026)
+- Q&A page: `outokumpu.com/en/expertise/2026/cbam-q-and-a`
+- `outokumpu.com/en/cbam` — a document authored by **EY Advisory Oy**: their current CBAM machinery is Big-4 advisory. That is the incumbent-alternative gap DWS closes ("advisory delivers a report; DWS ships the per-quote machinery"), per the existing INTRO's alternatives table.
+
+**Their own value-chain claim = pillar 1 in their words:** buyers will embed carbon attributes alongside alloy, quality and cost; contracts will favor suppliers who deliver **verified data at heat, batch or product-family level, with penalties where default values are triggered**. Heat/batch-level verified disclosure at quote time is exactly the DWS pipeline — they have published the requirement; they have not shown the machinery.
+
+**Timeline precision (webinar/EC-sourced; supersedes vaguer wording elsewhere in this file):** definitive obligations since 1 Jan 2026 → certificate **sales open 1 Feb 2027** → **first surrender/payment by end-September 2027** → **default values reassessed by December 2027** → **downstream-product expansion proposed to apply from 2028**. Campaign consequence: 2026 is the proof-machinery build year — the importer's first real invoice lands September 2027, and every quarter before that is when sourcing decisions get re-made. The premium conversation peaks _now_, not in 2027.
+
 ## Relationship to the live Ari Hirvonen motion — do not collide
 
 `INTRO_ARI_HIRVONEN_OUTOKUMPU.md` (door #1, R02 IP Director) is at the Step-3 pilot hinge (€24k / 3 months / one Forta line — `LETTER_ARI_HIRVONEN_OUTOKUMPU_REPLY2_CLARIFICATION.md`). Rules of engagement:
@@ -89,12 +118,12 @@ Pillar 3 is the bridge that keeps both motions coherent: the campaign sells prem
 
 ## Roles by stage (per `DWS_ROLES_REGISTRY.md`; revenue-lever rule → lead R19)
 
-| Stage                            | Role (R-ID)                          | What this campaign says to them                                                               | What they win                                                                                                               |
-| -------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| 4 — Commercial driver (**lead**) | **R19 CRO / R18 Head of Commercial** | Every tender against imported stainless has a CBAM number in it — is it yours or the buyer's? | Premium defended with math, not adjectives. Win-rate lift on regulated tenders; pricing power on Forta / Circle Green SKUs. |
-| 2 — Operational owner            | R07 CSO / R08 Head of Sustainability | Your verified data becomes a revenue instrument, not a filing cost.                           | One signed pipeline feeds CBAM, CSRD, EPD, and the sales deck — no more per-OEM bespoke forms.                              |
-| 1 — Strategic sponsor            | R02 IP Director (Ari — already open) | Premium capture makes your governance pilot the platform the CRO sells from.                  | Board-visible upside attached to the disclosure-governance spend.                                                           |
-| 5 — Executive sponsor            | R22 CEO / R23 CFO + R24 Head of IR   | The CBAM premium, quantified per SKU, is an analyst-day line.                                 | Margin (premium captured) + moat (proof machinery competitors lack) in one investor narrative.                              |
+| Stage                            | Role (R-ID)                                                                                                                    | What this campaign says to them                                                               | What they win                                                                                                               |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| 4 — Commercial driver (**lead**) | **R19 CRO / R18 Head of Commercial** — named: **Jörg Müller, Head of Sales Stainless Europe** (CBAM webinar presenter)         | Every tender against imported stainless has a CBAM number in it — is it yours or the buyer's? | Premium defended with math, not adjectives. Win-rate lift on regulated tenders; pricing power on Forta / Circle Green SKUs. |
+| 2 — Operational owner            | R07 CSO / R08 Head of Sustainability — named: **Ernesto Hartikainen, Head of ESG Policy & Reporting** (CBAM webinar presenter) | Your verified data becomes a revenue instrument, not a filing cost.                           | One signed pipeline feeds CBAM, CSRD, EPD, and the sales deck — no more per-OEM bespoke forms.                              |
+| 1 — Strategic sponsor            | R02 IP Director (Ari — already open)                                                                                           | Premium capture makes your governance pilot the platform the CRO sells from.                  | Board-visible upside attached to the disclosure-governance spend.                                                           |
+| 5 — Executive sponsor            | R22 CEO / R23 CFO + R24 Head of IR                                                                                             | The CBAM premium, quantified per SKU, is an analyst-day line.                                 | Margin (premium captured) + moat (proof machinery competitors lack) in one investor narrative.                              |
 
 Diagonal rule holds: the CRO's premium math is generated by the CSO's data, governed by Ari's policy, and reported by IR — each role's win lights up the next.
 
@@ -110,16 +139,17 @@ Diagonal rule holds: the CRO's premium math is generated by the CSO's data, gove
 
 ## Facts — verified vs. confirm-before-asserting (Rule 1 / Rule 12)
 
-| Claim                                                                           | Status                                                                              |
-| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Outokumpu: world's largest stainless producer, HQ Helsinki, listed OUT1V        | ✔ per existing INTRO (public)                                                       |
-| ~90% recycled content, EAF route, low-CO₂ ferrochrome (Tornio)                  | ✔ per existing INTRO (public)                                                       |
-| Circle Green = lowest-CO₂ stainless on market, branded SKU                      | ✔ per existing INTRO — refresh against current Outokumpu claims before external use |
-| CBAM definitive period from 1 Jan 2026; ~50t de-minimis; ~99% emissions covered | ✔ canonical, `DWS_TRUTH_STANDARD.md` §2C                                            |
-| Specific competitor import intensities (tCO₂e/t by origin/route)                | ⚠ verify against current CBAM default values before quoting                         |
-| Current EU carbon / CBAM certificate price and per-tonne cost figures           | ⚠ live number — pull at publish time, never hardcode                                |
-| Outokumpu product-level intensity figures                                       | ⚠ do not assert externally; the pilot generates the verified numbers                |
-| Free-allocation phase-out schedule through 2034                                 | ⚠ verify current schedule (post-Omnibus adjustments) before external use            |
+| Claim                                                                                                                                              | Status                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Outokumpu: world's largest stainless producer, HQ Helsinki, listed OUT1V                                                                           | ✔ per existing INTRO (public)                                                       |
+| ~90% recycled content, EAF route, low-CO₂ ferrochrome (Tornio)                                                                                     | ✔ per existing INTRO (public)                                                       |
+| Circle Green = lowest-CO₂ stainless on market, branded SKU                                                                                         | ✔ per existing INTRO — refresh against current Outokumpu claims before external use |
+| CBAM definitive period from 1 Jan 2026; ~50t de-minimis; ~99% emissions covered                                                                    | ✔ canonical, `DWS_TRUTH_STANDARD.md` §2C                                            |
+| Specific competitor import intensities (tCO₂e/t by origin/route)                                                                                   | ⚠ verify against current CBAM default values before quoting                         |
+| Current EU carbon / CBAM certificate price and per-tonne cost figures                                                                              | ⚠ live number — pull at publish time, never hardcode                                |
+| Outokumpu product-level intensity figures                                                                                                          | ⚠ do not assert externally; the pilot generates the verified numbers                |
+| Free-allocation phase-out schedule through 2034                                                                                                    | ⚠ verify current schedule (post-Omnibus adjustments) before external use            |
+| Certificate sales open 1 Feb 2027; first surrender by end-Sep 2027; default values reassessed by Dec 2027; downstream expansion proposed from 2028 | ✔ per Outokumpu webinar/Q&A + EC Q&A (Jul 2026 search); re-verify at publish time   |
 
 Deprecated framings (do not use): pre-Omnibus "49,000/50,000 companies must file"; any "CBAM was gutted by Omnibus" framing — the canonical line is _coverage held (~99%), paperwork fell_.
 
@@ -132,7 +162,9 @@ Deprecated framings (do not use): pre-Omnibus "49,000/50,000 companies must file
 
 ## Next actions
 
-- [ ] Watch the "CBAM and Stainless Steel" webinar on outokumpu.com (recon per §Market signal): capture presenter names, the math they show, and the gaps DWS fills. Feed findings back into this file before any letter is drafted.
+- [x] Page-level recon done (2026-07-06): presenters named (Hartikainen / Müller), content stack mapped, EY = incumbent advisory, timeline precised. See §Recon results.
+- [ ] Watch the webinar **video** itself (Risto — registration wall; agent network policy blocks outokumpu.com): capture the actual math shown (certificate prices? per-origin intensities? cost-per-tonne examples?) and note what's missing vs. pillars 1–2. Feed back into this file before any letter is drafted.
+- [ ] Read Outokumpu's CBAM Q&A page + EY document at `outokumpu.com/en/cbam` (same access note) — harvest their exact terminology for letter drafting; mirror their language, don't introduce ours.
 - [ ] Hold R19 outreach; monitor Ari thread for hinge resolution (line named + wedge confirmed, or 4 weeks cold).
 - [ ] Build CBAM premium calculator one-pager (asset 2); run `/truth-check` on all figures; deploy to `dws10.com/sovereign-cbam-disclosure/` area with `landing-pages/` mirror in the same commit.
 - [ ] Draft LinkedIn post (a) — Omnibus asymmetry angle, reusing `Myyntikirje_3_Omnibus_Pivot.md` "targets did not change, only the paperwork did" line.
