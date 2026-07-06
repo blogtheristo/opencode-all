@@ -22,18 +22,22 @@ session's context automatically.
 
 ## CURRENT HANDOFF
 
-- **Branch:** claude/session-container-memory-6ccpnf
-- **Task:** Fix cross-session memory loss in ephemeral cloud containers
-  ("synthetic alzheimer") by adding this git-committed handoff log.
-- **State:** Handoff mechanism implemented — this file created,
-  session-start.sh surfaces it, CLAUDE.md workflow section points to it.
-- **Next steps:** None — mechanism is live. Future sessions: keep this section
-  current per the protocol above.
-- **Blockers:** Container size itself cannot be changed from inside a session;
-  user must pick a larger machine in claude.ai/code environment settings.
+- **Branch:** claude/edb-postgres-dgx-odwa9f
+- **Task:** Evaluate the "EDB Postgres AI is best for NVIDIA DGX" assessment
+  (shared by Risto in Finnish) and record it as a verified field note.
+- **State:** Done — `docs/field-notes/2026-07-06-edb-postgres-ai-nvidia-dgx-evaluation.md`
+  created. Claims 1-4 confirmed against EDB/NVIDIA primary sources; ARM LSE
+  claim marked plausible/unverified. Critical caveat found: pgpu is x86_64-only,
+  so it does NOT run on DGX Spark (aarch64 Grace). Aiven-First Mandate left
+  untouched — EDB positioned only as tier-3 candidate (customer air-gapped
+  sovereign DGX deployments).
+- **Next steps:** Watch EnterpriseDB/pgpu for aarch64 support; include EDB in
+  the next Tier-1 sovereign DGX pilot reference architecture when drafted.
+- **Blockers:** None.
 
 ---
 
 ## HANDOFF HISTORY
 
+- 2026-07-06 | claude/edb-postgres-dgx-odwa9f | Field note: verified EDB Postgres AI on DGX evaluation; pgpu x86_64-only caveat; tier positioning vs Aiven-First Mandate.
 - 2026-07-05 | claude/session-container-memory-6ccpnf | Created handoff log mechanism (file + session-start hook + CLAUDE.md pointer).
