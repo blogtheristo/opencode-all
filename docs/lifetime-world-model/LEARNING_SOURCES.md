@@ -4,16 +4,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/european-datasets-lab-note-8mlg9u | Date: 06.07.2026 | Changes: Updated latest-lab-note pointer to 2026-07-06 INSPIRE / European Data Portal note
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/skills-based-agents-M2aG9 | Date: 16.04.2026 | Changes: Initial LWM learning sources index — all data streams, update cadence, ingestion priority
 
 Document Status:
 
 - Created: 16.04.2026
-- Last Modified: 16.04.2026
+- Last Modified: 06.07.2026
 - Language: English
 - Publication Status: ACTIVE
 - Document Type: Architecture / Knowledge Management
@@ -93,7 +94,7 @@ This file is the **canonical index of all data streams** that feed the Lifetime 
 
 **First lab note:** `docs/lab-notes/` created 2026-04-16.
 
-**Latest lab note:** `docs/lab-notes/2026-05-20-claude-code-large-codebases-best-practices.md` — Anthropic harness model (CLAUDE.md / hooks / skills / plugins / MCP) mapped to DWS6 assets, with plugin-packaging and LSP gaps logged.
+**Latest lab note:** `docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md` — INSPIRE geospatial datasets consolidated into data.europa.eu (1 July 2026), portal dataset versioning, and eDelivery cross-border exchange, mapped to DWS ingestion and sovereignty threads.
 
 ---
 
