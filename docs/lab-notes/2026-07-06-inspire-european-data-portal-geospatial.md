@@ -1,13 +1,14 @@
 # Lab Note: INSPIRE Moves to the European Data Portal — Geospatial Discovery, Dataset Versioning, eDelivery (July 2026)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/european-datasets-lab-note-8mlg9u | Date: 06.07.2026 | Changes: Web verification pass (INSPIRE Geoportal retirement on 1 July 2026 confirmed via web search; portal search/API architecture documented from EDP provider manual), added IPR Considerations section and testing/onboarding dataset shortlist.
 - Version: 1.0 | Tool: Claude Code | Session: claude/european-datasets-lab-note-8mlg9u | Date: 06.07.2026 | Changes: Initial lab note — INSPIRE geospatial datasets migrating to data.europa.eu (effective 1 July 2026), new dataset versioning feature, and Digital Europe eDelivery cross-border exchange framework, mapped to DWS IQ data-ingestion and sovereignty relevance.
 
 Session Links & References:
@@ -33,9 +34,9 @@ Related Documents:
 - skills/regulatory-radar/ (EU pipeline scanning)
 - skills/kb/ (knowledge base ingestion)
 
----
+***
 
-**Version:** 1.0
+**Version:** 1.1
 **Effective Date:** 2026-07-06
 **Last Updated:** 2026-07-06
 **Status:** Active
@@ -48,7 +49,7 @@ Related Documents:
 - **Author:** Claude Code session, on behalf of Lifetime Oy research
 - **Source:** data.europa.eu newsletter (July 2026), "European datasets" edition — three items: INSPIRE transition to the European Data Portal, dataset versioning feature, Digital Europe eDelivery. Newsletter content supplied directly; canonical announcements live on https://data.europa.eu/en/news-events.
 - **Type:** Ecosystem Research / Standards Evaluation
-- **Confidence:** Medium-High. The source is the official data.europa.eu newsletter (primary source for portal features), received and quoted verbatim. The 1 July 2026 INSPIRE effective date and feature descriptions are taken from that text; portal-side details (exact API surface, HVD dashboard scope) have not yet been verified hands-on against data.europa.eu in this session.
+- **Confidence:** High for Item 1, Medium-High for Items 2–3. The source is the official data.europa.eu newsletter (primary source for portal features), received and quoted verbatim. Item 1 was independently verified by web search on 2026-07-06: the INSPIRE Geoportal is confirmed retired as of 1 July 2026, with data.europa.eu as the successor access point, and the portal's geospatial filter, map/bounding-box search, HVD dashboard, SPARQL endpoint (Virtuoso triplestore), and Search API are documented in the EDP data-provider manual. Direct hands-on browsing of data.europa.eu was not possible from this session (remote-environment network policy blocks the domain — proxy CONNECT 403), so Items 2–3 rest on the newsletter text alone.
 
 ### Ontology Tags
 
@@ -79,6 +80,8 @@ Three developments from the European Data Portal, all live as of July 2026:
 - **HVD dashboard** — tracking Member State publication of High-Value Datasets, which the Open Data Directive requires to be free, machine-readable, and API-accessible. Geospatial is one of the six HVD categories.
 - **Geo-viewer** — in-portal preview of spatial datasets before download.
 
+**Verified 2026-07-06 (web search; direct portal access blocked by session network policy):** the INSPIRE Geoportal (inspire-geoportal.ec.europa.eu) is retired as of 1 July 2026 and now redirects users to the European Data Portal. The combined search at `data.europa.eu/data/combined` supports a geospatial-source filter and a map search where a region can be typed or drawn as a bounding box. Programmatic access is two-track: a **SPARQL API** (Virtuoso triplestore over DCAT-AP metadata) for complex queries and a **Search API** for high-performance full-text search with facet filtering — these are the integration surfaces a future `eu-data` skill would target.
+
 **Why it matters for DWS.**
 
 - **One ingestion target instead of two.** Previously, geospatial discovery meant the INSPIRE geoportal (OGC CSW, ISO 19115/19139 metadata) while general open data meant data.europa.eu (DCAT-AP, SPARQL endpoint). Consolidation means the portal's existing SPARQL/REST APIs become the single programmatic surface — a simpler wedge for a future `eu-data` ingestion skill.
@@ -106,12 +109,46 @@ Three developments from the European Data Portal, all live as of July 2026:
 
 ---
 
+## Datasets for Testing and Client Onboarding
+
+**Onboarding principle:** show the client their own world before they upload anything. Enter a Business ID → DWS renders company profile, facilities on a map, emissions history, live site weather, open tenders — all from public data.
+
+| Dataset                                                             | Onboarding / testing use                                | DWS surface                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| EU ETS verified emissions (EEA / Union Registry)                    | Client's installations: verified CO₂, allowances, trend | CBAM / compliance-check demo (steel, cement, chemicals) |
+| Industrial Emissions Portal (E-PRTR)                                | Client facilities' reported pollutant releases, mapped  | Compliance + Control Room map layer                     |
+| Business registers (companies HVD; FI: PRH/YTJ open API)            | Auto-filled company profile from Business ID            | Onboarding pre-fill, KYA identity anchoring             |
+| INSPIRE buildings / cadastral / addresses (geospatial HVD; FI: NLS) | Client sites with authoritative parcel/building context | SiteSense, carbon-analysis site context                 |
+| Meteorological HVD (FI: FMI open data)                              | Live wind/weather at client site coordinates            | SiteSense crane/wind scoring — always-live demo         |
+| TED procurement notices                                             | Sector tenders, scored                                  | Lead sourcing (existing thread)                         |
+
+**Testing targets** (stable, API-first, exercise version-diff and geo paths): Eurostat statistics HVD (high update cadence → versioning-diff tests for regulatory-radar), CORINE Land Cover / Copernicus layers (large geospatial payload tests), Fintraffic Digitraffic (real-time mobility streams → Control Room ingestion/retention), and one bounded INSPIRE theme (e.g. protected sites, single country) to validate post-consolidation metadata parsing.
+
+**First concrete step:** the Finnish trio — PRH business register + FMI weather + NLS geospatial — all mature, free, no-auth APIs; add ETS verified emissions for industrial prospects.
+
+---
+
+## IPR Considerations (Lifetime Oy)
+
+**Inbound — what we may use.** HVDs must by regulation be free, machine-readable, and reusable under CC BY 4.0 or more permissive; the Open Data Directive (EU) 2019/1024 Art. 1(6) bars public-sector bodies from invoking the sui generis database right to prevent reuse. Practical consequence: EU open data is safe input for DWS analytics and demos, **but license terms vary per dataset** — ingestion must capture the license URI and attribution string as metadata, not assume uniformity. Watch for third-party IPR flags in dataset metadata (some INSPIRE layers embed third-party content).
+
+**Attribution discipline.** CC BY requires attribution. Every DWS surface that renders EU-derived data (Control Room layers, compliance reports, onboarding demos) needs a provenance line, e.g. "Contains data from data.europa.eu, © [publisher], CC BY 4.0, dataset version [X]". The portal's new versioning feature makes version-pinned attribution possible — adopt it from day one.
+
+**Outbound — what stays ours.** DWS IPR lives in the derived layer: scoring models, ontology mappings (e.g. Nemotron two-tower ontology stages), risk indices, LWM training artifacts, and the composition of sources — not in the raw datasets. Keep a clean provenance ledger separating open inputs from proprietary outputs so that (a) our derived-work claims are defensible, (b) no CC BY share-alike-style contamination argument can arise (CC BY has no share-alike, but mislabelled inputs might), and (c) client deliverables can state exactly which numbers rest on which public dataset version. This is the DWS Truth Standard applied to third-party data.
+
+**Model training.** Using open portal data for LWM/agent training is licence-compatible (CC BY / CC0) and unaffected by CDSM Art. 4 TDM opt-outs, which do not bind public-sector open data releases. Log dataset versions used in training runs for EU AI Act data-governance documentation (Art. 10-style provenance records).
+
+**Client boundary.** Public context data (no confidentiality, attribution required) vs. client operational data (client-owned, processed under DPA, never mixed into shared artifacts). Onboarding demos built purely on open data avoid client-IPR entanglement entirely — a selling point, not just a compliance stance.
+
+---
+
 ## Actions
 
 1. **No immediate code change.** This is ecosystem intelligence; no DWS surface breaks or requires update today.
 2. **Candidate skill (deferred until asked twice):** an `eu-data` ingestion skill targeting the data.europa.eu SPARQL/REST API with HVD + INSPIRE theme filters and version-aware fetch. Log here as the first ask; codify per the Skill Codification Rule if a second concrete need appears.
 3. **regulatory-radar enhancement candidate:** add data.europa.eu dataset-version diffs as a scan source alongside EUR-Lex/EFRAG document pipelines.
 4. **sovereignty-pillars-assess:** consider adding eDelivery compatibility as an EU-pillar interoperability signal when that skill is next revised.
+5. **IPR hygiene from day one:** any `eu-data` ingestion design must capture license URI, publisher, and dataset version per record (see §IPR Considerations) so attribution and provenance are automatic, not retrofitted.
 
 ## References
 
@@ -119,3 +156,7 @@ Three developments from the European Data Portal, all live as of July 2026:
 - INSPIRE Directive 2007/2/EC: https://eur-lex.europa.eu/eli/dir/2007/2/oj
 - High-Value Datasets Implementing Regulation (EU) 2023/138: https://eur-lex.europa.eu/eli/reg_impl/2023/138/oj
 - eDelivery (Digital Europe Programme): https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery
+- INSPIRE Geoportal retirement notice (redirects to EDP since 1 July 2026): https://inspire-geoportal.ec.europa.eu/
+- data.europa.eu news — INSPIRE and open data: https://data.europa.eu/en/news-events/news/inspire-open-data
+- EDP data-provider manual — search & APIs (geospatial filter, map search, SPARQL, Search API): https://dataeuropa.gitlab.io/data-provider-manual/how-to-search/search-for-datasets/
+- Open Data Directive (EU) 2019/1024: https://eur-lex.europa.eu/eli/dir/2019/1024/oj
