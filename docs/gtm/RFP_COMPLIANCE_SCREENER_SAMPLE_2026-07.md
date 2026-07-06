@@ -4,16 +4,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/gtm-skills-planning-7ui3kd | Date: 05.07.2026 | Changes: Checked the §4 next-rep trigger against the live schema (`supabase/migrations/046_ted_leads.sql`). Found the trigger references a status value (`qualified`) that does not exist in `ted_leads.outreach_status`'s CHECK constraint — see new §5. Could not query live `ted_leads` rows this session (Supabase MCP connection was unavailable); no rep #2 run, no fabricated data substituted.
 - Version: 1.0 | Tool: Claude Code (Sonnet 5) | Session: claude/gtm-skills-planning-7ui3kd | Date: 01.07.2026 | Changes: First manual rep of RFP/tender compliance screening per the Skill Codification Rule (GTM_SKILLS_GAP_PLAN_2026.md §2.2). No real tender requirement matrix exists in the repo yet (TED pipeline sources leads, not requirement docs), so this rep uses a representative Nordic public-procurement requirement checklist and screens it against DWS's actual, current certification status from DWS_STANDARDS_LIBRARY.md.
 
 Document Status:
 
 - Created: 01.07.2026
-- Last Modified: 01.07.2026
+- Last Modified: 05.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT
@@ -96,3 +97,42 @@ and this repo has no record of which is true for any specific live tender.
 
 First TED-sourced lead that reaches `outreach_status = 'qualified'` with an
 actual requirement document attached or linked.
+
+**Correction (05.07.2026, see §5): this literal condition can never fire —
+`'qualified'` is not a valid `outreach_status` value in the live schema.**
+Use §5's corrected trigger going forward.
+
+## 5. Trigger defect found on this check (05.07.2026)
+
+This session tried to check the §4 trigger against real data and found two
+problems, both surfaced rather than worked around:
+
+1. **DB unreachable this session.** The Supabase MCP connection was not
+   available (server disconnected mid-session), so no live `ted_leads` rows
+   could be queried either way. This rep does not claim to have checked real
+   lead status — it could not.
+2. **The trigger condition is defective independent of (1).** The actual
+   `ted_leads.outreach_status` CHECK constraint
+   (`supabase/migrations/046_ted_leads.sql:33`, mirrored in
+   `supabase/migrations/consolidated_035_053.sql:1182`) only allows: `new`,
+   `researching`, `dm_sent`, `followed_up`, `replied`, `demo_booked`,
+   `closed_won`, `closed_lost`, `disqualified`. **`qualified` is not one of
+   them and never has been** — a repo-wide search found zero occurrences of
+   `outreach_status = 'qualified'` outside this doc's own trigger text. As
+   written, §4's trigger is unreachable; it would never fire no matter how
+   the real pipeline moves.
+
+**Corrected trigger, going forward:** treat `outreach_status = 'replied'` (a
+buyer has responded — the point at which a real tender/requirement
+conversation becomes possible) as the earliest plausible signal, and
+`demo_booked` as the strongest one. Neither status implies a requirement
+document is attached — that still has to be checked manually via the
+lead's `notes` field or a linked document, since the schema has no dedicated
+requirement-doc column. Do not add one speculatively; if this recurs across
+multiple leads, that's a real schema-gap finding for a future migration, not
+something to solve preemptively here.
+
+**Next rep trigger (corrected):** first TED-sourced lead reaching
+`outreach_status IN ('replied', 'demo_booked')` with requirement text
+identifiable in its `notes` field or `ted_url`, checked via a working DB
+connection.

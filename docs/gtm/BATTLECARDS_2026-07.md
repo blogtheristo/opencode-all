@@ -1,19 +1,20 @@
-# Sales Battlecards — Manual Rep #1
+# Sales Battlecards — Manual Rep #2
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/gtm-skills-planning-7ui3kd | Date: 05.07.2026 | Changes: Second manual rep — added Battlecard 5 (vs. "build in-house", R04 CTO objection) flagged as open in rep #1, using moat #16 (€3.50/mo infra) and the €3.05M–€8.35M / 24–36mo replication-barrier framing from 20-MOAT-FORTRESS.md's Canonical Moat List.
 - Version: 1.0 | Tool: Claude Code (Sonnet 5) | Session: claude/gtm-skills-planning-7ui3kd | Date: 01.07.2026 | Changes: First manual rep of competitor battlecards per the Skill Codification Rule (GTM_SKILLS_GAP_PLAN_2026.md §2.1). 4 battlecards built from docs/competitor-pricing-analysis-2026-Q1.md pricing, 20-MOAT-FORTRESS.md moat numbers, and DWS_ROLES_REGISTRY.md role targeting.
 
 Document Status:
 
 - Created: 01.07.2026
-- Last Modified: 01.07.2026
+- Last Modified: 05.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT
@@ -161,12 +162,61 @@ argument we'd need to out-feature them on.
 
 ---
 
+## Battlecard 5: vs. "Build in-house" — target R04 CTO (R03 Head of R&D at chemicals/petrochemical accounts)
+
+**Their pitch:** "We have the engineering depth to build this ourselves — why
+pay a vendor for something our platform team can own?" No named competitor;
+the objection is internal capital allocation, not a market alternative.
+
+**Why they consider it:** CTOs at engineering-heavy accounts (Outokumpu,
+Kemira, Siemens SI Building Nordics) staff platform teams that could plausibly
+write a compliance-tracking layer, and in-house ownership avoids vendor
+lock-in and per-seat licensing.
+
+**Why we win instead:**
+
+- Total replication barrier is **€3.05M–€8.35M and 24–36 months**
+  (`20-MOAT-FORTRESS.md` §Canonical Moat List) — not a sprint-sized build. That
+  figure covers the full moat stack, not just the compliance calculation
+  layer, so quote it as the floor, not the ceiling, of what in-house
+  replication actually costs.
+- Moat #16 (€3.50/month infrastructure, 95% gross margin via Cloudflare +
+  edge hybrid) is an operational-tier moat (3–6 mo replication) on its own —
+  cheapest to copy, but only after the harder moats above it (NIS2 Article 21
+  expertise at 114 requirements, 12–24 mo; multi-tenant architecture;
+  KYA-governed audit trail) are already in place. An in-house team has to
+  build the expensive layers first to make the cheap layer meaningful.
+- Regulatory expertise depreciates fastest: NIS2 Article 21 (moat #6) and
+  CBAM/CSRD tracking are not one-time builds — they require continuous
+  regulatory-pipeline monitoring (see `/regulatory-radar`) as EU rules change.
+  An in-house build is a snapshot; a vendor relationship is maintained
+  currency. Ask what happens to their in-house tool the next time CBAM
+  scope expands — who tracks that, and on whose roadmap does the fix land
+  next to their actual product work?
+- KYA-governed, court-defensible audit trail (moat #18) is a liability
+  question, not just an engineering one: an in-house tool's audit defensibility
+  in front of an external assurance auditor or regulator has not been tested
+  by anyone but the team that built it. That is the opposite of the
+  third-party credibility an auditor is looking for.
+
+**Objection to expect:** "Our platform team already has 80% of this from
+[internal system] — the remaining 20% is a quarter of engineering time."
+**Rebuttal:** Ask what the 80% actually covers — data ingestion and
+dashboards are commodity; the moat is in the regulatory currency (NIS2/CBAM
+tracking that updates as rules change) and the audit-defensible trail, which
+is exactly the 20% that's hardest to build and never finished. This is a
+scoping question to ask the prospect, not an assertion to make unprompted.
+
+**Do not claim:** That in-house teams cannot technically build a compliance
+tracker — they can. Compete on total cost of ownership over time (ongoing
+regulatory maintenance, audit-defensibility risk) and opportunity cost
+(engineering time on core product vs. compliance plumbing), not on a claim
+that the build is impossible.
+
+---
+
 ## Open items for next rep
 
-- No battlecard yet for the "build in-house" objection (R04 CTO) — the most
-  likely objection at Outokumpu/Kemira/Siemens given their engineering depth.
-  Build this next using moat #16 (€3.50/mo infra) and the 24–36 month /
-  €3.05M–€8.35M replication-barrier framing from `20-MOAT-FORTRESS.md`.
 - Every "objection to expect" above is a hypothesis. Update this file the
   first time a real deal actually surfaces one of these objections verbatim —
   log it in `PIPELINE_SNAPSHOT_2026-07-01.md` §2 first, then correct the card
