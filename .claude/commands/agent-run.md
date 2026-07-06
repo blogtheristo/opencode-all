@@ -1,6 +1,6 @@
 ---
 name: agent-run
-description: Runs any named DWS IQ AI agent with structured input and returns scored results. Use when user says "run agent", "call agent", "execute [agent-name]", or mentions agents by name — sitesense, material-oracle, compliance, schedule-genius, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, construction, logistics, quality-gate, competitor-surveillance, seo-audit, lead-feedback.
+description: Runs any named DWS IQ AI agent with structured input and returns scored results. Use when user says "run agent", "call agent", "execute [agent-name]", or mentions agents by name — sitesense, material-oracle, compliance, schedule-genius, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, construction, logistics, quality-gate, competitor-surveillance, seo-audit, lead-feedback, aegis.
 ---
 
 Run any DWS IQ agent by name with the given input.
@@ -19,7 +19,9 @@ Input: $ARGUMENTS
 
 ## Available agents
 
-sitesense, schedule-genius, material-oracle, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, compliance-researcher, sales-outreach, construction, logistics, compliance, quality-gate, keyword-intent, competitor-surveillance, content-brief, seo-audit, lead-feedback, designer
+sitesense, schedule-genius, material-oracle, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, compliance-researcher, sales-outreach, construction, logistics, compliance, quality-gate, keyword-intent, competitor-surveillance, content-brief, seo-audit, lead-feedback, designer, aegis
+
+`aegis` — vulnerability & patch SLA triage (Dependabot alerts, npm audit). Input: `{"action": "triage", "findings": [{"severity": "critical|high|moderate|low", "package": "...", "discoveredAt": "YYYY-MM-DD"}]}`. See `docs/SECURITY_ROLES_AND_GUIDANCE.md` and `security-reports/SECURITY_BACKLOG_BUG_FIXES.md`.
 
 ## Examples
 
