@@ -38,6 +38,8 @@ import supportRoutes from './routes/support.routes.js';
 import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
+import nudgeRoutes from './routes/nudge.routes.js';
+import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
@@ -211,11 +213,14 @@ app.use(apiVersionMiddleware);
 // causing the webhook handler to hang until Cloud Run kills the request at
 // the 60s timeout.
 app.use((req, res, next) => {
-  if (req.path.startsWith('/webhooks/stripe')) return next();
+  // Webhooks that verify an HMAC over the raw body must NOT be pre-parsed.
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
   return express.json({ limit: '10kb' })(req, res, next);
 });
 app.use((req, res, next) => {
-  if (req.path.startsWith('/webhooks/stripe')) return next();
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
   return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
 });
 
@@ -326,6 +331,10 @@ app.use('/api/v1/b2b', b2bPaymentRoutes);
 // Stripe webhook (invoice payments, refunds, customer events)
 app.use('/webhooks/stripe', stripeWebhookRoutes);
 
+// Nudge callback webhook (Teams/Slack button click → resolveNudge).
+// Mounted before express.json so its HMAC can verify the raw body.
+app.use('/webhooks/nudge', nudgeWebhookRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
@@ -341,6 +350,9 @@ app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// Nudge inbox (in_app channel — list + resolve pending proactive nudges)
+app.use('/api/v1/nudges', nudgeRoutes);
 
 // GTM Events API (Google Tag Manager event logging — Phase 1)
 app.use('/api/gtm/events', gtmEventsRoutes);

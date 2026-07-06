@@ -206,6 +206,24 @@ class NudgeService {
     );
   }
 
+  /** Fetch a single nudge by id (any status), or null. */
+  async getNudge(nudgeId: string): Promise<NudgeRecord | null> {
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('agent_nudges')
+        .select('*')
+        .eq('id', nudgeId)
+        .limit(1)
+        .maybeSingle();
+      if (error) {
+        logger.debug('getNudge query error (treating as none)', { error: error.message });
+        return null;
+      }
+      return data ? rowToRecord(data) : null;
+    }
+    return this.memStore.get(nudgeId) ?? null;
+  }
+
   /** List pending nudges for an org (dashboard / poller dedup). */
   async listPending(orgId?: string): Promise<NudgeRecord[]> {
     if (supabase) {
