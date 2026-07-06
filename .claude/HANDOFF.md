@@ -22,18 +22,19 @@ session's context automatically.
 
 ## CURRENT HANDOFF
 
-- **Branch:** claude/session-container-memory-6ccpnf
-- **Task:** Fix cross-session memory loss in ephemeral cloud containers
-  ("synthetic alzheimer") by adding this git-committed handoff log.
-- **State:** Handoff mechanism implemented — this file created,
-  session-start.sh surfaces it, CLAUDE.md workflow section points to it.
-- **Next steps:** None — mechanism is live. Future sessions: keep this section
-  current per the protocol above.
-- **Blockers:** Container size itself cannot be changed from inside a session;
-  user must pick a larger machine in claude.ai/code environment settings.
+- **Branch:** claude/aiven-partnership-intro-vm1fgk
+- **Task:** Record Aiven inbound contact (Leevi Lindfors, account manager,
+  2026-07-06) and draft Risto's reply.
+- **State:** `Partners/outreach/2026-04-18-aiven.md` updated to v1.1 — named
+  contact added, sandbox status recorded (attempt #1 failed, attempt #2 in
+  progress), FI + EN reply drafts in §8. Email send is RED zone: Risto sends.
+- **Next steps:** Risto reviews/sends the §8 reply; book the best-practices
+  call; report sandbox attempt #2 outcome back into the partner record.
+- **Blockers:** None.
 
 ---
 
 ## HANDOFF HISTORY
 
+- 2026-07-06 | claude/aiven-partnership-intro-vm1fgk | Aiven partner record v1.1: Leevi Lindfors contact + reply draft (human sends).
 - 2026-07-05 | claude/session-container-memory-6ccpnf | Created handoff log mechanism (file + session-start hook + CLAUDE.md pointer).
