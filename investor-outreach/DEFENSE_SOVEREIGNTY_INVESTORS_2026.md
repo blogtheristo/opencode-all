@@ -39,11 +39,11 @@ This rule was learned from the Sentris Capital rejection (2026-04-01). See `docs
 | Keen Venture Partners (Giuseppe)  | In pipeline   | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
 | Lifeline Ventures (Timo Ahopelto) | INTRO drafted | Not yet              | Send Aegis memo + SSAB case (INTRO_TIMO_AHOPELTO_LIFELINE.md)                                                                                                                                                            |
 | Join Capital (Jan Borgstadt)      | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
-| Vsquared Ventures                 | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
+| Vsquared Ventures (Thomas Oehl)   | INTRO drafted | Not yet              | Send Aegis memo + SSAB case (INTRO_THOMAS_OEHL_VSQUARED.md)   |
 | NATO Innovation Fund              | INTRO drafted | Not yet              | **WEDGE: Kusti Salm (NIF board + Frankenburg CEO + Milrem chair). Run Frankenburg case first → Salm bridges to NIF.** Partner-level intro: INTRO_ERIN_HALLOCK_NATO_INNOVATION_FUND.md. See WEDGE_NIF_KUSTI_SALM_AEGIS.md |
 | OTB Ventures                      | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
 | DEFINE Finland                    | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
-| Tesi                              | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
+| Tesi                              | INTRO drafted | Not yet              | Co-investor relay via Lifeline/DEFSEC (INTRO_TESI_DEFSEC.md)  |
 | Lifeline Ventures                 | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
 | FiBAN DEFSEC                      | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
 | DTCP Project Liberty              | Not contacted | Not yet              | Send Aegis memo                                                                                                                                                                                                          |
@@ -87,7 +87,7 @@ This rule was learned from the Sentris Capital rejection (2026-04-01). See `docs
 - Pre-seed/seed, growing into later stages with Fund VI
 - LinkedIn (Timo Ahopelto): linkedin.com/in/timoahopelto/
 - Website: lifelineventures.com
-- **INTRO drafted:** `INTRO_TIMO_AHOPELTO_LIFELINE.md` (2026-06-07) — next Dual Use target after Matti Heikkonen deprioritized (DD PASS). Lifetime Group autonomous-mobility/robotics RaaS, defence-first.
+- **INTRO drafted:** `INTRO_TIMO_AHOPELTO_LIFELINE.md` (2026-06-07) — Dual Use target. Lifetime Group autonomous-mobility/robotics RaaS, defence-first.
 
 ### 3. FiBAN DEFSEC Event — Riihimaki
 
