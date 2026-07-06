@@ -11,9 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.76
+Version: 3.77
 Sessions & Modifications:
 
+- Version: 3.77 | Tool: Claude Code | Session: claude/dws-nvidia-os-NDuOs | Date: 19.05.2026 | Changes: Reframed §1.2 around a single unifying artefactual spine — **DWS OS, the NVIDIA-based, EU-sovereign on-premises AI operating system** — in response to two industrial signals 48 hours apart: (1) Dell + Palantir "On-Premises AI Operating System", 18.05.2026, US-domiciled on-prem; (2) Google "Antigravity Agent Operating System", 19.05.2026, hyperscaler-cloud, demonstrated with 93 subagents / 12 hours / 15K+ model requests / 2.6 B tokens / <$1K API credits. Added §1.2.2 (Unified DWS OS Spine and Scenario Prioritization) with the 9-scenario × 5-axis suitability matrix (Originality / Feasibility-now / Publishability / Funding-magnet / Article-1-2026-ready) ranking KYA Standard (§1.2 RQ2) and DWS OS (new) as the two leading scenarios; collapsed Agentic Commerce / EU eWallet / Transaction primitives (§1.2 RQ4–RQ6) from three standalone articles into one monograph forward-looking chapter on the basis that eIDAS 2.0 wallets are not operational at industrial scale within the thesis horizon. Added §14.36 (Two-Signal Convergence: On-Prem AI OS as a Named 2026 Category — Dell + Palantir and Google Antigravity, and the EU-Sovereign Answer), positioning DWS OS as the open EU-sovereign variant of the named category, with the 8-dimension sovereignty rubric (`DWS_SOVEREIGNTY_STANDARD.md`) as the formal comparator. Article 2 (2027) target reframed to *Sovereign by Construction — An Architectural Pattern for the EU On-Premises AI Operating System*, with Dell + Palantir and Google Antigravity as the named comparators. Companion deliverables created: `docs/DWS_OS_POSITIONING.md` (industrial framing), `docs/lut/2026-05-19-letter-smolander-unified-scope.md` (supervisor letter with prioritization table), `docs/lut/dws-os-research-scope.md` (EN one-pager), `docs/lut/dws-os-research-scope-fi.md` (careful Finnish one-pager), `docs/lut/2026-05-19-research-scope-smolander.md` (long chapter). Key Contribution #43 added — DWS OS as the Unifying Artefactual Spine for EU-Sovereign Agentic AI. All 4 thesis files bumped to v3.77 in lockstep per CLAUDE.md thesis rule; V3Thesis files receive a lockstep-only version-bump entry since this is a PhD-side research-framing addition (per §1.3 master-vs-PhD scope rule). `Learn/` HTML regeneration required (not in this commit — needs Pandoc build). Merge note (06.07.2026, session claude/dws-nvidia-os-NDuOs merge): originally authored 19.05.2026 as v3.58 / §14.20 / Key Contribution #25; renumbered to v3.77 / §14.36 / Key Contribution #43 on merge because main's v3.58–v3.76, §14.20–§14.35 and KC#25–#42 were already claimed by other sessions (same convention as the v3.73 renumber).
 - Version: 3.76 | Tool: Claude Code | Session: claude/physical-ai-first-person-3mmu70 | Date: 05.07.2026 | Changes: Added §14.35 (The First-Person Data Bottleneck: Jensen Huang's "Digital Robot" Framing and Sovereign Operational Data as the Scarce Physical-AI Input) + Key Contribution #42. Maps Jensen Huang's framing of agentic AI as a "digital robot" (it understands, reasons, plans, acts, uses tools) and his identification of first-person data — against the world's overwhelmingly third-person video corpus — as the hardest problem in physical AI onto the DWS operating model: (a) re-identifies the §14.13 LWM Sequencing Phase-3 gating input as first-person demonstration/operational data, not compute (§14.18, resolved) nor alignment (§14.19, resolved); (b) maps Huang's five-element physical-AI stack (data engine / simulator / reward / runtime / computer) element-for-element onto the Brain–Memory–Body–Hands architecture and specifies the production mechanism of Perception Capital (§14.26) as first-person operational data accumulated under the Article-12 data engine, pricing the §14.26 data-network effect; (c) names a sovereign, consent-governed, EU-resident first-person industrial corpus as the defensible, non-replicable input — converting data residency from a compliance cost into a moat (GDPR / EU Data Act / EU AI Act Article 10), standing opposite the §14.21 involuntary-telemetry route — and adds a first-person-data-provenance predicate (first-person / consent-governed / jurisdiction-resident / lineage-traceable) to the four-track KYA suite (ASB/EAB/CSB/SIB). Composes with §14.13/§14.18/§14.19/§14.21/§14.26/§14.31. Section number, version, and Key Contribution number advanced from the original v3.71/§14.33/#39 draft to v3.76/§14.35/#42 to avoid collision with main's already-landed §14.33 (RQGM), §14.34 (National Aggregation), and KC #39–#41. PhD scope per §1.3 (3–7 year horizon, market signal). All 4 thesis files bumped to v3.76 in lockstep per CLAUDE.md thesis rule; V3Thesis files receive a lockstep-only version-bump entry since this is a pure market-signal/scientific-framing addition (per §1.4 master-vs-PhD scope rule). `Learn/` HTML regenerated at v3.76 via scripts/gen-thesis-html.cjs. Primary source: Jensen Huang (NVIDIA), public remarks on agentic and physical AI, 2026.
 - Version: 3.75 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added §14.34 (The National Aggregation-Effect Framework: Finland's Ministry of Finance Security-Oriented Information Management Guide and DWS's Retention Model) + Key Contribution #41. Source: Ministry of Finance (Finland), "Critical Infrastructure and Open Information — A Guide to Security-Oriented Information Management," VM 2026:27, 17 June 2026. Connects the guide's aggregation-effect assessment criterion (§4.4.2, VM 2026:27) to DWS's independently developed four-layer retention model for Control Room / Situation Room products (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`) — demonstrates convergence between national regulatory guidance and sector-specific sovereign architecture. Four-measure standard-layer implication table. PhD scope §1.3 (regulatory pipeline, 3–7 year horizon). All 4 thesis files bumped to v3.75 in lockstep per CLAUDE.md thesis rule; V3Thesis files receive a lockstep-only version entry (market signal/regulatory framing → per PhD §1.4, not implementation content).
 - Version: 3.74 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: Lockstep bump per CLAUDE.md thesis rule (master CSRD post-Omnibus correction). Verified: NO stale CSRD company-count figure in this PhD file — all "49,000/50,000" matches are false positives (249,000 Unitree packages, ~450,000t CO2, ~50,000 Unitree units), so no content correction was needed (lockstep version bump only). Learn/ HTML regeneration PENDING (Pandoc). DWS_TRUTH_STANDARD v2.5 section 2C.
@@ -162,6 +163,39 @@ The following five questions are reformulated from the thesis's early operationa
 4. **Ontological grounding as a prerequisite for auditable multimodal recommendations** — What level of domain-ontology grounding is necessary for multimodal AI recommendations (voice + text) to meet EU AI Act Article 13 transparency requirements in B2B industrial procurement? Is ontological grounding sufficient, or does regulatory auditability require additional provenance mechanisms (e.g., chain-of-thought logging, source attribution)?
 
 5. **Risk classification conflicts between EU AI Act and sector-specific regulations** — When EU AI Act risk classification (Articles 9, 13, 17) is applied to AI-assisted recommendation systems serving simultaneously CSRD, ETS, and CBAM-regulated industries, does the interaction produce complementary compliance obligations or irreconcilable conflicts? Which conflicts, if any, require new regulatory guidance to resolve?
+
+### 1.2.2 Unified DWS OS Spine and Scenario Prioritization (v3.77)
+
+In response to two industrial signals 48 hours apart — Dell and Palantir's "On-Premises AI Operating System" announcement of 18.05.2026, and Google's "Antigravity Agent Operating System" public demonstration of 19.05.2026 (93 subagents, 12 hours, 15,000+ model requests, 2.6 billion tokens, under USD 1,000 in API credits) — the doctoral programme is reframed around a single unifying artefactual object:
+
+**DWS OS** — the NVIDIA-based, EU-sovereign on-premises AI operating system. Already operating in 24/7 production on NVIDIA GB10 Grace Blackwell (Acer Veriton GN100), running Nemotron 3 Super (123.6 B / 12.7 B-active MoE) and Qwen3-Coder 30B via Ollama, under the OpenClaw agent runtime, with KYA (Know-Your-Agent) governance and Firecracker MicroVM hardware isolation (< 125 ms kill, AWS benchmark). Operator: Lifetime Oy, Finland.
+
+The six prior research questions (§1.2) are preserved as **workloads on, and instantiations of, DWS OS** rather than as parallel research streams. KYA (§1.2 RQ2) is the governance standard that runs inside DWS OS. The carbon balance sheet (§1.4) is the flagship workload. Agentic Commerce, EU eWallet, and Transaction primitives (§1.2 RQ4–RQ6) collapse into one monograph forward-looking chapter rather than three separate articles, on the basis that eIDAS 2.0 wallets are not operational at industrial scale within the thesis horizon.
+
+To make the prioritization explicit, every scenario currently on the table is scored on five axes — **Originality** (defensible novelty), **Feasibility** (artefact exists now), **Publishability** (clear peer-reviewed venues), **Funding-magnet** (Horizon / Defence / Industry money pulls toward it), and **Article-1-2026-ready** (can it ship a paper this year?). Scale 1–5; brutal, not flattering.
+
+| # | Scenario | Orig | Feas | Pub | Fund | A1-26 | **Total** |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|
+| B | KYA Standard (§1.2 RQ2) | 4 | 5 | 5 | 4 | **5** | **23** |
+| **I** | **DWS OS architecture (new, this version)** | **5** | **5** | **4** | **5** | **3** | **22** |
+| H | KYA / DWS 7 / Dual-use streams (§1.5) | 3 | 4 | 4 | 5 | 4 | 20 |
+| G | Carbon Balance Sheet (§1.4) | 4 | 4 | 4 | 4 | 3 | 19 |
+| A | Cross-industry ontologies (§1.2 RQ1) | 3 | 3 | 4 | 4 | 3 | 17 |
+| C | Standardization pathway (§1.2 RQ3) | 3 | 3 | 4 | 4 | 2 | 16 |
+| D | Agentic Commerce (§1.2 RQ4) | 4 | 2 | 4 | 3 | 2 | 15 |
+| F | Transaction primitives (§1.2 RQ6) | 3 | 2 | 3 | 3 | 2 | 13 |
+| E | EU eWallet (§1.2 RQ5) | 3 | 1 | 3 | 3 | 1 | 11 |
+
+**Reading.** KYA (B) and DWS OS (I) lead by a clear gap and are *not* rivals — KYA is the **governance standard**, DWS OS is the **host architecture**. Every other scenario is a **workload** that runs on DWS OS and uses KYA. This is the structural insight the prior plan did not yet exploit. The two-signal convergence of 18.05–19.05.2026 (see §14.36) names the surrounding category publicly and shortens the window in which the open EU-sovereign variant can be claimed as a peer rather than as a follower.
+
+**Revised publication phasing.**
+
+- **2026, Q3 — Article 1: KYA Standard** (open governance framework). Unchanged from §1.6.
+- **2027 — Article 2: *Sovereign by Construction — An Architectural Pattern for the EU On-Premises AI Operating System.*** Named comparators: Dell + Palantir on-prem AI OS (18.05.2026), Google Antigravity Agent OS (19.05.2026), Palantir Foundry standalone, pure-cloud frontier. Evaluation instrument: the 8-dimension sovereignty rubric of `DWS_SOVEREIGNTY_STANDARD.md`.
+- **2028 — Articles 3–4: 20-vertical empirical case base**, two named flagships (carbon balance sheet under CBAM / ETS / CSRD; dual-use / defence under NIS2 + national security regimes).
+- **2028–2029 — Monograph synthesis and defence.** Includes the *Reasoning–Behaviour Gap and Hardware-Attested Falsifiability* theoretical chapter (extending §14.19) and the forward-looking *Agentic Commerce / eWallet / Transactions* chapter that absorbs §1.2 RQ4–RQ6.
+
+Companion deliverables circulated to the supervisor on 19.05.2026: `docs/lut/2026-05-19-letter-smolander-unified-scope.md` (supervisor letter), `docs/lut/dws-os-research-scope.md` (EN one-pager), `docs/lut/dws-os-research-scope-fi.md` (careful Finnish one-pager), `docs/lut/2026-05-19-research-scope-smolander.md` (long chapter), `docs/DWS_OS_POSITIONING.md` (industrial framing).
 
 ### 1.3 Scope
 
@@ -3122,6 +3156,56 @@ Standards-layer implication: the four-track KYA suite gains a **data-provenance 
 #### 14.35.4 Research Contribution
 
 **Key Contribution #42 — The First-Person Data Bottleneck and Sovereign Operational Data as the Scarce Physical-AI Input:** Jensen Huang's "digital robot" framing of agentic AI and his identification of first-person data — against the world's overwhelmingly third-person video corpus — as the hardest problem in physical AI are mapped onto the DWS operating model to yield three results. (a) The §14.13 LWM Sequencing Strategy Phase-3 gating input is re-identified: not compute (§14.18) and not alignment (§14.19) but first-person demonstration/operational data. (b) Huang's five-element physical-AI stack (data engine, simulator, reward, runtime, computer) is shown to map element-for-element onto the Brain–Memory–Body–Hands architecture, and the production mechanism of Perception Capital (§14.26) is specified as first-person operational data accumulated under the Article-12 data engine, pricing the §14.26 data-network effect. (c) A sovereign, consent-governed, EU-resident first-person industrial corpus is named as the defensible, non-replicable input — converting data residency from a compliance cost into a moat (GDPR / EU Data Act / EU AI Act Article 10) and standing opposite the §14.21 involuntary-telemetry route — and a first-person-data-provenance predicate (first-person / consent-governed / jurisdiction-resident / lineage-traceable) is added to the four-track KYA suite as the conformance-language form of "data is the hardest problem." Positioned at the 3–7 year horizon (§1.3) because it depends on the physical-AI deployment curve, the maturation of EU digital-twin / simulator partners, and the EU AI Act Article 10/12 enforcement trajectory. _Primary source: Jensen Huang (NVIDIA), public remarks on agentic and physical AI, 2026. Composes with §14.13, §14.18, §14.19, §14.21, §14.26, §14.31._
+
+### 14.36 Two-Signal Convergence: On-Prem AI OS as a Named 2026 Category — Dell + Palantir and Google Antigravity, and the EU-Sovereign Answer
+
+#### 14.36.1 The 48-Hour Convergence
+
+Between 18 May and 19 May 2026, two industry announcements named the **Agent / AI Operating System** as a category — from opposite ends of the deployment spectrum.
+
+**18.05.2026 — Dell + Palantir, *On-Premises AI Operating System*.** Dell Newsroom, byline Rajbir Panag, "Dell and Palantir Introduce an On-Premises AI Operating System." Architecture: Dell AI Factory hardware (with NVIDIA accelerators) + Palantir Foundry / AIP as the semantic and agent layer. Marketed pillars: unified data (Foundry semantic layer), security and compliance (data sovereignty, zero-trust), pilot-to-production (validated reference architectures + dedicated support). Vendor domicile: both primary vendors US, therefore US CLOUD Act exposure attaches to the vendor relationship itself, on-premises deployment notwithstanding.
+
+**19.05.2026 — Google, *Antigravity Agent Operating System*.** Public demonstration with a benchmark run: **93 subagents, 12 hours, 15,000+ model requests, 2.6 billion tokens, under USD 1,000 in API credits.** Architecture: hyperscaler-cloud-native, Google-domiciled, sub-agent orchestration on Google's inference fabric.
+
+The two announcements are not in competition with each other; together they name the category from both ends — on-premises (Dell + Palantir) and cloud (Google Antigravity). Both are US-domiciled. Neither claims EU sovereignty in any structural sense; sovereignty in the Dell + Palantir announcement is a marketing pillar, not an architectural property.
+
+#### 14.36.2 The EU-Sovereign Variant: DWS OS
+
+DWS OS occupies the third quadrant of the convergence map: **open, EU-sovereign, on-premises**. It is not a positioning relabel — it is a name for the integrated stack already running 24/7 in DWS production (see §14.18 for the underlying NVFP4 hardware moat and §1.2.2 for the unified spine):
+
+- **Hardware:** Acer Veriton GN100 with NVIDIA GB10 Grace Blackwell SoC, 128 GB unified LPDDR5x, TPM 2.0 attestation.
+- **Inference:** Nemotron 3 Super (123.6 B / 12.7 B-active MoE, ~19.5 tok/s — 4.5× dense Llama 70B) + Qwen3-Coder 30B via Ollama; NIM-compatible.
+- **Agent runtime:** OpenClaw, Nemotron-anchored, no cloud egress. Jensen Huang named OpenClaw "the operating system for personal AI" at NVIDIA GTC 2026 keynote (16.03.2026, see field note `2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md`); DWS OS extends that framing to enterprise and government.
+- **Governance:** KYA + Firecracker MicroVM (< 125 ms kill, AWS benchmark) + 20-industry regulatory engine (CBAM, ETS, CSRD, EU AI Act Art. 12 / 14 / 72, NIS2, DORA).
+- **Operator:** Lifetime Oy (FI), business ID 0772407-9 — EU-domiciled in the critical path.
+
+#### 14.36.3 The Three-Quadrant Comparator Map
+
+| Axis | Dell + Palantir On-Prem AI OS | Google Antigravity Agent OS | DWS OS |
+|---|---|---|---|
+| Deployment | On-premises (validated stack) | Hyperscaler cloud | On-premises (EU-operated) |
+| Primary vendor domicile | US (Dell) + US (Palantir) | US (Google) | EU (Lifetime Oy, FI) |
+| CLOUD Act exposure via vendor | High | High | None |
+| Semantic / ontology layer | Palantir Foundry (proprietary) | Google-internal | Open; BYO ontology |
+| Agent runtime | Palantir AIP | Google sub-agent fabric (Antigravity) | OpenClaw (open, EU-sovereign) |
+| Inference fabric | Closed within Dell AI Factory | Google cloud | Open: Ollama / NIM-compatible |
+| Hardware isolation | Software guardrails | Cloud tenant isolation | Firecracker MicroVM, TPM 2.0 attestation |
+| EU AI Act Art. 12 / 14 / 72 | Compliance via mapping work | Compliance via cloud terms | Compliance by construction |
+| Lock-in shape | Foundry ontology + Dell support | Hyperscaler API + token spend | Open models, open runtime, replaceable hardware |
+
+The fair statement: Dell + Palantir is a strong validated stack for US enterprises and US-aligned governments; Google Antigravity is a strong cloud-native option where scale, elasticity, and cost-per-token dominate. Neither addresses the EU-sovereign on-premises buyer whose procurement risk is vendor-domicile CLOUD Act exposure. DWS OS is the open EU-sovereign variant of the same category.
+
+#### 14.36.4 Research Implications
+
+Three implications for the doctoral programme follow from the convergence:
+
+1. **Article 2 (2027) target acquires named comparators.** *Sovereign by Construction — An Architectural Pattern for the EU On-Premises AI Operating System* now compares DWS OS to (i) Dell + Palantir on-prem AI OS (18.05.2026) and (ii) Google Antigravity Agent OS (19.05.2026) along the 8-dimension sovereignty rubric of `DWS_SOVEREIGNTY_STANDARD.md`. This converts an architectural argument into a falsifiable comparative evaluation.
+2. **Window of publication priority is narrow.** Industry has named the category; academic publication that defines the open EU-sovereign variant has citation value primarily during the 2026–2027 window. After that, the open variant either becomes the standard or a footnote to whichever closed variant achieves enterprise adoption.
+3. **KYA standardization gains urgency.** Two closed reference architectures are now on the table. An open governance standard that interoperates with neither is unlikely to gain traction; an open governance standard that can govern agents running on *all three* (Dell + Palantir, Google Antigravity, DWS OS) becomes the interoperability layer the category needs. Article 1's KYA framing should be tightened to claim that scope explicitly.
+
+#### 14.36.5 Research Contribution
+
+**Key Contribution #43 — DWS OS as the Unifying Artefactual Spine for EU-Sovereign Agentic AI.** The convergence of 18–19 May 2026 publicly names the on-prem / cloud Agent Operating System category from both ends, both US-domiciled. The doctoral contribution is the open, EU-sovereign variant of that category, made falsifiable by (a) a productionised reference deployment (NVIDIA GB10 + Nemotron 3 Super + OpenClaw + KYA + Firecracker), (b) an 8-dimension sovereignty rubric applied uniformly to all three quadrants of the comparator map, and (c) a governance standard (KYA, Article 1) whose conformance suite is operable on any of the three. The contribution generalises beyond Lifetime Oy: the same pattern applies to any EU-domiciled operator that must deploy agentic AI under CBAM / CSRD / NIS2 / DORA / EU AI Act obligations without acquiring vendor-domicile CLOUD Act exposure. The contribution is positioned at the 3–7 year horizon (per the master-versus-PhD scope rule §1.3) because the standardisation pathway (Agentic AI Foundation / Linux Foundation / NIST profile extension) and the EU sovereign-cloud procurement frameworks (Horizon Europe Sovereign Cloud, Gaia-X) mature on that timeline.
 
 ## Appendix H: KYA Partner Ecosystem
 
