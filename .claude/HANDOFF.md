@@ -22,18 +22,27 @@ session's context automatically.
 
 ## CURRENT HANDOFF
 
-- **Branch:** claude/session-container-memory-6ccpnf
-- **Task:** Fix cross-session memory loss in ephemeral cloud containers
-  ("synthetic alzheimer") by adding this git-committed handoff log.
-- **State:** Handoff mechanism implemented — this file created,
-  session-start.sh surfaces it, CLAUDE.md workflow section points to it.
-- **Next steps:** None — mechanism is live. Future sessions: keep this section
-  current per the protocol above.
-- **Blockers:** Container size itself cannot be changed from inside a session;
-  user must pick a larger machine in claude.ai/code environment settings.
+- **Branch:** claude/aiven-partnership-intro-vm1fgk
+- **Task:** Record Aiven inbound contact (Leevi Lindfors, account manager,
+  2026-07-06) and draft Risto's reply.
+- **State:** Partner record at v1.12 — full track documented. Direction
+  locked: consulting-partner model (founder). Materials received & analyzed
+  (`Partners/aiven-received/`): Aiven's countersigned NDA (§9 comparison —
+  recommend signing theirs) + generic sales deck (zero partner terms; Leevi
+  = ISR, confirms §5.2 read; Wärtsilä VERIFIED via logo slide). §10 customer
+  overlap screen (Wärtsilä > Toyota EU > Adeo > Conrad; Claroty = Aegis
+  signal). §8b reply letter SENT by Risto 2026-07-06 (NDA sign-off + Art.
+  8.3 position + DPA ask + partner-org intro ask + UpCloud/sandbox ask +
+  Wärtsilä public-link ask).
+- **Next steps:** WAITING on Aiven: partner-org intro, UpCloud answer,
+  platform DPA, Wärtsilä link. NDA envelope `f7382f1c-4342-856a-81df-9fc4f27206db` SENT via DocuSign
+  2026-07-06 17:03 EEST — Risto signs, downloads, returns to Leevi. On partner-
+  org response: validate consulting terms against §4 checklist + §5.2 stance.
+- **Blockers:** DocuSign only possible on local machine with .env keys.
 
 ---
 
 ## HANDOFF HISTORY
 
+- 2026-07-06 | claude/aiven-partnership-intro-vm1fgk | Aiven partner record v1.1: Leevi Lindfors contact + reply draft (human sends).
 - 2026-07-05 | claude/session-container-memory-6ccpnf | Created handoff log mechanism (file + session-start hook + CLAUDE.md pointer).
