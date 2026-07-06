@@ -3,7 +3,7 @@
  *
  * All 50 agents write through this class. Provides:
  *   - Structured JSONL to disk (logs/agent-YYYY-MM-DD.jsonl)
- *   - Supabase agent_executions row (non-blocking)
+ *   - Internal Postgres (DGX Spark) agent_executions row (non-blocking)
  *   - Consistent run IDs for cross-system correlation
  *
  * Distinct from article12-logger.ts (EU AI Act audit trail).
@@ -24,7 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import type { AgentContext, AgentResponse } from './types.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -131,19 +131,7 @@ function writeLine(line: LogLine): void {
   }
 }
 
-// ─── Supabase writer ──────────────────────────────────────────────────────────
-
-let supabase: SupabaseClient | null = null;
-
-function getSupabase(): SupabaseClient | null {
-  if (supabase) return supabase;
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (url && key) {
-    supabase = createClient(url, key);
-  }
-  return supabase;
-}
+// ─── Internal Postgres writer ─────────────────────────────────────────────────
 
 async function writeToDb(
   runId: string,
@@ -151,22 +139,28 @@ async function writeToDb(
   context: AgentContext,
   input: Record<string, unknown>,
 ): Promise<void> {
-  const client = getSupabase();
-  if (!client) return;
+  const pool = getInternalDbPool();
+  if (!pool) return;
   try {
-    await client.from('agent_executions').insert({
-      id: runId,
-      agent_name: agentName,
-      user_id: context.userId,
-      org_id: context.orgId,
-      session_id: context.sessionId,
-      project_id: context.projectId,
-      input,
-      output: null,
-      status: 'started',
-      duration_ms: 0,
-      created_at: new Date().toISOString(),
-    });
+    await pool.query(
+      `INSERT INTO agent_executions (
+         id, agent_name, user_id, org_id, session_id, project_id, input,
+         output, status, duration_ms, created_at
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      [
+        runId,
+        agentName,
+        context.userId,
+        context.orgId,
+        context.sessionId,
+        context.projectId,
+        JSON.stringify(input),
+        null,
+        'started',
+        0,
+        new Date().toISOString(),
+      ],
+    );
   } catch {
     // Non-blocking
   }
@@ -179,18 +173,21 @@ async function updateDb(
   latencyMs: number,
   errorMessage?: string,
 ): Promise<void> {
-  const client = getSupabase();
-  if (!client) return;
+  const pool = getInternalDbPool();
+  if (!pool) return;
   try {
-    await client
-      .from('agent_executions')
-      .update({
-        output: response,
+    await pool.query(
+      `UPDATE agent_executions
+       SET output = $1, status = $2, error_message = $3, duration_ms = $4
+       WHERE id = $5`,
+      [
+        response === null ? null : JSON.stringify(response),
         status,
-        error_message: errorMessage ?? null,
-        duration_ms: latencyMs,
-      })
-      .eq('id', runId);
+        errorMessage ?? null,
+        latencyMs,
+        runId,
+      ],
+    );
   } catch {
     // Non-blocking
   }
