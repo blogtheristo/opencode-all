@@ -25,19 +25,20 @@ session's context automatically.
 - **Branch:** claude/aiven-partnership-intro-vm1fgk
 - **Task:** Record Aiven inbound contact (Leevi Lindfors, account manager,
   2026-07-06) and draft Risto's reply.
-- **State:** Partner record at v1.6. Done this session: call outcomes (NDA /
-  reseller-or-consulting / materials incoming); signable HTML NDA
-  `Learn/NDA_AIVEN_2026_v1.0.html` with Art. 8.3 (NDA ≠ GDPR basis for
-  customer data); DPA-before-tender-data rule; Wärtsilä reference recorded
-  (unverified); field notes on DGX/EDB vs Aiven/UpCloud + Wärtsilä-stack
-  (Pega/Dataddo/GEMS) compatibility; §5.1 revenue model (5 streams, ranked);
-  §5.2 negotiation stance (AM hunts our customers, volume reseller dead at
-  our volume → referral/deal-reg + partnerships-org track instead).
-- **Next steps:** Risto sends NDA + asks for platform DPA (RED zone); on
-  materials arrival check reseller margin %, deal-reg/referral terms, who
-  owns billing; verify Wärtsilä reference link; UpCloud region + free dev
-  mode for sandbox attempt #2.
-- **Blockers:** None.
+- **State:** Partner record at v1.12 — full track documented. Direction
+  locked: consulting-partner model (founder). Materials received & analyzed
+  (`Partners/aiven-received/`): Aiven's countersigned NDA (§9 comparison —
+  recommend signing theirs) + generic sales deck (zero partner terms; Leevi
+  = ISR, confirms §5.2 read; Wärtsilä VERIFIED via logo slide). §10 customer
+  overlap screen (Wärtsilä > Toyota EU > Adeo > Conrad; Claroty = Aegis
+  signal). §8b reply letter SENT by Risto 2026-07-06 (NDA sign-off + Art.
+  8.3 position + DPA ask + partner-org intro ask + UpCloud/sandbox ask +
+  Wärtsilä public-link ask).
+- **Next steps:** WAITING on Aiven: partner-org intro, UpCloud answer,
+  platform DPA, Wärtsilä link. WAITING on Risto: DocuSign signature — run
+  locally (container lacks DOCUSIGN\_\* keys): see §4 one-liner. On partner-
+  org response: validate consulting terms against §4 checklist + §5.2 stance.
+- **Blockers:** DocuSign only possible on local machine with .env keys.
 
 ---
 
