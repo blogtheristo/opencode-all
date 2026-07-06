@@ -484,6 +484,9 @@ or removing an agent.
 | `mnemosyne`              | Long-term memory oracle                           |
 | `panacea`                | Self-improving / adaptive optimization            |
 | `quality-gate`           | Quality-gate / QA verification                    |
+| `aegis` | AegisAgent | Vulnerability & patch governance — triages dependency and code-scan findings  | Llama 3.3 70B |
+| `helpdesk` | HelpdeskAgent | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,  | Llama 3.3 70B |
+| `vesta` | VestaAgent | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.  | Llama 3.3 70B |
 | `sales-outreach`         | B2B lead research & personalized outreach         |
 | `schedule-genius`        | Timeline & critical-path optimization             |
 | `sitesense`              | Site monitoring & safety analysis                 |
@@ -644,6 +647,6 @@ Root backend has `"lint": "echo \"No linter configured\""` — no real linter. D
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** July 5, 2026  
+**Last Updated:** July 6, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026
