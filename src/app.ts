@@ -34,6 +34,8 @@ import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
+import supportRoutes from './routes/support.routes.js';
+import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
@@ -70,6 +72,7 @@ import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { signalPoller } from './agents/signal-poller.js';
+import { inboundTicketScheduler } from './services/inbound-ticket.service.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
@@ -329,6 +332,8 @@ app.use('/mcp', createMCPRouter());
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/booking', bookingRoutes);
+app.use('/api/v1/support', supportRoutes);
+app.use('/api/v1/support', supportReviewRoutes);
 app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
@@ -693,6 +698,9 @@ const server = app.listen(PORT, () => {
   // ERP integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves). Scheduler
   // itself only starts when ERP_SCHEDULER_ENABLED=true (checked internally).
   initializeERPIntegrations();
+  // Poll inbound_emails → create support_tickets every INBOUND_TICKET_POLL_MS (default 30s).
+  // Disable with INBOUND_TICKET_DISABLED=true.
+  inboundTicketScheduler.start();
 
   // Initialize email queue (Redis Streams)
   emailQueue
@@ -738,6 +746,7 @@ process.on('SIGTERM', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   signalPoller.stop();
+  inboundTicketScheduler.stop();
   shutdownERPIntegrations();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
@@ -754,6 +763,7 @@ process.on('SIGINT', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   signalPoller.stop();
+  inboundTicketScheduler.stop();
   shutdownERPIntegrations();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
