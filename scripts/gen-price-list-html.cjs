@@ -92,10 +92,11 @@ function renderProductsTable(list) {
       .map((p) => {
         const priceCell = p.price === 0 ? '<span class="poa">Free / POA</span>' : eur(p.price);
         const note = p.priceNote ? `<div class="note">${esc(p.priceNote)}</div>` : '';
+        const caption = p.caption ? `<div class="caption">${esc(p.caption)}</div>` : '';
         return (
           '<tr>' +
           `<td class="id">${esc(p.id)}</td>` +
-          `<td class="name">${esc(p.name)}${note}</td>` +
+          `<td class="name">${esc(p.name)}${caption}${note}</td>` +
           `<td class="price">${priceCell}</td>` +
           `<td class="unit">${esc(unitLabel(p.type))}</td>` +
           `<td class="sku">${esc(p.mpn || p.sku || '—')}</td>` +
@@ -190,6 +191,7 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 .pl-table td.id,.pl-table td.sku{font-family:ui-monospace,Consolas,monospace;color:#555;font-size:.8rem;white-space:nowrap}
 .pl-table td.name{font-weight:600}
 .pl-table td.name .note{font-weight:400;color:#64748b;font-size:.82rem;margin-top:3px}
+.pl-table td.name .caption{font-weight:400;color:#1e3a5f;font-style:italic;font-size:.84rem;margin-top:3px}
 .pl-table td.price{font-weight:700;color:#065f46;white-space:nowrap;font-variant-numeric:tabular-nums}
 .pl-table td.unit{color:#334155;font-size:.82rem}
 .poa{color:#92400e}
