@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
+
+- Version: 1.9 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14.2.1 Tenant Policy Profiles per Boardy review of v1.8 — ATS gating bands, ceilings, and HNP availability are per-tenant configurable under a tighten-only rule with two immovable platform floors (no mandates below ATS 0.50; HNP minimum band 0.90 raisable, never lowerable). Industry default profiles across the 25-industry platform; Aegis tier (21-industry defence scope) defaults to HNP disabled + human-signed Payment Mandates regardless of ATS. Profile changes are HIC-signed policy events on the §14.5 evidence chain, non-retroactive for live sessions. Corrected Boardy's "21 industries" framing to platform 25 / Aegis 21 per DWS_TRUTH_STANDARD row 1.
 
 - Version: 1.8 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14 Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — closes the payment-authority gap surfaced by the 2026-07-06 agent-infrastructure scorecard (`docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md`): mandate-gating rule mapping ATS bands (§3.2) to AP2 Intent/Cart/Payment Mandate privileges incl. Human Not Present pre-authorization; Capability Manifest v1.3 `spend_authority` extension; manifests expressible as W3C Verifiable Credentials for AP2 interop; AP2 Verifiable Intent log bound to KYA forensic trail + EU AI Act Article 12 record-keeping as one evidence chain; FIDO Alliance governance tracking (AP2 v0.2 donated 28.04.2026). Protocol-neutral stance across AP2 / UCP / ACP. Conclusion renumbered §14 → §15.
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in Regulatory Penalty Avoidance — corrected from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context, per PR #976 sweep pattern
@@ -1024,6 +1026,35 @@ An agent may sign or present a payment-protocol mandate **only** within the priv
 | < 0.50    | **No mandates** — consistent with §3.2 NO_GO                            | Denied                                           | NO_GO          |
 
 A mandate attempt outside the band, or a spend attempt above a manifest ceiling, is a **KYA Violation**: same enforcement sequence as §9.2 (session terminated, −40 trust points, operator alerted), **plus revocation of all live mandates issued in that session**.
+
+### 14.2.1 Tenant Policy Profiles (v1.9)
+
+The §14.2 table is the **platform baseline profile**, not hardcoded policy. A defence contractor's Human Not Present ceiling is not a steel manufacturer's: each tenant carries a **mandate gating profile** that overrides the baseline, which is what makes one standard sellable across the 25 EU-regulated platform industries without forking it per vertical.
+
+**Tighten-only rule.** A tenant profile may tighten any band, ceiling, or privilege; it may never loosen past two immovable platform floors:
+
+1. **ATS < 0.50 = NO_GO under every profile.** No tenant configuration grants mandates to a suspended agent.
+2. **The HNP minimum band (ATS ≥ 0.90) may be raised or HNP disabled entirely — never lowered.**
+
+Everything else is tenant-settable: ceilings, currencies, merchant categories, allowed mandate types, HNP availability, per-band confirmation thresholds. Industry default profiles ship with the platform; the **Aegis tier** (the deliberately narrower 21-industry defence/dual-use scope) defaults to **HNP disabled and human-signed Payment Mandates regardless of ATS** — high trust score, still no unattended spend.
+
+```json
+{
+  "mandate_gating_profile": {
+    "profile_version": "1.0",
+    "tenant_id": "<uuid>",
+    "industry_default": "steel-manufacturing",
+    "band_overrides": {
+      "hnp_min_ats": 0.95,
+      "confirm_above": { "ats_0.80_0.89": 50.0 }
+    },
+    "hnp_enabled": true,
+    "platform_floors_ack": ["no_mandates_below_0.50", "hnp_min_0.90"]
+  }
+}
+```
+
+Profile changes are policy events: logged to the §14.5 evidence chain, signed by the tenant's HIC, and applied only to sessions started after the change (no retroactive loosening of a live session's gates).
 
 ### 14.3 Capability Manifest v1.3 — `spend_authority` Extension
 
