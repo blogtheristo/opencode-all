@@ -377,7 +377,9 @@ for (const n of current) {
 // ── 4. Build Learn/start.html ────────────────────────────────────────────────
 const final = fs
   .readdirSync(LEARN)
-  .filter((n) => fs.statSync(path.join(LEARN, n)).isFile() && n !== 'start.html');
+  .filter(
+    (n) => fs.statSync(path.join(LEARN, n)).isFile() && n !== 'start.html' && n !== 'index.html',
+  );
 const htmlDocs = final
   .filter((n) => n.endsWith('.html'))
   .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
@@ -496,6 +498,15 @@ const start = [
 ].join('\n');
 
 fs.writeFileSync(path.join(LEARN, 'start.html'), start);
+
+// index.html redirect → start.html, so a static server serving Learn/ lands on the index.
+fs.writeFileSync(
+  path.join(LEARN, 'index.html'),
+  '<!DOCTYPE html><html lang="fi"><head><meta charset="UTF-8">' +
+    '<meta http-equiv="refresh" content="0; url=start.html">' +
+    '<title>Learn</title><link rel="canonical" href="start.html"></head>' +
+    '<body><p><a href="start.html">Learn — hakemisto</a></p></body></html>',
+);
 
 // ── Summary (fail loud) ──────────────────────────────────────────────────────
 console.log('Coach+Learn curate complete (' + today + ')');
