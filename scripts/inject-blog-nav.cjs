@@ -213,6 +213,16 @@ const posts = [
     title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
     date: '1 Jul 2026',
   },
+  {
+    file: 'the-moats-we-hand-you.html',
+    title: 'The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.fi.html',
+    title: 'Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI)',
+    date: '1 Jul 2026',
+  },
 ];
 
 // Three featured products
