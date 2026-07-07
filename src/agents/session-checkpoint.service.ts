@@ -1,8 +1,8 @@
 /**
  * Session Checkpoint Service — DWS IQ 6/7 (ASTA Phase 1)
  *
- * Persists agent loop state to the internal-ops Postgres pool so sessions can
- * survive interruptions and resume from the last checkpoint.
+ * Persists agent loop state to the internal Postgres pool (DGX Spark) so
+ * sessions can survive interruptions and resume from the last checkpoint.
  *
  * - checkpoint(): saves current loop state after each act phase
  * - recover(): loads most recent checkpoint for a session (24h TTL)
@@ -30,27 +30,29 @@ class SessionCheckpointService {
     try {
       const pool = getInternalDbPool();
       if (!pool) {
-        logger.debug('Checkpoint skipped — internal DB not configured');
+        logger.debug('Checkpoint skipped — internal Postgres not configured');
         return null;
       }
 
       const expiresAt = new Date(Date.now() + CHECKPOINT_TTL_HOURS * 60 * 60 * 1000).toISOString();
-      const createdAt = new Date().toISOString();
 
       // Upsert: one checkpoint per session+agent (latest wins)
-      const { rows } = await pool.query(
+      const result = await pool.query(
         `INSERT INTO session_checkpoints (session_id, org_id, agent_name, state, created_at, expires_at)
          VALUES ($1, $2, $3, $4, $5, $6)
          ON CONFLICT (session_id, agent_name)
-         DO UPDATE SET org_id = EXCLUDED.org_id, state = EXCLUDED.state,
-           created_at = EXCLUDED.created_at, expires_at = EXCLUDED.expires_at
+         DO UPDATE SET
+           org_id = EXCLUDED.org_id,
+           state = EXCLUDED.state,
+           created_at = EXCLUDED.created_at,
+           expires_at = EXCLUDED.expires_at
          RETURNING id`,
         [
           context.sessionId,
           context.orgId,
           state.agentName,
           JSON.stringify(state),
-          createdAt,
+          new Date().toISOString(),
           expiresAt,
         ],
       );
@@ -61,7 +63,7 @@ class SessionCheckpointService {
         iteration: state.iterationIndex,
       });
 
-      return rows[0]?.id || null;
+      return result.rows[0]?.id || null;
     } catch (err) {
       logger.warn('Checkpoint save exception', { error: String(err) });
       return null;
@@ -74,25 +76,23 @@ class SessionCheckpointService {
       const pool = getInternalDbPool();
       if (!pool) return null;
 
-      const { rows } = await pool.query(
+      const result = await pool.query(
         `SELECT state, expires_at FROM session_checkpoints
          WHERE session_id = $1 AND org_id = $2 AND agent_name = $3
-         ORDER BY created_at DESC
-         LIMIT 1`,
+         ORDER BY created_at DESC LIMIT 1`,
         [sessionId, orgId, agentName],
       );
-      const data = rows[0];
 
-      if (!data) return null;
+      const row = result.rows[0];
+      if (!row) return null;
 
       // Check expiry
-      if (new Date(data.expires_at) < new Date()) {
+      if (new Date(row.expires_at) < new Date()) {
         logger.debug('Checkpoint expired', { session: sessionId, agent: agentName });
         return null;
       }
 
-      const state: SessionState =
-        typeof data.state === 'string' ? JSON.parse(data.state) : data.state;
+      const state: SessionState = typeof row.state === 'string' ? JSON.parse(row.state) : row.state;
 
       logger.info('Checkpoint recovered', {
         session: sessionId,

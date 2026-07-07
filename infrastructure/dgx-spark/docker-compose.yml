@@ -86,6 +86,8 @@ services:
     environment:
       NODE_ENV: production
       PORT: 8080
+      # Tier 1 internal-ops Postgres (agent memory, audit logs, telemetry, nudges)
+      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD}@dws-postgres:5432/dws_internal"
       # Ollama on host (DGX Spark native, not containerized)
       OLLAMA_BASE_URL: http://host.docker.internal:11434
       # Model routing: local first, API fallback
@@ -157,6 +159,8 @@ services:
       LLM_FALLBACK: groq
       OLLAMA_MODEL: nemotron-3-super
       DWS_BACKEND_URL: http://dws-backend:8080
+      # Tier 1 internal-ops Postgres (agent memory, audit logs, telemetry, nudges)
+      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD}@dws-postgres:5432/dws_internal"
       # Heartbeat detection handled by the heartbeat container (:9999)
       # No HEARTBEAT_URL — cron-runner skips the periodic POST
       # OpenTelemetry — pre-wired for Aspire Dashboard (active when @opentelemetry/sdk-node added)

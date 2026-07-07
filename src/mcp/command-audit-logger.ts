@@ -1,9 +1,10 @@
 /**
  * Command Audit Logger — EU AI Act Article 12 command-execution trail
  *
- * Writes append-only, hash-chained audit events to command_audit_log (Supabase,
- * europe-north1) for every command/skill routed through the OpenClaw and NemoClaw
- * bridges. Implements the `command.invoke` / `command.result` event types of the
+ * Writes append-only, hash-chained audit events to command_audit_log (self-hosted
+ * Postgres on DGX Spark — dws-postgres) for every command/skill routed through the
+ * OpenClaw and NemoClaw bridges. Implements the `command.invoke` / `command.result`
+ * event types of the
  * §3 mandatory schema in DWS_ARTICLE_12_LOGGING_STANDARD.md.
  *
  * Two events per command, sharing a trace_id:
@@ -108,28 +109,27 @@ export class CommandAuditLogger implements CommandAuditSink {
   private pool: Pool;
 
   constructor(pool?: Pool) {
-    // Reuse the shared internal-ops pool so env-var resolution
-    // (INTERNAL_DATABASE_URL) and the Vitest gating (disabled in tests unless
-    // ENABLE_INTERNAL_DB_IN_TESTS=true) stay in one place.
-    const client = pool ?? getInternalDbPool();
-    if (!client) {
+    // Reuse the shared internal-ops pool so env-var resolution (INTERNAL_DB_URL)
+    // and the Vitest gating (disabled in tests unless ENABLE_INTERNAL_DB_IN_TESTS=true)
+    // stay in one place.
+    const p = pool ?? getInternalDbPool();
+    if (!p) {
       throw new Error(
-        'CommandAuditLogger: internal-ops Postgres pool unavailable ' +
-          '(set INTERNAL_DATABASE_URL)',
+        'CommandAuditLogger: internal Postgres pool unavailable (set INTERNAL_DB_URL)',
       );
     }
-    this.pool = client;
+    this.pool = p;
   }
 
   /**
-   * Returns a logger only when the internal-ops Postgres pool is available,
+   * Returns a logger only when the internal Postgres pool is available,
    * otherwise null. Lets the NemoClaw bridge wire Article 12 logging in
    * production without forcing a DB dependency on unit tests (getInternalDbPool
    * returns null under Vitest unless ENABLE_INTERNAL_DB_IN_TESTS=true).
    */
   static fromEnvOrNull(): CommandAuditLogger | null {
-    const client = getInternalDbPool();
-    return client ? new CommandAuditLogger(client) : null;
+    const pool = getInternalDbPool();
+    return pool ? new CommandAuditLogger(pool) : null;
   }
 
   async logInvocation(entry: CommandInvocation): Promise<{ traceId: string }> {
@@ -145,7 +145,7 @@ export class CommandAuditLogger implements CommandAuditSink {
            kya_session_id, skill, caller_ats, minimum_ats, input_digest,
            decision, denied_reason, pii_types_found, pii_replacement_count,
            model_version, risk_classification
-         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)`,
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)`,
         [
           'command.invoke',
           entry.bridge,
@@ -166,10 +166,9 @@ export class CommandAuditLogger implements CommandAuditSink {
           entry.riskClassification ?? 'high',
         ],
       );
-    } catch (error) {
+    } catch (err) {
       // Fail-closed: surface to the caller so the command is blocked.
-      const message = error instanceof Error ? error.message : String(error);
-      throw new Error(`CommandAuditLogger.logInvocation failed: ${message}`);
+      throw new Error(`CommandAuditLogger.logInvocation failed: ${(err as Error).message}`);
     }
     return { traceId };
   }
@@ -180,10 +179,9 @@ export class CommandAuditLogger implements CommandAuditSink {
         `INSERT INTO command_audit_log (
            event_type, bridge, agent_id, skill, trace_id, output_digest,
            success, error_text, duration_ms
-         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
         [
           'command.result',
-          // Identity carried from the invoke event so each row is self-describing.
           entry.bridge,
           entry.agentId,
           entry.skill,
@@ -194,13 +192,12 @@ export class CommandAuditLogger implements CommandAuditSink {
           entry.durationMs ?? null,
         ],
       );
-    } catch (error) {
+    } catch (err) {
       // Best-effort: the command already executed and the invoke event is
       // persisted. Fail loud (Rule 12) but do not crash the response.
-      const message = error instanceof Error ? error.message : String(error);
       logger.error('CommandAuditLogger.logResult failed', {
         traceId: entry.traceId,
-        error: message,
+        error: (err as Error).message,
       });
     }
   }

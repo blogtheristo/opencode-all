@@ -3,7 +3,7 @@
  *
  * All 50 agents write through this class. Provides:
  *   - Structured JSONL to disk (logs/agent-YYYY-MM-DD.jsonl)
- *   - Internal-ops Postgres agent_executions row (non-blocking)
+ *   - Internal Postgres (DGX Spark) agent_executions row (non-blocking)
  *   - Consistent run IDs for cross-system correlation
  *
  * Distinct from article12-logger.ts (EU AI Act audit trail).
@@ -131,7 +131,7 @@ function writeLine(line: LogLine): void {
   }
 }
 
-// ─── Internal-ops Postgres writer ─────────────────────────────────────────────
+// ─── Internal Postgres writer ─────────────────────────────────────────────────
 
 async function writeToDb(
   runId: string,
@@ -144,8 +144,8 @@ async function writeToDb(
   try {
     await pool.query(
       `INSERT INTO agent_executions (
-         id, agent_name, user_id, org_id, session_id, project_id, input, output,
-         status, duration_ms, created_at
+         id, agent_name, user_id, org_id, session_id, project_id, input,
+         output, status, duration_ms, created_at
        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
       [
         runId,

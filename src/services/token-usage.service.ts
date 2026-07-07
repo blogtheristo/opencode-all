@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import { getSupabaseClient } from '../config/supabase.js';
 import { getInternalDbPool } from '../config/internal-db.js';
+import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
 
 export type TokenProvider = 'anthropic' | 'github' | 'openai' | 'other';
@@ -178,9 +178,7 @@ function fromSnakeCaseRow(row: any): StoredTokenUsageEvent {
     promptTokens: row.prompt_tokens,
     completionTokens: row.completion_tokens,
     cachedTokens: row.cached_tokens,
-    // pg returns NUMERIC columns as strings — coerce so downstream arithmetic
-    // (totalCostEur += event.costEur) is numeric addition, not concatenation.
-    costEur: Number(row.cost_eur),
+    costEur: row.cost_eur,
     sessionId: row.session_id,
     taskId: row.task_id,
     timestamp: row.created_at,
@@ -218,16 +216,18 @@ async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
 
   let data: any;
   try {
-    const { rows } = await pool.query(
-      `SELECT daily_limit_tokens, monthly_limit_tokens, monthly_limit_eur, hard_cap, notify_thresholds, updated_at
-       FROM token_budgets WHERE user_id = $1`,
+    const result = await pool.query(
+      `SELECT daily_limit_tokens, monthly_limit_tokens, monthly_limit_eur, hard_cap,
+              notify_thresholds, updated_at
+       FROM token_budgets
+       WHERE user_id = $1`,
       [userId],
     );
-    data = rows[0];
-  } catch (error) {
-    logger.warn('Failed reading token budget from internal DB', {
+    data = result.rows[0];
+  } catch (err) {
+    logger.warn('Failed reading token budget from internal Postgres', {
       userId,
-      error: error instanceof Error ? error.message : String(error),
+      error: err instanceof Error ? err.message : String(err),
     });
     return null;
   }
@@ -239,8 +239,7 @@ async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
   return {
     dailyLimitTokens: data.daily_limit_tokens,
     monthlyLimitTokens: data.monthly_limit_tokens,
-    // pg returns NUMERIC columns as strings — coerce for downstream arithmetic.
-    monthlyLimitEur: Number(data.monthly_limit_eur),
+    monthlyLimitEur: data.monthly_limit_eur,
     hardCap: data.hard_cap,
     notifyThresholds: Array.isArray(data.notify_thresholds) ? data.notify_thresholds : [],
     updatedAt: data.updated_at,
@@ -257,24 +256,23 @@ async function getEventsForPeriod(
 
   if (pool) {
     try {
-      const selectCols =
-        'organization_id, user_id, event_id, dedupe_key, provider, product, model, prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id, task_id, created_at';
-      const { rows } = sessionId
-        ? await pool.query(
-            `SELECT ${selectCols} FROM token_usage_events
-             WHERE user_id = $1 AND created_at >= $2 AND session_id = $3`,
-            [userId, periodStart, sessionId],
-          )
-        : await pool.query(
-            `SELECT ${selectCols} FROM token_usage_events
-             WHERE user_id = $1 AND created_at >= $2`,
-            [userId, periodStart],
-          );
-      return rows.map(fromSnakeCaseRow);
-    } catch (error) {
-      logger.warn('Failed reading token usage events from internal DB', {
+      const params: unknown[] = [userId, periodStart];
+      let sql = `SELECT organization_id, user_id, event_id, dedupe_key, provider, product, model,
+                        prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id,
+                        task_id, created_at
+                 FROM token_usage_events
+                 WHERE user_id = $1 AND created_at >= $2`;
+      if (sessionId) {
+        params.push(sessionId);
+        sql += ` AND session_id = $${params.length}`;
+      }
+
+      const result = await pool.query(sql, params);
+      return result.rows.map(fromSnakeCaseRow);
+    } catch (err) {
+      logger.warn('Failed reading token usage events from internal Postgres', {
         userId,
-        error: error instanceof Error ? error.message : String(error),
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
@@ -425,16 +423,18 @@ async function persistAlertsForBreaches(
 
   let existingAlerts: Array<{ alert_type: string; threshold_value: number }>;
   try {
-    const { rows: existingRows } = await pool.query(
+    const result = await pool.query(
       `SELECT alert_type, threshold_value FROM token_alerts
-       WHERE user_id = $1 AND status = 'open' AND alert_type = ANY($2) AND threshold_value = ANY($3)`,
+       WHERE user_id = $1 AND status = 'open'
+         AND alert_type = ANY($2::text[])
+         AND threshold_value = ANY($3::int[])`,
       [userId, alertTypes, thresholdValues],
     );
-    existingAlerts = existingRows;
-  } catch (error) {
+    existingAlerts = result.rows;
+  } catch (err) {
     logger.warn('Failed reading existing token usage alerts', {
       userId,
-      error: error instanceof Error ? error.message : String(error),
+      error: err instanceof Error ? err.message : String(err),
     });
     return;
   }
@@ -449,27 +449,32 @@ async function persistAlertsForBreaches(
     return;
   }
 
-  const columns = ['organization_id', 'user_id', 'alert_type', 'threshold_value', 'status'];
-  const valuesSql = rowsToInsert
-    .map((_, i) => `(${columns.map((_c, j) => `$${i * columns.length + j + 1}`).join(', ')})`)
-    .join(', ');
-  const params = rowsToInsert.flatMap((row) => [
-    row.organization_id,
-    row.user_id,
-    row.alert_type,
-    row.threshold_value,
-    row.status,
-  ]);
-
   try {
+    const values: unknown[] = [];
+    const placeholders = rowsToInsert
+      .map((row) => {
+        const cols = [
+          row.organization_id,
+          row.user_id,
+          row.alert_type,
+          row.threshold_value,
+          row.status,
+        ];
+        const ph = cols.map((_, i) => `$${values.length + i + 1}`).join(', ');
+        values.push(...cols);
+        return `(${ph})`;
+      })
+      .join(', ');
+
     await pool.query(
-      `INSERT INTO token_alerts (${columns.join(', ')}) VALUES ${valuesSql}`,
-      params,
+      `INSERT INTO token_alerts (organization_id, user_id, alert_type, threshold_value, status)
+       VALUES ${placeholders}`,
+      values,
     );
-  } catch (error) {
+  } catch (err) {
     logger.warn('Failed writing token usage alerts', {
       userId,
-      error: error instanceof Error ? error.message : String(error),
+      error: err instanceof Error ? err.message : String(err),
     });
   }
 }
@@ -502,51 +507,57 @@ export const tokenUsageService = {
 
     const pool = getInternalDbPool();
     if (pool) {
-      // organization_members is business/customer data — that lookup stays on
-      // Supabase even though token_usage_events itself moves to the internal pool.
+      // organization_members lives in the customer-facing Supabase auth/org
+      // system, not the internal-ops Postgres pool — resolve it separately.
       const organizationId = await resolveOrganizationId(userId);
       prepared.forEach((event) => {
         event.organizationId = organizationId;
       });
 
-      let persistedRows: Array<{ dedupe_key: string; cost_eur: string | number }> = [];
-      if (prepared.length > 0) {
-        const columns = [
-          'organization_id',
-          'user_id',
-          'event_id',
-          'dedupe_key',
-          'provider',
-          'product',
-          'model',
-          'prompt_tokens',
-          'completion_tokens',
-          'cached_tokens',
-          'cost_eur',
-          'session_id',
-          'task_id',
-          'created_at',
-        ];
-        const rows = prepared.map((event) => {
-          const row = toSnakeCaseRow(event) as Record<string, unknown>;
-          return columns.map((col) => row[col]);
-        });
-        const valuesSql = rows
-          .map((row, i) => `(${row.map((_, j) => `$${i * columns.length + j + 1}`).join(', ')})`)
+      const rows = prepared.map(toSnakeCaseRow);
+      let persistedRows: Array<{ dedupe_key: string; cost_eur: number }> = [];
+
+      if (rows.length > 0) {
+        const values: unknown[] = [];
+        const placeholders = rows
+          .map((row) => {
+            const vals = [
+              row.organization_id,
+              row.user_id,
+              row.event_id,
+              row.dedupe_key,
+              row.provider,
+              row.product,
+              row.model,
+              row.prompt_tokens,
+              row.completion_tokens,
+              row.cached_tokens,
+              row.cost_eur,
+              row.session_id,
+              row.task_id,
+              row.created_at,
+            ];
+            const ph = vals.map((_, i) => `$${values.length + i + 1}`).join(', ');
+            values.push(...vals);
+            return `(${ph})`;
+          })
           .join(', ');
-        const params = rows.flat();
 
         try {
           const result = await pool.query(
-            `INSERT INTO token_usage_events (${columns.join(', ')}) VALUES ${valuesSql}
+            `INSERT INTO token_usage_events (
+               organization_id, user_id, event_id, dedupe_key, provider, product, model,
+               prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id,
+               task_id, created_at
+             ) VALUES ${placeholders}
              ON CONFLICT (user_id, dedupe_key) DO NOTHING
              RETURNING dedupe_key, cost_eur`,
-            params,
+            values,
           );
           persistedRows = result.rows;
-        } catch (error) {
+        } catch (err) {
           throw new Error(
-            `Failed writing token usage events: ${error instanceof Error ? error.message : String(error)}`,
+            `Failed writing token usage events: ${err instanceof Error ? err.message : String(err)}`,
           );
         }
       }
@@ -554,7 +565,7 @@ export const tokenUsageService = {
       ingested = persistedRows.length;
       duplicate = prepared.length - ingested;
       totalCostEur = Number(
-        persistedRows.reduce((sum: number, row) => sum + Number(row.cost_eur || 0), 0).toFixed(6),
+        persistedRows.reduce((sum, row) => sum + Number(row.cost_eur || 0), 0).toFixed(6),
       );
 
       const summary = await this.getSummary(userId, 30);
@@ -711,7 +722,8 @@ export const tokenUsageService = {
              organization_id, user_id, daily_limit_tokens, monthly_limit_tokens,
              monthly_limit_eur, hard_cap, notify_thresholds, updated_at
            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-           ON CONFLICT (user_id) DO UPDATE SET
+           ON CONFLICT (user_id)
+           DO UPDATE SET
              organization_id = EXCLUDED.organization_id,
              daily_limit_tokens = EXCLUDED.daily_limit_tokens,
              monthly_limit_tokens = EXCLUDED.monthly_limit_tokens,
@@ -730,10 +742,10 @@ export const tokenUsageService = {
             budget.updatedAt,
           ],
         );
-      } catch (error) {
-        logger.warn('Failed writing token budget to internal DB', {
+      } catch (err) {
+        logger.warn('Failed writing token budget to internal Postgres', {
           userId,
-          error: error instanceof Error ? error.message : String(error),
+          error: err instanceof Error ? err.message : String(err),
         });
       }
     }

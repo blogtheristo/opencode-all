@@ -7,8 +7,9 @@
  * - Skip detection (agent answered without tool use)
  * - Aggregated metrics for adaptation priority framework
  *
- * Buffered writes: events accumulate in memory and flush to the internal-ops
- * Postgres pool every 50 events or 30 seconds (whichever first). Non-blocking.
+ * Buffered writes: events accumulate in memory and flush to the internal
+ * Postgres pool (DGX Spark) every 50 events or 30 seconds (whichever first).
+ * Non-blocking.
  *
  * Code-Version: 1.1
  * Introduced-In: PR-TBD (ASTA Phase 1)
@@ -21,9 +22,6 @@
  *   (`gen_ai_*`, `trace_id`, `span_id`) when the event carries them.
  *   Non-LLM tool events are unaffected — fields default to NULL.
  *   See migration 066_tool_telemetry_genai.sql.
- *
- * v1.2 (2026-07-07): tool_telemetry moved off Supabase to the self-hosted
- *   internal-ops Postgres pool (src/config/internal-db.ts).
  */
 
 import { getInternalDbPool } from '../config/internal-db.js';
@@ -57,7 +55,7 @@ class ToolTelemetryService {
     }
   }
 
-  /** Flush buffered events to the internal-ops Postgres pool. */
+  /** Flush buffered events to the internal Postgres pool. */
   async flush(): Promise<void> {
     if (this.buffer.length === 0) return;
 
@@ -66,7 +64,7 @@ class ToolTelemetryService {
     try {
       const pool = getInternalDbPool();
       if (!pool) {
-        logger.debug('Telemetry flush skipped — internal DB not configured');
+        logger.debug('Telemetry flush skipped — internal Postgres not configured');
         return;
       }
 
@@ -99,55 +97,48 @@ class ToolTelemetryService {
         'gen_ai_response_id',
       ];
 
-      const rows = batch.map((e) => {
-        const g = e.genAi;
-        return [
-          e.agentName,
-          e.toolName,
-          e.orgId,
-          e.sessionId,
-          e.outcome,
-          e.durationMs,
-          e.errorMessage || null,
-          e.isRetry,
-          e.retryCount,
-          e.chainPosition,
-          e.chainLength,
-          e.iterationIndex,
-          e.timestamp,
-          e.traceId ?? null,
-          e.spanId ?? null,
-          g?.system ?? null,
-          g?.operationName ?? null,
-          g?.requestModel ?? null,
-          g?.responseModel ?? null,
-          g?.requestMaxTokens ?? null,
-          g?.requestTemperature ?? null,
-          g?.requestTopP ?? null,
-          g?.usageInputTokens ?? null,
-          g?.usageOutputTokens ?? null,
-          g?.responseFinishReasons ?? null,
-          g?.responseId ?? null,
-        ];
-      });
-
-      const valuesSql = rows
-        .map((row, i) => `(${row.map((_, j) => `$${i * columns.length + j + 1}`).join(', ')})`)
+      const values: unknown[] = [];
+      const valuePlaceholders = batch
+        .map((e) => {
+          const g = e.genAi;
+          const row = [
+            e.agentName,
+            e.toolName,
+            e.orgId,
+            e.sessionId,
+            e.outcome,
+            e.durationMs,
+            e.errorMessage || null,
+            e.isRetry,
+            e.retryCount,
+            e.chainPosition,
+            e.chainLength,
+            e.iterationIndex,
+            e.timestamp,
+            e.traceId ?? null,
+            e.spanId ?? null,
+            g?.system ?? null,
+            g?.operationName ?? null,
+            g?.requestModel ?? null,
+            g?.responseModel ?? null,
+            g?.requestMaxTokens ?? null,
+            g?.requestTemperature ?? null,
+            g?.requestTopP ?? null,
+            g?.usageInputTokens ?? null,
+            g?.usageOutputTokens ?? null,
+            g?.responseFinishReasons ?? null,
+            g?.responseId ?? null,
+          ];
+          const placeholders = row.map((_, i) => `$${values.length + i + 1}`).join(', ');
+          values.push(...row);
+          return `(${placeholders})`;
+        })
         .join(', ');
-      const params = rows.flat();
 
-      try {
-        await pool.query(
-          `INSERT INTO tool_telemetry (${columns.join(', ')}) VALUES ${valuesSql}`,
-          params,
-        );
-        logger.debug('Telemetry flushed', { count: batch.length });
-      } catch (insertErr) {
-        logger.warn('Telemetry flush insert failed', {
-          error: insertErr instanceof Error ? insertErr.message : String(insertErr),
-          batchSize: batch.length,
-        });
-      }
+      const sql = `INSERT INTO tool_telemetry (${columns.join(', ')}) VALUES ${valuePlaceholders}`;
+
+      await pool.query(sql, values);
+      logger.debug('Telemetry flushed', { count: batch.length });
     } catch (err) {
       logger.warn('Telemetry flush exception', { error: String(err), batchSize: batch.length });
     }
@@ -164,20 +155,26 @@ class ToolTelemetryService {
         return this.emptyMetrics(windowStart, windowEnd);
       }
 
-      let rows: Array<{ outcome: string; duration_ms: number; session_id: string }>;
-      try {
-        const result = await pool.query(
+      const result = await pool
+        .query(
           `SELECT outcome, duration_ms, session_id FROM tool_telemetry
            WHERE agent_name = $1 AND created_at >= $2`,
           [agentName, windowStart],
-        );
-        rows = result.rows;
-      } catch (queryErr) {
-        logger.warn('Telemetry getMetrics query failed', {
-          error: queryErr instanceof Error ? queryErr.message : String(queryErr),
+        )
+        .catch((err: Error) => {
+          logger.warn('Telemetry getMetrics query failed', { error: err.message });
+          return null;
         });
+
+      if (!result) {
         return this.emptyMetrics(windowStart, windowEnd);
       }
+
+      const rows = result.rows as Array<{
+        outcome: string;
+        duration_ms: number;
+        session_id: string;
+      }>;
       const sessions = new Set(rows.map((r) => r.session_id));
       const successCount = rows.filter((r) => r.outcome === 'success').length;
       const failureCount = rows.filter(

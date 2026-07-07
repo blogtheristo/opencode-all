@@ -18,7 +18,7 @@
  *   4. Delivery — email (Amazon SES, per CLAUDE.md), Teams/Slack webhooks,
  *      and an event-bus signal for in-app handling.
  *
- * Falls back to an in-memory store when the internal-ops Postgres pool is not
+ * Falls back to an in-memory store when the internal Postgres pool is not
  * configured (dev/test), which keeps dedup + rate-limit working single-instance.
  */
 
@@ -90,7 +90,7 @@ export interface CreateNudgeResult {
 }
 
 class NudgeService {
-  /** In-memory fallback store keyed by nudge id (used when internal DB pool absent) */
+  /** In-memory fallback store keyed by nudge id (used when Supabase absent) */
   private memStore: Map<string, NudgeRecord> = new Map();
 
   /**
@@ -170,10 +170,10 @@ class NudgeService {
           [status, resolution ?? null, resolvedAt, nudgeId],
         );
         return true;
-      } catch (error) {
+      } catch (err) {
         logger.error('Failed to resolve nudge', {
           nudgeId,
-          error: error instanceof Error ? error.message : String(error),
+          error: err instanceof Error ? err.message : String(err),
         });
         return false;
       }
@@ -194,14 +194,14 @@ class NudgeService {
     const nowIso = new Date(nowMs).toISOString();
     if (pool) {
       try {
-        const { rows } = await pool.query(
+        const result = await pool.query(
           `SELECT * FROM agent_nudges WHERE status = 'pending' AND escalate_at < $1 LIMIT 100`,
           [nowIso],
         );
-        return rows.map(rowToRecord);
-      } catch (error) {
+        return result.rows.map(rowToRecord);
+      } catch (err) {
         logger.error('Failed to query overdue nudges', {
-          error: error instanceof Error ? error.message : String(error),
+          error: err instanceof Error ? err.message : String(err),
         });
         return [];
       }
@@ -215,16 +215,16 @@ class NudgeService {
   async listPending(orgId?: string): Promise<NudgeRecord[]> {
     if (pool) {
       try {
-        const { rows } = orgId
+        const result = orgId
           ? await pool.query(
               `SELECT * FROM agent_nudges WHERE status = 'pending' AND org_id = $1 LIMIT 200`,
               [orgId],
             )
           : await pool.query(`SELECT * FROM agent_nudges WHERE status = 'pending' LIMIT 200`);
-        return rows.map(rowToRecord);
-      } catch (error) {
+        return result.rows.map(rowToRecord);
+      } catch (err) {
         logger.error('Failed to list pending nudges', {
-          error: error instanceof Error ? error.message : String(error),
+          error: err instanceof Error ? err.message : String(err),
         });
         return [];
       }
@@ -243,16 +243,16 @@ class NudgeService {
   ): Promise<NudgeRecord | null> {
     if (pool) {
       try {
-        const { rows } = await pool.query(
+        const result = await pool.query(
           `SELECT * FROM agent_nudges
            WHERE org_id = $1 AND signal_key = $2 AND entity_id = $3 AND status = 'pending'
            LIMIT 1`,
           [orgId, signalKey, entityId],
         );
-        return rows[0] ? rowToRecord(rows[0]) : null;
-      } catch (error) {
+        return result.rows[0] ? rowToRecord(result.rows[0]) : null;
+      } catch (err) {
         logger.debug('findPending query error (treating as none)', {
-          error: error instanceof Error ? error.message : String(error),
+          error: err instanceof Error ? err.message : String(err),
         });
         return null;
       }
@@ -279,19 +279,23 @@ class NudgeService {
     const dayAgo = new Date(now - DAY_MS).toISOString();
 
     if (pool) {
-      const [{ rows: hourRows }, { rows: dayRows }] = await Promise.all([
-        pool.query(
-          `SELECT COUNT(*)::int AS count FROM agent_nudges
-           WHERE agent_name = $1 AND org_id = $2 AND created_at >= $3`,
-          [agentName, orgId, hourAgo],
-        ),
-        pool.query(
-          `SELECT COUNT(*)::int AS count FROM agent_nudges
-           WHERE agent_name = $1 AND org_id = $2 AND created_at >= $3`,
-          [agentName, orgId, dayAgo],
-        ),
-      ]);
-      return { hour: hourRows[0]?.count ?? 0, day: dayRows[0]?.count ?? 0 };
+      try {
+        const countSql = `SELECT COUNT(*) FROM agent_nudges
+           WHERE agent_name = $1 AND org_id = $2 AND created_at >= $3`;
+        const [hourResult, dayResult] = await Promise.all([
+          pool.query(countSql, [agentName, orgId, hourAgo]),
+          pool.query(countSql, [agentName, orgId, dayAgo]),
+        ]);
+        return {
+          hour: parseInt(hourResult.rows[0]?.count ?? '0', 10),
+          day: parseInt(dayResult.rows[0]?.count ?? '0', 10),
+        };
+      } catch (err) {
+        logger.warn('countRecent query failed (treating as zero)', {
+          error: err instanceof Error ? err.message : String(err),
+        });
+        return { hour: 0, day: 0 };
+      }
     }
 
     let hour = 0;
@@ -313,7 +317,7 @@ class NudgeService {
              id, org_id, signal_key, entity_id, agent_name, recipient_role, tier,
              gate_decision, channels, status, subject, body, action_options,
              created_at, escalate_at, resolved_at, resolution, metadata
-           ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
+           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)`,
           [
             row.id,
             row.org_id,
@@ -332,13 +336,13 @@ class NudgeService {
             row.escalate_at,
             row.resolved_at,
             row.resolution,
-            JSON.stringify(row.metadata),
+            row.metadata,
           ],
         );
-      } catch (error) {
+      } catch (err) {
         // Unique-violation = a concurrent insert won the dedup race; tolerate it.
         logger.warn('Nudge persist failed (falling back to memory)', {
-          error: error instanceof Error ? error.message : String(error),
+          error: err instanceof Error ? err.message : String(err),
         });
         this.memStore.set(record.id, record);
       }

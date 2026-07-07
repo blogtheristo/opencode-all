@@ -575,7 +575,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:id>LF-DGX-SPARK</g:id>
       <g:title>DGX Spark — NVIDIA-branded Sovereign Edge AI + Install &amp; Service</g:title>
       <g:description>&lt;p&gt;NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €4,999 hardware (Finnish EMEA pricing)&lt;/li&gt;&lt;li&gt;On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)&lt;/li&gt;&lt;li&gt;Pair two for 405 B-param models over the ConnectX-7 200 Gbps link&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/lf-dgx-spark.html</g:link>
+      <g:link>https://dws10.com/products/dgx-spark.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
