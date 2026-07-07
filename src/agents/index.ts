@@ -77,6 +77,7 @@ import {
   DevOpsEngineerAgent,
   ProjectManagerAgent,
 } from './consultant/index.js';
+import { HelpdeskAgent } from './helpdesk.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -308,6 +309,12 @@ export class AgentRegistry {
     this.register(new GenAISolutionArchitectAgent()); // Claude Code, KYA, agent architecture
     this.register(new DevOpsEngineerAgent()); // CI/CD, K8s, UpCloud Helsinki, security
     this.register(new ProjectManagerAgent()); // JIRA, scheduling, customer documentation
+    // Helpdesk — AI-native support ticket triage. Off by default in production.
+    // Enable via HELPDESK_AGENT_ENABLED=true after kb/wiki/concepts/support/ policy seed has landed.
+    // In dev/test (NODE_ENV !== 'production') it registers automatically so tests can run.
+    if (process.env.HELPDESK_AGENT_ENABLED === 'true' || process.env.NODE_ENV !== 'production') {
+      this.register(new HelpdeskAgent()); // Support triage — drafts reply + recommendation; never sends
+    }
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

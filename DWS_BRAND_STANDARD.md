@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.4
+# DWS Gamma Brand Standard v3.5
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.4
+Version: 3.5
 
 Sessions & Modifications:
 
+- Version: 3.5 | Tool: Claude Code | Session: claude/dws10-offensive-positioning-6kdf2c | Date: 10.06.2026 (merged 06.07.2026; renumbered from 3.3 at merge — 3.3/3.4 were taken on main) | Changes: Added §22 DWS10 Offensive / Commercial-Edge pitch block — reframes the defensive fines-avoidance line into a commercial-edge / tender-velocity frame (EN+FI lockstep: hero opener, declarative hero H1, investor line), aligned to the canonical "compliance can freeze or release money" frame. Guardrails recorded: no "replace your people" (Ethics Principle band §6), no uncapped-liability claim, competitors implicit (§0). Source: docs/field-notes/2026-06-10-offensive-positioning-dws10.md.
 - Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Added §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners for the ontology / data-governance thesis: (1) the approved Variant B tweet "Point an LLM at hundreds of ungoverned databases and you get hallucination, insecurity, and no audit trail. The governed ontology is the product." and (2) the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can." With translation notes (kohinataso, hallittu ontologia, audit trail untranslated) and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).
 - Version: 3.3 | Tool: Claude Code (claude-opus-4-8) | Session: claude/capital-classes-audit-jgworp | Date: 20.06.2026 | Changes: Added §23 4P Capital Classes — canonical terminology for the four durable value classes an agentic operator accumulates: **Prompt Capital** (was Token), **People Capital** (was Human), **Plant Capital** (mobile two-room Control Room + Situation Room stack, was Control Room), and **Perception Capital** (governed world model + closed sense→decide→act loop). Pairs with the §22 "not a SaaS vendor, a System of Action operator" line. Deprecates the standalone "three-capital model" / "Token / Human / Control Room Capital" terms in new copy. Sourced from `docs/field-notes/2026-06-19-...md` (v2.0) and the Ontology Series (`four-capital-classes.html`, `software-vs-world-model.html`).
 - Version: 3.2 | Tool: Claude Code | Session: claude/ethics-principle-footer-SvTGJ | Date: 31.05.2026 | Changes: Added §6 Ethics Principle footer band to ironclad-footer.js (v1.3 on dws10.com / onelifetime.world / lifetime.fi; v1.2 on dws6.com) — standing band above the legal/copyright bar reading "We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command." Codifies the human-in-command principle as a permanent footer fixture across all sites; `.ironclad-footer-principle` CSS spec; updated Footer Bars table.
@@ -32,12 +33,12 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 21.06.2026
+- Last Modified: 06.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -1978,6 +1979,48 @@ Canonical framing derived from Finnish national data infrastructure strategy. Us
 
 ---
 
+### DWS10 Offensive / Commercial-Edge Pitch Block
+
+Reframes the defensive _"buy us so you don't get fined"_ line into a commercial-edge frame: compliance readiness sold as **tender-velocity and revenue, not insurance**. Moves the same product out of the risk/cost-center budget and into a growth budget — faster to unlock and larger. Derived from the offensive-positioning field note (`docs/field-notes/2026-06-10-offensive-positioning-dws10.md`) and aligned to the canonical _"compliance can freeze or release money"_ frame (System of Action Operator, above). Use the **defensive** line to get through the risk/legal/compliance door; switch to the **offensive** line once a commercial or CEO sponsor is in the room.
+
+**Hero opener (sales / first-touch — imperative phrasing intended):**
+
+**EN:** Buy us so you can win tenders faster, ship compliant artifacts sooner, and turn regulatory readiness into a commercial edge.
+
+**FI (kotimainen):** Osta meiltä, niin voitat tarjouskilpailut nopeammin, toimitat vaatimustenmukaiset artefaktit aiemmin ja muutat sääntelyvalmiuden kaupalliseksi eduksi.
+
+**Hero H1 (on-page — declarative twin of the opener):**
+
+**EN:** Win tenders faster. Turn regulatory readiness into a commercial edge.
+
+**FI (kotimainen):** Voita tarjouskilpailut nopeammin. Muuta sääntelyvalmius kaupalliseksi eduksi.
+
+**Investor line (boardroom-safe):**
+
+**EN:** DWS turns compliance into speed, giving regulated buyers a faster path to auditable artifacts and a clearer commercial advantage.
+
+**FI (kotimainen):** DWS muuttaa vaatimustenmukaisuuden nopeudeksi: säännellyt ostajat saavat nopeamman tien auditointivalmiisiin artefakteihin ja selkeämmän kaupallisen edun.
+
+**Translation notes:**
+
+- "compliant artifacts" → "vaatimustenmukaiset artefaktit" — "artefakti" retained over "dokumentti / todistusaineisto" by founder decision (10.06.2026); reads as the audit-output object, consistent with the A2A **Artifact** concept (§12)
+- "auditable artifacts" → "auditointivalmiit artefaktit" — "auditointivalmis" (audit-ready) is the established FI compliance term
+- "regulatory readiness" → "sääntelyvalmius" — compound noun, stronger than "valmius noudattaa sääntelyä"
+- "commercial edge / advantage" → "kaupallinen etu" — keep consistent across both lines
+
+**Guardrails (do not violate when adapting this copy):**
+
+- **Never** phrase the velocity claim as replacing people ("zero human cost", "no staff needed"). It contradicts the standing Ethics Principle footer band (§6) and the master tagline (_amplify_, not replace). Use "frees your experts from the grunt work" / "no army of consultants".
+- **Never** promise to "shift 100% of execution risk off your balance sheet" or any uncapped liability transfer — not deliverable, dies in legal review. Promise the deterministic, Article-12-logged, KYA-governed audit trail instead.
+- **Competitors implicit, never named** (§0): "while the market is still standing up committees", not a named rival.
+- State speed as "days, not quarters" unless Product signs off a contractual SLA number.
+
+**Use in:** dws10.com commercial/landing heroes, sales-outreach letter openers (`INTRO_*` / `LETTER_*`), investor decks (commercial-traction slide), partner one-pagers. Pair under the Master Tagline (Intelligence Amplifier) on first-touch.
+
+**Do not use in:** legal documents, store / product-card copy (use product-specific pitch lines), or any compliance-claim surface without a `/truth-check` pass.
+
+---
+
 ### Ontology One-Liners (Approved)
 
 Approved canonical one-liners for the ontology / data-governance thesis. Use verbatim in tweets, social posts, sales decks, and editorial pull-quotes. Both language versions MUST be updated together.
@@ -2040,6 +2083,7 @@ operator" — the 4P model is _why_ that is true.
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`. |
 | v3.4    | 2026-06-21 | Added: §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners (the approved Variant B ungoverned-databases tweet and the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can"), with translation notes and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).                                                                                                                                                                                                         |
 | v3.3    | 2026-06-20 | Added: §23 4P Capital Classes — canonical terminology (Prompt / People / Plant / Perception), usage rules, deprecation of the "three-capital model" naming, pairing with the §22 "System of Action operator, not SaaS" line. Sourced from the 4P field note (v2.0) and the Ontology Series posts.                                                                                                                                                                                                                                                    |
 | v3.2    | 2026-05-31 | Added: §6 Ethics Principle footer band to ironclad-footer.js — human-in-command principle as permanent footer fixture across all sites.                                                                                                                                                                                                                                                                                                                                                                                                              |

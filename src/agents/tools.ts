@@ -14,6 +14,8 @@ import logger from '../utils/logger.js';
 import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
 import { MCPToolRegistry, ToolColor } from '../mcp/security/tool-colors.js';
+import { authorizeToolCall } from '../security/runtime-auth.js';
+import { currentTraceIds } from '../observability/tracing.js';
 import type {
   AgentContext,
   ToolCall,
@@ -77,6 +79,46 @@ export async function executeTool(
       toolCallId: call.id,
       name: call.name,
       result: { error: `Unknown tool: ${call.name}` },
+      isError: true,
+    };
+  }
+
+  const authDecision = authorizeToolCall(call, {
+    agentName: meta?.agentName ?? 'unknown',
+    orgId: context.orgId,
+    sessionId: context.sessionId,
+  });
+  if (authDecision.decision !== 'allow') {
+    if (meta) {
+      const ids = currentTraceIds();
+      telemetryService.recordInvocation({
+        agentName: meta.agentName,
+        toolName: call.name,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        outcome: 'error',
+        durationMs: 0,
+        errorMessage: `runtime_auth:${authDecision.decision}:${authDecision.reason}`,
+        isRetry: false,
+        retryCount: 0,
+        chainPosition: meta.chainPosition,
+        chainLength: meta.chainLength,
+        iterationIndex: meta.iterationIndex,
+        timestamp: new Date().toISOString(),
+        traceId: ids.traceId,
+        spanId: ids.spanId,
+      });
+    }
+    return {
+      toolCallId: call.id,
+      name: call.name,
+      result: {
+        error: `runtime_auth:${authDecision.decision}`,
+        reason: authDecision.reason,
+        actionClass: authDecision.actionClass,
+        blastRadius: authDecision.blastRadius,
+        approvalId: authDecision.approvalId,
+      },
       isError: true,
     };
   }

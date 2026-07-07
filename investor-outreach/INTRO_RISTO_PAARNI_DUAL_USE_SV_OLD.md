@@ -1,26 +1,26 @@
 <!-- VERSION AND AGENT HISTORY
-Document: Investor Intro Note (SV) — Matti Heikkonen, Dual Use / Defence-Tech
+Document: Investor Intro Note (SV) — Risto Päärni, Dual Use / Defence-Tech
 Version: 1.0
 Date: 2026-06-03
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/fervent-lovelace-fdc2O
-Status: PARKED (deprioritized) — see DD_MATTI_HEIKKONEN.md
+Status: PARKED (deprioritized) — see DD_RISTO_PAARNI.md
 Story Lock: Sovereign AI + Autonomous Mobility + Dual Use RaaS
 Intro Type: Warm (connection since 2017) — currently parked
 Language: SV
 
 AGENT HISTORY:
-- v1.0 (2026-06-03): Swedish translation of the tightened Matti Heikkonen pitch, for the Nordea Sverige / Lifetime AB track. Lockstep with FI source INTRO_MATTI_HEIKKONEN_DUAL_USE.md v1.0. Lead: cash-flow-positive Nordic mobility operator (Lifetime Oy FI + Lifetime AB SE) funding a Dual Use AI/robotics moat (Lifetime Fleet + DWS IQ, NVIDIA Connect ISV / Isaac / Jetson). Seed: Fleet Admiral EUR 250k + 8 x EUR 50k. SE authority track: IMY, Transportstyrelsen. Ask: 30 min Teams.
-- v1.1 (2026-06-07): PARKED. DD (DD_MATTI_HEIKKONEN.md) returned PASS — no current VC role, capital tied in Pinja (not appreciating), low engagement intent ("let's talk" but no phone/invite). Lockstep with FI v1.1. Retained for reuse; not to be sent.
+- v1.0 (2026-06-03): Swedish translation of the tightened Risto Päärni pitch, for the Nordea Sverige / Lifetime AB track. Lockstep with FI source INTRO_RISTO_PAARNI_DUAL_USE.md v1.0. Lead: cash-flow-positive Nordic mobility operator (Lifetime Oy FI + Lifetime AB SE) funding a Dual Use AI/robotics moat (Lifetime Fleet + DWS IQ, NVIDIA Connect ISV / Isaac / Jetson). Seed: Fleet Admiral EUR 250k + 8 x EUR 50k. SE authority track: IMY, Transportstyrelsen. Ask: 30 min Teams.
+- v1.1 (2026-06-07): PARKED. DD (DD_RISTO_PAARNI.md) returned PASS — no current VC role, capital tied in Pinja (not appreciating), low engagement intent ("let's talk" but no phone/invite). Lockstep with FI v1.1. Retained for reuse; not to be sent.
 -->
 
-# Investeringserbjudande (SV) — Matti Heikkonen, Dual Use / Defence-Tech
+# Investeringserbjudande (SV) — Risto Päärni, Dual Use / Defence-Tech
 
 ## Utkast e-post (SV)
 
 **Ämne:** Sovereign AI, Autonomous Mobility & Dual Use RaaS — Lifetime Group
 
-Hej Matti,
+Hej Risto,
 
 Du är känd för din djupa förståelse av Dual Use-sektorn och säkerhetskritisk teknik — därför vänder jag mig just till dig.
 
@@ -45,7 +45,7 @@ Jag vill gärna presentera vår DWS IQ-arkitektur och höra hur du ser på den a
 
 Med vänliga hälsningar,
 **Risto Anton Päärni**
-Founder — Lifetime Oy / Lifetime AB / Lifetime OÜ
+Founder — Lifetime Oy / Lifetime AB / DWS IQ OÜ
 
 **Avsändare:** `risto.paarni@lifetime.fi` (Amazon SES SMTP). Aldrig Resend, aldrig `noreply@`.
 

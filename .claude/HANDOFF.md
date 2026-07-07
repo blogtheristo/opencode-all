@@ -29,7 +29,9 @@ session's context automatically.
   (AP2/UCP/ACP mandate gating, tenant profiles §14.2.1, schema-stability
   notes); `evaluateMandateGate()` + `tenantGatingProfileSchema` in
   `src/identity/ats-engine.ts` with 21 passing tests
-  (`src/__tests__/mandate-gate.test.ts`). tsc clean.
+  (`src/__tests__/mandate-gate.test.ts`). tsc clean. Merged origin/main
+  (Aspire observability + Aiven partner work, both unrelated to KYA/identity
+  — no code overlap, only this file conflicted) — see HANDOFF HISTORY.
 - **Next steps (toward KYA v2.0 schema freeze):**
   1. Supabase migration: mandate-events table + tenant gating profiles
      (§14.5 evidence chain; keyed session_id + mandate VC id). Authoring
@@ -47,4 +49,8 @@ session's context automatically.
 ## HANDOFF HISTORY
 
 - 2026-07-06 | claude/agent-infrastructure-ideas-1jtgms | Isenberg 21-answers field note + 13 LSJ signals; KYA v1.8→v1.9.1 (§14 mandate gating) + ATS spend gate implemented w/ 21 tests.
+- 2026-07-07 | claude/aspire-development-evolution-16fxg0 | Hakimi critique → KYAVerdict span attrs shipped; thesis v3.79; Orkia partner outreach record drafted (reply staged, not sent).
+- 2026-07-07 | claude/aspire-development-evolution-16fxg0 | Aspire PR#1500→main evolution field note + DWS lessons; adoption options re-scored.
+- 2026-07-06 | claude/aiven-partnership-intro-vm1fgk | Aiven track full state: record v1.12, NDA envelope f7382f1c SENT via DocuSign, §8b reply sent; WAITING on Aiven (partner-org intro, UpCloud, DPA, Wärtsilä link); DocuSign needs local .env keys.
+- 2026-07-06 | claude/aiven-partnership-intro-vm1fgk | Aiven partner record v1.1: Leevi Lindfors contact + reply draft (human sends).
 - 2026-07-05 | claude/session-container-memory-6ccpnf | Created handoff log mechanism (file + session-start hook + CLAUDE.md pointer).

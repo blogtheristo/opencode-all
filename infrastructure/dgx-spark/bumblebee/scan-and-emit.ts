@@ -3,8 +3,9 @@
 // Reads NDJSON from stdin (one record per line, produced by `bumblebee scan
 // --format ndjson`), aggregates counts, and ships OTel metrics to the Aspire
 // Dashboard's OTLP/HTTP endpoint (OTEL_EXPORTER_OTLP_ENDPOINT, typically
-// http://aspire-dashboard:18888 — protocol aligned with dws-backend/dws-cron
-// per docker-compose v1.2.0).
+// http://aspire-dashboard:18890 — the dashboard's OTLP/HTTP listener, NOT the
+// 18888 UI port; protocol aligned with dws-backend/dws-cron per
+// docker-compose v1.3.1).
 //
 // Bumblebee's NDJSON dialect is documented upstream; we defensively accept
 // only the fields we need and skip records we don't recognise so a schema

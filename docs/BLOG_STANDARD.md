@@ -4,6 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
+<<<<<<< HEAD
+Version: 1.10
+
+Sessions & Modifications:
+
+- Version: 1.10 | Tool: Claude Code | Session: claude/jetson-thor-physical-ai-91mjtv | Date: 26.06.2026 | Changes: Registered post #34 (`nvidia-jetson-thor-physical-ai.html`) — NVIDIA partner note on Jetson Thor and physical AI, written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version). Continues the "sovereign edge is still a box" series from #32/#33: Thor is that box, made concrete; NVIDIA owns the body (Blackwell silicon + on-device hardware root of trust), DWS owns the leash/log/human-in-loop governance layer. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
+=======
 Version: 2.3
 
 Sessions & Modifications:
@@ -12,6 +19,7 @@ Sessions & Modifications:
 - Version: 2.2 | Tool: Claude Code | Session: claude/brexit-us-eu-interdependence-m6si45 | Date: 30.06.2026 | Changes: Registered FI parity post #36 (`brexit-interdependence-moat-us-eu.fi.html`) — Finnish companion to #35, with `hreflang` alternates both ways (en/fi + sv/de/fr/x-default → EN fallback), vertical lang bar, same cyan/gold callout design. Added EN↔FI `hreflang` + lang bar to #35. Added a "Even China is on the axis" section to BOTH posts in lockstep (China cannot cheaply exit interdependence either — autarky and a parallel bloc are both just costlier dependence; the democratic edge is rules-based, chosen connection, not connection itself). Inserted #36 in §3 registry and the `latestPosts` array in `blog/index.html` (chronological — not Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 2.1 | Tool: Claude Code | Session: claude/brexit-us-eu-interdependence-m6si45 | Date: 30.06.2026 | Changes: Registered post #35 (`brexit-interdependence-moat-us-eu.html`) — sovereignty essay arguing Brexit's sovereignty goal was partly right but its ~4–6% GDP operational cost was too high, so interdependence (not exit) is the moat for the US + EU. Written to §12 house voice; DWS connection kept implicit. Weaves three editorial angles: fork-the-stack vs own-the-governance-layer parallel, the economic (not political) coalition with Switzerland/Singapore/Nordics as winners, and the asymmetric-cost lesson (sovereignty without interdependence = negative ROI). Added to §3 registry, the `latestPosts` array in `blog/index.html`, and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 2.0 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Registered post #34 (`deepseek-v4-flash-hybrid-inference.html`) — community field note by Yannick Nick (@keennay) on DeepSeek V4 Flash running at native FP4+FP8 precision on 2x RTX Pro 6000 + 256 GB DDR5 via KTransformers hybrid GPU/CPU inference. First community-authored post; author/editor attribution split in meta, JSON-LD, byline, and signature. Added to §3 registry, `latestPosts` array in `blog/index.html` (new Text of the Day), and `posts` array in `scripts/inject-blog-nav.cjs`. Ran injector. Dual-folder synced to `landing-pages/onelifetime-world/`. Field note companion: `docs/field-notes/2026-06-27-deepseek-v4-flash-hybrid-gpu-cpu-inference.md`.
+>>>>>>> origin/main
 - Version: 1.9 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Registered post #33 (`eu-sovereign-ai-factories-35-supercomputers.html`) — sovereignty field note on NVIDIA's June 2026 European AI-supercomputer buildout (35 systems / 23 countries / ~800 AI exaflops / EuroHPC AI Factories), framing the EU-sovereign upstream vs the customer-owned edge. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.8 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 24.06.2026 | Changes: Registered post #32 (`nvidia-vera-rubin-ai-factory.html`) — NVIDIA partner note on Vera Rubin and the POD-scale AI factory, written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version). Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector for prev/next + share + product cards. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.7 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered FI parity posts #30 (`lifetime-world-model-three-piece-loop.fi.html`) and #31 (`four-learning-paradigms-world-model.fi.html`) — Finnish companions to #28/#29, keeping EN/FI lockstep for public copy. Added `hreflang` alternates both ways across all four files (en/fi + sv/de/fr/x-default → EN fallback). Inserted in §3 registry, the `latestPosts` array in `blog/index.html` (chronological — EN #29 stays Text of the Day, not the FI posts), and the `posts` array in `scripts/inject-blog-nav.cjs`. Code samples kept in English inside `<pre class="code-block">`. Dual-folder synced to `landing-pages/onelifetime-world/`.
@@ -145,10 +153,14 @@ Chronological order. Update this table when adding/removing posts.
 | 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
 | 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
 | 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
+<<<<<<< HEAD
+| 34  | `nvidia-jetson-thor-physical-ai.html`                | NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It. (EN, NVIDIA partner note)           | 26 Jun 2026 |
+=======
 | 34  | `industrial-intelligence-weekly-2026-06-28.html`     | Industrial Intelligence Weekly — Five Signals from the Regulated Economy (EN, market intelligence newsletter)                   | 28 Jun 2026 |
 | 35  | `brexit-interdependence-moat-us-eu.html`             | Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit (EN, sovereignty essay)                       | 30 Jun 2026 |
 | 36  | `brexit-interdependence-moat-us-eu.fi.html`          | Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI parity of #35)                                 | 30 Jun 2026 |
 | 37  | `tiedon-vanheneminen-sensoridata-retention.html`     | Tiedon vanheneminen — sensoridatan tallennusstrategia Control Roomissa ja Situation Roomissa (FI, field note, data governance)  | 1 Jul 2026  |
+>>>>>>> origin/main
 
 ---
 

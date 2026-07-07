@@ -1,13 +1,16 @@
-# Captain Deck — EUR 50,000 Industry Captain Seat
+# Captain Deck — Industry Captain (Client Position)
+
+> **Repositioned (2026-06-09):** The Industry Captain is now a **client position** — a commercial relationship in which a customer takes a named industry seat on the DWS IQ platform. It is **not an investor seat**. The investor instrument for this round is the **single Admiral (Fleet Admiral) seat — €250K, scalable to the full €650K** (see `INVESTOR_MEMO.md`). Client-captain commercial terms (pricing/term) are **TBD** and intentionally not stated here until defined; the former "€50,000 investment" framing has been removed.
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus) | Session: claude/dws-investor-outreach-hbsj45 | Date: 09.06.2026 | Changes: Repositioned from investor "EUR 50,000 Captain seat" to a **client captain** (commercial) position after the round moved to a single Admiral seat (EUR 250K, scalable to EUR 650K) as the sole investor instrument. Removed equity framing (investment amount, valuation cap, paper multiple, "claim your seat" investor CTA); client-captain pricing left TBD pending definition. Investor asks now route to the Admiral seat / INVESTOR_MEMO.md.
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Added Qivalis Window section — Qivalis stablecoin (12 EU banks, H2 2026) as timing hook for Industry Captain seats. Consortium banks seeking compliance partners now. Payment rail + compliance ledger thesis. Captain seat = direct consortium access.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Expanded Top 10 to full 12 breakthroughs with detailed descriptions and investor-relevant "Why it matters" for each — KYA, Carbon Ledger, Harness Engineering, Aegis, Pantheon, Cross-Vertical, Article 12, OpenSandbox, Brain-Memory-Body-Hands, Omnichannel, Solution Factory, MCP Hub
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Captain-tier investor deck with factory vs tool hero thesis, industry seat positioning, and Firehorse Production Model forward-looking argument
@@ -27,9 +30,9 @@ Document Status:
 ---
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
-**Round:** EUR 650K SAFE at EUR 3.8M cap
-**This document:** Captain Tier — EUR 50,000 | 8 seats (one per grouped industry tranche covering 25 EU-regulated verticals)
-**Date:** March 28, 2026
+**Investor round (separate):** single Admiral seat — EUR 250K, scalable to EUR 650K SAFE at EUR 3.8M cap (see `INVESTOR_MEMO.md`)
+**This document:** Industry Captain — **client position** (commercial), one named seat per grouped industry tranche covering 20 EU-regulated verticals. Commercial terms TBD.
+**Date:** March 28, 2026 (repositioned June 9, 2026)
 
 ---
 
@@ -53,9 +56,9 @@ Each model generation makes us faster. Each competitor generation starts from ze
 
 ---
 
-## Why Captain — EUR 50,000
+## Why Become a Client Captain
 
-As a **Captain**, you are the named leader of one of 25 EU-regulated industries on the DWS IQ 6 platform. This is not a passive investment — it is a strategic position.
+As an **Industry Captain**, you are the named client lead for one of 20 EU-regulated industries on the DWS IQ 6 platform. This is a commercial position — a named seat and a working relationship — not an equity investment. (Investors: the round is the single Admiral seat — see `INVESTOR_MEMO.md`.)
 
 ### What You Get
 
@@ -65,8 +68,8 @@ As a **Captain**, you are the named leader of one of 25 EU-regulated industries 
 | **Quarterly Strategy Briefings**   | Direct access to founder + product roadmap                            |
 | **Priority Pilot Routing**         | First access to new enterprise pilots in your industry                |
 | **Founding Situation Room Access** | Real-time platform intelligence dashboard                             |
-| **Industry-Specific Intelligence** | Cross-vertical insights from 25 industries flowing into your vertical |
-| **Upgrade Path**                   | First right of refusal if Fleet Admiral seat opens                    |
+| **Industry-Specific Intelligence** | Cross-vertical insights from 20 industries flowing into your vertical |
+| **First-Mover Position**           | Named lead in your industry before competitors enter the platform     |
 
 ### Available Industry Seats (25 EU-Regulated Verticals)
 
@@ -221,30 +224,27 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 
 ---
 
-## The Math
+## The Platform Behind Your Seat
 
 | Metric                           | Value                                             |
 | -------------------------------- | ------------------------------------------------- |
-| **Your investment**              | EUR 50,000                                        |
-| **Valuation cap**                | EUR 3.8M                                          |
 | **Current MRR**                  | EUR 7K (6 customers, 100% retention)              |
 | **Target ARR (2026)**            | EUR 900K (25 customers x EUR 36K avg)             |
-| **Series A target**              | EUR 15M+ pre-money (Q3-Q4 2026)                   |
-| **Implied multiple at Series A** | ~3-4x on paper                                    |
-| **Products shipped**             | 32 (across 25 industries)                         |
+| **Products shipped**             | 32 (across 20 industries)                         |
 | **AI agents operational**        | 18                                                |
 | **Academic validation**          | Metropolia thesis (2026) + LUT PhD (2027 planned) |
+
+> Client-captain commercial terms (pricing/term) are TBD. For the investor instrument (the Admiral seat — EUR 250K, scalable to EUR 650K) and the equity terms, see `INVESTOR_MEMO.md`.
 
 ### Timeline
 
 | Date                 | Milestone                            | Your Relevance                      |
 | -------------------- | ------------------------------------ | ----------------------------------- |
-| **Now**              | Pipeline building, pilot conversions | Pre-launch entry — seed valuation   |
-| **June 15, 2026**    | V1 Launch at Arctic 15 (Helsinki)    | Public market validation            |
+| **Now**              | Pipeline building, pilot conversions | Early named position in your industry |
+| **June 15, 2026**    | V1 Launch at Arctic 15 (Helsinki)    | Public platform launch              |
 | **June 15 – Aug 15** | 100% sales sprint                    | Your industry gets priority routing |
-| **August 15, 2026**  | First sales cycle data               | Hard data for Series A              |
+| **August 15, 2026**  | First sales cycle data               | Proven traction in your vertical    |
 | **August 2026**      | Aegis public dual-use rollout        | Defence vertical opens              |
-| **Q3-Q4 2026**       | Series A process                     | EUR 15M+ pre-money target           |
 
 ---
 
@@ -254,7 +254,7 @@ Lifetime Oy built the Firehorse Production Model — a codified system for conve
 
 ---
 
-**Next step:** Reply to risto.paarni@lifetime.fi to schedule a 30-minute call and claim your Captain seat.
+**Next step:** Reply to risto.paarni@lifetime.fi to schedule a 30-minute call and secure your Industry Captain (client) position. _Investing rather than partnering? Ask about the Admiral seat — see `INVESTOR_MEMO.md`._
 
 _Lifetime Oy | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland_
 _Business Identity Code: 0772407-9 | VAT: FI07724079_
