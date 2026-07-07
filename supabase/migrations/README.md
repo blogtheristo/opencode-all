@@ -1,6 +1,12 @@
 # Supabase Migrations — DWS6
 
-> VERSION: 1.1 | Date: 2026-07-02 | Owner: Marcus (Systems Architect)
+> VERSION: 1.2 | Date: 2026-07-07 | Owner: Marcus (Systems Architect)
+>
+> v1.2 changes: added `074_kya_mandate_evidence_chain.sql` — the KYA §14.5
+> evidence chain backing `evaluateMandateGate()` (`kya_mandate_events`,
+> append-only/hash-chained) and the §14.2.1 tenant gating profile
+> (`kya_tenant_gating_profiles`, versioned/tighten-only). Authored only —
+> NOT applied; RED-zone, pending human review.
 >
 > v1.1 changes (supabase/aiven audit): fixed stale `*_OLD.sql` naming (now
 > `*_DEPRECATED.sql`, see `#superseded-migrations-_deprecated`); corrected
@@ -64,7 +70,7 @@ fresh installs.
 ### Unused Sequence Numbers
 
 These numbers were never used: 001, 009, 010, 016–022. They are
-available for future use but prefer continuing from 073+.
+available for future use but prefer continuing from 074+.
 (Corrected 2026-07-02 — 050 was previously listed here but
 `050_memory_consolidation.sql` exists and is applied; it was a
 documentation error, not a real gap.)
