@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { getSupabaseClient } from '../config/supabase.js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 
 export type TokenProvider = 'anthropic' | 'github' | 'openai' | 'other';
@@ -177,7 +178,9 @@ function fromSnakeCaseRow(row: any): StoredTokenUsageEvent {
     promptTokens: row.prompt_tokens,
     completionTokens: row.completion_tokens,
     cachedTokens: row.cached_tokens,
-    costEur: row.cost_eur,
+    // pg returns NUMERIC columns as strings — coerce so downstream arithmetic
+    // (totalCostEur += event.costEur) is numeric addition, not concatenation.
+    costEur: Number(row.cost_eur),
     sessionId: row.session_id,
     taskId: row.task_id,
     timestamp: row.created_at,
@@ -208,21 +211,24 @@ async function resolveOrganizationId(userId: string): Promise<string | null> {
 }
 
 async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
-  const sb = getSupabaseClient();
-  if (!sb) {
+  const pool = getInternalDbPool();
+  if (!pool) {
     return null;
   }
 
-  const { data, error } = await sb
-    .from('token_budgets')
-    .select(
-      'daily_limit_tokens, monthly_limit_tokens, monthly_limit_eur, hard_cap, notify_thresholds, updated_at',
-    )
-    .eq('user_id', userId)
-    .maybeSingle();
-
-  if (error) {
-    logger.warn('Failed reading token budget from Supabase', { userId, error: error.message });
+  let data: any;
+  try {
+    const { rows } = await pool.query(
+      `SELECT daily_limit_tokens, monthly_limit_tokens, monthly_limit_eur, hard_cap, notify_thresholds, updated_at
+       FROM token_budgets WHERE user_id = $1`,
+      [userId],
+    );
+    data = rows[0];
+  } catch (error) {
+    logger.warn('Failed reading token budget from internal DB', {
+      userId,
+      error: error instanceof Error ? error.message : String(error),
+    });
     return null;
   }
 
@@ -233,7 +239,8 @@ async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
   return {
     dailyLimitTokens: data.daily_limit_tokens,
     monthlyLimitTokens: data.monthly_limit_tokens,
-    monthlyLimitEur: data.monthly_limit_eur,
+    // pg returns NUMERIC columns as strings — coerce for downstream arithmetic.
+    monthlyLimitEur: Number(data.monthly_limit_eur),
     hardCap: data.hard_cap,
     notifyThresholds: Array.isArray(data.notify_thresholds) ? data.notify_thresholds : [],
     updatedAt: data.updated_at,
@@ -245,31 +252,29 @@ async function getEventsForPeriod(
   periodDays: number,
   sessionId?: string,
 ): Promise<StoredTokenUsageEvent[]> {
-  const sb = getSupabaseClient();
+  const pool = getInternalDbPool();
   const periodStart = new Date(Date.now() - periodDays * 24 * 60 * 60 * 1000).toISOString();
 
-  if (sb) {
-    let query = sb
-      .from('token_usage_events')
-      .select(
-        'organization_id, user_id, event_id, dedupe_key, provider, product, model, prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id, task_id, created_at',
-      )
-      .eq('user_id', userId)
-      .gte('created_at', periodStart);
-
-    if (sessionId) {
-      query = query.eq('session_id', sessionId);
-    }
-
-    const { data, error } = await query;
-    if (!error && data) {
-      return data.map(fromSnakeCaseRow);
-    }
-
-    if (error) {
-      logger.warn('Failed reading token usage events from Supabase', {
+  if (pool) {
+    try {
+      const selectCols =
+        'organization_id, user_id, event_id, dedupe_key, provider, product, model, prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id, task_id, created_at';
+      const { rows } = sessionId
+        ? await pool.query(
+            `SELECT ${selectCols} FROM token_usage_events
+             WHERE user_id = $1 AND created_at >= $2 AND session_id = $3`,
+            [userId, periodStart, sessionId],
+          )
+        : await pool.query(
+            `SELECT ${selectCols} FROM token_usage_events
+             WHERE user_id = $1 AND created_at >= $2`,
+            [userId, periodStart],
+          );
+      return rows.map(fromSnakeCaseRow);
+    } catch (error) {
+      logger.warn('Failed reading token usage events from internal DB', {
         userId,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   }
@@ -333,8 +338,8 @@ function computeSummaryFromEvents(
       : null;
   const hardCapExceeded = Boolean(
     budget &&
-      budget.hardCap &&
-      (monthlyTokens > budget.monthlyLimitTokens || monthlyCostEur > budget.monthlyLimitEur),
+    budget.hardCap &&
+    (monthlyTokens > budget.monthlyLimitTokens || monthlyCostEur > budget.monthlyLimitEur),
   );
   const thresholdBreaches = budget
     ? budget.notifyThresholds
@@ -381,8 +386,8 @@ async function persistAlertsForBreaches(
   breaches: number[],
   hardCapExceeded: boolean,
 ) {
-  const sb = getSupabaseClient();
-  if (!sb || (!hardCapExceeded && breaches.length === 0)) {
+  const pool = getInternalDbPool();
+  if (!pool || (!hardCapExceeded && breaches.length === 0)) {
     return;
   }
 
@@ -418,24 +423,24 @@ async function persistAlertsForBreaches(
     ),
   );
 
-  const { data: existingAlerts, error: existingError } = await sb
-    .from('token_alerts')
-    .select('alert_type, threshold_value')
-    .eq('user_id', userId)
-    .eq('status', 'open')
-    .in('alert_type', alertTypes)
-    .in('threshold_value', thresholdValues);
-
-  if (existingError) {
+  let existingAlerts: Array<{ alert_type: string; threshold_value: number }>;
+  try {
+    const { rows: existingRows } = await pool.query(
+      `SELECT alert_type, threshold_value FROM token_alerts
+       WHERE user_id = $1 AND status = 'open' AND alert_type = ANY($2) AND threshold_value = ANY($3)`,
+      [userId, alertTypes, thresholdValues],
+    );
+    existingAlerts = existingRows;
+  } catch (error) {
     logger.warn('Failed reading existing token usage alerts', {
       userId,
-      error: existingError.message,
+      error: error instanceof Error ? error.message : String(error),
     });
     return;
   }
 
   const existingSet = new Set(
-    (existingAlerts || []).map((row: any) => `${row.alert_type}:${row.threshold_value}`),
+    existingAlerts.map((row) => `${row.alert_type}:${row.threshold_value}`),
   );
   const rowsToInsert = rows.filter(
     (row) => !existingSet.has(`${row.alert_type}:${row.threshold_value}`),
@@ -444,14 +449,36 @@ async function persistAlertsForBreaches(
     return;
   }
 
-  const { error } = await sb.from('token_alerts').insert(rowsToInsert);
-  if (error) {
-    logger.warn('Failed writing token usage alerts', { userId, error: error.message });
+  const columns = ['organization_id', 'user_id', 'alert_type', 'threshold_value', 'status'];
+  const valuesSql = rowsToInsert
+    .map((_, i) => `(${columns.map((_c, j) => `$${i * columns.length + j + 1}`).join(', ')})`)
+    .join(', ');
+  const params = rowsToInsert.flatMap((row) => [
+    row.organization_id,
+    row.user_id,
+    row.alert_type,
+    row.threshold_value,
+    row.status,
+  ]);
+
+  try {
+    await pool.query(
+      `INSERT INTO token_alerts (${columns.join(', ')}) VALUES ${valuesSql}`,
+      params,
+    );
+  } catch (error) {
+    logger.warn('Failed writing token usage alerts', {
+      userId,
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
 }
 
 export const tokenUsageService = {
-  async ingestEvents(userId: string, events: TokenUsageEventInput[]): Promise<{
+  async ingestEvents(
+    userId: string,
+    events: TokenUsageEventInput[],
+  ): Promise<{
     ingested: number;
     duplicate: number;
     totalCostEur: number;
@@ -473,30 +500,61 @@ export const tokenUsageService = {
       });
     }
 
-    const sb = getSupabaseClient();
-    if (sb) {
+    const pool = getInternalDbPool();
+    if (pool) {
+      // organization_members is business/customer data — that lookup stays on
+      // Supabase even though token_usage_events itself moves to the internal pool.
       const organizationId = await resolveOrganizationId(userId);
       prepared.forEach((event) => {
         event.organizationId = organizationId;
       });
 
-      const { data: insertedRows, error: upsertError } = await sb
-        .from('token_usage_events')
-        .upsert(prepared.map(toSnakeCaseRow), {
-          onConflict: 'user_id,dedupe_key',
-          ignoreDuplicates: true,
-        })
-        .select('dedupe_key,cost_eur');
+      let persistedRows: Array<{ dedupe_key: string; cost_eur: string | number }> = [];
+      if (prepared.length > 0) {
+        const columns = [
+          'organization_id',
+          'user_id',
+          'event_id',
+          'dedupe_key',
+          'provider',
+          'product',
+          'model',
+          'prompt_tokens',
+          'completion_tokens',
+          'cached_tokens',
+          'cost_eur',
+          'session_id',
+          'task_id',
+          'created_at',
+        ];
+        const rows = prepared.map((event) => {
+          const row = toSnakeCaseRow(event) as Record<string, unknown>;
+          return columns.map((col) => row[col]);
+        });
+        const valuesSql = rows
+          .map((row, i) => `(${row.map((_, j) => `$${i * columns.length + j + 1}`).join(', ')})`)
+          .join(', ');
+        const params = rows.flat();
 
-      if (upsertError) {
-        throw new Error(`Failed writing token usage events: ${upsertError.message}`);
+        try {
+          const result = await pool.query(
+            `INSERT INTO token_usage_events (${columns.join(', ')}) VALUES ${valuesSql}
+             ON CONFLICT (user_id, dedupe_key) DO NOTHING
+             RETURNING dedupe_key, cost_eur`,
+            params,
+          );
+          persistedRows = result.rows;
+        } catch (error) {
+          throw new Error(
+            `Failed writing token usage events: ${error instanceof Error ? error.message : String(error)}`,
+          );
+        }
       }
 
-      const persistedRows = insertedRows || [];
       ingested = persistedRows.length;
       duplicate = prepared.length - ingested;
       totalCostEur = Number(
-        persistedRows.reduce((sum: number, row: any) => sum + Number(row.cost_eur || 0), 0).toFixed(6),
+        persistedRows.reduce((sum: number, row) => sum + Number(row.cost_eur || 0), 0).toFixed(6),
       );
 
       const summary = await this.getSummary(userId, 30);
@@ -532,7 +590,10 @@ export const tokenUsageService = {
     };
   },
 
-  async getSummary(userId: string, periodDays: number): Promise<{
+  async getSummary(
+    userId: string,
+    periodDays: number,
+  ): Promise<{
     periodDays: number;
     totals: {
       totalEvents: number;
@@ -580,7 +641,8 @@ export const tokenUsageService = {
     const scopedCostEur = Number(
       scopedEvents.reduce((sum, event) => sum + event.costEur, 0).toFixed(6),
     );
-    const recommendationCostBasisEur = scopedCostEur > 0 ? scopedCostEur : summary.totals.totalCostEur;
+    const recommendationCostBasisEur =
+      scopedCostEur > 0 ? scopedCostEur : summary.totals.totalCostEur;
     const recommendations: TokenRecommendation[] = [];
     const totalEvents = scopedEvents.length;
     const totalTokens = scopedEvents.reduce(
@@ -640,25 +702,39 @@ export const tokenUsageService = {
     };
     budgetsByUser.set(userId, budget);
 
-    const sb = getSupabaseClient();
-    if (sb) {
+    const pool = getInternalDbPool();
+    if (pool) {
       const organizationId = await resolveOrganizationId(userId);
-      const { error } = await sb.from('token_budgets').upsert(
-        {
-          organization_id: organizationId,
-          user_id: userId,
-          daily_limit_tokens: budget.dailyLimitTokens,
-          monthly_limit_tokens: budget.monthlyLimitTokens,
-          monthly_limit_eur: budget.monthlyLimitEur,
-          hard_cap: budget.hardCap,
-          notify_thresholds: budget.notifyThresholds,
-          updated_at: budget.updatedAt,
-        },
-        { onConflict: 'user_id' },
-      );
-
-      if (error) {
-        logger.warn('Failed writing token budget to Supabase', { userId, error: error.message });
+      try {
+        await pool.query(
+          `INSERT INTO token_budgets (
+             organization_id, user_id, daily_limit_tokens, monthly_limit_tokens,
+             monthly_limit_eur, hard_cap, notify_thresholds, updated_at
+           ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+           ON CONFLICT (user_id) DO UPDATE SET
+             organization_id = EXCLUDED.organization_id,
+             daily_limit_tokens = EXCLUDED.daily_limit_tokens,
+             monthly_limit_tokens = EXCLUDED.monthly_limit_tokens,
+             monthly_limit_eur = EXCLUDED.monthly_limit_eur,
+             hard_cap = EXCLUDED.hard_cap,
+             notify_thresholds = EXCLUDED.notify_thresholds,
+             updated_at = EXCLUDED.updated_at`,
+          [
+            organizationId,
+            userId,
+            budget.dailyLimitTokens,
+            budget.monthlyLimitTokens,
+            budget.monthlyLimitEur,
+            budget.hardCap,
+            budget.notifyThresholds,
+            budget.updatedAt,
+          ],
+        );
+      } catch (error) {
+        logger.warn('Failed writing token budget to internal DB', {
+          userId,
+          error: error instanceof Error ? error.message : String(error),
+        });
       }
     }
 
