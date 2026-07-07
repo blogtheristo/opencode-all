@@ -77,6 +77,7 @@ Thumbs.db
 # Ignore .claude contents but whitelist hooks + settings + skills for team safety nets
 .claude/*
 !.claude/HANDOFF.md
+!.claude/handoffs/
 !.claude/hooks/
 !.claude/settings.json
 !.claude/settings.local.json
