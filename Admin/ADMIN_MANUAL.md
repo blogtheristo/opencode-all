@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.9
+Version: 3.10
 
 Sessions & Modifications:
 
+- Version: 3.10 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added "Aspire Dashboard Observability (DGX Spark)" section — three-port reference (18888 UI / 18889 OTLP-gRPC / 18890 OTLP-HTTP), the 18890 rule for all http/protobuf producers after the silent-telemetry incident (compose v1.2.0 pointed producers at the gRPC port then the UI port; both dropped telemetry silently; fixed compose v1.3.1), post-deploy verification procedure (traces visible + GenAI sparkle on LLM spans), GenAI message-content capture flagged as human data-protection decision (default OFF), Unsecured-auth hardening trigger, and version-pinning discipline. Cross-refs: field note 2026-07-07-aspire-development-evolution-pr1500-to-main.md §6.2, V3Thesis §10.25.
 - Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added `ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` to the Admin Manuals Index — CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory, and agentic commerce / KYA data-handling plan.
 - Version: 3.8 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Ontology-schema implementation — retention is now a node property" subsection recording the `ONTOLOGY.md` v1.5 schema change (Data Lifecycle & Retention Ontology, §6): every LWM ontology node ingesting live data now declares node_owner/raw_tier/summary_tier/audit_tier/rollup_tier/aggregation_review at design time. Documents the operator action (reject node definitions missing the retention block) and the full cross-reference chain from ONTOLOGY.md through the field note, this Admin Manual, the handbook, and the public product pages.
 - Version: 3.7 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "National reference: VM 2026:27 recommendation audit" subsection under Customer Sensor Data Retention — maps Table 16 (§4.4.3) risk-management measure categories from the Finnish Ministry of Finance guide (VM 2026:27) to the four-layer retention model (content-modification → Layer 2/4, user-management → RLS/Layer 3, distribution-control → Situation Room, aggregation-effect mitigation → §4.4.2), plus the guide's Stage 5 documentation-disclosure warning applied to this checklist itself. Source archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`.
@@ -304,6 +305,30 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 - Deploy / health: `infrastructure/dgx-spark/` (`docker-compose.yml` service `nemoclaw`, `deploy.sh`, `heartbeat.ts` check `nemoclaw`). Health: `http://nemoclaw:8090/health` (LAN).
 - `NEMOCLAW_IMAGE` defaults to the upstream OpenClaw image; NemoClaw is NVIDIA's OpenShell-sandboxed distribution — point `NEMOCLAW_IMAGE` at the NVIDIA-published image once provisioned (migration Phase 3).
 - Migration status / runbook: `docs/migrations/2026-06-25-openclaw-to-nemoclaw.md`.
+
+---
+
+## Aspire Dashboard Observability (DGX Spark)
+
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.3.5`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+
+### The three ports (do not mix them up)
+
+| Port  | What it is                      | Who uses it                                                |
+| ----- | ------------------------------- | ---------------------------------------------------------- |
+| 18888 | Browser UI (+ `/health`)        | Humans: `http://dgx-spark:18888`; heartbeat/state-observer |
+| 18889 | OTLP/**gRPC** ingest            | gRPC exporters only (none in our stack today)              |
+| 18890 | OTLP/**HTTP** ingest (protobuf) | `dws-backend`, `dws-cron`, `bumblebee-collector`           |
+
+**Rule:** every `OTEL_EXPORTER_OTLP_ENDPOINT` with `OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf` points at `http://aspire-dashboard:18890`. History: compose v1.2.0 pointed producers at the gRPC port, then at the UI port — both dropped telemetry **silently** (the OTel BatchSpanProcessor swallows export errors; every liveness check still passes). Fixed in compose v1.3.1 (2026-07-07). Incident write-up: `docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md` §6.2; thesis treatment: V3Thesis §10.25.
+
+### Operate
+
+- **Verify after any deploy:** open `http://dgx-spark:18888` → Traces. You must see `dws-backend` spans within minutes of API traffic. LLM calls show the **GenAI sparkle icon** (`gen_ai.*` spans from `src/observability/tracing.ts`). A dashboard with zero traces is a wiring failure, not an idle system.
+- **Enable/disable per service:** telemetry is opt-in via `OTEL_EXPORTER_OTLP_ENDPOINT` (unset = no-op, nothing leaves the host). Service names via `OTEL_SERVICE_NAME`.
+- **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
+- **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
+- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
 
 ---
 

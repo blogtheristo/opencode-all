@@ -22,27 +22,41 @@ session's context automatically.
 
 ## CURRENT HANDOFF
 
-- **Branch:** claude/aiven-partnership-intro-vm1fgk
-- **Task:** Record Aiven inbound contact (Leevi Lindfors, account manager,
-  2026-07-06) and draft Risto's reply.
-- **State:** Partner record at v1.12 — full track documented. Direction
-  locked: consulting-partner model (founder). Materials received & analyzed
-  (`Partners/aiven-received/`): Aiven's countersigned NDA (§9 comparison —
-  recommend signing theirs) + generic sales deck (zero partner terms; Leevi
-  = ISR, confirms §5.2 read; Wärtsilä VERIFIED via logo slide). §10 customer
-  overlap screen (Wärtsilä > Toyota EU > Adeo > Conrad; Claroty = Aegis
-  signal). §8b reply letter SENT by Risto 2026-07-06 (NDA sign-off + Art.
-  8.3 position + DPA ask + partner-org intro ask + UpCloud/sandbox ask +
-  Wärtsilä public-link ask).
-- **Next steps:** WAITING on Aiven: partner-org intro, UpCloud answer,
-  platform DPA, Wärtsilä link. NDA envelope `f7382f1c-4342-856a-81df-9fc4f27206db` SENT via DocuSign
-  2026-07-06 17:03 EEST — Risto signs, downloads, returns to Leevi. On partner-
-  org response: validate consulting terms against §4 checklist + §5.2 stance.
-- **Blockers:** DocuSign only possible on local machine with .env keys.
+- **Branch:** claude/aspire-development-evolution-16fxg0
+- **Task:** Aspire evolution field note → DWS lessons → implementation →
+  Hakimi's public critique response → Orkia partner outreach.
+- **State:** Aspire dashboard-only adoption confirmed already deployed;
+  fixed a real bug (all 3 OTLP producers pointed at dashboard UI port 18888
+  instead of OTLP/HTTP 18890 — telemetry silently dropped; compose v1.3.1).
+  Hakimi's critique ("trace shows what fired, never whether it should have
+  been able to") verified accurate against `llm-client.ts` (no ex-ante gate)
+  and answered same-day: `KYAVerdict` + `dws.kya.*` span attrs in
+  `tracing.ts`, default `ungated` (absence is queryable), 2 new tests (8/8
+  green). Thesis lockstep 3.77→3.79 across all 4 files (V3Thesis §10.25 +
+  §10.25.6, PHD §14.37 + §14.37.4/KC#44); Learn HTML v3.79 regenerated;
+  ADMIN_MANUAL v3.10 (Aspire Dashboard Observability runbook). Researched
+  Hakimi's own project **Orkia** (github.com/orkiaHQ/orkia) — agentic shell,
+  signed audit chain, ex-ante approve/deny gate, no OTel export, no token
+  budgets. Wrote `Partners/outreach/2026-07-07-orkia-hakimi.md` v1.0:
+  connector-not-competitor read, send-ready public reply drafted (NOT sent —
+  Risto posts from his own account), optional plugin-integration sketch.
+- **Next steps:** (1) Risto: post the drafted reply on the public thread.
+  (2) After merge + DGX `docker compose up -d`: verify traces at
+  http://dgx-spark:18888. (3) Thread real KYA verdicts from the sandbox gate
+  through llm-client/agent-runner call sites (ungated-span count = coverage
+  gap metric). (4) Human decision: GenAI message-content capture (default
+  OFF). (5) Still unverified: WithPip(), aspire destroy, ACA per-app
+  identities, TS AppHost GA. (6) If Hakimi engages: propose the Orkia plugin
+  experiment (§4 of the outreach record) — not started, needs Risto go-ahead.
+- **Blockers:** Cannot reach DGX host from cloud session — on-device
+  verification pending. Aiven track still WAITING (see HANDOFF HISTORY).
 
 ---
 
 ## HANDOFF HISTORY
 
+- 2026-07-07 | claude/aspire-development-evolution-16fxg0 | Hakimi critique → KYAVerdict span attrs shipped; thesis v3.79; Orkia partner outreach record drafted (reply staged, not sent).
+- 2026-07-07 | claude/aspire-development-evolution-16fxg0 | Aspire PR#1500→main evolution field note + DWS lessons; adoption options re-scored.
+- 2026-07-06 | claude/aiven-partnership-intro-vm1fgk | Aiven track full state: record v1.12, NDA envelope f7382f1c SENT via DocuSign, §8b reply sent; WAITING on Aiven (partner-org intro, UpCloud, DPA, Wärtsilä link); DocuSign needs local .env keys.
 - 2026-07-06 | claude/aiven-partnership-intro-vm1fgk | Aiven partner record v1.1: Leevi Lindfors contact + reply draft (human sends).
 - 2026-07-05 | claude/session-container-memory-6ccpnf | Created handoff log mechanism (file + session-start hook + CLAUDE.md pointer).

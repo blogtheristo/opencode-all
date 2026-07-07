@@ -67,6 +67,44 @@ describe('tracing helpers', () => {
     expect(spans[0].attributes['dws.agent.confidence']).toBe(0.92);
   });
 
+  it('withAgentSpan stamps the KYA verdict when a gate cleared the execution', async () => {
+    await withAgentSpan(
+      'sitesense',
+      {
+        orgId: 'org-1',
+        kya: {
+          decision: 'allowed',
+          trustScore: 87,
+          policyVersion: 'kya-policy@2.3',
+          gate: 'nemoclaw-sandbox',
+        },
+      },
+      async () => 'ok',
+    );
+
+    const spans = memoryExporter.getFinishedSpans();
+    expect(spans).toHaveLength(1);
+    expect(spans[0].attributes['dws.kya.verdict']).toBe('allowed');
+    expect(spans[0].attributes['dws.kya.trust_score']).toBe(87);
+    expect(spans[0].attributes['dws.kya.policy_version']).toBe('kya-policy@2.3');
+    expect(spans[0].attributes['dws.kya.gate']).toBe('nemoclaw-sandbox');
+  });
+
+  it('withAgentSpan and withLLMSpan stamp "ungated" when no verdict is passed — absence must be queryable, not blank', async () => {
+    await withAgentSpan('sitesense', {}, async () => 'ok');
+    await withLLMSpan(
+      { system: 'anthropic', operationName: 'chat', requestModel: 'claude-x' },
+      async () => 'ok',
+    );
+
+    const spans = memoryExporter.getFinishedSpans();
+    expect(spans).toHaveLength(2);
+    for (const span of spans) {
+      expect(span.attributes['dws.kya.verdict']).toBe('ungated');
+      expect(span.attributes['dws.kya.trust_score']).toBeUndefined();
+    }
+  });
+
   it('withWorkflowSpan parents withWorkflowStepSpan', async () => {
     await withWorkflowSpan(
       'compliance-assessment',

@@ -23,6 +23,48 @@ function tracer() {
   return trace.getTracer(TRACER_NAME);
 }
 
+/**
+ * Ex-ante authorization verdict for an execution span.
+ *
+ * A trace records what fired; the verdict records under what authority it
+ * was allowed to fire (EU AI Act Article 14 / KYA gate), so the Article 12
+ * trail answers both questions. Produced by whatever gate cleared the
+ * execution — the KYA sandbox bridge, a skill allowlist, an HIL approval.
+ */
+export interface KYAVerdict {
+  /** Gate outcome. A denied execution that still ran is itself a finding. */
+  decision: 'allowed' | 'denied';
+  /** KYA session trust score at gate time (0–100). */
+  trustScore?: number;
+  /** Version of the policy the gate evaluated, e.g. `kya-policy@2.3`. */
+  policyVersion?: string;
+  /** Which gate issued the verdict, e.g. `nemoclaw-sandbox`, `hil-queue`. */
+  gate?: string;
+}
+
+/**
+ * Stamp the authorization verdict onto a span. When no verdict exists the
+ * span is stamped `dws.kya.verdict: "ungated"` — never left blank — so
+ * ungated execution paths are queryable in the trace UI instead of being
+ * indistinguishable from gated ones (Engineering Discipline Rule 12).
+ */
+function stampKYAVerdict(span: Span, verdict?: KYAVerdict): void {
+  if (!verdict) {
+    span.setAttribute('dws.kya.verdict', 'ungated');
+    return;
+  }
+  span.setAttribute('dws.kya.verdict', verdict.decision);
+  if (verdict.trustScore !== undefined) {
+    span.setAttribute('dws.kya.trust_score', verdict.trustScore);
+  }
+  if (verdict.policyVersion) {
+    span.setAttribute('dws.kya.policy_version', verdict.policyVersion);
+  }
+  if (verdict.gate) {
+    span.setAttribute('dws.kya.gate', verdict.gate);
+  }
+}
+
 function recordError(span: Span, err: unknown): void {
   const message = err instanceof Error ? err.message : String(err);
   span.recordException(err instanceof Error ? err : new Error(message));
@@ -32,7 +74,7 @@ function recordError(span: Span, err: unknown): void {
 /** Wrap an agent execution. Records depth, org, session, confidence. */
 export async function withAgentSpan<T>(
   agentName: string,
-  attrs: { orgId?: string; sessionId?: string; delegationDepth?: number },
+  attrs: { orgId?: string; sessionId?: string; delegationDepth?: number; kya?: KYAVerdict },
   fn: (span: Span) => Promise<T>,
 ): Promise<T> {
   return tracer().startActiveSpan(
@@ -40,6 +82,7 @@ export async function withAgentSpan<T>(
     { kind: SpanKind.INTERNAL },
     async (span) => {
       span.setAttribute('dws.agent.name', agentName);
+      stampKYAVerdict(span, attrs.kya);
       if (attrs.orgId) span.setAttribute('dws.org_id', attrs.orgId);
       if (attrs.sessionId) span.setAttribute('dws.session_id', attrs.sessionId);
       if (attrs.delegationDepth !== undefined) {
@@ -121,6 +164,7 @@ export async function withLLMSpan<T>(
     requestModel: string;
     requestMaxTokens?: number;
     requestTemperature?: number;
+    kya?: KYAVerdict;
   },
   fn: (span: Span) => Promise<T>,
 ): Promise<T> {
@@ -129,6 +173,7 @@ export async function withLLMSpan<T>(
     { kind: SpanKind.CLIENT },
     async (span) => {
       span.setAttribute('gen_ai.system', request.system);
+      stampKYAVerdict(span, request.kya);
       span.setAttribute('gen_ai.operation.name', request.operationName);
       span.setAttribute('gen_ai.request.model', request.requestModel);
       if (request.requestMaxTokens !== undefined) {
@@ -183,28 +228,24 @@ export async function withToolSpan<T>(
   attrs: { agentName?: string; chainPosition?: number; chainLength?: number },
   fn: (span: Span) => Promise<T>,
 ): Promise<T> {
-  return tracer().startActiveSpan(
-    `tool.${toolName}`,
-    { kind: SpanKind.INTERNAL },
-    async (span) => {
-      span.setAttribute('dws.tool.name', toolName);
-      if (attrs.agentName) span.setAttribute('dws.agent.name', attrs.agentName);
-      if (attrs.chainPosition !== undefined) {
-        span.setAttribute('dws.tool.chain_position', attrs.chainPosition);
-      }
-      if (attrs.chainLength !== undefined) {
-        span.setAttribute('dws.tool.chain_length', attrs.chainLength);
-      }
-      try {
-        return await fn(span);
-      } catch (err) {
-        recordError(span, err);
-        throw err;
-      } finally {
-        span.end();
-      }
-    },
-  );
+  return tracer().startActiveSpan(`tool.${toolName}`, { kind: SpanKind.INTERNAL }, async (span) => {
+    span.setAttribute('dws.tool.name', toolName);
+    if (attrs.agentName) span.setAttribute('dws.agent.name', attrs.agentName);
+    if (attrs.chainPosition !== undefined) {
+      span.setAttribute('dws.tool.chain_position', attrs.chainPosition);
+    }
+    if (attrs.chainLength !== undefined) {
+      span.setAttribute('dws.tool.chain_length', attrs.chainLength);
+    }
+    try {
+      return await fn(span);
+    } catch (err) {
+      recordError(span, err);
+      throw err;
+    } finally {
+      span.end();
+    }
+  });
 }
 
 /**
