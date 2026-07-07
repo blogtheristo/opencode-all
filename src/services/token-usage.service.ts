@@ -178,7 +178,7 @@ function fromSnakeCaseRow(row: any): StoredTokenUsageEvent {
     promptTokens: row.prompt_tokens,
     completionTokens: row.completion_tokens,
     cachedTokens: row.cached_tokens,
-    costEur: row.cost_eur,
+    costEur: Number(row.cost_eur),
     sessionId: row.session_id,
     taskId: row.task_id,
     timestamp: row.created_at,
@@ -239,7 +239,7 @@ async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
   return {
     dailyLimitTokens: data.daily_limit_tokens,
     monthlyLimitTokens: data.monthly_limit_tokens,
-    monthlyLimitEur: data.monthly_limit_eur,
+    monthlyLimitEur: data.monthly_limit_eur === null ? null : Number(data.monthly_limit_eur),
     hardCap: data.hard_cap,
     notifyThresholds: Array.isArray(data.notify_thresholds) ? data.notify_thresholds : [],
     updatedAt: data.updated_at,
