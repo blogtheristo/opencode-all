@@ -484,6 +484,11 @@ or removing an agent.
 | `mnemosyne`              | Long-term memory oracle                           |
 | `panacea`                | Self-improving / adaptive optimization            |
 | `quality-gate`           | Quality-gate / QA verification                    |
+| `outreach-executor` | OutreachExecutorAgent | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending. | Llama 3.3 70B |
+| `outreach-improver` | OutreachImproverAgent | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time. | Llama 3.3 70B |
+| `outreach-lead-finder` | OutreachLeadFinderAgent | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama. | Llama 3.3 70B |
+| `outreach-message-crafter` | OutreachMessageCrafterAgent | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads. | Llama 3.3 70B |
+| `outreach-orchestrator` | OutreachOrchestratorAgent | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval. | Llama 3.3 70B |
 | `aegis` | AegisAgent | Vulnerability & patch governance — triages dependency and code-scan findings  | Llama 3.3 70B |
 | `helpdesk` | HelpdeskAgent | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,  | Llama 3.3 70B |
 | `vesta` | VestaAgent | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.  | Llama 3.3 70B |
@@ -647,6 +652,6 @@ Root backend has `"lint": "echo \"No linter configured\""` — no real linter. D
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** July 6, 2026  
+**Last Updated:** July 7, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026
