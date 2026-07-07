@@ -33,6 +33,14 @@ session's context automatically.
   tracing.ts GenAI helpers wired into app.ts + llm-client.ts); (3) BUG FIXED —
   all three OTLP producers pushed to the 18888 UI port, telemetry silently
   dropped; compose v1.3.1 moves dws-backend/dws-cron/bumblebee to 18890.
+- **Docs/thesis pass (user-authorized RED→GREEN):** All 4 thesis files bumped
+  3.77→3.78 in lockstep. V3Thesis EN/FI +§10.25 (Aspire adoption + silent-
+  telemetry incident + lessons — implementation side). PHD EN/FI +§14.37 +
+  KC #44 (polyglot orchestrator convergence signals — market/scientific side);
+  stale 3.76 footers fixed. Learn/ mirrors synced + v3.78 HTML generated for
+  all 4 (old versions preserved). ADMIN_MANUAL v3.10: new "Aspire Dashboard
+  Observability (DGX Spark)" section (3-port table, 18890 rule, verify
+  procedure, content-capture gate, auth hardening trigger).
 - **Next steps:** (1) After merge + DGX `docker compose up -d`: verify traces
   at http://dgx-spark:18888, GenAI sparkle on LLM spans. (2) Human decision:
   GenAI message-content capture (data-protection call, default OFF). (3) Still
