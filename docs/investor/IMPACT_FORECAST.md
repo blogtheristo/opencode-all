@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — modeled impact of the labor-pricing refresh on the 2026 Q2 SAFE round: valuation cap lift, INTRO conversion uplift, time-to-term-sheet compression, Messe stand pickups, and SAFE close-timing target. Each scenario has explicit assumptions, downside flagged. Spine: labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added §2.1.1 "The 4P Capital Classes as the cap-lift mechanism" under Prediction 1 — maps the SaaS-4× → labor-6× multiple shift to Prompt + People + Plant + Perception, and names Perception Capital (data-network-effect + physical-AI comp) as the lever that defends the €5.5M mid-case and the €6.1M upper bound. Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
+- Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added §6 "4P Capital Classes — Valuation Levers" — maps each capital class to its valuation mechanism; positions Perception Capital as the re-rate lever for the upper bound. Renumbered prior §6 Companion Documents to §7. Canonical source: DWS_BRAND_STANDARD.md §23.
 
 Session Links & References:
 
@@ -169,7 +170,24 @@ Risks are bounded, downside scenarios preserve the existing plan rather than dam
 
 ---
 
-## 6. Companion Documents
+## 6. 4P Capital Classes — Valuation Levers (Narrative Enhancement)
+
+The 4P Capital Classes model (canonised June 2026, `DWS_BRAND_STANDARD.md §23`) is not a new number — it is the named argument that moves the investor's mental model from the SaaS-lens baseline (€3.8M) toward the labor-AI / industrial-AI lens that supports the mid-case (€5.5M) and names the upper bound (€6.1M).
+
+| Class          | Valuation mechanism                                                                                      | Direction                       |
+| -------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| **Prompt**     | Reusable IP replacing 6–8 EU FTE → supports the labor-AI multiple (6×) vs SaaS (4×)                      | Lifts comp set                  |
+| **People**     | 7-month HIL phase demonstrated → lowers execution / key-person risk discount                             | Reduces discount                |
+| **Plant**      | EU-resident, Article-12, mobile two-room stack (site or vehicle) → regulatory moat + ACV durability      | Protects multiple + expands TAM |
+| **Perception** | Proprietary, accumulating world model + closed loop → data-network-effect + industrial/physical-AI comps | **Re-rate lever**               |
+
+**Conclusion:** The 4P narrative shifts the round from "compliance SaaS" toward the labor-AI / industrial-AI lens that defends the **€5.5M mid-case** already in this forecast. Perception Capital is the specific argument for the **€6.1M upper bound** — the only class that compounds with data and touches physical-AI comps. Impact is narrative/multiple-mix, not a new number: it de-risks the move from baseline to mid-case (+45%) and gives the upper range a named, defensible driver.
+
+**4P as M&A/diligence lens:** The 4P classes are also a sell-side and acquisition scoring framework. Score a target on Prompt / People / Plant / Perception — the at-risk asset in a shrinking industrial team is People + Perception Capital (the tacit ontology walking out with the workforce). 4P names what a balance sheet misses.
+
+---
+
+## 7. Companion Documents
 
 - `docs/investor/INVESTOR_ONE_PAGER_2026Q2.md`
 - `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md`

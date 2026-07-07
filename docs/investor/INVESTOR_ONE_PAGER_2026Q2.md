@@ -6,12 +6,13 @@ _Buyer-facing offer: **DWS 365 Skilled Agents** & **Firehorse 365 Skilled Agents
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor-facing one-pager for 2026 Q2 SAFE round, reframing DWS 365 Skilled Agents (on DWS IQ) from SaaS-lens "AI platform" to labor-lens "Skilled Agents". Anchors pricing, unit economics, distribution, and traction to the labor-replacement narrative. Companion to docs/marketing/AI-AS-LABOR-PRICING-STRATEGY.md and SKILLED-AGENTS-PRICE-LIST-2026.md.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added "The 4P Capital Classes — the valuation lever" section mapping each class (Prompt / People / Plant / Perception) to its valuation effect — Prompt = labor-AI 6× vs SaaS 4× multiple; People = lower key-person/execution discount; Plant = regulatory moat + ACV durability; Perception = data-network-effect + physical-AI comp = the re-rate lever defending the €5.5M mid-case and naming the €6.1M upper bound. Added the "4P as M&A / diligence ontology" angle. Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0). HTML kept in lockstep.
+- Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added §5 to Why We Win — 4P Capital Classes as accumulated moat (Prompt / People / Plant / Perception), with Perception Capital as the data-network-effect + physical-AI re-rate lever. Updated Anchor Footer. Canonical source: DWS_BRAND_STANDARD.md §23.
 
 Session Links & References:
 
@@ -131,6 +132,17 @@ Every named account on the Q1/26 manifesto target list (Skanska, STRABAG, HOCHTI
 - **KYA (Know Your Agent)** is the runtime trust layer — every action is bound to a verified human identity at trust class TC-0…TC-4, with TC-4 Leash Snap chain termination for anomalous chains.
 - Together: the deliverable is **audit-trailed, signed by a human, and explainable** — the exact thing CSRD assurance, CBAM declarations, EU AI Act conformity, and NIS2 incident reports require. A copilot produces a draft; DWS produces the signable.
 
+### 5. Four accumulated capital classes — the moat a competitor can't reconstruct.
+
+Seven months of human-in-the-loop operation produced four durable capital classes:
+
+- **Prompt Capital** — 50+ validated skills, 30+ reusable agent configs, eval datasets, automation library. The part DWS keeps if it switches model provider tomorrow.
+- **People Capital** — calibrated operator judgment from seven months of HIL; tacit, company-specific, not re-hireable from outside.
+- **Plant Capital** — the sovereign, mobile two-room stack (Control Room + Situation Room) at site or in a Lifetime Fleet vehicle. EU-resident, Article-12 audit-logged, tested under limited connectivity.
+- **Perception Capital** — the governed Lifetime World Model fusing sensors, mobility, satellite, and robotics into a closed sense→decide→act loop. The class that compounds: every governed field operation deepens the model. Competitors cannot buy this off a shelf; they must earn it in deployment.
+
+A rival who has the model layer (Q1) still lacks all four. **Perception Capital is the argument for the data-network-effect and physical-AI comp set.** _(Canonical source: DWS_BRAND_STANDARD.md §23; Ontology Series: `onelifetime.world/posts/four-capital-classes.html`.)_
+
 ---
 
 ## The 4P Capital Classes — Why the Re-Rate Holds
@@ -183,7 +195,7 @@ Q1/26 manifesto target list: NCC, Skanska, PORR, STRABAG, HOCHTIEF, YIT, Peab, V
 
 > **Labor-anchored pricing. Regulation drives demand. MACC + AppExchange drive distribution.**
 >
-> _Replaces 6–8 EU FTE at a fraction of fully loaded cost. Margin expands as model cost falls. EU sovereignty is the moat._
+> _Replaces 6–8 EU FTE at a fraction of fully loaded cost. Margin expands as model cost falls. EU sovereignty + four accumulated capital classes (Prompt · People · Plant · Perception) are the moat._
 
 _Lifetime Oy · Risto Anton Päärni · risto.paarni@lifetime.fi · +358 400 319 010 · Espoo, Finland · Business ID 0772407-9 · VAT FI07724079_
 

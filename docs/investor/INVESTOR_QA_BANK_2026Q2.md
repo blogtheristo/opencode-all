@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — answers to the twelve hardest investor questions for PE meetings and Messe Germany, each ≤120 words. Anchored in the four labor-pricing strategy docs and Lifetime Oy legal identity per CLAUDE.md Legal Identity Rule. Spine: labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added Q13 — "What's your moat / why can't a competitor catch up?" answered through the 4P Capital Classes (Prompt / People / Plant / Perception), the 7-month HIL loop a new entrant cannot skip, and the honest caveat that Perception Capital is still being proven. Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
+- Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added Q13 — accumulated moat / 4P Capital Classes answer for "why can't a competitor catch up in 18 months." Deduplicated against the already-merged Q13 (PR #1568); folded the Q6 4th-moat-layer reference into the existing text. Canonical source: DWS_BRAND_STANDARD.md §23.
 
 Session Links & References:
 
@@ -73,7 +74,7 @@ Same category (vertical AI labor), different domain. Cognition / Adept = softwar
 
 ## Q6 — What's your moat when fine-tuned models become free?
 
-Three layers the model cannot give you. **(1) The artifact** — a signed CSRD report or EU AI Act conformity pack is a regulatory deliverable, not a model output. **(2) The runtime** — KYA binds every action to a verified human identity with TC-0…TC-4 trust classes and leash-snap chain termination; Themis routes the case across the sixteen agents and escalates to human-on-loop where the regulation requires. **(3) The distribution** — MACC-burn into committed Azure spend and AppExchange "digital labor" listings. Free models compress the copilot category; they do not compress the labor category. Our cost of inference falls, our price holds, margin expands. _(AI-AS-LABOR-PRICING-STRATEGY §"Why SaaS Lens Compresses Us".)_
+Three layers the model cannot give you. **(1) The artifact** — a signed CSRD report or EU AI Act conformity pack is a regulatory deliverable, not a model output. **(2) The runtime** — KYA binds every action to a verified human identity with TC-0…TC-4 trust classes and leash-snap chain termination; Themis routes the case across the sixteen agents and escalates to human-on-loop where the regulation requires. **(3) The distribution** — MACC-burn into committed Azure spend and AppExchange "digital labor" listings. Free models compress the copilot category; they do not compress the labor category. Our cost of inference falls, our price holds, margin expands. A fourth layer compounds behind these three: DWS has accumulated **four capital classes** (Prompt / People / Plant / Perception) that a new entrant with the same model still lacks — see Q13. _(AI-AS-LABOR-PRICING-STRATEGY §"Why SaaS Lens Compresses Us"; DWS_BRAND_STANDARD.md §23.)_
 
 ---
 
@@ -122,5 +123,6 @@ We accumulate **four durable capital classes — the 4P model** (canon: DWS*BRAN
 ## Closing Discipline
 
 - Read the spine line out loud at the top of every meeting.
-- If an investor asks a question not on this list, route it to _"strong question — let me come back with the data-room reference within 24 hours"_ and capture it for v1.1 of this bank.
+- If an investor asks a question not on this list, route it to _"strong question — let me come back with the data-room reference within 24 hours"_ and capture it for v1.2 of this bank.
 - Send the follow-up from `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never noreply@.
+

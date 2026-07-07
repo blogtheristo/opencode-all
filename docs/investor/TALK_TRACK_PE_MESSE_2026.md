@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor talk-track package for 2026 Q2 SAFE round. Covers 30-second elevator, 2-minute pitch, 8-slide deck outline, Q&A bank pointer, and DE / FI translations of the elevator + 2-minute pitch for Messe Germany and Finnish-language investor conversations. Companion to INVESTOR_ONE_PAGER_2026Q2.md and INVESTOR_QA_BANK_2026Q2.md.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added §2.5 "The 4P Moat Beat" — the drop-in answer to "why you / why can't a competitor catch up", mapping Prompt / People / Plant / Perception to the valuation re-rate and naming Perception as the lever (still-being-proven). Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
+- Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added 4P Capital Classes moat bullet to the 2-minute pitch (between Traction and Ask); moat content lives in §2.5 "The 4P Moat Beat" (already merged from PR #1568) rather than a 9th slide, keeping the "8-Slide Deck" title honest. Canonical source: DWS_BRAND_STANDARD.md §23.
 
 Session Links & References:
 
@@ -66,6 +67,8 @@ The spine — in every conversation, on every slide:
 4. **Distribution.** "Every Tier-1 named account in our pipeline — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger — sits on an active Microsoft Azure Consumption Commitment. We list on Azure Marketplace, the customer burns down committed cloud spend at our sticker, Microsoft co-sell credit makes their field a distribution channel for us. AppExchange on Salesforce slots us inside their 'digital labor' vocabulary at a defensible per-agent-month sticker on top of the platform meter."
 
 5. **Traction.** "Two Q1 pilots signed at €29,950, €7k MRR live with 100% retention, sixteen agents in production, €550k to €1.07M ACV booked-target across the Tier-1 pipeline for Q2–Q4 2026, V1 launches at Arctic 15 June 15, Messe Germany commercial push in Stuttgart September 17–19."
+
+6. **The accumulated moat.** "Seven months of operation built four capital classes a competitor can't reconstruct with the same model: Prompt — a validated skills and agent corpus; People — calibrated operator judgment that was earned in the field; Plant — a sovereign, mobile two-room edge stack; and Perception — a governed world model that compounds with every field deployment. A rival starting today runs 18 months behind on Perception alone."
 
 **Ask.** "€650k SAFE at €3.8M cap. Sixty percent funds Tier-1 EU sales through Messe Germany, twenty-five percent EU AI Act conformity co-sign, fifteen percent MACC-burn and AppExchange co-sell. Twenty-minute follow-up call, or come see the Messe stand in September."
 

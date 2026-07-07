@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.10
+Version: 3.11
 
 Sessions & Modifications:
 
+- Version: 3.11 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Documented the 4P Capital Classes model (Prompt / People / Plant / Perception) as the company's canonical capital model; added Related Documentation row; registered the future "4p-diligence" assessment lens (Agent Productization Rule). Canonical source: DWS_BRAND_STANDARD.md §23; DWS_TRUTH_STANDARD.md §2 row 25.
 - Version: 3.10 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added "Aspire Dashboard Observability (DGX Spark)" section — three-port reference (18888 UI / 18889 OTLP-gRPC / 18890 OTLP-HTTP), the 18890 rule for all http/protobuf producers after the silent-telemetry incident (compose v1.2.0 pointed producers at the gRPC port then the UI port; both dropped telemetry silently; fixed compose v1.3.1), post-deploy verification procedure (traces visible + GenAI sparkle on LLM spans), GenAI message-content capture flagged as human data-protection decision (default OFF), Unsecured-auth hardening trigger, and version-pinning discipline. Cross-refs: field note 2026-07-07-aspire-development-evolution-pr1500-to-main.md §6.2, V3Thesis §10.25.
 - Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added `ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` to the Admin Manuals Index — CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory, and agentic commerce / KYA data-handling plan.
 - Version: 3.8 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Ontology-schema implementation — retention is now a node property" subsection recording the `ONTOLOGY.md` v1.5 schema change (Data Lifecycle & Retention Ontology, §6): every LWM ontology node ingesting live data now declares node_owner/raw_tier/summary_tier/audit_tier/rollup_tier/aggregation_review at design time. Documents the operator action (reject node definitions missing the retention block) and the full cross-reference chain from ONTOLOGY.md through the field note, this Admin Manual, the handbook, and the public product pages.
@@ -49,8 +50,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 05.07.2026
-- Version: 3.9
+- Last Modified: 06.07.2026
+- Version: 4.0
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -244,15 +245,16 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                  | Location                                                                            | Description                                                                 |
-| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                          |
-| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                              |
-| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                         |
-| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                    |
-| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                         |
-| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot |
-| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                  |
+| Document                  | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
+| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
+| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
+| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
+| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
+| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
+| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
+| **4P Capital Classes**    | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
 
 ---
 
