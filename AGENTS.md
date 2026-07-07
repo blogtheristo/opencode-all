@@ -494,6 +494,7 @@ or removing an agent.
 | `mnemosyne`              | Long-term memory oracle                           |
 | `panacea`                | Self-improving / adaptive optimization            |
 | `quality-gate`           | Quality-gate / QA verification                    |
+| `industry-analyst` | IndustryAnalystAgent | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent | Llama 3.3 70B |
 | `outreach-executor` | OutreachExecutorAgent | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending. | Llama 3.3 70B |
 | `outreach-improver` | OutreachImproverAgent | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time. | Llama 3.3 70B |
 | `outreach-lead-finder` | OutreachLeadFinderAgent | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama. | Llama 3.3 70B |
