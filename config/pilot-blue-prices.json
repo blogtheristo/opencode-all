@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-14T14:00:00Z",
-  "version": "1.1",
-  "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation. v1.1: no override changes; bump allows the pilot HTML to be re-rendered with the three new T3 brand bundles (DWS365-CMP-T3, FH-SKILL-T3, AC365-T3) added to the labor-anchored catalog at priceVersion 1.15.",
+  "lastUpdated": "2026-07-07T00:00:00Z",
+  "version": "1.2",
+  "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation. v1.2: fixed stale 'minimum 2 units' note on edge-node-gn100 (current SKU is a single unit; landing-pages/dws10-com/products.csv confirms 1-unit pricing), added missing procurement-pending entries for LF-SITROOM-001 (Situation Room, 2-unit bundle) and LF-DGX-SPARK — neither had a blue-price row despite being live SKUs in dws10.com/config/products.json. v1.1: no override changes; bump allows the pilot HTML to be re-rendered with the three new T3 brand bundles (DWS365-CMP-T3, FH-SKILL-T3, AC365-T3) added to the labor-anchored catalog at priceVersion 1.15.",
   "products": {
     "DWS-IQ-006": {
       "bluePrice": 0,
@@ -135,9 +135,25 @@
       "bluePrice": null,
       "bluePriceSetup": null,
       "blueType": "procurement",
-      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost before quoting. Minimum 2 units. Never publish buy-in price.",
+      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost before quoting. Single-unit SKU (Control Room). Never publish buy-in price.",
       "maxPilotMonths": 12,
-      "blueVersion": "1.1"
+      "blueVersion": "1.2"
+    },
+    "LF-SITROOM-001": {
+      "bluePrice": null,
+      "bluePriceSetup": null,
+      "blueType": "procurement",
+      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost before quoting. Situation Room bundle: 2× Acer Veriton GN100 bridged. Never publish buy-in price.",
+      "maxPilotMonths": 12,
+      "blueVersion": "1.2"
+    },
+    "LF-DGX-SPARK": {
+      "bluePrice": null,
+      "bluePriceSetup": null,
+      "blueType": "procurement",
+      "blueNote": "Blue pricing is buy-in cost from procurement/NVIDIA partner channel — contact procurement for current landed cost before quoting. Confirm whether NVIDIA ISV partner terms include a hardware discount for this SKU. Never publish buy-in price.",
+      "maxPilotMonths": 12,
+      "blueVersion": "1.2"
     }
   }
 }
