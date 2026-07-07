@@ -3,10 +3,10 @@
 ---
 
 **Document Classification:** Partner Confidential
-**Version:** 1.0
+**Version:** 1.1
 **Created:** 2026-07-07
 **Owner:** Lifetime Oy
-**Status:** Prospective — no contact made yet. Draft reply ready for Risto to send from the public exchange (X/Twitter thread).
+**Status:** Active — first reply SENT by Risto 2026-07-07 (§8). Third-tweet partnership offer drafted (§9), not yet sent.
 **Type:** Technology / Ecosystem Partner (connector-not-competitor track)
 
 ---
@@ -16,6 +16,7 @@
 | Version | Date       | Agent       | Action                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | ------- | ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.0     | 2026-07-07 | Claude Code | Created partner outreach record after Hakimi's public critique of the week's Aspire/OTLP observability work ("the trace shows the agent reached prod — it never shows whether it should have been able to"). Documents the exchange, the same-day KYAVerdict span-attribute response it produced (`src/observability/tracing.ts`, thesis v3.79 §10.25.6/§14.37.4), research on Hakimi's own project Orkia (github.com/orkiaHQ/orkia, orkia.dev), and a connector-not-competitor partnership read. Drafted send-ready reply for Risto. |
+| 1.1     | 2026-07-07 | Claude Code | Recorded that Risto SENT the §8 reply. Drafted §9: a third-tweet explicit partnership offer (3 phrasings) turning the §4 plugin-integration sketch into a concrete ask — draft the OTLP attribute mapping for a SEAL-approve/deny-to-`dws.kya.*` Orkia plugin. Status → Active.                                                                                                                                                                                                                                                       |
 
 ---
 
@@ -46,7 +47,7 @@
 
 Hakimi publicly critiqued the week's DWS Aspire/OTLP observability work: _"Polyglot OTLP is right, no stack should pretend to be .NET to be seen. But every LLM call it lights up is a record of what already fired. The trace shows the agent reached prod. It never shows whether it should have been able to."_
 
-We verified the critique against our own code and found it accurate: `src/agents/llm-client.ts` had exactly one authorization concept (the provider's Bearer header); KYA trust-score enforcement existed only at the sandbox boundary, on a code path disconnected from telemetry. Same session, we shipped the fix: `withAgentSpan`/`withLLMSpan` now accept a `KYAVerdict` and stamp `dws.kya.verdict` / `trust_score` / `policy_version` / `gate` alongside the `gen_ai.*` attributes, with unverified executions defaulting to `dws.kya.verdict: "ungated"` — never blank, so authorization-coverage gaps become a queryable trace-UI filter instead of an invisible absence. Thesis corrected in lockstep (V3Thesis §10.25.6, PHD_FIREHORSE §14.37.4 — the restated thesis: _conformance evidence is a projection of operational telemetry iff the projection includes the ex-ante verdict_). Full record: `docs/field-notes/2026-07-07-hakimi-observability-vs-authorization.md`.
+We verified the critique against our own code and found it accurate: `src/agents/llm-client.ts` had exactly one authorization concept (the provider's Bearer header); KYA trust-score enforcement existed only at the sandbox boundary, on a code path disconnected from telemetry. Same session, we shipped the fix: `withAgentSpan`/`withLLMSpan` now accept a `KYAVerdict` and stamp `dws.kya.verdict` / `trust_score` / `policy_version` / `gate` alongside the `gen_ai.*` attributes, with unverified executions defaulting to `dws.kya.verdict: "ungated"` — never blank, so authorization-coverage gaps become a queryable trace-UI filter instead of an invisible absence. Thesis corrected in lockstep (V3Thesis §10.25.6, PHD*FIREHORSE §14.37.4 — the restated thesis: \_conformance evidence is a projection of operational telemetry iff the projection includes the ex-ante verdict*). Full record: `docs/field-notes/2026-07-07-hakimi-observability-vs-authorization.md`.
 
 Hakimi then posted his own framing, independently arriving at the same problem from the operator side: _"ran AI agents in prod for months the way everyone does: fire it off, hope, scroll the logs later. Then one quietly burned $400 in tokens overnight doing nothing. So I started treating agents like what they actually are: Unix processes. ps. kill. audit."_ — which is exactly what Orkia is.
 
@@ -96,6 +97,26 @@ Hakimi then posted his own framing, independently arriving at the same problem f
 > You're right, and I checked before replying: on our LLM path the only "authorization" was the provider's Bearer header. So we shipped what your framing implies — the gate's verdict now rides on the trace itself: dws.kya.verdict / trust_score / policy_version next to the gen_ai.\* attributes. And a span with no verdict gets stamped "ungated," never left blank — so the trace now shows not just what fired, but every path nothing gated. Our current ungated count is our honesty metric.
 >
 > On ps/kill/audit: agreed, and our kill has a number — <125 ms sandbox snap, measured, not spec'd. Looked at Orkia: your signed chain is the piece OTLP doesn't give anyone (tamper-evidence), and OTLP is the piece your chain doesn't (a queryable projection). Composed, that's the whole record a regulator actually accepts. Following your build.
+
+**Status: SENT by Risto, 2026-07-07.**
+
+## 9. Third Tweet — Explicit Partnership Offer (drafted 2026-07-07, not yet sent)
+
+Follow-up to the sent reply (§8), turning the plugin-integration sketch (§4) from a passing mention into an explicit offer with a concrete first deliverable (the attribute mapping). Three phrasings, same commitment — pick one, send only if actually willing to draft the mapping promptly if he says yes:
+
+**Option C (recommended — names it as an offer, not just enthusiasm):**
+
+> Not just cheering — an offer: I'll draft the OTLP attribute mapping for an Orkia plugin that exports your SEAL approve/deny as dws.kya.\* spans. Your signed gate + our queryable trace is the pairing neither of us ships alone. Want to build it together?
+
+**Option B (leads with the technical hook):**
+
+> Concrete offer: your plugin SDK is Apache-2.0, our vocab is OTel GenAI semconv. Let's build a small Orkia plugin exporting SEAL approve/deny as dws.kya.\* span attrs — your signed gate, visible in any OTel dashboard. I'll draft the mapping if you're in.
+
+**Option A (softer close):**
+
+> Want to make it concrete: I'll draft the attribute mapping (dws.kya.verdict/trust_score/policy_version) for an Orkia plugin exporting your SEAL approve/deny into OTLP. Your signed chain + our queryable trace = the pairing neither of us ships alone. Open to co-build it?
+
+**Note:** all three commit to real follow-through — drafting the attribute mapping — if Hakimi accepts. This moves the record from §5 "Speculative, long-term" Ecosystem Partner toward an active track the moment he responds; if he engages, escalate per §5 recommended actions (propose the plugin experiment as the first shippable step, not an abstract partnership).
 
 **Optional follow-up (only if he engages, not part of the first reply):**
 
