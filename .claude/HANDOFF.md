@@ -43,22 +43,36 @@ session's context automatically.
   which are referenced elsewhere) v2.8→2.9. No .ts files touched — tsc not
   re-run (node_modules not installed in this container; pre-existing gap).
 - **Next steps:**
-  1. Human: review + apply `074_kya_mandate_evidence_chain.sql` (RED-zone).
-  2. Buyer copy: Ari-test line ("your agents can transact on AP2/UCP/ACP
+  1. Live-verify `074_kya_mandate_evidence_chain.sql` against a real Postgres
+     — this session tried and could not (see Blockers). Handoff prompt for
+     whichever session/tool picks this up next:
+     `/tmp/claude-0/-home-user-dws6/936aa76b-09d9-5fb2-946b-effc3049b7bc/scratchpad/next-session-prompt.md`
+     (Risto: taking this to GitHub Copilot GPT-5.4 next — that environment
+     may have real Docker/ssh/DB access this sandbox doesn't).
+  2. Human: apply `074_kya_mandate_evidence_chain.sql` once verified (RED-zone).
+  3. Buyer copy: Ari-test line ("your agents can transact on AP2/UCP/ACP
      rails; every mandate is gated by a checkable trust score and logged to
      EU AI Act Article 12 evidence") into procurement briefs + Aegis
      materials — check DWS_TRUTH_STANDARD.md §2B Export Hygiene Rule first.
-  3. Verified-done attestation (W3C VC) as next KYA feature (toward v2.0
+  4. Verified-done attestation (W3C VC) as next KYA feature (toward v2.0
      schema freeze).
-- **Blockers:** None. Local ephemeral-Postgres SQL syntax check was blocked
-  by the auto-mode classifier as privilege escalation (`su postgres`) —
-  migration validated by manual review + house-style pattern match instead.
+- **Blockers:** Could not live-verify 074 in this sandbox — tried three
+  paths, all dead-ended: (1) local `initdb` as the `postgres` system user
+  blocked by the auto-mode classifier as privilege-escalation-shaped; (2)
+  Docker daemon starts fine (YELLOW-zone, not blocked) but registry pulls
+  are 403'd by the outbound proxy for both `ghcr.io` (Supabase images) and
+  Docker Hub's CDN — container registries broadly unreachable from this
+  container; (3) DGX Spark unreachable — no `ssh` binary installed in this
+  container at all. Aiven/UpCloud dev VM raised as an option but no
+  connection string available in-session; user (Risto) opted to hand off to
+  a different tool/environment rather than share credentials into this one.
+  Migration validated by manual review + house-style pattern match only.
 
 ---
 
 ## HANDOFF HISTORY
 
-- 2026-07-07 | claude/kya-mandate-evidence-migration-mq7hnp | KYA §14.5 evidence-chain migration (074) authored, not applied; §14 synced into KYA_SECURITY §12, KYA_OPTIMIZATION §13, DWS_SECURITY_STANDARD §18.4 G7.
+- 2026-07-07 | claude/kya-mandate-evidence-migration-mq7hnp | KYA §14.5 evidence-chain migration (074) authored, not applied, NOT live-verified (Docker registries + DGX ssh + local initdb all blocked in this sandbox); §14 synced into KYA_SECURITY §12, KYA_OPTIMIZATION §13, DWS_SECURITY_STANDARD §18.4 G7. Handoff prompt written for next session/tool.
 - 2026-07-06 | claude/agent-infrastructure-ideas-1jtgms | Isenberg 21-answers field note + 13 LSJ signals; KYA v1.8→v1.9.1 (§14 mandate gating) + ATS spend gate implemented w/ 21 tests.
 - 2026-07-07 | claude/aspire-development-evolution-16fxg0 | Hakimi critique → KYAVerdict span attrs shipped; thesis v3.79; Orkia partner outreach record drafted (reply staged, not sent).
 - 2026-07-07 | claude/aspire-development-evolution-16fxg0 | Aspire PR#1500→main evolution field note + DWS lessons; adoption options re-scored.
