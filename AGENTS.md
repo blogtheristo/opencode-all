@@ -328,6 +328,16 @@ PHASE 4 (Enhancements - Optional)
 | **SiteSense Agent**      | Edge AI, site monitoring            | `SiteSense/` (NVIDIA Jetson)                         |
 | **ScheduleGenius Agent** | Timeline optimization               | Planned                                              |
 | **MaterialOracle Agent** | Carbon tracking, procurement        | Planned                                              |
+| **Industry Analyst**     | Universal 25-industry coverage      | `src/agents/industry-analyst.agent.ts`               |
+
+> **Industry coverage.** The platform serves 25 EU-regulated industries
+> (`dws10.com/config/industries.json`). 13 have a dedicated specialist (the
+> pantheon: Helios, Vulcan, Gaia, Juno, Neptune, Mars, Ceres, Talos, Prometheus,
+> Hermes/Logistics). The remaining 12 — Aviation, Waste, Pulp & Paper, Refining,
+> Food & Beverage, Glass & Ceramics, Mining, Manufacturing, Healthcare, Financial
+> Services, Public Sector, Data Centres — are covered by the universal
+> **Industry Analyst** agent over `src/agents/data/industry-registry.ts`. See
+> `docs/research/INDUSTRY_COVERAGE_25_COMPARISON.md`.
 
 ### Deployment Phases
 

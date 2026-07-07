@@ -14,6 +14,7 @@
     "db:migrate:043": "tsx scripts/apply-migration-043.ts",
     "db:test": "tsx scripts/test-db-connection.ts",
     "db:seed:projects": "tsx scripts/seed-demo-projects.ts",
+    "industry": "tsx scripts/industry.ts",
     "diag:dws-api": "tsx scripts/test-dws-api.ts",
     "diag:mcp": "tsx scripts/test-mcp-http.ts",
     "diag:ollama": "tsx scripts/test-veriton-ollama.ts",

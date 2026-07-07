@@ -62,6 +62,7 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { IndustryAnalystAgent } from './industry-analyst.agent.js';
 import { OutreachLeadFinderAgent } from './outreach-lead-finder.agent.js';
 import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js';
 import { OutreachExecutorAgent } from './outreach-executor.agent.js';
@@ -301,6 +302,9 @@ export class AgentRegistry {
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
 
+    // Universal industry coverage — one parameterized agent for all 25 industries,
+    // closing the gap for the 12 without a dedicated pantheon specialist.
+    this.register(new IndustryAnalystAgent());
     // Outreach Pipeline — 4-step DGX Spark-powered B2B outreach (2026-06-15)
     this.register(new OutreachLeadFinderAgent()); // Step 1: find + score EU leads
     this.register(new OutreachMessageCrafterAgent()); // Step 2: craft personalized email + LinkedIn drafts

@@ -314,6 +314,229 @@ export async function executeTools(
  * These are JSON Schema descriptions sent to the LLM.
  */
 
+// ============ QUERY RESULT COMPRESSION (R2) ============
+//
+// Tool output is context. A raw `{ rows, count }` dump puts every cell of every
+// row into the model's window, burying the signal. Following the "Building a
+// Good Vertical Agent" field note, query_database results are instead:
+//   - schema-compressed: column names + inferred types reported once, not per row
+//   - losslessly collapsed: columns that are constant across all rows move to a
+//     `constants` legend and are dropped from per-row output
+//   - sampled: large result sets show a deterministic head sample + an omitted
+//     tally instead of dumping N rows
+//   - consequence-reporting: a `review` section flags empty results, all-null or
+//     partially-null columns, error sentinels, and limit-truncated results — the
+//     "here's the part you probably got wrong" linter on the agent's own query.
+
+/** Default number of rows rendered before sampling kicks in. */
+const QUERY_SAMPLE_LIMIT = 15;
+
+/** Values that almost always indicate a broken cell rather than real data. */
+const ERROR_SENTINELS = new Set(['#REF!', '#ERROR!', '#N/A', 'NaN', 'Infinity', '-Infinity']);
+
+export interface QueryColumnInfo {
+  name: string;
+  type: string;
+  /** Number of null/undefined values in this column across all matched rows. */
+  nullCount?: number;
+}
+
+export interface QueryReviewFlag {
+  level: 'info' | 'warn';
+  issue: string;
+  column?: string;
+  count?: number;
+}
+
+export interface CompressedQueryResult {
+  /** Total rows matched by the query (post-limit). */
+  count: number;
+  /** Inferred schema — reported once instead of repeating keys on every row. */
+  columns: QueryColumnInfo[];
+  /** Columns whose value is identical across every row, collapsed losslessly. */
+  constants?: Record<string, unknown>;
+  /** Per-row data with constant columns removed; sampled when large. */
+  rows: Record<string, unknown>[];
+  /** True when `rows` is a sample of a larger result. */
+  sampled?: boolean;
+  /** Number of rows matched but not included in `rows`. */
+  omitted?: number;
+  /** Consequence reporting: things the agent probably needs to look at. */
+  review?: QueryReviewFlag[];
+}
+
+function inferType(value: unknown): string {
+  if (value === null || value === undefined) return 'null';
+  if (Array.isArray(value)) return 'array';
+  return typeof value; // 'string' | 'number' | 'boolean' | 'object'
+}
+
+/**
+ * Compress a raw row array into a token-efficient, consequence-reporting shape.
+ * Pure and deterministic — exported for unit testing.
+ *
+ * @param data   Rows returned by the query (may be null/empty).
+ * @param opts.limit       The `limit` applied to the query, used to detect truncation.
+ * @param opts.sampleLimit Rows to render before sampling (default QUERY_SAMPLE_LIMIT).
+ */
+export function compressRows(
+  data: Record<string, unknown>[] | null | undefined,
+  opts: { limit?: number; sampleLimit?: number } = {},
+): CompressedQueryResult {
+  const rows = Array.isArray(data) ? data : [];
+  const count = rows.length;
+  const sampleLimit = opts.sampleLimit ?? QUERY_SAMPLE_LIMIT;
+  const review: QueryReviewFlag[] = [];
+
+  if (count === 0) {
+    review.push({ level: 'info', issue: 'Query matched 0 rows' });
+    return { count: 0, columns: [], rows: [], review };
+  }
+
+  // Union of keys across all rows (rows may be heterogeneous).
+  const keys: string[] = [];
+  for (const row of rows) {
+    if (row && typeof row === 'object') {
+      for (const k of Object.keys(row)) if (!keys.includes(k)) keys.push(k);
+    }
+  }
+
+  // Per-column analysis: type, null count, constant detection, error sentinels.
+  const constants: Record<string, unknown> = {};
+  const columns: QueryColumnInfo[] = [];
+
+  for (const key of keys) {
+    let nullCount = 0;
+    let firstNonNull: unknown;
+    let sawNonNull = false;
+    let isConstant = true;
+    let constantValue: unknown;
+    let constantSet = false;
+    let errorCount = 0;
+
+    for (const row of rows) {
+      const v = row?.[key];
+      if (v === null || v === undefined) {
+        nullCount++;
+      } else {
+        if (!sawNonNull) {
+          firstNonNull = v;
+          sawNonNull = true;
+        }
+        if (typeof v === 'string' && ERROR_SENTINELS.has(v)) errorCount++;
+      }
+      if (!constantSet) {
+        constantValue = v;
+        constantSet = true;
+      } else if (!Object.is(constantValue, v)) {
+        isConstant = false;
+      }
+    }
+
+    columns.push({
+      name: key,
+      type: inferType(firstNonNull),
+      ...(nullCount > 0 ? { nullCount } : {}),
+    });
+
+    if (errorCount > 0) {
+      review.push({
+        level: 'warn',
+        column: key,
+        issue: 'Column contains error sentinel values',
+        count: errorCount,
+      });
+    }
+    if (nullCount === count) {
+      review.push({ level: 'warn', column: key, issue: 'Column is entirely null' });
+    } else if (nullCount > 0) {
+      review.push({
+        level: 'info',
+        column: key,
+        issue: 'Column has null values',
+        count: nullCount,
+      });
+    }
+
+    // Lossless collapse: a column constant across all rows is reported once.
+    // Only collapse when there is more than one row (no point for singletons).
+    if (isConstant && count > 1) {
+      constants[key] = constantValue;
+    }
+  }
+
+  const constantKeys = new Set(Object.keys(constants));
+  const projected = rows.map((row) => {
+    const out: Record<string, unknown> = {};
+    for (const key of keys) {
+      if (constantKeys.has(key)) continue;
+      out[key] = row?.[key];
+    }
+    return out;
+  });
+
+  const sampled = count > sampleLimit;
+  const renderedRows = sampled ? projected.slice(0, sampleLimit) : projected;
+
+  // Truncation detection: a full page strongly implies more rows exist upstream.
+  if (opts.limit && count >= opts.limit) {
+    review.push({
+      level: 'info',
+      issue: `Result hit the row limit (${opts.limit}); more rows may exist — refine filters or raise limit`,
+    });
+  }
+  if (sampled) {
+    review.push({
+      level: 'info',
+      issue: `Showing first ${sampleLimit} of ${count} rows`,
+      count: count - sampleLimit,
+    });
+  }
+
+  return {
+    count,
+    columns,
+    ...(Object.keys(constants).length > 0 ? { constants } : {}),
+    rows: renderedRows,
+    ...(sampled ? { sampled: true, omitted: count - sampleLimit } : {}),
+    ...(review.length > 0 ? { review } : {}),
+  };
+}
+
+// ============ EXTERNAL FETCH COMPRESSION (R2) ============
+//
+// Blind `text.slice(0, 10_000)` is the amateur move the field note warns about:
+// the model silently receives a cut string and cannot tell it is missing data.
+// summarizeFetchedText keeps the same byte budget but reports the consequence —
+// the full length and an explicit `truncated` flag — so the agent knows when it
+// is reasoning over a partial response.
+
+/** Default character budget for a fetched text body. */
+const FETCH_TEXT_LIMIT = 10_000;
+
+export interface FetchedTextSummary {
+  charCount: number;
+  truncated: boolean;
+  /** The budget the text was cut to, present only when truncated. */
+  truncatedAt?: number;
+  text: string;
+}
+
+/**
+ * Cap a fetched text body to a budget while reporting truncation explicitly.
+ * Pure and deterministic — exported for unit testing.
+ */
+export function summarizeFetchedText(text: string, limit = FETCH_TEXT_LIMIT): FetchedTextSummary {
+  const truncated = text.length > limit;
+  return {
+    charCount: text.length,
+    truncated,
+    ...(truncated ? { truncatedAt: limit } : {}),
+    text: truncated ? text.slice(0, limit) : text,
+  };
+}
+
+
 export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
   /** Delegate work to another agent in the registry */
   delegate_to_agent: {
@@ -658,25 +881,40 @@ export function registerBuiltinTools(): void {
     const table = args.table as string;
     const select = (args.select as string) || '*';
     const limit = (args.limit as number) || 50;
-    const filters = (args.filters as Array<{ column: string; operator: string; value: unknown }>) || [];
+    const filters =
+      (args.filters as Array<{ column: string; operator: string; value: unknown }>) || [];
 
     let query = client.from(table).select(select).limit(limit);
 
     for (const f of filters) {
       switch (f.operator) {
-        case 'eq': query = query.eq(f.column, f.value); break;
-        case 'gt': query = query.gt(f.column, f.value); break;
-        case 'lt': query = query.lt(f.column, f.value); break;
-        case 'gte': query = query.gte(f.column, f.value); break;
-        case 'lte': query = query.lte(f.column, f.value); break;
-        case 'like': query = query.like(f.column, f.value as string); break;
-        case 'in': query = query.in(f.column, f.value as unknown[]); break;
+        case 'eq':
+          query = query.eq(f.column, f.value);
+          break;
+        case 'gt':
+          query = query.gt(f.column, f.value);
+          break;
+        case 'lt':
+          query = query.lt(f.column, f.value);
+          break;
+        case 'gte':
+          query = query.gte(f.column, f.value);
+          break;
+        case 'lte':
+          query = query.lte(f.column, f.value);
+          break;
+        case 'like':
+          query = query.like(f.column, f.value as string);
+          break;
+        case 'in':
+          query = query.in(f.column, f.value as unknown[]);
+          break;
       }
     }
 
     const { data, error } = await query;
     if (error) return { error: error.message };
-    return { rows: data, count: data?.length || 0 };
+    return compressRows(data as unknown as Record<string, unknown>[] | null, { limit });
   });
 
   // External fetch handler with SSRF protection
@@ -708,7 +946,7 @@ export function registerBuiltinTools(): void {
       method,
       headers: {
         'User-Agent': 'DWS-IQ-Agent/7.0',
-        ...(args.headers as Record<string, string> || {}),
+        ...((args.headers as Record<string, string>) || {}),
       },
       ...(method === 'POST' && args.body ? { body: JSON.stringify(args.body) } : {}),
     });
@@ -719,11 +957,36 @@ export function registerBuiltinTools(): void {
 
     const contentType = response.headers.get('content-type') || '';
     if (contentType.includes('json')) {
-      return response.json();
+      const json = await response.json();
+      // Compress JSON like query results: an array of objects routes through
+      // compressRows (schema once, sampled, consequence-reported); a top-level
+      // array of objects nested under a common key is unwrapped first. Anything
+      // else is size-budgeted with an explicit `truncated` flag so the model is
+      // never handed a silently-cut blob.
+      if (
+        Array.isArray(json) &&
+        json.every((x) => x && typeof x === 'object' && !Array.isArray(x))
+      ) {
+        return {
+          contentType,
+          status: response.status,
+          json: compressRows(json as Record<string, unknown>[]),
+        };
+      }
+      const serialized = JSON.stringify(json);
+      if (serialized.length > FETCH_TEXT_LIMIT) {
+        return {
+          contentType,
+          status: response.status,
+          json: summarizeFetchedText(serialized),
+          note: 'JSON payload exceeded the size budget and was serialized + truncated; refine the request to narrow it.',
+        };
+      }
+      return { contentType, status: response.status, json };
     }
     const text = await response.text();
-    // Truncate large responses
-    return { text: text.slice(0, 10_000) };
+    // Cap large responses but report truncation explicitly (consequence reporting).
+    return { contentType, status: response.status, ...summarizeFetchedText(text) };
   });
 
   // Event emission handler (wired to event bus in event-bus.ts)
@@ -932,6 +1195,16 @@ export function registerBuiltinTools(): void {
   }).catch((err) => {
     logger.debug('KB tool handlers not available (optional)', { error: err.message });
   });
+
+  // Industry tool handlers (Tool Plan Phases 2 & 3)
+  import('./industry-tools.js')
+    .then(({ registerIndustryToolHandlers }) => {
+      registerIndustryToolHandlers();
+    })
+    .catch((err) => {
+      logger.debug('Industry tool handlers not available (optional)', { error: err.message });
+    });
+
 
   logger.info('Built-in tool handlers registered', {
     tools: ['query_database', 'fetch_external', 'emit_event', 'send_notification', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent', 'kb_*'],
