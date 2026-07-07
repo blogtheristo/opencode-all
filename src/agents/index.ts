@@ -62,6 +62,11 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { OutreachLeadFinderAgent } from './outreach-lead-finder.agent.js';
+import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js';
+import { OutreachExecutorAgent } from './outreach-executor.agent.js';
+import { OutreachOrchestratorAgent } from './outreach-orchestrator.agent.js';
+import { OutreachImproverAgent } from './outreach-improver.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
 import { AegisAgent } from './aegis.agent.js';
@@ -296,6 +301,12 @@ export class AgentRegistry {
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
 
+    // Outreach Pipeline — 4-step DGX Spark-powered B2B outreach (2026-06-15)
+    this.register(new OutreachLeadFinderAgent()); // Step 1: find + score EU leads
+    this.register(new OutreachMessageCrafterAgent()); // Step 2: craft personalized email + LinkedIn drafts
+    this.register(new OutreachExecutorAgent()); // Step 3: deliver via SES / queue LinkedIn
+    this.register(new OutreachOrchestratorAgent()); // Coordinator: chains Steps 1–3
+    this.register(new OutreachImproverAgent()); // Outer loop: analyze outcomes → propose SKILL.md diffs
     // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
     this.register(new AegisAgent()); // Vulnerability & patch SLA triage
     this.register(new VestaAgent()); // Business-critical systems registry

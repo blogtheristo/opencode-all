@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.5
+# DWS Gamma Brand Standard v3.6
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.6
 
 Sessions & Modifications:
 
+- Version: 3.6 | Tool: Claude Code | Session: claude/outreach-agents-spark-7n0fgy | Date: 15.06.2026 | Changes: Added §23 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules (≤50 chars), approved CTAs, banned phrases, LinkedIn voice (≤300 chars connection note), sender spec (risto@onelifetime.world / "Risto at DWS"). Updated Table of Contents. Governs outreach-agents skill and OutreachMessageCrafterAgent. Bumped version 3.5 → 3.6; added as new §24 (4P Capital Classes already holds §23 on main).
 - Version: 3.5 | Tool: Claude Code | Session: claude/dws10-offensive-positioning-6kdf2c | Date: 10.06.2026 (merged 06.07.2026; renumbered from 3.3 at merge — 3.3/3.4 were taken on main) | Changes: Added §22 DWS10 Offensive / Commercial-Edge pitch block — reframes the defensive fines-avoidance line into a commercial-edge / tender-velocity frame (EN+FI lockstep: hero opener, declarative hero H1, investor line), aligned to the canonical "compliance can freeze or release money" frame. Guardrails recorded: no "replace your people" (Ethics Principle band §6), no uncapped-liability claim, competitors implicit (§0). Source: docs/field-notes/2026-06-10-offensive-positioning-dws10.md.
 - Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Added §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners for the ontology / data-governance thesis: (1) the approved Variant B tweet "Point an LLM at hundreds of ungoverned databases and you get hallucination, insecurity, and no audit trail. The governed ontology is the product." and (2) the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can." With translation notes (kohinataso, hallittu ontologia, audit trail untranslated) and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).
 - Version: 3.3 | Tool: Claude Code (claude-opus-4-8) | Session: claude/capital-classes-audit-jgworp | Date: 20.06.2026 | Changes: Added §23 4P Capital Classes — canonical terminology for the four durable value classes an agentic operator accumulates: **Prompt Capital** (was Token), **People Capital** (was Human), **Plant Capital** (mobile two-room Control Room + Situation Room stack, was Control Room), and **Perception Capital** (governed world model + closed sense→decide→act loop). Pairs with the §22 "not a SaaS vendor, a System of Action operator" line. Deprecates the standalone "three-capital model" / "Token / Human / Control Room Capital" terms in new copy. Sourced from `docs/field-notes/2026-06-19-...md` (v2.0) and the Ontology Series (`four-capital-classes.html`, `software-vs-world-model.html`).
@@ -77,6 +78,7 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 21  | CLI Rich Output Standard                 | CLI human-readable formatting         |
 | 22  | Product Pitch Lines                      | Canonical one-liners (EN/FI)          |
 | 23  | 4P Capital Classes                       | Canonical terminology (positioning)   |
+| 24  | Outreach Voice & Email Standard          | B2B outreach email + LinkedIn         |
 
 ---
 
@@ -2079,10 +2081,89 @@ operator" — the 4P model is _why_ that is true.
 
 ---
 
+## 24. Outreach Voice & Email Standard
+
+Governs all B2B outreach produced by the `outreach-agents` skill and the `OutreachMessageCrafterAgent`. Agents MUST apply this standard when crafting any email or LinkedIn message on behalf of DWS.
+
+### 23.1 Default Tone: Consultative
+
+Consultative is the default for all outreach. Use it unless the recipient explicitly prefers a different style.
+
+| Style        | When to use                         | Structure                                     |
+| ------------ | ----------------------------------- | --------------------------------------------- |
+| consultative | Default — all roles, all industries | Insight → observed problem → hypothesis → CTA |
+| professional | Warm intros, referrals              | Clear value → benefit → CTA                   |
+| cold         | Initial contact, high-volume lists  | Hook → tight value prop → direct CTA          |
+
+### 23.2 Email Structure
+
+Every outreach email follows this 4-part structure:
+
+1. **Hook** (1 line) — regulatory or market signal relevant to the recipient's sector. Open with the signal, not with "I".
+2. **Insight** (1–2 lines) — connect the signal to the recipient's specific exposure. Use the research insight from the lead finder.
+3. **Value prop** (1–2 lines) — one of the canonical pitch lines from §22. Do not paraphrase.
+4. **CTA** (1 line) — one of the approved CTAs below. End the email here.
+
+Total length: **110–150 words**. No padding between sections.
+
+### 23.3 Subject Line Rules
+
+- Maximum **50 characters** (including spaces)
+- No "Quick question", "Following up", "Just checking in", or ALL CAPS
+- Format: `[Company] + DWS: [Regulatory Trigger]` or a short insight hook
+- Examples: `Outokumpu + DWS: ETS Phase 4`, `CSRD double-materiality — 3 questions`
+
+### 23.4 Approved CTAs
+
+Use exactly one of these. Do not combine or rephrase:
+
+- "Would you be open to a 15-minute call to explore whether this fits your situation?"
+- "Happy to share how we handle this for teams in your sector — does a quick call work?"
+
+Booking link: `/book/` (relative to the sending domain).
+
+### 23.5 Banned Phrases
+
+Never use in outreach emails or LinkedIn messages:
+
+`synergy`, `leverage`, `disruptive`, `game-changer`, `paradigm shift`, `I hope this email finds you well`, `Quick question`, `Following up`, `circle back`, `touch base`, `world-class`, `best-in-class`, `revolutionary`
+
+### 23.6 Sender Identity
+
+- **From address:** `risto@onelifetime.world` (Amazon SES SMTP, eu-north-1 — verified)
+- **Display name:** `Risto at DWS`
+- **Reply-to:** same as From
+- **Never use:** noreply@, no-reply@, info@, hello@ for outreach
+
+### 23.7 LinkedIn Voice
+
+LinkedIn connection notes and DM drafts follow the same consultative tone with these constraints:
+
+- Connection note: **≤300 characters** (LinkedIn hard limit)
+- Lead with a **peer insight**, not a pitch. Example: "ETS Phase 4 tightening is reshaping steel sector cost structures faster than most compliance teams expected."
+- Never open with "I noticed your profile" or "I wanted to connect"
+- End with your name and context: "— Risto from DWS (EU climate compliance AI)"
+- LinkedIn DMs are **queued for human delivery** (MDP partner restriction — no programmatic DM API). Copy from daily digest at `/api/v1/outreach/digest`.
+
+### 23.8 Regulatory Hook Library
+
+Use these opening hooks by regulatory trigger (from `REGULATORY_HOOKS` in `outreach-message-crafter.agent.ts`):
+
+| Trigger     | Approved hook                                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| ETS         | "With ETS Phase 4 tightening allowance allocations, the cost of inaccurate monitoring is rising."                 |
+| CBAM        | "CBAM embedded emissions declarations are now mandatory — and manual processes are creating audit risk."          |
+| CSRD        | "CSRD double-materiality assessments are due — most teams are still running on spreadsheets."                     |
+| EU-Taxonomy | "EU Taxonomy alignment now affects financing costs — and taxonomy KPIs need real data, not estimates."            |
+| Fit-for-55  | "The Fit for 55 package is reshaping your sector's cost structure faster than most compliance teams anticipated." |
+
+---
+
 ## Changelog
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.6    | 2026-06-15 | Added: §24 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules, approved CTAs, banned phrases, LinkedIn voice, sender spec. Governs outreach-agents skill and OutreachMessageCrafterAgent. |
 | v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`. |
 | v3.4    | 2026-06-21 | Added: §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners (the approved Variant B ungoverned-databases tweet and the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can"), with translation notes and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).                                                                                                                                                                                                         |
 | v3.3    | 2026-06-20 | Added: §23 4P Capital Classes — canonical terminology (Prompt / People / Plant / Perception), usage rules, deprecation of the "three-capital model" naming, pairing with the §22 "System of Action operator, not SaaS" line. Sourced from the 4P field note (v2.0) and the Ontology Series posts.                                                                                                                                                                                                                                                    |

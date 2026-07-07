@@ -2,12 +2,11 @@
 
 ---
 
-# VERSION AND AGENT HISTORY
-
-Version: 1.17
+Version: 1.18
 
 Sessions & Modifications:
 
+- Version: 1.18 | Agent: Claude Code | Date: 15.06.2026 | Session: claude/outreach-agents-spark-7n0fgy | Changes: Added `/outreach-agents` discipline skill (`skills/outreach-agents/SKILL.md`) — 4-step DGX Spark-powered B2B outreach pipeline (find leads → craft messages → send via SES → queue LinkedIn). 4 new agents: outreach-lead-finder, outreach-message-crafter, outreach-executor, outreach-orchestrator. Registered outreach-full workflow. Added §23 Outreach Voice & Email Standard to DWS_BRAND_STANDARD.md. Bumped count from 58 to 59 artifacts (41 slash + 18 skill directories: 3 discipline + 15 specialist packs).
 - Version: 1.17 | Agent: Claude Code | Date: 06.07.2026 | Session: claude/agent-swarm-architecture-zPf5Z | Changes: Added `/swarm` slash command (section 4.5) — one parameterized agent-swarm operator (PATTERN=classify-and-act|fan-out-and-synthesize|adversarial-verification|generate-and-filter|tournament|loop-until-done) that operationalizes `docs/AGENT_SWARM_ARCHITECTURE.md`. Bumped count from 38 to 39 slash commands (52 artifacts). Added Quick Reference row.
 - Version: 1.16 | Agent: Claude Code (Sonnet 5) | Date: 01.07.2026 | Session: claude/gtm-skills-planning-7ui3kd | Changes: Unblocked `/regulatory-radar` (section 5.2a) as a thin wrapper over the existing `compliance` agent — scores deadline urgency for the 5 already-tracked regulations (fit-for-55, ets, cbam, csrd, eu-ai-act) without waiting on new EUR-Lex/DG ENER ingestion. Moved from `slash-deferred` to `slash-cli` in `skills/manifest.json` and regenerated the compatibility matrix via `scripts/skill-manifest-sync.mjs --write-guide`. The datacentre-compliance-vertical-specific EED radar feature stays gated behind PRD Gate 1 (3 signed design-partner letters, target 1 Oct 2026) — this wrapper only covers the general deadline-scoring capability, not that vertical build. No count change (still 38 slash + 3 discipline); status change only.
 - Version: 1.15 | Agent: Claude Code (Opus 4.8) | Date: 28.06.2026 | Session: claude/consultant-handbook-v1-6-622fep | Changes: Added `/dialog` slash command (section 8.1b) — line-by-line HIC-confirmed document update method (propose `muutos;` Nykyinen→Muutos, human replies agree/counter, apply + checkpoint per item). Codified from the Konsultoinnin käsikirja §1–§16 fact-check pass per the Skill Codification Rule. Includes customer-adaptation mode (offer reuse, e.g. ORK→Kemira). Bumped count from 37 to 38 slash commands.
@@ -42,7 +41,7 @@ Document Status:
 
 ## 1. Overview
 
-DWS IQ 6 currently exposes **58 live skill artifacts** for AI coding agents — **41 active slash command wrappers** in `.claude/commands/` and **17 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **14** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
+DWS IQ 6 currently exposes **59 live skill artifacts** for AI coding agents — **41 active slash command wrappers** in `.claude/commands/` and **18 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **15** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
 
 **Canonical registry:** `skills/manifest.json` is the machine-readable source of truth for skill status, visibility, transport, and surface support. Use `node scripts/skill-manifest-sync.mjs --check` to verify that this guide, `.claude/commands/`, `skills/`, and `.antigravity/agents/` stay aligned.
 
@@ -68,7 +67,7 @@ Counts below reflect the live repository state on **19.06.2026** and are reconci
 
 **Discipline skills** are passive — agents discover and follow them automatically when relevant context is detected. They enforce process discipline.
 
-**Specialist skill packs** currently present in `skills/`: `clawdbot`, `compliance`, `cron`, `dream-on`, `firehorse-report`, `loop`, `material-oracle`, `edge-control-room-capital`, `human-capital`, `promote-proposal`, `risto`, `sitesense`, `skill-cleaner`, `token-capital`.
+**Specialist skill packs** currently present in `skills/`: `clawdbot`, `compliance`, `cron`, `dream-on`, `firehorse-report`, `loop`, `material-oracle`, `edge-control-room-capital`, `human-capital`, `outreach-agents`, `promote-proposal`, `risto`, `sitesense`, `skill-cleaner`, `token-capital`.
 
 ## 3. gstack Development Workflow (Garry Tan)
 
@@ -644,7 +643,28 @@ These are not slash commands — they are process rules that agents follow autom
 
 **Workflow:** Edit root > copy to landing-pages > verify with diff > commit both together.
 
-## 9.4 V2 Skilled Agents (AgentFoundry roster)
+### 9.4 outreach-agents
+
+**Location:** `skills/outreach-agents/SKILL.md`
+
+**When:** User says "find leads", "outreach agents", "run outreach", "craft outreach message", "send outreach email", "book demos", or invokes `/outreach-agents`.
+
+**4-step DGX Spark-powered B2B outreach pipeline:**
+
+| ACTION | Agent                    | What it does                                               |
+| ------ | ------------------------ | ---------------------------------------------------------- |
+| find   | outreach-lead-finder     | Score EU target universe against ICP; upsert outreach_orgs |
+| craft  | outreach-message-crafter | Personalized email + LinkedIn draft in DWS brand voice     |
+| send   | outreach-executor        | Deliver via Amazon SES; queue LinkedIn for human delivery  |
+| full   | outreach-orchestrator    | Chain find → craft → (optionally send)                     |
+
+**Invocation:** `/outreach-agents ACTION=full TARGET="EU steel ETS-exposed" ROLE=R07 INDUSTRY=steel REGULATION=ETS`
+
+**Tier 2 gate:** `outreach-executor` requires `approvedBy` — no email sends without explicit human sign-off.
+
+**Brand voice:** governed by `DWS_BRAND_STANDARD.md §23` — consultative tone, ≤50 char subjects, approved CTAs, banned phrase filter.
+
+## 9.5 V2 Skilled Agents (AgentFoundry roster)
 
 Every V2 agent ships with a YAML config in `AgentFoundry/configs/production/` that captures deployment-only concerns (model tier, budget, rate limits, deployment phase). Execution logic and system prompts live in the corresponding `src/agents/*.ts` class. The industry pages on dws10.com list which agents apply to each vertical in the **V2 Skilled Agents** section.
 
@@ -731,6 +751,7 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Code feels bloated | /simplify | Quality |
 | Turn design intent into code | /designer | Quality |
 | Add/audit language bar | /multilingual | i18n |
+| B2B outreach pipeline (find/craft/send) | /outreach-agents ACTION=<find\|craft\|send\|full> | Operations |
 | About to claim "done" | verification-gate | Discipline |
 | Big feature, many files | design-first | Discipline |
 | Editing site root folders | dual-folder-sync | Discipline |
