@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: "Implement what is now possible" pass. Repo reality check overturned v1.0's premise: option 1 was ALREADY deployed (compose v1.1.1 pinned aspire-dashboard:13.3.5; `src/observability/otel.ts` + `tracing.ts` with GenAI semconv helpers wired into `src/app.ts` and `src/agents/llm-client.ts`; `telemetry.types.ts` v1.1 + migration 066). Primary-source verification: GenAI visualizer CONFIRMED (introduced 9.5, improved 13.2); in-dashboard GitHub Copilot UI REMOVED in 13.3 (replaced by Aspire CLI + MCP for AI agents); dashboard endpoint reference confirmed UI 18888 / OTLP gRPC 18889 / OTLP HTTP 18890. That reference exposed a live bug: all three DGX OTLP/HTTP producers pushed telemetry to the 18888 UI port — silently dropped. FIXED in compose v1.3.1 (18888→18890 on dws-backend, dws-cron, bumblebee-collector) + comment corrections in bumblebee/scan-and-emit.ts. Added §6 (verification results + reality check). Sections 3–5 annotated, not rewritten.
 - Version: 1.0 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Captured Risto's field note on Aspire's evolution from PR #1500 (early 2024, .NET Aspire 8.0 Preview 3/4 era) to current main. Preserved the upstream synthesis verbatim (Section 1), then mapped each of its five evolution tracks to DWS IQ 6 implementation lessons (Section 2), refreshed the April 2026 adoption decision (Section 3), and updated the observability gap table from the 2026-04-08 research note — the GenAI visualizer partially closes a gap we flagged as "NOT built-in" (Section 2.4)
 
 Session Links & References:
@@ -43,7 +44,7 @@ Related Documents:
 - **Sector:** Technology > Developer Tools > Cloud-Native Orchestration
 - **Entities:** Microsoft, Aspire team, DWS IQ 6, DGX Spark, Lifetime Oy
 - **Temporal Context:** 2024-Q1 (PR #1500, 8.0 previews) → 2026-Q3 (current main, Aspire 13.x)
-- **Confidence:** Medium — Section 1 is Risto's synthesis of upstream history, provided 2026-07-07 and not primary-source-verified in this session. It is consistent with the web-verified facts already in the 2026-04-10 field note (polyglot rebrand, TypeScript AppHost, CLI-as-agent-interface, `Aspire.AppHost.Sdk/13.x`), which raises confidence for the overlapping claims. The GenAI visualizer, `WithPip()`, `aspire destroy`, and per-app isolated managed identities claims are new in this note and should be primary-source-verified before any partner-facing use.
+- **Confidence:** Medium-High (upgraded in v1.1) — Section 1 is Risto's synthesis of upstream history. v1.1 primary-source-verified the GenAI visualizer (introduced 9.5, improved 13.2) and the dashboard endpoint/configuration surface (aspire.dev configuration reference), and found one claim outdated (in-dashboard Copilot UI removed in 13.3 — see §6.1). `WithPip()`, `aspire destroy` targets, per-app ACA managed identities, and TS AppHost GA status remain unverified; do not use those externally yet.
 
 ---
 
@@ -52,6 +53,8 @@ Related Documents:
 Between PR #1500 (early 2024, during the Preview 3/4 stage of the initial .NET Aspire 8.0 release) and today's main branch, Aspire transformed from an experimental, C#-centric microservices orchestrator into a mature, decoupled, polyglot, AI-integrated cloud-native stack. This note captures that evolution (Section 1, Risto's field note, preserved verbatim) and extracts what each track means for DWS IQ 6 implementation (Section 2).
 
 **Headline for DWS:** two of the three reasons we cut Aspire from the sensor plan and deferred adoption in April 2026 have since dissolved upstream — the .NET-toolchain requirement (polyglot AppHost, workload decoupling) and the missing AI/LLM trace visualization (GenAI visualizer). The April "option 1: dashboard-only adoption" recommendation stands, but the option 2 (AppHost) cost estimate is now materially lower and should be re-scored.
+
+> **v1.1 correction (the "fail loud" part):** the paragraph above and Section 3 assumed option 1 was unexecuted. It wasn't — `aspire-dashboard:13.3.5` has been pinned in `infrastructure/dgx-spark/docker-compose.yml` since compose v1.1.1, and the OTel code layer (`src/observability/otel.ts`, `tracing.ts` with GenAI semconv helpers, `telemetry.types.ts`) already exists and is wired into `src/app.ts` and `src/agents/llm-client.ts`. v1.0 of this note repeated the April-era "not deployed" narrative without re-checking the tree — exactly the narrative-vs-reality failure mode the 2026-04-10 note warned about, committed by the note itself. The re-check also surfaced a real bug: all three OTLP producers pushed telemetry to the dashboard's **UI port (18888)** instead of its OTLP/HTTP listener (**18890**), so DGX telemetry was silently dropped. Fixed in compose v1.3.1 (this session). Details in §6.
 
 ---
 
@@ -175,11 +178,13 @@ Aspire can now emit `docker-compose.yml` from the resource graph, endpoints conv
 
 **Recommendation (unchanged in direction, stronger in urgency):** execute option 1 — pin `mcr.microsoft.com/dotnet/aspire-dashboard:13.x` (never `:latest`) into `infrastructure/dgx-spark/docker-compose.yml`, wire `OTEL_EXPORTER_OTLP_ENDPOINT`, and validate the GenAI visualizer against real DWS agent spans. Gate option 2 on primary-source confirmation that the TypeScript AppHost is out of preview. This note does not make the change — adoption remains a strategy decision (CEO-level), and infrastructure edits belong to their own PR with verification.
 
+> **v1.1:** superseded by reality — option 1 was executed in compose v1.1.1 (April), before this note existed. What remained "possible now" was making it actually work: the OTLP port fix shipped in compose v1.3.1 (§6.2). Option 2 gating is unchanged. The remaining decision is no longer _whether_ to run the dashboard, but whether to enable GenAI **message-content capture** on LLM spans (§6.3) — that is a data-protection call, not a tooling call.
+
 ---
 
 ## 4. Honesty Register
 
-- **Section 1 is not primary-source-verified in this session.** It is Risto's synthesis; overlap with the web-verified 2026-04-10 note (polyglot, rebrand, SDK line, CLI-as-agent-interface) is confirmed, but GenAI visualizer, `WithPip()`, `aspire init/update/destroy`, compose publisher, per-app managed identities, and deep linking are asserted here without fetched sources.
+- **Section 1 is not primary-source-verified in this session.** It is Risto's synthesis; overlap with the web-verified 2026-04-10 note (polyglot, rebrand, SDK line, CLI-as-agent-interface) is confirmed, but GenAI visualizer, `WithPip()`, `aspire init/update/destroy`, compose publisher, per-app managed identities, and deep linking are asserted here without fetched sources. _(v1.1: GenAI visualizer now verified, Copilot-UI claim corrected — see §6.1; the rest still open.)_
 - **"PR #1500" is used as an era marker** (early 2024, 8.0 Preview 3/4), not as a claim about that specific PR's content.
 - **"13.x" is deliberately imprecise.** The last version this repo verified was 13.2 (March 31, 2026); the current minor as of July 2026 was not checked.
 - **Token/cost tracking status in the GenAI visualizer is unknown** — the gap-table row in §2.4 is marked unverified for a reason.
@@ -188,28 +193,65 @@ Aspire can now emit `docker-compose.yml` from the resource graph, endpoints conv
 
 ## 5. Follow-Up Actions
 
-- [ ] Primary-source verification sweep: fetch aspire.dev what's-new for 13.3+ and the GenAI visualizer / dashboard docs; confirm TS AppHost GA status, `WithPip()` surface, `aspire destroy` targets, ACA per-app identity default. Amend this note to v1.1 with confirmations.
-- [ ] If verified: open the option-1 implementation PR (pinned `aspire-dashboard` service in `infrastructure/dgx-spark/docker-compose.yml` + OTLP env wiring). Separate PR, separate verification.
-- [ ] Evaluate emitting OTel GenAI semantic-convention spans from DWS TypeScript agents (`src/agents/`) so the GenAI visualizer works day one — this is useful even under option 3.
+- [x] ~~Primary-source verification sweep (dashboard claims)~~ — done in v1.1 for the GenAI visualizer (9.5+, improved 13.2), dashboard endpoint config, and Copilot-UI removal (13.3). STILL OPEN: TS AppHost GA status, `WithPip()` surface, `aspire destroy` targets, ACA per-app identity default (aspire.dev direct fetch 403s; verify via InfoQ/VS Magazine or MS Learn next session).
+- [x] ~~Option-1 implementation PR~~ — moot; already deployed since compose v1.1.1. The real gap was the OTLP port bug, fixed in compose v1.3.1 (§6.2). **Deploy note:** the fix takes effect on DGX Spark at the next `docker compose up -d` after this branch merges and the host pulls.
+- [x] ~~Evaluate OTel GenAI spans in `src/agents/`~~ — already implemented: `withLLMSpan()`/`recordLLMResponse()` in `src/observability/tracing.ts`, used by `src/agents/llm-client.ts`; attrs persisted per migration 066.
+- [ ] **Verify on-device after merge:** open `http://dgx-spark:18888`, confirm traces from `dws-backend` appear and LLM spans show the GenAI sparkle icon. If spans arrive but the GenAI chat view is empty, that is the message-content-capture decision (§6.3), not a wiring failure.
+- [ ] Decide (human, data-protection): enable GenAI message-content capture on LLM spans? Prompts/completions would then be stored in dashboard memory (dev tool, in-memory, EU host — but still content persistence). Default today: OFF.
 - [ ] Re-score option 2 formally once TS AppHost GA is confirmed; if adopted, compose file becomes generated (§2.8).
 - [ ] Audit DGX Spark / GCR service accounts against the per-workload-identity default (§2.7); list any shared-identity services.
 - [ ] Carry-over from 2026-04-10 (still open): `dws docs {list,search,get}` design; `Partners/Partners_gamma.md:341` Aspire overclaim correction (needs human approval).
 
 ---
 
+## 6. v1.1 — Verification Results and Repo Reality Check
+
+### 6.1 Primary-source verification (what "Implement what is now possible" confirmed)
+
+| Claim (from §1)                                                              | Verdict                                                                                                                                                                                                                                                                                                                  | Source                                                                                                                                      |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| GenAI visualizer in the dashboard                                            | **CONFIRMED** — introduced in Aspire **9.5**, improved in 13.2 (schema handling, tool inspection). Sparkle icon on `gen_ai.*` spans opens a chat log: system prompt, messages, tool calls, token counts, finish reason. Works best with message-content capture enabled; without it the dialog shows a note + docs link. | devblogs.microsoft.com/dotnet/announcing-dotnet-aspire-95; devblogs.microsoft.com/aspire/aspire-dashboard-improvements-export-and-telemetry |
+| GitHub Copilot integration in dashboard                                      | **OUTDATED** — the in-dashboard Copilot UI was **removed in Aspire 13.3**; AI coding agents now access telemetry via the Aspire CLI and MCP server (`Dashboard:AI:Disabled` is "reserved for future use").                                                                                                               | aspire.dev dashboard configuration reference (fetched 2026-07-07)                                                                           |
+| Dashboard endpoint layout                                                    | **CONFIRMED** — three distinct endpoints: frontend UI `:18888` (`ASPNETCORE_URLS`), OTLP/gRPC `:18889` (`ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL`), OTLP/HTTP `:18890` (`ASPIRE_DASHBOARD_OTLP_HTTP_ENDPOINT_URL`).                                                                                                           | aspire.dev dashboard configuration reference                                                                                                |
+| `WithPip()`, `aspire destroy` targets, per-app ACA identities, TS AppHost GA | **STILL UNVERIFIED** — aspire.dev pages 403 on direct fetch from this environment (same as April); MS Learn search did not surface them this session.                                                                                                                                                                    | —                                                                                                                                           |
+
+### 6.2 Repo reality check — v1.0 had the deployment status backwards
+
+What the tree actually contains (all pre-dating this note):
+
+- `infrastructure/dgx-spark/docker-compose.yml` v1.1.1+ — **`aspire-dashboard:13.3.5` pinned**, dashboard-only, exactly the April option 1, citing the April field note.
+- `src/observability/otel.ts` — opt-in OTel SDK init (no-op without `OTEL_EXPORTER_OTLP_ENDPOINT`), called from `src/app.ts:16`, graceful shutdown on SIGTERM/SIGINT.
+- `src/observability/tracing.ts` — `withAgentSpan` / `withWorkflowSpan` / `withLLMSpan` / `withToolSpan` helpers; `withLLMSpan` + `recordLLMResponse` emit OTel **GenAI semantic-convention** attrs (`gen_ai.system`, `gen_ai.request.model`, `gen_ai.usage.input_tokens`, …), consumed by `src/agents/llm-client.ts` and `src/agents/index.ts`.
+- `src/agents/telemetry.types.ts` v1.1 — GenAI attrs persisted via migration `066_tool_telemetry_genai.sql`, cross-referencing OTel `trace_id`/`span_id`.
+
+**And the bug this exposed:** all three OTLP producers (`dws-backend`, `dws-cron`, `bumblebee-collector`) were configured with `OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18888` — the **UI port**. The dashboard's OTLP/HTTP listener is `:18890` (§6.1). The compose v1.2.0 changelog shows the trap: it "fixed" the protocol by moving from the gRPC port (18889) to the UI port (18888) — from one wrong port to another. Telemetry was HTTP-POSTed at the frontend endpoint and dropped; nothing failed loudly because the OTel BatchSpanProcessor swallows export errors by design. **Fixed this session in compose v1.3.1:** all three producers → `:18890`, comments corrected in the compose file and `bumblebee/scan-and-emit.ts`. Takes effect at the next `docker compose up -d` on the DGX host after merge.
+
+**Lesson (append to §2's list):** the April note's gap-detection rule — "when the narrative layer mentions a version number, verify it against the actual deployed artifact" — needs a stronger form: _verify against the deployed artifact AND its observed behavior._ Here the artifact existed and the narrative lagged in the pessimistic direction, while the artifact itself was silently broken. A dashboard that receives zero telemetry looks identical to a dashboard nobody wired up.
+
+### 6.3 The remaining decision — message-content capture
+
+The GenAI visualizer's chat view needs prompt/completion content recorded onto spans. Our `withLLMSpan` deliberately records only metadata (model, token counts, finish reason) — no message bodies. Enabling content capture would put prompts and completions into dashboard memory (dev-tool, in-memory, EU host — but content persistence nonetheless, with GDPR/customer-data implications for agents that process customer text). This is a human data-protection decision, logged as a follow-up; default remains OFF.
+
+---
+
 ## CHANGES MADE
 
 - `docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md` v1.0: created — preserved Risto's PR #1500 → main evolution synthesis verbatim, mapped five upstream tracks to eight DWS implementation lessons, updated the 2026-04-08 observability gap table (GenAI visualizer partially closes the AI/LLM tracing gap), re-scored the April adoption options, logged honesty register and follow-ups
-- `.claude/HANDOFF.md`: CURRENT HANDOFF updated to this session; Aiven handoff moved to HANDOFF HISTORY
+- v1.1: verification sweep (§6.1), repo reality check correcting v1.0's "not deployed" premise (§6.2), OTLP port bug found and fixed
+- `infrastructure/dgx-spark/docker-compose.yml` v1.3.1: `OTEL_EXPORTER_OTLP_ENDPOINT` 18888→18890 on `dws-backend`, `dws-cron`, `bumblebee-collector`; endpoint documentation corrected on the `aspire-dashboard` service block
+- `infrastructure/dgx-spark/bumblebee/scan-and-emit.ts`: header comment 18888→18890 (comment-only; no code change — the exporter reads the env var)
+- `.claude/HANDOFF.md`: CURRENT HANDOFF updated at both checkpoints
 
 ## THINGS I DIDN'T TOUCH
 
-- `infrastructure/dgx-spark/docker-compose.yml`: adoption is a strategy decision + separate verified PR, not a field-note side effect
+- `src/observability/*`, `src/agents/llm-client.ts`: already correct — `otel.ts` appends `/v1/traces` to whatever endpoint it is given, so the compose-level fix is sufficient; no message-content capture added (§6.3, human decision)
+- Dashboard auth (`DASHBOARD__FRONTEND__AUTHMODE: Unsecured`): pre-existing posture on a LAN-only host port; flagged under POTENTIAL CONCERNS, not changed unilaterally
 - `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md`: not back-edited — the gap-table update lives here (§2.4) with the old note preserved as a historical snapshot
 - `Partners/Partners_gamma.md`, `Learn/Oppimispäiväkirja.md`: partner deck (needs approval) and thesis file (RED zone) — carried over as open items, untouched
-- `src/agents/`: OTel GenAI span emission is a follow-up evaluation, not implemented here
 
 ## POTENTIAL CONCERNS
 
-- The strongest new claims (GenAI visualizer scope, per-app identities) are exactly the ones most useful in partner/investor narrative — and exactly the ones not yet primary-sourced. Do not quote them externally before the v1.1 verification sweep.
-- The April recommendation has now survived two review passes without execution. If option 1 is still unexecuted at the next Aspire release, "do nothing" is the de facto decision and the narrative documents should be corrected to match it.
+- **The port fix is verified against primary docs, not against a running host.** This container cannot reach DGX Spark. The follow-up list includes the on-device check: traces visible at `http://dgx-spark:18888` after the next compose pull. If 13.3.5's OTLP/HTTP default differs from the current docs (unlikely — the config reference is versionless and 4318:18890 appears in the canonical example), the on-device check catches it.
+- **Dashboard runs `Unsecured` on both frontend and OTLP** with port 18888 published on the host. On a LAN-only DGX host this matches the dev-tool posture, but heartbeat/state-observer already hit it unauthenticated — if the host ever gets a routable interface, this becomes an exposure. Consider `BrowserToken` frontend auth as hardening.
+- The still-unverified §1 claims (per-app identities, `WithPip()`, `aspire destroy`) remain unusable in partner/investor material until sourced.
+- The repo formatter rewrites `***` thematic breaks to `---`, conflicting with `DWS_DOCUMENT_STANDARD.md`'s Pandoc rule for the VERSION AND AGENT HISTORY block. Every recent field note has the same issue — this is a hook/standard conflict to resolve once, centrally, not per-document.

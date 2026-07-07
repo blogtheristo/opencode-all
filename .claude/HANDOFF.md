@@ -25,20 +25,21 @@ session's context automatically.
 - **Branch:** claude/aspire-development-evolution-16fxg0
 - **Task:** Capture Risto's field note on Aspire's evolution (PR #1500 → main)
   and extract lessons learned to DWS implementation.
-- **State:** DONE — field note created at
-  `docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md`
-  v1.0. Upstream synthesis preserved verbatim (§1); eight DWS lessons mapped
-  (§2); 2026-04-08 observability gap table updated — GenAI visualizer
-  partially closes the AI/LLM tracing gap; April adoption options re-scored
-  (§3): option 1 (dashboard-only, pinned 13.x on DGX Spark) still recommended,
-  option 2 (AppHost) re-score warranted now polyglot is first-class.
-- **Next steps:** (1) v1.1 primary-source verification sweep (GenAI
-  visualizer, `WithPip()`, `aspire destroy`, per-app ACA identities, TS
-  AppHost GA). (2) If verified, option-1 implementation PR for
-  `infrastructure/dgx-spark/docker-compose.yml`. (3) Evaluate OTel GenAI
-  spans in `src/agents/`.
-- **Blockers:** None. Aiven track (previous handoff) still WAITING on Aiven
-  responses — see HANDOFF HISTORY and `Partners/outreach/2026-04-18-aiven.md`.
+- **State:** Field note at v1.1. "Implement what is now possible" pass done:
+  (1) verification sweep — GenAI visualizer CONFIRMED (9.5+, improved 13.2),
+  in-dashboard Copilot UI REMOVED in 13.3, dashboard endpoints confirmed
+  UI 18888 / gRPC 18889 / OTLP-HTTP 18890; (2) reality check — option 1 was
+  ALREADY deployed (compose v1.1.1, aspire-dashboard:13.3.5; otel.ts +
+  tracing.ts GenAI helpers wired into app.ts + llm-client.ts); (3) BUG FIXED —
+  all three OTLP producers pushed to the 18888 UI port, telemetry silently
+  dropped; compose v1.3.1 moves dws-backend/dws-cron/bumblebee to 18890.
+- **Next steps:** (1) After merge + DGX `docker compose up -d`: verify traces
+  at http://dgx-spark:18888, GenAI sparkle on LLM spans. (2) Human decision:
+  GenAI message-content capture (data-protection call, default OFF). (3) Still
+  unverified: WithPip(), aspire destroy, ACA per-app identities, TS AppHost GA.
+  (4) Hook/standard conflict: formatter rewrites `***`→`---` in VERSION blocks.
+- **Blockers:** Cannot reach DGX host from cloud session — on-device
+  verification pending. Aiven track still WAITING (see HANDOFF HISTORY).
 
 ---
 
