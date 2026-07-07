@@ -790,6 +790,43 @@ skills/
 
 **Format:** Same YAML frontmatter. Content should be short (<150 words for frequent skills), start with a bold ALL-CAPS rule, include a "When This Applies" section and "Common Mistakes" section.
 
+### gbrain-track Skill (skills/, richer layout)
+
+For new gbrain-track skills, adopt the upstream gbrain folder layout:
+
+```
+skills/
+  my-brain-skill/
+    SKILL.md                # required
+    scripts/                # optional — deterministic helpers (.mjs / .ps1)
+    tests/                  # optional — *.test.ts or *.test.mjs
+    routing-eval.jsonl      # optional — intent → skill routing fixtures
+```
+
+**Frontmatter (gbrain ∪ DWS):**
+
+```yaml
+---
+name: my-brain-skill
+description: >
+  Use when [trigger]. Does [action]. Returns [output].
+argument-hint: "<args>"
+allowed-tools: [Read, Bash]
+track: gbrain # gstack | gbrain | discipline | agent-report
+triggers: # gbrain-style intent triggers
+  - "phrase one"
+  - "phrase two"
+reads-pages: # gbrain-style brain reads
+  - kb/raw/**
+writes-pages: # gbrain-style brain writes
+  - kb/wiki/<topic>.md
+---
+```
+
+The existing 11 discipline / agent / report skills remain SKILL.md-only — no forced migration. The richer layout is additive and applies to _new_ skills.
+
+Use `skill-creator` to scaffold and register in one step. Validate with `skillpack-check`.
+
 ### Registration
 
 Every new agent MUST have a corresponding skill in `.claude/commands/`. Register it in `skills/manifest.json`, run `node scripts/skill-manifest-sync.mjs --write-guide --antigravity`, then update AGENTS.md Section 16 when needed.

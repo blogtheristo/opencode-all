@@ -555,6 +555,47 @@ cost_tracking:
 
 ## 8. Quick Reference
 
+### Skills Registry — gbrain Brain/Ops Track
+
+Companion to the existing gstack coding track (`.claude/commands/`). Based on Garry Tan's [gbrain](https://github.com/garrytan/gbrain), MIT. Full details in `docs/DWS_SKILLS_GUIDE.md` Section 3a.
+
+| Skill                | Use when                                             | Location                     |
+| -------------------- | ---------------------------------------------------- | ---------------------------- |
+| `signal-detector`    | "anything unusual" / "what's drifting"               | `skills/signal-detector/`    |
+| `brain-ops`          | "ask the brain" / "what does the brain"              | `skills/brain-ops/`          |
+| `ingest`             | "add to brain" / "ingest this"                       | `skills/ingest/`             |
+| `query`              | "what do we know about" / "wiki says"                | `skills/query/`              |
+| `enrich`             | "auto-link" / "fix backlinks" (after compile)        | `skills/enrich/`             |
+| `maintain`           | "weekly kb cleanup" / "broken backlinks"             | `skills/maintain/`           |
+| `citation-fixer`     | "fix citations" / "broken links in this doc"         | `skills/citation-fixer/`     |
+| `briefing`           | "morning briefing" / "what's new since yesterday"    | `skills/briefing/`           |
+| `daily-task-manager` | "today's tasks" / "what should i work on"            | `skills/daily-task-manager/` |
+| `cron-scheduler`     | "schedule this" / "register a cron"                  | `skills/cron-scheduler/`     |
+| `reports`            | "annual report" / "board pack" / "carbon report"     | `skills/reports/`            |
+| `skill-creator`      | "new skill" / "scaffold a skill"                     | `skills/skill-creator/`      |
+| `skillpack-check`    | "validate skills" / "is the registry in sync"        | `skills/skillpack-check/`    |
+| `soul-audit`         | "does this sound like risto" / "founder voice check" | `skills/soul-audit/`         |
+
+Top-level dispatcher: `skills/RESOLVER.md` (intent → skill table for both gstack and gbrain).
+
+### Skills Registry — Discipline & Agent/Report Tracks (pre-existing)
+
+These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` for full descriptions.
+
+| Skill                         | Track        | Path                                  |
+| ----------------------------- | ------------ | ------------------------------------- |
+| `verification-gate`           | Discipline   | `skills/verification-gate/`           |
+| `design-first`                | Discipline   | `skills/design-first/`                |
+| `dual-folder-sync`            | Discipline   | `skills/dual-folder-sync/`            |
+| `compliance`                  | Agent/report | `skills/compliance/`                  |
+| `material-oracle`             | Agent/report | `skills/material-oracle/`             |
+| `sitesense`                   | Agent/report | `skills/sitesense/`                   |
+| `risto`                       | Agent/report | `skills/risto/`                       |
+| `firehorse-report-annual`     | Agent/report | `skills/firehorse-report-annual/`     |
+| `firehorse-report-board-pack` | Agent/report | `skills/firehorse-report-board-pack/` |
+| `firehorse-report-carbon`     | Agent/report | `skills/firehorse-report-carbon/`     |
+| `firehorse-report-compliance` | Agent/report | `skills/firehorse-report-compliance/` |
+
 ### File Locations
 
 | Resource                  | Path                                           |
