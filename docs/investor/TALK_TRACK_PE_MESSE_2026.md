@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Opus 4.8, merge-integrated) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Gemini refinement — §0 ladder rebuilt lean with tactical role labels (The Lead / The Shape / The Deep Dive) + board-approved underlying-truth quote; stripped fluff.
+- Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Added the positioning ladder (category) to §0 and reworked the Category bullet in EN/DE/FI (§2, §5.2, §6.2) to lead with "software-led, priced like labor, with software margins"; demoted the three-way framing to a clarifier and added an anti-goal against leading with "third category". Canonical source: POSITIONING.md (Truth Standard §2 row 17).
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor talk-track package for 2026 Q2 SAFE round. Covers 30-second elevator, 2-minute pitch, 8-slide deck outline, Q&A bank pointer, and DE / FI translations of the elevator + 2-minute pitch for Messe Germany and Finnish-language investor conversations. Companion to INVESTOR_ONE_PAGER_2026Q2.md and INVESTOR_QA_BANK_2026Q2.md.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added §2.5 "The 4P Moat Beat" — the drop-in answer to "why you / why can't a competitor catch up", mapping Prompt / People / Plant / Perception to the valuation re-rate and naming Perception as the lever (still-being-proven). Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
 - Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added 4P Capital Classes moat bullet to the 2-minute pitch (between Traction and Ask); moat content lives in §2.5 "The 4P Moat Beat" (already merged from PR #1568) rather than a 9th slide, keeping the "8-Slide Deck" title honest. Canonical source: DWS_BRAND_STANDARD.md §23.
@@ -39,6 +41,16 @@ The spine — in every conversation, on every slide:
 
 > **Labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.**
 
+**The Investor Ladder** — climb only as far as the investor pulls you:
+
+1. *"Software-led, priced like labor, with software margins."* — **The Lead.** The anchor; open here.
+2. *"Software-led, with a thin service wrapper around a product that does the actual work."* — **The Shape.** When they ask *how* it works.
+3. Three-way SaaS / services / Services-as-Software table — **The Deep Dive.** Only once engaged; never open with "third category".
+
+> **Underlying truth (board-approved):** *"Software does the regulated work and delivers the artifact; the service layer just gets the customer live."*
+
+Canonical: `POSITIONING.md`.
+
 ---
 
 ## 1. The 30-Second Elevator (EN)
@@ -58,7 +70,7 @@ The spine — in every conversation, on every slide:
 
 ## 2. The 2-Minute Pitch (EN — 5 bullets, then ask)
 
-1. **Category.** "Software stopped helping humans do the work and started doing the work itself. That's a business-model shift from a tool to a labor unit. **DWS 365 Skilled Agents** are on the labor side of that line — sixteen agents that produce the signed artifact a buyer would otherwise pay a consultant or an FTE to produce."
+1. **Category.** "We're software-led, priced like labor, with software margins. The product does the work and delivers the signed artifact; a thin service layer just gets the customer live. **DWS 365 Skilled Agents** are sixteen agents that produce the signed artifact a buyer would otherwise pay a consultant or an FTE to produce." *(Only if they ask "so SaaS or services?": unpack the three-way distinction — never open with "third category".)*
 
 2. **Unit economics.** "Pricing is anchored to the human cost of producing the work. Per-outcome SKUs are roughly 10–20% of consultancy day-rate baselines; per-agent-month SKUs are roughly 15–30% of fully loaded FTE cost. The full Skilled Workforce bundle replaces six to eight EU FTEs for €199,990 a year. Gross margin above 80% at list — margin expands as inference cost falls, because the price is anchored to labor, not to compute."
 
@@ -140,7 +152,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 ### 5.2 2-Minuten-Pitch (DE)
 
-1. **Kategorie.** „Software hört auf, Menschen bei der Arbeit zu helfen — sie übernimmt die Arbeit selbst. Das ist eine Geschäftsmodell-Verschiebung von einem Werkzeug zu einer Arbeitseinheit. **DWS 365 Skilled Agents** stehen auf der Arbeitsseite dieser Linie: sechzehn Agenten, die das unterschriebene Artefakt produzieren, für das ein Käufer sonst einen Berater oder einen Vollzeit-Mitarbeiter bezahlen müsste."
+1. **Kategorie.** „Wir sind softwaregetrieben, bepreist wie Arbeit, mit Software-Margen. Das Produkt erledigt die Arbeit und liefert das unterschriebene Artefakt; eine dünne Service-Schicht bringt den Kunden nur live. **DWS 365 Skilled Agents** sind sechzehn Agenten, die das unterschriebene Artefakt produzieren, für das ein Käufer sonst einen Berater oder einen Vollzeit-Mitarbeiter bezahlen müsste." *(Nur wenn gefragt wird „also SaaS oder Dienstleistung?": die Drei-Wege-Unterscheidung erläutern — niemals mit „dritte Kategorie" eröffnen.)*
 
 2. **Stückkostenrechnung.** „Der Preis ist an die Personalkosten der zu erbringenden Arbeit gekoppelt. Per-Outcome-SKUs liegen bei rund 10–20 % des Beratungstagessatzes; Per-Agent-Month-SKUs bei rund 15–30 % der voll geladenen FTE-Kosten. Das volle Skilled-Workforce-Bundle ersetzt sechs bis acht EU-FTE für €199.990 pro Jahr. Rohmarge über 80 % zum Listenpreis — die Marge wächst, wenn Inferenzkosten fallen, denn der Preis ist an Arbeit gekoppelt, nicht an Rechenleistung."
 
@@ -170,7 +182,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 ### 6.2 2-minuutin pitch (FI)
 
-1. **Kategoria.** „Ohjelmisto on lakannut auttamasta ihmistä tekemään työn — se tekee työn itse. Tämä on liiketoimintamallin muutos työkalusta työvoimayksiköksi. **DWS 365 Skilled Agents** on tällä työvoimapuolella: kuusitoista agenttia, jotka tuottavat allekirjoitetun lopputuotteen, josta ostaja muuten maksaisi konsultille tai kokoaikaiselle työntekijälle."
+1. **Kategoria.** „Olemme ohjelmistovetoisia, hinnoiteltu kuin työ, ohjelmiston katteilla. Tuote tekee työn ja toimittaa allekirjoitetun lopputuotteen; ohut palvelukerros vain saa asiakkaan tuotantoon. **DWS 365 Skilled Agents** on kuusitoista agenttia, jotka tuottavat allekirjoitetun lopputuotteen, josta ostaja muuten maksaisi konsultille tai kokoaikaiselle työntekijälle." *(Vain jos kysytään „eli SaaS vai palvelu?": avaa kolmijako — älä koskaan aloita ilmauksella „kolmas kategoria".)*
 
 2. **Yksikkötalous.** „Hinta on kytketty työn tekemisen henkilöstökustannukseen. Per-outcome-SKUt noin 10–20 % konsultoinnin päivähinnasta; per-agent-month-SKUt noin 15–30 % täysin kuormitetusta FTE-kustannuksesta. Täysi Skilled Workforce -paketti korvaa 6–8 EU-FTE:ä €199 990/v. Bruttokate yli 80 % listalla — kate kasvaa kun inferenssikustannukset laskevat, koska ankkuri on työvoima, ei laskenta."
 
@@ -186,6 +198,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 ## 7. Talk-Track Discipline (Anti-Goals)
 
+- **Never** lead with "third category" / "new category" — open the category with "software-led, priced like labor, with software margins"; unpack the three-way framing only if the investor asks how you differ from SaaS vs services (positioning ladder, §0).
 - **Never** say "AI-powered platform", "copilot", "X% faster", "per-seat".
 - **Never** lead with the underlying platform name (DWS IQ); lead with the offer-layer brand (DWS 365 Skilled Agents / Firehorse 365 Skilled Agents).
 - **Never** compare to other SaaS in the same sentence as our price; compare to consultancy day rate or FTE loaded cost.
@@ -200,3 +213,4 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 - `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — live-Q&A reference.
 - `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md` — INTRO master template.
 - `docs/investor/data-room-2026Q2/` — post-meeting follow-up pack.
+- `POSITIONING.md` — canonical business-model category + the positioning ladder.

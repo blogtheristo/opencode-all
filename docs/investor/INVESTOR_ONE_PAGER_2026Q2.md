@@ -6,10 +6,11 @@ _Buyer-facing offer: **DWS 365 Skilled Agents** & **Firehorse 365 Skilled Agents
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus 4.8, merge-integrated) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Added the positioning line to the headline (EN .md + .html in lockstep) — "software-led, priced like labor, with software margins; the product does the work and delivers the signed artifact, a thin service layer just gets the customer live." Canonical: POSITIONING.md (Truth Standard §2 row 17).
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor-facing one-pager for 2026 Q2 SAFE round, reframing DWS 365 Skilled Agents (on DWS IQ) from SaaS-lens "AI platform" to labor-lens "Skilled Agents". Anchors pricing, unit economics, distribution, and traction to the labor-replacement narrative. Companion to docs/marketing/AI-AS-LABOR-PRICING-STRATEGY.md and SKILLED-AGENTS-PRICE-LIST-2026.md.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added "The 4P Capital Classes — the valuation lever" section mapping each class (Prompt / People / Plant / Perception) to its valuation effect — Prompt = labor-AI 6× vs SaaS 4× multiple; People = lower key-person/execution discount; Plant = regulatory moat + ACV durability; Perception = data-network-effect + physical-AI comp = the re-rate lever defending the €5.5M mid-case and naming the €6.1M upper bound. Added the "4P as M&A / diligence ontology" angle. Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0). HTML kept in lockstep.
 - Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added §5 to Why We Win — 4P Capital Classes as accumulated moat (Prompt / People / Plant / Perception), with Perception Capital as the data-network-effect + physical-AI re-rate lever. Updated Anchor Footer. Canonical source: DWS_BRAND_STANDARD.md §23.
@@ -46,6 +47,10 @@ Document Status:
 >
 > **The spine in one line: labor-anchored pricing · regulation drives demand
 > · MACC + AppExchange drive distribution.**
+
+> **Positioning:** software-led, priced like labor, with software margins. The
+> product does the work and delivers the signed artifact; a thin service layer
+> just gets the customer live. *(Category detail: `POSITIONING.md`.)*
 
 **Lifetime Oy** · Business ID 0772407-9 · VAT FI07724079
 Risto Anton Päärni, CEO · risto.paarni@lifetime.fi

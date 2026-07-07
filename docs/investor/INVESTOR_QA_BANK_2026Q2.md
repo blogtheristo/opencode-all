@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus 4.8, merge-integrated) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Q3 (SaaS-vs-services) now leads with the positioning ladder line — "software-led, priced like labor, with software margins." Canonical: POSITIONING.md (Truth Standard §2 row 17).
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — answers to the twelve hardest investor questions for PE meetings and Messe Germany, each ≤120 words. Anchored in the four labor-pricing strategy docs and Lifetime Oy legal identity per CLAUDE.md Legal Identity Rule. Spine: labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added Q13 — "What's your moat / why can't a competitor catch up?" answered through the 4P Capital Classes (Prompt / People / Plant / Perception), the 7-month HIL loop a new entrant cannot skip, and the honest caveat that Perception Capital is still being proven. Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
 - Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added Q13 — accumulated moat / 4P Capital Classes answer for "why can't a competitor catch up in 18 months." Deduplicated against the already-merged Q13 (PR #1568); folded the Q6 4th-moat-layer reference into the existing text. Canonical source: DWS_BRAND_STANDARD.md §23.
@@ -56,7 +57,7 @@ Microsoft and Salesforce sell the agent **runtime and distribution**; we sell **
 
 ## Q3 — Labor pricing sounds like consulting; what are your software margins?
 
-It looks like consulting on the **anchor**; it behaves like software on the **economics**. Gross margin >80% at list because marginal cost is inference plus a thin human-on-loop review through Themis. Per-agent-month and per-outcome SKUs scale without adding human headcount — that is the whole point. The "Consult-plus-keep-the-agent" bundles use a one-time engagement as a land motion (Year 1 €30k–€250k); Year 2+ is the recurring agent subscription (€25k–€200k/yr) at software-style cost-to-serve. Net: revenue scales with cases / reports / sites, not with our headcount. (CONSULTING-PLUS-AGENTS-BUNDLES-2026 §2; PRODUCT-CATALOG-UPSELL-TIERS-2026 T0→T4 ladder.)
+**Software-led, priced like labor, with software margins.** The product does the work and delivers the signed artifact; the service layer just gets the customer live — so it looks like consulting on the **anchor** but behaves like software on the **economics**. Gross margin >80% at list because marginal cost is inference plus a thin human-on-loop review through Themis. Per-agent-month and per-outcome SKUs scale without adding human headcount — that is the whole point. The "Consult-plus-keep-the-agent" bundles use a one-time engagement as a land motion (Year 1 €30k–€250k); Year 2+ is the recurring agent subscription (€25k–€200k/yr) at software-style cost-to-serve. Net: revenue scales with cases / reports / sites, not with our headcount. (CONSULTING-PLUS-AGENTS-BUNDLES-2026 §2; PRODUCT-CATALOG-UPSELL-TIERS-2026 T0→T4 ladder.)
 
 ---
 
