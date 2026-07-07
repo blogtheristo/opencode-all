@@ -41,6 +41,16 @@ session's context automatically.
   all 4 (old versions preserved). ADMIN_MANUAL v3.10: new "Aspire Dashboard
   Observability (DGX Spark)" section (3-port table, 18890 rule, verify
   procedure, content-capture gate, auth hardening trigger).
+- **Hakimi critique pass (07.07 late):** Critique verified accurate (llm-client
+  had no ex-ante gate; KYA verdicts never reached telemetry). Implemented
+  KYAVerdict + dws.kya.* span attrs in tracing.ts (default 'ungated' — absence
+  is queryable); 2 new tests, 8/8 green. Field note
+  2026-07-07-hakimi-observability-vs-authorization.md. Thesis v3.79 lockstep:
+  V3Thesis +§10.25.6, PHD +§14.37.4 (KC #44(b) corrected: projection must
+  include ex-ante verdict). Learn HTML v3.79 generated. NEXT: thread real
+  verdicts from sandbox gate through llm-client/agent-runner call sites;
+  ungated-span count = coverage-gap metric. Hakimi is building Orkia
+  (orkia.dev, agents as Unix jobs: ps/kill/audit) — assessed this session.
 - **Next steps:** (1) After merge + DGX `docker compose up -d`: verify traces
   at http://dgx-spark:18888, GenAI sparkle on LLM spans. (2) Human decision:
   GenAI message-content capture (data-protection call, default OFF). (3) Still
