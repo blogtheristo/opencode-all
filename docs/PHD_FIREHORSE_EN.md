@@ -11,9 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.79
+Version: 3.80
 Sessions & Modifications:
 
+- Version: 3.80 | Tool: Claude Code (Fable 5) | Session: claude/industry-world-models-study-Mk2mu (merge-integrated) | Date: 07.07.2026 | Changes: Merge-integrated Section 14.38 (Industry World Models: From Karpathy's GPT-2 to 16-Industry Fit for 55 World Model Factory) from branch `claude/industry-world-models-study-Mk2mu` (originally drafted 21.05.2026 as §14.20, renumbered to 14.38 — the §14.20 slot was independently taken by "AI Pricing Capitulation" on main). Seven subsections: Karpathy foundation signal, five competing world model architectures, LeCun/AMI Labs thesis validation, 16-industry world model specification matrix, modular world model factory architecture, ecosystem convergence signal, and Key Contribution #45. Full study at docs/INDUSTRY_WORLD_MODELS_STUDY.md.
 - Version: 3.79 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added §14.37.4 (Correction: The Projection Must Include the Ex-Ante Verdict) — Hakimi's critique exposed §14.37.2(b)'s shared-vocabulary claim as half-true (projection contained only Article 12 behaviour, no Article 14/KYA authorization); thesis restated: conformance evidence is a projection of operational telemetry iff the projection includes the ex-ante verdict — behaviour alone is observability, not conformance. Strengthens KC #44(b): the verdict attribute class (dws.kya.*) is precisely the KYA EAB/ASB extension mainstream tooling does not yet carry; names the ungated-span fraction as a falsifiable maturity metric for gated agency. Implementation evidence: V3Thesis §10.25.6. Lockstep 3.78→3.79; Learn/ HTML regenerated.
 
 - Version: 3.78 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added §14.37 (The Polyglot Orchestrator Signal: Aspire's Evolution from C#-Centric Preview to Agent-Aware Stack as Convergence Evidence) + Key Contribution #44 — Microsoft Aspire's 2024→2026 evolution read as three convergence signals for sovereign agentic operating models: (a) the agent interface consolidates below the human UI (in-dashboard Copilot UI shipped 9.5-era, removed 13.3 in favour of CLI + MCP — strongest single-vendor validation of the §14.16 skills/CLI paradigm); (b) OpenTelemetry GenAI semantic conventions emerge as a shared vocabulary between development tooling (Aspire GenAI visualizer) and the EU AI Act Article 12 evidence trail (DWS gen_ai.\* persistence, migration 066), converting conformance evidence into a projection of operational telemetry and naming the OTel semconv layer as a KYA EAB/ASB standardisation vehicle; (c) per-workload managed identity as the reported mainstream deployment default (verification pending, flagged per honesty register). Meta-observation: adoption by prerequisite deletion, composing with the §14.18/§14.36 single-box sovereign-edge adoption thesis. Implementation evidence lives in V3Thesis §10.25 per the scope rule. All 4 thesis files bumped 3.77→3.78 in lockstep; footer version lines corrected (were stale at 3.76); Learn/ HTML regenerated.
@@ -3350,6 +3351,108 @@ Across every major Aspire shift the mechanism is the same: delete a prerequisite
 
 The correction is a vocabulary extension rather than a retraction, and it is implemented in the reference stack (V3Thesis §10.25.6): the ex-ante gate verdict travels on the same span as the `gen_ai.*` attributes (`dws.kya.verdict`, `dws.kya.trust_score`, `dws.kya.policy_version`, `dws.kya.gate`), with the deliberate default that verdict-less executions are stamped `ungated` rather than left unmarked — authorization-coverage gaps thereby become enumerable trace queries instead of invisible absences. The restated thesis: **conformance evidence is a projection of operational telemetry if and only if the projection includes the ex-ante verdict; a projection of behaviour alone is observability, not conformance.** This strengthens Key Contribution #44(b): the OTel GenAI semantic conventions remain the standardisation vehicle, but the KYA-relevant extension the EAB/ASB tracks contribute to that vehicle is precisely the verdict attribute class — the part mainstream tooling does not yet carry. The correction also supplies a falsifiable maturity metric for any deployment claiming gated agency: the fraction of execution spans stamped `ungated`.
 
+### 14.38 Industry World Models: From Karpathy's GPT-2 to 16-Industry Fit for 55 World Model Factory
+
+_Added: 21.05.2026 | Source: docs/INDUSTRY_WORLD_MODELS_STUDY.md_
+
+This section documents a market-signal and technical-architecture study of world models as they apply to the 16 EU Fit for 55-regulated industries. The study examines whether Karpathy's GPT-2 reproduction principles — accessible, reproducible, efficient — extend to industry-specific world models, and proposes a modular "world model factory" architecture for the Lifetime World Model (LWM).
+
+#### 14.38.1 The Karpathy Foundation Signal
+
+Andrej Karpathy's progressive GPT-2 reproduction experiments (nanoGPT → build-nanogpt → llm.c) demonstrated that a capable 124M-parameter language model can be reproduced in 90 minutes for $20 using ~4,000 lines of C/CUDA. His November 2025 deprecation of nanoGPT in favour of nanochat signals a shift toward conversational/agentic architectures. His December 2025 year-in-review identifies six paradigm shifts: RLVR as new training paradigm (directly applicable to compliance verification), LLMs as "summoned ghosts" with jagged performance, Claude Code as the first convincing local AI agent (validating localhost-first deployment over cloud), "vibe coding" crossing the programming accessibility threshold, small efficient models enabling local deployment, and "not even 10% of potential realized" — the field remains wide open.
+
+The bridge to world models: Karpathy's Tesla Autopilot experience (2017-2022) was effectively world model development — predicting lane positions, vehicle trajectories, and obstacle behaviour from camera inputs. His "software 2.0" thesis (2017) — specifying objectives rather than algorithms — foreshadowed the world model paradigm where systems learn physics rather than having it programmed.
+
+#### 14.38.2 Five Competing World Model Architectures (2026)
+
+The world model landscape has crystallised into five competing architectural families:
+
+1. **Autoregressive (token-prediction):** Causal by design, proven at scale, rich text integration. Weakness: slow generation, error accumulation. Best for: text-heavy compliance document flows.
+2. **Diffusion (iterative denoising):** High visual fidelity, parallelisable. Weakness: non-causal, high compute. Best for: visual simulation, construction site monitoring, process plant modeling.
+3. **JEPA (Joint Embedding Predictive Architecture):** Energy-efficient latent space prediction, enables planning. LeCun's AMI Labs (€3B valuation, December 2025) champions this approach. V-JEPA 2 (Meta, June 2025) achieves zero-shot robotic planning. Best for: robotics, material logistics, long-horizon planning.
+4. **Hybrid (autoregressive + diffusion):** Combines causality with quality. NVIDIA Cosmos 2.5 instantiates this approach with Predict + Transfer + Reason + RL. Best for: autonomous vehicles, fleet management, multi-modal industrial systems.
+5. **Active inference (Friston-style):** Theoretically grounded in free energy principle, adapts in real-time. Weakness: scaling challenges. Best for: real-time control, energy grid management, process optimisation.
+
+The strict separation between architectures is dissolving: Cosmos 2.5 combines four approaches; CausVid adapts diffusion transformers into autoregressive diffusion transformers with causal attention. The correct question for industrial deployment is "which combination?" not "which architecture?"
+
+#### 14.38.3 The LeCun Thesis and the LWM Validation
+
+LeCun's departure from Meta (December 2025) and founding of AMI Labs at €3B pre-product valuation constitutes a market signal of first order: the researcher who co-invented convolutional neural networks, received the Turing Award, and ran FAIR for 12 years is betting that LLMs cannot solve physical reasoning and that dedicated world models are necessary. His central argument — LLMs require 400,000 years of text to achieve what a child learns from 16,000 hours of visual experience — identifies a structural efficiency gap that no amount of scaling can close.
+
+This validates the LWM V1 design choice: a physics-aware, persistent-memory world model built on NVIDIA Cosmos rather than an LLM extended with tools. The LWM's Temporal Latent Space, sensor fusion (FQ2BAM), and digital twin synchronisation (OpenUSD/Omniverse) align with the direction confirmed by AMI Labs, DeepMind Genie 3, World Labs Marble, and Siemens Digital Twin Composer (CES 2026).
+
+Counter-position acknowledged: hybrid architectures combining LLM linguistic knowledge with dedicated world model modules may prove the practical path. The DWS IQ 6 Brain already implements this — multi-agent orchestration (LLM) + LWM (world model) + Firehorse (execution).
+
+#### 14.38.4 Industry World Model Requirements — The 16-Industry Matrix
+
+A systematic mapping of Fit for 55 regulatory requirements against world model capabilities produces industry-specific specifications. Common requirements across all 16 industries:
+
+- Regulatory constraint layer (hard-encoded EU regulation)
+- Carbon accounting engine (Scope 1/2/3 per GHG Protocol)
+- Audit trail persistence (EU AI Act Article 12)
+- Temporal prediction (emissions trajectory forecasting)
+- Supply chain visibility (embedded carbon tracking)
+- Scenario simulation (10,000+ regulatory scenarios per LWM V1 spec)
+- KYA governance for agentic decisions
+
+Each industry then requires unique physics engines, temporal horizons, sensor fusion modalities, and causal reasoning capabilities. Examples of industry-specific world model differentiators:
+
+| Industry | Unique World Model Characteristic | Primary Architecture |
+|----------|----------------------------------|---------------------|
+| Power & Heat | Merit order effect (renewable displacement) | Hybrid + active inference |
+| Iron & Steel | Green steel transition (BF→EAF→H-DRI) multi-decade path | Diffusion + JEPA |
+| Cement & Lime | Irreducible process emissions (calcination CO₂) | Diffusion + autoregressive |
+| Chemicals | Dual-use carbon (energy source vs product feedstock) | Hybrid |
+| Aviation | Non-CO₂ climate effects (contrails, altitude NOx) | Autoregressive |
+| Maritime | 100% allowance surrender cliff (2026) | JEPA + autoregressive |
+| Road Transport | Multi-modal logistics chain (truck+rail+last-mile) | Hybrid |
+| Construction | 50+ year building lifecycle (EN 15978 A1-D) | Diffusion + JEPA + Cosmos |
+| Agriculture | Bidirectional carbon (emission source + sink) | JEPA + active inference |
+| Waste | Negative emissions (methane capture credits) | Autoregressive + diffusion |
+| Aluminium | 80% Scope 2 (grid carbon intensity dominance) | JEPA + active inference |
+| Pulp & Paper | 50+ year biogenic carbon cycle (forest rotation) | JEPA + autoregressive |
+| Petroleum | Managed decline (optimise present + transform future) | Hybrid |
+| Food & Beverage | Scope 3 dominance (70-90% from agriculture) | Autoregressive + JEPA |
+| Glass & Ceramics | High thermal inertia (continuous furnace campaigns) | Diffusion + autoregressive |
+| Mining | Resource depletion + geological uncertainty + CRM Act | JEPA + diffusion |
+
+Full specifications for each industry are documented in `docs/INDUSTRY_WORLD_MODELS_STUDY.md` §8.
+
+#### 14.38.5 The Modular World Model Factory
+
+The study's core architectural recommendation is a **modular world model factory** rather than 16 monolithic industry models:
+
+```
+Foundation World Model (Cosmos/JEPA, 1-10B params)
+    ├── Shared physics engine (thermodynamics, chemistry, mechanics)
+    ├── Shared regulatory ontology (EU regulations encoded as constraints)
+    ├── Shared carbon accounting (GHG Protocol, Scope 1/2/3)
+    └── Industry adapters (100M-500M params each, fine-tuned)
+         ├── Domain-specific tokenizer + sensor fusion
+         ├── Industry-specific regulations + causal graphs
+         └── KYA governance hooks + Article 12 logging
+```
+
+This architecture is directly enabled by Karpathy's core insight: the training recipe and data quality matter more than architecture size. A 100M-500M parameter industry adapter, trained on curated domain data with proper learning rate schedules and gradient accumulation, can provide industry-competitive world modeling at edge-deployable scale (GN-100 class, per §14.18).
+
+Estimated cost per industry adapter: €10K-€50K training, 1-4 weeks, deployable on sovereign edge hardware. The 16-industry expansion follows a phased rollout: Construction (2026, LWM V1) → Steel/Cement/Chemicals (2027, CBAM urgency) → Transport (2028, ETS/ETS2) → Agriculture/Energy/Aluminium (2029, ESR) → Remaining 6 industries (2030, full Fit for 55 coverage).
+
+#### 14.38.6 Ecosystem Convergence Signal (2026)
+
+Five concurrent market events validate the industry world model thesis:
+
+1. **AMI Labs** (LeCun, €3B valuation) — JEPA architecture commercialisation for physics understanding
+2. **Siemens Digital Twin Composer** (CES 2026) — industrial digital twins at scale via NVIDIA Omniverse, with PepsiCo showing 20% throughput gains
+3. **NVIDIA Cosmos 2.5** — open-weight world foundation models downloaded 2M+ times, purpose-built for physical AI
+4. **DeepMind Genie 3** — real-time interactive 3D world generation at 24fps
+5. **World Labs Marble** (Fei-Fei Li) — text-to-navigable-3D-world generation
+
+These represent independent bets by the world's top AI institutions that world models — not LLMs alone — are the path to physical AI. The DWS IQ 6 / LWM positioning at the intersection of world models and EU regulatory compliance is validated as the correct market position.
+
+#### 14.38.7 Research Contribution
+
+**Key Contribution #45 — Industry World Model Factory Architecture and 16-Industry Fit for 55 Specification Matrix:** The contribution is a systematic mapping of five competing world model architectures (autoregressive, diffusion, JEPA, hybrid, active inference) against the specific physics, temporal, spatial, sensor, and regulatory requirements of each of the 16 EU Fit for 55-regulated industries, producing the first industry-specific world model specification matrix. The study demonstrates that no single architecture serves all industries and proposes a modular factory architecture (shared foundation + lightweight industry adapters at GPT-2-class parameter counts), validated by the Karpathy reproducibility thesis and the 2026 ecosystem convergence (AMI Labs, Cosmos 2.5, Genie 3, Marble, Digital Twin Composer). The contribution positions the Lifetime World Model as the regulatory-compliant instantiation of this factory pattern, with phased 16-industry expansion from construction (2026) to full Fit for 55 coverage (2030). This contribution is at the 3-7 year horizon per §1.3 because it depends on: AMI Labs delivering commercial JEPA; NVIDIA Cosmos maturing industry adapters; world model evaluation standards emerging (no equivalent of BLEU/ROUGE for physics prediction exists today); and the modular factory pattern being validated at multi-industry scale on the Firehorse testbed.
+
 ---
 
 **Key Contributions:**
@@ -3357,4 +3460,4 @@ The correction is a vocabulary extension rather than a retraction, and it is imp
 
 _Document generated using Firehorse Operations Model with Claude Code_
 _Last updated: 07.07.2026_
-_Version: 3.79 (unified with Metropolia V3Thesis; lockstep from this point)_
+_Version: 3.80 (unified with Metropolia V3Thesis; lockstep from this point)_
