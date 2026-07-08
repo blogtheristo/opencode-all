@@ -141,9 +141,10 @@ Tilaaja voi pyytää asiakasreferenssikirjeen yhdeltä tai useammalta Q1/2026 as
 
 Ennen sopimuksen solmimista toimitettava (tilaajavastuulaki 1233/2006):
 
-- [x] **Verovelkatodistus** — Verohallinto, päivätty 5.5.2026, asiakirjan tunnus L0477449504
+- [x] **Verovelkatodistus** — Verohallinto, päivätty 01.07.2026, asiakirjan tunnus L0485526795
+      (tiedosto: `ORK160826_VEROVELKATODISTUS_01072026.pdf`)
       Lifetime Oy on maksanut kaikki Verohallinnolle kuuluvat verot, maksut ja muut saatavat sekä antanut kaikki verotukseen liittyvät ilmoitukset viimeisten 12 kuukauden ajalta.
-      _(Huom: todistus on 101 päivää vanha tarjoushetkellä 14.8.2026 — yli 3 kuukauden kynnyksen. Uudempaa todistusta ei ole vielä saatavilla. Hae päivitetty versio OmaVerosta kun se on saatavilla, mieluiten elokuun alussa ennen 14.8.2026.)_
+      _(Päivitetty todistus korvaa aiemman 5.5.2026-todistuksen (tunnus L0477449504), joka oli liian vanha. Uusi todistus on 44 päivää vanha tarjoushetkellä 14.8.2026 — hyvin 3 kuukauden kynnyksen sisällä.)_
 - [x] **Kaupparekisteriote** — PRH, OTE 27.6.2026, sähköisesti leimattu klo 7:59 (EEST). Kaikki tiedot voimassa. _(Voimassa 3 kk eli 27.9.2026 asti — kattaa tarjoushetken 14.8.2026)_
 - [ ] Asiakastieto Riskimittari -tuloste — hae asiakastieto.fi (Y-tunnus 0772407-9)
 

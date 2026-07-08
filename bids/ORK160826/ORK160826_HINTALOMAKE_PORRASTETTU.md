@@ -6,12 +6,14 @@
 
 VERSION AND AGENT HISTORY
 Version: 1.0 | 2026-06-28 | Claude Code (Opus 4.8) | Porrastettu vaihtoehto. ALUSTAVA — odottaa John'in hintatietoa.
+Version: 1.1 | 2026-07-01 | Claude Code (Opus 4.8) | PÄÄTETTY: Strategia S valittu ja lukittu (John'in kustannus saatu; ks. HINTALOMAKE v7.0). Strategia V (premium 465 €/htp) jää dokumentoiduksi vaihtoehdoksi suhdekaupoille, ei tähän tarjoukseen.
 
 ---
 
-> **ALUSTAVA — kaksi strategiaa.** Tasahintaversio (ORK160826_HINTALOMAKE) on edelleen oletustarjous.
-> Tämä dokumentti esittää porrastetun vaihtoehdon päätöksentekoa varten. Lopulliset numerot lukitaan
-> John'in hintatiedon jälkeen.
+> **PÄÄTETTY — Strategia S valittu ja lukittu.** Lopullinen hinta on lukittu tiedostoon
+> ORK160826_HINTALOMAKE (v7.0): perustaso 419,25 €/htp, korkean painon OA3-roolit 390,00 €/htp.
+> Tämä dokumentti säilytetään päätösperusteluna ja esittää hylätyn Strategia V:n (premium 465 €/htp)
+> dokumentoituna vaihtoehtona — ei osana tätä tarjousta.
 
 **Tarjoaja:** Lifetime Oy | Y-tunnus: 0772407-9 | Viite: ORK/1462/2026 | Päiväys: 28.6.2026
 
@@ -84,8 +86,8 @@ Muut roolit 419,25 €/htp (ml. Osa-alue 3 AI Architect & DevOps painollaan 800 
 | **Strategia S**  | matalampi korkean painon rooleille | **2 301 000 €**       | **paras**  | hieman ohuempi OA3:ssa |
 | Strategia V      | premium seniorille                 | 2 402 700 €           | heikoin    | paras                  |
 
-**Suositus:** Strategia S tälle hintapainotteiselle tarjoukselle. Vahvista John'in hinnan jälkeen ja
-syötä Liite 5:een (Osa-alue 3 AI Architect E34 ja DevOps E35 → **390,00**; muut → **419,25**).
+**Päätös:** Strategia S valittu ja lukittu (HINTALOMAKE v7.0). Liite 5: Osa-alue 3 AI Architect E34 ja
+DevOps E35 → **390,00**; muut → **419,25**.
 
 ---
 
