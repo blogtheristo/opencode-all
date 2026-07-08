@@ -1,6 +1,6 @@
 ---
 title: DWS Security Standard
-version: 3.0
+version: 3.1
 created: 2026-02-07
 last_modified: 2026-07-08
 author: Lifetime Oy Security Team
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.1
 
 Sessions & Modifications:
 
+- Version: 3.1 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Ran `pip-audit` across the repo's Python requirement files (no lockfile/hash-pinning exists for pip deps, flagged as a standing gap). Found and fixed `python-dotenv` CVE-2026-28684 in `mcp-hub/requirements.txt` (1.1.0 → 1.2.2, non-breaking patch bump). Logged `pyjwt`/`starlette` transitive-dependency advisories in the same file as open tracked findings — both need an explicit version constraint plus a FastAPI-compatibility check before bumping, so deferred rather than force-applied.
 - Version: 3.0 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Added §13.6 (Dependency Lockfile & Vulnerability SLA Policy) — closed two missing-lockfile gaps (`lambda/ses-inbound-parser`, `infrastructure/dgx-spark/bumblebee`), fixed `scripts/daily/dependabot-audit.sh` `PACKAGE_DIRS` (was missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and both directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED`), documented the Aegis agent's remediation SLA (critical=2d/high=7d/moderate=30d/low=90d) as the canonical policy, and logged an open moderate `@opentelemetry/*` finding (`GHSA-8988-4f7v-96qf`) in the bumblebee scanner pending a breaking-change upgrade.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
 - Version: 2.8 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Resolved the §17.5 Aiven Open Question per founder decision — approved Aiven-managed PostgreSQL on `google-europe-north1` as the DWS IQ 6 (dws6.com) DB layer, recorded as an explicit sovereignty exception (not a "None" CLOUD Act rating) with residual risk noted: Aiven's US-VC ownership is still unclear, and the underlying GCP infra is elsewhere classified "Transitional"/migrate-away for compute. `scripts/aiven-vault-bootstrap.sh` / `mcp-hub/config/aiven-mcp.json` required no changes — already defaulted to this region.
@@ -951,6 +952,16 @@ Per-finding `bumblebee.exposure` events are also logged as structured JSON so th
 Aegis does not fetch findings itself — it classifies whatever `scripts/daily/dependabot-audit.sh` and `scripts/weekly/security-audit.sh` (via `scripts/scan_critical_bugs.py --full`) already produced, and flags breach / at-risk / on-track per finding. This is the canonical SLA policy; do not restate different numbers elsewhere.
 
 **Open tracked finding:** `infrastructure/dgx-spark/bumblebee` carries 9 moderate `npm audit` findings in the `@opentelemetry/*` tree (`GHSA-8988-4f7v-96qf`, unbounded memory allocation in W3C Baggage propagation). The only available fix is a major-version bump (`@opentelemetry/exporter-metrics-otlp-proto` `^0.57.0` → `0.220.0`) that is a breaking change for the OTLP emitter this scanner depends on. Deferred rather than force-applied blind; owner must upgrade and re-verify the OTLP pipeline before the 30-day moderate SLA lapses (opened 08.07.2026).
+
+**pip lockfile gap.** No `requirements.txt` in the repo is hash-pinned (`pip-compile`/`poetry.lock` equivalent) — direct pins exist but transitive dependencies float, so `pip-audit` results vary run to run. `mcp-hub/requirements.txt` was found via `pip-audit` (08.07.2026) to depend on:
+
+| Package (pin type)       | Version | Finding                                     | Fix                                                                                                                                                                                                    |
+| ------------------------ | ------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `python-dotenv` (direct) | 1.1.0   | CVE-2026-28684                              | Bumped to 1.2.2 (patch, non-breaking) — done 08.07.2026                                                                                                                                                |
+| `pyjwt` (transitive)     | 2.9.0   | Multiple PYSEC-2026-\* advisories           | Fix available in 2.12.1–2.13.0 (minor, likely non-breaking) — **not yet applied**, no direct pin to bump; needs an explicit constraint added and the auth flow re-tested first                         |
+| `starlette` (transitive) | 0.46.2  | Multiple PYSEC-2026-_/CVE-2026-_ advisories | Full fix requires the 1.x line (major bump); partial fixes exist at 0.47.2/0.49.1. FastAPI 0.115.12's supported Starlette range must be checked before bumping — **deferred, not force-applied blind** |
+
+Moderate-severity SLA clock opened 08.07.2026 for the `pyjwt`/`starlette` items; owner must add explicit constraints, verify FastAPI compatibility, and re-run `pip-audit` before it lapses.
 
 ---
 
