@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.9
+version: 3.0
 created: 2026-02-07
-last_modified: 2026-07-07
+last_modified: 2026-07-08
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.0
 
 Sessions & Modifications:
 
+- Version: 3.0 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Added §13.6 (Dependency Lockfile & Vulnerability SLA Policy) — closed two missing-lockfile gaps (`lambda/ses-inbound-parser`, `infrastructure/dgx-spark/bumblebee`), fixed `scripts/daily/dependabot-audit.sh` `PACKAGE_DIRS` (was missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and both directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED`), documented the Aegis agent's remediation SLA (critical=2d/high=7d/moderate=30d/low=90d) as the canonical policy, and logged an open moderate `@opentelemetry/*` finding (`GHSA-8988-4f7v-96qf`) in the bumblebee scanner pending a breaking-change upgrade.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
 - Version: 2.8 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Resolved the §17.5 Aiven Open Question per founder decision — approved Aiven-managed PostgreSQL on `google-europe-north1` as the DWS IQ 6 (dws6.com) DB layer, recorded as an explicit sovereignty exception (not a "None" CLOUD Act rating) with residual risk noted: Aiven's US-VC ownership is still unclear, and the underlying GCP infra is elsewhere classified "Transitional"/migrate-away for compute. `scripts/aiven-vault-bootstrap.sh` / `mcp-hub/config/aiven-mcp.json` required no changes — already defaulted to this region.
 - Version: 2.7 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Supabase/Aiven audit — fixed broken §17.5 cross-reference ("AGENTS.md Section 20" does not exist, now points to docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md); flagged that Aiven does not offer Hetzner as a deployable region, so the existing "DB layer on Hetzner infra only" approval condition for Aiven is currently unsatisfiable by any script in the repo — added an Open Question pending a human sovereignty decision.
@@ -925,6 +926,31 @@ Per-finding `bumblebee.exposure` events are also logged as structured JSON so th
 **Exposure catalog.** `infrastructure/dgx-spark/bumblebee/catalog.json` is the canonical source of known-compromised package versions. Updates go through PR review — Bumblebee's outputs and any catalog input from third-party feeds are treated as **untrusted external content** per §13.
 
 **Caveat (inherited, not introduced).** Aspire Dashboard runs in `Unsecured` auth mode on `:18888`. Exposure data is sensitive; access to the DGX Spark observability port is governed by the existing host-network posture and must not be widened.
+
+### 13.6 Dependency Lockfile & Vulnerability SLA Policy
+
+**Every directory with a `package.json` MUST also carry a committed `package-lock.json`.** `npm audit` (and `scripts/daily/dependabot-audit.sh`, its automated caller) cannot assess a directory without a lockfile — an unpinned directory is an audit blind spot, not just a reproducibility gap. `.github/dependabot.yml` covers every such directory on a weekly cadence, grouped by minor/patch, across `npm`, root `pip`, and `github-actions` ecosystems.
+
+**Audit log of lockfile gaps found and closed:**
+
+| Date       | Directory                            | Finding                                                                                                                                                                                  | Fix                                                                                   |
+| ---------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 08.07.2026 | `lambda/ses-inbound-parser`          | `package.json` with no `package-lock.json`                                                                                                                                               | Lockfile generated and committed                                                      |
+| 08.07.2026 | `infrastructure/dgx-spark/bumblebee` | `package.json` with no `package-lock.json`                                                                                                                                               | Lockfile generated and committed                                                      |
+| 08.07.2026 | `scripts/daily/dependabot-audit.sh`  | `PACKAGE_DIRS` missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and the two directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED` | Directory list corrected to match every `package.json` location the repo actually has |
+
+**Vulnerability remediation SLA.** Once Dependabot or `npm audit` surfaces a finding, it is triaged by the **Aegis agent** (`src/agents/aegis.agent.ts`) against a fixed, NIS2-style SLA:
+
+| Severity | SLA (days to remediate) |
+| -------- | ----------------------- |
+| Critical | 2                       |
+| High     | 7                       |
+| Moderate | 30                      |
+| Low      | 90                      |
+
+Aegis does not fetch findings itself — it classifies whatever `scripts/daily/dependabot-audit.sh` and `scripts/weekly/security-audit.sh` (via `scripts/scan_critical_bugs.py --full`) already produced, and flags breach / at-risk / on-track per finding. This is the canonical SLA policy; do not restate different numbers elsewhere.
+
+**Open tracked finding:** `infrastructure/dgx-spark/bumblebee` carries 9 moderate `npm audit` findings in the `@opentelemetry/*` tree (`GHSA-8988-4f7v-96qf`, unbounded memory allocation in W3C Baggage propagation). The only available fix is a major-version bump (`@opentelemetry/exporter-metrics-otlp-proto` `^0.57.0` → `0.220.0`) that is a breaking change for the OTLP emitter this scanner depends on. Deferred rather than force-applied blind; owner must upgrade and re-verify the OTLP pipeline before the 30-day moderate SLA lapses (opened 08.07.2026).
 
 ---
 
