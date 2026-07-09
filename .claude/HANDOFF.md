@@ -60,6 +60,7 @@ and files never collide across branches.
 
 ## HANDOFF HISTORY
 
+- 2026-07-09 | claude/typescript-7-repo-impact-u4ec7m | TypeScript 7 (GA 2026-07-08) repo-impact field note: full package/tsconfig/CI survey, sovereignty-neutral verdict (TS is a Microsoft/US devDependency, §17.5 scoped to hosted infra not build tooling); flagged CI type-check gap (5 packages have no CI tsc gate).
 - 2026-07-07 | claude/kya-mandate-evidence-migration-mq7hnp | Migrated the handoff mechanism from a single shared CURRENT HANDOFF section to per-branch files under `.claude/handoffs/<branch>.md`, fixing the stale-read + merge-conflict failure modes hit in this session (see v1→v2 migration note above).
 - 2026-07-07 | claude/kya-mandate-evidence-migration-mq7hnp | KYA §14.5 evidence-chain migration (074) authored, not applied, NOT live-verified (Docker registries + DGX ssh + local initdb all blocked in this sandbox); §14 synced into KYA_SECURITY §12, KYA_OPTIMIZATION §13, DWS_SECURITY_STANDARD §18.4 G7. Handoff prompt written for next session/tool.
 - 2026-07-06 | claude/agent-infrastructure-ideas-1jtgms | Isenberg 21-answers field note + 13 LSJ signals; KYA v1.8→v1.9.1 (§14 mandate gating) + ATS spend gate implemented w/ 21 tests.
