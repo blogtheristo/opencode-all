@@ -36,7 +36,11 @@ kohta 2, jossa pyydetään sähköpostiosoite ensimmäisenä.
 
 ---
 
-## 2. Risto → Kalle Sonninen (Sarkain Oy) — vastineluonnos (ei vielä lähetetty)
+## 2. Risto → Kalle Sonninen (Sarkain Oy) — vastineluonnos v2 (ei vielä lähetetty)
+
+Copy-paste-valmis versio, hintataso- ja liikevaihtohuomiot mukana, Lifetime Fleet omana erillisenä
+osionaan. Ks. koko kirje käyttäjän chat-vastauksesta (sama sisältö, muotoiltu suoraan
+kopioitavaksi).
 
 > Hei Kalle,
 >
@@ -44,40 +48,66 @@ kohta 2, jossa pyydetään sähköpostiosoite ensimmäisenä.
 > sähköpostitse.
 >
 > Vahvistan, että Lifetime Oy (Y-tunnus 0772407-9) valmistelee tarjousta Oikeusrekisterikeskuksen
-> (ORK) julkiseen hankintaan **ORK/1462/2026 — Tekoälyn asiantuntijapalvelut**, ja rakennamme
+> (ORK) julkiseen hankintaan ORK/1462/2026 — Tekoälyn asiantuntijapalvelut, ja rakennamme
 > parhaillaan alihankkijaverkostoa kapasiteetin varmistamiseksi. Osaamisenne — AI-arkkitehtuuri,
 > ohjelmistokehitys, DevOps, AI-ratkaisujen suunnittelu ja generatiivinen tekoäly — osuu hyvin yhteen
 > hankinnan roolitarpeiden kanssa, erityisesti Osa-alueilla 1 ja 3.
 >
-> **Määräaika on lähellä:** kiinnostuksenilmaisujen määräaika on **11.7.2026**, eli kahden päivän
-> päästä. Jotta ehdimme ottaa teidät mukaan kartoitukseen, pyytäisin seuraavat tiedot mahdollisimman
-> pian:
+> Määräaika on lähellä: kiinnostuksenilmaisujen määräaika on 11.7.2026, eli kahden päivän päästä.
+> Jotta ehdimme ottaa teidät mukaan kartoitukseen, pyytäisin seuraavat tiedot mahdollisimman pian:
 >
-> 1. **Kiinnostuksenilmaisu roolikohtaisesti** — esim. AI Architect, AI Engineer, Software Developer,
+> 1. Kiinnostuksenilmaisu roolikohtaisesti — esim. AI Architect, AI Engineer, Software Developer,
 >    DevOps Engineer, GenAI Solution Architect (ks. roolitaulukko alla)
-> 2. **Alustava hinta** €/htp, ALV 0 % (1 htp = 7,5 h)
-> 3. **Kapasiteetti** — montako henkilöä / htp kuukaudessa pystytte toimittamaan sopimuskaudella
->    (2+1+1 vuotta). Kysyn tämän suoraan, koska rooleihin tulee pystyä nimeämään henkilöt/CV:t ja
->    sitoutumaan htp-määrään koko sopimuskauden ajalle — kertokaa myös, toimitatteko roolit omalla
->    henkilöstöllänne vai kumppani-/freelancerverkoston kautta.
-> 4. **CV tai profiilikuvaus** rooleittain
+> 2. Alustava hinta €/htp, ALV 0 % (1 htp = 7,5 h)
+> 3. Kapasiteetti — montako henkilöä / htp kuukaudessa pystytte toimittamaan sopimuskaudella
+>    (2+1+1 vuotta)
+> 4. CV tai profiilikuvaus rooleittain
 >
 > Roolit, joita olemme erityisesti kartoittamassa kotimaisilta kumppaneilta:
 >
-> | Osa-alue                                        | Roolit                                                                                                    |
-> | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-> | Osa-alue 1 — Tekoälyagenttiratkaisujen kehitys  | GenAI Solution Architect, AI Engineer, Data Engineer, DevOps Engineer, Software Developer, UI/UX Designer |
-> | Osa-alue 2 — Asiakasratkaisujen kehityksen tuki | AI Consultant / Coach, AI Solution/Concept Designer                                                       |
-> | Osa-alue 3 — Tekoälypohjainen ohjelmistokehitys | AI Architect, DevOps Engineer, Software Developer, UI/UX Designer                                         |
+> Osa-alue 1 — Tekoälyagenttiratkaisujen kehitys: GenAI Solution Architect, AI Engineer, Data
+> Engineer, DevOps Engineer, Software Developer, UI/UX Designer
+> Osa-alue 2 — Asiakasratkaisujen kehityksen tuki: AI Consultant / Coach, AI Solution/Concept
+> Designer
+> Osa-alue 3 — Tekoälypohjainen ohjelmistokehitys: AI Architect, DevOps Engineer, Software
+> Developer, UI/UX Designer
 >
-> **Tietoturva:** ORK on viranomainen, joten vaatimukset ovat korkeat — henkilöstön tulee olla Suomen
+> Hintataso: haluan olla suoraan alusta asti — tämän hankinnan hintataso on erittäin alhainen. ORK:n
+> aiempi voittanut taso on ollut noin 58 €/h, eikä kate jätä paljon liikkumavaraa. Jotta pysymme
+> kilpailukykyisinä tarjouksessamme, tarvitsemme alihankkijoilta erittäin kilpailukykyisen, matalan
+> hinnan — pyydän siis, että alustava hintanne on realistinen tätä tasoa vasten.
+>
+> Vielä yksi asia ennen kuin jatkamme: huomasimme, että liikevaihtonne (593 000 € vuoden 2024
+> tilinpäätöksessä) on erittäin vaikuttava yhden hengen rekisteröidyksi yritykseksi. Kertoisitteko,
+> miten toteutatte projektit käytännössä — omalla henkilöstöllä, freelancer-verkoston kautta vai
+> alihankkijoiden avulla? Tämä auttaa meitä arvioimaan, miten kapasiteettinne skaalautuu roolien
+> ympärille koko 2+1+1-vuoden sopimuskaudelle.
+>
+> Tietoturva: ORK on viranomainen, joten vaatimukset ovat korkeat — henkilöstön tulee olla Suomen
 > tai EU-kansalaisia, data käsitellään EU-alueella, eikä ulkoeurooppalaisia pilvipalveluja käytetä.
-> Alihankkijan kanssa solmitaan NDA ennen sopimuksen solmimista; voimme lähettää sen heti, kun saamme
-> parhaan yhteyssähköpostinne.
+> Alihankkijan kanssa solmitaan sekä salassapitosopimus (NDA) että tietosuojasopimus (DPA) ennen
+> sopimuksen solmimista — rekisteridatan käsittelyn vuoksi haluamme molemmat kunnossa jo ennen
+> tarjousvaihetta. Voimme lähettää molemmat heti, kun saamme parhaan yhteyssähköpostinne.
 >
-> **Yksi asia puuttuu vielä teidän viestistänne** — emme saaneet sähköpostiosoitettanne, vain
+> Yksi asia puuttuu vielä teidän viestistänne — emme saaneet sähköpostiosoitettanne, vain
 > puhelinnumeron. Voisitteko vahvistaa parhaan sähköpostin jatkoa varten? Näin saamme NDA:n ja
-> tarkemmat tiedot liikkeelle nopeasti, ja voimme myös sopia lyhyen puhelun tällä viikolla.
+> tarkemmat tiedot liikkeelle nopeasti.
+>
+> ---
+>
+> Erillinen asia: kiinnostus Lifetime Fleet -tuotteeseen
+>
+> Tämän ORK-hankinnan lisäksi huomasimme referenssilistaltanne taksinvälitysalustan, jossa
+> kuljettajat ja asiakkaat kohtaavat reaaliaikaisesti. Meillä on oma Lifetime Fleet -tuote
+> (reaaliaikainen, edge-AI-pohjainen kaluston/tehtävien dispatch), ja taksisovelluksenne
+> reaaliaikainen matching- ja dispatch-logiikka voisi olla meille kiinnostava — täysin erillään
+> ORK-alihankinnasta.
+>
+> Voisitteko kertoa lisää tästä projektista: millä teknologioilla se on toteutettu, miten
+> reaaliaikainen matching/dispatch on ratkaistu, minkä kokoluokan kuljettaja-/käyttäjämäärää se on
+> palvellut, ja onko se yhä tuotannossa?
+>
+> Kiitos jo etukäteen, ja odotan innolla vastaustanne.
 >
 > Ystävällisin terveisin,
 > Risto Anton Päärni
