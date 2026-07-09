@@ -76,10 +76,10 @@ Tarjoaja on käynnistänyt alihankkijakartoituksen seuraaville suomalaisille yri
 | 12  | **PHZ Full Stack**       | antti.hatinen@phz.fi        | AI Engineer, Software Developer                                      | 1, 3       |
 | 13  | **Sarkain Oy**           | (puhelin: 0451237465) \*\*  | AI Architect, AI Engineer, DevOps, Software Developer, AI Consultant | 1, 2, 3    |
 
-_\*\* Sarkain Oy otti itse yhteyttä 9.7.2026 (Kalle Sonninen, puh. 0451237465); sähköpostiosoite
-puuttuu, pyydetty vastineessa. Y-tunnus 3180183-9, Turku, henkilöstömäärä 1 rekisteritietojen mukaan
-— kapasiteetti (oma henkilöstö vs. kumppaniverkosto) selvitettävä ennen sitovaa laskentaa. Ks.
-`ORK160826_SARKAIN_KIRJEENVAIHTO.md`._
+_\*\* Sarkain Oy otti itse yhteyttä 9.7.2026 (Kalle Sonninen, puh. 0451237465); vastine lähetetty
+9.7.2026, sähköpostiosoite vielä vahvistamatta. Y-tunnus 3180183-9, Turku, henkilöstömäärä 1
+rekisteritietojen mukaan — kapasiteetti (oma henkilöstö vs. kumppaniverkosto) selvitettävä ennen
+sitovaa laskentaa. Ks. `ORK160826_SARKAIN_KIRJEENVAIHTO.md`._
 
 _\* Yhteydenotto verkkolomakkeen kautta_
 

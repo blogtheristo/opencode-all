@@ -36,11 +36,10 @@ kohta 2, jossa pyydetään sähköpostiosoite ensimmäisenä.
 
 ---
 
-## 2. Risto → Kalle Sonninen (Sarkain Oy) — vastineluonnos v2 (ei vielä lähetetty)
+## 2. Risto → Kalle Sonninen (Sarkain Oy) — vastine v2 (LÄHETETTY 9.7.2026)
 
 Copy-paste-valmis versio, hintataso- ja liikevaihtohuomiot mukana, Lifetime Fleet omana erillisenä
-osionaan. Ks. koko kirje käyttäjän chat-vastauksesta (sama sisältö, muotoiltu suoraan
-kopioitavaksi).
+osionaan. Risto vahvisti 9.7.2026, että kirje on lähetetty.
 
 > Hei Kalle,
 >
@@ -147,13 +146,17 @@ kuin Sarkain lasketaan mukaan sitovaan kapasiteettilaskelmaan tarjouksessa.
 ## Yhteenveto — mitä tästä seuraa
 
 - **Tilanne:** Sarkain Oy (Kalle Sonninen) otti yhteyttä puhelimitse epäonnistuneen soittoyrityksen
-  jälkeen, ilmaisi kiinnostuksen ORK/1462/2026-alihankintaan. Ei ennestään NDA:ta, ei vielä
-  sähköpostiosoitetta.
-- **Vastine on luonnos** — outbound-sähköposti on RED-vyöhykkeen toimenpide (ihmisen lähetettävä).
-  Risto lähettää yllä olevan vastineen käsin (esim. tekstiviestillä pyytäen sähköpostiosoitetta, tai
-  odottaa Sarkainin seuraavaa yhteydenottoa sähköpostitse).
+  jälkeen, ilmaisi kiinnostuksen ORK/1462/2026-alihankintaan. Ei ennestään NDA:ta.
+- **Vastine lähetetty 9.7.2026.** Risto vahvisti lähetyksen käyttäjän chat-viestillä ("Lähetetty").
+  Kirje kysyy sähköpostiosoitetta (viestissä oli vain puhelinnumero), joten emme vielä tiedä, kautta
+  minkä kanavan Risto sen toimitti (esim. tekstiviesti/puhelu, jossa pyydettiin ensin sähköposti).
+- **Odotetaan vastausta neljään kysymykseen** (roolit, alustava hinta, kapasiteetti/toimitustapa,
+  CV:t) sekä sähköpostiosoitteen vahvistusta NDA:n ja DPA:n lähettämistä varten.
 - **Kriittinen aikapaine:** kiinnostuksenilmaisujen määräaika 11.7.2026 on kahden päivän päässä
   (tänään 9.7.2026) — Sarkainilta tarvitaan nopea vastaus, jotta ehditään arvioida sopivuus ennen
   alihankkijasopimusten valmistelua (elokuu 2026).
 - **Lisätty seurantaan:** Sarkain Oy lisätty `ORK160826_ALIHANKINTALOMAKE.md` Ryhmä B
   -taulukkoon (kotimaiset potentiaaliset kumppanit, kartoitusvaiheessa).
+- **Seuraava askel:** kun Sarkain vastaa, kirjaa vastaus tähän tiedostoon (sama malli kuin
+  `ORK160826_CUBET_KIRJEENVAIHTO.md`) ja päivitä ALIHANKINTALOMAKE.md joko Ryhmä A:han (NDA
+  allekirjoitettu) tai poista kartoituksesta, jos kapasiteetti/hinta ei täsmää.

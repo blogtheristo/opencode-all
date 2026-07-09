@@ -26,14 +26,25 @@ this "Nerot-palvelun tarjouspyyntö." No prior NDA with Sarkain; he gave a phone
    `bids/ORK160826/ORK160826_ALIHANKINTALOMAKE.md`, bumped its version header to 2.1.
 4. Committed and pushed to `claude/sarkain-oy-vendor-gddyf0`.
 
+5. Revised the reply per Risto's follow-up instructions: added an upfront warning that the
+   tender's price level is very low (~€58/h prior winning benchmark), tied the capacity question
+   directly to the revenue-vs-headcount finding (€593k revenue against 1 registered employee),
+   added a separate section asking for detail on the taxi-dispatch reference (relevant to
+   Lifetime Fleet's real-time dispatch tech), and clarified both NDA and DPA will be sent together
+   given the registry-data sensitivity. Gave Risto the full letter as copy-paste plain text.
+6. **Risto confirmed the letter was sent (9.7.2026).** Updated the KIRJEENVAIHTO file and the
+   ALIHANKINTALOMAKE.md tracking note to reflect "sent," not "draft."
+
 ## Still open / next steps
 
-- **The drafted reply has not been sent.** Risto needs to send it (email address is unknown —
-  the draft's first ask is for Sarkain to confirm an email so the NDA can go out).
-- **EOI deadline is 11.7.2026** — 2 days out from when this was drafted (9.7.2026). Time-sensitive.
-- If Sarkain responds with capacity/pricing, update the KIRJEENVAIHTO file with the next round
-  (same pattern as `ORK160826_CUBET_KIRJEENVAIHTO.md`) and reassess whether they get promoted to
-  Group A (NDA signed) or excluded on capacity grounds.
+- **Waiting on Sarkain's reply.** They still need to confirm an email address before the NDA/DPA
+  can go out; we don't yet know Sarkain's answers to the 4 requested items (roles, price,
+  capacity/delivery model, CVs) or the Lifetime Fleet taxi-dispatch question.
+- **EOI deadline is 11.7.2026** — 2 days out from when the letter was sent (9.7.2026).
+  Time-sensitive; if Sarkain hasn't replied by then, flag to Risto.
+- When Sarkain responds, log it as round 3 in `ORK160826_SARKAIN_KIRJEENVAIHTO.md` (same pattern
+  as `ORK160826_CUBET_KIRJEENVAIHTO.md`) and update ALIHANKINTALOMAKE.md — promote to Group A (NDA
+  signed) or drop from the mapping if capacity/price doesn't work.
 - `playwright` was installed locally via `npm install playwright --no-save` (not persisted to
   package-lock since `--no-save`); if browsing sarkain.fi or other public sites is needed again in
   this kind of session, expect the same egress-policy 403 and rely on WebSearch instead.
