@@ -4,12 +4,19 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.11
 
 Sessions & Modifications:
 
+- Version: 3.11 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Documented the 4P Capital Classes model (Prompt / People / Plant / Perception) as the company's canonical capital model; added Related Documentation row; registered the future "4p-diligence" assessment lens (Agent Productization Rule). Canonical source: DWS_BRAND_STANDARD.md §23; DWS_TRUTH_STANDARD.md §2 row 25.
+- Version: 3.10 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added "Aspire Dashboard Observability (DGX Spark)" section — three-port reference (18888 UI / 18889 OTLP-gRPC / 18890 OTLP-HTTP), the 18890 rule for all http/protobuf producers after the silent-telemetry incident (compose v1.2.0 pointed producers at the gRPC port then the UI port; both dropped telemetry silently; fixed compose v1.3.1), post-deploy verification procedure (traces visible + GenAI sparkle on LLM spans), GenAI message-content capture flagged as human data-protection decision (default OFF), Unsecured-auth hardening trigger, and version-pinning discipline. Cross-refs: field note 2026-07-07-aspire-development-evolution-pr1500-to-main.md §6.2, V3Thesis §10.25.
+- Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added `ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` to the Admin Manuals Index — CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory, and agentic commerce / KYA data-handling plan.
+- Version: 3.8 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Ontology-schema implementation — retention is now a node property" subsection recording the `ONTOLOGY.md` v1.5 schema change (Data Lifecycle & Retention Ontology, §6): every LWM ontology node ingesting live data now declares node_owner/raw_tier/summary_tier/audit_tier/rollup_tier/aggregation_review at design time. Documents the operator action (reject node definitions missing the retention block) and the full cross-reference chain from ONTOLOGY.md through the field note, this Admin Manual, the handbook, and the public product pages.
+- Version: 3.7 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "National reference: VM 2026:27 recommendation audit" subsection under Customer Sensor Data Retention — maps Table 16 (§4.4.3) risk-management measure categories from the Finnish Ministry of Finance guide (VM 2026:27) to the four-layer retention model (content-modification → Layer 2/4, user-management → RLS/Layer 3, distribution-control → Situation Room, aggregation-effect mitigation → §4.4.2), plus the guide's Stage 5 documentation-disclosure warning applied to this checklist itself. Source archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`.
+- Version: 3.6 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Customer Sensor Data Retention — Control Room / Situation Room" section — operator-facing summary of the four-layer retention model (72h raw / 13mo ontologised / 7yr Article 12 audit trail / 24mo Situation Room rollup), ontology-node ownership and quarterly access-review responsibilities, and a compliance checklist. Canonical source: `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`.
 - Version: 3.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added "NemoClaw Agent Runtime (DGX Spark / sovereign edge)" section — one-runtime-per-room-profile model (Control Room / Situation Room / Mobile Command-Situation Room are config overlays, not separate builds), the per-box secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled), and operate/health/migration pointers. Cross-links DWS_DEPLOYMENT_STANDARD.md and the OpenClaw→NemoClaw migration plan.
 - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added NVIDIA AI Workbench on DGX Spark section — enterprise sovereign training workflow, mode-switch architecture (training-mode.sh / production-mode.sh), QLoRA fine-tuning procedures, 4-stage sovereign training cascade reference, CR-1/CR-2 memory budget guidance
+- Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added "Company Capital Model — The 4P Capital Classes" section documenting Prompt / People / Plant / Perception Capital as the canonical capital model (canon: DWS_BRAND_STANDARD.md §23); added an Ontology Series entry to a new Content Registry sub-section; registered the future `4p-diligence` assessment lens per the Agent Productization Rule (CLI path `dws diligence-4p`, structured JSON output, MCP + skill registration intent).
 - Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
 - Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
 - Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
@@ -43,8 +50,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 22.06.2026
-- Version: 3.4
+- Last Modified: 06.07.2026
+- Version: 4.0
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -52,6 +59,52 @@ Document Status:
 ---
 
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
+
+---
+
+## Company Capital Model — The 4P Capital Classes
+
+DWS is not a SaaS vendor; it is a **System of Action operator**. The company's
+capital model — the way it names the durable value it accumulates — is the **4P
+Capital Classes**. This is canonical in `DWS_BRAND_STANDARD.md` §23 and registered
+in `DWS_TRUTH_STANDARD.md` §2 row 25 (structured mirror `dws10.com/config/capitals.json`).
+
+| #   | Capital Class (4P)     | Finnish        | Was                  | What it is                                                                                                                                                                                  |
+| --- | ---------------------- | -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Prompt Capital**     | Prompt-pääoma  | Token Capital        | Codified intelligence — validated prompts, skills, agent configs, eval datasets, automation.                                                                                                |
+| 2   | **People Capital**     | Ihmispääoma    | Human Capital        | Calibrated operator judgment from the HIL phase (human-in-the-loop → human-in-control).                                                                                                     |
+| 3   | **Plant Capital**      | Laitospääoma   | Control Room Capital | The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle.                                                                                     |
+| 4   | **Perception Capital** | Havaintopääoma | _new_                | The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics). The only class with data-network effects and a physical-AI character — the re-rate lever. |
+
+**Order is fixed** (Prompt, People, Plant, Perception — the mnemonic depends on it).
+**Deprecated in new copy:** "three-capital model", "Token Capital", "Control Room
+Capital" as primary terms; "Human Capital" only as a parenthetical. `/truth-check`
+enforces this on public copy.
+
+### Content Registry
+
+Canonical long-form explainers of the company's positioning and capital model.
+Treat these as the source for any derived deck, blog, or sales copy.
+
+| Asset                        | Location                                                                          | Scope                                                                                                                                                                                                                                         |
+| ---------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **4P Capital Classes canon** | `DWS_BRAND_STANDARD.md` §23                                                       | The canonical terminology, usage rules, and deprecations.                                                                                                                                                                                     |
+| **4P field note (v2.0)**     | `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md` | The theory: how the HIL phase forms each class; the Nadella signal; capital-as-a-service.                                                                                                                                                     |
+| **Ontology Series**          | `onelifetime.world/posts/` (+ `landing-pages/onelifetime-world/posts/` mirror)    | Public, qualitative arc — 5 posts: `point-it-at-the-ontology`, `four-capital-classes`, `software-vs-world-model`, `the-ontology-lives-in-the-team` (EN) and `ontologia-tiimin-aivoissa` (FI). Cross-linked via `scripts/inject-blog-nav.cjs`. |
+| **Theory + Kaukopää case**   | `docs/PHD_FIREHORSE_EN.md` §14.26–§14.27                                          | Scientific framing of the 4P model and the tacit-ontology (People + Perception walk-out) risk.                                                                                                                                                |
+| **Architecture mapping**     | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` §10.23.7                        | How the 4P classes map to the DWS IQ Brain-Memory-Body-Hands architecture.                                                                                                                                                                    |
+
+### Future Assessment Lens — `4p-diligence` (registration intent)
+
+Per the **Agent Productization Rule** (CLAUDE.md), the 4P model should become an
+agent-accessible **diligence lens** that scores any agentic operator (a target, a
+partner, or DWS itself) on the four classes. Registered here as intent — to be
+built and approved before shipping:
+
+- **CLI path:** `dws diligence-4p --target <name> [--json]` — score Prompt / People / Plant / Perception 0–100, with the shrinking-team risk flag (People + Perception walking out together — the Kaukopää failure mode).
+- **Structured output:** JSON `{ target, scores: { prompt, people, plant, perception }, walkOutRisk, notes[] }` for downstream MCP / report consumption.
+- **MCP exposure:** expose as an MCP tool once the CLI stabilizes, consistent with the other DWS assessment skills (`/kya`, `/sovereignty-assess`, `/compliance-check`).
+- **Skill registration:** add `skills/4p-diligence/SKILL.md` (parameterized: `TARGET`, optional `MODE=invest|acquire|self`) and register in `docs/DWS_SKILLS_GUIDE.md` when approved.
 
 ---
 
@@ -145,16 +198,17 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Core Platform
 
-| Manual                               | Location                                                                 | Language | Description                                                                                                    |
-| ------------------------------------ | ------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------- |
-| **Admin Manual** (this file)         | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                     | EN       | Master admin manual - platform operations                                                                      |
-| **Audit Manual (external auditors)** | [`ADMIN_MANUAL_AUDIT.md`](ADMIN_MANUAL_AUDIT.md)                         | EN       | Audit-trail inventory, sample SQL, integrity checks, auditor access model (EU AI Act Art. 12, GDPR, ISO 27001) |
-| **GitHub Apps Audit**                | [`GITHUB_APPS_AUDIT.md`](GITHUB_APPS_AUDIT.md)                           | EN       | Audit of 9 installed GitHub Apps; keep / review / remove verdict; Continue → Claude Code migration             |
-| **Authentication Manual**            | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)       | EN       | JWT auth, login flows, token management                                                                        |
-| **Supabase Manual**                  | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)       | EN       | Database, RLS, migrations, storage                                                                             |
-| **Testing Manual**                   | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                     | EN       | Vitest, security tests, CI/CD testing                                                                          |
-| **Files & Folders Index**            | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN       | Every script, workflow, config, doc — what it does and how it's used                                           |
-| **Gaps Analysis**                    | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)         | EN       | Missing features and remediation plan                                                                          |
+| Manual                                    | Location                                                                       | Language | Description                                                                                                                               |
+| ----------------------------------------- | ------------------------------------------------------------------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin Manual** (this file)              | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                           | EN       | Master admin manual - platform operations                                                                                                 |
+| **Audit Manual (external auditors)**      | [`ADMIN_MANUAL_AUDIT.md`](ADMIN_MANUAL_AUDIT.md)                               | EN       | Audit-trail inventory, sample SQL, integrity checks, auditor access model (EU AI Act Art. 12, GDPR, ISO 27001)                            |
+| **GitHub Apps Audit**                     | [`GITHUB_APPS_AUDIT.md`](GITHUB_APPS_AUDIT.md)                                 | EN       | Audit of 9 installed GitHub Apps; keep / review / remove verdict; Continue → Claude Code migration                                        |
+| **Authentication Manual**                 | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)             | EN       | JWT auth, login flows, token management                                                                                                   |
+| **Supabase Manual**                       | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)             | EN       | Database, RLS, migrations, storage                                                                                                        |
+| **Database Sovereignty & Cloud Fit Plan** | [`ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md`](ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md) | EN       | CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory (ERP/MCP), agentic commerce & KYA data handling |
+| **Testing Manual**                        | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                           | EN       | Vitest, security tests, CI/CD testing                                                                                                     |
+| **Files & Folders Index**                 | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md)       | EN       | Every script, workflow, config, doc — what it does and how it's used                                                                      |
+| **Gaps Analysis**                         | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)               | EN       | Missing features and remediation plan                                                                                                     |
 
 ### Websites & Store
 
@@ -170,13 +224,16 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Security
 
-| Manual                     | Location                                                                                             | Language | Description                                 |
-| -------------------------- | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------- |
-| **Security Manuals Index** | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation         |
-| **Domain Validator**       | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security          |
-| **Security Monitoring**    | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting            |
-| **Security Testing**       | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning |
-| **Security Audit Report**  | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings              |
+| Manual                         | Location                                                                                             | Language | Description                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------ |
+| **Security Manuals Index**     | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation                                                        |
+| **Domain Validator**           | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security                                                         |
+| **Security Monitoring**        | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting                                                           |
+| **Security Testing**           | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning                                                |
+| **Security Audit Report**      | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings                                                             |
+| **Business-Critical Systems**  | [`docs/BUSINESS_CRITICAL_SYSTEMS.md`](../docs/BUSINESS_CRITICAL_SYSTEMS.md)                          | EN       | Systems/services inventory with criticality tiers, kept in lockstep with the `Vesta` agent |
+| **Security Roles & Guidance**  | [`docs/SECURITY_ROLES_AND_GUIDANCE.md`](../docs/SECURITY_ROLES_AND_GUIDANCE.md)                      | EN       | Internal security roles, `Aegis`/`Vesta` agent bindings, operational guidance              |
+| **Security Training Skeleton** | [`docs/SECURITY_TRAINING_PROGRAM_SKELETON.md`](../docs/SECURITY_TRAINING_PROGRAM_SKELETON.md)        | EN       | Internal staff training program framework (not yet delivered — see doc for status)         |
 
 ### Products & Architecture
 
@@ -188,15 +245,16 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                  | Location                                                                            | Description                                                                 |
-| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                          |
-| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                              |
-| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                         |
-| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                    |
-| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                         |
-| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot |
-| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                  |
+| Document                  | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
+| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
+| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
+| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
+| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
+| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
+| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
+| **4P Capital Classes**    | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
 
 ---
 
@@ -249,6 +307,30 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 - Deploy / health: `infrastructure/dgx-spark/` (`docker-compose.yml` service `nemoclaw`, `deploy.sh`, `heartbeat.ts` check `nemoclaw`). Health: `http://nemoclaw:8090/health` (LAN).
 - `NEMOCLAW_IMAGE` defaults to the upstream OpenClaw image; NemoClaw is NVIDIA's OpenShell-sandboxed distribution — point `NEMOCLAW_IMAGE` at the NVIDIA-published image once provisioned (migration Phase 3).
 - Migration status / runbook: `docs/migrations/2026-06-25-openclaw-to-nemoclaw.md`.
+
+---
+
+## Aspire Dashboard Observability (DGX Spark)
+
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.3.5`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+
+### The three ports (do not mix them up)
+
+| Port  | What it is                      | Who uses it                                                |
+| ----- | ------------------------------- | ---------------------------------------------------------- |
+| 18888 | Browser UI (+ `/health`)        | Humans: `http://dgx-spark:18888`; heartbeat/state-observer |
+| 18889 | OTLP/**gRPC** ingest            | gRPC exporters only (none in our stack today)              |
+| 18890 | OTLP/**HTTP** ingest (protobuf) | `dws-backend`, `dws-cron`, `bumblebee-collector`           |
+
+**Rule:** every `OTEL_EXPORTER_OTLP_ENDPOINT` with `OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf` points at `http://aspire-dashboard:18890`. History: compose v1.2.0 pointed producers at the gRPC port, then at the UI port — both dropped telemetry **silently** (the OTel BatchSpanProcessor swallows export errors; every liveness check still passes). Fixed in compose v1.3.1 (2026-07-07). Incident write-up: `docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md` §6.2; thesis treatment: V3Thesis §10.25.
+
+### Operate
+
+- **Verify after any deploy:** open `http://dgx-spark:18888` → Traces. You must see `dws-backend` spans within minutes of API traffic. LLM calls show the **GenAI sparkle icon** (`gen_ai.*` spans from `src/observability/tracing.ts`). A dashboard with zero traces is a wiring failure, not an idle system.
+- **Enable/disable per service:** telemetry is opt-in via `OTEL_EXPORTER_OTLP_ENDPOINT` (unset = no-op, nothing leaves the host). Service names via `OTEL_SERVICE_NAME`.
+- **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
+- **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
+- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
 
 ---
 
@@ -3017,6 +3099,96 @@ To ensure automatic protection, use these naming conventions:
 | Financial models  | `*financial-model*` | `2025-financial-model.xlsx`    |
 | ROI calculators   | `*roi-calculator*`  | `customer-roi-calculator.xlsx` |
 | Cap tables        | `*cap-table*`       | `lifetime-cap-table.xlsx`      |
+
+---
+
+## Customer Sensor Data Retention — Control Room / Situation Room
+
+### Overview
+
+Control Room and Situation Room ingest continuous customer sensor data (production-line telemetry, emissions sensors, cameras, IoT). Without an explicit, automated retention schedule, this data accumulates in the same way the unstructured-data problem does at every audited customer — undated, unowned, over-permissioned. The canonical policy is `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`; this section is the operator-facing summary.
+
+### Four-layer retention model (default)
+
+| Layer                          | Content                                                  | Retention                 | Where                         |
+| ------------------------------ | -------------------------------------------------------- | ------------------------- | ----------------------------- |
+| 1 — Raw sensor stream (hot)    | Unprocessed signal (temperature, emissions, camera, IoT) | 72 hours                  | Control Room local NVMe only  |
+| 2 — Ontologised summary (warm) | LWM-structured events, no raw signal                     | 13 months                 | Control Room                  |
+| 3 — Compliance audit trail     | EU AI Act Article 12 log, hash-chained, immutable        | 7 years                   | Control Room, SIEM-exportable |
+| 4 — Situation Room rollup      | Site-level aggregate only, never raw                     | 24 months, rolling window | Situation Room                |
+
+Layer 1 is never forwarded to Situation Room. Layer 4 never contains individualised data.
+
+### Operator responsibilities
+
+- **Do not extend Layer 1 retention** without a documented, customer-approved processing basis — the default is deliberately stricter than production-optimisation would prefer (GDPR Art. 5(1)(c) minimisation).
+- **Ontology-node ownership** is assigned per customer during onboarding (Pillar 2 scoping) — one named owner per LWM ontology class, never shared ownership.
+- **Access review** is quarterly, tracked alongside the Situation Room review cycle — not a one-time onboarding decision left stale for years.
+- **Dual-use / classified customer data** (Aegis Defence, ArgusAgent SAR) follows the customer's own classification schedule; DWS enforces only the 7-year Layer 3 audit-trail minimum, never a retention ceiling.
+- **Customer-facing copy** of this policy lives on the product pages (`dws10.com/products/edge-node-gn100.html`, `dws10.com/products/situation-room.html`) and must stay in lockstep with this section and the field note — update all three in the same commit.
+
+### Compliance Checklist (Control Room / Situation Room)
+
+- [ ] Layer 1 auto-purge timer active on every deployed Control Room box (no manual cleanup step)
+- [ ] Ontology-node owner named per customer at go-live
+- [ ] RLS access tiers match the four layers (operational vs. compliance vs. consultant)
+- [ ] Quarterly access review scheduled in the customer's Situation Room cadence
+- [ ] Product pages, handbook §3, and this section reference the same field note version
+
+### National reference: VM 2026:27 recommendation audit
+
+Source: Ministry of Finance (Finland), "Kriittinen infrastruktuuri ja avoin tieto — Opas turvallisuuslähtöiseen tiedonhallintaan," VM 2026:27, 17.6.2026 (ISBN PDF 978-952-367-188-1). Full guide archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`. Not legally binding, but the first comprehensive national framework naming the **aggregation effect** (kasautumisvaikutus) as a core assessment criterion — every measure below (Table 16, §4.4.3 of the guide) has a direct equivalent already implemented or plannable in the four-layer retention model above.
+
+**Content-modification measures (maps to Layer 2/4 — ontologised summary, Situation Room rollup):**
+
+```
+Häivyttäminen suurempaan tietomassaan — Kun riski liittyy yksittäisen kohteen tunnistamiseen.
+Karsiminen — Kun riskit liittyvät tiettyihin yksityiskohtiin, meta-, attribuutti-, ominaisuustietoihin, ajantasaisuuteen tai maantieteelliseen tarkkuuteen.
+Tiedon keräämisen lopettaminen tai tiedon poistaminen — Kun tiedolle ei ole riittävää käyttötarvetta ja sen tuottaminen synnyttää jatkuvan riskin.
+Anonymisointi — Kun riski liittyy henkilön tunnistettavuuteen, eikä henkilötietoja ole tarpeen säilyttää.
+Pseudonymisointi — Kun riski liittyy suoraan henkilön tunnistettavuuteen, mutta tietoa on edelleen tarpeen käyttää hallitusti.
+```
+
+**User-management measures (maps to RLS + Layer 3 audit trail):**
+
+```
+Pääsyn rajaaminen need to know -periaatteella — Kun tieto on hyödyllistä rajatulle käyttäjäjoukolle, mutta ei avoimeen jakoon.
+Lokitus ja monitorointi — Kun halutaan havaita poikkeavaa käyttöä, massalatauksia tai väärinkäyttöä.
+API-avainten käyttö — Kun tietoa jaetaan rajapinnan kautta ja käyttöä halutaan rajata tietylle käyttäjäjoukolle.
+```
+
+**Distribution-control measures (maps to Situation Room — never receives raw data, only aggregates):**
+
+```
+Katselupalvelu latauspalvelun tai rajapinnan sijaan — Kun hyöty syntyy tarkastelusta, mutta massalataus lisäisi riskiä.
+Lataus- tai kyselymäärien rajaaminen — Kun riski liittyy massapoimintaan tai automaattiseen keruuseen.
+```
+
+**Aggregation-effect mitigation (§4.4.2 of the guide — the core principle behind the whole retention model):**
+
+```
+Kasautumista voidaan pienentää vähentämällä kertyvän tiedon määrää tai laatua.
+Kasautumisen vähentäminen voidaan toteuttaa rajaamalla viranomaisiin kertyvä tieto vain ehdottomasti tarvittaviin.
+Kasautumisen aiheuttamaa riskiä voidaan pienentää lisäämällä järjestelmien tietoturvatasoa sekä vähentämällä tiedon käsittelijöiden määrää, tiedon jakelukanavia ja -tapoja.
+```
+
+**Documentation requirement (Stage 5, §4.5 of the guide) — applies to this checklist itself:**
+
+```
+Dokumentoinnissa voi kuvata esimerkiksi arvioinnin kohteena olleen tiedon tai tietoaineiston, sovellettavat säädökset, tunnistetut hyödyt ja riskit, valitut riskienhallintatoimenpiteet, niiden perustelut sekä se, miten toimenpiteiden vaikutuksia seurataan.
+Dokumentoinnissa on hyvä huomioida, että riskienhallintatoimenpiteiden kuvaaminen julkisessa asiakirjassa voi itsessään paljastaa haavoittuvuuksia tai muodostaa muun riskin.
+```
+
+**Operator note on the last quote:** the public product pages (`edge-node-gn100.html`, `situation-room.html`) only publish the top-level layer model and default durations — never customer-specific measures, named ontology-node owners, or implementation detail. If a future customer engagement documents element-level redactions or per-customer measures, that detail stays in this Admin Manual / the customer's own scoping file, never on the public site.
+
+### Ontology-schema implementation — retention is now a node property
+
+`ONTOLOGY.md` §6 (v1.5) was updated to add a **Data Lifecycle & Retention Ontology (HOW LONG)** subsection. Every LWM ontology node that ingests live operational data must now declare, at design time, its own `node_owner`, `raw_tier`, `summary_tier`, `audit_tier`, `rollup_tier`, and `aggregation_review` cadence — the same five fields the Control Room / Situation Room four-layer model already implements. This closes the gap between the retention policy above (product-specific) and the ontology schema (platform-wide): retention is now a declared property of every node, not an implicit default inherited from the platform.
+
+- **What changed:** `ONTOLOGY.md` §6, between Spatial and Causal Ontology — see the "Data Lifecycle & Retention Ontology" YAML block.
+- **Why:** closes the aggregation-effect gap named in VM 2026:27 §4.4.2 — without a per-node retention declaration, new ontology nodes default to "keep forever," recreating the unstructured-data problem this whole retention effort exists to prevent.
+- **Operator action:** when defining a new ontology node (new industry vertical, new sensor class, new customer-specific extension), the retention YAML block is a required design-time field, not an optional add-on. Reject node definitions that omit it.
+- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTIN_KASIKIRJA_2026.md` §3 → public product pages.
 
 ---
 

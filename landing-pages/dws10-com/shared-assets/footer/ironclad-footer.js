@@ -5,6 +5,8 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
+ * v1.5 — 2026-06-27: Industries column renamed; Industries Hub (25) link added; Healthcare promoted
+ * v1.4 — 2026-06-21: Add newsletter capture band (writes to Supabase web_leads).
  * v1.3 — 2026-05-31: Add ethics principle band (human-in-command).
  * v1.2 — 2026-04-06: Nordic Industrial rebrand — "Built in Finland" badge, IBM Plex Sans font
  * v1.1 — 2026-03-15: Add Firehorse Mobile Google Play badge
@@ -26,6 +28,12 @@
   const contentBase = onDws10 ? '' : 'https://dws10.com';
   const regulatoryNoticeHref = onDws10 ? '/regulatory-notice/' : 'https://dws10.com/legal/';
   const privacyPolicyHref = onDws10 ? '/privacy-policy/' : 'https://dws10.com/privacy-policy/';
+
+  // Newsletter capture — writes inbound leads to the shared Supabase web_leads
+  // table via the public anon key (same pattern as the /captain/ inquiry form).
+  // The key is a publishable anon key (RLS-protected), safe to ship client-side.
+  const SUPABASE_URL = 'https://kpucuwwfhuwurdxyjjtz.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_mZtEHU2k4WolHxePGF6g3w_tdkMCWRh';
 
   const footerCSS = `
 /* === DWS10.com Iron Clad Footer v1.3 === */
@@ -67,6 +75,21 @@
 @media (max-width: 480px) {
     .ironclad-footer-columns { grid-template-columns: 1fr; gap: 20px; padding: 24px 16px 20px; }
 }
+.ironclad-footer-news { max-width: 1200px; margin: 0 auto; padding: 28px 20px 4px; border-bottom: 1px solid #334155; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.ironclad-footer-news-copy { max-width: 460px; }
+.ironclad-footer-news-copy h4 { color: #e2e8f0; font-size: 1rem; font-weight: 700; margin: 0 0 4px 0; }
+.ironclad-footer-news-copy p { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
+.ironclad-footer-news-copy a { color: #60a5fa; }
+.ironclad-footer-news-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ironclad-footer-news-form input[type=email] { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; padding: 10px 14px; border-radius: 6px; font-size: 0.875rem; font-family: inherit; min-width: 240px; }
+.ironclad-footer-news-form input[type=email]:focus { outline: none; border-color: #60a5fa; }
+.ironclad-footer-news-form button { background: #2563eb; border: none; color: #fff; padding: 10px 20px; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+.ironclad-footer-news-form button:hover { background: #1d4ed8; }
+.ironclad-footer-news-form button:disabled { opacity: 0.6; cursor: default; }
+.ironclad-footer-news-msg { width: 100%; font-size: 0.8rem; margin: 8px 0 0; min-height: 1em; }
+.ironclad-footer-news-msg.ok { color: #4ade80; }
+.ironclad-footer-news-msg.err { color: #f87171; }
+@media (max-width: 600px) { .ironclad-footer-news-form input[type=email] { min-width: 0; flex: 1; } }
 `;
 
   const footerHTML = `
@@ -75,6 +98,18 @@
     <div class="ironclad-footer-finland">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#fff"/><rect y="5" width="20" height="4" fill="#003580"/><rect x="6" width="4" height="14" fill="#003580"/></svg>
         Built in Finland &middot; EU Sovereign AI &middot; Finnish Jurisdiction
+    </div>
+    <div class="ironclad-footer-news">
+        <div class="ironclad-footer-news-copy">
+            <h4>Stay ahead of EU regulation</h4>
+            <p>Get the signal on CSRD, CBAM, EU ETS and the EU AI Act &mdash; what changes, when, and what to do about it. No spam.</p>
+            <p style="margin-top:6px;font-size:0.75rem;color:#64748b;">By subscribing you consent to receiving email from Lifetime Oy. Unsubscribe anytime. See our <a href="${privacyPolicyHref}">Privacy Policy</a>.</p>
+        </div>
+        <form class="ironclad-footer-news-form" id="ironclad-news-form" novalidate>
+            <input type="email" name="email" placeholder="you@company.com" aria-label="Email address" required>
+            <button type="submit">Subscribe</button>
+            <p class="ironclad-footer-news-msg" id="ironclad-news-msg" role="status" aria-live="polite"></p>
+        </form>
     </div>
     <div class="ironclad-footer-columns">
         <div class="ironclad-footer-col">
@@ -86,16 +121,17 @@
             <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
-            <h4>Dual Use Industries</h4>
-            <a href="${contentBase}/dual-use-industries/" style="color: #d4a843;">All Industries &amp; Aegis</a>
+            <h4>Industries</h4>
+            <a href="${contentBase}/industries/" style="color: #60a5fa; font-weight: 600;">Industries Hub (25)</a>
             <a href="${contentBase}/construction/">Construction</a>
             <a href="${contentBase}/energy/">Energy</a>
             <a href="${contentBase}/manufacturing/">Manufacturing</a>
-            <a href="${contentBase}/real-estate/">Real Estate</a>
-            <a href="${contentBase}/logistics/">Logistics</a>
             <a href="${contentBase}/healthcare/">Healthcare</a>
+            <a href="${contentBase}/logistics/">Logistics</a>
+            <a href="${contentBase}/real-estate/">Real Estate</a>
             <a href="${contentBase}/financial-services/">Financial Services</a>
             <a href="${contentBase}/public-sector/">Public Sector</a>
+            <a href="${contentBase}/dual-use-industries/" style="color: #d4a843;">Dual Use &amp; Aegis</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Platform</h4>
@@ -186,6 +222,76 @@
     wrapper.innerHTML = footerHTML.trim();
     var footerEl = wrapper.firstElementChild;
     document.body.appendChild(footerEl);
+
+    wireNewsletter();
+  }
+
+  function wireNewsletter() {
+    var form = document.getElementById('ironclad-news-form');
+    var msg = document.getElementById('ironclad-news-msg');
+    if (!form || !msg) return;
+    var input = form.querySelector('input[type=email]');
+    var button = form.querySelector('button');
+
+    function setMsg(text, kind) {
+      msg.textContent = text;
+      msg.className = 'ironclad-footer-news-msg' + (kind ? ' ' + kind : '');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (input.value || '').trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        setMsg('Please enter a valid email address.', 'err');
+        input.focus();
+        return;
+      }
+      button.disabled = true;
+      setMsg('Subscribing…', '');
+
+      fetch(SUPABASE_URL + '/rest/v1/web_leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({
+          source: 'newsletter',
+          email: email,
+          site: window.location.hostname,
+          page_path: window.location.pathname,
+          locale: document.documentElement.lang || null,
+          consent: true,
+          metadata: { referrer: document.referrer || null },
+        }),
+      })
+        .then(function (res) {
+          if (res.ok) {
+            setMsg('Thanks — you’re on the list.', 'ok');
+            form.reset();
+          } else if (res.status === 409) {
+            // Unique index on newsletter email — already subscribed.
+            setMsg('You’re already subscribed — thank you.', 'ok');
+            form.reset();
+          } else {
+            // Fail loud: surface the real status for debugging, friendly text for users.
+            console.error(
+              '[ironclad-footer] newsletter signup failed:',
+              res.status,
+              res.statusText,
+            );
+            setMsg('Something went wrong. Please email sales@lifetime.fi.', 'err');
+            button.disabled = false;
+          }
+        })
+        .catch(function (err) {
+          console.error('[ironclad-footer] newsletter signup error:', err);
+          setMsg('Network error. Please email sales@lifetime.fi.', 'err');
+          button.disabled = false;
+        });
+    });
   }
 
   if (document.readyState === 'loading') {

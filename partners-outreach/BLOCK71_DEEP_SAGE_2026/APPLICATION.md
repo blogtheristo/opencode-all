@@ -77,7 +77,7 @@ Three compounding moats:
 - **Edge AI at €17K/year.** NVIDIA Jetson Orin Nano delivers on-premise inference under 100ms with zero cloud egress. Comparable cloud architectures cost €350K/year and run at 2–5s latency. EU AI Act Article 12 logging shipped March 2026 — five months ahead of enforcement.
 - **Payment-agnostic recording.** Obligations are recorded at the transaction level, not the rail. Works with SEPA today and Qivalis (12-bank European MiCA-stablecoin consortium, H2 2026) tomorrow.
 
-Traction (Q1 2026): €7K MRR, 6 paying customers (Uber Finland, Bolt, Kela, NCC reference, two unnamed industrial), 100% retention. 21 production AI agents across 20 EU-regulated industries. NVIDIA Connect ISV Partner. Microsoft Founders Hub L4. Three InvestEU Portal listings. EIC Accelerator Step 1 submitted.
+Traction (Q1 2026): €7K MRR, 6 paying customers (Uber Finland, Bolt, Kela, NCC reference, two unnamed industrial), 100% retention. Production agent coverage across 25 EU-regulated industries. NVIDIA Connect ISV Partner. Microsoft Founders Hub L4. Three InvestEU Portal listings. EIC Accelerator Step 1 submitted.
 
 Why ASEAN now: CBAM forces ASEAN exporters into the EU to provide verified embedded-emissions data per shipment from 2026. Singapore is the regional control point. Deep SAGE + TIS Inc. provides distribution into Japanese manufacturing and ASEAN supply chains exactly when this demand goes from optional to mandatory.
 
@@ -116,7 +116,7 @@ Three validated innovations, each with an academic citation track:
 2. **6-layer harness engineering** — information architecture that lifted compliance accuracy from 52.8% → 66.5% without changing the underlying model. Same Metropolia thesis.
 3. **Payment-agnostic compliance recording** — first MiCA-aware industrial compliance ledger in Europe. Qivalis-ready before Qivalis ships.
 
-20-moat competitive fortress (€3–6M / 24–36 month entry barrier). Boardy.ai raised €11M — 16× our SAFE ask — and still cannot replicate Tier-1 moats (EU operations, Kela validation, NCC reference, InvestEU portal, edge stack).
+19-moat competitive fortress (€3–6M / 24–36 month entry barrier). Boardy.ai raised €11M — 16× our SAFE ask — and still cannot replicate Tier-1 moats (EU operations, Kela validation, NCC reference, InvestEU portal, edge stack).
 
 ---
 
@@ -137,7 +137,7 @@ Japan angle (TIS Inc.): Japanese manufacturers (steel, automotive, electronics) 
 ## 7. Traction (Q1 2026)
 
 - **€7K MRR**, 6 paying customers, 100% retention
-- **20 EU-regulated industries** covered by 21 production AI agents
+- **25 EU-regulated industries** covered by the production agent fleet
 - **Uber Finland**: CSRD reporting 60h → 8h per month (87% reduction)
 - **Kela**: audit readiness 6 months → 4 weeks
 - **Bolt Finland**: ETS compliance — €10K–50K penalty exposure → €0

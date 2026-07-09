@@ -55,7 +55,7 @@ DWS6 (Lifetime Oy) has built **12 defensible competitive advantages** that creat
   - Nordic languages and cultural understanding
 
 **Why This Matters:**
-- 50,000+ EU companies subject to CSRD starting 2025
+- Fewer than ~5,000 large EU companies subject to direct CSRD reporting (post-Omnibus)
 - EU customers prefer EU vendors for regulatory compliance
 - US/Asian competitors face significant localization costs
 - Finland's AAA credit rating provides customer confidence

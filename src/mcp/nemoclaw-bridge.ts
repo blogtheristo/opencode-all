@@ -17,6 +17,7 @@
  */
 
 import logger from '../utils/logger.js';
+import { CommandAuditLogger, type CommandAuditSink } from './command-audit-logger.js';
 
 // ============================================================================
 // TYPES
@@ -182,12 +183,29 @@ function sanitizeResponse(raw: unknown): Record<string, unknown> {
 // BRIDGE IMPLEMENTATION
 // ============================================================================
 
+export interface BridgeOptions {
+  /**
+   * EU AI Act Article 12 command-audit sink. When set, every invocation is
+   * recorded to the append-only command_audit_log BEFORE execution (fail-closed),
+   * and its result is recorded after. When absent (e.g. unit tests with no DB),
+   * the bridge falls back to operational logging only.
+   */
+  auditSink?: CommandAuditSink;
+
+  /** Nemotron model id recorded as provenance on each audit event. */
+  modelVersion?: string | null;
+}
+
 export class NemoClawBridge {
   private config: BridgeConfig;
   private registeredSkills: Map<string, NemoClawSkillManifest> = new Map();
+  private readonly auditSink?: CommandAuditSink;
+  private readonly modelVersion: string | null;
 
-  constructor(config: Partial<BridgeConfig> = {}) {
+  constructor(config: Partial<BridgeConfig> = {}, options: BridgeOptions = {}) {
     this.config = { ...DEFAULT_BRIDGE_CONFIG, ...config };
+    this.auditSink = options.auditSink;
+    this.modelVersion = options.modelVersion ?? null;
   }
 
   /**
@@ -196,24 +214,37 @@ export class NemoClawBridge {
    * This lets NemoClaw consume values populated by the startup secret loader
    * instead of relying on hardcoded runtime configuration.
    */
-  static fromEnv(config: Partial<BridgeConfig> = {}): NemoClawBridge {
+  static fromEnv(config: Partial<BridgeConfig> = {}, options: BridgeOptions = {}): NemoClawBridge {
     // NemoClaw (OpenShell-sandboxed) runtime config from environment, populated by
     // the startup secret loader. See docs/migrations/2026-06-25-openclaw-to-nemoclaw.md.
-    return new NemoClawBridge({
-      nemoclawEndpoint: process.env.NEMOCLAW_ENDPOINT || DEFAULT_BRIDGE_CONFIG.nemoclawEndpoint,
-      nemoclawApiKey: process.env.NEMOCLAW_API_KEY || DEFAULT_BRIDGE_CONFIG.nemoclawApiKey,
-      maxResponseBytes: parseIntegerEnv(
-        process.env.NEMOCLAW_MAX_RESPONSE_BYTES,
-        DEFAULT_BRIDGE_CONFIG.maxResponseBytes,
-        { min: 1 },
-      ),
-      timeoutMs: parseIntegerEnv(process.env.NEMOCLAW_TIMEOUT_MS, DEFAULT_BRIDGE_CONFIG.timeoutMs, {
-        min: 1,
-      }),
-      logBasePath: process.env.NEMOCLAW_LOG_BASE_PATH || DEFAULT_BRIDGE_CONFIG.logBasePath,
-      allowedSkills: parseNemoClawAllowedSkills(process.env.NEMOCLAW_ALLOWED_SKILLS),
-      ...config,
-    });
+    return new NemoClawBridge(
+      {
+        nemoclawEndpoint: process.env.NEMOCLAW_ENDPOINT || DEFAULT_BRIDGE_CONFIG.nemoclawEndpoint,
+        nemoclawApiKey: process.env.NEMOCLAW_API_KEY || DEFAULT_BRIDGE_CONFIG.nemoclawApiKey,
+        maxResponseBytes: parseIntegerEnv(
+          process.env.NEMOCLAW_MAX_RESPONSE_BYTES,
+          DEFAULT_BRIDGE_CONFIG.maxResponseBytes,
+          { min: 1 },
+        ),
+        timeoutMs: parseIntegerEnv(
+          process.env.NEMOCLAW_TIMEOUT_MS,
+          DEFAULT_BRIDGE_CONFIG.timeoutMs,
+          {
+            min: 1,
+          },
+        ),
+        logBasePath: process.env.NEMOCLAW_LOG_BASE_PATH || DEFAULT_BRIDGE_CONFIG.logBasePath,
+        allowedSkills: parseNemoClawAllowedSkills(process.env.NEMOCLAW_ALLOWED_SKILLS),
+        ...config,
+      },
+      {
+        // Wire EU AI Act Article 12 command logging when Supabase creds are
+        // present. Stays null in unit tests (no DB env) — operational-log only.
+        auditSink: CommandAuditLogger.fromEnvOrNull() ?? undefined,
+        modelVersion: process.env.NEMOCLAW_MODEL_VERSION ?? null,
+        ...options,
+      },
+    );
   }
 
   /**
@@ -248,15 +279,50 @@ export class NemoClawBridge {
   }
 
   /**
+   * Record a denied invocation to the Article 12 ledger. Denials run no command,
+   * so a write failure here is surfaced loudly but does not change the outcome.
+   */
+  private async auditDenied(
+    request: BridgeRequest,
+    callerATS: number,
+    minimumATS: number | null,
+    deniedReason: string,
+  ): Promise<void> {
+    if (!this.auditSink) {
+      return;
+    }
+    try {
+      await this.auditSink.logInvocation({
+        bridge: 'nemoclaw',
+        agentId: request.callerAgentId,
+        kyaSessionId: request.kyaSessionId,
+        skill: request.method,
+        params: request.params,
+        callerAts: callerATS,
+        minimumAts: minimumATS,
+        decision: 'denied',
+        deniedReason,
+        modelVersion: this.modelVersion,
+      });
+    } catch (err: unknown) {
+      logger.error('NemoClaw bridge: Article 12 denial log failed', {
+        skill: request.method,
+        caller: request.callerAgentId,
+        error: err instanceof Error ? err.message : 'Unknown error',
+      });
+    }
+  }
+
+  /**
    * Invoke an NemoClaw skill through the KYA-governed bridge.
    *
    * Flow:
    *   1. Validate skill is registered (whitelist check)
    *   2. Check caller ATS meets minimum requirement
-   *   3. Build JSON-RPC 2.0 request
-   *   4. Send to NemoClaw runtime (local endpoint)
+   *   3. Article 12 pre-flight log (fail-closed: blocks if the ledger is unwritable)
+   *   4. Build JSON-RPC 2.0 request + send to NemoClaw runtime
    *   5. Sanitize response (anti-prompt-injection)
-   *   6. Log to Firehorse audit trail
+   *   6. Log to Firehorse + Article 12 result event
    *   7. Return sanitized result
    */
   async invoke(request: BridgeRequest, callerATS: number): Promise<BridgeResponse> {
@@ -270,6 +336,7 @@ export class NemoClawBridge {
         skill: request.method,
         caller: request.callerAgentId,
       });
+      await this.auditDenied(request, callerATS, null, 'skill-not-registered');
       return {
         success: false,
         result: null,
@@ -287,6 +354,7 @@ export class NemoClawBridge {
         required: skill.minimumATS,
         caller: request.callerAgentId,
       });
+      await this.auditDenied(request, callerATS, skill.minimumATS, 'ats-below-minimum');
       return {
         success: false,
         result: null,
@@ -296,7 +364,39 @@ export class NemoClawBridge {
       };
     }
 
-    // 3. Build JSON-RPC 2.0 request
+    // 3. Article 12 pre-flight log — fail-closed. If the append-only ledger cannot
+    //    record that this command is about to run, the command does NOT run.
+    let traceId: string | null = null;
+    if (this.auditSink) {
+      try {
+        ({ traceId } = await this.auditSink.logInvocation({
+          bridge: 'nemoclaw',
+          agentId: request.callerAgentId,
+          kyaSessionId: request.kyaSessionId,
+          skill: request.method,
+          params: request.params,
+          callerAts: callerATS,
+          minimumAts: skill.minimumATS,
+          decision: 'allowed',
+          modelVersion: this.modelVersion,
+        }));
+      } catch (err: unknown) {
+        logger.error('NemoClaw bridge: Article 12 pre-flight log failed — command blocked', {
+          skill: request.method,
+          caller: request.callerAgentId,
+          error: err instanceof Error ? err.message : 'Unknown error',
+        });
+        return {
+          success: false,
+          result: null,
+          error: 'Command blocked: EU AI Act Article 12 audit log is unavailable',
+          auditEventId,
+          durationMs: Date.now() - startTime,
+        };
+      }
+    }
+
+    // 4. Build JSON-RPC 2.0 request
     const rpcRequest = {
       jsonrpc: '2.0',
       id: auditEventId,
@@ -304,7 +404,7 @@ export class NemoClawBridge {
       params: request.params,
     };
 
-    // 4. Send to NemoClaw runtime
+    // 5. Send to NemoClaw runtime
     let timeout: ReturnType<typeof setTimeout> | undefined;
     try {
       const controller = new AbortController();
@@ -351,28 +451,42 @@ export class NemoClawBridge {
       }
 
       const sanitized = sanitizeResponse(parsed);
+      const durationMs = Date.now() - startTime;
 
-      // 6. Log to Firehorse
+      // 7. Log to Firehorse (operational) + Article 12 result event (compliance)
       logger.info('NemoClaw bridge invocation', {
         skill: request.method,
         caller: request.callerAgentId,
         kyaSession: request.kyaSessionId,
         callerATS,
         success: true,
-        durationMs: Date.now() - startTime,
+        durationMs,
         auditEventId,
       });
 
-      // 7. Return sanitized result
+      if (this.auditSink && traceId) {
+        await this.auditSink.logResult({
+          traceId,
+          bridge: 'nemoclaw',
+          agentId: request.callerAgentId,
+          skill: request.method,
+          success: true,
+          output: sanitized,
+          durationMs,
+        });
+      }
+
+      // 8. Return sanitized result
       return {
         success: true,
         result: sanitized,
         error: null,
         auditEventId,
-        durationMs: Date.now() - startTime,
+        durationMs,
       };
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Unknown error';
+      const durationMs = Date.now() - startTime;
       logger.error('NemoClaw bridge invocation failed', {
         skill: request.method,
         caller: request.callerAgentId,
@@ -380,12 +494,24 @@ export class NemoClawBridge {
         auditEventId,
       });
 
+      if (this.auditSink && traceId) {
+        await this.auditSink.logResult({
+          traceId,
+          bridge: 'nemoclaw',
+          agentId: request.callerAgentId,
+          skill: request.method,
+          success: false,
+          errorText: message,
+          durationMs,
+        });
+      }
+
       return {
         success: false,
         result: null,
         error: message,
         auditEventId,
-        durationMs: Date.now() - startTime,
+        durationMs,
       };
     } finally {
       if (timeout) {

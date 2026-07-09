@@ -88,42 +88,70 @@ function checkHelsinkiTime(): boolean {
 }
 
 function buildMorningBriefHtml(subject: string, dateStr: string, text: string): string {
+  // Email-safe HTML: light background, table-based layout, no <body> background.
+  // Outlook strips background-color from <body>; many mail apps downgrade dark themes
+  // to plain-text rendering. Light + table layout renders consistently across clients.
   const body = text
     .split('\n')
     .map((line) => {
       if (!line.trim()) {
-        return '<div style="height:8px;"></div>';
+        return '<tr><td style="height:6px;line-height:6px;">&nbsp;</td></tr>';
       }
-      if (/^═+$/u.test(line) || /^─+$/u.test(line)) {
-        return '<hr style="border:none;border-top:1px solid #2a2a2a;margin:10px 0;">';
+      if (/^═+$/u.test(line)) {
+        return '<tr><td style="border-top:2px solid #0a3d62;padding:6px 0 0;"></td></tr>';
       }
-      if (/^\d+\.\s+[A-Z]/.test(line)) {
-        return `<h2 style="margin:14px 0 6px;font-size:14px;color:#00d4aa;">${escapeHtml(line)}</h2>`;
+      if (/^─+$/u.test(line)) {
+        return '<tr><td style="border-top:1px solid #dfe4e8;padding:4px 0 0;"></td></tr>';
       }
       if (/^MORNING BRIEF V2/.test(line)) {
-        return `<h1 style="margin:0 0 8px;font-size:18px;color:#00d4aa;">${escapeHtml(line)}</h1>`;
+        return `<tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700;color:#0a3d62;padding:6px 0;">${escapeHtml(line)}</td></tr>`;
       }
-      return `<p style="margin:0 0 4px;font-size:13px;line-height:1.5;color:#d6d6d6;">${escapeHtml(line)}</p>`;
+      if (/^\d+\.\s+[A-Z]/.test(line)) {
+        return `<tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;color:#0a3d62;padding:10px 0 4px;">${escapeHtml(line)}</td></tr>`;
+      }
+      const isCodey = /T:[A-Z0-9]{8}|https?:\/\//.test(line);
+      const fontFamily = isCodey
+        ? "Consolas,'Liberation Mono',Menlo,monospace"
+        : 'Arial,Helvetica,sans-serif';
+      return `<tr><td style="font-family:${fontFamily};font-size:13px;line-height:1.5;color:#1a1a1a;padding:1px 0;white-space:pre-wrap;">${escapeHtml(line)}</td></tr>`;
     })
     .join('\n');
 
+  // Use a single outer table with explicit width — Outlook needs this.
+  // No <body> background — Outlook strips it and the email looks broken on white default.
   return `<!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
   <title>${escapeHtml(subject)}</title>
 </head>
-<body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="max-width:760px;margin:0 auto;background:#111;">
+<body style="margin:0;padding:0;background:#f4f6f8;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6f8;">
     <tr>
-      <td style="padding:18px 20px;border-bottom:2px solid #00d4aa;">
-        <div style="font-size:12px;color:#777;">Morning Brief</div>
-        <div style="font-size:16px;font-weight:600;color:#eaeaea;margin-top:2px;">${escapeHtml(dateStr)}</div>
+      <td align="center" style="padding:18px 12px;">
+        <table role="presentation" width="760" cellpadding="0" cellspacing="0" border="0" style="max-width:760px;width:100%;background:#ffffff;border:1px solid #dfe4e8;">
+          <tr>
+            <td style="padding:14px 20px;border-bottom:3px solid #0a3d62;background:#ffffff;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#6b7785;letter-spacing:0.5px;text-transform:uppercase;">Morning Brief</div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;color:#0a3d62;margin-top:2px;">${escapeHtml(dateStr)}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:14px 20px;background:#ffffff;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                ${body}
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 20px;background:#f4f6f8;border-top:1px solid #dfe4e8;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#6b7785;">
+              DWS IQ 6 — Morning Brief V2 · Lifetime Oy · Helsinki
+            </td>
+          </tr>
+        </table>
       </td>
-    </tr>
-    <tr>
-      <td style="padding:18px 20px;">${body}</td>
     </tr>
   </table>
 </body>
@@ -938,20 +966,36 @@ function buildHilChecklist(overdueFlowCount: number): string {
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
+  // Flags:
+  //   --preview              Write HTML to logs/morning-brief-preview.html and exit (no email)
+  //   --force                Bypass Helsinki time guard AND the same-day lock
+  //   --html-out=path        Custom path for --preview output
+  // Env equivalents: BRIEF_PREVIEW=1, BRIEF_FORCE=1, BRIEF_HTML_OUT=path
+  const args = process.argv.slice(2);
+  const previewMode = args.includes('--preview') || process.env.BRIEF_PREVIEW === '1';
+  const forceMode = args.includes('--force') || process.env.BRIEF_FORCE === '1';
+  const htmlOutArg = args.find((a) => a.startsWith('--html-out='));
+  const htmlOutPath =
+    htmlOutArg?.split('=')[1] || process.env.BRIEF_HTML_OUT || 'logs/morning-brief-preview.html';
+
   console.log(
     `[morning-brief] start pid=${process.pid} node=${process.version} utc=${new Date().toISOString()}`,
   );
   console.log(
     `[morning-brief] env: SMTP_HOST=${process.env.SMTP_HOST ? 'set' : 'MISSING'} ` +
       `SUPABASE_URL=${process.env.SUPABASE_URL ? 'set' : 'MISSING'} ` +
-      `EMAIL_FROM=${FROM} TO=${TO}`,
+      `EMAIL_FROM=${FROM} TO=${TO} preview=${previewMode} force=${forceMode}`,
   );
 
-  if (!checkHelsinkiTime()) {
+  if (forceMode) {
+    process.env.SKIP_TIME_CHECK = 'true';
+  }
+
+  if (!previewMode && !checkHelsinkiTime()) {
     process.exit(0);
   }
 
-  if (!process.env.SMTP_HOST) {
+  if (!previewMode && !process.env.SMTP_HOST) {
     console.error('ERROR: SMTP_HOST not configured. Amazon SES (SMTP) is required.');
     process.exit(1);
   }
@@ -1018,6 +1062,21 @@ async function main(): Promise<void> {
 
   const subject = `Morning Brief ${dateStr}${urgentTag}${overdueTag}`;
 
+  const html = buildMorningBriefHtml(subject, dateStr, text);
+
+  if (previewMode) {
+    const { mkdir, writeFile } = await import('fs/promises');
+    const { dirname } = await import('path');
+    await mkdir(dirname(htmlOutPath), { recursive: true }).catch(() => {});
+    await writeFile(htmlOutPath, html, 'utf8');
+    const txtOutPath = htmlOutPath.replace(/\.html?$/i, '.txt') || `${htmlOutPath}.txt`;
+    await writeFile(txtOutPath, text, 'utf8').catch(() => {});
+    console.log(`[preview] wrote HTML → ${htmlOutPath} (${html.length} bytes)`);
+    console.log(`[preview] wrote TEXT → ${txtOutPath} (${text.length} bytes)`);
+    console.log('[preview] open the HTML file in a browser to verify rendering. No email sent.');
+    process.exit(0);
+  }
+
   console.log(`Sending: "${subject}" → ${TO}`);
   console.log(text);
 
@@ -1026,7 +1085,7 @@ async function main(): Promise<void> {
     to: TO,
     subject,
     text,
-    html: buildMorningBriefHtml(subject, dateStr, text),
+    html,
     replyTo: REPLY_TO,
     source: 'admin',
     templateType: 'morning_brief_v2',

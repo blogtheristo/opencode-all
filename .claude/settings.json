@@ -45,12 +45,15 @@
       "Read(**/.env)",
       "Read(**/.env.*)",
       "Read(**/*secret*)",
-      "Read(**/*credentials*)"
+      "Read(**/*credentials*)",
+      "Bash(printenv)",
+      "Bash(printenv:*)",
+      "Bash(env)",
+      "Bash(cat .env)",
+      "Bash(cat .env.*)"
     ]
   },
-  "enabledMcpjsonServers": [
-    "dws-gateway-local"
-  ],
+  "enabledMcpjsonServers": ["dws-gateway-local"],
   "hooks": {
     "SessionStart": [
       {
@@ -95,6 +98,10 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-signature.sh\""
           }
         ]
       }
@@ -114,6 +121,15 @@
           {
             "type": "command",
             "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || npx eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-output-scan.sh\""
           }
         ]
       }

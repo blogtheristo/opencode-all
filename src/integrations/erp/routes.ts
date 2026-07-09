@@ -6,9 +6,9 @@
 
 import { Router, Request, Response } from 'express';
 import { body, param, query, validationResult } from 'express-validator';
-import { ERPIntegrationService } from './service';
-import { approvalGate, ApprovalStatus } from './approval-gate';
-import { ERPProvider, EntityType } from './types';
+import { ERPIntegrationService } from './service.js';
+import { approvalGate } from './approval-gate.js';
+import { ERPProvider, EntityType } from './types.js';
 
 const router = Router();
 const erpService = new ERPIntegrationService();
@@ -22,7 +22,7 @@ const validateRequest = (req: Request, res: Response, next: Function) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  next();
+  return next();
 };
 
 // ============================================================================
@@ -38,7 +38,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('config').isObject()
+    body('config').isObject(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -50,20 +50,20 @@ router.post(
         provider,
         config,
         syncSettings,
-        fieldMappings
+        fieldMappings,
       );
 
       res.json({
         success: true,
-        data: integration
+        data: integration,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -79,25 +79,22 @@ router.post(
       const { provider } = req.params;
       const { organizationId } = req.body;
 
-      const isConnected = await erpService.testConnection(
-        organizationId,
-        provider as ERPProvider
-      );
+      const isConnected = await erpService.testConnection(organizationId, provider as ERPProvider);
 
       res.json({
         success: true,
         data: {
           provider,
-          connected: isConnected
-        }
+          connected: isConnected,
+        },
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -116,15 +113,15 @@ router.get(
 
       res.json({
         success: true,
-        data: integrations
+        data: integrations,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -140,7 +137,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('since').optional().isISO8601()
+    body('since').optional().isISO8601(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -159,8 +156,8 @@ router.post(
           {
             summary: `Sync production orders from ${provider}`,
             estimatedImpact: 'Will update production schedules in DWS IQ',
-            affectedSystems: [provider, 'dws-iq-production']
-          }
+            affectedSystems: [provider, 'dws-iq-production'],
+          },
         );
 
         return res.json({
@@ -168,28 +165,28 @@ router.post(
           data: {
             approvalRequired: true,
             approvalRequestId: approvalRequest.id,
-            status: approvalRequest.status
-          }
+            status: approvalRequest.status,
+          },
         });
       }
 
       const result = await erpService.syncProductionOrders(
         organizationId,
         provider,
-        since ? new Date(since) : undefined
+        since ? new Date(since) : undefined,
       );
 
-      res.json({
+      return res.json({
         success: result.success,
-        data: result
+        data: result,
       });
     } catch (error: any) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -201,7 +198,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('data').isArray()
+    body('data').isArray(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -212,15 +209,15 @@ router.post(
 
       res.json({
         success: result.success,
-        data: result
+        data: result,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -232,7 +229,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('metrics').isArray()
+    body('metrics').isArray(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -243,15 +240,15 @@ router.post(
 
       res.json({
         success: result.success,
-        data: result
+        data: result,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -263,30 +260,26 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('direction').isIn(['to_erp', 'from_erp'])
+    body('direction').isIn(['to_erp', 'from_erp']),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     try {
       const { organizationId, provider, direction } = req.body;
 
-      const result = await erpService.syncMaintenanceEvents(
-        organizationId,
-        provider,
-        direction
-      );
+      const result = await erpService.syncMaintenanceEvents(organizationId, provider, direction);
 
       res.json({
         success: result.success,
-        data: result
+        data: result,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -308,15 +301,15 @@ router.get(
 
       res.json({
         success: true,
-        data: pending
+        data: pending,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -336,15 +329,15 @@ router.post(
 
       res.json({
         success: true,
-        data: request
+        data: request,
       });
     } catch (error: any) {
       res.status(400).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -365,15 +358,15 @@ router.post(
 
       res.json({
         success: true,
-        data: request
+        data: request,
       });
     } catch (error: any) {
       res.status(400).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -392,21 +385,21 @@ router.get(
       if (!request) {
         return res.status(404).json({
           success: false,
-          error: 'Approval request not found'
+          error: 'Approval request not found',
         });
       }
 
-      res.json({
+      return res.json({
         success: true,
-        data: request
+        data: request,
       });
     } catch (error: any) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -428,15 +421,15 @@ router.get(
 
       res.json({
         success: true,
-        data: result
+        data: result,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -460,43 +453,40 @@ router.post(
             total: results.length,
             found: results.filter((r: any) => r.found).length,
             notFound: results.filter((r: any) => !r.found).length,
-          }
-        }
+          },
+        },
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
  * GET /api/v1/erp/registry
  * List all registered companies in the ERP registry
  */
-router.get(
-  '/registry',
-  async (_req: Request, res: Response) => {
-    try {
-      const companies = erpService.getAllRegisteredCompanies();
+router.get('/registry', async (_req: Request, res: Response) => {
+  try {
+    const companies = erpService.getAllRegisteredCompanies();
 
-      res.json({
-        success: true,
-        data: {
-          companies,
-          totalRegistered: companies.length,
-        }
-      });
-    } catch (error: any) {
-      res.status(500).json({
-        success: false,
-        error: error.message
-      });
-    }
+    res.json({
+      success: true,
+      data: {
+        companies,
+        totalRegistered: companies.length,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
-);
+});
 
 /**
  * GET /api/v1/erp/registry/:provider
@@ -517,15 +507,15 @@ router.get(
           provider,
           companies,
           count: companies.length,
-        }
+        },
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -541,7 +531,7 @@ router.get(
   [
     param('organizationId').notEmpty(),
     query('provider').optional().isIn(Object.values(ERPProvider)),
-    query('limit').optional().isInt({ min: 1, max: 100 })
+    query('limit').optional().isInt({ min: 1, max: 100 }),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -552,20 +542,20 @@ router.get(
       const history = await erpService.getSyncHistory(
         organizationId,
         provider as ERPProvider | undefined,
-        limit ? parseInt(limit as string) : 50
+        limit ? parseInt(limit as string) : 50,
       );
 
       res.json({
         success: true,
-        data: history
+        data: history,
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 /**
@@ -585,15 +575,15 @@ router.post(
 
       res.json({
         success: true,
-        message: 'Webhook processed'
+        message: 'Webhook processed',
       });
     } catch (error: any) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error.message,
       });
     }
-  }
+  },
 );
 
 export default router;

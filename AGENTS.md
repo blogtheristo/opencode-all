@@ -61,15 +61,15 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| **Orchestration** | MCP Hub (`mcp-hub/server.py`) | Central coordination, workflow patterns |
-| **Fast Inference** | Groq API (Llama 3.1 70B) | High-speed agent responses |
-| **Complex Reasoning** | Claude Sonnet 4.5 | Deep analysis, planning |
-| **Multi-Agent** | LlamaStack | Agent orchestration |
-| **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
-| **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
-| **Notifications** | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts |
+| Layer                 | Technology                                              | Purpose                                 |
+| --------------------- | ------------------------------------------------------- | --------------------------------------- |
+| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)                           | Central coordination, workflow patterns |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                       | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                              | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                           | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                        | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
@@ -241,7 +241,7 @@ PHASE 4 (Enhancements - Optional)
 
 **Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:mcp-hub`  
 **Signals Emitted:** `expo-setup`, `redux-store`, `navigation`, `dashboard-screen`, `projects-screen`, `offline-sync`, `v1-mobile`  
-**Reference:** `V1_FEATURE_LIST.md` Section 5, `mobile-dashboard/` directory
+**Reference:** `V1_FEATURE_LIST.md` Section 5, `Firehorse/mobile-app/` (NCC scope folded in 2026-07-04; `mobile-dashboard_RETIRED/` for the original shell)
 
 #### Agent-06: Enterprise Integrations
 
@@ -328,6 +328,16 @@ PHASE 4 (Enhancements - Optional)
 | **SiteSense Agent**      | Edge AI, site monitoring            | `SiteSense/` (NVIDIA Jetson)                         |
 | **ScheduleGenius Agent** | Timeline optimization               | Planned                                              |
 | **MaterialOracle Agent** | Carbon tracking, procurement        | Planned                                              |
+| **Industry Analyst**     | Universal 25-industry coverage      | `src/agents/industry-analyst.agent.ts`               |
+
+> **Industry coverage.** The platform serves 25 EU-regulated industries
+> (`dws10.com/config/industries.json`). 13 have a dedicated specialist (the
+> pantheon: Helios, Vulcan, Gaia, Juno, Neptune, Mars, Ceres, Talos, Prometheus,
+> Hermes/Logistics). The remaining 12 — Aviation, Waste, Pulp & Paper, Refining,
+> Food & Beverage, Glass & Ceramics, Mining, Manufacturing, Healthcare, Financial
+> Services, Public Sector, Data Centres — are covered by the universal
+> **Industry Analyst** agent over `src/agents/data/industry-registry.ts`. See
+> `docs/research/INDUSTRY_COVERAGE_25_COMPARISON.md`.
 
 ### Deployment Phases
 
@@ -357,15 +367,15 @@ The deployment phases above are now enforced in the TypeScript agent runtime via
 `AgentConfig.autonomyPhase` (`silent_pilot` | `advisor` | `autonomous`, default
 `silent_pilot`). The "observe → act" loop is implemented by:
 
-| Concern | Module |
-| ------- | ------ |
-| What to watch + 2×2 "worth interrupting" gate | `src/agents/signal-catalogue.ts` |
-| Phase ladder + comparison | `src/agents/autonomy.ts` |
-| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts` |
-| Background observation cron + escalation sweep | `src/agents/signal-poller.ts` |
-| Confirm / Override / Dismiss / Investigate handling | `src/agents/nudge-response-handler.ts` |
-| `send_notification` agent tool (KYA phase-gated, BLUE) | `src/agents/tools.ts` |
-| Persisted nudge state | `supabase/migrations/069_agent_nudges.sql` |
+| Concern                                                    | Module                                     |
+| ---------------------------------------------------------- | ------------------------------------------ |
+| What to watch + 2×2 "worth interrupting" gate              | `src/agents/signal-catalogue.ts`           |
+| Phase ladder + comparison                                  | `src/agents/autonomy.ts`                   |
+| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts`              |
+| Background observation cron + escalation sweep             | `src/agents/signal-poller.ts`              |
+| Confirm / Override / Dismiss / Investigate handling        | `src/agents/nudge-response-handler.ts`     |
+| `send_notification` agent tool (KYA phase-gated, BLUE)     | `src/agents/tools.ts`                      |
+| Persisted nudge state                                      | `supabase/migrations/069_agent_nudges.sql` |
 
 **Currently promoted to Phase 2 (advisor):** `sitesense`, `compliance`,
 `customer-sat`. All other agents remain `silent_pilot` and cannot send nudges.
@@ -456,6 +466,52 @@ docker mcp add stripe --activate
 
 ## 7. Agent Guidelines & Conventions
 
+### Platform Agents (`src/agents/`)
+
+Code-backed agents (one `*.agent.ts` per row). This table is verified against
+the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
+or removing an agent.
+
+| Agent                    | Role                                              |
+| ------------------------ | ------------------------------------------------- |
+| `agora`                  | Collective intelligence / multi-agent consensus   |
+| `argus`                  | Geospatial SAR signal intelligence (orbital)      |
+| `auditor`                | Audit trail + explainability (XAI)                |
+| `cassandra`              | Predictive analytics + recommendations            |
+| `chronos`                | Regulatory deadline & scheduling intelligence     |
+| `compliance`             | EU regulatory compliance (Fit for 55, CBAM, CSRD) |
+| `compliance-researcher`  | Regulatory research & deadline tracking           |
+| `construction`           | Construction project compliance orchestrator      |
+| `customer-sat`           | Customer satisfaction & churn analysis            |
+| `daedalus`               | Tool composition + MCP bridge                     |
+| `deepwiki-extractor`     | Code extraction from GitHub repositories          |
+| `designer`               | Design-to-code bridge                             |
+| `emissions-data-analyst` | Natural-language queries on emissions data        |
+| `kb`                     | Knowledge base compile / query                    |
+| `logistics`              | Fleet & supply-chain compliance orchestrator      |
+| `material-oracle`        | Carbon footprint & procurement (LCA)              |
+| `minerva`                | Knowledge transfer + explainability               |
+| `mnemosyne`              | Long-term memory oracle                           |
+| `panacea`                | Self-improving / adaptive optimization            |
+| `quality-gate`           | Quality-gate / QA verification                    |
+| `industry-analyst` | IndustryAnalystAgent | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent | Llama 3.3 70B |
+| `outreach-executor` | OutreachExecutorAgent | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending. | Llama 3.3 70B |
+| `outreach-improver` | OutreachImproverAgent | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time. | Llama 3.3 70B |
+| `outreach-lead-finder` | OutreachLeadFinderAgent | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama. | Llama 3.3 70B |
+| `outreach-message-crafter` | OutreachMessageCrafterAgent | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads. | Llama 3.3 70B |
+| `outreach-orchestrator` | OutreachOrchestratorAgent | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval. | Llama 3.3 70B |
+| `aegis` | AegisAgent | Vulnerability & patch governance — triages dependency and code-scan findings  | Llama 3.3 70B |
+| `helpdesk` | HelpdeskAgent | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,  | Llama 3.3 70B |
+| `vesta` | VestaAgent | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.  | Llama 3.3 70B |
+| `sales-outreach`         | B2B lead research & personalized outreach         |
+| `schedule-genius`        | Timeline & critical-path optimization             |
+| `sitesense`              | Site monitoring & safety analysis                 |
+| `sovereignty-monitor`    | Database sovereignty assessment                   |
+| `synthetic-data`         | CBAM synthetic-data pipeline                      |
+| `themis`                 | Legal intelligence + case coordinator             |
+| `viability`              | Unit economics & carbon-credit valuation          |
+| `vision-oracle`          | Vision language model / image analysis            |
+
 ### Documentation Standards
 
 All AI agents follow `AI_AGENT_GUIDELINES.md`:
@@ -498,6 +554,47 @@ cost_tracking:
 ---
 
 ## 8. Quick Reference
+
+### Skills Registry — gbrain Brain/Ops Track
+
+Companion to the existing gstack coding track (`.claude/commands/`). Based on Garry Tan's [gbrain](https://github.com/garrytan/gbrain), MIT. Full details in `docs/DWS_SKILLS_GUIDE.md` Section 3a.
+
+| Skill                | Use when                                             | Location                     |
+| -------------------- | ---------------------------------------------------- | ---------------------------- |
+| `signal-detector`    | "anything unusual" / "what's drifting"               | `skills/signal-detector/`    |
+| `brain-ops`          | "ask the brain" / "what does the brain"              | `skills/brain-ops/`          |
+| `ingest`             | "add to brain" / "ingest this"                       | `skills/ingest/`             |
+| `query`              | "what do we know about" / "wiki says"                | `skills/query/`              |
+| `enrich`             | "auto-link" / "fix backlinks" (after compile)        | `skills/enrich/`             |
+| `maintain`           | "weekly kb cleanup" / "broken backlinks"             | `skills/maintain/`           |
+| `citation-fixer`     | "fix citations" / "broken links in this doc"         | `skills/citation-fixer/`     |
+| `briefing`           | "morning briefing" / "what's new since yesterday"    | `skills/briefing/`           |
+| `daily-task-manager` | "today's tasks" / "what should i work on"            | `skills/daily-task-manager/` |
+| `cron-scheduler`     | "schedule this" / "register a cron"                  | `skills/cron-scheduler/`     |
+| `reports`            | "annual report" / "board pack" / "carbon report"     | `skills/reports/`            |
+| `skill-creator`      | "new skill" / "scaffold a skill"                     | `skills/skill-creator/`      |
+| `skillpack-check`    | "validate skills" / "is the registry in sync"        | `skills/skillpack-check/`    |
+| `soul-audit`         | "does this sound like risto" / "founder voice check" | `skills/soul-audit/`         |
+
+Top-level dispatcher: `skills/RESOLVER.md` (intent → skill table for both gstack and gbrain).
+
+### Skills Registry — Discipline & Agent/Report Tracks (pre-existing)
+
+These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` for full descriptions.
+
+| Skill                         | Track        | Path                                  |
+| ----------------------------- | ------------ | ------------------------------------- |
+| `verification-gate`           | Discipline   | `skills/verification-gate/`           |
+| `design-first`                | Discipline   | `skills/design-first/`                |
+| `dual-folder-sync`            | Discipline   | `skills/dual-folder-sync/`            |
+| `compliance`                  | Agent/report | `skills/compliance/`                  |
+| `material-oracle`             | Agent/report | `skills/material-oracle/`             |
+| `sitesense`                   | Agent/report | `skills/sitesense/`                   |
+| `risto`                       | Agent/report | `skills/risto/`                       |
+| `firehorse-report-annual`     | Agent/report | `skills/firehorse-report-annual/`     |
+| `firehorse-report-board-pack` | Agent/report | `skills/firehorse-report-board-pack/` |
+| `firehorse-report-carbon`     | Agent/report | `skills/firehorse-report-carbon/`     |
+| `firehorse-report-compliance` | Agent/report | `skills/firehorse-report-compliance/` |
 
 ### File Locations
 
@@ -607,6 +704,6 @@ Root backend has `"lint": "echo \"No linter configured\""` — no real linter. D
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** June 25, 2026  
+**Last Updated:** July 7, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026

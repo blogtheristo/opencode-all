@@ -152,6 +152,41 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
     temperature: 0.3,
     models: [
       {
+        // DiffusionGemma — parallel diffusion LM on the Gemma 4 26B MoE
+        // backbone (3.8B params active per step). Day-zero vLLM serving;
+        // low-latency single-user generation on DGX Spark / RTX. NVFP4 build
+        // (Blackwell) ~14GB weights — see docs/DIFFUSIONGEMMA_LOCAL_INFERENCE.md.
+        // Local-first
+        // (€0/hr) for standard-tier synthesis/extraction. Tool calling is not
+        // claimed at launch, so supportsTools=false makes tool-requiring agents
+        // fall through to a function-calling provider (see diffusiongemma.ts).
+        id: 'diffusiongemma-26b',
+        provider: 'vllm-local',
+        diskGb: 14,
+        ramGb: 18,
+        costPer1MInput: 0,
+        costPer1MOutput: 0,
+        contextWindow: 32768,
+        supportsTools: false,
+      },
+      {
+        // Qwen3.6-35B-A3B (NVFP4) — autoregressive MoE: 35B total, ~3B active
+        // per token. NVFP4 build (nvidia/Qwen3.6-35B-A3B-NVFP4) ~18GB weights,
+        // served via vLLM/TensorRT-LLM on Blackwell. The local *tool-calling*
+        // counterpart to tool-free DiffusionGemma: tool-requiring standard-tier
+        // agents that skip DiffusionGemma land here (€0/hr local) instead of a
+        // cloud provider. Ordered after DiffusionGemma so plain generation keeps
+        // the low-latency diffusion path; tool calls take Qwen.
+        id: 'qwen3.6-35b-a3b',
+        provider: 'vllm-local',
+        diskGb: 18,
+        ramGb: 22,
+        costPer1MInput: 0,
+        costPer1MOutput: 0,
+        contextWindow: 32768,
+        supportsTools: true,
+      },
+      {
         id: 'llama-3.3-70b-versatile',
         provider: 'groq',
         diskGb: 0,
@@ -200,6 +235,21 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
     temperature: 0.3,
     models: [
       {
+        // Qwen3.6-35B-A3B (NVFP4) — local-first heavy-tier reasoning. MoE
+        // (35B total, ~3B active) runs at ~3B-model latency with far-larger
+        // quality; NVFP4 ~18GB weights via vLLM/TensorRT-LLM. Supersedes the
+        // older qwen2.5:32b locals below when a vLLM endpoint is available;
+        // falls through to them on Ollama-only hosts (vllm-local unavailable).
+        id: 'qwen3.6-35b-a3b',
+        provider: 'vllm-local',
+        diskGb: 18,
+        ramGb: 22,
+        costPer1MInput: 0,
+        costPer1MOutput: 0,
+        contextWindow: 32768,
+        supportsTools: true,
+      },
+      {
         id: 'qwen2.5:32b',
         provider: 'ollama-local',
         diskGb: 19,
@@ -220,7 +270,7 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         supportsTools: true,
       },
       {
-        id: 'claude-sonnet-4-20250514',
+        id: 'claude-sonnet-5',
         provider: 'anthropic',
         diskGb: 0,
         ramGb: 0,

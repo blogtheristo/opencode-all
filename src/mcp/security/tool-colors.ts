@@ -80,6 +80,19 @@ export class MCPToolRegistry {
     dws_tool_telemetry: ToolColor.GREEN,
     dws_session_checkpoint: ToolColor.GREEN,
     dws_extract_facts: ToolColor.GREEN,
+    // Industry tools (Tool Plan Phases 2 & 3).
+    // Phase 2: pure functions, no I/O.
+    industry_profile_lookup: ToolColor.GREEN,
+    sector_metrics_calculator: ToolColor.GREEN,
+    // Phase 3: live feeds, GREEN-justified. Their parsers emit ONLY numbers,
+    // ISO dates, and closed enums (assertNumber/assertIsoDate/assertEnum in
+    // industry-tools.ts) and reject anything else, so a compromised upstream
+    // cannot smuggle instruction text into context the way a RED free-text
+    // fetch could. Injection rejection is unit-tested. Unlike RED fetch_external
+    // these do not taint the session, so "fetch price -> emit_event" chains stay
+    // allowed. See INDUSTRY_AGENT_TOOL_PLAN.md Phase 3.
+    grid_intensity_feed: ToolColor.GREEN,
+    carbon_price_feed: ToolColor.GREEN,
   };
 
   /**

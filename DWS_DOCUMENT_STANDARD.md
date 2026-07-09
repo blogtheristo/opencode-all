@@ -4,10 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.4
 
 Sessions & Modifications:
 
+- Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
+- Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
+- Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
 - Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
 - Version: 2.1 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 24.06.2026 | Changes: Added Section 20 (Whitepaper Standard) — defines the outward-facing whitepaper document type: A4 portrait, Aegis logo top-right header, small-font version line at top, copyright + page-number footer, Sources line, Markdown/Learn-HTML source of truth with branded .docx + Google Docs export via scripts, and governance (truth-check, brand, Truth-Standard registration, lockstep versioning).
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
@@ -63,6 +66,7 @@ Document Status:
 18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
+21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
 
 ---
 
@@ -2246,6 +2250,57 @@ rg "Env-Schema:\\s*env-v"
 
 ---
 
+## 21. Document Formulation Preservation
+
+### 21.1 Rule / Sääntö
+
+**NEVER lose original document formulation data when rewriting, updating, or exporting documents.**
+
+When a document is restructured, rewritten, or version-bumped, the agent MUST preserve all eloquent formulations, philosophical passages, key quotes, cultural wisdom, mottos, and narrative voice from earlier versions. A rewrite that strips these passages is a destructive edit — equivalent to data loss.
+
+**Älä KOSKAAN kadota alkuperäistä dokumenttien muotoilutietoa päivittäessä, uudelleenkirjoittaessa tai viedessä dokumentteja.** Kauniit muotoilut, filosofiset kappaleet, lainaukset, kulttuurinen viisaus ja kerronnallinen ääni ovat yrityksen aineetonta pääomaa.
+
+### 21.2 What Counts as Formulation Data
+
+| Category                           | Examples                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------- |
+| **Forewords & preambles**          | Founding philosophy, onboarding welcome text, mission narrative               |
+| **Quotes & mottos**                | CEO quotes, cultural proverbs, strategic slogans ("Litet bättre", "Köyhäile") |
+| **Philosophical passages**         | Values articulation, ethical reasoning, European identity statements          |
+| **Scenario wisdom**                | Strategic foresight passages, future scenario narratives, book references     |
+| **Listening & interaction wisdom** | Stakeholder engagement philosophy, customer interaction guidance              |
+| **Metaphors**                      | Game metaphors, journey metaphors, strategic framings ("päättymätön peli")    |
+| **Voice & tone**                   | The characteristic narrative voice of the document's author/era               |
+
+### 21.3 Procedure for Document Rewrites
+
+```
+1. EXTRACT:   Before rewriting, extract all formulation passages from the current version
+2. CATALOG:   List each passage with its location and category (quote, motto, philosophy, etc.)
+3. REWRITE:   Perform the structural/content rewrite
+4. REINTEGRATE: Place each extracted passage into the appropriate section of the new structure
+5. VERIFY:    Diff old vs new — confirm zero formulation data was dropped
+6. EXPORT:    When generating .docx / .pdf / .html, include all preserved formulations
+```
+
+### 21.4 DOCX Export Formulation Rules
+
+When generating `.docx` exports from markdown documents:
+
+- Preserve italic formatting for quotes and philosophical passages
+- Maintain bullet/number list structure for wisdom collections
+- Keep quote attributions (author, year, source) intact
+- Use proper heading hierarchy to frame formulation sections
+- Never summarize or paraphrase — preserve verbatim text
+
+### 21.5 Enforcement
+
+- Any agent rewrite that drops formulation data is a **Rule 12 violation** (Fail loud — never hide skipped work)
+- Version history MUST note "formulations preserved from vX.Y" when rewriting
+- If a passage cannot be placed in the new structure, append it to a "Heritage Passages" section — never delete it
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -2293,6 +2348,24 @@ Document Status:
 [CATEGORY]_[NAME]_[LANGUAGE]_v[VERSION].md
 ```
 
+### File Lifecycle Suffixes
+
+When a file is removed from active use, rename it with one of the following suffixes instead of deleting. Never use `_OLD` — use the suffix that communicates the file's actual status.
+
+| Suffix        | Meaning                                | When to use                                              | Examples                            |
+| ------------- | -------------------------------------- | -------------------------------------------------------- | ----------------------------------- |
+| `_DRAFT`      | Unpublished, awaiting approval         | Blog posts, proposals, content under review              | `deepseek-v4-flash_DRAFT.html`      |
+| `_DEPRECATED` | Replaced, will not return              | Code, scripts, configs, migrations, skills, hooks, infra | `grok-consent.routes_DEPRECATED.ts` |
+| `_RETIRED`    | Removed from production site           | HTML pages, product pages, store pages                   | `firehorse-automation_RETIRED.html` |
+| `_ARCHIVE`    | Historical snapshot kept for reference | Thesis versions, NDAs, field notes, legal docs           | `NDA_QANTIC_2026_ARCHIVE.md`        |
+
+**Rules:**
+
+1. `_DRAFT` files may be promoted to live by removing the suffix. All other suffixes are permanent.
+2. Blog drafts require explicit approval before promotion (CLAUDE.md blog draft rule).
+3. Dual-folder pairs (source + `landing-pages/`) must use the same suffix in the same commit.
+4. The `artifacts/` directory is exempt — it contains PR worktree snapshots that mirror the main tree.
+
 ---
 
 ## 20. Whitepaper Versioning
@@ -2338,6 +2411,46 @@ A terminology/security correction (e.g. replacing a tool name) is a **patch** bu
   - v1.0 | <tool> | <session> | <date> | Initial publication
 -->
 ```
+
+### 20.6 Customer-facing documents: version block goes at the END
+
+**Rule:** For documents that are delivered directly to a customer or external evaluator (consultant CVs, tender/bid attachments, proposals, price lists sent externally) — as opposed to internal or general-audience whitepapers — the full `VERSION AND AGENT HISTORY` block, `Document Status` block, copyright line, and company contact details (Lifetime Oy, Y-tunnus, address, email) go on the **last page**, not the first.
+
+**Rationale:** A customer or procurement evaluator opening the document should see the substantive content first (name, summary, offer, capability) — not an internal changelog with session IDs and tooling names. The internal provenance is still mandatory (§2 / §20.2), it just moves to the back, alongside the copyright and contact block that normally closes a professional document.
+
+**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, and any file whose immediate destination is an external reader. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
+
+**Layout:**
+
+```
+# <Document Title>
+
+---
+
+<substantive content — CV, offer, whitepaper body, etc.>
+
+---
+
+# VERSION AND AGENT HISTORY
+
+Version: X
+
+Sessions & Modifications:
+- ...
+
+Document Status:
+- ...
+
+---
+
+*Copyright <year> – Tekijänoikeudet <author/company>.*
+
+**Lifetime Oy** | Y-tunnus: 0772407-9 | VAT: FI07724079
+<address>
+<contact email / phone>
+```
+
+First applied: `bids/ORK160826/ORK_Risto_CV_FI_164.md` → v165, moving the block from top to bottom.
 
 ---
 

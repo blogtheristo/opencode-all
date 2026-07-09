@@ -265,9 +265,8 @@ async function main() {
   console.log('╚══════════════════════════════════════════╝\n');
 
   const hasSmtp = !!process.env.SMTP_HOST;
-  const hasResend = !!process.env.RESEND_API_KEY;
-  if (!hasSmtp && !hasResend) {
-    console.error('ERROR: No email transport. Set SMTP_HOST or RESEND_API_KEY in .env');
+  if (!hasSmtp) {
+    console.error('ERROR: No email transport. Set SMTP_HOST (Amazon SES) in .env');
     process.exit(1);
   }
 

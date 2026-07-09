@@ -6,10 +6,23 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.70
-
+Version: 3.81
 Sessions & Modifications:
 
+- Version: 3.81 | Tool: Claude Code (Fable 5) | Session: claude/ai-sovereignty-research-9eshgd (merge-integrated) | Date: 07.07.2026 | Changes: Lockstep version bump 3.80 → 3.81 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.81 merge-integrated content (the AI-sovereignty nine-theses framework and the weights-control argument — an optionality definition of sovereignty, three silently-confiscated assets data/weights/value-orientation, the sovereignty–alpha identity, the Theses 6–9 governance layer, and the Palantir connector model as its operational instance) is a scientific/normative-framing contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.39 (renumbered from the branch's original §14.34 — that slot was independently taken by "The National Aggregation-Effect Framework" on main) and Key Contribution #46. Companion artefact: docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md.
+- Version: 3.80 | Tool: Claude Code (Fable 5) | Session: claude/industry-world-models-study-Mk2mu (merge-integrated) | Date: 07.07.2026 | Changes: Lockstep version bump 3.79 → 3.80 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.80 merge-integrated addition is a market/architecture signal (Karpathy GPT-2 → industry world models, five competing architectures, 16-industry Fit for 55 world model specification matrix, modular world model factory proposal, 2026 ecosystem convergence: AMI Labs / Cosmos 2.5 / Genie 3 / Marble / Siemens Digital Twin Composer) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.38 (Industry World Models, renumbered from the branch's original §14.20 — that slot was independently taken by "AI Pricing Capitulation" on main) and Key Contribution #45 for the scientific framing. Full study: docs/INDUSTRY_WORLD_MODELS_STUDY.md.
+- Version: 3.79 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added §10.25.6 (Amendment: The Span-Stamped Authorization Verdict) — external critique (Hakimi) that the GenAI trace records what fired but never whether it should have been able to; verified accurate against the code (LLM client had only the provider Bearer header; KYA enforcement isolated at the sandbox layer). Implemented same-day: KYAVerdict on withAgentSpan/withLLMSpan stamping dws.kya.verdict/trust_score/policy_version/gate alongside gen_ai.*; verdict-less spans stamped 'ungated' (never blank) so authorization-coverage gaps are queryable; ungated-span count named as the coverage-gap metric; 2 new unit tests (8/8 passing). PHD files receive the scientific restatement (§14.37.4 correction to KC #44(b)). Lockstep 3.78→3.79; Learn/ HTML regenerated. Companion: docs/field-notes/2026-07-07-hakimi-observability-vs-authorization.md.
+
+- Version: 3.78 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added §10.25 (Polyglot Observability in Production: Aspire Dashboard Adoption and the Silent-Telemetry Incident) — implementation-side content per the master-vs-PhD scope rule: dashboard-only Aspire adoption on DGX Spark (aspire-dashboard:13.3.5 pinned, compose v1.1.1), OTel implementation inventory (otel.ts opt-in init, tracing.ts GenAI semantic-convention span helpers, telemetry.types.ts + migration 066 Article-12 cross-referencing), the July 2026 silent-telemetry incident (all three OTLP producers pushed http/protobuf to the dashboard UI port 18888 instead of the OTLP/HTTP listener 18890 — telemetry silently dropped; fixed in compose v1.3.1), three engineering lessons (behavioral verification, fail-silent subsystems need compensating controls, adjacent-port failure class), and the open GenAI message-content-capture data-protection decision. PHD files receive the market-signal framing (§14.37 + Key Contribution #44). All 4 thesis files bumped 3.77→3.78 in lockstep per CLAUDE.md thesis rule; Learn/ HTML regenerated.
+
+- Version: 3.77 | Tool: Claude Code | Session: claude/dws-nvidia-os-NDuOs | Date: 19.05.2026 | Changes: Lockstep version bump 3.76 → 3.77 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.77 substantive addition is a research-framing reframe and a 48-hour market signal (Dell + Palantir "On-Premises AI Operating System" 18.05.2026 + Google "Antigravity Agent Operating System" 19.05.2026) that names _DWS OS_ as the unifying artefactual spine of the doctoral programme. Per the master-vs-PhD scope rule §1.4, research framing and market signals belong in the PhD thesis only. See PHD_FIREHORSE_EN.md §1.2.2 (Unified DWS OS Spine and Scenario Prioritization) and §14.36 (Two-Signal Convergence) for the scientific framing, and `docs/DWS_OS_POSITIONING.md` + `docs/lut/` for the supervisor-bound deliverables. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build). Merge note (06.07.2026, session claude/dws-nvidia-os-NDuOs merge): originally authored 19.05.2026 as v3.58 / §14.20 / Key Contribution #25; renumbered to v3.77 / §14.36 / Key Contribution #43 on merge because main's v3.58–v3.76, §14.20–§14.35 and KC#25–#42 were already claimed by other sessions (same convention as the v3.73 renumber).
+- Version: 3.76 | Tool: Claude Code | Session: claude/physical-ai-first-person-3mmu70 | Date: 05.07.2026 | Changes: Lockstep version bump 3.75 → 3.76 across all 4 thesis files per CLAUDE.md thesis rule. The v3.76 substantive content (Jensen Huang's "digital robot" framing of agentic AI and his identification of first-person data — against the world's overwhelmingly third-person video corpus — as the hardest problem in physical AI; the re-identification of the LWM Phase-3 gating input as first-person operational data rather than compute or alignment; the element-for-element mapping of Huang's five-element physical-AI stack — data engine / simulator / reward / runtime / computer — onto the Brain–Memory–Body–Hands architecture; the specification of Perception Capital's production mechanism; and a sovereign, consent-governed, EU-resident first-person-data-provenance predicate extending the four-track KYA suite) is a market signal / scientific framing and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.35 (The First-Person Data Bottleneck) and Key Contribution #42. Section/version/KC numbers advanced from the original v3.71/§14.33/#39 draft to v3.76/§14.35/#42 to avoid collision with main's already-landed §14.33/§14.34 and KC #39–#41. No implementation has shipped for this signal (thesis/strategy-first decision), so this file receives a lockstep-only version-bump entry and no new sections. `Learn/` HTML regenerated at v3.76 via scripts/gen-thesis-html.cjs. Primary source: Jensen Huang (NVIDIA), public remarks on agentic and physical AI, 2026.
+- Version: 3.75 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Lockstep version bump only. Substantive content (Finnish Ministry of Finance security-oriented information management guide, VM 2026:27, mapped to DWS's Control Room/Situation Room retention model) is regulatory-pipeline/market-signal framing per §1.4 master-vs-PhD scope rule, so it lives in `docs/PHD_FIREHORSE_EN.md` §14.34 and Key Contribution #41. No implementation content added here.
+- Version: 3.74 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: CSRD scope refined to the FINAL post-Omnibus figure (Council 24.02.2026): "After Omnibus" = fewer than ~5,000 large companies (>1,000 employees AND >450M EUR turnover), replacing the interim ~10,000; flat "50,000+ by 2028" market-timing claims corrected to post-Omnibus reality + Scope-3 value-chain pull. Lockstep across all 4 thesis files per CLAUDE.md thesis rule; DWS_TRUTH_STANDARD v2.5 section 2C. Learn/ HTML regeneration (Pandoc) + PhD-side figure references PENDING.
+- Version: 3.73 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 28.06.2026 | Changes: Merge conflict resolution: merged branch claude/article-research-phd-tvmskz (v3.71 RQGM §14.33) with origin/main (v3.71 interruption-cost §14.20.8 + v3.72 capability-ontology V3Thesis §10.24). KC#39 numbering collision resolved: main used KC#39 for capability ontology (V3Thesis §10.24), this branch used KC#39 for RQGM (PHD §14.33) → RQGM renumbered to KC#40. All 4 thesis files bumped to v3.73 in lockstep.
+- Version: 3.72 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §10.24 (Capability Ontology and Three-Pillar Consulting GTM — from agent taxonomy to enterprise delivery). Implementation evidence: 10 LWM-based knowledge graph classes organising 80+ agent capabilities (62 existing + 18 new), three-pillar consulting model (capability training, industry-specific compliance workflow development, disruption-free project continuity with Keskeytyslaskuri integration), Aegis Defence honest capability correction (SAR orbital detection only — no drone detection), and lifetime.fi website deployment with three-pillar consulting section. Companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5 (Consultant Handbook 2026). Key Contribution #39. All 4 thesis files bumped to v3.72 in lockstep per CLAUDE.md thesis rule.
+- Version: 3.71 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 27.06.2026 | Changes: Lockstep version bump 3.70 → 3.71 across all 4 thesis files per CLAUDE.md thesis rule. The v3.71 substantive content (the Red Queen Gödel Machine signal — RQGM, Iacob et al., arXiv:2606.26294v1, 24.06.2026, Cambridge / NVIDIA / Flower Labs / MBZUAI / Inria — an evolutionary framework for recursive self-improvement under non-stationary utilities via controlled utility evolution; names the conformance-temporal gap where fixed evaluators degrade as agents improve, empirically 1.91× over-acceptance; extends the KYA four-track suite with epoch subscripts requiring evaluator re-validation; derives an Article 12 evaluator-calibration requirement; identifies Flower Labs federated learning as sovereignty-preserving transport for co-evolutionary improvement) is a market-signal / scientific-framing contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.33 and Key Contribution #40. No implementation has shipped; this file receives a lockstep-only version-bump entry. Companion artefact: docs/field-notes/2026-06-27-red-queen-godel-machine-rqgm.md.
+- Version: 3.71 | Tool: Claude Code | Session: claude/keskeytyslaskuri-lifetime-missing-6uaxvu | Date: 27.06.2026 | Changes: Lockstep version bump 3.70 → 3.71 across all 4 thesis files per CLAUDE.md thesis rule. The v3.71 substantive content (interruption-cost economics as a five-driver model extending the CSB-track with a CSB-I sub-track, derived from the Keskeytyslaskuri tool at lifetime.fi/laskuri/) is a market-signal/cost-analysis contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.20.8. No implementation-side content belongs in this master's thesis for this signal, so this file receives a lockstep-only version-bump entry and no new sections.
 - Version: 3.70 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Lockstep version bump 3.69 → 3.70 across all 4 thesis files per CLAUDE.md thesis rule. The v3.70 substantive content (the regulated-industry autonomous-engineer category — composing the 51 Firehorse Skilled Agents + workflow orchestrators + the KYA bridge into NemoClaw long-running agents under OpenShell, with the KYA/Article-12/EU-sovereign envelope as the defensible remainder) is a strategy/market-signal contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.32 and Key Contribution #38. No implementation has shipped (thesis/strategy-first decision); this file receives a lockstep-only version-bump entry. `Learn/` HTML regenerated at v3.70 via scripts/gen-thesis-html.cjs.
 - Version: 3.69 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Lockstep version bump 3.68 → 3.69 across all 4 thesis files per CLAUDE.md thesis rule. The v3.69 substantive content (NVIDIA's June-2026 EuroHPC EU AI-Factory buildout as the public EU-sovereign training upstream, and NVIDIA's open agent security stack — NeMo Agent Toolkit, OpenShell kernel-sandbox runtime, NemoClaw, Hermes/Nous Research — as a vendor-backed reference runtime for the KYA ASB/SIB tracks) is a market signal and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.31 and Key Contribution #37. The one implementation-side consequence — migrating the agent runtime from bare OpenClaw to the OpenShell-sandboxed NemoClaw distribution on security grounds — is tracked as a scoped engineering migration, not a new master's-thesis section, so this file receives a lockstep-only version-bump entry. `Learn/` HTML regenerated at v3.69 via scripts/gen-thesis-html.cjs.
 - Version: 3.68 | Tool: Claude Code | Session: claude/aegis-multilingual-pages-3clsx0 | Date: 23.06.2026 | Changes: Lockstep version bump 3.67 → 3.68 across all 4 thesis files per CLAUDE.md thesis rule. The v3.68 substantive content (EU multilingual terminology as the canonical conformance layer for sovereign regulatory claims — the Regulation (EU) 2021/821 dual-use term across the official EU languages; the international-short-form-vs-national-official register decision; and sovereign-defence-market positioning relative to the Finnish defence-tech ecosystem — Nokia, Patria, VTT, NATO DIANA Espoo, EDIP 2026–2027) is a market/regulatory-positioning signal and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.30 (The EU-Multilingual Sovereignty Surface) and Key Contribution #36. The implementation-side artefact — the Aegis intro page (/aegis) and product page (/products/aegis) rendered in five EU languages (FI/SV/DE/FR/EN) via the vertical language bar (vertical-lang-bar.js v1.3) with in-place dws-lang-stay switching and dual-folder mirror sync on dws10.com — is a thin web GTM-surface change already covered by the existing operations-model framing and requires no new master's-thesis section. `Learn/` HTML regenerated at v3.68 via scripts/gen-thesis-html.cjs.
@@ -580,13 +593,13 @@ The European Commission adopted the Omnibus simplification package on 26.2.2025,
 
 **Key changes to CSRD reporting:**
 
-| Change                | Before                    | After Omnibus                           |
-| --------------------- | ------------------------- | --------------------------------------- |
-| **CSRD scope**        | ~50,000 companies         | ~10,000 companies (>1,000 employees)    |
-| **SME obligations**   | Mandatory                 | Voluntary standard (EFRAG SME)          |
-| **Assurance level**   | "Limited" -> "Reasonable" | Stays at "Limited"                      |
-| **Timeline**          | 2026-2027                 | +2 year postponement ("stop the clock") |
-| **Estimated savings** | -                         | EUR 4.4 billion/year                    |
+| Change                | Before                    | After Omnibus                                                      |
+| --------------------- | ------------------------- | ------------------------------------------------------------------ |
+| **CSRD scope**        | ~50,000 companies         | fewer than ~5,000 companies (>1,000 employees AND >€450M turnover) |
+| **SME obligations**   | Mandatory                 | Voluntary standard (EFRAG SME)                                     |
+| **Assurance level**   | "Limited" -> "Reasonable" | Stays at "Limited"                                                 |
+| **Timeline**          | 2026-2027                 | +2 year postponement ("stop the clock")                            |
+| **Estimated savings** | -                         | EUR 4.4 billion/year                                               |
 
 **Critical observation: Climate targets remain unchanged**
 
@@ -2917,7 +2930,7 @@ The DWS connector architecture follows the ERP integration patterns established 
 
 4. **Community validation:** Emission factor databases change annually. Open source connectors enable community-driven maintenance — when the EEA publishes updated GHG inventory data, any contributor can submit a PR updating the factor feed, and the change is reviewed in the open.
 
-The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the 50,000+ EU companies requiring CSRD compliance by 2028 can adopt the infrastructure without vendor dependency.
+The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the largest EU companies requiring CSRD compliance (fewer than ~5,000 post-Omnibus, >1,000 employees and >€450M turnover) — and the far larger population of suppliers pulled in via Scope-3 value-chain reporting — can adopt the infrastructure without vendor dependency.
 
 #### 10.17.6 Research Contribution
 
@@ -2927,7 +2940,7 @@ This concluding section contributes three findings:
 
 2. **Cross-vertical intelligence thesis:** A multi-industry carbon ledger produces emergent intelligence that single-vertical tools cannot replicate. A steel mill's ETS surrender correlates with a construction sector CSRD disclosure from the same supply chain. This correlation is only visible when both industries share one ledger format — validating the platform architecture described throughout this thesis.
 
-3. **Funding infrastructure, not features:** The carbon balance sheet represents the transition from "compliance reporting tool" to "compliance infrastructure" — the same distinction as between a spreadsheet and an ERP system. This architectural choice has strategic implications for enterprise stickiness (switching cost equivalent to changing your financial ledger), market timing (50,000+ EU companies need this by 2028), and network effects (more industries on the ledger = more accurate cross-regulation data).
+3. **Funding infrastructure, not features:** The carbon balance sheet represents the transition from "compliance reporting tool" to "compliance infrastructure" — the same distinction as between a spreadsheet and an ERP system. This architectural choice has strategic implications for enterprise stickiness (switching cost equivalent to changing your financial ledger), market timing (fewer than ~5,000 large EU companies mandated post-Omnibus, plus their value chains via Scope 3), and network effects (more industries on the ledger = more accurate cross-regulation data).
 
 The Firehorse Product Manufacturing Operating Model, documented across the preceding 16 sections, provided the engineering foundation — harness architecture, multi-agent orchestration, edge deployment, and regulatory intelligence — required to build this carbon balance sheet infrastructure. The conclusion is that the platform's competitive moat is not any single agent or regulation module, but the ledger that connects them all.
 
@@ -3335,6 +3348,75 @@ The three-capital model, grounded in seven months of production HIL operations, 
 
 ---
 
+### 10.24 Capability Ontology and Three-Pillar Consulting GTM — From Agent Taxonomy to Enterprise Delivery
+
+#### 10.24.1 Motivation
+
+By June 2026, the DWS IQ 6 agent population had grown to 58+ registered agents across multiple subsystems, with 18 additional capability areas identified during enterprise consulting engagement preparation. The flat agent inventory — while functionally complete — lacked a taxonomic structure that enterprise customers could navigate. Two product engineering challenges emerged simultaneously:
+
+1. **Ontological.** The 10 capability categories that had organically formed around agent clusters were not merely a grouping convenience — they mapped to the LWM knowledge graph classes. Exposing this structure explicitly would allow customers to reason about coverage gaps.
+
+2. **Political.** Enterprise customers had historically employed 72+ human consulting roles (Cloud Ready Teams, 2024 edition). Framing the 80+ agent capabilities as "replacements for roles" would trigger job-loss anxieties and procurement resistance. The engineering challenge was to present capability without threatening identity.
+
+#### 10.24.2 Capability Ontology — 10 LWM Knowledge Graph Classes
+
+The 80+ agent capabilities were organised into 10 ontology classes derived from the Lifetime World Model's knowledge graph structure:
+
+| #   | Ontology Class (FI) | Ontology Class (EN) | Example Capabilities                                       |
+| --- | ------------------- | ------------------- | ---------------------------------------------------------- |
+| A   | Konsultointi        | Consulting          | Business Analyst, Change Management, Training & Enablement |
+| B   | Sääntely            | Regulation          | ComplianceAgent, EU AI Act Monitor, CBAM Calculator        |
+| C   | Toimiala            | Industry            | ArgusAgent (SAR), Energy Compliance, Construction Safety   |
+| D   | Orkestrointi        | Orchestration       | Zeus Orchestrator, Workflow Engine, Integration Architect  |
+| E   | Kenttä              | Field Operations    | Fleet Manager, IoT Edge Controller, Process Automation     |
+| F   | Myynti              | Sales               | LeadAgent, CRM Pipeline, Contract Management               |
+| G   | Tiedonhallinta      | Data Management     | Data Engineer, Database Architect, Technical Writer        |
+| H   | Järjestelmä         | System              | DevOps Agent, Test Automation, Cloud Migration             |
+| I   | Puolustus           | Defence             | Aegis Platform, Network Security, Supply Chain Risk        |
+| J   | Muutos              | Transformation      | Disruption Response, HR Systems, Service Desk              |
+
+The ontology is not a flat list but a knowledge graph: each class has directed edges to the classes it depends on (e.g., Regulation → Data Management for evidence pipelines; Industry → Orchestration for multi-agent workflows). This graph structure is the same LWM topology that the Perception Capital (§10.23.7) accumulates — the ontology is the Perception Capital's schema.
+
+#### 10.24.3 Capability-Not-Role Framing
+
+The 62 existing agents plus 18 newly identified capability areas were explicitly framed as _capabilities_, not job titles. The operating principle: "DWS ei korvaa yrityksen henkilöstöä. DWS tuo kyvykkyyttä" (DWS does not replace the customer's staff. DWS brings capability). This framing decision has three engineering consequences:
+
+1. **Procurement path.** Capability procurement does not trigger workforce consultation obligations under Finnish co-determination law (YT-laki).
+2. **Adoption pattern.** A capability augments an existing role holder rather than displacing them — the GTM land-and-expand pattern (§10.23.7) applies at the individual contributor level.
+3. **Catalogue structure.** The capability catalogue grows continuously rather than being versioned as a fixed headcount.
+
+#### 10.24.4 Three-Pillar Consulting Model
+
+The capability ontology required a delivery framework. The consulting engagement model crystallised into three pillars:
+
+1. **Pillar 1 — Capability Training.** Train the customer's team to use the 80+ agent capabilities within their existing workflows.
+2. **Pillar 2 — Industry-Specific Compliance Workflow Development.** Develop and deploy industry-specific intelligent compliance workflows to production. This pillar operationalises the LWM Sequencing Strategy (§10.18) at the customer level.
+3. **Pillar 3 — Disruption-Free Project Continuity.** Ensure the project proceeds without interruptions, using the Keskeytyslaskuri (interruption cost calculator at lifetime.fi/laskuri/) to quantify context-rebuilding cost, momentum loss, and key-person risk.
+
+The three pillars map directly to the 4P capital model (§10.23.7): Pillar 1 builds People Capital, Pillar 2 builds Prompt + Perception Capital, Pillar 3 protects Plant Capital continuity.
+
+#### 10.24.5 Aegis Defence Capability Correction
+
+During handbook preparation, investigation of ArgusAgent's actual capabilities revealed that the previously claimed "drone detection" was not implemented. The honest capability profile is SAR (Synthetic Aperture Radar) orbital target detection via ICEYE partnership — change detection on satellite imagery, not real-time airborne surveillance. The Aegis Defence section was rewritten across all sales and consulting documents with 5 verified workflows:
+
+1. SAR orbital target detection + change detection
+2. NIS2 + CER + Cyber Resilience Act compliance monitoring
+3. Export control compliance (EU Regulation 2021/821 dual-use)
+4. Sovereign climate compatibility assessment for dual-use industries
+5. Critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act)
+
+This correction demonstrates the Rule 12 engineering discipline ("Fail loud") applied to product marketing.
+
+#### 10.24.6 Implementation Evidence — lifetime.fi Website Deployment
+
+The three-pillar consulting model was deployed to the lifetime.fi production website, replacing the previous generic consulting services section. The implementation uses the existing `.industry-agent-chip` CSS component library to render the 10 ontology classes as interactive chips, with three platform cards (gold/green/blue top borders) presenting each pillar. The deployment was dual-folder mirrored (lifetime.fi/ → landing-pages/lifetime-fi/) per DWS operational standard.
+
+#### 10.24.7 Research Contribution
+
+**Key Contribution #39 — Capability Ontology and Three-Pillar Consulting GTM:** The 10-class LWM-derived ontology organises 80+ agent capabilities into a knowledge graph structure that is simultaneously the product taxonomy, the GTM catalogue, and the Perception Capital schema. The three-pillar delivery model (train → develop → protect) maps to the 4P capital accumulation pathway (People → Prompt+Perception → Plant), providing the first implementation-level answer to how an agentic platform's consulting arm should be structured for regulated-industry customers. The "capability-not-role" framing resolves the political tension between agent capability marketing and enterprise workforce sensitivities — a design pattern applicable to any B2B agentic platform selling into industries with co-determination obligations. Companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5 (Consultant Handbook 2026, bilingual FI/EN).
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -3343,9 +3425,9 @@ The three-capital model, grounded in seven months of production HIL operations, 
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.37 (DWS Skilled Taxonomy across Agents, Workflows, and Jurisdictions; "GodAgent" deprecated)
-**Version:** 3.37
-**Last Modified:** 22.04.2026
+**Status:** DRAFT - V3.72 (Capability Ontology and Three-Pillar Consulting GTM; Consultant Handbook 2026 as companion artefact)
+**Version:** 3.72
+**Last Modified:** 28.06.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -3389,6 +3471,10 @@ The three-capital model, grounded in seven months of production HIL operations, 
 28. Founder→Team Transition as Platform Feature — SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO co-builder sequencing + `/investor-outreach` skill (10+ INTRO notes drafted) make investor outreach a reproducible DWS IQ workflow rather than tacit founder knowledge; validates the platform's own solution-factory claim
 29. KYA Agentic AI Foundation Targeting with Dual-Use Expansion — KYA is elevated toward a general foundational standard for agent trust/governance; DWS 7 is framed as the empirical environment unifying hydrogen-economy continuity (DWS 5 -> DWS 7), sovereignty segmentation (Aegis/Sovereign Infra/Connect), Nokia Defence dual-use track, and Siemens/NVIDIA Connect collaboration anchors
 30. KYA Open-Source Standard Path with Article 1 Lock — explicit standardization route added (Agentic AI Foundation / Linux Foundation), NIST path status recorded (not submitted), and 2026-2029 publication phasing integrated with EIC Step 1 communication assets
+31. Three-Tier Skilled Taxonomy — brand / specification / UI taxonomy (Skilled / Industrial Specialist / Industry) as design pattern for EU-regulated agent platforms; monotone `Skilled <Axis>` pattern across agents, workflows, jurisdictions
+32. Three-Capital Accumulation Model — Implementation evidence from 7-month HIL phase: token capital (30+ skills, 150+ field notes, 50-agent foundry), human capital (pattern recognition, calibration), Control Room capital (thresholds, Article 12 audit); defines HIL → HIC transition
+33. Four-Capital (4P) Architecture Mapping — Prompt, People, Plant, Perception mapped to DWS IQ 6 Brain-Memory-Body-Hands; GTM land-and-expand pattern from Perception Capital accumulation
+34. Capability Ontology and Three-Pillar Consulting GTM — 10 LWM knowledge graph classes organising 80+ agent capabilities; three-pillar delivery model (train → develop → protect) mapping to 4P capital pathway; "capability-not-role" framing for B2B agentic platforms; companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
@@ -3458,3 +3544,44 @@ Added in v3.61 (28.05.2026) to enumerate the canonical sources cited by the chap
 [^21]: European Parliament and Council. (2024). _Regulation (EU) 2024/1183 amending Regulation (EU) No 910/2014 as regards establishing the European Digital Identity Framework (eIDAS 2.0)._
 
 [^22]: European Parliament and Council. (2023). _Regulation (EU) 2023/2854 on harmonised rules on fair access to and use of data (EU Data Act)._
+
+### 10.25 Polyglot Observability in Production: Aspire Dashboard Adoption and the Silent-Telemetry Incident
+
+#### 10.25.1 Context and Decision Path
+
+The April 2026 tooling analysis (`docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md`) evaluated three adoption options for Microsoft's Aspire observability stack on the DGX Spark sovereign-edge device: (1) dashboard-only — run the standalone Aspire Dashboard container as a language-agnostic OTLP receiver; (2) full AppHost + ServiceDefaults orchestration; (3) defer. Option 1 was selected and deployed: `mcr.microsoft.com/dotnet/aspire-dashboard:13.3.5` (version-pinned, never `:latest`) in `infrastructure/dgx-spark/docker-compose.yml`. The determining factors were that the dashboard accepts standard OTLP telemetry from any language — the DWS IQ 6 stack is TypeScript (backend, agents) and Python (Firehorse) — and that dashboard-only adoption requires no .NET toolchain on the edge device.
+
+#### 10.25.2 Implementation Inventory
+
+The observability layer as deployed consists of:
+
+- **`src/observability/otel.ts`** — opt-in OpenTelemetry SDK initialization. If `OTEL_EXPORTER_OTLP_ENDPOINT` is unset, no provider registers and every tracing helper degrades to a no-op; nothing leaves the host until the operator sets the endpoint (sovereignty-by-default). Graceful flush on SIGTERM/SIGINT.
+- **`src/observability/tracing.ts`** — span helpers at the four points that matter for postmortems: `withAgentSpan` (one root span per agent execution), `withWorkflowSpan`/`withWorkflowStepSpan`, `withLLMSpan` (per LLM call, emitting OpenTelemetry **GenAI semantic-convention** attributes: `gen_ai.system`, `gen_ai.request.model`, `gen_ai.usage.input_tokens`/`output_tokens`, finish reasons), and `withToolSpan` (per tool invocation, with chain position/length).
+- **`src/agents/telemetry.types.ts` + migration `066_tool_telemetry_genai.sql`** — the same `gen_ai.*` vocabulary persisted to the Supabase `tool_telemetry` table, cross-referenced to OTel traces by `trace_id`/`span_id`. This gives the EU AI Act Article 12 audit trail and the developer-facing trace UI a shared vocabulary rather than two disjoint logging schemes.
+- **Three OTLP producers** on the DGX Spark compose network: `dws-backend`, `dws-cron`, and the `bumblebee-collector` supply-chain scanner.
+
+#### 10.25.3 The Silent-Telemetry Incident (July 2026)
+
+A primary-source verification pass against the Aspire dashboard configuration reference (aspire.dev, fetched 2026-07-07) established that the standalone dashboard serves three distinct endpoints: the browser UI on port 18888, OTLP/gRPC on 18889, and OTLP/HTTP on 18890. All three DWS producers were configured to push `http/protobuf` telemetry to **port 18888 — the UI endpoint**. Every span, metric, and log emitted since deployment had been silently dropped.
+
+The change history makes the incident instructive rather than merely embarrassing. The misconfiguration was introduced by a _fix_: compose v1.2.0 had "corrected" the OTel wiring by moving the endpoint from 18889 (the gRPC port — wrong protocol for an HTTP exporter) to 18888 (right protocol, wrong endpoint). Both configurations pass every liveness check: the ports accept TCP connections, the container reports healthy, the heartbeat service's `CHECK_ASPIRE` probe succeeds. The OTel `BatchSpanProcessor` swallows export failures by design, so no error surfaced in any log. The system looked fully instrumented and was completely blind. The correction shipped as compose v1.3.1 (all three producers → 18890).
+
+#### 10.25.4 Engineering Lessons
+
+1. **Verification must include observed behavior, not just artifact presence.** The April field note's gap-detection rule — "when the narrative layer mentions a version number, verify it against the actual deployed artifact" — proved insufficient. Here the artifact existed and the narrative had lagged in the _pessimistic_ direction (later documents still described the dashboard as "not deployed"), while the deployed artifact was itself broken. The strengthened rule: verify against the deployed artifact _and its observed behavior_. A dashboard receiving zero telemetry is indistinguishable from a dashboard nobody wired up.
+2. **Fail-silent subsystems inside a fail-loud architecture need compensating controls.** Engineering Discipline Rule 12 ("fail loud") is implemented across the DWS agent layer, but the OTel export pipeline is fail-silent by upstream design. The compensating control is an end-to-end assertion — a periodic check that traces _arrive_, not merely that the receiving port is open. This is queued as a heartbeat extension.
+3. **Adjacent-port misconfiguration is a distinct failure class.** Three functionally different endpoints on consecutive ports (18888/18889/18890), all accepting connections, convert a one-character configuration error into a silent data-loss event. Infrastructure comments now document all three ports at the service definition.
+
+#### 10.25.5 Open Decision: GenAI Message-Content Capture
+
+The dashboard's GenAI visualizer (introduced in Aspire 9.5, improved in 13.2) renders LLM spans as a chat log — system prompt, messages, tool calls, token counts — when message content is recorded onto spans. The DWS `withLLMSpan` helper deliberately records **metadata only** (model identifiers, token counts, finish reasons), not prompt or completion bodies. Enabling content capture would place customer-derived text into dashboard memory; that is a data-protection decision (GDPR scope, customer confidentiality), not a tooling decision, and it remains with the human operator. Default: off.
+
+_Companion artefacts: `docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md` (v1.1), `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md`, `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md`. Market-signal and standardisation framing: PHD_FIREHORSE §14.37 per the thesis content-scope rule._
+
+#### 10.25.6 Amendment (v3.79): The Span-Stamped Authorization Verdict
+
+External critique (Hakimi, 07.07.2026) identified the structural limit of this section as originally shipped: _"every LLM call it lights up is a record of what already fired. The trace shows the agent reached prod. It never shows whether it should have been able to."_ Verified against the code, the critique was accurate — the LLM client's only authorization concept was the provider `Bearer` header, and KYA trust-score enforcement lived solely at the sandbox boundary (`nemoclaw-sandbox.ts`, `nemoclaw-bridge.ts`), on a code path disconnected from telemetry.
+
+The same-day answer extends the span vocabulary rather than adding a parallel system: `withAgentSpan` and `withLLMSpan` now accept a `KYAVerdict` (`decision`, `trustScore`, `policyVersion`, `gate`) and stamp `dws.kya.verdict` / `dws.kya.trust_score` / `dws.kya.policy_version` / `dws.kya.gate` alongside the `gen_ai.*` attributes, so one trace answers both questions — what fired, and under what authority it was allowed to fire. The load-bearing design decision is the default: a span with no verdict is stamped `dws.kya.verdict: "ungated"`, never left blank. Absence becomes a queryable finding — filtering the trace UI on `ungated` enumerates every execution path no gate cleared — instead of being indistinguishable from gated execution (Engineering Discipline Rule 12 applied to authorization coverage).
+
+The honest baseline this makes visible: as of v3.79 every production span reads `ungated`, because no call site yet threads the sandbox verdict through. The count of ungated spans _is_ the authorization-coverage gap metric; driving it to zero (verdict emission at the sandbox gate, threading through the agent runner and LLM client) is the named follow-up. Unit tests cover both the stamped-verdict and ungated-default paths. _Field note: `docs/field-notes/2026-07-07-hakimi-observability-vs-authorization.md`; scientific restatement: PHD_FIREHORSE §14.37.4._

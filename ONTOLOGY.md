@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/knowledge-catalog-research-J207A | Date: 04.05.2026 | Changes: Added §15 "GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like". Maps Google Cloud Knowledge Catalog three pillars (Aggregation, Enrichment, Search) to DWS ontology tiers. Adds DWSDataProduct as a named concept. Connector decision documented (export adapter only). Updates §14 lags table: Knowledge Catalog Runtime gap now tracked.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/add-ontology-background-s0H0S | Date: 29.04.2026 | Changes: Added §1.3 "Sanan ontologia tausta / Etymology and Philosophical Background" — kreikkalainen etymologia (ón + lógos), Aristoteles, skolastiikka 1600–1700-luvuilla, merkityksen laajeneminen filosofiasta tietojenkäsittelytieteeseen ja tekoälyyn
 - Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Decision-centric roadmap — added §13 (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Where DWS Leads, Where DWS Lags. Removed third-party vendor naming; positioned as European Ontology Standard.
@@ -407,6 +408,35 @@ regulatory_periods:
   - post_2025: New UK FCA cross-border rules
   - fiscal_year: FY2026
 ```
+
+### Data Lifecycle & Retention Ontology (HOW LONG)
+
+Every ontology node that ingests live operational data (sensor telemetry, agent
+observations, customer system feeds) carries an explicit retention tier —
+never an unbounded "keep forever" default. This closes the gap the
+Valtiovarainministeriö security-oriented information management guide (VM
+2026:27, §4.4.2) names as the aggregation effect (kasautumisvaikutus): risk
+rarely comes from a single data point, but from unmanaged accumulation across
+time, geography, or theme.
+
+```yaml
+retention:
+  - node_owner: Single named owner per ontology node (never shared)
+  - raw_tier: Unprocessed source signal — shortest retention, most restricted access
+  - summary_tier: Ontologised/structured event derived from raw_tier — no raw signal retained
+  - audit_tier: Immutable compliance log (EU AI Act Article 12) — longest retention, SIEM-exportable
+  - rollup_tier: Cross-node aggregate for orchestration layers — never raw, never individualised
+  - aggregation_review: Quarterly check for whether accumulated data at this node now reveals
+    dependencies, vulnerabilities, or patterns no single entry would expose
+```
+
+**Reference implementation:** Control Room / Situation Room apply this exact
+four-tier model (raw 72h / summary 13mo / audit 7yr / rollup 24mo rolling) —
+see `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`
+and `Admin/ADMIN_MANUAL.md` ("Customer Sensor Data Retention"). Any new
+ontology node that ingests live data must declare its own retention tiers
+before go-live; there is no organisation-wide default duration because
+retention need is a property of the node, not the platform.
 
 ### Causal Ontology (WHY)
 

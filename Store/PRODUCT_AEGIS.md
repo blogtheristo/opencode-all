@@ -137,11 +137,11 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Pricing
 
-| Tier                | Onboarding + Integration | Monthly   | Included                                                                                                      |
-| ------------------- | ------------------------ | --------- | ------------------------------------------------------------------------------------------------------------- |
-| **Aegis Standard**  | €59,990                  | €999/mo   | 18 agents, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support         |
-| **Aegis Defence**   | €89,990                  | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting              |
-| **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA |
+| Tier                | Onboarding + Integration | Monthly   | Included                                                                                                        |
+| ------------------- | ------------------------ | --------- | --------------------------------------------------------------------------------------------------------------- |
+| **Aegis Standard**  | €59,990                  | €999/mo   | Skilled-agent fleet, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
+| **Aegis Defence**   | €89,990                  | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting                |
+| **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA   |
 
 Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
 

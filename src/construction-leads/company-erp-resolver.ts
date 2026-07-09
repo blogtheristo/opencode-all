@@ -25,6 +25,7 @@ const PATTERNS: Array<{ test: RegExp; erp: ResolvedErp }> = [
   { test: /\b(royal bam|bam groep)\b/i, erp: 'SAP' },
   { test: /\b(ferrovial|acs|acciona)\b/i, erp: 'SAP' },
   { test: /\b(kiewit|bechtel|fluor)\b/i, erp: 'Oracle' },
+  { test: /\b(balfour beatty)\b/i, erp: 'SAP' },
 ];
 
 const COUNTRY_HINT: Record<string, ResolvedErp> = {

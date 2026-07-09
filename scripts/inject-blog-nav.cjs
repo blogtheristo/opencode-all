@@ -187,6 +187,42 @@ const posts = [
     title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
     date: '25 Jun 2026',
   },
+  {
+    file: 'nvidia-jetson-thor-physical-ai.html',
+    title:
+      'NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It.',
+    date: '26 Jun 2026',
+  },
+  {
+    file: 'industrial-intelligence-weekly-2026-06-28.html',
+    title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
+    date: '28 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.html',
+    title: 'Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.fi.html',
+    title: 'Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI)',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'tiedon-vanheneminen-sensoridata-retention.html',
+    title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.html',
+    title: 'The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.fi.html',
+    title: 'Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI)',
+    date: '1 Jul 2026',
+  },
 ];
 
 // Three featured products

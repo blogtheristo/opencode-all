@@ -1,25 +1,29 @@
 # DWS IQ 6 — Enterprise Sales Funnel Workflow
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Initial creation. Sibling to docs/SALES_FUNNEL_WORKFLOW.md (the 14-step self-serve funnel). Five-step role-event-gated path for enterprise deals where the buyer is a 5-stage stakeholder set, not a single click-to-buy user. Five steps from Boardy proposal (2026-05-25), exit criteria + durations + CRM events + abort rules added per usability audit.
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Initial creation. Sibling to docs/SALES_FUNNEL_WORKFLOW.md (the 14-step self-serve funnel). Five-step role-event-gated path for enterprise deals where the buyer is a 5-stage stakeholder set, not a single click-to-buy user. Five steps from Boardy proposal (2026-05-25), exit criteria + durations + CRM events + abort rules added per usability audit.
 
 Session Links & References:
-  - Sibling: docs/SALES_FUNNEL_WORKFLOW.md (self-serve, €1 activation, 14 steps)
-  - Source: DWS_ROLES_REGISTRY.md (5 stages + 25 roles + industry variants)
-  - Worked example: sales-outreach/INTRO_ARI_HIRVONEN_OUTOKUMPU.md
-  - Reference: CYCLE_TIME_BENCHMARK_OUTOKUMPU_FORTA.md
+
+- Sibling: docs/SALES_FUNNEL_WORKFLOW.md (self-serve, €1 activation, 14 steps)
+- Source: DWS_ROLES_REGISTRY.md (5 stages + 25 roles + industry variants)
+- Worked example: sales-outreach/INTRO_ARI_HIRVONEN_OUTOKUMPU.md
+- Reference: CYCLE_TIME_BENCHMARK_OUTOKUMPU_FORTA.md
 
 Document Status:
-  - Created: 25.05.2026
-  - Language: English
-  - Publication Status: ACTIVE
-  - Document Type: Sales Workflow
-  - Owner: Risto Päärni
+
+- Created: 25.05.2026
+- Language: English
+- Publication Status: ACTIVE
+- Document Type: Sales Workflow
+- Owner: Risto Päärni
 
 ***
 
@@ -39,24 +43,24 @@ The enterprise funnel is a **different ball game**: revenue-engine, multi-stakeh
 
 **The two funnels coexist by design, not by accident.** Self-serve continues to ship master-thesis throughput evidence and serves the SME / Tier-2 market. Enterprise serves the multi-stakeholder consensus motion that produces 15 wins × €60k = €900k from a smaller customer count. Conflating them — designing for one and force-fitting the other — is a category error.
 
-| Dimension | Self-serve (`SALES_FUNNEL_WORKFLOW.md`) | Enterprise (this doc) |
-|---|---|---|
-| Origin | Master thesis — dynamic-product publishing at scale | Commercial — €900k ARR target via consensus selling |
-| Gates on | Payment events (Stripe, invoice) | Role events (per-stakeholder confirmation) |
-| Buyer | Single role, click-to-buy | 5-stage stakeholder set |
-| Cycle | Minutes per buyer | 14–25 weeks per buyer |
-| Evidence layer | Master thesis (implementation) | Operating model (multi-stakeholder pattern) |
-| What it proves | Platform can publish 30/30 products to live store | Platform can close enterprise deals via role-event gating |
+| Dimension      | Self-serve (`SALES_FUNNEL_WORKFLOW.md`)             | Enterprise (this doc)                                     |
+| -------------- | --------------------------------------------------- | --------------------------------------------------------- |
+| Origin         | Master thesis — dynamic-product publishing at scale | Commercial — €900k ARR target via consensus selling       |
+| Gates on       | Payment events (Stripe, invoice)                    | Role events (per-stakeholder confirmation)                |
+| Buyer          | Single role, click-to-buy                           | 5-stage stakeholder set                                   |
+| Cycle          | Minutes per buyer                                   | 14–25 weeks per buyer                                     |
+| Evidence layer | Master thesis (implementation)                      | Operating model (multi-stakeholder pattern)               |
+| What it proves | Platform can publish 30/30 products to live store   | Platform can close enterprise deals via role-event gating |
 
 ## 3. ARR Bridge
 
 Enterprise path math toward the €900k Q4 2026 target (same target, different shape than self-serve):
 
-| Path | Customers | Avg ARR/customer | Total ARR | Cycle |
-|---|---|---|---|---|
-| Self-serve (existing) | 45 | €20,000 | €900k | minutes per buyer |
-| **Enterprise (this funnel)** | **15** | **€60,000** | **€900k** | **14–25 weeks per buyer** |
-| Mix (realistic) | 25 SS + 8 Ent | — | €900k | both paths active |
+| Path                         | Customers     | Avg ARR/customer | Total ARR | Cycle                     |
+| ---------------------------- | ------------- | ---------------- | --------- | ------------------------- |
+| Self-serve (existing)        | 45            | €20,000          | €900k     | minutes per buyer         |
+| **Enterprise (this funnel)** | **15**        | **€60,000**      | **€900k** | **14–25 weeks per buyer** |
+| Mix (realistic)              | 25 SS + 8 Ent | —                | €900k     | both paths active         |
 
 Enterprise wins are 1/3 the count of self-serve wins for the same revenue. Pipeline math: ~30–45 prospects needed in this funnel to produce 15 wins (33–50% close rate from Step 2 onward; lower if measured from Step 0).
 
@@ -151,14 +155,14 @@ Total typical cycle: **14–25 weeks** end-to-end (Step 0 → Step 5). Pipeline 
 
 ## 7. Worked Example — Outokumpu (Ari Hirvonen)
 
-| Step | Status | Reference |
-|---|---|---|
-| Step 0 — Qualify | ✅ Done. Steel industry (Iron & Steel hat), Outokumpu in scope. | `INDUSTRIES.md` row 2 |
-| Step 1 — Door #1 | ✅ Done. R02 IP Director per §4 industry-variants standard door for steel. Named: Ari Hirvonen. | `sales-outreach/INTRO_ARI_HIRVONEN_OUTOKUMPU.md` |
-| Step 2 — Map stages | ✅ Done. All 5 stages mapped via the wedge-by-role matrix (14 roles across 5 stages). | INTRO file §"Wedge by role" |
-| Step 3 — Prove wedge | 🟡 In progress. Forta tenders currently leak CBAM, EPD, and Scope-3 disclosures without IP review, exposing scrap ratio, energy mix, recipe, and source country. The win is 2–6 weeks down to under 2 minutes per disclosure, plus 240–480 sales-engineering hours per rep per year. Modeled; awaiting Ari's confirmation against Outokumpu's actual baseline. | `CYCLE_TIME_BENCHMARK_OUTOKUMPU_FORTA.md` |
-| Step 4 — Expand sideways | ⏳ Queued. 3-door plan: IP/Legal → Sustainability → Sales Engineering. | INTRO file §"Three doors" |
-| Step 5 — Close | ⏳ Not started. First-of-industry → pilot path. | — |
+| Step                     | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Reference                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| Step 0 — Qualify         | ✅ Done. Steel industry (Iron & Steel hat), Outokumpu in scope.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `INDUSTRIES.md` row 2                                                                                      |
+| Step 1 — Door #1         | ✅ Done. R02 IP Director per §4 industry-variants standard door for steel. Named: Ari Hirvonen.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `sales-outreach/INTRO_ARI_HIRVONEN_OUTOKUMPU.md`                                                           |
+| Step 2 — Map stages      | ✅ Done. All 5 stages mapped via the wedge-by-role matrix (14 roles across 5 stages).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | INTRO file §"Wedge by role"                                                                                |
+| Step 3 — Prove wedge     | 🟡 In progress. Forta tenders currently leak CBAM, EPD, and Scope-3 disclosures without IP review, exposing scrap ratio, energy mix, recipe, and source country. The win is 2–6 weeks down to under 2 minutes per disclosure, plus 240–480 sales-engineering hours per rep per year. Modeled; awaiting Ari's confirmation against Outokumpu's actual baseline. Commercial-terms Reply 2 (€24k pilot) drafted 2026-05-25 but held on attachments; both attachments now exist (`PILOT_SHEET_OUTOKUMPU_FORTA.md`, `NVIDIA_HARDWARE_LINE_ITEMS_OUTOKUMPU.md`) — real remaining blocker is filling `[TBD]` fields, not missing artifacts. | `CYCLE_TIME_BENCHMARK_OUTOKUMPU_FORTA.md`, `LETTER_ARI_HIRVONEN_OUTOKUMPU_REPLY2_CLARIFICATION.md`         |
+| Step 4 — Expand sideways | ⏳ Queued. 3-door plan: IP/Legal → Sustainability → Sales Engineering. Fourth, independent door identified 2026-07-01 via LinkedIn OSINT: Henri Simpanen, VP Kemi mine (R11 Plant Director) — construction/sovereignty wedge, held pending Ari handoff point.                                                                                                                                                                                                                                                                                                                                                                        | INTRO file §"Three doors"; `docs/field-notes/2026-07-01-outokumpu-henri-simpanen-kemi-mine-second-door.md` |
+| Step 5 — Close           | ⏳ Not started. First-of-industry → pilot path.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | —                                                                                                          |
 
 ## 8. Implementation Checklist
 

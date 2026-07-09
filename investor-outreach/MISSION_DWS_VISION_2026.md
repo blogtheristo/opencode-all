@@ -18,7 +18,7 @@ AGENT HISTORY:
 We're always looking for the next Superhero.
 
 — Superhero Capital
-*Your sidekick when it matters.*
+_Your sidekick when it matters._
 
 ---
 
@@ -62,7 +62,7 @@ Across EU, ASEAN, and US jurisdictions — in one platform.
 The carbon balance sheet: double-entry bookkeeping for CO₂,
 so every tonne is tracked like every euro.
 
-49,000+ EU companies face mandatory climate reporting.
+fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory climate reporting.
 Every one of them needs an operational system.
 None of them want to buy another dashboard.
 
@@ -136,7 +136,7 @@ and route decisions to the right human at the right moment.
 EU (Finnish sovereignty) · ASEAN · US — with a KYA-governed compliance backbone across all of them.
 
 **The architecture shift:**
-From 21 agents serving one enterprise
+From a fleet of skilled agents serving one enterprise
 to an agent network that serves an entire regulated industry —
 benchmarking anonymized performance across every site, every company, every quarter,
 so the platform gets smarter the more it is used.
@@ -167,19 +167,19 @@ and a founder who has operated in construction, logistics, and infrastructure
 long enough to know exactly where the Excel sheets break.
 
 We are not building for the market that might exist.
-We are building for the 49,000 companies that must comply by law — today.
+We are building for the fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) companies that must comply by law — today.
 
 ---
 
 ## The Round
 
-| Instrument       | SAFE                               |
-| ---------------- | ---------------------------------- |
-| Valuation Cap    | €3.8M                              |
-| Total Raise      | €650K                              |
-| Fleet Admiral    | €200K (1 EU/EEA-domiciled lead)    |
-| Captain          | €50K (9 seats)                     |
-| Deputy Captain   | €5K (open)                         |
+| Instrument     | SAFE                            |
+| -------------- | ------------------------------- |
+| Valuation Cap  | €3.8M                           |
+| Total Raise    | €650K                           |
+| Fleet Admiral  | €200K (1 EU/EEA-domiciled lead) |
+| Captain        | €50K (9 seats)                  |
+| Deputy Captain | €5K (open)                      |
 
 **Anchor moment:** V1 Launch at Arctic 15, Helsinki — June 15, 2026.
 Investors who commit pre-launch enter at seed valuation ahead of the first sales cycle data (August 15, 2026).
@@ -190,4 +190,4 @@ Investors who commit pre-launch enter at seed valuation ahead of the first sales
 Risto Anton Päärni · risto@onelifetime.world · +358 400 319 010
 https://dws10.com
 
-*Confidential — For Potential Investors Only*
+_Confidential — For Potential Investors Only_

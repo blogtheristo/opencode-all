@@ -34,8 +34,12 @@ import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
+import supportRoutes from './routes/support.routes.js';
+import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
+import nudgeRoutes from './routes/nudge.routes.js';
+import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
@@ -55,6 +59,11 @@ import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import erpTrackingRoutes from './routes/erp-tracking.routes.js';
+import {
+  erpRoutes,
+  initializeERPIntegrations,
+  shutdownERPIntegrations,
+} from './integrations/erp/index.js';
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
 import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
@@ -65,6 +74,7 @@ import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { signalPoller } from './agents/signal-poller.js';
+import { inboundTicketScheduler } from './services/inbound-ticket.service.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
@@ -110,8 +120,7 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 
 const app: Express = express();
 app.disable('x-powered-by');
-const PORT =
-  process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
+const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -204,11 +213,14 @@ app.use(apiVersionMiddleware);
 // causing the webhook handler to hang until Cloud Run kills the request at
 // the 60s timeout.
 app.use((req, res, next) => {
-  if (req.path.startsWith('/webhooks/stripe')) return next();
+  // Webhooks that verify an HMAC over the raw body must NOT be pre-parsed.
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
   return express.json({ limit: '10kb' })(req, res, next);
 });
 app.use((req, res, next) => {
-  if (req.path.startsWith('/webhooks/stripe')) return next();
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
   return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
 });
 
@@ -319,12 +331,18 @@ app.use('/api/v1/b2b', b2bPaymentRoutes);
 // Stripe webhook (invoice payments, refunds, customer events)
 app.use('/webhooks/stripe', stripeWebhookRoutes);
 
+// Nudge callback webhook (Teams/Slack button click → resolveNudge).
+// Mounted before express.json so its HMAC can verify the raw body.
+app.use('/webhooks/nudge', nudgeWebhookRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/booking', bookingRoutes);
+app.use('/api/v1/support', supportRoutes);
+app.use('/api/v1/support', supportReviewRoutes);
 app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
@@ -332,6 +350,9 @@ app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// Nudge inbox (in_app channel — list + resolve pending proactive nudges)
+app.use('/api/v1/nudges', nudgeRoutes);
 
 // GTM Events API (Google Tag Manager event logging — Phase 1)
 app.use('/api/gtm/events', gtmEventsRoutes);
@@ -414,6 +435,9 @@ app.use('/api/bim', bimRoutes);
 
 // HIL (Human-in-the-Loop) one-click task completion from morning briefing email
 app.use('/api/hil', hilRoutes);
+
+// ERP Integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves connectors)
+app.use('/api/v1/erp', erpRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
@@ -683,6 +707,13 @@ const server = app.listen(PORT, () => {
   // plus sweep overdue nudges for escalation (restart-safe).
   signalPoller.start();
 
+  // ERP integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves). Scheduler
+  // itself only starts when ERP_SCHEDULER_ENABLED=true (checked internally).
+  initializeERPIntegrations();
+  // Poll inbound_emails → create support_tickets every INBOUND_TICKET_POLL_MS (default 30s).
+  // Disable with INBOUND_TICKET_DISABLED=true.
+  inboundTicketScheduler.start();
+
   // Initialize email queue (Redis Streams)
   emailQueue
     .initialize()
@@ -727,6 +758,8 @@ process.on('SIGTERM', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   signalPoller.stop();
+  inboundTicketScheduler.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
@@ -742,6 +775,8 @@ process.on('SIGINT', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   signalPoller.stop();
+  inboundTicketScheduler.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {

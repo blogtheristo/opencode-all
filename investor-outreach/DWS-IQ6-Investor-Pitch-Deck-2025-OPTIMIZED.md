@@ -10,7 +10,7 @@
 
 ## 🏰 Slide 1: The Fortress Advantage
 
-### We Built a 20-Moat Competitive Fortress
+### We Built a 19-Moat Competitive Fortress
 
 **Current Traction:**
 - ✅ €7k MRR live (Uber Finland, Bolt, Kela - 100% retention)
@@ -94,7 +94,7 @@
 
 ---
 
-## 📊 Slide 4: The 20-Moat Fortress
+## 📊 Slide 4: The 19-Moat Fortress
 
 ### €3-6M / 24-36 Month Entry Barrier
 
@@ -203,7 +203,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 
 ### Founder: Risto Anton Päärni
 
-15+ years enterprise software | Bootstrapped to €7k MRR (€0 external capital) | 100% retention | €500k campaign launch | 20-moat fortress with <€500k
+15+ years enterprise software | Bootstrapped to €7k MRR (€0 external capital) | 100% retention | €500k campaign launch | 19-moat fortress with <€500k
 
 ### Finland = 6-12 Month Regulatory Head Start
 
@@ -244,7 +244,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 
 Campaign underperforms 50%? → Still €30-40k MRR, Series A €10-12M  
 Series A market deteriorates? → Break-even €35k MRR = profitable without raise  
-Competitor enters? → 20-moat fortress = 24-36mo delay minimum
+Competitor enters? → 19-moat fortress = 24-36mo delay minimum
 
 **Downside:** Even "everything wrong" = 2-3× return via acquisition (vs 4.8× Series A)
 
@@ -271,7 +271,7 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 
 ### Next Steps
 
-**Week 1:** Due diligence access (GitHub, customer refs, 20-moat analysis)  
+**Week 1:** Due diligence access (GitHub, customer refs, 19-moat analysis)  
 **Week 2-3:** SAFE execution (YC template, DocuSign, wire transfer)  
 **Week 4:** Investor onboarding (quarterly updates, Slack, dashboard)
 
@@ -299,7 +299,7 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 | Boardy.ai | €11M | €3M | US-based (€2.8M-6.25M EU barrier) |
 | Competitor B | €15M | €12M | Cloud-only (no sub-100ms) |
 | Competitor C | €40M | €25M | Generic AI (no domain expertise) |
-| **DWS IQ 6** | **€0** | **€84k** | **20-moat fortress** |
+| **DWS IQ 6** | **€0** | **€84k** | **19-moat fortress** |
 
 ### Customer References (Available)
 
@@ -323,7 +323,7 @@ Business ID: 3180098-3 | Helsinki, Finland
 **Revision History:**
 - v1.0 (Dec 10, 2024): Initial deck
 - v2.0 (Dec 30, 2024): Strategic pivot to sub-100ms decisioning  
-- v3.0 (Dec 30, 2025): 20-moat fortress integration + optimized for PDF
+- v3.0 (Dec 30, 2025): 19-moat fortress integration + optimized for PDF
 
 **Prepared by:** Risto Anton Päärni, CEO | Approved: December 30, 2025
 

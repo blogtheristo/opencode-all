@@ -516,9 +516,20 @@
           <h3>Price list governance</h3>
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
-          <p>DWS Document Standard version: <strong>1.20</strong> · Effective <strong>2026-05-17</strong></p>
-          <p style="margin-top:6px;">Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs reflect verified EU distributor and EMEA launch prices — not converted from US list. NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.</p>
-          <p style="margin-top:6px;">v1.20 sovereign-hardware ladder (Finnish B2B): Jetson Nano €764 · Jetson NX €1,990 · Jetson AGX €2,694 · Control Room €5,294 · DGX Spark €5,994 · Situation Room €10,093 · IGX Orin €11,990 · NVIDIA Install €995/device · Sovereign Model Updates €299/mo.</p>
+          <p>
+            DWS Document Standard version: <strong>1.20</strong> · Effective
+            <strong>2026-05-17</strong>
+          </p>
+          <p style="margin-top: 6px">
+            Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs
+            reflect verified EU distributor and EMEA launch prices — not converted from US list.
+            NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.
+          </p>
+          <p style="margin-top: 6px">
+            v1.20 sovereign-hardware ladder (Finnish B2B): Jetson Nano €764 · Jetson NX €1,990 ·
+            Jetson AGX €2,694 · Control Room €5,294 · DGX Spark €5,994 · Situation Room €10,093 ·
+            IGX Orin €11,990 · NVIDIA Install €995/device · Sovereign Model Updates €299/mo.
+          </p>
           <p>Source of truth: <code>dws10.com/config/products.json</code></p>
         </div>
         <div>
@@ -566,13 +577,19 @@
         };
         function tierBadge(tier) {
           if (!tier) return "";
-          var label = tier === "land" || tier === "meter" ?
-            tier.charAt(0).toUpperCase() + tier.slice(1) : tier;
+          var label =
+            tier === "land" || tier === "meter"
+              ? tier.charAt(0).toUpperCase() + tier.slice(1)
+              : tier;
           var c = TIER_COLOR[tier] || "#475569";
-          return '<span style="display:inline-block;background:' + c +
-            ';color:#fff;font-size:0.7rem;font-weight:700;padding:2px 7px;' +
+          return (
+            '<span style="display:inline-block;background:' +
+            c +
+            ";color:#fff;font-size:0.7rem;font-weight:700;padding:2px 7px;" +
             'border-radius:4px;margin-right:8px;letter-spacing:0.05em;">' +
-            label + '</span>';
+            label +
+            "</span>"
+          );
         }
         function replacesLine(p) {
           var r = p && p.replaces;
@@ -584,22 +601,31 @@
           var price = p.price || 0;
           var unit = p.priceUnit || "";
           if (cost && price) {
-            var annual = unit === "per-month" ? price * 12 :
-              unit === "per-year" ? price : null;
+            var annual = unit === "per-month" ? price * 12 : unit === "per-year" ? price : null;
             if (annual) pct = Math.round((annual / cost) * 100);
           }
           var tail = pct !== null ? " at ~" + pct + "% of fully loaded cost" : "";
           var fteStr = fte === undefined || fte === null ? "?" : String(fte);
-          return '<div class="replaces-line" style="font-size:0.82rem;color:#34d399;' +
-            'margin-top:6px;font-style:italic;">Replaces ' + escapeHtml(role) +
-            ' ≈ ' + escapeHtml(fteStr) + ' FTE' + escapeHtml(tail) + '.</div>';
+          return (
+            '<div class="replaces-line" style="font-size:0.82rem;color:#34d399;' +
+            'margin-top:6px;font-style:italic;">Replaces ' +
+            escapeHtml(role) +
+            " ≈ " +
+            escapeHtml(fteStr) +
+            " FTE" +
+            escapeHtml(tail) +
+            ".</div>"
+          );
         }
         function upsellLine(p) {
           var nxt = p && p.nextUpsellSku;
           if (!nxt) return "";
-          return '<div class="upsell-line" style="font-size:0.78rem;color:#94a3b8;' +
+          return (
+            '<div class="upsell-line" style="font-size:0.78rem;color:#94a3b8;' +
             'margin-top:2px;">Next upsell: <strong style="color:#cbd5e1;">' +
-            escapeHtml(nxt) + '</strong></div>';
+            escapeHtml(nxt) +
+            "</strong></div>"
+          );
         }
 
         function eur(n) {
@@ -747,6 +773,11 @@
                   var priceCell =
                     p.price === 0 ? '<span style="color:#fbbf24">Free / POA</span>' : eur(p.price);
                   var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
+                  var caption = p.caption
+                    ? '<small class="pl-caption" style="display:block;color:#1e3a5f;font-style:italic;margin:3px 0;">' +
+                      escapeHtml(p.caption) +
+                      "</small>"
+                    : "";
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("mailto:") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
@@ -782,6 +813,7 @@
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
+                    caption +
                     note +
                     anchor +
                     upsell +
