@@ -4,27 +4,30 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/competitor-pricing-analysis-e89r3 | Date: 17.03.2026 | Changes: Updated DWS IQ competitor tracking with CSRD/ESG SaaS competitors (Sweep, Persefoni, Watershed, Normative, Greenly); added reference to Q1 2026 pricing analysis
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
-  - Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
+
+- Version: 1.4 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Added §8.3 — promoted "Sovereign Intelligence (SI)" from draft field note (`docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md`) to canonical positioning thesis, per that note's own action trigger. Registered in `DWS_TRUTH_STANDARD.md` as row 27.
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/competitor-pricing-analysis-e89r3 | Date: 17.03.2026 | Changes: Updated DWS IQ competitor tracking with CSRD/ESG SaaS competitors (Sweep, Persefoni, Watershed, Normative, Greenly); added reference to Q1 2026 pricing analysis
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
+- Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
 
 Session Links & References:
 
 - Claude Code (01Uyf3ZyeW3UQhotzJVEpo7s): https://claude.ai/code/session_01Uyf3ZyeW3UQhotzJVEpo7s
 
 Document Status:
-  - Created: 14.02.2026
-  - Last Modified: 17.03.2026
-  - Language: EN
-  - Languages Available: EN
-  - Publication Status: ACTIVE
 
 - Created: 14.02.2026
-- Last Modified: 06.04.2026
+- Last Modified: 17.03.2026
+- Language: EN
+- Languages Available: EN
+- Publication Status: ACTIVE
+
+- Created: 14.02.2026
+- Last Modified: 09.07.2026
 - Language: EN
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -102,15 +105,15 @@ Every DWS product MUST have a defined competitor set. Competitors are categorize
 
 ### 3.2 Competitor Tracking per Product
 
-| DWS Product | Direct Competitors | Indirect Competitors | Track |
-|-------------|-------------------|---------------------|-------|
-| **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams | Jitsi.org (free), Whereby, Proton | Pricing, features, EU hosting |
-| **Firehorse V3 Email** | Gmail, Outlook, Proton Mail | Migadu, Fastmail, Tutanota | Storage, price, sovereignty |
-| **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore | Manual audit firms, Buildots | Speed, accuracy, price |
-| **DWS IQ Platform** (€4,999) | Sweep, Persefoni, Normative, Greenly | Watershed, Sphera, Worldfavor, PositionGreen | Pricing, CSRD coverage, ERP connectors, EU hosting, AI agents |
-| **Consulting Services** | McKinsey, Deloitte, KPMG | Freelancer platforms, in-house | Pricing, domain expertise |
-| **LWM V1** (€250k) | None (category-creating) | OpenAI, Anthropic (general AI) | Model size, domain specificity |
-| **DSaaS** (€499–€4,999/mo) | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud | Sovereignty enforcement, compliance automation, HTAP, pricing |
+| DWS Product                     | Direct Competitors                      | Indirect Competitors                         | Track                                                         |
+| ------------------------------- | --------------------------------------- | -------------------------------------------- | ------------------------------------------------------------- |
+| **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams      | Jitsi.org (free), Whereby, Proton            | Pricing, features, EU hosting                                 |
+| **Firehorse V3 Email**          | Gmail, Outlook, Proton Mail             | Migadu, Fastmail, Tutanota                   | Storage, price, sovereignty                                   |
+| **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore                | Manual audit firms, Buildots                 | Speed, accuracy, price                                        |
+| **DWS IQ Platform** (€4,999)    | Sweep, Persefoni, Normative, Greenly    | Watershed, Sphera, Worldfavor, PositionGreen | Pricing, CSRD coverage, ERP connectors, EU hosting, AI agents |
+| **Consulting Services**         | McKinsey, Deloitte, KPMG                | Freelancer platforms, in-house               | Pricing, domain expertise                                     |
+| **LWM V1** (€250k)              | None (category-creating)                | OpenAI, Anthropic (general AI)               | Model size, domain specificity                                |
+| **DSaaS** (€499–€4,999/mo)      | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud           | Sovereignty enforcement, compliance automation, HTAP, pricing |
 
 ### 3.3 Supabase Schema: `competitors`
 
@@ -450,6 +453,28 @@ The **Synthetic Nervous System** is DWS IQ's primary technical moat for Series A
 
 ---
 
+## 8.3 Positioning Thesis: Sovereign Intelligence (SI)
+
+**Sovereign Intelligence (SI)** is DWS's canonical positioning term for AI that trains and executes inside the customer's own network perimeter and jurisdiction, rather than on a foreign-jurisdiction platform. It is **not a new product tier, SKU, or standard** — it is the narrative name for architecture that already exists: `DWS_SOVEREIGNTY_STANDARD.md` (SOV-T1/T2/T3 tiers, `DWS-SOVEREIGN-DB-001`) and the canonical three-pillar sovereignty model (`DWS_TRUTH_STANDARD.md` row 16 → `docs/PHD_FIREHORSE_EN.md` §14.23, Data→SIB / Technology→CSB / Operational→EAB). Promoted 09.07.2026 from the draft field note per its own action trigger (Skill Codification Rule — a good line does not live only in chat scrollback).
+
+**Compressed thesis:** "What happens in San Francisco stays in San Francisco" — under the CLOUD Act, a US-headquartered AI platform means US jurisdiction over customer data regardless of which region hosts it. The counter-position is Sovereign Intelligence: AI trained and run inside the customer's own perimeter, on hardware they control, so the audit trail never leaves the jurisdiction it was created in.
+
+**Reference architecture:** Outokumpu Tornio, documented in `Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html` §2.1–2.2 (regulatory convergence table, CLOUD Act jurisdiction gap, Microsoft France's June 2025 Senate testimony) and the public narrative at `onelifetime.world/posts/sovereign-intelligence-outokumpu-tornio.html`.
+
+**Approved uses:**
+
+- Opening hook for sovereignty-focused pitch decks and outreach waves; cite the whitepaper for substantiating detail.
+- Investor narrative alongside the Synthetic Nervous System moat (§8.2) — SI is the customer-facing positioning line, Synthetic Nervous System is the underlying technical moat.
+- Hero/tweet copy per the three draft options in `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` §2/§5.
+
+**Constraints (unchanged by promotion):**
+
+- Run `/truth-check` and route through `DWS_BRAND_STANDARD.md` before this line appears on any live page, deck, or public post — promotion to this standard authorizes internal use, not public-site publication.
+- Never imply "zero" disclosure exposure — the claim is jurisdictional control, not technical impossibility of compelled disclosure.
+- Source doc: `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` (full thesis, tweet copy, internal memo, hero text options). Registered as `DWS_TRUTH_STANDARD.md` row 27.
+
+---
+
 ## 9. Reporting Format
 
 ### 9.1 Weekly Market Brief
@@ -503,19 +528,21 @@ Full analysis across all products. Presented at quarterly product review.
 
 ## 11. Relationship to Other Standards
 
-| Standard                    | Relationship                                             |
-| --------------------------- | -------------------------------------------------------- |
-| `DWS_DOCUMENT_STANDARD.md`  | All market research docs follow document metadata format |
-| `DWS_BRAND_STANDARD.md`     | Product positioning must align with brand categories     |
-| `DWS_SECURITY_STANDARD.md`  | Data collection must not expose credentials              |
-| `product-catalog/README.md` | Product catalog is the source of truth for product specs |
-| `config/products.json`      | Store products define the scope of competitive tracking  |
+| Standard                      | Relationship                                                                       |
+| ----------------------------- | ---------------------------------------------------------------------------------- |
+| `DWS_DOCUMENT_STANDARD.md`    | All market research docs follow document metadata format                           |
+| `DWS_BRAND_STANDARD.md`       | Product positioning must align with brand categories                               |
+| `DWS_SECURITY_STANDARD.md`    | Data collection must not expose credentials                                        |
+| `product-catalog/README.md`   | Product catalog is the source of truth for product specs                           |
+| `config/products.json`        | Store products define the scope of competitive tracking                            |
+| `DWS_TRUTH_STANDARD.md`       | Row 27 registers §8.3 (Sovereign Intelligence) as the canonical positioning thesis |
+| `DWS_SOVEREIGNTY_STANDARD.md` | SOV-T1/T2/T3 tiers are the architecture §8.3's SI narrative describes              |
 
 ---
 
 **Document Owner:** Product Strategy
 **Contact:** product@lifetime.fi
-**Last Updated:** 2026-02-14
-**Session:** 01Uyf3ZyeW3UQhotzJVEpo7s
+**Last Updated:** 2026-07-09
+**Session:** claude/dws-sovereign-intelligence-wwho6h
 
 © 2026 Lifetime Oy · DWS Market Research Standard
