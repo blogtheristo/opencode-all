@@ -2,7 +2,7 @@
 
 ---
 
-Version: 2.0 | 2026-06-27 | Claude Sonnet 4.6 | Luonnos
+Version: 2.1 | 2026-07-09 | Claude Sonnet 5 | Luonnos
 
 ---
 
@@ -60,20 +60,26 @@ Cubet Techno Labs on vuodesta 2013 toimiva intialainen IT-yritys (Infopark Kochi
 
 Tarjoaja on käynnistänyt alihankkijakartoituksen seuraaville suomalaisille yrityksille. Sopimukset solmitaan tarpeen mukaan toimeksiantokohtaisesti.
 
-| #   | Yritys                   | Sähköposti                  | Roolit                                  | Osa-alueet |
-| --- | ------------------------ | --------------------------- | --------------------------------------- | ---------- |
-| 1   | **Ambientia**            | invoicing@ambientia.fi \*   | GenAI Solution Architect, AI Consultant | 1, 2       |
-| 2   | **Vincit**               | vincit.com/contact \*       | Software Developer, UI/UX Designer      | 1, 3       |
-| 3   | **Loihde**               | loihde.com/en/contact-us \* | AI Engineer, AI Architect               | 1, 3       |
-| 4   | **Advania Finland**      | advania.fi/en/contact-us \* | DevOps Engineer, AI Architect           | 1, 3       |
-| 5   | **Efima Oyj**            | efima.com/en/contact \*     | Data Engineer, AI Consultant            | 1, 2       |
-| 6   | **Sukkela.io**           | joona@sukkela.io            | AI Consultant, AI Solution Designer     | 2          |
-| 7   | **AImiten**              | sampsa@aimiten.fi           | AI Consultant, AI Solution Designer     | 2          |
-| 8   | **Artific Intelligence** | info@artific.ai             | AI Engineer, Data Engineer              | 1          |
-| 9   | **Nerot.fi**             | nerot.fi \*                 | Software Developer, AI Engineer         | 1, 3       |
-| 10  | **Data.fi**              | atte@data.fi                | AI Consultant, Data Engineer            | 1, 2       |
-| 11  | **Reaktor**              | coop@reaktor.com            | AI Architect, Software Developer        | 1, 3       |
-| 12  | **PHZ Full Stack**       | antti.hatinen@phz.fi        | AI Engineer, Software Developer         | 1, 3       |
+| #   | Yritys                   | Sähköposti                  | Roolit                                                               | Osa-alueet |
+| --- | ------------------------ | --------------------------- | -------------------------------------------------------------------- | ---------- |
+| 1   | **Ambientia**            | invoicing@ambientia.fi \*   | GenAI Solution Architect, AI Consultant                              | 1, 2       |
+| 2   | **Vincit**               | vincit.com/contact \*       | Software Developer, UI/UX Designer                                   | 1, 3       |
+| 3   | **Loihde**               | loihde.com/en/contact-us \* | AI Engineer, AI Architect                                            | 1, 3       |
+| 4   | **Advania Finland**      | advania.fi/en/contact-us \* | DevOps Engineer, AI Architect                                        | 1, 3       |
+| 5   | **Efima Oyj**            | efima.com/en/contact \*     | Data Engineer, AI Consultant                                         | 1, 2       |
+| 6   | **Sukkela.io**           | joona@sukkela.io            | AI Consultant, AI Solution Designer                                  | 2          |
+| 7   | **AImiten**              | sampsa@aimiten.fi           | AI Consultant, AI Solution Designer                                  | 2          |
+| 8   | **Artific Intelligence** | info@artific.ai             | AI Engineer, Data Engineer                                           | 1          |
+| 9   | **Nerot.fi**             | nerot.fi \*                 | Software Developer, AI Engineer                                      | 1, 3       |
+| 10  | **Data.fi**              | atte@data.fi                | AI Consultant, Data Engineer                                         | 1, 2       |
+| 11  | **Reaktor**              | coop@reaktor.com            | AI Architect, Software Developer                                     | 1, 3       |
+| 12  | **PHZ Full Stack**       | antti.hatinen@phz.fi        | AI Engineer, Software Developer                                      | 1, 3       |
+| 13  | **Sarkain Oy**           | (puhelin: 0451237465) \*\*  | AI Architect, AI Engineer, DevOps, Software Developer, AI Consultant | 1, 2, 3    |
+
+_\*\* Sarkain Oy otti itse yhteyttä 9.7.2026 (Kalle Sonninen, puh. 0451237465); sähköpostiosoite
+puuttuu, pyydetty vastineessa. Y-tunnus 3180183-9, Turku, henkilöstömäärä 1 rekisteritietojen mukaan
+— kapasiteetti (oma henkilöstö vs. kumppaniverkosto) selvitettävä ennen sitovaa laskentaa. Ks.
+`ORK160826_SARKAIN_KIRJEENVAIHTO.md`._
 
 _\* Yhteydenotto verkkolomakkeen kautta_
 
