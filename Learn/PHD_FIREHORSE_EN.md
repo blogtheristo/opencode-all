@@ -11,9 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.79
+Version: 3.81
 Sessions & Modifications:
 
+- Version: 3.81 | Tool: Claude Code (Fable 5) | Session: claude/ai-sovereignty-research-9eshgd (merge-integrated) | Date: 07.07.2026 | Changes: Merge-integrated Section 14.39 (AI Sovereignty as an Institutional Precondition: The Nine-Theses Framework and the Weights-Control Argument) from branch `claude/ai-sovereignty-research-9eshgd` (originally drafted 01.07.2026 as §14.34 / Key Contribution #41, renumbered to 14.39 / Key Contribution #46 — the §14.34 slot and KC#41 were independently taken by "The National Aggregation-Effect Framework" on main). Supplies the unifying normative framework for the accumulated sovereignty sections: the optionality definition of sovereignty, three silently-confiscated assets (data/weights/value-orientation), the weights-control argument (sovereignty–alpha identity), the Theses 6–9 governance/epistemic layer, and the Palantir connector model (Appendix H.3) as its operational instance. Companion artefact: docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md.
+- Version: 3.80 | Tool: Claude Code (Fable 5) | Session: claude/industry-world-models-study-Mk2mu (merge-integrated) | Date: 07.07.2026 | Changes: Merge-integrated Section 14.38 (Industry World Models: From Karpathy's GPT-2 to 16-Industry Fit for 55 World Model Factory) from branch `claude/industry-world-models-study-Mk2mu` (originally drafted 21.05.2026 as §14.20, renumbered to 14.38 — the §14.20 slot was independently taken by "AI Pricing Capitulation" on main). Seven subsections: Karpathy foundation signal, five competing world model architectures, LeCun/AMI Labs thesis validation, 16-industry world model specification matrix, modular world model factory architecture, ecosystem convergence signal, and Key Contribution #45. Full study at docs/INDUSTRY_WORLD_MODELS_STUDY.md.
 - Version: 3.79 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added §14.37.4 (Correction: The Projection Must Include the Ex-Ante Verdict) — Hakimi's critique exposed §14.37.2(b)'s shared-vocabulary claim as half-true (projection contained only Article 12 behaviour, no Article 14/KYA authorization); thesis restated: conformance evidence is a projection of operational telemetry iff the projection includes the ex-ante verdict — behaviour alone is observability, not conformance. Strengthens KC #44(b): the verdict attribute class (dws.kya.*) is precisely the KYA EAB/ASB extension mainstream tooling does not yet carry; names the ungated-span fraction as a falsifiable maturity metric for gated agency. Implementation evidence: V3Thesis §10.25.6. Lockstep 3.78→3.79; Learn/ HTML regenerated.
 
 - Version: 3.78 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added §14.37 (The Polyglot Orchestrator Signal: Aspire's Evolution from C#-Centric Preview to Agent-Aware Stack as Convergence Evidence) + Key Contribution #44 — Microsoft Aspire's 2024→2026 evolution read as three convergence signals for sovereign agentic operating models: (a) the agent interface consolidates below the human UI (in-dashboard Copilot UI shipped 9.5-era, removed 13.3 in favour of CLI + MCP — strongest single-vendor validation of the §14.16 skills/CLI paradigm); (b) OpenTelemetry GenAI semantic conventions emerge as a shared vocabulary between development tooling (Aspire GenAI visualizer) and the EU AI Act Article 12 evidence trail (DWS gen_ai.\* persistence, migration 066), converting conformance evidence into a projection of operational telemetry and naming the OTel semconv layer as a KYA EAB/ASB standardisation vehicle; (c) per-workload managed identity as the reported mainstream deployment default (verification pending, flagged per honesty register). Meta-observation: adoption by prerequisite deletion, composing with the §14.18/§14.36 single-box sovereign-edge adoption thesis. Implementation evidence lives in V3Thesis §10.25 per the scope rule. All 4 thesis files bumped 3.77→3.78 in lockstep; footer version lines corrected (were stale at 3.76); Learn/ HTML regenerated.
@@ -3350,6 +3352,159 @@ Across every major Aspire shift the mechanism is the same: delete a prerequisite
 
 The correction is a vocabulary extension rather than a retraction, and it is implemented in the reference stack (V3Thesis §10.25.6): the ex-ante gate verdict travels on the same span as the `gen_ai.*` attributes (`dws.kya.verdict`, `dws.kya.trust_score`, `dws.kya.policy_version`, `dws.kya.gate`), with the deliberate default that verdict-less executions are stamped `ungated` rather than left unmarked — authorization-coverage gaps thereby become enumerable trace queries instead of invisible absences. The restated thesis: **conformance evidence is a projection of operational telemetry if and only if the projection includes the ex-ante verdict; a projection of behaviour alone is observability, not conformance.** This strengthens Key Contribution #44(b): the OTel GenAI semantic conventions remain the standardisation vehicle, but the KYA-relevant extension the EAB/ASB tracks contribute to that vehicle is precisely the verdict attribute class — the part mainstream tooling does not yet carry. The correction also supplies a falsifiable maturity metric for any deployment claiming gated agency: the fraction of execution spans stamped `ungated`.
 
+### 14.38 Industry World Models: From Karpathy's GPT-2 to 16-Industry Fit for 55 World Model Factory
+
+_Added: 21.05.2026 | Source: docs/INDUSTRY_WORLD_MODELS_STUDY.md_
+
+This section documents a market-signal and technical-architecture study of world models as they apply to the 16 EU Fit for 55-regulated industries. The study examines whether Karpathy's GPT-2 reproduction principles — accessible, reproducible, efficient — extend to industry-specific world models, and proposes a modular "world model factory" architecture for the Lifetime World Model (LWM).
+
+#### 14.38.1 The Karpathy Foundation Signal
+
+Andrej Karpathy's progressive GPT-2 reproduction experiments (nanoGPT → build-nanogpt → llm.c) demonstrated that a capable 124M-parameter language model can be reproduced in 90 minutes for $20 using ~4,000 lines of C/CUDA. His November 2025 deprecation of nanoGPT in favour of nanochat signals a shift toward conversational/agentic architectures. His December 2025 year-in-review identifies six paradigm shifts: RLVR as new training paradigm (directly applicable to compliance verification), LLMs as "summoned ghosts" with jagged performance, Claude Code as the first convincing local AI agent (validating localhost-first deployment over cloud), "vibe coding" crossing the programming accessibility threshold, small efficient models enabling local deployment, and "not even 10% of potential realized" — the field remains wide open.
+
+The bridge to world models: Karpathy's Tesla Autopilot experience (2017-2022) was effectively world model development — predicting lane positions, vehicle trajectories, and obstacle behaviour from camera inputs. His "software 2.0" thesis (2017) — specifying objectives rather than algorithms — foreshadowed the world model paradigm where systems learn physics rather than having it programmed.
+
+#### 14.38.2 Five Competing World Model Architectures (2026)
+
+The world model landscape has crystallised into five competing architectural families:
+
+1. **Autoregressive (token-prediction):** Causal by design, proven at scale, rich text integration. Weakness: slow generation, error accumulation. Best for: text-heavy compliance document flows.
+2. **Diffusion (iterative denoising):** High visual fidelity, parallelisable. Weakness: non-causal, high compute. Best for: visual simulation, construction site monitoring, process plant modeling.
+3. **JEPA (Joint Embedding Predictive Architecture):** Energy-efficient latent space prediction, enables planning. LeCun's AMI Labs (€3B valuation, December 2025) champions this approach. V-JEPA 2 (Meta, June 2025) achieves zero-shot robotic planning. Best for: robotics, material logistics, long-horizon planning.
+4. **Hybrid (autoregressive + diffusion):** Combines causality with quality. NVIDIA Cosmos 2.5 instantiates this approach with Predict + Transfer + Reason + RL. Best for: autonomous vehicles, fleet management, multi-modal industrial systems.
+5. **Active inference (Friston-style):** Theoretically grounded in free energy principle, adapts in real-time. Weakness: scaling challenges. Best for: real-time control, energy grid management, process optimisation.
+
+The strict separation between architectures is dissolving: Cosmos 2.5 combines four approaches; CausVid adapts diffusion transformers into autoregressive diffusion transformers with causal attention. The correct question for industrial deployment is "which combination?" not "which architecture?"
+
+#### 14.38.3 The LeCun Thesis and the LWM Validation
+
+LeCun's departure from Meta (December 2025) and founding of AMI Labs at €3B pre-product valuation constitutes a market signal of first order: the researcher who co-invented convolutional neural networks, received the Turing Award, and ran FAIR for 12 years is betting that LLMs cannot solve physical reasoning and that dedicated world models are necessary. His central argument — LLMs require 400,000 years of text to achieve what a child learns from 16,000 hours of visual experience — identifies a structural efficiency gap that no amount of scaling can close.
+
+This validates the LWM V1 design choice: a physics-aware, persistent-memory world model built on NVIDIA Cosmos rather than an LLM extended with tools. The LWM's Temporal Latent Space, sensor fusion (FQ2BAM), and digital twin synchronisation (OpenUSD/Omniverse) align with the direction confirmed by AMI Labs, DeepMind Genie 3, World Labs Marble, and Siemens Digital Twin Composer (CES 2026).
+
+Counter-position acknowledged: hybrid architectures combining LLM linguistic knowledge with dedicated world model modules may prove the practical path. The DWS IQ 6 Brain already implements this — multi-agent orchestration (LLM) + LWM (world model) + Firehorse (execution).
+
+#### 14.38.4 Industry World Model Requirements — The 16-Industry Matrix
+
+A systematic mapping of Fit for 55 regulatory requirements against world model capabilities produces industry-specific specifications. Common requirements across all 16 industries:
+
+- Regulatory constraint layer (hard-encoded EU regulation)
+- Carbon accounting engine (Scope 1/2/3 per GHG Protocol)
+- Audit trail persistence (EU AI Act Article 12)
+- Temporal prediction (emissions trajectory forecasting)
+- Supply chain visibility (embedded carbon tracking)
+- Scenario simulation (10,000+ regulatory scenarios per LWM V1 spec)
+- KYA governance for agentic decisions
+
+Each industry then requires unique physics engines, temporal horizons, sensor fusion modalities, and causal reasoning capabilities. Examples of industry-specific world model differentiators:
+
+| Industry | Unique World Model Characteristic | Primary Architecture |
+|----------|----------------------------------|---------------------|
+| Power & Heat | Merit order effect (renewable displacement) | Hybrid + active inference |
+| Iron & Steel | Green steel transition (BF→EAF→H-DRI) multi-decade path | Diffusion + JEPA |
+| Cement & Lime | Irreducible process emissions (calcination CO₂) | Diffusion + autoregressive |
+| Chemicals | Dual-use carbon (energy source vs product feedstock) | Hybrid |
+| Aviation | Non-CO₂ climate effects (contrails, altitude NOx) | Autoregressive |
+| Maritime | 100% allowance surrender cliff (2026) | JEPA + autoregressive |
+| Road Transport | Multi-modal logistics chain (truck+rail+last-mile) | Hybrid |
+| Construction | 50+ year building lifecycle (EN 15978 A1-D) | Diffusion + JEPA + Cosmos |
+| Agriculture | Bidirectional carbon (emission source + sink) | JEPA + active inference |
+| Waste | Negative emissions (methane capture credits) | Autoregressive + diffusion |
+| Aluminium | 80% Scope 2 (grid carbon intensity dominance) | JEPA + active inference |
+| Pulp & Paper | 50+ year biogenic carbon cycle (forest rotation) | JEPA + autoregressive |
+| Petroleum | Managed decline (optimise present + transform future) | Hybrid |
+| Food & Beverage | Scope 3 dominance (70-90% from agriculture) | Autoregressive + JEPA |
+| Glass & Ceramics | High thermal inertia (continuous furnace campaigns) | Diffusion + autoregressive |
+| Mining | Resource depletion + geological uncertainty + CRM Act | JEPA + diffusion |
+
+Full specifications for each industry are documented in `docs/INDUSTRY_WORLD_MODELS_STUDY.md` §8.
+
+#### 14.38.5 The Modular World Model Factory
+
+The study's core architectural recommendation is a **modular world model factory** rather than 16 monolithic industry models:
+
+```
+Foundation World Model (Cosmos/JEPA, 1-10B params)
+    ├── Shared physics engine (thermodynamics, chemistry, mechanics)
+    ├── Shared regulatory ontology (EU regulations encoded as constraints)
+    ├── Shared carbon accounting (GHG Protocol, Scope 1/2/3)
+    └── Industry adapters (100M-500M params each, fine-tuned)
+         ├── Domain-specific tokenizer + sensor fusion
+         ├── Industry-specific regulations + causal graphs
+         └── KYA governance hooks + Article 12 logging
+```
+
+This architecture is directly enabled by Karpathy's core insight: the training recipe and data quality matter more than architecture size. A 100M-500M parameter industry adapter, trained on curated domain data with proper learning rate schedules and gradient accumulation, can provide industry-competitive world modeling at edge-deployable scale (GN-100 class, per §14.18).
+
+Estimated cost per industry adapter: €10K-€50K training, 1-4 weeks, deployable on sovereign edge hardware. The 16-industry expansion follows a phased rollout: Construction (2026, LWM V1) → Steel/Cement/Chemicals (2027, CBAM urgency) → Transport (2028, ETS/ETS2) → Agriculture/Energy/Aluminium (2029, ESR) → Remaining 6 industries (2030, full Fit for 55 coverage).
+
+#### 14.38.6 Ecosystem Convergence Signal (2026)
+
+Five concurrent market events validate the industry world model thesis:
+
+1. **AMI Labs** (LeCun, €3B valuation) — JEPA architecture commercialisation for physics understanding
+2. **Siemens Digital Twin Composer** (CES 2026) — industrial digital twins at scale via NVIDIA Omniverse, with PepsiCo showing 20% throughput gains
+3. **NVIDIA Cosmos 2.5** — open-weight world foundation models downloaded 2M+ times, purpose-built for physical AI
+4. **DeepMind Genie 3** — real-time interactive 3D world generation at 24fps
+5. **World Labs Marble** (Fei-Fei Li) — text-to-navigable-3D-world generation
+
+These represent independent bets by the world's top AI institutions that world models — not LLMs alone — are the path to physical AI. The DWS IQ 6 / LWM positioning at the intersection of world models and EU regulatory compliance is validated as the correct market position.
+
+#### 14.38.7 Research Contribution
+
+**Key Contribution #45 — Industry World Model Factory Architecture and 16-Industry Fit for 55 Specification Matrix:** The contribution is a systematic mapping of five competing world model architectures (autoregressive, diffusion, JEPA, hybrid, active inference) against the specific physics, temporal, spatial, sensor, and regulatory requirements of each of the 16 EU Fit for 55-regulated industries, producing the first industry-specific world model specification matrix. The study demonstrates that no single architecture serves all industries and proposes a modular factory architecture (shared foundation + lightweight industry adapters at GPT-2-class parameter counts), validated by the Karpathy reproducibility thesis and the 2026 ecosystem convergence (AMI Labs, Cosmos 2.5, Genie 3, Marble, Digital Twin Composer). The contribution positions the Lifetime World Model as the regulatory-compliant instantiation of this factory pattern, with phased 16-industry expansion from construction (2026) to full Fit for 55 coverage (2030). This contribution is at the 3-7 year horizon per §1.3 because it depends on: AMI Labs delivering commercial JEPA; NVIDIA Cosmos maturing industry adapters; world model evaluation standards emerging (no equivalent of BLEU/ROUGE for physics prediction exists today); and the modular factory pattern being validated at multi-industry scale on the Firehorse testbed.
+
+### 14.39 AI Sovereignty as an Institutional Precondition: The Nine-Theses Framework and the Weights-Control Argument
+
+_Added: 01.07.2026 | Companion artefact: docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md | PhD scope per §1.3 (3–7 year horizon, scientific framing) | Composes with §14.18 (sovereign edge), §14.20 (CSB cost-surface), §14.23 (three-pillar sovereignty), §14.24 (capital-efficiency), §14.25/§14.26 (three-/four-capital), Appendix H.3 (Palantir AIP connector)._
+
+The sovereignty sections accumulated across this thesis (§14.18, §14.20–§14.27, §14.29–§14.33) are architecturally specific but lack a unifying normative statement of _why_ sovereignty is the deciding institutional variable rather than one desirable property among many. This section supplies that statement as a nine-theses framework and derives its central formal claim — the **weights-control argument** — which subsumes the prior sovereignty contributions under a single optionality thesis. The framework is normative-scientific (it states what an institution _ought_ to control and why the failure mode is terminal), and per the §1.4 master-versus-PhD scope rule it lives in the doctoral thesis; the master thesis receives a lockstep-only version-bump entry.
+
+#### 14.39.1 The optionality definition of sovereignty
+
+Existing definitions of AI sovereignty are jurisdictional (data residency), technical (owned compute), or operational (human-in-the-loop control). This section proposes a definition that subsumes all three: **an institution's AI sovereignty is the measure of the future choice set it can still exercise without a third party's permission.** Under this definition, relinquishing sovereignty is not the addition of a dependency but the _transfer of the choice set itself_ to a vendor who holds it as a call option — exercisable precisely at renewal, at scale, or under competitive pressure, when the institution can least afford the strike (Thesis 1). This reframes the §14.23 three-pillar model (Data / Technology / Operational) as a statement about optionality preservation rather than about protectionism, and makes sovereignty _measurable_ as the cardinality of the permission-free choice set.
+
+#### 14.39.2 The three confiscated assets
+
+The framework identifies three assets through which vendor-controlled AI silently confiscates the choice set, each mapped to an existing contribution:
+
+| Asset                 | Confiscation mechanism                                                                                                                                                  | Thesis | Prior contribution                                 |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------------------- |
+| **Data**              | Proprietary data is simultaneously the record of winning plays and the means of production for new ones; ingesting it into a vendor pipeline arms competitors with both | 2      | §14.25 (Control Room capital)                      |
+| **Weights**           | Weights are institutional knowledge distilled to a portable artifact; vendor control of weights migrates the institution's compounding engine (its alpha) upstream      | 4      | §14.1 (per-industry LWM), §14.18 (owned substrate) |
+| **Value orientation** | Token-throughput optimisation ("tokenmaxxing") installs a vendor-chosen objective function, incentivising disposable scripts over durable capital                       | 3      | §14.20 (CSB cost-surface), Rule 6                  |
+
+The unifying observation is that all three confiscations _feel like services rendered_ rather than assets surrendered — the artifact is rented-seeming even as the crown jewels transfer. This perceptual asymmetry is why the failure mode is slow, quiet, and total, and why it must be resisted architecturally rather than contractually.
+
+#### 14.39.3 The weights-control argument (central formal claim)
+
+The load-bearing claim of the framework is **Thesis 5: there is no contradiction between sovereignty and alpha.** The standard framing treats sovereignty as a capability tax — a cost paid for compliance that an unconstrained competitor avoids. The weights-control argument refutes this:
+
+> Let an institution's alpha be the compounding return on its accumulated proprietary judgment. That judgment is materialised as data (raw), weights (distilled), and operating loop (applied). Compounding requires that each cycle's output re-enter the institution's own substrate as the next cycle's input. Vendor control of any of the three breaks the re-entry: the increment accrues to the vendor's model, which serves the field. Therefore the architecture that maximally preserves sovereignty (institution owns data, weights, loop) is _identical_ to the architecture that maximally compounds alpha. Sovereignty and alpha are not points on a frontier trade-off; they are the same axis.
+
+The empirical support is the §14.24 capital-efficiency finding: a coalition capital advantage of up to 23× buys only a ~2.7% frontier-capability margin when the disadvantaged party substitutes owned substrate and vertical integration for rented capability. If sovereignty were a capability tax, the owned-substrate operating model could not stay near the frontier at a 23× capital disadvantage; that it does is the falsification of the trade-off framing and the confirmation of the same-axis claim.
+
+#### 14.39.4 The false-sovereignty and epistemic predicates
+
+Four theses (6–9) form the governance layer that prevents the framework from degrading into symbolism:
+
+- **Thesis 6 (anti-politicisation).** Techno-politicisation produces _false_ sovereignty — the flag on the box changes while the lock-in does not. The adversary benefits, because a politically-motivated buyer is predictable and capturable, and the cost is highest "on the battlefield in the West" where symbolic procurement fails in the field. The architectural response is to make every sovereignty claim a **testable predicate** (ASB/EAB/CSB/SIB, §14.19–§14.21; per-jurisdiction triple, §14.23) rather than a badge.
+- **Thesis 7 (proximity credential).** Politics-driven technical choice optimises for the persuasive over the correct — uncorrelated quantities whose gap compounds. Remedy: weight the judgment of those closest to the failure surface (operationalised as Rule 5, Rule 7).
+- **Thesis 8 (existential teachers).** Institutions under genuine existential pressure select technology by what works, not by preference; their delivery-proven practices (§14.21/§14.24) are the correct reference class.
+- **Thesis 9 (track-record epistemics).** A record of correctness is the only reliable signal for future correctness; judging a claim by affinity to its source is category error. This is `DWS_TRUTH_STANDARD` discipline applied to sovereignty assertions.
+
+Theses 6–9 are jointly the claim that sovereignty must be _sourced and checkable_, not _asserted and liked_ — the epistemic complement to the architectural claim of Theses 1–5.
+
+#### 14.39.5 Composition with the Palantir connector model
+
+The framework sharpens rather than contradicts the Appendix H.3 connector-not-competitor position. Palantir's public argument that institutions must own their data and operational advantage _is_ Theses 1, 2, and 4; the DWS extension is the layer below the agent's operating system (Firecracker MicroVM isolation, <125 ms kill, Article 12 evidentiary logging, exportable single-tenant EU-resident weights). The three-point reply developed in the companion field note formalises this: (1) agreement on thesis with the sovereign boundary one layer lower — a partnership, not a conflict; (2) sovereignty as a testable conformance triple (where DWS supplies the checkable predicate Palantir's distribution and ontology assert); (3) the compound-ownership position (customer owns ontology _and_ weights/residency/audit trail) as a strictly stronger sovereign outcome, defensible against the model-provider services tier (§14.27) precisely because neither party is that vendor. This is the operational form of Thesis 5: two owners of adjacent layers compounding a customer's alpha with no party holding the customer's fate.
+
+The framework's _defensibility_ — as distinct from its _normativity_ — is operationalised in the companion field note as a **nineteen-moat stack** under the master frame **sovereignty vs. interdependence** (every moat a place where owning the lever beats depending on a counterparty for it), opened by the founder's three primary moats (local-jurisdiction nativeness; sovereignty-as-market-segmentation, scoped locally; and the full "sovereignty exit" cost that interdependence _wins_ — the total in-house-reconstitution bill, not merely the licence — removed by building _and maintaining_ one's own libraries) and completed by sixteen further moats each mapped to a documented section (weights ownership §14.1/§14.18; data residency §14.25; substrate integrity §14.21; court-defensible evidence §14.12; testable conformance vocabulary §14.19–§14.21/§14.33; capital efficiency §14.24; vertical domain knowledge §14.1/§14.27; regulatory depth; linguistic provenance §14.30; connector-not-competitor Appendix H; compounding alpha §14.25/§14.26; operational maturity §14.25; sovereign upstream §14.31; post-quantum readiness §14.23; track-record epistemics; and standardization ownership §14.22). The moats are non-independent and compound as a stack rather than a feature list — the reason the sovereign operating model is a position, not a checklist.
+
+#### 14.39.6 Research Contribution
+
+**Key Contribution #46 — AI Sovereignty as an Optionality Precondition and the Weights-Control Argument (Sovereignty–Alpha Identity):** This contribution supplies the unifying normative framework the accumulated sovereignty sections (§14.18, §14.20–§14.27, §14.29–§14.33) lacked. It (1) redefines AI sovereignty as the measure of an institution's permission-free future choice set, making sovereignty measurable and reframing the §14.23 three-pillar model as optionality preservation rather than protectionism; (2) identifies three silently-confiscated assets — data, weights, value orientation (Theses 2, 4, 3) — each mapped to a prior contribution (§14.25, §14.1/§14.18, §14.20), and names the perceptual asymmetry (assets surrendered feel like services rendered) that makes the failure mode terminal; (3) states and defends the **weights-control argument** — the formal claim that the sovereignty-maximising architecture and the alpha-maximising architecture are identical because compounding requires each cycle's output to re-enter owned substrate — with the §14.24 capital-efficiency finding (23× capital advantage → ~2.7% frontier margin) as its falsification-surviving empirical support; (4) adds the governance layer (Theses 6–9: anti-politicisation, proximity credential, existential teachers, track-record epistemics) that keeps sovereignty a _sourced and checkable_ predicate rather than an asserted badge, operationalised through the ASB/EAB/CSB/SIB conformance vocabulary and `DWS_TRUTH_STANDARD`; and (5) formalises the Palantir connector model (Appendix H.3) as the operational instance of the sovereignty–alpha identity — two owners of adjacent layers compounding a customer's alpha with no party holding its fate. Positioned at the 3–7 year horizon (§1.3) because the framework's falsifiable core — that owner operating models out-compound vendor-locked competitors over that horizon — resolves only across it. _Companion artefact: docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md._
+
 ---
 
 **Key Contributions:**
@@ -3357,4 +3512,4 @@ The correction is a vocabulary extension rather than a retraction, and it is imp
 
 _Document generated using Firehorse Operations Model with Claude Code_
 _Last updated: 07.07.2026_
-_Version: 3.79 (unified with Metropolia V3Thesis; lockstep from this point)_
+_Version: 3.81 (unified with Metropolia V3Thesis; lockstep from this point)_
