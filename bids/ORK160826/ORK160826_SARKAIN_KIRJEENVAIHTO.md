@@ -143,6 +143,24 @@ kuin Sarkain lasketaan mukaan sitovaan kapasiteettilaskelmaan tarjouksessa.
 
 ---
 
+## 4. Tilannepäivitys — 10.7.2026
+
+**Ei vastausta Sarkainilta.** Vastine lähetetty 9.7.2026; kiinnostuksenilmaisujen määräaika on
+huomenna, **11.7.2026** — enää yksi päivä aikaa. Yhtään neljästä pyydetystä kohdasta (roolit,
+alustava hinta, kapasiteetti/toimitustapa, CV:t) tai sähköpostiosoitetta ei ole vielä saatu, joten
+NDA/DPA-lähetys ei ole vielä voinut käynnistyä.
+
+**Riski:** jos vastausta ei tule ennen 11.7., Sarkainia ei voida ottaa mukaan sitovaan
+kapasiteettilaskelmaan tässä tarjouskierroksessa — kartoitusrivi (`ORK160826_ALIHANKINTALOMAKE.md`
+Ryhmä B, rivi 13) jää auki, mutta tarjous ei voi nojata vahvistamattomaan alihankkijaan.
+
+**Suositus Ristolle:** koska Kalle tavoitti alun perin puhelimitse, harkitse lyhyttä
+puhelinsoittoa/tekstiviestiä tänään — sähköposti saattaa olla juuttunut roskapostiin tai
+sähköpostiosoitetta ei koskaan saatu vahvistettua. Jos vastausta ei tule 11.7. mennessä, Sarkain
+jää kartoitusvaiheeseen mahdollista myöhempää tilausta/optiokautta varten, ei tähän tarjoukseen.
+
+---
+
 ## Yhteenveto — mitä tästä seuraa
 
 - **Tilanne:** Sarkain Oy (Kalle Sonninen) otti yhteyttä puhelimitse epäonnistuneen soittoyrityksen
