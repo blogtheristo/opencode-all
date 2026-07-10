@@ -25,7 +25,8 @@
 
 ## Next steps
 
-- If DWS ever wants exclusive/trademark rights to any variant of this phrase, run an actual USPTO/EUIPO TSDR search + counsel review — this audit was a web-search sweep only (documented gap in the audit §5).
+- User said "do it" re: the flagged trademark-search gap. Attempted direct queries against USPTO tmsearch/TSDR, EUIPO eSearch, WIPO Global Brand DB, TMview, and 4 commercial aggregators — **all returned HTTP 403** (JS-walled/bot-protected, unreachable by this tool environment). Documented as an honest attempt, not a completed clearance, in audit v1.1 §2.5/§5.1. Also surfaced: "SOVEREIGN AI" itself is a registered USPTO mark held by ioXt, LLC (serial 99344034) — filing details unreachable.
+- If DWS ever wants exclusive/trademark rights to any variant of this phrase, a real clearance still requires a human running the search in-browser, a paid clearance API/service, or IP counsel — none reachable from this environment.
 - Otherwise none required — the thesis and tweet copy remain usable as positioning language, just not as a claimed DWS coinage.
 
 ## Blockers
