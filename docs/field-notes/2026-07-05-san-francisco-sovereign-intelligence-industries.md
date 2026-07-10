@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: 2026-07-05-san-francisco-sovereign-intelligence-industries.md
-Version: 1.1
+Version: 1.2
 Last-Updated: 2026-07-09
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code (claude-sonnet-5)
@@ -14,20 +14,30 @@ Branch: claude/sovereign-intelligence-industries-ypyo41
 Owner: risto.paarni@lifetime.fi
 Changes (v1.1, 2026-07-09, session claude/dws-sovereign-intelligence-wwho6h):
          Promoted per this file's own action trigger (§3) — "Sovereign
-         Intelligence (SI)" is now registered as a canonical positioning
-         thesis in DWS_MARKET_RESEARCH_STANDARD.md §8.3 and
-         DWS_TRUTH_STANDARD.md row 27. This file remains the source thesis
-         (tweet copy, internal memo, hero text options); the standards are
-         now the canonical pointer for anyone asking "what does DWS mean by
-         Sovereign Intelligence."
+         Intelligence (SI)" registered as a positioning thesis in
+         DWS_MARKET_RESEARCH_STANDARD.md §8.3 and DWS_TRUTH_STANDARD.md
+         row 27.
+Changes (v1.2, 2026-07-09, same session, same-day coinability/GTM audit):
+         See docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md.
+         The "(SI)" abbreviation and "coined/canonical term" framing from
+         v1.1 were WRONG and corrected in both standards: "SI" collides
+         with the pre-existing "NVIDIA System Integrator (SI)" usage in
+         DWS_MARKET_RESEARCH_STANDARD.md §8.1, and Sovereign Intelligence,
+         LLC (sovereign.ai) has held the exact name in an adjacent
+         AI-intelligence vertical since ~2013 (plus 2026 competitors
+         StirlingX/Octostar use near-identical phrasing). The thesis and
+         tweet copy below remain valid and usable — only the "DWS coined
+         this / abbreviate as SI" framing is retracted. Spell out
+         "Sovereign Intelligence" in full; never abbreviate.
 -->
 
 # "What Happens in San Francisco Stays in San Francisco" — Therefore Sovereign Intelligence for Industries
 
-- **Date:** 2026-07-05 (promoted to canon 2026-07-09 — see `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 / `DWS_TRUTH_STANDARD.md` row 27)
+- **Date:** 2026-07-05 (positioned as a market category entry 2026-07-09 — see `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 / `DWS_TRUTH_STANDARD.md` row 27; audited same day, see `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md`)
 - **Author:** Risto Anton Päärni (risto.paarni@lifetime.fi)
-- **Classification:** Positioning thesis — source draft for the canonical §8.3 entry
-- **Still draft for public posting** — not for any public-site folder (`dws10.com/`, `dws6.com/`, `onelifetime.world/`, `lifetime.fi/`, or their `landing-pages/` mirrors), per `CLAUDE.md` Non-Negotiable Rule 5. Route through `DWS_BRAND_STANDARD.md` and run `/truth-check` before any public posting — promotion to canon authorizes internal/investor use only.
+- **Classification:** Positioning thesis — source draft for the §8.3 entry
+- **Not a DWS-exclusive term** — do not present "Sovereign Intelligence" as coined by DWS or abbreviate it "SI" (see audit). The thesis sentence itself remains DWS's distinctive asset.
+- **Still draft for public posting** — not for any public-site folder (`dws10.com/`, `dws6.com/`, `onelifetime.world/`, `lifetime.fi/`, or their `landing-pages/` mirrors), per `CLAUDE.md` Non-Negotiable Rule 5. Route through `DWS_BRAND_STANDARD.md` and run `/truth-check` before any public posting.
 
 ## Ontology Tags
 
