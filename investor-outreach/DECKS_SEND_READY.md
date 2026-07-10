@@ -12,6 +12,7 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Date: 10.07.2026 | Changes: Founder-approved propagation of "Sovereign Industrial Intelligence Outcomes" (`DWS_TRUTH_STANDARD.md` row 27) into the Anchors line and the Perissich/Budday opening lines — the two sections already closest to this framing. Other 5 sections left as-is (already multi-domain, non-climate-only, no mandate-wall conflict). No tailoring meta added — Export Hygiene Rule (§2B) preserved.
 - Version: 1.2 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Corrected stale CSRD figure to post-Omnibus ("fewer than 5,000 large EU companies, >1,000 employees" + value-chain pull) per DWS_TRUTH_STANDARD v2.5 §2C; added Raphael Budday (Venture Stars) deck; dropped weak "1,030+ PRs" metric across decks; de-duplicated the technical-hire line. Now 6 investors.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Clean, send-ready per-investor decks (Arthur, Wilke, Salim, Maciej) — ZERO tailoring meta, safe to paste verbatim. The internal emphasize/HIDE strategy lives separately in DECKS_TAILORED.md. Created after a working draft with margin notes was sent to Thomas Wilke by mistake.
 
@@ -21,7 +22,7 @@ Sessions & Modifications:
 
 **RULE:** these are investor-facing. **No tailoring meta, no "tailored for", no parenthetical strategy notes, no HIDE flags.** The strategy/emphasis logic lives ONLY in `DECKS_TAILORED.md` (internal). Never paste from the internal sheet to an investor.
 
-Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, partner-track Lifetime AB) + governed agent workflows + Cubet Techno Labs partner + funded senior technical search · 6 customers / 100% retention · €650K SAFE @ €3.8M cap.
+Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, partner-track Lifetime AB) + governed agent workflows + Cubet Techno Labs partner + funded senior technical search · 6 customers / 100% retention · €650K SAFE @ €3.8M cap · **Sovereign Industrial Intelligence Outcomes** — DWS's canonical positioning (`DWS_TRUTH_STANDARD.md` row 27): governed agents delivering Compliance Intelligence on sovereign infrastructure, where Compliance Intelligence spans climate (CBAM/CSRD/ETS), EU AI Act Art. 12, NIS2, GDPR, and — Aegis tier only — CER Directive/dual-use export control. Climate is one part, never the whole; do not lead with a climate-only frame in any section, including where a mandate wall already forbids it.
 
 ---
 
@@ -58,7 +59,7 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 
 ## ARTHUR PERISSICH — Plug & Play
 
-1. The EU-sovereign compliance layer for regulated and dual-use industry — CBAM/CSRD/EU-AI-Act obligations turned into audit-ready, court-defensible filings, governed on sovereign infrastructure.
+1. Sovereign Industrial Intelligence Outcomes for regulated and dual-use industry — governed agents turn CBAM/CSRD/EU-AI-Act/NIS2 compliance obligations into audit-ready, court-defensible filings on sovereign infrastructure.
 2. Why now: EU industrial compliance is moving from voluntary ESG to mandatory sovereign infrastructure. For dual-use and defense-adjacent manufacturing, the data and autonomy layer must be under EU control.
 3. Software-native, AI-native, vertically integrated — the model that is already displacing incumbents in defense. DWS is the EU-sovereign expression of it.
 4. What we sell: the governed outcome layer — audit-ready filings with Article 12 + 26 lineage — not tooling.
@@ -111,7 +112,7 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 
 ## RAPHAEL BUDDAY — Venture Stars (Munich)
 
-1. Sovereign industrial AI for EU compliance — governed agent workflows + edge inference that turn regulatory obligations into audit-ready, court-defensible filings, with defensible industrial moats.
+1. Sovereign Industrial Intelligence Outcomes for EU compliance — governed agent workflows + edge inference that turn regulatory obligations into audit-ready, court-defensible filings, with defensible industrial moats.
 2. Why now: mandatory CBAM/CSRD/EPBD across industrial Europe — recurring, penalty-bearing demand. The industrial vertical that owns the ERP→filing path and runs sovereign + at the edge compounds a moat every cycle.
 3. Defensible industrial moats: regulatory lock-in (auditor acceptance + reporting-cycle switching) · Nordic/DACH ERP connectors (SAP/IFS/Dynamics/Visma/Monitor) · CIDM patent (filed Dec 2024) · proprietary per-industry Lifetime World Model. 19 moats across 4 tiers; €3M+ and 24–36 months to replicate.
 4. Edge / physical AI: NVIDIA Jetson, sub-100ms, 7–15W, offline-capable — real-time compliance scoring on the plant floor, not overnight batch. Hardware-software co-design.
