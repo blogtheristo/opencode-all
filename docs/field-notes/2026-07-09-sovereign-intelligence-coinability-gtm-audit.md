@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder approval to propagate: _"Investor yes, sales outreach yes. Update compliance hub, legal hub when necessary."_ Added §6 (Propagation Log) documenting exactly which buyer/investor-facing files were touched and which were judged not necessary, with reasoning for each.
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder clarification (Risto): _"And compliance intelligence is a part of that including climate compliance (eu)."_ Added **Compliance Intelligence** as an explicit outcome-category layer sitting under "Sovereign Industrial Intelligence Outcomes" — Climate Compliance (EU: Fit for 55/ETS/CBAM/CSRD) is one confirmed part of it, not the whole; other already-documented parts are EU AI Act Article 12, GDPR, NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`), and CER Directive/EU CRM Act/dual-use export control at the Aegis tier (`Store/PRODUCT_AEGIS.md`). `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 (v1.8), `DWS_TRUTH_STANDARD.md` row 27 (v3.3), and `DWS_BRAND_STANDARD.md` §22 (v3.8) updated to match — the §22 pitch line now carries an explicit guardrail against narrowing to "climate compliance only" in copy.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder confirmation (Risto): _"Yes and this is important! We do Sovereign Industrial Intelligence outcomes."_ Retitled this note and elevated "Sovereign Industrial Intelligence outcomes" to the flagship phrase throughout — matches the recommendation already reached in v1.2 §3.4/§4, now founder-ratified rather than proposed. Added the new `DWS_BRAND_STANDARD.md` §22 pitch line (EN + draft FI) as a cross-reference. `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 (v1.7) and `DWS_TRUTH_STANDARD.md` row 27 (v3.2) updated to match.
 - Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder correction (Risto) to this audit's own §3.1/§4.1 recommendation. Added §3.4 (the layer model): "sovereign AI" is an infrastructure/compute category (NVIDIA/IBM/hyperscalers) DWS does not compete in, so "reposition within the sovereign AI category" was the wrong advice — not because the coinability findings in §2 changed, but because the target category was wrong. DWS's real category is the governed outcome layer it already claims (Positioning Pillar 2, "Agent Outcome Factory"); "Sovereign Intelligence" names the outcome that layer produces when running on sovereign infrastructure (Pillar 1); the DWS Compliance Outcome Product Line (Climate/Industrial Intelligence) is the shipped instantiation. This SHARPENS §2's collision risk rather than resolving it — Sovereign Intelligence LLC / StirlingX / Octostar are now confirmed same-layer peers, not distant infra vendors. `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 (v1.6) and `DWS_TRUTH_STANDARD.md` row 27 (v3.1) updated to match.
@@ -104,7 +105,29 @@ Direct queries were attempted against every authoritative and commercial tradema
 
 - No search was run for Nordic/Finnish national trademark registers (PRH) specifically, despite Lifetime Oy being Finland-domiciled — same blocker applies; flagged for whoever runs the eventual real clearance search.
 
-## 6. Sources
+## 6. Propagation Log (10.07.2026, founder-approved: "Investor yes, sales outreach yes. Update compliance hub, legal hub when necessary.")
+
+**Investor decks:**
+
+- `investor-outreach/DECKS_SEND_READY.md` v1.3 — Anchors line + Perissich/Budday opening lines updated to the flagship phrase. Other 5 sections (Wilke, Hard2beat, Salim, Malte, Breega) left as-is — already multi-domain, non-climate-only, and Malte carries an explicit "no climate framing" mandate wall that the new phrase doesn't need to touch to stay compliant with.
+- `investor-outreach/DECKS_TAILORED.md` v1.2 — Anchors line + shared-spine S4 updated; explicitly reconciled with Malte's mandate wall in the changelog rather than silently assuming compatibility.
+
+**Sales outreach:**
+
+- `sales-outreach/PROCUREMENT_BRIEFS_TAILORED.md` v1.1 — shared-base S2 ("Outcome we deliver") updated. Content was already multi-domain (Art. 12, NIS2, GDPR alongside CBAM/CSRD/ETS); this added the named hierarchy, not new claims. Per-buyer sections (Outokumpu, Kemira, Nokia, Defence, NCC) left untouched — buyer-specific obligations already lead correctly per the Ari test, and forcing the phrase into each would be marketing-poetry risk (Pillar 3).
+
+**Public site — Compliance Hub (`dws10.com/compliance/index.html` + `landing-pages/dws10-com/compliance/index.html`, synced):**
+
+- Hero tagline/subtitle updated: leads with "Sovereign Industrial Intelligence Outcomes — Compliance Intelligence for EU-regulated industry," and the subtitle now states explicitly that climate compliance (CSRD/ETS2/CBAM) is one part, not the whole, naming EU AI Act/GDPR/NIS2 as running through the same pipeline and pointing to Aegis for CER Directive/export-control coverage. No new regulatory-coverage claims were added — the 7-regulation list was already live; this only named the hierarchy over it.
+- `fi/de/fr/sv` variants (82-line lightweight stubs, not full mirrors of the EN hero) were **not** touched — they don't contain the specific sentences edited, already list the same regulations without a climate-only framing problem, and pushing an un-reviewed FI/DE/FR/SV translation of a new phrase onto a live page carries more risk than leaving them as-is. Flagged, not silently skipped.
+
+**Public site — Legal Hub (`onelifetime.world/legal/index.html` + `landing-pages/onelifetime-world/legal/index.html`, synced):**
+
+- One sentence (the page's only positioning-adjacent copy — everything else is legal-document links) updated to name the phrase and add NIS2 to the existing Fit for 55/EU AI Act/GDPR list. This page was borderline "not necessary" (it's a legal-links index, already multi-domain) but the touch was low-risk (one sentence, no translation, no new claims) so it was made for cross-page consistency.
+
+**Still open, unchanged by this propagation:** the trademark-collision risk from §2 and the blocked clearance search from §5.1. Public-site edits above are live on this feature branch only — `dws10.com`/`onelifetime.world` auto-publish via Cloudflare Pages on merge to main, so a human review before merging is the actual gate, not a formality.
+
+## 7. Sources
 
 - [sovereign.ai | Aurora](https://www.sovereign.ai/) — Sovereign Intelligence, LLC product site.
 - [sovereign.ai | About Us](https://www.sovereign.ai/team) — company founding/team details.

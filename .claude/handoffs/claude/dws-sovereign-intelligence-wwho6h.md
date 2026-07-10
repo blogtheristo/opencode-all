@@ -4,7 +4,7 @@
 
 "Introducing DWS Sovereign Intelligence (SI)." → "Audit term coinability and GTM value." → founder correction on category → founder ratification of the final flagship phrase.
 
-## State — DONE (five rounds, by design — Rule 12 fail loud, corrections layered not hidden)
+## State — DONE (six rounds, by design — Rule 12 fail loud, corrections layered not hidden)
 
 **Round 1** — Promoted "Sovereign Intelligence (SI)" to a positioning thesis (`DWS_MARKET_RESEARCH_STANDARD.md` §8.3, `DWS_TRUTH_STANDARD.md` row 27).
 
@@ -22,6 +22,16 @@
 - `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` v1.3 — retitled, §4 recommendation marked founder-ratified (not just proposed).
 
 **Round 5 (founder clarification)** — Risto: _"And compliance intelligence is a part of that including climate compliance (eu)."_ Added **Compliance Intelligence** as an explicit outcome-category layer sitting under Sovereign Industrial Intelligence Outcomes. Verified against already-shipped product docs (not invented): `Store/PRODUCT_CLIMATE_INTELLIGENCE.md` already lists Fit for 55/ETS/CBAM/CSRD (Climate Compliance) alongside EU AI Act Article 12, GDPR, and NIS2 under the same ComplianceAgent; `Store/PRODUCT_AEGIS.md` adds CER Directive, EU CRM Act, and dual-use export control at the Aegis tier. Climate Compliance (EU) is registered as one confirmed part of Compliance Intelligence, not the whole — and `DWS_BRAND_STANDARD.md` §22's pitch line now carries an explicit guardrail against narrowing the phrase to "climate compliance only" in copy. Files: `DWS_MARKET_RESEARCH_STANDARD.md` v1.8, `DWS_TRUTH_STANDARD.md` v3.3, `DWS_BRAND_STANDARD.md` v3.8, audit note v1.4.
+
+**Round 6 (founder approval to propagate)** — Risto: _"Investor yes, sales outreach yes. Update compliance hub, legal hub when necessary."_ Executed with a research pass first (Explore agent surveyed all target files read-only before any edit), then judgment calls on what "necessary" meant per file:
+
+- `investor-outreach/DECKS_SEND_READY.md` v1.3 + `DECKS_TAILORED.md` v1.2 — Anchors lines + the two sections (Perissich, Budday) whose framing was already closest to the new phrase. Left the other 5 investor sections untouched — already compatible, and Malte's explicit "no climate framing" mandate wall was checked and confirmed non-conflicting (the phrase doesn't mention climate) rather than assumed safe.
+- `sales-outreach/PROCUREMENT_BRIEFS_TAILORED.md` v1.1 — shared-base S2 only; per-buyer sections (Outokumpu, Kemira, Nokia, Defence, NCC) left alone, already lead with buyer obligation per the Ari test.
+- `dws10.com/compliance/index.html` + `landing-pages/dws10-com/compliance/index.html` (public, synced) — hero tagline/subtitle now leads with the phrase and states climate is one part, not the whole, of Compliance Intelligence. FI/DE/FR/SV variants (short stubs, don't contain the edited sentences) deliberately left untouched — flagged, not silently skipped.
+- `onelifetime.world/legal/index.html` + `landing-pages/onelifetime-world/legal/index.html` (public, synced) — one sentence (the page's only positioning-adjacent copy) updated; page is a legal-links index, judged low-priority-but-safe rather than skipped.
+- Full log with reasoning per file: `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` §6. `DWS_TRUTH_STANDARD.md` v3.3→3.4 cross-references it from row 27.
+
+**Important:** the two public-site edits (Compliance Hub, Legal Hub) are live on this feature branch only. `dws10.com`/`onelifetime.world` auto-publish via Cloudflare Pages **on merge to main** — so nothing is actually public yet, but a human should review those two files before merging given the trademark-clearance gap is still open (Round 2b).
 
 `node scripts/lint-truth-claims.mjs`: 0 fail (35 pre-existing warns, unrelated) — checked after every round including this one.
 
