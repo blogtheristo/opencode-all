@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.7
+# DWS Gamma Brand Standard v3.8
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.7
+Version: 3.8
 
 Sessions & Modifications:
 
+- Version: 3.8 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder clarification (Risto: "compliance intelligence is a part of that including climate compliance (eu)") applied to §22's "Sovereign Industrial Intelligence Outcomes" entry — named **Compliance Intelligence** as the outcome category, with Climate Compliance (EU: Fit for 55/ETS/CBAM/CSRD) as one confirmed part alongside EU AI Act Article 12, GDPR, NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`) and CER Directive/EU CRM Act/dual-use export control at the Aegis tier. Added explicit guardrail: do not narrow this pitch line to climate-only in copy.
 - Version: 3.7 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Added §22 "Sovereign Industrial Intelligence Outcomes" pitch line (EN + draft FI) — founder-confirmed flagship phrase ("this is important! We do Sovereign Industrial Intelligence outcomes"), synthesizing the existing Three-Layer National Strategy (Layer 3 = DWS operates the intelligence) with the CLOUD Act jurisdiction thesis. Cross-referenced to `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 and `DWS_TRUTH_STANDARD.md` row 27; carries forward the coinability audit's caution (no "SI" abbreviation, no bare "Sovereign Intelligence" exclusivity claim, FI line marked draft pending native review).
 - Version: 3.6 | Tool: Claude Code | Session: claude/outreach-agents-spark-7n0fgy | Date: 15.06.2026 | Changes: Added §23 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules (≤50 chars), approved CTAs, banned phrases, LinkedIn voice (≤300 chars connection note), sender spec (risto@onelifetime.world / "Risto at DWS"). Updated Table of Contents. Governs outreach-agents skill and OutreachMessageCrafterAgent. Bumped version 3.5 → 3.6; added as new §24 (4P Capital Classes already holds §23 on main).
 - Version: 3.5 | Tool: Claude Code | Session: claude/dws10-offensive-positioning-6kdf2c | Date: 10.06.2026 (merged 06.07.2026; renumbered from 3.3 at merge — 3.3/3.4 were taken on main) | Changes: Added §22 DWS10 Offensive / Commercial-Edge pitch block — reframes the defensive fines-avoidance line into a commercial-edge / tender-velocity frame (EN+FI lockstep: hero opener, declarative hero H1, investor line), aligned to the canonical "compliance can freeze or release money" frame. Guardrails recorded: no "replace your people" (Ethics Principle band §6), no uncapped-liability claim, competitors implicit (§0). Source: docs/field-notes/2026-06-10-offensive-positioning-dws10.md.
@@ -1984,7 +1985,7 @@ Canonical framing derived from Finnish national data infrastructure strategy. Us
 
 ### Sovereign Industrial Intelligence Outcomes (Cross-Product / Compliance Outcome Layer)
 
-Founder-confirmed 10.07.2026 ("this is important! We do Sovereign Industrial Intelligence outcomes") as the flagship, ownable phrase for what DWS IQ delivers — not a new doctrine, but the customer-facing compression of two already-canonical frames on this page: **Layer 3 of the Three-Layer National Strategy** above ("DWS operates the intelligence," while hyperscalers hold Layer 1 infrastructure) and the **CLOUD Act jurisdiction thesis** ("What happens in San Francisco stays in San Francisco," `DWS_MARKET_RESEARCH_STANDARD.md` §8.3). Composed: DWS's Layer-3 intelligence, delivered specifically under sovereign infrastructure, for regulated industry, priced and shipped as outcomes (Pillar 2, "Agent Outcome Factory") — concretely, DWS IQ Climate/Industrial Intelligence's CSRD/CBAM/ETS agents.
+Founder-confirmed 10.07.2026 ("this is important! We do Sovereign Industrial Intelligence outcomes") as the flagship, ownable phrase for what DWS IQ delivers — not a new doctrine, but the customer-facing compression of two already-canonical frames on this page: **Layer 3 of the Three-Layer National Strategy** above ("DWS operates the intelligence," while hyperscalers hold Layer 1 infrastructure) and the **CLOUD Act jurisdiction thesis** ("What happens in San Francisco stays in San Francisco," `DWS_MARKET_RESEARCH_STANDARD.md` §8.3). Composed: DWS's Layer-3 intelligence, delivered specifically under sovereign infrastructure, for regulated industry, priced and shipped as outcomes (Pillar 2, "Agent Outcome Factory"). The outcome category itself is **Compliance Intelligence** (founder-confirmed 10.07.2026) — broader than any single regulation: **Climate Compliance (EU)** — Fit for 55, ETS, CBAM, CSRD — is one confirmed part of it, alongside EU AI Act Article 12 logging, GDPR, and NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`), plus CER Directive / EU CRM Act / dual-use export control at the Aegis tier (`Store/PRODUCT_AEGIS.md`). Do not narrow this pitch line to "climate compliance only" in copy — Climate Compliance is a part, not the whole.
 
 **Investor / homepage sentence (EN):**
 

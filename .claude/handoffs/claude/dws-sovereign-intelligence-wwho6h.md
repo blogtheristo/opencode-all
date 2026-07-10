@@ -4,7 +4,7 @@
 
 "Introducing DWS Sovereign Intelligence (SI)." → "Audit term coinability and GTM value." → founder correction on category → founder ratification of the final flagship phrase.
 
-## State — DONE (four rounds, by design — Rule 12 fail loud, corrections layered not hidden)
+## State — DONE (five rounds, by design — Rule 12 fail loud, corrections layered not hidden)
 
 **Round 1** — Promoted "Sovereign Intelligence (SI)" to a positioning thesis (`DWS_MARKET_RESEARCH_STANDARD.md` §8.3, `DWS_TRUTH_STANDARD.md` row 27).
 
@@ -20,6 +20,8 @@
 - `DWS_MARKET_RESEARCH_STANDARD.md` v1.7 — §8.3 retitled "Positioning Thesis: Sovereign Industrial Intelligence Outcomes," founder quote at top, cross-refs to Brand Standard §22.
 - `DWS_TRUTH_STANDARD.md` v3.2 — row 27 domain name and lead sentence now lead with the flagship phrase; structured-mirror column now includes `DWS_BRAND_STANDARD.md` §22.
 - `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` v1.3 — retitled, §4 recommendation marked founder-ratified (not just proposed).
+
+**Round 5 (founder clarification)** — Risto: _"And compliance intelligence is a part of that including climate compliance (eu)."_ Added **Compliance Intelligence** as an explicit outcome-category layer sitting under Sovereign Industrial Intelligence Outcomes. Verified against already-shipped product docs (not invented): `Store/PRODUCT_CLIMATE_INTELLIGENCE.md` already lists Fit for 55/ETS/CBAM/CSRD (Climate Compliance) alongside EU AI Act Article 12, GDPR, and NIS2 under the same ComplianceAgent; `Store/PRODUCT_AEGIS.md` adds CER Directive, EU CRM Act, and dual-use export control at the Aegis tier. Climate Compliance (EU) is registered as one confirmed part of Compliance Intelligence, not the whole — and `DWS_BRAND_STANDARD.md` §22's pitch line now carries an explicit guardrail against narrowing the phrase to "climate compliance only" in copy. Files: `DWS_MARKET_RESEARCH_STANDARD.md` v1.8, `DWS_TRUTH_STANDARD.md` v3.3, `DWS_BRAND_STANDARD.md` v3.8, audit note v1.4.
 
 `node scripts/lint-truth-claims.mjs`: 0 fail (35 pre-existing warns, unrelated) — checked after every round including this one.
 
