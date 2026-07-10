@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Follow-up on explicit user request ("do it") to attempt a real registry clearance search. Added §2.5 (ioXt, LLC holds a USPTO registration for "SOVEREIGN AI") and §5.1 (documented attempt against USPTO/EUIPO/WIPO/TMview + 4 commercial aggregators — all blocked HTTP 403, real clearance still not possible from this tool environment). No change to the underlying recommendation.
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Initial audit. Triggered by user request to audit "term coinability and GTM value" for the "Sovereign Intelligence (SI)" positioning thesis promoted to canon earlier this session (`DWS_MARKET_RESEARCH_STANDARD.md` §8.3, `DWS_TRUTH_STANDARD.md` row 27). Finding: the term is NOT a clean coinage and the "SI" abbreviation collides with existing internal usage. Corrections applied to both standards in this same session.
 
 Document Status:
@@ -56,6 +57,10 @@ Both are contemporaneous, not prior art from years ago — meaning DWS is not th
 
 The **compressed thesis line** — "What happens in San Francisco stays in San Francisco" — was not found in use by any competitor in this search. That specific sentence, not the "Sovereign Intelligence" label attached to it, is the actual distinctive asset.
 
+### 2.5 Category term itself may also be encumbered — "SOVEREIGN AI" registered by a third party
+
+A follow-up pass (§5.1) surfaced a USPTO record for **"SOVEREIGN AI"** held by **ioXt, LLC** (serial 99344034) — a third party unrelated to DWS. Filing details (class, goods/services, status) could not be retrieved (see §5.1 — the record page itself was unreachable). This does not appear to have stopped NVIDIA, IBM, Microsoft, McKinsey, etc. from using "sovereign AI" descriptively at scale, which suggests the registration is either narrowly scoped, not enforced, or the term is being used by others in a way courts would treat as generic/descriptive rather than infringing — but it means §3's "reposition within the sovereign AI category" recommendation should also be treated as descriptive positioning language, not as adopting a second unverified brand term. Flag alongside the "Sovereign Intelligence" name itself as something requiring real clearance before any exclusive claim.
+
 ## 3. GTM Value — Verdict: Moderate as a narrative hook, weak as a category/SEO term.
 
 ### 3.1 The market's real vocabulary is "Sovereign AI," not "Sovereign Intelligence"
@@ -79,8 +84,13 @@ Good pitch-deck opener / tweet / sales-hook copy. Weak as a claimed proprietary 
 
 ## 5. Gaps / Not Verified
 
-- No formal USPTO TSDR or EUIPO eSearch query was run (web search only) — registration status of "Sovereign Intelligence, LLC"'s mark, if any, is unconfirmed either way.
-- No search was run for Nordic/Finnish national trademark registers (PRH) specifically, despite Lifetime Oy being Finland-domiciled — flagged for a future pass if this term is ever pursued as a registered mark.
+### 5.1 Follow-up attempt (09.07.2026, same day, on explicit request to run the real clearance search)
+
+Direct queries were attempted against every authoritative and commercial trademark registry reachable from this environment: **USPTO** tmsearch.uspto.gov, tsdr.uspto.gov; **EUIPO** eSearch; **WIPO** Global Brand Database; **TMview** (tmdn.org); and the commercial aggregators **Trademarkia**, **Justia Trademarks**, **TrademarkElite**, **uspto.report**. Every direct fetch returned **HTTP 403 Forbidden** — these are JS-rendered search interfaces (or API endpoints) behind bot protection that this environment's web-fetch tool cannot get through, regardless of URL/query form tried. Indirect (search-engine-mediated) queries against the same sites found **no confirmed registered "SOVEREIGN INTELLIGENCE" word mark** in the US, EU, or WIPO systems, and did surface one adjacent registration — "SOVEREIGN AI" held by ioXt, LLC, USPTO serial 99344034 (§2.4) — whose actual filing record could not be pulled for the same reason.
+
+**Conclusion: this is still not a legal clearance search.** Absence of a hit in indirect, search-engine-mediated queries is not equivalent to a registry-verified clear result — it only means nothing surfaced through that indirect path. A real clearance requires one of: (a) a human running the search directly in a browser against USPTO TESS/TSDR + EUIPO eSearch + WIPO Global Brand DB, (b) a paid trademark-search API/service (Trademarkia Pro, Corsearch, CompuMark, etc.) invoked with proper credentials, or (c) IP counsel. None of those are available from this tool environment. This gap is unresolved and the audit's original recommendation stands unchanged: **no exclusivity or trademark claim without one of the above.**
+
+- No search was run for Nordic/Finnish national trademark registers (PRH) specifically, despite Lifetime Oy being Finland-domiciled — same blocker applies; flagged for whoever runs the eventual real clearance search.
 
 ## 6. Sources
 
@@ -95,5 +105,7 @@ Good pitch-deck opener / tweet / sales-hook copy. Weak as a claimed proprietary 
 - [Introducing IBM Sovereign Core — IBM](https://www.ibm.com/new/announcements/introducing-ibm-sovereign-core-a-new-software-foundation-for-sovereignty)
 - [What is sovereign AI? — McKinsey](https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-sovereign-ai)
 - [NVIDIA Partner Network (NPN) — NVIDIA](https://www.nvidia.com/en-us/about-nvidia/partners/) — confirms "System Integrator" as a standard NPN partner category, source of the internal SI collision (§2.3).
+- [SOVEREIGN AI — ioXt, LLC Trademark Registration, USPTO serial 99344034](https://uspto.report/TM/99344034) — index-page reference only; the record itself was unreachable (§5.1).
+- Direct-fetch attempts (all HTTP 403, §5.1): `tmsearch.uspto.gov`, `tsdr.uspto.gov`, `euipo.europa.eu/eSearch`, `branddb.wipo.int`, `tmdn.org` (TMview), `trademarkia.com`, `trademarks.justia.com`, `trademarkelite.com`, `uspto.report`.
 
 © 2026 Lifetime Oy · Internal field note
