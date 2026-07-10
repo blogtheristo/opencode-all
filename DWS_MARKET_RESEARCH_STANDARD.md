@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder confirmation (Risto): "Sovereign Industrial Intelligence outcomes" is the flagship phrase, elevated from §8.3's title downward — not bare "Sovereign Intelligence." Cross-referenced the new `DWS_BRAND_STANDARD.md` §22 pitch line (EN + draft FI) and noted the pre-existing "Three-Layer National Strategy" (§22, predates this thesis) already codifies the same layer model DWS_BRAND_STANDARD/§8.3 describes. §11 relationship table updated.
 - Version: 1.6 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder correction (Risto) to v1.5's own recommendation. "Sovereign AI" is predominantly an infrastructure/compute category (NVIDIA/IBM/hyperscalers) that DWS does not compete in; DWS's actual category is the governed outcome layer it already claims under Positioning Pillar 2 ("Agent Outcome Factory"). Added the layer model to §8.3: Sovereign AI (infra, not DWS) -> Agent Outcome Factory (Pillar 2) -> Sovereign Intelligence (the outcome when governed agents run on sovereign infrastructure, Pillar 1) -> DWS Compliance Outcome Product Line (Climate/Industrial Intelligence, the shipped instantiation). Retracted v1.5's "reposition within sovereign AI" advice; the trademark-collision caution from the audit is unchanged and, per this reframing, sharpened (DWS now sits in the same layer as the colliding names, not an adjacent one) — recommends "Sovereign Industrial Intelligence" / "DWS Compliance Outcome" as the more defensible flagship phrases.
 - Version: 1.5 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Corrected §8.3 per same-session coinability/GTM audit (`docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md`). Dropped the "(SI)" abbreviation (collides with the existing "NVIDIA SI network" = System Integrator usage in §8.1) and the "canonical positioning term"/coinage framing (Sovereign Intelligence, LLC has held the exact name in an adjacent AI-intelligence vertical since ~2013; StirlingX and Octostar use near-identical phrasing as of 2026). Reframed as DWS's positioning within the established "sovereign AI" category, not a DWS-owned term.
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Added §8.3 — promoted "Sovereign Intelligence (SI)" from draft field note (`docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md`) to canonical positioning thesis, per that note's own action trigger. Registered in `DWS_TRUTH_STANDARD.md` as row 27.
@@ -29,7 +30,7 @@ Document Status:
 - Publication Status: ACTIVE
 
 - Created: 14.02.2026
-- Last Modified: 09.07.2026
+- Last Modified: 10.07.2026
 - Language: EN
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -455,7 +456,9 @@ The **Synthetic Nervous System** is DWS IQ's primary technical moat for Series A
 
 ---
 
-## 8.3 Positioning Thesis: Sovereign Intelligence
+## 8.3 Positioning Thesis: Sovereign Industrial Intelligence Outcomes
+
+> **Founder-confirmed flagship phrase (Risto, 10.07.2026):** _"Yes and this is important! We do Sovereign Industrial Intelligence outcomes."_ **"Sovereign Industrial Intelligence outcomes" is the headline phrase** — not bare "Sovereign Intelligence," which stays as supporting/descriptive positioning language only (layer model below). Also registered as a pitch line in `DWS_BRAND_STANDARD.md` §22 "Sovereign Industrial Intelligence Outcomes" (EN + draft FI).
 
 > **Corrected 09–10.07.2026 (same-day audit + founder correction):** the initial promotion of this section abbreviated the term as "(SI)" and framed it as a DWS-owned coinage. Both were wrong. See `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` for the full audit. **Do not abbreviate "Sovereign Intelligence" as "SI"** — §8.1 above already uses "SI" for NVIDIA's System Integrator partner network, and re-using it here is an internal collision. **Do not claim DWS coined this term** — Sovereign Intelligence, LLC (`sovereign.ai`) has held the exact name in an adjacent AI-intelligence vertical since ~2013, and two funded 2026 competitors (StirlingX, Octostar) use near-identical phrasing. A follow-up founder correction (Risto, 10.07.2026) also replaced the audit's original "reposition within the sovereign AI category" recommendation — see the layer model below.
 
@@ -463,7 +466,7 @@ The **Synthetic Nervous System** is DWS IQ's primary technical moat for Series A
 
 "**Sovereign AI**" as used by nearly every vendor citing it (NVIDIA, IBM Sovereign Core, Oracle, AWS, Google, HPE, Zadara, Cisco, Nokia, the ~$40B→$148B market McKinsey/MarketsandMarkets track) is overwhelmingly an **infrastructure/compute category** — GPUs, sovereign clouds, data centers, chip supply. **DWS IQ does not sell infrastructure**, so "sovereign AI" is not DWS's buyer category and DWS should not fight NVIDIA/IBM/hyperscalers for that search term (the audit's original advice to "position within the sovereign AI category" is retracted for this reason — not because the collision risk changed).
 
-DWS's actual category sits one layer up, and is already canonical, not new:
+DWS's actual category sits one layer up, and is already canonical, not new — it is also the exact structure already codified in `DWS_BRAND_STANDARD.md` §22 "Three-Layer National Strategy" (hyperscaler infrastructure → Finnish data reserves → "DWS operates the intelligence"), predating this thesis by two months. "Sovereign Industrial Intelligence outcomes" is the industrial-compliance-specific, CLOUD-Act-grounded compression of that Layer 3:
 
 - **Pillar 1 — Doctrine Shift** (`DWS_TRUTH_STANDARD.md` §2A): EU compliance is moving from voluntary ESG to **mandatory sovereign infrastructure** — the ground DWS runs on.
 - **Pillar 2 — Orchestration Over Components** (same §2A): DWS sells the **governed outcome layer**, not the agents underneath — "**We are the Agent Outcome Factory**" (`Store/PRODUCT_AEGIS.md`, `Store/PRODUCT_CLIMATE_INTELLIGENCE.md`, `docs/DEFINE_APPLICATION_GUIDE.md` §"Scope Principle").
@@ -481,14 +484,14 @@ DWS's actual category sits one layer up, and is already canonical, not new:
 - Opening hook for sovereignty-focused pitch decks and outreach waves; cite the whitepaper for substantiating detail.
 - Investor narrative alongside the Synthetic Nervous System moat (§8.2) — this thesis is the customer-facing positioning line, Synthetic Nervous System is the underlying technical moat. **Do not tell investors DWS "coined" this term** (audit §4.3).
 - Hero/tweet copy per the three draft options in `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` §2/§5.
-- Prefer **"Sovereign Industrial Intelligence"** or **"DWS Compliance Outcome"** over bare "Sovereign Intelligence" whenever the copy needs a flagship, ownable phrase rather than generic positioning language.
+- **"Sovereign Industrial Intelligence outcomes"** is the flagship phrase (founder-confirmed) — use this, not bare "Sovereign Intelligence," whenever the copy needs an ownable headline rather than generic positioning language. Approved pitch lines (EN + draft FI): `DWS_BRAND_STANDARD.md` §22.
 
 **Constraints:**
 
 - Run `/truth-check` and route through `DWS_BRAND_STANDARD.md` before this line appears on any live page, deck, or public post — canon status here authorizes internal use, not public-site publication.
 - Never imply "zero" disclosure exposure — the claim is jurisdictional control, not technical impossibility of compelled disclosure.
 - No exclusivity or trademark claim without an actual USPTO/EUIPO clearance search and counsel review — this section's own audit is a web-search sweep, not legal clearance (audit §5, and the 09.07.2026 follow-up attempt in §5.1 — every registry queried was unreachable from this tool environment).
-- Source docs: `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` (full thesis, tweet copy, internal memo, hero text options) and `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` (coinability/GTM audit, v1.1 includes the layer-model correction). Registered as `DWS_TRUTH_STANDARD.md` row 27.
+- Source docs: `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` (full thesis, tweet copy, internal memo, hero text options) and `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` (coinability/GTM audit, v1.2 includes the layer-model correction and founder confirmation). Pitch lines: `DWS_BRAND_STANDARD.md` §22. Registered as `DWS_TRUTH_STANDARD.md` row 27.
 
 ---
 
@@ -545,15 +548,15 @@ Full analysis across all products. Presented at quarterly product review.
 
 ## 11. Relationship to Other Standards
 
-| Standard                      | Relationship                                                                              |
-| ----------------------------- | ----------------------------------------------------------------------------------------- |
-| `DWS_DOCUMENT_STANDARD.md`    | All market research docs follow document metadata format                                  |
-| `DWS_BRAND_STANDARD.md`       | Product positioning must align with brand categories                                      |
-| `DWS_SECURITY_STANDARD.md`    | Data collection must not expose credentials                                               |
-| `product-catalog/README.md`   | Product catalog is the source of truth for product specs                                  |
-| `config/products.json`        | Store products define the scope of competitive tracking                                   |
-| `DWS_TRUTH_STANDARD.md`       | Row 27 registers §8.3 (Sovereign Intelligence) as the positioning thesis; non-exclusive   |
-| `DWS_SOVEREIGNTY_STANDARD.md` | SOV-T1/T2/T3 tiers are the architecture §8.3's sovereign-intelligence narrative describes |
+| Standard                      | Relationship                                                                                                                                                                                                    |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DWS_DOCUMENT_STANDARD.md`    | All market research docs follow document metadata format                                                                                                                                                        |
+| `DWS_BRAND_STANDARD.md`       | Product positioning must align with brand categories; §22 carries the "Sovereign Industrial Intelligence Outcomes" pitch line (EN + draft FI) and the pre-existing Three-Layer National Strategy §8.3 builds on |
+| `DWS_SECURITY_STANDARD.md`    | Data collection must not expose credentials                                                                                                                                                                     |
+| `product-catalog/README.md`   | Product catalog is the source of truth for product specs                                                                                                                                                        |
+| `config/products.json`        | Store products define the scope of competitive tracking                                                                                                                                                         |
+| `DWS_TRUTH_STANDARD.md`       | Row 27 registers §8.3 (Sovereign Industrial Intelligence Outcomes) as the positioning thesis; non-exclusive                                                                                                     |
+| `DWS_SOVEREIGNTY_STANDARD.md` | SOV-T1/T2/T3 tiers are the architecture §8.3's sovereign-intelligence narrative describes                                                                                                                       |
 
 ---
 

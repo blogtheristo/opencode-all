@@ -1,13 +1,14 @@
-# "Sovereign Intelligence (SI)" — Coinability & GTM Value Audit
+# "Sovereign Industrial Intelligence Outcomes" — Coinability & GTM Value Audit
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder confirmation (Risto): _"Yes and this is important! We do Sovereign Industrial Intelligence outcomes."_ Retitled this note and elevated "Sovereign Industrial Intelligence outcomes" to the flagship phrase throughout — matches the recommendation already reached in v1.2 §3.4/§4, now founder-ratified rather than proposed. Added the new `DWS_BRAND_STANDARD.md` §22 pitch line (EN + draft FI) as a cross-reference. `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 (v1.7) and `DWS_TRUTH_STANDARD.md` row 27 (v3.2) updated to match.
 - Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder correction (Risto) to this audit's own §3.1/§4.1 recommendation. Added §3.4 (the layer model): "sovereign AI" is an infrastructure/compute category (NVIDIA/IBM/hyperscalers) DWS does not compete in, so "reposition within the sovereign AI category" was the wrong advice — not because the coinability findings in §2 changed, but because the target category was wrong. DWS's real category is the governed outcome layer it already claims (Positioning Pillar 2, "Agent Outcome Factory"); "Sovereign Intelligence" names the outcome that layer produces when running on sovereign infrastructure (Pillar 1); the DWS Compliance Outcome Product Line (Climate/Industrial Intelligence) is the shipped instantiation. This SHARPENS §2's collision risk rather than resolving it — Sovereign Intelligence LLC / StirlingX / Octostar are now confirmed same-layer peers, not distant infra vendors. `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 (v1.6) and `DWS_TRUTH_STANDARD.md` row 27 (v3.1) updated to match.
 - Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Follow-up on explicit user request ("do it") to attempt a real registry clearance search. Added §2.5 (ioXt, LLC holds a USPTO registration for "SOVEREIGN AI") and §5.1 (documented attempt against USPTO/EUIPO/WIPO/TMview + 4 commercial aggregators — all blocked HTTP 403, real clearance still not possible from this tool environment). No change to the underlying recommendation.
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Initial audit. Triggered by user request to audit "term coinability and GTM value" for the "Sovereign Intelligence (SI)" positioning thesis promoted to canon earlier this session (`DWS_MARKET_RESEARCH_STANDARD.md` §8.3, `DWS_TRUTH_STANDARD.md` row 27). Finding: the term is NOT a clean coinage and the "SI" abbreviation collides with existing internal usage. Corrections applied to both standards in this same session.
@@ -15,7 +16,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 09.07.2026
-- Last Modified: 09.07.2026
+- Last Modified: 10.07.2026
 - Language: English
 - Publication Status: INTERNAL — competitive/legal research note, not for public site
 
@@ -89,7 +90,7 @@ DWS's actual category is already canonical and does not need inventing: **Positi
 1. **~~Reframe: position within the "sovereign AI" category~~ — retracted (§3.4).** "Sovereign AI" is an infrastructure category DWS doesn't compete in. Instead: keep the thesis and tweet-ready line (still substantiated and effective), and frame "Sovereign Intelligence" as the outcome DWS's existing Agent Outcome Factory (Pillar 2) produces when running on sovereign infrastructure (Pillar 1) — concretely, the DWS Compliance Outcome Product Line. Stop presenting "Sovereign Intelligence" as a DWS coinage or ownable term regardless of which category framing is used.
 2. **Drop the "(SI)" abbreviation everywhere.** Never abbreviate to "SI" in DWS documents — it collides with the pre-existing "NVIDIA SI network" (System Integrator) usage in the same standard, and with the general industry SI = System Integrator convention. Spell out "Sovereign Intelligence" in full.
 3. **No exclusivity claims in investor material.** Don't tell investors DWS "coined" this term — Sovereign Intelligence, LLC has held the exact name in an adjacent AI-intelligence vertical since ~2013, and two funded 2026 competitors use near-identical phrasing. Per §3.4, those competitors are same-layer peers under the corrected model, which makes this constraint more important, not less.
-4. **Prefer "Sovereign Industrial Intelligence" or "DWS Compliance Outcome" as the flagship, ownable phrase.** Bare "Sovereign Intelligence" stays usable as descriptive positioning language (per the thesis sentence), not as a claimed brand.
+4. **Founder-ratified 10.07.2026: "Sovereign Industrial Intelligence outcomes" is the flagship, ownable phrase** (was a recommendation as of v1.2; Risto confirmed it directly — see §3.4). Bare "Sovereign Intelligence" stays usable as descriptive positioning language (per the thesis sentence), not as a claimed brand. Approved pitch lines (EN + draft FI): `DWS_BRAND_STANDARD.md` §22.
 5. **Trademark clearance is a gate, not a formality, if this ever becomes a registered mark.** This audit is a web-search sweep, not a legal clearance search — a follow-up attempt (§5.1) to query the actual registries was blocked by bot protection on every system tried. If DWS ever wants to register any variant as a trademark, run an actual USPTO/EUIPO TSDR search (in-browser, a paid clearance service, or counsel) — don't infer registrability from this note.
 
 ## 5. Gaps / Not Verified
