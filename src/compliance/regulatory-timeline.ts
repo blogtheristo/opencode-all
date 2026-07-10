@@ -262,10 +262,9 @@ const REGULATORY_DEADLINES: RegulatoryDeadline[] = [
     regulationName: 'EU AI Act',
     milestone: 'Embedded-product high-risk obligations (Annex I)',
     description:
-      'High-risk obligations for AI systems that are safety components of products covered by EU harmonisation legislation (Annex I) — including machinery/robots — apply. Date reflects the 2026 AI Act Omnibus timeline relief (postponed from 2 Aug 2027). Notified Body assessment under the Machinery Regulation discharges the overlapping AI Act conformity step; Art. 12 record-keeping and Art. 14 human-oversight evidence remain continuous obligations.',
+      'High-risk obligations for AI systems that are safety components of products covered by EU harmonisation legislation (Annex I) — including machinery/robots — apply. Date reflects the reported/proposed Omnibus timeline relief (provisional agreement, 7 May 2026; postponed from 2 Aug 2027) — not yet reflected in the EUR-Lex text of the base Regulation. Notified Body assessment under the Machinery Regulation discharges the overlapping AI Act conformity step; Art. 12 record-keeping and Art. 14 human-oversight evidence remain continuous obligations.',
     date: '2028-08-02',
-    source:
-      'Reg. (EU) 2024/1689, Art. 113 (Annex I products), as amended by the 2026 AI Act Omnibus',
+    source: 'Reg. (EU) 2024/1689, Art. 113 (Annex I products)',
     scope:
       'Providers of AI safety components embedded in regulated products (machinery, medical devices, vehicles)',
     actionItems: [

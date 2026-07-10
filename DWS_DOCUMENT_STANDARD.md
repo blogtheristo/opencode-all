@@ -67,6 +67,7 @@ Document Status:
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
 21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
+22. [Whitepaper Standard](#22-whitepaper-standard) ⭐ NEW
 
 ---
 
@@ -2591,33 +2592,33 @@ Sessions & Modifications:
 
 ---
 
-## 20. Whitepaper Standard
+## 22. Whitepaper Standard
 
 Whitepapers are outward-facing, publishable documents (market/technical/regulatory) — distinct from internal Field Notes (§12) and Core Artifacts (§11). They carry external branding and a fixed page layout because they are handed to customers, investors, Notified Bodies, and press.
 
-### 20.1 Layout (mandatory)
+### 22.1 Layout (mandatory)
 
 | Element          | Requirement                                                                                                                                                                                                                                                                                                             |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Page size**    | **A4** (210 × 297 mm), portrait. Margins ≈ 22 mm.                                                                                                                                                                                                                                                                       |
 | **Header**       | **Aegis logo in the top-right corner** (`dws10.com/static/images/firehorse-aegis-logo.png`), ~1.15 in wide.                                                                                                                                                                                                             |
 | **Version line** | Small font (~8 pt, grey) at the **very top** of page 1, above the title: `Whitepaper · Version X.Y · <date> · Lifetime Oy[ / <product>] · Classification: <Public\|Confidential>`.                                                                                                                                      |
-| **Footer**       | Three zones on every page (tab stops): **left** = classification (`Confidential`/`Public`, small bold); **center** = `© <year> Lifetime Oy · Y-tunnus 0772407-9 · All rights reserved.` (small); **right** = page number (larger, ~13 pt bold). Footer classification must match the §20.1 version-line classification. |
+| **Footer**       | Three zones on every page (tab stops): **left** = classification (`Confidential`/`Public`, small bold); **center** = `© <year> Lifetime Oy · Y-tunnus 0772407-9 · All rights reserved.` (small); **right** = page number (larger, ~13 pt bold). Footer classification must match the §22.1 version-line classification. |
 | **Body text**    | **Justified** (both edges aligned) for a polished chapter look. **12 pt base** font with ~1.15 line spacing — readable on mobile (iPhone). Headings left-aligned.                                                                                                                                                       |
 | **Sources**      | A final _Sources_ line citing every external fact (regulatory CELEX, vendor announcements with dates).                                                                                                                                                                                                                  |
 
-### 20.2 Source of truth & formats
+### 22.2 Source of truth & formats
 
-- Author the canonical whitepaper as **Markdown** (preferred for new) or **HTML in `Learn/`** (existing). Markdown follows this standard's header block (§2); the rendered/exported copy carries the §20.1 layout.
+- Author the canonical whitepaper as **Markdown** (preferred for new) or **HTML in `Learn/`** (existing). Markdown follows this standard's header block (§2); the rendered/exported copy carries the §22.1 layout.
 - **Export to `.docx` (A4, branded) and Google Docs** via `scripts/build-whitepapers.py` (`npm run build:whitepapers`) — do not hand-format per export. This is the **single pipeline; pandoc is retired** for whitepapers. Outputs land in `build/whitepapers/` (git-ignored); drag a `.docx` into Drive to get a Google Doc with formatting preserved. Embed images as packaged assets (`scripts/assets/aegis-logo.jpg`), not relative paths.
 - **Colorful branding** carries through to the Doc: navy banner + two-tone title, navy headings / blue sub-headings, navy & amber callout boxes (highlight / disclaimer / CTA), KPI cards, tier cards, and navy table-header rows — all parsed from the source markup (HTML container classes `highlight-box` / `disclaimer` / `cta-box` / `kpi-row` / `tier-grid`).
 - **Output naming:** `NN_WP<n>_<Slug>_A4.docx`, where `NN` is a zero-padded `VERSION_TAG` (env-overridable). The leading number makes the latest build sort together / be easy to find on Drive — bump `VERSION_TAG` per release.
 - **Classification:** `Confidential` = limited / intended-recipient distribution (sent to named persons), not wide audience; `Public` = freely distributable. The version-line and footer classification must match, and govern where the whitepaper may later be hosted (Confidential → password-gated page only).
 - **Never publish whitepaper `.md` in public-site folders** (Non-Negotiable Rule 5); publish HTML/PDF/Doc, keep the `.md` in `docs/` or `Learn/` source.
 
-### 20.3 Governance
+### 22.3 Governance
 
-- **Always confirm classification with the human author when a new whitepaper is written** (Confidential vs Public) — never default it silently. Classification governs distribution and hosting (see §20.2), so it is a human-in-the-loop decision per document.
+- **Always confirm classification with the human author when a new whitepaper is written** (Confidential vs Public) — never default it silently. Classification governs distribution and hosting (see §22.2), so it is a human-in-the-loop decision per document.
 - Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
 - Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
-- Versioning is lockstep with the header block (§2) and the top version line (§20.1) — bump both together.
+- Versioning is lockstep with the header block (§2) and the top version line (§22.1) — bump both together.

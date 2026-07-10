@@ -14,7 +14,7 @@ AGENT HISTORY:
 
 # Regulatory Radar Brief — NVIDIA Halos for Robotics vs EU Machinery Regulation + AI Act
 
-> Canonical DWS position on NVIDIA Halos & the physical-AI safety conformity pipeline. Registered in `DWS_TRUTH_STANDARD.md` §2 row 20. **Derived market-signal analysis — not a fact source:** the external instruments are canonical in `DWS_STANDARDS_LIBRARY.md` (Row 3) and the regulatory nodes are modelled in code at `src/compliance/regulatory-timeline.ts`.
+> Canonical DWS position on NVIDIA Halos & the physical-AI safety conformity pipeline. Registered in `DWS_TRUTH_STANDARD.md` §2 row 27. **Derived market-signal analysis — not a fact source:** the external instruments are canonical in `DWS_STANDARDS_LIBRARY.md` (Row 3) and the regulatory nodes are modelled in code at `src/compliance/regulatory-timeline.ts`.
 
 **Mode:** market-signal (not a per-customer pipeline scan). Per `/regulatory-radar` use cases 4 (board/investor briefing) and 5 (DWS product planning).
 

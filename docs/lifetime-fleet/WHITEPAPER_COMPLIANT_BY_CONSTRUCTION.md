@@ -1,5 +1,31 @@
 # Compliant by Construction: Governing Physical-AI Fleets Across a 10-Year Lifecycle
 
+---
+
+# VERSION AND AGENT HISTORY
+
+Version: 1.1
+
+Sessions & Modifications:
+
+- Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Session: claude/nvidia-halos-robotics-suqayg | Date: 10.07.2026 | Changes: PR review fix — added the required VERSION AND AGENT HISTORY header block (was missing per `DWS_DOCUMENT_STANDARD.md` §2.1); softened the unsourced quantified performance/insurance/liability claims (42% / up to 60% / 8–15%) to qualitative language pending a registered canonical source; corrected the AI Act Omnibus source citation to distinguish the reported/proposed timeline relief from the enacted EUR-Lex text.
+- Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 23.06.2026 | Changes: Initial publication — whitepaper on NVIDIA Halos for Robotics, the EU regulatory gauntlet (Machinery Regulation, AI Act embedded high-risk, Revised Product Liability Directive), and the Lifetime Fleet Control Room as the governance/evidence layer. Companion to `docs/regulatory-radar/NVIDIA_HALOS_ROBOTICS_BRIEF.md`.
+
+Session Links & References:
+
+- Claude Code (claude/nvidia-halos-robotics-suqayg): see branch commits
+- Related: docs/regulatory-radar/NVIDIA_HALOS_ROBOTICS_BRIEF.md; docs/lifetime-fleet/TORNIO_CONTROL_ROOM_IMPLEMENTATION_PLAN.md
+
+Document Status:
+
+- Created: 23.06.2026
+- Last Modified: 10.07.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
+
 ### A DWS IQ Whitepaper on NVIDIA Halos, the EU Regulatory Gauntlet, and the Lifetime Fleet Control Room
 
 **Lifetime Oy · DWS IQ 6 · June 2026**
@@ -18,11 +44,11 @@ This paper maps both layers to the three EU instruments that bite between 2026 a
 
 ## 1. The EU regulatory gauntlet (2026–2028)
 
-| Instrument                                             | Applies                            | What it requires of a physical-AI fleet                                                                                                                                                                                                                   |
-| ------------------------------------------------------ | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Machinery Regulation (EU) 2023/1230**                | **20 Jan 2027**                    | AI safety components with self-evolving / machine-learning behaviour (Annex I, Part A, Nos 5–6) require **mandatory third-party Notified Body conformity assessment**. With 6–12 month assessment lead times, the runway is already effectively negative. |
-| **EU AI Act (EU) 2024/1689** — embedded high-risk      | **2 Aug 2028** (post-2026 Omnibus) | High-risk obligations for AI safety components embedded in machinery: Art. 9 risk management, **Art. 12 automatic logging over the operational lifetime**, Art. 14 human oversight, Art. 15 robustness.                                                   |
-| **Revised Product Liability Directive (EU) 2024/2853** | Transposition by **9 Dec 2026**    | Brings software and AI explicitly within strict (no-fault) liability and eases the claimant's burden of proof — sharply raising the cost of an _unevidenced_ safety failure years after deployment.                                                       |
+| Instrument                                             | Applies                                                               | What it requires of a physical-AI fleet                                                                                                                                                                                                                   |
+| ------------------------------------------------------ | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Machinery Regulation (EU) 2023/1230**                | **20 Jan 2027**                                                       | AI safety components with self-evolving / machine-learning behaviour (Annex I, Part A, Nos 5–6) require **mandatory third-party Notified Body conformity assessment**. With 6–12 month assessment lead times, the runway is already effectively negative. |
+| **EU AI Act (EU) 2024/1689** — embedded high-risk      | **2 Aug 2028** (reported/proposed Omnibus relief; not yet on EUR-Lex) | High-risk obligations for AI safety components embedded in machinery: Art. 9 risk management, **Art. 12 automatic logging over the operational lifetime**, Art. 14 human oversight, Art. 15 robustness.                                                   |
+| **Revised Product Liability Directive (EU) 2024/2853** | Transposition by **9 Dec 2026**                                       | Brings software and AI explicitly within strict (no-fault) liability and eases the claimant's burden of proof — sharply raising the cost of an _unevidenced_ safety failure years after deployment.                                                       |
 
 The strategic consequence: every OTA update, every layout change, and every year of model drift is a potential compliance event. An architecture that treats these as routine — rather than as re-certification triggers — is worth more than the hardware it runs on.
 
@@ -80,7 +106,7 @@ The result: a fleet that adapts to a layout change in minutes with zero downtime
 
 The shift from experimental AI to regulated enterprise operations is not merely a technical challenge — it is a strategic pivot to **monetize industrial certified assets**. By decoupling AI innovation from safety-critical kernels, enterprises transition from a cycle of continuous re-certification costs to a repeatable, scalable asset model.
 
-Integrating DWS IQ transforms compliance from a cost center into a driver of **"Financial Alpha"** — the point where efficiency gains exceed compute costs. Early benchmarks indicate that swarms running under DWS IQ governance reach this threshold **42% faster** than unmanaged, single-agent deployments. Furthermore, this architecture allows industrial enterprises to automate compliance, **reducing potential re-certification costs and liability exposure by up to 60%** compared to manual processes. Beyond internal efficiencies, DWS IQ-governed operations can **lower insurance premiums by 8–15%** through compliance-by-design, and provide a defensible, auditable trail that mitigates the long-tail risks of the Revised Product Liability Directive.
+Integrating DWS IQ transforms compliance from a cost center into a driver of **"Financial Alpha"** — the point where efficiency gains exceed compute costs. Swarms running under DWS IQ governance are architected to reach this threshold faster than unmanaged, single-agent deployments. This architecture also lets industrial enterprises automate compliance, reducing re-certification cost and liability exposure compared to manual processes. Beyond internal efficiencies, DWS IQ-governed operations are designed to lower insurance risk through compliance-by-design, and provide a defensible, auditable trail that mitigates the long-tail risks of the Revised Product Liability Directive.
 
 ---
 
@@ -90,4 +116,4 @@ By decoupling perception from the individual machine and confining change to ver
 
 ---
 
-_Sources: NVIDIA Halos for Robotics announcement (nvidianews.nvidia.com, 22 Jun 2026); Regulation (EU) 2023/1230; Regulation (EU) 2024/1689 (as amended by the 2026 AI Act Omnibus); Directive (EU) 2024/2853. Lifetime Oy, Business ID 0772407-9, Espoo, Finland._
+_Sources: NVIDIA Halos for Robotics announcement (nvidianews.nvidia.com, 22 Jun 2026); Regulation (EU) 2023/1230; Regulation (EU) 2024/1689, Art. 113 (Annex I products) — 2 Aug 2028 date reflects the reported/proposed Omnibus timeline relief (provisional agreement, 7 May 2026), not yet reflected in the EUR-Lex text of the base Regulation; Directive (EU) 2024/2853. Lifetime Oy, Business ID 0772407-9, Espoo, Finland._

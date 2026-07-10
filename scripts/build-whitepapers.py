@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build DWS whitepapers as colorful, branded A4 .docx — the single pipeline (replaces pandoc).
 
-Implements DWS_DOCUMENT_STANDARD.md §20 (Whitepaper Standard):
+Implements DWS_DOCUMENT_STANDARD.md §22 (Whitepaper Standard):
   - A4 portrait, Aegis logo top-right, colored navy banner + two-tone title
   - Justified 12pt body; navy headings / blue sub-headings
   - Colored callout boxes (highlight=navy, disclaimer=amber, CTA=navy),
@@ -86,7 +86,7 @@ def collect(el,tag,acc):
         if c.tag==tag: acc.append(c)
         else: collect(c,tag,acc)
 def find(el,tag):
-    if el.tag=='body': return el
+    if el.tag==tag: return el
     for c in kids(el):
         r=find(c,tag)
         if r is not None: return r

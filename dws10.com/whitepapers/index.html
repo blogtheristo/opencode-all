@@ -120,6 +120,11 @@
         background: #cbd5e1;
         cursor: not-allowed;
       }
+      a.btn[aria-disabled="true"] {
+        background: #cbd5e1;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
       .note {
         background: #fffbeb;
         border: 1px solid #fde68a;
@@ -174,7 +179,12 @@
         <div style="text-align: right">
           <span class="badge b-public">Public</span><br />
           <!-- TODO: link the rendered public PDF/HTML once published -->
-          <a class="btn" href="#" data-doc="compliant-by-construction" aria-disabled="true"
+          <a
+            class="btn"
+            href="#"
+            data-doc="compliant-by-construction"
+            aria-disabled="true"
+            tabindex="-1"
             >Download (wire up)</a
           >
         </div>
@@ -207,6 +217,7 @@
               href="#"
               data-doc="sovereign-industrial-intelligence"
               aria-disabled="true"
+              tabindex="-1"
               >Download (wire up)</a
             >
           </div>
@@ -218,7 +229,7 @@
           </div>
           <div style="text-align: right">
             <span class="badge b-conf">Confidential</span><br />
-            <a class="btn" href="#" data-doc="kya-idv-cert" aria-disabled="true"
+            <a class="btn" href="#" data-doc="kya-idv-cert" aria-disabled="true" tabindex="-1"
               >Download (wire up)</a
             >
           </div>
@@ -230,7 +241,7 @@
           </div>
           <div style="text-align: right">
             <span class="badge b-conf">Confidential</span><br />
-            <a class="btn" href="#" data-doc="shufti-kya" aria-disabled="true"
+            <a class="btn" href="#" data-doc="shufti-kya" aria-disabled="true" tabindex="-1"
               >Download (wire up)</a
             >
           </div>
