@@ -87,7 +87,7 @@ services:
       NODE_ENV: production
       PORT: 8080
       # Tier 1 internal-ops Postgres (agent memory, audit logs, telemetry, nudges)
-      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD}@dws-postgres:5432/dws_internal"
+      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD:?INTERNAL_DB_PASSWORD is required}@dws-postgres:5432/dws_internal"
       # Ollama on host (DGX Spark native, not containerized)
       OLLAMA_BASE_URL: http://host.docker.internal:11434
       # Model routing: local first, API fallback
