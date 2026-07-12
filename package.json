@@ -35,6 +35,7 @@
     "dev": "tsx watch src/app.ts",
     "start": "node dist/app.js",
     "build": "tsc -p tsconfig.json",
+    "build:whitepapers": "python3 scripts/build-whitepapers.py",
     "sync:landing-pages": "node scripts/sync-landing-pages.js",
     "lint": "echo \"No linter configured\"",
     "skills:check": "node scripts/skill-manifest-sync.mjs --check && node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code",
