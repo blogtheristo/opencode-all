@@ -83,6 +83,22 @@ afterthought — do not let automation quietly drop it.
 
 ## Status
 
-This is the plan, not the build. Stages 1-3 are unbuilt as of this commit. Next action, if
-approved: build Stage 1 (the regulatory-signal collector) first, since Stages 2-3 depend on
-it having real data to synthesize from.
+- **Stage 1 — DONE (2026-07-12).** `scripts/collect_regulatory_signals.py` +
+  `scripts/weekly/collect-regulatory-signals.sh` (auto-discovered by `day-runner.sh`,
+  registered in `Cron-works.md`). Verified: Python syntax, full dependency install in an
+  isolated venv, CLI arg parsing (`--dry-run`, `--topic`), rate-limiting/robots.txt/retry/
+  dedup logic all execute cleanly. **Not verified:** actual RSS content end-to-end — this
+  Claude Code cloud session's outbound gateway returns 403 on `news.google.com:443` by
+  policy (confirmed via `$HTTPS_PROXY/__agentproxy/status`: `connect_rejected`, not a
+  Google-side or code-side failure). First real content will only be seen once this runs
+  on DGX Spark's unrestricted network path — recommend a manual
+  `bash scripts/weekly/collect-regulatory-signals.sh --dry-run` (or the Python script
+  directly with `--dry-run --topic CBAM`) over SSH on DGX as the first verification step,
+  before trusting the live (non-dry-run) weekly schedule.
+- **Stage 2 (synthesis agent) — not yet built.** Depends on Stage 1 having produced real
+  `market_signals` rows to synthesize from; recommend waiting for at least one successful
+  DGX run before building this, so the agent's input shape can be validated against real
+  data rather than assumed.
+- **Stage 3 (scheduling + output into sales-manager.md) — not yet built.**
+- **Stage 4 (skill registration) — not yet built**, gated on Stages 1-3 per the Skill
+  Codification Rule.
