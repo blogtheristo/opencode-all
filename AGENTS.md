@@ -558,7 +558,7 @@ cost_tracking:
 
 **Terminology.** Two execution substrates exist (or are being evaluated) for running DWS agent workloads:
 
-- **Claude Managed Agents** — Anthropic's hosted agent-execution service (public beta as of this writing, `managed-agents-2026-04-01`). Anthropic runs the session/sandbox/tool loop on its own infrastructure; DWS sends events and receives results. Distinct from the raw Messages API, the Tool Runner (`client.beta.messages.tool_runner`, self-hosted loop), and the Claude Agent SDK (self-hosted library) — see `claude-code-guide` for the full surface comparison.
+- **Claude Managed Agents** — Anthropic's hosted agent-execution service (public beta as of this writing, `managed-agents-2026-04-01`). Anthropic runs the session/sandbox/tool loop on its own infrastructure; DWS sends events and receives results. Distinct from the raw Messages API, the Tool Runner (`client.beta.messages.tool_runner`, self-hosted loop), and the Claude Agent SDK (self-hosted library) — see Anthropic documentation for the full surface comparison.
 - **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the Godagent architecture (`docs/Deputy-Agents-Architecture.md`) running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
 
 ### 8.1 Comparison
