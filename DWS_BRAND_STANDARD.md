@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.8
+# DWS Gamma Brand Standard v3.9
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.8
+Version: 3.9
 
 Sessions & Modifications:
 
+- Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §25 (Personnel Photography & Multimodal Brand Assets) — canonical photo registry (first two entries: `Risto_Malta.png` APPROVED, `CV/risto70.png` flagged NEEDS REVIEW for an unprofessional bar-signage background found in active use on a government-tender CV), personnel photo quality bar, video/audio brand-asset handling (poster-frame + external link, WCAG captions), and the "flag, don't silently use" rule when no compliant asset exists yet. Companion to `DWS_DOCUMENT_STANDARD.md` §22, which covers the technical storage/embedding side. Added §25 to ToC.
 - Version: 3.8 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder clarification (Risto: "compliance intelligence is a part of that including climate compliance (eu)") applied to §22's "Sovereign Industrial Intelligence Outcomes" entry — named **Compliance Intelligence** as the outcome category, with Climate Compliance (EU: Fit for 55/ETS/CBAM/CSRD) as one confirmed part alongside EU AI Act Article 12, GDPR, NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`) and CER Directive/EU CRM Act/dual-use export control at the Aegis tier. Added explicit guardrail: do not narrow this pitch line to climate-only in copy.
 - Version: 3.7 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Added §22 "Sovereign Industrial Intelligence Outcomes" pitch line (EN + draft FI) — founder-confirmed flagship phrase ("this is important! We do Sovereign Industrial Intelligence outcomes"), synthesizing the existing Three-Layer National Strategy (Layer 3 = DWS operates the intelligence) with the CLOUD Act jurisdiction thesis. Cross-referenced to `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 and `DWS_TRUTH_STANDARD.md` row 27; carries forward the coinability audit's caution (no "SI" abbreviation, no bare "Sovereign Intelligence" exclusivity claim, FI line marked draft pending native review).
 - Version: 3.6 | Tool: Claude Code | Session: claude/outreach-agents-spark-7n0fgy | Date: 15.06.2026 | Changes: Added §23 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules (≤50 chars), approved CTAs, banned phrases, LinkedIn voice (≤300 chars connection note), sender spec (risto@onelifetime.world / "Risto at DWS"). Updated Table of Contents. Governs outreach-agents skill and OutreachMessageCrafterAgent. Bumped version 3.5 → 3.6; added as new §24 (4P Capital Classes already holds §23 on main).
@@ -36,7 +37,7 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 10.07.2026
+- Last Modified: 12.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -54,33 +55,34 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 
 ## Table of Contents
 
-| #   | Section                                  | Scope                                 |
-| --- | ---------------------------------------- | ------------------------------------- |
-| 0   | Store Identity & Product Data            | Store pages                           |
-| 1   | Store Category Navigation                | Store buy/ pages                      |
-| 2   | Dark Theme Tokens                        | All pages                             |
-| 3   | Product Card Component                   | Store pages                           |
-| 4   | Store Category Taxonomy                  | products.json                         |
-| 5   | Iron Clad Navigation (v3.0)              | **All pages**                         |
-| 6   | Iron Clad Footer (v1.0)                  | **All pages**                         |
-| 7   | Hero Section Standard                    | All content pages                     |
-| 8   | Typography & Fonts                       | All pages                             |
-| 9   | Logo Usage & Assets                      | All pages                             |
-| 10  | SEO Meta Tags Standard                   | **All pages**                         |
-| 11  | Sovereignty Badge System                 | Products & compliance                 |
-| 12  | A2A Agent Integration                    | Industrial pages                      |
-| 13  | Responsive Breakpoints                   | All pages                             |
-| 14  | Accessibility (WCAG 2.2)                 | All pages                             |
-| 15  | Shared Assets Registry                   | Infrastructure                        |
-| 16  | Page Template                            | New pages                             |
-| 17  | Climate IQ Pantheon Agent Brand Identity | onelifetime.world agent cards         |
-| 18  | Dashboard Profile Menu Standard          | Logged-in dashboard (v10-react)       |
-| 19  | Onboarding Wizard Standard               | First-run experience (v10-react)      |
-| 20  | Compliance Score Widget Standard         | Dashboard compliance ring (v10-react) |
-| 21  | CLI Rich Output Standard                 | CLI human-readable formatting         |
-| 22  | Product Pitch Lines                      | Canonical one-liners (EN/FI)          |
-| 23  | 4P Capital Classes                       | Canonical terminology (positioning)   |
-| 24  | Outreach Voice & Email Standard          | B2B outreach email + LinkedIn         |
+| #   | Section                                   | Scope                                        |
+| --- | ----------------------------------------- | -------------------------------------------- |
+| 0   | Store Identity & Product Data             | Store pages                                  |
+| 1   | Store Category Navigation                 | Store buy/ pages                             |
+| 2   | Dark Theme Tokens                         | All pages                                    |
+| 3   | Product Card Component                    | Store pages                                  |
+| 4   | Store Category Taxonomy                   | products.json                                |
+| 5   | Iron Clad Navigation (v3.0)               | **All pages**                                |
+| 6   | Iron Clad Footer (v1.0)                   | **All pages**                                |
+| 7   | Hero Section Standard                     | All content pages                            |
+| 8   | Typography & Fonts                        | All pages                                    |
+| 9   | Logo Usage & Assets                       | All pages                                    |
+| 10  | SEO Meta Tags Standard                    | **All pages**                                |
+| 11  | Sovereignty Badge System                  | Products & compliance                        |
+| 12  | A2A Agent Integration                     | Industrial pages                             |
+| 13  | Responsive Breakpoints                    | All pages                                    |
+| 14  | Accessibility (WCAG 2.2)                  | All pages                                    |
+| 15  | Shared Assets Registry                    | Infrastructure                               |
+| 16  | Page Template                             | New pages                                    |
+| 17  | Climate IQ Pantheon Agent Brand Identity  | onelifetime.world agent cards                |
+| 18  | Dashboard Profile Menu Standard           | Logged-in dashboard (v10-react)              |
+| 19  | Onboarding Wizard Standard                | First-run experience (v10-react)             |
+| 20  | Compliance Score Widget Standard          | Dashboard compliance ring (v10-react)        |
+| 21  | CLI Rich Output Standard                  | CLI human-readable formatting                |
+| 22  | Product Pitch Lines                       | Canonical one-liners (EN/FI)                 |
+| 23  | 4P Capital Classes                        | Canonical terminology (positioning)          |
+| 24  | Outreach Voice & Email Standard           | B2B outreach email + LinkedIn                |
+| 25  | Personnel Photography & Multimodal Assets | CVs, customer docs, whitepapers, video/audio |
 
 ---
 
@@ -2188,10 +2190,43 @@ Use these opening hooks by regulatory trigger (from `REGULATORY_HOOKS` in `outre
 
 ---
 
+## 25. Personnel Photography & Multimodal Brand Assets
+
+Governs the visual-identity quality bar for personnel photos and other non-text brand assets (video, audio) used across sites, CVs, whitepapers, and customer documents. Technical embedding/storage rules (where files live, how they get inlined into downloadable documents, the fallback when they can't be) are canonical in `DWS_DOCUMENT_STANDARD.md` §22 — this section covers what makes an asset _on-brand_, not how it's stored.
+
+### 25.1 Canonical Photo Registry
+
+Every personnel photo used in more than one place must be registered here with an approval status. Do not add a new duplicate copy of a person's photo without checking this table first.
+
+| File                             | Canonical path                            | Status              | Used on                                                                                                 | Notes                                                                                                                                                                                                                                                        |
+| -------------------------------- | ----------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Risto Anton Päärni — brand photo | `dws10.com/static/images/Risto_Malta.png` | ✅ **APPROVED**     | Team/about pages: dws10.com, onelifetime.world, both `landing-pages/*` mirrors, `kb/raw/images/people/` | Professional attire, neutral evening-waterfront setting, no third-party signage — safe for public/customer-facing use                                                                                                                                        |
+| Risto Anton Päärni — CV photo    | `CV/risto70.png`                          | ⚠️ **NEEDS REVIEW** | Referenced from Google Drive `Risto_CV_FI_165` doc export                                               | Background contains visible third-party bar signage — not appropriate for a government tender or enterprise customer document. Recommended: replace with a crop of `Risto_Malta.png`, or a new dedicated headshot, before using in any procurement-facing CV |
+
+### 25.2 Personnel Photo Standard
+
+- Professional headshot or upper-body framing, business-appropriate attire
+- Background must be neutral or clearly brand-context (office, event with DWS/company branding) — **never** third-party commercial signage, other identifiable people, or anything a procurement evaluator could flag
+- Minimum 600×600 px for headshot crops; source files should be high-resolution (the two registered above are 1173×1242 and 563×563 respectively — acceptable but not generous, prefer ≥1200px on the long side for new photos)
+- One canonical file per context (site-brand vs. CV-facing may legitimately differ, but each needs its own registry row — no silent duplicates)
+
+### 25.3 Video & Audio Brand Assets
+
+- Product demo videos, intro videos, and audio clips are not embedded inline in documents (see `DWS_DOCUMENT_STANDARD.md` §22.5) — they are hosted (site media hosting or the shared Google Drive artifact area) and linked, with a static poster-frame thumbnail embedded in place of inline playback.
+- Poster frames follow the same background-appropriateness bar as §25.2.
+- Captions/transcripts are required for any customer-facing video per WCAG 2.2 AA (§14).
+
+### 25.4 When an Asset Can't Meet the Bar
+
+If the only available photo/video for a person or product doesn't meet §25.2's bar (as with `CV/risto70.png` today) and no replacement is available yet, flag it explicitly in the registry (⚠️ NEEDS REVIEW, as above) rather than using it silently in a customer-facing document. Do not block on it if the HIC decides the existing asset is acceptable for a given use — but the flag stays until a replacement is registered.
+
+---
+
 ## Changelog
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.9    | 2026-07-12 | Added: §25 Personnel Photography & Multimodal Brand Assets — canonical photo registry (Risto_Malta.png APPROVED, CV/risto70.png flagged NEEDS REVIEW), personnel photo quality bar, video/audio handling, "flag don't silently use" rule. Companion to `DWS_DOCUMENT_STANDARD.md` §22.                                                                                                                                                                                                                                                               |
 | v3.6    | 2026-06-15 | Added: §24 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules, approved CTAs, banned phrases, LinkedIn voice, sender spec. Governs outreach-agents skill and OutreachMessageCrafterAgent.                                                                                                                                                                                                                                                                            |
 | v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`.                                                                                                                  |
 | v3.4    | 2026-06-21 | Added: §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners (the approved Variant B ungoverned-databases tweet and the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can"), with translation notes and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).                                                                                                                                                                                                         |

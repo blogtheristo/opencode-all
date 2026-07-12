@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
 
+- Version: 2.5 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §22 (Multimodal Document Assets) — canonical asset locations (images/fonts/evidence PDFs), Markdown image reference convention, the Base64-embed rule for downloadable HTML/DOCX (formalizes CLAUDE.md's "Downloadable HTML Rule" here as canonical, via new `scripts/render-doc.sh` pandoc wrapper), video/audio handling (poster-frame + external link, never inline data URI), personnel photo quality bar, and the "never drop silently — HIC decision + shared Drive link" fallback rule for artifacts that can't be embedded. Triggered by discovering `bids/ORK160826/CV_ORK160826_v165.md` had zero image references across 168 versions despite a canonical photo already existing in-repo, and that the existing CV-facing photo (`CV/risto70.png`) has an unprofessional background unsuitable for procurement documents. Added §22 to ToC.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
 - Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
@@ -36,7 +37,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 28.04.2026
+- Last Modified: 12.07.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -66,6 +67,7 @@ Document Status:
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
 21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
+22. [Multimodal Document Assets](#22-multimodal-document-assets) ⭐ NEW
 
 ---
 
@@ -2297,6 +2299,86 @@ When generating `.docx` exports from markdown documents:
 - Any agent rewrite that drops formulation data is a **Rule 12 violation** (Fail loud — never hide skipped work)
 - Version history MUST note "formulations preserved from vX.Y" when rewriting
 - If a passage cannot be placed in the new structure, append it to a "Heritage Passages" section — never delete it
+
+---
+
+## 22. Multimodal Document Assets
+
+### 22.1 Purpose / Tarkoitus
+
+Documents (CVs, whitepapers, customer documents, offers) increasingly carry more than text — photos, diagrams, screenshots, and occasionally video/audio references. This section governs where those assets live, how they are referenced from markdown, and how they get embedded into downloadable HTML/DOCX outputs — so an artifact isn't silently dropped when a document is rendered or re-versioned.
+
+Dokumentit (CV:t, whitepaperit, asiakasdokumentit, tarjoukset) kantavat yhä useammin muutakin kuin tekstiä — valokuvia, kaavioita, kuvakaappauksia ja joskus video-/äänimateriaalia. Tämä osio määrittää, missä nämä varat sijaitsevat, miten niihin viitataan markdownista, ja miten ne upotetaan ladattaviin HTML/DOCX-tulosteisiin.
+
+**Trigger discovery:** this section was added after finding that `bids/ORK160826/CV_ORK160826_v165.md` had never carried any image reference in any of its 168 versions, even though a canonical professional photo already existed in-repo (`dws10.com/static/images/Risto_Malta.png`, used site-wide) — the CV's markdown→HTML/DOCX pipeline had no rule requiring images to be looked for, referenced, or embedded.
+
+### 22.2 Canonical Asset Locations
+
+Before adding any new photo/diagram/screenshot, **check whether it already exists in the repo.** Multiple copies of the same personnel photo were found scattered across `CV/`, `dws10.com/static/images/`, `onelifetime.world/static/images/`, `landing-pages/*/static/images/`, and `kb/raw/images/people/` before this rule existed — treat that as the failure mode to avoid going forward.
+
+| Asset type                                                                | Canonical location                               | Notes                                                                                                         |
+| ------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Personnel photos (site-wide use)                                          | `dws10.com/static/images/`                       | Mirror into `onelifetime.world/static/images/` and both `landing-pages/*/static/images/` per Dual Folder Sync |
+| Personnel photos (CV/document-only use)                                   | `CV/`                                            | May differ from the site photo (formal headshot vs. site-brand photo) — see §22.6 for the quality bar         |
+| Document/brand fonts                                                      | `docs/assets/fonts/`                             | Referenced in §8.4                                                                                            |
+| Source certificate / evidence PDFs (degrees, grades, official statements) | `Learn/evidence/YYYY-MM-DD-descriptive-name.pdf` | Same folder and naming convention as evidence notes (§ below); raw source file, not a summary                 |
+| Shared JS/CSS                                                             | `dws10.com/shared-assets/`                       | Governed by `DWS_BRAND_STANDARD.md` §15                                                                       |
+
+### 22.3 Markdown Image Reference Convention
+
+Reference images with standard Markdown syntax, path relative to the `.md` file's own directory:
+
+```markdown
+![Risto Anton Päärni](../../dws10.com/static/images/Risto_Malta.png)
+```
+
+- Alt text is **required** and must be descriptive (accessibility — ties to `DWS_BRAND_STANDARD.md` §14 WCAG 2.2 AA), not a filename.
+- Do not paste raw Base64 into the markdown source — that belongs only in the rendered HTML output (§22.4), not the source of truth.
+
+### 22.4 Embedding Rule for Downloadable Documents (formalizes CLAUDE.md "Downloadable HTML Rule")
+
+Any standalone downloadable HTML document (CV, profile, report) **must** have zero external file references — every image embedded as a Base64 data URL, so the file works fully offline and doesn't break when the source image moves.
+
+**Tooling:** `scripts/render-doc.sh <input.md> [output-basename]` — wraps pandoc with `--standalone --embed-resources` for HTML (auto Base64-embeds every referenced image) and produces a `.docx` alongside it (images embed natively in DOCX, no flag needed — DOCX is a zip container). Requires `pandoc` (`apt-get install -y pandoc` on Debian/Ubuntu cloud sessions; `winget install JohnMacFarlane.Pandoc` on Windows per §8.3). Pandoc installs are **not persisted** across fresh cloud-session containers — reinstall at the start of a session if `render-doc.sh` reports it missing.
+
+```bash
+scripts/render-doc.sh bids/ORK160826/CV_ORK160826_v165.md
+# → CV_ORK160826_v165.html (self-contained, images embedded)
+# → CV_ORK160826_v165.docx (images embedded natively)
+```
+
+### 22.5 Video & Audio Assets
+
+Unlike images, video/audio should **not** be embedded as inline data URIs in HTML/DOCX — the resulting file size breaks the PDF Standard's §8.2 10 MB target almost immediately. Instead:
+
+- Host the source file externally (Google Drive shared-artifact area, or a site's own media hosting) and link to it.
+- Embed a static poster-frame/thumbnail image inline (following §22.4) so the document still shows something without a live network fetch.
+- Register the asset in a media table in the document or its evidence note: filename, format, duration, canonical URL, transcript/caption availability (accessibility requirement).
+
+### 22.6 Personnel Photo Quality Bar
+
+A photo that is technically embeddable is not automatically appropriate for a government tender, customer document, or investor deck. Minimum bar before a personnel photo goes into a customer-facing or procurement document:
+
+- Professional headshot framing, business-appropriate attire
+- **Background must not contain third-party signage, logos, other identifiable people, or anything a procurement evaluator could read as unprofessional** — this rule exists because `CV/risto70.png` (a bar/restaurant setting with visible third-party signage in the background) was found already committed under a CV-facing filename
+- Minimum resolution: 600×600 px for headshot crops
+- See `DWS_BRAND_STANDARD.md` §15.1 for the canonical photo registry and per-photo approval status
+
+### 22.7 Fallback: Artifact Cannot Be Embedded
+
+If an artifact (video, large audio file, a format pandoc/HTML cannot inline, or anything that would blow the file-size budget) cannot be embedded per §22.4–22.5, the **minimum acceptable fallback is never to drop it silently.** Instead:
+
+1. Upload it to the shared Google Drive artifact storage area, with link-sharing rights enabled ("anyone with the link can view").
+2. Present the HIC with the shareable link and an explicit decision point — do not assume it's fine to just reference-and-forget.
+3. Record the Drive link in the document's evidence note (or a media table per §22.5) so it survives version bumps.
+
+This mirrors Rule 12 (Fail loud) — a document that silently references an artifact nobody can actually open is a hidden failure, not a completed task.
+
+### 22.8 Enforcement
+
+- A document rewrite/re-version must not drop an existing image reference without an explicit, logged reason (mirrors §21.5 formulation preservation).
+- Before adding a new personnel/product photo to a customer-facing document, check §22.2's canonical locations first — do not create a new duplicate copy.
+- `scripts/render-doc.sh` output must be spot-checked (`grep -c "data:image" output.html` should be ≥ the number of images referenced) before a document ships.
 
 ---
 
