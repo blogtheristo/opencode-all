@@ -234,7 +234,7 @@ if ! $SKIP_RESTORE; then
       log_ok "Row counts match between dws-postgres and Aiven"
       ROW_COUNT_MATCH="match"
     else
-      log_warn "Row counts differ — review manually (source vs Aiven table counts printed above on failure)"
+      log_warn "Row counts differ — review manually (compare source vs Aiven table counts)"
       ROW_COUNT_MATCH="mismatch"
     fi
   else
