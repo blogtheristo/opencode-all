@@ -43,8 +43,7 @@ services:
     environment:
       POSTGRES_DB: dws_internal
       POSTGRES_USER: dws_backend
-      # REQUIRED: INTERNAL_DB_PASSWORD must be set in .env (used for pg auth + INTERNAL_DB_URL)
-      POSTGRES_PASSWORD: "${INTERNAL_DB_PASSWORD}"
+      POSTGRES_PASSWORD: "${INTERNAL_DB_PASSWORD:?INTERNAL_DB_PASSWORD is required}"
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./migrations:/docker-entrypoint-initdb.d:ro
@@ -88,8 +87,7 @@ services:
       NODE_ENV: production
       PORT: 8080
       # Tier 1 internal-ops Postgres (agent memory, audit logs, telemetry, nudges)
-      # REQUIRED: INTERNAL_DB_PASSWORD must be set in .env; if unset, connection string becomes invalid
-      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD}@dws-postgres:5432/dws_internal"
+      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD:?INTERNAL_DB_PASSWORD is required}@dws-postgres:5432/dws_internal"
       # Ollama on host (DGX Spark native, not containerized)
       OLLAMA_BASE_URL: http://host.docker.internal:11434
       # Model routing: local first, API fallback
@@ -162,8 +160,7 @@ services:
       OLLAMA_MODEL: nemotron-3-super
       DWS_BACKEND_URL: http://dws-backend:8080
       # Tier 1 internal-ops Postgres (agent memory, audit logs, telemetry, nudges)
-      # REQUIRED: INTERNAL_DB_PASSWORD must be set in .env; if unset, connection string becomes invalid
-      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD}@dws-postgres:5432/dws_internal"
+      INTERNAL_DB_URL: "postgres://dws_backend:${INTERNAL_DB_PASSWORD:?INTERNAL_DB_PASSWORD is required}@dws-postgres:5432/dws_internal"
       # Heartbeat detection handled by the heartbeat container (:9999)
       # No HEARTBEAT_URL — cron-runner skips the periodic POST
       # OpenTelemetry — pre-wired for Aspire Dashboard (active when @opentelemetry/sdk-node added)
