@@ -166,6 +166,12 @@ When editing thesis content, apply this split: implementation evidence → maste
 
 For standalone downloadable HTML documents (CV/profile/report style), embed images as Base64 data URLs instead of relative paths.
 
+## Deliverable Handoff Rule
+
+Never tell the user to copy-paste content from rendered chat/canvas — rendered markdown has no copy button and wraps awkwardly. When handing over copyable content (whitepapers, letters, drafts, outreach copy, snippets), deliver it as a **file** (`SendUserFile`) or in a **fenced code block** (which has a copy button).
+
+**"Give copy" / "copy paste" / "give a copy-paste" means: output the full content inside a single fenced code block** — no preamble before the user has to scroll, the whole deliverable in one copyable block. This applies regardless of length (even long whitepapers). A file or export (PDF, Google Docs, Gamma) is an addition on request, never a substitute for the code block when copy is asked.
+
 ## PNG Export Rule
 
 Every deliverable PNG (chart, roadmap, screenshot handed to the user) is rendered at 4K resolution — at least 3840 px on the long side. Use `scripts/screenshot.mjs`, whose defaults (width 1280 × scale 3) enforce this; lower resolutions are for debug-only shots.
