@@ -8,7 +8,7 @@ Created `investor-outreach/INTRO_JASENKO_HADZIC_SPINTOP.md` via `/investor-outre
 - Strategy: frame DWS IQ as regulatory compliance infrastructure (matches his infra/cyber thesis), not generic SaaS. Aegis/dual-use angle held in reserve for a later conversation given his cyber mandate — not sent on first touch.
 - Ticket size (EUR 500K-2.5M) could cover the entire EUR 650K SAFE alone — positioned as a potential lead, not a Captain-seat add-on.
 
-Committed (24cab8e) and pushed to origin. No PR opened (not requested).
+Committed and pushed to origin (see git history / PR for the exact SHA).
 
 ## Next steps
 
