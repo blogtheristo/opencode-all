@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/colibri-usability-study-z5q1ew | Date: 12.07.2026 | Changes: Added §2 "Pre-Flight Readiness & Honest Reporting" — codifies two reusable agent/tool-design patterns extracted from the Colibrì usability study (`docs/field-notes/2026-07-12-colibri-usability-study.md`): a read-only pre-flight readiness/dry-run path before expensive-or-irreversible actions (the `doctor`/`plan` pattern), and honest measured-with-conditions performance reporting (the "Honest Performance Numbers" pattern).
 - Version: 1.2 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Added §0 "The 12 Engineering Discipline Rules" — restates the canonical 12 rules (home: CLAUDE.md) for every `src/agents/` BaseAgent, MCP tool, AgentFoundry, and dev-fleet agent, with agent-specific bindings. Ensures every agent has access to the rules per session directive.
 - Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/vertical-agent-architecture-f8fqc5 | Date: 12.06.2026 | Changes: Added §11 Context Engineering & Agent Shape (L1/L2/L3 cache tiers, loop-vs-single-shot decision rule, discrete-tools-over-execute_code trade-off) from the "Building a Good Vertical Agent" audit; extended the new-agent checklist with tier + shape declarations
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: Added Ledger-Native Output Contract (Firehorse 7) to §2 — operational agents must emit signed journalEntries + lineage (EU AI Act Art. 12) and optional regulatoryArtifact; defined sales-side exemption allowlist and CI contract gate. Implements DWS7 CEO reshape (layer-5 / AI Actions positioning)
@@ -20,7 +21,7 @@ Session Links & References:
 Document Status:
 
 - Created: 11.02.2026
-- Last Modified: 19.06.2026
+- Last Modified: 12.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -225,6 +226,14 @@ interface LedgerNativeAgentOutput extends AgentResponse {
 - If `GROQ_API_KEY` is not set, `callLLM()` returns a placeholder. Agent must still produce a deterministic result.
 - If Supabase is not configured, `logExecution()` silently skips. Agent must not fail.
 - All external API calls must be wrapped in try/catch with meaningful error messages.
+
+### Pre-Flight Readiness & Honest Reporting
+
+Two patterns extracted from the Colibrì usability study (`docs/field-notes/2026-07-12-colibri-usability-study.md`, JustVugg/colibri). Both generalise to any agent or tool that commits expensive, slow, or irreversible work.
+
+**Pre-flight readiness check (the `doctor`/`plan` pattern).** Any agent or tool whose main action is expensive, slow, or irreversible — large model load, long download, paid API burst, destructive migration — SHOULD expose a **read-only** readiness path that validates inputs, dependencies, cost budget (§6), and resource fit, and reports _what would happen_ without allocating, spending, or mutating. Colibrì's `coli doctor` (readiness) and `coli plan` (`--json` resource hierarchy) let a user fail for free in seconds instead of after a multi-hour download. In DWS terms: a dry-run surfaces the §6 cost estimate and §7 tier decision _before_ execution. This is Rule 12 (fail loud) applied **before the fact** — error prevention, not just logging after it.
+
+**Honest performance reporting (the "Honest Performance Numbers" pattern).** When an agent or tool publishes performance, throughput, or cost figures, report **measured numbers with the conditions that produced them** — never a single best-case figure. Colibrì ships a first-party honest-baseline table _and_ a community-contributed measurements table (hardware, disk speed, config, result), which builds trust and turns users into contributors. For DWS agents: emit real per-run cost/latency into the execution log (§6); where numbers are published externally, include the conditions and label estimates as estimates (Rule 12; `truth-check` gate for public claims).
 
 ---
 
