@@ -35,13 +35,21 @@ if ! command -v pandoc >/dev/null 2>&1; then
   exit 1
 fi
 
+# Relative image paths in the .md are relative to the .md file's own
+# directory (so they also render correctly on GitHub) — pandoc otherwise
+# resolves them relative to the current working directory, so tell it
+# explicitly where to look.
+INPUT_DIR="$(cd "$(dirname "$INPUT")" && pwd)"
+
 pandoc "$INPUT" \
   --standalone \
   --embed-resources \
+  --resource-path="$INPUT_DIR" \
   --metadata title="$TITLE" \
   -o "${OUT_BASE}.html"
 
 pandoc "$INPUT" \
+  --resource-path="$INPUT_DIR" \
   -o "${OUT_BASE}.docx"
 
 echo "Wrote ${OUT_BASE}.html and ${OUT_BASE}.docx (images embedded, no external file references)"

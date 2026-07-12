@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: §22.4 updated — `scripts/render-doc.sh` now passes `--resource-path` so relative image paths resolve against the source .md's own directory (fixes a real bug: pandoc was resolving them against the caller's cwd instead, silently dropping the image). Documented the permanent pandoc install path: `infrastructure/dgx-spark/first-boot.sh` (step 3a) installs it once on the DGX Spark box so it survives across sessions, distinct from the ephemeral cloud-session `apt-get install` fallback. First real-world use: `bids/ORK160826/CV_ORK160826_v165.md` v170 — first image reference in 170 versions, rendered to `.html`/`.docx` with the photo embedded.
 - Version: 2.5 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §22 (Multimodal Document Assets) — canonical asset locations (images/fonts/evidence PDFs), Markdown image reference convention, the Base64-embed rule for downloadable HTML/DOCX (formalizes CLAUDE.md's "Downloadable HTML Rule" here as canonical, via new `scripts/render-doc.sh` pandoc wrapper), video/audio handling (poster-frame + external link, never inline data URI), personnel photo quality bar, and the "never drop silently — HIC decision + shared Drive link" fallback rule for artifacts that can't be embedded. Triggered by discovering `bids/ORK160826/CV_ORK160826_v165.md` had zero image references across 168 versions despite a canonical photo already existing in-repo, and that the existing CV-facing photo (`CV/risto70.png`) has an unprofessional background unsuitable for procurement documents. Added §22 to ToC.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
@@ -2339,7 +2340,10 @@ Reference images with standard Markdown syntax, path relative to the `.md` file'
 
 Any standalone downloadable HTML document (CV, profile, report) **must** have zero external file references — every image embedded as a Base64 data URL, so the file works fully offline and doesn't break when the source image moves.
 
-**Tooling:** `scripts/render-doc.sh <input.md> [output-basename]` — wraps pandoc with `--standalone --embed-resources` for HTML (auto Base64-embeds every referenced image) and produces a `.docx` alongside it (images embed natively in DOCX, no flag needed — DOCX is a zip container). Requires `pandoc` (`apt-get install -y pandoc` on Debian/Ubuntu cloud sessions; `winget install JohnMacFarlane.Pandoc` on Windows per §8.3). Pandoc installs are **not persisted** across fresh cloud-session containers — reinstall at the start of a session if `render-doc.sh` reports it missing.
+**Tooling:** `scripts/render-doc.sh <input.md> [output-basename]` — wraps pandoc with `--standalone --embed-resources --resource-path=<the .md's own directory>` for HTML (auto Base64-embeds every referenced image, resolved relative to the source file so the same path also renders correctly on GitHub) and produces a `.docx` alongside it (images embed natively in DOCX, no flag needed — DOCX is a zip container). Requires `pandoc`.
+
+- **Ephemeral cloud sessions:** `apt-get install -y pandoc` (Debian/Ubuntu) or `winget install JohnMacFarlane.Pandoc` (Windows, per §8.3). **Not persisted** — reinstall at the start of a session if `render-doc.sh` reports it missing.
+- **DGX Spark (permanent):** installed once by `infrastructure/dgx-spark/first-boot.sh` (step 3a) — survives across every future session on that box. This is the durable install; the cloud-session `apt-get` above is the ephemeral fallback for containers that aren't the DGX box.
 
 ```bash
 scripts/render-doc.sh bids/ORK160826/CV_ORK160826_v165.md
