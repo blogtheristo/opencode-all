@@ -149,7 +149,7 @@ echo ""
 if $DRY_RUN; then
   log_info "[DRY RUN] Would create: $LOCAL_BACKUP_DIR/dws-internal-${DATE_TAG}.sql"
   log_info "[DRY RUN] Would encrypt with GPG (if BACKUP_GPG_PASSPHRASE set)"
-  log_info "[DRY RUN] Would pg_restore into the Aiven target (unless --skip-restore)"
+  log_info "[DRY RUN] Would restore into the Aiven target (unless --skip-restore)"
   exit 0
 fi
 
