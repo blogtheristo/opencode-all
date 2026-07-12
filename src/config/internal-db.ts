@@ -35,7 +35,7 @@ export function getInternalDbPool(): Pool | null {
 
   if (!connectionString) {
     logger.warn(
-      'INTERNAL_DB_URL not configured — internal-ops services will use in-memory fallback',
+      'INTERNAL_DB_URL not configured — internal-ops Postgres disabled',
     );
     return null;
   }
