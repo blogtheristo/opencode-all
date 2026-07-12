@@ -473,8 +473,8 @@ Code-backed agents (one `*.agent.ts` per row). This table is verified against
 the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
 or removing an agent.
 
-| Agent                      | Role                                              |
-| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| Agent                      | Role                                              | Implementation                                                                                                                           | Default model |
+| -------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `agora`                    | Collective intelligence / multi-agent consensus   |
 | `argus`                    | Geospatial SAR signal intelligence (orbital)      |
 | `auditor`                  | Audit trail + explainability (XAI)                |
