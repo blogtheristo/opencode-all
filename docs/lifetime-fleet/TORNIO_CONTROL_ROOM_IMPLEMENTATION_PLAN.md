@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Session: claude/nvidia-halos-robotics-suqayg | Date: 10.07.2026 | Changes: Merge fix — updated the `DWS_TRUTH_STANDARD.md` §2 row reference for the Halos/KYA ontology mapping from row 27 to row 28 (row 27 was independently taken by "Sovereign Industrial Intelligence Outcomes" on main during the same-day merge; Halos landed at row 28, per DWS_TRUTH_STANDARD v3.5).
 - Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Session: claude/nvidia-halos-robotics-suqayg | Date: 10.07.2026 | Changes: PR review fix — updated the `DWS_TRUTH_STANDARD.md` §2 row reference for the Halos/KYA ontology mapping from row 20 to row 27 (row 20 was independently claimed by "Product-suite umbrella name & tier taxonomy" during the main-branch merge; Halos landed at row 27, per DWS_TRUTH_STANDARD v2.9).
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 23.06.2026 | Changes: Added the mutation-surface-isolation principle to §5.3 (Outside-In mesh) — layout change confined to a single versioned, Art-12-audited `meshZones` config while each asset's certified kernel stays frozen, keeping clear of an Annex I substantial-modification trigger; plus sensor-occlusion handling. Made `meshZones` a versioned config object in Phase 0 and §7 data model.
 - Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 23.06.2026 | Changes: Initial implementation plan for the Lifetime Fleet mobile Control Room at Outokumpu Tornio Works. Grounded in a four-area codebase survey (World Model loop, Lifetime Fleet/Control-Situation Rooms, Outokumpu/Tornio customer context, mobile/dashboard surfaces). Scope decisions locked with the user: first signal = ANYmal Jokkeri telemetry + weather/grid; edge target = GN100 control brain + IGX mill-floor brain; action scope = read-and-propose (no autonomous actuation). Adds the "Lifetime Compliance & Liability Isolation" pillar derived from the NVIDIA Halos fleet-lifecycle framing.
@@ -74,7 +75,7 @@ Tornio signals            IGX mill-floor brain      GN100 control brain         
                           (broadcast to whole fleet)         └──────────── reward feedback ───────────────────────┘
 ```
 
-Overlays on every step: HIL gate (`applied:false`, hard-typed) · KYA trust tier (fault → tier drop, per the Halos/KYA ontology mapping in `DWS_TRUTH_STANDARD.md` §2 row 27) · EU-sovereign data plane (no US Cloud Act surface, matching the Tier-1 sovereignty pilot field note).
+Overlays on every step: HIL gate (`applied:false`, hard-typed) · KYA trust tier (fault → tier drop, per the Halos/KYA ontology mapping in `DWS_TRUTH_STANDARD.md` §2 row 28) · EU-sovereign data plane (no US Cloud Act surface, matching the Tier-1 sovereignty pilot field note).
 
 ### 4.1 Why "read-and-propose" keeps us out of the safety envelope
 

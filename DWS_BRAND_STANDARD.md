@@ -1,13 +1,15 @@
-# DWS Gamma Brand Standard v3.6
+# DWS Gamma Brand Standard v3.8
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.6
+Version: 3.8
 
 Sessions & Modifications:
 
+- Version: 3.8 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder clarification (Risto: "compliance intelligence is a part of that including climate compliance (eu)") applied to §22's "Sovereign Industrial Intelligence Outcomes" entry — named **Compliance Intelligence** as the outcome category, with Climate Compliance (EU: Fit for 55/ETS/CBAM/CSRD) as one confirmed part alongside EU AI Act Article 12, GDPR, NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`) and CER Directive/EU CRM Act/dual-use export control at the Aegis tier. Added explicit guardrail: do not narrow this pitch line to climate-only in copy.
+- Version: 3.7 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Added §22 "Sovereign Industrial Intelligence Outcomes" pitch line (EN + draft FI) — founder-confirmed flagship phrase ("this is important! We do Sovereign Industrial Intelligence outcomes"), synthesizing the existing Three-Layer National Strategy (Layer 3 = DWS operates the intelligence) with the CLOUD Act jurisdiction thesis. Cross-referenced to `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 and `DWS_TRUTH_STANDARD.md` row 27; carries forward the coinability audit's caution (no "SI" abbreviation, no bare "Sovereign Intelligence" exclusivity claim, FI line marked draft pending native review).
 - Version: 3.6 | Tool: Claude Code | Session: claude/outreach-agents-spark-7n0fgy | Date: 15.06.2026 | Changes: Added §23 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules (≤50 chars), approved CTAs, banned phrases, LinkedIn voice (≤300 chars connection note), sender spec (risto@onelifetime.world / "Risto at DWS"). Updated Table of Contents. Governs outreach-agents skill and OutreachMessageCrafterAgent. Bumped version 3.5 → 3.6; added as new §24 (4P Capital Classes already holds §23 on main).
 - Version: 3.5 | Tool: Claude Code | Session: claude/dws10-offensive-positioning-6kdf2c | Date: 10.06.2026 (merged 06.07.2026; renumbered from 3.3 at merge — 3.3/3.4 were taken on main) | Changes: Added §22 DWS10 Offensive / Commercial-Edge pitch block — reframes the defensive fines-avoidance line into a commercial-edge / tender-velocity frame (EN+FI lockstep: hero opener, declarative hero H1, investor line), aligned to the canonical "compliance can freeze or release money" frame. Guardrails recorded: no "replace your people" (Ethics Principle band §6), no uncapped-liability claim, competitors implicit (§0). Source: docs/field-notes/2026-06-10-offensive-positioning-dws10.md.
 - Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Added §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners for the ontology / data-governance thesis: (1) the approved Variant B tweet "Point an LLM at hundreds of ungoverned databases and you get hallucination, insecurity, and no audit trail. The governed ontology is the product." and (2) the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can." With translation notes (kohinataso, hallittu ontologia, audit trail untranslated) and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).
@@ -34,12 +36,12 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 06.07.2026
+- Last Modified: 10.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
+---
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -1981,6 +1983,33 @@ Canonical framing derived from Finnish national data infrastructure strategy. Us
 
 ---
 
+### Sovereign Industrial Intelligence Outcomes (Cross-Product / Compliance Outcome Layer)
+
+Founder-confirmed 10.07.2026 ("this is important! We do Sovereign Industrial Intelligence outcomes") as the flagship, ownable phrase for what DWS IQ delivers — not a new doctrine, but the customer-facing compression of two already-canonical frames on this page: **Layer 3 of the Three-Layer National Strategy** above ("DWS operates the intelligence," while hyperscalers hold Layer 1 infrastructure) and the **CLOUD Act jurisdiction thesis** ("What happens in San Francisco stays in San Francisco," `DWS_MARKET_RESEARCH_STANDARD.md` §8.3). Composed: DWS's Layer-3 intelligence, delivered specifically under sovereign infrastructure, for regulated industry, priced and shipped as outcomes (Pillar 2, "Agent Outcome Factory"). The outcome category itself is **Compliance Intelligence** (founder-confirmed 10.07.2026) — broader than any single regulation: **Climate Compliance (EU)** — Fit for 55, ETS, CBAM, CSRD — is one confirmed part of it, alongside EU AI Act Article 12 logging, GDPR, and NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`), plus CER Directive / EU CRM Act / dual-use export control at the Aegis tier (`Store/PRODUCT_AEGIS.md`). Do not narrow this pitch line to "climate compliance only" in copy — Climate Compliance is a part, not the whole.
+
+**Investor / homepage sentence (EN):**
+
+> DWS delivers Sovereign Industrial Intelligence outcomes — audit-ready compliance decisions produced by governed agents running on infrastructure you control, for regulated European industry.
+
+**Homepage sentence (FI, kotimainen — draft, pending native/brand review before public use):**
+
+> DWS tuottaa suvereenin teollisen älyn tuloksia — auditointivalmiita vaatimustenmukaisuuspäätöksiä, jotka hallitut agentit tuottavat infrastruktuurilla, jonka omistat itse, säännellylle eurooppalaiselle teollisuudelle.
+
+**Translation notes:**
+
+- "Sovereign Industrial Intelligence" → "suvereeni teollinen äly" — parallels the existing "suvereeni tekoäly" (sovereign AI) construction used in the Aegis pitch line above, deliberately dropping "teko-" (artificial) to mark the outcome/intelligence layer distinct from the infrastructure/AI layer. Mirrors the EN distinction in `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 (layer model).
+- "outcomes" → "tulokset" — consistent with "vie maaliin" (carries to completion) outcome-first language in the System of Action Operator sentences above.
+
+**Do not:**
+
+- Abbreviate as "SI" (collides with the pre-existing "NVIDIA SI" = System Integrator usage in `DWS_MARKET_RESEARCH_STANDARD.md` §8.1).
+- Claim DWS coined "Sovereign Intelligence" as a bare term, or present it as a registered/trademarked phrase — see the coinability audit, `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md`. "Sovereign Industrial Intelligence" (this compound) is the more specific, more defensible flagship phrase for exactly this reason — none of the audit's collision names (Sovereign Intelligence LLC, StirlingX, Octostar) are industrial-compliance-focused.
+- Publish on any live page without `/truth-check` + this section's sign-off — Non-Negotiable Rule 5 keeps this `.md` file itself out of public-site folders regardless; the FI line above is explicitly marked draft pending native review.
+
+**Use in:** Series A investor decks (pair with the Three-Layer National Strategy Finland-Advantage slide), sovereignty-focused pitch openers (pair with the CLOUD Act thesis tweet), DWS IQ Climate/Industrial Intelligence product pages once cleared. Canonical registration: `DWS_TRUTH_STANDARD.md` row 27.
+
+---
+
 ### DWS10 Offensive / Commercial-Edge Pitch Block
 
 Reframes the defensive _"buy us so you don't get fined"_ line into a commercial-edge frame: compliance readiness sold as **tender-velocity and revenue, not insurance**. Moves the same product out of the risk/cost-center budget and into a growth budget — faster to unlock and larger. Derived from the offensive-positioning field note (`docs/field-notes/2026-06-10-offensive-positioning-dws10.md`) and aligned to the canonical _"compliance can freeze or release money"_ frame (System of Action Operator, above). Use the **defensive** line to get through the risk/legal/compliance door; switch to the **offensive** line once a commercial or CEO sponsor is in the room.
@@ -2163,8 +2192,8 @@ Use these opening hooks by regulatory trigger (from `REGULATORY_HOOKS` in `outre
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v3.6    | 2026-06-15 | Added: §24 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules, approved CTAs, banned phrases, LinkedIn voice, sender spec. Governs outreach-agents skill and OutreachMessageCrafterAgent. |
-| v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`. |
+| v3.6    | 2026-06-15 | Added: §24 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules, approved CTAs, banned phrases, LinkedIn voice, sender spec. Governs outreach-agents skill and OutreachMessageCrafterAgent.                                                                                                                                                                                                                                                                            |
+| v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`.                                                                                                                  |
 | v3.4    | 2026-06-21 | Added: §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners (the approved Variant B ungoverned-databases tweet and the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can"), with translation notes and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).                                                                                                                                                                                                         |
 | v3.3    | 2026-06-20 | Added: §23 4P Capital Classes — canonical terminology (Prompt / People / Plant / Perception), usage rules, deprecation of the "three-capital model" naming, pairing with the §22 "System of Action operator, not SaaS" line. Sourced from the 4P field note (v2.0) and the Ontology Series posts.                                                                                                                                                                                                                                                    |
 | v3.2    | 2026-05-31 | Added: §6 Ethics Principle footer band to ironclad-footer.js — human-in-command principle as permanent footer fixture across all sites.                                                                                                                                                                                                                                                                                                                                                                                                              |
