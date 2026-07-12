@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Jasenko Hadzic, Spintop Ventures
-Version: 1.2
+Version: 1.3
 Date: 2026-07-12
 Author: Claude Sonnet 5 + Human Review
 Branch: claude/jasenko-hadzic-outreach-ici0e7
@@ -12,6 +12,7 @@ AGENT HISTORY:
 - v1.0 (2026-07-10): Initial draft. Principal at Spintop Ventures (Copenhagen), investing EUR 500K-2.5M in early-stage Nordic startups. Focused on infrastructure, cyber, energy and AI. Former founder (Tame, martech SaaS, EUR 1.5M ARR, raised ~EUR 10M) — operator-side execution credibility. EU/EEA-domiciled (Denmark) — fits lead investor requirement. Warm intro offered by referring contact. Caveat flagged: Spintop's portfolio leans infrastructure/cyber/energy — DWS IQ's compliance AI angle needs framing as infrastructure, not pure SaaS, to land.
 - v1.1 (2026-07-12): Draft email timing hook updated — replaced the Arctic 15 (Helsinki, June 15) / first-sales-data (Aug 15) urgency framing with an invite to meet at the PE meeting in Stockholm this November, since that event postdates the original data-drop hook. No exact day given for the Stockholm meeting; using "this November" as a placeholder pending a confirmed date.
 - v1.2 (2026-07-12): Confirmed date — Stockholm PE meeting is November 11, 2026. Draft email updated from "this November" to "on November 11".
+- v1.3 (2026-07-12): Google Drive export re-created as `LETTER_JASENKO_HADZIC_SPINTOP_EN_v4` — DWS naming convention applied and VERSION AND AGENT HISTORY block moved to the end of the document per DWS_DOCUMENT_STANDARD.md §20.6/§20.7 (external-facing letter: content first, provenance last). Google Drive's MCP tools have no rename/delete — three prior exports are now stale and need manual deletion (see Next Steps).
 -->
 
 # Investor Intro Note — Jasenko Hadzic, Spintop Ventures
@@ -113,3 +114,8 @@ Business ID: 0772407-9 (Finland)
 - [ ] Frame conversation around infrastructure/regulatory-mandate economics, not SaaS multiples
 - [ ] If interest: schedule call, send full memo
 - [ ] If cyber/sovereignty angle resonates organically: share INVESTOR_MEMO_AEGIS.md
+- [ ] **Manual cleanup (Google Drive):** delete these 3 stale exports — the connector has no rename/delete tool, so each correction created a new file instead of updating in place:
+  - https://docs.google.com/document/d/1I3QG95PCY8mdgEXWLNv5kAN-RgoIsO-jxoo3MRHSEwg/edit (v1 — Arctic 15/June 15 dates, untitled per DWS naming)
+  - https://docs.google.com/document/d/1BzxGHDMzhq8yqEEqN5DA997SubGl6VL5-G0I4Ms2v2s/edit (v2 — "this November" placeholder, untitled per DWS naming)
+  - https://docs.google.com/document/d/1buTyxmP-DecxuQG3fsLMdyp1lae2Wk-yEHzIatmHpwo/edit (v3 — `LETTER_JASENKO_HADZIC_SPINTOP_EN_v3`, correct name but version block missing/not at end)
+  - **Current correct file:** `LETTER_JASENKO_HADZIC_SPINTOP_EN_v4` — https://docs.google.com/document/d/1gjtDwIBIJuc_WnIKM9aFZX3p_qBW8EDJpVPskw3mqME/edit

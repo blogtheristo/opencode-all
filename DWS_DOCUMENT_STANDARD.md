@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
 
+- Version: 2.5 | Tool: Claude Code | Session: claude/jasenko-hadzic-outreach-ici0e7 | Date: 2026-07-12 | Changes: Extended §20.6 scope to explicitly cover `investor-outreach/LETTER_*` files and cloud exports (Google Docs, Drive PDFs, Gamma decks) — version block goes at the end for these, not the first page. Added §20.7 (Cloud Export Cleanup — Always Link Superseded Files): when a connector like Google Drive lacks rename/delete/update-in-place and a correction requires a new file, the agent must always link every superseded file needing manual deletion, on every correction, not just the first. Triggered by repeated Google Drive exports of an investor outreach letter (Jasenko Hadzic / Spintop Ventures) creating duplicate untitled files with no cleanup pointer.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
 - Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
@@ -36,7 +37,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 28.04.2026
+- Last Modified: 12.07.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -2417,7 +2418,7 @@ A terminology/security correction (e.g. replacing a tool name) is a **patch** bu
 
 **Rationale:** A customer or procurement evaluator opening the document should see the substantive content first (name, summary, offer, capability) — not an internal changelog with session IDs and tooling names. The internal provenance is still mandatory (§2 / §20.2), it just moves to the back, alongside the copyright and contact block that normally closes a professional document.
 
-**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, and any file whose immediate destination is an external reader. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
+**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, `investor-outreach/LETTER_*` and any other per-recipient outreach letter, and any cloud export (Google Docs, Google Drive PDFs, Gamma decks) whose immediate destination is an external reader — investor, customer, or evaluator. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
 
 **Layout:**
 
@@ -2450,6 +2451,18 @@ Document Status:
 ```
 
 First applied: `bids/ORK160826/ORK_Risto_CV_FI_164.md` → v165, moving the block from top to bottom.
+
+### 20.7 Cloud Export Cleanup — Always Link Superseded Files
+
+**Rule:** Several cloud connectors used for exports (e.g. the Google Drive MCP tools available in this environment) expose `create_file` but no rename or delete operation. When a correction or update to an already-exported cloud document (Google Doc, Drive PDF, Gamma deck, etc.) requires creating a new file rather than editing the existing one in place, the agent MUST:
+
+1. State plainly that the connector cannot rename or delete in place, so a new file was created instead of updating the old one.
+2. Give the user a direct, clickable link (view URL) to every superseded file that now needs manual deletion — never just say "an old version exists," always the actual URL.
+3. Repeat this at every subsequent correction, not just the first — each new export leaves another file behind, and all of them need to be listed, not only the most recent.
+
+**Rationale:** Without an explicit link, the user has to search Drive by title to find and remove stale copies — easy to skip, and stale duplicates of investor/customer-facing letters risk being sent by mistake. Fail Loud (Rule 12) requires surfacing this cleanup burden every time, not leaving it implicit.
+
+**Applies to:** Any cloud connector without rename/delete/update-in-place support (Google Drive is the current example; the rule generalizes to any future connector with the same gap).
 
 ---
 
