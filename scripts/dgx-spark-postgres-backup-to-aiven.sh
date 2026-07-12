@@ -167,9 +167,10 @@ if pg_dump "$INTERNAL_DB_URL" \
   --no-owner \
   --no-privileges \
   --no-comments \
+  --clean \
+  --if-exists \
   --format=plain \
-  > "$DUMP_FILE" 2>/dev/null; then
-
+  > "$DUMP_FILE"; then
   dump_end=$(date +%s)
   dump_size=$(du -h "$DUMP_FILE" | cut -f1)
   dump_bytes=$(stat -c%s "$DUMP_FILE" 2>/dev/null || stat -f%z "$DUMP_FILE" 2>/dev/null || echo "0")
