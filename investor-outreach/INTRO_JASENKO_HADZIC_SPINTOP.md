@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Jasenko Hadzic, Spintop Ventures
-Version: 1.3
+Version: 1.4
 Date: 2026-07-12
 Author: Claude Sonnet 5 + Human Review
 Branch: claude/jasenko-hadzic-outreach-ici0e7
@@ -13,6 +13,8 @@ AGENT HISTORY:
 - v1.1 (2026-07-12): Draft email timing hook updated — replaced the Arctic 15 (Helsinki, June 15) / first-sales-data (Aug 15) urgency framing with an invite to meet at the PE meeting in Stockholm this November, since that event postdates the original data-drop hook. No exact day given for the Stockholm meeting; using "this November" as a placeholder pending a confirmed date.
 - v1.2 (2026-07-12): Confirmed date — Stockholm PE meeting is November 11, 2026. Draft email updated from "this November" to "on November 11".
 - v1.3 (2026-07-12): Google Drive export re-created as `LETTER_JASENKO_HADZIC_SPINTOP_EN_v4` — DWS naming convention applied and VERSION AND AGENT HISTORY block moved to the end of the document per DWS_DOCUMENT_STANDARD.md §20.6/§20.7 (external-facing letter: content first, provenance last). Google Drive's MCP tools have no rename/delete — three prior exports are now stale and need manual deletion (see Next Steps).
+- v1.4 (2026-07-12): Full honest-review rewrite of the draft email — relabeled "Customer LTV: EUR 70K-120K/year" to "Customer ACV: EUR 70K-120K" (LTV shouldn't carry a "/year" unit; this was ACV mislabeled as LTV), moved the Tame operator nod up to the opening instead of burying it near the sign-off, trimmed the acronym-dense product paragraph, reconciled the TAM framing (named the <5,000-company CSRD wedge explicitly as the immediate target, with the 25-industry platform as expansion, not two competing claims), replaced the open-ended "happy to meet" with two concrete Nov 4 / Nov 6 slots backed by real Google Calendar holds + Meet links (see below), and reordered the subject line to lead with 100% retention instead of the smaller EUR 7K MRR figure. Signature line updated to add "- the Agent Outcome Company." after Lifetime Oy per explicit user request — this is a deviation from the canonical short sig in CLAUDE.md (no tagline there); flagging it as intentional for this campaign rather than silently diverging. `[Referrer]` placeholder still unfilled — must be replaced with the real contact's name before send.
+- Created two tentative Google Calendar holds (primary calendar, Google Meet enabled, private visibility) to back the concrete slots offered: Wed 2026-11-04 10:00–10:30 CET (event `ospdepn5flak2tf9cper00c044`, Meet https://meet.google.com/hfs-gucd-fnr) and Fri 2026-11-06 13:00–13:30 CET (event `dfp33rb5spgnnidste4601qoi0`, Meet https://meet.google.com/msc-mcws-fba). No attendee added yet (Jasenko's email not yet known) — cancel both if he picks a different time or the intro doesn't land.
 -->
 
 # Investor Intro Note — Jasenko Hadzic, Spintop Ventures
@@ -70,31 +72,31 @@ Hi Jasenko — [Referrer] mentioned we should connect. I'm building Lifetime Oy 
 
 ## Draft Email (if email channel preferred)
 
-**Subject:** Regulatory compliance infrastructure — EU industrial, EUR 7K MRR, raising EUR 650K
+**Subject:** Regulatory compliance infrastructure — EU industrial, 100% retention, raising EUR 650K SAFE
 
 Hi Jasenko,
 
-Risto Päärni, Lifetime Oy (Espoo, Finland). [Referrer] suggested we connect given Spintop's infrastructure/cyber/energy mandate.
+Risto Päärni, Lifetime Oy (Espoo, Finland). [Referrer] suggested we connect given Spintop's infrastructure/cyber/energy mandate — and given you built Tame to EUR 1.5M ARR, I'd value your operator read on this as much as your investment thesis.
 
-DWS IQ 6 is regulatory compliance infrastructure for EU-regulated industries — a fleet of skilled agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter, covering ETS, CBAM, CSRD, and EU Taxonomy in one ledger. Full audit trail, EU AI Act compliant.
+DWS IQ 6 is regulatory compliance infrastructure for EU-regulated industries: a fleet of skilled agents pulls operational data from SAP, IFS Cloud, and Dynamics 365, and auto-generates audit-ready EU compliance reports every quarter.
 
 The numbers:
 
-- EUR 7K MRR, 6 paying customers, 100% retention
-- Customer LTV: EUR 70K-120K/year
-- Enterprise pilots at EUR 4,950 convert to EUR 8,950/year
+- 100% retention, 6 paying customers, EUR 7K MRR
+- Customer ACV: EUR 70K-120K
+- Enterprise pilots (EUR 4,950) convert to EUR 8,950/year contracts
 - Target: EUR 900K ARR by end 2026
 - Platform: a fleet of skilled agents, 32 products, 25 EU-regulated industries
 
-This is infrastructure the way you'd think about energy-grid or cyber infrastructure — mandatory, recurring, high switching cost, driven by regulatory deadlines rather than discretionary IT spend. Fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory CSRD reporting; this is the compliance layer they need.
+Think of this the way you'd think about energy-grid or cyber infrastructure — mandatory, recurring, high switching cost, driven by regulatory deadlines rather than discretionary IT spend. The immediate wedge is the fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) facing mandatory CSRD reporting this cycle; the 25-industry platform lets us expand into their supply chains as CSRD scope widens.
 
-Raising a EUR 650K SAFE at a EUR 3.8M cap. I'll be at the PE meeting in Stockholm on November 11 — happy to meet there, or sooner by video call if that's easier.
+Raising a EUR 650K SAFE at a EUR 3.8M cap. Two slots that work on my end: Wed Nov 4, 10:00 CET (Google Meet: https://meet.google.com/hfs-gucd-fnr) or Fri Nov 6, 13:00 CET (Google Meet: https://meet.google.com/msc-mcws-fba). I'll also be at the PE meeting in Stockholm on November 11 if you'd rather meet in person.
 
-Given you built Tame from zero to EUR 1.5M ARR, I'd value your read on the unit economics as much as your investment thesis. One-pager attached — happy to jump on a call if this fits.
+One-pager attached — let me know if either slot works, or suggest a time that's better for you.
 
 Best regards,
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy - the Agent Outcome Company.
 risto.paarni2024@lifetime.fi · +358 400 319 010
 https://dws10.com
 Business ID: 0772407-9 (Finland)
@@ -114,8 +116,11 @@ Business ID: 0772407-9 (Finland)
 - [ ] Frame conversation around infrastructure/regulatory-mandate economics, not SaaS multiples
 - [ ] If interest: schedule call, send full memo
 - [ ] If cyber/sovereignty angle resonates organically: share INVESTOR_MEMO_AEGIS.md
-- [ ] **Manual cleanup (Google Drive):** delete these 3 stale exports — the connector has no rename/delete tool, so each correction created a new file instead of updating in place:
+- [ ] **Manual cleanup (Google Drive):** delete these 4 stale exports — the connector has no rename/delete tool, so each correction created a new file instead of updating in place:
   - https://docs.google.com/document/d/1I3QG95PCY8mdgEXWLNv5kAN-RgoIsO-jxoo3MRHSEwg/edit (v1 — Arctic 15/June 15 dates, untitled per DWS naming)
   - https://docs.google.com/document/d/1BzxGHDMzhq8yqEEqN5DA997SubGl6VL5-G0I4Ms2v2s/edit (v2 — "this November" placeholder, untitled per DWS naming)
   - https://docs.google.com/document/d/1buTyxmP-DecxuQG3fsLMdyp1lae2Wk-yEHzIatmHpwo/edit (v3 — `LETTER_JASENKO_HADZIC_SPINTOP_EN_v3`, correct name but version block missing/not at end)
-  - **Current correct file:** `LETTER_JASENKO_HADZIC_SPINTOP_EN_v4` — https://docs.google.com/document/d/1gjtDwIBIJuc_WnIKM9aFZX3p_qBW8EDJpVPskw3mqME/edit
+  - https://docs.google.com/document/d/1gjtDwIBIJuc_WnIKM9aFZX3p_qBW8EDJpVPskw3mqME/edit (v4 — `LETTER_JASENKO_HADZIC_SPINTOP_EN_v4`, superseded by the honest-review rewrite)
+  - **Current correct file:** `LETTER_JASENKO_HADZIC_SPINTOP_EN_v5` — https://docs.google.com/document/d/1VdLL_XsNjgqH75-yiCTXZeKEwsI5-De2viILDFjtWdQ/edit
+- [ ] **Fill `[Referrer]`** with the real contact's name before sending — still a placeholder in v5.
+- [ ] **Calendar holds:** two tentative Google Calendar holds exist for the proposed slots (Wed 2026-11-04 10:00 CET, Fri 2026-11-06 13:00 CET), both with Google Meet links, no attendee added yet. Cancel both if Jasenko proposes a different time or the intro doesn't land — they'll otherwise sit as unexplained holds on the calendar.
