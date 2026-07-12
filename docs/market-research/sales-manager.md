@@ -26,6 +26,8 @@ This edition's facts and figures (regulatory dates, company names, pricing, perc
 
 ---
 
+<!-- EDITION-CONTENT-START — scripts/weekly/sales-manager-newsletter.ts replaces everything between these two markers on each automated run. Do not remove the markers; hand edits inside this block will be overwritten by the next scheduled run. -->
+
 **Edition: July 12, 2026 | Weekly Digest**
 **Focus: Nordic & EU Industrial Compliance, AI/Sovereign Cloud, Fit for 55 Drivers**
 _Curated for sales leaders targeting regulated industries. Sources via Grok web lookups (Reuters, EC sites, Euractiv, Industry Today, etc.)._
@@ -75,3 +77,5 @@ EU pushes Clean Industrial Deal for decarbonization + growth (€100B+ mobilizat
 **Overall Action Call:** Industries face a "buying wave" in 2026-2027. Sovereign AI/compliance solutions like DWS IQ 6 (built in Finland for Nordics) position providers as partners, not vendors. Schedule demos via calendar links for pilots. Contact Risto Anton Päärni or team for tailored outreach.
 
 _Stay tuned for next edition. Sources current as of July 12, 2026 lookups. For full details or custom vertical intelligence, reply._
+
+<!-- EDITION-CONTENT-END -->

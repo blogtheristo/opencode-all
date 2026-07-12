@@ -95,10 +95,29 @@ afterthought — do not let automation quietly drop it.
   `bash scripts/weekly/collect-regulatory-signals.sh --dry-run` (or the Python script
   directly with `--dry-run --topic CBAM`) over SSH on DGX as the first verification step,
   before trusting the live (non-dry-run) weekly schedule.
-- **Stage 2 (synthesis agent) — not yet built.** Depends on Stage 1 having produced real
-  `market_signals` rows to synthesize from; recommend waiting for at least one successful
-  DGX run before building this, so the agent's input shape can be validated against real
-  data rather than assumed.
-- **Stage 3 (scheduling + output into sales-manager.md) — not yet built.**
+- **Stage 2 — DONE (2026-07-12).** `src/agents/sales-manager-newsletter.agent.ts`,
+  registered in `src/agents/index.ts`. Reads `market_signals` (`signal_type='regulation'`)
+  - `logs/news-signals/*.jsonl`; refuses to synthesize an edition below `minStories`
+    (default 3) rather than fabricate one. Sales targets constrained to the existing
+    `EU_TARGET_UNIVERSE` (exported from `outreach-lead-finder.agent.ts` for reuse — no second
+    target list) — the LLM cannot invent company names. Verified: `tsc --noEmit` clean across
+    the whole project (0 errors) after this change. **Not verified:** an actual LLM call,
+    since that needs DGX Spark Ollama (same constraint as Stage 1's network access).
+- **Stage 3 — DONE (2026-07-12).** `scripts/weekly/sales-manager-newsletter.ts` (plain
+  `.ts`, day-runner.sh runs `.ts` files directly via `npx tsx` — no `.sh` wrapper needed,
+  unlike Stage 1's Python collector). Calls the agent via the CLI's HTTP API
+  (`cli/src/cli.ts run sales-manager-newsletter`, requires `dws-backend` running — same
+  dependency `scripts/daily/outreach-lead-pipeline.sh` already has). On success: replaces
+  content between new `<!-- EDITION-CONTENT-START/END -->` markers added to
+  `sales-manager.md`, bumps the document version (+0.1), inserts a history entry, writes a
+  new `knowledge_base` row (one per edition — history preserved, not overwritten), commits
+  and pushes to `main` directly (mirrors `market-research.sh`'s existing self-commit
+  pattern). If the agent reports `insufficientData`, exits cleanly with no write — a quiet
+  week produces no edition, not a fake one. **Verified:** the marker-replacement /
+  version-bump / history-insertion logic was tested standalone against a real copy of
+  `sales-manager.md` and produced correct output (version 1.0→1.1, history entry inserted,
+  content correctly bounded by markers). **Not verified:** the full path end-to-end
+  (agent call → backend → LLM → file write → git push) — needs `dws-backend` and Ollama,
+  neither reachable from this session.
 - **Stage 4 (skill registration) — not yet built**, gated on Stages 1-3 per the Skill
   Codification Rule.
