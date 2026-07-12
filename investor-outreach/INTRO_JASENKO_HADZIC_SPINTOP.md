@@ -1,7 +1,7 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Jasenko Hadzic, Spintop Ventures
-Version: 1.0
-Date: 2026-07-10
+Version: 1.1
+Date: 2026-07-12
 Author: Claude Sonnet 5 + Human Review
 Branch: claude/jasenko-hadzic-outreach-ici0e7
 Status: WARM
@@ -10,6 +10,7 @@ Intro Type: Warm — contact has offered to connect the two of us
 
 AGENT HISTORY:
 - v1.0 (2026-07-10): Initial draft. Principal at Spintop Ventures (Copenhagen), investing EUR 500K-2.5M in early-stage Nordic startups. Focused on infrastructure, cyber, energy and AI. Former founder (Tame, martech SaaS, EUR 1.5M ARR, raised ~EUR 10M) — operator-side execution credibility. EU/EEA-domiciled (Denmark) — fits lead investor requirement. Warm intro offered by referring contact. Caveat flagged: Spintop's portfolio leans infrastructure/cyber/energy — DWS IQ's compliance AI angle needs framing as infrastructure, not pure SaaS, to land.
+- v1.1 (2026-07-12): Draft email timing hook updated — replaced the Arctic 15 (Helsinki, June 15) / first-sales-data (Aug 15) urgency framing with an invite to meet at the PE meeting in Stockholm this November, since that event postdates the original data-drop hook. No exact day given for the Stockholm meeting; using "this November" as a placeholder pending a confirmed date.
 -->
 
 # Investor Intro Note — Jasenko Hadzic, Spintop Ventures
@@ -85,7 +86,7 @@ The numbers:
 
 This is infrastructure the way you'd think about energy-grid or cyber infrastructure — mandatory, recurring, high switching cost, driven by regulatory deadlines rather than discretionary IT spend. Fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory CSRD reporting; this is the compliance layer they need.
 
-Raising a EUR 650K SAFE at a EUR 3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15. Investors who commit before Arctic 15 enter at seed valuation ahead of the first public sales data (available August 15).
+Raising a EUR 650K SAFE at a EUR 3.8M cap. I'll be at the PE meeting in Stockholm this November — happy to meet there, or sooner by video call if that's easier.
 
 Given you built Tame from zero to EUR 1.5M ARR, I'd value your read on the unit economics as much as your investment thesis. One-pager attached — happy to jump on a call if this fits.
 
