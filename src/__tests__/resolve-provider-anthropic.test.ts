@@ -45,6 +45,6 @@ describe('resolveProvider — Anthropic agentModel override', () => {
     process.env.ANTHROPIC_API_KEY = 'sk-test';
     const cfg = resolveProvider('');
     expect(cfg?.provider).toBe('anthropic');
-    expect(cfg?.model).toBe('claude-sonnet-4-20250514');
+    expect(cfg?.model).toBe('claude-sonnet-5');
   });
 });
