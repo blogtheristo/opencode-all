@@ -237,10 +237,10 @@
       "price": 250,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Three-pillar consulting: (1) capability training on 80+ agent capabilities across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.",
+      "description": "Three-pillar consulting: (1) capability training on the full agent-capability library across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.",
       "features": [
         "Three-pillar model: train capabilities, develop workflows, ensure continuity",
-        "80+ agent capabilities across 10 LWM ontology classes",
+        "Full agent-capability library across 10 LWM ontology classes",
         "Fit for 55, CSRD, EU AI Act, NIS2 specialisation"
       ],
       "priceNote": "Per hour, VAT excl.",
@@ -530,10 +530,10 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on 80+ agent capabilities across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
+      "description": "Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on the full agent-capability library across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
       "features": [
         "EU AI Act Article 4 compliance — capability training",
-        "80+ agent capabilities across 10 ontology classes",
+        "Full agent-capability library across 10 ontology classes",
         "Free 3-hour readiness assessment"
       ],
       "priceNote": "Workshop + coaching",
@@ -787,10 +787,10 @@
       "price": 950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by 80+ agent capabilities — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.",
+      "description": "Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by the full agent-capability library — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.",
       "features": [
         "Pillar 3: disruption-free continuity with Keskeytyslaskuri",
-        "80+ agent capabilities backing EU-resident engineers",
+        "Full agent-capability library backing EU-resident engineers",
         "Sovereign by construction — engineer + data both in EU"
       ],
       "priceNote": "Team setup",
@@ -1008,10 +1008,11 @@
       "gtin": null,
       "mpn": "LF-CTRLROOM-GN100-2026",
       "name": "Control Room — Acer Veriton GN100 + NVIDIA Model Install",
+      "caption": "Single sovereign AI node — the command brain that lives in your building. Runs DWS IQ Control Room on NVIDIA edge.",
       "price": 5294,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. This is Plant Capital in the 4P sense: intelligence that operates inside your own building, not SaaS you log into — the sovereign edge half of the two-room Control Room + Situation Room stack. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
         "1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €4,299 hardware",
         "NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
@@ -1041,10 +1042,11 @@
       "gtin": null,
       "mpn": "LF-SITROOM-GN100-2026",
       "name": "Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle",
+      "caption": "Two GN100 nodes bridged — when one screen isn't enough. Runs DWS IQ Control Room & Situation Room on NVIDIA edge.",
       "price": 10093,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Together with the Control Room it forms the two-room stack that carries your Plant Capital — intelligence that operates, not SaaS you rent. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
         "2× Acer Veriton GN100 bridged (40 cores · 256 GB unified memory · NVIDIA ConnectX-7 200 Gbps link) — 2× €4,299 hardware",
         "NVIDIA model installation for the bridged pair — €1,495 (tensor-parallel sharding, dual-node Article 12 log replica, failover)",
@@ -1069,6 +1071,43 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 12
+    },
+    "LF-COMPLIANCE-AMBULANCE-001": {
+      "id": "LF-COMPLIANCE-AMBULANCE-001",
+      "gtin": null,
+      "mpn": "LF-CMPL-AMBULANCE-2026",
+      "name": "DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)",
+      "caption": "The third room, on wheels. DWS IQ Control Room & Situation Room in a vehicle — energy-optimized NVIDIA Thor edge, built to your industry.",
+      "price": 0,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "DWS IQ Mobile Office — the \"Compliance Ambulance\". Brings sovereign Control Room / Situation Room capability to the site or to the patient on a vehicle platform. Because it runs on vehicle power, energy consumption is the governing design constraint: built on NVIDIA Blackwell-generation Thor edge (Jetson Thor / IGX Thor) for up to 3.5× better energy efficiency than the previous Orin generation, configurable 40–130 W. Medical and regulated deployments use IGX Thor with hardware functional safety (ISO 26262 / IEC 61508) and 10-year enterprise support. Built to spec per industry — construction (NCC), steel (Outokumpu), health care (HUS). Operated by Lifetime Fleet. Finnish / EU B2B (VAT 0% reverse charge). Price on application.",
+      "features": [
+        "NVIDIA Jetson Thor T5000 (2070 FP4 TFLOPS · 128 GB LPDDR5x · configurable 40–130 W · 3.5× energy efficiency vs AGX Orin) — energy-optimized for vehicle power",
+        "Medical / regulated option: NVIDIA IGX Thor (hardware functional safety ISO 26262 + IEC 61508, Functional Safety Island, 10-year enterprise support) — for HUS-grade Compliance Ambulance",
+        "Runs DWS IQ Control Room & Situation Room at the edge — vision, acoustic, language, reasoning, voice (NVIDIA NIMs + Cosmos + Article 12 audit log)",
+        "Vehicle integration option: NVIDIA DRIVE AGX Thor in-vehicle compute (Blackwell, automotive-grade)",
+        "Lifetime Fleet operated — health care logistics, Kela transport, Uber, robotics",
+        "Built to your industry: construction (NCC) · steel (Outokumpu) · health care (HUS)"
+      ],
+      "priceNote": "Price on application (POA) — configured to your vehicle energy budget, industry and safety class. Finnish / EU B2B (VAT 0% reverse charge).",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dws-iq-compliance-ambulance.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Vehicles & Parts > Vehicles",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 13
     },
     "LF-NVIDIA-INSTALL": {
       "id": "LF-NVIDIA-INSTALL",
@@ -1340,9 +1379,9 @@
       "price": 299,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.",
+      "description": "Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). Compliance, Report & Discovery agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.",
       "features": [
-        "3 AI agents (Compliance, Report, Discovery)",
+        "Compliance, Report & Discovery agents",
         "Basic CSRD compliance dashboard",
         "Supabase + Cloudflare infrastructure"
       ],
@@ -1373,9 +1412,9 @@
       "price": 799,
       "currency": "EUR",
       "type": "monthly",
-      "description": "4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.",
+      "description": "4-week evaluation with real data on US Cloud. Full Firehorse agent suite, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.",
       "features": [
-        "8 AI agents (full Firehorse suite)",
+        "Full Firehorse agent suite",
         "Firehorse Report module included",
         "5 user seats + kickoff workshop"
       ],
@@ -1406,7 +1445,7 @@
       "price": 499,
       "currency": "EUR",
       "type": "monthly",
-      "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
+      "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report & Discovery agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
       "features": [
         "Zero CLOUD Act exposure (EU-owned providers)",
         "Aiven PostgreSQL + Hetzner/Scaleway",
@@ -1439,9 +1478,9 @@
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
+      "description": "Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
       "features": [
-        "8 AI agents + Aiwen Article 12 logging",
+        "Full Firehorse agent suite + Aiwen Article 12 logging",
         "NIS2 compliance dashboard",
         "Zero CLOUD Act + EU data residency"
       ],
@@ -1505,7 +1544,7 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 18 AI agents across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
       "features": [
         "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
         "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
@@ -4348,6 +4387,39 @@
         "contentLanguage": "en"
       }
     },
+    "DWS-IQ-FREE-2026": {
+      "id": "DWS-IQ-FREE-2026",
+      "gtin": null,
+      "mpn": "DWSIQ-FREE-2026",
+      "name": "DWS IQ Free — 1 project, CSRD-ready",
+      "price": 0,
+      "currency": "EUR",
+      "type": "subscription",
+      "description": "Start your first CSRD project free. 1 active project, up to 50 ESG line items, 1 seat — audit-defensible output, EU-sovereign hosting, no credit card. Upgrade when you hit the cap or invite a teammate. Built for Sustainability Directors who need to start before the EU CSRD deadline.",
+      "features": [
+        "1 active CSRD project — audit-defensible output from day 1",
+        "Up to 50 ESG line items, 1 seat, EU-sovereign hosting",
+        "Upgrade gates: 2nd project, 51st line item, or 2nd seat"
+      ],
+      "priceNote": "Free forever within caps · upgrade to DWS IQ Report (€1,999) on first cap breach",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq-free.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 1
+    },
     "AIS-EU-SOV-OC": {
       "id": "AIS-EU-SOV-OC",
       "gtin": null,
@@ -4502,7 +4574,7 @@
       "address": "Laidunmaanraitti 2 A 25, 02330 Espoo, Finland",
       "businessId": "0772407-9",
       "vatId": "FI07724079",
-      "owner": "Risto Anton Paarni",
+      "owner": "Risto Anton Päärni",
       "salesEmail": "sales@lifetime.fi"
     }
   },

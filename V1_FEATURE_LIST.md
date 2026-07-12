@@ -173,25 +173,25 @@
 
 ### 5. Mobile Dashboard (React Native)
 
-**Status:** Foundation + Redux - Needs screen implementation
+**Status:** NCC scope folded into Firehorse/mobile-app (2026-07-04); standalone `mobile-dashboard/` app retired.
+
+`mobile-dashboard/` was a code-free shell after 6 months (Phase 1 only). Retired to `mobile-dashboard_RETIRED/` — see `mobile-dashboard_RETIRED/RETIRED.md`. NCC's portfolio-dashboard scope now lives in `Firehorse/mobile-app`, which was already a fully built app on the same stack.
 
 #### What EXISTS:
 
-- `mobile-dashboard/` - Complete project structure + 39 pages of documentation
-- `Firehorse/mobile-app/src/store/` - Redux slices (carbon, diary, inspection, offline)
+- `Firehorse/mobile-app/src/screens/DashboardScreen.tsx` - Portfolio KPI tiles (SPI/CPI/active-projects/at-risk) + project list with RAG badges
+- `Firehorse/mobile-app/src/screens/AlertsScreen.tsx` - NCC Portfolio Alert Center (acknowledge / bulk-acknowledge)
+- `Firehorse/mobile-app/src/store/` - Redux slices (carbon, diary, inspection, offline), now with smoke test coverage
 - `Firehorse/mobile-app/src/theme/nordicTheme.ts` - Nordic UI theme
-- `Firehorse/mobile-app/src/navigation/` - Navigation structure
-- `Firehorse/mobile-app/src/screens/` - Screen stubs
-- API mock data fixtures (8 files)
+- `Firehorse/mobile-app/src/navigation/` - Navigation structure, incl. new "NCC PORTFOLIO" drawer section
+- `mobile-dashboard_RETIRED/config/fixtures/` - Original API mock data fixtures, kept for reference
 
 #### What's MISSING:
 
-- Complete screen implementations
-- API integration with MCP Hub
-- Push notifications
-- App store submission
+- Real API integration (portfolio/projects/alerts endpoints are still static demo data)
+- OAuth2/OIDC auth, offline cache, push notifications, app store submission — deferred until there's a firm NCC commercial commitment
 
-**Completion:** 35% (defer full implementation to V1.1)
+**Completion:** MVP portfolio view + alerts folded into Firehorse/mobile-app; full `mobile-dashboard_RETIRED/docs/IMPLEMENTATION_PLAN.md` roadmap not carried forward.
 
 ---
 

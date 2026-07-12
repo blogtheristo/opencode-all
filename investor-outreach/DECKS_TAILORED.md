@@ -12,6 +12,7 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Date: 10.07.2026 | Changes: Founder-approved propagation of "Sovereign Industrial Intelligence Outcomes" (`DWS_TRUTH_STANDARD.md` row 27) into the Anchors line and shared-spine S4. Explicitly reconciled with Malte's "no climate framing" mandate wall — the new phrasing names Compliance Intelligence with climate as one part, never the headline, which is compatible with (not a violation of) that wall.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Corrected the CSRD figure in the Salim delta to post-Omnibus (fewer than 5,000 large filers) per DWS_TRUTH_STANDARD v2.5 §2C.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Per-investor tailored decks (Arthur, Wilke, Maciej, Salim, Malte) — shared spine + per-investor lead/emphasize/HIDE deltas + ask. Mandate walls enforced (Salim + Malte: hide Aegis/defense). Anchors per DWS_TRUTH_STANDARD v2.4.
 
@@ -21,13 +22,13 @@ Sessions & Modifications:
 
 **How to use:** each investor's deck = the SHARED SPINE below + their DELTA. The delta replaces the spine's lead slides (1–3), the emphasis slides (5–6), team (8), and ask (11), and sets the **emphasize / HIDE** rules. The hide rules are hard — do not let Aegis/defense bleed into Salim's or Malte's deck.
 
-Anchors (all decks): 19 moats + Layer 0 · 3 positioning pillars · 25 industries (Aegis 21) · two-human team (Risto + Lucille, Office Chief/HIC, partner-track Lifetime AB) + governed agent workflows + Cubet Techno Labs partner + funded senior technical search · 6 customers / 100% retention · €650K SAFE @ €3.8M cap.
+Anchors (all decks): 19 moats + Layer 0 · 3 positioning pillars · 25 industries (Aegis 21) · two-human team (Risto + Lucille, Office Chief/HIC, partner-track Lifetime AB) + governed agent workflows + Cubet Techno Labs partner + funded senior technical search · 6 customers / 100% retention · €650K SAFE @ €3.8M cap · **Sovereign Industrial Intelligence Outcomes** (`DWS_TRUTH_STANDARD.md` row 27) — governed agents delivering Compliance Intelligence on sovereign infrastructure; Compliance Intelligence = climate (CBAM/CSRD/ETS) + EU AI Act Art. 12 + NIS2 + GDPR + (Aegis only) CER/dual-use export control. Climate is one part, never the headline framing — consistent with, not contradicting, Malte's explicit "no climate framing" mandate wall (see his delta below).
 
 ---
 
 ## SHARED SPINE (common slides)
 
-- **S4 — What we sell:** the governed OUTCOME layer (audit-ready filings, Article 12+26 lineage), not agents. Agents are the swappable edge.
+- **S4 — What we sell:** Sovereign Industrial Intelligence Outcomes — the governed OUTCOME layer (audit-ready filings, Article 12+26 lineage), not agents. Agents are the swappable edge.
 - **S7 — Traction:** €7K MRR · 6 customers · 100% retention · audit-ready ~4 weeks · 40h/mo saved.
 - **S9 — Moat:** 19 moats + Layer 0; €3.05M–8.35M + 24–36 mo to replicate. Lead trio varies by investor (see delta).
 - **S10 — Model:** SaaS €3–10k/mo + Alpha-Share (Tier-4); 95% margin; 4× B2B2G switching.

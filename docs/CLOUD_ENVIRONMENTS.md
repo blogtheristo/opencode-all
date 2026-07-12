@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.4
 
 Sessions & Modifications:
 
+- Version: 2.4 | Tool: Claude Code (Sonnet 5) | Session: claude/cloudflare-serverless-research-9m90rh | Date: 05.07.2026 | Changes: Corrected a significant staleness gap found during Cloudflare-migration research — this document never mentioned DGX Spark, which took over as the actual primary 24/7 backend + cron runtime around April-May 2026 (see `Cron-works.md`), demoting Cloud Run to secondary/staging. Added new Section 3.2.2 documenting DGX Spark. Updated Section 4.2 (Backend API row) and Section 8 (Environment Matrix) to reflect this. Corrected the Cloudflare Workers status in Sections 4.2/8/12 against a live account check (Cloudflare Developer Platform MCP): of the 8 workers designed in `src/cloudflare/`, only 1 (`dws-revolut-checkout`) is actually deployed — zero KV namespaces exist account-wide, so the other 7 (including the MCP Edge Gateway referenced in Section 12) cannot be running. Also corrected the header version number itself, which had drifted one behind the latest changelog entry.
 - Version: 2.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-config-dependencies-7npjf | Date: 24.05.2026 | Changes: Added Section 3.2.1 "Deployment Tier Choice: GCP Primary vs Scaleway Sovereign" — documents the two-tier deployment decision logic, activation triggers for Scaleway, and the intentionally dormant `deploy-scaleway_OLD.yml` CI/CD workflow (preserved for Tier 2 sovereignty customers, not dead infra)
 - Version: 2.2 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Documented current Google Cloud account/project inventory for `risto.paarni2024@lifetime.fi` (active + not-current projects and org), and added staging deployment project-alignment note clarifying that CI/CD must target `dws6run6` (not `dws6-backend`) to avoid Artifact Registry IAM failures
 - Version: 2.1 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added "Scaling note" subsection. Records that the current single-tenant deployment pattern (one Cloud Run service, one trigger, one Stripe endpoint, one shared secret inventory) is correct for the internal Lifetime Oy billing use case shipped today, and lists the re-evaluation triggers (>100 tenants, first per-tenant Stripe account, first non-EU residency, first non-CLOUD-Act jurisdiction) that would force a rework. Includes a single-tenant→multi-tenant dimension table for future reference; explicit instruction to fork the section rather than mutate it when re-evaluating, so historical pattern is preserved. Note, not a task
@@ -154,15 +155,15 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 The following inventory reflects the currently visible projects/org context when troubleshooting staging deploy permissions:
 
-| Resource | Type | Status in account context |
-| --- | --- | --- |
-| `dws6run6` | Project | **Current** |
-| `coral-loop-494008-r2` | Project (MCP Google Drive) | Not current |
-| `dws-mcp-hub` | Project (DWS MCP Hub) | Not current |
-| `dws-iq-pilot` | Project (DWS IQ Pilot) | Not current |
-| `dws6login` | Project | Not current |
-| `sys-28065221981339444149331534` | Project (GPT3 Demo Template) | Not current |
-| `1074856518213` | Organisation (`lifetime.fi`) | Not current |
+| Resource                         | Type                         | Status in account context |
+| -------------------------------- | ---------------------------- | ------------------------- |
+| `dws6run6`                       | Project                      | **Current**               |
+| `coral-loop-494008-r2`           | Project (MCP Google Drive)   | Not current               |
+| `dws-mcp-hub`                    | Project (DWS MCP Hub)        | Not current               |
+| `dws-iq-pilot`                   | Project (DWS IQ Pilot)       | Not current               |
+| `dws6login`                      | Project                      | Not current               |
+| `sys-28065221981339444149331534` | Project (GPT3 Demo Template) | Not current               |
+| `1074856518213`                  | Organisation (`lifetime.fi`) | Not current               |
 
 ---
 
@@ -211,15 +212,15 @@ The following inventory reflects the currently visible projects/org context when
 
 **Provider stack:**
 
-| Layer    | Provider                 | Region                  | Purpose                                                       |
-| -------- | ------------------------ | ----------------------- | ------------------------------------------------------------- |
-| Compute  | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents — **active (onboarding phase)**           |
+| Layer    | Provider                 | Region                  | Purpose                                                                                       |
+| -------- | ------------------------ | ----------------------- | --------------------------------------------------------------------------------------------- |
+| Compute  | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents — **active (onboarding phase)**                                           |
 | Compute  | Scaleway Serverless      | fr-par (France)         | Customer Tier 2 sovereignty deployments — **dormant, activate on first sovereignty customer** |
-| Training | Scaleway H100 GPU        | fr-par (France)         | LWM 1 / LWM 2 training — **planned, not yet scheduled** |
-| Database | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime                                    |
-| Secrets  | Google Secret Manager    | europe-north1           | API keys, credentials ✅ Enabled                              |
-| Images   | Google Artifact Registry | europe-north1           | Container registry                                            |
-| Training | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU                                            |
+| Training | Scaleway H100 GPU        | fr-par (France)         | LWM 1 / LWM 2 training — **planned, not yet scheduled**                                       |
+| Database | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime                                                                    |
+| Secrets  | Google Secret Manager    | europe-north1           | API keys, credentials ✅ Enabled                                                              |
+| Images   | Google Artifact Registry | europe-north1           | Container registry                                                                            |
+| Training | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU                                                                            |
 
 > **Phase note (2026-04-28):** Google Cloud Run is the active backend during the pre-customer / onboarding phase (no per-idle cost). Scaleway Serverless becomes the deployment target for customer Tier 1 & 2 environments once the first paying customer or investor pilot starts — its EU residency (fr-par) and sovereign positioning are the deciding factors.
 
@@ -227,11 +228,11 @@ The following inventory reflects the currently visible projects/org context when
 
 Two deployment paths exist. The choice is customer-driven, not a migration — both run in parallel once Tier 2 customers onboard.
 
-| Tier | Provider | Region | Activated when | CI/CD workflow |
-|---|---|---|---|---|
-| **Tier 1 — Default EU** | Google Cloud Run | europe-north1 (Finland) | Always (current) | `deploy-cloudrun.yml`, `deploy-staging.yml` |
-| **Tier 2 — Sovereign EU** | Scaleway Serverless Containers | fr-par (France) | Customer explicitly requests sovereignty / non-CLOUD Act jurisdiction | `deploy-scaleway_OLD.yml` (dormant — see below) |
-| **Training (LWM)** | Scaleway H100 GPU | fr-par (France) | LWM 1 / LWM 2 training runs | Manual / to be automated |
+| Tier                      | Provider                       | Region                  | Activated when                                                        | CI/CD workflow                                  |
+| ------------------------- | ------------------------------ | ----------------------- | --------------------------------------------------------------------- | ----------------------------------------------- |
+| **Tier 1 — Default EU**   | Google Cloud Run               | europe-north1 (Finland) | Always (current)                                                      | `deploy-cloudrun.yml`, `deploy-staging.yml`     |
+| **Tier 2 — Sovereign EU** | Scaleway Serverless Containers | fr-par (France)         | Customer explicitly requests sovereignty / non-CLOUD Act jurisdiction | `deploy-scaleway_OLD.yml` (dormant — see below) |
+| **Training (LWM)**        | Scaleway H100 GPU              | fr-par (France)         | LWM 1 / LWM 2 training runs                                           | Manual / to be automated                        |
 
 **Scaleway account:** org `78e26603-c820-4617-b0d2-f8589eb7693b` (Lifetime Oy), project `dws-backend`, region `fr-par`. Login via Google OAuth (admin6 Chrome profile). Full setup: `docs/field-notes/scaleway-infrastructure-setup.md`.
 
@@ -255,6 +256,31 @@ Scaleway GPU (H100) is the candidate for LWM 1 and LWM 2 training runs due to EU
 **Enabled Google Cloud APIs:**
 
 - **Secret Manager API** (`secretmanager.googleapis.com`) — Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security. (Google Enterprise API, Public API, Status: Enabled)
+
+### 3.2.2 DGX Spark — Actual Primary Compute (Self-Hosted, Zero Marginal Cost)
+
+**This section corrects a long-standing gap: prior to v2.4, this document did not mention DGX Spark anywhere, despite it being the environment the backend and all scheduled work actually run on today.** Cloud Run (§3.2, §4) remains live and is the correct target for secondary/staging traffic and anything that must be reachable without depending on a single self-hosted box, but it is no longer the primary 24/7 runtime.
+
+| Property    | Value                                                                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hardware    | Acer Veriton GN100 — NVIDIA Grace Blackwell GB10, 128GB RAM, ARM64                                                                                                       |
+| Location    | Self-hosted (Lifetime Oy premises, Finland) — zero CLOUD Act exposure, zero marginal compute cost                                                                        |
+| Runtime     | Docker Compose (`infrastructure/dgx-spark/docker-compose.yml`) — `dws-backend` (Express + all agents + node-cron schedulers) and `dws-cron` (script runner) containers   |
+| Deploy      | `.github/workflows/deploy-dgx-spark.yml` — push to `main` triggers SSH + `git reset --hard` + `docker compose build && up -d`, fully automatic, no human action required |
+| LLM routing | Local Ollama (`nemotron-3-super`, `qwen3-coder:30b`) primary, Groq API fallback                                                                                          |
+| Heartbeat   | `:9999/health`, used by the failover tiers below                                                                                                                         |
+
+**Scheduling is DGX-primary, not GitHub-Actions-primary.** All 31 daily and 16 weekly scripts (`scripts/daily/`, `scripts/weekly/`) run on DGX Spark's cron, auto-discovered by a day-runner. GitHub Actions' own `schedule:` triggers were deliberately removed from 20 previously-scheduled workflows during the April–May 2026 migration (each carries a `# Schedule REMOVED ... DGX Spark is primary` comment) and now survive only as manual `workflow_dispatch` failover. This cut GHA usage from ~2,250 min/month (~$18) to ~415–515 min/month (~$3.32–4.12), a ~78% reduction. Full detail: `Cron-works.md`.
+
+**Three-tier failover** (documented in `Cron-works.md`, orchestrated via `skills/cron/SKILL.md`):
+
+| Tier             | What                                                                                                                            | Trigger condition                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1 — Primary      | DGX Spark cron, 24/7, free                                                                                                      | Always, unless heartbeat fails                                                   |
+| 2 — Local backup | Claude Desktop Scheduled Tasks (5 critical jobs: db backup, TED pipeline, morning briefing, security audit, construction leads) | Heartbeat check fails → HIL email alert → SSH first-aid restart → local fallback |
+| 3 — Cloud backup | GitHub Actions `workflow_dispatch` (manual)                                                                                     | Desktop app closed / laptop off                                                  |
+
+**Why this matters for the Cloudflare question:** DGX Spark is already the zero-cost, EU-sovereign compute tier. Any new workload evaluation should check DGX Spark fit _first_, Cloudflare Workers second (edge reach, still cheap, but real Workers CPU-time billing at scale), and Cloud Run/GCP third (paid, EU-resident but not self-hosted) — reversing the historical GCP-first framing earlier sections of this document still carry. See Section 12.1 for the concrete application of this ordering to the MCP Gateway.
 
 ### 3.3 Full Sovereignty (Aegis) — Planned Q2 2026
 
@@ -280,17 +306,17 @@ User → Cloudflare CDN (US/Global) → Static frontend
 
 ### 4.2 DWS 6 Services by Environment
 
-| Service            | US Cloud           | EU Cloud             | Notes                                              |
-| ------------------ | ------------------ | -------------------- | -------------------------------------------------- |
-| Landing pages      | Cloudflare Pages   | —                    | dws6.com, dws10.com                                |
-| Dashboard frontend | Cloudflare Pages   | —                    | v10-react SPA                                      |
-| Backend API        | —                  | Cloud Run            | Express.js, port 8080                              |
-| AI Agents          | —                  | Cloud Run            | 6 agent services                                   |
-| Database           | —                  | Supabase EU          | PostgreSQL + pgvector                              |
-| Auth               | —                  | Supabase Auth        | JWT, GitHub SSO (Google login removed by Supabase) |
-| MCP Hub            | —                  | Cloud Run / Docker   | Agent orchestration                                |
-| Monitoring         | —                  | Prometheus + Grafana | Docker Compose (dev)                               |
-| Edge API           | Cloudflare Workers | —                    | Rate limiting, caching                             |
+| Service            | US Cloud           | EU Cloud                                           | Notes                                                                                                                                                                                                              |
+| ------------------ | ------------------ | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Landing pages      | Cloudflare Pages   | —                                                  | dws6.com, dws10.com — **live**                                                                                                                                                                                     |
+| Dashboard frontend | Cloudflare Pages   | —                                                  | v10-react SPA — **live**                                                                                                                                                                                           |
+| Backend API        | —                  | DGX Spark (primary), Cloud Run (secondary/staging) | Express.js, port 8080. DGX Spark runs it 24/7 self-hosted at zero marginal cost — see §3.2.2. Cloud Run remains live for staging/failover                                                                          |
+| AI Agents          | —                  | DGX Spark (primary), Cloud Run (secondary)         | 6 agent services — same primary/secondary split as Backend API                                                                                                                                                     |
+| Database           | —                  | Supabase EU                                        | PostgreSQL + pgvector — **live**                                                                                                                                                                                   |
+| Auth               | —                  | Supabase Auth                                      | JWT, GitHub SSO (Google login removed by Supabase)                                                                                                                                                                 |
+| MCP Hub            | —                  | DGX Spark / Cloud Run / Docker                     | Agent orchestration                                                                                                                                                                                                |
+| Monitoring         | —                  | Prometheus + Grafana                               | Docker Compose (dev)                                                                                                                                                                                               |
+| Edge API           | Cloudflare Workers | —                                                  | **Designed, mostly not deployed.** 8 workers exist in `src/cloudflare/`; a live account check confirms only 1 (`dws-revolut-checkout`) is actually running — 0 KV namespaces exist to back the other 7. See §12.1. |
 
 ### 4.3 DWS 6 Deployment Configuration
 
@@ -903,6 +929,8 @@ The Full Sovereignty tier runs entirely within the EU Cloud (pilot account). No 
 | **Monitoring**    | —                     | Prometheus + Grafana    | —               | —            | —                      |
 | **Compliance**    | —                     | —                       | Full Sov. stack | —            | —                      |
 
+> **Note (v2.4):** This matrix predates DGX Spark's adoption as primary compute and doesn't have a column for it. Read "Backend API / AI Agents / MCP Hub → EU Cloud → Cloud Run" above as **secondary/staging** — DGX Spark (self-hosted, zero marginal cost) is primary for all three; see §3.2.2. Read "Edge API → Cloudflare Workers" as **designed, not deployed** — a live account check found only 1 of 8 planned workers actually running; see §12.1.
+
 ### 8.2 Domain-to-Environment Mapping
 
 | Domain              | Environment           | Content                           |
@@ -1101,6 +1129,30 @@ gcloud builds submit --config=mcp-servers/cloud-run-gateway/cloudbuild.yaml .
 | `mcp-servers/cloud-run-gateway/cloudbuild.yaml`         | CI/CD pipeline               |
 | `mcp-servers/cloud-run-gateway/mcp-config.example.json` | Claude Code config template  |
 | `scripts/provision-secrets.sh`                          | .env → Google Secret Manager |
+
+### 12.9 Migration Plan (2026-07) — Priority: DGX Spark → Cloudflare Workers → Cloud Run
+
+Added during Cloudflare-migration research (v2.4). Two findings changed the plan for this service:
+
+1. **The scaffolded `src/cloudflare/mcp-gateway.ts` is not a drop-in replacement.** It's a multi-tenant SaaS routing proxy (forwards to `env.MCP_HUB_ORIGIN`, requires per-tenant config in a `TENANT_ROUTES` KV namespace, OAuth introspection against an auth server) — designed for the "Cloudflare Sandbox" product concept in `docs/CLOUDFLARE_SANDBOX_PILOT.md`, not for this gateway's actual job. The real gateway (`mcp-servers/cloud-run-gateway-ts/src/server.ts`) directly implements Supabase + GitHub tools over the MCP SDK's `StreamableHTTPServerTransport`, with server-side session state held in an in-memory object keyed by `mcp-session-id`. Deploying the scaffold as-is would produce edge infrastructure pointing at an origin (`mcp-hub.dws10.com`) that isn't live — not a working migration.
+2. **A live Cloudflare account check found only 1 of 8 designed workers actually deployed** (`dws-revolut-checkout`; 0 KV namespaces exist), confirming the gateway scaffold was never provisioned.
+
+**Revised host priority for this and future workloads** (per house preference: cost and sovereignty first):
+
+| Priority | Host                                | Why                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Cost                              |
+| -------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| 1        | **DGX Spark** (self-hosted, §3.2.2) | Zero marginal cost, EU-sovereign, already running the backend 24/7. The real gateway's in-process session state (the `transports` object in `server.ts`) needs no porting here — it's just another route/container on a persistent Node process. Needs a public HTTPS hostname for mobile Claude Code's remote-MCP client; a Cloudflare Tunnel (already the pattern in `src/cloudflare/README.md`'s hybrid architecture) gives that without touching Workers compute. | €0 marginal                       |
+| 2        | **Cloudflare Workers**              | Global edge reach, cheap at low volume — but the real gateway's per-session state would need porting to a Durable Object (Workers isolates don't share memory across requests the way a persistent Node process does), and the MCP TypeScript SDK's `createMcpExpressApp` binding assumes Express/Node, not the Workers `fetch` handler contract. Real, non-trivial port — not a config change.                                                                       | Workers CPU-time billing at scale |
+| 3        | **Cloud Run** (current)             | Already working today; keep as fallback until tier 1 or 2 is proven, then retire.                                                                                                                                                                                                                                                                                                                                                                                     | Paid (~€3–6/mo for this service)  |
+
+**Status (2026-07-05): Tier 1 code shipped, not yet live.** `mcp-servers/cloud-run-gateway-ts` (the real gateway, unmodified) is now wired into `infrastructure/dgx-spark/docker-compose.yml` as the `mcp-gateway` service, plus a profile-gated `cloudflare-tunnel` service and a `heartbeat.ts`/`CHECK_MCP_GATEWAY` entry so failover monitoring covers it. It ships with the next `deploy-dgx-spark.yml` run automatically (no host-published port — internal to the DGX Docker network only).
+
+Two steps remain, both outside this repo and both required before this is reachable by mobile Claude Code — see `mcp-servers/cloud-run-gateway-ts/README.md` "Deploy on DGX Spark" for the exact commands:
+
+1. Set `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `GITHUB_TOKEN`, `MCP_GATEWAY_API_KEY` in the DGX host's `.env`. **Do not skip `MCP_GATEWAY_API_KEY`** — without it the gateway accepts unauthenticated requests, which is fine while unexposed but not once tunneled.
+2. Create a Cloudflare Tunnel (Zero Trust dashboard), set `CLOUDFLARE_TUNNEL_TOKEN`, route a public hostname to `http://mcp-gateway:8080`, then start it with `docker compose --profile gateway up -d cloudflare-tunnel`.
+
+Tier 2 (Cloudflare Workers port) and Tier 3 retirement (Cloud Run) remain undone, per the table above.
 
 ---
 

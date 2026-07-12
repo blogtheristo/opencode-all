@@ -86,7 +86,7 @@ The Alden Biesen retreat provides fresh, high-level political validation:
 | **Fit for 55** | Climate targets across all 27 member states — unified compliance market |
 | **EU ETS** | Carbon pricing creates demand for industrial climate intelligence across Single Market |
 | **CBAM** | Border adjustment protects EU manufacturers — DWS IQ 6 automates compliance |
-| **CSRD** | Sustainability reporting mandatory for ~50,000 EU companies — unified standard |
+| **CSRD** | Sustainability reporting binds fewer than ~5,000 large EU companies directly post-Omnibus (value chains pulled in) — unified standard |
 | **EU AI Act** | August 2026 enforcement creates compliance barrier that favors EU-native AI platforms |
 
 ## Next Steps

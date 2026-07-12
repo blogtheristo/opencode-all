@@ -239,7 +239,7 @@ async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
   return {
     dailyLimitTokens: data.daily_limit_tokens,
     monthlyLimitTokens: data.monthly_limit_tokens,
-    monthlyLimitEur: data.monthly_limit_eur === null ? null : Number(data.monthly_limit_eur),
+    monthlyLimitEur: Number(data.monthly_limit_eur),
     hardCap: data.hard_cap,
     notifyThresholds: Array.isArray(data.notify_thresholds) ? data.notify_thresholds : [],
     updatedAt: data.updated_at,

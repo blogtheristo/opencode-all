@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Nudge Inbox - DWS IQ 6</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg-primary: #000;
+        --bg-secondary: #1c1c1e;
+        --bg-card: #2c2c2e;
+        --text-primary: #fff;
+        --text-secondary: #8e8e93;
+        --accent-ultra: #ff453a;
+        --accent-high: #ff9f0a;
+        --accent-success: #32d74b;
+        --border-color: #38383a;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      .header {
+        position: sticky;
+        top: 0;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+        padding: 16px 20px;
+        z-index: 100;
+      }
+      .header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+      .header .subtitle {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-top: 2px;
+      }
+      .nudge-list {
+        padding: 16px 20px 40px;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .nudge-card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+      }
+      .nudge-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 12px;
+        gap: 12px;
+      }
+      .nudge-subject {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+      .badge-act_now {
+        background: var(--accent-ultra);
+        color: #fff;
+      }
+      .badge-flag_for_review {
+        background: var(--accent-high);
+        color: #fff;
+      }
+      .badge-digest {
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+      }
+      .nudge-meta {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+      }
+      .nudge-body {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .btn {
+        flex: 1;
+        min-width: 120px;
+        padding: 14px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .btn:active {
+        transform: scale(0.96);
+      }
+      .btn-confirm {
+        background: var(--accent-success);
+        color: #fff;
+      }
+      .btn-override {
+        background: var(--accent-ultra);
+        color: #fff;
+      }
+      .btn-neutral {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+      .loading,
+      .empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--text-secondary);
+      }
+      .empty-icon {
+        font-size: 60px;
+        margin-bottom: 16px;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border-color);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 16px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        max-width: 680px;
+        margin: 0 auto;
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+        transform: translateY(200%);
+        transition: transform 0.3s;
+        z-index: 1000;
+      }
+      .toast.show {
+        transform: translateY(0);
+      }
+      .toast-success {
+        border-left: 4px solid var(--accent-success);
+      }
+      .toast-error {
+        border-left: 4px solid var(--accent-ultra);
+      }
+      .refresh-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--accent-success);
+        color: #fff;
+        border: none;
+        box-shadow: var(--shadow);
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 99;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🔔 Nudge Inbox</h1>
+      <div class="subtitle">Proactive agent nudges awaiting your call</div>
+    </div>
+
+    <div class="nudge-list" id="nudge-list">
+      <div class="loading">
+        <div class="spinner"></div>
+        <div>Loading nudges…</div>
+      </div>
+    </div>
+
+    <button class="refresh-btn" onclick="loadNudges()" title="Refresh">↻</button>
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const API_BASE = window.location.origin + "/api/v1/nudges";
+
+      function getToken() {
+        return (
+          localStorage.getItem("access_token") ||
+          localStorage.getItem("token") ||
+          localStorage.getItem("dws_token")
+        );
+      }
+
+      function authHeaders() {
+        const t = getToken();
+        return t
+          ? { Authorization: "Bearer " + t, "Content-Type": "application/json" }
+          : { "Content-Type": "application/json" };
+      }
+
+      function esc(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      window.addEventListener("DOMContentLoaded", loadNudges);
+
+      async function loadNudges() {
+        const listEl = document.getElementById("nudge-list");
+        listEl.innerHTML =
+          '<div class="loading"><div class="spinner"></div><div>Loading nudges…</div></div>';
+        try {
+          const res = await fetch(API_BASE, { headers: authHeaders() });
+          if (res.status === 401) {
+            listEl.innerHTML =
+              '<div class="empty"><div class="empty-icon">🔒</div><div>Sign in to view your nudges</div></div>';
+            return;
+          }
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || data.error || "Failed to load nudges");
+          renderNudges(data.nudges || []);
+        } catch (err) {
+          showToast("Error loading nudges: " + err.message, "error");
+          listEl.innerHTML =
+            '<div class="empty"><div class="empty-icon">⚠️</div><div>Failed to load nudges</div></div>';
+        }
+      }
+
+      function renderNudges(nudges) {
+        const listEl = document.getElementById("nudge-list");
+        if (!nudges.length) {
+          listEl.innerHTML =
+            '<div class="empty"><div class="empty-icon">✅</div><div>Inbox zero — no pending nudges</div></div>';
+          return;
+        }
+        listEl.innerHTML = nudges
+          .map(
+            (n) => `
+                <div class="nudge-card" id="nudge-${esc(n.id)}">
+                    <div class="nudge-header">
+                        <div class="nudge-subject">${esc(n.subject)}</div>
+                        <span class="badge badge-${esc(n.gateDecision)}">${esc((n.tier || "").toUpperCase())}</span>
+                    </div>
+                    <div class="nudge-meta">${esc(n.agentName)} · for ${esc(n.recipientRole)} · ${esc(n.signalKey)}</div>
+                    <div class="nudge-body">${esc(n.body)}</div>
+                    <div class="actions">
+                        <button class="btn btn-confirm" onclick="respond('${esc(n.id)}','confirm')">Confirm</button>
+                        <button class="btn btn-override" onclick="respond('${esc(n.id)}','override')">Override</button>
+                        <button class="btn btn-neutral" onclick="respond('${esc(n.id)}','dismiss')">Dismiss</button>
+                        <button class="btn btn-neutral" onclick="respond('${esc(n.id)}','investigate')">More detail</button>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      async function respond(id, action) {
+        try {
+          const res = await fetch(`${API_BASE}/${encodeURIComponent(id)}/respond`, {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify({ action }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || data.error || "Failed");
+          showToast(`Nudge ${action} → ${data.outcome}`, "success");
+          // investigate keeps the nudge pending; others resolve it.
+          if (action !== "investigate") removeCard(id);
+        } catch (err) {
+          showToast("Error: " + err.message, "error");
+        }
+      }
+
+      function removeCard(id) {
+        const card = document.getElementById("nudge-" + id);
+        if (!card) return;
+        card.style.transition = "all 0.3s";
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          card.remove();
+          if (!document.querySelectorAll(".nudge-card").length) loadNudges();
+        }, 300);
+      }
+
+      function showToast(message, type) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = `toast toast-${type || "success"} show`;
+        setTimeout(() => toast.classList.remove("show"), 3000);
+      }
+    </script>
+  </body>
+</html>

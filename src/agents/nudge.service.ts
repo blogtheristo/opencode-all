@@ -211,6 +211,24 @@ class NudgeService {
     );
   }
 
+  /** Fetch a single nudge by id (any status), or null. */
+  async getNudge(nudgeId: string): Promise<NudgeRecord | null> {
+    if (pool) {
+      try {
+        const result = await pool.query(`SELECT * FROM agent_nudges WHERE id = $1 LIMIT 1`, [
+          nudgeId,
+        ]);
+        return result.rows[0] ? rowToRecord(result.rows[0]) : null;
+      } catch (err) {
+        logger.debug('getNudge query error (treating as none)', {
+          error: err instanceof Error ? err.message : String(err),
+        });
+        return null;
+      }
+    }
+    return this.memStore.get(nudgeId) ?? null;
+  }
+
   /** List pending nudges for an org (dashboard / poller dedup). */
   async listPending(orgId?: string): Promise<NudgeRecord[]> {
     if (pool) {

@@ -168,6 +168,23 @@ export interface CaptainInquiriesData {
   inquiries: CaptainInquiryItem[];
 }
 
+export interface WebLeadItem {
+  id: string;
+  created_at: string;
+  source: string; // newsletter | free_audit | contact
+  email: string;
+  name: string | null;
+  company: string | null;
+  industry: string | null;
+  message: string | null;
+  status: string;
+}
+
+export interface WebLeadsData {
+  newCount: number;
+  leads: WebLeadItem[];
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -182,6 +199,7 @@ export interface CockpitData {
   constructionLeads: ConstructionLeadsData;
   outreachSummary: OutreachSummaryData;
   captainInquiries: CaptainInquiriesData;
+  webLeads: WebLeadsData;
   learnArtifacts: LearnArtifactsData;
   hilTodos: HilTodosData;
 }
@@ -723,6 +741,23 @@ async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
   };
 }
 
+/**
+ * Inbound web leads captured from the public sites (footer newsletter,
+ * /free-audit/, contact). Surfaces new ones so they enter the sales pipeline.
+ * Stays on Supabase (Tier 2 — inbound external data per three-tier policy).
+ * Note: requires migration 070_web_leads.sql to be applied.
+ */
+async function collectWebLeads(): Promise<WebLeadsData> {
+  const leads = await supabaseFetch<WebLeadItem[]>(
+    `web_leads?status=eq.new&order=created_at.desc&limit=15&select=id,created_at,source,email,name,company,industry,message,status`,
+  );
+
+  return {
+    newCount: leads?.length || 0,
+    leads: leads || [],
+  };
+}
+
 // ============================================================================
 // LEARN ARTIFACTS COLLECTOR
 // ============================================================================
@@ -1076,6 +1111,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     constructionLeads,
     outreachSummary,
     captainInquiries,
+    webLeads,
     learnArtifacts,
     hilTodos,
   ] = await Promise.all([
@@ -1089,6 +1125,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectConstructionLeads(),
     collectOutreachSummary(),
     collectCaptainInquiries(),
+    collectWebLeads(),
     collectLearnArtifacts(),
     collectHilTodos(),
   ]);
@@ -1110,6 +1147,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     constructionLeads,
     outreachSummary,
     captainInquiries,
+    webLeads,
     learnArtifacts,
     hilTodos,
   };

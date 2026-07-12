@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.9
+version: 3.0
 created: 2026-02-07
-last_modified: 2026-07-06
+last_modified: 2026-07-07
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,11 +19,12 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.0
 
 Sessions & Modifications:
 
-- Version: 2.9 | Tool: Claude Code | Session: claude/aiven-postgres-upcloud-ddjnsu | Date: 06.07.2026 | Changes: Updated §3.6.1 DR table and §17 for a topology change — DWS-internal operational tables (agent memory, cron/command audit logs, tool telemetry, agent nudges) are moving from the shared Supabase project to a self-hosted `dws-postgres` container on DGX Spark (Tier 1), which also already served as a backup _destination_ for Supabase (DR-2). Marked DR-5 "Superseded" — a same-session audit found the originally-described Supabase→Aiven daily mirror was never actually wired to any automation (no CI/cron, no confirmed secrets, no evidence of a real run) despite being documented "Active." Added DR-8: the new, real Aiven role is offsite backup target for `dws-postgres` (`scripts/dgx-spark-postgres-backup-to-aiven.sh`), status "Pending" until the Aiven service's EU region is confirmed and wired in. No RLS on the new internal Postgres (connection-level access control only — no real end-users on these tables).
+- Version: 3.0 | Tool: Claude Code | Session: claude/aiven-postgres-upcloud-ddjnsu | Date: 07.07.2026 | Changes: Updated §3.6.1 DR table and §17 for a topology change — DWS-internal operational tables (agent memory, cron/command audit logs, tool telemetry, agent nudges) are moving from the shared Supabase project to a self-hosted `dws-postgres` container on DGX Spark (Tier 1), which also already served as a backup _destination_ for Supabase (DR-2). Marked DR-5 "Superseded" — a same-session audit found the originally-described Supabase→Aiven daily mirror was never actually wired to any automation (no CI/cron, no confirmed secrets, no evidence of a real run) despite being documented "Active." Added DR-8: the new, real Aiven role is offsite backup target for `dws-postgres` (`scripts/dgx-spark-postgres-backup-to-aiven.sh`), status "Pending" until the Aiven service's EU region is confirmed and wired in. No RLS on the new internal Postgres (connection-level access control only — no real end-users on these tables). Added §3.6.3 Infrastructure Subscription Costs (Aiven pg-32ace152, $75/month Developer tier, DigitalOcean Frankfurt — dev/DR tier; production per-client deployments upgrade to UpCloud professional).
+- Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
 - Version: 2.8 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Resolved the §17.5 Aiven Open Question per founder decision — approved Aiven-managed PostgreSQL on `google-europe-north1` as the DWS IQ 6 (dws6.com) DB layer, recorded as an explicit sovereignty exception (not a "None" CLOUD Act rating) with residual risk noted: Aiven's US-VC ownership is still unclear, and the underlying GCP infra is elsewhere classified "Transitional"/migrate-away for compute. `scripts/aiven-vault-bootstrap.sh` / `mcp-hub/config/aiven-mcp.json` required no changes — already defaulted to this region.
 - Version: 2.7 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Supabase/Aiven audit — fixed broken §17.5 cross-reference ("AGENTS.md Section 20" does not exist, now points to docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md); flagged that Aiven does not offer Hetzner as a deployable region, so the existing "DB layer on Hetzner infra only" approval condition for Aiven is currently unsatisfiable by any script in the repo — added an Open Question pending a human sovereignty decision.
 - Version: 2.6 | Tool: Claude Code | Session: claude/ai-codebase-security-audit-BgY2H | Date: 21.06.2026 | Changes: Added Secret Egress Control to Layer 3 (Data Protection) — closes the write-side exfiltration gap. New shared pattern engine `.claude/hooks/secret-patterns.sh` consumed by three hooks: read-bypass guard in `pretooluse-guard.sh` (blocks Bash `cat`/`grep`/`env`/`printenv`/`base64` of `.env*`/`*.pem`/`*.key`/`*secret*`, which previously bypassed `Read`-tool deny rules), input scan in `secret-scan.sh` (now also catches bare JWTs, DSNs with embedded creds, Bearer tokens, DB passwords, OAuth client secrets; placeholders allowlisted), and new output scan `secret-output-scan.sh` (PostToolUse/Bash, warns on secrets surfaced in command output). Added matching Secret Egress Rules to CLAUDE.md and defence-in-depth `deny` entries to `.claude/settings.json`.
@@ -1607,16 +1608,17 @@ Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
 
 ### 18.4 BYO Agent Registration Gates
 
-| Gate                         | Requirement                                                                  | Enforcement                                               |
-| ---------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
-| **G1 — Manifest**            | Agent manifest submitted (name, version, tool requirements, source URL)      | DWS Agent Registry API                                    |
-| **G2 — Identity Binding**    | Agent bound to a verified human identity (KYA L1 pass required)              | IDV verification must be PASSED before agent registration |
-| **G3 — Capability Review**   | Requested MCP tools reviewed against org policy                              | MCP Tool Approval workflow (Section 17)                   |
-| **G4 — Sandbox Entry**       | Agent placed in isolated sandbox (Stage 1–3 based on tenant tier)            | Sandbox Isolation Architecture (Section 14)               |
-| **G5 — Runtime Monitoring**  | Continuous telemetry active: egress attempts, file writes, token consumption | KYA L4 telemetry pipeline                                 |
-| **G6 — Dynamic Restriction** | If IDV risk score changes, sandbox permissions adjust in real-time           | KYA L5 webhook → event bus → sandbox policy engine        |
+| Gate                         | Requirement                                                                                                                                                                                          | Enforcement                                                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **G1 — Manifest**            | Agent manifest submitted (name, version, tool requirements, source URL)                                                                                                                              | DWS Agent Registry API                                                                                                       |
+| **G2 — Identity Binding**    | Agent bound to a verified human identity (KYA L1 pass required)                                                                                                                                      | IDV verification must be PASSED before agent registration                                                                    |
+| **G3 — Capability Review**   | Requested MCP tools reviewed against org policy                                                                                                                                                      | MCP Tool Approval workflow (Section 17)                                                                                      |
+| **G4 — Sandbox Entry**       | Agent placed in isolated sandbox (Stage 1–3 based on tenant tier)                                                                                                                                    | Sandbox Isolation Architecture (Section 14)                                                                                  |
+| **G5 — Runtime Monitoring**  | Continuous telemetry active: egress attempts, file writes, token consumption                                                                                                                         | KYA L4 telemetry pipeline                                                                                                    |
+| **G6 — Dynamic Restriction** | If IDV risk score changes, sandbox permissions adjust in real-time                                                                                                                                   | KYA L5 webhook → event bus → sandbox policy engine                                                                           |
+| **G7 — Spend Authority**     | Agent may sign/present an AP2/UCP/ACP payment mandate only within its ATS band, and only with a signed `spend_authority` block bound to the G2 verified human (`hic`) — no anonymous spend authority | `evaluateMandateGate()` (`src/identity/ats-engine.ts`); see `Legal/KYA_STANDARD_v1.md` §14, `Legal/KYA_SECURITY_v1.2.md` §12 |
 
-**Critical rule:** No BYO agent may execute outside a sandbox. Sandbox stage selection follows Section 14 based on tenant tier.
+**Critical rule:** No BYO agent may execute outside a sandbox. Sandbox stage selection follows Section 14 based on tenant tier. G7 composes with G2: spend authority always resolves to the same verified human identity G2 established — there is no separate identity path for commerce.
 
 ### 18.5 Partner Access Controls for IDV Providers
 

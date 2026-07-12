@@ -77,6 +77,87 @@ else
   echo "[weekly-security-audit] python3 or scan_critical_bugs.py not available — skipping ZenFree scan"
 fi
 
+# Dependabot Alerts -> Aegis SLA triage (Vulnerability & Patch Owner role,
+# docs/SECURITY_ROLES_AND_GUIDANCE.md). Aegis (src/agents/aegis.agent.ts) is a
+# pure classification agent that never fetches alerts itself, and nothing in
+# the repo previously called it with real data -- it sat registered but
+# unwired (src/agents/index.ts:299) since it was created. This block is the
+# fetch+classify step that closes that gap.
+DEPENDABOT_ALERTS_JSON="$REPORT_DIR/dependabot-alerts.json"
+DEPENDABOT_TRIAGE_MD="$REPORT_DIR/dependabot-triage-summary.md"
+if command -v gh >/dev/null 2>&1; then
+  gh api "repos/${GITHUB_REPOSITORY:-blogtheristo/dws6}/dependabot/alerts" \
+    -X GET -f state=open --paginate > "$DEPENDABOT_ALERTS_JSON" 2>/dev/null || echo '[]' > "$DEPENDABOT_ALERTS_JSON"
+else
+  echo "[weekly-security-audit] gh CLI not available -- skipping Dependabot alert fetch (see security-reports/SECURITY_BACKLOG_BUG_FIXES.md for the manual fetch command)"
+  echo '[]' > "$DEPENDABOT_ALERTS_JSON"
+fi
+
+if command -v python3 >/dev/null 2>&1; then
+  python3 - "$DEPENDABOT_ALERTS_JSON" "$DEPENDABOT_TRIAGE_MD" <<'PYEOF' || true
+import json, sys
+from datetime import datetime, timezone
+
+json_path, out_path = sys.argv[1], sys.argv[2]
+# SLA_DAYS mirrors src/agents/aegis.agent.ts's SLA_DAYS constant -- update both together.
+SLA_DAYS = {"critical": 2, "high": 7, "moderate": 30, "low": 90}
+
+try:
+    with open(json_path) as f:
+        alerts = json.load(f)
+    if not isinstance(alerts, list):
+        alerts = []
+except (json.JSONDecodeError, FileNotFoundError):
+    alerts = []
+
+today = datetime.now(timezone.utc)
+classified = []
+for a in alerts:
+    sev = ((a.get("security_advisory") or {}).get("severity")) or "low"
+    sla = SLA_DAYS.get(sev, 90)
+    created = a.get("created_at")
+    age_days = 0
+    if created:
+        created_dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
+        age_days = max(0, (today - created_dt).days)
+    status = "breach" if age_days > sla else ("at-risk" if age_days >= sla * 0.7 else "on-track")
+    classified.append({
+        "number": a.get("number"),
+        "package": ((a.get("dependency") or {}).get("package") or {}).get("name", "unknown"),
+        "severity": sev,
+        "ageDays": age_days,
+        "slaDays": sla,
+        "status": status,
+    })
+
+breaches = [c for c in classified if c["status"] == "breach"]
+at_risk = [c for c in classified if c["status"] == "at-risk"]
+
+lines = [f"## Dependabot Alert SLA Triage (Aegis) -- {len(classified)} open alert(s)\n"]
+lines.append(f"- Breach: {len(breaches)}")
+lines.append(f"- At-risk: {len(at_risk)}")
+lines.append(f"- On-track: {len(classified) - len(breaches) - len(at_risk)}\n")
+if breaches:
+    lines.append("### SLA breaches (fix or explicitly risk-accept)\n")
+    for b in sorted(breaches, key=lambda c: -c["ageDays"])[:20]:
+        lines.append(f"- **{b['severity'].upper()}** `{b['package']}` -- {b['ageDays']}d old (SLA {b['slaDays']}d), alert #{b['number']}")
+    lines.append("")
+lines.append("_Full alert list and triage decisions: security-reports/SECURITY_BACKLOG_BUG_FIXES.md "
+              "(Vulnerability & Patch Owner updates this from the run above per "
+              "docs/SECURITY_ROLES_AND_GUIDANCE.md)._")
+
+with open(out_path, "w") as f:
+    f.write("\n".join(lines))
+
+counts_path = out_path.replace("dependabot-triage-summary.md", "dependabot-triage-counts.json")
+with open(counts_path, "w") as f:
+    json.dump({"total": len(classified), "breach": len(breaches), "atRisk": len(at_risk)}, f)
+
+print(f"[weekly-security-audit] Dependabot: {len(classified)} open alert(s), "
+      f"{len(breaches)} breach, {len(at_risk)} at-risk", file=sys.stderr)
+PYEOF
+fi
+
 bash "$REPO_ROOT/scripts/local-ci.sh" || true
 
 # Surface critical/high findings as a GitHub issue — but ONLY a redacted summary
@@ -130,10 +211,17 @@ with open(out_path, "w") as f:
     f.write("\n".join(lines))
 PYEOF
 
+  # Fold the Dependabot/Aegis triage section into the same weekly-scan issue.
+  if [ -f "$DEPENDABOT_TRIAGE_MD" ]; then
+    printf '\n\n' >> "$SUMMARY_BODY"
+    cat "$DEPENDABOT_TRIAGE_MD" >> "$SUMMARY_BODY"
+  fi
+
   CRITICAL=$(python3 -c "import json; d=json.load(open('$CRITICAL_BUGS_JSON')); print(d.get('stats',{}).get('critical',0))" 2>/dev/null || echo 0)
   HIGH=$(python3 -c "import json; d=json.load(open('$CRITICAL_BUGS_JSON')); print(d.get('stats',{}).get('high',0))" 2>/dev/null || echo 0)
+  DEPENDABOT_BREACH=$(python3 -c "import json; d=json.load(open('$REPORT_DIR/dependabot-triage-counts.json')); print(d.get('breach',0))" 2>/dev/null || echo 0)
 
-  if [ "${CRITICAL:-0}" -gt 0 ] || [ "${HIGH:-0}" -gt 0 ]; then
+  if [ "${CRITICAL:-0}" -gt 0 ] || [ "${HIGH:-0}" -gt 0 ] || [ "${DEPENDABOT_BREACH:-0}" -gt 0 ]; then
     TITLE="Weekly Security Scan: ${CRITICAL} critical, ${HIGH} high — $(date -u +%Y-%m-%d)"
     EXISTING=$(gh issue list --label "weekly-scan" --state open --limit 1 --json number -q '.[0].number' 2>/dev/null || echo "")
     if [ -n "$EXISTING" ]; then

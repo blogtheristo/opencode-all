@@ -45,10 +45,8 @@ services:
       - REPORT_ENGINE_URL=http://firehorse-reports:8084
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_KEY=${SUPABASE_KEY}
-<<<<<<< Current (Your changes)
       - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
       - TEAMS_WEBHOOK_URL=${TEAMS_WEBHOOK_URL}
-=======
       - NOTIFY_WEBHOOK_URL=${NOTIFY_WEBHOOK_URL}
       - WHATSAPP_API_BASE_URL=${WHATSAPP_API_BASE_URL:-https://graph.facebook.com}
       - WHATSAPP_API_VERSION=${WHATSAPP_API_VERSION:-v20.0}
@@ -57,7 +55,6 @@ services:
       - WHATSAPP_DEFAULT_RECIPIENT=${WHATSAPP_DEFAULT_RECIPIENT}
       - WHATSAPP_TEMPLATE_NAME=${WHATSAPP_TEMPLATE_NAME}
       - WHATSAPP_TEMPLATE_LANGUAGE=${WHATSAPP_TEMPLATE_LANGUAGE:-en_US}
->>>>>>> Incoming (Background Agent changes)
       - CORS_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
     depends_on:
       firehorse-reports:

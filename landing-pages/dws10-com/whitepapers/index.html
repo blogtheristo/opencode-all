@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- catalog page; confidential items must not be indexed -->
+    <title>DWS IQ Whitepapers — Lifetime Oy</title>
+    <!--
+  SCAFFOLD — Whitepaper catalog with classification gating.
+
+  SECURITY (read before relying on this): the password prompt below is
+  CLIENT-SIDE OBFUSCATION ONLY. It is NOT real access control. Production
+  gating for Confidential whitepapers MUST be enforced server-side, by a
+  Cloudflare Access policy on the /whitepapers/confidential/* path (the site
+  is served via Cloudflare Pages). Until that policy exists, do NOT place
+  real Confidential PDFs under a path this page links to.
+
+  Dual-folder rule: keep this file in lockstep with
+  dws10.com/whitepapers/index.html.
+-->
+    <style>
+      :root {
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --accent: #1e40af;
+        --amber: #b45309;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          16px/1.6 -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        color: var(--ink);
+        background: #f8fafc;
+      }
+      header {
+        background: #0b1220;
+        color: #fff;
+        padding: 28px 20px;
+      }
+      .wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1 {
+        margin: 0.2em 0;
+        font-size: 1.5rem;
+      }
+      .sub {
+        color: #94a3b8;
+        font-size: 0.95rem;
+      }
+      main {
+        padding: 28px 0 60px;
+      }
+      h2 {
+        font-size: 1.15rem;
+        margin: 1.8em 0 0.6em;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.3em;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin: 12px 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+      }
+      .card h3 {
+        margin: 0 0 0.2em;
+        font-size: 1.02rem;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 3px 8px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .b-public {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .b-conf {
+        background: #fef3c7;
+        color: var(--amber);
+      }
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        border: 0;
+        cursor: pointer;
+      }
+      .btn[disabled] {
+        background: #cbd5e1;
+        cursor: not-allowed;
+      }
+      a.btn[aria-disabled="true"] {
+        background: #cbd5e1;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .note {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        color: #7c5e10;
+        padding: 12px 14px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin: 10px 0;
+      }
+      #gate {
+        background: #fff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 10px;
+        padding: 18px;
+        margin: 12px 0;
+      }
+      #conf[hidden] {
+        display: none;
+      }
+      input[type="password"] {
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 0.95rem;
+      }
+      footer {
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-align: center;
+        padding: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="sub">Lifetime Oy · DWS IQ 6</div>
+        <h1>Whitepapers</h1>
+        <div class="sub">
+          Public papers are open. Confidential papers are limited to intended recipients.
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <h2>Public</h2>
+      <div class="card">
+        <div>
+          <h3>Compliant by Construction — Governing Physical-AI Fleets</h3>
+          <div class="meta">v1.0 · 2026 · NVIDIA Halos × DWS IQ Lifetime Fleet</div>
+        </div>
+        <div style="text-align: right">
+          <span class="badge b-public">Public</span><br />
+          <!-- TODO: link the rendered public PDF/HTML once published -->
+          <a
+            class="btn"
+            href="#"
+            data-doc="compliant-by-construction"
+            aria-disabled="true"
+            tabindex="-1"
+            >Download (wire up)</a
+          >
+        </div>
+      </div>
+
+      <h2>Confidential — access controlled</h2>
+      <div class="note">
+        <strong>Production gating:</strong> these are limited-distribution papers. Real access
+        control is enforced by <strong>Cloudflare Access</strong> on
+        <code>/whitepapers/confidential/*</code>. The prompt below is a development placeholder
+        (obfuscation only) — do not host real Confidential files behind it until the Access policy
+        is live.
+      </div>
+
+      <div id="gate">
+        <label>Access code: <input type="password" id="pw" autocomplete="off" /></label>
+        <button class="btn" id="unlock">Unlock</button>
+      </div>
+
+      <div id="conf" hidden>
+        <div class="card">
+          <div>
+            <h3>European Sovereign Industrial Intelligence</h3>
+            <div class="meta">v1.0 · 2026</div>
+          </div>
+          <div style="text-align: right">
+            <span class="badge b-conf">Confidential</span><br />
+            <a
+              class="btn"
+              href="#"
+              data-doc="sovereign-industrial-intelligence"
+              aria-disabled="true"
+              tabindex="-1"
+              >Download (wire up)</a
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div>
+            <h3>KYA Standard — IDV Provider Certification</h3>
+            <div class="meta">v1.0 · 2026 · KYA-IDV-CERT</div>
+          </div>
+          <div style="text-align: right">
+            <span class="badge b-conf">Confidential</span><br />
+            <a class="btn" href="#" data-doc="kya-idv-cert" aria-disabled="true" tabindex="-1"
+              >Download (wire up)</a
+            >
+          </div>
+        </div>
+        <div class="card">
+          <div>
+            <h3>KYA Standard — Shufti IDV Certification</h3>
+            <div class="meta">v1.0 · 2026-03-17</div>
+          </div>
+          <div style="text-align: right">
+            <span class="badge b-conf">Confidential</span><br />
+            <a class="btn" href="#" data-doc="shufti-kya" aria-disabled="true" tabindex="-1"
+              >Download (wire up)</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>© 2026 Lifetime Oy · Y-tunnus 0772407-9 · Espoo, Finland · All rights reserved.</footer>
+
+    <script>
+      // Placeholder gate ONLY. Replace with Cloudflare Access on the server path.
+      document.getElementById("unlock").addEventListener("click", function () {
+        var ok = document.getElementById("pw").value.trim().length > 0; // placeholder: any non-empty value
+        if (ok) {
+          document.getElementById("conf").hidden = false;
+          document.getElementById("gate").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

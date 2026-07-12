@@ -71,7 +71,7 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
       provider: 'anthropic',
       apiKey: process.env.ANTHROPIC_API_KEY,
       baseUrl: 'https://api.anthropic.com/v1',
-      model: process.env.ANTHROPIC_MODEL || agentModel || 'claude-sonnet-4-20250514',
+      model: process.env.ANTHROPIC_MODEL || agentModel || 'claude-sonnet-5',
       maxTokens: 4096,
       temperature: 0.3,
     };

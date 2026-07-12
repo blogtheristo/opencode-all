@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keenon Robotics — Nordic Fleet Partnership | DWS IQ Platform</title>
+    <meta
+      name="description"
+      content="Lifetime Fleet operates and governs Keenon service robots across the Nordics. Keenon brings proven cleaning, delivery, and hospitality robots; DWS IQ brings deployment, operations, and EU compliance."
+    />
+    <meta
+      name="keywords"
+      content="Keenon Robotics, KLEENBOT C40, service robots, cleaning robot, delivery robot, Lifetime Fleet, Nordic distributor, DWS IQ, EU AI Act, fleet operations"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Keenon Robotics — Nordic Fleet Partnership | DWS IQ Platform"
+    />
+    <meta
+      property="og:description"
+      content="Keenon brings the robots. Lifetime Fleet deploys, operates, and governs them across the Nordics — pay-as-you-go, EU-compliant."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/lifetime-fleet/keenon/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Keenon Robotics — Nordic Fleet Partnership | DWS IQ Platform"
+    />
+    <meta
+      name="twitter:description"
+      content="Keenon brings the robots. Lifetime Fleet deploys, operates, and governs them across the Nordics."
+    />
+    <link rel="canonical" href="https://dws10.com/lifetime-fleet/keenon/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <style>
+      :root {
+        --keenon-blue: #2b6cb0;
+        --keenon-blue-bright: #4a90e2;
+        --keenon-blue-dim: rgba(74, 144, 226, 0.15);
+        --keenon-blue-border: rgba(74, 144, 226, 0.32);
+        --gold: #d4a843;
+        --gold-light: #f0d78c;
+        --gold-border: rgba(212, 168, 67, 0.4);
+        --dark: #0a0a0a;
+        --text: #e2e8f0;
+        --text-dim: #94a3b8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: #000000;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 100px 20px 70px;
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(74, 144, 226, 0.14) 0%, transparent 60%),
+          radial-gradient(ellipse at 50% 100%, rgba(212, 168, 67, 0.06) 0%, transparent 50%),
+          #000000;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--keenon-blue-bright),
+          var(--gold),
+          var(--keenon-blue-bright),
+          transparent
+        );
+      }
+      .hero-badge {
+        display: inline-block;
+        color: var(--gold-light);
+        border: 1px solid var(--gold-border);
+        background: rgba(212, 168, 67, 0.12);
+        border-radius: 20px;
+        padding: 8px 22px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        background: linear-gradient(
+          135deg,
+          var(--gold-light) 0%,
+          var(--gold) 40%,
+          #c49b38 70%,
+          var(--gold-light) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 12px;
+        line-height: 1.15;
+        font-weight: 800;
+      }
+      .hero h1 .keenon-text {
+        background: linear-gradient(135deg, var(--keenon-blue-bright), #6fb0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-partner-line {
+        font-size: 1.1rem;
+        color: var(--keenon-blue-bright);
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+      .hero-sub {
+        font-size: 1.25rem;
+        color: var(--text-dim);
+        max-width: 720px;
+        margin: 0 auto 36px;
+      }
+      .hero-value {
+        font-size: 1.05rem;
+        color: var(--text);
+        background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(20, 20, 20, 0.95));
+        border: 1px solid var(--keenon-blue-border);
+        border-radius: 12px;
+        padding: 24px 28px;
+        max-width: 750px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .hero-value strong {
+        color: var(--keenon-blue-bright);
+      }
+
+      /* Sections */
+      .section {
+        padding: 60px 20px;
+        background: #000000;
+        border-top: 1px solid rgba(74, 144, 226, 0.08);
+      }
+      .section-label {
+        color: var(--keenon-blue-bright);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .section h2 {
+        font-size: 2rem;
+        color: var(--text);
+        margin-bottom: 16px;
+      }
+      .section-intro {
+        color: var(--text-dim);
+        font-size: 1.05rem;
+        max-width: 750px;
+        margin-bottom: 40px;
+      }
+
+      /* Division of labour */
+      .cosell {
+        display: grid;
+        grid-template-columns: 1fr 60px 1fr;
+        align-items: center;
+        gap: 0;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .cosell-side {
+        background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(15, 15, 15, 0.95));
+        border: 1px solid var(--keenon-blue-border);
+        border-radius: 12px;
+        padding: 28px;
+        text-align: center;
+      }
+      .cosell-plus {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--keenon-blue-bright);
+      }
+      .cosell-side h3 {
+        margin-bottom: 8px;
+      }
+      .cosell-side .cosell-tag {
+        display: inline-block;
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .tag-keenon {
+        color: var(--keenon-blue-bright);
+        border: 1px solid var(--keenon-blue-border);
+      }
+      .tag-dws {
+        color: #60a5fa;
+        border: 1px solid rgba(96, 165, 250, 0.3);
+      }
+      .cosell-result {
+        text-align: center;
+        margin-top: 32px;
+        padding: 20px;
+        background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(15, 15, 15, 0.95));
+        border: 1px solid var(--keenon-blue-border);
+        border-radius: 12px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .cosell-result p {
+        color: var(--text);
+        font-size: 1.1rem;
+      }
+      .cosell-result strong {
+        color: var(--keenon-blue-bright);
+      }
+
+      /* Grid Cards */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(15, 15, 15, 0.95));
+        border: 1px solid rgba(74, 144, 226, 0.14);
+        border-radius: 12px;
+        padding: 28px;
+        transition:
+          border-color 0.3s,
+          transform 0.2s;
+      }
+      .card:hover {
+        border-color: var(--keenon-blue-border);
+        transform: translateY(-2px);
+      }
+      .card h3 {
+        color: var(--text);
+        font-size: 1.15rem;
+        margin-bottom: 6px;
+      }
+      .card .card-tag {
+        color: var(--keenon-blue-bright);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .card p {
+        color: var(--text-dim);
+        font-size: 0.95rem;
+        margin-top: 10px;
+      }
+      .card-icon {
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+      }
+
+      /* CTA */
+      .cta-section {
+        text-align: center;
+        padding: 60px 20px 80px;
+        background: #000000;
+        border-top: 1px solid rgba(74, 144, 226, 0.08);
+      }
+      .cta-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 16px;
+      }
+      .cta-section p {
+        color: var(--text-dim);
+        font-size: 1.05rem;
+        max-width: 600px;
+        margin: 0 auto 28px;
+      }
+      .cta-links {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cta-links a {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: opacity 0.2s;
+      }
+      .cta-links a:hover {
+        opacity: 0.85;
+      }
+      .btn-keenon {
+        background: var(--keenon-blue-bright);
+        color: #04122a;
+      }
+      .btn-outline {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--text);
+      }
+
+      .back-link {
+        display: inline-block;
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 20px;
+        transition: color 0.2s;
+      }
+      .back-link:hover {
+        color: var(--text);
+      }
+
+      .status-note {
+        max-width: 750px;
+        margin: 24px auto 0;
+        font-size: 0.85rem;
+        color: var(--text-dim);
+        border: 1px dashed rgba(148, 163, 184, 0.3);
+        border-radius: 10px;
+        padding: 14px 18px;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 80px 20px 50px;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .cosell {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .cosell-plus {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <a href="/lifetime-fleet/" class="back-link">← Lifetime Fleet</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">✦ Robot Partnership — Nordic Operations ✦</div>
+      <h1>We Operate <span class="keenon-text">Keenon</span> Robots Across the Nordics</h1>
+      <div class="hero-partner-line">Lifetime Fleet — Deploy · Operate · Govern</div>
+      <p class="hero-sub">
+        Keenon builds proven service robots. Lifetime Fleet puts them to work — deployed, operated,
+        and governed for EU regulated environments, on a pay-as-you-go model.
+      </p>
+      <div class="hero-value">
+        Keenon Robotics ships service robots into cleaning, delivery, and hospitality worldwide —
+        including the new <strong>KLEENBOT C40</strong> 4-in-1 floor cleaner. Lifetime Fleet adds
+        the layer those robots need to run in the Nordics:
+        <strong>on-site deployment, fleet operations, and EU AI Act / NIS2 compliance</strong> — so
+        a customer gets working robots, not a shipping crate.
+      </div>
+      <div class="status-note">
+        <strong>Status:</strong> Nordic distribution &amp; operating partnership in development.
+        Lifetime Oy has applied to Keenon Robotics for distributor terms. Product details below
+        reflect Keenon's published lineup; final SKUs, territory, and terms are subject to
+        agreement.
+      </div>
+    </section>
+
+    <!-- DIVISION OF LABOUR -->
+    <section class="section">
+      <div class="container">
+        <div class="section-label">How the Partnership Works</div>
+        <h2>Two Layers, One Working Fleet</h2>
+        <p class="section-intro">
+          Keenon makes the hardware and the autonomy stack. Lifetime Fleet makes it deployable,
+          operable, and compliant in EU regulated sites — and reports the numbers back.
+        </p>
+
+        <div class="cosell">
+          <div class="cosell-side">
+            <span class="cosell-tag tag-keenon">KEENON</span>
+            <h3>The Robot Layer</h3>
+            <p style="color: var(--text-dim); font-size: 0.95rem">
+              Cleaning · delivery · hospitality robots · onboard navigation &amp; docking · OTA
+              firmware · spare parts &amp; service network
+            </p>
+          </div>
+          <div class="cosell-plus">+</div>
+          <div class="cosell-side">
+            <span class="cosell-tag tag-dws">LIFETIME FLEET</span>
+            <h3>The Operating Layer</h3>
+            <p style="color: var(--text-dim); font-size: 0.95rem">
+              On-site deployment · Control Room monitoring · pay-as-you-go contracts · EU AI Act /
+              NIS2 / GDPR governance · uptime &amp; utilization reporting
+            </p>
+          </div>
+        </div>
+        <div class="cosell-result">
+          <p>
+            Customers don't want to own and maintain robots. Keenon doesn't want to run Nordic field
+            operations. <strong>This partnership covers both.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROBOT LINES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-label">The Lineup We Carry</div>
+        <h2>Service Robots for Nordic Sites</h2>
+        <p class="section-intro">
+          Leading with the KLEENBOT C40, extending across Keenon's delivery and hospitality lines as
+          customer demand confirms each category.
+        </p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🧹</div>
+            <span class="card-tag">Cleaning · KLEENBOT C40</span>
+            <h3>4-in-1 Floor Cleaner</h3>
+            <p>
+              Professional cleaner for small-to-medium spaces. Triple-brush system with dry/wet
+              separation, adaptable across scenarios. The lead SKU for facility and retail sites.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🍽️</div>
+            <span class="card-tag">Delivery · DINERBOT line</span>
+            <h3>Delivery &amp; Runner Robots</h3>
+            <p>
+              Tray and cabinet delivery robots for hospitality, healthcare, and senior-care
+              corridors — point-to-point transport that frees staff for higher-value work.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛎️</div>
+            <span class="card-tag">Hospitality</span>
+            <h3>Reception &amp; Guidance</h3>
+            <p>
+              Guiding, reception, and in-building delivery robots for hotels, clinics, and public
+              buildings where wayfinding and contactless service matter.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <span class="card-tag">Operated by Lifetime Fleet</span>
+            <h3>Governed, Not Just Sold</h3>
+            <p>
+              Every unit runs under our Control Room with uptime, utilization, and cost-per-task
+              tracked — and EU AI Act Article 12 logging when sensors are active.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY NORDICS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-label">Why a Local Operating Partner</div>
+        <h2>What Lifetime Fleet Adds</h2>
+        <p class="section-intro">
+          Keenon needs a governed, locally-operated channel in the Nordics — not box-shifting. That
+          is exactly Lifetime Fleet's model.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3>Deploy &amp; Operate</h3>
+            <p>
+              Pay-as-you-go fleet contracts. The customer pays for working robots; we own
+              deployment, monitoring, and field service.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Compliance Handled</h3>
+            <p>
+              EU AI Act, NIS2, GDPR, and operational governance run on our side, under the KYA
+              autonomy standard.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏥</div>
+            <h3>Proven Operator Base</h3>
+            <p>
+              A live Nordic fleet with paying operators and strong retention, on an NVIDIA ISV stack
+              — robots land into an existing operation.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Channel Proof</h3>
+            <p>
+              Measured uptime and utilization reported back to Keenon — a data-backed reference
+              market, not just a logo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Bring Keenon Robots to Your Site</h2>
+      <p>
+        For facility, hospitality, and healthcare operators in the Nordics — and for Keenon's team
+        scoping a regional operating partner.
+      </p>
+      <div class="cta-links">
+        <a
+          href="mailto:risto.paarni@lifetime.fi?subject=Keenon%20Fleet%20Partnership%20—%20Lifetime%20Fleet"
+          class="btn-keenon"
+          >Talk to Lifetime Fleet →</a
+        >
+        <a href="/lifetime-fleet/nvidia-isv/" class="btn-outline">The Compute Backbone →</a>
+        <a href="/lifetime-fleet/" class="btn-outline">← Back to Fleet</a>
+      </div>
+    </section>
+
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

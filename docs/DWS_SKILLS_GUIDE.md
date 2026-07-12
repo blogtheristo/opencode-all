@@ -2,17 +2,20 @@
 
 ---
 
-# VERSION AND AGENT HISTORY
-
-Version: 1.15
+Version: 1.18
 
 Sessions & Modifications:
 
+- Version: 1.18 | Agent: Claude Code | Date: 15.06.2026 | Session: claude/outreach-agents-spark-7n0fgy | Changes: Added `/outreach-agents` discipline skill (`skills/outreach-agents/SKILL.md`) — 4-step DGX Spark-powered B2B outreach pipeline (find leads → craft messages → send via SES → queue LinkedIn). 4 new agents: outreach-lead-finder, outreach-message-crafter, outreach-executor, outreach-orchestrator. Registered outreach-full workflow. Added §23 Outreach Voice & Email Standard to DWS_BRAND_STANDARD.md. Bumped count from 58 to 59 artifacts (41 slash + 18 skill directories: 3 discipline + 15 specialist packs).
+- Version: 1.17 | Agent: Claude Code | Date: 06.07.2026 | Session: claude/agent-swarm-architecture-zPf5Z | Changes: Added `/swarm` slash command (section 4.5) — one parameterized agent-swarm operator (PATTERN=classify-and-act|fan-out-and-synthesize|adversarial-verification|generate-and-filter|tournament|loop-until-done) that operationalizes `docs/AGENT_SWARM_ARCHITECTURE.md`. Bumped count from 38 to 39 slash commands (52 artifacts). Added Quick Reference row.
+- Version: 1.16 | Agent: Claude Code (Sonnet 5) | Date: 01.07.2026 | Session: claude/gtm-skills-planning-7ui3kd | Changes: Unblocked `/regulatory-radar` (section 5.2a) as a thin wrapper over the existing `compliance` agent — scores deadline urgency for the 5 already-tracked regulations (fit-for-55, ets, cbam, csrd, eu-ai-act) without waiting on new EUR-Lex/DG ENER ingestion. Moved from `slash-deferred` to `slash-cli` in `skills/manifest.json` and regenerated the compatibility matrix via `scripts/skill-manifest-sync.mjs --write-guide`. The datacentre-compliance-vertical-specific EED radar feature stays gated behind PRD Gate 1 (3 signed design-partner letters, target 1 Oct 2026) — this wrapper only covers the general deadline-scoring capability, not that vertical build. No count change (still 38 slash + 3 discipline); status change only.
 - Version: 1.15 | Agent: Claude Code (Opus 4.8) | Date: 28.06.2026 | Session: claude/consultant-handbook-v1-6-622fep | Changes: Added `/dialog` slash command (section 8.1b) — line-by-line HIC-confirmed document update method (propose `muutos;` Nykyinen→Muutos, human replies agree/counter, apply + checkpoint per item). Codified from the Konsultoinnin käsikirja §1–§16 fact-check pass per the Skill Codification Rule. Includes customer-adaptation mode (offer reuse, e.g. ORK→Kemira). Bumped count from 37 to 38 slash commands.
 - Version: 1.14 | Agent: Claude Code | Date: 24.06.2026 | Session: claude/code-coaching-curriculum | Changes: Added `/coaching` slash command (section 6.8) — scaffolds a Claude Code Coaching engagement (agenda, pre-work, EU AI Act Article 4 literacy record) parameterized by CLIENT/FORMAT/LANG from the canonical curriculum in `docs/coaching/`. Bumped count from 36 to 37 slash commands (51 artifacts). Added Quick Reference row. Backs the Claude Code Coaching store product.
 - Version: 1.13 | Agent: GitHub Copilot CLI (GPT-5.4) | Date: 19.06.2026 | Session: copilot/skills-surface-manifest-6c0b226c | Changes: Added `skills/manifest.json` as the canonical skills registry, wired sync/verification tooling (`scripts/skill-manifest-sync.mjs`), introduced the generated surface compatibility matrix and Antigravity scope section, shortened bloated slash-command descriptions to fit prompt-budget limits, and aligned `/dream-on` with the repo's cross-surface verification rule.
 - Version: 1.12 | Agent: GitHub Copilot CLI (GPT-5.4) | Date: 19.06.2026 | Session: copilot/skills-guide-latest-6c0b226c | Changes: Reconciled the guide with the live repository inventory: updated active counts to 36 slash commands and 14 active skill directories, documented `/qa`, `/cron`, and `/designer`, expanded Quick Reference coverage, and clarified the current `skills/` structure (`RESOLVER.md`, active packs, and `_OLD` archives).
 
+- Version: 1.13 | Agent: Claude Code (Opus 4.8) | Date: 15.06.2026 | Session: claude/human-token-capital-ai-i4m0ve | Changes: Added the DWS-specific third capital form — `/edge-control-room-capital` slash command + `skills/edge-control-room-capital/SKILL.md` (section 14.3). Audited and warranted in the field note (`docs/field-notes/2026-06-15-human-token-capital.md` § DWS Extension): physical sense-and-actuate substrate (edge devices, sensors, robots, Control Room / Situation Room) passes all four capital-form tests for an industrial/robotics/edge firm. Attribution recorded: human + token capital are Satya Nadella's; edge control-room capital is the DWS extension. Chains `/human-capital` → `/edge-control-room-capital` → `/token-capital`. Bumped count from 38 to 39 (36 slash + 3 discipline). Added Quick Reference row and `skills/RESOLVER.md` trigger.
+- Version: 1.12 | Agent: Claude Code (Opus 4.8) | Date: 15.06.2026 | Session: claude/human-token-capital-ai-i4m0ve | Changes: Added `/human-capital` and `/token-capital` slash commands + `skills/human-capital/SKILL.md` and `skills/token-capital/SKILL.md` (new section 14, "Capital & the Learning Loop"). Operationalises the Human Capital / Token Capital field note (`docs/field-notes/2026-06-15-human-token-capital.md`): `/human-capital` inventories and scores people-side capital and its capture into the loop; `/token-capital` inventories the four loop components and runs the model-swap sovereignty test. Bumped count from 36 to 38 (35 slash + 3 discipline). Added two Quick Reference rows and two `skills/RESOLVER.md` triggers.
 - Version: 1.11 | Agent: Claude Code (Opus 4.8) | Date: 09.06.2026 | Session: claude/truth-claims-lint | Changes: Added `/truth-check` slash command (section 7.3) — lints public copy against the canonical truth registry (`scripts/lint-truth-claims.mjs`; FAIL on deprecated phrases, WARN on ambiguous-without-context, approved allow-list). Bumped count from 35 to 36 (33 slash + 3 discipline). Added Quick Reference row. Operationalises `DWS_TRUTH_STANDARD.md` §5/§7/§8.
 - Version: 1.10 | Agent: Claude Code (Opus 4.7) | Date: 22.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Post-merge reconciliation against main — folded in `/clawdbot` (section 3.7), `/promote-proposal` (3.8), `/dream-on` (3.9), and `/gcr-skill` (6.1b) introduced in `1abd4eaa docs: migrate Cloud Run deploy auth to GitHub OIDC`. Bumped count from 31 to 35 (32 slash + 3 discipline). Added Quick Reference rows for the four new skills. No content lost on either side.
 - Version: 1.9 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Added `/learn` slash command (section 3.6) — closes the learning loop by diarizing mediocre retro / CI / audit-log outcomes and emitting read-only skill-edit plans to `docs/learning-loops/`. Bumped count from 30 to 31 (28 slash + 3 discipline). Added Quick Reference row. Linked from `CLAUDE.md` Skill Codification Rule.
@@ -29,7 +32,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 2026-03-21
-- Last Modified: 19.06.2026
+- Last Modified: 01.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -38,7 +41,7 @@ Document Status:
 
 ## 1. Overview
 
-DWS IQ 6 currently exposes **51 live skill artifacts** for AI coding agents — **37 active slash command wrappers** in `.claude/commands/` and **14 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **11** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
+DWS IQ 6 currently exposes **59 live skill artifacts** for AI coding agents — **41 active slash command wrappers** in `.claude/commands/` and **18 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **15** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
 
 **Canonical registry:** `skills/manifest.json` is the machine-readable source of truth for skill status, visibility, transport, and surface support. Use `node scripts/skill-manifest-sync.mjs --check` to verify that this guide, `.claude/commands/`, `skills/`, and `.antigravity/agents/` stay aligned.
 
@@ -64,7 +67,7 @@ Counts below reflect the live repository state on **19.06.2026** and are reconci
 
 **Discipline skills** are passive — agents discover and follow them automatically when relevant context is detected. They enforce process discipline.
 
-**Specialist skill packs** currently present in `skills/`: `clawdbot`, `compliance`, `cron`, `dream-on`, `firehorse-report`, `loop`, `material-oracle`, `promote-proposal`, `risto`, `sitesense`, `skill-cleaner`.
+**Specialist skill packs** currently present in `skills/`: `clawdbot`, `compliance`, `cron`, `dream-on`, `firehorse-report`, `loop`, `material-oracle`, `edge-control-room-capital`, `human-capital`, `outreach-agents`, `promote-proposal`, `risto`, `sitesense`, `skill-cleaner`, `token-capital`.
 
 ## 3. gstack Development Workflow (Garry Tan)
 
@@ -252,6 +255,20 @@ The recommended development flow chains 7 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "comprehensive analysis", "full assessment", "run workflow", "multi-agent"
 
+### 4.5 /swarm
+
+**When to use:** Processing many items in parallel and merging the result, or whenever a task matches one of the six recurring swarm shapes. Say "run a swarm", "fan out over these N files", "synthesize 100 interviews", "classify and route", "red-team / adversarially verify this", "generate and filter candidates", "tournament these approaches", or "loop until done".
+
+**What it does:** Runs an agent-swarm operation where the **orchestrator is code** — the expensive reasoning stays in the worker agents and routing/glue is zero-token deterministic code (`docs/AGENT_SWARM_ARCHITECTURE.md`). Parameterized by `PATTERN`; the harness fixes order, routing, stop condition, and model tiering before any model call.
+
+**Parameters:** `PATTERN=<classify-and-act|fan-out-and-synthesize|adversarial-verification|generate-and-filter|tournament|loop-until-done>`, `DATASET=<path|glob|list>`, optional `GOAL`, `AGENT`, `RUBRIC`, `STOP`.
+
+**Why one skill, not six:** the six patterns are arguments to one procedure, not six files (Skill Codification Doctrine §13). The invocation supplies the shape.
+
+**Composes with:** `/agent-run` (the per-item worker), `/ollama-spark` (cheap / EU-local tier), `/workflow` (pre-built named pipelines), `/case-run` (Themis cross-domain coordination), `/goal` (promote a repeated swarm into a standing run).
+
+**Output:** Structured result (table / ranked list / pass-fail + findings / winner), workers + tiers used, failures rerun, iteration count, cost estimate, approval flag, and a codification suggestion when the shape repeats.
+
 ## 5. EU Compliance & Analysis
 
 ### 5.1 /compliance-check
@@ -278,15 +295,15 @@ The recommended development flow chains 7 skills in order. Based on Garry Tan's 
 
 **When to use:** Looking ahead — scoring upcoming EU regulations against a specific customer profile.
 
-**What it does:** Scans EUR-Lex, DG ENER / DG CLIMA / DG GROW consultations, Commission work programme, EFRAG exposure drafts, and CINEA auction schedules. Scores each pending instrument per customer by applicability, urgency (months to in-force), effort, and risk. Emits a signed, Article-12-auditable radar report.
+**What it does:** Runs as a thin wrapper over the existing `compliance` agent (`compliance.agent.ts`), scoring the 5 regulations it already tracks (`fit-for-55`, `ets`, `cbam`, `csrd`, `eu-ai-act`) by deadline urgency for a customer, regardless of which frameworks they've told you they're already tracking. Live EUR-Lex / DG ENER / DG CLIMA / DG GROW / EFRAG / CINEA pipeline scanning for _new, not-yet-known_ instruments remains unbuilt — this wrapper only covers deadline-urgency scoring for the 5 regulations already wired into the compliance agent.
 
 **Trigger phrases:** "regulatory radar", "what's coming from EU", "regulation pipeline", "Delegated Act tracking", "score customer against next regulation", "what should we warn [customer] about"
 
-**Output:** Radar JSON + signed PDF sorted by urgency × risk, with EUR-Lex CELEX citations. Alerts flagged when urgency ≤6 months AND risk = high.
+**Output:** Deadline-sorted list per regulation (`overdue` / `urgent` ≤90d / `approaching` ≤365d / `comfortable`), ALERT flagged on `overdue`/`urgent`. Not yet a signed Article-12 PDF.
 
-**Composes with:** `/compliance-check` (point-in-time) → `/regulatory-radar` (forward-looking). Called internally by the `datacentre-compliance` agent to feed the "scored against next regulation" feature in PRD v0.2.
+**Composes with:** `/compliance-check` (point-in-time) → `/regulatory-radar` (forward-looking, same underlying agent).
 
-**Status:** Skill spec shipped. Agent implementation deferred until `datacentre-compliance` PRD Gate 1 passes (1 Oct 2026).
+**Status:** Live (slash-cli) as of 01.07.2026, scoped to the 5 already-tracked regulations. The datacentre-compliance-specific EED radar feature (PRD v0.2's "scored against next regulation" hook, 24-KPI submission tracking) remains gated behind `datacentre-compliance` PRD Gate 1 — 3 signed design-partner letters, target 1 Oct 2026 — and this wrapper does not unblock that vertical-specific build.
 
 ### 5.3 /sovereignty-assess
 
@@ -626,7 +643,28 @@ These are not slash commands — they are process rules that agents follow autom
 
 **Workflow:** Edit root > copy to landing-pages > verify with diff > commit both together.
 
-## 9.4 V2 Skilled Agents (AgentFoundry roster)
+### 9.4 outreach-agents
+
+**Location:** `skills/outreach-agents/SKILL.md`
+
+**When:** User says "find leads", "outreach agents", "run outreach", "craft outreach message", "send outreach email", "book demos", or invokes `/outreach-agents`.
+
+**4-step DGX Spark-powered B2B outreach pipeline:**
+
+| ACTION | Agent                    | What it does                                               |
+| ------ | ------------------------ | ---------------------------------------------------------- |
+| find   | outreach-lead-finder     | Score EU target universe against ICP; upsert outreach_orgs |
+| craft  | outreach-message-crafter | Personalized email + LinkedIn draft in DWS brand voice     |
+| send   | outreach-executor        | Deliver via Amazon SES; queue LinkedIn for human delivery  |
+| full   | outreach-orchestrator    | Chain find → craft → (optionally send)                     |
+
+**Invocation:** `/outreach-agents ACTION=full TARGET="EU steel ETS-exposed" ROLE=R07 INDUSTRY=steel REGULATION=ETS`
+
+**Tier 2 gate:** `outreach-executor` requires `approvedBy` — no email sends without explicit human sign-off.
+
+**Brand voice:** governed by `DWS_BRAND_STANDARD.md §23` — consultative tone, ≤50 char subjects, approved CTAs, banned phrase filter.
+
+## 9.5 V2 Skilled Agents (AgentFoundry roster)
 
 Every V2 agent ships with a YAML config in `AgentFoundry/configs/production/` that captures deployment-only concerns (model tier, budget, rate limits, deployment phase). Execution logic and system prompts live in the corresponding `src/agents/*.ts` class. The industry pages on dws10.com list which agents apply to each vertical in the **V2 Skilled Agents** section.
 
@@ -669,49 +707,54 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 
 ## 10. Quick Reference — When to Use What
 
-| Situation                                  | Skill                             | Type       |
+| Situation | Skill | Type |
 | ------------------------------------------ | --------------------------------- | ---------- |
-| Starting a new feature                     | /plan-review ROLE=ceo             | gstack     |
-| Designing architecture                     | /plan-review ROLE=eng             | gstack     |
-| Need acceptance checks before review       | /qa                               | gstack     |
-| Code is written, needs review              | /review                           | gstack     |
-| Ready to merge                             | /ship                             | gstack     |
-| Need to verify UI                          | /browse                           | gstack     |
-| End of week                                | /retro                            | gstack     |
-| Codify retro into skill edits              | /learn SCOPE=last-week            | gstack     |
-| Find unfinished past-session work          | /clawdbot                         | Dreaming   |
-| Apply a clawdbot proposal                  | /promote-proposal                 | Dreaming   |
-| Run Dreaming loop end-to-end               | /dream-on                         | Dreaming   |
-| Bootstrap GCP CI identity                  | /gcr-skill                        | Operations |
-| Don't know which agent to use              | /discover-agents                  | Agent      |
-| Know the agent, want to run it             | /agent-run                        | Agent      |
-| Coordinate agents on a case                | /case-run                         | Agent      |
-| Need multi-agent analysis                  | /workflow                         | Agent      |
-| EU regulatory question                     | /compliance-check                 | Compliance |
-| Upcoming EU regulation scoring             | /regulatory-radar                 | Compliance |
-| Carbon footprint calculation               | /carbon-analysis                  | Compliance |
-| Database sovereignty check                 | /sovereignty-assess               | Compliance |
-| Score sovereignty across all three pillars | /sovereignty-pillars-assess       | Compliance |
-| Construction site assessment               | /site-safety                      | Compliance |
-| Check git branch state                     | /flow-status                      | Operations |
-| Translate gh command to MCP                | /gh-to-mcp                        | Operations |
-| Audit scheduled work / cron                | /cron                             | Operations |
-| Send email notification                    | /email                            | Operations |
-| Control edge devices                       | /remote-control                   | Operations |
-| Add/triage investor intro                  | /investor-outreach                | Operations |
-| Draft the next LSJ issue                   | /lsj-publish                      | Operations |
-| Route to DGX Spark Ollama                  | /ollama-spark                     | Operations |
-| Fix dual-folder API drift                  | /fix-dual-folder-api-connectivity | Operations |
-| Deliver Claude Code Coaching engagement    | /coaching                         | Operations |
-| Check agent trust / kill chain             | /kya                              | Safety     |
-| Compile wiki / ask KB                      | /kb                               | Knowledge  |
-| Check a claim vs truth registry            | /truth-check                      | Safety     |
-| Code feels bloated                         | /simplify                         | Quality    |
-| Turn design intent into code               | /designer                         | Quality    |
-| Add/audit language bar                     | /multilingual                     | i18n       |
-| About to claim "done"                      | verification-gate                 | Discipline |
-| Big feature, many files                    | design-first                      | Discipline |
-| Editing site root folders                  | dual-folder-sync                  | Discipline |
+| Starting a new feature | /plan-review ROLE=ceo | gstack |
+| Designing architecture | /plan-review ROLE=eng | gstack |
+| Need acceptance checks before review | /qa | gstack |
+| Code is written, needs review | /review | gstack |
+| Ready to merge | /ship | gstack |
+| Need to verify UI | /browse | gstack |
+| End of week | /retro | gstack |
+| Codify retro into skill edits | /learn SCOPE=last-week | gstack |
+| Find unfinished past-session work | /clawdbot | Dreaming |
+| Apply a clawdbot proposal | /promote-proposal | Dreaming |
+| Run Dreaming loop end-to-end | /dream-on | Dreaming |
+| Bootstrap GCP CI identity | /gcr-skill | Operations |
+| Don't know which agent to use | /discover-agents | Agent |
+| Know the agent, want to run it | /agent-run | Agent |
+| Coordinate agents on a case | /case-run | Agent |
+| Need multi-agent analysis | /workflow | Agent |
+| Many items to process & merge | /swarm PATTERN=… | Agent |
+| EU regulatory question | /compliance-check | Compliance |
+| Upcoming EU regulation scoring | /regulatory-radar | Compliance |
+| Carbon footprint calculation | /carbon-analysis | Compliance |
+| Database sovereignty check | /sovereignty-assess | Compliance |
+| Score sovereignty across all three pillars | /sovereignty-pillars-assess | Compliance |
+| Construction site assessment | /site-safety | Compliance |
+| Check git branch state | /flow-status | Operations |
+| Translate gh command to MCP | /gh-to-mcp | Operations |
+| Audit scheduled work / cron | /cron | Operations |
+| Send email notification | /email | Operations |
+| Control edge devices | /remote-control | Operations |
+| Add/triage investor intro | /investor-outreach | Operations |
+| Draft the next LSJ issue | /lsj-publish | Operations |
+| Route to DGX Spark Ollama | /ollama-spark | Operations |
+| Fix dual-folder API drift | /fix-dual-folder-api-connectivity | Operations |
+| Deliver Claude Code Coaching engagement | /coaching | Operations |
+| Check agent trust / kill chain | /kya | Safety |
+| Compile wiki / ask KB | /kb | Knowledge |
+| Check a claim vs truth registry | /truth-check | Safety |
+| Inventory people-side capital | /human-capital | Capital |
+| Inventory owned AI capability | /token-capital | Capital |
+| Inventory edge/robot/sensor estate | /edge-control-room-capital | Capital |
+| Code feels bloated | /simplify | Quality |
+| Turn design intent into code | /designer | Quality |
+| Add/audit language bar | /multilingual | i18n |
+| B2B outreach pipeline (find/craft/send) | /outreach-agents ACTION=<find\|craft\|send\|full> | Operations |
+| About to claim "done" | verification-gate | Discipline |
+| Big feature, many files | design-first | Discipline |
+| Editing site root folders | dual-folder-sync | Discipline |
 
 ## 11. Creating New Skills
 
@@ -746,6 +789,43 @@ skills/
 ```
 
 **Format:** Same YAML frontmatter. Content should be short (<150 words for frequent skills), start with a bold ALL-CAPS rule, include a "When This Applies" section and "Common Mistakes" section.
+
+### gbrain-track Skill (skills/, richer layout)
+
+For new gbrain-track skills, adopt the upstream gbrain folder layout:
+
+```
+skills/
+  my-brain-skill/
+    SKILL.md                # required
+    scripts/                # optional — deterministic helpers (.mjs / .ps1)
+    tests/                  # optional — *.test.ts or *.test.mjs
+    routing-eval.jsonl      # optional — intent → skill routing fixtures
+```
+
+**Frontmatter (gbrain ∪ DWS):**
+
+```yaml
+---
+name: my-brain-skill
+description: >
+  Use when [trigger]. Does [action]. Returns [output].
+argument-hint: "<args>"
+allowed-tools: [Read, Bash]
+track: gbrain # gstack | gbrain | discipline | agent-report
+triggers: # gbrain-style intent triggers
+  - "phrase one"
+  - "phrase two"
+reads-pages: # gbrain-style brain reads
+  - kb/raw/**
+writes-pages: # gbrain-style brain writes
+  - kb/wiki/<topic>.md
+---
+```
+
+The existing 11 discipline / agent / report skills remain SKILL.md-only — no forced migration. The richer layout is additive and applies to _new_ skills.
+
+Use `skill-creator` to scaffold and register in one step. Validate with `skillpack-check`.
 
 ### Registration
 
@@ -793,7 +873,77 @@ Source: Garry Tan, May 2026 — "Thin harness, fat skills." Reinforced by `CLAUD
 - `AI_AGENT_GUIDELINES.md` §10 → "Skill Codification: Asked Twice = Failure"
 - Tan, "Thin Harness, Fat Skills" (May 2026)
 
-## 14. Surface Compatibility Matrix
+## 14. Capital & the Learning Loop
+
+Three chained skills operationalise the capital field note
+(`docs/field-notes/2026-06-15-human-token-capital.md`). They are not four-files-with-a-noun:
+each inventories a distinct asset class with its own dimensions, inputs, and scoring.
+**Human capital directs; edge control-room capital senses and acts; token capital learns.**
+The output of each is an input to the next, chained human → edge → token → (back to human),
+mapping to Brain-Memory-Body-Hands (human = the "who"; token = Brain + Memory; edge
+control-room = Body + Hands).
+
+**Attribution:** _human capital_ and _token capital_ were coined by **Satya Nadella**;
+_edge control-room capital_ is the **DWS extension** (Risto Päärni / Lifetime Oy), warranted
+for an industrial/robotics/edge firm by the audit in the field note's § DWS Extension. A pure
+SaaS firm should run only the first two — for them the third folds into token capital.
+
+### 14.1 /human-capital
+
+**When to use:** Inventorying the people-side capital of a firm or customer — knowledge,
+judgment, relationships, ingenuity, pattern recognition — and deciding which of it is being
+_captured into the loop_ versus _left in heads/scrollback where it commoditises on exit_.
+
+**What it does:** Scores the five dimensions, computes a capture rate, flags commoditisation
+risk (high-value items an off-the-shelf model could absorb and resell that the firm has not
+encoded), and recommends the concrete encode path per item (`skills/<name>/SKILL.md` for
+judgment, `kb/raw/` for knowledge, a private eval for outcomes, a documented workflow for
+process). Enforces "Asked twice = failure": recurring judgment must become a skill.
+
+**Trigger phrases:** "human capital", "encode our experts", "company veteran expertise",
+"what knowledge are we losing", "tacit knowledge inventory", "is our judgment being captured".
+
+**Skill:** `skills/human-capital/SKILL.md`.
+
+### 14.2 /token-capital
+
+**When to use:** Inventorying the AI capability a firm builds and **owns** — private evals,
+private RL environments, knowledge base, and the learning loop on top of models — and running
+the model-swap sovereignty test. (Token capital ≠ token _spend_: it is owned capability, not
+a billing line.)
+
+**What it does:** Inventories the four loop components, then runs the core deliverable — the
+sovereignty verdict **SOVEREIGN | PARTIAL | RENTING**: if you replaced the generalist model
+tomorrow, how much company-veteran expertise survives? Scores compounding (CLOSED vs OPEN
+loop — does each run improve the next?) and names the next loop-closing artefact. Composes
+with `/sovereignty-assess`, `/sovereignty-pillars-assess`, `/kb`, `/learn`, `/dream-on`.
+
+**Trigger phrases:** "token capital", "learning loop", "do we own our AI IP", "hill climbing
+machine", "private evals", "swap the model", "is our AI capability ours or the vendor's".
+
+**Skill:** `skills/token-capital/SKILL.md`.
+
+### 14.3 /edge-control-room-capital
+
+**When to use:** Inventorying the physical sense-and-actuate substrate a firm **owns** — edge
+AI devices, sensors, robots, and the Control Room / Situation Room command centres — and
+testing whether its proprietary real-world traces actually close the loop into token capital.
+The DWS-specific third capital form; industrial/robotics/edge firms only. (Edge control-room
+capital ≠ hardware capex: it is the owned, proprietary-data-generating substrate.)
+
+**What it does:** Inventories the four substrate layers (edge compute, sensors, robots /
+actuation, command centres), then runs the core deliverable — the loop-closure verdict
+**CAPITAL | LEAKY | COST**: do captured traces feed token capital's loop (`/kb`, RL traces,
+`docs/learning-loops/`) or dead-end? Tests edge sovereignty **SOVEREIGN | PARTIAL | EXPOSED**
+(capture + inference + storage in-jurisdiction?). Composes with `/remote-control` (live
+interface), `/sovereignty-assess`, `/sovereignty-pillars-assess`, `/kb`, `/token-capital`.
+
+**Trigger phrases:** "edge capital", "edge control room capital", "robots and sensors", "fleet
+capital", "do our sensors feed the loop", "control room capital", "physical AI moat".
+
+**Skill:** `skills/edge-control-room-capital/SKILL.md`.
+
+## 15. Surface Compatibility Matrix
 
 Source of truth: `skills/manifest.json`. The matrix below is generated by `node scripts/skill-manifest-sync.mjs --write-guide`.
 
@@ -802,64 +952,65 @@ Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsu
 <!-- skills-surface-matrix:start -->
 <!-- generated: 2026-06-24 -->
 
-| Skill                              | Kind            | Status       | Visibility | Win11 CLI | Desktop | Web | iOS | Android | Chromebook/Antigravity | Transport                          | Notes                                                                   |
-| ---------------------------------- | --------------- | ------------ | ---------- | --------- | ------- | --- | --- | ------- | ---------------------- | ---------------------------------- | ----------------------------------------------------------------------- |
-| `agent-run`                        | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `browse`                           | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `carbon-analysis`                  | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `case-run`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `clawdbot (command)`               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `clawdbot (pack)`                  | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `coaching`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `compliance`                       | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `compliance-check`                 | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `cron (command)`                   | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `cron (pack)`                      | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `design-first`                     | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                  |
-| `designer`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `discover-agents`                  | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `dream-on (command)`               | slash-command   | experimental | internal   | ⚠️        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Internal automation only. No Desktop/mobile/web runtime today.          |
-| `dream-on (pack)`                  | skill-pack      | experimental | internal   | ⚠️        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Internal automation. Pending HIL cross-surface verification.            |
-| `dual-folder-sync`                 | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                  |
-| `email`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `firehorse-report`                 | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `fix-dual-folder-api-connectivity` | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `flow-status`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `gcr-skill`                        | slash-command   | active       | admin-only | ✅        | ❌      | ❌  | ❌  | ❌      | ✅                     | slash-command, gcloud, antigravity | Google admin@dws6.com environment tweaks only.                          |
-| `gh-to-mcp`                        | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `investor-outreach`                | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `kb`                               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `kya`                              | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `learn`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `loop`                             | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `lsj-publish`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `material-oracle`                  | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `multilingual`                     | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `ollama-spark`                     | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, dgx-ssh             | Requires DGX Spark connectivity from Claude Code CLI.                   |
-| `plan-review`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `product-page-polish`              | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `promote-proposal (command)`       | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `promote-proposal (pack)`          | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `qa`                               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `regulatory-radar`                 | slash-command   | deferred     | internal   | ❌        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command                      | Skill spec exists, but the implementation/exposure path is not shipped. |
-| `remote-control`                   | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `retro`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `review`                           | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `risto`                            | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `ship`                             | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `simplify`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `site-safety`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `sitesense`                        | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `skill-cleaner`                    | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.         |
-| `sovereignty-assess`               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `sovereignty-pillars-assess`       | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `truth-check`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
-| `verification-gate`                | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                  |
-| `workflow`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.            |
+| Skill                              | Kind            | Status       | Visibility | Win11 CLI | Desktop | Web | iOS | Android | Chromebook/Antigravity | Transport                          | Notes                                                                                                                                                                                                                                                                               |
+| ---------------------------------- | --------------- | ------------ | ---------- | --------- | ------- | --- | --- | ------- | ---------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `agent-run`                        | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `browse`                           | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `carbon-analysis`                  | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `case-run`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `clawdbot (command)`               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `clawdbot (pack)`                  | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `coaching`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `compliance`                       | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `compliance-check`                 | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `cron (command)`                   | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `cron (pack)`                      | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `design-first`                     | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                                                                                                                                                                                                                              |
+| `designer`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `dialog`                           | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `discover-agents`                  | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `dream-on (command)`               | slash-command   | experimental | internal   | ⚠️        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Internal automation only. No Desktop/mobile/web runtime today.                                                                                                                                                                                                                      |
+| `dream-on (pack)`                  | skill-pack      | experimental | internal   | ⚠️        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Internal automation. Pending HIL cross-surface verification.                                                                                                                                                                                                                        |
+| `dual-folder-sync`                 | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                                                                                                                                                                                                                              |
+| `email`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `firehorse-report`                 | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `fix-dual-folder-api-connectivity` | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `flow-status`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `gcr-skill`                        | slash-command   | active       | admin-only | ✅        | ❌      | ❌  | ❌  | ❌      | ✅                     | slash-command, gcloud, antigravity | Google admin@dws6.com environment tweaks only.                                                                                                                                                                                                                                      |
+| `gh-to-mcp`                        | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `investor-outreach`                | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `kb`                               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `kya`                              | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `learn`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `loop`                             | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `lsj-publish`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `material-oracle`                  | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `multilingual`                     | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `ollama-spark`                     | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, dgx-ssh             | Requires DGX Spark connectivity from Claude Code CLI.                                                                                                                                                                                                                               |
+| `plan-review`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `product-page-polish`              | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `promote-proposal (command)`       | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `promote-proposal (pack)`          | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `qa`                               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `regulatory-radar`                 | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Live as a thin wrapper over compliance.agent.ts (5 tracked deadlines: fit-for-55, ets, cbam, csrd, eu-ai-act). Live EUR-Lex/DG ENER/EFRAG/CINEA pipeline scanning still unbuilt. The datacentre-compliance-specific EED radar feature remains gated behind PRD Gate 1 (1 Oct 2026). |
+| `remote-control`                   | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `retro`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `review`                           | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `risto`                            | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `ship`                             | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `simplify`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `site-safety`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `sitesense`                        | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `skill-cleaner`                    | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
+| `sovereignty-assess`               | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `sovereignty-pillars-assess`       | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `truth-check`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `verification-gate`                | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                                                                                                                                                                                                                              |
+| `workflow`                         | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
 
 <!-- skills-surface-matrix:end -->
 
-## 15. Antigravity Scope
+## 16. Antigravity Scope
 
 Antigravity is **not** the general DWS skill runtime. In this repository it is scoped to **Google `admin@dws6.com` environment tweaks** — chiefly Cloud Run / GCP admin flows represented by `/gcr-skill`.
 

@@ -24,6 +24,7 @@ const CHECK_ASPIRE = process.env.CHECK_ASPIRE || 'http://aspire-dashboard:18888/
 const CHECK_RUNNER = process.env.CHECK_RUNNER || 'http://host.docker.internal:9800/healthz';
 const CHECK_STATE_OBSERVER =
   process.env.CHECK_STATE_OBSERVER || 'http://state-observer:9801/health';
+const CHECK_MCP_GATEWAY = process.env.CHECK_MCP_GATEWAY || 'http://mcp-gateway:8080/health';
 const STATUS_TOKEN = process.env.HEARTBEAT_STATUS_TOKEN || '';
 
 // LAN-only CIDR check (192.168.x.x, 10.x.x.x, 172.16-31.x.x, ::1, 127.x.x.x)
@@ -53,6 +54,7 @@ const SERVICE_CHECKS = [
   { name: 'aspire', url: CHECK_ASPIRE },
   { name: 'github-runner', url: CHECK_RUNNER },
   { name: 'state-observer', url: CHECK_STATE_OBSERVER },
+  { name: 'mcp-gateway', url: CHECK_MCP_GATEWAY },
 ] as const;
 
 const services: ServiceStatus[] = [];

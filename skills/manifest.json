@@ -328,8 +328,9 @@
       "id": "regulatory-radar",
       "name": "regulatory-radar",
       "kind": "slash-command",
-      "profile": "slash-deferred",
-      "commandFile": ".claude/commands/regulatory-radar.md"
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/regulatory-radar.md",
+      "note": "Live as a thin wrapper over compliance.agent.ts (5 tracked deadlines: fit-for-55, ets, cbam, csrd, eu-ai-act). Live EUR-Lex/DG ENER/EFRAG/CINEA pipeline scanning still unbuilt. The datacentre-compliance-specific EED radar feature remains gated behind PRD Gate 1 (1 Oct 2026)."
     },
     {
       "id": "remote-control",

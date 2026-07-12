@@ -65,8 +65,38 @@ function mdToBody(md) {
     fL();
     fQ();
   };
-  for (const line of lines) {
-    const raw = line.replace(/\s+$/, '');
+  const isTableRow = (s) => /^\s*\|.*\|\s*$/.test(s);
+  const isTableSep = (s) => /^\s*\|?[\s:|-]+\|?\s*$/.test(s) && s.includes('-');
+  const splitRow = (s) =>
+    s
+      .trim()
+      .replace(/^\|/, '')
+      .replace(/\|$/, '')
+      .split('|')
+      .map((c) => c.trim());
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i].replace(/\s+$/, '');
+    if (
+      isTableRow(raw) &&
+      lines[i + 1] !== undefined &&
+      isTableSep(lines[i + 1].replace(/\s+$/, ''))
+    ) {
+      fA();
+      const header = splitRow(raw);
+      out.push('<table>', '<thead>', '<tr>');
+      for (const h of header) out.push(`<th>${inline(h)}</th>`);
+      out.push('</tr>', '</thead>', '<tbody>');
+      let j = i + 2;
+      for (; j < lines.length && isTableRow(lines[j].replace(/\s+$/, '')); j++) {
+        const cells = splitRow(lines[j].replace(/\s+$/, ''));
+        out.push('<tr>');
+        for (const c of cells) out.push(`<td>${inline(c)}</td>`);
+        out.push('</tr>');
+      }
+      out.push('</tbody>', '</table>');
+      i = j - 1;
+      continue;
+    }
     if (/^#{1,6}\s/.test(raw)) {
       fA();
       const lv = raw.match(/^#+/)[0].length;
