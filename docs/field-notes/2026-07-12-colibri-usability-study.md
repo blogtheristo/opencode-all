@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/colibri-usability-study-z5q1ew | Date: 12.07.2026 | Changes: Added "DWS Fit Verdict" section (watch-don't-deploy: throughput + Z.ai model provenance blockers, sovereignty alignment). Codified the two reusable UX patterns extracted here (pre-flight readiness check; honest performance reporting) into `AI_AGENT_GUIDELINES.md` §2 as agent/tool-design requirements — this note is the evidence source.
 - Version: 1.0 | Tool: Claude Code | Session: claude/colibri-usability-study-z5q1ew | Date: 12.07.2026 | Changes: Initial usability study of the open-source Colibrì inference engine (JustVugg/colibri). Heuristic + onboarding-journey evaluation grounded in the public repository README, CLI surface, and diagnostics. Scope caveat recorded: no live 744B inference run was possible in the sandbox; runtime-performance UX is assessed from the project's own honest benchmark tables and design, not from a first-hand run.
 
 Document Status:
@@ -119,6 +120,29 @@ The project quietly optimises for personas 2–4 (systems-literate). Persona 1 �
 - **Long-session behavior** — KV persistence and learning-cache warm-up claims are taken from the README, not reproduced.
 
 A genuine follow-up would be a **timed onboarding test with 3–5 real users** on varied hardware (WSL2, native Linux NVMe, Apple Silicon), stopwatch on time-to-first-token and count of README round-trips per stage — the standard usability-lab protocol, which no amount of doc-reading substitutes for.
+
+## DWS Fit Verdict — Watch, Don't Deploy
+
+Verdict for Lifetime Oy / DWS use (sovereignty thesis; DGX Spark + Ollama already in place; agent-serving workloads):
+
+**Aligned with us**
+
+- **Sovereignty fit is genuinely strong.** 100% local, pure C, zero runtime deps, no data egress → clears the `DWS_SECURITY_STANDARD.md` §17.5 CLOUD Act / infrastructure-sovereignty bar. A frontier-_size_ (744B) model on commodity EU hardware with nothing leaving the box is exactly the "Sovereign Intelligence" narrative — worth keeping as a demonstrator/benchmark reference.
+- **Two patterns worth stealing** (now codified — see below).
+
+**Two hard blockers for production use**
+
+1. **Throughput.** ~0.05–0.4 tok/s. At ~0.1 tok/s a 500-token agent turn is ~80 minutes. Our workloads are interactive/agentic — a non-starter for serving. Viable only for offline/batch judgment tasks where latency is free.
+2. **Model provenance.** GLM-5.2 is **Z.ai / Zhipu (Chinese-origin)** weights (MIT-licensed). Local execution means no data _out_, so CLOUD Act is not the issue — but "EU-sovereign company runs a Chinese frontier model" is a positioning / EU-AI-Act question. Do not assert externally without `/sovereignty-assess` + `/truth-check`.
+
+**Net:** No production adoption. It does not replace DGX Spark + Ollama (`ollama-spark`) — that is more capable hardware serving at usable speed; Colibrì's only unique trick ("huge model on tiny RAM, very slowly") is not a gap we have. Keep as (a) a sovereign-frontier-inference demonstrator, and (b) a source of the two UX patterns below.
+
+## Reusable Patterns Codified for DWS
+
+Two patterns from this study generalise beyond Colibrì and are now recorded as agent/tool-design requirements in `AI_AGENT_GUIDELINES.md` §2 (Pre-Flight Readiness & Honest Reporting):
+
+1. **Pre-flight readiness check** (the `doctor`/`plan` pattern) — any agent/tool whose main action is expensive, slow, or irreversible should expose a read-only dry-run that validates readiness and reports what _would_ happen, before committing resources. Fail for free.
+2. **Honest performance reporting** (the "Honest Performance Numbers" pattern) — publish measured figures with the conditions that produced them, never a single best-case number; label estimates as estimates.
 
 ## Attribution
 
