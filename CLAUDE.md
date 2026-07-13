@@ -25,7 +25,7 @@ The substring `paarni` (no umlauts) is allowed **only** inside an email address 
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
 risto.paarni2024@lifetime.fi · +358 400 319 010
 ```
 
@@ -33,7 +33,7 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
 risto@onelifetime.world · +358 400 319 010
 ```
 

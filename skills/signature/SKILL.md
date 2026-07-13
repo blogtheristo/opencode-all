@@ -52,7 +52,7 @@ Use this for any cold/warm outreach sent **as Lifetime Oy** to prospects, partne
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
 risto.paarni2024@lifetime.fi · +358 400 319 010
 ```
 
@@ -74,7 +74,7 @@ Use this when the email is generated and sent by the DWS IQ platform itself (not
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
 risto@onelifetime.world · +358 400 319 010
 ```
 
@@ -109,7 +109,7 @@ By Risto Anton Päärni, Founder & CEO, Lifetime Oy
 | `legal`  | Full         | risto.paarni@lifetime.fi     |
 | `byline` | Byline       | (no email — prose only)      |
 
-**Output:** the corresponding block above, verbatim. Phone `+358 400 319 010` is **always** included (per user rule). No other additions — no taglines, no quotes, no pronouns, no LinkedIn URL.
+**Output:** the corresponding block above, verbatim. Phone `+358 400 319 010` is **always** included (per user rule). The company descriptor `· the Agent Outcome Company` is part of the Short and DWS IQ one-line blocks (founder-set) — carry it verbatim there; do **not** add it to the Medium, Full/legal, or byline blocks. Beyond that approved descriptor, no other additions — no other taglines, no quotes, no pronouns, no LinkedIn URL.
 
 ## Enforcement
 
