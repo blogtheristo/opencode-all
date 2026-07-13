@@ -357,9 +357,16 @@
             <strong>Aiven sovereign cloud (Tier 1 Aegis ledger jurisdiction).</strong> Aiven Oy
             (Helsinki, Finland) is named separately because it is the EU-incorporated managed
             PostgreSQL provider that hosts the Article 12 logging ledger and the primary data plane
-            for Tier 1 Aegis. Aiven sits outside CLOUD Act because the Aiven Oy parent is
-            EU-incorporated. The Aiven sovereign cloud is also the failover environment for Tier 2
-            Sovereign Infra (RTO 1 hour).
+            for Tier 1 Aegis. Aiven's CLOUD Act posture rests on cumulative safeguards rather than
+            incorporation alone: Aiven Oy is EU-incorporated and contracts under Finnish law; Aiven
+            operates its own key-management system on Aiven-controlled virtual machines, so any
+            underlying infrastructure sub-processor has no logical access to customer data; Personal
+            Data is stored within the EEA; and Standard Contractual Clauses govern any transfer
+            outside it. For a data path with no US-parent infrastructure provider, the Aiven service
+            is provisioned in an EU-owned region (UpCloud, Finland). Aiven's investor base includes
+            non-EU venture capital, which is disclosed and mitigated by these safeguards rather than
+            represented as immaterial. The Aiven sovereign cloud is also the failover environment
+            for Tier 2 Sovereign Infra (RTO 1 hour).
           </li>
         </ul>
 
