@@ -77,8 +77,53 @@ non-`_DEPRECATED`) lockfile/requirements file:
   either the GitHub Dependabot alerts API (not exposed via current MCP
   tools) or a full pip-audit sweep of all requirements files.
 
+## Follow-up 2 (same session — user pasted live Dependabot alerts)
+
+User pasted 6 real Dependabot alerts one at a time (no alert-listing MCP
+tool available, so this was the only way to see actual alert content this
+session). Investigated each:
+
+- **linkify-it O(N^2) DoS** (user-supplied writeup, not a GitHub alert —
+  novel finding, no GHSA/OSV entry). Confirmed real, live exposure: `src/
+contentms/blog-publisher.ts` ran `markdown-it` with `linkify:true`,
+  called synchronously from `createContent`/`updateContent`
+  (`src/contentms/service.ts`) on `body_markdown` — customer-supplied,
+  **no length limit** in the Zod schema. Fixed: `linkify:false` +
+  100KB cap on `body_markdown` (`src/contentms/types.ts`).
+- APScheduler insecure-deserialization RCE, `shell-quote` shell-injection,
+  Vitest UI arbitrary-file-read, `axios` prototype-pollution MITM (CVSS
+  9.4) — all four traced to `artifacts/pr925-worktree/` or `artifacts/
+pr1295-mergecheck/`.
+- OpenSSL-in-wheel + Bleichenbacher timing oracle (2 separate CVEs, same
+  `cryptography==38.0.4` pin) — both traced to `mcp-servers/
+cloudrun_DEPRECATED/requirements.txt`.
+
+**Root cause identified:** `artifacts/pr925-worktree/` and `artifacts/
+pr1295-mergecheck/` are full duplicate repo checkouts (997MB combined)
+accidentally committed in PR #1573 as merge-check/worktree leftovers — not
+referenced anywhere live. GitHub's dependency graph scans every manifest
+in the tree regardless of `dependabot.yml` scoping, so this dead tree (plus
+the intentionally-kept `*_DEPRECATED/` dirs) was very likely the majority
+of the 425-alert count.
+
+**User decision (asked via AskUserQuestion):** delete
+`artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/` (done, `git
+rm -r`, 997MB → 45MB remaining in `artifacts/`; top-level media files and
+`pr925-view.json` left untouched). Leave `*_DEPRECATED/` dirs in place —
+documented as expected/accepted alert noise in `DWS_SECURITY_STANDARD.md`
+§13.6 (v3.1 → v3.2), not touched.
+
+**SEPARATE, URGENT, NOT YET RESOLVED:** found `100326.env` tracked in git
+at repo root, added in PR #1573 (same commit as the artifacts/ dump),
+710 bytes. Did **not** read its contents (secret-egress policy). Flagged
+to the user directly in-chat for manual review and credential rotation —
+git history retains it regardless of any future deletion, so this needs a
+human decision (rotate + optionally purge history), not an agent action.
+
 ## Next steps if resumed
 
+- **Confirm with the user whether `100326.env` was reviewed and any
+  credentials in it rotated.** This is the highest-priority open item.
 - Confirm `scripts/daily/dependabot-audit.sh` picks up the two new lockfile
   dirs on its next scheduled run (DGX Spark, 03:00–06:00 UTC).
 - Someone should upgrade bumblebee's OTel deps and re-verify the OTLP
@@ -86,9 +131,8 @@ non-`_DEPRECATED`) lockfile/requirements file:
 - Someone should add explicit `pyjwt`/`starlette` constraints in
   `mcp-hub/requirements.txt`, verify FastAPI 0.115.12 compatibility, and
   re-run `pip-audit` before the moderate SLA lapses.
-- If closing the full 425-alert count matters, either grant a GitHub token/
-  tool scope that exposes Dependabot alerts, or have a future session run
-  `pip-audit` across the remaining ~11 unsampled `requirements.txt` files.
-- `artifacts/pr1295-mergecheck/` and `artifacts/pr925-worktree/` look like
-  stale worktree leftovers with their own duplicate lockfiles — worth a
-  separate cleanup pass, not touched here (out of scope).
+- Watch the next `git push` output for the new GitHub alert count post
+  artifacts/ cleanup — should drop substantially from 422.
+- If the count is still high, remaining candidates are: GitHub Actions
+  ecosystem alerts, or alerts against `*_DEPRECATED/` dirs (expected,
+  accepted noise per §13.6 — do not chase these).

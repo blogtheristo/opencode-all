@@ -1,6 +1,6 @@
 ---
 title: DWS Security Standard
-version: 3.1
+version: 3.2
 created: 2026-02-07
 last_modified: 2026-07-08
 author: Lifetime Oy Security Team
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
 
+- Version: 3.2 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Disabled `markdown-it` `linkify:true` in `src/contentms/blog-publisher.ts` and capped `body_markdown` to 100KB (`src/contentms/types.ts`) — closed a real, live request-path CPU-DoS via `linkify-it`'s O(N^2) fuzzy-match scan (unpatched upstream, no GHSA/OSV entry). Deleted `artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/` (997MB of accidentally-committed duplicate repo checkouts from PR #1573) — confirmed source of at least 5 live Dependabot alerts against dead code (APScheduler RCE, shell-quote injection, Vitest UI file-read, axios prototype-pollution MITM, plus more). Documented `*_DEPRECATED/` directories as expected, accepted alert noise — left in place per repo convention, not a live-code risk. Flagged a tracked-in-git `100326.env` file at repo root (added PR #1573) for human review/rotation — not read, per secret-egress policy.
 - Version: 3.1 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Ran `pip-audit` across the repo's Python requirement files (no lockfile/hash-pinning exists for pip deps, flagged as a standing gap). Found and fixed `python-dotenv` CVE-2026-28684 in `mcp-hub/requirements.txt` (1.1.0 → 1.2.2, non-breaking patch bump). Logged `pyjwt`/`starlette` transitive-dependency advisories in the same file as open tracked findings — both need an explicit version constraint plus a FastAPI-compatibility check before bumping, so deferred rather than force-applied.
 - Version: 3.0 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Added §13.6 (Dependency Lockfile & Vulnerability SLA Policy) — closed two missing-lockfile gaps (`lambda/ses-inbound-parser`, `infrastructure/dgx-spark/bumblebee`), fixed `scripts/daily/dependabot-audit.sh` `PACKAGE_DIRS` (was missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and both directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED`), documented the Aegis agent's remediation SLA (critical=2d/high=7d/moderate=30d/low=90d) as the canonical policy, and logged an open moderate `@opentelemetry/*` finding (`GHSA-8988-4f7v-96qf`) in the bumblebee scanner pending a breaking-change upgrade.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
@@ -962,6 +963,11 @@ Aegis does not fetch findings itself — it classifies whatever `scripts/daily/d
 | `starlette` (transitive) | 0.46.2  | Multiple PYSEC-2026-_/CVE-2026-_ advisories | Full fix requires the 1.x line (major bump); partial fixes exist at 0.47.2/0.49.1. FastAPI 0.115.12's supported Starlette range must be checked before bumping — **deferred, not force-applied blind** |
 
 Moderate-severity SLA clock opened 08.07.2026 for the `pyjwt`/`starlette` items; owner must add explicit constraints, verify FastAPI compatibility, and re-run `pip-audit` before it lapses.
+
+**Dead-code alert noise (root cause of the bulk of the repo's Dependabot count, closed 08.07.2026).** GitHub's dependency graph scans every manifest file in the repo tree regardless of `.github/dependabot.yml` directory scoping. Two categories of dead code were inflating the alert count with findings against code nothing runs:
+
+- **`artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/`** — full duplicate repo checkouts (997MB combined) accidentally committed in PR #1573 as merge-check/worktree leftovers. Not referenced by any script, CI workflow, or doc. Confirmed responsible for at least 5 alerts pulled from live GitHub push output on 08.07.2026 (APScheduler insecure-deserialization RCE, `shell-quote` shell-injection, Vitest UI arbitrary-file-read, `axios` prototype-pollution MITM) plus an unknown share of the remainder. **Deleted** (`git rm -r`) — fits the "temporary/generated output" exception to the no-destructive-deletes rule (CLAUDE.md Non-Negotiable Rule 6). Top-level media files in `artifacts/` (photos/videos, `pr925-view.json`) were intentionally left in place — not part of this cleanup.
+- **`*_DEPRECATED/` directories** (`mcp-hub_DEPRECATED`, `mcp-servers/{claude,supabase,cloudrun,lwm}_DEPRECATED`, etc.) — intentionally archived per repo convention (rename-to-`_DEPRECATED` rather than delete), still generate real alerts against pinned dependency versions in dead code (e.g. `mcp-servers/cloudrun_DEPRECATED/requirements.txt` pins `cryptography==38.0.4`, flagged for two separate CVEs). **Left in place** — this is expected, accepted noise from intentionally-archived code, not a live-code risk. Do not chase alerts filed against any `*_DEPRECATED/` path; verify the finding's path before triaging it as a live issue.
 
 ---
 

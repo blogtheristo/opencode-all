@@ -1,4 +1,0 @@
-date,weekday,taxi_hours,taxi_revenue_eur,taxi_source,rd_hours,rd_artifact_url,rd_artifact_type,rd_project,notes,verified
-# Template for 2018 — to be filled from Google Sheets taxi billing + lifetime.fi blog artefacts
-# Verification levels: A=hard (invoice/SHA/URL/3rd-party), B=soft (Drive timestamp), C=inference (no taxi → assumed R&D)
-# Per Learn/E_Yearly_Activation_CSV_Schema.md
