@@ -223,6 +223,12 @@ const posts = [
     title: 'Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI)',
     date: '1 Jul 2026',
   },
+  {
+    file: 'nvidia-halos-robotics-physical-ai-safety.html',
+    title:
+      'NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking.',
+    date: '10 Jul 2026',
+  },
 ];
 
 // Three featured products
