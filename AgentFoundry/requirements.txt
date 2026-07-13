@@ -76,5 +76,7 @@ mypy>=1.8.0  # Type checking
 # Security
 # ============================================================================
 cryptography>=48.0.1  # Encryption (align with requirements-security.txt)
-python-jose[cryptography]>=3.3.0  # JWT handling
+# python-jose removed 08.07.2026: unused (nothing imports jose here; auth is HTTP
+# Basic). It pulled in python-ecdsa, which has an unpatched Minerva timing-attack
+# advisory (won't-fix upstream). PyJWT below covers all JWT needs.
 PyJWT>=2.12.0  # CVE fix: crit header validation

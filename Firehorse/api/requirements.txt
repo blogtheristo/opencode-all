@@ -30,7 +30,9 @@ httpx>=0.26.0
 aiofiles>=23.2.0
 
 # Security
-python-jose[cryptography]>=3.3.0
+# python-jose removed 08.07.2026: unused (nothing imports jose in this tree; auth
+# is HTTP Basic / PyJWT). It pulled in python-ecdsa, which has an unpatched Minerva
+# timing-attack advisory (won't-fix upstream). PyJWT below covers all JWT needs.
 PyJWT>=2.12.0  # CVE fix: crit header validation
 passlib[bcrypt]>=1.7.4
 
