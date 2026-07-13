@@ -9,7 +9,7 @@ anthropic>=0.18.0  # Claude Sonnet 4.5 API
 groq>=0.4.0  # Groq Llama 3.1 70B API
 pydantic>=2.5.0  # Data validation
 pyyaml>=6.0  # YAML config parsing
-python-dotenv>=1.0.0  # Environment variables
+python-dotenv>=1.2.2  # Environment variables (>=1.2.2: set_key symlink-overwrite fix)
 
 # ============================================================================
 # Database & Storage

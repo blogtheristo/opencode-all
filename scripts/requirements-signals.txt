@@ -13,7 +13,7 @@ playwright>=1.40.0
 supabase-py>=2.3.0
 
 # Environment variables
-python-dotenv>=1.0.0
+python-dotenv>=1.2.2  # >=1.2.2: set_key symlink-overwrite fix
 
 # RSS/Atom feed parsing
 feedparser>=6.0.10
