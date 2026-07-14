@@ -33,3 +33,11 @@ supplier engineers already trust.
 - Swedish conventions used: FO-nummer (Y-tunnus), Esbo, moms; laskuri kept at `/laskuri/` (Finnish-only page) labeled "Avbrottskalkylator".
 - Mirror `landing-pages/lifetime-fi/` fully synced (diff -rq clean).
 - Still open: DE/FR pages also advertised by the language bar but don't exist (`/de/`, `/fr/` still 404) — same fix pattern applies if wanted.
+
+## Follow-up 2 (same session): DE + FR
+- Created `lifetime.fi/de/index.html` and `lifetime.fi/fr/index.html` — full German and French homepages, same structure as `/sv/` (10 sections incl. adoption framework), byte-identical shared CSS. Fixes the last two dead language-bar links; stack-section H2s match the bar's hero texts exactly ("Agenten. Schleifen. Workflows." / "Agents. Boucles. Flux de travail.").
+- hreflang now en/fi/sv/de/fr × 5 on ALL five pages (full reciprocal cluster); `/de/` + `/fr/` added to sitemap.xml.
+- German conventions: DSGVO-nativ, €1.900 number format, USt-IdNr., Sie-form. French: RGPD natif, espaces insécables before ":", 3,8 M€, vous-form.
+- Language bar now fully truthful: all 5 advertised languages resolve.
+- Mirror `landing-pages/lifetime-fi/` fully synced (diff -rq clean); all pages prettier-clean.
+- Native-speaker review recommended for SV/DE/FR before merge.
