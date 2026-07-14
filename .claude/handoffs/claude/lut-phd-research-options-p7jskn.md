@@ -12,6 +12,11 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
   - Applied CLAUDE.md thesis scope rule: elevation target = PHD*FIREHORSE*\* (not Metropolia master's); do NOT pre-edit thesis files — Smolander chooses first.
   - Companion to `2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md`.
 
+## Update (v1.1)
+
+- Added **Q4** to the field note: formal modeling/validation of safety-performance trade-offs in sovereign edge AI under real-time constraints. Anchor = Törngren's SAFECOMP safety-argument-fragment / trade-off methodology. Dual audience: LUT-worthy RQ for Smolander + specific Törngren collaboration hook (Aegis validates his trade-off frameworks). Distinct from Q1 (cost-of-safety in resource-constrained edge, not broad trustworthiness verification). Email-ready Q4 line included; verbatim 3-option message preserved as the record.
+- TODO before external cite: confirm exact Törngren SAFECOMP paper titles/years (2025/2026) via DBLP.
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.

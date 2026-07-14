@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Added a fourth research question (Q4 — formal modeling/validation of safety-performance trade-offs in sovereign edge AI under real-time constraints), grounded in Törngren's SAFECOMP safety-argument-fragment / safety-performance trade-off methodology for connected automated vehicles. Records the email-ready Q4 line to fold into the Smolander message, the dual-audience framing (LUT-worthy RQ on its own AND the specific technical-overlap hook for the Törngren collaboration), the RQ→asset-map row, and the distinction from Q1 (cost-of-safety in resource-constrained edge vs. broad trustworthiness verification).
 - Version: 1.0 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Initial field note capturing Risto's outbound update to doctoral supervisor Prof. Kari Smolander (LUT), distilling the KTH (TECoSA / David Broman) and Stockholm Resilience Centre (Victor Galaz) conversations into three concrete, deployment-grounded PhD research questions. Records the verbatim message, grounds the external entities in public sources, maps each RQ to a live DWS asset/testbed, states the "why LUT" thesis (Finnish industrial ties), and applies the CLAUDE.md thesis scope rule (elevation target = PHD*FIREHORSE*\*, not the Metropolia master's).
 
 Document Status:
@@ -29,7 +30,7 @@ Related Documents:
 
 ---
 
-- **Subject:** Risto sent Prof. Kari Smolander (LUT doctoral supervisor) a direction update turning the KTH/SRC conversations into three deployment-grounded PhD research questions, arguing LUT is the stronger home because of the Finnish industrial testbeds (Outokumpu, construction), and asking for 20 minutes to pick which fits LUT's program.
+- **Subject:** Risto sent Prof. Kari Smolander (LUT doctoral supervisor) a direction update turning the KTH/SRC conversations into three deployment-grounded PhD research questions (a fourth, on safety-performance trade-offs, added 14.07.2026 after reviewing Törngren's SAFECOMP profile — to fold into the email before sending), arguing LUT is the stronger home because of the Finnish industrial testbeds (Outokumpu, construction), and asking for 20 minutes to pick which fits LUT's program.
 - **Author:** Claude Code research session, prepared for Risto Anton Päärni, Founder, CEO, Lifetime Oy
 - **Date:** 14.07.2026
 - **Trigger:** Outbound email from Risto to "Kari" (Prof. Kari Smolander, LUT) — a PhD research-direction update following the KTH (TECoSA) and Stockholm Resilience Centre outreach.
@@ -62,28 +63,43 @@ Related Documents:
 > Best,
 > Risto
 
+## Q4 — added 14.07.2026 after Törngren profile review (to fold into the message before sending)
+
+The verbatim message above is the three-option draft. On reviewing Martin Törngren's publication profile against those three, a **fourth** question surfaced that is both LUT-worthy on its own and the concrete technical-overlap hook for the Törngren collaboration. Append to the email as Q4:
+
+> 4. How can safety-performance trade-offs in sovereign edge AI systems be formally modeled and validated under real-time operational constraints? (Maps to Törngren's SAFECOMP work on safety-argument fragments and safety-performance trade-off analysis for connected automated vehicles; our DGX-based Aegis edge deployment lives this tension daily — stronger safety evidence and Article 12 logging add latency and compute overhead at the edge.)
+
+**Why it earns a place (not a duplicate of Q1):**
+
+- **Distinct from Q1.** Q1 is trustworthiness _verification_ broadly. Q4 is narrower and sharper: the **cost of safety** in resource-constrained edge environments — the latency/compute overhead that safety evidence and Article-12 logging impose, and how to model and validate that trade-off formally under real-time constraints. That is a real engineering problem the platform solves every day, not a framing exercise.
+- **Solid doctoral territory.** Formal modeling and validation of safety-performance trade-offs in CPS is defensible novelty with a clear methods spine — it stands as a LUT research direction in its own right.
+- **The specific Törngren hook.** His SAFECOMP papers (safety-argument fragments; safety-performance trade-off analysis for connected automated vehicles) are the **closest existing methodology**. This is the one area where the DWS production system could _validate his trade-off frameworks_ on live industrial edge workloads — the "industry provides the deployment ground, university the verification framework" model from the TECoSA note, made concrete.
+
+**Same question, two audiences:** to Smolander it reads as a fourth candidate LUT research direction; to Törngren it is the precise technical overlap point for collaboration. Present it as Q4 in the Smolander email; in a Törngren conversation, reference it as where Aegis can empirically validate his SAFECOMP trade-off methodology.
+
 ## Who's who (public sources)
 
 - **Prof. Kari Smolander** — LUT University; software-engineering / information-systems professor and Risto's LUT doctoral supervisor. Prior correspondence: the 19.05.2026 "unified DWS OS spine" letter and one-chapter précis (see Related Documents). His register is IS/DSR research — the same frame the earlier scope letter was pitched in.
-- **David Broman / Martin Törngren / TECoSA** — KTH. Broman (EECS) routed Risto's trustworthy-systems outreach to Törngren, director of **TECoSA** (Trustworthy Edge Computing Systems and Applications, Vinnova competence center, ~19 industrial partners, now phase 2). Fully grounded in the companion note (2026-07-14-kth-...). This is RQ1's academic anchor.
+- **David Broman / Martin Törngren / TECoSA** — KTH. Broman (EECS) routed Risto's trustworthy-systems outreach to Törngren, director of **TECoSA** (Trustworthy Edge Computing Systems and Applications, Vinnova competence center, ~19 industrial partners, now phase 2). Fully grounded in the companion note (2026-07-14-kth-...). This is RQ1's academic anchor; his **SAFECOMP** work on safety-argument fragments and safety-performance trade-off analysis for connected automated vehicles is RQ4's anchor. _Confidence Medium_ on the exact SAFECOMP paper titles/years (2025/2026) — verify in DBLP/proceedings before external citation.
 - **Victor Galaz** — Stockholm Resilience Centre (SRC, Stockholm University); works at the intersection of AI, governance, and environmental/planetary-boundary resilience (the "algorithmic resilience" framing the email cites). _Confidence Medium_ — remit described from general knowledge, not re-verified this session; verify exact affiliation/title before quoting externally.
 - **Universeum / Chalmers** — Gothenburg science centre and technical university; the email invokes them only as a **science-communication / public-legibility** channel for RQ3, not as research partners.
 
 ## RQ → DWS asset map (why these are "grounded in deployed systems, not pure ontology")
 
-| #   | Research question (short)                                                                             | Academic anchor                                   | Live DWS asset / testbed                                                               | EU-reg hook                          |
-| --- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------ |
-| 1   | Formal verification of trustworthiness for sovereign edge-AI orchestration in regulated industry      | TECoSA edge-security / safety-argumentation (KTH) | DGX-based **Aegis Defence** deployment; edge control-room substrate; KYA trust scoring | NIS2, EU AI Act (high-risk)          |
-| 2   | Governance for multi-agent systems to produce **legally defensible environmental compliance** outputs | SRC "algorithmic resilience" (Galaz)              | **Article-12 logging pipeline** + KYA evidence chain; carbon/CBAM/CSRD workloads       | EU AI Act Art. 12; CBAM/CSRD         |
-| 3   | Operationalizing sovereign-AI **transparency for public legibility**                                  | Science communication (Universeum/Chalmers)       | DWS IQ transparency/disclosure surface                                                 | **EU AI Act Art. 50** (transparency) |
+| #   | Research question (short)                                                                                        | Academic anchor                                                                               | Live DWS asset / testbed                                                                            | EU-reg hook                            |
+| --- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| 1   | Formal verification of trustworthiness for sovereign edge-AI orchestration in regulated industry                 | TECoSA edge-security / safety-argumentation (KTH)                                             | DGX-based **Aegis Defence** deployment; edge control-room substrate; KYA trust scoring              | NIS2, EU AI Act (high-risk)            |
+| 2   | Governance for multi-agent systems to produce **legally defensible environmental compliance** outputs            | SRC "algorithmic resilience" (Galaz)                                                          | **Article-12 logging pipeline** + KYA evidence chain; carbon/CBAM/CSRD workloads                    | EU AI Act Art. 12; CBAM/CSRD           |
+| 3   | Operationalizing sovereign-AI **transparency for public legibility**                                             | Science communication (Universeum/Chalmers)                                                   | DWS IQ transparency/disclosure surface                                                              | **EU AI Act Art. 50** (transparency)   |
+| 4   | Formal modeling/validation of **safety-performance trade-offs** in sovereign edge AI under real-time constraints | Törngren **SAFECOMP** safety-argument fragments / safety-performance trade-off analysis (KTH) | DGX-based **Aegis** edge deployment — safety-evidence + Article-12 logging vs. latency/compute cost | EU AI Act Art. 12; safety-critical CPS |
 
 **Testbed grounding (email's LUT argument):** RQ1 and RQ2 both claim empirical anchors through Finnish industrial customers/pilots — **Outokumpu** (stainless steel; CBAM/ETS/CSRD-exposed) and the **construction sector**. The email is careful to say "existing customers _and pilot targets_" — do not overstate as fully live customer deployments without confirming per account.
 
 ## The Insight — why this matters
 
-1. **This is the KTH/SRC outreach paying back into the LUT thesis.** The 14.07 KTH note ended with "if a real collaboration signal emerges, elevate the TECoSA node into PHD_FIREHORSE." This message _is_ that elevation move in draft form: the Swedish conversations didn't become a defection risk to KTH/SRC — they became sharpening input that Risto is routing **back to his LUT supervisor**. The framing "what makes LUT the stronger home … Finnish industrial enterprise ties" is the correct competitive read: LUT's differentiator is the deployment ground, which KTH/SRC cannot supply.
+1. **This is the KTH/SRC outreach paying back into the LUT thesis.** The 14.07 KTH note ended with "if a real collaboration signal emerges, elevate the TECoSA node into PHD*FIREHORSE." This message \_is* that elevation move in draft form: the Swedish conversations didn't become a defection risk to KTH/SRC — they became sharpening input that Risto is routing **back to his LUT supervisor**. The framing "what makes LUT the stronger home … Finnish industrial enterprise ties" is the correct competitive read: LUT's differentiator is the deployment ground, which KTH/SRC cannot supply.
 
-2. **The three RQs are a tighter, more defendable subset than the May spine.** The 19.05 letter carried six §1.2 RQs collapsed into a DWS-OS spine with a 9-scenario score. These three are narrower and each pins to (a) a named external research anchor, (b) a live DWS artifact, and (c) a specific EU-regulation article. That triangulation — anchor × artifact × article — is exactly the "artefact exists _now_ / publishable / funding-magnet" axes Smolander was scored against last round. RQ1 and RQ2 score high on empirical feasibility; RQ3 is the softer, communication-flavoured option.
+2. **The RQs are a tighter, more defendable subset than the May spine — now four.** The 19.05 letter carried six §1.2 RQs collapsed into a DWS-OS spine with a 9-scenario score. These are narrower and each pins to (a) a named external research anchor, (b) a live DWS artifact, and (c) a specific EU-regulation article. That triangulation — anchor × artifact × article — is exactly the "artefact exists _now_ / publishable / funding-magnet" axes Smolander was scored against last round. RQ1 and RQ2 score high on empirical feasibility; RQ3 is the softer, communication-flavoured option; **RQ4 (added after Törngren profile review)** is the sharpest KTH-collaboration hook — the cost-of-safety trade-off where the Aegis edge deployment could empirically validate Törngren's SAFECOMP trade-off methodology, doubling as a standalone LUT research direction.
 
 3. **Scope discipline: this is market/scientific-signal material → PhD thesis, not the master's.** Per the CLAUDE.md _Thesis Content Scope Rule_, research questions, competitive/partnership signals, and long-horizon framing belong in **PHD_FIREHORSE_EN/FI**, never the Metropolia master's (product/implementation only). If any of the three RQs is chosen after the Smolander call, fold it into PHD_FIREHORSE §1.2-family — and remember the **Thesis Rule** (all four thesis files in lockstep + regenerate `Learn/` HTML) applies the moment thesis files are touched.
 
@@ -96,7 +112,7 @@ Related Documents:
 ## Next Steps
 
 1. **Confirm the send + supervisor thread.** The message reads as an outbound update to Smolander; verify it was sent (or stage/send per identity rules) and that it lands in the existing LUT doctoral thread, not a cold standalone. Sales/relationship identity is **Lifetime Oy → `risto.paarni2024@lifetime.fi`**, short sig — but note doctoral correspondence with LUT has historically used the candidate framing ("DWS IQ Research / LUT doctoral candidate"); match the prior Smolander-letter voice. Sending is a **human action** (outbound email is RED-zone).
-2. **Prep the 20-minute call** with a one-page "three options" brief: for each RQ, one line of novelty, the named external anchor, the live DWS testbed, the EU-article hook, and the score on Smolander's five axes (Original / Feasible / Publishable / Funding-magnet / Article-2026-ready). Reuse the scoring instrument from `docs/lut/2026-05-19-letter-smolander-unified-scope.md` §3 so he sees continuity, not a restart.
+2. **Prep the 20-minute call** with a one-page "four options" brief: for each RQ, one line of novelty, the named external anchor, the live DWS testbed, the EU-article hook, and the score on Smolander's five axes (Original / Feasible / Publishable / Funding-magnet / Article-2026-ready). Reuse the scoring instrument from `docs/lut/2026-05-19-letter-smolander-unified-scope.md` §3 so he sees continuity, not a restart. For **Q4**, note the dual audience: candidate LUT direction for Smolander, specific SAFECOMP-validation hook for a Törngren conversation.
 3. **Verify Galaz/SRC specifics** before the brief quotes them: exact affiliation/title and whether "algorithmic resilience" is his term or a paraphrase. RQ2's academic anchor rests on this.
 4. **Pressure-test the testbed claims** per account: which of Outokumpu / construction pilots are contracted vs. prospect, and whether the data access supports doctoral empirical work (DPA / ethics envelope — Smolander flagged the ethics-submission question in the May round, item 6.3).
 5. **On decision, elevate** the chosen RQ(s) into `PHD_FIREHORSE_EN/FI` (four-file lockstep + `Learn/` regen); log the Smolander thread in the doctoral-correspondence path so it doesn't go stale.
@@ -107,3 +123,4 @@ Related Documents:
 - `docs/lut/2026-05-19-letter-smolander-unified-scope.md`, `docs/lut/2026-05-19-research-scope-smolander.md` (prior Smolander round)
 - EU AI Act Art. 12 (record-keeping/logging) and Art. 50 (transparency obligations) — verify article text against the consolidated Regulation before external citation.
 - Public affiliations (verify before external use): Victor Galaz / Stockholm Resilience Centre; Universeum & Chalmers (Gothenburg).
+- Martin Törngren SAFECOMP publications (safety-argument fragments; safety-performance trade-off analysis for connected automated vehicles), RQ4 anchor — confirm exact titles/years (2025/2026) via DBLP or the SAFECOMP proceedings before external citation.
