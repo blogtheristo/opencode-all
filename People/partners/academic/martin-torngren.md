@@ -64,6 +64,8 @@ He runs a strong **industrial-PhD model** — he understands commercial partners
 
 **Alumni placement** reads like a Nordic industrial map: Ericsson Research, Zenseact/Volvo Cars, Einride, Scania, Atlas Copco, Fortellix, RISE, ABB. The relationship is a route into that network, not just one lab.
 
+**Collaboration shape he already runs** (Boardy, 14.07.2026): in his industrial-PhD/postdoc model, **the company provides the testbed / deployment ground and the university provides the formal verification framework**. That is exactly the DWS model — propose it as such, no need to invent a new structure.
+
 ---
 
 ## 🎯 DWS Relevance & Positioning

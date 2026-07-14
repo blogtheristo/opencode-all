@@ -96,7 +96,29 @@ Per the CLAUDE.md Thesis Content Scope Rule: this is a **market/academic signal 
 4. **Log the relationship** in the sales-outreach / CRM path so the thread doesn't go stale (park-stale-threads discipline); set a follow-up if no reply from Törngren within ~2 weeks.
 5. **If a real collaboration signal emerges,** elevate the TECoSA node into `PHD_FIREHORSE_EN/FI` as a standardization/partnership signal (per scope rule above).
 
-## Companion draft reply (to David, Martin CC'd — for the record; not yet sent)
+## Companion draft reply (to David, Martin CC'd — v2, Boardy-refined; not yet sent)
+
+Boardy's refinement (14.07.2026): lead with the safety-evidence sentence itself, not with company introduction. His language — _safety evidence and trustworthiness_ — not compliance, not product. Also: his industrial-PhD track record (Scania, Alstom, Ericsson, Saab postdoc) means he already knows the collaboration shape where **the company provides the testbed and the university provides the formal verification framework** — which is exactly the DWS model. The v2 draft below is the send-candidate.
+
+> **Subject:** Re: Trustworthy systems / TECoSA
+>
+> David — thank you, that's a generous hand-off, and it lands exactly right.
+>
+> Martin — good to meet you. Our sovereign edge-AI platform, DWS IQ, produces audit-grade safety evidence for regulated industrial deployments, and I'd like to explore how our Article 12 logging pipeline could map to TECoSA's safety-argumentation frameworks. Every decision an autonomous or agentic system takes at the edge is captured as structured, verifiable evidence (the trust-scoring side we call Know-Your-Agent) — at heart an assurance-case problem, with regulatory alignment falling out of the evidence chain rather than driving it.
+>
+> Two of your works made the overlap concrete for me: the INCOSE position paper on trustworthy edge computing in industrial applications reads almost one-to-one against what we run in production, and what AD-EYE does for automated-driving evaluation is close in spirit to the verification layer we want for sovereign edge AI. The collaboration shape you've run with Scania, Alstom and Ericsson — industry provides the deployment ground, the university the verification framework — is exactly the model we'd want to explore.
+>
+> Could I borrow 30 minutes to compare notes on where this connects to TECoSA's phase-2 trustworthiness themes? Happy to send a one-page overview ahead of a call. Any time in the next couple of weeks that suits you both.
+>
+> Best,
+> Risto
+>
+> Risto Anton Päärni
+> Founder, CEO · Lifetime Oy
+> risto.paarni2024@lifetime.fi · +358 400 319 010
+
+<details>
+<summary>v1 draft (superseded 14.07.2026 — kept per formulation-preservation rule)</summary>
 
 > **Subject:** Re: Trustworthy systems / TECoSA
 >
@@ -114,6 +136,8 @@ Per the CLAUDE.md Thesis Content Scope Rule: this is a **market/academic signal 
 > Risto Anton Päärni
 > Founder, CEO · Lifetime Oy
 > risto.paarni2024@lifetime.fi · +358 400 319 010
+
+</details>
 
 ## Sources
 
