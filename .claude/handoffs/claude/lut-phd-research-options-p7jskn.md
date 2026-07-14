@@ -52,6 +52,13 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
 - 10-page LUT research plan is the attached memo. On Kari's steer → elevate chosen RQ(s) to PHD_FIREHORSE (lockstep); do not pre-edit thesis files.
 - Törngren memo also exported to Google Drive as a Doc (Drive MCP was connected; may need re-auth).
 
+## Update (styled PDFs + merge to main)
+
+- Added `scripts/md-to-pdf.py` (markdown → styled HTML, `--strip-frontmatter`) — durable fix for the "raw md PDF looks ugly" pain. Render with the Chromium binary (`--headless=new --no-pdf-header-footer --print-to-pdf`); `html-to-pdf.mjs` needs Playwright which isn't installed here.
+- Generated styled `docs/lut/2026-07-14-lut-doctoral-research-plan.pdf` (11pp, navy headings, RQ callouts) — the nice version of the Smolander attachment (the raw-md one was already sent).
+- Next-session prompt: `docs/NEXT_SESSION_PROMPT_LUT_KTH_OUTREACH.md`.
+- Branch MERGED to main (durability — no more branch-only survival).
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.
