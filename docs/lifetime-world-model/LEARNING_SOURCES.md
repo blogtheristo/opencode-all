@@ -93,7 +93,7 @@ This file is the **canonical index of all data streams** that feed the Lifetime 
 
 **First lab note:** `docs/lab-notes/` created 2026-04-16.
 
-**Latest lab note:** `docs/lab-notes/2026-05-20-claude-code-large-codebases-best-practices.md` — Anthropic harness model (CLAUDE.md / hooks / skills / plugins / MCP) mapped to DWS6 assets, with plugin-packaging and LSP gaps logged.
+**Latest lab note:** `docs/lab-notes/2026-07-14-nvidia-hardware-friendly-llm-codesign-lwm.md` — NVIDIA "Hardware-Friendly LLM Design" co-design principles (3-metric objective, 128/256 tile alignment, width-to-depth band, NVFP4 two-level scaling, NVFP4 KV cache, MoE/parallelism) mapped to the LWM 55B / GB10 / FP4 spec, with V2 action items and a NVIDIA-compute-dependency sovereignty caveat.
 
 ---
 
