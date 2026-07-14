@@ -10,11 +10,15 @@
       "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__create_event",
       "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__update_event",
       "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__generate",
-      "Bash(mkdir -p docs/assets/images)"
+      "Bash(mkdir -p docs/assets/images)",
+      "Bash(mkdir -p .claude/handoffs/claude && git status --short)"
     ],
     "defaultMode": "bypassPermissions"
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["dws-gateway-local", "dws-agents-local"],
+  "enabledMcpjsonServers": [
+    "dws-gateway-local",
+    "dws-agents-local"
+  ],
   "_comment": "Local machine-only overrides. Shared defaults live in .claude/settings.json."
 }
