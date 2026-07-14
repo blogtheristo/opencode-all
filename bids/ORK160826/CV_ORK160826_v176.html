@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>CV_ORK160826_v172</title>
+  <title>CV_ORK160826_v176</title>
   <style>
 html {
 color: #1a1a1a;
@@ -165,7 +165,7 @@ vertical-align: middle;
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">CV_ORK160826_v172</h1>
+<h1 class="title">CV_ORK160826_v176</h1>
 </header>
 <h1 id="risto-anton-päärni-cv"><strong>Risto Anton Päärni —
 CV</strong></h1>
@@ -2678,10 +2678,29 @@ Desk, Contract Management, Disruption Response</li>
 </ul>
 <hr />
 <h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
-<p>Version: 176</p>
+<p>Version: 177</p>
 <p>Sessions &amp; Modifications:</p>
 <ul>
-<li>Version: 176 | Tool: Claude Code (Sonnet 5) | Session:
+<li><p>Version: 177 | Tool: Claude Code (Sonnet 5) | Session:
+claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Kaksi
+HIC:n löytämää korjausta. (1) Tiedostonimi korjattu vastaamaan sisäistä
+Version:-kenttää (§4.6) — <code>CV_ORK160826_v172.md</code> →
+<code>CV_ORK160826_v176.md</code> (<code>git mv</code>, historia
+säilytetty); drift oli syntynyt, koska useampi /dialog-korjauskierros
+nosti Version:-lukua ilman että kukaan nimesi tiedostoa uudelleen
+välissä. (2) Dokumentin <code>---</code>-erottimet (rivit 3, 508, 540)
+korjattu <code>***</code>-muotoon DWS_DOCUMENT_STANDARD.md §2.1:n
+pandoc-yhteensopivuussäännön mukaisesti — juurisyy löytyi:
+<code>.claude/hooks/</code>-kansion Prettier-formatointikoukku
+(PostToolUse, Write|Edit) normalisoi automaattisesti kaikki
+markdown-thematic-break-merkinnät (<code>***</code>, <code>___</code>)
+muotoon <code>---</code> aina kun Edit/Write-työkalua käytetään, minkä
+vuoksi <code>***</code>-sääntö ei ole koskaan pysynyt voimassa suoralla
+Edit-työkalukutsulla. Korjaus tehty Bash/sed-komennolla koukun
+ohittamiseksi. Sama juurisyy löytyi myös itse DWS_DOCUMENT_STANDARD.md:n
+omasta otsikosta ja §20.6:n mallipohjasta (molemmat korjattu samassa
+istunnossa). Tiedosto 176→177.</p></li>
+<li><p>Version: 176 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC
 korjasi nimeämisvirheen: “Konsultin käsikirja” → “Konsultoinnin
 käsikirja” (kanoninen otsikko vahvistettu suoraan lähteestä
@@ -2690,8 +2709,8 @@ käsikirja 2026” — tiedostonimi käyttää genetiiviä “konsultin”
 (konsultti-sanasta), mutta dokumentin oma otsikko käyttää
 “konsultoinnin” (konsultointi-toiminnasta), ja jälkimmäinen on
 kanoninen). Korjattu 5 esiintymää (rivit 274, 462, 469, 480, sekä oma
-v175-muutosmerkintä alla). Tiedosto 175→176.</li>
-<li>Version: 175 | Tool: Claude Code (Sonnet 5) | Session:
+v175-muutosmerkintä alla). Tiedosto 175→176.</p></li>
+<li><p>Version: 175 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes:
 /dialog-korjaus — HIC pyysi päivitystä MLOps/LLMOps-riville
 (“AGENT_ROSTER.json — 68 agentin/kyvykkyyden…”). Tarkistus paljasti
@@ -2707,8 +2726,8 @@ johdantoteksti, Agentic systems -rivi, MLOps/LLMOps-rivi,
 Näytöt-luettelokohta). Appendix-osion “58 agenttia ja 88 kyvykkyyttä”
 -kanoninen lause (lähde: Konsultoinnin käsikirja 2026 §6, eri taksonomia
 kuin koodirekisteri) jätetty koskemattomaksi — eri lähde, eri väite, ei
-osa tätä ristiriitaa. Tiedosto 174→175.</li>
-<li>Version: 174 | Tool: Claude Code (Sonnet 5) | Session:
+osa tätä ristiriitaa. Tiedosto 174→175.</p></li>
+<li><p>Version: 174 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes:
 /dialog-korjaus, HIC:n antama lopullinen sanamuoto sovellettu suoraan
 johdantokappaleen 2. virkkeeseen (“Työskentelyotteeni on
@@ -2719,8 +2738,9 @@ julkipilvi-infrastruktuurista (Microsoft Azure, Google Cloud, AWS);
 lisätty maininta kehitystyön johtamisesta GitHub-repositoryn kautta.
 Pieni typo-korjaus HIC:n tekstiin sovellettaessa: “Hetzer” → “Hetzner”
 (oikea yhtiönnimi), kaksoisvälilyönti “julkipilvi -infrastruktuureista”
-→ “julkipilvi-infrastruktuureista” (yhdyssana). Tiedosto 173→174.</li>
-<li>Version: 173 | Tool: Claude Code (Sonnet 5) | Session:
+→ “julkipilvi-infrastruktuureista” (yhdyssana). Tiedosto
+173→174.</p></li>
+<li><p>Version: 173 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes:
 Siirretty VERSION AND AGENT HISTORY- ja Document Status -lohkot
 dokumentin alusta loppuun, DWS_DOCUMENT_STANDARD.md §20.6:n
@@ -2732,15 +2752,15 @@ muuttumattomina alla. Publication Status korjattu DRAFT →
 <strong>FINAL</strong> (uusi arvo, lisätty DWS_DOCUMENT_STANDARD.md
 §2.3:een samassa istunnossa) — dokumentti on korjattu ja valmis
 toimitettavaksi. Lisätty kopio-oikeus- ja yhteystietolohko §20.6-mallin
-mukaisesti dokumentin loppuun. Tiedosto 172→173.</li>
-<li>Version: 172 | Tool: Claude Code (Sonnet 5) | Session:
+mukaisesti dokumentin loppuun. Tiedosto 172→173.</p></li>
+<li><p>Version: 172 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes:
 /dialog-korjaus, kohta 2.1: HIC:n antama lopullinen sanamuoto sovellettu
 suoraan johdantokappaleeseen — “pilviarkkitehtuurin asiantuntija” →
 “pilviarkkitehtuurien asiantuntija” (monikko) ja “säädöstenmukaisten” →
 “säädösten mukaisten” (kaksisanainen muoto). Synkronoitu HIC:n Google
-Drive -kopion kanssa (v171→v172 molemmissa).</li>
-<li>Version: 171 | Tool: Claude Code (Sonnet 5) | Session:
+Drive -kopion kanssa (v171→v172 molemmissa).</p></li>
+<li><p>Version: 171 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes:
 Tiedostonimi korjattu vastaamaan todellista versiota —
 <code>CV_ORK160826_v165.{md,html,docx}</code> →
@@ -2750,8 +2770,8 @@ sisäisestä Version:-otsikosta viiden peräkkäisen editointikierroksen
 ajan (165→170) ilman että kukaan nimesi tiedostoa uudelleen. Lisätty
 DWS_DOCUMENT_STANDARD.md:hen uusi nimeämissääntö (§4.6), joka vaatii
 tiedostonimen versiotagin ja otsikon Version:-kentän pysymään
-synkronissa. Tiedosto 170→171.</li>
-<li>Version: 170 | Tool: Claude Code (Sonnet 5) | Session:
+synkronissa. Tiedosto 170→171.</p></li>
+<li><p>Version: 170 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes:
 Lisätty ensimmäinen kuvaviittaus koko CV:n versiohistoriassa (168
 versiota ilman kuvaa). Käytetty
@@ -2761,8 +2781,8 @@ APPROVED DWS_BRAND_STANDARD.md §25:ssä) — ei
 baarin mainoskylttejä eikä sovi julkishallinnon tarjousasiakirjaan.
 Renderöity <code>scripts/render-doc.sh</code>:llä itsenäisiksi HTML-
 (Base64-upotettu kuva) ja DOCX-tiedostoiksi (natiivisti upotettu kuva)
-DWS_DOCUMENT_STANDARD.md §22 mukaisesti. Tiedosto 169→170.</li>
-<li>Version: 169 | Tool: Claude Code (Sonnet 5) | Session:
+DWS_DOCUMENT_STANDARD.md §22 mukaisesti. Tiedosto 169→170.</p></li>
+<li><p>Version: 169 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes:
 Korjattu GitHub-näyttörivi. Syy: GitHub antaa issueille ja pull
 requesteille yhteisen numerosarjan per repo — pelkkä PR-numero (esim.
@@ -2771,8 +2791,9 @@ bottien automaattisesti luomat “Staging Deploy Failed” - ja
 viikoittaiset “DWS7 Roadmap Progress” -issuet). Elävä tarkistus
 12.07.2026: 1268 PR:ää + 386/387 suljettua issueta = 1654. Rivi
 päivitetty muotoon “1650+ pull requestia ja ratkaistua issueta yhteensä”
-edellisen pelkän PR-luvun (1100+/1264) sijaan. Tiedosto 168→169.</li>
-<li>Version: 168 | Tool: Claude Code (Sonnet 5) | Session:
+edellisen pelkän PR-luvun (1100+/1264) sijaan. Tiedosto
+168→169.</p></li>
+<li><p>Version: 168 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes:
 Lisätty Metropolia YAMK-opinnäytetyön virallinen arviointilausunto
 (HIC:n lataama PDF, Metropolia, 12.07.2026, ohjaaja Erkki Räsänen).
@@ -2784,14 +2805,14 @@ vastannut virallista arviointilausuntoa). Päivitetty Education-osio,
 “Validointi”-rivi ja kaksi ristiriitaista Appendix-taulukon Master
 Thesis -riviä (toinen väitti “MAUI Cross-Platform…”, toinen “finalize as
 PhD ?” -spekulaation — molemmat korvattu virallisella arviointidatalla).
-Tiedosto 167→168.</li>
-<li>Version: 167 | Tool: Claude Code (Sonnet 5) | Session:
+Tiedosto 167→168.</p></li>
+<li><p>Version: 167 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes:
 /dialog-korjauskierros HIC:n kanssa. 7.1: Korjattu Taksi Helsinki
 takaisin asiakasesimerkkeihin — HIC vahvisti sen olevan Lifetime Oy /
 Lifetime Fleet -asiakkuus, ei henkilökohtainen kuljettajaliiketoiminta
-(kumoaa v165:n poiston). Tiedosto 166→167.</li>
-<li>Version: 166 | Tool: Claude Code (Sonnet 5) | Session:
+(kumoaa v165:n poiston). Tiedosto 166→167.</p></li>
+<li><p>Version: 166 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes:
 Vastaus LinkedIn-hakemuksen kelpoisuusraporttiin (Senior AI/ML Engineer,
 1/10 pakollista vaatimusta täytetty). Lisätty uusi osio “Senior AI/ML
@@ -2810,8 +2831,8 @@ Learn/evidence/2021-2025-Microsoft-Founders-Hub-profile.md-evidenssin
 kanssa) ja lisätty Level 4 / USD 153 000 -vahvistus
 sertifikaattitaulukkoon ja Lifetime World -kappaleeseen. Korjattu
 yliampuva “1500+ PR / 6000+ committia” -väite todennettuun lukuun (1100+
-mergattua PR:ää, GitHub-haku 12.07.2026). Tiedosto 165→166.</li>
-<li>Version: 165 | Tool: Claude Code (Opus 4.8) | Session:
+mergattua PR:ää, GitHub-haku 12.07.2026). Tiedosto 165→166.</p></li>
+<li><p>Version: 165 | Tool: Claude Code (Opus 4.8) | Session:
 claude/consultant-handbook-v1-6-622fep | Date: 08.07.2026 | Changes:
 /dialog-korjauskierros (14 hyväksyttyä kohtaa): korjattu sähköposti
 kanoniseksi (risto.paarni@lifetime.fi), yhtenäistetty puhelinnumeron
@@ -2824,8 +2845,8 @@ Taksi Helsinki (henkilökohtainen kuljettajaliiketoiminta)
 DWS-asiakasreferensseistä, trimmattu
 kryptovaluutta-/lohkoketjuyksityiskohdat julkishallinnon tarjousriskin
 vuoksi, lisätty ORK-roolimaininta ja Cubet-kapasiteettivarmuuslause.
-Tiedosto 164→165.</li>
-<li>Version: 164 | Tool: Claude Code | Session:
+Tiedosto 164→165.</p></li>
+<li><p>Version: 164 | Tool: Claude Code | Session:
 claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes:
 Tiivistetty viisi paisunutta taulukkoa (Risto Anton’s Skills, AI and
 Cloud Technologies, Business Development with Modern Stacks, Business
@@ -2843,8 +2864,8 @@ teknologiat) säilytetty; poistettu vain yleinen selittävä boilerplate
 markkinointiproosa. Jokainen rivi kytketty vähintään yhteen nimettyyn
 DWS-agenttiin liitteen 80-agenttikatalogista. Muuttamattomina: Solution
 Sales, Education, Career Highlights, Appendixes, verbisilta, DWS IQ
--agenttikatalogi. Tiedosto 163→164.</li>
-<li>Version: 163 | Tool: Claude Code | Session:
+-agenttikatalogi. Tiedosto 163→164.</p></li>
+<li><p>Version: 163 | Tool: Claude Code | Session:
 claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes:
 Yhdistetty CV v161:n päivitykset Google Drive -versioon 162
 (ORK_Risto_CV_FI_162). Lifetime World -hankekuvaus suomeksi (missio,
@@ -2855,14 +2876,15 @@ osaaminen -osioilla. Toteutettu verbitaulukon kaksi pyyntöä: lisätty
 liitteeksi DWS IQ kyvykkyysluokat (10) ja agenttikatalogi (80 nimettyä
 agenttikyvykkyyttä); pyyntöteksti poistettu taulukosta. Korjattu
 emoji-koodausvirheet ja Career Highlights -kirjoitusvirhe. Tiedosto
-162→163.</li>
-<li>Version: 162 | Tool: Google Docs (HIC) | Date: 02.07.2026 | Changes:
-Merkittävästi parannettu suomenkielinen johdanto, englanninkielinen
-jargon poistettu. Lähde: Google Drive “ORK_Risto_CV_FI_162”.</li>
-<li>Version: 161 | Tool: Claude Code | Session:
+162→163.</p></li>
+<li><p>Version: 162 | Tool: Google Docs (HIC) | Date: 02.07.2026 |
+Changes: Merkittävästi parannettu suomenkielinen johdanto,
+englanninkielinen jargon poistettu. Lähde: Google Drive
+“ORK_Risto_CV_FI_162”.</p></li>
+<li><p>Version: 161 | Tool: Claude Code | Session:
 claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes:
 Lifetime World (onelifetime.world) -hankekuvaus lisätty
-(CV/CV_Risto_Paarni_161.md).</li>
+(CV/CV_Risto_Paarni_161.md).</p></li>
 </ul>
 <p>Document Status:</p>
 <ul>

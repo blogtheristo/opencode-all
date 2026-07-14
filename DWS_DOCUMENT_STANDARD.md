@@ -1,13 +1,14 @@
 # DWS Document Standard
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.10
+Version: 2.11
 
 Sessions & Modifications:
 
+- Version: 2.11 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC löysi kaksi itse-ristiriitaa. (1) Tämän dokumentin oma yläotsikko käytti `---`-erotinta rivillä 3, vaikka §2.1 määrää `***`:n pandoc-yhteensopivuuden vuoksi — korjattu. (2) §20.6:n oma Layout-mallipohja (koodilohko) käytti `---`-erottimia kaikissa kolmessa kohdassa — sama virhe periytyi jokaiseen §20.6-mallia noudattavaan dokumenttiin (mm. CV_ORK160826, korjattu samassa istunnossa) — korjattu `***`:ksi. **Juurisyy löytyi:** `.claude/settings.json`:n PostToolUse-koukku (matcher `Write\|Edit`) ajaa Prettier'n `--write`-tilassa jokaisen Edit/Write-työkalukutsun jälkeen KOKO tiedostolle, ei vain muutetulle osalle — Prettier normalisoi oletusarvoisesti kaikki markdown-thematic-break-merkinnät (`***`, `___`) muotoon `---`. Tämä tarkoittaa, että `***`-sääntö ei voi koskaan pysyä voimassa suoralla Edit/Write-työkalukutsulla riippumatta siitä mitä tiedostoon kirjoitetaan — jokainen aiempi yritys korjata tämä on hiljaisesti peruuntunut seuraavassa Edit-kutsussa. Ei `.prettierrc`/`.prettierignore`-tiedostoa löytynyt, joten Prettier ajaa oletusasetuksin. Väliaikainen kiertotapa: tee `***`-korjaus Bash/sed-komennolla VIIMEISENÄ askeleena ennen committia (Bash ei laukaise tätä koukkua). Pysyvä korjaus (esim. `.prettierignore`-poikkeus VERSION-lohkoa sisältäville dokumenteille, tai koukun `proseWrap`/custom-parserin muokkaus) on vielä tekemättä — merkitty avoimeksi seuraavalle istunnolle.
 - Version: 2.10 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added §4.6 Exemption 2 (heavily cross-referenced living standards may keep an un-versioned filename instead of embedding `_vX`). Triggered by renaming `docs/KONSULTIN_KASIKIRJA_2026.md` → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` (name-spelling fix, not a version bump) — the file has ~20 repo-wide cross-references, so embedding a version tag per the §4.6 default would force a rename-plus-reference-update ripple on every future edit; HIC chose to exempt it and keep `Version:` inside the file as the single source of truth for revision tracking.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added `FINAL` to the §2.3 Publication Status Values table — a customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit uses `FINAL` in place of `ACTIVE`, since ACTIVE implies an internally-maintained lifecycle document, not a one-shot external artifact. Triggered by `bids/ORK160826/CV_ORK160826_v172.md` (→ v173 this session) which had carried `Publication Status: DRAFT` for 172 versions despite being an actively-submitted bid CV, and had never actually complied with the already-existing §20.6 rule (version block was still on page 1, not the last page) across 8+ prior editing sessions. §20.6 itself required no new text — the gap was non-compliance, not a missing rule; applying it to the CV file happens in the same commit as this entry.
 - Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Paarni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
@@ -2534,11 +2535,11 @@ A terminology/security correction (e.g. replacing a tool name) is a **patch** bu
 ```
 # <Document Title>
 
----
+***
 
 <substantive content — CV, offer, whitepaper body, etc.>
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -2550,7 +2551,7 @@ Sessions & Modifications:
 Document Status:
 - ...
 
----
+***
 
 *Copyright <year> – Tekijänoikeudet <author/company>.*
 
