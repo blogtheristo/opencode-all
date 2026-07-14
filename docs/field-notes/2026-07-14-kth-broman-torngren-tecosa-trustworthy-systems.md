@@ -96,7 +96,9 @@ Per the CLAUDE.md Thesis Content Scope Rule: this is a **market/academic signal 
 4. **Log the relationship** in the sales-outreach / CRM path so the thread doesn't go stale (park-stale-threads discipline); set a follow-up if no reply from Törngren within ~2 weeks.
 5. **If a real collaboration signal emerges,** elevate the TECoSA node into `PHD_FIREHORSE_EN/FI` as a standardization/partnership signal (per scope rule above).
 
-## Companion draft reply (to David, Martin CC'd — v2, Boardy-refined; not yet sent)
+## Companion draft reply (to David, Martin CC'd — v2, Boardy-refined and APPROVED 14.07.2026; staged as Gmail draft, awaiting Risto's send)
+
+Boardy sign-off (14.07.2026): "Ready to send." Flagged the key sentence to keep verbatim: _"regulatory alignment falling out of the evidence chain rather than driving it"_ — it is what separates the DWS approach from compliance-first vendors and maps directly to his safety-engineering mindset. Staged as a Gmail draft (standalone — Broman's original thread was not found in the connected mailbox, so paste into the real thread when replying so it threads correctly). Sending is RED-zone: human only.
 
 Boardy's refinement (14.07.2026): lead with the safety-evidence sentence itself, not with company introduction. His language — _safety evidence and trustworthiness_ — not compliance, not product. Also: his industrial-PhD track record (Scania, Alstom, Ericsson, Saab postdoc) means he already knows the collaboration shape where **the company provides the testbed and the university provides the formal verification framework** — which is exactly the DWS model. The v2 draft below is the send-candidate.
 
