@@ -32,7 +32,7 @@ detailed outputs never reached git. State of the underlying material:
 | DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **LOST** — not committed; re-run required to recover per-anchor detail |
 | Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                              |
 | EU Commission + NATO DIANA                 | (EU/NATO pack)                                      | **LOST** — not committed; re-run required                              |
-| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | existing internal knowledge                         | retained                                                               |
+| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | `docs/lut/fi-se-lanes-research-2026-07.md`          | **RECOVERED** — primary-source research complete 14.07.2026; see §6    |
 
 The load-bearing conclusions below survived in the field note and are captured here. The
 **per-anchor research packs** (source dumps, contact detail, verified figures) are not
@@ -129,12 +129,41 @@ detailed packs (§0) are lost and should be re-run for contact detail and verifi
   EDF, DIANA challenge cycle + Nordic test centres, NATO Innovation Fund.**
 - **DIANA → NIF path** is the confirmed on-ramp (§3); **FI & SE are both LPs** in the €1bn NIF.
 
-## 6. Existing FI/SE lanes (retained)
+## 6. Existing FI/SE lanes (recovered, primary-source-verified 14.07.2026)
 
-- **Apurahat** (FI research grants) — decision rule stands: **apuraha → stay Finland.**
-- **Vinnova** (SE) — Swedish innovation agency lane, pairs with the AB entity.
-- **Almi** (SE) — Swedish financing.
-- **VGR** (Västra Götalandsregionen) — regional SE lane.
+Full detail, sources, and `(verify)` flags: `docs/lut/fi-se-lanes-research-2026-07.md`.
+
+- **Apurahat** (FI research grants) — decision rule stands: **apuraha → stay Finland.** Open
+  2026 windows: **Nokia Foundation Scholarship** (up to €7,500, 3 Aug–15 Sep, best AI/ICT
+  thematic fit), **Suomen Kulttuurirahasto** (15–30 Oct, single consolidated round from 2026),
+  **Liikesivistysrahasto** (€27,000, 1 Jun–15 Aug, needs a business-economics framing), and
+  the **LUT-yliopiston ja ammatillisen koulutuksen tukisäätiö** (rolling — easiest near-term
+  step, contact directly). TES / Emil Aaltonen / KAUTE / HPY are all closed for 2026; KAUTE
+  is the best structural fit (business+tech intersection) and should be prepared early for its
+  ~Jan 2027 reopening.
+- **Vinnova** (SE) — pairs with the AB entity. **Eurostars Call 11 closes 10 Sep 2026, 14:00**
+  (up to SEK 5M for the SE side) — the most time-sensitive item across all four lanes.
+  **Important correction:** the Planeringsbidrag (planning grant, up to SEK 500,000, closes
+  6 Oct 2026) explicitly **excludes Eurostars/Eureka programs** — it only funds prep for
+  Horizon Europe-type bids, so it cannot be used to fund Eurostars Call 11 prep work.
+  **Innovativa Startups** Step 1 (up to SEK 500,000, opens 12 Oct 2026) is the clearest direct
+  grant if Lifetime AB stays ≤10 employees / ≤SEK 10M turnover, but its deadline (12 Jan 2027)
+  falls outside the near-term window. Whether Vinnova's own screening honors the GBER <3-year
+  exemption is **not confirmed on any vinnova.se page** — `(verify)` before relying on it.
+- **Almi** (SE) — **Mikrolån** (up to SEK 200,000–250,000, two official pages disagree on the
+  ceiling — `(verify)`) needs no co-financing and is EIF/InvestEU-guaranteed (confirmed).
+  **Innovationslån** (SEK 50,000–500,000) requires ≥50% co-financing from elsewhere and fits
+  an early-stage product needing testing/verification. **Verifieringsmedel** (up to SEK
+  100,000 grant, de-minimis) starts as an advisor conversation, not a form.
+- **VGR** (Västra Götalandsregionen) — **hard gate: every program checked requires the company
+  to be registered in Västra Götaland with intent to operate there.** Do not assume this is
+  satisfied. **Såddfinansiering** (up to SEK 850,000 villkorslån, priority to companies <3
+  years) is the only program Lifetime AB could plausibly qualify for on age/size, but the
+  regional-presence gate is `(verify)`-flagged as likely blocking, and rolling applications
+  submitted in July may land inside VGR's summer processing pause (mid-Jun–mid-Aug). FoU-kort,
+  Hållbarhetscheck, Internationaliseringscheck, and Digitaliseringscheck all require an
+  **established** company (annual reports, turnover, headcount) Lifetime AB does not yet have
+  — checked and excluded.
 
 ## 7. Gaps to close before filing (per pack)
 
