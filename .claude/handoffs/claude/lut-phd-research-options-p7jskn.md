@@ -31,6 +31,13 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
 - **Lifetime AB (SE) status update (founder, 14.07.2026):** incorporation being finalized THIS WEEK / July 2026, signing pending eIDAS e-card login. Superseded "~Nov 2026" across research plan + field note.
   - ⚠️ **Reconcile separately:** `investor-outreach/AEGIS_SP_GROWTH_BRIEF.md` still says "planned November 2026" — now stale. Left unedited (out of scope, investor material). Flag to user.
 
+## Update (Lifetime AB critical path)
+
+- Founder (14.07.2026): "Lifetime AB is needed asap to proceed in Sweden." Captured in `docs/field-notes/2026-07-14-lifetime-ab-critical-path-sweden.md`.
+- AB now = blocking dependency for the Sweden strategy (Smolander letter's Sweden paragraph, KTH/TECoSA contracting, Vinnova eligibility, SEK invoicing, 3-country Group story).
+- Blocker: eIDAS e-card login (Finnish FINeID via cross-border; Swedish BankID needs personnummer). Pragmatic path: Swedish formation agent/accountant to file Bolagsverket + F-skatt/VAT, sidestepping eID friction. Swedish specifics = Medium confidence, verify.
+- Send-ready six-question Smolander letter staged: `docs/lut/2026-07-14-letter-smolander-six-questions.md` (RED-zone, not sent). Sweden paragraph honestly hedged so it survives if AB slips.
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.
