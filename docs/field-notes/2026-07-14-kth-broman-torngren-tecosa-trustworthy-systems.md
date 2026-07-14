@@ -23,6 +23,7 @@ Related Documents:
 - `docs/PHD_FIREHORSE_EN.md` — scientific/roadmap framing where trustworthy-systems + academic-consortium signals belong
 - `skills/edge-control-room-capital/SKILL.md` — DWS edge sense-and-actuate thesis (nearest DWS analogue to TECoSA's edge scope)
 - `Legal/KYA_STANDARD_v1.md` — Know-Your-Agent trust scoring (DWS "trustworthy agent" mechanism)
+- `docs/gtm/TECOSA_TORNGREN_CALL_PREP.md` — call-prep brief: his five principles → DWS mapping, discussion questions, pre-call reading list
 
 ---
 
