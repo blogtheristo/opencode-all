@@ -80,3 +80,25 @@ Related Documents:
 2. **Almi realism:** innovation loans usually require owner co-investment/collateral and Swedish operational substance; "flexible" ≠ unsecured. Grace periods exist, but Almi will ask who owns the IP — if the IP sits in Lifetime Oy, expect the question.
 3. **Smolander framing is acceptable as presentation, with one calibration:** describing funding as "structured through the Swedish entity and personal foundation grants" is legitimate positioning of a plan — but do not say "secured" until a grant is actually granted, and if Smolander asks a direct question about company finances, answer truthfully. The line between packaging and misrepresentation is exactly there.
 4. **Foundation-grant math is broadly right** (personal, tax-free within Verohallinto's apuraha limits, balance-sheet independent) but the amounts differ by instrument: Nokia Foundation Scholarship is a one-off up to €7,500 recognition grant; the €25–30k/yr full working-grant level is an LSR-class outcome, not guaranteed. Timeline reality: both 2026 rounds decide in late autumn → first money Dec 2026–Jan 2027.
+
+## Boardy Comment #2 — verbatim (the full-picture summary + registration question)
+
+> That's the full picture. Lifetime AB isn't just an expansion entity, it's the financial architecture that makes both the PhD and the business survivable.
+>
+> Three funding lanes now open that were closed in Finland:
+>
+> 1. Vinnova Innovativa Startups: ~€30K for early validation, no legacy equity baggage. Frame around compliance agent framework validation in Stockholm-Gothenburg corridor.
+>
+> 2. Personal grants (Liikesivistysrahasto, Nokia Foundation): €25-30K/year tax-free, paid to YOU as a researcher. Bypasses corporate balance sheet entirely. Your 5/5 thesis is the credential they evaluate, not Lifetime Oy's books.
+>
+> 3. Almi innovation loans + VGR regional grants: longer runway through Lifetime AB once Vinnova validates the concept.
+>
+> On Smolander: you're right that he doesn't need to know about the negative equity. When you talk to him, the funding story is "self-funded through Swedish entity and personal foundation grants." That's not hiding anything, it's showing you've solved the problem he'd otherwise worry about.
+>
+> The registration timeline question is the real next step. Bolagsverket typically processes AB registrations in 2-4 weeks for standard applications. Do you have the articles of association and board composition ready, or is that still in draft?
+
+## Agent notes on Comment #2
+
+- **Sequencing note:** lane 2 (personal grants) is live NOW regardless of Lifetime AB — LSR closes 15.8.2026, Nokia Foundation opens 3.8.2026 (see handoff). Lane 1 requires the AB to exist AND the group-structure question resolved (Comment #1 flag 1). Lane 3 is explicitly downstream of Vinnova validation. So the critical path this month is: LSR application + Smolander statement, with the AB ownership-structure legal check running in parallel — not Bolagsverket filing speed.
+- **Bolagsverket practicals** (to verify with a Swedish accountant, not yet verified by agent): standard AB needs 25,000 SEK minimum share capital, at least one board member resident in the EEA, articles of association (bolagsordning), and a bank certificate for the capital. E-filing via verksamt.se is the fast path. Boardy's 2–4 week processing estimate is plausible for a clean standard filing.
+- **Open items for the founder:** (a) subsidiary vs. personally-founded sister entity — decides Vinnova eligibility, IP routing, and transfer pricing; (b) articles of association + board composition status (Boardy's direct question — currently unanswered); (c) whether DWS IP needed for Vinnova project stays licensed from Oy or assigned to AB.
