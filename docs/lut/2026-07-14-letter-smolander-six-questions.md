@@ -1,13 +1,14 @@
-# Letter to Prof. Kari Smolander — Six Research Questions (Send-Ready Draft)
+# Letter to Prof. Kari Smolander — Six Research Questions (SENT 14.07.2026)
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Marked SENT (Proton Mail iOS, 14.07.2026). Founder sent the bold Boardy version, not the hedged v1.1 draft below: Swedish paragraph states the Vinnova track + cross-border infrastructure as fact; the Q2/Q3 anchor-status caveat was omitted; Kemira added to the pilot list; a Finnish cover note and the full Lifetime Group signature/disclaimer were added. The full as-sent text and internal call-prep flags are recorded in `docs/field-notes/2026-07-14-lut-smolander-six-questions-letter-sent.md`. The v1.1 hedged draft is preserved below per the formulation-preservation rule.
 - Version: 1.1 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Added an honesty note on anchor status per founder instruction — the KTH/TECoSA thread (Q1/Q4) is live and Q5/Q6 are grounded in own production/pilots, but Q2 (Galaz/SRC) and Q3 (Universeum/Chalmers) anchors have not yet replied and are prospective. Softened the opening from "in contact with … SRC" to "reached out to … SRC" to match. Sending remains RED-zone (human only).
 - Version: 1.0 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Send-ready email to Prof. Kari Smolander (LUT) presenting the six research questions, built on the founder's Boardy base draft (five questions) extended with Q6 (organizational capstone). Companion to the 10-page research plan (`docs/lut/2026-07-14-lut-doctoral-research-plan.md`), which is the "attached memo." One honesty adjustment applied to the Swedish-entity paragraph (Lifetime AB incorporation being finalized, Vinnova/TECoSA track pursued not held, Nordic infrastructure emerging) so it stays defensible under supervisor scrutiny; the founder's original wording is preserved below the draft. Sending is a RED-zone human action — staged, not sent.
 
@@ -27,7 +28,11 @@ Related Documents:
 
 ---
 
-## Send-ready letter
+## Status: SENT 14.07.2026 (Proton Mail, iOS)
+
+The version actually sent is recorded verbatim in `docs/field-notes/2026-07-14-lut-smolander-six-questions-letter-sent.md` (English letter + Finnish cover note + as-sent signature/disclaimer). It differs from the send-ready draft below: bold Swedish framing kept, Q2/Q3 anchor caveat omitted, Kemira added. The draft below is retained as the record of the staged, honesty-hedged version.
+
+## Send-ready draft (v1.1 — superseded by the as-sent version; retained per formulation-preservation rule)
 
 **Subject:** PhD research direction — six questions grounded in deployed sovereign AI systems
 

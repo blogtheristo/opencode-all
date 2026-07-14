@@ -43,6 +43,15 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
 - Törngren send-ready email: `docs/gtm/2026-07-14-email-torngren-send-ready.md` (v4 base + honest SAFECOMP empirical-testbed hook; reply keeping Broman CC'd; Lifetime Oy short sig). RED-zone — founder sends.
 - Smolander letter → v1.1: added honesty note that Q2 (Galaz/SRC) and Q3 (Universeum/Chalmers) anchors have NOT replied (prospective); KTH/TECoSA (Q1/Q4) live, Q5/Q6 own-grounded. Opening softened "in contact"→"reached out to" SRC.
 
+## Update (both letters SENT 14.07.2026)
+
+- **Törngren email SENT** (founder). Reply may arrive; watch KTH thread.
+- **Smolander six-question letter SENT** (Proton Mail iOS). Record: `docs/field-notes/2026-07-14-lut-smolander-six-questions-letter-sent.md` (verbatim EN + Finnish cover note). Staged letter file marked SENT v1.2.
+- Founder sent the BOLD version: Swedish para states Vinnova track + cross-border infra as fact; Q2/Q3 anchor caveat omitted; **Kemira added** to pilots ("offered: Outokumpu, Kemira, construction").
+- Call-prep flags (if Kari probes): AB not yet incorporated; Vinnova aspirational; KTH thread live (email sent) not signed; Q2/Q3 (Galaz/SRC, Universeum) not replied; Kemira/Outokumpu = "offered" verify contracted-vs-prospect; SAFECOMP cites still to pin.
+- 10-page LUT research plan is the attached memo. On Kari's steer → elevate chosen RQ(s) to PHD_FIREHORSE (lockstep); do not pre-edit thesis files.
+- Törngren memo also exported to Google Drive as a Doc (Drive MCP was connected; may need re-auth).
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.
