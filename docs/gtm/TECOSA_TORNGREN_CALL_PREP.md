@@ -29,9 +29,11 @@ Related Documents:
 
 ---
 
-**Purpose.** Risto's email to Törngren claims his INCOSE position paper "reads almost one-to-one against what we run in production." This brief makes that sentence fully defensible and prepares a 30-minute discussion held **on his principles** — his frameworks lead, DWS is the industrial instantiation. It doubles as the skeleton of the promised one-pager.
+**REFRAME (founder, 14.07.2026 — supersedes the original purpose below).** The email was rewritten (v4) to remove all paper-familiarity claims: on the call, **Risto brings the production system; Martin brings the theory and judges the fit.** Risto does not need to master §1 or carry §3 live. This brief's primary use is now as the **skeleton of the written one-pager** (§2 is the mapping that goes into it) and as background so Risto recognizes Martin's terms when Martin uses them. The §4 reading list is optional background, no longer a pre-call requirement.
 
-**Scope caveat (Rule 12).** Built from open abstracts, KTH/TECoSA/AD-EYE public pages, and search snippets. The INCOSE paper fulltext and the T-ITS review PDF are paywalled from this sandbox — before the call, Risto should skim the INCOSE paper itself (~20–30 min; DiVA/ResearchGate have copies) to have read his own claimed source first-hand.
+**Original purpose (v3-era, kept for context).** Risto's email to Törngren claimed his INCOSE position paper "reads almost one-to-one against what we run in production." This brief was to make that sentence fully defensible and prepare a 30-minute discussion held **on his principles** — his frameworks lead, DWS is the industrial instantiation.
+
+**Scope caveat (Rule 12).** Built from open abstracts, KTH/TECoSA/AD-EYE public pages, and search snippets. The INCOSE paper fulltext and the T-ITS review PDF are paywalled from this sandbox.
 
 ## 1. His five principles (from his own published work)
 
