@@ -93,7 +93,7 @@ The one-page overview being prepared for Törngren (`docs/gtm/TECOSA_TORNGREN_CA
 
 **Honesty guardrails (do not overstate to a supervisor):**
 
-- **Lifetime AB (SE) is _planned_ (Stockholm, ~November 2026), not yet incorporated** (`investor-outreach/AEGIS_SP_GROWTH_BRIEF.md`). Present it as the in-formation Swedish arm of the Lifetime Group, not an operating entity. Do not imply a Swedish R&D operation exists today.
+- **Lifetime AB (SE) incorporation is being finalized July 2026** — signing pending completion of eIDAS e-identification (physical e-card login), per founder update 14.07.2026. Not yet legally incorporated as of writing; present it as the imminent Swedish arm of the Lifetime Group, not yet an operating R&D entity. (Supersedes the earlier "~November 2026" planning date in `investor-outreach/AEGIS_SP_GROWTH_BRIEF.md` — that investor doc is now stale and should be reconciled separately.)
 - The **Vinnova/TECoSA "funding track" is aspirational adjacency**, not confirmed membership or a granted award. It is the collaboration Risto is pursuing, framed as such.
 - The KTH relationship is **one warm hand-off + a drafted reply**, not a signed collaboration. Smolander should hear "in play," not "in place."
 
@@ -130,6 +130,15 @@ The strategic point stands even with those caveats trimmed to fact: a candidate 
 - **This field note:** the relationship/decision record — stays here.
 - **On decision (after the 20-min call):** the chosen RQ(s) elevate into `PHD_FIREHORSE_EN.md` / `PHD_FIREHORSE_FI.md` (lockstep), consistent with the earlier §1.2 RQ set and the DWS-OS spine. Do **not** edit thesis files pre-emptively — the message explicitly asks Smolander to help choose, so the choice is his to shape.
 - **TECoSA / KTH node:** already staged for PHD_FIREHORSE elevation in the companion note; RQ1 is where it lands.
+
+## Update — the set grew to six (14.07.2026)
+
+Beyond the four in this note, two capstones were added and consolidated into a standalone **10-page LUT doctoral research plan** (`docs/lut/2026-07-14-lut-doctoral-research-plan.md`):
+
+- **Q5 — KYA as an open conformance standard** (the _technical_ spine that ties Q1/Q2/Q4 together; LUT-native Design Science; highest-scored May scenario, Article 1 drafted).
+- **Q6 — governing the voluntary-ESG → mandatory-sovereign-AI-compliance transition** without disrupting existing management systems (the _organizational_ capstone in LUT's Industrial Management department wheelhouse; Outokumpu + construction pilots as cases). This is the one squarely in Smolander's departmental register (software-engineering management / digital transformation), where Q1–Q4 lean CS/interdisciplinary.
+
+The research plan also carries an explicit **§3.8 boundary line** — what KYA conformance does _not_ yet cover, each gap mapped to an RQ — because a supervisor respects a plan that draws its own boundary over one that claims to solve everything.
 
 ## Next Steps
 

@@ -23,6 +23,14 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
 - Honesty guardrails baked in: **Lifetime AB (SE) planned ~Nov 2026, NOT yet incorporated**; Vinnova track = aspirational adjacency not confirmed; KTH = in-play not in-place. Do not overstate to supervisor.
 - Cross-linked Q4 into companion KTH note (`2026-07-14-kth-...` → v1.1) as the concrete SAFECOMP-validation hook for Törngren.
 
+## Update (10-page plan + six questions)
+
+- Created `docs/lut/2026-07-14-lut-doctoral-research-plan.md` — standalone ~10-page LUT doctoral research plan (NOT folded into thesis files; avoids four-file lockstep, per May precedent).
+- Question set is now **six**: Q1–Q4 (technical, from KTH/SRC) + **Q5 KYA open conformance standard** (technical Design-Science spine) + **Q6 governing voluntary→mandatory compliance transition** (organizational capstone, LUT Industrial Management dept / Smolander wheelhouse; Outokumpu + construction pilots).
+- Added explicit **§3.8 boundary** — what KYA does NOT cover yet, each gap → an RQ (per user directive: draw your own boundary line).
+- **Lifetime AB (SE) status update (founder, 14.07.2026):** incorporation being finalized THIS WEEK / July 2026, signing pending eIDAS e-card login. Superseded "~Nov 2026" across research plan + field note.
+  - ⚠️ **Reconcile separately:** `investor-outreach/AEGIS_SP_GROWTH_BRIEF.md` still says "planned November 2026" — now stale. Left unedited (out of scope, investor material). Flag to user.
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.
