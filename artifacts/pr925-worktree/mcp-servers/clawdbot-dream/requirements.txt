@@ -1,5 +1,0 @@
-# clawdbot-dream MCP server dependencies
-# Python 3.10+
-
-# MCP SDK with FastMCP + stdio transport
-mcp[cli]>=1.9.0
