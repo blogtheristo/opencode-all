@@ -38,6 +38,11 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
 - Blocker: eIDAS e-card login (Finnish FINeID via cross-border; Swedish BankID needs personnummer). Pragmatic path: Swedish formation agent/accountant to file Bolagsverket + F-skatt/VAT, sidestepping eID friction. Swedish specifics = Medium confidence, verify.
 - Send-ready six-question Smolander letter staged: `docs/lut/2026-07-14-letter-smolander-six-questions.md` (RED-zone, not sent). Sweden paragraph honestly hedged so it survives if AB slips.
 
+## Update (Törngren email staged + Smolander honesty)
+
+- Törngren send-ready email: `docs/gtm/2026-07-14-email-torngren-send-ready.md` (v4 base + honest SAFECOMP empirical-testbed hook; reply keeping Broman CC'd; Lifetime Oy short sig). RED-zone — founder sends.
+- Smolander letter → v1.1: added honesty note that Q2 (Galaz/SRC) and Q3 (Universeum/Chalmers) anchors have NOT replied (prospective); KTH/TECoSA (Q1/Q4) live, Q5/Q6 own-grounded. Opening softened "in contact"→"reached out to" SRC.
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.

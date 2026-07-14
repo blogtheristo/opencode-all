@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Added an honesty note on anchor status per founder instruction — the KTH/TECoSA thread (Q1/Q4) is live and Q5/Q6 are grounded in own production/pilots, but Q2 (Galaz/SRC) and Q3 (Universeum/Chalmers) anchors have not yet replied and are prospective. Softened the opening from "in contact with … SRC" to "reached out to … SRC" to match. Sending remains RED-zone (human only).
 - Version: 1.0 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Send-ready email to Prof. Kari Smolander (LUT) presenting the six research questions, built on the founder's Boardy base draft (five questions) extended with Q6 (organizational capstone). Companion to the 10-page research plan (`docs/lut/2026-07-14-lut-doctoral-research-plan.md`), which is the "attached memo." One honesty adjustment applied to the Swedish-entity paragraph (Lifetime AB incorporation being finalized, Vinnova/TECoSA track pursued not held, Nordic infrastructure emerging) so it stays defensible under supervisor scrutiny; the founder's original wording is preserved below the draft. Sending is a RED-zone human action — staged, not sent.
 
 Document Status:
@@ -32,7 +33,7 @@ Related Documents:
 
 Hi Kari,
 
-Quick update since we last spoke. I've been in contact with KTH/TECoSA (via Martin Törngren) and Stockholm Resilience Centre (Victor Galaz), and those conversations have sharpened six research questions grounded in our live production systems rather than pure theory.
+Quick update since we last spoke. I've been in touch with KTH/TECoSA (via Martin Törngren) and have reached out to the Stockholm Resilience Centre (Victor Galaz); that work has sharpened six research questions grounded in our live production systems rather than pure theory.
 
 **Q1. How can sovereign edge AI orchestration be formally verified for trustworthiness in regulated industrial environments?**
 Anchor: KTH/TECoSA (Törngren). Testbed: DGX-based Aegis + KYA edge control room. EU hook: AI Act high-risk, NIS2.
@@ -51,6 +52,8 @@ Anchor: LUT-native (Design Science). Testbed: KYA reference implementation in pr
 
 **Q6. How can industrial enterprises govern the transition from voluntary ESG reporting to mandatory sovereign-AI compliance infrastructure without disrupting existing management systems?**
 Anchor: LUT Industrial Management — your department's territory (software-engineering management, digital transformation). Testbed: Outokumpu + construction-sector pilots. EU hook: CSRD/CBAM mandatory-reporting transition, AI Act. This is the organizational capstone — the management-layer counterpart to Q5's technical spine.
+
+A note on where the external anchors stand, so you have the honest picture: the KTH/TECoSA thread (Q1, Q4) is live, and Q5 (KYA) and Q6 are grounded in our own production system and Finnish pilots. For Q2 and Q3, I've contacted the anchors — Galaz at the Stockholm Resilience Centre, and Universeum/Chalmers respectively — but haven't yet had a reply, so those two are prospective rather than confirmed.
 
 What makes LUT the stronger home for this work is the Finnish industrial enterprise ties. Questions 1, 2, 4, 5 and 6 all have live testbeds through existing customers and pilot targets (Outokumpu, construction sector), which gives the doctoral research empirical grounding that KTH or SRC alone cannot provide.
 
