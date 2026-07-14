@@ -25,13 +25,14 @@
 - JSON parses; 34 deprecated + 5 ambiguous phrases load (was 19 → +15).
 - Registry doc + field note excluded from scan (0 self-flags).
 
+## Resolved
+
+- **False positive fixed by rewording** (founder chose "reword the page"):
+  `onelifetime.world/posts/eu-policy-backed-capital-bankable-sovereignty.html` (+ landing-pages
+  mirror) "benchmark scores" → "lab benchmarks" in the doctrine-aligned rejection sentence.
+  Meaning preserved; dual-folder synced; both files lint clean; drift-log updated to "resolved".
+  The `benchmark scores` family stays a clean hard-FAIL (no reclassification needed).
+
 ## Open / for next step
 
-- **One false positive** (non-blocking CI): `benchmark scores` FAILs on
-  `onelifetime.world/posts/eu-policy-backed-capital-bankable-sovereignty.html:394`
-  (+ landing-pages mirror) where it's used in a doctrine-**aligned** _rejection_
-  sentence ("buyers are not going to fund AI... on the basis of benchmark scores").
-  Follow-up options: reword the page, or reclassify the `benchmark scores` family as
-  WARN-only `ambiguousDisplayPhrasesNeedingContext` (valid when paired with a rejection
-  word). Left as deprecated per the explicit Step-1 instruction; surfaced for a decision.
 - Step 2 not started.
