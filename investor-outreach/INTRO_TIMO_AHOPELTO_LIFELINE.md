@@ -12,24 +12,24 @@ Memo: INVESTOR_MEMO_AEGIS.md (defence-first) — NOT the general climate memo
 Attachment: CASE_SSAB_LIFETIME_AB.md (SSAB + Outokumpu dual-use case)
 
 AGENT HISTORY:
-- v1.0 (2026-06-07): Created as the next Dual Use / defence target after Matti Heikkonen was deprioritized (DD PASS). Pulled from DEFENSE_SOVEREIGNTY_INVESTORS_2026.md Tier 1 (warmest Nordic path). Lifeline = Helsinki seed fund, ICEYE in portfolio (defence-relevant), co-organised DEFSEC 2025, EUR 400M Fund VI. Defence-first framing of the Lifetime Group autonomous-mobility/robotics RaaS thesis; round size (~EUR 650k seed) fits Lifeline's pre-seed/seed stage. Applies the memo-assignment rule: Aegis memo, not climate memo.
+- v1.0 (2026-06-07): Created as a Dual Use / defence target. Pulled from DEFENSE_SOVEREIGNTY_INVESTORS_2026.md Tier 1 (warmest Nordic path). Lifeline = Helsinki seed fund, ICEYE in portfolio (defence-relevant), co-organised DEFSEC 2025, EUR 400M Fund VI. Defence-first framing of the Lifetime Group autonomous-mobility/robotics RaaS thesis; round size (~EUR 650k seed) fits Lifeline's pre-seed/seed stage. Applies the memo-assignment rule: Aegis memo, not climate memo.
 -->
 
 # Investor Intro Note — Timo Ahopelto, Lifeline Ventures
 
 ## Target Profile
 
-| Field | Value |
-| ----- | ----- |
-| **Name** | Timo Ahopelto (co-GP) — alt contact Petteri Koponen |
-| **Fund** | Lifeline Ventures — Helsinki — EUR 400M Fund VI |
-| **Stage** | Pre-seed / seed (growing into later stages with Fund VI) |
+| Field                 | Value                                                                                                             |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Name**              | Timo Ahopelto (co-GP) — alt contact Petteri Koponen                                                               |
+| **Fund**              | Lifeline Ventures — Helsinki — EUR 400M Fund VI                                                                   |
+| **Stage**             | Pre-seed / seed (growing into later stages with Fund VI)                                                          |
 | **Defence relevance** | ICEYE in portfolio; co-organised DEFSEC 2025 with Tesi, DEFINE Finland, FiBAN; LPs incl. Tesi, Nordea, Varma, Elo |
-| **Track record** | 125 companies, 2 unicorns (Wolt, Oura) |
-| **Why now** | Finnish defence/dual-use is the hottest 2026 allocation; Lifeline is the warmest Nordic seed door for it |
-| **LinkedIn** | linkedin.com/in/timoahopelto/ |
-| **Memo** | `INVESTOR_MEMO_AEGIS.md` (defence-first) |
-| **Attachment** | `CASE_SSAB_LIFETIME_AB.md` |
+| **Track record**      | 125 companies, 2 unicorns (Wolt, Oura)                                                                            |
+| **Why now**           | Finnish defence/dual-use is the hottest 2026 allocation; Lifeline is the warmest Nordic seed door for it          |
+| **LinkedIn**          | linkedin.com/in/timoahopelto/                                                                                     |
+| **Memo**              | `INVESTOR_MEMO_AEGIS.md` (defence-first)                                                                          |
+| **Attachment**        | `CASE_SSAB_LIFETIME_AB.md`                                                                                        |
 
 ## Fit Assessment
 
@@ -54,7 +54,7 @@ The physical mobility business is self-funding; investor capital goes 100% to th
 Attached is a worked case (SSAB + Outokumpu) showing how the platform serves Nordic heavy industry's critical-materials supply chains. Could I get 30 minutes — Teams or coffee in Helsinki?
 
 Best,
-**Risto Anton Päärni** — Founder, Lifetime Oy / Lifetime AB / Lifetime OÜ
+**Risto Anton Päärni** — Founder, Lifetime Oy / Lifetime AB / DWS IQ OÜ
 
 **Sender:** `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never `noreply@`.
 

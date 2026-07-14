@@ -188,6 +188,12 @@ const posts = [
     date: '25 Jun 2026',
   },
   {
+    file: 'nvidia-jetson-thor-physical-ai.html',
+    title:
+      'NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It.',
+    date: '26 Jun 2026',
+  },
+  {
     file: 'industrial-intelligence-weekly-2026-06-28.html',
     title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
     date: '28 Jun 2026',
@@ -206,6 +212,22 @@ const posts = [
     file: 'tiedon-vanheneminen-sensoridata-retention.html',
     title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
     date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.html',
+    title: 'The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.fi.html',
+    title: 'Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI)',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'nvidia-halos-robotics-physical-ai-safety.html',
+    title:
+      'NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking.',
+    date: '10 Jul 2026',
   },
 ];
 

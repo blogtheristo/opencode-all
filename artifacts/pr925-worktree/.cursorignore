@@ -1,9 +1,0 @@
-﻿# Keep secrets out of AI context (Cursor indexing / default reads).
-# Tracked templates like .env.example stay readable — do not use a blanket `.env.*` here.
-.env
-.env.local
-.env.mcp
-.env.*.local
-*.secret
-credentials.json
-service-account-*.json

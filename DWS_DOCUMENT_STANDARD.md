@@ -4,14 +4,16 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
 
+- Version: 2.5 | Tool: Claude Code | Session: claude/jasenko-hadzic-outreach-ici0e7 | Date: 12.07.2026 | Changes: Extended §20.6 scope to explicitly cover `investor-outreach/LETTER_*` files and cloud exports (Google Docs, Drive PDFs, Gamma decks) — version block goes at the end for these, not the first page. Added §20.7 (Cloud Export Cleanup — Always Link Superseded Files): when a connector like Google Drive lacks rename/delete/update-in-place and a correction requires a new file, the agent must always link every superseded file needing manual deletion, on every correction, not just the first. Triggered by repeated Google Drive exports of an investor outreach letter (Jasenko Hadzic / Spintop Ventures) creating duplicate untitled files with no cleanup pointer.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
 - Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
 - Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
+- Version: 2.1 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 24.06.2026 | Changes: Added Section 20 (Whitepaper Standard) — defines the outward-facing whitepaper document type: A4 portrait, Aegis logo top-right header, small-font version line at top, copyright + page-number footer, Sources line, Markdown/Learn-HTML source of truth with branded .docx + Google Docs export via scripts, and governance (truth-check, brand, Truth-Standard registration, lockstep versioning).
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
 - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
@@ -36,7 +38,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 28.04.2026
+- Last Modified: 12.07.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -66,6 +68,7 @@ Document Status:
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
 21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
+22. [Whitepaper Standard](#22-whitepaper-standard) ⭐ NEW
 
 ---
 
@@ -2417,7 +2420,7 @@ A terminology/security correction (e.g. replacing a tool name) is a **patch** bu
 
 **Rationale:** A customer or procurement evaluator opening the document should see the substantive content first (name, summary, offer, capability) — not an internal changelog with session IDs and tooling names. The internal provenance is still mandatory (§2 / §20.2), it just moves to the back, alongside the copyright and contact block that normally closes a professional document.
 
-**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, and any file whose immediate destination is an external reader. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
+**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, `investor-outreach/LETTER_*` and any other per-recipient outreach letter, and any cloud export (Google Docs, Google Drive PDFs, Gamma decks) whose immediate destination is an external reader — investor, customer, or evaluator. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
 
 **Layout:**
 
@@ -2450,6 +2453,18 @@ Document Status:
 ```
 
 First applied: `bids/ORK160826/ORK_Risto_CV_FI_164.md` → v165, moving the block from top to bottom.
+
+### 20.7 Cloud Export Cleanup — Always Link Superseded Files
+
+**Rule:** Several cloud connectors used for exports (e.g. the Google Drive MCP tools available in this environment) expose `create_file` but no rename or delete operation. When a correction or update to an already-exported cloud document (Google Doc, Drive PDF, Gamma deck, etc.) requires creating a new file rather than editing the existing one in place, the agent MUST:
+
+1. State plainly that the connector cannot rename or delete in place, so a new file was created instead of updating the old one.
+2. Give the user a direct, clickable link (view URL) to every superseded file that now needs manual deletion — never just say "an old version exists," always the actual URL.
+3. Repeat this at every subsequent correction, not just the first — each new export leaves another file behind, and all of them need to be listed, not only the most recent.
+
+**Rationale:** Without an explicit link, the user has to search Drive by title to find and remove stale copies — easy to skip, and stale duplicates of investor/customer-facing letters risk being sent by mistake. Fail Loud (Rule 12) requires surfacing this cleanup burden every time, not leaving it implicit.
+
+**Applies to:** Any cloud connector without rename/delete/update-in-place support (Google Drive is the current example; the rule generalizes to any future connector with the same gap).
 
 ---
 
@@ -2587,3 +2602,36 @@ Sessions & Modifications:
 | 1.1     | 15.01.2026 | Claude Code | QVvDX      | Added examples       |
 | 2.0     | 01.02.2026 | Manual      | N/A        | Complete restructure |
 ```
+
+---
+
+## 22. Whitepaper Standard
+
+Whitepapers are outward-facing, publishable documents (market/technical/regulatory) — distinct from internal Field Notes (§12) and Core Artifacts (§11). They carry external branding and a fixed page layout because they are handed to customers, investors, Notified Bodies, and press.
+
+### 22.1 Layout (mandatory)
+
+| Element          | Requirement                                                                                                                                                                                                                                                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Page size**    | **A4** (210 × 297 mm), portrait. Margins ≈ 22 mm.                                                                                                                                                                                                                                                                       |
+| **Header**       | **Aegis logo in the top-right corner** (`dws10.com/static/images/firehorse-aegis-logo.png`), ~1.15 in wide.                                                                                                                                                                                                             |
+| **Version line** | Small font (~8 pt, grey) at the **very top** of page 1, above the title: `Whitepaper · Version X.Y · <date> · Lifetime Oy[ / <product>] · Classification: <Public\|Confidential>`.                                                                                                                                      |
+| **Footer**       | Three zones on every page (tab stops): **left** = classification (`Confidential`/`Public`, small bold); **center** = `© <year> Lifetime Oy · Y-tunnus 0772407-9 · All rights reserved.` (small); **right** = page number (larger, ~13 pt bold). Footer classification must match the §22.1 version-line classification. |
+| **Body text**    | **Justified** (both edges aligned) for a polished chapter look. **12 pt base** font with ~1.15 line spacing — readable on mobile (iPhone). Headings left-aligned.                                                                                                                                                       |
+| **Sources**      | A final _Sources_ line citing every external fact (regulatory CELEX, vendor announcements with dates).                                                                                                                                                                                                                  |
+
+### 22.2 Source of truth & formats
+
+- Author the canonical whitepaper as **Markdown** (preferred for new) or **HTML in `Learn/`** (existing). Markdown follows this standard's header block (§2); the rendered/exported copy carries the §22.1 layout.
+- **Export to `.docx` (A4, branded) and Google Docs** via `scripts/build-whitepapers.py` (`npm run build:whitepapers`) — do not hand-format per export. This is the **single pipeline; pandoc is retired** for whitepapers. Outputs land in `build/whitepapers/` (git-ignored); drag a `.docx` into Drive to get a Google Doc with formatting preserved. Embed images as packaged assets (`scripts/assets/aegis-logo.jpg`), not relative paths.
+- **Colorful branding** carries through to the Doc: navy banner + two-tone title, navy headings / blue sub-headings, navy & amber callout boxes (highlight / disclaimer / CTA), KPI cards, tier cards, and navy table-header rows — all parsed from the source markup (HTML container classes `highlight-box` / `disclaimer` / `cta-box` / `kpi-row` / `tier-grid`).
+- **Output naming:** `NN_WP<n>_<Slug>_A4.docx`, where `NN` is a zero-padded `VERSION_TAG` (env-overridable). The leading number makes the latest build sort together / be easy to find on Drive — bump `VERSION_TAG` per release.
+- **Classification:** `Confidential` = limited / intended-recipient distribution (sent to named persons), not wide audience; `Public` = freely distributable. The version-line and footer classification must match, and govern where the whitepaper may later be hosted (Confidential → password-gated page only).
+- **Never publish whitepaper `.md` in public-site folders** (Non-Negotiable Rule 5); publish HTML/PDF/Doc, keep the `.md` in `docs/` or `Learn/` source.
+
+### 22.3 Governance
+
+- **Always confirm classification with the human author when a new whitepaper is written** (Confidential vs Public) — never default it silently. Classification governs distribution and hosting (see §22.2), so it is a human-in-the-loop decision per document.
+- Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
+- Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
+- Versioning is lockstep with the header block (§2) and the top version line (§22.1) — bump both together.

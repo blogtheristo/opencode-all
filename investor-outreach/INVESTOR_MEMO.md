@@ -3,8 +3,8 @@
 **Company:** DWS6 (Lifetime Oy)
 **Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 4.3
-**Last Updated:** April 20, 2026
+**Document Version:** 4.4
+**Last Updated:** June 9, 2026
 **Status:** Active Fundraising
 **Platform Status:** Public Cloud V1 — Production Ready (a fleet of skilled agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
@@ -69,21 +69,22 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 - **Valuation Cap:** €3.8M
 - **Investment Type:** Equity-style, high-risk investment (not a loan)
 - **Total Round:** €650,000
+- **Structure:** A single **Admiral (Fleet Admiral) seat** — €250K base, scalable to the full €650K, so one investor can anchor the whole round
 - **Lead Investor Requirement:** EU/EEA-domiciled (sovereignty protection)
 
 ### Seat Tiers
 
-| Tier               | Investment | Seats Available                                                            |
-| ------------------ | ---------- | -------------------------------------------------------------------------- |
-| **Fleet Admiral**  | €200,000   | 1                                                                          |
-| **Captain**        | €50,000    | 9 (each covering a cluster of EU-regulated industries, including dual-use) |
-| **Deputy Captain** | €5,000     | Unlimited                                                                  |
+**The investor round is a single Admiral (Fleet Admiral) seat.**
 
-**Round math:** €200K (Fleet Admiral) + 9 × €50K (Captain Seats) = **€650K total**
+| Tier                                | Investment                                | Seats Available |
+| ----------------------------------- | ----------------------------------------- | --------------- |
+| **Fleet Admiral** (the investor seat) | €250,000 base — scalable €250,000–€650,000 | 1               |
 
-- **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
-- **Captain** — Named captain covering a cluster of 25 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
-- **Deputy Captain** — Open tier, unlimited seats. €5,000. Quarterly briefings, upgrade path to Captain.
+**Round math:** one Admiral seat funds **€250K up to the full €650K** target. A single EU/EEA-domiciled investor can anchor the entire round. If the lead Admiral takes less than €650K, the balance is filled by additional EU/EEA-domiciled SAFE co-investors on the **same Admiral terms** — there is no separate investor captain tier.
+
+- **Fleet Admiral** — The lead and sole investor instrument for this round. €250K minimum, scalable to the full €650K. Full board-observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds. Must be EU/EEA-domiciled (sovereignty protection).
+
+**Captain seats are a client position, not an investment.** The former Captain / Deputy Captain tiers have been repositioned as **client captains** — customers who take a named industry position on the DWS IQ platform (a commercial relationship, not equity). They are no longer part of the investor round. See `captain-deck.md`.
 
 ---
 
@@ -347,7 +348,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 - **Valuation Cap:** €3.8M
 - **Discount:** 18%
-- **Pro-Rata Rights:** Available for €50k+ investors (Captain tier and above)
+- **Pro-Rata Rights:** Available to the Admiral seat and all SAFE co-investors on Admiral terms
 - **Information Rights:** Monthly updates for all investors
 - **MFN (Most Favored Nation):** Standard protection
 

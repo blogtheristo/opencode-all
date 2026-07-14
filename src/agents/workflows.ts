@@ -23,6 +23,7 @@ import { withWorkflowSpan, withWorkflowStepSpan } from '../observability/tracing
 import type { AgentContext, AgentResponse } from './types.js';
 import { MORNING_INTELLIGENCE_WORKFLOW } from './workflow/workflows/morning-intelligence.js';
 import { CONTENT_PIPELINE_WORKFLOW } from './workflow/workflows/content-pipeline.js';
+import { OUTREACH_FULL_WORKFLOW } from './outreach-orchestrator.agent.js';
 
 // ============ WORKFLOW TYPES ============
 
@@ -71,7 +72,8 @@ export interface WorkflowExecution {
 /** Full compliance assessment: data analysis → regulatory check → recommendations */
 export const COMPLIANCE_ASSESSMENT_WORKFLOW: WorkflowDefinition = {
   name: 'compliance-assessment',
-  description: 'Full EU compliance assessment: emissions analysis, regulatory gap check, and remediation recommendations',
+  description:
+    'Full EU compliance assessment: emissions analysis, regulatory gap check, and remediation recommendations',
   version: '1.0.0',
   timeoutMs: 300_000, // 5 minutes
   steps: [
@@ -107,7 +109,8 @@ export const COMPLIANCE_ASSESSMENT_WORKFLOW: WorkflowDefinition = {
 /** Construction project full assessment: parallel sensor data + material + schedule, then unified assessment */
 export const CONSTRUCTION_FULL_WORKFLOW: WorkflowDefinition = {
   name: 'construction-full',
-  description: 'Full construction project assessment: site safety, material carbon, schedule risk, then unified compliance',
+  description:
+    'Full construction project assessment: site safety, material carbon, schedule risk, then unified compliance',
   version: '1.0.0',
   timeoutMs: 300_000,
   steps: [
@@ -178,6 +181,8 @@ export const WORKFLOW_REGISTRY: Map<string, WorkflowDefinition> = new Map([
   // Climate IQ Pantheon Workflows
   ['morning-intelligence', MORNING_INTELLIGENCE_WORKFLOW],
   ['content-pipeline', CONTENT_PIPELINE_WORKFLOW],
+  // Outreach Pipeline
+  ['outreach-full', OUTREACH_FULL_WORKFLOW],
 ]);
 
 // ============ WORKFLOW EXECUTOR ============
@@ -263,9 +268,7 @@ export async function executeWorkflow(
               case 'parallel': {
                 if (!step.agents) throw new Error(`Step ${step.id} missing agents list`);
                 const results = await Promise.all(
-                  step.agents.map((agent) =>
-                    agentRegistry.executeAgent(agent, context, stepInput),
-                  ),
+                  step.agents.map((agent) => agentRegistry.executeAgent(agent, context, stepInput)),
                 );
                 // Store as array keyed by step.id
                 execution.stepResults.set(step.id, results as unknown as AgentResponse);

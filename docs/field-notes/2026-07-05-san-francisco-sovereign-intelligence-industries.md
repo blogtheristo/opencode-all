@@ -1,8 +1,8 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: 2026-07-05-san-francisco-sovereign-intelligence-industries.md
-Version: 1.0
-Last-Updated: 2026-07-05
+Version: 1.2
+Last-Updated: 2026-07-09
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code (claude-sonnet-5)
 Purpose: Captures the thesis "What happens in San Francisco stays in San
@@ -12,14 +12,32 @@ Purpose: Captures the thesis "What happens in San Francisco stays in San
          Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html.
 Branch: claude/sovereign-intelligence-industries-ypyo41
 Owner: risto.paarni@lifetime.fi
+Changes (v1.1, 2026-07-09, session claude/dws-sovereign-intelligence-wwho6h):
+         Promoted per this file's own action trigger (§3) — "Sovereign
+         Intelligence (SI)" registered as a positioning thesis in
+         DWS_MARKET_RESEARCH_STANDARD.md §8.3 and DWS_TRUTH_STANDARD.md
+         row 27.
+Changes (v1.2, 2026-07-09, same session, same-day coinability/GTM audit):
+         See docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md.
+         The "(SI)" abbreviation and "coined/canonical term" framing from
+         v1.1 were WRONG and corrected in both standards: "SI" collides
+         with the pre-existing "NVIDIA System Integrator (SI)" usage in
+         DWS_MARKET_RESEARCH_STANDARD.md §8.1, and Sovereign Intelligence,
+         LLC (sovereign.ai) has held the exact name in an adjacent
+         AI-intelligence vertical since ~2013 (plus 2026 competitors
+         StirlingX/Octostar use near-identical phrasing). The thesis and
+         tweet copy below remain valid and usable — only the "DWS coined
+         this / abbreviate as SI" framing is retracted. Spell out
+         "Sovereign Intelligence" in full; never abbreviate.
 -->
 
 # "What Happens in San Francisco Stays in San Francisco" — Therefore Sovereign Intelligence for Industries
 
-- **Date:** 2026-07-05
+- **Date:** 2026-07-05 (positioned as a market category entry 2026-07-09 — see `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 / `DWS_TRUTH_STANDARD.md` row 27; audited same day, see `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md`)
 - **Author:** Risto Anton Päärni (risto.paarni@lifetime.fi)
-- **Classification:** Positioning thesis — draft social copy + internal memo
-- **Draft only** — not for any public-site folder (`dws10.com/`, `dws6.com/`, `onelifetime.world/`, `lifetime.fi/`, or their `landing-pages/` mirrors), per `CLAUDE.md` Non-Negotiable Rule 5. Route through `DWS_BRAND_STANDARD.md` and run `/truth-check` before any public posting.
+- **Classification:** Positioning thesis — source draft for the §8.3 entry
+- **Not a DWS-exclusive term** — do not present "Sovereign Intelligence" as coined by DWS or abbreviate it "SI" (see audit). The thesis sentence itself remains DWS's distinctive asset.
+- **Still draft for public posting** — not for any public-site folder (`dws10.com/`, `dws6.com/`, `onelifetime.world/`, `lifetime.fi/`, or their `landing-pages/` mirrors), per `CLAUDE.md` Non-Negotiable Rule 5. Route through `DWS_BRAND_STANDARD.md` and run `/truth-check` before any public posting.
 
 ## Ontology Tags
 
@@ -68,7 +86,7 @@ Frontier AI's center of gravity — model labs, compute, and the enterprise-serv
 - Use as the opening hook for the next sovereignty-focused pitch deck or outreach wave; cite the whitepaper for the substantiating detail.
 - Run `/truth-check` and route through `DWS_BRAND_STANDARD.md` before this line (or the tweet above) appears in any public-site folder or investor deck.
 - Cross-reference `docs/field-notes/2026-05-27-anthropic-blackstone-hf-services-firm-fractional-ai.md` when briefing sales on the competitive frame — the "no EU sovereignty story" gap identified there is exactly what this thesis is built to exploit.
-- If this line tests well externally, propose promoting it to `DWS_MARKET_RESEARCH_STANDARD.md` or the investor narrative deck per the Skill Codification Rule (don't let a good line live only in chat scrollback).
+- ✅ Done (2026-07-09): promoted to `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 and registered as `DWS_TRUTH_STANDARD.md` row 27, per the Skill Codification Rule. Public-posting gate (row above) is unchanged by promotion.
 
 ## 5. Hero Text Candidates (draft — not applied to any live page)
 

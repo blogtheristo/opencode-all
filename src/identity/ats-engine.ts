@@ -14,14 +14,19 @@
  * @section DWS_SECURITY_STANDARD §18.3
  * @see Legal/KYA_SECURITY_v1.2.md §3 (ATS base formula)
  * @see Legal/KYA_OPTIMIZATION_v1.4.md §3 (ATS with autoresearch A×0.25 extension)
+ * @see Legal/KYA_STANDARD_v1.md §14 (Agentic Commerce Mandate Gating — evaluateMandateGate)
  */
 
+import { z } from 'zod';
 import type {
   ATSBreakdown,
   ATSResult,
   CapabilityManifest,
+  MandateGateDecision,
+  MandateGateRequest,
   PermissionLevel,
   TelemetryEntry,
+  TenantGatingProfile,
 } from './types.js';
 
 // ============ CONSTANTS ============
@@ -36,10 +41,10 @@ const OVERREACH_PENALTY = 0.05;
 const LATENCY_THRESHOLD_MS = 500;
 
 /** Penalty for avg latency exceeding threshold */
-const LATENCY_PENALTY = 0.10;
+const LATENCY_PENALTY = 0.1;
 
 /** KYA score threshold for GO decision (normalized) */
-const GO_THRESHOLD = 0.50;
+const GO_THRESHOLD = 0.5;
 
 // ============ ATS CALCULATOR ============
 
@@ -54,10 +59,7 @@ const GO_THRESHOLD = 0.50;
  * @param telemetry - Firehorse telemetry log entries for the session
  * @returns ATSResult with score, breakdown, and GO/NO_GO decision
  */
-export function calculateATS(
-  manifest: CapabilityManifest,
-  telemetry: TelemetryEntry[],
-): ATSResult {
+export function calculateATS(manifest: CapabilityManifest, telemetry: TelemetryEntry[]): ATSResult {
   const now = new Date().toISOString();
 
   // Hard kill: unsigned or expired manifest
@@ -65,22 +67,26 @@ export function calculateATS(
     Date.now() > new Date(manifest.signedAt).getTime() + manifest.ttlSeconds * 1000;
 
   if (!manifest.signature.verified || manifestExpired) {
-    return buildResult(0.0, {
-      baseScore: 1.0,
-      violationPenalty: 0,
-      latencyPenalty: 0,
-      overreachPenalty: 0,
-      manifestValid: false,
-      violationCount: 0,
-      deniedAttemptCount: 0,
-      avgLatencyMs: 0,
-    }, now);
+    return buildResult(
+      0.0,
+      {
+        baseScore: 1.0,
+        violationPenalty: 0,
+        latencyPenalty: 0,
+        overreachPenalty: 0,
+        manifestValid: false,
+        violationCount: 0,
+        deniedAttemptCount: 0,
+        avgLatencyMs: 0,
+      },
+      now,
+    );
   }
 
   let score = 1.0;
 
   // 1. KYA Violation penalty (critical — 4 violations = zero trust)
-  const violations = telemetry.filter(l => l.event === 'KYA_VIOLATION');
+  const violations = telemetry.filter((l) => l.event === 'KYA_VIOLATION');
   const violationPenalty = violations.length * VIOLATION_PENALTY;
   score -= violationPenalty;
 
@@ -96,32 +102,32 @@ export function calculateATS(
   }
 
   // 3. Permission overreach (denied path access attempts)
-  const deniedAttempts = telemetry.filter(l => l.status === 'DENIED');
+  const deniedAttempts = telemetry.filter((l) => l.status === 'DENIED');
   const overreachPenalty = deniedAttempts.length * OVERREACH_PENALTY;
   score -= overreachPenalty;
 
   // Floor at 0
   score = Math.max(0, score);
 
-  return buildResult(score, {
-    baseScore: 1.0,
-    violationPenalty,
-    latencyPenalty,
-    overreachPenalty,
-    manifestValid: true,
-    violationCount: violations.length,
-    deniedAttemptCount: deniedAttempts.length,
-    avgLatencyMs: Math.round(avgLatency),
-  }, now);
+  return buildResult(
+    score,
+    {
+      baseScore: 1.0,
+      violationPenalty,
+      latencyPenalty,
+      overreachPenalty,
+      manifestValid: true,
+      violationCount: violations.length,
+      deniedAttemptCount: deniedAttempts.length,
+      avgLatencyMs: Math.round(avgLatency),
+    },
+    now,
+  );
 }
 
 // ============ HELPERS ============
 
-function buildResult(
-  score: number,
-  breakdown: ATSBreakdown,
-  calculatedAt: string,
-): ATSResult {
+function buildResult(score: number, breakdown: ATSBreakdown, calculatedAt: string): ATSResult {
   const kyaScore = Math.round(score * 100);
   return {
     score,
@@ -146,10 +152,7 @@ function mapPermissionLevel(kyaScore: number): PermissionLevel {
  * Validates a path access against the Capability Manifest.
  * Returns true if access is permitted, false if denied.
  */
-export function isPathPermitted(
-  manifest: CapabilityManifest,
-  requestedPath: string,
-): boolean {
+export function isPathPermitted(manifest: CapabilityManifest, requestedPath: string): boolean {
   // Denied paths take precedence
   for (const denied of manifest.deniedPaths) {
     if (requestedPath.startsWith(denied)) return false;
@@ -160,4 +163,175 @@ export function isPathPermitted(
   }
   // Default deny (zero-trust)
   return false;
+}
+
+// ============ MANDATE GATE (KYA §14, v1.9) ============
+
+/** Platform floor: no mandates of any type below this ATS (KYA §14.2.1 floor 1) */
+const MANDATE_FLOOR_ATS = 0.5;
+
+/** Band from which the agent may sign a Payment Mandate itself (§14.2) */
+const PAYMENT_BAND_ATS = 0.8;
+
+/** Platform floor for Human Not Present: raisable per tenant, never lowerable (§14.2.1 floor 2) */
+const HNP_FLOOR_ATS = 0.9;
+
+/**
+ * Tenant gating profile validator (KYA §14.2.1).
+ * Encodes the tighten-only rule: a profile that attempts to loosen a
+ * platform floor fails validation — floors are never trusted from input.
+ */
+export const tenantGatingProfileSchema = z.object({
+  profileVersion: z.string().min(1),
+  tenantId: z.string().min(1),
+  industryDefault: z.string().optional(),
+  hnpMinAts: z
+    .number()
+    .min(
+      HNP_FLOOR_ATS,
+      `hnpMinAts below platform floor ${HNP_FLOOR_ATS} — profiles may only tighten (KYA §14.2.1)`,
+    )
+    .max(1.0),
+  confirmAbove: z.number().positive().optional(),
+  hnpEnabled: z.boolean(),
+});
+
+/**
+ * Validates a tenant gating profile against the tighten-only rule.
+ * Throws ZodError on a loosening or malformed profile.
+ */
+export function validateTenantGatingProfile(profile: unknown): TenantGatingProfile {
+  return tenantGatingProfileSchema.parse(profile);
+}
+
+/**
+ * Evaluates a mandate request against the ATS band, the manifest's
+ * spend_authority block, and the tenant gating profile
+ * (KYA §14.2 / §14.2.1 / §14.3).
+ *
+ * Runs at the same pre-execution point as path access — BEFORE any mandate
+ * signature. Deny-by-default throughout: no spend_authority block, no HIC
+ * binding, ATS below floor, out-of-scope type/protocol/currency/category,
+ * or ceiling breach all deny. Denials caused by acting outside the band or
+ * above a ceiling carry kyaViolation=true — the caller must then run the
+ * §9.2 enforcement sequence plus revocation of live session mandates.
+ */
+export function evaluateMandateGate(
+  manifest: CapabilityManifest,
+  ats: ATSResult,
+  request: MandateGateRequest,
+  profile?: TenantGatingProfile,
+): MandateGateDecision {
+  const evaluatedAt = new Date().toISOString();
+  const deny = (reason: string, kyaViolation = false): MandateGateDecision => ({
+    allowed: false,
+    requiresHumanConfirmation: false,
+    kyaViolation,
+    reason,
+    evaluatedAt,
+  });
+
+  // A profile must pass the tighten-only validator before it may influence the gate
+  if (profile !== undefined) {
+    const parsed = tenantGatingProfileSchema.safeParse(profile);
+    if (!parsed.success) {
+      return deny(
+        `tenant gating profile rejected: ${parsed.error.issues[0]?.message ?? 'invalid profile'}`,
+      );
+    }
+  }
+
+  // Deny-by-default: no spend_authority block = zero spend authority (§14.3)
+  const authority = manifest.spendAuthority;
+  if (!authority) {
+    return deny('no spend_authority block on manifest — deny-by-default (KYA §14.3)');
+  }
+
+  // No anonymous spend authority, ever (§14.3)
+  if (!authority.hic || authority.hic.trim() === '') {
+    return deny(
+      'spend_authority has no HIC binding — anonymous spend authority is prohibited (KYA §14.3)',
+    );
+  }
+
+  // Immovable floor 1: the NO_GO band holds no mandates under any profile (§14.2.1)
+  if (ats.decision === 'NO_GO' || ats.score < MANDATE_FLOOR_ATS) {
+    return deny(
+      `ATS ${ats.score.toFixed(2)} below mandate floor ${MANDATE_FLOOR_ATS} — NO_GO (KYA §14.2)`,
+      true,
+    );
+  }
+
+  // Authority scope checks — acting outside signed authority is a violation (§14.2)
+  if (!authority.mandateTypesAllowed.includes(request.mandateType)) {
+    return deny(
+      `mandate type '${request.mandateType}' not in spend_authority.mandate_types_allowed`,
+      true,
+    );
+  }
+  if (!authority.protocols.includes(request.protocol)) {
+    return deny(`protocol '${request.protocol}' not in spend_authority.protocols`, true);
+  }
+  if (request.currency !== authority.currency) {
+    return deny(
+      `currency '${request.currency}' does not match spend_authority currency '${authority.currency}'`,
+      true,
+    );
+  }
+  if (!authority.allowedMerchantCategories.includes(request.merchantCategory)) {
+    return deny(`merchant category '${request.merchantCategory}' not allowed`, true);
+  }
+
+  // Ceilings — a spend attempt above a manifest ceiling is a violation (§14.2)
+  if (request.amount > authority.perTaskCeiling) {
+    return deny(
+      `amount ${request.amount} exceeds per_task_ceiling ${authority.perTaskCeiling}`,
+      true,
+    );
+  }
+  if (request.spentTodayTotal + request.amount > authority.perDayCeiling) {
+    return deny(
+      `amount ${request.amount} would exceed per_day_ceiling ${authority.perDayCeiling} (spent today: ${request.spentTodayTotal})`,
+      true,
+    );
+  }
+
+  // Below the 0.80 band the agent may only assemble Intent/Cart —
+  // a human signs the Payment Mandate (§14.2)
+  if (request.mandateType === 'payment' && ats.score < PAYMENT_BAND_ATS) {
+    return deny(
+      `ATS ${ats.score.toFixed(2)} in 0.50–0.79 band — Intent + Cart only; a human signs the Payment Mandate (KYA §14.2)`,
+    );
+  }
+
+  // Human Not Present gating (§14.2 + §14.2.1)
+  if (!request.humanPresent) {
+    if (profile !== undefined && !profile.hnpEnabled) {
+      return deny('Human Not Present disabled by tenant gating profile (KYA §14.2.1)');
+    }
+    if (!authority.humanNotPresent) {
+      return deny('Human Not Present not granted by spend_authority (KYA §14.3)');
+    }
+    const hnpMin = Math.max(HNP_FLOOR_ATS, profile?.hnpMinAts ?? HNP_FLOOR_ATS);
+    if (ats.score < hnpMin) {
+      return deny(
+        `ATS ${ats.score.toFixed(2)} below Human Not Present minimum ${hnpMin} (KYA §14.2)`,
+      );
+    }
+  }
+
+  // Below the HNP band, a tenant confirmation threshold requires a human
+  // sign-off above the configured amount (§14.2 GO-confirmed row)
+  const requiresHumanConfirmation =
+    ats.score < HNP_FLOOR_ATS &&
+    profile?.confirmAbove !== undefined &&
+    request.amount > profile.confirmAbove;
+
+  return {
+    allowed: true,
+    requiresHumanConfirmation,
+    kyaViolation: false,
+    reason: 'within ATS band, spend_authority scope, and tenant profile',
+    evaluatedAt,
+  };
 }
