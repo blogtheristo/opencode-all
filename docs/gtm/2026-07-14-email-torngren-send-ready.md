@@ -31,7 +31,7 @@ Related Documents:
 
 - **Reply to David Broman's original thread**, keeping **David** and **Martin** on it (To: Martin; CC: David). If the original thread isn't to hand, a fresh mail to Martin, CC David, with subject below, also works — the v4 note flagged the thread wasn't found in the connected mailbox.
 - **From:** Lifetime Oy outreach identity → `risto.paarni2024@lifetime.fi`, short signature.
-- **Attach / follow with** the 10-page overview (`docs/lut/2026-07-14-lut-doctoral-research-plan.md` — the memo that maps the production system to the research questions and doubles for both Törngren and Smolander). `docs/gtm/TECOSA_TORNGREN_CALL_PREP.md` stays internal call-prep.
+- **Attach / follow with** the 10-page overview: `docs/gtm/2026-07-14-torngren-tecosa-memo.md` — the Törngren-facing memo (research-collaboration register, centred on the safety-performance trade-off overlap + Aegis testbed). NOT the LUT doctoral plan (that is Smolander-facing) and NOT the one-pager (`TECOSA_TORNGREN_CALL_PREP.md`, internal call-prep). Strip the memo's internal "Verification notes" section before sending.
 
 ## Send-ready email
 
