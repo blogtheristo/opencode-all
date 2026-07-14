@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Added the "same document, two cover letters" strategy — the Törngren memo (`docs/gtm/TECOSA_TORNGREN_CALL_PREP.md`) doubles as Smolander's empirical-testbed grounding with a supervisor-framed cover letter — plus the Swedish-angle-strengthens-LUT argument (Nordic Lifetime Group structure, KTH/TECoSA collaboration in play, Vinnova adjacency = a more ambitious doctoral project). Added honesty guardrails: Lifetime AB (SE) is planned ~Nov 2026 not yet incorporated, the Vinnova track is aspirational adjacency not confirmed, the KTH relationship is in-play not in-place. Cross-linked Q4 into the companion KTH note (bumped there to v1.1). Added a Next Step to offer the memo to Smolander.
 - Version: 1.1 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Added a fourth research question (Q4 — formal modeling/validation of safety-performance trade-offs in sovereign edge AI under real-time constraints), grounded in Törngren's SAFECOMP safety-argument-fragment / safety-performance trade-off methodology for connected automated vehicles. Records the email-ready Q4 line to fold into the Smolander message, the dual-audience framing (LUT-worthy RQ on its own AND the specific technical-overlap hook for the Törngren collaboration), the RQ→asset-map row, and the distinction from Q1 (cost-of-safety in resource-constrained edge vs. broad trustworthiness verification).
 - Version: 1.0 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Initial field note capturing Risto's outbound update to doctoral supervisor Prof. Kari Smolander (LUT), distilling the KTH (TECoSA / David Broman) and Stockholm Resilience Centre (Victor Galaz) conversations into three concrete, deployment-grounded PhD research questions. Records the verbatim message, grounds the external entities in public sources, maps each RQ to a live DWS asset/testbed, states the "why LUT" thesis (Finnish industrial ties), and applies the CLAUDE.md thesis scope rule (elevation target = PHD*FIREHORSE*\*, not the Metropolia master's).
 
@@ -77,6 +78,27 @@ The verbatim message above is the three-option draft. On reviewing Martin Törng
 
 **Same question, two audiences:** to Smolander it reads as a fourth candidate LUT research direction; to Törngren it is the precise technical overlap point for collaboration. Present it as Q4 in the Smolander email; in a Törngren conversation, reference it as where Aegis can empirically validate his SAFECOMP trade-off methodology.
 
+## The Törngren memo doubles for Smolander (same document, two cover letters)
+
+The one-page overview being prepared for Törngren (`docs/gtm/TECOSA_TORNGREN_CALL_PREP.md` — the "Törngren memo") also works for Smolander **with one framing adjustment**: same document, different cover letter.
+
+- **Törngren cover letter:** _"here's our production system — does it connect to your research?"_ (peer-to-peer, the memo is the evidence that the overlap is real, Q4/SAFECOMP the concrete hook).
+- **Smolander cover letter:** _"here's the empirical testbed that would ground the doctoral work at LUT."_ (supervisor framing — the memo shows the deployment ground the RQs would be validated on).
+
+**Why the Swedish angle strengthens the LUT case (not weakens it).** Offering Smolander the Törngren memo shows LUT that the doctoral work targets Swedish research collaboration and funding tracks, with the candidate positioned to deliver — a _more ambitious_ doctoral project than most applicants bring, and a reason for Smolander to say yes beyond the research questions themselves:
+
+- Not "a Finnish founder doing local research," but a **Nordic industrial AI platform** — canonical structure **Lifetime Group = Lifetime Oy (FI) + Lifetime AB (SE) + DWS IQ OÜ (EE)** (`DWS_TRUTH_STANDARD.md` entity framing).
+- **KTH / TECoSA collaboration in play** (the Broman→Törngren hand-off, companion note) — a live academic-consortium relationship, not a cold citation.
+- A **Vinnova / TECoSA funding-track adjacency** the doctoral work could sit alongside — cross-border Nordic funding optionality that a purely Finnish framing wouldn't have.
+
+**Honesty guardrails (do not overstate to a supervisor):**
+
+- **Lifetime AB (SE) is _planned_ (Stockholm, ~November 2026), not yet incorporated** (`investor-outreach/AEGIS_SP_GROWTH_BRIEF.md`). Present it as the in-formation Swedish arm of the Lifetime Group, not an operating entity. Do not imply a Swedish R&D operation exists today.
+- The **Vinnova/TECoSA "funding track" is aspirational adjacency**, not confirmed membership or a granted award. It is the collaboration Risto is pursuing, framed as such.
+- The KTH relationship is **one warm hand-off + a drafted reply**, not a signed collaboration. Smolander should hear "in play," not "in place."
+
+The strategic point stands even with those caveats trimmed to fact: a candidate arriving with a production platform, a Nordic multi-entity structure, and an active KTH/TECoSA thread is bringing LUT a bigger, better-grounded doctoral project than the research questions alone convey.
+
 ## Who's who (public sources)
 
 - **Prof. Kari Smolander** — LUT University; software-engineering / information-systems professor and Risto's LUT doctoral supervisor. Prior correspondence: the 19.05.2026 "unified DWS OS spine" letter and one-chapter précis (see Related Documents). His register is IS/DSR research — the same frame the earlier scope letter was pitched in.
@@ -115,7 +137,8 @@ The verbatim message above is the three-option draft. On reviewing Martin Törng
 2. **Prep the 20-minute call** with a one-page "four options" brief: for each RQ, one line of novelty, the named external anchor, the live DWS testbed, the EU-article hook, and the score on Smolander's five axes (Original / Feasible / Publishable / Funding-magnet / Article-2026-ready). Reuse the scoring instrument from `docs/lut/2026-05-19-letter-smolander-unified-scope.md` §3 so he sees continuity, not a restart. For **Q4**, note the dual audience: candidate LUT direction for Smolander, specific SAFECOMP-validation hook for a Törngren conversation.
 3. **Verify Galaz/SRC specifics** before the brief quotes them: exact affiliation/title and whether "algorithmic resilience" is his term or a paraphrase. RQ2's academic anchor rests on this.
 4. **Pressure-test the testbed claims** per account: which of Outokumpu / construction pilots are contracted vs. prospect, and whether the data access supports doctoral empirical work (DPA / ethics envelope — Smolander flagged the ethics-submission question in the May round, item 6.3).
-5. **On decision, elevate** the chosen RQ(s) into `PHD_FIREHORSE_EN/FI` (four-file lockstep + `Learn/` regen); log the Smolander thread in the doctoral-correspondence path so it doesn't go stale.
+5. **Offer Smolander the Törngren memo** (`docs/gtm/TECOSA_TORNGREN_CALL_PREP.md`) with the supervisor-framed cover letter ("here's the empirical testbed that would ground the doctoral work at LUT"). Adjust the framing from the Törngren version; keep the honesty guardrails above — AB planned not incorporated, Vinnova adjacency aspirational, KTH in-play not in-place. This is the artefact that makes the "more ambitious Nordic doctoral project" case concrete.
+6. **On decision, elevate** the chosen RQ(s) into `PHD_FIREHORSE_EN/FI` (four-file lockstep + `Learn/` regen); log the Smolander thread in the doctoral-correspondence path so it doesn't go stale.
 
 ## Sources
 

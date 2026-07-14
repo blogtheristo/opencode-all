@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/lut-phd-research-options-p7jskn | Date: 14.07.2026 | Changes: Added the **Q4 hook** — safety-performance trade-offs (formal modeling/validation under real-time edge constraints), anchored on Törngren's SAFECOMP safety-argument-fragment / trade-off methodology — as the concrete area where the DWS/Aegis production system could empirically validate his trade-off frameworks. Cross-links to the LUT/Smolander note (`2026-07-14-lut-smolander-phd-three-research-options.md`), where Q4 doubles as a fourth LUT research direction. No change to the reply-draft record.
 - Version: 1.0 | Tool: Claude Code | Session: claude/kth-trustworthy-systems-umlez8 | Date: 14.07.2026 | Changes: Initial field note capturing David Broman's (KTH EECS) reply to Risto's outreach, redirecting to Martin Törngren / TECoSA. Grounds the two people and the center in public sources; maps the thematic overlap to the DWS trustworthy-agentic / edge-control-room thesis; records the warm-lead assessment and next steps.
 
 Document Status:
@@ -84,6 +85,7 @@ Related Documents:
 
 - His **position paper on trustworthy edge computing in industrial applications** — signals we did the homework and we're on his exact turf.
 - The **AD-EYE testbed** as an analogue: what AD-EYE does for automated-driving _evaluation_, DWS aims to do for sovereign edge-AI **verification** — a shared "evaluate/verify before you trust" philosophy.
+- **(Added 14.07.2026) The safety-performance trade-off hook (Q4).** His **SAFECOMP** work on safety-argument fragments and safety-performance trade-off analysis for connected automated vehicles is the closest existing methodology to a tension the Aegis edge deployment lives daily: stronger safety evidence and Article-12 logging add latency and compute overhead at the edge. This is the **specific, concrete area where the DWS production system could empirically validate his trade-off frameworks** on live industrial edge workloads — the sharpest "industry provides the deployment ground, university the verification framework" instance to name in a call. It travels as **Q4** in the LUT/Smolander research-options note (`docs/field-notes/2026-07-14-lut-smolander-phd-three-research-options.md`), where the same question doubles as a fourth LUT doctoral direction. _Confidence Medium_ on exact SAFECOMP paper titles/years (2025/2026) — verify in DBLP before citing to him.
 
 ## Scope discipline (which DWS doc this feeds)
 

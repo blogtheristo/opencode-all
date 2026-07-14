@@ -17,6 +17,12 @@ Make a field note from Risto's outbound update to Prof. Kari Smolander (LUT doct
 - Added **Q4** to the field note: formal modeling/validation of safety-performance trade-offs in sovereign edge AI under real-time constraints. Anchor = Törngren's SAFECOMP safety-argument-fragment / trade-off methodology. Dual audience: LUT-worthy RQ for Smolander + specific Törngren collaboration hook (Aegis validates his trade-off frameworks). Distinct from Q1 (cost-of-safety in resource-constrained edge, not broad trustworthiness verification). Email-ready Q4 line included; verbatim 3-option message preserved as the record.
 - TODO before external cite: confirm exact Törngren SAFECOMP paper titles/years (2025/2026) via DBLP.
 
+## Update (v1.2)
+
+- Added "same document, two cover letters" strategy: Törngren memo (`docs/gtm/TECOSA_TORNGREN_CALL_PREP.md`) doubles as Smolander's empirical-testbed grounding. Swedish angle strengthens LUT case (Nordic Lifetime Group, KTH/TECoSA in play, Vinnova adjacency = more ambitious doctoral project).
+- Honesty guardrails baked in: **Lifetime AB (SE) planned ~Nov 2026, NOT yet incorporated**; Vinnova track = aspirational adjacency not confirmed; KTH = in-play not in-place. Do not overstate to supervisor.
+- Cross-linked Q4 into companion KTH note (`2026-07-14-kth-...` → v1.1) as the concrete SAFECOMP-validation hook for Törngren.
+
 ## Open / next
 
 - Confirm the email was actually sent (outbound = RED-zone, human only) and lands in the existing LUT doctoral thread.
