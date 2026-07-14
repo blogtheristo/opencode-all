@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Audit of a converged, mostly-accurate v1.2-consistent third-party draft — confirmed Vinnova's Eurostars SME rate at 50% of eligible costs (30% large companies, 70% academia/public sector), closing the gap flagged in v1.1/v1.2. Confirmed the EIC STEP pre-commitment letter is on an official EC template with KYC-screened investor requirements; declined to repeat the draft's "non-binding" characterisation of that letter, which is unconfirmed and sits oddly against a hard eligibility gate. Left minor unverified additions (Digital Europe/Accelerator TRL 6-8 claims, "NGI Sargasso Call 5" naming, an EIC STEP "ownership control self-assessment" gate) unflagged in the body but noted here as not independently confirmed this session.
 - Version: 1.2 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Added new §3a — a third-party draft (again unverified, again proposing edits on the wrong branch) surfaced EIC STEP Scale-Up Defence as real; verified it independently (opened 1 Jul 2026, deadline 28 Oct 2026, €100M 2026 budget, €10-30M equity-only, 20%-lead-investor-pre-commitment gate, defence-tech scoped) and corrected the same draft's conflation of it with the standard EIC Accelerator (STEP Scale-Up tracks are separate, equity-only, later-stage instruments, not an "expanded €30M Accelerator"). Declined to accept the draft's unverified RQ2-anchor claim (Copenhagen Law "CIIR") or its proposed HTML dashboard, which encoded the same conflation as fact.
 - Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Follow-up verification pass on a second-opinion review of v1.0 (a Gemini "integration" reply proposed unverified figures — reviewed critically per "surface conflicts, don't average them" rather than merged wholesale). Resolved the root cause of the original draft's €30M EIC equity claim: it belongs to the separate STEP Scale-Up scheme (€10-30M equity-only, later-stage), not the standard Accelerator route — added to §3 and §9. Confirmed EIC's 70% grant co-funding rate and re-verified Eurostars' national rate range (20-80%, no confirmed Swedish %) with primary/near-primary sources.
 - Version: 1.0 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Recovery run re-creating the EU Commission + NATO DIANA research pack lost to an unreclaimed container on 2026-07-13 (see `docs/lut/recovery-prompts-lost-research-packs-2026-07.md` §1 row 3, "LOST — worst"). A founder-supplied Gemini draft was used as a starting hypothesis and verified against official sources; several figures in that draft were corrected (see §8). Every claim below is either sourced from an official page fetched/searched this session, or explicitly marked `(verify)` where the primary page could not be opened (HTTP 403 on `ec.europa.eu` PDF fiches and `businessfinland.fi`/`cascadefunding.eu`, blocked by the sandbox's outbound proxy).
@@ -51,11 +52,14 @@ Document Status:
 - **Funding rate:** Co-funded nationally, not by a single EU-wide rate — each participating
   country's funding body sets its own rate and cap (see FI/SE split below). No single EU-wide
   "50%" figure exists; that shorthand from the Gemini draft conflates the _typical_ SME grant
-  rate with the actual mechanism, which is bilateral national co-funding. **Re-verified this
-  session:** national rates range roughly **20–80% of eligible costs** depending on country and
-  organisation type (e.g. the Netherlands caps at 50%); **no public Swedish (Vinnova) percentage
-  figure was found** — Vinnova publishes its Eurostars support as the **SEK cap** in §1 below,
-  not as a stated percentage, so treat "Vinnova funds at X%" as unconfirmed until asked directly.
+  rate with the actual mechanism, which is bilateral national co-funding. National rates range
+  roughly **20–80% of eligible costs** depending on country and organisation type (e.g. the
+  Netherlands caps at 50%). **Vinnova's Swedish SME rate is now confirmed** (verified,
+  `vinnova.se/sok-finansiering/regler-for-finansiering/statligt-stod`): **50% of eligible costs
+  for SMEs** (per the EU definition), **30% for large companies**, **70% for universities/
+  research institutes/public sector** — layered under the same SEK 5,000,000 (~€440k) cap for
+  the Swedish side of the consortium (§ below). This closes the gap flagged in v1.1 — Lifetime
+  AB, as an SME, is at the 50% Vinnova rate.
 - **Eligibility gates (verified, `eurekanetwork.org`):**
   - Consortium led by an innovative SME from a Eurostars country.
   - At least **two independent entities** from **at least two Eurostars countries**, with at
@@ -242,7 +246,13 @@ Scale-Up Defence as real, but (incorrectly) folded its terms into the Accelerato
   investor covering at least 20% of the total target funding round** (round must be €50M–€150M+,
   i.e. **3–5× the EIC investment**); the pre-commitment must be **fully uninvested as of the
   letter's date**, and **syndicated commitments don't qualify** unless one entity alone clears
-  the 20% threshold.
+  the 20% threshold. The letter is submitted on an **official EC template** (confirmed available
+  via the Funding & Tenders Portal/EIC site), from an investor with demonstrable track record in
+  the relevant market/technology/jurisdiction, subject to KYC by the EIC Fund or EIF. **A third-
+  party review of this pack characterised the letter as "signed, non-binding" — that specific
+  binding/non-binding distinction was not confirmed either way this session**; given the
+  syndication trap and KYC screening built around it, treat "non-binding" as unverified rather
+  than repeat it as fact.
 - **Why this isn't a near-term fit for Lifetime Oy/AB today:** both STEP tracks are built to
   co-invest inside an already-forming €50–150M+ round with a lead investor already committed —
   that's a later fundraising stage than Lifetime is at now. **Treat STEP Scale-Up Defence as the
