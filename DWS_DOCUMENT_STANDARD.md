@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
 
+- Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added `FINAL` to the §2.3 Publication Status Values table — a customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit uses `FINAL` in place of `ACTIVE`, since ACTIVE implies an internally-maintained lifecycle document, not a one-shot external artifact. Triggered by `bids/ORK160826/CV_ORK160826_v172.md` (→ v173 this session) which had carried `Publication Status: DRAFT` for 172 versions despite being an actively-submitted bid CV, and had never actually complied with the already-existing §20.6 rule (version block was still on page 1, not the last page) across 8+ prior editing sessions. §20.6 itself required no new text — the gap was non-compliance, not a missing rule; applying it to the CV file happens in the same commit as this entry.
 - Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Paarni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
 - Version: 2.7 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Merged origin/main (v2.5, session claude/jasenko-hadzic-outreach-ici0e7) into this branch's v2.6. Both branches had independently added a new "§22" section since diverging — this branch's §22 (Multimodal Document Assets) and main's §22 (Whitepaper Standard, defined 24.06.2026 by session claude/nvidia-halos-robotics-suqayg, entry below). Resolved by renumbering main's Whitepaper Standard section (and its §22.1–22.3 subsections, and all internal §22.x cross-references within it) to §23 — this branch's Multimodal Document Assets keeps §22 as originally numbered. No content lost from either side; only section numbers changed on the Whitepaper Standard side. Updated ToC accordingly.
 - Version: 2.6 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: §22.4 updated — `scripts/render-doc.sh` now passes `--resource-path` so relative image paths resolve against the source .md's own directory (fixes a real bug: pandoc was resolving them against the caller's cwd instead, silently dropping the image). Documented the permanent pandoc install path: `infrastructure/dgx-spark/first-boot.sh` (step 3a) installs it once on the DGX Spark box so it survives across sessions, distinct from the ephemeral cloud-session `apt-get install` fallback. First real-world use: `bids/ORK160826/CV_ORK160826_v165.md` v170 — first image reference in 170 versions, rendered to `.html`/`.docx` with the photo embedded.
@@ -174,14 +175,15 @@ Document Status:
 
 Use plain text status labels. Emoji icons are optional (display only).
 
-| Status           | Meaning                                                        |
-| ---------------- | -------------------------------------------------------------- |
-| **ACTIVE**       | Document is current and in use                                 |
-| **DRAFT**        | Document is work in progress                                   |
-| **OUTDATED**     | Document is superseded, no longer maintained — pending archive |
-| **ARCHIVED**     | Document is in `docs/archive/`, kept for historical reference  |
-| **DEPRECATED**   | Document is outdated and should not be used                    |
-| **UNDER REVIEW** | Document is being reviewed                                     |
+| Status           | Meaning                                                                                                                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **ACTIVE**       | Document is current and in use                                                                                                                                                                                                                   |
+| **DRAFT**        | Document is work in progress                                                                                                                                                                                                                     |
+| **OUTDATED**     | Document is superseded, no longer maintained — pending archive                                                                                                                                                                                   |
+| **ARCHIVED**     | Document is in `docs/archive/`, kept for historical reference                                                                                                                                                                                    |
+| **DEPRECATED**   | Document is outdated and should not be used                                                                                                                                                                                                      |
+| **UNDER REVIEW** | Document is being reviewed                                                                                                                                                                                                                       |
+| **FINAL**        | Customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit — used in place of ACTIVE for one-shot external deliverables (CVs, bid attachments, offers) that are not part of a maintained internal lifecycle |
 
 > **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
 > HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
