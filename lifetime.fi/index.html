@@ -464,6 +464,51 @@
         color: var(--color-gold-light);
       }
 
+      /* Maturity ladder */
+      .maturity-ladder {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .maturity-rung {
+        flex: 1 1 120px;
+        padding: 16px 12px;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .maturity-rung .rung-level {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--text-secondary);
+      }
+
+      .maturity-rung .rung-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .maturity-rung.rung-active {
+        background: rgba(184, 134, 11, 0.12);
+        border-color: rgba(184, 134, 11, 0.4);
+      }
+
+      .maturity-rung.rung-active .rung-level {
+        color: var(--color-gold);
+      }
+
+      .maturity-rung.rung-active .rung-name {
+        color: var(--color-gold-light);
+      }
+
       /* Invest section */
       .invest-box {
         background: var(--bg-surface);
@@ -1049,6 +1094,191 @@
       <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
         <a href="mailto:risto@onelifetime.world" class="btn-gold">Book a Consultation</a>
         <a href="/laskuri/" class="btn-outline">Keskeytyslaskuri &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- DWS IQ Adoption Framework -->
+    <section class="section" id="adoption-framework">
+      <div class="section-label">DWS IQ Adoption Framework</div>
+      <h2 class="section-title">Microsoft&rsquo;s AI Adoption Framework &mdash; accelerated.</h2>
+      <div class="section-body">
+        <p>
+          Microsoft&rsquo;s <strong>AI Adoption Framework</strong> &mdash; part of the Cloud
+          Adoption Framework for Azure &mdash; is the blueprint EU enterprises use to move from
+          ad-hoc AI experiments to secure, scaled, value-driven production. Engineers trust it and
+          Microsoft is a primary supplier, so we meet you where you already are: Lifetime Consulting
+          runs your DWS IQ deployment along the <strong>same four lifecycle phases</strong>. The
+          difference is where you land &mdash; DWS IQ lets you skip the risky experimentation and
+          arrive directly in a governed, sovereign production environment.
+        </p>
+      </div>
+
+      <div class="arch-grid" style="grid-template-columns: repeat(4, 1fr)">
+        <div class="arch-card">
+          <div class="arch-name">Phase 1</div>
+          <h4>AI Strategy</h4>
+          <p>
+            Start with the business problem, not the technology. We translate regulatory and
+            operational gaps &mdash; CBAM, CSRD, ETS, NIS2 &mdash; into concrete use cases, and pick
+            generative or deterministic AI per task. Deterministic scoring wherever an audit demands
+            it.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Phase 2</div>
+          <h4>Plan &amp; Ready</h4>
+          <p>
+            Microsoft calls it the AI Landing Zone. We stand up your sovereign one &mdash; EU-hosted
+            in Finland or on-prem edge (NVIDIA Jetson, L40S) &mdash; organise data domains, and wire
+            in governance and EU AI Act Article&nbsp;12 logging before a single agent runs.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Phase 3</div>
+          <h4>Adopt &middot; Build</h4>
+          <p>
+            Integrate AI into the flow of work. Ready-to-use Skilled Agents through to custom
+            agentic workflows inside your ERP (SAP, Visma, IFS, Monitor, Jeeves) &mdash; the
+            sovereign counterpart to the M365&nbsp;Copilot and Azure AI Foundry adoption paths.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Phase 4</div>
+          <h4>Govern, Secure &amp; Manage</h4>
+          <p>
+            Zero Trust: never trust, always verify. KYA agent governance, strict internal/external
+            workload boundaries, prompt-injection and data-leakage controls, and Responsible-AI / EU
+            AI Act compliance &mdash; grounded in the platform, not bolted on.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-secondary)">
+        Reference:
+        <a
+          href="https://learn.microsoft.com/azure/cloud-adoption-framework/scenarios/ai/"
+          style="color: var(--color-gold)"
+          target="_blank"
+          rel="noopener"
+          >Microsoft Cloud Adoption Framework for AI &rarr;</a
+        >
+        &nbsp; DWS IQ is an EU-sovereign accelerator layer on top of the same lifecycle &mdash; not
+        a replacement for it.
+      </p>
+
+      <!-- Maturity ladder -->
+      <div
+        style="
+          margin-top: 48px;
+          padding: 36px 28px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-xl);
+        "
+      >
+        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
+          Where DWS IQ lands you on the maturity curve
+        </h3>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.7;
+          "
+        >
+          Evaluated against the standard AI maturity model &mdash; from Exploring to
+          Transformational &mdash; most enterprises stall in Microsoft&rsquo;s
+          <em>Govern &amp; Secure</em> phase, blocked by data leakage, shadow AI, and
+          US&nbsp;CLOUD&nbsp;Act exposure. DWS IQ solves those out of the box, so you skip the
+          trial-and-error rungs and start near the top.
+        </p>
+
+        <div class="maturity-ladder">
+          <div class="maturity-rung">
+            <span class="rung-level">L1</span><span class="rung-name">Exploring</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L2</span><span class="rung-name">Experimenting</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L3</span><span class="rung-name">Process Optimisation</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L4</span><span class="rung-name">Advanced &amp; Scaled</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L5</span><span class="rung-name">Transformational</span>
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            text-align: right;
+            opacity: 0.85;
+          "
+        >
+          &#9632;&nbsp; DWS IQ deployments land here
+        </p>
+
+        <div class="platform-grid" style="margin-top: 32px">
+          <div class="platform-card">
+            <div class="card-label label-defence">Level 5 &middot; Industry-leading</div>
+            <h3>Security &amp; Governance</h3>
+            <p>
+              Finnish-hosted sovereign cloud plus on-prem edge = zero CLOUD&nbsp;Act exposure. EU AI
+              Act (incl. Article&nbsp;12 logging), CSRD and CBAM native. The phase most enterprises
+              fear is where DWS IQ is strongest.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-climate">Level 4 &middot; Advanced / Scaled</div>
+            <h3>Infrastructure &amp; Operations</h3>
+            <p>
+              No per-token API bottleneck. You own the compute and run sub-100&nbsp;ms inference
+              offline at the edge &mdash; secure network boundaries and continuous availability,
+              with predictable operating economics.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-distribution">Level 3&rarr;4 &middot; Optimising</div>
+            <h3>Business Adoption &amp; Automation</h3>
+            <p>
+              Past the pilot phase with active industrial customers. Not chatbots &mdash; agentic
+              compliance workflows that integrate directly into ERP systems (SAP, Visma) and deliver
+              audit-ready outcomes.
+            </p>
+          </div>
+        </div>
+
+        <p
+          style="
+            margin-top: 24px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            border-left: 3px solid var(--color-gold);
+            padding-left: 16px;
+          "
+        >
+          <strong>Bottom line:</strong> for a European industrial company following
+          Microsoft&rsquo;s AI Adoption Framework, DWS IQ is a maturity accelerator &mdash; skip the
+          risky trial-and-error and land immediately in a fully governed, secure, cost-predictable
+          production environment.
+        </p>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
+        <a
+          href="mailto:risto@onelifetime.world?subject=DWS%20IQ%20Adoption%20Assessment"
+          class="btn-gold"
+          >Book an Adoption Assessment</a
+        >
+        <a href="#consulting" class="btn-outline">See the three consulting pillars &rarr;</a>
       </div>
     </section>
 
