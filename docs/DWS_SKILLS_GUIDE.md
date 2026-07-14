@@ -2,10 +2,13 @@
 
 ---
 
-Version: 1.18
+# VERSION AND AGENT HISTORY
+
+Version: 1.19
 
 Sessions & Modifications:
 
+- Version: 1.19 | Agent: Claude Code | Date: 06.07.2026 | Session: claude/european-datasets-lab-note-8mlg9u | Changes: Added `eu-data` skill pack (`skills/eu-data/SKILL.md`) — European Data Portal / HVD client-onboarding demo backed by new `dws eu-data` CLI command (onboard | search | status, with --demo fixture mode and per-source CC BY 4.0 provenance). Codified per the Skill Codification Rule from the 2026-07-06 INSPIRE lab note. Registered in `skills/manifest.json`; matrix regenerated via `scripts/skill-manifest-sync.mjs --write-guide`.
 - Version: 1.18 | Agent: Claude Code | Date: 15.06.2026 | Session: claude/outreach-agents-spark-7n0fgy | Changes: Added `/outreach-agents` discipline skill (`skills/outreach-agents/SKILL.md`) — 4-step DGX Spark-powered B2B outreach pipeline (find leads → craft messages → send via SES → queue LinkedIn). 4 new agents: outreach-lead-finder, outreach-message-crafter, outreach-executor, outreach-orchestrator. Registered outreach-full workflow. Added §23 Outreach Voice & Email Standard to DWS_BRAND_STANDARD.md. Bumped count from 58 to 59 artifacts (41 slash + 18 skill directories: 3 discipline + 15 specialist packs).
 - Version: 1.17 | Agent: Claude Code | Date: 06.07.2026 | Session: claude/agent-swarm-architecture-zPf5Z | Changes: Added `/swarm` slash command (section 4.5) — one parameterized agent-swarm operator (PATTERN=classify-and-act|fan-out-and-synthesize|adversarial-verification|generate-and-filter|tournament|loop-until-done) that operationalizes `docs/AGENT_SWARM_ARCHITECTURE.md`. Bumped count from 38 to 39 slash commands (52 artifacts). Added Quick Reference row.
 - Version: 1.16 | Agent: Claude Code (Sonnet 5) | Date: 01.07.2026 | Session: claude/gtm-skills-planning-7ui3kd | Changes: Unblocked `/regulatory-radar` (section 5.2a) as a thin wrapper over the existing `compliance` agent — scores deadline urgency for the 5 already-tracked regulations (fit-for-55, ets, cbam, csrd, eu-ai-act) without waiting on new EUR-Lex/DG ENER ingestion. Moved from `slash-deferred` to `slash-cli` in `skills/manifest.json` and regenerated the compatibility matrix via `scripts/skill-manifest-sync.mjs --write-guide`. The datacentre-compliance-vertical-specific EED radar feature stays gated behind PRD Gate 1 (3 signed design-partner letters, target 1 Oct 2026) — this wrapper only covers the general deadline-scoring capability, not that vertical build. No count change (still 38 slash + 3 discipline); status change only.
@@ -707,54 +710,54 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 
 ## 10. Quick Reference — When to Use What
 
-| Situation | Skill | Type |
-| ------------------------------------------ | --------------------------------- | ---------- |
-| Starting a new feature | /plan-review ROLE=ceo | gstack |
-| Designing architecture | /plan-review ROLE=eng | gstack |
-| Need acceptance checks before review | /qa | gstack |
-| Code is written, needs review | /review | gstack |
-| Ready to merge | /ship | gstack |
-| Need to verify UI | /browse | gstack |
-| End of week | /retro | gstack |
-| Codify retro into skill edits | /learn SCOPE=last-week | gstack |
-| Find unfinished past-session work | /clawdbot | Dreaming |
-| Apply a clawdbot proposal | /promote-proposal | Dreaming |
-| Run Dreaming loop end-to-end | /dream-on | Dreaming |
-| Bootstrap GCP CI identity | /gcr-skill | Operations |
-| Don't know which agent to use | /discover-agents | Agent |
-| Know the agent, want to run it | /agent-run | Agent |
-| Coordinate agents on a case | /case-run | Agent |
-| Need multi-agent analysis | /workflow | Agent |
-| Many items to process & merge | /swarm PATTERN=… | Agent |
-| EU regulatory question | /compliance-check | Compliance |
-| Upcoming EU regulation scoring | /regulatory-radar | Compliance |
-| Carbon footprint calculation | /carbon-analysis | Compliance |
-| Database sovereignty check | /sovereignty-assess | Compliance |
-| Score sovereignty across all three pillars | /sovereignty-pillars-assess | Compliance |
-| Construction site assessment | /site-safety | Compliance |
-| Check git branch state | /flow-status | Operations |
-| Translate gh command to MCP | /gh-to-mcp | Operations |
-| Audit scheduled work / cron | /cron | Operations |
-| Send email notification | /email | Operations |
-| Control edge devices | /remote-control | Operations |
-| Add/triage investor intro | /investor-outreach | Operations |
-| Draft the next LSJ issue | /lsj-publish | Operations |
-| Route to DGX Spark Ollama | /ollama-spark | Operations |
-| Fix dual-folder API drift | /fix-dual-folder-api-connectivity | Operations |
-| Deliver Claude Code Coaching engagement | /coaching | Operations |
-| Check agent trust / kill chain | /kya | Safety |
-| Compile wiki / ask KB | /kb | Knowledge |
-| Check a claim vs truth registry | /truth-check | Safety |
-| Inventory people-side capital | /human-capital | Capital |
-| Inventory owned AI capability | /token-capital | Capital |
-| Inventory edge/robot/sensor estate | /edge-control-room-capital | Capital |
-| Code feels bloated | /simplify | Quality |
-| Turn design intent into code | /designer | Quality |
-| Add/audit language bar | /multilingual | i18n |
-| B2B outreach pipeline (find/craft/send) | /outreach-agents ACTION=<find\|craft\|send\|full> | Operations |
-| About to claim "done" | verification-gate | Discipline |
-| Big feature, many files | design-first | Discipline |
-| Editing site root folders | dual-folder-sync | Discipline |
+| Situation                                  | Skill                                             | Type       |
+| ------------------------------------------ | ------------------------------------------------- | ---------- |
+| Starting a new feature                     | /plan-review ROLE=ceo                             | gstack     |
+| Designing architecture                     | /plan-review ROLE=eng                             | gstack     |
+| Need acceptance checks before review       | /qa                                               | gstack     |
+| Code is written, needs review              | /review                                           | gstack     |
+| Ready to merge                             | /ship                                             | gstack     |
+| Need to verify UI                          | /browse                                           | gstack     |
+| End of week                                | /retro                                            | gstack     |
+| Codify retro into skill edits              | /learn SCOPE=last-week                            | gstack     |
+| Find unfinished past-session work          | /clawdbot                                         | Dreaming   |
+| Apply a clawdbot proposal                  | /promote-proposal                                 | Dreaming   |
+| Run Dreaming loop end-to-end               | /dream-on                                         | Dreaming   |
+| Bootstrap GCP CI identity                  | /gcr-skill                                        | Operations |
+| Don't know which agent to use              | /discover-agents                                  | Agent      |
+| Know the agent, want to run it             | /agent-run                                        | Agent      |
+| Coordinate agents on a case                | /case-run                                         | Agent      |
+| Need multi-agent analysis                  | /workflow                                         | Agent      |
+| Many items to process & merge              | /swarm PATTERN=…                                  | Agent      |
+| EU regulatory question                     | /compliance-check                                 | Compliance |
+| Upcoming EU regulation scoring             | /regulatory-radar                                 | Compliance |
+| Carbon footprint calculation               | /carbon-analysis                                  | Compliance |
+| Database sovereignty check                 | /sovereignty-assess                               | Compliance |
+| Score sovereignty across all three pillars | /sovereignty-pillars-assess                       | Compliance |
+| Construction site assessment               | /site-safety                                      | Compliance |
+| Check git branch state                     | /flow-status                                      | Operations |
+| Translate gh command to MCP                | /gh-to-mcp                                        | Operations |
+| Audit scheduled work / cron                | /cron                                             | Operations |
+| Send email notification                    | /email                                            | Operations |
+| Control edge devices                       | /remote-control                                   | Operations |
+| Add/triage investor intro                  | /investor-outreach                                | Operations |
+| Draft the next LSJ issue                   | /lsj-publish                                      | Operations |
+| Route to DGX Spark Ollama                  | /ollama-spark                                     | Operations |
+| Fix dual-folder API drift                  | /fix-dual-folder-api-connectivity                 | Operations |
+| Deliver Claude Code Coaching engagement    | /coaching                                         | Operations |
+| Check agent trust / kill chain             | /kya                                              | Safety     |
+| Compile wiki / ask KB                      | /kb                                               | Knowledge  |
+| Check a claim vs truth registry            | /truth-check                                      | Safety     |
+| Inventory people-side capital              | /human-capital                                    | Capital    |
+| Inventory owned AI capability              | /token-capital                                    | Capital    |
+| Inventory edge/robot/sensor estate         | /edge-control-room-capital                        | Capital    |
+| Code feels bloated                         | /simplify                                         | Quality    |
+| Turn design intent into code               | /designer                                         | Quality    |
+| Add/audit language bar                     | /multilingual                                     | i18n       |
+| B2B outreach pipeline (find/craft/send)    | /outreach-agents ACTION=<find\|craft\|send\|full> | Operations |
+| About to claim "done"                      | verification-gate                                 | Discipline |
+| Big feature, many files                    | design-first                                      | Discipline |
+| Editing site root folders                  | dual-folder-sync                                  | Discipline |
 
 ## 11. Creating New Skills
 
@@ -950,7 +953,7 @@ Source of truth: `skills/manifest.json`. The matrix below is generated by `node 
 Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsupported on that surface.
 
 <!-- skills-surface-matrix:start -->
-<!-- generated: 2026-06-24 -->
+<!-- generated: 2026-07-06 -->
 
 | Skill                              | Kind            | Status       | Visibility | Win11 CLI | Desktop | Web | iOS | Android | Chromebook/Antigravity | Transport                          | Notes                                                                                                                                                                                                                                                                               |
 | ---------------------------------- | --------------- | ------------ | ---------- | --------- | ------- | --- | --- | ------- | ---------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -973,6 +976,7 @@ Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsu
 | `dream-on (pack)`                  | skill-pack      | experimental | internal   | ⚠️        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Internal automation. Pending HIL cross-surface verification.                                                                                                                                                                                                                        |
 | `dual-folder-sync`                 | discipline-gate | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | discipline-gate                    | Repo-local hard gate enforced in Claude Code contexts.                                                                                                                                                                                                                              |
 | `email`                            | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
+| `eu-data`                          | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
 | `firehorse-report`                 | skill-pack      | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | skill-pack, local-files            | Repo-local skill pack loaded by Claude Code in this repository.                                                                                                                                                                                                                     |
 | `fix-dual-folder-api-connectivity` | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
 | `flow-status`                      | slash-command   | active       | internal   | ✅        | ❌      | ❌  | ❌  | ❌      | ❌                     | slash-command, local-tools         | Repo-local slash command. Available in Claude Code CLI only.                                                                                                                                                                                                                        |
