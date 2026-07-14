@@ -33,6 +33,31 @@
   Meaning preserved; dual-folder synced; both files lint clean; drift-log updated to "resolved".
   The `benchmark scores` family stays a clean hard-FAIL (no reclassification needed).
 
+## Step 2 — INSTRUMENT (recipe step 6, done)
+
+Built the MGD audit-grade filter on existing plumbing (no new tables):
+
+- **`src/agents/mgd-filter.ts`** — pure, deterministic filter. `evaluateMgd(candidate)`
+  encodes the three field-note §3 criteria as machine-checkable predicates over an
+  `article12_audit_log` row: (a) governed-outcome-layer = agent_id present; (b)
+  article12-lineage = input_hash AND thinking_block_hash present (pre+post flight);
+  (c) audit-grade = decision_summary + risk_classification present AND pii_scrubbed===true.
+  `countMgd(candidates)` aggregates with per-criterion exclusion reasons.
+- **`src/agents/mgd-metrics.service.ts`** — `MGDMetricsService.getMGDMetrics(month?)`
+  reads `article12_audit_log` for the month window (the governed-decision ledger — the
+  correct candidate universe, since ungoverned `agent_executions` "don't count" and the
+  two tables share no join key) and applies the filter. Injectable client for route+tests.
+  Never throws; degrades to zeros. **CRC not fabricated** — it's a 4P asset inventory,
+  not log-derivable (Rule 12).
+- **`src/routes/dashboard.routes.ts`** — added `mgd: { monthToDate, month }` to
+  `GET /api/v1/dashboard/summary`, reusing the request-scoped Supabase client, try/catch → 0.
+- **`src/__tests__/mgd-filter.test.ts`** — 13 Vitest cases, intent-level (each criterion
+  removed → decision stops counting). All pass; dashboard-routes test still 4/4; tsc clean
+  on all three files.
+- Field note §4 step 6 annotated "Implemented 2026-07-14" with the file pointers.
+
 ## Open / for next step
 
-- Step 2 not started.
+- Optional: a React Control Room tile (MetricsHeader.tsx pattern) reading the new `mgd`
+  field — deferred (endpoint is the reuse point; tile is presentation only).
+- Recipe steps 7 (route copy through it) and 8 (quarterly re-check) not started.
