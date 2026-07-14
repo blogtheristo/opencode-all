@@ -47,6 +47,8 @@ Incorporating / administering a Swedish AB through the e-services (Verksamt.se /
 
 **Pragmatic de-risking move (verify):** the fastest path around the personal-eID bottleneck is often to engage a **Swedish incorporation/formation agent or accounting firm (redovisningsbyrå)** to file the Bolagsverket registration, supply a registered address, and set up F-skatt/VAT — sidestepping the e-ID friction entirely and compressing the timeline. This is worth pricing against fighting the eIDAS card login directly.
 
+**Founder's chosen route (14.07.2026): self-file, fix the card reader.** The founder is going the direct-login route — visiting the **library** (Finnish libraries provide/assist with smartcard readers) or **buying a new card reader from verkkokauppa.com** — so the Finnish FINeID card can drive the eIDAS cross-border login into the Swedish e-services. This unblocks the self-file path without waiting on an agent. (Formation-agent route kept as fallback if the card-reader login still stalls.)
+
 ## Concrete steps to stand up an AB (verify all with a Swedish advisor)
 
 - **Share capital** — a private aktiebolag requires minimum share capital (SEK 25,000 as of the 2020 reduction — _confirm current figure_); deposited to a bank/escrow.
@@ -64,8 +66,8 @@ _None of the above is legal advice — it is a checklist to take to a Swedish ac
 
 ## Next steps
 
-1. **Decide the incorporation route:** self-file via eIDAS card login vs. engage a Swedish formation agent/accountant (recommended for speed). Get a quote + timeline for the agent route this week.
-2. **Confirm the eID path** for a Finnish founder into Swedish e-services (FINeID card + reader via eIDAS), so the self-file option is real if chosen.
+1. **Incorporation route chosen (14.07.2026): self-file via eIDAS card login.** Get a working card reader (library assistance or purchase from verkkokauppa.com), then confirm the FINeID card authenticates into Verksamt.se / Bolagsverket cross-border. Formation-agent route on standby if the login stalls.
+2. **Confirm the eID path** end-to-end once the reader is in hand: FINeID card + reader → eIDAS login to the Swedish e-service → able to file. Note the first login/registration step where it might still break (e.g. a step requiring a Swedish personnummer).
 3. **Sequence against the Smolander send:** either send the letter now (Sweden paragraph honestly hedged) or hold days for AB to complete and upgrade the wording — founder's call.
 4. **Reconcile investor-doc dates** once the incorporation date firms up (separate commit).
 5. **Verify Vinnova/TECoSA partner-eligibility** requirements so the "funding track" claim can move from aspiration to a concrete application path.
