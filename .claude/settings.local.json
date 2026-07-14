@@ -10,16 +10,11 @@
       "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__create_event",
       "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__update_event",
       "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__generate",
-      "Bash(mkdir -p docs/assets/images)",
-      "Bash(cp \"/root/.claude/uploads/ca84d66a-5b51-5ab7-ba82-2a5a5aea5328/da63aa48-IMG_6702.png\" docs/assets/images/dgx-spark-4x-sub-surface-ai-brain.png)",
-      "Bash(cat)"
+      "Bash(mkdir -p docs/assets/images)"
     ],
     "defaultMode": "bypassPermissions"
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "dws-gateway-local",
-    "dws-agents-local"
-  ],
+  "enabledMcpjsonServers": ["dws-gateway-local", "dws-agents-local"],
   "_comment": "Local machine-only overrides. Shared defaults live in .claude/settings.json."
 }
