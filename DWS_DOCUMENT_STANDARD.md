@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
 
+- Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Paarni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
 - Version: 2.7 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Merged origin/main (v2.5, session claude/jasenko-hadzic-outreach-ici0e7) into this branch's v2.6. Both branches had independently added a new "§22" section since diverging — this branch's §22 (Multimodal Document Assets) and main's §22 (Whitepaper Standard, defined 24.06.2026 by session claude/nvidia-halos-robotics-suqayg, entry below). Resolved by renumbering main's Whitepaper Standard section (and its §22.1–22.3 subsections, and all internal §22.x cross-references within it) to §23 — this branch's Multimodal Document Assets keeps §22 as originally numbered. No content lost from either side; only section numbers changed on the Whitepaper Standard side. Updated ToC accordingly.
 - Version: 2.6 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: §22.4 updated — `scripts/render-doc.sh` now passes `--resource-path` so relative image paths resolve against the source .md's own directory (fixes a real bug: pandoc was resolving them against the caller's cwd instead, silently dropping the image). Documented the permanent pandoc install path: `infrastructure/dgx-spark/first-boot.sh` (step 3a) installs it once on the DGX Spark box so it survives across sessions, distinct from the ephemeral cloud-session `apt-get install` fallback. First real-world use: `bids/ORK160826/CV_ORK160826_v165.md` v170 — first image reference in 170 versions, rendered to `.html`/`.docx` with the photo embedded.
 - Version: 2.5 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §22 (Multimodal Document Assets) — canonical asset locations (images/fonts/evidence PDFs), Markdown image reference convention, the Base64-embed rule for downloadable HTML/DOCX (formalizes CLAUDE.md's "Downloadable HTML Rule" here as canonical, via new `scripts/render-doc.sh` pandoc wrapper), video/audio handling (poster-frame + external link, never inline data URI), personnel photo quality bar, and the "never drop silently — HIC decision + shared Drive link" fallback rule for artifacts that can't be embedded. Triggered by discovering `bids/ORK160826/CV_ORK160826_v165.md` had zero image references across 168 versions despite a canonical photo already existing in-repo, and that the existing CV-facing photo (`CV/risto70.png`) has an unprofessional background unsuitable for procurement documents. Added §22 to ToC.
@@ -417,6 +418,20 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 - Inconsistent casing: `MyFile.MD`, `myfile.Md`
 - Generic names: `document.md`, `file.txt`
 - Dates without context: `2025-12-30.md`
+
+### 4.6 Filename Version Tag Must Match the Header Version
+
+**Rule:** if a filename embeds a version number (e.g. `CV_ORK160826_v165.md`), that number **must equal** the document's own `Version:` field in the VERSION AND AGENT HISTORY block (§2.1) at all times. They are the same fact stated twice — a human scanning a directory listing must be able to trust the filename without opening the file.
+
+**Why this exists:** `bids/ORK160826/CV_ORK160826_v165.md` went through 5 internal version bumps (165→170) across normal editing sessions without ever being renamed — every edit correctly bumped the `Version:` header (per §5.2) but nothing enforced renaming the file to match, so the filename silently lied for 5 revisions before a human caught it (found 13.07.2026).
+
+**Procedure — whenever an edit bumps a filename-versioned document's `Version:` field:**
+
+1. `git mv` the file (and its rendered `.html`/`.docx` exports, if any — see §22.4) to the new version tag in the same commit as the content edit. Do not defer the rename to "later" — there is no separate cleanup pass for this.
+2. Grep the repo for the old filename before renaming (`grep -rl "<old-filename>" .`) and update any exact-path references found, same as any other rename.
+3. Record the rename itself as a line item in that commit's VERSION AND AGENT HISTORY entry, not silently.
+
+**Exemption:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Paarni_155.md`, `CV/CV_Risto_Paarni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
 
 ---
 

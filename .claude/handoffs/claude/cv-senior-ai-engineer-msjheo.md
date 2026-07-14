@@ -4,7 +4,10 @@
 
 User pasted a LinkedIn "Job match is low — SENIOR AI/ML ENGINEER" report: 1 of 10 required
 qualifications matched (only cloud expertise), 3 of 4 additional. Asked to improve CV 165
-(`bids/ORK160826/CV_ORK160826_v165.md`), incorporating Microsoft Founders Hub work and
+(originally `bids/ORK160826/CV_ORK160826_v165.md` — **renamed to `CV_ORK160826_v170.md`
+on 13.07.2026** per the new DWS_DOCUMENT_STANDARD.md §4.6 filename-version-sync rule; the
+file kept its version bumping internally without ever being renamed, drifting 165→170
+across 5 sessions before it was caught), incorporating Microsoft Founders Hub work and
 GitHub evidence from blogtheristo/dws6.
 
 ## What I did
