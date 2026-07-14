@@ -13,10 +13,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.80
+Version: 1.81
 
 Sessions & Modifications:
 
+- Version: 1.81 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC pyysi HTML-version luomista Learn-kansioon. Luotu `Learn/KONSULTOINNIN_KASIKIRJA_2026_v1.81.html` — versioitu arkistokopio brändätystä (`scripts/gen-handbook-html.cjs`, 2024-design) renderistä, samaa konventiota noudattaen kuin thesis-tiedostot (`Learn/PHD_FIREHORSE_*_v3.XX.html`, `Learn/V3Thesis_*_v3.XX.html`). Ei sisältömuutosta dokumenttiin — pelkkä arkistoiva rinnakkaiskopio.
 - Version: 1.80 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Tiedostonimi korjattu vastaamaan dokumentin omaa kanonista otsikkoa (rivi 1: "Konsultoinnin käsikirja 2026") — `KONSULTIN_KASIKIRJA_2026.md` → `KONSULTOINNIN_KASIKIRJA_2026.md` (`git mv`, historia säilytetty), samoin renderöidyt `Konsultin_kasikirja_2026.html`/`.docx` → `Konsultoinnin_kasikirja_2026.html`/`.docx`. Havaittu, kun HIC korjasi väärän nimimuodon CV-dokumentista (bids/ORK160826/CV_ORK160826_v172.md). Tiedostonimessä EI ole versiotagia — DWS_DOCUMENT_STANDARD.md §4.6:een lisätty tämä dokumentti nimeltä uudeksi poikkeukseksi (elävä, ~20 tiedostosta ristiviitattu sisäinen standardi; versiotagin upottaminen aiheuttaisi ristiviite-päivityksen jokaisella versionostolla, toisin kuin harvoin viitatuilla bid-artefakteilla kuten CV). Kaikki ~20 repo-laajuista ristiviittausta (mm. Admin/ADMIN_MANUAL.md, .claude/commands/dialog.md, thesis/PHD-dokumentit, docs/whitepapers/README.md, onelifetime.world/ + landing-pages-peili) päivitetty samassa commitissa.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — Konsultin käsikirja 2026 edition. Complete rewrite of the 2024 version (v0.16) to reflect Lifetime Oy's transformation from generic IT consulting to sovereign AI compliance platform. Retains Risto's strategic philosophy and practical consulting wisdom; modernizes product, technology, regulatory, and operational content.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added Enterprise Model Engineer role (Lifetime World Model ontology building, Train Model SaaS, 5 000 enterprise ontology network). Updated role count from 7 to 8.
