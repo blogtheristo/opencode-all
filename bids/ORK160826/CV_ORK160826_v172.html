@@ -222,9 +222,10 @@ kohdassa Expert.</p>
 AI/ML Engineer — Kelpoisuusnäyttö (Qualification Evidence)</strong></h2>
 <p><em>Jokainen rivi on todennettu 12.07.2026 julkisesta, auditoitavasta
 lähdekoodista: <a href="https://github.com/blogtheristo/dws6">github.com/blogtheristo/dws6</a>
-(1264 pull requestia, 1107 mergattu; 68 tuotanto-agenttiluokkaa; 201
-automatisoitua testitiedostoa). Ei markkinointikieltä — jokainen väite
-osoittaa suoraan tiedostoon/riviin.</em></p>
+(1264 pull requestia, 1107 mergattu; tuotannossa ajettava monivaiheinen
+agenttiarkkitehtuuri, <code>src/agents/</code>; 201 automatisoitua
+testitiedostoa). Ei markkinointikieltä — jokainen väite osoittaa suoraan
+tiedostoon/riviin.</em></p>
 <table>
 <colgroup>
 <col style="width: 18%" />
@@ -282,21 +283,23 @@ use/function calling, agentti-agentti-delegointi
 compatibility” -kyvykkyyshaun. 3 tuotannossa ajettavaa MCP-palvelinta
 (<code>dws-llm-mesh</code>, <code>cloud-run-gateway</code>,
 <code>supabase-official</code>). <code>agora.agent.ts</code> —
-rinnakkainen delegointi ≤5 agentille (multi-agent consensus). 68
-agenttiluokkaa yhteensä.</td>
+rinnakkainen delegointi ≤5 agentille (multi-agent consensus).
+BaseAgent-pohjainen agenttiarkkitehtuuri tuotannossa; agenttimäärä on
+toteutusdetalji, ei myyntiväite (DWS_TRUTH_STANDARD.md §2A Pillar
+2).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>MLOps/LLMOps:
 prompt/retriever/model lifecycle, registry, drift detection, A/B
 testing, observability</strong></td>
-<td style="text-align: left;"><code>AGENT_ROSTER.json</code> — 68
-agentin/kyvykkyyden sisäinen rekisteri. OpenTelemetry-jäljitys
-(trace/span) jokaiselle agenttikutsulle, <code>AgentExecutionLog</code>
-+ EU AI Act Article 12 -lokitus tuotannossa.
-<code>scripts/daily/run-evals.sh</code> ajaa Waza-eval-regression
-cron-ketjussa jokaisen prompti-/mallimuutoksen jälkeen. Drift-mittarit
-ja A/B-testaus eivät ole formalisoitu erillisenä työkaluna — merkitty
-rehellisesti kehityskohteeksi.</td>
+<td style="text-align: left;"><code>AGENT_ROSTER.json</code> —
+agenttirekisterin sisäinen totuuslähde (elinkaari, kategoriat,
+hyväksytyt näyttöfraasit). OpenTelemetry-jäljitys (trace/span)
+jokaiselle agenttikutsulle, <code>AgentExecutionLog</code> + EU AI Act
+Article 12 -lokitus tuotannossa. <code>scripts/daily/run-evals.sh</code>
+ajaa Waza-eval-regression cron-ketjussa jokaisen prompti-/mallimuutoksen
+jälkeen. Drift-mittarit ja A/B-testaus eivät ole formalisoitu erillisenä
+työkaluna — merkitty rehellisesti kehityskohteeksi.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Evaluation frameworks built with
@@ -417,9 +420,9 @@ Pääarkkitehti laajassa yritystason compliance-alustassa:</p>
 <ul>
 <li><strong>Näytöt (GitHub-todennettu 12.07.2026):</strong> 1650+ pull
 requestia ja ratkaistua issueta yhteensä (1268 PR:ää + 386/387 suljettua
-issueta), 68 tuotannossa olevaa TypeScript-agenttiluokkaa
-(<code>src/agents/</code>), 201 automatisoitua testitiedostoa (Vitest,
-Supertest, Playwright) — <a href="https://github.com/blogtheristo/dws6">github.com/blogtheristo/dws6</a>.</li>
+issueta), tuotannossa oleva TypeScript-agenttiarkkitehtuuri
+(<code>src/agents/</code>, BaseAgent-pohjainen), 201 automatisoitua
+testitiedostoa (Vitest, Supertest, Playwright) — <a href="https://github.com/blogtheristo/dws6">github.com/blogtheristo/dws6</a>.</li>
 <li><strong>Validointi:</strong> Menetelmällinen osaaminen validoitu
 akateemisesti (YAMK lopputyö: Metropolia, arvosana 5/Kiitettävä,
 arvioitu 12.07.2026; tutkimussuunnitelma: LUT) ja tuotteistettu kuudessa
@@ -2675,9 +2678,26 @@ Desk, Contract Management, Disruption Response</li>
 </ul>
 <hr />
 <h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
-<p>Version: 174</p>
+<p>Version: 175</p>
 <p>Sessions &amp; Modifications:</p>
 <ul>
+<li>Version: 175 | Tool: Claude Code (Sonnet 5) | Session:
+claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes:
+/dialog-korjaus — HIC pyysi päivitystä MLOps/LLMOps-riville
+(“AGENT_ROSTER.json — 68 agentin/kyvykkyyden…”). Tarkistus paljasti
+sisäisen ristiriidan: dokumentissa oli jo 5 eri agenttilukua (39 elävää
+.agent.ts-tiedostoa, AGENT_ROSTER.json:n kanoninen agentsTotal=50, sekä
+CV:n omat 58/68/80/88-maininnat). Lisäksi DWS_TRUTH_STANDARD.md §2A
+Pillar 2 kieltää eksplisiittisesti agenttimäärän käytön myyntiväitteenä
+(“agent-count drift trap”). HIC valitsi lopulta vaihtoehdon: poistetaan
+tarkat agenttiluvut kokonaan koodirekisteriä (<code>src/agents/</code>,
+<code>AGENT_ROSTER.json</code>) kuvaavista riveistä, korvataan
+arkkitehtuurikuvauksella ilman lukua — 4 kohtaa korjattu (taulukon
+johdantoteksti, Agentic systems -rivi, MLOps/LLMOps-rivi,
+Näytöt-luettelokohta). Appendix-osion “58 agenttia ja 88 kyvykkyyttä”
+-kanoninen lause (lähde: Konsultin käsikirja 2026 §6, eri taksonomia
+kuin koodirekisteri) jätetty koskemattomaksi — eri lähde, eri väite, ei
+osa tätä ristiriitaa. Tiedosto 174→175.</li>
 <li>Version: 174 | Tool: Claude Code (Sonnet 5) | Session:
 claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes:
 /dialog-korjaus, HIC:n antama lopullinen sanamuoto sovellettu suoraan
