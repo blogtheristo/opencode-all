@@ -38,6 +38,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://lifetime.fi/sv/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://lifetime.fi/firehorse-production-engine/</loc>
     <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>

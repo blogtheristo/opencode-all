@@ -23,6 +23,7 @@
     <link rel="canonical" href="https://lifetime.fi/fi/" />
     <link rel="alternate" hreflang="en" href="https://lifetime.fi/" />
     <link rel="alternate" hreflang="fi" href="https://lifetime.fi/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://lifetime.fi/sv/" />
     <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
@@ -560,6 +561,51 @@
         font-size: 0.75rem;
         color: var(--text-muted);
       }
+
+      /* Maturity ladder */
+      .maturity-ladder {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .maturity-rung {
+        flex: 1 1 120px;
+        padding: 16px 12px;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .maturity-rung .rung-level {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--text-secondary);
+      }
+
+      .maturity-rung .rung-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .maturity-rung.rung-active {
+        background: rgba(184, 134, 11, 0.12);
+        border-color: rgba(184, 134, 11, 0.4);
+      }
+
+      .maturity-rung.rung-active .rung-level {
+        color: var(--color-gold);
+      }
+
+      .maturity-rung.rung-active .rung-name {
+        color: var(--color-gold-light);
+      }
     </style>
   </head>
   <body>
@@ -902,6 +948,195 @@
 
       <div style="margin-top: 32px">
         <a href="mailto:risto@onelifetime.world" class="btn-gold">Varaa konsultaatio</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- DWS IQ -käyttöönottokehys -->
+    <section class="section" id="kayttoonottokehys">
+      <div class="section-label">DWS IQ -käyttöönottokehys</div>
+      <h2 class="section-title">Microsoftin AI Adoption Framework &mdash; kiihdytettynä.</h2>
+      <div class="section-body">
+        <p>
+          Microsoftin <strong>AI Adoption Framework</strong> &mdash; osa Azuren Cloud Adoption
+          Frameworkia &mdash; on suunnitelma, jolla EU-yritykset siirtyvät ad hoc -kokeiluista
+          turvalliseen, skaalattuun ja arvoa tuottavaan tuotantoon. Insinöörit luottavat siihen ja
+          Microsoft on keskeinen toimittaja, joten kohtaamme teidät siellä, missä jo olette:
+          Lifetime Consulting vie DWS IQ -käyttöönottonne läpi
+          <strong>samojen neljän elinkaarivaiheen</strong>. Ero on siinä, mihin laskeudutte &mdash;
+          DWS IQ:n avulla ohitatte riskialttiin kokeiluvaiheen ja saavutte suoraan hallittuun,
+          suvereeniin tuotantoympäristöön.
+        </p>
+      </div>
+
+      <div class="arch-grid" style="grid-template-columns: repeat(4, 1fr)">
+        <div class="arch-card">
+          <div class="arch-name">Vaihe 1</div>
+          <h4>Tekoälystrategia</h4>
+          <p>
+            Aloita liiketoimintaongelmasta, älä teknologiasta. Käännämme sääntely- ja toimintakuilut
+            &mdash; CBAM, CSRD, ETS, NIS2 &mdash; konkreettisiksi käyttötapauksiksi ja valitsemme
+            generatiivisen tai deterministisen tekoälyn tehtäväkohtaisesti. Deterministinen
+            pisteytys aina, kun auditointi sitä vaatii.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Vaihe 2</div>
+          <h4>Suunnittele &amp; valmistele</h4>
+          <p>
+            Microsoft kutsuu sitä nimellä AI Landing Zone. Me pystytämme teille suvereenin sellaisen
+            &mdash; EU-ylläpidetty Suomessa tai on-prem-reunalla (NVIDIA Jetson, L40S) &mdash;
+            järjestämme datadomainit ja kytkemme hallinnon sekä EU AI Actin 12 artiklan lokituksen
+            ennen kuin yksikään agentti käynnistyy.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Vaihe 3</div>
+          <h4>Käyttöönotto &middot; Rakentaminen</h4>
+          <p>
+            Integroimme tekoälyn työn virtaan. Valmiista Skilled Agenteista räätälöityihin
+            agenttipohjaisiin työnkulkuihin suoraan ERP:ssänne (SAP, Visma, IFS, Monitor, Jeeves)
+            &mdash; suvereeni vastine M365&nbsp;Copilotin ja Azure AI Foundryn käyttöönottopoluille.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Vaihe 4</div>
+          <h4>Hallitse, suojaa &amp; operoi</h4>
+          <p>
+            Zero Trust: älä koskaan luota, varmenna aina. KYA-agenttihallinta, tiukat rajat
+            sisäisten ja ulkoisten työkuormien välillä, prompt-injektio- ja tietovuotokontrollit
+            sekä vastuullisen tekoälyn ja EU AI Actin vaatimustenmukaisuus &mdash; rakennettu
+            alustaan, ei liimattu päälle.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-secondary)">
+        Viite:
+        <a
+          href="https://learn.microsoft.com/azure/cloud-adoption-framework/scenarios/ai/"
+          style="color: var(--color-gold)"
+          target="_blank"
+          rel="noopener"
+          >Microsoft Cloud Adoption Framework for AI &rarr;</a
+        >
+        &nbsp; DWS IQ on EU-suvereeni kiihdytinkerros saman elinkaaren päällä &mdash; ei sen
+        korvaaja.
+      </p>
+
+      <!-- Kypsyystikkaat -->
+      <div
+        style="
+          margin-top: 48px;
+          padding: 36px 28px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-xl);
+        "
+      >
+        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
+          Mihin DWS IQ vie teidät kypsyyskäyrällä
+        </h3>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.7;
+          "
+        >
+          Standardilla tekoälyn kypsyysmallilla arvioituna &mdash; tutkivasta transformatiiviseen
+          &mdash; useimmat yritykset juuttuvat Microsoftin <em>Hallitse &amp; suojaa</em>
+          -vaiheeseen: tietovuodot, varjotekoäly ja US&nbsp;CLOUD&nbsp;Act -altistus. DWS IQ
+          ratkaisee nämä suoraan paketista, joten ohitatte kokeilun ja erehdyksen askelmat ja
+          aloitatte läheltä huippua.
+        </p>
+
+        <div class="maturity-ladder">
+          <div class="maturity-rung">
+            <span class="rung-level">L1</span><span class="rung-name">Tutkiva</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L2</span><span class="rung-name">Kokeileva</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L3</span><span class="rung-name">Prosessien optimointi</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L4</span
+            ><span class="rung-name">Edistynyt &amp; skaalattu</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L5</span><span class="rung-name">Transformatiivinen</span>
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            text-align: right;
+            opacity: 0.85;
+          "
+        >
+          &#9632;&nbsp; DWS IQ -käyttöönotot laskeutuvat tänne
+        </p>
+
+        <div class="platform-grid" style="margin-top: 32px">
+          <div class="platform-card">
+            <div class="card-label label-defence">Taso 5 &middot; Toimialan kärki</div>
+            <h3>Tietoturva &amp; hallinto</h3>
+            <p>
+              Suomessa ylläpidetty suvereeni pilvi ja on-prem-reuna = nolla
+              CLOUD&nbsp;Act&nbsp;-altistusta. EU AI Act (ml. 12 artiklan lokitus), CSRD ja CBAM
+              natiivisti. Vaihe, jota useimmat yritykset pelkäävät, on DWS IQ:n vahvin.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-climate">Taso 4 &middot; Edistynyt / skaalattu</div>
+            <h3>Infrastruktuuri &amp; operaatiot</h3>
+            <p>
+              Ei token-kohtaisen API-hinnoittelun pullonkaulaa. Omistatte laskentatehon ja ajatte
+              alle 100&nbsp;ms:n inferenssin offline-tilassa reunalla &mdash; turvalliset
+              verkkorajat ja jatkuva saatavuus, ennustettava käyttötalous.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-distribution">Taso 3&rarr;4 &middot; Optimoiva</div>
+            <h3>Liiketoiminnan omaksuminen &amp; automaatio</h3>
+            <p>
+              Pilottivaihe on ohitettu &mdash; aktiivisia, maksavia teollisuusasiakkaita. Ei
+              chatbotteja, vaan agenttipohjaisia vaatimustenmukaisuustyönkulkuja suoraan
+              ERP-järjestelmiin (SAP, Visma). Tarkastusvalmiit tulokset.
+            </p>
+          </div>
+        </div>
+
+        <p
+          style="
+            margin-top: 24px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            border-left: 3px solid var(--color-gold);
+            padding-left: 16px;
+          "
+        >
+          <strong>Johtopäätös:</strong> Microsoftin AI Adoption Frameworkia seuraavalle
+          eurooppalaiselle teollisuusyritykselle DWS IQ on kypsyyskiihdytin &mdash; ohittakaa
+          riskialtis kokeilu ja laskeutukaa suoraan täysin hallittuun, turvalliseen ja
+          kustannuksiltaan ennustettavaan tuotantoympäristöön.
+        </p>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
+        <a
+          href="mailto:risto@onelifetime.world?subject=DWS%20IQ%20k%C3%A4ytt%C3%B6%C3%B6nottoarviointi"
+          class="btn-gold"
+          >Varaa käyttöönottoarviointi</a
+        >
+        <a href="#konsultointipalvelut" class="btn-outline">Katso konsultointipalvelut &rarr;</a>
       </div>
     </section>
 

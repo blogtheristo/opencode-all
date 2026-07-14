@@ -25,3 +25,11 @@ supplier engineers already trust.
 ## Not done / open
 - No nav-menu entry added (homepage uses shared ironclad-nav.js; kept change surgical with in-page cross-links instead).
 - FI translation of the new section not added — homepage is EN; a FI variant could follow if wanted.
+
+## Follow-up (same session): FI + SV
+- **FI**: Adoption Framework section translated and inserted into `lifetime.fi/fi/index.html` (`#kayttoonottokehys`, between Konsultointipalvelut and Sijoita) + maturity-ladder CSS added to that page's style block.
+- **SV**: Created `lifetime.fi/sv/index.html` — full Swedish homepage translated from the EN root (hero, coaching, platforms, agents/loops/workflows, industry agents, architecture, sovereignty, consulting three pillars, adoption framework, invest, footer). This **fixes a live broken link**: `shared-assets/vertical-lang-bar.js` already advertised `/sv/` with hero text "Agenter. Loopar. Arbetsflöden." but no page existed. H2 matches the bar's hero text.
+- hreflang en/fi/sv wired on all three pages (EN root previously had none); `/sv/` added to `sitemap.xml` (regenerated on deploy by generate-discoverability.mjs anyway).
+- Swedish conventions used: FO-nummer (Y-tunnus), Esbo, moms; laskuri kept at `/laskuri/` (Finnish-only page) labeled "Avbrottskalkylator".
+- Mirror `landing-pages/lifetime-fi/` fully synced (diff -rq clean).
+- Still open: DE/FR pages also advertised by the language bar but don't exist (`/de/`, `/fr/` still 404) — same fix pattern applies if wanted.
