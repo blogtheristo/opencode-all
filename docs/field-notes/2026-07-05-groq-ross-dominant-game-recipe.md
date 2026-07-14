@@ -32,6 +32,9 @@ Related Documents:
 - `docs/field-notes/2026-06-01-simon-willison-pmf-api-cost-edge-moat.md` (PMF/moat metric discussion)
 - `docs/20-MOAT-FORTRESS.md` (19 moats + Layer 0 — the evidence layer the dominant game feeds)
 - `DWS_TRUTH_STANDARD.md` §2A (Canonical Positioning Pillars — the drift guards this note operationalizes as a metric)
+- `config/truth/mgd-crc-metrics.json` (structured mirror of §3, enforced by `/truth-check`)
+
+> **Canonical registry — §3 is the single source of truth for the MGD / CRC north-star metric definitions.** Registered in `DWS_TRUTH_STANDARD.md` §2 row 29; structured mirror `config/truth/mgd-crc-metrics.json` (metric definitions copied verbatim from §3). If the mirror and §3 disagree, §3 wins.
 
 ---
 
