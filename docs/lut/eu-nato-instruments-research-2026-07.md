@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Added new §3a — a third-party draft (again unverified, again proposing edits on the wrong branch) surfaced EIC STEP Scale-Up Defence as real; verified it independently (opened 1 Jul 2026, deadline 28 Oct 2026, €100M 2026 budget, €10-30M equity-only, 20%-lead-investor-pre-commitment gate, defence-tech scoped) and corrected the same draft's conflation of it with the standard EIC Accelerator (STEP Scale-Up tracks are separate, equity-only, later-stage instruments, not an "expanded €30M Accelerator"). Declined to accept the draft's unverified RQ2-anchor claim (Copenhagen Law "CIIR") or its proposed HTML dashboard, which encoded the same conflation as fact.
 - Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Follow-up verification pass on a second-opinion review of v1.0 (a Gemini "integration" reply proposed unverified figures — reviewed critically per "surface conflicts, don't average them" rather than merged wholesale). Resolved the root cause of the original draft's €30M EIC equity claim: it belongs to the separate STEP Scale-Up scheme (€10-30M equity-only, later-stage), not the standard Accelerator route — added to §3 and §9. Confirmed EIC's 70% grant co-funding rate and re-verified Eurostars' national rate range (20-80%, no confirmed Swedish %) with primary/near-primary sources.
 - Version: 1.0 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Recovery run re-creating the EU Commission + NATO DIANA research pack lost to an unreclaimed container on 2026-07-13 (see `docs/lut/recovery-prompts-lost-research-packs-2026-07.md` §1 row 3, "LOST — worst"). A founder-supplied Gemini draft was used as a starting hypothesis and verified against official sources; several figures in that draft were corrected (see §8). Every claim below is either sourced from an official page fetched/searched this session, or explicitly marked `(verify)` where the primary page could not be opened (HTTP 403 on `ec.europa.eu` PDF fiches and `businessfinland.fi`/`cascadefunding.eu`, blocked by the sandbox's outbound proxy).
 
@@ -219,6 +220,39 @@ against the scheme's own page before assuming it's open to a first-time applican
   large-ticket vehicle for Aegis Defence specifically, and the only instrument in this pack
   where negative equity is structurally less of a blocker.
 
+### 3a. EIC STEP Scale-Up and STEP Scale-Up Defence — distinct, later-stage, equity-only tracks
+
+Verified this session in response to a second-opinion review that (correctly) surfaced STEP
+Scale-Up Defence as real, but (incorrectly) folded its terms into the Accelerator entry above.
+**These are two separate schemes from EIC Accelerator, not an "expanded €30M version" of it.**
+
+- **EIC STEP Scale-Up (civil)** (verified, `eic.ec.europa.eu/eic-funding-opportunities/step-scale_en`):
+  equity-only, **€10M–€30M** per company, four 2026 cut-offs — **11 Feb, 6 May, 9 Sep, 25 Nov**.
+  €300M 2026 budget. Targets digital/deep-tech, clean-tech, biotech scale-ups already raising
+  **€50M–€150M+** rounds.
+- **EIC STEP Scale-Up Defence** (verified, `eic.ec.europa.eu/eic-funding-opportunities/eic-step-scale-defence_en`,
+  `eic.ec.europa.eu/news/eic-step-scale-defence-call-opens-today-2026-07-01_en`): opened **1 Jul
+  2026**, deadline **28 Oct 2026** (same date as the Accelerator dual-use window's close — the
+  likely source of the draft's conflation), **€100M 2026 budget**, equity-only **€10M–€30M**,
+  single SME/small mid-cap (<500 employees) in an EU/EEA/Horizon-Associated country or Ukraine.
+  Scoped to critical defence technologies: **air/missile defence, drones, cyber defence**. Per
+  the EIC's own framing, this is **the first EU programme to make direct equity investments in
+  defence companies** — genuinely novel and a strong thematic fit for Aegis Defence.
+- **Investment-leverage gate (verified, both STEP tracks):** requires a **pre-committed lead
+  investor covering at least 20% of the total target funding round** (round must be €50M–€150M+,
+  i.e. **3–5× the EIC investment**); the pre-commitment must be **fully uninvested as of the
+  letter's date**, and **syndicated commitments don't qualify** unless one entity alone clears
+  the 20% threshold.
+- **Why this isn't a near-term fit for Lifetime Oy/AB today:** both STEP tracks are built to
+  co-invest inside an already-forming €50–150M+ round with a lead investor already committed —
+  that's a later fundraising stage than Lifetime is at now. **Treat STEP Scale-Up Defence as the
+  natural follow-on once Lifetime has an EIC Accelerator award or an equivalent-scale round with
+  a lead investor lined up**, not as a 2026 filing target. `(verify whether STEP Scale-Up
+Defence formally requires a prior EIC relationship — e.g. Seal of Excellence — as a
+precondition, against the scheme's own eligibility page before ruling on timing)`.
+- **Fit score: 9/10 for relevance, but N/A for 2026 filing** — the thematic fit for Aegis
+  Defence is as strong as anything in this pack; the blocker is company stage, not GBER.
+
 ## 4. Cascade / FSTP open calls
 
 The draft's specific named calls (NGI Sargasso, "SecurIT Open Call 3", AI-Redio) do not fully
@@ -399,16 +433,18 @@ near-term than a 7/10-fit instrument that's filable today.
 
 ## 9. What was corrected vs. the founder-supplied Gemini draft (summary, for §7 of the roadmap)
 
-| Draft claim                                                     | Correction                                                                                                                                                                                                                                                                 | Source                                                   |
-| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| EIC equity up to €30M                                           | Actual EIC Fund equity ceiling is **€10M** (minority stake ≤25%)                                                                                                                                                                                                           | EIC 2026 Work Programme coverage, EIC FAQ                |
-| Digital Europe: €2.0–3.0M/project, 50%/100% split               | Actual: **€8.5M total / 2 grants** (~€4.25M avg); DEP standard rate 50%, **SME rate 75%**                                                                                                                                                                                  | `topictree.ideal-ist.eu`, DEP funding-mechanism guides   |
-| EDF deadline "mid-May 2027 (expected)"                          | EDF 2026 work programme **closes 29 Sep 2026** — live now, not next year                                                                                                                                                                                                   | `zabala.eu`, `hezelburcht.com`, `ffg.at`                 |
-| "SecurIT Open Call 3" and "AI-Redio Cascade Call" as open calls | Not found as currently live; SecurIT traces to a 2023-era H2020 programme. Live substitutes: **NGI Sargasso** (1 Aug 2026), **AI4Gov-X** (rolling cut-offs), **EUDIS cascade**                                                                                             | `cascadefunding.eu`/`subsdy.com`/`ngisargasso.eu` search |
-| NATO DIANA "3 Jul 2026 call missed... next cycle ~mid-2027"     | 3 Jul 2026 **was** the standing annual call (for the 2027 cohort); next entry point is the **~June/July 2027 call for the 2028 cohort** — same practical conclusion, corrected mechanism                                                                                   | `diana.nato.int/faq`, `iuk-business-connect.org.uk`      |
-| Eurostars "50% funding rate" as a single EU-wide figure         | Eurostars is **bilaterally co-funded per country**, roughly 20–80% of eligible costs depending on country; no confirmed Swedish (Vinnova) percentage exists — Vinnova publishes a **SEK cap**, not a rate                                                                  | `eurostars.eureka.eu`, `vinnova.se`                      |
-| EIC dual-use equity €30M (root cause, resolved this session)    | €30M is real but belongs to a **separate, later-stage scheme — STEP Scale-Up** (€10M–€30M equity-only, no grant, targets companies already scaling into €50–150M+ rounds), not the standard €2.5M-grant/€10M-equity Accelerator route; draft conflated the two instruments | `eic.ec.europa.eu/step-scale`, `eura-ag.com`             |
-| EIC grant co-funding rate (not previously stated by the draft)  | Confirmed: lump-sum grant covers **70%** of eligible innovation-activity costs; beneficiary self-funds the remaining 30%                                                                                                                                                   | Multiple official/near-official EIC sources this session |
+| Draft claim                                                                                                 | Correction                                                                                                                                                                                                                                                                                                     | Source                                                                        |
+| ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| EIC equity up to €30M                                                                                       | Actual EIC Fund equity ceiling is **€10M** (minority stake ≤25%)                                                                                                                                                                                                                                               | EIC 2026 Work Programme coverage, EIC FAQ                                     |
+| Digital Europe: €2.0–3.0M/project, 50%/100% split                                                           | Actual: **€8.5M total / 2 grants** (~€4.25M avg); DEP standard rate 50%, **SME rate 75%**                                                                                                                                                                                                                      | `topictree.ideal-ist.eu`, DEP funding-mechanism guides                        |
+| EDF deadline "mid-May 2027 (expected)"                                                                      | EDF 2026 work programme **closes 29 Sep 2026** — live now, not next year                                                                                                                                                                                                                                       | `zabala.eu`, `hezelburcht.com`, `ffg.at`                                      |
+| "SecurIT Open Call 3" and "AI-Redio Cascade Call" as open calls                                             | Not found as currently live; SecurIT traces to a 2023-era H2020 programme. Live substitutes: **NGI Sargasso** (1 Aug 2026), **AI4Gov-X** (rolling cut-offs), **EUDIS cascade**                                                                                                                                 | `cascadefunding.eu`/`subsdy.com`/`ngisargasso.eu` search                      |
+| NATO DIANA "3 Jul 2026 call missed... next cycle ~mid-2027"                                                 | 3 Jul 2026 **was** the standing annual call (for the 2027 cohort); next entry point is the **~June/July 2027 call for the 2028 cohort** — same practical conclusion, corrected mechanism                                                                                                                       | `diana.nato.int/faq`, `iuk-business-connect.org.uk`                           |
+| Eurostars "50% funding rate" as a single EU-wide figure                                                     | Eurostars is **bilaterally co-funded per country**, roughly 20–80% of eligible costs depending on country; no confirmed Swedish (Vinnova) percentage exists — Vinnova publishes a **SEK cap**, not a rate                                                                                                      | `eurostars.eureka.eu`, `vinnova.se`                                           |
+| EIC dual-use equity €30M (root cause, resolved this session)                                                | €30M is real but belongs to a **separate, later-stage scheme — STEP Scale-Up** (€10M–€30M equity-only, no grant, targets companies already scaling into €50–150M+ rounds), not the standard €2.5M-grant/€10M-equity Accelerator route; draft conflated the two instruments                                     | `eic.ec.europa.eu/step-scale`, `eura-ag.com`                                  |
+| A second, later draft: "EIC Accelerator (Dual-Use/Defence) pays €2.5M grant + €30M equity under STEP rules" | Still the same conflation — **STEP Scale-Up Defence is a real, separate scheme** (deadline 28 Oct 2026, €100M 2026 budget, €10-30M equity-only, 20%-lead-investor-pre-commitment gate), but it is not an "expanded Accelerator"; Accelerator itself remains €2.5M grant + up to €10M equity (§3). See new §3a. | `eic.ec.europa.eu/eic-step-scale-defence`, `eic.ec.europa.eu` news 2026-07-01 |
+| Same draft's RQ2 anchor claim: "Copenhagen Law (CIIR)" stated as a confirmed anchor                         | Roadmap §5/§7 explicitly flags this as an **unverified lead** (KU information-law centre), not a confirmed anchor — not independently verified this session, left as-is rather than upgraded on an unsourced claim                                                                                             | `docs/lut/fundraising-roadmap-2026-2027.md` §5, §7                            |
+| EIC grant co-funding rate (not previously stated by the draft)                                              | Confirmed: lump-sum grant covers **70%** of eligible innovation-activity costs; beneficiary self-funds the remaining 30%                                                                                                                                                                                       | Multiple official/near-official EIC sources this session                      |
 
 All other draft figures not listed above (Eurostars deadline/consortium rules, EIC grant
 amount, DIANA grant sizes, NIF size and FI/SE LP status, VTT Otaniemi/LEAD Linköping test
