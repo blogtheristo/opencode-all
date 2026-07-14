@@ -273,4 +273,121 @@ call)`.
 
 ---
 
-## Continues in this file — sections 6–7 and the ranked action plan follow below.
+## 6. European Defence Fund (EDF) — SME entry paths for Aegis
+
+- **Major correction vs. the Gemini draft:** The draft placed EDF at **"mid-May 2027 (expected)"**
+  — this is wrong; the **EDF 2026 work programme is live now and closes 29 September 2026,
+  17:00 Brussels time** (verified, `zabala.eu`, `hezelburcht.com`, `ffg.at/en/europe/edf/calls/2026`).
+  This moves EDF from "next year, not urgent" to **a near-term deadline that lands 19 days
+  after Eurostars (10 Sep) and 2 days before the Digital Europe compliance call (1 Oct)** —
+  the three land in a tight autumn cluster and compete for the same drafting bandwidth.
+- **Scale:** EDF 2026 work programme totals **~€1bn across 10 calls** (verified,
+  `hezelburcht.com`).
+- **SME research-action path:** Open/non-thematic SME research calls fund up to **€4M per
+  project** for research actions; **research actions dedicated to SMEs/research organisations
+  are funded at 100%** (verified, `hezelburcht.com`/`ffg.at`) — materially better terms than the
+  draft's generic "up to 100%... plus 25% indirect-cost bonus" framing, which conflated EDF
+  with Horizon Europe's flat-rate model; EDF's own 100% rate for SME research actions doesn't
+  need an indirect-cost bonus layered on top.
+- **Development-action path (larger, more defence-industrial):** up to **€6M per project**
+  (verified, `hezelburcht.com`) — likely a later-stage fit for Aegis than the research-action
+  path, once DWS IQ/Aegis has more deployed evidence.
+- **Consortium requirement:** minimum **3 companies from 3 different EU Member States**
+  (verified, `hezelburcht.com`) — same shape as Digital Europe's minimum, so the same
+  consortium-building conversations can potentially serve both.
+- **Aegis Defence fit:** EDF is the most direct "defence fund" vehicle in this pack — Aegis as
+  a secure agentic-AI validation/compliance layer for allied/dual-use software is a plausible
+  SME research-action fit, though EDF applications typically also require navigating
+  **defence-sector security clearance and export-control considerations** not present in the
+  civil instruments above — this needs its own scoping pass before committing effort, given
+  the tight Sep 2026 timeline.
+- **Financial capacity:** Evaluated per-consortium, similar dynamic to Digital Europe (§2) —
+  an academic or larger-partner coordinator likely shields Lifetime Oy's negative equity in
+  the same way. Not separately confirmed for EDF specifically this session `(verify)`.
+- **Fit score: 6/10** (down from the draft's 7/10 despite the funding terms being _better_ than
+  described) — the terms are attractive, but discovering the real deadline is 29 Sep 2026 (not
+  mid-2027) means this instrument now competes directly for September drafting capacity against
+  Eurostars and Digital Europe, and defence-specific clearance/export-control unknowns are
+  unscoped. Given the consortium bench's academic character (Fraunhofer, SINTEF, TU Wien) is
+  civil-research-oriented, EDF may be better treated as a **2027 target** in practice even
+  though the 2026 call is technically open now — flag this explicitly as a resourcing decision
+  for the founder, not a hidden default.
+
+## 7. Horizon Europe Cluster 4 (Digital, Industry & Space) — 2026-27 topics
+
+- **Work programme structure (verified, `ideal-ist.eu`, `hadea.ec.europa.eu`):** Two Digital-
+  pillar calls for 2026: **HORIZON-CL4-2026-04** (€221.8M, 15 topics) and
+  **HORIZON-CL4-2026-05** (€85.5M, 3 topics). First calls opened **16 December 2025**; EC info
+  days ran 29–30 January 2026. Individual topic deadlines were not verified line-by-line this
+  session — treat specific topic deadlines as `(verify)` against the Funding & Tenders Portal
+  before drafting.
+- **Relevant destination (confirmed):** "Developing an agile and secure single market and
+  infrastructure for data services and trustworthy artificial intelligence services" —
+  directly names trustworthy-AI and secure-data-services, the closest Cluster 4 destination to
+  DWS IQ's evidence-layer thesis.
+- **Top 3 credible topics for the consortium bench** (carried from the roadmap's existing
+  framing, not independently re-derived line-by-line this session — verify exact topic codes
+  against the destination above before filing):
+  1. Trustworthy/robust AI — sovereign agentic verification (RQ1 fit).
+  2. Secure European data spaces / automated policy enforcement (RQ2 fit).
+  3. Securing decentralised, agent-led digital networks (RQ1/RQ3 fit).
+- **Strategy (unchanged from the roadmap):** participate as an **SME partner**, not
+  coordinator — let Fraunhofer IAIS, SINTEF, or TU Wien carry the coordination and financial-
+  capacity overhead, consistent with the Digital Europe mitigation in §2.
+- **Funding rate:** Horizon Europe RIA/IA standard rates apply — **100% of eligible direct
+  costs for research and innovation actions**, plus a **25% flat rate for indirect costs**
+  (standard Horizon Europe model, distinct from EDF's own rate structure — see the §6
+  correction above for why these two programmes should not be conflated).
+- **Fit score: 8/10** (unchanged from the draft) — strong prestige and funding rate, but a
+  9–12 month sales cycle to cash makes it a portfolio play, not near-term runway; the academic
+  anchors are the ones who should be driving the writing.
+
+---
+
+## 8. Ranked "apply in this order" list
+
+Ordered by a combination of deadline proximity, GBER gate status, and effort-to-award ratio —
+not by fit score alone, since a 9/10-fit instrument that's blocked on Gate 1 is worth less
+near-term than a 7/10-fit instrument that's filable today.
+
+1. **NGI Sargasso (cascade/FSTP)** — deadline **1 Aug 2026**, 18 days out, GBER-exempt, low
+   effort (~20–30h). File first simply because the clock is shortest.
+2. **Eurostars Call 11, SE-led via Lifetime AB** — deadline **10 Sep 2026**, GBER-exempt
+   route confirmed, ~€440k Vinnova cap, best structural fit (9/10). Start consortium lock-in
+   this week — 9-week runway from 14 Jul.
+3. **AI4Gov-X cascade call** — first cut-off **31 Aug 2026**, GBER-exempt, low effort; run in
+   parallel with Eurostars drafting since it's a lighter lift.
+4. **European Defence Fund SME research action** — deadline **29 Sep 2026** (corrected from
+   the draft's "mid-2027"). Only pursue if a founder resourcing decision confirms bandwidth
+   exists alongside Eurostars/Digital Europe in the same window; otherwise explicitly defer to
+   the EDF 2027 work programme and say so rather than silently dropping it.
+5. **Digital Europe DIGITAL-2026-AI-DATA-10-COMPLIANCE** — deadline **1 Oct 2026**, highly
+   selective (2 grants/€8.5M EU-wide); needs an academic coordinator secured well before
+   filing.
+6. **EIC Accelerator dual-use window** — Stage 1 short proposal can be submitted any time
+   before the window's **28 Oct 2026** close; start Stage 1 in parallel with the above, since
+   its ~4-week turnaround and independent track don't compete for the same drafting cycle.
+7. **NATO DIANA pre-engagement** — no application to file until **~June/July 2027** (2028
+   cohort), but start **VTT Otaniemi and LEAD Linköping relationship-building this autumn**
+   (Sep–Oct 2026) regardless, since test-centre access is decoupled from the challenge-call
+   calendar.
+8. **Horizon Europe Cluster 4** — no near-term deadline pressure; feed topic selection to the
+   academic anchors (Fraunhofer IAIS, SINTEF, TU Wien) as their consortium play, not a DWS-led
+   filing.
+
+---
+
+## 9. What was corrected vs. the founder-supplied Gemini draft (summary, for §7 of the roadmap)
+
+| Draft claim                                                     | Correction                                                                                                                                                                               | Source                                                   |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| EIC equity up to €30M                                           | Actual EIC Fund equity ceiling is **€10M** (minority stake ≤25%)                                                                                                                         | EIC 2026 Work Programme coverage, EIC FAQ                |
+| Digital Europe: €2.0–3.0M/project, 50%/100% split               | Actual: **€8.5M total / 2 grants** (~€4.25M avg); DEP standard rate 50%, **SME rate 75%**                                                                                                | `topictree.ideal-ist.eu`, DEP funding-mechanism guides   |
+| EDF deadline "mid-May 2027 (expected)"                          | EDF 2026 work programme **closes 29 Sep 2026** — live now, not next year                                                                                                                 | `zabala.eu`, `hezelburcht.com`, `ffg.at`                 |
+| "SecurIT Open Call 3" and "AI-Redio Cascade Call" as open calls | Not found as currently live; SecurIT traces to a 2023-era H2020 programme. Live substitutes: **NGI Sargasso** (1 Aug 2026), **AI4Gov-X** (rolling cut-offs), **EUDIS cascade**           | `cascadefunding.eu`/`subsdy.com`/`ngisargasso.eu` search |
+| NATO DIANA "3 Jul 2026 call missed... next cycle ~mid-2027"     | 3 Jul 2026 **was** the standing annual call (for the 2027 cohort); next entry point is the **~June/July 2027 call for the 2028 cohort** — same practical conclusion, corrected mechanism | `diana.nato.int/faq`, `iuk-business-connect.org.uk`      |
+| Eurostars "50% funding rate" as a single EU-wide figure         | Eurostars is **bilaterally co-funded per country** — no single EU-wide rate; Vinnova's cap (~€440k) is confirmed but BF's specific SME cap wasn't found as a public figure this session  | `eurostars.eureka.eu`, `vinnova.se`                      |
+
+All other draft figures not listed above (Eurostars deadline/consortium rules, EIC grant
+amount, DIANA grant sizes, NIF size and FI/SE LP status, VTT Otaniemi/LEAD Linköping test
+centres) were independently verified and matched the draft.
