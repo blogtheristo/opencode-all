@@ -66,6 +66,38 @@ before we're standing in them:
    option on up to S$50k equity for grant awardees. Read the 2026 terms
    before accepting any grant component.
 
+## Signal — the reviewer is already an agentic-commerce believer
+
+Jit Singh's own LinkedIn activity (post from ~4 weeks before our exchange,
+surfaced 2026-07-15): he spoke at a SuperAI Week gathering on how AI
+startups can leverage AI Accelerate + BLOCK71 incubation, judged the EPIC
+Connector UCWS Singapore hackathon — and attended **Stripe's Agentic
+Commerce Breakfast Briefing**, where leaders from **Stripe, Sierra, Shopee,
+Microsoft, and Amazon** discussed "what commerce and payments look like in
+an agent-driven world … how autonomous agents are beginning to influence
+purchasing decisions, customer interactions, and payment flows." His
+summary: "AI isn't a fad. It's here to stay."
+
+**Implication for the application (use it, don't waste it):**
+
+1. **Lead with KYA-2 / agentic commerce, not with climate compliance.** The
+   programme manager has personally sat in the room where Stripe framed
+   agent-driven payments as the next commerce wave — the missing
+   trust/mandate/audit layer is a gap he can name himself. Our pitch is the
+   answer to the exact conversation he attended.
+2. **The competitive framing writes itself for this audience:** the
+   x402/AP2/Stripe-toolkit comparison (custodial, binds the human, no
+   revocable mandate) will land as informed, not adversarial — Stripe was
+   _in_ his briefing, and we position as the trust layer those rails lack,
+   not their competitor.
+3. **Microsoft is a double hook:** programme co-runner AND present at the
+   same briefing. The M365 agent consultancy SKU + DWS IQ Adoption
+   Framework (built on Microsoft's AI Adoption Framework) belong in the
+   first third of the application.
+4. Video beat 5 re-point (already planned) should name agentic commerce in
+   Singapore explicitly — it is the region's live conversation, per the
+   reviewer's own feed.
+
 ## Cross-references
 
 - `partners-outreach/BLOCK71_DEEP_SAGE_2026/AI_ACCELERATE_2026_ASSESSMENT.md`
