@@ -6,7 +6,7 @@
 
 | Field          | Value                                                                  |
 | -------------- | ---------------------------------------------------------------------- |
-| Version        | 0.9 (submission-ready draft, unsubmitted)                              |
+| Version        | 1.0 (submission-ready; licence stack locked 2026-07-15; unsubmitted)   |
 | Date           | 2026-07-15                                                             |
 | Author         | Lifetime Oy                                                            |
 | Owner          | risto-001                                                              |
@@ -127,7 +127,9 @@ and GDPR-native by construction rather than by bolt-on.
 We engage GNU Taler / Taler Systems SA directly with upstreamable specs and code,
 align the mandate credential with the EU Digital Identity (eIDAS 2.0) Wallet, and
 run one regulated-sector pilot (autonomous procurement / subscription agent). All
-outputs are open source (licence: EUPL or Apache-2.0, TBC), documented publicly,
+outputs are open source (spec under CC-BY 4.0; reference implementation under
+Apache-2.0; compliance-core components under EUPL-1.2, one-way compatible with
+GNU Taler's GPLv3/AGPLv3), documented publicly,
 and disseminated via NLnet channels, the DWS IQ blog, and EU agent-safety /
 NGI venues.
 
@@ -160,8 +162,16 @@ risto.paarni@lifetime.fi · +358 400 319 010
 - [ ] Confirm "no other funding for this work" stays true if EIC Step 1 is
       submitted in parallel (different scope: Taler rails vs. standard + product
       — keep the boundary explicit in both applications).
-- [ ] Licence decision (EUPL vs Apache-2.0) — same question as DIGITAL §7 Q4
-      and EIC §8 Q3; answer once, reuse everywhere.
+- [x] Licence decision — **LOCKED (founder, 2026-07-15)**: CC-BY 4.0 spec /
+      Apache-2.0 reference impl / EUPL-1.2 compliance core / proprietary
+      Themis. Canonical statement + preconditions (CLA-to-Lifetime,
+      patents-before-publication pending IPR counsel review):
+      `EU_FUNDING_EIC_ACCELERATOR_2026.md` §8 Q3. §10 of the application
+      text updated accordingly.
+- [ ] **Patent precondition check before submission:** M1–M3 deliverables
+      publish spec + code covered by patent-track claims (trust-scoring,
+      evidence chain) — confirm with IPR counsel that filing/scoping happens
+      before the first public milestone, not before submission.
 
 ---
 

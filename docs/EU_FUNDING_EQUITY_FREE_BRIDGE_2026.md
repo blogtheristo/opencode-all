@@ -115,8 +115,13 @@ Sources:
    cannot supply it on that timeline — look to non-dilutive national instruments
    (Business Finland) or revenue/bridge financing instead.
 2. Is an OSS release of a DWS compliance module acceptable as a grant deliverable
-   (it is required for NLnet Commons and strengthens DIGITAL)? Licence: EUPL vs
-   Apache-2.0.
+   (it is required for NLnet Commons and strengthens DIGITAL)?
+   **Licence: DECIDED (founder, 2026-07-15)** — CC-BY 4.0 spec / Apache-2.0
+   reference impl / EUPL-1.2 compliance core / proprietary Themis, with
+   CLA-to-Lifetime + patents-before-publication preconditions (pending IPR
+   counsel review). Canonical statement:
+   `EU_FUNDING_EIC_ACCELERATOR_2026.md` §8 Q3. The Commons deliverable ships
+   under EUPL-1.2.
 3. Single-applicant (NLnet allows individuals/small teams) vs consortium — NLnet
    is fast because it needs neither partners nor co-financing.
 

@@ -140,11 +140,24 @@ Two honesty guards written into the brief, carry them into Step 1 prose:
    core R&D/IP stays with Lifetime Oy in Finland. EIC expects core
    innovation in-house; partners = delivery scale, not the R&D brain.
 
-**Licence decision — PROPOSED, NOT YET LOCKED:** CC-BY 4.0 spec /
-Apache-2.0 reference impl / EUPL-1.2 compliance core / proprietary Themis,
-with two preconditions: (a) CLA/copyright stays with Lifetime Oy on the
-EUPL core (preserves dual-licensing), (b) patent-track claims filed or
-scoped to Themis **before** covering code is published (both EUPL and
-Apache carry patent grants). Founder acknowledged the split but has not
-said "lock it" — do not propagate into the four funding docs until
-confirmed.
+**Licence decision — LOCKED (founder, 2026-07-15) and PROPAGATED:**
+CC-BY 4.0 spec / Apache-2.0 reference impl + SDKs / EUPL-1.2 compliance
+core / proprietary Themis. Founder's rationale on record: EUPL's SaaS
+clause is the actual moat (not just evaluator optics); Taler one-way
+compatibility solves a real downstream problem. Two **non-negotiable
+preconditions**, correctly sequenced (block code publication, NOT grant
+submission):
+
+- (a) CLA/copyright stays with Lifetime Oy on the EUPL core — preserves
+  the dual-licensing revenue door.
+- (b) Patents before publication — trust-scoring + evidence-chain claims
+  filed or scoped to Themis first. Status: **decided pending IPR counsel
+  review** — drafting proceeds, precondition stays visible in every
+  application text.
+
+Propagated 2026-07-15 into all four docs: EIC brief §8 Q3 (canonical
+statement, v1.3), DIGITAL §7 Q4 (v1.2), Taler draft §10 + checklist
+(v1.0), bridge brief §5 Q2. Also in EIC v1.3: stale "Apache-2.0 spec"
+corrected to CC-BY 4.0; Cubet headcount finalized at **ca. 70**
+(founder-confirmed; FY-2025 filings ~73) — combined-pool claim "100+
+engineers across two contracted partners" unchanged.

@@ -6,7 +6,7 @@
 
 | Field          | Value                                                                                     |
 | -------------- | ----------------------------------------------------------------------------------------- |
-| Version        | 1.2                                                                                       |
+| Version        | 1.3                                                                                       |
 | Date           | 2026-07-15                                                                                |
 | Author         | Lifetime Oy                                                                               |
 | Owner          | risto-001                                                                                 |
@@ -30,6 +30,13 @@ positioning caveat (§3.3) — data stays EU/EEA, core R&D in Finland.
 across two contracted partners"**; "100 engineers at Cubet" retired as
 unsupported. ORK sovereignty framing confirmed as the canonical partner
 positioning (founder decision).
+
+**v1.3 (2026-07-15, same session):** **Licence stack LOCKED (founder):**
+CC-BY 4.0 spec / Apache-2.0 reference impl + SDKs / EUPL-1.2 compliance core /
+proprietary Themis — full decision + non-negotiable preconditions in §8 Q3
+(CLA-to-Lifetime; patents-before-publication, decided pending IPR counsel
+review). Stale "Apache-2.0 spec" wording corrected to CC-BY 4.0 in §2/§3.1.
+Cubet headcount set to founder-confirmed **ca. 70** (filings ~73).
 
 ---
 
@@ -59,7 +66,7 @@ is different: a GO within weeks is a **credibility signal** usable with investor
 
 One sentence: **KYC for AI agents that transact** — KYA v2 as the EU-native
 conformance standard for agent-level identity, capability manifests, revocable
-spending mandates, and Article-12 audit trails; open standard (Apache-2.0 spec) +
+spending mandates, and Article-12 audit trails; open standard (spec under CC-BY 4.0) +
 proprietary Themis implementation.
 
 Strategy: dual-track — open conformance standard as EU public good, commercial
@@ -82,7 +89,9 @@ extension on GNU Taler rails).
   Article-12 logging pipeline live; Firecracker MicroVM isolation operational.
   Not lab-stage. (Most EIC applicants arrive at TRL 3–4 — this is ahead of the
   field.)
-- **IP:** open standard (Apache-2.0 spec) + proprietary Themis implementation;
+- **IP (licence stack LOCKED 2026-07-15, see §8 Q3):** open standard (spec
+  under CC-BY 4.0) + Apache-2.0 reference implementation/SDKs + EUPL-1.2
+  compliance core + proprietary Themis implementation;
   patent potential on the trust-scoring model and evidence-chain architecture
   (aligned with the existing patent-track research line: agentic commerce,
   transactions, quantum-safe primitives).
@@ -107,7 +116,8 @@ extension on GNU Taler rails).
      running.
   2. **Lifetime Certified Partners consortium** — contracted delivery capacity
      under NDA: **Cubet Techno Labs** (Kochi, est. 2013, AI/LLM engineering;
-     **~73 employees** per FY-2025 filings, other trackers 50–146) +
+     **ca. 70 engineers** — founder-confirmed 2026-07-15, consistent with
+     FY-2025 filings ~73; other trackers 50–146) +
      **9series Solutions** (Ahmedabad; **60+ developers**, LinkedIn band
      51–200). **Combined pool 130+; the safe external claim is "100+
      engineers across two contracted partners"** — never "100 engineers at
@@ -169,8 +179,9 @@ NVIDIA/IBM/AWS partnerships) + **Lifetime Certified Partners consortium**
 pool 130+, web-verified 2026-07-15; both contracted under NDA and already
 delivering in a live bid) + the AI agent fleet as operational multiplier.
 That is _execution capacity, not headcount_. Residual to-dos:
-(a) ~~verify Cubet's engineer count~~ **done 2026-07-15**: Cubet ~73
-(FY-2025 filings), 9series 60+ devs — use the combined "100+" claim only;
+(a) ~~verify Cubet's engineer count~~ **done 2026-07-15**: Cubet ca. 70
+(founder-confirmed; FY-2025 filings ~73), 9series 60+ devs — use the
+combined "100+" claim only;
 (b) **decided — use the ORK framing verbatim** (development under EU
 controls, data stays EU/EEA, EU-based maintenance handover, core R&D/IP in
 Finland) so the partners strengthen rather than dent the sovereignty story;
@@ -212,9 +223,28 @@ Finland) so the partners strengthen rather than dent the sovereignty story;
    Step 1 (the form asks).
 2. Which entity applies — Lifetime Oy (FI) with Lifetime AB (SE) as expansion
    narrative, or a group structure?
-3. Does the KYA v2 open-standard commitment (Apache-2.0 spec) conflict with any
-   existing customer contract or the enterprise licensing model? (Same licence
-   question as DIGITAL brief §7 Q4 — answer once, reuse.)
+3. **DECIDED (founder, 2026-07-15) — licence stack locked**, shared across
+   NLnet/EIC/DIGITAL (same answer reused in DIGITAL §7 Q4 and the Taler
+   draft):
+   - KYA v2 **spec**: **CC-BY 4.0** (a standard anyone can implement).
+   - **Reference implementation + SDKs**: **Apache-2.0** (adoption surface).
+   - **Compliance core**: **EUPL-1.2** — the SaaS copyleft ("communication to
+     the public") is the actual moat against hyperscaler strip-mining, and
+     EUPL's one-way compatibility into GPLv3/AGPLv3 lets core code flow
+     upstream to GNU Taler.
+   - **Themis implementation**: proprietary (enterprise product).
+
+   **Non-negotiable preconditions (before any code publication, NOT before
+   grant submission):**
+   - (a) **CLA/copyright stays with Lifetime Oy** on the EUPL core —
+     preserves the dual-licensing revenue door (commercial licences for
+     copyleft-averse enterprises).
+   - (b) **Patents before publication** — trust-scoring + evidence-chain
+     claims filed, or scoped to the proprietary Themis layer, before the
+     covering code ships (both EUPL and Apache carry patent grants).
+     Status: **decided pending IPR counsel review** — drafting proceeds;
+     the precondition stays visible in every application text.
+
 4. Video + deck reuse: how much of `investor-outreach/ECOSUMMIT_PITCH_DECK_2026.md`
    / `V4.3-DWS-IQ6-InvestorPD_2026.md` carries over?
 

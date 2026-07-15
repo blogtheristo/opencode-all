@@ -6,7 +6,7 @@
 
 | Field          | Value                                                          |
 | -------------- | -------------------------------------------------------------- |
-| Version        | 1.1                                                            |
+| Version        | 1.2                                                            |
 | Date           | 2026-07-15                                                     |
 | Author         | Lifetime Oy                                                    |
 | Owner          | risto-001                                                      |
@@ -24,6 +24,11 @@ bridge shortlist. Companion docs:
 
 - `docs/DIGITAL-2026-AI-DATA-10_PART-B_SKELETON.md` — proposal skeleton.
 - `docs/EU_FUNDING_EQUITY_FREE_BRIDGE_2026.md` — NLnet / NGI0 bridge options.
+
+**v1.2 (2026-07-15):** §7 Q4 closed — licence stack **locked** by founder
+(CC-BY 4.0 spec / Apache-2.0 ref impl / EUPL-1.2 compliance core / proprietary
+Themis; preconditions: CLA-to-Lifetime + patents-before-publication, pending
+IPR counsel review). Grant-deliverable OSS ships under EUPL-1.2.
 
 ---
 
@@ -139,7 +144,16 @@ Dates refreshed 2026-07-15 against the **01 Oct 2026, 17:00 Brussels** deadline
 1. Consortium size — is DWS lead applicant or partner? (Lead = more work, more credit; Partner = faster submission.)
 2. Which sector pilot gives strongest narrative — energy/ETS (deepest DWS data) or environment/CSRD (broadest applicability)?
 3. Does the Simpl programme alignment require code-level integration by submission, or is a letter of intent sufficient?
-4. Open-source scope — release compliance core under EUPL or Apache-2.0? Licence choice affects future enterprise licensing.
+4. **DECIDED (founder, 2026-07-15)** — licence stack locked across all three
+   funding tracks (canonical statement: `EU_FUNDING_EIC_ACCELERATOR_2026.md`
+   §8 Q3): KYA v2 spec **CC-BY 4.0** · reference implementation + SDKs
+   **Apache-2.0** · compliance core **EUPL-1.2** (SaaS copyleft moat +
+   one-way GPLv3/AGPLv3 compatibility) · Themis **proprietary**.
+   Non-negotiable preconditions before any code publication: CLA/copyright
+   stays with Lifetime Oy (preserves dual-licensing); patent-track claims
+   filed or scoped to Themis first (decided pending IPR counsel review).
+   For this call: the grant-deliverable OSS release (`emission-factors.ts`,
+   `esrs-registry.ts`, MCP compliance server) ships under **EUPL-1.2**.
 5. Co-funding rate for DIGITAL-LS lump sum — to be confirmed from call document (typically 50%, can be 100% for coordination actions).
 
 ---
