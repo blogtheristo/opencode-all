@@ -6,7 +6,7 @@
 
 | Field          | Value                                                                |
 | -------------- | -------------------------------------------------------------------- |
-| Version        | 1.1                                                                  |
+| Version        | 1.2                                                                  |
 | Date           | 2026-07-15                                                           |
 | Author         | Lifetime Oy                                                          |
 | Owner          | risto-001                                                            |
@@ -21,6 +21,16 @@ KYA v2 agent-mandate on Taler rails is a genuine Taler-native fit; application
 draft at `docs/EU_FUNDING_NGI_TALER_KYA_2026.md`. Added EIC Accelerator
 (rolling Step 1 / Nov 4 Step 2) to the honest read; mapping at
 `docs/EU_FUNDING_EIC_ACCELERATOR_2026.md`.
+
+**v1.2 (2026-07-15, same session):** Added row 5 — **EUIPO SME Fund 2026
+Voucher 3 (Patents)**, verified live: window 02 Feb → 04 Dec 2026,
+first-come-first-served, Vouchers 1–2 already exhausted; up to €3,500 at
+50–75% incl. external patent-attorney drafting fees. Funds the
+patents-before-publication precondition. Sequencing rule: apply and receive
+grant decision BEFORE signing counsel engagement (not retroactive). Founder's
+recalled "50% grant, external patent officer" matches this programme; a 2021
+SME Fund (trademark) application note exists in Gmail — the decision itself is
+in the EUIPO User Area / another mailbox, not in Gmail.
 
 ---
 
@@ -58,12 +68,13 @@ higher-fit lump-sum grant, deadline 01 Oct 2026).
 
 ## 2. Live shortlist (verified 2026-07-15)
 
-| #   | Fund / call                                  | Deadline                                                                                            | Ticket (equity-free)                                                  | Fit for DWS IQ                                                                                             | Verdict                                                                     |
-| --- | -------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| 1   | **NLnet — NGI TALER** (`2026-02T`)           | **01 Aug 2026, 12:00 CEST**                                                                         | up to ~€50k (NLnet scale)                                             | **Med-high (revised 2026-07-15)** — the payments-privacy angle exists: KYA v2 agent-mandate on Taler rails | **Draft ready** — `docs/EU_FUNDING_NGI_TALER_KYA_2026.md`; go/no-go pending |
-| 2   | **NLnet — NGI Fediversity** (`2026-08F`)     | 01 Aug 2026 window                                                                                  | NLnet scale                                                           | Low–med — decentralised/self-hosted **hosting** stack                                                      | Skip unless self-hosting play                                               |
-| 3   | **NLnet — NGI Zero Commons** (general)       | **Final call closed 01 Jun 2026; reopens after summer** (next cut-off likely 01 Oct or 01 Dec 2026) | first grant up to **€50k**, later up to **€150k**, €500k lifetime cap | **Med–high** — open-source internet commons; a sovereign-EU / open compliance-core framing fits            | **Primary bridge candidate** — watch for reopening                          |
-| 4   | **Digital Europe — DIGITAL-2026-AI-DATA-10** | 01 Oct 2026, 17:00 Brussels                                                                         | Lump-sum grant (≫ €100k, consortium)                                  | **Highest** — thesis-level match                                                                           | Main track (separate brief) — not a "bridge", a real grant                  |
+| #   | Fund / call                                   | Deadline                                                                                            | Ticket (equity-free)                                                                                                             | Fit for DWS IQ                                                                                             | Verdict                                                                                                                                                                       |
+| --- | --------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **NLnet — NGI TALER** (`2026-02T`)            | **01 Aug 2026, 12:00 CEST**                                                                         | up to ~€50k (NLnet scale)                                                                                                        | **Med-high (revised 2026-07-15)** — the payments-privacy angle exists: KYA v2 agent-mandate on Taler rails | **Draft ready** — `docs/EU_FUNDING_NGI_TALER_KYA_2026.md`; go/no-go pending                                                                                                   |
+| 2   | **NLnet — NGI Fediversity** (`2026-08F`)      | 01 Aug 2026 window                                                                                  | NLnet scale                                                                                                                      | Low–med — decentralised/self-hosted **hosting** stack                                                      | Skip unless self-hosting play                                                                                                                                                 |
+| 3   | **NLnet — NGI Zero Commons** (general)        | **Final call closed 01 Jun 2026; reopens after summer** (next cut-off likely 01 Oct or 01 Dec 2026) | first grant up to **€50k**, later up to **€150k**, €500k lifetime cap                                                            | **Med–high** — open-source internet commons; a sovereign-EU / open compliance-core framing fits            | **Primary bridge candidate** — watch for reopening                                                                                                                            |
+| 4   | **Digital Europe — DIGITAL-2026-AI-DATA-10**  | 01 Oct 2026, 17:00 Brussels                                                                         | Lump-sum grant (≫ €100k, consortium)                                                                                             | **Highest** — thesis-level match                                                                           | Main track (separate brief) — not a "bridge", a real grant                                                                                                                    |
+| 5   | **EUIPO SME Fund 2026 — Voucher 3 (Patents)** | Window **02 Feb → 04 Dec 2026**, first-come-first-served; Vouchers 1–2 already exhausted for 2026   | up to **€3,500** reimbursement (50–75% by cost line) incl. **external patent-attorney drafting/legal fees** + filing/search fees | **Direct hit** — funds the patents-before-publication precondition (trust-scoring + evidence-chain claims) | **Apply NOW, before engaging counsel** — grant decision must precede incurred costs (not retroactive). Lifetime applied to SME Fund once before (2021 trademark note on file) |
 
 Sources:
 
@@ -71,6 +82,7 @@ Sources:
 - NGI Zero Commons Fund: https://nlnet.nl/commonsfund/ · Guide: https://nlnet.nl/commonsfund/guideforapplicants/
 - NGI TALER (portal): https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/12563
 - Cascade Funding Hub (aggregator): https://cascadefunding.eu/open-calls/
+- EUIPO SME Fund 2026: https://www.euipo.europa.eu/en/sme-corner/sme-fund/2026 · FAQ: https://www.euipo.europa.eu/en/help-centre/websites/faq-sme-fund-2026 (verified 2026-07-15; Voucher 3 still open, 1–2 exhausted)
 
 ---
 

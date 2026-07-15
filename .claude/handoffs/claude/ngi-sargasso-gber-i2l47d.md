@@ -216,3 +216,31 @@ Boardy reviewed the locked plan and raised three flags. Dispositions:
    Hard gate: filing/scoping decision before the FIRST published milestone
    (Taler M1 if funded, EIC M12 EUPL-core release otherwise) — booking now
    costs nothing and de-risks both.
+
+## Follow-up 5 (same session): "IPR grant" traced — EUIPO SME Fund; Voucher 3 live
+
+Founder recalled a prior IPR grant ("50% grant, external patent officer").
+Gmail searched (Gmail MCP): **no grant decision email in this account**, but
+the trail is conclusive enough:
+
+- **EUIPO SME Fund (Pk-yritysrahasto)** — self-sent note 2021-01-26 with the
+  SME Fund application link (EU trademark), matching the Fund's first-ever
+  window (Jan 11–31 2021) and the recalled 50%-reimbursement structure. The
+  decision itself lives in the EUIPO User Area or another mailbox
+  (protonmail), NOT in Gmail — founder to retrieve if needed for records.
+- Business Finland 2765/31/2020: real funded project (decision docs Apr/May
+  2020 in BF portal) but by timing likely COVID-era funding, not IPR.
+- PRH "LOPPUUNKÄSITELTY" notices: trade-register confirmations only.
+
+**Verified live (2026-07-15): EUIPO SME Fund 2026, Voucher 3 (Patents)** —
+window 02 Feb → 04 Dec 2026, first-come-first-served, **Vouchers 1–2 already
+exhausted**; up to **€3,500** at 50–75% by cost line, **including external
+patent-attorney drafting/legal fees**. Directly funds the
+patents-before-publication precondition.
+
+**Sequencing recorded in EIC brief §7 (rows 4a/4b, bridge brief v1.2):**
+1. Apply for Voucher 3 NOW (target 2026-07-22) — decision must precede
+   incurred costs (not retroactive).
+2. IPR counsel intro calls may proceed meanwhile (target 2026-07-31), but
+   sign the engagement only after the Voucher 3 decision so drafting fees
+   are reimbursable.
