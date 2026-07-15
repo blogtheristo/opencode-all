@@ -33,7 +33,32 @@ opens **12 Oct** → SKR **15–30 Oct**.
 All euro/krona figures are from **official-page search renders** (all target sites 403-blocked the
 fetcher) — re-confirm on the live portal before any filing. Full verify list in research pack §6.
 
+## Reconciliation with #1682 (15.07.2026, later same day)
+
+**PR #1685** was opened for this branch. Meanwhile a **parallel session**
+(`claude/fi-se-funding-lanes-recovery-pbmlmg`, **PR #1682**) had independently recovered the
+**same** FI/SE lanes and **merged to `main` first** — plus an EU/NATO recovery. That produced
+**add/add merge conflicts** on 6 files (both branches created the same filenames from a base that
+lacked them).
+
+Resolved by merging `origin/main` into this branch and **deferring to main's canonical, more-complete
+versions** (roadmap **v1.2** with EU/NATO integrated + Copilot autofixes; recovery-prompts,
+fieldnote-prompt, paste-ready prompts, and `claude-durability-checkpoint.sh` all Copilot-hardened on
+main). Taking this branch's older versions would have **regressed main** (dropped the EU/NATO
+recovery, re-opened already-fixed `***`-delimiter / Document-Status / script findings) — the #1682
+handoff (`.claude/handoffs/claude/fi-se-funding-lanes-recovery-pbmlmg.md`) explicitly warns those are
+stale if re-flagged.
+
+For the one file with genuine divergence — `fi-se-lanes-research-2026-07.md` — kept main's canonical
+research **in full** and **grafted only this branch's additive §0.5 per-lane verdict table** (v1.0 →
+v1.1). This branch's independent four-lane run is preserved in git history (commits e4b9458 /
+fba2262); nothing was discarded, nothing on main was regressed.
+
+**Net:** #1685 now = main + this session's §0.5 summary table + this handoff. The substantive FI/SE
+recovery already lives on main via #1682. If a lighter PR is preferred, #1685 can be closed with no
+loss.
+
 ## State
 
-All work committed and **`✓ DURABLE`** on `origin/claude/brave-curie-qii1fv` (HEAD fba2262).
-No PR opened (not requested).
+Original recovery work was `✓ DURABLE` at HEAD fba2262. After reconciliation the branch is a merge
+commit atop `origin/main`; conflicts resolved, no markers, tree clean.

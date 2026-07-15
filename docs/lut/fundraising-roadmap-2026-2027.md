@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
-- Version: 1.1 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: FI/SE lanes RECOVERED. §0 row 5 → RECOVERED (now points to the re-researched pack `docs/lut/fi-se-lanes-research-2026-07.md`); §6 rewritten from summary bullets to the load-bearing detail across all four lanes (apurahat, Vinnova, Almi, VGR) for Lifetime Oy vs Lifetime AB. Key recovered finding: the negative-equity/GBER firm-in-difficulty gate does NOT bite personal doctoral apurahat (henkilöapurahat ≠ company state aid), so _apuraha → stay Finland_ is structurally the cleanest lane; the gate bites only Business Finland. Companion research pack has per-instrument tables + FI/SE deadline stack.
+- Version: 1.2 | Tool: Claude Code | Session: claude/fi-se-funding-lanes-recovery-pbmlmg | Date: 15.07.2026 | Changes: Merged the FI/SE lane recovery (§0 row 4 → RECOVERED, §6 replaced with full lane detail from `docs/lut/fi-se-lanes-research-2026-07.md`) with the EU/NATO recovery (v1.1, landed independently on `main` via a PR from `claude/eu-nato-funding-recovery-lsogw2`) — both branches had independently added `docs/lut/fundraising-roadmap-2026-2027.md` and `scripts/claude-durability-checkpoint.sh`, producing add/add conflicts on merge; resolved by combining both change sets rather than picking one side. Also folded in GitHub Copilot autofix commits already applied directly on PR #1682 (`***` delimiter corrections, missing Document Status fields, `claude-durability-checkpoint.sh` hardening — `set -euo pipefail` + a `--quiet`-aware push retry that no longer swallows stderr on failure).
+- Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Recovered the EU Commission + NATO DIANA research pack (§0 row → RECOVERED, points to `docs/lut/eu-nato-instruments-research-2026-07.md`); corrected §3 deadline-table figures where the recovery run's verification against official sources diverged from a founder-supplied draft — notably EDF's deadline (was "mid-2027", is actually 29 Sep 2026), EIC Accelerator's equity ceiling (was €30M, is €10M), Digital Europe's budget/rate (was €2-3M/50-100%, is €8.5M-total-2-grants/50-75%), and NATO DIANA's cycle framing (3 Jul 2026 was the standing 2027-cohort deadline, not a missed one-off — next entry point is ~June/July 2027 for the 2028 cohort). Added NGI Sargasso and AI4Gov-X cascade calls to the near-term table.
 - Version: 1.0 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 13.07.2026 | Changes: Reconstructed the master fundraising roadmap from the field-note conclusions of the three parallel research agents (Nordic NO/DK, DACH+France, EU Commission + NATO DIANA) plus the existing FI/SE lanes. NOTE — the three detailed per-anchor research packs generated in a prior ephemeral cloud session were never committed to git and were lost when that container was reclaimed; this document rebuilds the load-bearing conclusions only. The full packs must be re-run to recover per-anchor detail (see "Recovery status" below).
 
 Document Status:
@@ -28,12 +29,12 @@ Document Status:
 This roadmap was rebuilt from the summary conclusions of a prior research session whose
 detailed outputs never reached git. State of the underlying material:
 
-| Pack                                       | Detailed source file                                | Status                                                                 |
-| ------------------------------------------ | --------------------------------------------------- | ---------------------------------------------------------------------- |
-| DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **LOST** — not committed; re-run required to recover per-anchor detail |
-| Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                              |
-| EU Commission + NATO DIANA                 | (EU/NATO pack)                                      | **LOST** — not committed; re-run required                              |
-| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | `docs/lut/fi-se-lanes-research-2026-07.md`          | **RECOVERED** — re-researched from primary sources 15.07.2026 (§6)     |
+| Pack                                       | Detailed source file                                | Status                                                                                                                           |
+| ------------------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **LOST** — not committed; re-run required to recover per-anchor detail                                                           |
+| Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                                                                                        |
+| EU Commission + NATO DIANA                 | `docs/lut/eu-nato-instruments-research-2026-07.md`  | **RECOVERED** (14.07.2026) — re-run + verified against official sources; see that file §9 for corrections vs. the recovery draft |
+| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | `docs/lut/fi-se-lanes-research-2026-07.md`          | **RECOVERED** (14.07.2026) — primary-source research complete; see §6 below                                                      |
 
 The load-bearing conclusions below survived in the field note and are captured here. The
 **per-anchor research packs** (source dumps, contact detail, verified figures) are not
@@ -75,13 +76,22 @@ Both gates are the founder's to open; nothing downstream unblocks until they do.
 
 ## 3. Near-term deadline table (next ~16 weeks)
 
-| Deadline                     | Instrument                                     | Amount / shape                                  | Why it matters                                                                                             | Gate / prerequisite                                                                 |
-| ---------------------------- | ---------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **10 Sep 2026**              | **Eurostars Call 11** (open now)               | ~€1.5M project, 50% funded, SME-led, FI+SE      | **Best structural fit of everything found**                                                                | One independent partner + **Gate 1 decision** (FI-led after cure vs. SE-led via AB) |
-| **1 Oct 2026**               | **Digital Europe — "COMPLIANCE" topic**        | Grant                                           | Topic is literally _"digital solutions for regulatory compliance through data"_ — the product's call title | Read the fiche **this week**                                                        |
-| **28 Oct 2026**              | **EIC dual-use window**                        | €2.5M grant + up to €30M equity, single company | Created **June 2026** for exactly the **Aegis Defence** profile                                            | Single-company; no consortium needed                                                |
-| **~mid-2027**                | **NATO DIANA** (missed the 3 Jul call by days) | €100k grant + €300k equity-free                 | Confirmed **on-ramp to the €1bn NATO Innovation Fund** (FI & SE are both LPs)                              | **Pre-engage VTT Otaniemi and LEAD Linköping this autumn**                          |
-| **Rolling (monthly review)** | **Cascade / FSTP open calls**                  | €30k–€200k, light applications                  | **Mostly no financial-health gate** — the **fastest EU money available** (Gate 1 does not block these)     | Light; monthly scan                                                                 |
+| Deadline                      | Instrument                                                                                                                         | Amount / shape                                                                                                                           | Why it matters                                                                                                                        | Gate / prerequisite                                                                                                 |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **1 Aug 2026**                | **NGI Sargasso cascade call**                                                                                                      | Equity-free FSTP funding + 9-month programme                                                                                             | Fastest deadline in the pack; GBER-exempt cascade money                                                                               | None — file first                                                                                                   |
+| **31 Aug 2026**               | **AI4Gov-X cascade call** (first cut-off)                                                                                          | FSTP, rolling cut-offs through Feb 2027                                                                                                  | Low-effort parallel filing alongside Eurostars drafting                                                                               | None                                                                                                                |
+| **10 Sep 2026**               | **Eurostars Call 11** (open now)                                                                                                   | ~€1.5M project, **bilaterally co-funded per country** (no single EU-wide rate), SME-led, FI+SE                                           | **Best structural fit of everything found**                                                                                           | One independent partner + **Gate 1 decision** (FI-led after cure vs. SE-led via AB)                                 |
+| **29 Sep 2026**               | **European Defence Fund — SME research action**                                                                                    | Up to €4M/project, **100% funded**                                                                                                       | **Corrected from a prior "mid-2027" estimate — this deadline is live now**, per `docs/lut/eu-nato-instruments-research-2026-07.md` §6 | Founder resourcing call vs. Eurostars/Digital Europe drafting load; defence clearance/export-control scoping needed |
+| **1 Oct 2026**                | **Digital Europe — "COMPLIANCE" topic** (`DIGITAL-2026-AI-DATA-10-COMPLIANCE`)                                                     | **€8.5M total / 2 grants EU-wide** (~€4.25M avg); DEP standard rate 50%, SME rate 75% — corrected from an earlier €2-3M/project estimate | Topic is literally _"digital solutions for regulatory compliance through data"_ — the product's call title                            | Academic coordinator to shield the financial-capacity check                                                         |
+| **6 Oct 2026**                | **Vinnova Planeringsbidrag** (planning grant for an international proposal)                                                        | Up to SEK 500,000                                                                                                                        | Funds prep for a **Horizon Europe-type** bid only — see §6, does **not** cover Eurostars prep                                         | Confirm target call is Horizon Europe, not Eurostars                                                                |
+| **28 Oct 2026**               | **EIC dual-use window**                                                                                                            | €2.5M grant + **up to €10M equity** (corrected from an earlier €30M estimate), single company                                            | Created **June 2026** for exactly the **Aegis Defence** profile; blended/equity actions are GBER-UiD-exempt                           | Single-company; no consortium needed                                                                                |
+| **12 Oct 2026 – 12 Jan 2027** | **Vinnova Innovativa Startups** Step 1                                                                                             | Up to SEK 500,000                                                                                                                        | Clearest direct grant fit for Lifetime AB if it stays ≤10 employees / ≤SEK 10M turnover                                               | Company-size caps; falls outside the ~16-week near-term window but should be queued                                 |
+| **~June/July 2027**           | **NATO DIANA** next Challenge Call (2028 cohort) — the 3 Jul 2026 call was the standing 2027-cohort deadline, not a missed one-off | €100k grant + €300k equity-free                                                                                                          | Confirmed **on-ramp to the €1bn NATO Innovation Fund** (FI & SE are both LPs)                                                         | **Pre-engage VTT Otaniemi and LEAD Linköping this autumn** — independent of the call calendar                       |
+| **Rolling (monthly review)**  | **Cascade / FSTP open calls**                                                                                                      | €30k–€200k, light applications                                                                                                           | **Mostly no financial-health gate** — the **fastest EU money available** (Gate 1 does not block these)                                | Light; monthly scan — see `docs/lut/eu-nato-instruments-research-2026-07.md` §4 for the corrected live inventory    |
+
+Full per-instrument detail, source citations, and every correction made against the prior
+recovery draft are in `docs/lut/eu-nato-instruments-research-2026-07.md` (EU/NATO) and
+`docs/lut/fi-se-lanes-research-2026-07.md` (FI/SE).
 
 ## 4. Eurostars — the anchor instrument (detail)
 
@@ -130,52 +140,41 @@ detailed packs (§0) are lost and should be re-run for contact detail and verifi
   EDF, DIANA challenge cycle + Nordic test centres, NATO Innovation Fund.**
 - **DIANA → NIF path** is the confirmed on-ramp (§3); **FI & SE are both LPs** in the €1bn NIF.
 
-## 6. FI/SE lanes — RECOVERED (detail: `docs/lut/fi-se-lanes-research-2026-07.md`)
+## 6. Existing FI/SE lanes (recovered, primary-source-verified 14.07.2026)
 
-Re-researched from primary sources 15.07.2026 (four parallel agents, official pages only; all
-target sites 403-blocked the fetcher so figures are from official-page search renders — every
-number carries a re-verify-before-filing flag, §1). Full per-instrument tables, deadline stack,
-and cross-lane synthesis live in the companion file. Load-bearing conclusions:
+Full detail, sources, and `(verify)` flags: `docs/lut/fi-se-lanes-research-2026-07.md`.
 
-- **Apurahat (FI research grants) — the clean lane; _apuraha → stay Finland_ confirmed.** The
-  crux question is answered: **the Oy's negative-equity / GBER "undertaking in difficulty"
-  classification does NOT bite personal doctoral apurahat** — these are _henkilöapurahat_ paid to
-  the individual (Risto/LUT), and a private säätiö's own-endowment grant to a person is outside the
-  state-aid regime entirely. The gate bites **only Business Finland** (the state-aid channel —
-  treat as blocked until the equity cure). Live now: **LSR työskentelyapuraha (€27k doctoral,
-  closes 15 Aug 2026)**; then **TSR väitöskirjastipendi (24 Sep–15 Oct)** and **SKR (15–30 Oct,
-  ~€30k)**; **KAUTE / TES (Jan 2027)** are the strongest thematic/tech-doctorate fits. Lifetime AB
-  is irrelevant here (FI affiliation follows the individual, not a company).
-- **Vinnova (SE) — the real Swedish _grant_ door; pairs with the AB.** GBER UiD does **not** bite
-  Lifetime AB (<3y; flagship calls are de minimis). Best first grant: **Innovativa Startups
-  (≤900k SEK, de minimis, single-company, <10y cap — opens 12 Oct 2026)**. Only live window now:
-  **Eurostars Call 11 (deadline 10 Sep 2026)** — the roadmap anchor (§3–§4); needs a 2-country
-  SME-coordinated consortium and passes an **equity/turnover ≥ half-the-ask** co-finance test, so
-  size the ask modestly. On-mission AI/cybersecurity calls (Avancerad digitalisering) fit DWS IQ's
-  sovereign-AI positioning but need an industrial partner at 50% — H2-2026/2027. **The Oy is only
-  ever a BF-funded foreign consortium partner here, never a Vinnova applicant/co-financier.**
-- **Almi (SE) — _debt_, not grant.** A Swedish-AB-only lever that exists because the AB exists;
-  not a substitute for FI grants. Realistic draws for a thin-balance-sheet <3y AB: **Mikrolån
-  (≤SEK 250k, no co-finance gate)** and **Innovationslån (SEK 50k–500k, own-work counts toward the
-  50%)**. Larger loans (Företagslån/Tillväxtlån/Grönt lån) gated by repayment capacity + a
-  bank/owner co-finance match; **Growth/Green additionally carry an EIF InvestEU "undertaking in
-  difficulty" group screen (verify)** the negative-equity Finnish affiliate could complicate. Almi
-  Invest offers a real AI/deep-tech **equity** path but is dilutive and **excludes single-founder
-  companies**.
-- **VGR (Västra Götalandsregionen) — grant-shaped but gated behind a territorial registration.**
-  **Every VGR instrument requires a registered workplace/operation in Västra Götaland** — Lifetime
-  AB **does not qualify today** unless it establishes Göteborg-region presence (a Stockholm
-  registration is not sufficient). Under-3-years is an _advantage_ here (the **Nystartade
-  innovativa företag** seed loan — SEK 850k (verify), ≤65%, conditional loan not grant — prioritises
-  <3y), not the GBER problem it is elsewhere. **Almi Väst (36.75% VGR-owned)** is the seed-loan's
-  required innovation-height assessor and the practical first contact once VG-registered; an
-  indirect route (science-park / Business Region Göteborg / ERUF innovation-hub partner) is open
-  even before heavy VG footprint.
-
-**Net:** Finland carries the near-term non-dilutive load (personal apurahat, gate-free); Sweden
-carries the company-grant load via the AB (Vinnova). Almi (debt) and VGR (needs VG presence) are
-second-order. **Decision rule stands: _apuraha → stay Finland_ — and the apuraha lane is
-structurally the cleanest of the four.**
+- **Apurahat** (FI research grants) — decision rule stands: **apuraha → stay Finland.** Open
+  2026 windows: **Nokia Foundation Scholarship** (up to €7,500, 3 Aug–15 Sep, best AI/ICT
+  thematic fit), **Suomen Kulttuurirahasto** (15–30 Oct, single consolidated round from 2026),
+  **Liikesivistysrahasto** (€27,000, 1 Jun–15 Aug, needs a business-economics framing), and
+  the **LUT-yliopiston ja ammatillisen koulutuksen tukisäätiö** (rolling — easiest near-term
+  step, contact directly). TES / Emil Aaltonen / KAUTE / HPY are all closed for 2026; KAUTE
+  is the best structural fit (business+tech intersection) and should be prepared early for its
+  ~Jan 2027 reopening.
+- **Vinnova** (SE) — pairs with the AB entity. **Eurostars Call 11 closes 10 Sep 2026, 14:00**
+  (up to SEK 5M for the SE side) — the most time-sensitive item across all four lanes.
+  **Important correction:** the Planeringsbidrag (planning grant, up to SEK 500,000, closes
+  6 Oct 2026) explicitly **excludes Eurostars/Eureka programs** — it only funds prep for
+  Horizon Europe-type bids, so it cannot be used to fund Eurostars Call 11 prep work.
+  **Innovativa Startups** Step 1 (up to SEK 500,000, opens 12 Oct 2026) is the clearest direct
+  grant if Lifetime AB stays ≤10 employees / ≤SEK 10M turnover, but its deadline (12 Jan 2027)
+  falls outside the near-term window. Whether Vinnova's own screening honors the GBER <3-year
+  exemption is **not confirmed on any vinnova.se page** — `(verify)` before relying on it.
+- **Almi** (SE) — **Mikrolån** (up to SEK 200,000–250,000, two official pages disagree on the
+  ceiling — `(verify)`) needs no co-financing and is EIF/InvestEU-guaranteed (confirmed).
+  **Innovationslån** (SEK 50,000–500,000) requires ≥50% co-financing from elsewhere and fits
+  an early-stage product needing testing/verification. **Verifieringsmedel** (up to SEK
+  100,000 grant, de-minimis) starts as an advisor conversation, not a form.
+- **VGR** (Västra Götalandsregionen) — **hard gate: every program checked requires the company
+  to be registered in Västra Götaland with intent to operate there.** Do not assume this is
+  satisfied. **Såddfinansiering** (up to SEK 850,000 villkorslån, priority to companies <3
+  years) is the only program Lifetime AB could plausibly qualify for on age/size, but the
+  regional-presence gate is `(verify)`-flagged as likely blocking, and rolling applications
+  submitted in July may land inside VGR's summer processing pause (mid-Jun–mid-Aug). FoU-kort,
+  Hållbarhetscheck, Internationaliseringscheck, and Digitaliseringscheck all require an
+  **established** company (annual reports, turnover, headcount) Lifetime AB does not yet have
+  — checked and excluded.
 
 ## 7. Gaps to close before filing (per pack)
 
@@ -183,8 +182,8 @@ structurally the cleanest of the four.**
 - **France €109B** AI Action Summit figure — _(verify)_ on primary source.
 - **FFG (Austria):** confirm whether the **employer must be Austrian**.
 - **RQ2 legal anchor (NO/DK):** none found; **KU information-law centre** is an unverified lead.
-- **Re-run the three lost research packs** (§0) to recover per-anchor contact detail and
-  verified figures.
+- **Re-run the two remaining lost research packs** (DACH+France, Nordic NO/DK — §0) to recover
+  per-anchor contact detail and verified figures.
 
 ## 8. How this connects to what's already running
 

@@ -1,46 +1,6 @@
 # Recovery Prompts — Lost Europe Research Packs (Loss Estimate + Re-run Instructions)
 
-
-## 7. Recovery Prompt E — chat-delivered artifacts (Class B/C), incl. Lovegin pricing reply
-
-Two-part recovery; part 1 needs the HIC, part 2 is agent-runnable.
-
-**Part 1 — HIC-driven session-history recovery (only you can do this):** open your
-claude.ai/code session history and, for each session that produced an outward
-deliverable (reply, quote, offer, draft), check whether it exists in the repo. Where
-missing, paste the deliverable into any session with:
-
-```
-Bank this chat-delivered artifact into git. Content pasted below. Determine its repo
-home (correspondence file / outreach file / docs), append it there with correct date
-attribution and the DWS Document Standard version-history entry, commit, push, and run
-bash scripts/claude-durability-checkpoint.sh until "✓ DURABLE". Artifact follows:
-[PASTE]
-```
-
-For the confirmed Lovegin case specifically: recover the pricing reply from the sent
-email (or session history) and bank it as exchange #3 in
-`bids/ORK160826/ORK160826_CUBET_KIRJEENVAIHTO.md`, updating the Yhteenveto section and
-`ORK160826_MARKKINATIETO.md` if the rate picture changed.
-
-**Part 2 — dangling-reference audit (agent-runnable, finds unknown losses):**
-
-```
-Dangling-deliverable audit: sweep the repo for references to artifacts that do not
-exist in git. Method: (1) grep tracked .md files for phrases indicating a delivered or
-promised artifact — "sent", "shared", "jaettu", "lähetetty", "vastattu", "replied",
-"attached", "see <file>.md" — and for every referenced repo path, verify the file
-exists; (2) check every NEXT_SESSION_PROMPT_*.md and .claude/handoffs/* for expected
-outputs and verify each exists; (3) check outreach trackers (investor-outreach/,
-bids/, Coach/) for status entries ("sent 12.7.") with no corresponding banked draft.
-Output docs/DANGLING_DELIVERABLES_AUDIT_<date>.md listing each dangling reference,
-where it is referenced, and a one-line recovery route (email sent-folder / session
-history / re-draft). Commit+push incrementally; finish with
-bash scripts/claude-durability-checkpoint.sh → "✓ DURABLE". Do not guess content —
-this audit only enumerates; recovery of each item is a separate HIC-gated step.
-```
-
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -50,58 +10,19 @@ Sessions & Modifications:
 
 - Version: 1.2 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 14.07.2026 | Changes: HIC correction — branch sweep reclassified as LOWER BOUND; added Class B (partial banking) / Class C (chat-only) loss taxonomy, confirmed Lovegin (Cubet) pricing-reply loss as evidence, ledger rows 6-7, and Recovery Prompt E (session-history recovery + dangling-reference audit).
 - Version: 1.1 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 14.07.2026 | Changes: Added §3b — spec of the tailored standalone Prompt A variant for fresh sessions (bootstrap file-fetch step, inline context, deadline-ordered instruments, incremental-banking discipline).
-- Version: 1.0 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 14.07.2026 | Changes: Repo-wide loss audit (395 remote claude/* branches swept for the never-pushed signature; 4 candidates found, all 4 cleared — work landed via other branches/PRs) + paste-ready recovery prompts for the 3 confirmed-lost Europe research packs and 1 at-risk FI/SE lane bank-check. Companion to docs/lut/fundraising-roadmap-2026-2027.md §0.
+- Version: 1.0 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 14.07.2026 | Changes: Repo-wide loss audit (395 remote claude/\* branches swept for the never-pushed signature; 4 candidates found, all 4 cleared — work landed via other branches/PRs) + paste-ready recovery prompts for the 3 confirmed-lost Europe research packs and 1 at-risk FI/SE lane bank-check. Companion to docs/lut/fundraising-roadmap-2026-2027.md §0.
 
 Document Status:
 
 - Created: 14.07.2026
 - Last Modified: 14.07.2026
 - Language: English
+- Languages Available: EN
 - Publication Status: DRAFT
 - Classification: CONFIDENTIAL — Fundraising strategy provenance
 - Document Type: Loss audit + recovery runbook
 
-
-## 7. Recovery Prompt E — chat-delivered artifacts (Class B/C), incl. Lovegin pricing reply
-
-Two-part recovery; part 1 needs the HIC, part 2 is agent-runnable.
-
-**Part 1 — HIC-driven session-history recovery (only you can do this):** open your
-claude.ai/code session history and, for each session that produced an outward
-deliverable (reply, quote, offer, draft), check whether it exists in the repo. Where
-missing, paste the deliverable into any session with:
-
-```
-Bank this chat-delivered artifact into git. Content pasted below. Determine its repo
-home (correspondence file / outreach file / docs), append it there with correct date
-attribution and the DWS Document Standard version-history entry, commit, push, and run
-bash scripts/claude-durability-checkpoint.sh until "✓ DURABLE". Artifact follows:
-[PASTE]
-```
-
-For the confirmed Lovegin case specifically: recover the pricing reply from the sent
-email (or session history) and bank it as exchange #3 in
-`bids/ORK160826/ORK160826_CUBET_KIRJEENVAIHTO.md`, updating the Yhteenveto section and
-`ORK160826_MARKKINATIETO.md` if the rate picture changed.
-
-**Part 2 — dangling-reference audit (agent-runnable, finds unknown losses):**
-
-```
-Dangling-deliverable audit: sweep the repo for references to artifacts that do not
-exist in git. Method: (1) grep tracked .md files for phrases indicating a delivered or
-promised artifact — "sent", "shared", "jaettu", "lähetetty", "vastattu", "replied",
-"attached", "see <file>.md" — and for every referenced repo path, verify the file
-exists; (2) check every NEXT_SESSION_PROMPT_*.md and .claude/handoffs/* for expected
-outputs and verify each exists; (3) check outreach trackers (investor-outreach/,
-bids/, Coach/) for status entries ("sent 12.7.") with no corresponding banked draft.
-Output docs/DANGLING_DELIVERABLES_AUDIT_<date>.md listing each dangling reference,
-where it is referenced, and a one-line recovery route (email sent-folder / session
-history / re-draft). Commit+push incrementally; finish with
-bash scripts/claude-durability-checkpoint.sh → "✓ DURABLE". Do not guess content —
-this audit only enumerates; recovery of each item is a separate HIC-gated step.
-```
-
-***
+---
 
 ## 1. Loss estimate (audited 2026-07-14)
 
@@ -128,15 +49,15 @@ Lovegin John (Cubet, ORK/1462/2026) **pricing reply**. The banked correspondence
 €260–320 offshore-rate split / hintalomake) was delivered in a session and never
 gitted. Assume more Class B/C losses exist across past sessions.
 
-| # | Outcome | Status | What survived | What is gone |
-| - | ------- | ------ | ------------- | ------------ |
-| 1 | DACH+France anchors pack | **LOST** | Conclusions (Fraunhofer IAIS/Poretschkin RQ2 fit; TU Wien/Bartocci + FFG €110k; France = ecosystem not funding door) | Per-anchor contact detail, verified figures, source list, runner-up anchors (ETH/Innosuisse noted but unelaborated) |
-| 2 | Nordic NO/DK anchors pack | **LOST** | Conclusions (Simula VIAS top anchor; Nærings-ph.d. ~€190k / Erhvervs-PhD ~€143k local-entity gates; foreign-degree detail; KU lead) | Anchor #2/#3 detail, contacts, scheme mechanics, source list |
-| 3 | EU Commission + NATO DIANA pack | **LOST — worst** | Only instrument names + 4 roadmap deadline rows | Nearly everything: EIC/Eurostars/Digital-Europe call mechanics, cascade/FSTP call inventory, EDF paths, DIANA cycle detail, Nordic test centres, NIF path — the biggest-instrument pack has the least surviving detail |
-| 4 | Compiled fundraising roadmap | **RECOVERED** | Rebuilt as `docs/lut/fundraising-roadmap-2026-2027.md` from the field note | Nothing load-bearing; per-pack detail deferred to re-runs |
-| 5 | FI/SE lane packs (apurahat, Vinnova, Almi, VGR) | **AT RISK — not in git** | Summary rows in roadmap §6 | No pack files exist in the repo; detail presumably lives only in the Track 1 (AB) / Track 2 (LUT-apuraha) session contexts — recoverable only while those sessions survive |
-| 6 | Risto → Lovegin (Cubet) pricing reply, ORK/1462/2026 | **LOST from git (Class C)** | Context: hintalomake share doc + correspondence through 8.7.2026 | The pricing reply itself; recover from sent email / session history (Prompt E) |
-| 7 | Unknown further Class B/C chat-only deliverables | **UNBOUNDED — assume > 0** | — | Enumerable only via session-history review + dangling-reference audit (Prompt E) |
+| #   | Outcome                                              | Status                      | What survived                                                                                                                       | What is gone                                                                                                                                                                                                           |
+| --- | ---------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | DACH+France anchors pack                             | **LOST**                    | Conclusions (Fraunhofer IAIS/Poretschkin RQ2 fit; TU Wien/Bartocci + FFG €110k; France = ecosystem not funding door)                | Per-anchor contact detail, verified figures, source list, runner-up anchors (ETH/Innosuisse noted but unelaborated)                                                                                                    |
+| 2   | Nordic NO/DK anchors pack                            | **LOST**                    | Conclusions (Simula VIAS top anchor; Nærings-ph.d. ~€190k / Erhvervs-PhD ~€143k local-entity gates; foreign-degree detail; KU lead) | Anchor #2/#3 detail, contacts, scheme mechanics, source list                                                                                                                                                           |
+| 3   | EU Commission + NATO DIANA pack                      | **LOST — worst**            | Only instrument names + 4 roadmap deadline rows                                                                                     | Nearly everything: EIC/Eurostars/Digital-Europe call mechanics, cascade/FSTP call inventory, EDF paths, DIANA cycle detail, Nordic test centres, NIF path — the biggest-instrument pack has the least surviving detail |
+| 4   | Compiled fundraising roadmap                         | **RECOVERED**               | Rebuilt as `docs/lut/fundraising-roadmap-2026-2027.md` from the field note                                                          | Nothing load-bearing; per-pack detail deferred to re-runs                                                                                                                                                              |
+| 5   | FI/SE lane packs (apurahat, Vinnova, Almi, VGR)      | **AT RISK — not in git**    | Summary rows in roadmap §6                                                                                                          | No pack files exist in the repo; detail presumably lives only in the Track 1 (AB) / Track 2 (LUT-apuraha) session contexts — recoverable only while those sessions survive                                             |
+| 6   | Risto → Lovegin (Cubet) pricing reply, ORK/1462/2026 | **LOST from git (Class C)** | Context: hintalomake share doc + correspondence through 8.7.2026                                                                    | The pricing reply itself; recover from sent email / session history (Prompt E)                                                                                                                                         |
+| 7   | Unknown further Class B/C chat-only deliverables     | **UNBOUNDED — assume > 0**  | —                                                                                                                                   | Enumerable only via session-history review + dangling-reference audit (Prompt E)                                                                                                                                       |
 
 **Cleared (checked, NOT lost):** `ceo-review-dws-firehorse-1kWuP` (PR #1420 merged),
 `dominant-game-strategy-cjstn5` (PR #1589), `supabase-audit-aiven-td3x8r` (commit
@@ -268,7 +189,6 @@ Verification: forskningsradet.no, ufm.dk, institute pages. Update roadmap §0 + 
 BANK INCREMENTALLY; finish with scripts/claude-durability-checkpoint.sh → "✓ DURABLE".
 ```
 
-
 ## 7. Recovery Prompt E — chat-delivered artifacts (Class B/C), incl. Lovegin pricing reply
 
 Two-part recovery; part 1 needs the HIC, part 2 is agent-runnable.
@@ -308,4 +228,4 @@ bash scripts/claude-durability-checkpoint.sh → "✓ DURABLE". Do not guess con
 this audit only enumerates; recovery of each item is a separate HIC-gated step.
 ```
 
-***
+---
