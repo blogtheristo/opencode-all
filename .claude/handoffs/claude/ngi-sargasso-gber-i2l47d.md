@@ -161,3 +161,27 @@ statement, v1.3), DIGITAL §7 Q4 (v1.2), Taler draft §10 + checklist
 corrected to CC-BY 4.0; Cubet headcount finalized at **ca. 70**
 (founder-confirmed; FY-2025 filings ~73) — combined-pool claim "100+
 engineers across two contracted partners" unchanged.
+
+## Follow-up 3 (same session): EIC Step 1 12-page narrative drafted
+
+**`docs/EIC_STEP1_DRAFT_KYA_2026.md` (v0.9)** — full paste-ready Step 1
+narrative, 12 pages mapped to the online form: abstract, company, innovation,
+TRL evidence, market, competition (x402/AP2/Stripe), business model, broad
+impact, team (distributed delivery model), funding need (grant-only €2.5M
+recommended), risk register, milestones (M6→M24/TRL 8), submission checklist.
+
+**Pricing consistency resolved before drafting (Rule 7):** canonical
+`dws10.com/config/products.json` confirms **€59,990 = DWS IQ Aegis**
+(one-time) and **€999/mo is a real Starter/pod tier** (Emissions Data,
+Quality Gate, Mars/Helios pods, etc.). Narrative claims phrased as
+"Aegis €59,990 one-time + agent subscriptions €499–€2,999/mo (typical
+starter €999/mo)" — consistent with catalogue AND V4.3 investor deck
+(€7k MRR / 6 customers / 0% churn verified in both).
+
+**Open before submission (in the draft's checklist):**
+
+- [DECIDE] grant-only vs blended (form requires) — grant-only recommended.
+- [DECIDE] applicant entity (Lifetime Oy + AB narrative recommended).
+- [VERIFY] TAM/SAM/SOM + hiring plan (Step 2 blockers, not Step 1).
+- Trim prose to actual form character limits (download template first).
+- Build 10-slide deck + 3-min video; run /truth-check before upload.
