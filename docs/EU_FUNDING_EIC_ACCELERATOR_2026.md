@@ -6,7 +6,7 @@
 
 | Field          | Value                                                                                     |
 | -------------- | ----------------------------------------------------------------------------------------- |
-| Version        | 1.0                                                                                       |
+| Version        | 1.1                                                                                       |
 | Date           | 2026-07-15                                                                                |
 | Author         | Lifetime Oy                                                                               |
 | Owner          | risto-001                                                                                 |
@@ -15,6 +15,14 @@
 | Introduced-In  | PR-TBD                                                                                    |
 | Branch         | claude/ngi-sargasso-gber-i2l47d                                                           |
 | Source         | EIC Work Programme 2026 / Guide for Applicants v6.0 (2025-11-19); web-verified 2026-07-15 |
+
+**v1.1 (2026-07-15, same session):** Team narrative rewritten from
+"solo-founder + AI agents" to the **distributed delivery model**: Founder +
+Lifetime Certified Partners consortium (Cubet Techno Labs ~100 engineers +
+9series, contracted under NDA, active in the ORK160826 bid) + AI agent fleet
+as operational multiplier. Grounded in
+`bids/ORK160826/ORK160826_ALIHANKINTALOMAKE.md`. Added the non-EU-subcontractor
+positioning caveat (§3.3) — data stays EU/EEA, core R&D in Finland.
 
 ---
 
@@ -86,8 +94,26 @@ extension on GNU Taler rails).
 
 ### 3.3 Risk, team, need for EU support
 
-- **Team:** 35+ years ICT infrastructure; NVIDIA Connect partner, IBM Business
-  Partner, AWS Advanced Consulting Partner; production system running.
+- **Team — lead with the distributed delivery model, not headcount:**
+  1. **Founder** — 35+ years ICT infrastructure; NVIDIA Connect partner, IBM
+     Business Partner, AWS Advanced Consulting Partner; production system
+     running.
+  2. **Lifetime Certified Partners consortium** — contracted delivery capacity
+     under NDA: **Cubet Techno Labs** (Kochi, est. 2013, AI/LLM engineering;
+     ~100 engineers per founder input — verify exact figure with Cubet before
+     external use) + **9series Solutions**. Not aspirational: both are active
+     subcontractors in the ORK160826 bid (roles confirmed by Cubet CEO
+     Lovegin John, 2026-07-08; see `bids/ORK160826/ORK160826_ALIHANKINTALOMAKE.md`).
+  3. **AI agent fleet as operational multiplier** — 50 production agents;
+     execution capacity scales without linear headcount.
+
+  **Positioning caveat (handle in prose, don't hide):** Cubet is a non-EU
+  (India) subcontractor inside an EU-sovereignty pitch. The ORK bid already
+  solved this framing — reuse it verbatim: development under EU controls, **no
+  registry/customer data leaves EU/EEA**, EU-based maintenance handover, core
+  IP and innovation stay with Lifetime Oy in Finland. EIC also expects the
+  core innovation in-house — partners are _delivery scale_, not the R&D brain.
+
 - **Risk:** technical risk high (sovereign edge AI unsolved) but de-risked by
   live deployments; financial risk mitigated by MRR + retention.
 - **Additionality:** EIC funding accelerates KYA v2 standard development and
@@ -125,10 +151,17 @@ once downloaded — do not rely on secondary summaries.
 3. Sovereign AI is a strategic EU priority — CLOUD-Act-free, EU AI Act native.
 4. Agentic-commerce timing — AI Act enforcement creates mandatory demand.
 
-**Weakest — team size.** Two humans + AI agents will be flagged as execution
-risk. Counter: partner network (NVIDIA/IBM/AWS), and the thesis that the AI
-agent fleet **is** the team multiplier — architecture scales without linear
-headcount. Consider naming advisors (KTH/LUT/SRC network) in Step 2.
+**Weakest — team size (revised 2026-07-15).** The raw fact is two humans, and
+evaluators will probe it. The counter is no longer defensive: this is a
+**distributed delivery model**, not a solo-founder risk — Founder (35y ICT,
+NVIDIA/IBM/AWS partnerships) + **Lifetime Certified Partners consortium**
+(Cubet Techno Labs ~100 engineers + 9series, both contracted under NDA and
+already delivering in a live bid) + the AI agent fleet as operational
+multiplier. That is _execution capacity, not headcount_. Residual to-dos:
+(a) verify Cubet's exact engineer count before it appears in any external
+text; (b) frame Cubet as EU-controlled delivery scale (data stays EU/EEA,
+core R&D in Finland) so it strengthens rather than dents the sovereignty
+story; (c) still name EU-side advisors (KTH/LUT/SRC) in Step 2.
 
 ---
 

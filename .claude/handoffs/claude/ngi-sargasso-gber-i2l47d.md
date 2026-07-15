@@ -117,3 +117,22 @@ decision.
 - 2026-08-01: submit EIC Step 1 (Aug 4 batch) — 12-page form + 10-slide deck
   (reuse `investor-outreach/` assets) + 3-min video.
 - Licence decision (EUPL vs Apache-2.0) blocks three tracks — answer once.
+
+## Follow-up 2 (same session): EIC team narrative → distributed delivery model
+
+EIC brief → v1.1. Team story rewritten per founder input: not solo-founder
+risk but **Founder + Lifetime Certified Partners consortium (Cubet Techno
+Labs ~100 engineers + 9series Solutions, NDA'd, active in ORK160826 bid) +
+AI agent fleet as operational multiplier**. Repo-grounded via
+`bids/ORK160826/ORK160826_ALIHANKINTALOMAKE.md` (Cubet roles confirmed by CEO
+Lovegin John 2026-07-08).
+
+Two honesty guards written into the brief, carry them into Step 1 prose:
+
+1. **"~100 engineers" is founder-supplied, not repo-verified** — confirm the
+   figure with Cubet before it appears in any external text.
+2. **Cubet is non-EU (Kochi, India) inside an EU-sovereignty pitch** — reuse
+   the ORK bid's framing (development under EU controls, no data leaves
+   EU/EEA, EU-based maintenance handover, core R&D/IP stays with Lifetime Oy
+   in Finland). EIC expects core innovation in-house; partners = delivery
+   scale, not the R&D brain.
