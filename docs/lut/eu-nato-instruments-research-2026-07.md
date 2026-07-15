@@ -23,7 +23,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Funding-instrument research pack (recovery)
 
----
+***
 
 ## 0. Who this is for (context carried from the roadmap)
 
