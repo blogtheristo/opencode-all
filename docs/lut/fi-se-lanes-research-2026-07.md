@@ -1,6 +1,6 @@
 # FI/SE Funding Lane Research — Apurahat, Vinnova, Almi, VGR (2026-07)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -8,11 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
----
-
 - Version: 1.0 | Tool: Claude Code | Session: claude/fi-se-funding-lanes-recovery-pbmlmg | Date: 14.07.2026 | Changes: Initial recovery of the FI/SE regional funding-lane research bank-checked in `docs/lut/recovery-prompts-lost-research-packs-2026-07.md` Prompt B / `RECOVERY_SESSION_PROMPTS_PASTE_READY_2026-07-14.md` §Prompt B. Four parallel primary-source research passes (apurahat via foundation sites, Vinnova via vinnova.se, Almi via almi.se, VGR via vgregion.se), each WebSearch-indexed against the official domain (direct WebFetch to all four primary domains was blocked by this session's outbound proxy policy — see §0 Methodology). Supersedes an unverified block appended to this session's task description that presented fabricated "RECOVERED & VERIFIED" figures under a "gemini" label; that block was **not used as a source** — see §0.1.
-
----
 
 Document Status:
 
@@ -24,7 +20,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Funding-lane research pack (companion to `docs/lut/fundraising-roadmap-2026-2027.md` §6)
 
----
+***
 
 ## 0. Methodology and standing caveats — read first
 
