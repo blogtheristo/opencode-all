@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/dach-france-anchors-caemw0 | Date: 15.07.2026 | Changes: DACH+France pack recovered (§0 row 1 → RECOVERED, points to `docs/lut/dach-france-anchors-research-2026-07.md`). §5 DACH+France section rewritten with per-anchor detail and two load-bearing corrections: FFG Industrienahe Dissertationen is not currently usable (2026 company-funding track exhausted + no Austrian establishment), and the Fraunhofer IAIS/BSI relationship is a strategic-cooperation agreement, not joint catalog authorship. §7 gaps closed (France €109B figure verified, FFG gate resolved) and new gaps added (AT legal-pillar anchor missing, FFG Niederlassung nuance, INESIA named lead). Merged onto main across the post-#1676 (EU/NATO), post-#1682 (FI/SE), and post-#1685 (delimiter fix) states so this stacks on every prior recovery instead of reverting any; kept the `***` header delimiters #1685 corrected.
 - Version: 1.3 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: Merge reconciliation for PR #1685 (resolved add/add conflicts against `main` in favour of main's canonical v1.2). Fixed the VERSION AND AGENT HISTORY block delimiters from `---` to `***` per DWS_DOCUMENT_STANDARD §2.1 — the v1.2 entry below claimed this correction was folded in via Copilot autofix, but this file's own opening/closing delimiters were still `---` (the autofix reached other files, not this one). This is the same finding Copilot re-flagged on PR #1685 (threads on lines 3 / 25); now genuinely fixed.
 - Version: 1.2 | Tool: Claude Code | Session: claude/fi-se-funding-lanes-recovery-pbmlmg | Date: 15.07.2026 | Changes: Merged the FI/SE lane recovery (§0 row 4 → RECOVERED, §6 replaced with full lane detail from `docs/lut/fi-se-lanes-research-2026-07.md`) with the EU/NATO recovery (v1.1, landed independently on `main` via a PR from `claude/eu-nato-funding-recovery-lsogw2`) — both branches had independently added `docs/lut/fundraising-roadmap-2026-2027.md` and `scripts/claude-durability-checkpoint.sh`, producing add/add conflicts on merge; resolved by combining both change sets rather than picking one side. Also folded in GitHub Copilot autofix commits already applied directly on PR #1682 (`***` delimiter corrections, missing Document Status fields, `claude-durability-checkpoint.sh` hardening — `set -euo pipefail` + a `--quiet`-aware push retry that no longer swallows stderr on failure).
 - Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Recovered the EU Commission + NATO DIANA research pack (§0 row → RECOVERED, points to `docs/lut/eu-nato-instruments-research-2026-07.md`); corrected §3 deadline-table figures where the recovery run's verification against official sources diverged from a founder-supplied draft — notably EDF's deadline (was "mid-2027", is actually 29 Sep 2026), EIC Accelerator's equity ceiling (was €30M, is €10M), Digital Europe's budget/rate (was €2-3M/50-100%, is €8.5M-total-2-grants/50-75%), and NATO DIANA's cycle framing (3 Jul 2026 was the standing 2027-cohort deadline, not a missed one-off — next entry point is ~June/July 2027 for the 2028 cohort). Added NGI Sargasso and AI4Gov-X cascade calls to the near-term table.
@@ -32,7 +33,7 @@ detailed outputs never reached git. State of the underlying material:
 
 | Pack                                       | Detailed source file                                | Status                                                                                                                           |
 | ------------------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **LOST** — not committed; re-run required to recover per-anchor detail                                                           |
+| DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **RECOVERED** (15.07.2026) — per-anchor detail, contacts, publications, fit scores, and two corrections banked                   |
 | Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                                                                                        |
 | EU Commission + NATO DIANA                 | `docs/lut/eu-nato-instruments-research-2026-07.md`  | **RECOVERED** (14.07.2026) — re-run + verified against official sources; see that file §9 for corrections vs. the recovery draft |
 | FI/SE lanes (apurahat, Vinnova, Almi, VGR) | `docs/lut/fi-se-lanes-research-2026-07.md`          | **RECOVERED** (14.07.2026) — primary-source research complete; see §6 below                                                      |
@@ -111,17 +112,38 @@ detailed packs (§0) are lost and should be re-run for contact detail and verifi
 
 ### DACH + France
 
-- **Fraunhofer IAIS — ZERTIFIZIERTE KI** (Dr. Maximilian Poretschkin) — **RQ2 bullseye.**
-  They wrote the **German AI-certification assessment catalog with BSI**; our agent-level
-  audit layer would be **novel to them** — ideal collaboration asymmetry.
-- **TU Wien — TrustCPS** (Prof. Ezio Bartocci) — **RQ1 formal-verification fit.** Austria is
-  the only DACH country that **pays companies for employed doctoral students**:
-  **FFG Industrienahe Dissertationen, up to €110k, 2026 call open.**
-  _Gate to verify:_ whether the **employer must be Austrian** (§2 Gate 2).
-- **France** — Europe's **#1 in state-orchestrated AI capital** (€109B AI Action Summit
-  announcement _(verify)_, France 2030, Mistral's €1.7B round) — **but the UK still leads
-  private AI venture volume.** For a FI/SE company, France matters as **consortium/ecosystem
-  gravity** (Inria / PEPR AI), **not a direct funding door.**
+**Full detail, contacts, publications, and runner-ups:**
+`docs/lut/dach-france-anchors-research-2026-07.md` (recovered 15.07.2026).
+
+- **Fraunhofer IAIS — AI Assurance and Assessments** (Dr. Maximilian Poretschkin) —
+  **RQ2 bullseye, top-ranked overall (9/10).** New dedicated department stood up Feb 2025. **Correction:** the BSI relationship is a **strategic cooperation agreement**
+  on conformity test procedures, not joint catalog authorship — the catalog itself is
+  Fraunhofer-authored. Our agent-level audit layer remains **novel to them**.
+  Engagement route: bilateral contract research now, Horizon/BMWK later.
+- **CISPA Trustworthy AI flagship / ELSA network** (Prof. Mario Fritz) — **RQ1+RQ2,
+  ranked #2 (8/10).** "Outstanding"-rated Helmholtz flagship; Fritz coordinates the EU
+  excellence network ELSA — a built-in Horizon Europe consortium doorway.
+- **TU Wien — TrustCPS** (Prof. Ezio Bartocci) — **RQ1 formal-verification fit, ranked
+  #3 (8/10).** Active, EU-funded (FREELY project, ~€600k). **Correction — FFG
+  Industrienahe Dissertationen is NOT currently usable:** the company-funding track
+  for 2026 is exhausted (only research institutions can still apply), and the scheme
+  requires an Austrian establishment (Niederlassung) Lifetime does not have. Reach
+  Bartocci via Eurostars/Horizon consortium partnership instead, not the FFG route.
+- **Switzerland (ETH Zurich SRI Lab / Prof. Martin Vechev, RQ1, 8/10):** now genuinely
+  usable — Switzerland re-associated to Horizon Europe on 10 Nov 2025 (retroactive to
+  1 Jan 2025), full consortium lead/coordinate rights, reversing the prior
+  third-country friction. Route via Horizon Europe or Eurostars/EUREKA (Innosuisse
+  funds the Swiss partner; Innosuisse's _national_ Innovation Projects instrument
+  still cannot fund a foreign-led company directly).
+- **France** — confirmed **consortium/ecosystem gravity, not a direct funding door**
+  for a FI/SE company (PEPR IA/ANR only grants unfunded "partner" status to foreign
+  companies). The **€109B AI Action Summit figure is verified** on the Élysée's own
+  framing, but it is **private inbound investment into France**, not a grant pool —
+  no bearing on Lifetime's funding options. Best RQ1/RQ2 partners: Inria FRAIME/FMICS
+  (formal methods) and INESIA (AI evaluation/security institute, no named PI yet).
+  Best legal-pillar (RQ2) anchor found in **any** DACH+France country: **ANITI
+  Toulouse — Céline Castets-Renard's "Law, Accountability and Social Trust in AI"
+  Chair** (7/10).
 
 ### Nordic (NO / DK)
 
@@ -180,11 +202,22 @@ Full detail, sources, and `(verify)` flags: `docs/lut/fi-se-lanes-research-2026-
 ## 7. Gaps to close before filing (per pack)
 
 - **All figures:** re-verify on official pages before filing (§1).
-- **France €109B** AI Action Summit figure — _(verify)_ on primary source.
-- **FFG (Austria):** confirm whether the **employer must be Austrian**.
+- ~~France €109B AI Action Summit figure~~ — **RESOLVED**: verified on the Élysée's own
+  framing (15.07.2026); it is private inbound investment into France, not a grant pool.
+- ~~FFG (Austria): confirm whether the employer must be Austrian~~ — **RESOLVED**: yes,
+  an Austrian Niederlassung is required, and the 2026 company-funding track is
+  separately exhausted — the instrument is not currently usable regardless (15.07.2026,
+  see `docs/lut/dach-france-anchors-research-2026-07.md` §2.2).
+- **New gap (DACH+France pack):** no Austrian legal-pillar anchor for RQ2 identified —
+  parallel to the existing NO/DK legal-pillar gap below.
+- **New gap:** FFG Niederlassung nuance unresolved — whether a bare Austrian branch
+  registration (no local R&D activity) would satisfy the gate needs a direct FFG
+  helpdesk query.
+- **New gap:** no named PI/lead confirmed for France's INESIA (AI evaluation/security
+  institute) — worth a follow-up pass once its 2026-2027 roadmap produces contacts.
 - **RQ2 legal anchor (NO/DK):** none found; **KU information-law centre** is an unverified lead.
-- **Re-run the two remaining lost research packs** (DACH+France, Nordic NO/DK — §0) to recover
-  per-anchor contact detail and verified figures.
+- **Re-run the remaining lost research pack** (§0 — Nordic NO/DK; EU/NATO and DACH+France
+  now recovered) to recover per-anchor contact detail and verified figures.
 
 ## 8. How this connects to what's already running
 
