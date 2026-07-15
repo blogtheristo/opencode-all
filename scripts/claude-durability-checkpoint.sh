@@ -39,7 +39,7 @@
 # Safe to run repeatedly (idempotent). Never runs on main/master.
 # =============================================================================
 
-set -uo pipefail
+set -euo pipefail
 
 SNAPSHOT_ONLY=0
 QUIET=0
@@ -83,9 +83,14 @@ STALL_GUARD="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15"
 
 # retry with exponential backoff: git_push_retry <refspec...>
 git_push_retry() {
-  local delay=2 i
+  local delay=2 i out
   for i in 1 2 3 4; do
-    if $TO git $STALL_GUARD push "$@" 2>&1; then return 0; fi
+    if [ "$QUIET" -eq 1 ]; then
+      out=$($TO git $STALL_GUARD push --quiet "$@" 2>&1) && return 0
+      echo "$out" >&2
+    else
+      if $TO git $STALL_GUARD push "$@" 2>&1; then return 0; fi
+    fi
     say "durability: push attempt $i failed; retrying in ${delay}s"
     sleep "$delay"; delay=$((delay * 2))
   done
@@ -146,9 +151,13 @@ LOCAL=$(git rev-parse HEAD 2>/dev/null || echo "L")
 REMOTE=$(git rev-parse "origin/${BRANCH}" 2>/dev/null || echo "R")
 
 if [ "$LOCAL" = "$REMOTE" ]; then
+  if [ "${SNAP_STATUS#FAILED}" != "$SNAP_STATUS" ]; then
+    echo "" >&2
+    echo "✗ NOT DURABLE — origin/${BRANCH} == HEAD (${LOCAL:0:9}), but snapshot net FAILED; uncommitted/untracked work may be lost." >&2
+    exit 1
+  fi
   say ""
   say "✓ DURABLE — origin/${BRANCH} == HEAD (${LOCAL:0:9}). Work is safe on origin."
-  [ "${SNAP_STATUS#FAILED}" != "$SNAP_STATUS" ] && { echo "  (but snapshot net FAILED — see above)" >&2; exit 1; }
   exit 0
 fi
 
