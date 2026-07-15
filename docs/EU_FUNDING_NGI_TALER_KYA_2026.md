@@ -55,8 +55,8 @@ regulator, and the agent accountable to the human who authorised it.
 EUR 50,000
 
 5. CONTACT
-Risto Anton Päärni — Founder, CEO · Lifetime Oy
-risto.paarni@lifetime.fi · +358 400 319 010
+[[CONTACT_NAME]] — [[CONTACT_TITLE]] · Lifetime Oy
+[[CONTACT_EMAIL]] · [[CONTACT_PHONE]]
 Business ID 0772407-9 · Espoo, Finland (EU)
 
 6. DESCRIPTION — what we want to build and why it matters
