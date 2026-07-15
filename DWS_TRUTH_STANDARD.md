@@ -45,6 +45,7 @@ Document Status:
 - Created: 25.05.2026
 - Last Modified: 14.07.2026
 - Language: English
+- Languages Available: English
 - Publication Status: ACTIVE
 - Document Type: Meta-Standard / Internal Registry Index
 - Owner: Risto Päärni (interim)
