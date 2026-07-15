@@ -137,8 +137,7 @@ drafting prose. Do **not** exceed it; over-length pages are not evaluated.
 
 - **Prompt:** Open-source strategy + commercial exploitation path (they can
   coexist: OSS core, enterprise layer above).
-- **Decision (brief §7 Q4):** licence — **EUPL** vs **Apache-2.0** for the
-  compliance core (affects future enterprise licensing).
+- **Decision (brief §7 Q4):** licence stack **locked** (KYA v2 spec CC-BY 4.0 · ref impl + SDKs Apache-2.0 · compliance core EUPL-1.2 · Themis proprietary).
 - **Evidence hooks:** onelifetime.world / dws10.com channels; LSJ monthly;
   existing blog cadence.
 - `[FILL]`
