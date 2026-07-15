@@ -71,8 +71,7 @@ Hyväksyttiin esityslista kokouksen työjärjestykseksi.
 
 ## § 5 Tietoturvavastuiden nimeäminen
 
-**PÄÄTETTIIN** vahvistaa seuraavat vastuut:
-
+**LUONNOS:** vahvistetaan seuraavat vastuut (täydennetään nimet ennen allekirjoitusta):
 | Vastuu                                               | Nimetty                            | Peruste                                              |
 | ---------------------------------------------------- | ---------------------------------- | ---------------------------------------------------- |
 | Kokonaisvastuu tietoturvasta (johto, NIS2 Art. 20)   | Toimitusjohtaja Risto Anton Päärni | Ylin vastuu, raportoi hallitukselle                  |
