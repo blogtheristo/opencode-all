@@ -32,10 +32,11 @@ cd "${REPO_ROOT}"
 
 MONTH="$(date -u +%m)"
 DAY="$(date -u +%d)"
+DAY_NUM=$((10#${DAY}))
 YEAR="$(date -u +%Y)"
 
-# Quarter-start gate: only act on Jan 1 / Apr 1 / Jul 1 / Oct 1.
-if [ "${DAY}" != "01" ]; then
+# Quarter-start gate (with catch-up window): only act during days 1–7 of Jan/Apr/Jul/Oct.
+if [ "${DAY_NUM}" -gt 7 ]; then
   exit 0
 fi
 case "${MONTH}" in
