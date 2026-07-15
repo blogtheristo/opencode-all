@@ -70,3 +70,50 @@ to DWS IQ 6 (automated regulatory reporting via trusted compliance-data sharing)
 - No `.md` in public-site folders (all under `docs/`, `.claude/`).
 - Fail-loud (Rule 12): surfaced the false premise instead of drafting to a dead
   call.
+
+## Follow-up (same session): KYA v2 pivot + EIC track
+
+The user reframed the Taler question — **"Agentic commerce / KYA v2 for
+Taler?"** — which reversed the bridge brief's "skip" verdict. Taler has privacy
+
+- auditability but no agent primitive; KYA supplies exactly that (mandate,
+  identity-binding, Leash-Snap revocation, Article-12 audit). Grounded in
+  `Admin/ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` Pillars 5–6 and the PhD
+  patent-track research line (agentic commerce / transactions / quantum-safe).
+
+**Shipped (second commit):**
+
+1. `docs/EU_FUNDING_NGI_TALER_KYA_2026.md` — submission-ready NLnet application
+   draft ("KYA-Taler", EUR 50,000, 6 milestones), deadline **01 Aug 2026 12:00
+   CEST**, submit at nlnet.nl/propose. Go/no-go pending.
+2. `docs/EU_FUNDING_EIC_ACCELERATOR_2026.md` — EIC Accelerator Open mapping
+   (KYA v2 + agentic commerce vs. Step 1/Step 2 criteria), incl. founder's
+   traction figures (6 paying customers, €7K MRR, 100% retention, €59,990 +
+   €999/mo). **Verified 2026 cut-offs: Step 2 = Jan 7 / Mar 4 / May 6 / Jul 8 /
+   Sep 2 / Nov 4; Step 1 rolling.** Realistic path: Step 1 by Aug 4 batch → GO
+   ~early Sep → **Nov 4 Step 2** → cash H1–mid 2027.
+3. `EU_FUNDING_DIGITAL_2026_AI_DATA_10.md` — fixed stale "EIC Oct 2026 cut-off";
+   added do-not-conflate note (DIGITAL €2–5M @75% consortium vs. EIC ≤€2.5M @70%
+   single applicant).
+4. `EU_FUNDING_EQUITY_FREE_BRIDGE_2026.md` → v1.1 — Taler verdict reversed,
+   EIC added to the honest read, vehicles ordered small→large.
+
+**Corrections surfaced (Rule 7):** founder's chat text mixed DIGITAL's
+€2–5M/75% terms into the EIC section, and described Step 2 with
+Horizon-generic 4/5-threshold scoring — EIC uses GO/NO-GO + jury interview;
+verify mechanics from Guide for Applicants v6.0. Both flagged in the EIC brief
+§6.
+
+**Known conflict (unresolved):** repo prettier hook rewrites `***` → `---` in
+all body delimiters, including the VERSION block — contradicts the CLAUDE.md
+Markdown Delimiter Rule, but `DWS_DOCUMENT_STANDARD.md` itself already uses
+`---`. Accepted the tooling output; the rule vs. tooling mismatch needs a human
+decision.
+
+**Next actions (time-ordered):**
+
+- 2026-07-18: download EIC Guide for Applicants v6.0 + Step 1 template.
+- 2026-07-25: go/no-go on NLnet Taler submission (deadline Aug 1).
+- 2026-08-01: submit EIC Step 1 (Aug 4 batch) — 12-page form + 10-slide deck
+  (reuse `investor-outreach/` assets) + 3-min video.
+- Licence decision (EUPL vs Apache-2.0) blocks three tracks — answer once.

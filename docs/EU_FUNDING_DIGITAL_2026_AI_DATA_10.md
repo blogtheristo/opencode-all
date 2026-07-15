@@ -87,7 +87,8 @@ Sectors the call wants to explore: **agriculture, environment, manufacturing, he
 - Sectoral match: call explicitly names environment, manufacturing, energy — three of DWS's four primary verticals.
 - Lump sum MGA lowers audit overhead compared to actual-cost Horizon grants.
 - Opening 21 Apr 2026 → deadline 01 Oct 2026 gives ~5 months to build a consortium and submit.
-- Complements the **EIC Accelerator Oct 2026 cut-off** already on the roadmap; the two applications can share technical annexes.
+- Complements the **EIC Accelerator** track (Step 2 cut-offs verified 2026-07-15: **Sep 2 / Nov 4 2026** — the "Oct 2026 cut-off" in v1.0 was stale); the two applications can share technical annexes. See `docs/EU_FUNDING_EIC_ACCELERATOR_2026.md`.
+- **Do not conflate the two tracks' terms:** DIGITAL = €2–5M lump sum at 75% for SMEs, consortium required; EIC = ≤€2.5M grant at 70% + optional equity, single applicant.
 
 **Gaps to close before submission:**
 
