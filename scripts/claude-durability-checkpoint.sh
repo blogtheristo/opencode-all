@@ -39,7 +39,7 @@
 # Safe to run repeatedly (idempotent). Never runs on main/master.
 # =============================================================================
 
-set -uo pipefail
+set -euo pipefail
 
 SNAPSHOT_ONLY=0
 QUIET=0
