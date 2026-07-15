@@ -122,15 +122,26 @@ compressing v6/v7 — substance first, length second.
 3. **Time budget is substance budget.** "Saving 10 seconds" without saving complexity is corner-cutting, not editing. If a beat is shorter than the previous version, it must be _clearer_, not just _shorter_. v5 failed this test.
 4. **Three personality anchors do the heavy lifting:** the customer-voice quote (beat 2), the honest MRR admission (beat 4), and the opinionated technical line (beat 3). Don't let edits sand any of these off.
 
-## Checklist — v9 refresh (application already submitted 31 May 2026)
+## Checklist — v9 refresh
 
+**Purpose update (2026-07-15): Deep SAGE application REJECTED** (generic
+non-shortlist notice; see `AI_ACCELERATE_2026_ASSESSMENT.md` in this
+folder). The v9 cut's target is now the **AI Accelerate 2026** application
+(BLOCK71 × Microsoft, deadline 31 Jul 2026) — **pending the eligibility
+answer** (Finnish company vs "Singapore-based / rooted in Asia" criterion).
+Beat 5 "Why Deep SAGE" must be re-pointed to AI Accelerate before recording:
+swap "TIS Inc. is the route into Japanese manufacturing" for the
+Microsoft-alignment line (M365 agent consultancy, DWS IQ Adoption Framework
+built on Microsoft's AI Adoption Framework) + Singapore-entry intent.
+
+- [ ] **Eligibility query sent to BLOCK71/Steve first** (draft in
+      `AI_ACCELERATE_2026_ASSESSMENT.md` §6) — do not spend recording time
+      before this answers.
 - [ ] **Founder confirms the team line**: "founder-led Nordic core + 100+
       contracted engineers" (v9, matches EIC materials) vs "six-person
       Nordic team" (v8.3, as submitted). Pick one; it must match across
       everything a reviewer might cross-read.
-- [ ] Decide the v9 cut's purpose: interview-stage refresher for the Deep
-      SAGE panel, or follow-up asset for Steve Leong — tone is ready for
-      either.
+- [ ] Re-point beat 5 to AI Accelerate (see purpose note above).
 - [ ] Record per shoot notes above (unchanged); Loom → trim → unlisted link.
 - [ ] If sent to Steve: pair with `PITCH_10MIN_v2_WEDGE.md`, CC
       `steveleonghw@nus.edu.sg` convention as before.
