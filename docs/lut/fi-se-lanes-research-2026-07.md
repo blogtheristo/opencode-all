@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: Recovery of the at-risk FI/SE lanes research pack (roadmap §0 row 5). Re-researched the four Finland/Sweden funding lanes — apurahat (FI research grants), Vinnova, Almi, VGR — for two entities (Lifetime Oy, FI negative-equity/GBER firm-in-difficulty; Lifetime AB, SE <3y/GBER-exempt). Four parallel primary-source research agents; official pages only (foundation/säätiö + aurora-tietokanta.fi, vinnova.se, almi.se, vgregion.se). Figures not confirmable on a live primary page are tagged (verify). Companion to `docs/lut/fundraising-roadmap-2026-2027.md` §6.
+- Version: 1.0 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: Recovery of the at-risk FI/SE lanes research pack (roadmap §0 row 5). Re-researched all four Finland/Sweden funding lanes — apurahat (FI research grants), Vinnova, Almi, VGR — for two entities (Lifetime Oy, FI negative-equity/GBER firm-in-difficulty; Lifetime AB, SE <3y/GBER-exempt). Four parallel primary-source research agents; official pages only (foundation/säätiö + aurora-tietokanta.fi, vinnova.se, almi.se, vgregion.se). Key finding: the negative-equity gate does NOT bite the apuraha lane (personal grants ≠ company state aid), confirming _apuraha → stay Finland_. Per-lane instrument tables, deadline stack, and cross-lane synthesis (§5). Figures not confirmable on a live primary page are tagged (verify) — all four target sites 403-blocked the fetcher, so figures are from official-page search renders. Banked incrementally (3 lanes, then VGR + synthesis). Companion to `docs/lut/fundraising-roadmap-2026-2027.md` §6.
 
 Document Status:
 
@@ -260,16 +260,121 @@ partner, and a clean group UiD position.
 
 ---
 
-## 4. VGR lane (Västra Götalandsregionen regional) — _pending (in-progress)_
+## 4. VGR lane (Västra Götalandsregionen regional) — the territorial-registration lane
 
-_Research agent still running; this section is appended in the next incremental commit._
+**Vehicle:** Lifetime AB. Instruments administered by VGR (företagsstöd / checkar / seed loan)
+plus regionally-administered EU structural funds. Lifetime Oy is **out of scope** — Swedish
+regional money is territorial.
+
+### 4.1 BOTTOM LINE — the Västra Götaland registration gate is the decisive blocker
+
+**Every VGR business-support instrument requires the company to have a registered
+workplace/operation in Västra Götaland (the Göteborg region).** VGR's own eligibility text:
+_"Support can be granted to companies that have a workplace in the support area in Västra
+Götaland,"_ and for the seed instrument _"Företaget ska vara registrerat i Västra Götaland och
+avser att driva verksamheten här."_
+
+- **Lifetime AB** — a Swedish AB, but unless it has a **registered säte/workplace in Västra
+  Götaland**, it **does not qualify today**. A Swedish registration elsewhere (e.g. Stockholm) is
+  not sufficient. The fix is concrete but has a cost: register a workplace/branch in the Göteborg
+  region and run real operations there.
+- **<3-years status is an _advantage_ here, not a barrier.** The "Nystartade innovativa företag"
+  seed instrument **explicitly prioritises companies under 3 years** (max 5). This is the opposite
+  of the EU-instrument concern — the GBER under-3-years exemption does **not** bite the VGR lane.
+  The binding constraint is **territorial registration**, plus (for the established-company
+  checkar) a **≥2 annual reports / turnover threshold** a very young AB may not yet meet.
+
+### 4.2 Per-instrument table
+
+| #   | Instrument (SV / EN)                                              | Type                                             | Max amount                                       | Co-funding                                              | Key eligibility                                                                                                                                           | VG registration?             | Window (mid-Jul 2026)                       |
+| --- | ----------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ------------------------------------------- |
+| 1   | **Digitaliseringscheck**                                          | Grant, de minimis                                | **SEK 250,000 (verify)**                         | ≤50%; min ask SEK 50,000                                | Established SME <50 employees; **≥2 annual reports**; ≥1 FTE; market-based                                                                                | **Yes**                      | Rolling / periodic calls (verify)           |
+| 2   | **Internationaliseringscheck**                                    | Grant, de minimis                                | **SEK 250,000 (verify)**                         | ≤50%; min SEK 50,000                                    | Established co. entering new markets; external consultant                                                                                                 | **Yes**                      | Rolling / periodic (verify)                 |
+| 3   | **Hållbarhetscheck**                                              | Grant, de minimis                                | **SEK 500,000 (verify)**                         | ≤50% (verify)                                           | SME ≤249 employees; ≥2 full-year employees; ≥SEK 3M turnover; sustainability feasibility studies                                                          | **Yes**                      | Periodic (verify)                           |
+| 4   | **FoU-kort** / R&D cheque                                         | Grant                                            | **SEK 700,000 (verify)**                         | ≤50% (co. ≥50% own)                                     | Established SME growing via R&D **in cooperation with academia/institute**                                                                                | **Yes**                      | Periodic (verify)                           |
+| 5   | **Nystartade innovativa företag** (seed)                          | **Conditional loan (villkorslån)** — not a grant | **SEK 850,000 (verify)**                         | ≤65% of dev cost                                        | ≤10 employees; business plan; **under 5y, prioritised <3y**; innovation height assessed by 3rd party (Almi advisor/incubator)                             | **Yes**                      | Rolling; paid in arrears (verify)           |
+| 6   | **Konsultcheck**                                                  | Grant, de minimis                                | **SEK 150,000 (verify)**                         | ≤50%                                                    | SME hiring external consulting                                                                                                                            | **Yes**                      | Periodic (verify)                           |
+| 7   | **Affärsutvecklingscheckar** (Tillväxtverket-administered family) | Grant, de minimis                                | **SEK ~50,000–250,000 (verify — generic range)** | ≤50%                                                    | Typically 2–49 employees; turnover ≥SEK 1–3M (varies)                                                                                                     | **Yes for VGR-administered** | Varies (verify)                             |
+| 8   | **Regionalt investeringsstöd**                                    | Grant                                            | Not confirmed (verify)                           | Varies                                                  | Registered workplace in VG support area; SME ≤249 (larger for some)                                                                                       | **Yes**                      | Periodic (verify)                           |
+| 9   | **Projektstöd (Regionala utvecklingsnämnden)**                    | Project co-financing                             | Varies by call                                   | **≤50%** of total; co-financing from >1 party mandatory | Applicants **typically municipalities, universities, industry orgs, associations — NOT single private companies**; ≥2 mo processing                       | Project benefits VG          | Rolling via e-service (verify)              |
+| 10  | **ERUF / Regionalfonden Västsverige 2021–2027**                   | EU structural co-financing                       | Large project grants                             | Structural-fund co-financing                            | Programme area VG+Halland; target SME but applicants usually **consortia / innovation milieux**, not a lone startup; digitalisation, smart specialisation | Project in Västsverige area  | Calls via Tillväxtverket (verify open call) |
+
+### 4.3 Most-relevant instrument detail
+
+- **#5 Nystartade innovativa företag (best profile match).** A **conditional seed loan
+  (villkorslån)** — repaid once the innovation generates revenue, **not a grant**. Max **SEK
+  850,000 (verify)**, ≤65% of development cost. Eligibility: ≤10 employees, business plan, **under
+  5 years (prioritised under 3)**, innovation height assessed by a **third party (Almi innovation
+  advisor or an incubator)**, and **registered in Västra Götaland**. DWS IQ fits "teknik- och
+  kunskapsbaserade företag" precisely and the under-3-years status is a _priority_. **Blocked
+  solely by the VG registration gate + the Almi/incubator innovation-height assessment.**
+- **#1 Digitaliseringscheck** is strong on product fit (AI/digitalisation) but requires **≥2 filed
+  annual reports** — a <3y AB likely lacks them, so it is likely **not qualified today** on two
+  counts (registration + annual-report history).
+- **#9 Projektstöd** and **#10 ERUF** are realistically **indirect** — access is as an SME partner
+  inside a science-park / Business Region Göteborg / ERUF innovation-hub project, not as lead
+  grantee.
+
+### 4.4 Adjacent actors (cross-reference — not VGR grants)
+
+- **Almi Väst** is **51% Almi AB / 36.75% VGR / 12.25% Business Region Göteborg** — offers loans,
+  advisory, and (via **Almi Invest Västsverige**) early-stage VC, and is the standard **third-party
+  innovation-height assessor** the seed loan (#5) requires. It is the natural **first contact once
+  VG-registered** (ties this lane to §3 Almi).
+- **Science parks / innovation milieux (VGR co-funded):** Lindholmen (mobility/AI), Johanneberg
+  (Chalmers), Sahlgrenska (life science), Science Park Borås, Gothia, Innovatum. These are the
+  entry points to ERUF/projektstöd consortia and to **incubator status** (which satisfies the
+  seed-loan innovation-height gate). **Business Region Göteborg** is the practical front door.
+
+### 4.5 Bottom line — does Lifetime AB qualify today?
+
+**Not today** — no VGR money is reachable without a **registered workplace/operation in Västra
+Götaland**. Quantify the cost of establishing VG presence before pursuing any instrument. Once
+gated, the **Nystartade innovativa företag seed loan** (SEK 850,000 (verify), 65%, under-3-years
+prioritised) is the best-fit instrument — but it is a **conditional loan** needing Almi/incubator
+sign-off. An **indirect route is available even before heavy VG footprint:** join a science-park /
+Business Region Göteborg / ERUF innovation-hub project as an SME partner.
 
 ---
 
 ## 5. Cross-lane synthesis (all four)
 
-_To be completed once §4 (VGR) lands — will summarise: which lane funds which entity, the
-deadline stack, and the one-line-per-lane verdict feeding roadmap §6._
+### 5.1 One-line verdict per lane
+
+| Lane         | Vehicle                 | Nature                                 | Does the negative-equity gate bite?                                     | Verdict                                                                                                       |
+| ------------ | ----------------------- | -------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Apurahat** | Risto (individual, LUT) | Non-dilutive personal grant            | **No** — personal grants aren't company state aid                       | **The clean lane. _apuraha → stay Finland_ holds.** Live now: **LSR (15 Aug)**; then SKR/TSR (Oct)            |
+| **Vinnova**  | Lifetime AB             | Non-dilutive grant (de minimis / GBER) | **No** — AB is <3y and flagship calls are de minimis                    | **Best SE grant lane.** Live now: **Eurostars Call 11 (10 Sep)**; **Innovativa Startups opens 12 Oct**        |
+| **Almi**     | Lifetime AB             | **Debt** (+ optional VC)               | Indirectly (EIF InvestEU UiD group screen on Growth/Green only, verify) | **Debt lever, not a grant.** Realistic draws: **Mikrolån / Innovationslån**. Rolling                          |
+| **VGR**      | Lifetime AB             | Grant + conditional seed loan          | No (under-3y is _prioritised_) — but **territorial gate blocks**        | **Blocked today by the VG registration gate.** Best-fit if gated: **Nystartade innovativa företag** seed loan |
+
+### 5.2 The deadline stack (next ~16 weeks, FI/SE only)
+
+| Deadline               | Lane / instrument                                                | Vehicle                       | Shape                                               |
+| ---------------------- | ---------------------------------------------------------------- | ----------------------------- | --------------------------------------------------- |
+| **15 Aug 2026**        | Apurahat — **LSR työskentelyapuraha**                            | Risto                         | €27k doctoral working grant (open now)              |
+| **10 Sep 2026**        | Vinnova — **Eurostars Call 11**                                  | Lifetime AB (SME coordinator) | ≤5 MSEK; needs 2-country consortium + equity ≥½-ask |
+| **24 Sep–15 Oct 2026** | Apurahat — **TSR väitöskirjastipendi**                           | Risto                         | ≤€30k final-stage doctoral stipend                  |
+| **12 Oct 2026**        | Vinnova — **Innovativa Startups opens**                          | Lifetime AB                   | ≤900k SEK de minimis, single-company                |
+| **15–30 Oct 2026**     | Apurahat — **SKR**                                               | Risto                         | ~€30k science working grant                         |
+| **Rolling**            | Almi (Mikrolån/Innovationslån); VGR seed loan (if VG-registered) | Lifetime AB                   | debt / conditional loan                             |
+
+### 5.3 What this means for the roadmap
+
+1. **Finland carries the near-term non-dilutive load.** Two of the three soonest FI/SE deadlines
+   are personal apurahat (LSR 15 Aug, TSR/SKR Oct), untouched by the Oy's GBER problem. This is
+   why _apuraha → stay Finland_ is not just a preference but the structurally-cleanest lane.
+2. **Sweden carries the company-grant load via the AB.** Vinnova is the real Swedish grant door,
+   and the AB's <3y status is an asset (Innovativa Startups <10y cap; de minimis basis). Eurostars
+   Call 11 (10 Sep) is the one live company window and doubles as the roadmap's anchor instrument
+   (§3–§4 of the master roadmap).
+3. **Almi and VGR are conditional/second-order.** Almi is **debt** (only Mikrolån/Innovationslån
+   are realistically reachable for a thin-balance-sheet AB); VGR is **grant-shaped but gated behind
+   a Västra Götaland registration** the AB does not yet hold. Neither is a near-term non-dilutive
+   win without either taking on debt or standing up VG presence.
+4. **The Oy stays a partner, never a Swedish applicant.** Across Vinnova/Almi/VGR the Oy's negative
+   equity is only a risk if it applies or co-finances on the Swedish side. Its clean role is a
+   BF-funded foreign consortium partner (Eurostars / planning grant), with a minimal funded line.
 
 ---
 
@@ -286,7 +391,10 @@ deadline stack, and the one-line-per-lane verdict feeding roadmap §6._
 - **Almi:** all interest-% and fees (verify); Export Loan and Verification Grant figures; **whether
   the EIF InvestEU UiD group test reaches the affiliated Finnish Oy** (check InvestEU terms + ask
   Almi Väst).
-- **VGR:** to be added with §4.
+- **VGR:** exact SEK amounts + co-funding % for all checkar and the seed loan (all figures from
+  official-page search renders; vgregion.se 403-blocked the fetcher); whether each call is open in
+  July 2026 (VGR runs periodic call windows); confirm the seed-loan innovation-height assessment
+  route (Almi advisor vs incubator).
 
 ---
 
@@ -309,4 +417,9 @@ vinnova.se/sok-finansiering/regler-for-finansiering/statligt-stod.
 green-loan, verification-grant, who-can-apply) · almi.se/en/venture-capital (Almi Invest, criteria,
 west-sweden) · almi.se/om-almi/organisation/almi-vast-ab · press.almi.se (EIF/InvestEU agreement).
 
-**VGR:** _added with §4._
+**VGR:** vgregion.se/regional-utveckling/omraden/naringsliv/foretagsfinansiering (hub +
+digitaliseringscheck, internationaliseringscheck, hallbarhetscheck, fou-kort, nystartade-innovativa-
+foretag, regionalt-investeringsstod, sa-arbetar-vgr-med-foretagsfinansiering) ·
+vgregion.se/regional-utveckling/soka-stod/projektstod · vgregion.se/regional-utveckling/eu/eu-program/regionalfonden
+· tillvaxtverket.se (regionalfonden Västsverige; affärsutvecklingscheckar) ·
+vgregion.se/.../innovationsmiljoer/science-parks · almi.se/om-almi/organisation/almi-vast-ab.
