@@ -786,5 +786,82 @@
       "created_by": "risto-001",
       "updated_by": "claude-code"
     }
+  },
+  {
+    "id": "martin-torngren-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Martin",
+      "last_name": "Törngren",
+      "full_name": "Martin Törngren",
+      "title": "Professor in Embedded Control Systems, KTH · Director, TECoSA",
+      "email": "martint@kth.se",
+      "phone": "+46 8 790 63 07",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "KTH Royal Institute of Technology",
+      "department": "Mechatronics division, Dept. of Engineering Design; Director of TECoSA",
+      "role": "Professor / Center Director",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "Professor since 2002; post-doc EU-JRC; sabbaticals UC Berkeley (2011/12, 2018) and Stevens Institute (2018)",
+      "expertise": [
+        "Trustworthy edge computing",
+        "Cyber-physical systems",
+        "System and functional safety",
+        "Safety argumentation / assurance cases",
+        "Model-based engineering",
+        "Autonomous and connected CPS architectures"
+      ],
+      "languages": [
+        "Swedish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "director",
+        "academic",
+        "trustworthy-edge",
+        "prospect",
+        "nordic"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Trustworthy edge computing",
+        "Safety evidence",
+        "TECoSA phase-2 trustworthiness themes",
+        "AD-EYE verification"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-07-14",
+      "next_action": "Reply to Broman with Törngren CC'd; lead with trustworthy edge computing / safety evidence; map Article-12 logging + KYA to his safety-argumentation framework; propose 30-min call.",
+      "notes": "Warm referral from David Broman (KTH EECS), 14.07.2026. Director of TECoSA (Trustworthy Edge Computing Systems and Applications), now in phase 2 with trustworthiness emphasis. Runs industrial-PhD program (Scania/Alstom/Ericsson) — strong industry-academia bridge. See People/partners/academic/martin-torngren.md and docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "",
+      "contract_end": "",
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-07-14T00:00:00Z",
+      "updated_at": "2026-07-14T00:00:00Z",
+      "created_by": "claude-code",
+      "updated_by": "claude-code"
+    }
   }
 ]

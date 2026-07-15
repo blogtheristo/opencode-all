@@ -13,7 +13,9 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 14.07.2026
+- Last Modified: 14.07.2026
 - Language: English
+- Languages Available: EN
 - Publication Status: ACTIVE
 - Classification: CONFIDENTIAL — Fundraising/ops recovery runbook
 - Document Type: Paste-ready session prompts

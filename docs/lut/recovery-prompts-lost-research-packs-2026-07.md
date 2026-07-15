@@ -57,6 +57,7 @@ Document Status:
 - Created: 14.07.2026
 - Last Modified: 14.07.2026
 - Language: English
+- Languages Available: EN
 - Publication Status: DRAFT
 - Classification: CONFIDENTIAL — Fundraising strategy provenance
 - Document Type: Loss audit + recovery runbook

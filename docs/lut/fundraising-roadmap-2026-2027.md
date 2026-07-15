@@ -1,15 +1,16 @@
 # Europe Fundraising Roadmap 2026–2027 — DWS IQ / Lifetime (Master Timeline)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/dach-france-anchors-caemw0 | Date: 15.07.2026 | Changes: DACH+France pack recovered (§0 row → RECOVERED, points to `docs/lut/dach-france-anchors-research-2026-07.md`). §5 DACH+France section rewritten with per-anchor detail and two load-bearing corrections: FFG Industrienahe Dissertationen is not currently usable (2026 company-funding track exhausted + no Austrian establishment), and the Fraunhofer IAIS/BSI relationship is a strategic-cooperation agreement, not joint catalog authorship. §7 gaps closed (France €109B figure verified, FFG gate resolved) and new gaps added (AT legal-pillar anchor missing, FFG Niederlassung nuance, INESIA named lead). Rebased onto the post-#1676 roadmap so this stacks on the corrected §3 EU/NATO figures instead of reverting them.
+- Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Recovered the EU Commission + NATO DIANA research pack (§0 row → RECOVERED, points to `docs/lut/eu-nato-instruments-research-2026-07.md`); corrected §3 deadline-table figures where the recovery run's verification against official sources diverged from a founder-supplied draft — notably EDF's deadline (was "mid-2027", is actually 29 Sep 2026), EIC Accelerator's equity ceiling (was €30M, is €10M), Digital Europe's budget/rate (was €2-3M/50-100%, is €8.5M-total-2-grants/50-75%), and NATO DIANA's cycle framing (3 Jul 2026 was the standing 2027-cohort deadline, not a missed one-off — next entry point is ~June/July 2027 for the 2028 cohort). Added NGI Sargasso and AI4Gov-X cascade calls to the near-term table.
 - Version: 1.0 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 13.07.2026 | Changes: Reconstructed the master fundraising roadmap from the field-note conclusions of the three parallel research agents (Nordic NO/DK, DACH+France, EU Commission + NATO DIANA) plus the existing FI/SE lanes. NOTE — the three detailed per-anchor research packs generated in a prior ephemeral cloud session were never committed to git and were lost when that container was reclaimed; this document rebuilds the load-bearing conclusions only. The full packs must be re-run to recover per-anchor detail (see "Recovery status" below).
-- Version: 1.1 | Tool: Claude Code | Session: claude/dach-france-anchors-caemw0 | Date: 15.07.2026 | Changes: DACH+France pack recovered (§0 row → RECOVERED, points to `docs/lut/dach-france-anchors-research-2026-07.md`). §5 DACH+France section rewritten with per-anchor detail and two load-bearing corrections: FFG Industrienahe Dissertationen is not currently usable (2026 company-funding track exhausted + no Austrian establishment), and the Fraunhofer IAIS/BSI relationship is a strategic-cooperation agreement, not joint catalog authorship. §7 gaps closed (France €109B figure verified, FFG gate resolved) and new gaps added (AT legal-pillar anchor missing, FFG Niederlassung nuance, INESIA named lead).
 
 Document Status:
 
@@ -21,19 +22,19 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Master fundraising roadmap / instrument timeline
 
----
+***
 
 ## 0. Recovery status — read first
 
 This roadmap was rebuilt from the summary conclusions of a prior research session whose
 detailed outputs never reached git. State of the underlying material:
 
-| Pack                                       | Detailed source file                                | Status                                                                                         |
-| ------------------------------------------ | --------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **RECOVERED** (15.07.2026) — per-anchor detail, contacts, publications, and corrections banked |
-| Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                                                      |
-| EU Commission + NATO DIANA                 | (EU/NATO pack)                                      | **LOST** — not committed; re-run required                                                      |
-| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | existing internal knowledge                         | retained                                                                                       |
+| Pack                                       | Detailed source file                                | Status                                                                                                                           |
+| ------------------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **RECOVERED** (15.07.2026) — per-anchor detail, contacts, publications, fit scores, and two corrections banked                   |
+| Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                                                                                        |
+| EU Commission + NATO DIANA                 | `docs/lut/eu-nato-instruments-research-2026-07.md`  | **RECOVERED** (14.07.2026) — re-run + verified against official sources; see that file §9 for corrections vs. the recovery draft |
+| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | existing internal knowledge                         | retained                                                                                                                         |
 
 The load-bearing conclusions below survived in the field note and are captured here. The
 **per-anchor research packs** (source dumps, contact detail, verified figures) are not
@@ -75,13 +76,19 @@ Both gates are the founder's to open; nothing downstream unblocks until they do.
 
 ## 3. Near-term deadline table (next ~16 weeks)
 
-| Deadline                     | Instrument                                     | Amount / shape                                  | Why it matters                                                                                             | Gate / prerequisite                                                                 |
-| ---------------------------- | ---------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **10 Sep 2026**              | **Eurostars Call 11** (open now)               | ~€1.5M project, 50% funded, SME-led, FI+SE      | **Best structural fit of everything found**                                                                | One independent partner + **Gate 1 decision** (FI-led after cure vs. SE-led via AB) |
-| **1 Oct 2026**               | **Digital Europe — "COMPLIANCE" topic**        | Grant                                           | Topic is literally _"digital solutions for regulatory compliance through data"_ — the product's call title | Read the fiche **this week**                                                        |
-| **28 Oct 2026**              | **EIC dual-use window**                        | €2.5M grant + up to €30M equity, single company | Created **June 2026** for exactly the **Aegis Defence** profile                                            | Single-company; no consortium needed                                                |
-| **~mid-2027**                | **NATO DIANA** (missed the 3 Jul call by days) | €100k grant + €300k equity-free                 | Confirmed **on-ramp to the €1bn NATO Innovation Fund** (FI & SE are both LPs)                              | **Pre-engage VTT Otaniemi and LEAD Linköping this autumn**                          |
-| **Rolling (monthly review)** | **Cascade / FSTP open calls**                  | €30k–€200k, light applications                  | **Mostly no financial-health gate** — the **fastest EU money available** (Gate 1 does not block these)     | Light; monthly scan                                                                 |
+| Deadline                     | Instrument                                                                                                                         | Amount / shape                                                                                                                           | Why it matters                                                                                                                        | Gate / prerequisite                                                                                                 |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **1 Aug 2026**               | **NGI Sargasso cascade call**                                                                                                      | Equity-free FSTP funding + 9-month programme                                                                                             | Fastest deadline in the pack; GBER-exempt cascade money                                                                               | None — file first                                                                                                   |
+| **31 Aug 2026**              | **AI4Gov-X cascade call** (first cut-off)                                                                                          | FSTP, rolling cut-offs through Feb 2027                                                                                                  | Low-effort parallel filing alongside Eurostars drafting                                                                               | None                                                                                                                |
+| **10 Sep 2026**              | **Eurostars Call 11** (open now)                                                                                                   | ~€1.5M project, **bilaterally co-funded per country** (no single EU-wide rate), SME-led, FI+SE                                           | **Best structural fit of everything found**                                                                                           | One independent partner + **Gate 1 decision** (FI-led after cure vs. SE-led via AB)                                 |
+| **29 Sep 2026**              | **European Defence Fund — SME research action**                                                                                    | Up to €4M/project, **100% funded**                                                                                                       | **Corrected from a prior "mid-2027" estimate — this deadline is live now**, per `docs/lut/eu-nato-instruments-research-2026-07.md` §6 | Founder resourcing call vs. Eurostars/Digital Europe drafting load; defence clearance/export-control scoping needed |
+| **1 Oct 2026**               | **Digital Europe — "COMPLIANCE" topic** (`DIGITAL-2026-AI-DATA-10-COMPLIANCE`)                                                     | **€8.5M total / 2 grants EU-wide** (~€4.25M avg); DEP standard rate 50%, SME rate 75% — corrected from an earlier €2-3M/project estimate | Topic is literally _"digital solutions for regulatory compliance through data"_ — the product's call title                            | Academic coordinator to shield the financial-capacity check                                                         |
+| **28 Oct 2026**              | **EIC dual-use window**                                                                                                            | €2.5M grant + **up to €10M equity** (corrected from an earlier €30M estimate), single company                                            | Created **June 2026** for exactly the **Aegis Defence** profile; blended/equity actions are GBER-UiD-exempt                           | Single-company; no consortium needed                                                                                |
+| **~June/July 2027**          | **NATO DIANA** next Challenge Call (2028 cohort) — the 3 Jul 2026 call was the standing 2027-cohort deadline, not a missed one-off | €100k grant + €300k equity-free                                                                                                          | Confirmed **on-ramp to the €1bn NATO Innovation Fund** (FI & SE are both LPs)                                                         | **Pre-engage VTT Otaniemi and LEAD Linköping this autumn** — independent of the call calendar                       |
+| **Rolling (monthly review)** | **Cascade / FSTP open calls**                                                                                                      | €30k–€200k, light applications                                                                                                           | **Mostly no financial-health gate** — the **fastest EU money available** (Gate 1 does not block these)                                | Light; monthly scan — see `docs/lut/eu-nato-instruments-research-2026-07.md` §4 for the corrected live inventory    |
+
+Full per-instrument detail, source citations, and every correction made against the prior
+recovery draft are in `docs/lut/eu-nato-instruments-research-2026-07.md`.
 
 ## 4. Eurostars — the anchor instrument (detail)
 
@@ -175,8 +182,8 @@ detailed packs (§0) are lost and should be re-run for contact detail and verifi
 - **New gap:** no named PI/lead confirmed for France's INESIA (AI evaluation/security
   institute) — worth a follow-up pass once its 2026-2027 roadmap produces contacts.
 - **RQ2 legal anchor (NO/DK):** none found; **KU information-law centre** is an unverified lead.
-- **Re-run the remaining two lost research packs** (§0 — Nordic NO/DK, EU/NATO) to
-  recover per-anchor contact detail and verified figures.
+- **Re-run the remaining lost research pack** (§0 — Nordic NO/DK; EU/NATO and DACH+France
+  now recovered) to recover per-anchor contact detail and verified figures.
 
 ## 8. How this connects to what's already running
 
