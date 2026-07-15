@@ -11,6 +11,8 @@ name: Deploy to Staging (Cloud Run)
 # Required secrets (GitHub → Settings → Secrets → Actions):
 #   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
 #   GCP_SERVICE_ACCOUNT           — github-actions-deployer@<project>.iam.gserviceaccount.com
+# Required vars (GitHub → Settings → Variables → Actions):
+#   STAGING_RUNTIME_SERVICE_ACCOUNT — dedicated Cloud Run runtime service account with roles/secretmanager.secretAccessor
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
 #   STAGING_SUPABASE_SERVICE_KEY
@@ -37,6 +39,7 @@ env:
   ARTIFACT_REPOSITORY: dws-iq-repo
   IMAGE_NAME: backend
   SERVICE_NAME: dws6run6-staging
+  STAGING_RUNTIME_SERVICE_ACCOUNT: ${{ vars.STAGING_RUNTIME_SERVICE_ACCOUNT }}
   HAS_GCP_DEPLOY_AUTH: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && secrets.GCP_SERVICE_ACCOUNT != '' }}
 
 permissions:
@@ -137,6 +140,13 @@ jobs:
       url: https://dws6run6-staging-${{ env.REGION }}.a.run.app
 
     steps:
+      - name: Validate staging runtime service account variable
+        run: |
+          if [ -z "${{ env.STAGING_RUNTIME_SERVICE_ACCOUNT }}" ]; then
+            echo "::error::Missing STAGING_RUNTIME_SERVICE_ACCOUNT GitHub variable. Configure a dedicated runtime service account with roles/secretmanager.secretAccessor for staging secrets."
+            exit 1
+          fi
+
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
@@ -158,6 +168,7 @@ jobs:
             --max-instances=3
             --concurrency=80
             --timeout=60s
+            --service-account=${{ env.STAGING_RUNTIME_SERVICE_ACCOUNT }}
           env_vars: |
             NODE_ENV=staging
             LOG_LEVEL=debug
