@@ -1,6 +1,6 @@
 # FI/SE Funding Lane Research — Apurahat, Vinnova, Almi, VGR (2026-07)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -21,7 +21,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Funding-lane research pack (companion to `docs/lut/fundraising-roadmap-2026-2027.md` §6)
 
----
+***
 
 ## 0. Methodology and standing caveats — read first
 
