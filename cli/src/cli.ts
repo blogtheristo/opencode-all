@@ -701,6 +701,431 @@ async function cmdBrowse(
   output(payload);
 }
 
+// ============ EU-DATA (European Data Portal / HVD onboarding demo) ============
+//
+// Public EU open-data upstreams (no auth). All output carries a provenance
+// block (source, license, attribution, retrieved) per the IPR rules in
+// docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md.
+// --demo serves bundled fixtures so client demos never depend on egress.
+
+const EU_DATA_UPSTREAMS = {
+  prh: {
+    label: 'PRH Finnish Business Register (companies HVD)',
+    base: 'https://avoindata.prh.fi/opendata-ytj-api/v3/companies',
+    license: 'CC BY 4.0',
+    attribution: 'Contains data from the Finnish Patent and Registration Office (PRH), CC BY 4.0',
+  },
+  fmi: {
+    label: 'FMI open data (meteorological HVD)',
+    base: 'https://opendata.fmi.fi/wfs',
+    license: 'CC BY 4.0',
+    attribution: 'Contains data from the Finnish Meteorological Institute, CC BY 4.0',
+  },
+  edp: {
+    label: 'data.europa.eu Search API (European Data Portal)',
+    base: 'https://data.europa.eu/api/hub/search/search',
+    license: 'per-dataset (HVDs: CC BY 4.0 or more permissive)',
+    attribution: 'Contains metadata from data.europa.eu',
+  },
+} as const;
+
+// Fixture data for offline demos. Company facts mirror the canonical Lifetime Oy
+// identity in CLAUDE.md (public registry data); weather and dataset entries are
+// realistic samples and are labelled fixture — never present them as live values.
+const EU_DATA_FIXTURES = {
+  company: {
+    businessId: '0772407-9',
+    name: 'Lifetime Oy',
+    companyForm: 'OY',
+    mainBusinessLine: 'Computer programming activities',
+    registeredOffice: 'Espoo',
+    address: 'Laidunmaanraitti 2 A 25, 02330 Espoo, Finland',
+    website: 'https://lifetime.fi',
+    status: 'ACTIVE',
+  },
+  weather: {
+    place: 'Espoo',
+    observations: { 't2m (°C)': 19.4, 'ws_10min (m/s)': 4.2, 'wg_10min (m/s)': 7.1 },
+    observedAt: '2026-07-06T12:00:00Z',
+  },
+  datasets: [
+    {
+      id: 'eu-ets-verified-emissions',
+      title: 'EU ETS verified emissions and allowances (Union Registry)',
+      catalog: 'European Environment Agency',
+      hvd: true,
+      dwsUse: 'CBAM / compliance-check onboarding: client installations, verified CO2, trend',
+    },
+    {
+      id: 'industrial-emissions-portal',
+      title: 'Industrial Emissions Portal (E-PRTR) facility releases',
+      catalog: 'European Environment Agency',
+      hvd: true,
+      dwsUse: 'Control Room map layer: client facility pollutant releases',
+    },
+    {
+      id: 'corine-land-cover',
+      title: 'CORINE Land Cover (Copernicus Land Monitoring Service)',
+      catalog: 'Copernicus',
+      hvd: true,
+      dwsUse: 'SiteSense / carbon-analysis geospatial site context',
+    },
+    {
+      id: 'eurostat-energy-statistics',
+      title: 'Eurostat energy statistics (prices, balances, emissions)',
+      catalog: 'Eurostat',
+      hvd: true,
+      dwsUse: 'Regulatory-radar version-diff testing; CSRD/CBAM baselines',
+    },
+    {
+      id: 'fintraffic-digitraffic',
+      title: 'Fintraffic Digitraffic real-time road and traffic data',
+      catalog: 'Traficom / Fintraffic',
+      hvd: true,
+      dwsUse: 'Control Room mobility ingestion and retention testing',
+    },
+  ],
+};
+
+interface EuDataProvenance {
+  source: string;
+  url: string;
+  license: string;
+  attribution: string;
+  retrieved: string;
+  status: 'ok' | 'error' | 'fixture';
+  error?: string;
+}
+
+async function euDataGet(url: string, timeoutMs = 15_000): Promise<string> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { 'User-Agent': 'dws-cli eu-data (https://dws6.com)' },
+    });
+    const text = await res.text();
+    if (!res.ok) throw new Error(`HTTP ${res.status} from ${new URL(url).host}`);
+    return text;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function euDataNetworkHint(): string {
+  return 'Upstream unreachable — in restricted environments (e.g. Claude Code remote sessions) the network policy may block EU data hosts. Use --demo for fixture mode.';
+}
+
+function parsePrhCompany(json: string): Record<string, unknown> {
+  const data = JSON.parse(json) as {
+    totalResults?: number;
+    companies?: Array<Record<string, any>>;
+  };
+  const c = data.companies?.[0];
+  if (!c) throw new Error('No company found for that business ID');
+  const activeName =
+    (c.names || []).find((n: any) => !n.endDate)?.name || (c.names || [])[0]?.name || '';
+  const businessLine =
+    (c.mainBusinessLine?.descriptions || []).find((d: any) => d.languageCode === '3')
+      ?.description ||
+    (c.mainBusinessLine?.descriptions || [])[0]?.description ||
+    '';
+  const addr = (c.addresses || [])[0];
+  const address = addr
+    ? [
+        addr.street,
+        addr.buildingNumber,
+        addr.apartmentNumber,
+        addr.postCode,
+        addr.postOffices?.[0]?.city,
+      ]
+        .filter(Boolean)
+        .join(' ')
+    : '';
+  return {
+    businessId: c.businessId?.value || c.businessId || '',
+    name: activeName,
+    companyForm: c.companyForms?.[0]?.type || '',
+    mainBusinessLine: businessLine,
+    registrationDate: c.registrationDate || '',
+    address,
+    website: c.website?.url || '',
+    status: c.status || '',
+  };
+}
+
+function parseFmiSimple(xml: string): Record<string, unknown> {
+  // BsWfs simple format: repeated <BsWfs:ParameterName>/<BsWfs:ParameterValue>
+  // pairs with timestamps. Keep the latest value per parameter.
+  const times = [...xml.matchAll(/<BsWfs:Time>([^<]+)<\/BsWfs:Time>/g)].map((m) => m[1]);
+  const names = [...xml.matchAll(/<BsWfs:ParameterName>([^<]+)<\/BsWfs:ParameterName>/g)].map(
+    (m) => m[1],
+  );
+  const values = [...xml.matchAll(/<BsWfs:ParameterValue>([^<]+)<\/BsWfs:ParameterValue>/g)].map(
+    (m) => m[1],
+  );
+  if (names.length === 0) throw new Error('No observations in FMI response');
+  const latest: Record<string, string> = {};
+  let latestTime = '';
+  for (let i = 0; i < names.length; i++) {
+    latest[names[i]] = values[i] ?? '';
+    if (times[i] && times[i] > latestTime) latestTime = times[i];
+  }
+  return { observations: latest, observedAt: latestTime };
+}
+
+function parseEdpSearch(json: string, limit: number): Array<Record<string, unknown>> {
+  const data = JSON.parse(json) as { result?: { count?: number; results?: Array<any> } };
+  const results = data.result?.results || [];
+  return results.slice(0, limit).map((r) => ({
+    id: r.id || '',
+    title: r.title?.en || Object.values(r.title || {})[0] || '',
+    catalog: r.catalog?.title?.en || r.catalog?.id || '',
+    formats: [...new Set((r.distributions || []).map((d: any) => d.format?.id).filter(Boolean))],
+    landingPage: r.resource || (r.id ? `https://data.europa.eu/data/datasets/${r.id}` : ''),
+  }));
+}
+
+async function cmdEuDataOnboard(businessId: string, flags: Record<string, string>): Promise<void> {
+  const demo = flags.demo === 'true';
+  const place = flags.place || 'Espoo';
+  const now = new Date().toISOString();
+  const provenance: EuDataProvenance[] = [];
+
+  if (demo) {
+    output({
+      mode: 'demo',
+      note: 'Fixture data for offline demo — NOT live values.',
+      company: EU_DATA_FIXTURES.company,
+      siteWeather: EU_DATA_FIXTURES.weather,
+      relatedDatasets: EU_DATA_FIXTURES.datasets,
+      provenance: (Object.keys(EU_DATA_UPSTREAMS) as Array<keyof typeof EU_DATA_UPSTREAMS>).map(
+        (k) => ({
+          source: EU_DATA_UPSTREAMS[k].label,
+          url: EU_DATA_UPSTREAMS[k].base,
+          license: EU_DATA_UPSTREAMS[k].license,
+          attribution: EU_DATA_UPSTREAMS[k].attribution,
+          retrieved: now,
+          status: 'fixture' as const,
+        }),
+      ),
+    });
+    return;
+  }
+
+  if (!businessId) {
+    error(
+      'No business ID specified.',
+      'dws eu-data onboard 0772407-9 [--place Espoo] | dws eu-data onboard --demo',
+    );
+  }
+
+  let company: Record<string, unknown> | null = null;
+  let weather: Record<string, unknown> | null = null;
+  let datasets: Array<Record<string, unknown>> | null = null;
+
+  // 1. Company profile (PRH)
+  const prhUrl = `${EU_DATA_UPSTREAMS.prh.base}?businessId=${encodeURIComponent(businessId)}`;
+  try {
+    company = parsePrhCompany(await euDataGet(prhUrl));
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.prh.label,
+      url: prhUrl,
+      license: EU_DATA_UPSTREAMS.prh.license,
+      attribution: EU_DATA_UPSTREAMS.prh.attribution,
+      retrieved: now,
+      status: 'ok',
+    });
+  } catch (e) {
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.prh.label,
+      url: prhUrl,
+      license: EU_DATA_UPSTREAMS.prh.license,
+      attribution: EU_DATA_UPSTREAMS.prh.attribution,
+      retrieved: now,
+      status: 'error',
+      error: e instanceof Error ? e.message : String(e),
+    });
+  }
+
+  // 2. Live weather at site (FMI)
+  const fmiUrl = `${EU_DATA_UPSTREAMS.fmi.base}?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::observations::weather::simple&place=${encodeURIComponent(place)}&parameters=t2m,ws_10min,wg_10min&maxlocations=1`;
+  try {
+    weather = { place, ...parseFmiSimple(await euDataGet(fmiUrl)) };
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.fmi.label,
+      url: fmiUrl,
+      license: EU_DATA_UPSTREAMS.fmi.license,
+      attribution: EU_DATA_UPSTREAMS.fmi.attribution,
+      retrieved: now,
+      status: 'ok',
+    });
+  } catch (e) {
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.fmi.label,
+      url: fmiUrl,
+      license: EU_DATA_UPSTREAMS.fmi.license,
+      attribution: EU_DATA_UPSTREAMS.fmi.attribution,
+      retrieved: now,
+      status: 'error',
+      error: e instanceof Error ? e.message : String(e),
+    });
+  }
+
+  // 3. Related EU datasets (data.europa.eu)
+  const query = flags.query || (company?.mainBusinessLine as string) || 'energy emissions';
+  const edpUrl = `${EU_DATA_UPSTREAMS.edp.base}?q=${encodeURIComponent(query)}&limit=5&page=0&filter=dataset`;
+  try {
+    datasets = parseEdpSearch(await euDataGet(edpUrl), 5);
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.edp.label,
+      url: edpUrl,
+      license: EU_DATA_UPSTREAMS.edp.license,
+      attribution: EU_DATA_UPSTREAMS.edp.attribution,
+      retrieved: now,
+      status: 'ok',
+    });
+  } catch (e) {
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.edp.label,
+      url: edpUrl,
+      license: EU_DATA_UPSTREAMS.edp.license,
+      attribution: EU_DATA_UPSTREAMS.edp.attribution,
+      retrieved: now,
+      status: 'error',
+      error: e instanceof Error ? e.message : String(e),
+    });
+  }
+
+  const failures = provenance.filter((p) => p.status === 'error');
+  if (failures.length === provenance.length) {
+    console.error(JSON.stringify({ provenance }, null, 2));
+    error('All EU data upstreams failed.', euDataNetworkHint());
+  }
+
+  output({
+    mode: 'live',
+    partial: failures.length > 0,
+    ...(failures.length > 0
+      ? {
+          warning: `${failures.length}/${provenance.length} upstreams failed — see provenance[].error`,
+        }
+      : {}),
+    company,
+    siteWeather: weather,
+    relatedDatasets: datasets,
+    provenance,
+  });
+}
+
+async function cmdEuDataSearch(query: string, flags: Record<string, string>): Promise<void> {
+  const demo = flags.demo === 'true';
+  const limit = flags.limit ? parseInt(flags.limit) : 5;
+  const now = new Date().toISOString();
+
+  if (demo) {
+    const q = query.toLowerCase();
+    const hits = EU_DATA_FIXTURES.datasets.filter(
+      (d) => !q || `${d.title} ${d.catalog} ${d.dwsUse}`.toLowerCase().includes(q),
+    );
+    output({
+      mode: 'demo',
+      note: 'Fixture data for offline demo — NOT live results.',
+      count: hits.length,
+      results: hits.slice(0, limit),
+    });
+    return;
+  }
+
+  if (!query) {
+    error('No query specified.', 'dws eu-data search "verified emissions" [--limit 5] [--demo]');
+  }
+
+  const url = `${EU_DATA_UPSTREAMS.edp.base}?q=${encodeURIComponent(query)}&limit=${limit}&page=0&filter=dataset`;
+  try {
+    const body = await euDataGet(url);
+    const data = JSON.parse(body) as { result?: { count?: number } };
+    output({
+      mode: 'live',
+      count: data.result?.count ?? 0,
+      results: parseEdpSearch(body, limit),
+      provenance: [
+        {
+          source: EU_DATA_UPSTREAMS.edp.label,
+          url,
+          license: EU_DATA_UPSTREAMS.edp.license,
+          attribution: EU_DATA_UPSTREAMS.edp.attribution,
+          retrieved: now,
+          status: 'ok' as const,
+        },
+      ],
+    });
+  } catch (e) {
+    error(
+      `data.europa.eu search failed: ${e instanceof Error ? e.message : String(e)}`,
+      euDataNetworkHint(),
+    );
+  }
+}
+
+async function cmdEuDataStatus(): Promise<void> {
+  const probes = await Promise.all(
+    (Object.keys(EU_DATA_UPSTREAMS) as Array<keyof typeof EU_DATA_UPSTREAMS>).map(async (k) => {
+      const u = EU_DATA_UPSTREAMS[k];
+      const probeUrl =
+        k === 'prh'
+          ? `${u.base}?businessId=0772407-9`
+          : k === 'fmi'
+            ? `${u.base}?service=WFS&request=GetCapabilities`
+            : `${u.base}?q=test&limit=1`;
+      const started = Date.now();
+      try {
+        await euDataGet(probeUrl, 10_000);
+        return { upstream: k, label: u.label, reachable: true, ms: Date.now() - started };
+      } catch (e) {
+        return {
+          upstream: k,
+          label: u.label,
+          reachable: false,
+          ms: Date.now() - started,
+          error: e instanceof Error ? e.message : String(e),
+        };
+      }
+    }),
+  );
+  const allDown = probes.every((p) => !p.reachable);
+  output({
+    reachable: probes.filter((p) => p.reachable).length,
+    total: probes.length,
+    upstreams: probes,
+    ...(allDown ? { hint: euDataNetworkHint() } : {}),
+  });
+}
+
+async function cmdEuData(
+  subcommand: string,
+  positional: string[],
+  flags: Record<string, string>,
+): Promise<void> {
+  switch (subcommand) {
+    case 'onboard':
+      await cmdEuDataOnboard(positional[1] || '', flags);
+      break;
+    case 'search':
+      await cmdEuDataSearch(positional.slice(1).join(' '), flags);
+      break;
+    case 'status':
+      await cmdEuDataStatus();
+      break;
+    default:
+      error(
+        'Unknown eu-data subcommand.',
+        'dws eu-data onboard <business-id> [--place Espoo] [--demo]\n  dws eu-data search "<query>" [--limit 5] [--demo]\n  dws eu-data status',
+      );
+  }
+}
+
 // ============ SOVEREIGNTY ASSESSMENT ============
 
 async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promise<void> {
@@ -823,7 +1248,7 @@ async function cmdSovereigntyPillarsAssess(inputPath: string, useStdin: boolean)
   if (!useStdin && !inputPath) {
     error(
       'No input specified.',
-      'dws sovereignty-pillars-assess <input.json>\n  echo \'{...}\' | dws sovereignty-pillars-assess --stdin',
+      "dws sovereignty-pillars-assess <input.json>\n  echo '{...}' | dws sovereignty-pillars-assess --stdin",
     );
   }
 
@@ -865,10 +1290,13 @@ async function cmdSovereigntyPillarsAssess(inputPath: string, useStdin: boolean)
     console.log(fmt.dim('  Pillar triple (SIB / CSB / EAB) per jurisdiction:'));
     for (const j of ['EU', 'US', 'SG']) {
       const s = scores[j];
-      console.log(`  ${j}   SIB ${String(s.SIB).padStart(3)}   CSB ${String(s.CSB).padStart(3)}   EAB ${String(s.EAB).padStart(3)}`);
+      console.log(
+        `  ${j}   SIB ${String(s.SIB).padStart(3)}   CSB ${String(s.CSB).padStart(3)}   EAB ${String(s.EAB).padStart(3)}`,
+      );
     }
     console.log('');
-    const tierColor = tier === 'Aegis' ? fmt.green : tier === 'Sovereign Infra' ? fmt.cyan : fmt.yellow;
+    const tierColor =
+      tier === 'Aegis' ? fmt.green : tier === 'Sovereign Infra' ? fmt.cyan : fmt.yellow;
     console.log(`  Tier            ${tierColor(tier)}`);
     const readyColor =
       readiness === 'ready' ? fmt.green : readiness === 'roadmap' ? fmt.yellow : fmt.red;
@@ -1440,6 +1868,28 @@ Examples:
   dws browse screenshot https://dws10.com --out homepage.png
   dws browse snapshot https://dws10.com/buy
   dws browse fetch https://example.com --json | jq -r '.html'`,
+
+  'eu-data': `dws eu-data <subcommand> — European open data (data.europa.eu, HVDs) for demos & onboarding
+
+SUBCOMMANDS:
+  onboard <business-id>   Client onboarding pack: PRH company profile + FMI site
+                          weather + related data.europa.eu datasets, with per-source
+                          license/attribution provenance (CC BY 4.0 discipline).
+  search "<query>"        Search datasets on the European Data Portal (Search API).
+  status                  Probe upstream reachability (PRH, FMI, data.europa.eu).
+
+OPTIONS:
+  --demo          Serve bundled fixtures (offline-safe; output is labelled demo)
+  --place <city>  Weather location for onboard (default: Espoo)
+  --query <q>     Override dataset query for onboard (default: company business line)
+  --limit <n>     Max search results (default: 5)
+  --json          Force JSON output
+
+EXAMPLES:
+  dws eu-data onboard 0772407-9
+  dws eu-data onboard --demo
+  dws eu-data search "verified emissions" --limit 3
+  dws eu-data status --json | jq '.upstreams'`,
 };
 
 function showSubcommandHelp(command: string): boolean {
@@ -1473,6 +1923,11 @@ BROWSE (Playwright):
   dws browse fetch <url>                     Rendered HTML for any page (JS-aware)
   dws browse screenshot <url> [--out f.png]  Full-page PNG screenshot
   dws browse snapshot <url>                  Accessibility tree (role + name)
+
+EU DATA (European Data Portal / HVD):
+  dws eu-data onboard <business-id> [--demo] Client onboarding pack: company + weather + datasets
+  dws eu-data search "<query>" [--limit N]   Search data.europa.eu datasets
+  dws eu-data status                         Probe EU open-data upstream reachability
 
 KNOWLEDGE BASE:
   dws kb compile [--full]                 Compile kb/raw/ → kb/wiki/
@@ -1600,7 +2055,8 @@ function parseArgs(argv: string[]): {
         key === 'force-cascade' ||
         key === 'dry-run' ||
         key === 'yes' ||
-        key === 'force'
+        key === 'force' ||
+        key === 'demo'
       ) {
         flags[key] = 'true';
       } else {
@@ -2113,7 +2569,10 @@ async function main(): Promise<void> {
         break;
 
       case 'sovereignty-pillars-assess':
-        await cmdSovereigntyPillarsAssess(subcommand || positional[0] || '', flags.stdin === 'true');
+        await cmdSovereigntyPillarsAssess(
+          subcommand || positional[0] || '',
+          flags.stdin === 'true',
+        );
         break;
 
       case 'profile':
@@ -2141,6 +2600,10 @@ async function main(): Promise<void> {
         await cmdBrowse(subcommand || '', browseUrl, flags);
         break;
       }
+
+      case 'eu-data':
+        await cmdEuData(subcommand || '', positional, flags);
+        break;
 
       case 'mcp':
         if (subcommand === 'tools') {
@@ -2187,6 +2650,7 @@ async function main(): Promise<void> {
           'dashboard',
           'activity',
           'browse',
+          'eu-data',
           'version',
           'help',
         ];

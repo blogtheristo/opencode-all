@@ -34,6 +34,17 @@ Ticket Size: €50k-100k
 LinkedIn: linkedin.com/in/juhanamuikku
 Note: Gorilla invests via Business Finland co-investment program (2:1 leverage potential)
 
+2b. Gorilla Capital — Petri Lehmuskoski ⭐⭐⭐ HIGH PRIORITY
+
+Contact: Petri Lehmuskoski, Founding Partner (Gorilla Capital Fund III) — linkedin.com/in/petrilehmuskoski
+Firm: Gorilla Capital, Turku / Southwest Finland — www.gorillacapital.fi ("The Nordic Institutional Super Angel · More scars than trophies")
+Thesis: Early-stage Nordic; institutional angel / pre-seed–seed. Publicly argues boards should optimize the REAL probable endpoint (trade sale / customer-funded), not a premature IPO/VC playbook, and protect acquirability.
+Why DWS IQ 6 Fits: Lifetime Oy is the textbook company his thesis describes — clean 100% founder cap table, no SAFEs/options, customer-funded pilot motion, EU-sovereign compliance moat, high acquirability. We pitch from inside his thesis, not against it.
+Ticket Size: ~€150k SAFE (this plan)
+Materials: Dedicated 2-page brief `investor-outreach/INTRO_PETRI_LEHMUSKOSKI_GORILLA_CAPITAL.md` (thesis-led draft email inside, not sent) · recorded as prospect in DD §3 (`Learn/022_LT_DueDiligence_CleanReport_2026.md`) · live status in `investor-outreach/daily-outreach-tracker.md` → "Active Prospects (2026-H2)"
+Gate: Founder→company IP assignment must be signed before a term sheet; DD shared only under mutual NDA.
+⚠️ NOT the same firm as #2 Gorilla Ventures (Juhana Muikku, gorillaventures.fi) — Gorilla Capital (gorillacapital.fi) is a distinct fund. Do not merge the two contacts.
+
 3. Nordic Foodtech VC ⭐⭐ MEDIUM PRIORITY
 
 Contact: Hanna Asmussen, Partner (hanna@nordicfoodtech.vc)
