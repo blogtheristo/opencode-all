@@ -30,7 +30,11 @@ non-shortlist notice redirected us to AI Accelerate 2026):
 
 **New contact:** Jit Singh (Mr), Program Manager, NUS Enterprise, National
 University of Singapore · +65 6516 2096 · jit@nus.edu.sg · 71 Ayer Rajah
-Crescent, #02-01, Singapore 139951 · NUS Co. Reg. 200604346E.
+Crescent, #02-01, Singapore 139951 · NUS Co. Reg. 200604346E ·
+LinkedIn: linkedin.com/in/jitsinghkairon — **connection request sent
+2026-07-15** (relationship play independent of application outcome; he is
+a warm entry to the Singapore agentic-commerce ecosystem per the Signal
+section below).
 
 ## Decision state
 

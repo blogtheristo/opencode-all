@@ -244,3 +244,36 @@ patents-before-publication precondition.
 2. IPR counsel intro calls may proceed meanwhile (target 2026-07-31), but
    sign the engagement only after the Voucher 3 decision so drafting fees
    are reimbursable.
+
+## Follow-up 6 (same session): BLOCK71 arc — Deep SAGE rejected → AI Accelerate GO
+
+Full arc, all committed under `partners-outreach/BLOCK71_DEEP_SAGE_2026/`:
+
+1. **Deep SAGE 2026: REJECTED** (2026-07-15 notice). Rejection redirects to
+   **AI Accelerate 2026** (BLOCK71 × Microsoft, deadline **31 Jul 2026**).
+2. **Video script → v9** (current-facts refresh: truth-registry claims,
+   new KYA-2 beat, team-line conflict "six-person" vs "founder-led core +
+   100+ partner engineers" SURFACED for founder decision — still open).
+3. **Eligibility query sent AND answered same day** — Jit Singh (Program
+   Manager, NUS Enterprise, jit@nus.edu.sg): Finnish company eligible; SG
+   entity within 3 months of commencement only if selected. **Application
+   GO**, slot Jul 28–30. Field note:
+   `docs/field-notes/2026-07-15-block71-ai-accelerate-eligibility-sg-entity.md`
+4. **Reviewer signal:** Jit attended Stripe's Agentic Commerce Breakfast
+   Briefing (Stripe/Sierra/Shopee/Microsoft/Amazon) → application LEADS
+   with KYA-2/agentic commerce, not climate compliance. LinkedIn connect
+   to Jit sent 2026-07-15 (relationship independent of outcome).
+5. **`AI_ACCELERATE_2026_APPLICATION.md` (v0.1)** — Singapore market-entry
+   section paste-ready (two-wave structure: agentic-commerce trust layer +
+   CBAM/ASEAN data; staged entity plan matching Jit's condition; zero new
+   claims). Remaining sections assemble Jul 28–30 from the EIC Step 1
+   narrative.
+6. **Scheduler:** Jul 24 no-reply check deleted (void); **Jul 27
+   pre-deadline sweep armed** (trig_01BY5WaVFAmBjD4xw6c9y9kr) covering
+   voucher / Taler / EIC Step 1 / AI Accelerate.
+
+**Also this session (post-Follow-up-5):** EIC Step 1 12-page narrative
+(v0.91) + 10-slide deck prompt (v1.1, founder renders — DO NOT feed Gamma)
++ cost/runway estimate (plan needs ~€0–300 cash minimum; patent is the
+only real item, voucher-offset and deferrable; MRR is the 2026 bridge).
+Truth lint: 0 fail / 0 warn across application-facing docs.
