@@ -21,7 +21,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Master fundraising roadmap / instrument timeline
 
----
+***
 
 ## 0. Recovery status — read first
 
