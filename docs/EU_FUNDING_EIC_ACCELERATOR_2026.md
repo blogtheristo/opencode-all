@@ -1,6 +1,6 @@
 # EU Funding Brief — EIC Accelerator Open 2026 (KYA v2 + Agentic Commerce)
 
----
+***
 
 ## VERSION AND AGENT HISTORY
 
