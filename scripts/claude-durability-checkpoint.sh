@@ -85,7 +85,11 @@ STALL_GUARD="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15"
 git_push_retry() {
   local delay=2 i
   for i in 1 2 3 4; do
-    if $TO git $STALL_GUARD push "$@" 2>&1; then return 0; fi
+    if [ "$QUIET" -eq 1 ]; then
+      if $TO git $STALL_GUARD push --quiet "$@" >/dev/null 2>&1; then return 0; fi
+    else
+      if $TO git $STALL_GUARD push "$@"; then return 0; fi
+    fi
     say "durability: push attempt $i failed; retrying in ${delay}s"
     sleep "$delay"; delay=$((delay * 2))
   done
