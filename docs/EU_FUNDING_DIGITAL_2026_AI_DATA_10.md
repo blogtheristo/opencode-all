@@ -1,6 +1,6 @@
 # EU Funding Brief — DIGITAL-2026-AI-DATA-10 (AI Continent / Compliance)
 
----
+***
 
 ## VERSION AND AGENT HISTORY
 
