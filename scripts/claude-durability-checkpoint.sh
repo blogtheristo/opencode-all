@@ -83,12 +83,13 @@ STALL_GUARD="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15"
 
 # retry with exponential backoff: git_push_retry <refspec...>
 git_push_retry() {
-  local delay=2 i
+  local delay=2 i out
   for i in 1 2 3 4; do
     if [ "$QUIET" -eq 1 ]; then
-      $TO git $STALL_GUARD push "$@" >/dev/null 2>&1 && return 0
+      out=$($TO git $STALL_GUARD push --quiet "$@" 2>&1) && return 0
+      echo "$out" >&2
     else
-      $TO git $STALL_GUARD push "$@" && return 0
+      if $TO git $STALL_GUARD push "$@" 2>&1; then return 0; fi
     fi
     say "durability: push attempt $i failed; retrying in ${delay}s"
     sleep "$delay"; delay=$((delay * 2))
