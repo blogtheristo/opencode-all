@@ -134,9 +134,10 @@ swap "TIS Inc. is the route into Japanese manufacturing" for the
 Microsoft-alignment line (M365 agent consultancy, DWS IQ Adoption Framework
 built on Microsoft's AI Adoption Framework) + Singapore-entry intent.
 
-- [x] **Eligibility query sent to BLOCK71/Steve** (2026-07-15, per
-      `AI_ACCELERATE_2026_ASSESSMENT.md` §6) — do not spend recording time
-      before it answers; no-reply drop-dead Jul 24.
+- [x] **Eligibility ANSWERED same day (2026-07-15, Jit Singh / NUS
+      Enterprise): eligible** — SG entity required within 3 months of
+      commencement only if selected. Recording is UNBLOCKED; target the
+      Jul 28–30 slot (one session, two closers: EIC + AI Accelerate).
 - [ ] **Founder confirms the team line**: "founder-led Nordic core + 100+
       contracted engineers" (v9, matches EIC materials) vs "six-person
       Nordic team" (v8.3, as submitted). Pick one; it must match across

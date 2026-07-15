@@ -37,11 +37,17 @@ https://block71.co/programmes/ai-accelerate-2026/
 
 ## 3. Two catches the invitation email does not mention
 
-1. **Eligibility risk — "Singapore-based … rooted in Asia":** prior-cohort
-   criteria required Singapore-based startups rooted in Asia. Lifetime Oy is
-   Finnish. Deep SAGE was explicitly about _entering_ Singapore, so BLOCK71
-   knows this — but whether AI Accelerate accepts a Finnish company
-   (possibly via willingness to establish a Singapore entity) must be
+1. **Eligibility risk — RESOLVED 2026-07-15 (same-day answer from Jit
+   Singh, Program Manager, NUS Enterprise, jit@nus.edu.sg, +65 6516 2096):**
+   Finnish incorporation is no barrier to applying; **if shortlisted AND
+   selected, a Singapore entity must be incorporated within 3 months of
+   programme commencement.** Full analysis in
+   `docs/field-notes/2026-07-15-block71-ai-accelerate-eligibility-sg-entity.md`
+   (jurisdiction-3 fit with the EU/US/SG sovereignty-pillars model; IP stays
+   with Lifetime Oy in Finland; SG entity cost ~S$2–4k setup lands earliest
+   Q1–Q2 2027, outside 2026 runway). Original concern, for the record:
+   prior-cohort criteria required Singapore-based startups rooted in Asia —
+   whether a Finnish company qualified had to be
    **confirmed before spending founder-days on the application**.
 2. **Not fully equity-clean:** participation is free, but in the prior
    cohort **NUS Enterprise retained an option on up to S$50k of equity**
@@ -65,12 +71,13 @@ must lead with the DWS IQ product + KYA-2, not the consulting SKUs.
 
 ## 5. Recommended sequence
 
-1. ~~Eligibility query to BLOCK71 / Steve Leong~~ — **SENT 2026-07-15**
-   (founder, per §6 draft). Await reply; drop-dead date for a useful answer
-   is **Jul 24**.
-2. **If eligible:** application ≈ 1–1.5 founder-days, reusing v9 video +
-   EIC Step 1 claims (already truth-lint clean). Slot it after EIC Step 1
-   material is frozen (~Jul 28–30), inside the Jul 31 deadline.
+1. ~~Eligibility query~~ — **SENT and ANSWERED 2026-07-15** (same-day reply
+   from Jit Singh, NUS Enterprise): eligible; SG entity within 3 months of
+   commencement only if selected. Jul 24 drop-dead void.
+2. **GO — application confirmed** per the pre-committed rule: ≈ 1–1.5
+   founder-days, reusing v9 video (beat 5 re-pointed to Microsoft
+   alignment) + EIC Step 1 claims (already truth-lint clean). Slot after
+   EIC Step 1 material is frozen (~Jul 28–30), inside the Jul 31 deadline.
 3. **If not eligible or no reply by Jul 24:** drop without regret — EIC
    (Aug 4 batch) and Taler (Aug 1) outrank it, per the runway doc's
    time-budget rules.
