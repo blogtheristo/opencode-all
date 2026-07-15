@@ -185,3 +185,34 @@ starter €999/mo)" — consistent with catalogue AND V4.3 investor deck
 - [VERIFY] TAM/SAM/SOM + hiring plan (Step 2 blockers, not Step 1).
 - Trim prose to actual form character limits (download template first).
 - Build 10-slide deck + 3-min video; run /truth-check before upload.
+
+## Follow-up 4 (same session): Boardy review — three flags, dispositions
+
+Boardy reviewed the locked plan and raised three flags. Dispositions:
+
+1. **Taler-vs-EIC hours (Jul 25 go/no-go).** Partially dissolved: the EIC
+   Step 1 narrative Boardy assumed was still unwritten is DONE
+   (`docs/EIC_STEP1_DRAFT_KYA_2026.md`, commit ef70e60). Remaining EIC work
+   is trimming + deck + video. Recommendation on record: **timebox Taler to
+   one half-day final pass and submit early (~Jul 22–25)** — NLnet forms are
+   short, the draft is submission-ready, and early submission frees the last
+   week of July entirely for the EIC deck/video. The two no longer compete
+   for the same hours in any serious way.
+
+2. **DIGITAL consortium (Aug 15, hardest deadline).** Verified: the
+   Törngren (KTH) / Smolander (LUT) threads are NOT in the repo — they live
+   in the founder's inbox only. Action recorded: when either replies, thread
+   the DIGITAL-2026-AI-DATA-10 academic-partner ask into the follow-up
+   (anchor slot: regulatory/sandbox or research partner). ALSO capture the
+   thread state into the repo (investor-outreach/ or partners-outreach/
+   record) so the consortium critical path is trackable — right now the
+   hardest deadline on the list has zero repo visibility.
+
+3. **IPR counsel — none exists.** Repo-verified: no patent counsel/firm
+   anywhere in the files; every "IPR counsel" mention is this session's own
+   docs. Action added to EIC brief §7 (row 4b, target **2026-07-31**):
+   shortlist + book intro. Candidate Finnish firms: Berggren, Kolster,
+   Papula-Nevinpat, Boco IP; LUT innovation services as the academic route.
+   Hard gate: filing/scoping decision before the FIRST published milestone
+   (Taler M1 if funded, EIC M12 EUPL-core release otherwise) — booking now
+   costs nothing and de-risks both.

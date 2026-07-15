@@ -204,15 +204,16 @@ Finland) so the partners strengthen rather than dent the sovereignty story;
 
 ## 7. Next Steps
 
-| #   | Action                                                                    | Owner      | Target date |
-| --- | ------------------------------------------------------------------------- | ---------- | ----------- |
-| 1   | Download Guide for Applicants v6.0 + Step 1 template from EIC portal      | Risto      | 2026-07-18  |
-| 2   | Draft Step 1: 12-page form (narrative from §3 above)                      | Risto + AI | 2026-07-25  |
-| 3   | 10-slide pitch deck (reuse `investor-outreach/` deck assets)              | Risto + AI | 2026-07-28  |
-| 4   | 3-minute video (founder to camera + product capture)                      | Risto      | 2026-07-31  |
-| 5   | **Submit Step 1** (rolling; batched first Tuesday of month → Aug 4 batch) | Risto      | 2026-08-01  |
-| 6   | On GO (~early Sep): decide Step 2 cut-off — Sep 2 impossible → **Nov 4**  | Risto      | on GO       |
-| 7   | Step 2 full proposal + jury prep                                          | Risto + AI | 2026-10-20  |
+| #   | Action                                                                                                                                                                                                                                                      | Owner      | Target date |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------- |
+| 1   | Download Guide for Applicants v6.0 + Step 1 template from EIC portal                                                                                                                                                                                        | Risto      | 2026-07-18  |
+| 2   | ~~Draft Step 1: 12-page form~~ **done 2026-07-15** → `docs/EIC_STEP1_DRAFT_KYA_2026.md` (v0.9); remaining: trim to form limits                                                                                                                              | Risto + AI | 2026-07-25  |
+| 3   | 10-slide pitch deck (reuse `investor-outreach/` deck assets)                                                                                                                                                                                                | Risto + AI | 2026-07-28  |
+| 4   | 3-minute video (founder to camera + product capture)                                                                                                                                                                                                        | Risto      | 2026-07-31  |
+| 4b  | **IPR counsel: shortlist + book intro** (none on record in repo — candidates: Berggren, Kolster, Papula-Nevinpat, Boco IP; LUT innovation services as academic route). Filing/scoping decision needed before first published milestone (Taler M1 / EIC M12) | Risto      | 2026-07-31  |
+| 5   | **Submit Step 1** (rolling; batched first Tuesday of month → Aug 4 batch)                                                                                                                                                                                   | Risto      | 2026-08-01  |
+| 6   | On GO (~early Sep): decide Step 2 cut-off — Sep 2 impossible → **Nov 4**                                                                                                                                                                                    | Risto      | on GO       |
+| 7   | Step 2 full proposal + jury prep                                                                                                                                                                                                                            | Risto + AI | 2026-10-20  |
 
 ---
 
