@@ -170,8 +170,10 @@ DESIGN RULES
 
 ## Usage notes
 
-- Feed the block above verbatim to Gamma (`mcp__Gamma__generate`), a
-  designer, or any slide tool. It is self-contained.
+- The block above is self-contained for any slide tool or designer.
+  **Founder instruction (2026-07-15): do NOT feed this to Gamma** — the
+  founder renders the deck themselves. Agents: do not call
+  `mcp__Gamma__generate` with this prompt.
 - If a `[DECIDE]` changes (grant-only vs blended), slides 9–10 must change
   with it — the ask line and the 70/30 footnote.
 - Contact email uses the sales-outreach address per CLAUDE.md sender-identity
