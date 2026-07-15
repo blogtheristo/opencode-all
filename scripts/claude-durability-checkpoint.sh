@@ -110,18 +110,25 @@ if [ -n "$DIRTY" ]; then
   # .claude/hooks (safety-file lesson) and a defensive .env belt.
   if GIT_INDEX_FILE="$TMPIDX" git read-tree HEAD 2>/dev/null \
      && GIT_INDEX_FILE="$TMPIDX" git add -A -- . ':(exclude).claude/hooks' ':(exclude).env' ':(exclude).env.*' 2>/dev/null; then
-    TREE=$(GIT_INDEX_FILE="$TMPIDX" git write-tree 2>/dev/null || echo "")
-    HEAD_TREE=$(git rev-parse "HEAD^{tree}" 2>/dev/null || echo "")
-    if [ -n "$TREE" ] && [ "$TREE" != "$HEAD_TREE" ]; then
-      SNAP_COMMIT=$(git commit-tree "$TREE" -p HEAD \
-        -m "wip-snapshot: durability net for ${BRANCH} @ ${TS} (not for merge)" 2>/dev/null || echo "")
-      if [ -n "$SNAP_COMMIT" ] && git_push_retry -f origin "${SNAP_COMMIT}:${SNAP_REF}"; then
-        SNAP_STATUS="pushed → origin ${SNAP_REF} (${SNAP_COMMIT:0:9})"
-      else
-        SNAP_STATUS="FAILED to push snapshot net"
-      fi
+    SUSPICIOUS=$(GIT_INDEX_FILE="$TMPIDX" git diff --cached --name-only | grep -E '(\.pem$|\.key$|credentials\.json$|service-account-.*\.json$|id_[^/]+$)' || true)
+    if [ -n "$SUSPICIOUS" ]; then
+      echo "durability: refusing snapshot net — staged file(s) look like secrets:" >&2
+      echo "$SUSPICIOUS" >&2
+      SNAP_STATUS="FAILED — snapshot contains potential secrets; add to .gitignore or remove the files"
     else
-      SNAP_STATUS="skipped (tracked tree matches HEAD)"
+      TREE=$(GIT_INDEX_FILE="$TMPIDX" git write-tree 2>/dev/null || echo "")
+      HEAD_TREE=$(git rev-parse "HEAD^{tree}" 2>/dev/null || echo "")
+      if [ -n "$TREE" ] && [ "$TREE" != "$HEAD_TREE" ]; then
+        SNAP_COMMIT=$(git commit-tree "$TREE" -p HEAD \
+          -m "wip-snapshot: durability net for ${BRANCH} @ ${TS} (not for merge)" 2>/dev/null || echo "")
+        if [ -n "$SNAP_COMMIT" ] && git_push_retry -f origin "${SNAP_COMMIT}:${SNAP_REF}"; then
+          SNAP_STATUS="pushed → origin ${SNAP_REF} (${SNAP_COMMIT:0:9})"
+        else
+          SNAP_STATUS="FAILED to push snapshot net"
+        fi
+      else
+        SNAP_STATUS="skipped (tracked tree matches HEAD)"
+      fi
     fi
   else
     SNAP_STATUS="FAILED to build snapshot index"
