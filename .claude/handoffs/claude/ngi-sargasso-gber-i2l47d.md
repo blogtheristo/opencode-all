@@ -129,10 +129,22 @@ Lovegin John 2026-07-08).
 
 Two honesty guards written into the brief, carry them into Step 1 prose:
 
-1. **"~100 engineers" is founder-supplied, not repo-verified** — confirm the
-   figure with Cubet before it appears in any external text.
-2. **Cubet is non-EU (Kochi, India) inside an EU-sovereignty pitch** — reuse
-   the ORK bid's framing (development under EU controls, no data leaves
-   EU/EEA, EU-based maintenance handover, core R&D/IP stays with Lifetime Oy
-   in Finland). EIC expects core innovation in-house; partners = delivery
-   scale, not the R&D brain.
+1. **Headcount — RESOLVED (web-verified 2026-07-15, EIC brief → v1.2):**
+   Cubet **~73 employees** (FY-2025 filings; trackers scatter 50–146),
+   9series **60+ developers** (LinkedIn 51–200). Combined pool 130+.
+   Canonical external claim: **"100+ engineers across two contracted
+   partners"** — never "100 engineers at Cubet."
+2. **Cubet is non-EU (Kochi, India) inside an EU-sovereignty pitch —
+   RESOLVED (founder decision: use ORK framing verbatim):** development
+   under EU controls, no data leaves EU/EEA, EU-based maintenance handover,
+   core R&D/IP stays with Lifetime Oy in Finland. EIC expects core
+   innovation in-house; partners = delivery scale, not the R&D brain.
+
+**Licence decision — PROPOSED, NOT YET LOCKED:** CC-BY 4.0 spec /
+Apache-2.0 reference impl / EUPL-1.2 compliance core / proprietary Themis,
+with two preconditions: (a) CLA/copyright stays with Lifetime Oy on the
+EUPL core (preserves dual-licensing), (b) patent-track claims filed or
+scoped to Themis **before** covering code is published (both EUPL and
+Apache carry patent grants). Founder acknowledged the split but has not
+said "lock it" — do not propagate into the four funding docs until
+confirmed.

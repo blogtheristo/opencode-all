@@ -6,7 +6,7 @@
 
 | Field          | Value                                                                                     |
 | -------------- | ----------------------------------------------------------------------------------------- |
-| Version        | 1.1                                                                                       |
+| Version        | 1.2                                                                                       |
 | Date           | 2026-07-15                                                                                |
 | Author         | Lifetime Oy                                                                               |
 | Owner          | risto-001                                                                                 |
@@ -23,6 +23,13 @@ Lifetime Certified Partners consortium (Cubet Techno Labs ~100 engineers +
 as operational multiplier. Grounded in
 `bids/ORK160826/ORK160826_ALIHANKINTALOMAKE.md`. Added the non-EU-subcontractor
 positioning caveat (§3.3) — data stays EU/EEA, core R&D in Finland.
+
+**v1.2 (2026-07-15, same session):** Headcount web-verified: Cubet **~73**
+(FY-2025 filings; trackers 50–146), 9series **60+ developers** (LinkedIn band
+51–200) → combined pool 130+. External claim standardized to **"100+ engineers
+across two contracted partners"**; "100 engineers at Cubet" retired as
+unsupported. ORK sovereignty framing confirmed as the canonical partner
+positioning (founder decision).
 
 ---
 
@@ -100,8 +107,11 @@ extension on GNU Taler rails).
      running.
   2. **Lifetime Certified Partners consortium** — contracted delivery capacity
      under NDA: **Cubet Techno Labs** (Kochi, est. 2013, AI/LLM engineering;
-     ~100 engineers per founder input — verify exact figure with Cubet before
-     external use) + **9series Solutions**. Not aspirational: both are active
+     **~73 employees** per FY-2025 filings, other trackers 50–146) +
+     **9series Solutions** (Ahmedabad; **60+ developers**, LinkedIn band
+     51–200). **Combined pool 130+; the safe external claim is "100+
+     engineers across two contracted partners"** — never "100 engineers at
+     Cubet" (web-verified 2026-07-15). Not aspirational: both are active
      subcontractors in the ORK160826 bid (roles confirmed by Cubet CEO
      Lovegin John, 2026-07-08; see `bids/ORK160826/ORK160826_ALIHANKINTALOMAKE.md`).
   3. **AI agent fleet as operational multiplier** — 50 production agents;
@@ -155,13 +165,16 @@ once downloaded — do not rely on secondary summaries.
 evaluators will probe it. The counter is no longer defensive: this is a
 **distributed delivery model**, not a solo-founder risk — Founder (35y ICT,
 NVIDIA/IBM/AWS partnerships) + **Lifetime Certified Partners consortium**
-(Cubet Techno Labs ~100 engineers + 9series, both contracted under NDA and
-already delivering in a live bid) + the AI agent fleet as operational
-multiplier. That is _execution capacity, not headcount_. Residual to-dos:
-(a) verify Cubet's exact engineer count before it appears in any external
-text; (b) frame Cubet as EU-controlled delivery scale (data stays EU/EEA,
-core R&D in Finland) so it strengthens rather than dents the sovereignty
-story; (c) still name EU-side advisors (KTH/LUT/SRC) in Step 2.
+(**100+ engineers across Cubet Techno Labs + 9series Solutions** — combined
+pool 130+, web-verified 2026-07-15; both contracted under NDA and already
+delivering in a live bid) + the AI agent fleet as operational multiplier.
+That is _execution capacity, not headcount_. Residual to-dos:
+(a) ~~verify Cubet's engineer count~~ **done 2026-07-15**: Cubet ~73
+(FY-2025 filings), 9series 60+ devs — use the combined "100+" claim only;
+(b) **decided — use the ORK framing verbatim** (development under EU
+controls, data stays EU/EEA, EU-based maintenance handover, core R&D/IP in
+Finland) so the partners strengthen rather than dent the sovereignty story;
+(c) still name EU-side advisors (KTH/LUT/SRC) in Step 2.
 
 ---
 
