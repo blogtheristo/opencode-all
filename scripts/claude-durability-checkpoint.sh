@@ -151,9 +151,13 @@ LOCAL=$(git rev-parse HEAD 2>/dev/null || echo "L")
 REMOTE=$(git rev-parse "origin/${BRANCH}" 2>/dev/null || echo "R")
 
 if [ "$LOCAL" = "$REMOTE" ]; then
+  if [ "${SNAP_STATUS#FAILED}" != "$SNAP_STATUS" ]; then
+    echo "" >&2
+    echo "✗ NOT DURABLE — origin/${BRANCH} == HEAD (${LOCAL:0:9}), but snapshot net FAILED; uncommitted/untracked work may be lost." >&2
+    exit 1
+  fi
   say ""
   say "✓ DURABLE — origin/${BRANCH} == HEAD (${LOCAL:0:9}). Work is safe on origin."
-  [ "${SNAP_STATUS#FAILED}" != "$SNAP_STATUS" ] && { echo "  (but snapshot net FAILED — see above)" >&2; exit 1; }
   exit 0
 fi
 
