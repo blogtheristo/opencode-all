@@ -1,22 +1,31 @@
 # EU Funding Brief — DIGITAL-2026-AI-DATA-10 (AI Continent / Compliance)
 
-***
+---
 
 ## VERSION AND AGENT HISTORY
 
 | Field          | Value                                                          |
 | -------------- | -------------------------------------------------------------- |
-| Version        | 1.0                                                            |
-| Date           | 2026-04-22                                                     |
+| Version        | 1.1                                                            |
+| Date           | 2026-07-15                                                     |
 | Author         | Lifetime Oy                                                    |
 | Owner          | risto-001                                                      |
-| Status         | Draft — pre-decision                                           |
+| Status         | Active — proposal drafting                                     |
 | Classification | Internal                                                       |
 | Introduced-In  | PR-TBD                                                         |
-| Branch         | claude/add-eu-funding-info-GNDb4                               |
+| Branch         | claude/ngi-sargasso-gber-i2l47d                                |
 | Source         | EU Funding & Tenders Portal (topic page, retrieved 2026-04-22) |
 
-***
+**v1.1 (2026-07-15):** Refreshed Next-Steps dates against today; status
+Draft→Active. Added context: this call is the **live pivot target** after
+verifying NGI Sargasso is closed (project ended 2025-12-31; final call OC5 closed
+2024-11-24). Added cross-refs to the new Part B skeleton and the equity-free
+bridge shortlist. Companion docs:
+
+- `docs/DIGITAL-2026-AI-DATA-10_PART-B_SKELETON.md` — proposal skeleton.
+- `docs/EU_FUNDING_EQUITY_FREE_BRIDGE_2026.md` — NLnet / NGI0 bridge options.
+
+---
 
 ## 1. Call Identification
 
@@ -35,7 +44,7 @@
 | Policy anchor     | Specific Objective 2 (SO2) of DIGITAL — reinforce EU core AI capacities |
 | Strategy anchor   | Apply AI Strategy (upcoming)                                            |
 
-***
+---
 
 ## 2. Objective (verbatim from topic page)
 
@@ -43,7 +52,7 @@ Deliver 3–4 projects that demonstrate **streamlining of regulatory reporting t
 
 Programme-level goal: reduce administrative burden on enterprises by applying advanced digital technologies to automate the reporting process — targeting regulatory reporting requirements from aggregate data (balance sheets) to detailed data (transactions, events, product registrations). Strong focus on **privacy-preserving technologies** to ensure trust between reporting entity and regulatory authority.
 
-***
+---
 
 ## 3. Scope Requirements — Mapped to DWS IQ 6
 
@@ -68,7 +77,7 @@ Commission requirement on the left; existing DWS IQ 6 capability on the right. `
 
 Sectors the call wants to explore: **agriculture, environment, manufacturing, healthcare, energy**. DWS IQ 6 already operates in **manufacturing, energy, environment, construction**, with agent coverage across 20 EU-regulated industries.
 
-***
+---
 
 ## 4. Strategic Fit Assessment
 
@@ -88,21 +97,25 @@ Sectors the call wants to explore: **agriculture, environment, manufacturing, he
 4. **eIDAS 2.0 wallet plan** — done: `DWS7_ROADMAP.md` §Phase 4.5 "eIDAS 2.0 & Trust Services" (PRs TBD, call-conditional on EUDI Wallet LSP GA in FI/DE).
 5. **Sector pick** — choose 1–2 sectors to pilot (recommend: energy/ETS + manufacturing/CBAM — DWS has deepest data).
 
-***
+---
 
 ## 5. Next Steps
 
-| #   | Action                                                                            | Owner      | Target date |
-| --- | --------------------------------------------------------------------------------- | ---------- | ----------- |
-| 1   | Confirm go/no-go with CEO                                                         | Risto      | 2026-04-30  |
-| 2   | Download call document + Part B application form from Submission System           | Risto      | 2026-05-05  |
-| 3   | Identify 2 industrial partners (reporting entities) and 1 regulatory-side partner | Sales      | 2026-06-15  |
-| 4   | Draft Part B sections 1–3 (Excellence, Impact, Implementation)                    | Risto + AI | 2026-07-31  |
-| 5   | Detailed budget table (DEP LSII template) — lump sum work packages                | Risto      | 2026-08-31  |
-| 6   | Internal review + external reader                                                 | External   | 2026-09-15  |
-| 7   | Submit via Funding & Tenders Portal                                               | Risto      | 2026-09-25  |
+Dates refreshed 2026-07-15 against the **01 Oct 2026, 17:00 Brussels** deadline
+(~11 weeks out). Items 1–3 from v1.0 lapsed unactioned; the partner search
+(row 3) is now the binding critical path.
 
-***
+| #   | Action                                                                                                            | Owner      | Target date |
+| --- | ----------------------------------------------------------------------------------------------------------------- | ---------- | ----------- |
+| 1   | Confirm go/no-go **and lead-vs-partner** with CEO                                                                 | Risto      | 2026-07-20  |
+| 2   | Download call document + Part B form + Lump Sum budget template from Submission System                            | Risto      | 2026-07-22  |
+| 3   | **[critical path]** Secure ≥2 industrial reporting entities + 1 regulatory/sandbox + 1 data-space (Simpl) partner | Sales      | 2026-08-15  |
+| 4   | Draft Part B §1–3 (Excellence, Impact, Implementation) from the skeleton                                          | Risto + AI | 2026-08-31  |
+| 5   | Detailed budget table (DEP LSII template) — lump-sum work packages                                                | Risto      | 2026-09-07  |
+| 6   | Internal review + external reader                                                                                 | External   | 2026-09-20  |
+| 7   | Submit via Funding & Tenders Portal (buffer before 01 Oct 17:00 CEST)                                             | Risto      | 2026-09-26  |
+
+---
 
 ## 6. Reference Documents
 
@@ -118,7 +131,7 @@ Sectors the call wants to explore: **agriculture, environment, manufacturing, he
   - `README.md` §Regulatory Layer coverage table
   - `src/compliance/emission-factors.ts`, `src/compliance/eu-benchmarks.ts`, `src/compliance/esrs-registry.ts`
 
-***
+---
 
 ## 7. Open Questions
 
@@ -128,6 +141,6 @@ Sectors the call wants to explore: **agriculture, environment, manufacturing, he
 4. Open-source scope — release compliance core under EUPL or Apache-2.0? Licence choice affects future enterprise licensing.
 5. Co-funding rate for DIGITAL-LS lump sum — to be confirmed from call document (typically 50%, can be 100% for coordination actions).
 
-***
+---
 
 **End of brief.**
