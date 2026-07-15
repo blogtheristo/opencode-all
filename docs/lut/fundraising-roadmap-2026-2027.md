@@ -1,14 +1,15 @@
 # Europe Fundraising Roadmap 2026–2027 — DWS IQ / Lifetime (Master Timeline)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
-- Version: 1.3 | Tool: Claude Code | Session: claude/dach-france-anchors-caemw0 | Date: 15.07.2026 | Changes: DACH+France pack recovered (§0 row 1 → RECOVERED, points to `docs/lut/dach-france-anchors-research-2026-07.md`). §5 DACH+France section rewritten with per-anchor detail and two load-bearing corrections: FFG Industrienahe Dissertationen is not currently usable (2026 company-funding track exhausted + no Austrian establishment), and the Fraunhofer IAIS/BSI relationship is a strategic-cooperation agreement, not joint catalog authorship. §7 gaps closed (France €109B figure verified, FFG gate resolved) and new gaps added (AT legal-pillar anchor missing, FFG Niederlassung nuance, INESIA named lead). Merged onto the post-#1676 (EU/NATO) and post-#1682 (FI/SE) main so this stacks on both prior recoveries — the corrected §3 figures and the §6 FI/SE detail — instead of reverting either.
+- Version: 1.4 | Tool: Claude Code | Session: claude/dach-france-anchors-caemw0 | Date: 15.07.2026 | Changes: DACH+France pack recovered (§0 row 1 → RECOVERED, points to `docs/lut/dach-france-anchors-research-2026-07.md`). §5 DACH+France section rewritten with per-anchor detail and two load-bearing corrections: FFG Industrienahe Dissertationen is not currently usable (2026 company-funding track exhausted + no Austrian establishment), and the Fraunhofer IAIS/BSI relationship is a strategic-cooperation agreement, not joint catalog authorship. §7 gaps closed (France €109B figure verified, FFG gate resolved) and new gaps added (AT legal-pillar anchor missing, FFG Niederlassung nuance, INESIA named lead). Merged onto main across the post-#1676 (EU/NATO), post-#1682 (FI/SE), and post-#1685 (delimiter fix) states so this stacks on every prior recovery instead of reverting any; kept the `***` header delimiters #1685 corrected.
+- Version: 1.3 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: Merge reconciliation for PR #1685 (resolved add/add conflicts against `main` in favour of main's canonical v1.2). Fixed the VERSION AND AGENT HISTORY block delimiters from `---` to `***` per DWS_DOCUMENT_STANDARD §2.1 — the v1.2 entry below claimed this correction was folded in via Copilot autofix, but this file's own opening/closing delimiters were still `---` (the autofix reached other files, not this one). This is the same finding Copilot re-flagged on PR #1685 (threads on lines 3 / 25); now genuinely fixed.
 - Version: 1.2 | Tool: Claude Code | Session: claude/fi-se-funding-lanes-recovery-pbmlmg | Date: 15.07.2026 | Changes: Merged the FI/SE lane recovery (§0 row 4 → RECOVERED, §6 replaced with full lane detail from `docs/lut/fi-se-lanes-research-2026-07.md`) with the EU/NATO recovery (v1.1, landed independently on `main` via a PR from `claude/eu-nato-funding-recovery-lsogw2`) — both branches had independently added `docs/lut/fundraising-roadmap-2026-2027.md` and `scripts/claude-durability-checkpoint.sh`, producing add/add conflicts on merge; resolved by combining both change sets rather than picking one side. Also folded in GitHub Copilot autofix commits already applied directly on PR #1682 (`***` delimiter corrections, missing Document Status fields, `claude-durability-checkpoint.sh` hardening — `set -euo pipefail` + a `--quiet`-aware push retry that no longer swallows stderr on failure).
 - Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Recovered the EU Commission + NATO DIANA research pack (§0 row → RECOVERED, points to `docs/lut/eu-nato-instruments-research-2026-07.md`); corrected §3 deadline-table figures where the recovery run's verification against official sources diverged from a founder-supplied draft — notably EDF's deadline (was "mid-2027", is actually 29 Sep 2026), EIC Accelerator's equity ceiling (was €30M, is €10M), Digital Europe's budget/rate (was €2-3M/50-100%, is €8.5M-total-2-grants/50-75%), and NATO DIANA's cycle framing (3 Jul 2026 was the standing 2027-cohort deadline, not a missed one-off — next entry point is ~June/July 2027 for the 2028 cohort). Added NGI Sargasso and AI4Gov-X cascade calls to the near-term table.
 - Version: 1.0 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 13.07.2026 | Changes: Reconstructed the master fundraising roadmap from the field-note conclusions of the three parallel research agents (Nordic NO/DK, DACH+France, EU Commission + NATO DIANA) plus the existing FI/SE lanes. NOTE — the three detailed per-anchor research packs generated in a prior ephemeral cloud session were never committed to git and were lost when that container was reclaimed; this document rebuilds the load-bearing conclusions only. The full packs must be re-run to recover per-anchor detail (see "Recovery status" below).
@@ -23,7 +24,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Master fundraising roadmap / instrument timeline
 
----
+***
 
 ## 0. Recovery status — read first
 

@@ -4,16 +4,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: Reconciled the add/add merge conflict between this branch (PR #1685) and `main`. A parallel session (`claude/fi-se-funding-lanes-recovery-pbmlmg`, PR #1682) had independently recovered this same file and merged first; its v1.0 is the canonical base and is kept in full (its provenance §0.1, GBER snapshot §0.4, per-instrument sources, figure-conflict flags, and §5 action list are strictly more complete). Added only this branch's genuinely-additive artifact — the §0.5 per-lane verdict at-a-glance table — adapted to reference the canonical figures/caveats. This branch's independent four-lane research run remains in its git history (commits e4b9458 / fba2262) and was not used to overwrite any canonical figure.
 - Version: 1.0 | Tool: Claude Code | Session: claude/fi-se-funding-lanes-recovery-pbmlmg | Date: 14.07.2026 | Changes: Initial recovery of the FI/SE regional funding-lane research bank-checked in `docs/lut/recovery-prompts-lost-research-packs-2026-07.md` Prompt B / `RECOVERY_SESSION_PROMPTS_PASTE_READY_2026-07-14.md` §Prompt B. Four parallel primary-source research passes (apurahat via foundation sites, Vinnova via vinnova.se, Almi via almi.se, VGR via vgregion.se), each WebSearch-indexed against the official domain (direct WebFetch to all four primary domains was blocked by this session's outbound proxy policy — see §0 Methodology). Supersedes an unverified block appended to this session's task description that presented fabricated "RECOVERED & VERIFIED" figures under a "gemini" label; that block was **not used as a source** — see §0.1.
 
 Document Status:
 
 - Created: 14.07.2026
-- Last Modified: 14.07.2026
+- Last Modified: 15.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT
@@ -36,6 +37,20 @@ Document Status:
 | -------------------- | --------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Lifetime Oy (FI)** | Negative equity | "Undertaking in difficulty" until cured (roadmap §2 Gate 1) | Blocked from **company** state aid (Business Finland-style co-funding). Apurahat paid to the individual researcher are a separate legal category and are not confirmed to be blocked by this — see §1's framing note, itself marked (verify) pending legal confirmation.                                                                                                     |
 | **Lifetime AB (SE)** | <3 years old    | GBER-exempt from the standard difficulty test               | Not blocked by the Oy's balance sheet. But **GBER exemption is not the same as automatic eligibility** — each Swedish instrument below has its own independent gates (company-age caps, employee-count floors, turnover floors, regional-presence requirements) that can exclude Lifetime AB regardless of the GBER question. Do not treat "GBER-exempt" as "pre-qualified." |
+
+---
+
+## 0.5 Per-lane verdict (at a glance)
+
+At-a-glance summary of the four lanes; the per-instrument detail, sources, and every `(verify)`
+flag are in §1–§4, and the deadline-ordered action list is in §5.
+
+| Lane              | Vehicle                 | Nature                                     | Does the negative-equity gate bite?                                                                                   | Verdict / soonest action                                                                                                                         |
+| ----------------- | ----------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Apurahat (FI)** | Risto (individual, LUT) | Non-dilutive **personal grant**            | **No** — personal grants ≠ company state aid; bites only Business Finland (§1 framing note, _verify with counsel_)    | **Cleanest lane; _apuraha → stay Finland_ holds.** Act now: **LSR (closes 15 Aug)**, Nokia Foundation (3 Aug–15 Sep), LUT tukisäätiö (rolling)   |
+| **Vinnova (SE)**  | Lifetime AB             | Non-dilutive **grant** (de minimis / GBER) | **No** — AB is <3y; but the GBER young-company carve-out is **not confirmed on any vinnova.se page** (§2.4, _verify_) | **Best SE grant lane.** **Eurostars Call 11 (closes 10 Sep)** is the most time-sensitive item; Innovativa Startups Step 1 opens 12 Oct           |
+| **Almi (SE)**     | Lifetime AB             | **Debt** (+ Verifieringsmedel grant)       | No direct gate; standard Sweden-registration eligibility (+ non-Swedish-founder BankID caveat, §3.2)                  | **Debt lever, not a grant lane.** Realistic near-term draws: **Mikrolån (≤SEK 200–250k, _verify_)** + **Verifieringsmedel (≤SEK 100k)**. Rolling |
+| **VGR (SE)**      | Lifetime AB             | Conditional **seed loan** + checkar        | No (under-3y is _prioritised_) — but the **territorial VG-registration gate very likely blocks** (§4.4)               | **Blocked today** unless Lifetime AB establishes a Västra Götaland presence; Såddfinansiering (≤SEK 850k) is the target if gated                 |
 
 ---
 
