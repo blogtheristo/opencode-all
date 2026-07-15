@@ -134,9 +134,9 @@ swap "TIS Inc. is the route into Japanese manufacturing" for the
 Microsoft-alignment line (M365 agent consultancy, DWS IQ Adoption Framework
 built on Microsoft's AI Adoption Framework) + Singapore-entry intent.
 
-- [ ] **Eligibility query sent to BLOCK71/Steve first** (draft in
+- [x] **Eligibility query sent to BLOCK71/Steve** (2026-07-15, per
       `AI_ACCELERATE_2026_ASSESSMENT.md` §6) — do not spend recording time
-      before this answers.
+      before it answers; no-reply drop-dead Jul 24.
 - [ ] **Founder confirms the team line**: "founder-led Nordic core + 100+
       contracted engineers" (v9, matches EIC materials) vs "six-person
       Nordic team" (v8.3, as submitted). Pick one; it must match across

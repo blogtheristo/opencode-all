@@ -65,8 +65,9 @@ must lead with the DWS IQ product + KYA-2, not the consulting SKUs.
 
 ## 5. Recommended sequence
 
-1. **Today (10 min):** eligibility query to BLOCK71 / Steve Leong — draft
-   below. Zero cost, resolves the go/no-go without burning days.
+1. ~~Eligibility query to BLOCK71 / Steve Leong~~ — **SENT 2026-07-15**
+   (founder, per §6 draft). Await reply; drop-dead date for a useful answer
+   is **Jul 24**.
 2. **If eligible:** application ≈ 1–1.5 founder-days, reusing v9 video +
    EIC Step 1 claims (already truth-lint clean). Slot it after EIC Step 1
    material is frozen (~Jul 28–30), inside the Jul 31 deadline.
