@@ -142,7 +142,7 @@ jobs:
     steps:
       - name: Validate staging runtime service account variable
         run: |
-          if [ -z "${{ env.STAGING_RUNTIME_SERVICE_ACCOUNT }}" ]; then
+          if [ -z "${{ vars.STAGING_RUNTIME_SERVICE_ACCOUNT }}" ]; then
             echo "::error::Missing STAGING_RUNTIME_SERVICE_ACCOUNT GitHub variable. Configure a dedicated runtime service account with roles/secretmanager.secretAccessor for staging secrets."
             exit 1
           fi
