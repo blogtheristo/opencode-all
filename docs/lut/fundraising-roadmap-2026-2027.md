@@ -1,6 +1,6 @@
 # Europe Fundraising Roadmap 2026–2027 — DWS IQ / Lifetime (Master Timeline)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -20,7 +20,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Master fundraising roadmap / instrument timeline
 
----
+***
 
 ## 0. Recovery status — read first
 
