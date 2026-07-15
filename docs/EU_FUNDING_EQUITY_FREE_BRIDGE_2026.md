@@ -1,6 +1,6 @@
 # EU Funding Brief — Equity-Free Bridge Capital Shortlist (2026 H2)
 
----
+***
 
 ## VERSION AND AGENT HISTORY
 
