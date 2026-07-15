@@ -36,6 +36,27 @@ LinkedIn: linkedin.com/in/jitsinghkairon — **connection request sent
 a warm entry to the Singapore agentic-commerce ecosystem per the Signal
 section below).
 
+**On-accept message (draft — the hook is the Stripe briefing, not generic
+networking; founder sends, adapt freely):**
+
+> Thanks for accepting, Jit — and for the fast, clear answer on AI
+> Accelerate eligibility earlier today.
+>
+> Your post about Stripe's Agentic Commerce Breakfast Briefing caught my
+> attention for a specific reason: the gap that room was circling — agents
+> that pay and commit, with nothing binding the _agent_ itself — is exactly
+> what we build. Know Your Agent: cryptographic agent identity, a revocable
+> spending mandate, replayable audit. Running in production in the EU,
+> being standardized as KYA-2 on the European funding track now.
+>
+> We'll be submitting to AI Accelerate before the 31st — but regardless of
+> how that lands, I'd value your read on how MAS-perimeter institutions are
+> thinking about agent-initiated transactions. Happy to share what EU AI
+> Act enforcement is forcing on the same question over here — the two
+> jurisdictions are converging faster than either side seems to notice.
+>
+> Risto
+
 ## Decision state
 
 - **Eligibility: RESOLVED, positive.** Finnish incorporation is no barrier

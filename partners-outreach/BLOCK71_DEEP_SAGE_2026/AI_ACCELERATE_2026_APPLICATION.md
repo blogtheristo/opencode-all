@@ -152,6 +152,14 @@ principles.**
 
 ## Remaining sections (assemble at Jul 28–30 slot)
 
+**Sequencing dependency (hard):** the **EIC portal recon (Jul 18) gates
+this assembly**. Both applications pitch the same KYA-2 story; the EIC
+form's field structure and character limits set the canonical trim of every
+claim, and the video trunk is shared (one session, two closers). Order:
+EIC recon → narrative trimmed to EIC fields → AI Accelerate sections
+assembled from the trimmed text → single video session with both closers.
+Do not record or assemble before the EIC recon lands.
+
 - Company / traction / team → reuse `EIC_STEP1_DRAFT_KYA_2026.md` pages
   2, 5, 9 verbatim (claims are truth-lint clean; keep the locked team
   phrasing).
