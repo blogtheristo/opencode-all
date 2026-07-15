@@ -47,7 +47,7 @@ to DWS IQ 6 (automated regulatory reporting via trusted compliance-data sharing)
    dates against 2026-07-15, status Draft→Active, added Sargasso-closed note +
    cross-refs to the two new docs below.
 3. **`docs/DIGITAL-2026-AI-DATA-10_PART-B_SKELETON.md`** (new) — Part B proposal
-   skeleton (Excellence / Impact / Implementation) mapped to DWS IQ 6, targeting
+   skeleton (Relevance / Implementation / Impact) mapped to DWS IQ 6, targeting
    the Oct 1 deadline. Section headers + prompts + evidence hooks; not yet filled.
 4. **`docs/EU_FUNDING_EQUITY_FREE_BRIDGE_2026.md`** (new) — live equity-free
    bridge-capital shortlist (NLnet / NGI0 family) with verified deadlines, ticket
