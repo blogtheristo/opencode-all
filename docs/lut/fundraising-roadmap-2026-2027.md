@@ -4,16 +4,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: FI/SE lanes RECOVERED. §0 row 5 → RECOVERED (now points to the re-researched pack `docs/lut/fi-se-lanes-research-2026-07.md`); §6 rewritten from summary bullets to the load-bearing detail across all four lanes (apurahat, Vinnova, Almi, VGR) for Lifetime Oy vs Lifetime AB. Key recovered finding: the negative-equity/GBER firm-in-difficulty gate does NOT bite personal doctoral apurahat (henkilöapurahat ≠ company state aid), so _apuraha → stay Finland_ is structurally the cleanest lane; the gate bites only Business Finland. Companion research pack has per-instrument tables + FI/SE deadline stack.
 - Version: 1.0 | Tool: Claude Code | Session: claude/europe-roadmap-agents-g9zs8a | Date: 13.07.2026 | Changes: Reconstructed the master fundraising roadmap from the field-note conclusions of the three parallel research agents (Nordic NO/DK, DACH+France, EU Commission + NATO DIANA) plus the existing FI/SE lanes. NOTE — the three detailed per-anchor research packs generated in a prior ephemeral cloud session were never committed to git and were lost when that container was reclaimed; this document rebuilds the load-bearing conclusions only. The full packs must be re-run to recover per-anchor detail (see "Recovery status" below).
 
 Document Status:
 
 - Created: 13.07.2026
-- Last Modified: 13.07.2026
+- Last Modified: 15.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT
@@ -32,7 +33,7 @@ detailed outputs never reached git. State of the underlying material:
 | DACH + France anchors                      | `docs/lut/dach-france-anchors-research-2026-07.md`  | **LOST** — not committed; re-run required to recover per-anchor detail |
 | Nordic (NO/DK) anchors                     | `docs/lut/nordic-no-dk-anchors-research-2026-07.md` | **LOST** — not committed; re-run required                              |
 | EU Commission + NATO DIANA                 | (EU/NATO pack)                                      | **LOST** — not committed; re-run required                              |
-| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | existing internal knowledge                         | retained                                                               |
+| FI/SE lanes (apurahat, Vinnova, Almi, VGR) | `docs/lut/fi-se-lanes-research-2026-07.md`          | **RECOVERED** — re-researched from primary sources 15.07.2026 (§6)     |
 
 The load-bearing conclusions below survived in the field note and are captured here. The
 **per-anchor research packs** (source dumps, contact detail, verified figures) are not
@@ -129,12 +130,52 @@ detailed packs (§0) are lost and should be re-run for contact detail and verifi
   EDF, DIANA challenge cycle + Nordic test centres, NATO Innovation Fund.**
 - **DIANA → NIF path** is the confirmed on-ramp (§3); **FI & SE are both LPs** in the €1bn NIF.
 
-## 6. Existing FI/SE lanes (retained)
+## 6. FI/SE lanes — RECOVERED (detail: `docs/lut/fi-se-lanes-research-2026-07.md`)
 
-- **Apurahat** (FI research grants) — decision rule stands: **apuraha → stay Finland.**
-- **Vinnova** (SE) — Swedish innovation agency lane, pairs with the AB entity.
-- **Almi** (SE) — Swedish financing.
-- **VGR** (Västra Götalandsregionen) — regional SE lane.
+Re-researched from primary sources 15.07.2026 (four parallel agents, official pages only; all
+target sites 403-blocked the fetcher so figures are from official-page search renders — every
+number carries a re-verify-before-filing flag, §1). Full per-instrument tables, deadline stack,
+and cross-lane synthesis live in the companion file. Load-bearing conclusions:
+
+- **Apurahat (FI research grants) — the clean lane; _apuraha → stay Finland_ confirmed.** The
+  crux question is answered: **the Oy's negative-equity / GBER "undertaking in difficulty"
+  classification does NOT bite personal doctoral apurahat** — these are _henkilöapurahat_ paid to
+  the individual (Risto/LUT), and a private säätiö's own-endowment grant to a person is outside the
+  state-aid regime entirely. The gate bites **only Business Finland** (the state-aid channel —
+  treat as blocked until the equity cure). Live now: **LSR työskentelyapuraha (€27k doctoral,
+  closes 15 Aug 2026)**; then **TSR väitöskirjastipendi (24 Sep–15 Oct)** and **SKR (15–30 Oct,
+  ~€30k)**; **KAUTE / TES (Jan 2027)** are the strongest thematic/tech-doctorate fits. Lifetime AB
+  is irrelevant here (FI affiliation follows the individual, not a company).
+- **Vinnova (SE) — the real Swedish _grant_ door; pairs with the AB.** GBER UiD does **not** bite
+  Lifetime AB (<3y; flagship calls are de minimis). Best first grant: **Innovativa Startups
+  (≤900k SEK, de minimis, single-company, <10y cap — opens 12 Oct 2026)**. Only live window now:
+  **Eurostars Call 11 (deadline 10 Sep 2026)** — the roadmap anchor (§3–§4); needs a 2-country
+  SME-coordinated consortium and passes an **equity/turnover ≥ half-the-ask** co-finance test, so
+  size the ask modestly. On-mission AI/cybersecurity calls (Avancerad digitalisering) fit DWS IQ's
+  sovereign-AI positioning but need an industrial partner at 50% — H2-2026/2027. **The Oy is only
+  ever a BF-funded foreign consortium partner here, never a Vinnova applicant/co-financier.**
+- **Almi (SE) — _debt_, not grant.** A Swedish-AB-only lever that exists because the AB exists;
+  not a substitute for FI grants. Realistic draws for a thin-balance-sheet <3y AB: **Mikrolån
+  (≤SEK 250k, no co-finance gate)** and **Innovationslån (SEK 50k–500k, own-work counts toward the
+  50%)**. Larger loans (Företagslån/Tillväxtlån/Grönt lån) gated by repayment capacity + a
+  bank/owner co-finance match; **Growth/Green additionally carry an EIF InvestEU "undertaking in
+  difficulty" group screen (verify)** the negative-equity Finnish affiliate could complicate. Almi
+  Invest offers a real AI/deep-tech **equity** path but is dilutive and **excludes single-founder
+  companies**.
+- **VGR (Västra Götalandsregionen) — grant-shaped but gated behind a territorial registration.**
+  **Every VGR instrument requires a registered workplace/operation in Västra Götaland** — Lifetime
+  AB **does not qualify today** unless it establishes Göteborg-region presence (a Stockholm
+  registration is not sufficient). Under-3-years is an _advantage_ here (the **Nystartade
+  innovativa företag** seed loan — SEK 850k (verify), ≤65%, conditional loan not grant — prioritises
+  <3y), not the GBER problem it is elsewhere. **Almi Väst (36.75% VGR-owned)** is the seed-loan's
+  required innovation-height assessor and the practical first contact once VG-registered; an
+  indirect route (science-park / Business Region Göteborg / ERUF innovation-hub partner) is open
+  even before heavy VG footprint.
+
+**Net:** Finland carries the near-term non-dilutive load (personal apurahat, gate-free); Sweden
+carries the company-grant load via the AB (Vinnova). Almi (debt) and VGR (needs VG presence) are
+second-order. **Decision rule stands: _apuraha → stay Finland_ — and the apuraha lane is
+structurally the cleanest of the four.**
 
 ## 7. Gaps to close before filing (per pack)
 
