@@ -6,7 +6,7 @@
 
 | Field          | Value                                                             |
 | -------------- | ----------------------------------------------------------------- |
-| Version        | 0.9 (full draft — two [DECIDE] markers open)                      |
+| Version        | 0.91 (advisor review fixes — two [DECIDE] markers open)           |
 | Date           | 2026-07-15                                                        |
 | Author         | Lifetime Oy                                                       |
 | Owner          | risto-001                                                         |
@@ -78,7 +78,8 @@ customers who need on-premise inference.
 
 Commercial status (live catalogue, single pricing source):
 
-- 6 paying customers, €7k MRR, **zero churn to date**.
+- 6 paying customers, €7k MRR, **100% retention since launch** `[VERIFY:
+state the month window in final text — "0% churn over N months"]`.
 - Flagship deployment: DWS IQ Aegis, €59,990 one-time.
 - Recurring agent subscriptions €499–€2,999/mo (typical starter tier €999/mo);
   outcome-priced metered SKUs from €49.
@@ -138,7 +139,8 @@ gate this application).
 - EU AI Act Article-12 logging pipeline live: append-only audit tables,
   RLS-enforced, correlated to agent/session identity.
 - Agent isolation: Firecracker MicroVM sandboxing operational.
-- 50-agent production fleet operating for paying customers in 25 regulated
+- 50 production agents (canonical truth-registry count; 18 exposed via the
+  MCP `tools/list` interface) operating for paying customers in 25 regulated
   industry verticals; agent-initiated actions carry originating-agent audit
   trails by architecture rule.
 - Agentic-commerce reference architecture specified (ACP/AP2-style checkout
@@ -268,7 +270,7 @@ delivery model, not a solo-founder risk:
 - **Risto Anton Päärni, Founder & CEO** — 35+ years ICT infrastructure;
   chief architect of the DWS IQ platform and the KYA framework; NVIDIA
   Connect, IBM Business Partner, AWS Advanced Consulting Partner
-  relationships; currently completing doctoral research (LUT) on agentic
+  relationships; doctoral candidate (LUT), research track on agentic
   commerce, KYA as trust primitive, and quantum-safe transaction primitives
   — the scientific base of this proposal.
 - **Lifetime Certified Partners consortium — 100+ engineers across two
@@ -291,18 +293,21 @@ delivery model, not a solo-founder risk:
 ## PAGE 10 — Funding Need & Use of Funds
 
 **Ask:** `[DECIDE — recommended]` **Grant-only, €2.5M** (70% of a €3.57M
-24-month innovation budget; 30% own contribution from revenue and the
-open SAFE round). Grant-only preserves the non-dilutive thesis and is
-permitted under EIC Open. `[ALTERNATIVE: blended finance — adds €1–10M
-equity; decide before submission, the form requires it.]`
+24-month innovation budget; 30% own contribution from operating revenue and
+committed investor capital). Grant-only preserves the non-dilutive thesis
+and is permitted under EIC Open. `[ALTERNATIVE: blended finance — adds
+€1–10M equity; decide before submission, the form requires it.]`
+`[VERIFY: EIC own-contribution eligibility rules from Guide v6.0 — state
+whether the SAFE is closed or in progress; do not write "open SAFE round"
+in the application.]`
 
-**Why the market does not fund this (need for Union support):** VCs fund the
-_application_ layer of agentic AI; they do not fund open standards,
-conformance suites, or sovereignty-as-public-good — the returns are
-ecosystem-wide, not captured by the investor. Banks do not lend against
-pre-standard IP. The result is that the only funded answers to agent
-accountability are US-custodial platform plays. This is precisely the
-non-bankable, high-risk/high-impact deep-tech gap the EIC exists to close.
+**Why the market does not fund this (need for Union support):** VC returns
+require proprietary capture; open standards, conformance suites, and
+sovereignty-as-public-good create ecosystem-wide value that no single
+investor can monetize. Banks do not lend against pre-standard IP. The
+result is that the only privately funded answers to agent accountability
+are US-custodial platform plays. This is precisely the non-bankable,
+high-risk/high-impact deep-tech gap the EIC exists to close.
 
 **Use of funds (24 months, WP structure for Step 2):**
 

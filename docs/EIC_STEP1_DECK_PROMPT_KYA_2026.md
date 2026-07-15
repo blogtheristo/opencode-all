@@ -6,7 +6,7 @@
 
 | Field          | Value                                                         |
 | -------------- | ------------------------------------------------------------- |
-| Version        | 1.0                                                           |
+| Version        | 1.1                                                           |
 | Date           | 2026-07-15                                                    |
 | Author         | Lifetime Oy                                                   |
 | Owner          | risto-001                                                     |
@@ -19,6 +19,15 @@
 All figures below are aligned with the Step 1 narrative, the canonical
 pricing source (`dws10.com/config/products.json`), and the V4.3 investor
 deck. Do not alter numbers in the deck without changing them everywhere.
+
+**v1.1 (2026-07-15, advisor review fixes):** Slide 4 agent count made
+precise — "50 production agents" is the canonical truth-registry claim
+(`DWS_TRUTH_STANDARD.md` §2 row 19: `src/agents/index.ts` enumerates exactly
+50; the old "18" figure is the MCP `tools/list` subset and is drift-logged as
+retired). Slide 5 retention claim time-windowed. Slide 8 "doctoral candidate
+(LUT)". Slide 9 own-contribution phrasing + SAFE eligibility [VERIFY]. Slide
+10 "why not VC" softened. Same fixes mirrored into the Step 1 narrative
+(v0.91) — deck and form stay claim-identical.
 
 ---
 
@@ -76,7 +85,8 @@ Left column (running today):
 • KYA engine live: trust scoring, identity binding, revocation API
 • EU AI Act Article-12 logging pipeline live, append-only, RLS-enforced
 • Firecracker MicroVM agent isolation operational
-• 50-agent production fleet, 25 regulated industry verticals
+• 50 production agents (canonical truth-registry count; 18 of them exposed
+  via the MCP tools/list interface), 25 regulated industry verticals
 • EU-only identity processing contracted (KYC addendum in force)
 Right column (the funded TRL 6→8 gap):
 • Standardized mandate credential + selective-disclosure proof
@@ -86,8 +96,9 @@ Visual: two-column "RUNS TODAY / GRANT BUILDS" split.
 
 SLIDE 5 — TRACTION
 Headline: "Paying customers before the regulation even bites"
-Big numbers row: 6 paying customers · €7k MRR · 0% churn · 25 regulated
-industries covered
+Big numbers row: 6 paying customers · €7k MRR · 100% retention since
+launch [VERIFY before render: state the month window, e.g. "0% churn
+across 6 customers over N months"] · 25 regulated industries covered
 Below: "Validated pricing from the live catalogue: DWS IQ Aegis €59,990
 flagship deployment + agent subscriptions €499–€2,999/mo (typical starter
 €999/mo). 12-month roadmap to €60k MRR."
@@ -122,8 +133,8 @@ SLIDE 8 — TEAM & DELIVERY MODEL
 Headline: "Founder-led, partner-delivered, agent-multiplied"
 • Risto Anton Päärni — Founder & CEO, 35+ years ICT infrastructure; chief
   architect of DWS IQ and KYA; NVIDIA Connect, IBM Business Partner, AWS
-  Advanced Consulting Partner; doctoral research (LUT) on agentic commerce
-  and trust primitives.
+  Advanced Consulting Partner; doctoral candidate (LUT), research track on
+  agentic commerce and trust primitives.
 • Lifetime Certified Partners — 100+ engineers across two contracted
   partners (NDA'd, delivering in a live public-sector bid today);
   development under EU controls, data stays EU/EEA, core R&D and IP in
@@ -142,14 +153,17 @@ CEN/CENELEC submission.
 Use of funds strip: standard & conformance suite / mandate-layer
 cryptography (core funded risk, named) / certification hardening /
 cross-border pilots / standardization & ecosystem.
-Footnote: 70% EIC / 30% own contribution from revenue + open SAFE round.
+Footnote: 70% EIC / 30% own contribution from operating revenue and
+committed investor capital. [VERIFY before render: EIC own-contribution
+eligibility rules from Guide v6.0 — state whether the SAFE is closed or in
+progress; do not write "open SAFE round" on the slide.]
 
 SLIDE 10 — THE ASK & WHY EIC
 Headline: "Fund the European answer before the US-custodial default wins"
 • Ask: €2.5M grant (grant-only, non-dilutive) — TRL 6→8, 24 months.
-• Why not VC: investors fund the application layer; nobody privately funds
-  open standards, conformance suites, or sovereignty-as-public-good — the
-  returns are ecosystem-wide. This is exactly the EIC gap.
+• Why not VC: VC returns require proprietary capture; open standards
+  create ecosystem-wide value that no single investor can monetize. That
+  gap is exactly what the EIC exists to fund.
 • What Europe gets: the trust standard for agentic commerce — sovereign,
   GDPR-native, eIDAS-aligned, open — with a Finnish SME as its steward.
 Closing line: "The technology runs. The customers pay. The regulation has
