@@ -6,7 +6,7 @@
 
 | Field          | Value                                                                                                                               |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Version        | 0.1 — Singapore market entry section drafted; other sections reuse EIC Step 1 narrative                                             |
+| Version        | 0.2 — Boardy review merged (see changelog); other sections reuse EIC Step 1 narrative                                               |
 | Date           | 2026-07-15                                                                                                                          |
 | Author         | Lifetime Oy                                                                                                                         |
 | Owner          | risto-001                                                                                                                           |
@@ -16,6 +16,23 @@
 | Branch         | claude/ngi-sargasso-gber-i2l47d                                                                                                     |
 | Deadline       | **31 Jul 2026** — slot Jul 28–30 after EIC Step 1 freeze                                                                            |
 | Sources        | `docs/EIC_STEP1_DRAFT_KYA_2026.md` (claims), `APPLICATION.md` (Deep SAGE ASEAN/CBAM spine), field note 2026-07-15 (reviewer signal) |
+
+**v0.2 changelog (2026-07-15) — Boardy draft merged, Rule 7 applied:**
+ADOPTED: MAS/EU-AI-Act compliance-bridge framing; MAS-regulated financial
+institutions sharpening Wave 1; product–market-fit block (KYA-2 governance
+portability, Aegis edge/sovereign data-residency fit, live Article-12
+pipeline); "not generic AI expansion" closer.
+**REJECTED (unsupported by repo canon — do not reintroduce):**
+(1) "four-jurisdiction expansion (EU, US, UAE/G42, ASEAN)" — no UAE/G42
+relationship exists anywhere in the repo; canonical model is the
+**three-pillar EU/US/SG** sovereignty framework. Naming G42 in an
+application invites a diligence question we cannot answer.
+(2) "Microsoft partnership opens Azure government procurement channels" —
+overclaim; our Microsoft facts are the M365 agent consultancy SKU and the
+Adoption-Framework alignment, already in the Channel paragraph.
+(3) "first pilot within 6 months of incorporation" — weaker than the
+committed milestone (first pilot signed weeks 4–6 of the programme); kept
+the stronger, dated version.
 
 **Claim discipline:** every number here already exists in the EIC Step 1
 narrative or the Deep SAGE application — no new claims. Lead with agentic
@@ -41,10 +58,16 @@ replayable audit built into an operating agent platform with paying
 customers. We are standardizing it as **KYA-2, the open conformance
 standard for AI agents that transact**, with a European patent track and an
 EIC Accelerator application in motion. Singapore is the natural second home
-for this standard: the region's agentic-commerce ecosystem (payments
-platforms, super-apps, marketplace operators, and the MAS regulatory
-perimeter) will need agent-level trust infrastructure before any other
-market — and no regional player owns it yet.
+for this standard, for two reasons. First, **Singapore's AI governance
+framework aligns with EU AI Act principles — a natural compliance bridge**:
+a trust layer built to satisfy Article-12-grade record-keeping in Europe
+speaks the same language MAS and IMDA expect of AI in regulated use
+`[VERIFY: cite MAS FEAT / Model AI Governance Framework / AI Verify by name
+in the final text]`. Second, the region's agentic-commerce ecosystem —
+payments platforms, super-apps, marketplace operators, and **MAS-regulated
+financial institutions that will need agent-level trust infrastructure as
+agentic commerce scales** — is concentrated here, and no regional player
+owns that layer yet.
 
 **Wave 2 — compliance data for EU-bound trade, proven demand we already
 serve.** From 2026, every steel, cement, aluminium and fertiliser shipment
@@ -61,6 +84,18 @@ The two waves converge on one product truth: **compliance-grade trust
 infrastructure for autonomous systems** — agents that transact (Wave 1)
 and the regulated data flows they generate (Wave 2). One platform serves
 both; Singapore is the only city where both markets concentrate.
+
+**Product–market fit, concretely:**
+
+- **KYA-2** gives agent-initiated transactions the identity, bounded
+  mandate, and replayable audit that AI-governance-conscious regulators
+  expect — built once for the EU AI Act, portable to Singapore's framework.
+- **DWS IQ Aegis** (edge-deployed, sovereign-hosted — shipped product, not
+  roadmap) fits Singapore's data-residency expectations out of the box:
+  inference and evidence stay in-jurisdiction.
+- The **EU AI Act Article-12 logging pipeline is live today**, giving
+  Singapore-bound deployments immediate regulatory-grade record-keeping
+  rather than a compliance retrofit.
 
 ### Entry plan — concrete, staged, already precedented
 
@@ -108,6 +143,10 @@ exchange, the cohort gets the one thing none of the payment rails have
 built: the trust standard that makes agent-driven commerce auditable —
 developed in the EU, proven with paying customers, and brought to the
 region where agentic commerce is being decided.
+
+**This is not generic AI expansion. It is sovereign compliance
+infrastructure entering a jurisdiction that already values the same
+principles.**
 
 ---
 
