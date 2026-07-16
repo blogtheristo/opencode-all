@@ -30,8 +30,25 @@
    Google Drive as editable Doc (id 1_W4oNmbKIKGa-ukI5J4fAkiGtpe4oIrKNRARzovlp10).
    NOT published. Pre-publish: /truth-check, BLOG_STANDARD HTML conversion, price re-verify.
 
+6. **EXIT GOOGLE CLOUD RUN** (user directive "get out of GCR now"). Discovery:
+   `deploy-cloudrun.yml` was the ACTIVE prod deploy (not a cold failover) shipping
+   the full backend + prod secrets to Cloud Run `dws6run6` (europe-north1) every
+   main push; `deploy-staging.yml` shipped staging to `dws-iq-60`. US-incorporated
+   Google ⇒ CLOUD Act applies even in EU region. Frontends already call the
+   Scaleway URL. Cutover (this branch): `deploy-cloudrun.yml` → `.disabled`,
+   `deploy-staging.yml` → `.disabled`, `deploy-scaleway_DEPRECATED.yml` →
+   `deploy-scaleway.yml` (reactivated + graceful-skip guard on SCW\_\* secrets).
+   Runbook: `infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md`. Corrected the GCR
+   field note (v1.0 "cold DR" → v1.1 "active prod deploy, exit entirely").
+   **Takes effect on merge to main.**
+
 ## Open / next
 
+- [ ] **GCR exit — human/console (see EXIT_CLOUDRUN_RUNBOOK.md):** confirm SCW\_\*
+      GitHub secrets → merge → trigger deploy-scaleway → verify /health 200 →
+      gcloud teardown of dws6run6 + dws-iq-60 → revoke WIF → remove Google Cloud
+      from legal sub-processor list + DPA (RED zone) → /truth-check. Also decide
+      mcp-hub-ts/cloudbuild.yaml (still Cloud Run): migrate or retire.
 - [ ] Blog: after user improves the Drive doc, convert to HTML per BLOG_STANDARD, run
       /truth-check, publish to onelifetime.world/blog/ (HTML only — never .md in public folders).
 - [ ] Product-page banner scope was defaulted to ~12 pages (clarification tool failed).

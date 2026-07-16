@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/scaleway-pricing-update-19g8df | Date: 16.07.2026 | Changes: Initial — captured Google Cloud Run 2026 pricing; diagnosed the three cost traps (always-allocated min-instances, ~3× CPU rate vs Scaleway, metered egress); modelled our container both ways (Scaleway ~€20.66/mo vs GCR ~€60–63/mo); confirmed GCR stays a COLD DR failover only, never warm traffic
+- Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/scaleway-pricing-update-19g8df | Date: 16.07.2026 | Changes: **CORRECTION.** v1.0 called GCR a "cold DR failover only" — that was wrong. On inspection, `.github/workflows/deploy-cloudrun.yml` was the **active production deploy**, shipping the full `dws-iq-backend` (with prod Stripe/Supabase/SMTP secrets) to Cloud Run `dws6run6` (europe-north1) on every push to main, in parallel with Scaleway; `deploy-staging.yml` likewise shipped staging to Cloud Run. Since Google is US-incorporated, the CLOUD Act applies even in europe-north1 — a live sovereignty hole, not just a cost line. Decision escalated: **exit Cloud Run.** Disabled both GCR deploy workflows, reactivated Scaleway (`deploy-scaleway.yml`) as canonical prod deploy (frontends already call the scw.cloud URL). Cutover steps: infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md.
+- Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/scaleway-pricing-update-19g8df | Date: 16.07.2026 | Changes: Initial — captured Google Cloud Run 2026 pricing; diagnosed the three cost traps (always-allocated min-instances, ~3× CPU rate vs Scaleway, metered egress); modelled our container both ways (Scaleway ~€20.66/mo vs GCR ~€60–63/mo). (Superseded: the "cold DR failover only" framing was corrected in v1.1.)
 
 Session Links & References:
 
@@ -47,8 +48,13 @@ stacking on top of a per-unit CPU rate that is **~3× Scaleway's**:
    Scaleway's **€0.00001/vCPU-s** (~3×).
 
 **Same container, both ways: Scaleway ~€20.66/mo vs Cloud Run ~€60–63/mo (~3×).**
-GCR must remain a **cold DR failover only** (scale-to-zero, no min instances,
-no warm traffic). This note is the receipt for that decision.
+
+> **Correction (v1.1).** This note originally concluded "keep GCR as a cold DR
+> failover." That was wrong: `deploy-cloudrun.yml` was the **active production
+> deploy**, shipping the full backend + prod secrets to Cloud Run on every main
+> push — a US-jurisdiction (CLOUD Act) copy running in parallel with Scaleway.
+> The decision is now to **exit Cloud Run entirely**, not cap it. See the
+> cutover runbook: `infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md`.
 
 ## Google Cloud Run pricing (2026)
 
@@ -104,28 +110,32 @@ roughly doubles again.
 
 ## Decision & guardrails
 
-- **GCR = cold DR failover only.** Keep `dws6run6` as documented in
-  `scaleway-infrastructure-setup.md` (failover target), not a warm second
-  region. Primary stays Scaleway fr-par.
-- **Enforce on every Cloud Run service we keep:**
-  - `min-instances = 0` (scale-to-zero) — never leave a warm instance "just in case".
-  - No always-allocated CPU unless a specific latency SLA demands it (none does today).
-  - Budget alert + hard cap on `dws6run6`; egress dashboard watch.
-  - Concurrency tuned high (fewer instances for the same request volume).
-- **Finish the migration.** The April note already flags "Legacy Cloud Run
-  migrating to Scaleway." This cost delta (~3×) is the business case to complete
-  it — retire any residual warm GCR service, leave only the cold failover image.
+- **Exit Cloud Run entirely.** GCR was not a cold failover — `deploy-cloudrun.yml`
+  actively shipped prod to `dws6run6` (europe-north1), and `deploy-staging.yml`
+  shipped staging to `dws-iq-60`. Both are US-jurisdiction (CLOUD Act) even in an
+  EU region, and cost ~3× Scaleway. Primary is — and stays — Scaleway `fr-par`,
+  which the frontends already call.
+- **Repo cutover done on this branch:**
+  - `deploy-cloudrun.yml` → `.disabled`; `deploy-staging.yml` → `.disabled`.
+  - `deploy-scaleway_DEPRECATED.yml` → `deploy-scaleway.yml`, reactivated as the
+    canonical prod deploy with a graceful-skip guard on missing `SCW_*` secrets.
+  - Takes effect on merge to `main` (workflows read from the default branch).
+- **Human/console follow-through** (see `infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md`):
+  confirm `SCW_*` secrets → merge → verify Scaleway health 200 → `gcloud` teardown
+  of `dws6run6` + `dws-iq-60` → revoke WIF identity → remove Google Cloud from the
+  legal sub-processor list → re-run `/truth-check`.
 
 ## Follow-ups
 
-- [ ] Audit `dws6run6` for any service with `min-instances > 0` or
-      always-allocated CPU; set to scale-to-zero.
-- [ ] Add a GCP billing budget + alert on `dws6run6`; screenshot the egress
-      line to confirm it is the hidden driver.
-- [ ] Confirm no production traffic currently routes to Cloud Run (should be
-      failover-only); if any does, cut it back to Scaleway.
-- [ ] Re-pull the next GCP invoice to validate the ~3× model against actuals and
-      update this note's Version block.
+- [ ] Confirm `SCW_ACCESS_KEY` / `SCW_SECRET_KEY` / `SCW_ORGANIZATION_ID` /
+      `SCW_PROJECT_ID` / `SCW_NAMESPACE_ID` are set as GitHub Actions secrets.
+- [ ] Merge → trigger `deploy-scaleway.yml` → confirm it reaches the `deploy` job
+      (not the skip path) and `/health` returns 200 on the scw.cloud URL.
+- [ ] `gcloud` teardown of Cloud Run services + Artifact Registry in `dws6run6`
+      and `dws-iq-60`; revoke the WIF service account/pool (after a stable window).
+- [ ] Decide `mcp-hub-ts/cloudbuild.yaml` (still Cloud Run): migrate to Scaleway or retire.
+- [ ] Remove Google Cloud from the legal sub-processor list + DPA; re-run `/truth-check`.
+- [ ] Re-pull the final GCP invoice to confirm the ~3× model, then close billing.
 
 ---
 
