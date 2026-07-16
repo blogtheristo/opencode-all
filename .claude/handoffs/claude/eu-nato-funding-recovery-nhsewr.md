@@ -40,17 +40,40 @@ A private Artifact web page (visual companion to the canonical pack, NOT new res
 - The page has an SE-led / FI-led applicant toggle that re-colours the negative-equity gate
   verdict per instrument (Gate 1: SE-led-via-Lifetime-AB-now vs FI-led-after-cure).
 
-## Resource dropped in chat (not yet actioned)
+## Follow-on work done this session (after the initial handoff)
+
+1. **Eurostars Call 11 drafting kit** — `docs/lut/eurostars-call-11-proposal-kit-2026-07.md`
+   (v1.0, committed `af72148`). Section-by-section plan keyed to the verified Eurostars
+   evaluation mechanics (Excellence / Impact / Implementation, avg ≥3.6 each, 3 remote experts
+   → IEP), civil-only framing, lean consortium plan (AB lead + LUT/Simula verification partner),
+   Vinnova SEK 5M budget shape, and an honest 8-week sprint with a 1 Aug partner-lock go/no-go
+   vs a Call-12 fallback. Built the Europa Media RIA/IA template into narrative-craft guidance
+   only — flagged that Eurostars ≠ Horizon RIA/IA (different portal/form).
+
+2. **NGI Sargasso correction (founder-flagged)** — Sargasso is NOT a live 2026 call. All its
+   Horizon NGI open calls closed in 2024 (OC4 1 Aug 2024, OC5 25 Nov 2024). The canonical pack's
+   "1 Aug 2026 / file first" was a misdated OC4. Fixed in three places:
+   - Pack `eu-nato-instruments-research-2026-07.md` → **v1.4** (`7c5064b`): §4 row + recommendation,
+     §8 ranking (Eurostars now #1), §9 note.
+   - Roadmap `fundraising-roadmap-2026-2027.md` → **v1.4.1** (`5b295b1`): §3 table row marked CLOSED.
+     Patch-numbered on purpose to avoid colliding with the pending v1.5 (Nordic) on
+     `claude/europe-roadmap-agents-g9zs8a`.
+   - Artifact (same URL) → re-published mirroring pack v1.4; Sargasso card/spine/rank all corrected.
+   - **AI4Gov-X flagged `(verify still open)`** everywhere — the Sargasso miss is the reason to
+     re-check every cascade call at its primary source before relying on it.
+
+## Resource dropped in chat
 
 Founder uploaded **EuropaMediaRIAIAProposalTemplate2026.pdf** (50-page Horizon Europe RIA/IA
-proposal template) + a Europa Media Trainings marketing email. Relevant to the _next_ phase —
-actually drafting the Eurostars / Digital Europe / Horizon proposals. Not folded into any
-deliverable this session; candidate next step is a proposal skeleton keyed to that template.
+proposal template). Used as narrative-craft input for the Eurostars kit above (not as the
+submission structure — Eurostars uses its own form on myeurekaproject.org).
 
 ## Next steps (if anyone picks this up)
 
-- None required for the recovery itself — it's done on main.
-- Optional: build a proposal-drafting skeleton from the Europa Media RIA/IA template for the
-  top apply-order items (NGI Sargasso 1 Aug, Eurostars 10 Sep SE-led).
+- Recovery itself is done on main; no re-run needed.
+- Eurostars Call 11 W0 actions are listed in the kit §8 (confirm AB "innovative SME" + Vinnova
+  registration; invite LUT/Simula; write the one-sentence innovation claim + market number;
+  book a Vinnova NCP call; diarise the 1 Aug partner-lock go/no-go).
 - The roadmap's v1.5 (Nordic recovery + `***` delimiter fixes) sits on
-  `claude/europe-roadmap-agents-g9zs8a`, not yet merged to main as of this session.
+  `claude/europe-roadmap-agents-g9zs8a`, not yet merged to main. When it merges, reconcile it
+  with this branch's v1.4.1 Sargasso patch (patch numbering should make that a clean stack).
