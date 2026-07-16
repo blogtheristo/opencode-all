@@ -47,9 +47,9 @@ metered cloud memory _and_ the RAM in the box you own.
 
 For our **Sovereign DGX scenario (S2)** this nudges per-node capex up modestly,
 but the ownership case holds: cloud got pricier in the same breath, so the
-relative advantage of owning the appreciating asset is roughly preserved. The
-one action item is on the **sell side** — our resale SKUs were priced against the
-old list, so the DGX Spark line's margin has compressed and should be reviewed.
+relative advantage of owning the appreciating asset is roughly preserved. On the
+**sell side**, the CEO lifted the DGX Spark resale **€5,994 → €6,694** to carry a
+margin above the higher channel base (executed — see below).
 
 ## Updated NVIDIA pricing (USD list / Founders Edition / MSRP)
 
@@ -76,28 +76,31 @@ The takeaway for positioning: "sovereign vs cloud" is **not** "cheap vs
 expensive" — the same macro shock is repricing both. Owning the hardware converts
 a recurring, provider-controlled cost into a one-time capex on an asset you keep.
 
-## Relation to our resale SKUs (no price change made here)
+## Relation to our resale SKUs (DGX Spark raised — see box below)
 
 Our EU B2B turnkey resale (source of truth: `products.json`) bundles the NVIDIA
 silicon with on-site install, operator training, 24/7 support, warranty, and
 Sovereign Model Updates — so resale > NVIDIA list by design:
 
-| Our SKU (resale)                        | Our price              | Underlying NVIDIA list                          |
-| --------------------------------------- | ---------------------- | ----------------------------------------------- |
-| DGX Spark (turnkey)                     | €5,994                 | **now $4,699** (was $3,999) — margin compressed |
-| Control Room (Acer Veriton GN100, GB10) | €5,294                 | GN100 channel (GB10-class)                      |
-| Situation Room (2× GN100)               | €10,093                | 2× GN100                                        |
-| IGX Orin                                | €11,990                | IGX Orin channel                                |
-| Jetson Nano / NX / AGX                  | €764 / €1,990 / €2,694 | $249 / — / $1,999                               |
-| NVIDIA Model Install                    | €995 / device          | service                                         |
-| Sovereign Model Updates                 | €299 / mo              | service                                         |
+| Our SKU (resale)                        | Our price               | Underlying NVIDIA list                                      |
+| --------------------------------------- | ----------------------- | ----------------------------------------------------------- |
+| DGX Spark (turnkey)                     | **€6,694** (was €5,994) | **now $4,699** (was $3,999) — raised v1.23 (margin-forward) |
+| Control Room (Acer Veriton GN100, GB10) | €5,294                  | GN100 channel (GB10-class)                                  |
+| Situation Room (2× GN100)               | €10,093                 | 2× GN100                                                    |
+| IGX Orin                                | €11,990                 | IGX Orin channel                                            |
+| Jetson Nano / NX / AGX                  | €764 / €1,990 / €2,694  | $249 / — / $1,999                                           |
+| NVIDIA Model Install                    | €995 / device           | service                                                     |
+| Sovereign Model Updates                 | €299 / mo               | service                                                     |
 
-> **Flag (source-of-truth / margin).** The **DGX Spark €5,994** resale was set
-> against the **old $3,999** list. At **$4,699**, the hardware cost rose ~€600–700
-> (FX-dependent), so that line's margin has thinned. Decide: (a) hold resale and
-> absorb (mirrors our cloud-side "hold" decision), or (b) lift the DGX Spark
-> resale — a `products.json` change (single-source, syncs to the dws10-com
-> mirror). **No change made in this note** — this is a pricing decision for the CEO.
+> **✅ Decision executed (CEO, 2026-07-16).** DGX Spark resale **lifted €5,994 →
+> €6,694** (hardware €4,999 → €5,699 + €995 install) in `products.json` **v1.23**
+> (+ landing-pages mirror + all live copies: product page, price-list, Google
+> feed, healthcare, lwm-ontology, VIP services). **Honest nuance:** the €4,999
+> EMEA hardware line already covered the $4,699 US list, so this is a
+> **margin-forward** move, not margin restoration — it brings DGX Spark in line
+> with the "small reseller margin above channel" logic v1.20 applied to the other
+> hardware SKUs while holding this one. The auto-generated `price-list/versions/`
+> snapshots regenerate via the quarterly-price-list workflow.
 
 ## Impact on Scenario S2 (Sovereign DGX) economics
 
@@ -114,7 +117,7 @@ Sovereign Model Updates — so resale > NVIDIA list by design:
 
 ## Follow-ups
 
-- [ ] **CEO decision:** hold vs lift DGX Spark resale (€5,994) given the $3,999→$4,699 list move. If lift, update `products.json` (+ landing-pages mirror, same commit).
+- [x] **CEO decision (done):** lifted DGX Spark resale €5,994 → €6,694 in `products.json` v1.23 (+ mirror + all live copies). See priceHistory 1.23.
 - [ ] Confirm DGX Station (GB300) list price + whether we resell it as a tier above Situation Room.
 - [ ] Re-pull on the next NVIDIA price-change announcement (they now publish these on the developer forum) and on any EMEA distributor update.
 - [ ] Cross-check EUR conversion + EMEA distributor delta before any resale change (our prices are EU-sourced, not USD-converted — see price-list governance note).
