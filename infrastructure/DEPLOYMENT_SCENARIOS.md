@@ -55,12 +55,20 @@ used across dozens of routes/services). Today the DGX stack still points that
 client at **Supabase Cloud (US)**. To close it without rewriting the data layer:
 
 - **Run self-hosted Supabase on the DGX** (Supabase is open-source: Postgres +
-  GoTrue + PostgREST + Realtime + Storage via docker compose). The backend's
+  GoTrue + PostgREST + Storage + Studio via docker compose). The backend's
   `supabase.service.ts` client is unchanged — only `SUPABASE_URL` /
-  `SUPABASE_SERVICE_KEY` point at `http://localhost:<port>` on the DGX.
+  `SUPABASE_SERVICE_KEY` point at `http://supabase-kong:8000` on the DGX.
 - Result: identical code, data never leaves the box, zero US vendor in the path.
 - Alternative (managed, still EU): point the client at **Aiven** (Finnish) — used
   by the Aegis tier already — if a managed EU DB is preferred over on-prem.
+
+> **✅ Now wired (opt-in).** The self-hosted Supabase stack ships as an overlay:
+> `infrastructure/dgx-spark/docker-compose.supabase.yml` (+ `supabase/kong.yml`,
+> `supabase/env.sovereign.example`). It does **not** auto-start; enable it per
+> `infrastructure/dgx-spark/SOVEREIGN_SUPABASE_SETUP.md`
+> (`docker compose -f docker-compose.yml -f docker-compose.supabase.yml up -d`),
+> generate keys, apply `supabase/migrations/`, then repoint `.env`. Authored but
+> not yet first-run-validated on hardware.
 
 **Ingress for S2:** keep Cloudflare Tunnel for convenience, OR (maximal
 sovereignty) terminate TLS on an EU reverse proxy with a static EU IP, OR run
@@ -93,9 +101,11 @@ air-gapped with no public ingress (single-tenant Aegis on customer premises).
 
 ## Open items
 
-- [ ] S2 full sovereignty: add a self-hosted Supabase stack to the DGX compose
-      and repoint `SUPABASE_URL`/`SUPABASE_SERVICE_KEY` at it (or Aiven). This is
-      the remaining code/infra work — the DB is the last US link, not the compute.
+- [x] S2 full sovereignty: self-hosted Supabase stack added
+      (`docker-compose.supabase.yml` + `supabase/kong.yml` + env template).
+      **Remaining (operator, on hardware):** generate keys, apply
+      `supabase/migrations/`, repoint `.env`, first-run validate — per
+      `SOVEREIGN_SUPABASE_SETUP.md`. (Image tags need confirming before first boot.)
 - [ ] S2 ingress: decide Cloudflare Tunnel vs EU reverse proxy vs air-gap per
       customer.
 - [ ] If S2 becomes a customer's _primary_, repoint that customer's frontend API
