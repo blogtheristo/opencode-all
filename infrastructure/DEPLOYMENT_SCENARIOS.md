@@ -113,3 +113,6 @@ air-gapped with no public ingress (single-tenant Aegis on customer premises).
 - [ ] Cross-ref: `infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md` (why we left
       GCR), `dws10.com/products/cloud-pricing.html` + `/price-list/#deployment`
       (customer-facing view of the same three scenarios).
+- [ ] S2 capex: NVIDIA raised DGX Spark $3,999→$4,699 (+18%, memory supply) —
+      same crisis as the Scaleway cloud increase, on the on-prem side. Cost +
+      resale-margin analysis: `docs/field-notes/2026-07-16-nvidia-hardware-pricing.md`.
