@@ -60,21 +60,29 @@ jobs:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     outputs:
-      has_auth: ${{ env.HAS_SCW_DEPLOY_AUTH }}
+      # Reliable across needs.*.outputs — a STEP output, not a workflow-env value
+      # (the env context does not propagate into jobs.<id>.outputs).
+      has_auth: ${{ steps.guard.outputs.has_auth }}
       image_digest: ${{ steps.build.outputs.digest }}
 
     steps:
-      - name: Skip deploy when Scaleway credentials are unavailable
-        if: env.HAS_SCW_DEPLOY_AUTH != 'true'
+      - name: Determine deploy auth
+        id: guard
+        env:
+          HAS_AUTH: ${{ env.HAS_SCW_DEPLOY_AUTH }}
         run: |
-          echo "SCW_ACCESS_KEY / SCW_SECRET_KEY / SCW_NAMESPACE_ID are not configured in this context."
-          echo "Skipping Scaleway deploy instead of failing the pipeline."
-          {
-            echo "## Scaleway Deployment"
-            echo ""
-            echo "Skipped: Scaleway deploy secrets are unavailable."
-            echo "See infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md to enable."
-          } >> "$GITHUB_STEP_SUMMARY"
+          echo "has_auth=${HAS_AUTH}" >> "$GITHUB_OUTPUT"
+          if [ "${HAS_AUTH}" != "true" ]; then
+            # Skip, but LOUDLY — a merge that silently stops deploying the backend
+            # must be visible in the Actions UI, not a green no-op.
+            echo "::warning title=Scaleway deploy skipped::SCW_* secrets are not configured — the backend was NOT redeployed. Set SCW_ACCESS_KEY / SCW_SECRET_KEY / SCW_ORGANIZATION_ID / SCW_PROJECT_ID / SCW_NAMESPACE_ID (see infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md)."
+            {
+              echo "## Scaleway Deployment"
+              echo ""
+              echo "**Skipped — the backend was NOT redeployed.** Scaleway deploy secrets are unavailable."
+              echo "See infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md to enable."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Checkout code
         if: env.HAS_SCW_DEPLOY_AUTH == 'true'

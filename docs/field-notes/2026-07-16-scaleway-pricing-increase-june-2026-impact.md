@@ -1,6 +1,6 @@
 # Scaleway Pricing Increase (1 June 2026) — Impact on DWS Cost Economics
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -25,7 +25,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (private — infra cost analysis)
 
----
+***
 
 **Type:** Field Note / Infrastructure Cost Analysis
 **Scope:** Scaleway spend on project `dws-iq-backend` (fr-par); EU Sovereign tier COGS

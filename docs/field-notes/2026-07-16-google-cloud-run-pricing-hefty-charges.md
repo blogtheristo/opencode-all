@@ -1,6 +1,6 @@
 # Google Cloud Run Pricing — Why the "Hefty Charges", and How to Cap Them
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -26,7 +26,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (private — infra cost analysis)
 
----
+***
 
 **Type:** Field Note / Infrastructure Cost Analysis
 **Scope:** Google Cloud Run (project `dws6run6`) — DR failover for `dws-iq-backend`

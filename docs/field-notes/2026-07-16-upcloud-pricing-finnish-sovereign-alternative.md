@@ -1,6 +1,6 @@
 # UpCloud Pricing — Finnish EU-Sovereign Alternative to Scaleway
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -27,7 +27,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (private — vendor evaluation)
 
----
+***
 
 **Type:** Field Note / Vendor Pricing Evaluation
 **Scope:** EU Sovereign compute/storage/DB alternatives; provider diversification
