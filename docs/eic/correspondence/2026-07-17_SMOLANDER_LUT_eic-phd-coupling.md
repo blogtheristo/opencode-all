@@ -30,7 +30,7 @@ We are preparing an **EIC Accelerator** application (€2.5M) for **KYA v2** —
 - **WP2 — quantum-safe transaction primitives:** the selective-disclosure ("within-mandate") proof and its post-quantum path — the technical heart of the thesis, now with an industrial deployment to validate it against.
 - **WP5 — standardization:** the KYA-2 specification into a CEN-CENELEC workshop and eIDAS-2.0 alignment — a real standards contribution the doctoral work can anchor.
 
-If the grant lands, I'd like to structure it so LUT is a **named scientific partner** — a modest research subcontract on the quantum-safe proof, an **industrial-doctoral hire co-supervised by you**, and LUT innovation services as the IP route. The thesis and the funded project would reinforce each other rather than compete for time.
+If the grant lands, I'd like to structure it so LUT is a **named scientific partner** — a modest research subcontract on the quantum-safe proof, an **industrial-doctoral hire co-supervised by you**, and LUT innovation services as the IP route. Concretely, that industrial doctoral candidate would be **employed by Lifetime and co-supervised by you** — a funded doctoral position feeding directly into your group's research, not just a consulting arrangement. The thesis and the funded project would reinforce each other rather than compete for time.
 
 For context and honesty: **Lifetime AB (SE)** is registered (bank account pending only an eIDAS login); the grant is not yet awarded; for the full proposal I would ask LUT for a short letter of intent.
 
