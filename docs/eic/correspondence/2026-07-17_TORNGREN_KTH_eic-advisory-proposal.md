@@ -9,7 +9,7 @@
 | Version | 1.0                                                          |
 | Date    | 2026-07-17                                                   |
 | Owner   | risto-001                                                    |
-| Status  | **DRAFT — for Risto to review & send**                       |
+| Status  | **SENT 2026-07-17** — awaiting reply                         |
 | Branch  | claude/dl-18-7-delivery-7m1hnj                               |
 | Context | EIC Accelerator — propose KTH TECoSA as scientific advisor + WP3/WP4 role |
 
@@ -41,8 +41,13 @@ Warm regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
 risto.paarni2024@lifetime.fi · +358 400 319 010
+NVIDIA ISV Partner
+IBM Business Partner
+Amazon Consulting Partner
 
 ---
+
+**Status: SENT 2026-07-17** (with the three partner-tier signature lines above).
 
 ## Follow-up tracking
 - [ ] Reply received — paste here.
