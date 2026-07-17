@@ -635,6 +635,17 @@
     <script src="/shared-assets/vertical-lang-bar.js"></script>
 
     <!-- Hero -->
+    <style>
+      .hero-subline{font-size:clamp(1rem,2vw,1.25rem);color:var(--text-secondary,#9fb3d1);max-width:640px;margin:18px auto 0;line-height:1.6}
+      .hero-subline strong{color:var(--color-gold,#e8b64c)}
+      .hero-stat-label small{display:block;font-size:.7em;opacity:.75;letter-spacing:1px;margin-top:2px}
+      .control{padding:64px 24px;max-width:1080px;margin:0 auto}
+      .control-title{text-align:center;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;margin-bottom:36px}
+      .control-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+      .control-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:22px}
+      .control-item strong{display:block;color:var(--color-gold,#e8b64c);font-size:1.05rem;margin-bottom:8px}
+      .control-item span{color:var(--text-secondary,#9fb3d1);font-size:.98rem;line-height:1.5}
+    </style>
     <section class="hero">
       <div class="hero-grid"></div>
       <div class="hero-inner">
@@ -644,6 +655,11 @@
           We build autonomous AI agents &mdash; Skilled Agents &mdash; that deliver measurable
           compliance outcomes for EU-regulated industries. Not dashboards. Not reports. Not
           consulting hours. Outcomes.
+        </p>
+        <p class="hero-subline">
+          Sovereign by design &mdash; agents that run on infrastructure you own, each with an
+          identity, a revocable leash, and a full EU AI Act Article&nbsp;12 audit trail.
+          <strong>Sovereignty guaranteed by physics, not policy.</strong>
         </p>
 
         <div class="hero-stats">
@@ -660,6 +676,10 @@
             <span class="hero-stat-label">Platforms</span>
           </div>
           <div class="hero-stat">
+            <span class="hero-stat-value">3</span>
+            <span class="hero-stat-label">Deployment Tiers<br /><small>Cloud &middot; Own DGX &middot; Hybrid</small></span>
+          </div>
+          <div class="hero-stat">
             <span class="hero-stat-value">0</span>
             <span class="hero-stat-label">CLOUD Act Exposure</span>
           </div>
@@ -668,6 +688,21 @@
         <div class="hero-actions">
           <a href="https://dws10.com/buy/" class="btn-gold">Explore Products</a>
           <a href="https://dws10.com/fleet-admiral/" class="btn-outline">Invest</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Who's in control? — the agent trust layer (all live in production) -->
+    <section class="control">
+      <div class="control-inner">
+        <h2 class="control-title">Who&rsquo;s in control? <span class="hero-accent">You are.</span></h2>
+        <div class="control-grid">
+          <div class="control-item"><strong>Identity</strong><span>Every agent is cryptographically bound to its principal.</span></div>
+          <div class="control-item"><strong>Revocable authority</strong><span>Cut an agent&rsquo;s power instantly &mdash; the Leash Snap.</span></div>
+          <div class="control-item"><strong>Article&nbsp;12 audit</strong><span>Reconstruct exactly what any agent did, and under whose authority.</span></div>
+          <div class="control-item"><strong>Sovereign deployment</strong><span>EU cloud, or your own on-premise NVIDIA DGX, air-gapped. Data and model weights never leave your building.</span></div>
         </div>
       </div>
     </section>

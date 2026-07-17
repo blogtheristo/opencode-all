@@ -4,7 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.11
+Version: 2.12
+
+Sessions & Modifications:
+
+- Version: 2.12 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Merged origin/main (v2.11) into this branch. Both sides had independently claimed §23 after diverging from §22 (Multimodal Document Assets): main renumbered the Whitepaper Standard to §23 (main v2.7), while this branch had added Correspondence Preservation as §23. Resolved by keeping main's §22 (Multimodal Document Assets) and §23 (Whitepaper Standard) intact and renumbering this branch's Correspondence Preservation section (and its subsections) to §24. No content lost from either side; ToC updated to 22 Multimodal / 23 Whitepaper / 24 Correspondence Preservation.
+- Version: 2.6 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Added Correspondence Preservation (renumbered to §24 in the v2.12 merge) — codifies "always save letters": every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy must be saved to the repo as a dated markdown file (AS SENT, with From/To/Subject/date, VERSION AND AGENT HISTORY status, and a follow-up tracker) under a context-scoped `correspondence/` path. Sender identity + phone must match the CLAUDE.md Sender Identity Rule. Triggered by the EIC/Cubet partnership-confirmation email to John Lovegin (saved to `docs/eic/correspondence/`). Added to the ToC.
+- Version: 2.11
 
 Sessions & Modifications:
 
@@ -45,7 +51,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 12.07.2026
+- Last Modified: 17.07.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -77,6 +83,7 @@ Document Status:
 21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
 22. [Multimodal Document Assets](#22-multimodal-document-assets) ⭐ NEW
 23. [Whitepaper Standard](#23-whitepaper-standard) ⭐ NEW
+24. [Correspondence Preservation](#24-correspondence-preservation) ⭐ NEW
 
 ---
 
@@ -2743,3 +2750,36 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 - Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
 - Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
 - Versioning is lockstep with the header block (§2) and the top version line (§23.1) — bump both together.
+
+---
+
+## 24. Correspondence Preservation
+
+Every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy — partner, investor, customer, legal, regulatory, academic — **must be saved to the repo as a dated markdown file**. The sent artifact is institutional memory; a message living only in a mail client or chat scrollback is a lost artifact (Rule 12 — fail loud).
+
+### 24.1 What to save
+
+- Any first-person message sent on behalf of the company: emails, intro notes (`INTRO_*`), letters (`LETTER_*`), formal requests, confirmations, follow-ups.
+- Save the version **AS SENT** (final wording), not only the draft. If a reply arrives, append it to the same file.
+
+### 24.2 Where & naming
+
+- Path: a `correspondence/` folder scoped to the context — e.g. `docs/eic/correspondence/`, `investor-outreach/`, `partners-outreach/<partner>/`.
+- Filename: `YYYY-MM-DD_<RECIPIENT>_<slug>.md`.
+
+### 24.3 Required content
+
+- **VERSION AND AGENT HISTORY** block (§2) with `Status = SENT <date>` (or `DRAFT` / `REPLIED`).
+- Header lines: **From** (the correct sender address per the CLAUDE.md Sender Identity Rule), **To**, **Subject**, **Sent** date.
+- The **full body as sent**.
+- A **follow-up tracker** (reply received? attachments/photo? nudge date?).
+
+### 24.4 Sender identity
+
+- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales outreach -> `risto.paarni2024@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**.
+
+### 24.5 Governance
+
+- `/truth-check` external claims before send; apply the Brand Standard for voice.
+- **Never** save secrets, credentials, or live tokens in a letter file (Non-Negotiable Rule 1).
+- Enforcement: an important message that was sent but not saved is an institutional-memory loss — treat as a Rule 12 violation.
