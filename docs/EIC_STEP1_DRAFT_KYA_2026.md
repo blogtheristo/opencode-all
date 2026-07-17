@@ -110,6 +110,18 @@ that makes an AI agent a first-class, accountable economic actor:
    agent did and under whose authority — without exposing the principal to
    the counterparty.
 
+**The core innovation (funded).** KYA-2 makes the trust layer
+_deployment-sovereignty-aware_. A **tier-aware Sovereignty Profile** binds key
+custody, evidence residency, and trust scoring to the deployment tier (S1
+EU-cloud, S2 on-prem DGX / air-gapped, S3 hybrid); and every mandate and
+evidence entry carries a **Signed Sovereignty Attestation** — a
+machine-verifiable claim of {deployment tier, jurisdiction, data-residency,
+model-weight ownership, air-gap status}. In one line: _KYA v2 introduces
+tier-aware sovereignty profiles with cryptographic attestation, making EU AI
+Act compliance machine-verifiable across cloud, edge, and air-gapped
+deployments._ This is the differentiator no other agent-governance framework
+has — and the lead patent claim (filed before the spec publishes).
+
 **Why now.** EU AI Act record-keeping and human-oversight obligations
 (Articles 12/14/72) begin enforcement for high-risk systems in **August
 2027**. Agentic commerce is simultaneously arriving (x402, AP2, agentic
@@ -354,10 +366,12 @@ high-risk/high-impact deep-tech gap the EIC exists to close.
 
 **24-month arc (grant period):**
 
-- **M6:** KYA-2 spec v1.0 published (CC-BY 4.0); conformance suite alpha;
-  first mandate-bound agent transaction end-to-end in staging.
-- **M12:** Reference implementation GA (Apache-2.0); EUPL-1.2 core released
-  (CLA in place; patents filed/scoped first); pilot 1 live (FI).
+- **M6:** KYA-2 **spec v1.0 published (CC-BY 4.0), including the tier-aware
+  Sovereignty Profile**; conformance suite alpha; first mandate-bound agent
+  action end-to-end in staging.
+- **M12:** **Signed Sovereignty Attestation in production**; reference
+  implementation GA (Apache-2.0); EUPL-1.2 core released (CLA in place;
+  patents filed/scoped first); pilot 1 live (FI).
 - **M18:** Selective-disclosure mandate proof in production; pilot 2 live
   (SE via Lifetime AB); ≥3 third-party vendors in conformance testing.
 - **M24 (TRL 8):** certification path established with a notified body;

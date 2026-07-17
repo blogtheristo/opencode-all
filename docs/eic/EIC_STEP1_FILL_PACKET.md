@@ -154,8 +154,8 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 ## F14 — Milestones & the ask
 
 **24-month grant arc:**
-- **M6:** mandate credential v1 + within-mandate proof alpha + **Sovereignty Attestation v1** in the evidence chain (conformance-tested); first mandate-bound agent action end-to-end in DWS IQ staging (e.g. a filing / journal entry).
-- **M12:** autonomous-action tier GA in DWS IQ Aegis; EUPL-1.2 core + Apache-2.0 SDKs released (CLA in place, patents filed/scoped first); pilot 1 live (FI).
+- **M6:** KYA spec v1.0 with the **tier-aware Sovereignty Profile**; mandate credential v1 + within-mandate proof alpha; first mandate-bound agent action end-to-end in DWS IQ staging (e.g. a filing / journal entry).
+- **M12:** **Signed Sovereignty Attestation in production**; autonomous-action tier GA in DWS IQ Aegis; EUPL-1.2 core + Apache-2.0 SDKs released (CLA in place, patents filed first); pilot 1 live (FI).
 - **M18:** selective-disclosure proof in production; pilot 2 live (SE via Lifetime AB); ≥3 third-party agents in conformance testing.
 - **M24 (TRL 8):** certification path established with a notified body; 10+ conformant integrations; €60k+ MRR baseline.
 
