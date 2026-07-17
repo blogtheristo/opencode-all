@@ -131,7 +131,7 @@ content(8, "Competition · the sovereignty wedge", "Only one platform ticks all 
 content(9, "Team", "Founder-led · partner-delivered · agent-multiplied", [
     "**Risto Anton Päärni** — Founder & CEO; architect of DWS IQ + KYA; NVIDIA/IBM/AWS partner; LUT doctoral candidate.",
     "**Cubet Techno Labs** — CEO John Lovegin: standing bench ~20 engineers, no key-person risk, NDA in force.",
-    "Scientific anchoring: **LUT** + **KTH (TECoSA)**. **€650K SAFE** in progress.",
+    "Academic anchoring: **LUT** (quantum-safe/PhD) · **KTH TECoSA** (safety) · **Metropolia** (talent, 5/5 master's). **€650K SAFE** in progress.",
     "Team includes women and men across engineering, product, and operations.",
 ], tsize=32)
 

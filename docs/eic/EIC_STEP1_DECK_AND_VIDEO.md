@@ -67,7 +67,7 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 - **Risto Anton Päärni, Founder & CEO** — 35+ yrs ICT; architect of DWS IQ + KYA; NVIDIA/IBM/AWS partner tiers; LUT doctoral candidate.
 - **Cubet Techno Labs** — CEO **John Lovegin**, consortium delivery lead: standing bench ~20 engineers, no key-person risk, NDA in force.
 - **50-agent fleet** as operational multiplier. Team includes women and men across engineering, product, operations.
-- **Scientific anchoring:** LUT (Risto's doctoral research) + active dialogue with **KTH (TECoSA — trustworthy autonomous systems)**; advisors formalized for Step 2.
+- **Academic anchoring (three complementary roles):** LUT (quantum-safe / PhD) · KTH TECoSA (safety assurance) · Metropolia (engineering talent, 5/5 master's); partners formalized for Step 2.
 - **€650K SAFE in progress (€3.8M cap).**
 
 ### Slide 10 — The ask + milestones
