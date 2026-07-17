@@ -33,6 +33,8 @@ I'd value **TECoSA as a named scientific advisor**, and — if the grant lands �
 - **WP3 (assurance):** applying your SAFECOMP safety-argument and safety-performance trade-off methodology to our attestation/assurance case;
 - **WP4 (validation):** independent testbed validation — Aegis as an empirical case for your frameworks.
 
+It would also include a **grant-funded industrial doctoral candidate — employed by Lifetime and co-supervised by you** — so the collaboration brings a funded researcher position into TECoSA's agenda, not just a consulting engagement.
+
 Nothing binding at this stage; for the full proposal I'd ask for a short letter of intent. Could we take **20 minutes** to explore the fit?
 
 Warm regards,
