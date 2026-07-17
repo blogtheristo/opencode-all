@@ -2,6 +2,15 @@
 
 **Last session:** 2026-07-16 · Opus 4.8
 
+## PR: #1694 — https://github.com/blogtheristo/dws6/pull/1694 (open, base main)
+
+## Later adds (this session, beyond items 1–6 below)
+
+- Code-review fixes: Scaleway deploy gate uses reliable step output + loud skip; field-note `***` delimiters restored (prettier flips them — restore via Bash, hook is registered).
+- `infrastructure/DEPLOYMENT_SCENARIOS.md` (Cloud / Sovereign-DGX / Hybrid) + self-hosted Supabase overlay for the DGX (`infrastructure/dgx-spark/docker-compose.supabase.yml`, `supabase/kong.yml`, `SOVEREIGN_SUPABASE_SETUP.md`). Opt-in; `docker compose config` merge-validated; NOT first-run-validated on hardware; image tags to confirm.
+- NVIDIA hardware pricing field note (`docs/field-notes/2026-07-16-nvidia-hardware-pricing.md`): DGX Spark $3,999→$4,699 (+18%).
+- **PRICE RAISE (CEO):** DGX Spark resale €5,994 → €6,694 in `products.json` **v1.23** (+ mirror) + all live copies (dgx-spark.html, price-list, Google feed, healthcare, lwm-ontology, VIP services). priceHistory 1.23 records the margin-forward nuance. `versions/` snapshots left to the quarterly workflow (regen needed).
+
 ## What shipped (all committed + pushed)
 
 1. **Three pricing field notes** (`docs/field-notes/2026-07-16-*`):
