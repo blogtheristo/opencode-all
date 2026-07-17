@@ -43,7 +43,7 @@ ask for branded HTML or PDF exports as needed.
 
 ## 4. Background (optional, deeper context)
 
-- **Konsultoinnin käsikirja 2026** — `docs/KONSULTIN_KASIKIRJA_2026.md` (handbook v1.75): §6 capability
+- **Konsultoinnin käsikirja 2026** — `docs/KONSULTOINNIN_KASIKIRJA_2026.md` (handbook v1.75): §6 capability
   model + lifecycle, §4 Living World Model, §2 ethics. The canonical source for the capability catalogue.
 
 ## Bundling for LLM upload

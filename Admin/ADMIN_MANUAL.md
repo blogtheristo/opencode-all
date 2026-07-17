@@ -3188,7 +3188,7 @@ Dokumentoinnissa on hyvä huomioida, että riskienhallintatoimenpiteiden kuvaami
 - **What changed:** `ONTOLOGY.md` §6, between Spatial and Causal Ontology — see the "Data Lifecycle & Retention Ontology" YAML block.
 - **Why:** closes the aggregation-effect gap named in VM 2026:27 §4.4.2 — without a per-node retention declaration, new ontology nodes default to "keep forever," recreating the unstructured-data problem this whole retention effort exists to prevent.
 - **Operator action:** when defining a new ontology node (new industry vertical, new sensor class, new customer-specific extension), the retention YAML block is a required design-time field, not an optional add-on. Reject node definitions that omit it.
-- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTIN_KASIKIRJA_2026.md` §3 → public product pages.
+- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §3 → public product pages.
 
 ---
 

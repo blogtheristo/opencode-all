@@ -170,15 +170,15 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
 
   // RESEARCH BACKLOG: status='new' with no outbound — extract first so they don't show as OVERDUE.
   // Date asc (oldest first) → pipeline → tiebreaker.
-  const research_backlog = all
-    .filter(isResearchBacklog)
-    .sort((a, b) => {
-      const d = (a.next_action_date || '9999-12-31').localeCompare(b.next_action_date || '9999-12-31');
-      if (d !== 0) return d;
-      const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
-      if (p !== 0) return p;
-      return tiebreak(a, b);
-    });
+  const research_backlog = all.filter(isResearchBacklog).sort((a, b) => {
+    const d = (a.next_action_date || '9999-12-31').localeCompare(
+      b.next_action_date || '9999-12-31',
+    );
+    if (d !== 0) return d;
+    const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+    if (p !== 0) return p;
+    return tiebreak(a, b);
+  });
 
   // OVERDUE: date asc → pipeline → last_outbound_at asc → tiebreaker
   // Excludes research-backlog (uncontacted new threads) — those have their own bucket.
@@ -642,7 +642,25 @@ export async function sendDailyDigestEmail(): Promise<void> {
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
 
-  const { plainText, html } = await generateDailyDigest();
+  const { buckets, plainText, html } = await generateDailyDigest();
+
+  // Nothing live to report — don't send an empty digest every day. This is
+  // the same root cause as the CEO Cockpit's stalled sections: outreach_threads
+  // has had no new rows since 2026-03-29 (found during 2026-07-12 audit).
+  // Skip rather than pad the inbox with a repeated no-op email.
+  const isEmpty =
+    buckets.overdue.length === 0 &&
+    buckets.today.length === 0 &&
+    buckets.waiting.length === 0 &&
+    buckets.active_deals.length === 0 &&
+    buckets.upcoming.length === 0 &&
+    buckets.research_backlog.length === 0;
+  if (isEmpty) {
+    logger.info('Daily outreach digest: no active threads — skipping send', {
+      lastActivityHint: 'check outreach_threads for stale pipeline data',
+    });
+    return;
+  }
 
   const dateStr = new Date().toLocaleDateString('en-GB', {
     weekday: 'short',

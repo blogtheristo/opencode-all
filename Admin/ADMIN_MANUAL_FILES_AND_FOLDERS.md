@@ -1420,9 +1420,9 @@ from the canonical Markdown source. Two generators reuse the elegant 2024 Lifeti
 
 **Handbook:**
 
-- Source of truth: `docs/KONSULTIN_KASIKIRJA_2026.md`
+- Source of truth: `docs/KONSULTOINNIN_KASIKIRJA_2026.md`
 - Generator: `node scripts/gen-handbook-html.cjs`
-- Output: `docs/Konsultin_kasikirja_2026.html`
+- Output: `docs/Konsultoinnin_kasikirja_2026.html`
 - Run after every handbook edit; the script pulls the version from the Markdown `Version:` line.
 
 **Whitepapers** (`docs/whitepapers/`):
