@@ -10,7 +10,7 @@
 | Date           | 2026-07-17                                                   |
 | Author         | Lifetime Oy                                                  |
 | Owner          | risto-001                                                    |
-| Status         | **SENT 2026-07-17** — awaiting reply + photo                 |
+| Status         | **REPLIED 2026-07-17** — John will send the written confirmation; confirmation text + photo still pending |
 | Classification | Internal                                                     |
 | Branch         | claude/dl-18-7-delivery-7m1hnj                               |
 | Context        | EIC Accelerator Step 1 (Aug 4 batch) — team/partner evidence |
@@ -43,9 +43,23 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 
 ---
 
+## Reply — John Lovegin, 2026-07-17
+
+> Hey Risto,
+>
+> Thank you very much. I shall send the email over confirmation.
+>
+> ------------------------------
+> Regards,
+> Lovegin John.
+> Mobile : 91-9895522518
+
+**Read:** positive — agreed to send the written confirmation. The formal confirmation text + photo are the next artifacts to receive.
+
 ## Follow-up tracking
 
-- [ ] Reply received (written confirmation) — paste here when it arrives.
+- [x] Reply received 2026-07-17 — John agreed to send the written confirmation.
+- [ ] **Written confirmation email received** — paste verbatim here when it arrives (this is the citable artifact for the application).
 - [ ] Photo received (partnership deck slide).
 - [ ] **Ask (in reply thread / nudge): a group photo of the ~20-engineer delivery team** — visually substantiates the "standing bench of 20" claim on the deck. (Not in the original email; add when he replies.)
 - [ ] If no reply by ~2026-07-28, send a short polite nudge (deadline Aug 1).
