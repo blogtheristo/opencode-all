@@ -109,7 +109,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 3. **Outcome-priced metered SKUs** — e.g. compliance gap analysis €999–€2,499 per outcome.
 4. **Grant-enabled autonomous-action tier (new):** a premium mandate/transaction layer on top of Aegis; conformance certification for third-party agents; enterprise EUPL-core licences for copyleft-averse integrators (dual-licensing, CLA to Lifetime Oy).
 
-**Traction:** €7k MRR, 6 paying customers, zero churn; 12-month roadmap to €60k MRR. **Route to market:** upsell the existing Aegis base + NVIDIA/IBM/AWS channels + the open conformance layer as demand generator.
+**Traction:** €7k MRR, **0% churn across 6 paying customers since first paid deployment (Dec 2025)**; 12-month roadmap to €60k MRR. **Route to market:** upsell the existing Aegis base + NVIDIA/IBM/AWS channels + the open conformance layer as demand generator.
 
 ***
 
@@ -129,10 +129,10 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 **Founder-led, partner-delivered, agent-multiplied — a distributed delivery model, not solo-founder risk:**
 
 - **Risto Anton Päärni, Founder & CEO** — 35+ years ICT infrastructure; chief architect of the DWS IQ platform and the KYA trust engine; NVIDIA Connect, IBM Business Partner, AWS Advanced Consulting Partner relationships; doctoral candidate (LUT) on agentic commerce, KYA as trust primitive, and quantum-safe transaction primitives.
-- **Lifetime Certified Partners consortium — Cubet Techno Labs**, whose CEO **John Lovegin** joins as consortium delivery lead: a standing bench of around 20 engineers (AI/ML, data engineering, DevOps, GenAI architecture) able to commit FTEs and sustain cover with no key-person risk, ramping within 15 days — drawn from the partners' 100+ combined engineering capacity (Cubet ca. 70 + 9series 60+). An NDA between Lifetime Oy and Cubet is in force. Development under EU controls: no customer/registry data leaves EU/EEA; EU-based maintenance handover; core R&D and IP stay with Lifetime Oy in Finland. `[Source: bids/ORK160826/ORK160826_CUBET_KIRJEENVAIHTO.md. VERIFY before submit: short written note from Lovegin confirming the bench is available for the AEGIS/EIC project + photo consent. Title confirmed: CEO, Cubet.]`
+- **Lifetime Certified Partners consortium — Cubet Techno Labs**, whose CEO **John Lovegin** joins as consortium delivery lead: a standing bench of around 20 engineers (AI/ML, data engineering, DevOps, GenAI architecture) able to commit FTEs and sustain cover with no key-person risk, ramping within 15 days — drawn from the partners' 100+ combined engineering capacity (Cubet ca. 70 + 9series 60+). An NDA between Lifetime Oy and Cubet is in force. Development under EU controls: no customer/registry data leaves EU/EEA; EU-based maintenance handover; core R&D and IP stay with Lifetime Oy in Finland. `[Source: bids/ORK160826/ORK160826_CUBET_KIRJEENVAIHTO.md. VERIFY before submit: short email from Lovegin — "I confirm Cubet Techno Labs is engaged as a contracted delivery partner for Lifetime Oy's DWS IQ platform" — + one representative team/self photo (email suffices). Title confirmed: CEO, Cubet.]`
 - **AI agent fleet as operational multiplier** — 50 production agents run compliance, reporting, QA, and content ops; the company is the reference deployment of what it sells.
 - **Nordic expansion vehicle:** Lifetime AB (Sweden).
-- **Skills gaps, governance & investor traction (EIC criterion):** two competence gaps identified — applied cryptography (selective-disclosure / ZK) and conformance/certification — filled by grant-funded key hires; the hiring plan is committed to improving gender balance across the grant-funded hires and the advisory board. Early investor traction: SAFE round **in progress**; NVIDIA Connect / IBM / AWS partner relationships. Financing requirement exceeds what market actors can finance alone (see F12).
+- **Skills gaps, governance & investor traction (EIC criterion):** the team includes women and men across engineering, product, and operations roles. Two competence gaps identified — applied cryptography (selective-disclosure / ZK) and conformance/certification — filled by grant-funded key hires. Early investor traction: **€650K SAFE round in progress at a €3.8M cap, targeting EU/EEA-domiciled investors**; NVIDIA Connect / IBM / AWS partner relationships. Financing requirement exceeds what market actors can finance alone (see F12).
 
 ***
 
@@ -197,9 +197,10 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 ## Before Submit (founder review)
 
 - [ ] Confirm exact field labels/limits against downloaded Guide v6.0 template (DL 18.7).
-- [ ] SAFE-round phrasing "in progress", never "open SAFE round".
+- [x] SAFE wording confirmed: "€650K SAFE round in progress at a €3.8M cap, targeting EU/EEA-domiciled investors" (no named investors).
 - [ ] `/truth-check` on all public-facing claims.
-- [ ] Confirm the MRR window wording (e.g. "0% churn over N months").
+- [x] MRR/churn wording confirmed: "0% churn across 6 paying customers since first paid deployment (Dec 2025)".
+- [x] Gender-balance wording confirmed: "team includes women and men across engineering, product, and operations roles".
 - [ ] **Do not click Submit** until deck + video are uploaded and reviewed. **Operative deadline = the Aug 4 2026 batch** (Step 1 batches first Tuesday; submit by ~Aug 1). The 18 July milestone (download Guide v6.0 + template) is **done**.
 
 ***
