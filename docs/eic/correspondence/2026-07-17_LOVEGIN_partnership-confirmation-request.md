@@ -56,6 +56,30 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 
 **Read:** positive — agreed to send the written confirmation. The formal confirmation text + photo are the next artifacts to receive.
 
+## Follow-up letter (roles) — SENT 2026-07-17 (deck attached by Risto)
+
+**Subject:** Cubet's role in the EIC project — the delivery scope we're hoping for
+
+Hi John,
+
+Thank you — much appreciated. Ahead of your confirmation, here's the scope we're hoping Cubet takes in the EIC project, so it's concrete on both sides. I'm attaching our pitch deck for context.
+
+We'd like Cubet as our **EU-controlled delivery partner** on the non-core engineering:
+- **Pilot-deployment operations and customer onboarding** (our 6 existing + new pilots);
+- **Integration and system testing**;
+- **Developer tooling, documentation, and release support**.
+
+Roughly **2 dedicated engineers, ~15-day ramp**, at the offshore rates you quoted — with development under **EU controls** (customer/registry data stays in the EU/EEA), exactly the framing from our ORK collaboration.
+
+The **core trust engine (KYA identity/attestation) and IP stay with our EU team** for the regulatory and sovereignty reasons the grant requires — so Cubet's strength goes where it delivers most: getting the platform into customers' hands, fast and reliably.
+
+If that scope works for you, the short confirmation you mentioned is all we need for now; a Letter of Intent would come at the full-proposal stage.
+
+Warm regards,
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy
+risto.paarni2024@lifetime.fi · +358 400 319 010
+
 ## Follow-up tracking
 
 - [x] Reply received 2026-07-17 — John agreed to send the written confirmation.

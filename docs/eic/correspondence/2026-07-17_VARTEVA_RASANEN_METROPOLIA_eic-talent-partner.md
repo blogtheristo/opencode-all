@@ -9,14 +9,14 @@
 | Version | 1.0                                                          |
 | Date    | 2026-07-17                                                   |
 | Owner   | risto-001                                                    |
-| Status  | **DRAFT — for Risto to review & send**                       |
+| Status  | **SENT 2026-07-17** — awaiting reply                         |
 | Branch  | claude/dl-18-7-delivery-7m1hnj                               |
 | Context | EIC Accelerator — Metropolia as engineering-talent + teaching-validation partner (distinct from LUT/KTH research roles) |
 
 ***
 
 **From:** Risto Anton Päärni (risto.paarni2024@lifetime.fi)
-**To:** Jarno Varteva — jarno.varteva@metropolia.fi **· Cc:** Erkki Räsänen — erkki.rasanen@metropolia.fi
+**To:** Jarno Varteva — jarno.varteva@metropolia.fi **· Cc:** Erkki Räsänen — erkki.rasanen@metropolia.fi · Hanna Järvinen — hanna.jarvinen@metropolia.fi
 **Subject:** From the thesis to an EIC application — a role for Metropolia
 
 ---
