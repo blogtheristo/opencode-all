@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Added §23 (Correspondence Preservation) — codifies "always save letters": every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy must be saved to the repo as a dated markdown file (AS SENT, with From/To/Subject/date, VERSION AND AGENT HISTORY status, and a follow-up tracker) under a context-scoped `correspondence/` path. Sender identity + phone must match the CLAUDE.md Sender Identity Rule. Triggered by the EIC/Cubet partnership-confirmation email to John Lovegin (saved to `docs/eic/correspondence/`). Added §23 to the ToC.
 - Version: 2.5 | Tool: Claude Code | Session: claude/jasenko-hadzic-outreach-ici0e7 | Date: 12.07.2026 | Changes: Extended §20.6 scope to explicitly cover `investor-outreach/LETTER_*` files and cloud exports (Google Docs, Drive PDFs, Gamma decks) — version block goes at the end for these, not the first page. Added §20.7 (Cloud Export Cleanup — Always Link Superseded Files): when a connector like Google Drive lacks rename/delete/update-in-place and a correction requires a new file, the agent must always link every superseded file needing manual deletion, on every correction, not just the first. Triggered by repeated Google Drive exports of an investor outreach letter (Jasenko Hadzic / Spintop Ventures) creating duplicate untitled files with no cleanup pointer.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
@@ -38,7 +39,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 12.07.2026
+- Last Modified: 17.07.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -69,6 +70,7 @@ Document Status:
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
 21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
 22. [Whitepaper Standard](#22-whitepaper-standard) ⭐ NEW
+23. [Correspondence Preservation](#23-correspondence-preservation) ⭐ NEW
 
 ---
 
@@ -2635,3 +2637,36 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 - Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
 - Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
 - Versioning is lockstep with the header block (§2) and the top version line (§22.1) — bump both together.
+
+---
+
+## 23. Correspondence Preservation
+
+Every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy — partner, investor, customer, legal, regulatory, academic — **must be saved to the repo as a dated markdown file**. The sent artifact is institutional memory; a message living only in a mail client or chat scrollback is a lost artifact (Rule 12 — fail loud).
+
+### 23.1 What to save
+
+- Any first-person message sent on behalf of the company: emails, intro notes (`INTRO_*`), letters (`LETTER_*`), formal requests, confirmations, follow-ups.
+- Save the version **AS SENT** (final wording), not only the draft. If a reply arrives, append it to the same file.
+
+### 23.2 Where & naming
+
+- Path: a `correspondence/` folder scoped to the context — e.g. `docs/eic/correspondence/`, `investor-outreach/`, `partners-outreach/<partner>/`.
+- Filename: `YYYY-MM-DD_<RECIPIENT>_<slug>.md`.
+
+### 23.3 Required content
+
+- **VERSION AND AGENT HISTORY** block (§2) with `Status = SENT <date>` (or `DRAFT` / `REPLIED`).
+- Header lines: **From** (the correct sender address per the CLAUDE.md Sender Identity Rule), **To**, **Subject**, **Sent** date.
+- The **full body as sent**.
+- A **follow-up tracker** (reply received? attachments/photo? nudge date?).
+
+### 23.4 Sender identity
+
+- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales outreach -> `risto.paarni2024@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**.
+
+### 23.5 Governance
+
+- `/truth-check` external claims before send; apply the Brand Standard for voice.
+- **Never** save secrets, credentials, or live tokens in a letter file (Non-Negotiable Rule 1).
+- Enforcement: an important message that was sent but not saved is an institutional-memory loss — treat as a Rule 12 violation.
