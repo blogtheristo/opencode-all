@@ -67,6 +67,8 @@ DWS IQ already makes agents accountable, in production: (1) agent identity bindi
 - EU-only identity processing already contracted.
 - **Sovereign deployment (S2) — the platform's spine:** Aegis runs on the customer's own NVIDIA DGX (2×/4×); `deploy-dgx-spark.yml` auto-deploys on merge; self-hosted Supabase overlay authored so data never leaves the box; air-gap option (no public ingress); customer owns 100% of model weights. Full first-run hardware validation of the self-hosted stack is part of the funded hardening (TRL 6→7). Cloud (S1 — Scaleway/UpCloud + Aiven) and hybrid (S3) tiers run the same image.
 
+This comfortably **completes TRL 5** (validation in a relevant environment) — and beyond: the core capability runs **in production for paying customers**, i.e. validated in the real operational environment, not a lab.
+
 **Funded TRL 6→8 gap:** the standardized mandate credential + within-mandate selective-disclosure proof, a conformance/test suite, cross-border pilot validation, and certification-grade hardening.
 
 ***
@@ -128,6 +130,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 - **Lifetime Certified Partners consortium — Cubet Techno Labs**, whose CEO **John Lovegin** joins as consortium delivery lead: a standing bench of around 20 engineers (AI/ML, data engineering, DevOps, GenAI architecture) able to commit FTEs and sustain cover with no key-person risk, ramping within 15 days — drawn from the partners' 100+ combined engineering capacity (Cubet ca. 70 + 9series 60+). An NDA between Lifetime Oy and Cubet is in force. Development under EU controls: no customer/registry data leaves EU/EEA; EU-based maintenance handover; core R&D and IP stay with Lifetime Oy in Finland. `[Source: bids/ORK160826/ORK160826_CUBET_KIRJEENVAIHTO.md. VERIFY before submit: short written note from Lovegin confirming the bench is available for the AEGIS/EIC project + photo consent. Title confirmed: CEO, Cubet.]`
 - **AI agent fleet as operational multiplier** — 50 production agents run compliance, reporting, QA, and content ops; the company is the reference deployment of what it sells.
 - **Nordic expansion vehicle:** Lifetime AB (Sweden).
+- **Skills gaps, governance & investor traction (EIC criterion):** two competence gaps identified — applied cryptography (selective-disclosure / ZK) and conformance/certification — filled by grant-funded key hires; the hiring plan is committed to improving gender balance at core-team level. `[FOUNDER: confirm gender-balance wording + any named advisors/hires.]` Early investor traction: SAFE round **in progress**; NVIDIA Connect / IBM / AWS partner relationships. Financing requirement exceeds what market actors can finance alone (see F12).
 
 ***
 
