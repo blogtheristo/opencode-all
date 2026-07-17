@@ -1,13 +1,14 @@
 # Europe Fundraising Roadmap 2026–2027 — DWS IQ / Lifetime (Master Timeline)
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.4.1
 
 Sessions & Modifications:
 
+- Version: 1.4.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-nhsewr | Date: 16.07.2026 | Changes: Hotfix off v1.4 (numbered as a patch to avoid colliding with the pending v1.5 on `claude/europe-roadmap-agents-g9zs8a`). Founder flagged that NGI Sargasso was a 2024 programme; verified all its open calls closed in 2024 (OC4 1 Aug, OC5 25 Nov 2024). Marked the §3 deadline-table NGI Sargasso row CLOSED — it had read as the earliest live deadline / "file first" — pointing to `eu-nato-instruments-research-2026-07.md` v1.4. Eurostars Call 11 (10 Sep) is now the earliest live anchor; drafting kit added at `docs/lut/eurostars-call-11-proposal-kit-2026-07.md`. No other §3 rows changed.
 - Version: 1.4 | Tool: Claude Code | Session: claude/dach-france-anchors-caemw0 | Date: 15.07.2026 | Changes: DACH+France pack recovered (§0 row 1 → RECOVERED, points to `docs/lut/dach-france-anchors-research-2026-07.md`). §5 DACH+France section rewritten with per-anchor detail and two load-bearing corrections: FFG Industrienahe Dissertationen is not currently usable (2026 company-funding track exhausted + no Austrian establishment), and the Fraunhofer IAIS/BSI relationship is a strategic-cooperation agreement, not joint catalog authorship. §7 gaps closed (France €109B figure verified, FFG gate resolved) and new gaps added (AT legal-pillar anchor missing, FFG Niederlassung nuance, INESIA named lead). Merged onto main across the post-#1676 (EU/NATO), post-#1682 (FI/SE), and post-#1685 (delimiter fix) states so this stacks on every prior recovery instead of reverting any; kept the `***` header delimiters #1685 corrected.
 - Version: 1.3 | Tool: Claude Code | Session: claude/brave-curie-qii1fv | Date: 15.07.2026 | Changes: Merge reconciliation for PR #1685 (resolved add/add conflicts against `main` in favour of main's canonical v1.2). Fixed the VERSION AND AGENT HISTORY block delimiters from `---` to `***` per DWS_DOCUMENT_STANDARD §2.1 — the v1.2 entry below claimed this correction was folded in via Copilot autofix, but this file's own opening/closing delimiters were still `---` (the autofix reached other files, not this one). This is the same finding Copilot re-flagged on PR #1685 (threads on lines 3 / 25); now genuinely fixed.
 - Version: 1.2 | Tool: Claude Code | Session: claude/fi-se-funding-lanes-recovery-pbmlmg | Date: 15.07.2026 | Changes: Merged the FI/SE lane recovery (§0 row 4 → RECOVERED, §6 replaced with full lane detail from `docs/lut/fi-se-lanes-research-2026-07.md`) with the EU/NATO recovery (v1.1, landed independently on `main` via a PR from `claude/eu-nato-funding-recovery-lsogw2`) — both branches had independently added `docs/lut/fundraising-roadmap-2026-2027.md` and `scripts/claude-durability-checkpoint.sh`, producing add/add conflicts on merge; resolved by combining both change sets rather than picking one side. Also folded in GitHub Copilot autofix commits already applied directly on PR #1682 (`***` delimiter corrections, missing Document Status fields, `claude-durability-checkpoint.sh` hardening — `set -euo pipefail` + a `--quiet`-aware push retry that no longer swallows stderr on failure).
@@ -17,14 +18,14 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 13.07.2026
-- Last Modified: 15.07.2026
+- Last Modified: 16.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Master fundraising roadmap / instrument timeline
 
-***
+---
 
 ## 0. Recovery status — read first
 
@@ -80,7 +81,7 @@ Both gates are the founder's to open; nothing downstream unblocks until they do.
 
 | Deadline                      | Instrument                                                                                                                         | Amount / shape                                                                                                                           | Why it matters                                                                                                                        | Gate / prerequisite                                                                                                 |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| **1 Aug 2026**                | **NGI Sargasso cascade call**                                                                                                      | Equity-free FSTP funding + 9-month programme                                                                                             | Fastest deadline in the pack; GBER-exempt cascade money                                                                               | None — file first                                                                                                   |
+| ~~1 Aug 2026~~ **CLOSED**     | **NGI Sargasso — CLOSED (all calls ran in 2024)**                                                                                  | Not a live deadline — OC4 closed 1 Aug 2024, OC5 25 Nov 2024; the "2026" was a misdate                                                   | Withdrawn — file **AI4Gov-X (31 Aug)** instead; see pack §4 / v1.4                                                                    | n/a — closed                                                                                                        |
 | **31 Aug 2026**               | **AI4Gov-X cascade call** (first cut-off)                                                                                          | FSTP, rolling cut-offs through Feb 2027                                                                                                  | Low-effort parallel filing alongside Eurostars drafting                                                                               | None                                                                                                                |
 | **10 Sep 2026**               | **Eurostars Call 11** (open now)                                                                                                   | ~€1.5M project, **bilaterally co-funded per country** (no single EU-wide rate), SME-led, FI+SE                                           | **Best structural fit of everything found**                                                                                           | One independent partner + **Gate 1 decision** (FI-led after cure vs. SE-led via AB)                                 |
 | **29 Sep 2026**               | **European Defence Fund — SME research action**                                                                                    | Up to €4M/project, **100% funded**                                                                                                       | **Corrected from a prior "mid-2027" estimate — this deadline is live now**, per `docs/lut/eu-nato-instruments-research-2026-07.md` §6 | Founder resourcing call vs. Eurostars/Digital Europe drafting load; defence clearance/export-control scoping needed |

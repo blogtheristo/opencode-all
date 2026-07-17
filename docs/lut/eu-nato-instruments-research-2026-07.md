@@ -1,6 +1,6 @@
 # EU Commission + NATO DIANA Funding Instruments — Research Pack (Recovery Run)
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -8,6 +8,7 @@ Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-nhsewr | Date: 16.07.2026 | Changes: Founder-flagged correction — NGI Sargasso is NOT a live 2026 call. Its Horizon NGI open calls all ran in 2024 (OC3 closed 15 May, OC4 closed 1 Aug, OC5/final closed 25 Nov 2024; verified `ngisargasso.eu`); the v1.2/v1.3 "1 Aug 2026" deadline was a misdated OC4, and the §8 "file NGI Sargasso first" step is withdrawn. Updated the §4 inventory row + recommendation, the §8 ranking (Eurostars Call 11 is now the earliest live anchor and #1), and the §9 corrections note. Added a full Eurostars Call 11 drafting kit at `docs/lut/eurostars-call-11-proposal-kit-2026-07.md`. Flagged AI4Gov-X `(verify still open)` given the Sargasso miss — a reminder to re-check cascade calls at the primary source before relying on them.
 - Version: 1.3 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Audit of a converged, mostly-accurate v1.2-consistent third-party draft — confirmed Vinnova's Eurostars SME rate at 50% of eligible costs (30% large companies, 70% academia/public sector), closing the gap flagged in v1.1/v1.2. Confirmed the EIC STEP pre-commitment letter is on an official EC template with KYC-screened investor requirements; declined to repeat the draft's "non-binding" characterisation of that letter, which is unconfirmed and sits oddly against a hard eligibility gate. Left minor unverified additions (Digital Europe/Accelerator TRL 6-8 claims, "NGI Sargasso Call 5" naming, an EIC STEP "ownership control self-assessment" gate) unflagged in the body but noted here as not independently confirmed this session.
 - Version: 1.2 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Added new §3a — a third-party draft (again unverified, again proposing edits on the wrong branch) surfaced EIC STEP Scale-Up Defence as real; verified it independently (opened 1 Jul 2026, deadline 28 Oct 2026, €100M 2026 budget, €10-30M equity-only, 20%-lead-investor-pre-commitment gate, defence-tech scoped) and corrected the same draft's conflation of it with the standard EIC Accelerator (STEP Scale-Up tracks are separate, equity-only, later-stage instruments, not an "expanded €30M Accelerator"). Declined to accept the draft's unverified RQ2-anchor claim (Copenhagen Law "CIIR") or its proposed HTML dashboard, which encoded the same conflation as fact.
 - Version: 1.1 | Tool: Claude Code | Session: claude/eu-nato-funding-recovery-lsogw2 | Date: 14.07.2026 | Changes: Follow-up verification pass on a second-opinion review of v1.0 (a Gemini "integration" reply proposed unverified figures — reviewed critically per "surface conflicts, don't average them" rather than merged wholesale). Resolved the root cause of the original draft's €30M EIC equity claim: it belongs to the separate STEP Scale-Up scheme (€10-30M equity-only, later-stage), not the standard Accelerator route — added to §3 and §9. Confirmed EIC's 70% grant co-funding rate and re-verified Eurostars' national rate range (20-80%, no confirmed Swedish %) with primary/near-primary sources.
@@ -16,14 +17,14 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 14.07.2026
-- Last Modified: 14.07.2026
+- Last Modified: 16.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Funding-instrument research pack (recovery)
 
-***
+---
 
 ## 0. Who this is for (context carried from the roadmap)
 
@@ -272,15 +273,17 @@ currently-open inventory:
 
 | Call                                                                         | Deadline                                                                                                                                                                                                                                                                                                                                    | Amount                                                                                                                  | Fit                                                                                                           | GBER gate?                                                                                                               |
 | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **NGI Sargasso** (open call, transatlantic NGI trust/data-sovereignty track) | **1 Aug 2026** (verified, `ngisargasso.eu`/EC portal) — **18 days out from today, very tight**                                                                                                                                                                                                                                              | Equity-free cascade funding + capacity-building, 9-month programme (per-project cap not found this session, `(verify)`) | Trust/data-sovereignty framing fits DWS IQ's evidence-layer pitch                                             | No — FSTP cascade funding is structurally exempt from the GBER UiD test (confirmed pattern across cascade calls)         |
+| **NGI Sargasso** (open call, transatlantic NGI trust/data-sovereignty track) | **CLOSED — all NGI Sargasso calls ran in 2024** (OC4 closed 1 Aug 2024, OC5/final 25 Nov 2024; verified `ngisargasso.eu`). No 2026 call exists; the earlier "1 Aug 2026" was a misdated OC4                                                                                                                                                 | Equity-free cascade funding + capacity-building, 9-month programme (per-project cap not found this session, `(verify)`) | Trust/data-sovereignty framing fits DWS IQ's evidence-layer pitch                                             | No — FSTP cascade funding is structurally exempt from the GBER UiD test (confirmed pattern across cascade calls)         |
 | **AI4Gov-X Cascade Funding Call** (AI4Gov-X-FSTP-CALL-01-2026)               | Rolling cut-offs **31 Aug, 31 Oct, 31 Dec 2026, 28 Feb 2027** (verified, `subsdy.com`/GoodGrants)                                                                                                                                                                                                                                           | Not confirmed this session `(verify)`                                                                                   | AI-for-governance framing — plausible compliance-adjacent fit, needs the actual scope read before committing  | No (FSTP)                                                                                                                |
 | **EUDIS Cascade Funding** (EU Defence Innovation Scheme)                     | Rotates by track; **EDF 2026 calls generally close 29 Sep 2026** (see §6) — treat as the anchor date for the current EUDIS/EDF cycle `(verify EUDIS's own cascade-specific sub-deadline, which can differ from the main EDF call)`                                                                                                          | Varies by call                                                                                                          | Direct dual-use/defence framing for Aegis — better thematic fit than the generic AI/cyber cascade calls above | No (FSTP), but the parent EDF programme's own SME calls (§6) are not exempt in the same way — verify which layer applies |
 | "SecurIT Open Call 3" (as named in the Gemini draft)                         | **Not confirmed as currently live** — the SecurIT project traces to an older (2023-era) H2020 cybersecurity cascade programme; the live 2026 cybersecurity cascade calls found this session are instead **SECURE** (first call closed 29 Mar 2026) and **CYSSDE Open Call 3** (closed 28 Apr 2026) — both **already closed** by 14 Jul 2026 | —                                                                                                                       | —                                                                                                             | —                                                                                                                        |
 | "AI-Redio Cascade Call" (as named in the Gemini draft)                       | **Not found** in this session's search — likely a hallucinated or long-superseded call name                                                                                                                                                                                                                                                 | —                                                                                                                       | —                                                                                                             | —                                                                                                                        |
 
-- **Recommendation:** File **NGI Sargasso now** given the 1 Aug 2026 deadline — it is the
-  fastest-turnaround, GBER-exempt option found and the deadline is inside three weeks.
-  Track **AI4Gov-X** for the 31 Aug cut-off as a second low-effort filing. Treat the EUDIS
+- **Recommendation (corrected v1.4):** NGI Sargasso is **closed** — all its calls ran in 2024,
+  so it is **withdrawn** as the fast-first option. The earliest live cascade filing is now
+  **AI4Gov-X** at the 31 Aug cut-off `(verify still open at the primary source before relying on
+it — the Sargasso miss is the cautionary example)`, run as a low-effort parallel to the
+  Eurostars Call 11 anchor (§1, 10 Sep). Treat the EUDIS
   cascade track as the entry point for a future Aegis-specific cascade filing once the main
   EDF SME calls (§6) are scoped, rather than filing on the stale SecurIT/AI-Redio names from
   the draft.
@@ -414,28 +417,28 @@ Ordered by a combination of deadline proximity, GBER gate status, and effort-to-
 not by fit score alone, since a 9/10-fit instrument that's blocked on Gate 1 is worth less
 near-term than a 7/10-fit instrument that's filable today.
 
-1. **NGI Sargasso (cascade/FSTP)** — deadline **1 Aug 2026**, 18 days out, GBER-exempt, low
-   effort (~20–30h). File first simply because the clock is shortest.
-2. **Eurostars Call 11, SE-led via Lifetime AB** — deadline **10 Sep 2026**, GBER-exempt
-   route confirmed, ~€440k Vinnova cap, best structural fit (9/10). Start consortium lock-in
-   this week — 9-week runway from 14 Jul.
-3. **AI4Gov-X cascade call** — first cut-off **31 Aug 2026**, GBER-exempt, low effort; run in
-   parallel with Eurostars drafting since it's a lighter lift.
-4. **European Defence Fund SME research action** — deadline **29 Sep 2026** (corrected from
+1. **Eurostars Call 11, SE-led via Lifetime AB** — deadline **10 Sep 2026**, GBER-exempt
+   route confirmed, ~€440k Vinnova cap, best structural fit (9/10). **Now the earliest live
+   anchor** — NGI Sargasso, previously listed first, is closed (all its calls ran in 2024).
+   Start consortium lock-in this week; full drafting kit at
+   `docs/lut/eurostars-call-11-proposal-kit-2026-07.md`.
+2. **AI4Gov-X cascade call** — first cut-off **31 Aug 2026** `(verify still open)`, GBER-exempt,
+   low effort; run in parallel with Eurostars drafting as a lighter lift.
+3. **European Defence Fund SME research action** — deadline **29 Sep 2026** (corrected from
    the draft's "mid-2027"). Only pursue if a founder resourcing decision confirms bandwidth
    exists alongside Eurostars/Digital Europe in the same window; otherwise explicitly defer to
    the EDF 2027 work programme and say so rather than silently dropping it.
-5. **Digital Europe DIGITAL-2026-AI-DATA-10-COMPLIANCE** — deadline **1 Oct 2026**, highly
+4. **Digital Europe DIGITAL-2026-AI-DATA-10-COMPLIANCE** — deadline **1 Oct 2026**, highly
    selective (2 grants/€8.5M EU-wide); needs an academic coordinator secured well before
    filing.
-6. **EIC Accelerator dual-use window** — Stage 1 short proposal can be submitted any time
+5. **EIC Accelerator dual-use window** — Stage 1 short proposal can be submitted any time
    before the window's **28 Oct 2026** close; start Stage 1 in parallel with the above, since
    its ~4-week turnaround and independent track don't compete for the same drafting cycle.
-7. **NATO DIANA pre-engagement** — no application to file until **~June/July 2027** (2028
+6. **NATO DIANA pre-engagement** — no application to file until **~June/July 2027** (2028
    cohort), but start **VTT Otaniemi and LEAD Linköping relationship-building this autumn**
    (Sep–Oct 2026) regardless, since test-centre access is decoupled from the challenge-call
    calendar.
-8. **Horizon Europe Cluster 4** — no near-term deadline pressure; feed topic selection to the
+7. **Horizon Europe Cluster 4** — no near-term deadline pressure; feed topic selection to the
    academic anchors (Fraunhofer IAIS, SINTEF, TU Wien) as their consortium play, not a DWS-led
    filing.
 
@@ -448,7 +451,7 @@ near-term than a 7/10-fit instrument that's filable today.
 | EIC equity up to €30M                                                                                       | Actual EIC Fund equity ceiling is **€10M** (minority stake ≤25%)                                                                                                                                                                                                                                               | EIC 2026 Work Programme coverage, EIC FAQ                                     |
 | Digital Europe: €2.0–3.0M/project, 50%/100% split                                                           | Actual: **€8.5M total / 2 grants** (~€4.25M avg); DEP standard rate 50%, **SME rate 75%**                                                                                                                                                                                                                      | `topictree.ideal-ist.eu`, DEP funding-mechanism guides                        |
 | EDF deadline "mid-May 2027 (expected)"                                                                      | EDF 2026 work programme **closes 29 Sep 2026** — live now, not next year                                                                                                                                                                                                                                       | `zabala.eu`, `hezelburcht.com`, `ffg.at`                                      |
-| "SecurIT Open Call 3" and "AI-Redio Cascade Call" as open calls                                             | Not found as currently live; SecurIT traces to a 2023-era H2020 programme. Live substitutes: **NGI Sargasso** (1 Aug 2026), **AI4Gov-X** (rolling cut-offs), **EUDIS cascade**                                                                                                                                 | `cascadefunding.eu`/`subsdy.com`/`ngisargasso.eu` search                      |
+| "SecurIT Open Call 3" and "AI-Redio Cascade Call" as open calls                                             | Not found as currently live; SecurIT traces to a 2023-era H2020 programme. Live substitutes: **AI4Gov-X** (rolling cut-offs, `(verify still open)`) and **EUDIS cascade**. NGI Sargasso, cited here in v1.3, is itself **closed** — all its calls ran in 2024; corrected in v1.4                               | `cascadefunding.eu`/`subsdy.com`/`ngisargasso.eu` search                      |
 | NATO DIANA "3 Jul 2026 call missed... next cycle ~mid-2027"                                                 | 3 Jul 2026 **was** the standing annual call (for the 2027 cohort); next entry point is the **~June/July 2027 call for the 2028 cohort** — same practical conclusion, corrected mechanism                                                                                                                       | `diana.nato.int/faq`, `iuk-business-connect.org.uk`                           |
 | Eurostars "50% funding rate" as a single EU-wide figure                                                     | Eurostars is **bilaterally co-funded per country**, roughly 20–80% of eligible costs depending on country; no confirmed Swedish (Vinnova) percentage exists — Vinnova publishes a **SEK cap**, not a rate                                                                                                      | `eurostars.eureka.eu`, `vinnova.se`                                           |
 | EIC dual-use equity €30M (root cause, resolved this session)                                                | €30M is real but belongs to a **separate, later-stage scheme — STEP Scale-Up** (€10M–€30M equity-only, no grant, targets companies already scaling into €50–150M+ rounds), not the standard €2.5M-grant/€10M-equity Accelerator route; draft conflated the two instruments                                     | `eic.ec.europa.eu/step-scale`, `eura-ag.com`                                  |

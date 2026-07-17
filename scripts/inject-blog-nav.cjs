@@ -229,6 +229,12 @@ const posts = [
       'NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking.',
     date: '10 Jul 2026',
   },
+  {
+    file: 'ai-supercomputing-meets-eda-sovereign-design.html',
+    title:
+      'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
+    date: '17 Jul 2026',
+  },
 ];
 
 // Three featured products
