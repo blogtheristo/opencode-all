@@ -36,7 +36,7 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 - **DWS IQ Aegis** — a live EU-sovereign platform; **50 production agents**, 25 regulated verticals.
 - Runs on the **customer's own NVIDIA DGX (S2)** — inference, data, model weights **never leave the building**. Sovereignty by physics, not policy.
 - **KYA engine in production:** agent identity, live trust score, TC-4 "Leash Snap" revocation, Article-12 append-only audit.
-- Proof: **6 paying customers, €7k MRR, 0% churn since Dec 2025.**
+- Proof: **6 paying customers, €7k MRR, 100% retention since first paid deployment (Dec 2025).**
 
 ### Slide 4 — The innovation we're asking EIC to fund
 - From agents that **gate actions** → agents that **act and transact under mandate**: a signed **mandate credential** (caps, scope, validity) + a **selective-disclosure proof** ("within mandate" without revealing mandate or principal).
@@ -55,7 +55,7 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 
 ### Slide 7 — Business model & traction
 - Aegis **€59,990** one-time + subscriptions (€499–€2,999/mo) + outcome-priced SKUs + **grant-enabled autonomous-action tier**.
-- **€7k MRR, 0% churn (6 customers), roadmap to €60k MRR.**
+- **€7k MRR, 100% retention (6 customers), roadmap to €60k MRR.**
 - Every conformant third-party agent becomes a channel, not a competitor.
 
 ### Slide 8 — Competition & the sovereignty wedge
@@ -94,10 +94,10 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 "It runs on the customer's **own NVIDIA DGX** — data and model weights never leave the building. Sovereignty by physics, not policy." `[SHOT: S2 architecture — DGX, air-gap]`
 "Watch the trust layer: every agent has an identity and a live trust score. Here I revoke its authority instantly — the Leash Snap." `[SHOT: trust score, revoke]`
 "And every action writes an append-only, EU AI Act Article-12 audit trail you can reconstruct." `[SHOT: Article-12 log]`
-"What we're asking the EIC to fund is the next step: letting these agents *transact* under a **signed, revocable mandate** — with a **Sovereignty Attestation** that cryptographically proves the jurisdiction, data-residency and air-gap of every action. That makes EU AI Act compliance machine-verifiable — the thing no one else has." `[SHOT: mandate + attestation animation]`
+"What we're asking the EIC to fund is the next step: letting these agents *transact* under a **signed, revocable mandate** — with a **Sovereignty Attestation** that cryptographically proves the jurisdiction, data-residency and air-gap of **every single action**. `[SLOW DOWN through this paragraph — it's the core innovation; brief pause before the next sentence]` In plain terms: the agent can **prove — not just claim** — that it stayed within its mandate, and inside Europe. *(pause)* That makes EU AI Act compliance **machine-verifiable** across cloud, edge, and air-gapped deployments. No one else has this." `[SHOT: mandate + attestation animation]`
 
 **[2:00–2:40 · WHY US / WHY NOW — to camera]**
-"Why now: the AI Act lands in 2027, exactly as Europe stands up its own rails — the EUDI Wallet and the digital euro. Agents transacting on EU rails will need an EU-sovereign trust layer, and US card-rail answers simply can't plug in. Why us: we're the only European platform where agent identity, revocable authority and Article-12 audit already run in production — six paying customers, zero churn — delivered with our partner Cubet's engineering bench."
+"Why now: the AI Act lands in 2027, exactly as Europe stands up its own rails — the EUDI Wallet and the digital euro. Agents transacting on EU rails will need an EU-sovereign trust layer, and US card-rail answers simply can't plug in. Why us: we're the only European platform where agent identity, revocable authority and Article-12 audit already run in production — six paying customers, 100% retention since first paid deployment — delivered with our partner Cubet's engineering bench."
 
 **[2:40–3:00 · ASK — to camera]**
 "We're asking for a €2.5 million EIC grant to take this from production to a certified European standard for agents that transact. The technology runs today. The traction is real and paying. And the regulation that makes it mandatory has a date. Let's build the European answer — before the default is set somewhere else. Thank you."
@@ -106,8 +106,9 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 
 ### Production notes
 - Keep to-camera segments tight; the DGX + trust-score + Article-12 captures are the credibility. Record captures at ≥1080p.
-- On-screen lower-thirds: name/title once; key numbers (€7k MRR, 0% churn, TRL 6→8) as captions.
+- On-screen lower-thirds: name/title once; key numbers (€7k MRR, 100% retention, TRL 6→8) as captions.
 - No unverifiable claims; every figure matches the fill packet.
+- **Delivery — the Sovereignty Attestation paragraph [~1:45] is the densest, most important part.** Slow down noticeably; take a beat before "That makes EU AI Act compliance machine-verifiable" so it lands. This is the core innovation the evaluators must hear clearly.
 - Optional still: John Lovegin, CEO Cubet (with consent) on a "delivered with" frame — factual, no endorsement quote.
 
 ***

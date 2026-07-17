@@ -42,7 +42,7 @@ sovereign AI agents; agentic compliance; DWS IQ; agent identity & mandate; revoc
 
 ## F4 — Abstract / summary of the innovation
 
-DWS IQ is a live, EU-sovereign platform where a fleet of 50 production AI agents does compliance, reporting and operations for regulated European industry. Its flagship, **DWS IQ Aegis (€59,990)**, runs on the customer's own **NVIDIA DGX (2×/4×)** — an on-premise "S2" deployment where inference, data and model weights never leave the building: **sovereignty guaranteed by physics, not policy**, and physically free of the US CLOUD Act. A cloud tier (S1 — EU-sovereign Scaleway/UpCloud + Aiven) and a hybrid tier (S3) run the same agent brain by sovereignty posture. 6 paying customers, €7k MRR, zero churn. Today those agents *analyse and report*. The funded leap — the frontier for regulated Europe — is agents that *act and transact* (file declarations, post journal entries, trigger payments) under authority that is bounded, revocable and fully audited, **on this sovereign substrate**. No US-custodial answer (Coinbase x402, Google AP2, Stripe agent toolkit) can run inside the customer's building or settle on emerging EU rails. This project takes the capability from **TRL 6–7 to TRL 8**: the trust-and-mandate layer (our production KYA engine + a standardized mandate credential and selective-disclosure proof), certification-grade hardening, and cross-border pilots — before the AI Act's high-risk obligations begin in August 2027.
+DWS IQ is a live, EU-sovereign platform where a fleet of 50 production AI agents does compliance, reporting and operations for regulated European industry. Its flagship, **DWS IQ Aegis (€59,990)**, runs on the customer's own **NVIDIA DGX (2×/4×)** — an on-premise "S2" deployment where inference, data and model weights never leave the building: **sovereignty guaranteed by physics, not policy**, and physically free of the US CLOUD Act. A cloud tier (S1 — EU-sovereign Scaleway/UpCloud + Aiven) and a hybrid tier (S3) run the same agent brain by sovereignty posture. 6 paying customers, €7k MRR, 100% retention since first paid deployment. Today those agents *analyse and report*. The funded leap — the frontier for regulated Europe — is agents that *act and transact* (file declarations, post journal entries, trigger payments) under authority that is bounded, revocable and fully audited, **on this sovereign substrate**. No US-custodial answer (Coinbase x402, Google AP2, Stripe agent toolkit) can run inside the customer's building or settle on emerging EU rails. This project takes the capability from **TRL 6–7 to TRL 8**: the trust-and-mandate layer (our production KYA engine + a standardized mandate credential and selective-disclosure proof), certification-grade hardening, and cross-border pilots — before the AI Act's high-risk obligations begin in August 2027.
 
 ***
 
@@ -109,7 +109,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 3. **Outcome-priced metered SKUs** — e.g. compliance gap analysis €999–€2,499 per outcome.
 4. **Grant-enabled autonomous-action tier (new):** a premium mandate/transaction layer on top of Aegis; conformance certification for third-party agents; enterprise EUPL-core licences for copyleft-averse integrators (dual-licensing, CLA to Lifetime Oy).
 
-**Traction:** €7k MRR, **0% churn across 6 paying customers since first paid deployment (Dec 2025)**; 12-month roadmap to €60k MRR. **Route to market:** upsell the existing Aegis base + NVIDIA/IBM/AWS channels + the open conformance layer as demand generator.
+**Traction:** €7k MRR, **100% retention across 6 paying customers since first paid deployment (Dec 2025)**; 12-month roadmap to €60k MRR. **Route to market:** upsell the existing Aegis base + NVIDIA/IBM/AWS channels + the open conformance layer as demand generator.
 
 ***
 
@@ -200,7 +200,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 - [ ] Confirm exact field labels/limits against downloaded Guide v6.0 template (DL 18.7).
 - [x] SAFE wording confirmed: "€650K SAFE round in progress at a €3.8M cap, targeting EU/EEA-domiciled investors" (no named investors).
 - [ ] `/truth-check` on all public-facing claims.
-- [x] MRR/churn wording confirmed: "0% churn across 6 paying customers since first paid deployment (Dec 2025)".
+- [x] Retention wording confirmed: "100% retention across 6 paying customers since first paid deployment (Dec 2025)" — no bare "zero churn" (avoids time-window ambiguity).
 - [x] Gender-balance wording confirmed: "team includes women and men across engineering, product, and operations roles".
 - [ ] **Do not click Submit** until deck + video are uploaded and reviewed. **Operative deadline = the Aug 4 2026 batch** (Step 1 batches first Tuesday; submit by ~Aug 1). The 18 July milestone (download Guide v6.0 + template) is **done**.
 
