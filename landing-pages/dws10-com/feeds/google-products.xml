@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-07-04T00:48:17.813Z</lastBuildDate>
+    <lastBuildDate>2026-07-17T03:52:09.488Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -129,7 +129,7 @@
     <item>
         <g:id>consulting-hourly</g:id>
         <g:title>Senior Compliance Specialist — Retainer + Outcomes</g:title>
-        <g:description>Three-pillar consulting: (1) capability training on 80+ agent capabilities across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.</g:description>
+        <g:description>Three-pillar consulting: (1) capability training on the full agent-capability library across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.</g:description>
         <g:link>https://dws10.com/products/consulting.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>250.00 EUR</g:price>
@@ -283,7 +283,7 @@
     <item>
         <g:id>firehorse-coach</g:id>
         <g:title>EU AI Act Literacy Training</g:title>
-        <g:description>Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on 80+ agent capabilities across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.</g:description>
+        <g:description>Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on the full agent-capability library across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.</g:description>
         <g:link>https://dws10.com/buy/page3/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>499.00 EUR</g:price>
@@ -420,7 +420,7 @@
     <item>
         <g:id>cloud-ready-teams</g:id>
         <g:title>EU On-Demand AI &amp; Cloud Engineers (Sovereign)</g:title>
-        <g:description>Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by 80+ agent capabilities — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.</g:description>
+        <g:description>Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by the full agent-capability library — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.</g:description>
         <g:link>https://dws10.com/buy/page4/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>950.00 EUR</g:price>
@@ -541,7 +541,7 @@
     <item>
         <g:id>edge-node-gn100</g:id>
         <g:title>Control Room — Acer Veriton GN100 + NVIDIA Model Install</g:title>
-        <g:description>When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can&apos;t wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+        <g:description>When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can&apos;t wait for a cloud round-trip. This is Plant Capital in the 4P sense: intelligence that operates inside your own building, not SaaS you log into — the sovereign edge half of the two-room Control Room + Situation Room stack. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>5294.00 EUR</g:price>
@@ -559,7 +559,7 @@
     <item>
         <g:id>LF-SITROOM-001</g:id>
         <g:title>Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle</g:title>
-        <g:description>When one node isn&apos;t enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+        <g:description>When one node isn&apos;t enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Together with the Control Room it forms the two-room stack that carries your Plant Capital — intelligence that operates, not SaaS you rent. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/situation-room.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>10093.00 EUR</g:price>
@@ -569,6 +569,24 @@
         <g:mpn>LF-SITROOM-GN100-2026</g:mpn>
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-COMPLIANCE-AMBULANCE-001</g:id>
+        <g:title>DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)</g:title>
+        <g:description>DWS IQ Mobile Office — the &quot;Compliance Ambulance&quot;. Brings sovereign Control Room / Situation Room capability to the site or to the patient on a vehicle platform. Because it runs on vehicle power, energy consumption is the governing design constraint: built on NVIDIA Blackwell-generation Thor edge (Jetson Thor / IGX Thor) for up to 3.5× better energy efficiency than the previous Orin generation, configurable 40–130 W. Medical and regulated deployments use IGX Thor with hardware functional safety (ISO 26262 / IEC 61508) and 10-year enterprise support. Built to spec per industry — construction (NCC), steel (Outokumpu), health care (HUS). Operated by Lifetime Fleet. Finnish / EU B2B (VAT 0% reverse charge). Price on application.</g:description>
+        <g:link>https://dws10.com/products/dws-iq-compliance-ambulance.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>preorder</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>NVIDIA</g:brand>
+        <g:mpn>LF-CMPL-AMBULANCE-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Vehicles &amp; Parts &gt; Vehicles</g:google_product_category>
         <g:custom_label_0>hardware</g:custom_label_0>
         <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
@@ -631,7 +649,7 @@
         <g:description>NVIDIA&apos;s own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.</g:description>
         <g:link>https://dws10.com/products/dgx-spark.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>5994.00 EUR</g:price>
+        <g:price>6694.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>NVIDIA</g:brand>
@@ -715,7 +733,7 @@
     <item>
         <g:id>DWS-US-STARTER</g:id>
         <g:title>DWS IQ — US Cloud Starter</g:title>
-        <g:description>Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.</g:description>
+        <g:description>Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). Compliance, Report &amp; Discovery agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>299.00 EUR</g:price>
@@ -732,7 +750,7 @@
     <item>
         <g:id>DWS-US-PILOT</g:id>
         <g:title>DWS IQ — US Cloud Pilot</g:title>
-        <g:description>4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.</g:description>
+        <g:description>4-week evaluation with real data on US Cloud. Full Firehorse agent suite, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>799.00 EUR</g:price>
@@ -749,7 +767,7 @@
     <item>
         <g:id>DWS-EU-STARTER</g:id>
         <g:title>DWS IQ — EU Sovereign Starter</g:title>
-        <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
+        <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report &amp; Discovery agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>499.00 EUR</g:price>
@@ -767,7 +785,7 @@
     <item>
         <g:id>DWS-EU-PILOT</g:id>
         <g:title>DWS IQ — EU Sovereign Pilot</g:title>
-        <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
+        <g:description>Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>1499.00 EUR</g:price>
@@ -803,7 +821,7 @@
     <item>
         <g:id>DWS-AEGIS-001</g:id>
         <g:title>DWS IQ Aegis</g:title>
-        <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 18 AI agents across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.</g:description>
+        <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.</g:description>
         <g:link>https://dws10.com/products/aegis.html</g:link>
         <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
         <g:price>59990.00 EUR</g:price>
@@ -1957,6 +1975,24 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
         <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-IQ-FREE-2026</g:id>
+        <g:title>DWS IQ Free — 1 project, CSRD-ready</g:title>
+        <g:description>Start your first CSRD project free. 1 active project, up to 50 ESG line items, 1 seat — audit-defensible output, EU-sovereign hosting, no credit card. Upgrade when you hit the cap or invite a teammate. Built for Sustainability Directors who need to start before the EU CSRD deadline.</g:description>
+        <g:link>https://dws10.com/products/dwsiq-free.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DWSIQ-FREE-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
