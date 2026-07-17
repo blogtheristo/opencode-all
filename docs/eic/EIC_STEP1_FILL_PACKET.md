@@ -83,6 +83,8 @@ The defensible IP is the trust-and-mandate technology inside DWS IQ: the **signe
 
 DWS IQ sells today into EU enterprises in regulated industries (energy, manufacturing, construction, logistics, finance, healthcare — 25 verticals mapped) that must file under ETS/CBAM/CSRD and increasingly want to automate it. Their compliance functions ask three questions of any agent that would act for them: *who is it, what may it do, and can we prove it?* From August 2027, for high-risk systems, wrong answers are enforceable violations (AI Act penalties up to 7% of global turnover).
 
+**Total market (Impact criterion):** the adjacent carbon/compliance-software market alone is ~$24.3B (2025) growing to ~$191.2B by 2035 (22.9% CAGR); on top sits a new agentic-AI trust/action category. **Realistic share:** near-term SOM is the EU regulated-industry mid-market/enterprise base we already sell into; a modest low-single-digit % of the EU serviceable market over the grant horizon. `[Full TAM/SAM/SOM breakdown → Step 2.]`
+
 **Primary market:** the regulated-industry mid-market/enterprise DWS IQ already serves (Finland live, Sweden via Lifetime AB). **Secondary:** agent-platform vendors and integrators who need a trusted action layer; payment institutions adding agent-initiated transactions.
 
 **Beachhead → expansion:** upsell mandate-based autonomous action into the existing Aegis customer base, then expand along NVIDIA/IBM/AWS partner channels. The live product is the wedge; the open conformance layer creates the category around it.
@@ -113,7 +115,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 
 ## F10 — Broad impact
 
-- **EU strategic autonomy.** Agent-transaction infrastructure is being defined now, by US platforms, on US rails, under US jurisdiction. DWS IQ is the European alternative in production: sovereign, GDPR-native, eIDAS-2.0-aligned, CLOUD-Act-free — with an on-premise S2 Sovereign-DGX option and readiness for EU-native rails (EUDI Wallet, Digital Euro) so the entire identity→action→settlement chain can stay inside the EU.
+- **EU strategic autonomy.** Agent-transaction infrastructure is being defined now, by US platforms, on US rails, under US jurisdiction. DWS IQ is the European alternative in production: sovereign, GDPR-native, eIDAS-2.0-aligned, CLOUD-Act-free — **directly reducing the Union's strategic dependency on US-jurisdiction AI and payment infrastructure** — with an on-premise S2 Sovereign-DGX option and readiness for EU-native rails (EUDI Wallet, Digital Euro) so the entire identity→action→settlement chain can stay inside the EU.
 - **AI Act implementation.** DWS IQ operationalizes Articles 12 (records), 14 (human oversight — the mandate/revocation primitive *is* oversight), and 72 (post-market monitoring) for agentic systems — something regulators and notified bodies can certify against.
 - **Ecosystem creation.** Open conformance interface (CC-BY 4.0) + Apache-2.0 SDKs let EU startups and integrators build on the trusted action layer; EUPL-1.2 on the core keeps improvements European and open.
 - **Jobs & growth.** Nordic-first scale-up (FI+SE), partner-network delivery, targeted Finnish headcount for certification, standards governance, and enterprise support.
@@ -130,7 +132,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 - **Lifetime Certified Partners consortium — Cubet Techno Labs**, whose CEO **John Lovegin** joins as consortium delivery lead: a standing bench of around 20 engineers (AI/ML, data engineering, DevOps, GenAI architecture) able to commit FTEs and sustain cover with no key-person risk, ramping within 15 days — drawn from the partners' 100+ combined engineering capacity (Cubet ca. 70 + 9series 60+). An NDA between Lifetime Oy and Cubet is in force. Development under EU controls: no customer/registry data leaves EU/EEA; EU-based maintenance handover; core R&D and IP stay with Lifetime Oy in Finland. `[Source: bids/ORK160826/ORK160826_CUBET_KIRJEENVAIHTO.md. VERIFY before submit: short written note from Lovegin confirming the bench is available for the AEGIS/EIC project + photo consent. Title confirmed: CEO, Cubet.]`
 - **AI agent fleet as operational multiplier** — 50 production agents run compliance, reporting, QA, and content ops; the company is the reference deployment of what it sells.
 - **Nordic expansion vehicle:** Lifetime AB (Sweden).
-- **Skills gaps, governance & investor traction (EIC criterion):** two competence gaps identified — applied cryptography (selective-disclosure / ZK) and conformance/certification — filled by grant-funded key hires; the hiring plan is committed to improving gender balance at core-team level. `[FOUNDER: confirm gender-balance wording + any named advisors/hires.]` Early investor traction: SAFE round **in progress**; NVIDIA Connect / IBM / AWS partner relationships. Financing requirement exceeds what market actors can finance alone (see F12).
+- **Skills gaps, governance & investor traction (EIC criterion):** two competence gaps identified — applied cryptography (selective-disclosure / ZK) and conformance/certification — filled by grant-funded key hires; the hiring plan is committed to improving gender balance across the grant-funded hires and the advisory board. Early investor traction: SAFE round **in progress**; NVIDIA Connect / IBM / AWS partner relationships. Financing requirement exceeds what market actors can finance alone (see F12).
 
 ***
 
@@ -181,6 +183,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 | Target TRL (end of project)     | 8                                                            |
 | Project duration                | 24 months                                                    |
 | Innovation activities           | TRL 6–8 (EIC Accelerator scope)                              |
+| **Part A dual-use tick box**    | **NO — civil-only** (founder decision 2026-07-17; revisit if a defence buyer/LOI appears) |
 
 ***
 
@@ -197,7 +200,7 @@ Emerging agent-payment/identity players: **Coinbase x402** (crypto-rail, custodi
 - [ ] SAFE-round phrasing "in progress", never "open SAFE round".
 - [ ] `/truth-check` on all public-facing claims.
 - [ ] Confirm the MRR window wording (e.g. "0% churn over N months").
-- [ ] **Do not click Submit** until deck + video are uploaded and reviewed. Target batch: **Aug 4 2026** (submit by ~Aug 1).
+- [ ] **Do not click Submit** until deck + video are uploaded and reviewed. **Operative deadline = the Aug 4 2026 batch** (Step 1 batches first Tuesday; submit by ~Aug 1). The 18 July milestone (download Guide v6.0 + template) is **done**.
 
 ***
 
