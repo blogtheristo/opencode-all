@@ -137,7 +137,7 @@ Every EU enterprise deploying AI agents in a regulated process faces three quest
 **Founder-led, partner-delivered, agent-multiplied — a distributed delivery model, not solo-founder risk:**
 
 - **Risto Anton Päärni, Founder & CEO** — 35+ years ICT infrastructure; chief architect of the DWS IQ platform and the KYA framework; NVIDIA Connect, IBM Business Partner, AWS Advanced Consulting Partner relationships; doctoral candidate (LUT) on agentic commerce, KYA as trust primitive, and quantum-safe transaction primitives.
-- **Lifetime Certified Partners consortium — 100+ engineers across two contracted partners** (NDA'd, live in a public-sector bid): Cubet Techno Labs (ca. 70 engineers) and 9series Solutions (60+ developers). Development under EU controls: no customer/registry data leaves EU/EEA; EU-based maintenance handover; core R&D and IP stay with Lifetime Oy in Finland.
+- **Lifetime Certified Partners consortium — a dedicated delivery team of 20 engineers committed by Cubet Techno Labs**, whose CEO **John Lovegin** joins the KYA-2 programme as consortium delivery lead. The 20 dedicated engineers are ring-fenced from the partners' 100+ combined engineering capacity (Cubet ca. 70 + 9series 60+; NDA'd, actively delivering in a live public-sector bid). Development under EU controls: no customer/registry data leaves EU/EEA; EU-based maintenance handover; core R&D and IP stay with Lifetime Oy in Finland. `[VERIFY: confirm "John Lovegin" spelling + exact title; secure a short written commitment (LOI/email) for the 20-engineer dedication and on-camera consent before submission.]`
 - **AI agent fleet as operational multiplier** — 50 production agents run compliance, reporting, QA, and content ops; the company is the reference deployment of what it sells.
 - **Nordic expansion vehicle:** Lifetime AB (Sweden).
 
@@ -196,7 +196,7 @@ Every EU enterprise deploying AI agents in a regulated process faces three quest
 ## Uploads (separate deliverables — not text fields)
 
 - [ ] **10-slide pitch deck** — build from `investor-outreach/ECOSUMMIT_PITCH_DECK_2026.md` + `V4.3-DWS-IQ6-InvestorPD_2026.md`; every claim must match this packet.
-- [ ] **3-minute video** — **up to 3 core team members** give the motivation for the proposal (EIC rule; not solo). Suggested: Risto (founder/vision) + a technical/partner lead; product capture of KYA trust score, Leash Snap, Article-12 log reconstruction.
+- [ ] **3-minute video** — **up to 3 core team members** give the motivation (EIC rule; not solo). Cast: **Risto Anton Päärni** (founder/vision) + **John Lovegin, CEO Cubet** (consortium delivery capacity, 20 dedicated engineers); optional third = a named advisor. Product capture of KYA trust score, Leash Snap, Article-12 log reconstruction. Secure Lovegin's on-camera consent first.
 - Apply entry point (verified 2026-07-17): F&T portal topic **HORIZON-EIC-2026-ACCELERATOR-01** → Step 1 platform (EU Login). One EIC Accelerator application at a time.
 
 ## Before Submit (founder review)
