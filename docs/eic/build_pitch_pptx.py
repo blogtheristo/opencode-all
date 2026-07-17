@@ -77,10 +77,14 @@ tf = txt(s, Inches(0.7), Inches(1.7), Inches(12), Inches(2.6))
 set_run(tf.paragraphs[0], "AEGIS", 72, GOLD, bold=True)
 p = tf.add_paragraph(); p.line_spacing = 1.0
 set_run(p, "Sovereign AI agents that act for regulated Europe.", 34, WHITE, bold=True)
-tf2 = txt(s, Inches(0.7), Inches(4.7), Inches(11.5), Inches(1.6))
+tf2 = txt(s, Inches(0.7), Inches(4.7), Inches(11.5), Inches(1.4))
 set_run(tf2.paragraphs[0],
     "DWS IQ on the customer's own NVIDIA DGX — data and model weights never leave the building.  €2.5M grant-only · TRL 6→8.",
     20, MUTE)
+tfb = txt(s, Inches(0.7), Inches(6.15), Inches(12), Inches(0.6))
+set_run(tfb.paragraphs[0],
+    "NVIDIA Connect ISV Partner    ·    IBM Business Partner    ·    Amazon (AWS) Consulting Partner",
+    13, GOLD, bold=True)
 foot(s, 1)
 
 content(2, "The problem", "Who is in control?", [
