@@ -83,6 +83,7 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 ## Follow-up tracking
 
 - [x] Reply received 2026-07-17 — John agreed to send the written confirmation.
+- [x] Roles follow-up letter + pitch deck sent 2026-07-17 (confirmed) — scope: non-core EU-controlled delivery (~2 FTE).
 - [ ] **Written confirmation email received** — paste verbatim here when it arrives (this is the citable artifact for the application).
 - [ ] Photo received (partnership deck slide).
 - [ ] **Ask (in reply thread / nudge): a group photo of the ~20-engineer delivery team** — visually substantiates the "standing bench of 20" claim on the deck. (Not in the original email; add when he replies.)
