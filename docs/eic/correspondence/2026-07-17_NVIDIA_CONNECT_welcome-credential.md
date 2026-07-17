@@ -26,6 +26,8 @@
 - Benefits include developer resources, technical guidance, preferred pricing, and marketing.
 - **Official website badges are available** in the member portal: *"Use the self-serve marketing assets (including website badges and co-branded social media templates) to highlight your new membership."*
 - Verify URL (public): https://www.nvidia.com/en-us/about-nvidia/partners/partner-locator/
+- **Independent corroboration (2026-07-17):** the NVIDIA **Inception** application page blocked a new application because Lifetime Oy is **already in another NVIDIA program** (Connect) — a second, independent confirmation of the membership.
+- Note: Connect member-portal login was not reachable on 2026-07-17 (likely the just-set-up passkey / login flow) — badge download deferred; the text-chip badge on the deck stands in the interim.
 
 ## Key quote (verbatim)
 
