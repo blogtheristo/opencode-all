@@ -80,6 +80,12 @@ KYA-2 is a conformance standard plus running infrastructure that makes an AI age
 
 ***
 
+## F6b — IP strategy & freedom to operate
+
+IP is dual-track by design. The KYA-2 **specification** is published under **CC-BY 4.0** (a standard anyone can implement); the **reference implementation + SDKs** under **Apache-2.0** (adoption surface); the **compliance core** under **EUPL-1.2** — its "communication to the public" copyleft is the moat against hyperscaler strip-mining, while one-way compatibility into GPLv3/AGPLv3 lets core code flow upstream to adjacent FOSS payment infrastructure (GNU Taler). The enterprise implementation, **Themis**, is proprietary. Copyright on the EUPL core is held by **Lifetime Oy under a CLA**, preserving a dual-licensing revenue door for copyleft-averse enterprises. Patent-track candidates — the trust-scoring model and the evidence-chain architecture — are filed or scoped to the proprietary Themis layer **before** any covering code is published (IPR counsel review scheduled; EUIPO SME Fund Voucher 3 sequenced to fund attorney drafting). Freedom to operate: the identity/mandate primitives build on open standards (eIDAS 2.0, W3C VC/DID) and our own production code; no third-party IP dependency blocks commercial exploitation.
+
+***
+
 ## F7 — Market & problem
 
 Every EU enterprise deploying AI agents in a regulated process faces three questions from compliance: *who is this agent, what may it do, and can we prove it afterwards?* Today the answers are bespoke, per-vendor, non-portable. From August 2027, for high-risk systems, wrong answers become enforceable violations (AI Act penalties up to 7% of global turnover).
@@ -190,7 +196,8 @@ Every EU enterprise deploying AI agents in a regulated process faces three quest
 ## Uploads (separate deliverables — not text fields)
 
 - [ ] **10-slide pitch deck** — build from `investor-outreach/ECOSUMMIT_PITCH_DECK_2026.md` + `V4.3-DWS-IQ6-InvestorPD_2026.md`; every claim must match this packet.
-- [ ] **3-minute video** — founder to camera + product capture (KYA trust score, Leash Snap, Article-12 log reconstruction).
+- [ ] **3-minute video** — **up to 3 core team members** give the motivation for the proposal (EIC rule; not solo). Suggested: Risto (founder/vision) + a technical/partner lead; product capture of KYA trust score, Leash Snap, Article-12 log reconstruction.
+- Apply entry point (verified 2026-07-17): F&T portal topic **HORIZON-EIC-2026-ACCELERATOR-01** → Step 1 platform (EU Login). One EIC Accelerator application at a time.
 
 ## Before Submit (founder review)
 
