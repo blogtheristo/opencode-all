@@ -38,7 +38,7 @@ KYA-2 is deliberately **open at the edges, proprietary at the core**. Openness b
 
 ## 2. What is protected by what
 
-- **Patentable (file first):** the continuously-updated **session trust-scoring model** and the **append-only privacy-preserving evidence-chain** ("within-mandate" selective-disclosure proof). These are the technical inventions a competitor cannot design around trivially.
+- **Patentable (file first):** the **signed Sovereignty Attestation** — a machine-verifiable claim of {deployment tier, jurisdiction, data-residency, model-weight ownership, air-gap status} bound into every mandate/evidence entry. **This is the primary patent claim and the differentiator no other agent-governance framework has** — file it before the KYA-2 spec publishes. Then the continuously-updated **session trust-scoring model** and the **append-only privacy-preserving evidence-chain** ("within-mandate" selective-disclosure proof). These are the technical inventions a competitor cannot design around trivially.
 - **Trade secret (never published):** scoring weights/features, training/tuning data, threshold-calibration heuristics — kept inside Themis, protected by the FI Trade Secrets Act (595/2018, implementing EU 2016/943) and access controls.
 - **Copyright + CLA:** all first-party code; contributor licensing so Lifetime Oy can dual-license the EUPL core.
 - **Trademarks:** word marks **KYA**, **Themis**, **DWS IQ** (EUIPO, class 9/42) to protect the standard's and product's names.
@@ -67,7 +67,7 @@ Dates are anchored to what is actually controllable now. The hard constraint tha
 
 | When        | Action                                                                                      | Owner            | Notes                                        |
 | ----------- | ------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------- |
-| Oct–Nov     | File **priority patent application(s)** — trust-scoring model + evidence-chain — as **FI national or direct EP** to set the priority date | Counsel + Risto  | Opens the 12-month PCT/national window       |
+| Oct–Nov     | File **priority patent application(s)** — **Sovereignty Attestation (lead claim)** + trust-scoring model + evidence-chain — as **FI national or direct EP** to set the priority date, **before the KYA-2 spec publishes** | Counsel + Risto  | Opens the 12-month PCT/national window       |
 | Oct–Nov     | File **EUIPO trademarks** (KYA, Themis; DWS IQ if not already) — word marks, classes 9 & 42 | Counsel          | Voucher 1 rate historically covered TM; here TM is own-cost if Voucher 3 is patents-only |
 | ~Nov 4      | (If GO on Step 1) begin **Step 2 full proposal** — FTO analysis + IP annex are mandatory there | Risto + AI       | reuse this doc                               |
 | Q4          | Formalise **defensive-publication** list for anything non-core we want to keep free-to-use  | Risto            | prevents others patenting around us          |
