@@ -28,7 +28,7 @@ Match each on-screen field label to the closest block below (F1–F14 + structur
 
 ## F1 — Project title (short field)
 
-AEGIS — scaling DWS IQ, Europe's live sovereign agentic-compliance platform, from agents that report compliance to agents that act and transact under bounded, revocable, audited authority.
+AEGIS — sovereign, on-premise AI agents that act and transact for regulated Europe: DWS IQ on the customer's own NVIDIA DGX, where data and model weights never leave the building.
 
 ## F2 — Acronym
 
@@ -42,7 +42,7 @@ sovereign AI agents; agentic compliance; DWS IQ; agent identity & mandate; revoc
 
 ## F4 — Abstract / summary of the innovation
 
-DWS IQ is a live, EU-sovereign platform where a fleet of 50 production AI agents does compliance, reporting and operations for customers in regulated European industries — flagship deployment **DWS IQ Aegis (€59,990)**, 6 paying customers, €7k MRR, zero churn. Today those agents *analyse and report*. The frontier for regulated Europe is agents that *act and transact* — filing declarations, posting journal entries, triggering payments — under authority that is bounded, revocable and fully audited. No European platform does this safely; every emerging answer (Coinbase x402, Google AP2, Stripe's agent toolkit) is US-custodial and binds the human, not the agent. This project takes DWS IQ's autonomous-action capability from **TRL 6–7 to TRL 8**: the trust-and-mandate layer (our production KYA engine + a standardized mandate credential and selective-disclosure proof), certification-grade hardening, and cross-border pilots — before a US-custodial default is set as the AI Act's high-risk obligations begin in August 2027.
+DWS IQ is a live, EU-sovereign platform where a fleet of 50 production AI agents does compliance, reporting and operations for regulated European industry. Its flagship, **DWS IQ Aegis (€59,990)**, runs on the customer's own **NVIDIA DGX (2×/4×)** — an on-premise "S2" deployment where inference, data and model weights never leave the building: **sovereignty guaranteed by physics, not policy**, and physically free of the US CLOUD Act. A cloud tier (S1 — EU-sovereign Scaleway/UpCloud + Aiven) and a hybrid tier (S3) run the same agent brain by sovereignty posture. 6 paying customers, €7k MRR, zero churn. Today those agents *analyse and report*. The funded leap — the frontier for regulated Europe — is agents that *act and transact* (file declarations, post journal entries, trigger payments) under authority that is bounded, revocable and fully audited, **on this sovereign substrate**. No US-custodial answer (Coinbase x402, Google AP2, Stripe agent toolkit) can run inside the customer's building or settle on emerging EU rails. This project takes the capability from **TRL 6–7 to TRL 8**: the trust-and-mandate layer (our production KYA engine + a standardized mandate credential and selective-disclosure proof), certification-grade hardening, and cross-border pilots — before the AI Act's high-risk obligations begin in August 2027.
 
 ***
 
@@ -63,7 +63,7 @@ DWS IQ already makes agents accountable, in production: (1) agent identity bindi
 - Firecracker MicroVM agent isolation operational.
 - Agentic-commerce reference architecture specified; payments on tokenized rails — card data never enters our systems.
 - EU-only identity processing already contracted.
-- **Sovereign deployment (S2) available:** Aegis runs on-premise on NVIDIA DGX, air-gapped, with a self-hosted data stack — inference and data never leave the customer's building (zero CLOUD-Act exposure). Cloud (S1) and hybrid (S3) options also live.
+- **Sovereign deployment (S2) — the platform's spine:** Aegis runs on the customer's own NVIDIA DGX (2×/4×); `deploy-dgx-spark.yml` auto-deploys on merge; self-hosted Supabase overlay authored so data never leaves the box; air-gap option (no public ingress); customer owns 100% of model weights. Full first-run hardware validation of the self-hosted stack is part of the funded hardening (TRL 6→7). Cloud (S1 — Scaleway/UpCloud + Aiven) and hybrid (S3) tiers run the same image.
 
 **Funded TRL 6→8 gap:** the standardized mandate credential + within-mandate selective-disclosure proof, a conformance/test suite, cross-border pilot validation, and certification-grade hardening.
 
