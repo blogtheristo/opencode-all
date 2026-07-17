@@ -1,127 +1,132 @@
-# Applying for a Swedish Transport Permit — New Applicant Guide (Transportstyrelsen)
+# Applying for a Swedish Taxi Permit — New Applicant Guide (Transportstyrelsen)
 
 VERSION AND AGENT HISTORY
-Version: 1.0
+Version: 2.0
 Date: 2026-07-17
 Author: Claude Code (claude/traficom-permit-inquiry-epxq9w)
 Owner: Lifetime Oy
-Status: Working guide — figures verified against Transportstyrelsen (2026); confirm current amounts on the e-service before filing
+Status: Working guide — confirmed TAXI track with Transportstyrelsen (Daniel Andersson, 2026-07-17); figures verified against Transportstyrelsen 2026, confirm current amounts before filing
 
 ---
 
 ## Bottom line
 
-Traficom confirmed it is not the competent authority for operations conducted in Sweden and
-directed us to apply **directly on Transportstyrelsen's website** as a new applicant. There
-is no letter to send — the permit is granted through Transportstyrelsen's own application /
-e-service after a **suitability assessment (lämplighetsprövning)**.
+Confirmed by Transportstyrelsen (Daniel Andersson, Drivers licence unit): to run a **taxi
+business in Sweden** you need a **Swedish taxi operator permit**, and your **drivers each need
+a Swedish taxi driver's licence**. Finnish permits/licences do not substitute for either.
 
-"As a new applicant" means Transportstyrelsen assesses the company (and its transport
-manager) against **four requirements**. You assemble the evidence for all four, pay the
-fee, and submit; processing then begins.
+That means **two separate permits** — do not confuse them:
 
-> Confirm which permit applies to your operation before filing — the requirements below fork
-> between **goods/bus** and **taxi**. Traficom's reply referenced both a transport permit
-> and driving rights, so pick the track that matches the intended activity.
+| Permit                                            | Level      | Who needs it                             |
+| ------------------------------------------------- | ---------- | ---------------------------------------- |
+| **Taxitrafiktillstånd** (taxi operator permit)    | Company    | Lifetime Oy — one per business           |
+| **Taxiförarlegitimation** (taxi driver's licence) | Individual | Every driver, including Risto if driving |
 
----
+This is also why Traficom split the reply: the operator permit is the "liikennelupa" part; the
+driver's licence is the "ajo-oikeus / driving rights" part their driving-licence advisory took.
 
-## The four requirements (apply to every track)
-
-| #   | Requirement (SV)                                 | What it means                                                                                                                                                                                                                     |
-| --- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **Fast etableringsställe** (fixed establishment) | A real place of business in Sweden with a **street address** (P.O. box not accepted) holding the company's core records: accounts, personnel documents, employment agreements, cabotage documents, driving-and-rest-time records. |
-| 2   | **Yrkeskunnande** (professional competence)      | A named **trafikansvarig** (transport manager) who genuinely and continuously runs the transport operation and holds a valid Certificate of Professional Competence (CPC).                                                        |
-| 3   | **Gott anseende** (good repute)                  | Company and transport manager have a clean record (no serious criminal / traffic / tax violations).                                                                                                                               |
-| 4   | **Ekonomiska resurser** (financial standing)     | Capital and reserves at or above the threshold for the number of vehicles, evidenced by certified accounts.                                                                                                                       |
+Official process page (from Transportstyrelsen): https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/taxi/taxiforetag/ansokan-om-trafiktillstand/
 
 ---
 
-## Track A — Goods or bus (`yrkestrafiktillstånd`)
+## Permit 1 — Taxi operator permit (`taxitrafiktillstånd`)
 
-- **Financial standing:** at least **€9,000 for the first vehicle** and **€5,000 for each
-  additional vehicle**. Transportstyrelsen fixes the SEK rate each calendar year — for 2026
-  roughly **99,360 SEK** (first) and **55,200 SEK** (each additional). Evidence must be based
-  on annual accounts certified by an authorised/approved auditor or accounting consultant.
-- **Professional competence:** transport-manager CPC. A written exam is run via Trafikverket
-  if you don't already hold a CPC (see "Finnish applicant" below — an existing Finnish/EU CPC
-  is generally recognised).
-- **Establishment:** street address in Sweden per requirement #1.
-- **Processing:** the case starts being handled roughly **5–7 weeks after the fee is paid**.
+New-applicant **suitability assessment (lämplighetsprövning)** — four requirements:
 
-## Track B — Taxi (`taxitrafiktillstånd`)
+1. **Yrkeskunnande (professional competence).** A named **trafikansvarig** (transport manager)
+   passes the written taxi exam at **Trafikverket** — a **theory exam of four sub-tests
+   (delprov)**; all four must be passed within **6 months** of the first pass. (Taxi competence
+   is national — an EU/Finnish transport-manager CPC is **not** auto-recognised for taxi; plan
+   for the Swedish exam.)
+2. **Ekonomiska resurser (financial standing).** Capital and reserves of at least
+   **100,000 SEK for one vehicle** and **50,000 SEK for each additional vehicle**, plus
+   satisfactory liquidity and solidity. Submit the financial-resources form (**TSVY7004** for
+   enskild firma; the matching form for a limited company) with data **no older than 2 months**.
+3. **Gott anseende (good repute).** Clean record for company and transport manager.
+4. **Fast etablering (fixed establishment).** A real place of business in Sweden with a
+   **street address** (P.O. box not accepted) holding the company's core records.
 
-- **Financial standing:** capital and reserves of at least **100,000 SEK for one vehicle**
-  and **50,000 SEK for each additional vehicle**, plus satisfactory liquidity and solidity.
-  Submit the financial-resources form (**TSVY7004** for enskild firma; the corresponding form
-  for a limited company) with data **no older than two months**.
-- **Professional competence:** the trafikansvarig must pass the **written taxi CPC exams at
-  Trafikverket**.
-- **Good repute + establishment:** as above.
+Apply via Transportstyrelsen's taxi-operator application (e-service with Swedish e-ID/BankID,
+or paper blanketter). Processing begins after the fee is paid.
+
+## Permit 2 — Taxi driver's licence (`taxiförarlegitimation`)
+
+Each driver applies individually. Requirements:
+
+- **Age** at least **20**.
+- **Driving licence:** a category **B licence held for at least 2 years** (or a D licence).
+- **Medical:** undergo a medical exam; the **läkarintyg (medical certificate)** must be issued
+  **within 2 months** before the application.
+- **Good repute (laglydnad)** and professional competence.
+- **Trafikverket taxi driver test (taxiförarprov):** **two theory tests + one driving test
+  (körprov)** — all must be passed.
 
 ---
 
-## Specifics for a Finnish applicant (Lifetime Oy)
+## Specifics for Lifetime Oy / a Finnish applicant
 
-1. **Establishment is the gating item.** A Swedish permit requires a fixed establishment
-   **in Sweden**. If Lifetime Oy has no Swedish establishment yet, you either (a) register a
-   Swedish branch/subsidiary (Bolagsverket + F-skatt with Skatteverket) to satisfy
-   requirement #1, or (b) if you only intend international transport / limited cabotage
-   _into_ Sweden rather than a Swedish-based operation, that runs on your **Finnish EU
-   Community licence (yhteisölupa)** — no separate Swedish permit. Since Transportstyrelsen
-   told you to apply as a new applicant, confirm which of these matches your plan.
-2. **Your Finnish CPC likely carries over.** Under EU Regulation 1071/2009, a transport-
-   manager CPC issued in another member state is valid EU-wide. A Finnish CPC
-   (ammattipätevyys / liikenteestä vastaava henkilö) should be accepted in Sweden without
-   retaking the exam — attach the certificate and confirm acceptance with Transportstyrelsen.
-3. **Driving rights (the separate Traficom thread).** A Finnish driving licence is valid in
-   Sweden (EU/EEA). Professional driver qualification (YKB / CPC under Directive 2003/59) is
-   mutually recognised. Traficom's driving-licence advisory is handling that part separately.
-4. **E-service login.** Transportstyrelsen's e-services normally require Swedish
-   e-identification (BankID). Without Swedish e-ID, apply on the **paper forms (blanketter)**
-   sent by post. Verify the current route on the application page before filing.
+1. **Establishment is the gate for Permit 1.** A Swedish taxi operator permit requires a fixed
+   establishment **in Sweden** (street address, records on site). If Lifetime Oy has no Swedish
+   presence yet, register a Swedish branch/subsidiary (Bolagsverket + F-skatt with Skatteverket)
+   first.
+2. **Good repute for a foreign applicant:** if you (or the transport manager) have lived abroad
+   in the last 5 years, attach a **police-record extract (polisregisterutdrag)** from each such
+   country. An extract from another EU country's criminal register can be requested via the
+   **Swedish Police (Polisen)**.
+3. **Driving on a Finnish licence (Permit 2).** As a Finnish (EES) citizen you may drive a
+   Swedish taxi vehicle on your **Finnish driving licence** — but you still need the Swedish
+   **taxiförarlegitimation**. Attach a certificate from the Finnish licensing authority
+   (Traficom) confirming the licence is **valid and has not been revoked/suspended in the last
+   2 years**. (This is exactly what Traficom's driving-licence advisory is preparing for you.)
+   A non-EES driver would need a Swedish driving licence.
+4. **The two exams are different:** operator = the trafikansvarig's 4-part taxi CPC exam;
+   driver = each driver's 2 theory tests + 1 driving test. Both are booked at **Trafikverket**.
 
 ---
 
 ## Step by step
 
-1. **Confirm the track** — goods/bus vs taxi — and whether you need a Swedish permit at all
-   vs operating on the Finnish Community licence (see specifics #1).
-2. **Secure the establishment** — Swedish street address + records location (requirement #1).
-3. **Name the trafikansvarig** and gather the CPC certificate (or book the Trafikverket exam).
-4. **Prepare financial evidence** — certified accounts meeting the capital threshold for your
-   vehicle count (Track A: €9,000 + €5,000/vehicle; Track B: 100,000 + 50,000 SEK/vehicle,
-   form TSVY7004, data ≤ 2 months old).
-5. **Gather good-repute documentation** for company and transport manager.
-6. **Apply** via the Transportstyrelsen e-service (BankID) or paper blanketter, attach all
-   documents, and **pay the fee** — processing starts after payment (≈5–7 weeks for goods/bus).
-7. **Respond to any supplementary requests** from Transportstyrelsen during the assessment.
+**Operator permit (do this for the company):**
+
+1. Secure a Swedish fixed establishment — street address + records location.
+2. Choose the **trafikansvarig**; book and pass the 4-part taxi CPC exam at Trafikverket.
+3. Prepare financial evidence meeting 100,000 SEK (first vehicle) + 50,000 SEK each additional;
+   fill in the financial-resources form (data ≤ 2 months old).
+4. Gather good-repute documentation (police-record extracts for time lived abroad).
+5. Apply via the Transportstyrelsen taxi-operator application, attach all documents, pay the fee.
+
+**Driver's licence (do this for each driver, including Risto if driving):** 6. Confirm age ≥ 20 and B licence held ≥ 2 years. 7. Get the medical exam → läkarintyg (issued within 2 months of applying). 8. Book and pass the taxiförarprov at Trafikverket (2 theory + 1 driving test). 9. For a Finnish licence, obtain the Traficom validity/no-revocation certificate to attach. 10. Apply for the taxiförarlegitimation at Transportstyrelsen with the certificate + läkarintyg.
 
 ---
 
 ## Copy-paste checklist
 
 ```
-SWEDISH TRANSPORT PERMIT — NEW APPLICANT CHECKLIST (Transportstyrelsen)
+SWEDISH TAXI — NEW APPLICANT CHECKLIST (Transportstyrelsen)
 
-[ ] Permit track confirmed: goods/bus (yrkestrafiktillstånd) OR taxi (taxitrafiktillstånd)
-[ ] Confirmed a Swedish permit is needed (vs Finnish EU Community licence for intl/cabotage)
+PERMIT 1 — TAXI OPERATOR PERMIT (taxitrafiktillstånd) — company
 [ ] Fixed establishment in Sweden — street address (NOT P.O. box), records kept there
-[ ] Trafikansvarig named + CPC certificate (Finnish/EU CPC attached, or Trafikverket exam booked)
-[ ] Financial standing evidence (certified accounts):
-      - Goods/bus: EUR 9,000 first vehicle + EUR 5,000 each additional (~99,360 / 55,200 SEK, 2026)
-      - Taxi: 100,000 SEK first vehicle + 50,000 SEK each additional; form TSVY7004, data <= 2 months
-[ ] Good-repute documentation for company + transport manager
-[ ] Application submitted via e-service (BankID) or paper blanketter
-[ ] Fee paid (processing starts after payment; ~5-7 weeks for goods/bus)
+[ ] Trafikansvarig chosen + passed Trafikverket taxi CPC exam (4 delprov within 6 months)
+[ ] Financial standing: 100,000 SEK first vehicle + 50,000 SEK each additional
+      (+ liquidity/solidity; financial-resources form, data <= 2 months old)
+[ ] Good repute: police-record extract(s) for any country lived in last 5 years
+[ ] Application submitted (e-service/BankID or paper blanketter) + fee paid
+
+PERMIT 2 — TAXI DRIVER'S LICENCE (taxiforarlegitimation) — per driver (incl. Risto if driving)
+[ ] Age >= 20 and category B licence held >= 2 years (or D licence)
+[ ] Medical certificate (lakarintyg) issued within 2 months of applying
+[ ] Passed Trafikverket taxiforarprov: 2 theory tests + 1 driving test
+[ ] Finnish licence: Traficom certificate of validity + no revocation in last 2 years
+[ ] Application submitted to Transportstyrelsen with certificate + lakarintyg
 ```
 
 ---
 
 ## Sources
 
-- Transportstyrelsen — Ansökan om yrkestrafiktillstånd (goods/bus): https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/gods-och-buss/yrkesmassig-trafik/ansokan-om-yrkestrafiktillstand/
-- Transportstyrelsen — Krav för att få yrkestrafiktillstånd: https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/gods-och-buss/yrkesmassig-trafik/krav-for-att-fa-yrkestrafiktrafiktillstand
-- Transportstyrelsen — Ansökan om taxitrafiktillstånd: https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/taxi/trafiktillstand/ansokan-om-trafiktillstand/
-- Transportstyrelsen — Krav för att få taxitrafiktillstånd: https://www.transportstyrelsen.se/sv/vagtrafik/Yrkestrafik/Taxi/Trafiktillstand/Krav-for-att-fa-trafiktillstand/
-- Transportstyrelsen — Yrkestrafik (overview): https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/
+- Transportstyrelsen — Ansökan om trafiktillstånd, taxiföretag (the link Transportstyrelsen sent): https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/taxi/taxiforetag/ansokan-om-trafiktillstand/
+- Transportstyrelsen — Krav för att få taxitrafiktillstånd: https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/taxi/trafiktillstand/krav-for-att-fa-trafiktillstand/
+- Transportstyrelsen — Taxiförarlegitimation: https://www.transportstyrelsen.se/sv/vagtrafik/yrkestrafik/taxi/taxiforarlegitamation/
+- Transportstyrelsen — Ansökan om taxiförarlegitimation: https://www.transportstyrelsen.se/ansokan-om-taxiforarlegitimation
+- Trafikverket — Taxiförarlegitimation (prov): https://www.trafikverket.se/korkort/yrkesprov/taxiforarlegitimation/
+- Trafikverket — Yrkestrafiktillstånd (taxi CPC prov): https://www.trafikverket.se/korkort/yrkesprov/yrkestrafiktillstand/
