@@ -2,6 +2,8 @@
 
 **Last session:** 2026-07-17 · Opus 4.8
 
+## PR: #1697 — https://github.com/blogtheristo/dws6/pull/1697 (open, base main). Push to this branch to update it.
+
 ## Focus: DL 18.7 = EIC Accelerator Step 1 (delivery due 18 July)
 
 Branch task "dl-18-7-delivery" resolved to the EIC Accelerator Open 2026 Step 1
