@@ -192,7 +192,6 @@ Politiikka on voimassa hyväksymispäivästä. Hallitus katselmoi sen vähintä�
 
 ---
 
-**Lifetime Oy** · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo
-Founder, CEO Risto Anton Päärni · risto.paarni@lifetime.fi · +358 400 319 010
+**Lifetime Oy** · Y-tunnus 0772407-9
 
 _Asiakirja on laadittu hallituksen hyväksyttäväksi. Se saa oikeudellisen sitovuuden allekirjoituksin._
