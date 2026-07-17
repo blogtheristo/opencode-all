@@ -9,7 +9,7 @@
 | Version | 1.0                                                          |
 | Date    | 2026-07-17                                                   |
 | Owner   | risto-001                                                    |
-| Status  | **DRAFT — for Risto to review & send**                       |
+| Status  | **SENT 2026-07-17** (Lifetime AB line removed) — awaiting reply |
 | Branch  | claude/dl-18-7-delivery-7m1hnj                               |
 | Context | EIC Accelerator — couple the LUT doctoral work to WP2 (quantum-safe) + WP5 (standardization) |
 
