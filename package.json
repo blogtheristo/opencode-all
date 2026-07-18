@@ -26,6 +26,7 @@
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
     "ted:learning": "node --import tsx scripts/ted-learning-weekly.ts",
     "ted:daily": "node --import tsx scripts/ted-daily-pipeline.ts",
+    "funding:rss": "node --import tsx scripts/eu-funding-rss.ts",
     "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
     "vault:push": "tsx scripts/provision-secrets-aiven.ts",
