@@ -37,8 +37,10 @@ interface FundingItem {
   title: string;
   link: string;
   topicId: string | null;
-  status: string | null;
-  deadline: string | null;
+  pillar: string | null;
+  status: string | null; // derived: Open | Forthcoming | Closed | null
+  openingDate: string | null; // ISO date or null
+  deadline: string | null; // ISO date or null
   pubDate: string | null;
   description: string;
   guid: string | null;
@@ -95,37 +97,59 @@ function deriveTopicId(title: string, link: string): string | null {
   return fromTitle ? fromTitle[1] : null;
 }
 
-function extractStatus(text: string): string | null {
-  // Match an explicit "Status: X" label first, then a bare status keyword.
-  const labelled = text.match(/status\b[^A-Za-z]{0,3}(Forthcoming|Open for submission|Open|Closed)\b/i);
-  if (labelled) return labelled[1];
-  const bare = text.match(/\b(Forthcoming|Open for submission|Open|Closed)\b/i);
-  return bare ? bare[1] : null;
+/**
+ * The call-updates feed carries no status field — descriptions are labelled
+ * "Identifier : … Pillar : … Opening Date : … Deadline : … Modification Date : …".
+ * Pull a single labelled value, bounded by the next known label.
+ */
+const FIELD_LABELS = ['Identifier', 'Pillar', 'Opening Date', 'Deadline', 'Modification Date', 'Latest information'];
+function labelledField(desc: string, label: string): string | null {
+  const next = FIELD_LABELS.filter((l) => l !== label)
+    .map((l) => l.replace(/ /g, '\\s'))
+    .join('|');
+  const re = new RegExp(`${label.replace(/ /g, '\\s')}\\s*:\\s*(.*?)\\s*(?:${next})\\s*:|${label.replace(/ /g, '\\s')}\\s*:\\s*(.*)$`, 'i');
+  const m = desc.match(re);
+  const val = (m?.[1] ?? m?.[2] ?? '').trim();
+  return val || null;
 }
 
-function extractDeadline(text: string): string | null {
-  // "Deadline: 15 September 2026", "deadline date 2026-09-15", "15/09/2026".
-  const m = text.match(
-    /deadline\w*\s*(?:date)?\s*[:\-]?\s*([0-9]{1,2}\s+\w+\s+[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/i,
-  );
-  return m ? m[1] : null;
+/** Parse feed dates like "Thu, 7 May 2015 17:00:00 (Brussels local time)" or ISO. */
+function parseFeedDate(raw: string | null): Date | null {
+  if (!raw) return null;
+  const cleaned = raw.replace(/\((?:Brussels local time|[^)]*)\)/gi, '').trim();
+  const t = Date.parse(cleaned);
+  return Number.isNaN(t) ? null : new Date(t);
 }
 
-function parseFeed(xml: string): FundingItem[] {
+/** Derive status from opening/deadline dates relative to now. */
+function deriveStatus(opening: Date | null, deadline: Date | null, now: Date): string | null {
+  if (deadline && deadline.getTime() < now.getTime()) return 'Closed';
+  if (opening && opening.getTime() > now.getTime()) return 'Forthcoming';
+  if (deadline && deadline.getTime() >= now.getTime()) return 'Open';
+  return null;
+}
+
+function isoDate(d: Date | null): string | null {
+  return d ? d.toISOString().slice(0, 10) : null;
+}
+
+function parseFeed(xml: string, now: Date): FundingItem[] {
   const items: FundingItem[] = [];
   const blocks = xml.match(/<item\b[\s\S]*?<\/item>/gi) || [];
   for (const block of blocks) {
     const title = tag(block, 'title') || '(untitled)';
     const link = tag(block, 'link') || '';
-    const rawDesc = tag(block, 'description') || '';
-    const description = stripHtml(rawDesc);
-    const combined = `${title} ${description}`;
+    const description = stripHtml(tag(block, 'description') || '');
+    const opening = parseFeedDate(labelledField(description, 'Opening Date'));
+    const deadline = parseFeedDate(labelledField(description, 'Deadline'));
     items.push({
       title,
       link,
-      topicId: deriveTopicId(title, link),
-      status: extractStatus(combined),
-      deadline: extractDeadline(combined),
+      topicId: labelledField(description, 'Identifier') || deriveTopicId(title, link),
+      pillar: labelledField(description, 'Pillar'),
+      status: deriveStatus(opening, deadline, now),
+      openingDate: isoDate(opening),
+      deadline: isoDate(deadline),
       pubDate: tag(block, 'pubDate'),
       description,
       guid: tag(block, 'guid'),
@@ -141,12 +165,12 @@ function toMarkdown(items: FundingItem[], sourceUrl: string, generatedAt: string
   lines.push(`_Source: ${sourceUrl}_`);
   lines.push(`_Generated: ${generatedAt} · ${items.length} item(s)_`);
   lines.push('');
-  lines.push('| # | Call / Topic ID | Title | Status | Deadline | Published | Link |');
-  lines.push('|---|---|---|---|---|---|---|');
+  lines.push('| # | Call / Topic ID | Title | Status | Opening | Deadline | Pillar | Link |');
+  lines.push('|---|---|---|---|---|---|---|---|');
   items.forEach((it, i) => {
     const cell = (s: string | null) => (s ? s.replace(/\|/g, '\\|') : '—');
     lines.push(
-      `| ${i + 1} | ${cell(it.topicId)} | ${cell(it.title)} | ${cell(it.status)} | ${cell(it.deadline)} | ${cell(it.pubDate)} | ${it.link ? `[open](${it.link})` : '—'} |`,
+      `| ${i + 1} | ${cell(it.topicId)} | ${cell(it.title)} | ${cell(it.status)} | ${cell(it.openingDate)} | ${cell(it.deadline)} | ${cell(it.pillar)} | ${it.link ? `[open](${it.link})` : '—'} |`,
     );
   });
   lines.push('');
@@ -176,20 +200,21 @@ async function main(): Promise<void> {
     throw new Error(`Fetch failed: HTTP ${res.status} ${res.statusText} for ${url}`);
   }
   const xml = await res.text();
-  let items = parseFeed(xml);
+  const now = new Date();
+  const allItems = parseFeed(xml, now);
 
   // Fail loud: an empty parse against a 200 body means the feed shape changed.
-  if (items.length === 0) {
+  if (allItems.length === 0) {
     throw new Error(
       `Parsed 0 items from a ${xml.length}-byte response. The feed format may have changed — inspect the raw XML before trusting this output.`,
     );
   }
 
+  let items = allItems;
   if (statusFilters.length) {
-    items = items.filter((it) => {
-      const hay = `${it.status || ''} ${it.title} ${it.description}`.toLowerCase();
-      return statusFilters.some((s) => hay.includes(s));
-    });
+    // Match the derived status field exactly — the description text contains
+    // words like "Opening" that would false-match a substring search.
+    items = items.filter((it) => it.status !== null && statusFilters.includes(it.status.toLowerCase()));
   }
   if (grep) {
     items = items.filter((it) => `${it.title} ${it.description}`.toLowerCase().includes(grep));
@@ -234,7 +259,17 @@ async function main(): Promise<void> {
     }
     console.log('');
   }
-  console.error(`[eu-funding-rss] ${items.length} item(s) → ${written.join(', ')}`);
+  const breakdown = allItems.reduce<Record<string, number>>((acc, it) => {
+    const k = it.status || 'Unknown';
+    acc[k] = (acc[k] || 0) + 1;
+    return acc;
+  }, {});
+  const breakdownStr = Object.entries(breakdown)
+    .map(([k, v]) => `${k}=${v}`)
+    .join(' ');
+  console.error(
+    `[eu-funding-rss] feed=${allItems.length} (${breakdownStr}) · written=${items.length} → ${written.join(', ')}`,
+  );
 }
 
 main().catch((err) => {
