@@ -28,6 +28,11 @@ on:
         required: false
         default: ''
         type: string
+      verbose:
+        description: 'Print a description preview per item in the log.'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   funding-rss:
@@ -50,6 +55,7 @@ jobs:
           EU_FUNDING_STATUS: ${{ github.event.inputs.status }}
           EU_FUNDING_GREP: ${{ github.event.inputs.grep }}
           EU_FUNDING_LIMIT: ${{ github.event.inputs.limit }}
+          EU_FUNDING_VERBOSE: ${{ github.event.inputs.verbose }}
         run: bash scripts/daily/eu-funding-rss.sh
 
       - name: Upload grants/funding list

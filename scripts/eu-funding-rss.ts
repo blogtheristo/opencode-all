@@ -78,26 +78,36 @@ function tag(block: string, name: string): string | null {
 }
 
 /**
- * EU F&T topic/call identifiers look like HORIZON-CL5-2024-D3-01-05,
- * ERASMUS-EDU-2025-..., CEF-T-2024-..., etc. Grab the first such token
- * from the title, falling back to the link's topic-details path segment.
+ * EU F&T call/topic identifiers look like HORIZON-CL5-2024-D3-01-05,
+ * ERASMUS-EDU-2025-..., CEF-T-2024-..., H2020-NMP-2014-2015, etc. The
+ * call-updates feed links use matrix params (topic-search;programCode=…;
+ * callCode=…) rather than a topic-details path, so probe those first, then
+ * fall back to a topic-details segment or an ID-shaped token in the title.
  */
 function deriveTopicId(title: string, link: string): string | null {
-  const idRe = /\b([A-Z][A-Z0-9]+(?:-[A-Z0-9]+){2,})\b/;
-  const fromTitle = title.match(idRe);
-  if (fromTitle) return fromTitle[1];
-  const fromLink = link.match(/topic-details\/([^/?#]+)/i);
-  if (fromLink) return decodeURIComponent(fromLink[1]).toUpperCase();
-  return null;
+  const callCode = link.match(/[;&?]callCode=([^;&?#/]+)/i);
+  if (callCode) return decodeURIComponent(callCode[1]);
+  const topicDetails = link.match(/topic-details\/([^;/?#]+)/i);
+  if (topicDetails) return decodeURIComponent(topicDetails[1]).toUpperCase();
+  const programCode = link.match(/[;&?]programCode=([^;&?#/]+)/i);
+  if (programCode) return decodeURIComponent(programCode[1]);
+  const fromTitle = title.match(/\b([A-Z][A-Z0-9]+(?:-[A-Z0-9]+){2,})\b/);
+  return fromTitle ? fromTitle[1] : null;
 }
 
 function extractStatus(text: string): string | null {
-  const m = text.match(/\b(Forthcoming|Open for submission|Open|Closed)\b/i);
-  return m ? m[1] : null;
+  // Match an explicit "Status: X" label first, then a bare status keyword.
+  const labelled = text.match(/status\b[^A-Za-z]{0,3}(Forthcoming|Open for submission|Open|Closed)\b/i);
+  if (labelled) return labelled[1];
+  const bare = text.match(/\b(Forthcoming|Open for submission|Open|Closed)\b/i);
+  return bare ? bare[1] : null;
 }
 
 function extractDeadline(text: string): string | null {
-  const m = text.match(/deadline[^:]*:\s*([0-9]{1,2}\s+\w+\s+[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2})/i);
+  // "Deadline: 15 September 2026", "deadline date 2026-09-15", "15/09/2026".
+  const m = text.match(
+    /deadline\w*\s*(?:date)?\s*[:\-]?\s*([0-9]{1,2}\s+\w+\s+[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/i,
+  );
   return m ? m[1] : null;
 }
 
@@ -209,6 +219,7 @@ async function main(): Promise<void> {
     written.push(p);
   }
 
+  const verbose = flag('verbose');
   if (!quiet) {
     for (const it of items) {
       const parts = [
@@ -218,6 +229,7 @@ async function main(): Promise<void> {
       ].filter(Boolean);
       console.log(`• ${it.title}`);
       if (parts.length) console.log(`    ${parts.join(' · ')}`);
+      if (verbose && it.description) console.log(`    desc: ${it.description.slice(0, 200)}`);
       if (it.link) console.log(`    ${it.link}`);
     }
     console.log('');
