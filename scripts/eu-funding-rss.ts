@@ -97,15 +97,14 @@ interface SediaResponse {
   results?: Array<{ url?: string; reference?: string; metadata?: Record<string, unknown> }>;
 }
 
-/** POST one page to the SEDIA search API. */
+/** POST one page to the SEDIA search API (match-all; status filtered client-side). */
 async function fetchSediaPage(
   url: string,
-  statusCodes: string[],
   text: string,
   pageSize: number,
   pageNumber: number,
 ): Promise<SediaResponse> {
-  const query = { bool: { must: [{ terms: { status: statusCodes } }] } };
+  const query = { bool: { must: [] as unknown[] } };
   const form = new FormData();
   form.append('query', JSON.stringify(query));
   form.append('languages', JSON.stringify(['en']));
@@ -147,19 +146,21 @@ async function fetchSedia(
   limit: number | undefined,
   debugRaw: boolean,
 ): Promise<FundingItem[]> {
-  const statusCodes = statuses.map((s) => {
-    const code = STATUS_NAME_TO_CODE[s];
-    if (!code) throw new Error(`Unknown status "${s}" (use: open, forthcoming, closed)`);
-    return code;
-  });
+  const wanted = new Set(
+    statuses.map((s) => {
+      if (!STATUS_NAME_TO_CODE[s]) throw new Error(`Unknown status "${s}" (use: open, forthcoming, closed)`);
+      return s[0].toUpperCase() + s.slice(1); // → "Open" / "Forthcoming" / "Closed"
+    }),
+  );
 
   const pageSize = 100;
-  const MAX_PAGES = 50; // backstop: 5000 results
+  const MAX_PAGES = 60; // backstop: 6000 results scanned
   const items: FundingItem[] = [];
   let total = Infinity;
+  let scanned = 0;
 
   for (let page = 1; page <= MAX_PAGES; page++) {
-    const data = await fetchSediaPage(SEDIA_URL, statusCodes, text, pageSize, page);
+    const data = await fetchSediaPage(SEDIA_URL, text, pageSize, page);
     if (page === 1) {
       total = typeof data.totalResults === 'number' ? data.totalResults : 0;
       if (debugRaw) {
@@ -167,18 +168,22 @@ async function fetchSedia(
         console.error(`[debug] totalResults=${data.totalResults} pageSize=${data.pageSize} topKeys=${Object.keys(data)}`);
         console.error(`[debug] result[0] keys=${first ? Object.keys(first) : 'none'}`);
         console.error(`[debug] result[0].metadata keys=${first?.metadata ? Object.keys(first.metadata) : 'none'}`);
-        console.error(`[debug] result[0]=${JSON.stringify(first).slice(0, 1500)}`);
+        console.error(`[debug] result[0]=${JSON.stringify(first).slice(0, 1800)}`);
       }
     }
     const batch = data.results || [];
     if (batch.length === 0) break;
     for (const r of batch) {
-      items.push(mapResult(r));
-      if (limit && items.length >= limit) return items;
+      scanned++;
+      const it = mapResult(r);
+      if (it.status && wanted.has(it.status)) {
+        items.push(it);
+        if (limit && items.length >= limit) return items;
+      }
     }
-    if (items.length >= total) break;
-    if (page === MAX_PAGES && items.length < total) {
-      console.error(`[eu-funding] WARNING: hit ${MAX_PAGES}-page cap with ${items.length}/${total} results — increase MAX_PAGES.`);
+    if (scanned >= total) break;
+    if (page === MAX_PAGES && scanned < total) {
+      console.error(`[eu-funding] WARNING: hit ${MAX_PAGES}-page cap after scanning ${scanned}/${total} — some ${[...wanted].join('/')} results may be omitted.`);
     }
   }
   return items;
