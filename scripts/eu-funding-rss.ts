@@ -1,49 +1,68 @@
 /**
- * EU Funding & Tenders "call updates" RSS → grants/funding list.
+ * EU Funding & Tenders → live grants/funding list (SEDIA Search API).
  *
- * Sibling of the TED pipeline (scripts/ted-fetch.ts). Fetches the EU
- * Funding & Tenders Portal call-updates RSS feed, parses each item, derives
- * the call/topic identifier, and emits a human-readable Markdown list plus a
- * machine-readable JSON file (Agent Productization rule).
+ * Sibling of the TED pipeline (scripts/ted-fetch.ts). Queries the EU Funding &
+ * Tenders Portal SEDIA search API for grant/tender topics, derives a normalised
+ * status (Open / Forthcoming / Closed), and emits a human-readable Markdown
+ * list plus a machine-readable JSON file (Agent Productization rule).
  *
- * Dependency-free parser (no XML lib) — the feed is flat RSS 2.0.
+ * Replaces the legacy callupdates-rss.xml source, which served only a static
+ * Horizon 2020 (2014-2015) snapshot with no live/open opportunities. The RSS
+ * feed is still reachable via --url but is not the default.
+ *
+ * Dependency-free (native fetch + FormData on Node >= 18).
  *
  * Usage:
  *   node --import tsx scripts/eu-funding-rss.ts [options]
  *
  * Options:
- *   --url <url>       Override feed URL (default: EU F&T call-updates RSS).
- *   --out <dir>       Output directory (default: data/eu-funding).
- *   --status <s>      Case-insensitive substring filter on item text
- *                     (e.g. "open", "forthcoming"). Repeatable via comma.
- *   --grep <text>     Case-insensitive substring filter on title+description.
- *   --limit <n>       Keep only the first N items after filtering.
- *   --format <f>      "md" | "json" | "both" (default: both).
- *   --quiet           Suppress the stdout table (still writes files).
+ *   --status <s>   Comma-separated: open,forthcoming,closed
+ *                  (default: open,forthcoming — the "available" set).
+ *   --text <q>     Full-text query sent to SEDIA (default: *** = match all).
+ *   --grep <t>     Extra client-side substring filter on title+identifier.
+ *   --limit <n>    Stop after N results.
+ *   --out <dir>    Output directory (default: data/eu-funding).
+ *   --format <f>   "md" | "json" | "both" (default: both).
+ *   --url <url>    Fetch the legacy RSS feed instead of SEDIA (diagnostic).
+ *   --debug-raw    Log the raw SEDIA response shape (keys, first result).
+ *   --verbose      Log one line per result.
+ *   --quiet        Suppress the per-item stdout (still writes files).
  *
  * Env:
- *   EU_FT_RSS_URL     Alternative way to set the feed URL.
+ *   EU_FT_SEDIA_URL   Override the SEDIA endpoint.
+ *   EU_FT_RSS_URL     Override the legacy RSS URL used with --url.
+ *   EU_FUNDING_STATUS / EU_FUNDING_GREP / EU_FUNDING_LIMIT / EU_FUNDING_VERBOSE
  *
- * Note: In restricted-egress environments ec.europa.eu may be blocked. This
- * script is meant to run where EU endpoints are reachable (the same runtime
- * as the TED pipeline).
+ * Note: ec.europa.eu / api.tech.ec.europa.eu may be blocked in restricted-egress
+ * environments. Run where EU endpoints are reachable (same runtime as TED).
  */
 
-const DEFAULT_URL =
+const SEDIA_URL =
+  process.env.EU_FT_SEDIA_URL || 'https://api.tech.ec.europa.eu/search-api/prod/rest/search';
+const RSS_URL =
   process.env.EU_FT_RSS_URL ||
   'https://ec.europa.eu/info/funding-tenders/opportunities/data/referenceData/callupdates-rss.xml';
 
+// SEDIA topic-status facet codes.
+const STATUS_NAME_TO_CODE: Record<string, string> = {
+  forthcoming: '31094501',
+  open: '31094502',
+  closed: '31094503',
+};
+const STATUS_CODE_TO_NAME: Record<string, string> = {
+  '31094501': 'Forthcoming',
+  '31094502': 'Open',
+  '31094503': 'Closed',
+};
+
 interface FundingItem {
+  identifier: string | null;
   title: string;
-  link: string;
-  topicId: string | null;
-  pillar: string | null;
-  status: string | null; // derived: Open | Forthcoming | Closed | null
-  openingDate: string | null; // ISO date or null
-  deadline: string | null; // ISO date or null
-  pubDate: string | null;
-  description: string;
-  guid: string | null;
+  status: string | null;
+  programme: string | null;
+  openingDate: string | null;
+  deadline: string | null;
+  url: string;
 }
 
 function arg(name: string): string | undefined {
@@ -54,7 +73,122 @@ function flag(name: string): boolean {
   return process.argv.includes(`--${name}`);
 }
 
-/** Decode the small set of XML entities that appear in feed text. */
+/** First value of a SEDIA metadata field (values are arrays of strings). */
+function meta(md: Record<string, unknown> | undefined, ...keys: string[]): string | null {
+  if (!md) return null;
+  for (const k of keys) {
+    const v = md[k];
+    if (Array.isArray(v) && v.length && v[0] != null && String(v[0]).trim()) return String(v[0]).trim();
+    if (typeof v === 'string' && v.trim()) return v.trim();
+  }
+  return null;
+}
+
+function isoDate(raw: string | null): string | null {
+  if (!raw) return null;
+  const t = Date.parse(raw);
+  return Number.isNaN(t) ? raw : new Date(t).toISOString().slice(0, 10);
+}
+
+interface SediaResponse {
+  totalResults?: number;
+  pageNumber?: number;
+  pageSize?: number;
+  results?: Array<{ url?: string; reference?: string; metadata?: Record<string, unknown> }>;
+}
+
+/** POST one page to the SEDIA search API. */
+async function fetchSediaPage(
+  url: string,
+  statusCodes: string[],
+  text: string,
+  pageSize: number,
+  pageNumber: number,
+): Promise<SediaResponse> {
+  const query = { bool: { must: [{ terms: { status: statusCodes } }] } };
+  const form = new FormData();
+  form.append('query', JSON.stringify(query));
+  form.append('languages', JSON.stringify(['en']));
+  const qs = new URLSearchParams({
+    apiKey: 'SEDIA',
+    text: text || '***',
+    pageSize: String(pageSize),
+    pageNumber: String(pageNumber),
+  });
+  const res = await fetch(`${url}?${qs.toString()}`, {
+    method: 'POST',
+    headers: { Accept: 'application/json' },
+    body: form,
+  });
+  if (!res.ok) {
+    const body = (await res.text()).slice(0, 400);
+    throw new Error(`SEDIA HTTP ${res.status} ${res.statusText} — ${body}`);
+  }
+  return (await res.json()) as SediaResponse;
+}
+
+function mapResult(r: { url?: string; metadata?: Record<string, unknown> }): FundingItem {
+  const md = r.metadata;
+  const statusCode = meta(md, 'status');
+  return {
+    identifier: meta(md, 'identifier', 'callIdentifier'),
+    title: meta(md, 'title') || '(untitled)',
+    status: statusCode ? STATUS_CODE_TO_NAME[statusCode] || statusCode : null,
+    programme: meta(md, 'frameworkProgramme', 'programmeName', 'programmePeriod'),
+    openingDate: isoDate(meta(md, 'startDate', 'plannedOpeningDate', 'openingDate')),
+    deadline: isoDate(meta(md, 'deadlineDate', 'deadlineDate1', 'deadline')),
+    url: r.url || '',
+  };
+}
+
+async function fetchSedia(
+  statuses: string[],
+  text: string,
+  limit: number | undefined,
+  debugRaw: boolean,
+): Promise<FundingItem[]> {
+  const statusCodes = statuses.map((s) => {
+    const code = STATUS_NAME_TO_CODE[s];
+    if (!code) throw new Error(`Unknown status "${s}" (use: open, forthcoming, closed)`);
+    return code;
+  });
+
+  const pageSize = 100;
+  const MAX_PAGES = 50; // backstop: 5000 results
+  const items: FundingItem[] = [];
+  let total = Infinity;
+
+  for (let page = 1; page <= MAX_PAGES; page++) {
+    const data = await fetchSediaPage(SEDIA_URL, statusCodes, text, pageSize, page);
+    if (page === 1) {
+      total = typeof data.totalResults === 'number' ? data.totalResults : 0;
+      if (debugRaw) {
+        const first = data.results?.[0];
+        console.error(`[debug] totalResults=${data.totalResults} pageSize=${data.pageSize} topKeys=${Object.keys(data)}`);
+        console.error(`[debug] result[0] keys=${first ? Object.keys(first) : 'none'}`);
+        console.error(`[debug] result[0].metadata keys=${first?.metadata ? Object.keys(first.metadata) : 'none'}`);
+        console.error(`[debug] result[0]=${JSON.stringify(first).slice(0, 1500)}`);
+      }
+    }
+    const batch = data.results || [];
+    if (batch.length === 0) break;
+    for (const r of batch) {
+      items.push(mapResult(r));
+      if (limit && items.length >= limit) return items;
+    }
+    if (items.length >= total) break;
+    if (page === MAX_PAGES && items.length < total) {
+      console.error(`[eu-funding] WARNING: hit ${MAX_PAGES}-page cap with ${items.length}/${total} results — increase MAX_PAGES.`);
+    }
+  }
+  return items;
+}
+
+// ---- legacy RSS path (diagnostic, via --url) --------------------------------
+
+function stripHtml(s: string): string {
+  return s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
 function decodeEntities(s: string): string {
   return s
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
@@ -62,115 +196,73 @@ function decodeEntities(s: string): string {
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#0?39;|&apos;/g, "'")
-    .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&');
 }
-
-function stripHtml(s: string): string {
-  return s
-    .replace(/<br\s*\/?>(?=\S)/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function tag(block: string, name: string): string | null {
+function rssTag(block: string, name: string): string | null {
   const m = block.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, 'i'));
   return m ? decodeEntities(m[1]).trim() : null;
 }
-
-/**
- * EU F&T call/topic identifiers look like HORIZON-CL5-2024-D3-01-05,
- * ERASMUS-EDU-2025-..., CEF-T-2024-..., H2020-NMP-2014-2015, etc. The
- * call-updates feed links use matrix params (topic-search;programCode=…;
- * callCode=…) rather than a topic-details path, so probe those first, then
- * fall back to a topic-details segment or an ID-shaped token in the title.
- */
-function deriveTopicId(title: string, link: string): string | null {
-  const callCode = link.match(/[;&?]callCode=([^;&?#/]+)/i);
-  if (callCode) return decodeURIComponent(callCode[1]);
-  const topicDetails = link.match(/topic-details\/([^;/?#]+)/i);
-  if (topicDetails) return decodeURIComponent(topicDetails[1]).toUpperCase();
-  const programCode = link.match(/[;&?]programCode=([^;&?#/]+)/i);
-  if (programCode) return decodeURIComponent(programCode[1]);
-  const fromTitle = title.match(/\b([A-Z][A-Z0-9]+(?:-[A-Z0-9]+){2,})\b/);
-  return fromTitle ? fromTitle[1] : null;
-}
-
-/**
- * The call-updates feed carries no status field — descriptions are labelled
- * "Identifier : … Pillar : … Opening Date : … Deadline : … Modification Date : …".
- * Pull a single labelled value, bounded by the next known label.
- */
-const FIELD_LABELS = ['Identifier', 'Pillar', 'Opening Date', 'Deadline', 'Modification Date', 'Latest information'];
-function labelledField(desc: string, label: string): string | null {
-  const next = FIELD_LABELS.filter((l) => l !== label)
-    .map((l) => l.replace(/ /g, '\\s'))
-    .join('|');
-  const re = new RegExp(`${label.replace(/ /g, '\\s')}\\s*:\\s*(.*?)\\s*(?:${next})\\s*:|${label.replace(/ /g, '\\s')}\\s*:\\s*(.*)$`, 'i');
-  const m = desc.match(re);
-  const val = (m?.[1] ?? m?.[2] ?? '').trim();
-  return val || null;
-}
-
-/** Parse feed dates like "Thu, 7 May 2015 17:00:00 (Brussels local time)" or ISO. */
-function parseFeedDate(raw: string | null): Date | null {
-  if (!raw) return null;
-  const cleaned = raw.replace(/\((?:Brussels local time|[^)]*)\)/gi, '').trim();
-  const t = Date.parse(cleaned);
-  return Number.isNaN(t) ? null : new Date(t);
-}
-
-/** Derive status from opening/deadline dates relative to now. */
-function deriveStatus(opening: Date | null, deadline: Date | null, now: Date): string | null {
-  if (deadline && deadline.getTime() < now.getTime()) return 'Closed';
-  if (opening && opening.getTime() > now.getTime()) return 'Forthcoming';
-  if (deadline && deadline.getTime() >= now.getTime()) return 'Open';
-  return null;
-}
-
-function isoDate(d: Date | null): string | null {
-  return d ? d.toISOString().slice(0, 10) : null;
-}
-
-function parseFeed(xml: string, now: Date): FundingItem[] {
-  const items: FundingItem[] = [];
+async function fetchRss(url: string, now: Date): Promise<FundingItem[]> {
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'DWS-IQ-FundingBot/1.0 (+https://onelifetime.world)',
+      Accept: 'application/rss+xml, application/xml, text/xml, */*',
+    },
+  });
+  if (!res.ok) throw new Error(`RSS HTTP ${res.status} ${res.statusText} for ${url}`);
+  const xml = await res.text();
   const blocks = xml.match(/<item\b[\s\S]*?<\/item>/gi) || [];
-  for (const block of blocks) {
-    const title = tag(block, 'title') || '(untitled)';
-    const link = tag(block, 'link') || '';
-    const description = stripHtml(tag(block, 'description') || '');
-    const opening = parseFeedDate(labelledField(description, 'Opening Date'));
-    const deadline = parseFeedDate(labelledField(description, 'Deadline'));
+  const labels = ['Identifier', 'Pillar', 'Opening Date', 'Deadline', 'Modification Date', 'Latest information'];
+  const field = (desc: string, label: string): string | null => {
+    const next = labels.filter((l) => l !== label).map((l) => l.replace(/ /g, '\\s')).join('|');
+    const re = new RegExp(`${label.replace(/ /g, '\\s')}\\s*:\\s*(.*?)\\s*(?:${next})\\s*:|${label.replace(/ /g, '\\s')}\\s*:\\s*(.*)$`, 'i');
+    const m = desc.match(re);
+    return ((m?.[1] ?? m?.[2] ?? '').trim()) || null;
+  };
+  const items: FundingItem[] = [];
+  for (const b of blocks) {
+    const desc = stripHtml(rssTag(b, 'description') || '');
+    const opening = field(desc, 'Opening Date');
+    const deadline = field(desc, 'Deadline');
+    const openD = opening ? new Date(opening.replace(/\([^)]*\)/g, '')) : null;
+    const dlD = deadline ? new Date(deadline.replace(/\([^)]*\)/g, '')) : null;
+    const status =
+      dlD && !Number.isNaN(dlD.getTime()) && dlD < now
+        ? 'Closed'
+        : openD && !Number.isNaN(openD.getTime()) && openD > now
+          ? 'Forthcoming'
+          : dlD && !Number.isNaN(dlD.getTime())
+            ? 'Open'
+            : null;
     items.push({
-      title,
-      link,
-      topicId: labelledField(description, 'Identifier') || deriveTopicId(title, link),
-      pillar: labelledField(description, 'Pillar'),
-      status: deriveStatus(opening, deadline, now),
-      openingDate: isoDate(opening),
-      deadline: isoDate(deadline),
-      pubDate: tag(block, 'pubDate'),
-      description,
-      guid: tag(block, 'guid'),
+      identifier: field(desc, 'Identifier'),
+      title: rssTag(b, 'title') || '(untitled)',
+      status,
+      programme: field(desc, 'Pillar'),
+      openingDate: openD && !Number.isNaN(openD.getTime()) ? openD.toISOString().slice(0, 10) : null,
+      deadline: dlD && !Number.isNaN(dlD.getTime()) ? dlD.toISOString().slice(0, 10) : null,
+      url: rssTag(b, 'link') || '',
     });
   }
   return items;
 }
 
-function toMarkdown(items: FundingItem[], sourceUrl: string, generatedAt: string): string {
-  const lines: string[] = [];
-  lines.push('# EU Funding & Tenders — Call Updates');
-  lines.push('');
-  lines.push(`_Source: ${sourceUrl}_`);
-  lines.push(`_Generated: ${generatedAt} · ${items.length} item(s)_`);
-  lines.push('');
-  lines.push('| # | Call / Topic ID | Title | Status | Opening | Deadline | Pillar | Link |');
-  lines.push('|---|---|---|---|---|---|---|---|');
+// ---- output -----------------------------------------------------------------
+
+function toMarkdown(items: FundingItem[], source: string, generatedAt: string): string {
+  const cell = (s: string | null) => (s ? s.replace(/\|/g, '\\|') : '—');
+  const lines = [
+    '# EU Funding & Tenders — Grants & Funding',
+    '',
+    `_Source: ${source}_`,
+    `_Generated: ${generatedAt} · ${items.length} opportunity(ies)_`,
+    '',
+    '| # | Call / Topic ID | Title | Status | Opening | Deadline | Programme | Link |',
+    '|---|---|---|---|---|---|---|---|',
+  ];
   items.forEach((it, i) => {
-    const cell = (s: string | null) => (s ? s.replace(/\|/g, '\\|') : '—');
     lines.push(
-      `| ${i + 1} | ${cell(it.topicId)} | ${cell(it.title)} | ${cell(it.status)} | ${cell(it.openingDate)} | ${cell(it.deadline)} | ${cell(it.pillar)} | ${it.link ? `[open](${it.link})` : '—'} |`,
+      `| ${i + 1} | ${cell(it.identifier)} | ${cell(it.title)} | ${cell(it.status)} | ${cell(it.openingDate)} | ${cell(it.deadline)} | ${cell(it.programme)} | ${it.url ? `[open](${it.url})` : '—'} |`,
     );
   });
   lines.push('');
@@ -178,101 +270,86 @@ function toMarkdown(items: FundingItem[], sourceUrl: string, generatedAt: string
 }
 
 async function main(): Promise<void> {
-  const url = arg('url') || DEFAULT_URL;
-  const outDir = arg('out') || 'data/eu-funding';
-  const statusFilters = (arg('status') || '')
+  const rssUrl = arg('url'); // presence switches to legacy RSS mode
+  const statuses = (arg('status') || process.env.EU_FUNDING_STATUS || 'open,forthcoming')
     .split(',')
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
-  const grep = (arg('grep') || '').toLowerCase();
-  const limit = arg('limit') ? Number(arg('limit')) : undefined;
+  const text = arg('text') || '***';
+  const grep = (arg('grep') || process.env.EU_FUNDING_GREP || '').toLowerCase();
+  const limitRaw = arg('limit') || process.env.EU_FUNDING_LIMIT;
+  const limit = limitRaw ? Number(limitRaw) : undefined;
   const format = (arg('format') || 'both').toLowerCase();
+  const outDir = arg('out') || 'data/eu-funding';
   const quiet = flag('quiet');
+  const verbose = flag('verbose') || process.env.EU_FUNDING_VERBOSE === 'true';
+  const debugRaw = flag('debug-raw');
 
-  const res = await fetch(url, {
-    headers: {
-      // The portal rejects blank/agent user-agents with 403.
-      'User-Agent': 'DWS-IQ-FundingBot/1.0 (+https://onelifetime.world)',
-      Accept: 'application/rss+xml, application/xml, text/xml, */*',
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`Fetch failed: HTTP ${res.status} ${res.statusText} for ${url}`);
-  }
-  const xml = await res.text();
   const now = new Date();
-  const allItems = parseFeed(xml, now);
-
-  // Fail loud: an empty parse against a 200 body means the feed shape changed.
-  if (allItems.length === 0) {
-    throw new Error(
-      `Parsed 0 items from a ${xml.length}-byte response. The feed format may have changed — inspect the raw XML before trusting this output.`,
-    );
+  let items: FundingItem[];
+  let source: string;
+  if (rssUrl) {
+    source = rssUrl;
+    items = await fetchRss(rssUrl, now);
+    // RSS carries every status; apply the status filter client-side.
+    const wanted = new Set(statuses.map((s) => s[0].toUpperCase() + s.slice(1)));
+    items = items.filter((it) => it.status !== null && wanted.has(it.status));
+  } else {
+    source = SEDIA_URL;
+    items = await fetchSedia(statuses, text, limit, debugRaw);
   }
 
-  let items = allItems;
-  if (statusFilters.length) {
-    // Match the derived status field exactly — the description text contains
-    // words like "Opening" that would false-match a substring search.
-    items = items.filter((it) => it.status !== null && statusFilters.includes(it.status.toLowerCase()));
-  }
   if (grep) {
-    items = items.filter((it) => `${it.title} ${it.description}`.toLowerCase().includes(grep));
+    items = items.filter((it) => `${it.title} ${it.identifier || ''}`.toLowerCase().includes(grep));
   }
   if (limit && limit > 0) items = items.slice(0, limit);
 
-  const generatedAt = new Date().toISOString();
+  // Fail loud: no open/forthcoming opportunities is unusual for a live query.
+  if (items.length === 0) {
+    console.error(
+      `[eu-funding] WARNING: 0 results for status=[${statuses.join(',')}] text="${text}" from ${source}. ` +
+        `Verify the query/endpoint before trusting an empty list (re-run with --debug-raw).`,
+    );
+  }
+
+  const generatedAt = now.toISOString();
   const fs = await import('node:fs/promises');
   await fs.mkdir(outDir, { recursive: true });
-
-  const payload = {
-    source: url,
-    generatedAt,
-    count: items.length,
-    items,
-  };
-
   const written: string[] = [];
   if (format === 'json' || format === 'both') {
     const p = `${outDir}/grants-funding.json`;
-    await fs.writeFile(p, JSON.stringify(payload, null, 2));
+    await fs.writeFile(p, JSON.stringify({ source, generatedAt, statuses, count: items.length, items }, null, 2));
     written.push(p);
   }
   if (format === 'md' || format === 'both') {
     const p = `${outDir}/grants-funding.md`;
-    await fs.writeFile(p, toMarkdown(items, url, generatedAt));
+    await fs.writeFile(p, toMarkdown(items, source, generatedAt));
     written.push(p);
   }
 
-  const verbose = flag('verbose');
   if (!quiet) {
     for (const it of items) {
-      const parts = [
-        it.topicId || '(no id)',
-        it.status ? `[${it.status}]` : '',
-        it.deadline ? `deadline ${it.deadline}` : '',
-      ].filter(Boolean);
       console.log(`• ${it.title}`);
-      if (parts.length) console.log(`    ${parts.join(' · ')}`);
-      if (verbose && it.description) console.log(`    desc: ${it.description.slice(0, 200)}`);
-      if (it.link) console.log(`    ${it.link}`);
+      const parts = [it.identifier || '(no id)', it.status ? `[${it.status}]` : '', it.deadline ? `deadline ${it.deadline}` : '']
+        .filter(Boolean)
+        .join(' · ');
+      if (parts) console.log(`    ${parts}`);
+      if (verbose && it.programme) console.log(`    programme: ${it.programme}`);
+      if (it.url) console.log(`    ${it.url}`);
     }
     console.log('');
   }
-  const breakdown = allItems.reduce<Record<string, number>>((acc, it) => {
+
+  const breakdown = items.reduce<Record<string, number>>((acc, it) => {
     const k = it.status || 'Unknown';
     acc[k] = (acc[k] || 0) + 1;
     return acc;
   }, {});
-  const breakdownStr = Object.entries(breakdown)
-    .map(([k, v]) => `${k}=${v}`)
-    .join(' ');
-  console.error(
-    `[eu-funding-rss] feed=${allItems.length} (${breakdownStr}) · written=${items.length} → ${written.join(', ')}`,
-  );
+  const breakdownStr = Object.entries(breakdown).map(([k, v]) => `${k}=${v}`).join(' ') || 'none';
+  console.error(`[eu-funding] ${items.length} opportunity(ies) (${breakdownStr}) → ${written.join(', ')}`);
 }
 
 main().catch((err) => {
-  console.error(`[eu-funding-rss] ERROR: ${err instanceof Error ? err.message : String(err)}`);
+  console.error(`[eu-funding] ERROR: ${err instanceof Error ? err.message : String(err)}`);
   process.exitCode = 1;
 });
