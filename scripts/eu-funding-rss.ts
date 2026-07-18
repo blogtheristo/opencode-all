@@ -197,65 +197,40 @@ async function fetchSedia(
  */
 async function probeSedia(): Promise<void> {
   const base = SEDIA_URL;
-  const attempts: Array<{ name: string; run: () => Promise<Response> }> = [
-    {
-      name: 'A multipart query=bool.must[] text=*** (url)',
-      run: () => {
-        const f = new FormData();
-        f.append('query', JSON.stringify({ bool: { must: [] } }));
-        f.append('languages', JSON.stringify(['en']));
-        return fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
-      },
-    },
-    {
-      name: 'B multipart query.match_all text=*** (url)',
-      run: () => {
-        const f = new FormData();
-        f.append('query', JSON.stringify({ query: { match_all: {} } }));
-        f.append('languages', JSON.stringify(['en']));
-        return fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
-      },
-    },
-    {
-      name: 'C json body {bool.must[]} text=*** (url)',
-      run: () =>
-        fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ bool: { must: [] } }),
-        }),
-    },
-    {
-      name: 'D multipart query=status+type terms + sort text=*** (url)',
-      run: () => {
-        const f = new FormData();
-        f.append(
-          'query',
-          JSON.stringify({ bool: { must: [{ terms: { type: ['1', '2', '8'] } }, { terms: { status: ['31094501', '31094502'] } }] } }),
-        );
-        f.append('languages', JSON.stringify(['en']));
-        f.append('sort', JSON.stringify({ field: 'startDate', order: 'DESC' }));
-        return fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
-      },
-    },
-    {
-      name: 'E multipart, text as form field (no url text)',
-      run: () => {
-        const f = new FormData();
-        f.append('query', JSON.stringify({ bool: { must: [] } }));
-        f.append('text', '***');
-        f.append('languages', JSON.stringify(['en']));
-        return fetch(`${base}?apiKey=SEDIA&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
-      },
-    },
+  // Transport is fixed (JSON body works); vary the query DSL to find one that
+  // filters to Open grants without a 500.
+  const jsonBody = (query: unknown) =>
+    fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(query),
+    });
+  const variants: Array<{ name: string; query: unknown }> = [
+    { name: 'Q1 match-all', query: { bool: { must: [] } } },
+    { name: 'Q2 terms.status', query: { bool: { must: [{ terms: { status: ['31094502'] } }] } } },
+    { name: 'Q3 term.status', query: { bool: { must: [{ term: { status: '31094502' } }] } } },
+    { name: 'Q4 filter.terms.status', query: { bool: { filter: [{ terms: { status: ['31094502'] } }] } } },
+    { name: 'Q5 terms.type', query: { bool: { must: [{ terms: { type: ['1'] } }] } } },
+    { name: 'Q6 terms.status.keyword', query: { bool: { must: [{ terms: { 'status.keyword': ['31094502'] } }] } } },
+    { name: 'Q7 query_string', query: { query_string: { query: 'status:31094502' } } },
   ];
-  for (const a of attempts) {
+  for (const v of variants) {
     try {
-      const res = await a.run();
-      const body = (await res.text()).slice(0, 300).replace(/\s+/g, ' ');
-      console.error(`[probe] ${a.name} → HTTP ${res.status} · ${body}`);
+      const res = await jsonBody(v.query);
+      const raw = await res.text();
+      let note = raw.slice(0, 160).replace(/\s+/g, ' ');
+      try {
+        const j = JSON.parse(raw);
+        if (typeof j.totalResults === 'number') {
+          const st = j.results?.[0]?.metadata?.status;
+          note = `totalResults=${j.totalResults} first.status=${JSON.stringify(st)}`;
+        }
+      } catch {
+        /* keep raw slice */
+      }
+      console.error(`[probe] ${v.name} → HTTP ${res.status} · ${note}`);
     } catch (e) {
-      console.error(`[probe] ${a.name} → THREW ${e instanceof Error ? e.message : String(e)}`);
+      console.error(`[probe] ${v.name} → THREW ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 }
