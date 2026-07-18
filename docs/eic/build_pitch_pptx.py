@@ -72,7 +72,7 @@ def content(n, k, t, items, tsize=40):
 
 # 1 — Title
 s = prs.slides.add_slide(BLANK); bg(s); bar(s)
-kicker(s, "Lifetime Oy · Espoo, Finland · EIC Accelerator Open")
+kicker(s, "Lifetime Oy · Espoo, Finland · EIC Accelerator")
 tf = txt(s, Inches(0.7), Inches(1.7), Inches(12), Inches(2.6))
 set_run(tf.paragraphs[0], "AEGIS", 72, GOLD, bold=True)
 p = tf.add_paragraph(); p.line_spacing = 1.0
