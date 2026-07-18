@@ -123,21 +123,44 @@ async function fetchSediaPage(
     },
   };
   const sort = { order: 'DESC', field: 'startDate' };
-  const form = new FormData();
-  form.append('query', JSON.stringify(query));
-  form.append('sort', JSON.stringify(sort));
+  const queryStr = JSON.stringify(query);
+  const sortStr = JSON.stringify(sort);
   const qs = new URLSearchParams({
     apiKey: 'SEDIA',
     text: text || '***',
     pageSize: String(pageSize),
     pageNumber: String(pageNumber),
   });
-  const res = await fetch(`${url}?${qs.toString()}`, { method: 'POST', body: form });
-  if (!res.ok) {
-    const body = (await res.text()).slice(0, 400);
-    throw new Error(`SEDIA HTTP ${res.status} ${res.statusText} — ${body}`);
+  const target = `${url}?${qs.toString()}`;
+
+  // The endpoint accepts form data (query + sort as minified JSON strings), but
+  // is picky about the exact wire format. Node's undici multipart is not always
+  // accepted, so try x-www-form-urlencoded first, then multipart. Do NOT set
+  // Content-Type manually — the runtime derives it (and the multipart boundary).
+  const urlencoded = new URLSearchParams();
+  urlencoded.append('query', queryStr);
+  urlencoded.append('sort', sortStr);
+  const makeMultipart = () => {
+    const f = new FormData();
+    f.append('query', queryStr);
+    f.append('sort', sortStr);
+    return f;
+  };
+  const encodings: Array<{ label: string; body: BodyInit }> = [
+    { label: 'urlencoded', body: urlencoded },
+    { label: 'multipart', body: makeMultipart() },
+  ];
+
+  let lastErr = '';
+  for (const enc of encodings) {
+    const res = await fetch(target, { method: 'POST', body: enc.body });
+    if (res.ok) {
+      if (pageNumber === 1) console.error(`[eu-funding] SEDIA accepted encoding: ${enc.label}`);
+      return (await res.json()) as SediaResponse;
+    }
+    lastErr = `${enc.label} → HTTP ${res.status} ${(await res.text()).slice(0, 150).replace(/\s+/g, ' ')}`;
   }
-  return (await res.json()) as SediaResponse;
+  throw new Error(`SEDIA rejected all encodings — last: ${lastErr}`);
 }
 
 function mapResult(r: { url?: string; metadata?: Record<string, unknown> }): FundingItem {
