@@ -3,14 +3,21 @@
 # fetches the live call-updates feed, builds the Markdown + JSON list, and
 # uploads it as a downloadable artifact. No secrets required (public feed).
 #
-# Sibling of ted-pipeline.yml. DGX Spark runs scripts/daily/eu-funding-rss.sh
-# as the local primary; this workflow is the schedulable GitHub runtime.
+# Sibling of ted-pipeline.yml. Manual-only on both runtimes as of 2026-07-18
+# (SEDIA source is broken — see schedule note below); invoke
+# scripts/eu-funding-rss-daily.sh directly on DGX, or workflow_dispatch here.
 
 name: EU Funding RSS
 
 on:
-  schedule:
-    - cron: '15 6 * * *' # daily at 06:15 UTC
+  # Schedule REMOVED 2026-07-18 — SEDIA fetch is broken (every request encoding
+  # tested 500s or silently ignores the query filter; see commit history on
+  # this branch / data/eu-funding/all-horizon-open-forthcoming-grants.md).
+  # A daily cron against a non-working fetch just burns CI minutes on
+  # guaranteed failures. Re-enable once scripts/eu-funding-rss.ts actually
+  # returns filtered results (needs a real browser DevTools "Copy as cURL"
+  # capture of the portal's search POST — see PR #1702).
+  # Was: cron '15 6 * * *' (daily at 06:15 UTC)
   workflow_dispatch:
     inputs:
       status:
@@ -68,7 +75,7 @@ jobs:
           EU_FUNDING_VERBOSE: ${{ github.event.inputs.verbose }}
           EU_FUNDING_DEBUG_RAW: ${{ github.event.inputs.debug_raw }}
           EU_FUNDING_PROBE: ${{ github.event.inputs.probe }}
-        run: bash scripts/daily/eu-funding-rss.sh
+        run: bash scripts/eu-funding-rss-daily.sh
 
       - name: Upload grants/funding list
         uses: actions/upload-artifact@v4
