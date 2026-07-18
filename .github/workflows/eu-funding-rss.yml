@@ -38,6 +38,11 @@ on:
         required: false
         default: false
         type: boolean
+      probe:
+        description: 'Probe SEDIA request encodings and log which returns 200.'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   funding-rss:
@@ -62,6 +67,7 @@ jobs:
           EU_FUNDING_LIMIT: ${{ github.event.inputs.limit }}
           EU_FUNDING_VERBOSE: ${{ github.event.inputs.verbose }}
           EU_FUNDING_DEBUG_RAW: ${{ github.event.inputs.debug_raw }}
+          EU_FUNDING_PROBE: ${{ github.event.inputs.probe }}
         run: bash scripts/daily/eu-funding-rss.sh
 
       - name: Upload grants/funding list

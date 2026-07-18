@@ -189,6 +189,75 @@ async function fetchSedia(
   return items;
 }
 
+/**
+ * Diagnostic: try several SEDIA request encodings and log status + body head
+ * for each, so we can identify the accepted format in a single run.
+ */
+async function probeSedia(): Promise<void> {
+  const base = SEDIA_URL;
+  const attempts: Array<{ name: string; run: () => Promise<Response> }> = [
+    {
+      name: 'A multipart query=bool.must[] text=*** (url)',
+      run: () => {
+        const f = new FormData();
+        f.append('query', JSON.stringify({ bool: { must: [] } }));
+        f.append('languages', JSON.stringify(['en']));
+        return fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
+      },
+    },
+    {
+      name: 'B multipart query.match_all text=*** (url)',
+      run: () => {
+        const f = new FormData();
+        f.append('query', JSON.stringify({ query: { match_all: {} } }));
+        f.append('languages', JSON.stringify(['en']));
+        return fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
+      },
+    },
+    {
+      name: 'C json body {bool.must[]} text=*** (url)',
+      run: () =>
+        fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bool: { must: [] } }),
+        }),
+    },
+    {
+      name: 'D multipart query=status+type terms + sort text=*** (url)',
+      run: () => {
+        const f = new FormData();
+        f.append(
+          'query',
+          JSON.stringify({ bool: { must: [{ terms: { type: ['1', '2', '8'] } }, { terms: { status: ['31094501', '31094502'] } }] } }),
+        );
+        f.append('languages', JSON.stringify(['en']));
+        f.append('sort', JSON.stringify({ field: 'startDate', order: 'DESC' }));
+        return fetch(`${base}?apiKey=SEDIA&text=***&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
+      },
+    },
+    {
+      name: 'E multipart, text as form field (no url text)',
+      run: () => {
+        const f = new FormData();
+        f.append('query', JSON.stringify({ bool: { must: [] } }));
+        f.append('text', '***');
+        f.append('languages', JSON.stringify(['en']));
+        return fetch(`${base}?apiKey=SEDIA&pageSize=5&pageNumber=1`, { method: 'POST', body: f });
+      },
+    },
+  ];
+  for (const a of attempts) {
+    try {
+      const res = await a.run();
+      const body = (await res.text()).slice(0, 300).replace(/\s+/g, ' ');
+      console.error(`[probe] ${a.name} → HTTP ${res.status} · ${body}`);
+    } catch (e) {
+      console.error(`[probe] ${a.name} → THREW ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+}
+
 // ---- legacy RSS path (diagnostic, via --url) --------------------------------
 
 function stripHtml(s: string): string {
@@ -289,6 +358,11 @@ async function main(): Promise<void> {
   const quiet = flag('quiet');
   const verbose = flag('verbose') || process.env.EU_FUNDING_VERBOSE === 'true';
   const debugRaw = flag('debug-raw');
+
+  if (flag('probe')) {
+    await probeSedia();
+    return;
+  }
 
   const now = new Date();
   let items: FundingItem[];

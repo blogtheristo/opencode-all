@@ -36,5 +36,6 @@ args=()
 [ -n "${EU_FUNDING_LIMIT:-}" ] && args+=(--limit "$EU_FUNDING_LIMIT")
 [ "${EU_FUNDING_VERBOSE:-}" = "true" ] && args+=(--verbose)
 [ "${EU_FUNDING_DEBUG_RAW:-}" = "true" ] && args+=(--debug-raw)
+[ "${EU_FUNDING_PROBE:-}" = "true" ] && args+=(--probe)
 
 exec node --import tsx scripts/eu-funding-rss.ts "${args[@]}"
