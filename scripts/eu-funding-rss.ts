@@ -97,10 +97,18 @@ interface SediaResponse {
   results?: Array<{ url?: string; reference?: string; metadata?: Record<string, unknown> }>;
 }
 
+// SEDIA card-type facet codes. 1/2/8 = Grants, 0 = Tenders.
+const GRANT_TYPE_CODES = ['1', '2', '8'];
+
 /**
  * POST one page to the SEDIA search API.
- * The endpoint requires the ES query as a raw JSON body with
- * Content-Type: application/json (multipart/form-data returns HTTP 500).
+ *
+ * The endpoint expects multipart/form-data with exactly two fields — `query`
+ * and `sort`, each a minified JSON string — and the apiKey/text/paging params
+ * in the URL query string. A raw application/json body is silently ignored
+ * (returns the whole corpus), and adding extra form fields (e.g. `languages`)
+ * makes it return HTTP 500. Do NOT set Content-Type — fetch sets the multipart
+ * boundary from the FormData body.
  */
 async function fetchSediaPage(
   url: string,
@@ -109,18 +117,22 @@ async function fetchSediaPage(
   pageSize: number,
   pageNumber: number,
 ): Promise<SediaResponse> {
-  const query = { bool: { must: [{ terms: { status: statusCodes } }] } };
+  const query = {
+    bool: {
+      must: [{ terms: { type: GRANT_TYPE_CODES } }, { terms: { status: statusCodes } }],
+    },
+  };
+  const sort = { order: 'DESC', field: 'startDate' };
+  const form = new FormData();
+  form.append('query', JSON.stringify(query));
+  form.append('sort', JSON.stringify(sort));
   const qs = new URLSearchParams({
     apiKey: 'SEDIA',
     text: text || '***',
     pageSize: String(pageSize),
     pageNumber: String(pageNumber),
   });
-  const res = await fetch(`${url}?${qs.toString()}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(query),
-  });
+  const res = await fetch(`${url}?${qs.toString()}`, { method: 'POST', body: form });
   if (!res.ok) {
     const body = (await res.text()).slice(0, 400);
     throw new Error(`SEDIA HTTP ${res.status} ${res.statusText} — ${body}`);
@@ -148,44 +160,37 @@ async function fetchSedia(
   limit: number | undefined,
   debugRaw: boolean,
 ): Promise<FundingItem[]> {
-  const wanted = new Set(
-    statuses.map((s) => {
-      if (!STATUS_NAME_TO_CODE[s]) throw new Error(`Unknown status "${s}" (use: open, forthcoming, closed)`);
-      return s[0].toUpperCase() + s.slice(1); // → "Open" / "Forthcoming" / "Closed"
-    }),
-  );
+  const statusCodes = statuses.map((s) => {
+    if (!STATUS_NAME_TO_CODE[s]) throw new Error(`Unknown status "${s}" (use: open, forthcoming, closed)`);
+    return STATUS_NAME_TO_CODE[s];
+  });
 
-  const pageSize = 100;
-  const MAX_PAGES = 60; // backstop: 6000 results scanned
+  const pageSize = 50;
+  const MAX_PAGES = 60; // backstop: 3000 results
   const items: FundingItem[] = [];
   let total = Infinity;
-  let scanned = 0;
 
   for (let page = 1; page <= MAX_PAGES; page++) {
-    const data = await fetchSediaPage(SEDIA_URL, text, pageSize, page);
+    const data = await fetchSediaPage(SEDIA_URL, statusCodes, text, pageSize, page);
     if (page === 1) {
       total = typeof data.totalResults === 'number' ? data.totalResults : 0;
       if (debugRaw) {
         const first = data.results?.[0];
         console.error(`[debug] totalResults=${data.totalResults} pageSize=${data.pageSize} topKeys=${Object.keys(data)}`);
-        console.error(`[debug] result[0] keys=${first ? Object.keys(first) : 'none'}`);
         console.error(`[debug] result[0].metadata keys=${first?.metadata ? Object.keys(first.metadata) : 'none'}`);
-        console.error(`[debug] result[0]=${JSON.stringify(first).slice(0, 1800)}`);
+        console.error(`[debug] result[0]=${JSON.stringify(first).slice(0, 1400)}`);
       }
     }
     const batch = data.results || [];
     if (batch.length === 0) break;
     for (const r of batch) {
-      scanned++;
-      const it = mapResult(r);
-      if (it.status && wanted.has(it.status)) {
-        items.push(it);
-        if (limit && items.length >= limit) return items;
-      }
+      // Server already filtered by type+status; map every result.
+      items.push(mapResult(r));
+      if (limit && items.length >= limit) return items;
     }
-    if (scanned >= total) break;
-    if (page === MAX_PAGES && scanned < total) {
-      console.error(`[eu-funding] WARNING: hit ${MAX_PAGES}-page cap after scanning ${scanned}/${total} — some ${[...wanted].join('/')} results may be omitted.`);
+    if (items.length >= total) break;
+    if (page === MAX_PAGES && items.length < total) {
+      console.error(`[eu-funding] WARNING: hit ${MAX_PAGES}-page cap with ${items.length}/${total} results.`);
     }
   }
   return items;
