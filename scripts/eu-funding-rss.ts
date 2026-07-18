@@ -135,25 +135,22 @@ async function fetchSediaPage(
   const { execFile } = await import('node:child_process');
   const { promisify } = await import('node:util');
   const run = promisify(execFile);
+  // SEDIA's Java gateway reads `query`/`sort` as multipart FILE parts. curl's
+  // plain `-F name=value` omits the `filename` attribute, so the resolver hits
+  // a null filename and throws (HTTP 500 "An internal error occurred").
+  // Appending `;filename=<name>` makes curl emit the part as a file upload,
+  // which the resolver accepts. This is the single detail that unlocks the API.
   const args = [
     '-sS',
     '--max-time',
     '30',
-    '-A',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36',
-    '-H',
-    'Accept: application/json',
-    '-H',
-    'Origin: https://ec.europa.eu',
-    '-H',
-    'Referer: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals',
     '-X',
     'POST',
     target,
     '-F',
-    `query=${JSON.stringify(query)}`,
+    `query=${JSON.stringify(query)};filename=query`,
     '-F',
-    `sort=${JSON.stringify(sort)}`,
+    `sort=${JSON.stringify(sort)};filename=sort`,
   ];
   let stdout: string;
   try {
