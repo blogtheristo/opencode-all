@@ -13,6 +13,20 @@ _Captured: 2026-07-18 · 513 results total (238 Open For Submission, 275 Forthco
 
 ---
 
+## Pipeline — 2026 Q4 targets (Lifetime Oy / DWS IQ)
+
+Selected from the 513 results above, matched to DWS IQ's profile (agentic AI, climate/energy intelligence, industry compliance). All three prep windows overlap in Q4 2026.
+
+| # | Grant | Identifier | Opens | Deadline | Funding size | Why it fits |
+|---|---|---|---|---|---|---|
+| 1 | EIC Accelerator 2026 | `HORIZON-EIC-2026-ACCELERATOR-01` | 06 Nov 2025 (Open now) | **17 Dec 2026** | Grant up to €2.5M, or blended finance €2.5M grant + ~€0.5–17.5M equity (typical EIC-wide parameters — **not scrape-verified for this cutoff, confirm on topic page**) | Flagship deep-tech SME scale-up; highest funding ceiling; active focus |
+| 2 | Large scale operational validation and upscaling of state-of-the-art (Generative) AI tools and models powering a next generation digital energy system | `HORIZON-CL5-2027-02-D3-24` | 03 Dec 2026 | 31 Mar 2027 | **Not captured** — not in original scrape (list view has no budget field). Check: `topic-details/horizon-cl5-2027-02-d3-24` *(URL constructed from identifier pattern, unverified)* | Direct match to DWS IQ's Control Room / climate-intelligence platform |
+| 3 | Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics) | `HORIZON-CL4-2027-04-DIGITAL-EMERGING-04` | 17 Nov 2026 | 18 Mar 2027 | **Not captured** — same as above. Check: `topic-details/horizon-cl4-2027-04-digital-emerging-04` *(unverified)* | Broader agentic-AI application funding beyond energy (e.g. construction/compliance use cases) |
+
+**Data gap:** funding-size figures for #2 and #3 require opening each topic-details page (budget lives there, not in the list view we scraped). Not fabricated here per the no-invented-data rule — confirm via the links above or a targeted 2-page lookup before committing prep effort.
+
+---
+
 ## Full list (513 items)
 
 | # | Identifier | Title | Status | Opening | Deadline | Stage | Programme | Type of action |
