@@ -139,6 +139,14 @@ async function fetchSediaPage(
     '-sS',
     '--max-time',
     '30',
+    '-A',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36',
+    '-H',
+    'Accept: application/json',
+    '-H',
+    'Origin: https://ec.europa.eu',
+    '-H',
+    'Referer: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals',
     '-X',
     'POST',
     target,
@@ -161,7 +169,9 @@ async function fetchSediaPage(
   }
   const total = typeof data.totalResults === 'number' ? data.totalResults : Infinity;
   if (total >= 500_000) {
-    throw new Error(`SEDIA filter not applied (totalResults=${total}) — the query was dropped by the gateway.`);
+    throw new Error(
+      `SEDIA filter not applied (totalResults=${total}). Raw response head: ${stdout.slice(0, 250).replace(/\s+/g, ' ')}`,
+    );
   }
   if (pageNumber === 1) console.error(`[eu-funding] SEDIA via curl -F · totalResults=${total}`);
   return data;
