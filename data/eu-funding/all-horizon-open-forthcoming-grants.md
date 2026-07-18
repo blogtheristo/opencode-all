@@ -20,10 +20,35 @@ Selected from the 513 results above, matched to DWS IQ's profile (agentic AI, cl
 | # | Grant | Identifier | Opens | Deadline | Funding size | Why it fits |
 |---|---|---|---|---|---|---|
 | 1 | EIC Accelerator 2026 | `HORIZON-EIC-2026-ACCELERATOR-01` | 06 Nov 2025 (Open now) | **17 Dec 2026** | Grant up to €2.5M, or blended finance €2.5M grant + ~€0.5–17.5M equity (typical EIC-wide parameters — **not scrape-verified for this cutoff, confirm on topic page**) | Flagship deep-tech SME scale-up; highest funding ceiling; active focus |
-| 2 | Large scale operational validation and upscaling of state-of-the-art (Generative) AI tools and models powering a next generation digital energy system | `HORIZON-CL5-2027-02-D3-24` | 03 Dec 2026 | 31 Mar 2027 | **Not captured** — not in original scrape (list view has no budget field). Check: `topic-details/horizon-cl5-2027-02-d3-24` *(URL constructed from identifier pattern, unverified)* | Direct match to DWS IQ's Control Room / climate-intelligence platform |
-| 3 | Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics) | `HORIZON-CL4-2027-04-DIGITAL-EMERGING-04` | 17 Nov 2026 | 18 Mar 2027 | **Not captured** — same as above. Check: `topic-details/horizon-cl4-2027-04-digital-emerging-04` *(unverified)* | Broader agentic-AI application funding beyond energy (e.g. construction/compliance use cases) |
+| 2 | Large scale operational validation and upscaling of state-of-the-art (Generative) AI tools and models powering a next generation digital energy system | `HORIZON-CL5-2027-02-D3-24` | 03 Dec 2026 | 31 Mar 2027 | **Total call budget €20,000,000 · ~€10,000,000 per project · 2 grants expected** (confirmed from topic page, 2026-07-18) | Direct match to DWS IQ's Control Room / climate-intelligence platform |
+| 3 | Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics) | `HORIZON-CL4-2027-04-DIGITAL-EMERGING-04` | 17 Nov 2026 | 18 Mar 2027 | **Total call budget €42,000,000 · ~€14,000,000 per project · 3 grants expected** (confirmed from topic page, 2026-07-18) | ⚠️ **Fit correction (see notes below) — sectors are healthcare / advanced manufacturing / autonomous driving, not energy** |
 
-**Data gap:** funding-size figures for #2 and #3 require opening each topic-details page (budget lives there, not in the list view we scraped). Not fabricated here per the no-invented-data rule — confirm via the links above or a targeted 2-page lookup before committing prep effort.
+**Confirmed:** all three funding sizes are now verified from the actual topic pages (2026-07-18) — no placeholders remain. #1 uses standard EIC-wide parameters (grant + optional equity component); #2 and #3 are Horizon Europe Innovation/Research Actions with fixed per-call budgets as shown.
+
+### Notes — HORIZON-CL5-2027-02-D3-24 (confirmed from topic page, 2026-07-18)
+
+- **Call:** BATTERIES and ENERGY (HORIZON-CL5-2027-02) · Type of action: HORIZON-IA (Innovation Actions) · MGA: HORIZON Action Grant Budget-Based
+- **Destination:** Ensuring more efficient, sustainable, secure, and competitive renewable and decarbonised energy supply (2026-27)
+- **Expected outcomes:** frugal (energy/resource/data/cost-efficient) AI for real-time grid + market operations and consumer empowerment; AI dev environment integrated with the energy system's "digital spine"; edge/federated learning at scale with agent-based architectures; governance framework for the Gen(AI)-powered digital spine
+- **Scope highlights:** validate + scale open-source frugal Gen-AI for grid monitoring/balancing/forecasting; must align with Common European Energy Data Space, EU Apply AI & Competitiveness Compass; expected to use European AI factories/gigafactories where relevant; contribute to the BRIDGE initiative
+- **TRL:** 7–8 expected by project end (may start at any TRL)
+- **Eligibility restriction:** entities controlled by China are not eligible (General Annex B)
+- **Sibling topics in the same call (HORIZON-CL5-2027-02), for reference:** D2-05 (€18.8M/2 grants), D2-06 (€37.8M/2), D3-07 (€12M/2), D3-08 cofund (€30M/1), D3-09 (€43M/1), D3-10 (€9M/2), D3-15 (€36M/3), D3-30 (€16M/2), D3-31 CSA (€5M/1) — all same 3 Dec 2026 open / 31 Mar 2027 deadline
+
+### Notes — HORIZON-CL4-2027-04-DIGITAL-EMERGING-04 (confirmed from topic page, 2026-07-18)
+
+- **Call:** DIGITAL (HORIZON-CL4-2027-04) · Type of action: HORIZON-RIA (Research and Innovation Actions) · MGA: HORIZON Action Grant Budget-Based
+- **Destination:** Achieving open strategic autonomy in digital and emerging enabling technologies (2026-27)
+- ⚠️ **FIT CORRECTION:** each proposal must focus **exclusively on one of three sectors — healthcare, advanced manufacturing (incl. AI-powered robotics), or in-vehicle autonomous driving**. None is energy/climate/construction, so this is **not** a direct match to DWS IQ's core domain unless positioned under "advanced manufacturing" (industrial/site monitoring angle) — treat as a stretch-fit, lower priority than #1 and #2, or reconsider for the pipeline.
+- **Mechanism is structurally different from a normal R&D grant:** the consortium (Lifetime Oy would need to co-lead with a user-industry partner from the target sector) runs a 3-stage public competition and distributes Financial Support to Third Parties (FSTP) to competing SMEs — it does not directly fund the consortium's own R&D:
+  - Stage 1 (open call): all-comers; top 10 proposals advance
+  - Stage 2: 10 teams each get **€300,000 FSTP**; top 4 advance
+  - Stage 3 (grand finale): 4 teams each get **€2,250,000 FSTP**
+  - Max FSTP per third party across the process: **€2,550,000**
+- **Consortium requirement:** user-industry companies from the target sector must be core partners, actively supporting challenge participants
+- **TRL:** starts at TRL 2, expected to reach TRL 5 by project end
+- **Eligibility:** limited to Member States, Iceland, Norway + Canada, Israel, South Korea, New Zealand, Switzerland, UK (Finland/Lifetime Oy qualifies as an EU member state)
+- **Sibling topics in the same call (HORIZON-CL4-2027-04), for reference:** DATA-03 (€35M/2), DATA-08 (€38M/2), DATA-09 (€39M/3), EMERGING-05 (€18M/1), EMERGING-06 (€3M/2), EMERGING-10 CSA (€4M/1), EMERGING-11 (€44M/1), HUMAN-01 (€39M/8, €4.8–5.6M each), HUMAN-02 CSA (€3M/1), HUMAN-07 CSA (€7M/1) — same 17 Nov 2026 open / 18 Mar 2027 deadline
 
 ---
 
