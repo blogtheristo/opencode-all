@@ -360,7 +360,7 @@ function toMarkdown(items: FundingItem[], source: string, generatedAt: string): 
 }
 
 async function main(): Promise<void> {
-  const rssUrl = arg('url'); // presence switches to legacy RSS mode
+const rssUrl = arg('url') || (flag('url') ? RSS_URL : undefined); // presence switches to legacy RSS mode
   const statuses = (arg('status') || process.env.EU_FUNDING_STATUS || 'open,forthcoming')
     .split(',')
     .map((s) => s.trim().toLowerCase())
