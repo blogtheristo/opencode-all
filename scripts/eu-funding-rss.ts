@@ -133,34 +133,45 @@ async function fetchSediaPage(
   });
   const target = `${url}?${qs.toString()}`;
 
-  // The endpoint accepts form data (query + sort as minified JSON strings), but
-  // is picky about the exact wire format. Node's undici multipart is not always
-  // accepted, so try x-www-form-urlencoded first, then multipart. Do NOT set
-  // Content-Type manually — the runtime derives it (and the multipart boundary).
+  // The endpoint applies the `query`/`sort` filter ONLY when the body is a
+  // multipart/form-data payload matching `curl -F` exactly. Node's undici
+  // FormData serialization is either rejected (500) or silently ignored (the
+  // filter drops and it returns the whole ~4M-doc corpus). So build the
+  // multipart body by hand, and validate that the response is actually
+  // filtered (a grants+status query must return far fewer than the corpus).
+  const boundary = '----dwsFundingBoundary7MA4YWxkTrZu0gW';
+  const CRLF = '\r\n';
+  const manualMultipart =
+    `--${boundary}${CRLF}Content-Disposition: form-data; name="query"${CRLF}${CRLF}${queryStr}${CRLF}` +
+    `--${boundary}${CRLF}Content-Disposition: form-data; name="sort"${CRLF}${CRLF}${sortStr}${CRLF}` +
+    `--${boundary}--${CRLF}`;
   const urlencoded = new URLSearchParams();
   urlencoded.append('query', queryStr);
   urlencoded.append('sort', sortStr);
-  const makeMultipart = () => {
-    const f = new FormData();
-    f.append('query', queryStr);
-    f.append('sort', sortStr);
-    return f;
-  };
-  const encodings: Array<{ label: string; body: BodyInit }> = [
+
+  const encodings: Array<{ label: string; body: BodyInit; headers?: Record<string, string> }> = [
+    { label: 'manual-multipart', body: manualMultipart, headers: { 'Content-Type': `multipart/form-data; boundary=${boundary}` } },
     { label: 'urlencoded', body: urlencoded },
-    { label: 'multipart', body: makeMultipart() },
   ];
 
-  let lastErr = '';
+  const CORPUS_GUARD = 500_000; // filtered grant queries are far smaller than the full corpus
+  let note = '';
   for (const enc of encodings) {
-    const res = await fetch(target, { method: 'POST', body: enc.body });
-    if (res.ok) {
-      if (pageNumber === 1) console.error(`[eu-funding] SEDIA accepted encoding: ${enc.label}`);
-      return (await res.json()) as SediaResponse;
+    const res = await fetch(target, { method: 'POST', body: enc.body, headers: enc.headers });
+    if (!res.ok) {
+      note = `${enc.label} → HTTP ${res.status}`;
+      continue;
     }
-    lastErr = `${enc.label} → HTTP ${res.status} ${(await res.text()).slice(0, 150).replace(/\s+/g, ' ')}`;
+    const data = (await res.json()) as SediaResponse;
+    const total = typeof data.totalResults === 'number' ? data.totalResults : Infinity;
+    if (total >= CORPUS_GUARD) {
+      note = `${enc.label} → filter ignored (totalResults=${total})`;
+      continue; // query not applied; try next encoding
+    }
+    if (pageNumber === 1) console.error(`[eu-funding] SEDIA encoding=${enc.label} totalResults=${total}`);
+    return data;
   }
-  throw new Error(`SEDIA rejected all encodings — last: ${lastErr}`);
+  throw new Error(`SEDIA query not applied by any encoding — last: ${note}`);
 }
 
 function mapResult(r: { url?: string; metadata?: Record<string, unknown> }): FundingItem {
