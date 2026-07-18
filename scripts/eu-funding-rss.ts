@@ -97,17 +97,19 @@ interface SediaResponse {
   results?: Array<{ url?: string; reference?: string; metadata?: Record<string, unknown> }>;
 }
 
-/** POST one page to the SEDIA search API (match-all; status filtered client-side). */
+/**
+ * POST one page to the SEDIA search API.
+ * The endpoint requires the ES query as a raw JSON body with
+ * Content-Type: application/json (multipart/form-data returns HTTP 500).
+ */
 async function fetchSediaPage(
   url: string,
+  statusCodes: string[],
   text: string,
   pageSize: number,
   pageNumber: number,
 ): Promise<SediaResponse> {
-  const query = { bool: { must: [] as unknown[] } };
-  const form = new FormData();
-  form.append('query', JSON.stringify(query));
-  form.append('languages', JSON.stringify(['en']));
+  const query = { bool: { must: [{ terms: { status: statusCodes } }] } };
   const qs = new URLSearchParams({
     apiKey: 'SEDIA',
     text: text || '***',
@@ -116,8 +118,8 @@ async function fetchSediaPage(
   });
   const res = await fetch(`${url}?${qs.toString()}`, {
     method: 'POST',
-    headers: { Accept: 'application/json' },
-    body: form,
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(query),
   });
   if (!res.ok) {
     const body = (await res.text()).slice(0, 400);
