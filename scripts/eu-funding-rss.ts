@@ -103,12 +103,13 @@ const GRANT_TYPE_CODES = ['1', '2', '8'];
 /**
  * POST one page to the SEDIA search API.
  *
- * The endpoint expects multipart/form-data with exactly two fields — `query`
- * and `sort`, each a minified JSON string — and the apiKey/text/paging params
- * in the URL query string. A raw application/json body is silently ignored
- * (returns the whole corpus), and adding extra form fields (e.g. `languages`)
- * makes it return HTTP 500. Do NOT set Content-Type — fetch sets the multipart
- * boundary from the FormData body.
+ * The endpoint applies the `query`/`sort` filter ONLY for a byte-correct
+ * multipart/form-data body. Node's undici serialization breaks the gateway's
+ * fragile Java multipart parser, which then silently treats the request as a
+ * zero-field upload and dumps the entire ~4M-doc corpus. Shelling out to
+ * `curl -F` (the reference client) produces a multipart body the gateway
+ * accepts. execFile with an argument array — never a shell string — so the
+ * JSON values cannot be interpreted by a shell (repo security rule).
  */
 async function fetchSediaPage(
   url: string,
@@ -123,8 +124,6 @@ async function fetchSediaPage(
     },
   };
   const sort = { order: 'DESC', field: 'startDate' };
-  const queryStr = JSON.stringify(query);
-  const sortStr = JSON.stringify(sort);
   const qs = new URLSearchParams({
     apiKey: 'SEDIA',
     text: text || '***',
@@ -133,45 +132,39 @@ async function fetchSediaPage(
   });
   const target = `${url}?${qs.toString()}`;
 
-  // The endpoint applies the `query`/`sort` filter ONLY when the body is a
-  // multipart/form-data payload matching `curl -F` exactly. Node's undici
-  // FormData serialization is either rejected (500) or silently ignored (the
-  // filter drops and it returns the whole ~4M-doc corpus). So build the
-  // multipart body by hand, and validate that the response is actually
-  // filtered (a grants+status query must return far fewer than the corpus).
-  const boundary = '----dwsFundingBoundary7MA4YWxkTrZu0gW';
-  const CRLF = '\r\n';
-  const manualMultipart =
-    `--${boundary}${CRLF}Content-Disposition: form-data; name="query"${CRLF}${CRLF}${queryStr}${CRLF}` +
-    `--${boundary}${CRLF}Content-Disposition: form-data; name="sort"${CRLF}${CRLF}${sortStr}${CRLF}` +
-    `--${boundary}--${CRLF}`;
-  const urlencoded = new URLSearchParams();
-  urlencoded.append('query', queryStr);
-  urlencoded.append('sort', sortStr);
-
-  const encodings: Array<{ label: string; body: BodyInit; headers?: Record<string, string> }> = [
-    { label: 'manual-multipart', body: manualMultipart, headers: { 'Content-Type': `multipart/form-data; boundary=${boundary}` } },
-    { label: 'urlencoded', body: urlencoded },
+  const { execFile } = await import('node:child_process');
+  const { promisify } = await import('node:util');
+  const run = promisify(execFile);
+  const args = [
+    '-sS',
+    '--max-time',
+    '30',
+    '-X',
+    'POST',
+    target,
+    '-F',
+    `query=${JSON.stringify(query)}`,
+    '-F',
+    `sort=${JSON.stringify(sort)}`,
   ];
-
-  const CORPUS_GUARD = 500_000; // filtered grant queries are far smaller than the full corpus
-  let note = '';
-  for (const enc of encodings) {
-    const res = await fetch(target, { method: 'POST', body: enc.body, headers: enc.headers });
-    if (!res.ok) {
-      note = `${enc.label} → HTTP ${res.status}`;
-      continue;
-    }
-    const data = (await res.json()) as SediaResponse;
-    const total = typeof data.totalResults === 'number' ? data.totalResults : Infinity;
-    if (total >= CORPUS_GUARD) {
-      note = `${enc.label} → filter ignored (totalResults=${total})`;
-      continue; // query not applied; try next encoding
-    }
-    if (pageNumber === 1) console.error(`[eu-funding] SEDIA encoding=${enc.label} totalResults=${total}`);
-    return data;
+  let stdout: string;
+  try {
+    ({ stdout } = await run('curl', args, { maxBuffer: 32 * 1024 * 1024 }));
+  } catch (e) {
+    throw new Error(`curl to SEDIA failed: ${e instanceof Error ? e.message : String(e)}`);
   }
-  throw new Error(`SEDIA query not applied by any encoding — last: ${note}`);
+  let data: SediaResponse;
+  try {
+    data = JSON.parse(stdout) as SediaResponse;
+  } catch {
+    throw new Error(`SEDIA returned non-JSON: ${stdout.slice(0, 200)}`);
+  }
+  const total = typeof data.totalResults === 'number' ? data.totalResults : Infinity;
+  if (total >= 500_000) {
+    throw new Error(`SEDIA filter not applied (totalResults=${total}) — the query was dropped by the gateway.`);
+  }
+  if (pageNumber === 1) console.error(`[eu-funding] SEDIA via curl -F · totalResults=${total}`);
+  return data;
 }
 
 function mapResult(r: { url?: string; metadata?: Record<string, unknown> }): FundingItem {
