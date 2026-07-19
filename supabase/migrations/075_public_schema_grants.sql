@@ -42,15 +42,35 @@ alter default privileges in schema public
   grant execute on functions
   to authenticated, service_role;
 
--- Anon SELECT: tables whose RLS policies grant public read.
-grant select on public.booking_services      to anon;
-grant select on public.booking_availability  to anon;
-grant select on public.finnish_holidays      to anon;
-grant select on public.subscription_plans    to anon;
-grant select on public.file_index            to anon;
+-- Anon grants are existence-safe: some tables exist only in local migration
+-- files, not in the remote schema (e.g. file_index — remote prefix 015 is
+-- email_templates). A missing table must not abort the whole backfill.
+do $$
+declare
+  t text;
+begin
+  -- Anon SELECT: tables whose RLS policies grant public read.
+  foreach t in array array[
+    'booking_services',
+    'booking_availability',
+    'finnish_holidays',
+    'subscription_plans',
+    'file_index'
+  ] loop
+    if to_regclass('public.' || t) is not null then
+      execute format('grant select on public.%I to anon', t);
+    end if;
+  end loop;
 
--- Anon INSERT: tables whose RLS policies accept anon submissions.
-grant insert on public.booking_reservations  to anon;
-grant insert on public.captain_inquiries     to anon;
-grant insert on public.web_leads             to anon;
-grant insert on public.playbook_leads        to anon;
+  -- Anon INSERT: tables whose RLS policies accept anon submissions.
+  foreach t in array array[
+    'booking_reservations',
+    'captain_inquiries',
+    'web_leads',
+    'playbook_leads'
+  ] loop
+    if to_regclass('public.' || t) is not null then
+      execute format('grant insert on public.%I to anon', t);
+    end if;
+  end loop;
+end $$;
