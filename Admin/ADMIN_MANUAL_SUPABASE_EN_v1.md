@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: §7.5 updated with production status — migration 075 APPLIED to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP, recorded as `20260719202340_public_schema_grants`. Verified: `authenticated` + `service_role` CRUD on all 184 public tables; default privileges in place for `postgres` + `supabase_admin` owners; Security Advisor shows no missing-grant findings. Documented local/remote migration drift (`file_index` local-only; remote 015 is `email_templates`) and the existence-safe `DO`/`to_regclass()` anon-grant pattern. Logged OPEN follow-up: anon still holds full legacy grants on all 184 tables (grandfathered pre-2026 default) — revocation to the opt-in list is a founder decision pending staged rollout.
 - Version: 1.6 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §7.5 New Table GRANT Checklist for the Supabase 2026-05-30 / 2026-10-30 Data API grant change — every new `CREATE TABLE public.*` must be paired with explicit `GRANT` to `service_role` + `authenticated` (anon opt-in only where RLS targets `anon`). Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for all 88 existing public tables and installs `alter default privileges` as a safety net.
 - Version: 1.5 | Tool: GitHub Copilot CLI | Session: claude/jsonld-dws10-pages-20260426 | Date: 26.04.2026 | Changes: Added §7.4 migration parity repair runbook (Supabase CLI compatibility, duplicate-prefix archive, db push include-all handling) and migration 063 note
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
@@ -24,14 +25,14 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 26.04.2026
+- Last Modified: 19.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
 
 ---
 
-**Version:** 1.6
+**Version:** 1.7
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
 **Updated:** 19.07.2026
@@ -918,13 +919,17 @@ npx -y supabase@latest db push --yes
 
 **Backfill of record**: `supabase/migrations/075_public_schema_grants.sql`.
 
+**Production status (19.07.2026)**: ✅ APPLIED. Deployed to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP `apply_migration`; recorded in remote migration history as `20260719202340_public_schema_grants` (timestamp version — same convention as `booking_system` and `erp_integration_tables`). Post-apply verification: `authenticated` + `service_role` hold SELECT/INSERT/UPDATE/DELETE on all 184 public tables; default privileges for tables, sequences, and functions are in place under both the `postgres` and `supabase_admin` owner roles; Security Advisor reports no missing-grant findings (all 111 warnings predate the change).
+
 That migration:
 
 1. Grants schema `USAGE` on `public` to `anon`, `authenticated`, `service_role`.
 2. Grants `SELECT, INSERT, UPDATE, DELETE` on every existing public table to `authenticated` + `service_role`.
 3. Grants sequence `USAGE, SELECT` and function `EXECUTE` to the same two roles.
 4. Sets `ALTER DEFAULT PRIVILEGES IN SCHEMA public` so any future table created without an inline grant block still lands granted — belt-and-suspenders against silent 42501s.
-5. Grants per-table `SELECT` / `INSERT` to `anon` only where RLS explicitly targets `anon` (booking public reads, subscription_plans, file_index, captain_inquiries, web_leads, playbook_leads, booking_reservations).
+5. Grants per-table `SELECT` / `INSERT` to `anon` only where RLS explicitly targets `anon` (booking public reads, subscription_plans, file_index, captain_inquiries, web_leads, playbook_leads, booking_reservations). These grants run inside a `DO` block that checks `to_regclass()` first, because local migration files and the remote schema have drifted — e.g. `public.file_index` exists only locally (remote prefix 015 is `email_templates`). A missing table is skipped instead of aborting the backfill.
+
+**Known follow-up — legacy anon grants (OPEN)**: verification revealed that `anon` still holds _full_ legacy grants (SELECT/INSERT/UPDATE/DELETE/TRUNCATE/TRIGGER/REFERENCES) on all 184 public tables — the pre-2026 Supabase default, grandfathered on this project. RLS is currently the only effective gate for anonymous requests. Revoking anon down to the opt-in list in migration 075 would be a real hardening step but is a breaking-risk change (any surface silently relying on anon access fails); it requires a deliberate founder decision and staged rollout, not a routine patch. The related Advisor warning `anon_security_definer_function_executable` (19 functions) is part of the same legacy posture.
 
 **Checklist for every new `CREATE TABLE public.<name>`**:
 
