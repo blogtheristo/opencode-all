@@ -334,8 +334,25 @@ CREATE TABLE IF NOT EXISTS climate_assistant_usage (
   UNIQUE (user_id, date)
 );
 
-CREATE INDEX IF NOT EXISTS climate_assistant_usage_user_date_idx ON climate_assistant_usage (user_id, date DESC);
-CREATE INDEX IF NOT EXISTS climate_assistant_usage_org_date_idx ON climate_assistant_usage (org_id, date DESC);
+-- 014's live climate_assistant_usage has no user_id/org_id (041 variant only) —
+-- guard like the agent_* indexes above. (CI soak catch, blank-slate replay.)
+DO $ci$
+BEGIN
+  IF (SELECT count(*) FROM information_schema.columns
+      WHERE table_schema='public' AND table_name='climate_assistant_usage'
+        AND column_name IN ('user_id','date')) = 2 THEN
+    CREATE INDEX IF NOT EXISTS climate_assistant_usage_user_date_idx ON climate_assistant_usage (user_id, date DESC);
+  ELSE
+    RAISE NOTICE '041: skipping climate_assistant_usage_user_date_idx — 014-variant table';
+  END IF;
+  IF (SELECT count(*) FROM information_schema.columns
+      WHERE table_schema='public' AND table_name='climate_assistant_usage'
+        AND column_name IN ('org_id','date')) = 2 THEN
+    CREATE INDEX IF NOT EXISTS climate_assistant_usage_org_date_idx ON climate_assistant_usage (org_id, date DESC);
+  ELSE
+    RAISE NOTICE '041: skipping climate_assistant_usage_org_date_idx — 014-variant table';
+  END IF;
+END $ci$;
 
 CREATE OR REPLACE FUNCTION get_or_create_usage_for_date(
   p_user_id UUID,
