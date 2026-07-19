@@ -2,8 +2,8 @@
 /**
  * gen-handbook-html.cjs — Regenerate the branded handbook HTML from the canonical Markdown.
  *
- * Source of truth: docs/KONSULTIN_KASIKIRJA_2026.md
- * Output:          docs/Konsultin_kasikirja_2026.html
+ * Source of truth: docs/KONSULTOINNIN_KASIKIRJA_2026.md
+ * Output:          docs/Konsultoinnin_kasikirja_2026.html
  *
  * Reuses the existing <style> brand shell from the current HTML so the look stays identical;
  * the body is regenerated from the Markdown so content can never drift again.
@@ -14,8 +14,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const MD = path.join(ROOT, 'docs/KONSULTIN_KASIKIRJA_2026.md');
-const HTML = path.join(ROOT, 'docs/Konsultin_kasikirja_2026.html');
+const MD = path.join(ROOT, 'docs/KONSULTOINNIN_KASIKIRJA_2026.md');
+const HTML = path.join(ROOT, 'docs/Konsultoinnin_kasikirja_2026.html');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -223,7 +223,7 @@ function main() {
     <div class="dws-version-banner">
       <span class="dws-version-title">Konsultoinnin käsikirja 2026 — Consultancy Excellence Handbook</span>
       <span class="dws-version-badge">v${ver}</span>
-      <span class="dws-version-meta">Lifetime Oy · Risto Anton Paarni · 28.06.2026</span>
+      <span class="dws-version-meta">Lifetime Oy · Risto Anton Päärni · 28.06.2026</span>
     </div>
     <h1>Konsultoinnin käsikirja 2026</h1>
     <div class="doc-subtitle">Consultancy Excellence Handbook 2026</div>

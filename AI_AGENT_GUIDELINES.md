@@ -4,11 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/colibri-usability-study-z5q1ew | Date: 12.07.2026 | Changes: Added §2 "Pre-Flight Readiness & Honest Reporting" — codifies two reusable agent/tool-design patterns extracted from the Colibrì usability study (`docs/field-notes/2026-07-12-colibri-usability-study.md`): a read-only pre-flight readiness/dry-run path before expensive-or-irreversible actions (the `doctor`/`plan` pattern), and honest measured-with-conditions performance reporting (the "Honest Performance Numbers" pattern).
 - Version: 1.2 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Added §0 "The 12 Engineering Discipline Rules" — restates the canonical 12 rules (home: CLAUDE.md) for every `src/agents/` BaseAgent, MCP tool, AgentFoundry, and dev-fleet agent, with agent-specific bindings. Ensures every agent has access to the rules per session directive.
+- Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/vertical-agent-architecture-f8fqc5 | Date: 12.06.2026 | Changes: Added §11 Context Engineering & Agent Shape (L1/L2/L3 cache tiers, loop-vs-single-shot decision rule, discrete-tools-over-execute_code trade-off) from the "Building a Good Vertical Agent" audit; extended the new-agent checklist with tier + shape declarations
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: Added Ledger-Native Output Contract (Firehorse 7) to §2 — operational agents must emit signed journalEntries + lineage (EU AI Act Art. 12) and optional regulatoryArtifact; defined sales-side exemption allowlist and CI contract gate. Implements DWS7 CEO reshape (layer-5 / AI Actions positioning)
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - consolidates distributed agent standards into single reference
 
@@ -19,7 +21,7 @@ Session Links & References:
 Document Status:
 
 - Created: 11.02.2026
-- Last Modified: 19.06.2026
+- Last Modified: 12.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -55,6 +57,7 @@ Related Documents:
 8. [Testing Requirements](#8-testing-requirements)
 9. [Extraction Pattern: Bacterial Code](#9-extraction-pattern-bacterial-code)
 10. [Skill Codification: Asked Twice = Failure](#10-skill-codification-asked-twice--failure)
+11. [Context Engineering & Agent Shape](#11-context-engineering--agent-shape)
 
 ---
 
@@ -223,6 +226,14 @@ interface LedgerNativeAgentOutput extends AgentResponse {
 - If `GROQ_API_KEY` is not set, `callLLM()` returns a placeholder. Agent must still produce a deterministic result.
 - If Supabase is not configured, `logExecution()` silently skips. Agent must not fail.
 - All external API calls must be wrapped in try/catch with meaningful error messages.
+
+### Pre-Flight Readiness & Honest Reporting
+
+Two patterns extracted from the Colibrì usability study (`docs/field-notes/2026-07-12-colibri-usability-study.md`, JustVugg/colibri). Both generalise to any agent or tool that commits expensive, slow, or irreversible work.
+
+**Pre-flight readiness check (the `doctor`/`plan` pattern).** Any agent or tool whose main action is expensive, slow, or irreversible — large model load, long download, paid API burst, destructive migration — SHOULD expose a **read-only** readiness path that validates inputs, dependencies, cost budget (§6), and resource fit, and reports _what would happen_ without allocating, spending, or mutating. Colibrì's `coli doctor` (readiness) and `coli plan` (`--json` resource hierarchy) let a user fail for free in seconds instead of after a multi-hour download. In DWS terms: a dry-run surfaces the §6 cost estimate and §7 tier decision _before_ execution. This is Rule 12 (fail loud) applied **before the fact** — error prevention, not just logging after it.
+
+**Honest performance reporting (the "Honest Performance Numbers" pattern).** When an agent or tool publishes performance, throughput, or cost figures, report **measured numbers with the conditions that produced them** — never a single best-case figure. Colibrì ships a first-party honest-baseline table _and_ a community-contributed measurements table (hardware, disk speed, config, result), which builds trust and turns users into contributors. For DWS agents: emit real per-run cost/latency into the execution log (§6); where numbers are published externally, include the conditions and label estimates as estimates (Rule 12; `truth-check` gate for public claims).
 
 ---
 
@@ -547,6 +558,89 @@ Every step in a skill is either **latent** (LLM judgment: read, synthesize, deci
 
 ---
 
+## 11. Context Engineering & Agent Shape
+
+Derived from the _Building a Good Vertical Agent_ audit
+(`docs/audits/AGENT_ARCHITECTURE_AUDIT_FIELD_NOTE.md`). Core thesis: **a good
+agent is a faithful compression of its task distribution.** With the model
+fixed, accuracy is a function of context quality — bloat buries the signal,
+gaps force guessing. These rules make that compression a design requirement,
+not an accident.
+
+### 11.1 Context as a Layered Cache (L1 / L2 / L3)
+
+Treat the agent's context like a CPU memory hierarchy. Place each capability at
+the tier that minimizes total context cost across the task distribution.
+
+| Tier   | What lives here                                              | Cost model                           | DWS mechanism                                                 |
+| ------ | ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------- |
+| **L1** | The ~80% bread-and-butter; always resident in the prompt     | Paid on **every** call — keep tight  | The agent's SOUL system prompt (`base.agent.ts` `soulPrompt`) |
+| **L2** | The ~15% important-but-occasional; fetched on one cheap call | Zero until needed; one discovery hop | `memory_recall`, `kb_*` tools, curated `skills/*/SKILL.md`    |
+| **L3** | The long tail; raw substrate + a skill that maps it          | Several calls, only on rare tasks    | `skills/<name>/SKILL.md` over a large reference / the raw DB  |
+
+Rules:
+
+- **Keep L1 tight and token-budgeted.** A SOUL prompt is not a dumping ground.
+  Anything used on a minority of tasks belongs in L2, not L1.
+- **L2 specs are gotcha-aware prose, not type signatures.** Encode the canonical
+  recipe and the constraints someone already paid to learn, fetched on demand.
+- **L3 must be reachable, complete, and findable in a bounded number of steps.**
+  It does not have to be ergonomic; the agent must never be truly stuck.
+- As models get stronger, tiers slide down (yesterday's L3 → today's L2). Revisit
+  placements; do not assume them fixed.
+
+### 11.2 Agent Shape: Loop vs Single-Shot
+
+Two valid shapes. **Declare which one an agent uses and why** — the choice is
+itself a compression of the task distribution.
+
+- **Single-shot** (`callLLM`): read input → deterministic domain logic → one LLM
+  call to narrate/score → return `AgentResponse`. Correct for **bounded,
+  deterministic** tasks (carbon lookup, a fixed scoring rubric, classification).
+  Cheaper, more auditable, easier to test. This is the default for most scored
+  DWS agents.
+- **Loop** (`runLoop`): observe-think-act with tool use until done. Reserve for
+  **open-ended** tasks that genuinely need iterative tool use, DB queries, or
+  delegation (e.g. "find the compliance gap in this filing"). Costs more tokens
+  per task — do not adopt it for deterministic work just because it is newer.
+
+Anti-pattern: defaulting to a loop "to be safe." A loop over a deterministic task
+adds cost and variance for zero accuracy gain.
+
+### 11.3 Tool Output Is Context — Compress It and Report Consequences
+
+The steep-frequency tools (DB reads, external fetches) get
+**feature-engineered, token-compressed, consequence-reporting** wrappers, because
+the agent pays their cost on every task. A raw dump or a blind truncation buries
+the signal. Reference implementations:
+
+- `compressRows` (`tools.ts`) backs `query_database`: schema reported once,
+  constant columns collapsed losslessly, large sets sampled with an omitted
+  tally, and a `review` section that flags empties, null columns, error
+  sentinels, and limit-truncation — _"here's the part you probably got wrong."_
+- `summarizeFetchedText` (`tools.ts`) backs `fetch_external`: caps the body but
+  reports the full length and an explicit `truncated` flag instead of silently
+  cutting the string.
+
+New tools that return list/blob data must follow this pattern, not return raw
+payloads.
+
+### 11.4 Discrete Tools Over `execute_code` — a Deliberate Trade-off
+
+The field note argues for a single `execute_code` tool. DWS deliberately uses
+**discrete, typed, individually-classifiable tools** instead, because the
+security model depends on it: the RED/BLUE lethal-trifecta gate, the per-call
+allowlist, and `MCPToolRegistry.validateToolCombination` (`tools.ts`) can only
+classify and block _named_ tool calls. Arbitrary code execution would blind
+every one of those controls.
+
+Keep per-agent tool counts low (single digits) to preserve model accuracy, but
+**do not** introduce a general code-execution tool into a production agent —
+that regresses the EU-AI-Act-logged security posture. If composition power is
+needed, prefer `delegate_to_agent` and the Daedalus tool-composition path.
+
+---
+
 ## Quick Reference
 
 ### File Locations
@@ -578,3 +672,6 @@ Every step in a skill is either **latent** (LLM judgment: read, synthesize, deci
 - [ ] Entry added to `AGENTS.md`
 - [ ] Autonomy tier declared
 - [ ] Cost budget assigned
+- [ ] Agent shape declared: single-shot vs loop, with rationale (§11.2)
+- [ ] Context tiers identified: what is L1 (resident) vs L2 (fetched) vs L3 (§11.1)
+- [ ] List/blob-returning tools compress output + report consequences (§11.3)

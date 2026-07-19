@@ -1,7 +1,7 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
   "version": "1.0",
-  "updated": "2026-06-24",
+  "updated": "2026-07-06",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
     { "id": "win11-claude-cli", "label": "Win11 Claude CLI" },
@@ -220,6 +220,13 @@
       "kind": "slash-command",
       "profile": "slash-cli",
       "commandFile": ".claude/commands/email.md"
+    },
+    {
+      "id": "eu-data",
+      "name": "eu-data",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/eu-data/SKILL.md"
     },
     {
       "id": "fix-dual-folder-api-connectivity",

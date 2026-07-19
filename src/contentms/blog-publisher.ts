@@ -36,12 +36,16 @@ import DOMPurify from 'isomorphic-dompurify';
  * Security:
  * - Uses markdown-it with `html: false` so raw HTML in markdown is not rendered.
  * - Output is sanitized with DOMPurify to prevent XSS.
+ * - `linkify` is OFF: linkify-it's fuzzy-match scan is O(N^2) on inputs with many
+ *   email/URL-like substrings (unpatched upstream, no GHSA/OSV entry as of 08.07.2026;
+ *   ~2.5s CPU per 64KB of repeated "a@b.com" on this synchronous request path with no
+ *   body_markdown length cap). Explicit markdown links `[text](url)` are unaffected.
  */
 export function renderMarkdownToHtml(markdown: string): string {
   // Configure markdown-it parser
   const md = new MarkdownIt({
     html: false, // do not render raw HTML from markdown
-    linkify: true,
+    linkify: false, // see security note above — do not re-enable without an upstream fix
     breaks: true,
   });
 

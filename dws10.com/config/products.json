@@ -1012,7 +1012,7 @@
       "price": 5294,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. This is Plant Capital in the 4P sense: intelligence that operates inside your own building, not SaaS you log into — the sovereign edge half of the two-room Control Room + Situation Room stack. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
         "1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €4,299 hardware",
         "NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
@@ -1046,7 +1046,7 @@
       "price": 10093,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Together with the Control Room it forms the two-room stack that carries your Plant Capital — intelligence that operates, not SaaS you rent. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
         "2× Acer Veriton GN100 bridged (40 cores · 256 GB unified memory · NVIDIA ConnectX-7 200 Gbps link) — 2× €4,299 hardware",
         "NVIDIA model installation for the bridged pair — €1,495 (tensor-parallel sharding, dual-node Article 12 log replica, failover)",
@@ -1213,16 +1213,16 @@
       "gtin": null,
       "mpn": "LF-DGX-SPARK-2026",
       "name": "DGX Spark — NVIDIA-branded Sovereign Edge AI + Install & Service",
-      "price": 5994,
+      "price": 6694,
       "currency": "EUR",
       "type": "one-time",
       "description": "NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.",
       "features": [
-        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €4,999 hardware (Finnish EMEA pricing)",
+        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €5,699 hardware (Finnish EMEA pricing; above NVIDIA USD 4,699 list, Feb 2026)",
         "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
         "Pair two for 405 B-param models over the ConnectX-7 200 Gbps link"
       ],
-      "priceNote": "€5,994 one-time · €4,999 hardware + €995 install · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€6,694 one-time · €5,699 hardware + €995 install · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -4387,6 +4387,39 @@
         "contentLanguage": "en"
       }
     },
+    "DWS-IQ-FREE-2026": {
+      "id": "DWS-IQ-FREE-2026",
+      "gtin": null,
+      "mpn": "DWSIQ-FREE-2026",
+      "name": "DWS IQ Free — 1 project, CSRD-ready",
+      "price": 0,
+      "currency": "EUR",
+      "type": "subscription",
+      "description": "Start your first CSRD project free. 1 active project, up to 50 ESG line items, 1 seat — audit-defensible output, EU-sovereign hosting, no credit card. Upgrade when you hit the cap or invite a teammate. Built for Sustainability Directors who need to start before the EU CSRD deadline.",
+      "features": [
+        "1 active CSRD project — audit-defensible output from day 1",
+        "Up to 50 ESG line items, 1 seat, EU-sovereign hosting",
+        "Upgrade gates: 2nd project, 51st line item, or 2nd seat"
+      ],
+      "priceNote": "Free forever within caps · upgrade to DWS IQ Report (€1,999) on first cap breach",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq-free.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 1
+    },
     "AIS-EU-SOV-OC": {
       "id": "AIS-EU-SOV-OC",
       "gtin": null,
@@ -4526,8 +4559,8 @@
   "lastUpdated": "2026-06-09T00:00:00Z",
   "priceVersion": "1.20",
   "priceList": {
-    "version": "1.22",
-    "effectiveDate": "2026-06-25",
+    "version": "1.23",
+    "effectiveDate": "2026-07-16",
     "nextReviewDate": "2026-08-01",
     "policy": {
       "currency": "EUR",
@@ -4541,11 +4574,22 @@
       "address": "Laidunmaanraitti 2 A 25, 02330 Espoo, Finland",
       "businessId": "0772407-9",
       "vatId": "FI07724079",
-      "owner": "Risto Anton Paarni",
+      "owner": "Risto Anton Päärni",
       "salesEmail": "sales@lifetime.fi"
     }
   },
   "priceHistory": [
+    {
+      "version": "1.23",
+      "date": "2026-07-16",
+      "author": "claude/scaleway-pricing-update-19g8df",
+      "changes": [
+        "LF-DGX-SPARK (DGX Spark): \u20ac5,994 -> \u20ac6,694. Hardware \u20ac4,999 -> \u20ac5,699 + \u20ac995 install. Per CEO direction: the one hardware SKU held at v1.20 (while Control Room / Situation Room / Jetson AGX were bumped) is now brought in line with the same 'small reseller margin above the NVIDIA/Acer EU channel base' logic.",
+        "Context: NVIDIA raised DGX Spark USD 3,999 -> USD 4,699 (+18%, memory supply) effective 2026-02-23 (see docs/field-notes/2026-07-16-nvidia-hardware-pricing.md). v1.20 had knowingly held DGX Spark at \u20ac5,994 despite that list move; this closes the gap so it is not the only unbumped node. Note: the \u20ac4,999 EMEA hardware line already covered the USD 4,699 list, so this is a margin-forward decision, not a margin-restoration one.",
+        "All other SKUs held at v1.22 prices. Finnish / EU B2B (VAT 0% reverse charge) framing preserved.",
+        "Synced to landing-pages/dws10-com/config/products.json in the same commit; updated all live customer-visible copies (dgx-spark.html, price-list, Google product feed, healthcare, lwm-ontology, lifetime-vip-ai-services). Auto-generated price-list/versions/ snapshots left to the quarterly-price-list workflow."
+      ]
+    },
     {
       "version": "1.22",
       "date": "2026-06-25",
@@ -4904,7 +4948,7 @@
         "QLoRA fine-tuning pipeline on your NVIDIA hardware (GB10/DGX Spark)",
         "On-site deployment + operator training + 12-month sovereign update subscription"
       ],
-      "priceNote": "€49,990 one-time + €9,990/year sovereign updates | Pairs with Control Room (€5,294) or DGX Spark (€5,994)",
+      "priceNote": "€49,990 one-time + €9,990/year sovereign updates | Pairs with Control Room (€5,294) or DGX Spark (€6,694)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",

@@ -9,12 +9,14 @@
  * @see DWS_SECURITY_STANDARD.md §18
  */
 
-export { calculateATS, isPathPermitted } from './ats-engine.js';
 export {
-  evaluateSignal,
-  executeDecision,
-  terminateChain,
-} from './kya-engine.js';
+  calculateATS,
+  evaluateMandateGate,
+  isPathPermitted,
+  tenantGatingProfileSchema,
+  validateTenantGatingProfile,
+} from './ats-engine.js';
+export { evaluateSignal, executeDecision, terminateChain } from './kya-engine.js';
 export type {
   ShuftiWebhookPayload,
   PolicyAction,
@@ -32,4 +34,10 @@ export type {
   FaultClass,
   FaultSeverity,
   FaultRecord,
+  MandateType,
+  ProtocolRail,
+  SpendAuthority,
+  TenantGatingProfile,
+  MandateGateRequest,
+  MandateGateDecision,
 } from './types.js';

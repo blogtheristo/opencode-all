@@ -25,6 +25,8 @@ export interface AgentContext {
   orgId: string;
   /** Unique session ID for tracing a conversation or workflow */
   sessionId: string;
+  /** Case ID — links agent execution to a unified Case entity (cases table) */
+  caseId?: string;
   /** Session-scoped tool safety state used to block unsafe red-to-blue chains */
   toolSafety?: ToolSafetyState;
   /** Sandbox isolation settings (optional — applied when SANDBOX_STAGE is set) */

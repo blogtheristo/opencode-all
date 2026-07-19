@@ -62,6 +62,13 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { IndustryAnalystAgent } from './industry-analyst.agent.js';
+import { OutreachLeadFinderAgent } from './outreach-lead-finder.agent.js';
+import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js';
+import { OutreachExecutorAgent } from './outreach-executor.agent.js';
+import { OutreachOrchestratorAgent } from './outreach-orchestrator.agent.js';
+import { OutreachImproverAgent } from './outreach-improver.agent.js';
+import { SalesManagerNewsletterAgent } from './sales-manager-newsletter.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
 import { AegisAgent } from './aegis.agent.js';
@@ -77,6 +84,7 @@ import {
   DevOpsEngineerAgent,
   ProjectManagerAgent,
 } from './consultant/index.js';
+import { HelpdeskAgent } from './helpdesk.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -295,6 +303,16 @@ export class AgentRegistry {
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
 
+    // Universal industry coverage — one parameterized agent for all 25 industries,
+    // closing the gap for the 12 without a dedicated pantheon specialist.
+    this.register(new IndustryAnalystAgent());
+    // Outreach Pipeline — 4-step DGX Spark-powered B2B outreach (2026-06-15)
+    this.register(new OutreachLeadFinderAgent()); // Step 1: find + score EU leads
+    this.register(new OutreachMessageCrafterAgent()); // Step 2: craft personalized email + LinkedIn drafts
+    this.register(new OutreachExecutorAgent()); // Step 3: deliver via SES / queue LinkedIn
+    this.register(new OutreachOrchestratorAgent()); // Coordinator: chains Steps 1–3
+    this.register(new OutreachImproverAgent()); // Outer loop: analyze outcomes → propose SKILL.md diffs
+    this.register(new SalesManagerNewsletterAgent()); // Stage 2: synthesize market_signals + news-to-signal into sales-manager.md format
     // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
     this.register(new AegisAgent()); // Vulnerability & patch SLA triage
     this.register(new VestaAgent()); // Business-critical systems registry
@@ -308,6 +326,12 @@ export class AgentRegistry {
     this.register(new GenAISolutionArchitectAgent()); // Claude Code, KYA, agent architecture
     this.register(new DevOpsEngineerAgent()); // CI/CD, K8s, UpCloud Helsinki, security
     this.register(new ProjectManagerAgent()); // JIRA, scheduling, customer documentation
+    // Helpdesk — AI-native support ticket triage. Off by default in production.
+    // Enable via HELPDESK_AGENT_ENABLED=true after kb/wiki/concepts/support/ policy seed has landed.
+    // In dev/test (NODE_ENV !== 'production') it registers automatically so tests can run.
+    if (process.env.HELPDESK_AGENT_ENABLED === 'true' || process.env.NODE_ENV !== 'production') {
+      this.register(new HelpdeskAgent()); // Support triage — drafts reply + recommendation; never sends
+    }
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

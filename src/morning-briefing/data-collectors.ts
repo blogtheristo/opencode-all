@@ -184,6 +184,22 @@ export interface WebLeadsData {
   leads: WebLeadItem[];
 }
 
+/** A single cross-vertical market/incident signal from news-to-signal.sh */
+export interface MarketSignalItem {
+  timestamp: string;
+  title: string;
+  source: string;
+  industries: string; // comma-separated
+  dual_use: boolean;
+  cascade_score: number;
+}
+
+/** Market signals scanned in the last 3 days, above alert threshold */
+export interface MarketSignalsData {
+  signals: MarketSignalItem[];
+  scannedAt: string | null; // most recent scan timestamp found, or null if no scan output exists
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -201,6 +217,7 @@ export interface CockpitData {
   webLeads: WebLeadsData;
   learnArtifacts: LearnArtifactsData;
   hilTodos: HilTodosData;
+  marketSignals: MarketSignalsData;
 }
 
 // ============================================================================
@@ -282,7 +299,7 @@ async function collectProductChange(): Promise<string> {
       meetings_booked: number;
     }>
   >(
-    `agent_metrics?select=agent_id,leads_processed,emails_sent,meetings_booked&metric_date=gte.${yesterday}`,
+    `agent_metrics?select=agent_id,leads_processed,emails_sent,meetings_booked&date=gte.${yesterday}`,
   );
 
   if (metrics && metrics.length > 0) {
@@ -1093,6 +1110,77 @@ async function collectHilTodos(): Promise<HilTodosData> {
 }
 
 // ============================================================================
+// MARKET SIGNALS COLLECTOR
+// ============================================================================
+
+/**
+ * Collect cross-vertical market/incident signals produced by
+ * scripts/daily/news-to-signal.sh, which writes alerts-YYYY-MM-DD.jsonl to
+ * logs/news-signals/ (DGX Spark local disk — day-runner.sh runs the scanner
+ * and this collector on the same box, so the path is shared, not fetched
+ * over the network). Reads the last 3 days of alert files so a signal isn't
+ * missed if the briefing runs slightly before/after the scan window.
+ *
+ * Was previously generated but never surfaced anywhere — this collector
+ * closes that gap (found during the 2026-07-12 stalled-briefing audit).
+ */
+async function collectMarketSignals(): Promise<MarketSignalsData> {
+  try {
+    const currentDir =
+      typeof __dirname !== 'undefined' ? __dirname : resolve(fileURLToPath(import.meta.url), '..');
+    const projectRoot = resolve(currentDir, '..', '..');
+    const logDir = resolve(projectRoot, 'logs', 'news-signals');
+
+    const signals: MarketSignalItem[] = [];
+    let scannedAt: string | null = null;
+
+    for (let daysAgo = 0; daysAgo < 3; daysAgo++) {
+      const d = new Date(Date.now() - daysAgo * 86_400_000);
+      const dateStamp = d.toISOString().split('T')[0];
+      const alertsPath = resolve(logDir, `alerts-${dateStamp}.jsonl`);
+
+      let raw: string;
+      try {
+        raw = await readFile(alertsPath, 'utf-8');
+      } catch {
+        continue; // no scan output for this day — not an error, just nothing to report
+      }
+
+      for (const line of raw.split('\n')) {
+        if (!line.trim()) continue;
+        try {
+          const alert = JSON.parse(line) as {
+            timestamp: string;
+            title: string;
+            cascade_score: number;
+            industries: string;
+            dual_use: boolean;
+          };
+          signals.push({
+            timestamp: alert.timestamp,
+            title: alert.title,
+            source: 'news-to-signal',
+            industries: alert.industries || '',
+            dual_use: Boolean(alert.dual_use),
+            cascade_score: alert.cascade_score || 0,
+          });
+          if (!scannedAt || alert.timestamp > scannedAt) scannedAt = alert.timestamp;
+        } catch {
+          // malformed line — skip, don't fail the whole collector over one bad row
+        }
+      }
+    }
+
+    signals.sort((a, b) => b.cascade_score - a.cascade_score);
+    return { signals: signals.slice(0, 8), scannedAt };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Market signals collection failed (non-critical)', { error: msg });
+    return { signals: [], scannedAt: null };
+  }
+}
+
+// ============================================================================
 // MAIN COLLECTOR
 // ============================================================================
 
@@ -1124,6 +1212,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     webLeads,
     learnArtifacts,
     hilTodos,
+    marketSignals,
   ] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
@@ -1138,6 +1227,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectWebLeads(),
     collectLearnArtifacts(),
     collectHilTodos(),
+    collectMarketSignals(),
   ]);
 
   // Heartbeat upsert — prevents Supabase from pausing due to inactivity
@@ -1160,6 +1250,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     webLeads,
     learnArtifacts,
     hilTodos,
+    marketSignals,
   };
 }
 

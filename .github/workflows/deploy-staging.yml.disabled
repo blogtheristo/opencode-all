@@ -1,0 +1,282 @@
+name: Deploy to Staging (Cloud Run)
+
+# Triggers on every claude/* feature branch push that touches backend code.
+# Production deploy (deploy-scaleway.yml / cloudbuild.yaml) only triggers on main.
+#
+# Target: Cloud Run service dws6run6-staging (europe-north1)
+# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/$ARTIFACT_REPOSITORY/backend:staging-<sha>
+#
+# Cloud Run injects PORT automatically — do not set PORT in env_vars (deploy will fail).
+#
+# Required secrets (GitHub → Settings → Secrets → Actions):
+#   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
+#   GCP_SERVICE_ACCOUNT           — github-actions-deployer@<project>.iam.gserviceaccount.com
+#   STAGING_SUPABASE_URL — Supabase URL for staging project
+#   STAGING_SUPABASE_ANON_KEY
+#   STAGING_SUPABASE_SERVICE_KEY
+#   STAGING_JWT_SECRET   — min 32 chars, separate from prod
+#   STAGING_ANTHROPIC_API_KEY
+#   STAGING_GROQ_API_KEY
+
+on:
+  push:
+    branches:
+      - "claude/**"
+    paths:
+      - "src/**"
+      - "public/**"
+      - "package*.json"
+      - "Dockerfile"
+      - "tsconfig.json"
+  workflow_dispatch:
+
+env:
+  REGION: europe-north1
+  PROJECT_ID: dws-iq-60
+  REGISTRY: europe-north1-docker.pkg.dev
+  ARTIFACT_REPOSITORY: dws-iq-repo
+  IMAGE_NAME: backend
+  SERVICE_NAME: dws6run6-staging
+  HAS_GCP_DEPLOY_AUTH: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && secrets.GCP_SERVICE_ACCOUNT != '' }}
+
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+
+jobs:
+  build:
+    name: Build Staging Image
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.image.outputs.ref }}
+      registry_ready: ${{ steps.registry.outputs.exists }}
+
+    steps:
+      - name: Skip staging build when GCP deploy auth is unavailable
+        if: env.HAS_GCP_DEPLOY_AUTH != 'true'
+        run: |
+          echo "GCP workload identity credentials are not configured for this workflow context."
+          echo "Skipping staging image build instead of failing the PR gate."
+          {
+            echo "## Staging Deployment"
+            echo ""
+            echo "Skipped: workload identity secrets are unavailable in this workflow context."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Checkout
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+
+      - name: Set up Docker Buildx
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Configure Docker for Artifact Registry
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+
+      - name: Verify Artifact Registry repository
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
+        id: registry
+        shell: bash
+        run: |
+          if gcloud artifacts repositories describe "${{ env.ARTIFACT_REPOSITORY }}" \
+            --project="${{ env.PROJECT_ID }}" \
+            --location="${{ env.REGION }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Artifact Registry repository '${{ env.ARTIFACT_REPOSITORY }}' does not exist in project '${{ env.PROJECT_ID }}'. Skipping staging image push."
+            {
+              echo "### Staging deploy skipped"
+              echo ""
+              echo "Artifact Registry repository \`${{ env.ARTIFACT_REPOSITORY }}\` does not exist in project \`${{ env.PROJECT_ID }}\`."
+              echo ""
+              echo "Create it with:"
+              echo "\`gcloud artifacts repositories create ${{ env.ARTIFACT_REPOSITORY }} --repository-format=docker --location=${{ env.REGION }} --description=\"DWS IQ staging images\"\`"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Build and push
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true' && steps.registry.outputs.exists == 'true'
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+      - name: Output image ref
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true' && steps.registry.outputs.exists == 'true'
+        id: image
+        run: |
+          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy to Cloud Run Staging
+    runs-on: ubuntu-latest
+    needs: build
+    if: needs.build.outputs.registry_ready == 'true'
+    environment:
+      name: staging
+      url: https://dws6run6-staging-${{ env.REGION }}.a.run.app
+
+    steps:
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.REGION }}
+          image: ${{ needs.build.outputs.image }}
+          flags: >-
+            --allow-unauthenticated
+            --memory=512Mi
+            --cpu=1
+            --min-instances=0
+            --max-instances=3
+            --concurrency=80
+            --timeout=60s
+          env_vars: |
+            NODE_ENV=staging
+            LOG_LEVEL=debug
+            DETAILED_ERRORS=true
+            ENABLE_CRON_JOBS=false
+            ENABLE_MORNING_BRIEFING=false
+            ENABLE_CONSTRUCTION_LEADS=false
+            ENABLE_OUTREACH_DIGEST=false
+            ENABLE_FIREHORSE_SCHEDULER=false
+            ENABLE_INVESTOR_REPORTS=false
+            ENABLE_ERP_SYNC=false
+            ENABLE_SAP_INTEGRATION=false
+            ENABLE_IFS_INTEGRATION=false
+            ENABLE_DYNAMICS_INTEGRATION=false
+            SOVEREIGNTY_AUDIT_ENABLED=false
+            LLM_PRIMARY=groq
+            LLM_FALLBACK=nim
+          secrets: |
+            SUPABASE_URL=STAGING_SUPABASE_URL:latest
+            SUPABASE_ANON_KEY=STAGING_SUPABASE_ANON_KEY:latest
+            SUPABASE_SERVICE_KEY=STAGING_SUPABASE_SERVICE_KEY:latest
+            JWT_SECRET=STAGING_JWT_SECRET:latest
+            ANTHROPIC_API_KEY=STAGING_ANTHROPIC_API_KEY:latest
+            GROQ_API_KEY=STAGING_GROQ_API_KEY:latest
+
+      - name: Smoke test — /health
+        run: |
+          URL="https://dws6run6-staging-${{ env.REGION }}.a.run.app/health"
+          echo "Checking $URL"
+          for i in {1..10}; do
+            RESPONSE=$(curl -fsS "$URL" || true)
+            if [ -z "$RESPONSE" ]; then
+              echo "Attempt $i: no response body — waiting 10s..."
+              sleep 10
+              continue
+            fi
+            if echo "$RESPONSE" | node -e "const fs=require('node:fs'); const body=JSON.parse(fs.readFileSync(0,'utf8')); const supabase=body?.dependencies?.supabase?.status; const llm=body?.dependencies?.llmProviders?.status; const overall=body?.status; const invalid = overall === 'down' || supabase === 'down' || llm !== 'ok'; if (invalid) { process.exit(1); }"; then
+              echo "Staging health check passed (dependencies healthy enough)"
+              exit 0
+            fi
+            echo "Attempt $i: health response is degraded or invalid — waiting 10s..."
+            sleep 10
+          done
+          echo "ERROR: staging health check failed after 10 attempts (overall down, Supabase down, or LLM provider unavailable)"
+          exit 1
+
+      - name: Smoke test — /api/v1/status (no-auth public endpoint)
+        run: |
+          URL="https://dws6run6-staging-${{ env.REGION }}.a.run.app/api/v1/status"
+          echo "Checking $URL"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || echo "000")
+          if [ "$STATUS" = "200" ]; then
+            echo "Status endpoint check passed (HTTP 200)"
+          else
+            echo "WARNING: /api/v1/status returned HTTP $STATUS (non-blocking)"
+          fi
+
+      - name: Deployment summary
+        if: always()
+        run: |
+          echo "## Staging Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Service | \`${{ env.SERVICE_NAME }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Image | \`${{ needs.build.outputs.image }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| URL | https://dws6run6-staging-${{ env.REGION }}.a.run.app |" >> $GITHUB_STEP_SUMMARY
+
+  notify-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: failure() && env.HAS_GCP_DEPLOY_AUTH == 'true'
+
+    steps:
+      - name: Create or update failure issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branchName = process.env.GITHUB_REF_NAME || context.ref?.replace('refs/heads/', '') || 'unknown-branch';
+            const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const note = [
+              `## Staging Deployment Failure`,
+              ``,
+              `**Branch:** ${branchName}`,
+              `**Commit:** ${context.sha}`,
+              `**Run:** ${run}`,
+              `**Actor:** ${context.actor}`,
+              ``,
+              `Check the workflow logs for details.`,
+            ].join('\n');
+
+            // Deduplicate: one open tracking issue per branch instead of a new
+            // issue on every failed run (the old behaviour spammed #1296–#1362).
+            const marker = `<!-- staging-deploy-failure:${branchName} -->`;
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'staging,deployment',
+              state: 'open',
+              per_page: 100,
+            });
+            const existing = open.find((i) => (i.body || '').includes(marker));
+
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body: `Staging deploy failed again on \`${branchName}\` (${context.sha}).\n\n${run}`,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `Staging Deploy Failing — ${branchName}`,
+                body: `${note}\n\n${marker}`,
+                labels: ['deployment', 'staging', 'bug'],
+              });
+            }

@@ -6,17 +6,17 @@ Author: Claude Opus 4.8 + Human Review
 Branch: claude/fervent-lovelace-fdc2O
 Status: Draft
 Story Lock: Sovereign AI + Autonomous Mobility + Dual Use RaaS — SSAB anchor case
-Intro Type: Supporting attachment (for INTRO_MATTI_HEIKKONEN_DUAL_USE.md)
+Intro Type: Supporting attachment (Lifetime Group Dual Use / RaaS investor pitches)
 Language: EN
 
 AGENT HISTORY:
-- v1.0 (2026-06-03): Initial draft. Illustrative TARGET case (no existing contract claimed) showing how the Lifetime AB business — Lifetime Fleet + DWS IQ + Dual Use RaaS — maps onto SSAB, the largest Nordic steel producer. Anchored to SSAB's real ETS/CBAM/CSRD exposure and fossil-free-steel transition. Created as supporting attachment for the Matti Heikkonen Dual Use pitch.
+- v1.0 (2026-06-03): Initial draft. Illustrative TARGET case (no existing contract claimed) showing how the Lifetime AB business — Lifetime Fleet + DWS IQ + Dual Use RaaS — maps onto SSAB, the largest Nordic steel producer. Anchored to SSAB's real ETS/CBAM/CSRD exposure and fossil-free-steel transition. Created as a supporting attachment for the Lifetime Group Dual Use / RaaS investor pitches.
 - v1.1 (2026-06-03): Added section 6 — Outokumpu (Helsinki HQ / Tornio works) as a related illustrative target on the Lifetime Oy (Finland) leg, giving a two-country SSAB(SE)+Outokumpu(FI) anchor matching the Lifetime Group structure.
 -->
 
 # Case Study (Illustrative Target) — Lifetime AB business written in SSAB case
 
-> **Framing note:** This is an *illustrative target case*. It maps the Lifetime AB business model onto SSAB to show fit and value — it does **not** claim an existing contract, pilot, or engagement with SSAB. Use as a worked example in investor conversations.
+> **Framing note:** This is an _illustrative target case_. It maps the Lifetime AB business model onto SSAB to show fit and value — it does **not** claim an existing contract, pilot, or engagement with SSAB. Use as a worked example in investor conversations.
 
 ## 1. Why SSAB
 
@@ -26,14 +26,14 @@ That combination — a major buyer in our launch geography, with acute ETS/CBAM/
 
 ## 2. What Lifetime AB sells into SSAB
 
-| Lifetime AB pillar | SSAB value | Buyer |
-| ------------------ | ---------- | ----- |
-| **DWS IQ — climate intelligence** | Measures and verifies CO₂ across inbound/outbound logistics and yard movements; produces court-defensible ETS/CBAM/CSRD audit trails under the KYA Standard | Sustainability / Compliance, CFO |
-| **Lifetime Fleet — operator platform** | Zero-emission, optimised last-mile and site logistics around the Stockholm corridor; dynamic routing and remote fleet management | Logistics / Plant operations |
-| **Autonomous robotics (RaaS)** | Robot-assisted yard and last-mile movement; Edge AI (NVIDIA Jetson / Isaac) for object recognition and routing in plant environments | Operations / Automation |
-| **Sovereign Data** | Fully closed, Nordic-hosted data environment for sensitive supply-chain and emissions data — no US/Asian cloud exposure | CISO, Procurement |
+| Lifetime AB pillar                     | SSAB value                                                                                                                                                  | Buyer                            |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| **DWS IQ — climate intelligence**      | Measures and verifies CO₂ across inbound/outbound logistics and yard movements; produces court-defensible ETS/CBAM/CSRD audit trails under the KYA Standard | Sustainability / Compliance, CFO |
+| **Lifetime Fleet — operator platform** | Zero-emission, optimised last-mile and site logistics around the Stockholm corridor; dynamic routing and remote fleet management                            | Logistics / Plant operations     |
+| **Autonomous robotics (RaaS)**         | Robot-assisted yard and last-mile movement; Edge AI (NVIDIA Jetson / Isaac) for object recognition and routing in plant environments                        | Operations / Automation          |
+| **Sovereign Data**                     | Fully closed, Nordic-hosted data environment for sensitive supply-chain and emissions data — no US/Asian cloud exposure                                     | CISO, Procurement                |
 
-## 3. The Dual Use angle (for Matti)
+## 3. The Dual Use angle (for defence / dual-use investors)
 
 SSAB is not only a steel producer — it is a **critical-materials supplier** whose supply chain matters to national resilience and defence procurement (the same thesis Olof Faxander / Gungnir Capital operates on). The capability Lifetime AB builds for SSAB — decentralised fleet management in contested network conditions, Edge AI sensor fusion, and a sovereign data environment — transfers directly to security-of-supply and defence logistics. **A commercial SSAB engagement de-risks and finances the Dual Use moat.**
 
@@ -62,4 +62,4 @@ Together, **SSAB (SE) + Outokumpu (FI)** give the pitch a two-country, two-produ
 
 ---
 
-*Supporting attachment for `INTRO_MATTI_HEIKKONEN_DUAL_USE.md`. Sender for any outreach: `risto.paarni@lifetime.fi` via Amazon SES SMTP — never Resend, never `noreply@`.*
+_Supporting attachment for the Lifetime Group Dual Use / RaaS investor pitches. Sender for any outreach: `risto.paarni@lifetime.fi` via Amazon SES SMTP — never Resend, never `noreply@`._

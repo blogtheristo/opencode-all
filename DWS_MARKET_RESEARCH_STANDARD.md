@@ -4,27 +4,34 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.8
 
 Sessions & Modifications:
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/competitor-pricing-analysis-e89r3 | Date: 17.03.2026 | Changes: Updated DWS IQ competitor tracking with CSRD/ESG SaaS competitors (Sweep, Persefoni, Watershed, Normative, Greenly); added reference to Q1 2026 pricing analysis
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
-  - Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
+
+- Version: 1.8 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder clarification (Risto): "Compliance Intelligence" is the outcome category within Sovereign Industrial Intelligence Outcomes, and Climate Compliance (EU) is one part of it, not the whole. Added Compliance Intelligence as an explicit layer in §8.3's model, grounded in already-documented compliance domains: Climate Compliance (EU) — Fit for 55/ETS/CBAM/CSRD (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`) — plus EU AI Act Article 12, GDPR, NIS2 (same file), and CER Directive/EU CRM Act/dual-use export control at the Aegis tier (`Store/PRODUCT_AEGIS.md`).
+- Version: 1.7 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder confirmation (Risto): "Sovereign Industrial Intelligence outcomes" is the flagship phrase, elevated from §8.3's title downward — not bare "Sovereign Intelligence." Cross-referenced the new `DWS_BRAND_STANDARD.md` §22 pitch line (EN + draft FI) and noted the pre-existing "Three-Layer National Strategy" (§22, predates this thesis) already codifies the same layer model DWS_BRAND_STANDARD/§8.3 describes. §11 relationship table updated.
+- Version: 1.6 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder correction (Risto) to v1.5's own recommendation. "Sovereign AI" is predominantly an infrastructure/compute category (NVIDIA/IBM/hyperscalers) that DWS does not compete in; DWS's actual category is the governed outcome layer it already claims under Positioning Pillar 2 ("Agent Outcome Factory"). Added the layer model to §8.3: Sovereign AI (infra, not DWS) -> Agent Outcome Factory (Pillar 2) -> Sovereign Intelligence (the outcome when governed agents run on sovereign infrastructure, Pillar 1) -> DWS Compliance Outcome Product Line (Climate/Industrial Intelligence, the shipped instantiation). Retracted v1.5's "reposition within sovereign AI" advice; the trademark-collision caution from the audit is unchanged and, per this reframing, sharpened (DWS now sits in the same layer as the colliding names, not an adjacent one) — recommends "Sovereign Industrial Intelligence" / "DWS Compliance Outcome" as the more defensible flagship phrases.
+- Version: 1.5 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Corrected §8.3 per same-session coinability/GTM audit (`docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md`). Dropped the "(SI)" abbreviation (collides with the existing "NVIDIA SI network" = System Integrator usage in §8.1) and the "canonical positioning term"/coinage framing (Sovereign Intelligence, LLC has held the exact name in an adjacent AI-intelligence vertical since ~2013; StirlingX and Octostar use near-identical phrasing as of 2026). Reframed as DWS's positioning within the established "sovereign AI" category, not a DWS-owned term.
+- Version: 1.4 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 09.07.2026 | Changes: Added §8.3 — promoted "Sovereign Intelligence (SI)" from draft field note (`docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md`) to canonical positioning thesis, per that note's own action trigger. Registered in `DWS_TRUTH_STANDARD.md` as row 27.
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/competitor-pricing-analysis-e89r3 | Date: 17.03.2026 | Changes: Updated DWS IQ competitor tracking with CSRD/ESG SaaS competitors (Sweep, Persefoni, Watershed, Normative, Greenly); added reference to Q1 2026 pricing analysis
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
+- Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
 
 Session Links & References:
 
 - Claude Code (01Uyf3ZyeW3UQhotzJVEpo7s): https://claude.ai/code/session_01Uyf3ZyeW3UQhotzJVEpo7s
 
 Document Status:
-  - Created: 14.02.2026
-  - Last Modified: 17.03.2026
-  - Language: EN
-  - Languages Available: EN
-  - Publication Status: ACTIVE
 
 - Created: 14.02.2026
-- Last Modified: 06.04.2026
+- Last Modified: 17.03.2026
+- Language: EN
+- Languages Available: EN
+- Publication Status: ACTIVE
+
+- Created: 14.02.2026
+- Last Modified: 10.07.2026
 - Language: EN
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -102,15 +109,15 @@ Every DWS product MUST have a defined competitor set. Competitors are categorize
 
 ### 3.2 Competitor Tracking per Product
 
-| DWS Product | Direct Competitors | Indirect Competitors | Track |
-|-------------|-------------------|---------------------|-------|
-| **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams | Jitsi.org (free), Whereby, Proton | Pricing, features, EU hosting |
-| **Firehorse V3 Email** | Gmail, Outlook, Proton Mail | Migadu, Fastmail, Tutanota | Storage, price, sovereignty |
-| **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore | Manual audit firms, Buildots | Speed, accuracy, price |
-| **DWS IQ Platform** (€4,999) | Sweep, Persefoni, Normative, Greenly | Watershed, Sphera, Worldfavor, PositionGreen | Pricing, CSRD coverage, ERP connectors, EU hosting, AI agents |
-| **Consulting Services** | McKinsey, Deloitte, KPMG | Freelancer platforms, in-house | Pricing, domain expertise |
-| **LWM V1** (€250k) | None (category-creating) | OpenAI, Anthropic (general AI) | Model size, domain specificity |
-| **DSaaS** (€499–€4,999/mo) | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud | Sovereignty enforcement, compliance automation, HTAP, pricing |
+| DWS Product                     | Direct Competitors                      | Indirect Competitors                         | Track                                                         |
+| ------------------------------- | --------------------------------------- | -------------------------------------------- | ------------------------------------------------------------- |
+| **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams      | Jitsi.org (free), Whereby, Proton            | Pricing, features, EU hosting                                 |
+| **Firehorse V3 Email**          | Gmail, Outlook, Proton Mail             | Migadu, Fastmail, Tutanota                   | Storage, price, sovereignty                                   |
+| **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore                | Manual audit firms, Buildots                 | Speed, accuracy, price                                        |
+| **DWS IQ Platform** (€4,999)    | Sweep, Persefoni, Normative, Greenly    | Watershed, Sphera, Worldfavor, PositionGreen | Pricing, CSRD coverage, ERP connectors, EU hosting, AI agents |
+| **Consulting Services**         | McKinsey, Deloitte, KPMG                | Freelancer platforms, in-house               | Pricing, domain expertise                                     |
+| **LWM V1** (€250k)              | None (category-creating)                | OpenAI, Anthropic (general AI)               | Model size, domain specificity                                |
+| **DSaaS** (€499–€4,999/mo)      | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud           | Sovereignty enforcement, compliance automation, HTAP, pricing |
 
 ### 3.3 Supabase Schema: `competitors`
 
@@ -372,11 +379,11 @@ jobs:
 
 Track confirmed technology partnerships that create competitive moats and co-sell opportunities.
 
-| Partner     | Program                       | Status    | Confirmed  | Competitive Impact                                                                                                                                                                              |
-| ----------- | ----------------------------- | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NVIDIA      | Connect ISV Partner           | Confirmed | 2026-03-08 | Certified compute layer + NeMo DataDesigner integration — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network, Synthetic Nervous System for regulatory data generation |
-| Red Hat     | Technology Partner            | Active    | 2026-03-21 | AgentOps BYOA platform — enterprise Kubernetes for agent deployment, OpenShift AI, joint NVIDIA secure AI infra. Open-source alignment with EU sovereignty.                                     |
-| Qantic GmbH | Energy Simulation Partnership | NDA Sent  | 2026-03-21 | Q-System energy simulation + DWS IQ CSRD compliance — targets CSRD-obligated energy sector clients (dena, MAN, Naturstrom)                                                                      |
+| Partner     | Program                       | Status    | Confirmed  | Competitive Impact                                                                                                                                                                                                            |
+| ----------- | ----------------------------- | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NVIDIA      | Connect ISV Partner           | Confirmed | 2026-03-08 | Certified compute layer + NeMo DataDesigner integration — eliminates integration risk for OEMs, enables co-sell with NVIDIA's System Integrator (SI) partner network, Synthetic Nervous System for regulatory data generation |
+| Red Hat     | Technology Partner            | Active    | 2026-03-21 | AgentOps BYOA platform — enterprise Kubernetes for agent deployment, OpenShift AI, joint NVIDIA secure AI infra. Open-source alignment with EU sovereignty.                                                                   |
+| Qantic GmbH | Energy Simulation Partnership | NDA Sent  | 2026-03-21 | Q-System energy simulation + DWS IQ CSRD compliance — targets CSRD-obligated energy sector clients (dena, MAN, Naturstrom)                                                                                                    |
 
 **Partnership integration checklist (per partner):**
 
@@ -450,6 +457,46 @@ The **Synthetic Nervous System** is DWS IQ's primary technical moat for Series A
 
 ---
 
+## 8.3 Positioning Thesis: Sovereign Industrial Intelligence Outcomes
+
+> **Founder-confirmed flagship phrase (Risto, 10.07.2026):** _"Yes and this is important! We do Sovereign Industrial Intelligence outcomes."_ **"Sovereign Industrial Intelligence outcomes" is the headline phrase** — not bare "Sovereign Intelligence," which stays as supporting/descriptive positioning language only (layer model below). Also registered as a pitch line in `DWS_BRAND_STANDARD.md` §22 "Sovereign Industrial Intelligence Outcomes" (EN + draft FI).
+
+> **Corrected 09–10.07.2026 (same-day audit + founder correction):** the initial promotion of this section abbreviated the term as "(SI)" and framed it as a DWS-owned coinage. Both were wrong. See `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` for the full audit. **Do not abbreviate "Sovereign Intelligence" as "SI"** — §8.1 above already uses "SI" for NVIDIA's System Integrator partner network, and re-using it here is an internal collision. **Do not claim DWS coined this term** — Sovereign Intelligence, LLC (`sovereign.ai`) has held the exact name in an adjacent AI-intelligence vertical since ~2013, and two funded 2026 competitors (StirlingX, Octostar) use near-identical phrasing. A follow-up founder correction (Risto, 10.07.2026) also replaced the audit's original "reposition within the sovereign AI category" recommendation — see the layer model below.
+
+### The layer model (founder-corrected framing, supersedes the audit's original §3.1 recommendation)
+
+"**Sovereign AI**" as used by nearly every vendor citing it (NVIDIA, IBM Sovereign Core, Oracle, AWS, Google, HPE, Zadara, Cisco, Nokia, the ~$40B→$148B market McKinsey/MarketsandMarkets track) is overwhelmingly an **infrastructure/compute category** — GPUs, sovereign clouds, data centers, chip supply. **DWS IQ does not sell infrastructure**, so "sovereign AI" is not DWS's buyer category and DWS should not fight NVIDIA/IBM/hyperscalers for that search term (the audit's original advice to "position within the sovereign AI category" is retracted for this reason — not because the collision risk changed).
+
+DWS's actual category sits one layer up, and is already canonical, not new — it is also the exact structure already codified in `DWS_BRAND_STANDARD.md` §22 "Three-Layer National Strategy" (hyperscaler infrastructure → Finnish data reserves → "DWS operates the intelligence"), predating this thesis by two months. "Sovereign Industrial Intelligence outcomes" is the industrial-compliance-specific, CLOUD-Act-grounded compression of that Layer 3:
+
+- **Pillar 1 — Doctrine Shift** (`DWS_TRUTH_STANDARD.md` §2A): EU compliance is moving from voluntary ESG to **mandatory sovereign infrastructure** — the ground DWS runs on.
+- **Pillar 2 — Orchestration Over Components** (same §2A): DWS sells the **governed outcome layer**, not the agents underneath — "**We are the Agent Outcome Factory**" (`Store/PRODUCT_AEGIS.md`, `Store/PRODUCT_CLIMATE_INTELLIGENCE.md`, `docs/DEFINE_APPLICATION_GUIDE.md` §"Scope Principle").
+- **Sovereign Intelligence** is the compound of the two: the governed outcome an Agent Outcome Factory produces **when it runs on sovereign infrastructure** — an audit-ready filing whose reasoning lineage and audit trail never leave the jurisdiction it was created in, per the CLOUD Act thesis below. It names what DWS IQ _delivers_, not an infrastructure product DWS _sells_.
+- **Compliance Intelligence** (founder-confirmed 10.07.2026) is the outcome category itself — the specific flavor of Sovereign Industrial Intelligence Outcome that regulated industry buys. It is broader than any single regulation: already-documented compliance domains under this category are **Climate Compliance (EU)** — Fit for 55, ETS, CBAM, CSRD (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`) — plus EU AI Act Article 12 audit-trail logging, GDPR, and NIS2 (same file, line 124), with CER Directive / EU CRM Act / dual-use export control added at the Aegis tier (`Store/PRODUCT_AEGIS.md`). Climate Compliance is **one part of** Compliance Intelligence, not the whole of it.
+- **DWS Compliance Outcome Product Line** is the concrete instantiation: DWS IQ Climate Intelligence / Industrial Intelligence — compliance agents across the domains above, already described as delivering "audit-ready compliance outcomes" (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`). This is where "Sovereign Intelligence" stops being a slogan and becomes a shipped product line.
+
+**This reframing does not reduce the coinability risk from §2 of the audit — it sharpens it.** Sovereign Intelligence, LLC, StirlingX, and Octostar are not distant infrastructure vendors; they are exactly the same layer DWS now claims (outcome/intelligence platforms), which is why the name collision matters more, not less. None of the three are industrial-regulatory-compliance-focused, though — which is the actual white space. Prefer the more specific, already-canonical **"Sovereign Industrial Intelligence"** (`Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html`) or explicit **"DWS Compliance Outcome"** naming as the flagship, more-defensible phrase; keep bare "Sovereign Intelligence" as descriptive positioning language, not a claimed brand.
+
+**Compressed thesis:** "What happens in San Francisco stays in San Francisco" — under the CLOUD Act, a US-headquartered AI platform means US jurisdiction over customer data regardless of which region hosts it. The counter-position is sovereign intelligence: AI trained and run inside the customer's own perimeter, on hardware they control, so the audit trail never leaves the jurisdiction it was created in. This specific sentence — not the "Sovereign Intelligence" label — is the actually distinctive asset (audit §2.4: not found in use by any competitor).
+
+**Reference architecture:** Outokumpu Tornio, documented in `Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html` §2.1–2.2 (regulatory convergence table, CLOUD Act jurisdiction gap, Microsoft France's June 2025 Senate testimony) and the public narrative at `onelifetime.world/posts/sovereign-intelligence-outokumpu-tornio.html`.
+
+**Approved uses:**
+
+- Opening hook for sovereignty-focused pitch decks and outreach waves; cite the whitepaper for substantiating detail.
+- Investor narrative alongside the Synthetic Nervous System moat (§8.2) — this thesis is the customer-facing positioning line, Synthetic Nervous System is the underlying technical moat. **Do not tell investors DWS "coined" this term** (audit §4.3).
+- Hero/tweet copy per the three draft options in `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` §2/§5.
+- **"Sovereign Industrial Intelligence outcomes"** is the flagship phrase (founder-confirmed) — use this, not bare "Sovereign Intelligence," whenever the copy needs an ownable headline rather than generic positioning language. Approved pitch lines (EN + draft FI): `DWS_BRAND_STANDARD.md` §22.
+
+**Constraints:**
+
+- Run `/truth-check` and route through `DWS_BRAND_STANDARD.md` before this line appears on any live page, deck, or public post — canon status here authorizes internal use, not public-site publication.
+- Never imply "zero" disclosure exposure — the claim is jurisdictional control, not technical impossibility of compelled disclosure.
+- No exclusivity or trademark claim without an actual USPTO/EUIPO clearance search and counsel review — this section's own audit is a web-search sweep, not legal clearance (audit §5, and the 09.07.2026 follow-up attempt in §5.1 — every registry queried was unreachable from this tool environment).
+- Source docs: `docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md` (full thesis, tweet copy, internal memo, hero text options) and `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` (coinability/GTM audit, v1.2 includes the layer-model correction and founder confirmation). Pitch lines: `DWS_BRAND_STANDARD.md` §22. Registered as `DWS_TRUTH_STANDARD.md` row 27.
+
+---
+
 ## 9. Reporting Format
 
 ### 9.1 Weekly Market Brief
@@ -503,19 +550,21 @@ Full analysis across all products. Presented at quarterly product review.
 
 ## 11. Relationship to Other Standards
 
-| Standard                    | Relationship                                             |
-| --------------------------- | -------------------------------------------------------- |
-| `DWS_DOCUMENT_STANDARD.md`  | All market research docs follow document metadata format |
-| `DWS_BRAND_STANDARD.md`     | Product positioning must align with brand categories     |
-| `DWS_SECURITY_STANDARD.md`  | Data collection must not expose credentials              |
-| `product-catalog/README.md` | Product catalog is the source of truth for product specs |
-| `config/products.json`      | Store products define the scope of competitive tracking  |
+| Standard                      | Relationship                                                                                                                                                                                                    |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DWS_DOCUMENT_STANDARD.md`    | All market research docs follow document metadata format                                                                                                                                                        |
+| `DWS_BRAND_STANDARD.md`       | Product positioning must align with brand categories; §22 carries the "Sovereign Industrial Intelligence Outcomes" pitch line (EN + draft FI) and the pre-existing Three-Layer National Strategy §8.3 builds on |
+| `DWS_SECURITY_STANDARD.md`    | Data collection must not expose credentials                                                                                                                                                                     |
+| `product-catalog/README.md`   | Product catalog is the source of truth for product specs                                                                                                                                                        |
+| `config/products.json`        | Store products define the scope of competitive tracking                                                                                                                                                         |
+| `DWS_TRUTH_STANDARD.md`       | Row 27 registers §8.3 (Sovereign Industrial Intelligence Outcomes) as the positioning thesis; non-exclusive                                                                                                     |
+| `DWS_SOVEREIGNTY_STANDARD.md` | SOV-T1/T2/T3 tiers are the architecture §8.3's sovereign-intelligence narrative describes                                                                                                                       |
 
 ---
 
 **Document Owner:** Product Strategy
 **Contact:** product@lifetime.fi
-**Last Updated:** 2026-02-14
-**Session:** 01Uyf3ZyeW3UQhotzJVEpo7s
+**Last Updated:** 2026-07-09
+**Session:** claude/dws-sovereign-intelligence-wwho6h
 
 © 2026 Lifetime Oy · DWS Market Research Standard

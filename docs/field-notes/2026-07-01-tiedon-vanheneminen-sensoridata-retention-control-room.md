@@ -23,7 +23,7 @@ Related Documents:
 - `DWS_SECURITY_STANDARD.md` §3.6.1 (Database Backup & Disaster Recovery Controls)
 - `docs/KYA_BYO_LIFECYCLE.md` (forensic dump retention, tier-based agent lifecycle)
 - `docs/Deputy-Agents-Architecture.md` §9 (Control Room & Situation Room)
-- `docs/KONSULTIN_KASIKIRJA_2026.md` §3 (Control Room / Situation Room -tuotteet), §4 (Kyvykkyysontologia / LWM)
+- `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §3 (Control Room / Situation Room -tuotteet), §4 (Kyvykkyysontologia / LWM)
 - `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md`
 
 ---
@@ -59,7 +59,7 @@ Sama riski koskee DWS:n omaa tuotetta heti, kun Control Room ja Situation Room a
 
 ## 2. Mitä sensoridataa Control Room ja Situation Room vastaanottavat
 
-Käsikirjan §3 mukaisesti (`docs/KONSULTIN_KASIKIRJA_2026.md`):
+Käsikirjan §3 mukaisesti (`docs/KONSULTOINNIN_KASIKIRJA_2026.md`):
 
 - **Control Room** (Acer Veriton GN100, per toimiala/tehdas) — lokaali LWM Enterprise Model + DWS-alustatuote. Reaaliaikainen compliance-seuranta paikallisella ontologialla. Syötteet: tuotantolinjan anturidata, päästömittarit, ERP-tapahtumat, laadunvarmistusdata, kenttäagenttien havainnot.
 - **Situation Room** (2× Acer Veriton GN100) — aggregoi syötteet useista Control Roomeista yhdeksi johtotason tilannekuvaksi. Ei vastaanota raakaa sensoridataa suoraan — vain Control Roomien jo prosessoituja ja ontologisoituja tiivistelmiä.

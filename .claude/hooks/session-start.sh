@@ -79,14 +79,24 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
   echo "WARNING: On main branch. Create a feature branch before making changes."
 fi
 
-# Surface the cross-session handoff log (git-committed memory that survives
-# ephemeral cloud containers). Cap output so a bloated file can't flood context.
-HANDOFF_FILE=".claude/HANDOFF.md"
-if [ -f "$HANDOFF_FILE" ]; then
+# Surface this branch's handoff file (git-committed memory that survives
+# ephemeral cloud containers). Per-branch under .claude/handoffs/<branch>.md
+# so concurrent branches never clobber or misread each other's state — see
+# .claude/HANDOFF.md for the protocol. Cap output so a bloated file can't
+# flood context.
+BRANCH_HANDOFF_FILE=".claude/handoffs/${BRANCH}.md"
+if [ "$BRANCH" != "unknown" ] && [ -f "$BRANCH_HANDOFF_FILE" ]; then
   echo ""
-  echo "## Session Handoff (from $HANDOFF_FILE — update it at checkpoints and before ending the session)"
+  echo "## Session Handoff (from $BRANCH_HANDOFF_FILE — update it at checkpoints and before ending the session)"
   echo ""
-  awk '/^## CURRENT HANDOFF/,/^## HANDOFF HISTORY/' "$HANDOFF_FILE" | grep -v '^## HANDOFF HISTORY' | head -60
+  head -60 "$BRANCH_HANDOFF_FILE"
+elif [ "$BRANCH" != "unknown" ]; then
+  echo ""
+  echo "## Session Handoff: no file yet at .claude/handoffs/${BRANCH}.md"
+  echo "This looks like a fresh branch. Create this file at your first checkpoint"
+  echo "(see .claude/HANDOFF.md for the protocol). Recent cross-branch history:"
+  echo ""
+  awk '/^## HANDOFF HISTORY/{f=1} f' ".claude/HANDOFF.md" 2>/dev/null | tail -n +2 | head -8
 fi
 
 # Auto-discover and index all skills (Anthropic Skills paradigm)

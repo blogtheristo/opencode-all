@@ -110,3 +110,20 @@ verkoston **sertifioinnit ja validoinnit** ovat juuri se "erityinen sertifiointi
 — mm. NVIDIA Connect ISV Partner, Microsoft Founders Hub L1–L4, EU AI Act Article 12 -tuotantototeutus,
 ISO 27001 (käynnissä), KYA-agenttihallinta. **Toimenpide:** varmista, että referenssilomakkeet ja CV:t
 korostavat näitä sertifiointeja erottautumistekijänä halpaa volyymityövoimaa vastaan.
+
+## Päivitys 3 — Cubetin 7-kohdan vahvistus (Lovegin John, 8.7.2026)
+
+Cubetin (Lovegin John) sähköposti vahvistaa alihankinnan yksityiskohdat (ks. ORK160826_CUBET_KIRJEENVAIHTO;
+hinta jo lukittu HINTALOMAKE v7.0:ssa 1.7.):
+
+- **Offshore-kustannus €260–320/htp (ALV 0), Intia** — firmataan per rooli call'issa. Kate terve:
+  perusroolit (myynti 419,25) 99–159 €/pv; OA3-painoroolit (myynti 390,00) 70–130 €/pv.
+- **Cubetin roolit:** AI Engineer + Software Developer (johtavat); lisäksi Data Engineer, DevOps,
+  GenAI Solution Architect (syvin bench AI/ML + data engineering).
+- **Kapasiteetti:** ~20 insinöörin standing bench, 15 pv ramp, FTE koko 2+1+1 — ei avainhenkilöriskiä.
+- **Laskutus:** UK-entiteetti OK; ehto tiukka: EU-residenssi-infra + DPA riippumatta laskuttajasta.
+- **Avoimet Cubetilta (call):** per-rooli FTE:t, per-rooli päivähinnat (€260–320 jako), Suomi/on-site-hinnat
+  residenssirooleille, sertifikaatit (ISO 27001 nro/scope/myöntäjä/voimassaolo, SOC 2, ISO 9001, GDPR,
+  AWS/Azure/Microsoft/Laravel-tasot), nimetyt CV:t per rooli (kukin 400 htp / FTE).
+- **Avoimet meiltä:** EU/Suomi vs. remote -jako per tehtävä/rooli, alihankintasopimus + DPA ennen tarjousta,
+  vuoden 1 volyymi + tarjouksen jättöpäivä (huom. 11.7. EOI, 25.7. kapasiteetti).

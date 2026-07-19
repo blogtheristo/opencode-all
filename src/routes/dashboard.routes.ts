@@ -17,6 +17,7 @@ import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
 import { UsageMeteringService } from '../services/usage-metering.service.js';
 import { eventBus } from '../agents/event-bus.js';
+import { MGDMetricsService } from '../agents/mgd-metrics.service.js';
 
 const router = Router();
 
@@ -44,6 +45,12 @@ interface DashboardSummary {
     totalAvailable: number;
     executionsToday: number;
     activeWorkflows: number;
+  };
+  // Monthly Governed Decisions — the north-star metric (DWS_TRUTH_STANDARD.md
+  // §2 row 29). Audit-grade governed decisions counted for the current month.
+  mgd: {
+    monthToDate: number;
+    month: string;
   };
   system: {
     status: 'healthy' | 'degraded' | 'down';
@@ -161,6 +168,21 @@ router.get('/summary', async (req: Request, res: Response, next: NextFunction) =
     todayStart.setHours(0, 0, 0, 0);
     const executionsToday = recentEvents.filter((e) => new Date(e.timestamp) >= todayStart).length;
 
+    // Monthly Governed Decisions (north-star metric). Reuses the request-scoped
+    // Supabase client; failures degrade to zero rather than breaking the widget.
+    let mgd: DashboardSummary['mgd'] = {
+      monthToDate: 0,
+      month: new Date().toISOString().slice(0, 7),
+    };
+    if (supabase) {
+      try {
+        const metrics = await new MGDMetricsService(supabase).getMGDMetrics();
+        mgd = { monthToDate: metrics.monthlyGovernedDecisions, month: metrics.month.slice(0, 7) };
+      } catch (e) {
+        logger.warn('MGD summary fetch failed', { userId, error: (e as Error).message });
+      }
+    }
+
     const summary: DashboardSummary = {
       compliance: complianceData,
       usage: usageStats,
@@ -169,6 +191,7 @@ router.get('/summary', async (req: Request, res: Response, next: NextFunction) =
         executionsToday,
         activeWorkflows: 0,
       },
+      mgd,
       system: {
         status: 'healthy',
         uptime: process.uptime(),

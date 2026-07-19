@@ -34,9 +34,13 @@ PACKAGE_DIRS=(
   "dws6.com/tools/content-pipeline"
   "landing-pages/dws6-com/dashboard/firehorse/v10-react"
   "landing-pages/dws6-com/tools/content-pipeline"
-  "mobile-dashboard"
+  "mobile-dashboard_RETIRED"
   "src/cloudflare"
   "cli"
+  "mcp-hub-ts"
+  "mcp-servers/cloud-run-gateway-ts"
+  "lambda/ses-inbound-parser"
+  "infrastructure/dgx-spark/bumblebee"
 )
 
 results=()

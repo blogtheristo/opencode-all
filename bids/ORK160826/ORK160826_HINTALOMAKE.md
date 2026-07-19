@@ -8,14 +8,14 @@ VERSION AND AGENT HISTORY
 Version: 4.0 | 2026-06-27 | Claude Sonnet 4.6 | Vahvistettu 72 €/h = 540 €/htp kaikille rooleille
 Version: 5.0 | 2026-06-28 | Claude Code (Opus 4.8) | Hinta päivitetty kilpailukykyrajalle: 55,90 €/h = 419,25 €/htp (tasahinta).
 Version: 6.0 | 2026-06-28 | Claude Code (Opus 4.8) | Porrastettu Strategia S valittu (HIC). Perustaso 55,90 €/h = 419,25 €/htp; korkeimmin painotetut Osa-alue 3 -roolit (AI Architect, DevOps) 52,00 €/h = 390,00 €/htp pisteoptimointia varten. ALUSTAVA — odottaa John'in hintatietoa.
+Version: 7.0 | 2026-07-01 | Claude Code (Opus 4.8) | VAHVISTETTU — John'in kustannustieto saatu (260–320 €/htp offshore); kate 26–31 % Strategia S:llä. Hinnat lukittu.
 
 ---
 
-> **ALUSTAVA HINTA — PORRASTETTU (Strategia S).** Hinta on asetettu kilpailukykyiseksi: Goforen
-> voittohinta viime kilpailutuksessa oli 58 €/t (ks. ORK160826_MARKKINATIETO). Perustaso 55,90 €/h on
-> tämän alapuolella; korkeimmin painotetut roolit 52,00 €/h painavat vertailuhinnan vielä alemmas.
-> Strategian perustelu: ORK160826_HINTALOMAKE_PORRASTETTU. Lopullinen hinta vahvistetaan John'in
-> hintatiedon jälkeen.
+> **VAHVISTETTU HINTA — PORRASTETTU (Strategia S).** Perustaso 55,90 €/h (419,25 €/htp); korkean
+> painon OA3-roolit (AI Architect, DevOps) 52,00 €/h (390,00 €/htp). Alle Goforen 58 €/h -benchmarkin
+> (ks. ORK160826_MARKKINATIETO). Kustannus validoitu John'in tiedolla; differentiaatio kyvykkyys +
+> suvereeni rauta, ei halvin työvoima. Strategian perustelu: ORK160826_HINTALOMAKE_PORRASTETTU.
 
 ---
 
@@ -101,8 +101,8 @@ Syötä E-sarakkeen sinisellä merkittyihin soluihin:
   - **E36 (Software Developer)** → **419,25**
   - **E37 (UI/UX-designer)** → **419,25**
 
-Tallenna .xlsx ja lataa tarjouspalvelu.fi:hin **Liite 5** -kenttään. **Huom:** vahvista hinnat John'in
-hintatiedon jälkeen ennen lataamista.
+Tallenna .xlsx ja lataa tarjouspalvelu.fi:hin **Liite 5** -kenttään. **Huom:** hinnat vahvistettu
+(John'in kustannustieto saatu) — valmis ladattavaksi. E34/E35 → 390,00; muut → 419,25.
 
 ---
 
