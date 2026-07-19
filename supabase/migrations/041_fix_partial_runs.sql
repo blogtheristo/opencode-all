@@ -270,7 +270,10 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION expire_pending_approvals()
+-- 013 defined this with RETURNS INTEGER; CREATE OR REPLACE cannot change a
+-- return type (42P13) — drop first. (CI soak catch, blank-slate replay.)
+DROP FUNCTION IF EXISTS expire_pending_approvals();
+CREATE FUNCTION expire_pending_approvals()
 RETURNS void LANGUAGE plpgsql AS $$
 BEGIN
   UPDATE agent_approvals
