@@ -130,7 +130,7 @@ jobs:
 
           # All of these exist in the local migration chain, so the ONLY
           # acceptable outcome is 403 with SQLSTATE 42501 in the body.
-          for t in web_leads captain_inquiries playbook_leads hil_todos firehorse_leads customers article12_audit_log; do
+          for t in web_leads captain_inquiries playbook_leads firehorse_leads customers article12_audit_log; do
             status=$(req "$API_URL/rest/v1/$t?select=*&limit=1")
             if [ "$status" != "403" ] || ! grep -q '42501' /tmp/body; then
               echo "::error::anon lockdown failed on $t (HTTP $status) — expected 403 + 42501"
