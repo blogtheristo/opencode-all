@@ -124,7 +124,8 @@ CREATE INDEX IF NOT EXISTS agent_approvals_status_idx ON agent_approvals (approv
 CREATE INDEX IF NOT EXISTS agent_approvals_expires_at_idx ON agent_approvals (expires_at);
 
 -- Section 3: 013 views/functions/RLS
-CREATE OR REPLACE VIEW v_high_priority_leads WITH (security_invoker = true) AS
+DROP VIEW IF EXISTS v_high_priority_leads;
+CREATE VIEW v_high_priority_leads WITH (security_invoker = true) AS
 SELECT
   l.*,
   m.conversion_rate,
@@ -135,7 +136,8 @@ WHERE l.agent_priority_score > 0.8
   AND l.created_at > NOW() - INTERVAL '30 days'
 ORDER BY l.agent_priority_score DESC, l.created_at DESC;
 
-CREATE OR REPLACE VIEW v_pending_approvals WITH (security_invoker = true) AS
+DROP VIEW IF EXISTS v_pending_approvals;
+CREATE VIEW v_pending_approvals WITH (security_invoker = true) AS
 SELECT
   a.*,
   u.email as approver_email
@@ -145,7 +147,8 @@ WHERE a.approval_status = 'pending'
   AND a.expires_at > NOW()
 ORDER BY a.created_at DESC;
 
-CREATE OR REPLACE VIEW v_agent_performance_leaderboard WITH (security_invoker = true) AS
+DROP VIEW IF EXISTS v_agent_performance_leaderboard;
+CREATE VIEW v_agent_performance_leaderboard WITH (security_invoker = true) AS
 SELECT
   agent_name,
   SUM(leads_processed) as total_leads,
@@ -345,7 +348,8 @@ CREATE INDEX IF NOT EXISTS email_queue_to_email_idx ON email_queue (to_email);
 CREATE INDEX IF NOT EXISTS email_queue_status_created_idx ON email_queue (status, created_at DESC);
 CREATE INDEX IF NOT EXISTS email_queue_sent_at_idx ON email_queue (sent_at DESC);
 
-CREATE OR REPLACE VIEW v_email_queue_stats WITH (security_invoker = true) AS
+DROP VIEW IF EXISTS v_email_queue_stats;
+CREATE VIEW v_email_queue_stats WITH (security_invoker = true) AS
 SELECT
   status,
   COUNT(*) as count,
