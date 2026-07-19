@@ -34,7 +34,11 @@ jobs:
           version: latest
 
       - name: Start local Supabase stack
-        run: supabase start -x studio,inbucket,imgproxy,logflare,vector
+        # Only db + API gateway + PostgREST are needed for the soak.
+        # storage-api is excluded because its image tag resolves to a
+        # non-existent v0.0.0 manifest on the runner (first-run failure
+        # 2026-07-19); realtime/edge-runtime are dead weight here.
+        run: supabase start -x studio,inbucket,imgproxy,logflare,vector,storage-api,realtime,edge-runtime
 
       - name: Reset database from full migration chain
         run: supabase db reset
