@@ -56,8 +56,10 @@ jobs:
         run: supabase db reset
 
       - name: Export local API credentials
+        # `supabase status -o env` quotes its values; strip the quotes or they
+        # become part of the URL/key and curl fails with exit 3 (malformed URL).
         run: |
-          supabase status -o env | grep -E '^(API_URL|ANON_KEY)=' >> "$GITHUB_ENV"
+          supabase status -o env | grep -E '^(API_URL|ANON_KEY)=' | tr -d '"' >> "$GITHUB_ENV"
 
       - name: "Soak: anon opt-in SELECT surfaces stay open"
         run: |
