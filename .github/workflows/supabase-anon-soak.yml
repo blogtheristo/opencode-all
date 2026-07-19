@@ -130,16 +130,17 @@ jobs:
           set -euo pipefail
           req() { curl -s -o /tmp/body -w '%{http_code}' -H "apikey: $ANON_KEY" -H "Authorization: Bearer $ANON_KEY" "$@"; }
 
-          # All of these exist in the local migration chain, so the ONLY
-          # acceptable outcome is 403 with SQLSTATE 42501 in the body.
+          # All of these exist in the local migration chain. PostgREST maps
+          # insufficient privilege to 401 for the anon role (403 is for
+          # authenticated roles) — the hard gate is SQLSTATE 42501 in the body.
           for t in web_leads captain_inquiries playbook_leads firehorse_leads customers article12_audit_log; do
             status=$(req "$API_URL/rest/v1/$t?select=*&limit=1")
-            if [ "$status" != "403" ] || ! grep -q '42501' /tmp/body; then
-              echo "::error::anon lockdown failed on $t (HTTP $status) — expected 403 + 42501"
+            if { [ "$status" != "401" ] && [ "$status" != "403" ]; } || ! grep -q '"42501"' /tmp/body; then
+              echo "::error::anon lockdown failed on $t (HTTP $status) — expected 401/403 + SQLSTATE 42501"
               cat /tmp/body
               exit 1
             fi
-            echo "OK 403/42501  $t locked"
+            echo "OK $status/42501  $t locked"
           done
 
       - name: Stop stack
