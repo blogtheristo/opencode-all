@@ -135,6 +135,13 @@ For these sites, root folder is source; landing-pages mirror must be synced in t
 
 - In markdown docs, the `VERSION AND AGENT HISTORY` block uses `***` delimiters (never `---`) for Pandoc compatibility.
 
+### Supabase Table Grants
+
+- Every `CREATE TABLE` in the `public` schema must be followed by an explicit `GRANT` to `service_role` and `authenticated`, plus `ENABLE ROW LEVEL SECURITY`.
+- RLS alone stopped being sufficient on 2026-05-30 (new Supabase projects) and is enforced on all existing projects on 2026-10-30. Without a table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` even when RLS would allow the row.
+- Copy the standard block from `Firehorse/supabase-schema-templates.sql` (top of file). Anon is opt-in per table — only grant `anon` where an RLS policy explicitly targets it.
+- Backfill of record: `supabase/migrations/075_public_schema_grants.sql` (also sets `alter default privileges` so a forgotten inline block does not silently break the Data API).
+
 ## Thesis Rule (All 4 Files Together)
 
 If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four together and keep versions in lockstep:
