@@ -350,7 +350,7 @@ CREATE OR REPLACE FUNCTION calculate_monthly_metrics(target_month DATE)
 RETURNS void AS $$
 DECLARE
   prev_month DATE;
-  current_mrr DECIMAL(10,2);
+  v_current_mrr DECIMAL(10,2);
   previous_mrr DECIMAL(10,2);
   new_mrr_val DECIMAL(10,2);
   expansion_val DECIMAL(10,2);
@@ -365,7 +365,7 @@ BEGIN
   prev_month := target_month - INTERVAL '1 month';
 
   -- Current MRR
-  SELECT COALESCE(SUM(current_mrr), 0) INTO current_mrr
+  SELECT COALESCE(SUM(current_mrr), 0) INTO v_current_mrr
   FROM customers
   WHERE status IN ('active', 'trial', 'expansion');
 
@@ -408,7 +408,7 @@ BEGIN
 
   -- Net MRR growth rate
   IF previous_mrr > 0 THEN
-    growth_pct := ((current_mrr - previous_mrr) / previous_mrr) * 100;
+    growth_pct := ((v_current_mrr - previous_mrr) / previous_mrr) * 100;
   ELSE
     growth_pct := 0;
   END IF;
@@ -430,8 +430,8 @@ BEGIN
     updated_at
   ) VALUES (
     target_month,
-    current_mrr,
-    current_mrr * 12,
+    v_current_mrr,
+    v_current_mrr * 12,
     new_mrr_val,
     0, -- TODO: Calculate expansion/contraction
     0,
