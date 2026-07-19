@@ -46,13 +46,31 @@ alter default privileges in schema public revoke execute on functions from anon;
 -- anon keeps schema USAGE — required to reach the opt-in tables below.
 grant usage on schema public to anon;
 
--- NOTE (out of scope here): PostgreSQL grants EXECUTE to the PUBLIC
--- pseudo-role on new functions by default, so SECURITY DEFINER functions
--- remain anon-callable until revoked from PUBLIC per-function. That is the
+-- NOTE: PostgreSQL grants EXECUTE to the PUBLIC pseudo-role on new
+-- functions by default, so SECURITY DEFINER functions remain anon-callable
+-- via /rest/v1/rpc/* until revoked from PUBLIC per-function. That is the
 -- Advisor's `anon_security_definer_function_executable` finding (19
--- functions) — handle in a dedicated follow-up migration after reviewing
--- each function, since revoking PUBLIC affects every role without an
--- explicit grant.
+-- functions). The full sweep needs a per-function review (revoking PUBLIC
+-- affects every role without an explicit grant) — tracked as a follow-up
+-- migration. The one concretely dangerous case flagged in PR #1710 review
+-- is handled here: upsert_file_index (015) is SECURITY DEFINER with no
+-- internal role check and WRITES to file_index, so anon must not reach it.
+do $$
+declare
+  f record;
+begin
+  for f in
+    select p.oid::regprocedure as sig
+    from pg_proc p
+    join pg_namespace n on n.oid = p.pronamespace
+    where n.nspname = 'public'
+      and p.proname = 'upsert_file_index'
+      and p.prosecdef
+  loop
+    execute format('revoke execute on function %s from public', f.sig);
+    execute format('grant execute on function %s to service_role', f.sig);
+  end loop;
+end $$;
 
 -- ============================================================
 -- Phase B: strict opt-in re-grants (existence-safe)
@@ -91,7 +109,10 @@ begin
     'captain_inquiries',       -- 034 "Anyone can submit an inquiry"
     'web_leads',               -- 070 "Anyone can submit a web lead"
     'playbook_leads',          -- 068 "anon can insert playbook leads"
-    'blog_subscribers'         -- blog_subscribers_anon_insert
+    'blog_subscribers'         -- blog_subscribers_anon_insert; REMOTE-ONLY table
+                               -- (created out-of-band in production, no repo
+                               -- migration — verified in prod pg_policies
+                               -- 2026-07-19). to_regclass() skips it locally.
   ] loop
     if to_regclass('public.' || t) is not null then
       execute format('grant insert on public.%I to anon', t);
