@@ -402,7 +402,11 @@ DO $$ BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'climate_assistant_usage' AND policyname = 'Service role full access to climate_assistant_usage') THEN
     CREATE POLICY "Service role full access to climate_assistant_usage" ON climate_assistant_usage FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
-  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'climate_assistant_usage' AND policyname = 'Users can read their own usage') THEN
+  -- Policy predicate references user_id, which the live 014-variant lacks —
+  -- guard on the column (CI soak catch, blank-slate replay).
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'climate_assistant_usage' AND policyname = 'Users can read their own usage')
+     AND EXISTS (SELECT 1 FROM information_schema.columns
+                 WHERE table_schema = 'public' AND table_name = 'climate_assistant_usage' AND column_name = 'user_id') THEN
     CREATE POLICY "Users can read their own usage" ON climate_assistant_usage FOR SELECT TO authenticated USING (auth.uid() = user_id);
   END IF;
 END $$;
