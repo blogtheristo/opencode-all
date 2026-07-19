@@ -26,6 +26,8 @@
 --
 -- Idempotent. Safe to re-run.
 
+BEGIN;
+
 -- ============================================================
 -- Phase A: revoke the legacy blanket grants from anon
 -- ============================================================
@@ -96,3 +98,5 @@ begin
     end if;
   end loop;
 end $$;
+
+COMMIT;

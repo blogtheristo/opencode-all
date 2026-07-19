@@ -1,6 +1,6 @@
 # Admin Manual: Supabase Database Management for DWS6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -30,7 +30,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.7
 **Purpose:** Supabase database administration guide for DWS6 project
@@ -919,7 +919,7 @@ npx -y supabase@latest db push --yes
 
 **Backfill of record**: `supabase/migrations/075_public_schema_grants.sql`.
 
-**Production status (19.07.2026)**: ✅ APPLIED. Deployed to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP `apply_migration`; recorded in remote migration history as `20260719202340_public_schema_grants` (timestamp version — same convention as `booking_system` and `erp_integration_tables`). Post-apply verification: `authenticated` + `service_role` hold SELECT/INSERT/UPDATE/DELETE on all 184 public tables; default privileges for tables, sequences, and functions are in place under both the `postgres` and `supabase_admin` owner roles; Security Advisor reports no missing-grant findings (all 111 warnings predate the change).
+**Production status (19.07.2026)**: ✅ APPLIED. Deployed to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP `apply_migration`; recorded in remote migration history as `20260719202340_public_schema_grants` (timestamp version — same convention as `booking_system` and `erp_integration_tables`). Post-apply verification: `authenticated` + `service_role` hold SELECT/INSERT/UPDATE/DELETE on all 184 public tables; default privileges for tables, sequences, and functions are in place under both the `postgres` and `supabase_admin` owner roles; Security Advisor reports no missing-grant findings (all 111 warnings predate the change). **Remediation 077 (same day):** PR #1709 review caught that the blanket grants had re-opened UPDATE/DELETE on the append-only audit tables (`article12_audit_log`, `command_audit_log`, `kya_mandate_events`, `kya_tenant_gating_profiles`) and function EXECUTE for `authenticated`. `supabase/migrations/077_fix_privilege_regressions.sql` was applied to production restoring the 038/041/071/074 revokes; verified post-apply. Anon’s legacy grants on those tables predate 075 and are removed by staged migration 076.
 
 That migration:
 

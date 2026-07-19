@@ -16,6 +16,16 @@
 --      booking_reservations/captain_inquiries/web_leads/playbook_leads anon insert).
 --
 -- Idempotent. Safe to re-run.
+--
+-- Correction 2026-07-19 (PR #1709 review): function EXECUTE is granted to
+-- service_role only. The version originally applied to production also
+-- granted EXECUTE to authenticated, which re-opened deliberately locked
+-- service_role-only functions (046/048 ted_outreach_*) and undid the
+-- append-only table revokes (038/041/071/074). Production was remediated by
+-- migration 077_fix_privilege_regressions.sql; this file now reflects the
+-- corrected form so fresh environments land right on first apply.
+
+BEGIN;
 
 grant usage on schema public to anon, authenticated, service_role;
 
@@ -26,8 +36,10 @@ grant select, insert, update, delete
 grant usage, select on all sequences in schema public
   to authenticated, service_role;
 
+-- service_role only: authenticated gets EXECUTE per-function where intended
+-- (ordinary functions remain callable via PostgreSQL's default PUBLIC grant).
 grant execute on all functions in schema public
-  to authenticated, service_role;
+  to service_role;
 
 -- Future tables created without an inline grant still land safely.
 alter default privileges in schema public
@@ -40,7 +52,7 @@ alter default privileges in schema public
 
 alter default privileges in schema public
   grant execute on functions
-  to authenticated, service_role;
+  to service_role;
 
 -- Anon grants are existence-safe: some tables exist only in local migration
 -- files, not in the remote schema (e.g. file_index — remote prefix 015 is
@@ -74,3 +86,5 @@ begin
     end if;
   end loop;
 end $$;
+
+COMMIT;

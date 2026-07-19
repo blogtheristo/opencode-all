@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 3.3
+version: 3.4
 created: 2026-02-07
-last_modified: 2026-07-08
+last_modified: 2026-07-19
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
