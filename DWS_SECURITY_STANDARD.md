@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
 
+- Version: 3.4 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §16.0.1 (Data API Grants — Supabase May/Oct 2026 change). Every `CREATE TABLE public.*` must be paired with an explicit `GRANT` to `service_role` + `authenticated` (anon opt-in) — Supabase dropped the implicit Data API grants on 2026-05-30 for new projects and enforces the same on all existing projects on 2026-10-30. Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for the 88 existing public tables and sets `alter default privileges` so future migrations do not silently break the Data API. Standard block codified in `Firehorse/supabase-schema-templates.sql` (top of file).
 - Version: 3.3 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Continued live-vs-dead-code Dependabot triage. Raised live `cryptography` floor to `>=48.0.1` (2 files). Removed unused `python-jose` from `AgentFoundry`/`Firehorse/api` requirements (eliminated the unpatched `python-ecdsa` Minerva transitive). Relaxed `mcp-hub` `fastapi==0.115.12` → `>=0.115.12` to unstick Starlette from the vulnerable 0.46.2 (the hard pin capped `starlette<0.47.0`). Raised `lxml` floor `>=5.0.0` → `>=6.1.0` in `AgentFoundry`/`scripts/requirements-signals.txt` (XXE fix). Confirmed live copies of axios, vite, react-router, form-data, babel, undici, fast-uri, ws were already patched — vulnerable versions only in deleted `artifacts/` or `*_DEPRECATED/` trees.
 - Version: 3.2 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Disabled `markdown-it` `linkify:true` in `src/contentms/blog-publisher.ts` and capped `body_markdown` to 100KB (`src/contentms/types.ts`) — closed a real, live request-path CPU-DoS via `linkify-it`'s O(N^2) fuzzy-match scan (unpatched upstream, no GHSA/OSV entry). Deleted `artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/` (997MB of accidentally-committed duplicate repo checkouts from PR #1573) — confirmed source of at least 5 live Dependabot alerts against dead code (APScheduler RCE, shell-quote injection, Vitest UI file-read, axios prototype-pollution MITM, plus more). Documented `*_DEPRECATED/` directories as expected, accepted alert noise — left in place per repo convention, not a live-code risk. Flagged a tracked-in-git `100326.env` file at repo root (added PR #1573) for human review/rotation — not read, per secret-egress policy.
 - Version: 3.1 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Ran `pip-audit` across the repo's Python requirement files (no lockfile/hash-pinning exists for pip deps, flagged as a standing gap). Found and fixed `python-dotenv` CVE-2026-28684 in `mcp-hub/requirements.txt` (1.1.0 → 1.2.2, non-breaking patch bump). Logged `pyjwt`/`starlette` transitive-dependency advisories in the same file as open tracked findings — both need an explicit version constraint plus a FastAPI-compatibility check before bumping, so deferred rather than force-applied.
@@ -1469,6 +1470,28 @@ All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback
 **Atomic counter increment:** `increment_usage_counter()` — `SECURITY DEFINER` function with service_role caller guard. Uses `INSERT ... ON CONFLICT DO UPDATE` for race-free counter updates.
 
 **Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
+
+### 16.0.1 Data API Grants (Supabase 2026-05-30 / 2026-10-30)
+
+**Context.** Supabase dropped the implicit grants on `public.*` for the Data API roles (`anon`, `authenticated`, `service_role`) on 2026-05-30 for new projects. All existing projects — including `dws6-production` — are enforced on 2026-10-30. Without an explicit table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` **even when RLS would allow the row.** RLS is the row gate; `GRANT` is the table gate. Both are now required.
+
+**Standard block.** Every `CREATE TABLE public.<name>` in a migration must be followed by:
+
+```sql
+grant select, insert, update, delete on public.<name>
+  to authenticated, service_role;
+alter table public.<name> enable row level security;
+
+-- Opt-in only if a policy explicitly targets that role:
+-- grant select on public.<name> to anon;
+-- grant insert on public.<name> to anon;
+```
+
+Reference copy at the top of `Firehorse/supabase-schema-templates.sql`.
+
+**Backfill.** `supabase/migrations/075_public_schema_grants.sql` grants CRUD on every existing public table to `service_role` + `authenticated`, plus per-table anon SELECT/INSERT for the surfaces whose RLS policies explicitly target `anon` (booking\_\* public reads, subscription_plans, file_index, captain_inquiries submissions, web_leads, playbook_leads). It also sets `alter default privileges in schema public` so a future migration that forgets the inline block still lands with the correct grants — a belt-and-suspenders safeguard against silent 42501s in production.
+
+**Anon posture.** Anon is deny-by-default at the GRANT layer: the standard block does not include `anon`. Add it only when an RLS policy already permits the action for `anon` or the `public` pseudo-role — never grant `anon` privileges the RLS layer does not corroborate.
 
 ### 16.1 API Key Management Security
 
