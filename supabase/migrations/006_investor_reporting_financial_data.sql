@@ -508,7 +508,7 @@ FROM customers
 WHERE status = 'active';
 
 -- Initialize revenue recognition for current month
-SELECT calculate_monthly_metrics(DATE_TRUNC('month', CURRENT_DATE));
+SELECT calculate_monthly_metrics(DATE_TRUNC('month', CURRENT_DATE)::date);
 
 -- Initialize runway tracking
 INSERT INTO runway_tracking (
