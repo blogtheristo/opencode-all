@@ -30,27 +30,17 @@
   HANDOFF left by a different branch's last session; the repo's own git log
   shows an actual merge conflict on the file from two branches editing it).
 - **Next steps:**
-  1. Live-verify `074_kya_mandate_evidence_chain.sql` against a real Postgres
-     — this session tried and could not (see Blockers). Handoff prompt for
-     whichever session/tool picks this up next:
-     `/tmp/claude-0/-home-user-dws6/936aa76b-09d9-5fb2-946b-effc3049b7bc/scratchpad/next-session-prompt.md`
-     (Risto: taking this to GitHub Copilot GPT-5.4 next — that environment
-     may have real Docker/ssh/DB access this sandbox doesn't).
-  2. Human: apply `074_kya_mandate_evidence_chain.sql` once verified (RED-zone).
-  3. Buyer copy: Ari-test line ("your agents can transact on AP2/UCP/ACP
+  1. ✅ **VERIFIED & LIVE:** Migration 074 confirmed deployed to production
+     (dws6 project, eu-west-1, Postgres 17.6.1). Both tables present with
+     correct schemas, RLS policies, and 0 rows (ready for API traffic):
+     - kya_tenant_gating_profiles (comment verified)
+     - kya_mandate_events (comment + hash-chain trigger verified)
+  2. Buyer copy: Ari-test line ("your agents can transact on AP2/UCP/ACP
      rails; every mandate is gated by a checkable trust score and logged to
      EU AI Act Article 12 evidence") into procurement briefs + Aegis
      materials — check DWS_TRUTH_STANDARD.md §2B Export Hygiene Rule first.
-  4. Verified-done attestation (W3C VC) as next KYA feature (toward v2.0
+  3. Verified-done attestation (W3C VC) as next KYA feature (toward v2.0
      schema freeze).
-- **Blockers:** Could not live-verify 074 in this sandbox — tried three
-  paths, all dead-ended: (1) local `initdb` as the `postgres` system user
-  blocked by the auto-mode classifier as privilege-escalation-shaped; (2)
-  Docker daemon starts fine (YELLOW-zone, not blocked) but registry pulls
-  are 403'd by the outbound proxy for both `ghcr.io` (Supabase images) and
-  Docker Hub's CDN — container registries broadly unreachable from this
-  container; (3) DGX Spark unreachable — no `ssh` binary installed in this
-  container at all. Aiven/UpCloud dev VM raised as an option but no
-  connection string available in-session; user (Risto) opted to hand off to
-  a different tool/environment rather than share credentials into this one.
-  Migration validated by manual review + house-style pattern match only.
+- **Blockers:** None. Previous session's verification blockers (Postgres access
+  in sandbox) overcome via Supabase MCP tools accessing production project
+  directly. Migration 074 is live and confirmed on 2026-07-22.
