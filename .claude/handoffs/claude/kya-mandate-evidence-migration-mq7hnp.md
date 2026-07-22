@@ -29,28 +29,42 @@
   concurrent branches (this session started by reading a stale CURRENT
   HANDOFF left by a different branch's last session; the repo's own git log
   shows an actual merge conflict on the file from two branches editing it).
-- **Next steps:**
-  1. Live-verify `074_kya_mandate_evidence_chain.sql` against a real Postgres
-     — this session tried and could not (see Blockers). Handoff prompt for
-     whichever session/tool picks this up next:
-     `/tmp/claude-0/-home-user-dws6/936aa76b-09d9-5fb2-946b-effc3049b7bc/scratchpad/next-session-prompt.md`
-     (Risto: taking this to GitHub Copilot GPT-5.4 next — that environment
-     may have real Docker/ssh/DB access this sandbox doesn't).
-  2. Human: apply `074_kya_mandate_evidence_chain.sql` once verified (RED-zone).
-  3. Buyer copy: Ari-test line ("your agents can transact on AP2/UCP/ACP
-     rails; every mandate is gated by a checkable trust score and logged to
-     EU AI Act Article 12 evidence") into procurement briefs + Aegis
-     materials — check DWS_TRUTH_STANDARD.md §2B Export Hygiene Rule first.
-  4. Verified-done attestation (W3C VC) as next KYA feature (toward v2.0
-     schema freeze).
-- **Blockers:** Could not live-verify 074 in this sandbox — tried three
-  paths, all dead-ended: (1) local `initdb` as the `postgres` system user
-  blocked by the auto-mode classifier as privilege-escalation-shaped; (2)
-  Docker daemon starts fine (YELLOW-zone, not blocked) but registry pulls
-  are 403'd by the outbound proxy for both `ghcr.io` (Supabase images) and
-  Docker Hub's CDN — container registries broadly unreachable from this
-  container; (3) DGX Spark unreachable — no `ssh` binary installed in this
-  container at all. Aiven/UpCloud dev VM raised as an option but no
-  connection string available in-session; user (Risto) opted to hand off to
-  a different tool/environment rather than share credentials into this one.
-  Migration validated by manual review + house-style pattern match only.
+- **Done this session (22.07.2026) — all in PR #1713 (open):**
+  1. ✅ **074 VERIFIED & LIVE** in production (dws6, eu-west-1, Postgres
+     17.6.1) — both tables present, RLS on, 0 rows. Verified via Supabase MCP.
+  2. ✅ **Buyer copy** — Ari-test agentic-commerce line added to
+     `sales-outreach/PROCUREMENT_BRIEFS_TAILORED.md` (S9 annex + Defence card,
+     v1.1→1.2) and `dws10.com/aegis/index.html` KYA Engine card (+ landing-pages
+     mirror synced). Capability claim only; §2B clean; truth-check 0 fail.
+  3. ✅ **§14.7 Verified-Done Attestation — schema landed toward v2.0:**
+     `KYA_STANDARD_v1.md` §14.7 (v1.9.1→1.10; §14 heading v1.8→1.10); TS
+     interfaces `VerifiedDoneAttestation`/`VerifiedDoneSubject`/`AttestationInput`/
+     `IssuedAttestation` (`src/identity/types.ts`) + stub issuer
+     `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, deny-by-
+     default + HIC binding carry through); 6 tests
+     (`src/__tests__/verified-done-attestation.test.ts`; identity suite 27/27,
+     tsc + prettier clean); migration `079_kya_verified_done_attestation.sql`
+     (`kya_verified_done_attestations` + `mandate.attest` event extending the
+     live 074 chain; DELETE denied to all = revocation is a status transition;
+     explicit grants). **Numbered 079, not 075** — 075–078 already exist.
+     **Signing DEFERRED** to v2.0 (credentials mint proofStatus:'unsigned').
+- **Open for next session / human:**
+  1. ✅ **APPLIED 22.07.2026:** `079_kya_verified_done_attestation.sql` applied
+     to production via Supabase MCP `apply_migration` (on founder instruction).
+     Verified: event_type CHECK now has all 5 values (incl. `mandate.attest`),
+     `kya_verified_done_attestations` live (RLS + 3 policies + 17 cols, DELETE
+     denied to every role, grants identical to live 074/071 tables, 0 new
+     security advisories). Both 074 and 079 now live. Next migration = 080.
+  2. **v2.0 signing — DESIGN NOW FIXED in KYA §14.7.1** (Boardy-reviewed):
+     Ed25519 hardware-backed; `did:web` DNS-rooted issuer (.well-known); key
+     custody by tier (Aegis Defence on-prem DGX / Standard-Sovereign UpCloud UKS
+     HSM / never shared cloud KMS); one issuer key per tenant at v2.0, per-agent
+     delegation at v2.1; tenant-controlled rotation, DWS holds only the root CA.
+     v2.0 work = implement against §14.7.1: wire JWS(EdDSA) signing into
+     `issueVerifiedDoneAttestation()` (proofStatus→'signed', populate `proof`),
+     add sign/revoke service path (service_role writes proof_status), then bump
+     KYA §14 to v2.0 and freeze the illustrative JSON in §14.2.1/§14.3/§14.7 to
+     the TS shapes. Full brief: scratchpad `next-session-prompt.md`.
+  3. eslint could not run in-container (`@eslint/js` missing — pre-existing
+     tooling gap); tsc + prettier + vitest were the gates used.
+- **Blockers:** None.
