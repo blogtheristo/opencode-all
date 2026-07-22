@@ -29,18 +29,35 @@
   concurrent branches (this session started by reading a stale CURRENT
   HANDOFF left by a different branch's last session; the repo's own git log
   shows an actual merge conflict on the file from two branches editing it).
-- **Next steps:**
-  1. ✅ **VERIFIED & LIVE:** Migration 074 confirmed deployed to production
-     (dws6 project, eu-west-1, Postgres 17.6.1). Both tables present with
-     correct schemas, RLS policies, and 0 rows (ready for API traffic):
-     - kya_tenant_gating_profiles (comment verified)
-     - kya_mandate_events (comment + hash-chain trigger verified)
-  2. Buyer copy: Ari-test line ("your agents can transact on AP2/UCP/ACP
-     rails; every mandate is gated by a checkable trust score and logged to
-     EU AI Act Article 12 evidence") into procurement briefs + Aegis
-     materials — check DWS_TRUTH_STANDARD.md §2B Export Hygiene Rule first.
-  3. Verified-done attestation (W3C VC) as next KYA feature (toward v2.0
-     schema freeze).
-- **Blockers:** None. Previous session's verification blockers (Postgres access
-  in sandbox) overcome via Supabase MCP tools accessing production project
-  directly. Migration 074 is live and confirmed on 2026-07-22.
+- **Done this session (22.07.2026) — all in PR #1713 (open):**
+  1. ✅ **074 VERIFIED & LIVE** in production (dws6, eu-west-1, Postgres
+     17.6.1) — both tables present, RLS on, 0 rows. Verified via Supabase MCP.
+  2. ✅ **Buyer copy** — Ari-test agentic-commerce line added to
+     `sales-outreach/PROCUREMENT_BRIEFS_TAILORED.md` (S9 annex + Defence card,
+     v1.1→1.2) and `dws10.com/aegis/index.html` KYA Engine card (+ landing-pages
+     mirror synced). Capability claim only; §2B clean; truth-check 0 fail.
+  3. ✅ **§14.7 Verified-Done Attestation — schema landed toward v2.0:**
+     `KYA_STANDARD_v1.md` §14.7 (v1.9.1→1.10; §14 heading v1.8→1.10); TS
+     interfaces `VerifiedDoneAttestation`/`VerifiedDoneSubject`/`AttestationInput`/
+     `IssuedAttestation` (`src/identity/types.ts`) + stub issuer
+     `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, deny-by-
+     default + HIC binding carry through); 6 tests
+     (`src/__tests__/verified-done-attestation.test.ts`; identity suite 27/27,
+     tsc + prettier clean); migration `079_kya_verified_done_attestation.sql`
+     (`kya_verified_done_attestations` + `mandate.attest` event extending the
+     live 074 chain; DELETE denied to all = revocation is a status transition;
+     explicit grants). **Numbered 079, not 075** — 075–078 already exist.
+     **Signing DEFERRED** to v2.0 (credentials mint proofStatus:'unsigned').
+- **Open for next session / human:**
+  1. **Human (RED-zone):** apply `079_kya_verified_done_attestation.sql` to prod
+     after review (074's proven model; offline drift-check 0 drift). Next
+     free migration number after 079.
+  2. **v2.0 signing decision + schema freeze:** pick DID method + issuer key
+     location, wire real Ed25519/Data-Integrity signing into
+     `issueVerifiedDoneAttestation()` (proofStatus→'signed'; populate `proof`),
+     add a `kya_attestations_sign`/revoke path, then bump KYA §14 to v2.0 and
+     freeze the illustrative JSON in §14.2.1/§14.3/§14.7 to the TS shapes.
+     Full brief: scratchpad `next-session-prompt.md`.
+  3. eslint could not run in-container (`@eslint/js` missing — pre-existing
+     tooling gap); tsc + prettier + vitest were the gates used.
+- **Blockers:** None.
