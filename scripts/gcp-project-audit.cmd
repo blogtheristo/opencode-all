@@ -20,6 +20,10 @@ REM ============================================================================
 
 setlocal enabledelayedexpansion
 
+REM Disable all interactive prompts so a disabled API is reported, never
+REM auto-enabled. This keeps the audit strictly read-only (no project mutation).
+set "CLOUDSDK_CORE_DISABLE_PROMPTS=1"
+
 where gcloud >nul 2>nul
 if errorlevel 1 (
   echo [ERROR] gcloud CLI not found on PATH. Install from https://cloud.google.com/sdk
