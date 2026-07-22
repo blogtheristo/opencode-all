@@ -49,9 +49,12 @@
      explicit grants). **Numbered 079, not 075** — 075–078 already exist.
      **Signing DEFERRED** to v2.0 (credentials mint proofStatus:'unsigned').
 - **Open for next session / human:**
-  1. **Human (RED-zone):** apply `079_kya_verified_done_attestation.sql` to prod
-     after review (074's proven model; offline drift-check 0 drift). Next
-     free migration number after 079.
+  1. ✅ **APPLIED 22.07.2026:** `079_kya_verified_done_attestation.sql` applied
+     to production via Supabase MCP `apply_migration` (on founder instruction).
+     Verified: event_type CHECK now has all 5 values (incl. `mandate.attest`),
+     `kya_verified_done_attestations` live (RLS + 3 policies + 17 cols, DELETE
+     denied to every role, grants identical to live 074/071 tables, 0 new
+     security advisories). Both 074 and 079 now live. Next migration = 080.
   2. **v2.0 signing decision + schema freeze:** pick DID method + issuer key
      location, wire real Ed25519/Data-Integrity signing into
      `issueVerifiedDoneAttestation()` (proofStatus→'signed'; populate `proof`),
