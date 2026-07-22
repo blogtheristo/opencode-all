@@ -55,12 +55,16 @@
      `kya_verified_done_attestations` live (RLS + 3 policies + 17 cols, DELETE
      denied to every role, grants identical to live 074/071 tables, 0 new
      security advisories). Both 074 and 079 now live. Next migration = 080.
-  2. **v2.0 signing decision + schema freeze:** pick DID method + issuer key
-     location, wire real Ed25519/Data-Integrity signing into
-     `issueVerifiedDoneAttestation()` (proofStatus→'signed'; populate `proof`),
-     add a `kya_attestations_sign`/revoke path, then bump KYA §14 to v2.0 and
-     freeze the illustrative JSON in §14.2.1/§14.3/§14.7 to the TS shapes.
-     Full brief: scratchpad `next-session-prompt.md`.
+  2. **v2.0 signing — DESIGN NOW FIXED in KYA §14.7.1** (Boardy-reviewed):
+     Ed25519 hardware-backed; `did:web` DNS-rooted issuer (.well-known); key
+     custody by tier (Aegis Defence on-prem DGX / Standard-Sovereign UpCloud UKS
+     HSM / never shared cloud KMS); one issuer key per tenant at v2.0, per-agent
+     delegation at v2.1; tenant-controlled rotation, DWS holds only the root CA.
+     v2.0 work = implement against §14.7.1: wire JWS(EdDSA) signing into
+     `issueVerifiedDoneAttestation()` (proofStatus→'signed', populate `proof`),
+     add sign/revoke service path (service_role writes proof_status), then bump
+     KYA §14 to v2.0 and freeze the illustrative JSON in §14.2.1/§14.3/§14.7 to
+     the TS shapes. Full brief: scratchpad `next-session-prompt.md`.
   3. eslint could not run in-container (`@eslint/js` missing — pre-existing
      tooling gap); tsc + prettier + vitest were the gates used.
 - **Blockers:** None.
