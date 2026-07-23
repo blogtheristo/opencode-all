@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: claude/warsaw-iris2-signing-9a6a4y | Date: 23.07.2026 | Changes: Initial creation — field note from the Warsaw signing of Poland's €656M IRIS² contribution agreement (21.07.2026), mapping five concrete connection paths between the IRIS² secure-connectivity constellation and the DWS IQ Aegis platform (Store/PRODUCT_AEGIS.md, AEGIS_ROADMAP.md).
+  - Version: 1.1 | Tool: Claude Code | Session: claude/warsaw-iris2-signing-9a6a4y | Date: 23.07.2026 | Changes: Added "Political tailwind" section mapping the Macron / von der Leyen EU priorities (European preference, defence industrial base, AI+space investment) onto the Aegis + IRIS² thesis. Cross-linked to the new European-preference market signal in Store/PRODUCT_AEGIS.md.
 
 Session Links & References:
   - Claude Code (claude/warsaw-iris2-signing-9a6a4y): https://github.com/blogtheristo/dws6/commits/claude/warsaw-iris2-signing-9a6a4y
@@ -86,6 +87,24 @@ Poland just made its space industry **contract-eligible** for constellation work
 2. **Tighten roadmap PR 137D** to name IRIS² as the reference sovereign backhaul for the edge-cloud split. *Owner: Eng — small edit to `Store/PRODUCT_AEGIS.md` roadmap once path A/B is validated.*
 3. **Identify one Polish partner** — a space-cluster prime or SI to co-sell Aegis into the Warsaw gateway / eastern-flank dual-use base.
 4. **Add IRIS² to the competitive/positioning narrative** as a *complement* (sovereign bearer) alongside the existing Palantir/Anduril NGC2 contrast (sovereign application) in `Store/PRODUCT_AEGIS.md`.
+
+---
+
+## Political tailwind — Macron / von der Leyen priorities (2026-07-23)
+
+Following coordination between President Macron and Commission President von der Leyen, the stated top-level EU direction maps almost 1:1 onto the Aegis + IRIS² thesis. This is demand-side confirmation that the sovereign-stack narrative is now political priority, not just a vendor claim.
+
+| Stated EU priority (FI → EN) | Aegis / IRIS² connection |
+| --- | --- |
+| *Itsenäisempi ja kilpailukykyisempi Eurooppa* — a more independent, competitive Europe | Core Aegis pitch: EU-sovereign, outside CLOUD Act reach |
+| *Vahvempi puolustus-Eurooppa **teollisen perustansa kanssa*** — stronger defence-Europe with its industrial base | Aegis's literal target market — dual-use manufacturing base, not the tactical frontline |
+| *Jatkuva tuki Ukrainalle* — continued Ukraine support | Eastern-flank axis — same as the Poland IRIS² deal |
+| *Reilu kilpailu suurten kauppakumppaneiden kanssa* — fair competition with big trade partners | The Palantir/Anduril NGC2 contrast: EU-owned vs extraterritorial |
+| ***Eurooppalainen etusija*** — European preference | **The procurement lever** — turns Aegis's sovereignty from a feature into a buying rule |
+| *Lisää investointeja: **tekoäly, kvantti, avaruus**, energia, puolijohteet* — more investment in AI, quantum, space, energy, semiconductors | Space + AI = IRIS² + Aegis; RRF-style public money is the funding channel Poland just used |
+| *Tiukemmat säännöt digitaalisille alustoille* — stricter rules for digital platforms | EU AI Act / Article 12 / KYA governance — Aegis is native to this regime |
+
+**The load-bearing line is "eurooppalainen etusija" (European preference).** It is the mechanism that made Poland fund a European constellation instead of buying foreign capacity, and it applies identically to the sovereign AI/compliance layer that runs over IRIS². Captured in the Aegis competitive narrative (`Store/PRODUCT_AEGIS.md`, Competitive Positioning) as a second market signal alongside the NGC2 contrast.
 
 ---
 
