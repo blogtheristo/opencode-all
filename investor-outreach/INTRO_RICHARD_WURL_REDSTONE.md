@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Richard Würl, Redstone VC
-Version: 1.0
+Version: 1.1
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
-Status: SENT — cold note sent to Richard Würl 2026-07-15
+Status: READY — drafted, NOT yet sent. Blocked on: verified email address for Richard Würl (none on file).
 Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only SAFE
 Intro Type: Cold (no warm path identified)
 
 AGENT HISTORY:
-- v1.0 (2026-07-15): Initial record created after the letter was sent. Richard Würl — Principal at Redstone VC (Berlin), investing in FinTech + B2B SaaS since 2021. Investor / board observer in 10+ companies incl. xAI (seed), ClimeFi, Kertos (compliance), Empion, Finanzguru (Series A lead). EU-domiciled, active in AI + compliance — maps to the raise. Open question captured below: Redstone is a Berlin fund, so a €650K SAFE is likely sub-scale for a fund lead; value is relationship + next-round pipeline + personal-angel potential, not necessarily this round's cheque. Letter deliberately written as a relationship-opener (two-option CTA: 15-min call OR memo), not a hard close.
+- v1.1 (2026-07-15): Status correction — the letter has NOT been sent (v1.0 recorded "SENT" in error). Reset to READY. Send is blocked on a verified email address for Richard Würl, which is not on file. Follow-up date to be set from the actual send date, not pre-filled.
+- v1.0 (2026-07-15): Initial record. Richard Würl — Principal at Redstone VC (Berlin), investing in FinTech + B2B SaaS since 2021. Investor / board observer in 10+ companies incl. xAI (seed), ClimeFi, Kertos (compliance), Empion, Finanzguru (Series A lead). EU-domiciled, active in AI + compliance — maps to the raise. Open question captured below: Redstone is a Berlin fund, so a €650K SAFE is likely sub-scale for a fund lead; value is relationship + next-round pipeline + personal-angel potential, not necessarily this round's cheque. Letter deliberately written as a relationship-opener (two-option CTA: 15-min call OR memo), not a hard close.
 -->
 
 # Investor Intro Note — Richard Würl, Redstone VC
@@ -21,6 +22,7 @@ AGENT HISTORY:
 | Field          | Value                                                                                 |
 | -------------- | ------------------------------------------------------------------------------------- |
 | **Name**       | Richard Würl                                                                          |
+| **Email**      | _Not on file — required before send (do not guess an address)_                        |
 | **Role**       | Principal, Redstone VC (Berlin)                                                       |
 | **Fund**       | Redstone VC — FinTech + B2B SaaS (investing since 2021)                               |
 | **Portfolio**  | Investor / board observer in 10+ cos: xAI (seed), ClimeFi, Kertos, Empion, Finanzguru |
@@ -41,9 +43,9 @@ AGENT HISTORY:
   3. **Referral** within his compliance-fintech network.
 - **Contrast:** a direct angel (e.g. Philipp) can fill meaningful SAFE allocation _now_ and decide fast. These are different instruments — send to both, don't choose.
 
-**Conclusion:** treat this as a **relationship-opener**, not a this-round close. The sent letter is written accordingly (low-friction "memo first" option).
+**Conclusion:** treat this as a **relationship-opener**, not a this-round close. The letter is written accordingly (low-friction "memo first" option).
 
-## Letter — SENT 2026-07-15
+## Letter — READY (NOT yet sent)
 
 ```
 Subject: Sovereign EU compliance AI — €7K MRR, EU/EEA SAFE
@@ -89,7 +91,9 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 
 ## Next Steps
 
-- [ ] **Follow-up nudge ~2026-07-23** (5–7 business days): "floating this back up, memo attached if useful." One bump only.
+- [ ] **Obtain a verified email address** for Richard Würl (LinkedIn / Redstone team page / enrichment tool). Blocks send. Do NOT guess.
+- [ ] **Send the letter**, then set the follow-up date from the actual send date.
+- [ ] **Follow-up nudge +5–7 business days after send**: "floating this back up, memo attached if useful." One bump only.
 - [ ] Have the **investor memo** ready to send on request.
 - [ ] If he engages: log outcome and, if warm, mark next-round intro node.
 
