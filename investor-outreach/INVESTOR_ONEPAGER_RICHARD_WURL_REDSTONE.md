@@ -1,0 +1,58 @@
+<!-- VERSION AND AGENT HISTORY
+Document: Investor One-Pager (tailored) — Richard Würl, Redstone VC
+Version: 1.0
+Date: 2026-07-15
+Author: Claude Opus 4.8 + Human Review
+Branch: claude/investor-letter-richard-wurl-5bwfa5
+Status: READY — tailored one-pager for Richard Würl; distribute under NDA. Send blocked on verified email address.
+Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only SAFE · Kertos-adjacent compliance lane
+Source of truth: docs/investor/INVESTOR_ONE_PAGER_2026Q2.md (v1.3) — figures reconciled, no divergence.
+
+AGENT HISTORY:
+- v1.0 (2026-07-15): Tailored one-pager derived from the canonical 2026 Q2 investor one-pager, cut to a single page and angled for Richard Würl (Principal, Redstone VC, Berlin): leads with the Kertos-adjacent regulated-compliance lane and the EU/EEA-domicile fit. Uses the current sales signature (risto.paarni2024@lifetime.fi, "Founder, CEO · the Agent Outcome Company") consistently — not the legacy risto.paarni@ / "CEO" form in the source doc. All figures (€7K MRR / 6 customers / 100% retention, €650K SAFE at €3.8M cap, 16 agents, >80% GM) carried verbatim from the canonical source.
+-->
+
+# DWS IQ — Investor One-Pager · Prepared for Richard Würl, Redstone VC
+
+**Lifetime Oy — the Agent Outcome Company** · Sovereign EU compliance AI
+_Confidential — distributed under NDA · 2026 Q3 SAFE_
+
+---
+
+## The one line
+
+We don't sell seats or model access — we sell the **finished regulated outcome an AI agent produces**. DWS IQ turns industrial compliance obligations (**CBAM, CSRD, EU AI Act, NIS2**) into **audit-ready, human-signed filings** across 25 regulated industries, priced against the labor it replaces — not against inference cost.
+
+**Why Redstone:** this sits one layer down from **Kertos**. Where Kertos automates the compliance _program_, our agents produce the _filing_ a steel mill or cement plant owes the regulator. EU/EEA-domiciled raise — aligned with your mandate by construction, not by exception.
+
+## Traction (May 2026)
+
+| Metric                                   | Value                                                           |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| MRR (running)                            | **~€7K** · 6 paying customers · **100% retention**              |
+| Skilled Agents in production             | **16**, producing signed artifacts, Themis-coordinated          |
+| Q1/26 enterprise pilots                  | 2 × €29,950 = **€59,900 booked**                                |
+| Tier-1 named-account pipeline (Q2–Q4/26) | **€550K – €1.07M ACV** target                                   |
+| Distribution live                        | Direct · Azure Marketplace (MACC-burn) · Salesforce AppExchange |
+
+## Why it holds
+
+- **Regulation is the demand engine.** CSRD first-wave deadlines hit ~50K EU undertakings in 2026/27; CBAM financial liability closes 2026; EU AI Act high-risk obligations in force Aug 2026. Each mandates _a piece of work_, not a tool.
+- **Outcome pricing → software margins on a labor anchor.** >80% gross margin at list; **margin expands as model cost falls** (the price is anchored to human labor, not compute). 16 agents replace 6–8 EU FTE at a fraction of loaded cost.
+- **EU sovereignty moat.** Data residency in Finland / Germany by default; no CLOUD Act subpoena surface on the data plane. For regulated and critical-infrastructure buyers, sovereignty is a _buying criterion_.
+- **Signable, not just draftable.** Themis (case coordinator) + KYA (runtime trust layer, human-bound audit trail) produce the exact artifact CSRD assurance, CBAM declarations, and EU AI Act conformity require. A copilot produces a draft; DWS produces the signable.
+
+## The ask
+
+- **Round:** SAFE — **€650K** target, oversubscription up to €1.0M.
+- **Cap:** **€3.8M** post-money · 20% discount · 24-mo maturity.
+- **Investor constraint:** EU/EEA-domiciled investors only (sovereignty posture).
+- **Use of funds:** 60% Tier-1 EU sales motion through Messe Germany Q3/26 · 25% EU AI Act conformity co-sign + Sovereignty Monitor hardening · 15% MACC-burn + AppExchange co-sell.
+
+---
+
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
+risto.paarni2024@lifetime.fi · +358 400 319 010
+
+_Lifetime Oy · Business ID 0772407-9 · VAT FI07724079 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland_
