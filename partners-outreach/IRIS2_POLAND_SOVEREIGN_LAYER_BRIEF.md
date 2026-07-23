@@ -1,3 +1,18 @@
+<!-- VERSION AND AGENT HISTORY
+Document: IRIS² Poland — Sovereign AI & Governance Layer · One-Page Partner Brief
+Version: 1.1
+Date: 2026-07-23
+Author: Claude Opus 4.8 + Human Review
+Branch: claude/warsaw-iris2-signing-9a6a4y
+Status: Draft
+Story Lock: Aegis as the EU-sovereign AI + governance layer over Poland's IRIS² segment — eastern-flank beachhead, European-preference procurement tailwind
+Language: EN
+
+AGENT HISTORY:
+- v1.0 (2026-07-23): Created the Poland IRIS² partner brief. Positions DWS IQ Aegis as the sovereign AI + governance layer over Poland's €656M IRIS² segment (signed Warsaw 21.07.2026). Five-path connection sourced to docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md; product facts to Store/PRODUCT_AEGIS.md.
+- v1.1 (2026-07-23): Applied the DWS Document Standard header block. Corrected the contact address to risto.paarni@lifetime.fi per the CLAUDE.md Sender Identity Rule (the ...2024@ address is a Google login name, never a public contact).
+-->
+
 # IRIS² Poland — Sovereign AI & Governance Layer · One-Page Partner Brief
 
 **For:** Polish space-cluster primes / systems integrators eligible for IRIS² constellation contracts
@@ -49,7 +64,7 @@ A **30-minute conversation** on a **sovereign AI & governance layer over Poland'
 ```
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 https://dws10.com/products/aegis.html
 ```
 

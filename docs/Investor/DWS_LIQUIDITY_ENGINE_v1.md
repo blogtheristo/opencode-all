@@ -219,4 +219,4 @@ The Liquidity Engine is designed to be **self-funding before institutional capit
 ---
 
 *DWS-BIZ-LIQUIDITY-2026-001 · Version 1.0 · CONFIDENTIAL*
-*Lifetime DWS | Risto Paarni | risto.paarni2024@lifetime.fi*
+*Lifetime DWS | Risto Anton Päärni | risto.paarni@lifetime.fi*

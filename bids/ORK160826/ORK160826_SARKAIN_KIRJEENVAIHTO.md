@@ -111,7 +111,7 @@ osionaan. Risto vahvisti 9.7.2026, että kirje on lähetetty.
 > Ystävällisin terveisin,
 > Risto Anton Päärni
 > Founder, CEO · Lifetime Oy
-> risto.paarni2024@lifetime.fi · +358 400 319 010
+> risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 

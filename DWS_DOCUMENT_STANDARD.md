@@ -2776,7 +2776,7 @@ Every outbound letter/email/intro note/formal message sent on behalf of Lifetime
 
 ### 24.4 Sender identity
 
-- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales outreach -> `risto.paarni2024@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**.
+- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales/partner outreach -> `risto.paarni@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**. **Never** use `risto.paarni2024@lifetime.fi` in a saved correspondence file or any outbound document — it is a Google login name (internal account credential), not a public contact.
 
 ### 24.5 Governance
 

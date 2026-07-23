@@ -103,7 +103,7 @@ If we're eligible, we'll submit well before July 31.
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 ---
