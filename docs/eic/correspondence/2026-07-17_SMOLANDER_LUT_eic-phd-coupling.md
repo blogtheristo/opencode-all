@@ -15,7 +15,7 @@
 
 ***
 
-**From:** Risto Anton Päärni (risto.paarni2024@lifetime.fi)
+**From:** Risto Anton Päärni (risto.paarni@lifetime.fi)
 **To:** Prof. Kari Smolander — kari.smolander@lut.fi
 **Subject:** EIC application and the doctoral direction — a natural coupling
 
@@ -39,7 +39,7 @@ Could we take **20 minutes** to align the thesis direction with the WP2 scope?
 Warm regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 

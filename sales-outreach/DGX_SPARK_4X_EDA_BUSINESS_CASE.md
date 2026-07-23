@@ -142,4 +142,4 @@ For chip design — where verification effort dominates the schedule, a respin c
 
 ***
 
-_This is a business case prepared for discussion, not a contract or a price quote. Prepared by Lifetime Oy — Risto Anton Päärni, Founder & CEO · risto.paarni2024@lifetime.fi · +358 400 319 010._
+_This is a business case prepared for discussion, not a contract or a price quote. Prepared by Lifetime Oy — Risto Anton Päärni, Founder & CEO · risto.paarni@lifetime.fi · +358 400 319 010._

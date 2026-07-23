@@ -97,7 +97,7 @@ One-pager attached — let me know if either slot works, or suggest a time that'
 Best regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy - the Agent Outcome Company.
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 https://dws10.com
 Business ID: 0772407-9 (Finland)
 

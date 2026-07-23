@@ -170,7 +170,7 @@ Closing line: "The technology runs. The customers pay. The regulation has
 a date. Only the standard is missing — that is what we are asking the EIC
 to fund."
 Contact: Risto Anton Päärni · Founder, CEO · Lifetime Oy ·
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 DESIGN RULES
 • One message per slide; max ~40 words of body text per slide.

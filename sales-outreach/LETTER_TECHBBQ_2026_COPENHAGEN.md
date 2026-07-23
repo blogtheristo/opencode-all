@@ -11,7 +11,7 @@ Purpose: Brief motivational letter for a TechBBQ 2026 (Copenhagen, 26–27 Aug
          growth potential and why a Nordic-ecosystem seat converts to
          investor, partner, and customer pipeline.
 Branch: claude/techbbq-2026-copenhagen-2rq4ru
-Owner: risto.paarni2024@lifetime.fi
+Owner: risto.paarni@lifetime.fi
 Recipient: InvestEU Portal — TechBBQ 2026 startup ticket allocation
 Context: TechBBQ 2026, Copenhagen. Ticket allocation based on programme
          eligibility and submission quality. Lifetime Oy holds three
@@ -46,4 +46,4 @@ With warm regards,
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010

@@ -15,7 +15,7 @@
 
 ***
 
-**From:** Risto Anton Päärni (risto.paarni2024@lifetime.fi)
+**From:** Risto Anton Päärni (risto.paarni@lifetime.fi)
 **To:** Prof. Martin Törngren — martint@kth.se **· Cc:** David Broman — dbro@kth.se
 **Subject:** KTH TECoSA + our EIC application — a concrete role in the trust layer
 
@@ -40,7 +40,7 @@ Nothing binding at this stage; for the full proposal I'd ask for a short letter 
 Warm regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 NVIDIA ISV Partner
 IBM Business Partner
 Amazon Consulting Partner

@@ -17,7 +17,7 @@
 
 ***
 
-**From:** Risto Anton Päärni (risto.paarni2024@lifetime.fi)
+**From:** Risto Anton Päärni (risto.paarni@lifetime.fi)
 **To:** lovegin@cubettech.com (John Lovegin, CEO, Cubet Techno Labs)
 **Subject:** EIC Accelerator application — Cubet partnership confirmation
 **Sent:** 2026-07-17
@@ -39,7 +39,7 @@ Happy to adjust the wording if needed. The deadline is Aug 4, so earlier is bett
 Thanks,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 
@@ -78,7 +78,7 @@ If that scope works for you, the short confirmation you mentioned is all we need
 Warm regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ## Follow-up tracking
 
