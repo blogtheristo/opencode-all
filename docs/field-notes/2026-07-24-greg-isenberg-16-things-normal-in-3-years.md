@@ -27,6 +27,14 @@ The striking result: this list and the prior two notes **converge on the same un
 
 So this thread is not new direction — it is **independent confirmation** that the highest-leverage KYA build is the one already named: *sign the credential, make it externally verifiable.*
 
+> **AUDIT CORRECTION (same-day Opus 5 audit pass) — the convergence claim above is half right, and the imprecision matters for sequencing.**
+>
+> **#11 genuinely requires the signature.** "Verify in 4 seconds" is a *cross-organizational* check by a party who does not trust you; that is exactly what a signed, resolvable credential is for. Confirmed.
+>
+> **#12 does not — not within one tenant.** Interviewing a candidate agent needs an *eval harness plus an ATS baseline*; a firm evaluating its own agent can read its own database and needs no cryptography whatsoever. The signature only becomes load-bearing when the candidate is **third-party or cross-org** — i.e. when the interview result must travel. Filing #12 under "confirms signing" **overstated the case**; it is more accurately a *probation/eval* build (item 2 in the implementation list below), which can ship independently of and in parallel with signing.
+>
+> Net effect on the recommendation: unchanged in direction, sharper in sequencing — signing is gated by #11/#14-class cross-org needs, while #12's probation flow is **not blocked on signing** and can start now. The sibling note's implementation list was re-ordered in the same audit pass (manifest signing promoted; revocation moved to ship *with* signing).
+
 ## The Mapping — True? / DWS Status
 
 | #   | Prediction (short)                              | True?          | DWS / KYA anchor                                                                 |
@@ -58,8 +66,8 @@ The one genuinely *new* signal here, not stressed in the earlier notes, is **#7 
 
 The prior note's #1 recommendation stands unchanged and is now doubly confirmed: **sign the verified-done attestation (§14.7.1 → code).** New, shippable items this thread surfaces:
 
-1. **Agent Spend Statement (#3).** Render the live §14.5 mandate-event chain + KYA-Optimization financial attribution into an itemized per-tenant monthly statement ("what your agents bought / spent, by agent, by mandate"). The data exists; the CFO-facing artifact does not. This is the KYA-Architecture surface that makes the CFO buy.
-2. **Agent Probation flow (#12).** Formalize "interview the agent" as a named KYA gate: run a candidate agent against a fixed adversarial task set, score via ATS, emit a baseline credential **before** binding it to a tenant. Compose existing parts (`/agent-run` scoring, `/autoresearch` evals, capability manifest) — don't build new engine.
+1. **Agent Spend Statement (#3).** Render the §14.5 mandate-event chain + KYA-Optimization financial attribution into an itemized per-tenant monthly statement ("what your agents bought / spent, by agent, by mandate"). The schema exists (migration 074, present in repo — see the sibling note's provenance section: *deployment* state is propagated from the version history, not verified here). The CFO-facing artifact does not exist. This is the KYA-Architecture surface that makes the CFO buy.
+2. **Agent Probation flow (#12) — not blocked on signing; can start now.** Formalize "interview the agent" as a named KYA gate: run a candidate agent against a fixed adversarial task set, score via ATS, emit a baseline **before** binding it to a tenant. Compose existing parts (`/agent-run` scoring, `/autoresearch` evals, capability manifest) — don't build a new engine. Only the *cross-org portable* version of this result needs the signature.
 3. **Unified agent roster (#8/#15).** A per-tenant "org chart of agents + humans" view over the Subagent Registry, with ATS as the performance-review column — the "HR for agents / folder of agents" surface. Positioning made concrete.
 4. **"Made by a person" VC (#14) — note only.** Same §14.7.1 signing rails, human-authorship subject. Dual-use of the signing investment; flag for after signing ships, do not build now.
 
@@ -77,7 +85,7 @@ The prior note's #1 recommendation stands unchanged and is now doubly confirmed:
 
 - **(1) KB entry** — N/A this session (no `/kb` write; flagged for follow-up).
 - **(2) Field note** — this file. ✅
-- **(3) `Learn/` HTML render** — N/A this session (`scripts/render-doc.sh` not run in container; flagged).
+- **(3) `Learn/` HTML render** — N/A: **`pandoc` is not installed in this container**; `scripts/render-doc.sh` exists and is executable but exits on the missing binary. _Audit correction: original wording ("not run in container") implied a choice; the blocker is a missing binary, recoverable with `apt-get install -y pandoc`._
 - **(4) Drive export** — N/A this session (repo is source of truth, Truth Standard §2E; flagged).
 - **(5) HIC question** — below. ✅
 

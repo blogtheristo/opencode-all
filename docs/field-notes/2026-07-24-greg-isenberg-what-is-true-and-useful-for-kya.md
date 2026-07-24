@@ -27,23 +27,33 @@ Two of Greg's claims are the durable, true ones — the rest of his list either 
 
 Both collapse to one primitive: **a credential a counterparty can verify without trusting the issuer's infrastructure.** That is precisely what KYA §14.7 Verified-Done Attestation was designed to be — and here is the sharp, unflattering finding this session surfaced:
 
-> **§14.7 shipped, but it mints the credential _unsigned_.** `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`) returns `{ proofStatus: 'unsigned' }` with **no `proof` block** (`src/identity/types.ts` — `proof?` is optional, absent while unsigned). The schema, storage (migration 079, live), and evidence-chain event (`mandate.attest` on the live 074 chain) all exist. The signature does not.
+> **§14.7 shipped, but it mints the credential _unsigned_.** `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`) returns `{ proofStatus: 'unsigned' }` with **no `proof` block** (`src/identity/types.ts` — `proof?` is optional, absent while unsigned). The schema, storage (migration `079_kya_verified_done_attestation.sql`), and evidence-chain event (`mandate.attest`, extending `074_kya_mandate_evidence_chain.sql`) all exist as files in the repo. The signature does not.
 
 Consequence: today KYA's verified-done credential is a claim, not a proof. A merchant, escrow provider, insurer, or auditor **cannot cryptographically verify it** — they'd have to trust the DWS database, which is the exact thing a verifiable credential exists to remove. The §14.7.1 signing model (Ed25519 JWS, `did:web` issuer, tiered HSM custody) is written down as a **v2.0 target design** — a design, not code.
 
+> **AUDIT CORRECTION (same-day Opus 5 audit pass).** The finding above is real but **understated**: the trust chain is broken at **two** links, not one, and the earlier link is the more serious.
+>
+> `ManifestSignature` (`src/identity/types.ts`) is `{ verified: boolean; algorithm: string; signedBy: string }` — it carries **no signature value field at all**. `evaluateMandateGate()` consumes it at `src/identity/ats-engine.ts:72` as `if (!manifest.signature.verified …)` — i.e. the spend-authority gate keys on a **caller-supplied boolean**, not on verified cryptography. A repo-wide search for a manifest verifier found none (the `verifySignature` hits in `src/middleware/webhook.middleware.ts` and `src/routes/nudge-webhook.routes.ts` are unrelated webhook HMAC). The test fixture is telling: `signature: { verified: true, algorithm: 'ed25519', signedBy: 'operator' }` — `'ed25519'` is a **string label**, with no key, no signature bytes, and nothing that could verify them. `MandateGateRequest` likewise carries no signature material.
+>
+> So "verified human → signed manifest → signed mandate → verified-done attestation" currently has **no cryptographic material anywhere in it**. Link 2 is a trusted flag; link 4 is unsigned. **Flagged as a possible security issue, not just a documentation gap:** any path that lets an untrusted party construct a manifest makes `verified: true` trivially forgeable, and the deny-by-default mandate gate would honour it. Exploitability depends on the manifest ingestion path, which this audit did **not** trace — that trace is the first follow-up, and it belongs to `/security-reviewer`, not to a field note.
+
 ## The Insight
 
-**KYA already owns every trust _concept_ Greg's list needs. The only thing standing between "we designed the trust chain" and "a stranger's agent can verify it" is a signature.** Identity attribution (Pillar 1), ATS (`ats-engine.ts`), capability gating + mandate gate (real code, deny-by-default), forensic evidence chain (Art. 12, migration 074), and the verified-done credential shape (§14.7, migration 079) are all built. The chain `verified human → signed manifest → signed mandate → verified-done attestation` is complete on paper and **broken at the last link in code**, because that last link mints unsigned.
+**KYA already owns every trust _concept_ Greg's list needs, and implements none of the cryptography any of them rest on.** Identity attribution (Pillar 1), ATS (`ats-engine.ts`), capability gating + mandate gate (real code, deny-by-default logic), forensic evidence chain (Art. 12, migration 074), and the verified-done credential shape (§14.7, migration 079) are all built. The chain `verified human → signed manifest → signed mandate → verified-done attestation` is **complete on paper and unsigned end-to-end in code** — link 2 trusts a boolean, link 4 mints without a proof block (see the audit correction above).
 
-So the true-and-useful answer is small and specific: **the highest-leverage thing KYA can implement is the signature it already designed.** It is not a new product. It is the one change that flips the entire trust chain from _internal governance_ (worth something only to DWS) to _external proof_ (worth money to points 6, 8, 10, and 14's counterparties). Greg's "track record = money" only becomes money at the moment the credential is signed and resolvable.
+So the true-and-useful answer is small and specific: **the highest-leverage thing KYA can implement is the signing layer it already designed** — and it must cover the manifest, not only the attestation. It is not a new product. It is the change that flips the whole chain from _internal governance_ (worth something only to DWS) to _external proof_ (worth money to points 6, 8, 10, and 14's counterparties). Greg's "track record = money" only becomes money at the moment the credential is signed and resolvable.
+
+**Dependency reality (audit):** no EdDSA/JWS library is present — `package.json` has `jsonwebtoken` (which does not do EdDSA) and nothing else relevant. Node's built-in `crypto` supports Ed25519 keygen/sign/verify natively, so raw Ed25519 needs no new dependency; a **JWS-enveloped VC per §14.7.1 wants `jose`**. That is a one-line dependency decision, not a research project.
 
 ## What Is Useful for KYA to Implement — Prioritized
 
 Grounded in the current code (v1.11), most-leverage first:
 
-1. **Sign the verified-done attestation — pull §14.7.1 into code.** Populate the `proof` block: Ed25519 (EdDSA) JWS-enveloped VC, flip `proofStatus` `'unsigned' → 'signed'` in `issueVerifiedDoneAttestation()`. This is _the_ unlock. Everything below is worthless without it; nothing above the design layer is missing.
-2. **`did:web` issuer + a verifier path.** Publish `.well-known/did.json` on a tenant-controlled domain and ship the verify function a counterparty runs. A signed credential no one can resolve is still unverifiable — signing and resolution ship together or not at all.
-3. **Revocation status list.** §14.7 says revocation is a status transition, not a deletion — implement the VC status list so a released escrow / paid claim can be challenged if the attestation is later revoked. Without it, "signed" is a one-way door.
+> **Audit note on ordering.** The original version of this list ranked "sign the attestation" first and "revocation status list" third. That was **self-inconsistent**: shipping signing two steps ahead of revocation means the first signed credentials are unrevocable — the exact one-way door item 3 warned about. Corrected below — revocation ships *with* signing, and manifest signing is promoted, since a signed attestation whose upstream manifest is a trusted boolean inherits that weakness.
+
+1. **Make the manifest signature real (new #1, promoted by audit).** Add signature material to `ManifestSignature` (currently `{verified, algorithm, signedBy}` with no value field) and verify it in code instead of trusting the caller's boolean at `ats-engine.ts:72`. Until this lands, everything downstream is signed on top of an unverified claim. Precede it with a trace of the manifest ingestion path to size the security exposure.
+2. **Sign the verified-done attestation — pull §14.7.1 into code, *with* revocation.** Populate the `proof` block (Ed25519 JWS-enveloped VC), flip `proofStatus` `'unsigned' → 'signed'`, **and** implement the VC status list in the same change — §14.7 already specifies revocation as a status transition, not a deletion. Signing without revocation is a one-way door: a released escrow or paid insurance claim could never be challenged.
+3. **`did:web` issuer + a verifier path.** Publish `.well-known/did.json` on a tenant-controlled domain and ship the verify function a counterparty runs. A signed credential no one can resolve is still unverifiable — signing and resolution ship together or not at all.
 4. **Key custody by tier (the sovereignty differentiator).** Aegis Defence → on-prem DGX Spark HSM; Standard/Sovereign → UpCloud UKS HSM; **never** a shared/foreign cloud KMS. Enforce the invariant in code and config: _the private signing key never leaves the tenant's jurisdiction; DWS holds only the root CA._ This is the true difference between KYA and every US agent-infra startup answering Greg — they can sign; they cannot sign _inside the customer's jurisdiction_.
 5. **Carry `kya_score_at_sign` into the manifest VC (§14.4).** So the ATS — the "track record" — travels _with_ the portable credential and is checkable at transaction time. That is what literally makes point 6's "track record = real money" true rather than aspirational.
 
@@ -67,9 +77,16 @@ The pattern holds from the July note: **KYA's job is the verifiable credential, 
 
 - **(1) KB entry** — N/A this session (no `/kb` write performed; flagged for follow-up with the KB toolchain).
 - **(2) Field note** — this file. ✅
-- **(3) `Learn/` HTML render** — N/A this session (`scripts/render-doc.sh` not run in this container; flagged).
+- **(3) `Learn/` HTML render** — N/A: **`pandoc` is not installed in this container** (`scripts/render-doc.sh` is present and executable, and self-documents that pandoc is "not persisted across fresh cloud sessions"). _Audit correction: the original wording, "not run in this container," implied a choice rather than a blocker — the blocker is a missing binary, recoverable with `apt-get install -y pandoc`._
 - **(4) Drive export** — N/A this session (repo remains source of truth per Truth Standard §2E; export flagged as follow-up).
 - **(5) HIC question** — below. ✅
+
+### Claim provenance (audit pass)
+
+Distinguishing what this note **verified** from what it **propagated**, per Truth Standard discipline:
+
+- **Verified in-repo at audit time:** the unsigned attestation (`proofStatus:'unsigned'`, no `proof` block); `ManifestSignature` having no signature value; the `ats-engine.ts:72` boolean gate; absence of any manifest verifier or EdDSA library; migration files 074 and 079 present; **exactly 6** tests in `verified-done-attestation.test.ts` and **21** in `mandate-gate.test.ts`.
+- **Propagated, NOT verified here:** that migrations 074/079 are **live in production**. That claim comes from the KYA v1.11 version-history block, not from anything checkable in this container — no production database was queried. Earlier drafts of this note asserted "live" as fact; corrected to "present in repo."
 
 ### HIC question (EU AI Act Art. 14 intervention point)
 
