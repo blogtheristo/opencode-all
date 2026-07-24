@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Richard Würl, Redstone VC
-Version: 1.3
+Version: 1.4
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
@@ -9,6 +9,7 @@ Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only S
 Intro Type: Cold (no warm path identified)
 
 AGENT HISTORY:
+- v1.4 (2026-07-24): Grounded the Kertos wedge. Added a repo source-of-truth case (`CASE_KERTOS_REDSTONE_WEDGE.md`) with web-sourced Kertos facts, and sharpened the Fit Assessment: Redstone **led** Kertos' seed (May 2023, €4M) and **followed on** in the Series A (Sept 2025, €14M led by Portage) — a two-round conviction in this exact lane, not a passing portfolio line. Clarified the layer distinction (Kertos = organizational compliance *program*, DPO/CISO buyer; DWS IQ = industrial *filing* the operator owes, sustainability/compliance buyer) so the wedge reads as **complementary, not competing** (no portfolio conflict). Send-ready letter body left verbatim (already grounded). Session claude/dws-learning-hic-process-e70k0a.
 - v1.3 (2026-07-24): **Email corrected** in the letter signature + Sender line → `risto.paarni@lifetime.fi` (public sales address), per the Sender Identity policy merged from main: `risto.paarni2024@lifetime.fi` is a Google login credential only and must never appear in a signature or outbound doc. The earlier saved letter used `...2024@` per the pre-correction CLAUDE.md.
 - v1.2 (2026-07-24): Confirmed the final letter text is saved verbatim (Agent Outcome Company signature). Added the mandatory Universal Document Footer (DWS Document Standard §23).
 - v1.1 (2026-07-15): Status correction — the letter has NOT been sent (v1.0 recorded "SENT" in error). Reset to READY. Send is blocked on a verified email address for Richard Würl, which is not on file. Follow-up date to be set from the actual send date, not pre-filled.
@@ -36,9 +37,10 @@ AGENT HISTORY:
 
 ## Fit Assessment
 
-**Thesis fit strong; instrument fit is the open question.**
+**Thesis fit strong; instrument fit is the open question.** _(Kertos wedge grounded in `CASE_KERTOS_REDSTONE_WEDGE.md` — read before quoting any Kertos fact to him; he knows the company far better than we do.)_
 
-- **Why he maps:** EU-domiciled (satisfies the EU/EEA-only SAFE constraint), active in AI + compliance, and Redstone's **Kertos** position sits one layer up from DWS IQ in the same regulated-compliance lane. B2B SaaS + AI is his stated focus.
+- **Why he maps:** EU-domiciled (satisfies the EU/EEA-only SAFE constraint), active in AI + compliance, and — the strongest signal — Redstone **led Kertos' seed** (May 2023, €4M) and **followed on in the Series A** (Sept 2025, €14M led by Portage). That is a **two-round conviction** in exactly DWS's regulated-compliance-automation lane, not a passing portfolio line. B2B SaaS + AI is his stated focus.
+- **Kertos is adjacent, not competing (say this if asked):** Kertos automates the organizational compliance **program** (GDPR / NIS2 / DORA / SOC 2 / EU AI Act governance — bought by the DPO/CISO). DWS IQ produces the industrial regulatory **filing** an operator owes — CBAM, CSRD, EU AI Act Art. 12 — bought by the sustainability/compliance lead at a steel or cement plant. Same lane, one layer down, **complementary** → he can back it without touching his Kertos position. Never claim Kertos does industrial filings or that DWS does GDPR program management; that conflation breaks the wedge.
 - **The catch (Redstone vs. a direct angel like Philipp):** Richard is a **fund** Principal. A €650K SAFE at a €3.8M cap is likely **too small to be a fund lead** for Redstone. So the realistic value here is:
   1. **Personal angel** cheque (fast, meaningful to a €650K round), and/or
   2. **Warm intro node into Redstone** for the _next, larger_ round, and/or
