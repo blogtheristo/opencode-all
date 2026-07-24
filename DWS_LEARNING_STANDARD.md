@@ -6,10 +6,11 @@ _Canonical registry — single source of truth. Registered in `DWS_TRUTH_STANDAR
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Sharpened §1 with the load-bearing **HIL ("in the loop") vs HIC ("in command")** distinction and the framing that **ending a substantive session with no learning outcome is knowledge destruction** — an Article 14 compliance gap, not a process miss. Added a §2 **"double duty"** note: the stream of learning outcomes is itself audit-grade **Article 12** record-keeping applied inward to DWS's own development process. Conceptual articulation only — the requirement and the five-step minimum are unchanged. Rich framing kept here (not in `DWS_TRUTH_STANDARD.md`, which stays a thin registry; §2F already points here). HIC-validated 24.07.2026.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Created the DWS Learning Standard. Codifies the **HIC Learning Outcome** — the requirement that every substantive session ends by capturing what it learned so a Human-In-Command (HIC) understands and can act on the new knowledge. Establishes the five-step minimum (update KB → field note → Learn/ HTML → Drive export → ask HIC a question), the **EU AI Act Article 14 (human oversight)** legal basis, the substantive-vs-trivial session gate, the Roles chapter, and cross-references to the Truth Standard (§2F, row 30), Document Standard (§17/§18 Learn HTML), and the field-notes README. Triggered by founder directive: "we need to keep HIC informed and make sure new artifact is understood by HIC … this HIC process of learn is a major outcome of each session."
 
 ***
@@ -34,6 +35,10 @@ New ideas, concepts, theories, code, whitepapers, and artifacts are welcome — 
 
 This standard closes that gap. It makes **learning capture a required, first-class deliverable of every substantive session** — equal in weight to the code or document the session produced. The unit of that capture is the **HIC Learning Outcome**: a small, fixed set of artifacts that (a) persists the new knowledge in git-committed, human-readable form, (b) puts it in front of a HIC, and (c) asks the HIC one real question so a human stays in command of the direction.
 
+**"In the loop" vs "in command" is load-bearing.** Human-in-the-loop (HIL) _reviews_ a decision the machine already made; Human-In-Command (HIC) _holds_ the decision and can override it. Article 14 requires the latter, not the former. A learning outcome that only informs (steps 1–4) without asking the HIC to decide (step 5) delivers HIL, not HIC — it does not fully discharge the duty. The learning outcome is a **handoff of understanding** from the machine to a person, ending in a decision that person owns.
+
+**Ending a substantive session with no learning outcome is knowledge destruction.** The session's understanding is deleted with the container, and no human ever held it. Under Article 14 that is a **compliance gap, not merely a process miss** — which is why this is a standard with an enforcing hook, not a suggestion.
+
 **One-line test:** _If this session vanished right now, could a HIC reconstruct what was learned and decide what to do next — without re-reading the transcript?_ If no, the learning outcome is incomplete.
 
 ## 2. Legal Basis — EU AI Act Article 14 (Human Oversight)
@@ -46,6 +51,7 @@ DWS operates AI agents that produce work product acted on by a business — the 
 
 - **HIC (Human-In-Command)** is the DWS operating term. **"Human oversight"** is the Article 14 legal term. **"Human-in-the-loop" (HIL)** is the review posture. This standard treats HIC as the DWS implementation of Article 14 human oversight; do not silently substitute "control" for the registered term "Command" — surface the mapping instead of averaging the words.
 - The Article 12 (record-keeping / reasoning-lineage logging) obligation is a **sibling** control, covered in `DWS_STANDARDS_LIBRARY.md` §3.1 and the KYA standard. Article 12 makes the machine's reasoning auditable; **Article 14 (this standard) makes a human able to act on it.** Both are required; neither substitutes for the other.
+- **Double duty (Article 12, applied inward).** Because each learning outcome is a dated, git-committed record of what a session built and decided, the **stream of outcomes is itself an audit-grade log of DWS's _own_ development process** — the record-keeping Article 12 expects, turned on the builder. One artifact satisfies both duties: a human can act on it (Art. 14) and an auditor can trace it (Art. 12). This is why the outcome is committed to git (not just exported) — the commit history _is_ the log.
 
 **Scope note.** DWS applies this as a governance baseline across agent sessions, not a self-assessment that any given surface is "high-risk" under Annex III. Where a surface is formally high-risk, the HIC Learning Outcome is one piece of the Article 14 evidence chain, not the whole of it.
 
@@ -134,4 +140,4 @@ Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes pr
 
 ---
 
-_Version 1.0 · 24.07.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
+_Version 1.1 · 24.07.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
