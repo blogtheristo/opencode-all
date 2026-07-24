@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
 
+- Version: 2.7 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Added §24.4 (Export naming — version number FIRST) — cloud/Drive exports must lead the title with `V<major>.<minor>` so the HIC can sort/group/grab the current version in Drive (trailing versions truncate to identical titles and become unmanageable). Repo files keep normal DWS naming (§4); version-first is an export-only convention. Zero-pad past 9 minors. Triggered by three identically-truncating "DWS IQ — Investor One-Pager" Google Docs in the founder's Drive.
 - Version: 2.6 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Added §23 (Universal Document Footer — mandatory) — every document must carry, at the bottom, a footer with document version, date, `© <year> Lifetime Oy. All rights reserved.`, and a Business Confidentiality clause (unless the doc is explicitly Public). Footer version must equal the §2 header version (lockstep). Added §24 (Repository-First, Then Export — anti-drift) codifying that any externally-exported artifact (Google Docs/Drive, PDF, Gamma, .docx, .xlsx) MUST have a repository source-of-truth file first, versioned per §2; the export is a generated copy, never the master. Added both to the ToC. Triggered by finding four board-pack financial docs (Boardy 29 Jul) living only as Google Drive exports with no repo copy.
 - Version: 2.5 | Tool: Claude Code | Session: claude/jasenko-hadzic-outreach-ici0e7 | Date: 12.07.2026 | Changes: Extended §20.6 scope to explicitly cover `investor-outreach/LETTER_*` files and cloud exports (Google Docs, Drive PDFs, Gamma decks) — version block goes at the end for these, not the first page. Added §20.7 (Cloud Export Cleanup — Always Link Superseded Files): when a connector like Google Drive lacks rename/delete/update-in-place and a correction requires a new file, the agent must always link every superseded file needing manual deletion, on every correction, not just the first. Triggered by repeated Google Drive exports of an investor outreach letter (Jasenko Hadzic / Spintop Ventures) creating duplicate untitled files with no cleanup pointer.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
@@ -2687,3 +2688,15 @@ A Google Doc, Drive file, PDF, Gamma deck, `.docx`, or `.xlsx` that has **no rep
 
 - Before sharing any export externally, confirm the repository copy exists and its version matches. If it does not, create it first — the export does not ship until the repo master exists.
 - Registration of canonical financial/positioning figures still flows through `DWS_TRUTH_STANDARD.md` (source-of-truth registry).
+
+### 24.4 Export naming — version number FIRST (Drive/cloud)
+
+Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead their title with the version number**, so the human-in-command (HIC) can sort, group, and grab the current version at a glance in Drive's grid view — where trailing versions all truncate to the same "DWS IQ — Investor O…" and become unusable.
+
+**Format:** `V<major>.<minor> — <Document Title>[ (recipient / context)]`
+**Example:** `V1.3 — DWS IQ Investor One-Pager (Richard Würl · Redstone VC)`
+
+- **Repository files keep normal DWS naming (§4)** — the version lives in the header/footer block, not the filename. Version-first naming is an **export convention only**, for Drive manageability. (Repo master → normal name; cloud export → version-first title.)
+- The leading version must equal the repo master's current version; bump it on every re-export.
+- If a document will exceed 9 minor versions, **zero-pad the minor** (`V1.03`) so lexical sort stays correct. Same idea as the whitepaper pipeline's zero-padded `NN_` prefix (§22.2).
+- When the connector cannot rename/update-in-place (e.g. Google Drive), a re-export makes a new file — **link every superseded file for manual deletion (§20.7)** so stale versions don't accumulate.
