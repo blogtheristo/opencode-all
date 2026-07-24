@@ -193,8 +193,10 @@
 <script>
 (function(){
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  // seconds per slide — the deck's existing ~3-min run (sum = 187s = 3:07)
-  var dur = [10,28,30,28,20,15,14,12,15,15];
+  // seconds per slide — RETIMED to 2:54 total, UNDER the 3:00 EIC video cap.
+  // Slides 6-8 (market/model/competition) quick-pass at 2s each: they are in the
+  // 10-slide PDF deck but NOT narrated in the 3-min video (the 8-beat script skips them).
+  var dur = [17,26,33,31,16,2,2,2,20,25];
   var TOTAL = dur.reduce(function(a,b){return a+b;},0);
   var before = dur.map(function(_,k){return dur.slice(0,k).reduce(function(a,b){return a+b;},0);}); // elapsed before slide k
 
