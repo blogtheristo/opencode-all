@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor One-Pager (tailored) — Richard Würl, Redstone VC
-Version: 1.4
+Version: 1.5
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
@@ -9,6 +9,7 @@ Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only S
 Source of truth: docs/investor/INVESTOR_ONE_PAGER_2026Q2.md (v1.4) + docs/investor/boardy-2026-07-29/BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md (LOCKED 22.07.2026). GM frame now VERIFIED from repo source: "85% at list; 80% conservative stress floor" (downside defended by sensitivity 88% @0.5× / 73% @2× / 55% @5×, PRICING_MODEL.md). Added the mandatory §23 footer.
 
 AGENT HISTORY:
+- v1.5 (2026-07-24): Sharpened "Why Redstone" with grounded facts from the new `CASE_KERTOS_REDSTONE_WEDGE.md` — Redstone **led** Kertos' 2023 seed and **followed on** in the 2025 Series A (two-round conviction), and an explicit "complementary, not a competitor" note (Kertos = compliance program / DPO-CISO buyer; DWS = the industrial filing / sustainability-compliance buyer) to remove any portfolio-conflict worry. Session claude/dws-learning-hic-process-e70k0a.
 - v1.3 (2026-07-24): Restored the founder-locked GM phrasing "~85% at list (80% conservative stress floor)" — now VERIFIED against the newly-created repo source-of-truth BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md ("PRICING FRAME — LOCKED 22.07.2026"), which earlier (v1.2) could not be read (Drive gated). Added the mandatory Universal Document Footer (DWS Document Standard §23: version · date · copyright · Business Confidential).
 - v1.2 (2026-07-24): Interim reconciliation while Budget V3 was unreadable — used "~85% at list (80%+ across every SKU)" as the data-room-backed reading; superseded by v1.3 once the locked source was transcribed into the repo.
 - v1.1 (2026-07-15): Founder review edits. (1) Traction date "May 2026" → "mid-2026" (avoid stale-date signal in DD). (2) GM ">80% at list" → "85% at list (80% stress floor)" per budget V3 — later reconciled in v1.2. (3) Sharpened "Why Redstone" so the "one layer down from Kertos" model lands without assuming deep prior knowledge of Kertos.
@@ -27,7 +28,7 @@ _Confidential — distributed under NDA · 2026 Q3 SAFE_
 
 We don't sell seats or model access — we sell the **finished regulated outcome an AI agent produces**. DWS IQ turns industrial compliance obligations (**CBAM, CSRD, EU AI Act, NIS2**) into **audit-ready, human-signed filings** across 25 regulated industries, priced against the labor it replaces — not against inference cost.
 
-**Why Redstone:** you backed **Kertos** — so you already know this lane. Kertos automates the compliance _program_; we sit one layer down and produce the _filing itself_ — the CBAM declaration or CSRD report a steel mill or cement plant owes the regulator. EU/EEA-domiciled raise, aligned with your mandate by construction, not by exception.
+**Why Redstone:** you backed **Kertos twice** — led the 2023 seed, followed the 2025 Series A — so you already know this lane by conviction, not by tour. Kertos automates the compliance _program_ (bought by the DPO/CISO); we sit one layer down and produce the _filing itself_ — the CBAM declaration or CSRD report a steel mill or cement plant owes the regulator (bought by the sustainability/compliance lead). **Adjacent, not competing** — the industrial-filing layer beneath Kertos, no portfolio conflict. EU/EEA-domiciled raise, aligned with your mandate by construction, not by exception.
 
 ## Traction (mid-2026)
 
