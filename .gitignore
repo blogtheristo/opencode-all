@@ -131,6 +131,8 @@ claude-sessions/
 !landing-pages/dws10-com/products.csv
 !dws10.com/products.csv
 !Learn/data/activation/billing-*.csv
+# Source-of-truth financial figure exports (Document Standard §24.2) — NOT PII
+!docs/investor/**/*.csv
 investor-outreach/ready_to_send*/
 scripts/investor-contacts.local.json
 
