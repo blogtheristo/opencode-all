@@ -184,13 +184,16 @@ so.</strong> See the honesty note below.</li>
 <blockquote>
 <h2 id="honesty-note-read-before-citing-this-file">⚠️ Honesty note —
 read before citing this file</h2>
-<p><strong>No artifact for the KYA Open Standard v1.5 spec exists in
-this repository.</strong> A search of <code>origin/main</code> found no
-open-standard document, no Apache 2.0 licence file for KYA, and no spec
-draft. The work described here happened in <strong>internal spec
-discussions</strong> — that is, in session memory, which is precisely
-the asset <code>DWS_LEARNING_STANDARD.md</code> exists to stop
-losing.</p>
+<p><strong>RESOLVED 24.07.2026 — see the decision 3A section
+below.</strong> When this note was written, <strong>no artifact for the
+KYA Open Standard v1.5 spec existed in this repository</strong>: a
+search of <code>origin/main</code> found no open-standard document, no
+Apache 2.0 licence file for KYA, and no spec draft. The work had
+happened in <strong>internal spec discussions</strong> — session memory,
+which is precisely the asset <code>DWS_LEARNING_STANDARD.md</code>
+exists to stop losing. The HIC then decided (3A) to land it in-repo, and
+<code>standards/kya-open/</code> now exists. The analysis below was
+written <em>before</em> that and is preserved as-is.</p>
 <p>This note therefore separates two things, and never blends them (Rule
 7 — surface conflicts, don’t average):</p>
 <ul>
@@ -339,10 +342,32 @@ term stops meaning governed.</strong> The defences are a conformance
 suite plus a trademark on the mark itself, and neither is visible in the
 repo today. Open the protocol; do not open the <em>name</em> without a
 conformance gate behind it.</p>
+<h2 id="hic-decision-3a-24.07.2026-go">HIC decision 3A (24.07.2026) —
+GO</h2>
+<p><strong>Decided:</strong> land the spec in-repo first,
+<strong>publish the ATS formula openly</strong>, retain the telemetry
+pipeline. <em>Loop closed per Learning Standard §10.7.</em></p>
+<p><strong>Executed:</strong> <code>standards/kya-open/</code> created —
+<code>SPEC.md</code> (draft v0.1 toward Open Standard v1.5),
+<code>LICENSE</code> (canonical Apache-2.0 text), <code>NOTICE</code>
+(copyright + the spec-licence caveat). The strategy no longer exists
+only in session memory.</p>
+<p><strong>This resolves <code>[HIC INPUT NEEDED]</code> #3</strong>
+(where the open/proprietary line falls) — the boundary in the
+proposed-analysis table above is now the decided boundary, and §0.5 of
+the spec states it. <strong>Three remain open:</strong> why Q4 2026,
+which standards body, and the conformance story.</p>
+<p><strong>Note on what the spec asserts.</strong> §7.2 (signature must
+cover proof options), §5 (tenancy + pseudonymous subject id) and §8
+(revocation cascade) state requirements the <strong>reference
+implementation does not yet meet</strong> — they correspond to the PR
+#1716 crypto review finding F1 and backlog B7/B8/D4. That is deliberate
+and recorded in Appendix A: a standard describes what conformance means,
+not what one vendor currently ships.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
-<li>HIC fills the four <code>[HIC INPUT NEEDED]</code> items; this note
-is revised to v1.1 with the real rationale.</li>
+<li>HIC fills the remaining three <code>[HIC INPUT NEEDED]</code> items;
+this note is revised to v1.1 with the real rationale.</li>
 <li>Confirm whether a spec-grade licence must accompany Apache 2.0 for
 the target body <strong>before</strong> GitHub publication.</li>
 <li>Locate or create the actual spec draft in-repo — it currently exists

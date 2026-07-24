@@ -8,7 +8,7 @@
 
 > ## ⚠️ Honesty note — read before citing this file
 >
-> **No artifact for the KYA Open Standard v1.5 spec exists in this repository.** A search of `origin/main` found no open-standard document, no Apache 2.0 licence file for KYA, and no spec draft. The work described here happened in **internal spec discussions** — that is, in session memory, which is precisely the asset `DWS_LEARNING_STANDARD.md` exists to stop losing.
+> **RESOLVED 24.07.2026 — see the decision 3A section below.** When this note was written, **no artifact for the KYA Open Standard v1.5 spec existed in this repository**: a search of `origin/main` found no open-standard document, no Apache 2.0 licence file for KYA, and no spec draft. The work had happened in **internal spec discussions** — session memory, which is precisely the asset `DWS_LEARNING_STANDARD.md` exists to stop losing. The HIC then decided (3A) to land it in-repo, and `standards/kya-open/` now exists. The analysis below was written *before* that and is preserved as-is.
 >
 > This note therefore separates two things, and never blends them (Rule 7 — surface conflicts, don't average):
 >
@@ -70,9 +70,19 @@ Apache 2.0 was chosen. Two properties are worth stating explicitly, because they
 
 Publishing the protocol invites implementations DWS does not control. That is the intent — but it has a specific failure mode: **a competitor implements the open spec, markets "KYA-compliant," and the term stops meaning governed.** The defences are a conformance suite plus a trademark on the mark itself, and neither is visible in the repo today. Open the protocol; do not open the *name* without a conformance gate behind it.
 
+## HIC decision 3A (24.07.2026) — GO
+
+**Decided:** land the spec in-repo first, **publish the ATS formula openly**, retain the telemetry pipeline. _Loop closed per Learning Standard §10.7._
+
+**Executed:** `standards/kya-open/` created — `SPEC.md` (draft v0.1 toward Open Standard v1.5), `LICENSE` (canonical Apache-2.0 text), `NOTICE` (copyright + the spec-licence caveat). The strategy no longer exists only in session memory.
+
+**This resolves `[HIC INPUT NEEDED]` #3** (where the open/proprietary line falls) — the boundary in the proposed-analysis table above is now the decided boundary, and §0.5 of the spec states it. **Three remain open:** why Q4 2026, which standards body, and the conformance story.
+
+**Note on what the spec asserts.** §7.2 (signature must cover proof options), §5 (tenancy + pseudonymous subject id) and §8 (revocation cascade) state requirements the **reference implementation does not yet meet** — they correspond to the PR #1716 crypto review finding F1 and backlog B7/B8/D4. That is deliberate and recorded in Appendix A: a standard describes what conformance means, not what one vendor currently ships.
+
 ## Next Steps
 
-- HIC fills the four `[HIC INPUT NEEDED]` items; this note is revised to v1.1 with the real rationale.
+- HIC fills the remaining three `[HIC INPUT NEEDED]` items; this note is revised to v1.1 with the real rationale.
 - Confirm whether a spec-grade licence must accompany Apache 2.0 for the target body **before** GitHub publication.
 - Locate or create the actual spec draft in-repo — it currently exists nowhere in `origin/main`, which means it is one lost container away from gone.
 - Decide the conformance-suite and trademark posture before the mark is public.
