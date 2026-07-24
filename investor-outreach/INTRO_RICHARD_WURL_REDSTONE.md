@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Richard Würl, Redstone VC
-Version: 1.2
+Version: 1.3
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
@@ -9,6 +9,7 @@ Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only S
 Intro Type: Cold (no warm path identified)
 
 AGENT HISTORY:
+- v1.3 (2026-07-24): **Email corrected** in the letter signature + Sender line → `risto.paarni@lifetime.fi` (public sales address), per the Sender Identity policy merged from main: `risto.paarni2024@lifetime.fi` is a Google login credential only and must never appear in a signature or outbound doc. The earlier saved letter used `...2024@` per the pre-correction CLAUDE.md.
 - v1.2 (2026-07-24): Confirmed the final letter text is saved verbatim (Agent Outcome Company signature). Added the mandatory Universal Document Footer (DWS Document Standard §23).
 - v1.1 (2026-07-15): Status correction — the letter has NOT been sent (v1.0 recorded "SENT" in error). Reset to READY. Send is blocked on a verified email address for Richard Würl, which is not on file. Follow-up date to be set from the actual send date, not pre-filled.
 - v1.0 (2026-07-15): Initial record. Richard Würl — Principal at Redstone VC (Berlin), investing in FinTech + B2B SaaS since 2021. Investor / board observer in 10+ companies incl. xAI (seed), ClimeFi, Kertos (compliance), Empion, Finanzguru (Series A lead). EU-domiciled, active in AI + compliance — maps to the raise. Open question captured below: Redstone is a Berlin fund, so a €650K SAFE is likely sub-scale for a fund lead; value is relationship + next-round pipeline + personal-angel potential, not necessarily this round's cheque. Letter deliberately written as a relationship-opener (two-option CTA: 15-min call OR memo), not a hard close.
@@ -81,7 +82,7 @@ Risto
 —
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy · the Agent Outcome Company
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 ## Reply-Handling Playbook
@@ -98,10 +99,10 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 - [ ] Have the **investor memo** ready to send on request.
 - [ ] If he engages: log outcome and, if warm, mark next-round intro node.
 
-**Sender:** `risto.paarni2024@lifetime.fi` (Lifetime Oy sales outreach) via Amazon SES SMTP. Never Resend, never noreply@.
+**Sender:** `risto.paarni@lifetime.fi` (public Lifetime Oy sales address) via Amazon SES SMTP. Never Resend, never noreply@. (`risto.paarni2024@lifetime.fi` is a Google login credential only — never a sender/signature.)
 
 ---
 
-**Document version:** v1.2 · **Date:** 24.07.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.3 · **Date:** 24.07.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

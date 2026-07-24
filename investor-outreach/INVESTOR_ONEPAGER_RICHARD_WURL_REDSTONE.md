@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor One-Pager (tailored) — Richard Würl, Redstone VC
-Version: 1.3
+Version: 1.4
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
@@ -12,7 +12,8 @@ AGENT HISTORY:
 - v1.3 (2026-07-24): Restored the founder-locked GM phrasing "~85% at list (80% conservative stress floor)" — now VERIFIED against the newly-created repo source-of-truth BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md ("PRICING FRAME — LOCKED 22.07.2026"), which earlier (v1.2) could not be read (Drive gated). Added the mandatory Universal Document Footer (DWS Document Standard §23: version · date · copyright · Business Confidential).
 - v1.2 (2026-07-24): Interim reconciliation while Budget V3 was unreadable — used "~85% at list (80%+ across every SKU)" as the data-room-backed reading; superseded by v1.3 once the locked source was transcribed into the repo.
 - v1.1 (2026-07-15): Founder review edits. (1) Traction date "May 2026" → "mid-2026" (avoid stale-date signal in DD). (2) GM ">80% at list" → "85% at list (80% stress floor)" per budget V3 — later reconciled in v1.2. (3) Sharpened "Why Redstone" so the "one layer down from Kertos" model lands without assuming deep prior knowledge of Kertos.
-- v1.0 (2026-07-15): Tailored one-pager derived from the canonical 2026 Q2 investor one-pager, cut to a single page and angled for Richard Würl (Principal, Redstone VC, Berlin): leads with the Kertos-adjacent regulated-compliance lane and the EU/EEA-domicile fit. Uses the current sales signature (risto.paarni2024@lifetime.fi, "Founder, CEO · the Agent Outcome Company") consistently — not the legacy risto.paarni@ / "CEO" form in the source doc.
+- v1.4 (2026-07-24): **Email corrected** — signature now uses `risto.paarni@lifetime.fi` (public Lifetime Oy sales address) per the updated Sender Identity policy merged from main: `risto.paarni2024@lifetime.fi` is a Google login credential only and must NEVER appear in a signature or outbound doc. Earlier session versions used `...2024@` per the pre-correction CLAUDE.md.
+- v1.0 (2026-07-15): Tailored one-pager derived from the canonical 2026 Q2 investor one-pager, cut to a single page and angled for Richard Würl (Principal, Redstone VC, Berlin): leads with the Kertos-adjacent regulated-compliance lane and the EU/EEA-domicile fit. Uses the "Founder, CEO · the Agent Outcome Company" signature.
 -->
 
 # DWS IQ — Investor One-Pager · Prepared for Richard Würl, Redstone VC
@@ -56,12 +57,12 @@ We don't sell seats or model access — we sell the **finished regulated outcome
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy · the Agent Outcome Company
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 _Lifetime Oy · Business ID 0772407-9 · VAT FI07724079 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland_
 
 ---
 
-**Document version:** v1.3 · **Date:** 24.07.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.4 · **Date:** 24.07.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
