@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-24-PR1716-KYA-SIGNING-CRYPTO-REVIEW</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-24-PR1716-KYA-SIGNING-CRYPTO-REVIEW</h1>
+</header>
+<h1 id="crypto-review-pr-1716-kya-v2.0-verified-done-attestation-signing">Crypto
+Review — PR #1716 (KYA v2.0 Verified-Done Attestation Signing)</h1>
+<ul>
+<li><strong>Date:</strong> 2026-07-24</li>
+<li><strong>Reviewer:</strong> Claude Code (Opus 5), session
+<code>claude/greg-isenberg-field-notes-a2r544</code></li>
+<li><strong>Authorized by:</strong> HIC decision 1 (24.07.2026) —
+<em>“human crypto review first, merge, keep all tiers unsigned until key
+custody + fail-loud guard land.”</em></li>
+<li><strong>Subject:</strong>
+<code>src/identity/attestation-signing.ts</code> @
+<code>claude/kya-v2-attestation-signing-6e5703</code> (PR #1716,
+<strong>open</strong>)</li>
+<li><strong>Method:</strong> PR branch fetched and <strong>source read
+directly</strong> (this supersedes the “CODE NOT READ” provenance caveat
+in
+<code>docs/field-notes/2026-07-24-kya-v2-eddsa-signing-crypto-decision.md</code>).
+Signing module + its 8 tests reviewed line by line.</li>
+</ul>
+<h2 id="verdict">Verdict</h2>
+<p><strong>Do not merge as-is.</strong> One HIGH finding is a
+design-level gap that gets materially more expensive to fix after
+credentials exist in the wild. It is a contained fix (a few lines in two
+functions plus tests), not a redesign.</p>
+<p>The HIC decision to keep tiers unsigned holds regardless — and is now
+doubly justified, since F1 changes what a signature means.</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 47%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Severity</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F1</td>
+<td><strong>HIGH</strong></td>
+<td>The signature does not cover the proof options
+(<code>created</code>, <code>verificationMethod</code>,
+<code>proofPurpose</code>, <code>type</code>)</td>
+</tr>
+<tr class="even">
+<td>F2</td>
+<td><strong>MEDIUM-HIGH</strong></td>
+<td><code>verifyVerifiedDoneAttestation()</code> returns
+<code>true</code> for a <strong>revoked</strong> credential</td>
+</tr>
+<tr class="odd">
+<td>F3</td>
+<td><strong>MEDIUM</strong></td>
+<td>No key-type assertion — a non-Ed25519 PEM loads and fails later with
+an opaque error</td>
+</tr>
+<tr class="even">
+<td>F4</td>
+<td><strong>LOW</strong></td>
+<td>Re-signing an already-signed credential is permitted in this
+module</td>
+</tr>
+<tr class="odd">
+<td>F5</td>
+<td><strong>LOW</strong></td>
+<td>Bespoke canonicalization will not interoperate with an external
+JCS/RDF verifier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="f1-high-proof-options-are-outside-the-signed-bytes">F1 — HIGH:
+proof options are outside the signed bytes</h2>
+<p><code>credentialSigningBytes()</code> strips the
+<strong>entire</strong> <code>proof</code> object before signing:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> { proof<span class="op">:</span> _proof<span class="op">,</span> <span class="op">...</span>unsigned } <span class="op">=</span> credential<span class="op">;</span></span></code></pre></div>
+<p>The JOSE header (<code>{alg:&#39;EdDSA&#39;}</code>) <em>is</em> signed — it
+is part of <code>${headerB64}.${payloadB64}</code> — which correctly
+prevents algorithm confusion. But everything in the <code>proof</code>
+block is not. <strong><code>created</code>,
+<code>verificationMethod</code>, <code>proofPurpose</code>, and
+<code>type</code> can all be modified after signing and the credential
+still verifies.</strong></p>
+<p>W3C Data Integrity canonicalizes the proof options (minus
+<code>proofValue</code>) <strong>together with</strong> the document
+precisely to close this. That step is missing.</p>
+<p><strong>Two concrete consequences:</strong></p>
+<ol type="1">
+<li><p><strong>The timestamp on an audit credential is mutable.</strong>
+<code>proof.created</code> can be rewritten freely without breaking
+verification. For an artifact whose purpose is non-repudiable evidence
+feeding EU AI Act Article 12 record-keeping, “when was this attested” is
+not decoration — and it is currently unprotected.</p></li>
+<li><p><strong>Key-substitution exposure for any
+<code>did:web</code>-resolving verifier.</strong> §14.7.1 specifies
+resolving the issuer key from a <code>did:web</code> verification
+method. The natural implementation reads
+<code>credential.proof.verificationMethod</code> and fetches that key —
+i.e. <strong>choosing its trust anchor from unsigned, caller-modifiable
+data.</strong> An attacker who signs a forged credential with their own
+key and points <code>verificationMethod</code> at their own
+<code>did:web</code> document produces a credential that verifies
+cleanly. The <code>issuer</code> field <em>is</em> inside the signed
+body, so the defence is to bind <code>verificationMethod</code> to the
+signed <code>issuer</code> — but <strong>nothing in the code,
+docstrings, or tests does or requires this.</strong> This module’s own
+verifier sidesteps it only because the caller passes the key in
+explicitly; the first real did:web verifier written against this design
+will not.</p></li>
+</ol>
+<p><strong>Why no test caught it:</strong> the suite tampers the
+credential <strong>subject</strong>
+(<code>it(&#39;rejects a credential whose subject was tampered after signing&#39;)</code>
+— correctly fails verification). There is <strong>no test that tampers
+<code>proof.created</code> or
+<code>proof.verificationMethod</code></strong>, because such a test
+would pass verification and fail the assertion.</p>
+<p><strong>Fix:</strong> include the proof options (all proof fields
+except <code>proofValue</code>) in the canonical signing bytes, on both
+sign and verify paths. Add two tamper tests — one per field.
+Alternative: move <code>created</code> and
+<code>verificationMethod</code> into the protected JOSE header, which is
+already covered.</p>
+<h2 id="f2-medium-high-a-revoked-credential-verifies-as-valid">F2 —
+MEDIUM-HIGH: a revoked credential verifies as valid</h2>
+<p><code>verifyVerifiedDoneAttestation()</code> takes a
+<code>VerifiedDoneAttestation</code> — the credential that travels — and
+<code>proofStatus</code> lives on the <code>IssuedAttestation</code>
+<strong>wrapper</strong>, not on the credential. So the artifact handed
+to a counterparty carries <strong>no revocation state at all</strong>,
+and offline verification of a revoked credential returns
+<code>true</code>.</p>
+<p><code>revoke()</code> in the store is a status transition, which is
+correct storage design — but it is invisible to anyone holding the
+credential. This is the missing status-list problem in its concrete
+form.</p>
+<p><strong>Fix:</strong> ship the revocation status list with signing
+(already the recommended sequencing), and until then document an
+explicit caller contract: <strong>verification is necessary but not
+sufficient — the holder must also check status.</strong> A
+<code>true</code> from this function currently means “the bytes are
+authentic,” not “this attestation is in force.”</p>
+<h2 id="f3-medium-no-key-type-assertion-at-load">F3 — MEDIUM: no
+key-type assertion at load</h2>
+<p><code>loadIssuerSignerFromEnv()</code> calls
+<code>createPrivateKey(pem)</code> with no check on
+<code>asymmetricKeyType</code>. An RSA or P-256 PEM loads without
+complaint; the failure surfaces later inside
+<code>cryptoSign(null, …)</code> as an opaque error, while the JOSE
+header unconditionally claims <code>alg: &#39;EdDSA&#39;</code>.</p>
+<p><strong>Fix:</strong> assert
+<code>privateKey.asymmetricKeyType === &#39;ed25519&#39;</code> at load and fail
+loud with a clear message. Cheap, and it turns a confusing runtime
+failure into a startup one.</p>
+<h2 id="f4-low-re-signing-permitted-here">F4 — LOW: re-signing permitted
+here</h2>
+<p><code>signVerifiedDoneAttestation()</code> refuses to sign a
+<strong>revoked</strong> attestation (good) but will happily re-sign one
+already <code>signed</code>, overwriting the proof with a new
+<code>created</code>. The <code>unsigned</code> guard exists in the
+store’s <code>sign()</code>, not here. Defence in depth argues for the
+guard in both.</p>
+<h2 id="f5-low-bespoke-canonicalization">F5 — LOW: bespoke
+canonicalization</h2>
+<p><code>canonicalJSON()</code> is a hand-rolled recursive key-sort. It
+is <strong>symmetric across sign and verify</strong>, so the
+self-issued/self-checked path is sound, and the docstring is honest that
+the JCS (RFC 8785) vs RDF choice is deferred. Two notes for the v2.0
+freeze:</p>
+<ul>
+<li>Sorting via <code>Object.keys().sort()</code> uses UTF-16 code-unit
+order, which <strong>matches</strong> JCS — a helpful accident worth
+making deliberate.</li>
+<li>A key whose value is <code>undefined</code> serializes to
+<code>&quot;key&quot;:undefined</code>, which is not valid JSON. Harmless today
+(bytes are only ever compared to themselves) but it will break any
+external verifier that parses before hashing.</li>
+</ul>
+<p>No external verifier will interoperate until this is pinned. That is
+acceptable while credentials are self-checked; it is a blocker the
+moment a counterparty verifies one.</p>
+<hr />
+<h2 id="what-the-implementation-gets-right">What the implementation gets
+right</h2>
+<p>Worth recording, because these are the parts not to disturb while
+fixing the above:</p>
+<ul>
+<li><strong>Module separation.</strong> Signing lives outside
+<code>ats-engine.ts</code>, so the mandate-gate logic stays crypto- and
+key-free. Correct instinct: key custody is its own concern.</li>
+<li><strong>Correct Ed25519 usage.</strong>
+<code>cryptoSign(null, …)</code> is the right call shape for Ed25519 in
+Node, and the determinism claim (RFC 8032 — no per-signature nonce to
+leak) is accurate.</li>
+<li><strong><code>alg</code> is checked on verify</strong> and the
+header is inside the signed bytes — algorithm confusion is closed.</li>
+<li><strong>Detached form is enforced</strong>
+(<code>payloadSegment !== &#39;&#39;</code>), so a smuggled inline payload is
+rejected.</li>
+<li><strong><code>verify</code> returns <code>false</code> and never
+throws</strong>, including around <code>JSON.parse</code> and
+<code>cryptoVerify</code> — no DoS surface from a malformed
+credential.</li>
+<li><strong>Caller-supplied <code>created</code>.</strong> The module
+holds no clock authority, which keeps signatures deterministic and
+testable.</li>
+<li><strong>No key material in code or git</strong>; PEM arrives as a
+runtime secret, and <code>loadIssuerSignerFromEnv</code> returns
+<code>null</code> rather than inventing a key.</li>
+<li><strong>Refuses to sign a revoked attestation.</strong></li>
+</ul>
+<h2 id="recommendation">Recommendation</h2>
+<ol type="1">
+<li>Fix <strong>F1</strong> before merge — it is the one that becomes
+expensive after issuance, and it is small.</li>
+<li>Fix <strong>F3</strong> in the same pass (one line + a
+message).</li>
+<li>Take <strong>F2</strong> as an explicit caller-contract note now,
+and close it properly with the status list.</li>
+<li><strong>F4/F5</strong> may merge as-is with issues filed; F5 must be
+resolved at the v2.0 freeze, before any external verifier exists.</li>
+<li>Keep every tier unsigned (HIC decision 1) until F1 lands, key
+custody is settled, and the fail-loud production-signer assertion is in
+place.</li>
+</ol>
+</body>
+</html>

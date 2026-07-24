@@ -177,10 +177,14 @@ Oy) — via Claude Code session
 <li><strong>Location:</strong> Europe &gt; Finland &gt; Espoo</li>
 <li><strong>Context:</strong> DWS6 — KYA v1.11 → v2.0 migration;
 retroactive HIC outcome for PR #1716</li>
-<li><strong>Confidence:</strong> High for the decision record (sourced
-from PR #1716 body + <code>Legal/KYA_STANDARD_v1.md</code> §14.7.1).
-<strong>The code was not read</strong> — PR #1716 is unmerged and its
-branch is not in this container (see Provenance).</li>
+<li><strong>Confidence:</strong> High. Decision record sourced from the
+PR #1716 body + <code>Legal/KYA_STANDARD_v1.md</code> §14.7.1;
+<strong><code>attestation-signing.ts</code> has since been read
+directly</strong> from the PR branch during the HIC-authorized crypto
+review
+(<code>security-reports/2026-07-24-PR1716-KYA-SIGNING-CRYPTO-REVIEW.md</code>).
+Claims about the <em>other</em> modules (store, issuance, event-logger)
+and the 47/47 test count remain PR-body-sourced — see Provenance.</li>
 <li><strong>Status of the work described:</strong> <strong>PR #1716 is
 OPEN, not merged</strong>
 (<code>claude/kya-v2-attestation-signing-6e5703</code> →
@@ -446,7 +450,21 @@ retained score. Only the <em>cross-org portable</em> version of that
 score needs a signature.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
-<li>Merge decision on PR #1716 (open since 22.07.2026).</li>
+<li><strong>HIC decision 1 (24.07.2026): GO on option A</strong> — human
+crypto review first, then merge, <strong>all tiers unsigned</strong>
+until key custody + the fail-loud guard land. <em>Loop closed per
+Learning Standard §10.7.</em></li>
+<li><strong>Review performed, and it did not come back clean.</strong>
+<code>security-reports/2026-07-24-PR1716-KYA-SIGNING-CRYPTO-REVIEW.md</code>
+— <strong>verdict: do not merge as-is.</strong> One HIGH finding (F1):
+the signature does not cover the proof options, so <code>created</code>
+and <code>verificationMethod</code> are mutable post-signing, and any
+<code>did:web</code>-resolving verifier would pick its trust anchor from
+unsigned data. Plus F2 (a revoked credential still verifies
+<code>true</code>), F3, F4, F5. Fix F1 + F3 before merge.</li>
+<li><em>Provenance upgrade:</em> the PR branch was fetched and
+<code>attestation-signing.ts</code> <strong>read directly</strong> — the
+“CODE NOT READ” caveat above is superseded for the signing module.</li>
 <li>Add the production-signer assertion (fail loud) before or with the
 first tier rollout.</li>
 <li>Wire step 3: a live mandate-execution path that calls

@@ -4,7 +4,7 @@
 - **Author:** Risto Anton Päärni (Founder, CEO · Lifetime Oy) — via Claude Code session `claude/greg-isenberg-field-notes-a2r544`
 - **Location:** Europe > Finland > Espoo
 - **Context:** DWS6 — KYA v1.11 → v2.0 migration; retroactive HIC outcome for PR #1716
-- **Confidence:** High for the decision record (sourced from PR #1716 body + `Legal/KYA_STANDARD_v1.md` §14.7.1). **The code was not read** — PR #1716 is unmerged and its branch is not in this container (see Provenance).
+- **Confidence:** High. Decision record sourced from the PR #1716 body + `Legal/KYA_STANDARD_v1.md` §14.7.1; **`attestation-signing.ts` has since been read directly** from the PR branch during the HIC-authorized crypto review (`security-reports/2026-07-24-PR1716-KYA-SIGNING-CRYPTO-REVIEW.md`). Claims about the *other* modules (store, issuance, event-logger) and the 47/47 test count remain PR-body-sourced — see Provenance.
 - **Status of the work described:** **PR #1716 is OPEN, not merged** (`claude/kya-v2-attestation-signing-6e5703` → `main`, 13 files, +1148/−9, 6 commits, opened 22.07.2026). Built and in review, not on `main`.
 
 ## Ontology Tags
@@ -98,7 +98,9 @@ Ordering constraints have accumulated across three reviews and an audit. Stated 
 
 ## Next Steps
 
-- Merge decision on PR #1716 (open since 22.07.2026).
+- **HIC decision 1 (24.07.2026): GO on option A** — human crypto review first, then merge, **all tiers unsigned** until key custody + the fail-loud guard land. _Loop closed per Learning Standard §10.7._
+- **Review performed, and it did not come back clean.** `security-reports/2026-07-24-PR1716-KYA-SIGNING-CRYPTO-REVIEW.md` — **verdict: do not merge as-is.** One HIGH finding (F1): the signature does not cover the proof options, so `created` and `verificationMethod` are mutable post-signing, and any `did:web`-resolving verifier would pick its trust anchor from unsigned data. Plus F2 (a revoked credential still verifies `true`), F3, F4, F5. Fix F1 + F3 before merge.
+- _Provenance upgrade:_ the PR branch was fetched and `attestation-signing.ts` **read directly** — the "CODE NOT READ" caveat above is superseded for the signing module.
 - Add the production-signer assertion (fail loud) before or with the first tier rollout.
 - Wire step 3: a live mandate-execution path that calls `attestMandateExecution()`.
 - Human security review of the signing path prior to merge.
