@@ -95,4 +95,32 @@ The prior note's #1 recommendation stands unchanged and is now doubly confirmed:
 
 ---
 
+## Addendum — Boardy ping-pong round 1: the KYA answer to point 13
+
+**Point 13: _"Losing your job means losing your agents too, and it's kinda scary losing your best agents."_**
+
+Greg is right, and for DWS it is not a prediction — **it is the current schema.**
+
+**Schema finding (verified this session).** `kya_verified_done_attestations` (migration 079) has `hic TEXT NOT NULL` — the accountable human — and **no tenant column at all**. `kya_mandate_events` (074) does carry `org_id TEXT` ("tenant isolation"), but it is **nullable**. So the portable credential that _is_ the agent's track record is anchored to the **person**, not the company. If the human goes, the record still names them and has no tenant anchor to fall back on.
+
+**The three assets that sentence conflates.** Separate them and most of the fear resolves:
+
+| Asset                                                                     | Belongs to        | Why                                                                                                         |
+| ------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Track record** — what the agent did, how well, under what authority     | **the tenant**    | Earned executing the company's mandates, on company data, under company liability. Must survive a departure. |
+| **Accountability record** — who authorised this spend, when              | **the moment**    | Immutable. The leaver _was_ accountable then; revoking access later cannot un-authorise a past act.          |
+| **Agent configuration** — prompts, skills, tuned context the person built | **the contract**  | The chef's-recipes problem. Employment IP law, not agent infrastructure. Settle it in the employment terms.  |
+
+**KYA position:** bind the track record to the tenant, bind accountability to the timestamp, and keep configuration ownership out of the trust ledger entirely — it is a contract term, and platforms that try to adjudicate it will get it wrong.
+
+**Sequencing consequence — this reorders the roadmap.** The anchor fix is now a **precondition for signing**, not a parallel task. Signing an attestation that is anchored to a departing human permanently mints a credential with the wrong subject anchor; a signature makes a mis-anchored record durable rather than fixable. **Fix the anchor, then sign.**
+
+**Second-order (EU, and it bites).** `hic` is personal data sitting in an append-only table where `DELETE` is denied by design (079: "Revocation is a proof_status transition, never a row deletion"). A leaver's **GDPR Article 17** erasure request therefore collides with **EU AI Act Article 12** record-keeping. Art. 17(3) supplies the exemption, but it must be _documented_ as the lawful basis, and `hic` should hold a **pseudonymous stable subject ID**, never a name or email, so the retained evidence is not also an HR record.
+
+**The leaver gap nobody's list includes.** When a human's identity is revoked, agents holding mandates signed under their authority keep running. `IDENTITY_REVOKED` exists as a Leash-Snap reason code; what it must additionally trigger is a **sweep of live mandates bound to that HIC**. Otherwise offboarding leaves the equivalent of an SSH key in the wall.
+
+**Resolves the open HIC question** posed above ("do ATS/attestations die with the human binding or survive bound to the tenant?") — answer: **survive, bound to the tenant**, with the human retained as accountable-signer-at-time-of-action. Implementation is a migration (`org_id NOT NULL` on both tables), not a policy note.
+
+---
+
 _© Lifetime Oy — all rights reserved. Business Confidential. Field note · 24.07.2026._
