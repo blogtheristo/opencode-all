@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.6
+Version: 3.7
 
 Sessions & Modifications:
 
+- Version: 3.7 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Added §2E (Repository-First, Then Export — source-of-truth precedence) — a cloud export (Google Docs/Drive, PDF, Gamma, .docx, .xlsx) with no repository source-of-truth file is a drift incident; repo `.md` (+ `.csv` for financial models) is the master, export is a generated copy, repo wins on conflict. Full procedure cross-referenced to `DWS_DOCUMENT_STANDARD.md` §26 (Repository-First, Then Export — added same session). Anchored the 85%-at-list / 80%-conservative-stress-floor GM frame (LOCKED 22.07.2026) to its new repo source-of-truth (`docs/investor/boardy-2026-07-29/BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md`). Renumbered from 3.6 → 3.7 in the origin/main merge (main independently used 3.6 for the MGD/CRC registration below). Triggered by four Boardy board-pack financials found existing only as Drive exports.
 - Version: 3.6 | Tool: Claude Code (claude-opus-4-8) | Session: claude/register-mgd-crc-truth-0ceter | Date: 14.07.2026 | Changes: Registered the **MGD / CRC north-star metric doctrine** as §2 row 29 (canonical: `docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md` §3; structured mirror: `config/truth/mgd-crc-metrics.json`), per the field note §4 step 5 ("register it or it drifts"). The mirror copies the MGD/CRC metric definitions verbatim from field note §3 and seeds `deprecatedDisplayPhrases` from the §2 anti-games table (agent/skill/workflow count, tokens consumed / API throughput, benchmark scores / model rankings, logos / sign-ups / pilot count). Wired `config/truth` into `scripts/lint-truth-claims.mjs` mirror discovery (4th dir) so `/truth-check` enforces the anti-metrics and suggests MGD/CRC as replacements — traceable back to the field note via `humanReadableSource`. Added a §6 drift-log entry, including the one identified false-positive ("benchmark scores" used in doctrine-aligned _rejection_ copy on `eu-policy-backed-capital-bankable-sovereignty.html`).
 - Version: 3.5 | Tool: Claude Code (claude-sonnet-5) | Session: claude/nvidia-halos-robotics-suqayg (merge resolution) | Date: 10.07.2026 | Changes: Merge-integrated §2 row 28 — NVIDIA Halos & the physical-AI safety conformity pipeline, canonical source `docs/regulatory-radar/NVIDIA_HALOS_ROBOTICS_BRIEF.md`. Renumbered from row 27 (this branch's second attempt at that slot — originally row 21, merge-renumbered to 27 on 09.07.2026) because row 27 was independently taken by "Sovereign Industrial Intelligence Outcomes" (v3.0–v3.4) on main. No content changes beyond the row renumber; also updated the row-27 cross-reference in `docs/regulatory-radar/NVIDIA_HALOS_ROBOTICS_BRIEF.md` and `docs/lifetime-fleet/TORNIO_CONTROL_ROOM_IMPLEMENTATION_PLAN.md` to row 28, and the PhD thesis §14.40 registration note (v3.82).
 - Version: 3.4 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder-approved propagation ("Investor yes, sales outreach yes. Update compliance hub, legal hub when necessary.") noted on row 27 — full file-by-file log in `docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md` §6. Touched: investor decks (2 files), sales procurement briefs (1 file), and two public hub pages + landing-pages mirrors. Public-site edits live on feature branch only pending merge review.
@@ -141,6 +142,19 @@ External market claims about regulatory scope must use **current (post-Omnibus) 
 - **Boardy AI** — an independent review/correction layer used to catch and fix low-quality Claude Opus output (QA/verification step, not a generation replacement), in addition to its established use for investor/founder introductions and document review (`partners-outreach/`, KYA standard "Boardy review integration").
 
 **Deprecated framing:** presenting DWS/DWS IQ as "built on" or "dependent on" Anthropic/Claude as a singular-vendor claim. Claude is the primary/default model for many surfaces; it is not the only one, and no single frontier lab's roadmap decision can unilaterally strand a DWS product surface. Scope: any internal or external claim about DWS's AI model dependency, vendor concentration risk, or which lab DWS "runs on."
+
+## 2E. Repository-First, Then Export (source-of-truth precedence)
+
+**A cloud export with no repository source-of-truth file is a drift incident, not a deliverable.** Founder-flagged 24.07.2026 after four board-pack financial docs (Boardy 29 Jul: budget, revenue scenarios, investor strategy, Monday priorities) were found living only as Google Drive spreadsheets with no repo copy — leaving the repo unable to answer "what is the locked gross-margin number?" during an active investor sync.
+
+Rule (full procedure in `DWS_DOCUMENT_STANDARD.md` §26):
+
+1. **Author the repository file first** (Markdown per Document Standard §2 + §23 footer), versioned normally. For financial models, also commit a `.csv` of the numbers alongside the `.md` so figures are diffable independently of the live Google Sheet.
+2. **Then export** the Google Doc / PDF / `.docx` / Gamma from that repo source. The export is a generated copy; the repo file is the master.
+3. **Cross-link** repo ↔ export, and on any correction edit the repo file + re-export (never edit only the export).
+4. **Precedence:** if an export and its repo file disagree, the repo file wins (consistent with §3). A figure asserted only in an export is unregistered and must not be propagated until it has a repo home.
+
+Canonical financial/positioning figures still register in §2. Example now anchored: the **85%-at-list / 80%-conservative-stress-floor gross-margin frame** (LOCKED 22.07.2026) has its repo source-of-truth in `docs/investor/boardy-2026-07-29/BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md` and `docs/investor/data-room-2026Q2/PRICING_MODEL.md`.
 
 ## 3. Conflict Resolution Rule
 
