@@ -4,6 +4,8 @@ _Prepared for Boardy meeting 29 Jul 2026 · Lifetime Oy · CONFIDENTIAL — Inte
 
 Legend: **[A]** = actual (Lifetime Oy bookkeeping / KILA / filed bid) · **[M]** = modeled forward. NOT deck figures.
 
+_Companion figures export (git-diffable, per Document Standard §24.2): [`BOARDY_BUDGET_2026-2029_V3.csv`](./BOARDY_BUDGET_2026-2029_V3.csv)._
+
 ---
 
 # VERSION AND AGENT HISTORY

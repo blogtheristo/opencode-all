@@ -4,6 +4,8 @@ _Prepared for Boardy meeting 29 Jul 2026 · Lifetime Oy · CONFIDENTIAL — Inte
 
 Legend: **[C]** = canonical (repo source-of-truth) · **[M]** = modeled (board planning). Figures in EUR.
 
+_Companion figures export (git-diffable, per Document Standard §24.2): [`BOARDY_REVENUE_SCENARIOS_2026-2029_V3.csv`](./BOARDY_REVENUE_SCENARIOS_2026-2029_V3.csv)._
+
 ---
 
 # VERSION AND AGENT HISTORY
