@@ -39,7 +39,7 @@ Priority key: **P0** = correctness/production risk or a signed/legal action; **P
 | # | Item | Source handoff | Prio |
 | - | ---- | -------------- | ---- |
 | C1 | **Regenerate `Learn/` thesis HTML** — PhD v3.77–v3.81 + master's V3Thesis lockstep bumps logged "Learn/ HTML regeneration required — needs Pandoc build". Do it in one pass. | `sessions-without-prs-dc9d06` (P1) | P1 |
-| C2 | **Build the session-stop learning-outcome hook** — warn (block-don't-ask) when a substantive session produced no field note + `Learn/` HTML, per `DWS_LEARNING_STANDARD.md` §6 "Future automation". | This session (`DWS_LEARNING_STANDARD.md` §6) | P2 |
+| ~~C2~~ | ~~Build the session-stop learning-outcome hook~~ — **DONE 24.07.2026**: `.claude/hooks/session-stop.sh` Check 6 now blocks (block-don't-ask, loop-safe, escape-hatched) when a substantive session skips the field note + `Learn/` HTML. See `DWS_LEARNING_STANDARD.md` §6. | This session | ✅ |
 | C3 | **`***` vs `---` VERSION-block delimiter mismatch** — the Prettier PostToolUse hook rewrites `***`→`---`, silently reverting the Document Standard delimiter rule on every Edit/Write. Needs a `.prettierignore` exception or hook fix; today the fix must be a final Bash/sed pass before commit. | `ngi-sargasso-gber-i2l47d`, `DWS_DOCUMENT_STANDARD.md` v2.11 entry | P2 |
 | C4 | **Run `dws eu-data status` from an unrestricted machine** — verify live upstreams (PRH/FMI/EDP were network-policy-blocked). | `european-datasets-lab-note-8mlg9u` | P3 |
 

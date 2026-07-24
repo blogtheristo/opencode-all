@@ -100,7 +100,7 @@ The harness stays thin; the skills carry the process.
 - **Hand-off:** the session's closing reply to the HIC carries the one question (step 5); the same question is written into the field note's "Next Steps" and, for cross-session continuity, the branch handoff file `.claude/handoffs/<branch>.md`.
 - **Learning-of-learning:** `/learn SCOPE=last-week` reads field notes + churn and proposes rule edits; `/retro` feeds it. This standard is what those loops are closing around.
 
-**Future automation (not yet built):** a session-stop hook that checks whether a substantive session produced a field note + Learn/ HTML and warns (block-don't-ask, per the hooks' design) if not. Tracked in the backlog.
+**Enforcement (built 24.07.2026):** `.claude/hooks/session-stop.sh` **Check 6** blocks session exit (`exit 2`, block-don't-ask) when a clearly-substantive session produced no field note or `Learn/` HTML dated today. It is loop-safe (a `stop_hook_active` circuit breaker never blocks twice) and escape-hatched so a misclassified trivial session is never trapped: an `N/A — <reason>` note, `DWS_SKIP_LEARNING_OUTCOME=1`, or `[skip-learning]` in the commit message all release it, and the classifier only counts code / a `*STANDARD*.md` / a new agent / a whitepaper as substantive (dep/lock/config-only diffs stay trivial). It enforces only the two mechanizable artifacts (field note + Learn/ HTML); steps 1/4/5 (KB, Drive, HIC question) remain agent-driven and are named in the block message.
 
 ## 7. Relationship to Other Standards
 
