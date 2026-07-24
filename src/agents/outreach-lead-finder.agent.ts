@@ -21,7 +21,7 @@ import type { AgentContext, AgentResponse } from './types.js';
 
 // ============ ICP TARGET UNIVERSE ============
 
-interface TargetCandidate {
+export interface TargetCandidate {
   name: string;
   domain: string;
   industry: string;
@@ -32,7 +32,7 @@ interface TargetCandidate {
 }
 
 /** EU enterprise universe covering DWS target sectors (ETS/CSRD/CBAM-exposed) */
-const EU_TARGET_UNIVERSE: TargetCandidate[] = [
+export const EU_TARGET_UNIVERSE: TargetCandidate[] = [
   // Steel & Metals
   {
     name: 'SSAB',

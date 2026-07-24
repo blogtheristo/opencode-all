@@ -1243,7 +1243,7 @@ Even in "everything goes wrong" scenario:
 ### Contact & Next Actions
 
 **EMAIL**: risto@onelifetime.world
-**INVESTOR DISCUSSIONS**: risto.paarni2024@lifetime.fi (GMeet)
+**INVESTOR DISCUSSIONS**: risto.paarni@lifetime.fi (GMeet)
 **JITSI**: https://dws10.com/meet
 **PHONE**: +358 400 319 010
 **WEBSITE**: https://dws10.com
@@ -1259,7 +1259,7 @@ Even in "everything goes wrong" scenario:
 - Quarterly briefings, upgrade path to Captain
 
 **For Captain (€50K seats) and Fleet Admiral (€200K)**:
-- Request comprehensive due diligence package: risto.paarni2024@lifetime.fi
+- Request comprehensive due diligence package: risto.paarni@lifetime.fi
 - Schedule in-person meeting in Helsinki (or remote deep-dive via GMeet)
 - Receive direct customer introductions (names provided under NDA)
 - Named seat covering EU-regulated industry cluster (Captain)
@@ -1485,7 +1485,7 @@ Let's build Europe's most defensible climate tech company together.
 
 **Document Classification:** Confidential - Investor Use Only  
 **Distribution:** Not for public release or redistribution without written consent  
-**Contact:** risto@onelifetime.world | risto.paarni2024@lifetime.fi
+**Contact:** risto@onelifetime.world | risto.paarni@lifetime.fi
 
 ---
 
@@ -1515,7 +1515,7 @@ This document and all associated materials are proprietary and confidential info
 Lifetime Oy
 Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 Email: risto@onelifetime.world
-Investor Discussions: risto.paarni2024@lifetime.fi (GMeet)
+Investor Discussions: risto.paarni@lifetime.fi (GMeet)
 Phone: +358 400 319 010
 Web: https://dws10.com
 Investor Relations: https://dws10.com/investor-relations/

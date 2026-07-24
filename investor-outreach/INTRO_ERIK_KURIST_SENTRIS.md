@@ -101,7 +101,7 @@ Risto Anton Paarni (Päärni)
 Founder & CEO, Lifetime Oy
 +358 400 319 010
 risto@onelifetime.world (public)
-investor discussions (risto.paarni2024@lifetime.fi) GMeet
+investor discussions (risto.paarni@lifetime.fi) GMeet
 our Jitsi meet is at https://dws10.com/meet
 https://dws10.com
 

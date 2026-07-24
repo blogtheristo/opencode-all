@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
 
+- Version: 2.5 | Tool: Claude Code (Opus 4.8) | Session: claude/gsutil-deprecation-migration-69l85d | Date: 22.07.2026 | Changes: Added Section 2.4.1 recording the July 2026 orphaned-project cleanup under `risto.paarni2024@lifetime.fi` — `dws-iq-pilot` and `gen-lang-client-0339803660` (Kaggle101125) deleted; the four remaining "check-first" Google-integration projects (`dws6login`, `coral-loop-494008-r2`, `dws-mcp-hub`, Gemini API) documented with keep/verify status. Annotated the Section 2.4 snapshot rows for the deleted projects (snapshot preserved, not rewritten). Context: the gsutil→gcloud storage migration surfaced these orphans; `src/sandbox/cloudrun-ephemeral.ts` was repointed off the now-deleted `dws-iq-pilot` default (fails loud if `GOOGLE_CLOUD_PROJECT` unset). Added `scripts/gcp-project-audit.cmd` as the repeatable read-only inventory tool
 - Version: 2.4 | Tool: Claude Code (Sonnet 5) | Session: claude/cloudflare-serverless-research-9m90rh | Date: 05.07.2026 | Changes: Corrected a significant staleness gap found during Cloudflare-migration research — this document never mentioned DGX Spark, which took over as the actual primary 24/7 backend + cron runtime around April-May 2026 (see `Cron-works.md`), demoting Cloud Run to secondary/staging. Added new Section 3.2.2 documenting DGX Spark. Updated Section 4.2 (Backend API row) and Section 8 (Environment Matrix) to reflect this. Corrected the Cloudflare Workers status in Sections 4.2/8/12 against a live account check (Cloudflare Developer Platform MCP): of the 8 workers designed in `src/cloudflare/`, only 1 (`dws-revolut-checkout`) is actually deployed — zero KV namespaces exist account-wide, so the other 7 (including the MCP Edge Gateway referenced in Section 12) cannot be running. Also corrected the header version number itself, which had drifted one behind the latest changelog entry.
 - Version: 2.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-config-dependencies-7npjf | Date: 24.05.2026 | Changes: Added Section 3.2.1 "Deployment Tier Choice: GCP Primary vs Scaleway Sovereign" — documents the two-tier deployment decision logic, activation triggers for Scaleway, and the intentionally dormant `deploy-scaleway_OLD.yml` CI/CD workflow (preserved for Tier 2 sovereignty customers, not dead infra)
 - Version: 2.2 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Documented current Google Cloud account/project inventory for `risto.paarni2024@lifetime.fi` (active + not-current projects and org), and added staging deployment project-alignment note clarifying that CI/CD must target `dws6run6` (not `dws6-backend`) to avoid Artifact Registry IAM failures
@@ -160,10 +161,34 @@ The following inventory reflects the currently visible projects/org context when
 | `dws6run6`                       | Project                      | **Current**               |
 | `coral-loop-494008-r2`           | Project (MCP Google Drive)   | Not current               |
 | `dws-mcp-hub`                    | Project (DWS MCP Hub)        | Not current               |
-| `dws-iq-pilot`                   | Project (DWS IQ Pilot)       | Not current               |
+| `dws-iq-pilot`                   | Project (DWS IQ Pilot)       | **Deleted 2026-07-22** (§2.4.1) |
 | `dws6login`                      | Project                      | Not current               |
 | `sys-28065221981339444149331534` | Project (GPT3 Demo Template) | Not current               |
 | `1074856518213`                  | Organisation (`lifetime.fi`) | Not current               |
+
+### 2.4.1 Orphaned-project cleanup (July 2026)
+
+Triggered by the March-2027 `gsutil` deprecation notice (Google), which flagged `dws-iq-pilot` and prompted a wider audit of idle projects under `risto.paarni2024@lifetime.fi`. The May-2026 snapshot above is left intact for history; this subsection records the deltas.
+
+**Deleted** (30-day undelete window applies — `gcloud projects undelete <id>`):
+
+| Project | Reason | Code impact |
+| ------- | ------ | ----------- |
+| `dws-iq-pilot` | Idle since Apr 2026; the bundled-`gsutil` project Google flagged. CI deploy workflows that used its `github-actions-deployer` SA are `.disabled`; authoritative deploy identity had already moved to `dws-iq-60`. | `src/sandbox/cloudrun-ephemeral.ts` silently defaulted to it — repointed to derive project/image/SA from `GOOGLE_CLOUD_PROJECT` / `AGENT_RUNNER_IMAGE` and **fail loud** if unset. |
+| `gen-lang-client-0339803660` (Kaggle101125) | Google AI Studio project from the Nov-2025 DWS6 build push; no recent access, no charges. | None — no repo references. |
+
+**Kept — verify credential/SA before any future deletion** (all are Google-integration projects whose value lives in OAuth clients / API keys, which do **not** appear in bucket/Cloud Run/Compute listings, so an empty resource audit is not proof they are unused):
+
+| Project | Backs | Verify before deleting |
+| ------- | ----- | ---------------------- |
+| `dws6login` | OAuth sign-in for dws6 | `console.cloud.google.com/apis/credentials?project=dws6login` |
+| `coral-loop-494008-r2` | Google Drive MCP connector (OAuth) | Drive connector still in use? |
+| `gen-lang-client-0279605237` (Gemini API) | Gemini API key(s) | Any live key referencing this project |
+| `dws-mcp-hub` | Not referenced as a cloud project (the code hits are a local Docker/Temporal name collision) | `gcloud iam service-accounts list --project=dws-mcp-hub` |
+
+**Never delete:** `lifetime.fi` (org root), `system-gsuite`, `apps-script`, `sys-…` (GPT3 Demo Template) — Google-managed, auto-recreated.
+
+**Tooling:** run `scripts\gcp-project-audit.cmd [project-ids…]` (read-only) for a repeatable inventory before deleting anything. Note: a bare `gcloud run/compute list` on a project with the API disabled will offer to enable it — the audit script suppresses that prompt; if you list manually and accidentally enable an API, disable it with `gcloud services disable <api> --project=<id> --force`.
 
 ---
 

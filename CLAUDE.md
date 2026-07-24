@@ -13,11 +13,13 @@ Every email, letter, intro note, signature block, "From:" line, author field, or
 
 **Email — three addresses, three contexts (do not mix):**
 
-| Context                                                       | Email                          |
-| ------------------------------------------------------------- | ------------------------------ |
-| Sales outreach as Lifetime Oy (cold/warm prospects, partners) | `risto.paarni2024@lifetime.fi` |
-| DWS IQ product email (From + Reply-To on platform-sent mail)  | `risto@onelifetime.world`      |
-| Legal / contract / invoice / statutory                        | `risto.paarni@lifetime.fi`     |
+| Context                                                       | Email                      |
+| ------------------------------------------------------------- | -------------------------- |
+| Sales outreach as Lifetime Oy (cold/warm prospects, partners) | `risto.paarni@lifetime.fi` |
+| DWS IQ product email (From + Reply-To on platform-sent mail)  | `risto@onelifetime.world`  |
+| Legal / contract / invoice / statutory                        | `risto.paarni@lifetime.fi` |
+
+**`risto.paarni2024@lifetime.fi` is a Google login name — NEVER a public contact.** It is the account credential for internal systems only (Google Cloud / Drive / Supabase / GCP billing IAM, internal alert & report inboxes). It must **never** appear in any public or outbound context: signatures, `From:` / `Reply-To:`, letters, decks, bids, briefs, correspondence, author lines on outward-facing deliverables. Public outreach uses `risto.paarni@lifetime.fi`; DWS IQ product mail uses `risto@onelifetime.world`. If you see `...2024@` in an outward-facing document, treat it as a bug and replace it before sending.
 
 The substring `paarni` (no umlauts) is allowed **only** inside an email address or other login/account data. Everywhere else the name carries umlauts: **Päärni**.
 
@@ -26,7 +28,7 @@ The substring `paarni` (no umlauts) is allowed **only** inside an email address 
 ```
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy · the Agent Outcome Company
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 **DWS IQ product sig (emails sent by the platform):**
@@ -134,6 +136,13 @@ For these sites, root folder is source; landing-pages mirror must be synced in t
 ### Markdown Delimiter Rule
 
 - In markdown docs, the `VERSION AND AGENT HISTORY` block uses `***` delimiters (never `---`) for Pandoc compatibility.
+
+### Supabase Table Grants
+
+- Every `CREATE TABLE` in the `public` schema must be followed by an explicit `GRANT` to `service_role` and `authenticated`, plus `ENABLE ROW LEVEL SECURITY`.
+- RLS alone stopped being sufficient on 2026-05-30 (new Supabase projects) and is enforced on all existing projects on 2026-10-30. Without a table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` even when RLS would allow the row.
+- Copy the standard block from `Firehorse/supabase-schema-templates.sql` (top of file). Anon is opt-in per table — only grant `anon` where an RLS policy explicitly targets it.
+- Backfill of record: `supabase/migrations/075_public_schema_grants.sql` (also sets `alter default privileges` so a forgotten inline block does not silently break the Data API).
 
 ## Thesis Rule (All 4 Files Together)
 

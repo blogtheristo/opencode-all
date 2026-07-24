@@ -32,6 +32,9 @@ Related Documents:
 - `docs/field-notes/2026-06-01-simon-willison-pmf-api-cost-edge-moat.md` (PMF/moat metric discussion)
 - `docs/20-MOAT-FORTRESS.md` (19 moats + Layer 0 — the evidence layer the dominant game feeds)
 - `DWS_TRUTH_STANDARD.md` §2A (Canonical Positioning Pillars — the drift guards this note operationalizes as a metric)
+- `config/truth/mgd-crc-metrics.json` (structured mirror of §3, enforced by `/truth-check`)
+
+> **Canonical registry — §3 is the single source of truth for the MGD / CRC north-star metric definitions.** Registered in `DWS_TRUTH_STANDARD.md` §2 row 29; structured mirror `config/truth/mgd-crc-metrics.json` (metric definitions copied verbatim from §3). If the mirror and §3 disagree, §3 wins.
 
 ---
 
@@ -110,7 +113,7 @@ Eight steps — the repeatable procedure, not a one-off insight:
 3. **Move one level up.** The dominant game is the buyer's compulsory outcome, measured on DWS's side of the relationship: audit-surviving governed decisions, not compliance-software seats.
 4. **Pass it through the Ari test (Pillar 3).** The metric must be risk removed or leverage gained, quotable verbatim in a procurement meeting. "We route 12,000 audit-grade governed decisions per month for stainless-steel CBAM filings" passes. "We have 50 agents" does not.
 5. **Register it or it drifts.** Per `DWS_TRUTH_STANDARD.md` §3A: once ratified, MGD/CRC definitions get a §2 registry row, a structured mirror, and a deprecated-metrics list (§2 table above becomes the deprecated list). An unregistered north-star metric will be quietly replaced by an easier-to-inflate one within a quarter — that is exactly how the agent-count drift happened.
-6. **Instrument it.** Control Room dashboard tile + agent execution logging already capture the raw events; the work is the audit-grade filter (which decisions count), not new plumbing.
+6. **Instrument it.** Control Room dashboard tile + agent execution logging already capture the raw events; the work is the audit-grade filter (which decisions count), not new plumbing. _Implemented 2026-07-14:_ the audit-grade filter is `src/agents/mgd-filter.ts` (the three criteria a/b/c as machine-checkable predicates over `article12_audit_log` rows), aggregated monthly by `src/agents/mgd-metrics.service.ts`, and surfaced as the `mgd` field on `GET /api/v1/dashboard/summary`. CRC is deliberately not auto-counted (a 4P asset inventory, not a log-derivable quantity).
 7. **Route everything through it.** Roadmap, pricing, and sales hooks each answer one question: does this raise MGD or CRC for a named customer? Pricing follows the Karp note §3 — charge on the outcome layer where MGD lives, never resell metered tokens. Sales hooks lead with the buyer's own game ("your CBAM filing survives audit"), not DWS's internals.
 8. **Re-check the game quarterly.** Dominant games shift (Facebook itself later moved from MAU to time-spent to revenue-per-user). Fold into the existing `/retro` → `/learn` loop: is MGD still the metric the buyer is compelled to maximize, or has enforcement/regulation moved the game again?
 

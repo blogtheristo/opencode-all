@@ -9,7 +9,7 @@ anthropic>=0.18.0  # Claude Sonnet 4.5 API
 groq>=0.4.0  # Groq Llama 3.1 70B API
 pydantic>=2.5.0  # Data validation
 pyyaml>=6.0  # YAML config parsing
-python-dotenv>=1.0.0  # Environment variables
+python-dotenv>=1.2.2  # Environment variables (>=1.2.2: set_key symlink-overwrite fix)
 
 # ============================================================================
 # Database & Storage
@@ -30,7 +30,7 @@ resend>=0.7.0  # Email API client
 # Research & Data Enrichment
 # ============================================================================
 beautifulsoup4>=4.12.0  # HTML parsing for scraping
-lxml>=5.0.0  # XML/HTML processing
+lxml>=6.1.0  # XML/HTML processing (>=6.1.0: XXE fix in iterparse/ETCompatXMLParser defaults)
 feedparser>=6.0.0  # RSS/news parsing
 
 # ============================================================================
@@ -75,6 +75,8 @@ mypy>=1.8.0  # Type checking
 # ============================================================================
 # Security
 # ============================================================================
-cryptography>=46.0.6  # Encryption (align with requirements-security.txt)
-python-jose[cryptography]>=3.3.0  # JWT handling
+cryptography>=48.0.1  # Encryption (align with requirements-security.txt)
+# python-jose removed 08.07.2026: unused (nothing imports jose here; auth is HTTP
+# Basic). It pulled in python-ecdsa, which has an unpatched Minerva timing-attack
+# advisory (won't-fix upstream). PyJWT below covers all JWT needs.
 PyJWT>=2.12.0  # CVE fix: crit header validation

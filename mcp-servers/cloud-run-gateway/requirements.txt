@@ -11,7 +11,7 @@ supabase>=2.13.0
 httpx>=0.28.0
 
 # Environment
-python-dotenv>=1.1.0
+python-dotenv>=1.2.2  # >=1.2.2: set_key symlink-overwrite fix
 
 # Google Secret Manager (optional — used when running on Cloud Run)
 google-cloud-secret-manager>=2.22.0

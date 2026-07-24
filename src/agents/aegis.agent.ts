@@ -14,7 +14,10 @@
  * been 0 bytes since creation and `scripts/daily/dependabot-audit.sh` had no
  * documented schedule or GHA failover — the "Vulnerability & Patch Owner"
  * role this agent implements did not exist as anything but an unowned gap.
- * See docs/BUSINESS_CRITICAL_SYSTEMS.md and docs/SECURITY_ROLES_AND_GUIDANCE.md.
+ * `.github/dependabot.yml` is now populated (all npm/pip directories + GHA,
+ * weekly cadence) — see DWS_SECURITY_STANDARD.md §13.6 for the policy this
+ * agent enforces. See also docs/BUSINESS_CRITICAL_SYSTEMS.md and
+ * docs/SECURITY_ROLES_AND_GUIDANCE.md.
  *
  * Aegis does not fetch alerts itself (no GitHub/npm credentials of its own) —
  * it is a triage/classification agent that takes structured findings as

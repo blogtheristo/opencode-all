@@ -44,7 +44,7 @@ If during the call the KAM says "I need to loop in [my manager / VP / Sustainabi
 ```
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 Canonical source: `skills/signature/SKILL.md`.

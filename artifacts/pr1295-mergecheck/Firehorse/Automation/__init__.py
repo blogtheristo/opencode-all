@@ -1,1 +1,0 @@
-# Firehorse Automation Service

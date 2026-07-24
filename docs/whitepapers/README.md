@@ -1,7 +1,7 @@
 # DWS / Lifetime Oy — Whitepaper Series 2026
 
 Standalone thought-leadership and buyer-education whitepapers, extracted thematically
-from the Konsultoinnin käsikirja 2026 (`docs/KONSULTIN_KASIKIRJA_2026.md`) and supporting
+from the Konsultoinnin käsikirja 2026 (`docs/KONSULTOINNIN_KASIKIRJA_2026.md`) and supporting
 canonical sources. Each whitepaper is self-contained: it can be read, shared, and published
 independently of the handbook.
 

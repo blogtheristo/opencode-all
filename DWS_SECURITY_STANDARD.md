@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.9
+version: 3.4
 created: 2026-02-07
-last_modified: 2026-07-07
+last_modified: 2026-07-19
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,15 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.4
 
 Sessions & Modifications:
 
+- Version: 3.4 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §16.0.1 (Data API Grants — Supabase May/Oct 2026 change). Every `CREATE TABLE public.*` must be paired with an explicit `GRANT` to `service_role` + `authenticated` (anon opt-in) — Supabase dropped the implicit Data API grants on 2026-05-30 for new projects and enforces the same on all existing projects on 2026-10-30. Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for the 88 existing public tables and sets `alter default privileges` so future migrations do not silently break the Data API. Standard block codified in `Firehorse/supabase-schema-templates.sql` (top of file).
+- Version: 3.3 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Continued live-vs-dead-code Dependabot triage. Raised live `cryptography` floor to `>=48.0.1` (2 files). Removed unused `python-jose` from `AgentFoundry`/`Firehorse/api` requirements (eliminated the unpatched `python-ecdsa` Minerva transitive). Relaxed `mcp-hub` `fastapi==0.115.12` → `>=0.115.12` to unstick Starlette from the vulnerable 0.46.2 (the hard pin capped `starlette<0.47.0`). Raised `lxml` floor `>=5.0.0` → `>=6.1.0` in `AgentFoundry`/`scripts/requirements-signals.txt` (XXE fix). Confirmed live copies of axios, vite, react-router, form-data, babel, undici, fast-uri, ws were already patched — vulnerable versions only in deleted `artifacts/` or `*_DEPRECATED/` trees.
+- Version: 3.2 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Disabled `markdown-it` `linkify:true` in `src/contentms/blog-publisher.ts` and capped `body_markdown` to 100KB (`src/contentms/types.ts`) — closed a real, live request-path CPU-DoS via `linkify-it`'s O(N^2) fuzzy-match scan (unpatched upstream, no GHSA/OSV entry). Deleted `artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/` (997MB of accidentally-committed duplicate repo checkouts from PR #1573) — confirmed source of at least 5 live Dependabot alerts against dead code (APScheduler RCE, shell-quote injection, Vitest UI file-read, axios prototype-pollution MITM, plus more). Documented `*_DEPRECATED/` directories as expected, accepted alert noise — left in place per repo convention, not a live-code risk. Flagged a tracked-in-git `100326.env` file at repo root (added PR #1573) for human review/rotation — not read, per secret-egress policy.
+- Version: 3.1 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Ran `pip-audit` across the repo's Python requirement files (no lockfile/hash-pinning exists for pip deps, flagged as a standing gap). Found and fixed `python-dotenv` CVE-2026-28684 in `mcp-hub/requirements.txt` (1.1.0 → 1.2.2, non-breaking patch bump). Logged `pyjwt`/`starlette` transitive-dependency advisories in the same file as open tracked findings — both need an explicit version constraint plus a FastAPI-compatibility check before bumping, so deferred rather than force-applied.
+- Version: 3.0 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Added §13.6 (Dependency Lockfile & Vulnerability SLA Policy) — closed two missing-lockfile gaps (`lambda/ses-inbound-parser`, `infrastructure/dgx-spark/bumblebee`), fixed `scripts/daily/dependabot-audit.sh` `PACKAGE_DIRS` (was missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and both directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED`), documented the Aegis agent's remediation SLA (critical=2d/high=7d/moderate=30d/low=90d) as the canonical policy, and logged an open moderate `@opentelemetry/*` finding (`GHSA-8988-4f7v-96qf`) in the bumblebee scanner pending a breaking-change upgrade.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
 - Version: 2.8 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Resolved the §17.5 Aiven Open Question per founder decision — approved Aiven-managed PostgreSQL on `google-europe-north1` as the DWS IQ 6 (dws6.com) DB layer, recorded as an explicit sovereignty exception (not a "None" CLOUD Act rating) with residual risk noted: Aiven's US-VC ownership is still unclear, and the underlying GCP infra is elsewhere classified "Transitional"/migrate-away for compute. `scripts/aiven-vault-bootstrap.sh` / `mcp-hub/config/aiven-mcp.json` required no changes — already defaulted to this region.
 - Version: 2.7 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Supabase/Aiven audit — fixed broken §17.5 cross-reference ("AGENTS.md Section 20" does not exist, now points to docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md); flagged that Aiven does not offer Hetzner as a deployable region, so the existing "DB layer on Hetzner infra only" approval condition for Aiven is currently unsatisfiable by any script in the repo — added an Open Question pending a human sovereignty decision.
@@ -926,6 +931,48 @@ Per-finding `bumblebee.exposure` events are also logged as structured JSON so th
 
 **Caveat (inherited, not introduced).** Aspire Dashboard runs in `Unsecured` auth mode on `:18888`. Exposure data is sensitive; access to the DGX Spark observability port is governed by the existing host-network posture and must not be widened.
 
+### 13.6 Dependency Lockfile & Vulnerability SLA Policy
+
+**Every directory with a `package.json` MUST also carry a committed `package-lock.json`.** `npm audit` (and `scripts/daily/dependabot-audit.sh`, its automated caller) cannot assess a directory without a lockfile — an unpinned directory is an audit blind spot, not just a reproducibility gap. `.github/dependabot.yml` covers every such directory on a weekly cadence, grouped by minor/patch, across `npm`, root `pip`, and `github-actions` ecosystems.
+
+**Audit log of lockfile gaps found and closed:**
+
+| Date       | Directory                            | Finding                                                                                                                                                                                  | Fix                                                                                   |
+| ---------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 08.07.2026 | `lambda/ses-inbound-parser`          | `package.json` with no `package-lock.json`                                                                                                                                               | Lockfile generated and committed                                                      |
+| 08.07.2026 | `infrastructure/dgx-spark/bumblebee` | `package.json` with no `package-lock.json`                                                                                                                                               | Lockfile generated and committed                                                      |
+| 08.07.2026 | `scripts/daily/dependabot-audit.sh`  | `PACKAGE_DIRS` missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and the two directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED` | Directory list corrected to match every `package.json` location the repo actually has |
+
+**Vulnerability remediation SLA.** Once Dependabot or `npm audit` surfaces a finding, it is triaged by the **Aegis agent** (`src/agents/aegis.agent.ts`) against a fixed, NIS2-style SLA:
+
+| Severity | SLA (days to remediate) |
+| -------- | ----------------------- |
+| Critical | 2                       |
+| High     | 7                       |
+| Moderate | 30                      |
+| Low      | 90                      |
+
+Aegis does not fetch findings itself — it classifies whatever `scripts/daily/dependabot-audit.sh` and `scripts/weekly/security-audit.sh` (via `scripts/scan_critical_bugs.py --full`) already produced, and flags breach / at-risk / on-track per finding. This is the canonical SLA policy; do not restate different numbers elsewhere.
+
+**Open tracked finding:** `infrastructure/dgx-spark/bumblebee` carries 9 moderate `npm audit` findings in the `@opentelemetry/*` tree (`GHSA-8988-4f7v-96qf`, unbounded memory allocation in W3C Baggage propagation). The only available fix is a major-version bump (`@opentelemetry/exporter-metrics-otlp-proto` `^0.57.0` → `0.220.0`) that is a breaking change for the OTLP emitter this scanner depends on. Deferred rather than force-applied blind; owner must upgrade and re-verify the OTLP pipeline before the 30-day moderate SLA lapses (opened 08.07.2026).
+
+**pip lockfile gap.** No `requirements.txt` in the repo is hash-pinned (`pip-compile`/`poetry.lock` equivalent) — direct pins exist but transitive dependencies float, so `pip-audit` results vary run to run. `mcp-hub/requirements.txt` was found via `pip-audit` (08.07.2026) to depend on:
+
+| Package (pin type)       | Version | Finding                                     | Fix                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------ | ------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `python-dotenv` (direct) | 1.1.0   | CVE-2026-28684                              | Bumped to 1.2.2 (patch, non-breaking) — done 08.07.2026                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `pyjwt` (transitive)     | 2.9.0   | Multiple PYSEC-2026-\* advisories           | Fix available in 2.12.1–2.13.0 (minor, likely non-breaking) — **not yet applied**, no direct pin to bump; needs an explicit constraint added and the auth flow re-tested first                                                                                                                                                                                                                                                                                                                               |
+| `starlette` (transitive) | 0.46.2  | Multiple PYSEC-2026-_/CVE-2026-_ advisories | Root cause: `mcp-hub/requirements.txt` hard-pinned `fastapi==0.115.12`, which requires `starlette<0.47.0,>=0.40.0` — physically capping Starlette at the vulnerable 0.46.2. Relaxed to `fastapi>=0.115.12` (08.07.2026) so pip can resolve a FastAPI that pulls a fixed Starlette; **smoke-test the hub server before deploy.** The 4 other live FastAPI files (`AgentFoundry`, `Firehorse/{Automation,api,dms}`) already pin `starlette>=0.49.1` with an open `fastapi>=0.109.0`, so they were never stuck. |
+
+Moderate-severity SLA clock opened 08.07.2026 for the `pyjwt`/`starlette` items; owner must add explicit constraints, verify FastAPI compatibility, and re-run `pip-audit` before it lapses. `starlette` root cause addressed 08.07.2026 (FastAPI pin relaxed) — verify the resolved versions after the next `mcp-hub` install.
+
+**`lxml` XXE (`< 6.1.0`, live direct-pin floor too low).** `AgentFoundry/requirements.txt` and `scripts/requirements-signals.txt` pinned `lxml>=5.0.0`, which permits the vulnerable 5.4.0 (XXE-to-local-file via default `iterparse()`/`ETCompatXMLParser()` config, patched in 6.1.0). Floor raised to `lxml>=6.1.0` in both (08.07.2026) — real live finding, not dead-code noise.
+
+**Dead-code alert noise (root cause of the bulk of the repo's Dependabot count, closed 08.07.2026).** GitHub's dependency graph scans every manifest file in the repo tree regardless of `.github/dependabot.yml` directory scoping. Two categories of dead code were inflating the alert count with findings against code nothing runs:
+
+- **`artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/`** — full duplicate repo checkouts (997MB combined) accidentally committed in PR #1573 as merge-check/worktree leftovers. Not referenced by any script, CI workflow, or doc. Confirmed responsible for at least 5 alerts pulled from live GitHub push output on 08.07.2026 (APScheduler insecure-deserialization RCE, `shell-quote` shell-injection, Vitest UI arbitrary-file-read, `axios` prototype-pollution MITM) plus an unknown share of the remainder. **Deleted** (`git rm -r`) — fits the "temporary/generated output" exception to the no-destructive-deletes rule (CLAUDE.md Non-Negotiable Rule 6). Top-level media files in `artifacts/` (photos/videos, `pr925-view.json`) were intentionally left in place — not part of this cleanup.
+- **`*_DEPRECATED/` directories** (`mcp-hub_DEPRECATED`, `mcp-servers/{claude,supabase,cloudrun,lwm}_DEPRECATED`, etc.) — intentionally archived per repo convention (rename-to-`_DEPRECATED` rather than delete), still generate real alerts against pinned dependency versions in dead code (e.g. `mcp-servers/cloudrun_DEPRECATED/requirements.txt` pins `cryptography==38.0.4`, flagged for two separate CVEs). **Left in place** — this is expected, accepted noise from intentionally-archived code, not a live-code risk. Do not chase alerts filed against any `*_DEPRECATED/` path; verify the finding's path before triaging it as a live issue.
+
 ---
 
 ## 14. Multi-Tenant Sandbox Isolation Architecture
@@ -1423,6 +1470,28 @@ All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback
 **Atomic counter increment:** `increment_usage_counter()` — `SECURITY DEFINER` function with service_role caller guard. Uses `INSERT ... ON CONFLICT DO UPDATE` for race-free counter updates.
 
 **Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
+
+### 16.0.1 Data API Grants (Supabase 2026-05-30 / 2026-10-30)
+
+**Context.** Supabase dropped the implicit grants on `public.*` for the Data API roles (`anon`, `authenticated`, `service_role`) on 2026-05-30 for new projects. All existing projects — including `dws6-production` — are enforced on 2026-10-30. Without an explicit table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` **even when RLS would allow the row.** RLS is the row gate; `GRANT` is the table gate. Both are now required.
+
+**Standard block.** Every `CREATE TABLE public.<name>` in a migration must be followed by:
+
+```sql
+grant select, insert, update, delete on public.<name>
+  to authenticated, service_role;
+alter table public.<name> enable row level security;
+
+-- Opt-in only if a policy explicitly targets that role:
+-- grant select on public.<name> to anon;
+-- grant insert on public.<name> to anon;
+```
+
+Reference copy at the top of `Firehorse/supabase-schema-templates.sql`.
+
+**Backfill.** `supabase/migrations/075_public_schema_grants.sql` grants CRUD on every existing public table to `service_role` + `authenticated`, plus per-table anon SELECT/INSERT for the surfaces whose RLS policies explicitly target `anon` (booking\_\* public reads, subscription_plans, file_index, captain_inquiries submissions, web_leads, playbook_leads). It also sets `alter default privileges in schema public` so a future migration that forgets the inline block still lands with the correct grants — a belt-and-suspenders safeguard against silent 42501s in production.
+
+**Anon posture.** Anon is deny-by-default at the GRANT layer: the standard block does not include `anon`. Add it only when an RLS policy already permits the action for `anon` or the `public` pseudo-role — never grant `anon` privileges the RLS layer does not corroborate.
 
 ### 16.1 API Key Management Security
 
