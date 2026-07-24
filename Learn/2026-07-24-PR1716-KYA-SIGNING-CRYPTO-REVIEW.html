@@ -250,11 +250,55 @@ in
 <code>docs/field-notes/2026-07-24-kya-v2-eddsa-signing-crypto-decision.md</code>).
 Signing module + its 8 tests reviewed line by line.</li>
 </ul>
+<blockquote>
+<h2 id="update-24.07.2026-f1-and-f3-are-fixed-and-verified-patch-ready-not-pushed">✅
+UPDATE 24.07.2026 — F1 and F3 are FIXED and VERIFIED (patch ready, not
+pushed)</h2>
+<p><strong>Patch:</strong>
+<code>security-reports/patches/2026-07-24-PR1716-fix-F1-F3.patch</code>
+(2 files, +142/−15). Apply with <code>git apply</code> on branch
+<code>claude/kya-v2-attestation-signing-6e5703</code>.</p>
+<p><strong>F1</strong> — proof options are now bound into the signed
+payload. <code>credentialSigningBytes()</code> takes the proof options
+(every proof field except <code>proofValue</code>) and signs
+<code>{document, proofOptions}</code> together; verify re-derives them
+from the presented proof, so any post-signing edit to
+<code>created</code> / <code>verificationMethod</code> /
+<code>proofPurpose</code> / <code>type</code> changes the payload and
+fails the signature. Mirrors W3C Data Integrity. <strong>F3</strong> —
+<code>loadIssuerSignerFromEnv()</code> now asserts
+<code>asymmetricKeyType === &#39;ed25519&#39;</code> and <strong>throws</strong>
+on mismatch. Deliberate asymmetry: <em>unconfigured</em> returns
+<code>null</code> (unsigned path stays valid), <em>misconfigured</em>
+throws (Rule 12 — never silently degrade). <strong>F2</strong> — not
+code-fixed (it needs the status list). Instead the
+<code>verifyVerifiedDoneAttestation</code> docstring now states the
+caller contract explicitly: a <code>true</code> result proves neither
+<strong>issuer binding</strong> nor <strong>non-revocation</strong>.</p>
+<p><strong>Verification performed</strong> (worktree off the PR head,
+deps installed):</p>
+<ul>
+<li><strong>51/51 tests pass</strong> across the six identity suites —
+was 47, +4 new.</li>
+<li><strong>The 4 new tests were confirmed to FAIL against the original
+source</strong> and pass against the patched source. They are real
+regression tests, not vacuous ones (Rule 9). The 8 pre-existing signing
+tests pass in both states, which is why the original suite never caught
+F1.</li>
+<li><code>npx tsc --noEmit</code> clean ·
+<code>npx prettier --check</code> clean.</li>
+</ul>
+<p><strong>Not done:</strong> the patch is <strong>not pushed</strong> —
+the code lives on PR #1716’s branch and this session is authorized only
+for <code>claude/greg-isenberg-field-notes-a2r544</code>. Pushing needs
+explicit HIC permission.</p>
+</blockquote>
 <h2 id="verdict">Verdict</h2>
-<p><strong>Do not merge as-is.</strong> One HIGH finding is a
-design-level gap that gets materially more expensive to fix after
-credentials exist in the wild. It is a contained fix (a few lines in two
-functions plus tests), not a redesign.</p>
+<p><strong>Do not merge as-is</strong> — <em>superseded for F1/F3 by the
+update above; F2/F4/F5 stand.</em> One HIGH finding is a design-level
+gap that gets materially more expensive to fix after credentials exist
+in the wild. It is a contained fix (a few lines in two functions plus
+tests), not a redesign.</p>
 <p>The HIC decision to keep tiers unsigned holds regardless — and is now
 doubly justified, since F1 changes what a signature means.</p>
 <table>

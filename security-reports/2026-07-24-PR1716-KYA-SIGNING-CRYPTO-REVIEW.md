@@ -6,9 +6,26 @@
 - **Subject:** `src/identity/attestation-signing.ts` @ `claude/kya-v2-attestation-signing-6e5703` (PR #1716, **open**)
 - **Method:** PR branch fetched and **source read directly** (this supersedes the "CODE NOT READ" provenance caveat in `docs/field-notes/2026-07-24-kya-v2-eddsa-signing-crypto-decision.md`). Signing module + its 8 tests reviewed line by line.
 
+> ## ✅ UPDATE 24.07.2026 — F1 and F3 are FIXED and VERIFIED (patch ready, not pushed)
+>
+> **Patch:** `security-reports/patches/2026-07-24-PR1716-fix-F1-F3.patch` (2 files, +142/−15).
+> Apply with `git apply` on branch `claude/kya-v2-attestation-signing-6e5703`.
+>
+> **F1** — proof options are now bound into the signed payload. `credentialSigningBytes()` takes the proof options (every proof field except `proofValue`) and signs `{document, proofOptions}` together; verify re-derives them from the presented proof, so any post-signing edit to `created` / `verificationMethod` / `proofPurpose` / `type` changes the payload and fails the signature. Mirrors W3C Data Integrity.
+> **F3** — `loadIssuerSignerFromEnv()` now asserts `asymmetricKeyType === 'ed25519'` and **throws** on mismatch. Deliberate asymmetry: *unconfigured* returns `null` (unsigned path stays valid), *misconfigured* throws (Rule 12 — never silently degrade).
+> **F2** — not code-fixed (it needs the status list). Instead the `verifyVerifiedDoneAttestation` docstring now states the caller contract explicitly: a `true` result proves neither **issuer binding** nor **non-revocation**.
+>
+> **Verification performed** (worktree off the PR head, deps installed):
+>
+> - **51/51 tests pass** across the six identity suites — was 47, +4 new.
+> - **The 4 new tests were confirmed to FAIL against the original source** and pass against the patched source. They are real regression tests, not vacuous ones (Rule 9). The 8 pre-existing signing tests pass in both states, which is why the original suite never caught F1.
+> - `npx tsc --noEmit` clean · `npx prettier --check` clean.
+>
+> **Not done:** the patch is **not pushed** — the code lives on PR #1716's branch and this session is authorized only for `claude/greg-isenberg-field-notes-a2r544`. Pushing needs explicit HIC permission.
+
 ## Verdict
 
-**Do not merge as-is.** One HIGH finding is a design-level gap that gets materially more expensive to fix after credentials exist in the wild. It is a contained fix (a few lines in two functions plus tests), not a redesign.
+**Do not merge as-is** — _superseded for F1/F3 by the update above; F2/F4/F5 stand._ One HIGH finding is a design-level gap that gets materially more expensive to fix after credentials exist in the wild. It is a contained fix (a few lines in two functions plus tests), not a redesign.
 
 The HIC decision to keep tiers unsigned holds regardless — and is now doubly justified, since F1 changes what a signature means.
 
