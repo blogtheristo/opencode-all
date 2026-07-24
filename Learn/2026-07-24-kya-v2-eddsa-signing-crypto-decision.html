@@ -235,6 +235,30 @@ decision went the other way, for a better reason than the one behind the
 recommendation. Recorded rather than quietly dropped: the recommendation
 optimized for ergonomics; the decision optimized for the trusted
 computing base, which is the property KYA sells.</p>
+<h3 id="do-not-re-add-jose-anti-regression-note-24.07.2026">⛔ Do not
+re-add <code>jose</code> — anti-regression note (24.07.2026)</h3>
+<p>The superseded recommendation has already begun circulating back as a
+plan. A <strong>Boardy review dated 24.07.2026 stated “the
+<code>jose</code> dependency is clean, one-line add, no research
+tax”</strong> and described the roadmap as running “while
+<code>jose</code> gets added” — reading this session’s
+<em>withdrawn</em> recommendation as current intent, and unaware that PR
+#1716 had already decided the opposite.</p>
+<p><strong><code>jose</code> is not on the roadmap. It was considered
+and rejected.</strong> Adding it would silently reverse the stated
+rationale for the whole signing design (“no third-party crypto
+dependency… sovereignty-clean”) and widen the trusted computing base at
+the exact point KYA exists to narrow it. <code>node:crypto</code>
+already provides Ed25519 keygen, sign, and verify — the “one-line add”
+buys nothing and costs the argument.</p>
+<p>Any future proposal to introduce <code>jose</code> (or another
+third-party crypto library) into the signing path must be argued
+<strong>against this paragraph</strong>, on the merits, and recorded as
+a version bump to §14.7.1 — not slipped in as a convenience.</p>
+<p>Related state correction in the same review: §14.7.1 is described as
+still pending (“while §14.7.1 lands”). It is <strong>implemented in PR
+#1716</strong> and retitled there from “target design” to implemented —
+though that PR is <strong>open, not merged</strong>.</p>
 </blockquote>
 <h2 id="what-shipped-per-pr-1716">What Shipped (per PR #1716)</h2>
 <table>
@@ -349,6 +373,77 @@ issues, and the only PR comments are bot deploys and that scan —
 SAST does not evaluate key custody, rotation, or envelope choice. A
 human crypto review before merge is proportionate to what this code is
 for.</p>
+<h2 id="the-consolidated-signing-sequence-as-of-boardy-round-3">The
+consolidated signing sequence (as of Boardy round 3)</h2>
+<p>Ordering constraints have accumulated across three reviews and an
+audit. Stated once, in dependency order, because several were discovered
+independently and no single document held them all:</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 42%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Step</th>
+<th>Why it is where it is</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><strong>Human crypto review of PR #1716</strong></td>
+<td>Only bots have reviewed it; its own checklist says “threat model /
+security review: No”</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><strong>Migration 080: anchor (B7) + pseudonymous <code>hic</code>
+(B8) + leaver sweep (D4)</strong></td>
+<td>Signing a mis-anchored attestation makes the defect durable. One
+offboarding story — shipping any one alone leaves the hole</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><strong>Make the manifest signature real</strong></td>
+<td>Attestation signing sits on top of a manifest whose
+<code>verified</code> flag is a caller-supplied boolean</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td><strong>Attestation signing + revocation status list —
+together</strong></td>
+<td>Signing without revocation is a one-way door; a released escrow
+could never be challenged</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><strong>Fail-loud production signer assertion</strong></td>
+<td>Must precede the first tenant switch-on, or a missing env var
+silently mints unverifiable credentials</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td><strong>Key custody per tier, then turn tiers on (Aegis on-prem
+first)</strong></td>
+<td>Blast radius of one tenant, on a box that already holds the key</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td><strong><code>did:web</code> issuer + published
+verifier</strong></td>
+<td>A signed credential nobody can resolve is still unverifiable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Runs in parallel, blocked by none of the above:</strong> the
+<strong>agent probation flow</strong> (eval harness + ATS baseline).
+Boardy is right that this is real unlocked capacity — interviewing an
+agent inside one tenant needs no cryptography, only a hard task and a
+retained score. Only the <em>cross-org portable</em> version of that
+score needs a signature.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>Merge decision on PR #1716 (open since 22.07.2026).</li>
@@ -368,10 +463,13 @@ steps (DWS_LEARNING_STANDARD five-step)</h3>
 <code>kb/wiki/concepts/kya-attestation-signing-fallback.md</code>.
 ✅</li>
 <li><strong>(2) Field note</strong> — this file. ✅</li>
-<li><strong>(3) <code>Learn/</code> HTML render</strong> — N/A:
-<code>pandoc</code> absent in this container
-(<code>scripts/render-doc.sh</code> exits on the missing binary);
-recoverable with <code>apt-get install -y pandoc</code>.</li>
+<li><strong>(3) <code>Learn/</code> HTML render</strong> —
+<code>Learn/2026-07-24-kya-v2-eddsa-signing-crypto-decision.html</code>
+(+ <code>.docx</code>), via <code>scripts/render-doc.sh</code>. ✅
+<em>Blocker cleared this session: <code>pandoc</code> was absent and has
+been installed, so the three earlier “N/A — pandoc missing” entries in
+this session’s other notes were a fixable blocker, not a
+constraint.</em></li>
 <li><strong>(4) Drive export</strong> — N/A this session (repo is source
 of truth, Truth Standard §2E; flagged).</li>
 <li><strong>(5) HIC question</strong> — below. ✅</li>

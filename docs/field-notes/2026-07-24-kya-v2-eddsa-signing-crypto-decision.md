@@ -29,6 +29,16 @@ Stated rationale (PR #1716): *"Node-native Ed25519 (`node:crypto`) — no third-
 **Why that is the right call, stated properly:** a sovereignty product that adds a third-party dependency in order to *sign its sovereignty claims* has a supply-chain contradiction at its core. The credential exists to let a counterparty stop trusting our infrastructure; minting it through an npm package widens the trusted computing base at exactly the wrong point. Node's crypto is already in the runtime's audited surface, ships with the platform, and has no separate update cadence to track. Fewer moving parts in the signing path is not a convenience preference here — it is the product claim.
 
 > **Correction of record.** An earlier audit note this session (`2026-07-24-greg-isenberg-what-is-true-and-useful-for-kya.md`) recommended `jose` as "the natural pick" for JWS-enveloped VCs. That recommendation was made against `main`, where no signing existed, and is **superseded** — the actual decision went the other way, for a better reason than the one behind the recommendation. Recorded rather than quietly dropped: the recommendation optimized for ergonomics; the decision optimized for the trusted computing base, which is the property KYA sells.
+>
+> ### ⛔ Do not re-add `jose` — anti-regression note (24.07.2026)
+>
+> The superseded recommendation has already begun circulating back as a plan. A **Boardy review dated 24.07.2026 stated "the `jose` dependency is clean, one-line add, no research tax"** and described the roadmap as running "while `jose` gets added" — reading this session's *withdrawn* recommendation as current intent, and unaware that PR #1716 had already decided the opposite.
+>
+> **`jose` is not on the roadmap. It was considered and rejected.** Adding it would silently reverse the stated rationale for the whole signing design ("no third-party crypto dependency… sovereignty-clean") and widen the trusted computing base at the exact point KYA exists to narrow it. `node:crypto` already provides Ed25519 keygen, sign, and verify — the "one-line add" buys nothing and costs the argument.
+>
+> Any future proposal to introduce `jose` (or another third-party crypto library) into the signing path must be argued **against this paragraph**, on the merits, and recorded as a version bump to §14.7.1 — not slipped in as a convenience.
+>
+> Related state correction in the same review: §14.7.1 is described as still pending ("while §14.7.1 lands"). It is **implemented in PR #1716** and retitled there from "target design" to implemented — though that PR is **open, not merged**.
 
 ## What Shipped (per PR #1716)
 
@@ -69,6 +79,22 @@ Deferred by design: **per-agent key delegation** (root-CA → per-agent) to v2.1
 ## Open risk carried from the PR checklist
 
 PR #1716 answers **"Does the change make any security assumptions or guarantees?" → Yes**, and **"threat model and security review?" → No**. Aikido's automated scan reported no issues, and the only PR comments are bot deploys and that scan — **no human reviewed this cryptographic change.** Automated SAST does not evaluate key custody, rotation, or envelope choice. A human crypto review before merge is proportionate to what this code is for.
+
+## The consolidated signing sequence (as of Boardy round 3)
+
+Ordering constraints have accumulated across three reviews and an audit. Stated once, in dependency order, because several were discovered independently and no single document held them all:
+
+| #   | Step                                                                                  | Why it is where it is                                                                                              |
+| --- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 0   | **Human crypto review of PR #1716**                                                   | Only bots have reviewed it; its own checklist says "threat model / security review: No"                            |
+| 1   | **Migration 080: anchor (B7) + pseudonymous `hic` (B8) + leaver sweep (D4)**          | Signing a mis-anchored attestation makes the defect durable. One offboarding story — shipping any one alone leaves the hole |
+| 2   | **Make the manifest signature real**                                                   | Attestation signing sits on top of a manifest whose `verified` flag is a caller-supplied boolean                    |
+| 3   | **Attestation signing + revocation status list — together**                            | Signing without revocation is a one-way door; a released escrow could never be challenged                          |
+| 4   | **Fail-loud production signer assertion**                                              | Must precede the first tenant switch-on, or a missing env var silently mints unverifiable credentials              |
+| 5   | **Key custody per tier, then turn tiers on (Aegis on-prem first)**                     | Blast radius of one tenant, on a box that already holds the key                                                    |
+| 6   | **`did:web` issuer + published verifier**                                              | A signed credential nobody can resolve is still unverifiable                                                        |
+
+**Runs in parallel, blocked by none of the above:** the **agent probation flow** (eval harness + ATS baseline). Boardy is right that this is real unlocked capacity — interviewing an agent inside one tenant needs no cryptography, only a hard task and a retained score. Only the *cross-org portable* version of that score needs a signature.
 
 ## Next Steps
 
