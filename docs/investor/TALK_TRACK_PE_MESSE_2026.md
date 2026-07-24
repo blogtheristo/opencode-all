@@ -4,11 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
-- Version: 1.4 | Tool: Claude Code (Opus 4.8, merge-integrated) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Gemini refinement — §0 ladder rebuilt lean with tactical role labels (The Lead / The Shape / The Deep Dive) + board-approved underlying-truth quote; stripped fluff.
+- Version: 1.5 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Synced the spoken gross-margin figure from "north of / above 80%" to "~85% (and rising)" across the elevator quote, one-number-to-lead-with, 2-minute pitch, and 8-slide table — matching PRICING_MODEL.md §2 baseline (~85% at list) and the updated INVESTOR_ONE_PAGER_2026Q2 (v1.4). No stress-floor claim added (see one-pager v1.4 note re: unverified "80% stress floor").
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Added the positioning ladder (category) to §0 and reworked the Category bullet in EN/DE/FI (§2, §5.2, §6.2) to lead with "software-led, priced like labor, with software margins"; demoted the three-way framing to a clarifier and added an anti-goal against leading with "third category". Canonical source: POSITIONING.md (Truth Standard §2 row 17).
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor talk-track package for 2026 Q2 SAFE round. Covers 30-second elevator, 2-minute pitch, 8-slide deck outline, Q&A bank pointer, and DE / FI translations of the elevator + 2-minute pitch for Messe Germany and Finnish-language investor conversations. Companion to INVESTOR_ONE_PAGER_2026Q2.md and INVESTOR_QA_BANK_2026Q2.md.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added §2.5 "The 4P Moat Beat" — the drop-in answer to "why you / why can't a competitor catch up", mapping Prompt / People / Plant / Perception to the valuation re-rate and naming Perception as the lever (still-being-proven). Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0).
@@ -43,11 +43,11 @@ The spine — in every conversation, on every slide:
 
 **The Investor Ladder** — climb only as far as the investor pulls you:
 
-1. *"Software-led, priced like labor, with software margins."* — **The Lead.** The anchor; open here.
-2. *"Software-led, with a thin service wrapper around a product that does the actual work."* — **The Shape.** When they ask *how* it works.
+1. _"Software-led, priced like labor, with software margins."_ — **The Lead.** The anchor; open here.
+2. _"Software-led, with a thin service wrapper around a product that does the actual work."_ — **The Shape.** When they ask _how_ it works.
 3. Three-way SaaS / services / Services-as-Software table — **The Deep Dive.** Only once engaged; never open with "third category".
 
-> **Underlying truth (board-approved):** *"Software does the regulated work and delivers the artifact; the service layer just gets the customer live."*
+> **Underlying truth (board-approved):** _"Software does the regulated work and delivers the artifact; the service layer just gets the customer live."_
 
 Canonical: `POSITIONING.md`.
 
@@ -58,21 +58,21 @@ Canonical: `POSITIONING.md`.
 > "We sell **DWS 365 Skilled Agents** — sixteen AI workers that produce signed
 > EU regulatory reports: CSRD, CBAM, EU AI Act conformity, EN 15978 LCA,
 > site-safety. We price them like labor, not like software — a bundle that
-> replaces six to eight EU FTEs sells for €200k a year, gross margin north of
-> 80%, and the margin gets better as model cost falls. Regulation drives the
+> replaces six to eight EU FTEs sells for €200k a year, gross margin around
+> 85%, and the margin gets better as model cost falls. Regulation drives the
 > demand. MACC-burn on Azure and AppExchange on Salesforce drive the
 > distribution. Raising €650k SAFE at €3.8M cap to ride Messe Germany this
 > autumn."
 
-**One number to lead with**: _"Six-to-eight EU FTE replaced, €200k a year, margin above 80% and rising."_
+**One number to lead with**: _"Six-to-eight EU FTE replaced, €200k a year, margin around 85% and rising."_
 
 ---
 
 ## 2. The 2-Minute Pitch (EN — 5 bullets, then ask)
 
-1. **Category.** "We're software-led, priced like labor, with software margins. The product does the work and delivers the signed artifact; a thin service layer just gets the customer live. **DWS 365 Skilled Agents** are sixteen agents that produce the signed artifact a buyer would otherwise pay a consultant or an FTE to produce." *(Only if they ask "so SaaS or services?": unpack the three-way distinction — never open with "third category".)*
+1. **Category.** "We're software-led, priced like labor, with software margins. The product does the work and delivers the signed artifact; a thin service layer just gets the customer live. **DWS 365 Skilled Agents** are sixteen agents that produce the signed artifact a buyer would otherwise pay a consultant or an FTE to produce." _(Only if they ask "so SaaS or services?": unpack the three-way distinction — never open with "third category".)_
 
-2. **Unit economics.** "Pricing is anchored to the human cost of producing the work. Per-outcome SKUs are roughly 10–20% of consultancy day-rate baselines; per-agent-month SKUs are roughly 15–30% of fully loaded FTE cost. The full Skilled Workforce bundle replaces six to eight EU FTEs for €199,990 a year. Gross margin above 80% at list — margin expands as inference cost falls, because the price is anchored to labor, not to compute."
+2. **Unit economics.** "Pricing is anchored to the human cost of producing the work. Per-outcome SKUs are roughly 10–20% of consultancy day-rate baselines; per-agent-month SKUs are roughly 15–30% of fully loaded FTE cost. The full Skilled Workforce bundle replaces six to eight EU FTEs for €199,990 a year. Gross margin ~85% at list — margin expands as inference cost falls, because the price is anchored to labor, not to compute."
 
 3. **Regulation drives demand.** "CSRD reporting waves hit 2026–27, CBAM closes 2026, EU AI Act high-risk obligations live August 2026, NIS2 already operational. Every one of those regulations is the regulator hiring our customer's compliance team. Skilled Agents are the answer that ships."
 
@@ -119,7 +119,7 @@ Naming the caveat buys credibility on the other three.
 | --- | -------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | **Thesis**                 | Price AI like labor, not like a tool.                                    | Tool→labor shift · DWS 365 Skilled Agents on the labor side · @dhaber attribution · spine in one line.                                                                             |
 | 2   | **Shift Table**            | What changes when AI does the work itself.                               | Buyer, unit, anchor, pricing, value, procure, risk, margin — tool vs labor lens.                                                                                                   |
-| 3   | **Unit Economics**         | Sixteen agents = six-to-eight EU FTE at a fraction of the cost.          | Per-outcome anchor · per-agent-month anchor · bundle replaces 6–8 FTE for €199,990/yr · GM >80% and rising.                                                                        |
+| 3   | **Unit Economics**         | Sixteen agents = six-to-eight EU FTE at a fraction of the cost.          | Per-outcome anchor · per-agent-month anchor · bundle replaces 6–8 FTE for €199,990/yr · GM ~85% and rising.                                                                        |
 | 4   | **Demand Engine**          | Regulation is hiring our customer's compliance team.                     | CSRD · CBAM · EU AI Act · NIS2 · Fit-for-55 · 24-month enforcement calendar.                                                                                                       |
 | 5   | **Distribution**           | MACC-burn + AppExchange = enterprise field as our channel.               | Azure MACC math · Microsoft co-sell credit · AppExchange "digital labor" frame · channel-conflict-free pricing.                                                                    |
 | 6   | **Product Catalog Teaser** | Sixteen Skilled Agents, T0→T4 upsell ladder, consult-plus-keep bundles.  | Single-agent SKUs (Compliance / Material Oracle / SiteSense / Schedule Genius / Sovereignty Monitor / Themis) · Function-as-a-Service bundles · Consulting-plus-agent land-motion. |
@@ -152,7 +152,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 ### 5.2 2-Minuten-Pitch (DE)
 
-1. **Kategorie.** „Wir sind softwaregetrieben, bepreist wie Arbeit, mit Software-Margen. Das Produkt erledigt die Arbeit und liefert das unterschriebene Artefakt; eine dünne Service-Schicht bringt den Kunden nur live. **DWS 365 Skilled Agents** sind sechzehn Agenten, die das unterschriebene Artefakt produzieren, für das ein Käufer sonst einen Berater oder einen Vollzeit-Mitarbeiter bezahlen müsste." *(Nur wenn gefragt wird „also SaaS oder Dienstleistung?": die Drei-Wege-Unterscheidung erläutern — niemals mit „dritte Kategorie" eröffnen.)*
+1. **Kategorie.** „Wir sind softwaregetrieben, bepreist wie Arbeit, mit Software-Margen. Das Produkt erledigt die Arbeit und liefert das unterschriebene Artefakt; eine dünne Service-Schicht bringt den Kunden nur live. **DWS 365 Skilled Agents** sind sechzehn Agenten, die das unterschriebene Artefakt produzieren, für das ein Käufer sonst einen Berater oder einen Vollzeit-Mitarbeiter bezahlen müsste." _(Nur wenn gefragt wird „also SaaS oder Dienstleistung?": die Drei-Wege-Unterscheidung erläutern — niemals mit „dritte Kategorie" eröffnen.)_
 
 2. **Stückkostenrechnung.** „Der Preis ist an die Personalkosten der zu erbringenden Arbeit gekoppelt. Per-Outcome-SKUs liegen bei rund 10–20 % des Beratungstagessatzes; Per-Agent-Month-SKUs bei rund 15–30 % der voll geladenen FTE-Kosten. Das volle Skilled-Workforce-Bundle ersetzt sechs bis acht EU-FTE für €199.990 pro Jahr. Rohmarge über 80 % zum Listenpreis — die Marge wächst, wenn Inferenzkosten fallen, denn der Preis ist an Arbeit gekoppelt, nicht an Rechenleistung."
 
@@ -182,7 +182,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 ### 6.2 2-minuutin pitch (FI)
 
-1. **Kategoria.** „Olemme ohjelmistovetoisia, hinnoiteltu kuin työ, ohjelmiston katteilla. Tuote tekee työn ja toimittaa allekirjoitetun lopputuotteen; ohut palvelukerros vain saa asiakkaan tuotantoon. **DWS 365 Skilled Agents** on kuusitoista agenttia, jotka tuottavat allekirjoitetun lopputuotteen, josta ostaja muuten maksaisi konsultille tai kokoaikaiselle työntekijälle." *(Vain jos kysytään „eli SaaS vai palvelu?": avaa kolmijako — älä koskaan aloita ilmauksella „kolmas kategoria".)*
+1. **Kategoria.** „Olemme ohjelmistovetoisia, hinnoiteltu kuin työ, ohjelmiston katteilla. Tuote tekee työn ja toimittaa allekirjoitetun lopputuotteen; ohut palvelukerros vain saa asiakkaan tuotantoon. **DWS 365 Skilled Agents** on kuusitoista agenttia, jotka tuottavat allekirjoitetun lopputuotteen, josta ostaja muuten maksaisi konsultille tai kokoaikaiselle työntekijälle." _(Vain jos kysytään „eli SaaS vai palvelu?": avaa kolmijako — älä koskaan aloita ilmauksella „kolmas kategoria".)_
 
 2. **Yksikkötalous.** „Hinta on kytketty työn tekemisen henkilöstökustannukseen. Per-outcome-SKUt noin 10–20 % konsultoinnin päivähinnasta; per-agent-month-SKUt noin 15–30 % täysin kuormitetusta FTE-kustannuksesta. Täysi Skilled Workforce -paketti korvaa 6–8 EU-FTE:ä €199 990/v. Bruttokate yli 80 % listalla — kate kasvaa kun inferenssikustannukset laskevat, koska ankkuri on työvoima, ei laskenta."
 

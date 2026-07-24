@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor One-Pager (tailored) — Richard Würl, Redstone VC
-Version: 1.1
+Version: 1.2
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
 Status: READY — tailored one-pager for Richard Würl; distribute under NDA. Send blocked on verified email address.
 Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only SAFE · Kertos-adjacent compliance lane
-Source of truth: docs/investor/INVESTOR_ONE_PAGER_2026Q2.md (v1.3). NOTE: GM DRIFT — source doc still reads ">80% at list"; this doc uses the locked "85% at list (80% stress floor)" per budget V3. Source doc + its .html need syncing to the locked number (not done here — out of scope for this file).
+Source of truth: docs/investor/INVESTOR_ONE_PAGER_2026Q2.md (now v1.4 — GM drift RESOLVED: canonical synced to "~85% at list"). GM here reads "~85% at list (80%+ across every SKU)", consistent with PRICING_MODEL.md §2 (baseline ~85%, band 82–89%). The "80%" is the at-list SKU-band floor, NOT an inference-cost stress floor (that is 73% at 2× / 55% at 5% in PRICING_MODEL). "80% stress floor" from the Budget V3 / Boardy export could NOT be verified — Drive read gated in the automation session; if Budget V3 genuinely re-cut the stress scenario, PRICING_MODEL's stress table needs updating too.
 
 AGENT HISTORY:
-- v1.1 (2026-07-15): Founder review edits. (1) Traction date "May 2026" → "mid-2026" (avoid stale-date signal in DD). (2) GM ">80% at list" → "85% at list (80% stress floor)" to match the locked budget V3 number — flagged canonical-source drift above. (3) Sharpened "Why Redstone" so the "one layer down from Kertos" model lands without assuming deep prior knowledge of Kertos.
+- v1.2 (2026-07-24): Reconciled GM with the now-synced canonical (v1.4). Changed "85% at list (80% stress floor)" → "~85% at list (80%+ across every SKU)" — the data-room-backed reading. The unverified "80% stress floor" phrasing was dropped because it conflicts with PRICING_MODEL's modeled stress floor (73%/55%); the exported Budget V3 sheet could not be read to confirm (Drive read gated).
+- v1.1 (2026-07-15): Founder review edits. (1) Traction date "May 2026" → "mid-2026" (avoid stale-date signal in DD). (2) GM ">80% at list" → "85% at list (80% stress floor)" per budget V3 — later reconciled in v1.2. (3) Sharpened "Why Redstone" so the "one layer down from Kertos" model lands without assuming deep prior knowledge of Kertos.
 - v1.0 (2026-07-15): Tailored one-pager derived from the canonical 2026 Q2 investor one-pager, cut to a single page and angled for Richard Würl (Principal, Redstone VC, Berlin): leads with the Kertos-adjacent regulated-compliance lane and the EU/EEA-domicile fit. Uses the current sales signature (risto.paarni2024@lifetime.fi, "Founder, CEO · the Agent Outcome Company") consistently — not the legacy risto.paarni@ / "CEO" form in the source doc.
 -->
 
@@ -39,7 +40,7 @@ We don't sell seats or model access — we sell the **finished regulated outcome
 ## Why it holds
 
 - **Regulation is the demand engine.** CSRD first-wave deadlines hit ~50K EU undertakings in 2026/27; CBAM financial liability closes 2026; EU AI Act high-risk obligations in force Aug 2026. Each mandates _a piece of work_, not a tool.
-- **Outcome pricing → software margins on a labor anchor.** **85% gross margin at list (80% stress floor)**; margin expands as model cost falls (the price is anchored to human labor, not compute). 16 agents replace 6–8 EU FTE at a fraction of loaded cost.
+- **Outcome pricing → software margins on a labor anchor.** **~85% gross margin at list (80%+ across every SKU)**; margin expands as model cost falls (the price is anchored to human labor, not compute). 16 agents replace 6–8 EU FTE at a fraction of loaded cost.
 - **EU sovereignty moat.** Data residency in Finland / Germany by default; no CLOUD Act subpoena surface on the data plane. For regulated and critical-infrastructure buyers, sovereignty is a _buying criterion_.
 - **Signable, not just draftable.** Themis (case coordinator) + KYA (runtime trust layer, human-bound audit trail) produce the exact artifact CSRD assurance, CBAM declarations, and EU AI Act conformity require. A copilot produces a draft; DWS produces the signable.
 
