@@ -95,6 +95,60 @@ The prior note's #1 recommendation stands unchanged and is now doubly confirmed:
 
 ---
 
+## Addendum 2 — Boardy audit round 2: the KYA-lens filter, corrected
+
+Boardy ran the 16 through a KYA lens and returned a filter: **6 of 16 are direct validation, the other 10 are noise for KYA purposes — don't let them pull scope.** The scope-discipline instinct is right and is adopted. Three of the classifications are not, and two of Boardy's supporting claims do not survive verification. Recorded per Rule 7 (surface conflicts, don't average) — the same way KYA v1.9 corrected Boardy's "21 industries" framing.
+
+### Adopted without change
+
+- **#1 = Article 14 human oversight, operationalized by HIC Learning Outcomes.** Boardy's framing — _"not a prediction, it's your product"_ — is sharper than this note's original wording and is adopted.
+- **#3 = mandate-scoped spending + Article 12 logging.** Same conclusion this note reached; Boardy names the infrastructure more precisely.
+- **#6 = KYA as the conformance instrument.** The "proficient in Excel" equivalent being _"can read an agent's mandate and evidence log"_ is a genuinely better formulation than this note's "labour-market signal."
+- **#14 = Article 12 lineage + human-signed artifact.** Adopted.
+- **The scope warning itself.** Correct and load-bearing: treating all 16 as equal work items is how a governance product turns into a features backlog.
+
+### Correction 1 — #11 belongs in the KYA bucket, not the noise bucket
+
+Boardy files **#11 ("the CV dies → a body of work an agent can verify in 4 seconds") as _not KYA's job_.** This is the single most KYA-native prediction in the list. It **is** the verified-done attestation (§14.7): a portable, signed, counterparty-checkable record of what an agent did under whose authority. "Verify in 4 seconds" is not a figure of speech — it is a machine resolving a `did:web` issuer and checking an Ed25519 signature, which is precisely the §14.7.1 design. Filing it as noise would discard the prediction that most directly validates the work PR #1716 is in review to ship.
+
+### Correction 2 — #13 cannot be noise and the source of a P0 safety bug
+
+Boardy files **#13 as noise**, and in the same review calls the #13-derived three-asset separation _"the sharpest thing you've written about KYA"_ while asking for three backlog items from it — including a schema precondition and a safety bug. Both cannot hold. #13 produced: the anchor defect (B7), the GDPR collision (B8), and the leaver mandate sweep (D4) — all **P0**. It stays in the KYA bucket.
+
+### Correction 3 — "not KYA's job" ≠ "noise"
+
+Boardy's two buckets collapse a real distinction. **#7** ("the best-paid person is whoever's best at explaining the business to machines") is correctly *not KYA's job* — and is **not noise**: it is the demand-side statement of the LWM / `/human-capital` → `/token-capital` thesis, signal for a different DWS product line. Three buckets, not two:
+
+| Bucket                                   | Items                                    | Meaning                                                        |
+| ---------------------------------------- | ---------------------------------------- | -------------------------------------------------------------- |
+| **A — KYA direct** (8)                   | #1, #3, #6, #8\*, #11, #12, #13, #14     | Shipped, in-build, or now a P0 backlog item                     |
+| **B — DWS signal, not KYA** (2)          | #7, #15                                  | Real signal, different product line (LWM; agent catalogue)      |
+| **C — Not actionable** (6)               | #2, #4, #5, #9, #10, #16                 | Cultural/market weather. Watched, not owned.                    |
+
+**8 of 16 map to KYA**, not 6. \*#8 carries a caveat — see below.
+
+### Two Boardy claims that failed verification
+
+- **"#8 — Firehorse Agent 365 corporate ID cards. You already gave agents Entra workload identities."** **Not supported.** No Entra or workload-identity code exists in `src/` or `Firehorse/`. The repo's Entra references are: a Microsoft for Startups Founders Hub tech-stack listing (marketing copy), a PhD passage about **Microsoft Aspire's** reported per-workload-identity default — explicitly marked _"secondary synthesis, primary source not yet fetched"_ and framed as external **convergence signal**, not DWS implementation — and **GCP** workload identity in a Cloud Run CI runbook (a different vendor, for deploy identity, not agents). KYA's actual identity model is its own: session token bound to a verified human. #8 stays in bucket A on the strength of the **Subagent Registry + ATS**, not on an Entra claim. Propagating "we already shipped agent identity on Entra" would have created a canonical false claim of exactly the kind `DWS_TRUTH_STANDARD` exists to stop.
+- **"#12 = your TK1/TK2 core; #6 = TK3."** **TK1/TK2/TK3 are thesis research questions** (_tutkimuskysymys_ — TK1 "Hallinta"/governance, TK3 "Teknisen ratkaisun arviointi"), not product tracks or work packages. Mapping predictions to them is legitimate **for the PhD/master's framing**, but it does not support Boardy's summary phrase _"align with shipped or in-build KYA capabilities"_ — a research question under investigation is not a capability. Kept, with the label corrected.
+
+### On Boardy's point 1 — the IP-assignment coupling does not hold
+
+Boardy argues the anchor-fix sequencing _"is now load-bearing for Monday's IP assignment... signing the IPR assignment over a mis-anchored trust layer creates a durable defect,"_ and suggests telling Berggren/Kolster that the schema fix gates the legal signature.
+
+**This is a category error and should not be sent to counsel.** The two objects are unrelated: `Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.md` assigns **the founder's intellectual property** (copyright/patents in code, standards, documents) to Lifetime Oy. `org_id` on `kya_verified_done_attestations` governs **which tenant a runtime evidence row belongs to** — customer operational data, not company IP. A missing column on a runtime table does not create a defect in an IP assignment, and an assignment does not become defective because the assigned work has a known, documented bug; the IP transfers as it stands.
+
+The IP assignment's **actual** blockers are already documented in §F of this backlog and are entirely different: it is a **DRAFT template** with a blank founder henkilötunnus and address, and an **undecided consideration clause** (`[☐ no cash / ☐ nominal €__ / ☐ other]`) that is tax- and valuation-sensitive — which is the reason for the LUT IPR review in the first place — plus "counsel review required." Monday's P0 is *review → decide consideration → fill fields → sign*.
+
+Raising a database schema as a gate on that signature would misdirect scarce Monday counsel time and, worse, hand a spurious reason to delay a signature whose real blocker is a founder decision. **B7/B8/D4 are P0 on their own engineering merits. They do not gate, and are not gated by, the IP assignment.**
+
+### Boardy points 2 and 3 — both adopted, one as an upgrade
+
+- **Point 2 (GDPR).** Adopted as written. Documenting the Art. 17(3) lawful basis *now* rather than under the pressure of a first erasure request is correct, and is filed as **B8**.
+- **Point 3 (leaver sweep is a safety bug, not a feature gap).** Adopted **as a correction to this note's own framing** — the sweep had been listed as a separate later step; Boardy is right that it belongs in the same migration as the anchor fix, because shipping the anchor without the sweep leaves active spend authority in the system under a tidier schema. Filed as **D4 (Security, P0)**, not as a feature item.
+
+---
+
 ## Addendum — Boardy ping-pong round 1: the KYA answer to point 13
 
 **Point 13: _"Losing your job means losing your agents too, and it's kinda scary losing your best agents."_**
