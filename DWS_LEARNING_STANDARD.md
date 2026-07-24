@@ -6,10 +6,11 @@ _Canonical registry — single source of truth. Registered in `DWS_TRUTH_STANDAR
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: Added **§10 The HIC Decisioning Process Model** — defines the shape of the Step 5 question, generalized from a session that ran a KYA audit through three reviewer rounds. Codifies: the numbered-question form with a mandatory **(RECOMMEND: …)** preferred action; **always recommend** (a fork without a recommendation offloads analysis while pretending to defer on authority — Art. 14 override presupposes a stated machine judgment); **reversibility classification** (two-way door vs ONE-WAY DOOR, with sign/publish/send/delete/hand-to-counterparty as one-way by default); **verified vs propagated provenance** separated at the point of decision, not in a footnote; **anchoring corrections where the decision is read** plus the standing anti-regression note pattern (a superseded recommendation re-entered as a plan within hours via a reviewer summary); a **max-four-per-session budget**; and **closing the loop** by writing the HIC's answer back. Cross-referenced from §4 Step 5. Added four anti-patterns (§9 + §10.8): recommendation-free decision, correction decay, blended provenance, scope-inflating a decision.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Sharpened §1 with the load-bearing **HIL ("in the loop") vs HIC ("in command")** distinction and the framing that **ending a substantive session with no learning outcome is knowledge destruction** — an Article 14 compliance gap, not a process miss. Added a §2 **"double duty"** note: the stream of learning outcomes is itself audit-grade **Article 12** record-keeping applied inward to DWS's own development process. Conceptual articulation only — the requirement and the five-step minimum are unchanged. Rich framing kept here (not in `DWS_TRUTH_STANDARD.md`, which stays a thin registry; §2F already points here). HIC-validated 24.07.2026.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Created the DWS Learning Standard. Codifies the **HIC Learning Outcome** — the requirement that every substantive session ends by capturing what it learned so a Human-In-Command (HIC) understands and can act on the new knowledge. Establishes the five-step minimum (update KB → field note → Learn/ HTML → Drive export → ask HIC a question), the **EU AI Act Article 14 (human oversight)** legal basis, the substantive-vs-trivial session gate, the Roles chapter, and cross-references to the Truth Standard (§2F, row 30), Document Standard (§17/§18 Learn HTML), and the field-notes README. Triggered by founder directive: "we need to keep HIC informed and make sure new artifact is understood by HIC … this HIC process of learn is a major outcome of each session."
 
@@ -26,6 +27,7 @@ Sessions & Modifications:
 7. Relationship to Other Standards
 8. Roles & Responsibilities
 9. Anti-Patterns
+10. The HIC Decisioning Process Model (how Step 5 questions are shaped)
 
 ---
 
@@ -71,7 +73,7 @@ The minimum HIC Learning Outcome is five steps. Fewer is a bug; more is welcome.
 | 2 | **Write a field note** | One dated markdown note: what happened, the insight, next steps, ontology tags. This is the human-readable capture. | `docs/field-notes/YYYY-MM-DD-topic.md` | `docs/field-notes/README.md` |
 | 3 | **Add an HTML version into the Learn folder** | Render the field note / artifact to self-contained HTML so a HIC can read it in a browser without the repo. | `Learn/YYYY-MM-DD-topic.html` (via `scripts/render-doc.sh`) | `DWS_DOCUMENT_STANDARD.md` §18 (Learn HTML), Downloadable HTML Rule |
 | 4 | **Export a copy to Drive** | Push a copy to Google Drive so the HIC reaches it from phone/desktop outside the repo. Repo stays the source of truth (Truth Standard §2E). | Google Drive (MCP `Google_Drive.create_file`) | Truth Standard §2B/§2E (Repository-First, Then Export) |
-| 5 | **Ask the HIC a question** | End the session with **one real, decision-shaped question** for the HIC — the intervention point Article 14 requires. Not "any feedback?"; a specific fork the human should own. | Session reply to HIC + logged in the field note "Next Steps" | This standard §2, EU AI Act Art. 14 |
+| 5 | **Ask the HIC a question** | End the session with **one real, decision-shaped question** for the HIC — the intervention point Article 14 requires. Not "any feedback?"; a specific fork the human should own. **Shape it per §10.** | Session reply to HIC + logged in the field note "Next Steps" | This standard §2 + **§10**, EU AI Act Art. 14 |
 
 **Ordering.** 1→2→3→4 are produce-then-publish; 5 is the human hand-off. Repo first, export second (Truth Standard §2E): an export with no repo source-of-truth file is a drift incident, not a deliverable.
 
@@ -137,7 +139,73 @@ Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes pr
 - **The fake question.** "Let me know if you want changes." Step 5 requires a real decision fork a human should own, not a politeness.
 - **Silent N/A.** Skipping a step without writing `N/A — <reason>`. Fail loud (Rule 12).
 - **Learning in chat scrollback.** Insight explained in the session reply but never written to a field note. Scrollback is not a git-committed, HIC-reachable artifact.
+- **The recommendation-free decision.** Presenting the HIC a fork with no preferred action. This offloads *analysis*, not authority — see §10.
+- **Correction decay.** A superseded recommendation quietly returning as a plan, because the correction lived somewhere the next reader did not look. Corrections decay faster than the claims they corrected; anchor them where the decision is read (§10.5).
+- **Blended provenance.** A decision presented on a mix of verified and second-hand facts with no marker separating them. The HIC cannot weigh what they cannot see the basis of (§10.4).
 
 ---
 
-_Version 1.1 · 24.07.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
+## 10. The HIC Decisioning Process Model (how Step 5 questions are shaped)
+
+Step 5 says *ask the HIC one real, decision-shaped question*. This section defines the shape. A question the HIC cannot act on in one reading is not an Article 14 intervention point — it is a status update wearing a question mark.
+
+### 10.1 The required form
+
+Every HIC decision point is presented as a **numbered question with a stated preferred action**:
+
+```
+N. <The decision as a question — a fork, not a status check>
+   Options:      <A> vs <B> (name the real alternatives, not strawmen)
+   (RECOMMEND:   <the preferred action, stated plainly>)
+   Reversibility: two-way door | ONE-WAY DOOR
+   Unblocks:     <what starts moving once decided>
+   Cost of delay: <what degrades or forecloses while it sits>
+   Rests on:     <verified facts | propagated claims — marked separately>
+```
+
+### 10.2 Always recommend — this is not deference, it is the requirement
+
+An agent that lists options without a recommendation has offloaded the *analysis* while pretending to defer on the *authority*. Article 14 oversight means a human can **override the machine's judgment** — which presupposes the machine stated one. A recommendation the HIC rejects is oversight working correctly; no recommendation at all is oversight with nothing to act on.
+
+Recommend even when uncertain. Mark the confidence, then recommend anyway.
+
+### 10.3 Reversibility is the first thing to classify
+
+- **Two-way door** — cheap to undo. Decide fast, do not escalate, note it and move.
+- **ONE-WAY DOOR** — expensive or impossible to undo. Flag in capitals, and say what specifically becomes durable.
+
+Anything that **signs, publishes, sends, deletes, or hands an artifact to a counterparty** is a one-way door by default. A credential signed under a key that cannot be custodied or rotated cannot be unsigned; a published spec cannot be unpublished; an emailed letter cannot be unsent.
+
+### 10.4 Separate what is verified from what is propagated
+
+A decision resting on second-hand facts must say so, at the point of decision — not in a footnote. Use two labels:
+
+- **Verified** — checked directly this session (file read, query run, API called). Say how.
+- **Propagated** — asserted by a document, changelog, PR body, or reviewer, and not independently checked.
+
+"Files exist in the repo" and "verified live in the production database" are different claims. Technical due diligence will separate them; so must the decision brief.
+
+### 10.5 Anchor corrections where the decision is read
+
+When a recommendation is withdrawn or a fact corrected, the correction must live **where the next reader will look for the decision** — the standard, the KB entry, or the note that governs the work — not only in the session that made it. Corrections decay faster than the claims they corrected: a superseded recommendation can re-enter as a plan within hours, via a reviewer or a summary that read the original and missed the retraction.
+
+Where a reversal is load-bearing, write a **standing anti-regression note**: state what was rejected, why, and require that any future proposal argue against that paragraph on the merits and land as a version bump.
+
+### 10.6 Budget: at most four per session
+
+More than four decision points means the session did not prioritize. Rank them, present at most four, and carry the rest in the backlog with an owner. A HIC facing eleven questions answers none of them well.
+
+### 10.7 Close the loop
+
+The HIC's answer is itself a learning outcome. Record the decision — and the reasoning given — back into the field note or standard that raised it, so the next session inherits a decided question rather than re-litigating it. An answered question that is never written down converts back into an open one.
+
+### 10.8 Anti-patterns specific to decisioning
+
+- **"Is this ready?" / "Shall I proceed?"** — a permission request, not a decision.
+- **Strawman options** — pairing the intended answer with an obviously bad alternative.
+- **Scope-inflating a decision** — attaching an unrelated engineering item to a legal or strategic one (e.g. claiming a schema fix gates a contract signature). Wastes the HIC's scarcest resource and can hand a spurious reason to delay.
+- **The invisible one-way door** — presenting an irreversible action in the same register as a reversible one.
+
+---
+
+_Version 1.2 · 24.07.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
