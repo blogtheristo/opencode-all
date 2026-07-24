@@ -167,8 +167,14 @@ vertical-align: middle;
 <header id="title-block-header">
 <h1 class="title">2026-07-24-kya-open-standard-dual-track-ip-strategy</h1>
 </header>
-<h1 id="field-note-kya-open-standard-v1.5-the-dual-track-ip-strategy">Field
-Note — KYA Open Standard v1.5: the Dual-Track IP Strategy</h1>
+<h1 id="field-note-kya-specification-v1.5-the-dual-track-ip-strategy">Field
+Note — KYA Specification v1.5: the Dual-Track IP Strategy</h1>
+<blockquote>
+<p><strong>Title corrected 24.07.2026.</strong> This note was written as
+“KYA Open Standard v1.5”; the artifact was retitled
+<strong>Specification</strong> on HIC challenge — see the Correction
+section. The filename is left unchanged as a dated record.</p>
+</blockquote>
 <ul>
 <li><strong>Date:</strong> 2026-07-24</li>
 <li><strong>Author:</strong> Risto Anton Päärni (Founder, CEO · Lifetime
@@ -348,10 +354,10 @@ GO</h2>
 <strong>publish the ATS formula openly</strong>, retain the telemetry
 pipeline. <em>Loop closed per Learning Standard §10.7.</em></p>
 <p><strong>Executed:</strong> <code>standards/kya-open/</code> created —
-<code>SPEC.md</code> (draft v0.1 toward Open Standard v1.5),
-<code>LICENSE</code> (canonical Apache-2.0 text), <code>NOTICE</code>
-(copyright + the spec-licence caveat). The strategy no longer exists
-only in session memory.</p>
+<code>SPEC.md</code> (now v0.2, <strong>KYA Specification
+v1.5</strong>), <code>LICENSE</code> (canonical Apache-2.0 text),
+<code>NOTICE</code> (copyright + the spec-licence caveat). The strategy
+no longer exists only in session memory.</p>
 <p><strong>This resolves <code>[HIC INPUT NEEDED]</code> #3</strong>
 (where the open/proprietary line falls) — the boundary in the
 proposed-analysis table above is now the decided boundary, and §0.5 of
@@ -364,6 +370,61 @@ implementation does not yet meet</strong> — they correspond to the PR
 #1716 crypto review finding F1 and backlog B7/B8/D4. That is deliberate
 and recorded in Appendix A: a standard describes what conformance means,
 not what one vendor currently ships.</p>
+<h2 id="correction-standard-was-the-wrong-word-hic-challenge-24.07.2026">Correction
+— “Standard” was the wrong word (HIC challenge, 24.07.2026)</h2>
+<p><strong>HIC challenge:</strong> <em>“KYA standard is not a standard.
+Because no body has put it standardization process. The time spent to
+KYA and steps are not comparable to cloud standards at all. If we
+publish v1.5 as open standard is this really a standard?”</em></p>
+<p><strong>Answer: no, and the challenge is correct.</strong> The
+artifact was retitled <strong>“KYA Open Standard v1.5” → “KYA
+Specification v1.5”</strong> (SPEC.md v0.1 → v0.2), and §0.6 now states
+the case plainly.</p>
+<p><strong>Why the original title was a defect — not a style
+preference:</strong></p>
+<ul>
+<li><strong>Not de jure.</strong> No body has chartered, reviewed,
+balloted or ratified it; §0.2 admits the body has not even been chosen.
+The title claimed the category the document’s own contents
+disclaimed.</li>
+<li><strong>Not de facto.</strong> Zero implementations exist outside
+Lifetime Oy.</li>
+<li><strong>The EU hazard is specific.</strong> “Harmonised standard” is
+a <strong>legal term</strong> under EU AI Act <strong>Article
+40</strong> (presumption of conformity, produced via CEN/CENELEC). A
+document titled “standard,” aimed at regulated industries, written
+adjacent to AI Act obligations, invites an inference it has not
+earned.</li>
+<li><strong>The house voice forbids it.</strong>
+<code>docs/BLOG_STANDARD.md</code> §12.1 rule 6 — <em>“never sell a
+promise the layer cannot deliver; the fastest way to lose European
+enterprise trust is to over-claim.”</em> Industry uses “open standard”
+loosely; DWS specifically cannot, because the discipline of not
+over-claiming <strong>is</strong> the product.</li>
+</ul>
+<p><strong>What the standards process actually buys</strong> — and what
+a solo-authored spec structurally lacks: adversarial review by parties
+with <strong>competing commercial interests</strong>, interop testing
+between <strong>independent</strong> implementations, formal IPR
+disclosure, and change control that <strong>outlives the original
+author</strong>. This session is a live demonstration of the first gap:
+a reviewer endorsed a non-existent Entra integration, described
+<code>jose</code> as the plan after it had been rejected, and attached a
+schema fix to a legal signature. Each was caught by checking, not by the
+review. One organization reviewing itself has no structural
+corrective.</p>
+<p><strong>The four gates (SPEC §0.6)</strong> that would honestly earn
+the word later: two independent implementations · a conformance suite
+that can be failed · a body accepts it <em>or</em> real adoption occurs
+· change control that survives Lifetime Oy.</p>
+<p><strong>Timing note:</strong> renaming before external citation costs
+nothing; demoting “Standard” to “Specification” after adoption would
+read as a retreat. This was a one-way door taken in the cheap
+direction.</p>
+<p><strong>Naming that survives scrutiny:</strong> “the first careful
+specification for governing delegated agent authority, written while the
+category was being invented” is both truer than “standard” and harder
+for anyone to take away on a technicality.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>HIC fills the remaining three <code>[HIC INPUT NEEDED]</code> items;

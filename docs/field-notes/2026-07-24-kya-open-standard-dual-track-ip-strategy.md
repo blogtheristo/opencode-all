@@ -1,4 +1,6 @@
-# Field Note — KYA Open Standard v1.5: the Dual-Track IP Strategy
+# Field Note — KYA Specification v1.5: the Dual-Track IP Strategy
+
+> **Title corrected 24.07.2026.** This note was written as "KYA Open Standard v1.5"; the artifact was retitled **Specification** on HIC challenge — see the Correction section. The filename is left unchanged as a dated record.
 
 - **Date:** 2026-07-24
 - **Author:** Risto Anton Päärni (Founder, CEO · Lifetime Oy) — via Claude Code session `claude/greg-isenberg-field-notes-a2r544`
@@ -74,11 +76,32 @@ Publishing the protocol invites implementations DWS does not control. That is th
 
 **Decided:** land the spec in-repo first, **publish the ATS formula openly**, retain the telemetry pipeline. _Loop closed per Learning Standard §10.7._
 
-**Executed:** `standards/kya-open/` created — `SPEC.md` (draft v0.1 toward Open Standard v1.5), `LICENSE` (canonical Apache-2.0 text), `NOTICE` (copyright + the spec-licence caveat). The strategy no longer exists only in session memory.
+**Executed:** `standards/kya-open/` created — `SPEC.md` (now v0.2, **KYA Specification v1.5**), `LICENSE` (canonical Apache-2.0 text), `NOTICE` (copyright + the spec-licence caveat). The strategy no longer exists only in session memory.
 
 **This resolves `[HIC INPUT NEEDED]` #3** (where the open/proprietary line falls) — the boundary in the proposed-analysis table above is now the decided boundary, and §0.5 of the spec states it. **Three remain open:** why Q4 2026, which standards body, and the conformance story.
 
 **Note on what the spec asserts.** §7.2 (signature must cover proof options), §5 (tenancy + pseudonymous subject id) and §8 (revocation cascade) state requirements the **reference implementation does not yet meet** — they correspond to the PR #1716 crypto review finding F1 and backlog B7/B8/D4. That is deliberate and recorded in Appendix A: a standard describes what conformance means, not what one vendor currently ships.
+
+## Correction — "Standard" was the wrong word (HIC challenge, 24.07.2026)
+
+**HIC challenge:** _"KYA standard is not a standard. Because no body has put it standardization process. The time spent to KYA and steps are not comparable to cloud standards at all. If we publish v1.5 as open standard is this really a standard?"_
+
+**Answer: no, and the challenge is correct.** The artifact was retitled **"KYA Open Standard v1.5" → "KYA Specification v1.5"** (SPEC.md v0.1 → v0.2), and §0.6 now states the case plainly.
+
+**Why the original title was a defect — not a style preference:**
+
+- **Not de jure.** No body has chartered, reviewed, balloted or ratified it; §0.2 admits the body has not even been chosen. The title claimed the category the document's own contents disclaimed.
+- **Not de facto.** Zero implementations exist outside Lifetime Oy.
+- **The EU hazard is specific.** "Harmonised standard" is a **legal term** under EU AI Act **Article 40** (presumption of conformity, produced via CEN/CENELEC). A document titled "standard," aimed at regulated industries, written adjacent to AI Act obligations, invites an inference it has not earned.
+- **The house voice forbids it.** `docs/BLOG_STANDARD.md` §12.1 rule 6 — _"never sell a promise the layer cannot deliver; the fastest way to lose European enterprise trust is to over-claim."_ Industry uses "open standard" loosely; DWS specifically cannot, because the discipline of not over-claiming **is** the product.
+
+**What the standards process actually buys** — and what a solo-authored spec structurally lacks: adversarial review by parties with **competing commercial interests**, interop testing between **independent** implementations, formal IPR disclosure, and change control that **outlives the original author**. This session is a live demonstration of the first gap: a reviewer endorsed a non-existent Entra integration, described `jose` as the plan after it had been rejected, and attached a schema fix to a legal signature. Each was caught by checking, not by the review. One organization reviewing itself has no structural corrective.
+
+**The four gates (SPEC §0.6)** that would honestly earn the word later: two independent implementations · a conformance suite that can be failed · a body accepts it *or* real adoption occurs · change control that survives Lifetime Oy.
+
+**Timing note:** renaming before external citation costs nothing; demoting "Standard" to "Specification" after adoption would read as a retreat. This was a one-way door taken in the cheap direction.
+
+**Naming that survives scrutiny:** "the first careful specification for governing delegated agent authority, written while the category was being invented" is both truer than "standard" and harder for anyone to take away on a technicality.
 
 ## Next Steps
 

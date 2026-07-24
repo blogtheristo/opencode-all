@@ -1,6 +1,7 @@
-# KYA Open Standard v1.5 — Know Your Agent
+# KYA Specification v1.5 — Know Your Agent
 
 **Status:** DRAFT — in-repo, not yet published
+**This is a specification, not a standard.** No standards body has processed it, and no implementation exists outside Lifetime Oy. See §0.6 for what would earn the word.
 **Licence:** Apache License 2.0 (see `LICENSE`)
 **Editor:** Risto Anton Päärni, Lifetime Oy
 **Date:** 2026-07-24
@@ -9,11 +10,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.1 (spec draft toward Open Standard v1.5)
+Version: 0.2 (specification draft, v1.5 line)
 
 Sessions & Modifications:
 
-- Version: 0.1 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: First in-repo draft of the KYA Open Standard, created under **HIC decision 3A (24.07.2026)** — "land the spec in-repo first, publish the ATS formula openly, retain the telemetry pipeline." Prior to this file the spec existed only in session memory with no artifact anywhere in `origin/main`. Normative content extracted from `Legal/KYA_STANDARD_v1.md` (§3 ATS, §14.2 mandate gating, §14.4 trust chain, §14.5 evidence chain, §14.7 verified-done attestation) and the executable engine in `src/identity/`. Publishing boundary applied per decision 3A. Three strategy questions remain open and are marked in §0.2.
+- Version: 0.2 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: **Retitled "Open Standard" → "Specification"** on HIC challenge: no standards body has processed this document and no implementation exists outside Lifetime Oy, so "standard" claimed a category the document's own §0.2 and §9 disclaimed. Added **§0.6 (Specification, not standard)** with the four gates that would honestly earn the word — two independent implementations, a conformance suite that can be failed, a body or genuine adoption, and change control outliving Lifetime Oy. Rationale recorded: the EU AI Act Art. 40 term "harmonised standard" is legally loaded in exactly this market, and the DWS house voice forbids over-claiming. Renaming before external citation is free; demoting after adoption would read as a retreat.
+- Version: 0.1 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: First in-repo draft of the KYA specification, created under **HIC decision 3A (24.07.2026)** — "land the spec in-repo first, publish the ATS formula openly, retain the telemetry pipeline." Prior to this file the spec existed only in session memory with no artifact anywhere in `origin/main`. Normative content extracted from `Legal/KYA_STANDARD_v1.md` (§3 ATS, §14.2 mandate gating, §14.4 trust chain, §14.5 evidence chain, §14.7 verified-done attestation) and the executable engine in `src/identity/`. Publishing boundary applied per decision 3A. Three strategy questions remain open and are marked in §0.2.
 
 ***
 
@@ -21,7 +23,7 @@ Sessions & Modifications:
 
 ### 0.1 What this is
 
-KYA — **Know Your Agent** — is a governance standard for autonomous software agents that act with delegated human authority. It answers four questions about any agent action, in a form a third party can check without trusting the operator:
+KYA — **Know Your Agent** — is a governance specification for autonomous software agents that act with delegated human authority. It answers four questions about any agent action, in a form a third party can check without trusting the operator:
 
 1. **Who is this agent?** (identity + capability manifest)
 2. **Which human stands behind it?** (accountability binding)
@@ -40,7 +42,7 @@ Three questions remain open and **must be resolved before publication**. They ar
 
 ### 0.3 Licensing note
 
-This document is licensed **Apache-2.0**, chosen for its **express patent grant (§3)** — MIT and BSD have none, and a governance standard touching payment authority and identity binding will be read by an implementer's counsel who looks for exactly that.
+This document is licensed **Apache-2.0**, chosen for its **express patent grant (§3)** — MIT and BSD have none, and a governance specification touching payment authority and identity binding will be read by an implementer's counsel who looks for exactly that.
 
 **Known gap:** Apache-2.0 is a *software* licence applied to a *specification*. Standards bodies commonly expect a specification-grade regime (W3C Document Licence, OWFa, or the body's own IPR policy) covering implementation rights in the spec itself. Dual-licensing may be required to enter a body, and re-licensing is materially harder once outside contributions arrive. **Resolve before publication, not after.**
 
@@ -48,11 +50,29 @@ This document is licensed **Apache-2.0**, chosen for its **express patent grant 
 
 "MUST", "MUST NOT", "SHOULD", "MAY" are to be interpreted as in RFC 2119.
 
-### 0.5 What this standard does not cover (retained implementation)
+### 0.5 What this specification does not cover (retained implementation)
 
 Per the publishing boundary: the protocol is open; the infrastructure is not. Out of scope by design — **sovereign key custody and tiering**, the **Lifetime World Model** and per-industry ontologies, the agent fleet, Control Room / Situation Room, and the **telemetry pipeline that produces real ATS inputs**.
 
 The asymmetry is deliberate and is the reason publishing the formula is safe: anyone can compute the arithmetic in §2; almost nobody can observe the violations, latencies, and denied attempts of a governed fleet operating across regulated industries. A published formula is **checkable**, which is what makes a score worth anything to an insurer, escrow provider, or auditor. A secret formula is merely unauditable.
+
+### 0.6 Specification, not standard
+
+This document is a **specification**: an openly licensed description that anyone may implement. It is **not a standard**, in either sense the word normally carries.
+
+- It is not a **de jure** standard. No standards body has chartered, reviewed, balloted, or ratified it. The body has not even been chosen (§0.2).
+- It is not a **de facto** standard. There are, at the time of writing, **no implementations outside Lifetime Oy**.
+
+The distinction is not pedantry, for two reasons. First, in the European Union **"harmonised standard" is a legal term** — EU AI Act Article 40, conferring a presumption of conformity, produced through CEN/CENELEC. A document titled "standard," aimed at regulated industries and written adjacent to AI Act obligations, invites a reader to infer an adjacency this document has not earned. Second, what a standards process actually buys is **adversarial review by parties with competing commercial interests**, **interop testing between independent implementations**, **formal IPR disclosure**, and **change control that outlives the original author**. This document has had none of those. It was written inside one organization, against one implementation.
+
+**Four gates would honestly earn the word.** Until all four are met, this remains a specification and SHOULD be cited as one:
+
+1. **Two or more independent implementations**, built by parties with no commercial relationship to Lifetime Oy.
+2. **A conformance suite that an implementation can fail** — see §9, which does not exist yet.
+3. **Either** a recognised body accepts the document into its process (de jure), **or** genuine multi-party adoption occurs (de facto).
+4. **Change control that survives Lifetime Oy** — a governance arrangement under which this text can be amended without the original author's consent. This is the real test of whether a document is a standard or a product artifact.
+
+Being early to a rulebook that nobody has ratified is a defensible position; claiming ratification that has not happened is not. This specification aims to be the first careful description of how delegated agent authority is governed — a claim that is both truer and harder to dispute than "standard."
 
 ***
 
@@ -175,7 +195,7 @@ Where signing is configuration-gated, absence of a key in a production deploymen
 
 ## 8. Human oversight
 
-Every agent chain MUST terminate in an identifiable accountable human. The standard's implementation of this is **HIC — Human-In-Command**.
+Every agent chain MUST terminate in an identifiable accountable human. This specification's implementation of that requirement is **HIC — Human-In-Command**.
 
 Conformant deployments MUST provide an intervention point at which a human can inspect, override, and terminate agent authority, and MUST log the exercise of that authority to the evidence chain. This maps to EU AI Act **Article 14** (human oversight); §5 maps to **Article 12** (record-keeping).
 
@@ -193,4 +213,4 @@ An implementation is **KYA-conformant** if it satisfies every MUST in §2–§8.
 
 This open standard is the publishable subset of `Legal/KYA_STANDARD_v1.md` (internal, currently v2.0 pending). Where the two differ, the internal standard governs Lifetime Oy implementations and this document governs conformance claims by third parties. Sections §7.2, §5 (tenancy, pseudonymisation) and §8 (revocation cascade) state requirements that the internal implementation does **not yet fully meet** — they are specified here as the correct target, and the gaps are tracked in the DWS backlog (B7, B8, D4) and the PR #1716 crypto review.
 
-Stating a requirement the reference implementation has not met is deliberate: a standard describes what conformance means, not what one vendor happens to ship today.
+Stating a requirement the reference implementation has not met is deliberate: a specification describes what conformance means, not what one vendor happens to ship today.
