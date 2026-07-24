@@ -324,14 +324,15 @@
             and the schema it travels in.
           </p>
           <p class="mb-2">
-            Today that credential mints <strong>unsigned</strong>. Which means it is a claim our
-            database makes, not a proof a stranger can check.
+            In production today that credential mints <strong>unsigned</strong>. Which means it is a
+            claim our database makes, not a proof a stranger can check.
           </p>
           <p class="mb-0">
-            The signing model is specified &mdash; Ed25519, a DNS-rooted issuer identity, keys held
-            in the customer&rsquo;s own jurisdiction and never in a shared foreign cloud. Specified
-            is not shipped. It is next, and we are hardening the whole chain rather than only the
-            last link.
+            The signing path is written and in review &mdash; Ed25519 on the runtime&rsquo;s own
+            crypto, a DNS-rooted issuer identity, keys held in the customer&rsquo;s jurisdiction and
+            never in a shared foreign cloud. Written is not live. Nothing calls it from a running
+            system yet, and we would rather say that than let the word
+            &ldquo;verifiable&rdquo; do work it has not earned.
           </p>
         </section>
 
@@ -391,8 +392,8 @@
               seconds.
             </li>
             <li>
-              Ours mints unsigned today. The signing and key-custody model is written and not yet in
-              code. That is the next thing we ship.
+              Ours mints unsigned in production today. The signing path is written and in review;
+              nothing calls it from a running system yet. That is the next thing we ship.
             </li>
           </ul>
         </section>

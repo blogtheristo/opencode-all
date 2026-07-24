@@ -1,0 +1,92 @@
+# Field Note — KYA Open Standard v1.5: the Dual-Track IP Strategy
+
+- **Date:** 2026-07-24
+- **Author:** Risto Anton Päärni (Founder, CEO · Lifetime Oy) — via Claude Code session `claude/greg-isenberg-field-notes-a2r544`
+- **Location:** Europe > Finland > Espoo
+- **Context:** DWS6 — capturing the KYA Open Standard IP strategy as an HIC outcome **before GitHub publication**
+- **Confidence:** **LOW–MIXED, and deliberately so.** See the honesty note below.
+
+> ## ⚠️ Honesty note — read before citing this file
+>
+> **No artifact for the KYA Open Standard v1.5 spec exists in this repository.** A search of `origin/main` found no open-standard document, no Apache 2.0 licence file for KYA, and no spec draft. The work described here happened in **internal spec discussions** — that is, in session memory, which is precisely the asset `DWS_LEARNING_STANDARD.md` exists to stop losing.
+>
+> This note therefore separates two things, and never blends them (Rule 7 — surface conflicts, don't average):
+>
+> - **Reported** — stated by the HIC, recorded verbatim, unverified.
+> - **`[HIC INPUT NEEDED]`** — a fact only the HIC holds. **Not inferred, not guessed, left open on purpose.** A plausible-sounding invention here would poison the institutional record more than a blank would.
+> - **Proposed analysis** — reasoning contributed by this session, offered for confirmation or rejection. Carries no authority until the HIC rules on it.
+
+## Ontology Tags
+
+- **Geography:** Europe > EU; standards bodies global
+- **Sector:** Enterprise AI > Agent governance > Standards & IP strategy
+- **Entities:** KYA Open Standard v1.5, Apache License 2.0, standards-body adoption, DWS IQ platform, AP2 / FIDO Alliance, W3C VC
+- **Temporal Context:** 2026-Q3; adoption target 2026-Q4
+
+---
+
+## Reported (HIC-stated, unverified)
+
+1. **Internal spec discussions** produced a KYA Open Standard **v1.5** draft.
+2. **Licensing decision: Apache License 2.0.**
+3. **Strategy: "protocol open, infrastructure proprietary."**
+4. **Standards-body adoption targets Q4 2026.**
+5. **GitHub publication is planned** and has not yet happened.
+
+## The strategic shape — proposed analysis
+
+The pattern is a well-worn one: publish the *interface* so others build against it, keep the *implementation* that makes the interface worth using. It works when three conditions hold, and this session can only test one of them from the repo.
+
+**Condition 1 — the spec must be implementable by a stranger.** If a third party cannot build a conforming KYA verifier from the published document alone, it is not a standard; it is marketing with a licence attached. This is the condition that decides whether "open" earns credibility.
+
+**Condition 2 — the retained side must be the durable side.** For KYA, the natural split is:
+
+| Track                      | Contents (proposed)                                                                                                                                 |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Open (published)**       | Credential shapes and vocabularies; the ATS *formula* and score semantics; gate decision semantics; evidence-chain event types; verification procedure |
+| **Proprietary (retained)** | Sovereign key custody and tiering; the Lifetime World Model and per-industry ontologies; the agent fleet; Control Room / Situation Room; the ATS *telemetry pipeline* that produces real inputs |
+
+The asymmetry that makes this safe: **a published scoring formula is not a threat, because the score's value comes from the telemetry feeding it.** Anyone can compute `1.0 − V×0.25 − L − D×0.05 + A×0.15`; almost nobody can observe the violations, latencies, and denied attempts of a real governed fleet across regulated industries. Publishing the formula makes the score *checkable*, which is the property that makes it worth money (per the same session's Greg Isenberg notes) — and checkability is exactly what a proprietary formula cannot have.
+
+**Condition 3 — the timing must serve adoption, not announcement.** `[HIC INPUT NEEDED]` — see below.
+
+## Apache 2.0 — proposed analysis of what it buys and what it does not
+
+Apache 2.0 was chosen. Two properties are worth stating explicitly, because they are the reason to pick it over the obvious alternatives:
+
+- **It carries an express patent grant** (§3). MIT and BSD do not. For a governance standard that touches payment authority and identity binding, an implementer's counsel will look for exactly this before recommending adoption. It also carries a defensive patent-termination clause, which is a feature for an ecosystem play.
+- **It is a *software* licence being used on a *specification*.** This is the common friction point. Apache 2.0 governs the copyright in the document text and any reference code, but standards bodies frequently expect a specification-grade licensing regime (W3C Document Licence, OWFa, or a body's own IPR policy) covering *implementation rights in the spec itself*. Shipping Apache 2.0 on GitHub is a fine first move; it may need to be *re-licensed or dual-licensed* to enter a standards body. Worth checking before publication rather than after, since re-licensing after third-party contributions arrive is materially harder.
+
+`[HIC INPUT NEEDED]` — was Apache 2.0 chosen for the patent grant specifically, or as a default? The answer changes whether a spec-grade licence needs to sit alongside it.
+
+## Open questions only the HIC can answer
+
+1. `[HIC INPUT NEEDED]` **Why Q4 2026 specifically?** Candidate drivers this session can see but cannot confirm: an EU AI Act implementation milestone; FIDO's AP2 progression toward 1.0 (v0.2 was donated 28.04.2026); a standards body's submission window; an EIC/funding milestone; or a customer or partner commitment. The *reason* determines whether the date is a hard constraint or a preference — and therefore whether slipping it costs anything.
+2. `[HIC INPUT NEEDED]` **Which standards body?** FIDO Alliance (where AP2 now lives), W3C (where the VC data model lives), CEN/CENELEC (the EU AI Act harmonised-standards route), or ETSI. These have different IPR policies, membership costs, and timelines, and the choice constrains the licence question above.
+3. `[HIC INPUT NEEDED]` **Where exactly does the open/proprietary line fall?** The table above is this session's proposal, not a record of a decision. In particular: is the **ATS formula** published (recommended) or retained?
+4. `[HIC INPUT NEEDED]` **What is the conformance story?** A standard without a conformance test suite gets implemented loosely and diverges. Is there a plan for one, and does DWS operate it (influence, but a neutrality question) or the body?
+
+## The risk worth naming
+
+Publishing the protocol invites implementations DWS does not control. That is the intent — but it has a specific failure mode: **a competitor implements the open spec, markets "KYA-compliant," and the term stops meaning governed.** The defences are a conformance suite plus a trademark on the mark itself, and neither is visible in the repo today. Open the protocol; do not open the *name* without a conformance gate behind it.
+
+## Next Steps
+
+- HIC fills the four `[HIC INPUT NEEDED]` items; this note is revised to v1.1 with the real rationale.
+- Confirm whether a spec-grade licence must accompany Apache 2.0 for the target body **before** GitHub publication.
+- Locate or create the actual spec draft in-repo — it currently exists nowhere in `origin/main`, which means it is one lost container away from gone.
+- Decide the conformance-suite and trademark posture before the mark is public.
+
+### Learning-loop steps (DWS_LEARNING_STANDARD five-step)
+
+- **(1) KB entry** — deferred until the `[HIC INPUT NEEDED]` items are filled; a KB entry asserting unconfirmed strategy would propagate guesses as canon.
+- **(2) Field note** — this file. ✅
+- **(3) `Learn/` HTML render** — see companion HTML (`Learn/2026-07-24-kya-open-standard-dual-track-ip-strategy.html`). ✅
+- **(4) Drive export** — N/A this session (repo is source of truth, Truth Standard §2E; flagged).
+- **(5) HIC question** — below. ✅
+
+### HIC question (EU AI Act Art. 14 intervention point)
+
+> **Does the KYA Open Standard v1.5 spec get written into this repository before it goes to GitHub — and is the ATS formula on the open side of the line?** Two halves, both yours. On the first: the spec presently has no artifact anywhere in `origin/main`, so a strategy the company is about to publish exists only in session memory; publishing to GitHub from a draft that was never in the source-of-truth repo inverts the Truth Standard §2E rule (repo is source, exports are copies). On the second: publishing the ATS formula is the move that makes the score *checkable* by a counterparty, which is the property that gives it commercial weight — but it is also the most copyable artifact in the standard.
+>
+> **My recommendation:** land the spec in-repo first (even as a rough draft), publish the ATS formula openly, and retain the telemetry pipeline that feeds it — the formula without the fleet's observations is arithmetic, while the formula *with* published semantics is what lets an insurer or escrow provider price our score instead of ignoring it. Pair publication with a conformance suite and a trademark position on "KYA" before, not after, the first outside implementation appears.
