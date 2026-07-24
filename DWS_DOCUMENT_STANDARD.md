@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Added §23 (Universal Document Footer — mandatory) — every document must carry, at the bottom, a footer with document version, date, `© <year> Lifetime Oy. All rights reserved.`, and a Business Confidentiality clause (unless the doc is explicitly Public). Footer version must equal the §2 header version (lockstep). Added §24 (Repository-First, Then Export — anti-drift) codifying that any externally-exported artifact (Google Docs/Drive, PDF, Gamma, .docx, .xlsx) MUST have a repository source-of-truth file first, versioned per §2; the export is a generated copy, never the master. Added both to the ToC. Triggered by finding four board-pack financial docs (Boardy 29 Jul) living only as Google Drive exports with no repo copy.
 - Version: 2.5 | Tool: Claude Code | Session: claude/jasenko-hadzic-outreach-ici0e7 | Date: 12.07.2026 | Changes: Extended §20.6 scope to explicitly cover `investor-outreach/LETTER_*` files and cloud exports (Google Docs, Drive PDFs, Gamma decks) — version block goes at the end for these, not the first page. Added §20.7 (Cloud Export Cleanup — Always Link Superseded Files): when a connector like Google Drive lacks rename/delete/update-in-place and a correction requires a new file, the agent must always link every superseded file needing manual deletion, on every correction, not just the first. Triggered by repeated Google Drive exports of an investor outreach letter (Jasenko Hadzic / Spintop Ventures) creating duplicate untitled files with no cleanup pointer.
 - Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
@@ -69,6 +70,8 @@ Document Status:
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
 21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
 22. [Whitepaper Standard](#22-whitepaper-standard) ⭐ NEW
+23. [Universal Document Footer (mandatory)](#23-universal-document-footer-mandatory) ⭐ NEW
+24. [Repository-First, Then Export (anti-drift)](#24-repository-first-then-export-anti-drift) ⭐ NEW
 
 ---
 
@@ -2635,3 +2638,52 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 - Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
 - Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
 - Versioning is lockstep with the header block (§2) and the top version line (§22.1) — bump both together.
+
+## 23. Universal Document Footer (mandatory)
+
+Every document produced in this repository — internal or external, narrative or tabular — **must** carry a footer block at the **bottom** of the document containing four elements:
+
+1. **Document version** — equal to the §2 header version (lockstep; never a different number).
+2. **Date** — the content date (DD.MM.YYYY). If the file is a repository copy of an externally-authored/exported artifact, also note the repo-copy date.
+3. **Copyright** — `© <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.`
+4. **Business Confidentiality clause** — unless the document is explicitly classified **Public** (see §22.2).
+
+### 23.1 Canonical footer block
+
+```
+***
+
+**Document version:** vX.Y · **Date:** DD.MM.YYYY · **Owner:** Lifetime Oy
+© <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
+```
+
+### 23.2 Rules
+
+- **Version lockstep.** The footer version must always equal the header (§2) version. Bump both in the same edit — a mismatch is a Rule 12 (fail-loud) violation.
+- **Public documents** replace the confidentiality clause with a short public-license/attribution line, but still carry version, date, and copyright.
+- **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
+- **Whitepapers (§22.1)** carry the per-page printed footer defined there; §23 is the Markdown-source equivalent and both must agree on classification.
+- **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
+
+## 24. Repository-First, Then Export (anti-drift)
+
+A Google Doc, Drive file, PDF, Gamma deck, `.docx`, or `.xlsx` that has **no repository source-of-truth file** is a data-drift incident, not a deliverable. Exports are generated copies; the repository `.md` (or `.csv` for tabular models) is the master.
+
+### 24.1 Order of operations (required)
+
+1. **Author the repository file first** — Markdown per §2 header + §23 footer, versioned normally.
+2. **Then export** — generate the Google Doc / PDF / `.docx` / Gamma from that source.
+3. **Cross-link** — the repo file names its export target(s); the export cites the repo path + version it was generated from.
+4. **On correction** — edit the repo file, bump the version, re-export. Never edit only the export. (Cloud connectors without update-in-place: follow §20.7 and link every superseded export for manual cleanup.)
+
+### 24.2 File formats — when Markdown alone is not enough
+
+- **Narrative docs** (letters, memos, strategies, one-pagers, briefs): Markdown `.md` is the canonical master. Sufficient on its own.
+- **Financial models / spreadsheets** (budget, revenue scenarios, cap table): the live model is a spreadsheet. Keep **both** a Markdown `.md` (human-readable board narrative, git-diffable, §23 footer) **and** a `.csv` export of the underlying numbers in the repo, so the figures are version-controlled and diffable independently of the Google Sheet. The `.xlsx`/Google Sheet is the working tool; the repo `.md` + `.csv` is the source-of-truth of record.
+- **Rendered/branded outputs** (`.docx`, PDF, HTML) are build artifacts — generated from the `.md` source via the documented pipeline (§8, §22.2), not hand-maintained.
+
+### 24.3 Enforcement
+
+- Before sharing any export externally, confirm the repository copy exists and its version matches. If it does not, create it first — the export does not ship until the repo master exists.
+- Registration of canonical financial/positioning figures still flows through `DWS_TRUTH_STANDARD.md` (source-of-truth registry).
