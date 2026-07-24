@@ -60,6 +60,18 @@ Priority key: **P0** = correctness/production risk or a signed/legal action; **P
 
 ---
 
+## F. Monday-gating triage (24.07.2026) — 15-min scan before the weekend
+
+**Result: no catastrophic Monday-critical item is buried/undocumented.** The canonical Monday list — `docs/investor/boardy-2026-07-29/BOARDY_MONDAY_PRIORITIES_V3.md` (v3, actuals-anchored) — is comprehensive and covers the P0s: IP assignment (LUT free IPR review → sign), 3 board sheets, Finnvera repayment holiday + rantalainen.fi R&D-cap Phase 2 (Gate-1 equity cure), staggered INTRO sends, ORK tracking. One sharpening and two minor flags:
+
+| # | Finding | Prio |
+| - | ------- | ---- |
+| F1 | **IP assignment is not sign-ready as-is** — `Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.md` is a **DRAFT template** (created session `claude/tutki-lifetime-sales-69g53v`, 11.06.2026, no handoff) with (a) blank founder henkilötunnus + address, and (b) an **undecided consideration clause** (line 106: `[☐ no cash / ☐ nominal €__ / ☐ other]`), plus "DRAFT — counsel review required." Monday's P0 "review → sign" is really **review → decide consideration (tax/valuation-sensitive, the reason for the LUT review) → fill fields → sign**. Board minutes (`Legal/BOARD_MINUTES_IP_ASSIGNMENT_2026.md`) exist alongside. Sharpens backlog A8. | **P0 (Mon)** |
+| F2 | **Duplicate Monday-priorities location** — both `docs/investor/boardy-2026-07-29/…MONDAY_PRIORITIES_V3.md` and `docs/board/2026-07-29-boardy/monday-priorities.csv` exist. Confirm which is canonical before Monday to avoid working off a stale copy. | P2 |
+| F3 | Gate-1 equity cure (Finnvera + rantalainen.fi R&D-cap Phase 2 €494k) and the board sheets are documented in the Boardy V3 pack — no missing artifact found; execution is human/RED-zone (founder + accountant + bank). | (tracked) |
+
+**Scope note:** this was a 15-minute targeted scan for Monday-gating legal/IP/investor items, not the full multi-session learning backlog (deferred to Tuesday). It reads committed work products + the Boardy pack; it cannot see sessions whose only trace was an uncommitted transcript.
+
 ## Method & caveats
 
 - **Sources:** the 27 per-branch handoff files under `.claude/handoffs/claude/` + the `HANDOFF.md` cross-branch history log. These are the git-committed working memory of prior ephemeral cloud sessions.
