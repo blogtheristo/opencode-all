@@ -89,6 +89,7 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 | asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                                                                            | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
 | sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                                                                                    | `DWS_ROLES_REGISTRY.md`                                                |
 | "which standard governs X?" / index lookup / standards catalogue                                                                                                                                       | `DWS_STANDARDS_LIBRARY.md`                                             |
+| ending a substantive session; new idea / concept / theory / code / whitepaper / artifact / signal to capture; field note; `Learn/` HTML; keeping the HIC informed; EU AI Act Article 14 human oversight | `DWS_LEARNING_STANDARD.md`                                             |
 
 **Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
 
@@ -253,6 +254,20 @@ No one-off judgment work. If the user asks for something that will need to happe
 **Skill shape:** Skill files are parameterized procedures, not domain scripts. A skill describes the process; the invocation supplies the world (TARGET, KIND, DATASET, ROLE). Four near-identical skills with different filenames is a smell — collapse them into one skill with arguments.
 
 **Learning loop:** Run `/learn SCOPE=last-week` after `/retro` (or at the end of a feature). It reads retros, commit churn, and hook audit logs, diarizes the mediocre outcomes ("OK but not great"), and emits a read-only edit plan in `docs/learning-loops/`. A human applies approved edits in a follow-up commit titled `learn: <scope> rule updates`. Skills get better; the harness stays thin.
+
+## Session Learning Outcome Rule (HIC — EU AI Act Art. 14)
+
+**Keeping the HIC informed is a primary deliverable of every substantive session, not an afterthought.** New ideas, concepts, theories, code, whitepapers, and artifacts are welcome to build DWS further — but an artifact only a machine session ever saw dies in ephemeral container memory and no Human-In-Command (HIC) ever understood or authorized it. Canonical: `DWS_LEARNING_STANDARD.md`; stated as a canonical fact in `DWS_TRUTH_STANDARD.md` §2F + row 30. **Legal basis: EU AI Act Article 14 (human oversight)** — HIC = Human-In-Command is the DWS implementation.
+
+Before ending a **substantive** session (new idea/code/artifact/signal/incident — see the standard's gate; trivial typo/dep/lookup sessions are exempt), produce the **HIC Learning Outcome — five-step minimum:**
+
+1. **Update the knowledge base** (`kb/`, via `/kb`).
+2. **Write a field note** (`docs/field-notes/YYYY-MM-DD-topic.md`).
+3. **Add an HTML version into `Learn/`** (`scripts/render-doc.sh`; Document Standard §18).
+4. **Export a copy to Drive** (repo stays source-of-truth — export without a repo source is a drift incident, §2E).
+5. **Ask the HIC one real, decision-shaped question** — the Article 14 intervention point.
+
+A skipped step must be recorded as `N/A — <reason>` in the field note (silent omission violates Rule 12, Fail Loud).
 
 ## Development Baseline
 
