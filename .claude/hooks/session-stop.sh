@@ -2,7 +2,22 @@
 # Stop hook — runs before Claude Code ends a session
 # Enforces governance checklist before session completion
 
-set -euo pipefail
+# Fail-open by design: this hook must NEVER trap a session because of its own
+# error. It keeps -u/pipefail to surface bugs early, but deliberately drops -e
+# so a single failing command (e.g. git in a non-repo, a transient error) does
+# not abort mid-run. We default to ALLOWING the stop and only ever exit 2 on a
+# positive, certain block decision (Check 6).
+set -uo pipefail
+
+# Run from the repo root so every git/ls path resolves regardless of Claude's
+# working directory. A wrong cwd previously risked a false "no field note"
+# block (the ls would find nothing). If this is not a git repo or git is
+# unavailable, we cannot assess anything — allow the stop and leave.
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || true)
+if [ -z "${REPO_ROOT:-}" ] || ! cd "$REPO_ROOT" 2>/dev/null; then
+  echo "Session exit checklist: not a git repo (or git unavailable) — skipping."
+  exit 0
+fi
 
 ERRORS=0
 WARNINGS=""
