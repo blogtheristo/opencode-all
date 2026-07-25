@@ -1,7 +1,50 @@
 # Handoff — `claude/greg-isenberg-field-notes-a2r544`
 
-**Last updated:** 2026-07-25 — **MERGED TO `main`** · Claude Code (Opus 5)
-**Status:** session CLOSED per DWS_LEARNING_STANDARD five-step; branch **merged to `main`** (24 commits, 0 conflicts). Tree clean, all pushed. **No production code changed on this branch** — the one code fix is delivered as an unpushed patch (see §Pending).
+**Last updated:** 2026-07-25 — **SECOND PHASE: thesis correction package** · Claude Code
+**Status:** the KYA phase below is closed and merged. A second phase followed on the same branch and is also merged (PRs #1722–#1739). **All correction decisions are made; the edits themselves are not — they happen in Google Docs, not in this repo.**
+
+***
+
+# PHASE 2 (25.07.2026) — Metropolia thesis correction package
+
+## Situation in one paragraph
+
+The Metropolia YAMK thesis was deposited in Theseus **10.07.2026** (<https://urn.fi/URN:NBN:fi:amk-2026062725698>), graded **5**. The library's Saija Pyhtilä found five inconsistencies **before** publishing, corrected the HIC's misreading of the title guidance on 29.6, followed up 7.7, got no correction, and published as-is before going on leave until **10.8**. She confirmed the PDF **can still be swapped** and gave the route: `kirjasto@metropolia.fi`.
+
+## The four working files (`docs/metropolia/master-thesis/arviointi/`)
+
+| File | What it is |
+| ---- | ---------- |
+| `README.md` v1.3 | Permanent record — assessment metadata, the title error and its cause, the Wihi question |
+| `V42_ASIAVIRHELISTA.md` v1.8 | **Every decision with reasoning.** A1–A7, B1–B4, C1–C4, D1 — all decided, none open |
+| `V42_KORJAUSHUOMAUTUS.md` v1.2 | The corrections note to paste at the end of v4.2, plus a pre-export checklist |
+| `KORJAUSPYYNTO_KIRJASTOLLE.md` v3.2 | The message to send, with the corrected PDF attached |
+
+Plus `docs/legal/PRIOR_ART_DISCLOSURE_RECORD_2026-07-25.md` v1.2 — what the deposited work already discloses (A9). **Written, not sent**, with a distribution hold in §6.
+
+## ⚠️ The edit happens in Google Docs, not here
+
+The deposited version is `V41_Final_Thesis_FI` in Google Drive. **`V3Thesis_FI` in this repo is a different, later document and must not be used as the source.**
+
+## Three constraints that govern the edit
+
+1. **Laatimishenki** — no expansion, no backports from `V3Thesis` v3.8x, no rewriting for style. v4.2 corrects the deposited work; it is not a new version.
+2. **§5.4 stays.** Removing the agentic-commerce chapter for patent reasons was considered and rejected — it does not restore novelty (public since 10.07.2026), and the author judges the chapter relevant to the work.
+3. **The corrections note must not repeat what the corrections remove**, and must not give the removals more space than the other items. Both rules exist because B1 and D1 are removals made for sensitive reasons.
+
+## Two findings a future session must not lose
+
+- **The deposited work contains §5.4 "DWS IQ: Agentic Commerce -polku", which is in no repository file.** `Agent Passport` has **zero hits repo-wide**; the repo's `Aegis` is the Defence product, a different referent. Any disclosure or patentability analysis must work from the **Theseus file**, not from this repo. A9's conclusion survives; A9's *method* did not.
+- **The Theseus URL is unreachable from this environment** — network policy blocks `urn.fi` and `theseus.fi` (CONNECT 403). All verification was done against the Drive sources `V4_Final_Thesis_FI` and `V41_Final_Thesis_FI`.
+
+## Open outside the correction package
+
+- **Wihi / degree certificate.** The title travels from Wihi with the grade to OMA and the certificate. That does **not** go through the library — it needs the study office, and it is arguably more consequential than the Theseus record.
+- **A9 / D5** — prior-art record written but unsent. LUT innovation services blocked pending the **369/2006** question; the KTH/TECoSA panel needs an NDA first; Smolander stays out of the IP path.
+
+***
+
+# PHASE 1 (24–25.07.2026) — KYA, closed and merged
 
 ## Task
 
