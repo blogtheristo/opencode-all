@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: specification-vs-standard-four-gates.md
-Version: 1.0
+Version: 1.1
 Last-Updated: 2026-07-25
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code (claude-opus-5)
@@ -18,7 +18,7 @@ Owner: risto.paarni@lifetime.fi
 
 # Specification vs Standard — and the Four Gates
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Active
 **Scope:** Any DWS document, page, deck or claim that uses the word "standard" externally
 
@@ -45,6 +45,54 @@ A document earns the external word "standard" when **all four** hold:
 4. **Change control that outlives the authoring organisation** — the text can be amended without the original author's consent.
 
 **Gate 4 is decisive and least discussed.** While amendment requires the author's consent, the document is an instrument of the author's strategy no matter how openly it is licensed. It is the test that separates a standard from a product artifact, and it is structurally unavailable to any single-vendor document.
+
+## The definition, confirmed 25.07.2026 — and three precisions
+
+The HIC stated the distinction independently and asked for confirmation:
+
+> *"Spesifikaatiolla määritetään ydin siitä mitä standardiksi hyväksytty artefakti on. Spesifikaatio on versioitu esitys, standardi esityksen yleinen muoto."*
+
+**The substance is confirmed.** A specification is a versioned, implementable technical description that defines what the artifact is, how it behaves, and what it must satisfy. A standard is an **institutional status** a specification may acquire, and only through a process external to its author. Or, put best in the same exchange:
+
+> **A standard is not a better specification. It is a specification that has passed the gates.**
+
+Three precisions, because each of them changes what follows from the definition.
+
+### Precision 1 — "the general form of the presentation" does not survive scrutiny
+
+The HIC's second clause — *"standardi esityksen yleinen muoto"* — reads the difference as one of **genericity**: a standard is a more general form of the same presentation.
+
+**That reading has to be rejected, and it matters that it is rejected explicitly**, because it is the most natural mistake to make and it points the work in exactly the wrong direction. If a standard were the general form, then **generalising the specification would produce one** — abstract the interfaces, widen the scope, remove the vendor specifics, and the artifact becomes a standard by writing.
+
+It does not. Generalising a specification produces **a more general specification**. Nothing about gates 1–4 becomes easier; if anything, a broader scope makes independent implementation harder. The distinction is not on the axis of abstraction at all. It is on the axis of **who has accepted it**.
+
+This is the same error the four gates exist to prevent, appearing at the level of definition rather than of claim.
+
+### Precision 2 — legitimation has two routes, not one
+
+Institutional status does **not** require a standards body. Gate 3 is deliberately disjunctive: *body acceptance **or** genuine multi-party adoption*. TCP/IP, JSON and Markdown became standards de facto, before or without formal ratification.
+
+This is strategically load-bearing, not pedantic. It means the route to gate 3 is not only CEN/CENELEC — it is **also two independent implementations in production somewhere that is not Lifetime Oy**. That is a materially cheaper, faster and more self-directed path, and it is the same evidence gate 1 requires. **Gates 1 and 3 can be closed by the same act.**
+
+What both routes share is that they are **external**. Neither is reachable by writing better.
+
+### Precision 3 — versioning is not the discriminator; authorship of the version is
+
+A specification is versioned. **So is a standard** — ISO 9001:2015, HTTP/1.1, TLS 1.3. Versioning therefore cannot distinguish them.
+
+What distinguishes them is **who holds the pen on the next version**. A specification's version is controlled by its author; a standard's version is controlled by a process that can proceed **without the author's consent**. That is gate 4, arrived at from the definitional side.
+
+So the sharpest one-line form of the distinction is not about form or version but about control:
+
+> **A specification is an instrument of its author's strategy. A standard is an instrument its author no longer controls.**
+
+### The two clocks
+
+The exchange also confirmed the addition that makes the distinction consequential:
+
+> *"Spesifikaatio voi olla teknisesti täydellinen ja silti institutionaalisesti kelvoton. Tekninen valmius ja legitiimiys eivät etene samalla kellolla."*
+
+Confirmed, and it is the artifact–legitimacy gap (`artifact-legitimacy-gap.md`, `V3Thesis` §10.27) stated from the definitional side. Technical completeness is produced at the speed of writing, which frontier models have compressed to hours. Legitimacy is produced at the speed of institutions, which has not moved. **The distinction is the instrument that keeps the first from being mistaken for the second — including by its own author**, which is the failure mode that matters, because it is the one nobody warns you about.
 
 ## Why this matters specifically in the EU
 

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **RQ5 kaventuu kolmannen kerran, ja syy on HIC:n oma vahvistus.** Kun spesifikaatio/standardi-määritelmä vahvistettiin tunnetuksi, terävöitetty RQ5 (v2) kaatui T1:een — kriteeri toimii myös itseään vastaan. Jäljelle jää kaksi aitoa kysymystä: onko nelivaiheinen portti välttämätön ja riittävä, ja **pitääkö klassinen erottelu ollenkaan agenttihallinnassa, jossa sertifioitava kohde muuttuu sertifioinnin jälkeen** — jälkimmäinen on uusi eikä korpus vastaa siihen. RQ5 v3 kirjattu.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n pyynnöstä (*"Anna RQ1-RQ6 vanha versio ja terävöitetty niin koetan ymmärtää ajatuksesi. Kirjaa kysymyksen alle ajattelusi pääpointti"*). Rinnakkaisvertailu kaikista kuudesta, kunkin alla yhden kappaleen pääpointti. **Vain RQ5 vaatii muutoksen** (`RQ_FALSIFIABILITY_AUDIT_2026-07-25.md`); muut viisi ovat tarkkuusliikkeitä, ja se on merkitty jokaisen kohdalle. Ei muuta lukitusta — lukitussääntö 2 vaatii HIC:n päätöksen.
 
 ***
@@ -123,6 +124,34 @@ Kaikkien vanhojen muotoilujen lähde: `docs/lut/2026-07-14-letter-smolander-six-
 **"Ilman häiriötä" olettaa vastauksen kysymykseen.** Se sisältää oletuksen, että häiriötön siirtymä on mahdollinen — ja jos se ei ole, kysymys ei tuota löydöstä vaan epäonnistumisen. Terävöitetty muoto ei oleta mitään: se kysyy mikä häiriintyy ja mikä siitä on vältettävissä, jolloin **kumpikin vastaus on tulos**. Se on myös **armollisempi aineiston suhteen**, mikä on tämän kysymyksen todellinen rajoite: RQ6:n riski on liian vähäinen aineisto, ei liiallinen. Yksi tapaus riittää **kartoittamaan häiriötyypit**, vaikka ei riitä yleistämään — ja kartoitus on julkaisukelpoinen ensimmäinen tulos, joka tuo seuraavat tapaukset mukanaan.
 
 ---
+
+## ⚠️ RQ5 kaventuu vielä — ja syy on oma vahvistuksesi
+
+> **HIC 25.07.2026:** *"Tiedämme mikä erottaa spesifikaation standardista."* — ja seurasi täsmällinen määritelmä, jonka vahvistin (`kb/wiki/concepts/specification-vs-standard-four-gates.md` v1.1).
+
+**Tämä osuu terävöitettyyn RQ5:een omalla kriteerillään.** Jos määritelmä *tiedetään*, niin kysymys *"mikä erottaa spesifikaation standardista"* kaatuu **T1:een** — pätevä lukija vastaa siihen korpuksesta, nyt myös tästä kb-tiedostosta.
+
+Kriteeri toimii siis myös itseäni vastaan, ja se on hyvä merkki: **se ei ole retorinen väline vaan testi.**
+
+### Mikä jää jäljelle, kun määritelmä poistetaan kysymyksestä
+
+Kaksi asiaa, ja molemmat ovat aitoja:
+
+**1. Onko nelivaiheinen portti oikea kriteeri?** Portit ovat **ehdotettu**, eivät validoitu. Ovatko ne välttämättömiä ja riittäviä? Onko niillä järjestys? Voiko portin läpäistä näennäisesti — kaksi "riippumatonta" toteutusta, jotka eivät ole riippumattomia, tai konformanssisarja, joka ei voi kaatua millään todellisella toteutuksella? **Kriteerin testaaminen on tutkimusta; sen esittäminen ei ollut.**
+
+**2. Pitääkö klassinen erottelu ollenkaan agenttihallinnassa?** Tämä on se, jota en nähnyt ennen kuin vahvistit määritelmän. **Pultin standardi sertifioi artefaktin, joka ei muutu sertifioinnin jälkeen. Agenttihallinnan standardi sertifioi käyttäytymistä, joka muuttuu jatkuvasti** — malli päivittyy, agenttipopulaatio oppii, mandaatit vaihtuvat, ja §14.33:n *Red Queen* -ilmiö tekee arvioijasta itsestään liikkuvan kohteen.
+
+Klassinen erottelu olettaa **staattisen** kohteen. Jos kohde muuttuu, gate 2 (konformanssisarja, joka voi kaataa) ja gate 4 (muutoshallinta) eivät välttämättä tarkoita samaa kuin ne tarkoittavat pultille. **Tämä on aito, avoin ja falsifioitava kysymys, eikä korpus vastaa siihen.**
+
+### RQ5 v3
+
+> *Pitääkö klassinen spesifikaatio/standardi-erottelu agenttihallinnassa, jossa sertifioitava kohde muuttuu sertifioinnin jälkeen — ja onko nelivaiheinen portti välttämätön ja riittävä kriteeri sille erolle?*
+>
+> *Does the classical specification/standard distinction hold for agent governance, where the certified subject changes after certification — and is the four-gate criterion necessary and sufficient for that difference?*
+
+**Kolmas kavennus samaan suuntaan.** v1 kysyi miten KYA suunnitellaan (tehty). v2 kysyi mikä erottaa spesifikaation standardista (nyt tiedetty). **v3 kysyy pitääkö erottelu, kun kohde ei pysy paikallaan** — ja siihen ei vastaa kukaan, koska kysymys syntyi vasta kun edelliset kaksi oli suljettu.
+
+Jokainen kavennus on tehnyt kysymyksestä pienemmän ja vastattavamman. **Se on oikea suunta.** Kysymys, jota ei voi kaventaa enää, on yleensä valmis.
 
 ## Mikä yhdistää kaikkia kuutta terävöitystä
 
