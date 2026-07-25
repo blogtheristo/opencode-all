@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: specification-vs-standard-four-gates.md
-Version: 1.1
+Version: 1.2
 Last-Updated: 2026-07-25
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code (claude-opus-5)
@@ -18,7 +18,7 @@ Owner: risto.paarni@lifetime.fi
 
 # Specification vs Standard — and the Four Gates
 
-**Version:** 1.1
+**Version:** 1.2
 **Status:** Active
 **Scope:** Any DWS document, page, deck or claim that uses the word "standard" externally
 
@@ -58,15 +58,31 @@ The HIC stated the distinction independently and asked for confirmation:
 
 Three precisions, because each of them changes what follows from the definition.
 
-### Precision 1 — "the general form of the presentation" does not survive scrutiny
+### Precision 1 — "public / generally known" is necessary but not sufficient
 
-The HIC's second clause — *"standardi esityksen yleinen muoto"* — reads the difference as one of **genericity**: a standard is a more general form of the same presentation.
+The HIC's second clause — *"standardi esityksen yleinen muoto"* — was first read here as claiming a difference of **genericity** (a standard being a more abstract form of the same presentation), and rejected on that basis. **That reading was wrong.** The HIC clarified: *"Yleinen muoto tarkoitin julkinen eli yleisesti tunnettu"* — **public, generally known.**
 
-**That reading has to be rejected, and it matters that it is rejected explicitly**, because it is the most natural mistake to make and it points the work in exactly the wrong direction. If a standard were the general form, then **generalising the specification would produce one** — abstract the interfaces, widen the scope, remove the vendor specifics, and the artifact becomes a standard by writing.
+That is a much better claim, and it lands close to gate 3's second branch (de facto adoption). Two distinctions are still needed, and both are load-bearing.
 
-It does not. Generalising a specification produces **a more general specification**. Nothing about gates 1–4 becomes easier; if anything, a broader scope makes independent implementation harder. The distinction is not on the axis of abstraction at all. It is on the axis of **who has accepted it**.
+**Public does not equal standard.** A specification can be fully published, openly licensed and implementable and still be nowhere near a standard. `standards/kya-open/SPEC.md` is precisely that: public, Apache-2.0, complete — and **zero of four gates**. Publication is a *precondition* for gate 3, not gate 3 itself.
 
-This is the same error the four gates exist to prevent, appearing at the level of definition rather than of claim.
+**"Generally known" is not "generally used".** This is the sharper of the two. Recognition is not adoption. A specification can be widely known and never independently implemented — that is the ordinary fate of most published specifications. **Gate 1 requires implementations by parties with no commercial relationship to the author, not awareness among them.** The de facto route runs through *use*, not through fame, and the difference is exactly where a well-publicised artifact can stall indefinitely while appearing to progress.
+
+**What the clarified reading adds, and the four gates only imply:** a standard is **known by parties who did not write it**, and that knowledge is what makes a conformance claim mean anything. If nobody outside the authoring organisation knows the specification, *"conformant to KYA"* tells a buyer nothing — the claim has no shared referent. **Public knowability is therefore genuinely necessary**, and naming it explicitly is an improvement on the gate list, which assumes it silently.
+
+### The three states — the sharper model this produces
+
+The specification/standard pair is really three states, and the clarification exposes the middle one:
+
+| State | Properties | Who controls the next version | Example |
+| ----- | ---------- | ----------------------------- | ------- |
+| **1. Specification** | Versioned, implementable, internal | Author | A design document |
+| **2. Published specification** | Public, openly licensed, **knowable by non-authors** | Author | `standards/kya-open/SPEC.md` |
+| **3. Standard** | Independently implemented · conformance-testable · accepted or adopted · amendable without the author | A process | ISO, IETF, or TCP/IP de facto |
+
+**The trap sits precisely between 2 and 3, and this is why the clarification matters.** Publishing *feels* like the decisive step — it is visible, it is irreversible, it is the one step achievable alone, and it is the one that generates congratulation. **It is also the cheap one.** States 1→2 costs a licence file and a decision. States 2→3 costs other people's independent work, which cannot be bought, accelerated, or written.
+
+**KYA is at state 2**, and the four gates are the measurement of the distance to state 3. That distance is not shortened by publishing harder.
 
 ### Precision 2 — legitimation has two routes, not one
 
