@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Viisi päätöstä kirjattu.** D1 vahvistettu (koko kappale pois). A2: työssä on viisi lukua — 1.6 kirjoitetaan sen mukaiseksi, teksti lyhenee kolmesta virkkeestä yhteen. A3: 3.4.2→3.4.1, 3.4.3→3.4.2, puuttuvaa alalukua ei lisätä. A4: SWOT-maininta korjataan vastaamaan esitettyä laskelmaa (pilvi vs. reuna), luku 82 % säilyy. **A5: tarkistus paljasti kaksi eri suuretta** — infrakustannus (25–350, kolme korjattavaa kohtaa) ja asiakashinta (0–350, kaksi säilytettävää kohtaa, koska työn oma hinnoittelumalli määrittelee Freemium 0 €). Jako jätetty HIC:n vahvistettavaksi, koska pelkkä korvaaminen kaikkialla tuottaisi uuden virheen.
 - Version: 1.3 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **B1 päätetty (poistetaan)** — kuusi esiintymää nimineen ja summineen listattu korvaavine muotoiluineen; ratkaisee samalla A7:n. Yksi alakysymys jätetty auki: kohdesegmenttilista (luku 3.3), joka on eri asia kuin asiakasväite. **C1: korvaava evidenssi etsitty** — latenssiluvun paras lähde on työn oma työmaasimulaatio, joka on jo tekstissä; kilpailijahinnoista Atlassian ja Siemens ovat julkisesti lähteistettävissä, SAP:lla ei ole julkista listahintaa lainkaan. Korjattu argumentti on rakenteellinen (kilpailijoiden kustannus skaalautuu käyttäjämäärän mukana) ja vahvempi kuin alkuperäinen. **🔴 Uusi löydös D1**, jota ei etsitty: julkaistussa työssä on kappale kirjoittajan henkilökohtaisesta Kela-takaisinperinnästä ja nimetty moite Metropolialle. Suositus: poista.
 - Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A1 ratkaistu.** HIC kertoi todellisen kulukehityksen (100 → 300 Claude Maxin myötä → lähemmäs 600 Cloud Runin ym. myötä). Päivien tarkastelu paljasti ristiriidan juurisyyn: **Claude Max julkaistiin 9.4.2025 eli keskellä kautta 1**, ei kausien rajalla, joten kumpikaan lukupari ei ole väärä — johdanto mittaa saavutettua tasoa, johtopäätökset lähtötasoa/keskiarvoa. Korjausehdotus: vaihteluvälit 100–300 / 300–600 kaikkiin kolmeen paikkaan. Kirjattu **pakollinen seurausmuutos**: väite *"skaalautuvuutta ei saavutettu kulupiikillä"* ei kestä korjattuja lukuja (kulut kuusinkertaistuivat), joten se on muutettava absoluuttiseksi vertailuksi.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **C-luokka — lähde- ja viitetarkistukset verkkohaulla** HIC:n hypoteesin perusteella (Gemini olisi voinut tuottaa lukuun 3 tekstiä jota ei olisi hyväksytty repoon). **Hypoteesi osui, mutta ei lukuun 3:** luvun 3 sääntelyteksti kesti tarkistuksen ja on poikkeuksellisen hyvin varauksin kirjoitettu. Heikot kohdat ovat johdannossa (McKinsey-lähdettä ei löydy, ja se on liitetty kilpailijahintaväitteeseen jota konsulttitalo ei julkaisisi) ja liitteessä 6 (SWD(2025) 836 on aito mutta se on **Digital** Omnibus, ei kestävyysraportointia). Kirjattu myös mitä tarkistettiin ja todettiin oikeaksi — ml. 61 % ESRS-vähennys ja 2040-tavoite, jota **ei saa päivittää** vaikka se on sittemmin edennyt.
@@ -100,40 +101,75 @@ Tämä on totta, se säilyttää argumentin, ja se kestää sen että luvut kasv
 
 **Seurausmuutos etenee samalla.** Se ei ole erillinen makuvalinta vaan looginen seuraus: kun luvut kertovat kuusinkertaistumisen, virke *"skaalautuvuutta ei saavutettu kulupiikillä"* on ristiriidassa oman taulukkonsa kanssa. Korjatut luvut ilman korjattua väitettä jättäisivät työhön **uuden** sisäisen ristiriidan — pahemman kuin se, joka nyt korjataan. Muotoilu *"pysyivät koko ajan satojen eurojen suuruusluokassa, kun vertailukelpoiset kaupalliset ratkaisut liikkuvat tuhansissa"* säilyttää argumentin ja kestää kasvaneet luvut. Jos tämä ei käy, kerro — muuten se tehdään A1:n mukana.
 
-### A2. Työn rakenne -luku lupaa kymmenen lukua, työssä on viisi — päätös: ⬜
+### A2. Työn rakenne -luku lupaa kymmenen lukua, työssä on viisi — ✅ PÄÄTETTY: KORJATAAN VIITEEN
 
-Luku 1.6 (Työn rakenne) sanoo:
+> **HIC:** *"a2 5"* — työssä on viisi lukua; 1.6 kirjoitetaan sen mukaiseksi.
 
-> *"Luku 5 dokumentoi MVP-vaiheen toteutuksen. **Luku 6** käsittelee dws10.com-verkkokauppakanavan integraation. **Luku 7** esittelee agentic commerce tuotantopolun. **Luku 8** esittää tulokset ja analyysit, ja **luku 9** sisältää pohdinnan… **Luku 10** kokoaa johtopäätökset."*
+**Nykyinen 1.6:** *"…Luku 4 kuvaa DWS IQ -toimintamallin ja arkkitehtuurin suunnittelun neljällä kerrostasolla. Luku 5 dokumentoi MVP-vaiheen toteutuksen. **Luku 6** käsittelee dws10.com-verkkokauppakanavan integraation. **Luku 7** esittelee agentic commerce tuotantopolun. **Luku 8** esittää tulokset ja analyysit, ja **luku 9** sisältää pohdinnan, rajoitusten arvioinnin ja suositukset. **Luku 10** kokoaa johtopäätökset."*
 
-Todellinen rakenne: työ päättyy lukuun 5. Lupauksen luvut 6–10 ovat todellisuudessa alalukuja 5.4, 5.5, 5.7 ja 5.7.6, ja luku 4 (arkkitehtuurin suunnittelu) on alaluku 3.4.
+**Todellinen rakenne** (sisällysluettelosta todennettuna):
 
-**Tämä on ainoa kohta työssä, joka ohjaa lukijaa aktiivisesti väärään paikkaan.** Arvioinnin matalin osa-arvosana oli *"Raportin viestivyys, kieli ja ulkoasu"* (3,75) — tämä on todennäköisesti yksi syy siihen.
+| Luku | Sisältö |
+| ---- | ------- |
+| 1 | Johdanto |
+| 2 | Teoreettinen viitekehys |
+| 3 | Nykytila-analyysi — AI-maisema, kilpailuympäristö, asiakassegmentit, **ja** DWS IQ -toimintamallin ja arkkitehtuurin suunnittelu (3.4–3.7) |
+| 4 | Toteutusvaihe |
+| 5 | DWS10.com-verkkokaupan integraatio — sis. agentic commerce (5.4), tulokset (5.5), tutkimuskysymykset (5.6), pohdinta (5.7), kontribuutiot (5.8) |
 
-**Suositus: korjaa.** Kirjoita 1.6 vastaamaan todellista rakennetta. Se on yksi kappale eikä laajenna työtä.
+**Korjausehdotus — korvaa 1.6:n loppuosa:**
 
-### A3. Alalukua 3.4.1 ei ole — päätös: ⬜
+> *"Luku 3 analysoi nykytilan: eurooppalaisen teollisen AI-maiseman, kilpailuympäristön ja asiakassegmentit sekä DWS IQ -toimintamallin ja arkkitehtuurin suunnittelun neljällä kerrostasolla. Luku 4 dokumentoi toteutusvaiheen. Luku 5 käsittelee dws10.com-verkkokaupan integraation ja agentic commerce -tuotantopolun sekä esittää tulokset, vastaukset tutkimuskysymyksiin, pohdinnan ja keskeiset kontribuutiot."*
 
-Sisällysluettelo etenee `3.4` → `3.4.2 Asiakaslupaus ja ROI-validointi`. Numerointi hyppää yli 3.4.1:n.
+**Teksti lyhenee, ei pitene** — kolme virkettä yhdeksi. Puhtaasti laatimishengen sisällä.
 
-**Suositus: korjaa numerointi** (3.4.2 → 3.4.1 ja seuraavat vastaavasti), **älä lisää puuttuvaa alalukua** — sisällön lisääminen olisi laajennus.
+### A3. Alalukua 3.4.1 ei ole — ✅ PÄÄTETTY: KORJATAAN NUMEROINTI
 
-### A4. Sama 82 % kahdessa eri vertailussa — päätös: ⬜
+> **HIC:** *"a3 korjaa"*
 
-| Sijainti | Mihin verrataan |
-| -------- | --------------- |
-| Tiivistelmä, luku 5.7.2 | *"82 % kustannusvähennys **verrattuna pelkkään pilveen**"* |
-| SWOT (5.7.1) | *"kustannusjohtajuus (**82 % halvempi kuin kilpailijat**)"* |
+Sisällysluettelo etenee `3.4` → `3.4.2` → `3.4.3` → `3.5`. Uudelleennumerointi:
 
-Sama luku esitetään kerran arkkitehtuurivertailuna ja kerran kilpailijavertailuna. Ne eivät ole sama asia, eikä sama luku voi olla molempien vastaus muuten kuin sattumalta.
+| Nykyinen | Korjattu |
+| -------- | -------- |
+| 3.4.2 Asiakaslupaus ja ROI-validointi | **3.4.1** |
+| 3.4.3 Hallinto- ja varmennuskerros: Omnibus-yhteensopivuusmoottori | **3.4.2** |
 
-**Suositus: korjaa SWOT-maininta** muotoon, joka vastaa laskelmaa (pilvi vs. reuna). Kilpailijaväite ei perustu esitettyyn laskelmaan.
+**Ei lisätä puuttuvaa alalukua** — sisällön lisääminen olisi laajennus. Tarkista samalla, ettei tekstissä ole ristiviittauksia vanhoihin numeroihin.
 
-### A5. Hybridikonfiguraation hinta: 25–350 € vs. 0–350 € — päätös: ⬜
+### A4. Sama 82 % kahdessa eri vertailussa — ✅ PÄÄTETTY: KORJATAAN SWOT
 
-Arkkitehtuurivertailun taulukko sanoo hybridille **25–350 €/kk**. Neljässä muussa kohdassa (kilpailukykyväite, TK2-vastaus, SWOT-taulukko, tuotekatalogi) lukee **0–350 €/kk**.
+> **HIC:** *"a4 korjaa swot"*
 
-**Suositus: korjaa yhtenäiseksi.** Jos 0 € viittaa freemium-tasoon, taulukon 25 € on oikea tekninen luku ja markkinointimuotoilu 0–350 on eri asia — silloin riittää täsmennys yhteen paikkaan. Sinä tiedät kumpi.
+| Sijainti | Nykyinen | Toimenpide |
+| -------- | -------- | ---------- |
+| Tiivistelmä, luku 5.7.2 | *"82 % kustannusvähennys **verrattuna pelkkään pilveen**"* | säilyy — vastaa esitettyä laskelmaa |
+| SWOT (5.7.1), Vahvuudet | *"kustannusjohtajuus (**82 % halvempi kuin kilpailijat**)"* | **korjataan** |
+
+**Korjausehdotus:**
+
+> *"…kustannusjohtajuus (82 % pienemmät ajonaikaiset kustannukset verrattuna pelkkään pilviarkkitehtuuriin)…"*
+
+Luku pysyy, vertailukohta korjaantuu vastaamaan sitä laskelmaa, joka työssä tosiasiassa on. **Kilpailijavertailu ei katoa työstä** — se on omana kohtanaan luvussa 1 (ks. C1/C2, jossa se saa oikean perustan).
+
+### A5. 25–350 € vs. 0–350 € — ✅ PÄÄTETTY: 25–350, mutta **vain kustannuksiin** ⬜
+
+> **HIC:** *"a5 25-350"*
+
+**Tarkistuksessa paljastui, ettei kyse ole yhdestä luvusta vaan kahdesta eri suureesta**, jotka käyttävät päällekkäisiä lukuja. Siksi pelkkä korvaaminen kaikkialla tuottaisi uuden virheen.
+
+| Rivi | Nykyinen | Mikä suure | Toimenpide |
+| ---- | -------- | ---------- | ---------- |
+| Arkkitehtuurivertailu (Pilvi 555 / Reuna 10 / Hybridi) | **25–350 €/kk** | infrakustannus | ✅ jo oikein |
+| Kehitysmalli-vertailu (MCP Hub + reuna) | **25–350 €/kk** | infrakustannus | ✅ jo oikein |
+| TK2-vastaus: *"…alle 100 ms reunalatenssin ja 0–350 euron **kuukausikustannukset**"* | 0–350 | infrakustannus | 🔧 **→ 25–350** |
+| SWOT-taulukko, Kustannusrakenne: *"0–350 €/kk **infra**, startup-krediitit"* | 0–350 | infrakustannus | 🔧 **→ 25–350** |
+| Strategiataulukko, Ratkaisu-rivi: *"reunatekoäly (< 100 ms), 0–350 €/kk"* | 0–350 | infrakustannus | 🔧 **→ 25–350** |
+| Omnibus-luku: *"Firehorse-**hintataso** 0–350 euroa kuukaudessa on kilpailukykyinen"* | 0–350 | **asiakashinta** | ⛔ **säilytä 0–350** |
+| Tuotekatalogi: *"matalan kynnyksen **aloituksen** (0–350 euroa kuukaudessa)"* | 0–350 | **asiakashinta** | ⛔ **säilytä 0–350** |
+
+**Miksi kaksi viimeistä säilyvät.** Työn oma hinnoittelumalli määrittelee **Freemium 0 €** ja **Compliance-taso 350 €/kk**. Asiakkaan maksama hinta alkaa siis aidosti nollasta. Infrastruktuurin ajokustannus ei — se on 25 €/kk pohjalla. **Nämä ovat eri asioita, ja niiden yhdistäminen olisi juuri se virhe, jota A5 korjaa.**
+
+**Vahvista:** käykö tämä jako — 25–350 kustannuksiin (3 kohtaa), 0–350 hintaan (2 kohtaa)? Jos tarkoitit että myös hintataso on 25–350 (eli Freemium ei ole aidosti 0 €), kerro — silloin muutetaan kaikki viisi ja **hinnoittelumallin Freemium-rivi on myös korjattava**, mikä on isompi muutos.
 
 ### A6. Alustaohjelmistojen lukumäärä 2, kuvauksessa neljä versiota — päätös: ⬜
 
