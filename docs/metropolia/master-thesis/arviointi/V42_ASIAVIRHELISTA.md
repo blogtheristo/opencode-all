@@ -292,7 +292,7 @@ Vakiintuneet luvut ovat **36 % päästöistä ja 40 % energiankulutuksesta**; el
 | EU ETS laajennus meriliikenteeseen 2024 | Oikein. |
 | SWD(2025) 836 on olemassa | Oikein (ks. C3 nimestä). |
 
-## 🔴 D1. Löydös jota ei etsitty — henkilökohtainen Kela-maininta julkaistussa työssä
+## 🔴 D1. Henkilökohtainen Kela-maininta — ✅ PÄÄTETTY 25.07.2026: POISTETAAN KOKONAAN
 
 **Tätä ei ollut listalla eikä sitä kysytty.** Se löytyi asiakasnimien hakua tehtäessä ja se on pakko nostaa esiin (Rule 12, fail loud).
 
@@ -316,7 +316,19 @@ Luvussa 3.4.2:n tienoilla, keskellä asiakaslupauksen ja ROI-validoinnin käsitt
 
 **Tämä on koko listan tärkein yksittäinen korjaus.** Nimivirhe on kiusallinen; tämä on henkilökohtainen.
 
-Päätös: ⬜
+### ✅ HIC:n päätös 25.07.2026
+
+> *"Poista koko kappale"*
+
+**Koko kappale poistetaan** — ei uudelleenmuotoilua, ei lyhentämistä. Kolme virkettä poistuvat kokonaan:
+
+> *"Työn valmistuminen on kestänyt useamman vuoden. Kela jo päättikin periä aiempien vuosien kelatuet takaisinperintänä eikä siinä Metropolian ponnistelut vaikuttaneet mitään. Mutta olen kuitenkin piestynäkin onnellinen tämän työn tuloksista."*
+
+**Tarkistettava poiston yhteydessä:** varmista, ettei edeltävä tai seuraava kappale viittaa tähän (esim. sidesanalla). Poiston jälkeen kohdan tulee lukea saumattomasti — muuten poisto näkyy.
+
+### Seuraus korjauspyyntöön — kirjettä on muutettava
+
+Kirjeen nykyinen virke *"Työn sisältöön, tuloksiin tai johtopäätöksiin ei ole tehty muutoksia"* **ei enää pidä paikkaansa**, kun D1 ja B1 poistavat tekstiä. Se on korjattava, ei kierrettävä: kirje kertoo mitä poistettiin ja miksi. Kaksi poistoa ovat molemmat sellaisia, joita kirjasto ei kyseenalaista — kolmansien osapuolten nimet ja aiheeseen kuulumaton kappale — mutta niistä on kerrottava. `KORJAUSPYYNTO_KIRJASTOLLE.md` päivitetty v2.1.
 
 ## Mitä listalla ei ole
 
