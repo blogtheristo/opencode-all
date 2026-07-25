@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **HIC päätti järjestyksen** — Törngren-rooli, RISE NDA:n alla, DNV toisena, elin viimeisenä; spec pysyy sisäisenä. Vahvistettu ja kirjattu kolme toteutushuomiota, joista yksikään ei muuta järjestystä: **(1)** RISE:n kaksoisluonne toistaa Törngrenin ristiriidan — tutkimuspuoli toteuttaa, sertifiointipuoli ei sertifioi omaa toteutusta (voi arvioida DNV:n); **(2)** molemmat ovat varmennussektoria, joten operatiivinen kolmas toteutus vahvistaisi porttia 1 olennaisesti — lisäys tiekarttaan, ei este; **(3)** ⚠️ **`KYA_PARTNER_AGREEMENT` on väärä instrumentti** ja kumoaisi portin 1 — oikea on `NDA_MUTUAL_LIFETIME_OY_2026.md`, ja rahavirta kumpaan tahansa suuntaan tekisi toteuttajasta toimeksisaajan.
 - Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **arvolupaus ja kylmäkäynnistysongelma**. Boardyn kysymyksenasettelu vahvistettu oikeaksi ja parannettu toteuttajan päätössäännöksi (halvempi kuin oma + optioarvo), josta seuraa **miksi akateeminen toteuttaja on rakenteellisesti ensimmäinen eikä vain helpoin** — tutkimuslaitos ei tarvitse optioarvoa. **Korjattu Boardyn väite, että poliittinen paine korvaisi motivaation** — se kääntää päinvastoin sen mitä A2A osoittaa, ja Gaia-X on saman hypoteesin koetulos. Kirjattu **€260 mrd:n propagaatio tarkistamattomana**, SAP:n A2A-sitoumuksen ristiriita suvereniteettiargumentin kanssa, Scaleway/Hetzner-kilpailu, ja ICEYE:n vientivalvontaseuraus tarjoajalle.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **eurooppalainen rajaus** HIC:n linjauksen mukaan — strateginen logiikka vahvistettu, kaksi varausta kirjattu. **260 mrd € ei täsmää julkisiin lukuihin** (koko Euroopan pilvimarkkina on 74,4 mrd €); tilalle sourcatut luvut, joista vahvin on 70 % / 15 % -osuusjakauma. **"KTH:n ja LUT:n kumppaneista" on saman riippumattomuusansan terävin muoto** — LUT on väitöskirjan koti, KTH kulkee Törngrenin kautta, ja yhteinen Horizon/Vinnova-rahoitus on kaupallinen suhde. Nimetyt ehdokkaat arvioitu rehellisesti (Scaleway paras, Hetzner heikko, ICEYE väärä rooli + mahdollinen olemassa oleva suhde). Lisätty **RISE + DNV** vahvempana pohjoismaisena parina ja **Gaia-X varoittavana ennakkotapauksena**.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n pyynnöstä (*"Etsi ehdokkaat kahdeksi riippumattomaksi toteuttajaksi"*). Ensimmäinen löydös: **olemassa oleva KYA-kumppanikartta (Liite H) on rakenteellisesti väärä lista** — se rakennettiin jakelustrategiaksi, ja jakelukumppanit ovat täsmälleen ne osapuolet, jotka portti 1 sulkee pois. Ehdokasluokat, suositeltu pari, ja **Törngrenin rooliristiriita**, jota Boardyn muotoilu ei nimennyt.
@@ -277,6 +278,70 @@ Boardyn järjestys on oikea ja se vastaa jo kirjattua: **NDA ensin, arvolupaus t
 3. **Vasta sitten elin** — se ratkeaa lähes itsestään, kun tiedetään keitä toteuttajat ovat ja missä jurisdiktiossa he toimivat
 
 **Ja hold-päätös pitää koko ajan.** Julkaisu on se hetki, jolloin patenttiehdot lukittuvat (Apache-2.0 §3 aktivoituu luovutuksessa). Toteuttajien etsintä voidaan tehdä **NDA:n alla ilman julkaisua** — ja EPC 54 artiklan kannalta se on myös ainoa tapa, joka säilyttää uutuuden.
+
+## ✅ PÄÄTETTY 25.07.2026 — järjestys ja rajaus
+
+> **HIC:**
+> 1. Törngren-rooli (halvin, ratkaistava ensin)
+> 2. RISE NDA:n alla (tutkimus + sertifiointi yhdellä ovella)
+> 3. DNV toisena toteuttajana
+> 4. Elin seuraa kun koalitio on olemassa
+>
+> *"Spec pysyy sisäisenä. Kaikki lähestymiset luottamuksellisesti."*
+
+**Järjestys on oikea ja se on johdonmukainen kaiken tässä tiedostossa päätetyn kanssa.** RISE:n valinta ensimmäiseksi on erityisen hyvä: **tutkimus ja sertifiointi samassa organisaatiossa** tarkoittaa, että sama ovi voi sekä murtaa kylmäkäynnistyksen (tutkimuslaitos ei tarvitse optioarvoa) että edistää porttia 3 (sertifiointitoiminta on institutionaalista tunnustusta).
+
+Kolme huomiota toteutukseen. Yksikään ei muuta järjestystä.
+
+### ⚠️ 1. RISE:n kaksoisluonne toistaa Törngrenin ristiriidan — sovella samaa jakoa
+
+**Jos RISE sekä toteuttaa että sertifioi, se on täsmälleen sama konflikti, joka juuri ratkaistiin Törngrenin kohdalla:** toteuttaja ei voi olla oman toteutuksensa riippumaton arvioija.
+
+RISE:n vahvuus — tutkimus ja sertifiointi yhdellä ovella — on **myös sen riski**, ja se on huomattava heti eikä jälkikäteen.
+
+**Sovella samaa sääntöä:** RISE:n **tutkimustoiminta toteuttaa**, RISE:n **sertifiointitoiminta ei sertifioi sitä toteutusta**. Sertifiointipuoli voi arvioida *jonkun muun* toteutuksen — se on jopa ihanteellinen, koska DNV:n toteutus tarvitsee arvioijan.
+
+**Kirjaa tämä ensimmäiseen keskusteluun.** RISE:n kaltainen organisaatio tuntee tämän vaatimuksen paremmin kuin me — mutta jos sitä ei mainita, oletus jää tekemättä ja se huomataan vasta kun joku kysyy.
+
+### ⚠️ 2. Molemmat ovat varmennussektorin toimijoita — kolmas, operatiivinen toteutus vahvistaisi olennaisesti
+
+RISE ja DNV ovat riippumattomia tekijästä ja toisistaan (eri maat, eri liiketoimintamallit, eri asiakaskunnat). **Portti 1 täyttyy.**
+
+Mutta molemmat toteuttaisivat KYA:n **arvioijan roolissa**, eivät operaattorin. Kaksi varmennusalan toimijaa, jotka toteuttavat varmennuskehyksen, on jossain määrin **itseensä viittaavaa** — ja ensimmäinen kriittinen lukija huomaa sen.
+
+**Portin 1 vahvin muoto sisältää vähintään yhden toteutuksen osapuolelta, joka tarvitsee sitä omaan operatiiviseen toimintaansa.** Scaleway tai julkisen sektorin käyttöönottaja täyttäisi tuon roolin.
+
+**Ei este päätökselle** — lisäys tiekarttaan. RISE ja DNV ensin, operatiivinen kolmas sen jälkeen kun kylmäkäynnistys on murrettu ja optioarvo on olemassa. **Kolmas on silloin helpompi kuin ensimmäinen oli.**
+
+### ⚠️ 3. Älä käytä `KYA_PARTNER_AGREEMENT`-instrumenttia — se kumoaisi portin 1
+
+Tämä on konkreettisin virhe, joka voisi tapahtua ensi askeleella.
+
+Repositoriossa on `Legal/KYA_PARTNER_AGREEMENT.md`. **Se on väärä väline näihin keskusteluihin** — kumppanuussopimus luo täsmälleen sen kaupallisen suhteen, jonka portti 1 sulkee pois. Sopimuksen nimi yksin riittäisi kyseenalaistamaan riippumattomuuden myöhemmin, riippumatta sen sisällöstä.
+
+**Oikea instrumentti on olemassa:** `Legal/NDA_MUTUAL_LIFETIME_OY_2026.md` — molemminpuolinen salassapitosopimus, ei kumppanuutta.
+
+**Rakenne, joka säilyttää riippumattomuuden:**
+
+| Vaihe | Instrumentti | Miksi |
+| ----- | ------------ | ----- |
+| Ensikeskustelu | **Molemminpuolinen NDA** | Ei luo kaupallista suhdetta; säilyttää EPC 54 art. uutuuden |
+| Toteutus | **Tutkimusyhteistyö- tai arviointikehys** — ei lisenssiä, ei maksuja kumpaankaan suuntaan | Rahavirta kumpaan tahansa suuntaan on kaupallinen suhde |
+| Dokumentointi | Kirjaa eksplisiittisesti, että osapuolilla **ei ole kaupallista suhdetta** | Portin 1 näyttö on osoitettava myöhemmin, ei väitettävä |
+
+**Nollavastikkeisuus on ominaisuus, ei puute.** Jos RISE tai DNV laskuttaa toteutuksesta, se on toimeksianto — ja toimeksisaaja ei ole riippumaton. Molemmat organisaatiot tekevät tutkimus- ja kehitystyötä omalla rahoituksellaan, joten tämä on niille tavanomaista.
+
+### Sekvenssi lopullisessa muodossaan
+
+| # | Askel | Instrumentti | Portti |
+| - | ----- | ------------ | ------ |
+| 1 | Törngrenin rooli: TECoSA toteuttaa, Törngren arvioi | kirjallinen vahvistus | poistaa esteen RQ1/RQ4:ltä |
+| 2 | **RISE** — tutkimustoiminta toteuttaa | mutual NDA + tutkimusyhteistyökehys | murtaa kylmäkäynnistyksen · portti 1 (1/2) |
+| 3 | **DNV** — toinen toteutus, RISE:n sertifiointipuoli voi arvioida sen | mutual NDA | portti 1 (2/2) · portti 3 alkaa |
+| 4 | Operatiivinen kolmas (Scaleway / julkinen sektori) | arvolupaus, ehto 2 nyt täytettävissä | vahvistaa portin 1 |
+| 5 | Hallintomalli ja elin | — | portti 4 rakenteellisesti |
+
+**Spec pysyy sisäisenä koko ajan.** Julkaisu laukaisee Apache-2.0 §3:n patenttilisenssin ja päättää EPC 54 artiklan uutuuden — kumpikaan ei ole peruutettavissa, eikä kumpaakaan tarvita ennen kuin koalitio on olemassa.
 
 ## Liittyvät
 
