@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
+- Version: 1.8 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Kaksi viimeistä päätöstä — lista on täysi.** A6: alustaohjelmistoja on **neljä**, taulukon luku 2 oli väärä; kuvaus säilyy. Luku 3.3: **kaikki yritysnimet pois**, toimialat jäävät. Poistojen jälkeen työssä ei ole yhtään yritysnimeä asiakas- tai kohdeasiakasroolissa. Lisätty ⚠️ rajaus: **teknologiatoimittajat jäävät** (Google Cloud Run, NVIDIA, Cloudflare, Supabase, Proton, Groq, Revolut, Stripe) — ne ovat arkkitehtuurin sisältöä, ja ilman niitä toteutus ei ole toistettavissa. Kilpailijanimet poistuvat C1/C2:n korvaavan virkkeen myötä.
 - Version: 1.7 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Korjaushuomautus päätetty** ja laadittu (`V42_KORJAUSHUOMAUTUS.md`, 18 numeroitua kohtaa). Kolme poikkeamaa ehdotuksesta perusteluineen: huomautus ei saa toistaa poistettua sisältöä (muuten B1 ja D1 kumoutuvat), viittaus lukuihin eikä riveihin (rivinumerot eivät kestä korjauksia), ja numeroimaton osio eikä Liite 9 (muuten liitteiden määrä rikkoo oman korjauksensa). Kirje kevennetty v3.2:ksi viittaamaan huomautukseen.
 - Version: 1.6 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A5 vahvistettu** — 25–350 kustannuksiin (3 kohtaa), 0–350 asiakashintaan (2 kohtaa ennallaan), Freemium-riviin ei kosketa; toteutuksessa ei saa käyttää hae-ja-korvaa. Lisätty **HIC:n linjaus kirjaston roolista**: kirjaston tehtävä on ylläpitää julkista opinnäytetyöpalvelua ja Metropolia haluaa mahdollisimman hyvän tekstin, joten korjaus on yhteinen intressi eikä pyydetty palvelus. Korjauskynnys on siis matalampi kuin aluksi oletettiin.
 - Version: 1.5 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Loput päätökset kirjattu.** A6 korjataan · B2 Kela pois (myös luvun 3.3 segmenttilistasta — se ei ole logistiikkayritys; poiston jälkeen sana ei esiinny työssä lainkaan) · B3 versiometatietorivi pois · C3 nimi ja liian vahva "validoitu"-merkintä korjataan · C4 36 % päästöt ja 40 % energia erotetaan toisistaan. **C2 vastattu: tarkkaa hintatietoa ei tarvita** — kappaleen oma premissi on skaalautumisväite, ei hintatasoväite; luvut vanhenevat ja SAP:n luku ei ole lähteistettävissä lainkaan. Yksi korvaava virke ratkaisee C1:n, C2:n ja latenssin lähteen kerralla.
@@ -197,7 +198,11 @@ Luku pysyy, vertailukohta korjaantuu vastaamaan sitä laskelmaa, joka työssä t
 
 Tuotekatalogitaulukko: *"Alustaohjelmistot | **2** | 4 999–6 995 €"*, kuvauksessa neljä versiota (DWS 3 · DWS 4 · DWS IQ v5 · DWS IQ v6).
 
-**Korjaus:** vaihda lukumäärä kuvausta vastaavaksi, tai jos myynnissä on todella kaksi, merkitse kuvaus historiaksi: *"…nykyiset: DWS IQ v5, DWS IQ v6 (aiemmat versiot DWS 3 ja DWS 4 poistuneet)"*. **Kumpi pitää paikkansa, tiedät sinä** — luku ja kuvaus vain on saatava samaan.
+#### ✅ HIC:n päätös 25.07.2026
+
+> *"4 alustaohjelmistoa"*
+
+**Lukumäärä 2 → 4.** Kuvaus (DWS 3 · DWS 4 · DWS IQ v5 · DWS IQ v6) on oikein ja säilyy ennallaan; taulukon luku oli väärä. Yhden merkin korjaus.
 
 ---
 
@@ -228,9 +233,32 @@ Luku 3.3 (Asiakassegmentit) luettelee:
 
 **Ongelma on kuitenkin, että samat nimet esiintyvät työssä molemmissa rooleissa.** Kun Uber, Bolt ja Kela ovat toisaalla "logistiikka-asiakkaita" ja täällä "välitön myyntifokus", lukija ei erota kumpi on kumpi — ja juuri se sekoittuminen synnytti alkuperäisen ongelman.
 
-**Suositus: säilytä lista, mutta täsmennä otsikointi** — *"kohdesegmentit ja niiden edustavat toimijat"* eikä *"kohdeasiakkaat … välitön myyntifokus"*. Kun kohdat 1–6 on korjattu, nimet esiintyvät enää tässä yhdessä roolissa eikä sekaannusta synny. **Vaihtoehto:** poista nimet tästäkin ja jätä toimialat — turvallisin, mutta hävittää markkina-analyysin konkretian.
+#### ✅ HIC:n päätös 25.07.2026
 
-Kumpi? ⬜
+> *"3.3 nimet pois"*
+
+**Kaikki yritysnimet poistetaan myös luvusta 3.3.** Jäljelle jäävät toimialat, jotka kantavat segmentoinnin ilman yksittäisiä yrityksiä:
+
+> *"Tason 1 kriittiset teollisuudet (välitön myyntifokus) sisältävät rakentamisen, logistiikan, valmistuksen ja energian."*
+
+Poistuvat: NCC, Skanska, T2H, Vinci, Uber, Bolt, Kela, DB Schenker, Kone, Wärtsilä, ABB, Fortum, Helen, Vattenfall.
+
+**Seuraus koko työhön:** poistojen jälkeen **työssä ei ole yhtään yritysnimeä asiakas- eikä kohdeasiakasroolissa.** Se on siisti lopputulos — ei jäljelle jäävää tulkinnanvaraa siitä, kuka oli asiakas ja kuka esimerkki.
+
+#### ⚠️ Mitä EI poisteta — teknologiatoimittajat jäävät
+
+Tämä on tarkistettava toteutuksessa, koska "poista yritysnimet" voi mennä liian pitkälle. **Arkkitehtuurin toimittajat ovat työn sisältöä eivätkä asiakasväitteitä**, ja ne jäävät:
+
+| Jää | Miksi |
+| --- | ----- |
+| Google Cloud Run, Google Merchant Center | toteutusalusta |
+| NVIDIA Jetson Orin Nano | mitattu laitteisto |
+| Cloudflare Pages, Supabase, Proton, Groq | toteutuspino |
+| Revolut, Stripe | maksuintegraatiot, kuvattu luvussa 5.4 |
+
+Näiden nimeäminen on välttämätöntä — ilman niitä arkkitehtuurikuvaus ei ole toistettavissa, mikä on opinnäytetyön perusvaatimus.
+
+**Kilpailijanimet** (Atlassian, SAP, Siemens) poistuvat C1/C2:n korvaavan virkkeen myötä, koska korjattu muotoilu ei nimeä ketään — se puhuu hinnoittelurakenteesta.
 
 ### B2. Kela "logistiikka-asiakkaana" — ✅ PÄÄTETTY: KELA POIS
 
