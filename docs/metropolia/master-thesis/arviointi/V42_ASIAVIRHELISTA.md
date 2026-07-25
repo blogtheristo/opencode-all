@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A5 vahvistettu** — 25–350 kustannuksiin (3 kohtaa), 0–350 asiakashintaan (2 kohtaa ennallaan), Freemium-riviin ei kosketa; toteutuksessa ei saa käyttää hae-ja-korvaa. Lisätty **HIC:n linjaus kirjaston roolista**: kirjaston tehtävä on ylläpitää julkista opinnäytetyöpalvelua ja Metropolia haluaa mahdollisimman hyvän tekstin, joten korjaus on yhteinen intressi eikä pyydetty palvelus. Korjauskynnys on siis matalampi kuin aluksi oletettiin.
 - Version: 1.5 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Loput päätökset kirjattu.** A6 korjataan · B2 Kela pois (myös luvun 3.3 segmenttilistasta — se ei ole logistiikkayritys; poiston jälkeen sana ei esiinny työssä lainkaan) · B3 versiometatietorivi pois · C3 nimi ja liian vahva "validoitu"-merkintä korjataan · C4 36 % päästöt ja 40 % energia erotetaan toisistaan. **C2 vastattu: tarkkaa hintatietoa ei tarvita** — kappaleen oma premissi on skaalautumisväite, ei hintatasoväite; luvut vanhenevat ja SAP:n luku ei ole lähteistettävissä lainkaan. Yksi korvaava virke ratkaisee C1:n, C2:n ja latenssin lähteen kerralla.
 - Version: 1.4 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Viisi päätöstä kirjattu.** D1 vahvistettu (koko kappale pois). A2: työssä on viisi lukua — 1.6 kirjoitetaan sen mukaiseksi, teksti lyhenee kolmesta virkkeestä yhteen. A3: 3.4.2→3.4.1, 3.4.3→3.4.2, puuttuvaa alalukua ei lisätä. A4: SWOT-maininta korjataan vastaamaan esitettyä laskelmaa (pilvi vs. reuna), luku 82 % säilyy. **A5: tarkistus paljasti kaksi eri suuretta** — infrakustannus (25–350, kolme korjattavaa kohtaa) ja asiakashinta (0–350, kaksi säilytettävää kohtaa, koska työn oma hinnoittelumalli määrittelee Freemium 0 €). Jako jätetty HIC:n vahvistettavaksi, koska pelkkä korvaaminen kaikkialla tuottaisi uuden virheen.
 - Version: 1.3 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **B1 päätetty (poistetaan)** — kuusi esiintymää nimineen ja summineen listattu korvaavine muotoiluineen; ratkaisee samalla A7:n. Yksi alakysymys jätetty auki: kohdesegmenttilista (luku 3.3), joka on eri asia kuin asiakasväite. **C1: korvaava evidenssi etsitty** — latenssiluvun paras lähde on työn oma työmaasimulaatio, joka on jo tekstissä; kilpailijahinnoista Atlassian ja Siemens ovat julkisesti lähteistettävissä, SAP:lla ei ole julkista listahintaa lainkaan. Korjattu argumentti on rakenteellinen (kilpailijoiden kustannus skaalautuu käyttäjämäärän mukana) ja vahvempi kuin alkuperäinen. **🔴 Uusi löydös D1**, jota ei etsitty: julkaistussa työssä on kappale kirjoittajan henkilökohtaisesta Kela-takaisinperinnästä ja nimetty moite Metropolialle. Suositus: poista.
@@ -31,6 +32,17 @@ Sessions & Modifications:
 | Tyylin, rakenteen tai argumentin uudelleenkirjoitus | "Laatimishenki" tarkoittaa työn omaa ääntä sen omalta ajalta |
 
 **Mitä on sallittu:** ne viisi muotokorjausta, jotka kirjasto listasi (`KORJAUSPYYNTO_KIRJASTOLLE.md`), ja **erikseen hyväksytyt** asiavirheiden korjaukset alta.
+
+## Kirjaston rooli — HIC:n linjaus 25.07.2026
+
+> *"Heidän tehtävänsä on ylläpitää julkista opinnäytetyöpalvelua. Metropolia haluaa mahdollisimman hyvän tekstin."*
+> *"Kirjasto teksti pitää olla korrekti mutta eivät he hylkää korjauksia."*
+
+Tämä muuttaa korjauspyynnön sävyn, ja muutos on oikea. **Kyse ei ole palveluksen pyytämisestä vaan yhteisestä intressistä:** kirjaston tehtävä on ylläpitää laadukasta julkaista tutkintotietuetta, ja korjattu versio palvelee sitä tehtävää. Kirjasto havaitsi virheet itse ennen julkaisua ja tarjosi korjausmahdollisuutta oma-aloitteisesti — se ei ole vastapuoli.
+
+**Käytännön seuraus kirjeeseen:** virheen omistajuus säilyy (*"virhe on minun"* on totta ja se kuuluu kirjeeseen), mutta anelevaa sävyä ei tarvita. Kirje on asiallinen ilmoitus korjatusta tiedostosta, ei pyyntö suopeudesta. `KORJAUSPYYNTO_KIRJASTOLLE.md` v3.1.
+
+**Seuraus tälle listalle:** kynnys korjata on matalampi kuin aluksi oletettiin. Kohdat, jotka jätettäisiin väliin "ettei vaivata kirjastoa", kannattaa korjata — tiedosto vaihdetaan joka tapauksessa kerran.
 
 ## Miten tätä listaa luetaan
 
@@ -152,7 +164,7 @@ Sisällysluettelo etenee `3.4` → `3.4.2` → `3.4.3` → `3.5`. Uudelleennumer
 
 Luku pysyy, vertailukohta korjaantuu vastaamaan sitä laskelmaa, joka työssä tosiasiassa on. **Kilpailijavertailu ei katoa työstä** — se on omana kohtanaan luvussa 1 (ks. C1/C2, jossa se saa oikean perustan).
 
-### A5. 25–350 € vs. 0–350 € — ✅ PÄÄTETTY: 25–350, mutta **vain kustannuksiin** ⬜
+### A5. 25–350 € vs. 0–350 € — ✅ VAHVISTETTU 25.07.2026: jako kustannus/hinta
 
 > **HIC:** *"a5 25-350"*
 
@@ -170,7 +182,13 @@ Luku pysyy, vertailukohta korjaantuu vastaamaan sitä laskelmaa, joka työssä t
 
 **Miksi kaksi viimeistä säilyvät.** Työn oma hinnoittelumalli määrittelee **Freemium 0 €** ja **Compliance-taso 350 €/kk**. Asiakkaan maksama hinta alkaa siis aidosti nollasta. Infrastruktuurin ajokustannus ei — se on 25 €/kk pohjalla. **Nämä ovat eri asioita, ja niiden yhdistäminen olisi juuri se virhe, jota A5 korjaa.**
 
-**Vahvista:** käykö tämä jako — 25–350 kustannuksiin (3 kohtaa), 0–350 hintaan (2 kohtaa)? Jos tarkoitit että myös hintataso on 25–350 (eli Freemium ei ole aidosti 0 €), kerro — silloin muutetaan kaikki viisi ja **hinnoittelumallin Freemium-rivi on myös korjattava**, mikä on isompi muutos.
+#### ✅ HIC:n vahvistus 25.07.2026
+
+> *"Vahvistan"*
+
+**Jako vahvistettu:** 25–350 €/kk kustannuksiin (kolme korjattavaa kohtaa), 0–350 €/kk asiakashintaan (kaksi kohtaa säilyy ennallaan). Hinnoittelumallin Freemium-riviin ei kosketa.
+
+**Toteutuksessa muistettava:** korjaa **vain** ne kolme kohtaa, joissa lukee "kustannus" tai "infra". Jos korjaisit hakemalla ja korvaamalla kaikki "0–350", rikkoisit kaksi oikeaa kohtaa.
 
 ### A6. Alustaohjelmistojen lukumäärä 2, kuvauksessa neljä versiota — ✅ PÄÄTETTY: KORJATAAN
 
