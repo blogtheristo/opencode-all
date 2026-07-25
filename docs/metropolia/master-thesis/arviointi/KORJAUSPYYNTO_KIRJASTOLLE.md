@@ -1,113 +1,128 @@
-# Korjauspyyntö Metropolian kirjastolle — opinnäytetyön nimi Theseuksessa
+# Korjauspyyntö Metropolian kirjastolle — opinnäytetyön PDF:n vaihto Theseuksessa
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 2.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n pyynnöstä (*"jos haluat ehdottaa korjauskirjettä ja toimia theseus osalta niin teen"*) valmis, lähetettävä korjauspyyntöluonnos Metropolian kirjastolle koskien Theseuksessa julkaistun opinnäytetyön nimiölehden nimeä. Sisältää kaksiosaisen pyynnön (tiedoston nimiölehti / tietueen metatieto) ja itsestään todennettavan ristiriidan osoituksen. **Kaksi kohtaa vaatii HIC:n täydennyksen ennen lähetystä** — merkitty `‹›`-suluin.
+- Version: 2.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Uudelleenkirjoitettu HIC:n toimittaman kirjeenvaihdon perusteella** (Saija Pyhtilä / Metropolia, 29.6.–24.7.2026). Kolme aiempaa oletusta korvattu vahvistetuilla tosiseikoilla: (1) **korjaus on mahdollinen** — Metropolia on itse tarjonnut sitä; (2) **vastaanottaja on `kirjasto@metropolia.fi`** — ei enää placeholder; (3) **korjattavia kohtia on viisi, ei yksi** — kirjasto listasi ne ennen julkaisua. Lisätty tarkka korjauslista PDF:ään ja erillinen ⚠️ Wihi/tutkintotodistus-kysymys, joka ei ratkea kirjaston kautta.
+- Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Ensimmäinen luonnos, laadittu ennen kuin kirjeenvaihto oli käytettävissä. Perustui oletukseen, ettei korjattavuudesta ollut tietoa ja että virhe koski vain nimiölehteä. Molemmat oletukset osoittautuivat vääriksi.
 
 ***
 
-## Ennen lähettämistä — täydennä nämä
+## Tilanne — vahvistettu kirjeenvaihdosta
 
-| Merkintä | Mitä puuttuu | Miksi ei täytetty tässä |
-| -------- | ------------ | ----------------------- |
-| `‹vastaanottajan sähköposti›` | Metropolian kirjaston opinnäytetyöasioiden osoite | Ei varmistettu tässä istunnossa. **Älä arvaa** — tarkista Metropolian kirjaston sivuilta tai vastaa suoraan Theseus-vahvistusviestiin ja pyydä ohjaus oikealle taholle. |
-| `‹opiskelijanumero›` | Opiskelijanumero | Ei repositoriossa. Nopeuttaa käsittelyä olennaisesti. |
+Metropolian kirjaston asiantuntija **Saija Pyhtilä** havaitsi epäjohdonmukaisuudet **ennen julkaisua** (29.6.2026) ja listasi ne. Korjauksia ei tehty ennen kuin hän jäi lomalle, joten hän **julkaisi työn sellaisenaan** ja ohjeisti korjausreitin:
 
-Muu sisältö on todennettu: arviointilausunto 5.6.2026 (arkistoitu tähän hakemistoon), Theseus-vahvistus 10.7.2026, sekä `V4_Final_Thesis_FI` ja `V41_Final_Thesis_FI` Google Drivesta. **Theseus-tietuetta itseään ei ole voitu avata tästä ympäristöstä** — `urn.fi` ja `theseus.fi` ovat ympäristön verkkopolitiikan estämiä (CONNECT 403). Vertailu on siis tehty Drive-lähteitä vastaan, ei julkaistua tiedostoa vastaan.
+> *"Julkaisin työsi nyt sellaisenaan Theseuksessa. Työn pdf:n voi edelleen korjata, jos haluat. Jos haluat hoitaa sen lomani aikana (palaan vasta 10.8. töihin), suosittelen laittamaan viestiä `kirjasto@metropolia.fi` ja kertomaan, että haluat vaihtaa työn pdf:n <https://urn.fi/URN:NBN:fi:amk-2026062725698> toiseksi ja jotain selitystä korjauspyynnöstä."*
 
-### ⚠️ Yksi väite poistettu tarkoituksella
+**Kolme asiaa on nyt varmaa, joita ei aiemmin tiedetty:**
 
-Luonnoksessa luki alun perin *"muuta eroa versioiden välillä ei ole"*. **Se poistettiin, koska sitä ei voitu todentaa.** Drivessa olevat `V4` (oikea nimi) ja `V41` (väärä nimi) eroavat toisistaan muutenkin: TK1–TK4-otsikot on kirjoitettu auki, suositusluku laajennettu, johtopäätöksiin lisätty kappale, luku 5.8 muutettu listasta alaluvuiksi ja lähdeluetteloon lisätty kaksi viitettä. HIC:n tarkoittama pari saattaa olla eri — kaksi `V41`:n vientiä, joissa eroaa vain kansilehti — mutta sitä paria ei löydy Drivesta. **Älä esitä kirjastolle "versiot ovat identtiset" ennen kuin se pari on löydetty.** Pyyntö toimii ilman tuota väitettä; nimiölehden ja tiivistelmäsivun ristiriita riittää perusteluksi.
+1. **Korjaus on mahdollista** — ei arvailua, laitos on itse sen tarjonnut.
+2. **Vastaanottaja on `kirjasto@metropolia.fi`**, ei Theseus-toimisto eikä Saija henkilökohtaisesti (hän palaa vasta **10.8.**).
+3. **Korjattavia kohtia on viisi**, ei yksi. Kirjasto listasi ne itse; jos vain nimi korjataan, loput jäävät julkaistuun tietueeseen.
 
-**Sävy on tarkoituksellisesti valittu:** virhe kerrotaan omaksi, ei kirjaston eikä ohjaajan. Se on totta, ja se on myös pyynnön vahvin kohta — kirjaston ei tarvitse puolustautua, vaan se voi vain ratkaista asian.
+## ⚠️ Järjestys — korjattu PDF ensin, viesti vasta sitten
+
+Pyyntö on tiedoston vaihto. **Älä lähetä viestiä ennen kuin korjattu PDF on valmis** — muuten kirjasto joutuu odottamaan liitettä ja ketju venyy. Työjärjestys: korjaa Google Docs → vie PDF → lähetä viesti liitteineen.
+
+## Korjauslista — kaikki viisi kohtaa
+
+Kirjaston havainnot (29.6.2026) todennettuna lähdeversiosta `V41_Final_Thesis_FI`:
+
+### 1. Otsikko — **kolme eri versiota samassa työssä**
+
+| Sijainti | Nykyinen teksti |
+| -------- | --------------- |
+| Kansilehti | *Omnichannel First -toimintamallin käyttöönotto Lifetime World palveluissa* |
+| Englanninkielinen tiivistelmä, `Title` | *Implementation of the Omnichannel First operating model in Lifetime World services* |
+| Suomenkielinen tiivistelmä, `Otsikko` | *Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille* |
+
+**Korjaus:** valitse **yksi** nimi ja vie se kaikkiin kolmeen. Työn sisältöä vastaa Firehorse-nimi — se on jo dokumentissa valmiina, joten korjaus on kopiointi, ei uudelleenkirjoitus. Englanninkielinen vastine: *The Firehorse product manufacturing operating model — a hybrid AI-edge architecture for climate-intelligent industrial platforms*.
+
+### 2. Päivämäärät — **kolme eri päivää**
+
+| Sijainti | Nykyinen |
+| -------- | -------- |
+| Kansilehti | 20.6.2026 |
+| Englanninkielinen tiivistelmä, `Date` | 26TH April 2026 |
+| Suomenkielinen tiivistelmä, `Aika` | 10.2.2026 |
+
+**Korjaus:** yksi päivämäärä kaikkiin kolmeen. Luonteva valinta on **valmistumis-/palautuspäivä**, ei mikään välivaiheen päivä.
+
+### 3. Sivumäärä — **kaksi eri lukua**
+
+Englanninkielinen tiivistelmä sanoo *37 pages*, suomenkielinen *50 sivua*. **Korjaus:** tarkista todellinen sivumäärä korjatusta PDF:stä ja vie sama luku molempiin.
+
+### 4. Liitteiden määrä — **8 vs. 7**
+
+Työssä on **kahdeksan** liitettä (Liite 1 Solution Factory Canvas · 2 Tuotekatalogi · 3 Tekoälyagenttien toimintaohjeet · 4 AI-mallien koulutusinfrastruktuuri · 5 DWS IQ 20 ensimmäistä agenttia · 6 Kriittinen tarkastelu · 7 Sanasto · 8 Lyhenteet), mutta **molemmat tiivistelmät sanovat 7**. **Korjaus:** muuta molemmat tiivistelmät muotoon *8 liitettä / 8 appendices*.
+
+### 5. Muotoseikat
+
+- **Sisällysluettelo:** pääotsikot ovat siirtyneet oikealle, mikä haittaa luettavuutta (kirjaston havainto).
+- **Lähteet ja liitteet:** lähteet ovat yleensä ennen liitteitä. Kirjasto pitää tätä makuasiana — **korjaa jos on helppoa, älä viivytä lähetystä tämän takia.**
+
+Kirjasto ehdotti myös **Metropolian opinnäytetyön mallipohjaa** (opiskelijan opas → Opinnäytetyön vaiheet). Jos asettelun korjaaminen käsin osoittautuu työlääksi, mallipohja ratkaisee kohdat 5 kerralla.
 
 ## Lähetettävä viesti
 
-**Aihe:** Opinnäytetyön nimen korjauspyyntö — URN:NBN:fi:amk-2026062725698
+**Vastaanottaja:** `kirjasto@metropolia.fi`
+**Aihe:** Opinnäytetyön PDF:n vaihtopyyntö — URN:NBN:fi:amk-2026062725698
+**Liite:** korjattu PDF
 
 ```
 Hei,
 
-pyydän korjausta Theseuksessa julkaistun ylemmän AMK-opinnäytetyöni nimeen.
+pyydän vaihtamaan Theseuksessa julkaistun opinnäytetyöni PDF-tiedoston
+oheiseen korjattuun versioon.
 
-Työ:
-  Tekijä:        Risto Anton Päärni
-  Opiskelijanumero: ‹opiskelijanumero›
-  Tutkinto-ohjelma: Älykkään teollisuuden tutkinto-ohjelma (60 op),
-                    insinööri (ylempi AMK)
-  Ohjaaja/arvioija: lehtori Erkki Räsänen
-  Arviointi:     5.6.2026, arvosana 5
-  Theseus:       https://urn.fi/URN:NBN:fi:amk-2026062725698
-  Tallennettu:   10.7.2026
+  Tekijä:      Risto Anton Päärni
+  Työ:         https://urn.fi/URN:NBN:fi:amk-2026062725698
+  Tutkinto:    insinööri (ylempi AMK), Smart Factory
+  Julkaistu:   10.7.2026
 
-Asia lyhyesti
+Taustaa
 
-Julkaistun työn nimiölehdellä on työn vanha, prosessin alussa
-rekisteröity nimi:
+Saija Pyhtilä kävi työn läpi ennen julkaisua 29.6.2026 ja huomasi
+siinä useita epäjohdonmukaisuuksia. En ehtinyt tehdä korjauksia ennen
+hänen lomalle jäämistään, joten työ julkaistiin sellaisenaan. Hän
+neuvoi lähettämään korjauspyynnön tähän osoitteeseen lomansa aikana
+(hän palaa 10.8.).
 
-  "Omnichannel First -toimintamallin käyttöönotto Lifetime World
-   palveluissa"
+Mitä korjatussa versiossa on muutettu
 
-Työn sisältö on kuitenkin toinen, ja oikea nimi on:
+Kaikki muutokset koskevat työn etu- ja tiivistelmäsivuja sekä
+asettelua. Työn sisältöön, tuloksiin tai johtopäätöksiin ei ole tehty
+muutoksia, eikä arviointiin pyydetä muutosta.
 
-  "Firehorse-tuotevalmistuksen toimintamalli — hybridi AI-edge-
-   arkkitehtuuri ilmastoälykkäille teollisille alustoille"
+1. Otsikko yhtenäistetty. Julkaistussa versiossa on kolme eri
+   otsikkoa: kansilehdellä ja englanninkielisessä tiivistelmässä työn
+   alkuperäinen rekisteröity nimi, suomenkielisessä tiivistelmässä
+   työn sisältöä vastaava nimi. Korjatussa versiossa kaikissa
+   kolmessa on sama otsikko.
 
-  (englanniksi: "The Firehorse product manufacturing operating model —
-   a hybrid AI-edge architecture for climate-intelligent industrial
-   platforms")
+2. Päivämäärät yhtenäistetty. Julkaistussa versiossa kansilehdellä ja
+   kummassakin tiivistelmässä oli eri päivämäärä.
 
-Ristiriita on todettavissa itse julkaistusta tiedostosta
+3. Sivumäärä yhtenäistetty tiivistelmien välillä.
 
-Tämä on syytä mainita, koska se tekee tarkistamisesta nopeaa.
-Julkaistussa tiedostossa on oikea nimi jo valmiina — suomenkielisen
-tiivistelmäsivun Otsikko-kentässä lukee:
+4. Liitteiden määrä korjattu. Työssä on kahdeksan liitettä;
+   tiivistelmissä luki seitsemän.
 
-  "Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-
-   arkkitehtuuri ilmastoälykkäille teollisille alustoille"
-
-Samoin englanninkielisen tiivistelmän ensimmäinen virke kuuluu:
-
-  "This thesis examines the Firehorse product manufacturing operating
-   model, a hybrid cloud-edge architecture..."
-
-Nimiölehti on siis ristiriidassa saman dokumentin oman
-tiivistelmäsivun kanssa. Korjauspyyntöä ei tarvitse arvioida ulkoisen
-aineiston perusteella — ja korjattava nimi on jo dokumentissa itsessään.
+5. Sisällysluettelon sisennykset korjattu luettavuuden vuoksi.
 
 Miten virhe syntyi
 
-Virhe on minun. Tulkitsin ohjeita virheellisesti niin, että
-lopullisessa versiossa tulisi olla sama nimi kuin työn alkuperäisessä
-rekisteröinnissä. Muutin siis nimen takaisin vanhaksi ja palautin sen
-version. Huomasin virheen vasta myöhemmin, ja korjaus jäi tekemättä.
-Kyse on nimiölehdestä, ei työn sisällöstä eikä arvioinnista.
+Tulkitsin ohjetta virheellisesti niin, että lopullisen työn otsikon
+tulee olla sama kuin työn aloitusvaiheessa rekisteröity otsikko, ja
+muutin kansilehden sen mukaiseksi. Saija oikaisi tulkintani, mutta
+korjaus jäi tekemättä ennen julkaisua. Virhe on minun.
 
-Pyyntö — kaksiosainen
-
-1. Voidaanko julkaistuun tiedostoon vaihtaa nimiölehti, jolla on työn
-   oikea nimi? Toimitan korjatun tiedoston välittömästi pyynnöstä.
-
-2. Jos tiedostoa ei voi vaihtaa, voidaanko Theseus-tietueen
-   nimimetatieto (suomeksi ja englanniksi) korjata vastaamaan työn
-   sisältöä?
-
-Kumpi tahansa korjaus auttaa olennaisesti. Kyseessä on pysyvä julkinen
-tutkintotietue, ja nykyisellä nimellä työtä ei löydä kukaan, joka
-etsii sen todellista aihetta — eikä siihen voi viitata oikein.
-
-Ymmärrän, että arviointimerkintä on jo tehty enkä pyydä siihen
-muutosta. Kyse on vain siitä, että työ löytyy ja siihen voidaan
-viitata oikealla nimellä.
-
-Kerro, tarvitsetko minulta korjatun tiedoston, erillisen lomakkeen tai
-ohjaajan vahvistuksen — toimitan mitä tahansa näistä samana päivänä.
+Kerro, tarvitsetteko minulta muuta kuin oheisen tiedoston.
 
 Kiitos avusta.
 
@@ -118,18 +133,23 @@ risto.paarni@lifetime.fi
 +358 400 319 010
 ```
 
-## Reitti — miksi kirjastolle eikä Theseukseen
+## ⚠️ Erillinen kysymys, jota kirjasto EI ratkaise — Wihi ja tutkintotodistus
 
-Theseus-vahvistusviesti (`theseus-info@helsinki.fi`, 10.7.2026) ohjaa suoraan:
+Saija nosti tämän esiin 29.6.2026, eikä se ratkea PDF:n vaihdolla:
 
-> *"Opinnäytetöiden käsittely tapahtuu opiskelijan oman ammattikorkeakoulun kirjastossa. Myös mahdolliset muutokset tehdään siellä."*
+> *"Opinnäytetyön nimi siirtyy sellaisenaan Wihistä arvosanan mukana OMAan ja lopulta tutkintotodistukseesi."*
 
-Theseus-toimistolle lähetetty pyyntö ohjattaisiin joka tapauksessa takaisin Metropoliaan. Jos oikeaa vastaanottajaa ei löydy, nopein reitti on vastata suoraan tuohon vahvistusviestiin ja pyytää ohjaus.
+Ja Metropolian oma ohje, jonka hän lainasi, sanoo päinvastoin kuin miten sitä tulkittiin:
 
-## Jos korjausta ei tehdä
+> *"Opinnäytetyön nimi sekä suomeksi että englanniksi. **Jos työn lopullinen nimi muuttuu, muista päivittää se** ja englanninkielinen käännös."*
+> *"Jos työn lopullinen nimi on muuttunut aihe-ehdotuksesta, **muista viimeistään nyt päivittää** opinnäytetyön tietoihin."*
 
-Se on hyväksyttävä lopputulos, ei epäonnistuminen. Tämän hakemiston `README.md` (v1.1) on tällöin pysyvä selitys, johon voi viitata yhdellä lauseella esimerkiksi LUT-jatkohakemuksessa:
+**Ohje siis nimenomaan edellytti nimen päivittämistä** — ei sitä, että alkuperäinen nimi säilytetään. Tulkinta meni päinvastoin, ja Saija ehti oikaista sen ennen julkaisua.
 
-> *Julkaistun opinnäytetyön nimiölehdellä on työn vanha rekisteröity nimi; työn sisältö vastaa nimeä "Firehorse-tuotevalmistuksen toimintamalli". Ristiriita on todettavissa julkaistun dokumentin tiivistelmästä.*
+**Avoin kysymys:** mikä nimi on nyt Wihissä, ja onko se jo siirtynyt OMAan ja tutkintotodistukseen? Saija epäili 29.6., että Wihissä nimen voi vielä muuttaa (*"en tunne Wihi-puolta yhtään"*), mutta arvosana on sittemmin kirjattu. **Tämä on ratkaistava erikseen opintotoimiston / Wihi-tuen kanssa, ei kirjaston.** Se on myös tärkeämpi kuin Theseus-tietue: tutkintotodistus on se asiakirja, joka kulkee mukana työhakemuksissa ja jatko-opintohakemuksissa.
 
-Yksi virke ja linkki riittää. Ilman tätä tietuetta sama asia vaatisi kappaleen selittelyä — ja kuulostaisi huonommalta kuin se on.
+**Suositus:** lähetä PDF-korjaus kirjastolle heti kun tiedosto on valmis, ja kysy Wihi-nimestä **samalla erillisellä viestillä opintotoimistoon** — nämä kaksi eivät ole riippuvaisia toisistaan, eikä kumpaakaan kannata odottaa toisen takia.
+
+## Jos jokin jää korjaamatta
+
+Tämän hakemiston `README.md` on pysyvä selitys, johon voi viitata yhdellä lauseella esimerkiksi LUT-jatkohakemuksessa. Korjauspyyntö on nyt kuitenkin selvästi ensisijainen: laitos on itse tarjonnut korjausta, joten kyse on vain siitä, että tiedosto tehdään valmiiksi.
