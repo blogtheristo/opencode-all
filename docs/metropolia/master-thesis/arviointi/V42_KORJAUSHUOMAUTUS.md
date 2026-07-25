@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Lopullinen muoto** HIC:n linjauksen mukaan (*"Korjausliite mainitsee vain korjattu; ja uusi versio lyhyesti"*). Toinen sarake poistettu kokonaan — jos se lukisi 18 kertaa "korjattu", se ei kerro mitään mitä otsikko ei jo kerro. **18 kohtaa tiivistyi 14 sijainniksi**, koska useat korjaukset osuvat samaan lukuun; lista on lyhyempi ja täsmälleen yhtä täydellinen. Poistot katoavat listaan täysin, mutta ne on kerrottu kirjastolle kirjeessä — vastuutaho tietää, pysyvä tietue ei toista virhettä. Lisätty varoitus: luvunnumerot on paikannettu osin likimääräisesti ja ne on tarkistettava lopullisesta tiedostosta.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Tiivistetty HIC:n linjauksen mukaan** (*"ei avata joka kohtaa täydellisesti vain viite. Näin poistot hoituvat kätevästi"*). 18 kohtaa kappalemuodosta kaksisarakkeiseksi viitetaulukoksi. Kirjattu linjauksen toinen, tärkeämpi peruste: **tasainen rivipituus piilottaa poistot näkyvissä** — kappaleen mittainen selitys kohdilla 12–13 olisi korostanut juuri ne rivit, joita sen piti pehmentää. Lisätty tarkistuslistalle vaatimus, ettei poistorivi saa olla muita pidempi. Huomautus mahtuu nyt yhdelle sivulle.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n ehdotuksesta (*"Ehdotan korjausliitettä version 4.2 loppuun jos kerrotaan alkuperäisen version virheen syyt ja riveittäin tehdyt korjaukset viittausnumeroin"*). Sisältää suunnitteluratkaisut — erityisesti **säännön, ettei korjaushuomautus saa toistaa sitä, minkä korjaus poistaa** — sekä valmiin, sellaisenaan liitettävän tekstin.
 
@@ -69,6 +70,18 @@ Huomautuksen tehtävä on kertoa, mitä muuttui. Se ei ole selitys eikä anteeks
 
 ---
 
+## ✅ Lopullinen muoto — HIC 25.07.2026
+
+> *"Korjausliite mainitsee vain korjattu; ja uusi versio lyhyesti"*
+
+**Kun jokainen rivi sanoo saman, sarake on turha.** Tämä on edellisen linjauksen looginen loppu: jos toinen sarake lukisi kahdeksantoista kertaa *"korjattu"*, se ei kerro mitään mitä otsikko ei jo kerro. Pois se.
+
+Samalla **kahdeksantoista kohtaa tiivistyy neljääntoista sijaintiin**, koska useat korjaukset osuvat samaan lukuun (luvussa 1.1 oli kolme, luvussa 3.4 kolme, liitteessä 6 kaksi). Sijaintilista on lyhyempi, luettavampi ja **täsmälleen yhtä täydellinen** — mikään korjattu kohta ei jää mainitsematta.
+
+**Mitä tämä tekee poistoille:** ne katoavat listaan täysin. Luku 3.4 on rivi muiden joukossa, eikä mikään erota sitä numeroinnin korjauksesta. Poistot on silti **kerrottu kirjastolle kirjeessä** — vastuutaho tietää tarkalleen mitä poistettiin ja miksi. Pysyvä julkinen tietue kertoo, että korjaus on tehty ja missä; se ei toista virhettä. Näin errata-käytäntö toimii kaikkialla: korjaus ei julkaise korjattua uudelleen.
+
+---
+
 ## Valmis teksti — liitettäväksi sellaisenaan v4.2:n loppuun
 
 ```
@@ -78,39 +91,37 @@ Tämä versio (4.2) korvaa Theseuksessa 10.7.2026 julkaistun version.
 Työn tuloksiin, menetelmiin tai johtopäätöksiin ei ole tehty
 muutoksia, eikä arviointiin ole pyydetty muutosta.
 
-Työn viimeistely tehtiin eri työkaluympäristössä kuin sen aiemmat
-vaiheet, eikä viimeisteltyä tekstiä tarkistettu enää kokonaisuutena
-aiempaa versiota vasten. Tästä syystä osa luvuista, viitteistä ja
-etusivujen tiedoista jäi keskenään epäjohdonmukaisiksi. Lisäksi työn
-otsikko muutettiin ennen palautusta takaisin prosessin alussa
-rekisteröityyn muotoon ohjeen virheellisen tulkinnan perusteella.
-Ammattikorkeakoulun kirjasto havaitsi osan epäjohdonmukaisuuksista
-ennen julkaisua, mutta korjauksia ei ehditty tehdä ennen
-julkaisuajankohtaa.
+Työn viimeistelyvaihe tehtiin eri työkaluympäristössä kuin sen
+aiemmat vaiheet, eikä lopullista tekstiä tarkistettu enää
+kokonaisuutena aiempaa versiota vasten. Tästä syystä osa etusivujen
+tiedoista, luvuista ja lähdeviitteistä jäi keskenään
+epäjohdonmukaisiksi. Lisäksi työn otsikko muutettiin ennen
+palautusta takaisin prosessin alussa rekisteröityyn muotoon ohjeen
+virheellisen tulkinnan perusteella.
 
-Tehdyt korjaukset
+Korjatut kohdat
 
-  1   Nimiölehti, tiivistelmät    Otsikko yhtenäistetty
-  2   Nimiölehti, tiivistelmät    Päivämäärä yhtenäistetty
-  3   Tiivistelmät                Sivumäärä yhtenäistetty
-  4   Tiivistelmät                Liitteiden lukumäärä korjattu
-  5   Tiivistelmä (en)            Päästö- ja energiaosuus eroteltu
-  6   Sisällysluettelo            Sisennykset korjattu
-  7   Luku 1.6                    Rakenteen kuvaus korjattu
-  8   Luku 1.1                    Kustannusluvut yhtenäistetty
-  9   Luku 1.1                    Kilpailijavertailu ja lähdeviite korjattu
- 10   Luku 1.1                    Vasteaikaluvun lähde täsmennetty
- 11   Luku 3.4                    Alalukujen numerointi korjattu
- 12   Luvut 3–5                   Tunnistetietoja poistettu
- 13   Luku 3.4                    Aiheeseen kuulumaton kappale poistettu
- 14   Luvut 3, 5, liite 2         Kustannus ja hinta eroteltu
- 15   Luku 5.7                    SWOT-vertailukohta korjattu
- 16   Liite 2                     Lukumäärä korjattu
- 17   Liite 6                     Lähdemerkintä korjattu
- 18   Liite 6                     Versiomerkintä poistettu
+   1   Nimiölehti
+   2   Tiivistelmä (fi)
+   3   Tiivistelmä (en)
+   4   Sisällysluettelo
+   5   Luku 1.1
+   6   Luku 1.5
+   7   Luku 1.6
+   8   Luku 3.3
+   9   Luku 3.4
+  10   Luku 5.5
+  11   Luku 5.6
+  12   Luku 5.7
+  13   Liite 2
+  14   Liite 6
 ```
 
-**Mittasuhde:** koko huomautus mahtuu yhdelle sivulle. Aiempi, selittävä versio olisi vienyt kaksi — ja niistä toisen olisi täyttänyt poistojen perustelu.
+### ⚠️ Sijaintilista on varmistettava toteutuksen yhteydessä
+
+Yllä olevat luvunnumerot on johdettu `V41`:n sisällysluettelosta ja korjauslistasta. **Osa B1:n korvauskohdista (menetelmäluku, pilottitulokset) on paikannettu likimääräisesti** — tarkista tosiasialliset luvunnumerot kun teet korjaukset Google Docsissa, ja päivitä lista niiden mukaan.
+
+**Sääntö:** listalla saa olla vain kohtia, joihin tosiasiassa koskettiin. Ylimääräinen rivi on väärä väite yhtä lailla kuin puuttuva.
 
 ## Miten tämä muuttaa muuta aineistoa
 
@@ -127,5 +138,6 @@ Tehdyt korjaukset
 - [ ] Huomautus **ei sisällä** yhtään poistettua nimeä, lukua tai lainausta
 - [ ] Kohdat 12 ja 13 kuvaavat poiston **luokkatasolla**, eivät sisältöä
 - [ ] Kohdat 12 ja 13 eivät ole **pidempiä kuin muut rivit** — pitkä selitys korostaisi juuri sen, mitä poisto piilottaa
-- [ ] Kaikki 18 kohtaa on tosiasiassa tehty — huomautus ei saa luvata korjausta, jota ei tehty
+- [ ] Jokainen listattu sijainti vastaa tosiasiassa tehtyä korjausta — ylimääräinen rivi on yhtä väärä kuin puuttuva
+- [ ] Sijaintien luvunnumerot tarkistettu lopullisesta tiedostosta, ei tästä luonnoksesta
 - [ ] Sivumäärä tiivistelmissä laskettu **huomautus mukaan lukien**
