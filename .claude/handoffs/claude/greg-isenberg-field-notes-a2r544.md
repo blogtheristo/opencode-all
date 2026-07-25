@@ -1,7 +1,7 @@
 # Handoff — `claude/greg-isenberg-field-notes-a2r544`
 
-**Last updated:** 2026-07-25 (reopened, then closed again) · Claude Code (Opus 5)
-**Status:** session CLOSED per DWS_LEARNING_STANDARD five-step. Tree clean, all pushed. **No production code changed on this branch** — the one code fix is delivered as an unpushed patch (see §Pending).
+**Last updated:** 2026-07-25 — **MERGED TO `main`** · Claude Code (Opus 5)
+**Status:** session CLOSED per DWS_LEARNING_STANDARD five-step; branch **merged to `main`** (24 commits, 0 conflicts). Tree clean, all pushed. **No production code changed on this branch** — the one code fix is delivered as an unpushed patch (see §Pending).
 
 ## Task
 
@@ -42,6 +42,12 @@ Started as "Greg Isenberg field note — what's true and useful for KYA." Became
 - **Blog draft updated** with the real review outcome. Still unregistered, unpublished.
 - **`DWS_LEARNING_STANDARD` v1.3 — §10.3.1 The cooling gap.** *Nothing irreversible ships in the session that conceived it.* §10.1's six-field decision format and §10.6's four-per-session cap unchanged.
 
+## Final phase (25.07.2026) — thesis §10.27 and the merge
+
+- **Master's §10.27 (EN+FI), thesis v3.87** — *The Artifact–Legitimacy Gap*: frontier models compress artifact **production** to hours while **legitimation** does not compress at all; specification quality used to be evidence of process and no longer is, so **the author over-claims without intending to**. Adds **reconciliation debt** (unreviewed iteration optimises for internal coherence and can drift *further* from adoptable while appearing to improve) and **five platform design principles**, principle 1 being **default to internal**. Declined from review, and recorded as declined: "the gap is where most AI-native compliance work fails" — unevidenced market claim.
+- **KB:** `kb/wiki/concepts/artifact-legitimacy-gap.md` (new).
+- **§10.3.1 cooling gap tested twice, correct both times.** It did **not** fire on a thesis edit (writing ≠ publishing). It **did** fire on the merge, and the resolution is reusable: **the gap governs claims being made, not claims being withdrawn.** The public-page change removes over-claims, so holding would have kept the *stronger* claims live — delay was the riskier option.
+
 ## Pending — needs HIC permission or access
 
 - **Push the F1/F3 patch.** `security-reports/patches/2026-07-24-PR1716-fix-F1-F3.patch` (2 files, +142/−15). `git apply` on `claude/kya-v2-attestation-signing-6e5703`. **Not pushed** — this session is authorized only for its own branch.
@@ -57,7 +63,7 @@ Started as "Greg Isenberg field note — what's true and useful for KYA." Became
 - **`pandoc` was installed this session**; a fresh container will not have it (`apt-get install -y pandoc`). Learn/ renders depend on it.
 - **Stale worktree** registered at `…/scratchpad/pr1716` (detached at `1d3bb5e`, holds the uncommitted fix). Scratchpad is ephemeral; `git worktree prune` after it vanishes.
 - **Verify Boardy claims before propagating.** This session caught an unsupported Entra/Agent-365 claim, TK1–3 mislabelled as product tracks (they are thesis research questions), an IP-assignment/schema category error, and the jose regression. Prior art: KYA v1.9 corrected Boardy's "21 industries."
-- **Learning-loop step 4 (Drive export) was N/A in every note this session** — not done for any of them.
+- **Learning-loop step 4 (Drive export): NINE consecutive skips, zero runs.** Not an exemption — an unimplemented step. Open HIC question: automate / scope / drop. Recommendation on record: **scope it** to HIC-facing artifacts.
 
 ## Artifacts
 
