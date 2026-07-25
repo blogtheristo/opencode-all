@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **C-luokka — lähde- ja viitetarkistukset verkkohaulla** HIC:n hypoteesin perusteella (Gemini olisi voinut tuottaa lukuun 3 tekstiä jota ei olisi hyväksytty repoon). **Hypoteesi osui, mutta ei lukuun 3:** luvun 3 sääntelyteksti kesti tarkistuksen ja on poikkeuksellisen hyvin varauksin kirjoitettu. Heikot kohdat ovat johdannossa (McKinsey-lähdettä ei löydy, ja se on liitetty kilpailijahintaväitteeseen jota konsulttitalo ei julkaisisi) ja liitteessä 6 (SWD(2025) 836 on aito mutta se on **Digital** Omnibus, ei kestävyysraportointia). Kirjattu myös mitä tarkistettiin ja todettiin oikeaksi — ml. 61 % ESRS-vähennys ja 2040-tavoite, jota **ei saa päivittää** vaikka se on sittemmin edennyt.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Kirjattu HIC:n asettama v4.2:n laatimisrajaus (*"tekstin laatimishengessä"*, ei laajennuksia eikä päivityksiä myöhemmistä versioista) ja koottu ehdokaslista asiavirheistä yksittäin päätettäväksi. Lista on **ehdotus, ei toteutettu muutos** — jokainen kohta odottaa HIC:n erillistä päätöstä.
 
 ***
@@ -139,6 +140,64 @@ Työ siis merkitsee väitteen itse korkeariskiseksi ja esittää sen silti hyvä
 **Suositus: jätä.** Ei ole virhe; se on asianmukaisesti merkitty varaus. Mainittu tässä vain, ettei se jää huomaamatta myöhemmin ja näytä siltä että se ohitettiin.
 
 ---
+
+## C-luokka — lähde- ja viitetarkistukset (verkkohaku 25.07.2026)
+
+HIC:n hypoteesi: *"Myös geminillä on tietoa dws hankkeesta ja on uskottavaa sen kyenneen luomaan lukuun 3 tekstiä jota ei olisi kenties hyväksytty repoon."*
+
+**Hypoteesi osui, mutta ei lukuun 3.** Luvun 3 sääntelyteksti kesti tarkistuksen hyvin — se on jopa poikkeuksellisen huolellisesti varauksin kirjoitettu (*"tulee varmistaa CBAM-asetuksesta … ennen kuin niitä käytetään numeerisina ankkureina"*, *"julkisessa keskustelussa usein esitetty suuruusluokka"*). Heikot kohdat ovat **luvussa 1 (johdanto)** ja **liitteessä 6**.
+
+### C1. McKinsey-lähdettä ei löydy — päätös: ⬜
+
+Lähdeluettelo: *"McKinsey & Company 2024. **The State of AI in Construction: Adoption, Impact, and Future Outlook.**"*
+
+**Tämän nimistä McKinsey-julkaisua ei löydy.** McKinseyn saman ajan rakennusalan AI-työ on *"How AI is reshaping the future of the AEC industry"*, ja *"The state of AI"* -sarja ei ole rakennusalakohtainen.
+
+Lähde on liitetty johdannon virkkeeseen, joka esittää **kilpailijoiden hinnat ja pilvilatenssin**:
+
+> *"Kilpailija-analyysin perusteella Atlassian Rovon kaltaiset ratkaisut maksavat yli 1 400 euroa kuukaudessa, SAP-toteutukset yli 4 000 euroa ja Siemensin ratkaisut yli 2 000 euroa. Lisäksi pelkkä pilvipohjaisuus tuottaa 500–2 000 millisekunnin latenssin. (McKinsey & Company 2024.)"*
+
+Konsulttitalo ei julkaise kilpailijoiden listahintoja tällä tarkkuudella. **Lähde ei tue sitä väitettä, johon se on liitetty**, riippumatta siitä onko julkaisua olemassa.
+
+**Suositus: korjaa.** Kaksi vaihtoehtoa, kumpikin laatimishengen sisällä:
+- **(a)** korvaa oikealla lähteellä kullekin väitteelle (hinnat toimittajien omista hinnastoista, latenssi teknisestä lähteestä), tai
+- **(b)** poista lähdeviittaus ja merkitse kappale omaksi kilpailija-analyysiksi — *"oman kilpailija-analyysin perusteella"* — jolloin väite on rehellisesti kirjoittajan oma.
+
+**(b) on todennäköisesti oikein**, koska se ilmeisesti on oman analyysin tulos. Se on myös yhden virkkeen korjaus.
+
+### C2. Atlassian Rovon hintaväite on istumapaikkasidonnainen — päätös: ⬜
+
+Rovo hinnoiteltiin erillistuotteena **20 $/käyttäjä/kk** (vuosilaskutus; 24 $ kuukausilaskutuksella), ja se on sittemmin sisällytetty Atlassianin Premium/Enterprise-tilauksiin.
+
+*"Yli 1 400 euroa kuukaudessa"* vastaa siis noin **70:tä käyttäjää**. Työssä ei kerrota käyttäjämäärää, ja luku asetetaan vertailuun Firehorsen kiinteän 0–350 €/kk kanssa. **Vertailu ei ole väärä, mutta sen peruste puuttuu** — per-seat-tuotteen kokonaiskustannus ilmoittamattomalla käyttäjämäärällä vs. kiinteä alustahinta.
+
+**Suositus: lisää käyttäjämäärä** (*"noin 70 käyttäjän organisaatiossa"*). Yksi lisäys, ei laajennus — ja se tekee luvusta puolustettavan sen sijaan että se näyttäisi valikoidulta.
+
+### C3. SWD(2025) 836 on olemassa, mutta se on eri Omnibus — päätös: ⬜
+
+Liite 6 käyttää lähteenä *"Komission yksiköiden valmisteluasiakirja SWD(2025) 836 (**Digital and Sustainability Omnibus**)"* tukemaan **25 % / 35 % hallinnollisen taakan vähennystavoitetta**.
+
+**Asiakirja on aito** — SWD(2025) 836 final, Bryssel **19.11.2025** — mutta se on **Digital Omnibus**: tietosuoja- ja ePrivacy-säännöstö, tekoäly, kyberturvallisuus ja alustasääntely. **Se ei käsittele kestävyysraportointia.** Nimi *"Digital and Sustainability Omnibus"* yhdistää kaksi eri pakettia yhdeksi.
+
+**Suositus: korjaa nimi** muotoon *"SWD(2025) 836 (Digital Omnibus)"* ja **tarkista, tukeeko se 25 % / 35 % -lukua** — jos ei, luvun lähde on etsittävä komission yksinkertaistamisviestinnästä. Sama liite merkitsee itse tämän rivin validoiduksi, joten merkintä on tällä hetkellä liian vahva.
+
+### C4. Rakennusalan 36–40 % — päätös: ⬜
+
+Englanninkielinen tiivistelmä: *"the construction sector, which accounts for **36–40 % of EU lifecycle emissions**"*.
+
+Vakiintuneet luvut ovat **36 % päästöistä ja 40 % energiankulutuksesta**; elinkaarinäkökulmasta rakennukset ovat noin 40 % EU:n CO₂-päästöistä. Väli "36–40 %" yhdistää päästö- ja energialuvun yhdeksi haarukaksi.
+
+**Suositus: pieni täsmennys tai jätä.** Suuruusluokka on oikea ja lähdekirjallisuus käyttää molempia lukuja; tämä on listan vähiten kiireellinen kohta.
+
+### Tarkistettu ja **oikein** — ei korjattavaa
+
+| Väite | Tarkistus |
+| ----- | --------- |
+| ESRS-datapisteiden vähennys **n. 61 %** | **Oikein.** EFRAG vähensi pakollisia datapisteitä 61 % (tekninen ohjeistus komissiolle 3.12.2025); kokonaisvähennys yli 70 % vapaaehtoiset mukaan lukien. |
+| EU:n ilmastolaki 2021/1119, **−55 % / 2030 / 1990-taso** | Oikein, myös artiklaviittaukset. |
+| **2040-tavoite 90 %**, merkitty "hyväksytty helmikuussa 2026" + korkean riskin varaus | **Oikein kirjoitushetkellä.** Parlamentti hyväksyi 9.–10.2.2026; neuvoston lopullinen hyväksyntä 5.3.2026 ja voimaantulo 4/2026 tapahtuivat vasta myöhemmin. **Älä päivitä** — se olisi myöhemmän tiedon tuomista, jonka laatimisrajaus kieltää. Varaus oli oikea silloin. |
+| EU ETS laajennus meriliikenteeseen 2024 | Oikein. |
+| SWD(2025) 836 on olemassa | Oikein (ks. C3 nimestä). |
 
 ## Mitä listalla ei ole
 
