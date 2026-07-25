@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
 
+- Version: 3.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Viisikohtainen muutoslista **korvattu viittauksella korjaushuomautukseen**, joka tulee v4.2:n loppuun (`V42_KORJAUSHUOMAUTUS.md`). Kirje lyhenee ja kirjasto saa täydellisemmän erittelyn kuin kirjeeseen mahtuisi. Kaksi poistoa mainitaan edelleen kirjeessä erikseen — niistä ei pidä joutua etsimään tietoa liitteestä.
 - Version: 3.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Sävy korjattu HIC:n linjauksen mukaan (*"Heidän tehtävänsä on ylläpitää julkista opinnäytetyöpalvelua. Metropolia haluaa mahdollisimman hyvän tekstin."*). Kirje avataan korjatulla tiedostolla eikä pyynnöllä, ja lopputervehdys ei enää ole *"Kiitos avusta"*. Virheen omistajuus säilyy ennallaan — se on totta ja se kuuluu kirjeeseen — mutta anelevaa sävyä ei tarvita: korjaus palvelee myös kirjaston omaa tehtävää.
 - Version: 3.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Muutoslista tiivistetty seitsemästä eritellystä kohdasta **viiteen ryhmiteltyyn** HIC:n linjauksen mukaan (*"Kirjasto teksti pitää olla korrekti mutta eivät he hylkää korjauksia"*). Kirje on edelleen täsmällinen ja kertoo molemmat poistot, mutta se ei ole muutosloki — kirjaston tarvitsee tietää mitä muutettiin ja miksi, ei jokaista virkettä. Kaikki päätetyt korjaukset (A1–A6, B1–B3, C1–C4, D1) mahtuvat viiteen kohtaan.
 - Version: 2.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Kirje ei voi enää sanoa "sisältöön ei ole tehty muutoksia"**, koska HIC päätti poistaa (a) asiakasyritysten nimet ja pilottiliikevaihdon (B1) ja (b) henkilökohtaisen Kela-kappaleen (D1). Muotoiltu uudelleen rehellisesti: tuloksiin, menetelmiin ja johtopäätöksiin ei kosketa, mutta kaksi poistoa kerrotaan ja perustellaan. Lisätty viestiin kohdat 6 ja 7.
@@ -105,26 +106,17 @@ neuvoi lähettämään korjauspyynnön tähän osoitteeseen lomansa aikana
 
 Mitä korjatussa versiossa on muutettu
 
-Työn tuloksiin, menetelmiin tai johtopäätöksiin ei ole tehty
-muutoksia, eikä arviointiin pyydetä muutosta.
+Korjatun version lopussa on korjaushuomautus, jossa kaikki muutokset on
+eritelty numeroituna ja kohdittain. Lyhyesti: työn tuloksiin,
+menetelmiin tai johtopäätöksiin ei ole tehty muutoksia, eikä
+arviointiin pyydetä muutosta. Korjaukset koskevat etu- ja
+tiivistelmäsivujen yhtenäistämistä, asettelua, sisäisiä
+epäjohdonmukaisuuksia ja lähdeviitteitä.
 
-1. Etu- ja tiivistelmäsivut yhtenäistetty: sama otsikko, sama
-   päivämäärä ja sama sivumäärä kaikilla kolmella sivulla, ja
-   liitteiden määrä korjattu kahdeksaksi.
-
-2. Sisällysluettelon sisennykset korjattu, ja työn rakennetta kuvaava
-   kappale korjattu vastaamaan työn todellista lukumäärää.
-
-3. Korjattu muutamia sisäisiä epäjohdonmukaisuuksia lukujen
-   numeroinnissa, esitetyissä luvuissa ja lähdeviitteissä.
-
-4. Poistettu asiakasyritysten nimet ja pilottivaiheen liikevaihtoluku.
-   Nämä koskevat kolmansia osapuolia eivätkä kuulu pysyvästi julkiseen
-   asiakirjaan. Kohdat on korvattu toimialatasoisilla ilmauksilla,
-   joten työn argumentti säilyy ennallaan.
-
-5. Poistettu yksi kappale, joka ei liity työn aiheeseen — kirjoitus-
-   vaiheeseen jäänyt henkilökohtainen huomautus.
+Lisäksi versiosta on poistettu kaksi kohtaa, jotka eivät kuulu
+pysyvästi julkiseen asiakirjaan: kolmansien osapuolten tunnistetiedot
+niihin liitettyine liikevaihtotietoineen, sekä yksi aiheeseen
+kuulumaton kappale. Molemmat on merkitty korjaushuomautukseen.
 
 Miten virhe syntyi
 

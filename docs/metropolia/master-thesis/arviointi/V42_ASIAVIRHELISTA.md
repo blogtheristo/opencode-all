@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Korjaushuomautus päätetty** ja laadittu (`V42_KORJAUSHUOMAUTUS.md`, 18 numeroitua kohtaa). Kolme poikkeamaa ehdotuksesta perusteluineen: huomautus ei saa toistaa poistettua sisältöä (muuten B1 ja D1 kumoutuvat), viittaus lukuihin eikä riveihin (rivinumerot eivät kestä korjauksia), ja numeroimaton osio eikä Liite 9 (muuten liitteiden määrä rikkoo oman korjauksensa). Kirje kevennetty v3.2:ksi viittaamaan huomautukseen.
 - Version: 1.6 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A5 vahvistettu** — 25–350 kustannuksiin (3 kohtaa), 0–350 asiakashintaan (2 kohtaa ennallaan), Freemium-riviin ei kosketa; toteutuksessa ei saa käyttää hae-ja-korvaa. Lisätty **HIC:n linjaus kirjaston roolista**: kirjaston tehtävä on ylläpitää julkista opinnäytetyöpalvelua ja Metropolia haluaa mahdollisimman hyvän tekstin, joten korjaus on yhteinen intressi eikä pyydetty palvelus. Korjauskynnys on siis matalampi kuin aluksi oletettiin.
 - Version: 1.5 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Loput päätökset kirjattu.** A6 korjataan · B2 Kela pois (myös luvun 3.3 segmenttilistasta — se ei ole logistiikkayritys; poiston jälkeen sana ei esiinny työssä lainkaan) · B3 versiometatietorivi pois · C3 nimi ja liian vahva "validoitu"-merkintä korjataan · C4 36 % päästöt ja 40 % energia erotetaan toisistaan. **C2 vastattu: tarkkaa hintatietoa ei tarvita** — kappaleen oma premissi on skaalautumisväite, ei hintatasoväite; luvut vanhenevat ja SAP:n luku ei ole lähteistettävissä lainkaan. Yksi korvaava virke ratkaisee C1:n, C2:n ja latenssin lähteen kerralla.
 - Version: 1.4 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Viisi päätöstä kirjattu.** D1 vahvistettu (koko kappale pois). A2: työssä on viisi lukua — 1.6 kirjoitetaan sen mukaiseksi, teksti lyhenee kolmesta virkkeestä yhteen. A3: 3.4.2→3.4.1, 3.4.3→3.4.2, puuttuvaa alalukua ei lisätä. A4: SWOT-maininta korjataan vastaamaan esitettyä laskelmaa (pilvi vs. reuna), luku 82 % säilyy. **A5: tarkistus paljasti kaksi eri suuretta** — infrakustannus (25–350, kolme korjattavaa kohtaa) ja asiakashinta (0–350, kaksi säilytettävää kohtaa, koska työn oma hinnoittelumalli määrittelee Freemium 0 €). Jako jätetty HIC:n vahvistettavaksi, koska pelkkä korvaaminen kaikkialla tuottaisi uuden virheen.
@@ -418,6 +419,20 @@ Tarkistettu ja **todettu johdonmukaiseksi** — ei siis korjattavaa:
 - Automaatiotaulukon prosentit (96 % / 99 % / 80 % / 94 %) vastaavat annettuja lähtö- ja loppuarvoja
 - Tavoite/toteuma-parit (+50 %→+62 %, −50 %→−73 %)
 - 15 300 $ startup-krediitit, −55 % 2030, 61 % ESRS-vähennys, 16 toimialaa, alle 100 ms reunalatenssi — esiintyvät johdonmukaisesti kaikkialla
+
+## ✅ Korjaushuomautus v4.2:n loppuun — päätetty 25.07.2026
+
+> **HIC:** *"Ehdotan korjausliitettä version 4.2 loppuun jos kerrotaan alkuperäisen version virheen syyt ja riveittäin tehdyt korjaukset viittausnumeroin"*
+
+**Kannatettu ja laadittu:** `V42_KORJAUSHUOMAUTUS.md` sisältää valmiin, sellaisenaan liitettävän tekstin (18 numeroitua korjausta + syyt).
+
+**Kolme suunnitteluratkaisua, jotka poikkeavat ehdotuksesta — perustelut tiedostossa:**
+
+1. **Huomautus ei saa toistaa sitä, minkä korjaus poistaa.** B1 ja D1 ovat poistoja arkaluonteisesta syystä; jos huomautus lainaisi poistettua tekstiä tai luettelisi nimet, se julkaisisi ne uudelleen samassa pysyvässä dokumentissa. Poistot kuvataan **luokkatasolla**.
+2. **Viittaus lukuihin, ei riveihin.** Rivinumerot siirtyvät heti kun korjaukset muuttavat sivutusta — huomautus olisi virheellinen sillä hetkellä kun se laaditaan. Juokseva numero + luvun nimi antaa saman jäljitettävyyden ja pysyy oikeana.
+3. **Numeroimaton osio, ei "Liite 9".** Liitteeksi numerointi muuttaisi liitteiden määrän kahdeksasta yhdeksään — ja juuri se luku on yksi korjattavista kohdista. Korjaus rikkoisi itsensä.
+
+**Seuraus:** kirje kevenee (v3.2) ja viittaa huomautukseen. **Sivumäärä lasketaan vasta kun huomautus on paikallaan.**
 
 ## Työjärjestys
 
