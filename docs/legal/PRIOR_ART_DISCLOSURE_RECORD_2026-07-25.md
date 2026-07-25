@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty §6b — **HIC:n selvitys siitä, miten repositorion ja talletteen ero syntyi**: v3.30 ei ollut julkaisukelpoinen, viimeistely tehtiin yksinomaan Google Docsissa/Geminillä ulkoisena tekstinä eikä sitä tuotu takaisin repositorioon; patenttiasia ei tuolloin ollut harkittavissa. Kirjattu, että selitys (a) sulkee §4:n avoimen kysymyksen, (b) **ei** luo EPC 55 art. poikkeusta — uutuus arvioidaan objektiivisesti riippumatta julkaisijan aikomuksesta, (c) **on** pätevä peruste laatia korjattu versio. Kirjattu avoin seikka: `V41` on muokattu 20.06.2026 eli **arvioinnin (5.6.2026) jälkeen**, joten ei ole varmistettu mikä versio arvioitiin. Täydennetty §7 ratkaisevalla argumentilla: HIC:n oman arvion mukaan agentic commerce -luku **on** työn kannalta relevantti, joten sen poisto heikentäisi työtä eikä toisi patenttihyötyä.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty §7 — **harkittu ja hylätty** ehdotus tehdä patenttisuojaan liittyviä muutoksia korjattuun PDF:ään. Poisto ei palauta uutuutta (EPC 54 art. koskee hakemuspäivää edeltävää tilaa; 55 art. poikkeukset eivät sovellu), ja se tekisi kirjastolle annetusta lausumasta *"sisältöön ei ole tehty muutoksia"* valheellisen sekä korvaisi arvioidun työn toisella. Kirjattu tilalle se, mikä on yhä auki: kolmen mekanismin hakemus, mahdollinen **US 12 kk armonaika (35 USC 102(b)(1))** noin 10.07.2027 asti, ja liikesalaisuusreitti erillisenä rehellisenä pyyntönä.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Created on HIC instruction *"Heti"* — record immediately and in writing that the deposited Metropolia YAMK thesis publicly discloses an agent identity-and-authorisation mechanism as of 10.07.2026, a fact discovered 25.07.2026 and absent from every prior A9 analysis. Establishes the standing artifact that travels with any future patentability engagement, and records the distribution hold that prevents it being sent to LUT innovation services before the 369/2006 question is resolved.
 
@@ -99,6 +100,22 @@ This record is written to be handed over. **It has not been sent to anyone**, an
 - **Technical panel (Törngren / KTH TECoSA) — permitted under NDA only.** Disclosure under an obligation of confidence is not "made available to the public" under EPC Art. 54. Under NDA this record may be shared immediately; without one it must not.
 - **Kari Smolander (LUT)** stays on thesis and research scope. Do not route IP questions through a doctoral supervisor.
 
+## 6b. How the divergence arose — HIC account, 25.07.2026
+
+This closes the open question in §4 (why the deposited work contains a chapter that is in no repository file):
+
+> *"3.30 versio ei ollut julkaisukelpoinen ja siinä oli luku joka ei ollut työn kannalta relevantti toisin kuin agentic commerce luku on. Mutta tein työvaiheen yksinomaan google docs/geminin avulla ja unohdin tuoda työtä takaisin repositoryyn uskoen työn olevan ulkopuolinen teksti jonka olen tehnyt automaatioversion päälle. Patenttiasia ei tuossa vaiheessa ollut edes harkittavissa eikä ollut nähtävissä että työn jatkamista tullaan ehdottamaan."*
+
+**Reconstructed:** the repository version `V3Thesis_FI` v3.30 was not publication-ready and carried a chapter irrelevant to the work. The finishing pass was done **entirely in Google Docs with Gemini**, treated as external text written on top of the automated version, and never brought back into the repository. §5.4 is a product of that pass. At the time, patents were not a live consideration and no continuation of the work was foreseeable.
+
+**Three consequences worth stating precisely:**
+
+1. **The repo/deposit divergence is explained and is not suspicious.** It is a tool-boundary artifact: the authoring surface moved, and the sync back did not happen. Nothing about it implies concealment. Recorded so no future reader has to infer a worse story.
+2. **It does not create an EPC Art. 55 exception.** Novelty is assessed objectively — the state of the art does not depend on whether the author was thinking about patents when publishing. An innocent disclosure and a deliberate one have identical effect under Art. 54. **The account is context for counsel, not a defence.**
+3. **It is, however, a legitimate ground for producing a corrected version.** The deposited file is a Docs branch that drifted from what the author intended as the final work. That is an honest reason for a v4.2, independent of any IP consideration.
+
+**Open, unresolved:** `V41_Final_Thesis_FI` was last modified **20.06.2026** — **after** the assessment dated **05.06.2026**. It is therefore not established which document state the assessor read, and the V4→V4.1 diff includes substantive edits (expanded recommendations, an added conclusions paragraph, §5.8 restructured, two references added). **Do not assert "the deposited file is the assessed file" without checking.** This matters for any claim made to Metropolia about what is and is not changed.
+
 ## 7. ⛔ Considered and rejected: redacting §5.4 in the corrected PDF
 
 **Proposal (HIC, 25.07.2026):** since the PDF is being corrected anyway, also make patent-protective changes to the text.
@@ -130,6 +147,14 @@ Removing a substantive chapter makes that sentence **false**, and submits a mate
 3. **If the concern is trade secret rather than patent** — i.e. §5.4 reveals something that should not be public at any price — that is a **different request, made honestly as such**: a restriction or takedown request to the library, stating plainly that the author wishes to limit availability. It still does not restore novelty. It only limits further spread, and the copies already taken are gone.
 
 **Recorded so the idea does not resurface as a good one.** It is a reasonable instinct — the cost of the disclosure is real — but the mechanism it assumes (unpublishing undoes publication) does not exist in patent law.
+
+### The decisive argument is the author's own
+
+Per §6b, the HIC's own assessment is that **the agentic commerce chapter is relevant to the work** — it is the v3.30 chapter that was irrelevant, not this one. That settles it without needing patent law at all:
+
+**Removing §5.4 would make the thesis worse in order to buy nothing.** The patent argument and the quality argument point in opposite directions, and only one of them is capable of delivering. A v4.2 that keeps §5.4 is both the better document and the identical patent position.
+
+**So v4.2 is justified — and its content case is "this is the version that should have been deposited", not "this is the version with the IP removed."** Those are different documents and different letters.
 
 ## 8. Correction history
 
