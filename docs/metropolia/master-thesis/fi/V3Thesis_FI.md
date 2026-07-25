@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.85
+Version: 3.86
 Sessions & Modifications:
 
+- Version: 3.86 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lisätty §10.27 (Artefakti–legitimiteetti-kuilu). EN/FI-lukkoaskel; sisältö vastaa V3Thesis_EN.md §10.27:ää. Nimeää suurimman käytännön ongelman huippumalleilla rakentamisessa: artefaktin tuottaminen puristuu tunteihin, legitimointi ei purista lainkaan. Tunnistaa toisen asteen vaikutuksen — sujuvuus ei ole enää näyttöä prosessista, mutta lukijat käyttävät sitä yhä legitimiteetin korvikemittarina, joten laatija ylivaatii tahtomattaan. KYA v1.5 työstettynä tapauksena (nolla neljästä portista; kategoria oli väärin, ei tekninen sisältö). Ydinlöydös: versionumero kiihtyy, legitimiteetti ei liiku. Kolmen lainkäyttöalueen laajennus tekee kuilusta mitattavan. Dokumentoi oppimisstandardin §10:n toteutettuna vastatoimena (legitimiteettiväitteiden nopeusrajoitin). Johtaa neljä tuotealustan suunnitteluperiaatetta vaatimustenmukaisuusälylle.
 - Version: 3.85 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lukkokohtainen versionosto 3.84 → 3.85 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md-tutkielmasäännön mukaan. Ei sisältömuutosta tässä tiedostossa: istunnon uusi aineisto on standardointireitti- ja lainkäyttöaluearkkitehtuurianalyysiä, joka kuuluu väitöskirjaan sisältörajaussäännön mukaan (ks. PHD_FIREHORSE §14.43). Tämän istunnon toteutusnäyttö on edelleen §10.26:ssa.
 - Version: 3.84 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lisätty §10.26 (Verified-Done-attestoinnin allekirjoituspolun kryptografinen katselmointi: kaksi löydöstä ja falsifiointi testien laatuporttina). EN/FI-lukkoaskel §10.26:n osalta; sisältö vastaa V3Thesis_EN.md §10.26:ta. Toteutusnäyttöä CLAUDE.md:n tutkielman sisältörajaussäännön mukaisesti: Ed25519 node:crypto-moduulin kautta -riippuvuuspäätös, löydös F1 (KORKEA) allekirjoituksen kattamattomista todisteen metatiedoista, juurisyy testisuunnittelussa, W3C Data Integrity -korjaus, löydös F3 (avaintyypin tarkistus) sekä metodologinen kontribuutio: falsifiointi testien laatuporttina (47 → 51 testiä). Markkinasignaali- ja tieteellinen kehystys samasta sessiosta on PHD_FIREHORSE §14.42.
 - Version: 3.83 | Tool: Claude Code | Session: claude/eda-dws-iq-business-case-jm7p3g | Date: 17.07.2026 | Muutokset: Lukkokohtainen versionosto 3.82 → 3.83 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md-tutkielmasäännön mukaan. Ei sisältömuutosta tässä maisteritiedostossa: v3.83:n lisäys (DAC 2026:n agenttisen EDA:n tutoriaaliraita poikkitieteellisenä todisteena kolmivektoriselle agenttinen/avoin/hallittu-toimintamalliteesille, ja EDA:n puolustettavan jäännöksen suvereeni-suunnittelu-IP-ympäristö-uudelleensijoitus) on markkinasignaali-/tieteellinen-kehystyspanos ja §1.4:n maisteri–PhD-laajuussäännön mukaan sijaitsee tiedostossa PHD_FIREHORSE_FI.md §14.41 ja Avainpanos #48. Oheisdokumentit: docs/DGX_SPARK_4X_EDA_BUSINESS_CASE.md, onelifetime.world/posts/ai-supercomputing-meets-eda-sovereign-design.html.
@@ -3479,3 +3480,54 @@ Rehellinen lähtötaso, jonka tämä tekee näkyväksi: versiossa v3.79 jokainen
 **Metodologinen kontribuutio — falsifiointi testien laatuporttina.** Korjauksen mukana lisättyjä neljää regressiotestiä ei hyväksytty sillä perusteella, että ne menivät läpi. Korjattu lähdekoodi palautettiin ennalleen, testistö ajettiin uudelleen, ja neljän uuden testin **varmistettiin kaatuvan alkuperäistä virheellistä toteutusta vasten** ennen hyväksymistä; kahdeksan aiempaa allekirjoitustestiä menivät läpi *molemmissa* tiloissa. Tästä syntyy yleistettävä tekninen kriteeri: **testi, joka menee läpi sekä ennen korjausta että sen jälkeen, ei kanna informaatiota kyseisestä korjauksesta.** Porttina sovellettuna se erottaa regressiotestit koristeellisista, ja tässä tapauksessa se tuotti empiirisen selityksen sille, miksi pätevä 47 testin testistö ei havainnut vakavaa puutetta. Lopputila: 51 läpimenevää testiä, tyyppitarkistus ja muotoilu puhtaina.
 
 **Liittyvä toteutuslöydös.** Attestoinnin tallennusskeeman katselmointi osoitti, että todistustietue oli ankkuroitu vastuulliseen ihmiseen ilman vuokralaissaraketta, kun taas valtuutusten todistetaulussa organisaatiotunniste oli tyhjäksi sallittu. Siirrettävä tietue, joka muodostaa agentin ansioluettelon, oli siten sidottu yksilöön eikä siihen organisaatioon, jonka valtuutuksella ja datalla se ansaittiin, joten luottamushistoria ei säilyisi henkilöstön lähtiessä. Koska allekirjoittaminen tekee tietueesta pysyvän, ankkurin korjaaminen aikataulutettiin **allekirjoitusten käyttöönoton ennakkoehdoksi** eikä rinnakkaiseksi työksi: väärin ankkuroidun attestoinnin allekirjoittaminen muuntaa korjattavissa olevan skeemavirheen pysyväksi.
+
+### 10.27 Artefakti–legitimiteetti-kuilu: huippumallien nopeus, KYA-tapaus ja siitä johdettu suunnitteluperiaate vaatimustenmukaisuusälyn tuotealustalle
+
+**Ongelma kerran lausuttuna.** Rakentaminen huippumalleilla (frontier models) Claude Coden kautta puristaa teknisesti valmiin artefaktin tuottamisen kuukausista tunteihin. Se ei purista — eikä rakenteellisesti voi puristaa — niitä institutionaalisia prosesseja, jotka tekevät artefaktista *legitiimin*: vastakkainasettelevaa arviointia osapuolilta joilla on kilpailevat kaupalliset intressit, riippumatonta toteutusta, standardointielimen muodollista hyväksyntää ja oikeudellista tarkastusta kullakin toimintalainkäyttöalueella. **Artefakti on valmis kauan ennen kuin se on legitiimi.** Tämä on suurin käytännön ongelma, joka tässä teknisessä ohjelmassa on kohdattu, eikä se ole työkaluvika. Se on seuraus siitä, että työkalut toimivat.
+
+**Toisen asteen vaikutus on vaarallinen.** Historiallisesti spesifikaation *laatu* oli näyttöä sen takana olevasta *prosessista*. RFC 2119 -konformanssikieli, versiohistorialohko, konformanssiosio, IPR-tietoinen lisenssi — kukaan yksilö ei tuottanut näitä yhdessä iltapäivässä, joten niiden läsnäolo merkitsi luotettavasti työryhmää, arviointikierroksia ja kulunutta aikaa. **Huippumallit rikkovat tämän korrelaation.** Sujuvuus ei ole enää näyttöä prosessista. Silti jokainen lukija — ostaja, tarkastaja, valvoja ja laatija itse — käyttää yhä sujuvuutta legitimiteetin korvikemittarina. Mittari on nyt pätemätön, ja sen vikaantuminen on epäsymmetristä: **laatija ylivaatii tahtomattaan**, koska artefakti väittää hiljaisesti alkuperää, jota sen tuottamisella ei koskaan ollut.
+
+#### 10.27.1 KYA-tapaus
+
+Ohjelman oma hallintadokumentti on työstetty esimerkki, ja tapahtumasarja on dokumentoitu, ei jälkikäteen rekonstruoitu.
+
+Spesifikaatio tuotettiin julkaisukelpoiseen laatuun otsikolla **"KYA Open Standard v1.5"**. Arvioituna neljää porttia vastaan — vähintään kaksi riippumatonta toteutusta; konformanssitestistö, jonka toteutus voi reputtaa; tunnustetun elimen hyväksyntä tai aito monen osapuolen käyttöönotto; sekä muutoksenhallinta, joka jää eloon laatineen organisaation jälkeen — se täytti **nolla neljästä**. Se nimettiin uudelleen **"KYA-spesifikaatioksi v1.5"** 24.07.2026, kun kategorinen kysymys esitettiin suoraan: *onko mikään elin käsitellyt tätä?*
+
+Dokumentin teknisessä sisällössä ei ollut mitään väärää. Se oli toteutettavissa, sisäisesti johdonmukainen ja rehellinen yksittäisissä väitteissään. Väärin oli **kategoria**, jota otsikko väitti — ja juuri artefaktin sujuvuus teki tuosta väitteestä uskottavan.
+
+Ratkaiseva havainto seuraa:
+
+> **Sama tekninen kapasiteetti, joka tuotti v1.5:n yhdessä istunnossa, voi tuottaa v1.6:n, v2.0:n ja v3.0:n. Versionumero kiihtyy; legitimiteetti ei liiku lainkaan.** Tekninen iterointi ei voi muuntaa spesifikaatiota standardiksi, koska puuttuva ei ole teknistä.
+
+#### 10.27.2 Kolme lainkäyttöaluetta tekee kuilusta mitattavan
+
+KYA:n laajentaminen EU:hun, Yhdysvaltoihin ja Singaporeen terävöittää asian havainnosta rajoitteeksi. Kukin lainkäyttöalue käy eri, puristamatonta kelloa, eikä yhteen niistä **voi lainkaan päästä laatijan omasta aloitteesta**: EU:n tekoälyasetuksen 40 artiklan mukaan yhdenmukaistetut standardit tuotetaan CEN/CENELECissä komission standardointipyynnön perusteella. Mikään tekninen läpimenoteho ei avaa tuota ovea.
+
+Arkkitehtoninen seuraus — yksi lainkäyttöalueneutraali ydin sekä lainkäyttöaluekohtaiset konformanssi**profiilit**, ei koskaan kolme haarautunutta spesifikaatiota — on dokumentoitu tiedostossa `standards/kya-open/SPEC.md` §10. Episteeminen seuraus on se lause, jonka kirjaamiseksi tämä osio on olemassa:
+
+> **DWS voi teknisesti rakentaa parempia KYA-versioita loputtomiin. Käytännössä ne pysyvät spesifikaatioina — ja kolmen lainkäyttöalueen yli kolmena profiilina yhdestä spesifikaatiosta.** Profiileja ei voi edes validoida ilman lainkäyttöaluekohtaista oikeudellista tarkastusta, joka on toinen prosessi, jota tekninen työ ei voi imeä sisäänsä.
+
+#### 10.27.3 Toteutettu vastatoimi
+
+`DWS_LEARNING_STANDARD.md` on mekanismi, ei politiikkalausuma. Sen §10 tarjoaa sen, mitä kiihdytetyltä tekniseltä prosessilta oletusarvoisesti puuttuu:
+
+| Mekanismi | Mitä se rajoittaa |
+| --------- | ----------------- |
+| §10.3 Peruutettavuusluokittelu | Erottaa kaksisuuntaiset ovet YKSISUUNTAISISTA; allekirjoita / julkaise / lähetä / poista / luovuta vastapuolelle ovat oletuksena yksisuuntaisia |
+| §10.3.1 Jäähtymisväli | **Mikään peruuttamaton ei lähde siinä istunnossa, joka sen keksi** — tietoinen väli päätöksen ja teon välillä |
+| §10.4 Todennettu vs. edelleen välitetty | Pakottaa merkitsemään päätöksen näyttöperustan päätöshetkellä, ei alaviitteessä |
+| §10.1 / §10.6 | Kuusikenttäinen päätösmuoto pakollisine suosituksineen, katto neljä päätöstä per istunto |
+| §4 Viisivaiheinen HIC-oppimistulos | EU:n tekoälyasetuksen 14 artiklan interventiopiste istuntotasolla |
+
+Yhdessä luettuna oppimisstandardi toimii **legitimiteettiväitteiden nopeusrajoittimena**, asennettuna tekniseen prosessiin, jossa sellaista ei luonnostaan ole. Sen tarpeellisuus on itsessään näyttöä tämän osion teesille: jos artefaktin tuottaminen ja artefaktin legitimointi kulkisivat vertailukelpoisilla nopeuksilla, tällaista mekanismia ei olisi tarvittu.
+
+#### 10.27.4 Suunnitteluperiaate DWS:n tuotealustalle
+
+Kaupallinen johtopäätös seuraa suoraan, ja se muovaa sitä, mitä alusta myy yrityksille.
+
+1. **Myy näyttöä, älä tuomioita.** Näyttöartefaktit ovat tuotettavissa konenopeudella; vaatimustenmukaisuus*tuomiot* edellyttävät instituutioita, jotka eivät ole. Alustan tuotoksen tulee siksi olla tarkistettavaa aineistoa, jota tarkastaja, valvoja tai vastapuoli arvioi — ei koskaan väite siitä, että vaatimustenmukaisuus vallitsee. Periaatetta sovellettiin konkreettisesti julkiseen tekstiin samalla jaksolla: *"oikeudessa kestävä alkuperätieto"* muuttui muotoon *"alkuperätieto, joka on suunniteltu 12 artiklan kirjanpitovaatimuksia vasten"*, ja *"KYA:sta tulee EU:n tekoälyasetuksen vaatimustenmukaisuuskerros"* sai nimenomaisen lisäyksen, ettei se itsessään tee käyttöönotosta vaatimustenmukaista.
+2. **Jokainen väite kantaa vaiheensa.** Kypsyysmerkintä kulkee **väitteen vieressä** — samassa virkkeessä, samassa kortissa — ei erillisellä tilasivulla. Kolmen vierityksen päässä oleva vaihemerkintä on sama ylivaatimus lisäaskelin.
+3. **Profiilit, ei haaroja.** Lainkäyttöalueiden erot hoidetaan parametrisoimalla yksi ydin, ei toimittamalla kolmea tuotetta. Kolme tuotetta ajautuu erilleen; yksi ydin kolmine profiileineen säilyttää siirrettävän todistuksen, joka on koko tarkoitus.
+4. **Rakenna nopeusrajoitin tuotteeseen, ei vain prosessiin.** Jos tämän ohjelman oma tekninen työ tarvitsi jäähtymisvälin, agenttipohjaisia vaatimustenmukaisuustyönkulkuja kokoava yritys tarvitsee sen kipeämmin, koska sillä ei ole kontekstia eikä tekijyyttä huomata kuilua omin avuin. Sen tekeminen rakenteellisesti vaikeaksi, että vaatimustenmukaisuusväite lähtisi nopeammin kuin sitä tukeva näyttö kertyy, on **tuoteominaisuus**, ei sisäinen kuri.
+
+**Miksi tämä on kaupallinen asema eikä rajoite.** Säännellyillä toimialoilla toimivat yritykset ovat se joukko, jota artefakti–legitimiteetti-kuilu vahingoittaa eniten, koska niiden tapauksessa ylivaatimus ei vain nolostuta — siitä tulee valvontahavainto. Generatiiviset työkalut ovat tehneet viimeistellystä vaatimustenmukaisuusdokumentista yleisesti saatavan; samassa liikkeessä niukaksi on tullut kyky sanoa, **mitkä sen osat ovat kantavia**. Juuri tuo erottelukyky — näyttö erotettuna väitteestä, todennettu erotettuna edelleen välitetystä, vaihe lausuttuna väitteen kanssa — on se, mitä vaatimustenmukaisuusäly tuotteena tarkoittaa, ja se on se, mitä DWS IQ tarjoaa yrityksille.
