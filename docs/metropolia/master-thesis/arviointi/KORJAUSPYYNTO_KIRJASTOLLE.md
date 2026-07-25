@@ -25,6 +25,12 @@ Metropolian kirjaston asiantuntija **Saija Pyhtilä** havaitsi epäjohdonmukaisu
 2. **Vastaanottaja on `kirjasto@metropolia.fi`**, ei Theseus-toimisto eikä Saija henkilökohtaisesti (hän palaa vasta **10.8.**).
 3. **Korjattavia kohtia on viisi**, ei yksi. Kirjasto listasi ne itse; jos vain nimi korjataan, loput jäävät julkaistuun tietueeseen.
 
+## ⛔ Mitä korjattuun PDF:ään EI tehdä
+
+**Vain nämä viisi kohtaa.** Työn sisältöön, tuloksiin, johtopäätöksiin tai lukuun 5.4 ei kosketa.
+
+Istunnossa 25.07.2026 harkittiin, tehtäisiinkö samalla patenttisuojaan liittyviä poistoja tekstiin. **Hylätty kahdesta syystä:** (1) poisto ei palauta uutuutta — työ on ollut julkinen 10.07.2026 alkaen, ja EPC 54 artikla koskee hakemuspäivää edeltävää tilaa, ei nykyhetkeä; (2) alla oleva viesti sanoo kirjastolle, ettei sisältöön ole tehty muutoksia, ja se on totta vain jos se on totta — arvioidun työn korvaaminen toisella olisi eri asia kuin muotokorjaus. Perustelut ja se mikä on yhä auki: `docs/legal/PRIOR_ART_DISCLOSURE_RECORD_2026-07-25.md` §7.
+
 ## ⚠️ Järjestys — korjattu PDF ensin, viesti vasta sitten
 
 Pyyntö on tiedoston vaihto. **Älä lähetä viestiä ennen kuin korjattu PDF on valmis** — muuten kirjasto joutuu odottamaan liitettä ja ketju venyy. Työjärjestys: korjaa Google Docs → vie PDF → lähetä viesti liitteineen.
