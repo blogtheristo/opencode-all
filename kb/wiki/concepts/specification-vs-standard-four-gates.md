@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: specification-vs-standard-four-gates.md
-Version: 1.3
+Version: 1.4
 Last-Updated: 2026-07-25
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code (claude-opus-5)
@@ -18,7 +18,7 @@ Owner: risto.paarni@lifetime.fi
 
 # Specification vs Standard — and the Four Gates
 
-**Version:** 1.3
+**Version:** 1.4
 **Status:** Active
 **Scope:** Any DWS document, page, deck or claim that uses the word "standard" externally
 
@@ -173,6 +173,68 @@ This is a genuine strategic decision for KYA, and it has not been framed before.
 > *"Standardi on yleisesti tunnustettu de facto ja de jure tapa."*
 
 The gates treat these as **disjunctive** — body acceptance **or** genuine adoption. Most standards are one or the other; few are both, and those that are usually arrived de facto first and were ratified later (TCP/IP). If *"ja"* is meant as *"or"*, this matches. If it is meant as requiring both, it is stricter than the gates and stricter than practice.
+
+## Kuka saa muuttaa spesifikaatiota — hallintomallin valinta, 25.07.2026
+
+> **Boardy:** *"Mikä on KYA:n vastine LF/TSC-rakenteelle? Gaia-X/IDSA, W3C CG, vai jokin kolmas?"*
+> **HIC:** *"Jurisdiction määrää tämän."*
+
+### Vahvistettu — mutta se määrää lopputilan, ei ensimmäistä siirtoa
+
+**Jurisdiktio määrää de jure -reitin täysin.** Vaatimustenmukaisuusolettama on jurisdiktiokohtainen eikä siirry: EU:ssa vain CEN/CENELEC tuottaa yhdenmukaistettuja standardeja (AI Act 40 art., käytännössä JTC 21, sisäänpääsy kansallisen peilikomitean SFS:n kautta), Yhdysvalloissa vastine on NIST-kehysten viittausrakenne, Singaporessa IMDA. **Näiden välillä ei ole oikotietä**, ja tämä on jo kirjattu SPEC §10:n jurisdiktioprofiileihin ja §14.43:een.
+
+Lisäksi: jos spesifikaatio kantaa **suvereniteettia sidosehtona** (RQ1), hallintoelin, joka ei voi pitää keskenään eroavia jurisdiktioprofiileja, on rakenteellisesti väärä isäntä. Se on aito rajoite ja se sulkee vaihtoehtoja pois.
+
+### Mutta A2A ei mennyt jurisdiktion kautta — ja se on koko esimerkin ydin
+
+**Linux Foundation ei ole jurisdiktioelin.** Se on Delawaressa rekisteröity yhdysvaltalainen voittoa tavoittelematon säätiö. A2A:n hallinto on uskottava maailmanlaajuisesti **ei** siksi että LF sijaitsee jossain tietyssä oikeusjärjestelmässä, vaan siksi että **TSC on monitoimittajainen ja monikansallinen**.
+
+Google ei valinnut LF:ää jurisdiktiosyistä. Se valitsi sen **kilpailijoiden välisen neutraaliuden** vuoksi.
+
+**Valintakriteerejä on siis kaksi, ja ne osoittavat eri elimiin:**
+
+| Kriteeri | Elin | Mitä antaa | Mitä maksaa |
+| -------- | ---- | ---------- | ----------- |
+| **Jurisdiktiolegitimiteetti** | CEN/CENELEC JTC 21 (SFS:n kautta) · NIST · IMDA | Vaatimustenmukaisuusolettama, laillinen asema | Hidas, ei käynnistettävissä itse, yksi ääni kolmensadan joukossa |
+| **Kilpailijaneutraalius** | LF-tyylinen säätiö · W3C CG · toimialakonsortio (Gaia-X, IDSA) | Omaksuminen, portit 1 ja 4 | Ei laillista olettamaa |
+
+### Nämä eivät ole vaihtoehtoja vaan peräkkäisiä
+
+**A2A teki neutraaliusaskeleen eikä ole tehnyt jurisdiktioaskelta** — eikä kukaan muukaan agenttiprotokollien alueella.
+
+De facto -reitti rakentaa ne toteutukset, jotka myöhemmin tekevät de jure -esityksestä uskottavan. **Toisin päin tehtynä — mennä CEN/CENELECiin spesifikaatiolla, jota kukaan ei ole toteuttanut — esitys kuolee**, koska yhdenmukaistetun standardin valmistelu nojaa siihen, että markkinalla on jo jotain yhdenmukaistettavaa.
+
+**Jurisdiktio määrää siis minne ollaan menossa. Neutraalius määrää mistä lähdetään.**
+
+### ⚠️ Se mitä kumpikaan osapuoli ei kysynyt — ja se on sitova rajoite
+
+**LF/TSC toimi A2A:lle koska kahdeksan kilpailijaa halusi saman protokollan.**
+
+Se on todellinen ennakkoehto, ei säätiön valinta. Google saattoi luovuttaa A2A:n, koska AWS, Microsoft, IBM, SAP, Salesforce, Cisco ja ServiceNow **kaikki tarvitsivat agenttien yhteentoimivuutta eikä kukaan voinut omistaa sitä yksin**. Säätiö oli väline koalitiolle, joka oli jo olemassa.
+
+**KYA:lla ei ole sellaista koalitiota.** Ei ole joukkoa kilpailijoita, jotka tarvitsisivat jaettua agenttihallinnan konformanssikehystä niin kipeästi, että he hallinnoisivat sitä yhdessä tänään.
+
+**Ilman koalitiota mikä tahansa säätiö tuottaa tyhjän TSC:n** — ja se läpäisee portin 4 **deklaratiivisesti muttei rakenteellisesti**, mikä on täsmälleen se erottelu, jonka Boardy itse teki. Säätiö ilman koalitiota on arkistokaappi.
+
+**Tästä seuraa, että kysymys on väärin aseteltu.** Kysymys ei ole *mikä elin*, vaan **ketkä olisivat kanssahallinnoijat**. Ja se kääntää lähiajan työn:
+
+> **Ensimmäinen tehtävä ei ole valita elintä vaan löytää kaksi riippumatonta toteuttajaa.** Ne toteuttajat *ovat* se koalitio, joka tekee portista 4 rakenteellisen. Portit 1 ja 4 sulkeutuvat samalla teolla — samoin kuin portit 1 ja 3.
+
+Elimen valinta on **seuraus**, ei lähtökohta. Se ratkeaa lähes itsestään sen jälkeen kun tiedetään keitä toteuttajat ovat ja missä jurisdiktiossa he toimivat.
+
+### ⚠️ Korjaus aiempaan väitteeseeni — KYA on tilassa 1, ei 2
+
+Tämän tiedoston v1.2 sanoi *"KYA on tilassa 2"* (julkaistu spesifikaatio) ja v1.3 sanoi, että **patenttilisenssi on jo myönnetty jokaiselle toteuttajalle**. **Molemmat ovat väärin, ja ero on merkittävä.**
+
+`blogtheristo/dws6` on **yksityinen** (varmistettu 25.07.2026). `standards/kya-open/SPEC.md` ei siis ole julkinen. **KYA on tilassa 1** — versioitu, toteutettavissa oleva, sisäinen.
+
+Ja siitä seuraa Apache-2.0:n osalta: **§3:n patenttilisenssi myönnetään vastaanottajalle.** Jos teosta ei ole luovutettu kenellekään, vastaanottajia ei ole eikä lisenssi ole tullut voimaan ketään vastaan.
+
+**Oikea muotoilu:** lisenssivalinta on **ennakkositoumus patenttilisenssistä, joka aktivoituu julkaisuhetkellä.** Mitään ei ole vielä annettu pois.
+
+**Tämä tekee NOTICE-tiedoston oman varoituksen kiireellisemmäksi eikä vähemmän kiireelliseksi:** lisenssikysymys on ratkaistava **ennen julkaisua**, koska juuri julkaisu laukaisee sen — ja uudelleenlisensointi kolmansien kontribuutioiden jälkeen on olennaisesti vaikeampaa.
+
+**Ja se vahvistaa päätöksen pitää spesifikaatio sisäisenä** vahvemmin kuin Boardyn muotoilu: kyse ei ole vain siitä että hallintomalli on ratkaisematta, vaan siitä että **julkaisu on se hetki jolloin patenttiehdot lukittuvat.**
 
 ## Why this matters specifically in the EU
 
