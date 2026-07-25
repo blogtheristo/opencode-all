@@ -10,10 +10,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.2 (specification draft, v1.5 line)
+Version: 0.3 (specification draft, v1.5 line)
 
 Sessions & Modifications:
 
+- Version: 0.3 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Added **§10 Jurisdiction profiles** — fixes the architecture as **one jurisdiction-neutral core plus per-jurisdiction conformance profiles (EU / US / SG), NOT three forked specifications**, because forking reconstructs the interoperability problem the document exists to remove. Establishes the profile rule (*a profile may tighten a core MUST, never weaken one*; the §4 floors hold in every profile) and names the DWS four-track vocabulary (ASB/EAB/CSB/SIB) as the parameterisation seam, so a conformance claim is a per-jurisdiction triple rather than one global assertion. Profiles are **named, not written** — populating them requires in-jurisdiction legal review. Records two asymmetries: only the EU confers a legal presumption (Art. 40; the US NIST AI RMF is voluntary guidance with no conformity presumption), and harmonised status **cannot be self-initiated** since harmonised standards are developed by CEN/CENELEC in response to a Commission standardisation request. SG route corrected against primary sources: **Enterprise Singapore** is the ISO member body (IMDA promotes and regulates; AI Verify Foundation is an IMDA subsidiary running the open-source testing toolkit), and Singapore's demonstrated venue is **ISO/IEC JTC 1/SC 42**, where it tabled ISO/IEC AWI TS 42119-8 and hosted the 17th plenary (Singapore, 20–24 April 2026). Noted that 42119-8's scope is GenAI output testing, **not** agent governance — KYA cannot ride it; only the pattern transfers.
 - Version: 0.2 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: **Retitled "Open Standard" → "Specification"** on HIC challenge: no standards body has processed this document and no implementation exists outside Lifetime Oy, so "standard" claimed a category the document's own §0.2 and §9 disclaimed. Added **§0.6 (Specification, not standard)** with the four gates that would honestly earn the word — two independent implementations, a conformance suite that can be failed, a body or genuine adoption, and change control outliving Lifetime Oy. Rationale recorded: the EU AI Act Art. 40 term "harmonised standard" is legally loaded in exactly this market, and the DWS house voice forbids over-claiming. Renaming before external citation is free; demoting after adoption would read as a retreat.
 - Version: 0.1 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: First in-repo draft of the KYA specification, created under **HIC decision 3A (24.07.2026)** — "land the spec in-repo first, publish the ATS formula openly, retain the telemetry pipeline." Prior to this file the spec existed only in session memory with no artifact anywhere in `origin/main`. Normative content extracted from `Legal/KYA_STANDARD_v1.md` (§3 ATS, §14.2 mandate gating, §14.4 trust chain, §14.5 evidence chain, §14.7 verified-done attestation) and the executable engine in `src/identity/`. Publishing boundary applied per decision 3A. Three strategy questions remain open and are marked in §0.2.
 
@@ -36,7 +37,7 @@ This document specifies the **protocol**: credential shapes, the trust-score for
 
 Three questions remain open and **must be resolved before publication**. They are recorded here rather than guessed:
 
-- **Standards-body target.** _A route is **proposed but not chosen**_ — see `docs/field-notes/2026-07-24-kya-open-standard-dual-track-ip-strategy.md` for the assessment. Shortlist: **CEN/CENELEC JTC 21** (the EU AI Act harmonised-standards route, reached via SFS in Finland — the only route on which "standard" carries Art. 40 weight), **W3C** (a Community Group is nearly free; the Verifiable Credentials WG needs membership or Invited Expert status and governs the *data model*, not agent-governance semantics), and **Gaia-X / IDSA** (best understood as where independent implementers may be found — gate 1 of §0.6 — rather than as a ratification route). FIDO Alliance is deferred until agentic commerce becomes the commercial centre of gravity; ETSI is not pursued absent a customer requirement. The choice constrains the licensing regime — see §0.3.
+- **Standards-body target.** _A route is **proposed but not chosen**_ — see `docs/field-notes/2026-07-24-kya-open-standard-dual-track-ip-strategy.md` for the assessment. Shortlist: **CEN/CENELEC JTC 21** (the EU AI Act harmonised-standards route, reached via SFS in Finland — the only route on which "standard" carries Art. 40 weight), **W3C** (a Community Group is nearly free; the Verifiable Credentials WG needs membership or Invited Expert status and governs the *data model*, not agent-governance semantics), **Gaia-X / IDSA** (best understood as where independent implementers may be found — gate 1 of §0.6 — rather than as a ratification route), and **ISO/IEC JTC 1/SC 42** reached via **Enterprise Singapore** (the venue where Singapore tabled ISO/IEC AWI TS 42119-8 and hosted the 17th plenary in April 2026; an ISO/IEC route is the only one recognised across all three jurisdictions, and regional bodies can adopt its output). FIDO Alliance is deferred until agentic commerce becomes the commercial centre of gravity; ETSI is not pursued absent a customer requirement. The choice constrains the licensing regime — see §0.3.
 - **Adoption timing.** A Q4 2026 target has been stated; the driver behind that date is not recorded here because it is not yet written down anywhere authoritative. **Note that this question and the one above are entangled:** the candidate bodies run on incompatible clocks (CEN in years, W3C in months, Gaia-X/IDSA fastest), so if Q4 2026 means *published and adopted somewhere*, the body choice answers the date.
 - **Conformance suite.** A standard without conformance tests gets implemented loosely and diverges. Who authors and operates the suite is undecided — see §9.
 
@@ -206,6 +207,39 @@ Conformant deployments MUST provide an intervention point at which a human can i
 An implementation is **KYA-conformant** if it satisfies every MUST in §2–§8.
 
 ⚠️ **No conformance test suite exists yet.** Until one does, "KYA-compliant" is an unverified self-assertion. The mark MUST NOT be treated as an assurance in the absence of a suite — see §0.2.
+
+***
+
+## 10. Jurisdiction profiles (architecture; profiles not yet written)
+
+### 10.1 Core plus profile, not three specifications
+
+KYA is deployed across three jurisdictions (EU / US / SG) whose regulatory obligations differ materially. The architecture is **one jurisdiction-neutral core plus per-jurisdiction conformance profiles** — *not* three forked specifications.
+
+The reason is the property the whole document exists to protect: **a credential a counterparty in any jurisdiction can verify.** Three specifications produce three verifiers, three canonicalisations and three drift trajectories, which reconstructs the interoperability problem KYA was written to remove. The convention followed here is the ordinary one — ISO 27001 core with national annexes, OpenID Connect core with national eID profiles, the W3C VC data model with jurisdiction-specific trust frameworks.
+
+**Core (§1–§9, jurisdiction-neutral).** Trust chain, ATS formula and bands, capability manifest, mandate gating, evidence-chain event types, attestation subject, signature and verification rules, human oversight.
+
+**Profile (per jurisdiction).** Regulatory mapping; data-residency and key-custody constraints; retention and erasure basis; conformance obligations; and the jurisdiction-parameterised thresholds. **A profile MUST NOT weaken a core MUST.** A profile may tighten, add obligations, or bind a core requirement to a named legal instrument; it may not relax one. The two immovable floors of §4 hold in every profile.
+
+### 10.2 The four tracks are the parameterisation seam
+
+The DWS four-track conformance vocabulary — **ASB** (operational safety), **EAB** (decision quality), **CSB** (cost-surface stability), **SIB** (substrate integrity) — is the natural seam: the tracks remain constant across jurisdictions and their thresholds and evidentiary requirements are profile-parameterised. A conformance claim is therefore stated as a per-jurisdiction triple rather than a single global assertion.
+
+### 10.3 The three profiles
+
+| Profile | Primary instruments to map | Standardisation venue | National/host body |
+| ------- | -------------------------- | --------------------- | ------------------ |
+| **KYA-EU** | EU AI Act (Art. 12 records, Art. 14 oversight, Art. 40 harmonised standards), GDPR (incl. Art. 17(3) retention basis), NIS2, DORA | CEN/CENELEC **JTC 21** | **SFS** (Finland) |
+| **KYA-US** | NIST AI RMF (voluntary; **no conformity presumption exists**), sectoral regimes, state AI statutes | **Linux Foundation** (Agentic AI Foundation); NIST as reference framework | — (direct contribution) |
+| **KYA-SG** | IMDA Model AI Governance Framework, PDPA, MAS guidance for financial services | **ISO/IEC JTC 1/SC 42**; AI Verify for testing | **Enterprise Singapore** (ISO member body) |
+
+**Status: the profiles are named here and not yet written.** This section fixes the architecture so that jurisdiction-specific obligations have a defined home; it does not assert that the mappings exist. Publishing a profile requires legal review in that jurisdiction and is out of scope for the specification author acting alone.
+
+### 10.4 Two asymmetries a reader must not miss
+
+1. **Only the EU confers a legal presumption.** Under EU AI Act Article 40 a *harmonised standard* carries a presumption of conformity. **The United States has no equivalent** — the NIST AI RMF is voluntary guidance that an implementation maps to, not a body that ratifies it. A conformance claim therefore does not mean the same thing in the two jurisdictions, and must not be stated as though it did.
+2. **Harmonised status cannot be self-initiated.** Harmonised standards are developed by CEN/CENELEC in response to a **standardisation request from the European Commission**, and only work within that mandate's scope becomes harmonised. A specification may *feed into* JTC 21's work; it cannot be submitted and ratified as an EU harmonised standard on its author's timetable.
 
 ***
 

@@ -134,6 +134,30 @@ Answers `[HIC INPUT NEEDED]` #2 with a **proposal, not a decision.** Three bodie
 
 **This collapses two open questions into one.** `[HIC INPUT NEEDED]` #1 asked why Q4 2026. If that date means *published and adopted somewhere*, **only Gaia-X/IDSA can deliver it — CEN structurally cannot.** So the body choice and the timing are not two decisions; picking the body answers the date.
 
+### SG route — VERIFIED against primary sources (25.07.2026)
+
+Recorded earlier as *my analysis, not established DWS position*. Now checked, and it was **wrong in one place and understated in another.**
+
+**Correction — the standards body is Enterprise Singapore, not IMDA.** Roles separate cleanly:
+
+| Body | Role |
+| ---- | ---- |
+| **Enterprise Singapore (EnterpriseSG)** | The national standards body — Singapore's ISO member. **This is the formal route.** |
+| **IMDA** | Regulator and promoter (Model AI Governance Framework); co-organises standardisation work with EnterpriseSG |
+| **AI Verify Foundation** | A **wholly owned IMDA subsidiary**, running AI Verify as an open-source testing project with a global contributor ecosystem |
+| **MAS** | Financial-services supervision of AI |
+
+**Understatement — the venue is ISO/IEC, not merely national.** Singapore tabled **ISO/IEC AWI TS 42119-8** (*Artificial intelligence — Testing of AI — Part 8: quality assessment of prompt-based text-to-text systems that utilize generative AI*) into **ISO/IEC JTC 1/SC 42**, and hosted the **17th SC 42 plenary in Singapore, 20–24 April 2026** — 35+ national bodies, 250+ experts, the first time in ASEAN. Reported as the first international standard of its kind for GenAI testing.
+
+**Two calibrations, so this is not over-read:**
+
+1. **Stage 20.00 — "new project registered in TC/SC work programme."** That is *very* early, and it is an **AWI TS** (Approved Work Item, Technical Specification track) rather than a full International Standard. A TS is faster and carries less authority than an IS.
+2. **Scope is GenAI output testing, not agent governance.** 42119-8 assesses prompt-based text-to-text system quality. **KYA cannot ride it.** What transfers is the *pattern* and the demonstrated capability — Singapore has shown it can table an international AI-testing standard and convene the committee around it.
+
+**Why this matters more than the national framing suggested.** ISO/IEC is the one venue recognised across **all three** jurisdictions: its outputs can be adopted regionally (CEN/CENELEC can adopt an ISO standard as EN ISO), and US frameworks reference international standards. So SC 42 is potentially higher-leverage than any single-jurisdiction route — and Singapore is the pragmatic, demonstrated door into it.
+
+**Unverified and needing a check before any commitment:** whether agent-*authority* governance fits an existing SC 42 work item or would require a New Work Item Proposal, and what EnterpriseSG participation costs a non-Singaporean entity. Neither was established here.
+
 ### Sequencing recommendation — do not run three in parallel
 
 Three simultaneous tracks is a sustained commitment (meetings, drafts, calls, travel) over quarters, against a board list that already carries an unsigned IP assignment. **Joining a body you cannot show up to is worse than not joining.** Proposed order:
