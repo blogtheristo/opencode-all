@@ -30,7 +30,7 @@ Started as "Greg Isenberg field note — what's true and useful for KYA." Became
 - **Push the F1/F3 patch.** `security-reports/patches/2026-07-24-PR1716-fix-F1-F3.patch` (2 files, +142/−15). `git apply` on `claude/kya-v2-attestation-signing-6e5703`. **Not pushed** — this session is authorized only for its own branch.
 - **Post the review/fix to PR #1716?** Not posted; repo-only so far.
 - **B9** — settle 074/079 against the live DB (needs Supabase approval).
-- **Three `[HIC INPUT NEEDED]`** on the Open Standard: why Q4 2026, which standards body, conformance story. Recorded in `standards/kya-open/SPEC.md` §0.2.
+- **Three `[HIC INPUT NEEDED]`** on the Specification: why Q4 2026, which standards body, conformance story (`standards/kya-open/SPEC.md` §0.2). **A standards-body route is now PROPOSED** (CEN/CENELEC JTC 21 via SFS/LUT · W3C CG · Gaia-X/IDSA for gate-1 implementers) in the dual-track field note — the pick is still open, and it also answers the Q4 timing question, since the three bodies run on incompatible clocks.
 - **Migration 080** = B7 + B8 + D4, gated on B9.
 
 ## Gotchas

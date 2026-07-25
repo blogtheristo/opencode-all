@@ -36,8 +36,8 @@ This document specifies the **protocol**: credential shapes, the trust-score for
 
 Three questions remain open and **must be resolved before publication**. They are recorded here rather than guessed:
 
-- **Standards-body target.** Candidates: FIDO Alliance (where AP2 lives), W3C (VC data model), CEN/CENELEC (the EU AI Act harmonised-standards route), ETSI. The choice constrains the licensing regime — see §0.3.
-- **Adoption timing.** A Q4 2026 target has been stated; the driver behind that date is not recorded here because it is not yet written down anywhere authoritative.
+- **Standards-body target.** _A route is **proposed but not chosen**_ — see `docs/field-notes/2026-07-24-kya-open-standard-dual-track-ip-strategy.md` for the assessment. Shortlist: **CEN/CENELEC JTC 21** (the EU AI Act harmonised-standards route, reached via SFS in Finland — the only route on which "standard" carries Art. 40 weight), **W3C** (a Community Group is nearly free; the Verifiable Credentials WG needs membership or Invited Expert status and governs the *data model*, not agent-governance semantics), and **Gaia-X / IDSA** (best understood as where independent implementers may be found — gate 1 of §0.6 — rather than as a ratification route). FIDO Alliance is deferred until agentic commerce becomes the commercial centre of gravity; ETSI is not pursued absent a customer requirement. The choice constrains the licensing regime — see §0.3.
+- **Adoption timing.** A Q4 2026 target has been stated; the driver behind that date is not recorded here because it is not yet written down anywhere authoritative. **Note that this question and the one above are entangled:** the candidate bodies run on incompatible clocks (CEN in years, W3C in months, Gaia-X/IDSA fastest), so if Q4 2026 means *published and adopted somewhere*, the body choice answers the date.
 - **Conformance suite.** A standard without conformance tests gets implemented loosely and diverges. Who authors and operates the suite is undecided — see §9.
 
 ### 0.3 Licensing note

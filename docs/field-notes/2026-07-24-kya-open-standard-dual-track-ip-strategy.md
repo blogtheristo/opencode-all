@@ -103,6 +103,47 @@ Publishing the protocol invites implementations DWS does not control. That is th
 
 **Naming that survives scrutiny:** "the first careful specification for governing delegated agent authority, written while the category was being invented" is both truer than "standard" and harder for anyone to take away on a technicality.
 
+## Standards-body route — PROPOSED, pick still open (25.07.2026)
+
+Answers `[HIC INPUT NEEDED]` #2 with a **proposal, not a decision.** Three bodies named by the HIC/Boardy, assessed against the four gates in `standards/kya-open/SPEC.md` §0.6. The pick remains the HIC's.
+
+### The three, and what each is actually for
+
+**1. CEN/CENELEC JTC 21 (AI) — the strategic prize.** They are writing the EU AI Act harmonised standards now, and the KYA Article 12 (evidence chain) / Article 14 (human oversight) framework maps to their mandate rather than sitting adjacent to it. This is the only route on which "standard" acquires the meaning a regulated-industry buyer needs — Art. 40 presumption of conformity. It is also the route that makes KYA **compliance infrastructure instead of a vendor document**.
+
+> **The access route is the real asset here.** National-body participation runs through **SFS** (Finland), approachable via **LUT** or **Business Finland**. National-body access is the usual wall for a company this size, and DWS has two credible doors. LUT especially: an academic affiliation is a well-worn route into a JTC working group, and the PhD work is already the theoretical framing for this exact material.
+
+**2. W3C — with a correction that changes the plan.** Two separate things must not be conflated:
+
+- The **Verifiable Credentials Working Group is _not_ low-barrier.** WG participation requires W3C membership (tiered by revenue, a real annual cost) or **Invited Expert** status — individual, discretionary, not guaranteed. _Confirm current terms before budgeting._
+- A **Community Group** is nearly free: five people may charter one, no fee, public citable output.
+
+**More important, the scope point:** the VC WG governs the **data model**, not agent-governance semantics. The ATS formula, mandate-gating bands and capability manifests are **out of scope there**. Joining buys attestation + `did:web` interop, credibility, and a relationship — it does **not** standardize KYA. The trade is genuinely good in the other direction: the WG needs implementer evidence to advance VC 2.0, and DWS has deployment evidence. Price it as **interop plus relationship, never as ratification.**
+
+**3. Gaia-X / IDSA — reframed: this is a gate-1 play, not a standardization route.** Filed by the HIC as a standardization option; it is better understood as **where the independent implementers are**. Gate 1 (two implementations by parties with no commercial relationship to Lifetime Oy) is the gate nothing else on this list solves — CEN produces no implementers, and neither does W3C. A European sovereign-data-infrastructure consortium whose members already care about trust, sovereignty and audit trails is exactly the population that might build a second KYA verifier, because they need one.
+
+> **Honest caveat:** a "Gaia-X compliant profile" carries real ecosystem weight and very little **regulatory** weight. It must not substitute for the CEN track. Use it to manufacture the adoption evidence CEN will eventually ask for.
+
+### Gate mapping and the three clocks
+
+| Body | Gate served (§0.6) | Clock |
+| ---- | ------------------ | ----- |
+| CEN/CENELEC JTC 21 | Gate 3 (de jure) + regulatory weight | **Years** |
+| W3C (CG now; VC WG if membership) | Interop; partial gate 4 | **Months** |
+| Gaia-X / IDSA | **Gate 1 — independent implementers** | **Fastest** |
+
+**This collapses two open questions into one.** `[HIC INPUT NEEDED]` #1 asked why Q4 2026. If that date means *published and adopted somewhere*, **only Gaia-X/IDSA can deliver it — CEN structurally cannot.** So the body choice and the timing are not two decisions; picking the body answers the date.
+
+### Sequencing recommendation — do not run three in parallel
+
+Three simultaneous tracks is a sustained commitment (meetings, drafts, calls, travel) over quarters, against a board list that already carries an unsigned IP assignment. **Joining a body you cannot show up to is worse than not joining.** Proposed order:
+
+1. **SFS conversation now** — slowest clock, so it must start earliest. Via LUT or Business Finland.
+2. **W3C Community Group now** — cheap, and it gives the spec a neutral home plus a public venue where an independent implementer can appear (gates 1 and 4).
+3. **Gaia-X / IDSA when there is someone concrete to hand the spec to** — not before.
+
+**And regardless of body: build the conformance suite yourself.** It is gate 2, no body will author it for a specification with one implementation, and it is the only defence against a competitor shipping the "KYA-compliant" label without the substance. A body may eventually operate it; none will write it.
+
 ## Next Steps
 
 - HIC fills the remaining three `[HIC INPUT NEEDED]` items; this note is revised to v1.1 with the real rationale.
