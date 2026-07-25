@@ -43,7 +43,7 @@ Merkitse jokaiseen `KORJAA` / `JÄTÄ` / `KORJAA NÄIN: …`.
 
 ## A-luokka — sisäiset ristiriidat
 
-### A1. Kuukausikulut: johdanto sanoo 300/600 €, johtopäätökset 100/400 € — ✅ RATKAISTU 25.07.2026
+### A1. Kuukausikulut: johdanto sanoo 300/600 €, johtopäätökset 100/400 € — ✅ PÄÄTETTY 25.07.2026: VAIHTELUVÄLIT
 
 | Sijainti | Teksti |
 | -------- | ------ |
@@ -92,7 +92,13 @@ Korjatuilla luvuilla kulut **kuusinkertaistuivat** (100 → 600). Väite "ei kul
 
 Tämä on totta, se säilyttää argumentin, ja se kestää sen että luvut kasvoivat. **Nykyinen muotoilu ei kestäisi korjattuja lukuja** — siksi tätä ei voi jättää tekemättä, jos A1 korjataan.
 
-**Päätös tarvitaan enää yhteen asiaan:** hyväksytkö vaihteluvälimuotoilun ja "satojen eurojen suuruusluokassa" -korjauksen? ⬜
+#### ✅ HIC:n päätös 25.07.2026
+
+> *"Vaihteluväli on oikein"*
+
+**Vaihteluvälimuotoilu hyväksytty** — 100–300 € ja 300–600 €, kaikkiin kolmeen paikkaan, syy nousuun mainittuna kerran.
+
+**Seurausmuutos etenee samalla.** Se ei ole erillinen makuvalinta vaan looginen seuraus: kun luvut kertovat kuusinkertaistumisen, virke *"skaalautuvuutta ei saavutettu kulupiikillä"* on ristiriidassa oman taulukkonsa kanssa. Korjatut luvut ilman korjattua väitettä jättäisivät työhön **uuden** sisäisen ristiriidan — pahemman kuin se, joka nyt korjataan. Muotoilu *"pysyivät koko ajan satojen eurojen suuruusluokassa, kun vertailukelpoiset kaupalliset ratkaisut liikkuvat tuhansissa"* säilyttää argumentin ja kestää kasvaneet luvut. Jos tämä ei käy, kerro — muuten se tehdään A1:n mukana.
 
 ### A2. Työn rakenne -luku lupaa kymmenen lukua, työssä on viisi — päätös: ⬜
 
