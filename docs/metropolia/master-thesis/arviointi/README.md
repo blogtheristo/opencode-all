@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Löydös: talletetussa työssä on luku 5.4 "DWS IQ: Agentic Commerce -polku", jota ei ole repositoriossa lainkaan** (HIC:n osoittamana; vahvistettu Drivesta `V4` ja `V41` sekä repositoriohauilla — `Agent Passport` 0 osumaa, repon `Aegis` on eri tarkoite). Kirjattu vaikutus A9:n näyttöpohjaan. **Korjattu v1.1:n väite:** Driven `V4` ja `V41` **eivät** ole identtiset kansilehteä lukuun ottamatta — eroja on 14 kohdassa, useat sisällöllisiä; väite poistettu myös korjauspyynnöstä. Vahvistettu, että **oikea nimi on jo dokumentissa** (suomenkielisen tiivistelmäsivun Otsikko-kenttä). Kirjattu, ettei Theseus-URL:ää voitu avata tästä ympäristöstä (verkkopolitiikka estää `urn.fi`/`theseus.fi`).
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Kirjattu nimivirheen **syntytapa ja laajuus** HIC:n kuuden vahvistusviestin perusteella: HIC tulkitsi ohjeita virheellisesti (alkuperäisen rekisteröidyn nimen oletettiin olevan pakollinen lopullisessa versiossa), vei väärin korjatun version opinnäytetyöpalveluun, ja korjaus jäi tekemättä asiaa hoitavan henkilön lomalle jäätyä. Suljettu aiempi avoin kysymys: **kaksi versiota ovat identtiset paitsi kansilehden nimen osalta** — virhe on nimiölehdellä, ei vain metatiedossa. Kirjattu Drive-todennus (`V41_Final_Thesis_FI`) ja se, että ristiriita on itsestään todennettavissa dokumentin sisältä (nimiölehti vs. tiivistelmän ensimmäinen virke). Korjattavuus jätetty **avoimeksi** HIC:n mukaisesti. Varmistettu `blogtheristo/dws7` yksityiseksi.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Arkistoitu HIC:n toimittama virallinen arviointilausunto (`2026-06-05-YAMK-opinnaytetyon-arviointilausunto.pdf`) ja kirjattu sen metatiedot haettavaan muotoon, koska PDF ei ole grep-attavissa. Kirjattu myös Theseus-tallennuksen vahvistus ja sen ratkaiseva merkitys backlog-kohdalle A9 (patenttiaikaikkuna).
 
@@ -92,7 +93,39 @@ Aiemmin tässä tiedostossa oli avoin kysymys siitä, onko virhe vain metatiedos
 
 HIC:n vahvistus: **kaksi versiota ovat sisällöltään identtiset — ainoa ero on kansilehden nimi.** Ei siis ole olemassa kahta eri työtä eikä kahta eri sisältöä; on yksi työ, jonka kansilehdellä on väärä nimi.
 
-Ristiriita on **itsestään todennettavissa talletetun dokumentin sisältä**, mikä on korjauspyynnön kannalta vahva seikka: nimiölehti sanoo *Omnichannel First -toimintamallin käyttöönotto Lifetime World palveluissa*, ja saman dokumentin tiivistelmän ensimmäinen virke sanoo *"This thesis examines the Firehorse product manufacturing operating model, a hybrid cloud-edge architecture…"*. (Todennettu Google Drivesta: `V41_Final_Thesis_FI`, 20.6.2026, Metropolia, Insinööri (ylempi AMK), Smart Factory, 37 sivua + 7 liitettä, ohjaajat lehtori Jarno Varteva ja lehtori Erkki Räsänen.)
+Ristiriita on **itsestään todennettavissa talletetun dokumentin sisältä**, mikä on korjauspyynnön kannalta vahva seikka. Vieläkin vahvempi kuin ensin kirjattiin: **oikea nimi on jo dokumentissa itsessään.** Suomenkielisen tiivistelmäsivun Otsikko-kenttä lukee *"Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille"*, ja englanninkielisen tiivistelmän ensimmäinen virke *"This thesis examines the Firehorse product manufacturing operating model, a hybrid cloud-edge architecture…"* — samalla kun nimiölehti ja englanninkielisen tiivistelmän Title-kenttä sanovat *Omnichannel First…*. (Todennettu Google Drivesta: `V41_Final_Thesis_FI`, 20.6.2026, Metropolia, Insinööri (ylempi AMK), Smart Factory, 37 sivua + 7 liitettä, ohjaajat lehtori Jarno Varteva ja lehtori Erkki Räsänen.)
+
+### ⚠️ Tarkennus 25.07.2026 — "identtiset" ei pidä paikkaansa Driven versioparille
+
+Yllä oleva HIC:n toteamus on kirjattu sellaisenaan, mutta **sitä ei voitu todentaa Drivessa oleville versioille.** `V4_Final_Thesis_FI` (nimiölehdellä **oikea** nimi) ja `V41_Final_Thesis_FI` (nimiölehdellä **väärä** nimi) eroavat toisistaan neljäntoista kohdan verran, joista useat ovat sisällöllisiä: TK1–TK4-otsikot kirjoitettu auki, suositusluku uudelleenkirjoitettu ja laajennettu, johtopäätöksiin lisätty kokonainen kappale, luku 5.8 muutettu luettelosta alaluvuiksi, ja lähdeluetteloon lisätty kaksi viitettä (AAIF; Google LLC, *Agentic AI Foundation — A2A, UCP & AP2*).
+
+HIC saattaa tarkoittaa **eri paria**: kahta `V41`:n vientiä, joissa eroaa vain kansilehti. Sellaista paria **ei löydy Drivesta** (haettu 25.07.2026; ainoat opinnäytetyöversiot ovat `V4` ja `V41`).
+
+**Käytännön seuraus:** väitettä *"versiot ovat identtiset"* ei tule esittää Metropolian kirjastolle ennen kuin kyseinen pari on löydetty. Korjauspyyntö ei tarvitse sitä väitettä — nimiölehden ja tiivistelmäsivun ristiriita riittää perusteluksi. Väite on poistettu `KORJAUSPYYNTO_KIRJASTOLLE.md`:stä tästä syystä.
+
+## ⚠️ Julkaistussa työssä on luku, jota ei ole repositoriossa
+
+**Löydös 25.07.2026, HIC:n osoittamana** (*"työ joka vietiin theseus on FinalV4 ja FinalV4.1 versiot eli niihin on kirjoitettu tekstiä sisään jotka eivät ole repossa"* / *"niissä on agentic commerce luku"*). **Vahvistettu.**
+
+Talletetussa työssä on luku **5.4 "DWS IQ: Agentic Commerce -polku"** seitsemine alalukuineen (5.4.1 Google Merchant Center · 5.4.2 A2A · 5.4.3 Aegis · 5.4.4 Themis · 5.4.5 UCP · 5.4.6 AP2/Stripe/Revolut · 5.4.7 konfiguraatiotaulukko). Luku on **sekä `V4`:ssä että `V41`:ssä** — se ei siis ole myöhempi lisäys, vaan oli mukana koko ajan.
+
+**Repositoriosta tarkistettu — luku puuttuu kokonaan:**
+
+| Haku | Osumia koko repositoriossa |
+| ---- | -------------------------- |
+| `Agent Passport` | **0** |
+| `Agentic Commerce -polku` | **0** |
+| `Themis antaa` / `Aegis myöntää` | **0** |
+| `UCP` / `AP2` | vain `Legal/KYA_*` ja `standards/kya-open/SPEC.md` — **ei kertaakaan `V3Thesis_FI`:ssä** |
+| `Aegis` `V3Thesis_FI`:ssä | 18 osumaa, mutta **eri tarkoite** — Aegis Defence -tuote (SAR-orbitaalinen detektio) |
+
+**Miksi tällä on merkitystä yli nimikysymyksen:** luku kuvaa julkisessa, pysyvästi arkistoidussa dokumentissa **agentin identiteetti- ja valtuutusmekanismin** — *"Aegis myöntää agentille digitaalisen Agent Passport -tunnisteen, joka valtuuttaa sen toimimaan käyttäjän puolesta"*, sidottuna käyttäjän Revolut-tiliin, Themis-kerroksen tarkistaessa budjetti-, sääntö- ja eettiset reunaehdot ennen transaktiota. Tämä on käsitteellisesti lähellä KYA:n mandaatti- ja agentti-identiteettialuetta, ja **se julkaistiin 10.07.2026 ilman että kukaan näissä istunnoissa oli lukenut sitä.**
+
+**Vaikutus A9:ään on kirjattu backlogiin.** Lyhyesti: kolmen nimetyn mekanismin (kolmen omaisuuserän erottelu, lähtijän mandaattipyyhkäisy, pseudonyymi `hic`-sidonta) uutuus **säilyy** — niitä ei ole talletetussa tekstissä. Se mikä muuttuu on **näyttöpohja**: A9:n päättely tehtiin repositorion sisällön perusteella, eikä talletettu dokumentti ole repositoriodokumentti. Patentoitavuusarvio on tehtävä **talletettua tekstiä vastaan**, ei `V3Thesis`iä vastaan.
+
+## Theseus-tietuetta ei voitu avata tästä ympäristöstä
+
+HIC pyysi vertaamaan suoraan Theseus-URL:iin. **Ei onnistunut:** sekä `urn.fi` että `theseus.fi` ovat tämän suoritusympäristön verkkopolitiikan estämiä (`CONNECT tunnel failed, response 403`). Kaikki yllä oleva vertailu on tehty **Google Driven lähdeversioita** (`V4`, `V41`) ja repositoriota vastaan — ei julkaistua tiedostoa vastaan. Julkaistun PDF:n tarkistus on siis edelleen tekemättä, ja se on HIC:n tehtävissä minuutissa.
 
 | | Nimi |
 | ------------------- | ---- |

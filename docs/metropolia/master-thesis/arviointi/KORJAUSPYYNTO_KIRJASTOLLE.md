@@ -19,7 +19,11 @@ Sessions & Modifications:
 | `‹vastaanottajan sähköposti›` | Metropolian kirjaston opinnäytetyöasioiden osoite | Ei varmistettu tässä istunnossa. **Älä arvaa** — tarkista Metropolian kirjaston sivuilta tai vastaa suoraan Theseus-vahvistusviestiin ja pyydä ohjaus oikealle taholle. |
 | `‹opiskelijanumero›` | Opiskelijanumero | Ei repositoriossa. Nopeuttaa käsittelyä olennaisesti. |
 
-Muu sisältö on todennettu: arviointilausunto 5.6.2026 (arkistoitu tähän hakemistoon), Theseus-vahvistus 10.7.2026, ja `V41_Final_Thesis_FI` Google Drivesta.
+Muu sisältö on todennettu: arviointilausunto 5.6.2026 (arkistoitu tähän hakemistoon), Theseus-vahvistus 10.7.2026, sekä `V4_Final_Thesis_FI` ja `V41_Final_Thesis_FI` Google Drivesta. **Theseus-tietuetta itseään ei ole voitu avata tästä ympäristöstä** — `urn.fi` ja `theseus.fi` ovat ympäristön verkkopolitiikan estämiä (CONNECT 403). Vertailu on siis tehty Drive-lähteitä vastaan, ei julkaistua tiedostoa vastaan.
+
+### ⚠️ Yksi väite poistettu tarkoituksella
+
+Luonnoksessa luki alun perin *"muuta eroa versioiden välillä ei ole"*. **Se poistettiin, koska sitä ei voitu todentaa.** Drivessa olevat `V4` (oikea nimi) ja `V41` (väärä nimi) eroavat toisistaan muutenkin: TK1–TK4-otsikot on kirjoitettu auki, suositusluku laajennettu, johtopäätöksiin lisätty kappale, luku 5.8 muutettu listasta alaluvuiksi ja lähdeluetteloon lisätty kaksi viitettä. HIC:n tarkoittama pari saattaa olla eri — kaksi `V41`:n vientiä, joissa eroaa vain kansilehti — mutta sitä paria ei löydy Drivesta. **Älä esitä kirjastolle "versiot ovat identtiset" ennen kuin se pari on löydetty.** Pyyntö toimii ilman tuota väitettä; nimiölehden ja tiivistelmäsivun ristiriita riittää perusteluksi.
 
 **Sävy on tarkoituksellisesti valittu:** virhe kerrotaan omaksi, ei kirjaston eikä ohjaajan. Se on totta, ja se on myös pyynnön vahvin kohta — kirjaston ei tarvitse puolustautua, vaan se voi vain ratkaista asian.
 
@@ -61,17 +65,21 @@ Työn sisältö on kuitenkin toinen, ja oikea nimi on:
 
 Ristiriita on todettavissa itse julkaistusta tiedostosta
 
-Tämä on syytä mainita, koska se tekee tarkistamisesta nopeaa:
-tiedoston nimiölehdellä lukee "Omnichannel First -toimintamallin
-käyttöönotto Lifetime World palveluissa", ja saman tiedoston
-tiivistelmän ensimmäinen virke kuuluu:
+Tämä on syytä mainita, koska se tekee tarkistamisesta nopeaa.
+Julkaistussa tiedostossa on oikea nimi jo valmiina — suomenkielisen
+tiivistelmäsivun Otsikko-kentässä lukee:
+
+  "Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-
+   arkkitehtuuri ilmastoälykkäille teollisille alustoille"
+
+Samoin englanninkielisen tiivistelmän ensimmäinen virke kuuluu:
 
   "This thesis examines the Firehorse product manufacturing operating
    model, a hybrid cloud-edge architecture..."
 
-Nimiölehti ja tiivistelmä siis kuvaavat eri työtä. Korjauspyyntöä ei
-tarvitse arvioida ulkoisen aineiston perusteella — ristiriita näkyy
-julkaistun dokumentin sisältä.
+Nimiölehti on siis ristiriidassa saman dokumentin oman
+tiivistelmäsivun kanssa. Korjauspyyntöä ei tarvitse arvioida ulkoisen
+aineiston perusteella — ja korjattava nimi on jo dokumentissa itsessään.
 
 Miten virhe syntyi
 
@@ -79,14 +87,12 @@ Virhe on minun. Tulkitsin ohjeita virheellisesti niin, että
 lopullisessa versiossa tulisi olla sama nimi kuin työn alkuperäisessä
 rekisteröinnissä. Muutin siis nimen takaisin vanhaksi ja palautin sen
 version. Huomasin virheen vasta myöhemmin, ja korjaus jäi tekemättä.
-Työn sisältöä tämä ei koske millään tavalla: versiot ovat keskenään
-identtiset lukuun ottamatta nimiölehden nimeä.
+Kyse on nimiölehdestä, ei työn sisällöstä eikä arvioinnista.
 
 Pyyntö — kaksiosainen
 
 1. Voidaanko julkaistuun tiedostoon vaihtaa nimiölehti, jolla on työn
-   oikea nimi? Toimitan korjatun tiedoston välittömästi pyynnöstä;
-   muuta eroa versioiden välillä ei ole.
+   oikea nimi? Toimitan korjatun tiedoston välittömästi pyynnöstä.
 
 2. Jos tiedostoa ei voi vaihtaa, voidaanko Theseus-tietueen
    nimimetatieto (suomeksi ja englanniksi) korjata vastaamaan työn
