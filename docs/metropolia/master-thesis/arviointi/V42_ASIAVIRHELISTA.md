@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Loput päätökset kirjattu.** A6 korjataan · B2 Kela pois (myös luvun 3.3 segmenttilistasta — se ei ole logistiikkayritys; poiston jälkeen sana ei esiinny työssä lainkaan) · B3 versiometatietorivi pois · C3 nimi ja liian vahva "validoitu"-merkintä korjataan · C4 36 % päästöt ja 40 % energia erotetaan toisistaan. **C2 vastattu: tarkkaa hintatietoa ei tarvita** — kappaleen oma premissi on skaalautumisväite, ei hintatasoväite; luvut vanhenevat ja SAP:n luku ei ole lähteistettävissä lainkaan. Yksi korvaava virke ratkaisee C1:n, C2:n ja latenssin lähteen kerralla.
 - Version: 1.4 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Viisi päätöstä kirjattu.** D1 vahvistettu (koko kappale pois). A2: työssä on viisi lukua — 1.6 kirjoitetaan sen mukaiseksi, teksti lyhenee kolmesta virkkeestä yhteen. A3: 3.4.2→3.4.1, 3.4.3→3.4.2, puuttuvaa alalukua ei lisätä. A4: SWOT-maininta korjataan vastaamaan esitettyä laskelmaa (pilvi vs. reuna), luku 82 % säilyy. **A5: tarkistus paljasti kaksi eri suuretta** — infrakustannus (25–350, kolme korjattavaa kohtaa) ja asiakashinta (0–350, kaksi säilytettävää kohtaa, koska työn oma hinnoittelumalli määrittelee Freemium 0 €). Jako jätetty HIC:n vahvistettavaksi, koska pelkkä korvaaminen kaikkialla tuottaisi uuden virheen.
 - Version: 1.3 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **B1 päätetty (poistetaan)** — kuusi esiintymää nimineen ja summineen listattu korvaavine muotoiluineen; ratkaisee samalla A7:n. Yksi alakysymys jätetty auki: kohdesegmenttilista (luku 3.3), joka on eri asia kuin asiakasväite. **C1: korvaava evidenssi etsitty** — latenssiluvun paras lähde on työn oma työmaasimulaatio, joka on jo tekstissä; kilpailijahinnoista Atlassian ja Siemens ovat julkisesti lähteistettävissä, SAP:lla ei ole julkista listahintaa lainkaan. Korjattu argumentti on rakenteellinen (kilpailijoiden kustannus skaalautuu käyttäjämäärän mukana) ja vahvempi kuin alkuperäinen. **🔴 Uusi löydös D1**, jota ei etsitty: julkaistussa työssä on kappale kirjoittajan henkilökohtaisesta Kela-takaisinperinnästä ja nimetty moite Metropolialle. Suositus: poista.
 - Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A1 ratkaistu.** HIC kertoi todellisen kulukehityksen (100 → 300 Claude Maxin myötä → lähemmäs 600 Cloud Runin ym. myötä). Päivien tarkastelu paljasti ristiriidan juurisyyn: **Claude Max julkaistiin 9.4.2025 eli keskellä kautta 1**, ei kausien rajalla, joten kumpikaan lukupari ei ole väärä — johdanto mittaa saavutettua tasoa, johtopäätökset lähtötasoa/keskiarvoa. Korjausehdotus: vaihteluvälit 100–300 / 300–600 kaikkiin kolmeen paikkaan. Kirjattu **pakollinen seurausmuutos**: väite *"skaalautuvuutta ei saavutettu kulupiikillä"* ei kestä korjattuja lukuja (kulut kuusinkertaistuivat), joten se on muutettava absoluuttiseksi vertailuksi.
@@ -171,19 +172,13 @@ Luku pysyy, vertailukohta korjaantuu vastaamaan sitä laskelmaa, joka työssä t
 
 **Vahvista:** käykö tämä jako — 25–350 kustannuksiin (3 kohtaa), 0–350 hintaan (2 kohtaa)? Jos tarkoitit että myös hintataso on 25–350 (eli Freemium ei ole aidosti 0 €), kerro — silloin muutetaan kaikki viisi ja **hinnoittelumallin Freemium-rivi on myös korjattava**, mikä on isompi muutos.
 
-### A6. Alustaohjelmistojen lukumäärä 2, kuvauksessa neljä versiota — päätös: ⬜
+### A6. Alustaohjelmistojen lukumäärä 2, kuvauksessa neljä versiota — ✅ PÄÄTETTY: KORJATAAN
 
-Tuotekatalogitaulukko: *"Alustaohjelmistot | **2** | 4 999–6 995 €"*, mutta saman rivin kuvaus luettelee **neljä**: DWS 3 (2019), DWS 4 (2022), DWS IQ v5 (2023), DWS IQ v6 (2025).
+> **HIC:** *"A6 korjaa"*
 
-**Suositus: korjaa luku** vastaamaan sitä, montako on **myynnissä** (jos 2 on oikein, kuvaus listaa historian — täsmennä se yhdellä sanalla).
+Tuotekatalogitaulukko: *"Alustaohjelmistot | **2** | 4 999–6 995 €"*, kuvauksessa neljä versiota (DWS 3 · DWS 4 · DWS IQ v5 · DWS IQ v6).
 
-### A7. Tiivistelmät eivät kerro samoja löydöksiä — päätös: ⬜
-
-Englanninkielinen tiivistelmä listaa neljä löydöstä: takaisinmaksu, 82 %, **€10k MRR**, +62 %. Suomenkielinen listaa kolme — **MRR puuttuu**.
-
-Tiivistelmien tulisi vastata toisiaan (kirjaston yleishuomio *"tekstit pitäisi olla synkassa opinnäytteen sisällä"*).
-
-**Suositus: korjaa** — lisää MRR suomenkieliseen **tai** poista englanninkielisestä. Kytkeytyy kohtaan B1 alla: jos MRR-väitettä muutetaan, muuta molemmat.
+**Korjaus:** vaihda lukumäärä kuvausta vastaavaksi, tai jos myynnissä on todella kaksi, merkitse kuvaus historiaksi: *"…nykyiset: DWS IQ v5, DWS IQ v6 (aiemmat versiot DWS 3 ja DWS 4 poistuneet)"*. **Kumpi pitää paikkansa, tiedät sinä** — luku ja kuvaus vain on saatava samaan.
 
 ---
 
@@ -218,19 +213,25 @@ Luku 3.3 (Asiakassegmentit) luettelee:
 
 Kumpi? ⬜
 
-### B2. Kela "logistiikka-asiakkaana" — päätös: ⬜
+### B2. Kela "logistiikka-asiakkaana" — ✅ PÄÄTETTY: KELA POIS
 
-Kela luetellaan logistiikkapilottien joukossa (*"Logistiikka-asiakkaat (Uber Taksi Helsinki, Bolt, Kela)"*). Kela on sosiaalivakuutuslaitos; yhteys on todennäköisesti Kelan korvaamat taksikuljetukset, mutta teksti ei sano sitä.
+> **HIC:** *"b2 kela pois"*
 
-**Suositus: täsmennä kolmella sanalla** jos yhteys on taksikuljetukset — muuten lukija lukee sen virheenä. Ei laajennus.
+Ratkeaa B1:n mukana: kun *"Logistiikka-asiakkaat (Uber Taksi Helsinki, Bolt, Kela)"* korvataan muodolla *"logistiikka-alan pilotit"*, Kela poistuu tästä kohdasta itsestään.
 
-### B3. Liitteessä 6 näkyy sisäinen versiometatieto — päätös: ⬜
+**Tarkista lisäksi kolmas esiintymä:** luvun 3.3 kohdesegmenttilista sisältää *"logistiikan (Uber, Bolt, **Kela**, DB Schenker)"*. **Kela poistetaan myös sieltä** — se ei ole logistiikkayritys, ja sen mukanaolo segmenttiesimerkkinä on virhe riippumatta siitä, mitä 3.3:n muille nimille päätetään.
 
-Liitteen 6 tekstissä lukee: *"Analyysidokumentti — Master Thesis FI **V3.1** & DWS IQ 6/7 Platform. Risto Anton Päärni — Lifetime Oy. 12. helmikuuta 2026 **Versio 3.2**…"*
+Poiston jälkeen sana "Kela" ei esiinny työssä lainkaan (D1 poisti kolmannen esiintymän).
 
-Kaksi eri versionumeroa samassa virkkeessä, ja molemmat viittaavat työn sisäiseen versiointiin, joka ei kuulu julkaistuun tekstiin.
+### B3. Liitteessä 6 näkyy sisäinen versiometatieto — ✅ PÄÄTETTY: POISTETAAN
 
-**Suositus: poista versiorivi.** Se on kirjoitusprosessin jäänne, ei työn sisältöä.
+> **HIC:** *"b3 meta pois"*
+
+Poistettava rivi liitteestä 6:
+
+> *"Analyysidokumentti — Master Thesis FI V3.1 & DWS IQ 6/7 Platform. Risto Anton Päärni — Lifetime Oy. 12. helmikuuta 2026 Versio 3.2 — ETS2 lykkäys 2028, CBAM definitiivivaihe, 2040-tavoite 90 %, 3 liitettä: syvennykset + poliittinen analyysi + digitaalinen suvereniteetti."*
+
+Koko rivi on kirjoitusprosessin metatietoa — kaksi eri versionumeroa, sisäinen tiedostoviite ja muutoslokimerkintä. **Poista kokonaan.** Liitteen asiasisältö ei ole tämän rivin varassa.
 
 ### B4. 2040-tavoite kuvattu hyväksytyksi — päätös: ⬜
 
@@ -248,7 +249,7 @@ HIC:n hypoteesi: *"Myös geminillä on tietoa dws hankkeesta ja on uskottavaa se
 
 **Hypoteesi osui, mutta ei lukuun 3.** Luvun 3 sääntelyteksti kesti tarkistuksen hyvin — se on jopa poikkeuksellisen huolellisesti varauksin kirjoitettu (*"tulee varmistaa CBAM-asetuksesta … ennen kuin niitä käytetään numeerisina ankkureina"*, *"julkisessa keskustelussa usein esitetty suuruusluokka"*). Heikot kohdat ovat **luvussa 1 (johdanto)** ja **liitteessä 6**.
 
-### C1. McKinsey-lähdettä ei löydy — ✅ KORVAAVA EVIDENSSI ETSITTY 25.07.2026
+### C1. McKinsey-lähdettä ei löydy — ✅ PÄÄTETTY: VAIHDETAAN
 
 > **HIC:** *"C1 etsi toinen evidenssi"*
 
@@ -294,29 +295,54 @@ Tarkistettu, mitä näistä on julkisesti lähteistettävissä:
 
 Lähteet: Atlassianin hinnoittelumuutokset (TechTarget 2025–26) · Siemens *Price List for Offerings with Usage-based Fees* v2.2 · SAP Sustainability Control Tower Pricing (sap.com).
 
-### C2. Atlassian Rovon hintaväite on istumapaikkasidonnainen — päätös: ⬜
+### C2. Tarvitaanko tarkka hintatieto lainkaan? — ✅ VASTAUS: EI TARVITA
 
-Rovo hinnoiteltiin erillistuotteena **20 $/käyttäjä/kk** (vuosilaskutus; 24 $ kuukausilaskutuksella), ja se on sittemmin sisällytetty Atlassianin Premium/Enterprise-tilauksiin.
+> **HIC:** *"c2 tarvitaanko tarkka hintatieto?"*
 
-*"Yli 1 400 euroa kuukaudessa"* vastaa siis noin **70:tä käyttäjää**. Työssä ei kerrota käyttäjämäärää, ja luku asetetaan vertailuun Firehorsen kiinteän 0–350 €/kk kanssa. **Vertailu ei ole väärä, mutta sen peruste puuttuu** — per-seat-tuotteen kokonaiskustannus ilmoittamattomalla käyttäjämäärällä vs. kiinteä alustahinta.
+**Ei tarvita, ja ilman sitä kappale on parempi.** Tämä on paras yksittäinen oivallus koko listalla, joten perustelu kokonaan:
 
-**Suositus: lisää käyttäjämäärä** (*"noin 70 käyttäjän organisaatiossa"*). Yksi lisäys, ei laajennus — ja se tekee luvusta puolustettavan sen sijaan että se näyttäisi valikoidulta.
+**1. Tarkat luvut eivät kanna väitettä, jota niillä yritetään tukea.** Kappaleen oma premissi on *"…erityisesti kun käyttöönotto pitää ulottaa useille työmaille, tehtaille tai yksiköille."* Se on **skaalautumisväite**, ei hintatasoväite. Yksittäinen euromäärä ei kerro siitä mitään; hinnoittelun **rakenne** kertoo kaiken.
 
-### C3. SWD(2025) 836 on olemassa, mutta se on eri Omnibus — päätös: ⬜
+**2. Jokainen luku vaatii puolustuksen, jota ei ole.** Atlassian ja Siemens ovat per-yksikkö-hinnoiteltuja, joten kokonaissumma riippuu yksikkömäärästä, jota työssä ei kerrota. **SAP ei julkaise hintaa lainkaan** — se luku ei ole lähteistettävissä millään tavalla, ellei se ole saatu tarjous. Kolme lukua, kolme eri ongelmaa.
+
+**3. Luvut vanhenevat, rakenne ei.** Rovon hinnoittelu on jo muuttunut (erillistuotteesta sisällytetyksi tilauksiin) sen jälkeen kun työ kirjoitettiin. Pysyvässä julkisessa dokumentissa oleva vanhentunut hintataulukko on jatkuva rasite; rakenteellinen havainto pitää paikkansa vuosia.
+
+#### Korjausehdotus — korvaa koko virke, luvut pois
+
+> *"Perinteiset SaaS-ratkaisut eivät vastaa monien keskisuurten ja suurten teollisuusyritysten tarpeisiin kustannustehokkaasti, erityisesti kun käyttöönotto pitää ulottaa useille työmaille, tehtaille tai yksiköille. **Kilpailija-analyysin perusteella vastaavat ratkaisut hinnoitellaan käyttäjä- tai laitekohtaisesti, jolloin kokonaiskustannus kasvaa käyttöönoton laajuuden mukana. DWS IQ:n hinnoittelu on rakenteeltaan toisenlainen: kustannus ei kasva käyttäjä- eikä laitemäärän mukana.** Lisäksi pelkkä pilvipohjaisuus tuottaa **omissa työmaasimulaatioissa mitatun 500–2 000 millisekunnin päästä päähän -vasteajan**, mikä ei riitä reaaliaikaiseen työmaavalvontaan."*
+
+**Mitä tämä ratkaisee kerralla:** C1 (keksitty McKinsey-lähde poistuu, koska mitään lainattua ei enää ole), C2 (ei lukuja joita pitäisi perustella), ja latenssiväite saa oikean lähteen — oman mittauksesi.
+
+**Yksi virke, kolme ongelmaa pois, ja argumentti muuttuu myyvemmäksi.** "Kilpailijat ovat kalliita" on mielipide. "Kilpailijoiden kustannus skaalautuu käyttöönoton mukana, meidän ei" on rakenteellinen väite, joka pitää paikkansa ja jonka lukija voi itse tarkistaa kenen tahansa per-seat-toimittajan hinnastosta.
+
+### C3. SWD(2025) 836 on olemassa, mutta se on eri Omnibus — ✅ PÄÄTETTY: KORJATAAN
 
 Liite 6 käyttää lähteenä *"Komission yksiköiden valmisteluasiakirja SWD(2025) 836 (**Digital and Sustainability Omnibus**)"* tukemaan **25 % / 35 % hallinnollisen taakan vähennystavoitetta**.
 
 **Asiakirja on aito** — SWD(2025) 836 final, Bryssel **19.11.2025** — mutta se on **Digital Omnibus**: tietosuoja- ja ePrivacy-säännöstö, tekoäly, kyberturvallisuus ja alustasääntely. **Se ei käsittele kestävyysraportointia.** Nimi *"Digital and Sustainability Omnibus"* yhdistää kaksi eri pakettia yhdeksi.
 
-**Suositus: korjaa nimi** muotoon *"SWD(2025) 836 (Digital Omnibus)"* ja **tarkista, tukeeko se 25 % / 35 % -lukua** — jos ei, luvun lähde on etsittävä komission yksinkertaistamisviestinnästä. Sama liite merkitsee itse tämän rivin validoiduksi, joten merkintä on tällä hetkellä liian vahva.
+> **HIC:** *"c3 c4 korjaa"*
 
-### C4. Rakennusalan 36–40 % — päätös: ⬜
+**Korjaus kaksiosainen:**
+
+1. **Nimi:** *"SWD(2025) 836 (Digital and Sustainability Omnibus)"* → *"SWD(2025) 836 (Digital Omnibus)"*.
+2. **Merkintä:** sama rivi merkitsee itsensä *"Validointi: Luvut ovat linjassa komission yksinkertaistamisstrategian kanssa"*. Kun lähde ei käsittele kestävyysraportointia, merkintä on liian vahva. Vaihda muotoon, joka kertoo mihin lähde tosiasiassa riittää: *"Suuntaa-antava: luku on linjassa komission yleisen taakanvähennystavoitteen kanssa; kestävyysraportoinnin osalta lähde on eri."*
+
+Vaihtoehto, jos haluat pitää sen yksinkertaisena: **poista koko rivi**. Se ei kanna liitteen argumenttia, ja poisto on varmasti oikein.
+
+### C4. Rakennusalan 36–40 % — ✅ PÄÄTETTY: KORJATAAN
 
 Englanninkielinen tiivistelmä: *"the construction sector, which accounts for **36–40 % of EU lifecycle emissions**"*.
 
 Vakiintuneet luvut ovat **36 % päästöistä ja 40 % energiankulutuksesta**; elinkaarinäkökulmasta rakennukset ovat noin 40 % EU:n CO₂-päästöistä. Väli "36–40 %" yhdistää päästö- ja energialuvun yhdeksi haarukaksi.
 
-**Suositus: pieni täsmennys tai jätä.** Suuruusluokka on oikea ja lähdekirjallisuus käyttää molempia lukuja; tämä on listan vähiten kiireellinen kohta.
+> **HIC:** *"c3 c4 korjaa"*
+
+**Korjaus:** erota luvut toisistaan sen sijaan että ne esitetään haarukkana:
+
+> *"…the construction and buildings sector, which accounts for **approximately 36 % of EU CO₂ emissions and 40 % of energy consumption**…"*
+
+Molemmat luvut ovat vakiintuneita ja lähteistettävissä erikseen; haarukka "36–40 %" oli ainoa ongelma, koska se esitti kaksi eri suuretta yhtenä.
 
 ### Tarkistettu ja **oikein** — ei korjattavaa
 

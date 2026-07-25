@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 3.0
 
 Sessions & Modifications:
 
+- Version: 3.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Muutoslista tiivistetty seitsemästä eritellystä kohdasta **viiteen ryhmiteltyyn** HIC:n linjauksen mukaan (*"Kirjasto teksti pitää olla korrekti mutta eivät he hylkää korjauksia"*). Kirje on edelleen täsmällinen ja kertoo molemmat poistot, mutta se ei ole muutosloki — kirjaston tarvitsee tietää mitä muutettiin ja miksi, ei jokaista virkettä. Kaikki päätetyt korjaukset (A1–A6, B1–B3, C1–C4, D1) mahtuvat viiteen kohtaan.
 - Version: 2.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Kirje ei voi enää sanoa "sisältöön ei ole tehty muutoksia"**, koska HIC päätti poistaa (a) asiakasyritysten nimet ja pilottiliikevaihdon (B1) ja (b) henkilökohtaisen Kela-kappaleen (D1). Muotoiltu uudelleen rehellisesti: tuloksiin, menetelmiin ja johtopäätöksiin ei kosketa, mutta kaksi poistoa kerrotaan ja perustellaan. Lisätty viestiin kohdat 6 ja 7.
 - Version: 2.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Uudelleenkirjoitettu HIC:n toimittaman kirjeenvaihdon perusteella** (Saija Pyhtilä / Metropolia, 29.6.–24.7.2026). Kolme aiempaa oletusta korvattu vahvistetuilla tosiseikoilla: (1) **korjaus on mahdollinen** — Metropolia on itse tarjonnut sitä; (2) **vastaanottaja on `kirjasto@metropolia.fi`** — ei enää placeholder; (3) **korjattavia kohtia on viisi, ei yksi** — kirjasto listasi ne ennen julkaisua. Lisätty tarkka korjauslista PDF:ään ja erillinen ⚠️ Wihi/tutkintotodistus-kysymys, joka ei ratkea kirjaston kautta.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Ensimmäinen luonnos, laadittu ennen kuin kirjeenvaihto oli käytettävissä. Perustui oletukseen, ettei korjattavuudesta ollut tietoa ja että virhe koski vain nimiölehteä. Molemmat oletukset osoittautuivat vääriksi.
@@ -103,35 +104,25 @@ neuvoi lähettämään korjauspyynnön tähän osoitteeseen lomansa aikana
 Mitä korjatussa versiossa on muutettu
 
 Työn tuloksiin, menetelmiin tai johtopäätöksiin ei ole tehty
-muutoksia, eikä arviointiin pyydetä muutosta. Muutokset ovat etu- ja
-tiivistelmäsivujen yhtenäistämistä, asettelun korjauksia sekä kaksi
-poistoa, jotka en olisi halunnut jäävän julkaistuun versioon.
+muutoksia, eikä arviointiin pyydetä muutosta.
 
-1. Otsikko yhtenäistetty. Julkaistussa versiossa on kolme eri
-   otsikkoa: kansilehdellä ja englanninkielisessä tiivistelmässä työn
-   alkuperäinen rekisteröity nimi, suomenkielisessä tiivistelmässä
-   työn sisältöä vastaava nimi. Korjatussa versiossa kaikissa
-   kolmessa on sama otsikko.
+1. Etu- ja tiivistelmäsivut yhtenäistetty: sama otsikko, sama
+   päivämäärä ja sama sivumäärä kaikilla kolmella sivulla, ja
+   liitteiden määrä korjattu kahdeksaksi.
 
-2. Päivämäärät yhtenäistetty. Julkaistussa versiossa kansilehdellä ja
-   kummassakin tiivistelmässä oli eri päivämäärä.
+2. Sisällysluettelon sisennykset korjattu, ja työn rakennetta kuvaava
+   kappale korjattu vastaamaan työn todellista lukumäärää.
 
-3. Sivumäärä yhtenäistetty tiivistelmien välillä.
+3. Korjattu muutamia sisäisiä epäjohdonmukaisuuksia lukujen
+   numeroinnissa, esitetyissä luvuissa ja lähdeviitteissä.
 
-4. Liitteiden määrä korjattu. Työssä on kahdeksan liitettä;
-   tiivistelmissä luki seitsemän.
+4. Poistettu asiakasyritysten nimet ja pilottivaiheen liikevaihtoluku.
+   Nämä koskevat kolmansia osapuolia eivätkä kuulu pysyvästi julkiseen
+   asiakirjaan. Kohdat on korvattu toimialatasoisilla ilmauksilla,
+   joten työn argumentti säilyy ennallaan.
 
-5. Sisällysluettelon sisennykset korjattu luettavuuden vuoksi.
-
-6. Poistettu asiakasyritysten nimet ja pilottivaiheen liikevaihtoluku.
-   Työssä nimettiin yrityksiä pilottiasiakkaina ja liitettiin niihin
-   liikevaihtotieto. Nämä koskevat kolmansia osapuolia eivätkä kuulu
-   pysyvästi julkiseen asiakirjaan. Kohdat on korvattu toimialatasoisilla
-   ilmauksilla, joten työn argumentti säilyy ennallaan.
-
-7. Poistettu yksi kappale, joka ei liity työn aiheeseen. Kyseessä on
-   kirjoitusvaiheeseen jäänyt henkilökohtainen huomautus, jolla ei ole
-   yhteyttä työn sisältöön.
+5. Poistettu yksi kappale, joka ei liity työn aiheeseen — kirjoitus-
+   vaiheeseen jäänyt henkilökohtainen huomautus.
 
 Miten virhe syntyi
 
