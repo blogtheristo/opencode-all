@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **B1 päätetty (poistetaan)** — kuusi esiintymää nimineen ja summineen listattu korvaavine muotoiluineen; ratkaisee samalla A7:n. Yksi alakysymys jätetty auki: kohdesegmenttilista (luku 3.3), joka on eri asia kuin asiakasväite. **C1: korvaava evidenssi etsitty** — latenssiluvun paras lähde on työn oma työmaasimulaatio, joka on jo tekstissä; kilpailijahinnoista Atlassian ja Siemens ovat julkisesti lähteistettävissä, SAP:lla ei ole julkista listahintaa lainkaan. Korjattu argumentti on rakenteellinen (kilpailijoiden kustannus skaalautuu käyttäjämäärän mukana) ja vahvempi kuin alkuperäinen. **🔴 Uusi löydös D1**, jota ei etsitty: julkaistussa työssä on kappale kirjoittajan henkilökohtaisesta Kela-takaisinperinnästä ja nimetty moite Metropolialle. Suositus: poista.
 - Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A1 ratkaistu.** HIC kertoi todellisen kulukehityksen (100 → 300 Claude Maxin myötä → lähemmäs 600 Cloud Runin ym. myötä). Päivien tarkastelu paljasti ristiriidan juurisyyn: **Claude Max julkaistiin 9.4.2025 eli keskellä kautta 1**, ei kausien rajalla, joten kumpikaan lukupari ei ole väärä — johdanto mittaa saavutettua tasoa, johtopäätökset lähtötasoa/keskiarvoa. Korjausehdotus: vaihteluvälit 100–300 / 300–600 kaikkiin kolmeen paikkaan. Kirjattu **pakollinen seurausmuutos**: väite *"skaalautuvuutta ei saavutettu kulupiikillä"* ei kestä korjattuja lukuja (kulut kuusinkertaistuivat), joten se on muutettava absoluuttiseksi vertailuksi.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **C-luokka — lähde- ja viitetarkistukset verkkohaulla** HIC:n hypoteesin perusteella (Gemini olisi voinut tuottaa lukuun 3 tekstiä jota ei olisi hyväksytty repoon). **Hypoteesi osui, mutta ei lukuun 3:** luvun 3 sääntelyteksti kesti tarkistuksen ja on poikkeuksellisen hyvin varauksin kirjoitettu. Heikot kohdat ovat johdannossa (McKinsey-lähdettä ei löydy, ja se on liitetty kilpailijahintaväitteeseen jota konsulttitalo ei julkaisisi) ja liitteessä 6 (SWD(2025) 836 on aito mutta se on **Digital** Omnibus, ei kestävyysraportointia). Kirjattu myös mitä tarkistettiin ja todettiin oikeaksi — ml. 61 % ESRS-vähennys ja 2040-tavoite, jota **ei saa päivittää** vaikka se on sittemmin edennyt.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Kirjattu HIC:n asettama v4.2:n laatimisrajaus (*"tekstin laatimishengessä"*, ei laajennuksia eikä päivityksiä myöhemmistä versioista) ja koottu ehdokaslista asiavirheistä yksittäin päätettäväksi. Lista on **ehdotus, ei toteutettu muutos** — jokainen kohta odottaa HIC:n erillistä päätöstä.
@@ -146,16 +147,34 @@ Tiivistelmien tulisi vastata toisiaan (kirjaston yleishuomio *"tekstit pitäisi 
 
 ## B-luokka — tarkistettavat väitteet
 
-### B1. Nimetyt asiakkaat ja €10k MRR julkisessa dokumentissa — päätös: ⬜
+### B1. Nimetyt asiakkaat ja €10k MRR — ✅ PÄÄTETTY 25.07.2026: POISTETAAN
 
-Työ nimeää **Uber, Bolt, Kela, NCC, T2H** pilottiasiakkaina ja liittää heihin *"10 000 euron kuukausittainen toistuva liikevaihto"* sekä *"50 miljoonan euron projektiportfolio"*.
+> **HIC:** *"Poista nimetyt asiakkaat ja summa"*
 
-Kaksi kysymystä, jotka eivät ole muotoseikkoja:
+Alla kaikki esiintymät ja korvaava muotoilu. **Korvaus, ei pelkkä poisto** — virkkeiden tehtävä säilyy, väitteestä poistuvat nimet ja luku.
 
-1. **Onko luku oikein** ja koskeeko se näitä kolmea yhdessä?
-2. **Onko näillä yrityksillä lupa tulla nimetyksi** maksavina pilottiasiakkaina pysyvästi julkisessa asiakirjassa? Tämä on jo julkaistu 10.7.2026 alkaen, joten kysymys on siitä, korjataanko eteenpäin — ei siitä, estetäänkö.
+| # | Sijainti | Nykyinen | Korvaava |
+| - | -------- | -------- | -------- |
+| 1 | EN-tiivistelmä | *"**€10k MRR** during pilot phase from logistics customers"* | poista koko kohta löydöslistasta — **tämä ratkaisee samalla A7:n** (tiivistelmät menevät synkkaan) |
+| 2 | Menetelmät ja aineisto | *"Asiakashaastattelut ja data (**Uber, Bolt, Kela — €10k MRR**)"* | *"Asiakashaastattelut ja pilottiaineisto (logistiikka-alan pilottiasiakkaat)"* |
+| 3 | Kolmivaiheinen käyttöönotto | *"Ensimmäisissä asiakaskeskusteluissa **NCC:n ja T2H:n** kanssa kävi ilmi…"* | *"Ensimmäisissä asiakaskeskusteluissa rakennusalan pilottiorganisaatioiden kanssa kävi ilmi…"* |
+| 4 | Pilottitulokset (5.x) | *"Logistiikka-asiakkaat (**Uber Taksi Helsinki, Bolt, Kela**) tuottivat ensimmäisenä konkreettisia tuloksia: **10 000 euron** kuukausittainen toistuva liikevaihto pilotin aikana. Rakennusasiakkaat (**NCC, T2H**) toivat viisi projektia ja **50 miljoonan euron** projektiportfolion."* | *"Logistiikka-alan pilotit tuottivat ensimmäisenä konkreettisia tuloksia ja alustan ensimmäisen toistuvan liikevaihdon. Rakennusalan pilotit toivat viisi projektia."* |
+| 5 | TK1-vastaus | *"…€10k MRR pilotista (**Uber, Bolt, Kela**) sekä 8 vertikaalipohjaa…"* | *"…pilottien tuottama toistuva liikevaihto sekä 8 vertikaalipohjaa…"* |
+| 6 | SWOT, Vahvuudet | *"Täydellinen toteutus (live-järjestelmä **10 000 euron MRR:llä**)"* | *"Täydellinen toteutus (tuotannossa oleva, maksavien pilottien käyttämä järjestelmä)"* |
 
-**Suositus: tarkista, älä automaattisesti korjaa.** Jos nimet ovat sovittuja, jätä. Jos eivät, tämä on ainoa listan kohta, jossa korjaamatta jättämisellä on ulkopuolinen osapuoli.
+#### ⬜ Yksi kohta vaatii vielä päätöksen: kohdeasiakaslista
+
+Luku 3.3 (Asiakassegmentit) luettelee:
+
+> *"Tason 1 kriittiset teollisuudet (välitön myyntifokus) sisältävät rakentamisen (NCC, Skanska, T2H, Vinci), logistiikan (Uber, Bolt, Kela, DB Schenker), valmistuksen (Kone, Wärtsilä, ABB) ja energian (Fortum, Helen, Vattenfall)."*
+
+**Tämä on eri asia kuin yllä olevat kuusi.** Se ei väitä näitä asiakkaiksi vaan **kohdesegmentin esimerkeiksi** — julkisten yhtiöiden nimeäminen markkina-analyysin esimerkkeinä on tavanomaista eikä vaadi lupaa.
+
+**Ongelma on kuitenkin, että samat nimet esiintyvät työssä molemmissa rooleissa.** Kun Uber, Bolt ja Kela ovat toisaalla "logistiikka-asiakkaita" ja täällä "välitön myyntifokus", lukija ei erota kumpi on kumpi — ja juuri se sekoittuminen synnytti alkuperäisen ongelman.
+
+**Suositus: säilytä lista, mutta täsmennä otsikointi** — *"kohdesegmentit ja niiden edustavat toimijat"* eikä *"kohdeasiakkaat … välitön myyntifokus"*. Kun kohdat 1–6 on korjattu, nimet esiintyvät enää tässä yhdessä roolissa eikä sekaannusta synny. **Vaihtoehto:** poista nimet tästäkin ja jätä toimialat — turvallisin, mutta hävittää markkina-analyysin konkretian.
+
+Kumpi? ⬜
 
 ### B2. Kela "logistiikka-asiakkaana" — päätös: ⬜
 
@@ -187,23 +206,51 @@ HIC:n hypoteesi: *"Myös geminillä on tietoa dws hankkeesta ja on uskottavaa se
 
 **Hypoteesi osui, mutta ei lukuun 3.** Luvun 3 sääntelyteksti kesti tarkistuksen hyvin — se on jopa poikkeuksellisen huolellisesti varauksin kirjoitettu (*"tulee varmistaa CBAM-asetuksesta … ennen kuin niitä käytetään numeerisina ankkureina"*, *"julkisessa keskustelussa usein esitetty suuruusluokka"*). Heikot kohdat ovat **luvussa 1 (johdanto)** ja **liitteessä 6**.
 
-### C1. McKinsey-lähdettä ei löydy — päätös: ⬜
+### C1. McKinsey-lähdettä ei löydy — ✅ KORVAAVA EVIDENSSI ETSITTY 25.07.2026
 
-Lähdeluettelo: *"McKinsey & Company 2024. **The State of AI in Construction: Adoption, Impact, and Future Outlook.**"*
+> **HIC:** *"C1 etsi toinen evidenssi"*
 
-**Tämän nimistä McKinsey-julkaisua ei löydy.** McKinseyn saman ajan rakennusalan AI-työ on *"How AI is reshaping the future of the AEC industry"*, ja *"The state of AI"* -sarja ei ole rakennusalakohtainen.
+Lähdeluettelo: *"McKinsey & Company 2024. **The State of AI in Construction: Adoption, Impact, and Future Outlook.**"* — tämännimistä julkaisua ei löydy. Se on liitetty virkkeeseen, joka esittää **kaksi eri väitettä**. Ne tarvitsevat eri evidenssin.
 
-Lähde on liitetty johdannon virkkeeseen, joka esittää **kilpailijoiden hinnat ja pilvilatenssin**:
+#### Väite 1: pilvilatenssi 500–2 000 ms
 
-> *"Kilpailija-analyysin perusteella Atlassian Rovon kaltaiset ratkaisut maksavat yli 1 400 euroa kuukaudessa, SAP-toteutukset yli 4 000 euroa ja Siemensin ratkaisut yli 2 000 euroa. Lisäksi pelkkä pilvipohjaisuus tuottaa 500–2 000 millisekunnin latenssin. (McKinsey & Company 2024.)"*
+**Korvaava evidenssi on jo työssä itsessään, kaksi sivua myöhemmin:**
 
-Konsulttitalo ei julkaise kilpailijoiden listahintoja tällä tarkkuudella. **Lähde ei tue sitä väitettä, johon se on liitetty**, riippumatta siitä onko julkaisua olemassa.
+> *"Ensimmäisten **työmaasimulaatioiden** aikana huomattiin, että 500–2 000 millisekunnin latenssi ei riitä, kun rakennustyömaalla pitää havaita turvallisuuspoikkeama ja hälyttää reaaliajassa. NVIDIA Jetson Orin Nano -reunalaitteen testaus osoitti, että alle 100 millisekunnin vasteaika on mahdollinen paikallisella prosessoinnilla."*
 
-**Suositus: korjaa.** Kaksi vaihtoehtoa, kumpikin laatimishengen sisällä:
-- **(a)** korvaa oikealla lähteellä kullekin väitteelle (hinnat toimittajien omista hinnastoista, latenssi teknisestä lähteestä), tai
-- **(b)** poista lähdeviittaus ja merkitse kappale omaksi kilpailija-analyysiksi — *"oman kilpailija-analyysin perusteella"* — jolloin väite on rehellisesti kirjoittajan oma.
+Luku on **oman mittauksen tulos**, ei kirjallisuudesta lainattu. Se on opinnäytetyössä paras mahdollinen lähde — empiirinen havainto omasta koeasetelmasta.
 
-**(b) on todennäköisesti oikein**, koska se ilmeisesti on oman analyysin tulos. Se on myös yhden virkkeen korjaus.
+**Ulkopuolinen tarkistus tukee sitä, kun mitta täsmennetään:** julkaistut LLM-rajapintojen *time-to-first-token* -arvot ovat tyypillisesti **50–500 ms**, eli selvästi alle työssä esitetyn haarukan. Työn luku ei kuitenkaan ole TTFT vaan **päästä päähän -vasteaika**, joka sisältää verkon edestakaisen viiveen, jonoutumisen ja koko vastauksen generoinnin. Erot ovat siis näennäisiä vain, jos mittaa ei kerrota.
+
+**Korjaus:**
+- Poista McKinsey-viittaus.
+- Merkitse luku omaksi havainnoksi: *"omissa työmaasimulaatioissa mitattu päästä päähän -vasteaika oli 500–2 000 ms"*.
+- **Täsmennä mitta** — "päästä päähän, sisältäen verkkoviiveen" — jotta lukija ei vertaa sitä TTFT-lukuihin.
+
+Tämä on **vahvempi** kuin nykyinen: keksitty toissijainen lähde korvautuu omalla mittauksella, joka on työn oma kontribuutio.
+
+#### Väite 2: kilpailijoiden hinnat
+
+Tarkistettu, mitä näistä on julkisesti lähteistettävissä:
+
+| Toimittaja | Julkinen hinta? | Mitä löytyy |
+| ---------- | --------------- | ----------- |
+| **Atlassian Rovo** | ✅ kyllä | Erillistuotteena **20 $/käyttäjä/kk** (vuosilaskutus), 24 $/kk kuukausilaskutuksella; sittemmin sisällytetty Premium/Enterprise-tilauksiin. Väitetty *"yli 1 400 €/kk"* ⇒ **noin 70 käyttäjää** (ks. C2). |
+| **Siemens Insights Hub** | ✅ osittain | Siemensin oma käyttöperusteinen hinnasto: **106 €/kk per asset** yli sovitun rajan (850 €/v). Väitetty *"yli 2 000 €/kk"* ⇒ **noin 19 assettia**. |
+| **SAP Sustainability Control Tower** | ❌ ei | *"Price upon request"*, hinnoittelu per aktiivinen käyttäjä per vuosi, **minimi 10 käyttäjää**, edellyttää S/4HANA Cloud -lisenssiä. **Julkista listahintaa ei ole.** |
+
+**Tässä on kaksi asiaa, jotka kannattaa erottaa:**
+
+1. **Kaikki kolme ovat per-käyttäjä- tai per-asset-tuotteita.** Työ ilmoittaa niistä kuukausisumman kertomatta yksikkömäärää ja rinnastaa sen kiinteään 0–350 €/kk -hintaan. **Vertailu ei ole väärä, mutta se on epäkelpo ilman yksikköä.**
+2. **SAP:lla ei ole julkista hintaa lainkaan.** Jos luku 4 000 € on peräisin saadusta tarjouksesta, se on **pätevä primäärilähde** ja se pitää merkitä sellaiseksi. Jos se on arvio, se pitää merkitä arvioksi.
+
+**Korjausehdotus — yksi virke:**
+
+> *"Kilpailija-analyysin perusteella vastaavat ratkaisut ovat per-käyttäjä- tai per-asset-hinnoiteltuja: Atlassian Rovo 20 $/käyttäjä/kk (noin 70 käyttäjän organisaatiossa yli 1 400 €/kk), Siemens Insights Hub 106 €/kk per asset (noin 19 assettia ylittää 2 000 €/kk), ja SAP Sustainability Control Tower, jolle **julkista listahintaa ei ole saatavilla** (hinnoittelu per aktiivinen käyttäjä, minimi 10 käyttäjää). DWS IQ:n kiinteä hinnoittelu on siten rakenteeltaan eri: kustannus ei kasva käyttäjä- tai laitemäärän mukana."*
+
+**Tämä on olennaisesti parempi argumentti kuin alkuperäinen.** Alkuperäinen sanoi "kilpailijat ovat kalliita" ja nojasi olemattomaan lähteeseen. Korjattu sanoo *"kilpailijoiden kustannus skaalautuu käyttäjämäärän mukana, meidän ei"* — se on rakenteellinen väite, se on lähteistettävissä, ja **se on se väite, joka itse asiassa on totta ja myyvä.**
+
+Lähteet: Atlassianin hinnoittelumuutokset (TechTarget 2025–26) · Siemens *Price List for Offerings with Usage-based Fees* v2.2 · SAP Sustainability Control Tower Pricing (sap.com).
 
 ### C2. Atlassian Rovon hintaväite on istumapaikkasidonnainen — päätös: ⬜
 
@@ -238,6 +285,32 @@ Vakiintuneet luvut ovat **36 % päästöistä ja 40 % energiankulutuksesta**; el
 | **2040-tavoite 90 %**, merkitty "hyväksytty helmikuussa 2026" + korkean riskin varaus | **Oikein kirjoitushetkellä.** Parlamentti hyväksyi 9.–10.2.2026; neuvoston lopullinen hyväksyntä 5.3.2026 ja voimaantulo 4/2026 tapahtuivat vasta myöhemmin. **Älä päivitä** — se olisi myöhemmän tiedon tuomista, jonka laatimisrajaus kieltää. Varaus oli oikea silloin. |
 | EU ETS laajennus meriliikenteeseen 2024 | Oikein. |
 | SWD(2025) 836 on olemassa | Oikein (ks. C3 nimestä). |
+
+## 🔴 D1. Löydös jota ei etsitty — henkilökohtainen Kela-maininta julkaistussa työssä
+
+**Tätä ei ollut listalla eikä sitä kysytty.** Se löytyi asiakasnimien hakua tehtäessä ja se on pakko nostaa esiin (Rule 12, fail loud).
+
+Luvussa 3.4.2:n tienoilla, keskellä asiakaslupauksen ja ROI-validoinnin käsittelyä, on kappale:
+
+> *"Työn valmistuminen on kestänyt useamman vuoden. **Kela jo päättikin periä aiempien vuosien kelatuet takaisinperintänä eikä siinä Metropolian ponnistelut vaikuttaneet mitään.** Mutta olen kuitenkin piestynäkin onnellinen tämän työn tuloksista."*
+
+**Mitä tässä on:**
+
+1. **Kirjoittajan henkilökohtainen opintotukiasia** — takaisinperintäpäätös — pysyvässä, julkisessa, indeksoidussa tutkintotietueessa. Se on arkaluonteista henkilökohtaista taloustietoa, eikä se poistu Theseuksesta.
+2. **Nimetty moite oppilaitokselle** (*"eikä siinä Metropolian ponnistelut vaikuttaneet mitään"*) — juuri sille laitokselle, jolta nyt pyydetään korjausta.
+3. **Rekisterin vaihdos.** Ympäröivä teksti on asiatyylistä ROI-analyysiä; tämä kappale on ensimmäisessä persoonassa ja tunnepitoinen. Se on todennäköisesti muistiinpano, joka jäi tekstiin.
+4. **Kolmas merkitys sanalle "Kela"** samassa työssä: logistiikka-asiakkaana, kohdesegmentin esimerkkinä, ja tässä opintotuen myöntäjänä.
+5. *"piestynäkin"* on lisäksi ilmeinen kirjoitusvirhe.
+
+**Suositus: poista koko kappale.** Perustelut, miksi tämä ei ole harkintakysymys samalla tavalla kuin muut kohdat:
+
+- Se **ei kuulu työn argumenttiin** millään tavalla — poisto ei vie mitään pois sisällöstä eikä ole laajennus, vaan puhtain mahdollinen "laatimishengen" palautus.
+- Se on **ainoa kohta koko työssä, joka voi vahingoittaa kirjoittajaa henkilökohtaisesti**, ja se on julkinen 10.7.2026 alkaen.
+- Korjauspyyntö menee **Metropolialle**, jota tämä kappale moittii nimeltä. Sen poistaminen samalla kertaa on sekä oikein että tahdikasta.
+
+**Tämä on koko listan tärkein yksittäinen korjaus.** Nimivirhe on kiusallinen; tämä on henkilökohtainen.
+
+Päätös: ⬜
 
 ## Mitä listalla ei ole
 
