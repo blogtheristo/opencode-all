@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **A1 ratkaistu.** HIC kertoi todellisen kulukehityksen (100 → 300 Claude Maxin myötä → lähemmäs 600 Cloud Runin ym. myötä). Päivien tarkastelu paljasti ristiriidan juurisyyn: **Claude Max julkaistiin 9.4.2025 eli keskellä kautta 1**, ei kausien rajalla, joten kumpikaan lukupari ei ole väärä — johdanto mittaa saavutettua tasoa, johtopäätökset lähtötasoa/keskiarvoa. Korjausehdotus: vaihteluvälit 100–300 / 300–600 kaikkiin kolmeen paikkaan. Kirjattu **pakollinen seurausmuutos**: väite *"skaalautuvuutta ei saavutettu kulupiikillä"* ei kestä korjattuja lukuja (kulut kuusinkertaistuivat), joten se on muutettava absoluuttiseksi vertailuksi.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **C-luokka — lähde- ja viitetarkistukset verkkohaulla** HIC:n hypoteesin perusteella (Gemini olisi voinut tuottaa lukuun 3 tekstiä jota ei olisi hyväksytty repoon). **Hypoteesi osui, mutta ei lukuun 3:** luvun 3 sääntelyteksti kesti tarkistuksen ja on poikkeuksellisen hyvin varauksin kirjoitettu. Heikot kohdat ovat johdannossa (McKinsey-lähdettä ei löydy, ja se on liitetty kilpailijahintaväitteeseen jota konsulttitalo ei julkaisisi) ja liitteessä 6 (SWD(2025) 836 on aito mutta se on **Digital** Omnibus, ei kestävyysraportointia). Kirjattu myös mitä tarkistettiin ja todettiin oikeaksi — ml. 61 % ESRS-vähennys ja 2040-tavoite, jota **ei saa päivittää** vaikka se on sittemmin edennyt.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Kirjattu HIC:n asettama v4.2:n laatimisrajaus (*"tekstin laatimishengessä"*, ei laajennuksia eikä päivityksiä myöhemmistä versioista) ja koottu ehdokaslista asiavirheistä yksittäin päätettäväksi. Lista on **ehdotus, ei toteutettu muutos** — jokainen kohta odottaa HIC:n erillistä päätöstä.
 
@@ -41,7 +42,7 @@ Merkitse jokaiseen `KORJAA` / `JÄTÄ` / `KORJAA NÄIN: …`.
 
 ## A-luokka — sisäiset ristiriidat
 
-### A1. Kuukausikulut: johdanto sanoo 300/600 €, johtopäätökset 100/400 € — päätös: ⬜
+### A1. Kuukausikulut: johdanto sanoo 300/600 €, johtopäätökset 100/400 € — ✅ RATKAISTU 25.07.2026
 
 | Sijainti | Teksti |
 | -------- | ------ |
@@ -49,9 +50,48 @@ Merkitse jokaiseen `KORJAA` / `JÄTÄ` / `KORJAA NÄIN: …`.
 | Johtopäätökset (5.7.6) | *"…kuukausikulut pysyivät **noin 100 €/kk** tasolla ajalla 1.9.2024-31.8.2025 ja **noin 400 €/kk** tasolla … 1.9.2025-30.4.2026"* |
 | Keskeiset kontribuutiot (5.8) | *"…noin **100 €/kk** ajalla 1.9.2024-31.8.2025 ja noin **400 €/kk** ajalla 1.9.2025-30.4.2026"* |
 
-Sama kaksi lukua esiintyy kolmesti, ja johdannon pari on eri kuin kaksi muuta. **Tämä on työn keskeisin numeerinen väite** — kustannusrakenne on koko argumentin ydin — joten ristiriita on näkyvin mahdollisessa paikassa.
+#### HIC:n selvitys todellisesta kulukehityksestä
 
-**Suositus: korjaa.** Kaksi kolmesta esiintymästä sanoo 100/400, joten johdanto on todennäköisimmin se vanhentunut. Vahvista kummat luvut ovat oikeat.
+> *"Aluksi 100 € kuussa mutta claude max nostu kulut 300 ja google cloud run ym lähemmäs 600."*
+
+Kulut eivät siis olleet kaksi tasoa vaan **kolmiportainen nousu**: 100 → 300 → 600 €/kk.
+
+#### Päivien tarkastelu — tässä on ristiriidan syy
+
+**Claude Max julkaistiin 9.4.2025** (Max 5× 100 $/kk, Max 20× 200 $/kk). Se osuu **kauden 1 sisään**, ei kausien rajalle:
+
+| Kausi | Kesto | Kulukehitys |
+| ----- | ----- | ----------- |
+| **1.9.2024–31.8.2025** | 12 kk | 9/2024–3/2025 (7 kk) ≈ **100 €/kk** → Claude Max käyttöön 4/2025 → 4–8/2025 (5 kk) ≈ **300 €/kk** |
+| **1.9.2025–30.4.2026** | 8 kk | lähtötaso ≈ 300 €/kk → Google Cloud Run ym. nostavat → **lähemmäs 600 €/kk** |
+
+**Kumpikaan lukupari ei siis ole väärä — ne mittaavat eri asiaa.** Johdanto on ankkuroitu **saavutettuun tasoon** (300 / 600), johtopäätökset **lähtötasoon ja keskiarvoon** (100 / ~400). Kirjoittajat — tai kirjoituskerrat — valitsivat eri mittarin eivätkä kertoneet kumpaa käyttävät.
+
+**Juurisyy on kausirajaus:** kausiraja 1.9.2025 on lukuvuosiraja, ei kulukäyrän taitekohta. Todellinen taitekohta on **huhtikuu 2025**, keskellä kautta 1. Siksi *mikään* yksittäinen luku per kausi ei ole rehellinen — vaihteluväli on.
+
+**Ristiriitainen tarkistus, joka täsmää:** aiempi ~100 €/kk perustaso + Claude Max 20× (200 $ ≈ 185 €) ≈ **285 €/kk** ≈ ilmoitettu 300 €/kk. Kulukertomus on sisäisesti johdonmukainen.
+
+#### Korjausehdotus — sama muotoilu kaikkiin kolmeen paikkaan
+
+> *"…tekoälypalvelujen ja pilvipalvelujen kuukausikulut olivat **noin 100–300 euroa** ajalla 1.9.2024–31.8.2025 — nousu ajoittuu huhtikuuhun 2025, jolloin Claude Max otettiin käyttöön — ja **noin 300–600 euroa** ajalla 1.9.2025–30.4.2026, kun Google Cloud Run ja muut pilvipalvelut kasvattivat perustasoa."*
+
+Kolme lukua muuttuu vaihteluväleiksi, ja syy nousuun mainitaan kerran. **Ei laajennus** — sama väite tarkemmin.
+
+#### ⚠️ Yksi seurausmuutos, joka on pakko tehdä samalla
+
+Johtopäätösten nykyinen virke sanoo:
+
+> *"Tämä viittaa siihen, että skaalautuvuutta ei saavutettu **kulupiikillä** vaan arkkitehtuurivalinnoilla."*
+
+Korjatuilla luvuilla kulut **kuusinkertaistuivat** (100 → 600). Väite "ei kulupiikkiä" ei enää kanna sellaisenaan.
+
+**Rehellinen ja vahvempi muotoilu on absoluuttinen, ei suhteellinen:**
+
+> *"…kuukausikulut pysyivät koko ajan satojen eurojen suuruusluokassa, kun vertailukelpoiset kaupalliset ratkaisut liikkuvat tuhansissa euroissa kuukaudessa."*
+
+Tämä on totta, se säilyttää argumentin, ja se kestää sen että luvut kasvoivat. **Nykyinen muotoilu ei kestäisi korjattuja lukuja** — siksi tätä ei voi jättää tekemättä, jos A1 korjataan.
+
+**Päätös tarvitaan enää yhteen asiaan:** hyväksytkö vaihteluvälimuotoilun ja "satojen eurojen suuruusluokassa" -korjauksen? ⬜
 
 ### A2. Työn rakenne -luku lupaa kymmenen lukua, työssä on viisi — päätös: ⬜
 
