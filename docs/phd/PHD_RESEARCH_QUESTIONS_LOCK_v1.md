@@ -1,13 +1,18 @@
 # Tutkimuskysymysten lukitus — kuusi kysymystä, jotka pysyvät
 
+> ## ✅ LUKITTU 25.07.2026 — HIC vahvisti (*"Kyllä."*)
+>
+> Sarja C (lähetetty 14.07.2026) on **kanoninen kuuden kysymyksen sarja**. Muutokset vain sääntöjen 1–4 mukaisesti: versiopäivitys, kirjattu syy, ja tieto siitä että muutos on ulkoinen teko.
+
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **HIC vahvisti lukituksen** (*"Kyllä."*). Sarja C on kanoninen; sisältöön ei muutoksia. Lukitusmerkintä lisätty tiedoston alkuun. Kaksi avointa tarkistusta säilyy: RQ2/RQ3-ankkurien tila ja RQ3:n merkintä eteenpäin katsovaksi.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n pyynnöstä (*"Tarvitaan timantinkovat RQt jotka pysyvät. Niitä on ollut 4-10 välillä. Kykenemmekö lukitsemaan 6 kpl jotka myös ovat pohjana Smolander ja Törngren viesteillemme?"*). Löydetty **kolme kilpailevaa kysymyssarjaa**, joista yksi on jo lähetetty ohjaajalle. Lukitus tehty lähetetyn sarjan pohjalle, ei väitöskirjatiedoston. Sisältää kartoituksen siitä, mihin jokainen hylätty kysymys meni, sekä lukitusmekanismin.
 
 ***
