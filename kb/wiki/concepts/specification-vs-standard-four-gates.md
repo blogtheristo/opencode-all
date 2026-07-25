@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: specification-vs-standard-four-gates.md
-Version: 1.2
+Version: 1.3
 Last-Updated: 2026-07-25
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code (claude-opus-5)
@@ -18,7 +18,7 @@ Owner: risto.paarni@lifetime.fi
 
 # Specification vs Standard — and the Four Gates
 
-**Version:** 1.2
+**Version:** 1.3
 **Status:** Active
 **Scope:** Any DWS document, page, deck or claim that uses the word "standard" externally
 
@@ -109,6 +109,70 @@ The exchange also confirmed the addition that makes the distinction consequentia
 > *"Spesifikaatio voi olla teknisesti täydellinen ja silti institutionaalisesti kelvoton. Tekninen valmius ja legitiimiys eivät etene samalla kellolla."*
 
 Confirmed, and it is the artifact–legitimacy gap (`artifact-legitimacy-gap.md`, `V3Thesis` §10.27) stated from the definitional side. Technical completeness is produced at the speed of writing, which frontier models have compressed to hours. Legitimacy is produced at the speed of institutions, which has not moved. **The distinction is the instrument that keeps the first from being mistaken for the second — including by its own author**, which is the failure mode that matters, because it is the one nobody warns you about.
+
+## Purpose, the A2A case, and the IPR inversion — 25.07.2026
+
+### Purpose: confirmed, and the HIC's own word improved
+
+> *"Standardi on kirjoitettu siksi että tarvitaan yleisesti tunnustettu tapa määrittää jokin käytäntö."*
+
+**Confirmed.** And note the HIC has, in this sentence, upgraded their own term from **tunnettu** (known) to **tunnustettu** (recognised, acknowledged). That is the correct word and it is a real distinction: *known* is a fact about awareness, *recognised* is a fact about standing. A standard needs the second. The gates measure recognition, not circulation.
+
+### The A2A case — it is further along than assumed, and that is the lesson
+
+> *"A2A protokolla nykyinen spesifikaatio ei ole vielä standardi mutta mikäli siitä tulee keskeinen toteutusprotokolla se voitaisiin muuttaa standardiksi."*
+
+**A2A has already taken the step this sentence treats as future — and it is the expensive one.** Google Cloud **donated A2A to the Linux Foundation in June 2025**. The Agent2Agent Project is now governed by a Technical Steering Committee including **AWS, Cisco, Google, IBM Research, Microsoft, Salesforce, SAP and ServiceNow**, under Apache-2.0.
+
+Against the four gates:
+
+| Gate | A2A | KYA |
+| ---- | --- | --- |
+| 1 — two or more independent implementations | **Cleared** — eight-vendor TSC, broad implementer base | Not cleared |
+| 2 — conformance suite that can fail | Partial / in progress | Not cleared |
+| 3 — body acceptance **or** genuine adoption | **Cleared de facto**, with a neutral institutional home | Not cleared |
+| 4 — change control outliving the author | **Cleared decisively** — Google gave up unilateral control | Not cleared |
+
+**Gate 4 is the instructive one.** Google did not reach standard status by publishing harder, by writing a better specification, or by acquiring rights. **It reached it by giving up control of the document.** That is the 2→3 transition in its purest observable form, executed by a party with every resource to have chosen otherwise.
+
+A2A is therefore the best available answer to *"what does state 3 cost?"* — and the answer is: **it costs the thing you would most like to keep.**
+
+### ⚠️ The IPR claim is inverted
+
+> *"Standardoitu protokolla antaa mahdollisuuden IPR oikeuksiin kuten tavaramerkkiin."*
+
+**This is the one claim in the sequence that runs the wrong way, and the correction is strategically material.**
+
+**Standardisation does not grant IPR. It generally requires giving IPR up.**
+
+- **Trademark does not come from standardisation.** It comes from use in commerce and registration, and is available with or without a standard. Nothing about becoming a standard creates it.
+- **Standards bodies impose IPR concessions as the price of entry**: FRAND or RAND commitments on essential patents (ETSI, ISO), **royalty-free** (W3C), mandatory disclosure (IETF). The direction of travel is a **reduction** of exclusive rights, exchanged for adoption.
+- **The mark that does matter is a *certification mark*** — "Wi-Fi CERTIFIED", "USB-IF", "Bluetooth". These are commercially powerful. **They are typically owned by the body, not by the originating author**, precisely because the body is the neutral party gate 4 requires.
+- **Where standards-related IPR revenue genuinely exists** is standard-essential patents licensed under FRAND — but that requires patents held *before* standardisation, disclosed during it, and licensed at constrained rates. It is a telecoms-scale instrument, and it is not created by the act of standardising.
+
+### The consequence for KYA, and it is already partly decided
+
+`standards/kya-open/NOTICE` records that Apache-2.0 was chosen **for its express patent grant (Section 3)**.
+
+That means **Lifetime Oy has already granted a patent licence to every implementer** — before any body, before any adoption, and before counsel reviewed it. The IPR leverage this claim imagines is, for KYA, **partly given away already, in the licence choice.** The NOTICE itself flags that a specification-grade licence may need to replace it *"before submission to a standards body"* and that re-licensing after third-party contributions arrive is materially harder.
+
+**Read together with the prior-art record** (`docs/legal/PRIOR_ART_DISCLOSURE_RECORD_2026-07-25.md`), the pattern is consistent: the IP position has been shaped by defaults chosen for other reasons, not by an IP strategy. That is not a crisis — but it means the IPR question is a **counsel question about what remains**, not a question about what standardisation might add.
+
+### The real trade-off, stated once
+
+**Certification-mark value and gate 4 pull in opposite directions.**
+
+A certification mark — *"KYA Conformant"* — is worth something only if someone controls the conformance programme and can withhold the mark. **Gate 4 requires that control to leave the author.** You can hold the mark and remain at state 2, or hand over control and reach state 3.
+
+**You cannot do both**, and A2A shows which one an eight-vendor coalition chose.
+
+This is a genuine strategic decision for KYA, and it has not been framed before. It is not urgent — KYA is at state 2 and neither door is closing — but it should be a decision rather than a default.
+
+### One small precision
+
+> *"Standardi on yleisesti tunnustettu de facto ja de jure tapa."*
+
+The gates treat these as **disjunctive** — body acceptance **or** genuine adoption. Most standards are one or the other; few are both, and those that are usually arrived de facto first and were ratified later (TCP/IP). If *"ja"* is meant as *"or"*, this matches. If it is meant as requiring both, it is stricter than the gates and stricter than practice.
 
 ## Why this matters specifically in the EU
 
