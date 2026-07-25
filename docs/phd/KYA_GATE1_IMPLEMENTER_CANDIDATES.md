@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **eurooppalainen rajaus** HIC:n linjauksen mukaan — strateginen logiikka vahvistettu, kaksi varausta kirjattu. **260 mrd € ei täsmää julkisiin lukuihin** (koko Euroopan pilvimarkkina on 74,4 mrd €); tilalle sourcatut luvut, joista vahvin on 70 % / 15 % -osuusjakauma. **"KTH:n ja LUT:n kumppaneista" on saman riippumattomuusansan terävin muoto** — LUT on väitöskirjan koti, KTH kulkee Törngrenin kautta, ja yhteinen Horizon/Vinnova-rahoitus on kaupallinen suhde. Nimetyt ehdokkaat arvioitu rehellisesti (Scaleway paras, Hetzner heikko, ICEYE väärä rooli + mahdollinen olemassa oleva suhde). Lisätty **RISE + DNV** vahvempana pohjoismaisena parina ja **Gaia-X varoittavana ennakkotapauksena**.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n pyynnöstä (*"Etsi ehdokkaat kahdeksi riippumattomaksi toteuttajaksi"*). Ensimmäinen löydös: **olemassa oleva KYA-kumppanikartta (Liite H) on rakenteellisesti väärä lista** — se rakennettiin jakelustrategiaksi, ja jakelukumppanit ovat täsmälleen ne osapuolet, jotka portti 1 sulkee pois. Ehdokasluokat, suositeltu pari, ja **Törngrenin rooliristiriita**, jota Boardyn muotoilu ei nimennyt.
 
 ***
@@ -118,6 +119,73 @@ Kuka tahansa, joka toteuttaa MCP:tä tai A2A:ta ja tarvitsee hallintakerroksen. 
 **Ja pari sulkee kolme porttia yhdellä liikkeellä:** portti 1 (kaksi riippumatonta toteutusta), portti 4 (ne ovat koalitio, joka tekee muutoshallinnasta rakenteellisen), ja arviointilaitoksen osalta portti 3 (institutionaalinen tunnustus).
 
 ---
+
+## Eurooppalainen rajaus — HIC 25.07.2026
+
+> *"Eurooppa uhkuu suvereeniteettia. 260 mrd euroa siirtyy US pilvipalveluihin vuodessa. Riippumattomat toimijat pitää löytää Euroopasta mieluiten KTH ja LUT kumppaneista. Se tekisi KYA:sta vahvan pohjoismaisen spesifikaation."*
+
+**Strateginen logiikka on oikea.** Jurisdiktio määrää de jure -reitin (edellinen päätös), suvereniteetti on RQ1:n sidosehto, ja spesifikaatio jonka toteutukset pyörivät yhdysvaltalaisilla hyperskaalaajilla heikentää omaa väitettään. Eurooppalainen rajaus on johdonmukainen kaiken kanssa mitä on jo päätetty.
+
+Kaksi asiaa on kuitenkin tarkistettava ennen kuin rajausta käytetään ulospäin.
+
+### ⚠️ 260 mrd € ei täsmää julkisiin lukuihin — käytä näitä sen sijaan
+
+Löydettävissä olevat luvut kertovat pienemmästä mutta **vahvemmasta** tarinasta:
+
+| Luku | Arvo | Lähde |
+| ---- | ---- | ----- |
+| Euroopan pilvimarkkina | **74,4 mrd € (2025)** | markkinatutkimus |
+| **Kolmen yhdysvaltalaisen toimijan osuus Euroopan pilvi-infrastruktuurista** | **70 %** | 2025 |
+| **Eurooppalaisten toimittajien osuus** | **15 %** | 2025 |
+| Suvereenin IaaS:n kasvu Euroopassa | 6,9 mrd $ (2025) → 12,6 mrd $ (2026) → 23,1 mrd $ (2027) | Gartner |
+| Komission suvereenin pilven hankinta | 180 M€, lokakuu 2025 + Cloud Sovereignty Framework | EC |
+| Gartner-ennuste | 20 % työkuormista pois hyperskaalaajilta 2029 mennessä | Gartner |
+
+**260 mrd € on suuruusluokkaa suurempi kuin koko Euroopan pilvimarkkina.** Se voi olla ohjelmisto- ja pilviriippuvuus laajemmin (Euroopan parlamentin *European Software and Cyber Dependencies* -selvitys käsittelee tätä), kumulatiivinen monivuotinen luku, tai virhe. **Älä käytä sitä lähteistämättä.**
+
+**Ja tarvitsematta:** *"kolme yhdysvaltalaista toimijaa hallitsee 70 % Euroopan pilvi-infrastruktuurista, eurooppalaiset 15 %"* on tuhoisampi väite kuin mikään euromäärä — se on osuus, ei kuluerä, eikä sitä voi selittää pois markkinan kasvulla.
+
+### ⚠️ "KTH:n ja LUT:n kumppaneista" on saman ansan terävin muoto
+
+Portti 1 kaatoi juuri koko kumppanikartan, koska jakelukumppanit ovat kaupallisessa suhteessa. **Eurooppalainen ekosysteemi on pieni ja tiheästi kytketty rahoituksen kautta**, ja se tekee ansasta pahemman, ei pienemmän:
+
+- **LUT on väitöskirjan kotiorganisaatio.** Sen kumppanit ovat yhden askeleen päässä tekijästä. Riippumattomuus on kyseenalaistettavissa ilman että kukaan toimii vilpillisesti.
+- **KTH:n kumppanit** kulkevat Törngrenin kautta — sama henkilö, jolla on jo rooliristiriita.
+- **Horizon- tai Vinnova-rahoitettu konsortiokumppani ei ole portin 1 mielessä riippumaton**, jos rahoitus kulkee saman hankkeen läpi. Yhteinen rahoitus on kaupallinen suhde, vaikka se ei tunnu siltä.
+
+**Johtopäätös: eurooppalainen rajaus on oikea, mutta se vaatii riippumattomuustestin soveltamista kovemmin — ei löysemmin.** Mitä kapeampi pooli, sitä suurempi houkutus hyväksyä "melkein riippumaton".
+
+### Nimetyt ehdokkaat, rehellisesti arvioituna
+
+| Toimija | Arvio |
+| ------- | ----- |
+| **SAP** | Istuu **jo A2A:n TSC:ssä** — se on aito signaali, että SAP osallistuu agenttiprotokollien yhteishallintaan. Mutta se ei toteuta suomalaisen mikroyrityksen spesifikaatiota suoraan; reitti kulkee elimen kautta, jossa se jo istuu. Lisäksi SAP esiintyy opinnäytetyössä **kilpailijavertailussa** — positiointijännite |
+| **Scaleway** | ✅ **Paras nimetyistä.** Ranskalainen, suvereniteettipositioitu, oma AI-päättelytarjonta. Hallintakerros erilaistaisi suvereenia tarjontaa, eikä kaupallista suhdetta ole |
+| **Hetzner** | ⚠️ **Heikko sopivuus.** Tarkoituksellisesti riisuttu infrastruktuuritoimittaja, minimaaliset alustapalvelut. Agenttihallinta on kaukana liiketoimintamallista |
+| **ICEYE** | ⚠️ **Väärä rooli** — SAR-satelliittitoimija on tekoälyn *käyttäjä*, ei alustatoimittaja; hallintotarve on kaksikäyttö- ja vientivalvontapainotteinen, ei agenttikonformanssi. **Ja tarkistettava:** repositoriossa on Aegis Defence / SAR-orbitaalidetektio -materiaalia, joten suhde saattaa olla jo olemassa — se diskvalifioisi |
+
+### Vahvemmat pohjoismaiset ehdokkaat, joita ei nimetty
+
+Pysytään arviointilaitosluokassa, joka on portin 1 kannalta paras — ja Pohjoismaissa on siinä poikkeuksellisen hyvä tarjonta:
+
+| Toimija | Miksi |
+| ------- | ----- |
+| **RISE — Research Institutes of Sweden** | 🥇 **Paras yksittäinen sopivuus.** Ruotsin valtion tutkimusinstituutti, jolla on **sekä tutkimus- että sertifiointi- ja testaustoiminta samassa organisaatiossa**. Työskentelee KTH:n kanssa, pohjoismainen, riippumaton. Se on käytännössä arviointilaitos ja tutkimuslaitos yhdessä — täsmälleen se profiili, jota portti 1 ja portti 3 yhdessä vaativat |
+| **DNV** | Norjalainen, rakentaa jo **AI assurance** -käytäntöä. Pohjoismainen, riippumaton, operatiivinen |
+| **Nemko** | Norjalainen, sama luokka |
+| **Kiwa Inspecta** | Suomen toiminnot, ilmoitettu laitos useissa direktiiveissä |
+
+**RISE + DNV on vahvempi pohjoismainen pari kuin mikään nimetyistä** — ja se täyttää sekä poliittisen kehyksen että portin 1 ilman kompromissia.
+
+### ⚠️ Gaia-X on tämän kehyksen varoittava ennakkotapaus
+
+**Euroopassa suvereniteettiretoriikkaa on runsaasti; suvereniteettihankintaa niukasti.**
+
+Gaia-X sai kaiken poliittisen myötätuulen mitä on olemassa — Ranskan ja Saksan hallitusten tuki, satoja jäseniä, EU-tason näkyvyys — ja **kamppaili omaksumisen kanssa**. Se on lähin ennakkotapaus eurooppalaiselle suvereniteettipositioidulle hallintokehykselle.
+
+**Opetus ei ole "älä tee".** Opetus on: **poliittinen myötätuuli ei ole näyttöä, ja se voi korvata näytön jos antaa sen.** Eurooppalainen kehys ilman kahta riippumatonta toteutusta on täsmälleen se, mitä neljä porttia on kirjoitettu tunnistamaan — ja Gaia-X on todiste siitä, ettei poliittinen tuki riitä portin 1 ohittamiseen.
+
+**Käytännön sääntö:** eurooppalainen rajaus on positiointi. **Portti 1 on näyttö.** Ne eivät korvaa toisiaan, ja jos ne sekoittaa, saa Gaia-X:n.
 
 ## Mitä tämä tarkoittaa järjestykselle
 
