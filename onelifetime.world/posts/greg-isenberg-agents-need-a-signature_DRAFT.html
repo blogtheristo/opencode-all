@@ -327,11 +327,23 @@
             In production today that credential mints <strong>unsigned</strong>. Which means it is a
             claim our database makes, not a proof a stranger can check.
           </p>
+          <p class="mb-2">
+            The signing path is written and in review. We reviewed it properly before merging it,
+            and it did not come back clean: the signature covered the credential but
+            <strong>not the proof metadata</strong> &mdash; so the timestamp on an audit record could
+            be changed after signing and the signature would still check out. On an evidence
+            artifact, that is the whole point undone.
+          </p>
+          <p class="mb-2">
+            The tests had not caught it. Eight of them passed, because they tampered with the part
+            that was signed and never the part that was not. We fixed the signature, added the four
+            tests that were missing, and then reverted the fix to confirm those tests actually fail
+            without it. A test that passes before and after a fix is telling you nothing.
+          </p>
           <p class="mb-0">
-            The signing path is written and in review &mdash; Ed25519 on the runtime&rsquo;s own
-            crypto, a DNS-rooted issuer identity, keys held in the customer&rsquo;s jurisdiction and
-            never in a shared foreign cloud. Written is not live. Nothing calls it from a running
-            system yet, and we would rather say that than let the word
+            None of that is live yet. Ed25519 on the runtime&rsquo;s own crypto, a DNS-rooted issuer,
+            keys in the customer&rsquo;s jurisdiction and never a shared foreign cloud &mdash; written,
+            reviewed, not shipped. We would rather say that than let the word
             &ldquo;verifiable&rdquo; do work it has not earned.
           </p>
         </section>
@@ -392,8 +404,9 @@
               seconds.
             </li>
             <li>
-              Ours mints unsigned in production today. The signing path is written and in review;
-              nothing calls it from a running system yet. That is the next thing we ship.
+              Ours mints unsigned in production today. The signing path is written, reviewed, and
+              one real defect lighter than it was &mdash; and still not live. That is the next thing
+              we ship.
             </li>
           </ul>
         </section>

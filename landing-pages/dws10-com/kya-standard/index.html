@@ -459,8 +459,10 @@
         <div>
           <h3>Identity Attribution &mdash; The Anchor</h3>
           <p>
-            Every agent session is cryptographically anchored to a KYC-verified human or entity.
-            This ensures legal accountability for autonomous actions within the DWS10 Control Room.
+            Every agent session is cryptographically anchored to a KYC-verified human or entity, so
+            that an autonomous action in the DWS10 Control Room is attributable to a named,
+            verified person. Attribution is what the design provides; whether it establishes legal
+            liability in a given case is a matter for the applicable law and forum.
           </p>
           <p>
             <code
@@ -539,7 +541,8 @@
       <p>
         Every store, supersede, forget, and fact-extract is logged in the
         <code>memory_audit_log</code> with agent identity, timestamp, source hash, and confidence
-        &mdash; court-defensible provenance under EU AI Act Article 12 and CSRD.
+        &mdash; provenance designed against the EU AI Act Article 12 record-keeping requirements
+        and CSRD reporting needs.
       </p>
 
       <hr />
@@ -1048,8 +1051,10 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
       </p>
 
       <p>
-        KYA becomes the EU AI Act compliance layer for every Agentforce agent handoff &mdash;
-        covering the gap that base Agentforce does not close natively.
+        KYA is designed to supply the governance and evidence layer for every Agentforce agent
+        handoff &mdash; addressing a gap that base Agentforce does not close natively. It does not,
+        by itself, make a deployment compliant: compliance depends on the deployer&rsquo;s own
+        obligations, risk classification, and controls.
       </p>
 
       <div class="summary-table">
@@ -1058,7 +1063,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
             <tr>
               <th>Agentforce Moment</th>
               <th>KYA Enforcement</th>
-              <th>EU AI Act Coverage</th>
+              <th>EU AI Act articles addressed by design</th>
             </tr>
           </thead>
           <tbody>
