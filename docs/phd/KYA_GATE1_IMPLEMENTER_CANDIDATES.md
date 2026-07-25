@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **arvolupaus ja kylmäkäynnistysongelma**. Boardyn kysymyksenasettelu vahvistettu oikeaksi ja parannettu toteuttajan päätössäännöksi (halvempi kuin oma + optioarvo), josta seuraa **miksi akateeminen toteuttaja on rakenteellisesti ensimmäinen eikä vain helpoin** — tutkimuslaitos ei tarvitse optioarvoa. **Korjattu Boardyn väite, että poliittinen paine korvaisi motivaation** — se kääntää päinvastoin sen mitä A2A osoittaa, ja Gaia-X on saman hypoteesin koetulos. Kirjattu **€260 mrd:n propagaatio tarkistamattomana**, SAP:n A2A-sitoumuksen ristiriita suvereniteettiargumentin kanssa, Scaleway/Hetzner-kilpailu, ja ICEYE:n vientivalvontaseuraus tarjoajalle.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **eurooppalainen rajaus** HIC:n linjauksen mukaan — strateginen logiikka vahvistettu, kaksi varausta kirjattu. **260 mrd € ei täsmää julkisiin lukuihin** (koko Euroopan pilvimarkkina on 74,4 mrd €); tilalle sourcatut luvut, joista vahvin on 70 % / 15 % -osuusjakauma. **"KTH:n ja LUT:n kumppaneista" on saman riippumattomuusansan terävin muoto** — LUT on väitöskirjan koti, KTH kulkee Törngrenin kautta, ja yhteinen Horizon/Vinnova-rahoitus on kaupallinen suhde. Nimetyt ehdokkaat arvioitu rehellisesti (Scaleway paras, Hetzner heikko, ICEYE väärä rooli + mahdollinen olemassa oleva suhde). Lisätty **RISE + DNV** vahvempana pohjoismaisena parina ja **Gaia-X varoittavana ennakkotapauksena**.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Luotu HIC:n pyynnöstä (*"Etsi ehdokkaat kahdeksi riippumattomaksi toteuttajaksi"*). Ensimmäinen löydös: **olemassa oleva KYA-kumppanikartta (Liite H) on rakenteellisesti väärä lista** — se rakennettiin jakelustrategiaksi, ja jakelukumppanit ovat täsmälleen ne osapuolet, jotka portti 1 sulkee pois. Ehdokasluokat, suositeltu pari, ja **Törngrenin rooliristiriita**, jota Boardyn muotoilu ei nimennyt.
 
@@ -186,6 +187,86 @@ Gaia-X sai kaiken poliittisen myötätuulen mitä on olemassa — Ranskan ja Sak
 **Opetus ei ole "älä tee".** Opetus on: **poliittinen myötätuuli ei ole näyttöä, ja se voi korvata näytön jos antaa sen.** Eurooppalainen kehys ilman kahta riippumatonta toteutusta on täsmälleen se, mitä neljä porttia on kirjoitettu tunnistamaan — ja Gaia-X on todiste siitä, ettei poliittinen tuki riitä portin 1 ohittamiseen.
 
 **Käytännön sääntö:** eurooppalainen rajaus on positiointi. **Portti 1 on näyttö.** Ne eivät korvaa toisiaan, ja jos ne sekoittaa, saa Gaia-X:n.
+
+## Arvolupaus — oikea kysymys, ja kylmäkäynnistysongelma sen takana
+
+> **Boardy:** *"Kysymys ei ole enää 'ketkä olisivat kanssahallinnoijat' vaan 'mikä on se konkreettinen hyöty joka saa kaksi näistä sanomaan kyllä ennen kuin mitään säätiötä on olemassa?'"*
+
+**Tämä on oikea kysymys ja se on parannus edelliseen muotoiluun.** Kanssahallinnoijat eivät synny nimeämällä vaan sitoutumalla, ja sitoutuminen vaatii vastineen. Boardyn hahmottelemat arvolupaukset ovat myös oikean muotoisia — Scalewaylle suvereeni compliance-kerros erilaistajana, SAP:lle AI Act -hallinta ilman CLOUD Act -riskiä, ICEYE:lle kaksikäyttöauditointipolku.
+
+Mutta ne on testattava kovaa kriteeriä vastaan.
+
+### Toteuttajan päätössääntö
+
+Toimija sanoo kyllä, kun **molemmat** ehdot täyttyvät:
+
+1. **Sinun spesifikaatiosi toteuttaminen on halvempaa kuin oman rakentaminen.** Jos ei ole, he rakentavat omansa — ja isolla toimijalla oman rakentaminen on lähes aina halvempaa kuin toisen ehtoihin sitoutuminen.
+2. **Jaetulla spesifikaatiolla on optioarvo** — yhteentoimivuus muiden omaksujien kanssa.
+
+**Ehto 2 on se, joka kaataa ensimmäisen keskustelun.** Optioarvo edellyttää, että **vähintään yksi toinen omaksuja on jo näkyvissä**. Ensimmäiselle kysytylle sitä ei ole.
+
+**Tämä on kylmäkäynnistysongelma, ja se on koalition todellinen este** — ei motivaation puute vaan järjestyksen mahdottomuus. Siksi A2A tarvitsi kahdeksan yhtä aikaa: **kukaan ei mene ensimmäisenä yksin.**
+
+### 🔑 Ja tästä seuraa se, miksi akateeminen toteuttaja on rakenteellisesti ensimmäinen
+
+**Tutkimuslaitos ei tarvitse optioarvoa.** Se ei toteuta saadakseen yhteentoimivuutta muiden kanssa; se toteuttaa **saadakseen tutkimustuloksen**. Sen päätössääntö on eri.
+
+**Akateeminen toteuttaja siis murtaa kylmäkäynnistyksen** — ja sen jälkeen toinen kysytty ei ole enää ensimmäinen. **RISE tai TECoSA ei ole vain "helpoin ensimmäinen", vaan ainoa luokka, joka voi olla ensimmäinen ilman että ehto 2 estää sen.**
+
+Tämä muuttaa aiemman suosituksen mieltymyksestä mekanismiksi: **akateeminen ensin ei ole järjestyskysymys vaan välttämättömyys.**
+
+### ⚠️ Poliittinen paine ei korvaa motivaatiota — ja Gaia-X on tämän koetulos
+
+> **Boardy:** *"Eurooppalaiset toimijat EIVÄT tarvitse samaa motivaatiota kuin A2A:n osallistujat, heillä on jo poliittinen ja taloudellinen paine löytää vaihtoehto."*
+
+**Tämä kääntää päinvastoin sen, mitä A2A osoittaa.**
+
+A2A:n osallistujilla **ei ollut poliittista painetta**. Heillä oli **konkreettinen jaettu tekninen tarve** — agenttien yhteentoimivuus — jota kukaan ei voinut omistaa yksin. Se on eri asia, ja ero on ratkaiseva:
+
+| | Poliittinen paine | Jaettu tekninen tarve |
+| - | ----------------- | --------------------- |
+| Mitä tuottaa | halun **näkyä osallistuvana** | halun **toteuttaa** |
+| Kuka maksaa | viestintä- ja edunvalvontabudjetti | tuotekehitysbudjetti |
+| Mitä syntyy | jäsenyyksiä, julistuksia, työryhmiä | koodia |
+
+**Gaia-X on tämän hypoteesin koetulos, eikä tulos ollut hyvä.** Sillä oli maksimaalinen poliittinen paine — Ranskan ja Saksan hallitukset, satoja jäseniä, EU-tason näkyvyys — ja se kamppaili toteutusten kanssa. **Boardyn argumentti on täsmälleen Gaia-X-hypoteesi esitettynä vahvuutena.**
+
+**Oikea muotoilu:** poliittinen paine tekee keskustelusta helpomman aloittaa ja **rahoituksesta saatavampaa**. Se ei tuota sitoutumista. Sitoutumisen tuottaa toteuttajan oma tuotehyöty — ja se on tarkistettava jokaiselta erikseen, ei johdettava ilmapiiristä.
+
+**Käytännön seuraus:** poliittinen kerros on **oven avaaja, ei argumentti**. Käytä sitä saadaksesi tapaamisen. Älä käytä sitä perusteluna, koska jokainen näistä toimijoista on kuullut sen jo kymmeneltä muulta.
+
+### ⚠️ €260 mrd on siirtynyt eteenpäin tarkistamattomana
+
+Boardyn vastaus käyttää lukua vahvistettuna tosiseikkana. **Se ei täsmää julkisiin lukuihin** — koko Euroopan pilvimarkkina on 74,4 mrd € (2025), eli luku on suuruusluokkaa suurempi kuin markkina jota se kuvaa.
+
+Tämä on **sama propagaatiokuvio, jonka tämä istunto on jo dokumentoinut** kolmesti (McKinsey-lähde jota ei ole, SWD-asiakirjan väärä nimi, Boardyn aiemmat vahvistamattomat väitteet). **Luku päätyy Scalewaylle tai SAP:lle lähetettävään viestiin, ellei sitä pysäytetä nyt.**
+
+Korvaava, lähteistetty ja vahvempi: **70 % / 15 %.**
+
+### ⚠️ SAP:n kohdalla suvereniteettiargumentti on heikompi kuin miltä näyttää
+
+**SAP istuu jo A2A:n teknisessä ohjausryhmässä yhdessä AWS:n ja Microsoftin kanssa.**
+
+Sen reitti agenttihallintaan kulkee siis **jo elimen kautta, jossa istuvat juuri ne hyperskaalaajat, joita vastaan suvereniteettiargumentti esitetään.** Pitch *"EU AI Act -hallinta ilman CLOUD Act -riskiä"* on SAP:lle kiinnostava, mutta se on myös suoraan ristiriidassa sen olemassa olevan sitoumuksen kanssa — ja SAP ratkaisee sen todennäköisimmin **viemällä asian A2A:n TSC:hen**, ei toteuttamalla erillistä spesifikaatiota.
+
+**Se ei ole huono lopputulos** — se voi olla paras realistinen reitti KYA:n ideoille. Mutta se ei ole portti 1, ja se tarkoittaa hallinnan luovuttamista aiemmin kuin kukaan on suunnitellut.
+
+### ⚠️ Scaleway ja Hetzner kilpailevat keskenään
+
+Molempien saaminen samaan koalitioon on epätodennäköistä alkuvaiheessa. **Yksi infratoimittaja + yksi ei-kilpaileva osapuoli** on realistisempi pari kuin kaksi kilpailijaa.
+
+### ⚠️ ICEYE ja kaksikäyttö — arvolupaus ei ole ilmainen
+
+*"Kaksikäyttöauditointipolku joka avaa puolustusmarkkinan"* on oikean muotoinen lupaus, mutta **vientivalvonta koskee myös tarjoajaa** (EU:n kaksikäyttöasetus 2021/821), ei vain asiakasta. Hallintakerroksen tarjoaminen puolustusmarkkinaan tuo vientivalvontavelvoitteita Lifetime Oy:lle. Se on ratkaistava ennen keskustelua, ei sen jälkeen.
+
+### Sekvenssi — vahvistettu
+
+Boardyn järjestys on oikea ja se vastaa jo kirjattua: **NDA ensin, arvolupaus toiseksi, hallintomalli kolmanneksi.** Lisätään siihen kylmäkäynnistys:
+
+1. **Ratkaise Törngrenin rooli**
+2. **NDA + akateeminen toteuttaja ensin** (RISE tai TECoSA) — murtaa kylmäkäynnistyksen, koska tutkimuslaitos ei tarvitse optioarvoa
+3. **Toinen toteuttaja arvolupauksella** — nyt ehto 2 on täytettävissä, koska ensimmäinen on olemassa
+4. **Vasta sitten hallintomalli ja elin**
 
 ## Mitä tämä tarkoittaa järjestykselle
 
