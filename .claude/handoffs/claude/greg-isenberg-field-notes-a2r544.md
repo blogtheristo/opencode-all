@@ -1,6 +1,6 @@
 # Handoff — `claude/greg-isenberg-field-notes-a2r544`
 
-**Last updated:** 2026-07-25 (session closed) · Claude Code (Opus 5)
+**Last updated:** 2026-07-25 (reopened, then closed again) · Claude Code (Opus 5)
 **Status:** session CLOSED per DWS_LEARNING_STANDARD five-step. Tree clean, all pushed. **No production code changed on this branch** — the one code fix is delivered as an unpushed patch (see §Pending).
 
 ## Task
@@ -32,12 +32,22 @@ Started as "Greg Isenberg field note — what's true and useful for KYA." Became
 - **Open finding: 43 public files still say "KYA Standard."** A blanket rename is WRONG — legal/DPA needs counsel, dated press releases should be annotated not rewritten, and `Legal/KYA_STANDARD_v1.md` is legitimately an internal standard. Four treatments, not one sweep. **This is the live HIC question.**
 - **KB:** `kb/wiki/concepts/specification-vs-standard-four-gates.md` (new).
 
+## Second closing phase (25.07.2026)
+
+- **SG route VERIFIED** (was flagged unverified analysis; the check corrected it). **Enterprise Singapore** is the ISO member body — *not* IMDA, which regulates/promotes; **AI Verify Foundation** is a wholly owned IMDA subsidiary. Singapore tabled **ISO/IEC AWI TS 42119-8** into **ISO/IEC JTC 1/SC 42** and hosted the 17th plenary (SG, 20–24 Apr 2026). Calibrations: **stage 20.00**, TS track, and its **scope is GenAI output testing, not agent governance — KYA cannot ride it.** Still unverified: whether agent-authority governance fits an existing SC 42 item or needs an NWIP, and EnterpriseSG participation cost for a non-SG entity.
+- **SPEC v0.3 — §10 Jurisdiction profiles.** One jurisdiction-neutral core **plus** EU/US/SG conformance profiles, **not three forked specs**. Rule: *a profile may tighten a core MUST, never weaken one.* ASB/EAB/CSB/SIB is the parameterisation seam. **Profiles are named, not written** — populating them needs in-jurisdiction legal review. §10.4 records two asymmetries: only the EU confers a legal presumption (US NIST AI RMF is voluntary), and **harmonised status cannot be self-initiated** (CEN/CENELEC works from a Commission standardisation request).
+- **Thesis v3.85** — PhD §14.43 EN+FI (self-initiation constraint, conformance asymmetry, SC 42 route, core-plus-profile). Master's lockstep bump, **no content change** — the material is PhD-scope per the Content Scope Rule.
+- **Research scope v1.1 EN+FI** — proposed refinement, **NOT adopted**, TK1–TK3 unchanged. Key point: Expected contribution (1) *"open-licensed KYA governance standard with conformance suite"* is **not falsifiable as written**; a four-gate staged restatement makes it checkable. For Smolander.
+- **Public page compliance claims softened** (see backlog **D5**) — agent judgement, **not counsel-reviewed**.
+- **Blog draft updated** with the real review outcome. Still unregistered, unpublished.
+- **`DWS_LEARNING_STANDARD` v1.3 — §10.3.1 The cooling gap.** *Nothing irreversible ships in the session that conceived it.* §10.1's six-field decision format and §10.6's four-per-session cap unchanged.
+
 ## Pending — needs HIC permission or access
 
 - **Push the F1/F3 patch.** `security-reports/patches/2026-07-24-PR1716-fix-F1-F3.patch` (2 files, +142/−15). `git apply` on `claude/kya-v2-attestation-signing-6e5703`. **Not pushed** — this session is authorized only for its own branch.
 - **Post the review/fix to PR #1716?** Not posted; repo-only so far.
 - **B9** — settle 074/079 against the live DB (needs Supabase approval).
-- **Three `[HIC INPUT NEEDED]`** on the Specification: why Q4 2026, which standards body, conformance story (`standards/kya-open/SPEC.md` §0.2). **A standards-body route is now PROPOSED** (CEN/CENELEC JTC 21 via SFS/LUT · W3C CG · Gaia-X/IDSA for gate-1 implementers) in the dual-track field note — the pick is still open, and it also answers the Q4 timing question, since the three bodies run on incompatible clocks.
+- **Three `[HIC INPUT NEEDED]` REMAIN OPEN** (a reviewer summary claimed all were resolved — they are not; §0.2 still reads "proposed but not chosen" / "not recorded here" / "is undecided"): why Q4 2026, which standards body, conformance story (`standards/kya-open/SPEC.md` §0.2). **A standards-body route is now PROPOSED** (CEN/CENELEC JTC 21 via SFS/LUT · W3C CG · Gaia-X/IDSA for gate-1 implementers) in the dual-track field note — the pick is still open, and it also answers the Q4 timing question, since the three bodies run on incompatible clocks.
 - **Migration 080** = B7 + B8 + D4, gated on B9.
 
 ## Gotchas

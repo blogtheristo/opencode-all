@@ -6,10 +6,11 @@ _Canonical registry — single source of truth. Registered in `DWS_TRUTH_STANDAR
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Added **§10.3.1 The cooling gap** — nothing irreversible ships in the session that conceived it. §10.3 classified one-way doors but nothing slowed them; the label was a sign without a brake. Requires a deliberate gap (a second session, a night, a human read) between decision and act for the five acts §10.3 names one-way by default (sign / publish / send / delete / hand to a counterparty), explicitly NOT for reversible internal work — writing a document is not publishing it. Rationale recorded: agent-assisted work compresses conception, drafting, review and execution into one motion, so each step can be defensible while the aggregate produces momentum no one chose; the gap converts a felt concern into a mechanism. Names the specific failure mode — a fast partial correction to an outward-facing surface reads as a reviewed surface. Emergency waivers permitted but must be stated at the time and recorded (Rule 12). Two anti-patterns added to §10.8: same-session irreversibility, and the partial correction. §10.1's six-field decision format and §10.6's four-per-session cap are unchanged.
 - Version: 1.2 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: Added **§10 The HIC Decisioning Process Model** — defines the shape of the Step 5 question, generalized from a session that ran a KYA audit through three reviewer rounds. Codifies: the numbered-question form with a mandatory **(RECOMMEND: …)** preferred action; **always recommend** (a fork without a recommendation offloads analysis while pretending to defer on authority — Art. 14 override presupposes a stated machine judgment); **reversibility classification** (two-way door vs ONE-WAY DOOR, with sign/publish/send/delete/hand-to-counterparty as one-way by default); **verified vs propagated provenance** separated at the point of decision, not in a footnote; **anchoring corrections where the decision is read** plus the standing anti-regression note pattern (a superseded recommendation re-entered as a plan within hours via a reviewer summary); a **max-four-per-session budget**; and **closing the loop** by writing the HIC's answer back. Cross-referenced from §4 Step 5. Added four anti-patterns (§9 + §10.8): recommendation-free decision, correction decay, blended provenance, scope-inflating a decision.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Sharpened §1 with the load-bearing **HIL ("in the loop") vs HIC ("in command")** distinction and the framing that **ending a substantive session with no learning outcome is knowledge destruction** — an Article 14 compliance gap, not a process miss. Added a §2 **"double duty"** note: the stream of learning outcomes is itself audit-grade **Article 12** record-keeping applied inward to DWS's own development process. Conceptual articulation only — the requirement and the five-step minimum are unchanged. Rich framing kept here (not in `DWS_TRUTH_STANDARD.md`, which stays a thin registry; §2F already points here). HIC-validated 24.07.2026.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Created the DWS Learning Standard. Codifies the **HIC Learning Outcome** — the requirement that every substantive session ends by capturing what it learned so a Human-In-Command (HIC) understands and can act on the new knowledge. Establishes the five-step minimum (update KB → field note → Learn/ HTML → Drive export → ask HIC a question), the **EU AI Act Article 14 (human oversight)** legal basis, the substantive-vs-trivial session gate, the Roles chapter, and cross-references to the Truth Standard (§2F, row 30), Document Standard (§17/§18 Learn HTML), and the field-notes README. Triggered by founder directive: "we need to keep HIC informed and make sure new artifact is understood by HIC … this HIC process of learn is a major outcome of each session."
@@ -176,6 +177,18 @@ Recommend even when uncertain. Mark the confidence, then recommend anyway.
 
 Anything that **signs, publishes, sends, deletes, or hands an artifact to a counterparty** is a one-way door by default. A credential signed under a key that cannot be custodied or rotated cannot be unsigned; a published spec cannot be unpublished; an emailed letter cannot be unsent.
 
+#### 10.3.1 The cooling gap — nothing irreversible ships in the session that conceived it
+
+Classification is not a brake. §10.3 labels one-way doors; a label slows nothing by itself. **A one-way door requires a deliberate gap between the decision and the act** — a second session, a night, or a human read. The session that conceived an irreversible action does not execute it.
+
+This exists because agent-assisted work compresses conception, drafting, review and execution into a single continuous motion. Each step can be individually defensible while the aggregate produces momentum no one chose. The gap is what converts "this is moving too fast" from a feeling a human must notice and enforce into a mechanism that holds without anyone watching.
+
+**Scope.** The gap applies to the acts §10.3 names one-way by default: **sign, publish, send, delete, hand to a counterparty.** It does not apply to reversible internal work — commits, drafts, notes, specifications held in-repo. Writing a document is not publishing it, and the distinction is the whole point: land the artefact, then let it sit before it leaves.
+
+**The failure mode it prevents is specific.** A fast partial correction to an outward-facing surface reads as a reviewed surface. Fixing what is easy to fix and leaving the load-bearing claims untouched is worse than not having touched it, because the edit itself signals scrutiny that did not occur.
+
+**Emergencies.** A live security incident or an active outage may require acting inside the gap. If so, say so explicitly at the time, and record in the field note that the gap was waived and why. An unrecorded waiver is a silent exception (Rule 12).
+
 ### 10.4 Separate what is verified from what is propagated
 
 A decision resting on second-hand facts must say so, at the point of decision — not in a footnote. Use two labels:
@@ -205,7 +218,9 @@ The HIC's answer is itself a learning outcome. Record the decision — and the r
 - **Strawman options** — pairing the intended answer with an obviously bad alternative.
 - **Scope-inflating a decision** — attaching an unrelated engineering item to a legal or strategic one (e.g. claiming a schema fix gates a contract signature). Wastes the HIC's scarcest resource and can hand a spurious reason to delay.
 - **The invisible one-way door** — presenting an irreversible action in the same register as a reversible one.
+- **Same-session irreversibility** — conceiving and executing a one-way door in one continuous motion, with no gap for a human to read it cold (§10.3.1).
+- **The partial correction** — editing the easy part of an outward-facing surface and leaving the load-bearing claims, so the edit signals a review that did not happen.
 
 ---
 
-_Version 1.2 · 24.07.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
+_Version 1.3 · 25.07.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
