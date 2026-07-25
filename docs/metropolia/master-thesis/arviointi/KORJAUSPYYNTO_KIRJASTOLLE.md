@@ -1,13 +1,14 @@
-# Korjauspyyntö Metropolian kirjastolle — opinnäytetyön PDF:n vaihto Theseuksessa
+# Korjatun version tallennus Theseukseen + ilmoitus kirjastolle
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.2
+Version: 4.0
 
 Sessions & Modifications:
 
+- Version: 4.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Perusoletus korjattu** (HIC: *"Kirjasto ei tee thesis vientiä vaan minä"*). Versiot 1.0–3.2 olettivat, että kirjasto vaihtaa tiedoston liitteenä lähetetystä PDF:stä — **tallennuksen tekee opiskelija**, kirjasto julkaisee ja korvaa. Tämä vastaa Saija Pyhtilän 29.6. ohjetta (*"sinun tulee tallentaa muokattu versio uudestaan Theseukseen"*), joka jäi aiemmin huomaamatta toisen reitin varjoon. Viesti kirjoitettu uudelleen ilmoitukseksi eikä pyynnöksi, ja **lähetysjärjestys käännetty: tallenna ensin, ilmoita sitten.** PDF-liite tarjotaan varareittinä eikä oleteta.
 - Version: 3.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Viisikohtainen muutoslista **korvattu viittauksella korjaushuomautukseen**, joka tulee v4.2:n loppuun (`V42_KORJAUSHUOMAUTUS.md`). Kirje lyhenee ja kirjasto saa täydellisemmän erittelyn kuin kirjeeseen mahtuisi. Kaksi poistoa mainitaan edelleen kirjeessä erikseen — niistä ei pidä joutua etsimään tietoa liitteestä.
 - Version: 3.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Sävy korjattu HIC:n linjauksen mukaan (*"Heidän tehtävänsä on ylläpitää julkista opinnäytetyöpalvelua. Metropolia haluaa mahdollisimman hyvän tekstin."*). Kirje avataan korjatulla tiedostolla eikä pyynnöllä, ja lopputervehdys ei enää ole *"Kiitos avusta"*. Virheen omistajuus säilyy ennallaan — se on totta ja se kuuluu kirjeeseen — mutta anelevaa sävyä ei tarvita: korjaus palvelee myös kirjaston omaa tehtävää.
 - Version: 3.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Muutoslista tiivistetty seitsemästä eritellystä kohdasta **viiteen ryhmiteltyyn** HIC:n linjauksen mukaan (*"Kirjasto teksti pitää olla korrekti mutta eivät he hylkää korjauksia"*). Kirje on edelleen täsmällinen ja kertoo molemmat poistot, mutta se ei ole muutosloki — kirjaston tarvitsee tietää mitä muutettiin ja miksi, ei jokaista virkettä. Kaikki päätetyt korjaukset (A1–A6, B1–B3, C1–C4, D1) mahtuvat viiteen kohtaan.
@@ -35,9 +36,33 @@ Metropolian kirjaston asiantuntija **Saija Pyhtilä** havaitsi epäjohdonmukaisu
 
 Istunnossa 25.07.2026 harkittiin, tehtäisiinkö samalla patenttisuojaan liittyviä poistoja tekstiin. **Hylätty kahdesta syystä:** (1) poisto ei palauta uutuutta — työ on ollut julkinen 10.07.2026 alkaen, ja EPC 54 artikla koskee hakemuspäivää edeltävää tilaa, ei nykyhetkeä; (2) alla oleva viesti sanoo kirjastolle, ettei sisältöön ole tehty muutoksia, ja se on totta vain jos se on totta — arvioidun työn korvaaminen toisella olisi eri asia kuin muotokorjaus. Perustelut ja se mikä on yhä auki: `docs/legal/PRIOR_ART_DISCLOSURE_RECORD_2026-07-25.md` §7.
 
-## ⚠️ Järjestys — korjattu PDF ensin, viesti vasta sitten
+## ⚠️ Kuka tekee mitäkin — korjattu 25.07.2026
 
-Pyyntö on tiedoston vaihto. **Älä lähetä viestiä ennen kuin korjattu PDF on valmis** — muuten kirjasto joutuu odottamaan liitettä ja ketju venyy. Työjärjestys: korjaa Google Docs → vie PDF → lähetä viesti liitteineen.
+> **HIC:** *"Kirjasto ei tee thesis vientiä vaan minä"*
+
+Aiempi versio tästä tiedostosta oletti, että kirjasto vaihtaa tiedoston liitteenä lähetetystä PDF:stä. **Väärin.** Tallennuksen tekee opiskelija; kirjaston rooli on julkaista ja korvata vanha tietue.
+
+Tämä vastaa myös Saija Pyhtilän omaa ohjetta 29.6.2026, jossa reittejä oli kaksi:
+
+> *"Jos haluat tehdä muutoksia, sinun tulee **tallentaa muokattu versio uudestaan Theseukseen** tai voit lähettää korjatun version minulle PDF:nä."*
+
+**Ensisijainen reitti on ensimmäinen.** Toinen on varareitti, ja Saija on lomalla 10.8. asti.
+
+### Työjärjestys
+
+| # | Kuka | Mitä |
+| - | ---- | ---- |
+| 1 | HIC | Korjaukset `V41_Final_Thesis_FI`:hin (`V42_ASIAVIRHELISTA.md`) |
+| 2 | HIC | Korjaushuomautus loppuun (`V42_KORJAUSHUOMAUTUS.md`) |
+| 3 | HIC | Sivumäärä lasketaan **vasta nyt** ja viedään tiivistelmiin |
+| 4 | HIC | PDF-vienti |
+| 5 | HIC | **Tallennus Theseukseen** |
+| 6 | HIC | Ilmoitus `kirjasto@metropolia.fi` — alla oleva viesti |
+| 7 | Kirjasto | Julkaisee korjatun version ja korvaa vanhan |
+
+**Vaiheiden 5 ja 6 järjestys on tärkeä.** Tallenna ensin, ilmoita sitten — muuten kirjasto saa pyynnön, jonka kohdetta ei vielä ole olemassa, eikä se tiedä kumpi tiedosto on kumpi. Kun tallennus on tehty, viesti kertoo vain mikä korvaa minkä.
+
+**Liite viestiin:** ei tarpeen ensisijaisella reitillä. Tarjoa se kuitenkin — jos kirjasto haluaa mieluummin tiedoston suoraan, se säästää yhden kierroksen.
 
 ## Korjauslista — kaikki viisi kohtaa
 
@@ -81,18 +106,17 @@ Kirjasto ehdotti myös **Metropolian opinnäytetyön mallipohjaa** (opiskelijan 
 ## Lähetettävä viesti
 
 **Vastaanottaja:** `kirjasto@metropolia.fi`
-**Aihe:** Opinnäytetyön PDF:n vaihtopyyntö — URN:NBN:fi:amk-2026062725698
-**Liite:** korjattu PDF
+**Aihe:** Korjattu versio tallennettu — URN:NBN:fi:amk-2026062725698
+**Lähetä vasta kun tallennus Theseukseen on tehty.**
 
 ```
 Hei,
 
-ohessa korjattu versio opinnäytetyöstäni. Pyydän vaihtamaan sen
-Theseuksessa julkaistun tiedoston tilalle, jotta julkaistu versio
-vastaa työn sisältöä.
+olen tallentanut Theseukseen korjatun version opinnäytetyöstäni ja
+pyydän, että se korvaa nykyisen julkaistun version.
 
   Tekijä:      Risto Anton Päärni
-  Työ:         https://urn.fi/URN:NBN:fi:amk-2026062725698
+  Nykyinen:    https://urn.fi/URN:NBN:fi:amk-2026062725698
   Tutkinto:    insinööri (ylempi AMK), Smart Factory
   Julkaistu:   10.7.2026
 
@@ -101,17 +125,17 @@ Taustaa
 Saija Pyhtilä kävi työn läpi ennen julkaisua 29.6.2026 ja huomasi
 siinä useita epäjohdonmukaisuuksia. En ehtinyt tehdä korjauksia ennen
 hänen lomalle jäämistään, joten työ julkaistiin sellaisenaan. Hän
-neuvoi lähettämään korjauspyynnön tähän osoitteeseen lomansa aikana
-(hän palaa 10.8.).
+neuvoi hoitamaan asian tämän osoitteen kautta lomansa aikana (hän
+palaa 10.8.).
 
 Mitä korjatussa versiossa on muutettu
 
-Korjatun version lopussa on korjaushuomautus, jossa kaikki muutokset on
-eritelty numeroituna ja kohdittain. Lyhyesti: työn tuloksiin,
-menetelmiin tai johtopäätöksiin ei ole tehty muutoksia, eikä
-arviointiin pyydetä muutosta. Korjaukset koskevat etu- ja
-tiivistelmäsivujen yhtenäistämistä, asettelua, sisäisiä
-epäjohdonmukaisuuksia ja lähdeviitteitä.
+Korjatun version lopussa on korjaushuomautus, jossa kaikki muutokset
+on eritelty kohdittain. Lyhyesti: työn tuloksiin, menetelmiin tai
+johtopäätöksiin ei ole tehty muutoksia, eikä arviointiin pyydetä
+muutosta. Korjaukset koskevat etu- ja tiivistelmäsivujen
+yhtenäistämistä, asettelua, sisäisiä epäjohdonmukaisuuksia ja
+lähdeviitteitä.
 
 Lisäksi versiosta on poistettu kaksi kohtaa, jotka eivät kuulu
 pysyvästi julkiseen asiakirjaan: kolmansien osapuolten tunnistetiedot
@@ -125,7 +149,8 @@ tulee olla sama kuin työn aloitusvaiheessa rekisteröity otsikko, ja
 muutin kansilehden sen mukaiseksi. Saija oikaisi tulkintani, mutta
 korjaus jäi tekemättä ennen julkaisua. Virhe on minun.
 
-Kerro, tarvitsetteko minulta muuta kuin oheisen tiedoston.
+Kerro, tarvitsetteko minulta jotain — toimitan korjatun version myös
+suoraan PDF:nä, jos se on teille kätevämpää.
 
 Kiitos.
 
