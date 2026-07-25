@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty §7 — **harkittu ja hylätty** ehdotus tehdä patenttisuojaan liittyviä muutoksia korjattuun PDF:ään. Poisto ei palauta uutuutta (EPC 54 art. koskee hakemuspäivää edeltävää tilaa; 55 art. poikkeukset eivät sovellu), ja se tekisi kirjastolle annetusta lausumasta *"sisältöön ei ole tehty muutoksia"* valheellisen sekä korvaisi arvioidun työn toisella. Kirjattu tilalle se, mikä on yhä auki: kolmen mekanismin hakemus, mahdollinen **US 12 kk armonaika (35 USC 102(b)(1))** noin 10.07.2027 asti, ja liikesalaisuusreitti erillisenä rehellisenä pyyntönä.
 - Version: 1.0 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Created on HIC instruction *"Heti"* — record immediately and in writing that the deposited Metropolia YAMK thesis publicly discloses an agent identity-and-authorisation mechanism as of 10.07.2026, a fact discovered 25.07.2026 and absent from every prior A9 analysis. Establishes the standing artifact that travels with any future patentability engagement, and records the distribution hold that prevents it being sent to LUT innovation services before the 369/2006 question is resolved.
 
 ***
@@ -98,7 +99,39 @@ This record is written to be handed over. **It has not been sent to anyone**, an
 - **Technical panel (Törngren / KTH TECoSA) — permitted under NDA only.** Disclosure under an obligation of confidence is not "made available to the public" under EPC Art. 54. Under NDA this record may be shared immediately; without one it must not.
 - **Kari Smolander (LUT)** stays on thesis and research scope. Do not route IP questions through a doctoral supervisor.
 
-## 7. Correction history
+## 7. ⛔ Considered and rejected: redacting §5.4 in the corrected PDF
+
+**Proposal (HIC, 25.07.2026):** since the PDF is being corrected anyway, also make patent-protective changes to the text.
+
+**This does not work, and it converts a clean request into a risky one.** Not legal advice — but the reasoning is not close enough to need counsel to reject it.
+
+### It does not restore novelty
+
+The work has been **publicly available since 10.07.2026**. Under EPC Art. 54 the state of the art is everything made available to the public **before the filing date** — it is not a description of what is available *today*. Withdrawing a document does not remove it from the state of the art; the disclosure is a completed historical event. Practically, the file has also been indexed, harvestable and downloadable for over two weeks (Theseus feeds Finna and search engines).
+
+**EPC Art. 55 does not help.** Non-prejudicial disclosures are limited to evident abuse against the applicant and to display at an official international exhibition. Neither applies to a voluntary thesis deposit.
+
+So the redaction buys **nothing** on the European patent side, which is the side that has no grace period.
+
+### It creates a real problem where none exists
+
+The thesis was **assessed on 5.6.2026 with §5.4 in it** and graded 5. The correction request tells the library, truthfully:
+
+> *"Työn sisältöön, tuloksiin tai johtopäätöksiin ei ole tehty muutoksia, eikä arviointiin pyydetä muutosta."*
+
+Removing a substantive chapter makes that sentence **false**, and submits a materially different work in place of the assessed one. That is no longer a formatting correction — it is a silent substitution of the graded artifact, requested from an institution that has just done the author a favour on trust. The downside is not a patent outcome; it is the integrity of a degree record and a relationship with the awarding institution.
+
+**Do not blend the two.** The front-matter correction is easy, honest and already offered. Mixing an undisclosed motive into it risks the correction itself.
+
+### What is actually still available
+
+1. **The three named mechanisms are unaffected** and remain the real patent asset (§3). They are not in the deposited text. The action there is a **filing**, not a redaction.
+2. **The US door may still be open for §5.4 subject matter.** 35 USC 102(b)(1) provides a **12-month grace period for the inventor's own disclosure** — so a US filing by roughly **10.07.2027** may still be possible on subject matter that EP has already lost. **Verify with counsel; jurisdictions differ and the grace period has conditions.** This is worth checking precisely because it is the one live option the redaction idea was reaching for.
+3. **If the concern is trade secret rather than patent** — i.e. §5.4 reveals something that should not be public at any price — that is a **different request, made honestly as such**: a restriction or takedown request to the library, stating plainly that the author wishes to limit availability. It still does not restore novelty. It only limits further spread, and the copies already taken are gone.
+
+**Recorded so the idea does not resurface as a good one.** It is a reasonable instinct — the cost of the disclosure is real — but the mechanism it assumes (unpublishing undoes publication) does not exist in patent law.
+
+## 8. Correction history
 
 This record exists because the earlier analysis was wrong about its own evidence base, not about its conclusions. A9's substantive finding — that the three named mechanisms retain novelty — **survives**. What failed was the method: disclosure was inferred from the working copy rather than from the published artifact. The rule extracted from it is recorded in `kb/wiki/concepts/institutional-record-errors.md`: **when the question is "what has been disclosed", search the disclosed artifact.**
 
