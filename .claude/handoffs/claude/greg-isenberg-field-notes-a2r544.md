@@ -1,7 +1,7 @@
 # Handoff — `claude/greg-isenberg-field-notes-a2r544`
 
-**Last updated:** 2026-07-24 (end of session) · Claude Code (Opus 5)
-**Status:** 13 commits, tree clean, all pushed. **No production code changed on this branch** — the one code fix is delivered as an unpushed patch (see §Pending).
+**Last updated:** 2026-07-25 (session closed) · Claude Code (Opus 5)
+**Status:** session CLOSED per DWS_LEARNING_STANDARD five-step. Tree clean, all pushed. **No production code changed on this branch** — the one code fix is delivered as an unpushed patch (see §Pending).
 
 ## Task
 
@@ -24,6 +24,13 @@ Started as "Greg Isenberg field note — what's true and useful for KYA." Became
 4. **`jose` was rejected, not deferred** (Node-native `node:crypto`, sovereignty-clean). A withdrawn recommendation re-entered as a plan via a reviewer within hours; standing anti-regression note is in the crypto field note. Do not let it back without a §14.7.1 version bump.
 5. **Three-asset separation:** track record → tenant · accountability → the moment (immutable) · agent configuration → the contract. Schema bug: attestations have `hic NOT NULL` and **no tenant column**.
 6. **Anchor fix is a precondition for signing**, not parallel.
+
+## Closing phase (25.07.2026)
+
+- **Thesis v3.83 → v3.84, all four files in lockstep.** Master's **§10.26** (EN+FI) = implementation evidence (F1/F3, falsification as a test-quality gate). PhD **§14.42** (EN+FI) = scientific framing + standards-route market signal. Versioned `Learn/` renders at v3.84; **v3.83 retained**.
+- **`dws10.com/kya-standard/` corrected** — Standard → Specification throughout, stale "Implementation Ready (Q1 2026)" replaced with an honest status block (not an Art. 40 harmonised standard; four gates named). Mirror synced.
+- **Open finding: 43 public files still say "KYA Standard."** A blanket rename is WRONG — legal/DPA needs counsel, dated press releases should be annotated not rewritten, and `Legal/KYA_STANDARD_v1.md` is legitimately an internal standard. Four treatments, not one sweep. **This is the live HIC question.**
+- **KB:** `kb/wiki/concepts/specification-vs-standard-four-gates.md` (new).
 
 ## Pending — needs HIC permission or access
 
