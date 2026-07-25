@@ -50,9 +50,15 @@ The deposited thesis (<https://urn.fi/URN:NBN:fi:amk-2026062725698>, 10.07.2026)
 4. **The handling person went on holiday**; the correction window closed unclosed.
 5. Wrong title reached the assessment (5.6.2026) and Theseus (10.7.2026).
 
-Scope: the two versions are **identical except the cover page**. One work, wrong name — not two works.
+Scope: the error is on the **cover page**, not only in registry metadata. One work, wrong name — not two works.
 
 **Correctability: open.** Route is the awarding institution's library, not the archive service.
+
+### Two follow-on lessons from the same case
+
+**(a) A cause given by the person who caused it is still a claim.** The HIC's account of *why* the wrong title shipped was accurate. The adjacent statement — *"the two versions are identical except the cover page"* — was not: the two Drive versions differ in fourteen places, several substantive. The first had been lived; the second was a recollection. **Separate the two even when they arrive in the same sentence**, and check anything that is about to be asserted to an external party.
+
+**(b) The repository is not the record of what was published.** A9's disclosure analysis was reasoned entirely from repository contents. The deposited work contains a whole chapter (§5.4, agent identity via an "Agent Passport", governance gating, agent-mediated payment) that appears in **no repository file**. **When the question is "what has been disclosed", search the disclosed artifact — not the working copy.**
 
 ## Second-order asset
 
