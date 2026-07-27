@@ -64,13 +64,34 @@ function eur(n) {
     return '€' + n;
   }
 }
-function unitLabel(t) {
+// Accepts a product object (preferred) or a bare type string (legacy callers).
+// Order of authority: explicit priceUnit -> billingPeriod -> type.
+// NOTE: 'subscription' previously mapped to 'per year', which mislabelled every
+// monthly SKU (e.g. the €499/mo required subscriptions) as an annual price — a
+// material pricing misstatement on a customer-facing list. Subscriptions bill
+// monthly unless the data says otherwise.
+function unitLabel(p) {
+  const prod = p && typeof p === 'object' ? p : null;
+  const t = prod ? prod.type : p;
+  const unitMap = {
+    'per-month': 'per month',
+    'per-year': 'per year',
+    'per-hour': 'per hour',
+    'per-day': 'per day',
+    'per-seat': 'per seat',
+    'one-time': 'one-time',
+  };
+  const priceUnit = prod && prod.priceUnit;
+  if (priceUnit && unitMap[priceUnit]) return unitMap[priceUnit];
+  if (t === 'subscription') {
+    const b = String((prod && prod.billingPeriod) || 'monthly').toLowerCase();
+    return b === 'yearly' || b === 'annual' || b === 'annually' ? 'per year' : 'per month';
+  }
   return (
     {
       hourly: 'per hour',
       daily: 'per day',
       monthly: 'per month',
-      subscription: 'per year',
       'one-time': 'one-time',
     }[t] ||
     t ||
@@ -98,7 +119,7 @@ function renderProductsTable(list) {
           `<td class="id">${esc(p.id)}</td>` +
           `<td class="name">${esc(p.name)}${caption}${note}</td>` +
           `<td class="price">${priceCell}</td>` +
-          `<td class="unit">${esc(unitLabel(p.type))}</td>` +
+          `<td class="unit">${esc(unitLabel(p))}</td>` +
           `<td class="sku">${esc(p.mpn || p.sku || '—')}</td>` +
           '</tr>'
         );
