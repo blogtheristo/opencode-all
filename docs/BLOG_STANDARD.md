@@ -158,6 +158,7 @@ Chronological order. Update this table when adding/removing posts.
 | 40  | `the-moats-we-hand-you.fi.html`                      | Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI parity of #39)                                | 1 Jul 2026  |
 | 41  | `nvidia-halos-robotics-physical-ai-safety.html`      | NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking. (EN, NVIDIA partner note)         | 10 Jul 2026 |
 | 42  | `ai-supercomputing-meets-eda-sovereign-design.html`  | AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building. (EN, NVIDIA partner note / DGX Spark series) | 17 Jul 2026 |
+| 43  | `ala-treenaa-base-mallia-omista-evidenssikerros.html` | Älä treenaa base-mallia, omista evidenssikerros — adoptoi avoin sovereign-komponentti, investoi omistettuun evidenssisilmukkaan; NVIDIA-supply-riski nimettynä (FI) | 26 Jul 2026 |
 
 ---
 
