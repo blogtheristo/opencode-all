@@ -11,8 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.87
+Version: 3.88
 Sessions & Modifications:
+
+- Version: 3.88 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.87 → 3.88 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän PhD-tiedostoon: v3.88-lisäys on toteutus-/laitteistonäyttöä (LWM-koulutuslaitteiston todellisuus — GN-100 on reunainferenssi-/kehitysnode ei koulutusklusteri; erillinen on-prem "Acer Node" -koulutus on Pending Hardware PR #1720 -varmennuksen mukaan; pilvi GCP A3 Mega on täyskoulutusreitti; realistinen putki = pilvi-esikoulutus/hienosäätö → NVFP4 → GN-100 inferenssi) ja kuuluu §1.4 master-vs-PhD-skooppisäännön mukaan master-opinnäytteeseen V3Thesis Liite E. Kumppani: docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md.
 
 - Version: 3.87 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lukkokohtainen versionosto 3.86 → 3.87 tutkielmasäännön mukaan. Ei sisältömuutosta tässä tiedostossa.
 - Version: 3.86 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lukkokohtainen versionosto 3.85 → 3.86 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md-tutkielmasäännön mukaan. Ei sisältömuutosta tässä tiedostossa: istunnon uusi aineisto (§10.27) on tekniseen käytäntöön ja tuotesuunnitteluun kuuluvaa sisältöä, joka kuuluu diplomityöhön sisältörajaussäännön mukaan. Sen tieteellinen vastine on jo §14.42/§14.43:ssa.

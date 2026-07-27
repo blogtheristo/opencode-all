@@ -6,8 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.87
+Version: 3.88
 Sessions & Modifications:
+
+- Version: 3.88 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Täydennetty Liite E (LWM-koulutusinfrastruktuuri) varmennetulla koulutuslaitteiston todellisuus -alaluvulla (toteutusnäyttö §1.4 master-vs-PhD-skooppisäännön mukaan; olemassa oleva QLoRA-putken teksti säilytetty Rule 12:n mukaan). Vahvistaa että GN-100 on reuna-INFERENSSI-/kehitysnode — soveltuu pienten (~7–13B) mallien QLoRA-hienosäätöön, EI täyden ~55B LWM:n esikoulutukseen (koulutus vaatii ~8–16× inferenssin muistin → satoja GB–TB vs 128 GB). Kirjaa PR #1720 -varmennuksen joka demotoi erillisen on-prem "Acer Node" -koulutusväitteen tilaan Pending Hardware (ei putkikoodia, ei kyseistä x86/2×RTX-4090-nodea, ei go-livea); pilvi (GCP A3 Mega) on ainoa käytettävissä oleva täyskoulutusreitti. Realistinen putki (pilvi-esikoulutus/hienosäätö → NVFP4-kvantisointi Blackwellille → GN-100 reunainferenssi) ja token-capital-kehys (vallihauta = oppimissilmukka + privaatit evaluaatiot omalla fleet-datalla, ei from-scratch 55B). Kumppani: docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md. Lockstep 3.87→3.88 kaikissa 4 tiedostossa; PHD-tiedostot saavat lockstep-merkinnän; Learn/ HTML-regenerointi ODOTTAA (Pandoc).
 
 - Version: 3.87 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Terävöitetty §10.27:ää kahdella kohdalla ulkoisen arvioinnin pohjalta. (1) **Yhteensovitusvelka** — alkuperäinen teksti sanoi, ettei legitimiteetti "liiku", mikä aliarvioi riskin: arvioimaton iterointi voi ajautua kauemmas hyväksyttävyydestä samalla kun se sisäisillä mittareilla vaikuttaa paranevan. (2) Lisätty **"Oletuksena sisäinen"** ohjaavaksi tuotealustaperiaatteeksi (§10.27.4 periaate 1, muut uudelleennumeroitu 2–5). EN/FI-lukkoaskel. Tietoisesti EI omaksuttu samasta arvioinnista: väite, että kuilu on "se kohta jossa suurin osa tekoälynatiivista vaatimustenmukaisuustyöstä epäonnistuu" — todentamaton markkinaväite, jolle tällä ohjelmalla ei ole aineistoa.
 - Version: 3.86 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lisätty §10.27 (Artefakti–legitimiteetti-kuilu). EN/FI-lukkoaskel; sisältö vastaa V3Thesis_EN.md §10.27:ää. Nimeää suurimman käytännön ongelman huippumalleilla rakentamisessa: artefaktin tuottaminen puristuu tunteihin, legitimointi ei purista lainkaan. Tunnistaa toisen asteen vaikutuksen — sujuvuus ei ole enää näyttöä prosessista, mutta lukijat käyttävät sitä yhä legitimiteetin korvikemittarina, joten laatija ylivaatii tahtomattaan. KYA v1.5 työstettynä tapauksena (nolla neljästä portista; kategoria oli väärin, ei tekninen sisältö). Ydinlöydös: versionumero kiihtyy, legitimiteetti ei liiku. Kolmen lainkäyttöalueen laajennus tekee kuilusta mitattavan. Dokumentoi oppimisstandardin §10:n toteutettuna vastatoimena (legitimiteettiväitteiden nopeusrajoitin). Johtaa neljä tuotealustan suunnitteluperiaatetta vaatimustenmukaisuusälylle.
@@ -2413,6 +2415,20 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 4. Arviointi & käyttöönotto (Claude-as-judge, tavoite >7.0/10)
 
 **Kustannus:** €80-125 per toimialamalli (vs. €15 000+ perinteisesti, 99% kustannusvähennys)
+
+### LWM-koulutus — Varmennettu laitteistotodellisuus (v3.88-täydennys)
+
+_Toteutusnäytön skooppikorjaus yllä olevaan putkeen (§1.4 master-vs-PhD-skooppisäännön mukaan). Yllä kuvattu toimialakohtainen QLoRA-hienosäätö — pienet mallit, ~16 h GN-100:lla — on toteutettavissa ja säilyy toimitettuna reittinä. Tämä alaluku tekee näkyväksi rajan jonka heinäkuun 2026 varmennus paljasti; yllä oleva teksti säilytetään muuttumattomana (Rule 12)._
+
+**GN-100 on reunainferenssi-/kehitysnode, ei koulutusklusteri.** Se hienosäätää (QLoRA) pieniä malleja (~7–13B) ja palvelee inferenssiä; se ei voi esikouluttaa täyttä ~55B Lifetime World Modelia. Koulutuksessa 55B-malli tarvitsee optimoijan tilat, gradientit ja aktivaatiot noin 8–16× inferenssin muistijalanjäljestä — satoja GB–TB ja moni-GPU-yhteydet — vastaan GN-100:n 128 GB yhtenäismuistia.
+
+**On-prem "Acer Node" -täyskoulutus on Pending Hardware.** Repositorion varmennus (PR #1720, 24.07.2026) ei löytänyt koulutusputken koodia eikä go-live-merkintää, ja erikseen kuvattua koulutusnodea (x86, 2× RTX 4090) ei ole repositoriossa; ainoa dokumentoitu Acer-laite on Veriton GN-100 (ARM64 / GB10 reunainferenssi ja kehitys). Enterprise Model Training -reitti joka esitti on-prem-koulutuksen toimitettuna merkittiin uudelleen "Pending Hardware, ei vielä varmennettu live". **Pilvi (GCP A3 Mega) on ainoa käytettävissä oleva täyskoulutusreitti.**
+
+**Realistinen putki:** pilvi-esikoulutus / hienosäätö (GCP A3 Mega tai vuokra-H100/H200) → NVFP4-kvantisointi Blackwellille suunniteltuna → deploy GN-100:lle reunainferenssiin. Koulutus ja inferenssi ovat eri työkuormia eri laitteistolla.
+
+**Token-capital-kehys:** puolustettava omaisuus ei ole from-scratch 55B vaan oppimissilmukka — privaatit evaluaatiot, RL-ympäristö ja adaptointi omalla operatiivisella (fleet-)datalla. Täysi 55B-esikoulutus on pilvi-CAPEXia joka ei itsessään tuota vallihautaa; omistettu silmukka tuottaa.
+
+Kumppani-lab-note: `docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md`.
 
 ## Liite F: V1.0 Agenttilaivasto
 

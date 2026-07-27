@@ -11,8 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.87
+Version: 3.88
 Sessions & Modifications:
+
+- Version: 3.88 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.87 → 3.88 across all 4 thesis files per the CLAUDE.md Thesis Rule. No content change in this PhD file: the v3.88 addition is implementation/hardware evidence (LWM training-hardware reality — the GN-100 is an edge inference/development node not a training cluster; the separate on-prem "Acer Node" training is Pending Hardware per the PR #1720 verification; cloud GCP A3 Mega is the full-training route; realistic pipeline = cloud pretrain/fine-tune → NVFP4 → GN-100 inference) and per the §1.4 master-vs-PhD scope rule lives in the master's thesis V3Thesis Appendix E. Companion: docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md.
 
 - Version: 3.87 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lockstep version bump 3.86 → 3.87 per the CLAUDE.md Thesis Rule. No content change in this file; the sharpening applies to master's §10.27 (reconciliation debt; the default-to-internal platform principle).
 - Version: 3.86 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lockstep version bump 3.85 → 3.86 across all 4 thesis files per the CLAUDE.md Thesis Rule. No content change in this file: the session's new material (§10.27, the artifact–legitimacy gap and the platform design principles it yields) is engineering-practice and product-design content and belongs to the master's thesis under the Thesis Content Scope Rule. Its scientific counterpart — the standardisation-route and jurisdiction-architecture analysis — is already at §14.42/§14.43.
