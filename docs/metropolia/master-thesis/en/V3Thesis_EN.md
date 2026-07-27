@@ -6,8 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.88
+Version: 3.89
 Sessions & Modifications:
+
+- Version: 3.89 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.88 → 3.89 across all 4 thesis files per the CLAUDE.md Thesis Rule. No content change in this master's thesis file: the v3.89 addition (NVIDIA Cosmos 3 Edge on-device world model as the build→adopt inflection for the Lifetime World Model, and the data-sovereign vs supply-concentrated tension) is a market-signal / scientific-framing contribution and per the §1.4 scope rule lives in PHD_FIREHORSE_EN.md §14.44 and Key Contribution #49. When/if Cosmos 3 Edge is actually wired into the stack, the implementation evidence will be added to this file's Appendix E. Specs are external/unverified (user-reported NVIDIA announcements, July 2026). Companion: docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md.
 
 - Version: 3.88 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Amended Appendix E (LWM Training Infrastructure) with a verified training-hardware reality subsection (implementation evidence per the §1.4 master-vs-PhD scope rule; the existing QLoRA pipeline text is preserved per Rule 12). Confirms the GN-100 is an edge INFERENCE / development node — feasible for QLoRA fine-tuning of small (~7–13B) models, NOT for full ~55B LWM pretraining (training footprint ~8–16× inference → hundreds of GB–TB vs 128 GB unified). Records the PR #1720 verification demoting the separate on-prem "Acer Node" training claim to Pending Hardware (no pipeline code, no such x86/2×RTX-4090 node, no go-live); cloud (GCP A3 Mega) is the only available full-training route. States the realistic pipeline (cloud pretrain/fine-tune → NVFP4 quantise for Blackwell → GN-100 edge inference) and the token-capital framing (moat = learning loop + private evals on owned fleet data, not a from-scratch 55B). Companion: docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md. Lockstep 3.87→3.88 across all 4 thesis files; PHD files receive a lockstep-only entry; Learn/ HTML regeneration PENDING (Pandoc build).
 

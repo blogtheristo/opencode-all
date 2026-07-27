@@ -6,8 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.88
+Version: 3.89
 Sessions & Modifications:
+
+- Version: 3.89 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.88 → 3.89 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän master-opinnäytetiedostoon: v3.89-lisäys (NVIDIA Cosmos 3 Edge -laitteessa ajettava maailmanmalli LWM:n build→adopt-käännekohtana sekä data-sovereign vs supply-keskittymä -jännite) on markkinasignaali/tieteellinen kehystys ja kuuluu §1.4-skooppisäännön mukaan tiedostoon PHD_FIREHORSE_FI.md §14.44 ja avainkontribuutio #49. Kun Cosmos 3 Edge oikeasti wirataan pinoon, toteutusnäyttö lisätään tämän tiedoston Liite E:hen. Speksit ovat ulkoisia/varmentamattomia (käyttäjän raportoimat NVIDIA-ilmoitukset, heinäkuu 2026). Kumppani: docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md.
 
 - Version: 3.88 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Täydennetty Liite E (LWM-koulutusinfrastruktuuri) varmennetulla koulutuslaitteiston todellisuus -alaluvulla (toteutusnäyttö §1.4 master-vs-PhD-skooppisäännön mukaan; olemassa oleva QLoRA-putken teksti säilytetty Rule 12:n mukaan). Vahvistaa että GN-100 on reuna-INFERENSSI-/kehitysnode — soveltuu pienten (~7–13B) mallien QLoRA-hienosäätöön, EI täyden ~55B LWM:n esikoulutukseen (koulutus vaatii ~8–16× inferenssin muistin → satoja GB–TB vs 128 GB). Kirjaa PR #1720 -varmennuksen joka demotoi erillisen on-prem "Acer Node" -koulutusväitteen tilaan Pending Hardware (ei putkikoodia, ei kyseistä x86/2×RTX-4090-nodea, ei go-livea); pilvi (GCP A3 Mega) on ainoa käytettävissä oleva täyskoulutusreitti. Realistinen putki (pilvi-esikoulutus/hienosäätö → NVFP4-kvantisointi Blackwellille → GN-100 reunainferenssi) ja token-capital-kehys (vallihauta = oppimissilmukka + privaatit evaluaatiot omalla fleet-datalla, ei from-scratch 55B). Kumppani: docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md. Lockstep 3.87→3.88 kaikissa 4 tiedostossa; PHD-tiedostot saavat lockstep-merkinnän; Learn/ HTML-regenerointi ODOTTAA (Pandoc).
 
