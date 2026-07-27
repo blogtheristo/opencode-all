@@ -11,8 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.90
+Version: 3.91
 Sessions & Modifications:
+
+- Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lisätty mitigointikappale §14.44:n Löydös 3:een (NVIDIA-supply-keskittymän riski): nimeää ei-NVIDIA-fallback-laskentakerroksen testbed-tasolla (AMD Instinct MI300 ROCm/vLLM; Intel Gaudi 3 SynapseAI) — avoimet base-painot tekevät exit-kustannuksesta osoitettavan ja muuntavat single-vendor-lock-inin hallituksi, auditoitavaksi riippuvuudeksi (KYA-/malli-provenienssipredikaatti, §14.24). Kirjaa IJS-sovereniteettiasteikon (DGX on-prem 100 / NIM EU 55) ja rehellisen varauksen (siirrettävä fallback vahvin LLM-tierille; Cosmos NVFP4 on re-kvantisointi-ja-portaus). Lockstep 3.90→3.91.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Korjattu §14.44:n sijainti FI:ssä (oli virheellisesti §14.43:n sisällä 3.89-commitissa; siirretty §14.43:n jälkeen) JA nostettu speksit VARMENTAMATTOMASTA VERIFIOITUUN ensisijaislähteillä 26.07.2026 (Cosmos 3 Edge 4B + 2B Nemotron, DGX-Spark-natiivi, julk. 15.07.2026; Cosmos 3 -perheen edge-tier, 16B Nano / 64B Super; DeepSeek-V4-Pro 1,6T / 49B aktiivinen MoE NIM:ssä). Lisätty perhe-tier + physical-AI-tarkennus (§14.35). Lockstep 3.89→3.90.
 
@@ -3508,6 +3510,8 @@ Portti 4 on ratkaiseva ja vähiten käsitelty. Se erottaa standardin tuoteartefa
 **Löydös 2 — vallihauta siirtyy omistettuun silmukkaan (komponoi §14.25, §14.26).** Kun avoin base kommodisoituu, puolustettava omaisuus ei ole base vaan DWS-kohtainen kerros: adaptointi sovereign-, suostumushallittuun first-person-operatiiviseen korpukseen (§14.35), privaatit evaluaatiot, RL-ympäristö, KYA-hallinta (ASB/EAB/CSB/SIB) ja Article-12-näyttö. Havaintopääoma kertyy silmukan operaattorille, ei painojen julkaisijalle.
 
 **Löydös 3 — supply-sovereniteetin jännite terävöityy (komponoi §14.31, §14.23).** Cosmos/Nemotron-adoptointi säilyttää *data*-sovereniteetin (avoimet painot, on-prem, EU-resident) mutta keskittää *supply*-sovereniteetin yhdelle US-toimittajalle sekä compute- että mallikerroksessa — altistus jonka §14.31 nimesi compute-päässä, nyt laajennettuna mallipäähän. DeepSeek-V4-Pro NIM:n kautta lisää malli-alkuperälipun (ei-EU-alkuperäiset painot), joka sovereign-käyttöönotossa on portitettava: käytettävissä ei-sensitiiviseen R&D:hen ja benchmarkkaukseen, poissuljettu sovereign-asiakasdatan ytimestä. Tämä ei kaada toimintamallia; se nimeää rajan, jonka malli-provenienssipredikaatin (§14.24) on todistettava.
+
+**Mitigointi — hallittu riippuvuus, ei lock-in.** Keskittymä on rajattu eikä absoluuttinen, koska base-painot ovat **avoimet**. IJS-sovereniteettiasteikolla (DGX on-prem = 100, NIM EU = 55 — molemmat NVIDIA-stackissa) exit-kustannus *osoitetaan*, ei vain väitetä, pitämällä vähintään yksi avoin malli ja yksi työkuorma ajettavana **ei-NVIDIA-kiihdyttimellä testbed-tasolla** (AMD Instinct MI300 ROCm/vLLM:n kautta tai Intel Gaudi 3 SynapseAI:n kautta). Geneerinen worker-tier (qwen2.5 Ollaman/vLLM:n kautta) on jo täysin siirrettävä; rehellinen varaus on, että Cosmos 3 Edgen NVFP4/TensorRT-polku on NVIDIA-optimoitu, joten siirrettävä fallback on vahvin LLM-/päättelytierille ja re-kvantisointi-ja-portaus-harjoitus fyysisen maailmanmallin tierille. Sekä keskittymän että ylläpidetyn, harjoitellun exitin nimeäminen muuntaa single-vendor-lock-inin **hallituksi riippuvuudeksi** — joka on itsessään KYA-/malli-provenienssipredikaatti (§14.24), jonka sijoittaja tai asiakas voi auditoida.
 
 **Tutkimuskontribuutio.** Nimeää laitteessa ajettavan avoimen maailmanmallin tapahtumaksi, joka muuntaa Lifetime World Modelin koulutusohjelmasta adoptointi-ja-hallintaohjelmaksi, ja tunnistaa puolustettavuuden siirtymän base-painoista omistettuun oppimissilmukkaan — terävöitetyllä data-vs-supply-sovereniteettijaottelulla, jonka neliraiteinen KYA-suite ja malli-provenienssipredikaatti kantavat.
 

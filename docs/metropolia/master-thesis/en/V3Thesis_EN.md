@@ -6,8 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.90
+Version: 3.91
 Sessions & Modifications:
+
+- Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.90 → 3.91 per the CLAUDE.md Thesis Rule. No content change here: the v3.91 addition (a supply-concentration mitigation — non-NVIDIA fallback compute layer at testbed scale converting lock-in into a governed managed dependency) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44 Finding 3.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.89 → 3.90 per the CLAUDE.md Thesis Rule. No content change here: the v3.90 change (Cosmos 3 Edge / DeepSeek-V4-Pro specs VERIFIED against primary sources 26.07.2026; §14.44 caveat upgraded + family-tier/physical-AI refinement + a FI-file placement fix) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44.
 

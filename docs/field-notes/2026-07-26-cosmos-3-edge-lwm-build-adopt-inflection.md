@@ -37,6 +37,7 @@ The master's-thesis Appendix-E verification established that the ~55B LWM **cann
 - ✅ **Data sovereignty:** preserved — open weights, on-prem, EU-resident.
 - ⚠️ **Supply sovereignty:** concentrates on a single US vendor (NVIDIA) at **both** the compute and the **model** layer — extending the exposure PHD §14.31 named at the compute end.
 - ⚠️ **Model origin:** DeepSeek-V4-Pro via NIM is non-EU-origin weights → gate it to non-sensitive R&D / benchmarking; exclude from the sovereign customer-data core. The model-provenance predicate (PHD §14.24) must attest this boundary.
+- 🛡️ **Mitigation (managed dependency, not lock-in):** keep ≥1 open model + ≥1 workload runnable on a **non-NVIDIA accelerator at testbed scale** (AMD MI300 via ROCm/vLLM, or Intel Gaudi 3 via SynapseAI). Open weights make the exit cost *demonstrable*: the generic worker tier (qwen2.5) is already portable; Cosmos's NVFP4 path is a re-quantise-and-port exercise. IJS sovereignty scale: DGX on-prem = 100, NIM EU = 55; a maintained non-NVIDIA testbed is the exit-cost proof that makes the dependency **governed** and auditable by investors/customers.
 
 ## 4. Decision posture
 
