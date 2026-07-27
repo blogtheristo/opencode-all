@@ -44,6 +44,20 @@ const CATEGORY_LABELS = {
 };
 const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware', 'add-on'];
 
+// Per-category buyer notes rendered under the category table. Trusted constants —
+// intentionally NOT escaped, so they may contain inline markup.
+// The hardware note answers the question a buyer asks straight after seeing the DGX
+// price: "what if NVIDIA cannot deliver?" It states the position without exposing the
+// internal risk register (DD instrument, offered under NDA).
+const CATEGORY_NOTES = {
+  hardware:
+    "<strong>Supply continuity.</strong> The models we adopt ship as open weights, so the " +
+    "inference layer is portable by design rather than tied to one vendor's stack. A " +
+    'non-NVIDIA fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, ' +
+    'and hardware compatibility is validated per engagement rather than assumed. The full ' +
+    'supply-risk register is available under NDA.',
+};
+
 function esc(s) {
   if (s === null || s === undefined) return '';
   return String(s)
@@ -176,7 +190,7 @@ function build(data) {
   const catsHtml = orderedCats
     .map(
       (c) =>
-        `<section class="cat"><h2>${esc(CATEGORY_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}</section>`,
+        `<section class="cat"><h2>${esc(CATEGORY_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${CATEGORY_NOTES[c] ? `<div class="notice">${CATEGORY_NOTES[c]}</div>` : ''}</section>`,
     )
     .join('\n');
 

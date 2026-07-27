@@ -50,7 +50,7 @@ Firehorse V2 is the forensic "Situation Room" for the construction industry's Fi
 
 **Verifiable Visibility:**
 - Provides 100% verifiable visibility into carbon output, safety, and logistics
-- Leverages NVIDIA Cosmos to generate predictive world-states that fill temporal occlusions (e.g., sensor downtime, visual obstructions)
+- Leverages **NVIDIA Cosmos 3 Edge** — an adopted open, on-device world model — to generate predictive world-states that fill temporal occlusions (e.g., sensor downtime, visual obstructions)
 - Transforms incomplete sensor data into actionable industrial intelligence
 
 **Industrial Speed:**
@@ -154,7 +154,7 @@ The essential tool for achieving and maintaining the Fit for 55 mandate certific
 - **VLM-Llama** - Visual grounding for digital twin verification
 - **Aerial CUDA Accelerated RAN** - 5G site sensor data capture
 - **Aerial Omniverse Digital Twin** - City-scale site reconstruction
-- **Cosmos** - Predictive world-state generation for temporal occlusion filling
+- **Cosmos 3 Edge** - Predictive world-state generation for temporal occlusion filling. Adopted open on-device world model (4B params + 2B Nemotron reasoner, released 15.07.2026); runs on the GN-100 / Jetson class. DWS adopts it — it does not train it.
 
 ---
 
@@ -423,6 +423,13 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 
 **Firehorse V2 as Part of DWS IQ Platform:**
 
+> **LWM base reconciliation (26.07.2026).** "Lifetime World Model" below denotes the
+> **adopted** open edge world model (Cosmos 3 Edge class) plus the DWS-owned loop on top of
+> it — private evals, adaptation on sovereign fleet data, KYA governance and the Article 12
+> evidence chain. It is **not** a ~55B model pretrained in-house: that plan is retired (the
+> GN-100 is an edge inference/development node, not a training cluster — see
+> `docs/lab-notes/2026-07-26-lwm-training-hardware-reality.md` and V3Thesis Appendix E).
+
 ```
 Lifetime World Model (LWM V1) → Firehorse V2 Reports → DWS IQ Dashboard
          ↓                              ↓                      ↓
@@ -454,10 +461,18 @@ Lifetime World Model (LWM V1) → Firehorse V2 Reports → DWS IQ Dashboard
    - 5G RAN integration for high-bandwidth sensors
    - Critical for forensic-grade site reconstruction
 
-2. **Cosmos Foundation Model:**
+2. **Cosmos 3 Edge (on-device world model):**
    - Fills temporal occlusions via predictive world-states
    - Physics-accurate prediction during sensor downtime
    - Transforms incomplete data into verifiable compliance narratives
+   - **Adopted, not trained** (position update 26.07.2026). Cosmos 3 Edge is open and runs
+     on-device, so the physical perception layer needs no in-house pretraining. Firehorse's
+     defensibility is the **evidence layer above it** — the forensic chain, the Article 12
+     audit trail, and the compliance narrative — not the world model underneath. Supply
+     caveat: the on-device path is NVIDIA-optimised (NVFP4/TensorRT); portability to a
+     non-NVIDIA accelerator is a re-quantise-and-port exercise, tracked as R-03 in
+     `docs/risk-register/DWS_PRODUCT_RISK_REGISTER.md`.
+     See `docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md`.
 
 3. **TensorRT-LLM Optimization:**
    - 1,000+ page reports in 75 seconds (not weeks)
