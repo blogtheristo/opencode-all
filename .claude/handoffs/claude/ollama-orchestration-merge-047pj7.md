@@ -23,6 +23,7 @@ Boss-role cleanup of the dws6 open-PR backlog (~131). Ollama-on-DGX-Spark was un
 2. **KEEP_REVIEW (30) → review + fix + test + compile + merge.** Partial review done: **#1503 MERGE_READY**; **#1528 FIX (add table GRANTs to migration 070)**; #1548 #1526 #1504 #1498 REBASE. Re-run the review fleet for the other ~24 (R1/R3/R4/R5 died on session limit). CEO review where flagged: #1553 (Aiven CLOUD-Act legal wording), #1287 (Aegis hackathon public page), #1122 (Captain-tier pricing), #1708 (lifetime.fi homepage swap).
 3. ~~**Sender decision** (field note §8)~~ **RESOLVED 2026-07-26 (HIC chose (b)):** CLAUDE.md now recognises `risto.paarni2024@lifetime.fi` as a legitimate outbound address (the Workspace account live threads send from). #1698 and #1664 are therefore **compliant as-is** — no sender fix needed; they can be merged/redone normally.
 4. **dws7** — same treatment (still untouched).
+5. **DGX: wire the tiered Ollama-boss routing** into `src/agents/model-selector.ts` (boss=qwen2.5:72b local, workers=qwen2.5:7b local, escalate→claude-opus-5 via API key, never Pro). Prompt: `docs/pr-cleanup/next-prompts/DGX-model-selector-routing-v2.md`. Rationale + corrected cost model: `docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md`. Billing fact-check: the June-2026 two-pool split was cancelled; Pro = Sonnet-only, Opus 5 needs API key or Max.
 
 ## Guardrails learned (apply next session)
 
