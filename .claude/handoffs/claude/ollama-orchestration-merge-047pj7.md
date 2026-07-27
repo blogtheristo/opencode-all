@@ -31,6 +31,18 @@ Boss-role cleanup of the dws6 open-PR backlog (~131). Ollama-on-DGX-Spark was un
 - Doc-only+clean still needs a content-safety pass (sender identity, public-site, PII).
 - Supabase: every new `CREATE TABLE` needs table `GRANT`s (#1528, #1208, #1674 offend). #1674 migration 075 collides with main.
 
+## Multi-machine coordination (agreed 2026-07-26) — ONE writer per branch
+
+DGX + local Claude both checked out this branch. To avoid conflicts/force-pushes,
+split the lanes so only ONE machine commits to `claude/ollama-orchestration-merge-047pj7`:
+
+| Machine | Lane | Writes to this branch? |
+| --- | --- | --- |
+| **DGX** | KEEP_REVIEW: review + build (`tsc`) + test (`vitest`) + merge; rebase fixes; security redos (#1453 etc.). Has node_modules, local Ollama, is deploy-adjacent. Run `docs/pr-cleanup/NEXT_SESSION_PROMPT.md` **step 2 only**. First: `git pull --rebase`, `scripts/ollama-spark.sh --list`, `export OLLAMA_BASE_URL=http://localhost:11434`. | ✅ **sole writer** |
+| **Local** | Non-committing work: close the 63 V2-source branches (GitHub API only), the sender decision (§8 of the field note), and dws7 (separate repo/branch). Run `NEXT_SESSION_PROMPT.md` **steps 1, 3, 4**. | ❌ does not touch this branch |
+
+Rule: only DGX commits/pushes here; always `git pull --rebase origin claude/ollama-orchestration-merge-047pj7` before pushing. Local's lanes (closes / dws7 / sender) write nothing to this branch, so they can't conflict. Account usage limit is shared across machines on the same account (resets 8am UTC).
+
 ## Blockers
 
 - Session token limit hit 2026-07-26 (resets 8am UTC) — that is why steps 1–4 are deferred, not skipped.
