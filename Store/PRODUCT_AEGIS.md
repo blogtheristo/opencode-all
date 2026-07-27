@@ -26,6 +26,17 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 **Why Aegis exists:** Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.
 
+## Architecture — Two Layers, One Governed Loop
+
+Aegis is a **two-layer** product. The layers solve different problems and are deliberately not served by one model.
+
+| Layer | What it does | How it is served | Status |
+| ----- | ------------ | ---------------- | ------ |
+| **Physical** — perception → action | Sees the facility and acts on it in real time: scene understanding, intent prediction, machine-vision oversight feeding the Control Room / Situation Room | An **adopted open, on-device world model** (NVIDIA Cosmos 3 Edge class) running on customer-sited edge hardware — not a model DWS pretrains | **Planned** — target 2026 Q4, gated on the on-device evaluation. Not shipped today. |
+| **Compliance evidence** — reasoning → record | Turns operations into a court-defensible record: Article 12 logging, reasoning lineage, export-control and climate-compliance assessment | A **separate LLM tier** (open models, EU-served) — a different optimisation problem from real-time perception | **Live** — Article12Logger, ComplianceAgent, SovereigntyMonitor |
+
+**What binds them is the KYA loop** — agent identity, MicroVM isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are **components**: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.
+
 ## Agents Included
 
 | Agent              | Capability                                                           | Domain                                |
@@ -133,7 +144,10 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **SLA:** 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)
-- **Hardware:** Software-only platform — no hardware bundled (NVIDIA/Acer DGX excluded)
+- **Hardware (per tier — DWS does not resell hardware at any tier):**
+  - _Standard_ — software-only. Runs on EU cloud (UpCloud, Helsinki). No hardware.
+  - _Defence_ — software-only. Adds NVIDIA L40S **GPU nodes in the EU cloud cluster**; still nothing shipped to site.
+  - _Sovereign_ — air-gapped / on-premises. The physical layer is designed to run on **customer-sited edge hardware** (DGX Spark / Jetson class). Hardware is procured by the customer or a partner and scoped per engagement (the tier is custom-priced); DWS supplies the platform and the governance layer, not the box.
 - **Certifications roadmap:** ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.
 - **Availability:** August 2026
 
@@ -145,7 +159,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 | **Aegis Defence**   | €89,990                  | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting                |
 | **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA   |
 
-Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
+Aegis is a standalone product — not part of the Captain investor programme. DWS does not resell hardware at any tier: Standard and Defence are software-only (Defence adds EU-cloud L40S GPU nodes), while Sovereign deploys on-premises onto customer-sited edge hardware scoped per engagement. See the per-tier hardware note under Technical Requirements.
 
 ## Strategic Partnerships
 

@@ -11,15 +11,18 @@ Every email, letter, intro note, signature block, "From:" line, author field, or
 - **Company:** Lifetime Oy
 - **Phone (always include in signatures):** +358 400 319 010
 
-**Email — three addresses, three contexts (do not mix):**
+**Email — four addresses by context (do not mix):**
 
-| Context                                                       | Email                      |
-| ------------------------------------------------------------- | -------------------------- |
-| Sales outreach as Lifetime Oy (cold/warm prospects, partners) | `risto.paarni@lifetime.fi` |
-| DWS IQ product email (From + Reply-To on platform-sent mail)  | `risto@onelifetime.world`  |
-| Legal / contract / invoice / statutory                        | `risto.paarni@lifetime.fi` |
+| Context                                                                    | Email                          |
+| -------------------------------------------------------------------------- | ------------------------------ |
+| Live partner / investor / sales threads (the Workspace account that sends) | `risto.paarni2024@lifetime.fi` |
+| Cold / first-touch outreach & the canonical public contact address         | `risto.paarni@lifetime.fi`     |
+| DWS IQ product email (From + Reply-To on platform-sent mail)               | `risto@onelifetime.world`      |
+| Legal / contract / invoice / statutory                                     | `risto.paarni@lifetime.fi`     |
 
-**`risto.paarni2024@lifetime.fi` is a Google login name — NEVER a public contact.** It is the account credential for internal systems only (Google Cloud / Drive / Supabase / GCP billing IAM, internal alert & report inboxes). It must **never** appear in any public or outbound context: signatures, `From:` / `Reply-To:`, letters, decks, bids, briefs, correspondence, author lines on outward-facing deliverables. Public outreach uses `risto.paarni@lifetime.fi`; DWS IQ product mail uses `risto@onelifetime.world`. If you see `...2024@` in an outward-facing document, treat it as a bug and replace it before sending.
+**`risto.paarni2024@lifetime.fi` is a legitimate outbound address** _(HIC decision, 2026-07-26)_. It is the Google Workspace account that live partner, investor, and sales threads actually run on and send from, so it is a valid `From:` / `Reply-To:` and signature contact **when continuing a thread already on that address**. It is also the Google Workspace login for internal systems (Google Cloud / Drive / Supabase / GCP billing IAM, internal alert & report inboxes). `risto.paarni@lifetime.fi` remains the canonical public contact and the legal/statutory address; it receives all `@lifetime.fi` mail via the Proton catch-all, but to **originate** mail it must be a verified Gmail "Send mail as" alias — if it is not verified, send from `risto.paarni2024@lifetime.fi` instead. DWS IQ product mail uses `risto@onelifetime.world`. Never use a `noreply@` sender (Non-Negotiable Rule 3).
+
+_(Superseded rule, kept for the record per Rule 12: `risto.paarni2024@` was previously banned from all outbound / `From:` / signature use. That prohibition was **reversed on 2026-07-26** after a Google Workspace check confirmed it is the address current outbound actually originates from — `risto.paarni@` had no send in the prior year. Held PRs #1698 and #1664, flagged under the old rule, are compliant under this one.)_
 
 The substring `paarni` (no umlauts) is allowed **only** inside an email address or other login/account data. Everywhere else the name carries umlauts: **Päärni**.
 

@@ -312,7 +312,7 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ## Aspire Dashboard Observability (DGX Spark)
 
-The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.3.5`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
 
 ### The three ports (do not mix them up)
 

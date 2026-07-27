@@ -436,7 +436,10 @@
         </tr>
         <tr>
           <td class="spec-label">GPU</td>
-          <td class="spec-value">NVIDIA L40S nodes available for local LLM inference</td>
+          <td class="spec-value">
+            NVIDIA L40S nodes for in-cluster LLM inference (EU cloud &mdash; no hardware shipped to
+            site)
+          </td>
         </tr>
         <tr>
           <td class="spec-label">Egress</td>
@@ -760,6 +763,20 @@
           </td>
         </tr>
       </table>
+      <p style="margin-top: 18px; opacity: 0.85">
+        <strong>No hardware is bundled or resold at any tier.</strong> DWS supplies the software
+        platform and the governance layer only. Defence-tier GPU inference runs on L40S nodes inside
+        the EU-hosted single-tenant cluster &mdash; nothing is shipped to site. Sovereign
+        on-premises and air-gapped deployments run on customer- or partner-procured hardware, scoped
+        per engagement. Edge devices are sold as their own SKUs, separately from Aegis onboarding.
+      </p>
+      <p style="margin-top: 12px; opacity: 0.85">
+        <strong>Supply continuity.</strong> The models we adopt ship as open weights, so the
+        inference layer is portable by design rather than tied to one vendor's stack. A non-NVIDIA
+        fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, and hardware
+        compatibility is validated per engagement rather than assumed. The full supply-risk register
+        is available under NDA.
+      </p>
       <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 12px">
         <strong>Year-1 cost context:</strong> Aegis Standard totals ≈ &euro;72K in Year 1
         (&euro;59,990 + &euro;999&times;12) — roughly <strong>13&times; lower</strong> than a
