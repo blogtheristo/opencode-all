@@ -6,8 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.89
+Version: 3.90
 Sessions & Modifications:
+
+- Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.89 → 3.90 CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän tiedostoon: v3.90-muutos (Cosmos 3 Edge / DeepSeek-V4-Pro speksit VERIFIOITU ensisijaislähteillä 26.07.2026; §14.44:n varauksen päivitys + perhe-tier/physical-AI-tarkennus + FI-tiedoston sijaintikorjaus) on markkinasignaali ja kuuluu tiedostoon PHD_FIREHORSE §14.44.
 
 - Version: 3.89 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.88 → 3.89 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän master-opinnäytetiedostoon: v3.89-lisäys (NVIDIA Cosmos 3 Edge -laitteessa ajettava maailmanmalli LWM:n build→adopt-käännekohtana sekä data-sovereign vs supply-keskittymä -jännite) on markkinasignaali/tieteellinen kehystys ja kuuluu §1.4-skooppisäännön mukaan tiedostoon PHD_FIREHORSE_FI.md §14.44 ja avainkontribuutio #49. Kun Cosmos 3 Edge oikeasti wirataan pinoon, toteutusnäyttö lisätään tämän tiedoston Liite E:hen. Speksit ovat ulkoisia/varmentamattomia (käyttäjän raportoimat NVIDIA-ilmoitukset, heinäkuu 2026). Kumppani: docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md.
 

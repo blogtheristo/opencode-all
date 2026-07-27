@@ -47,7 +47,13 @@ Adopt Cosmos 3 Edge as the LWM base candidate; do the DWS-specific adaptation + 
 - PhD (market signal / scientific framing): **PHD_FIREHORSE §14.44 + Key Contribution #49** (EN + FI).
 - Master's: lockstep-only version entry (implementation evidence to follow in Appendix E *when* Cosmos is actually wired in).
 - DGX evaluation prompt: `docs/pr-cleanup/next-prompts/DGX-cosmos3-edge-lwm-eval-v2.md`.
-- All 4 thesis files → 3.89 lockstep. Learn/ HTML regen PENDING.
+- All 4 thesis files → 3.89 lockstep (bumped to 3.90 after verification, §6). Learn/ HTML regen PENDING.
+
+## 6. Verification (2026-07-26) — specs CONFIRMED against primary sources
+
+- **Cosmos 3 Edge — CONFIRMED.** 4B params + 2B Nemotron reasoner; on-device world model; runs on DGX Spark, Jetson Thor/T2000/T3000, RTX. Launched 15.07.2026 (Tokyo) as the **edge tier of the Cosmos 3 family** (16B Nano + 64B Super shipped 31.05.2026). It is a **physical-AI** model (robot perception→action, 32 actions/inference, 15 Hz, 256p/480p generation) — fits the DWS physical/fleet/Control-Room side (§14.35), not a general compliance-LLM swap. Sources: MarkTechPost (2026-07-21), NVIDIA AI (X), AI Weekly, buildfastwithai.
+- **DeepSeek-V4-Pro — CONFIRMED.** 1.6T total / 49B active MoE; on NVIDIA NIM (build.nvidia.com), free on Blackwell; 1M-token context. Sources: NVIDIA developer blog, build.nvidia.com modelcard, AI Market Watch.
+- **Net effect:** the §14.44 caveat is upgraded from *unverified* to *verified*; the build→adopt thesis holds and is strengthened (an open, edge-native, physically-grounded world model on the exact hardware). The refinement: Cosmos 3 Edge is the **physical/embodied** LWM base; a separate reasoning/compliance model (Nemotron / cloud) remains the non-physical tier.
 
 ---
 

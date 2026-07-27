@@ -6,8 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.89
+Version: 3.90
 Sessions & Modifications:
+
+- Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.89 → 3.90 per the CLAUDE.md Thesis Rule. No content change here: the v3.90 change (Cosmos 3 Edge / DeepSeek-V4-Pro specs VERIFIED against primary sources 26.07.2026; §14.44 caveat upgraded + family-tier/physical-AI refinement + a FI-file placement fix) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44.
 
 - Version: 3.89 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.88 → 3.89 across all 4 thesis files per the CLAUDE.md Thesis Rule. No content change in this master's thesis file: the v3.89 addition (NVIDIA Cosmos 3 Edge on-device world model as the build→adopt inflection for the Lifetime World Model, and the data-sovereign vs supply-concentrated tension) is a market-signal / scientific-framing contribution and per the §1.4 scope rule lives in PHD_FIREHORSE_EN.md §14.44 and Key Contribution #49. When/if Cosmos 3 Edge is actually wired into the stack, the implementation evidence will be added to this file's Appendix E. Specs are external/unverified (user-reported NVIDIA announcements, July 2026). Companion: docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md.
 
