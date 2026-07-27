@@ -180,6 +180,19 @@ function build(data) {
     )
     .join('\n');
 
+  // Required subscriptions live under their own top-level key, not in `products`,
+  // so they were previously omitted from this list entirely — a gap, since they are
+  // mandatory on every contract. unitLabel() resolves their billingPeriod ('monthly').
+  const subsList = Object.values(data.subscriptions || {}).filter((s) => s && s.id);
+  const subsHtml = subsList.length
+    ? `<section class="cat"><h2>Required Subscriptions <small>(${subsList.length})</small></h2>` +
+      '<div class="notice">Required on every contract and quoted separately from the one-time product fee. Billed monthly.</div>' +
+      renderProductsTable(
+        subsList.map((s) => ({ ...s, priceNote: s.priceNote || s.description })),
+      ) +
+      '</section>'
+    : '';
+
   const genStamp = new Date().toISOString();
 
   return `<!doctype html>
@@ -255,6 +268,8 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 </div>
 
 ${catsHtml}
+
+${subsHtml}
 
 ${renderVat(pl.vatReference)}
 
