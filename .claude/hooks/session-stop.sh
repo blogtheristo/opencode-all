@@ -92,6 +92,35 @@ if [ -n "$PUBLIC_MD" ]; then
   ERRORS=$((ERRORS + 1))
 fi
 
+# Check 4b: blog posts published without an approved draft (Non-Negotiable Rule 13)
+# Catches what the PreToolUse gate cannot see: posts written by generators, by cron,
+# or in a session where settings.json had not yet picked the hook up.
+POSTS_TOUCHED=$(echo "$CHANGED_FILES" | grep -E '^(onelifetime\.world|dws10\.com)/(posts|blog/posts)/.*\.html$' || true)
+if [ -n "$POSTS_TOUCHED" ]; then
+  for post in $POSTS_TOUCHED; do
+    base=$(basename "$post" .html)
+    case "$base" in _template*|*_OLD) continue ;; esac
+    slug="${base%.[a-z][a-z]}"   # language variants inherit the master's draft
+    draft="docs/blog-drafts/${slug}.md"
+    if [ ! -f "$draft" ]; then
+      WARNINGS="${WARNINGS}\n- BLOG PUBLISHED WITHOUT A DRAFT (Rule 13): $post has no $draft — the HIC never saw this text. Do not leave it live unreviewed."
+      ERRORS=$((ERRORS + 1))
+    elif ! grep -qE '^Status:[[:space:]]*APPROVED[[:space:]]*$' "$draft"; then
+      WARNINGS="${WARNINGS}\n- BLOG PUBLISHED UNAPPROVED (Rule 13): $post — $draft is not Status: APPROVED."
+      ERRORS=$((ERRORS + 1))
+    fi
+  done
+fi
+
+# Check 4c: drafts written but never published — the other half of the failure
+if [ -d "docs/blog-drafts" ]; then
+  OPEN_DRAFTS=$(grep -lE '^Status:[[:space:]]*DRAFT[[:space:]]*$' docs/blog-drafts/*.md 2>/dev/null || true)
+  if [ -n "$OPEN_DRAFTS" ]; then
+    WARNINGS="${WARNINGS}\n- BLOG DRAFTS AWAITING THE HIC: $(echo "$OPEN_DRAFTS" | tr '\n' ' ')— show these texts and ask, or say plainly they are parked. Drafted-but-never-published is a failure too."
+    ERRORS=$((ERRORS + 1))
+  fi
+fi
+
 # Check 5: Standards update reminder (if src/ was modified)
 if echo "$CHANGED_FILES" | grep -q "^src/"; then
   STANDARDS_MODIFIED=$(echo "$CHANGED_FILES" | grep -c "STANDARD\|COMPLIANCE\|BRAND" || true)

@@ -7,6 +7,14 @@ description: Use when drafting the next Lifetime Scope Monthly issue. Picks the 
 
 Draft the next issue of **Lifetime Scope Monthly** — the biweekly LinkedIn newsletter layer of Lifetime Scope Journal (LSJ).
 
+> **STOP — HIC approval is required before the HTML post is published.** This command produces a
+> blog post, so **Non-Negotiable Rule 13** applies in full: write the issue text to
+> `docs/blog-drafts/<slug>.md`, show the HIC the **complete text in one fenced code block**, and
+> **stop and ask**. Publish only after they approve that post and the draft reads
+> `Status: APPROVED`. Being auto-triggered by cron does not waive this — an unattended run drafts
+> and waits; it never publishes. `.claude/hooks/blog-draft-gate.sh` blocks the write, and the rule
+> binds even where the hook does not reach. See `docs/BLOG_STANDARD.md` §3.3 and `/blog-draft`.
+
 **Cadence:** every 2 weeks (fortnightly). Auto-triggered on even ISO weeks by `scripts/weekly/lsj-publish-draft.sh` on DGX Spark; may also be run manually.
 
 **Issue numbering is monotonic across all issues** regardless of cadence change (e.g. #7 was the last monthly; #8 is the first biweekly).

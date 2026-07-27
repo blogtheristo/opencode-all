@@ -1,21 +1,42 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
   "version": "1.0",
-  "updated": "2026-07-06",
+  "updated": "2026-07-27",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
-    { "id": "win11-claude-cli", "label": "Win11 Claude CLI" },
-    { "id": "claude-desktop", "label": "Claude Desktop" },
-    { "id": "claude-ai-web", "label": "claude.ai web" },
-    { "id": "claude-mobile-ios", "label": "Claude Mobile iOS" },
-    { "id": "claude-mobile-android", "label": "Claude Mobile Android" },
-    { "id": "chromebook-antigravity", "label": "Chromebook/Antigravity" }
+    {
+      "id": "win11-claude-cli",
+      "label": "Win11 Claude CLI"
+    },
+    {
+      "id": "claude-desktop",
+      "label": "Claude Desktop"
+    },
+    {
+      "id": "claude-ai-web",
+      "label": "claude.ai web"
+    },
+    {
+      "id": "claude-mobile-ios",
+      "label": "Claude Mobile iOS"
+    },
+    {
+      "id": "claude-mobile-android",
+      "label": "Claude Mobile Android"
+    },
+    {
+      "id": "chromebook-antigravity",
+      "label": "Chromebook/Antigravity"
+    }
   ],
   "profiles": {
     "slash-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["slash-command", "local-tools"],
+      "transport": [
+        "slash-command",
+        "local-tools"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -29,7 +50,10 @@
     "slash-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": ["slash-command", "local-tools"],
+      "transport": [
+        "slash-command",
+        "local-tools"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -43,7 +67,10 @@
     "slash-dgx": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["slash-command", "dgx-ssh"],
+      "transport": [
+        "slash-command",
+        "dgx-ssh"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -57,7 +84,11 @@
     "slash-admin-antigravity": {
       "status": "active",
       "visibility": "admin-only",
-      "transport": ["slash-command", "gcloud", "antigravity"],
+      "transport": [
+        "slash-command",
+        "gcloud",
+        "antigravity"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -71,7 +102,9 @@
     "slash-deferred": {
       "status": "deferred",
       "visibility": "internal",
-      "transport": ["slash-command"],
+      "transport": [
+        "slash-command"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": false,
         "claude-desktop": false,
@@ -85,7 +118,10 @@
     "skill-pack-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["skill-pack", "local-files"],
+      "transport": [
+        "skill-pack",
+        "local-files"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -99,7 +135,10 @@
     "skill-pack-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": ["skill-pack", "local-files"],
+      "transport": [
+        "skill-pack",
+        "local-files"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -113,7 +152,9 @@
     "discipline-gate": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["discipline-gate"],
+      "transport": [
+        "discipline-gate"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -289,6 +330,13 @@
       "commandFile": ".claude/commands/learn.md"
     },
     {
+      "id": "blog-draft",
+      "name": "blog-draft",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/blog-draft.md"
+    },
+    {
       "id": "lsj-publish",
       "name": "lsj-publish",
       "kind": "slash-command",
@@ -409,7 +457,6 @@
       "profile": "slash-cli",
       "commandFile": ".claude/commands/workflow.md"
     },
-
     {
       "id": "clawdbot-pack",
       "name": "clawdbot",

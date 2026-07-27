@@ -22,6 +22,9 @@ The project is a multi-faceted platform consisting of:
 - **Images:** For standalone downloadable HTML (CVs, reports), embed images as Base64 data URLs.
 - **Hamburger Menu:** Use the shared version at `shared-assets/nav/hamburger-menu.js`. Do not duplicate.
 
+### Publishing
+- **Blog posts — ABSOLUTE (CLAUDE.md Non-Negotiable Rule 13):** Never publish a blog entry the HIC has not read and approved. Any language, any site, translations, LSJ issues, cron-drafted posts. Write the full text to `docs/blog-drafts/<slug>.md`, show the HIC **one fenced code block** containing the whole text, then **stop and ask in that turn**. Publish only after an explicit approval about that post sets `Status: APPROVED`. Enforced by `.claude/hooks/blog-draft-gate.sh` in Claude Code; the rule binds on every surface, including ones where no hook runs. Rules: `docs/BLOG_STANDARD.md` §3.3.
+
 ### Technical Standards
 - **Email:** Use Amazon SES (SMTP) only. **Never use Resend.**
 - **Security:** Never commit secrets, credentials, PII, or live tokens. Use environment variables.

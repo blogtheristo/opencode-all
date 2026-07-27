@@ -47,3 +47,75 @@ Rule: only DGX commits/pushes here; always `git pull --rebase origin claude/olla
 ## Blockers
 
 - Session token limit hit 2026-07-26 (resets 8am UTC) — that is why steps 1–4 are deferred, not skipped.
+
+***
+
+## 2026-07-27 — branch restarted after #1757 merged; five-language LSJ
+
+PR #1757 merged to `main` (`28040d0`). Per the merged-PR rule, this branch was **restarted
+from fresh `origin/main` (`b01514c`)** — it no longer carries the merged history, so anything
+opened from it is a **new PR**, not a reopening of #1757.
+
+**Shipped this session:**
+
+- LSJ #43 published in five languages (posts #44–#47). FI keeps its live URL and gains
+  `hreflang` + a language switcher; EN/SV/DE/FR use the English base slug with
+  `.sv/.de/.fr` suffixes.
+- `scripts/i18n/build-i18n-pages.cjs` — generic, config-driven successor to
+  `build-aegis-pages.cjs` (Skill Codification Rule). New target = a JSON config, not a script.
+  Adds `meta.json` for attribute-borne copy (`og:*`, `twitter:*`, `description`,
+  `article:section`, `aria-label`, social share title) that the text-node array misses.
+- Each language's Aegis CTA now lands on the Aegis page in that language.
+- `docs/BLOG_STANDARD.md` §3.2 — the multi-language convention, and why it deliberately
+  differs from §3.1 (latestPosts = EN+FI only; injector = master only; §3 registry = all).
+- Field note: `docs/field-notes/2026-07-27-i18n-as-data-five-language-publishing.md`.
+
+**Verified:** 0 truth-lint failures · 3 consecutive builder runs byte-identical · 55 internal
+post links resolve · dual-folder mirrors byte-identical · `inject-blog-nav.cjs` is a no-op on
+all five pages.
+
+**Explicitly NOT verified:** the SV/DE/FR/EN text is machine translation with **no native or
+legal review**. That is the open HIC question in the field note §6.
+
+**Still open from 2026-07-26** (unchanged): the KEEP_REVIEW 30, the 63 V2-source branch
+closes, dws7, DGX model-selector routing, `Learn/` HTML regeneration (no pandoc +
+`gen-thesis-html.cjs` version-label bug). Blog posts are also absent from `sitemap.xml`
+entirely — pre-existing, deserves its own change.
+
+***
+
+## 2026-07-27 (close) — PR #1758: five languages, Article 50, and two enforced rules
+
+Session closed under the DWS Learning Standard. **All five steps completed** — the first time
+`Learn/` HTML and the Drive export both landed (previous sessions recorded them N/A).
+
+| Step | Where |
+| --- | --- |
+| KB | `kb/wiki/concepts/make-the-compliant-state-the-default.md` |
+| Field note | `docs/field-notes/2026-07-27-i18n-as-data-five-language-publishing.md` |
+| `Learn/` HTML | `Learn/2026-07-27-…-v1.0.html` + `Learn/make-the-compliant-state-the-default-v1.0.html` |
+| Drive | [Google Doc](https://docs.google.com/document/d/1rOpGiqEFb_NxlZSg6DPQTT6FfjsgdVycz75aBIooCJk/edit) |
+| HIC question | Field note §11 — audit all 25 rules for enforceability, or fix on breakage? |
+
+**Correction worth carrying:** `Learn/` HTML was twice recorded as "N/A — no pandoc". Wrong.
+`render-doc.sh` needs pandoc, but **`scripts/gen-doc-html.cjs` was already in the repo** and renders
+Markdown → branded HTML with no pandoc. Use it. The blocker was mine, not the container's.
+
+**Shipped:** LSJ #43 in five languages (#44–#47) · generic `build-i18n-pages.cjs` · EU AI Act
+Art. 50(4) registered (`DWS_TRUTH_STANDARD` §2 row 31 / §2G, v4.0) and the AI-content label shipped
+on all four translations · **Non-Negotiable Rule 13** (HIC reads blog text before publication) with
+`blog-draft-gate.sh`, `/blog-draft`, and `session-stop.sh` back-stops.
+
+**Two rules now enforced by mechanism, not memory** — the AI label (builder emits it by default) and
+the blog draft (hook blocks publish without approval). Both had been *written down* and *still
+failed*. The extracted rule is in the KB: **a step you have to remember is a step that will be
+missing on the entry that matters.**
+
+**Next session, first thing:** the blog gate arms at session start, so *this* session never ran with
+it live. Confirm it blocks on a real `Write` before trusting it.
+
+**Still open:** KEEP_REVIEW (30 code PRs, several missing Supabase `GRANT`s) · dws7 untouched ·
+DGX model-selector routing · `gen-thesis-html.cjs` version-label bug · posts absent from
+`sitemap.xml` · AI disclosure absent from `og:`/`twitter:` cards · no EU Icon asset · FI/SV/DE/FR
+unreviewed by a native speaker · DE/FR `og:title` vs share-title mismatch · truth-lint scoping
+(anti-metric rule fires inside `VERSION AND AGENT HISTORY` blocks).
