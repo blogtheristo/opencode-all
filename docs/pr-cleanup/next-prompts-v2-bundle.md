@@ -47,7 +47,7 @@ Commit on a fresh `claude/dws-genai-conventions-v2` branch + open PR.
 Goal: re-apply removal of 9 legal-liability claims from the product catalog against CURRENT products.json (old PR ~3 months stale; products.json is a hot file edited by other PRs — reapply cleanly, do not rebase blindly).
 
 Claims to remove/qualify (verify each still present first):
-- DWS-IQ-006: unsourced "90% reduction" → "Automates 15+ workflows"; agent count 18→38.
+- DWS-IQ-006: unsourced "90% reduction" → "Automates 15+ workflows"; number of agents 18→38.
 - LIFETIME-EXP-001: drop "40% cost reduction typical" (UCPD risk).
 - secure-email-proton: drop "NIS2 & EU AI Act compliant"; fix DNS timeline.
 - firehorse-coach + ai-koulutus-3d: "Article 4 compliance" → "supports Article 4 literacy".
@@ -504,7 +504,7 @@ Goal:
 - Make `DWS_MARKET_RESEARCH_STANDARD.md` §12 the canonical home for the positioning.
 - Reproduce briefs: Outokumpu (HTML one-slide), SSAB + Wärtsilä markdown.
 
-Constraints (CLAUDE.md): load DWS_MARKET_RESEARCH_STANDARD before editing; Document Standard header; do NOT touch thesis-lockstep files or public-site folders; no deprecated "GodAgent" wording; sender identity Risto Anton Päärni.
+Constraints (CLAUDE.md): load DWS_MARKET_RESEARCH_STANDARD before editing; Document Standard header; do NOT touch thesis-lockstep files or public-site folders; no deprecated agent-naming wording (CLAUDE.md Terminology Guardrail); sender identity Risto Anton Päärni.
 Commit on a fresh `claude/stack-wedge-positioning` branch + open PR.
 
 
@@ -746,7 +746,7 @@ Problem: original PR ballooned to 8,116 changed files / 135k+ additions (branch 
 Goal: publish the "Don't Point the LLM at the Data" ontology blog post at v0.4 on onelifetime.world/blog.
 - Branch from CURRENT main; touch ONLY the post HTML + blog index + landing-pages mirror + nav injection — nothing else.
 - Content: Shannon Entropy MathJax bridge, LWM 7-layer fine-tune cascade table (L1–L5 ACTIVE / L6–L7 ISOLATED), append-only cloud ledger note, 3 sovereignty tiers.
-- Keep the codebase fact-check corrections: NO false claims (no Vitest 10/10 edge suite, no SHA-256 param hashing, no Cosmos NIMs pipeline, no feature flags); agent count = 51 ("50+").
+- Keep the codebase fact-check corrections: NO false claims (no Vitest 10/10 edge suite, no SHA-256 param hashing, no Cosmos NIMs pipeline, no feature flags); number of agents = 51 ("50+").
 Constraints: obey CLAUDE.md; truth-check against DWS_TRUTH_STANDARD before asserting facts; dual-folder sync same commit; no `.md` in public-site folders; sender identity Risto Anton Päärni (umlauts); no secrets. No thesis lockstep.
 Commit on fresh claude/<slug> branch + open PR.
 
@@ -772,7 +772,7 @@ Goal: re-land the NVIDIA/Palantir air-gap field note + Balanced Interdependence 
 - Re-apply doctrine to `DWS_SOVEREIGNTY_STANDARD.md` §11 (canonical home), register in `DWS_TRUTH_STANDARD.md` as a doctrine row (NOT a 4th pillar), sharpen `docs/20-MOAT-FORTRESS.md` Layer-0 — all diffed against current main versions to avoid the stale-version conflict.
 - Drop the trivial `session-start.sh` one-liner unless still needed.
 
-Constraints (CLAUDE.md): load DWS_TRUTH_STANDARD + DWS_SECURITY/SOVEREIGNTY before editing; `***` (not `---`) in VERSION AND AGENT HISTORY blocks; preserve prior eloquent formulations (Rule 12); no deprecated GodAgent wording; Päärni sender identity; no secrets.
+Constraints (CLAUDE.md): load DWS_TRUTH_STANDARD + DWS_SECURITY/SOVEREIGNTY before editing; `***` (not `---`) in VERSION AND AGENT HISTORY blocks; preserve prior eloquent formulations (Rule 12); no deprecated agent-naming wording (Terminology Guardrail); Päärni sender identity; no secrets.
 Commit on fresh claude/<slug> branch + open PR.
 
 

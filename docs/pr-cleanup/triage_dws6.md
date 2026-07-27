@@ -49,7 +49,7 @@
 
 ## REBASE BUCKET PROCESSED (35 PRs, boss-role, 2026-07-26)
 REBASE_TRIVIAL (7, quick rebase+merge w/ fixes): 1712,1673,1479,1452,1367,1250,1643
-  - 1643: sender bug paarni2024@ -> paarni@ ; 1367: Godagent term lint ;
+  - 1643: sender bug paarni2024@ -> paarni@ ; 1367: deprecated agent-naming term needs lint ;
   - 1452: DWS_BRAND_STANDARD version-block conflict ; 1250: kya.md conflict
 V2_PROMPT (26, fresh next-session prompts written to next-prompts/): 
   1476,1474,1464,1453*,1448,1443,1441^,1437,1424,1417,1412,1407,1404,1392,1389,
