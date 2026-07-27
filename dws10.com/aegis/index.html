@@ -40,6 +40,36 @@
       content="Sovereign AI for dual-use factories. Zero CLOUD Act. 21 EU industries. KYA + Article 12 governance."
     />
     <link rel="canonical" href="https://dws10.com/aegis/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/aegis/"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/aegis/index.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://dws10.com/aegis/index.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://dws10.com/aegis/index.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://dws10.com/aegis/index.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://dws10.com/aegis/"
+    />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1071,14 +1101,33 @@
           setText("aegisHeroSub", d.sub);
           document.documentElement.lang = code;
         }
-        var stored = localStorage.getItem("dws-lang");
-        applyLang(stored && I18N[stored] ? stored : "en");
+        // Full-page translations live in sibling files, so the hero stays pinned to
+        // this page's language and the language bar navigates instead of swapping text.
+        var PAGE_LANG = "en";
+        var LANG_FILES = {
+          en: "/aegis/",
+          fi: "/aegis/index.fi.html",
+          sv: "/aegis/index.sv.html",
+          de: "/aegis/index.de.html",
+          fr: "/aegis/index.fr.html",
+        };
+        applyLang(PAGE_LANG);
         window.addEventListener("dws-lang-change", function (e) {
-          applyLang(e.detail && e.detail.lang);
+          var code = e.detail && e.detail.lang;
+          if (code && LANG_FILES[code] && code !== PAGE_LANG) {
+            window.location.href = LANG_FILES[code];
+          }
         });
       })();
     </script>
 
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <nav class="lang-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">
+      <a href="/aegis/index.fi.html" hreflang="fi" lang="fi" style="margin:0 8px;color:inherit">🇫🇮 Suomeksi</a>
+      <a href="/aegis/index.sv.html" hreflang="sv" lang="sv" style="margin:0 8px;color:inherit">🇸🇪 Svenska</a>
+      <a href="/aegis/index.de.html" hreflang="de" lang="de" style="margin:0 8px;color:inherit">🇩🇪 Deutsch</a>
+      <a href="/aegis/index.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
+    </nav>
+
   </body>
 </html>
