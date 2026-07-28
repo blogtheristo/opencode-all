@@ -25,14 +25,14 @@
 | Domain | `cari.fi` |
 | Site type | Single-page, bilingual (FI/EN), static HTML/CSS/JS |
 | Source repository | **`github.com/blogtheristo/cari`** — the site has its own repo, separate from dws6/dws7 |
-| Address | Kiilatie 15, 02430 Jorvas, Kirkkonummi (owner-provided) |
+| Address | Kiilatie 15, rakennus 1, ovi 12, 02430 Jorvas, Kirkkonummi (owner-provided; YTJ still shows the old Kiilatie 12 B 12, 02420 Jorvas — **do not "correct" it back**) |
 | Phone / WhatsApp | +358 400 744 214 |
 | Product email | `huolto@cari.fi` (Google Workspace — to be provisioned) |
 | Domain registrar | **hostingpalvelu.fi** — registered 26.07.2026, status **Pending** (see below) |
-| Scale | One-person workshop; all makes and models, petrol + diesel, vans and commercial vehicles; tyre sales |
-| Hosting | Cloudflare Pages (git-based deploy from `blogtheristo/cari`, same model as `lifetime.fi`) |
-| Product email | `myynti@cari.fi` (Google Workspace) |
-| Contact | `cari.huoltopalvelu@gmail.com` · 0400744214 |
+| Scale | All makes and models, petrol + diesel, vans and commercial vehicles; tyre sales. **Public positioning is "Personal Car Service"** — "one-person workshop" was rejected by the owner, since it fixes the business at its current headcount |
+| Hosting | Cloudflare Pages (git-based deploy from `blogtheristo/cari`, **output directory `public`**, same model as `lifetime.fi`) |
+| Product email | `huolto@cari.fi` (FI), `service@cari.fi` (EN), `rekry@cari.fi` (recruiting) — Google Workspace, **none provisioned yet**. Supersedes the `myynti@cari.fi` placeholder recorded on 07-26 |
+| Contact until mail works | `cari.huoltopalvelu@gmail.com` · WhatsApp +358 400 744 214 (**the only verified channel**) |
 | Commercial basis | Fixed **85 € incl. VAT** for the one-page build; domain + Workspace onboarding billed separately at 75 €/h + VAT (per proposal v4.0). Third-party recurring fees (domain, Workspace/user) are the customer's pass-through costs. |
 
 This note supplies the **Y-tunnus (3582356-8)** that proposal v4.0 recorded as *"Ei Y-tunnusta tiedossa vielä"* — the last open blocker before an order confirmation on the domain/Workspace scope.
@@ -129,7 +129,7 @@ Two "standard" nameservers, both under `ns.cloudflare.com`, e.g. the shape `aria
 4. **Set exactly those two nameservers** at the `.fi` registrar, replacing the registrar's defaults. Do not add a third; do not pre-enter them before step 2.
 5. **Back in Cloudflare, click "Done, check nameservers."** Cloudflare polls and activates the zone once the registrar propagates (minutes to a few hours for `.fi`).
 6. **Connect Cloudflare Pages:** in the Pages project, add `cari.fi` (and `www.cari.fi`) as a custom domain — Cloudflare creates the proxied records automatically once DNS is active.
-7. **Google Workspace mail (`myynti@cari.fi`):** after activation, add the Workspace **MX**, **SPF** (`v=spf1 include:_spf.google.com ~all`), **DKIM** (from the Workspace admin console), and a **DMARC** record in Cloudflare DNS. Keep those DNS-only (grey cloud) — mail records must not be proxied.
+7. **Google Workspace mail (`huolto@`, `service@`, `rekry@cari.fi`):** after activation, add the Workspace **MX**, **SPF** (`v=spf1 include:_spf.google.com ~all`), **DKIM** (from the Workspace admin console), and a **DMARC** record in Cloudflare DNS. Keep those DNS-only (grey cloud) — mail records must not be proxied.
 
 > **Handoff line for the customer / registrar:** "cari.fi's nameservers will be two `*.ns.cloudflare.com` addresses that Cloudflare shows us only after we add the domain as a zone. I'll send the exact two names the moment the zone is created; please don't set any Cloudflare nameservers before then."
 
@@ -140,16 +140,40 @@ Two "standard" nameservers, both under `ns.cloudflare.com`, e.g. the shape `aria
 - **Update proposal `TARJOUS_CARIN_HUOLTOPALVELU_VERKKOSIVUT_FI.md`** to fill in Y-tunnus 3582356-8 (currently "ei tiedossa vielä") — keep the FI/EN pair and `_SHORT` variant in lockstep per the Document Standard.
 - ~~**Stand up the Pages project**~~ — **DONE (2026-07-26).** `blogtheristo/cari` was added to the session and the single-page bilingual (FI/EN) site is committed and pushed to branch `claude/cari-fi-new-site-x410ox` (repo was empty, so this is its initial commit → currently the default branch). Files: `index.html` (self-contained, navy/amber automotive theme, `?lang`/localStorage FI-EN toggle, tel:/mailto: CTAs), `_headers` (CSP + security headers), `robots.txt`, `sitemap.xml`, `README.md`. Render verified in Chromium; 42/42 FI/EN parity.
   - **Placeholders flagged for owner confirmation before go-live:** service list, opening hours, prices (none shown by design), exact Jorvas address, and email (`cari.huoltopalvelu@gmail.com` now → `myynti@cari.fi` after Workspace).
-  - **Remaining to connect Pages:** create the Cloudflare Pages project on `blogtheristo/cari` (build command: none; output dir: `/`), then attach `cari.fi` — which still needs the zone added + NS pointed (below).
+  - **Remaining to connect Pages:** create the Cloudflare Pages project on `blogtheristo/cari` (build command: none; **output dir: `public`**), then attach `cari.fi` — which still needs the zone added + NS pointed (below).
+  - **Superseded (2026-07-28):** the output directory was `/` above. It must **not** be the repo root — the root now holds `README.md` and `docs/` (customer address, registration pricing, escalation log), and Cloudflare Pages serves every file inside the output directory to anyone who requests its path. The site was moved to `public/`. Generalised as `kb/wiki/concepts/repo-as-publication-surface.md`. The leak was caught only because the domain was still blocked — an unrelated delay, not a control.
+  - **Superseded (2026-07-28):** the placeholder email above (`myynti@cari.fi`) is retired. The addresses are **`huolto@`** (FI), **`service@`** (EN) and **`rekry@cari.fi`** (recruiting, Finnish page only). None of them exist yet.
 
 ### Learning-loop steps (DWS_LEARNING_STANDARD five-step)
 
-- **(1) KB entry** — N/A this note (process, not a new reusable concept yet). If `.fi`-on-Cloudflare onboarding recurs (asked-twice rule), codify it as a skill and add a KB page then.
+Closed out 2026-07-28. The 07-26 pass left steps 1, 3 and 4 open; they are done here rather than left as a standing N/A.
+
+- **(1) KB entry** — ✅ three articles. Two reusable concepts: `kb/wiki/concepts/repo-as-publication-surface.md` (output directory is a publication decision) and `kb/wiki/concepts/plausible-wait-window.md` (waiting on a third party is legitimate only inside their normal completion time). One entity: `kb/wiki/entities/carin-huoltopalvelu.md` — the confirmed facts and the settled decisions, so a later session does not re-derive or "correct" them. *(The 07-26 pass judged there was no reusable concept yet. That was true then; two emerged on 07-28.)*
 - **(2) Field note** — this file. ✅
-- **(3) `Learn/` HTML render** — pending (`scripts/render-doc.sh`); run before session close.
-- **(4) Drive export** — **N/A — not implemented in this container.** Repo stays source of truth (Truth Standard §2E); recorded rather than silently skipped.
-- **(5) HIC question** — below. ✅
+- **(3) `Learn/` HTML render** — ✅ `Learn/cari-fi-onboarding-v1.0-2026-07-28.html` via `scripts/render-doc.sh`. Note `pandoc` is **not** persisted in a fresh cloud container; it had to be installed first (`apt-get install -y pandoc`).
+- **(4) Drive export** — ✅ Google Doc *"Field Note — cari.fi onboarding (Carin Huoltopalvelu) 2026-07-28"* in the Drive `dws6` folder (`docs.google.com/document/d/1zbVAvYiF32DFSIVE3_4SJVJISqSkv-JTFy2MC0wc_34`), content verified by reading it back after upload. The repo file remains source of truth; the Drive copy carries that statement in its own header so a reader who arrives via Drive cannot mistake it for the original. *(The 07-26 pass recorded this step as "N/A — not implemented in this container." That was **wrong**, not merely outdated: the Drive MCP could do it then too. Recorded here rather than quietly fixed, per Rule 12.)*
+- **(5) HIC question** — below. ✅ The 07-26 question was answered; a new one is open.
 
-## HIC question
+## HIC questions
 
-The nameserver pair only becomes real once cari.fi is added as a Cloudflare zone, and that step needs dashboard/API access this session doesn't have. **Do you want to (a) add the zone yourself in the Cloudflare dashboard now and paste the two `*.ns.cloudflare.com` names back so I record them in the customer file, or (b) provision a scoped Cloudflare DNS API token so a future session can create the zone and capture the pair programmatically?**
+### Asked 2026-07-26 — answered
+
+*The nameserver pair only becomes real once cari.fi is added as a Cloudflare zone, and that step needs dashboard/API access this session doesn't have. Do you want to (a) add the zone yourself and paste the two `*.ns.cloudflare.com` names back, or (b) provision a scoped Cloudflare DNS API token so a future session can create the zone programmatically?*
+
+**Answer: moot for now — (a) by default.** The question assumed the blocker was Cloudflare access. It is not: the registrar has not activated the domain, so no zone can be created by anyone, with any token. The real gate moved upstream. Re-ask once the domain is `Active`.
+
+### Asked 2026-07-28 — answered same day
+
+*Google Business Profile is the largest single visibility lever for a local workshop, and address verification by post takes 1–2 weeks — so it could run in parallel with the domain rather than waiting for it. Create it in Kari's own Google account (he owns it, Lifetime Oy gets manager rights) or in a Lifetime-managed account (faster to start, ownership transferred later)?*
+
+**Answer (HIC, 2026-07-28): Kari's own Google account**, created tomorrow or as soon as the domain activates. Lifetime Oy takes manager rights, not ownership. This is the right call — a transferred profile is friction later, and the customer owning his own listing is the correct end state regardless of who does the setup work.
+
+### Open — for the next session
+
+The launch gate says: do not publish until a test message to `huolto@cari.fi` arrives. But the domain has now been stuck for two days at the registrar with no committed resolution date, and the site is finished.
+
+**If the registrar has still not resolved the domain by the end of this week, do we (a) keep the site unpublished until `cari.fi` works — clean, but the customer has nothing to show and the Google Business Profile verification clock cannot start; or (b) publish to the Cloudflare Pages `*.pages.dev` URL with the email addresses swapped for `cari.huoltopalvelu@gmail.com`, giving Kari a live link and an unbroken contact path now, then cut over to `cari.fi` when it activates?**
+
+Option (b) makes the silent-bounce risk go away today but puts a temporary URL and a Gmail address in front of customers. This is a business call about what Kari can live with, not a technical one — which is why it is yours.
+
+**Answer (HIC, 2026-07-28): neither yet — hold until the registrar replies tomorrow.** One more day is still inside a reasonable window now that the ticket is filed: the escalation changed the situation, and re-deciding before the reply arrives would be deciding without the one piece of information that was asked for. **The hold is explicitly bounded by that reply, not open-ended** — if 29.07 brings an acknowledgement instead of a reason, the plausible-wait window has closed a second time and this question comes back live, together with the phone chase and the transfer fallback.
