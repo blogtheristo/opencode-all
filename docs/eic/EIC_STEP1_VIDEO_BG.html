@@ -16,7 +16,9 @@
       Layout is weighted TOP-LEFT so a bottom-right PiP webcam bubble never covers key text.
 
       TRUTH GUARDRAIL: beat 5 ("what the EIC funds") is the ROADMAP — the Sovereignty
-      Attestation is not built yet. Beats 3-4 are the LIVE product (in production today).
+      Attestation is not built yet. Beats 3-4 are the KYA engine, which IS running in
+      production. Aegis (the packaged tier) is GA September 2026 and pre-revenue — never
+      call it live.
     -->
     <style>
       :root {
@@ -239,36 +241,23 @@
             not the agent.
           </li>
           <li>
-            From <b>Aug 2027</b>, the EU AI Act makes getting this wrong an enforceable violation.
+            From <b>Dec 2027</b>, the EU AI Act makes getting this wrong an enforceable violation.
           </li>
         </ul>
       </section>
 
-      <!-- BEAT 3 · 0:50–1:15 (25s) · SOLUTION, LIVE TODAY -->
+      <!-- BEAT 3 · 0:50–1:15 (25s) · KYA RUNNING IN PRODUCTION -->
       <section class="slide">
-        <div class="kicker">The solution · live in production</div>
-        <h2>DWS IQ <span class="accent">Aegis</span></h2>
+        <div class="kicker">The solution · running in production</div>
+        <h2>KYA — <span class="accent">Know Your Agent</span></h2>
         <ul>
-          <li><b>50 production agents</b> across <b>25 regulated industries</b>.</li>
-          <li>
-            Runs on the customer's <b>own NVIDIA DGX</b> — data &amp; model weights never leave the
-            building.
-          </li>
-          <li>Sovereignty guaranteed by <b>physics, not policy</b>.</li>
+          <li>Agent <b>identity binding</b> · live <b>trust score</b> · <b>Leash Snap</b> revocation · <b>Article 12</b> audit.</li>
+          <li>Agent fleet across the <b>21 EU-regulated dual-use industries</b> in Aegis scope.</li>
+          <li><b>DWS IQ Aegis</b> — the sovereign dual-use tier — runs KYA on the customer's own NVIDIA DGX.</li>
         </ul>
         <div class="stats">
-          <div class="stat">
-            <div class="v">6</div>
-            <div class="l">Paying customers</div>
-          </div>
-          <div class="stat">
-            <div class="v">€7k</div>
-            <div class="l">MRR</div>
-          </div>
-          <div class="stat">
-            <div class="v">100%</div>
-            <div class="l">Retention</div>
-          </div>
+          <div class="stat"><div class="v">TRL 5</div><div class="l">completed, entering 6</div></div>
+          <div class="stat"><div class="v">Sept 2026</div><div class="l">Aegis GA</div></div>
         </div>
       </section>
 
@@ -321,21 +310,17 @@
         </ul>
       </section>
 
-      <!-- BEAT 7 · 2:30–2:45 (15s) · WHY US -->
+      <!-- BEAT 7 · 2:25–2:47 (22s) · WHY US -->
       <section class="slide">
         <div class="kicker">Why us</div>
-        <h2>The only one in <span class="accent">production</span></h2>
+        <h2>The European <span class="accent">trust layer</span></h2>
         <ul>
-          <li>
-            The only European platform where agent identity, revocable authority &amp;
-            Article&nbsp;12 audit <b>already run in production</b>.
-          </li>
-          <li><b>6 paying customers · 100% retention</b> since first paid deployment.</li>
-          <li>Delivered with partner <b>Cubet</b>; anchored in doctoral research at <b>LUT</b>.</li>
+          <li>The only European platform where agent identity, revocable authority &amp; Article&nbsp;12 audit <b>already run</b>.</li>
+          <li>Delivered with partner <b>Cubet</b>; research spine with <b>LUT</b> (quantum-safe) and <b>KTH TECoSA</b> (safety assurance).</li>
+          <li><b>Dual-use by design</b> — civil compliance and the defence industrial base, one engine.</li>
         </ul>
         <div class="badges">
-          <span>NVIDIA Connect ISV Partner</span><span>IBM Business Partner</span
-          ><span>Amazon (AWS) Consulting Partner</span>
+          <span>NVIDIA Connect ISV Partner</span><span>IBM Business Partner</span><span>Amazon (AWS) Consulting Partner</span>
         </div>
       </section>
 
@@ -362,7 +347,7 @@
       (function () {
         var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
         // seconds per beat — tuned to the shot-script timecodes; sums to exactly 180s (3:00)
-        var dur = [20, 30, 25, 30, 25, 20, 15, 15];
+        var dur = [20, 30, 25, 30, 25, 15, 22, 13];
         var total = dur.reduce(function (a, b) {
           return a + b;
         }, 0); // 180

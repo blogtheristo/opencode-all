@@ -32,7 +32,7 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 - AI agents are starting to **act and pay** on behalf of enterprises.
 - Europe regulates the **humans** (KYC, eIDAS) and the **models** (AI Act) — but **nothing regulates the agent**: no standard identity, no bounded mandate, no revocation, no audit with legal weight.
 - Every current answer (Coinbase x402, Google AP2, Stripe agent toolkit) is **US-custodial, card-rail, binds the human — not the agent.**
-- From **Aug 2027**, AI Act high-risk enforcement makes wrong answers enforceable violations (up to 7% of global turnover).
+- From **Dec 2027**, AI Act high-risk enforcement makes wrong answers enforceable violations (up to 7% of global turnover).
 
 ### Slide 3 — The solution (live today)
 
@@ -49,7 +49,7 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 
 ### Slide 5 — Why now
 
-- **AI Act** Articles 12/14/72 enforce for high-risk systems **Aug 2027**.
+- **AI Act** Articles 12/14/72 enforce for high-risk systems **Dec 2027**.
 - **EU sovereign rails arriving:** EUDI Wallet law from 12/2026; **ECB Digital Euro** pilot H2 2027.
 - Agents transacting on EU rails need an **EU-sovereign** trust+mandate layer. US card-rail answers can't plug in. Regulation creates the demand; we're the European answer.
 
@@ -94,23 +94,29 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 ---
 
 **[0:00–0:20 · HOOK — to camera]**
-"Hi, I'm Risto Päärni, founder of Lifetime Oy. AI agents are about to start doing something new — not just answering, but _acting_: filing declarations, posting entries, making payments. And that raises one question Europe has no answer to yet: when an agent acts, **who is in control?**"
+"Hi, I'm Risto Päärni, founder and CEO of Lifetime — the DWS Intelligence Platform for Industrial Compliance and Sovereignty. AI agents are no longer just answering — they're acting: filing declarations, posting entries, making buying decisions. Payments are next. And that raises one question Europe has no answer to yet: when an agent acts, **who is in control?**"
 
-**[0:20–0:50 · PROBLEM — to camera, then title card]**
-"Europe regulates the humans and the models — but nothing regulates the _agent_. No standard identity, no bounded mandate, no revocation, no audit that holds up legally. And every answer shipping today — Coinbase, Google, Stripe — is US-custodial and binds the human, not the agent. From August 2027 the EU AI Act makes getting this wrong an enforceable violation." `[SHOT: title card — "Who regulates the agent?"]`
+**[0:20–0:50 · PROBLEM]**
+"The European Union regulates us humans, and it regulates the frontier models — but between them sits the agent, with nothing. No identity of its own. No bounded mandate. No way to revoke it. No audit that holds up legally. And every answer shipping today — Visa, Google, Coinbase, Stripe — is US-custodial: it binds the human's card, not the agent's authority. From December 2027, the EU AI Act makes getting this wrong an enforceable violation." `[SHOT: title card]`
 
-**[0:50–2:00 · SOLUTION + PROOF — screen capture]**
-"We already solved the hard part. This is **DWS IQ Aegis** — live, in production, with paying customers." `[SHOT: dashboard, 50 agents]`
-"It runs on the customer's **own NVIDIA DGX** — data and model weights never leave the building. Sovereignty by physics, not policy." `[SHOT: S2 architecture — DGX, air-gap]`
-"Watch the trust layer: every agent has an identity and a live trust score. Here I revoke its authority instantly — the Leash Snap." `[SHOT: trust score, revoke]`
-"And every action writes an append-only, EU AI Act Article-12 audit trail you can reconstruct." `[SHOT: Article-12 log]`
-"What we're asking the EIC to fund is the next step: letting these agents _transact_ under a **signed, revocable mandate** — with a **Sovereignty Attestation** that cryptographically proves the jurisdiction, data-residency and air-gap of **every single action**. `[SLOW DOWN through this paragraph — it's the core innovation; brief pause before the next sentence]` In plain terms: the agent can **prove — not just claim** — that it stayed within its mandate, and inside Europe. _(pause)_ That makes EU AI Act compliance **machine-verifiable** across cloud, edge, and air-gapped deployments. No one else has this." `[SHOT: mandate + attestation animation]`
+**[0:50–1:15 · KYA + AEGIS — screen capture]**
+"We've already solved the hard part, and we call it **KYA — Know Your Agent**. Every agent gets an identity and a live trust score. It runs in production today. **DWS IQ Aegis** is the sovereign dual-use tier that packages KYA — on the customer's own NVIDIA DGX, on their premises, where data and model weights stay on customer hardware. Aegis reaches general availability in **September 2026**, across twenty-one regulated dual-use industries." `[SHOT: KYA dashboard]`
 
-**[2:00–2:40 · WHY US / WHY NOW — to camera]**
-"Why now: the AI Act lands in 2027, exactly as Europe stands up its own rails — the EUDI Wallet and the digital euro. Agents transacting on EU rails will need an EU-sovereign trust layer, and US card-rail answers simply can't plug in. Why us: we're the only European platform where agent identity, revocable authority and Article-12 audit already run in production — six paying customers, 100% retention since first paid deployment — delivered with our partner Cubet's engineering bench."
+**[1:15–1:45 · LIVE DEMO]**
+"Watch. Here I revoke an agent's authority instantly — the **Leash Snap**. And every action it takes writes an append-only, EU AI Act **Article 12** audit trail you can reconstruct, step by step." `[SHOT: trust score → revoke → Article-12 log]`
 
-**[2:40–3:00 · ASK — to camera]**
-"We're asking for a €2.5 million EIC grant to take this from production to a certified European standard for agents that transact. The technology runs today. The traction is real and paying. And the regulation that makes it mandatory has a date. Let's build the European answer — before the default is set somewhere else. Thank you."
+**[1:45–2:10 · THE FUNDED INNOVATION — slide, NOT a demo]**
+"What we're asking the EIC to fund is the next step: letting these agents **transact** — under a signed, revocable **mandate** — with a **Sovereignty Attestation** that cryptographically proves the jurisdiction, the data residency and the air-gap of every single action. `[SLOW DOWN]` In plain terms: the agent can **prove — not just claim** — that it stayed within its mandate, and inside Europe. _(pause)_ That makes EU AI Act compliance **machine-verifiable**. And no one else can build it where it has to run — inside the customer's building, on European infrastructure."
+
+**[2:10–2:25 · WHY NOW]**
+"Why now: the AI Act applies today, and its high-risk duties land in December 2027 — exactly as Europe stands up its own rails: the EUDI Wallet, and the digital euro. US card-rail answers can't plug into them."
+
+**[2:25–2:47 · WHY US]**
+"And why us: KYA already runs — agent identity, revocable authority, Article 12 audit, in production. We're at cash break-even on our own operations, with two enterprise pilots contracted and offers filed with Outokumpu and Kemira. We deliver with our partner **Cubet**, and build the research spine with **LUT** on quantum-safe primitives and **KTH's TECoSA** centre on safety assurance. Aegis is **dual-use by design** — one engine for civil compliance and Europe's defence industrial base."
+
+**[2:47–3:00 · THE ASK — to camera]**
+"We're asking for a **two-and-a-half million euro** EIC grant to take KYA from production to a certified European standard for agents that transact — civilian and defence alike. The technology runs today. The regulation that makes it mandatory has a date. Let's build the European answer — before the default is set somewhere else. Thank you."
+
 
 ---
 

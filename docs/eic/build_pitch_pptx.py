@@ -79,7 +79,7 @@ p = tf.add_paragraph(); p.line_spacing = 1.0
 set_run(p, "Sovereign AI agents that act for regulated Europe.", 34, WHITE, bold=True)
 tf2 = txt(s, Inches(0.7), Inches(4.7), Inches(11.5), Inches(1.4))
 set_run(tf2.paragraphs[0],
-    "DWS IQ on the customer's own NVIDIA DGX — data and model weights never leave the building.  €2.5M grant-only · TRL 6→8.",
+    "KYA — Know Your Agent — running in production. Aegis, the sovereign dual-use tier, GA September 2026.  €2.5M grant-only · TRL 5→8.",
     20, MUTE)
 tfb = txt(s, Inches(0.7), Inches(6.15), Inches(12), Inches(0.6))
 set_run(tfb.paragraphs[0],
@@ -91,14 +91,14 @@ content(2, "The problem", "Who is in control?", [
     "AI agents are starting to **act and pay** for enterprises.",
     "Europe regulates the **humans** and the **models** — nothing regulates the **agent**.",
     "Every answer today (x402, Google AP2, Stripe) is **US-custodial** and binds the human, not the agent.",
-    "From **Aug 2027**, the EU AI Act makes getting this wrong an enforceable violation.",
+    "From **Dec 2027**, the EU AI Act makes getting this wrong an enforceable violation.",
 ])
 
-content(3, "The solution · live today", "DWS IQ Aegis", [
-    "**50 production agents**, 25 regulated industries.",
-    "Runs on the customer's **own NVIDIA DGX** — sovereignty by **physics, not policy**.",
-    "KYA engine: **identity · live trust score · Leash Snap revocation · Article-12 audit**.",
-    "**6 paying customers · €7k MRR · 100% retention** since first paid deployment.",
+content(3, "The solution · KYA running in production", "DWS IQ Aegis", [
+    "**KYA — Know Your Agent:** identity binding · live trust score · Leash Snap revocation · Article-12 audit. **Running today.**",
+    "Agent fleet across the **21 EU-regulated dual-use industries** in Aegis scope (25 platform-wide).",
+    "Runs on the customer's **own NVIDIA DGX** — on-prem, weights stay on customer hardware.",
+    "**Aegis GA September 2026** — pre-revenue today. The grant funds the leap.",
 ])
 
 content(4, "The innovation · what the EIC funds", "From gating actions → acting under mandate", [
@@ -109,7 +109,7 @@ content(4, "The innovation · what the EIC funds", "From gating actions → acti
 ], tsize=34)
 
 content(5, "Why now", "Regulation creates the demand", [
-    "EU AI Act Articles 12/14/72 enforce for high-risk systems **Aug 2027**.",
+    "EU AI Act Articles 12/14/72 enforce for high-risk systems **Dec 2027**.",
     "EU sovereign rails: **EUDI Wallet** (law 12/2026), **ECB Digital Euro** pilot H2 2027.",
     "Agents transacting on EU rails need an **EU-sovereign trust layer**. US card-rail answers can't plug in.",
 ])
@@ -122,24 +122,24 @@ content(6, "Market", "Regulated EU industry — and beyond", [
 
 content(7, "Business model · traction", "A model that already prices", [
     "Aegis **€59,990** + subscriptions (€499–€2,999/mo) + outcome SKUs + grant-enabled **action tier**.",
-    "**€7k MRR · 100% retention · roadmap to €60k MRR.**",
+    "**Cash break-even** on founder transport + consulting revenue; **2 enterprise pilots contracted Q1/26**; Outokumpu + Kemira offers filed.",
     "Every conformant third-party agent becomes a **channel**, not a competitor.",
 ])
 
 content(8, "Competition · the sovereignty wedge", "Only one platform ticks all four", [
-    "**EU-sovereign × agent-native × compliance-native × in-production** = DWS IQ Aegis.",
+    "**EU-sovereign × agent-native × compliance-native × dual-use** = DWS IQ Aegis.",
     "x402 / AP2 / Stripe: US, card/crypto rails. Shufti/Onfido: verify humans, not agents.",
     "US players **can't** run inference in your building (CLOUD Act) or settle on EU rails. Aegis can.",
 ])
 
 content(9, "Team", "Founder-led · partner-delivered · agent-multiplied", [
-    "**Risto Anton Päärni** — Founder & CEO; architect of DWS IQ + KYA; NVIDIA/IBM/AWS partner; LUT doctoral candidate.",
+    "**Risto Anton Päärni** — Founder & CEO; architect of DWS IQ + KYA; NVIDIA/IBM/AWS partner; doctoral discussions with LUT.",
     "**Cubet Techno Labs** — CEO John Lovegin: standing bench ~20 engineers, no key-person risk, NDA in force.",
-    "Academic anchoring: **LUT** (quantum-safe/PhD) · **KTH TECoSA** (safety) · **Metropolia** (talent, 5/5 master's). **€650K SAFE** in progress.",
-    "Team includes women and men across engineering, product, and operations.",
+    "Academic anchoring: **LUT** (quantum-safe KYA research) · **KTH TECoSA** (safety assurance) · **Metropolia** (talent, 5/5 master's). **€650K SAFE** in progress.",
+    "**Two-person core** + contracted engineering bench under NDA + our own agent fleet. Grant funds the key hires.",
 ], tsize=32)
 
-content(10, "The ask", "€2.5M grant-only · 24 months · TRL 6→8", [
+content(10, "The ask", "€2.5M grant-only · 24 months · TRL 5→8", [
     "**M6** spec v1.0 + Sovereignty Profile · **M12** Signed Attestation in production.",
     "**M18** cross-border pilots (FI + SE) · **M24** certification path + €60k+ MRR.",
     "Fund the European answer for agents that transact — before the default is set elsewhere.",
