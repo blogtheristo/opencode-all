@@ -34,7 +34,7 @@ Suositus: **Subject C** — kysymysmuoto, aktivoi uteliaisuuden ilman myyntipain
 
 Hei Timo,
 
-Näin Kreaten 2025 vuosikatsauksesta, että CSRD-raportointi on jo käynnissä listatun yhtiön velvoitteena — te olette jo oikealla polulla. Kysymys on, paljonko se nyt maksaa: monilla asiakkaillamme (Kela, T2H, NCC-pilotti) CSRD-datankeruu projekteiltaan vei 60 tuntia kuukaudessa manuaalisesti.
+Näin Kreaten 2025 vuosikatsauksesta, että CSRD-raportointi on jo käynnissä listatun yhtiön velvoitteena — te olette jo oikealla polulla. Kysymys on, paljonko se nyt maksaa: listatuissa rakennusalan yhtiöissä CSRD-datankeruu projekteilta vie tyypillisesti 60 tuntia kuukaudessa manuaalisesti.
 
 DWS IQ 6 leikkaa sen 8 tuntiin — automaattinen Scope 1/2 -data Kreaten projekteiltanne, raportti valmiina, ei manuaalityötä. Ja ollaan molemmat Espoosta.
 
@@ -53,7 +53,7 @@ https://dws10.com
 
 Hi Timo,
 
-I noticed from Kreate's 2025 annual review that CSRD reporting is already active — you're doing the right thing as a listed company. The question is what it costs: our customers at Kela, T2H, and NCC pilots were spending 60+ hours per month collecting Scope 1/2 data from project sites manually.
+I noticed from Kreate's 2025 annual review that CSRD reporting is already active — you're doing the right thing as a listed company. The question is what it costs: listed construction companies typically spend 60+ hours per month collecting Scope 1/2 data from project sites manually.
 
 DWS IQ 6 cuts that to 8 hours — automated data collection from Kreate's project portfolio, CSRD report generated, no manual work. We're also both based in Espoo, which is a start.
 

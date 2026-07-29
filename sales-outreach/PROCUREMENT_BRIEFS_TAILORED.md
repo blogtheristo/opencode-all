@@ -1,4 +1,4 @@
----
+***
 
 VERSION AND AGENT HISTORY
 
@@ -12,11 +12,12 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — S5 "6 paying customers, 100% retention" retired; Kemira "filed 27.6.2026" → in discussion; NCC "existing reference" → unlanded prospect; ORK bid relabelled as in preparation (deadline 14.08.2026); Nokia de-identified to "a telecom / network-infrastructure prime" (NDA).
 - Version: 1.2 | Tool: Claude Code | Date: 22.07.2026 | Changes: Added the agentic-commerce Ari-test line ("agents transact on AP2/UCP/ACP rails; every mandate gated by a checkable trust score and logged to EU AI Act Article 12 evidence") to S9 (security & compliance annex, all buyers) and the Defence card wedge (tightest fit). Capability claim only — backed by the live KYA §14.5 evidence-chain tables (migration 074, deployed) and `evaluateMandateGate()`; not a traction claim, so the Defence card's design-partner honesty is preserved. Zero tailoring meta (§2B).
 - Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 10.07.2026 | Changes: Founder-approved propagation of "Sovereign Industrial Intelligence Outcomes" (`DWS_TRUTH_STANDARD.md` row 27) into S2 (Outcome we deliver). Content was already multi-domain (Article 12, NIS2, GDPR alongside CBAM/CSRD/ETS) — this adds the named hierarchy, not new claims. Kept buyer-facing/Ari-test discipline: concrete, not abstract branding.
-- Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Buyer-facing procurement brief (de-risk-led, not product-led; Ari test on every slide) + 5 tailored front-sheets (Outokumpu, Kemira, Nokia, Defence, NCC). Single relevant pricing tier per buyer; vendor-viability reconciled (coverage + funded search, not gap). Anchors per DWS_TRUTH_STANDARD v2.4.
+- Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Buyer-facing procurement brief (de-risk-led, not product-led; Ari test on every slide) + 5 tailored front-sheets (Outokumpu, Kemira, a telecom prime, Defence, NCC). Single relevant pricing tier per buyer; vendor-viability reconciled (coverage + funded search, not gap). Anchors per DWS_TRUTH_STANDARD v2.4.
 
----
+***
 
 # Enterprise Procurement Briefs — Tailored
 
@@ -32,7 +33,7 @@ Sessions & Modifications:
 
 **S4 — Why it's low-risk to buy:** EU-sovereign hosting, Finnish-owned (Lifetime Oy 0772407-9), **no CLOUD Act exposure** · KYA-governed agents (hardware-attested, court-defensible audit trail, <125 ms kill authority) · EU AI Act Art. 12/26 lineage, NIS2-aligned, GDPR-resident · per-tenant isolation, your data never trains a shared model · sovereign **local** Lifetime World Model (no foreign model API).
 
-**S5 — Proof:** 6 paying customers, 100% retention, audit-ready in ~4 weeks. References under NDA.
+**S5 — Proof:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), audit-ready in ~4 weeks. References under NDA. No retention rate is asserted. Separately, ~€7,000/month services and transport revenue (not software revenue) keeps Lifetime at cash break-even with a founder salary of €0.
 
 **S6 — Implementation & support:** 4-week pilot on one scope · from you: read access to ERP + LCA inputs, one process owner · named EU-hours support, SLA in MSA · your data + reports portable, no records lock-in.
 
@@ -47,21 +48,21 @@ Sessions & Modifications:
 - **S1 — Your obligation:** CBAM (steel = Annex I), CSRD, Scope 3, ETS — mandatory, audited, penalty-bearing. The hard part for Outokumpu: filing **without exposing trade secrets / IP** in the disclosure.
 - **Wedge:** trade-secret-safe, IP-governed disclosure — figures are auditable and court-defensible, the underlying IP stays under EU law on Finnish soil (no CLOUD Act). Speaks directly to the IP-vs-disclosure gap.
 - **S7 — Tier:** **Compliance Bridge (€10k/mo)** — full CBAM/CSRD/ETS for one product line. (Aegis sovereign tier only if scoping confirms dual-use/CER exposure.) Other tiers available.
-- **S10 — Next step:** the **€24k pilot** already on the table — CBAM/CSRD/Scope 3 for the **Forta** product line; success = one audit-ready filing your team validates. Cubet Techno Labs already named in the ORK subcontractor bid (Lots 1 & 3).
+- **S10 — Next step:** the **€24k pilot** already on the table — CBAM/CSRD/Scope 3 for the **Forta** product line; success = one audit-ready filing your team validates. Cubet Techno Labs named in the ORK subcontractor bid, which is **in preparation** — submission deadline **14 August 2026** (`bids/ORK160826/ORK160826_ALIHANKKIJA_EN.md`); it has not been filed.
 - **Contact:** Ari Hirvonen (door #1); Heidi Peltonen (alt).
 
 ## 2) KEMIRA — chemicals (Maria Sederholm, VP PLM & Strategy, Fiber Essentials)
 
 - **S1 — Your obligation:** CBAM, CSRD, and **Scope 3 product carbon footprint (PCF)** across chemical product lines — customer-driven PCF requests + mandatory reporting.
 - **Wedge:** ERP-to-PCF/CBAM/CSRD automation — eliminate manual data entry where compliance fines start; auditable trail for every figure.
-- **S7 — Tier:** **DWS IQ Climate Intelligence (€29,990/yr)** — ETS/CBAM/CSRD, the right-fit product already offered (filed 27.6.2026). Other tiers available; do **not** lead with Aegis unless dual-use/CER exposure is confirmed.
+- **S7 — Tier:** **DWS IQ Climate Intelligence (€29,990/yr)** — ETS/CBAM/CSRD, the right-fit product; offer letter dated 27.6.2026 carries **no send confirmation**, so the account status is **in discussion**, never "filed". Other tiers available; do **not** lead with Aegis unless dual-use/CER exposure is confirmed.
 - **S10 — Next step:** 4-week pilot on one CBAM/PCF stream (one product line); success = one audit-ready PCF/CBAM output validated.
 - **Contact:** Maria Sederholm; second door Mikko Pohjala (VP Strategy).
 
-## 3) NOKIA — telecom / network infrastructure
+## 3) A TELECOM / NETWORK-INFRASTRUCTURE PRIME (counterparty NDA-covered — do not name)
 
 - **S1 — Your obligation:** CSRD + **Scope 3 across a vast supplier base** (the dominant footprint for a network OEM), plus **EU AI Act** exposure (you ship AI/network products) and **NIS2** (critical-infrastructure supplier).
-- **Wedge:** governed, auditable Scope 3 supply-chain accounting + EU AI Act Art. 12/26 lineage on AI-touched processes — the same accountability layer Nokia must demonstrate to its own regulators and customers.
+- **Wedge:** governed, auditable Scope 3 supply-chain accounting + EU AI Act Art. 12/26 lineage on AI-touched processes — the same accountability layer a network OEM must demonstrate to its own regulators and customers.
 - **S7 — Tier:** **Compliance Bridge (€10k/mo) → enterprise** — Scope 3 supply-chain + CSRD; multi-site/multi-module from there. Other tiers available.
 - **S10 — Next step:** scoped pilot on one business line's Scope 3 + CSRD; success = one audit-ready supplier-footprint report.
 - **Contact:** [confirm — sustainability / procurement lead].
@@ -75,12 +76,12 @@ Sessions & Modifications:
 - **S10 — Next step:** sovereign design-partner engagement on one scope. **Honest:** defence is **design-partner stage** — zero defence reference customers yet; lead with the structural sovereignty wedge + EDIP timing, not traction.
 - **Contact:** [confirm — defence/dual-use procurement].
 
-## 5) NCC — construction (existing reference, €55B)
+## 5) NCC — construction (unlanded prospect, €55B)
 
 - **S1 — Your obligation:** **EPBD** (building performance), CSRD, **embodied carbon (EN 15978)**, EU Taxonomy, and CBAM on steel/cement inputs.
 - **Wedge:** operations/asset-phase compliance on top of design-phase LCA (One Click LCA inputs accepted) — the "after the building is built" layer; native **IFS Cloud** connector (NCC's stack).
 - **S7 — Tier:** **Compliance Bridge (€10k/mo)** — CSRD + embodied-carbon + CBAM for a portfolio/site. Other tiers available.
-- **S10 — Next step:** NCC is already a reference — **deepen/expand**: scoped pilot on one portfolio's embodied-carbon + CSRD; success = one audit-ready building/portfolio filing.
+- **S10 — Next step:** NCC is an **unlanded prospect** in the Nordic Tier-1 construction (ULTRA) cohort — **land it**: scoped pilot on one portfolio's embodied-carbon + CSRD; success = one audit-ready building/portfolio filing. Never present NCC as an existing reference or customer.
 - **Contact:** [confirm — NCC sustainability / portfolio manager].
 
 ---

@@ -66,7 +66,7 @@ Starting position (canonical — `docs/TRACTION_CANONICAL.md`): **€59,900 of s
 | Weakness                          | Mitigation                                                                                                                                                                                                                   |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Small core team**               | Residual risk: key-person dependency. Mitigated: established 50+ specialist-company network (2020–2022), the skilled-agent fleet runs autonomously, documented processes; senior technical hire funded and in active search. |
-| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Aug 2026) removes "pre-production" objection.                                                                                                          |
+| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Sep 2026) removes "pre-production" objection.                                                                                                          |
 | **Material quality gap**          | Three losses (Nokia Defence, Diana, Arctic15) share root cause: materials don't match evaluation framework. Modules 1-4 now built.                                                                                           |
 | **No video demo**                 | Script ready (MODULE_1), not yet recorded. Blocks Diana resubmission.                                                                                                                                                        |
 | **Aegis pre-GA**                  | Defence tier launches August 2026. Until then, defence deals carry "not yet shipping" risk.                                                                                                                                  |
@@ -80,7 +80,7 @@ Starting position (canonical — `docs/TRACTION_CANONICAL.md`): **€59,900 of s
 | **CBAM filing season (Q3 2026)**    | Now          | €30K-60K from 2-4 CBAM-exposed importers (steel, chemicals, cement)                            |
 | **EU AI Act Article 12 (Aug 2026)** | August 2026  | Every AI compliance tool must ship audit trails. DWS already has it. First-mover sales window. |
 | **ETS2 road transport (Jan 2027)**  | January 2027 | Construction, logistics, fleet operators must report. New vertical opens.                      |
-| **Aegis Defence GA (Aug 2026)**     | August 2026  | Unlocks €60K-90K deals for CER/NIS2/defence-adjacent customers                                 |
+| **Aegis Defence GA (Sep 2026)**     | August 2026  | Unlocks €60K-90K deals for CER/NIS2/defence-adjacent customers                                 |
 | **Outokumpu pilot (€24K)**          | Q3 2026      | Win = flagship reference for entire Nordic steel sector                                        |
 | **Kemira conversion (€30K/yr)**     | Q3-Q4 2026   | Win = chemicals sector validation + SBTi alignment proof                                       |
 | **Sweden market entry**             | Q3-Q4 2026   | SSAB, NCC AB, Skanska AB, Stora Enso — large enterprises, no local sovereign AI competitor     |
@@ -251,7 +251,7 @@ Starting position (canonical — `docs/TRACTION_CANONICAL.md`): **€59,900 of s
 
 | Milestone                            | Status                                        | Revenue Impact                               |
 | ------------------------------------ | --------------------------------------------- | -------------------------------------------- |
-| **Aegis Defence GA**                 | August 2026                                   | Unlocks €60K-90K defence/CER/NIS2 deals      |
+| **Aegis Defence GA**                 | September 2026                                   | Unlocks €60K-90K defence/CER/NIS2 deals      |
 | **EU AI Act Article 12 enforcement** | August 2, 2026                                | First-mover advantage: already shipping      |
 | **ISO 27001 certification**          | In progress                                   | Removes enterprise procurement blocker       |
 | **Train Model SaaS launch**          | Compact €1,490 / Standard €2,990 / Pro €7,490 | New revenue stream                           |

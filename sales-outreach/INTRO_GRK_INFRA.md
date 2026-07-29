@@ -20,13 +20,13 @@ Source: construction-profitability-targeting-FI.md (Tier A — voittajat)
 
 ## ICP Gate Check
 
-| Gate                          | Status    | Evidence                                                                                                           |
-| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
-| Regulatory exposure confirmed | PASS      | CSRD Wave 2 applies: >250 employees AND >€40M turnover (GRK Group far exceeds both thresholds)                     |
-| Physical asset footprint      | PASS      | Roads, bridges, railways, ports — multiple active project sites across Finland                                     |
-| Decision-maker identified     | PARTIAL   | Private company — COO/CDO or CEO TBD [VERIFY via LinkedIn: search "GRK Infra COO" or "GRK Group CDO"]              |
-| Pain signal present           | PASS      | First CSRD Wave 2 report due FY2025/2026; Scope 1 from construction machinery fleet never tracked at project level |
-| Peer reference applicable     | QUALIFIED | T2H (active pilot, infra adjacent), NCC Group (active pilot, construction)                                         |
+| Gate                          | Status  | Evidence                                                                                                                                                                                                                       |
+| ----------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Regulatory exposure confirmed | PASS    | CSRD Wave 2 applies: >250 employees AND >€40M turnover (GRK Group far exceeds both thresholds)                                                                                                                                 |
+| Physical asset footprint      | PASS    | Roads, bridges, railways, ports — multiple active project sites across Finland                                                                                                                                                 |
+| Decision-maker identified     | PARTIAL | Private company — COO/CDO or CEO TBD [VERIFY via LinkedIn: search "GRK Infra COO" or "GRK Group CDO"]                                                                                                                          |
+| Pain signal present           | PASS    | First CSRD Wave 2 report due FY2025/2026; Scope 1 from construction machinery fleet never tracked at project level                                                                                                             |
+| Peer reference applicable     | WEAK    | No landed infra reference. Contracted Q1/2026 enterprise pilots may be cited only under NDA. T2H is a dispatch-operator counterparty of the transport business; NCC is an unlanded prospect (`docs/TRACTION_CANONICAL.md` §3). |
 
 **ICP Score: QUALIFIED** (strong regulatory trigger + Tier A profitability = ready to invest; identify specific decision-maker before sending)
 
@@ -81,7 +81,7 @@ Today, this data lives in fuel receipts, machinery logbooks, and subcontractor i
 
 GRK's 6.7% operating margin in 2025 is a documented fact (Alma Insights). Use it directly:
 
-> "Näin GRK Infran 2025 liiketuloksen — 6,7 % on varmasti paras vuosi pitkään aikaan, ja infrasektori on selvästi suhdanteen voittaja. Juuri nyt CSRD Wave 2 iskee ensimmäistä kertaa: Scope 1 -päästöt (konekalusto, polttoaineet) raportoitava projektikohtaisesti. Asiakkaamme T2H ja NCC rakensivat tämän infrastruktuurin jo — haluaisitko 15 min, niin näytän miten GRK:n projektiportfolio näyttäisi?"
+> "Näin GRK Infran 2025 liiketuloksen — 6,7 % on varmasti paras vuosi pitkään aikaan, ja infrasektori on selvästi suhdanteen voittaja. Juuri nyt CSRD Wave 2 iskee ensimmäistä kertaa: Scope 1 -päästöt (konekalusto, polttoaineet) raportoitava projektikohtaisesti. DWS IQ 6 rakentaa tämän infrastruktuurin automaattisesti — haluaisitko 15 min, niin näytän miten GRK:n projektiportfolio näyttäisi?"
 
 **Fallback:** If GRK has published any sustainability mention, RFP win, or new project announcement in Q1–Q2 2026, anchor on that instead.
 
@@ -118,7 +118,7 @@ Note: Private company — decision-maker research required. Do not send cold ema
 >
 > Kiitos yhteydestä. GRK:n 2025 tulos oli huippuvuosi — 6,7 % liiketulos infrasektorilta on vahva näyttö siitä, että teillä on kaikki rakentamassa kasvulle.
 >
-> CSRD Wave 2 osuu GRK:lle juuri nyt: Scope 1 -päästöt konekalustosta raportoitava projektikohtaisesti ensimmäistä kertaa. Asiakkaamme T2H hoitaa tämän automaattisesti DWS IQ 6:lla — ei manuaalityötä, ei konsulttia.
+> CSRD Wave 2 osuu GRK:lle juuri nyt: Scope 1 -päästöt konekalustosta raportoitava projektikohtaisesti ensimmäistä kertaa. DWS IQ 6 hoitaa tämän automaattisesti — ei manuaalityötä, ei konsulttia.
 >
 > Kiinnostaako 15 min? Näytän miten GRK:n projektiportfolio näyttäisi dashboardilla.
 
@@ -132,12 +132,12 @@ Status: **not yet sent** — pending decision-maker identification
 
 ## Assets
 
-| Asset                                     | Status                                    |
-| ----------------------------------------- | ----------------------------------------- |
-| INTRO_GRK_INFRA.md                        | This file                                 |
-| LETTER_GRK_INFRA.md                       | Drafted — send after LinkedIn touch       |
-| Pilot reference: T2H (active pilot)       | Use as social proof — same infra vertical |
-| Pilot reference: NCC Group (active pilot) | Use as social proof — Nordic construction |
+| Asset                                                | Status                                                                                                 |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| INTRO_GRK_INFRA.md                                   | This file                                                                                              |
+| LETTER_GRK_INFRA.md                                  | Drafted — send after LinkedIn touch                                                                    |
+| Pilot reference: contracted Q1/2026 enterprise pilot | Use as social proof only under NDA                                                                     |
+| T2H / NCC                                            | Do NOT cite as customers or pilots — T2H is a dispatch-operator counterparty, NCC an unlanded prospect |
 
 ## Next Steps
 

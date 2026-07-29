@@ -121,7 +121,7 @@ txt(s, Inches(0.85), Inches(2.0), Inches(11.6), Inches(1.3),
 c1 = rect(s, Inches(0.6), Inches(3.7), Inches(5.95), Inches(2.9), SOFT, line=LINE)
 txt(s, Inches(0.85), Inches(3.9), Inches(5.5), Inches(2.6),
     [[("The ask", 16, INK, True)],
-     [("A free 1–2 week scoping → pilot on one Fiber Essentials product line, aligned to Aegis GA (Aug 2026), measuring carbon-declaration cycle time, audit coverage and hours reclaimed.", 14, INK, False)]])
+     [("A free 1–2 week scoping → pilot on one Fiber Essentials product line, aligned to Aegis GA (Sep 2026), measuring carbon-declaration cycle time, audit coverage and hours reclaimed.", 14, INK, False)]])
 c2 = rect(s, Inches(6.78), Inches(3.7), Inches(5.95), Inches(2.9), SOFT, line=LINE)
 txt(s, Inches(7.03), Inches(3.9), Inches(5.5), Inches(2.6),
     [[("The offer", 16, INK, True)],
@@ -260,7 +260,7 @@ title(s, "Three tiers — Defence promised", size=27)
 tag(s, Inches(6.0), Inches(0.95), "canonical", GOOD)
 cols = [("","Onboarding","Monthly","Included")]
 data = [
- ("Aegis Standard","€59,990","€999/mo","Skilled agents · 25 industries · K8s cluster · Article 12 · KYA", False),
+ ("Aegis Standard","€59,990","€999/mo","Skilled agents · 21 dual-use industries · K8s cluster · Article 12 · KYA", False),
  ("Aegis Defence  (promised)","€89,990","€1,999/mo","Standard + NVIDIA L40S GPU · ArgusAgent SAR · 4h SLA · EDIP reporting", True),
  ("Aegis Sovereign","Custom","€4,999/mo","Defence + air-gapped/on-prem · clearance support · dedicated team", False),
 ]
@@ -283,7 +283,7 @@ for r,(tier,onb,mon,inc,hl) in enumerate(data):
         col = BRAND if (j==0 and hl) else INK
         txt(s, Inches(x+0.15), Emu(int(yy)+Emu(Inches(0.16))), Inches(w-0.2), Inches(rh-0.2), [[(v,sz,col,bold or j==0)]], anchor=MSO_ANCHOR.MIDDLE)
 txt(s, Inches(0.6), Inches(5.25), Inches(12.1), Inches(1.4),
-    [[("Software-only (GPU is UpCloud Helsinki inference capacity). Single-tenant Kubernetes on UpCloud — Finnish-owned, ISO 27001, zero CLOUD Act. Platform GA: August 2026.", 12.5, MUTED, False)],
+    [[("Software-only (GPU is UpCloud Helsinki inference capacity). Single-tenant Kubernetes on UpCloud — Finnish-owned, ISO 27001, zero CLOUD Act. Platform GA: September 2026.", 12.5, MUTED, False)],
      [("Said openly: if scoping shows pure carbon / critical-infrastructure value (no dual-use/EDIP), Aegis Standard carries the same sovereignty, KYA governance and Article 12 audit — we won't force Defence if Standard fits.", 12.5, WARN, True)]])
 
 # ---------- Slide 9 — Next steps ----------
