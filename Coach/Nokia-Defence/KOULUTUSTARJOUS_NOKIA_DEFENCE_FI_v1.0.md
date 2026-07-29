@@ -9,6 +9,8 @@ Status: DRAFT
 
 # Koulutustarjous — Nokia Defence
 
+> **Correction (29.07.2026):** Nokia may not be named as a defence counterparty of Lifetime Oy in any material that leaves this counterparty relationship. The NDA covers the negotiations and the partnership and carries a €100,000 penalty. Outside the direct counterparty correspondence, refer to "a defence-industry prime". Canonical source: `docs/TRACTION_CANONICAL.md`. This document is `Status: DRAFT` and has not gone out; the counterparty name is retained here only because the offer is addressed to that counterparty.
+
 > **Huom. — eri asiakirja kuin varsinainen tarjous.** Tämä on _Claude Code
 > -valmennuksen_ (koulutuksen) tarjous ja luotiin esimerkiksi versiointimallista.
 > Nokia Defencen **varsinainen palvelutarjous** (DWS IQ Aegis Defence -alusta ja

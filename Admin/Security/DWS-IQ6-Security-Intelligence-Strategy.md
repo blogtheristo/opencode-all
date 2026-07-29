@@ -967,7 +967,7 @@ Optimistic: 3 months
 
 | MRR | Annual Revenue | Program Cost as % Revenue | Status |
 |-----|----------------|--------------------------|--------|
-| €7k (current) | €84k | 78.9% | Unsustainable |
+| ~€7k/month services and transport revenue (current; **not** software revenue) | €84k | 78.9% | Unsustainable |
 | €14k (Q1 2026) | €168k | 39.5% | High but manageable |
 | **€28k (break-even)** | **€336k** | **19.7%** | **Industry standard** |
 | €60k (Series A) | €720k | 9.2% | Efficient |

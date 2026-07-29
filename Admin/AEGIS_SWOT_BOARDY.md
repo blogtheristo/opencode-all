@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — KELA and Taksi Helsinki restated as Traficom-defined dispatch operators of the licensed transport operation, never software customers; the self-critical "zero defence customers" point is preserved.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Initial honest SWOT on Aegis fundability (Marcus review style) — strengths, weaknesses, opportunities, threats for defence procurement positioning
 
 Session Links & References:
@@ -47,7 +48,7 @@ Honest SWOT on Aegis getting funded. Marcus review style — no sugar-coating, p
 
 ## Weaknesses
 
-- **Zero defence customers.** KELA and Taksi Helsinki are civilian. Investors backing defence software want at least one government or defence contractor reference.
+- **Zero defence customers.** KELA and Taksi Helsinki are not software customers at all — they are civilian **dispatch operators** in the role defined by Traficom, routing ride orders to Lifetime Fleet vehicles, and are commercial counterparties of the licensed transport operation only. Investors backing defence software want at least one government or defence contractor reference.
 - **"Design partner stage" for defence procurement reporting is a red flag in your own docs** — that's pre-revenue in the vertical that justifies the thesis.
 - **Dual-use export control agent is listed as "live" but no customer has stress-tested it** in a real procurement scenario.
 - **€59,990 one-time is a long sales cycle.** Enterprise defence procurement doesn't close in weeks.

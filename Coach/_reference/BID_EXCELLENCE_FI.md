@@ -22,7 +22,7 @@ Document Status:
 Related Documents:
 
 - `Coach/README.md` (Coach-rakenne)
-- `Coach/OP-Financial-Group/...` ja `Coach/Nokia-Defence/...` (asiakastarjoukset)
+- `Coach/OP-Financial-Group/...` ja `Coach/Nokia-Defence/...` (tarjousluonnokset — esimerkkikansioita, ei laskeutuneita asiakkuuksia)
 - `docs/coaching/CLAUDE_CODE_COACHING_CURRICULUM_FI_v1.0.md` (tekoälyvalmennus)
 
 ---

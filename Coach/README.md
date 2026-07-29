@@ -66,6 +66,11 @@ kenttää koneluettavaan `COACH-META`-lohkoon (cron lukee ne hakemistosivulle):
 - **OP Financial Group** → Product: **DWS IQ 6**, ProductTier: **Aegis Standard** (EU-suvereeni,
   säännelty rahoitusala).
 - **Nokia Defence** → Product: **DWS IQ 7**, ProductTier: **Aegis Defence** (dual-use / puolustus).
+  **Huom. (29.07.2026):** tämä on esimerkkikansio, ei laskeutunut asiakkuus. Nokiaa ei saa nimetä
+  Lifetime Oy:n puolustusalan vastapuoleksi missään materiaalissa, joka lähtee tämän
+  vastapuolisuhteen ulkopuolelle — NDA kattaa neuvottelut ja kumppanuuden ja sisältää
+  100 000 euron sopimussakon. Ulkoisissa viittauksissa käytetään muotoa "a defence-industry prime".
+  Kanoninen lähde: `docs/TRACTION_CANONICAL.md`.
 
 > Käyttäjän pikamuoto "DWS IQ Defence 7" vastaa kanonista nimeämistä **DWS IQ 7 + Aegis Defence
 > -taso** (TRUTH rivi 20). Tarjouksissa käytetään kanonista muotoa.

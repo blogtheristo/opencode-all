@@ -1,24 +1,29 @@
 # DWS6 Investor Outreach Workflow
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Aligned to Fleet Admiral / Captain / Deputy Captain tier structure from INVESTOR_MEMO.md, updated dates to March 2026, fixed email sender to risto@onelifetime.world, updated traction to EUR 7-14k MRR, aligned email templates to Captain framing
-  - Version: 1.0 | Tool: Claude Code | Session: N/A (pre-session-tracking) | Date: 27.12.2025 | Changes: Initial creation — complete outreach workflow with email templates, Supabase tracking, daily automation
+
+- Version: 2.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — EUR 7-14k MRR / 6 paying customers / 100% retention / EUR 70k-120k LTV replaced with EUR 59,900 of contracted Q1/2026 pilot value, the services-and-transport revenue framing, and no asserted retention rate.
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Aligned to Fleet Admiral / Captain / Deputy Captain tier structure from INVESTOR_MEMO.md, updated dates to March 2026, fixed email sender to risto@onelifetime.world, updated traction to EUR 7-14k MRR, aligned email templates to Captain framing
+- Version: 1.0 | Tool: Claude Code | Session: N/A (pre-session-tracking) | Date: 27.12.2025 | Changes: Initial creation — complete outreach workflow with email templates, Supabase tracking, daily automation
 
 Session Links & References:
-  - Claude Code (claude/improve-sales-call-script-xg1zO): https://github.com/blogtheristo/dws6/commits/claude/improve-sales-call-script-xg1zO
+
+- Claude Code (claude/improve-sales-call-script-xg1zO): https://github.com/blogtheristo/dws6/commits/claude/improve-sales-call-script-xg1zO
 
 Document Status:
-  - Created: 27.12.2025
-  - Last Modified: 21.03.2026
-  - Language: English
-  - Publication Status: ACTIVE
 
-***
+- Created: 27.12.2025
+- Last Modified: 21.03.2026
+- Language: English
+- Publication Status: ACTIVE
+
+---
 
 ## Complete System Overview
 
@@ -30,11 +35,11 @@ This document describes the end-to-end investor outreach workflow, connecting co
 
 **Objective**: Raise EUR 650K via Fleet Admiral / Captain tiered SAFE at EUR 3.8M cap
 
-| Tier | Investment | Seats | Status |
-|------|-----------|-------|--------|
-| **Fleet Admiral** | EUR 500,000 | 1 | OPEN |
-| **Captain** | EUR 50,000 | 8 (one per industry) | OPEN (Construction priority) |
-| **Deputy Captain** | TBD | Unlimited | NOT YET ACTIVE |
+| Tier               | Investment  | Seats                | Status                       |
+| ------------------ | ----------- | -------------------- | ---------------------------- |
+| **Fleet Admiral**  | EUR 500,000 | 1                    | OPEN                         |
+| **Captain**        | EUR 50,000  | 8 (one per industry) | OPEN (Construction priority) |
+| **Deputy Captain** | TBD         | Unlimited            | NOT YET ACTIVE               |
 
 **Round math:** EUR 500K (Fleet Admiral) + 8 x EUR 50K (Captain) = EUR 650K total
 
@@ -48,15 +53,18 @@ This document describes the end-to-end investor outreach workflow, connecting co
 ## Current Status (March 2026)
 
 ### Traction Metrics
-- **MRR**: EUR 7-14k with 6 paying customers
-- **Retention**: 100% (zero churn, 12+ months)
-- **Customer LTV**: EUR 70k-120k per logo
+
+- **Software pipeline (contracted)**: EUR 59,900 — two Q1/2026 enterprise pilots at EUR 29,950 each, plus four smaller landed accounts (names redacted pending authorization)
+- **Services and transport revenue**: ~EUR 7,000/month (licensed transport operation + consulting) — **not** software revenue; puts the company at cash break-even with a founder salary of EUR 0. Source: Lemonsoft bookkeeping.
+- **Retention / churn**: not asserted — no cohort data
+- **Customer LTV**: modelled only; no observed LTV — do not present as actual
 - **Gross margin**: >90%
 - **Infra cost**: EUR 15-50/month
-- **Pipeline**: 2 construction pilots at EUR 59,900 level (verify: signed / in-progress / piloting)
-- **Target**: EUR 14k MRR → EUR 900k ARR by end 2026
+- **Pipeline**: two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
+- **Target**: EUR 900k ARR by end 2026 (target, not a run-rate)
 
 ### Third-Party Validation
+
 - **Crunchbase Growth Score**: 91
 - **Crunchbase Heat Score**: 86
 - **CB Rank**: 104,995
@@ -65,13 +73,13 @@ This document describes the end-to-end investor outreach workflow, connecting co
 
 ### Current Customers
 
-| Customer | Vertical | Status | Annual Value |
-|----------|----------|--------|--------------|
-| Logistics Operator 1 | Logistics | Paid | €70,000 |
-| Logistics Operator 2 | Logistics | Paid | €60,000 |
-| Logistics Operator 3 | Healthcare | Paid | €90,000 |
-| Construction Co. A | Construction | Pilot | €80,000 (projected) |
-| Construction Co. B | Construction | Pilot | €80,000 (projected) |
+| Customer             | Vertical     | Status | Annual Value        |
+| -------------------- | ------------ | ------ | ------------------- |
+| Logistics Operator 1 | Logistics    | Paid   | €70,000             |
+| Logistics Operator 2 | Logistics    | Paid   | €60,000             |
+| Logistics Operator 3 | Healthcare   | Paid   | €90,000             |
+| Construction Co. A   | Construction | Pilot  | €80,000 (projected) |
+| Construction Co. B   | Construction | Pilot  | €80,000 (projected) |
 
 ---
 
@@ -80,6 +88,7 @@ This document describes the end-to-end investor outreach workflow, connecting co
 ### 1. Cold Email Outreach
 
 **Daily Process:**
+
 ```
 9:00 AM Daily → Automation selects 20 investors from Supabase
               → Personalizes email templates
@@ -89,27 +98,29 @@ This document describes the end-to-end investor outreach workflow, connecting co
 ```
 
 **Email Structure:**
+
 - **Subject**: Personalized based on investor focus
 - **Body**: 50-100 words
   - Reference specific portfolio company
   - Mention CSRD/Fit for 55 regulatory wave
-  - Highlight traction (€7k MRR, 100% retention)
+  - Highlight traction (€59,900 of contracted Q1/2026 enterprise pilots)
   - Include link to Captain page (https://dws10.com/captain/)
 - **CTA**: "Open to a brief call next week?"
 - **Tracking**: UTM parameters + campaign_id + investor_id
 
 **Example Email:**
+
 ```
 Subject: Fit for 55 compliance automation for construction
 
 Hi [First Name],
 
-I noticed your investment in [Portfolio Company] and your focus 
-on climate tech. We're building CSRD compliance automation for 
+I noticed your investment in [Portfolio Company] and your focus
+on climate tech. We're building CSRD compliance automation for
 construction portfolios.
 
-Current traction: EUR 7-14k MRR, 100% retention (12+ months),
-2 construction pilots at EUR 59,900 level.
+Current traction: two enterprise pilots contracted in Q1/2026 at
+EUR 29,950 each (EUR 59,900 booked), plus four smaller landed accounts.
 
 We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
 cap. Each Captain owns one of 20 EU industry verticals.
@@ -131,10 +142,11 @@ risto@onelifetime.world
 **Deck**: https://dws10.com/captain/deck/
 
 **Page Content:**
+
 1. **Hero Section**
    - Headline: "Own an Industry Vertical — Platinum Captain Seats"
    - Subtitle: "EUR 50k SAFE at EUR 3.8M cap, 18% discount"
-   - Key metrics: EUR 7k+ MRR, 100% retention, mandatory market
+   - Key metrics: EUR 59,900 of contracted Q1/2026 enterprise pilots, mandatory market
    - CTA: "Request full deck / intro call"
 
 2. **Problem Section**
@@ -150,11 +162,10 @@ risto@onelifetime.world
    - 4 weeks from contract to deployment
 
 4. **Traction Section**
-   - EUR 7-14k MRR live (March 2026)
-   - 6 paying customers
-   - 100% retention (12+ months)
-   - Customer table with annual values
-   - 2 construction pilots at EUR 59,900 level
+   - EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each)
+   - Four additional smaller landed accounts (names redacted pending authorization)
+   - Separately, ~EUR 7,000/month services and transport revenue (licensed transport operation + consulting) — not software revenue
+   - No retention or churn rate asserted — no cohort data
 
 5. **This Round Section — Fleet Admiral / Captain**
    - Fleet Admiral: EUR 500K SAFE (1 seat — strategic co-pilot, board observer)
@@ -197,26 +208,27 @@ risto@onelifetime.world
    - GitHub investor materials
 
 **Tracking Implementation:**
+
 ```html
 <script>
   // Track page visits from campaigns
   const urlParams = new URLSearchParams(window.location.search);
-  const campaignId = urlParams.get('campaign');
-  const investorId = urlParams.get('investor');
-  
+  const campaignId = urlParams.get("campaign");
+  const investorId = urlParams.get("investor");
+
   if (campaignId && investorId) {
     // Log visit to Supabase
-    fetch('https://your-project.supabase.co/rest/v1/campaign_logs', {
-      method: 'PATCH',
+    fetch("https://your-project.supabase.co/rest/v1/campaign_logs", {
+      method: "PATCH",
       headers: {
-        'apikey': 'your-anon-key',
-        'Content-Type': 'application/json'
+        apikey: "your-anon-key",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: campaignId,
         clicked: true,
-        clicked_at: new Date().toISOString()
-      })
+        clicked_at: new Date().toISOString(),
+      }),
     });
   }
 </script>
@@ -227,6 +239,7 @@ risto@onelifetime.world
 **Tables:**
 
 **investor_contacts:**
+
 ```sql
 - id (UUID)
 - name (TEXT)
@@ -255,6 +268,7 @@ risto@onelifetime.world
 ```
 
 **campaign_logs:**
+
 ```sql
 - id (UUID)
 - campaign_date (DATE)
@@ -274,6 +288,7 @@ risto@onelifetime.world
 ```
 
 **Data Flow:**
+
 ```
 1. Research investor → Add to investor_contacts
 2. Daily automation → Query eligible contacts
@@ -291,6 +306,7 @@ risto@onelifetime.world
 **Process:**
 
 **Step 1: Query Eligible Contacts**
+
 ```sql
 SELECT * FROM investor_contacts
 WHERE status IN ('new', 'follow_up')
@@ -300,60 +316,65 @@ LIMIT 20;
 ```
 
 **Step 2: Personalize Emails**
+
 ```javascript
 for (const contact of contacts) {
-  const firstName = contact.name.split(' ')[0];
+  const firstName = contact.name.split(" ")[0];
   const portfolioCompany = contact.portfolio_companies[0];
-  
+
   const email = {
     to: contact.email,
     subject: `Fit for 55 compliance automation for ${contact.investment_focus}`,
     html: personalizeTemplate(contact),
     tracking: {
       campaign_id: generateId(),
-      investor_id: contact.id
-    }
+      investor_id: contact.id,
+    },
   };
 }
 ```
 
 **Step 3: Send Emails**
+
 ```javascript
 await emailService.send(email);
 ```
 
 **Step 4: Log Campaign**
+
 ```javascript
-await supabase.from('campaign_logs').insert({
-  campaign_date: new Date().toISOString().split('T')[0],
+await supabase.from("campaign_logs").insert({
+  campaign_date: new Date().toISOString().split("T")[0],
   investor_id: contact.id,
   email_subject: email.subject,
-  sent_at: new Date().toISOString()
+  sent_at: new Date().toISOString(),
 });
 ```
 
 **Step 5: Update Contact**
+
 ```javascript
-await supabase.from('investor_contacts').update({
-  status: 'contacted',
-  last_contacted: new Date().toISOString(),
-  emails_sent: contact.emails_sent + 1
-}).eq('id', contact.id);
+await supabase
+  .from("investor_contacts")
+  .update({
+    status: "contacted",
+    last_contacted: new Date().toISOString(),
+    emails_sent: contact.emails_sent + 1,
+  })
+  .eq("id", contact.id);
 ```
 
 **Step 6: Generate Report (6 PM)**
+
 ```javascript
-const today = new Date().toISOString().split('T')[0];
-const campaigns = await supabase
-  .from('campaign_logs')
-  .select('*')
-  .eq('campaign_date', today);
+const today = new Date().toISOString().split("T")[0];
+const campaigns = await supabase.from("campaign_logs").select("*").eq("campaign_date", today);
 
 const metrics = {
   sent: campaigns.length,
-  opened: campaigns.filter(c => c.opened).length,
-  clicked: campaigns.filter(c => c.clicked).length,
-  replied: campaigns.filter(c => c.replied).length
+  opened: campaigns.filter((c) => c.opened).length,
+  clicked: campaigns.filter((c) => c.clicked).length,
+  replied: campaigns.filter((c) => c.replied).length,
 };
 
 console.log(`
@@ -377,12 +398,12 @@ Subject: CSRD compliance automation for construction portfolios
 
 Hi {{first_name}},
 
-I noticed your investment in {{portfolio_company}} and your focus on 
-industrial decarbonization. We're building compliance automation for 
+I noticed your investment in {{portfolio_company}} and your focus on
+industrial decarbonization. We're building compliance automation for
 construction's CSRD reporting challenge.
 
 Current traction:
-- EUR 7-14k MRR, 100% retention (12+ months)
+- EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each)
 - 2 construction pilots at EUR 59,900 level
 - >90% gross margin, EUR 15-50/mo infra cost
 
@@ -403,12 +424,12 @@ risto@onelifetime.world
 ### Template 2: Construction Tech Investors
 
 ```
-Subject: Construction compliance automation - €7k MRR, 100% retention
+Subject: Construction compliance automation - €59,900 in contracted Q1/2026 pilots
 
 Hi {{first_name}},
 
-Your portfolio company {{portfolio_company}} is solving {{problem}}. 
-We're tackling the adjacent challenge of CSRD compliance automation 
+Your portfolio company {{portfolio_company}} is solving {{problem}}.
+We're tackling the adjacent challenge of CSRD compliance automation
 for construction asset owners.
 
 The market:
@@ -417,8 +438,8 @@ The market:
 - EUR 10k-50k fines per project without compliance
 
 Our traction:
-- EUR 7-14k MRR live, 100% retention (12+ months)
-- EUR 70k-120k LTV per customer
+- EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each)
+- LTV is modelled, not observed
 - 40+ hours/month saved per customer
 
 We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
@@ -442,12 +463,12 @@ Subject: Construction climate compliance - exited founder perspective?
 
 Hi {{first_name}},
 
-As someone who built and exited {{company}} in the {{sector}} space, 
-you understand the challenge of selling into conservative construction 
+As someone who built and exited {{company}} in the {{sector}} space,
+you understand the challenge of selling into conservative construction
 buyers.
 
 We're automating CSRD compliance for construction portfolios:
-- EUR 7-14k MRR, 100% retention (12+ months)
+- EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each)
 - 2 construction pilots at EUR 59,900 level
 - Mandatory market (Fit for 55 live 2025-2028)
 
@@ -470,6 +491,7 @@ risto@onelifetime.world
 ## 📊 Success Metrics & Targets
 
 ### Daily Metrics
+
 - **Emails Sent**: 20/day
 - **Delivery Rate**: >95% (19+ delivered)
 - **Open Rate**: >25% (5+ opens)
@@ -477,6 +499,7 @@ risto@onelifetime.world
 - **Response Rate**: >3% (0.6+ responses = 1 every 2 days)
 
 ### Weekly Metrics
+
 - **Emails Sent**: 100 (20/day × 5 days)
 - **Opens**: 25+
 - **Clicks**: 5+
@@ -484,6 +507,7 @@ risto@onelifetime.world
 - **Meetings Scheduled**: 2-3
 
 ### Monthly Metrics
+
 - **Emails Sent**: 400+
 - **Opens**: 100+
 - **Clicks**: 20+
@@ -516,18 +540,21 @@ Second signature requires referral channel or list expansion beyond 88.
 ## 🎯 Investor Targeting (From TARGETING_QUICK_REFERENCE.md)
 
 ### Fleet Admiral Target (EUR 500K — 1 seat)
+
 - **Profile**: Strategic co-pilot — fund, family office, or operator with board-level network
 - **Value**: Board observer rights, annual 1:1 strategy, first right of refusal on follow-on
 - **Geography**: Nordics + DACH + EU-focused global funds
 - **Channels**: Warm intro only (accelerators, accountancy firm referrals, Captain 1 referral)
 
 ### Captain Targets (EUR 50K — 8 seats)
+
 - **Profile**: Industry operators, CDOs, CTOs, CSOs in any of 20 EU regulated industries
 - **Value**: Own one industry vertical, quarterly briefings, founding Situation Room access
 - **Geography**: Nordics + DACH + Benelux + UK
 - **Channels**: LinkedIn DM, cold email, industry events, trade association referrals
 
 ### Deputy Captain (TBD — unlimited, not yet active)
+
 - **Profile**: Passive angels, smaller check operators
 - **Value**: Quarterly briefings, upgrade path to Captain
 - **Activation**: After first 2-3 Captains close
@@ -538,13 +565,13 @@ Second signature requires referral channel or list expansion beyond 88.
 
 These channels convert faster than cold DMs for Fleet Admiral and Captain seats:
 
-| # | Channel | Target | Why |
-|---|---------|--------|-----|
-| 1 | **Industry events** — Rakennusmessut, Nordic Built, Greenbuild Europe | All tiers | Warm handshake converts faster than any DM |
-| 2 | **Trade associations** — RAKLI, EBC (European Builders Confederation), FIEC | Captain | Members are exactly the operator tier |
-| 3 | **Referral from Captain 1** — whoever signs first | Captain + Fleet Admiral | One warm intro from a peer CFO = 50 cold DMs |
-| 4 | **Accelerators/hubs** — Business Finland, Cleantech Scandinavia, Nordic Innovation | Fleet Admiral + Captain | Curated CXO networks, warm intro culture |
-| 5 | **Accountancy/audit firms** — KPMG, Deloitte, PwC Nordic sustainability practices | Fleet Admiral | They advise the CFOs you're targeting, can refer you in as compliance tool |
+| #   | Channel                                                                            | Target                  | Why                                                                        |
+| --- | ---------------------------------------------------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
+| 1   | **Industry events** — Rakennusmessut, Nordic Built, Greenbuild Europe              | All tiers               | Warm handshake converts faster than any DM                                 |
+| 2   | **Trade associations** — RAKLI, EBC (European Builders Confederation), FIEC        | Captain                 | Members are exactly the operator tier                                      |
+| 3   | **Referral from Captain 1** — whoever signs first                                  | Captain + Fleet Admiral | One warm intro from a peer CFO = 50 cold DMs                               |
+| 4   | **Accelerators/hubs** — Business Finland, Cleantech Scandinavia, Nordic Innovation | Fleet Admiral + Captain | Curated CXO networks, warm intro culture                                   |
+| 5   | **Accountancy/audit firms** — KPMG, Deloitte, PwC Nordic sustainability practices  | Fleet Admiral           | They advise the CFOs you're targeting, can refer you in as compliance tool |
 
 **Rule:** LinkedIn DM + email are Week 1 channels. Events, associations, and referral channels activate in parallel and accelerate through the funnel. The Fleet Admiral seat will likely close through channel 4 or 5, not cold outreach.
 
@@ -553,6 +580,7 @@ These channels convert faster than cold DMs for Fleet Admiral and Captain seats:
 ## Technical Setup
 
 ### Required Tools
+
 1. **Supabase**: Database for contacts and campaign tracking
 2. **Email Service**: Amazon SES (primary) / Resend (fallback)
 3. **Node.js**: Automation scripts
@@ -560,6 +588,7 @@ These channels convert faster than cold DMs for Fleet Admiral and Captain seats:
 5. **Analytics**: Supabase + custom dashboards
 
 ### Environment Variables
+
 ```bash
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-service-role-key
@@ -577,11 +606,13 @@ INVESTOR_PAGE_URL=https://dws10.com/captain/
 ## 📞 Contact & Resources
 
 ### Primary Contact
+
 - **Email**: risto@onelifetime.world (SES-verified sender)
 - **Alternative**: risto@lifetime.fi
 - **Founder**: Risto Anton Päärni
 
 ### Key Resources
+
 - **Captain Page**: https://dws10.com/captain/
 - **Captain Deck**: https://dws10.com/captain/deck/
 - **Crunchbase**: https://www.crunchbase.com/organization/lifetime-oy
@@ -590,6 +621,7 @@ INVESTOR_PAGE_URL=https://dws10.com/captain/
 - **Pitch Video**: https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs
 
 ### Documentation
+
 - **INVESTOR_MEMO.md**: Complete investment terms and deal structure
 - **TARGETING_QUICK_REFERENCE.md**: One-page targeting cheat sheet
 - **DWS6_INVESTOR_PROFILES.md**: Detailed investor qualification guide

@@ -3027,7 +3027,7 @@ dws6/
 ├── investor-materials/     # ⛔ NEVER COMMIT - Investor decks, financials
 ├── customer-data/          # ⛔ NEVER COMMIT - GDPR protected data
 ├── pilot-data/             # ⛔ NEVER COMMIT - Pilot customer data
-├── ncc-data/               # ⛔ NEVER COMMIT - NCC customer data
+├── ncc-data/               # ⛔ NEVER COMMIT - NCC prospect/evaluation data (NCC is an unlanded prospect, not a customer)
 ├── t2h-data/               # ⛔ NEVER COMMIT - T2H customer data
 ├── admin/                  # ⛔ NEVER COMMIT - Admin manual (ProtonDrive only)
 ├── dws-core/
