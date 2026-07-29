@@ -3,7 +3,7 @@ title: "DWS IQ Aegis"
 price: "59990.00"
 currency: "EUR"
 sku: "DWS-AEGIS-001"
-availability: "in_stock"
+availability: "preorder"
 condition: "new"
 google_product_category: "Software > Business & Productivity Software"
 image_link: "https://dws10.com/static/images/firehorse-aegis-head.png"
@@ -149,7 +149,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
   - _Defence_ — software-only. Adds NVIDIA L40S **GPU nodes in the EU cloud cluster**; still nothing shipped to site.
   - _Sovereign_ — air-gapped / on-premises. The physical layer is designed to run on **customer-sited edge hardware** (DGX Spark / Jetson class). Hardware is procured by the customer or a partner and scoped per engagement (the tier is custom-priced); DWS supplies the platform and the governance layer, not the box.
 - **Certifications roadmap:** ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.
-- **Availability:** August 2026
+- **Availability:** September 2026
 
 ## Pricing
 
