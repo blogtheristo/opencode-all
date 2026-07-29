@@ -86,7 +86,7 @@ Suunniteltu ja toteutettu EU AI Act -vaatimustenmukaisuusarkkitehtuuri tuotantoj
 2. **Toimintamallin suunnittelu:** 16 toimialaontologiaan perustuva asiakaskontekstin mallinnus; AI-agentin vastuualueiden rajaus; Human-in-the-Loop -pisteet
 3. **Pilottitoteutus:** asiakaskohtainen EU-sääntelyanalyysiagentin räätälöinti; manuaalisen työn vähenemä 70–80 % raportoinnissa
 4. **Koulutus ja käyttöönotto:** loppukäyttäjäkoulutus, ohjeistus suomeksi, palautekierros
-5. **Jatkuva tuki:** MRR-pohjainen tilausmalli (7 000 €/kk huhtikuussa 2026)
+5. **Jatkuva tuki:** kuukausipohjainen tilausmalli. (Hinnoittelu tarjouksen hintalomakkeen mukaan. Yhtiön n. 7 000 €/kk on palvelu- ja kuljetusliikevaihtoa, ei ohjelmiston MRR:ää — ks. `docs/TRACTION_CANONICAL.md`.)
 
 **Rooli:** Pää-konsultti ja arkkitehti
 

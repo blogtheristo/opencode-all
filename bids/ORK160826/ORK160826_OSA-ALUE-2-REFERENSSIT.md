@@ -80,7 +80,7 @@ Toteutettu asiakaskohtainen konsultointiprosessi EU-sääntelyvaatimustenmukaisu
 2. **Toimintamallin suunnittelu:** 25 toimialaontologiaan perustuva asiakaskontekstin mallinnus; AI-agentin vastuualueiden rajaus; inhimillisen valvonnan pisteet (Human-in-the-Loop)
 3. **Pilottitoteutus:** asiakaskohtainen EU-sääntelyanalyysiagentin räätälöinti; manuaalisen työn vähenemä 70–80 % raportoinnissa
 4. **Koulutus ja käyttöönotto:** loppukäyttäjäkoulutus, ohjeistus suomeksi, palautekierros
-5. **Jatkuva tuki:** kuukausittainen MRR-pohjainen tilausmalli (7 000 €/kk huhtikuussa 2026)
+5. **Jatkuva tuki:** kuukausittainen tilausmalli. (Hinnoittelu tarjouksen hintalomakkeen mukaan. Yhtiön n. 7 000 €/kk on palvelu- ja kuljetusliikevaihtoa, ei ohjelmiston MRR:ää — ks. `docs/TRACTION_CANONICAL.md`.)
 
 **Asiakassegmentit:** energia (päästöraportointi), rakennus (hankintojen vaatimustenmukaisuus), logistiikka (toimitusketjun dokumentaatio)
 

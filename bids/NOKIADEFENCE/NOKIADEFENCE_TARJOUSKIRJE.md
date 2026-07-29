@@ -14,6 +14,8 @@ Nokia Defence (Nokia Corporation)
 Yhteyshenkilö: Tommi Haapala, Senior Advisor
 tommi.haapala@nokia.com
 
+> **LUOTTAMUKSELLISUUS (NDA).** Tämä tarjouspaketti on osoitettu vastaanottajalle itselleen. Vastaanottajaa **ei saa nimetä puolustusalan vastapuolena** missään kolmannelle osapuolelle menevässä aineistossa — sijoittaja-, myynti-, rahoitus- tai julkisessa materiaalissa käytetään ilmaisua **"puolustusalan päähankkija"**. NDA kattaa neuvottelut ja kumppanuuden ja sisältää 100 000 euron sopimussakon. Ks. `docs/TRACTION_CANONICAL.md` §3.
+
 **Viite:** NDA Nokia / Lifetime Oy — Partners/NDA_NOKIA_2026.md
 **Päiväys:** 27.6.2026
 
