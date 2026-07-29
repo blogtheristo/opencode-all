@@ -237,6 +237,7 @@
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
+                        <li><a href="https://onelifetime.world/blog/" target="_blank" class="ironclad-primary">📰 LSJ Business Blog</a></li>
                         <li><a href="${contentBase}careers/">Careers</a></li>
                         <li class="ironclad-has-submenu">
                             <a href="${contentBase}partners/" class="ironclad-primary">Partner Tiers ▸</a>

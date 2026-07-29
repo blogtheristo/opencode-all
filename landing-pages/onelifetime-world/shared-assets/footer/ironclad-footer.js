@@ -157,6 +157,7 @@
             <a href="${contentBase}/partners/">Partners</a>
             <a href="${contentBase}/investor-relations/">Investor Relations</a>
             <a href="https://onelifetime.world">Community</a>
+            <a href="https://onelifetime.world/blog/">LSJ Business Blog</a>
             <a href="mailto:support@lifetime.fi">Support</a>
             <a href="mailto:sales@lifetime.fi">Sales</a>
             <a href="${contentBase}/legal/">Legal Hub</a>
