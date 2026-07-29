@@ -12,6 +12,9 @@ GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature bra
 YELLOW zone (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push
 RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), outbound email, thesis files, Store sync, secrets
 
+BLOG POSTS ARE RED — Non-Negotiable Rule 13 (ABSOLUTE)
+No blog entry publishes until the HIC has read its full text and approved it. Any language, any site, translations, LSJ issues, cron-drafted posts. Run /blog-draft: write the whole text to docs/blog-drafts/<slug>.md, show the HIC ONE fenced code block, then STOP AND ASK in that turn. Publish only after an explicit approval about that post sets Status: APPROVED. Enforced by .claude/hooks/blog-draft-gate.sh — but the rule binds even where the hook does not reach (generators, cron, unloaded hooks). A bypass is not permission. Rules: docs/BLOG_STANDARD.md §3.3.
+
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/
 

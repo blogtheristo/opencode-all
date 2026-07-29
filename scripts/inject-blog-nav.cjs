@@ -235,6 +235,11 @@ const posts = [
       'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
     date: '17 Jul 2026',
   },
+  {
+    file: 'ala-treenaa-base-mallia-omista-evidenssikerros.html',
+    title: 'Älä treenaa base-mallia, omista evidenssikerros (FI)',
+    date: '26 Jul 2026',
+  },
 ];
 
 // Three featured products

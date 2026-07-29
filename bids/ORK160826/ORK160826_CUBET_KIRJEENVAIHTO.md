@@ -96,7 +96,7 @@ Alihankintaneuvottelun kirjeenvaihto. Sisäinen tarjousdokumentaatio — ei julk
 > Warm regards,
 > Risto Anton Päärni
 > Founder, CEO · Lifetime Oy
-> risto.paarni2024@lifetime.fi · +358 400 319 010
+> risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 

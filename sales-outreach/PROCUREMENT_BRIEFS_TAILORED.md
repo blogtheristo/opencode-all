@@ -6,12 +6,13 @@ VERSION AND AGENT HISTORY
 - Status: ACTIVE
 - Classification: INTERNAL (sales — buyer-facing once exported)
 - Document type: Enterprise procurement briefs (tailored)
-- Author: Claude Code (claude-opus-4-8) + risto.paarni2024@lifetime.fi
+- Author: Claude Code (claude-opus-4-8) + risto.paarni@lifetime.fi
 - Date: 2026-06-29
 - Session: claude/anduril-case-study-iridtj
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Date: 22.07.2026 | Changes: Added the agentic-commerce Ari-test line ("agents transact on AP2/UCP/ACP rails; every mandate gated by a checkable trust score and logged to EU AI Act Article 12 evidence") to S9 (security & compliance annex, all buyers) and the Defence card wedge (tightest fit). Capability claim only — backed by the live KYA §14.5 evidence-chain tables (migration 074, deployed) and `evaluateMandateGate()`; not a traction claim, so the Defence card's design-partner honesty is preserved. Zero tailoring meta (§2B).
 - Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 10.07.2026 | Changes: Founder-approved propagation of "Sovereign Industrial Intelligence Outcomes" (`DWS_TRUTH_STANDARD.md` row 27) into S2 (Outcome we deliver). Content was already multi-domain (Article 12, NIS2, GDPR alongside CBAM/CSRD/ETS) — this adds the named hierarchy, not new claims. Kept buyer-facing/Ari-test discipline: concrete, not abstract branding.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Buyer-facing procurement brief (de-risk-led, not product-led; Ari test on every slide) + 5 tailored front-sheets (Outokumpu, Kemira, Nokia, Defence, NCC). Single relevant pricing tier per buyer; vendor-viability reconciled (coverage + funded search, not gap). Anchors per DWS_TRUTH_STANDARD v2.4.
 
@@ -37,7 +38,7 @@ Sessions & Modifications:
 
 **S8 — Vendor viability (head-on):** Two humans — Risto Päärni (Founder/CEO, 35 yrs industrial domain, 1,030+ PRs) + Lucille Santiago (Office Chief / HIC). **Technical leadership covered today** (founder + governed AI agent workflows); **human engineering capacity via partner Cubet Techno Labs, Kochi**; **senior technical leadership hire funded, search active** (investment, not gap). EU-sovereign infra with rollback/continuity; evidence ledger portable — you're never stranded. Finnish legal entity, transparent pricing.
 
-**S9 — Security & compliance annex:** EU AI Act Art. 12 + 26 · GDPR EU residency · NIS2-aligned · KYA hardware-attested governance · per-tenant isolation + RLS · no CLOUD Act · auditable reasoning lineage · data portability / exit clause.
+**S9 — Security & compliance annex:** EU AI Act Art. 12 + 26 · GDPR EU residency · NIS2-aligned · KYA hardware-attested governance · per-tenant isolation + RLS · no CLOUD Act · auditable reasoning lineage · data portability / exit clause · agentic-commerce ready — your agents can transact on AP2/UCP/ACP rails; every mandate is gated by a checkable trust score and logged to EU AI Act Article 12 evidence.
 
 ---
 
@@ -69,6 +70,7 @@ Sessions & Modifications:
 
 - **S1 — Your obligation:** mandatory **sovereignty** (data + autonomy layer under national/EU control, no CLOUD Act), EU AI Act accountability, NIS2, and EDIP-aligned dual-use compliance.
 - **Wedge:** **sovereign by construction** — Finnish-owned, EU-resident, sovereign _local_ world model (no foreign model API), KYA hardware-attested governance with <125 ms kill authority, offline/edge capable. This is the seat US-native vendors structurally cannot take.
+- **Agentic-commerce control:** your agents can transact on AP2/UCP/ACP rails; every mandate is gated by a checkable trust score and logged to EU AI Act Article 12 evidence — autonomous spend that a merchant, escrow, or insurer can verify, not trust blind.
 - **S7 — Tier:** **DWS IQ Aegis** (single-tenant sovereign; Aegis Standard / Aegis Defence) — 21 Aegis-tier industries. Other tiers available.
 - **S10 — Next step:** sovereign design-partner engagement on one scope. **Honest:** defence is **design-partner stage** — zero defence reference customers yet; lead with the structural sovereignty wedge + EDIP timing, not traction.
 - **Contact:** [confirm — defence/dual-use procurement].

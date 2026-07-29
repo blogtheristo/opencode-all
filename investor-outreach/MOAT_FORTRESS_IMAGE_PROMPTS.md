@@ -6,7 +6,7 @@ VERSION AND AGENT HISTORY
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Image-generation prompt pack
-- Author: Claude Code (claude-opus-4-8) + risto.paarni2024@lifetime.fi
+- Author: Claude Code (claude-opus-4-8) + risto.paarni@lifetime.fi
 - Date: 2026-06-29
 - Location: Espoo, FI (Lifetime Oy HQ)
 - Session: claude/anduril-case-study-iridtj

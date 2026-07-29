@@ -402,7 +402,7 @@ Edit `template-generator.ts`:
 
 ## Support
 
-Questions? Issues? Contact: risto.paarni2024@lifetime.fi
+Questions? Issues? Contact: risto.paarni@lifetime.fi
 
 ## License
 

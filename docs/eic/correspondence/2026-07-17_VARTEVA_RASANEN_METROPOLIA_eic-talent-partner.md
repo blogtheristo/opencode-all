@@ -15,7 +15,7 @@
 
 ***
 
-**From:** Risto Anton Päärni (risto.paarni2024@lifetime.fi)
+**From:** Risto Anton Päärni (risto.paarni@lifetime.fi)
 **To:** Jarno Varteva — jarno.varteva@metropolia.fi **· Cc:** Erkki Räsänen — erkki.rasanen@metropolia.fi · Hanna Järvinen — hanna.jarvinen@metropolia.fi
 **Subject:** From the thesis to an EIC application — a role for Metropolia
 
@@ -39,7 +39,7 @@ For honesty: the grant is not yet awarded; for the full proposal I would ask Met
 Warm regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 

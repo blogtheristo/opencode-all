@@ -26,6 +26,17 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 **Why Aegis exists:** Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.
 
+## Architecture — Two Layers, One Governed Loop
+
+Aegis is a **two-layer** product. The layers solve different problems and are deliberately not served by one model.
+
+| Layer | What it does | How it is served | Status |
+| ----- | ------------ | ---------------- | ------ |
+| **Physical** — perception → action | Sees the facility and acts on it in real time: scene understanding, intent prediction, machine-vision oversight feeding the Control Room / Situation Room | An **adopted open, on-device world model** (NVIDIA Cosmos 3 Edge class) running on customer-sited edge hardware — not a model DWS pretrains | **Planned** — target 2026 Q4, gated on the on-device evaluation. Not shipped today. |
+| **Compliance evidence** — reasoning → record | Turns operations into a court-defensible record: Article 12 logging, reasoning lineage, export-control and climate-compliance assessment | A **separate LLM tier** (open models, EU-served) — a different optimisation problem from real-time perception | **Live** — Article12Logger, ComplianceAgent, SovereigntyMonitor |
+
+**What binds them is the KYA loop** — agent identity, MicroVM isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are **components**: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.
+
 ## Agents Included
 
 | Agent              | Capability                                                           | Domain                                |
@@ -94,6 +105,8 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 > **Market signal (2026-06-23):** The U.S. Army established its NGC2 (Next Generation Command & Control) common data layer baseline — Palantir **Foundry** as the cloud data layer and Anduril **Lattice** as the tactical data layer. This validates the sovereign data-layer thesis at national scale; Europe has no equivalent baseline, and adopting the U.S. stack means inheriting CLOUD Act exposure and an EU AI Act compliance gap. Aegis is the EU-sovereign answer.
 
+> **Political signal — European preference (2026-07-23):** President Macron, after coordinating with Commission President von der Leyen, set "**eurooppalainen etusija / European preference**" as a top-level EU priority — alongside a stronger defence-Europe *with its industrial base* and more public+private investment in AI, space, quantum, energy, and semiconductors. This is the procurement lever that converts Aegis's sovereignty from a *feature* into a *buying rule*: the same "buy European" logic that led Poland to fund a European constellation (IRIS², €656M RRF, signed Warsaw 21.07.2026) instead of contracting foreign capacity applies directly to the sovereign AI/compliance layer that runs over it. See `docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md`.
+
 | Competitor                                               | Core capability (acknowledged)                                                     | The sovereign differentiator                                                                                                                     |
 | -------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Palantir AIP / Foundry (U.S. Army NGC2 cloud data layer) | Best-in-class data integration and operational analytics, with real EU operations. | US corporate parent → CLOUD Act reach regardless of EU hosting location. Aegis is 100% EU-owned and outside extraterritorial data requests.      |
@@ -101,7 +114,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 | C3.ai                                                    | Strong predictive analytics and enterprise dashboarding.                           | Runs as an overlay on commercial US hyperscalers. Aegis executes deterministic multi-agent reasoning inside an isolated sovereign EU enclave.    |
 | Big 4 consulting                                         | Deep regulatory advisory capability.                                               | Advisory only. Aegis ships autonomous agents + orbital intelligence as the product, not a report.                                                |
 
-**Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), SAR orbital intelligence (designed for integration with providers such as ICEYE), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
+**Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), SAR orbital intelligence (designed for integration with providers such as ICEYE), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform) — and now aligned with the EU's stated **European-preference** procurement direction, which turns that sovereignty into a buying requirement rather than a differentiator to argue for.
 
 ## Scope Principle
 
@@ -131,7 +144,10 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **SLA:** 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)
-- **Hardware:** Software-only platform — no hardware bundled (NVIDIA/Acer DGX excluded)
+- **Hardware (per tier — DWS does not resell hardware at any tier):**
+  - _Standard_ — software-only. Runs on EU cloud (UpCloud, Helsinki). No hardware.
+  - _Defence_ — software-only. Adds NVIDIA L40S **GPU nodes in the EU cloud cluster**; still nothing shipped to site.
+  - _Sovereign_ — air-gapped / on-premises. The physical layer is designed to run on **customer-sited edge hardware** (DGX Spark / Jetson class). Hardware is procured by the customer or a partner and scoped per engagement (the tier is custom-priced); DWS supplies the platform and the governance layer, not the box.
 - **Certifications roadmap:** ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.
 - **Availability:** September 2026
 
@@ -143,7 +159,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 | **Aegis Defence**   | €89,990                  | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting                |
 | **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA   |
 
-Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
+Aegis is a standalone product — not part of the Captain investor programme. DWS does not resell hardware at any tier: Standard and Defence are software-only (Defence adds EU-cloud L40S GPU nodes), while Sovereign deploys on-premises onto customer-sited edge hardware scoped per engagement. See the per-tier hardware note under Technical Requirements.
 
 ## Strategic Partnerships
 
@@ -163,4 +179,4 @@ Aegis is a standalone product — not part of the Captain investor programme. So
 | 1   | Inference autoscaling      | 137A    | Q3 2026 | HPA + KEDA policies for Aegis agents. Scale 0→N in <30s based on inference queue depth. Defence bursty workloads (crisis response, satellite passes). |
 | 2   | Multi-model GPU sharing    | 137B    | Q3 2026 | MIG on L40S nodes — multiple agents per GPU with isolated VRAM. Target: per-customer GPU cost <€200/mo (from €376/mo).                                |
 | 3   | Model versioning CRDs      | 137C    | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback <60s. Article 12 audit continuity on model changes.                        |
-| 4   | Edge-cloud inference split | 137D    | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints.                |
+| 4   | Edge-cloud inference split | 137D    | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints. **Reference sovereign backhaul: IRIS² secure connectivity** — the EU-owned transport leg between field/classified edge and the Helsinki sovereign cloud, avoiding commercial hyperscaler transit (see `docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md`, path B). |

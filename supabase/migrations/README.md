@@ -1,6 +1,20 @@
 # Supabase Migrations — DWS6
 
-> VERSION: 1.2 | Date: 2026-07-07 | Owner: Marcus (Systems Architect)
+> VERSION: 1.3 | Date: 2026-07-22 | Owner: Marcus (Systems Architect)
+>
+> v1.3 changes: added `079_kya_verified_done_attestation.sql` — the KYA §14.7
+> verified-done attestation store (`kya_verified_done_attestations`, append-only
+> for authenticated/PUBLIC, service_role-only proof_status transitions) plus a
+> `mandate.attest` event type extending the live 074 evidence chain. APPLIED to
+> production 2026-07-22 via Supabase MCP `apply_migration` (recorded as
+> `kya_verified_done_attestation`) on founder instruction; verified — event_type
+> CHECK now carries all 5 values, table has RLS + 3 policies + 17 cols, DELETE
+> denied to every role incl. service_role, grant footprint identical to the
+> live 074/071 append-only tables, 0 new security advisories. Also corrects the
+> record:
+> `074_kya_mandate_evidence_chain.sql` is now CONFIRMED LIVE in production
+> (dws6, eu-west-1, Postgres 17.6.1 — both tables present, 0 rows) as verified
+> 2026-07-22, superseding the v1.2 "authored only, not applied" note below.
 >
 > v1.2 changes: added `074_kya_mandate_evidence_chain.sql` — the KYA §14.5
 > evidence chain backing `evaluateMandateGate()` (`kya_mandate_events`,

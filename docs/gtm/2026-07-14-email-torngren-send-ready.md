@@ -30,7 +30,7 @@ Related Documents:
 ## Send guidance
 
 - **Reply to David Broman's original thread**, keeping **David** and **Martin** on it (To: Martin; CC: David). If the original thread isn't to hand, a fresh mail to Martin, CC David, with subject below, also works — the v4 note flagged the thread wasn't found in the connected mailbox.
-- **From:** Lifetime Oy outreach identity → `risto.paarni2024@lifetime.fi`, short signature.
+- **From:** Lifetime Oy outreach identity → `risto.paarni@lifetime.fi`, short signature.
 - **Attach** the 10-page overview PDF: `docs/gtm/2026-07-14-torngren-tecosa-memo.pdf` (rendered from `…-memo.html`; the `…-memo.md` is the longer internal working draft). Törngren-facing, research-collaboration register, centred on the safety-performance trade-off overlap + Aegis testbed. NOT the LUT doctoral plan (Smolander-facing) and NOT the one-pager (`TECOSA_TORNGREN_CALL_PREP.md`, internal call-prep). Confirm the system facts (agent/workflow counts, MicroVM benchmark) and the SAFECOMP references before sending.
 
 ## Send-ready email
@@ -52,4 +52,4 @@ Risto
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010

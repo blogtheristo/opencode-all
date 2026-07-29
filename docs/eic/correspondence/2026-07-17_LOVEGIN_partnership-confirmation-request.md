@@ -19,7 +19,7 @@
 
 > **Correction note (2026-07-18):** the "Aug 4" deadline in the sent letters below reflected the earlier monthly-batch assumption. The real call is **continuous**, with a single deadline **17.12.2026 17:00 Brussels** (`HORIZON-EIC-2026-ACCELERATOR-01`, Lump Sum Grant). The sent letter bodies are preserved verbatim per §24 Correspondence Preservation — **no re-send is needed** (the partnership ask stands; the date was non-binding on Cubet). Forward-looking follow-up items below use the corrected deadline.
 
-**From:** Risto Anton Päärni (risto.paarni2024@lifetime.fi)
+**From:** Risto Anton Päärni (risto.paarni@lifetime.fi)
 **To:** lovegin@cubettech.com (John Lovegin, CEO, Cubet Techno Labs)
 **Subject:** EIC Accelerator application — Cubet partnership confirmation
 **Sent:** 2026-07-17
@@ -41,7 +41,7 @@ Happy to adjust the wording if needed. The deadline is Aug 4, so earlier is bett
 Thanks,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 
@@ -82,7 +82,7 @@ If that scope works for you, the short confirmation you mentioned is all we need
 Warm regards,
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ## Follow-up tracking
 

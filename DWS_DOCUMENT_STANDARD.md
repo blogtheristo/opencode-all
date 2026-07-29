@@ -1,13 +1,14 @@
 # DWS Document Standard
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.12
+Version: 2.13
 
 Sessions & Modifications:
 
+- Version: 2.13 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Merged origin/main (v2.12). Added §25 (Universal Document Footer — mandatory: version · date · © Lifetime Oy all-rights-reserved · Business Confidentiality clause at the bottom of every document; footer version lockstep with the §2 header) and §26 (Repository-First, Then Export — anti-drift: an export with no repository source-of-truth is a drift incident; repo .md, plus .csv for financial models, is the master; §26.4 requires cloud export TITLES to lead with the version number for Drive manageability). Authored as §23/§24 on this branch pre-merge; renumbered to §25/§26 because main already holds §22 (Multimodal), §23 (Whitepaper), §24 (Correspondence Preservation). Internal cross-references repointed to main's §23 Whitepaper. No content lost from either side; ToC updated.
 - Version: 2.12 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Merged origin/main (v2.11) into this branch. Both sides had independently claimed §23 after diverging from §22 (Multimodal Document Assets): main renumbered the Whitepaper Standard to §23 (main v2.7), while this branch had added Correspondence Preservation as §23. Resolved by keeping main's §22 (Multimodal Document Assets) and §23 (Whitepaper Standard) intact and renumbering this branch's Correspondence Preservation section (and its subsections) to §24. No content lost from either side; ToC updated to 22 Multimodal / 23 Whitepaper / 24 Correspondence Preservation.
 - Version: 2.6 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Added Correspondence Preservation (renumbered to §24 in the v2.12 merge) — codifies "always save letters": every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy must be saved to the repo as a dated markdown file (AS SENT, with From/To/Subject/date, VERSION AND AGENT HISTORY status, and a follow-up tracker) under a context-scoped `correspondence/` path. Sender identity + phone must match the CLAUDE.md Sender Identity Rule. Triggered by the EIC/Cubet partnership-confirmation email to John Lovegin (saved to `docs/eic/correspondence/`). Added to the ToC.
 - Version: 2.11
@@ -84,6 +85,8 @@ Document Status:
 22. [Multimodal Document Assets](#22-multimodal-document-assets) ⭐ NEW
 23. [Whitepaper Standard](#23-whitepaper-standard) ⭐ NEW
 24. [Correspondence Preservation](#24-correspondence-preservation) ⭐ NEW
+25. [Universal Document Footer (mandatory)](#25-universal-document-footer-mandatory) ⭐ NEW
+26. [Repository-First, Then Export (anti-drift)](#26-repository-first-then-export-anti-drift) ⭐ NEW
 
 ---
 
@@ -2751,8 +2754,6 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 - Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
 - Versioning is lockstep with the header block (§2) and the top version line (§23.1) — bump both together.
 
----
-
 ## 24. Correspondence Preservation
 
 Every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy — partner, investor, customer, legal, regulatory, academic — **must be saved to the repo as a dated markdown file**. The sent artifact is institutional memory; a message living only in a mail client or chat scrollback is a lost artifact (Rule 12 — fail loud).
@@ -2776,10 +2777,71 @@ Every outbound letter/email/intro note/formal message sent on behalf of Lifetime
 
 ### 24.4 Sender identity
 
-- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales outreach -> `risto.paarni2024@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**.
+- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales/partner outreach -> `risto.paarni@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**. **Never** use `risto.paarni2024@lifetime.fi` in a saved correspondence file or any outbound document — it is a Google login name (internal account credential), not a public contact.
 
 ### 24.5 Governance
 
 - `/truth-check` external claims before send; apply the Brand Standard for voice.
 - **Never** save secrets, credentials, or live tokens in a letter file (Non-Negotiable Rule 1).
 - Enforcement: an important message that was sent but not saved is an institutional-memory loss — treat as a Rule 12 violation.
+
+## 25. Universal Document Footer (mandatory)
+
+Every document produced in this repository — internal or external, narrative or tabular — **must** carry a footer block at the **bottom** of the document containing four elements:
+
+1. **Document version** — equal to the §2 header version (lockstep; never a different number).
+2. **Date** — the content date (DD.MM.YYYY). If the file is a repository copy of an externally-authored/exported artifact, also note the repo-copy date.
+3. **Copyright** — `© <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.`
+4. **Business Confidentiality clause** — unless the document is explicitly classified **Public** (see §23.2).
+
+### 25.1 Canonical footer block
+
+```
+***
+
+**Document version:** vX.Y · **Date:** DD.MM.YYYY · **Owner:** Lifetime Oy
+© <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
+```
+
+### 25.2 Rules
+
+- **Version lockstep.** The footer version must always equal the header (§2) version. Bump both in the same edit — a mismatch is a Rule 12 (fail-loud) violation.
+- **Public documents** replace the confidentiality clause with a short public-license/attribution line, but still carry version, date, and copyright.
+- **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
+- **Whitepapers (§23.1)** carry the per-page printed footer defined there; §25 is the Markdown-source equivalent and both must agree on classification.
+- **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
+
+## 26. Repository-First, Then Export (anti-drift)
+
+A Google Doc, Drive file, PDF, Gamma deck, `.docx`, or `.xlsx` that has **no repository source-of-truth file** is a data-drift incident, not a deliverable. Exports are generated copies; the repository `.md` (or `.csv` for tabular models) is the master.
+
+### 26.1 Order of operations (required)
+
+1. **Author the repository file first** — Markdown per §2 header + §25 footer, versioned normally.
+2. **Then export** — generate the Google Doc / PDF / `.docx` / Gamma from that source.
+3. **Cross-link** — the repo file names its export target(s); the export cites the repo path + version it was generated from.
+4. **On correction** — edit the repo file, bump the version, re-export. Never edit only the export. (Cloud connectors without update-in-place: follow §20.7 and link every superseded export for manual cleanup.)
+
+### 26.2 File formats — when Markdown alone is not enough
+
+- **Narrative docs** (letters, memos, strategies, one-pagers, briefs): Markdown `.md` is the canonical master. Sufficient on its own.
+- **Financial models / spreadsheets** (budget, revenue scenarios, cap table): the live model is a spreadsheet. Keep **both** a Markdown `.md` (human-readable board narrative, git-diffable, §25 footer) **and** a `.csv` export of the underlying numbers in the repo, so the figures are version-controlled and diffable independently of the Google Sheet. The `.xlsx`/Google Sheet is the working tool; the repo `.md` + `.csv` is the source-of-truth of record.
+- **Rendered/branded outputs** (`.docx`, PDF, HTML) are build artifacts — generated from the `.md` source via the documented pipeline (§8, §23.2), not hand-maintained.
+
+### 26.3 Enforcement
+
+- Before sharing any export externally, confirm the repository copy exists and its version matches. If it does not, create it first — the export does not ship until the repo master exists.
+- Registration of canonical financial/positioning figures still flows through `DWS_TRUTH_STANDARD.md` (source-of-truth registry).
+
+### 26.4 Export naming — version number FIRST (Drive/cloud)
+
+Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead their title with the version number**, so the human-in-command (HIC) can sort, group, and grab the current version at a glance in Drive's grid view — where trailing versions all truncate to the same "DWS IQ — Investor O…" and become unusable.
+
+**Format:** `V<major>.<minor> — <Document Title>[ (recipient / context)]`
+**Example:** `V1.3 — DWS IQ Investor One-Pager (Richard Würl · Redstone VC)`
+
+- **Repository files keep normal DWS naming (§4)** — the version lives in the header/footer block, not the filename. Version-first naming is an **export convention only**, for Drive manageability. (Repo master → normal name; cloud export → version-first title.)
+- The leading version must equal the repo master's current version; bump it on every re-export.
+- If a document will exceed 9 minor versions, **zero-pad the minor** (`V1.03`) so lexical sort stays correct. Same idea as the whitepaper pipeline's zero-padded `NN_` prefix (§23.2).
+- When the connector cannot rename/update-in-place (e.g. Google Drive), a re-export makes a new file — **link every superseded file for manual deletion (§20.7)** so stale versions don't accumulate.

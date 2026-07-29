@@ -56,7 +56,7 @@ function takeVal(flag) {
 // Canonical mirrors and registry docs hold the phrases as DATA — never scan them.
 const EXCLUDE_RE = /(^|\/)(node_modules|\.git|backups|dist|\.next|coverage)\//;
 const EXCLUDE_FILE_RE =
-  /(\/config\/[^/]+\.json$|DWS_TRUTH_STANDARD\.md$|INDUSTRIES\.md$|16-INDUSTRIES\.md$|STORE_PROFILE_DESCRIPTION\.md$|2026-07-05-groq-ross-dominant-game-recipe\.md$|_OLD\.|\.min\.)/;
+  /(\/config\/[^/]+\.json$|DWS_TRUTH_STANDARD\.md$|CLAUDE\.md$|INDUSTRIES\.md$|16-INDUSTRIES\.md$|STORE_PROFILE_DESCRIPTION\.md$|2026-07-05-groq-ross-dominant-game-recipe\.md$|_OLD\.|\.min\.)/;
 const SCAN_EXT = new Set(['.md', '.html', '.htm', '.txt']);
 
 // ---- 1. Load ruleset from structured mirrors -----------------------------

@@ -11,13 +11,18 @@ Every email, letter, intro note, signature block, "From:" line, author field, or
 - **Company:** Lifetime Oy
 - **Phone (always include in signatures):** +358 400 319 010
 
-**Email — three addresses, three contexts (do not mix):**
+**Email — four addresses by context (do not mix):**
 
-| Context                                                       | Email                          |
-| ------------------------------------------------------------- | ------------------------------ |
-| Sales outreach as Lifetime Oy (cold/warm prospects, partners) | `risto.paarni2024@lifetime.fi` |
-| DWS IQ product email (From + Reply-To on platform-sent mail)  | `risto@onelifetime.world`      |
-| Legal / contract / invoice / statutory                        | `risto.paarni@lifetime.fi`     |
+| Context                                                                    | Email                          |
+| -------------------------------------------------------------------------- | ------------------------------ |
+| Live partner / investor / sales threads (the Workspace account that sends) | `risto.paarni2024@lifetime.fi` |
+| Cold / first-touch outreach & the canonical public contact address         | `risto.paarni@lifetime.fi`     |
+| DWS IQ product email (From + Reply-To on platform-sent mail)               | `risto@onelifetime.world`      |
+| Legal / contract / invoice / statutory                                     | `risto.paarni@lifetime.fi`     |
+
+**`risto.paarni2024@lifetime.fi` is a legitimate outbound address** _(HIC decision, 2026-07-26)_. It is the Google Workspace account that live partner, investor, and sales threads actually run on and send from, so it is a valid `From:` / `Reply-To:` and signature contact **when continuing a thread already on that address**. It is also the Google Workspace login for internal systems (Google Cloud / Drive / Supabase / GCP billing IAM, internal alert & report inboxes). `risto.paarni@lifetime.fi` remains the canonical public contact and the legal/statutory address; it receives all `@lifetime.fi` mail via the Proton catch-all, but to **originate** mail it must be a verified Gmail "Send mail as" alias — if it is not verified, send from `risto.paarni2024@lifetime.fi` instead. DWS IQ product mail uses `risto@onelifetime.world`. Never use a `noreply@` sender (Non-Negotiable Rule 3).
+
+_(Superseded rule, kept for the record per Rule 12: `risto.paarni2024@` was previously banned from all outbound / `From:` / signature use. That prohibition was **reversed on 2026-07-26** after a Google Workspace check confirmed it is the address current outbound actually originates from — `risto.paarni@` had no send in the prior year. Held PRs #1698 and #1664, flagged under the old rule, are compliant under this one.)_
 
 The substring `paarni` (no umlauts) is allowed **only** inside an email address or other login/account data. Everywhere else the name carries umlauts: **Päärni**.
 
@@ -25,15 +30,15 @@ The substring `paarni` (no umlauts) is allowed **only** inside an email address 
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
+risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 **DWS IQ product sig (emails sent by the platform):**
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
 risto@onelifetime.world · +358 400 319 010
 ```
 
@@ -81,12 +86,13 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 | market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                                                                         | `DWS_MARKET_RESEARCH_STANDARD.md`                                      |
 | site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                                                                          | `SITE_QUALITY_STANDARDS.md`                                            |
 | adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                                                                                    | `docs/DWS_SKILLS_GUIDE.md`                                             |
-| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                                                                                      | `docs/BLOG_STANDARD.md`                                                |
+| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ — **always run `/blog-draft`; HIC approval before publishing is Non-Negotiable Rule 13**                             | `docs/BLOG_STANDARD.md` (§3.3 draft gate)                              |
 | BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                                                                            | `AI_AGENT_GUIDELINES.md`                                               |
 | agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                                                                        | `AGENTS.md`                                                            |
 | asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                                                                            | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
 | sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                                                                                    | `DWS_ROLES_REGISTRY.md`                                                |
 | "which standard governs X?" / index lookup / standards catalogue                                                                                                                                       | `DWS_STANDARDS_LIBRARY.md`                                             |
+| ending a substantive session; new idea / concept / theory / code / whitepaper / artifact / signal to capture; field note; `Learn/` HTML; keeping the HIC informed; EU AI Act Article 14 human oversight | `DWS_LEARNING_STANDARD.md`                                             |
 
 **Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
 
@@ -108,6 +114,7 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
 11. **`gcloud` is a CMD-based tool, not PowerShell.** All `gcloud` examples MUST use CMD syntax — single-line OR caret (`^`) continuation, never backtick (`` ` ``). PowerShell-first (Rule 10) still applies for `.ps1` scripts and other Windows commands; the CMD rule is specific to `gcloud`. When a flow mixes `.ps1` and `gcloud`, invoke the `.ps1` via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD rather than switching shells mid-flow. See `/gcr-skill`.
 12. **Never lose document formulation data.** When rewriting or updating documents, preserve all eloquent formulations, philosophical passages, quotes, mottos, and cultural wisdom from earlier versions. A rewrite that strips these is destructive data loss. See `DWS_DOCUMENT_STANDARD.md` §21.
+13. **Never publish a blog post the HIC has not read and approved.** ABSOLUTE. Every blog entry — any language, any site, any length, including translations, LSJ issues, and cron-drafted posts — requires a draft at `docs/blog-drafts/<slug>.md` whose full text was shown to the HIC **in one fenced code block**, and which reads `Status: APPROVED` before anything is published. Use `/blog-draft`. Show the text, then **stop and ask in that turn** — never draft and publish in one move. `Status: APPROVED` is flipped only on an explicit approval **about that post**; a general "go ahead", silence, or approval of something else is not approval. Enforced by `.claude/hooks/blog-draft-gate.sh`, but the rule binds whether or not the hook is armed — a bypass (generator, cron, fresh clone, unloaded hook) is not permission. Rules: `docs/BLOG_STANDARD.md` §3.3. This also produces the Article 50(4) editorial-responsibility record (`DWS_TRUTH_STANDARD.md` §2G).
 
 ## Source-of-Truth Rules
 
@@ -134,6 +141,13 @@ For these sites, root folder is source; landing-pages mirror must be synced in t
 ### Markdown Delimiter Rule
 
 - In markdown docs, the `VERSION AND AGENT HISTORY` block uses `***` delimiters (never `---`) for Pandoc compatibility.
+
+### Supabase Table Grants
+
+- Every `CREATE TABLE` in the `public` schema must be followed by an explicit `GRANT` to `service_role` and `authenticated`, plus `ENABLE ROW LEVEL SECURITY`.
+- RLS alone stopped being sufficient on 2026-05-30 (new Supabase projects) and is enforced on all existing projects on 2026-10-30. Without a table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` even when RLS would allow the row.
+- Copy the standard block from `Firehorse/supabase-schema-templates.sql` (top of file). Anon is opt-in per table — only grant `anon` where an RLS policy explicitly targets it.
+- Backfill of record: `supabase/migrations/075_public_schema_grants.sql` (also sets `alter default privileges` so a forgotten inline block does not silently break the Data API).
 
 ## Thesis Rule (All 4 Files Together)
 
@@ -244,6 +258,20 @@ No one-off judgment work. If the user asks for something that will need to happe
 **Skill shape:** Skill files are parameterized procedures, not domain scripts. A skill describes the process; the invocation supplies the world (TARGET, KIND, DATASET, ROLE). Four near-identical skills with different filenames is a smell — collapse them into one skill with arguments.
 
 **Learning loop:** Run `/learn SCOPE=last-week` after `/retro` (or at the end of a feature). It reads retros, commit churn, and hook audit logs, diarizes the mediocre outcomes ("OK but not great"), and emits a read-only edit plan in `docs/learning-loops/`. A human applies approved edits in a follow-up commit titled `learn: <scope> rule updates`. Skills get better; the harness stays thin.
+
+## Session Learning Outcome Rule (HIC — EU AI Act Art. 14)
+
+**Keeping the HIC informed is a primary deliverable of every substantive session, not an afterthought.** New ideas, concepts, theories, code, whitepapers, and artifacts are welcome to build DWS further — but an artifact only a machine session ever saw dies in ephemeral container memory and no Human-In-Command (HIC) ever understood or authorized it. Canonical: `DWS_LEARNING_STANDARD.md`; stated as a canonical fact in `DWS_TRUTH_STANDARD.md` §2F + row 30. **Legal basis: EU AI Act Article 14 (human oversight)** — HIC = Human-In-Command is the DWS implementation.
+
+Before ending a **substantive** session (new idea/code/artifact/signal/incident — see the standard's gate; trivial typo/dep/lookup sessions are exempt), produce the **HIC Learning Outcome — five-step minimum:**
+
+1. **Update the knowledge base** (`kb/`, via `/kb`).
+2. **Write a field note** (`docs/field-notes/YYYY-MM-DD-topic.md`).
+3. **Add an HTML version into `Learn/`** (`scripts/render-doc.sh`; Document Standard §18).
+4. **Export a copy to Drive** (repo stays source-of-truth — export without a repo source is a drift incident, §2E).
+5. **Ask the HIC one real, decision-shaped question** — the Article 14 intervention point.
+
+A skipped step must be recorded as `N/A — <reason>` in the field note (silent omission violates Rule 12, Fail Loud).
 
 ## Development Baseline
 

@@ -18,6 +18,7 @@
 | `log-commands.sh`         | PreToolUse   | Bash                   | Audit every Bash command with timestamp + branch                                                                                                                                 |
 | `sql-safety-guard.sh`     | PreToolUse   | Bash                   | 7 SQL rules: RLS, transactions, DROP approval, Aiven immutability                                                                                                                |
 | `protect-files.sh`        | PreToolUse   | Edit, Write            | Block .env, .key, .pem, credentials, migrations, .md in public folders                                                                                                           |
+| `blog-draft-gate.sh`      | PreToolUse   | Edit, Write            | Blocks hand-authored writes to `*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists and is `Status: APPROVED` — the HIC reads blog text before it ships (`/blog-draft`)   |
 | prettier (inline)         | PostToolUse  | Write, Edit            | Auto-format with prettier                                                                                                                                                        |
 | eslint (inline)           | PostToolUse  | Write, Edit            | Auto-fix with eslint                                                                                                                                                             |
 | `session-stop.sh`         | Stop         | all                    | Governance checklist (dual folder sync, thesis, uncommitted changes)                                                                                                             |
@@ -36,6 +37,7 @@ The 12 Engineering Discipline Rules (canonical: `CLAUDE.md`) are surfaced to eve
 | 10 Checkpoint each step       | `session-stop.sh` governance checklist (dual-folder sync, thesis, uncommitted) |
 | 11 Match conventions          | `validate-branch-name.py`; prettier + eslint PostToolUse auto-format           |
 | 12 Fail loud                  | All PreToolUse guards block (exit 2) with stderr — never silent-pass           |
+| (HIC oversight / Art. 14+50)  | `blog-draft-gate.sh` — no blog post publishes without a reviewable, approved draft |
 | (secrets / security baseline) | `secret-scan.sh`, `sql-safety-guard.sh`, `pretooluse-guard.sh`                 |
 
 Rules 1, 2, 4, 5, 7, 8, 9 are judgment-level — enforced by the session-start injection and review (`/review`, `/simplify`), not by a blocking hook.

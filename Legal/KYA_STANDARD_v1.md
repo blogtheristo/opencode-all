@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9.1
+Version: 1.11
 
 Sessions & Modifications:
 
+- Version: 1.11 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7.1 Signing & Key Custody (v2.0 target design), per Boardy review — fixes the signing model v2.0 implements without yet implementing it: Ed25519 (EdDSA) hardware-backed keys (EUDI Wallet / EU eID convergence; compact for A2A + Article 12 payloads), JWS-enveloped VC first with Data-Integrity only on counterparty demand; `did:web` DNS-rooted issuer identity (no ledger, resolvable institutional anchoring for auditors); key custody by tier (Aegis Defence on-prem DGX Spark holds everything; Standard/Sovereign in UpCloud UKS HSM with admin-gated rotation; never a shared/foreign cloud KMS); one issuer key per tenant at v2.0, root-CA → per-agent delegation deferred to v2.1; tenant-controlled rotation with no DWS escrow (DWS holds only the root CA, counter-signing tenant DID-doc updates for cross-tenant verification continuity). Also: migration 079 APPLIED + verified live in production this session. Invariant restated: the private signing key never leaves the tenant's jurisdiction.
+- Version: 1.10 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7 Verified-Done Attestation — the terminal link of the §14.4 trust chain (verified human → signed manifest → signed mandate → verified-done attestation): once a mandate executes, KYA issues a W3C Verifiable Credential attesting completion under governance, so a counterparty can check the outcome instead of trusting it blind. Deny-by-default and HIC binding carry through (no attestation for a denied/anonymous mandate); issuance is a `mandate.attest` event on the §14.5 evidence chain plus a stored credential; revocation is a status transition, not a deletion. Schema landed toward the v2.0 freeze: TS interfaces (`VerifiedDoneAttestation`/`AttestationInput`, `src/identity/types.ts`) + stub issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, 6 tests in `src/__tests__/verified-done-attestation.test.ts`) + storage (`supabase/migrations/079_kya_verified_done_attestation.sql` — `kya_verified_done_attestations` + `mandate.attest` event type extending the live 074 chain). Signing (Ed25519 / Data Integrity) deferred to the v2.0 key-management decision; credentials mint unsigned. Migration 074 (§14.5 evidence chain) confirmed live in production (dws6, eu-west-1) this session.
 - Version: 1.9.1 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: (1) Schema-stability notes added to §14.2.1 and §14.3 per Boardy review — the JSON blocks are illustrative until KYA v2.0; buyer materials quote policy semantics, not field names; the executable Zod validator is the normative shape. (2) §14.2 enforcement point is now REAL CODE: `evaluateMandateGate()` + `tenantGatingProfileSchema` implemented in `src/identity/ats-engine.ts` (deny-by-default, HIC binding required, immovable floors, tighten-only tenant profiles, ceiling/scope violations flagged for §9.2 enforcement), 21 passing tests in `src/__tests__/mandate-gate.test.ts`. Patch version (not 2.0): v2.0 is reserved for the schema freeze after the Supabase mandate-events migration and one end-to-end tenant profile exercise.
 
 - Version: 1.9 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14.2.1 Tenant Policy Profiles per Boardy review of v1.8 — ATS gating bands, ceilings, and HNP availability are per-tenant configurable under a tighten-only rule with two immovable platform floors (no mandates below ATS 0.50; HNP minimum band 0.90 raisable, never lowerable). Industry default profiles across the 25-industry platform; Aegis tier (21-industry defence scope) defaults to HNP disabled + human-signed Payment Mandates regardless of ATS. Profile changes are HIC-signed policy events on the §14.5 evidence chain, non-retroactive for live sessions. Corrected Boardy's "21 industries" framing to platform 25 / Aegis 21 per DWS_TRUTH_STANDARD row 1.
@@ -25,7 +27,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 09.03.2026
-- Last Modified: 06.07.2026
+- Last Modified: 22.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -49,6 +51,9 @@ Related Documents:
 - docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md (Agent-infrastructure scorecard that motivated §14)
 - google-agentic-commerce/AP2 v0.2, FIDO Alliance (external — Agent Payments Protocol, W3C Verifiable Credential mandates)
 - DWS_ARTICLE_12_LOGGING_STANDARD.md (EU AI Act Article 12 record-keeping — evidence chain for §14.5)
+- supabase/migrations/074_kya_mandate_evidence_chain.sql (§14.5 evidence chain — kya_mandate_events, kya_tenant_gating_profiles; live in production)
+- supabase/migrations/079_kya_verified_done_attestation.sql (§14.7 verified-done attestation — kya_verified_done_attestations + mandate.attest event type)
+- src/identity/types.ts (VerifiedDoneAttestation / AttestationInput — normative credential shapes, §14.7)
 
 ---
 
@@ -1002,7 +1007,7 @@ Following the nanochat methodology, DWS IQ can deploy optimization agents to tun
 
 ---
 
-## 14. Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — v1.8
+## 14. Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — v1.11
 
 KYA v1.7 and earlier governed what an agent may **do**; it said nothing about what an agent may **spend**. That gap closed externally in H1 2026: the payment industry shipped the wire formats for agent transactions, and none of them decide whether a given agent should be trusted to transact. KYA supplies that decision. This section is protocol-neutral by design — KYA gates mandates on all three rails.
 
@@ -1097,6 +1102,59 @@ AP2's Verifiable Intent log (tamper-proof record of user-authorized agent action
 - AP2 governance now sits at the **FIDO Alliance**; KYA tracks FIDO releases and adopts mandate-format changes from there, not from any single vendor.
 - Stripe sits in both the ACP and UCP camps — protocol consolidation is likely; KYA remains rail-agnostic and re-maps §14.2 privileges onto whichever mandate vocabulary survives.
 - Review trigger: any AP2/UCP/ACP change to mandate types, HNP semantics, or VC format reopens this section.
+
+### 14.7 Verified-Done Attestation (v1.10)
+
+§14.4 makes the agent's manifest portable _before_ it transacts; §14.5 logs every mandate event to one evidence chain. §14.7 closes the loop on the far side: once a mandate has executed, KYA issues a **Verified-Done Attestation** — a W3C Verifiable Credential attesting that _this_ mandate completed under KYA governance, at a stated ATS, gated by a recorded decision, and written to the Article 12 evidence chain. It is the **terminal link of the §14.4 trust chain**: verified human → signed manifest → signed mandate → **verified-done attestation**. A counterparty (merchant, escrow, insurer, auditor) can then check that the agent did what it was authorized to do, instead of trusting the claim blind — the portable proof of completion, not just of authorization.
+
+Two rules carry through from the gate, unchanged:
+
+1. **Deny-by-default holds.** A mandate the gate did **not** allow cannot be attested done — there is no "verified-done" for a denied or violating mandate.
+2. **No anonymous attestation.** The HIC binding of §14.3 is required on the credential subject; an attestation without an accountable verified human is refused.
+
+Issuing an attestation is itself a mandate lifecycle event: it is recorded as a **`mandate.attest`** event on the §14.5 evidence chain (hash-chained, keyed `session_id` + mandate VC id) **and** stored as the issued credential for later presentation or revocation. Revocation is a status transition on the credential (`unsigned → signed → revoked`), never a deletion — the evidence chain is append-only.
+
+**Signing is deferred to v2.0.** The credential is minted **unsigned** (`proofStatus: 'unsigned'`, no `proof` block). Cryptographic signing (Ed25519 / Data Integrity Proof) waits on the KYA v2.0 key-management decision — which DID method, and where the issuer key lives. Issuance time and issuer reference are caller-supplied, so the credential is deterministic and KYA holds no clock or key authority over a portable artifact.
+
+```json
+{
+  "@context": ["https://www.w3.org/ns/credentials/v2", "https://standards.dws.eu/kya/v1"],
+  "type": ["VerifiableCredential", "KYAVerifiedDoneCredential"],
+  "issuer": "<issuer-did-or-ref>",
+  "validFrom": "<iso-8601>",
+  "credentialSubject": {
+    "id": "urn:kya:mandate:<mandate_vc_id>",
+    "hic": "<verified-human-identity-ref>",
+    "protocol": "ap2",
+    "mandateType": "payment",
+    "atsAtExecution": 0.95,
+    "kyaVerified": true,
+    "article12TraceId": "<trace-id>"
+  }
+}
+```
+
+> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — quote the commitments (portable proof-of-completion, deny-by-default and HIC binding carried through, revocation-not-deletion), not the field names, which may track AP2's VC vocabulary as FIDO moves it toward 1.0. The normative shapes are the `VerifiedDoneAttestation` / `AttestationInput` interfaces (`src/identity/types.ts`) and the issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, tests in `src/__tests__/verified-done-attestation.test.ts`); the storage shape is `kya_verified_done_attestations` + the `mandate.attest` event type (`supabase/migrations/079_kya_verified_done_attestation.sql`).
+
+### 14.7.1 Signing & Key Custody (v2.0 target design)
+
+§14.7 mints attestations **unsigned** today. This subsection fixes the signing and key-custody model **v2.0 implements**, chosen so a credential never asks a counterparty to trust infrastructure outside the tenant's jurisdiction — the invariant the whole standard rests on: **the private signing key never leaves the tenant's jurisdiction; DWS holds only the root CA for cross-tenant verification.**
+
+**Signature suite — Ed25519 (EdDSA), hardware-backed.** The issuer key lives in a hardware key store and never leaves it. Ed25519 is where the EUDI Wallet and EU member-state eID schemes are converging; it keeps the proof compact for agent-to-agent payloads and for every Article 12 log entry, and it avoids RSA's size overhead at logging scale. First securing format is a JWS-enveloped VC (EdDSA); a Data Integrity proof (`eddsa-rdfc-2022`) is added only if an AP2/FIDO counterparty requires it (no RDF canonicalization on spec).
+
+**Issuer identity — `did:web`, DNS-rooted.** Each issuer is a `did:web` resolved from a `.well-known` endpoint on a domain the issuer controls — DNS-rooted authority with no public ledger or external registry, so resolution stays inside the sovereignty boundary. This gives an auditor or regulator a resolvable, institutionally-anchored answer to "who issued this," which `did:key` cannot.
+
+**Key custody by deployment tier** — signing authority never leaves the tenant's jurisdiction:
+
+| Tier                               | Issuer key custody                                                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Aegis Defence (on-prem DGX Spark)  | Tenant physically holds all key material on-prem; DWS holds nothing.                                                    |
+| Standard / Sovereign (UpCloud UKS) | Key in the tenant's UpCloud UKS HSM; the HSM enforces that only the tenant's authenticated admin can rotate.            |
+| Never                              | A shared/foreign cloud KMS — that moves signing authority outside jurisdiction and voids the KYA sovereignty guarantee. |
+
+**Key hierarchy — one issuer key per tenant at v2.0; per-agent delegation at v2.1.** v2.0 ships a single issuer key per tenant (simplest to operate, enough to prove the attestation flow in production). v2.1 adds a root-CA → per-agent signing-key hierarchy for granular revocation if a single agent is compromised — deferred until the flow is proven, to keep v2.0 key management simple.
+
+**Rotation — tenant-controlled, no escrow moment.** When a key expires, the tenant's admin generates a new key pair and publishes the updated DID document to their `.well-known` endpoint. DWS never holds the tenant's private key, so there is no handoff or escrow. The **DWS root CA counter-signs the tenant's DID-document update** to preserve cross-tenant verification continuity, but the rotation itself is fully tenant-controlled. A tenant that loses its key material has an operational-recovery problem on its side — not a sovereignty gap, and not a DWS escrow obligation. On the UpCloud UKS tier the HSM enforces that only the authenticated tenant admin can trigger rotation; on the Aegis Defence on-prem tier the tenant physically holds everything.
 
 ---
 

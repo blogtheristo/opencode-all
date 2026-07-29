@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
 
+- Version: 2.7 | Tool: Claude Code (claude-opus-5) | Session: claude/ollama-orchestration-merge-047pj7 | Date: 27.07.2026 | Changes: **Made HIC review of blog text an absolute requirement (§3.3, new).** The HIC had asked many times to review blog entries as a copy-paste block before publication and it kept not happening — sessions published with nothing shown, drafted posts that were never published, or surfaced an audit summary instead of the words. Now a precondition, not a courtesy: `.claude/hooks/blog-draft-gate.sh` (PreToolUse, Edit|Write) blocks writes to `*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists and reads `Status: APPROVED`; `/blog-draft` is the loop (full text → ONE fenced code block → stop and ask → revise → explicit approval → publish); `session-stop.sh` back-stops by flagging published posts with no approved draft **and** drafts parked in `Status: DRAFT`. Escalated to **CLAUDE.md Non-Negotiable Rule 13** and mirrored to `GEMINI.md`, `.claude/hooks/session-start.sh` (surfaced every session), `/lsj-publish`, `scripts/weekly/lsj-publish-draft.sh` (cron drafts, never publishes), the hooks README and `docs/DWS_SKILLS_GUIDE.md` §6.5. Also registered §3.2.1 (mandatory AI-content label on machine-translated variants, EU AI Act Art. 50(4)) and §3.2 (multi-language convention). Limits stated rather than implied: a hook cannot verify a human read anything; generators and cron bypass it; hooks arm at session start, so the gate is inert in the session that adds it.
 - Version: 2.6 | Tool: Claude Code | Session: claude/eda-dws-iq-business-case-jm7p3g | Date: 17.07.2026 | Changes: Registered post #42 (`ai-supercomputing-meets-eda-sovereign-design.html`) — NVIDIA partner note extending the "sovereign edge is still a box" DGX Spark series (#32/#33/#34/#41) to Electronic Design Automation. Written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version): NVIDIA's "AI Supercomputing Meets EDA — from tools to agents" thesis (Timothy Costa) as the gift; the honest limit that RTL/netlists/foundry PDKs cannot leave the design perimeter (NDA + export control), so agentic EDA only ships on a customer-owned box. Companion to `docs/DGX_SPARK_4X_EDA_BUSINESS_CASE.md`. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector; reverted its unrelated re-stamp of 26 older posts' product-card copy to keep the change scoped to the new post and its prev-neighbour's (#41 Halos) nav link. Dual-folder synced to `landing-pages/onelifetime-world/`. Byline uses the correct "Risto Anton Päärni" umlaut spelling per CLAUDE.md Sender Identity (older posts carry the ASCII "Paarni" bug).
 - Version: 2.5 | Tool: Claude Code (claude-sonnet-5) | Session: claude/nvidia-halos-robotics-suqayg | Date: 10.07.2026 | Changes: Registered post #41 (`nvidia-halos-robotics-physical-ai-safety.html`) — NVIDIA partner note on Halos for Robotics (the physical-AI functional-safety system, not a new model), written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version). Companion to the regulatory-radar brief `docs/regulatory-radar/NVIDIA_HALOS_ROBOTICS_BRIEF.md` and `DWS_TRUTH_STANDARD.md` §2 row 28 (row 27 was subsequently taken by "Sovereign Industrial Intelligence Outcomes" on main). Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector; reverted its unrelated re-stamp of 26 older posts' product-card copy to keep the change scoped to the new post and its immediate prev-neighbour's nav link. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 2.4 | Tool: Claude Code (Fable 5) | Session: claude/ai-sovereignty-research-9eshgd (merge-integrated) | Date: 07.07.2026 | Changes: Merge-integrated posts #39 (`the-moats-we-hand-you.html`) and #40 (`the-moats-we-hand-you.fi.html`) — sovereignty stance post ("sovereignty vs. interdependence" across nineteen places) + FI parity, originally drafted 01.07.2026 as #35/#36. **Fixed a pre-existing corruption**: this file (and its VERSION AND AGENT HISTORY / §3 registry) contained unresolved git conflict markers committed directly to `main`, the result of an earlier unresolved three-way collision between the jetson-thor (#34), industrial-intelligence-weekly, brexit-interdependence (#35/#36), and tiedon-vanheneminen (#37) post registrations. Reconciled the true post order from the live, uncorrupted `scripts/inject-blog-nav.cjs` `posts` array: 34=`nvidia-jetson-thor-physical-ai.html`, 35=`industrial-intelligence-weekly-2026-06-28.html`, 36=`brexit-interdependence-moat-us-eu.html`, 37=`brexit-interdependence-moat-us-eu.fi.html`, 38=`tiedon-vanheneminen-sensoridata-retention.html`, 39/40=this session's posts. Companion artefact: `docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md`; PhD §14.39 / KC#46. Prior entries below retain their own point-in-time post numbers as originally written.
@@ -68,6 +69,17 @@ Document Status:
 ---
 
 ## 1. Overview
+
+> ## ⛔ Before anything else: the HIC reads the post first
+>
+> **No blog entry is published until the HIC has read its full text and approved it.** Absolute, no
+> exceptions — every language, every site, translations, LSJ issues and cron-drafted posts included.
+> Run **`/blog-draft`**: write the whole text to `docs/blog-drafts/<slug>.md`, show the HIC **one
+> fenced code block**, then **stop and ask in that turn**. Publish only after an explicit approval
+> about that post sets `Status: APPROVED`.
+>
+> **Full rules: §3.3.** Canonical: CLAUDE.md **Non-Negotiable Rule 13**. Everything below this line
+> is how to build a post that has already been approved.
 
 All blog posts for OneLifetime.World live as **HTML files** (never `.md`) in `onelifetime.world/posts/`. Each post MUST be synced to `landing-pages/onelifetime-world/posts/` in the same commit (dual-folder rule from CLAUDE.md).
 
@@ -158,6 +170,11 @@ Chronological order. Update this table when adding/removing posts.
 | 40  | `the-moats-we-hand-you.fi.html`                      | Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI parity of #39)                                | 1 Jul 2026  |
 | 41  | `nvidia-halos-robotics-physical-ai-safety.html`      | NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking. (EN, NVIDIA partner note)         | 10 Jul 2026 |
 | 42  | `ai-supercomputing-meets-eda-sovereign-design.html`  | AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building. (EN, NVIDIA partner note / DGX Spark series) | 17 Jul 2026 |
+| 43  | `ala-treenaa-base-mallia-omista-evidenssikerros.html` | Älä treenaa base-mallia, omista evidenssikerros — adoptoi avoin sovereign-komponentti, investoi omistettuun evidenssisilmukkaan; NVIDIA-supply-riski nimettynä (FI) | 26 Jul 2026 |
+| 44  | `dont-train-a-base-model-own-the-evidence-layer.html` | Don't train a base model. Own the evidence layer. (EN parity of #43 — canonical `x-default`) | 26 Jul 2026 |
+| 45  | `dont-train-a-base-model-own-the-evidence-layer.sv.html` | Träna inte basmodellen, äg evidenslagret (SV parity of #43) | 26 Jul 2026 |
+| 46  | `dont-train-a-base-model-own-the-evidence-layer.de.html` | Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht (DE parity of #43) | 26 Jul 2026 |
+| 47  | `dont-train-a-base-model-own-the-evidence-layer.fr.html` | N'entraînez pas le modèle de base, possédez la couche de preuve (FR parity of #43) | 26 Jul 2026 |
 
 ---
 
@@ -186,6 +203,156 @@ The blog index previously relied on hand-curated featured cards that drifted out
 **Do not remove the ToD hero or disable the pagination script.** Both are part of the blog standard from v1.2 onward.
 
 ---
+
+## 3.2 Multi-Language Posts (EN / FI / SV / DE / FR)
+
+A post published in more than two languages is **one editorial unit**, not N posts. Post #43–#47
+is the reference implementation.
+
+**Generation.** Never hand-write the variants. One language is the master; the others are built by
+
+```powershell
+node scripts/i18n/build-i18n-pages.cjs scripts/i18n/<target>.config.json
+```
+
+Translation is data (`scripts/i18n/<target>/<lang>-strings.json`, plus `meta.json` for the copy that
+lives in HTML attributes — `<title>`, `description`, `og:*`, `twitter:*`, `article:section`,
+`aria-label`, and the social `shareTitle`). Translators never touch markup, so they cannot break the
+page, and the builder refuses to write when a translation's string count drifts from the master.
+The builder is idempotent — re-running it is always safe.
+
+**Slugs.** The master keeps whatever URL it already shipped on (never break a live URL). The other
+languages share one English base slug, with `.sv.html` / `.de.html` / `.fr.html` suffixes — the
+existing repo convention. All variants carry reciprocal `hreflang` alternates plus `x-default` → EN,
+a per-language `canonical`, and a visible language switcher before `</body>`.
+
+**Registration — this deliberately differs from §3.1:**
+
+| Surface | What goes in |
+| --- | --- |
+| `latestPosts` (blog index) | **EN and FI only.** PAGE_SIZE is 5; listing five languages would make page 1 a single post. |
+| `scripts/inject-blog-nav.cjs` `posts` | **The master only.** |
+| §3 Post Registry above | **Every variant**, each marked `(<LANG> parity of #<master>)`. |
+
+Rationale: the prev/next chain is a reading order. A German reader should not be handed an unrelated
+English post as "next", and the chain's length must not depend on how many languages a post has. The
+translated pages inherit the master's nav block with their own URL and share title substituted in, so
+`inject-blog-nav.cjs` skips them and the two tools never fight over the same bytes. SV/DE/FR stay
+discoverable through `hreflang`, the language switcher, and the §3 registry.
+
+**Known limitation:** the variants are machine translations built to canonical regulatory terms
+(EU AI Act = *asetus* / *Verordnung* / *règlement* — a regulation, never a directive). They have not
+had native-speaker or legal review. Record that in the PR, do not imply otherwise.
+
+### 3.2.1 AI-content labelling is mandatory — EU AI Act Article 50(4)
+
+**From 2 August 2026**, AI-generated or machine-translated text published to inform the public on
+matters of public interest must be labelled. A blog post on regulation, sovereignty or compliance is
+exactly that. Canonical detail: `DWS_TRUTH_STANDARD.md` §2 row 31 / §2G.
+
+Every machine-translated page therefore ships with an `<aside class="ai-notice">` immediately after
+`</header>` — before the article body, because the reader must see it on first exposure. It is
+generated by the builder from `meta.json` (`aiNoticeLabel` / `aiNoticeBody` / `aiNoticeLink`, per
+language) and controlled by `aiNotice.langs` in the target config.
+
+**Two states, and only two:**
+
+| State | What the page carries | When |
+| --- | --- | --- |
+| **Minimum (default)** | The AI-content notice | Any page no named human has reviewed |
+| **Exemption** | No notice; a named reviewer credited on the page | Only after the review below actually happened |
+
+**Removing the label from a language is not an editorial preference — it is a legal claim.**
+
+**The regulation's own test** is that the text "did not undergo human review or editorial control
+and … editorial responsibility was not assumed by any legal or natural person." So text falls
+outside the duty only with **both**: review or editorial control, **and** an accountable person.
+
+**DWS policy is deliberately stricter than that minimum** — the statutory wording does not define
+how deep a review must be, and "someone glanced at it" is not a position worth defending. Remove a
+label only when all of the following are true, and record it in the PR:
+
+1. A **named person** read that page's text **before publication** (or before the label comes off),
+   substantively — accuracy, plausibility, sources — not a skim.
+2. That person had, and knew they had, the authority to **amend or reject** it.
+3. Their **name and contact details are publicly reachable** from the page.
+4. Only then: remove that language from `aiNotice.langs`, credit the reviewer on the page, and
+   rebuild.
+
+Steps 1–3 are DWS's own bar, not quoted regulation. Skipping them while removing the label asserts
+that the page had review and an accountable owner. Leave the label on — it costs nothing and it is
+true.
+
+**The EU Icons are optional; the label is not.** Using an icon does not establish compliance, and no
+icon asset is bundled here — the Commission's site blocks automated download, and a hand-drawn
+lookalike would misrepresent an official mark. Two things to know if the icon is added later:
+
+- The Commission's **user testing found the icon performs better when paired with a text label**
+  than alone, so the icon complements this notice rather than replacing it.
+- There are **three icon classes** (Basic / Fully AI-Generated / Partially AI-Modified) and which
+  one fits a *machine translation* is unsettled — the source text is human-written, the target text
+  is entirely AI-produced. Decide it with the HIC; do not pick one by feel. See
+  `DWS_TRUTH_STANDARD.md` §2G.
+
+---
+
+## 3.3 The Draft Gate — the HIC reads the text before it ships (ABSOLUTE)
+
+> **CLAUDE.md Non-Negotiable Rule 13.** No blog entry is published until the HIC has read its full
+> text and approved it. **No exceptions** — any language, any site, any length; translations, LSJ
+> issues, community-authored posts, and cron-drafted posts included. There is no "small enough to
+> skip", no "they approved something similar", and no "the schedule ran it".
+
+**The rule binds even where the gate does not reach.** `.claude/hooks/blog-draft-gate.sh` catches
+hand-authored writes; generators, cron runs, other agent surfaces (`GEMINI.md`) and sessions that
+loaded `settings.json` before the hook existed are not covered by it. **A bypass is not permission.**
+`session-stop.sh` back-stops by flagging any published post lacking an approved draft — but a
+warning after the fact is not the control; the control is asking first.
+
+This is not new policy; it is old policy that kept failing. The HIC asked for blog text as a
+copy-paste block many times and it did not happen — sessions published with nothing shown, drafted
+posts that were never published, or surfaced an audit summary instead of the words. Every instance
+was an agent treating "show the draft" as something to remember. So it is now a precondition.
+
+**The mechanism.** `.claude/hooks/blog-draft-gate.sh` (PreToolUse, `Edit|Write`) blocks any write to
+`*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists **and** contains a line reading exactly
+`Status: APPROVED`. Language variants inherit their master's draft (`foo.de.html` → `foo.md`).
+Templates and `_OLD` files are exempt; index pages and configs are not gated — they are plumbing,
+not the text a reader sees.
+
+**The loop** — `/blog-draft <slug>`:
+
+1. **Draft** the complete post as plain prose into `docs/blog-drafts/<slug>.md` with `Status: DRAFT`.
+2. **Show** it to the HIC as **one fenced code block**, whole text, no preamble to scroll past
+   (Deliverable Handoff Rule) — then **stop and ask**. Not in the same turn as publishing.
+3. **Revise** at whatever grain they give, re-emitting the **full** text each round, not a diff. For
+   line-by-line work use the `/dialog` convention (`muutos;` old → new, applied on `agree`).
+4. **Approve** — only on an explicit approval **about this post**, set `Status: APPROVED` and record
+   `Reviewed-By` / `Reviewed-On`.
+5. **Publish**, then register per §3 / §3.1, sync the dual folder, and apply §3.2 / §3.2.1 for any
+   translated variants.
+
+**Hooks arm at session start.** `settings.json` is read once when a session begins, so this gate is
+inert in the session that adds it and live from the next one. Verified by direct invocation
+(all six paths: missing draft → block, `Status: DRAFT` → block, `APPROVED` → allow, language variant
+inherits the master's draft, templates and index pages exempt). **Until a fresh session picks it up,
+the discipline is unenforced** — which is precisely the condition this gate exists to end, so do not
+treat "the hook is committed" as "the hook is protecting anything yet".
+
+**What the hook does and does not do.** It guarantees a readable draft exists in the repo and in the
+diff, and makes approving a deliberate, diffable act. It **cannot verify a human read anything** —
+the asking is still the agent's job. Generators (`build-i18n-pages.cjs`, `inject-blog-nav.cjs`) write
+through Bash/node and are never seen by the hook; that is deliberate, since they render already-
+approved text, and it is also the way around the gate. Do not use a generator to dodge the draft step.
+
+**Second purpose — Article 50(4) evidence.** The draft file's `Status: APPROVED` + `Reviewed-By` is
+the artefact that evidences the *editorial responsibility* limb of the EU AI Act Article 50(4) text
+test (`DWS_TRUTH_STANDARD.md` §2G). It turns the exemption from an assertion into a record with a
+name and a date. A post with no draft file has no evidence of review — which is exactly the state
+that requires a label.
+
+**A `Status: DRAFT` file is unfinished work, not a filing.** List open drafts when asked what is
+pending and at session end; the "drafted but never published" failure is as real as the other one.
 
 ## 4. HTML Template Structure
 
