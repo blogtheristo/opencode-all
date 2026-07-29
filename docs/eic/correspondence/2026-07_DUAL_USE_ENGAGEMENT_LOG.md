@@ -90,6 +90,6 @@ This wording is deliberate and is already in `EIC_STEP1_FILL_PACKET.md` §F7b. D
 - [ ] §1 filled with the DIANA request, verbatim
 - [ ] §2 filled with the 2–3 dual-use contacts
 - [ ] Naming consent obtained, or all references kept generic
-- [ ] Export-control classification opinion requested from the MFA (see `EIC_STEP1_FILL_PACKET.md` §F6c)
+- [ ] Export-control classification opinion requested from the MFA — **normal course, no expedite** (founder decision 2026-07-29: the product is still in development, so a rushed opinion would need re-doing). **This is NOT a gate on Step 1 submission** — nothing in the application describes a controlled item. Needed for Step 2 and before first shipment.
 - [ ] "Target detection / target labeling" phrasing reworded to "industrial-facility change detection"
 - [ ] No occurrence of "NATO DIANA application" referring to the RTOY municipal grant

@@ -110,6 +110,8 @@ Declaring dual-use invites export-control scrutiny, so we address it up front.
 
 The **funded** cryptography is a mandate credential, an evidence-chain signature and a within-mandate selective-disclosure proof — i.e. **authentication and digital signature**, which carry a long-standing decontrol under Reg. (EU) 2021/821 Annex I 5A002/5D002. It is also at TRL 2–3: nothing is built, and nothing is exported.
 
+**Founder decision 2026-07-29 — no expedited handling.** The classification request goes in through normal channels, not as a rush job, on the reasoning that the product it would classify is itself still in development (Aegis GA September 2026). A rushed opinion on a moving target would need re-doing; a normal-course opinion arrives in time for Step 2 and for first shipment, which is when it is actually needed.
+
 **Sequenced actions (none blocks Step 1 submission):**
 
 - **Before shipping any release containing the SAR / orbital module:** obtain a written classification opinion from the Finnish Ministry for Foreign Affairs export-control unit. Ask it as two separate questions — (a) does software analysing *commercially procured* SAR imagery for industrial-facility change detection fall under Annex I Category 6, noting we neither build the sensor nor task the satellite; (b) does the selective-disclosure / post-quantum signature path fall under 5A002/5D002, invoking the authentication-and-digital-signature decontrol.
