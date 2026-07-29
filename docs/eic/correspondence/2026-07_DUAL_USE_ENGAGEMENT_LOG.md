@@ -25,9 +25,13 @@ A read-only audit on 2026-07-29 found that the repo contained **no record of any
 
 ---
 
-## 1. NATO DIANA — request for pitch video + deck ⚠️ TO FILL
+## 1. NATO DIANA — **NO RELATIONSHIP EXISTS** (founder-confirmed 2026-07-29)
 
-This is the **anchor artifact** for the dual-use declaration: DIANA asking for materials is evidence of live defence-side interest, which is exactly what the EIC route requires.
+**Resolved:** the earlier recollection that "DIANA asked for a pitch video and deck" was the **RTOY evaluator's feedback of 23.4.2026**, not an approach from NATO DIANA. The founder has confirmed the VTT / NATO DIANA door **has not been opened**.
+
+**Therefore: no DIANA claim of any kind may appear in the EIC application.** Not an application, not a request, not a contact. The 2027 cohort closed 3 July 2026; the plan for the 2028 cohort is `../DIANA_DOOR_OPENING_PLAN.md`.
+
+This section stays here to be filled **if and when** a real DIANA contact occurs.
 
 | Field                        | Value                                             |
 | ---------------------------- | ------------------------------------------------- |
