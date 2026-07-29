@@ -79,7 +79,7 @@ const STEMS = [
   ['hiilijalanjal', 'hiilijalanjäl'],
   ['hiilisisall', 'hiilisisäll'],
   ['hiilisisalt', 'hiilisisält'],
-  ['paastoo', 'päästöö'],
+  ['paastooikeu', 'päästöoikeu'],
   ['paasto', 'päästö'],
   ['paasyn', 'pääsyn'],
   ['paatoks', 'päätöks'],
