@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERP-tiedonsiirron selviytymisopas — Lifetime Scope Journal</title>
-    <meta name="description" content="Kuinka siirtaa data turvallisesti ERP-jarjestelmien valilla. Vaiheittainen opas datamigraatioon validoinnista tuotantoonsiirtoon.">
-    <meta name="author" content="Risto Anton">
+    <meta name="description" content="Kuinka siirtaa data turvallisesti ERP-järjestelmien välillä. Vaiheittainen opas datamigraatioon validoinnista tuotantoonsiirtoon.">
+    <meta name="author" content="Risto Anton Päärni">
     <meta property="og:title" content="ERP-tiedonsiirron selviytymisopas">
-    <meta property="og:description" content="Kuinka siirtaa data turvallisesti ERP-jarjestelmien valilla.">
+    <meta property="og:description" content="Kuinka siirtaa data turvallisesti ERP-järjestelmien välillä.">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="fi_FI">
     <meta property="og:url" content="https://onelifetime.world/posts/fi/day-015-erp-tiedonsiirto-selviytymisopas.html">
     <meta property="og:site_name" content="Lifetime Scope Journal">
     <meta property="article:published_time" content="2026-03-30">
-    <meta property="article:author" content="Risto Anton">
-    <meta property="article:section" content="ERP-siirtyma">
+    <meta property="article:author" content="Risto Anton Päärni">
+    <meta property="article:section" content="ERP-siirtymä">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ERP-tiedonsiirron selviytymisopas">
-    <meta name="twitter:description" content="Kuinka siirtaa data turvallisesti ERP-jarjestelmien valilla.">
+    <meta name="twitter:description" content="Kuinka siirtaa data turvallisesti ERP-järjestelmien välillä.">
     <link rel="alternate" hreflang="en" href="https://onelifetime.world/posts/en/day-015-erp-data-migration-survival-guide.html">
     <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/fi/day-015-erp-tiedonsiirto-selviytymisopas.html">
     <link rel="canonical" href="https://onelifetime.world/posts/fi/day-015-erp-tiedonsiirto-selviytymisopas.html">
@@ -33,7 +33,7 @@
         "@context": "https://schema.org", "@type": "Article",
         "headline": "ERP-tiedonsiirron selviytymisopas",
         "description": "Kuinka siirtaa data turvallisesti ERP-jarjestelmien valilla.",
-        "author": { "@type": "Person", "name": "Risto Anton", "url": "https://onelifetime.world" },
+        "author": { "@type": "Person", "name": "Risto Anton Päärni", "url": "https://onelifetime.world" },
         "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
         "datePublished": "2026-03-30",
         "mainEntityOfPage": "https://onelifetime.world/posts/fi/day-015-erp-tiedonsiirto-selviytymisopas.html",
@@ -62,69 +62,69 @@
     <main class="flex-1">
         <article class="max-w-3xl mx-auto px-4 py-12">
             <div class="flex items-center gap-3 mb-6">
-                <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(212, 168, 67, 0.15); color: #d4a843; border: 1px solid rgba(212, 168, 67, 0.25);">ERP-siirtyma</span>
-                <span class="text-xs text-gray-500">Paiva 15 / 800</span>
+                <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(212, 168, 67, 0.15); color: #d4a843; border: 1px solid rgba(212, 168, 67, 0.25);">ERP-siirtymä</span>
+                <span class="text-xs text-gray-500">Päivä 15 / 800</span>
             </div>
 
             <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: #e2e8f0;">ERP-tiedonsiirron selviytymisopas</h1>
 
             <div class="flex items-center gap-4 mb-8 text-sm text-gray-400">
-                <span>30. maaliskuuta 2026</span><span>&middot;</span><span>Risto Anton</span><span>&middot;</span><span>Lifetime Oy</span>
+                <span>30. maaliskuuta 2026</span><span>&middot;</span><span>Risto Anton Päärni</span><span>&middot;</span><span>Lifetime Oy</span>
             </div>
 
             <div class="w-16 h-0.5 mb-8" style="background: linear-gradient(90deg, #06b6d4, #2563eb);"></div>
 
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>ERP-tiedonsiirto on projekti, jossa 80 prosenttia tyosta on valmistelua ja 20 prosenttia varsinaista siirtoa. Silti useimmat yritykset keskittyvat siirtotyokaluihin ja unohtavat datavalidoinnin. Tuloksena on kuukausia kestava jalkipyykki, jossa kirjanpitajat etsivat kadonneita tositteita ja varastokirjanpito ei tasmaa.</p>
+                <p>ERP-tiedonsiirto on projekti, jossa 80 prosenttia työstä on valmistelua ja 20 prosenttia varsinaista siirtoa. Silti useimmat yritykset keskittyvat siirtotyökaluihin ja unohtavat datavalidoinnin. Tuloksena on kuukausia kestava jälkipyykki, jossa kirjanpitajat etsivat kadonneita tositteita ja varastokirjanpito ei täsmää.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Vaihe 1: Data-inventaario</h2>
-                <p>Ennen kuin siirrät yhtaaan tietuetta, kartoita koko dataomaisuutesi. Tyypillisessa keskisuuressa teollisuusyrityksessa ERP sisaltaa 200-500 tietokantataulua, joista 30-50 on liiketoimintakriittisia. Loput ovat lokitietoja, valikotauluja ja jarjestelmatietoja, jotka eivat siirry sellaisenaan.</p>
+                <p>Ennen kuin siirrät yhtään tietuetta, kartoita koko dataomaisuutesi. Tyypillisessä keskisuuressa teollisuusyrityksessa ERP sisältää 200-500 tietokantataulua, joista 30-50 on liiketoimintakriittisia. Loput ovat lokitietoja, välikotauluja ja järjestelmätietoja, jotka eivät siirry sellaisenaan.</p>
 
-                <p>Kriittiset datakategoriat ovat: nimikkeisto (tuotteet, materiaalit, puolivalmisteet), asiakas- ja toimittajarekisteri, avoimet tilaukset ja sopimukset, varastokirjanpito saldoineen, kirjanpidon tilikartta ja avoimet tapahtumat seka henkilostotiedot (GDPR-sensitiivinen).</p>
+                <p>Kriittiset datakategoriat ovat: nimikkeisto (tuotteet, materiaalit, puolivalmisteet), asiakas- ja toimittajarekisteri, avoimet tilaukset ja sopimukset, varastokirjanpito saldoineen, kirjanpidon tilikartta ja avoimet tapahtumat sekä henkilöstötiedot (GDPR-sensitiivinen).</p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Vaihe 2: Datavalidointi lahdejärjestelmassa</h2>
-                <p>Puhdista data ennen siirtoa, ala siirron jalkeen. Tyypillisimmat ongelmat ovat duplikaattitietueet (sama asiakas kahdella eri nimella), puuttuvat kentät (osoitteet ilman postinumeroa), ristiriitaiset yksikot (kilogrammat vs. tonni), vanhentuneet tiedot (lopettaneet toimittajat aktiivilistalla) ja koodistomuutokset (vanha tilikartta vs. uusi).</p>
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Vaihe 2: Datavalidointi lähdejärjestelmässä</h2>
+                <p>Puhdista data ennen siirtoa, ala siirron jälkeen. Tyypillisimmat ongelmat ovat duplikaattitietueet (sama asiakas kahdella eri nimellä), puuttuvat kentät (osoitteet ilman postinumeroa), ristiriitaiset yksikot (kilogrammat vs. tonni), vanhentuneet tiedot (lopettaneet toimittajat aktiivilistalla) ja koodistomuutokset (vanha tilikartta vs. uusi).</p>
 
-                <p>Aja validointiskripti, joka tunnistaa nama ongelmat automaattisesti. DWS IQ -alustan datavalidointiagentti tekee taman muutamassa minuutissa, kun manuaalinen tarkistus veisi viikkoja.</p>
+                <p>Aja validointiskripti, joka tunnistaa nämä ongelmat automaattisesti. DWS IQ -alustan datavalidointiagentti tekee tämän muutamassa minuutissa, kun manuaalinen tarkistus veisi viikkoja.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Vaihe 3: Siirtoarkkitehtuuri</h2>
-                <p>Valitse strategia: big bang vai asteittainen siirtyma.</p>
+                <p>Valitse strategia: big bang vai asteittainen siirtymä.</p>
 
-                <p><strong>Big bang</strong> tarkoittaa, etta kaikki data siirretaan yhtena viikonloppuna. Etuna on selkeys — maanantaiaamuna kaikki kayttavat uutta jarjestelmaa. Riskina on, etta jos jokin menee pieleen, paluuta vanhaan ei ole. Soveltuu pieniin yrityksiin, joissa datamassa on hallittavissa.</p>
+                <p><strong>Big bang</strong> tarkoittaa, että kaikki data siirretaan yhtenä viikonloppuna. Etuna on selkeys — maanantaiaamuna kaikki käyttävät uutta järjestelmää. Riskinä on, että jos jokin menee pieleen, paluuta vanhaan ei ole. Soveltuu pieniin yrityksiin, joissa datamassa on hallittavissa.</p>
 
-                <p><strong>Asteittainen siirtyma</strong> tarkoittaa, etta datakategoriat siirretaan yksi kerrallaan: ensin nimikkeisto, sitten asiakkaat, sitten avoimet tilaukset. Rinnakkaiskayttojakso on tyypillisesti 1-3 kuukautta. Vaatii integraatiokerroksen, joka synkronoi dataa jarjestelmien valilla. Soveltuu keskisuuriin ja suuriin yrityksiin.</p>
+                <p><strong>Asteittainen siirtymä</strong> tarkoittaa, että datakategoriat siirretaan yksi kerrallaan: ensin nimikkeisto, sitten asiakkaat, sitten avoimet tilaukset. Rinnakkaiskäyttöjakso on tyypillisesti 1-3 kuukautta. Vaatii integraatiokerroksen, joka synkronoi dataa järjestelmien välillä. Soveltuu keskisuuriin ja suuriin yrityksiin.</p>
 
-                <p>MCP-protokollan kautta tekoalyagentit voivat toimia integraatiokerroksena: ne lukevat vanhan jarjestelman dataa, transformoivat sen uuden jarjestelman muotoon ja validoivat jokaisen tietueen ennen kirjoitusta.</p>
+                <p>MCP-protokollan kautta tekoälyagentit voivat toimia integraatiokerroksena: ne lukevat vanhan järjestelmän dataa, transformoivat sen uuden järjestelmän muotoon ja validoivat jokaisen tietueen ennen kirjoitusta.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Vaihe 4: Testisiirto ja vertailu</h2>
-                <p>Aja vahintaan kolme testisiirtoa ennen tuotantosiirtoa. Jokaisen jalkeen vertaa lahde- ja kohdejärjestelman tietueita automaattisesti. Tarkista erityisesti saldot (varastoarvo euroissa), avoimet laskut (summa ja lukumaara), nimikkeiden lukumaara ja tilausrivien maara.</p>
+                <p>Aja vähintään kolme testisiirtoa ennen tuotantosiirtoa. Jokaisen jälkeen vertaa lähde- ja kohdejärjestelmän tietueita automaattisesti. Tarkista erityisesti saldot (varastoarvo euroissa), avoimet laskut (summa ja lukumäärä), nimikkeiden lukumäärä ja tilausrivien määrä.</p>
 
-                <p>Hyväksyttava poikkeama on 0 %. ERP-data ei ole tilastollinen otos — jokaisen tietueen pitaa siirtya oikein.</p>
+                <p>Hyväksyttävä poikkeama on 0 %. ERP-data ei ole tilastollinen otos — jokaisen tietueen pitää siirtyä oikein.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Vaihe 5: Tuotantosiirto ja rollback-suunnitelma</h2>
-                <p>Tuotantosiirtoon tarvitset: kirjallisen rollback-suunnitelman (miten palataan vanhaan, jos siirto epaonnistuu), aikataulun tunteina (ei paivina), viestintasuunnitelman henkilostolle, tukitiimin valmiudessa siirtopaivana ja hyväksymiskriteerit, joiden pitaa tayttya ennen kuin vanha jarjestelma sammutetaan.</p>
+                <p>Tuotantosiirtoon tarvitset: kirjallisen rollback-suunnitelman (miten palataan vanhaan, jos siirto epäonnistuu), aikataulun tunteina (ei päivinä), viestintasuunnitelman henkilöstölle, tukitiimin valmiudessa siirtopäivänä ja hyväksymiskriteerit, joiden pitää täyttyä ennen kuin vanha järjestelmä sammutetaan.</p>
 
-                <p>Ala koskaan sammuta vanhaa jarjestelmaa heti siirron jalkeen. Pida se lukutilassa vahintaan 6 kuukautta. Vanhan jarjestelman data on paras varmuuskopio, joka sinulla on.</p>
+                <p>Ala koskaan sammuta vanhaa järjestelmää heti siirron jälkeen. Pidä se lukutilassa vähintään 6 kuukautta. Vanhan järjestelmän data on paras varmuuskopio, joka sinulla on.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Lopuksi</h2>
-                <p>ERP-tiedonsiirto ei ole IT-projekti — se on liiketoimintaprojekti. Onnistuminen mitataan silla, hairiintyvatko tuotanto, myynti ja kirjanpito siirron aikana. Hyvin valmisteltu siirto on nakymatön loppukayttajalle.</p>
+                <p>ERP-tiedonsiirto ei ole IT-projekti — se on liiketoimintaprojekti. Onnistuminen mitataan sillä, häiriintyvätkö tuotanto, myynti ja kirjanpito siirron aikana. Hyvin valmisteltu siirto on näkymätön loppukäyttäjälle.</p>
             </div>
 
             <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
                 <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Tilaa Lifetime Scope Journal</h3>
-                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-saantelyyn, tekoalyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
+                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-sääntelyyn, tekoälyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
                 <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">Tilaa</a>
             </div>
 
             <div class="mt-12">
-                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myos</h3>
+                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myös</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <a href="day-001-mita-tapahtuu-kun-erp-toimittaja-myydaan.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Paiva 1</span>
-                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Mita tapahtuu kun ERP-toimittajasi myydaan?</p>
+                        <span class="text-xs text-cyan-400">Päivä 1</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Mitä tapahtuu kun ERP-toimittajasi myydään?</p>
                     </a>
                     <a href="day-008-erp-due-diligence-tarkistuslista.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Paiva 8</span>
+                        <span class="text-xs text-cyan-400">Päivä 8</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">ERP Due Diligence -tarkistuslista</p>
                     </a>
                 </div>

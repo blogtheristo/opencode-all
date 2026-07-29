@@ -1,0 +1,610 @@
+#!/usr/bin/env node
+/**
+ * Restore Finnish ä/ö in the March–April 2026 "800-day" blog batch.
+ *
+ * The batch was published with every ä/ö flattened to a/o (tekoäly → tekoaly).
+ * Repair runs on text nodes and prose attributes only — href/src/class/id and
+ * <script>/<style> are never touched, so slugs and canonical URLs keep the
+ * ASCII form they are already published under.
+ *
+ * Two rule kinds:
+ *   STEMS — distinctive substrings safe to replace anywhere, including inside
+ *           compounds (sähkölämmitys needs `lammit` to match mid-word).
+ *   WORDS — whole-word replacements for short forms that would corrupt other
+ *           words as substrings (`han` inside "hankinta", `etta` inside
+ *           "vaihdetta").
+ *
+ * `--check` validates every rule against corpora that are already spelled
+ * correctly (the clean Finnish posts and the English posts). A rule that fires
+ * there would corrupt correct text and is reported as unsafe.
+ *
+ * Usage: node scripts/fix-fi-diacritics.mjs [--dry|--check] <file>...
+ */
+import { readFileSync, writeFileSync } from 'node:fs';
+
+const STEMS = [
+  // typos in the source batch, fixed before the stems run
+  ['datainfrqastruktuuri', 'datainfrastruktuuri'],
+  ['auktoriteettipistemaarad', 'auktoriteettipistemäärä'],
+  ['ilmastolainsakaadantokokonaisuus', 'ilmastolainsäädäntökokonaisuus'],
+  ['kayttooikeusroolichin', 'käyttöoikeusrooleihin'],
+  ['nappaapainalluksia', 'näppäinpainalluksia'],
+  ['hakukonenakyyvyy', 'hakukonenäkyvyy'],
+  ['hakualgortmit', 'hakualgoritmit'],
+  ['millisekunnttej', 'millisekuntej'],
+  ['millisekunttej', 'millisekuntej'],
+  ['paastoanalyysiagentii', 'päästöanalyysiagentti'],
+  ['riskianalyysiagentii', 'riskianalyysiagentti'],
+  ['patenttimenettekyt', 'patenttimenettelyt'],
+  ['nakokulmasata', 'näkökulmasta'],
+  ['datalahdeftta', 'datalähdettä'],
+  ['datakeruuu', 'datakeruu'],
+  ['vahennysmaarad', 'vähennysmäärä'],
+  ['agenttipohjanen', 'agenttipohjainen'],
+  ['ensimmainesta', 'ensimmäisestä'],
+  ['automatioidussa', 'automatisoidussa'],
+  ['nakymaattomasta', 'näkymättömästä'],
+  ['kaesittelee', 'käsittelee'],
+  ['sunnollisesti', 'säännöllisesti'],
+  ['suvrereeniin', 'suvereeniin'],
+  ['ylikrjontaa', 'ylikirjontaa'],
+  ['tayttyyvat', 'täyttyvät'],
+  ['paayttelyyn', 'päättelyyn'],
+  ['hairiottavan', 'häiritsevän'],
+  ['hairiintyvatko', 'häiriintyvätkö'],
+  ['mauraaysta', 'määräystä'],
+  ['raatoituun', 'räätälöityyn'],
+  ['pyynnostan', 'pyynnöstä'],
+  ['jalskiin', 'jälkeen'],
+  ['huoltoitarpe', 'huoltotarpe'],
+  ['integraatiovasyny', 'integraatioväsymy'],
+  ['kasvihuonepaaosto', 'kasvihuonepäästö'],
+  ['nollapaaostoisi', 'nollapäästöisi'],
+  ['nollapaaostoj', 'nollapäästöj'],
+  ['vahapaaostoise', 'vähäpäästöise'],
+
+  // distinctive stems
+  ['tekoaly', 'tekoäly'],
+  ['jarjestelm', 'järjestelm'],
+  ['ymparist', 'ympärist'],
+  ['sisallontuotan', 'sisällöntuotan'],
+  ['sisaltomarkkinoin', 'sisältömarkkinoin'],
+  ['sisaltopilari', 'sisältöpilari'],
+  ['sisalto', 'sisältö'],
+  ['sisallo', 'sisällö'],
+  ['sisalta', 'sisältä'],
+  ['sisaise', 'sisäise'],
+  ['sisaist', 'sisäist'],
+  ['sisainen', 'sisäinen'],
+  ['hiilijalanjal', 'hiilijalanjäl'],
+  ['hiilisisall', 'hiilisisäll'],
+  ['hiilisisalt', 'hiilisisält'],
+  ['paastoo', 'päästöö'],
+  ['paasto', 'päästö'],
+  ['paasyn', 'pääsyn'],
+  ['paatoks', 'päätöks'],
+  ['paatos', 'päätös'],
+  ['paattel', 'päättel'],
+  ['paatty', 'päätty'],
+  ['paaraport', 'pääraport'],
+  ['paaomsijoittaj', 'pääomasijoittaj'],
+  ['paaongelma', 'pääongelma'],
+  ['kayttooikeus', 'käyttöoikeus'],
+  ['kayttoonott', 'käyttöönott'],
+  ['kayttoaste', 'käyttöaste'],
+  ['kayttolog', 'käyttölog'],
+  ['kayttotapa', 'käyttötapa'],
+  ['kaytto', 'käyttö'],
+  ['kaytta', 'käyttä'],
+  ['kaytt', 'käytt'],
+  ['kayto', 'käytö'],
+  ['kayte', 'käyte'],
+  ['kayny', 'käyny'],
+  ['kaynni', 'käynni'],
+  ['kayda', 'käydä'],
+  ['kaydaan', 'käydään'],
+  ['kasittel', 'käsittel'],
+  ['kasitte', 'käsitte'],
+  ['kasikirja', 'käsikirja'],
+  ['lammit', 'lämmit'],
+  ['lammo', 'lämmö'],
+  ['lampo', 'lämpö'],
+  ['sahko', 'sähkö'],
+  ['tyokal', 'työkal'],
+  ['tyokulk', 'työkulk'],
+  ['tyokuorm', 'työkuorm'],
+  ['tyontek', 'työntek'],
+  ['tyovoima', 'työvoima'],
+  ['tyoskentel', 'työskentel'],
+  ['tyotunti', 'työtunti'],
+  ['tyovuot', 'työvuot'],
+  ['tyoohje', 'työohje'],
+  ['tyoolot', 'työolot'],
+  ['tyonkulku', 'työnkulku'],
+  ['tyonkulut', 'työnkulut'],
+  ['tyohevonen', 'työhevonen'],
+  ['tyomaara', 'työmäärä'],
+  ['tyomaalle', 'työmaalle'],
+  ['tyohon', 'työhön'],
+  ['tyonsa', 'työnsä'],
+  ['tyosta', 'työstä'],
+  ['saantel', 'sääntel'],
+  ['saanno', 'säännö'],
+  ['saast', 'sääst'],
+  ['sailytt', 'säilytt'],
+  ['maarittel', 'määrittel'],
+  ['maaritel', 'määritel'],
+  ['maaraaja', 'määrääjä'],
+  ['maarayks', 'määräyks'],
+  ['maaraav', 'määrääv'],
+  ['maarat', 'määrät'],
+  ['maaratty', 'määrätty'],
+  ['maarast', 'määräst'],
+  ['maarain', 'määräin'],
+  ['lukumaar', 'lukumäär'],
+  ['henkilomaar', 'henkilömäär'],
+  ['todennakois', 'todennäköis'],
+  ['nakemys', 'näkemys'],
+  ['nakokulma', 'näkökulma'],
+  ['hakukonenakyv', 'hakukonenäkyv'],
+  ['naytt', 'näytt'],
+  ['nahdaan', 'nähdään'],
+  ['nahden', 'nähden'],
+  ['taytt', 'täytt'],
+  ['merkittav', 'merkittäv'],
+  ['edellyttav', 'edellyttäv'],
+  ['valttamat', 'välttämät'],
+  ['valittomasti', 'välittömästi'],
+  ['aikavali', 'aikaväli'],
+  ['pyynto', 'pyyntö'],
+  ['pyynno', 'pyynnö'],
+  ['pyytaa', 'pyytää'],
+  ['pyydaa', 'pyydää'],
+  ['insinoo', 'insinöö'],
+  ['tilinpaato', 'tilinpäätö'],
+  ['henkilo', 'henkilö'],
+  ['kiinteisto', 'kiinteistö'],
+  ['kiintea', 'kiinteä'],
+  ['yhteiso', 'yhteisö'],
+  ['jatteen', 'jätteen'],
+  ['jatedata', 'jätedata'],
+  ['jatetta', 'jätettä'],
+  ['jaljitett', 'jäljitett'],
+  ['jalkipyykki', 'jälkipyykki'],
+  ['jaahdytys', 'jäähdytys'],
+  ['jasen', 'jäsen'],
+  ['keraa', 'kerää'],
+  ['kerat', 'kerät'],
+  ['keray', 'keräy'],
+  ['kerann', 'keränn'],
+  ['kerryt', 'kerryt'],
+  ['paiva', 'päivä'],
+  ['paivi', 'päivi'],
+  ['sahkopost', 'sähköpost'],
+  ['loyhemp', 'löyhemp'],
+  ['lahett', 'lähett'],
+  ['laheta', 'lähetä'],
+  ['lahesty', 'lähesty'],
+  ['lahtei', 'lähtei'],
+  ['lahteis', 'lähteis'],
+  ['lahde', 'lähde'],
+  ['lahella', 'lähellä'],
+  ['lahtom', 'lähtöm'],
+  ['lahtotie', 'lähtötie'],
+  ['myohemm', 'myöhemm'],
+  ['myohast', 'myöhäst'],
+  ['myohaan', 'myöhään'],
+  ['myonnet', 'myönnet'],
+  ['hyodyn', 'hyödyn'],
+  ['hyodyk', 'hyödyk'],
+  ['hyodyl', 'hyödyl'],
+  ['hyodyt', 'hyödyt'],
+  ['hyvaksy', 'hyväksy'],
+  ['loppukaytt', 'loppukäytt'],
+  ['erillisjarjestelm', 'erillisjärjestelm'],
+  ['erillista', 'erillistä'],
+  ['heikentav', 'heikentäv'],
+  ['vahenem', 'vähenem'],
+  ['vahenev', 'vähenev'],
+  ['vahennet', 'vähennet'],
+  ['vahennys', 'vähennys'],
+  ['vahent', 'vähent'],
+  ['vahens', 'vähens'],
+  ['vahahiili', 'vähähiili'],
+  ['vahint', 'vähint'],
+  ['pienenta', 'pienentä'],
+  ['kirista', 'kiristä'],
+  ['kiristy', 'kiristy'],
+  ['saannollis', 'säännöllis'],
+  ['tehtav', 'tehtäv'],
+  ['kehittaa', 'kehittää'],
+  ['pystya', 'pystyä'],
+  ['pystyv', 'pystyv'],
+  ['siirtya', 'siirtyä'],
+  ['siirtyma', 'siirtymä'],
+  ['siirtav', 'siirtäv'],
+  ['taydell', 'täydell'],
+  ['vaesto', 'väestö'],
+  ['epaonnist', 'epäonnist'],
+  ['eparealist', 'epärealist'],
+  ['epavarm', 'epävarm'],
+  ['riittav', 'riittäv'],
+  ['riittaa', 'riittää'],
+  ['estaa', 'estää'],
+  ['kayttaj', 'käyttäj'],
+  ['ymmart', 'ymmärt'],
+  ['yllapit', 'ylläpit'],
+  ['ylimaarai', 'ylimääräi'],
+  ['ylihypat', 'ylihyppä'],
+  ['yrittaa', 'yrittää'],
+  ['kansainval', 'kansainväl'],
+  ['kaukolamm', 'kaukolämm'],
+  ['kaukolampo', 'kaukolämpö'],
+  ['kierraty', 'kierräty'],
+  ['kierrat', 'kierrät'],
+  ['kylmasoit', 'kylmäsoit'],
+  ['lainsaad', 'lainsääd'],
+  ['lainkaytt', 'lainkäytt'],
+  ['lainkayto', 'lainkäytö'],
+  ['neliometri', 'neliömetri'],
+  ['neljanne', 'neljänne'],
+  ['neljasta', 'neljästä'],
+  ['osatehtav', 'osatehtäv'],
+  ['pelkalla', 'pelkällä'],
+  ['pelkan', 'pelkän'],
+  ['pelkkia', 'pelkkiä'],
+  ['pidemmalle', 'pidemmälle'],
+  ['pitka', 'pitkä'],
+  ['pyorit', 'pyörit'],
+  ['pyoriv', 'pyöriv'],
+  ['pysahty', 'pysähty'],
+  ['pysyvast', 'pysyväst'],
+  ['seitsemaan', 'seitsemään'],
+  ['syvaosaam', 'syväosaam'],
+  ['syotte', 'syötte'],
+  ['tuotantokaytt', 'tuotantokäytt'],
+  ['vastuullisuuspaall', 'vastuullisuuspääll'],
+  ['vihrea', 'vihreä'],
+  ['viikonpaiva', 'viikonpäivä'],
+  ['virheenkasit', 'virheenkäsit'],
+  ['yhdistam', 'yhdistäm'],
+  ['yhtenaise', 'yhtenäise'],
+  ['yrityskaytt', 'yrityskäytt'],
+  ['keskipitka', 'keskipitkä'],
+  ['laatukasikirja', 'laatukäsikirja'],
+  ['karkimaita', 'kärkimaita'],
+  ['kaksiterainen', 'kaksiteräinen'],
+  ['kestavyy', 'kestävyy'],
+  ['isannointi', 'isännöinti'],
+  ['itsensa', 'itsensä'],
+  ['ryhmalta', 'ryhmältä'],
+  ['sidosryhma', 'sidosryhmä'],
+  ['puolivalmiste', 'puolivalmiste'],
+  ['rutiinityos', 'rutiinityös'],
+  ['ilmiota', 'ilmiötä'],
+  ['herattaa', 'herättää'],
+  ['herkka', 'herkkä'],
+  ['herkan', 'herkän'],
+  ['tyypillis', 'tyypillis'],
+];
+
+/**
+ * Vowel-harmony suffixes. Once the stem carries ä/ö the suffix must follow
+ * (järjestelmä → järjestelmässä, not järjestelmassa). Applied after STEMS,
+ * whole-word, so genuine compounds with a back-vowel second part are untouched
+ * (sähköposti, työkalu, lähdekoodi, päästödata all stay as they are).
+ */
+const HARMONY = [
+  ['aikajänteella', 'aikajänteellä'], ['alykäs', 'älykäs'],
+  ['aurinkoenergiajärjestelma', 'aurinkoenergiajärjestelmä'],
+  ['datanluovutuspyyntöa', 'datanluovutuspyyntöä'],
+  ['edellyttävat', 'edellyttävät'],
+  ['energianhallintajärjestelman', 'energianhallintajärjestelmän'],
+  ['energianmittausjärjestelmaan', 'energianmittausjärjestelmään'],
+  ['energiansäästotavoitteet', 'energiansäästötavoitteet'],
+  ['erillisjärjestelmat', 'erillisjärjestelmät'],
+  ['hakukonenäkyvyytta', 'hakukonenäkyvyyttä'], ['heikentävat', 'heikentävät'],
+  ['henkilösto', 'henkilöstö'], ['henkilöstoa', 'henkilöstöä'],
+  ['henkilöstodatan', 'henkilöstödatan'], ['henkilöstokustannukset', 'henkilöstökustannukset'],
+  ['henkilöstolle', 'henkilöstölle'], ['henkilöstotarve', 'henkilöstötarve'],
+  ['henkilöstotiedot', 'henkilöstötiedot'],
+  ['herkkäa', 'herkkää'], ['herkkäan', 'herkkään'],
+  ['hiilidioksidipäästöista', 'hiilidioksidipäästöistä'],
+  ['hiilisisällonlaskenta', 'hiilisisällönlaskenta'], ['hiilisisälto', 'hiilisisältö'],
+  ['hyväksynnassa', 'hyväksynnässä'], ['hyväksynta', 'hyväksyntä'],
+  ['hyväksyttaa', 'hyväksyttävä'], ['hyväksyttava', 'hyväksyttävä'],
+  ['hyväksyttavaa', 'hyväksyttävää'],
+  ['hyödynna', 'hyödynnä'], ['hyödyntamiseen', 'hyödyntämiseen'],
+  ['insinööreja', 'insinöörejä'], ['insinöörinakemyksia', 'insinöörinäkemyksiä'],
+  ['integraatioväsymysta', 'integraatioväsymystä'],
+  ['jarkevämpaa', 'järkevämpää'], ['jäljitettavyyden', 'jäljitettävyyden'],
+  ['järjestelma', 'järjestelmä'], ['järjestelmaa', 'järjestelmää'],
+  ['järjestelmaan', 'järjestelmään'], ['järjestelmamuutosta', 'järjestelmämuutosta'],
+  ['järjestelman', 'järjestelmän'], ['järjestelmani', 'järjestelmäni'],
+  ['järjestelmasi', 'järjestelmäsi'], ['järjestelmassa', 'järjestelmässä'],
+  ['järjestelmasta', 'järjestelmästä'], ['järjestelmat', 'järjestelmät'],
+  ['järjestelmatietoja', 'järjestelmätietoja'], ['järjestelmissa', 'järjestelmissä'],
+  ['järjestelmista', 'järjestelmistä'], ['jäsenia', 'jäseniä'],
+  ['kasvihuonepäästöja', 'kasvihuonepäästöjä'],
+  ['kaukolämmolla', 'kaukolämmöllä'], ['kaukolämmon', 'kaukolämmön'],
+  ['kaytät', 'käytät'], ['kaytätko', 'käytätkö'],
+  ['keräta', 'kerätä'], ['keräämalla', 'keräämällä'], ['keräävat', 'keräävät'],
+  ['kierrätysteraksen', 'kierrätysteräksen'], ['kierrätysterasta', 'kierrätysterästä'],
+  ['kiristäa', 'kiristää'], ['kirjanpitojärjestelmilla', 'kirjanpitojärjestelmillä'],
+  ['kohdejärjestelman', 'kohdejärjestelmän'], ['kustannussäästoissa', 'kustannussäästöissä'],
+  ['käsittelemaan', 'käsittelemään'], ['käsittelijalle', 'käsittelijälle'],
+  ['käynnissa', 'käynnissä'], ['käynnista', 'käynnistä'],
+  ['käytetaan', 'käytetään'], ['käytettavat', 'käytettävät'],
+  ['käytettavissa', 'käytettävissä'], ['käyttäa', 'käyttää'], ['käyttävat', 'käyttävät'],
+  ['käyttöjärjestelma', 'käyttöjärjestelmä'], ['käyttöjärjestelman', 'käyttöjärjestelmän'],
+  ['käyttöon', 'käyttöön'], ['käyttöonoton', 'käyttöönoton'],
+  ['käytöassa', 'käytössä'], ['käytössa', 'käytössä'], ['käytösta', 'käytöstä'],
+  ['laatujärjestelmasta', 'laatujärjestelmästä'], ['lahimmän', 'lähimmän'],
+  ['lainsäädantoon', 'lainsäädäntöön'], ['loppukäyttajalle', 'loppukäyttäjälle'],
+  ['lukumäära', 'lukumäärä'],
+  ['lähdejärjestelmassa', 'lähdejärjestelmässä'], ['lähdejärjestelmasta', 'lähdejärjestelmästä'],
+  ['lähettaa', 'lähettää'], ['lähettajan', 'lähettäjän'], ['lähteista', 'lähteistä'],
+  ['lämmittaa', 'lämmittää'], ['lämmitysjärjestelmat', 'lämmitysjärjestelmät'],
+  ['löyhempaa', 'löyhempää'], ['menettävat', 'menettävät'],
+  ['merkittäva', 'merkittävä'], ['merkittävaa', 'merkittävää'],
+  ['merkittävan', 'merkittävän'], ['merkittävasti', 'merkittävästi'],
+  ['merkittävia', 'merkittäviä'], ['merkittävimmista', 'merkittävimmistä'],
+  ['myöhästyneista', 'myöhästyneistä'], ['myönnetaan', 'myönnetään'],
+  ['määritellaan', 'määritellään'], ['määriteltya', 'määriteltyä'],
+  ['määrittelya', 'määrittelyä'], ['määrästa', 'määrästä'], ['määräta', 'määrätä'],
+  ['määrättyja', 'määrättyjä'], ['määräyksella', 'määräyksellä'],
+  ['määräävat', 'määräävät'], ['nakymatön', 'näkymätön'],
+  ['neljänneksiraportointi', 'neljännesraportointi'], ['neljännessa', 'neljännessä'],
+  ['nollapäästöisia', 'nollapäästöisiä'], ['nollapäästöja', 'nollapäästöjä'],
+  ['näytta', 'näyttää'], ['näyttaa', 'näyttää'], ['näyttokortti', 'näyttökortti'],
+  ['pienentäa', 'pienentää'], ['pyynnösta', 'pyynnöstä'],
+  ['pyörittaa', 'pyörittää'], ['pyörittavat', 'pyörittävät'], ['pyörivat', 'pyörivät'],
+  ['päivina', 'päivinä'], ['päivita', 'päivitä'], ['päivitettya', 'päivitettyä'],
+  ['päivittaa', 'päivittää'], ['päivittaisia', 'päivittäisiä'],
+  ['päivityksia', 'päivityksiä'], ['päivitysta', 'päivitystä'],
+  ['päiväa', 'päivää'], ['päivässa', 'päivässä'],
+  ['päästöintensiteettia', 'päästöintensiteettiä'], ['päästöja', 'päästöjä'],
+  ['päästökauppajärjestelma', 'päästökauppajärjestelmä'],
+  ['päästökauppajärjestelman', 'päästökauppajärjestelmän'],
+  ['päästönsa', 'päästönsä'], ['päästööikeuksia', 'päästöoikeuksia'],
+  ['päättymisesta', 'päättymisestä'], ['päätöksissa', 'päätöksissä'],
+  ['päätöksista', 'päätöksistä'], ['päätösta', 'päätöstä'],
+  ['raakateräksessa', 'raakateräksessä'], ['rekisteröitya', 'rekisteröityä'],
+  ['riittävan', 'riittävän'], ['riittävasti', 'riittävästi'], ['riittääko', 'riittääkö'],
+  ['rutiinitehtävat', 'rutiinitehtävät'], ['rutiinityösta', 'rutiinityöstä'],
+  ['siirtopäiväna', 'siirtopäivänä'], ['siirtymässa', 'siirtymässä'],
+  ['siirtävan', 'siirtävän'], ['sisäisessa', 'sisäisessä'], ['sisäista', 'sisäistä'],
+  ['sisältäa', 'sisältää'], ['sisältämat', 'sisältämät'], ['sisältöa', 'sisältöä'],
+  ['sähköistaminen', 'sähköistäminen'],
+  ['säilyttaa', 'säilyttää'], ['säilyttaminen', 'säilyttäminen'],
+  ['säilyttamisen', 'säilyttämisen'], ['sääntelyssa', 'sääntelyssä'],
+  ['säästaa', 'säästää'], ['säästavat', 'säästävät'], ['säästo', 'säästö'],
+  ['säästopotentiaali', 'säästöpotentiaali'],
+  ['talousjärjestelmat', 'talousjärjestelmät'], ['tarjouspyyntöa', 'tarjouspyyntöä'],
+  ['tehtäva', 'tehtävä'], ['tehtävakohtaisia', 'tehtäväkohtaisia'],
+  ['tehtävan', 'tehtävän'], ['tehtävat', 'tehtävät'], ['tehtäviinsa', 'tehtäviinsä'],
+  ['tekoälya', 'tekoälyä'], ['terasyhtiö', 'teräsyhtiö'], ['terästa', 'terästä'],
+  ['tilinpäätöksissa', 'tilinpäätöksissä'], ['tilinpäätöspäiväna', 'tilinpäätöspäivänä'],
+  ['todennäköisyysta', 'todennäköisyyttä'], ['toimintaympäristo', 'toimintaympäristö'],
+  ['tuotantokäytto', 'tuotantokäyttö'],
+  ['tuotekehitysjärjestelmansa', 'tuotekehitysjärjestelmänsä'],
+  ['työntekija', 'työntekijä'], ['työntekijaa', 'työntekijää'], ['työntekijat', 'työntekijät'],
+  ['täyttaa', 'täyttää'], ['täyttaako', 'täyttääkö'], ['täyttavat', 'täyttävät'],
+  ['täyttya', 'täyttyä'],
+  ['vastuullisuuspäällikko', 'vastuullisuuspäällikkö'],
+  ['vastuullisuuspäällikkoa', 'vastuullisuuspäällikköä'],
+  ['vastuullisuuspäällikkoja', 'vastuullisuuspäälliköjä'],
+  ['väestöon', 'väestöön'], ['vähenema', 'vähenemä'], ['vähenemisena', 'vähenemisenä'],
+  ['vähenevat', 'vähenevät'], ['vähennettavissa', 'vähennettävissä'],
+  ['vähentaa', 'vähentää'], ['vähentamisesta', 'vähentämisestä'],
+  ['vähintaan', 'vähintään'], ['välttämäton', 'välttämätön'], ['välttämätta', 'välttämättä'],
+  ['ylläpitaa', 'ylläpitää'], ['ymmärtaa', 'ymmärtää'],
+  ['ymmärtamisesta', 'ymmärtämisestä'], ['ymmärtavat', 'ymmärtävät'],
+  ['ympäristo', 'ympäristö'], ['ympäristodatan', 'ympäristödatan'],
+  ['ympäristoihin', 'ympäristöihin'], ['ympäristojärjestelmasta', 'ympäristöjärjestelmästä'],
+  ['ympäristoministerio', 'ympäristöministeriö'], ['ympäristoon', 'ympäristöön'],
+  ['ympäristopäästö', 'ympäristöpäästö'], ['ympäristossa', 'ympäristössä'],
+  ['ympäristovaikutukset', 'ympäristövaikutukset'],
+  ['ympäristovaikutusten', 'ympäristövaikutusten'], ['yrityskäyttoon', 'yrityskäyttöön'],
+];
+
+/** Common inflected forms the stem rules cannot reach (no distinctive stem). */
+const FORMS = [
+  ['mita', 'mitä'], ['mika', 'mikä'], ['minka', 'minkä'], ['mitka', 'mitkä'],
+  ['milla', 'millä'], ['missa', 'missä'], ['mista', 'mistä'], ['mitakin', 'mitäkin'],
+  ['nama', 'nämä'], ['naista', 'näistä'], ['naita', 'näitä'], ['naissa', 'näissä'],
+  ['sita', 'sitä'], ['siita', 'siitä'], ['silla', 'sillä'], ['tassa', 'tässä'],
+  ['tasta', 'tästä'], ['talla', 'tällä'], ['taman', 'tämän'],
+  ['eivat', 'eivät'], ['ovatko', 'ovatko'], ['enaa', 'enää'], ['viela', 'vielä'],
+  ['yha', 'yhä'], ['seka', 'sekä'], ['lapi', 'läpi'], ['taysin', 'täysin'],
+  ['jalkeen', 'jälkeen'], ['jalkikateen', 'jälkikäteen'], ['pelkastaan', 'pelkästään'],
+  ['yhteensa', 'yhteensä'], ['mennessa', 'mennessä'], ['piirissa', 'piirissä'],
+  ['valilla', 'välillä'], ['vahemman', 'vähemmän'], ['syysta', 'syystä'],
+  ['kysymysta', 'kysymystä'], ['tyota', 'työtä'], ['tyon', 'työn'],
+  ['kaymme', 'käymme'], ['kayn', 'käyn'], ['kaynyt', 'käynyt'],
+  ['kaytannon', 'käytännön'], ['kaytanto', 'käytäntö'], ['kaytannossa', 'käytännössä'],
+  ['kaytannolliset', 'käytännölliset'],
+  ['yhdistaa', 'yhdistää'], ['edellyttaa', 'edellyttää'], ['tietaa', 'tietää'],
+  ['paattaa', 'päättää'], ['ylittaa', 'ylittää'], ['kieltaa', 'kieltää'],
+  ['lisaa', 'lisää'], ['myydaan', 'myydään'], ['sailytetaan', 'säilytetään'],
+  ['sailyy', 'säilyy'], ['sailyta', 'säilytä'], ['eheana', 'ehjänä'],
+  ['ensimmainen', 'ensimmäinen'], ['ensimmaisen', 'ensimmäisen'],
+  ['ensimmaiset', 'ensimmäiset'], ['ensimmaisessa', 'ensimmäisessä'],
+  ['yksittainen', 'yksittäinen'], ['yksittaista', 'yksittäistä'],
+  ['yksittaisen', 'yksittäisen'], ['nakee', 'näkee'], ['nakyy', 'näkyy'],
+  ['teras', 'teräs'], ['terasta', 'terästä'], ['teraksen', 'teräksen'],
+  ['terastuojille', 'terästuojille'], ['terastuoja', 'terästuoja'],
+  ['terastuojien', 'terästuojien'], ['terastuottajalla', 'terästuottajalla'],
+  ['siirtyvat', 'siirtyvät'], ['tekevat', 'tekevät'], ['kiristyvat', 'kiristyvät'],
+  ['pystyvat', 'pystyvät'], ['vaikuttavat', 'vaikuttavat'],
+  ['kriittista', 'kriittistä'], ['yrityksista', 'yrityksistä'],
+  ['pienesta', 'pienestä'], ['yhdesta', 'yhdestä'], ['kohteista', 'kohteista'],
+  ['lahteet', 'lähteet'], ['maara', 'määrä'], ['maaran', 'määrän'],
+  ['maaraa', 'määrää'], ['maarita', 'määritä'], ['maarat', 'määrät'],
+  ['vuosineljaneksen', 'vuosineljänneksen'], ['arvonlisaysta', 'arvonlisäystä'],
+  ['eteenpain', 'eteenpäin'], ['mielta', 'mieltä'], ['paalla', 'päällä'],
+  ['kysya', 'kysyä'], ['keskitettya', 'keskitettyä'], ['viidessa', 'viidessä'],
+  ['kahdessa', 'kahdessa'], ['kymmenia', 'kymmeniä'], ['satoja', 'satoja'],
+  ['helsingissa', 'Helsingissä'], ['tukholmassa', 'Tukholmassa'],
+  ['frankfurtissa', 'Frankfurtissa'], ['euroopassa', 'Euroopassa'],
+  ['vuosikymmenessa', 'vuosikymmenessä'], ['vuosikymmenina', 'vuosikymmeninä'],
+  ['maaliskuussa', 'maaliskuussa'], ['hiilta', 'hiiltä'],
+  ['asennustyo', 'asennustyö'], ['arviointimenetelmat', 'arviointimenetelmät'],
+  ['erityispiirteita', 'erityispiirteitä'], ['tekemaan', 'tekemään'],
+  ['viestimaan', 'viestimään'], ['analysoimaan', 'analysoimaan'],
+  ['halytyksen', 'hälytyksen'], ['lapinakyva', 'läpinäkyvä'],
+  ['lapinakyvyys', 'läpinäkyvyys'], ['pida', 'pidä'], ['tayta', 'täytä'],
+  ['yhdessa', 'yhdessä'], ['tyypillisessa', 'tyypillisessä'], ['perinteisessa', 'perinteisessä'],
+  ['hetkella', 'hetkellä'], ['yritysta', 'yritystä'], ['yrityksella', 'yrityksellä'],
+  ['yhtena', 'yhtenä'], ['virheellisesta', 'virheellisestä'], ['tietysta', 'tietystä'],
+  ['tietylta', 'tietyltä'], ['teknisissa', 'teknisissä'], ['silmissa', 'silmissä'],
+  ['siella', 'siellä'], ['riskina', 'riskinä'], ['referensseista', 'referensseistä'],
+  ['nykyisella', 'nykyisellä'], ['nimella', 'nimellä'], ['myynnissa', 'myynnissä'],
+  ['kyvysta', 'kyvystä'], ['kylla', 'kyllä'], ['kriittisissa', 'kriittisissä'],
+  ['kriittiselta', 'kriittiseltä'], ['kriittisella', 'kriittisellä'],
+  ['kiristyessa', 'kiristyessä'], ['kiireellista', 'kiireellistä'],
+  ['identiteetilla', 'identiteetillä'], ['esimerkkiyrityksella', 'esimerkkiyrityksellä'],
+  ['esimerkissa', 'esimerkissä'], ['erillisessa', 'erillisessä'],
+  ['edesta', 'edestä'], ['edella', 'edellä'],
+  ['aloittaa', 'aloittaa'],
+  ['toivot', 'toivot'],
+];
+
+const WORDS = [
+  ['etta', 'että'],
+  ['ettet', 'ettet'],
+  ['tama', 'tämä'],
+  ['taman', 'tämän'],
+  ['tahan', 'tähän'],
+  ['talta', 'tältä'],
+  ['taelle', 'tälle'],
+  ['tasta', 'tästä'],
+  ['tasmaa', 'täsmää'],
+  ['enta', 'entä'],
+  ['han', 'hän'],
+  ['hanella', 'hänellä'],
+  ['hanet', 'hänet'],
+  ['myos', 'myös'],
+  ['myota', 'myötä'],
+  ['naiden', 'näiden'],
+  ['nakyi', 'näkyi'],
+  ['nakyivat', 'näkyivät'],
+  ['nakyvissa', 'näkyvissä'],
+  ['jattaa', 'jättää'],
+  ['jaavat', 'jäävät'],
+  ['jalkoihin', 'jälkiin'],
+  ['tayta', 'täytä'],
+  ['tehda', 'tehdä'],
+  ['vahan', 'vähän'],
+  ['pitaa', 'pitää'],
+  ['pyynto', 'pyyntö'],
+  ['olja', 'öljy'],
+  ['oljy', 'öljy'],
+  ['yhtio', 'yhtiö'],
+  ['yhtion', 'yhtiön'],
+  ['yhtiota', 'yhtiötä'],
+  ['tytaryhtio', 'tytäryhtiö'],
+  ['energiayhtiot', 'energiayhtiöt'],
+  ['yhtaan', 'yhtään'],
+  ['yhtaaan', 'yhtään'],
+  ['rivejaa', 'rivejä'],
+  ['liidiaa', 'liidiä'],
+  ['ostajaon', 'ostajaan'],
+  ['irroita', 'irrota'],
+  ['kaytoassa', 'käytössä'],
+  ['ensinnaakin', 'ensinnäkin'],
+  ['veritoniin', 'verkkotiliin'],
+  ['luentasi', 'lukuaikasi'],
+  ['valimalleja', 'välimalleja'],
+  ['valinen', 'välinen'],
+  ['valikotauluja', 'välikotauluja'],
+  ['erityispiirre', 'erityispiirre'],
+  ['jasenia', 'jäseniä'],
+  ['jasenmaille', 'jäsenmaille'],
+  ['jasenvaltioiden', 'jäsenvaltioiden'],
+  ['kadet', 'kädet'],
+  ['selkokielella', 'selkokielellä'],
+  ['ryhmalta', 'ryhmältä'],
+  ['tunteina', 'tunteina'],
+  ['vaipan', 'vaipan'],
+];
+
+const activeStems = STEMS.filter(([a, b]) => a !== b).sort((a, b) => b[0].length - a[0].length);
+const activeWords = [...WORDS, ...HARMONY, ...FORMS].filter(([a, b]) => a !== b);
+
+function casedVariants(from, to) {
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  return [
+    [from, to],
+    [cap(from), cap(to)],
+    [from.toUpperCase(), to.toUpperCase()],
+  ];
+}
+
+function repairText(text) {
+  let out = text;
+  for (const [from, to] of activeStems) {
+    for (const [f, t] of casedVariants(from, to)) out = out.replaceAll(f, t);
+  }
+  for (const [from, to] of activeWords) {
+    for (const [f, t] of casedVariants(from, to)) {
+      out = out.replace(new RegExp(`(?<![\\p{L}])${f}(?![\\p{L}])`, 'gu'), t);
+    }
+  }
+  return out;
+}
+
+const PROSE_ATTR = /\b(content|title|alt|aria-label|placeholder)="([^"]*)"/g;
+
+export function repairDocument(html) {
+  const parts = html.split(/(<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>)/g);
+  return parts
+    .map((part, i) => {
+      if (i % 2 === 0) return repairText(part);
+      if (/^<(script|style)/i.test(part)) return part;
+      return part.replace(PROSE_ATTR, (m, name, value) => `${name}="${repairText(value)}"`);
+    })
+    .join('');
+}
+
+/** A rule that fires on already-correct text would corrupt it. */
+function check(files) {
+  let unsafe = 0;
+  const corpus = files.map((f) => readFileSync(f, 'utf8')).join('\n');
+  const parts = corpus.split(/(<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>)/g);
+  const text = parts.filter((_, i) => i % 2 === 0).join('\n');
+  for (const [from] of activeStems) {
+    const hits = text.split(from).length - 1;
+    if (hits) {
+      console.log(`UNSAFE stem  ${from.padEnd(28)} fires ${hits}x on correct text`);
+      unsafe++;
+    }
+  }
+  for (const [from] of activeWords) {
+    const hits = (text.match(new RegExp(`(?<![\\p{L}])${from}(?![\\p{L}])`, 'giu')) || []).length;
+    if (hits) {
+      console.log(`UNSAFE word  ${from.padEnd(28)} fires ${hits}x on correct text`);
+      unsafe++;
+    }
+  }
+  console.log(unsafe ? `${unsafe} unsafe rule(s)` : 'all rules safe');
+  return unsafe;
+}
+
+const args = process.argv.slice(2);
+const mode = args[0]?.startsWith('--') ? args[0] : null;
+const files = mode ? args.slice(1) : args;
+
+if (mode === '--check') {
+  process.exit(check(files) ? 1 : 0);
+} else {
+  let changed = 0;
+  for (const file of files) {
+    const before = readFileSync(file, 'utf8');
+    const after = repairDocument(before);
+    if (before === after) continue;
+    changed++;
+    if (mode !== '--dry') writeFileSync(file, after);
+  }
+  console.log(`${mode === '--dry' ? 'would rewrite' : 'rewrote'} ${changed}/${files.length} files`);
+}
