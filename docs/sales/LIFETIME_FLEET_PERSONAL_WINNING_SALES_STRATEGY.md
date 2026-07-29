@@ -37,13 +37,13 @@ Noah's story — kennel attendant to B2B outreach — mirrors the same truth Ris
 
 | Strength                               | Evidence                                                                                        |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| **17 years of operator relationships** | Kela, Uber, Taksi Helsinki, Bolt — no competitor can replicate this from a pitch deck           |
-| **100% customer retention**            | Zero churn across all paying fleet customers                                                    |
+| **17 years of dispatch-operator relationships** | Kela, Uber, Taksi Helsinki, Bolt — dispatch operators in the role defined by Traficom, who dispatch ride orders to Lifetime Fleet vehicles and buy transport capacity. They are commercial counterparties of this transport business, **never software customers** (see `docs/TRACTION_CANONICAL.md`). No competitor can replicate the relationship depth from a pitch deck. |
+| **Continuity of dispatch relationships** | All four dispatch relationships still active. No retention or churn percentage is asserted — the taxi register runs since 2010 and there is no cohort data that would make a rate meaningful. |
 | **VIP driving philosophy**             | Clean car, silence principle, music matching, professional demeanor — five-star system          |
 | **Multi-platform presence**            | Active on Uber (Comfort + Priority), Bolt, Taksi Helsinki, Kela transport — diversified income  |
 | **Nordic language fluency**            | Finnish (native), Swedish, English — covers all Nordic markets natively                         |
 | **Technology edge**                    | NVIDIA edge devices (Jetson, DGX Spark) enable fleet intelligence that competitors cannot match |
-| **Kela government contract**           | B2B2G validation — government healthcare trusts the service                                     |
+| **Kela transport contract**            | Kela dispatches statutory care rides to Lifetime Fleet vehicles. This is a **transport** contract — it is not a software deployment and must never be cited as a government software reference. |
 | **Low overhead**                       | €15-50/month infrastructure cost. No office. Car is the office.                                 |
 
 ### Weaknesses

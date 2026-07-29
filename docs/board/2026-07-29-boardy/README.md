@@ -41,7 +41,7 @@ access from Drive before the meeting if anyone else needs them.
 
 ## Headline numbers (all `[C]` canonical unless noted)
 
-- **Traction:** €7k MRR (~€84k ARR), 6 customers, 0% churn (9 mo); 2 Q1/26 pilots = €59,900 booked; 16 Skilled Agents in production.
+- **Traction:** 2 Q1/26 enterprise pilots at €29,950 each = €59,900 booked, plus four smaller landed accounts (LAND-001…006, redacted). Separately ~€7k/month **services and transport revenue** (licensed transport operation + consulting, Lemonsoft bookkeeping) puts the company at cash break-even with founder salary €0 — this is **not** software MRR and is never presented as such. No retention rate asserted. 16 Skilled Agents in production. Canonical: `docs/TRACTION_CANONICAL.md`.
 - **Round:** €650k SAFE (up to €1.0M), €3.8M cap (mid-case €5.5M, upper €6.1M), 20% discount, 24-mo.
 - **Burn / break-even:** −€18,100/mo (~−€217k/yr); break-even at €35k MRR; SAFE = 18–24 mo runway.
 - **Base plan:** ending ARR €0.6M (2026) → €2.4M (2027) → €7.0M (2028) → €16M (2029) `[M]`; EBITDA breakeven ~2029.

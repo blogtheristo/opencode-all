@@ -4,7 +4,7 @@ _Prepared for Boardy meeting 29 Jul 2026 · Lifetime Oy · CONFIDENTIAL — Inte
 
 Legend: **[A]** actual · **[M]** modeled.
 
-**Framing note:** Company is at cash break-even (~€7k in / €7k out, €0 founder salary — actual, Lemonsoft). SAFE = growth capital, not life support. Present €3.8M as base, €5.5M as thesis-upside (modeled, not live signal).
+**Framing note:** Company is at cash break-even (~€7k in / €7k out, €0 founder salary — actual, Lemonsoft). That €7k is **services and transport revenue** (licensed transport operation + consulting), not software MRR — never present it as platform revenue. Canonical: `docs/TRACTION_CANONICAL.md`. SAFE = growth capital, not life support. Present €3.8M as base, €5.5M as thesis-upside (modeled, not live signal).
 
 ---
 
@@ -108,7 +108,7 @@ Comp set: SaaS 4× fwd ACV → labor-AI 6× (Cognition / Sierra / Harvey / Decag
 - **IP assignment status:** DRAFT exists (`Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.md` + draft board minutes), flagged "review before execution". No cash for paid counsel → route the review through LUT innovation services (free, academic; founder is a LUT PhD candidate), then sign. Gate zero: Petri/Gorilla intro is gated on it.
 - **Labor-thesis uplift (+45% cap / 2× close):** MODELED (IMPACT_FORECAST v1.0) — NOT from live investor conversations; no term sheets / verbal commits on record. Present €3.8M as base, €5.5M as thesis-upside. Do not bank the multiplier.
 - **NVIDIA Connect sunset vs distribution:** MACC-burn = Microsoft Azure Consumption Commitment; AppExchange = Salesforce. Neither depends on NVIDIA Connect — the MACC / co-sell distribution angle is UNAFFECTED by any NVIDIA program sunset. Maarten/NVIDIA = strategic + physical-AI-comp conversation; update the intro if it leans on "NVIDIA partner program" framing.
-- **ORK — biggest single revenue catalyst:** Oikeusrekisterikeskus (Ministry of Justice) bid ORK/1462/2026 — AI Expert Services framework, €1.7M ref, FILED and awaiting. If awarded: recurring gov revenue + Cubet becomes a paid partner + sovereign-AI validation (peer to Kela).
+- **ORK — biggest single revenue catalyst:** Oikeusrekisterikeskus (Ministry of Justice) bid ORK/1462/2026 — AI Expert Services framework, €1.7M ref. **Bid in preparation; submission deadline 14.8.2026** (`bids/ORK160826/ORK160826_ALIHANKKIJA_EN.md`) — not filed. If awarded: recurring gov revenue + Cubet becomes a paid partner + the first Finnish government **software** reference.
 - **Equity cure = R&D capitalization:** €594k KILA-confirmed intangible activation (€100k booked, €494k available) repairs equity — the load-bearing balance-sheet fact for diligence. Independent valuations: Gust €3.8M (2021), Monaco Fondry $6M (2022).
 
 ---

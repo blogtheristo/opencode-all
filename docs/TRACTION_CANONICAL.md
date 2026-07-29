@@ -1,6 +1,6 @@
 # DWS / Lifetime Oy — Canonical Traction Statement
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -23,7 +23,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE — canonical. Every other document reuses §2 verbatim or points here.
 
----
+***
 
 ## 0. Why this document exists
 
@@ -88,7 +88,8 @@ For roughly seven months an inflated and internally contradictory traction claim
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Two Q1/2026 enterprise pilots at €29,950 each; €59,900 booked             | `docs/investor/data-room-2026Q2/PROOF_POINTS_2026Q2.md` §1, §3 (LAND-001, LAND-002), §4                                                                                               |
 | Redacted LAND-\* landed accounts                                          | `docs/investor/data-room-2026Q2/PROOF_POINTS_2026Q2.md` §3 (LAND-001 … LAND-006)                                                                                                      |
-| ~€7k/month, and that a contemporaneous figure said **5** customers, not 6 | `backups/pre-quality-standards/index-backup-20251226.html` line 1236 and `dws10.com/index.html` line 1919: "Dec 6, 2025 \| €7k MRR \| 5 customers"                                    |
+| ~€7k/month total revenue, and cash break-even at €0 founder salary | **Lemonsoft bookkeeping** — cited as "actual" in `docs/investor/boardy-2026-07-29/BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md` and `BOARDY_BUDGET_2026-2029_V3.md` (attachments F_Liite3 / F_Liite5); founder-confirmed 22.07.2026. The **total** is bookkeeping-backed; only its split between transport and consulting is not — see §5. |
+| That a contemporaneous figure said **5** customers, not 6 | `backups/pre-quality-standards/index-backup-20251226.html` line 1236 and `dws10.com/index.html` line 1919: "Dec 6, 2025 \| €7k MRR \| 5 customers" |
 | Defence Startup Fund is a municipal RTOY grant, rejected 23.4.2026        | `docs/DEFENCE_STARTUP_FUND_APPLICATION.md` §0 (timeline; decision by Laura Manner-Raappana, RTOY)                                                                                     |
 | ORK bid not filed; deadline 14 August 2026                                | `bids/ORK160826/ORK160826_ALIHANKKIJA_EN.md` line 104                                                                                                                                 |
 | Outokumpu / Kemira are in discussion, not filed                           | `sales-outreach/LETTER_ARI_HIRVONEN_OUTOKUMPU_*.md`, `sales-outreach/LETTER_MARIA_SEDERHOLM_KEMIRA_MATERIAL_PACKAGE.md` — offer letters dated 27.6.2026, no send confirmation on file |

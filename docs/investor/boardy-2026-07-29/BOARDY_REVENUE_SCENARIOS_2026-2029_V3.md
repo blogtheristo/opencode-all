@@ -22,7 +22,7 @@ Sessions & Modifications:
 
 | Item                              | Value                                                                                                                                          |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| MRR / ARR (running)               | €7k MRR (~€84k ARR run-rate) — actual, Lemonsoft bookkeeping (F_Liite3 / F_Liite5)                                                             |
+| Services & transport revenue      | ~€7k/mo (~€84k/yr run-rate) — actual, Lemonsoft bookkeeping (F_Liite3 / F_Liite5). **Licensed transport operation + consulting; NOT software MRR/ARR** and never presented as such. Software: €59,900 Q1/26 pilot contract value. Canonical: `docs/TRACTION_CANONICAL.md` |
 | Paying customers / retention      | 6 customers · 0% churn (9 months)                                                                                                              |
 | Q1/26 pilots booked               | 2 × €29,950 = €59,900                                                                                                                          |
 | Skilled Agents in production      | 16                                                                                                                                             |

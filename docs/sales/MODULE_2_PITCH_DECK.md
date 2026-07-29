@@ -104,13 +104,15 @@ _[Visual: Comparison table with green checkmarks for DWS, red X for competitors]
 
 ## Slide 6 — Traction
 
-**6 paying customers. 100% retention. Zero churn.**
+**Two enterprise pilots contracted Q1/2026 at €29,950 each — €59,900 booked — plus four smaller landed accounts.**
+
+Separately, ~€7,000/month of services and transport revenue (licensed transport operation + consulting) covers the burn at a founder salary of €0. That is not software revenue and is never presented as MRR. Canonical source: `docs/TRACTION_CANONICAL.md`.
 
 | Customer                             | Result                                          |
 | ------------------------------------ | ----------------------------------------------- |
-| Kela (Finnish government healthcare) | Audit readiness: 6 months to 4 weeks            |
-| Uber Finland                         | CSRD reporting: 60h/mo to 8h/mo (87% reduction) |
-| Bolt Finland                         | ETS penalty exposure: €10K-50K to €0            |
+| LAND-001 (Nordic Tier-1 constructor)  | DWS IQ 6 Enterprise Pilot — €29,950            |
+| LAND-002 (Central-Europe Tier-1 constructor) | DWS IQ 6 Enterprise Pilot — €29,950     |
+| LAND-003 … LAND-006                   | Attach accounts — names redacted pending authorization |
 | NCC (Nordic construction, €5.5B rev) | Construction vertical reference                 |
 
 A production skilled-agent fleet. 15,000+ EU regulation documents indexed. 20 industry ontologies.
