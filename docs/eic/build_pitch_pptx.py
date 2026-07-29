@@ -122,7 +122,7 @@ content(6, "Market", "Regulated EU industry — and beyond", [
 
 content(7, "Business model · traction", "A model that already prices", [
     "Aegis **€59,990** + subscriptions (€499–€2,999/mo) + outcome SKUs + grant-enabled **action tier**.",
-    "**Cash break-even** on founder transport + consulting revenue; **2 enterprise pilots contracted Q1/26**; Outokumpu + Kemira offers filed.",
+    "**Cash break-even** on founder transport + consulting revenue; **2 enterprise pilots contracted Q1/26**; Outokumpu + Kemira in discussion.",
     "Every conformant third-party agent becomes a **channel**, not a competitor.",
 ])
 
