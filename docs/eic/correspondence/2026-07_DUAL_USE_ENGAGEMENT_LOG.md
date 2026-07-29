@@ -46,7 +46,25 @@ This is the **anchor artifact** for the dual-use declaration: DIANA asking for m
 [TO FILL — paste the message from DIANA verbatim, per §24 Correspondence Preservation]
 ```
 
-> **Naming caution:** older internal documents mislabel the **Defence Startup Fund** application (Riihimäen Tilat ja Kehitys Oy, rejected 23.4.2026) as a "NATO DIANA application". That was a municipal grant, **not** DIANA. See `2026-04-23_RTOY_defence-startup-fund-rejection.md`. Keep the two strictly separate — conflating them in an EU application would be a false statement.
+### The Riihimäki / DIANA ecosystem — get the levels right
+
+Three distinct entities, closely linked, easily conflated (founder-confirmed 2026-07-29):
+
+| Level | Who | What |
+| ----- | --- | ---- |
+| **NATO DIANA** | **VTT** hosts Finland's DIANA accelerator (launched early 2026) + two test centres (6G; Secure Connectivity, Space & Quantum) | NATO-level programme; applications open to companies from all NATO member states |
+| **DEFINE** (Defence Innovation Network Finland) | Innovation Hub in **Riihimäki**; Millog test centre alongside it | Finland's national defence-innovation network; organises NATO Innovation Range Finland |
+| **Riihimäki Defence Startup Fund** | **Riihimäen kaupunki + RTOY (Business Riihimäki) + DEFINE** | Municipal instrument: €20,000 convertible loan |
+
+**The correct formulation:** *RTOY is not itself DIANA, but RTOY is the organisation responsible for promoting DIANA opportunities and defence-industry innovation in Riihimäki* — it acts as the practical engine connecting companies into the NATO DIANA network. The city and RTOY are investing €650k to expand DEFINE nationally.
+
+So the connection is **real and citable at the ecosystem level**; what is not permitted is describing the **RTOY municipal grant application** as a *"NATO DIANA application"*. Those are different instruments at different levels. See `2026-04-23_RTOY_defence-startup-fund-rejection.md`.
+
+⚠️ **Open question before this section can be completed:** the founder recalls DIANA requesting a pitch video and deck. The RTOY rejection letter (23.4.2026) **also** states that the application lacked a video and pitch deck and encourages resubmission. These may be the same event. Determine which before citing it:
+- **RTOY feedback on the rejected municipal application** → cite as ecosystem engagement, not NATO-level interest.
+- **A separate approach from VTT's NATO DIANA accelerator** → this is the strongest dual-use evidence available and should be cited as such.
+
+⚠️ **RTOY eligibility note:** the fund requires the applicant's **main office in Riihimäki** (plus: company under 5 years old, defence/security/dual-use focus, ≥€20k self- or private financing, ≥1 founder from a NATO country or Ukraine). **Lifetime Oy is in Espoo.** Confirm with RTOY whether this is absolute before investing effort in a resubmission.
 
 ---
 

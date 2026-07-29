@@ -17,7 +17,11 @@
 
 ---
 
-> **Note on naming:** this application is the one occasionally mislabelled "NATO DIANA" in older internal documents. It is **not** DIANA — it is a municipal Defence Startup Fund administered by Riihimäen Tilat ja Kehitys Oy (RTOY). The mislabelling is corrected in `sales-outreach/LETTER_LAURA_MANNER_RAAPPANA_RTOY_FI.md`. Never describe this as a NATO DIANA application.
+> **Note on naming — the connection is real, the levels are not interchangeable.** This application is the one occasionally mislabelled "NATO DIANA" in older internal documents. It is a **municipal Defence Startup Fund** (€20,000 convertible loan) administered by Riihimäen Tilat ja Kehitys Oy / Business Riihimäki together with the City of Riihimäki and DEFINE.
+>
+> RTOY **is** the organisation responsible for promoting NATO DIANA opportunities and defence-industry innovation in Riihimäki — it is the practical gateway connecting companies into the DIANA network, and the city and RTOY are investing €650k to expand DEFINE nationally. But **NATO DIANA itself is hosted in Finland by VTT** (accelerator + two test centres). RTOY is not DIANA.
+>
+> Therefore: "engaged with Business Riihimäki, the organisation connecting companies to the NATO DIANA network" is accurate and citable. "Applied to NATO DIANA" referring to *this* application is not. The mislabelling is corrected in `sales-outreach/LETTER_LAURA_MANNER_RAAPPANA_RTOY_FI.md`.
 
 **From:** Laura Manner-Raappana, Yritysneuvoja / Business Advisor
 Riihimäen Tilat ja Kehitys Oy — laura.manner-raappana@riihimaki.fi, +358 40 558 9570
