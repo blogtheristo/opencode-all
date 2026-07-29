@@ -4,10 +4,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/update-pillar-1-messaging-63wXw | Date: 20.04.2026 | Changes: Initial creation — 10-slide Ecosummit pitch deck for October 7-8 2026 Berlin. Tuned for climate tech investor audience (no CBAM/CSRD explanations, leads with tariff risk, network effect as hero slide). Based on INVESTOR_HOOK_DECK.md v3.0 but reframed for 5-minute stage format.
 
 Session Links & References:
@@ -122,8 +122,8 @@ As more producers submit verified data, every downstream importer's CBAM calcula
 
 Live. Paying. Retaining.
 
-- **EUR 7K MRR** (March 2026) — 100% retention, zero churn
-- **6 paying customers** across industrial verticals
+- **~EUR 7,000/month services and transport revenue** (not software revenue) — cash break-even, founder salary EUR 0
+- **Two enterprise pilots contracted Q1/2026** at EUR 29,950 each (EUR 59,900 booked)
 - **25 EU-regulated industries** covered
 - **a fleet of skilled agents** in production
 - **13 open data sources** baked in (EUTL, ENTSO-E, EFRAG, Eurostat, EMBER, EEA)

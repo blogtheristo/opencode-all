@@ -7,7 +7,7 @@ Operated by Lifetime Oy (Business ID 0772407-9), Espoo, Finland. Canonical domai
 ## Pages
 
 - [DWS IQ 6 | Nordic Industrial AI | Built in Finland | Lifetime Oy](https://dws10.com/): DWS IQ 6 — Nordic industrial AI built in Finland. EU compliance automation for construction, logistics, and manufacturing. Silicon Valley doesn
-- [Aegis Partners | DWS IQ 6 | Lifetime Oy](https://dws10.com/aegis-partners/): DWS IQ Aegis Partners. Defence, sovereign industrial, and critical infrastructure partners: Nokia Defence, NVIDIA, Acer. Tier 1 partner tier (€25,000/year) with air-gapped deployment and multi-jurisdiction sovereignty.
+- [Aegis Partners | DWS IQ 6 | Lifetime Oy](https://dws10.com/aegis-partners/): DWS IQ Aegis Partners. Defence, sovereign industrial, and critical infrastructure partners: a defence-industry prime, NVIDIA, Acer. Tier 1 partner tier (€25,000/year) with air-gapped deployment and multi-jurisdiction sovereignty.
 - [DWS IQ Aegis — Sovereign AI for Defence Supply Chains | Lifetime Oy](https://dws10.com/aegis/): DWS IQ Aegis — Single-tenant sovereign AI platform. Zero CLOUD Act exposure. 21 EU-regulated industries. 13x cheaper than Palantir. Finnish infrastructure.
 - [Platform Architecture | DWS IQ 6 | Lifetime Oy](https://dws10.com/architecture/): DWS IQ 6 multi-agent architecture — Brain-Memory-Body-Hands design for EU-regulated industries. Specialized AI agents, MCP orchestration, sovereign data residency.
 - [Book a Meeting | DWS IQ 6](https://dws10.com/book/): Book a free meeting or consulting session with Lifetime Oy and choose the consulting product you want to discuss.

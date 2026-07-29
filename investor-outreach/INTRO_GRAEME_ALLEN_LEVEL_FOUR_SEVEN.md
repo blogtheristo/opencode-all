@@ -1,12 +1,13 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Graeme Allen, Level Four Seven
-Version: 1.0
+Version: 1.1
 Date: 2026-03-28
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/add-investor-contact-FSWNH
 Status: WARM — Warm intro available, human spoke recently
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-28): Profile created from human briefing. Warm intro confirmed. Strong thesis overlap on hard tech TRL 4-7 and climate/industrial engineering. Portugal-based but pan-European network (UK, Berlin, Estonia). Venture scout for LvlUp Ventures and Flashpoint.
 -->
 
@@ -80,7 +81,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Lead with:
 
-1. **TRL positioning** — "We're TRL 6-7: a fleet of skilled agents in production, 6 paying customers, V1 launching at Arctic 15 in June"
+1. **TRL positioning** — "We're TRL 5 completed, entering TRL 6, anchored on the KYA engine: a fleet of skilled agents in production, two enterprise pilots contracted Q1/2026, V1 launching at Arctic 15 in June"
 2. **Hard tech angle** — Deterministic scoring engines, not wrapper AI. Industrial-grade compliance infrastructure
 3. **Climate + industrial** — Carbon balance sheet as double-entry bookkeeping for CO2 across 25 industries
 4. **EU regulatory moat** — CSRD, CBAM, ETS, EU AI Act create mandatory compliance demand
@@ -96,7 +97,7 @@ Graeme's hard tech focus could extend to the Aegis positioning if DWS deepens th
 
 ## Draft Email
 
-**Subject:** Intro — DWS IQ: Carbon Balance Sheet Infrastructure (TRL 6-7, EU Deep Tech)
+**Subject:** Intro — DWS IQ: Carbon Balance Sheet Infrastructure (TRL 5→6, EU Deep Tech)
 
 Hi Graeme,
 
@@ -104,7 +105,7 @@ Great speaking with you recently. Following up as discussed.
 
 We're building the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. A fleet of skilled agents in production across 25 EU-regulated industries, with CSRD/CBAM/ETS compliance automation.
 
-We're at TRL 6-7: validated technology with 6 paying customers (€7K MRR, zero churn), launching V1 publicly at Arctic 15 in Helsinki on June 15. Currently raising €650K on a SAFE at €3.8M cap to fund a 2-month sales sprint post-launch.
+We're at TRL 5 completed, entering TRL 6 (anchored on the KYA engine): validated technology with two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), launching V1 publicly at Arctic 15 in Helsinki on June 15. Currently raising €650K on a SAFE at €3.8M cap to fund a 2-month sales sprint post-launch.
 
 This sits squarely in your TRL 4-7 thesis — hard climate tech infrastructure, not wrapper AI. Would love to explore whether this is a fit for LvlUp Ventures or Flashpoint, or anyone in your network who's writing checks into EU regulatory infrastructure.
 

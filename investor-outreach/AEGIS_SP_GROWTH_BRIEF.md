@@ -9,10 +9,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code | Session: claude/iqm-development-roadmap-r3ftoe | Date: 04.07.2026 | Changes: Initial creation. Lender-audience derivative of AEGIS_MOAT_EVIDENCE.md moat block v2 — sovereignty-as-market-access and price-as-procurement-feasibility framing, revenue-quality section, regulatory-mandated demand evidence.
 
 Document Status:
@@ -32,8 +32,11 @@ DWS IQ AEGIS — WHY THIS REVENUE IS BANKABLE
 WHO WE ARE. Lifetime Oy (Business ID 0772407-9, Espoo) ships DWS IQ Aegis: a
 Finnish software platform that automates EU-mandated compliance reporting for
 industrial and defence supply-chain companies. Published list pricing, subscription
-revenue, Finnish hosting. Availability: August 2026, sold from a live platform
-business (5 paying customers, EUR 7K MRR, 100% retention as of March 2026).
+revenue, Finnish hosting. Aegis is in preorder; general availability September 2026;
+pre-revenue. Product development is funded by ~EUR 7,000/month of services and
+transport revenue (not software revenue), which puts Lifetime Oy at cash break-even
+with a founder salary of EUR 0. Software pipeline: two enterprise pilots contracted
+Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 
 1. THE DEMAND IS WRITTEN INTO LAW, NOT FASHION.
    Our customers do not buy Aegis because they want to — they buy it because
@@ -64,7 +67,7 @@ business (5 paying customers, EUR 7K MRR, 100% retention as of March 2026).
 
 4. REVENUE QUALITY.
    - Recurring subscription: EUR 999-4,999/mo per customer on top of onboarding
-   - Retention: 100% to date (zero churn); customer value EUR 70K-120K/logo/year
+   - Two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); customer value EUR 70K-120K/logo/year
    - 2026 plan: EUR 900K ARR (25 customers x EUR 36K average) — an average deal
      is 0.9% of a Palantir-class contract, sold to a market of thousands of
      EU-regulated companies rather than dozens of governments

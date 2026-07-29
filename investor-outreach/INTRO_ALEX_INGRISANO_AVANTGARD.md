@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Alex Ingrisano, Avantgard Group
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: Dual-use defense + Industrial B2B SaaS + EU/US deep tech bridge
 Intro Type: Warm (Risto direct conversation)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Co-founder & Managing Partner, Avantgard Group (Madrid). Bridges EU/US deep tech, dual-use defense, industrial. Former founder with multiple exits, syndicates deals, advises on defense pivots. Active buy-side mandates in B2B SaaS + industrial tech across Nordics/DACH/Benelux. Drawback: Madrid-based, primarily Spain/US focus — Nordic network may be limited. Strategy: lead with dual-use + industrial thesis (Aegis angle), leverage his Nordics/DACH/Benelux mandate, ask for US co-investor intros.
 -->
 
@@ -84,13 +85,13 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Alex — good to speak recently. Quick follow-up: we are now 6 weeks from V1 launch at Arctic 15 (June 15) and the Messe Germany commercial push.
 
-Lifetime Oy — industrial AI compliance for EU construction/manufacturing. a fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. Dual-use Aegis layer for defense/sovereignty.
+Lifetime Oy — industrial AI compliance for EU construction/manufacturing. a fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). Dual-use Aegis layer for defense/sovereignty.
 
 Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. Matches your industrial + dual-use mandate. One-pager?
 
 ## Draft Email (if email channel preferred)
 
-**Subject:** Follow-up — DWS IQ 6 V1, dual-use industrial, EUR 7K MRR
+**Subject:** Follow-up — DWS IQ 6 V1, dual-use industrial, two contracted enterprise pilots
 
 Hi Alex,
 
@@ -100,7 +101,7 @@ DWS IQ 6 is the carbon balance sheet for EU industrial companies — a fleet of 
 
 The numbers:
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026

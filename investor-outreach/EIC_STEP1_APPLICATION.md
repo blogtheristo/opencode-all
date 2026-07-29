@@ -4,10 +4,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Initial draft — EIC Accelerator Step 1 based on 5-slide Hook Deck narrative (one-liner, cost moat, defensibility moat, Qivalis window, payment-agnostic infrastructure)
 
 Document Status:
@@ -82,7 +82,7 @@ DWS IQ records every CBAM, CSRD, and ETS obligation regardless of whether the
 payment moves via Qivalis, SEPA, or any future rail. The compliance obligation
 exists at the transaction level, not the rail level.
 
-Current traction: EUR 7K MRR, 6 paying customers, 100% retention, a fleet of skilled agents
+Current traction: two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); ~EUR 7,000/month services and transport revenue (not software revenue), a fleet of skilled agents
 operational across 25 EU-regulated industries. NVIDIA Connect ISV Partner.
 Microsoft Founders Hub L1–L4. Three InvestEU Portal listings.
 
@@ -193,7 +193,7 @@ _(500 characters max — current draft: ~400 characters)_
 software, EU compliance, and AI systems. Master's thesis on AI harness
 engineering (Metropolia University, 2026). PhD continuation planned
 (LUT University, 2027). NVIDIA Connect ISV Partner, Microsoft Founders
-Hub L1–L4. Zero prior VC backing — bootstrapped to EUR 7K MRR.
+Hub L1–L4. Zero prior VC backing — bootstrapped on ~EUR 7,000/month of services and transport revenue (not software revenue).
 
 **Lucille Santiago** — Logistics & Office.
 
@@ -208,7 +208,7 @@ First EUR 50K of raise funds senior technical hire Q3 2026.
 
 _(500 characters max — current draft: ~350 characters)_
 
-**Current:** EUR 7K MRR (March 2026), 6 customers, 100% retention.
+**Current:** ~EUR 7,000/month services and transport revenue (not software revenue), March 2026; two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 
 **Active raise:** EUR 650K SAFE at EUR 3.8M valuation cap (20% discount).
 Bridge to Series A targeting EUR 15M+ pre-money, Q3–Q4 2026.

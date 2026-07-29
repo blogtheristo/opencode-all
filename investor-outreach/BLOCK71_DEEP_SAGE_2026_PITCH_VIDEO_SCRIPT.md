@@ -4,10 +4,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code | Session: claude/block71-deep-sage-2026-Trqr5 | Date: 26.05.2026 | Changes: Initial draft — 3-minute pitch video script (≈450 spoken words). Structured to four Block71 requirements: Problem & Solution, Unique Value, Product/Features, Engaging & Creative. Embeds the 3-Pillar Sovereignty Wedge (SIB/CSB/EAB × EU/US/SG) and the Singapore-equals-Global thesis from the pitch deck (`BLOCK71_DEEP_SAGE_2026_PITCH_DECK.html`).
 
 Document Status:
@@ -43,11 +43,11 @@ Related Documents:
 ## Delivery Notes
 
 - **Pace:** 150 wpm — natural, slightly above conversational. Breathe between paragraphs.
-- **Energy:** Confident, not breathless. You have €7K of paying-customer revenue — speak from that ground.
+- **Energy:** Confident, not breathless. You have two contracted enterprise pilots (€59,900 booked) and a cash-break-even services and transport base — speak from that ground.
 - **Emphasis words:** *ledger*, *every tonne like every euro*, *mandatory*, *Singapore*, *universal*, *now*.
 - **Pauses:** One full beat after "the carbon balance sheet" (0:55), one after "Singapore is the proof" (1:55), one before the final ask (2:42).
 - **Eye contact:** Stay on lens. No script-reading tells (avoid horizontal eye drift).
-- **Smile:** Once, on "100% retention. Zero churn." (2:18).
+- **Smile:** Once, on "two enterprise pilots contracted." (2:18).
 
 ---
 
@@ -98,7 +98,7 @@ Related Documents:
 ### [2:18 – 2:38] TRACTION
 **Visual:** Cut to deck Slide 7 (Traction). Stat cards on screen.
 
-> Seven thousand euros monthly recurring revenue, six paying customers — Uber Finland, Bolt Finland, Kela — one hundred percent retention, zero churn. NVIDIA Connect ISV partner. Microsoft Founders Hub. Peachscore Cohort 25. Master's thesis live at Metropolia. PhD path at LUT. Bootstrapped. No outside capital. Yet.
+> Two enterprise pilots contracted in the first quarter of twenty twenty-six, twenty-nine thousand nine hundred and fifty euros each — fifty-nine thousand nine hundred booked. Around seven thousand euros a month of services and transport revenue funds development; that is not software revenue, and it puts us at cash break-even with a founder salary of zero. NVIDIA Connect ISV partner. Microsoft Founders Hub. Peachscore Cohort 25. Master's thesis live at Metropolia. PhD path at LUT. Bootstrapped. No outside capital. Yet.
 
 ---
 
@@ -130,7 +130,7 @@ Related Documents:
 >
 > Today we run twenty-one production agents, thirty-two shipped products, across twenty regulated industries. Our edge AI runs on a five-hundred-euro NVIDIA Jetson — seventeen thousand euros a year, versus three hundred and fifty thousand on the cloud. A twenty-times cost moat, with zero data leaving the customer's premises.
 >
-> Seven thousand euros monthly recurring revenue, six paying customers — Uber Finland, Bolt Finland, Kela — one hundred percent retention, zero churn. NVIDIA Connect ISV partner. Microsoft Founders Hub. Peachscore Cohort 25. Master's thesis live at Metropolia. PhD path at LUT. Bootstrapped. No outside capital. Yet.
+> Two enterprise pilots contracted in the first quarter of twenty twenty-six, twenty-nine thousand nine hundred and fifty euros each — fifty-nine thousand nine hundred booked. Around seven thousand euros a month of services and transport revenue funds development; that is not software revenue, and it puts us at cash break-even with a founder salary of zero. NVIDIA Connect ISV partner. Microsoft Founders Hub. Peachscore Cohort 25. Master's thesis live at Metropolia. PhD path at LUT. Bootstrapped. No outside capital. Yet.
 >
 > Singapore is where we prove this architecture is universal. With Block71, TIS, and NUS Enterprise, we land the Asia bridgehead in twelve weeks — fractional CXOs, Japanese channel, the third academic anchor — and the five hundred thousand Singapore dollars plugs straight into our active SAFE bridge.
 >
@@ -174,7 +174,7 @@ Related Documents:
 3. Helsinki harbour container terminal — exterior, wide, slow pan (4 sec). Establishes the "shipment at a European port" hook.
 4. Risto walking through office / lab corridor — back-of-head tracking shot (3 sec).
 5. Close-up on hands typing — abstract, no screen detail (3 sec).
-6. Three product logos in sequence — Uber, Bolt, Kela — as Risto names them (2 sec each).
+6. Two contracted-pilot cards in sequence — LAND-001, LAND-002 — as Risto names them (2 sec each).
 7. Final beat — Risto direct to camera, slow push-in over the last sentence (5 sec).
 
 Total B-roll: ≤ 36 seconds of the 3 minutes. Face-on-camera dominates.

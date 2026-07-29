@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Adviser Intro Note — Jukka Järvelä, Sisu Partners
-Version: 1.0
+Version: 1.1
 Date: 2026-06-07
 Author: Claude Opus 4 + Human Review
 Branch: claude/devco-sisu-partners-dws-vFgUc
@@ -9,6 +9,7 @@ Story Lock: Story A (Regulatory Compliance Infrastructure / labor economics)
 Intro Type: Cold — relationship-building (not a paid mandate yet)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-06-07): Initial draft. Sisu studied as ADVISER / capital-raising route, not a balance-sheet investor. Engage as relationship + future option (H2-2026 seed adviser, First North Certified Adviser). Too early for a paid mandate at €84K ARR — keep it low-stakes.
 -->
 
@@ -16,7 +17,7 @@ AGENT HISTORY:
 
 ## Frame: ADVISER / capital-raising route, not a direct investor
 
-Sisu Partners advises and raises capital — it does **not** deploy a fund into a startup SAFE. So this is a **relationship + future option**, not a money ask today. Sisu matters as: (1) a route to Finnish institutional / family-office capital for the **H2-2026 seed**, (2) a **Nasdaq First North Certified Adviser** (mandatory if DWS ever lists), and (3) valuation/fairness-opinion credibility. At €84K ARR we're below their paid-mandate threshold — engage warmly, expect nothing transactional yet.
+Sisu Partners advises and raises capital — it does **not** deploy a fund into a startup SAFE. So this is a **relationship + future option**, not a money ask today. Sisu matters as: (1) a route to Finnish institutional / family-office capital for the **H2-2026 seed**, (2) a **Nasdaq First North Certified Adviser** (mandatory if DWS ever lists), and (3) valuation/fairness-opinion credibility. At our current scale — two enterprise pilots contracted Q1/2026 (€59,900 booked), software otherwise pre-revenue — we're below their paid-mandate threshold — engage warmly, expect nothing transactional yet.
 
 ## Target Profile
 

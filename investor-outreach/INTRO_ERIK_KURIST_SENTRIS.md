@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Erik Kurist, Sentris Capital
-Version: 1.1
+Version: 1.2
 Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/review-investment-decision-0zTSR
@@ -9,6 +9,7 @@ Story Lock: Defence & Resilience + Carbon Compliance + EU Sovereignty
 Intro Type: Warm Inbound (Boardy platform — Erik reached out first)
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-30): Initial draft. Warm inbound via Boardy. Led with dual-use/defence resilience angle — carbon balance sheet as critical infrastructure for EU defence supply chain compliance. Sentris is EU defence & resilience VC headquartered in Estonia. Strong thesis fit: EU sovereignty, industrial compliance, defence supply chain resilience.
 - v1.1 (2026-04-01): REJECTION RECEIVED. Erik passed — "does not appear to align directly with our defense and resilience investment mandate." Root cause: sent general INVESTOR_MEMO.md (v4.0) which leads with "Climate Tech / Carbon Balance Sheet Infrastructure." Defence VC pattern-matched to "not defence." Created INVESTOR_MEMO_AEGIS.md as defence-first alternative. Lesson: all defence/sovereignty VCs get the Aegis memo, not the climate memo.
 -->
@@ -73,6 +74,8 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 - Offer a call — he's already interested, reduce friction
 
 ## Reply Email
+
+> **Correction (29.07.2026):** the message below claims software traction that was not real — "EUR/€ 7K MRR", "6 paying customers" and "100% retention". The ~€7,000/month is services and transport revenue, not software revenue; the company is at cash break-even with a founder salary of €0. The only contracted software business is two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). No retention rate is asserted. Sent correspondence is preserved verbatim per `DWS_DOCUMENT_STANDARD.md` §24. Canonical source: `docs/TRACTION_CANONICAL.md`.
 
 **Subject:** Re: Lifetime Oy / DWS IQ 6 — Deck & Live Case Study
 
