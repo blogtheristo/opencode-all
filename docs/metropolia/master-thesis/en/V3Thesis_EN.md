@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.91
+Version: 3.92
 Sessions & Modifications:
 
+- Version: 3.92 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Lockstep version bump 3.91 → 3.92 across all 4 thesis files per the CLAUDE.md thesis rule. Substantive change is confined to the master's thesis target-customer list: the parenthetical "(EUR 7k MRR live)" attached to Uber/Bolt/Kela was a false traction claim — that ~€7k/month is services and transport revenue, not software revenue, and those parties are dispatch operators of the licensed transport operation in the Traficom-defined role, not software customers. Corrected against the new canonical source `docs/TRACTION_CANONICAL.md` (founder-confirmed 29.07.2026, registered as `DWS_TRUTH_STANDARD.md` §2 row 32). No PhD-scope content change — recorded here as a lockstep-only entry per the §1.4 master-vs-PhD scope rule.
 - Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.90 → 3.91 per the CLAUDE.md Thesis Rule. No content change here: the v3.91 addition (a supply-concentration mitigation — non-NVIDIA fallback compute layer at testbed scale converting lock-in into a governed managed dependency) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44 Finding 3.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.89 → 3.90 per the CLAUDE.md Thesis Rule. No content change here: the v3.90 change (Cosmos 3 Edge / DeepSeek-V4-Pro specs VERIFIED against primary sources 26.07.2026; §14.44 caveat upgraded + family-tier/physical-AI refinement + a FI-file placement fix) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44.
@@ -660,7 +661,7 @@ The Omnibus package **does not change** the core Fit for 55 targets:
 **Tier 1 - Critical Industries (Immediate sales focus):**
 
 - **Construction:** NCC, Skanska, T2H, Vinci, Strabag (36-40% of EU emissions)
-- **Logistics:** Uber, Bolt, Kela, DB Schenker, DHL (EUR 7k MRR live)
+- **Logistics:** DB Schenker, DHL, and Nordic freight operators. (Uber, Bolt, Kela and Taksi Helsinki are **dispatch operators** of Lifetime Oy's licensed transport operation in the role defined by Traficom — commercial counterparties, not software customers, and not part of this target list. See `docs/TRACTION_CANONICAL.md`.)
 - **Manufacturing:** Kone, Wartsila, ABB, Valmet (ETS + CBAM)
 - **Energy:** Fortum, Helen, Vattenfall (25-30% of emissions)
 

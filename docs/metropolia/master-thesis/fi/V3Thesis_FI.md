@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.91
+Version: 3.92
 Sessions & Modifications:
 
+- Version: 3.92 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Lukkokohtainen versionosto 3.91 → 3.92 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Substanssimuutos rajoittuu pro gradun kohdeasiakaslistaan: Uber/Bolt/Kela-riviin liitetty sulkumerkintä "(€7k MRR live)" oli virheellinen traktioväite — kyseinen n. 7 000 €/kk on palvelu- ja kuljetusliikevaihtoa, ei ohjelmistoliikevaihtoa, ja nämä osapuolet ovat luvanvaraisen kuljetustoiminnan välityspalveluita Traficomin määrittelemässä roolissa, eivät ohjelmistoasiakkaita. Korjattu uutta kanonista lähdettä `docs/TRACTION_CANONICAL.md` vasten (perustajan vahvistus 29.07.2026, rekisteröity `DWS_TRUTH_STANDARD.md` §2 rivi 32). Ei PhD-skoopin sisältömuutosta — kirjattu tähän lukkokohtaisena merkintänä §1.4 master-vs-PhD-skooppisäännön mukaan.
 - Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.90 → 3.91 CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän tiedostoon: v3.91-lisäys (supply-keskittymän mitigointi — ei-NVIDIA-fallback-laskentakerros testbed-tasolla, joka muuntaa lock-inin hallituksi riippuvuudeksi) on markkinasignaali ja kuuluu tiedostoon PHD_FIREHORSE §14.44 Löydös 3.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.89 → 3.90 CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän tiedostoon: v3.90-muutos (Cosmos 3 Edge / DeepSeek-V4-Pro speksit VERIFIOITU ensisijaislähteillä 26.07.2026; §14.44:n varauksen päivitys + perhe-tier/physical-AI-tarkennus + FI-tiedoston sijaintikorjaus) on markkinasignaali ja kuuluu tiedostoon PHD_FIREHORSE §14.44.
@@ -651,7 +652,7 @@ Omnibus-paketti **ei muuta** Fit for 55:n ydintavoitteita:
 **Taso 1 - Kriittiset teollisuudet (Välitön myyntifokus):**
 
 - **Rakentaminen:** NCC, Skanska, T2H, Vinci, Strabag (36-40% EU-päästöistä)
-- **Logistiikka:** Uber, Bolt, Kela, DB Schenker, DHL (€7k MRR live)
+- **Logistiikka:** DB Schenker, DHL ja pohjoismaiset rahtioperaattorit. (Uber, Bolt, Kela ja Taksi Helsinki ovat Lifetime Oy:n luvanvaraisen kuljetustoiminnan **välityspalveluita** Traficomin määrittelemässä roolissa — kaupallisia vastapuolia, eivät ohjelmistoasiakkaita, eivätkä osa tätä kohdelistaa. Ks. `docs/TRACTION_CANONICAL.md`.)
 - **Valmistus:** Kone, Wärtsilä, ABB, Valmet (ETS + CBAM)
 - **Energia:** Fortum, Helen, Vattenfall (25-30% päästöistä)
 

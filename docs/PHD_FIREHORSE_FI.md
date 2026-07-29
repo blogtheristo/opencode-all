@@ -11,9 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.91
+Version: 3.92
 Sessions & Modifications:
 
+- Version: 3.92 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Lukkokohtainen versionosto 3.91 → 3.92 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Substanssimuutos rajoittuu pro gradun kohdeasiakaslistaan: Uber/Bolt/Kela-riviin liitetty sulkumerkintä "(€7k MRR live)" oli virheellinen traktioväite — kyseinen n. 7 000 €/kk on palvelu- ja kuljetusliikevaihtoa, ei ohjelmistoliikevaihtoa, ja nämä osapuolet ovat luvanvaraisen kuljetustoiminnan välityspalveluita Traficomin määrittelemässä roolissa, eivät ohjelmistoasiakkaita. Korjattu uutta kanonista lähdettä `docs/TRACTION_CANONICAL.md` vasten (perustajan vahvistus 29.07.2026, rekisteröity `DWS_TRUTH_STANDARD.md` §2 rivi 32). Ei PhD-skoopin sisältömuutosta — kirjattu tähän lukkokohtaisena merkintänä §1.4 master-vs-PhD-skooppisäännön mukaan.
 - Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lisätty mitigointikappale §14.44:n Löydös 3:een (NVIDIA-supply-keskittymän riski): nimeää ei-NVIDIA-fallback-laskentakerroksen testbed-tasolla (AMD Instinct MI300 ROCm/vLLM; Intel Gaudi 3 SynapseAI) — avoimet base-painot tekevät exit-kustannuksesta osoitettavan ja muuntavat single-vendor-lock-inin hallituksi, auditoitavaksi riippuvuudeksi (KYA-/malli-provenienssipredikaatti, §14.24). Kirjaa IJS-sovereniteettiasteikon (DGX on-prem 100 / NIM EU 55) ja rehellisen varauksen (siirrettävä fallback vahvin LLM-tierille; Cosmos NVFP4 on re-kvantisointi-ja-portaus). Lockstep 3.90→3.91.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Korjattu §14.44:n sijainti FI:ssä (oli virheellisesti §14.43:n sisällä 3.89-commitissa; siirretty §14.43:n jälkeen) JA nostettu speksit VARMENTAMATTOMASTA VERIFIOITUUN ensisijaislähteillä 26.07.2026 (Cosmos 3 Edge 4B + 2B Nemotron, DGX-Spark-natiivi, julk. 15.07.2026; Cosmos 3 -perheen edge-tier, 16B Nano / 64B Super; DeepSeek-V4-Pro 1,6T / 49B aktiivinen MoE NIM:ssä). Lisätty perhe-tier + physical-AI-tarkennus (§14.35). Lockstep 3.89→3.90.
