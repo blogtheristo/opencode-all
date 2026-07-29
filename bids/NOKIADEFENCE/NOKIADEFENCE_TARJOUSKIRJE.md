@@ -2,12 +2,12 @@
 
 ## DWS IQ Aegis Defence -alusta ja tekoälyn asiantuntijapalvelut — Nokia Defence
 
----
+***
 
 VERSION AND AGENT HISTORY
 Version: 1.0 | 2026-06-27 | Claude Sonnet 4.6 | Luotu Nokia Defence -tarjousta varten
 
----
+***
 
 **Vastaanottaja:**
 Nokia Defence (Nokia Corporation)

@@ -1,6 +1,6 @@
 # Sales AI Agent Design - DWS IQ 6 Myyntiautomaatio
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1
@@ -20,7 +20,7 @@ Document Status:
   - Languages Available: Suomi, English
   - Publication Status: 🚧 DRAFT
 
----
+***
 
 **Version:** 1.0
 **Purpose:** Määritellä AI-agentit myynnin tehostamiseen viidelle asiakassegmentille

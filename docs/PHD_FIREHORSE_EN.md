@@ -7,7 +7,7 @@
 **Document Type:** Doctoral Programme Application Appendix (Jatko-opiskeluhakemus)
 **Reference:** LUT Doctoral School — Application and Attachments
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -104,7 +104,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.0 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap)
 
----
+***
 
 ## Abstract
 

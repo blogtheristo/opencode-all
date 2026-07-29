@@ -1,31 +1,36 @@
 # One Click LCA Partnership Pitch
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 2.0
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Refreshed for May 2026 — narrowed to ONE primary BD contact recommendation (Partnerships function via partner page + CRO), collapsed two pitch variants into one strong cold-email + one warm-intro, deepened opportunity analysis post-SimaPro integration, added counter-arguments and risk register, added "what's changed since Feb" section
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/oneclicklca-partnership-pitch-k7R62 | Date: 24.02.2026 | Changes: Initial creation — two pitch versions, BD contact research, partnership value proposition
+
+- Version: 2.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — "€84k ARR / three live customers (Uber FI, Bolt FI, Kela) / 100% retention / zero churn / ~40h saved" replaced with the contracted-pilot statement in §1, §objection table, §cold email and §warm intro; dispatch operators removed from every customer list.
+- Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Refreshed for May 2026 — narrowed to ONE primary BD contact recommendation (Partnerships function via partner page + CRO), collapsed two pitch variants into one strong cold-email + one warm-intro, deepened opportunity analysis post-SimaPro integration, added counter-arguments and risk register, added "what's changed since Feb" section
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/oneclicklca-partnership-pitch-k7R62 | Date: 24.02.2026 | Changes: Initial creation — two pitch versions, BD contact research, partnership value proposition
 
 Session Links & References:
-  - Claude Code (claude/one-click-lca-partnership-MIYvn): https://github.com/blogtheristo/dws6/commits/claude/one-click-lca-partnership-MIYvn
-  - Claude Code (claude/oneclicklca-partnership-pitch-k7R62): https://claude.ai/code/session_01Rhfvx4UWgHBptpq9t5czM8
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/partners-outreach/ONECLICKLCA_PARTNERSHIP_PITCH.md
+
+- Claude Code (claude/one-click-lca-partnership-MIYvn): https://github.com/blogtheristo/dws6/commits/claude/one-click-lca-partnership-MIYvn
+- Claude Code (claude/oneclicklca-partnership-pitch-k7R62): https://claude.ai/code/session_01Rhfvx4UWgHBptpq9t5czM8
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/partners-outreach/ONECLICKLCA_PARTNERSHIP_PITCH.md
 
 Document Status:
-  - Created: 24.02.2026
-  - Last Modified: 18.05.2026
-  - Language: English
-  - Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL
+
+- Created: 24.02.2026
+- Last Modified: 18.05.2026
+- Language: English
+- Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL
 
 ***
 
 ## 0. TL;DR
 
 - **Right BD contact (primary):** Submit a formal application via the **One Click LCA Partner Program** (`oneclicklca.com/company/partners-and-resellers`) — that is their owned BD intake channel and creates an auditable record. In parallel, route a warm intro to **Suzana Delanghe (CRO)** as the human owner of commercial partnerships. CEO (Panu Pasanen) is the warm-intro escalation, not the BD entry point.
-- **Pitch in one line:** "Your output is our input. One Click LCA tells the architect what a building *should* emit. DWS IQ tells the regulator what the company *actually* emits."
+- **Pitch in one line:** "Your output is our input. One Click LCA tells the architect what a building _should_ emit. DWS IQ tells the regulator what the company _actually_ emits."
 - **Why it lands now:** Post-SimaPro/PRé acquisition (Sept 2025), One Click LCA owns the design phase globally. Their next strategic growth vector is the operations phase, which they do not build and we already ship.
 - **Ask:** 20-minute call. Outcome: a one-way CSV/API integration to import building LCA results into DWS IQ as CSRD baseline evidence, with bidirectional referral flow.
 
@@ -33,26 +38,26 @@ Document Status:
 
 ## 1. Target Company Snapshot (May 2026)
 
-| Field | Detail |
-|-------|--------|
-| **Company** | One Click LCA (Bionova Oy) |
-| **HQ** | Helsinki, Finland |
-| **Founded** | 2001 |
-| **CEO** | Panu Pasanen |
-| **Employees** | 228+ (pre-SimaPro); 400+ combined post-acquisition |
-| **Revenue** | €21.8M+ standalone; combined platform meaningfully larger |
-| **Funding** | $43.8M (InfraVia Capital Partners, PSG Equity) |
-| **Product** | Largest LCA & EPD platform globally (design phase A1–A5, EPDs, embodied carbon) |
-| **Reach** | 170+ countries, 500,000+ LCA data points, 20+ BIM integrations |
+| Field                          | Detail                                                                                 |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| **Company**                    | One Click LCA (Bionova Oy)                                                             |
+| **HQ**                         | Helsinki, Finland                                                                      |
+| **Founded**                    | 2001                                                                                   |
+| **CEO**                        | Panu Pasanen                                                                           |
+| **Employees**                  | 228+ (pre-SimaPro); 400+ combined post-acquisition                                     |
+| **Revenue**                    | €21.8M+ standalone; combined platform meaningfully larger                              |
+| **Funding**                    | $43.8M (InfraVia Capital Partners, PSG Equity)                                         |
+| **Product**                    | Largest LCA & EPD platform globally (design phase A1–A5, EPDs, embodied carbon)        |
+| **Reach**                      | 170+ countries, 500,000+ LCA data points, 20+ BIM integrations                         |
 | **Strategic move (Sept 2025)** | Acquired SimaPro & PRé Sustainability — now consolidates the global LCA tooling market |
-| **Public partner page** | `oneclicklca.com/company/partners-and-resellers` |
+| **Public partner page**        | `oneclicklca.com/company/partners-and-resellers`                                       |
 
 ### What changed since v1.0 (Feb → May 2026)
 
 1. **SimaPro/PRé integration has had ~8 months to bed in.** One Click LCA is now an aggregator of LCA tooling, not a single product. Their attention is on platform consolidation and channel partners, which raises receptivity to clean adjacencies that do not threaten the LCA core.
 2. **CSRD Wave 2 filings landed.** Large EU companies completed their first CSRD reports in spring 2026. The pain point we sell (operations data → regulator-ready report) is now lived experience for tens of thousands of firms — including many One Click LCA customers.
 3. **Omnibus simplification package (early 2026)** narrowed CSRD scope but kept the data-flow requirements for in-scope firms. The compliance pain is concentrated, not eliminated.
-4. **DWS IQ position:** still €84k ARR baseline with 100% retention on Uber FI, Bolt FI, Kela. Six live ERP connectors. The "operations layer" claim now has live customer evidence, not just architecture diagrams.
+4. **DWS IQ position:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts. Six live ERP connectors. The "operations layer" claim now has contracted-pilot evidence, not just architecture diagrams. (Uber, Bolt and Kela are **dispatch operators** of the licensed transport operation, not software customers — do not cite them here.)
 
 ---
 
@@ -134,43 +139,43 @@ The customer journey is sequential, not competitive: design → build → operat
 
 ### 4.1 Why this works for One Click LCA
 
-| Lever | Mechanism | Magnitude |
-|-------|-----------|-----------|
-| **Churn reduction** | Customers finish a design-phase LCA project and have no recurring reason to keep the seat. If their LCA outputs feed DWS IQ's quarterly CSRD pipeline, the seat stays active. | Direct ARR retention. Even a 2–3pp churn reduction on a €21.8M base is material. |
-| **Lifecycle extension without R&D** | Operations compliance (B1–B7, CSRD) is not on their roadmap and would cost €5–10M to build. We ship it. | Avoided R&D, faster lifecycle story for board/PE. |
-| **Co-sell into CSRD buyers** | Their existing customers are exactly who DWS IQ targets. Joint motion. | Pipeline lift for both sides. |
-| **Defensive moat vs Watershed/Persefoni/Sweep** | These carbon-accounting platforms are circling LCA from the other direction. A bound integration with the operations-compliance specialist is a structural moat. | Strategic — locks the lifecycle. |
-| **PE narrative** | InfraVia and PSG want a "lifecycle platform" story for the next round/exit. This is that story without an acquisition. | Board-level. |
+| Lever                                           | Mechanism                                                                                                                                                                     | Magnitude                                                                        |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Churn reduction**                             | Customers finish a design-phase LCA project and have no recurring reason to keep the seat. If their LCA outputs feed DWS IQ's quarterly CSRD pipeline, the seat stays active. | Direct ARR retention. Even a 2–3pp churn reduction on a €21.8M base is material. |
+| **Lifecycle extension without R&D**             | Operations compliance (B1–B7, CSRD) is not on their roadmap and would cost €5–10M to build. We ship it.                                                                       | Avoided R&D, faster lifecycle story for board/PE.                                |
+| **Co-sell into CSRD buyers**                    | Their existing customers are exactly who DWS IQ targets. Joint motion.                                                                                                        | Pipeline lift for both sides.                                                    |
+| **Defensive moat vs Watershed/Persefoni/Sweep** | These carbon-accounting platforms are circling LCA from the other direction. A bound integration with the operations-compliance specialist is a structural moat.              | Strategic — locks the lifecycle.                                                 |
+| **PE narrative**                                | InfraVia and PSG want a "lifecycle platform" story for the next round/exit. This is that story without an acquisition.                                                        | Board-level.                                                                     |
 
 ### 4.2 Why this works for DWS IQ
 
-| Lever | Mechanism |
-|-------|-----------|
+| Lever                                        | Mechanism                                                                                                               |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | **Design-phase baselines for CSRD evidence** | CSRD requires baseline + actuals. We have actuals (ERP). One Click LCA has the credible baselines auditors will accept. |
-| **Credibility-by-association** | "Imports One Click LCA assessments" is a trust line in every DWS IQ sales deck. |
-| **Inbound channel** | Their customer base contains a high concentration of our ICP (large EU industrials, asset-heavy firms). |
-| **Data network effect** | 500,000+ LCA datapoints become an enrichment layer for our compliance outputs. |
-| **Speed** | A CSV-import MVP ships in weeks. No platform rewrite. |
+| **Credibility-by-association**               | "Imports One Click LCA assessments" is a trust line in every DWS IQ sales deck.                                         |
+| **Inbound channel**                          | Their customer base contains a high concentration of our ICP (large EU industrials, asset-heavy firms).                 |
+| **Data network effect**                      | 500,000+ LCA datapoints become an enrichment layer for our compliance outputs.                                          |
+| **Speed**                                    | A CSV-import MVP ships in weeks. No platform rewrite.                                                                   |
 
 ### 4.3 Counter-arguments (and our answers)
 
-| Their possible objection | Our answer |
-|--------------------------|------------|
-| "We could build operations compliance ourselves." | 24-month build, regulator interpretation risk, ERP-connector lift. Six live connectors already shipped on our side. Buy-vs-build math favours partnership at this stage. |
-| "Why you, not Persefoni / Watershed / Sweep?" | They are general carbon accounting; none consume LCA outputs as primary input. DWS IQ is the only operations platform whose data model treats LCA as a first-class baseline. |
-| "What if you get acquired by a competitor?" | Mutual non-exclusive integration agreement; data flows via documented schema; either side can build a second connector. Low lock-in, low strategic risk. |
-| "We don't do data-integration deals with €84k ARR companies." | The 3 paying customers are Uber FI, Bolt FI, Kela. Logos punch above the ARR. Integration cost to them is one CSV schema doc; risk is asymmetric in their favour. |
-| "Helsinki / EU only?" | Architecture is geography-neutral. CSRD is EU-driven but the SimaPro acquisition gives One Click LCA a global pipeline for which the same operations-compliance story works in UK SDS, California SB 253, etc. |
+| Their possible objection                                        | Our answer                                                                                                                                                                                                     |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "We could build operations compliance ourselves."               | 24-month build, regulator interpretation risk, ERP-connector lift. Six live connectors already shipped on our side. Buy-vs-build math favours partnership at this stage.                                       |
+| "Why you, not Persefoni / Watershed / Sweep?"                   | They are general carbon accounting; none consume LCA outputs as primary input. DWS IQ is the only operations platform whose data model treats LCA as a first-class baseline.                                   |
+| "What if you get acquired by a competitor?"                     | Mutual non-exclusive integration agreement; data flows via documented schema; either side can build a second connector. Low lock-in, low strategic risk.                                                       |
+| "We don't do data-integration deals with companies this small." | Two enterprise pilots were contracted in Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts. Integration cost to them is one CSV schema doc; risk is asymmetric in their favour.      |
+| "Helsinki / EU only?"                                           | Architecture is geography-neutral. CSRD is EU-driven but the SimaPro acquisition gives One Click LCA a global pipeline for which the same operations-compliance story works in UK SDS, California SB 253, etc. |
 
 ### 4.4 Risk register
 
-| Risk | Likelihood | Mitigation |
-|------|------------|------------|
-| OCL prefers to build operations module in-house | Medium | Frame as 12-month pilot with renewal clause; show speed-to-market advantage |
-| Slow legal / partnership process (PE-backed firms are deliberate) | High | Accept it. Start formal application now so legal cycle runs in parallel with founder relationship. |
-| Acquisition target risk (we get bought by Watershed/Persefoni mid-deal) | Low | Mutual non-exclusivity; clean exit clause |
-| Pitch lands during board cycle and goes silent | Medium | If silent 10 business days, escalate via Simon Sim → Panu |
-| They want a reseller deal, we want a tech-integration deal | Medium | Be explicit in first message: this is a data-integration partnership, not a reseller arrangement. Reseller can come later. |
+| Risk                                                                    | Likelihood | Mitigation                                                                                                                 |
+| ----------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| OCL prefers to build operations module in-house                         | Medium     | Frame as 12-month pilot with renewal clause; show speed-to-market advantage                                                |
+| Slow legal / partnership process (PE-backed firms are deliberate)       | High       | Accept it. Start formal application now so legal cycle runs in parallel with founder relationship.                         |
+| Acquisition target risk (we get bought by Watershed/Persefoni mid-deal) | Low        | Mutual non-exclusivity; clean exit clause                                                                                  |
+| Pitch lands during board cycle and goes silent                          | Medium     | If silent 10 business days, escalate via Simon Sim → Panu                                                                  |
+| They want a reseller deal, we want a tech-integration deal              | Medium     | Be explicit in first message: this is a data-integration partnership, not a reseller arrangement. Reseller can come later. |
 
 ---
 
@@ -188,7 +193,7 @@ The customer journey is sequential, not competitive: design → build → operat
 
 Suzana,
 
-I'm Risto Paarni, founder of DWS IQ (Lifetime Oy, Helsinki). We automate CSRD, ETS, and CBAM reporting by pulling data directly from ERP systems — SAP, IFS Cloud, Dynamics 365, plus three Nordic ERPs. €84k ARR, three live customers (Uber FI, Bolt FI, Kela), 100% retention, ~40h/month saved per customer.
+I'm Risto Paarni, founder of DWS IQ (Lifetime Oy, Helsinki). We automate CSRD, ETS, and CBAM reporting by pulling data directly from ERP systems — SAP, IFS Cloud, Dynamics 365, plus three Nordic ERPs. Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts.
 
 I see a clean, non-competing partnership between One Click LCA and DWS IQ.
 
@@ -221,7 +226,7 @@ Could you introduce me to Panu Pasanen? Two-sentence version: we built the opera
 
 I reached out to Suzana Delanghe two weeks ago via the partner program and LinkedIn; no response yet. Founder-to-founder seems the cleanest unblock. 20 minutes is all I need with Panu.
 
-Background: €84k ARR, three paying customers (Uber FI, Bolt FI, Kela), zero churn, six ERP connectors live. Solo founder, raising €500k SAFE.
+Background: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts; six ERP connectors live. Raising €500k SAFE.
 
 Thanks Simon —
 
@@ -233,38 +238,38 @@ Helsinki
 
 ## 6. Follow-Up Strategy
 
-| Step | Action | Timing |
-|------|--------|--------|
-| 1 | Submit One Click LCA Partner Program application | Day 0 |
-| 2 | Send §5.1 to Suzana via LinkedIn DM | Day 0 (same day) |
-| 3 | Soft nudge to Suzana (+1 specific data point: a customer name or a CSRD use case) | Day 5 |
-| 4 | If silent, ask Simon Sim to forward §5.2 to Panu | Day 10 |
-| 5 | On response → schedule 20-min call | Within 2 business days |
-| 6 | Prepare technical one-pager + demo: One Click LCA CSV → DWS IQ CSRD draft | Before call |
-| 7 | Post-call: route Jani Tierala (VP Product) for technical scoping | Within 5 days post-call |
-| 8 | MoU / LOI on a 12-month non-exclusive integration pilot | Within 6 weeks of first call |
+| Step | Action                                                                            | Timing                       |
+| ---- | --------------------------------------------------------------------------------- | ---------------------------- |
+| 1    | Submit One Click LCA Partner Program application                                  | Day 0                        |
+| 2    | Send §5.1 to Suzana via LinkedIn DM                                               | Day 0 (same day)             |
+| 3    | Soft nudge to Suzana (+1 specific data point: a customer name or a CSRD use case) | Day 5                        |
+| 4    | If silent, ask Simon Sim to forward §5.2 to Panu                                  | Day 10                       |
+| 5    | On response → schedule 20-min call                                                | Within 2 business days       |
+| 6    | Prepare technical one-pager + demo: One Click LCA CSV → DWS IQ CSRD draft         | Before call                  |
+| 7    | Post-call: route Jani Tierala (VP Product) for technical scoping                  | Within 5 days post-call      |
+| 8    | MoU / LOI on a 12-month non-exclusive integration pilot                           | Within 6 weeks of first call |
 
 ## 7. Technical Integration Scope (for the post-meeting conversation)
 
-| Integration | Method | Priority | Effort (DWS side) |
-|-------------|--------|----------|-------------------|
-| Import building LCA results | CSV upload | MVP — Q3 2026 | 1–2 weeks |
-| Import building LCA results | REST API (if their public API supports it) | Q4 2026 | 2–4 weeks |
-| Import EPD data | EPD export → structured supplier-emission record | Q4 2026 | 2 weeks |
-| Bidirectional sync | Push compliance status back to One Click LCA project record | 2027 | 4+ weeks |
-| Co-branded CSRD report template | Joint output artifact with both logos | 2027 | Design + legal |
-| Referral SSO / customer crosswalk | Lightweight identity hand-off | 2027+ | Scoped later |
+| Integration                       | Method                                                      | Priority      | Effort (DWS side) |
+| --------------------------------- | ----------------------------------------------------------- | ------------- | ----------------- |
+| Import building LCA results       | CSV upload                                                  | MVP — Q3 2026 | 1–2 weeks         |
+| Import building LCA results       | REST API (if their public API supports it)                  | Q4 2026       | 2–4 weeks         |
+| Import EPD data                   | EPD export → structured supplier-emission record            | Q4 2026       | 2 weeks           |
+| Bidirectional sync                | Push compliance status back to One Click LCA project record | 2027          | 4+ weeks          |
+| Co-branded CSRD report template   | Joint output artifact with both logos                       | 2027          | Design + legal    |
+| Referral SSO / customer crosswalk | Lightweight identity hand-off                               | 2027+         | Scoped later      |
 
 ## 8. Competitive Context
 
-| Company | What they do | Overlap with DWS IQ | Threat to OCL? |
-|---------|--------------|---------------------|----------------|
-| **One Click LCA** | Design-phase LCA & EPDs | None — complementary | — |
-| **Persefoni** | Carbon accounting (mostly manual ingestion) | Direct competitor to DWS IQ | Indirect — circling LCA |
-| **Greenly** | SME carbon tracking | Direct competitor to DWS IQ | Indirect |
-| **Sweep** | Enterprise carbon management | Direct competitor to DWS IQ | Indirect |
-| **Watershed** | Carbon accounting (~$225M raised) | Direct competitor to DWS IQ | Indirect — most likely to build LCA later |
-| **EcoVadis / CDP** | Ratings & disclosure | Adjacent, not competitive | — |
+| Company            | What they do                                | Overlap with DWS IQ         | Threat to OCL?                            |
+| ------------------ | ------------------------------------------- | --------------------------- | ----------------------------------------- |
+| **One Click LCA**  | Design-phase LCA & EPDs                     | None — complementary        | —                                         |
+| **Persefoni**      | Carbon accounting (mostly manual ingestion) | Direct competitor to DWS IQ | Indirect — circling LCA                   |
+| **Greenly**        | SME carbon tracking                         | Direct competitor to DWS IQ | Indirect                                  |
+| **Sweep**          | Enterprise carbon management                | Direct competitor to DWS IQ | Indirect                                  |
+| **Watershed**      | Carbon accounting (~$225M raised)           | Direct competitor to DWS IQ | Indirect — most likely to build LCA later |
+| **EcoVadis / CDP** | Ratings & disclosure                        | Adjacent, not competitive   | —                                         |
 
 **Key strategic note:** None of these competitors imports One Click LCA data as a first-class input. A DWS IQ × One Click LCA integration is the only configuration that closes the design → operations data loop without an acquisition, and it pre-empts Watershed building or buying a design-phase tool.
 
@@ -272,14 +277,14 @@ Helsinki
 
 ## 9. What Success Looks Like (6-month horizon)
 
-| Milestone | Date target | KPI |
-|-----------|-------------|-----|
-| Partner program acceptance | Jun 2026 | Listed on `oneclicklca.com/partners` |
-| 20-min call with Suzana (or delegate) | Jun 2026 | Booked |
-| Technical scoping with Jani Tierala | Jul 2026 | Integration spec signed off |
-| MVP CSV import live in DWS IQ | Sep 2026 | First customer with imported OCL baseline |
-| Joint customer win | Nov 2026 | One named logo using both products via integration |
-| MoU / 12-month pilot | Nov 2026 | Signed |
+| Milestone                             | Date target | KPI                                                |
+| ------------------------------------- | ----------- | -------------------------------------------------- |
+| Partner program acceptance            | Jun 2026    | Listed on `oneclicklca.com/partners`               |
+| 20-min call with Suzana (or delegate) | Jun 2026    | Booked                                             |
+| Technical scoping with Jani Tierala   | Jul 2026    | Integration spec signed off                        |
+| MVP CSV import live in DWS IQ         | Sep 2026    | First customer with imported OCL baseline          |
+| Joint customer win                    | Nov 2026    | One named logo using both products via integration |
+| MoU / 12-month pilot                  | Nov 2026    | Signed                                             |
 
 ---
 

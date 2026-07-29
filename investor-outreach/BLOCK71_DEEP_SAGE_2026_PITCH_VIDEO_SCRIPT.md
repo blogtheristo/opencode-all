@@ -1,6 +1,6 @@
 # Block71 Deep SAGE 2026 — 3-Minute Elevator Pitch Video Script
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -24,7 +24,7 @@ Related Documents:
 - `investor-outreach/BLOCK71_DEEP_SAGE_2026_PITCH_DECK.html` (12-slide YC-style deck — use as B-roll source)
 - `investor-outreach/SHORT_INTRO.md` (one-liner reference)
 
----
+***
 
 ## Recording Setup
 

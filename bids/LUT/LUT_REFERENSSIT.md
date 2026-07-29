@@ -4,12 +4,12 @@
 
 ---
 
----
+***
 
 VERSION AND AGENT HISTORY
 Versio: 1.0 | 2026-06-27 | Claude Sonnet 4.6 | Alkuperäinen referenssiasiakirja
 
----
+***
 
 ---
 

@@ -1,6 +1,6 @@
 # Defence Startup Fund — Hakemus
 
----
+***
 
 **VERSION AND AGENT HISTORY**
 
@@ -17,7 +17,7 @@
   - 3.1 (29.07.2026, Claude Code Opus 5, sessio claude/traction-truth-reconciliation): Lisätty **OIKAISU**-osio (§0a). Jätetyn hakemuksen tekstiä EI ole muutettu — lähetetty aineisto säilytetään sanatarkasti (DWS_DOCUMENT_STANDARD.md §24). Oikaisu koskee väitteitä "logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki" ja "MRR €7K, 100 % retentio", jotka eivät pidä paikkaansa ohjelmistoliiketoiminnan väitteinä. Kanoninen lähde: `docs/TRACTION_CANONICAL.md`.
 - **Document Status:** Submitted — not funded (round 1); resubmission planned. **Body preserved verbatim as sent; see §0a for the correction that must be applied before resubmission.**
 
----
+***
 
 **Hakija:** Lifetime Oy
 **Tuote:** DWS IQ Aegis — Dual-Use AI Platform + Lifetime Fleet IoT

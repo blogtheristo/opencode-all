@@ -2,7 +2,7 @@
 
 _Lifetime Oy · DWS IQ · CONFIDENTIAL — Internal. Prepared for the Boardy meeting on 29.07.2026._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -20,7 +20,7 @@ Document Status:
 - Publication Status: DRAFT — internal board prep
 - Classification: CONFIDENTIAL
 
----
+***
 
 ## The four deliverables (Google Sheets)
 

@@ -1,6 +1,6 @@
 # Module 1 — Video Demo Script (2:30)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -17,7 +17,7 @@ Document Status:
 - Language: English (primary), Finnish voiceover variant noted
 - Publication Status: DRAFT — record before resubmission
 
----
+***
 
 ## Production Notes
 

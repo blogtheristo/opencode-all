@@ -526,7 +526,7 @@ Kanoninen lause: **58 agenttia ja 88 kyvykkyyttä (roolia) 25 toimialalla.** Kat
 - **I. Puolustus ja turvallisuus (5):** Customer Sat, Viability, Sovereignty Monitor, Auditor, Argus Defence
 - **J. Muutos ja jatkuvuus (18):** Data Engineer, Business Analyst, Change Management, Training & Enablement, Integration Architect, Test Automation, UX Research, Process Automation, Database Architect, Network Security, Cloud Migration, Financial Controller, HR Systems, Supply Chain Risk, Technical Writer, Service Desk, Contract Management, Disruption Response
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -547,7 +547,7 @@ Document Status:
 - Publication Status: DRAFT
 - Document Type: ORK Consultant CV
 
----
+***
 
 _Copyright 2026 – Tekijänoikeudet Risto Anton Päärni._
 

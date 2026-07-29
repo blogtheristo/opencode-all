@@ -2,7 +2,7 @@
 
 _Buyer-facing offer: **DWS 365 Skilled Agents** & **Firehorse 365 Skilled Agents**. Platform underneath: **DWS IQ**._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -33,7 +33,7 @@ Document Status:
 - Languages Available: English (DE/FI versions live in `TALK_TRACK_PE_MESSE_2026.md`)
 - Publication Status: ACTIVE — investor-facing, distributed under NDA
 
----
+***
 
 ## Headline
 

@@ -2,7 +2,7 @@
 
 **Status:** Ready for Customer Outreach  
 **Version:** 3.0 | January 4, 2026  
-**Target:** Tier 1 Construction, Logistics, Healthcare  
+**Target:** Tier 1 Construction, Logistics, Healthcare
 
 ---
 
@@ -30,23 +30,23 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 
 ### What CHANGED (Administrative Relief)
 
-| Change | Impact | DWS IQ 6 Response |
-|--------|--------|-------------------|
-| **Reporting scope narrowed** | Companies with 1,000+ employees (from 250+) | Our customers exceed thresholds – no impact |
-| **Simplified forms** | Less paperwork burden | Automation still saves 40+ hours/month |
-| **Extended timelines** | Some deadlines pushed back | More time to implement = competitive advantage |
-| **SME exemptions** | Smaller firms get relief | Enterprise focus remains our ICP |
+| Change                       | Impact                                      | DWS IQ 6 Response                              |
+| ---------------------------- | ------------------------------------------- | ---------------------------------------------- |
+| **Reporting scope narrowed** | Companies with 1,000+ employees (from 250+) | Our customers exceed thresholds – no impact    |
+| **Simplified forms**         | Less paperwork burden                       | Automation still saves 40+ hours/month         |
+| **Extended timelines**       | Some deadlines pushed back                  | More time to implement = competitive advantage |
+| **SME exemptions**           | Smaller firms get relief                    | Enterprise focus remains our ICP               |
 
 ### What DID NOT Change (Core Obligations)
 
-| Requirement | Status | Deadline |
-|-------------|--------|----------|
-| **55% GHG reduction target by 2030** | ✅ Unchanged | 2030 |
-| **EPBD zero-emission buildings** | ✅ Unchanged | Public: 2027, Private: 2030 |
-| **ETS carbon pricing** | ✅ Expanding | Construction, logistics, healthcare by 2027 |
-| **CBAM border adjustments** | ✅ Unchanged | Full implementation 2026 |
-| **Board liability for emissions** | ✅ Unchanged | Immediate |
-| **Scope 1, 2, 3 tracking** | ✅ Unchanged | Required for CSRD |
+| Requirement                          | Status       | Deadline                                    |
+| ------------------------------------ | ------------ | ------------------------------------------- |
+| **55% GHG reduction target by 2030** | ✅ Unchanged | 2030                                        |
+| **EPBD zero-emission buildings**     | ✅ Unchanged | Public: 2027, Private: 2030                 |
+| **ETS carbon pricing**               | ✅ Expanding | Construction, logistics, healthcare by 2027 |
+| **CBAM border adjustments**          | ✅ Unchanged | Full implementation 2026                    |
+| **Board liability for emissions**    | ✅ Unchanged | Immediate                                   |
+| **Scope 1, 2, 3 tracking**           | ✅ Unchanged | Required for CSRD                           |
 
 **Key insight:** Omnibus made paperwork easier. It did NOT make emissions reduction easier.
 
@@ -59,6 +59,7 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 > "Omnibus reduced your CSRD reporting burden from 80 pages to 40 pages. Great. But the 55% emissions reduction target is the same. The carbon price in 2030 is the same. The competitive advantage of early action is the same. DWS IQ 6 helps you hit the target, not just file the form."
 
 **ROI unchanged:**
+
 - €50,000/year compliance automation savings
 - 15-25% energy cost reduction via real-time optimization
 - €10,000-50,000 avoided penalties (ETS, CSRD non-compliance)
@@ -69,6 +70,7 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 > "Simplified reporting doesn't simplify physics. Your supply chain emissions, building energy use, and logistics footprint haven't changed because Brussels reduced paperwork. We help you track and reduce actual emissions – not just report minimum requirements."
 
 **Sustainability impact:**
+
 - Real-time Scope 1/2/3 tracking
 - EN 15978 lifecycle analysis (A1-A5, B, C, D stages)
 - Supplier carbon assessment
@@ -79,6 +81,7 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 > "Board members are personally liable for material climate risk disclosure under CSRD. Omnibus simplified the forms – it didn't reduce your fiduciary duty. DWS IQ 6 provides the evidence trail that protects you in 2030 audits."
 
 **Governance protection:**
+
 - Complete audit trail
 - EU-hosted data sovereignty
 - Automated evidence collection
@@ -90,24 +93,24 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 
 ### What Omnibus Changed for Construction
 
-| Aspect | Before Omnibus | After Omnibus | DWS IQ 6 Response |
-|--------|----------------|---------------|-------------------|
-| **EPBD reporting** | Detailed building passports | Simplified templates | Still required – we automate both |
-| **Embodied carbon disclosure** | Mandatory for >1,000m² | Same threshold | Our EN 15978 calculations unchanged |
-| **CSRD scope** | 250+ employees | 1,000+ employees | Tier 1 customers still covered |
-| **Renovation wave targets** | 3% annual renovation rate | Same target | Our building optimization unchanged |
+| Aspect                         | Before Omnibus              | After Omnibus        | DWS IQ 6 Response                   |
+| ------------------------------ | --------------------------- | -------------------- | ----------------------------------- |
+| **EPBD reporting**             | Detailed building passports | Simplified templates | Still required – we automate both   |
+| **Embodied carbon disclosure** | Mandatory for >1,000m²      | Same threshold       | Our EN 15978 calculations unchanged |
+| **CSRD scope**                 | 250+ employees              | 1,000+ employees     | Tier 1 customers still covered      |
+| **Renovation wave targets**    | 3% annual renovation rate   | Same target          | Our building optimization unchanged |
 
 ### Construction Business Case (Updated)
 
 **For a €500M construction company with 20 active projects:**
 
-| Metric | Without DWS IQ 6 | With DWS IQ 6 | Annual Savings |
-|--------|------------------|---------------|----------------|
-| Compliance hours/project | 80 hours | 12 hours | **1,360 hours saved** |
-| Report errors | 15% error rate | <2% error rate | **€50k audit cost avoided** |
-| Carbon tracking | Manual Excel | Real-time | **€25k labor savings** |
-| Supplier assessment | Ad-hoc | Continuous | **€30k procurement efficiency** |
-| **Total Annual Value** | — | — | **€150,000+** |
+| Metric                   | Without DWS IQ 6 | With DWS IQ 6  | Annual Savings                  |
+| ------------------------ | ---------------- | -------------- | ------------------------------- |
+| Compliance hours/project | 80 hours         | 12 hours       | **1,360 hours saved**           |
+| Report errors            | 15% error rate   | <2% error rate | **€50k audit cost avoided**     |
+| Carbon tracking          | Manual Excel     | Real-time      | **€25k labor savings**          |
+| Supplier assessment      | Ad-hoc           | Continuous     | **€30k procurement efficiency** |
+| **Total Annual Value**   | —                | —              | **€150,000+**                   |
 
 **Investment:** €6,500 setup + €1,999/year  
 **Payback:** <3 months
@@ -116,12 +119,9 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 
 ## 🚚 Logistics Vertical: Omnibus Impact Assessment
 
-### Current Customer Profile (Uber, Bolt)
+### Counterparty Profile (Uber, Bolt) — not software customers
 
-| Customer | MRR | Annual Value | Primary Use Case |
-|----------|-----|--------------|------------------|
-| Uber Finland | €2,500 | €30,000 | Fleet emissions tracking |
-| Bolt Finland | €2,000 | €24,000 | Route optimization + carbon |
+> Uber Finland and Bolt Finland are **dispatch operators** in the role defined by Traficom: they dispatch ride orders to Lifetime Fleet vehicles and buy transport capacity. They are commercial counterparties of the licensed transport operation and are **not** customers of DWS IQ, DWS IQ Aegis, or any Lifetime software product. No software MRR may be attributed to them. Canonical source: `docs/TRACTION_CANONICAL.md`.
 
 ### Logistics Business Case (Updated)
 
@@ -129,30 +129,21 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 
 **For a 500-vehicle fleet:**
 
-| Metric | Without DWS IQ 6 | With DWS IQ 6 | Annual Savings |
-|--------|------------------|---------------|----------------|
-| Fuel optimization | Manual routing | AI-optimized | **€75k fuel savings** |
-| Compliance reporting | 60 hours/month | 8 hours/month | **€15k labor savings** |
-| ETS carbon cost (2027) | €50/tonne | €30/tonne (optimized) | **€40k carbon cost avoided** |
-| Audit preparation | 2 weeks | 1 day | **€10k efficiency** |
-| **Total Annual Value** | — | — | **€140,000+** |
+| Metric                 | Without DWS IQ 6 | With DWS IQ 6         | Annual Savings               |
+| ---------------------- | ---------------- | --------------------- | ---------------------------- |
+| Fuel optimization      | Manual routing   | AI-optimized          | **€75k fuel savings**        |
+| Compliance reporting   | 60 hours/month   | 8 hours/month         | **€15k labor savings**       |
+| ETS carbon cost (2027) | €50/tonne        | €30/tonne (optimized) | **€40k carbon cost avoided** |
+| Audit preparation      | 2 weeks          | 1 day                 | **€10k efficiency**          |
+| **Total Annual Value** | —                | —                     | **€140,000+**                |
 
 ---
 
 ## 🏥 Healthcare Vertical: Omnibus Impact Assessment
 
-### Kela Case Study (Government Validation)
+### Kela — dispatch operator, not a case study
 
-**Customer:** Kela (Finnish Social Insurance Institution)  
-**Status:** Live deployment  
-**MRR:** €2,500  
-**Annual Value:** €60,000 savings documented
-
-**Results:**
-- 80% reduction in compliance report generation time
-- Zero audit findings on climate reporting
-- Real-time energy monitoring across facilities
-- CSRD-ready evidence collection
+> Kela is a **dispatch operator** in the role defined by Traficom, dispatching transport orders to Lifetime Fleet vehicles. It is a commercial counterparty of the licensed transport operation and **not** a customer of DWS IQ, DWS IQ Aegis, or any Lifetime software product. There is no Kela deployment, no Kela MRR, and no documented Kela savings figure on file. The previous "€2,500 MRR / €60,000 savings documented / live deployment" claim is retired. Canonical source: `docs/TRACTION_CANONICAL.md`.
 
 ### Healthcare Business Case (Updated)
 
@@ -160,13 +151,13 @@ Boards are still responsible for **real emissions**, not minimum forms. DWS IQ 6
 
 **For a 10-hospital network:**
 
-| Metric | Without DWS IQ 6 | With DWS IQ 6 | Annual Savings |
-|--------|------------------|---------------|----------------|
-| Energy optimization | Reactive | Predictive (<100ms) | **€120k energy savings** |
-| CSRD reporting | Manual | Automated | **€30k labor savings** |
-| EPBD compliance | Consultant-dependent | In-house | **€50k consultant savings** |
-| Equipment downtime | Reactive maintenance | Predictive | **€25k avoided failures** |
-| **Total Annual Value** | — | — | **€225,000+** |
+| Metric                 | Without DWS IQ 6     | With DWS IQ 6       | Annual Savings              |
+| ---------------------- | -------------------- | ------------------- | --------------------------- |
+| Energy optimization    | Reactive             | Predictive (<100ms) | **€120k energy savings**    |
+| CSRD reporting         | Manual               | Automated           | **€30k labor savings**      |
+| EPBD compliance        | Consultant-dependent | In-house            | **€50k consultant savings** |
+| Equipment downtime     | Reactive maintenance | Predictive          | **€25k avoided failures**   |
+| **Total Annual Value** | —                    | —                   | **€225,000+**               |
 
 ---
 
@@ -204,11 +195,11 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 
 ### Sandbox Pricing Tiers
 
-| Tier | Monthly Price | Included Tokens | Target Customer |
-|------|---------------|-----------------|-----------------|
-| **Professional** | €2,000/month | 10M | SME manufacturers, single-site facilities |
-| **Enterprise** | €5,000/month | 100M | Tier 1 construction, multi-site healthcare |
-| **Custom** | Quote | Unlimited | Government, critical infrastructure |
+| Tier             | Monthly Price | Included Tokens | Target Customer                            |
+| ---------------- | ------------- | --------------- | ------------------------------------------ |
+| **Professional** | €2,000/month  | 10M             | SME manufacturers, single-site facilities  |
+| **Enterprise**   | €5,000/month  | 100M            | Tier 1 construction, multi-site healthcare |
+| **Custom**       | Quote         | Unlimited       | Government, critical infrastructure        |
 
 ### Sandbox Security Features
 
@@ -223,12 +214,12 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 
 ### Why Legacy BMS Vendors Can't Adapt
 
-| Competitor | Omnibus Response | DWS IQ 6 Advantage |
-|------------|------------------|---------------------|
-| **Siemens Desigo CC** | Updating reporting templates | We optimize real emissions, not paperwork |
-| **Schneider EcoStruxure** | Compliance module updates | Real-time vs. batch processing (1,200x faster) |
-| **Honeywell Forge** | Cloud-based approach | EU data sovereignty, edge-first architecture |
-| **SAP Sustainability** | Enterprise reporting focus | Construction-specific, not generic ERP |
+| Competitor                | Omnibus Response             | DWS IQ 6 Advantage                             |
+| ------------------------- | ---------------------------- | ---------------------------------------------- |
+| **Siemens Desigo CC**     | Updating reporting templates | We optimize real emissions, not paperwork      |
+| **Schneider EcoStruxure** | Compliance module updates    | Real-time vs. batch processing (1,200x faster) |
+| **Honeywell Forge**       | Cloud-based approach         | EU data sovereignty, edge-first architecture   |
+| **SAP Sustainability**    | Enterprise reporting focus   | Construction-specific, not generic ERP         |
 
 ### Key Differentiators
 
@@ -236,7 +227,7 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 2. **EU-Hosted Sandboxes** vs. US cloud dependencies
 3. **Construction-Specific** vs. generic enterprise sustainability
 4. **Regulation-Updated** vs. annual software releases
-5. **100% Customer Retention** vs. industry average 85-90%
+5. **Two enterprise pilots contracted Q1/2026** at €29,950 each (€59,900 booked), plus four smaller landed accounts. No retention or churn rate is asserted — no cohort data exists (`docs/TRACTION_CANONICAL.md` §5).
 
 ---
 
@@ -244,7 +235,7 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 
 ### Opening (Discovery Call)
 
-> "You've probably heard that the EU Omnibus Package simplified CSRD reporting. That's true – for paperwork. But here's what didn't change: the 55% emissions reduction target, the 2027 EPBD deadline for public buildings, and board liability for material climate risk disclosure. 
+> "You've probably heard that the EU Omnibus Package simplified CSRD reporting. That's true – for paperwork. But here's what didn't change: the 55% emissions reduction target, the 2027 EPBD deadline for public buildings, and board liability for material climate risk disclosure.
 >
 > Most companies are treating Omnibus as a reason to slow down. Smart companies see it as a window to get ahead while competitors are complacent. Which approach resonates more with your team?"
 

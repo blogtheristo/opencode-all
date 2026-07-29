@@ -1,6 +1,6 @@
 # DWS6 Investor Outreach Workflow
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -23,7 +23,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE
 
----
+***
 
 ## Complete System Overview
 

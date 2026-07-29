@@ -1,6 +1,6 @@
 # BLOCK71 Singapore — Deep SAGE 2026 Application Draft
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -33,7 +33,7 @@ Source Materials:
 - Block71 programme page: https://block71.co/programmes/deep-sage-2026/ (gated — confirm form fields against live page before submission)
 - Inbound email: Steve Leong, Community and Engagement Manager, BLOCK71 Singapore (NUS Enterprise) — 26.05.2026
 
----
+***
 
 ## ⚠ Deadline
 

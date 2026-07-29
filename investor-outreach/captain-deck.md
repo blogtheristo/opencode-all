@@ -2,7 +2,7 @@
 
 > **Repositioned (2026-06-09):** The Industry Captain is now a **client position** — a commercial relationship in which a customer takes a named industry seat on the DWS IQ platform. It is **not an investor seat**. The investor instrument for this round is the **single Admiral (Fleet Admiral) seat — €250K, scalable to the full €650K** (see `INVESTOR_MEMO.md`). Client-captain commercial terms (pricing/term) are **TBD** and intentionally not stated here until defined; the former "€50,000 investment" framing has been removed.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -27,7 +27,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Investor round (separate):** single Admiral seat — EUR 250K, scalable to EUR 650K SAFE at EUR 3.8M cap (see `INVESTOR_MEMO.md`)

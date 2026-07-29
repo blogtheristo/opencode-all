@@ -1,6 +1,6 @@
 # Lifetime Fleet — Personal Winning Sales Strategy
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -17,7 +17,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (internal strategy)
 
----
+***
 
 ## The Origin
 

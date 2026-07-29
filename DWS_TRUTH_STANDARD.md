@@ -1,6 +1,6 @@
 # DWS Truth Standard
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -54,7 +54,7 @@ Document Status:
 - Document Type: Meta-Standard / Internal Registry Index
 - Owner: Risto Päärni (interim)
 
----
+***
 
 ## 1. Purpose
 

@@ -1,6 +1,6 @@
 # Coach — koulutusmateriaalit asiakkaittain
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -19,7 +19,7 @@ Document Status:
 - Publication Status: ACTIVE
 - Document Type: Folder Guide
 
----
+***
 
 ## Tarkoitus
 

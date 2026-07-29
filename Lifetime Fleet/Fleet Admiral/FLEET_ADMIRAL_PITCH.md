@@ -14,7 +14,7 @@ END VERSION AND AGENT HISTORY
 **Category:** Physical AI for Nordic Healthcare — Agent Self-Optimization Governance
 **Status:** Locked for Helsinki Sandbox (March 2026)
 
----
+***
 
 ## The 3 Diamonds — Why This Is a Perfect Storm
 

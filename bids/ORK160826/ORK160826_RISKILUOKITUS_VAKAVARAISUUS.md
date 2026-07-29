@@ -2,12 +2,12 @@
 
 ## ORK/1462/2026 — Lifetime Oy
 
----
+***
 
 VERSION AND AGENT HISTORY
 Version: 1.0 | 2026-06-27 | Claude Sonnet 4.6 | Luotu Vainu-yritystietojen pohjalta (27.6.2026)
 
----
+***
 
 ---
 

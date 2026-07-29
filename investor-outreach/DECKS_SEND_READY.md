@@ -1,4 +1,4 @@
----
+***
 
 VERSION AND AGENT HISTORY
 
@@ -17,7 +17,7 @@ Sessions & Modifications:
 - Version: 1.2 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Corrected stale CSRD figure to post-Omnibus ("fewer than 5,000 large EU companies, >1,000 employees" + value-chain pull) per DWS_TRUTH_STANDARD v2.5 §2C; added Raphael Budday (Venture Stars) deck; dropped weak "1,030+ PRs" metric across decks; de-duplicated the technical-hire line. Now 6 investors.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Clean, send-ready per-investor decks (Arthur, Wilke, Salim, Maciej) — ZERO tailoring meta, safe to paste verbatim. The internal emphasize/HIDE strategy lives separately in DECKS_TAILORED.md. Created after a working draft with margin notes was sent to Thomas Wilke by mistake.
 
----
+***
 
 # Send-Ready Investor Decks (clean)
 

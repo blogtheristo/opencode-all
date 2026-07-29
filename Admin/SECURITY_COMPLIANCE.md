@@ -1,6 +1,6 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -32,7 +32,7 @@ Document Status:
 - Classification: Public (detailed versions available under NDA)
 - Publication Status: ACTIVE
 
----
+***
 
 > **For CISOs, Procurement, and Security Teams**
 

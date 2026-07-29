@@ -1,6 +1,6 @@
 # Winning Sales Strategy — Why the Client Says Yes
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -22,7 +22,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (internal sales tooling)
 
----
+***
 
 ## Strategy Documents (Split 28.06.2026)
 

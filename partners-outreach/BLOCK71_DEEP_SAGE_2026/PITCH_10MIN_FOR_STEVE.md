@@ -11,6 +11,8 @@ status: draft v2 — applicant entity corrected to DWS OÜ (Estonia); Estonia �
 
 # DWS Compliance Intelligence Ecosystem — 10-Minute Pitch
 
+> **Correction (29.07.2026):** this brief accompanies an application submitted 31 May 2026 (application_id 6a156adf17d0c5bd31153afa) and its body is preserved verbatim as delivered material. The traction claims in it are wrong and must not be reused. (1) "We are six people" (§1) → a **two-person core** (Founder/CEO + Office Chief) plus a **contracted engineering bench under NDA**. (2) "seven thousand monthly recurring across six paying customers at one hundred percent retention" (§1, §4) → two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts; the ~€7,000/month is **services and transport revenue** (licensed transport operation + consulting), **not** software revenue, and puts the company at cash break-even with a founder salary of €0. (3) "six paying customers including **Uber Finland, Kela, NCC, and Bolt**" (§4, §Source citations) → Uber, Bolt and Kela are **dispatch operators** in the role defined by Traficom, dispatching ride orders to Lifetime Fleet vehicles — commercial counterparties of the licensed transport operation, never customers of DWS IQ, Aegis, or any Lifetime software product; **NCC is an unlanded prospect**, not a customer or reference. (4) "one hundred percent retention" / "Zero churn since the first customer" (§4, §6) → retired; no retention rate is asserted, because no cohort data exists. (5) "active pilot offer to Outokumpu … currently under their review" (§1, §3) → Outokumpu is an **active discussion with documented inbound replies**; the offer letter is dated 27.6.2026 and carries no send confirmation, so the status is "in discussion" — never "filed", "won", or "under review". Canonical source: `docs/TRACTION_CANONICAL.md`.
+
 **Brief for Steve Leong — Deep SAGE 2026 community partner**
 
 Steve, this is the substance behind the 3-minute video we submitted. Use it however
@@ -84,20 +86,21 @@ Steve — thank you for opening this door. We submitted on the thirty-first of M
 
 ## Anchors that can be cited live
 
-| Claim | Source of truth in the repo |
-|---|---|
-| Outokumpu pilot under their review, 6-month bundled SW+HW at €39,500 | `Firehorse/Omnichannel/Partners/OUTOKUMPU_PARTNERSHIP_OFFER.md` (v3.0 — terms updated verbally May 2026) |
-| €120k savings per 1,000 tonnes for fabricators switching to Outokumpu EU steel | Same file — calculation at €65/tCO₂e ETS price, 1.852 tCO₂e/t EU default emission factor |
-| Outokumpu sustainability KPIs (~1.6 tCO₂e/t Scope 1+2, <0.5 tCO₂e/t Circle Green®) | `docs/field-notes/2026-05-22-outokumpu-sustainability-customers-engagements.md` |
-| 6 paying Lifetime Fleet customers (Uber Finland, Kela, NCC, Bolt + 2 unnamed) | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md` |
-| NCC: €55B revenue, 12,000 subcontractors | `investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.html` |
-| Four product lines (DWS IQ / Firehorse / Lifetime Fleet / Situation Room) and pricing tiers | `dws10.com/config/products.json` |
-| Production agent coverage across regulated industries | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md` |
-| NVIDIA Connect ISV, Microsoft Founders Hub L4, AI Stockholm Community | Multiple — APPLICATION.md, REPLY_STEVE_LEONG.md |
+| Claim                                                                                       | Source of truth in the repo                                                                              |
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Outokumpu pilot under their review, 6-month bundled SW+HW at €39,500                        | `Firehorse/Omnichannel/Partners/OUTOKUMPU_PARTNERSHIP_OFFER.md` (v3.0 — terms updated verbally May 2026) |
+| €120k savings per 1,000 tonnes for fabricators switching to Outokumpu EU steel              | Same file — calculation at €65/tCO₂e ETS price, 1.852 tCO₂e/t EU default emission factor                 |
+| Outokumpu sustainability KPIs (~1.6 tCO₂e/t Scope 1+2, <0.5 tCO₂e/t Circle Green®)          | `docs/field-notes/2026-05-22-outokumpu-sustainability-customers-engagements.md`                          |
+| 6 paying Lifetime Fleet customers (Uber Finland, Kela, NCC, Bolt + 2 unnamed)               | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md`                                                |
+| NCC: €55B revenue, 12,000 subcontractors                                                    | `investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.html`                                      |
+| Four product lines (DWS IQ / Firehorse / Lifetime Fleet / Situation Room) and pricing tiers | `dws10.com/config/products.json`                                                                         |
+| Production agent coverage across regulated industries                                       | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md`                                                |
+| NVIDIA Connect ISV, Microsoft Founders Hub L4, AI Stockholm Community                       | Multiple — APPLICATION.md, REPLY_STEVE_LEONG.md                                                          |
 
 ## Open offer to Steve
 
 If it would help the review panel, we can:
+
 1. Open the actual Outokumpu offer (under NDA, if needed) for review-panel inspection
 2. Provide a 15-minute architecture demo on DGX Spark + Jetson edge, screen-shared from Helsinki
 3. Make introductions to our six Lifetime Fleet reference customers willing to speak on retention quality

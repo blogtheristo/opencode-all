@@ -1,6 +1,6 @@
 # EIC Accelerator Step 1 — Application Draft
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -27,7 +27,7 @@ Related Documents:
 EIC Portal: https://eic.ec.europa.eu/eic-funding/eic-accelerator_en
 EIC Accelerator Work Programme 2026: https://eic.ec.europa.eu/document/download/
 
----
+***
 
 ## Application Metadata
 

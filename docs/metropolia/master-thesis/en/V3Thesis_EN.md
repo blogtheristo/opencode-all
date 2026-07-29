@@ -2,7 +2,7 @@
 
 ## Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -120,7 +120,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open-source standard path, NIST status, Article 1 refinement, publication phasing)
 
----
+***
 
 **Master's Thesis**
 **Metropolia University of Applied Sciences**

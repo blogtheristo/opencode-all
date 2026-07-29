@@ -17,7 +17,7 @@ Status: DRAFT
 > tekoälyn asiantuntijapalvelut) on kansiossa `bids/NOKIADEFENCE/`. Coach = koulutus,
 > bids/ = kilpailutus-/palvelutarjoukset.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -42,7 +42,7 @@ Related Documents:
 - `DWS_TRUTH_STANDARD.md` rivi 20 (tuote- ja tasotaksonomia)
 - `dws10.com/config/products.json` (hinnoittelun ainoa lähde)
 
----
+***
 
 ## 1. Tausta ja tarve
 

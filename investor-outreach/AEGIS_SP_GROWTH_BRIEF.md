@@ -5,7 +5,7 @@
 > moats (ledger, agent governance) intentionally omitted — see
 > `AEGIS_MOAT_EVIDENCE.md` for the investor version.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -22,7 +22,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE — lender-facing draft
 
----
+***
 
 ## Copy-paste block
 

@@ -17,6 +17,8 @@ sources_of_truth:
 
 # DWS Compliance Intelligence Ecosystem — 10-Minute Pitch (Wedge v2)
 
+> **Correction (29.07.2026):** this brief accompanies an application submitted 31 May 2026 (application_id 6a156adf17d0c5bd31153afa); it is treated as delivered material and its body is preserved verbatim. The traction claims in it are wrong and must not be reused. (1) "seven thousand euros monthly recurring across six paying customers — Uber Finland, Kela, NCC, Bolt and two unnamed — at one hundred percent retention, zero churn since the first customer" (§4, §Source citations) → two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts; the ~€7,000/month is **services and transport revenue** (licensed transport operation + consulting), **not** software revenue, and puts the company at cash break-even with a founder salary of €0. Uber, Bolt and Kela are **dispatch operators** in the role defined by Traficom, dispatching ride orders to Lifetime Fleet vehicles — commercial counterparties of the licensed transport operation, never customers of DWS IQ, Aegis, or any Lifetime software product. **NCC is an unlanded prospect**, not a customer or a construction reference. No retention rate is asserted, because no cohort data exists. (2) "We are six people" (§2, §7) → a **two-person core** (Founder/CEO + Office Chief) plus a **contracted engineering bench under NDA**. (3) "an **Outokumpu pilot under review**" (§4) → Outokumpu is an **active discussion with documented inbound replies**; the offer letter is dated 27.6.2026 and carries no send confirmation, so the status is "in discussion" — never "filed", "won", or "under review". Canonical source: `docs/TRACTION_CANONICAL.md`.
+
 **Brief for Steve Leong and the Deep SAGE 2026 review panel**
 
 This is the wedge-sharpened pitch. It is structured around five themes that the Deep SAGE panel will recognise as the right ones to score against: **innovation, ambition, global wedge, ethical standpoint, and sovereignty (three-tier model)**. Every claim below is sourced from a file in our repo or from dws10.com. The §"Source citations" appendix maps every numeric claim back to its origin so the panel can audit any single number on the spot.
@@ -116,29 +118,29 @@ Steve — we submitted on the thirty-first of May. Application ID `6a156adf17d0c
 
 Every numeric and named claim above maps to a source-of-truth file:
 
-| Claim | Source |
-|---|---|
-| Lifetime Equation (full formula) | `dws10.com/index.html:1492-1498` |
-| Brain-Memory-Body-Hands System | `dws10.com/index.html:1358` |
-| Edge inference < 100 ms, 25× faster than cloud | `dws10.com/index.html:1725` |
-| 90-second compliance output time | `dws10.com/index.html:1332` |
-| 21 industry pods | `dws10.com/index.html` ("Body" layer); `dws10.com/config/products.json` (BESS, Ceres, Gaia, Helios, Mars, Neptune, Prometheus, Talos, Vulcan industry-pod entries) |
-| Rocky, Adrian, Marcus, Sofia internal AI agents | `dws10.com/index.html:1992-2034` |
-| €2.68B Nordic TAM / €15-20B EU TAM | `dws10.com/index.html:1232, 1630` |
-| €500K Captain-Seat round, 8 × €50K Platinum + Deputies at €25K, €3.8M SAFE cap, 18% discount | `dws10.com/index.html:1218, 1739` |
-| 3 Pillars (Liability / Revenue / Equity) | `dws10.com/index.html` (CFO impact section) |
-| €50K non-compliance fines starting point | `dws10.com/index.html` (Pillar 01 — Liability) |
-| 30-50% brown discount on asset valuations | `dws10.com/index.html:1543, 1566` |
-| €900K ARR target Q4 2026, breakeven Q2 2027 | Investor financial plan (cross-check `investor-outreach/`) |
-| Outokumpu pilot — 6 months, 2-3 fabricator accounts, €39,500 SW+HW bundled | `Firehorse/Omnichannel/Partners/OUTOKUMPU_PARTNERSHIP_OFFER.md` (v3.0 ref `PARTNER-2026-OUTOKUMPU-001`, terms verbally updated May 2026) |
-| €120K fabricator savings per 1,000 tonnes (€65/tCO₂e × 1.852 tCO₂e/t EU default) | Same — calculation derivation in offer doc |
-| Outokumpu 1.6 tCO₂e/t Scope 1+2 (Europe's stainless anchor) | `docs/field-notes/2026-05-22-outokumpu-sustainability-customers-engagements.md` |
-| NCC: €55B revenue, 12,000 subcontractors, construction reference | `investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.html:254`; `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md:144` |
-| 6 paying Lifetime Fleet customers (Uber Finland, Kela, NCC, Bolt + 2), €7K MRR, 100% retention, zero churn | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md:80` |
-| Four product lines (DWS IQ / Firehorse / Lifetime Fleet / Situation Room) | `dws10.com/config/products.json` (brand families: DWS IQ, Firehorse, Lifetime); Situation Room and Lifetime Fleet referenced in the `remote-control` skill description |
-| NVIDIA Connect ISV partnership, Microsoft Founders Hub L4 (4 years), AI Stockholm Community | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md:145`; `partners-outreach/BLOCK71_DEEP_SAGE_2026/REPLY_STEVE_LEONG.md:71` |
-| Deep SAGE 2026 application submitted 31 May 2026, ID `6a156adf17d0c5bd31153afa` | Direct Deep SAGE confirmation email |
-| 3-tier sovereignty model (Aegis / Sovereign Infra / Connect) | Synthesised from `dws10.com/config/products.json` (DWS IQ Aegis line is a real product), `dws10.com/sovereignty/sovereignty.html`, and the partner classification implicit across `partners-outreach/` |
+| Claim                                                                                                      | Source                                                                                                                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Lifetime Equation (full formula)                                                                           | `dws10.com/index.html:1492-1498`                                                                                                                                                                       |
+| Brain-Memory-Body-Hands System                                                                             | `dws10.com/index.html:1358`                                                                                                                                                                            |
+| Edge inference < 100 ms, 25× faster than cloud                                                             | `dws10.com/index.html:1725`                                                                                                                                                                            |
+| 90-second compliance output time                                                                           | `dws10.com/index.html:1332`                                                                                                                                                                            |
+| 21 industry pods                                                                                           | `dws10.com/index.html` ("Body" layer); `dws10.com/config/products.json` (BESS, Ceres, Gaia, Helios, Mars, Neptune, Prometheus, Talos, Vulcan industry-pod entries)                                     |
+| Rocky, Adrian, Marcus, Sofia internal AI agents                                                            | `dws10.com/index.html:1992-2034`                                                                                                                                                                       |
+| €2.68B Nordic TAM / €15-20B EU TAM                                                                         | `dws10.com/index.html:1232, 1630`                                                                                                                                                                      |
+| €500K Captain-Seat round, 8 × €50K Platinum + Deputies at €25K, €3.8M SAFE cap, 18% discount               | `dws10.com/index.html:1218, 1739`                                                                                                                                                                      |
+| 3 Pillars (Liability / Revenue / Equity)                                                                   | `dws10.com/index.html` (CFO impact section)                                                                                                                                                            |
+| €50K non-compliance fines starting point                                                                   | `dws10.com/index.html` (Pillar 01 — Liability)                                                                                                                                                         |
+| 30-50% brown discount on asset valuations                                                                  | `dws10.com/index.html:1543, 1566`                                                                                                                                                                      |
+| €900K ARR target Q4 2026, breakeven Q2 2027                                                                | Investor financial plan (cross-check `investor-outreach/`)                                                                                                                                             |
+| Outokumpu pilot — 6 months, 2-3 fabricator accounts, €39,500 SW+HW bundled                                 | `Firehorse/Omnichannel/Partners/OUTOKUMPU_PARTNERSHIP_OFFER.md` (v3.0 ref `PARTNER-2026-OUTOKUMPU-001`, terms verbally updated May 2026)                                                               |
+| €120K fabricator savings per 1,000 tonnes (€65/tCO₂e × 1.852 tCO₂e/t EU default)                           | Same — calculation derivation in offer doc                                                                                                                                                             |
+| Outokumpu 1.6 tCO₂e/t Scope 1+2 (Europe's stainless anchor)                                                | `docs/field-notes/2026-05-22-outokumpu-sustainability-customers-engagements.md`                                                                                                                        |
+| NCC: €55B revenue, 12,000 subcontractors, construction reference                                           | `investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.html:254`; `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md:144`                                                                 |
+| 6 paying Lifetime Fleet customers (Uber Finland, Kela, NCC, Bolt + 2), €7K MRR, 100% retention, zero churn | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md:80`                                                                                                                                           |
+| Four product lines (DWS IQ / Firehorse / Lifetime Fleet / Situation Room)                                  | `dws10.com/config/products.json` (brand families: DWS IQ, Firehorse, Lifetime); Situation Room and Lifetime Fleet referenced in the `remote-control` skill description                                 |
+| NVIDIA Connect ISV partnership, Microsoft Founders Hub L4 (4 years), AI Stockholm Community                | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md:145`; `partners-outreach/BLOCK71_DEEP_SAGE_2026/REPLY_STEVE_LEONG.md:71`                                                                      |
+| Deep SAGE 2026 application submitted 31 May 2026, ID `6a156adf17d0c5bd31153afa`                            | Direct Deep SAGE confirmation email                                                                                                                                                                    |
+| 3-tier sovereignty model (Aegis / Sovereign Infra / Connect)                                               | Synthesised from `dws10.com/config/products.json` (DWS IQ Aegis line is a real product), `dws10.com/sovereignty/sovereignty.html`, and the partner classification implicit across `partners-outreach/` |
 
 ## How to use this brief
 
@@ -148,16 +150,16 @@ Every numeric and named claim above maps to a source-of-truth file:
 
 ## What this v2 adds over v1
 
-| Theme | v1 (PITCH_10MIN_FOR_STEVE.md) | v2 (this file) |
-|---|---|---|
-| Ethical standpoint | Implicit via auditor framing | **Explicit** — Lifetime Equation opens the pitch |
-| Global wedge | Briefly — "market shift" | **Explicit** — €2.68B / €15-20B TAM, brown discount, EU Social Climate Fund framing |
-| Innovation | LWM as truth source, LLM as witness | **Adds** Brain-Memory-Body-Hands, 21 industry pods, internal AI agents, 25× edge, 90s output |
-| Sovereignty 3-tier | Mentioned via DWS Aegis line | **Explicit** — Aegis / Sovereign Infra / Connect named tiers |
-| Ambition | Cohort fit only | **Adds** Captain Seats, €900K ARR target, breakeven path, financing structure |
-| Customer proof | Outokumpu + NCC + Lifetime Fleet | Same, with CFO triplet (Eliminate Liability / Secure Revenue / Defend Equity) added |
-| Voice | Operator-honest | Wedge-forward but still operator-honest; ambition framed inside the architecture, not separate |
-| Length | ~10 min | ~10 min |
+| Theme              | v1 (PITCH_10MIN_FOR_STEVE.md)       | v2 (this file)                                                                                 |
+| ------------------ | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Ethical standpoint | Implicit via auditor framing        | **Explicit** — Lifetime Equation opens the pitch                                               |
+| Global wedge       | Briefly — "market shift"            | **Explicit** — €2.68B / €15-20B TAM, brown discount, EU Social Climate Fund framing            |
+| Innovation         | LWM as truth source, LLM as witness | **Adds** Brain-Memory-Body-Hands, 21 industry pods, internal AI agents, 25× edge, 90s output   |
+| Sovereignty 3-tier | Mentioned via DWS Aegis line        | **Explicit** — Aegis / Sovereign Infra / Connect named tiers                                   |
+| Ambition           | Cohort fit only                     | **Adds** Captain Seats, €900K ARR target, breakeven path, financing structure                  |
+| Customer proof     | Outokumpu + NCC + Lifetime Fleet    | Same, with CFO triplet (Eliminate Liability / Secure Revenue / Defend Equity) added            |
+| Voice              | Operator-honest                     | Wedge-forward but still operator-honest; ambition framed inside the architecture, not separate |
+| Length             | ~10 min                             | ~10 min                                                                                        |
 
 ## v1 vs v2 — which to send
 

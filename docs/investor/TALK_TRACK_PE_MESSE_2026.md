@@ -1,6 +1,6 @@
 # PE Meeting + German Messe Talk Track — 2026 Q2 SAFE Round
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -29,7 +29,7 @@ Document Status:
 - Languages Available: English · Deutsch (Messe) · Suomi (Lifetime Oy context)
 - Publication Status: ACTIVE — internal, used live in PE meetings and at Messe Germany
 
----
+***
 
 ## 0. Brand Architecture (read first)
 

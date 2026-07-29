@@ -1,6 +1,6 @@
 # Module 3 — Hard Traction Page
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -18,7 +18,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE — every number below traces to `docs/TRACTION_CANONICAL.md`
 
----
+***
 
 ## Purpose
 

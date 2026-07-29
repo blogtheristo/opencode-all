@@ -1,6 +1,6 @@
 # Enterprise Winning Sales Strategy — DWS IQ 6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -20,7 +20,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (internal strategy)
 
----
+***
 
 ## Foreword
 

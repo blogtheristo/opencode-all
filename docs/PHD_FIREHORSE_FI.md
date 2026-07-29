@@ -7,7 +7,7 @@
 **Dokumenttityyppi:** Jatko-opiskeluhakemuksen liite (tohtoriohjelma)
 **Viite:** LUT Doctoral School — Jatko-opiskeluhakemus
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -98,7 +98,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V2.10 — KYA open source -standardipolku, NIST-tilanne, artikkelivaiheistus, ohjaajakirje tarkennettu)
 
----
+***
 
 ## Tiivistelmä
 

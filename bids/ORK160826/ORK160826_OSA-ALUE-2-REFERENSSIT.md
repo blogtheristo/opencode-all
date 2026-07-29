@@ -2,12 +2,12 @@
 
 ## Referenssilomake | ORK/1462/2026
 
----
+***
 
 VERSION AND AGENT HISTORY
 Version: 2.0 | 2026-06-27 | Claude Sonnet 4.6 | Päivitetty osa-aluekohtaisten vaatimusten mukaiseksi
 
----
+***
 
 ---
 

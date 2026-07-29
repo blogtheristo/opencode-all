@@ -1,6 +1,6 @@
 # DWS IQ Platform - Admin Manual
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -56,7 +56,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
 
----
+***
 
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 

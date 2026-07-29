@@ -1,6 +1,6 @@
 # Module 2 — Pitch Deck (10 Slides)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -17,7 +17,7 @@ Document Status:
 - Language: English
 - Publication Status: DRAFT — produce in Gamma before resubmission
 
----
+***
 
 ## Design Notes
 

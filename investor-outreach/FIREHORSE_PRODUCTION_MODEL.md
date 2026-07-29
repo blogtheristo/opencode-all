@@ -1,6 +1,6 @@
 # Firehorse Production Model — Investor Briefing
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -24,7 +24,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Author:** Risto Anton Päärni, CEO & Founder

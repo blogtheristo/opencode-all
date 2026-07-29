@@ -1,6 +1,6 @@
 # Aegis SWOT Analysis — Marcus Review
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -22,7 +22,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (Private — Admin/)
 
----
+***
 
 **Version:** 1.0
 **Effective Date:** 2026-04-05

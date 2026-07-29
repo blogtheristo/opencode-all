@@ -6,7 +6,7 @@ Legend: **[A]** actual · **[M]** modeled.
 
 **Framing note:** Company is at cash break-even (~€7k in / €7k out, €0 founder salary — actual, Lemonsoft). That €7k is **services and transport revenue** (licensed transport operation + consulting), not software MRR — never present it as platform revenue. Canonical: `docs/TRACTION_CANONICAL.md`. SAFE = growth capital, not life support. Present €3.8M as base, €5.5M as thesis-upside (modeled, not live signal).
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -16,7 +16,7 @@ Sessions & Modifications:
 
 - Version: 3.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Created the **repository source-of-truth copy** of the V3 investor strategy that previously existed only as a Google Drive export ("DWS IQ — Investor Strategy 2026 Q2 SAFE V3 (Boardy 29 Jul 2026)"). Transcribed verbatim from the founder-provided board pack; no figures altered. Closes an export-without-repo-copy drift gap.
 
----
+***
 
 ## The ask [A]
 

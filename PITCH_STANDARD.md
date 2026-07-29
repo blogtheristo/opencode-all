@@ -1,6 +1,6 @@
 # DWS Pitch Standard
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -28,7 +28,7 @@ Related Documents:
 - docs/sales/enterprise-pricing-construction.md
 - docs/sales/contact-details.md
 
----
+***
 
 ## 1. Purpose
 
@@ -116,7 +116,7 @@ The outbound message. Maximum 250 words. Four-beat structure for both types:
    - _Investor:_ missing exposure to Nordic industrial AI / Fit for 55 wave
 3. **Value wedge (2–3 sentences):** One clear, specific outcome. Quantified where possible.
    - _Client:_ "15–25% efficiency gain", "audit-ready in weeks", "€6,500 pilot, results in 30 days"
-   - _Investor:_ "€2.68B Nordic TAM", "€7k–14k MRR from three live pilots", "150k SAFE at [cap]"
+   - _Investor:_ "€2.68B Nordic TAM", "two enterprise pilots contracted Q1/2026 at €29,950 each — €59,900 booked", "150k SAFE at [cap]". Never quote an MRR range; see `docs/TRACTION_CANONICAL.md` §3.
 4. **Call to action (1 sentence):** Low-friction ask — a 20-minute call, a deck link, or a question that invites a reply. Never "let me know if you're interested."
 
 Tone: Peer-to-peer. No buzzwords. Write as Risto Anton Päärni, CEO, Lifetime Oy unless instructed otherwise.

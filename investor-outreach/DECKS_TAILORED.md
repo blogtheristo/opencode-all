@@ -1,4 +1,4 @@
----
+***
 
 VERSION AND AGENT HISTORY
 
@@ -17,7 +17,7 @@ Sessions & Modifications:
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Corrected the CSRD figure in the Salim delta to post-Omnibus (fewer than 5,000 large filers) per DWS_TRUTH_STANDARD v2.5 §2C.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Per-investor tailored decks (Arthur, Wilke, Maciej, Salim, Malte) — shared spine + per-investor lead/emphasize/HIDE deltas + ask. Mandate walls enforced (Salim + Malte: hide Aegis/defense). Anchors per DWS_TRUTH_STANDARD v2.4.
 
----
+***
 
 # Tailored Investor Decks
 

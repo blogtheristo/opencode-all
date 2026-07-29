@@ -6,7 +6,7 @@ Legend: **[A]** = actual (Lifetime Oy bookkeeping / KILA / filed bid) · **[M]**
 
 _Companion figures export (git-diffable, per Document Standard §24.2): [`BOARDY_BUDGET_2026-2029_V3.csv`](./BOARDY_BUDGET_2026-2029_V3.csv)._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -16,7 +16,7 @@ Sessions & Modifications:
 
 - Version: 3.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Created the **repository source-of-truth copy** of the V3 (22.07.2026 actuals-anchored) budget that previously existed only as a Google Drive export ("DWS IQ — 2026-2029 Budget V3 (Boardy 29 Jul 2026)"). Content transcribed verbatim from the founder-provided board pack; no figures altered. This closes a data-drift gap (export-without-repo-copy). Canonical GM frame confirmed here — 85% at list, 80% conservative stress floor — reconciled against `docs/investor/data-room-2026Q2/PRICING_MODEL.md` §2/§4.
 
----
+***
 
 ## Current state (mid-2026) — ACTUAL [A]
 

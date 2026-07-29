@@ -1,6 +1,6 @@
 # Ecosummit Pitch Deck — DWS IQ 6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -24,7 +24,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE — submit as PDF to Ecosummit
 
----
+***
 
 > **Format:** 10 slides · 5-minute stage pitch · recorded + published on YouTube
 > **Audience:** Climate tech investors, corporate decarbonization leads, industrial VCs

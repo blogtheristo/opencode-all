@@ -2,7 +2,7 @@
 
 ## Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -120,7 +120,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
----
+***
 
 **Opinnäytetyö**
 **Metropolia Ammattikorkeakoulu**

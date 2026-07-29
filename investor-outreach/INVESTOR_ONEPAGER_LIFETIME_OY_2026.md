@@ -2,7 +2,7 @@
 
 > **CONFIDENTIAL — NDA required. Not for public distribution.** Gated investor summary per the DD Publication Policy (`Learn/022_LT_DueDiligence_CleanReport_2026.md` §18). Source of truth for every figure below: the 2026 DD Clean Report. Unverified items marked `TBA`.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -18,7 +18,7 @@ Document Status:
 - Document Type: Investor summary
 - Owner: Risto Päärni, Lifetime Oy
 
----
+***
 
 ## Company
 
