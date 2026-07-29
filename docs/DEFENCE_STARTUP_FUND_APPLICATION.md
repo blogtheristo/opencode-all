@@ -14,7 +14,8 @@
 - **Sessions & Modifications:**
   - 2.0 (25.03.2026, Claude Opus 4.6): Initial version prepared for Defence Startup Fund application.
   - 3.0 (23.06.2026, Claude Code): Lisätty PÄÄTÖS JA JATKO -tilanneosio — hakemus jätetty 26.3.2026 (→ Markus Rankka), RTOY:n päätös 23.4.2026 (Laura Manner-Raappana, ei rahoitusta tällä kierroksella) ja täydennyssuunnitelma seuraavalle kierrokselle. Ei muutoksia hakemuksen substanssiin.
-- **Document Status:** Submitted — not funded (round 1); resubmission planned
+  - 3.1 (29.07.2026, Claude Code Opus 5, sessio claude/traction-truth-reconciliation): Lisätty **OIKAISU**-osio (§0a). Jätetyn hakemuksen tekstiä EI ole muutettu — lähetetty aineisto säilytetään sanatarkasti (DWS_DOCUMENT_STANDARD.md §24). Oikaisu koskee väitteitä "logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki" ja "MRR €7K, 100 % retentio", jotka eivät pidä paikkaansa ohjelmistoliiketoiminnan väitteinä. Kanoninen lähde: `docs/TRACTION_CANONICAL.md`.
+- **Document Status:** Submitted — not funded (round 1); resubmission planned. **Body preserved verbatim as sent; see §0a for the correction that must be applied before resubmission.**
 
 ---
 
@@ -26,6 +27,25 @@
 **DEFINE:** https://www.definefinland.fi/en/
 **Rahoitusmalli:** €20 000 avustus + startupin oma €20 000 omarahoitusosuus (matching)
 **Yhteyshenkilöt:** Henrietta Hirvonen (hirvonen@redstone.vc), Teemu Seppälä (seppala@riihimaki.fi), Laura Manner-Raappana (RTOY)
+
+---
+
+## 0a. OIKAISU — sitovat korjaukset ennen uusintajättöä (29.7.2026)
+
+> **Tämä hakemus on jätetty 26.3.2026. Jätetyn hakemuksen tekstiä ei muuteta** — lähetetty aineisto säilytetään sanatarkasti (`DWS_DOCUMENT_STANDARD.md` §24). Alla oleva taulukko listaa ne väitteet, jotka olivat virheellisiä jätetyssä versiossa, ja sen mitä uusintajätön **on** sanottava. Kanoninen lähde: **`docs/TRACTION_CANONICAL.md`** (perustajan vahvistus 29.7.2026).
+
+| Kohta jätetyssä hakemuksessa | Virheellinen väite | Mitä uusintajätön on sanottava |
+| ---------------------------- | ------------------ | ------------------------------ |
+| §2 Tiivistelmä; §7b; §12 kohta 2 | "Nykyisiä logistiikka-asiakkaitamme ovat **Kela, Uber, Bolt ja Taksi Helsinki**" | Kela, Uber, Bolt ja Taksi Helsinki **eivät ole ohjelmistoasiakkaita**. Ne ovat Traficomin määrittelemässä **välityspalvelun** roolissa toimivia välittäjiä, jotka välittävät ajotilauksia Lifetime Fleetin ajoneuvoille. Ne ovat luvanvaraisen henkilöliikennetoiminnan kaupallisia vastapuolia — ne perivät komissiota suoritetuista ajoista ja ostavat kuljetuskapasiteettia. Ne eivät saa esiintyä DWS IQ:n, Aegisin tai minkään ohjelmistotuotteen asiakkaina. |
+| §2; §7b; §12 kohta 2 | "**MRR €7K**, 100 % retentio" | Noin **7 000 €/kk on palvelu- ja kuljetusliikevaihtoa** (luvanvarainen henkilöliikenne + konsultointi), ei ohjelmistoliikevaihtoa. Se asettaa Lifetime Oy:n **kassavirtatasapainoon perustajan palkalla 0 €**. Sitä ei esitetä MRR:nä. **Retentioprosenttia ei väitetä lainkaan** — kohorttidataa ei ole. |
+| §7b "17 vuoden operaattorisuhteet" | Esitetty ohjelmistotraktiona | Kyse on **kuljetusliiketoiminnan** toimialakokemuksesta. Taksirekisteri on ollut voimassa vuodesta 2010. Se on relevanttia toimialaosaamisena, ei alustan traktiona. |
+| Puuttui kokonaan | — | **Todellinen ohjelmistoputki:** kaksi yritys-pilottia sopimuksellistettu Q1/2026, **29 950 € kumpikin (59 900 € kirjattu)**. Outokumpu ja Kemira ovat **aktiivisia keskusteluja, joissa on dokumentoidut saapuvat vastaukset** — tarjouskirjeet päivätty 27.6.2026, ei lähetysvahvistusta, joten status on "keskustelussa", ei "jätetty" eikä "voitettu". |
+| §10 Tiekartta | "DWS IQ 6 -alusta live" esitettynä myös Aegisin tilana | **DWS IQ Aegis on ennakkotilausvaiheessa. Yleinen saatavuus syyskuu 2026. Ei liikevaihtoa.** Aegista ei kuvata "livenä" eikä "tuotannossa". |
+| §4, §6 | Toimialamäärät | Alusta kattaa **25** EU-säänneltyä toimialaa; **Aegis-kaksoiskäyttötaso kattaa 21**. Lukua 25 ei liitetä Aegisiin. |
+| §1, §7 Tiimi | — | **Kahden hengen ydintiimi** (perustaja/toimitusjohtaja + Office Chief) sekä **sopimuspohjainen insinööripenkki NDA:n alaisena.** |
+| §0 aikajana, 13.–14.4.2026 | **Nokia** nimetty puolustusalan vastapuoleksi | Nokiaa **ei nimetä** puolustusalan vastapuoleksi missään ulkoisessa aineistossa. NDA kattaa neuvottelut ja kumppanuuden ja sisältää 100 000 € sopimussakon. Käytä ilmaisua **"puolustusalan päähankkija"**, jos viittaus on välttämätön. |
+
+**Huom. rahastosta:** tämä hakemus meni **Defence Startup Fundiin**, jonka hallinnoi **Riihimäen Tilat ja Kehitys Oy (RTOY)** — kyseessä on **kunnallinen avustusinstrumentti**, ei NATO DIANA -hakemus. Vanhemmissa dokumenteissa esiintyvä "NATO DIANA -hakemus" -nimitys tästä kierroksesta on virheellinen. Erillinen, aito DIANA-jättö on valmistelussa; niitä ei saa sekoittaa. (§8.3:n NATO DIANA -maininta viittaa DEFINE-ekosysteemin VTT-testiympäristöihin ja on oikein.)
 
 ---
 

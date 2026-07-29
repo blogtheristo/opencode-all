@@ -8,6 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
+- Version: 2.0 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Reconciled to `docs/TRACTION_CANONICAL.md`. Separated the ~€7k/month services-and-transport revenue from software revenue (it is transport + consulting, not platform MRR, and must never be presented as recurring software revenue). Removed the "Paying customers 6" and "Customer retention 100%" headline rows. Flagged the §5 "~€145k direct ACV" figure as arithmetically inconsistent with a ~€7k run-rate and marked it UNVERIFIED pending founder confirmation. Noted that NCC appears here as an unlanded ULTRA-cohort prospect and must not be listed as a landed customer elsewhere.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — proof-point dump for the 2026 Q2 investor data room. Pilot revenue actuals from Q1/26, Tier-1 LAND-* account names redacted where customers have not authorized public name use, bundle types per landed account, channel attribution. Sourced from DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md. Spine: labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.
 
 Session Links & References:
@@ -15,12 +16,13 @@ Session Links & References:
 - Claude Code (claude/investor-labor-pricing-thesis-rWS2b): https://github.com/blogtheristo/dws6/commits/claude/investor-labor-pricing-thesis-rWS2b
 - Source: DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md
 - Companion: docs/investor/INVESTOR_ONE_PAGER_2026Q2.md
+- Canonical traction source: docs/TRACTION_CANONICAL.md
 - View on GitHub: https://github.com/blogtheristo/dws6/blob/claude/investor-labor-pricing-thesis-rWS2b/docs/investor/data-room-2026Q2/PROOF_POINTS_2026Q2.md
 
 Document Status:
 
 - Created: 14.05.2026
-- Last Modified: 14.05.2026
+- Last Modified: 29.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — investor data room, under NDA. Customer names REDACTED where public-use authorization is pending.
@@ -34,9 +36,9 @@ Document Status:
 | Pilots signed in Q1/26                            | **2 enterprise pilots**              |
 | Pilot ACV (each)                                  | €29,950                              |
 | Pilot revenue booked Q1/26                        | **€59,900**                          |
-| MRR (running, May 2026)                           | ~€7k                                 |
-| Paying customers                                  | 6                                    |
-| Customer retention                                | 100%                                 |
+| Services & transport revenue (running, May 2026)  | ~€7k / month — licensed transport operation + consulting. **Not software revenue.** Puts Lifetime Oy at cash break-even with founder salary €0. |
+| Landed software accounts                          | 6 (LAND-001 … LAND-006, §3) — two are the Q1/26 enterprise pilots |
+| Customer retention                                | Not asserted — no cohort data. See `docs/TRACTION_CANONICAL.md` §5. |
 | Skilled Agents in production                      | 16 (DWS 365 Skilled Agents catalog)  |
 | Channels live                                     | Direct (live) · Azure Marketplace (live) · AppExchange (5 SKUs queued for managed-package submission) |
 | Q2/26 V1 launch                                   | Arctic 15, Helsinki — June 15        |
@@ -45,6 +47,8 @@ Document Status:
 ---
 
 ## 2. Q2–Q4 / 2026 Pipeline — Tier-1 Named Accounts
+
+These are **prospects, not customers.** No account in this section has landed. NCC in particular must never appear in a landed-customer or paying-customer table elsewhere in the repository — see `docs/TRACTION_CANONICAL.md` §3.
 
 Pipeline scoped to the 30-account Q1/26 manifesto list, plus the Q2 expansion to TOP-50 (triggered by Q1 exit-criteria pass). ACV bands are list-price assumptions per bundle, before MACC-burn gross-up adjustments.
 
@@ -99,7 +103,7 @@ All landed Q1/26 accounts use the **DWS 365 Skilled Agents** offer brand on the 
 | Azure Marketplace   |       0      |          0    | €120k – €280k (MACC-burn)  |
 | Salesforce AppExch. |       0      |          0    | €80k – €200k               |
 
-*Q1/26 direct ACV reflects pilots + early small-ticket attaches; MRR run-rate is ~€7k.
+\*`[UNVERIFIED]` The ~€145k direct ACV is the sum of the §3 LAND-* year-1 ACVs (two €29,950 pilots plus four approximate attach figures). **It is arithmetically inconsistent with a ~€7k/month run-rate** — €145k of annualised contract value cannot coexist with €84k/yr of revenue, and in any case the ~€7k is transport and consulting revenue, not software revenue. One of the two figures must be restated against bookkeeping before this table is shown to an investor. Flagged in `docs/TRACTION_CANONICAL.md` §5.
 
 ---
 
@@ -118,7 +122,9 @@ Outcome metrics are baseline targets per the Q1/26 manifesto; first verified pil
 ## 7. Anti-Goals (Discipline for the Data Room)
 
 - **Never publish a customer name without explicit authorization.** REDACTED is the default for the investor data room.
-- **Never overstate run-rate.** MRR is ~€7k as of May 2026; pilot revenue is non-recurring contract value booked through pilot period; investor reports must show both numbers cleanly.
+- **Never present transport revenue as software revenue.** The ~€7k/month is revenue from the licensed transport operation plus consulting — it funds the company, it is not platform MRR. Software revenue is the €59,900 of Q1/26 pilot contract value plus the LAND-003…006 attaches. Investor reports must show the two lines separately and label them. Conflating them is what the Arctic15 and Defence Startup Fund rejections cited.
+- **Never list a dispatch operator as a customer.** Uber, Bolt, Kela and Taksi Helsinki dispatch ride orders to Lifetime Fleet vehicles in the role defined by Traficom. They are commercial counterparties of the transport operation, never customers of DWS IQ, Aegis, or any software product.
+- **Never assert a retention or churn rate.** There is no cohort data behind the previously published "100% retention".
 - **Never lead with the underlying platform name.** Contracts and proof points cite **DWS 365 Skilled Agents** as the offer; DWS IQ is referenced as the platform layer once.
 - **Never use Resend or noreply@** in any investor or customer outreach attached to a proof point in this room.
 
