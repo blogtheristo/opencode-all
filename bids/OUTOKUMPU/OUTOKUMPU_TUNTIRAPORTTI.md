@@ -82,7 +82,9 @@ Vaiheistus noudattaa pilottimäärittelyn `PILOT_SHEET_OUTOKUMPU_FORTA.md` v2.0 
 
 **Kokonaispanos pilotissa ~480 h, josta asiakas maksaa 240 h.** Tehollinen hinta kokonaispanosta kohti on siten noin **€50/h** — eli alle puolet asiantuntijatyön listahinnasta.
 
-Tämä ei ole alennus vaan investointi: pilotin tarkoitus on tuottaa mittausdata, jonka perusteella kaupallinen konversio joko perustellaan tai hylätään. Lifetime kantaa puolet siitä työstä, koska mittaustulos on arvokas myös meille.
+**Tämä ei ole alennus vaan yhteisrahoitus.** Pilotin tarkoitus on tuottaa mittausdata, jonka perusteella kaupallinen konversio joko perustellaan tai hylätään. Lifetime kantaa puolet työstä, koska mittaustulos on arvokas myös meille — emme myy tässä tuntityötä vaan hankimme yhdessä asiakkaan kanssa näytön siitä, toimiiko paikallinen arkkitehtuuri Tornion kaltaisessa ympäristössä.
+
+**Ero alennuksen ja yhteisrahoituksen välillä on olennainen hinnoittelun kannalta.** Alennus laskee listahintaa ja jää voimaan seuraavassa neuvottelussa. Yhteisrahoitus on kertaluonteinen, rajattuun toimeksiantoon sidottu järjestely, joka päättyy pilotin päättyessä. Siksi §6 toteaa nimenomaisesti, että pilotin jälkeinen asiantuntijatyö laskutetaan hintalomakkeen §4 mukaisella listahinnalla **€120/h** — pilotin €100/h ei siirry jatkosopimukseen eikä laajemman käyttöönoton hinnoitteluun.
 
 ---
 
