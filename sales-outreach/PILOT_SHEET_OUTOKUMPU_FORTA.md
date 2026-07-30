@@ -181,9 +181,29 @@ Lifetime's catalogue lists a standard **DWS IQ Aegis Pilot at €19,990** (`DWS-
 | | |
 | --- | --- |
 | **Provider delivers** | Forta sub-line locked; read-only source-data audit (melt-shop / EAF historian, energy management system, scrap registry); **criticality classification** per §2.2; deployment-mode recommendation with justification; degradation and reconnect-reconciliation spec, first draft; baseline measurement of current cycle time, IP-coverage % and sales-engineering hours per disclosure |
-| **Customer provides** | Technical contact; IP-function policy owner; the named operator who will exercise kill authority; read-only source-system access; sales-engineering counterpart for baseline; **the agreed outage window and its date** |
-| **Exit gate** | A one-page signed scope: sub-line, workflow, deployment mode, and the three acceptance conditions of §7 KPI 4 written in Outokumpu's own operational language |
+| **Customer provides** | Technical contact; IP-function policy owner; the named operator who will exercise kill authority; read-only source-system access; sales-engineering counterpart for baseline; **the agreed outage window, its date, and the isolation method per §6.1** |
+| **Exit gate** | A one-page signed scope: sub-line, workflow, deployment mode, the isolation method and its validity note, and the three acceptance conditions of §7 KPI 4 written in Outokumpu's own operational language |
 | **Fails if** | The disclosure workflow cannot be expressed as a terminating sequence with a defined "complete" state. Without a completion condition there is nothing to test — and Outokumpu learns this having spent nothing |
+
+### 6.1 Isolation method — agreed in Phase 0, never improvised in week 11
+
+Tornio runs continuously. **Physically pulling the WAN uplink on a live mill is not a reasonable ask**, and a pilot that assumes it will be permitted arrives at week 11 with no test. The isolation method is therefore selected and written down in Phase 0, from this ladder:
+
+| | Method | What it proves about the **network boundary** | Operational disruption |
+| --- | --- | --- | --- |
+| **A** | Physical disconnect of the WAN uplink | Everything — the boundary is not a configuration | Highest; normally unavailable on a live mill |
+| **B** | Deny-all egress on the edge router / firewall WAN interface | The boundary holds under the plant's own enforcement point | Moderate; a change window at the network boundary |
+| **C** | VLAN isolation of the Aegis segment | The Aegis segment cannot reach anything beyond it | Low; contained to the pilot segment |
+| **D** | Host-level egress block on the Aegis nodes | Only that the workload does not need the network | Lowest |
+
+**Recommended for Tornio: C, with B during a scheduled maintenance window if one falls inside weeks 10–11.**
+
+**The validity rule, which matters more than the choice.** Whichever method is used, it must satisfy both of the following, or KPI 4 measures configuration rather than architecture:
+
+1. **Enforced above the stack.** The block is applied at a layer the Aegis deployment cannot influence — the plant's router, switch or hypervisor, administered by Outokumpu, not by a setting inside the Aegis runtime. A system that is asked to disconnect itself has not been tested.
+2. **Verified before the run starts.** An egress attempt is made and shown to fail, and the failure is captured in the acceptance record. An outage that was never confirmed to be an outage proves nothing.
+
+**Methods B–D prove progressively less about the boundary and exactly the same amount about the workload.** That is the honest reading and it is stated in the final report: the acceptance record names the method used, so a reader in three years knows what was and was not demonstrated. Escalating to A or B at commercial conversion, when a production change window is available, remains open.
 
 ### Phase 1 — Local substrate · weeks 3–5
 
@@ -213,7 +233,7 @@ Lifetime's catalogue lists a standard **DWS IQ Aegis Pilot at €19,990** (`DWS-
 
 | | |
 | --- | --- |
-| **Provider delivers** | A **rehearsal run** under a short window with findings fixed; then the witnessed acceptance run under the agreed window; instrumented capture of all three conditions; observation of reconnection behaviour and verification that reconciliation occurs in the specified order |
+| **Provider delivers** | Verification that the Phase 0 isolation method is enforced above the stack and that egress actually fails (§6.1); a **rehearsal run** under a short window with findings fixed; then the witnessed acceptance run under the agreed window; instrumented capture of all three conditions; observation of reconnection behaviour and verification that reconciliation occurs in the specified order |
 | **Customer provides** | Authorisation of the outage window; a witness present (Operations and/or IP function); the operator executes the stop |
 | **Exit gate** | **All three, or a documented negative result:** (i) the disclosure workflow ran to completion without network access, (ii) the Article 12 record was written locally throughout with no gap, (iii) the operator stopped a running agent |
 | **Why rehearsed** | An unrehearsed test measures luck. The rehearsal is where problems are meant to appear |
@@ -245,7 +265,7 @@ All measurements use Customer's actual data from the pilot Forta sub-line. Basel
 
 KPIs 1–3 measure how much better the workflow gets. **KPI 4 measures whether it exists at all when the network does not.** It is binary by design, because a partial answer is not usable by a board or a regulator.
 
-With the WAN uplink physically severed for the agreed window:
+With the uplink severed for the agreed window — by the isolation method fixed in Phase 0 (§6.1), enforced above the stack and verified to actually block egress before the run begins:
 
 1. **Workflow continuity** — the disclosure workflow runs to completion, producing a signed disclosure, without network access.
 2. **Local compliance record** — the EU AI Act Article 12 record continues to be written locally, with no gap for the duration of the outage.
@@ -353,7 +373,7 @@ This proposal is valid for 30 days from the date issued in §0. Acceptance by Cu
 
 - [ ] **Confirm the €24,000 vs €19,990 reconciliation in §4.1 is one you will defend to procurement.** If Outokumpu's procurement compares against the published list price, the four scope lines are the answer — check they are accurate before they are read back to you.
 - [ ] **Confirm KPI 4 is a gate you want in a customer-facing document.** It can fail, and it is written so that failing is a legitimate delivered outcome. That is the honest framing and it is deliberate — but it is a commercial choice, not a technical one.
-- [ ] **Confirm Outokumpu can authorise a genuine outage window at Tornio** (§6 Phase 3). If Operations cannot sever the uplink on a continuously-operating mill even under a planned window, KPI 4 needs an agreed simulation boundary — and that boundary must be written into Phase 0, not improvised in week 11.
+- [ ] **Agree the isolation method with Operations before Phase 0 closes** (§6.1). The ladder is specified and VLAN isolation (method C) is recommended for Tornio, so this is a selection rather than an open question — but it is Operations' selection, not ours, and it must be signed into the Phase 0 scope. The one thing not to concede: the block must be enforced at Outokumpu's own network layer, not by a setting inside the Aegis runtime.
 - [ ] Route to **Operations / Plant Director** as well as Ari — KPI 4 answers to Operations and the CISO, not to the IP function (see `sales-outreach/INTRO_CONTROL_ROOM_OUTOKUMPU_TORNIO.md` for the Operations door).
 - [ ] Convert to PDF: `pandoc PILOT_SHEET_OUTOKUMPU_FORTA.md -o PILOT_SHEET_OUTOKUMPU_FORTA.pdf --pdf-engine=xelatex --variable=geometry:a4paper,margin=20mm`
 - [ ] Attach PDF (not .md) to the email

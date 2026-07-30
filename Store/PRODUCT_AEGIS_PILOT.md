@@ -53,8 +53,10 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 **Objective.** Establish what "the core outcome" actually is, precisely enough that it can be tested.
 
 - **We do:** site, workflow and deployment-mode selection workshop; read-only audit of the source systems; **criticality classification** — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.
-- **You do:** nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window and its date.
-- **Exit gate:** a one-page signed scope — site, workflow, deployment mode, and the three acceptance conditions written in *your* operational language, not ours.
+- **You do:** nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window, its date, and **the isolation method**.
+- **Exit gate:** a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in *your* operational language, not ours.
+
+**On the isolation method.** Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be **enforced above the stack** (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and **egress must be attempted and shown to fail** before the run starts. The weaker methods prove less about the network boundary and exactly as much about the workload; the acceptance record names which was used, so a reader in three years knows what was demonstrated.
 - **This phase fails if** the workflow cannot be described as a terminating sequence with a defined "complete" state. If there is no completion, there is nothing to test, and we say so before you have spent anything.
 
 ### Phase 1 — Local substrate · weeks 3–5

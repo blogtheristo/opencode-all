@@ -626,13 +626,14 @@ disclosure</td>
 <td>Technical contact; IP-function policy owner; the named operator who
 will exercise kill authority; read-only source-system access;
 sales-engineering counterpart for baseline; <strong>the agreed outage
-window and its date</strong></td>
+window, its date, and the isolation method per §6.1</strong></td>
 </tr>
 <tr class="odd">
 <td><strong>Exit gate</strong></td>
-<td>A one-page signed scope: sub-line, workflow, deployment mode, and
-the three acceptance conditions of §7 KPI 4 written in Outokumpu’s own
-operational language</td>
+<td>A one-page signed scope: sub-line, workflow, deployment mode, the
+isolation method and its validity note, and the three acceptance
+conditions of §7 KPI 4 written in Outokumpu’s own operational
+language</td>
 </tr>
 <tr class="even">
 <td><strong>Fails if</strong></td>
@@ -643,6 +644,77 @@ nothing</td>
 </tr>
 </tbody>
 </table>
+<h3 id="isolation-method-agreed-in-phase-0-never-improvised-in-week-11">6.1
+Isolation method — agreed in Phase 0, never improvised in week 11</h3>
+<p>Tornio runs continuously. <strong>Physically pulling the WAN uplink
+on a live mill is not a reasonable ask</strong>, and a pilot that
+assumes it will be permitted arrives at week 11 with no test. The
+isolation method is therefore selected and written down in Phase 0, from
+this ladder:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Method</th>
+<th>What it proves about the <strong>network boundary</strong></th>
+<th>Operational disruption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>Physical disconnect of the WAN uplink</td>
+<td>Everything — the boundary is not a configuration</td>
+<td>Highest; normally unavailable on a live mill</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>Deny-all egress on the edge router / firewall WAN interface</td>
+<td>The boundary holds under the plant’s own enforcement point</td>
+<td>Moderate; a change window at the network boundary</td>
+</tr>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>VLAN isolation of the Aegis segment</td>
+<td>The Aegis segment cannot reach anything beyond it</td>
+<td>Low; contained to the pilot segment</td>
+</tr>
+<tr class="even">
+<td><strong>D</strong></td>
+<td>Host-level egress block on the Aegis nodes</td>
+<td>Only that the workload does not need the network</td>
+<td>Lowest</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended for Tornio: C, with B during a scheduled
+maintenance window if one falls inside weeks 10–11.</strong></p>
+<p><strong>The validity rule, which matters more than the
+choice.</strong> Whichever method is used, it must satisfy both of the
+following, or KPI 4 measures configuration rather than architecture:</p>
+<ol type="1">
+<li><strong>Enforced above the stack.</strong> The block is applied at a
+layer the Aegis deployment cannot influence — the plant’s router, switch
+or hypervisor, administered by Outokumpu, not by a setting inside the
+Aegis runtime. A system that is asked to disconnect itself has not been
+tested.</li>
+<li><strong>Verified before the run starts.</strong> An egress attempt
+is made and shown to fail, and the failure is captured in the acceptance
+record. An outage that was never confirmed to be an outage proves
+nothing.</li>
+</ol>
+<p><strong>Methods B–D prove progressively less about the boundary and
+exactly the same amount about the workload.</strong> That is the honest
+reading and it is stated in the final report: the acceptance record
+names the method used, so a reader in three years knows what was and was
+not demonstrated. Escalating to A or B at commercial conversion, when a
+production change window is available, remains open.</p>
 <h3 id="phase-1-local-substrate-weeks-35">Phase 1 — Local substrate ·
 weeks 3–5</h3>
 <p><strong>Objective.</strong> Execution, identity, evidence and kill
@@ -734,11 +806,12 @@ announced, witnessed and recorded.</p>
 <tbody>
 <tr class="odd">
 <td><strong>Provider delivers</strong></td>
-<td>A <strong>rehearsal run</strong> under a short window with findings
-fixed; then the witnessed acceptance run under the agreed window;
-instrumented capture of all three conditions; observation of
-reconnection behaviour and verification that reconciliation occurs in
-the specified order</td>
+<td>Verification that the Phase 0 isolation method is enforced above the
+stack and that egress actually fails (§6.1); a <strong>rehearsal
+run</strong> under a short window with findings fixed; then the
+witnessed acceptance run under the agreed window; instrumented capture
+of all three conditions; observation of reconnection behaviour and
+verification that reconciliation occurs in the specified order</td>
 </tr>
 <tr class="even">
 <td><strong>Customer provides</strong></td>
@@ -861,7 +934,9 @@ gate, stated in full</h3>
 measures whether it exists at all when the network does not.</strong> It
 is binary by design, because a partial answer is not usable by a board
 or a regulator.</p>
-<p>With the WAN uplink physically severed for the agreed window:</p>
+<p>With the uplink severed for the agreed window — by the isolation
+method fixed in Phase 0 (§6.1), enforced above the stack and verified to
+actually block egress before the run begins:</p>
 <ol type="1">
 <li><strong>Workflow continuity</strong> — the disclosure workflow runs
 to completion, producing a signed disclosure, without network
@@ -1093,12 +1168,13 @@ want in a customer-facing document.</strong> It can fail, and it is
 written so that failing is a legitimate delivered outcome. That is the
 honest framing and it is deliberate — but it is a commercial choice, not
 a technical one.</label></li>
-<li><label><input type="checkbox"></input><strong>Confirm Outokumpu can
-authorise a genuine outage window at Tornio</strong> (§6 Phase 3). If
-Operations cannot sever the uplink on a continuously-operating mill even
-under a planned window, KPI 4 needs an agreed simulation boundary — and
-that boundary must be written into Phase 0, not improvised in week
-11.</label></li>
+<li><label><input type="checkbox"></input><strong>Agree the isolation method
+with Operations before Phase 0 closes</strong> (§6.1). The ladder is
+specified and VLAN isolation (method C) is recommended for Tornio, so
+this is a selection rather than an open question — but it is Operations’
+selection, not ours, and it must be signed into the Phase 0 scope. The
+one thing not to concede: the block must be enforced at Outokumpu’s own
+network layer, not by a setting inside the Aegis runtime.</label></li>
 <li><label><input type="checkbox"></input>Route to <strong>Operations / Plant
 Director</strong> as well as Ari — KPI 4 answers to Operations and the
 CISO, not to the IP function (see

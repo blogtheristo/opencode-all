@@ -844,17 +844,11 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;p&gt;&lt;strong&gt;Objective.&lt;/strong&gt; Establish what &quot;the core outcome&quot; actually is, precisely enough that it can be tested.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;We do:&lt;/strong&gt; site, workflow and deployment-mode selection workshop; read-only audit of the source systems; &lt;strong&gt;criticality classification&lt;/strong&gt; — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;You do:&lt;/strong&gt; nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window and its date.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Exit gate:&lt;/strong&gt; a one-page signed scope — site, workflow, deployment mode, and the three acceptance conditions written in &lt;em&gt;your&lt;/em&gt; operational language, not ours.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;This phase fails if&lt;/strong&gt; the workflow cannot be described as a terminating sequence with a defined &quot;complete&quot; state. If there is no completion, there is nothing to test, and we say so before you have spent anything.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You do:&lt;/strong&gt; nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window, its date, and &lt;strong&gt;the isolation method&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exit gate:&lt;/strong&gt; a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in &lt;em&gt;your&lt;/em&gt; operational language, not ours.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;Phase 1 — Local substrate · weeks 3–5&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Objective.&lt;/strong&gt; Stand up execution, identity, evidence and kill authority on site. Nothing about your workflow yet.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;We do:&lt;/strong&gt; deploy the execution runtime and local model serving on your hardware or a compact edge appliance; issue KYA agent identity that resolves locally, with no reachable control plane; stand up the Article 12 log writer against local durable storage; wire the kill path operator → running agent with no network hop.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;You do:&lt;/strong&gt; hardware placement, power, network segment, operator account provisioning.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Exit gate:&lt;/strong&gt; the &lt;strong&gt;four locals&lt;/strong&gt; demonstrated in isolation with the uplink already down — an agent runs, is identified, writes a record, and can be stopped.&lt;/li&gt;
-&lt;li&gt;</g:description>
+&lt;p&gt;&lt;strong&gt;On the isolation method.&lt;/strong&gt; Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be &lt;strong&gt;enforced above the stack&lt;/strong&gt; (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and &lt;strong&gt;egress must be attempted and shown to fail&lt;/strong&gt; before the run starts. The weaker methods prove less about the network boundary and exactly as much about the workload; the acceptance record names which was used, so a reader in three years knows what was demonstrated.
+- &lt;strong&gt;This phase fails if&lt;/strong&gt; the workflow cannot be described as a terminating se</g:description>
       <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
       <g:condition>new</g:condition>

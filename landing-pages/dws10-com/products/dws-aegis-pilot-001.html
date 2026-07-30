@@ -64,10 +64,11 @@
 <p><strong>Objective.</strong> Establish what "the core outcome" actually is, precisely enough that it can be tested.</p>
 <ul>
 <li><strong>We do:</strong> site, workflow and deployment-mode selection workshop; read-only audit of the source systems; <strong>criticality classification</strong> — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.</li>
-<li><strong>You do:</strong> nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window and its date.</li>
-<li><strong>Exit gate:</strong> a one-page signed scope — site, workflow, deployment mode, and the three acceptance conditions written in <em>your</em> operational language, not ours.</li>
-<li><strong>This phase fails if</strong> the workflow cannot be described as a terminating sequence with a defined "complete" state. If there is no completion, there is nothing to test, and we say so before you have spent anything.</li>
+<li><strong>You do:</strong> nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window, its date, and <strong>the isolation method</strong>.</li>
+<li><strong>Exit gate:</strong> a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in <em>your</em> operational language, not ours.</li>
 </ul>
+<p><strong>On the isolation method.</strong> Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be <strong>enforced above the stack</strong> (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and <strong>egress must be attempted and shown to fail</strong> before the run starts. The weaker methods prove less about the network boundary and exactly as much about the workload; the acceptance record names which was used, so a reader in three years knows what was demonstrated.
+- <strong>This phase fails if</strong> the workflow cannot be described as a terminating sequence with a defined "complete" state. If there is no completion, there is nothing to test, and we say so before you have spent anything.</p>
 <h3>Phase 1 — Local substrate · weeks 3–5</h3>
 <p><strong>Objective.</strong> Stand up execution, identity, evidence and kill authority on site. Nothing about your workflow yet.</p>
 <ul>
