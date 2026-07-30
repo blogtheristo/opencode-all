@@ -785,8 +785,13 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:description>&lt;h1&gt;DWS IQ Aegis&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing&lt;/strong&gt; — part of the DWS IQ Industrial Intelligence suite&lt;/p&gt;
 &lt;h2&gt;Product Overview&lt;/h2&gt;
-&lt;p&gt;DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and the dual-use manufacturing base that supplies Europe's defence sector. It optimizes and secures physical production facilities, not the tactical frontline. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.&lt;/p&gt;
+&lt;p&gt;DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and the dual-use manufacturing base that supplies Europe's defence sector. It optimizes and secures physical production facilities, not the tactical frontline. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — deployed on European cloud, enterprise private cloud, or customer-sited edge hardware, and never on a non-EU hyperscaler.&lt;/p&gt;
 &lt;p&gt;Named after Athena's shield — Aegis provides protection through intelligence, not just walls.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Aegis keeps critical compliance and control-room workflows running when the network cannot be trusted.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In a hybrid-war environment a manufacturing facility is &lt;strong&gt;dual-use critical infrastructure&lt;/strong&gt;, and connectivity is an adversary-reachable dependency. &lt;strong&gt;For the control-room and critical / dual-use site deployment, local-first operation is an architectural requirement, not an option:&lt;/strong&gt; loss of network connectivity must not stop production or the core compliance workflow. That deployment is scoped against five requirements — local execution and local evidence; local identity, logs and kill authority; no network dependency for the core outcome; cloud only for optional sync, backup or non-critical reporting; and graceful degradation specified in advance rather than discovered during an outage.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is not a claim that every Aegis deployment is offline.&lt;/strong&gt; EU-sovereign cloud remains a valid and fully supported mode for non-critical enterprise workloads, reporting and development. What is fixed is which mode the control-room use case requires.&lt;/p&gt;
+&lt;p&gt;This is a compliance requirement as much as a resilience one. The EU AI Act Article 12 record must exist for decisions taken &lt;strong&gt;during&lt;/strong&gt; a disruption, not be reconstructed afterwards — an evidence chain that pauses when the uplink drops has a gap at exactly the moment the record matters most. NIS2 and the CER Directive impose the continuity obligation alongside it.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Locked decision, 30.07.2026 — see &lt;code&gt;docs/field-notes/2026-07-30-network-independent-critical-operation.md&lt;/code&gt;. The tier boundary for delivering each of the five requirements is an open commercial decision (Q6 in that note); the premise above is product-wide.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Why Aegis exists:&lt;/strong&gt; Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.&lt;/p&gt;
 &lt;h2&gt;Architecture — Two Layers, One Governed Loop&lt;/h2&gt;
 &lt;p&gt;Aegis is a &lt;strong&gt;two-layer&lt;/strong&gt; product. The layers solve different problems and are deliberately not served by one model.&lt;/p&gt;
@@ -797,28 +802,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;p&gt;&lt;strong&gt;What binds them is the KYA loop&lt;/strong&gt; — agent identity, MicroVM isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are &lt;strong&gt;components&lt;/strong&gt;: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.&lt;/p&gt;
 &lt;h2&gt;Agents Included&lt;/h2&gt;
 &lt;p&gt;| Agent              | Capability                                                           | Domain                                |
-| ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
-| ArgusAgent         | AI orbital target labeling via SAR satellite data                    | Intelligence, supply chain visibility |
-| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification         | Data sovereignty                      |
-| Article12Logger    | EU AI Act audit trails for all AI decisions                          | Regulatory compliance                 |
-| KYA Engine         | Know Your Agent — identity verification, isolation, kill authority   | Agent governance                      |
-| ComplianceAgent    | Dual-use export control + EU climate compliance                      | Regulatory                            |
-| CrossVerticalIntel | Supply chain signal propagation across 21 industries                 | Intelligence                          |
-| GaiaAgent          | Cement, lime &amp;amp; earth materials — dual-use critical raw material risk | Industry                              |
-| VulcanAgent        | Steel &amp;amp; metals — ETS Phase 4, CBAM carbon declarations               | Industry                              |
-| SiteSenseAgent     | Defence construction site safety &amp;amp; logistics                         | Field operations                      |&lt;/p&gt;
-&lt;h2&gt;Core Capabilities&lt;/h2&gt;
-&lt;h3&gt;Orbital Intelligence (Argus)&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;SAR satellite data ingestion and AI labeling (compatible with providers such as ICEYE)&lt;/li&gt;
-&lt;li&gt;All-weather, day/night industrial target detection&lt;/li&gt;
-&lt;li&gt;20 DWS industry classifications from orbit&lt;/li&gt;
-&lt;li&gt;Change detection alerts for infrastructure monitoring&lt;/li&gt;
-&lt;li&gt;Pipeline: AOI → SAR Catalog API → AI labeling → KYA governance → Article 12 audit trail&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Sovereignty Assessment&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;CLOUD Act exposure scoring (US vs. EU-sove</g:description>
+| ------------------ | ------</g:description>
       <g:link>https://dws10.com/products/dws-aegis-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
       <g:condition>new</g:condition>
@@ -1752,6 +1736,58 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>DWS-THEMIS-001</g:id>
+      <g:title>DWS IQ Themis</g:title>
+      <g:description>&lt;h1&gt;DWS IQ Themis&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;The Aegis Control Plane — Sovereign AI Governance for EU AI Act Article 12&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Part of the DWS IQ Industrial Intelligence suite — the governance control plane for the Aegis dual-use tier.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;One-Liner&lt;/h2&gt;
+&lt;p&gt;Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.&lt;/p&gt;
+&lt;h2&gt;Why Now&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;EU AI Act enforcement for high-risk systems: 2 August 2026.&lt;/strong&gt; Your AI needs automatic, tamper-evident record-keeping with six-month minimum retention (Art. 26(6)), Annex III classification, deployer evidence (Art. 26), and post-market monitoring integration (Art. 72). Themis ships this as one product.&lt;/p&gt;
+&lt;h2&gt;What Themis Is&lt;/h2&gt;
+&lt;p&gt;A drop-in control plane that turns any DWS IQ deployment — or any open-standard-KYA-compliant system — into an Article 12-ready, audit-defensible AI operation. Themis is DWS's productisation of the KYA open standard's sovereign control plane (KYA-S §11 Systems Inventory &amp;amp; Policy Gate + DWS_ARTICLE_12_LOGGING_STANDARD.md logging pipeline).&lt;/p&gt;
+&lt;h2&gt;What Customers Get&lt;/h2&gt;
+&lt;p&gt;| Capability                      | Detail                                                                                                                            |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| &lt;strong&gt;Article 12 Logging Pipeline&lt;/strong&gt; | OpenTelemetry → Collector (hashing + redaction) → hash-chained append-only ledger on Aiven Postgres → KYA-attested events         |
+| &lt;strong&gt;Annex III Systems Registry&lt;/strong&gt;  | &lt;code&gt;ai_systems_registry&lt;/code&gt; table with risk classification, conformity state, data lineage, deployment approvals                        |
+| &lt;strong&gt;Policy Gate (runtime)&lt;/strong&gt;       | Every inference call passes policy DSL evaluation before hitting the model; allow / deny / escalate with 24h human-review SLA     |
+| &lt;strong&gt;KYA Policy Proxy&lt;/strong&gt;            | Identity attribution (KYC-verified operator), capability-manifest enforcement, memory-mutation attestation (KYA-S §10)            |
+| &lt;strong&gt;Reporting Portal&lt;/strong&gt;            | Firehorse Report Engine — auditor JSON export under 10 business days; CSRD, NIS2, and Art. 72 post-market monitoring plug-ins     |
+| &lt;strong&gt;Retention&lt;/strong&gt;                   | 6-month floor (Art. 26(6)); 5-year for memory audit and identity events (KYA-S §10.4); 10-year for serious incidents (Art. 73)    |
+| &lt;strong&gt;Tier portability&lt;/strong&gt;            | Runs on Aegis sovereign infra (UpCloud / Hetzner), Tier 2 clouds (Red Hat OpenShift, Azure AI Foundry EU), or Tier 3 hyperscalers |&lt;/p&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;KYA-compliant&lt;/strong&gt; — implements the open KYA standard; no vendor lock-in on the protocol layer&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Defence-grade audit&lt;/strong&gt; — hash-chained append-only ledger with per-event SHA-256 chain, court-defensible tamper evidence&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross-tier portable&lt;/strong&gt; — same control plane runs on Aegis Tier 1 sovereign infra, Tier 2 EU clouds, or Tier 3 hyperscalers&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;EU-built, zero CLOUD Act&lt;/strong&gt; — no US-incorporated vendor in the Aegis-tier data path&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2 Aug 2026 ready&lt;/strong&gt; — ships before EU AI Act high-risk enforcement&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bundled with Aegis&lt;/strong&gt; — zero additional cost for DWS IQ Aegis (Tier 1) customers; standalone SKU for Tier 2 Sovereign Infra customers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Tier Positioning&lt;/h2&gt;
+&lt;p&gt;| Tier                         | Themis Delivery                                                                  | Price                              |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
+| &lt;strong&gt;Aegis (Tier 1)&lt;/strong&gt;           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       |
+| &lt;strong&gt;Sovereign Infra (Tier 2)&lt;/strong&gt; | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | &lt;strong&gt;€14,990 one-time + €499/mo&lt;/strong&gt;     |
+| &lt;strong&gt;Connect (Tier 3)&lt;/strong&gt;         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales |&lt;/p&gt;
+&lt;h2&gt;Who It's For&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Defence and dual-use manufacturers&lt;/strong&gt; needing Article 12 + Annex III evidence before 2 August 2026&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Government agencies&lt;/strong&gt; requiring zero CLOUD Act exposure in their AI audit trail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regulated EU enterprises&lt;/strong&gt; (CSRD, NIS2, CER, CBAM) who want EU AI Act compliance on infra they already run&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI system operators&lt;/strong&gt; whose existing governance tools (Cre</g:description>
+      <g:link>https://dws10.com/products/PRODUCT-THEMIS.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>14990.00 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>FH-MOB-001</g:id>
       <g:title>Firehorse Mobile</g:title>
       <g:description>&lt;h1&gt;Firehorse Mobile&lt;/h1&gt;
@@ -1866,58 +1902,6 @@ Your site managers spend too much time on manual reporting. Firehorse Mobile aut
       <g:availability>in_stock</g:availability>
       <g:price>500.00 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-THEMIS-001</g:id>
-      <g:title>DWS IQ Themis</g:title>
-      <g:description>&lt;h1&gt;DWS IQ Themis&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;The Aegis Control Plane — Sovereign AI Governance for EU AI Act Article 12&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Part of the DWS IQ Industrial Intelligence suite — the governance control plane for the Aegis dual-use tier.&lt;/em&gt;&lt;/p&gt;
-&lt;h2&gt;One-Liner&lt;/h2&gt;
-&lt;p&gt;Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.&lt;/p&gt;
-&lt;h2&gt;Why Now&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;EU AI Act enforcement for high-risk systems: 2 August 2026.&lt;/strong&gt; Your AI needs automatic, tamper-evident record-keeping with six-month minimum retention (Art. 26(6)), Annex III classification, deployer evidence (Art. 26), and post-market monitoring integration (Art. 72). Themis ships this as one product.&lt;/p&gt;
-&lt;h2&gt;What Themis Is&lt;/h2&gt;
-&lt;p&gt;A drop-in control plane that turns any DWS IQ deployment — or any open-standard-KYA-compliant system — into an Article 12-ready, audit-defensible AI operation. Themis is DWS's productisation of the KYA open standard's sovereign control plane (KYA-S §11 Systems Inventory &amp;amp; Policy Gate + DWS_ARTICLE_12_LOGGING_STANDARD.md logging pipeline).&lt;/p&gt;
-&lt;h2&gt;What Customers Get&lt;/h2&gt;
-&lt;p&gt;| Capability                      | Detail                                                                                                                            |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| &lt;strong&gt;Article 12 Logging Pipeline&lt;/strong&gt; | OpenTelemetry → Collector (hashing + redaction) → hash-chained append-only ledger on Aiven Postgres → KYA-attested events         |
-| &lt;strong&gt;Annex III Systems Registry&lt;/strong&gt;  | &lt;code&gt;ai_systems_registry&lt;/code&gt; table with risk classification, conformity state, data lineage, deployment approvals                        |
-| &lt;strong&gt;Policy Gate (runtime)&lt;/strong&gt;       | Every inference call passes policy DSL evaluation before hitting the model; allow / deny / escalate with 24h human-review SLA     |
-| &lt;strong&gt;KYA Policy Proxy&lt;/strong&gt;            | Identity attribution (KYC-verified operator), capability-manifest enforcement, memory-mutation attestation (KYA-S §10)            |
-| &lt;strong&gt;Reporting Portal&lt;/strong&gt;            | Firehorse Report Engine — auditor JSON export under 10 business days; CSRD, NIS2, and Art. 72 post-market monitoring plug-ins     |
-| &lt;strong&gt;Retention&lt;/strong&gt;                   | 6-month floor (Art. 26(6)); 5-year for memory audit and identity events (KYA-S §10.4); 10-year for serious incidents (Art. 73)    |
-| &lt;strong&gt;Tier portability&lt;/strong&gt;            | Runs on Aegis sovereign infra (UpCloud / Hetzner), Tier 2 clouds (Red Hat OpenShift, Azure AI Foundry EU), or Tier 3 hyperscalers |&lt;/p&gt;
-&lt;h2&gt;Features&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;KYA-compliant&lt;/strong&gt; — implements the open KYA standard; no vendor lock-in on the protocol layer&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Defence-grade audit&lt;/strong&gt; — hash-chained append-only ledger with per-event SHA-256 chain, court-defensible tamper evidence&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Cross-tier portable&lt;/strong&gt; — same control plane runs on Aegis Tier 1 sovereign infra, Tier 2 EU clouds, or Tier 3 hyperscalers&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;EU-built, zero CLOUD Act&lt;/strong&gt; — no US-incorporated vendor in the Aegis-tier data path&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;2 Aug 2026 ready&lt;/strong&gt; — ships before EU AI Act high-risk enforcement&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Bundled with Aegis&lt;/strong&gt; — zero additional cost for DWS IQ Aegis (Tier 1) customers; standalone SKU for Tier 2 Sovereign Infra customers&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Tier Positioning&lt;/h2&gt;
-&lt;p&gt;| Tier                         | Themis Delivery                                                                  | Price                              |
-| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
-| &lt;strong&gt;Aegis (Tier 1)&lt;/strong&gt;           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       |
-| &lt;strong&gt;Sovereign Infra (Tier 2)&lt;/strong&gt; | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | &lt;strong&gt;€14,990 one-time + €499/mo&lt;/strong&gt;     |
-| &lt;strong&gt;Connect (Tier 3)&lt;/strong&gt;         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales |&lt;/p&gt;
-&lt;h2&gt;Who It's For&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Defence and dual-use manufacturers&lt;/strong&gt; needing Article 12 + Annex III evidence before 2 August 2026&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Government agencies&lt;/strong&gt; requiring zero CLOUD Act exposure in their AI audit trail&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Regulated EU enterprises&lt;/strong&gt; (CSRD, NIS2, CER, CBAM) who want EU AI Act compliance on infra they already run&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AI system operators&lt;/strong&gt; whose existing governance tools (Cre</g:description>
-      <g:link>https://dws10.com/products/PRODUCT-THEMIS.html</g:link>
-      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>preorder</g:availability>
-      <g:price>14990.00 EUR</g:price>
-      <g:brand>DWS IQ</g:brand>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>

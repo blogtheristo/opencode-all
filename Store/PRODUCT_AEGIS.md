@@ -99,7 +99,7 @@ Aegis is a **two-layer** product. The layers solve different problems and are de
 - **Primary:** Government agencies (EU member states, defence ministries)
 - **Secondary:** Military industry enterprises (defence contractors, shipyards, aerospace)
 - **Tertiary:** Dual-use manufacturing supply chains (steel, chemicals, electronics, critical infrastructure)
-- **Geography:** EU only — platform available exclusively on European cloud or enterprise private cloud
+- **Geography:** EU only — European cloud, enterprise private cloud, or customer-sited local / edge hardware. Never a non-EU hyperscaler.
 - **Industries:** All 21 EU-regulated industries under dual-use scope (including lime/critical raw materials)
 
 ### DEFINE / Defence Tech Hub Alignment
@@ -161,21 +161,21 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **Certifications roadmap:** ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.
 - **Availability:** September 2026
 
-## Deployment Modes
+## Deployment Architecture
 
-Deployment mode and commercial tier are **different axes**. Mode is determined by what the workload is; tier by hardware, SLA, support and sovereignty requirements. Collapsing the two is what previously made local operation look like a premium feature.
+Aegis is engineered **local-first** for deep and reliable industrial operations. In manufacturing control rooms, dual-use facilities, and air-gapped plants, compliance execution cannot rely on external connectivity. **Local operation is an architectural requirement for critical environments**, while cloud hosting remains a valid deployment choice for broader enterprise workloads.
 
-Aegis runs in three deployment modes:
+### Deployment Modes
 
-| Mode | For | What stays on site |
-| ---- | --- | ------------------ |
-| **Local / edge** | Manufacturing control rooms and other critical or dual-use sites | Core execution, evidence, identity, logs and kill authority. **No network dependency for the core outcome.** |
-| **Hybrid** | Sites that want local guarantees plus central visibility | Local execution, with optional synchronisation, backup or reporting to EU cloud |
-| **EU-sovereign cloud** | Non-critical enterprise workloads, reporting, development, and customers that accept network dependency | Nothing — network-dependent by design, and appropriate where that is acceptable |
+- **Local / Edge:** Engineered for manufacturing control rooms and other critical or dual-use sites. Core agent execution, evidence capture, identity checks, audit logs, and human kill authority stay strictly on-site, so core operational outcomes do not depend on network availability.
+- **EU-Sovereign Cloud:** Designed for non-critical enterprise workloads, development environments, cross-site reporting, and organizations that accept network dependency.
+- **Hybrid:** Delivers local execution (preserving bounded, dimensioned compute economics for deep workflows) paired with optional outbound synchronization, backup, or compliance reporting to an EU-sovereign cloud.
 
-**Local / edge is required for the control-room use case.** It is not a luxury tier and not an upgrade path. Cloud remains a valid mode everywhere else.
+### Commercial & Deployment Path
 
-**Pilot path.** The pilot proves the local path on **existing customer hardware or a small edge appliance — before any DGX procurement**. Hardware scale-up is a later decision that the pilot informs, not a precondition for starting. (Reference pilot scope: ~€45K over three months, per the April 2026 Aegis engagement model; the canonical figure for any live offer is whatever `dws10.com/config/products.json` carries.)
+While local-first execution is required for control-room deployments, Aegis does not force a universal offline model onto non-critical corporate functions. Commercial pricing scales with operational coverage, hardware footprint, SLA, and support guarantees — **not by charging a premium tax for local deployment**.
+
+To eliminate upfront friction, the **€45K Aegis Pilot** proves the complete local-first operational path directly on existing customer infrastructure or a compact edge appliance before committing to large-scale DGX silicon procurement.
 
 ## Pricing
 
