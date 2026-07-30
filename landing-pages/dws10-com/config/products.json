@@ -1576,7 +1576,7 @@
       "price": 19990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "features": [
         "3-month scoped engagement — fixed price, fixed end date, one site and one control-room workflow",
         "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
@@ -1585,7 +1585,7 @@
         "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
         "Credited in full against Aegis onboarding within 6 months; credit capped at €19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations"
       ],
-      "priceNote": "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at €59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "priceNote": "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at €59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/firehorse-aegis-head.png",
@@ -1601,7 +1601,31 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 2
+      "buyPageOrder": 2,
+      "credited": true,
+      "includes": [
+        "Single site, single control-room workflow, single deployment-mode recommendation",
+        "Only the agent set the selected control-room workflow requires",
+        "Local execution, evidence capture, identity verification, Article 12 audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance",
+        "Production hardware and compute sizing derived from measured behaviour on that workload"
+      ],
+      "acceptanceKpi": {
+        "condition": "WAN uplink severed for an agreed evaluation window",
+        "requiredOutcomes": [
+          "The piloted control-room workflow runs to completion without network access",
+          "The EU AI Act Article 12 record continues to be written locally, without loss",
+          "An operator can still invoke human kill authority to stop a running agent"
+        ],
+        "rule": "Pass requires all three outcomes. A pilot that fails under a severed uplink has delivered a valid negative result about environment readiness — it is not a product defect."
+      },
+      "exclusions": [
+        "LWM (Large World Model) integration",
+        "Any hardware procurement or appliance supply",
+        "Multi-site rollout, and any industry vertical beyond the one piloted",
+        "Custom ERP, BIM or SCADA integrations",
+        "The DWS-AEGIS-IMPL-001 Implementation Programme (EUR 45,000, additive and not credited)",
+        "Credit is capped at EUR 19,990, applies only against Aegis onboarding (EUR 59,990 baseline), and lapses if the customer does not proceed within 6 months"
+      ]
     },
     "DWS-AEGIS-IMPL-001": {
       "id": "DWS-AEGIS-IMPL-001",
@@ -1635,7 +1659,13 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 3
+      "buyPageOrder": 3,
+      "credited": false,
+      "phases": [
+        "Phase 1 — Operational Audit (2 weeks, EUR 5,000): control-room workflow mapping, security boundary verification, risk analysis, edge hardware readiness assessment",
+        "Phase 2 — Agent-in-Production (6 weeks, EUR 15,000): staged production deployment of the domain agents, local identity and Article 12 audit trail configuration, operator kill-switch training",
+        "Phase 3 — LWM Integration (8 weeks, EUR 25,000): world-model telemetry synchronisation, CAD/BIM/SCADA data pipeline hookups, multi-site reporting"
+      ]
     },
     "CMP-T0": {
       "id": "CMP-T0",

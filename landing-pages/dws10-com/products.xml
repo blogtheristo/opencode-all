@@ -849,10 +849,14 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;p&gt;If you do not proceed, you keep the architecture, the measurements and the evidence record. Nothing further is owed.&lt;/p&gt;
 &lt;h3&gt;Exactly what is in scope&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;The €19,990 includes:&lt;/strong&gt; one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Outside the credit, stated so there is no ambiguity later:&lt;/strong&gt; LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate &lt;strong&gt;DWS IQ Aegis Implementation Programme&lt;/strong&gt; (&lt;code&gt;DWS-AEGIS-IMPL-001&lt;/code&gt;, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why the scope is written this tightly.&lt;/strong&gt; A pilot priced at a large fraction of the product stops being a pilot and becomes the product under a lower-commitment name. €19,990 is a bounded subset of onboarding, which is what makes crediting it in full defensible rather than a discount in disguise.&lt;/p&gt;
-&lt;h2&gt;Who it is for&lt;/h2&gt;
-&lt;p&gt;Manufacturing control rooms, dual-use facilities and other critical sites where a network outage is an operational event rather than an inconvenience — and where somebody has to be able to sta</g:description>
+&lt;p&gt;&lt;strong&gt;Outside the credit, stated so there is no ambiguity later:&lt;/strong&gt; LWM integration; any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate &lt;strong&gt;DWS IQ Aegis Implementation Programme&lt;/strong&gt; (&lt;code&gt;DWS-AEGIS-IMPL-001&lt;/code&gt;, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.&lt;/p&gt;
+&lt;h3&gt;Commercial summary&lt;/h3&gt;
+&lt;p&gt;| Stage | Fee | Credit applied | Balance due at production rollout |
+| --- | --- | --- | --- |
+| Aegis 3-month pilot | €19,990 | €19,990 (100%) | €40,000 of the €59,990 onboarding |
+| Proceed to production | €40,000 | — | €0 — onboarding settled; licence from €999/mo begins |
+| &lt;strong&gt;Total cost to production&lt;/strong&gt; | &lt;strong&gt;€59,990&lt;/strong&gt; | | Unchanged by taking the pilot |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why the scope is written this tightly.&lt;/strong&gt; A pilot priced at</g:description>
       <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
       <g:condition>new</g:condition>
@@ -873,9 +877,12 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;h2&gt;The three phases&lt;/h2&gt;
 &lt;p&gt;| Phase | Duration | Outcome | Price |
 | --- | --- | --- | --- |
-| &lt;strong&gt;1 — Audit&lt;/strong&gt; | 2 weeks | Current state mapped to a gap analysis against the target architecture | €5,000 |
+| &lt;strong&gt;1 — Operational audit&lt;/strong&gt; | 2 weeks | Current state mapped to a gap analysis against the target architecture | €5,000 |
 | &lt;strong&gt;2 — Agent in production&lt;/strong&gt; | 6 weeks | One skilled agent live and EU-compliant, with the Article 12 record running | €15,000 |
 | &lt;strong&gt;3 — LWM integration&lt;/strong&gt; | 8 weeks | World-model integration, so operational knowledge accumulates instead of resetting | €25,000 |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Phase 1 — Operational audit (2 weeks, €5,000).&lt;/strong&gt; Control-room workflow mapping, security boundary verification, risk analysis and edge hardware readiness assessment, producing a gap analysis against the target architecture.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Phase 2 — Agent in production (6 weeks, €15,000).&lt;/strong&gt; Staged production deployment of the domain-specific agents, configuration of local identity and the Article 12 audit trail, and operator kill-switch training.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Phase 3 — LWM integration (8 weeks, €25,000).&lt;/strong&gt; World-model telemetry synchronisation, CAD/BIM/SCADA data pipeline hookups, and multi-site reporting.&lt;/p&gt;
 &lt;p&gt;Phases run in sequence by default. They can be taken individually where the earlier work already exists.&lt;/p&gt;
 &lt;h2&gt;Pricing, stated plainly&lt;/h2&gt;
 &lt;p&gt;| | |

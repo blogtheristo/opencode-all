@@ -10,7 +10,7 @@ image_link: "https://dws10.com/static/images/firehorse-aegis-head.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months. Credit capped at €19,990; excludes LWM integration, hardware, multi-site rollout and custom integrations."
+priceNote: "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months, leaving €40,000. Credit capped at €19,990; excludes LWM integration, hardware, multi-site rollout and custom ERP/BIM/SCADA integrations."
 mpn: "DWS-AEGIS-PILOT-2026"
 ---
 
@@ -61,7 +61,15 @@ If you do not proceed, you keep the architecture, the measurements and the evide
 
 **The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.
 
-**Outside the credit, stated so there is no ambiguity later:** LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
+**Outside the credit, stated so there is no ambiguity later:** LWM integration; any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
+
+### Commercial summary
+
+| Stage | Fee | Credit applied | Balance due at production rollout |
+| --- | --- | --- | --- |
+| Aegis 3-month pilot | €19,990 | €19,990 (100%) | €40,000 of the €59,990 onboarding |
+| Proceed to production | €40,000 | — | €0 — onboarding settled; licence from €999/mo begins |
+| **Total cost to production** | **€59,990** | | Unchanged by taking the pilot |
 
 **Why the scope is written this tightly.** A pilot priced at a large fraction of the product stops being a pilot and becomes the product under a lower-commitment name. €19,990 is a bounded subset of onboarding, which is what makes crediting it in full defensible rather than a discount in disguise.
 

@@ -28,9 +28,15 @@ It is **not** an evaluation. If you are still deciding whether local-first opera
 
 | Phase | Duration | Outcome | Price |
 | --- | --- | --- | --- |
-| **1 — Audit** | 2 weeks | Current state mapped to a gap analysis against the target architecture | €5,000 |
+| **1 — Operational audit** | 2 weeks | Current state mapped to a gap analysis against the target architecture | €5,000 |
 | **2 — Agent in production** | 6 weeks | One skilled agent live and EU-compliant, with the Article 12 record running | €15,000 |
 | **3 — LWM integration** | 8 weeks | World-model integration, so operational knowledge accumulates instead of resetting | €25,000 |
+
+**Phase 1 — Operational audit (2 weeks, €5,000).** Control-room workflow mapping, security boundary verification, risk analysis and edge hardware readiness assessment, producing a gap analysis against the target architecture.
+
+**Phase 2 — Agent in production (6 weeks, €15,000).** Staged production deployment of the domain-specific agents, configuration of local identity and the Article 12 audit trail, and operator kill-switch training.
+
+**Phase 3 — LWM integration (8 weeks, €25,000).** World-model telemetry synchronisation, CAD/BIM/SCADA data pipeline hookups, and multi-site reporting.
 
 Phases run in sequence by default. They can be taken individually where the earlier work already exists.
 
