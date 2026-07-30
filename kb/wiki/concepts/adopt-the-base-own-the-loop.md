@@ -1,8 +1,8 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: adopt-the-base-own-the-loop.md
-Version: 1.0
-Last-Updated: 2026-07-26
+Version: 1.1
+Last-Updated: 2026-07-30
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code
 Purpose: Canonical DWS statement of the build→adopt inflection — why DWS does not
@@ -18,9 +18,9 @@ Owner: risto.paarni@lifetime.fi
 
 # Adopt the Base, Own the Loop
 
-**Version:** 1.0 · **Status:** Active · **Scope:** any DWS model-strategy, product-positioning or investor claim
+**Version:** 1.1 · **Status:** Active · **Scope:** any DWS model-strategy, product-positioning or investor claim
 **Full treatment:** `docs/PHD_FIREHORSE_EN.md` §14.44 + Key Contribution #49
-**Companions:** `docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md`, `docs/field-notes/2026-07-26-lwm-training-hardware-reality.md`, V3Thesis Appendix E
+**Companions:** `docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md`, `docs/field-notes/2026-07-26-lwm-training-hardware-reality.md`, `docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md`, V3Thesis Appendix E
 
 ## The rule
 
@@ -65,7 +65,30 @@ both directions. The **KYA loop binds them** — and that loop is the defensible
   the exit is only asserted.** Tracked as R-01 in `docs/risk-register/DWS_PRODUCT_RISK_REGISTER.md`
   — status: **not yet exercised**.
 
+## External validation — and the compression that came with it (2026-07-29)
+
+On the Microsoft FY26 Q4 earnings call (29.07.2026), Satya Nadella answered a UBS question
+about open-model adoption by stating the same architecture:
+
+> "You've got to keep your harness separate from the model. The harness will ensure that your
+> memory, your context, all of that is external. That means any given model at any given time
+> is swappable."
+
+Read both halves. **Validation:** the largest enterprise software vendor now states publicly
+that the model tier is a swappable component and the durable layer sits around it — the thesis
+above, on an earnings call. **Compression:** Microsoft sells the harness (Copilot) *and* the
+models, so harness-ownership and model-swappability are now incumbent marketing. They are
+table stakes as of 29.07.2026, not a DWS differentiator.
+
+Signal record: `docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md`.
+
 ## Positioning guard
+
+**Never claim "we own the harness" as the differentiator** — as of 29.07.2026 that is a
+Microsoft talking point. The DWS claim is the narrower one that survives it: the **sovereign
+compliance evidence loop** — private evals, an RL environment on the customer's own operational
+corpus, KYA governance and the Article 12 evidence chain, on-prem and EU-resident. Evidence is
+jurisdictional; a horizontal harness is not.
 
 Per `DWS_TRUTH_STANDARD.md` row 27, "Sovereign AI" as infrastructure/compute is **not** a
 category DWS competes in. Cosmos, NIM and DGX are **components**. Never restate this rule as

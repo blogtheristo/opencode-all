@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-30-nadella-harness-model-swappability-signal</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-30-nadella-harness-model-swappability-signal</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: Nadella on the harness — model swappability as incumbent architecture (market signal)
+Version: 1.0
+Date: 2026-07-30
+Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
+Owner: Lifetime Oy
+Status: Active
+Agent: Claude Code, session claude/enterprise-ai-harness-0anl7s
+Purpose: Capture Satya Nadella's 29.07.2026 Microsoft FY26 Q4 earnings-call framing —
+         "keep your harness separate from the model" — as a market signal. Records both
+         halves honestly: it externally validates the DWS "Adopt the Base, Own the Loop"
+         thesis, and it compresses DWS's positioning by making harness/swappability
+         incumbent-marketed language. Also logs a secondary signal: a third party
+         building enterprise cost-per-completed-task pricing.
+Related: kb/wiki/concepts/adopt-the-base-own-the-loop.md,
+         docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md,
+         docs/field-notes/2026-06-15-human-token-capital.md,
+         docs/field-notes/2026-06-19-karpathy-12-rules-harness-hardening.md,
+         docs/field-notes/2026-05-28-agent-deployment-execution-harness.md,
+         docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md,
+         docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md,
+         kb/wiki/concepts/external-attribution-claims-grant-applications.md
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Captures the Nadella harness/model-swappability framing from the 29.07.2026 MSFT FY26 Q4 call as a named market signal, with per-claim verification (§6). Chains it to the Huang/Chase LangChain fireside (08.07.2026) and logs the cost-per-task pricing sub-signal (§5). Routes durable framing to PHD_FIREHORSE as a deferred item — no thesis edits made.
+-->
+<h1 id="field-note-nadella-on-the-harness-model-swappability-becomes-incumbent-architecture">Field
+Note — Nadella on the Harness: Model Swappability Becomes Incumbent
+Architecture</h1>
+<p><strong>Document Type:</strong> Field Note — Competitive / Market
+Signal <strong>Scope:</strong> Microsoft’s public adoption of the
+harness-separate-from-model architecture on an earnings call, what it
+validates in the DWS thesis, what it compresses in DWS positioning, and
+the pricing-unit question it opens. Capture only — no thesis edit, no
+public surface, no product build in this session. <strong>Ontology
+Tags:</strong> Geography &gt; Global, US, EU-27 | Sector &gt; Enterprise
+Software &gt; AI Platforms, Agent Infrastructure | Entities &gt;
+Microsoft, Satya Nadella, NVIDIA, Jensen Huang, LangChain, Harrison
+Chase, OpenAI, Anthropic, BEP Research, Lifetime Oy, DWS IQ | Temporal
+Context &gt; 2026-Q3, post-frontier-lab-commoditisation | Confidence
+&gt; HIGH on the primary quotes (verified 2026-07-30, §6); LOW on
+third-party commentary claims (§6)</p>
+<h2 id="trigger">1. Trigger</h2>
+<p><strong>Microsoft FY26 Q4 earnings call, Wednesday
+29.07.2026.</strong> UBS analyst Karl Keirstead asked how Microsoft
+benefits from enterprises adopting open models given its frontier-lab
+exposure. Nadella did not defend the lab relationship. He described an
+architecture:</p>
+<blockquote>
+<p>“You’ve got to keep your harness separate from the model. The harness
+will ensure that your memory, your context, all of that is external.
+That means any given model at any given time is swappable.”</p>
+</blockquote>
+<p>And, on the same call:</p>
+<blockquote>
+<p>“The goal is to have the firm be in control of their own
+destiny.”</p>
+</blockquote>
+<p>The reported continuation — use frontier models where they earn it,
+low-cost models where they don’t, “and in fact, train your own model
+when you don’t want to use any external model itself because after all,
+you have all the outputs, you have all the traces, you have all the
+context” — is consistent with the coverage but is <strong>not</strong>
+verified verbatim against a primary transcript (§6).</p>
+<p>The message underneath it, as read by the trade press: build your
+agent layer on Microsoft and treat the model as a swappable component —
+with Microsoft selling <strong>both</strong> the harnesses (the Copilot
+line) and the models.</p>
+<h2 id="why-this-is-a-signal-and-why-it-is-not-the-obvious-one">2. Why
+this is a signal — and why it is not the obvious one</h2>
+<p><strong>The wrong reading, named first:</strong> “The largest
+enterprise software company on earth just validated the DWS thesis,
+therefore DWS wins.” That reading is comfortable and false. Validation
+from an incumbent that also <em>sells the thing</em> is not a tailwind;
+it is the start of a compression. As of 29.07.2026, “we keep the harness
+separate from the model” is a Microsoft earnings-call talking point. It
+is table stakes, not a differentiator, and any DWS surface that leans on
+harness-ownership as the distinguishing claim is now competing with
+Copilot’s marketing budget.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nadella’s claim</th>
+<th>What Microsoft means by it</th>
+<th>What DWS already holds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Keep the harness separate from the model</td>
+<td>Copilot is the durable surface; the model tier is a procurement
+decision Microsoft also monetises</td>
+<td>“DWS does not pretrain base models… it builds the one layer it can
+own: the evidence loop” —
+<code>kb/wiki/concepts/adopt-the-base-own-the-loop.md</code> (v1.0,
+26.07.2026)</td>
+</tr>
+<tr class="even">
+<td>Memory, context and traces stay external to the model</td>
+<td>Platform lock-in moves up a layer: the harness holds the state, and
+the harness is Azure’s</td>
+<td>The DWS loop is built on the <strong>customer’s own</strong>
+sovereign operational corpus, on-prem/EU-resident —
+<code>2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md</code>
+§2</td>
+</tr>
+<tr class="odd">
+<td>Train your own when you want no external model — you have the
+outputs, traces, context</td>
+<td>Traces as an asset class; the firm’s own data as the eventual
+training substrate</td>
+<td>Token capital, and the loop-closure test that asks whether
+real-world traces actually feed it — <code>/token-capital</code>,
+<code>/edge-control-room-capital</code>,
+<code>2026-06-19-token-capital-human-capital-control-room-capital.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attribution discipline (standing rule, unchanged):</strong>
+<em>human capital</em> and <em>token capital</em> are Nadella’s terms;
+<em>edge control-room capital</em> is the DWS extension. Keep the
+attribution intact whenever these are asserted externally —
+<code>2026-06-15-human-token-capital.md</code>.</p>
+<h2 id="the-insight-what-is-not-ours-and-what-still-is">3. The insight —
+what is not ours, and what still is</h2>
+<p><strong>Not ours:</strong> the general-purpose harness. Microsoft has
+one, ships it to hundreds of millions of seats, and has now made
+swappability an explicit product promise. DWS does not compete for the
+horizontal agent surface and should stop implying it does.</p>
+<p><strong>Still ours, and narrower than the harness claim:</strong> the
+<strong>compliance evidence loop</strong> on a customer’s sovereign
+operational traces — KYA governance, the EU AI Act Article 12 evidence
+chain, private evals and an RL environment fitted to one industrial
+fleet’s reality. Microsoft can make the model swappable. It cannot stand
+behind a court-defensible reasoning record for a Finnish industrial
+operator’s physical fleet, because that loop is built out of operations
+Microsoft does not run and data that must not leave the
+jurisdiction.</p>
+<p>The sharpened formulation, one line:</p>
+<blockquote>
+<p>The harness is now table stakes. The defensible asset is the evidence
+loop the harness runs on — and evidence is jurisdictional.</p>
+</blockquote>
+<p><strong>The moat question moved.</strong> It is no longer “who has
+the best weights” — that was already settled in DWS docs. It is now “who
+owns the loop around them”, and that question has an incumbent answer
+for horizontal work. DWS’s answer has to be vertical, sovereign, and
+evidentiary or it is not an answer.</p>
+<h2 id="cross-vertical-intelligence-chain">4. Cross-vertical
+intelligence chain</h2>
+<pre><code>TRIGGER: Nadella — &quot;keep your harness separate from the model&quot; (MSFT FY26 Q4 call) — 2026-07-29
+    |
+    +-- Precursor: Huang — &quot;most companies will be built on harnesses&quot;
+    |   (LangChain fireside w/ Harrison Chase) — 2026-07-08
+    |   +-- Chase: harnesses must evolve as models improve (context engineering, extended)
+    |
+    +-- Platform layer
+    |   +-- Harness becomes the durable surface; model tier becomes procurement
+    |   +-- Incumbent sells BOTH sides — validation and compression in one move
+    |
+    +-- Regulatory cascade
+    |   +-- Swappable models make the model-provenance predicate harder, not easier:
+    |       if the model can change silently, the Article 12 record must name which
+    |       model produced which decision (PHD §14.24 provenance predicate)
+    |   +-- Strengthens, not weakens, the DWS evidence-chain wedge
+    |
+    +-- Pricing layer (see §5)
+    |   +-- If the completed task is the unit of competition, someone prices it
+    |
+    +-- DWS positioning impact
+        +-- &quot;we own the harness&quot;  -&gt; deprecated as a differentiating claim
+        +-- &quot;we own the sovereign evidence loop&quot; -&gt; the claim that survives</code></pre>
+<h2 id="sub-signal-cost-per-completed-task-as-a-pricing-unit">5.
+Sub-signal — cost per completed task as a pricing unit</h2>
+<p>The commentary that carried this signal (BEP Research, Substack —
+third-party author, see §6) closes by teasing <strong>a cost-per-task
+tool for enterprises</strong>: if the completed task is the unit
+everyone now competes on, someone has to price it for the buyer.</p>
+<p>That is directly adjacent to work DWS has already done and has not
+named as a product:</p>
+<ul>
+<li><code>docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md</code>
+— routing work across model tiers by cost.</li>
+<li><code>/token-capital</code>, <code>/human-capital</code>,
+<code>/edge-control-room-capital</code> — the three-capital scoring
+skills.</li>
+<li>Agent execution logging and per-agent cost budgets in
+<code>AI_AGENT_GUIDELINES.md</code>.</li>
+</ul>
+<p><strong>Not built this session.</strong> Logged as an open HIC
+decision (§8). The honest read: a third party is moving on a
+pricing-unit question DWS has the telemetry to answer but has never
+packaged. That is a gap worth a decision, not a reflex.</p>
+<h2 id="verification-note-fail-loud">6. Verification note (fail
+loud)</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nadella: “You’ve got to keep your harness separate from the
+model”</td>
+<td><strong>CONFIRMED</strong> — MSFT FY26 Q4 call, 29.07.2026,
+answering UBS’s Karl Keirstead on the open-vs-closed-source debate.
+Corroborated by TechCrunch (29.07.2026) and the Investing.com call
+transcript.</td>
+</tr>
+<tr class="even">
+<td>“any given model at any given time is swappable”; “the firm be in
+control of their own destiny”</td>
+<td><strong>CONFIRMED</strong>, same call, same exchange.</td>
+</tr>
+<tr class="odd">
+<td>The “train your own model… you have all the outputs, traces,
+context” continuation</td>
+<td><strong>PARTIAL — reported, not verified.</strong> Consistent with
+the coverage; exact verbatim not checked against a primary transcript.
+Do not quote as verified without reading the transcript.</td>
+</tr>
+<tr class="even">
+<td>Huang: “most companies will be built on harnesses”, LangChain
+fireside with Harrison Chase, 08.07.2026</td>
+<td><strong>CORROBORATED</strong> — date and venue check out (36Kr
+interview coverage; VentureBeat on Chase’s harness framing). The exact
+wording is as reported by the commentary, not from a primary
+transcript.</td>
+</tr>
+<tr class="odd">
+<td>BEP Research (bepresearch.substack.com) — authorship</td>
+<td><strong>Third party</strong>, not Lifetime Oy. HIC-confirmed in
+session, 30.07.2026. The post is written in first person by the
+Substack’s own writer.</td>
+</tr>
+<tr class="even">
+<td>BEP Research claims: “I published the full framework on July 12”,
+“five launches in three days”</td>
+<td><strong>UNVERIFIED.</strong> The source page returned <strong>HTTP
+403</strong> on fetch; nothing beyond the pasted excerpt was readable.
+These are the author’s own claims about their own work — never restate
+them as DWS-asserted fact.</td>
+</tr>
+</tbody>
+</table>
+<p>This is precisely the failure mode
+<code>kb/wiki/concepts/external-attribution-claims-grant-applications.md</code>
+exists to prevent: attributing a specific dated action to a named
+external party without a verified source. Applied here deliberately.</p>
+<p><strong>Standing drift, recorded not fixed:</strong>
+<code>/kb</code>’s stated rule is that <code>kb/wiki/</code> is
+LLM-compiled and never hand-edited, but every concept in
+<code>kb/wiki/concepts/</code> was hand-authored and
+<code>kb/kb.json</code> is stale (<code>lastCompile: null</code>,
+<code>articleCount: 0</code>, <code>rawCount: 1</code>). This note’s KB
+step follows the actual practice (hand-authored) rather than the stated
+rule. Flagged for a future <code>/kb compile</code> reconciliation; out
+of scope here.</p>
+<h2 id="the-five-step-learning-standard-record">7. The five-step
+Learning Standard record</h2>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 40%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Step</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Knowledge base</strong></td>
+<td>✅
+<code>kb/raw/signals/2026-07-30-nadella-harness-separate-from-model.md</code>
+(raw signal capture — first real use of the declared signals route) +
+<code>kb/wiki/concepts/adopt-the-base-own-the-loop.md</code> bumped to
+v1.1 with the external-validation section</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Field note</strong></td>
+<td>✅ this file</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong><code>Learn/</code> HTML</strong></td>
+<td>✅
+<code>Learn/2026-07-30-nadella-harness-model-swappability-signal.html</code>
++ <code>.docx</code> — pandoc was <strong>installed in this container
+this session</strong>, unblocking the step that was <code>N/A</code> on
+26.07.2026</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Drive export</strong></td>
+<td>✅ Google Doc “2026-07-30 Field Note v1.0 — Nadella on the Harness…”
+in the <code>2026 DWS6</code> folder
+(<code>docs.google.com/document/d/1CypbA3GsW8ecKDRX1ndA12BoJWvyL-6Xj7fSUd-gj4I</code>).
+Repo is source of truth (Truth Standard §2E)</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>HIC question</strong></td>
+<td>✅ §8, and repeated in the session reply and
+<code>.claude/handoffs/claude/enterprise-ai-harness-0anl7s.md</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps-and-the-hic-question">8. Next steps and the HIC
+question</h2>
+<p><strong>Routed, not executed (this session was capture-only by HIC
+decision):</strong></p>
+<ol type="1">
+<li><strong>PhD thesis</strong> — durable framing belongs in
+<code>docs/PHD_FIREHORSE_EN.md</code> +
+<code>docs/PHD_FIREHORSE_FI.md</code> as market-signal data (competitor
+movement) per the Thesis Content Scope Rule. <strong>Deferred, pending
+HIC approval.</strong> The master’s thesis is untouched — this is not
+implementation evidence.</li>
+<li><strong><code>/truth-check</code></strong> before any public use of
+the “harness is table stakes” formulation.</li>
+<li><strong>LSJ angle</strong> — the moat-moved-from-weights-to-loop
+framing is a candidate for the next Lifetime Scope issue.
+Blog/newsletter publication requires <code>/blog-draft</code> and
+explicit HIC approval (Non-Negotiable Rule 13); nothing drafted
+here.</li>
+</ol>
+<h3 id="hic-question-eu-ai-act-art.-14-intervention-point">HIC question
+(EU AI Act Art. 14 intervention point)</h3>
+<p><strong>Q1. “Harness” stopped being a differentiator on 29.07.2026.
+What does DWS do about its positioning?</strong></p>
+<p><strong>Options:</strong></p>
+<ol type="1">
+<li><strong>Re-cut the positioning to the evidence-loop claim.</strong>
+Audit DWS public surfaces and standards for harness/swappability
+language and replace it with the narrower, defensible claim: the
+sovereign compliance evidence loop. Scope:
+<code>DWS_BRAND_STANDARD.md</code>, <code>DWS_TRUTH_STANDARD.md</code>
+row for the model-strategy claim, site hero copy.</li>
+<li><strong>Hold positioning; route the signal to the PhD thesis
+only.</strong> Treat this as intelligence, not a positioning event.
+Cheapest, and defensible if no live surface actually leans on the
+harness word.</li>
+<li><strong>Open the cost-per-task pricing question as its own work
+item</strong> (§5) — a third party is moving on a unit DWS has the
+telemetry for.</li>
+</ol>
+<p><strong>(RECOMMEND: 2 now, 1 next — but only after a
+<code>/truth-check</code> sweep tells us whether any live surface
+actually leans on the harness word. Recommending a rewrite before
+knowing the blast radius would be positioning-by-reflex. Option 3 is a
+separate decision and should not be bundled into a positioning
+call.)</strong></p>
+<ul>
+<li><strong>Reversibility:</strong> two-way door for 1 and 2 (copy and
+doc edits, revertible). Option 3 is two-way while it is a decision,
+one-way once it ships as a priced product surface.</li>
+<li><strong>Unblocks:</strong> the PhD §14.NN market-signal entry; the
+next LSJ issue’s lead angle; whether the cost-per-task work gets a
+slot.</li>
+<li><strong>Cost of delay:</strong> low for a week, rising. The
+compression is real but slow — Copilot marketing does not reach Finnish
+industrial buyers overnight. The cost-per-task window is the tighter
+one.</li>
+<li><strong>Rests on:</strong> verified (Nadella quotes, §6) for the
+signal itself; <strong>propagated, not verified</strong> for the BEP
+Research commentary claims — the positioning conclusion does not depend
+on them.</li>
+</ul>
+<h2 id="references">9. References</h2>
+<p><strong>Primary / press</strong></p>
+<ul>
+<li>Microsoft FY26 Q4 earnings call transcript, 29.07.2026 —
+Investing.com</li>
+<li>“Microsoft is openly competing with OpenAI, Anthropic more than
+ever”, TechCrunch, 29.07.2026</li>
+<li>“Microsoft CEO Nadella Warns Enterprises Against AI Model Lock-In”,
+Bitcoin World, 29.07.2026</li>
+<li>Jensen Huang × Harrison Chase, LangChain fireside, 08.07.2026 — 36Kr
+interview coverage</li>
+<li>“LangChain’s CEO argues that better models alone won’t get your AI
+agent to production”, VentureBeat</li>
+<li>BEP Research, Substack —
+<code>https://bepresearch.substack.com/p/jensen-huang-most-companies-will</code>
+(third-party commentary; <strong>HTTP 403 on fetch, body
+unverified</strong>)</li>
+</ul>
+<p><strong>DWS internal</strong></p>
+<ul>
+<li><code>kb/wiki/concepts/adopt-the-base-own-the-loop.md</code>
+<em>(DWS internal)</em></li>
+<li><code>kb/wiki/concepts/external-attribution-claims-grant-applications.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-06-15-human-token-capital.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-06-19-karpathy-12-rules-harness-hardening.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-05-28-agent-deployment-execution-harness.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md</code>
+<em>(DWS internal)</em></li>
+</ul>
+<hr />
+<p><em>This document follows DWS Document Standard, DWS Market Research
+Standard §8.3, and DWS Learning Standard (EU AI Act Article 14).</em>
+<em>Ontology: Enterprise AI &gt; Agent Infrastructure &gt; Harness/Model
+Separation &gt; Sovereign Evidence Loop</em></p>
+</body>
+</html>
