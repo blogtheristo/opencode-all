@@ -341,7 +341,9 @@ See attached `NVIDIA_HARDWARE_LINE_ITEMS_OUTOKUMPU.md` for itemised list. Summar
 
 ## 13. Acceptance
 
-This proposal is valid for 30 days from the date issued in §0. Acceptance by Customer signature below initiates Phase 0 scoping kickoff; legal-framework finalisation (§12) runs in parallel and must be executed before Phase 1 start.
+**This proposal is valid until 31.12.2026** (HIC decision 30.7.2026, aligning this sheet with the re-issued offer `bids/OUTOKUMPU/OUTOKUMPU_TARJOUKSEN_UUDELLEENANTO.md`). Acceptance by Customer signature below initiates Phase 0 scoping kickoff; legal-framework finalisation (§12) runs in parallel and must be executed before Phase 1 start.
+
+**Validity is not a capacity reservation.** The pilot commits ~1.5 person-months of senior effort across three months, and start slots are allocated in signature order. Signature by 30.9.2026 completes within 2026; signature in Q4 completes in Q1 2027. Where the start date matters to Customer it should be fixed in the pilot agreement rather than assumed from the validity date.
 
 |           | Lifetime Oy              | Outokumpu Oyj    |
 | --------- | ------------------------ | ---------------- |
