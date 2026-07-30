@@ -104,10 +104,11 @@ left of it. That is the whole trick, and it is a discipline rather than a proper
 **you can only dimension to the left of a knee you have measured.** Under-dimension
 a sovereign deployment and you hit the same wall as everyone else.
 
-We have not yet measured our own. That sweep — at what context length does
-KV-cache bandwidth drag generation below interactive speed, and where does
-memory-bound generation give way to queueing — is the next thing we run on our own
-box. We will publish the curve, including if it is inconvenient.
+We have not yet measured our own. The sweep that would settle it is specific: at
+what context length does KV-cache bandwidth drag generation below interactive
+speed, and where does memory-bound generation give way to queueing. Until we have
+run it on our own hardware, treat the argument above as sound engineering
+reasoning waiting for its constant — which is how we treat it internally.
 
 ## What it means if you are buying
 
@@ -115,10 +116,16 @@ box. We will publish the curve, including if it is inconvenient.
 uncomfortable, harness overhead is now a more likely culprit than model price, and
 it is the cheaper thing to change.
 
-**A harness on its own is no longer a differentiator.** As of 29 July, "we keep the
-harness separate from the model" is an earnings-call talking point from the largest
-enterprise software vendor on earth. Anyone selling you that sentence alone is
-describing table stakes.
+**Harness ownership is now a decision you have to make.** As of 29 July, "we keep
+the harness separate from the model" is an earnings-call talking point from the
+largest enterprise software vendor on earth — so as a vendor claim it is table
+stakes, and anyone selling you that sentence alone is describing the floor. The
+consequential version of it is not a vendor's to answer. If the harness is the
+durable layer — if it holds your memory, your context, your traces, your accumulated
+operating knowledge — then whether you own that layer or rent it is a decision every
+enterprise now has to take deliberately, the way it once decided whether to own its
+data centre or its ERP. Deferring it is also a decision. It just gets made by
+whoever is holding your context when you want to change something.
 
 **What is defensible is the coupling.** Deep scaffolding is only affordable on
 compute whose marginal cost is zero, and a vendor whose revenue scales with tokens
@@ -137,5 +144,5 @@ interesting job now is finding out precisely where it stops being true.
 ---
 
 *The thesis–antithesis–synthesis framing in this piece was drafted with Google
-Gemini and adopted after review. The benchmark figures are Composio's, published on
-29–30 July 2026 and cited with the caveats above.*
+Gemini 3.6 Thinking and adopted after review. The benchmark figures are Composio's,
+published on 29–30 July 2026 and cited with the caveats above.*
