@@ -106,4 +106,50 @@ Surviving proxies (reproducible): 499 commits since 2026-07-01, **325 Claude-aut
 
 ## Commit (signal 2)
 
-`learn(hic): Composio harness token-efficiency benchmark + DWS harness cost audit (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)`. Pushed to origin.
+`learn(hic): Composio harness token-efficiency benchmark + DWS harness cost audit (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)`. Pushed to origin (`63fc614`).
+
+---
+
+# Signal 3 — Hybrid attention + throughput at context depth (same day)
+
+**Date:** 2026-07-30 · **Status:** Complete, pushed. Capture and assessment only — no tier re-spec, no hardware decision, no register edit.
+
+## Attribution correction (carry this forward)
+
+The note originates with the **HIC's own field observation**, not a prior DWS position. The repo had **no mention of `Nemotron-Cascade-2-30B-A3B`** before 30.07.2026, and the assistant had expressed no view on it. Recorded as §0 of the note so a future session does not recall a DWS assessment that never existed.
+
+## The observation
+
+1. **Hybrid attention is a prerequisite for usable long context** — a 1M window is not exploitable under N² attention; nominal and working window diverge. `Nemotron-Cascade-2-30B-A3B` (Mamba-2 + attention hybrid) is the counter-example.
+2. **Engine matters as much as architecture** — most local stacks fall to single-digit tok/s once context accumulates. **hipfire** (Rust + HIP, RDNA1–4) holds **~40 tok/s on a 7900 XTX with Qwen 3.6-27B, roughly constant to ~250K depth** (HIC measurement).
+3. The durable complaint: **benchmarks are quoted at shallow depth; agents work at deep depth.**
+
+## Why it completes the day's thread
+
+Nadella: the harness is the durable layer. Composio: the harness is where the money goes (340k median). **This: those tokens are context depth — and whether they cost anything depends on the architecture and engine underneath.** On a metered API harness overhead is a bill; on a hybrid-attention local model with constant throughput at depth it is latency already paid for at €0/token.
+
+**Sharpest internal consequence:** the ollama-boss T0/T1 tiers (`qwen2.5:7b` / `qwen2.5:72b`) were specified on **volume**, but that note's own §4 found the expensive part is *the orchestrator's accumulating context* — a depth problem. A dense 72B that collapses at depth is a worse T1 boss than a 30B-A3B hybrid holding 40 tok/s. **The tier was chosen on the wrong axis.** Not re-specified here.
+
+## Verified vs. reported
+
+- **CONFIRMED:** Nemotron-Cascade-2-30B-A3B — 30B MoE / ~3B active, Mamba-2 + attention hybrid on the Nemotron-3-Nano base, **1M context**. hipfire exists (Rust + HIP, RDNA1–4, `hipfire.dev`), publishing ~44 tok/s Qwen 3.6-27B on 7900 XTX autoregressive and ~185 tok/s via DFlash speculative decode.
+- **VENDOR-REPORTED:** 24 GB fit at Q4; "beats Nemotron-3-Super 120B"; IMO/IOI gold. `/truth-check` before any external use.
+- **HIC-REPORTED, UNREPRODUCED — the load-bearing claim:** constant ~40 tok/s to ~250K depth. No public benchmark corroborates constant throughput at that depth. One operator, one machine, one config.
+
+## R-01 boundary — do not overstate
+
+hipfire is **RDNA (consumer graphics)**; R-01 specifies **CDNA / Instinct MI300** or Gaudi 3. **This does not close R-01** and must never be reported as doing so. It *is* evidence the non-NVIDIA exit is real ("demonstrated, not asserted"), and a candidate cheaper first increment. Register unedited.
+
+## Files (signal 3)
+
+`docs/field-notes/2026-07-30-hybrid-attention-long-context-local-inference.md` · `kb/raw/signals/2026-07-30-hybrid-attention-long-context-local-inference.md` · `Learn/2026-07-30-hybrid-attention-long-context-local-inference.{html,docx}` · Drive `docs.google.com/document/d/1o9rdxIBAtvwsmt43Eum66nchTKVK5b8ZPJ9bTjal0NQ`
+
+## HIC question 3 (open)
+
+**Q1. The local tier was specified on volume; this says the binding constraint is depth. Do we re-test it — and on which axis?**
+(1) Reproduce the depth curve on the **GN-100 we already own** (shallow → 250K, Nemotron-Cascade-2) · (2) Treat it as the R-01 first increment on RDNA3 + hipfire · (3) Note and hold.
+**RECOMMEND: 1.** Cheapest, uses owned hardware, and produces the one number the other two depend on. Option 2 answers a *sovereignty* question with a *performance* experiment — doing both at once confounds them. Cost of delay is low; the risk is the opposite one, acting on a single unreproduced measurement.
+
+## Commit (signal 3)
+
+`learn(hic): hybrid attention + throughput at context depth — local inference signal (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)`. Pushed to origin.

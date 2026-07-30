@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-30-hybrid-attention-long-context-local-inference</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-30-hybrid-attention-long-context-local-inference</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: Hybrid attention + constant-throughput inference — why long-context local models change the agentic cost equation
+Version: 1.0
+Date: 2026-07-30
+Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
+Owner: Lifetime Oy
+Status: Active
+Agent: Claude Code, session claude/enterprise-ai-harness-0anl7s
+Purpose: Capture the HIC's field observation that hybrid-attention models
+         (Nemotron-Cascade-2-30B-A3B, 1M context, Mamba-2 + attention) and
+         RDNA-native inference engines (hipfire) hold throughput at context depths
+         where N^2 attention collapses. Records why this is the missing third piece
+         of the day's harness thread: agentic work needs deep context, the harness
+         is what consumes it, and constant-throughput local inference is what makes
+         that consumption free. Also assesses — precisely — what it does and does
+         not do for risk-register item R-01.
+Related: docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md,
+         docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md,
+         docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md,
+         docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md,
+         docs/field-notes/2026-03-26-best-local-models-by-ram-tier.md,
+         docs/risk-register/DWS_PRODUCT_RISK_REGISTER.md (R-01, R-03),
+         kb/wiki/concepts/adopt-the-base-own-the-loop.md,
+         kb/wiki/concepts/harness-cost-is-a-pl-line-item.md
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Captures the HIC's hipfire / 7900XTX field measurement and the hybrid-attention argument, verifies the model and engine specifications against primary sources (§5), and connects the throughput-at-depth property to the day's harness-cost thread. Assesses the R-01 relevance precisely: RDNA3 consumer is not the CDNA/Instinct testbed the register specifies, so this does not close R-01.
+-->
+<h1 id="field-note-hybrid-attention-and-constant-throughput-why-long-context-local-inference-changes-the-agentic-cost-equation">Field
+Note — Hybrid Attention and Constant Throughput: Why Long-Context Local
+Inference Changes the Agentic Cost Equation</h1>
+<p><strong>Document Type:</strong> Field Note — Technology Signal + HIC
+Field Measurement <strong>Scope:</strong> Why context depth, not
+parameter count, is the binding constraint on local models for agentic
+work; what hybrid-attention architectures and RDNA-native inference
+engines change about that; and what it means for the DWS local tier and
+for risk-register item R-01. Capture and assessment only — no hardware
+bought, no tier re-specified, no R-01 claim made. <strong>Ontology
+Tags:</strong> Geography &gt; Global, EU-27 | Sector &gt; AI
+Infrastructure &gt; Local Inference, Long-Context Architectures,
+Non-NVIDIA Accelerators | Entities &gt; NVIDIA, Nemotron-Cascade 2, Qwen
+3.6, hipfire, AMD RDNA3 / Radeon 7900 XTX, Ollama, DGX Spark GN-100,
+Lifetime Oy, DWS IQ | Temporal Context &gt; 2026-Q3,
+post-hybrid-attention | Confidence &gt; HIGH on model and engine
+specifications (verified §5); <strong>HIC-REPORTED, not independently
+reproduced</strong> on the 250K-depth throughput measurement</p>
+<h2 id="attribution-correction-fail-loud-before-anything-else">0.
+Attribution correction (fail loud, before anything else)</h2>
+<p>This note originates with the <strong>HIC’s own field
+observation</strong>, not with a pre-existing DWS position. No prior DWS
+document, and nothing earlier in the originating session, expressed a
+view on <code>Nemotron-Cascade-2-30B-A3B</code> — the repository has
+<strong>no mention of it</strong> before this note. It should not be
+recorded, cited, or later recalled as a DWS assessment that predates
+30.07.2026. The assistant in that session had expressed no view on the
+model either; the sense of shared prior appreciation was not grounded in
+anything on record.</p>
+<p>What follows is therefore: the HIC’s observation, plus verification
+of the underlying specifications, plus DWS-side reasoning built on top.
+Those three layers are kept distinct throughout.</p>
+<h2 id="the-observation">1. The observation</h2>
+<p>Two claims from the HIC, both about the same underlying problem —
+<strong>throughput collapse at context depth</strong>:</p>
+<ol type="1">
+<li><strong>Hybrid attention is a prerequisite for usable long
+context.</strong> A 1M-token window is not usable with quadratic (N²)
+attention: the cost of attending over the window grows faster than any
+practical throughput budget, so the nominal window and the working
+window diverge. Models advertising large contexts without a
+sub-quadratic mechanism cannot exploit them.
+<code>Nemotron-Cascade-2-30B-A3B</code> is the current example of the
+alternative — a Mamba-2 / attention hybrid where the state-space layers
+carry long-range context.</li>
+<li><strong>Engine matters as much as architecture.</strong> Most local
+stacks degrade toward single-digit tokens/second once real context
+accumulates — fine for <em>“the capital of France is”</em>, useless for
+agentic work. <strong>hipfire</strong> does not: the HIC measures
+<strong>~40 tok/s on a Radeon 7900 XTX with Qwen 3.6-27B, holding
+roughly constant to ~250K context depth.</strong></li>
+</ol>
+<p>The underlying complaint is the important part, and it is correct:
+<strong>benchmarks are quoted at shallow depth, and agents work at deep
+depth.</strong> A tok/s figure measured on a 2K prompt tells you nothing
+about the regime where agentic work actually happens.</p>
+<h2 id="why-this-is-the-third-piece-of-todays-harness-thread">2. Why
+this is the third piece of today’s harness thread</h2>
+<p>Two signals were captured earlier today. This is the piece that makes
+them actionable rather than merely true.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nadella, 29.07.2026</td>
+<td>The <strong>harness</strong> is the durable layer; memory, context
+and traces live outside the model, which is swappable</td>
+</tr>
+<tr class="even">
+<td>Composio benchmark</td>
+<td>The <strong>harness</strong> is also where the money goes — up to
+30× token spread, same model, same tasks; Claude Code at a 340k-token
+median</td>
+</tr>
+<tr class="odd">
+<td><strong>This note</strong></td>
+<td>Those 340k tokens are <strong>context depth</strong>. Whether they
+are expensive or free depends on the architecture and engine underneath
+them</td>
+</tr>
+</tbody>
+</table>
+<p>The synthesis, stated plainly:</p>
+<blockquote>
+<p>Agentic harnesses are context-hungry by construction. On a metered
+API, harness overhead is a bill. On a local model with hybrid attention
+and an engine that holds throughput at depth, the same overhead is
+<strong>latency you have already paid for and €0/token</strong>.</p>
+</blockquote>
+<p>This is the mechanism that makes the ollama-boss architecture’s local
+tiers viable for <em>real</em> agentic work rather than only for shallow
+classification. The T0/T1 tiers there (<code>qwen2.5:7b</code> workers,
+<code>qwen2.5:72b</code> boss) were specified for
+<strong>volume</strong>, not for <strong>depth</strong> — and the note’s
+own §4 finding was that the expensive part is <em>the orchestrator’s own
+accumulating context</em>. A hybrid-attention model with constant
+throughput at depth attacks exactly that cost term. It is the local-tier
+answer to a problem that note identified and could not solve with the
+models it specified.</p>
+<p><strong>Corollary for the T1 boss slot:</strong> an orchestrator’s
+job is precisely to hold a long, accumulating context. A 72B dense model
+at €0/token that collapses to single digits at depth is a worse
+orchestrator than a 30B-A3B hybrid that holds 40 tok/s — and the hybrid
+also fits far more comfortably in the GN-100’s unified memory. This is
+not a recommendation to re-spec the tier; it is the observation that the
+tier was chosen on the wrong axis.</p>
+<h2 id="what-the-specifications-support-verified-see-5">3. What the
+specifications support (verified — see §5)</h2>
+<p><code>Nemotron-Cascade-2-30B-A3B</code>:</p>
+<ul>
+<li><strong>30B total / ~3B activated</strong> MoE, built on the
+Nemotron-3-Nano-30B-A3B base — a <strong>hybrid mixing Mamba-2
+state-space layers with standard attention layers</strong>. The Mamba
+layers are what make the window economically usable, which is precisely
+the HIC’s point.</li>
+<li><strong>1M-token context</strong>.</li>
+<li>Reported to <strong>fit 24 GB VRAM at Q4</strong>, and to beat
+NVIDIA’s own ~120B Nemotron-3-Super on coding and instruction-following;
+gold-medal claims on IMO/IOI 2025.</li>
+<li>Thinking and instruct modes.</li>
+</ul>
+<p><code>hipfire</code>:</p>
+<ul>
+<li>A <strong>Rust + HIP inference engine for AMD consumer GPUs
+(RDNA1–RDNA4)</strong> — a Rust orchestrator that dlopens
+<code>libamdhip64.so</code> directly, with in-tree HIP C++ kernels tuned
+per chip. Published at <code>hipfire.dev</code>.</li>
+<li>Publishes <strong>~44 tok/s for Qwen 3.6-27B on the 7900
+XTX</strong> in plain autoregressive decode, and ~185 tok/s on code
+prompts via its “DFlash” speculative-decode path. The HIC’s ~40 tok/s is
+consistent with the published autoregressive figure.</li>
+</ul>
+<p><strong>The 24 GB fit is the strategically interesting
+number.</strong> A 1M-context hybrid that runs on a single
+consumer-class card is not a datacentre proposition — it is a
+sovereign-edge one, and it sits squarely in the “adopt the base, own the
+loop” posture
+(<code>kb/wiki/concepts/adopt-the-base-own-the-loop.md</code>).</p>
+<h2 id="r-01-what-this-does-and-does-not-do">4. R-01 — what this does
+and does not do</h2>
+<p><code>docs/risk-register/DWS_PRODUCT_RISK_REGISTER.md</code>
+<strong>R-01</strong> (compute-layer supply concentration on NVIDIA) is
+the register’s <strong>top open action</strong>, status <strong>NOT YET
+EXERCISED</strong>, with the mitigation specified as: <em>one open model
++ one workload runnable on a non-NVIDIA accelerator at testbed scale —
+AMD <strong>Instinct MI300</strong> (ROCm + vLLM) or <strong>Intel Gaudi
+3</strong> (SynapseAI).</em></p>
+<p><strong>Precision matters here, so state it as a boundary, not a
+headline:</strong></p>
+<ul>
+<li>❌ <strong>This does not close R-01.</strong> hipfire is
+<strong>RDNA-native — consumer graphics silicon</strong>. The register
+names <strong>CDNA / Instinct MI300</strong>, a different architecture
+with a different software path. A working RDNA3 inference stack is not
+the specified testbed and must not be reported as one.</li>
+<li>✅ <strong>It is real evidence that the non-NVIDIA path is not
+theoretical.</strong> R-01’s own framing is that “a dependency is
+managed when the exit is demonstrated; it is lock-in when the exit is
+only asserted.” A maintained AMD inference workload — even on consumer
+RDNA — moves the exit from <em>asserted</em> toward
+<em>demonstrated</em>, and it does so at roughly the cost of one GPU
+rather than one datacentre accelerator.</li>
+<li>⚠️ <strong>It suggests a cheaper first increment</strong> than the
+register currently contemplates: exercise the port on RDNA3 first to
+find the real breakages, then decide whether MI300 is required. That is
+a proposal for the HIC, not a change to the register — the register is
+not edited by this note.</li>
+</ul>
+<h2 id="verification-note-fail-loud">5. Verification note (fail
+loud)</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Nemotron-Cascade-2-30B-A3B</code> exists; 30B MoE / ~3B
+active; 1M context</td>
+<td><strong>CONFIRMED</strong> — NVIDIA model card + NVIDIA Nemotron
+research page (Cascade 2, 16.03.2026)</td>
+</tr>
+<tr class="even">
+<td>Hybrid architecture: Mamba-2 state-space + attention layers, from
+the Nemotron-3-Nano-30B-A3B base</td>
+<td><strong>CONFIRMED</strong></td>
+</tr>
+<tr class="odd">
+<td>Fits 24 GB at Q4; beats Nemotron-3-Super 120B on
+coding/instruction-following; IMO/IOI 2025 gold</td>
+<td><strong>REPORTED</strong> by NVIDIA and secondary coverage — vendor
+benchmark claims, not independently verified. Do not restate as measured
+fact</td>
+</tr>
+<tr class="even">
+<td><code>hipfire</code> exists; Rust + HIP; RDNA1–RDNA4;
+<code>hipfire.dev</code> + public repo</td>
+<td><strong>CONFIRMED</strong></td>
+</tr>
+<tr class="odd">
+<td>~44 tok/s Qwen 3.6-27B on 7900 XTX (autoregressive); ~185 tok/s with
+DFlash speculative decode on code prompts</td>
+<td><strong>CONFIRMED as hipfire’s published figures</strong> —
+project’s own numbers, context depth not stated</td>
+</tr>
+<tr class="even">
+<td><strong>~40 tok/s held roughly constant to ~250K context depth on a
+7900 XTX</strong></td>
+<td><strong>HIC FIELD MEASUREMENT — not independently
+reproduced.</strong> No public benchmark corroborating constant
+throughput at that depth was found. Consistent with the published
+shallow figure and with what a hybrid/RDNA-tuned path should do, but it
+is one operator, one machine, one configuration. <strong>This is the
+load-bearing claim of the note and it is the least
+verified</strong></td>
+</tr>
+<tr class="odd">
+<td>“1M context is a must for agent work”; N² attention cannot exploit
+large windows</td>
+<td><strong>HIC POSITION</strong>, well-founded in the architecture and
+consistent with why hybrids exist. Stated as reasoning, not as a
+benchmarked result</td>
+</tr>
+<tr class="even">
+<td>DWS held a prior view on Nemotron-Cascade-2</td>
+<td><strong>FALSE</strong> — no repository mention before this note. See
+§0</td>
+</tr>
+<tr class="odd">
+<td>This exercises R-01</td>
+<td><strong>NO</strong> — RDNA3 consumer ≠ Instinct MI300 / Gaudi 3. See
+§4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The one measurement worth reproducing:</strong> the
+250K-depth throughput curve. If it holds on a second machine, it is the
+strongest available argument for a sovereign local orchestrator tier.
+Until then it is a promising single data point, and this note does not
+spend it as more than that.</p>
+<h2 id="the-five-step-learning-standard-record">6. The five-step
+Learning Standard record</h2>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 40%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Step</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Knowledge base</strong></td>
+<td>✅
+<code>kb/raw/signals/2026-07-30-hybrid-attention-long-context-local-inference.md</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Field note</strong></td>
+<td>✅ this file</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong><code>Learn/</code> HTML</strong></td>
+<td>✅
+<code>Learn/2026-07-30-hybrid-attention-long-context-local-inference.html</code>
++ <code>.docx</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Drive export</strong></td>
+<td>✅ <code>2026 DWS6</code> folder —
+<code>docs.google.com/document/d/1o9rdxIBAtvwsmt43Eum66nchTKVK5b8ZPJ9bTjal0NQ</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>HIC question</strong></td>
+<td>✅ §7, session reply, and
+<code>.claude/handoffs/claude/enterprise-ai-harness-0anl7s.md</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps-and-the-hic-question">7. Next steps and the HIC
+question</h2>
+<p><strong>Routed, not executed:</strong> no tier re-specification in
+<code>src/agents/model-selector.ts</code>; no edit to the ollama-boss
+note’s T0/T1 table; no change to the risk register; no hardware
+decision; no thesis edit. <code>/truth-check</code> before any external
+use of the 24 GB or “beats 120B” figures — they are vendor claims.</p>
+<h3 id="hic-question-eu-ai-act-art.-14-intervention-point">HIC question
+(EU AI Act Art. 14 intervention point)</h3>
+<p><strong>Q1. The local tier was specified on volume; this says the
+binding constraint is depth. Do we re-test it — and on which
+axis?</strong></p>
+<p><strong>Options:</strong></p>
+<ol type="1">
+<li><strong>Reproduce the depth curve first.</strong> Run one
+throughput-vs-context-depth measurement (shallow → 250K) for
+<code>Nemotron-Cascade-2-30B-A3B</code> on the <strong>DGX Spark
+GN-100</strong> — the box DWS actually owns — before any claim or
+purchase. Answers the T1-orchestrator question with DWS’s own number
+instead of a vendor’s or a single operator’s.</li>
+<li><strong>Treat it as the R-01 first increment.</strong> Stand the
+workload up on <strong>AMD RDNA3 + hipfire</strong> as a cheap
+exit-demonstration, accepting that it is <em>not</em> the MI300/Gaudi 3
+testbed the register specifies and cannot be reported as closing
+R-01.</li>
+<li><strong>Note and hold.</strong> Record the observation, change
+nothing until the local tier actually blocks on depth in
+production.</li>
+</ol>
+<p><strong>(RECOMMEND: 1.</strong> It is the cheapest, it uses hardware
+already owned, and it produces the one number that both other options
+depend on — a DWS-measured depth curve. Option 2 is attractive but
+answers a <em>sovereignty</em> question with a <em>performance</em>
+experiment, and doing them in one step would confound both; R-01 still
+needs its own decision. Option 3 is defensible only if the local tier is
+not on the critical path, and the ollama-boss note’s §4 finding suggests
+it is.)</p>
+<ul>
+<li><strong>Reversibility:</strong> two-way door for all three; option 1
+is a measurement, not a commitment.</li>
+<li><strong>Unblocks:</strong> whether the T1 boss slot should be a
+hybrid rather than a dense 72B; whether R-01’s mitigation can start
+cheaper than MI300; a defensible depth figure for the PhD’s
+sovereign-inference argument.</li>
+<li><strong>Cost of delay:</strong> low and non-compounding — the models
+and engine are open and will still be there. The risk is the opposite
+one: acting on a single unreproduced measurement.</li>
+<li><strong>Rests on:</strong> <strong>verified</strong> for the model
+and engine specifications (§5); <strong>HIC-reported,
+unreproduced</strong> for the 250K-depth curve — which is exactly why
+option 1 is to measure it rather than to build on it.</li>
+</ul>
+<h2 id="references">8. References</h2>
+<p><strong>Primary</strong></p>
+<ul>
+<li><code>nvidia/Nemotron-Cascade-2-30B-A3B</code> — Hugging Face model
+card</li>
+<li>NVIDIA Nemotron research, “Nemotron-Cascade 2: Post-Training LLMs
+with Cascade RL and Multi-Domain On-Policy Distillation” (16.03.2026) —
+<code>research.nvidia.com/labs/nemotron/nemotron-cascade-2/</code></li>
+<li><code>hipfire</code> — <code>https://hipfire.dev/</code> and the
+public repository (Rust + HIP, RDNA1–RDNA4)</li>
+<li><code>schuttdev/hipfire-qwen3.6-27b</code> — Hugging Face</li>
+<li>Level1Techs, “7900xtx LLM inference notes” — community
+measurements</li>
+</ul>
+<p><strong>DWS internal</strong></p>
+<ul>
+<li><code>docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md</code>
+— T0/T1 tiers, §4 accumulating-context finding <em>(DWS
+internal)</em></li>
+<li><code>docs/field-notes/2026-03-26-best-local-models-by-ram-tier.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/risk-register/DWS_PRODUCT_RISK_REGISTER.md</code> — R-01,
+R-03 <em>(DWS internal)</em></li>
+<li><code>kb/wiki/concepts/harness-cost-is-a-pl-line-item.md</code>,
+<code>kb/wiki/concepts/adopt-the-base-own-the-loop.md</code> <em>(DWS
+internal)</em></li>
+<li><code>src/agents/model-selector.ts</code> — LITE/HEAVY split and
+per-model cost fields <em>(DWS internal)</em></li>
+</ul>
+<hr />
+<p><em>This document follows DWS Document Standard, DWS Market Research
+Standard §8.3, and DWS Learning Standard (EU AI Act Article 14).</em>
+<em>Ontology: AI Infrastructure &gt; Local Inference &gt; Long-Context
+Architectures &gt; Throughput at Depth</em></p>
+</body>
+</html>
