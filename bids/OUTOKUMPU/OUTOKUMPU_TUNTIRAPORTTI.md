@@ -44,14 +44,18 @@ Tarjouskirjeen 27.6.2026 mukaan pilottihinta *"kattaa noin 50 % toimittajan koko
 | Laskutettava panos | **1,5 htkk** | Tarjouskirje 27.6.2026 |
 | Henkilötyökuukausi | 160 h | Suomalainen vakiokäytäntö |
 | **Laskutettavat tunnit** | **240 h** | 1,5 × 160 |
-| Kiinteä pilottihinta | €24 000 | Hintalomake v1.0, rivi 1 |
+| Nimellinen senior-tuntihinta (insinööri/toimitusjohtajataso) | €200/h (alv 0 %) | Lifetime Oy:n nimellinen tuntiarvo |
+| Laskutettavien tuntien nimellisarvo | €48 000 | 240 h × €200/h |
+| **Lifetime Oy:n yhteisrahoitus** | **−50 % = −€24 000** | Strateginen pilottijärjestely |
+| **Outokummun maksuosuus (kiinteä)** | **€24 000 (alv 0 %)** | Hintalomake v1.0, rivi 1 |
 | **Toteutuva tuntihinta** | **€100/h (alv 0 %)** | €24 000 / 240 h |
-| Asiantuntijatyön listahinta | €120/h (alv 0 %) | Hintalomake v1.0 §4 |
-| **Pilottialennus listahinnasta** | **−17 %** | (120 − 100) / 120 |
-| Kokonaispanos (arvio) | ~3 htkk ≈ 480 h | "n. 50 % kokonaispanoksesta" |
-| Toimittajan kantama osuus | ~240 h | 480 − 240 |
+| Kokonaisjalanjälki hankkeessa | ~3 htkk ≈ 480 h | 12 viikkoa, sis. ei-laskutettava työ |
 
-**Tarkistettava oletus.** Tulkinta *"50 % kokonaispanoksesta"* = asiakas maksaa 240 h kokonaispanoksen ollessa ~480 h. Jos tarkoitus oli toinen (esim. 1,5 htkk **on** kokonaispanos ja 50 % viittaa muuhun), tuntihinta muuttuu ja tämä taulukko on korjattava ennen lähetystä. Lukema on johdettu tarjouskirjeen sanamuodosta, ei erillisestä työaikakirjanpidosta.
+**Yhteisrahoitus ilmoitetaan vain yhdellä tavalla.** Se on 50 %:n vähennys laskutettavien 240 tunnin nimellisarvosta. Hankkeen kokonaisjalanjälki on suurempi (~480 h), koska mukana on ei-laskutettavaa määrittely- ja taustatyötä, mutta **tätä ei lasketa yhteisrahoituksen päälle** — muuten sama panos laskettaisiin kahdesti. Yksi luku, yksi peruste.
+
+**Suhde jatkotyön hintaan.** Nimellinen €200/h on senior-työn tuntiarvo. Outokummulle tarjottu jatkotyön sopimushinta on hintalomakkeen §4 mukaisesti **€120/h** — se on ennallaan eikä tämä liite muuta sitä. Pilotin €100/h ei ole listahinta vaan kertaluonteinen, tähän toimeksiantoon sidottu yhteisrahoitettu hinta.
+
+**Tarkistettava oletus.** Tuntimäärä 240 h on johdettu tarjouskirjeen sanamuodosta (*"n. 1,5 henkilötyökuukautta"*), ei erillisestä työaikakirjanpidosta. Jos toteutunut työaikakirjaus poikkeaa tästä, taulukko on korjattava ennen lähetystä — kiinteä hinta €24 000 ei kuitenkaan muutu.
 
 ---
 
@@ -72,15 +76,17 @@ Vaiheistus noudattaa pilottimäärittelyn `PILOT_SHEET_OUTOKUMPU_FORTA.md` v2.0 
 
 ---
 
-## 3. Toimittajan kantama osuus (ei laskuteta)
+## 3. Toimittajan osuus
 
-| Erä | Tunnit | Arvo listahinnalla €120/h |
-| :--- | ---: | ---: |
-| Vaihe 0 — laajuuden määrittely kokonaisuudessaan | 40 h | €4 800 |
-| Vaiheiden 1–4 ylimenevä panos | ~200 h | €24 000 |
-| **Yhteensä toimittajan kantamana** | **~240 h** | **~€28 800** |
+| Erä | Määrä | Huomio |
+| :--- | ---: | :--- |
+| Laskutettavien tuntien nimellisarvo | €48 000 | 240 h × €200/h |
+| **Lifetime Oy:n yhteisrahoitus** | **€24 000** | 50 % nimellisarvosta |
+| Outokummun maksuosuus | €24 000 | Kiinteä pilottihinta |
+| Vaihe 0 — laajuuden määrittely | 40 h | Maksuton, ei sisälly laskutettaviin 240 tuntiin |
+| Muu ei-laskutettava tausta- ja määrittelytyö | ~200 h | Osa kokonaisjalanjälkeä, **ei osa yhteisrahoituslukua** |
 
-**Kokonaispanos pilotissa ~480 h, josta asiakas maksaa 240 h.** Tehollinen hinta kokonaispanosta kohti on siten noin **€50/h** — eli alle puolet asiantuntijatyön listahinnasta.
+**Yhteisrahoitus on €24 000 — ei enempää.** Hankkeen kokonaisjalanjälki on ~480 h, mutta ei-laskutettavaa taustatyötä **ei lisätä** yhteisrahoituksen päälle. Yksi luku kestää tarkastelun; kahden päällekkäisen luvun summa ei kestä.
 
 **Tämä ei ole alennus vaan yhteisrahoitus.** Pilotin tarkoitus on tuottaa mittausdata, jonka perusteella kaupallinen konversio joko perustellaan tai hylätään. Lifetime kantaa puolet työstä, koska mittaustulos on arvokas myös meille — emme myy tässä tuntityötä vaan hankimme yhdessä asiakkaan kanssa näytön siitä, toimiiko paikallinen arkkitehtuuri Tornion kaltaisessa ympäristössä.
 
@@ -92,9 +98,9 @@ Vaiheistus noudattaa pilottimäärittelyn `PILOT_SHEET_OUTOKUMPU_FORTA.md` v2.0 
 
 | Malli | Laskelma | Hinta (alv 0 %) |
 | :--- | :--- | ---: |
-| Tämä tarjous — kiinteä pilottihinta | 240 h × €100/h | **€24 000** |
-| Sama laajuus asiantuntijatyön listahinnalla | 240 h × €120/h | €28 800 |
-| Sama laajuus kokonaispanoksen mukaan listahinnalla | 480 h × €120/h | €57 600 |
+| **Tämä tarjous — kiinteä, yhteisrahoitettu pilottihinta** | 240 h × €100/h | **€24 000** |
+| Sama laajuus Outokummulle tarjotulla jatkotyön sopimushinnalla | 240 h × €120/h | €28 800 |
+| Sama laajuus nimellisellä senior-tuntihinnalla | 240 h × €200/h | €48 000 |
 
 **Kiinteä hinta siirtää ylityksen riskin toimittajalle.** Jos vaihe 2 vaatii arvioitua enemmän työtä, se ei näy Outokummun laskulla. Tuntilaskutuksessa se näkyisi.
 

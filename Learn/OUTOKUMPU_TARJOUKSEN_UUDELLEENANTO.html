@@ -266,31 +266,44 @@ katetta</td>
 sidottu indeksiin eikä sitä tarkisteta, vaikka allekirjoitus tapahtuisi
 vasta joulukuussa.</p>
 <hr />
-<h2 id="mikä-on-uutta-saatavilla-pyynnöstä-ei-muuta-ehtoja">2. Mikä on
-uutta — saatavilla pyynnöstä, ei muuta ehtoja</h2>
-<p>Pilottimäärittelyä on täydennetty 27.6. jälkeen. <strong>Nämä eivät
-muuta hintaa, laajuutta eivätkä maksuehtoja</strong> — ne tarkentavat
-toteutustapaa. Toimitamme ne pyynnöstä:</p>
-<ol type="1">
-<li><strong>Viisivaiheinen toteutussuunnitelma</strong> vaiheittaisine
-hyväksyntäportteineen (Vaihe 0 määrittely → 1 paikallinen perusta → 2
-putken integrointi → 3 verkkokatkotesti → 4 mitoitus ja
-raportointi).</li>
-<li><strong>KPI 4 — jatkuvuustakuu verkkokatkon aikana.</strong>
-Binäärinen hyväksyntäkriteeri: kun yhteys ulkomaailmaan on katkaistu
+<h2 id="valinnainen-lisäosa-paikallisen-jatkuvuuden-moduuli">2.
+Valinnainen lisäosa — paikallisen jatkuvuuden moduuli</h2>
+<p>Tarjouksen ydinlaajuus on ennallaan: KYA-hallittu julkistusputki,
+IP-funktion vetooikeuspolku, Art. 12 -auditointiloki ja mittausraportti.
+<strong>Alla oleva on valinnainen eikä muuta hintaa, laajuutta eikä
+maksuehtoja.</strong></p>
+<blockquote>
+<p><strong>Kohteille, joissa verkon käytettävyydelle tai eristykselle on
+tiukat vaatimukset — kuten Tornion valvomotoiminnot — pilottiin voidaan
+sisällyttää DWS:n viisivaiheinen paikallisen jatkuvuuden protokolla ja
+verkkokatkovalidointi (KPI 4). Tämä määritellään ja sovitaan
+maksuttomassa Vaihe 0 -laajuuden määrittelyssä.</strong></p>
+</blockquote>
+<p>Lyhyesti, mistä siinä on kyse: kun yhteys ulkomaailmaan katkaistaan
 sovitussa ikkunassa, (i) julkistustyönkulku suoriutuu loppuun, (ii) EU
 AI Act Art. 12 -tietue kirjoittuu edelleen paikallisesti ilman katkoa,
 ja (iii) operaattori pystyy pysäyttämään ajossa olevan agentin. Kaikki
 kolme, tai tulos raportoidaan kielteisenä — mikä on pätevä lopputulos,
-ei tuotevirhe.</li>
-<li><strong>Tuntiraportti</strong>
-(<code>OUTOKUMPU_TUNTIRAPORTTI.md</code>): €24 000 purettuna
-vaiheittaisiksi tunneiksi, 240 laskutettavaa tuntia, toteutuva
-tuntihinta €100/h vastaan asiantuntijatyön listahinta €120/h.</li>
+ei tuotevirhe.</p>
+<p><strong>Kolme huomiota, jotta tämä ei aiheuta turhaa työtä Outokummun
+päässä:</strong></p>
+<ol type="1">
+<li><strong>Katkoa ei tarvitse tehdä fyysisesti.</strong> Käytännössä
+käytetään VLAN-eristystä tai reunareitittimen egress-estoa; menetelmä
+valitaan Vaihe 0:ssa yhdessä verkosta vastaavan tahon kanssa.
+Tuotantoverkkoa ei kosketa.</li>
+<li><strong>Tämä on Operations- ja tietoturva-aihe, ei IP-aihe.</strong>
+Jos moduuli kiinnostaa, luontevin keskustelukumppani on Tornion
+tuotanto-/laitosjohto ja CISO — voimme tulla mukaan siihen
+keskusteluun.</li>
+<li><strong>Jos moduuli halutaan mukaan, se on sovittava ennen
+allekirjoitusta.</strong> Hyväksyntäkriteerin lisääminen kesken
+toimituksen muuttaisi sitä, mitä “valmis” tarkoittaa.</li>
 </ol>
-<p><strong>Jos KPI 4 halutaan mukaan sopimukseen, se on lisättävä ennen
-allekirjoitusta</strong> — jälkikäteen lisättynä se muuttaisi
-hyväksyntäkriteerejä kesken toimituksen.</p>
+<p>Toimitamme pyynnöstä myös: viisivaiheisen toteutussuunnitelman
+hyväksyntäportteineen ja <strong>tuntiraportin</strong>
+(<code>OUTOKUMPU_TUNTIRAPORTTI.md</code>), jossa €24 000 on purettu
+vaiheittaisiksi tunneiksi.</p>
 <hr />
 <h2 id="miksi-pidennetty-voimassaolo-on-perusteltu">3. Miksi pidennetty
 voimassaolo on perusteltu</h2>

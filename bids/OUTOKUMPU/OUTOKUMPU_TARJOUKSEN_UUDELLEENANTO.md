@@ -59,15 +59,21 @@ Emme jatka rauennutta tarjousta vaan annamme sen uudelleen — muotoseikka, mutt
 
 ---
 
-## 2. Mikä on uutta — saatavilla pyynnöstä, ei muuta ehtoja
+## 2. Valinnainen lisäosa — paikallisen jatkuvuuden moduuli
 
-Pilottimäärittelyä on täydennetty 27.6. jälkeen. **Nämä eivät muuta hintaa, laajuutta eivätkä maksuehtoja** — ne tarkentavat toteutustapaa. Toimitamme ne pyynnöstä:
+Tarjouksen ydinlaajuus on ennallaan: KYA-hallittu julkistusputki, IP-funktion vetooikeuspolku, Art. 12 -auditointiloki ja mittausraportti. **Alla oleva on valinnainen eikä muuta hintaa, laajuutta eikä maksuehtoja.**
 
-1. **Viisivaiheinen toteutussuunnitelma** vaiheittaisine hyväksyntäportteineen (Vaihe 0 määrittely → 1 paikallinen perusta → 2 putken integrointi → 3 verkkokatkotesti → 4 mitoitus ja raportointi).
-2. **KPI 4 — jatkuvuustakuu verkkokatkon aikana.** Binäärinen hyväksyntäkriteeri: kun yhteys ulkomaailmaan on katkaistu sovitussa ikkunassa, (i) julkistustyönkulku suoriutuu loppuun, (ii) EU AI Act Art. 12 -tietue kirjoittuu edelleen paikallisesti ilman katkoa, ja (iii) operaattori pystyy pysäyttämään ajossa olevan agentin. Kaikki kolme, tai tulos raportoidaan kielteisenä — mikä on pätevä lopputulos, ei tuotevirhe.
-3. **Tuntiraportti** (`OUTOKUMPU_TUNTIRAPORTTI.md`): €24 000 purettuna vaiheittaisiksi tunneiksi, 240 laskutettavaa tuntia, toteutuva tuntihinta €100/h vastaan asiantuntijatyön listahinta €120/h.
+> **Kohteille, joissa verkon käytettävyydelle tai eristykselle on tiukat vaatimukset — kuten Tornion valvomotoiminnot — pilottiin voidaan sisällyttää DWS:n viisivaiheinen paikallisen jatkuvuuden protokolla ja verkkokatkovalidointi (KPI 4). Tämä määritellään ja sovitaan maksuttomassa Vaihe 0 -laajuuden määrittelyssä.**
 
-**Jos KPI 4 halutaan mukaan sopimukseen, se on lisättävä ennen allekirjoitusta** — jälkikäteen lisättynä se muuttaisi hyväksyntäkriteerejä kesken toimituksen.
+Lyhyesti, mistä siinä on kyse: kun yhteys ulkomaailmaan katkaistaan sovitussa ikkunassa, (i) julkistustyönkulku suoriutuu loppuun, (ii) EU AI Act Art. 12 -tietue kirjoittuu edelleen paikallisesti ilman katkoa, ja (iii) operaattori pystyy pysäyttämään ajossa olevan agentin. Kaikki kolme, tai tulos raportoidaan kielteisenä — mikä on pätevä lopputulos, ei tuotevirhe.
+
+**Kolme huomiota, jotta tämä ei aiheuta turhaa työtä Outokummun päässä:**
+
+1. **Katkoa ei tarvitse tehdä fyysisesti.** Käytännössä käytetään VLAN-eristystä tai reunareitittimen egress-estoa; menetelmä valitaan Vaihe 0:ssa yhdessä verkosta vastaavan tahon kanssa. Tuotantoverkkoa ei kosketa.
+2. **Tämä on Operations- ja tietoturva-aihe, ei IP-aihe.** Jos moduuli kiinnostaa, luontevin keskustelukumppani on Tornion tuotanto-/laitosjohto ja CISO — voimme tulla mukaan siihen keskusteluun.
+3. **Jos moduuli halutaan mukaan, se on sovittava ennen allekirjoitusta.** Hyväksyntäkriteerin lisääminen kesken toimituksen muuttaisi sitä, mitä "valmis" tarkoittaa.
+
+Toimitamme pyynnöstä myös: viisivaiheisen toteutussuunnitelman hyväksyntäportteineen ja **tuntiraportin** (`OUTOKUMPU_TUNTIRAPORTTI.md`), jossa €24 000 on purettu vaiheittaisiksi tunneiksi.
 
 ---
 
