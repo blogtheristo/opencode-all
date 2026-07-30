@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>OUTOKUMPU_TUNTIRAPORTTI</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">OUTOKUMPU_TUNTIRAPORTTI</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: OUTOKUMPU_TUNTIRAPORTTI.md
+Version: 1.0
+Last-Updated: 2026-07-30
+Author: Risto Anton Päärni (Lifetime Oy)
+Agent: Claude Code (Opus 5), session claude/enterprise-ai-harness-0anl7s
+Purpose: Tuntierittely Outokumpu Oyj:n pilottitarjoukseen (€24 000, 27.6.2026).
+         Purkaa kiinteän pilottihinnan vaiheittaisiksi tunneiksi ja
+         tuntihinnaksi, jotta hankinta voi verrata sitä tarjouksen §4
+         asiantuntijatyön listahintaan (€120/h). Sama erittelymalli kuin
+         cari.fi-tarjouksen tuntitaulukossa
+         (sales-outreach/TARJOUS_CARIN_HUOLTOPALVELU_VERKKOSIVUT_FI.md kohta 2).
+         EI MUUTA HINTAA. €24 000 on lähetetty asiakkaalle 27.6.2026
+         hintalomakkeessa OUTOKUMPU_HINTALOMAKE.md ja pysyy voimassa
+         sellaisenaan; tämä dokumentti ainoastaan perustelee sen.
+Vaiheistus: PILOT_SHEET_OUTOKUMPU_FORTA.md v2.0 §6 (viisi vaihetta).
+Status: LUONNOS — tarkista laskennan oletukset (§1) ennen lähetystä.
+-->
+<hr />
+<h1 id="tuntiraportti-dws-iq-6-pilotti-outokumpu-oyj">Tuntiraportti —
+DWS IQ 6 Pilotti | Outokumpu Oyj</h1>
+<p><strong>Toimittaja:</strong> Lifetime Oy | Y-tunnus: 0772407-9 | VAT:
+FI07724079 <strong>Asiakas:</strong> Outokumpu Oyj
+<strong>Viite:</strong> Tarjouskirje 27.6.2026, hintalomake
+<code>OUTOKUMPU_HINTALOMAKE.md</code> v1.0 <strong>Päiväys:</strong>
+30.7.2026 <strong>Versio:</strong> 1.0
+<strong>Luottamuksellisuus:</strong> Luottamuksellinen — vain Outokumpu
+Oyj ja Lifetime Oy</p>
+<blockquote>
+<p><strong>Tämä liite ei muuta pilottihintaa.</strong> Kiinteä hinta on
+ja pysyy <strong>€24 000 (alv 0 %)</strong>. Alla oleva erittely vastaa
+kysymykseen <em>“mistä tunneista tämä koostuu”</em> — se ei ole uusi
+hinnoittelumalli eikä tuntilaskutukseen siirtyminen.</p>
+</blockquote>
+<hr />
+<h2 id="laskennan-perusta-ja-oletukset">1. Laskennan perusta ja
+oletukset</h2>
+<p>Tarjouskirjeen 27.6.2026 mukaan pilottihinta <em>“kattaa noin 50 %
+toimittajan kokonaispanoksesta (n. 1,5 henkilötyökuukautta,
+senior-insinööri/toimitusjohtajataso)”</em>. Tästä seuraa suoraan:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Suure</th>
+<th style="text-align: right;">Arvo</th>
+<th style="text-align: left;">Johdettu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Laskutettava panos</td>
+<td style="text-align: right;"><strong>1,5 htkk</strong></td>
+<td style="text-align: left;">Tarjouskirje 27.6.2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Henkilötyökuukausi</td>
+<td style="text-align: right;">160 h</td>
+<td style="text-align: left;">Suomalainen vakiokäytäntö</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Laskutettavat tunnit</strong></td>
+<td style="text-align: right;"><strong>240 h</strong></td>
+<td style="text-align: left;">1,5 × 160</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kiinteä pilottihinta</td>
+<td style="text-align: right;">€24 000</td>
+<td style="text-align: left;">Hintalomake v1.0, rivi 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Toteutuva tuntihinta</strong></td>
+<td style="text-align: right;"><strong>€100/h (alv 0 %)</strong></td>
+<td style="text-align: left;">€24 000 / 240 h</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asiantuntijatyön listahinta</td>
+<td style="text-align: right;">€120/h (alv 0 %)</td>
+<td style="text-align: left;">Hintalomake v1.0 §4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Pilottialennus
+listahinnasta</strong></td>
+<td style="text-align: right;"><strong>−17 %</strong></td>
+<td style="text-align: left;">(120 − 100) / 120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kokonaispanos (arvio)</td>
+<td style="text-align: right;">~3 htkk ≈ 480 h</td>
+<td style="text-align: left;">“n. 50 % kokonaispanoksesta”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Toimittajan kantama osuus</td>
+<td style="text-align: right;">~240 h</td>
+<td style="text-align: left;">480 − 240</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tarkistettava oletus.</strong> Tulkinta <em>“50 %
+kokonaispanoksesta”</em> = asiakas maksaa 240 h kokonaispanoksen ollessa
+~480 h. Jos tarkoitus oli toinen (esim. 1,5 htkk <strong>on</strong>
+kokonaispanos ja 50 % viittaa muuhun), tuntihinta muuttuu ja tämä
+taulukko on korjattava ennen lähetystä. Lukema on johdettu
+tarjouskirjeen sanamuodosta, ei erillisestä työaikakirjanpidosta.</p>
+<hr />
+<h2 id="tuntierittely-vaiheittain">2. Tuntierittely vaiheittain</h2>
+<p>Vaiheistus noudattaa pilottimäärittelyn
+<code>PILOT_SHEET_OUTOKUMPU_FORTA.md</code> v2.0 §6 viittä vaihetta.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Vaihe</th>
+<th style="text-align: left;">Jakso</th>
+<th style="text-align: left;">Sisältö</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: right;">Hinta (alv 0 %)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Vaihe 0 — Laajuuden
+määrittely</strong></td>
+<td style="text-align: left;">vk 0–2</td>
+<td style="text-align: left;">Forta-alatuotelinjan lukitus,
+lähdejärjestelmäauditointi (sulattohistorian, energianhallinta,
+romurekisteri), kriittisyysluokittelu, käyttökatkotilan määrittely,
+lähtötasomittaus</td>
+<td style="text-align: right;">40 h</td>
+<td style="text-align: right;"><strong>MAKSUTON — €0</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Vaihe 1 — Paikallinen
+perusta</strong></td>
+<td style="text-align: left;">vk 3–5</td>
+<td style="text-align: left;">Suoritusajoympäristö ja mallipalvelu
+asiakkaan NVIDIA-laitteistolle; paikallisesti ratkeava
+KYA-agentti-identiteetti; Art. 12 -lokikirjoitin paikalliseen
+tallennukseen; operaattorin pysäytysvaltuus ilman verkkohyppyä</td>
+<td style="text-align: right;">60 h</td>
+<td style="text-align: right;"><strong>€6 000</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Vaihe 2 — Julkistusputken
+integrointi</strong></td>
+<td style="text-align: left;">vk 6–9</td>
+<td style="text-align: left;">Työnkulun vaatima agenttijoukko;
+read-only-integraatiot kolmeen lähdejärjestelmään; IP-sääntöskeeman
+yhteissuunnittelu IP-funktion kanssa; vetooikeusportti paikallisena
+kryptografisena esteenä; päätöspisteiden kytkentä Art. 12 -tietueeseen;
+degradoituneen tilan toteutus</td>
+<td style="text-align: right;">90 h</td>
+<td style="text-align: right;"><strong>€9 000</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Vaihe 3 —
+Verkkokatkotesti</strong></td>
+<td style="text-align: left;">vk 10–11</td>
+<td style="text-align: left;">Harjoitusajo ja havaintojen korjaus;
+todistettu hyväksyntäajo sovitussa katkoikkunassa; kolmen ehdon
+instrumentoitu mittaus; paluuyhteyden täsmäytyksen varmennus</td>
+<td style="text-align: right;">45 h</td>
+<td style="text-align: right;"><strong>€4 500</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Vaihe 4 — Mitoitus ja
+loppuraportti</strong></td>
+<td style="text-align: left;">vk 12–13</td>
+<td style="text-align: left;">Tuotantomitoitus mitatusta kuormasta;
+käyttöönottomallin vahvistus; ennen/jälkeen-analyysi neljästä KPI:stä;
+loppuraportti ja konversiosuositus (myös kielteinen, jos näyttö niin
+osoittaa)</td>
+<td style="text-align: right;">45 h</td>
+<td style="text-align: right;"><strong>€4 500</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Laskutettavat tunnit
+yhteensä</strong></td>
+<td style="text-align: right;"><strong>240 h</strong></td>
+<td style="text-align: right;"><strong>€24 000</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tuntipainotuksen perustelu.</strong> Vaihe 2 on raskain (90
+h), koska kolme read-only-integraatiota ja IP-sääntöskeeman
+yhteissuunnittelu ovat pilotin varsinainen rakennustyö. Vaihe 1 (60 h)
+edeltää sitä tarkoituksella: paikallinen perusta todennetaan ennen kuin
+työnkulkua on olemassa, jolloin vaiheen 3 mahdollinen epäonnistuminen on
+työnkulun eikä alustan ongelma. Vaiheet 3 ja 4 ovat kevyempiä (45 h
+kumpikin), koska niissä mitataan ja raportoidaan sitä, mikä on jo
+rakennettu.</p>
+<hr />
+<h2 id="toimittajan-kantama-osuus-ei-laskuteta">3. Toimittajan kantama
+osuus (ei laskuteta)</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Erä</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: right;">Arvo listahinnalla €120/h</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Vaihe 0 — laajuuden määrittely
+kokonaisuudessaan</td>
+<td style="text-align: right;">40 h</td>
+<td style="text-align: right;">€4 800</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vaiheiden 1–4 ylimenevä panos</td>
+<td style="text-align: right;">~200 h</td>
+<td style="text-align: right;">€24 000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Yhteensä toimittajan
+kantamana</strong></td>
+<td style="text-align: right;"><strong>~240 h</strong></td>
+<td style="text-align: right;"><strong>~€28 800</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kokonaispanos pilotissa ~480 h, josta asiakas maksaa 240
+h.</strong> Tehollinen hinta kokonaispanosta kohti on siten noin
+<strong>€50/h</strong> — eli alle puolet asiantuntijatyön
+listahinnasta.</p>
+<p>Tämä ei ole alennus vaan investointi: pilotin tarkoitus on tuottaa
+mittausdata, jonka perusteella kaupallinen konversio joko perustellaan
+tai hylätään. Lifetime kantaa puolet siitä työstä, koska mittaustulos on
+arvokas myös meille.</p>
+<hr />
+<h2 id="vertailu-tuntilaskutukseen">4. Vertailu tuntilaskutukseen</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Malli</th>
+<th style="text-align: left;">Laskelma</th>
+<th style="text-align: right;">Hinta (alv 0 %)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tämä tarjous — kiinteä pilottihinta</td>
+<td style="text-align: left;">240 h × €100/h</td>
+<td style="text-align: right;"><strong>€24 000</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sama laajuus asiantuntijatyön
+listahinnalla</td>
+<td style="text-align: left;">240 h × €120/h</td>
+<td style="text-align: right;">€28 800</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sama laajuus kokonaispanoksen mukaan
+listahinnalla</td>
+<td style="text-align: left;">480 h × €120/h</td>
+<td style="text-align: right;">€57 600</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kiinteä hinta siirtää ylityksen riskin
+toimittajalle.</strong> Jos vaihe 2 vaatii arvioitua enemmän työtä, se
+ei näy Outokummun laskulla. Tuntilaskutuksessa se näkyisi.</p>
+<hr />
+<h2 id="mitä-tuntierittely-ei-tarkoita">5. Mitä tuntierittely
+<strong>ei</strong> tarkoita</h2>
+<ul>
+<li><strong>Ei siirrytä tuntilaskutukseen.</strong> Pilotti on
+kiinteähintainen. Tämä erittely on hankinnan vertailua varten.</li>
+<li><strong>Ei laskuteta toteutuneiden tuntien mukaan.</strong>
+Maksuaikataulu on hintalomakkeen mukaan 50 % allekirjoituksella, 50 %
+loppuraportin hyväksynnällä — riippumatta siitä, toteutuuko 240 h vai
+300 h.</li>
+<li><strong>Ei muuteta laajuutta.</strong> Vaiheiden tuntijako on
+suunnitteluarvio, ei sopimusrajaus. Sopimusrajaus on pilottimäärittelyn
+§2 laajuus ja §8 onnistumiskriteerit.</li>
+<li><strong>Ei koske laitteistoa eikä pilvipalveluita.</strong> Ne ovat
+asiakkaan CAPEX/OPEX ja kulkevat läpilaskutuksena ilman katetta
+(hintalomake §3).</li>
+</ul>
+<hr />
+<h2 id="jatkotyön-tuntihinta">6. Jatkotyön tuntihinta</h2>
+<p>Pilotin jälkeinen asiantuntijatyö laskutetaan hintalomakkeen §4
+mukaisesti <strong>€120/h (alv 0 %)</strong> toteutuneiden tuntien
+mukaan. Pilotin €100/h on kertaluonteinen pilottihinta tälle rajatulle
+toimeksiannolle, ei uusi listahinta.</p>
+<hr />
+<p><strong>Risto Anton Päärni</strong> Toimitusjohtaja, Lifetime Oy
+risto.paarni@lifetime.fi · +358 400 319 010 Laidunmaanraitti 2 A 25,
+02330 Espoo, Finland Y-tunnus: 0772407-9 | VAT: FI07724079</p>
+<hr />
+<h2 id="asiakirjan-hallinta">Asiakirjan hallinta</h2>
+<ul>
+<li>Lähde tuntimäärille: tarjouskirje 27.6.2026 (“n. 1,5
+henkilötyökuukautta”, “n. 50 % kokonaispanoksesta”).</li>
+<li>Lähde tuntihinnalle €120/h: <code>OUTOKUMPU_HINTALOMAKE.md</code>
+v1.0 §4.</li>
+<li>Vaiheistus:
+<code>sales-outreach/PILOT_SHEET_OUTOKUMPU_FORTA.md</code> v2.0 §6.</li>
+<li>Erittelymalli:
+<code>sales-outreach/TARJOUS_CARIN_HUOLTOPALVELU_VERKKOSIVUT_FI.md</code>
+kohta 2 (tuntiarviotaulukko).</li>
+<li><strong>Tämä dokumentti ei muuta lähetettyä tarjousta.</strong>
+Lähetetyt asiakirjat (<code>OUTOKUMPU_TARJOUSKIRJE.md</code>,
+<code>OUTOKUMPU_HINTALOMAKE.md</code>, 27.6.2026) ovat
+muuttumattomia.</li>
+</ul>
+</body>
+</html>
