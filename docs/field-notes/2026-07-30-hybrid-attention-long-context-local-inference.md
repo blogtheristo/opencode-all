@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Hybrid attention + constant-throughput inference — why long-context local models change the agentic cost equation
-Version: 1.0
+Version: 1.1
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -28,6 +28,7 @@ Related: docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Re-labelled this note's HIC decision point as **Q3** under the new branch-scoped numbering convention (DWS_LEARNING_STANDARD.md §10.1.1, added v1.4). All three field notes on this branch previously opened at "Q1", so three distinct decisions shared one label and could not be answered by reference. Label only — the question, its options, the recommendation and the reasoning are unchanged (Rule 12).
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Captures the HIC's hipfire / 7900XTX field measurement and the hybrid-attention argument, verifies the model and engine specifications against primary sources (§5), and connects the throughput-at-depth property to the day's harness-cost thread. Assesses the R-01 relevance precisely: RDNA3 consumer is not the CDNA/Instinct testbed the register specifies, so this does not close R-01.
 -->
 
@@ -60,7 +61,7 @@ Two signals were captured earlier today. This is the piece that makes them actio
 | --- | --- |
 | Nadella, 29.07.2026 | The **harness** is the durable layer; memory, context and traces live outside the model, which is swappable |
 | Composio benchmark | The **harness** is also where the money goes — up to 30× token spread, same model, same tasks; Claude Code at a 340k-token median |
-| **This note** | Those 340k tokens are **context depth**. Whether they are expensive or free depends on the architecture and engine underneath them |
+| **This note** | Those 340k tokens are **context depth**. Whether they are an unpredictable bill or a bounded, dimensioned cost depends on the architecture and engine underneath them |
 
 The synthesis, stated plainly:
 
@@ -130,7 +131,7 @@ This is the mechanism that makes the ollama-boss architecture's local tiers viab
 
 ### HIC question (EU AI Act Art. 14 intervention point)
 
-**Q1. The local tier was specified on volume; this says the binding constraint is depth. Do we re-test it — and on which axis?**
+**Q3. The local tier was specified on volume; this says the binding constraint is depth. Do we re-test it — and on which axis?**
 
 **Options:**
 

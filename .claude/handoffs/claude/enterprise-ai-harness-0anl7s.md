@@ -153,3 +153,59 @@ hipfire is **RDNA (consumer graphics)**; R-01 specifies **CDNA / Instinct MI300*
 ## Commit (signal 3)
 
 `learn(hic): hybrid attention + throughput at context depth — local inference signal (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)`. Pushed to origin.
+
+
+---
+
+# Session close — 2026-07-30
+
+**HIC question counter for this branch: highest used = Q5.** The next decision point raised on
+`claude/enterprise-ai-harness-0anl7s` is **Q6**, in any document. Per `DWS_LEARNING_STANDARD.md`
+§10.1.1 (added v1.4 this session) the counter is branch-scoped and never restarts — do not open a
+new note at Q1.
+
+| Q | Decision | State |
+| - | -------- | ----- |
+| Q1 | Hold positioning, route to PhD thesis | Done, then superseded by Q4 |
+| Q2 | Instrument the Claude-side token log | **Shipped** — `scripts/record-session-tokens.mjs` + Stop hook |
+| Q3 | Reproduce the depth curve on the GN-100 | **Harness shipped, sweep NOT run** — box unreachable from cloud containers |
+| Q4 | Positioning: harness ownership vs coupling | Answered — hold the narrative, re-cut to harness + sovereign compute + jurisdiction |
+| Q5 | Claim-level truth check vs. rely on human review | **OPEN** — see `docs/field-notes/2026-07-30-hic-decisions-executed.md` §8. RECOMMEND option 1 (extend `/truth-check` to the banned cost strings) |
+
+## What shipped
+
+- **Thesis** §14.45 + KC #50, lockstep **3.94** across all four files; `Learn/` at v3.94. Fixed the
+  `gen-thesis-html.cjs` root cause — it read stale duplicate sources under `Learn/*.md` (v3.83), now
+  reads canonical `docs/`.
+- **Blog** — "The Harness Paywall" published EN, registry row 48, Text of the Day, dual folder synced.
+  Draft at `docs/blog-drafts/harness-paywall-depth-arbitrage.md` is `Status: APPROVED` with the record.
+- **Telemetry** — token recorder (Q2) and depth-curve sweep (Q3), both tested and both verified
+  falsifiable by stubbing. `base.agent.ts` no longer claims "(tracking active)" while tracking nothing.
+- **dws10 hero** re-cut to bounded sovereign compute; prior Nordic/EN 15978 copy preserved in an
+  adjacent HTML comment, not deleted.
+- **Standards** — `DWS_LEARNING_STANDARD.md` → v1.4 (§10.1.1, branch-scoped numbering).
+
+## Two corrections that came from outside — carry these forward
+
+1. **"€0 marginal token cost" was false** and had reached six files including a thesis section and a
+   blog draft awaiting publication. Canonical replacement wording is now
+   `kb/wiki/concepts/bounded-not-zero-sovereign-compute-economics.md`. **Quote that sentence; do not
+   improvise a stronger one.** "Zero tokens leave the premises" is a *residency* claim, true, and must
+   never be reused as a cost claim.
+2. **HIC question numbering** restarted per-note and made three decisions unanswerable by reference.
+   Fixed in §10.1.1; the three notes were retro-labelled Q1/Q2/Q3.
+
+Neither was caught by the harness. A hook checks that a field note exists, not whether its claims are
+true — worth remembering before trusting a green session-stop.
+
+## Open, in priority order
+
+1. **Run the depth sweep** on the GN-100 (`scripts/weekly/depth-curve-sweep.sh`, self-scheduling
+   Sunday 04:00 UTC). Until the curve exists, §14.45 is an architectural hypothesis and says so.
+2. **Tier re-spec, code half.** `contextWindow` in `src/agents/model-selector.ts` is still a dead
+   field read by nothing; selection has no depth dimension. The reasoning is in §14.45 Finding 2/5.
+3. **Four-way local-model drift** — `MODEL_CATALOG` vs DGX deploy path vs ollama-boss note vs
+   `.env.example` name four different model sets. Deliberately deferred, still unreconciled.
+4. **Harness-language exposure pack** — 37 public files use `harness`/`swappable`, incl. an investor
+   note calling harness engineering "the architectural moat behind DWS IQ 6". Q4 settled the claim;
+   whether those surfaces need the narrower wording is undecided.

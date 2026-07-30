@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Composio harness token-efficiency benchmark — and what DWS can (and cannot) measure about its own cost per task
-Version: 1.0
+Version: 1.1
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -23,6 +23,7 @@ Related: docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.m
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Re-labelled this note's HIC decision point as **Q2** under the new branch-scoped numbering convention (DWS_LEARNING_STANDARD.md §10.1.1, added v1.4). All three field notes on this branch previously opened at "Q1", so three distinct decisions shared one label and could not be answered by reference. Label only — the question, its options, the recommendation and the reasoning are unchanged (Rule 12).
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the Composio 3-harness / 28-task Kimi K3 benchmark with its published token, cost, success and runtime figures; declares the vendor-run interest (Hermes is Composio's own harness) and the DWS internal naming collision on "Hermes"; and adds §5, an audit establishing that DWS cannot currently measure its own cost per completed task, with the exact file-level gaps and the surviving git/handoff proxies.
 -->
 
@@ -132,7 +133,7 @@ Scope: can DWS state its own cost per completed task? **No.** Not from anything 
 
 ### HIC question (EU AI Act Art. 14 intervention point)
 
-**Q1. DWS's own cost per completed task is unmeasured, and the table that would hold it (`token_usage_events`, with `task_id`) already exists. Do we instrument it?**
+**Q2. DWS's own cost per completed task is unmeasured, and the table that would hold it (`token_usage_events`, with `task_id`) already exists. Do we instrument it?**
 
 **Options:**
 
