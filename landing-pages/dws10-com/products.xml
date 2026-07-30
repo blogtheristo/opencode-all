@@ -838,25 +838,23 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;li&gt;Hardware sizing for production — informed by measured behaviour on your workload rather than a vendor spec sheet.&lt;/li&gt;
 &lt;li&gt;A written recommendation, including the honest one: if your workload does not need local-first, the pilot says so.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;Pricing&lt;/h2&gt;
-&lt;p&gt;| | |
-| --- | --- |
-| &lt;strong&gt;Price&lt;/strong&gt; | €19,990 fixed |
-| &lt;strong&gt;Duration&lt;/strong&gt; | 3 months |
-| &lt;strong&gt;Hardware&lt;/strong&gt; | None purchased. Runs on existing customer infrastructure or a compact edge appliance. |
-| &lt;strong&gt;Credit&lt;/strong&gt; | &lt;strong&gt;Credited in full against the €59,990 Aegis onboarding&lt;/strong&gt; if you proceed within 6 months |&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;One net price, not two.&lt;/strong&gt; The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.&lt;/p&gt;
-&lt;p&gt;If you do not proceed, you keep the architecture, the measurements and the evidence record. Nothing further is owed.&lt;/p&gt;
-&lt;h3&gt;Exactly what is in scope&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;The €19,990 includes:&lt;/strong&gt; one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Outside the credit, stated so there is no ambiguity later:&lt;/strong&gt; LWM integration; any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate &lt;strong&gt;DWS IQ Aegis Implementation Programme&lt;/strong&gt; (&lt;code&gt;DWS-AEGIS-IMPL-001&lt;/code&gt;, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.&lt;/p&gt;
-&lt;h3&gt;Commercial summary&lt;/h3&gt;
-&lt;p&gt;| Stage | Fee | Credit applied | Balance due at production rollout |
-| --- | --- | --- | --- |
-| Aegis 3-month pilot | €19,990 | €19,990 (100%) | €40,000 of the €59,990 onboarding |
-| Proceed to production | €40,000 | — | €0 — onboarding settled; licence from €999/mo begins |
-| &lt;strong&gt;Total cost to production&lt;/strong&gt; | &lt;strong&gt;€59,990&lt;/strong&gt; | | Unchanged by taking the pilot |&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why the scope is written this tightly.&lt;/strong&gt; A pilot priced at</g:description>
+&lt;h2&gt;How the three months run&lt;/h2&gt;
+&lt;p&gt;Five phases. The ordering is deliberate: the substrate is proven before the workflow exists, and the acceptance test is rehearsed before it is taken. Each phase has an exit gate, and a gate that does not pass is reported rather than worked around.&lt;/p&gt;
+&lt;h3&gt;Phase 0 — Scoping and baseline · weeks 0–2 · no charge&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Objective.&lt;/strong&gt; Establish what &quot;the core outcome&quot; actually is, precisely enough that it can be tested.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;We do:&lt;/strong&gt; site, workflow and deployment-mode selection workshop; read-only audit of the source systems; &lt;strong&gt;criticality classification&lt;/strong&gt; — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You do:&lt;/strong&gt; nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window and its date.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exit gate:&lt;/strong&gt; a one-page signed scope — site, workflow, deployment mode, and the three acceptance conditions written in &lt;em&gt;your&lt;/em&gt; operational language, not ours.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;This phase fails if&lt;/strong&gt; the workflow cannot be described as a terminating sequence with a defined &quot;complete&quot; state. If there is no completion, there is nothing to test, and we say so before you have spent anything.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Phase 1 — Local substrate · weeks 3–5&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Objective.&lt;/strong&gt; Stand up execution, identity, evidence and kill authority on site. Nothing about your workflow yet.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;We do:&lt;/strong&gt; deploy the execution runtime and local model serving on your hardware or a compact edge appliance; issue KYA agent identity that resolves locally, with no reachable control plane; stand up the Article 12 log writer against local durable storage; wire the kill path operator → running agent with no network hop.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You do:&lt;/strong&gt; hardware placement, power, network segment, operator account provisioning.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exit gate:&lt;/strong&gt; the &lt;strong&gt;four locals&lt;/strong&gt; demonstrated in isolation with the uplink already down — an agent runs, is identified, writes a record, and can be stopped.&lt;/li&gt;
+&lt;li&gt;</g:description>
       <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
       <g:condition>new</g:condition>

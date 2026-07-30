@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PILOT_SHEET_OUTOKUMPU_FORTA</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">PILOT_SHEET_OUTOKUMPU_FORTA</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: PILOT_SHEET_OUTOKUMPU_FORTA.md
+Version: 2.0 — DRAFT (v1.0 reframed CBAM-only -> Sovereign Industrial
+         Intelligence; v2.0 adds the five-phase execution plan and the
+         network-independence acceptance gate)
+Last-Updated: 2026-07-30
+Sessions & Modifications:
+  - 2.0 | 2026-07-30 | Claude Code (Opus 5), session
+         claude/enterprise-ai-harness-0anl7s. Brings the sheet in line with
+         the HIC's locked decision of 30.07.2026 (a manufacturing facility is
+         dual-use critical infrastructure; loss of connectivity must not stop
+         production or the core compliance workflow — see
+         kb/wiki/concepts/network-independent-critical-operation.md).
+         Adds: the five-phase execution plan replacing the flat 12-week
+         milestone list; the deployment mode named and justified per the
+         modes-not-tiers decision; KPI 4 (continuity) and the binary
+         severed-uplink acceptance gate, which v1.0 lacked entirely; the
+         criticality classification of disclosure-pipeline steps; and a price
+         reconciliation to the DWS-AEGIS-PILOT-001 list SKU.
+         PRICE UNCHANGED at EUR 24,000 — that figure sits in an issued price
+         form (bids/OUTOKUMPU/OUTOKUMPU_HINTALOMAKE.md, 27.6.2026) and is not
+         renegotiated by a product-catalogue change.
+  - 1.0 | 2026-06-22 | Scaffold drafted; commercial values reused from the
+         material package + Reply 2 v1.2.
+Status: DRAFT. Send-ready when:
+        - All [TBD] fields filled in by Risto
+        - Reviewed by R05 General Counsel (Lifetime side) or equivalent
+        - Forta sub-line confirmed by Outokumpu in Phase 0 scoping
+        - Converted to PDF (Pandoc: pandoc PILOT_SHEET_OUTOKUMPU_FORTA.md -o
+          PILOT_SHEET_OUTOKUMPU_FORTA.pdf --pdf-engine=xelatex)
+Author: Risto Anton Päärni (Lifetime Oy)
+Agent: Claude Code (claude-opus-4-7) — scaffold drafted; commercial
+       values reused from material package + Reply 2 v1.2. Legal
+       framework defaults to Finnish standard practice; legal review
+       required before contract execution.
+Branch: claude/exa-openclaw-integration-YnDpO
+Date: 2026-05-25
+Owner: risto.paarni@lifetime.fi
+Audience: Ari Hirvonen primary; routable to Outokumpu Procurement
+          (R20 / R21), CFO (R23), General Counsel / Legal (R05 / R06).
+Funnel role: Attachment 1/2 referenced in Reply 2 v1.2 ("Here is the
+             detailed pilot sheet and the NVIDIA hardware line items").
+             Companion: NVIDIA_HARDWARE_LINE_ITEMS_OUTOKUMPU.md.
+Legal note: This is a PILOT PROPOSAL, not a contract. Subject to
+            mutual NDA and execution of separate pilot agreement on
+            Lifetime Oy standard terms. R05 General Counsel review
+            mandatory before signature.
+-->
+<h1 id="pilot-proposal-europes-sovereign-industrial-intelligence-stack">Pilot
+Proposal — Europe’s Sovereign Industrial Intelligence Stack</h1>
+<blockquote>
+<p>One governed model for operational DNA and regulatory DNA, so
+industrial systems can perceive, decide, and act inside Europe without
+giving up sovereignty.</p>
+</blockquote>
+<p><strong>Customer:</strong> Outokumpu Oyj <strong>Provider:</strong>
+Lifetime Oy <strong>Date issued:</strong> 2026-05-25 <em>(Risto: update
+on send date)</em> <strong>Version:</strong> 2.0 <em>(draft — supersedes
+v1.0; adds the five-phase plan and the network-independence gate)</em>
+<strong>Classification:</strong> Confidential — Outokumpu Oyj and
+Lifetime Oy only</p>
+<hr />
+<h2 id="parties">1. Parties</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 22%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Party</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Provider</strong></td>
+<td>Lifetime Oy</td>
+<td>Espoo, Finland. Business ID 0772407-9. VAT FI07724079.
+Laidunmaanraitti 2 A 25, 02330 Espoo.</td>
+</tr>
+<tr class="even">
+<td><strong>Provider primary contact</strong></td>
+<td>Risto Anton Päärni</td>
+<td>CEO, Lifetime Oy. risto.paarni@lifetime.fi</td>
+</tr>
+<tr class="odd">
+<td><strong>Customer</strong></td>
+<td>Outokumpu Oyj</td>
+<td>Helsinki, Finland. Business ID <em>[TBD — fill from PRH]</em>. VAT
+<em>[TBD]</em>.</td>
+</tr>
+<tr class="even">
+<td><strong>Customer primary contact</strong></td>
+<td>Ari Hirvonen</td>
+<td>Patent IP Director, Outokumpu Oyj. ari.hirvonen@outokumpu.com
+<em>(verify)</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Customer commercial signatory</strong></td>
+<td><em>[TBD — typically CFO / Procurement]</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pilot-scope">2. Pilot scope</h2>
+<p><strong>What we deploy:</strong> Europe’s Sovereign Industrial
+Intelligence stack — one governed model that internalises both the
+Operational DNA (thermodynamic profiles, acoustic signatures, shift
+patterns, process workflows) and the Regulatory DNA (CBAM, CSRD, EU AI
+Act Art. 12, NIS2) of one Outokumpu production line. The model
+perceives, decides, and acts inside the plant network. No cloud
+dependency. No CLOUD Act exposure. Customer controls the stack.</p>
+<ul>
+<li><strong>Product line in scope:</strong> one Outokumpu Forta
+sub-line, to be selected by Customer during Phase 0 scoping (candidates:
+Forta H-series, Forta SX, Forta LDX, or Customer’s nominated
+alternative).</li>
+<li><strong>Sovereignty guarantee:</strong> air-gapped training and
+inference on Customer NVIDIA hardware. Finnish jurisdiction only.
+Per-site unique model trained where the data lives. Customer owns 100%
+of resulting model weights.</li>
+<li><strong>Workflow in scope:</strong> KYA-governed CBAM / EPD /
+Scope-3 disclosure pipeline. Field-level allow / redact / aggregate
+rules authored by Customer’s IP function. Cryptographic human-bound veto
+path before publication.</li>
+<li><strong>Source data integration:</strong> melt-shop and EAF
+historian, energy management system, scrap registry. Read-only; no
+source-data mutation.</li>
+<li><strong>Output:</strong> signed CBAM / EPD / Scope-3 disclosure
+document, attachable to a sales quote, with Article 12 audit log per
+disclosure. Compliance as a native byproduct of operational awareness,
+not a separate cost centre.</li>
+<li><strong>This is not SaaS:</strong> the hardware and trained model
+stay with Customer after the pilot ends — infrastructure that compounds
+as the system learns.</li>
+<li><strong>Out of scope:</strong> other Outokumpu product lines
+(replicable post-pilot at commercial conversion); upstream supplier
+disclosure governance (separate workstream, can be added at commercial
+conversion).</li>
+</ul>
+<h3 id="deployment-mode">2.1 Deployment mode</h3>
+<p>Aegis is deployed in one of three modes. Mode follows the workload;
+it is <strong>not</strong> gated by commercial tier.</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 12%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>For</th>
+<th>What stays on site</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Local / edge</strong></td>
+<td>Control rooms, critical and dual-use sites</td>
+<td>Core execution, evidence, identity, logs, kill authority. No network
+dependency for the core outcome.</td>
+</tr>
+<tr class="even">
+<td><strong>Hybrid</strong></td>
+<td>Local guarantees plus central visibility</td>
+<td>Local execution; optional sync, backup and reporting to EU
+cloud</td>
+</tr>
+<tr class="odd">
+<td><strong>EU-sovereign cloud</strong></td>
+<td>Non-critical workloads, reporting, development</td>
+<td>Nothing — network-dependent by design, and appropriate where that is
+acceptable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended for this pilot: Local / edge, confirmed in Phase
+0.</strong> Tornio is a continuously-operating integrated mill, and
+under the hybrid-threat assessment a facility of this class is dual-use
+critical infrastructure — connectivity is an adversary-reachable
+dependency. The disclosure pipeline in scope is a <strong>core
+compliance workflow</strong>, so the same requirement that protects
+production protects it: a signed disclosure and its Article 12 record
+must remain producible with the uplink down.</p>
+<h3 id="criticality-classification">2.2 Criticality classification</h3>
+<p>Phase 0 marks every step of the disclosure pipeline
+<strong>core</strong> or <strong>non-core</strong>. The distinction is
+operative, not descriptive: core steps must complete with the uplink
+severed, and a step that needs the network is by definition not
+core.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Expected classification</th>
+<th>Steps</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Core — must survive an outage</strong></td>
+<td>Historian and energy-management reads from the plant network;
+emissions computation; IP-rule evaluation; the IP-function veto gate;
+disclosure signing; Article 12 record write</td>
+</tr>
+<tr class="even">
+<td><strong>Non-core — may degrade</strong></td>
+<td>External benchmark refresh; CBAM registry submission; central
+reporting and dashboards; off-site backup</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Degraded mode is specified in Phase 0, not discovered during
+an incident.</strong> What is lost, what continues, and what reconciles
+on reconnection — in what order — are written down before the test.</p>
+<hr />
+<h2 id="duration-and-effort">3. Duration and effort</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total duration</td>
+<td>3 months from contract signature</td>
+</tr>
+<tr class="even">
+<td>Provider effort</td>
+<td>50% (~1.5 person-months of senior engineer / CEO time)</td>
+</tr>
+<tr class="odd">
+<td><strong>Phase 0 — Scoping</strong></td>
+<td>Weeks 0–2, <strong>FREE OF CHARGE</strong>. Forta sub-line
+selection, source-data audit, criticality classification, baseline.</td>
+</tr>
+<tr class="even">
+<td><strong>Phases 1–4 — Execution</strong></td>
+<td>Weeks 3–13. Local substrate, pipeline integration, severed-uplink
+acceptance test, sizing and final report.</td>
+</tr>
+<tr class="odd">
+<td>Start date</td>
+<td><em>[TBD — depends on signature date; default 5 business days after
+signature]</em></td>
+</tr>
+</tbody>
+</table>
+<p>The phase ordering is deliberate. The <strong>local substrate is
+proven before the disclosure pipeline exists</strong> (Phase 1 before
+Phase 2), so that a failure at the acceptance test is a pipeline problem
+rather than a platform problem. The <strong>acceptance test is rehearsed
+before it is taken</strong> (Phase 3), because an unrehearsed outage
+test measures the deployment engineer’s luck rather than the
+architecture.</p>
+<p>Each phase carries an exit gate. <strong>A gate that does not pass is
+reported, not worked around</strong> — the pilot’s value to Outokumpu is
+the finding, including an unfavourable one.</p>
+<hr />
+<h2 id="commercial-terms">4. Commercial terms</h2>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pilot price (Provider effort)</strong></td>
+<td><strong>€24,000 (ex-VAT)</strong></td>
+</tr>
+<tr class="even">
+<td>Currency</td>
+<td>EUR</td>
+</tr>
+<tr class="odd">
+<td>Budget source</td>
+<td>Outokumpu Oyj</td>
+</tr>
+<tr class="even">
+<td>Payment schedule</td>
+<td><em>[Default: 50% on contract signature, 50% on final-report
+acceptance (Phase 4, week 13). Adjustable per Customer’s standard AP
+terms.]</em></td>
+</tr>
+<tr class="odd">
+<td>VAT treatment</td>
+<td>EU B2B intra-community reverse charge (Customer accounts for
+VAT)</td>
+</tr>
+<tr class="even">
+<td>Invoicing</td>
+<td>Monthly progress invoices acceptable; default per payment schedule
+above</td>
+</tr>
+<tr class="odd">
+<td><strong>NVIDIA hardware</strong></td>
+<td><strong>Customer CAPEX. Customer purchases, Customer owns. Hardware
+stays with Customer after the pilot</strong> — durable infrastructure
+asset whether or not the pilot converts to commercial license. Sourced
+via NVIDIA EU partner channel at list (or partner discount where
+available). No Lifetime margin. See attached
+<code>NVIDIA_HARDWARE_LINE_ITEMS_OUTOKUMPU.md</code>.</td>
+</tr>
+<tr class="even">
+<td><strong>EU sovereign cloud services</strong></td>
+<td>OPEX, monthly pass-through (Scaleway Paris and/or Aiven Helsinki).
+Billed at provider cost, no Lifetime margin. Customer may BYO if
+existing contracts exist.</td>
+</tr>
+<tr class="odd">
+<td>BYO option (hardware)</td>
+<td>Customer may deploy on existing NVIDIA workstations / servers if
+equivalent specifications. Lifetime provides configuration + integration
+only.</td>
+</tr>
+<tr class="even">
+<td>BYO option (cloud)</td>
+<td>Customer may use existing Scaleway / Aiven contracts where
+available. Provider invoices Customer directly.</td>
+</tr>
+<tr class="odd">
+<td>Cancellation</td>
+<td>Customer may cancel at any time. Cancellation fee: Provider effort
+delivered up to cancellation date, pro-rated. No penalty.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="relationship-to-the-dws-iq-aegis-pilot-list-price">4.1
+Relationship to the DWS IQ Aegis Pilot list price</h3>
+<p>Lifetime’s catalogue lists a standard <strong>DWS IQ Aegis Pilot at
+€19,990</strong> (<code>DWS-AEGIS-PILOT-001</code>) — one site, one
+control-room workflow, one deployment-mode recommendation, credited in
+full against Aegis onboarding.</p>
+<p><strong>This proposal is priced at €24,000 and that figure
+stands.</strong> It was issued to Outokumpu in the price form of
+27.6.2026 (<code>OUTOKUMPU_HINTALOMAKE.md</code>) and is not
+renegotiated by a change to Lifetime’s product catalogue. The €4,010
+difference is scope, not margin:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Beyond the standard €19,990 pilot scope</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Three source-system integrations</strong> (melt-shop / EAF
+historian, energy management, scrap registry)</td>
+<td>The list pilot scopes the agent set for one workflow; it does not
+assume three read-only industrial integrations</td>
+</tr>
+<tr class="even">
+<td><strong>IP-rule schema co-authoring</strong> with Outokumpu’s IP
+function</td>
+<td>Field-level allow / redact / aggregate governance is bespoke design
+work, not configuration</td>
+</tr>
+<tr class="odd">
+<td><strong>Two measurement regimes</strong> — the efficiency baseline
+(KPIs 1–3) and the continuity gate (KPI 4)</td>
+<td>The list pilot measures continuity only</td>
+</tr>
+<tr class="even">
+<td><strong>Bilingual final report</strong> (English + Finnish on
+request)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Credit treatment is unchanged from the list terms:</strong>
+the €24,000 is credited in full against Aegis onboarding if Outokumpu
+proceeds within 6 months of pilot completion. Excluded from the credit,
+as on the list SKU: LWM integration, hardware, multi-site rollout,
+product lines beyond the piloted Forta sub-line, and custom ERP / BIM /
+SCADA integrations. The separate <strong>DWS IQ Aegis Implementation
+Programme</strong> (<code>DWS-AEGIS-IMPL-001</code>, €45,000, three
+phases) is additive and is <strong>not</strong> credited — it is not
+part of this proposal.</p>
+<hr />
+<h2 id="deliverables">5. Deliverables</h2>
+<ol type="1">
+<li><strong>KYA-governed disclosure pipeline</strong> integrating with
+Outokumpu’s existing source systems (melt-shop historian, energy mgmt,
+scrap registry).</li>
+<li><strong>IP-function veto path:</strong> field-level allow / redact /
+aggregate rules authored by Customer IP function; cryptographic
+human-bound gate before publication.</li>
+<li><strong>Article 12 audit log</strong> (EU AI Act compliance) for
+every AI-mediated action in the pipeline.</li>
+<li><strong>Before/after measurement report</strong> covering the four
+KPIs in §7.</li>
+<li><strong>Criticality classification and degradation spec:</strong>
+every pipeline step marked core or non-core; what is lost, what
+continues, and what reconciles on reconnection — in what order (Phase 0
+deliverable, §2.2).</li>
+<li><strong>Severed-uplink acceptance record:</strong> the witnessed
+Phase 3 run, instrumented against all three conditions of KPI 4, with
+the reconnection and reconciliation behaviour observed.</li>
+<li><strong>Production sizing report</strong> derived from measured load
+on Outokumpu’s own workload, not a vendor spec sheet.</li>
+<li><strong>Technical documentation:</strong> architecture diagram, KYA
+configuration, IP-rule schema, integration runbook, operator guide, and
+the operator kill-authority procedure.</li>
+<li><strong>Final pilot report</strong> (English; Finnish translation on
+request) including commercial-conversion recommendation.</li>
+</ol>
+<hr />
+<h2 id="phase-plan">6. Phase plan</h2>
+<h3 id="phase-0-scoping-and-baseline-weeks-02-free-of-charge">Phase 0 —
+Scoping and baseline · weeks 0–2 · free of charge</h3>
+<p><strong>Objective.</strong> Establish what the core outcome is,
+precisely enough that it can be tested.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Provider delivers</strong></td>
+<td>Forta sub-line locked; read-only source-data audit (melt-shop / EAF
+historian, energy management system, scrap registry);
+<strong>criticality classification</strong> per §2.2; deployment-mode
+recommendation with justification; degradation and
+reconnect-reconciliation spec, first draft; baseline measurement of
+current cycle time, IP-coverage % and sales-engineering hours per
+disclosure</td>
+</tr>
+<tr class="even">
+<td><strong>Customer provides</strong></td>
+<td>Technical contact; IP-function policy owner; the named operator who
+will exercise kill authority; read-only source-system access;
+sales-engineering counterpart for baseline; <strong>the agreed outage
+window and its date</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Exit gate</strong></td>
+<td>A one-page signed scope: sub-line, workflow, deployment mode, and
+the three acceptance conditions of §7 KPI 4 written in Outokumpu’s own
+operational language</td>
+</tr>
+<tr class="even">
+<td><strong>Fails if</strong></td>
+<td>The disclosure workflow cannot be expressed as a terminating
+sequence with a defined “complete” state. Without a completion condition
+there is nothing to test — and Outokumpu learns this having spent
+nothing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-local-substrate-weeks-35">Phase 1 — Local substrate ·
+weeks 3–5</h3>
+<p><strong>Objective.</strong> Execution, identity, evidence and kill
+authority standing on the plant network. Nothing about the disclosure
+pipeline yet.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Provider delivers</strong></td>
+<td>Execution runtime and local model serving on Customer NVIDIA
+hardware (or compact edge appliance); <strong>KYA agent identity
+resolving locally</strong>, with no reachable control plane; Article 12
+log writer against local durable storage; kill path operator → running
+agent with no network hop</td>
+</tr>
+<tr class="even">
+<td><strong>Customer provides</strong></td>
+<td>Hardware placement, power, plant-network segment, operator account
+provisioning</td>
+</tr>
+<tr class="odd">
+<td><strong>Exit gate</strong></td>
+<td>The <strong>four locals</strong> demonstrated in isolation with the
+uplink already down: an agent runs, is identified, writes a record, and
+can be stopped</td>
+</tr>
+<tr class="even">
+<td><strong>Fails if</strong></td>
+<td>Identity issuance or kill authority requires a round-trip. Kill
+authority that depends on a reachable control plane is not kill
+authority — and this is reported at week 5, not discovered at week
+11</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-2-disclosure-pipeline-integration-weeks-69">Phase 2 —
+Disclosure pipeline integration · weeks 6–9</h3>
+<p><strong>Objective.</strong> Outokumpu’s actual CBAM / EPD / Scope-3
+workflow, running on the local substrate.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Provider delivers</strong></td>
+<td>The agent set the disclosure workflow requires and no more;
+read-only integration to historian, energy management and scrap
+registry; IP-rule schema (joint with Customer IP function); the
+IP-function veto gate as a <strong>local</strong> cryptographic
+human-bound stop; each decision point mapped to the Article 12 record
+schema; degraded-mode behaviour and reconnect reconciliation implemented
+per the Phase 0 spec</td>
+</tr>
+<tr class="even">
+<td><strong>Customer provides</strong></td>
+<td>IP function authors and refines field-level allow / redact /
+aggregate rules; workflow owner validates each decision point; operator
+training on the kill path; sales-engineering counterpart triggers
+disclosure requests</td>
+</tr>
+<tr class="odd">
+<td><strong>Exit gate</strong></td>
+<td>A signed disclosure generated end-to-end <strong>online</strong>,
+with a complete Article 12 record, accepted by the IP function</td>
+</tr>
+<tr class="even">
+<td><strong>Fails if</strong></td>
+<td>A step classified core in Phase 0 turns out to need the network.
+That reclassifies the step or redesigns it — surfaced at week 9, where
+it is cheap</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-3-severed-uplink-acceptance-test-weeks-1011">Phase 3 —
+Severed-uplink acceptance test · weeks 10–11</h3>
+<p><strong>Objective.</strong> The binary continuity gate (§7 KPI 4),
+announced, witnessed and recorded.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Provider delivers</strong></td>
+<td>A <strong>rehearsal run</strong> under a short window with findings
+fixed; then the witnessed acceptance run under the agreed window;
+instrumented capture of all three conditions; observation of
+reconnection behaviour and verification that reconciliation occurs in
+the specified order</td>
+</tr>
+<tr class="even">
+<td><strong>Customer provides</strong></td>
+<td>Authorisation of the outage window; a witness present (Operations
+and/or IP function); the operator executes the stop</td>
+</tr>
+<tr class="odd">
+<td><strong>Exit gate</strong></td>
+<td><strong>All three, or a documented negative result:</strong> (i) the
+disclosure workflow ran to completion without network access, (ii) the
+Article 12 record was written locally throughout with no gap, (iii) the
+operator stopped a running agent</td>
+</tr>
+<tr class="even">
+<td><strong>Why rehearsed</strong></td>
+<td>An unrehearsed test measures luck. The rehearsal is where problems
+are meant to appear</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-4-sizing-report-and-conversion-decision-weeks-1213">Phase
+4 — Sizing, report and conversion decision · weeks 12–13</h3>
+<p><strong>Objective.</strong> Convert measured behaviour into a
+production decision.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Provider delivers</strong></td>
+<td>Production hardware sizing derived from Outokumpu’s
+<strong>measured</strong> load rather than a vendor spec sheet;
+deployment mode confirmed or revised against what the test showed;
+before/after analysis on all four KPIs; final pilot report and
+commercial-conversion recommendation — <strong>including the
+recommendation not to proceed, where the evidence supports
+it</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Customer provides</strong></td>
+<td>Measurement-data validation; conversion decision</td>
+</tr>
+<tr class="odd">
+<td><strong>Exit gate</strong></td>
+<td>Final report delivered and walked through; success criteria of §8
+evaluated jointly</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="measurement-kpis">7. Measurement (KPIs)</h2>
+<p>All measurements use Customer’s actual data from the pilot Forta
+sub-line. Baseline measured in Phase 0 (weeks 0–2); efficiency
+performance measured in Phase 2 (weeks 8–9); the continuity gate is
+measured once, in the witnessed Phase 3 run (week 11).</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 12%" />
+<col style="width: 25%" />
+<col style="width: 24%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>KPI</th>
+<th>Baseline (industry benchmark; Customer-actual measured in Phase
+0)</th>
+<th>Target at pilot exit</th>
+<th>Measurement method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Disclosure cycle time</strong></td>
+<td>18–42 days per disclosure (sector benchmark; Customer-actual TBD
+week 1–2)</td>
+<td><strong>&lt; 2 minutes per disclosure</strong></td>
+<td>Time from sales engineer disclosure request to signed document
+attached to quote. Sampled across pilot period.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>IP-function coverage rate</strong></td>
+<td>&lt; 10% (ad-hoc review; Customer-actual TBD week 1–2)</td>
+<td><strong>≥ 95%</strong> of pilot-period disclosures pass through
+IP-review gate</td>
+<td>Pilot pipeline logs % of disclosures gated through IP-rule schema
+before publication.</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>Sales-engineering hours reclaimed</strong></td>
+<td>8–16 hours per disclosure (sector benchmark; Customer-actual TBD
+week 1–2)</td>
+<td><strong>≥ 240 hours/rep/year extrapolated</strong> (lower bound of
+sector benchmark)</td>
+<td>Time tracking on disclosure-related tasks: before pilot (week 1–2)
+vs during pilot (week 8–11).</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Continuity under severed uplink</strong> <em>(new in
+v2.0)</em></td>
+<td>Not currently testable — the present pipeline has an external
+dependency at every stage</td>
+<td><strong>Pass / fail, all three conditions</strong> (see below)</td>
+<td>Witnessed acceptance run, Phase 3 week 11, under the outage window
+agreed in Phase 0.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="kpi-4-the-continuity-gate-stated-in-full">KPI 4 — the continuity
+gate, stated in full</h3>
+<p>KPIs 1–3 measure how much better the workflow gets. <strong>KPI 4
+measures whether it exists at all when the network does not.</strong> It
+is binary by design, because a partial answer is not usable by a board
+or a regulator.</p>
+<p>With the WAN uplink physically severed for the agreed window:</p>
+<ol type="1">
+<li><strong>Workflow continuity</strong> — the disclosure workflow runs
+to completion, producing a signed disclosure, without network
+access.</li>
+<li><strong>Local compliance record</strong> — the EU AI Act Article 12
+record continues to be written locally, with no gap for the duration of
+the outage.</li>
+<li><strong>Local control</strong> — an operator invokes human kill
+authority and stops a running agent, with no reachable control
+plane.</li>
+</ol>
+<p><strong>All three must pass.</strong> A pilot that fails under a
+severed uplink has delivered a <strong>valid negative result about
+environment readiness — it is not a product defect</strong>, and
+Outokumpu will have learned it for €24,000 rather than after a hardware
+programme.</p>
+<p><strong>Why this KPI is here and was not in v1.0.</strong> Under the
+hybrid-threat assessment, a mill of Tornio’s class is dual-use critical
+infrastructure and connectivity is an adversary-reachable dependency.
+NIS2 and the CER Directive already treat continuity of essential
+entities as an obligation. And Article 12 requires the record to exist
+for decisions taken <strong>during</strong> an outage, not to be
+reconstructed afterwards — a pipeline whose evidence chain pauses when
+the uplink drops has its gap at precisely the moment the record matters
+most. That moves this from resilience engineering to compliance
+engineering.</p>
+<hr />
+<h2 id="success-criteria-for-commercial-conversion">8. Success criteria
+for commercial conversion</h2>
+<p>If at pilot exit (Phase 4, week 13) the measurements show all four
+of:</p>
+<ul>
+<li>KPI 1: <strong>≥ 90% cycle-time reduction</strong> from
+Customer-actual baseline,</li>
+<li>KPI 2: <strong>≥ 95% IP-function coverage rate</strong> of
+pilot-period disclosures,</li>
+<li>KPI 3: <strong>≥ 240 hours/rep/year reclaimed</strong> (extrapolated
+from week 8–11 measurement), and</li>
+<li>KPI 4: <strong>the continuity gate passed on all three
+conditions</strong> (Phase 3 witnessed run),</li>
+</ul>
+<p>then Customer has the <strong>option</strong> to convert to a
+commercial DWS IQ 6 license on terms to be agreed separately. Conversion
+is at Customer’s sole discretion; pilot completion creates no commercial
+obligation on Customer.</p>
+<p>If success criteria are not met, pilot ends with delivery of the
+final report. No commercial obligation on either party either way.</p>
+<p><strong>KPI 4 is reported separately whatever the other three
+do.</strong> Efficiency and continuity are different questions for
+different buyers — KPIs 1–3 answer to Sustainability and Sales
+Engineering, KPI 4 answers to Operations, the CISO and the board’s risk
+committee. A pilot that reduces cycle time by 95% and fails the
+continuity gate has produced two findings, both of which Outokumpu
+needs, and neither of which should be hidden inside a single pass/fail
+verdict.</p>
+<hr />
+<h2 id="compute-and-hardware-pass-through-see-attached">9. Compute and
+hardware (pass-through, see attached)</h2>
+<p>See attached <code>NVIDIA_HARDWARE_LINE_ITEMS_OUTOKUMPU.md</code> for
+itemised list. Summary:</p>
+<ul>
+<li><strong>NVIDIA compute:</strong> Jetson Orin Nano edge units
+(site-edge inference) and / or DGX Spark cloud capacity (central
+training / batch inference). Scope-dependent on Phase 0.</li>
+<li><strong>EU sovereign data services:</strong> Scaleway (Paris) and /
+or Aiven (Helsinki). Postgres, object storage, optional event
+streaming.</li>
+<li>All passed through at provider cost. No Lifetime margin.</li>
+<li>Customer may BYO existing contracts where they exist.</li>
+<li>Sovereignty: all infrastructure Tier 1 Full EU Sovereign per
+<code>DWS_STANDARDS_LIBRARY.md</code> §3.6. No US Cloud Act perimeter on
+Customer data or IP material.</li>
+</ul>
+<hr />
+<h2 id="governance-and-compliance">10. Governance and compliance</h2>
+<ul>
+<li><strong>KYA-attested operator identity</strong> for every
+AI-mediated action in the pipeline. Cryptographic, human-bound,
+auditable.</li>
+<li><strong>EU AI Act Article 12 audit log:</strong> automatic,
+immutable, per-action.</li>
+<li><strong>EU AI Act Annex III alignment:</strong> confirmed (high-risk
+AI use case in regulated industrial disclosure).</li>
+<li><strong>NIS2:</strong> incident reporting capability built in; 24h
+early warning, 72h final report flow.</li>
+<li><strong>GDPR:</strong> data processing limited to Customer’s own
+data; DPA template on request before signature.</li>
+<li><strong>Trade-secret protection:</strong> all source data and
+IP-rule schemas treated as Customer trade secret; provider personnel
+under NDA per §12.</li>
+</ul>
+<hr />
+<h2 id="ip-ownership">11. IP ownership</h2>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Owned by</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DWS IQ 6 platform, KYA framework, agent definitions,
+methodology</td>
+<td>Lifetime Oy</td>
+</tr>
+<tr class="even">
+<td>Outokumpu source data, IP-rule schemas authored by Outokumpu,
+generated disclosures</td>
+<td>Outokumpu Oyj</td>
+</tr>
+<tr class="odd">
+<td>Pilot measurement data</td>
+<td>Joint — both parties may use for internal reporting; external
+publication requires written consent of the other party</td>
+</tr>
+<tr class="even">
+<td>Improvements to the DWS IQ 6 platform made during the pilot</td>
+<td>Lifetime Oy (Customer receives the benefit via the platform; no
+separate licence)</td>
+</tr>
+<tr class="odd">
+<td>Improvements specific to Outokumpu’s IP-rule schema</td>
+<td>Outokumpu Oyj</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="legal-framework">12. Legal framework</h2>
+<ul>
+<li><strong>Governing law:</strong> Finland.</li>
+<li><strong>Jurisdiction:</strong> Helsinki District Court.</li>
+<li><strong>Mutual NDA:</strong> prerequisite to Phase 0. Lifetime Oy
+standard mutual NDA on request, or reference existing NDA between the
+parties if one is in place.</li>
+<li><strong>Liability cap:</strong> Provider’s aggregate liability under
+this pilot capped at the pilot price (€24,000). Standard exclusions for
+gross negligence, wilful misconduct, and IP indemnification.</li>
+<li><strong>Pilot agreement:</strong> This proposal is subject to mutual
+agreement on Lifetime Oy standard pilot terms, executed via separate
+pilot agreement document. Material terms (price, scope, duration, KPIs,
+success criteria) per this proposal carry over to the pilot agreement;
+legal-framework terms are finalised in the pilot agreement.</li>
+</ul>
+<hr />
+<h2 id="acceptance">13. Acceptance</h2>
+<p>This proposal is valid for 30 days from the date issued in §0.
+Acceptance by Customer signature below initiates Phase 0 scoping
+kickoff; legal-framework finalisation (§12) runs in parallel and must be
+executed before Phase 1 start.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Lifetime Oy</th>
+<th>Outokumpu Oyj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Signed by</td>
+<td>Risto Anton Päärni, CEO</td>
+<td><em>[Name + title]</em></td>
+</tr>
+<tr class="even">
+<td>Date</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Email</td>
+<td>risto.paarni@lifetime.fi</td>
+<td><em>[Email]</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="document-control">Document control</h2>
+<ul>
+<li>Sources for commercial terms:
+<code>sales-outreach/LETTER_ARI_HIRVONEN_OUTOKUMPU_MATERIAL_PACKAGE.md</code>,
+<code>sales-outreach/LETTER_ARI_HIRVONEN_OUTOKUMPU_REPLY2_CLARIFICATION.md</code>.</li>
+<li>Sources for measurement baselines:
+<code>sales-outreach/CYCLE_TIME_BENCHMARK_OUTOKUMPU_FORTA.md</code>.</li>
+<li>Sources for sovereignty / compliance:
+<code>DWS_STANDARDS_LIBRARY.md</code> §3.1, §3.3, §3.6.</li>
+<li>Companion document:
+<code>sales-outreach/NVIDIA_HARDWARE_LINE_ITEMS_OUTOKUMPU.md</code>.</li>
+<li>Sources for the continuity requirement and the phase structure (new
+in v2.0):
+<code>kb/wiki/concepts/network-independent-critical-operation.md</code>,
+<code>docs/field-notes/2026-07-30-network-independent-critical-operation.md</code>,
+<code>Store/PRODUCT_AEGIS_PILOT.md</code> (the €19,990 list SKU whose
+phase plan this instantiates).</li>
+<li>Price of record:
+<code>bids/OUTOKUMPU/OUTOKUMPU_HINTALOMAKE.md</code> (27.6.2026,
+€24,000). <strong>This sheet does not change it.</strong></li>
+<li>v2.0 supersedes v1.0. v1.0 was never issued; the pre-send checklist
+below was never cleared.</li>
+</ul>
+<h2 id="pre-send-checklist-for-risto">Pre-send checklist for Risto</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Fill all <code>[TBD]</code> fields
+in §1, §3, §4, §13</label></li>
+<li><label><input type="checkbox"></input>Confirm Outokumpu business ID + VAT
+(PRH lookup)</label></li>
+<li><label><input type="checkbox"></input>Confirm Customer commercial
+signatory (likely Outokumpu CFO or Procurement Director — Ari to
+nominate)</label></li>
+<li><label><input type="checkbox"></input>Confirm preferred payment schedule
+(default 50/50 in §4; adjust if Outokumpu standard AP terms
+differ)</label></li>
+<li><label><input type="checkbox"></input>R05 General Counsel review of §11
+(IP ownership) and §12 (Legal framework) before issue</label></li>
+</ul>
+<p><strong>New in v2.0 — clear before issue:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>Confirm the €24,000 vs
+€19,990 reconciliation in §4.1 is one you will defend to
+procurement.</strong> If Outokumpu’s procurement compares against the
+published list price, the four scope lines are the answer — check they
+are accurate before they are read back to you.</label></li>
+<li><label><input type="checkbox"></input><strong>Confirm KPI 4 is a gate you
+want in a customer-facing document.</strong> It can fail, and it is
+written so that failing is a legitimate delivered outcome. That is the
+honest framing and it is deliberate — but it is a commercial choice, not
+a technical one.</label></li>
+<li><label><input type="checkbox"></input><strong>Confirm Outokumpu can
+authorise a genuine outage window at Tornio</strong> (§6 Phase 3). If
+Operations cannot sever the uplink on a continuously-operating mill even
+under a planned window, KPI 4 needs an agreed simulation boundary — and
+that boundary must be written into Phase 0, not improvised in week
+11.</label></li>
+<li><label><input type="checkbox"></input>Route to <strong>Operations / Plant
+Director</strong> as well as Ari — KPI 4 answers to Operations and the
+CISO, not to the IP function (see
+<code>sales-outreach/INTRO_CONTROL_ROOM_OUTOKUMPU_TORNIO.md</code> for
+the Operations door).</label></li>
+<li><label><input type="checkbox"></input>Convert to PDF:
+<code>pandoc PILOT_SHEET_OUTOKUMPU_FORTA.md -o PILOT_SHEET_OUTOKUMPU_FORTA.pdf --pdf-engine=xelatex --variable=geometry:a4paper,margin=20mm</code></label></li>
+<li><label><input type="checkbox"></input>Attach PDF (not .md) to the
+email</label></li>
+</ul>
+</body>
+</html>

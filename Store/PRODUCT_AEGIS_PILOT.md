@@ -44,6 +44,54 @@ The five requirements that define a control-room deployment, demonstrated rather
 - Hardware sizing for production — informed by measured behaviour on your workload rather than a vendor spec sheet.
 - A written recommendation, including the honest one: if your workload does not need local-first, the pilot says so.
 
+## How the three months run
+
+Five phases. The ordering is deliberate: the substrate is proven before the workflow exists, and the acceptance test is rehearsed before it is taken. Each phase has an exit gate, and a gate that does not pass is reported rather than worked around.
+
+### Phase 0 — Scoping and baseline · weeks 0–2 · no charge
+
+**Objective.** Establish what "the core outcome" actually is, precisely enough that it can be tested.
+
+- **We do:** site, workflow and deployment-mode selection workshop; read-only audit of the source systems; **criticality classification** — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.
+- **You do:** nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window and its date.
+- **Exit gate:** a one-page signed scope — site, workflow, deployment mode, and the three acceptance conditions written in *your* operational language, not ours.
+- **This phase fails if** the workflow cannot be described as a terminating sequence with a defined "complete" state. If there is no completion, there is nothing to test, and we say so before you have spent anything.
+
+### Phase 1 — Local substrate · weeks 3–5
+
+**Objective.** Stand up execution, identity, evidence and kill authority on site. Nothing about your workflow yet.
+
+- **We do:** deploy the execution runtime and local model serving on your hardware or a compact edge appliance; issue KYA agent identity that resolves locally, with no reachable control plane; stand up the Article 12 log writer against local durable storage; wire the kill path operator → running agent with no network hop.
+- **You do:** hardware placement, power, network segment, operator account provisioning.
+- **Exit gate:** the **four locals** demonstrated in isolation with the uplink already down — an agent runs, is identified, writes a record, and can be stopped.
+- **Why before the workflow.** Proving the substrate first means a Phase 3 failure is a workflow problem, not a platform problem. If identity or kill authority turns out to need a round-trip, that is the pilot's finding and it is reported at week 5, not discovered at week 11.
+
+### Phase 2 — Workflow integration · weeks 6–9
+
+**Objective.** Your actual control-room workflow, running on the local substrate.
+
+- **We do:** configure the agent set that workflow requires and no more; read-only source-system integration; map each decision point to the Article 12 record schema; implement the degraded-mode behaviour and the reconnect reconciliation order specified in Phase 0.
+- **You do:** the workflow owner validates each decision point; the operator is trained on the kill path.
+- **Exit gate:** the workflow runs to completion online, with a complete Article 12 record, accepted by its owner.
+- **This phase fails if** a step classified core turns out to need the network. That either reclassifies the step or redesigns it — surfaced here, where it is cheap.
+
+### Phase 3 — Severed-uplink acceptance test · weeks 10–11
+
+**Objective.** The binary KPI, announced, witnessed and recorded.
+
+- **We do:** a **rehearsal run** first under a short window, with findings fixed; then the acceptance run under the agreed window with your witness present; instrumented capture of all three conditions; observation of reconnection behaviour and verification that reconciliation happens in the specified order.
+- **You do:** authorise the window; provide the witness; your operator executes the stop.
+- **Exit gate — all three, or it is a negative result:** (i) the workflow ran to completion without network access, (ii) the Article 12 record was written locally throughout, with no gap, (iii) the operator stopped a running agent.
+- **Why rehearse.** An unrehearsed test measures the deployment engineer's luck, not the architecture. The rehearsal is where problems are meant to appear.
+
+### Phase 4 — Sizing, report and decision · weeks 12–13
+
+**Objective.** Convert measured behaviour into a production decision.
+
+- **We do:** production hardware sizing derived from your measured load, not a vendor spec sheet; deployment mode confirmed or revised against what the test actually showed; before/after report against the baseline; written recommendation and conversion terms.
+- **You do:** decide.
+- **Exit gate:** report delivered and walked through. The credit terms below run from here.
+
 ## Pricing
 
 | | |

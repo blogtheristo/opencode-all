@@ -1625,6 +1625,13 @@
         "Custom ERP, BIM or SCADA integrations",
         "The DWS-AEGIS-IMPL-001 Implementation Programme (EUR 45,000, additive and not credited)",
         "Credit is capped at EUR 19,990, applies only against Aegis onboarding (EUR 59,990 baseline), and lapses if the customer does not proceed within 6 months"
+      ],
+      "phases": [
+        "Phase 0 — Scoping and baseline (weeks 0-2, no charge): site, workflow and deployment mode locked; every workflow step classified core (must survive an outage) or non-core; degradation and reconciliation spec drafted; the three acceptance conditions written in the customer's own operational language; outage window dated",
+        "Phase 1 — Local substrate (weeks 3-5): execution runtime, model serving, KYA identity, Article 12 log writer and operator kill authority stood up on site, each resolving locally with no control-plane round trip. Exit gate is the four locals proven with the uplink already down, before any customer workflow exists",
+        "Phase 2 — Workflow integration (weeks 6-9): the agent set that workflow requires and no more; read-only source-system integration; decision points mapped to the Article 12 record schema; degraded-mode behaviour and reconnect reconciliation implemented per the Phase 0 spec. Exit gate is the workflow running to completion online, accepted by its owner",
+        "Phase 3 — Severed-uplink acceptance test (weeks 10-11): rehearsal run first with findings fixed, then the witnessed acceptance run under the agreed window. Binary gate — workflow completes, Article 12 record written locally with no gap, operator stops a running agent. All three, or the pilot reports a negative result",
+        "Phase 4 — Sizing, report and decision (weeks 12-13): production hardware sizing derived from measured load rather than a spec sheet; deployment mode confirmed or revised against what the test showed; before/after report and written recommendation, including the recommendation not to proceed where the evidence supports it"
       ]
     },
     "DWS-AEGIS-IMPL-001": {
