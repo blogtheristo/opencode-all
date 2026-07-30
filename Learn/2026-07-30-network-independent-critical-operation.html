@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-30-network-independent-critical-operation</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-30-network-independent-critical-operation</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: Network-independent critical operation — the hybrid-war premise for Aegis pilots
+Version: 1.0
+Date: 2026-07-30
+Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
+Owner: Lifetime Oy
+Status: Active — locked decision
+Agent: Claude Code, session claude/enterprise-ai-harness-0anl7s
+Purpose: Record the HIC's locked decision that in a hybrid-war environment a
+         manufacturing facility is dual-use critical infrastructure, so loss of
+         connectivity must not stop production or the core compliance workflow.
+         Captures the five pilot requirements, the commercial line, the conflict
+         this creates with the current Aegis product overview, and why the
+         continuity argument is commercially stronger than the economic one
+         captured earlier the same day.
+Related: kb/wiki/concepts/network-independent-critical-operation.md,
+         kb/wiki/concepts/bounded-not-zero-sovereign-compute-economics.md,
+         Store/PRODUCT_AEGIS.md,
+         DWS_DEPLOYMENT_STANDARD.md,
+         docs/PHD_FIREHORSE_EN.md §14.45 (Finding 2 / Finding 5),
+         docs/field-notes/2026-07-30-hic-decisions-executed.md
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the locked decision and its five pilot requirements, the commercial line, the conflict with the Aegis product overview ("available exclusively on European cloud or enterprise private cloud" — offline appears only as a premium tier), and the evidential asymmetry that makes continuity the stronger lead claim. Raises Q6.
+-->
+<h1 id="field-note-network-independent-critical-operation-the-hybrid-war-premise-for-aegis">Field
+Note — Network-Independent Critical Operation: the Hybrid-War Premise
+for Aegis</h1>
+<p><strong>Document Type:</strong> Field Note — Locked Architectural /
+Commercial Decision <strong>Scope:</strong> The operating premise for
+dual-use manufacturing pilots under hybrid-war conditions, the five
+requirements it imposes, and the product-doc conflict it exposes.
+Decision recorded and product overview corrected; tiering and pricing
+consequences deliberately <strong>not</strong> decided here.
+<strong>Ontology Tags:</strong> Geography &gt; EU-27, Finland, Nordics |
+Sector &gt; Defence &amp; Dual-Use &gt; Critical Manufacturing,
+Resilience | Regulatory &gt; NIS2, CER Directive, EU AI Act Art. 12 |
+Entities &gt; DWS IQ Aegis, Control Room, Situation Room, Lifetime Oy |
+Temporal Context &gt; 2026-Q3, hybrid-threat environment | Confidence
+&gt; HIGH — this is a stated HIC decision, not an inference</p>
+<h2 id="the-decision">1. The decision</h2>
+<blockquote>
+<p>In a hybrid-war environment, a manufacturing facility must be treated
+as <strong>dual-use critical infrastructure</strong>: loss of network
+connectivity cannot stop production or the core compliance workflow.</p>
+</blockquote>
+<p>Stated by the HIC on 30.07.2026 as an <strong>operational premise,
+not a deployment preference</strong>. It is upstream of tiering, hosting
+and pricing — it determines what the product must do before any of those
+conversations start.</p>
+<p><strong>Five pilot requirements follow:</strong></p>
+<ol type="1">
+<li>Local execution and local evidence.</li>
+<li>Local identity, logs and kill authority.</li>
+<li>No network dependency for the core outcome.</li>
+<li>Cloud only for optional sync, backup or non-critical reporting.</li>
+<li>Graceful degradation during outages.</li>
+</ol>
+<p><strong>The commercial line:</strong></p>
+<blockquote>
+<p><strong>Aegis keeps critical compliance and control-room workflows
+running when the network cannot be trusted.</strong></p>
+</blockquote>
+<p>This is deliberately not “on-prem” or “air-gapped”. Those name a
+<em>topology</em>; this names the <em>outcome being bought</em>. A
+defence-adjacent buyer knows what on-prem is and is unmoved by it — they
+care whether the line keeps running and whether the record survives when
+the link drops.</p>
+<h2 id="the-conflict-this-exposes-surface-it-do-not-average-it-rule-7">2.
+The conflict this exposes (surface it, do not average it — Rule 7)</h2>
+<p><code>Store/PRODUCT_AEGIS.md</code> currently opens with:</p>
+<blockquote>
+<p>“…a hardened platform — <strong>available exclusively on European
+cloud or enterprise private cloud</strong>.”</p>
+</blockquote>
+<p>and lists air-gapped / on-premises operation only under the
+<strong>Aegis Sovereign</strong> tier (€4,999/mo, custom onboarding).
+Under the locked decision that framing is backwards in two ways:</p>
+<ul>
+<li>It presents network-independent operation as a <strong>premium
+upgrade</strong> when the decision makes it the <strong>baseline
+premise</strong> for the dual-use manufacturing case Aegis exists to
+serve.</li>
+<li>“Exclusively on European cloud or enterprise private cloud” reads as
+though local execution is <em>outside</em> the product, which is the
+opposite of what a hybrid-war buyer needs to hear in the first
+paragraph.</li>
+</ul>
+<p><strong>Corrected in this change:</strong> the overview now states
+the continuity premise and the commercial line. <strong>Not decided in
+this change:</strong> whether offline-capable operation moves into
+Standard/Defence, or stays a Sovereign-tier capability with the premise
+stated product-wide. That is a commercial call with pricing consequences
+— see Q6 (§5).</p>
+<h2 id="why-this-argument-is-stronger-than-the-economic-one-from-earlier-today">3.
+Why this argument is stronger than the economic one from earlier
+today</h2>
+<p>Earlier in this same session, §14.45 and the published post argued
+for local execution on <strong>economic</strong> grounds: harness token
+intensity makes metered pricing unviable for deep industrial workflows.
+That argument is sound and is now in the thesis. It is also the
+<em>weaker</em> of the two DWS holds.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Continuity</strong> (this note)</th>
+<th><strong>Economics</strong> (§14.45)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Claim</td>
+<td>Critical workflows survive network loss</td>
+<td>Unpredictable per-token exposure → bounded cost base</td>
+</tr>
+<tr class="even">
+<td>Evidence status</td>
+<td><strong>Provable today</strong> — pull the cable during the
+pilot</td>
+<td><strong>Awaits measurement</strong> — the depth-curve knee is
+unrun</td>
+</tr>
+<tr class="odd">
+<td>Buyer</td>
+<td>Operations, security, continuity planning</td>
+<td>Finance, procurement</td>
+</tr>
+<tr class="even">
+<td>Failure if wrong</td>
+<td>Demonstrable on site, immediately</td>
+<td>Argument collapses quietly under audit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lead with continuity in pilot material.</strong> It is
+demonstrable now, it does not depend on the unrun sweep, and it is the
+argument a hybrid-war buyer is already making internally. Keep the
+economic argument in the same conversation — but it must not be
+load-bearing in a proposal while it still carries an unmeasured
+constant.</p>
+<p>This is also a useful check on the day’s earlier enthusiasm: the
+session spent considerable effort making the economic case rigorous, and
+the stronger commercial case was sitting one premise away the whole
+time.</p>
+<h2 id="regulatory-anchoring">4. Regulatory anchoring</h2>
+<p>Not only commercial. NIS2 and the CER Directive already impose
+continuity obligations on essential and critical entities. More sharply:
+the <strong>EU AI Act Article 12 record must exist for decisions taken
+<em>during</em> an outage</strong>, not be reconstructed afterwards. An
+architecture whose evidence chain pauses when the uplink drops has an
+Article 12 gap at exactly the moment the record matters most — during
+the disruption it is meant to document.</p>
+<p>That reframes the requirement from resilience engineering into
+compliance engineering, which is the layer DWS actually sells.</p>
+<h2 id="what-was-done-and-the-open-decision">5. What was done, and the
+open decision</h2>
+<p><strong>Done in this change:</strong> the decision recorded here and
+as a reusable requirement set
+(<code>kb/wiki/concepts/network-independent-critical-operation.md</code>,
+with a five-point architecture test);
+<code>Store/PRODUCT_AEGIS.md</code> overview corrected to state the
+premise and the commercial line.</p>
+<p><strong>Not done — deliberately:</strong> no tier restructure, no
+pricing change, no deployment-standard rewrite, no roadmap
+re-sequencing. Those follow the decision below.</p>
+<h3 id="hic-question-q6-eu-ai-act-art.-14-intervention-point">HIC
+question Q6 (EU AI Act Art. 14 intervention point)</h3>
+<p><strong>Q6. Network-independent operation is now the premise for the
+dual-use case. Does it move into the base tiers, or stay a
+Sovereign-tier capability?</strong></p>
+<p><strong>Options:</strong></p>
+<ol type="1">
+<li><strong>Move offline-capable operation into Aegis Standard and
+Defence.</strong> Matches the premise exactly: every dual-use
+manufacturing pilot gets it, because every such facility is critical
+infrastructure. Cost: it removes the single clearest reason to buy
+Sovereign, and Standard/Defence are currently software-only with no
+customer-sited hardware assumption — so the tier economics change
+materially.</li>
+<li><strong>Keep it in Sovereign; state the premise
+product-wide.</strong> The overview says loss of connectivity must not
+stop production; the <em>implementation</em> that delivers it remains
+the Sovereign tier. Preserves the pricing ladder. Risk: a buyer who
+reads the premise and then finds it costs €4,999/mo experiences it as a
+bait, which is worse than never having claimed it.</li>
+<li><strong>Split the requirement.</strong> Local evidence, local kill
+authority and graceful degradation become baseline in all tiers (they
+are governance, and DWS sells governance). Full local <em>execution</em>
+of the physical layer stays Sovereign, because it genuinely requires
+customer-sited hardware DWS does not resell.</li>
+</ol>
+<p><strong>(RECOMMEND: 3.</strong> It is the only option where the tier
+boundary follows a real technical boundary rather than a pricing
+preference. Requirements 2 and 5 — local identity/logs/kill authority,
+and specified degradation — are software and governance; DWS can and
+should deliver them everywhere, and requirement 2 in particular is where
+the Article 12 gap in §4 actually bites. Requirement 1’s
+<em>execution</em> half needs a box on site, which is a genuine
+Sovereign-tier distinction and defensible to a buyer as such. Option 1
+gives away the tier for nothing; option 2 states a premise the base
+product cannot honour, which is the failure mode this session has been
+correcting all day.)</p>
+<ul>
+<li><strong>Reversibility:</strong> two-way door while it is internal
+wording; becomes <strong>ONE-WAY</strong> the moment it is quoted in a
+pilot proposal or a price list, because a capability promised and then
+re-scoped is a trust event.</li>
+<li><strong>Unblocks:</strong> pilot scoping for dual-use manufacturing;
+whether <code>DWS_DEPLOYMENT_STANDARD.md</code> needs a degraded-mode
+profile per tier; the Aegis roadmap’s edge-cloud split (item 4, Q1
+2027).</li>
+<li><strong>Cost of delay:</strong> moderate and rising. The premise is
+now stated in a public-facing product document; leaving the tier
+question open means the first buyer conversation resolves it by
+accident.</li>
+<li><strong>Rests on:</strong> <strong>verified</strong> — the decision
+itself is a direct HIC statement, and the product-doc conflict is quoted
+from the file. <strong>Not verified:</strong> that Standard/Defence
+<em>can</em> deliver requirements 2 and 5 without customer hardware.
+That is an engineering question this note does not answer and option 3
+depends on.</li>
+</ul>
+<h2 id="the-five-step-learning-standard-record">6. The five-step
+Learning Standard record</h2>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 40%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Step</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Knowledge base</strong></td>
+<td>✅
+<code>kb/wiki/concepts/network-independent-critical-operation.md</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Field note</strong></td>
+<td>✅ this file</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong><code>Learn/</code> HTML</strong></td>
+<td>✅
+<code>Learn/2026-07-30-network-independent-critical-operation.html</code>
++ <code>.docx</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Drive export</strong></td>
+<td>✅ <code>2026 DWS6</code> folder</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>HIC question</strong></td>
+<td>✅ <strong>Q6</strong>, §5</td>
+</tr>
+</tbody>
+</table>
+<h2 id="provenance-note">7. Provenance note</h2>
+<p>Recorded per the HIC’s instruction as a <strong>locked decision in
+the current workstream</strong>. The HIC noted that an attempt to
+persist it as a durable profile fact in an external system hit that
+system’s size limit — which is precisely the failure mode
+<code>DWS_LEARNING_STANDARD.md</code> §1 names: knowledge that only an
+ephemeral session held. It is therefore recorded here, in git, where it
+survives.</p>
+<hr />
+<p><em>This document follows DWS Document Standard and DWS Learning
+Standard (EU AI Act Article 14).</em> <em>Ontology: Defence &amp;
+Dual-Use &gt; Critical Manufacturing &gt; Continuity Under Hybrid Threat
+&gt; Network-Independent Operation</em></p>
+</body>
+</html>

@@ -20,9 +20,17 @@ mpn: "DWS-AEGIS-2026"
 
 ## Product Overview
 
-DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and the dual-use manufacturing base that supplies Europe's defence sector. It optimizes and secures physical production facilities, not the tactical frontline. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.
+DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and the dual-use manufacturing base that supplies Europe's defence sector. It optimizes and secures physical production facilities, not the tactical frontline. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — deployed on European cloud, enterprise private cloud, or customer-sited edge hardware, and never on a non-EU hyperscaler.
 
 Named after Athena's shield — Aegis provides protection through intelligence, not just walls.
+
+**Aegis keeps critical compliance and control-room workflows running when the network cannot be trusted.**
+
+In a hybrid-war environment a manufacturing facility is **dual-use critical infrastructure**, and connectivity is an adversary-reachable dependency. Aegis is therefore designed on the premise that **loss of network connectivity must not stop production or the core compliance workflow** — an operational premise, not a deployment preference. Every pilot is scoped against five requirements: local execution and local evidence; local identity, logs and kill authority; no network dependency for the core outcome; cloud only for optional sync, backup or non-critical reporting; and graceful degradation that is specified in advance rather than discovered during an outage.
+
+This is a compliance requirement as much as a resilience one. The EU AI Act Article 12 record must exist for decisions taken **during** a disruption, not be reconstructed afterwards — an evidence chain that pauses when the uplink drops has a gap at exactly the moment the record matters most. NIS2 and the CER Directive impose the continuity obligation alongside it.
+
+_Locked decision, 30.07.2026 — see `docs/field-notes/2026-07-30-network-independent-critical-operation.md`. The tier boundary for delivering each of the five requirements is an open commercial decision (Q6 in that note); the premise above is product-wide._
 
 **Why Aegis exists:** Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.
 

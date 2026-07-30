@@ -159,7 +159,7 @@ hipfire is **RDNA (consumer graphics)**; R-01 specifies **CDNA / Instinct MI300*
 
 # Session close — 2026-07-30
 
-**HIC question counter for this branch: highest used = Q5.** The next decision point raised on
+**HIC question counter for this branch: highest used = Q6.** The next decision point raised on
 `claude/enterprise-ai-harness-0anl7s` is **Q6**, in any document. Per `DWS_LEARNING_STANDARD.md`
 §10.1.1 (added v1.4 this session) the counter is branch-scoped and never restarts — do not open a
 new note at Q1.
@@ -209,3 +209,38 @@ true — worth remembering before trusting a green session-stop.
 4. **Harness-language exposure pack** — 37 public files use `harness`/`swappable`, incl. an investor
    note calling harness engineering "the architectural moat behind DWS IQ 6". Q4 settled the claim;
    whether those surfaces need the narrower wording is undecided.
+
+
+## Locked decision added after session close — network-independent critical operation
+
+**HIC, 30.07.2026:** in a hybrid-war environment a manufacturing facility is **dual-use critical
+infrastructure** — loss of network connectivity **cannot** stop production or the core compliance
+workflow. Operational premise, not a deployment preference. Five pilot requirements: local execution
+and evidence; local identity, logs and kill authority; no network dependency for the core outcome;
+cloud only for optional sync/backup/non-critical reporting; specified graceful degradation.
+
+**Commercial line (use this, not "on-prem"):**
+> Aegis keeps critical compliance and control-room workflows running when the network cannot be trusted.
+
+**Why it matters more than today's economic argument:** continuity is **provable today** — pull the
+cable during the pilot. The §14.45 economic argument still depends on the unrun depth-curve sweep.
+Lead pilot material with continuity; keep economics in the conversation but not load-bearing.
+
+**Article 12 sharpening:** the record must exist for decisions taken *during* an outage, not be
+reconstructed after. An evidence chain that pauses when the uplink drops has its gap at exactly the
+moment it matters. That moves this from resilience engineering to compliance engineering.
+
+**Conflict found and corrected:** `Store/PRODUCT_AEGIS.md` said "available **exclusively** on European
+cloud or enterprise private cloud" and put air-gapped operation behind the €4,999/mo Sovereign tier —
+i.e. sold the premise as a premium upgrade. Overview corrected; **tiers untouched**.
+
+Captured: `docs/field-notes/2026-07-30-network-independent-critical-operation.md`,
+`kb/wiki/concepts/network-independent-critical-operation.md` (with a five-point architecture test),
+`Learn/` HTML, Drive.
+
+**Q6 (OPEN):** does network-independent operation move into Standard/Defence, stay Sovereign-only, or
+split? **RECOMMEND: split** — local evidence, local kill authority and specified degradation are
+governance and belong in every tier; full local *execution* of the physical layer needs a customer
+box and is a genuine Sovereign distinction. Becomes **ONE-WAY** the moment it is quoted in a pilot
+proposal or price list. Open engineering dependency: can Standard/Defence deliver local identity/logs/
+kill authority without customer hardware? Unanswered.
