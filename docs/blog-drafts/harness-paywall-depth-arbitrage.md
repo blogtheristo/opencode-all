@@ -1,4 +1,10 @@
-Status: DRAFT
+Status: APPROVED
+Reviewed-By: Risto Anton Päärni (HIC)
+Reviewed-On: 2026-07-30
+Approval-Record: HIC, 30.07.2026 — "Approve post". Third revision round. Full text shown
+  in one fenced code block on rounds 1 and 2; round 3 applied the Boardy correction (the €0
+  marginal-cost claim was false and was replaced with the bounded-compute-economics framing),
+  whose Act III passage was shown verbatim before approval.
 Slug: harness-paywall-depth-arbitrage
 Title: The Harness Paywall
 Language: en
