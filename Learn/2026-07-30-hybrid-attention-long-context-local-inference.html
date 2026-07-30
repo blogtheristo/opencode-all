@@ -291,10 +291,17 @@ them</td>
 <p>The synthesis, stated plainly:</p>
 <blockquote>
 <p>Agentic harnesses are context-hungry by construction. On a metered
-API, harness overhead is a bill. On a local model with hybrid attention
-and an engine that holds throughput at depth, the same overhead is
-<strong>latency you have already paid for and €0/token</strong>.</p>
+API, harness overhead is an unpredictable bill. On a local model with
+hybrid attention and an engine that holds throughput at depth, the same
+overhead becomes <strong>latency against a bounded, dimensioned cost
+base</strong>.</p>
 </blockquote>
+<p><em>Corrected 30.07.2026 after external review: an earlier version of
+this line read “€0/token”. That is false — electricity, hardware
+amortisation, serving, maintenance and throughput capacity all remain.
+The defensible claim is that <strong>unpredictable per-token API
+exposure is replaced by bounded sovereign compute economics</strong>,
+not that tokens are free.</em></p>
 <p>This is the mechanism that makes the ollama-boss architecture’s local
 tiers viable for <em>real</em> agentic work rather than only for shallow
 classification. The T0/T1 tiers there (<code>qwen2.5:7b</code> workers,
@@ -307,11 +314,11 @@ answer to a problem that note identified and could not solve with the
 models it specified.</p>
 <p><strong>Corollary for the T1 boss slot:</strong> an orchestrator’s
 job is precisely to hold a long, accumulating context. A 72B dense model
-at €0/token that collapses to single digits at depth is a worse
-orchestrator than a 30B-A3B hybrid that holds 40 tok/s — and the hybrid
-also fits far more comfortably in the GN-100’s unified memory. This is
-not a recommendation to re-spec the tier; it is the observation that the
-tier was chosen on the wrong axis.</p>
+with no external per-token bill that collapses to single digits at depth
+is a worse orchestrator than a 30B-A3B hybrid that holds 40 tok/s — and
+the hybrid also fits far more comfortably in the GN-100’s unified
+memory. This is not a recommendation to re-spec the tier; it is the
+observation that the tier was chosen on the wrong axis.</p>
 <h2 id="what-the-specifications-support-verified-see-5">3. What the
 specifications support (verified — see §5)</h2>
 <p><code>Nemotron-Cascade-2-30B-A3B</code>:</p>

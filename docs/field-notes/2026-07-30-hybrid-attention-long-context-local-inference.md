@@ -12,9 +12,11 @@ Purpose: Capture the HIC's field observation that hybrid-attention models
          RDNA-native inference engines (hipfire) hold throughput at context depths
          where N^2 attention collapses. Records why this is the missing third piece
          of the day's harness thread: agentic work needs deep context, the harness
-         is what consumes it, and constant-throughput local inference is what makes
-         that consumption free. Also assesses — precisely — what it does and does
-         not do for risk-register item R-01.
+         is what consumes it, and constant-throughput local inference is what turns
+         that consumption from unpredictable per-token exposure into a bounded,
+         dimensioned cost base — NOT into zero cost (corrected 30.07.2026, §2).
+         Also assesses — precisely — what it does and does not do for
+         risk-register item R-01.
 Related: docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md,
          docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md,
          docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md,
@@ -62,11 +64,13 @@ Two signals were captured earlier today. This is the piece that makes them actio
 
 The synthesis, stated plainly:
 
-> Agentic harnesses are context-hungry by construction. On a metered API, harness overhead is a bill. On a local model with hybrid attention and an engine that holds throughput at depth, the same overhead is **latency you have already paid for and €0/token**.
+> Agentic harnesses are context-hungry by construction. On a metered API, harness overhead is an unpredictable bill. On a local model with hybrid attention and an engine that holds throughput at depth, the same overhead becomes **latency against a bounded, dimensioned cost base**.
+
+_Corrected 30.07.2026 after external review: an earlier version of this line read "€0/token". That is false — electricity, hardware amortisation, serving, maintenance and throughput capacity all remain. The defensible claim is that **unpredictable per-token API exposure is replaced by bounded sovereign compute economics**, not that tokens are free._
 
 This is the mechanism that makes the ollama-boss architecture's local tiers viable for *real* agentic work rather than only for shallow classification. The T0/T1 tiers there (`qwen2.5:7b` workers, `qwen2.5:72b` boss) were specified for **volume**, not for **depth** — and the note's own §4 finding was that the expensive part is *the orchestrator's own accumulating context*. A hybrid-attention model with constant throughput at depth attacks exactly that cost term. It is the local-tier answer to a problem that note identified and could not solve with the models it specified.
 
-**Corollary for the T1 boss slot:** an orchestrator's job is precisely to hold a long, accumulating context. A 72B dense model at €0/token that collapses to single digits at depth is a worse orchestrator than a 30B-A3B hybrid that holds 40 tok/s — and the hybrid also fits far more comfortably in the GN-100's unified memory. This is not a recommendation to re-spec the tier; it is the observation that the tier was chosen on the wrong axis.
+**Corollary for the T1 boss slot:** an orchestrator's job is precisely to hold a long, accumulating context. A 72B dense model with no external per-token bill that collapses to single digits at depth is a worse orchestrator than a 30B-A3B hybrid that holds 40 tok/s — and the hybrid also fits far more comfortably in the GN-100's unified memory. This is not a recommendation to re-spec the tier; it is the observation that the tier was chosen on the wrong axis.
 
 ## 3. What the specifications support (verified — see §5)
 

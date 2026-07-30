@@ -45,7 +45,7 @@ Originates with the **HIC's own observation and measurement**, not with a prior 
 
 ## Why captured
 
-Third piece of the day's harness thread. Nadella: the harness is the durable layer. Composio: the harness is where the money goes (340k-token median for Claude Code). This: those tokens are *context depth*, and whether they cost anything depends on the architecture and engine underneath. On a metered API, harness overhead is a bill; on a hybrid-attention local model with constant throughput at depth, it is latency already paid for at €0/token.
+Third piece of the day's harness thread. Nadella: the harness is the durable layer. Composio: the harness is where the money goes (340k-token median for Claude Code). This: those tokens are *context depth*, and whether they cost anything depends on the architecture and engine underneath. On a metered API, harness overhead is a bill; on a hybrid-attention local model with constant throughput at depth, it becomes latency against a bounded cost base. **Not €0** — electricity, hardware amortisation, serving, maintenance and throughput capacity remain. The defensible claim is that unpredictable per-token exposure is replaced by dimensioned sovereign compute economics (corrected 30.07.2026 after external review).
 
 **R-01 boundary:** hipfire is RDNA (consumer graphics), **not** the CDNA/Instinct MI300 or Gaudi 3 testbed the risk register specifies. It does **not** close R-01. It is evidence the non-NVIDIA exit is real, and a candidate cheaper first increment.
 
