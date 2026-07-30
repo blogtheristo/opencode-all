@@ -1568,6 +1568,41 @@
       "buyPage": 1,
       "buyPageOrder": 1
     },
+    "DWS-AEGIS-PILOT-001": {
+      "id": "DWS-AEGIS-PILOT-001",
+      "gtin": null,
+      "mpn": "DWS-AEGIS-PILOT-2026",
+      "name": "DWS IQ Aegis Pilot (3 months)",
+      "price": 45000,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. Validates the control-room requirement end to end: core agent execution, evidence capture, identity verification, audit logs and human kill authority running on-site, with the core outcome surviving loss of network connectivity. Delivers a scoped architecture, a demonstrated degraded-mode run, and the Article 12 evidence record produced locally throughout.",
+      "features": [
+        "3-month scoped engagement — fixed price, fixed end date",
+        "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
+        "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
+        "Demonstrated uplink-down run — production and the Article 12 record both continue",
+        "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with hardware sizing",
+        "Fully credited against DWS IQ Aegis onboarding if you proceed within 6 months"
+      ],
+      "priceNote": "€45,000 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months — the pilot lowers the risk of the platform decision, it does not add to its cost.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-aegis-head.png",
+      "detailsUrl": "../products/aegis-pilot.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 2
+    },
     "CMP-T0": {
       "id": "CMP-T0",
       "sku": "CMP-T0",
@@ -1578,7 +1613,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Junior compliance analyst",
         "fteCount": 0.25,
@@ -1619,7 +1656,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Junior compliance analyst",
         "fteCount": 0.5,
@@ -1660,7 +1699,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Senior compliance analyst",
         "fteCount": 0.8,
@@ -1701,7 +1742,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Compliance analyst",
         "fteCount": 0.05,
@@ -1742,7 +1785,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Senior compliance analyst",
         "fteCount": 0.08,
@@ -1783,7 +1828,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.2,
@@ -1824,7 +1871,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.4,
@@ -1865,7 +1914,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.8,
@@ -1906,7 +1957,9 @@
       "type": "metered",
       "priceUnit": "per-site-per-day",
       "tier": "meter",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.01,
@@ -1947,7 +2000,9 @@
       "type": "metered",
       "priceUnit": "per-site-per-day",
       "tier": "meter",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.02,
@@ -1988,7 +2043,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.2,
@@ -2029,7 +2086,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.3,
@@ -2070,7 +2129,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "Senior LCA analyst",
         "fteCount": 0.6,
@@ -2111,7 +2172,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.03,
@@ -2152,7 +2215,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "Senior LCA analyst",
         "fteCount": 0.05,
@@ -2193,7 +2258,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["emissions-data"],
+      "agents": [
+        "emissions-data"
+      ],
       "replaces": {
         "role": "ESG data analyst",
         "fteCount": 0.25,
@@ -2234,7 +2301,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["emissions-data"],
+      "agents": [
+        "emissions-data"
+      ],
       "replaces": {
         "role": "ESG data analyst",
         "fteCount": 0.5,
@@ -2275,7 +2344,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["schedule-genius"],
+      "agents": [
+        "schedule-genius"
+      ],
       "replaces": {
         "role": "Project planner",
         "fteCount": 0.3,
@@ -2316,7 +2387,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["schedule-genius"],
+      "agents": [
+        "schedule-genius"
+      ],
       "replaces": {
         "role": "Project planner",
         "fteCount": 0.6,
@@ -2357,7 +2430,11 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["sitesense", "material-oracle", "schedule-genius"],
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius"
+      ],
       "replaces": {
         "role": "Construction PM",
         "fteCount": 0.7,
@@ -2398,7 +2475,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["logistics"],
+      "agents": [
+        "logistics"
+      ],
       "replaces": {
         "role": "Logistics planner",
         "fteCount": 0.3,
@@ -2439,7 +2518,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["logistics"],
+      "agents": [
+        "logistics"
+      ],
       "replaces": {
         "role": "Logistics planner",
         "fteCount": 0.5,
@@ -2480,7 +2561,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["sovereignty"],
+      "agents": [
+        "sovereignty"
+      ],
       "replaces": {
         "role": "DPO assistant",
         "fteCount": 0.2,
@@ -2521,7 +2604,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["sovereignty"],
+      "agents": [
+        "sovereignty"
+      ],
       "replaces": {
         "role": "DPO assistant",
         "fteCount": 0.5,
@@ -2562,7 +2647,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["quality-gate"],
+      "agents": [
+        "quality-gate"
+      ],
       "replaces": {
         "role": "QA reviewer",
         "fteCount": 0.2,
@@ -2603,7 +2690,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["quality-gate"],
+      "agents": [
+        "quality-gate"
+      ],
       "replaces": {
         "role": "QA reviewer",
         "fteCount": 0.4,
@@ -2644,7 +2733,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["customer-sat"],
+      "agents": [
+        "customer-sat"
+      ],
       "replaces": {
         "role": "Customer success analyst",
         "fteCount": 0.15,
@@ -2685,7 +2776,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["customer-sat"],
+      "agents": [
+        "customer-sat"
+      ],
       "replaces": {
         "role": "Customer success analyst",
         "fteCount": 0.3,
@@ -2726,7 +2819,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["lead-feedback"],
+      "agents": [
+        "lead-feedback"
+      ],
       "replaces": {
         "role": "Sales analyst",
         "fteCount": 0.15,
@@ -2767,7 +2862,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["lead-feedback"],
+      "agents": [
+        "lead-feedback"
+      ],
       "replaces": {
         "role": "Sales analyst",
         "fteCount": 0.3,
@@ -2808,7 +2905,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["competitor-surveillance"],
+      "agents": [
+        "competitor-surveillance"
+      ],
       "replaces": {
         "role": "Market analyst",
         "fteCount": 0.2,
@@ -2849,7 +2948,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["competitor-surveillance"],
+      "agents": [
+        "competitor-surveillance"
+      ],
       "replaces": {
         "role": "Market analyst",
         "fteCount": 0.4,
@@ -2890,7 +2991,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["seo-audit"],
+      "agents": [
+        "seo-audit"
+      ],
       "replaces": {
         "role": "SEO specialist",
         "fteCount": 0.1,
@@ -2931,7 +3034,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["seo-audit"],
+      "agents": [
+        "seo-audit"
+      ],
       "replaces": {
         "role": "SEO specialist",
         "fteCount": 0.25,
@@ -2972,7 +3077,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["deepwiki-extractor"],
+      "agents": [
+        "deepwiki-extractor"
+      ],
       "replaces": {
         "role": "Research analyst",
         "fteCount": 0.1,
@@ -3013,7 +3120,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["deepwiki-extractor"],
+      "agents": [
+        "deepwiki-extractor"
+      ],
       "replaces": {
         "role": "Research analyst",
         "fteCount": 0.2,
@@ -3054,7 +3163,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["viability"],
+      "agents": [
+        "viability"
+      ],
       "replaces": {
         "role": "Strategy analyst",
         "fteCount": 0.2,
@@ -3095,7 +3206,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["viability"],
+      "agents": [
+        "viability"
+      ],
       "replaces": {
         "role": "Strategy analyst",
         "fteCount": 0.4,
@@ -3136,7 +3249,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["themis"],
+      "agents": [
+        "themis"
+      ],
       "replaces": {
         "role": "Ops coordinator",
         "fteCount": 0.5,
@@ -3178,7 +3293,12 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["material-oracle", "emissions-data", "compliance", "themis"],
+      "agents": [
+        "material-oracle",
+        "emissions-data",
+        "compliance",
+        "themis"
+      ],
       "replaces": {
         "role": "ESG/Compliance lead",
         "fteCount": 1.75,
@@ -3220,7 +3340,11 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["sitesense", "compliance", "themis"],
+      "agents": [
+        "sitesense",
+        "compliance",
+        "themis"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 1.25,
@@ -3262,7 +3386,13 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["sitesense", "material-oracle", "schedule-genius", "logistics", "themis"],
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
       "replaces": {
         "role": "Construction PM and planner",
         "fteCount": 2,
@@ -3304,7 +3434,11 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["sovereignty", "compliance", "quality-gate"],
+      "agents": [
+        "sovereignty",
+        "compliance",
+        "quality-gate"
+      ],
       "replaces": {
         "role": "Compliance + 0.3 DPO",
         "fteCount": 1.3,
@@ -3346,7 +3480,12 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["seo-audit", "competitor-surveillance", "lead-feedback", "customer-sat"],
+      "agents": [
+        "seo-audit",
+        "competitor-surveillance",
+        "lead-feedback",
+        "customer-sat"
+      ],
       "replaces": {
         "role": "Marketing and CS analysts",
         "fteCount": 1.5,
@@ -3388,7 +3527,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T4",
-      "agents": ["all"],
+      "agents": [
+        "all"
+      ],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
         "fteCount": 7,
@@ -3430,7 +3571,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "construction vertical SME",
         "fteCount": 0.3,
@@ -3453,7 +3596,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3474,7 +3620,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "energy vertical SME",
         "fteCount": 0.3,
@@ -3497,7 +3645,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3518,7 +3669,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "steel ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -3541,7 +3694,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3562,7 +3718,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "aluminium ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -3585,7 +3743,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3606,7 +3767,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "cement ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -3629,7 +3792,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3650,7 +3816,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "agri/circular vertical SME",
         "fteCount": 0.3,
@@ -3673,7 +3841,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3694,7 +3865,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "maritime ops vertical SME",
         "fteCount": 0.3,
@@ -3717,7 +3890,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3738,7 +3914,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "hydrogen vertical SME",
         "fteCount": 0.3,
@@ -3761,7 +3939,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3782,7 +3963,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "battery storage vertical SME",
         "fteCount": 0.3,
@@ -3805,7 +3988,10 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3825,7 +4011,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "AI literacy programme manager",
         "fteCount": 0.4,
@@ -3869,7 +4057,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Senior compliance lead",
         "fteCount": 0.6,
@@ -3915,7 +4105,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.7,
@@ -3959,7 +4151,12 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["material-oracle", "emissions-data", "compliance", "themis"],
+      "agents": [
+        "material-oracle",
+        "emissions-data",
+        "compliance",
+        "themis"
+      ],
       "replaces": {
         "role": "ESG reporting lead",
         "fteCount": 1.5,
@@ -4005,7 +4202,10 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["material-oracle", "emissions-data"],
+      "agents": [
+        "material-oracle",
+        "emissions-data"
+      ],
       "replaces": {
         "role": "LCA specialist",
         "fteCount": 0.8,
@@ -4049,7 +4249,11 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["sovereignty", "compliance", "quality-gate"],
+      "agents": [
+        "sovereignty",
+        "compliance",
+        "quality-gate"
+      ],
       "replaces": {
         "role": "Compliance + DPO",
         "fteCount": 1,
@@ -4095,7 +4299,13 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["sitesense", "material-oracle", "schedule-genius", "logistics", "themis"],
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
       "replaces": {
         "role": "Construction PM and planner",
         "fteCount": 1.8,
@@ -4139,7 +4349,12 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["seo-audit", "competitor-surveillance", "lead-feedback", "customer-sat"],
+      "agents": [
+        "seo-audit",
+        "competitor-surveillance",
+        "lead-feedback",
+        "customer-sat"
+      ],
       "replaces": {
         "role": "GTM analyst team",
         "fteCount": 1.3,
@@ -4183,7 +4398,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["themis"],
+      "agents": [
+        "themis"
+      ],
       "replaces": {
         "role": "Ops coordinator",
         "fteCount": 0.5,
@@ -4227,7 +4444,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["all"],
+      "agents": [
+        "all"
+      ],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
         "fteCount": 6.5,
@@ -4272,7 +4491,12 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["compliance", "sovereignty", "quality-gate", "themis"],
+      "agents": [
+        "compliance",
+        "sovereignty",
+        "quality-gate",
+        "themis"
+      ],
       "replaces": {
         "role": "Compliance officer + 0.3 DPO",
         "fteCount": 1.5,
@@ -4314,7 +4538,13 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["lead-feedback", "customer-sat", "competitor-surveillance", "seo-audit", "themis"],
+      "agents": [
+        "lead-feedback",
+        "customer-sat",
+        "competitor-surveillance",
+        "seo-audit",
+        "themis"
+      ],
       "replaces": {
         "role": "Marketing/CS team lead",
         "fteCount": 1.4,
@@ -4356,7 +4586,13 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["customer-sat", "viability", "schedule-genius", "logistics", "themis"],
+      "agents": [
+        "customer-sat",
+        "viability",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
       "replaces": {
         "role": "Commerce ops lead",
         "fteCount": 1.5,
@@ -4551,13 +4787,19 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-06-09T00:00:00Z",
-  "priceVersion": "1.20",
+  "lastUpdated": "2026-07-30T00:00:00Z",
+  "priceVersion": "1.24",
   "priceList": {
     "version": "1.23",
     "effectiveDate": "2026-07-16",
@@ -4580,12 +4822,22 @@
   },
   "priceHistory": [
     {
+      "version": "1.24",
+      "date": "2026-07-30",
+      "author": "claude/enterprise-ai-harness-0anl7s",
+      "changes": [
+        "NEW SKU DWS-AEGIS-PILOT-001 (DWS IQ Aegis Pilot, 3 months): €45,000 one-time. Reference scope carried over from the April 2026 Aegis engagement model.",
+        "Structured as a CREDITED stage, not an additive fee: the €45,000 is credited in full against the €59,990 Aegis onboarding if the customer proceeds within 6 months. Net cost to production is unchanged at €59,990. The April model implied €45,000 + €59,990 = €104,990 before production, which reads as paying twice for one journey and does not survive procurement review.",
+        "Created because the 3-month Aegis Pilot was named in customer-facing copy with no SKU here, which would have drifted the figure between copy and feed."
+      ]
+    },
+    {
       "version": "1.23",
       "date": "2026-07-16",
       "author": "claude/scaleway-pricing-update-19g8df",
       "changes": [
-        "LF-DGX-SPARK (DGX Spark): \u20ac5,994 -> \u20ac6,694. Hardware \u20ac4,999 -> \u20ac5,699 + \u20ac995 install. Per CEO direction: the one hardware SKU held at v1.20 (while Control Room / Situation Room / Jetson AGX were bumped) is now brought in line with the same 'small reseller margin above the NVIDIA/Acer EU channel base' logic.",
-        "Context: NVIDIA raised DGX Spark USD 3,999 -> USD 4,699 (+18%, memory supply) effective 2026-02-23 (see docs/field-notes/2026-07-16-nvidia-hardware-pricing.md). v1.20 had knowingly held DGX Spark at \u20ac5,994 despite that list move; this closes the gap so it is not the only unbumped node. Note: the \u20ac4,999 EMEA hardware line already covered the USD 4,699 list, so this is a margin-forward decision, not a margin-restoration one.",
+        "LF-DGX-SPARK (DGX Spark): €5,994 -> €6,694. Hardware €4,999 -> €5,699 + €995 install. Per CEO direction: the one hardware SKU held at v1.20 (while Control Room / Situation Room / Jetson AGX were bumped) is now brought in line with the same 'small reseller margin above the NVIDIA/Acer EU channel base' logic.",
+        "Context: NVIDIA raised DGX Spark USD 3,999 -> USD 4,699 (+18%, memory supply) effective 2026-02-23 (see docs/field-notes/2026-07-16-nvidia-hardware-pricing.md). v1.20 had knowingly held DGX Spark at €5,994 despite that list move; this closes the gap so it is not the only unbumped node. Note: the €4,999 EMEA hardware line already covered the USD 4,699 list, so this is a margin-forward decision, not a margin-restoration one.",
         "All other SKUs held at v1.22 prices. Finnish / EU B2B (VAT 0% reverse charge) framing preserved.",
         "Synced to landing-pages/dws10-com/config/products.json in the same commit; updated all live customer-visible copies (dgx-spark.html, price-list, Google product feed, healthcare, lwm-ontology, lifetime-vip-ai-services). Auto-generated price-list/versions/ snapshots left to the quarterly-price-list workflow."
       ]
@@ -4697,7 +4949,9 @@
       "version": "1.11",
       "date": "2026-05-10",
       "author": "claude/dynamic-deployment-pricing-LExxQ",
-      "changes": ["Add version field to all products (Green versions)"]
+      "changes": [
+        "Add version field to all products (Green versions)"
+      ]
     },
     {
       "version": "1.12",

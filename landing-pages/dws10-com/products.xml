@@ -813,6 +813,57 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>DWS-AEGIS-PILOT-001</g:id>
+      <g:title>DWS IQ Aegis Pilot (3 months)</g:title>
+      <g:description>&lt;h1&gt;DWS IQ Aegis Pilot&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Prove the local-first path before you buy the silicon&lt;/strong&gt; — a 3-month scoped engagement, part of DWS IQ Aegis&lt;/p&gt;
+&lt;h2&gt;What it is&lt;/h2&gt;
+&lt;p&gt;A fixed-price, fixed-duration engagement that proves the complete &lt;strong&gt;local-first operational path&lt;/strong&gt; for Aegis on infrastructure you already have — or on a compact edge appliance — &lt;strong&gt;before any DGX procurement&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The pilot exists because the control-room requirement is testable. In manufacturing control rooms, dual-use facilities and air-gapped plants, compliance execution cannot depend on external connectivity. That is either true of a deployment or it is not, and the way to find out is to run it and pull the cable — not to model it in a proposal.&lt;/p&gt;
+&lt;h2&gt;What it proves&lt;/h2&gt;
+&lt;p&gt;The five requirements that define a control-room deployment, demonstrated rather than asserted:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Local execution and local evidence&lt;/strong&gt; — the outcome is produced on site, and the evidence of it is written on site.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Local identity, logs and kill authority&lt;/strong&gt; — agent identity, the Article 12 record and the ability to stop an agent all resolve locally.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;No network dependency for the core outcome&lt;/strong&gt; — the critical path completes with the uplink down.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cloud only for optional sync, backup or non-critical reporting&lt;/strong&gt; — never the outcome, never the evidence chain, never the stop.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Graceful degradation&lt;/strong&gt; — specified in advance, then demonstrated, rather than discovered during an incident.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;The acceptance test is deliberately blunt:&lt;/strong&gt; with the uplink cut, does production continue, is the Article 12 record still being written locally, and can an operator still stop an agent? A pilot that cannot answer yes to all three has produced a useful negative result, and you will have learned it for €45,000 instead of after a hardware programme.&lt;/p&gt;
+&lt;h2&gt;What you get&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A scoped architecture for your site, with the deployment mode named (Local / Edge, Hybrid, or EU-Sovereign Cloud) and justified.&lt;/li&gt;
+&lt;li&gt;A demonstrated uplink-down run against your own workflow.&lt;/li&gt;
+&lt;li&gt;The Article 12 evidence record, produced locally throughout the engagement.&lt;/li&gt;
+&lt;li&gt;Hardware sizing for production — informed by measured behaviour on your workload rather than a vendor spec sheet.&lt;/li&gt;
+&lt;li&gt;A written recommendation, including the honest one: if your workload does not need local-first, the pilot says so.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Pricing&lt;/h2&gt;
+&lt;p&gt;| | |
+| --- | --- |
+| &lt;strong&gt;Price&lt;/strong&gt; | €45,000 fixed |
+| &lt;strong&gt;Duration&lt;/strong&gt; | 3 months |
+| &lt;strong&gt;Hardware&lt;/strong&gt; | None purchased. Runs on existing customer infrastructure or a compact edge appliance. |
+| &lt;strong&gt;Credit&lt;/strong&gt; | &lt;strong&gt;Credited in full against the €59,990 Aegis onboarding&lt;/strong&gt; if you proceed within 6 months |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;One net price, not two.&lt;/strong&gt; The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €45,000 you have already paid comes off it. The pilot lowers the risk of the platform decision; it does not add to its cost.&lt;/p&gt;
+&lt;p&gt;If you do not proceed, you keep the architecture, the measurements and the evidence record. Nothing further is owed.&lt;/p&gt;
+&lt;h2&gt;Who it is for&lt;/h2&gt;
+&lt;p&gt;Manufacturing control rooms, dual-use facilities and other critical sites where a network outage is an operational event rather than an inconvenience — and where somebody has to be able to state, to a regulator or a board, what the system did while the link was down.&lt;/p&gt;
+&lt;h2&gt;Related&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DWS IQ Aegis&lt;/strong&gt; — the full platform (&lt;code&gt;DWS-AEGIS-001&lt;/code&gt;), €59,990 onboarding + from €999/mo.&lt;/li&gt;
+&lt;li&gt;Deployment architecture, modes and the control-room requirement: see the Aegis product page.&lt;/li&gt;
+&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>45000 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>CMP-T0</g:id>
       <g:title>Compliance Agent — Pilot (60 days)</g:title>
       <g:description>&lt;p&gt;60-day pilot of the Compliance Agent. 2 gap analyses, watermarked, no SLA.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Replaces Junior compliance analyst ≈ 0.25 FTE&lt;/li&gt;&lt;li&gt;Tier T0&lt;/li&gt;&lt;li&gt;Blue/pilot — internal sign-off required before quoting&lt;/li&gt;&lt;/ul&gt;</g:description>

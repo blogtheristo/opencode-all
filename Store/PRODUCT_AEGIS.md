@@ -175,7 +175,7 @@ Aegis is engineered **local-first** for deep and reliable industrial operations.
 
 Pricing tiers structure commercial coverage, hardware footprint, SLAs, and dedicated engineering support — **they do not gate deployment modes**. Local-first execution is required for control-room deployments, but Aegis does not claim that every enterprise deployment is offline by default.
 
-To validate local execution before committing to major hardware investments, the **3-month Aegis Pilot** proves the complete local operational path directly on existing customer infrastructure or a compact edge appliance prior to DGX procurement.
+To validate local execution before committing to major hardware investments, the **3-month Aegis Pilot** proves the complete local operational path directly on existing customer infrastructure or a compact edge appliance prior to DGX procurement. The pilot is a **staged first payment, not an additional fee** — it is credited in full against Aegis onboarding if you proceed within 6 months, so the total cost to production is unchanged. See `DWS-AEGIS-PILOT-001`.
 
 ## Pricing
 
