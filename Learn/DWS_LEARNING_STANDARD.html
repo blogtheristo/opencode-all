@@ -172,9 +172,26 @@ vertical-align: middle;
 <code>DWS_TRUTH_STANDARD.md</code> §2 row 30.</em></p>
 <hr />
 <h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
-<p>Version: 1.5</p>
+<p>Version: 1.6</p>
 <p>Sessions &amp; Modifications:</p>
 <ul>
+<li>Version: 1.6 | Tool: Claude Code (claude-opus-5) | Session:
+claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes:
+<strong>§4.1 weekend rule strengthened by HIC decision — the EVENT moves
+to the preceding Friday, not just the reminder.</strong> v1.5 said
+“shift the reminder, never the deadline”, which still left the event
+sitting on a Saturday or Sunday where it reads as an action nobody can
+take. The HIC overruled it the day it shipped: a Sunday event is a
+Friday event. Superseded wording retained per Rule 12. Adds the
+distinction that makes the shift safe — <strong>the calendar holds the
+ACTION date, the document holds the DEADLINE</strong> — so the event
+names the true date in both title and description (worked example:
+<code>tilaa uusi kaupparekisteriote (vanhenee su 27.9.)</code> placed on
+Fri 25.9, description opening
+<code>TOIMINTAPÄIVÄ pe 25.9.2026. Todellinen vanhenemispäivä on su 27.9.2026</code>).
+Adds an explicit guard that a shifted event must NEVER propagate back
+into a customer-facing document, contract date or statutory filing date.
+Applied to the live Outokumpu calendar entry the same day.</li>
 <li>Version: 1.5 | Tool: Claude Code (claude-opus-5) | Session:
 claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes:
 <strong>The five-step minimum becomes a SIX-step minimum.</strong> New
@@ -552,10 +569,26 @@ a way of being notified too late politely.</li>
 calendar, so the date survives the individual. Mark informational
 markers as free/non-blocking; only real commitments should consume
 availability.</p>
-<p><strong>Weekend and holiday check.</strong> A date landing on a
-Saturday, a Sunday, or a Finnish public holiday is a date that will be
-actioned late. Shift the <em>reminder</em> — never the deadline — to the
-preceding working day.</p>
+<p><strong>Weekend and holiday rule — the event moves to the preceding
+Friday.</strong> A date landing on a Saturday, a Sunday, or a Finnish
+public holiday will be actioned late, because nobody orders a register
+extract on a Sunday. <strong>Place the calendar event on the preceding
+working day (normally Friday) and name the true date in the title and
+description.</strong> <em>(HIC decision 30.07.2026, superseding the
+weaker v1.5 rule that shifted only the reminder — retained per Rule
+12.)</em></p>
+<p>The distinction that makes this safe: <strong>the calendar holds the
+action date; the document holds the deadline.</strong> The event is not
+a claim about when the obligation falls — it is a claim about when a
+human must move. So the event reads
+<code>tilaa uusi kaupparekisteriote (vanhenee su 27.9.)</code> on Friday
+25.9, and the description opens
+<code>TOIMINTAPÄIVÄ pe 25.9.2026. Todellinen vanhenemispäivä on su 27.9.2026</code>.
+Both facts survive, and neither can be mistaken for the other.</p>
+<p><strong>Never move the deadline itself.</strong> Shifting an event is
+a scheduling convenience inside DWS; it must never propagate back into a
+customer-facing document, a contract date, or a statutory filing date.
+If a document says 27.9, the document keeps saying 27.9.</p>
 <p><strong>Escalation.</strong> Where missing the date is irreversible
 (a lapse, a filing, a tender close), add an email reminder alongside the
 popup. Reserve this; if everything escalates, nothing does.</p>
