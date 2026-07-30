@@ -51,10 +51,16 @@ The resolution is not a leaner harness. It is a different cost substrate.
 
 On a metered API, 340k tokens are a variable cost that scales with exactly the
 behaviour Act I tells you to maximise. On hardware you already own, running an
-architecture that holds throughput as context accumulates, the marginal cost of a
-token approaches zero. The same 340k tokens stop being a bill and become an
-allocation of execution time — latency, already amortised into silicon you bought
-once.
+architecture that holds throughput as context accumulates, the external per-token
+bill disappears.
+
+Be careful with that sentence, because the tempting version of it is false. Tokens
+on your own hardware are not free. You still pay for electricity, for amortising the
+box, for maintenance, for serving the model, and for whichever bottleneck you reach
+first. What changes is the *shape* of the cost: an unpredictable charge that scales
+with how hard your agents think becomes a bounded one you sized in advance. The 340k
+tokens stop being an elastic exposure and become an allocation of capacity you have
+already provisioned.
 
 Two things had to become true for that to work, and both now have. Sub-quadratic
 attention — hybrid designs that mix state-space layers with attention — makes a
@@ -94,8 +100,9 @@ the shift does not remove cost — it **changes the kind of cost you pay**:
 
 - **Metered cloud:** cost scales with tokens; concurrency is effectively unlimited.
   You trade capital for capacity.
-- **Own hardware:** no marginal cost per token; concurrency is capped. You trade
-  peak scale for predictable execution at depth.
+- **Own hardware:** no external per-token bill; the residual cost is bounded and
+  mostly fixed — power, amortisation, maintenance, serving — and concurrency is
+  capped. You trade peak scale for predictable, dimensioned execution at depth.
 
 Run a consumer app on local GPUs and an unplanned surge pushes you past the knee
 and takes your performance with it. Run a bounded fleet and you can dimension the
@@ -104,11 +111,17 @@ left of it. That is the whole trick, and it is a discipline rather than a proper
 **you can only dimension to the left of a knee you have measured.** Under-dimension
 a sovereign deployment and you hit the same wall as everyone else.
 
-We have not yet measured our own. The sweep that would settle it is specific: at
-what context length does KV-cache bandwidth drag generation below interactive
-speed, and where does memory-bound generation give way to queueing. Until we have
-run it on our own hardware, treat the argument above as sound engineering
-reasoning waiting for its constant — which is how we treat it internally.
+We have not yet measured our own. The sweep that would settle it is specific — at
+what context length does KV-cache bandwidth drag generation below interactive speed,
+and where does memory-bound generation give way to queueing — and it has to report
+six things per operating point, not one throughput number: tokens per task, latency,
+concurrent jobs, GPU memory, queue time, and cost per audit-ready output. That last
+one is what turns a systems benchmark into a commercial claim, because it is the
+unit an industrial buyer actually purchases.
+
+Until those exist for our own hardware, everything above is an architectural
+hypothesis rather than a proven result, and we would rather say so than let it be
+read as one.
 
 ## What it means if you are buying
 
@@ -128,8 +141,8 @@ data centre or its ERP. Deferring it is also a decision. It just gets made by
 whoever is holding your context when you want to change something.
 
 **What is defensible is the coupling.** Deep scaffolding is only affordable on
-compute whose marginal cost is zero, and a vendor whose revenue scales with tokens
-has little reason to make token-intensive work cheap. But be precise about the
+compute whose cost is bounded rather than metered, and a vendor whose revenue scales
+with tokens has little reason to make token-intensive work cheap. But be precise about the
 limit of that argument, because a good procurement team will be: metered vendors
 *can* reprice — reserved capacity and provisioned throughput already do. A capacity
 contract answers the bill. It does not answer where your evidence lives, under
