@@ -46,6 +46,64 @@ Captured Satya Nadella's 29.07.2026 Microsoft FY26 Q4 earnings-call framing — 
 (1) Re-cut positioning to the evidence-loop claim across brand/truth standards and site copy · (2) Hold positioning, route to the PhD thesis only · (3) Open cost-per-task pricing as its own work item.
 **RECOMMEND: 2 now, 1 next — but only after the `/truth-check` sweep tells us the blast radius.** Reversibility: two-way for 1 and 2; 3 becomes one-way once priced publicly. Rests on: verified for the signal, propagated-not-verified for the commentary (the conclusion does not depend on it).
 
-## Commit
+## Commit (signal 1)
 
-`learn(hic): HIC Learning Outcome — Nadella harness/model-swappability signal (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)` — field note, raw signal, concept v1.1, Learn HTML + DOCX, this handoff. Pushed to origin.
+`learn(hic): HIC Learning Outcome — Nadella harness/model-swappability signal (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)` — field note, raw signal, concept v1.1, Learn HTML + DOCX, this handoff. Pushed to origin (`57460c6`).
+
+---
+
+# Signal 2 — Composio harness token-efficiency benchmark + DWS harness cost audit (same day)
+
+**Date:** 2026-07-30 · **Status:** Complete, pushed. Capture + audit by HIC decision; **no instrumentation built**.
+
+## What arrived
+
+Composio benchmarked **Kimi K3 across three harnesses on 28 identical tasks**. Same model, same tasks, only the harness changed:
+
+| Harness | Median tokens | Cost/task @ $3/M | Success | Median runtime |
+| --- | --- | --- | --- | --- |
+| Kimi Code | 61k | $0.22 | 22/28 | 297 s |
+| Hermes (Composio's own) | 67k | $0.28 | 21/28 | 179 s |
+| Claude Code | 340k | $2.00 | 20/28 | 348 s |
+
+Up to **30× token spread at comparable success**. This is the **empirical half** of signal 1's §5 cost-per-task sub-signal: Nadella said the harness is the durable layer; Composio measured that it is also where the money goes.
+
+**Two caveats that must travel with the figure:**
+
+1. **Vendor-run.** Hermes is Composio's own harness and it placed near the top of Composio's own benchmark. Never cite the 30× without saying so. One model, one run, unpublished task set.
+2. **Naming collision.** "Hermes" here is Composio's harness — unrelated to DWS's internal Hermes (logistics/ops captain, `AGENTS.md:337`, `DWS_BRAND_STANDARD.md`).
+
+## The audit result — the part that matters internally
+
+**DWS cannot measure its own cost per completed task.** Every row verified in-repo this session:
+
+- `.claude/hooks/audit/bash-commands.log` and `.claude/command-log.txt` — **do not exist here and are not git-tracked** (`.gitignore:78`). Per-session command volume dies with the container.
+- `CLAUDE_AUTO_MODE_BUDGET` — `session-start.sh` only **echoes** it. Rule 6's 4k/30k budgets never accumulate or enforce.
+- `src/agents/base.agent.ts:515-517` — cost-limit policy is a **stub** returning `allowed: true` with the string "(tracking active)". Nothing is tracked. That string is itself a live Rule 12 violation.
+- `agent_executions` (migration 030) — `duration_ms`, **no token/cost columns**.
+- `src/services/token-usage.service.ts` / `token_usage_events` — **already carries `prompt_tokens, completion_tokens, cached_tokens, cost_eur, model, session_id, task_id`**, but instruments *product* usage, not Claude Code sessions. The per-task schema exists and points at the wrong workload.
+
+Surviving proxies (reproducible): 499 commits since 2026-07-01, **325 Claude-authored**; 36 handoff files, 95 handoff additions. Plus one token observation on record — ollama-boss §4, ~25 subagents × 80k–200k tokens.
+
+**No cost-per-task number was produced.** Deriving one from commit counts would be a fabrication dressed as a metric. Signal 1's §5 claim that DWS "has the telemetry" was corrected in v1.1: it has the **schema**, not the log.
+
+## Files (signal 2)
+
+| Step | Path |
+| ---- | ---- |
+| 1 KB (raw) | `kb/raw/signals/2026-07-30-composio-harness-token-efficiency-benchmark.md` |
+| 1 KB (wiki) | **New concept** `kb/wiki/concepts/harness-cost-is-a-pl-line-item.md` v1.0 — the durable rule (measure the harness before the model; a cost figure with no token log is an estimate). The benchmark numbers will age; this won't |
+| 2 Field note | `docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md` + Nadella note → **v1.1** |
+| 3 Learn | `Learn/2026-07-30-composio-harness-token-efficiency-benchmark.html` + `.docx`; Nadella note re-rendered |
+| 4 Drive | `docs.google.com/document/d/1tI8jclu3Zc4axEhLb6GG9psvH4m3bEWYcL-BZF9hP9U` — the connector dropped mid-session and reconnected; register was corrected from a pre-filled `N/A` |
+| 5 HIC question | Field note §8, below, and the session reply |
+
+## HIC question 2 (open)
+
+**Q1. DWS's cost per completed task is unmeasured, and `token_usage_events.task_id` already exists. Do we instrument it?**
+(1) Instrument the Claude-side token log against the existing schema — closes ollama-boss **Open Item 5**, open since 26.07 · (2) Don't instrument; enforce a hard `CLAUDE_AUTO_MODE_BUDGET` instead · (3) Fold cost-per-task into a customer-facing pricing capability.
+**RECOMMEND: 1, internal measurement only.** Option 3 is the same work with a product commitment attached — committing to a customer-facing pricing surface before DWS can measure one number about itself is the wrong order. Reversibility: two-way for 1 and 2; 3 is one-way once a price is published. Cost of delay: compounding but quiet — every uninstrumented session's cost is unrecoverable once the container is gone.
+
+## Commit (signal 2)
+
+`learn(hic): Composio harness token-efficiency benchmark + DWS harness cost audit (DWS_LEARNING_STANDARD.md, EU AI Act Art. 14)`. Pushed to origin.

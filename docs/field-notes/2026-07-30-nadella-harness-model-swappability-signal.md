@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Nadella on the harness — model swappability as incumbent architecture (market signal)
-Version: 1.0
+Version: 1.1
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -24,6 +24,7 @@ Related: kb/wiki/concepts/adopt-the-base-own-the-loop.md,
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Cross-referenced §5 to the Composio 3-harness benchmark field note, which supplies the empirical half of the cost-per-task sub-signal and corrects §5's claim that DWS "has the telemetry" — it has the schema, not the log. §5's original reasoning left intact.
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Captures the Nadella harness/model-swappability framing from the 29.07.2026 MSFT FY26 Q4 call as a named market signal, with per-claim verification (§6). Chains it to the Huang/Chase LangChain fireside (08.07.2026) and logs the cost-per-task pricing sub-signal (§5). Routes durable framing to PHD_FIREHORSE as a deferred item — no thesis edits made.
 -->
 
@@ -109,6 +110,8 @@ That is directly adjacent to work DWS has already done and has not named as a pr
 - Agent execution logging and per-agent cost budgets in `AI_AGENT_GUIDELINES.md`.
 
 **Not built this session.** Logged as an open HIC decision (§8). The honest read: a third party is moving on a pricing-unit question DWS has the telemetry to answer but has never packaged. That is a gap worth a decision, not a reflex.
+
+> **Update (v1.1, same day):** the empirical half of this sub-signal arrived within hours — see `docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md`. A vendor-run benchmark measured up to a **30× token spread across agent harnesses running the same model on the same tasks**, which makes the pricing unit real and harness choice a P&L line item. It also corrects the sentence above: DWS has the **schema** for per-task cost (`token_usage_events.task_id`), **not the telemetry** — no Claude-side token log survives a container. Audit in that note §5.
 
 ## 6. Verification note (fail loud)
 
