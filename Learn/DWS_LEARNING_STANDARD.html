@@ -172,9 +172,47 @@ vertical-align: middle;
 <code>DWS_TRUTH_STANDARD.md</code> §2 row 30.</em></p>
 <hr />
 <h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
-<p>Version: 1.3</p>
+<p>Version: 1.5</p>
 <p>Sessions &amp; Modifications:</p>
 <ul>
+<li>Version: 1.5 | Tool: Claude Code (claude-opus-5) | Session:
+claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes:
+<strong>The five-step minimum becomes a SIX-step minimum.</strong> New
+<strong>Step 6 — Calendar every dated commitment</strong> (§4 table)
+plus <strong>§4.1</strong> specifying it. Raised by the HIC after missed
+deadlines and meetings: “I have forgot DLs and meetings. Would like to
+stay in the loop and meet requirements.” Steps 1-5 make session
+knowledge findable and hand the HIC what to decide NOW; nothing handed
+them what to act on LATER, so dates were captured correctly into
+markdown and then missed anyway. Concrete incident recorded: the
+Outokumpu pilot offer of 27.6.2026 declared its own 30-day validity,
+lapsed 27.7.2026 unnoticed, and was found three days later only because
+an unrelated session read the file — the date was not missing, it was in
+a document, and a document never speaks first. §4.1 specifies what must
+be calendared (expiry / deadline / meeting / follow-up / DERIVED dates),
+the three things every event carries (a title naming the consequence,
+the source file, a lead time matched to how long the action actually
+takes), placement on the calendar that owns the work rather than a
+personal one, a weekend/holiday check that shifts the REMINDER and never
+the deadline, and escalation to email only where missing the date is
+irreversible. Ordering note added: step 5 is the hand-off for now, step
+6 the hand-off for later. Three anti-patterns added to §9. Lockstep:
+CLAUDE.md Session Learning Outcome Rule, DWS_TRUTH_STANDARD.md §2F + row
+30.</li>
+<li>Version: 1.4 | Tool: Claude Code (claude-opus-5) | Session:
+claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Added
+<strong>§10.1.1 The number is branch-scoped and never restarts</strong>.
+§10.1 specified the six-field form of an HIC decision point but left the
+COUNTER undefined, so three field notes on one branch each opened at
+“Q1” on 30.07.2026 and the HIC could not answer by reference — three
+distinct decisions shared one label, forcing a positional reply and a
+clarifying round on the Article 14 intervention point itself. The
+counter is now explicitly a running per-branch sequence: first decision
+on a branch is Q1, the next is Q2 regardless of which document raises
+it, notes state the branch-scoped number rather than a local one, and
+.claude/handoffs/<branch>.md carries the highest number used so the next
+session resumes rather than guesses. Rationale recorded per Rule 12.
+Raised by the HIC, not detected by the harness.</li>
 <li>Version: 1.3 | Tool: Claude Code (claude-opus-5) | Session:
 claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes:
 Added <strong>§10.3.1 The cooling gap</strong> — nothing irreversible
@@ -247,7 +285,7 @@ session.”</li>
 <li>Purpose</li>
 <li>Legal Basis — EU AI Act Article 14 (Human Oversight)</li>
 <li>The HIC Learning Outcome (the major outcome of every session)</li>
-<li>The Five-Step Minimum</li>
+<li>The Six-Step Minimum</li>
 <li>When the Loop Applies (substantive vs trivial sessions)</li>
 <li>How It Is Operationalized (skills, hooks, workflow)</li>
 <li>Relationship to Other Standards</li>
@@ -341,15 +379,15 @@ evidence chain, not the whole of it.</p>
 The HIC Learning Outcome (the major outcome of every session)</h2>
 <p><strong>Every substantive session produces a HIC Learning Outcome as
 a primary deliverable, alongside whatever code/document/analysis it was
-tasked with.</strong> It is complete when all five steps in §4 are done
+tasked with.</strong> It is complete when all six steps in §4 are done
 (or explicitly marked N/A with a reason). A session that ships a feature
 but leaves no learning outcome is <strong>not done</strong> — it has
 left the HIC blind to what changed.</p>
 <p>This requirement is registered as a canonical fact in
 <code>DWS_TRUTH_STANDARD.md</code> §2F and row 30, so it is surfaced to
 every agent, not just those who happen to read this file.</p>
-<h2 id="the-five-step-minimum">4. The Five-Step Minimum</h2>
-<p>The minimum HIC Learning Outcome is five steps. Fewer is a bug; more
+<h2 id="the-six-step-minimum">4. The Six-Step Minimum</h2>
+<p>The minimum HIC Learning Outcome is six steps. Fewer is a bug; more
 is welcome.</p>
 <table>
 <colgroup>
@@ -416,16 +454,111 @@ requires. Not “any feedback?”; a specific fork the human should own.
 <td>Session reply to HIC + logged in the field note “Next Steps”</td>
 <td>This standard §2 + <strong>§10</strong>, EU AI Act Art. 14</td>
 </tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Calendar every dated commitment</strong></td>
+<td>Every date the session produced or discovered that carries a
+consequence — deadline, expiry, meeting, follow-up, renewal, validity
+window — is put in the calendar <strong>in the session that found
+it</strong>. <strong>Shape it per §4.1.</strong></td>
+<td>Google Calendar (MCP <code>Google_Calendar.create_event</code>), on
+the calendar that owns the work</td>
+<td>This standard <strong>§4.1</strong>, EU AI Act Art. 14</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Ordering.</strong> 1→2→3→4 are produce-then-publish; 5 is the
-human hand-off. Repo first, export second (Truth Standard §2E): an
-export with no repo source-of-truth file is a drift incident, not a
-deliverable.</p>
+<p><strong>Ordering.</strong> 1→2→3→4 are produce-then-publish; 5 and 6
+are the two hand-offs. Repo first, export second (Truth Standard §2E):
+an export with no repo source-of-truth file is a drift incident, not a
+deliverable. <strong>Step 5 hands the HIC what to decide now; step 6
+hands the HIC what to act on later.</strong> A session that does 1–5 and
+skips 6 has informed the HIC of a deadline they will still miss.</p>
 <p><strong>N/A is allowed but must be explicit.</strong> If a step
-genuinely does not apply (e.g. nothing KB-worthy was learned), record
+genuinely does not apply (e.g. nothing KB-worthy was learned, or the
+session produced no dated commitment), record
 <code>Step N: N/A — &lt;reason&gt;</code> in the field note. Silent
 omission is a Rule 12 (Fail Loud) violation.</p>
+<h3 id="step-6-in-detail-dates-live-in-calendars-not-in-documents">4.1
+Step 6 in detail — dates live in calendars, not in documents</h3>
+<p><strong>The failure this exists to prevent, stated
+concretely.</strong> The Outokumpu pilot offer of 27.6.2026 declared its
+own 30-day validity and <strong>lapsed on 27.7.2026 with nobody
+noticing</strong>. It was found three days later, and only because an
+unrelated session happened to read the file. The date was not missing —
+it was written down, in a document. A document is not a thing that
+reminds anyone. Meetings and deadlines are lost the same way: correctly
+recorded, in a place that never speaks first.</p>
+<p><strong>What must be calendared.</strong> Any date with a consequence
+attached:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Expiry</strong></td>
+<td>Offer validity, certificate/extract validity, licence renewal,
+credit windows, NDA terms</td>
+</tr>
+<tr class="even">
+<td><strong>Deadline</strong></td>
+<td>Tender submission, regulatory filing, statutory reporting,
+customer-committed delivery</td>
+</tr>
+<tr class="odd">
+<td><strong>Meeting</strong></td>
+<td>Anything agreed with a third party, including “let’s talk in
+September”</td>
+</tr>
+<tr class="even">
+<td><strong>Follow-up</strong></td>
+<td>Silence thresholds (“no reply in 5 business days → chase”),
+decision-review points</td>
+</tr>
+<tr class="odd">
+<td><strong>Derived</strong></td>
+<td>Dates the document implies but never states — see below</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Derived dates count, and are the ones most often
+missed.</strong> A three-month engagement implies a <em>last date to
+sign for delivery this year</em>. A three-month certificate implies a
+<em>re-order date</em>. A validity end implies a <em>follow-up before
+it</em>, not only the end itself. The document states the date; the
+calendar must state <strong>when someone has to act</strong>, which is
+usually earlier.</p>
+<p><strong>Every event carries three things:</strong></p>
+<ol type="1">
+<li><strong>A title naming the consequence</strong>, not just the
+object. “Offer validity ends” beats “Outokumpu”.</li>
+<li><strong>The source file in the description</strong>, so the calendar
+entry can be traced back to the artifact that generated it, and the
+artifact is what gets updated.</li>
+<li><strong>A lead time matched to how long the action actually
+takes</strong> — a day to download a certificate, a week to order a
+register extract, a fortnight to move a signature. Default reminders are
+a way of being notified too late politely.</li>
+</ol>
+<p><strong>Placement.</strong> Use the calendar that owns the work
+(e.g. a sales pipeline calendar for bid dates), not the personal
+calendar, so the date survives the individual. Mark informational
+markers as free/non-blocking; only real commitments should consume
+availability.</p>
+<p><strong>Weekend and holiday check.</strong> A date landing on a
+Saturday, a Sunday, or a Finnish public holiday is a date that will be
+actioned late. Shift the <em>reminder</em> — never the deadline — to the
+preceding working day.</p>
+<p><strong>Escalation.</strong> Where missing the date is irreversible
+(a lapse, a filing, a tender close), add an email reminder alongside the
+popup. Reserve this; if everything escalates, nothing does.</p>
 <h2 id="when-the-loop-applies-substantive-vs-trivial-sessions">5. When
 the Loop Applies (substantive vs trivial sessions)</h2>
 <p>Not every keystroke is a session. Apply judgment, and when unsure,
@@ -545,8 +678,9 @@ standard</td>
 <tr class="even">
 <td>4 — Driver</td>
 <td>Every engineer + every AI agent in an editing session</td>
-<td>Run the five-step minimum before ending a substantive session</td>
-<td>No re-discovery next session; credit for the artifact persists</td>
+<td>Run the six-step minimum before ending a substantive session</td>
+<td>No re-discovery next session; credit for the artifact persists; no
+dated commitment left in a document only</td>
 </tr>
 <tr class="odd">
 <td>5 — Sign-off</td>
@@ -585,6 +719,18 @@ corrected; anchor them where the decision is read (§10.5).</li>
 <li><strong>Blended provenance.</strong> A decision presented on a mix
 of verified and second-hand facts with no marker separating them. The
 HIC cannot weigh what they cannot see the basis of (§10.4).</li>
+<li><strong>The date that only lives in a document.</strong> A deadline,
+expiry or meeting written correctly into a <code>.md</code> file and
+nowhere else. The record is accurate and the commitment is still missed,
+because no document has ever reminded anyone. Step 6 (§4.1).</li>
+<li><strong>The stated date without the acting date.</strong>
+Calendaring the deadline but not the point at which someone must start —
+a certificate ordered on its expiry date is already late. Derived dates
+are part of step 6, not a nicety.</li>
+<li><strong>Default reminders on a real deadline.</strong> Inheriting
+the calendar’s default notification for something that takes two weeks
+to action. Being notified too late, politely, is indistinguishable from
+not being notified.</li>
 </ul>
 <hr />
 <h2 id="the-hic-decisioning-process-model-how-step-5-questions-are-shaped">10.
@@ -603,6 +749,37 @@ with a stated preferred action</strong>:</p>
    Unblocks:     &lt;what starts moving once decided&gt;
    Cost of delay: &lt;what degrades or forecloses while it sits&gt;
    Rests on:     &lt;verified facts | propagated claims — marked separately&gt;</code></pre>
+<h4 id="the-number-is-branch-scoped-and-never-restarts">10.1.1 The
+number is branch-scoped and never restarts</h4>
+<p><code>N</code> is a <strong>running counter across the
+branch</strong>, not a per-document one. A note that opens its question
+block at <code>1</code> because it is the first question <em>in that
+file</em> breaks the only thing the number is for.</p>
+<ul>
+<li>The first decision point raised on a branch is <strong>Q1</strong>.
+The next is <strong>Q2</strong> — even if it appears in a different
+field note, a different standard, or three days later.</li>
+<li>Every field note states the branch-scoped number, not a local one.
+Three notes may each carry exactly one question; they are Q1, Q2 and Q3,
+never three Q1s.</li>
+<li><code>.claude/handoffs/&lt;branch&gt;.md</code> carries the
+<strong>highest number used so far</strong>, so the next session resumes
+the sequence instead of guessing. A session that cannot find the counter
+starts from the highest number visible in the branch’s notes and says
+so.</li>
+<li>Answers reference the number alone. “Q2: option 1” must be
+unambiguous without naming a file.</li>
+</ul>
+<p><strong>Why this is a rule and not a preference.</strong> On
+30.07.2026 a single branch produced three field notes that each opened
+at “Q1”. The HIC could not answer by reference — three distinct
+decisions shared one label — and had to reply in two positional blocks
+of <code>1. / 2. / 3.</code> that then required a clarifying round to
+disambiguate. §10.1 fixed the <em>form</em> of the question and left the
+<em>counter</em> undefined, so three notes independently and reasonably
+restarted at 1. The cost was a full round-trip on the Article 14
+intervention point itself, which is the one exchange that must not need
+a second attempt.</p>
 <h3 id="always-recommend-this-is-not-deference-it-is-the-requirement">10.2
 Always recommend — this is not deference, it is the requirement</h3>
 <p>An agent that lists options without a recommendation has offloaded

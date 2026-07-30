@@ -6,10 +6,11 @@ _Canonical registry — single source of truth. Registered in `DWS_TRUTH_STANDAR
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code (claude-opus-5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: **The five-step minimum becomes a SIX-step minimum.** New **Step 6 — Calendar every dated commitment** (§4 table) plus **§4.1** specifying it. Raised by the HIC after missed deadlines and meetings: "I have forgot DLs and meetings. Would like to stay in the loop and meet requirements." Steps 1-5 make session knowledge findable and hand the HIC what to decide NOW; nothing handed them what to act on LATER, so dates were captured correctly into markdown and then missed anyway. Concrete incident recorded: the Outokumpu pilot offer of 27.6.2026 declared its own 30-day validity, lapsed 27.7.2026 unnoticed, and was found three days later only because an unrelated session read the file — the date was not missing, it was in a document, and a document never speaks first. §4.1 specifies what must be calendared (expiry / deadline / meeting / follow-up / DERIVED dates), the three things every event carries (a title naming the consequence, the source file, a lead time matched to how long the action actually takes), placement on the calendar that owns the work rather than a personal one, a weekend/holiday check that shifts the REMINDER and never the deadline, and escalation to email only where missing the date is irreversible. Ordering note added: step 5 is the hand-off for now, step 6 the hand-off for later. Three anti-patterns added to §9. Lockstep: CLAUDE.md Session Learning Outcome Rule, DWS_TRUTH_STANDARD.md §2F + row 30.
 - Version: 1.4 | Tool: Claude Code (claude-opus-5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Added **§10.1.1 The number is branch-scoped and never restarts**. §10.1 specified the six-field form of an HIC decision point but left the COUNTER undefined, so three field notes on one branch each opened at "Q1" on 30.07.2026 and the HIC could not answer by reference — three distinct decisions shared one label, forcing a positional reply and a clarifying round on the Article 14 intervention point itself. The counter is now explicitly a running per-branch sequence: first decision on a branch is Q1, the next is Q2 regardless of which document raises it, notes state the branch-scoped number rather than a local one, and .claude/handoffs/<branch>.md carries the highest number used so the next session resumes rather than guesses. Rationale recorded per Rule 12. Raised by the HIC, not detected by the harness.
 - Version: 1.3 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Added **§10.3.1 The cooling gap** — nothing irreversible ships in the session that conceived it. §10.3 classified one-way doors but nothing slowed them; the label was a sign without a brake. Requires a deliberate gap (a second session, a night, a human read) between decision and act for the five acts §10.3 names one-way by default (sign / publish / send / delete / hand to a counterparty), explicitly NOT for reversible internal work — writing a document is not publishing it. Rationale recorded: agent-assisted work compresses conception, drafting, review and execution into one motion, so each step can be defensible while the aggregate produces momentum no one chose; the gap converts a felt concern into a mechanism. Names the specific failure mode — a fast partial correction to an outward-facing surface reads as a reviewed surface. Emergency waivers permitted but must be stated at the time and recorded (Rule 12). Two anti-patterns added to §10.8: same-session irreversibility, and the partial correction. §10.1's six-field decision format and §10.6's four-per-session cap are unchanged.
 - Version: 1.2 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 24.07.2026 | Changes: Added **§10 The HIC Decisioning Process Model** — defines the shape of the Step 5 question, generalized from a session that ran a KYA audit through three reviewer rounds. Codifies: the numbered-question form with a mandatory **(RECOMMEND: …)** preferred action; **always recommend** (a fork without a recommendation offloads analysis while pretending to defer on authority — Art. 14 override presupposes a stated machine judgment); **reversibility classification** (two-way door vs ONE-WAY DOOR, with sign/publish/send/delete/hand-to-counterparty as one-way by default); **verified vs propagated provenance** separated at the point of decision, not in a footnote; **anchoring corrections where the decision is read** plus the standing anti-regression note pattern (a superseded recommendation re-entered as a plan within hours via a reviewer summary); a **max-four-per-session budget**; and **closing the loop** by writing the HIC's answer back. Cross-referenced from §4 Step 5. Added four anti-patterns (§9 + §10.8): recommendation-free decision, correction decay, blended provenance, scope-inflating a decision.
@@ -23,7 +24,7 @@ Sessions & Modifications:
 1. Purpose
 2. Legal Basis — EU AI Act Article 14 (Human Oversight)
 3. The HIC Learning Outcome (the major outcome of every session)
-4. The Five-Step Minimum
+4. The Six-Step Minimum
 5. When the Loop Applies (substantive vs trivial sessions)
 6. How It Is Operationalized (skills, hooks, workflow)
 7. Relationship to Other Standards
@@ -61,13 +62,13 @@ DWS operates AI agents that produce work product acted on by a business — the 
 
 ## 3. The HIC Learning Outcome (the major outcome of every session)
 
-**Every substantive session produces a HIC Learning Outcome as a primary deliverable, alongside whatever code/document/analysis it was tasked with.** It is complete when all five steps in §4 are done (or explicitly marked N/A with a reason). A session that ships a feature but leaves no learning outcome is **not done** — it has left the HIC blind to what changed.
+**Every substantive session produces a HIC Learning Outcome as a primary deliverable, alongside whatever code/document/analysis it was tasked with.** It is complete when all six steps in §4 are done (or explicitly marked N/A with a reason). A session that ships a feature but leaves no learning outcome is **not done** — it has left the HIC blind to what changed.
 
 This requirement is registered as a canonical fact in `DWS_TRUTH_STANDARD.md` §2F and row 30, so it is surfaced to every agent, not just those who happen to read this file.
 
-## 4. The Five-Step Minimum
+## 4. The Six-Step Minimum
 
-The minimum HIC Learning Outcome is five steps. Fewer is a bug; more is welcome.
+The minimum HIC Learning Outcome is six steps. Fewer is a bug; more is welcome.
 
 | # | Step | What it means | Where it lands | Canonical rule |
 | - | ---- | ------------- | -------------- | -------------- |
@@ -76,10 +77,39 @@ The minimum HIC Learning Outcome is five steps. Fewer is a bug; more is welcome.
 | 3 | **Add an HTML version into the Learn folder** | Render the field note / artifact to self-contained HTML so a HIC can read it in a browser without the repo. | `Learn/YYYY-MM-DD-topic.html` (via `scripts/render-doc.sh`) | `DWS_DOCUMENT_STANDARD.md` §18 (Learn HTML), Downloadable HTML Rule |
 | 4 | **Export a copy to Drive** | Push a copy to Google Drive so the HIC reaches it from phone/desktop outside the repo. Repo stays the source of truth (Truth Standard §2E). | Google Drive (MCP `Google_Drive.create_file`) | Truth Standard §2B/§2E (Repository-First, Then Export) |
 | 5 | **Ask the HIC a question** | End the session with **one real, decision-shaped question** for the HIC — the intervention point Article 14 requires. Not "any feedback?"; a specific fork the human should own. **Shape it per §10.** | Session reply to HIC + logged in the field note "Next Steps" | This standard §2 + **§10**, EU AI Act Art. 14 |
+| 6 | **Calendar every dated commitment** | Every date the session produced or discovered that carries a consequence — deadline, expiry, meeting, follow-up, renewal, validity window — is put in the calendar **in the session that found it**. **Shape it per §4.1.** | Google Calendar (MCP `Google_Calendar.create_event`), on the calendar that owns the work | This standard **§4.1**, EU AI Act Art. 14 |
 
-**Ordering.** 1→2→3→4 are produce-then-publish; 5 is the human hand-off. Repo first, export second (Truth Standard §2E): an export with no repo source-of-truth file is a drift incident, not a deliverable.
+**Ordering.** 1→2→3→4 are produce-then-publish; 5 and 6 are the two hand-offs. Repo first, export second (Truth Standard §2E): an export with no repo source-of-truth file is a drift incident, not a deliverable. **Step 5 hands the HIC what to decide now; step 6 hands the HIC what to act on later.** A session that does 1–5 and skips 6 has informed the HIC of a deadline they will still miss.
 
-**N/A is allowed but must be explicit.** If a step genuinely does not apply (e.g. nothing KB-worthy was learned), record `Step N: N/A — <reason>` in the field note. Silent omission is a Rule 12 (Fail Loud) violation.
+**N/A is allowed but must be explicit.** If a step genuinely does not apply (e.g. nothing KB-worthy was learned, or the session produced no dated commitment), record `Step N: N/A — <reason>` in the field note. Silent omission is a Rule 12 (Fail Loud) violation.
+
+### 4.1 Step 6 in detail — dates live in calendars, not in documents
+
+**The failure this exists to prevent, stated concretely.** The Outokumpu pilot offer of 27.6.2026 declared its own 30-day validity and **lapsed on 27.7.2026 with nobody noticing**. It was found three days later, and only because an unrelated session happened to read the file. The date was not missing — it was written down, in a document. A document is not a thing that reminds anyone. Meetings and deadlines are lost the same way: correctly recorded, in a place that never speaks first.
+
+**What must be calendared.** Any date with a consequence attached:
+
+| Kind | Examples |
+| --- | --- |
+| **Expiry** | Offer validity, certificate/extract validity, licence renewal, credit windows, NDA terms |
+| **Deadline** | Tender submission, regulatory filing, statutory reporting, customer-committed delivery |
+| **Meeting** | Anything agreed with a third party, including "let's talk in September" |
+| **Follow-up** | Silence thresholds ("no reply in 5 business days → chase"), decision-review points |
+| **Derived** | Dates the document implies but never states — see below |
+
+**Derived dates count, and are the ones most often missed.** A three-month engagement implies a *last date to sign for delivery this year*. A three-month certificate implies a *re-order date*. A validity end implies a *follow-up before it*, not only the end itself. The document states the date; the calendar must state **when someone has to act**, which is usually earlier.
+
+**Every event carries three things:**
+
+1. **A title naming the consequence**, not just the object. "Offer validity ends" beats "Outokumpu".
+2. **The source file in the description**, so the calendar entry can be traced back to the artifact that generated it, and the artifact is what gets updated.
+3. **A lead time matched to how long the action actually takes** — a day to download a certificate, a week to order a register extract, a fortnight to move a signature. Default reminders are a way of being notified too late politely.
+
+**Placement.** Use the calendar that owns the work (e.g. a sales pipeline calendar for bid dates), not the personal calendar, so the date survives the individual. Mark informational markers as free/non-blocking; only real commitments should consume availability.
+
+**Weekend and holiday check.** A date landing on a Saturday, a Sunday, or a Finnish public holiday is a date that will be actioned late. Shift the *reminder* — never the deadline — to the preceding working day.
+
+**Escalation.** Where missing the date is irreversible (a lapse, a filing, a tender close), add an email reminder alongside the popup. Reserve this; if everything escalates, nothing does.
 
 ## 5. When the Loop Applies (substantive vs trivial sessions)
 
@@ -129,7 +159,7 @@ Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes pr
 | 1 — Sponsor | R22 CEO | Requires the HIC Learning Outcome as a session deliverable; is a HIC | Article 14 oversight discharged; no session's knowledge lost to container reclamation |
 | 2 — Owner | Risto Päärni (interim) + Lucille Santiago (Office Chief / HIC) | Receive learning outcomes; answer the HIC question; maintain this standard | A readable, reachable stream of what every session learned |
 | 3 — Approver | R05 General Counsel + R13 CIO | Confirm the loop satisfies the Article 14 evidence expectation | Audit-ready human-oversight posture for RFPs/DD |
-| 4 — Driver | Every engineer + every AI agent in an editing session | Run the five-step minimum before ending a substantive session | No re-discovery next session; credit for the artifact persists |
+| 4 — Driver | Every engineer + every AI agent in an editing session | Run the six-step minimum before ending a substantive session | No re-discovery next session; credit for the artifact persists; no dated commitment left in a document only |
 | 5 — Sign-off | R22 CEO | Sign off on changes to the minimum itself | Governance baseline defensible to board and regulators |
 
 **RACI shorthand:** Owner is _Accountable_; Sponsor is _Responsible_; Approver is _Consulted_; Driver is _Informed and acts_.
@@ -144,6 +174,9 @@ Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes pr
 - **The recommendation-free decision.** Presenting the HIC a fork with no preferred action. This offloads *analysis*, not authority — see §10.
 - **Correction decay.** A superseded recommendation quietly returning as a plan, because the correction lived somewhere the next reader did not look. Corrections decay faster than the claims they corrected; anchor them where the decision is read (§10.5).
 - **Blended provenance.** A decision presented on a mix of verified and second-hand facts with no marker separating them. The HIC cannot weigh what they cannot see the basis of (§10.4).
+- **The date that only lives in a document.** A deadline, expiry or meeting written correctly into a `.md` file and nowhere else. The record is accurate and the commitment is still missed, because no document has ever reminded anyone. Step 6 (§4.1).
+- **The stated date without the acting date.** Calendaring the deadline but not the point at which someone must start — a certificate ordered on its expiry date is already late. Derived dates are part of step 6, not a nicety.
+- **Default reminders on a real deadline.** Inheriting the calendar's default notification for something that takes two weeks to action. Being notified too late, politely, is indistinguishable from not being notified.
 
 ---
 
