@@ -238,9 +238,56 @@ Captured: `docs/field-notes/2026-07-30-network-independent-critical-operation.md
 `kb/wiki/concepts/network-independent-critical-operation.md` (with a five-point architecture test),
 `Learn/` HTML, Drive.
 
-**Q6 (OPEN):** does network-independent operation move into Standard/Defence, stay Sovereign-only, or
-split? **RECOMMEND: split** — local evidence, local kill authority and specified degradation are
-governance and belong in every tier; full local *execution* of the physical layer needs a customer
-box and is a genuine Sovereign distinction. Becomes **ONE-WAY** the moment it is quoted in a pilot
-proposal or price list. Open engineering dependency: can Standard/Defence deliver local identity/logs/
-kill authority without customer hardware? Unanswered.
+**Q6 (ANSWERED — the HIC re-framed rather than chose):** all three options argued about *which tier*
+should carry offline capability, which accepts the framing that caused the contradiction. The answer
+is **deployment modes, not pricing tiers** — local/edge, hybrid, EU-sovereign cloud. Mode follows the
+workload; tier prices hardware, SLA, support and sovereignty and **does not gate mode**. Hard
+commercial boundary the HIC set: local-first is required for the **control-room** deployment; it is
+**not** a claim that every Aegis deployment is offline by default. Applied to `Store/PRODUCT_AEGIS.md`
+(Deployment Architecture + three modes); Sovereign's differentiator moved off "air-gapped option" to
+clearance support, dedicated engineering, custom SLA and sovereignty assurance.
+
+*Still unanswered and inherited by the next session:* can the base tiers deliver local identity, logs
+and kill authority without customer-sited hardware? Modes stop pricing from pretending; they do not
+answer engineering feasibility.
+
+
+## Aegis Pilot SKU — shipped, then re-priced the same day
+
+**The error, retained per Rule 12.** `DWS-AEGIS-PILOT-001` shipped at **€45,000** fully credited
+(`5ed749f`). That figure was a misread of the April 2026 engagement model
+(`.claude/archive/2026-04-15/…dws-iq-aegis-lwm-strategy.md` §6.2), which is a **three-phase programme
+total** — Audit 2wk €5,000 + agent-in-production 6wk €15,000 + LWM integration 8wk €25,000 — and
+explicitly **additive** to the €59,990 licence. Only the middle phase is a pilot. Two consequences: a
+"pilot" at 75% of onboarding is the product under a lower-commitment name, and full credit at €45,000
+leaves €14,990 for fleet rollout across 21 industries, which is not deliverable. House calibration
+agrees — DWS's true pilots run €0–€9,990 (`AIS-OUTCOME-PILOT` €9,990/6wk is the nearest comparable).
+
+**Corrected in `0a791c7` on HIC approval:**
+
+| SKU | Price | Credit |
+| --- | --- | --- |
+| `DWS-AEGIS-PILOT-001` — Aegis Pilot, 3 months | **€19,990** | Full, against €59,990 onboarding, within 6 months, capped at €19,990 → €40,000 remains |
+| `DWS-AEGIS-IMPL-001` — Aegis Implementation Programme, 3 phases | €45,000 | **None** — additive. Phase 3 (LWM integration) is work onboarding does not contain |
+
+`priceVersion` 1.24 → **1.25**, cause recorded in `priceHistory`; mirror synced in the same commit
+(pricing source-of-truth rule); store rebuilt (123 products), feed regenerated.
+
+**Two guards that must survive future edits:**
+
+1. **"pilot" appears in no identity field of `DWS-AEGIS-IMPL-001`** — not id, mpn, name, title or
+   frontmatter. That ambiguity is what produced the error; it must not be re-introducible by
+   autocomplete. Verified zero hits.
+2. **The wording guard** — present in *both* `products.json` and `Store/PRODUCT_AEGIS_PILOT.md`:
+   what €19,990 includes (one site, one control-room workflow, one deployment-mode recommendation,
+   that workflow's agent set only, local execution/evidence/identity/logs/kill authority on existing
+   or edge hardware, production sizing from measured behaviour); the **binary acceptance KPI** (uplink
+   severed → workflow completes, Article 12 record still written locally, operator can still stop a
+   running agent — all three, or it is a delivered negative result, which is a valid outcome); and
+   what sits outside the credit (LWM integration, hardware, multi-site, other industries, custom
+   ERP/BIM, the implementation programme).
+
+Records updated: `docs/field-notes/2026-07-30-network-independent-critical-operation.md` → **v1.2**.
+
+**HIC question counter: the next question on this branch is Q7.** The counter is branch-scoped and
+never restarts (`DWS_LEARNING_STANDARD.md` §10.1.1).

@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Network-independent critical operation — the hybrid-war premise for Aegis pilots
-Version: 1.1
+Version: 1.2
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -23,6 +23,7 @@ Related: kb/wiki/concepts/network-independent-critical-operation.md,
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: PRICE CORRECTION. The "~EUR 45K/3mo reference scope" cited in v1.1 was a misread of the April 2026 THREE-PHASE PROGRAMME TOTAL (Audit 5K + agent-in-production 15K + LWM integration 25K, additive to licence) as if it were a pilot price, and DWS-AEGIS-PILOT-001 shipped at EUR 45,000 on that basis in 5ed749f. Corrected in 0a791c7 on HIC approval: pilot re-priced to EUR 19,990 / 3 months, credited in full; the April programme split into its own SKU DWS-AEGIS-IMPL-001 at EUR 45,000, additive and NOT credited, with "pilot" excluded from every identity field. Records the HIC-required wording guard (scope / binary acceptance KPI / outside-the-credit). Erroneous figure retained above per Rule 12.
 - Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Q6 ANSWERED and the loop closed (§10.7). The HIC re-framed rather than chose: deployment MODES, not pricing tiers — all three options as posed accepted the framing that caused the contradiction. Records the three modes (local/edge, hybrid, EU-sovereign cloud), the hard boundary that v1.0 crossed (local-first is required for the CONTROL-ROOM deployment, not claimed product-wide — do not say every Aegis deployment is offline), and the pilot path (prove local on existing customer hardware or a small edge appliance before DGX procurement, ~EUR 45K/3mo reference scope). Original question retained above the answer per Rule 12. Applied to Store/PRODUCT_AEGIS.md.
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the locked decision and its five pilot requirements, the commercial line, the conflict with the Aegis product overview ("available exclusively on European cloud or enterprise private cloud" — offline appears only as a premium tier), and the evidential asymmetry that makes continuity the stronger lead claim. Raises Q6.
 -->
@@ -111,7 +112,20 @@ That reframes the requirement from resilience engineering into compliance engine
 
 **The hard commercial boundary the HIC set, and which I had crossed.** v1.0 of this note stated the premise product-wide, and the product-doc edit that accompanied it said Aegis "is designed on the premise that loss of network connectivity must not stop production" without qualification. That over-claims. The correct statement is narrower and now in the product doc: **local-first is required for the control-room deployment; cloud remains a valid mode elsewhere.** Do not claim every Aegis deployment is offline by default. Corrected in v1.1.
 
-**Pilot path:** prove the local path on **existing customer hardware or a small edge appliance, before any DGX procurement**. Hardware scale-up is a decision the pilot informs, not a precondition for starting. Reference scope ~€45K over three months (April 2026 engagement model, `.claude/archive/2026-04-15/...dws-iq-aegis-lwm-strategy.md`); any live offer figure belongs in `dws10.com/config/products.json`.
+**Pilot path:** prove the local path on **existing customer hardware or a small edge appliance, before any DGX procurement**. Hardware scale-up is a decision the pilot informs, not a precondition for starting.
+
+**Price correction, same day (v1.2).** This note originally cited "reference scope ~€45K over three months (April 2026 engagement model, `.claude/archive/2026-04-15/...dws-iq-aegis-lwm-strategy.md`)", and `DWS-AEGIS-PILOT-001` shipped at €45,000 in `5ed749f` on that basis. **That was a misread and is retained here per Rule 12.** The April figure is a *three-phase programme total* — Audit 2wk €5,000 + agent-in-production 6wk €15,000 + LWM integration 8wk €25,000 — and it is **additive** to the licence, not a pilot price. Only the middle phase is a pilot. Two things followed from the error: a "pilot" at 75% of the €59,990 onboarding is the product under a lower-commitment name, and crediting €45,000 in full leaves €14,990 for a fleet rollout across 21 industries, which is not deliverable.
+
+**Corrected in `0a791c7`, on HIC approval:**
+
+| SKU | Price | Credited? |
+| --- | --- | --- |
+| `DWS-AEGIS-PILOT-001` — Aegis Pilot, 3 months | **€19,990** | Yes, in full against €59,990 onboarding, within 6 months, capped at €19,990 |
+| `DWS-AEGIS-IMPL-001` — Aegis Implementation Programme, 3 phases | €45,000 | **No** — additive. Phase 3 (LWM integration) is work onboarding does not contain, so crediting it would charge once for two pieces of work |
+
+The word "pilot" appears nowhere in the implementation SKU's id, mpn, name, title or frontmatter — that ambiguity is what produced the error, and it must not be re-introducible by autocomplete. The live figure remains sourced from `dws10.com/config/products.json` (`priceVersion` 1.25, cause recorded in `priceHistory`), never from this note.
+
+**The wording guard the HIC required**, present in both `products.json` and `Store/PRODUCT_AEGIS_PILOT.md`: what the €19,990 includes (one site, one control-room workflow, one deployment-mode recommendation, that workflow's agent set only, local execution/evidence/identity/logs/kill authority on existing or edge hardware, production sizing from measured behaviour); the **binary acceptance KPI** (uplink severed → workflow completes, Article 12 record still written locally, operator can still stop a running agent — all three, or it is a delivered negative result); and what sits outside the credit (LWM integration, hardware, multi-site, other industries, custom ERP/BIM, the implementation programme).
 
 **Applied to `Store/PRODUCT_AEGIS.md`:** a Deployment Modes section replacing the per-tier hardware framing; the Sovereign tier's differentiator changed from "air-gapped / on-premises option" to clearance support, dedicated engineering, custom SLA and sovereignty assurance; and an explicit statement that tiers price hardware, SLA, support and sovereignty but **do not gate deployment mode**.
 

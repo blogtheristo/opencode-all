@@ -170,7 +170,7 @@ vertical-align: middle;
 <!--
 VERSION AND AGENT HISTORY
 Document: Network-independent critical operation — the hybrid-war premise for Aegis pilots
-Version: 1.1
+Version: 1.2
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -192,6 +192,7 @@ Related: kb/wiki/concepts/network-independent-critical-operation.md,
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: PRICE CORRECTION. The "~EUR 45K/3mo reference scope" cited in v1.1 was a misread of the April 2026 THREE-PHASE PROGRAMME TOTAL (Audit 5K + agent-in-production 15K + LWM integration 25K, additive to licence) as if it were a pilot price, and DWS-AEGIS-PILOT-001 shipped at EUR 45,000 on that basis in 5ed749f. Corrected in 0a791c7 on HIC approval: pilot re-priced to EUR 19,990 / 3 months, credited in full; the April programme split into its own SKU DWS-AEGIS-IMPL-001 at EUR 45,000, additive and NOT credited, with "pilot" excluded from every identity field. Records the HIC-required wording guard (scope / binary acceptance KPI / outside-the-credit). Erroneous figure retained above per Rule 12.
 - Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Q6 ANSWERED and the loop closed (§10.7). The HIC re-framed rather than chose: deployment MODES, not pricing tiers — all three options as posed accepted the framing that caused the contradiction. Records the three modes (local/edge, hybrid, EU-sovereign cloud), the hard boundary that v1.0 crossed (local-first is required for the CONTROL-ROOM deployment, not claimed product-wide — do not say every Aegis deployment is offline), and the pilot path (prove local on existing customer hardware or a small edge appliance before DGX procurement, ~EUR 45K/3mo reference scope). Original question retained above the answer per Rule 12. Applied to Store/PRODUCT_AEGIS.md.
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the locked decision and its five pilot requirements, the commercial line, the conflict with the Aegis product overview ("available exclusively on European cloud or enterprise private cloud" — offline appears only as a premium tier), and the evidential asymmetry that makes continuity the stronger lead claim. Raises Q6.
 -->
@@ -406,11 +407,71 @@ default. Corrected in v1.1.</p>
 <p><strong>Pilot path:</strong> prove the local path on <strong>existing
 customer hardware or a small edge appliance, before any DGX
 procurement</strong>. Hardware scale-up is a decision the pilot informs,
-not a precondition for starting. Reference scope ~€45K over three months
-(April 2026 engagement model,
-<code>.claude/archive/2026-04-15/...dws-iq-aegis-lwm-strategy.md</code>);
-any live offer figure belongs in
-<code>dws10.com/config/products.json</code>.</p>
+not a precondition for starting.</p>
+<p><strong>Price correction, same day (v1.2).</strong> This note
+originally cited “reference scope ~€45K over three months (April 2026
+engagement model,
+<code>.claude/archive/2026-04-15/...dws-iq-aegis-lwm-strategy.md</code>)”,
+and <code>DWS-AEGIS-PILOT-001</code> shipped at €45,000 in
+<code>5ed749f</code> on that basis. <strong>That was a misread and is
+retained here per Rule 12.</strong> The April figure is a
+<em>three-phase programme total</em> — Audit 2wk €5,000 +
+agent-in-production 6wk €15,000 + LWM integration 8wk €25,000 — and it
+is <strong>additive</strong> to the licence, not a pilot price. Only the
+middle phase is a pilot. Two things followed from the error: a “pilot”
+at 75% of the €59,990 onboarding is the product under a lower-commitment
+name, and crediting €45,000 in full leaves €14,990 for a fleet rollout
+across 21 industries, which is not deliverable.</p>
+<p><strong>Corrected in <code>0a791c7</code>, on HIC
+approval:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>SKU</th>
+<th>Price</th>
+<th>Credited?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>DWS-AEGIS-PILOT-001</code> — Aegis Pilot, 3 months</td>
+<td><strong>€19,990</strong></td>
+<td>Yes, in full against €59,990 onboarding, within 6 months, capped at
+€19,990</td>
+</tr>
+<tr class="even">
+<td><code>DWS-AEGIS-IMPL-001</code> — Aegis Implementation Programme, 3
+phases</td>
+<td>€45,000</td>
+<td><strong>No</strong> — additive. Phase 3 (LWM integration) is work
+onboarding does not contain, so crediting it would charge once for two
+pieces of work</td>
+</tr>
+</tbody>
+</table>
+<p>The word “pilot” appears nowhere in the implementation SKU’s id, mpn,
+name, title or frontmatter — that ambiguity is what produced the error,
+and it must not be re-introducible by autocomplete. The live figure
+remains sourced from <code>dws10.com/config/products.json</code>
+(<code>priceVersion</code> 1.25, cause recorded in
+<code>priceHistory</code>), never from this note.</p>
+<p><strong>The wording guard the HIC required</strong>, present in both
+<code>products.json</code> and
+<code>Store/PRODUCT_AEGIS_PILOT.md</code>: what the €19,990 includes
+(one site, one control-room workflow, one deployment-mode
+recommendation, that workflow’s agent set only, local
+execution/evidence/identity/logs/kill authority on existing or edge
+hardware, production sizing from measured behaviour); the <strong>binary
+acceptance KPI</strong> (uplink severed → workflow completes, Article 12
+record still written locally, operator can still stop a running agent —
+all three, or it is a delivered negative result); and what sits outside
+the credit (LWM integration, hardware, multi-site, other industries,
+custom ERP/BIM, the implementation programme).</p>
 <p><strong>Applied to <code>Store/PRODUCT_AEGIS.md</code>:</strong> a
 Deployment Modes section replacing the per-tier hardware framing; the
 Sovereign tier’s differentiator changed from “air-gapped / on-premises
