@@ -1573,19 +1573,19 @@
       "gtin": null,
       "mpn": "DWS-AEGIS-PILOT-2026",
       "name": "DWS IQ Aegis Pilot (3 months)",
-      "price": 45000,
+      "price": 19990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. Validates the control-room requirement end to end: core agent execution, evidence capture, identity verification, audit logs and human kill authority running on-site, with the core outcome surviving loss of network connectivity. Delivers a scoped architecture, a demonstrated degraded-mode run, and the Article 12 evidence record produced locally throughout.",
+      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "features": [
-        "3-month scoped engagement — fixed price, fixed end date",
+        "3-month scoped engagement — fixed price, fixed end date, one site and one control-room workflow",
         "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
         "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
-        "Demonstrated uplink-down run — production and the Article 12 record both continue",
-        "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with hardware sizing",
-        "Fully credited against DWS IQ Aegis onboarding if you proceed within 6 months"
+        "Binary acceptance KPI — uplink severed: workflow completes, Article 12 record still written locally, operator can still stop an agent. All three, or the pilot reports a negative result",
+        "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
+        "Credited in full against Aegis onboarding within 6 months; credit capped at €19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations"
       ],
-      "priceNote": "€45,000 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months — the pilot lowers the risk of the platform decision, it does not add to its cost.",
+      "priceNote": "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at €59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/firehorse-aegis-head.png",
@@ -1602,6 +1602,40 @@
       "storeCategory": "platform",
       "buyPage": 1,
       "buyPageOrder": 2
+    },
+    "DWS-AEGIS-IMPL-001": {
+      "id": "DWS-AEGIS-IMPL-001",
+      "gtin": null,
+      "mpn": "DWS-AEGIS-IMPL-2026",
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "price": 45000,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, €5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, €15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, €25,000): world-model integration so operational knowledge accumulates. ADDITIVE to Aegis onboarding and licence — this programme is NOT credited against onboarding, because Phase 3 is integration work that onboarding does not include.",
+      "features": [
+        "Phase 1 — Audit, 2 weeks, €5,000: current state to gap analysis",
+        "Phase 2 — Agent-in-production, 6 weeks, €15,000: one skilled agent live and EU-compliant",
+        "Phase 3 — LWM integration, 8 weeks, €25,000: world-model integration, operational knowledge accumulates",
+        "Additive to Aegis onboarding and licence — not credited",
+        "Scoped per engagement; phases can be taken in sequence or individually"
+      ],
+      "priceNote": "€45,000 for all three phases (Audit €5,000 + Agent-in-production €15,000 + LWM integration €25,000). ADDITIVE to Aegis onboarding (€59,990) and licence — NOT credited against them. Phase 3 is integration work outside onboarding scope.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-aegis-head.png",
+      "detailsUrl": "../products/aegis-implementation.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 3
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -4799,7 +4833,7 @@
     }
   },
   "lastUpdated": "2026-07-30T00:00:00Z",
-  "priceVersion": "1.24",
+  "priceVersion": "1.25",
   "priceList": {
     "version": "1.23",
     "effectiveDate": "2026-07-16",
@@ -4821,6 +4855,17 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.25",
+      "date": "2026-07-30",
+      "author": "claude/enterprise-ai-harness-0anl7s",
+      "changes": [
+        "CORRECTION. DWS-AEGIS-PILOT-001 €45,000 -> €19,990 (3 months, credited in full). The €45,000 was never a pilot price: the April 2026 engagement model is a THREE-PHASE PROGRAMME (Audit 2wk €5,000 + Aegis pilot 6wk €15,000 + LWM integration 8wk €25,000), additive to the licence. Only the middle phase is a pilot. At €45,000 credited, everything after the pilot cost €14,990, which cannot cover fleet rollout across 21 industries; and a pilot at 75% of the product is the product under a lower-commitment name.",
+        "€19,990 is ~33% of the €59,990 onboarding, leaves €40,000 for the work that genuinely remains, and sits above the €9,990 6-week AIS-OUTCOME-PILOT (this engagement is longer and broader). Full credit is now defensible because the pilot is a bounded subset of onboarding.",
+        "NEW SKU DWS-AEGIS-IMPL-001 (DWS IQ Aegis Implementation Programme, 3 phases) €45,000 — the April structure preserved as its own product, ADDITIVE and NOT credited. The word 'pilot' is deliberately absent from its id, name and copy: that ambiguity is what produced the original error.",
+        "Wording guard added to DWS-AEGIS-PILOT-001 per HIC instruction: priceNote and description now state explicitly what the €19,990 includes, the binary acceptance KPI (uplink severed - workflow completes, Article 12 record still written locally, operator can still stop an agent), and what remains outside the credit (LWM integration, hardware, multi-site rollout, other industries, custom integrations, the implementation programme; capped at €19,990, lapses after 6 months)."
+      ]
+    },
     {
       "version": "1.24",
       "date": "2026-07-30",

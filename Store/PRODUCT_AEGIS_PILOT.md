@@ -1,6 +1,6 @@
 ---
 title: "DWS IQ Aegis Pilot (3 months)"
-price: "45000.00"
+price: "19990.00"
 currency: "EUR"
 sku: "DWS-AEGIS-PILOT-001"
 availability: "preorder"
@@ -10,7 +10,7 @@ image_link: "https://dws10.com/static/images/firehorse-aegis-head.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€45,000 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months."
+priceNote: "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months. Credit capped at €19,990; excludes LWM integration, hardware, multi-site rollout and custom integrations."
 mpn: "DWS-AEGIS-PILOT-2026"
 ---
 
@@ -34,7 +34,7 @@ The five requirements that define a control-room deployment, demonstrated rather
 4. **Cloud only for optional sync, backup or non-critical reporting** — never the outcome, never the evidence chain, never the stop.
 5. **Graceful degradation** — specified in advance, then demonstrated, rather than discovered during an incident.
 
-**The acceptance test is deliberately blunt:** with the uplink cut, does production continue, is the Article 12 record still being written locally, and can an operator still stop an agent? A pilot that cannot answer yes to all three has produced a useful negative result, and you will have learned it for €45,000 instead of after a hardware programme.
+**The acceptance KPI is binary and deliberately blunt.** With the uplink severed for an agreed window: (i) does the piloted workflow run to completion, (ii) is the EU AI Act Article 12 record still being written locally, and (iii) can an operator still stop a running agent? **All three must pass.** A pilot that does not pass has produced a useful negative result — a valid outcome, not a defect — and you will have learned it for €19,990 instead of after a hardware programme.
 
 ## What you get
 
@@ -48,14 +48,22 @@ The five requirements that define a control-room deployment, demonstrated rather
 
 | | |
 | --- | --- |
-| **Price** | €45,000 fixed |
+| **Price** | €19,990 fixed |
 | **Duration** | 3 months |
 | **Hardware** | None purchased. Runs on existing customer infrastructure or a compact edge appliance. |
 | **Credit** | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months |
 
-**One net price, not two.** The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €45,000 you have already paid comes off it. The pilot lowers the risk of the platform decision; it does not add to its cost.
+**One net price, not two.** The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.
 
 If you do not proceed, you keep the architecture, the measurements and the evidence record. Nothing further is owed.
+
+### Exactly what is in scope
+
+**The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.
+
+**Outside the credit, stated so there is no ambiguity later:** LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
+
+**Why the scope is written this tightly.** A pilot priced at a large fraction of the product stops being a pilot and becomes the product under a lower-commitment name. €19,990 is a bounded subset of onboarding, which is what makes crediting it in full defensible rather than a discount in disguise.
 
 ## Who it is for
 
@@ -64,4 +72,5 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 ## Related
 
 - **DWS IQ Aegis** — the full platform (`DWS-AEGIS-001`), €59,990 onboarding + from €999/mo.
+- **DWS IQ Aegis Implementation Programme** — the three-phase engagement (`DWS-AEGIS-IMPL-001`), €45,000, additive and not credited.
 - Deployment architecture, modes and the control-room requirement: see the Aegis product page.

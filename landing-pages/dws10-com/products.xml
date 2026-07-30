@@ -829,7 +829,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;li&gt;&lt;strong&gt;Cloud only for optional sync, backup or non-critical reporting&lt;/strong&gt; — never the outcome, never the evidence chain, never the stop.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Graceful degradation&lt;/strong&gt; — specified in advance, then demonstrated, rather than discovered during an incident.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;The acceptance test is deliberately blunt:&lt;/strong&gt; with the uplink cut, does production continue, is the Article 12 record still being written locally, and can an operator still stop an agent? A pilot that cannot answer yes to all three has produced a useful negative result, and you will have learned it for €45,000 instead of after a hardware programme.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The acceptance KPI is binary and deliberately blunt.&lt;/strong&gt; With the uplink severed for an agreed window: (i) does the piloted workflow run to completion, (ii) is the EU AI Act Article 12 record still being written locally, and (iii) can an operator still stop a running agent? &lt;strong&gt;All three must pass.&lt;/strong&gt; A pilot that does not pass has produced a useful negative result — a valid outcome, not a defect — and you will have learned it for €19,990 instead of after a hardware programme.&lt;/p&gt;
 &lt;h2&gt;What you get&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;A scoped architecture for your site, with the deployment mode named (Local / Edge, Hybrid, or EU-Sovereign Cloud) and justified.&lt;/li&gt;
@@ -841,20 +841,59 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;h2&gt;Pricing&lt;/h2&gt;
 &lt;p&gt;| | |
 | --- | --- |
-| &lt;strong&gt;Price&lt;/strong&gt; | €45,000 fixed |
+| &lt;strong&gt;Price&lt;/strong&gt; | €19,990 fixed |
 | &lt;strong&gt;Duration&lt;/strong&gt; | 3 months |
 | &lt;strong&gt;Hardware&lt;/strong&gt; | None purchased. Runs on existing customer infrastructure or a compact edge appliance. |
 | &lt;strong&gt;Credit&lt;/strong&gt; | &lt;strong&gt;Credited in full against the €59,990 Aegis onboarding&lt;/strong&gt; if you proceed within 6 months |&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;One net price, not two.&lt;/strong&gt; The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €45,000 you have already paid comes off it. The pilot lowers the risk of the platform decision; it does not add to its cost.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;One net price, not two.&lt;/strong&gt; The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.&lt;/p&gt;
 &lt;p&gt;If you do not proceed, you keep the architecture, the measurements and the evidence record. Nothing further is owed.&lt;/p&gt;
+&lt;h3&gt;Exactly what is in scope&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;The €19,990 includes:&lt;/strong&gt; one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Outside the credit, stated so there is no ambiguity later:&lt;/strong&gt; LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM integrations; and the separate &lt;strong&gt;DWS IQ Aegis Implementation Programme&lt;/strong&gt; (&lt;code&gt;DWS-AEGIS-IMPL-001&lt;/code&gt;, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why the scope is written this tightly.&lt;/strong&gt; A pilot priced at a large fraction of the product stops being a pilot and becomes the product under a lower-commitment name. €19,990 is a bounded subset of onboarding, which is what makes crediting it in full defensible rather than a discount in disguise.&lt;/p&gt;
 &lt;h2&gt;Who it is for&lt;/h2&gt;
-&lt;p&gt;Manufacturing control rooms, dual-use facilities and other critical sites where a network outage is an operational event rather than an inconvenience — and where somebody has to be able to state, to a regulator or a board, what the system did while the link was down.&lt;/p&gt;
+&lt;p&gt;Manufacturing control rooms, dual-use facilities and other critical sites where a network outage is an operational event rather than an inconvenience — and where somebody has to be able to sta</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>19990 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-AEGIS-IMPL-001</g:id>
+      <g:title>DWS IQ Aegis Implementation Programme (3 phases)</g:title>
+      <g:description>&lt;h1&gt;DWS IQ Aegis Implementation Programme&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Three phases, three months, one agent live and a world model that starts accumulating&lt;/strong&gt; — delivered alongside DWS IQ Aegis&lt;/p&gt;
+&lt;h2&gt;What it is&lt;/h2&gt;
+&lt;p&gt;A structured implementation engagement for organisations that have decided on Aegis and want the deployment carried through to a working, knowledge-accumulating state rather than handed over at go-live.&lt;/p&gt;
+&lt;p&gt;It is &lt;strong&gt;not&lt;/strong&gt; an evaluation. If you are still deciding whether local-first operation suits your site, the bounded evaluation engagement is the right starting point instead — see Related below.&lt;/p&gt;
+&lt;h2&gt;The three phases&lt;/h2&gt;
+&lt;p&gt;| Phase | Duration | Outcome | Price |
+| --- | --- | --- | --- |
+| &lt;strong&gt;1 — Audit&lt;/strong&gt; | 2 weeks | Current state mapped to a gap analysis against the target architecture | €5,000 |
+| &lt;strong&gt;2 — Agent in production&lt;/strong&gt; | 6 weeks | One skilled agent live and EU-compliant, with the Article 12 record running | €15,000 |
+| &lt;strong&gt;3 — LWM integration&lt;/strong&gt; | 8 weeks | World-model integration, so operational knowledge accumulates instead of resetting | €25,000 |&lt;/p&gt;
+&lt;p&gt;Phases run in sequence by default. They can be taken individually where the earlier work already exists.&lt;/p&gt;
+&lt;h2&gt;Pricing, stated plainly&lt;/h2&gt;
+&lt;p&gt;| | |
+| --- | --- |
+| &lt;strong&gt;Price&lt;/strong&gt; | €45,000 for all three phases |
+| &lt;strong&gt;Duration&lt;/strong&gt; | ~3 months |
+| &lt;strong&gt;Relationship to Aegis&lt;/strong&gt; | &lt;strong&gt;Additive.&lt;/strong&gt; Charged alongside Aegis onboarding (€59,990) and licence (from €999/mo) |
+| &lt;strong&gt;Credit&lt;/strong&gt; | &lt;strong&gt;None.&lt;/strong&gt; This programme is not credited against onboarding |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why it is not credited, when the evaluation engagement is.&lt;/strong&gt; Phase 3 — LWM integration — is work that Aegis onboarding does not contain. Crediting it against onboarding would mean charging once for two different pieces of work, which does not survive procurement review and should not. Phases 1 and 2 sit closer to onboarding, which is why they are priced separately and can be taken on their own.&lt;/p&gt;
+&lt;h2&gt;Who it is for&lt;/h2&gt;
+&lt;p&gt;Organisations that have already committed to Aegis and want the accumulation layer built, not just the platform switched on. Typically a second engagement after a bounded evaluation, or a first engagement where the architecture decision is already settled internally.&lt;/p&gt;
 &lt;h2&gt;Related&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;DWS IQ Aegis&lt;/strong&gt; — the full platform (&lt;code&gt;DWS-AEGIS-001&lt;/code&gt;), €59,990 onboarding + from €999/mo.&lt;/li&gt;
-&lt;li&gt;Deployment architecture, modes and the control-room requirement: see the Aegis product page.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DWS IQ Aegis&lt;/strong&gt; — the platform (&lt;code&gt;DWS-AEGIS-001&lt;/code&gt;), €59,990 onboarding + from €999/mo.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DWS IQ Aegis Pilot&lt;/strong&gt; — the bounded 3-month evaluation (&lt;code&gt;DWS-AEGIS-PILOT-001&lt;/code&gt;), €19,990, credited in full against onboarding. Start there if the local-first architecture decision is not yet made.&lt;/li&gt;
+&lt;li&gt;Deployment architecture and modes: see the Aegis product page.&lt;/li&gt;
 &lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
+      <g:link>https://dws10.com/products/dws-aegis-impl-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>preorder</g:availability>
