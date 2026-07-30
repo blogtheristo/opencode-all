@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Network-independent critical operation — the hybrid-war premise for Aegis pilots
-Version: 1.0
+Version: 1.1
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -23,6 +23,7 @@ Related: kb/wiki/concepts/network-independent-critical-operation.md,
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Q6 ANSWERED and the loop closed (§10.7). The HIC re-framed rather than chose: deployment MODES, not pricing tiers — all three options as posed accepted the framing that caused the contradiction. Records the three modes (local/edge, hybrid, EU-sovereign cloud), the hard boundary that v1.0 crossed (local-first is required for the CONTROL-ROOM deployment, not claimed product-wide — do not say every Aegis deployment is offline), and the pilot path (prove local on existing customer hardware or a small edge appliance before DGX procurement, ~EUR 45K/3mo reference scope). Original question retained above the answer per Rule 12. Applied to Store/PRODUCT_AEGIS.md.
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the locked decision and its five pilot requirements, the commercial line, the conflict with the Aegis product overview ("available exclusively on European cloud or enterprise private cloud" — offline appears only as a premium tier), and the evidential asymmetry that makes continuity the stronger lead claim. Raises Q6.
 -->
 
@@ -63,7 +64,7 @@ and lists air-gapped / on-premises operation only under the **Aegis Sovereign** 
 - It presents network-independent operation as a **premium upgrade** when the decision makes it the **baseline premise** for the dual-use manufacturing case Aegis exists to serve.
 - "Exclusively on European cloud or enterprise private cloud" reads as though local execution is *outside* the product, which is the opposite of what a hybrid-war buyer needs to hear in the first paragraph.
 
-**Corrected in this change:** the overview now states the continuity premise and the commercial line. **Not decided in this change:** whether offline-capable operation moves into Standard/Defence, or stays a Sovereign-tier capability with the premise stated product-wide. That is a commercial call with pricing consequences — see Q6 (§5).
+**Resolved in v1.1 (§5):** the framing itself was the fault. Deployment mode and commercial tier are different axes, and the product doc had collapsed them — which is what made local operation look like a premium feature. `Store/PRODUCT_AEGIS.md` now carries a **Deployment Modes** section, the Sovereign tier no longer differentiates on "air-gapped option", and tiers are stated to price hardware, SLA, support and sovereignty **without gating mode**.
 
 ## 3. Why this argument is stronger than the economic one from earlier today
 
@@ -86,13 +87,39 @@ Not only commercial. NIS2 and the CER Directive already impose continuity obliga
 
 That reframes the requirement from resilience engineering into compliance engineering, which is the layer DWS actually sells.
 
-## 5. What was done, and the open decision
+## 5. What was done, and how Q6 was answered
 
-**Done in this change:** the decision recorded here and as a reusable requirement set (`kb/wiki/concepts/network-independent-critical-operation.md`, with a five-point architecture test); `Store/PRODUCT_AEGIS.md` overview corrected to state the premise and the commercial line.
+**Done:** the decision recorded here and as a reusable requirement set (`kb/wiki/concepts/network-independent-critical-operation.md`, with a five-point architecture test); `Store/PRODUCT_AEGIS.md` rewritten to separate deployment modes from pricing tiers, with the premise scoped to the control-room case rather than claimed product-wide.
 
-**Not done — deliberately:** no tier restructure, no pricing change, no deployment-standard rewrite, no roadmap re-sequencing. Those follow the decision below.
+**Still not done — deliberately:** no pricing change, no `DWS_DEPLOYMENT_STANDARD.md` rewrite, no roadmap re-sequencing. Those follow from the modes model but are separate work.
 
-### HIC question Q6 (EU AI Act Art. 14 intervention point)
+### Q6 — ANSWERED by the HIC, 30.07.2026
+
+**Answer: none of the three options as posed. The question was mis-framed, and the HIC re-framed it.**
+
+> "We had turned deployment into pricing tiers, which created the contradiction. The cleaner model is **deployment modes, not tiers**."
+
+**Deployment mode and commercial tier are different axes.** Mode is determined by what the workload is; tier by hardware, SLA, support and sovereignty requirements. My three options all argued about *which tier* should carry offline capability — which accepted the very framing that produced the contradiction. The resolution is to stop gating mode by tier at all.
+
+**The three modes, as decided:**
+
+| Mode | For | What stays on site |
+| ---- | --- | ------------------ |
+| **Local / edge** | Manufacturing control rooms, critical and dual-use sites | Core execution, evidence, identity, logs, kill authority. No network dependency for the core outcome. |
+| **Hybrid** | Local guarantees plus central visibility | Local execution; optional sync, backup, reporting to EU cloud |
+| **EU-sovereign cloud** | Non-critical enterprise workloads, reporting, development | Nothing — network-dependent by design, and appropriate where that is acceptable |
+
+**The hard commercial boundary the HIC set, and which I had crossed.** v1.0 of this note stated the premise product-wide, and the product-doc edit that accompanied it said Aegis "is designed on the premise that loss of network connectivity must not stop production" without qualification. That over-claims. The correct statement is narrower and now in the product doc: **local-first is required for the control-room deployment; cloud remains a valid mode elsewhere.** Do not claim every Aegis deployment is offline by default. Corrected in v1.1.
+
+**Pilot path:** prove the local path on **existing customer hardware or a small edge appliance, before any DGX procurement**. Hardware scale-up is a decision the pilot informs, not a precondition for starting. Reference scope ~€45K over three months (April 2026 engagement model, `.claude/archive/2026-04-15/...dws-iq-aegis-lwm-strategy.md`); any live offer figure belongs in `dws10.com/config/products.json`.
+
+**Applied to `Store/PRODUCT_AEGIS.md`:** a Deployment Modes section replacing the per-tier hardware framing; the Sovereign tier's differentiator changed from "air-gapped / on-premises option" to clearance support, dedicated engineering, custom SLA and sovereignty assurance; and an explicit statement that tiers price hardware, SLA, support and sovereignty but **do not gate deployment mode**.
+
+**Still unverified, and option-3's old dependency survives the re-framing:** whether the base tiers can deliver local identity, logs and kill authority without customer-sited hardware. Modes do not answer engineering feasibility — they only stop pricing from pretending to.
+
+_Superseded question, retained per Rule 12:_
+
+### HIC question Q6 (as originally posed — superseded above)
 
 **Q6. Network-independent operation is now the premise for the dual-use case. Does it move into the base tiers, or stay a Sovereign-tier capability?**
 

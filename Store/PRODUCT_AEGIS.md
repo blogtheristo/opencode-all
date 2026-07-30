@@ -26,7 +26,9 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 **Aegis keeps critical compliance and control-room workflows running when the network cannot be trusted.**
 
-In a hybrid-war environment a manufacturing facility is **dual-use critical infrastructure**, and connectivity is an adversary-reachable dependency. Aegis is therefore designed on the premise that **loss of network connectivity must not stop production or the core compliance workflow** — an operational premise, not a deployment preference. Every pilot is scoped against five requirements: local execution and local evidence; local identity, logs and kill authority; no network dependency for the core outcome; cloud only for optional sync, backup or non-critical reporting; and graceful degradation that is specified in advance rather than discovered during an outage.
+In a hybrid-war environment a manufacturing facility is **dual-use critical infrastructure**, and connectivity is an adversary-reachable dependency. **For the control-room and critical / dual-use site deployment, local-first operation is an architectural requirement, not an option:** loss of network connectivity must not stop production or the core compliance workflow. That deployment is scoped against five requirements — local execution and local evidence; local identity, logs and kill authority; no network dependency for the core outcome; cloud only for optional sync, backup or non-critical reporting; and graceful degradation specified in advance rather than discovered during an outage.
+
+**This is not a claim that every Aegis deployment is offline.** EU-sovereign cloud remains a valid and fully supported mode for non-critical enterprise workloads, reporting and development. What is fixed is which mode the control-room use case requires.
 
 This is a compliance requirement as much as a resilience one. The EU AI Act Article 12 record must exist for decisions taken **during** a disruption, not be reconstructed afterwards — an evidence chain that pauses when the uplink drops has a gap at exactly the moment the record matters most. NIS2 and the CER Directive impose the continuity obligation alongside it.
 
@@ -152,12 +154,28 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **SLA:** 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)
-- **Hardware (per tier — DWS does not resell hardware at any tier):**
-  - _Standard_ — software-only. Runs on EU cloud (UpCloud, Helsinki). No hardware.
-  - _Defence_ — software-only. Adds NVIDIA L40S **GPU nodes in the EU cloud cluster**; still nothing shipped to site.
-  - _Sovereign_ — air-gapped / on-premises. The physical layer is designed to run on **customer-sited edge hardware** (DGX Spark / Jetson class). Hardware is procured by the customer or a partner and scoped per engagement (the tier is custom-priced); DWS supplies the platform and the governance layer, not the box.
+- **Hardware (by deployment mode — DWS does not resell hardware in any mode):**
+  - _Local / edge_ — runs on **customer-sited hardware**: existing customer machines, a small edge appliance, or DGX Spark / Jetson class where the physical layer is in scope. Procured by the customer or a partner and scoped per engagement. DWS supplies the platform and the governance layer, not the box.
+  - _Hybrid_ — the same local footprint, plus an EU-cloud endpoint for optional sync, backup and reporting.
+  - _EU-sovereign cloud_ — software-only on EU cloud (UpCloud, Helsinki); NVIDIA L40S GPU nodes available in-cluster. Nothing shipped to site.
 - **Certifications roadmap:** ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.
 - **Availability:** September 2026
+
+## Deployment Modes
+
+Deployment mode and commercial tier are **different axes**. Mode is determined by what the workload is; tier by hardware, SLA, support and sovereignty requirements. Collapsing the two is what previously made local operation look like a premium feature.
+
+Aegis runs in three deployment modes:
+
+| Mode | For | What stays on site |
+| ---- | --- | ------------------ |
+| **Local / edge** | Manufacturing control rooms and other critical or dual-use sites | Core execution, evidence, identity, logs and kill authority. **No network dependency for the core outcome.** |
+| **Hybrid** | Sites that want local guarantees plus central visibility | Local execution, with optional synchronisation, backup or reporting to EU cloud |
+| **EU-sovereign cloud** | Non-critical enterprise workloads, reporting, development, and customers that accept network dependency | Nothing — network-dependent by design, and appropriate where that is acceptable |
+
+**Local / edge is required for the control-room use case.** It is not a luxury tier and not an upgrade path. Cloud remains a valid mode everywhere else.
+
+**Pilot path.** The pilot proves the local path on **existing customer hardware or a small edge appliance — before any DGX procurement**. Hardware scale-up is a later decision that the pilot informs, not a precondition for starting. (Reference pilot scope: ~€45K over three months, per the April 2026 Aegis engagement model; the canonical figure for any live offer is whatever `dws10.com/config/products.json` carries.)
 
 ## Pricing
 
@@ -165,9 +183,9 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 | ------------------- | ------------------------ | --------- | --------------------------------------------------------------------------------------------------------------- |
 | **Aegis Standard**  | €59,990                  | €999/mo   | Skilled-agent fleet, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
 | **Aegis Defence**   | €89,990                  | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting                |
-| **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA   |
+| **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + security clearance support, dedicated engineering team, custom SLA, heightened sovereignty assurance  |
 
-Aegis is a standalone product — not part of the Captain investor programme. DWS does not resell hardware at any tier: Standard and Defence are software-only (Defence adds EU-cloud L40S GPU nodes), while Sovereign deploys on-premises onto customer-sited edge hardware scoped per engagement. See the per-tier hardware note under Technical Requirements.
+Aegis is a standalone product — not part of the Captain investor programme. **Tiers price hardware, SLA, support and sovereignty assurance; they do not gate the deployment mode.** Local / edge operation is available in every tier because the control-room use case requires it architecturally. DWS does not resell hardware in any mode: customer-sited hardware is procured by the customer or a partner and scoped per engagement. See the deployment-mode hardware note under Technical Requirements.
 
 ## Strategic Partnerships
 

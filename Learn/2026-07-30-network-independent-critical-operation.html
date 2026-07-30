@@ -170,7 +170,7 @@ vertical-align: middle;
 <!--
 VERSION AND AGENT HISTORY
 Document: Network-independent critical operation — the hybrid-war premise for Aegis pilots
-Version: 1.0
+Version: 1.1
 Date: 2026-07-30
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -192,6 +192,7 @@ Related: kb/wiki/concepts/network-independent-critical-operation.md,
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Q6 ANSWERED and the loop closed (§10.7). The HIC re-framed rather than chose: deployment MODES, not pricing tiers — all three options as posed accepted the framing that caused the contradiction. Records the three modes (local/edge, hybrid, EU-sovereign cloud), the hard boundary that v1.0 crossed (local-first is required for the CONTROL-ROOM deployment, not claimed product-wide — do not say every Aegis deployment is offline), and the pilot path (prove local on existing customer hardware or a small edge appliance before DGX procurement, ~EUR 45K/3mo reference scope). Original question retained above the answer per Rule 12. Applied to Store/PRODUCT_AEGIS.md.
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the locked decision and its five pilot requirements, the commercial line, the conflict with the Aegis product overview ("available exclusively on European cloud or enterprise private cloud" — offline appears only as a premium tier), and the evidential asymmetry that makes continuity the stronger lead claim. Raises Q6.
 -->
 <h1 id="field-note-network-independent-critical-operation-the-hybrid-war-premise-for-aegis">Field
@@ -257,12 +258,14 @@ though local execution is <em>outside</em> the product, which is the
 opposite of what a hybrid-war buyer needs to hear in the first
 paragraph.</li>
 </ul>
-<p><strong>Corrected in this change:</strong> the overview now states
-the continuity premise and the commercial line. <strong>Not decided in
-this change:</strong> whether offline-capable operation moves into
-Standard/Defence, or stays a Sovereign-tier capability with the premise
-stated product-wide. That is a commercial call with pricing consequences
-— see Q6 (§5).</p>
+<p><strong>Resolved in v1.1 (§5):</strong> the framing itself was the
+fault. Deployment mode and commercial tier are different axes, and the
+product doc had collapsed them — which is what made local operation look
+like a premium feature. <code>Store/PRODUCT_AEGIS.md</code> now carries
+a <strong>Deployment Modes</strong> section, the Sovereign tier no
+longer differentiates on “air-gapped option”, and tiers are stated to
+price hardware, SLA, support and sovereignty <strong>without gating
+mode</strong>.</p>
 <h2 id="why-this-argument-is-stronger-than-the-economic-one-from-earlier-today">3.
 Why this argument is stronger than the economic one from earlier
 today</h2>
@@ -329,19 +332,100 @@ Article 12 gap at exactly the moment the record matters most — during
 the disruption it is meant to document.</p>
 <p>That reframes the requirement from resilience engineering into
 compliance engineering, which is the layer DWS actually sells.</p>
-<h2 id="what-was-done-and-the-open-decision">5. What was done, and the
-open decision</h2>
-<p><strong>Done in this change:</strong> the decision recorded here and
-as a reusable requirement set
+<h2 id="what-was-done-and-how-q6-was-answered">5. What was done, and how
+Q6 was answered</h2>
+<p><strong>Done:</strong> the decision recorded here and as a reusable
+requirement set
 (<code>kb/wiki/concepts/network-independent-critical-operation.md</code>,
 with a five-point architecture test);
-<code>Store/PRODUCT_AEGIS.md</code> overview corrected to state the
-premise and the commercial line.</p>
-<p><strong>Not done — deliberately:</strong> no tier restructure, no
-pricing change, no deployment-standard rewrite, no roadmap
-re-sequencing. Those follow the decision below.</p>
-<h3 id="hic-question-q6-eu-ai-act-art.-14-intervention-point">HIC
-question Q6 (EU AI Act Art. 14 intervention point)</h3>
+<code>Store/PRODUCT_AEGIS.md</code> rewritten to separate deployment
+modes from pricing tiers, with the premise scoped to the control-room
+case rather than claimed product-wide.</p>
+<p><strong>Still not done — deliberately:</strong> no pricing change, no
+<code>DWS_DEPLOYMENT_STANDARD.md</code> rewrite, no roadmap
+re-sequencing. Those follow from the modes model but are separate
+work.</p>
+<h3 id="q6-answered-by-the-hic-30.07.2026">Q6 — ANSWERED by the HIC,
+30.07.2026</h3>
+<p><strong>Answer: none of the three options as posed. The question was
+mis-framed, and the HIC re-framed it.</strong></p>
+<blockquote>
+<p>“We had turned deployment into pricing tiers, which created the
+contradiction. The cleaner model is <strong>deployment modes, not
+tiers</strong>.”</p>
+</blockquote>
+<p><strong>Deployment mode and commercial tier are different
+axes.</strong> Mode is determined by what the workload is; tier by
+hardware, SLA, support and sovereignty requirements. My three options
+all argued about <em>which tier</em> should carry offline capability —
+which accepted the very framing that produced the contradiction. The
+resolution is to stop gating mode by tier at all.</p>
+<p><strong>The three modes, as decided:</strong></p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 12%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>For</th>
+<th>What stays on site</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Local / edge</strong></td>
+<td>Manufacturing control rooms, critical and dual-use sites</td>
+<td>Core execution, evidence, identity, logs, kill authority. No network
+dependency for the core outcome.</td>
+</tr>
+<tr class="even">
+<td><strong>Hybrid</strong></td>
+<td>Local guarantees plus central visibility</td>
+<td>Local execution; optional sync, backup, reporting to EU cloud</td>
+</tr>
+<tr class="odd">
+<td><strong>EU-sovereign cloud</strong></td>
+<td>Non-critical enterprise workloads, reporting, development</td>
+<td>Nothing — network-dependent by design, and appropriate where that is
+acceptable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The hard commercial boundary the HIC set, and which I had
+crossed.</strong> v1.0 of this note stated the premise product-wide, and
+the product-doc edit that accompanied it said Aegis “is designed on the
+premise that loss of network connectivity must not stop production”
+without qualification. That over-claims. The correct statement is
+narrower and now in the product doc: <strong>local-first is required for
+the control-room deployment; cloud remains a valid mode
+elsewhere.</strong> Do not claim every Aegis deployment is offline by
+default. Corrected in v1.1.</p>
+<p><strong>Pilot path:</strong> prove the local path on <strong>existing
+customer hardware or a small edge appliance, before any DGX
+procurement</strong>. Hardware scale-up is a decision the pilot informs,
+not a precondition for starting. Reference scope ~€45K over three months
+(April 2026 engagement model,
+<code>.claude/archive/2026-04-15/...dws-iq-aegis-lwm-strategy.md</code>);
+any live offer figure belongs in
+<code>dws10.com/config/products.json</code>.</p>
+<p><strong>Applied to <code>Store/PRODUCT_AEGIS.md</code>:</strong> a
+Deployment Modes section replacing the per-tier hardware framing; the
+Sovereign tier’s differentiator changed from “air-gapped / on-premises
+option” to clearance support, dedicated engineering, custom SLA and
+sovereignty assurance; and an explicit statement that tiers price
+hardware, SLA, support and sovereignty but <strong>do not gate
+deployment mode</strong>.</p>
+<p><strong>Still unverified, and option-3’s old dependency survives the
+re-framing:</strong> whether the base tiers can deliver local identity,
+logs and kill authority without customer-sited hardware. Modes do not
+answer engineering feasibility — they only stop pricing from pretending
+to.</p>
+<p><em>Superseded question, retained per Rule 12:</em></p>
+<h3 id="hic-question-q6-as-originally-posed-superseded-above">HIC
+question Q6 (as originally posed — superseded above)</h3>
 <p><strong>Q6. Network-independent operation is now the premise for the
 dual-use case. Does it move into the base tiers, or stay a
 Sovereign-tier capability?</strong></p>
