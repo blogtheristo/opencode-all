@@ -62,55 +62,77 @@ large context window economically usable rather than merely advertised. And
 inference engines have appeared that hold throughput as the context fills, instead
 of collapsing to single digits once real work accumulates.
 
+## Two workloads, two correct answers
+
+This is not an argument that everyone should buy GPUs. The substrate is selected
+by the shape of the work, and there are two shapes.
+
+**Consumer applications.** Millions of external users, arriving unpredictably, each
+sending a short prompt — one or two thousand tokens of context. You need elastic
+capacity to absorb bursts you cannot forecast. Paying fractions of a cent per token
+is far cheaper than owning clusters that sit idle off-peak. Metered APIs are not a
+compromise here; they are the right answer.
+
+**Industrial fleets.** A known, bounded number of internal agents — ten, twenty
+specialised software operators — running deep, multi-turn workflows: a compliance
+audit, a refactor across a codebase, an evidence chain reasoning over a long
+record. This is where Composio's 340k median lives. Per-token billing on that depth
+is where margin goes to die.
+
+The difference that matters is not size. It is **who decides the concurrency**. In
+the first case, the public does. In the second, you do.
+
 ## The part most people will skip
 
 "Local compute is free" is false, and a claim that big deserves its limit stated
 plainly.
 
-Hardware has finite memory bandwidth and finite compute. What the shift actually
-does is **change the kind of cost you pay**, not remove it:
+Every GPU has a throughput knee. To the left of it, memory bandwidth and KV-cache
+comfortably carry the active context and generation stays responsive. Past it,
+VRAM fills, requests queue, and throughput collapses non-linearly into latency. So
+the shift does not remove cost — it **changes the kind of cost you pay**:
 
 - **Metered cloud:** cost scales with tokens; concurrency is effectively unlimited.
   You trade capital for capacity.
 - **Own hardware:** no marginal cost per token; concurrency is capped. You trade
   peak scale for predictable execution at depth.
 
-Amortised latency is only free where you have slack. Push concurrency high enough
-and it becomes a queue. The fixed-hardware curve has a knee that the metered curve
-does not, and past it you pay in wall-clock rather than euros.
+Run a consumer app on local GPUs and an unplanned surge pushes you past the knee
+and takes your performance with it. Run a bounded fleet and you can dimension the
+engine so that even at 250k–340k context depth, the total workload sits to the
+left of it. That is the whole trick, and it is a discipline rather than a property:
+**you can only dimension to the left of a knee you have measured.** Under-dimension
+a sovereign deployment and you hit the same wall as everyone else.
 
-Which is why this is not a universal recommendation. It holds where per-task
-context is deep and the number of concurrent operators is bounded — an industrial
-fleet, a regulated evidence workflow, a compliance chain that must reason over a
-long record. It fails for consumer agents with unpredictable, high-concurrency,
-shallow-context traffic. Those workloads are correctly shaped for metered APIs.
-
-We have not yet measured our own knee. That sweep — at what context length does
+We have not yet measured our own. That sweep — at what context length does
 KV-cache bandwidth drag generation below interactive speed, and where does
 memory-bound generation give way to queueing — is the next thing we run on our own
 box. We will publish the curve, including if it is inconvenient.
 
 ## What it means if you are buying
 
-Three things worth taking away.
-
 **Check the harness before you switch the model.** If your agent bill is
 uncomfortable, harness overhead is now a more likely culprit than model price, and
 it is the cheaper thing to change.
 
-**Harness ownership is no longer a differentiator.** As of 29 July it is an
-earnings-call talking point from the largest enterprise software vendor on earth.
-Anyone selling you "we keep the harness separate" is describing table stakes.
+**A harness on its own is no longer a differentiator.** As of 29 July, "we keep the
+harness separate from the model" is an earnings-call talking point from the largest
+enterprise software vendor on earth. Anyone selling you that sentence alone is
+describing table stakes.
 
-**Ask where the loop runs.** What stays defensible is not the harness but the
-evidence loop inside it — private evaluations, an environment shaped by your own
-operations, a reasoning record that holds up in front of a regulator. That loop is
-jurisdictional. It is also the part that gets expensive at depth, which is exactly
-why the substrate question matters.
+**What is defensible is the coupling.** Deep scaffolding is only affordable on
+compute whose marginal cost is zero, and a vendor whose revenue scales with tokens
+has little reason to make token-intensive work cheap. But be precise about the
+limit of that argument, because a good procurement team will be: metered vendors
+*can* reprice — reserved capacity and provisioned throughput already do. A capacity
+contract answers the bill. It does not answer where your evidence lives, under
+whose law, or who can compel its disclosure. Compute makes deep harness work
+affordable; jurisdiction makes it defensible. The moat is both, and neither one
+alone.
 
 The harness is the future of software. Its token intensity makes metered pricing
-the wrong place to run it. That is the whole argument, and the interesting work now
-is finding out precisely where it stops being true.
+the wrong place to run it for a whole class of work. That is the argument, and the
+interesting job now is finding out precisely where it stops being true.
 
 ---
 
