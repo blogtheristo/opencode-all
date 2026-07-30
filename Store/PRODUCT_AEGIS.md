@@ -167,15 +167,15 @@ Aegis is engineered **local-first** for deep and reliable industrial operations.
 
 ### Deployment Modes
 
-- **Local / Edge:** Engineered for manufacturing control rooms and other critical or dual-use sites. Core agent execution, evidence capture, identity checks, audit logs, and human kill authority stay strictly on-site, so core operational outcomes do not depend on network availability.
-- **EU-Sovereign Cloud:** Designed for non-critical enterprise workloads, development environments, cross-site reporting, and organizations that accept network dependency.
-- **Hybrid:** Delivers local execution (preserving bounded, dimensioned compute economics for deep workflows) paired with optional outbound synchronization, backup, or compliance reporting to an EU-sovereign cloud.
+- **Local / Edge:** For manufacturing control rooms and other critical or dual-use sites. Core agent execution, evidence capture, identity verification, audit logs, and human kill authority stay strictly on-site, so core operational outcomes do not depend on network availability.
+- **EU-Sovereign Cloud:** For non-critical enterprise workloads, development environments, cross-site reporting, and customers that accept network dependency.
+- **Hybrid:** Local execution (preserving bounded, dimensioned compute economics for deep workflows) with optional outbound synchronization, backup, or compliance reporting to an EU-sovereign cloud.
 
-### Commercial & Deployment Path
+### Commercial & Staging Path
 
-While local-first execution is required for control-room deployments, Aegis does not force a universal offline model onto non-critical corporate functions. Commercial pricing scales with operational coverage, hardware footprint, SLA, and support guarantees — **not by charging a premium tax for local deployment**.
+Pricing tiers structure commercial coverage, hardware footprint, SLAs, and dedicated engineering support — **they do not gate deployment modes**. Local-first execution is required for control-room deployments, but Aegis does not claim that every enterprise deployment is offline by default.
 
-To eliminate upfront friction, the **€45K Aegis Pilot** proves the complete local-first operational path directly on existing customer infrastructure or a compact edge appliance before committing to large-scale DGX silicon procurement.
+To validate local execution before committing to major hardware investments, the **3-month Aegis Pilot** proves the complete local operational path directly on existing customer infrastructure or a compact edge appliance prior to DGX procurement.
 
 ## Pricing
 
