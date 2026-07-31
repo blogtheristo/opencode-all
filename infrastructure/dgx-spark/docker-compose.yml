@@ -155,7 +155,8 @@ services:
   # ==========================================================================
   # MCP Gateway — Supabase + GitHub tools for remote Claude Code sessions
   # (mobile/desktop). Ported from Cloud Run per docs/CLOUD_ENVIRONMENTS.md
-  # §12.9 — DGX Spark is priority 1 for this workload (zero marginal cost,
+  # §12.9 — DGX Spark is priority 1 for this workload (no external per-token
+  # billing; power/amortisation/serving remain — bounded, not zero,
   # EU-sovereign); the gateway's in-process MCP session state needs no
   # porting here since this is a persistent host, unlike Workers isolates.
   # No host port — reached only via the cloudflare-tunnel service below, over

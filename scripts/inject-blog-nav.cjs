@@ -12,11 +12,6 @@ const POSTS_DIR = path.join(__dirname, '..', 'onelifetime.world', 'posts');
 // Chronological order of root-level posts
 const posts = [
   {
-    file: 'business-case-logistics.html',
-    title: 'Business Case: The Intelligent Fleet Pilot',
-    date: 'Dec 2025',
-  },
-  {
     file: 'kya-standard-v1.html',
     title: 'Field Note: KYA Standard for Autonomous Control Rooms',
     date: 'Mar 2026',
@@ -231,14 +226,18 @@ const posts = [
   },
   {
     file: 'ai-supercomputing-meets-eda-sovereign-design.html',
-    title:
-      'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
+    title: 'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
     date: '17 Jul 2026',
   },
   {
     file: 'ala-treenaa-base-mallia-omista-evidenssikerros.html',
     title: 'Älä treenaa base-mallia, omista evidenssikerros (FI)',
     date: '26 Jul 2026',
+  },
+  {
+    file: 'harness-paywall-depth-arbitrage.html',
+    title: 'The Harness Paywall',
+    date: '30 Jul 2026',
   },
 ];
 

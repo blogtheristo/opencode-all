@@ -175,6 +175,7 @@ Chronological order. Update this table when adding/removing posts.
 | 45  | `dont-train-a-base-model-own-the-evidence-layer.sv.html` | Träna inte basmodellen, äg evidenslagret (SV parity of #43) | 26 Jul 2026 |
 | 46  | `dont-train-a-base-model-own-the-evidence-layer.de.html` | Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht (DE parity of #43) | 26 Jul 2026 |
 | 47  | `dont-train-a-base-model-own-the-evidence-layer.fr.html` | N'entraînez pas le modèle de base, possédez la couche de preuve (FR parity of #43) | 26 Jul 2026 |
+| 48  | `harness-paywall-depth-arbitrage.html`                | The Harness Paywall — the harness is the durable layer, its token intensity is the paywall, and bounded sovereign compute is the resolution (EN, architecture/economics) | 30 Jul 2026 |
 
 ---
 

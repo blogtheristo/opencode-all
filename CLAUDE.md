@@ -263,13 +263,16 @@ No one-off judgment work. If the user asks for something that will need to happe
 
 **Keeping the HIC informed is a primary deliverable of every substantive session, not an afterthought.** New ideas, concepts, theories, code, whitepapers, and artifacts are welcome to build DWS further — but an artifact only a machine session ever saw dies in ephemeral container memory and no Human-In-Command (HIC) ever understood or authorized it. Canonical: `DWS_LEARNING_STANDARD.md`; stated as a canonical fact in `DWS_TRUTH_STANDARD.md` §2F + row 30. **Legal basis: EU AI Act Article 14 (human oversight)** — HIC = Human-In-Command is the DWS implementation.
 
-Before ending a **substantive** session (new idea/code/artifact/signal/incident — see the standard's gate; trivial typo/dep/lookup sessions are exempt), produce the **HIC Learning Outcome — five-step minimum:**
+Before ending a **substantive** session (new idea/code/artifact/signal/incident — see the standard's gate; trivial typo/dep/lookup sessions are exempt), produce the **HIC Learning Outcome — six-step minimum:**
 
 1. **Update the knowledge base** (`kb/`, via `/kb`).
 2. **Write a field note** (`docs/field-notes/YYYY-MM-DD-topic.md`).
 3. **Add an HTML version into `Learn/`** (`scripts/render-doc.sh`; Document Standard §18).
 4. **Export a copy to Drive** (repo stays source-of-truth — export without a repo source is a drift incident, §2E).
 5. **Ask the HIC one real, decision-shaped question** — the Article 14 intervention point.
+6. **Calendar every dated commitment** — every deadline, expiry, meeting, follow-up or renewal the session produced or discovered, put into Google Calendar in the session that found it (`Google_Calendar.create_event`). See `DWS_LEARNING_STANDARD.md` §4.1.
+
+**Step 5 hands the HIC what to decide now; step 6 hands them what to act on later.** A date written only into a `.md` file will be missed — a document never reminds anyone. Calendar the **derived** dates too (a 3-month validity implies a follow-up date; a 3-month certificate implies a re-order date), give each event a title naming the consequence, the source file in the description, and a lead time matched to how long the action actually takes.
 
 A skipped step must be recorded as `N/A — <reason>` in the field note (silent omission violates Rule 12, Fail Loud).
 

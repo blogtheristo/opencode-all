@@ -11,7 +11,8 @@ import {
   resolveDiffusionGemmaModel,
   resolveDiffusionParams,
 } from '../agents/diffusiongemma.js';
-import { MODEL_CATALOG, selectModel } from '../agents/model-selector.js';
+import {
+  OLLAMA_DEPLOYED_MODELS, MODEL_CATALOG, selectModel } from '../agents/model-selector.js';
 
 const ENV_KEYS = [
   'DIFFUSIONGEMMA_BASE_URL',
@@ -161,14 +162,14 @@ describe('qwen3.6-35b-a3b local tool-calling model', () => {
     expect(selection.isLocal).toBe(true);
   });
 
-  it('falls through to qwen2.5:32b on an Ollama-only heavy host', () => {
+  it('falls through to the deployed Ollama deep model on an Ollama-only heavy host', () => {
     clearEnv();
     process.env.OLLAMA_BASE_URL = 'http://localhost:11434/v1';
 
     // No vLLM endpoint → the NVFP4 vllm-local entry is unavailable, so the
     // older Ollama (GGUF) local takes over rather than jumping to cloud.
     const selection = selectModel('atlas');
-    expect(selection.modelId).toBe('qwen2.5:32b');
+    expect(selection.modelId).toBe(OLLAMA_DEPLOYED_MODELS.deep);
     expect(selection.provider).toBe('ollama-local');
   });
 });

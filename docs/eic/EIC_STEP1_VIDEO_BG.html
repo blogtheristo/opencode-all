@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AEGIS — EIC Step 1 · 3-min video background (auto-timed to the speech)</title>
+    <!--
+      PURPOSE: background visual for the 3-min EIC Step 1 video, recorded in Google Vids
+      with the founder's face in a PiP bubble. This is a SEPARATE artifact from the
+      10-slide EIC upload deck (EIC_STEP1_PITCH_DECK.html) — 8 beats, one per spoken
+      section, auto-advancing on a timer tuned to the shot-script timecodes so the slide
+      on screen always matches the words being spoken. Total run = exactly 180s.
+
+      HOW TO USE: open in Chrome, press F (fullscreen). It auto-plays from 0:00. Start
+      speaking on load. Controls if you need them: Space/→ next · ← back · P pause · R restart.
+      Layout is weighted TOP-LEFT so a bottom-right PiP webcam bubble never covers key text.
+
+      TRUTH GUARDRAIL: beat 5 ("what the EIC funds") is the ROADMAP — the Sovereignty
+      Attestation is not built yet. Beats 3-4 are the KYA engine, which IS running in
+      production. Aegis (the packaged tier) is GA September 2026 and pre-revenue — never
+      call it live.
+    -->
+    <style>
+      :root {
+        --navy: #0a1830;
+        --navy2: #0e2244;
+        --ink: #eaf1fb;
+        --muted: #9fb3d1;
+        --gold: #e8b64c;
+        --gold2: #f6d488;
+        --line: rgba(255, 255, 255, 0.12);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          Inter,
+          system-ui,
+          -apple-system,
+          Arial,
+          sans-serif;
+        background: var(--navy);
+        color: var(--ink);
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      .deck {
+        position: fixed;
+        inset: 0;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* top-left weighted: leaves the bottom-right clear for the PiP webcam bubble */
+        padding: 9vh 42vw 12vh 8vw;
+        background:
+          radial-gradient(1200px 600px at 85% -10%, rgba(232, 182, 76, 0.12), transparent 60%),
+          linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%);
+      }
+      .slide.active {
+        display: flex;
+        animation: fade 0.55s ease;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .kicker {
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: clamp(0.75rem, 1.3vw, 1rem);
+        font-weight: 700;
+        margin-bottom: 2.4vh;
+      }
+      h1 {
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 1.02;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: clamp(2rem, 4.6vw, 3.4rem);
+        line-height: 1.08;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 3.2vh;
+      }
+      .accent {
+        background: linear-gradient(135deg, var(--gold), var(--gold2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: clamp(1.1rem, 2.1vw, 1.8rem);
+        line-height: 1.5;
+        margin-top: 3vh;
+      }
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.8vh;
+      }
+      li {
+        font-size: clamp(1.15rem, 2vw, 1.75rem);
+        line-height: 1.38;
+        padding-left: 1.6em;
+        position: relative;
+        color: #dbe7fb;
+      }
+      li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 0.7em;
+        height: 0.7em;
+        border-radius: 2px;
+        background: linear-gradient(135deg, var(--gold), var(--gold2));
+      }
+      li b {
+        color: #fff;
+      }
+      .stats {
+        display: flex;
+        gap: 4vw;
+        flex-wrap: wrap;
+        margin-top: 5vh;
+      }
+      .stat .v {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        font-weight: 800;
+        color: var(--gold);
+      }
+      .stat .l {
+        color: var(--muted);
+        font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 0.4em;
+      }
+      .big {
+        font-size: clamp(1.5rem, 3vw, 2.4rem);
+        line-height: 1.3;
+        color: #fff;
+        font-weight: 600;
+      }
+      .badges {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 4vh;
+      }
+      .badges span {
+        border: 1px solid rgba(232, 182, 76, 0.55);
+        color: var(--gold);
+        border-radius: 999px;
+        padding: 7px 15px;
+        font-size: clamp(0.75rem, 1.3vw, 1rem);
+        font-weight: 700;
+      }
+      /* thin progress bar — delete this block if you want a totally clean background */
+      .bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold), var(--gold2));
+        width: 0;
+        transition: width 0.25s linear;
+        z-index: 5;
+      }
+      .clock {
+        position: fixed;
+        bottom: 2.2vh;
+        left: 8vw;
+        font-size: 0.8rem;
+        color: var(--muted);
+        letter-spacing: 1px;
+        opacity: 0.5;
+        z-index: 6;
+      }
+      .hint {
+        position: fixed;
+        top: 12px;
+        right: 16px;
+        font-size: 0.72rem;
+        color: var(--muted);
+        opacity: 0.6;
+        z-index: 6;
+        transition: opacity 0.6s ease;
+      }
+      .hint.gone {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar" id="bar"></div>
+    <div class="hint" id="hint">
+      F fullscreen · Space next · P pause · R restart · auto-plays 3:00
+    </div>
+
+    <div class="deck" id="deck">
+      <!-- BEAT 1 · 0:00–0:20 (20s) · HOOK -->
+      <section class="slide">
+        <div class="kicker">Lifetime Oy · Espoo, Finland · EIC Accelerator</div>
+        <h1><span class="accent">AEGIS</span><br />When an agent acts —<br />who is in control?</h1>
+        <p class="sub">Sovereign AI agents that act for regulated Europe.</p>
+      </section>
+
+      <!-- BEAT 2 · 0:20–0:50 (30s) · PROBLEM -->
+      <section class="slide">
+        <div class="kicker">The problem</div>
+        <h2>Nothing regulates the <span class="accent">agent</span></h2>
+        <ul>
+          <li>Europe regulates the <b>humans</b> and the <b>models</b> — not the agent.</li>
+          <li>No standard identity · no bounded mandate · no revocation · no legal audit.</li>
+          <li>
+            Every answer today (Coinbase, Google, Stripe) is <b>US-custodial</b> — binds the human,
+            not the agent.
+          </li>
+          <li>
+            From <b>Dec 2027</b>, the EU AI Act makes getting this wrong an enforceable violation.
+          </li>
+        </ul>
+      </section>
+
+      <!-- BEAT 3 · 0:50–1:15 (25s) · KYA RUNNING IN PRODUCTION -->
+      <section class="slide">
+        <div class="kicker">The solution · running in production</div>
+        <h2>KYA — <span class="accent">Know Your Agent</span></h2>
+        <ul>
+          <li>Agent <b>identity binding</b> · live <b>trust score</b> · <b>Leash Snap</b> revocation · <b>Article 12</b> audit.</li>
+          <li>Agent fleet across the <b>21 EU-regulated dual-use industries</b> in Aegis scope.</li>
+          <li><b>DWS IQ Aegis</b> — the sovereign dual-use tier — runs KYA on the customer's own NVIDIA DGX.</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><div class="v">TRL 5</div><div class="l">completed, entering 6</div></div>
+          <div class="stat"><div class="v">Sept 2026</div><div class="l">Aegis GA</div></div>
+        </div>
+      </section>
+
+      <!-- BEAT 4 · 1:15–1:45 (30s) · TRUST LAYER, LIVE -->
+      <section class="slide">
+        <div class="kicker">The trust layer · running today</div>
+        <h2>Identity · trust score · <span class="accent">Leash Snap</span> · audit</h2>
+        <ul>
+          <li>Every agent has an <b>identity</b> and a <b>live trust score</b>.</li>
+          <li><b>Leash Snap</b> — revoke an agent's authority instantly.</li>
+          <li>
+            Every action writes an append-only <b>EU AI Act Article&nbsp;12</b> audit trail you can
+            reconstruct.
+          </li>
+        </ul>
+      </section>
+
+      <!-- BEAT 5 · 1:45–2:10 (25s) · THE FUNDED INNOVATION (ROADMAP, not live) -->
+      <section class="slide">
+        <div class="kicker">The innovation · what the EIC funds</div>
+        <h2>From gating actions → <span class="accent">acting under mandate</span></h2>
+        <ul>
+          <li>A signed, revocable <b>mandate credential</b> — spend caps, scope, validity.</li>
+          <li>
+            <b>Sovereignty Attestation</b>: cryptographically proves jurisdiction, data-residency
+            &amp; air-gap of <b>every action</b>.
+          </li>
+          <li>
+            The agent can <b>prove — not just claim</b> — it stayed within mandate, and inside
+            Europe.
+          </li>
+          <li>
+            EU AI Act compliance <b>machine-verifiable</b> across cloud, edge, air-gapped.
+            <b>TRL&nbsp;6→8.</b>
+          </li>
+        </ul>
+      </section>
+
+      <!-- BEAT 6 · 2:10–2:30 (20s) · WHY NOW -->
+      <section class="slide">
+        <div class="kicker">Why now</div>
+        <h2>Regulation creates the demand</h2>
+        <ul>
+          <li>The <b>EU AI Act</b> lands in 2027 — as Europe stands up its own rails.</li>
+          <li><b>EUDI Wallet</b> and the <b>digital euro</b> arrive alongside it.</li>
+          <li>
+            Agents transacting on European rails need a <b>European trust layer</b>. US card-rail
+            answers can't plug in.
+          </li>
+        </ul>
+      </section>
+
+      <!-- BEAT 7 · 2:25–2:47 (22s) · WHY US -->
+      <section class="slide">
+        <div class="kicker">Why us</div>
+        <h2>The European <span class="accent">trust layer</span></h2>
+        <ul>
+          <li>The only European platform where agent identity, revocable authority &amp; Article&nbsp;12 audit <b>already run</b>.</li>
+          <li>Delivered with partner <b>Cubet</b>; research spine with <b>LUT</b> (quantum-safe) and <b>KTH TECoSA</b> (safety assurance).</li>
+          <li><b>Dual-use by design</b> — civil compliance and the defence industrial base, one engine.</li>
+        </ul>
+        <div class="badges">
+          <span>NVIDIA Connect ISV Partner</span><span>IBM Business Partner</span><span>Amazon (AWS) Consulting Partner</span>
+        </div>
+      </section>
+
+      <!-- BEAT 8 · 2:45–3:00 (15s) · THE ASK -->
+      <section class="slide">
+        <div class="kicker">The ask</div>
+        <h2><span class="accent">€2.5M grant-only</span> · 24 months · TRL 6→8</h2>
+        <p class="big" style="margin-top: 2vh">
+          From production to a certified European standard for agents that transact.
+        </p>
+        <p class="sub" style="color: #dbe7fb; margin-top: 3vh">
+          The technology runs today. The traction is real, and paying.<br />
+          The regulation that makes it mandatory has a date.<br /><br />
+          <b style="color: #fff"
+            >Let's build the European answer — before the default is set somewhere else.</b
+          >
+        </p>
+      </section>
+    </div>
+
+    <div class="clock" id="clock">0:00 / 3:00</div>
+
+    <script>
+      (function () {
+        var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+        // seconds per beat — tuned to the shot-script timecodes; sums to exactly 180s (3:00)
+        var dur = [20, 30, 25, 30, 25, 15, 22, 13];
+        var total = dur.reduce(function (a, b) {
+          return a + b;
+        }, 0); // 180
+        var i = 0,
+          playing = true,
+          t0 = now(),
+          raf,
+          elapsedBefore = 0;
+        var bar = document.getElementById("bar");
+        var clock = document.getElementById("clock");
+        var hint = document.getElementById("hint");
+        setTimeout(function () {
+          hint.classList.add("gone");
+        }, 4000);
+
+        function now() {
+          return performance.now() / 1000;
+        }
+        function fmt(s) {
+          s = Math.max(0, Math.floor(s));
+          return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2);
+        }
+        function show(n) {
+          i = (n + slides.length) % slides.length;
+          slides.forEach(function (s, k) {
+            s.classList.toggle("active", k === i);
+          });
+          t0 = now();
+          elapsedBefore = 0;
+          for (var k = 0; k < i; k++) elapsedBefore += dur[k];
+        }
+        function tick() {
+          if (playing) {
+            var el = now() - t0;
+            var d = dur[i] || 15;
+            var globalEl = elapsedBefore + Math.min(el, d);
+            bar.style.width = Math.min(100, (globalEl / total) * 100) + "%";
+            clock.textContent = fmt(globalEl) + " / 3:00";
+            if (el >= d) {
+              if (i === slides.length - 1) {
+                playing = false;
+              } else {
+                show(i + 1);
+              }
+            }
+          }
+          raf = requestAnimationFrame(tick);
+        }
+        function setPlay(p) {
+          playing = p;
+          t0 = now();
+        }
+
+        document.addEventListener("keydown", function (e) {
+          var k = e.key.toLowerCase();
+          if (e.key === " " || e.key === "ArrowRight") {
+            e.preventDefault();
+            if (i < slides.length - 1) show(i + 1);
+          } else if (e.key === "ArrowLeft") {
+            show(i - 1);
+          } else if (k === "p") {
+            setPlay(!playing);
+          } else if (k === "r") {
+            show(0);
+            setPlay(true);
+          } else if (k === "f") {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen &&
+                document.documentElement.requestFullscreen();
+            } else {
+              document.exitFullscreen && document.exitFullscreen();
+            }
+          }
+        });
+
+        show(0);
+        tick();
+      })();
+    </script>
+  </body>
+</html>
