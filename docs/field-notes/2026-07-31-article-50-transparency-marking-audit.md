@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Article 50 AI Act transparency marking audit, 2026-07-31 session
-Version: 1.0
+Version: 1.1
 Date: 2026-07-31
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -20,16 +20,16 @@ The HIC redirected the session to the concrete question this implies: **which of
 
 ## 2. Six-step Learning Standard record
 
-| #   | Step                         | State                                                                                                                             |
-| --- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Update knowledge base        | ⏳ Not yet done this session — recommend routing this note + the audit table into `kb/raw/signals/` via `/kb` in a follow-up pass |
-| 2   | Field note                   | ✅ This document                                                                                                                  |
-| 3   | Learn/ HTML render           | ⏳ Not yet done — `scripts/render-doc.sh` requires pandoc; run in a follow-up pass                                                |
-| 4   | Export to Drive              | ⏳ Not yet done this session                                                                                                      |
-| 5   | HIC decision-shaped question | ✅ §7 below                                                                                                                       |
-| 6   | Calendar dated commitments   | ✅ Three Google Calendar events created (see §8)                                                                                  |
+| #   | Step                         | State                                                                                                                                                                                                                                                                      |
+| --- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Update knowledge base        | ✅ `kb/raw/signals/2026-07-31-ai-pact-article50-enforcement.md` (raw source, not yet `/kb compile`d)                                                                                                                                                                       |
+| 2   | Field note                   | ✅ This document                                                                                                                                                                                                                                                           |
+| 3   | Learn/ HTML render           | ✅ `Learn/2026-07-31-article-50-transparency-marking-audit.html` — `pandoc` is unavailable in this container (confirmed, not assumed); rendered with `python-markdown` instead, stated plainly in the file's own `generator` meta tag rather than faking pandoc provenance |
+| 4   | Export to Drive              | ✅ Google Doc "2026-07-31 Field Note v1.0 — Article 50 AI Act Transparency Marking Audit" in the `2026 DWS6` folder (`docs.google.com/document/d/1IhG0D081k4BxTrWGZcXxUAXENt2zIAUTkBXGeU__qrw`)                                                                            |
+| 5   | HIC decision-shaped question | ✅ §7 below (now three questions — a third was added after the HIC asked about the disclosure page directly)                                                                                                                                                               |
+| 6   | Calendar dated commitments   | ✅ Four Google Calendar events (see §8) — the original three, plus the VDP policy's quarterly-review date, shifted from the stated 2026-10-31 (a Saturday) to 2026-10-30 per §4.1's weekend rule                                                                           |
 
-Steps 1, 3, 4 are logged here as **N/A this session — deferred, not skipped silently** (Fail Loud, Rule 12): the audit itself and the two live decisions (labeling now vs. after HIC sign-off, Code of Practice signature) were the time-critical path given the 2 Aug date; KB/Learn/Drive mirroring of this note is safe to do in a short follow-up since none of it is dated or blocking.
+Originally deferred at the time this note was first written (all-day, same-session close-out): the audit itself and the two live decisions (labeling now vs. after HIC sign-off, Code of Practice signature) were the time-critical path given the 2 Aug date. Steps 1/3/4 were completed in a same-session follow-up pass once the HIC asked directly.
 
 ## 3. What was verified, not assumed
 
@@ -51,16 +51,26 @@ Steps 1, 3, 4 are logged here as **N/A this session — deferred, not skipped si
 
 ## 6. Fail-loud register (what did NOT happen)
 
-- No labels were added to any live public page, image, or video this session. This was a deliberate choice, not an oversight: wording, exact icon variant/placement, and the video re-encode-vs-overlay tradeoff are HIC decisions, and the audit subagent's AI-origin classification has real uncertainty (§3) that shouldn't be silently resolved by auto-applying labels everywhere flagged "uncertain."
-- KB compile (`/kb`), `Learn/` HTML render, and Drive export (Learning Standard steps 1, 3, 4) were not run this session — see §2.
+- **No labels have been added to any live public page, image, or video — as of this update, still true.** The HIC asked directly ("Did you put the AI logo to our onelifetime.world/blog entries") and the honest answer is no. This remains a deliberate choice, not an oversight: wording, exact icon variant/placement, and the video re-encode-vs-overlay tradeoff are HIC decisions, and the audit subagent's AI-origin classification has real uncertainty (§3) that shouldn't be silently resolved by auto-applying labels everywhere flagged "uncertain."
 - The Code of Practice signatory question (should DWS sign) was raised by the audit and by existing `DWS_TRUTH_STANDARD.md` §2G, but not decided — see §7.
+- KB compile (`/kb` full compile into `kb/wiki/`) has still not run — the raw signal is captured (§2 step 1) but not yet synthesized into the compiled wiki.
 
-## 7. HIC question (EU AI Act Article 14)
+## 7. HIC questions (EU AI Act Article 14)
 
-Two decisions this session surfaced but did not make on your behalf:
+Three decisions this session surfaced but did not make on your behalf:
 
 1. **The dws10.com hero video** (`gemini_generated_video_EA97318F.mp4/.webm`, live on the homepage and `investor-relations/index.html`) is the clearest Article 50 deepfake match found — a photorealistic AI-generated person speaking to camera at a realistic site, unlabeled, with no grace period available for this category. How do you want it labeled before 2 Aug: (a) an on-page overlay label only (fast, but doesn't survive download/re-share — arguably incomplete under the rule's own placement text), or (b) burn the icon into the video file itself (fully compliant, but needs a re-encode)? **(RECOMMEND: (b) if there's render time before Monday; (a) as an immediate stopgap Friday/today, upgraded to (b) once re-encoded — reversible, low-risk either way since both are additive changes to a video asset, not a one-way door.)**
 2. Should DWS **sign the Code of Practice on Transparency of AI-generated Content**? Signing gives a presumption-of-compliance safe harbor and access to the Signatory Taskforce; not signing means DWS must independently demonstrate its marking/labelling measures are adequate if ever challenged, and using the EU icons without signing must not be presented as Code adherence. **(RECOMMEND: sign — given DWS already uses the EU icon set and is building genuine C2PA-style marking practice, the administrative-burden reduction and legal certainty look like a clear net positive; this is a one-way-door-adjacent action (public signatory list, cooperation commitments) so flagging for your explicit call rather than defaulting to it.)**
+3. **Should DWS stand up a paid bug-bounty program** alongside the new disclosure-only `vulnerability-disclosure-policy/` page? Today's policy is report-and-thank-you, no payment terms — a different, and bigger, commitment (budget, triage capacity, possibly a third-party platform like HackerOne/Intigriti). **(No recommendation yet — this depends on your appetite and budget, not on any regulatory deadline, so it's a genuine open question rather than a default-and-flag one.)**
+
+## 8. Session output
+
+- Branch `claude/ai-pact-enforcement-transparency-gnnipk`: `.gitignore` fix for session telemetry; rebased onto `main` to pick up the three `Legal/AI LABELS_3x2_*` icon files; shipped `dws10.com/compliance/vulnerability-disclosure-policy/` (+ `landing-pages/dws10-com/` mirror), with cross-links from `.well-known/security.txt`, `legal/index.html` §10, `compliance/trust-center/index.html`, the Compliance Hub nav flyout (4 languages), and `DWS_SECURITY_STANDARD.md` §20 (v3.4 → 3.5).
+- `kb/raw/signals/2026-07-31-ai-pact-article50-enforcement.md` added (Learning Standard step 1).
+- `Learn/2026-07-31-article-50-transparency-marking-audit.html` rendered via `python-markdown` (Learning Standard step 3; `pandoc` unavailable in-container, noted honestly rather than faked).
+- Drive export (Learning Standard step 4): Google Doc "2026-07-31 Field Note v1.0 — Article 50 AI Act Transparency Marking Audit" in the `2026 DWS6` Drive folder.
+- Four Google Calendar events created (Europe/Helsinki): 31 Jul (all-day) — label the hero video + persona photos; 3 Aug 09:00 — verify labels live post-enforcement; 1 Dec 09:00 — confirm exact grace-period end date and check provider marks; 30 Oct 09:00 — VDP policy quarterly review (shifted from the stated 31 Oct, a Saturday).
+- Full audit table (per-site, per-asset, obligation, action) is in this session's transcript; not yet mirrored into `kb/wiki/` (compile still pending).
 
 ## 9. Appendix — EU AI Act reference (governance, enforcement, timeline)
 
@@ -83,12 +93,6 @@ Added at the HIC's request from the Commission's own "European approach to artif
 | 2 Aug 2026  | **AI Office + national authorities begin enforcing the AI Act**, incl. Article 50 transparency rules (this note's trigger) |
 
 **Other EU AI policy threads not yet touched by DWS canon** (flagging for awareness, not action): the **AI Continent Action Plan** (AI Factories/Gigafactories, €200bn InvestAI facility, upcoming Cloud and AI Development Act), the **Apply AI Strategy** and **Apply AI Alliance** (SME AI-adoption support), and the **July 2026 EU Action Plan on Cybersecurity and AI** (third-party AI-model evaluation capacity, targeted operational by 2027). None of these currently affect a DWS obligation the way Article 50 does; noted here so a future session doesn't have to re-discover them from scratch.
-
-## 8. Session output
-
-- Branch `claude/ai-pact-enforcement-transparency-gnnipk`: `.gitignore` fix for session telemetry; rebased onto `main` to pick up the three `Legal/AI LABELS_3x2_*` icon files.
-- Three Google Calendar events created (Europe/Helsinki): today (31 Jul, all-day) — label the hero video + persona photos; Mon 3 Aug 09:00 — verify labels live post-enforcement; 1 Dec 09:00 — confirm exact grace-period end date and check provider marks.
-- Full audit table (per-site, per-asset, obligation, action) is in this session's transcript; not yet mirrored into `kb/` or `Learn/` — see §2.
 
 ---
 
