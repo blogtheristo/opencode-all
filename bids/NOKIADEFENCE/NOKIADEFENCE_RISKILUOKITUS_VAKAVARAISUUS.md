@@ -2,12 +2,12 @@
 
 ## ORK/1462/2026 — Lifetime Oy
 
----
+***
 
 VERSION AND AGENT HISTORY
 Version: 1.0 | 2026-06-27 | Claude Sonnet 4.6 | Luotu Vainu-yritystietojen pohjalta (27.6.2026)
 
----
+***
 
 ---
 
@@ -88,11 +88,12 @@ Yhtiö on investoinut määrätietoisesti DWS IQ 6 -alustan rakentamiseen — 16
 | Saavutus                  | Tiedot                                                          |
 | ------------------------- | --------------------------------------------------------------- |
 | Q1/2026 asiakassopimukset | €59 900 (ei näy 7/2025 tilinpäätöksessä)                        |
-| Maksavat asiakkaat        | 6 asiakasta (huhtikuu 2026), MRR €7 000                         |
+| Ohjelmistoasiakkaat       | 6 sopimuksellistettua tiliä (LAND-001…006), joista kaksi Q1/2026 yritys-pilottia á 29 950 € |
+| Palvelu- ja kuljetusliikevaihto | n. 7 000 €/kk (luvanvarainen henkilöliikenne + konsultointi) — **ei ohjelmistoliikevaihtoa**, ei MRR. Asettaa yhtiön kassavirtatasapainoon perustajan palkalla 0 €. Lähde: Lemonsoft-kirjanpito. |
 | InvestEU-portaali         | Euroopan komissio listannut kolmesti (INPO-20254383)            |
 | NVIDIA Inception Program  | Hyväksytty NVIDIA:n startup-ohjelmaan                           |
 | Microsoft Founders Hub    | Tasot L1–L4 (Microsoft-validoitu)                               |
-| Tuotanto käynnissä        | DWS IQ 6 tuotantokäytössä pohjoismaisilla teollisuusasiakkailla |
+| Tuotanto käynnissä        | DWS IQ 6 tuotantokäytössä pohjoismaisilla teollisuusasiakkailla. (DWS IQ Aegis on ennakkotilausvaiheessa, yleinen saatavuus 9/2026 — ei vielä tuotannossa eikä liikevaihtoa.) |
 
 Seuraava tilikausi (päättyy 7/2026) tulee osoittamaan merkittävästi erilaisen kuvan: Q1–Q2/2026 sopimukset €59 900 + kasvava MRR kirjautuvat tuloiksi.
 

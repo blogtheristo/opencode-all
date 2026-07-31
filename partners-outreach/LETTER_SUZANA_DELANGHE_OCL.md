@@ -1,25 +1,30 @@
 # Letter — Suzana Delanghe (One Click LCA CRO)
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.2
 
 Sessions & Modifications:
-  - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Added subtle French courtesy (Bonjour opener, "happy to continue in French if you prefer" offer, Cordialement closing) after learning Suzana is EN/FR fluent; updated connection request to match
-  - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Added Suzana Delanghe's LinkedIn URL (https://www.linkedin.com/in/suzana-delanghe-272278) to the letter header and send checklist; added human-eye verification step (LinkedIn is gated to programmatic fetch)
-  - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Standalone copy-paste letter extracted from ONECLICKLCA_PARTNERSHIP_PITCH.md §5.1 for direct send via LinkedIn DM or email
+
+- Version: 1.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — "€84k ARR, three live customers (Uber Finland, Bolt Finland, Kela), 100% retention, ~40 hours saved" replaced with the contracted-pilot statement; dispatch operators removed from the customer list.
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Added subtle French courtesy (Bonjour opener, "happy to continue in French if you prefer" offer, Cordialement closing) after learning Suzana is EN/FR fluent; updated connection request to match
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Added Suzana Delanghe's LinkedIn URL (https://www.linkedin.com/in/suzana-delanghe-272278) to the letter header and send checklist; added human-eye verification step (LinkedIn is gated to programmatic fetch)
+- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/one-click-lca-partnership-MIYvn | Date: 18.05.2026 | Changes: Standalone copy-paste letter extracted from ONECLICKLCA_PARTNERSHIP_PITCH.md §5.1 for direct send via LinkedIn DM or email
 
 Session Links & References:
-  - Claude Code (claude/one-click-lca-partnership-MIYvn): https://github.com/blogtheristo/dws6/commits/claude/one-click-lca-partnership-MIYvn
-  - Source pitch: [ONECLICKLCA_PARTNERSHIP_PITCH.md](ONECLICKLCA_PARTNERSHIP_PITCH.md)
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/partners-outreach/LETTER_SUZANA_DELANGHE_OCL.md
+
+- Claude Code (claude/one-click-lca-partnership-MIYvn): https://github.com/blogtheristo/dws6/commits/claude/one-click-lca-partnership-MIYvn
+- Source pitch: [ONECLICKLCA_PARTNERSHIP_PITCH.md](ONECLICKLCA_PARTNERSHIP_PITCH.md)
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/partners-outreach/LETTER_SUZANA_DELANGHE_OCL.md
 
 Document Status:
-  - Created: 18.05.2026
-  - Last Modified: 18.05.2026
-  - Language: English
-  - Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL (sendable copy)
+
+- Created: 18.05.2026
+- Last Modified: 18.05.2026
+- Language: English
+- Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL (sendable copy)
 
 ***
 
@@ -56,7 +61,7 @@ Bonjour Suzana,
 
 I'm Risto Paarni, founder of DWS IQ (Lifetime Oy, Helsinki). Writing in English for precision on the regulatory terms — happy to continue in French if you prefer.
 
-We automate CSRD, ETS, and CBAM reporting by pulling data directly from ERP systems — SAP, IFS Cloud, Dynamics 365, plus three Nordic ERPs (Visma, Monitor, Jeeves). €84k ARR, three live customers (Uber Finland, Bolt Finland, Kela), 100% retention, ~40 hours per month saved per customer on manual compliance work.
+We automate CSRD, ETS, and CBAM reporting by pulling data directly from ERP systems — SAP, IFS Cloud, Dynamics 365, plus three Nordic ERPs (Visma, Monitor, Jeeves). Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts.
 
 I see a clean, non-competing partnership between One Click LCA and DWS IQ.
 

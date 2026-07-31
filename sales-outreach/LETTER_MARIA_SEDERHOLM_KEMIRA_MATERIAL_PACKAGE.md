@@ -76,7 +76,7 @@ _(Toissijainen, varmistettava hypoteesi: osa erikois-/kuitukemikaaleista voi oll
 **Kesto ja kustannus — kaksi vaihetta:**
 
 - **Vaihe 1 — Scoping:** 1–2 viikkoa, **maksuton.** Lukitaan, mitkä Kemiran linjat ovat CER/NIS2- ja kaksikäyttöpiirissä, valitaan tuotelinja ja mittaristo, ja vahvistetaan onko oikea taso **Aegis Defence** vai **Aegis Standard**.
-- **Vaihe 2 — Pilotti:** alustan GA elokuu 2026; pilotti kohdistetaan siihen. Hinta tason mukaan (alla). Kaupallistaminen sovittujen KPI:iden täytyttyä.
+- **Vaihe 2 — Pilotti:** alustan GA syyskuu 2026; pilotti kohdistetaan siihen. Hinta tason mukaan (alla). Kaupallistaminen sovittujen KPI:iden täytyttyä.
 
 **Hinnoittelu (kanoninen):**
 
@@ -152,13 +152,13 @@ _(Secondary, to confirm: some speciality/fibre chemicals may sit in critical-inf
 **Duration and cost — two stages:**
 
 - **Stage 1 — Scoping:** 1–2 weeks, **free of charge.** Lock which Kemira lines sit in CER/NIS2 and dual-use scope, pick the product line and measurement set, and confirm whether the right tier is **Aegis Defence** or **Aegis Standard**.
-- **Stage 2 — Pilot:** platform GA is August 2026; the pilot targets it. Price by tier (below). Commercial conversion on agreed KPIs.
+- **Stage 2 — Pilot:** platform GA is September 2026; the pilot targets it. Price by tier (below). Commercial conversion on agreed KPIs.
 
 **Pricing (canonical):**
 
 | Tier                           | Onboarding + integration | Monthly       | Included                                                                                               |
 | ------------------------------ | ------------------------ | ------------- | ------------------------------------------------------------------------------------------------------ |
-| Aegis Standard                 | €59,990                  | €999/mo       | Skilled agents, 25 industries, dedicated K8s cluster, Article 12 logging, KYA governance               |
+| Aegis Standard                 | €59,990                  | €999/mo       | Skilled agents, 21 dual-use industries, dedicated K8s cluster, Article 12 logging, KYA governance      |
 | **Aegis Defence** _(promised)_ | **€89,990**              | **€1,999/mo** | Standard + NVIDIA L40S GPU nodes, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting |
 | Aegis Sovereign                | Custom                   | €4,999/mo     | Defence + air-gapped / on-prem, security-clearance support, dedicated engineering team                 |
 

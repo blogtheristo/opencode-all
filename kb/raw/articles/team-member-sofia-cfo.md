@@ -15,7 +15,7 @@ Sofia bridges Risto's systems thinking with the language of capital markets, D&O
 - Pricing strategy: Alpha-Share model, pilot → ARR conversion economics
 - Investor DD prep: unit economics packet, financial projections
 - Nordic corporate finance, D&O insurance positioning
-- Unit economics validation: €7K MRR, 100% retention, 75%+ gross margin, 10:1 LTV:CAC
+- Unit economics validation against `docs/TRACTION_CANONICAL.md`: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked) plus four smaller landed accounts; ~€7,000/month services and transport revenue (licensed transport operation + consulting — **not** software revenue), cash break-even at a founder salary of €0. No retention rate, gross margin or LTV:CAC figure is asserted — none is reproducible from bookkeeping.
 - IFRS reporting, Finnish tax law, EU reporting obligations
 - KYA safe harbor economics — 8-12% D&O premium reduction
 - CFO-to-CFO communication at YIT/Skanska-tier companies

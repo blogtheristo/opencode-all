@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Anant Singh, Augmented Sense Technologies
-Version: 1.0
+Version: 1.1
 Date: 2026-04-08
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/investor-outreach-contacts-5oVbz
@@ -9,6 +9,7 @@ Story Lock: Defence & Dual-Use + Edge AI + Aegis Positioning
 Intro Type: Warm (Boardy + personal network)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-08): Initial draft. Warm intro via Boardy. Led with DWS IQ Aegis dual-use positioning — edge AI for defence and industrial environments. Starburst Defense Incubator alumni, knows US defence procurement. Relevant for Aegis go-to-market and potential dual-use partnership.
 -->
 
@@ -82,7 +83,7 @@ Hi Anant,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). I've been following what you're building at Augmented Sense — edge AI sensors for industrial and defence environments is exactly the layer we need upstream.
 
-We built DWS IQ Aegis: a sovereign AI platform that turns operational data into compliance intelligence across 25 EU-regulated industries. A fleet of skilled agents governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. Single-tenant deployment — on-premise, air-gapped capable, zero CLOUD Act exposure.
+DWS IQ Aegis — in preorder, general availability September 2026, pre-revenue — is a sovereign AI platform that turns operational data into compliance intelligence across 21 EU-regulated industries (the wider platform covers 25). A fleet of skilled agents governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. Single-tenant deployment — on-premise, air-gapped capable, zero CLOUD Act exposure.
 
 The dual-use angle is where I think we connect:
 
@@ -90,7 +91,7 @@ The dual-use angle is where I think we connect:
 - **Same dual-use pattern.** Your hardware serves industrial and defence customers. Our software does the same — civilian compliance (Fit for 55) and defence supply chain resilience (KRITIS, NIS2) from one platform. The regulatory stack is converging.
 - **Defence procurement insight.** You've been through Starburst and have an active defence pilot. We're positioning Aegis for EU/NATO defence procurement and could use the perspective of someone who's navigated that cycle.
 
-Current numbers: €7K MRR, 6 paying customers, 100% retention. Raising €650K SAFE at €3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
+Current numbers: ~€7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Raising €650K SAFE at €3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
 
 I'd value a conversation about whether there's a partnership play (sensor-to-compliance pipeline), a go-to-market angle (dual-use positioning for EU defence), or simply comparing notes on defence procurement. Open to any of the above.
 

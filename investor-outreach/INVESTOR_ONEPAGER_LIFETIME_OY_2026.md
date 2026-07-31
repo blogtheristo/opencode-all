@@ -2,14 +2,14 @@
 
 > **CONFIDENTIAL — NDA required. Not for public distribution.** Gated investor summary per the DD Publication Policy (`Learn/022_LT_DueDiligence_CleanReport_2026.md` §18). Source of truth for every figure below: the 2026 DD Clean Report. Unverified items marked `TBA`.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code | Session: claude/tutki-lifetime-sales-69g53v | Date: 15.06.2026 | Changes: Created the gated investor one-pager — the approved external form of "term-sheet readiness" per the CEO-review STOP decision. Synthesised from the 2026 DD report (source of truth); no fabricated figures; gated/NDA, not public.
 
 Document Status:
@@ -18,7 +18,7 @@ Document Status:
 - Document Type: Investor summary
 - Owner: Risto Päärni, Lifetime Oy
 
----
+***
 
 ## Company
 
@@ -34,7 +34,8 @@ EU AI Act high-risk enforcement (02.08.2026) plus CSRD/CBAM/EPBD deadlines creat
 
 ## Traction
 
-- Live pilots in logistics — **~€7k–14k MRR per pilot** (published).
+- **~€7,000/month services and transport revenue** (not software revenue) — company at cash break-even with founder salary €0.
+- **Two enterprise pilots contracted Q1/2026** at €29,950 each (€59,900 booked).
 - Operational storefront `dws10.com/buy` (100+ SKUs, single-source pricing); **0 € / 30–60-day pilots** as land motion.
 - Independent EU AI Act review (Grok/xAI, 03/2026, published unedited): _"Overall legal position: Excellent."_
 - Full revenue / pipeline figures: **TBA — in data room.**

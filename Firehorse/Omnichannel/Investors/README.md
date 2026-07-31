@@ -18,7 +18,7 @@ This directory contains all resources, strategies, and workflows for investor ou
 - **Purpose**: Central hub for Captain seat programme and investor information
 - **Content**:
   - 8 Platinum Captain seats (EUR 50k SAFE, EUR 3.8M cap, 18% discount)
-  - Current traction: EUR 7k+ MRR, 100% retention
+  - Current traction: EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each) plus four smaller landed accounts. Separately ~EUR 7,000/month services and transport revenue (licensed transport operation + consulting) — not software revenue. No retention rate is asserted.
   - Industry vertical ownership model
   - Full pitch deck
   - Contact information
@@ -111,8 +111,8 @@ Thanks,
 ### Institutional Investors (Funds)
 
 - **Investment Stage**: Seed / Seed-extension (bridge to Series A in 2026)
-  - Not pre-seed; comfortable with €7k MRR
-  - Target €900k ARR by 2026
+  - Not pre-seed; comfortable with an early software base of €59,900 in contracted Q1/2026 pilots
+  - Target €900k ARR by 2026 (target, not a run-rate)
   
 - **Sector Focus**: 
   - Climate tech
@@ -137,8 +137,8 @@ Thanks,
 ### Business Angels (€15k–€50k)
 
 - **Stage**: Late seed / seed extension
-  - Comfortable with €7k MRR
-  - Clear path to ~€900k ARR in 2026
+  - Comfortable with an early software base of €59,900 in contracted Q1/2026 pilots
+  - Path to ~€900k ARR in 2026 (target, not a run-rate)
   
 - **Profile**: 
   - Exited founders

@@ -20,13 +20,13 @@ Source: construction-profitability-targeting-FI.md (Tier B edge, 2.8% margin 202
 
 ## ICP Gate Check
 
-| Gate                          | Status  | Evidence                                                                                                                                                         |
-| ----------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Regulatory exposure confirmed | PASS    | Listed company — CSRD Wave 1 mandatory from FY2024; EPBD renovation tailwind directly drives their order book                                                    |
-| Physical asset footprint      | PASS    | ~1,000 employees, operates renovation sites across Finland                                                                                                       |
-| Decision-maker identified     | PARTIAL | CEO Esa Korkeela confirmed [VERIFY title still current]. ESG/Sustainability contact TBD — identify via LinkedIn or Consti's annual report sustainability section |
-| Pain signal present           | PASS    | 2.8% operating margin (below 3.4% sector median); CSRD reporting workload as listed company; renovation demand spike = resource pressure                         |
-| Peer reference applicable     | PASS    | Kela (building facility management), T2H (construction portfolio)                                                                                                |
+| Gate                          | Status  | Evidence                                                                                                                                                                                                                                   |
+| ----------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Regulatory exposure confirmed | PASS    | Listed company — CSRD Wave 1 mandatory from FY2024; EPBD renovation tailwind directly drives their order book                                                                                                                              |
+| Physical asset footprint      | PASS    | ~1,000 employees, operates renovation sites across Finland                                                                                                                                                                                 |
+| Decision-maker identified     | PARTIAL | CEO Esa Korkeela confirmed [VERIFY title still current]. ESG/Sustainability contact TBD — identify via LinkedIn or Consti's annual report sustainability section                                                                           |
+| Pain signal present           | PASS    | 2.8% operating margin (below 3.4% sector median); CSRD reporting workload as listed company; renovation demand spike = resource pressure                                                                                                   |
+| Peer reference applicable     | WEAK    | No landed construction reference. Contracted Q1/2026 enterprise pilots may be cited only under NDA. Kela and T2H are dispatch-operator counterparties of the transport business, not software customers (`docs/TRACTION_CANONICAL.md` §3). |
 
 **ICP Score: QUALIFIED** (strong regulatory trigger, listed company, real asset footprint; target the right persona before sending — CEO or ESG Director)
 
@@ -74,7 +74,7 @@ Today, when Consti completes a renovation (e.g., facade + HVAC upgrade), the bui
 
 DWS IQ 6 closes this loop:
 
-1. **For Consti's own CSRD reporting:** Automate Scope 1/2 reporting from renovation sites — reduce from 60+ manual hours/month to 8 (Uber Finland reference)
+1. **For Consti's own CSRD reporting:** Automate Scope 1/2 reporting from renovation sites — reduce from 60+ manual hours/month to 8
 2. **For Consti's customer value proposition:** Offer post-renovation energy monitoring as a differentiator — "we don't just renovate, we prove the results"
 3. **Partnership angle (medium-term):** Consti white-labels or refers DWS IQ 6 to renovation clients as part of the project handover
 
@@ -117,7 +117,7 @@ No note. Pull strategy. Profile signals do the work.
 >
 > Kiitos yhteydestä. Seuraan Constin EPBD-tilannetta kiinnostuksella — olette ainoana isona suomalaisena remonttiyhtiönä juuri siellä, missä direktiivi iskee käytännössä.
 >
-> Rakennamme DWS IQ 6 -alustaa — automaattinen CSRD/EPBD-raportointi ja reaaliaikainen energiaseuranta remonttiportfoliolle. Asiakkaamme (mm. Kela, T2H) ovat leikanneet raportointityön 60 tunnista 8 tuntiin.
+> Rakennamme DWS IQ 6 -alustaa — automaattinen CSRD/EPBD-raportointi ja reaaliaikainen energiaseuranta remonttiportfoliolle. Alusta leikkaa raportointityön 60 tunnista 8 tuntiin.
 >
 > Kiinnostaako 15 min? Näytän miten Constin kaltainen portfolio näyttäisi dashboardilla.
 

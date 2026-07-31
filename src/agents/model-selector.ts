@@ -583,6 +583,58 @@ export function selectModel(
   };
 }
 
+/** The forced-escalation model for `escalateToClaude()` — not part of the normal tier fallback chain. */
+const ESCALATION_MODEL: ModelOption = {
+  id: 'claude-opus-5',
+  provider: 'anthropic',
+  diskGb: 0,
+  ramGb: 0,
+  costPer1MInput: 5.0,
+  costPer1MOutput: 25.0,
+  contextWindow: 200000,
+  supportsTools: true,
+};
+
+/**
+ * Force escalation to Claude Opus 5 via the metered Anthropic API key.
+ *
+ * For the hardest ~5% of calls that a local HEAVY model (or the default
+ * `claude-sonnet-5` cloud fallback in `MODEL_CATALOG.heavy`) is not trusted to
+ * carry — an explicit, opt-in path, not part of the normal tier fallback chain.
+ * Gated on `ANTHROPIC_API_KEY`; never routes to the Claude Pro subscription.
+ *
+ * Throws if `ANTHROPIC_API_KEY` is not set — callers should check
+ * `isProviderAvailable('anthropic')` first if they want to fall back instead
+ * of failing loud.
+ */
+export function escalateToClaude(agentName: string): ModelSelection {
+  if (!isProviderAvailable('anthropic')) {
+    throw new Error(
+      `escalateToClaude(${agentName}): ANTHROPIC_API_KEY not set — cannot escalate to the metered API. Never falls back to the Claude Pro subscription.`,
+    );
+  }
+
+  const tierConfig = MODEL_CATALOG.heavy;
+  const estimatedInput = 2000;
+  const requiredContextTokens = estimatedInput + tierConfig.maxTokens;
+  const costPerCall =
+    (estimatedInput / 1_000_000) * ESCALATION_MODEL.costPer1MInput +
+    (tierConfig.maxTokens / 1_000_000) * ESCALATION_MODEL.costPer1MOutput;
+
+  return {
+    modelId: ESCALATION_MODEL.id,
+    provider: 'anthropic',
+    reason: `explicit escalation for ${agentName} — forced to ${ESCALATION_MODEL.id} via metered API key, bypassing the normal tier fallback chain`,
+    tier: 'heavy',
+    maxTokens: tierConfig.maxTokens,
+    temperature: tierConfig.temperature,
+    estimatedCostEur: costPerCall,
+    isLocal: false,
+    contextWindow: ESCALATION_MODEL.contextWindow,
+    requiredContextTokens,
+  };
+}
+
 // ============ PROVIDER AVAILABILITY CHECKS ============
 
 export function isProviderAvailable(provider: ModelOption['provider']): boolean {

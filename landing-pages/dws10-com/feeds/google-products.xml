@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-07-29T07:53:54.882Z</lastBuildDate>
+    <lastBuildDate>2026-07-31T07:08:54.762Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -833,6 +833,40 @@
         <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
         <g:custom_label_0>platform</g:custom_label_0>
         <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-AEGIS-PILOT-001</g:id>
+        <g:title>DWS IQ Aegis Pilot (3 months)</g:title>
+        <g:description>A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.</g:description>
+        <g:link>https://dws10.com/products/aegis-pilot.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+        <g:price>19990.00 EUR</g:price>
+        <g:availability>preorder</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DWS-AEGIS-PILOT-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-AEGIS-IMPL-001</g:id>
+        <g:title>DWS IQ Aegis Implementation Programme (3 phases)</g:title>
+        <g:description>A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, €5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, €15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, €25,000): world-model integration so operational knowledge accumulates. ADDITIVE to Aegis onboarding and licence — this programme is NOT credited against onboarding, because Phase 3 is integration work that onboarding does not include.</g:description>
+        <g:link>https://dws10.com/products/aegis-implementation.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+        <g:price>45000.00 EUR</g:price>
+        <g:availability>preorder</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DWS-AEGIS-IMPL-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>

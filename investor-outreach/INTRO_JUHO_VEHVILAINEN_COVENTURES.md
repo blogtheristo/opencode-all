@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Juho Vehviläinen, Coventures
-Version: 1.0
+Version: 1.1
 Date: 2026-03-25
 Author: Claude Opus 4 + Human Review
 Branch: claude/research-leworldmodel-r3VRA
@@ -9,6 +9,7 @@ Story Lock: Story A (Carbon Balance Sheet Infrastructure)
 Intro Type: Warm (via Boardy)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-25): Initial draft. Warm intro via Boardy. Led with sovereignty infrastructure, connected venture builder pattern to regulatory consolidation, Helsinki coffee ask. Human approved.
 -->
 
@@ -72,7 +73,7 @@ Risto Päärni, Lifetime Oy (Espoo). I think there's a natural overlap between w
 
 EU companies that can't account for their carbon exposure can't secure their supply chains. We built the infrastructure to fix that — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and Taxonomy. Every tonne tracked like every euro.
 
-6 industrial customers live today (KELA, Taksi Helsinki, Uber Finland, Bolt Finland, Limo Helsinki, Sixt). The regulatory wave is creating forced adoption — Fit for 55, CBAM border adjustment, CSRD mandatory reporting. This isn't optional software, it's compliance infrastructure.
+Two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); development is funded by ~EUR 7,000/month of services and transport revenue, which is not software revenue. (KELA, Taksi Helsinki, Uber, Bolt, Limo Helsinki and Sixt are dispatch operators of our licensed transport business — commercial counterparties, not software customers.) The regulatory wave is creating forced adoption — Fit for 55, CBAM border adjustment, CSRD mandatory reporting. This isn't optional software, it's compliance infrastructure.
 
 Why this might resonate with your portfolio thesis:
 
@@ -80,7 +81,7 @@ Why this might resonate with your portfolio thesis:
 - Your defence ventures understand sovereignty. Carbon accounting is becoming sovereignty infrastructure — companies and governments that can't measure emissions lose trade access under CBAM.
 - Nordic-built, Nordic-headquartered. Espoo. No US cloud dependency.
 
-We're raising EUR 650K on a EUR 3.8M SAFE cap. Persefoni raised their Series A at a higher implied valuation with $1.8M ARR. We're at EUR 84K ARR with 100% retention.
+We're raising EUR 650K on a EUR 3.8M SAFE cap. Persefoni raised their Series A at a higher implied valuation with $1.8M ARR. We have two enterprise pilots contracted in Q1/2026 at EUR 29,950 each (EUR 59,900 booked); software is otherwise pre-revenue.
 
 Would be great to grab coffee in Helsinki and walk you through the architecture. What works for you?
 

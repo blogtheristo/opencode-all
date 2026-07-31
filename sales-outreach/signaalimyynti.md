@@ -1,27 +1,32 @@
 # Signaalipohjainen Myynti – DWS IQ 6 Sales-Outreach Automaatio
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code | Session: claude/signal-sales-outreach-c6tXj | Date: 10.01.2026 | Changes: Initial creation - Signal-based sales automation framework
+
+- Version: 1.0 | Tool: Claude Code | Session: claude/signal-sales-outreach-c6tXj | Date: 10.01.2026 | Changes: Initial creation - Signal-based sales automation framework
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — removed "Monet asiakkaamme (Veidekke, NCC, YIT)" social proof; NCC is an unlanded prospect, not a customer.
 
 Session Links & References:
-  - Claude Code (claude/signal-sales-outreach-c6tXj): https://github.com/blogtheristo/dws6/commits/claude/signal-sales-outreach-c6tXj
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/sales-outreach/signaalimyynti.md
+
+- Claude Code (claude/signal-sales-outreach-c6tXj): https://github.com/blogtheristo/dws6/commits/claude/signal-sales-outreach-c6tXj
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/sales-outreach/signaalimyynti.md
 
 Document Status:
-  - Created: 10.01.2026
-  - Last Modified: 10.01.2026
-  - Language: Finnish (Primary), English (Technical)
-  - Languages Available: Suomi, English
-  - Publication Status: ✅ ACTIVE
 
----
+- Created: 10.01.2026
+- Last Modified: 10.01.2026
+- Language: Finnish (Primary), English (Technical)
+- Languages Available: Suomi, English
+- Publication Status: ✅ ACTIVE
 
-**Versio:** 1.0
+***
+
+**Versio:** 1.1
 **Tarkoitus:** Signaalipohjainen myyntiautomaatio DWS IQ 6:lle
 **Yleisö:** Myynti, Marketing, Tuotekehitys
 **Päivitetty:** 10.01.2026
@@ -48,6 +53,7 @@ Document Status:
 ### Miksi Signaalipohjainen Myynti?
 
 Perinteinen "cold outreach" ei toimi B2B-myynnissä, jossa asiakkaat ovat:
+
 - Ylikuormitettuja viesteillä (100+ myyntiviestia/viikko)
 - Skeptisiä geneerisistä pitcheistä
 - Kiinnostuneita vain **juuri nyt** merkityksellisistä ratkaisuista
@@ -59,6 +65,7 @@ Perinteinen "cold outreach" ei toimi B2B-myynnissä, jossa asiakkaat ovat:
 ### DWS IQ 6 Konteksti
 
 DWS IQ 6 on **rakennusalan portfolio-ohjaus- ja kestävyysagentti**, joka ratkaisee seuraavia ongelmia:
+
 - **Reaaliaikainen SPI/CPI-seuranta** (Schedule Performance Index / Cost Performance Index)
 - **Fit for 55 -raportointi** (EU:n ilmastovaatimukset)
 - **Turvallisuus- ja laaturiskit** portfoliotasolla
@@ -81,25 +88,25 @@ Signaalipohjainen myynti tarkoittaa, että **olemme yhteydessä vain silloin, ku
 
 ### Esimerkkejä Signaaleista
 
-| Signaali | Kohdekanava | DWS6-Korrelaatio |
-|----------|-------------|------------------|
-| **Uusi toimitusjohtaja/COO/CDO** | LinkedIn, lehdistötiedote | Uusi johto haluaa moderneja työkaluja, digitalisaatiohankkeita |
-| **Rahoituskierros (funding round)** | Crunchbase, PR Newswire | Budjettivarmuus, kasvu, uudet projektit |
-| **EU-regulaation maininta** (CSRD, Fit for 55) | Yritysblogit, vastuullisuusraportit | Akuutti tarve raportointiautomaatiolle |
-| **Suuret infrahankkeet** | Viranomaishankintailmoitukset (HILMA, TED) | Portfolion kasvu → tarve reaaliaikaiselle ohjaukselle |
-| **Projektien viivästymät tai ylitykset** | Osavuosikatsaukset, pörssitiedotteet | SPI/CPI-ongelmat, jotka DWS6 ratkaisee |
-| **Kilpailija mainittu** | LinkedIn-postaukset | Mahdollisuus tarjota parempi ratkaisu |
-| **ESG/vastuullisuusjohtaja palkattu** | LinkedIn job changes | Uusi vastuuhenkilö hakee työkaluja |
+| Signaali                                       | Kohdekanava                                | DWS6-Korrelaatio                                               |
+| ---------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------- |
+| **Uusi toimitusjohtaja/COO/CDO**               | LinkedIn, lehdistötiedote                  | Uusi johto haluaa moderneja työkaluja, digitalisaatiohankkeita |
+| **Rahoituskierros (funding round)**            | Crunchbase, PR Newswire                    | Budjettivarmuus, kasvu, uudet projektit                        |
+| **EU-regulaation maininta** (CSRD, Fit for 55) | Yritysblogit, vastuullisuusraportit        | Akuutti tarve raportointiautomaatiolle                         |
+| **Suuret infrahankkeet**                       | Viranomaishankintailmoitukset (HILMA, TED) | Portfolion kasvu → tarve reaaliaikaiselle ohjaukselle          |
+| **Projektien viivästymät tai ylitykset**       | Osavuosikatsaukset, pörssitiedotteet       | SPI/CPI-ongelmat, jotka DWS6 ratkaisee                         |
+| **Kilpailija mainittu**                        | LinkedIn-postaukset                        | Mahdollisuus tarjota parempi ratkaisu                          |
+| **ESG/vastuullisuusjohtaja palkattu**          | LinkedIn job changes                       | Uusi vastuuhenkilö hakee työkaluja                             |
 
 ### Signaalin Vs. Cold Outreach
 
-| Cold Outreach | Signaalipohjainen Outreach |
-|---------------|----------------------------|
-| "Hei, me myymme X:ää" | "Näin, että yritys teki Y – miten ratkaista tämä haaste?" |
-| Lähetetään kaikille listalla | Lähetetään vain signaalin perusteella |
-| Geneerinen viesti | Personoitu, signaalia viittaava viesti |
-| Ajoitus satunnainen | Ajoitus signaalin mukaan (esim. 2-7 päivää uutisen jälkeen) |
-| Vastaprosentti: 0.5-2% | Vastaprosentti: 5-15% (2-10x parempi) |
+| Cold Outreach                | Signaalipohjainen Outreach                                  |
+| ---------------------------- | ----------------------------------------------------------- |
+| "Hei, me myymme X:ää"        | "Näin, että yritys teki Y – miten ratkaista tämä haaste?"   |
+| Lähetetään kaikille listalla | Lähetetään vain signaalin perusteella                       |
+| Geneerinen viesti            | Personoitu, signaalia viittaava viesti                      |
+| Ajoitus satunnainen          | Ajoitus signaalin mukaan (esim. 2-7 päivää uutisen jälkeen) |
+| Vastaprosentti: 0.5-2%       | Vastaprosentti: 5-15% (2-10x parempi)                       |
 
 ---
 
@@ -112,6 +119,7 @@ Käyttäjän määrittelemät periaatteet signaalipohjaisen myynnin onnistumisel
 **Kysymys:** Milloin on paras aika ottaa yhteyttä?
 
 **Vastaus:**
+
 - ✅ **2-7 päivää signaalin jälkeen** (esim. uutisen julkaisu, LinkedIn-postaus)
 - ✅ **Kun signaali on tuore** (ei vanhoja uutisia)
 - ✅ **Ennen kuin kilpailijat reagoivat** (nopeus voittaa)
@@ -119,6 +127,7 @@ Käyttäjän määrittelemät periaatteet signaalipohjaisen myynnin onnistumisel
 - ❌ **EI** yli 14 päivää signaalin jälkeen (menettänyt relevanssin)
 
 **Esimerkki:**
+
 ```
 LinkedIn-postaus: "PORR AG aloitti 500M€ infrahankkeen Puolassa"
 → Odota 3 päivää
@@ -131,13 +140,13 @@ LinkedIn-postaus: "PORR AG aloitti 500M€ infrahankkeen Puolassa"
 
 **Korrelaatiotasot (1-5):**
 
-| Taso | Signaali | DWS6-Relevanssi | Toimenpide |
-|------|----------|-----------------|------------|
-| **5 - ULTRA** | Uusi COO/CDO, CSRD-maininta, Fit for 55 -tavoite | Suora tarve DWS6:lle | Ota yhteyttä heti (2-3 päivää) |
-| **4 - HIGH** | Rahoituskierros, uusi projekti (>100M€), ESG-johtaja palkattu | Vahva tarve, budjettivarmuus | Ota yhteyttä (3-5 päivää) |
-| **3 - MEDIUM** | Osavuosikatsaus mainitsee digitalisaation, portfolio kasvaa | Potentiaalinen tarve | Seuraa + ota yhteyttä (5-7 päivää) |
-| **2 - LOW** | Yleinen LinkedIn-päivitys, blogiteksti | Heikko signaali | Älä ota yhteyttä (vain seuraa) |
-| **1 - NOISE** | Ei-merkityksellinen uutinen | Ei korrelaatiota | Ohita |
+| Taso           | Signaali                                                      | DWS6-Relevanssi              | Toimenpide                         |
+| -------------- | ------------------------------------------------------------- | ---------------------------- | ---------------------------------- |
+| **5 - ULTRA**  | Uusi COO/CDO, CSRD-maininta, Fit for 55 -tavoite              | Suora tarve DWS6:lle         | Ota yhteyttä heti (2-3 päivää)     |
+| **4 - HIGH**   | Rahoituskierros, uusi projekti (>100M€), ESG-johtaja palkattu | Vahva tarve, budjettivarmuus | Ota yhteyttä (3-5 päivää)          |
+| **3 - MEDIUM** | Osavuosikatsaus mainitsee digitalisaation, portfolio kasvaa   | Potentiaalinen tarve         | Seuraa + ota yhteyttä (5-7 päivää) |
+| **2 - LOW**    | Yleinen LinkedIn-päivitys, blogiteksti                        | Heikko signaali              | Älä ota yhteyttä (vain seuraa)     |
+| **1 - NOISE**  | Ei-merkityksellinen uutinen                                   | Ei korrelaatiota             | Ohita                              |
 
 **Korrelaatiomatriisi:**
 
@@ -160,6 +169,7 @@ Geneerinen blogiteksti          → LOW (10% korrelaatio)
 **Kysymys:** Kenelle viesti pitää lähettää?
 
 **Vastaus:**
+
 - ✅ **Decision Maker** (COO, CDO, CEO, Portfoliojohtaja)
 - ✅ **Influencer** (ESG-johtaja, Digitalisaatiojohtaja, Projektipäällikkö)
 - ✅ **Champion** (Henkilö, joka hyötyy DWS6:sta eniten)
@@ -167,19 +177,20 @@ Geneerinen blogiteksti          → LOW (10% korrelaatio)
 
 **Roolien Prioriteetti DWS6:lle:**
 
-| Rooli | Prioriteetti | Kiinnostuksen Kohde | Viestityyli |
-|-------|--------------|---------------------|-------------|
-| **CEO** | HIGH | Liiketoimintavaikutus, kilpailuetu | Strateginen, lyhyt |
-| **COO** | ULTRA | Operatiivinen tehokkuus, SPI/CPI | Konkreettinen, datavetoinen |
-| **CDO/CTO** | ULTRA | Digitalisaatio, integraatiot | Tekninen, arkkitehtuuri |
-| **ESG/Vastuullisuusjohtaja** | ULTRA | Fit for 55, CSRD, raportointi | Compliance-pohjainen |
-| **Portfoliojohtaja** | HIGH | Reaaliaikainen seuranta, riskit | Dashboard, visualisoinnit |
-| **Projektipäällikkö** | MEDIUM | Yksittäisten hankkeiden ohjaus | Operatiivinen, käytännöllinen |
-| **Procurement** | LOW | Hinta, sopimukset | Ei ensimmäinen kontakti |
+| Rooli                        | Prioriteetti | Kiinnostuksen Kohde                | Viestityyli                   |
+| ---------------------------- | ------------ | ---------------------------------- | ----------------------------- |
+| **CEO**                      | HIGH         | Liiketoimintavaikutus, kilpailuetu | Strateginen, lyhyt            |
+| **COO**                      | ULTRA        | Operatiivinen tehokkuus, SPI/CPI   | Konkreettinen, datavetoinen   |
+| **CDO/CTO**                  | ULTRA        | Digitalisaatio, integraatiot       | Tekninen, arkkitehtuuri       |
+| **ESG/Vastuullisuusjohtaja** | ULTRA        | Fit for 55, CSRD, raportointi      | Compliance-pohjainen          |
+| **Portfoliojohtaja**         | HIGH         | Reaaliaikainen seuranta, riskit    | Dashboard, visualisoinnit     |
+| **Projektipäällikkö**        | MEDIUM       | Yksittäisten hankkeiden ohjaus     | Operatiivinen, käytännöllinen |
+| **Procurement**              | LOW          | Hinta, sopimukset                  | Ei ensimmäinen kontakti       |
 
 **Löytäminen (LinkedIn-pohjainen):**
 
 1. **LinkedIn Search:**
+
    ```
    Company: "NCC AB"
    Title: "COO" OR "Chief Operating Officer" OR "Portfolio Director"
@@ -198,6 +209,7 @@ Geneerinen blogiteksti          → LOW (10% korrelaatio)
 **Vastaus:**
 
 ✅ **HYVÄ (Empaattinen, Auttava):**
+
 ```
 Aihe: NCC – Fit for 55 -tavoitteet ja portfolioseuranta
 
@@ -220,6 +232,7 @@ Demo: https://j6prmljgpvnia.ok.kimi.link/
 ```
 
 ❌ **HUONO (Myyvä, Geneerinen):**
+
 ```
 Aihe: Parasta portfolio-ohjelmistoa markkinoilla!
 
@@ -249,18 +262,19 @@ Ota yhteyttä!
 ### 4.1 LinkedIn
 
 **Miksi LinkedIn?**
+
 - B2B-päättäjät ovat aktiivisia
 - Julkiset job changes, company updates, personal posts
 - Helppoa seurata Target Accounts -listaa
 
 **Mitä Seurataan?**
 
-| LinkedIn-Signaali | Korrelaatio | Esimerkki |
-|-------------------|-------------|-----------|
-| **Job Change** | ULTRA | "Excited to join NCC as Chief Digital Officer!" |
-| **Company Update** | HIGH | "NCC starts €200M hospital project in Stockholm" |
-| **Personal Post (about sustainability)** | HIGH | "Today we discussed CSRD compliance at our board meeting" |
-| **Engagement (likes/comments on relevant posts)** | MEDIUM | Henkilö tykkää Fit for 55 -aiheisesta postauksesta |
+| LinkedIn-Signaali                                 | Korrelaatio | Esimerkki                                                 |
+| ------------------------------------------------- | ----------- | --------------------------------------------------------- |
+| **Job Change**                                    | ULTRA       | "Excited to join NCC as Chief Digital Officer!"           |
+| **Company Update**                                | HIGH        | "NCC starts €200M hospital project in Stockholm"          |
+| **Personal Post (about sustainability)**          | HIGH        | "Today we discussed CSRD compliance at our board meeting" |
+| **Engagement (likes/comments on relevant posts)** | MEDIUM      | Henkilö tykkää Fit for 55 -aiheisesta postauksesta        |
 
 **LinkedIn Automation Workflow:**
 
@@ -295,17 +309,18 @@ G --> H[Follow-up DM]
 ### 4.2 X (Twitter)
 
 **Miksi X?**
+
 - Nopeat uutiset (breaking news)
 - C-level executives jakavat ajatuksiaan
 - Hashtags: #CSRD, #FitFor55, #construction
 
 **Mitä Seurataan?**
 
-| X-Signaali | Korrelaatio | Esimerkki |
-|------------|-------------|-----------|
-| **Tweet mainitsee CSRD/Fit for 55** | ULTRA | "Our team is preparing for CSRD Wave 2 – massive reporting challenge ahead" |
-| **Company announcement** | HIGH | "Excited to announce €150M funding round for expansion in Nordics" |
-| **Industry discussions** | MEDIUM | Thread about construction digitalization |
+| X-Signaali                          | Korrelaatio | Esimerkki                                                                   |
+| ----------------------------------- | ----------- | --------------------------------------------------------------------------- |
+| **Tweet mainitsee CSRD/Fit for 55** | ULTRA       | "Our team is preparing for CSRD Wave 2 – massive reporting challenge ahead" |
+| **Company announcement**            | HIGH        | "Excited to announce €150M funding round for expansion in Nordics"          |
+| **Industry discussions**            | MEDIUM      | Thread about construction digitalization                                    |
 
 **X Automation Workflow:**
 
@@ -319,17 +334,18 @@ G --> H[Follow-up DM]
 ### 4.3 Yritysten Verkkosivut
 
 **Miksi Verkkosivut?**
+
 - Viralliset uutiset (lehdistötiedotteet)
 - Vastuullisuusraportit (CSRD, ESG)
 - Projektisivut (uudet hankkeet)
 
 **Mitä Seurataan?**
 
-| Verkkosivun Osio | Korrelaatio | Esimerkki |
-|------------------|-------------|-----------|
-| **Lehdistötiedotteet** | HIGH | "NCC wins €300M hospital contract in Oslo" |
-| **Sustainability Reports** | ULTRA | "We commit to Fit for 55 targets by 2030" |
-| **Careers Page** | MEDIUM | "Hiring: Head of Digitalization" |
+| Verkkosivun Osio           | Korrelaatio | Esimerkki                                  |
+| -------------------------- | ----------- | ------------------------------------------ |
+| **Lehdistötiedotteet**     | HIGH        | "NCC wins €300M hospital contract in Oslo" |
+| **Sustainability Reports** | ULTRA       | "We commit to Fit for 55 targets by 2030"  |
+| **Careers Page**           | MEDIUM      | "Hiring: Head of Digitalization"           |
 
 **Automation:**
 
@@ -352,17 +368,18 @@ for url in targets:
 ### 4.4 Postaukset ja Blogit
 
 **Miksi Blogit?**
+
 - Pitkät artikkelit paljastavat strategian
 - C-level thought leadership
 - Technical deep-dives
 
 **Mitä Seurataan?**
 
-| Blogiaihe | Korrelaatio | Esimerkki |
-|-----------|-------------|-----------|
-| **"How we digitalize our portfolio"** | ULTRA | Kuvaa tarpeita, joihin DWS6 vastaa |
-| **"Our CSRD journey"** | ULTRA | Raportointihaasteet |
-| **"Construction 4.0"** | MEDIUM | Digitalisaatiointressi |
+| Blogiaihe                             | Korrelaatio | Esimerkki                          |
+| ------------------------------------- | ----------- | ---------------------------------- |
+| **"How we digitalize our portfolio"** | ULTRA       | Kuvaa tarpeita, joihin DWS6 vastaa |
+| **"Our CSRD journey"**                | ULTRA       | Raportointihaasteet                |
+| **"Construction 4.0"**                | MEDIUM      | Digitalisaatiointressi             |
 
 ---
 
@@ -373,6 +390,7 @@ for url in targets:
 **Korrelaatio** = Signaalin ja DWS6-tarpeen välinen yhteys.
 
 **Esimerkki:**
+
 ```
 Signaali: "NCC julkaisee vastuullisuusraportin, jossa mainitaan CSRD-velvoite"
 ↓
@@ -383,17 +401,17 @@ Korrelaatio: 95% (ULTRA)
 
 ### 5.2 Korrelaatiomatriisi
 
-| Signaali | DWS6 Feature | Korrelaatio | Prioriteetti |
-|----------|--------------|-------------|--------------|
-| **CSRD-maininta** | CSRD/ESRS raportointiautomaatio | 95% | ULTRA |
-| **Fit for 55 -tavoite** | Päästöseuranta, Scope 1/2/3 | 99% | ULTRA |
-| **SPI/CPI-ongelmat** | Reaaliaikainen portfolioseuranta | 90% | ULTRA |
-| **Uusi COO/CDO** | Digitalisaatio, modernit työkalut | 85% | HIGH |
-| **Rahoituskierros** | Kasvu, uudet projektit | 75% | HIGH |
-| **ESG-johtaja palkattu** | Vastuullisuustyökalut | 80% | HIGH |
-| **Projektiviivästymät** | SPI-optimointi | 70% | MEDIUM |
-| **BIM-maininta** | BIM-integraatiot | 60% | MEDIUM |
-| **Digitalisaatio (yleinen)** | Mahdollinen kiinnostus | 40% | LOW |
+| Signaali                     | DWS6 Feature                      | Korrelaatio | Prioriteetti |
+| ---------------------------- | --------------------------------- | ----------- | ------------ |
+| **CSRD-maininta**            | CSRD/ESRS raportointiautomaatio   | 95%         | ULTRA        |
+| **Fit for 55 -tavoite**      | Päästöseuranta, Scope 1/2/3       | 99%         | ULTRA        |
+| **SPI/CPI-ongelmat**         | Reaaliaikainen portfolioseuranta  | 90%         | ULTRA        |
+| **Uusi COO/CDO**             | Digitalisaatio, modernit työkalut | 85%         | HIGH         |
+| **Rahoituskierros**          | Kasvu, uudet projektit            | 75%         | HIGH         |
+| **ESG-johtaja palkattu**     | Vastuullisuustyökalut             | 80%         | HIGH         |
+| **Projektiviivästymät**      | SPI-optimointi                    | 70%         | MEDIUM       |
+| **BIM-maininta**             | BIM-integraatiot                  | 60%         | MEDIUM       |
+| **Digitalisaatio (yleinen)** | Mahdollinen kiinnostus            | 40%         | LOW          |
 
 ### 5.3 Korrelaatioanalyysi Prosessina
 
@@ -415,11 +433,11 @@ G --> K[Ohita]
 
 **Kun korrelaatio on tunnistettu, personoi viesti:**
 
-| Signaali | DWS6 Vastine | Viesti |
-|----------|--------------|--------|
-| "CSRD compliance challenge" | CSRD-automaatio | "Näin maininnan CSRD-haasteesta – DWS6 automatisoi koko raportoinnin Scope 1/2/3:lle" |
-| "Portfolio SPI dropped to 0.85" | SPI/CPI dashboard | "SPI 0.85 on haastava – asiakkaamme nostavat sen takaisin dashboardin avulla" |
-| "Hired new CDO" | Modernit työkalut | "Uusi CDO haluaa moderneja työkaluja – DWS6 on mobiili, AI-pohjainen ohjauspöytä" |
+| Signaali                        | DWS6 Vastine      | Viesti                                                                                |
+| ------------------------------- | ----------------- | ------------------------------------------------------------------------------------- |
+| "CSRD compliance challenge"     | CSRD-automaatio   | "Näin maininnan CSRD-haasteesta – DWS6 automatisoi koko raportoinnin Scope 1/2/3:lle" |
+| "Portfolio SPI dropped to 0.85" | SPI/CPI dashboard | "SPI 0.85 on haastava – asiakkaamme nostavat sen takaisin dashboardin avulla"         |
+| "Hired new CDO"                 | Modernit työkalut | "Uusi CDO haluaa moderneja työkaluja – DWS6 on mobiili, AI-pohjainen ohjauspöytä"     |
 
 ---
 
@@ -428,16 +446,19 @@ G --> K[Ohita]
 ### 6.1 Automaation Tasot
 
 **Level 1: Manuaalinen (Q1/2026)**
+
 - Ihminen seuraa signaaleja päivittäin
 - Ihminen luo viestit manuaalisesti
 - Ihminen lähettää viestit LinkedInissä
 
 **Level 2: Puoli-automaattinen (Q2/2026)**
+
 - AI kerää signaalit automaattisesti
 - AI ehdottaa korrelaatiota + viestiluonnoksia
 - Ihminen hyväksyy ja lähettää
 
 **Level 3: Täysi automaatio (Q3/2026)**
+
 - AI kerää, analysoi, luo viestit
 - Ihminen vain hyväksyy (1-click approval)
 - AI seuraa vastaukset ja ehdottaa follow-upeja
@@ -568,11 +589,13 @@ ORDER BY signal_date DESC;
 ### 7.1 Miksi Empatia On Kriittistä?
 
 **Ongelma:**
+
 - B2B-päättäjät saavat 100+ myyntiviestia/viikko
 - 90% on geneeristä "spray and pray" -spämmiä
 - Luottamus myyjiin on alhainen
 
 **Ratkaisu:**
+
 - **Empaattinen viesti** = viesti, joka tuntuu auttavalta, ei myyvältä
 - **Signaalipohjainen konteksti** = todiste siitä, että olet tehnyt kotitehtäväsi
 - **Dialogi, ei monologi** = kysyt, et saarnaat
@@ -593,8 +616,8 @@ Aihe: PORR – CSRD-raportointi 2026
 Hei Karl-Heinz,
 
 Näin PORR:n Q4-raportista maininnan CSRD-raportointivelvoitteesta ja
-Scope 1-3 -päästötavoitteista. Monet asiakkaamme (Veidekke, NCC, YIT)
-kohtasivat saman haasteen: miten kerätä päästödata sadoilta projektikohteilta
+Scope 1-3 -päästötavoitteista. Pohjoismaiset rakennusalan toimijat kohtaavat
+saman haasteen: miten kerätä päästödata sadoilta projektikohteilta
 ja toimittajilta ilman manuaalista työtä?
 
 Rakensimme DWS IQ 6:n juuri tähän – agentti, joka kerää automaattisesti
@@ -614,7 +637,7 @@ Demo: https://j6prmljgpvnia.ok.kimi.link/
 
 ✅ **Personoitu:** Mainitsee PORR:n Q4-raportin (todiste siitä, että luit sen)
 ✅ **Empaattinen:** Tunnistaa haasteen ("miten kerätä data...")
-✅ **Sosiaalinen todiste:** "Monet asiakkaamme" (Veidekke, NCC, YIT)
+✅ **Sosiaalinen todiste:** toimialataso ("pohjoismaiset rakennusalan toimijat"). Älä nimeä Veidekkeä, NCC:tä tai YIT:tä asiakkaiksi — ne ovat prospekteja, eivät asiakkaita (`docs/TRACTION_CANONICAL.md` §3).
 ✅ **Ei-tungetteleva:** "Kiinnostaako demo?" (ei "Osta nyt!")
 ✅ **Helppo CTA:** 15 min (ei 1h)
 
@@ -652,11 +675,11 @@ Myyjä
 
 **Testaa 3 Viestivarianttia:**
 
-| Variantti | Aloitus | Vastausprosentti (tavoite) |
-|-----------|---------|----------------------------|
-| **A (Empaattinen)** | "Näin raportissanne CSRD-maininnan..." | 8-12% |
-| **B (Suora)** | "DWS IQ 6 ratkaisee CSRD-raportointinne" | 3-5% |
-| **C (Kysymys)** | "Miten ratkaistatte CSRD-raportoinnin?" | 5-7% |
+| Variantti           | Aloitus                                  | Vastausprosentti (tavoite) |
+| ------------------- | ---------------------------------------- | -------------------------- |
+| **A (Empaattinen)** | "Näin raportissanne CSRD-maininnan..."   | 8-12%                      |
+| **B (Suora)**       | "DWS IQ 6 ratkaisee CSRD-raportointinne" | 3-5%                       |
+| **C (Kysymys)**     | "Miten ratkaistatte CSRD-raportoinnin?"  | 5-7%                       |
 
 **Voittaja:** Variantti A (empaattinen, signaalipohjainen)
 
@@ -666,15 +689,15 @@ Myyjä
 
 ### 8.1 Stack
 
-| Komponentti | Teknologia | Tarkoitus |
-|-------------|------------|-----------|
-| **Signal Collection** | Python (BeautifulSoup, Playwright) | Web scraping, RSS parsing |
-| **LinkedIn Integration** | PhantomBuster, LinkedIn API | Job changes, company updates |
-| **X Integration** | X API (v2), Nitter scraper | Tweet monitoring |
-| **AI Analysis** | OpenAI GPT-4, Claude | Korrelaatioanalyysi, viestien luonti |
-| **State Machine** | Firehorse (TypeScript) | Workflow orchestration |
-| **Database** | Supabase (PostgreSQL) | Signal storage, CRM |
-| **Outreach** | LinkedIn (manuaalinen), SendGrid (email) | Message delivery |
+| Komponentti              | Teknologia                               | Tarkoitus                            |
+| ------------------------ | ---------------------------------------- | ------------------------------------ |
+| **Signal Collection**    | Python (BeautifulSoup, Playwright)       | Web scraping, RSS parsing            |
+| **LinkedIn Integration** | PhantomBuster, LinkedIn API              | Job changes, company updates         |
+| **X Integration**        | X API (v2), Nitter scraper               | Tweet monitoring                     |
+| **AI Analysis**          | OpenAI GPT-4, Claude                     | Korrelaatioanalyysi, viestien luonti |
+| **State Machine**        | Firehorse (TypeScript)                   | Workflow orchestration               |
+| **Database**             | Supabase (PostgreSQL)                    | Signal storage, CRM                  |
+| **Outreach**             | LinkedIn (manuaalinen), SendGrid (email) | Message delivery                     |
 
 ### 8.2 Signal Collection Service
 
@@ -783,8 +806,8 @@ if __name__ == "__main__":
 **TypeScript Service: `src/firehorse/signal-message-generator.ts`**
 
 ```typescript
-import OpenAI from 'openai';
-import { supabase } from './database';
+import OpenAI from "openai";
+import { supabase } from "./database";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -804,10 +827,10 @@ You are a B2B sales expert writing empathetic, signal-based outreach messages.
 
 SIGNAL:
 - Company: ${signal.company_name}
-- Contact: ${signal.contact_name || 'Decision Maker'} (${signal.contact_title || 'Unknown'})
+- Contact: ${signal.contact_name || "Decision Maker"} (${signal.contact_title || "Unknown"})
 - Signal: ${signal.signal_content}
 - Correlation: ${signal.correlation_score}/5
-- DWS6 Features: ${signal.dws6_feature_match?.join(', ') || 'General'}
+- DWS6 Features: ${signal.dws6_feature_match?.join(", ") || "General"}
 
 PRODUCT (DWS IQ 6):
 - Real-time portfolio control room for construction companies
@@ -833,18 +856,18 @@ Write the message now:
   `;
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4-turbo',
-    messages: [{ role: 'user', content: prompt }],
+    model: "gpt-4-turbo",
+    messages: [{ role: "user", content: prompt }],
     temperature: 0.7,
   });
 
-  const draft = response.choices[0].message.content || '';
+  const draft = response.choices[0].message.content || "";
 
   // Save draft to database
   await supabase
-    .from('firehorse_signals')
-    .update({ message_draft: draft, status: 'queued' })
-    .eq('id', signal.id)
+    .from("firehorse_signals")
+    .update({ message_draft: draft, status: "queued" })
+    .eq("id", signal.id)
     .execute();
 
   return draft;
@@ -853,11 +876,11 @@ Write the message now:
 // Generate drafts for all ULTRA/HIGH signals
 export async function processPendingSignals() {
   const { data: signals } = await supabase
-    .from('firehorse_signals')
-    .select('*')
-    .in('correlation_score', [4, 5])
-    .eq('status', 'analyzed')
-    .order('signal_date', { ascending: false })
+    .from("firehorse_signals")
+    .select("*")
+    .in("correlation_score", [4, 5])
+    .eq("status", "analyzed")
+    .order("signal_date", { ascending: false })
     .limit(10)
     .execute();
 
@@ -976,6 +999,7 @@ ORDER BY s.correlation_score DESC, s.signal_date DESC;
    - Ihminen seuraa vastaukset
 
 **Ajansäästö:**
+
 - Manuaalinen: 2h/päivä
 - Puoli-automaattinen: 30 min/päivä
 - **Säästö: 1.5h/päivä = 7.5h/viikko**
@@ -997,6 +1021,7 @@ ORDER BY s.correlation_score DESC, s.signal_date DESC;
    - Kiinnostuneet → automaattinen demo-kalenteri-linkki
 
 **Ajansäästö:**
+
 - Puoli-automaattinen: 30 min/päivä
 - Täysi automaatio: 10 min/päivä
 - **Säästö: 20 min/päivä = 1.7h/viikko**
@@ -1007,29 +1032,29 @@ ORDER BY s.correlation_score DESC, s.signal_date DESC;
 
 ### 10.1 Signal Collection Metrics
 
-| Mittari | Tavoite (Q1/2026) | Seuranta |
-|---------|-------------------|----------|
-| **Signaalien määrä (viikko)** | 15-25 | Päivittäin |
-| **ULTRA-signaalit** | 3-5/viikko | Päivittäin |
-| **HIGH-signaalit** | 8-12/viikko | Päivittäin |
-| **False positives (%)** | <20% | Viikottain |
+| Mittari                       | Tavoite (Q1/2026) | Seuranta   |
+| ----------------------------- | ----------------- | ---------- |
+| **Signaalien määrä (viikko)** | 15-25             | Päivittäin |
+| **ULTRA-signaalit**           | 3-5/viikko        | Päivittäin |
+| **HIGH-signaalit**            | 8-12/viikko       | Päivittäin |
+| **False positives (%)**       | <20%              | Viikottain |
 
 ### 10.2 Outreach Metrics
 
-| Mittari | Tavoite (Q1/2026) | Seuranta |
-|---------|-------------------|----------|
-| **Viestien määrä (viikko)** | 15 (3/päivä × 5) | Päivittäin |
-| **Vastausprosentti** | 8-15% | Viikottain |
-| **Demo-varaukset** | 2-3/viikko | Viikottain |
-| **Pilot-signeeraukset** | 2 (Q1 total) | Kuukausittain |
+| Mittari                     | Tavoite (Q1/2026) | Seuranta      |
+| --------------------------- | ----------------- | ------------- |
+| **Viestien määrä (viikko)** | 15 (3/päivä × 5)  | Päivittäin    |
+| **Vastausprosentti**        | 8-15%             | Viikottain    |
+| **Demo-varaukset**          | 2-3/viikko        | Viikottain    |
+| **Pilot-signeeraukset**     | 2 (Q1 total)      | Kuukausittain |
 
 ### 10.3 Quality Metrics
 
-| Mittari | Tavoite | Seuranta |
-|---------|---------|----------|
-| **Viestin personointitaso** | 9/10 | Manuaalinen arvio |
-| **Ajoituksen oikeellisuus** | 2-5 päivää signaalista | Automaattinen |
-| **Korrelaation tarkkuus** | >80% | Viikottain (A/B-testi) |
+| Mittari                     | Tavoite                | Seuranta               |
+| --------------------------- | ---------------------- | ---------------------- |
+| **Viestin personointitaso** | 9/10                   | Manuaalinen arvio      |
+| **Ajoituksen oikeellisuus** | 2-5 päivää signaalista | Automaattinen          |
+| **Korrelaation tarkkuus**   | >80%                   | Viikottain (A/B-testi) |
 
 ### 10.4 Firehorse Dashboard
 
@@ -1065,11 +1090,13 @@ ORDER BY week DESC, correlation_score DESC;
 4. ✅ **Empaattinen viesti** → "Näin että...", "Monet asiakkaamme...", "Kiinnostaako demo?"
 
 **Automaation tasot:**
+
 - Q1/2026: Manuaalinen (2h/päivä)
 - Q2/2026: Puoli-automaattinen (30 min/päivä)
 - Q3/2026: Täysi automaatio (10 min/päivä)
 
 **Tavoite Q1/2026:**
+
 - 15 viestia/viikko → 8-15% vastausprosentti → 2-3 demoa/viikko → **2 pilottia signattua**
 
 ---
@@ -1102,15 +1129,19 @@ ORDER BY week DESC, correlation_score DESC;
 ### B. Avainsanat (Keywords)
 
 **ULTRA (5) – DWS6 Suora Tarve:**
+
 - CSRD, Fit for 55, SPI, CPI, Schedule Performance Index, Cost Performance Index, ESG reporting, Scope 1, Scope 2, Scope 3, carbon accounting, EU Taxonomy
 
 **HIGH (4) – Vahva Signaali:**
+
 - COO, CDO, Chief Operating Officer, Chief Digital Officer, digitalization, digital transformation, funding round, Series A/B/C, ESG director, sustainability officer, portfolio growth
 
 **MEDIUM (3) – Potentiaalinen:**
+
 - BIM, Construction 4.0, digitization, smart construction, IoT, sensors, automation, project management software
 
 **LOW (1-2) – Heikko:**
+
 - construction, building, infrastructure (geneerinen)
 
 ### C. Esimerkki: Täysi Workflow

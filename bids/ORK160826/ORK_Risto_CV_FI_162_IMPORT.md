@@ -6,7 +6,7 @@ risto.anton@lifetime.fi
 
   
 
-Olen kokenut tekoäly- ja pilviarkkitehtuurin asiantuntija, jolla on vahva näyttö julkishallinnon ja säädöstenmukaisten ympäristöjen ratkaisukehityksestä. Tuotan korkean tason asiantuntijapalveluita, jotka tukevat organisaation yksittäisiä kehitysprojekteja, ylläpidon aikaista järjestelmäkehitystä sekä dokumentoitua ja hallittua tuotekehitystä. Minulla on laaja kokemus vaativista asiakasympäristöistä (mm. Dws10.com, onelifetime.world sekä jatkuvasta palvelutuotannosta Taksi Helsinki, Kela, Uber) sekä NVIDIA ISV -ekosysteemin hyödyntämisestä ratkaisukehityksessä.
+Olen kokenut tekoäly- ja pilviarkkitehtuurin asiantuntija, jolla on vahva näyttö julkishallinnon ja säädöstenmukaisten ympäristöjen ratkaisukehityksestä. Tuotan korkean tason asiantuntijapalveluita, jotka tukevat organisaation yksittäisiä kehitysprojekteja, ylläpidon aikaista järjestelmäkehitystä sekä dokumentoitua ja hallittua tuotekehitystä. Minulla on laaja kokemus vaativista asiakasympäristöistä (mm. Dws10.com, onelifetime.world sekä Lifetime Fleetin luvanvaraisesta kuljetuspalvelutuotannosta, jota välittävät Taksi Helsinki, Kela ja Uber — nämä ovat Traficomin määrittelemiä välityspalveluita ja kuljetustoiminnan kaupallisia vastapuolia, eivät ohjelmistoasiakkaita) sekä NVIDIA ISV -ekosysteemin hyödyntämisestä ratkaisukehityksessä.
 
   
 

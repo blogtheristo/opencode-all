@@ -59,14 +59,14 @@ function CustomDrawerContent(props: any) {
 
         <Divider style={styles.divider} />
 
-        {/* NCC Portfolio Section — folded in from the retired mobile-dashboard shell */}
-        <Text style={styles.sectionTitle}>NCC PORTFOLIO</Text>
+        {/* Portfolio Section — folded in from the retired mobile-dashboard shell. Label kept vendor-neutral: NCC is an unlanded prospect, never a customer (docs/TRACTION_CANONICAL.md). */}
+        <Text style={styles.sectionTitle}>PORTFOLIO</Text>
 
         <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Alerts')}>
           <Icon name="bell-alert" size={22} color={nordicColors.secondary} />
           <Text style={styles.menuText}>Portfolio Alerts</Text>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NCC</Text>
+            <Text style={styles.badgeText}>ALERTS</Text>
           </View>
         </TouchableOpacity>
 

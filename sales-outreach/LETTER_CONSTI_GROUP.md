@@ -25,7 +25,7 @@ Recipient: [VERIFY email] — Consti Group executive email pattern likely
 
 - A: `Consti + EPBD + CSRD — raportointityö 60 h → 8 h`
 - B: `Consti remonttipipeline: EPBD-toimijana CSRD-taakka on teille kaksinkertainen`
-- C: `60 tuntia kuukaudessa CSRD-raportointiin — Kela sai sen 8:aan`
+- C: `60 tuntia kuukaudessa CSRD-raportointiin — DWS IQ 6 leikkaa sen 8:aan`
 
 Suositus: **Subject A** — konkreettinen luku, ei hyperbolia.
 
@@ -37,7 +37,7 @@ Hei Esa,
 
 Näin Constin 2025 vuosituloksesta, että renovointikysyntänne kasvaa juuri nyt — EPBD pakottaa kiinteistönomistajat tilaamaan energiaremontit, ja te teette ne. Mutta listatun yhtiön CSRD-raportointi tarkoittaa samaan aikaan, että Scope 1/2 -data täytyy kerätä kaikilta työmailta manuaalisesti.
 
-Asiakkaamme Kela leikkasi tämän työn 60 tunnista 8 tuntiin kuukaudessa DWS IQ 6:lla — automaattinen datankeruu projekteiltanne, CSRD-raportti valmiina, ei manuaalityötä.
+DWS IQ 6 leikkaa tämän työn 60 tunnista 8 tuntiin kuukaudessa — automaattinen datankeruu projekteiltanne, CSRD-raportti valmiina, ei manuaalityötä.
 
 Kiinnostaako 15 min? Näytän miten Constin remonttipipelinen näyttäisi dashboardilla.
 
@@ -56,7 +56,7 @@ Hi Esa,
 
 I noticed from Consti's 2025 results that EPBD is now directly driving your renovation order book — building owners subject to EPC upgrade mandates are your customers. That's a strong tailwind. The challenge: as a listed company under CSRD Wave 1, you also need project-level Scope 1/2 data collected and formatted from every renovation site.
 
-Our customer Kela cut that compliance workload from 60 hours per month to 8 with DWS IQ 6 — automated data collection from project sites, CSRD report generated, no manual work.
+DWS IQ 6 cuts that compliance workload from 60 hours per month to 8 — automated data collection from project sites, CSRD report generated, no manual work.
 
 Worth 15 minutes to show you how a renovation portfolio like Consti's looks in the dashboard?
 
@@ -73,7 +73,7 @@ https://dws10.com
 
 > Hei Esa,
 >
-> Constin ydinliiketoiminta on EPBD:n toteutus — teette remontit, jotka direktiivi vaatii. Mutta listatun yhtiön CSRD lisää projektikohtaisen datankeruun päälle. Kela leikkasi tämän 60 tunnista 8 tuntiin. Kiinnostaako 15 min demo?
+> Constin ydinliiketoiminta on EPBD:n toteutus — teette remontit, jotka direktiivi vaatii. Mutta listatun yhtiön CSRD lisää projektikohtaisen datankeruun päälle. DWS IQ 6 leikkaa tämän 60 tunnista 8 tuntiin. Kiinnostaako 15 min demo?
 
 ---
 

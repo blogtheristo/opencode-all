@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Jasenko Hadzic, Spintop Ventures
-Version: 1.4
+Version: 1.5
 Date: 2026-07-12
 Author: Claude Sonnet 5 + Human Review
 Branch: claude/jasenko-hadzic-outreach-ici0e7
@@ -9,6 +9,7 @@ Story Lock: B2B SaaS + EU Early-Stage + Regulatory Compliance Infrastructure (St
 Intro Type: Warm — contact has offered to connect the two of us
 
 AGENT HISTORY:
+- v1.5 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-07-10): Initial draft. Principal at Spintop Ventures (Copenhagen), investing EUR 500K-2.5M in early-stage Nordic startups. Focused on infrastructure, cyber, energy and AI. Former founder (Tame, martech SaaS, EUR 1.5M ARR, raised ~EUR 10M) — operator-side execution credibility. EU/EEA-domiciled (Denmark) — fits lead investor requirement. Warm intro offered by referring contact. Caveat flagged: Spintop's portfolio leans infrastructure/cyber/energy — DWS IQ's compliance AI angle needs framing as infrastructure, not pure SaaS, to land.
 - v1.1 (2026-07-12): Draft email timing hook updated — replaced the Arctic 15 (Helsinki, June 15) / first-sales-data (Aug 15) urgency framing with an invite to meet at the PE meeting in Stockholm this November, since that event postdates the original data-drop hook. No exact day given for the Stockholm meeting; using "this November" as a placeholder pending a confirmed date.
 - v1.2 (2026-07-12): Confirmed date — Stockholm PE meeting is November 11, 2026. Draft email updated from "this November" to "on November 11".
@@ -68,11 +69,11 @@ Thank you for this — yes, please make the connection. Spintop's infrastructure
 
 ## Draft LinkedIn DM (first touch, once intro lands)
 
-Hi Jasenko — [Referrer] mentioned we should connect. I'm building Lifetime Oy (Finland) — regulatory compliance infrastructure for EU-regulated industries. A fleet of skilled agents pulls operational data from SAP/IFS/Dynamics and auto-generates audit-ready ETS/CBAM/CSRD reports every quarter. EUR 7K MRR, 6 paying customers, 100% retention. Raising a EUR 650K SAFE at a EUR 3.8M cap. Given Spintop's infrastructure/cyber focus, thought this might fit — happy to send the one-pager.
+Hi Jasenko — [Referrer] mentioned we should connect. I'm building Lifetime Oy (Finland) — regulatory compliance infrastructure for EU-regulated industries. A fleet of skilled agents pulls operational data from SAP/IFS/Dynamics and auto-generates audit-ready ETS/CBAM/CSRD reports every quarter. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). Raising a EUR 650K SAFE at a EUR 3.8M cap. Given Spintop's infrastructure/cyber focus, thought this might fit — happy to send the one-pager.
 
 ## Draft Email (if email channel preferred)
 
-**Subject:** Regulatory compliance infrastructure — EU industrial, 100% retention, raising EUR 650K SAFE
+**Subject:** Regulatory compliance infrastructure — EU industrial, two contracted enterprise pilots, raising EUR 650K SAFE
 
 Hi Jasenko,
 
@@ -82,7 +83,7 @@ DWS IQ 6 is regulatory compliance infrastructure for EU-regulated industries: a 
 
 The numbers:
 
-- 100% retention, 6 paying customers, EUR 7K MRR
+- Two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); ~EUR 7,000/month services and transport revenue (not software revenue)
 - Customer ACV: EUR 70K-120K
 - Enterprise pilots (EUR 4,950) convert to EUR 8,950/year contracts
 - Target: EUR 900K ARR by end 2026

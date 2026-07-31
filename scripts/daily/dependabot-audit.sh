@@ -4,17 +4,29 @@
 # Auto-discovered by day-runner.sh (daily folder convention).
 # Runs daily at 03:00–06:00 UTC on DGX Spark.
 #
-# What it does:
+# What it does (default = REPORT-ONLY since the Mini Shai-Hulud campaign,
+# May 2026 — auto-applying `npm audit fix` can pull poisoned advisories /
+# malicious "fix" versions into the tree unattended):
 #   1. Runs `npm audit --json` in every directory that has a package.json
 #   2. Collects vulnerability counts by severity
 #   3. Writes structured JSON report to logs/dependabot-audit.json
-#   4. If critical/high vulns found, attempts `npm audit fix` (non-breaking only)
-#   5. Logs all changes for human review
+#   4. Reports counts only. No automatic remediation.
+#
+# Opt-in autofix:
+#   DEPENDABOT_AUDIT_AUTOFIX=1   — restore the previous behaviour of running
+#                                  `npm audit fix` on critical/high finds and
+#                                  auto-committing the resulting lockfile
+#                                  changes. Only enable on machines that
+#                                  cannot be reached by an attacker via a
+#                                  poisoned upstream advisory (e.g. an
+#                                  air-gapped reviewer workflow).
 #
 # Requirements: node, npm, jq
 
 set -uo pipefail
 # Note: no -e (errexit) — npm audit returns exit 1 when vulns exist, which is expected
+
+AUTOFIX="${DEPENDABOT_AUDIT_AUTOFIX:-0}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -96,18 +108,25 @@ for dir in "${PACKAGE_DIRS[@]}"; do
 
   results+=("{\"directory\": \"$dir\", \"status\": \"audited\", \"vulnerabilities\": {\"critical\": $critical, \"high\": $high, \"moderate\": $moderate, \"low\": $low, \"total\": $total}, \"packages\": \"$vuln_names\"}")
 
-  # Auto-fix non-breaking vulnerabilities if critical or high found
+  # Optional auto-fix (DISABLED by default since Mini Shai-Hulud, May 2026).
+  # Set DEPENDABOT_AUDIT_AUTOFIX=1 only on hosts where the npm advisory feed
+  # is trusted and the resulting lockfile changes can be reviewed before they
+  # propagate. Default behaviour now reports counts and stops.
   if [[ "$critical" -gt 0 || "$high" -gt 0 ]]; then
-    echo "    Found $critical critical, $high high — attempting npm audit fix..."
-    fix_output=$(cd "$full_path" && timeout 60 npm audit fix --dry-run 2>&1 || echo "fix_failed")
+    if [[ "$AUTOFIX" == "1" ]]; then
+      echo "    Found $critical critical, $high high — attempting npm audit fix (AUTOFIX=1)..."
+      fix_output=$(cd "$full_path" && timeout 60 npm audit fix --dry-run 2>&1 || echo "fix_failed")
 
-    # Only apply fix if dry-run shows changes and no breaking changes
-    if echo "$fix_output" | grep -q "would change"; then
-      cd "$full_path" && timeout 60 npm audit fix 2>&1 | tail -5 || true
-      fix_applied+=("$dir")
-      echo "    Fix applied to $dir"
+      # Only apply fix if dry-run shows changes and no breaking changes
+      if echo "$fix_output" | grep -q "would change"; then
+        cd "$full_path" && timeout 60 npm audit fix 2>&1 | tail -5 || true
+        fix_applied+=("$dir")
+        echo "    Fix applied to $dir"
+      else
+        echo "    No safe fixes available for $dir"
+      fi
     else
-      echo "    No safe fixes available for $dir"
+      echo "    Found $critical critical, $high high — autofix disabled (set DEPENDABOT_AUDIT_AUTOFIX=1 to enable)"
     fi
   fi
 done
@@ -119,6 +138,7 @@ fixes_json=$(printf '%s\n' "${fix_applied[@]}" | jq -R -s 'split("\n") | map(sel
 report=$(cat <<REPORT_EOF
 {
   "timestamp": "$TIMESTAMP",
+  "autofix_enabled": $([[ "$AUTOFIX" == "1" ]] && echo true || echo false),
   "summary": {
     "directories_audited": ${#PACKAGE_DIRS[@]},
     "total_critical": $total_critical,
@@ -142,6 +162,7 @@ echo "  Critical:             $total_critical"
 echo "  High:                 $total_high"
 echo "  Moderate:             $total_moderate"
 echo "  Low:                  $total_low"
+echo "  Autofix:              $([[ "$AUTOFIX" == "1" ]] && echo 'ENABLED' || echo 'disabled (default)')"
 echo "  Fixes applied:        ${#fix_applied[@]}"
 
 if [[ "$total_critical" -gt 0 ]]; then
@@ -149,7 +170,9 @@ if [[ "$total_critical" -gt 0 ]]; then
   echo "  CRITICAL vulnerabilities detected — manual review required!"
 fi
 
-if [[ ${#fix_applied[@]} -gt 0 ]]; then
+# Auto-commit only when explicit autofix was on AND we actually applied changes.
+# Otherwise: no git mutation. Operator must opt in for both halves.
+if [[ "$AUTOFIX" == "1" && ${#fix_applied[@]} -gt 0 ]]; then
   echo ""
   echo "  Auto-fixes applied to: ${fix_applied[*]}"
   echo "  Review changes: git diff -- '*/package.json' '*/package-lock.json'"

@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import {
   MODEL_CATALOG,
   OLLAMA_DEPLOYED_MODELS,
+  escalateToClaude,
   estimateLocalModelDiskUsage,
   isProviderAvailable,
   modelFitsDepth,
@@ -20,9 +21,10 @@ const ENV_KEYS = [
   'OPENAI_API_KEY',
 ] as const;
 
-const originalEnv = Object.fromEntries(
-  ENV_KEYS.map((key) => [key, process.env[key]]),
-) as Record<(typeof ENV_KEYS)[number], string | undefined>;
+const originalEnv = Object.fromEntries(ENV_KEYS.map((key) => [key, process.env[key]])) as Record<
+  (typeof ENV_KEYS)[number],
+  string | undefined
+>;
 
 function resetEnv(): void {
   for (const key of ENV_KEYS) {
@@ -156,5 +158,35 @@ describe('model-selector', () => {
 
     expect(selection.modelId).toBe('placeholder');
     expect(selection.reason).toContain('deep enough');
+  });
+
+  describe('escalateToClaude', () => {
+    it('forces claude-opus-5 via the Anthropic API key', () => {
+      process.env.ANTHROPIC_API_KEY = 'anthropic-key';
+
+      const selection = escalateToClaude('athena');
+
+      expect(selection.modelId).toBe('claude-opus-5');
+      expect(selection.provider).toBe('anthropic');
+      expect(selection.isLocal).toBe(false);
+      expect(selection.tier).toBe('heavy');
+      expect(selection.reason).toContain('athena');
+    });
+
+    it('throws rather than silently falling back when ANTHROPIC_API_KEY is unset', () => {
+      delete process.env.ANTHROPIC_API_KEY;
+
+      expect(() => escalateToClaude('athena')).toThrow(/ANTHROPIC_API_KEY/);
+    });
+
+    it('never routes through a local or non-Anthropic provider', () => {
+      process.env.ANTHROPIC_API_KEY = 'anthropic-key';
+      process.env.OLLAMA_BASE_URL = 'http://localhost:11434';
+
+      const selection = escalateToClaude('atlas');
+
+      expect(selection.provider).toBe('anthropic');
+      expect(selection.isLocal).toBe(false);
+    });
   });
 });
