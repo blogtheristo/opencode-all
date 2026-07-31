@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Modeled the Captain P&L Boardy asked for (deal-size math grounded in canonical figures from `investor-outreach/captain-deck.md` v1.4), recommended 20% revenue share on flagship-tier deals, and asked Risto to confirm via AskUserQuestion. Risto confirmed and refined: **20% of net cash actually collected, for 24 months, on flagship industrial contracts she originates and materially advances, CTO compensation entirely separate** — plus guardrails (named-account attribution before outreach, payment only after cash clears, net of VAT/pass-through costs, no share on deals not materially advanced, no automatic renewal of the share past 24 months). Recorded as CONFIRMED structure, ready to present on the call v1.2 proposes. v1.2's DM text is unchanged — these are call terms, not a DM rewrite.
 - Version: 1.2 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Recorded the extended Boardy negotiation that moved the offer through several frames — paid contractor → CTO-track technical partner → Industrial Captain (capital-in) combined with immediate Technical Partner status and a CTO door open after a short skills/fit test. Added v1.2 draft. The €50,000 Captain commitment in the draft is the canonical Captain-seat figure per `docs/LOCKED_DECISIONS.md` LD-2026-014 (Captain €50K × 9 seats, reconciled 2026-07-31 in `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`) — confirmed consistent before drafting, not invented for this letter. **Not resolved:** the Captain P&L — how she earns back €50K within ~12 months (referral fee / revenue share / paid role / equity mix) — was Boardy's last open question to Risto and remains undecided; v1.2 states that honestly rather than inventing numbers, and proposes a call to work it out before any capital commitment. v1.1 retained below, marked superseded.
 - Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Recorded the Boardy discussion (Jan's point) that reframes the offer — Dayna should not be positioned only as a Captain-seat sales/fundraiser partner. Added v1.1 draft: technical partner with CTO-level potential (earn the role, not a title upfront) — structured path of (1) technical/commercial conversation, (2) paid 3-month engagement owning the MCP/orchestration + deployment layer, (3) longer-term CTO/technical-partner discussion if the working fit is strong. Her European network / Captain-candidate access repositioned as additive upside, not the condition for the technical role. v1.0 contract-first draft retained below, marked superseded, per the Document Standard's formulation-preservation rule — not deleted.
 - Version: 1.0 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Initial record of the live LinkedIn thread with Dayna Blackwell (creator of GCF, adopted by the official Google Chrome MCP server) and drafted the next-step reply. Reply reframes the ask around a paid, immediate-start contract engagement rather than an open-ended "partner position," using her disclosed Open to Work status (actively applying, immediate start, remote, full-time/part-time/contract).
@@ -123,16 +124,15 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 
 ## Send Checklist
 
-- [ ] **Model the Captain P&L before sending v1.2**, or accept that v1.2 asks her onto a call without that model finished (it says so honestly — that's a legitimate choice, not a blocker, but Risto should decide deliberately, not by default).
-- [ ] Send the **v1.2** reply via LinkedIn DM (existing 1st-degree thread — no connection request needed). Do not send v1.1 or v1.0.
-- [ ] On her agreement to a call: prepare the skills/working-fit test scope (MCP/orchestration + deployment layer) with a clear decision date — an open-ended test reads as another soft promise.
-- [ ] Before the call: decide the actual Captain-upside mix (referral fee / revenue share / paid role / equity / combination) — this is the question Boardy left open and the one Dayna will ask first.
+- [ ] Send the **v1.2** reply via LinkedIn DM (existing 1st-degree thread — no connection request needed). Do not send v1.1 or v1.0. Captain P&L terms (below) are call material, not DM content — don't fold them into the message.
+- [ ] On her agreement to a call: prepare the skills/working-fit test scope (MCP/orchestration + deployment layer) with a clear decision date — still undefined, the one open item left (see Open Decision below).
+- [ ] Bring the CONFIRMED Captain P&L terms to the call (20% of net cash collected, 24 months, flagship-tier deals only, guardrails as listed) — ready, no further prep needed on this front.
 - [ ] Send NDA (`Partners/NDA_TEMPLATE_EU_2026.md`) before sharing architecture docs, once she's in the technical/commercial conversation.
 - [ ] Log in `outreach_contacts` (pipeline = 'partner', target = Dayna Blackwell / Blackwell Systems, channel = 'linkedin_dm').
 - [ ] If a call date is confirmed: calendar it (`Google_Calendar.create_event`) — not done in this session because no confirmed date exists yet.
 - [ ] Day 5: soft nudge if no reply.
 
-## Captain P&L Model — Draft (pending Risto decision)
+## Captain P&L Model — CONFIRMED
 
 Boardy's follow-up (31.07.2026, continued): a €50K ask cannot be carried by access/status alone — needs a credible 12-month payback path, modeled as a Captain P&L (what deals, what role in each, how revenue/fees/upside flow to her, the pipeline required to recover €50K, and what happens after payback so upside > breakeven), not a membership pitch. Boardy's direct question to Risto: referral fee, revenue share, paid role, equity, or a combination?
 
@@ -146,25 +146,30 @@ Grounded in canonical DWS numbers already in the repo (not invented for this mod
 
 **The math only closes if her Captain mandate is explicitly scoped to flagship-tier industrial accounts** (the €150K+ ARR range), not blended-average volume — which also matches her actual value: a small number of serious European industrial relationships, not outreach volume. That's a positioning choice as much as a percentage choice.
 
-**Recommended structure (Risto to confirm before this goes to Dayna):**
+**CONFIRMED structure (Risto, 31.07.2026 — ready to present on the call):**
 
-1. **Revenue share, not a one-time referral fee** — a flat fee ends the relationship at signature; a share keeps her incentive aligned with the customer staying live, and is what makes "upside beyond breakeven" a real answer instead of a slogan.
-2. **20% of first-year contract value** on any deal she originates and that closes, paid on collection (as the customer pays, not deferred to renewal) — recommended starting point, adjustable.
-3. **Revenue share continues for 24 months per contract**, not just year one — on two flagship-tier deals in year one, by month 24 she's earned roughly €160K against a €50K commitment, which is the "what happens after payback" answer Boardy asked for.
-4. **Kept separate from the CTO track.** Her €50K SAFE (the Captain seat itself, equity per LD-2026-014) and her deal-sourcing revenue share are the Captain P&L. The CTO/Technical Partner role is evaluated purely on the skills/fit test, not funded by her referral economics — keeps the "not pay-to-play" positioning in v1.2 intact.
+1. **20% of net cash actually collected**, for 24 months, on flagship industrial contracts she originates and materially advances. CTO compensation is entirely separate — not blended into this.
+2. **Why 20%, not 15%:** one €199,990 DWS 365 contract yields ~€40K at 20% — two contracts recovers the €50K Captain commitment and creates real upside. At 15%, one flagship deal is only €30K, which weakens the payback story.
+3. **Guardrails (all confirmed, non-negotiable in the terms):**
+   - Named-account attribution agreed _before_ outreach starts — no retroactive claiming.
+   - Payment only after customer cash actually clears (not on signature, not on invoice).
+   - Net of VAT and pass-through costs.
+   - No share on deals she did not materially advance.
+   - No automatic renewal of the share after the 24-month window — it ends there, by design, not an oversight.
+4. **The framing Risto wants conveyed:** "a serious industrial relationship mandate with a measurable liquidity path — not a membership fee, and not a disguised CTO purchase."
 
-**Not yet decided:** the exact percentage, the deal-tier floor that qualifies for the share, and whether "paid role" or partial equity should blend into this instead of/alongside the revenue share. Asked Risto directly — see below.
+This is now ready to present live on the call proposed in v1.2 — it is deal terms, not something to bury in a LinkedIn DM. v1.2's DM stands as sent/sendable; these are the terms to bring to the conversation it proposes, not a v1.3 rewrite of the message itself.
 
 ## Open Decision for the HIC
 
-Three, in order of how blocking they are:
+One remaining:
 
-1. **Captain P&L mechanism and %** — the table above shows why a flat blended-rate referral fee doesn't credibly pay back €50K in 12 months unless deals are flagship-tier. Need Risto's decision on the mechanism (revenue share vs. referral fee vs. paid role vs. combination) and the rate before this can go to Dayna as anything more concrete than "we'll work it out on the call."
-2. **Skills/fit-test scope and decision date** — what exactly does Dayna need to demonstrate on the MCP/orchestration/deployment layer, and by when, for the CTO decision to be made? Undefined this session.
-3. ~~Captain P&L / payback model~~ — superseded by item 1 now that a concrete model has been drafted; kept as history only.
+1. **Skills/fit-test scope and decision date** — what exactly does Dayna need to demonstrate on the MCP/orchestration/deployment layer, and by when, for the CTO decision to be made? Undefined this session.
+
+~~Captain P&L mechanism and %~~ — **RESOLVED 31.07.2026**, see confirmed structure above.
 
 ---
 
-**Document Version:** 1.2
+**Document Version:** 1.3
 **Classification:** INTERNAL / CONFIDENTIAL (sendable copy)
 **Owner:** Risto Anton Päärni
