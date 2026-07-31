@@ -543,6 +543,25 @@ See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
 
 See `scripts/lint-truth-claims.mjs` and `DWS_TRUTH_STANDARD.md` §5/§7/§8.
 
+### 7.4 /mgd-report
+
+**When to use:** Reporting the DWS north-star metric — **Monthly Governed Decisions (MGD)** plus **Customer-Retained Capital (CRC)** — per customer, with trend. Founder-ratified (`DWS_TRUTH_STANDARD.md` §2 row 32). Use for board/investor prep, quarterly governance, or "is MGD up or down this quarter".
+
+**What it does:** Wraps the deterministic `scripts/compute-mgd.mjs` (no LLM — CLAUDE.md Rule 5), which counts a decision as one Governed Decision only when it (a) flows through the governed outcome layer, (b) carries full Article 12 lineage, and (c) is audit-grade (field-note §3). Renders a per-customer table + raw JSON. **Fails loud** on the schema gap (the current `agent_executions` table lacks the three fields) rather than reporting a proxy — pointing at the proposed, un-applied migration `081_agent_executions_governance_fields.sql`.
+
+**Modes:** `/mgd-report` (all customers, current quarter), `/mgd-report CUSTOMER=<org_id> RANGE=<current-quarter|YYYY-Qn|from..to>`. Structured JSON for agent consumption; CLI table for humans (Agent Productization Rule).
+
+**Trigger phrases:** "MGD", "monthly governed decisions", "north-star number", "governed decisions this quarter", "MGD report", "is MGD up or down"
+
+**Workflow rules:**
+
+- The skill reports; it never computes. All counting lives in `scripts/compute-mgd.mjs`. The rendered table must never disagree with the JSON.
+- On a schema-gap (exit 2), surface the named missing fields + migration 081 — never substitute a stale or partial number (Rule 12).
+- CRC is not derivable from execution logs (it is retained 4P capital); report the gap unless a 4P-asset inventory is supplied.
+- The metric's approved/deprecated phrasing lives in `dws10.com/config/metrics-northstar.json` and is enforced by `/truth-check`.
+
+See `skills/mgd-report/SKILL.md`, `scripts/compute-mgd.mjs`, and `docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md` §3/§6.
+
 ## 8. Code Quality & Internationalisation
 
 ### 8.1 /simplify
@@ -758,6 +777,7 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Control edge devices                       | /remote-control                                   | Operations |
 | Add/triage investor intro                  | /investor-outreach                                | Operations |
 | Write / review a blog entry                | /blog-draft                                       | Operations |
+| Report the MGD/CRC north-star metric       | /mgd-report                                       | Compliance |
 | Draft the next LSJ issue                   | /lsj-publish                                      | Operations |
 | Route to DGX Spark Ollama                  | /ollama-spark                                     | Operations |
 | Fix dual-folder API drift                  | /fix-dual-folder-api-connectivity                 | Operations |

@@ -567,6 +567,22 @@
       "skillPackFile": "skills/skill-cleaner/SKILL.md"
     },
     {
+      "id": "mgd-report-command",
+      "name": "mgd-report",
+      "displayName": "mgd-report (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/mgd-report.md"
+    },
+    {
+      "id": "mgd-report-pack",
+      "name": "mgd-report",
+      "displayName": "mgd-report (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/mgd-report/SKILL.md"
+    },
+    {
       "id": "supermetrics-seo-sync",
       "name": "supermetrics-seo-sync",
       "kind": "skill-pack",

@@ -1,0 +1,99 @@
+{
+  "version": "1.0",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "../../docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Structured mirror of the DWS north-star metric pair — Monthly Governed Decisions (MGD) + Customer-Retained Capital (CRC). Founder-ratified by Risto Anton Päärni (Founder, CEO · Lifetime Oy) 2026-07-13 per the field-note §3 definitions. Registered in DWS_TRUTH_STANDARD.md §2 row 32. Lets scripts/lint-truth-claims.mjs and /truth-check flag the deprecated acquisition/activity 'anti-game' phrasings (field-note §2 table) in new public-layer copy, and steer copy toward the outcome-metric language. Metric definitions below are copied verbatim from the field note §3 — this file is a machine-readable reflection, not a reinterpretation.",
+  "canonicalSources": [
+    "docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md §3 (metric definitions)",
+    "docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md §2 (anti-games table → deprecated list)",
+    "DWS_TRUTH_STANDARD.md §2 row 32",
+    "DWS_TRUTH_STANDARD.md §2A Pillar 2 (Orchestration Over Components — agent/skill count is never a headline)"
+  ],
+  "ratification": {
+    "metricPair": "Monthly Governed Decisions (MGD) + Customer-Retained Capital (CRC)",
+    "ratifiedBy": "Risto Anton Päärni, Founder, CEO · Lifetime Oy",
+    "date": "2026-07-13",
+    "basis": "field-note §3 definitions"
+  },
+  "metrics": {
+    "primary": {
+      "canonical": "Monthly Governed Decisions",
+      "abbreviation": "MGD",
+      "role": "primary",
+      "definitionVerbatim": "Monthly Governed Decisions (MGD) — primary. A decision counts only when it (a) flows through the governed outcome layer, (b) carries full Article 12 reasoning lineage, and (c) is audit-grade (would survive regulator or internal-audit scrutiny). Pilots, demos, and ungoverned agent runs do not count — exactly as MySpace's dormant accounts did not count for Facebook.",
+      "criteria": [
+        {
+          "id": "a",
+          "name": "governed-outcome-layer",
+          "text": "flows through the governed outcome layer"
+        },
+        {
+          "id": "b",
+          "name": "article-12-lineage",
+          "text": "carries full Article 12 reasoning lineage"
+        },
+        {
+          "id": "c",
+          "name": "audit-grade",
+          "text": "is audit-grade (would survive regulator or internal-audit scrutiny)"
+        }
+      ]
+    },
+    "secondary": {
+      "canonical": "Customer-Retained Capital",
+      "abbreviation": "CRC",
+      "role": "secondary/compounding",
+      "definitionVerbatim": "Customer-Retained Capital (CRC) — secondary/compounding. The 4P assets (ontology, skills, calibrated Control Room thresholds, evaluated datasets) the customer owns after the engagement. This is the anti-Karp metric: proof DWS's game is capital formation, not extraction."
+    }
+  },
+  "approvedDisplayPhrases": [
+    "Monthly Governed Decisions",
+    "Monthly Governed Decision",
+    "MGD",
+    "Customer-Retained Capital",
+    "CRC",
+    "governed decision",
+    "governed decisions",
+    "governed outcome layer",
+    "audit-grade governed decision",
+    "audit-grade governed decisions",
+    "decisions that survive audit"
+  ],
+  "deprecatedDisplayPhrases": [
+    "agent count",
+    "agent-count",
+    "skill count",
+    "skill-count",
+    "workflow count",
+    "workflow-count"
+  ],
+  "ambiguousDisplayPhrasesNeedingContext": [
+    {
+      "phrase": "benchmark scores",
+      "validIf": "Valid only when critiquing the losing game — must appear alongside 'instead', 'rather', 'beyond', 'competitors', or 'leaderboard'. As a DWS success/headline claim it is a deprecated anti-game (field-note §2); lead with 'Monthly Governed Decisions' / 'decisions that survive audit'.",
+      "invalidIf": "Used as a DWS success or headline metric in positioning / investor / sales copy."
+    },
+    {
+      "phrase": "benchmark score",
+      "validIf": "Valid only when critiquing the losing game — must appear alongside 'instead', 'rather', 'beyond', 'competitors', or 'leaderboard'. As a DWS success/headline claim it is a deprecated anti-game (field-note §2); lead with 'Monthly Governed Decisions' / 'decisions that survive audit'.",
+      "invalidIf": "Used as a DWS success or headline metric in positioning / investor / sales copy."
+    },
+    {
+      "phrase": "tokens consumed",
+      "validIf": "Valid only when critiquing token-metering as value extraction — must appear alongside 'instead', 'rather', 'Karp', 'metering', or 'extraction'. As a DWS success/headline claim it is a deprecated anti-game (field-note §2); charge and report on the governed outcome layer where MGD lives.",
+      "invalidIf": "Used as a DWS success, throughput, or headline metric in positioning / investor / sales copy."
+    },
+    {
+      "phrase": "pilot logos",
+      "validIf": "Valid only when critiquing logo/sign-up counting — must appear alongside 'instead', 'rather', 'beyond', or 'accounts'. As a DWS success claim it is a deprecated anti-game (field-note §2): a pilot that reaches no governed production decision does not count. Lead with Monthly Governed Decisions.",
+      "invalidIf": "Used as a DWS success or headline metric in positioning / investor / sales copy."
+    },
+    {
+      "phrase": "logo count",
+      "validIf": "Valid only when critiquing logo/sign-up counting — must appear alongside 'instead', 'rather', 'beyond', or 'accounts'. As a DWS success claim it is a deprecated anti-game (field-note §2). Lead with Monthly Governed Decisions.",
+      "invalidIf": "Used as a DWS success or headline metric in positioning / investor / sales copy."
+    }
+  ]
+}

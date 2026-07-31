@@ -46,6 +46,16 @@ dws6.com/**/config/*.local.js
 logs/
 *.log
 
+# --- AGENT OUTCOMES (runtime data — NEVER commit) ---
+# agent_executions rows carry user_id / org_id / input / output payloads (PII;
+# CLAUDE.md Non-Negotiable Rule 1). The Supabase table is the source of truth,
+# not git. compute-mgd.mjs reads the live table via --supabase; any offline
+# export lands here and stays untracked. Synthetic samples for tests live in
+# src/__tests__/fixtures/ and ARE committed.
+data/agent-outcomes/
+*.agent-executions.json
+*.agent-outcomes.json
+
 # Clawdbot queue + state are gitignored down in the .claude/* section.
 
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
