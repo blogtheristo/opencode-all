@@ -1,13 +1,14 @@
 # DWS Deployment Standard
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Added **USA (Arizona, Texas)** to the Non-EU Tier (Connect) Sales/Regulatory Jurisdiction set, per Risto's explicit sign-off — this is the RED-zone gate this standard itself requires ("A release that changes its Sales Jurisdiction scope ... is RED-zone"). Trigger: the Dayna Blackwell US Industrial Captain deal (`partners-outreach/LETTER_DAYNA_BLACKWELL_BLACKWELL_SYSTEMS.md`, `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md`). Regulatory anchor for USA is not yet defined (§11.2, same open-question shape as UAE/Singapore) — the company's "regulation drives demand" thesis (CSRD/CBAM/ETS/EU AI Act) has no direct US federal analogue, flagged as a real product-market-fit gap in the linked plan, not just a documentation gap. Added USA: USD / en-US to Locale & Currency. §11.2 open-question list updated to include USA alongside UAE/Singapore.
 - Version: 1.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Renamed the "OpenClaw (local agent runtime)" Surface to "NemoClaw (local agent runtime, OpenShell-sandboxed)" in the per-Surface Brain table (OpenClaw → NemoClaw migration). Added the **NemoClaw Runtime (per Surface)** entity to the Deployment Ontology: one runtime with a per-Surface deployment profile (Control Room / Situation Room / Mobile Command-Situation Room) — NOT separate builds/capabilities per room; differences (model set, KYA ATS/allowed-skills, egress, node count) are config overlays. Documented the NemoClaw secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled) — identical schema across Surfaces, values per box. Local inference needs no per-call key.
 - Version: 1.4 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added "OpenClaw (local agent runtime)" as a new tracked Surface in the per-Surface Brain mapping table. Primary `nemotron-3-super`, Fast `qwen3-coder:30b`, **no cloud fallback by design** — EU-sovereign no-egress agent runtime on the DGX Spark, complement to (not replacement for) the cloud-side `clawdbot` skill. Workload pairings: confidential data analysis, code review on private code, 256K-context long-document reasoning.
 - Version: 1.3 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Replaced LWM Acer (sovereign edge) Primary Brain from `llama3.3:70b` (dense 70B, ~4.4 tok/s on DGX Spark Q4) → `nemotron-3-super` (NVIDIA `nemotron_h_moe`, 123.6B total / 12.7B active, ~19.5 tok/s eval on DGX Spark Q4_K_M — ~4.5× faster). Mamba-2 + interleaved attention + Latent MoE architecture; small KV cache by design. Brain-swap example row also refreshed. Groq cloud fallback unchanged (`llama-3.3-70b-versatile` is a separate tier, not on the Spark).
@@ -23,7 +24,7 @@ Session Links & References:
 Document Status:
 
 - Created: 12.05.2026
-- Last Modified: 16.05.2026
+- Last Modified: 31.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -31,7 +32,7 @@ Document Status:
 - Document Type: Operational Standard
 - Thesis Reference: Sections 4.3.1 (Hybrid Cloud-Edge Architecture) and 5.1 (Infrastructure Deployment) in `docs/metropolia/master-thesis/en/V3Thesis_EN.md` and FI mirror; Sections 14.11 and 14.16 in `docs/PHD_FIREHORSE_EN.md` and FI mirror.
 
----
+***
 
 **Code Versioning Note**
 Code-Version: 1.0
@@ -166,7 +167,8 @@ Where the customer is sold to and which national regulatory regime applies to th
   - **NO** — NS 3720:2018, TEK17 + NS 3031, ERP Visma / Unit4.
   - **DK** — BR18 LCA (2023+), DS/EN 15978 + BR18 Annex 2, ERP Visma / Microsoft Dynamics.
   - **FI** — YM decree 2025 (embodied carbon), EN 15978 + One Click LCA, ERP Visma / IFS Cloud.
-- **Non-EU Tier (Connect)** — UAE, Singapore, and other non-EU markets currently in market-entry scope per the Shufti partnership letter dated 12.05.2026. Regulatory anchors per jurisdiction are §11 Open Questions; deploys on the Connect tier require explicit jurisdiction declaration before `deploy.applied`.
+- **Non-EU Tier (Connect)** — UAE, Singapore, and other non-EU markets currently in market-entry scope per the Shufti partnership letter dated 12.05.2026; **USA (Arizona, Texas)** added 31.07.2026 per Risto's explicit sign-off, trigger being the Dayna Blackwell US Industrial Captain deal (`partners-outreach/LETTER_DAYNA_BLACKWELL_BLACKWELL_SYSTEMS.md`). Regulatory anchors per jurisdiction are §11 Open Questions; deploys on the Connect tier require explicit jurisdiction declaration before `deploy.applied`.
+  - **USA** — regulatory anchor not yet defined. No direct federal analogue to CSRD/CBAM/ETS exists for AZ/TX industrial buyers; candidates to evaluate (SEC climate-disclosure rules, state programs with extraterritorial reach, federal procurement ESG requirements, or an efficiency-only pitch with no regulatory hook) are unresearched — see `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md` §2.1. Also unresolved: no US legal entity, no USD price list, no US contract/ToS/DPA, no ITAR/EAR screening exist yet (same plan doc, §2.2–2.7).
 
 Substance of per-jurisdiction regulation lives in `DWS_SOVEREIGNTY_STANDARD.md`; this standard records only what a release must declare. A release that changes its Sales Jurisdiction scope (e.g. widening from FI-only to FI+NO, or extending Connect to a new non-EU country) is RED-zone (§4).
 
@@ -336,7 +338,7 @@ Migration to `production` is RED-zone (§4). Defers schema-policy substance to `
 
 ### Locale & Currency
 
-Per-deploy binding to Sales Jurisdiction: NO → NOK / `nb-NO`, DK → DKK / `da-DK`, FI → EUR / `fi-FI`. Connect-tier markets declare their own (UAE: AED / `ar-AE`; SG: SGD / `en-SG`). The currency union is already declared in `src/firehorse/report-module.ts`; wiring is not implemented (§11). Multi-jurisdiction releases must declare a default Locale & Currency and a per-tenant override.
+Per-deploy binding to Sales Jurisdiction: NO → NOK / `nb-NO`, DK → DKK / `da-DK`, FI → EUR / `fi-FI`. Connect-tier markets declare their own (UAE: AED / `ar-AE`; SG: SGD / `en-SG`; USA: USD / `en-US`, added 31.07.2026 — no USD price list exists yet, see §11.2). The currency union is already declared in `src/firehorse/report-module.ts`; wiring is not implemented (§11). Multi-jurisdiction releases must declare a default Locale & Currency and a per-tenant override.
 
 ### Observability Wiring
 
@@ -691,7 +693,7 @@ Items deliberately out of scope of v1.0. Recorded so a later version can pick th
 - **Personnel Manifest implementation** — choose schema, writer, publication endpoint, client storage row family. KYA trust-score read at gate time. Today nominations live in CRM / engagement notes.
 - **Connector Data Catalogue Manifest implementation** — choose schema, writer (per-Connector adapter emits its own catalogue at build time), publication. Today there is no catalogue artefact.
 - **Industry × Sales-Jurisdiction × Surface matrix** — not documented today. Populate so per-release scope can be validated mechanically.
-- **Sales Jurisdiction expansion** — UAE and Singapore on the Connect tier require explicit regulatory anchors (counterpart to NS 3720 / BR18 / YM 2025); SE, DE, EU-wide on the Sovereign infra tier.
+- **Sales Jurisdiction expansion** — UAE and Singapore on the Connect tier require explicit regulatory anchors (counterpart to NS 3720 / BR18 / YM 2025); SE, DE, EU-wide on the Sovereign infra tier. **USA (added 31.07.2026)** needs the same, plus more: no direct federal analogue to CSRD/CBAM/ETS exists, so the regulatory anchor itself is an open research question, not just a documentation gap — see `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md` §2.1. Also open for USA specifically: US legal entity, USD pricing, US contract/ToS/DPA, ITAR/EAR screening (same plan doc, §2.2–2.7).
 - **Cloud Jurisdiction expansion** — adding a fourth cloud (e.g. a non-EU sovereign region for Connect customers).
 - **Industry registry reconciliation** — the canonical count of DWS-targeted industries is currently inconsistent (`16-INDUSTRIES.md` = 16 enumerated; `Store/PRODUCT_AEGIS.md:23` + `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md:40` = 21; `README.md:17` markets 20; `Learn/V3Thesis_EN.md:3007` adds a 22nd in flight). Converge on one source of truth.
 - **Tier → Surface availability map** — encode the binding in `dws10.com/config/products.json` or a new `tier-surface-map.json` so deploy gates can read it.
