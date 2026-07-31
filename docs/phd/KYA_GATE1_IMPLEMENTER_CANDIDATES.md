@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: 🔴 **Consideration-kysymys oli ali-scoupattu, ja korjaus tulee toisen session työstä.** `docs/eic/EIC_WORK_PACKAGES_LUT_KTH.md` budjetoi jo **€300K KTH:lle alihankintana** (WP3 €200K + WP4 testbed €100K + co-supervised hire), ja **WP4 asettaa *testbed validation* ja *independent audit* samalle taholle** — HIC:n varoitus ympäristön omistajasta ja arvioijasta on jo kirjoitettu budjettiriviksi. Kysymys ei ollut *"liitytäänkö jäseneksi"* vaan **alihankintasuhde, joka on pahempi instrumentti**. Johtopäätös: **EIC ja portti 1 ovat KTH:n osalta toisensa poissulkevia, ja EIC on enemmän arvoinen** — RISE ja DNV eivät ole hakemuksessa, joten sekvenssi säilyy. Lisätty myös **kolmen kerroksen erottelu** (spec / konformanssisarja / testbed) ja siitä seuraava **siirrettävyysvaatimus portin 2 olemassaolon ehtona**.
+- Version: 1.4 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **Consideration-kysymys eritelty ennen maanantain päätöstä.** Löydös: **TECoSA-jäsenyys on oletusreitti, joka kaataa portin 1 ilman että kukaan tekee päätöstä** — 14.07. field note kirjasi seuraavaksi askeleeksi *"TECoSA affiliate/partner engagement"*, ja Vinnovan kompetenssikeskusmalli on kumppanien osarahoittama. Neljä lukutapaa consideration-kysymykselle, joista vain yksi vaatii päätöksen. Nimetty **sekvenssin epäselvyys**: onko TECoSA portin 1 toteuttaja vai RQ1/RQ4:n testipenkki — ero ratkaisee jäsenyyskysymyksen. Lisätty **toimituspaketin ansa** (Apache-2.0-lisenssitiedosto NDA-nipussa ohittaa NDA:n) ja **portti 2 askel 2:n edellytyksenä**, ei myöhempänä vaiheena.
 - Version: 1.3 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: **HIC päätti järjestyksen** — Törngren-rooli, RISE NDA:n alla, DNV toisena, elin viimeisenä; spec pysyy sisäisenä. Vahvistettu ja kirjattu kolme toteutushuomiota, joista yksikään ei muuta järjestystä: **(1)** RISE:n kaksoisluonne toistaa Törngrenin ristiriidan — tutkimuspuoli toteuttaa, sertifiointipuoli ei sertifioi omaa toteutusta (voi arvioida DNV:n); **(2)** molemmat ovat varmennussektoria, joten operatiivinen kolmas toteutus vahvistaisi porttia 1 olennaisesti — lisäys tiekarttaan, ei este; **(3)** ⚠️ **`KYA_PARTNER_AGREEMENT` on väärä instrumentti** ja kumoaisi portin 1 — oikea on `NDA_MUTUAL_LIFETIME_OY_2026.md`, ja rahavirta kumpaan tahansa suuntaan tekisi toteuttajasta toimeksisaajan.
 - Version: 1.2 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **arvolupaus ja kylmäkäynnistysongelma**. Boardyn kysymyksenasettelu vahvistettu oikeaksi ja parannettu toteuttajan päätössäännöksi (halvempi kuin oma + optioarvo), josta seuraa **miksi akateeminen toteuttaja on rakenteellisesti ensimmäinen eikä vain helpoin** — tutkimuslaitos ei tarvitse optioarvoa. **Korjattu Boardyn väite, että poliittinen paine korvaisi motivaation** — se kääntää päinvastoin sen mitä A2A osoittaa, ja Gaia-X on saman hypoteesin koetulos. Kirjattu **€260 mrd:n propagaatio tarkistamattomana**, SAP:n A2A-sitoumuksen ristiriita suvereniteettiargumentin kanssa, Scaleway/Hetzner-kilpailu, ja ICEYE:n vientivalvontaseuraus tarjoajalle.
 - Version: 1.1 | Tool: Claude Code | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Changes: Lisätty **eurooppalainen rajaus** HIC:n linjauksen mukaan — strateginen logiikka vahvistettu, kaksi varausta kirjattu. **260 mrd € ei täsmää julkisiin lukuihin** (koko Euroopan pilvimarkkina on 74,4 mrd €); tilalle sourcatut luvut, joista vahvin on 70 % / 15 % -osuusjakauma. **"KTH:n ja LUT:n kumppaneista" on saman riippumattomuusansan terävin muoto** — LUT on väitöskirjan koti, KTH kulkee Törngrenin kautta, ja yhteinen Horizon/Vinnova-rahoitus on kaupallinen suhde. Nimetyt ehdokkaat arvioitu rehellisesti (Scaleway paras, Hetzner heikko, ICEYE väärä rooli + mahdollinen olemassa oleva suhde). Lisätty **RISE + DNV** vahvempana pohjoismaisena parina ja **Gaia-X varoittavana ennakkotapauksena**.
@@ -343,6 +345,161 @@ Repositoriossa on `Legal/KYA_PARTNER_AGREEMENT.md`. **Se on väärä väline nä
 
 **Spec pysyy sisäisenä koko ajan.** Julkaisu laukaisee Apache-2.0 §3:n patenttilisenssin ja päättää EPC 54 artiklan uutuuden — kumpikaan ei ole peruutettavissa, eikä kumpaakaan tarvita ennen kuin koalitio on olemassa.
 
+---
+
+# Consideration-kysymys — mitä maanantaina päätetään
+
+## Ristiriita, joka on nähtävä ensin
+
+Askel 1 kuvattiin näin: *"Ei vaadi NDA:ta, ei vaadi specin jakamista, vain sopimuksen siitä kuka toteuttaa ja kuka arvioi."* Se on oikein **sopimusteknisesti**. Silti consideration-kysymys estää sen liikkeen — ja syy ei ole sopimuksessa vaan siinä, kenet kirje nimeää.
+
+> **Askel 1:n kirje nimeää TECoSA:n toteuttajaksi, ja siinä hetkessä se implikoi ne ehdot, joilla TECoSA toteuttaa.** Kirje itse on ilmainen; se mitä kirje käynnistää, ei ole.
+
+## 🔴 Löydös — oletusreitti kaataa portin 1 ilman päätöstä
+
+`docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md` kirjaa kaksi asiaa, jotka yhdessä ovat ongelma:
+
+1. **TECoSA on Vinnovan kompetenssikeskus**, KTH:n isännöimä, **~19 teollisuuskumppania**, nyt 2. vaiheessa.
+2. Sen oma kirjattu seuraava askel oli **`explore TECoSA affiliate/partner engagement or a joint demonstrator`**.
+
+Vinnovan kompetenssikeskusmalli on **kumppanien osarahoittama** — rahoitus tulee Vinnovalta, isäntäyliopistolta ja teollisuuskumppaneilta rahana ja in-kind-panoksena. Jos Lifetime Oy liittyy kumppaniksi, **raha liikkuu Lifetimelta toteuttajan instituutiolle.** Se on consideration, ja se on kaikista suunnista pahin: se näyttää riippumattoman toteutuksen ostamiselta.
+
+**Ja tämä on jo liikkeellä.** Se on 14.07. kirjattu seuraava askel, ei hypoteesi. **Jos et nimenomaisesti päätä toisin, seuraava luonteva liike TECoSA:n suuntaan on maksullinen kumppanuus — eikä kukaan ole missään vaiheessa tehnyt päätöstä kaataa portti 1.** Juuri niin oletusreitit toimivat: ne eivät vaadi päätöstä, ne vaativat päätöksen pysäyttämiseen.
+
+⚠️ **Varaus:** TECoSA:n kumppanisopimuksen tarkkoja ehtoja ei ole nähty. Vinnova-malli on vakiintunut, mutta **tarkista todelliset ehdot ennen kuin toimit tämän varassa** — myös se, onko olemassa maksuton *affiliate*- tai *associated researcher* -taso, joka ei olisi consideration.
+
+## Neljä lukutapaa — vain yksi vaatii päätöksen
+
+| # | Lukutapa | Tila |
+| - | -------- | ---- |
+| 1 | **Vastike sopimuksen pätevyytenä** | ⚪ **Ei kysymys.** Suomen (OikTL 228/1929) ja Ruotsin sopimusoikeudessa ei ole common law'n consideration-oppia — sopimus sitoo ilman vastiketta. **Paitsi** jos vastapuolen malli on Englannin lain alainen, jolloin nollavastike voi tehdä siitä täytäntöönpanokelvottoman ja tavanomainen korjaus on nimellinen vastike. **Toimenpide: pidä sovellettava laki pohjoismaisena** — se poistaa koko kysymyksen, eikä siihen tarvita erillistä päätöstä |
+| 2 | **Rahavirta portin 1 mielessä** | ✅ **Jo päätetty** v1.3:ssa: ei rahaa kumpaankaan suuntaan. Ei uusi päätös |
+| 3 | **TECoSA-jäsenyys** | 🔴 **Tämä on maanantain päätös.** Ratkaisematta, oletusreitti väärä, estää askel 1:n |
+| 4 | **Akateeminen vastike** | 🟡 Kirjoittajuus, tohtorikoulutettavan rahoitus, data-access, yhteinen hakemus. Ei rahaa, mutta silti vastike. v1.1 kirjasi jo että **yhteinen Horizon/Vinnova-rahoitus on kaupallinen suhde.** Lisäksi: **arvioija, joka on arviointia raportoivan artikkelin kirjoittaja, ei ole siitä riippumaton** — sama jako kuin toteuttaja/arvioija-jaossa |
+
+## Sekvenssin epäselvyys, joka pitää poistaa samassa kirjeessä
+
+Tallennettu sekvenssi on epäselvä yhdessä kohdassa, eikä epäselvyys näy ennen kuin consideration-kysymys esitetään:
+
+**Rivi 1 sanoo "TECoSA toteuttaa", mutta portti-sarake sanoo vain *"poistaa esteen RQ1/RQ4:ltä"*.** Portti 1 on osoitettu riveille 2 ja 3 (RISE, DNV). **Onko TECoSA siis portin 1 toteuttaja vai ei?**
+
+Ero ratkaisee jäsenyyskysymyksen kokonaan:
+
+| Tulkinta | Seuraus jäsenyydelle |
+| -------- | -------------------- |
+| **TECoSA on portin 1 toteuttaja** | Jäsenyys on **diskvalifioiva**. Maksullinen kumppanuus tekee toteutuksesta rahoitetun toimituksen |
+| **TECoSA:n toteutus on RQ1/RQ4:n testipenkki** | Jäsenyys on **siedettävä** — mutta sitä toteutusta **ei saa koskaan kuvata riippumattomaksi toteutukseksi**, ei väitöskirjassa, ei specissä, ei ulkoisesti |
+
+**Suositus: jälkimmäinen.** TECoSA ansaitsee roolinsa väitöskirjan ankkurina RQ1:lle ja RQ4:lle; portti 1 kantaa paremmin RISE:n ja DNV:n varassa, jotka ovat aidosti ilman suhdetta tekijään. Tällä tulkinnalla askel 1:n kirje on **puhtaasti akateeminen roolinjako, joka ei koske porttia 1 ollenkaan** — ja silloin se on todella yhden sähköpostin päässä.
+
+**Kirjaa erottelu heti kun se on päätetty.** Kaksi toteutusta, joita kuvataan eri tavoin, on hallittavissa; kaksi toteutusta, joiden ero keksitään jälkikäteen kun joku kysyy, ei ole.
+
+## Askel 2 — sisältö voi olla valmis vaikka toimituspaketti ei ole
+
+Mutual NDA on se hetki, jolloin spec poistuu ensimmäistä kertaa tekijän kontrollista, ja allekirjoitus on lupaus että jotain konkreettista seuraa heti perässä. Kaksi asiaa, jotka "valmis" tarkoittaa — ja kumpikaan ei ole spec-tekstin laatu:
+
+### ⚠️ 1. Älä anna `standards/kya-open/`-kansiota sellaisenaan
+
+Kansiossa on `LICENSE` (Apache-2.0) ja `NOTICE`. **NDA ja Apache-2.0-lisenssitiedosto samassa nipussa ovat keskenään ristiriidassa:** NDA sanoo *luottamuksellinen*, lisenssi sanoo *saat levittää edelleen*. Vastaanottaja voi perustellusti väittää että lisenssi ohjaa, koska se on nimenomainen lisenssimyönnytys samassa toimituksessa.
+
+Seuraus olisi täsmälleen ne kaksi peruuttamatonta asiaa, joita hold-päätös suojaa: **§3:n patenttilisenssi aktivoituisi** ja **EPC 54 artiklan uutuus päättyisi**, koska levitysoikeuden saanut vastaanottaja ei ole salassapitovelvollinen siinä mielessä kuin uutuus edellyttää.
+
+**Korjaus ennen ensimmäistä toimitusta:**
+
+| Tehtävä | Miksi |
+| ------- | ----- |
+| Poista `LICENSE` ja `NOTICE` NDA-nipusta | Ne ovat julkaisun instrumentteja, eivät NDA:n |
+| Merkitse jokainen sivu luottamukselliseksi ja levityskieltoiseksi | Uutuus edellyttää että salassapito on osoitettavissa |
+| Sano eksplisiittisesti: **lisenssiä ei myönnetä**; Apache-2.0 koskee vasta mahdollista julkaisua | Poistaa tulkinnanvaraisuuden ennen kuin se syntyy |
+
+**Tämä on toimituspaketin ominaisuus, ei spec-tekstin.** Spec voi olla sisällöllisesti täysin valmis ja paketti silti kelvoton.
+
+### 2. Portti 2 on askel 2:n edellytys, ei myöhempi vaihe
+
+RISE:n ensimmäinen kysymys toteuttajana on **"mistä tiedän että toteutukseni on oikein?"** Ilman konformanssisarjaa, joka voi kaataa toteutuksen, toteutusta ei voi todentaa — ja **portti 1 ei tosiasiassa sulkeudu, vaikka kaksi organisaatiota kirjoittaisi koodia.** Kaksi todentamatonta toteutusta ei ole näyttö riippumattomasta toteutettavuudesta; se on kaksi väitettä.
+
+Sekvenssi ei siis ole 1 → 2 → 3 → 4 → 5 portin 2 osalta: **portti 2 on rakennettava askel 1:n ja askel 2:n väliin.** Se on myös se konkreettinen asia, joka seuraa NDA:n allekirjoitusta heti perässä — ilman sitä NDA:n lupaus jää lunastamatta.
+
+## 🔴 Korjaus — kysymys oli väärän kokoinen, ja EIC-hakemus on jo vastannut siihen
+
+**Tämän tiedoston v1.4 kysyi väärää kysymystä.** Se kysyi: *liittyykö Lifetime Oy TECoSA:n maksavaksi jäseneksi?* Todellinen tilanne on suurempi ja se on jo kirjattu toisaalle repositorioon.
+
+`docs/eic/EIC_WORK_PACKAGES_LUT_KTH.md` — EIC Accelerator -hakemuksen työpakettibudjetti — sisältää:
+
+| Rivi | Sisältö |
+| ---- | ------- |
+| **WP3** | Lifetime core + **KTH-co-supervised researcher hire** + **KTH subcontract €200K** |
+| **WP4** | Pilot validation & testbed — **KTH testbed €100K** + **independent audit** |
+| KTH TECoSA -rivi | *"Safety-argumentation & assurance (WP3) + **testbed validation** (WP4) — €200K + €100K + co-supervised hire"* |
+| Kehyslause | *"universities and Cubet join via **subcontracting**, co-supervised hires, and **testbed access**"* |
+| **WP5** | *"Standardization & dissemination — spec authoring + **LUT/KTH co-authorship**"* |
+
+### Neljä ongelmaa, ja ne ovat eri ongelmia
+
+1. **€300K virtaa Lifetimelta KTH:lle.** Kolminkertainen jäsenmaksukysymykseen verrattuna.
+2. **Alihankinta on pahempi instrumentti kuin kumppanuus.** Kumppanuus on suhde; **alihankkija on määritelmällisesti toimeksisaaja**, ja tämä tiedosto on jo kirjannut että toimeksisaaja ei ole riippumaton.
+3. **WP4 asettaa *testbed validation* ja *independent audit* samalle taholle.** ⚠️ Tämä on täsmälleen HIC:n varoitus — *ympäristön omistaja ja arvioija eivät voi olla sama taho* — **jo kirjoitettuna budjettiriviksi.** Se ei ole riski vaan olemassa oleva rakennevirhe hakemusluonnoksessa.
+4. **WP5 budjetoi standardoinnin LUT/KTH-yhteiskirjoittajuudella.** Arvioija, joka on arviointia raportoivan artikkelin kirjoittaja, ei ole siitä riippumaton — ja tässä koko portti 1:n rakenne romahtaa yhdeksi rahoitetuksi konsortioksi.
+
+**Ja LUT on samassa listassa:** €180K + co-supervised PhD hire, samalla kun se on väitöskirjan koti. Se on **tutkimusetiikan kysymys, ei vain portin 1 kysymys**, ja se kuuluu ohjaajan kanssa käytävään keskusteluun eikä tähän tiedostoon.
+
+### Johtopäätös ei ole "korjaa EIC"
+
+> **EIC-hakemus ja portti 1 ovat KTH:n osalta toisensa poissulkevia. EIC on enemmän arvoinen.**
+
+€2,5M ei-laimentavaa rahoitusta on verrattomasti arvokkaampaa yritykselle, joka on juuri arvioinut standardiksi päätymisen 1:1000:ksi (`KYA_STRATEGIC_REASSESSMENT_2026-07-25.md`). **Portti 1 KTH:n kautta ei ollut koskaan €300K:n arvoinen.**
+
+**RISE ja DNV eivät ole EIC-hakemuksessa.** Ne ovat puhtaita, ja sekvenssin askeleet 2 ja 3 säilyvät koskemattomina. Se mikä putoaa, on **TECoSA portin 1 kuvasta kokonaan** — mikä on täsmälleen se, mitä *"testipenkki, ei portti 1"* jo tarkoitti. **Maanantain päätös on yliratkaistu, mutta eri syystä kuin v1.4 esitti.**
+
+⚠️ **Tämä ei ole päätös eikä hätätila.** EIC-hakemus on luonnos; sen omat rehellisyysvaraukset sanovat *"KTH = active dialogue (in-play), not signed"* ja *"Step 2 requires LOIs"*. Korjattavissa oleva rakenneongelma luonnoksessa, ei tehty virhe. **Ainoa asia, joka on tehtävä ennen Step 2:ta: WP4:n *testbed validation* ja *independent audit* on erotettava eri tahoille** — se on hyvää hakemusta myös EIC:n omin silmin, koska arvioijat tunnistavat itsearvioinnin.
+
+## Kolme kerrosta, ei kahta — ja miksi siirrettävyys on portin 2 olemassaolon ehto
+
+HIC 25.07.2026: *"Testbed-ympäristö on toteutuskerros, ei spesifikaatio… Se on väline jolla todistat että spec toimii, ei osa sitä mitä spec vaatii."*
+
+Oikein, ja tämä tiedosto käytti aiemmin *"konformanssisarja"*-sanaa erottelematta sarjaa ja ympäristöä. Kerroksia on kolme:
+
+| Kerros | Mitä se on | Missä se elää |
+| ------ | ---------- | ------------- |
+| **Spec** | Mitä vaatimuksia on täytettävä | `standards/kya-open/SPEC.md` |
+| **Konformanssisarja** | Suoritettavat testit, jotka toteutus voi kaataa | Spec-perheessä — **ympäristöriippumaton** |
+| **Testbed** | Yksi ympäristö, yksi toteutus, mittaukset | **RQ1/RQ4:n validointimetodiikka — erillinen artefakti** |
+
+**Ja tästä seuraa tekninen vaatimus, ei vain hallinnollinen siisteys:**
+
+> **Konformanssisarjan on oltava siirrettävä, tai portti 1 ei sulkeudu.**
+
+Jos sarja ajetaan vain meidän ympäristössämme, RISE:n toteutusta ei ole todennettu riippumattomasti — se on todennettu **meidän kehyksellämme**. Kaksi todentamatonta toteutusta on kaksi väitettä; kaksi *meidän harnessillamme* todennettua toteutusta on **yksi väite kahdesti**. RISE:n on voitava ajaa sarja omassa ympäristössään ilman meitä.
+
+**Tilanne tänään:** `standards/kya-open/` sisältää `LICENSE`, `NOTICE` ja `SPEC.md`. **Konformanssisarjaa ei ole.** Portti 2 on nolla, ei osittain täytetty.
+
+## ⏸ Ajoitus — sekvenssi on estynyt 4.8. asti, ja katve on varattu
+
+**HIC 25.07.2026: Ruotsi on lomalla; Galaz ja Universeum eivät vastaa ennen 4.8.**
+
+Seuraus on laajempi kuin ankkurit. **Askeleet 1–3 ovat kaikki pohjoismaisia** — Törngren (KTH, Ruotsi), RISE (Ruotsi), DNV (Norja) — **ja siksi kaikki estyneitä.** Askel 1 ei siis ole *kiireinen* vaan *estynyt*, ja ero ohjaa toimintaa: kiireiseen reagoidaan, estyneen ympäriltä suunnitellaan.
+
+**Katve on täsmälleen oikea paikka niille kahdelle asialle, jotka tämä tiedosto nimesi askel 2:n edellytyksiksi** — ja jotka ovat molemmat yksin tehtävää työtä:
+
+| Työ | Miksi nyt | Mitä se estää myöhemmin |
+| --- | --------- | ----------------------- |
+| **Konformanssisarja (portti 2)** | Ei vaadi ketään ulkopuolista | Ilman sitä RISE ei voi todentaa toteutustaan eikä portti 1 sulkeudu — askel 2 pysähtyisi heti kun RISE sanoo kyllä |
+| **NDA-toimituspaketin korjaus** | Ei vaadi ketään ulkopuolista | `LICENSE`/`NOTICE` pois nipusta, luottamuksellisuusmerkinnät, eksplisiittinen "lisenssiä ei myönnetä" — muuten ensimmäinen toimitus laukaisee §3:n ja päättää EPC 54 art. uutuuden |
+
+**Poikkeus: Törngrenin roolikirje kannattaa lähettää nyt**, vaikka hän on lomalla. Se odottaa postilaatikossa, se ei maksa mitään, ja se tarkoittaa että roolikysymys on **jonossa** eikä lähde nollasta 4.8.
+
+## Maanantain päätös päätöksen muodossa
+
+> **Liittyykö Lifetime Oy TECoSA:n kumppaniksi — ja jos liittyy, hyväksytkö että TECoSA:n toteutus on silloin RQ1/RQ4:n testipenkki eikä portin 1 toteutus?**
+
+| Vaihtoehto | Hinta | Hyöty |
+| ---------- | ----- | ----- |
+| **Ei liitytä** | Hidastaa akateemista suhdetta; TECoSA:n resurssit jäävät käyttämättä | Pitää kaikki TECoSA-optiot auki, myös portin 1 |
+| **Liitytään, testipenkkinä** | TECoSA ei voi koskaan olla portin 1 toteuttaja | Nopein ja rehellisin; tekee askel 1:sta juuri niin kevyen kuin se on kuvattu |
+| **Liitytään ilman erottelua** | ❌ **Kaataa portin 1 hiljaisesti** | — |
+
+**Kolmas rivi on oletusreitti.** Se on se, joka tapahtuu jos päätöstä ei tehdä.
+
 ## Liittyvät
 
 - `kb/wiki/concepts/specification-vs-standard-four-gates.md` v1.4 — portit, kolme tilaa, hallintomallin valinta
@@ -350,3 +507,7 @@ Repositoriossa on `Legal/KYA_PARTNER_AGREEMENT.md`. **Se on väärä väline nä
 - `PHD_FIREHORSE` Liite H — kumppaniekosysteemi (jakelu, ei legitimointi)
 - `docs/phd/PHD_RESEARCH_QUESTIONS_LOCK_v1.md` — RQ1/RQ4 ankkurit
 - `docs/legal/PRIOR_ART_DISCLOSURE_RECORD_2026-07-25.md` §6 — NDA-ehto ennen teknistä paneelia
+- `docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md` — **TECoSA Vinnovan kompetenssikeskuksena ja kirjattu kumppanuusaskel** (consideration-löydöksen lähde)
+- `docs/field-notes/2026-07-25-rq-lock-and-gate-one-coalition.md` — arkin oppimistulos
+- `docs/phd/KYA_STRATEGIC_REASSESSMENT_2026-07-25.md` — **HIC:n 1:1000-arvio ja porttien inversio niche-reitillä.** Vaikuttaa tähän sekvenssiin: askeleet 1–4 ennallaan, **askel 5 (elin) todennäköisesti tarpeeton**
+- `Legal/NDA_MUTUAL_LIFETIME_OY_2026.md` — oikea instrumentti askel 2:lle
