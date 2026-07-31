@@ -302,6 +302,13 @@
       "commandFile": ".claude/commands/gh-to-mcp.md"
     },
     {
+      "id": "hilma-watch",
+      "name": "hilma-watch",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/hilma-watch.md"
+    },
+    {
       "id": "investor-outreach",
       "name": "investor-outreach",
       "kind": "slash-command",
@@ -508,6 +515,14 @@
       "kind": "skill-pack",
       "profile": "skill-pack-cli",
       "skillPackFile": "skills/firehorse-report/SKILL.md"
+    },
+    {
+      "id": "hilma-watch-pack",
+      "name": "hilma-watch",
+      "displayName": "hilma-watch (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/hilma-watch/SKILL.md"
     },
     {
       "id": "loop",
