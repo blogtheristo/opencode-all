@@ -55,6 +55,7 @@ import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import { contentRoutes } from './contentms/index.js';
 import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
@@ -80,15 +81,19 @@ import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { createMCPRouter } from './mcp/agent-server.js';
+import capTableRouter from './investor-reports/cap-table-routes.js';
 import { loadSecrets } from './config/secret-loader.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
-// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
-// from compilation, so they are not present in dist/ at runtime. Static imports
-// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
-// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
-// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
-// restoring the modules in tsconfig `include` and reverting this block.
+// tsconfig.json excludes src/firehorse/** and src/integrations/** from
+// compilation (they have unresolved type errors that surfaced when the
+// modules were brought back into the strict-build graph; see PR-1208 follow-up).
+// Static imports from these paths would crash the container with
+// ERR_MODULE_NOT_FOUND before app.listen() — breaking Cloud Run health
+// checks. Instead we expose no-op stubs; affected routes will 404 and
+// scheduled hooks are no-ops. Unstub by restoring the modules in tsconfig
+// `include` and reverting this block (see follow-up PR for the type fixes).
 const firehorseRoutes = express.Router();
 const initFirehorsePilot = (): void => {
   logger.warn('firehorse stubbed — module excluded from build');
@@ -96,8 +101,6 @@ const initFirehorsePilot = (): void => {
 const shutdownFirehorsePilot = (): void => {
   /* no-op */
 };
-const createMCPRouter = () => express.Router();
-const capTableRouter = express.Router();
 // ================================================================
 
 dotenv.config();
@@ -300,6 +303,9 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 
 // Firehorse Omnichannel Pilot (sales automation, signals, lead management)
 app.use('/api/v1/firehorse', firehorseRoutes);
+
+// Firehorse Content DMS (Evidence Vault: 5 agents, HIL review, artifact publishing)
+app.use('/api/v1/content', contentRoutes);
 
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);

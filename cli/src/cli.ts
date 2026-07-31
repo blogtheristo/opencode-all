@@ -1227,6 +1227,217 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
   }
 }
 
+async function cmdFirehorseReport(
+  format: string,
+  inputJson: string,
+  useStdin: boolean,
+  asMarkdown: boolean,
+): Promise<void> {
+  const validFormats = ['board-pack', 'annual-report', 'compliance-summary', 'carbon-footprint'];
+  if (!format) {
+    error(
+      'No format specified.',
+      `dws firehorse-report --format <${validFormats.join('|')}> --input '{...}'`,
+    );
+  }
+  if (!validFormats.includes(format)) {
+    error(`Invalid format '${format}'.`, `Valid formats: ${validFormats.join(', ')}`);
+  }
+
+  // JSON.parse can return null, an array, a string, a number, or a boolean for
+  // syntactically-valid JSON. Only a non-null plain object is safe to spread
+  // into the request body or check fields on with `in`. Reject everything else
+  // up front so we never throw later with a confusing TypeError.
+  function parseAsObject(raw: string, source: 'stdin' | 'input'): Record<string, unknown> {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      error(
+        `Invalid JSON in --${source}: ${raw.slice(0, 100)}`,
+        source === 'stdin'
+          ? 'Pipe valid JSON with organizationId, industry, periodStart, periodEnd'
+          : `dws firehorse-report --format ${format} --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`,
+      );
+    }
+    if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      error(
+        `--${source} must be a JSON object (got ${parsed === null ? 'null' : Array.isArray(parsed) ? 'array' : typeof parsed})`,
+        `dws firehorse-report --format ${format} --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`,
+      );
+    }
+    return parsed as Record<string, unknown>;
+  }
+
+  let input: Record<string, unknown>;
+  if (useStdin) {
+    const stdinData = await readStdin();
+    if (!stdinData)
+      error(
+        '--stdin specified but no data on stdin',
+        `echo '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}' | dws firehorse-report --format ${format} --stdin`,
+      );
+    input = parseAsObject(stdinData, 'stdin');
+  } else if (inputJson) {
+    input = parseAsObject(inputJson, 'input');
+  } else {
+    error(
+      'No input provided.',
+      `dws firehorse-report --format ${format} --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`,
+    );
+  }
+
+  const required = ['organizationId', 'industry', 'periodStart', 'periodEnd'];
+  const missing = required.filter((f) => !(f in input!));
+  if (missing.length > 0) {
+    error(
+      `Missing required fields: ${missing.join(', ')}`,
+      `Required: organizationId, industry, periodStart, periodEnd`,
+    );
+  }
+
+  const body = { ...input!, format };
+  const path = asMarkdown
+    ? '/api/v1/firehorse/reports/markdown'
+    : '/api/v1/firehorse/reports/generate';
+
+  const s = spinner(`Generating ${format} report...`);
+  try {
+    if (asMarkdown) {
+      const url = `${API_URL}${path}`;
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (API_TOKEN) headers['Authorization'] = `Bearer ${API_TOKEN}`;
+      const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+      s.stop();
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`HTTP ${response.status}: ${text}`);
+      }
+      const markdown = await response.text();
+      console.log(markdown);
+      return;
+    }
+
+    const result = await api(path, 'POST', body);
+    s.stop();
+
+    const r = result as { success?: boolean; report?: Record<string, unknown> };
+    if (!JSON_MODE && process.stdout.isTTY && r.report) {
+      const rpt = r.report;
+      const meta = rpt.metadata as {
+        complianceScore?: number;
+        dataSourceCount?: number;
+        industry?: string;
+      };
+      const sections = (rpt.sections as unknown[]) || [];
+      console.log('');
+      console.log(fmt.bold(`  ${rpt.title}`));
+      console.log('');
+      console.log(`  Report ID        ${fmt.dim(String(rpt.id))}`);
+      console.log(`  Format           ${format}`);
+      console.log(`  Industry         ${meta?.industry ?? '-'}`);
+      if (typeof meta?.complianceScore === 'number') {
+        const score = meta.complianceScore;
+        const col = score >= 70 ? fmt.green : score >= 40 ? fmt.yellow : fmt.red;
+        console.log(`  Compliance       ${col(String(score))}/100`);
+      }
+      console.log(`  Data sources     ${meta?.dataSourceCount ?? 0}`);
+      console.log(`  Sections         ${sections.length}`);
+      console.log('');
+      console.log(fmt.dim('  Run with --json for full payload, --markdown for PDF-ready output.'));
+      console.log('');
+    } else {
+      output(result);
+    }
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
+async function cmdLinkedInPending(
+  sub: string,
+  id: string,
+  flags: Record<string, string>,
+): Promise<void> {
+  if (sub === 'list') {
+    const status = flags.status || 'pending';
+    const qs = status === 'all' ? '' : `?status=${encodeURIComponent(status)}`;
+    const result = (await api(`/api/v1/firehorse/linkedin/pending${qs}`, 'GET')) as {
+      entries: Array<Record<string, unknown>>;
+      count: number;
+      stats: { pending: number; sent: number; dismissed: number; total: number };
+    };
+    if (!JSON_MODE && process.stdout.isTTY) {
+      const s = result.stats;
+      console.log('');
+      console.log(fmt.bold(`  LinkedIn Pending Queue  (${status})`));
+      console.log('');
+      console.log(
+        `  ${fmt.yellow(String(s.pending))} pending   ${fmt.green(String(s.sent))} sent   ${fmt.dim(String(s.dismissed))} dismissed   ${s.total} total`,
+      );
+      console.log('');
+      if (result.entries.length === 0) {
+        console.log(fmt.dim('  (no entries)'));
+        console.log('');
+      } else {
+        for (const e of result.entries) {
+          const msg = String(e.message || '');
+          const preview = msg.length > 80 ? msg.slice(0, 77) + '...' : msg;
+          console.log(`  ${fmt.bold(String(e.id))}  ${fmt.dim(String(e.enqueued_at))}`);
+          console.log(`    lead:     ${e.lead_id}`);
+          console.log(`    linkedin: ${e.linkedin_url}`);
+          console.log(`    template: ${e.template_id}`);
+          console.log(`    msg:      ${preview}`);
+          console.log('');
+        }
+        console.log(
+          fmt.dim(
+            `  Send manually on LinkedIn, then: dws linkedin-pending sent <id> --acted-by <name>`,
+          ),
+        );
+        console.log('');
+      }
+    } else {
+      output(result);
+    }
+    return;
+  }
+
+  if (sub === 'sent') {
+    if (!id) error('No id specified.', 'dws linkedin-pending sent <id> --acted-by <name>');
+    const result = await api(`/api/v1/firehorse/linkedin/pending/${id}/sent`, 'POST', {
+      acted_by: flags['acted-by'] || undefined,
+    });
+    output(result);
+    return;
+  }
+
+  if (sub === 'dismiss') {
+    if (!id) error('No id specified.', 'dws linkedin-pending dismiss <id> --reason <text>');
+    const reason = flags.reason || '';
+    if (!reason) error('No reason specified.', 'dws linkedin-pending dismiss <id> --reason <text>');
+    const result = await api(`/api/v1/firehorse/linkedin/pending/${id}/dismiss`, 'POST', {
+      reason,
+      acted_by: flags['acted-by'] || undefined,
+    });
+    output(result);
+    return;
+  }
+
+  if (sub === 'get') {
+    if (!id) error('No id specified.', 'dws linkedin-pending get <id>');
+    const result = await api(`/api/v1/firehorse/linkedin/pending/${id}`, 'GET');
+    output(result);
+    return;
+  }
+
+  error(
+    `Unknown subcommand '${sub}'.`,
+    'dws linkedin-pending list [--status pending|sent|dismissed|all]\n  dws linkedin-pending get <id>\n  dws linkedin-pending sent <id> --acted-by <name>\n  dws linkedin-pending dismiss <id> --reason <text>',
+  );
+}
+
 // ============ SOVEREIGNTY PILLARS ASSESSMENT ============
 
 async function cmdSovereigntyPillarsAssess(inputPath: string, useStdin: boolean): Promise<void> {
@@ -1824,6 +2035,44 @@ Examples:
   dws kya snap session-abc123 --force-cascade --yes
   dws kya snap session-abc123 --dry-run`,
 
+  'linkedin-pending': `dws linkedin-pending <subcommand> — Manage the LinkedIn human-review queue
+
+V1 ships LinkedIn auto-send as a stub: prepared messages are queued in
+logs/linkedin-pending.jsonl and a human sends them manually. Use this
+command to list the queue and ack messages after you send them.
+
+Subcommands:
+  list [--status pending|sent|dismissed|all]   List queued drafts (default: pending)
+  get <id>                                      Fetch a single entry
+  sent <id> --acted-by <name>                   Ack: you sent this on LinkedIn
+  dismiss <id> --reason <text> [--acted-by <name>]  Remove without sending
+
+Examples:
+  dws linkedin-pending list
+  dws linkedin-pending list --status all
+  dws linkedin-pending sent lpq-1714... --acted-by risto
+  dws linkedin-pending dismiss lpq-1714... --reason "lead replied via email"`,
+
+  'firehorse-report': `dws firehorse-report — Generate a Firehorse Skillful Report
+
+Formats:
+  board-pack            Board-level climate compliance summary
+  annual-report         Full CSRD/ESRS annual sustainability report
+  compliance-summary    EU ETS + CBAM + CSRD + EU AI Act gap report
+  carbon-footprint      EN 15978 lifecycle carbon (A1-D) report
+
+Options:
+  --format <f>      Report format (required)
+  --input '{...}'   JSON payload (organizationId, industry, periodStart, periodEnd, orgData?, options?)
+  --stdin           Read JSON input from stdin
+  --markdown        Output markdown (for PDF conversion) instead of JSON
+  --json            Force JSON output
+
+Examples:
+  dws firehorse-report --format board-pack --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'
+  dws firehorse-report --format carbon-footprint --input '{"organizationId":"org-1","industry":"construction","periodStart":"2025-01-01","periodEnd":"2025-12-31"}' --markdown
+  echo '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}' | dws firehorse-report --format compliance-summary --stdin`,
+
   'sovereignty-assess': `dws sovereignty-assess — Scan database for EU sovereignty compliance
 
 Options:
@@ -1997,6 +2246,16 @@ SOVEREIGNTY:
   dws sovereignty-assess --input '{...}'  Scan database for EU sovereignty compliance
   dws sovereignty-assess --stdin          Read config from stdin
   dws sovereignty-pillars-assess <file>   Score architecture against three-pillar x three-jurisdiction model
+
+FIREHORSE REPORTS:
+  dws firehorse-report --format <f> --input '{...}'  Generate board-pack | annual-report | compliance-summary | carbon-footprint
+  dws firehorse-report --format <f> --stdin          Read report request from stdin
+  dws firehorse-report --format <f> --markdown       Output markdown (for PDF conversion)
+
+FIREHORSE AUTOMATION:
+  dws linkedin-pending list [--status ...]           List LinkedIn drafts awaiting manual send
+  dws linkedin-pending sent <id> --acted-by <name>   Ack a manually-sent draft
+  dws linkedin-pending dismiss <id> --reason <text>  Remove a draft without sending
 
 JURISDICTION (EN 15978):
   dws jurisdiction list                   List all supported jurisdictions (NO, DK, FI, SE, EU)
@@ -2883,6 +3142,19 @@ async function main(): Promise<void> {
         await cmdSovereigntyAssess(flags.input || '', flags.stdin === 'true');
         break;
 
+      case 'firehorse-report':
+        await cmdFirehorseReport(
+          flags.format || '',
+          flags.input || '',
+          flags.stdin === 'true',
+          flags.markdown === 'true',
+        );
+        break;
+
+      case 'linkedin-pending':
+        await cmdLinkedInPending(subcommand || 'list', positional[1] || '', flags);
+        break;
+
       case 'sovereignty-pillars-assess':
         await cmdSovereigntyPillarsAssess(
           subcommand || positional[0] || '',
@@ -2963,6 +3235,8 @@ async function main(): Promise<void> {
           'init',
           'demo',
           'sovereignty-assess',
+          'firehorse-report',
+          'linkedin-pending',
           'jurisdiction',
           'sovereignty-pillars-assess',
           'profile',

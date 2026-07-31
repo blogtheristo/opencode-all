@@ -29,10 +29,11 @@ import { factExtractionService } from '../agents/fact-extraction.service.js';
 import { telemetryService } from '../agents/telemetry.service.js';
 import { checkpointService } from '../agents/session-checkpoint.service.js';
 import type { AgentContext } from '../agents/types.js';
-import type { ToolSafetyContext } from '../agents/types.js';
+import type { ToolSafetyState } from '../agents/types.js';
 import type { MemoryType } from '../agents/memory.types.js';
 import { MCPToolRegistry, ToolColor } from './security/tool-colors.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
+import { contentMcpTools } from '../contentms/index.js';
 
 // ============ SUPPORTED WORKFLOWS REGISTRY ============
 // Single source of truth — used in tool descriptions, validation, and error messages.
@@ -65,7 +66,7 @@ interface MCPResponse {
   error?: { code: number; message: string; data?: unknown };
 }
 
-const mcpToolSafetyBySession = new Map<string, ToolSafetyContext>();
+const mcpToolSafetyBySession = new Map<string, ToolSafetyState>();
 const issuedMcpSessions = new Map<string, Set<string>>();
 
 function getMcpSessionNamespace(userId: string, orgId: string): string {
@@ -406,6 +407,19 @@ function buildToolList(): MCPToolDefinition[] {
     });
   }
 
+  // Content DMS tools — Evidence Vault: upload, search, HIL review, publish.
+  // NOTE: these are not yet present in MCPToolRegistry.TOOL_CLASSIFICATIONS
+  // (src/mcp/security/tool-colors.ts), so registerTool() will currently skip
+  // them with a warning until each tool gets an explicit RED/BLUE/GREEN risk
+  // classification — see PR-1208 follow-up.
+  for (const tool of contentMcpTools) {
+    registerTool({
+      name: tool.name,
+      description: `[DWS Content DMS] ${tool.description}`,
+      inputSchema: tool.inputSchema as MCPToolDefinition['inputSchema'],
+    });
+  }
+
   return tools;
 }
 
@@ -539,7 +553,8 @@ function resolveMcpSessionId(
     req.header('x-mcp-session-id') ||
     req.header('mcp-session-id') ||
     (request.params?.sessionId as string | undefined) ||
-    ((request.params?.arguments as Record<string, unknown> | undefined)?.sessionId as string | undefined);
+    ((request.params?.arguments as Record<string, unknown> | undefined)?.sessionId as
+      string | undefined);
 
   if (request.method === 'initialize') {
     const sessionId = issueMcpSessionId(userId, orgId);
@@ -547,7 +562,10 @@ function resolveMcpSessionId(
   }
 
   if (!providedSessionId) {
-    return { error: 'Missing MCP session. Call initialize first and send X-MCP-Session-ID on subsequent requests.' };
+    return {
+      error:
+        'Missing MCP session. Call initialize first and send X-MCP-Session-ID on subsequent requests.',
+    };
   }
 
   const knownSessions = issuedMcpSessions.get(namespace);
@@ -685,6 +703,13 @@ async function executeToolCall(
         return rest;
       })();
     return agentRegistry.executeAgent(agentName, context, input);
+  }
+
+  // Content DMS tools — route to contentMcpTools registry by exact name match
+  if (toolName.startsWith('contentms_')) {
+    const tool = contentMcpTools.find((t) => t.name === toolName);
+    if (!tool) throw new Error(`Unknown content tool: ${toolName}`);
+    return tool.handler(args);
   }
 
   throw new Error(`Unknown tool: ${toolName}`);

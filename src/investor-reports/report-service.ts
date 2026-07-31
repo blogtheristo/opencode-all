@@ -5,12 +5,7 @@
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { metricsService } from './metrics-calculation';
-import {
-  InvestorReportData,
-  ReportPeriod,
-  KeyEvent,
-  GeneratedReport,
-} from './types';
+import { InvestorReportData, ReportPeriod, KeyEvent } from './types';
 
 // ============================================================================
 // REPORT SERVICE
@@ -151,7 +146,7 @@ export class ReportService {
       .lte('contract_start_date', monthEnd.toISOString().split('T')[0])
       .order('current_mrr', { ascending: false });
 
-    const wins: KeyEvent[] = (newCustomers || []).map(customer => ({
+    const wins: KeyEvent[] = (newCustomers || []).map((customer) => ({
       date: new Date(customer.contract_start_date),
       title: `New customer: ${customer.name}`,
       description: `Signed contract worth €${customer.current_mrr}/month`,
@@ -167,7 +162,7 @@ export class ReportService {
       .lte('signed_date', monthEnd.toISOString().split('T')[0])
       .order('total_value', { ascending: false });
 
-    const contractWins: KeyEvent[] = (signedContracts || []).map(contract => ({
+    const contractWins: KeyEvent[] = (signedContracts || []).map((contract) => ({
       date: new Date(contract.signed_date),
       title: `Contract signed: ${contract.title}`,
       description: `${(contract.customers as any)?.name || 'Customer'} signed for €${contract.total_value}`,
@@ -192,7 +187,7 @@ export class ReportService {
       .lte('churned_at', monthEnd.toISOString())
       .order('current_mrr', { ascending: false });
 
-    const losses: KeyEvent[] = (churnedCustomers || []).map(customer => ({
+    const losses: KeyEvent[] = (churnedCustomers || []).map((customer) => ({
       date: new Date(customer.churned_at),
       title: `Customer churned: ${customer.name}`,
       description: customer.notes || 'No reason provided',
@@ -221,12 +216,15 @@ export class ReportService {
         .order('event_date', { ascending: true });
 
       if (events) {
-        milestones.push(...events.map((e: any) => ({
-          date: e.event_date,
-          description: e.description,
-          category: e.category || 'product',
-          impact: e.impact,
-        })));
+        milestones.push(
+          ...events.map((e: any) => ({
+            date: new Date(e.event_date),
+            title: e.title || e.description,
+            description: e.description,
+            category: e.category || 'product',
+            impact: e.impact,
+          })),
+        );
       }
     } catch {
       // key_events table may not exist yet — continue with auto-detected milestones
@@ -298,29 +296,27 @@ export class ReportService {
     const mrrGrowthPct = mrrMetrics.mrr_growth_rate.toFixed(1);
     const mrrGrowthSign = mrrMetrics.mrr_growth >= 0 ? '+' : '';
     sections.push(
-      `**Revenue:** MRR grew ${mrrGrowthSign}${mrrGrowthPct}% to €${mrrMetrics.current_mrr.toLocaleString()} (${mrrGrowthSign}€${Math.abs(mrrMetrics.mrr_growth).toLocaleString()} MoM)`
+      `**Revenue:** MRR grew ${mrrGrowthSign}${mrrGrowthPct}% to €${mrrMetrics.current_mrr.toLocaleString()} (${mrrGrowthSign}€${Math.abs(mrrMetrics.mrr_growth).toLocaleString()} MoM)`,
     );
 
     // Customer growth
     if (customerMetrics.active_customers > 0) {
       sections.push(
-        `**Customers:** ${customerMetrics.active_customers} active customers, ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate, ${customerMetrics.retention_rate.toFixed(1)}% retention`
+        `**Customers:** ${customerMetrics.active_customers} active customers, ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate, ${customerMetrics.retention_rate.toFixed(1)}% retention`,
       );
     }
 
     // Pipeline
     if (pipelineMetrics.total_pipeline_value > 0) {
       sections.push(
-        `**Pipeline:** €${(pipelineMetrics.weighted_pipeline_value / 1000).toFixed(0)}k weighted pipeline value, ${pipelineMetrics.meetings_count} active meetings, ${pipelineMetrics.proposals_count} proposals out`
+        `**Pipeline:** €${(pipelineMetrics.weighted_pipeline_value / 1000).toFixed(0)}k weighted pipeline value, ${pipelineMetrics.meetings_count} active meetings, ${pipelineMetrics.proposals_count} proposals out`,
       );
     }
 
     // Key wins
     if (keyWins.length > 0) {
       const topWin = keyWins[0];
-      sections.push(
-        `**Key Win:** ${topWin.title} - ${topWin.description}`
-      );
+      sections.push(`**Key Win:** ${topWin.title} - ${topWin.description}`);
     }
 
     return sections.join('\n\n');
@@ -346,10 +342,7 @@ export class ReportService {
   /**
    * Generate outlook (next 1-3 months)
    */
-  private generateOutlook(data: {
-    pipelineMetrics: any;
-    cashMetrics: any;
-  }): string {
+  private generateOutlook(data: { pipelineMetrics: any; cashMetrics: any }): string {
     const { pipelineMetrics, cashMetrics } = data;
 
     const sections: string[] = [];
@@ -358,7 +351,7 @@ export class ReportService {
     if (pipelineMetrics.weighted_pipeline_value > 0) {
       const expectedClosingValue = pipelineMetrics.weighted_pipeline_value / 1000;
       sections.push(
-        `Expected to close €${expectedClosingValue.toFixed(0)}k from current pipeline (weighted).`
+        `Expected to close €${expectedClosingValue.toFixed(0)}k from current pipeline (weighted).`,
       );
     }
 
@@ -369,7 +362,7 @@ export class ReportService {
         year: 'numeric',
       });
       sections.push(
-        `Current runway extends to ${runwayDate} (${cashMetrics.runway_months.toFixed(1)} months).`
+        `Current runway extends to ${runwayDate} (${cashMetrics.runway_months.toFixed(1)} months).`,
       );
     }
 
@@ -395,7 +388,7 @@ export class ReportService {
   async sendReportEmail(
     reportData: InvestorReportData,
     pdfPath: string,
-    recipients: string[]
+    recipients: string[],
   ): Promise<void> {
     const { integrationWrapper } = await import('./integration-wrapper');
     await integrationWrapper.sendEmail(reportData, pdfPath, recipients);
