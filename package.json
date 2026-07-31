@@ -46,6 +46,7 @@
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
     "validate:pricing": "tsx scripts/validate-pricing.ts",
+    "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
