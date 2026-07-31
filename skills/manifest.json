@@ -175,6 +175,21 @@
       "commandFile": ".claude/commands/agent-run.md"
     },
     {
+      "id": "train-model",
+      "name": "train-model",
+      "kind": "slash-command",
+      "profile": "slash-dgx",
+      "commandFile": ".claude/commands/train-model.md"
+    },
+    {
+      "id": "train-model-pack",
+      "name": "train-model",
+      "displayName": "train-model (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/train-model/SKILL.md"
+    },
+    {
       "id": "browse",
       "name": "browse",
       "kind": "slash-command",

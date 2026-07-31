@@ -175,3 +175,11 @@ data/raw_dataset.csv
 data/cleaned_dataset.csv
 
 /.env.old
+
+# LLM training pipeline (infrastructure/llm-training + Acer GN100 training)
+infrastructure/llm-training/.smoke-out/
+Admin/Acer-Veriton-GN100/training/checkpoints/
+Admin/Acer-Veriton-GN100/training/datasets/
+Admin/Acer-Veriton-GN100/training/cache/
+# Keep the committed env template (the broad .env.* rule above would hide it)
+!Admin/Acer-Veriton-GN100/training/.env.training.example
