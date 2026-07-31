@@ -132,12 +132,36 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 - [ ] If a call date is confirmed: calendar it (`Google_Calendar.create_event`) — not done in this session because no confirmed date exists yet.
 - [ ] Day 5: soft nudge if no reply.
 
+## Captain P&L Model — Draft (pending Risto decision)
+
+Boardy's follow-up (31.07.2026, continued): a €50K ask cannot be carried by access/status alone — needs a credible 12-month payback path, modeled as a Captain P&L (what deals, what role in each, how revenue/fees/upside flow to her, the pipeline required to recover €50K, and what happens after payback so upside > breakeven), not a membership pitch. Boardy's direct question to Risto: referral fee, revenue share, paid role, equity, or a combination?
+
+Grounded in canonical DWS numbers already in the repo (not invented for this model — sourced from `investor-outreach/captain-deck.md` v1.4, reconciled 29.07.2026 against `docs/TRACTION_CANONICAL.md`):
+
+| Deal size reference                         | Value       | 20% revenue share | Deals needed to clear €50K in 12 months |
+| ------------------------------------------- | ----------- | ----------------- | --------------------------------------- |
+| Blended target avg (25 customers, 2026 ARR) | €36K ARR    | €7.2K/deal        | ~7 deals — heavy lift for one person    |
+| Contracted pilot tier (Q1/2026 actuals)     | €29,950     | €5,990/deal       | ~9 deals — heavier still                |
+| Flagship DWS 365 Skilled Agents bundle      | €199,990/yr | €39,998/deal      | 2 deals clears it with room to spare    |
+
+**The math only closes if her Captain mandate is explicitly scoped to flagship-tier industrial accounts** (the €150K+ ARR range), not blended-average volume — which also matches her actual value: a small number of serious European industrial relationships, not outreach volume. That's a positioning choice as much as a percentage choice.
+
+**Recommended structure (Risto to confirm before this goes to Dayna):**
+
+1. **Revenue share, not a one-time referral fee** — a flat fee ends the relationship at signature; a share keeps her incentive aligned with the customer staying live, and is what makes "upside beyond breakeven" a real answer instead of a slogan.
+2. **20% of first-year contract value** on any deal she originates and that closes, paid on collection (as the customer pays, not deferred to renewal) — recommended starting point, adjustable.
+3. **Revenue share continues for 24 months per contract**, not just year one — on two flagship-tier deals in year one, by month 24 she's earned roughly €160K against a €50K commitment, which is the "what happens after payback" answer Boardy asked for.
+4. **Kept separate from the CTO track.** Her €50K SAFE (the Captain seat itself, equity per LD-2026-014) and her deal-sourcing revenue share are the Captain P&L. The CTO/Technical Partner role is evaluated purely on the skills/fit test, not funded by her referral economics — keeps the "not pay-to-play" positioning in v1.2 intact.
+
+**Not yet decided:** the exact percentage, the deal-tier floor that qualifies for the share, and whether "paid role" or partial equity should blend into this instead of/alongside the revenue share. Asked Risto directly — see below.
+
 ## Open Decision for the HIC
 
-Two, in order of how blocking they are:
+Three, in order of how blocking they are:
 
-1. **Captain P&L / payback model** — how does a Captain earn back €50K within ~12 months? Referral fee, revenue share, paid role, equity, or a mix, and what does the pipeline supporting that actually look like? Boardy asked this and it's unanswered. v1.2 doesn't promise a number, but the call it proposes will need one.
+1. **Captain P&L mechanism and %** — the table above shows why a flat blended-rate referral fee doesn't credibly pay back €50K in 12 months unless deals are flagship-tier. Need Risto's decision on the mechanism (revenue share vs. referral fee vs. paid role vs. combination) and the rate before this can go to Dayna as anything more concrete than "we'll work it out on the call."
 2. **Skills/fit-test scope and decision date** — what exactly does Dayna need to demonstrate on the MCP/orchestration/deployment layer, and by when, for the CTO decision to be made? Undefined this session.
+3. ~~Captain P&L / payback model~~ — superseded by item 1 now that a concrete model has been drafted; kept as history only.
 
 ---
 
