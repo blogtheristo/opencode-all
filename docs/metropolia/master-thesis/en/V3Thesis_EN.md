@@ -6,9 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.91
+Version: 3.94
 Sessions & Modifications:
 
+- Version: 3.94 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.93 -> 3.94 per the CLAUDE.md Thesis Rule. No content change here: the v3.94 correction (marginal token cost on owned hardware is bounded, not zero; and the six-metric requirement before the depth argument may be used as a commercial claim) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45.
+- Version: 3.93 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.92 -> 3.93 per the CLAUDE.md Thesis Rule. No content change here: the v3.93 addition (the two-operational-profile split, the dimensionable-knee argument, and the compute-plus-jurisdiction coupling) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45 Finding 5 / Key Contribution #50.
+- Version: 3.92 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.91 -> 3.92 per the CLAUDE.md Thesis Rule. No content change here: the v3.92 addition (the harness-paywall / depth-arbitrage dialectic and its capacity-planning boundary condition) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45 / Key Contribution #50.
 - Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.90 → 3.91 per the CLAUDE.md Thesis Rule. No content change here: the v3.91 addition (a supply-concentration mitigation — non-NVIDIA fallback compute layer at testbed scale converting lock-in into a governed managed dependency) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44 Finding 3.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep version bump 3.89 → 3.90 per the CLAUDE.md Thesis Rule. No content change here: the v3.90 change (Cosmos 3 Edge / DeepSeek-V4-Pro specs VERIFIED against primary sources 26.07.2026; §14.44 caveat upgraded + family-tier/physical-AI refinement + a FI-file placement fix) is market-signal/scientific framing and lives in PHD_FIREHORSE §14.44.

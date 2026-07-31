@@ -240,6 +240,11 @@ const posts = [
     title: 'Älä treenaa base-mallia, omista evidenssikerros (FI)',
     date: '26 Jul 2026',
   },
+  {
+    file: 'harness-paywall-depth-arbitrage.html',
+    title: 'The Harness Paywall',
+    date: '30 Jul 2026',
+  },
 ];
 
 // Three featured products

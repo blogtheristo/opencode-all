@@ -6,9 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.91
+Version: 3.94
 Sessions & Modifications:
 
+- Version: 3.94 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep-versionosto 3.93 -> 3.94 CLAUDE.md:n Thesis-saannon mukaan. Ei sisaltomuutosta tahan tiedostoon: v3.94-korjaus (marginaalinen token-kustannus omalla laitteistolla on rajattu, ei nolla; ja kuuden mittarin vaatimus ennen kuin syvyysargumenttia saa kayttaa kaupallisena vaitteena) kuuluu tiedostoon PHD_FIREHORSE §14.45.
+- Version: 3.93 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep-versionosto 3.92 -> 3.93 CLAUDE.md:n Thesis-saannon mukaan. Ei sisaltomuutosta tahan tiedostoon: v3.93-lisays (kahden toimintaprofiilin jako, mitoitettavan polven argumentti ja laskenta-plus-lainkayttoalue -kytkenta) on markkinasignaali ja tieteellinen kehystys, ja kuuluu tiedostoon PHD_FIREHORSE §14.45 Loydos 5 / Avainkontribuutio #50.
+- Version: 3.92 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep-versionosto 3.91 -> 3.92 CLAUDE.md:n Thesis-saannon mukaan. Ei sisaltomuutosta tahan tiedostoon: v3.92-lisays (harness-maksumuuri / syvyysarbitraasi -dialektiikka ja sen kapasiteettisuunnittelun reunaehto) on markkinasignaali ja tieteellinen kehystys, ja kuuluu tiedostoon PHD_FIREHORSE §14.45 / Avainkontribuutio #50.
 - Version: 3.91 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.90 → 3.91 CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän tiedostoon: v3.91-lisäys (supply-keskittymän mitigointi — ei-NVIDIA-fallback-laskentakerros testbed-tasolla, joka muuntaa lock-inin hallituksi riippuvuudeksi) on markkinasignaali ja kuuluu tiedostoon PHD_FIREHORSE §14.44 Löydös 3.
 
 - Version: 3.90 | Tool: Claude Code | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Lockstep-versionosto 3.89 → 3.90 CLAUDE.md:n Thesis-säännön mukaan. Ei sisältömuutosta tähän tiedostoon: v3.90-muutos (Cosmos 3 Edge / DeepSeek-V4-Pro speksit VERIFIOITU ensisijaislähteillä 26.07.2026; §14.44:n varauksen päivitys + perhe-tier/physical-AI-tarkennus + FI-tiedoston sijaintikorjaus) on markkinasignaali ja kuuluu tiedostoon PHD_FIREHORSE §14.44.
