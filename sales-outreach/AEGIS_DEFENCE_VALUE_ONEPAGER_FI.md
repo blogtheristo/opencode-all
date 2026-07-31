@@ -10,6 +10,7 @@ Purpose: Yhden sivun kooste — Aegiksen erityinen lisäarvo puolustusalalle.
          Liite täydennettyyn Defence Startup Fund -hakemukseen.
 Branch: claude/aegis-defence-deliverables-3clsx0
 Owner: risto.paarni@lifetime.fi
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — dispatch operators (Kela, Uber, Bolt, Taksi Helsinki) removed as customers, "MRR 7 000 €/kk, 100 % retentio" retired, Nokia replaced with "puolustusalan päähankkija" (NDA).
 -->
 
 # DWS IQ Aegis — erityinen lisäarvo puolustusalalle
@@ -38,8 +39,8 @@ Owner: risto.paarni@lifetime.fi
 
 - **EDIP 1,5 mrd € (30.3.2026)** — rahoituksen saajat tarvitsevat suvereenin compliance-infrastruktuurin; Aegis kattaa koko sääntelypinon yhdessä ympäristössä.
 - **DEFINE / NATO DIANA (VTT, Espoo)** — Riihimäen sijainti tukee yhteyksiä Panssariprikaatiin ja puolustusekosysteemiin.
-- **Aegis × Nokia × DEFINE** — käynnissä olevat keskustelut (Tommi Haapala, Nokia; NDA 14.4.2026). Vahvistamme yhteistyön olemassaolon; sisältö luottamuksellinen.
-- **Todistettu pohja** — logistiikkaosaaminen ja tulorahoitus (Kela, Uber, Bolt, Taksi Helsinki; MRR 7 000 €/kk, 100 % retentio) skaalautuu puolustuslogistiikkaan.
+- **Aegis × puolustusalan päähankkija × DEFINE** — käynnissä olevat keskustelut (NDA 14.4.2026). Vahvistamme yhteistyön olemassaolon; vastapuoli ja sisältö luottamuksellisia.
+- **Todistettu pohja** — kuljetusliiketoiminnan operatiivinen logistiikkaosaaminen ja tulorahoitus (~7 000 €/kk palvelu- ja kuljetusliikevaihtoa, ei ohjelmistoliikevaihtoa; yhtiö kassavirtatasapainossa perustajan palkalla 0 €) skaalautuu puolustuslogistiikkaan. Ohjelmistopuolella: kaksi yritysasiakaspilottia sovittu Q1/2026, 29 950 € kumpikin (59 900 € kirjattu).
 
 ## Sertifiointipolku
 

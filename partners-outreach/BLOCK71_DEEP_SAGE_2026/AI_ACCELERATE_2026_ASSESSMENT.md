@@ -1,6 +1,6 @@
 # BLOCK71 — Deep SAGE Rejection + AI Accelerate 2026 Assessment
 
----
+***
 
 ## VERSION AND AGENT HISTORY
 
@@ -15,7 +15,9 @@
 | Introduced-In  | PR-TBD                                                 |
 | Branch         | claude/ngi-sargasso-gber-i2l47d                        |
 
----
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — §4 "€7k MRR + 6 customers + 100% retention" retired and restated as contracted pilots plus services/transport revenue. §6 is a sent email and is preserved verbatim.
+
+***
 
 ## 1. Deep SAGE 2026 — outcome
 
@@ -60,12 +62,16 @@ must lead with the DWS IQ product + KYA-2, not the consulting SKUs.
 
 ## 4. Fit read (honest)
 
-- **Strong:** post-MVP with €7k MRR + 6 customers + 100% retention; AI at
-  core (50 production agents); Microsoft angle is real (M365 agent
-  consultancy SKU, DWS IQ Adoption Framework built on Microsoft's AI
-  Adoption Framework on lifetime.fi); Singapore-entry ambition already
-  articulated for Deep SAGE; **video script v9 is already the right asset**
-  (refreshed 2026-07-15 with KYA-2 beat + truth-registry claims).
+- **Strong:** post-MVP with two enterprise pilots contracted Q1/2026 at
+  €29,950 each (€59,900 booked) plus four smaller landed accounts, on top of
+  ~€7,000/month services and transport revenue (licensed transport operation
+  - consulting — **not** software revenue; cash break-even at a founder
+    salary of €0). No retention rate is asserted — no cohort data exists. AI at
+    core (50 production agents); Microsoft angle is real (M365 agent
+    consultancy SKU, DWS IQ Adoption Framework built on Microsoft's AI
+    Adoption Framework on lifetime.fi); Singapore-entry ambition already
+    articulated for Deep SAGE; **video script v9 is already the right asset**
+    (refreshed 2026-07-15 with KYA-2 beat + truth-registry claims).
 - **Weak:** Asia-rootedness; consultancy revenue mix; founder-time collision
   with the EIC Step 1 window (both land end of July).
 

@@ -44,17 +44,19 @@ Boards are still responsible for real emissions, not minimum forms.
 - Use Case: Embodied carbon tracking, EN 15978 compliance
 - Key Value: 80% reduction in compliance reporting time
 
-### Tier 2: Logistics (Live Revenue)
+### Tier 2: Logistics
 
-- Current MRR: €4,500 (Uber + Bolt)
+> **Correction (29.07.2026):** Uber, Bolt, Kela and Taksi Helsinki are **dispatch operators** in the role defined by Traficom — they dispatch ride orders to Lifetime Fleet vehicles and are commercial counterparties of the licensed transport operation. They are **not** customers of DWS IQ, DWS IQ Aegis, or any Lifetime software product, and no MRR may be attributed to them as software revenue. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
+- Software revenue from this tier: none
 - Use Case: Fleet emissions tracking, route optimization
 - Key Value: 15-25% fuel cost reduction
 
 ### Tier 3: Healthcare (Expansion)
 
-- Current MRR: €2,500 (Kela)
+- Software revenue from this tier: none — Kela is a dispatch operator, not a software customer
 - Use Case: Building energy optimization, CSRD compliance
-- Key Value: €60,000/year documented savings
+- Key Value: `[UNVERIFIED]` — the €60,000/year savings figure has no source on file
 
 ---
 

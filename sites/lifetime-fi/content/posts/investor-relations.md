@@ -11,8 +11,8 @@ type: page
 
 ## Why This Round Matters
 
-- **€7k MRR live**, path to **€14k MRR** by Q1 2026 (Uber Finland, Bolt Finland, Kela deployed)
-- **100% customer retention** — zero churn on paying customers
+- **Two enterprise pilots contracted Q1/2026** at €29,950 each (**€59,900 booked**), plus four smaller landed accounts
+- **~€7,000/month services and transport revenue** (licensed transport operation + consulting) — **not** software revenue; it puts the company at cash break-even with a founder salary of €0
 - **Mandatory market**: Fit for 55 / CSRD regulations = forced purchases across 3.5M EU construction firms
 - **€500k SAFE round** to convert 2 construction pilots + scale to 3-5 flagship portfolios
 - **Bridge to Series A**: Clear path to €900k ARR and €15M+ round in 2026
@@ -52,23 +52,17 @@ The Climate Reporting Starter Bundle includes DWS IQ Base (private cloud instanc
 
 ---
 
-## Traction: Real Revenue, Real Customers, Real Results
+## Traction
 
-- **€7k MRR live** (December 2025) with 5 paying customers
-- **€70k–€120k annual value per logo** in logistics sector
-- **100% retention** — zero churn demonstrates product-market fit
-- **40+ hours/month saved** per customer (manual work eliminated)
-- **2 construction pilots in progress** → converting to +€6k MRR in Q1 2026
+- **Two enterprise pilots contracted in Q1/2026** at €29,950 each — **€59,900 booked** — plus four smaller landed accounts.
+- **~€7,000/month services and transport revenue** (licensed passenger-transport operation + a small consulting practice). This is what funds product development. It is **not** platform or software revenue, and it puts the company at cash break-even with a founder salary of €0.
+- **No retention or churn rate is claimed.** No cohort data exists to support one.
 
-### Customer Profile:
+### Customer Profile
 
-| Customer | Vertical | Status | Annual Value |
-|----------|----------|--------|--------------|
-| Uber Finland | Logistics | Paid | €70,000 |
-| Bolt Finland | Logistics | Paid | €60,000 |
-| Kela | Healthcare | Paid | €90,000 |
-| Construction Co. A | Construction | Pilot | €80,000 (projected) |
-| Construction Co. B | Construction | Pilot | €80,000 (projected) |
+The contracted enterprise pilots and the smaller landed accounts are tracked under redacted LAND-\* codes in the investor data room and are available under NDA.
+
+Ride orders reach Lifetime Fleet vehicles through **dispatch operators** — Uber, Bolt, Kela and Taksi Helsinki — acting in the dispatch-service role defined by Traficom. They charge commission on completed jobs and also buy transport capacity. They are **commercial counterparties of the transport operation, not customers of DWS IQ, DWS IQ Aegis, or any Lifetime software product.**
 
 **Peachscore, Crunchbase, and AWS/Google Cloud credits**: We're backed by validated third-party assessments and €100k+ in cloud infrastructure credits from AWS and Google, demonstrating technical credibility and enterprise readiness.
 
@@ -109,7 +103,7 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 
 ## How to Engage
 
-**If you are a seed, climate, or infrastructure investor** looking for proven traction in a mandatory compliance market with clear unit economics (LTV:CAC of 10:1+), let's talk.
+**If you are a seed, climate, or infrastructure investor** looking for contracted pilots in a mandatory compliance market, let's talk.
 
 📧 **Contact:** [investor@dws10.com](mailto:investor@dws10.com)
 📄 **Full deck:** [Request pitch deck](mailto:investor@dws10.com?subject=DWS%20IQ%206%20Pitch%20Deck%20Request)

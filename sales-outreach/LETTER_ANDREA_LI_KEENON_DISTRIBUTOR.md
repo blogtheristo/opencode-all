@@ -24,6 +24,7 @@ Sessions & Modifications:
                        to secondary/escalation route. Messages rewritten to lead
                        with Nordic-territory ownership.
   - 1.0 | 2026-06-29 | Initial draft targeting Ace Jing (European Division A).
+  - 2.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — Uber/Bolt/Taksi Helsinki/KELA relabelled as dispatch operators of the transport business (not fleet or software customers); "100% retention" deleted (no cohort data). Not-yet-sent draft, so the body was edited.
 -->
 
 # Distributor Outreach: Keenon Robotics — Andrea Li (Nordic Region)
@@ -32,8 +33,14 @@ Sessions & Modifications:
 
 Lifetime Fleet is our Physical-AI robotics division — we deploy, govern, and
 operate service-robot fleets in the Nordics under the KYA autonomy-governance
-standard, on an NVIDIA ISV stack. We already run a live fleet with paying
-operators (Uber, Bolt, Taksi Helsinki / KELA-backed revenue), 100% retention.
+standard, on an NVIDIA ISV stack. Lifetime Oy also runs a licensed
+passenger-transport operation which, with a small consulting practice, generates
+approximately €7,000/month in services and transport revenue — not software
+revenue — and keeps the company at cash break-even with a founder salary of €0.
+Ride orders reach that fleet through **dispatch operators** (Uber, Bolt, Kela,
+Taksi Helsinki) in the Traficom-defined dispatch-service role; they are
+commercial counterparties of the transport operation, **not** customers of any
+Lifetime software or robotics product, and must not be presented as such.
 
 Keenon gives that fleet a proven hardware line. The **KLEENBOT C40** (4-in-1
 floor cleaner, triple-brush dry/wet separation, small-to-medium spaces) plus
@@ -58,8 +65,8 @@ utilization back.
 
 > Hi Andrea — you own Keenon's Nordic region, so you're exactly who I wanted to
 > reach. I run Lifetime Fleet (Lifetime Oy, Espoo): we deploy and operate
-> service-robot fleets across the Nordics on a pay-as-you-go model, today with
-> paying operators and 100% retention.
+> service-robot fleets across the Nordics on a pay-as-you-go model, funded today
+> by our licensed transport and services operation.
 >
 > We'd like to be Keenon's Nordic distributor + operating partner — carrying the
 > KLEENBOT C40 and your delivery/hospitality lines, deployed and operated by us,
@@ -87,9 +94,9 @@ general EU contact.
 
 I'm Risto Paarni, CEO of Lifetime Oy (Espoo). We run **Lifetime Fleet** — a
 Physical-AI division that deploys and _operates_ service-robot fleets across the
-Nordics, rather than just reselling hardware. We're live today with paying
-operators, 100% retention, on an NVIDIA ISV stack, governed under our own KYA
-autonomy standard for EU AI Act and NIS2 compliance.
+Nordics, rather than just reselling hardware. We build on an NVIDIA ISV stack,
+governed under our own KYA autonomy standard for EU AI Act and NIS2 compliance,
+funded by our licensed transport and services operation.
 
 We'd like to become **Keenon's Nordic distributor and operating partner**,
 leading with the KLEENBOT C40 and extending to your delivery and hospitality

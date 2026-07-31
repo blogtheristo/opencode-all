@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Federica Mallone, Ambienta
-Version: 1.1
+Version: 1.2
 Date: 2026-04-22
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-draft-IM1GB
@@ -9,6 +9,7 @@ Story Lock: Story A — Carbon/compliance infrastructure (NO Aegis/defense — A
 Intro Type: Cold — LinkedIn InMail / conference outreach
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-22): Initial draft. Federica Mallone positioned as Partner / Head of Sustainability & Strategy at Ambienta SGR (Milan). Strong mandate fit: Article 9 SFDR fund.
 - v1.1 (2026-04-22): TITLE CORRECTION. Federica's actual role is Manager, Sustainability & Strategy (Milan, joined 2020) — not Partner / Head. Per Ambienta team page and 2024 Lens publication. The Head role belongs to Fabio Ranghino (Partner). Repositioned Federica as the working-level entry door; Ranghino is the real decision-maker for portfolio-wide tooling adoption. Added "Path Up" section. Fit assessment, drawbacks, and strategy adjusted accordingly.
 -->
@@ -135,7 +136,7 @@ Why this is relevant to Ambienta:
 - **Portfolio value creation** — Industrial PortCos facing CSRD, CBAM, and ETS exposure get an automated compliance stack instead of consultant-heavy quarterly scrambles.
 - **LP reporting** — As LPs themselves come under CSRD, portfolio-level compliance data becomes a fundraising asset.
 
-Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, two enterprise pilots contracted Q1/2026 (€59,900 booked). V1 launches at Arctic 15 in Helsinki on June 15.
 
 If there's any overlap with how Ambienta is thinking about portfolio compliance tooling or DD workflow, I'd welcome a short call. Happy to send a one-pager first.
 

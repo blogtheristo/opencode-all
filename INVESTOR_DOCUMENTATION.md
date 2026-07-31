@@ -11,8 +11,9 @@
 Lifetime Oy is building **DWS IQ**, a climate-intelligent AI platform designed for 8 industries with significant carbon footprint reduction potential. We're seeking cloud credits and partnerships with Google and AWS to accelerate development and training of our specialized edge AI models.
 
 **Current Status:**
+
 - ✅ Joined Peachscore Accelerator Cohort 25
-- ✅ Lifetime Fleet operational (MRR €10k, partner with Uber and Taksi Helsinki Kela National Care rides)
+- ✅ Lifetime Fleet operational — a licensed passenger-transport operation. Ride orders reach its vehicles through dispatch operators (Uber, Taksi Helsinki, Kela National Care rides, Bolt) in the dispatch-service role defined by Traficom; these are commercial counterparties of the transport operation, **not** customers of DWS IQ or any Lifetime software product.
 - ✅ Agent Foundry ready for deployment (Construction industry example)
 - ✅ Full documentation and automated workflows on GitHub
 
@@ -21,6 +22,7 @@ Lifetime Oy is building **DWS IQ**, a climate-intelligent AI platform designed f
 ## Platform Overview
 
 ### DWS IQ Platform
+
 **Website:** https://dws10.com
 
 DWS IQ is an Agentic AI SaaS platform delivering real-time, edge-powered decision-making for climate-positive industrial operations. The platform combines:
@@ -31,17 +33,20 @@ DWS IQ is an Agentic AI SaaS platform delivering real-time, edge-powered decisio
 - **Industry Focus**: 8 high-impact industries for climate change mitigation
 
 ### Lifetime World Model
+
 **Page:** https://dws10.com/world-model
 
 A specialized Large Language Model (LLM) training initiative for intelligent industries. The Lifetime World Model serves as the "brain" that powers DWS IQ agents across 8 industries, trained specifically for climate-positive decision-making.
 
 **Training Focus:**
+
 - Edge model optimization for real-time inference
 - Industry-specific knowledge (construction, manufacturing, energy, logistics, mining, waste, real estate, architecture)
 - Climate compliance and carbon footprint reduction
 - EU regulatory alignment (Fit for 55, embodied carbon tracking)
 
 ### Lifetime Agent Foundry
+
 **Page:** https://dws10.com/construction/
 
 Ready-to-deploy agentic AI framework with Construction industry as the first example. The Agent Foundry provides:
@@ -72,21 +77,29 @@ DWS IQ targets 8 industries with high impact on climate change mitigation:
 
 ## Current Traction
 
+### Software pipeline
+
+- **Two enterprise pilots contracted Q1/2026** at €29,950 each — **€59,900 booked** — plus four smaller landed accounts (tracked under redacted LAND-\* codes in the investor data room).
+- No retention or churn rate is asserted; no cohort data exists.
+
 ### Lifetime Fleet
-- **Status**: Operational
-- **MRR**: €10,000
-- **Partnerships**: 
-  - Uber (ride-sharing integration)
+
+- **Status**: Operational (licensed passenger-transport business)
+- **Revenue**: Lifetime Fleet plus a small consulting practice run at approximately **€7,000/month** combined — services and transport revenue, **not** platform or software revenue. It puts the company at cash break-even with a founder salary of €0. Source: Lemonsoft bookkeeping.
+- **Dispatch operators** (commercial counterparties of the transport operation, **not** customers of DWS IQ or any Lifetime software product):
+  - Uber, Bolt
   - Taksi Helsinki (Kela National Care rides)
 - **Website**: https://lifetime.fi/fleet
 - **Investor Pitch**: https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs
 
 ### Peachscore Accelerator
+
 - **Cohort**: 25
 - **Profile**: https://app.peachscore.com/company/lifetime-oy
 - **Benefits**: Access to Nordic VC network, benchmarking against 500+ Finnish scaleups
 
 ### Technical Infrastructure
+
 - **GitHub Repository**: https://github.com/blogtheristo/dws6
 - **Automated Workflows**: GitHub Actions (17 active workflows)
 - **Documentation**: Full technical documentation available
@@ -94,11 +107,11 @@ DWS IQ targets 8 industries with high impact on climate change mitigation:
 
 ### New Products (January 2026)
 
-| Product | Status | Target |
-|---------|--------|--------|
-| **Lifetime Agent Foundry** | ✅ Available | Enterprise customers |
-| **Agent Administration Platform** | ✅ Available | CISO/CIO teams |
-| **Enterprise Model Training** | ✅ Cloud (GCP) available · ✅ On-prem GN100 pipeline delivered & CI-tested (go-live pending 1 hardware run) | Custom LLM needs |
+| Product                           | Status                                                                                                      | Target               |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- |
+| **Lifetime Agent Foundry**        | ✅ Available                                                                                                | Enterprise customers |
+| **Agent Administration Platform** | ✅ Available                                                                                                | CISO/CIO teams       |
+| **Enterprise Model Training**     | ✅ Cloud (GCP) available · ✅ On-prem GN100 pipeline delivered & CI-tested (go-live pending 1 hardware run) | Custom LLM needs     |
 
 See `Store/PRODUCT_*.md` for detailed product documentation.
 
@@ -111,6 +124,7 @@ See `Store/PRODUCT_*.md` for detailed product documentation.
 **Purpose**: Training Lifetime World Model for 8 industries
 
 **Needs:**
+
 - **Vertex AI**: For training specialized LLM models
 - **Google TPUs**: For large-scale model training (if needed)
 - **Cloud Storage**: Training data and model artifacts
@@ -124,6 +138,7 @@ Training edge-optimized models for real-time inference across 8 industries. The 
 **Purpose**: Edge device support and container management
 
 **Needs:**
+
 - **AWS IoT Greengrass**: Edge device orchestration for Lifetime Fleet and Firehorse Solutions
 - **EC2/ECS**: Container management for DWS IQ platform builds
 - **S3**: Model storage and data archival
@@ -135,17 +150,20 @@ Managing edge deployments across construction sites, manufacturing facilities, a
 ### Current Infrastructure Stack
 
 **Edge Layer:**
+
 - NVIDIA Jetson Orin Nano devices
 - AWS IoT Greengrass for orchestration
 - <100ms inference latency
 
 **Cloud Core:**
+
 - Google Cloud Run (primary platform)
 - Groq LPU (inference - reduces costs by 86%)
 - Supabase (hot data storage)
 - AWS S3 (cold archive)
 
 **Client:**
+
 - Progressive Web App (PWA)
 - Chromebook Plus compatible
 - EU data residency compliant
@@ -175,6 +193,7 @@ DWS IQ platform offers clients flexibility in cloud hosting:
 - **Hybrid Option**: Edge devices (AWS) + Cloud core (GCP)
 
 This flexibility allows clients to:
+
 - Choose based on existing infrastructure
 - Meet compliance requirements (data residency)
 - Optimize costs based on usage patterns
@@ -185,12 +204,15 @@ This flexibility allows clients to:
 ## Cost Optimization Strategy
 
 ### Groq Inference
+
 We use **Groq LPU** for inference to reduce costs by **86%** compared to traditional cloud inference services. This enables:
+
 - Cost-effective scaling
 - Real-time decision-making
 - Edge-cloud hybrid architecture
 
 ### Development Tools & Partnerships
+
 - **NVIDIA Connect Partnership**: Groq inference, Inception program
 - **Cursor.AI Pro**: AI-assisted development subscription
 - **Claude Code Max**: AI-assisted development subscription
@@ -199,11 +221,13 @@ We use **Groq LPU** for inference to reduce costs by **86%** compared to traditi
 ### Additional Credits Needed
 
 **Google AI Credits:**
+
 - Training Lifetime World Model (8 industries, edge optimization)
 - Vertex AI compute for model training
 - TPU access for large-scale training (if needed)
 
 **AWS Cloud Credits:**
+
 - Edge device support (Lifetime Fleet + Firehorse Solutions)
 - Container management for DWS IQ builds
 - AWS AI training for customer-focused edge solutions
@@ -213,12 +237,14 @@ We use **Groq LPU** for inference to reduce costs by **86%** compared to traditi
 ## Technical Architecture
 
 ### Repository & Documentation
+
 - **GitHub**: https://github.com/blogtheristo/dws6
 - **Full Documentation**: Available in repository
 - **Automated Workflows**: Cloudflare Pages + GitHub Actions
 - **Sites**: Automatic deployment configured
 
 ### Deployment Automation
+
 - **GitHub Actions**: CI/CD pipelines
 - **Cloudflare Pages**: Automatic site deployment
 - **Cache Management**: Automated Cloudflare cache purging
@@ -243,6 +269,7 @@ We use **Groq LPU** for inference to reduce costs by **86%** compared to traditi
 ### Strategic Partnerships
 
 We're seeking partnerships with:
+
 - **Google**: For LLM training infrastructure and Vertex AI
 - **AWS**: For edge device orchestration and container management
 - **Joint Opportunities**: Co-marketing, case studies, technical integration
@@ -282,16 +309,20 @@ We're seeking partnerships with:
 ## Appendix: Product Portfolio (January 2026)
 
 ### Core Platform
+
 - **DWS IQ 6**: Agentic AI SaaS platform for climate-positive industries
 
 ### New Products
+
 1. **Lifetime Agent Foundry** - Enterprise AI agent framework (`Store/PRODUCT_AGENT_FOUNDRY.md`)
 2. **Agent Administration Platform** - Enterprise management console (`Store/PRODUCT_AGENT_ADMINISTRATION.md`)
 3. **Enterprise Model Training** - Custom LLM fine-tuning (`Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md`)
 
 ### Hardware Timeline
+
 - **On-premise GN100 training**: ✅ Pipeline delivered & CI-tested — QLoRA trainer + reference configs, eval harness, and a test suite (including an end-to-end CPU smoke fine-tune that writes a checkpoint) under `infrastructure/llm-training/`, plus an ARM64 training container and on-prem deploy script (`scripts/deploy-acer-training.sh`). Targets the real Acer Veriton GN100 (ARM64/GB10, ~120 GiB unified). ⏳ Go-live pending one real QLoRA run on the box (eval report = evidence); see `Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`. Cloud training (GCP A3 Mega, `europe-north1` Finland) is fully available today. (An earlier "January 8, 2026" x86-node target was never provisioned; superseded by the GN100 pipeline.)
 - **February 23, 2026**: DWS IQ 6 V1.0 launch
 
 ### Blockers
+
 - **Cloudflare Pages**: Setup required for automatic investor report publishing

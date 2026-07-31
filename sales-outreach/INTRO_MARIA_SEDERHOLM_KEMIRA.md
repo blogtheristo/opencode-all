@@ -130,11 +130,11 @@ If, after scoping, the dual-use/EDIP angle proves thinner than the pure critical
 
 ## Pricing (canonical — source `Store/PRODUCT_AEGIS.md` / `products.json`)
 
-| Tier                         | Onboarding + integration | Monthly       | Included                                                                                                   |
-| ---------------------------- | ------------------------ | ------------- | ---------------------------------------------------------------------------------------------------------- |
-| Aegis Standard               | €59,990                  | €999/mo       | Skilled agents, 25 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
-| **Aegis Defence** (promised) | **€89,990**              | **€1,999/mo** | Standard + NVIDIA L40S GPU nodes, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting     |
-| Aegis Sovereign              | Custom                   | €4,999/mo     | Defence + air-gapped / on-prem option, security-clearance support, dedicated engineering team, custom SLA  |
+| Tier                         | Onboarding + integration | Monthly       | Included                                                                                                            |
+| ---------------------------- | ------------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Aegis Standard               | €59,990                  | €999/mo       | Skilled agents, 21 dual-use industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
+| **Aegis Defence** (promised) | **€89,990**              | **€1,999/mo** | Standard + NVIDIA L40S GPU nodes, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting              |
+| Aegis Sovereign              | Custom                   | €4,999/mo     | Defence + air-gapped / on-prem option, security-clearance support, dedicated engineering team, custom SLA           |
 
 Software-only platform (no hardware bundled; GPU is cloud inference capacity on UpCloud Helsinki). **Availability: August 2026** — so the motion now is a paid scoping → pilot aligned to GA. Deployment: single-tenant Kubernetes on UpCloud (Finnish-owned, ISO 27001, zero CLOUD Act), Helsinki DC.
 

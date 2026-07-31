@@ -28,8 +28,8 @@ But once the building is operating? Once the factory is running? Once the fleet 
 
 ### What stage are you at?
 
-- **€7K MRR** (€84k ARR), six paying customers
-- **100% customer retention** — zero churn
+- **~€7,000/month services and transport revenue (not software revenue); company at cash break-even with founder salary €0**
+- **Software pipeline:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 - **40+ hours/month saved** per customer vs. manual reporting
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 EU-regulated industries
 - **V1 Launch:** June 15, 2026 at Arctic 15 (Helsinki)
@@ -58,7 +58,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 
 **Three products, three buyer profiles:**
 
-1. **Fleet Carbon Report (€3k/mo)** — Fleet managers and logistics CFOs at Nordic companies with 50+ vehicles. Already proven with Uber/Bolt/Kela.
+1. **Fleet Carbon Report (€3k/mo)** — Fleet managers and logistics CFOs at Nordic companies with 50+ vehicles. (Uber, Bolt and Kela are dispatch operators of Lifetime Oy's licensed transport business, not software customers — they are not a product reference.)
 
 2. **CSRD Autopilot (€5k/mo)** — Sustainability directors at mid-market companies (250-5000 employees) facing CSRD deadlines. Nordic mid-market first, then EU-wide.
 
@@ -140,9 +140,9 @@ Ambition: operations compliance across 25 EU-regulated industries.
 
 ### Metrics to track week-over-week:
 
-- **MRR:** €7K (March 2026)
-- **ARR:** €84k
-- **Customers:** 6 paying, 100% retention
+- **Services and transport revenue:** ~€7,000/month (not software revenue); cash break-even, founder salary €0
+- **Software ARR:** €0 (pre-revenue)
+- **Contracted enterprise pilots:** 2 (Q1/2026, €29,950 each, €59,900 booked)
 - **Pipeline:** 2 construction pilots converting
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments
 - **Industries:** 25 EU-regulated verticals
@@ -185,13 +185,13 @@ Ambition: operations compliance across 25 EU-regulated industries.
 | --------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **One Click LCA BD/partnerships**       | Their outputs become our inputs. Mutual customer value.                          | "We're building the operations compliance layer that extends your design-phase LCA data into ongoing CSRD reporting. Your output is our input. We grow each other's value." |
 | **IFS Cloud ISV/marketplace team**      | Our most production-ready connector. Their customers need compliance automation. | "We have a working IFS Cloud connector that pulls asset and project data for automated climate compliance reporting. We want to be on the IFS marketplace."                 |
-| **Nordic logistics CFO** (50+ vehicles) | Proven product, proven ROI (40h/mo saved), €3k/mo, fast close.                   | "We already do this for Uber and Bolt in Finland. Connect your fleet data, get Scope 1-2-3 reports automatically. 4 weeks to audit-ready."                                  |
+| **Nordic logistics CFO** (50+ vehicles) | Proven product, proven ROI (40h/mo saved), €3k/mo, fast close.                   | "Connect your fleet data, get Scope 1-2-3 reports automatically. 4 weeks to audit-ready."                                  |
 
 ### Tier 2 — Strategic, longer cycle:
 
 | Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                                                                                                 |
 | ------------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "€7K MRR, 6 customers, 100% retention; post-Omnibus, fewer than 5,000 of the largest EU companies must file CSRD and pull their value chains into Scope 3. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
+| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), funded by ~€7,000/month of services and transport revenue (not software revenue); post-Omnibus, fewer than 5,000 of the largest EU companies must file CSRD and pull their value chains into Scope 3. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
 | **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                                                                                                        |
 | **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                                                                                                             |
 | **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."                                                                                  |
@@ -213,10 +213,10 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 | Metric               | Value                   | Source                                             |
 | -------------------- | ----------------------- | -------------------------------------------------- |
-| MRR                  | €7K                     | INVESTOR_MEMO.md v3.0                              |
+| Services + transport revenue | ~€7,000/month   | not software revenue; cash break-even, founder salary €0 |
 | Round total          | €650K                   | €500K Fleet Admiral + 8 × €50K Captain             |
 | Valuation cap        | €3.8M                   | SAFE terms                                         |
-| Customers            | 6 paying                | 100% retention                                     |
+| Contracted enterprise pilots | 2 (Q1/2026)     | €29,950 each, €59,900 booked                       |
 | Industries           | 20                      | EU-regulated verticals                             |
 | Hours saved/customer | 40+ per month           | vs. manual reporting                               |
 | Products             | 32                      | dws10.com catalog                                  |
@@ -234,7 +234,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **One-liner:** "DWS IQ 6 turns EU compliance obligations into audit-ready, court-defensible filings for 20 regulated industries — KYA-certified, EU-sovereign, D&O-insurable."
 
-**Traction:** €7K MRR, 6 customers, 100% retention, 40h/mo saved per customer.
+**Traction:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue funds development (not software revenue); 40h/mo saved per customer.
 
 **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 industries.
 

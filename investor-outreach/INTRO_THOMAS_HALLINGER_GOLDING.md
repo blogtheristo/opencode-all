@@ -1,12 +1,13 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Thomas Hallinger, Golding Capital Partners
-Version: 1.0
+Version: 1.1
 Date: 2026-03-29
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/dws-captains-outreach-4uPTL
 Status: COLD — Conference outreach (PE Insights Switzerland, June 18 2026)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-29): Profile created from PE Insights Switzerland agenda + web research. Secondaries MD at Golding (~€14B AUM). Panel: "Single-Asset Deals, Continuation Funds & Beyond: Secondaries Redefined." Conference networking target — institutional secondaries investor, not typical seed-stage buyer. Angle: carbon balance sheet infrastructure as portfolio value-creation tool for Golding's underlying PE portfolio companies.
 -->
 
@@ -89,7 +90,7 @@ Lead with:
 **Do NOT lead with:**
 
 - Captain seat / SAFE structure (too small for institutional context)
-- Seed-stage metrics (€7K MRR is irrelevant at his scale)
+- Seed-stage metrics (our revenue scale is irrelevant at his scale)
 - Climate activism framing (he thinks in portfolio returns, not planet saving)
 
 ## Conference Approach Plan

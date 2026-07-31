@@ -10,7 +10,7 @@ Purpose: Suomenkielinen hintalomake Kemira Oyj:lle — DWS IQ Aegis -tasot
          ja dws10.com/config/products.json (id DWS-AEGIS-001).
 -->
 
----
+***
 
 # Hintalomake — DWS IQ Aegis
 
@@ -73,8 +73,8 @@ Konsultointia voidaan käyttää esim. ERP-integraatioihin (SAP S/4HANA, IFS Clo
 | ------------------------------- | ------------------------------------ |
 | Scoping (maksuton)              | Heti sovittavissa — 1–2 viikkoa      |
 | Pilottisopimus                  | Sovittavissa scoping-vaiheen jälkeen |
-| Platform GA (yleinen saatavuus) | **Elokuu 2026**                      |
-| Pilotti käynnistyy              | GA-julkaisun myötä (elokuu 2026)     |
+| Platform GA (yleinen saatavuus) | **Syyskuu 2026**                      |
+| Pilotti käynnistyy              | GA-julkaisun myötä (syyskuu 2026)     |
 | Kaupallistaminen                | Sovittujen KPI-mittareiden täytyttyä |
 
 ---

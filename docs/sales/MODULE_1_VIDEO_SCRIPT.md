@@ -1,6 +1,6 @@
 # Module 1 — Video Demo Script (2:30)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -17,7 +17,7 @@ Document Status:
 - Language: English (primary), Finnish voiceover variant noted
 - Publication Status: DRAFT — record before resubmission
 
----
+***
 
 ## Production Notes
 
@@ -66,7 +66,7 @@ Document Status:
 
 **[Screen: Traction slide — logos, numbers]**
 
-> "Six paying customers. 100% retention. Kela — the Finnish government healthcare authority. Uber Finland. Bolt. NCC. 50 production agents across 25 EU-regulated industries. 15,000 regulation documents indexed.
+> "Two enterprise pilots contracted this year at twenty-nine thousand nine hundred and fifty euros each, plus four smaller landed accounts. The company is at cash break-even on its services and transport revenue, with a founder salary of zero. 50 production agents across 25 EU-regulated industries. 15,000 regulation documents indexed.
 >
 > We are not building this. We are running this. Every day.
 >

@@ -6,7 +6,7 @@ Legend: **[C]** = canonical (repo source-of-truth) · **[M]** = modeled (board p
 
 _Companion figures export (git-diffable, per Document Standard §24.2): [`BOARDY_REVENUE_SCENARIOS_2026-2029_V3.csv`](./BOARDY_REVENUE_SCENARIOS_2026-2029_V3.csv)._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -16,13 +16,13 @@ Sessions & Modifications:
 
 - Version: 3.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Created the **repository source-of-truth copy** of the V3 revenue scenarios that previously existed only as a Google Drive export ("DWS IQ — Revenue Scenarios 2026-2029 V3 (Boardy 29 Jul 2026)"). Transcribed verbatim from the founder-provided board pack. Contains the **PRICING FRAME — LOCKED 22.07.2026** block that is the authoritative source for the 85%-at-list / 80%-conservative-stress-floor gross-margin frame propagated into the canonical investor docs (one-pager v1.4, talk track v1.5, QA bank v1.4, intro template v1.3).
 
----
+***
 
 ## Starting point (mid-2026) [C]
 
 | Item                              | Value                                                                                                                                          |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| MRR / ARR (running)               | €7k MRR (~€84k ARR run-rate) — actual, Lemonsoft bookkeeping (F_Liite3 / F_Liite5)                                                             |
+| Services & transport revenue      | ~€7k/mo (~€84k/yr run-rate) — actual, Lemonsoft bookkeeping (F_Liite3 / F_Liite5). **Licensed transport operation + consulting; NOT software MRR/ARR** and never presented as such. Software: €59,900 Q1/26 pilot contract value. Canonical: `docs/TRACTION_CANONICAL.md` |
 | Paying customers / retention      | 6 customers · 0% churn (9 months)                                                                                                              |
 | Q1/26 pilots booked               | 2 × €29,950 = €59,900                                                                                                                          |
 | Skilled Agents in production      | 16                                                                                                                                             |

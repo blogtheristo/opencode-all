@@ -78,7 +78,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 > I'm Risto Anton Päärni, Founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, and 12 more EU mandates across 16 regulated industries.
 >
 > **Where we are today:**
-> - EUR 7–14k MRR, 100% customer retention (12+ months)
+> - EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each), plus four smaller landed accounts
 > - Live pilots in [industry] and construction
 > - Platform runs on EUR 15–50/month infrastructure (capital efficient by design)
 > - >90% gross margin
@@ -118,7 +118,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 >
 > One thing I'm curious about: how much of the [REGULATION] reporting is automated vs. manual? The honest answer from most [industry] operators I've talked to is "too much Excel."
 >
-> We built DWS IQ 6 to fix that — automated compliance intelligence for Fit for 55 mandates. Live in production. EUR 7–14k MRR, 100% retention.
+> We built DWS IQ 6 to fix that — automated compliance intelligence for Fit for 55 mandates. Live in production. EUR 59,900 of contracted Q1/2026 enterprise pilots (two at EUR 29,950 each).
 >
 > I'm raising differently: 8 Platinum Industry Captain seats at EUR 50,000 SAFE (EUR 3.8M cap, 18% discount). Each Captain owns one industry vertical on the platform.
 >
@@ -151,7 +151,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 >
 > I came across your investment in [portfolio company / sector interest]. We overlap.
 >
-> I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) for 16 regulated industries. EUR 7k+ MRR, 100% retention, EUR 15–50/mo infrastructure cost. Capital efficient by design.
+> I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) for 16 regulated industries. EUR 59,900 of contracted Q1/2026 enterprise pilots, EUR 15–50/mo infrastructure cost. Capital efficient by design.
 >
 > Instead of a generic angel round, I'm filling 8 Platinum Captain seats — EUR 50k SAFE at EUR 3.8M cap with 18% discount. Each Captain owns an industry vertical and shapes how the platform serves that sector.
 >

@@ -44,7 +44,7 @@ Use LlamaStack (from your stack) to orchestrate agents that cross-reference indu
 
 ### Benefits
 
-Reduces errors (e.g., outdated regs leading to penalties), speeds up last-mile automation, and scales for pilots like NCC or T2H in construction.
+Reduces errors (e.g., outdated regs leading to penalties), speeds up last-mile automation, and scales for construction pilots (NCC and T2H are unlanded prospects, not landed pilots).
 
 ## 3. Integration with Lifetime World Model Training
 
@@ -62,7 +62,7 @@ Post-training, validate against CMS ground truth (e.g., accuracy on Fit for 55 s
 
 ### Scale Considerations
 
-Start small with your current €7k MRR logistics pilots—train on fleet data for quick wins (e.g., 15-25% fuel optimization). For the full 800B, partner with @NVIDIAAIDev Inception (as in your posts) for DGX access.
+Start small with the licensed transport operation — which, together with a small consulting practice, produces approximately €7,000/month of services and transport revenue, not software revenue — and train on fleet data for quick wins (e.g., 15-25% fuel optimization). For the full 800B, partner with @NVIDIAAIDev Inception (as in your posts) for DGX access.
 
 ## 4. Automation & Security Enhancements
 

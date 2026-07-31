@@ -8,7 +8,7 @@ risto.anton@lifetime.fi
 
 +358 400 319010
 
-Olen kokenut tekoäly- ja pilviarkkitehtuurin asiantuntija, jolla on vahva näyttö julkishallinnon ja säädöstenmukaisten ympäristöjen ratkaisukehityksestä. Tuotan korkean tason asiantuntijapalveluita, jotka tukevat organisaation yksittäisiä kehitysprojekteja, ylläpidon aikaista järjestelmäkehitystä sekä dokumentoitua ja hallittua tuotekehitystä. Minulla on laaja kokemus vaativista asiakasympäristöistä (mm. Dws10.com, onelifetime.world sekä jatkuvasta palvelutuotannosta Taksi Helsinki, Kela, Uber) sekä NVIDIA ISV -ekosysteemin hyödyntämisestä ratkaisukehityksessä.
+Olen kokenut tekoäly- ja pilviarkkitehtuurin asiantuntija, jolla on vahva näyttö julkishallinnon ja säädöstenmukaisten ympäristöjen ratkaisukehityksestä. Tuotan korkean tason asiantuntijapalveluita, jotka tukevat organisaation yksittäisiä kehitysprojekteja, ylläpidon aikaista järjestelmäkehitystä sekä dokumentoitua ja hallittua tuotekehitystä. Minulla on laaja kokemus vaativista asiakasympäristöistä (mm. Dws10.com, onelifetime.world sekä Lifetime Fleetin luvanvaraisesta kuljetuspalvelutuotannosta, jota välittävät Taksi Helsinki, Kela ja Uber — nämä ovat Traficomin määrittelemiä välityspalveluita ja kuljetustoiminnan kaupallisia vastapuolia, eivät ohjelmistoasiakkaita) sekä NVIDIA ISV -ekosysteemin hyödyntämisestä ratkaisukehityksessä.
 
 Työskentelyotteeni on konsultatiivinen: toimin saumattomasti tilaajan työnjohdon alaisuudessa, noudattaen sovittuja prosesseja ja arkkitehtuuriohjeistuksia. Tuon mukanani enterprise-tason ymmärryksen tekoälyagenttien integroinnista, tietoturvasta (GDPR, NIS2, Katakri) ja skaalautuvasta sekä suvereenista pilvi-infrastruktuurista (Azure, Google Cloud, AWS, Scaleway, NVIDIA DGX Spark). Pääarkkitehtina vaativissa ratkaisukokonaisuuksissa yhdistän strategisen suunnittelun, sääntelyvaatimusten hallinnan ja konkreettisen teknisen toteutuksen asiakkaan tarpeiden mukaisesti.
 
@@ -526,7 +526,7 @@ Kanoninen lause: **58 agenttia ja 88 kyvykkyyttä (roolia) 25 toimialalla.** Kat
 - **I. Puolustus ja turvallisuus (5):** Customer Sat, Viability, Sovereignty Monitor, Auditor, Argus Defence
 - **J. Muutos ja jatkuvuus (18):** Data Engineer, Business Analyst, Change Management, Training & Enablement, Integration Architect, Test Automation, UX Research, Process Automation, Database Architect, Network Security, Cloud Migration, Financial Controller, HR Systems, Supply Chain Risk, Technical Writer, Service Desk, Contract Management, Disruption Response
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -547,7 +547,7 @@ Document Status:
 - Publication Status: DRAFT
 - Document Type: ORK Consultant CV
 
----
+***
 
 _Copyright 2026 – Tekijänoikeudet Risto Anton Päärni._
 

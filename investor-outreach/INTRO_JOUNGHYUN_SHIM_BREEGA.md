@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Jounghyun Shim, Breega (London)
-Version: 1.0
+Version: 1.1
 Date: 2026-06-29
 Author: Claude Code (claude-opus-4-8) + Human Review
 Branch: claude/anduril-case-study-iridtj
@@ -8,6 +8,7 @@ Status: NEW — warm intro offered; deep-tech bucket + Nordic activity fit (sect
 Purpose: Fund intel + outreach strategy. Two-person team per Founding Team & Technical-Depth Statement. Post-Omnibus CSRD figure + anchors per DWS_TRUTH_STANDARD v2.5.
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-06-29): Created from referrer profile. Breega (London), €700M AUM pan-European, active Nordic coverage; $1M-$3M pre-seed/seed; deep-tech; operator GP (founded Shimentor); 70% seed-to-Series-A graduation (vs ~35% market); 12-15 new investments/yr (Nordics, Baltics, London, Paris, Germany). Caveat: Breega's stated sectors (water, materials, fusion) don't explicitly include industrial AI compliance — fit via the deep-tech bucket + Nordic activity, plus a materials/CBAM adjacency bridge.
 -->
 
@@ -50,7 +51,7 @@ As of 2026-Q2 he's **on stage at the GenAI London Warm-Up** on an **agent-econom
 
 ## Draft LinkedIn DM (warm)
 
-Hi Jounghyun — saw you're on the agent-economy panel at the GenAI London Warm-Up: what happens to a company once agents do the real work and execution stops being the constraint. That's the thing we've put into production. DWS IQ 6 runs governed agents that already produce the signed, audit-ready EU compliance filing (CBAM/CSRD) — execution is no longer the bottleneck — with KYA hardware-attested governance + Article 12 lineage as the accountability layer the agent economy will need. Deep-tech, EU-sovereign, Finland-based; materials-sector proof (Outokumpu steel pilot); 6 customers at 100% retention. Worth a look?
+Hi Jounghyun — saw you're on the agent-economy panel at the GenAI London Warm-Up: what happens to a company once agents do the real work and execution stops being the constraint. That's the thing we've put into production. DWS IQ 6 runs governed agents that already produce the signed, audit-ready EU compliance filing (CBAM/CSRD) — execution is no longer the bottleneck — with KYA hardware-attested governance + Article 12 lineage as the accountability layer the agent economy will need. Deep-tech, EU-sovereign, Finland-based; materials-sector discussion under way (Outokumpu); two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Worth a look?
 
 ## Next Steps
 

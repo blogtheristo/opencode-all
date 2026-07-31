@@ -26,7 +26,7 @@ The industry is converging on one stack: Data → Unified Platform → Semantic/
 
 **Proof targets (Q4 2027 GA):** 16 paying industrial customers (steel, cement, chemicals, construction, energy), €72K MRR, ISO 27001 certified, ledger-backed CSRD/CBAM artifacts demonstrable end-to-end.
 
-DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **265 planned pull requests** organized in 6 phases.
+DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between today (two enterprise pilots contracted Q1/2026 at €29,950 each) and the Q4/2027 target of a production platform with 16 paying industrial customers and growing profits requires disciplined execution across **265 planned pull requests** organized in 6 phases.
 
 **Actual velocity (audited 2026-03-15):** 342 PRs already merged (#132→#829), 1,846 total commits. March 2026 pace: 10 PRs/day, 43 commits/day. The 251-PR roadmap plan has been exceeded in raw PR count, but many PRs are feature additions, fixes, and infrastructure — the roadmap PRs represent specific product milestones that are tracked below.
 

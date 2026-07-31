@@ -6,7 +6,7 @@ Hi [Name],
 
 I'm Risto, Founder of Lifetime / DWS IQ 6. We automate CSRD / Fit for 55 reporting for construction and infrastructure portfolios – turning 40–80 hours of Excel per project into audit-ready reports and live dashboards.
 
-We're at €7k MRR with 100% retention and raising a €500k SAFE round at a €3.8M cap to convert 2 construction pilots into 5 flagship portfolios (path to ~€900k ARR by 2026). For a typical €15k ticket, that's roughly a 3–4x paper uplift at a €15M Series A, with full capital at risk.
+We contracted two enterprise pilots in Q1/2026 at €29,950 each (€59,900 booked), alongside four smaller landed accounts, and we're raising a €500k SAFE round at a €3.8M cap to convert those pilots into 5 flagship portfolios (target ~€900k ARR by 2026). Separately, a licensed transport operation and a small consulting practice run at approximately €7,000/month in services and transport revenue — not software revenue — which puts the company at cash break-even with a founder salary of €0. For a typical €15k ticket, that's roughly a 3–4x paper uplift at a €15M Series A, with full capital at risk.
 
 Would you be open to a short call to see if this fits your climate / construction thesis?
 
@@ -14,26 +14,25 @@ Would you be open to a short call to see if this fits your climate / constructio
 
 ## Quick Facts
 
-| Metric | Value |
-|--------|-------|
-| **Current MRR** | €7k (6 paying customers) |
-| **Retention** | 100% (zero churn) |
-| **Customer LTV** | €70k–€120k per logo |
-| **Time Saved** | 40–80 hours per project |
-| **Pipeline** | 2 construction pilots → +€6k MRR Q1 2026 |
-| **Target** | €900k ARR by 2026 |
+| Metric                             | Value                                                                                                                                          |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Software pipeline (contracted)** | €59,900 — two Q1/2026 enterprise pilots at €29,950 each, plus four smaller landed accounts (names redacted pending authorization)              |
+| **Services and transport revenue** | ~€7,000/month (licensed transport operation + consulting) — **not** software revenue; puts the company at cash break-even at €0 founder salary |
+| **Customer LTV**                   | Modelled only — no observed LTV; not asserted as actual                                                                                        |
+| **Time Saved**                     | 40–80 hours per project                                                                                                                        |
+| **Target**                         | €900k ARR by 2026 (target, not a run-rate)                                                                                                     |
 
 ---
 
 ## The Round
 
-| Term | Details |
-|------|---------|
-| **Raising** | €500k |
-| **Instrument** | SAFE |
-| **Valuation Cap** | €3.8M |
-| **Tickets** | €15k–€50k (angels), €100k–€500k (funds) |
-| **Target Close** | Q1 2026 |
+| Term              | Details                                 |
+| ----------------- | --------------------------------------- |
+| **Raising**       | €500k                                   |
+| **Instrument**    | SAFE                                    |
+| **Valuation Cap** | €3.8M                                   |
+| **Tickets**       | €15k–€50k (angels), €100k–€500k (funds) |
+| **Target Close**  | Q1 2026                                 |
 
 ---
 
@@ -52,7 +51,7 @@ Upside:               Valuation growth only
 
 - **Regulation Live**: CSRD / Fit for 55 mandatory 2025–2028
 - **Forced Purchases**: 3.5M EU construction firms must comply
-- **Product Works**: 100% retention, 4 weeks to deployment
+- **Product Works**: 4 weeks to deployment
 - **First Mover**: Capturing portfolios before competition
 
 ---
@@ -69,12 +68,12 @@ Upside:               Valuation growth only
 
 **Founder & CEO**: Risto Anton Päärni  
 **Email**: investor@dws10.com  
-**Alternative**: risto@lifetime.fi  
+**Alternative**: risto@lifetime.fi
 
 **Captain Page**: https://dws10.com/captain/
 **Full Deck**: https://dws10.com/captain/deck/
 **Pitch Video**: https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs
-**Crunchbase**: https://www.crunchbase.com/organization/lifetime-oy  
+**Crunchbase**: https://www.crunchbase.com/organization/lifetime-oy
 
 ---
 
@@ -83,15 +82,16 @@ Upside:               Valuation growth only
 ### For Climate Tech Funds
 
 ```
-Subject: CSRD automation for construction - €7k MRR, 100% retention
+Subject: CSRD automation for construction - €59,900 in contracted Q1/2026 pilots
 
 Hi [Name],
 
-I'm Risto, Founder of DWS IQ 6. We automate CSRD / Fit for 55 
-reporting for construction portfolios – turning 40–80 hours of 
+I'm Risto, Founder of DWS IQ 6. We automate CSRD / Fit for 55
+reporting for construction portfolios – turning 40–80 hours of
 Excel into audit-ready reports.
 
-€7k MRR, 100% retention, 2 pilots converting Q1. Raising €500k 
+Two enterprise pilots contracted in Q1/2026 at €29,950 each
+(€59,900 booked), plus four smaller landed accounts. Raising €500k
 SAFE (€3.8M cap) to scale to 5 flagship portfolios.
 
 Full details: https://dws10.com/captain/
@@ -110,13 +110,14 @@ Subject: Construction compliance automation - mandatory market
 
 Hi [Name],
 
-Risto here, Founder of DWS IQ 6. We're automating CSRD compliance 
+Risto here, Founder of DWS IQ 6. We're automating CSRD compliance
 for construction portfolios.
 
-The market: 3.5M EU firms, Fit for 55 mandatory 2025, €10k–€50k 
+The market: 3.5M EU firms, Fit for 55 mandatory 2025, €10k–€50k
 fines without compliance.
 
-Our traction: €7k MRR, 100% retention, €70k–€120k LTV per customer.
+Our traction: two enterprise pilots contracted in Q1/2026 at
+€29,950 each (€59,900 booked), plus four smaller landed accounts.
 
 Raising €500k SAFE to convert 2 pilots + onboard 3 more portfolios.
 
@@ -133,12 +134,13 @@ Subject: Construction climate compliance - €15k ticket
 
 Hi [Name],
 
-I'm Risto, Founder of DWS IQ 6. We automate CSRD reporting for 
+I'm Risto, Founder of DWS IQ 6. We automate CSRD reporting for
 construction portfolios.
 
-€7k MRR, 100% retention, mandatory market (Fit for 55 live 2025).
+€59,900 in contracted Q1/2026 enterprise pilots, mandatory market
+(Fit for 55 live 2025).
 
-Raising €500k SAFE (€15k–€50k angel tickets). For €15k, that's 
+Raising €500k SAFE (€15k–€50k angel tickets). For €15k, that's
 ~3–4x paper uplift at €15M Series A, full capital at risk.
 
 Details: https://dws10.com/captain/
@@ -157,10 +159,10 @@ investor@dws10.com
 ```
 Hi [Name],
 
-Noticed your focus on [climate tech / construction tech / ESG]. 
+Noticed your focus on [climate tech / construction tech / ESG].
 
-We're automating CSRD compliance for construction portfolios 
-(€7k MRR, 100% retention). Raising €500k SAFE to scale.
+We're automating CSRD compliance for construction portfolios
+(€59,900 in contracted Q1/2026 pilots). Raising €500k SAFE to scale.
 
 Worth a quick call? Full details: https://dws10.com/captain/
 
@@ -173,10 +175,10 @@ Risto
 ## Twitter/X DM Template
 
 ```
-Hi [Name] - saw your investment in [Company]. 
+Hi [Name] - saw your investment in [Company].
 
-We're building CSRD automation for construction (€7k MRR, 
-100% retention, mandatory market).
+We're building CSRD automation for construction (€59,900 in
+contracted Q1/2026 pilots, mandatory market).
 
 Raising €500k SAFE. Worth exploring?
 
@@ -194,12 +196,13 @@ Subject: Following up - DWS IQ 6 / CSRD automation
 
 Hi [Name],
 
-Following up on my email about DWS IQ 6. We're automating 
+Following up on my email about DWS IQ 6. We're automating
 CSRD compliance for construction portfolios.
 
-Quick update: Just converted one pilot to paid (adding €3k MRR).
+Quick update: our two Q1/2026 enterprise pilots are contracted at
+€29,950 each (€59,900 booked).
 
-Still raising €500k SAFE at €3.8M cap. Would a 15-minute call 
+Still raising €500k SAFE at €3.8M cap. Would a 15-minute call
 this week work?
 
 Best,
@@ -216,11 +219,11 @@ Subject: 15 minutes to discuss DWS IQ 6?
 
 Hi [Name],
 
-Based on your portfolio in [climate tech / construction], 
+Based on your portfolio in [climate tech / construction],
 I think there's strong alignment with what we're building.
 
-We're at €7k MRR with 100% retention, raising €500k SAFE 
-to scale construction compliance automation.
+We have €59,900 of contracted Q1/2026 enterprise pilots and are
+raising €500k SAFE to scale construction compliance automation.
 
 Could we schedule 15 minutes this week?
 
@@ -235,21 +238,27 @@ Risto
 ## Key Talking Points
 
 ### Opening (30 seconds)
+
 "We automate CSRD and Fit for 55 compliance reporting for construction portfolios. Think: 40–80 hours of manual Excel work per project → 4 weeks to audit-ready reports and live dashboards."
 
 ### Traction (30 seconds)
-"We're at €7k MRR with 6 paying customers, 100% retention. Customer LTV is €70k–€120k per logo. We have 2 construction pilots converting to +€6k MRR in Q1 2026."
+
+"We contracted two enterprise pilots in Q1/2026 at €29,950 each — €59,900 booked — plus four smaller landed accounts. Separately, our licensed transport operation and consulting practice run at roughly €7,000/month in services and transport revenue; that is not software revenue, but it puts us at cash break-even with a founder salary of €0. Any LTV figure we show is modelled, not observed."
 
 ### Market (30 seconds)
+
 "CSRD and Fit for 55 are mandatory starting 2025. 3.5M EU construction firms must comply or face €10k–€50k fines per project. This is forced purchasing – a 'mandatory spend' SaaS market."
 
 ### The Round (30 seconds)
+
 "We're raising €500k SAFE at a €3.8M cap to convert these 2 pilots and onboard 3 more flagship portfolios. That gets us to ~€900k ARR by 2026, positioning for a €15M+ Series A."
 
 ### Return Profile (30 seconds)
+
 "For a €15k angel ticket, a successful Series A at €15M implies roughly 3–4x paper uplift to €40k–€60k after dilution. This is equity-style, high-risk – full capital at risk, upside from valuation growth only."
 
 ### Ask (15 seconds)
+
 "Does this fit your [climate / construction / ESG] thesis? Would you be open to a deeper dive?"
 
 ---
@@ -263,7 +272,7 @@ A: CSRD / Fit for 55 compliance automation for construction portfolios. Plug int
 A: Construction and infrastructure portfolio owners (CDOs, CFOs) managing 10–100+ projects.
 
 **Q: What's the traction?**  
-A: €7k MRR, 6 paying customers, 100% retention, €70k–€120k LTV per logo.
+A: €59,900 of contracted Q1/2026 software pilots (two enterprise pilots at €29,950 each) plus four smaller landed accounts. Separately ~€7,000/month of services and transport revenue (licensed transport operation + consulting) — not software revenue — which puts us at cash break-even with a founder salary of €0. LTV is modelled, not observed; we do not assert a retention rate.
 
 **Q: Why now?**  
 A: CSRD / Fit for 55 mandatory 2025. 3.5M EU firms must comply. We're first to market with automated solution.
@@ -291,25 +300,31 @@ A: Finland (AAA credit rating, strong IP protection, Nordic innovation ecosystem
 ## One-Liner Variations
 
 ### Version 1 (Problem-Solution)
+
 "We turn 40–80 hours of manual CSRD reporting into 4-week automated deployments for construction portfolios."
 
 ### Version 2 (Market-Traction)
-"CSRD compliance automation for 3.5M EU construction firms – €7k MRR, 100% retention, raising €500k SAFE."
+
+"CSRD compliance automation for 3.5M EU construction firms – €59,900 in contracted Q1/2026 pilots, raising €500k SAFE."
 
 ### Version 3 (Traction-Round)
-"€7k MRR, 100% retention in construction climate compliance. Raising €500k SAFE at €3.8M cap to scale to €900k ARR."
+
+"Two enterprise pilots contracted at €29,950 each in construction climate compliance. Raising €500k SAFE at €3.8M cap, targeting €900k ARR."
 
 ### Version 4 (Regulatory-Urgency)
-"Fit for 55 hits 2025 – we automate compliance for construction portfolios. €7k MRR, raising €500k to capture market."
+
+"Fit for 55 hits 2025 – we automate compliance for construction portfolios. €59,900 of contracted pilots, raising €500k to capture market."
 
 ### Version 5 (Customer-Value)
-"Construction portfolios save 40+ hours/month with our CSRD automation. €70k–€120k LTV, 100% retention, raising €500k."
+
+"Construction portfolios save 40+ hours/month with our CSRD automation. Two enterprise pilots contracted at €29,950 each; raising €500k."
 
 ---
 
 ## Investor Types - Quick Match
 
 ### ✅ Perfect Fit
+
 - Climate tech funds (Nordics, DACH, UK)
 - Construction tech investors
 - ESG/CSRD compliance investors
@@ -317,12 +332,14 @@ A: Finland (AAA credit rating, strong IP protection, Nordic innovation ecosystem
 - Industrial AI/automation funds
 
 ### ⚠️ Maybe Fit
+
 - Generalist EU seed funds
 - B2B SaaS investors
 - Infrastructure/PropTech investors
 - Impact investors with climate thesis
 
 ### ❌ Poor Fit
+
 - Consumer/B2C focused
 - US-only (no EU presence)
 - Pre-seed only or Series A+ only
@@ -335,7 +352,7 @@ A: Finland (AAA credit rating, strong IP protection, Nordic innovation ecosystem
 1. **Send full deck**: investor@dws10.com
 2. **Schedule intro call**: 30 minutes
 3. **Product demo**: Show live dashboard
-4. **Customer references**: Intro to paying customers
+4. **Customer references**: Intro to contracted pilot accounts, subject to their authorization (names redacted until then)
 5. **Due diligence**: Financials, contracts, metrics
 6. **Term sheet**: SAFE agreement
 7. **Close**: Sign and wire

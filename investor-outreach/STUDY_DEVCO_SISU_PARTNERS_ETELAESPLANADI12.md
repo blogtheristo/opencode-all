@@ -3,9 +3,9 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
   - Version: 1.0 | Tool: Claude Code | Session: claude/devco-sisu-partners-dws-vFgUc | Date: 07.06.2026 | Changes: Initial research study. Profiled DevCo Partners (active-owner PE) as a portfolio-channel partner and Sisu Partners (boutique corporate finance) as a capital-raising / listing-adviser route for the DWS IQ 6 SAFE round. Source: brass-plate photo at Eteläesplanadi 12, Helsinki + public web research.
 
 Session Links & References:
@@ -31,7 +31,7 @@ Document Status:
 | **DevCo Partners** | Active-owner PE buying **majority** stakes in €50–500M-revenue niche leaders | **Partner via portfolio-as-customer** + Matti Alahuhta industrial network | **No** — ~1000× past our stage |
 | **Sisu Partners** | Boutique **corporate-finance advisory** (M&A / IPO / capital raising), Nasdaq First North Certified Adviser | **Capital-raising adviser / placement route + future First North listing** | **No** — they advise, they don't write checks from a balance sheet |
 
-Neither firm cuts a €50K captain-seat cheque into an €84K-ARR pre-seed. The value is **relationship and reach**, not the SAFE. Treating either as a "fill the round" target would burn the introduction. Both are worth cultivating for what comes *after* the SAFE.
+Neither firm cuts a €50K captain-seat cheque into a pre-seed at our scale (two enterprise pilots contracted Q1/2026, €59,900 booked; software otherwise pre-revenue). The value is **relationship and reach**, not the SAFE. Treating either as a "fill the round" target would burn the introduction. Both are worth cultivating for what comes *after* the SAFE.
 
 ---
 
@@ -122,7 +122,7 @@ Sisu **advises** on transactions and **raises** capital for clients — it does 
 
 ### Drawbacks / reality check
 
-- **Too early to engage commercially.** Sisu takes mandates with success fees on deals of meaningful size; an €84K-ARR pre-seed is below their commercial threshold today. Engage as **relationship + future option**, not a paid mandate now.
+- **Too early to engage commercially.** Sisu takes mandates with success fees on deals of meaningful size; a pre-seed at our scale (two contracted enterprise pilots, €59,900 booked) is below their commercial threshold today. Engage as **relationship + future option**, not a paid mandate now.
 - **Deal generalist, not a thesis investor.** Their sector list is broad (food/ag to healthcare); don't expect cleantech/vertical-AI conviction. Frame DWS in transaction terms (defensible ARR growth, regulatory-tailwind demand), not vision terms.
 - **They work for the client who pays.** A future mandate aligns them with us; a casual intro does not. Calibrate expectations accordingly.
 

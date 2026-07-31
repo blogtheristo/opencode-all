@@ -2,7 +2,7 @@
 
 _Buyer-facing offer: **DWS 365 Skilled Agents** & **Firehorse 365 Skilled Agents**. Platform underneath: **DWS IQ**._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -33,7 +33,7 @@ Document Status:
 - Languages Available: English (DE/FI versions live in `TALK_TRACK_PE_MESSE_2026.md`)
 - Publication Status: ACTIVE — investor-facing, distributed under NDA
 
----
+***
 
 ## Headline
 
@@ -176,7 +176,8 @@ _Canonical terminology: DWS_BRAND_STANDARD.md §23. Theory and the Kaukopää ca
 | Metric                                   | Value (May 2026)                                                             |
 | ---------------------------------------- | ---------------------------------------------------------------------------- |
 | Q1/26 pilots signed                      | 2 enterprise pilots at €29,950 = **€59,900 booked**                          |
-| MRR (running)                            | ~€7k (6 paying customers, 100% retention)                                    |
+| Software contract value booked Q1/2026   | €59,900 — two enterprise pilots at €29,950 each, plus four smaller landed accounts (LAND-001…006, redacted) |
+| Services & transport revenue (running)   | ~€7k/month — licensed transport operation + consulting. **Not software revenue.** Company at cash break-even, founder salary €0. Source: Lemonsoft bookkeeping. |
 | Skilled Agents in production             | **16** producing signed artifacts                                            |
 | Tier-1 named-account pipeline (Q2–Q4/26) | **€550k – €1.07M ACV** booked target                                         |
 | Q2/26 V1 launch                          | Arctic 15, Helsinki — June 15                                                |

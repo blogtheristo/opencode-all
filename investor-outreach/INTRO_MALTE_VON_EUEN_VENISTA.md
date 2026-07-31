@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Malte von Euen, Venista Ventures
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: B2B SaaS + EU Compliance Infrastructure (NOT defense, NOT generic cl
 Intro Type: Cold (to be initiated)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Lead Investment Manager at Venista Ventures. €50K-€150K pre-seed/seed data-driven software in Western Europe + Nordics. Fast decision: 4-14 days, 3-partner committee, no long fund processes. Nordics focus = direct geographic fit. DRAWBACK 1: explicitly excludes defense tech and generic climate tools — sovereign/dual-use/Aegis angle is a mandate wall. DRAWBACK 2: prefers complementary co-founder teams — solo founder is a flag. STRATEGY: reframe as pure B2B SaaS compliance infrastructure (regulatory automation, not climate, not defense). Emphasize SAP/IFS/Dynamics integration, AI agents, data-driven. Hide Aegis entirely. Fast-decision mandate means this could close in 2 weeks if thesis lands.
 -->
 
@@ -70,13 +71,13 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 - **Excludes defense tech** — HARD EXCLUSION. Aegis dual-use angle is a mandate wall. **Mitigation: do not mention Aegis, defense, dual-use, sovereignty, or military at all.** Lead with regulatory compliance automation, B2B SaaS, data integration. The defense layer is invisible for this conversation.
 - **Excludes generic climate tools** — "Generic climate" is the risk word. **Mitigation: position as regulatory compliance infrastructure, not a climate tool.** We automate ETS/CBAM/CSRD reporting — that's regulatory mandate compliance, not climate virtue signaling. Frame: "compliance infrastructure for companies that MUST report," not "help companies go green."
-- **Team / complementary-team preference** — We're now a two-person team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB) with complementary skill sets — addresses his preference. Emphasize operator track record (13 years regulated industry, SAP/IFS domain), technical depth via governed agent workflows + Cubet engineering partner (senior technical hire funded + searching), named advisors, paying customers.
+- **Team / complementary-team preference** — We're now a two-person team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB) with complementary skill sets — addresses his preference. Emphasize operator track record (13 years regulated industry, SAP/IFS domain), technical depth via governed agent workflows + Cubet engineering partner (senior technical hire funded + searching), named advisors, two contracted enterprise pilots.
 
 ## Strategy
 
 - **Reframe as B2B SaaS compliance infrastructure** — NOT climate, NOT defense. "Regulatory compliance automation for EU industrial companies."
 - **Lead with data + AI agents + ERP integration** — his "data-driven software" box. A fleet of skilled agents, SAP/IFS/Dynamics connectors, auto-generated reports.
-- **Traction carries the conversation** — EUR 7K MRR, 6 paying customers, 100% retention. Fast-decision funds reward traction.
+- **Traction carries the conversation** — ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). Fast-decision funds reward traction.
 - **Use the 4-14 day cycle** — explicitly reference that we are 6 weeks from V1 launch at Arctic 15 and closing the round pre-Messe Germany. His speed matches our timeline.
 - **Captain seat = €50K, or lead at €150K** — frame the ticket options clearly.
 - **DO NOT send:** INVESTOR_MEMO_AEGIS.md, DEFENSE_SOVEREIGNTY_INVESTORS_2026.md, any dual-use language
@@ -89,13 +90,13 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Malte — saw Venista Ventures' Nordics + data-driven software mandate. Direct fit for what we're building.
 
-Lifetime Oy (Finland) — regulatory compliance automation for EU industrial companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 (June 15).
+Lifetime Oy (Finland) — regulatory compliance automation for EU industrial companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 (June 15).
 
 Given your 4-14 day decision cycle, timing works — we're closing the round before Arctic 15. One-pager?
 
 ## Draft Email (cold outreach)
 
-**Subject:** Nordics B2B SaaS — EU compliance automation, EUR 7K MRR, raising EUR 650K
+**Subject:** Nordics B2B SaaS — EU compliance automation, two contracted enterprise pilots, raising EUR 650K
 
 Hi Malte,
 
@@ -105,7 +106,7 @@ DWS IQ 6 is regulatory compliance automation for EU industrial companies. A flee
 
 The numbers:
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - Customer LTV: EUR 70K-120K/year
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
@@ -140,6 +141,6 @@ Business ID: 0772407-9 (Finland)
 
 - [ ] Send cold DM or email with B2B SaaS compliance-infrastructure framing
 - [ ] If interest: schedule 20-min call within 5 days (match his fast cycle)
-- [ ] If team question raised: lead with two-person complementary team + operator track record + paying customers
+- [ ] If team question raised: lead with the two-person core (Founder/CEO + Office Chief) plus a contracted engineering bench under NDA + operator track record + two contracted enterprise pilots
 - [ ] If climate-tool concern raised: reframe as regulatory mandate compliance (legal deadline), not climate virtue
 - [ ] Ask for Western Europe co-investor intros from the Venista network

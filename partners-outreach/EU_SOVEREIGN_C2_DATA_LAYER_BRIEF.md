@@ -51,7 +51,7 @@ narrative (ICEYE SAR into Argus, IQM/Kuva Space adjacencies).
 
 **Contact:** Risto Anton Päärni, CEO, Lifetime Oy · risto.paarni@lifetime.fi · https://dws10.com/products/aegis.html
 
-> **Full DIANA business case:** `partners-outreach/DIANA_NATO_PITCH_AEGIS_BUSINESS_CASE.md` — extends this one-pager with the Frankenburg flagship customer case and the DIANA→NIF funding-pipeline wedge (Kusti Salm).
+> **Full DIANA business case:** `partners-outreach/DIANA_NATO_PITCH_AEGIS_BUSINESS_CASE.md` — extends this one-pager with the Frankenburg flagship **illustrative target** case (a prospect, not a customer) and the DIANA→NIF funding-pipeline wedge (Kusti Salm).
 
 ---
 

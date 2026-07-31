@@ -1,6 +1,6 @@
 # PE Meeting + German Messe Talk Track — 2026 Q2 SAFE Round
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -29,7 +29,7 @@ Document Status:
 - Languages Available: English · Deutsch (Messe) · Suomi (Lifetime Oy context)
 - Publication Status: ACTIVE — internal, used live in PE meetings and at Messe Germany
 
----
+***
 
 ## 0. Brand Architecture (read first)
 
@@ -78,7 +78,7 @@ Canonical: `POSITIONING.md`.
 
 4. **Distribution.** "Every Tier-1 named account in our pipeline — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger — sits on an active Microsoft Azure Consumption Commitment. We list on Azure Marketplace, the customer burns down committed cloud spend at our sticker, Microsoft co-sell credit makes their field a distribution channel for us. AppExchange on Salesforce slots us inside their 'digital labor' vocabulary at a defensible per-agent-month sticker on top of the platform meter."
 
-5. **Traction.** "Two Q1 pilots signed at €29,950, €7k MRR live with 100% retention, sixteen agents in production, €550k to €1.07M ACV booked-target across the Tier-1 pipeline for Q2–Q4 2026, V1 launches at Arctic 15 June 15, Messe Germany commercial push in Stuttgart September 17–19."
+5. **Traction.** "Two Q1 pilots signed at €29,950 each — €59,900 booked — sixteen agents in production, and the company is at cash break-even on ~€7k/month of services and transport revenue with a founder salary of zero, €550k to €1.07M ACV booked-target across the Tier-1 pipeline for Q2–Q4 2026, V1 launches at Arctic 15 June 15, Messe Germany commercial push in Stuttgart September 17–19."
 
 6. **The accumulated moat.** "Seven months of operation built four capital classes a competitor can't reconstruct with the same model: Prompt — a validated skills and agent corpus; People — calibrated operator judgment that was earned in the field; Plant — a sovereign, mobile two-room edge stack; and Perception — a governed world model that compounds with every field deployment. A rival starting today runs 18 months behind on Perception alone."
 
@@ -123,7 +123,7 @@ Naming the caveat buys credibility on the other three.
 | 4   | **Demand Engine**          | Regulation is hiring our customer's compliance team.                     | CSRD · CBAM · EU AI Act · NIS2 · Fit-for-55 · 24-month enforcement calendar.                                                                                                       |
 | 5   | **Distribution**           | MACC-burn + AppExchange = enterprise field as our channel.               | Azure MACC math · Microsoft co-sell credit · AppExchange "digital labor" frame · channel-conflict-free pricing.                                                                    |
 | 6   | **Product Catalog Teaser** | Sixteen Skilled Agents, T0→T4 upsell ladder, consult-plus-keep bundles.  | Single-agent SKUs (Compliance / Material Oracle / SiteSense / Schedule Genius / Sovereignty Monitor / Themis) · Function-as-a-Service bundles · Consulting-plus-agent land-motion. |
-| 7   | **Traction**               | €7k MRR, 100% retention, €550k–€1.07M booked target, Messe in September. | Q1 pilots signed · Q2 launch · Q3 Messe pickup · Year-2 attach math (+40–80% per landed account).                                                                                  |
+| 7   | **Traction**               | €59,900 Q1 pilot contract value, cash break-even on services & transport revenue, €550k–€1.07M booked target, Messe in September. | Q1 pilots signed · Q2 launch · Q3 Messe pickup · Year-2 attach math (+40–80% per landed account).                                                                                  |
 | 8   | **Ask**                    | €650k SAFE @ €3.8M cap.                                                  | Round structure · use of funds (60 / 25 / 15) · two calendar slots · Messe stand option.                                                                                           |
 
 Slide cosmetics, lengths, and visual style are owned by the Gamma render — **do not** specify those here.
@@ -160,7 +160,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 4. **Vertrieb.** „Jeder Tier-1-Kunde in unserer Pipeline — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger — sitzt auf einer aktiven Microsoft Azure Consumption Commitment. Wir listen auf Azure Marketplace, der Kunde verbrennt gebundene, nicht ausgegebene Cloud-Mittel zu unserem Listenpreis, Microsoft-Co-Sell-Credit macht deren Vertrieb zu unserem Kanal. AppExchange auf Salesforce platziert uns innerhalb deren ‚digital labor'-Vokabular zu einem verteidigungsfähigen Per-Agent-Month-Preis."
 
-5. **Traktion.** „Zwei Q1-Piloten unterzeichnet zu je €29.950, €7k MRR live mit 100 % Retention, sechzehn Agenten im Produktiveinsatz, €550k bis €1,07 Mio ACV-Buchungsziel über die Tier-1-Pipeline für Q2–Q4 2026, V1-Launch Arctic 15 am 15. Juni, Messe-Schub in Stuttgart 17.–19. September."
+5. **Traktion.** „Zwei Q1-Piloten unterzeichnet zu je €29.950 — €59.900 gebucht —, sechzehn Agenten im Produktiveinsatz, das Unternehmen ist bei ~€7k/Monat Dienstleistungs- und Transportumsatz mit einem Gründergehalt von null cash-break-even, €550k bis €1,07 Mio ACV-Buchungsziel über die Tier-1-Pipeline für Q2–Q4 2026, V1-Launch Arctic 15 am 15. Juni, Messe-Schub in Stuttgart 17.–19. September."
 
 **Bitte.** „€650k SAFE bei €3,8 Mio Cap. Zwanzig-minütiger Call zum Anschluss oder Besuch am Messe-Stand im September."
 
@@ -190,7 +190,7 @@ Live Q&A is handled out of `docs/investor/INVESTOR_QA_BANK_2026Q2.md` — twelve
 
 4. **Jakelu.** „Jokainen Tier-1-asiakas pipelinessä — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger — istuu aktiivisella Microsoft Azure Consumption Commitmentilla. Listaamme Azure Marketplaceen, asiakas polttaa sitoutunutta-mutta-käyttämätöntä pilvipanosta meidän listahinnallamme, Microsoftin co-sell-krediitti tekee heidän kenttäorganisaationsa kanavaksemme. AppExchange Salesforcessa istuttaa meidät 'digital labor' -sanastoon."
 
-5. **Traktio.** „Kaksi Q1-pilottia allekirjoitettu á €29 950, €7k MRR ja 100 % retentio, kuusitoista agenttia tuotannossa, €550k–€1,07M ACV-tavoitebookkaus Tier-1-pipelinessä Q2–Q4 2026, V1 lanseeraus Arctic 15:llä 15. kesäkuuta, Messe Saksa -veto syyskuun 17.–19. päivä."
+5. **Traktio.** „Kaksi Q1-pilottia allekirjoitettu á €29 950 — 59 900 € kirjattu —, kuusitoista agenttia tuotannossa, yhtiö on kassavirtatasapainossa noin 7 000 €/kk palvelu- ja kuljetusliikevaihdolla perustajan palkalla 0 €, €550k–€1,07M ACV-tavoitebookkaus Tier-1-pipelinessä Q2–Q4 2026, V1 lanseeraus Arctic 15:llä 15. kesäkuuta, Messe Saksa -veto syyskuun 17.–19. päivä."
 
 **Pyyntö.** „€650k SAFE-runda capilla €3,8M. 20-minuutin jatkokeskustelu tai vierailu Messe-osastolle syyskuussa."
 

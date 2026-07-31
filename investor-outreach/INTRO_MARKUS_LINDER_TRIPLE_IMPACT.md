@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Markus Linder, Triple Impact Ventures
-Version: 1.0
+Version: 1.1
 Date: 2026-03-25
 Author: Claude Opus 4 + Human Review
 Branch: claude/research-leworldmodel-r3VRA
@@ -8,6 +8,7 @@ Status: Final Draft
 Story Lock: Story A (Carbon Balance Sheet Infrastructure)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-25): Initial draft. Iterated 2x — moved "software-only" to first description line, made Persefoni comp concrete with ARR numbers. Human approved.
 -->
 
@@ -72,7 +73,7 @@ Why it might fit your thesis later:
 
 - Pure compliance SaaS with regulatory tailwind (Fit for 55 forces adoption)
 - Carbon + euro tracked in the same ledger — the accounting layer the market is missing
-- EUR 650K SAFE round at EUR 3.8M cap. Persefoni raised their Series A at a higher implied valuation with $1.8M ARR. We're at EUR 84K ARR with 100% retention.
+- EUR 650K SAFE round at EUR 3.8M cap. Persefoni raised their Series A at a higher implied valuation with $1.8M ARR. We have two enterprise pilots contracted in Q1/2026 at EUR 29,950 each (EUR 59,900 booked); software is otherwise pre-revenue.
 
 No rush. When the Mondra dust settles and you're looking at the next wave of climate infrastructure plays, I'd welcome a conversation.
 

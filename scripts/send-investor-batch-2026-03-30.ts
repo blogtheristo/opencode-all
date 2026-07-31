@@ -1,4 +1,37 @@
 /**
+ * ============================================================================
+ * CORRECTION NOTICE (29.07.2026) — DO NOT EDIT THE MESSAGE BODIES BELOW
+ * ============================================================================
+ * This file is a RECORD OF MAIL THAT WAS ALREADY SENT (30 March 2026). Per
+ * DWS_DOCUMENT_STANDARD.md section 24, sent correspondence is preserved
+ * verbatim. The copy below is therefore left exactly as it went out.
+ *
+ * The traction claims in it are now known to be WRONG. Do not reuse this copy,
+ * and do not re-run this script. Canonical source: docs/TRACTION_CANONICAL.md
+ * (founder-confirmed 29.07.2026; DWS_TRUTH_STANDARD.md section 2 row 32).
+ *
+ *   SENT: "5 paying customers (EUR 7K MRR, 100% retention)"
+ *   TRUE: Two enterprise pilots contracted Q1/2026 at EUR 29,950 each
+ *         (EUR 59,900 booked) plus four smaller landed accounts. The ~EUR 7k
+ *         per month is SERVICES AND TRANSPORT revenue (licensed transport
+ *         operation + consulting) which puts the company at cash break-even
+ *         with a founder salary of EUR 0 — it is NOT software revenue and was
+ *         never platform MRR.
+ *
+ *   SENT: "EUR 84K ARR with 100% retention" (Persefoni comparison)
+ *   TRUE: There is no EUR 84K software ARR. That figure annualised the
+ *         transport-and-consulting revenue. No retention or churn rate is
+ *         assertable — there is no cohort data behind one.
+ *
+ *   SENT: "TRL 6-7"
+ *   TRUE: TRL 5 completed, entering TRL 6, anchored on the KYA engine.
+ *
+ * Recipients of the mail below were given an overstated picture. Flag for
+ * founder decision: whether any of these threads needs a written correction.
+ * ============================================================================
+ */
+
+/**
  * Send 13 investor outreach emails — DIRECT when email known, self-send when not.
  *
  * Usage:

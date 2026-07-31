@@ -15,7 +15,7 @@ Helsinki Metropolitan Area, Finland
 - **LinkedIn:** https://fi.linkedin.com/in/ristoanton
 - **Websites / Pitch:** https://dws10.com | https://dws10.com/buy | https://onelifetime.world
 - **Business ID (Y-tunnus):** FI07724079
-- **Short signature line:** Risto Anton Päärni | CEO & Founder, DWS IQ 6 & Firehorse | Sovereign EU climate intelligence on edge hardware | 7k MRR | Free GN-100 from Acer | +358 400 319 010 | risto@lifetime.fi
+- **Short signature line:** Risto Anton Päärni | CEO & Founder, DWS IQ 6 & Firehorse | Sovereign EU climate intelligence on edge hardware | cash break-even | Free GN-100 from Acer | +358 400 319 010 | risto@lifetime.fi
 
 ---
 
@@ -48,7 +48,7 @@ Exact Claude-Code feel on iPhone: Grok Build PWA (Safari → Add to Home Screen)
 
 ## Traction & Starting Position
 
-- 7k MRR today
+- Cash break-even today on ~€7k/month of services and transport revenue (licensed transport operation + consulting) — not software MRR
 - 333 € daily from senior Kela taxi (Ford bought for 10k)
 - 3 years hands-on Azure cloud (Microsoft 155k USD credits 2022–2025)
 - Free Acer Veriton GN-100 unit from Acer Finland (already in hand)

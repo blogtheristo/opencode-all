@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Richard Würl, Redstone VC
-Version: 1.4
+Version: 1.5
 Date: 2026-07-15
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/investor-letter-richard-wurl-5bwfa5
@@ -9,6 +9,7 @@ Story Lock: Sovereign EU compliance AI · Agent Outcome Company · EU/EEA-only S
 Intro Type: Cold (no warm path identified)
 
 AGENT HISTORY:
+- v1.5 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.4 (2026-07-24): Grounded the Kertos wedge. Added a repo source-of-truth case (`CASE_KERTOS_REDSTONE_WEDGE.md`) with web-sourced Kertos facts, and sharpened the Fit Assessment: Redstone **led** Kertos' seed (May 2023, €4M) and **followed on** in the Series A (Sept 2025, €14M led by Portage) — a two-round conviction in this exact lane, not a passing portfolio line. Clarified the layer distinction (Kertos = organizational compliance *program*, DPO/CISO buyer; DWS IQ = industrial *filing* the operator owes, sustainability/compliance buyer) so the wedge reads as **complementary, not competing** (no portfolio conflict). Send-ready letter body left verbatim (already grounded). Session claude/dws-learning-hic-process-e70k0a.
 - v1.3 (2026-07-24): **Email corrected** in the letter signature + Sender line → `risto.paarni@lifetime.fi` (public sales address), per the Sender Identity policy merged from main: `risto.paarni2024@lifetime.fi` is a Google login credential only and must never appear in a signature or outbound doc. The earlier saved letter used `...2024@` per the pre-correction CLAUDE.md.
 - v1.2 (2026-07-24): Confirmed the final letter text is saved verbatim (Agent Outcome Company signature). Added the mandatory Universal Document Footer (DWS Document Standard §23).
@@ -52,7 +53,7 @@ AGENT HISTORY:
 ## Letter — READY (NOT yet sent)
 
 ```
-Subject: Sovereign EU compliance AI — €7K MRR, EU/EEA SAFE
+Subject: Sovereign EU compliance AI — two contracted enterprise pilots, EU/EEA SAFE
 
 Hi Richard,
 
@@ -68,7 +69,7 @@ Where Kertos automates the privacy/compliance program, our agents produce
 the filing that a steel mill or cement plant owes the regulator — and we're
 paid on that outcome, not on usage.
 
-Traction: €7K MRR, 6 paying customers, 100% retention. Early, but every
+Traction: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue). Early, but every
 customer we've signed has stayed.
 
 We're raising a €650K SAFE at a €3.8M cap, restricted to EU/EEA-domiciled

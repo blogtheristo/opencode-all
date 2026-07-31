@@ -1,26 +1,33 @@
 # Reply to Steve Leong — BLOCK71 Deep SAGE 2026 Community Partner
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/block71-deep-sage-2026-xNiom | Date: 25.05.2026 | Changes: Initial draft — reply email to Steve Leong (BLOCK71 Singapore) + adapted post copy in DWS voice for LinkedIn and community channels.
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/block71-deep-sage-2026-xNiom | Date: 25.05.2026 | Changes: Initial draft — reply email to Steve Leong (BLOCK71 Singapore) + adapted post copy in DWS voice for LinkedIn and community channels.
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — body preserved verbatim as sent correspondence; dated correction note added above the body covering €7k MRR, 6 paying customers, 100% retention, "Tier-1 European logos", and NCC.
 
 Session Links & References:
-  - Inbound email source: Steve Leong, Community and Engagement Manager, BLOCK71 Singapore
-  - Programme URL: https://block71.co/programmes/deep-sage-2026/
-  - Sister artifact: ./APPLICATION.md (DWS IQ's own application to the same programme)
+
+- Inbound email source: Steve Leong, Community and Engagement Manager, BLOCK71 Singapore
+- Programme URL: https://block71.co/programmes/deep-sage-2026/
+- Sister artifact: ./APPLICATION.md (DWS IQ's own application to the same programme)
 
 Document Status:
-  - Created: 25.05.2026
-  - Last Modified: 25.05.2026
-  - Language: English
-  - Publication Status: DRAFT — pending Risto approval before send
-  - Classification: INTERNAL — outbound copy intended for public sharing once approved
+
+- Created: 25.05.2026
+- Last Modified: 25.05.2026
+- Language: English
+- Publication Status: SENT — reply delivered to Steve Leong; subsequent correspondence on file. Body preserved verbatim; see the correction note below.
+- Classification: INTERNAL — outbound copy intended for public sharing once approved
 
 ***
+
+> **Correction (29.07.2026):** this reply went out to Steve Leong (BLOCK71 Singapore) and the correspondence that followed is on file, so the body is preserved verbatim as sent correspondence. The traction claims in it are wrong and must not be reused. (1) "€7K MRR with 100% retention across Tier-1 European logos (Uber Finland, Kela, NCC, Bolt)" (§2) and "€7K MRR, 6 paying customers, 100% retention" (§2 snapshot) → two enterprise pilots were contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts; the ~€7,000/month is **services and transport revenue** (licensed transport operation + consulting), **not** software revenue, and puts the company at cash break-even with a founder salary of €0. (2) Uber Finland, Bolt and Kela framed as "Tier-1 European logos" / customers → they are **dispatch operators** in the role defined by Traficom, dispatching ride orders to Lifetime Fleet vehicles; commercial counterparties of the licensed transport operation, never customers of DWS IQ, Aegis, or any Lifetime software product. (3) NCC listed among those logos → **NCC is an unlanded prospect**, never a customer. (4) "100% retention" → retired; no retention rate is asserted, because no cohort data exists. Canonical source: `docs/TRACTION_CANONICAL.md`.
 
 ## 1. How To Use This Document
 
@@ -30,6 +37,7 @@ Two outbound artifacts, ready to send:
 2. **Adapted post copy** (§3) — for LinkedIn (Risto's personal + Lifetime Oy company page) and DWS community channels. DWS voice, not a copy-paste of Steve's draft.
 
 Send order:
+
 - Send the email today (25 May) — gets us listed as official community partner.
 - Post the LinkedIn copy today or tomorrow once Steve confirms the marketing-asset bundle.
 - CC Steve on the LinkedIn post URL once live ("so we can acknowledge you as an official community partner").
@@ -82,6 +90,7 @@ A short company snapshot is below.
 Lifetime Oy builds **DWS IQ** — the first double-entry ledger for industrial CO₂. Every CBAM import, ETS surrender, and CSRD disclosure produces a journal entry on tamper-evident edge infrastructure (NVIDIA Jetson Orin Nano, sub-100ms, no cloud egress). 50,000+ EU companies need this by 2026–2028. ASEAN exporters into the EU need it just as urgently from 2026, which is why a Singapore foothold is on our roadmap regardless. €7K MRR, 6 paying customers, 100% retention, NVIDIA Connect ISV partner.
 
 More on the company:
+
 - Website: https://dws10.com
 - Investor pack: available on request
 - Founder LinkedIn: https://www.linkedin.com/in/ristopaarni/
@@ -109,14 +118,14 @@ Three variants, pick one or chain them.
 >
 > The reason this caught my attention isn't the S$500K from TIS (real, but not the headline). It's that the programme is built around a problem most founders my age recognise immediately:
 >
-> *You need a senior CRO / COO / CFO to scale. You cannot yet afford 2% equity or a S$200K salary for one. So you stall.*
+> _You need a senior CRO / COO / CFO to scale. You cannot yet afford 2% equity or a S$200K salary for one. So you stall._
 >
 > Deep SAGE answers that with **fractional C-suite support** for 12 weeks — seasoned operators embedded in your business, plus the curriculum and the funding. It's the right shape for the stage.
 >
 > Who should apply:
 > · Seed to Pre-Series A founders
 > · AI, Robotics, Healthtech, Smart Cities (and adjacent — climate, deep-tech, industrial AI all fit)
-> · Anyone whose growth gate is *senior bandwidth*, not *more capital*
+> · Anyone whose growth gate is _senior bandwidth_, not _more capital_
 >
 > 📅 Applications close **31 May 2026**
 > 🔗 Apply: https://block71.co/programmes/deep-sage-2026/
@@ -150,12 +159,13 @@ Three variants, pick one or chain them.
 
 Add these rows to `partners-outreach/README.md` priority table after the email goes out:
 
-| # | Company                        | Type                | Contact                                | Why                                                                    | Status                         | Pitch Doc                                | Next Action                                                         |
-| - | ------------------------------ | ------------------- | -------------------------------------- | ---------------------------------------------------------------------- | ------------------------------ | ---------------------------------------- | ------------------------------------------------------------------- |
-| 9 | **BLOCK71 Singapore (NUS)**    | Community partner   | Steve Leong (steveleonghw@nus.edu.sg)  | ASEAN gateway; Deep SAGE 2026 partner badge + cohort access            | **Reply drafted — send today** | `partners-outreach/BLOCK71_DEEP_SAGE_2026/REPLY_STEVE_LEONG.md` | Send reply 25 May; CC Steve on LinkedIn post once live              |
-| 10| **TIS Inc. (Japan)**           | Strategic / funding | Via Deep SAGE 2026 application         | JPY 500B SI; distribution into Japanese CBAM-affected manufacturers     | **Application drafted**         | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md`       | Submit Deep SAGE application by 29 May (48h before 31 May deadline) |
+| #   | Company                     | Type                | Contact                               | Why                                                                 | Status                         | Pitch Doc                                                       | Next Action                                                         |
+| --- | --------------------------- | ------------------- | ------------------------------------- | ------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 9   | **BLOCK71 Singapore (NUS)** | Community partner   | Steve Leong (steveleonghw@nus.edu.sg) | ASEAN gateway; Deep SAGE 2026 partner badge + cohort access         | **Reply drafted — send today** | `partners-outreach/BLOCK71_DEEP_SAGE_2026/REPLY_STEVE_LEONG.md` | Send reply 25 May; CC Steve on LinkedIn post once live              |
+| 10  | **TIS Inc. (Japan)**        | Strategic / funding | Via Deep SAGE 2026 application        | JPY 500B SI; distribution into Japanese CBAM-affected manufacturers | **Application drafted**        | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md`       | Submit Deep SAGE application by 29 May (48h before 31 May deadline) |
 
 Also log:
+
 - One entry in Supabase `outreach_contacts` pipeline=`partner` for Steve Leong / BLOCK71.
 - One entry in Supabase `outreach_contacts` pipeline=`investor` for TIS Inc. via Deep SAGE.
 

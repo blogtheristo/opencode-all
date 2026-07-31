@@ -1,13 +1,14 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
 
+- Version: 2.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — construction target list relabelled as unlanded prospects (NCC, Skanska, Vinci, Strabag, Bouygues).
 - Version: 2.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 security integration claims; TypeScript redirect sanitization is active in the Express stack, CSRF protection now covers auth/payment routes, and Vitest coverage exists for the TypeScript security modules. MCP DCR and image prompt-injection detection remain integration-ready libraries rather than always-on runtime controls.
 - Version: 2.1 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported 2025-11 security components to TypeScript (CSRF, Redirects, MCP DCR, Tool Colors); archived legacy Python components
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Added Shufti Pro Limited to infrastructure providers table (KYC/IDV, EU-only, Companies House verified); added vendor risk note with TeleSign noyb complaint, Twilio incidents, ML training prohibition status from PR #768 DPA clause audit
@@ -31,7 +32,7 @@ Document Status:
 - Classification: Public (detailed versions available under NDA)
 - Publication Status: ACTIVE
 
----
+***
 
 > **For CISOs, Procurement, and Security Teams**
 
@@ -98,7 +99,7 @@ We align our compliance roadmap with the specific requirements of each target in
 
 #### 🏗️ Construction (Priority 1)
 
-_Target: NCC, Skanska, Vinci, Strabag, Bouygues_
+_Target prospects (none landed): NCC, Skanska, Vinci, Strabag, Bouygues_
 
 | Standard                     | Status                | Why It Matters                                            |
 | ---------------------------- | --------------------- | --------------------------------------------------------- |
@@ -124,7 +125,7 @@ _Target: Kone, Wärtsilä, ABB, Valmet_
 
 #### 🚗 Lifetime Fleet — Vehicles, Robots, IoT (Priority 3)
 
-_Vehicles, drones, robotics, IoT devices — currently generating €7-14k MRR_
+_Vehicles, drones, robotics, IoT devices. The licensed transport operation behind Lifetime Fleet, together with a small consulting practice, runs at ~€7,000/month of services and transport revenue — **not** software revenue._
 
 | Standard            | Status                | Why It Matters                                                               |
 | ------------------- | --------------------- | ---------------------------------------------------------------------------- |
