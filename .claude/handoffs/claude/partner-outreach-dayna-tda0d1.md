@@ -2,14 +2,18 @@
 
 **Task:** Record the live LinkedIn partner-outreach thread with Dayna Blackwell (creator of GCF, adopted by the official Google Chrome MCP server; Founder, Blackwell Systems) and draft the next-step reply.
 
-**State:** `partners-outreach/LETTER_DAYNA_BLACKWELL_BLACKWELL_SYSTEMS.md` is at v1.1. Original v1.0 offered a short paid contract (2-4 weeks, MCP transport scope) framed around her "Open to Work" status. After a Boardy discussion (Jan's point), Risto reframed the offer upward: technical partner with genuine CTO-level potential — (1) technical/commercial conversation, (2) paid 3-month engagement owning the MCP/orchestration + deployment layer, (3) longer-term CTO/technical-partner discussion if the fit is strong. Captain-network/investor-access access from her is now positioned as additive upside, not the ask itself. v1.0 draft kept in the file (superseded, not deleted, per Rule 12). v1.1 is the one to send.
+**State:** `partners-outreach/LETTER_DAYNA_BLACKWELL_BLACKWELL_SYSTEMS.md` is at v1.2. Offer evolved through Boardy discussion: paid contractor (v1.0) → CTO-track technical partner, 3-month paid engagement (v1.1) → combined **Industrial Captain + immediate Technical Partner + CTO door after a skills/fit test** (v1.2). The €50K Captain figure in v1.2 was checked against and matches the canonical Captain-seat structure (`docs/LOCKED_DECISIONS.md` LD-2026-014: Captain €50K × 9 seats) — not invented for this letter. v1.0 and v1.1 kept in the file, marked superseded, per Rule 12.
+
+**Not resolved (flagged in the file, not solved this session):**
+
+1. Captain P&L / 12-month payback model for her €50K — Boardy's last question to Risto, still open. v1.2 states this honestly to Dayna rather than inventing a number.
+2. Skills/fit-test scope and decision date for the CTO track — undefined.
 
 **Next steps:**
 
-1. Human sends the v1.1 DM (or an edited version) via LinkedIn.
-2. On her agreement to a conversation: send NDA before sharing architecture docs.
-3. Set a budget ceiling for the 3-month engagement before/during the technical-commercial call (open decision, not resolved this session).
-4. Once a call date is confirmed, calendar it.
-5. Day 5: soft nudge if no reply.
+1. Human decides whether to model the Captain P&L before sending v1.2, or send as-is (it's honest about the gap).
+2. Send v1.2 via LinkedIn DM.
+3. Before/during her reply call: decide the Captain-upside mix and the skills-test scope + decision date.
+4. NDA before architecture docs; calendar the call once confirmed; Day 5 nudge if no reply.
 
-**Blockers:** None. Budget ceiling for the 3-month engagement is an open decision for Risto.
+**Blockers:** None technical. Two business decisions (Captain P&L mix, skills-test scope/date) are Risto's to make, not resolved in this session.
