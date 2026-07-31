@@ -45,22 +45,23 @@ This file is the **immutable audit index** of all locked decisions in DWS IQ 6. 
 
 ## Decision Index
 
-| ID          | Date       | Time UTC | Topic                                                                                                          | Category     | Status | Owner | File                                                                             |
-| ----------- | ---------- | -------- | -------------------------------------------------------------------------------------------------------------- | ------------ | ------ | ----- | -------------------------------------------------------------------------------- |
-| LD-2024-001 | 2024-03-16 | —        | Product tiers locked (3-tier pricing structure, V3 era)                                                        | PRODUCT      | LOCKED | Risto | _(predates field-notes archive)_                                                 |
-| LD-2026-001 | 2026-01-08 | —        | ADR-2026-001: dws6.com as Admin Portal, /login for end users                                                   | ARCHITECTURE | LOCKED | Risto | `Admin/ADMIN_MANUAL_DWS6_COM.md`                                                 |
-| LD-2026-002 | 2026-01-28 | —        | 100% EU data residency, zero US sub-processors, GDPR by design                                                 | ARCHITECTURE | LOCKED | Risto | `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`           |
-| LD-2026-003 | 2026-02-21 | —        | CORS: no `allow_origins=["*"]`; Shell: no `exec()` with string interpolation; SRI hashes on all CDN deps       | SECURITY     | LOCKED | Risto | `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` |
-| LD-2026-004 | 2026-03-08 | —        | EU AI Act Article 12 — sovereignty audit logging layer as audit-proof backbone for high-risk AI logging        | EU-AI-ACT    | LOCKED | Risto | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md`         |
-| LD-2026-005 | 2026-03-10 | —        | Aiven Developer ($5/mo) + Startup ($75/mo) for V1 EU-sovereign PostgreSQL migration                            | DATA         | LOCKED | Risto | `docs/field-notes/2026-03-10-v1-aiven-plan-decision.md`                          |
-| LD-2026-006 | 2026-03-13 | —        | Aiven-first mandate locked; TimescaleDB 2.25.x Hypercore approved standard; pg_duckdb BLOCKED                  | DATA         | LOCKED | Risto | `DWS_DATA_STANDARD.md`                                                           |
-| LD-2026-007 | 2026-03-15 | —        | Investor seat tiers: Fleet Admiral €500K / Captain €150K / Industry Captain €50K×8 / Deputy unlimited          | PRODUCT      | LOCKED | Risto | `docs/field-notes/2026-03-15-investor-materials-audit.md`                        |
-| LD-2026-008 | 2026-03-26 | —        | Resend SDK permanently banned (Clawdbot C2 incident); Amazon SES SMTP only; no RESEND_API_KEY ever             | SECURITY     | LOCKED | Risto | `CLAUDE.md`, `Admin/ADMIN_MANUAL.md`                                             |
-| LD-2026-009 | 2026-03-26 | —        | CLI-first architecture post-Clawdbot; Cursor removed; Docker MCP retired                                       | SECURITY     | LOCKED | Risto | `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`               |
-| LD-2026-010 | 2026-03-26 | —        | Default sender: risto@onelifetime.world; NEVER noreply@; verified domain: onelifetime.world only               | SECURITY     | LOCKED | Risto | `CLAUDE.md`                                                                      |
-| LD-2026-011 | 2026-04-02 | —        | Shufti DPA: EU-only processing/storage; GCP locked to EEA; 30-day sub-processor notice                         | NIS2         | LOCKED | Risto | `docs/field-notes/2026-04-05-shufti-dpa-compliance-resolution.md`                |
-| LD-2026-012 | 2026-04-13 | —        | Partners stub overwrite incident response: stub-protection hook, pre-commit guard on partner files             | SECURITY     | LOCKED | Risto | `docs/field-notes/2026-04-13-security-incident-partners-stub-overwrite.md`       |
-| LD-2026-013 | 2026-04-16 | —        | CBAM all 6 Annex I sectors covered: Vulcan/Talos/Gaia/Ceres/Prometheus/Helios; 66 CN codes; 1 agent per sector | FEATURE      | LOCKED | Risto | `docs/field-notes/2026-04-16-cbam-sector-coverage-complete.md`                   |
+| ID          | Date       | Time UTC | Topic                                                                                                                                                  | Category     | Status                    | Owner | File                                                                             |
+| ----------- | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------------------- | ----- | -------------------------------------------------------------------------------- |
+| LD-2024-001 | 2024-03-16 | —        | Product tiers locked (3-tier pricing structure, V3 era)                                                                                                | PRODUCT      | LOCKED                    | Risto | _(predates field-notes archive)_                                                 |
+| LD-2026-001 | 2026-01-08 | —        | ADR-2026-001: dws6.com as Admin Portal, /login for end users                                                                                           | ARCHITECTURE | LOCKED                    | Risto | `Admin/ADMIN_MANUAL_DWS6_COM.md`                                                 |
+| LD-2026-002 | 2026-01-28 | —        | 100% EU data residency, zero US sub-processors, GDPR by design                                                                                         | ARCHITECTURE | LOCKED                    | Risto | `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`           |
+| LD-2026-003 | 2026-02-21 | —        | CORS: no `allow_origins=["*"]`; Shell: no `exec()` with string interpolation; SRI hashes on all CDN deps                                               | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` |
+| LD-2026-004 | 2026-03-08 | —        | EU AI Act Article 12 — sovereignty audit logging layer as audit-proof backbone for high-risk AI logging                                                | EU-AI-ACT    | LOCKED                    | Risto | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md`         |
+| LD-2026-005 | 2026-03-10 | —        | Aiven Developer ($5/mo) + Startup ($75/mo) for V1 EU-sovereign PostgreSQL migration                                                                    | DATA         | LOCKED                    | Risto | `docs/field-notes/2026-03-10-v1-aiven-plan-decision.md`                          |
+| LD-2026-006 | 2026-03-13 | —        | Aiven-first mandate locked; TimescaleDB 2.25.x Hypercore approved standard; pg_duckdb BLOCKED                                                          | DATA         | LOCKED                    | Risto | `DWS_DATA_STANDARD.md`                                                           |
+| LD-2026-007 | 2026-03-15 | —        | Investor seat tiers: Fleet Admiral €500K / Captain €150K / Industry Captain €50K×8 / Deputy unlimited                                                  | PRODUCT      | SUPERSEDED by LD-2026-014 | Risto | `docs/field-notes/2026-03-15-investor-materials-audit.md`                        |
+| LD-2026-008 | 2026-03-26 | —        | Resend SDK permanently banned (Clawdbot C2 incident); Amazon SES SMTP only; no RESEND_API_KEY ever                                                     | SECURITY     | LOCKED                    | Risto | `CLAUDE.md`, `Admin/ADMIN_MANUAL.md`                                             |
+| LD-2026-009 | 2026-03-26 | —        | CLI-first architecture post-Clawdbot; Cursor removed; Docker MCP retired                                                                               | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`               |
+| LD-2026-010 | 2026-03-26 | —        | Default sender: risto@onelifetime.world; NEVER noreply@; verified domain: onelifetime.world only                                                       | SECURITY     | LOCKED                    | Risto | `CLAUDE.md`                                                                      |
+| LD-2026-011 | 2026-04-02 | —        | Shufti DPA: EU-only processing/storage; GCP locked to EEA; 30-day sub-processor notice                                                                 | NIS2         | LOCKED                    | Risto | `docs/field-notes/2026-04-05-shufti-dpa-compliance-resolution.md`                |
+| LD-2026-012 | 2026-04-13 | —        | Partners stub overwrite incident response: stub-protection hook, pre-commit guard on partner files                                                     | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-04-13-security-incident-partners-stub-overwrite.md`       |
+| LD-2026-013 | 2026-04-16 | —        | CBAM all 6 Annex I sectors covered: Vulcan/Talos/Gaia/Ceres/Prometheus/Helios; 66 CN codes; 1 agent per sector                                         | FEATURE      | LOCKED                    | Risto | `docs/field-notes/2026-04-16-cbam-sector-coverage-complete.md`                   |
+| LD-2026-014 | 2026-07-31 | —        | Investor seat tiers reconciled to the Boardy pack: Fleet Admiral €200K / Captain €50K×9 (or €150K triple bundle) / Deputy €5K. Supersedes LD-2026-007. | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`    |
 
 ---
 
@@ -367,6 +368,26 @@ Each locked decision has a detail record below for audit purposes.
 
 ---
 
+### LD-2026-014 — Investor Seat Tiers Reconciled (Supersedes LD-2026-007)
+
+| Field           | Value                                                                         |
+| --------------- | ----------------------------------------------------------------------------- |
+| **Date Locked** | 2026-07-31                                                                    |
+| **Category**    | PRODUCT                                                                       |
+| **Status**      | LOCKED — supersedes LD-2026-007                                               |
+| **Owner**       | Risto Päärni                                                                  |
+| **File**        | `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md` |
+
+**Decision:** Three investor/partner tiers, replacing LD-2026-007's four-tier structure: (1) Fleet Admiral €200,000, 1 seat; (2) Captain €50,000, 9 seats — a €150,000 "triple" bundles 3 seats under one SAFE; (3) Deputy Captain €5,000, unlimited. The separate "Industry Captain" label is retired — it named the same €50K seat as "Captain," and the two had drifted into three conflicting documents (LD-2026-007's €150K Captain / €50K×8 Industry Captain; the live site's matching 4-line version; and the 2026-07-29 Boardy investor pack's 3-tier version actually used at the last real investor meeting). This entry adopts the Boardy pack as canonical because it is the most recent and the one actually presented to investors.
+
+**Why locked:** Investor-facing pricing; a PR (#1122) proposing a different fix to the same conflict was open and needed a resolved source of truth before any document could be trusted.
+
+**Change process:** Any tier change requires Risto approval + legal review of existing SAFEs + new LD entry, same as LD-2026-007.
+
+**Known remaining drift (not fixed by this entry):** `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` uses yet another variant (Fleet Admiral €250K, Deputy €25K) — flagged, not reconciled here; scope was limited to the files PR #1122 and the investor-relations site touched.
+
+---
+
 ## Adding New Locked Decisions
 
 When a decision is locked, add it to the index table AND create a detail record:
@@ -400,14 +421,14 @@ When a decision is locked, add it to the index table AND create a detail record:
 
 Per LD-2026-004 (EU AI Act Article 12) and LD-2026-010 (Email audit):
 
-| Log Target               | Retention                  | Where                      |
-| ------------------------ | -------------------------- | -------------------------- |
-| Sovereignty audit log    | System lifetime + 10 years | `sovereignty_audit/` tables |
-| Email audit              | ≥90 days                   | `logs/email-audit.jsonl`   |
-| Migration audit          | Indefinite                 | `supabase/migrations/`     |
-| Pre-commit hook blocks   | ≥30 days                   | `.claude/hooks/audit/`     |
-| PR review decisions      | Indefinite                 | GitHub PR history          |
-| Locked decisions         | Indefinite                 | `docs/LOCKED_DECISIONS.md` |
+| Log Target             | Retention                  | Where                       |
+| ---------------------- | -------------------------- | --------------------------- |
+| Sovereignty audit log  | System lifetime + 10 years | `sovereignty_audit/` tables |
+| Email audit            | ≥90 days                   | `logs/email-audit.jsonl`    |
+| Migration audit        | Indefinite                 | `supabase/migrations/`      |
+| Pre-commit hook blocks | ≥30 days                   | `.claude/hooks/audit/`      |
+| PR review decisions    | Indefinite                 | GitHub PR history           |
+| Locked decisions       | Indefinite                 | `docs/LOCKED_DECISIONS.md`  |
 
 ---
 
