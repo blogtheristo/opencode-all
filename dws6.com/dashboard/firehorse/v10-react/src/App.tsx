@@ -24,14 +24,38 @@ import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
 
 // Lazy-loaded pages — only fetched when user navigates to them
-const SettingsPage = lazy(() => import('./pages/SettingsPage').then(m => ({ default: m.SettingsPage })));
-const CarbonTrackingPage = lazy(() => import('./pages/CarbonTrackingPage').then(m => ({ default: m.CarbonTrackingPage })));
-const ReportViewerPage = lazy(() => import('./pages/ReportViewerPage').then(m => ({ default: m.ReportViewerPage })));
-const TemplateEditorPage = lazy(() => import('./pages/TemplateEditorPage').then(m => ({ default: m.TemplateEditorPage })));
-const BillingPage = lazy(() => import('./pages/BillingPage').then(m => ({ default: m.BillingPage })));
-const HealthPage = lazy(() => import('./pages/HealthPage').then(m => ({ default: m.HealthPage })));
-const AgentMonitorDashboard = lazy(() => import('./components/agent-monitor/AgentMonitorDashboard').then(m => ({ default: m.AgentMonitorDashboard })));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
+const SettingsPage = lazy(() =>
+  import('./pages/SettingsPage').then((m) => ({ default: m.SettingsPage })),
+);
+const CarbonTrackingPage = lazy(() =>
+  import('./pages/CarbonTrackingPage').then((m) => ({ default: m.CarbonTrackingPage })),
+);
+const ReportViewerPage = lazy(() =>
+  import('./pages/ReportViewerPage').then((m) => ({ default: m.ReportViewerPage })),
+);
+const TemplateEditorPage = lazy(() =>
+  import('./pages/TemplateEditorPage').then((m) => ({ default: m.TemplateEditorPage })),
+);
+const BillingPage = lazy(() =>
+  import('./pages/BillingPage').then((m) => ({ default: m.BillingPage })),
+);
+const HealthPage = lazy(() =>
+  import('./pages/HealthPage').then((m) => ({ default: m.HealthPage })),
+);
+const AgentMonitorDashboard = lazy(() =>
+  import('./components/agent-monitor/AgentMonitorDashboard').then((m) => ({
+    default: m.AgentMonitorDashboard,
+  })),
+);
+const PaymentSuccessPage = lazy(() =>
+  import('./pages/PaymentSuccessPage').then((m) => ({ default: m.PaymentSuccessPage })),
+);
+const PaymentCancelPage = lazy(() =>
+  import('./pages/PaymentCancelPage').then((m) => ({ default: m.PaymentCancelPage })),
+);
+const NotFoundPage = lazy(() =>
+  import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
+);
 
 function PageLoader() {
   return (
@@ -80,6 +104,34 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function DashboardFooter() {
+  return (
+    <footer className="mt-12 py-6 border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between text-sm text-gray-500">
+          <p>&copy; 2026 DWS IQ &middot; Climate Intelligence Platform</p>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://dws10.com/get-started/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-700"
+            >
+              Documentation
+            </a>
+            <a href="/api" className="hover:text-gray-700">
+              API
+            </a>
+            <a href="mailto:risto@lifetime.fi" className="hover:text-gray-700">
+              Support
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -87,13 +139,27 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   const handleNavigate = (view: string) => {
     switch (view) {
-      case 'dashboard': navigate('/'); break;
-      case 'agents': navigate('/agents'); break;
-      case 'memory': navigate('/memory'); break;
-      case 'firehorse': navigate('/firehorse'); break;
-      case 'health': navigate('/health'); break;
-      case 'settings': navigate('/settings'); break;
-      case 'billing': navigate('/billing'); break;
+      case 'dashboard':
+        navigate('/');
+        break;
+      case 'agents':
+        navigate('/agents');
+        break;
+      case 'memory':
+        navigate('/memory');
+        break;
+      case 'firehorse':
+        navigate('/firehorse');
+        break;
+      case 'health':
+        navigate('/health');
+        break;
+      case 'settings':
+        navigate('/settings');
+        break;
+      case 'billing':
+        navigate('/billing');
+        break;
     }
   };
 
@@ -102,7 +168,19 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0 cursor-pointer" onClick={() => navigate('/')} role="button" tabIndex={0} aria-label="Go to dashboard">
+            <div
+              className="flex items-center gap-3 min-w-0 cursor-pointer"
+              onClick={() => navigate('/')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate('/');
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label="Go to dashboard"
+            >
               <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center shrink-0">
                 <span className="text-white font-bold text-lg">D</span>
               </div>
@@ -112,9 +190,15 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
             <div className="hidden md:flex items-center gap-2">
-              <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
-              <button onClick={() => navigate('/memory')} className="btn-secondary">Memory</button>
-              <button onClick={() => navigate('/ec3')} className="btn-secondary">EC3 Materials</button>
+              <button onClick={() => navigate('/agents')} className="btn-secondary">
+                Agent Monitor
+              </button>
+              <button onClick={() => navigate('/memory')} className="btn-secondary">
+                Memory
+              </button>
+              <button onClick={() => navigate('/ec3')} className="btn-secondary">
+                EC3 Materials
+              </button>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <div className="hidden md:block">
@@ -135,23 +219,10 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
+        <ErrorBoundary>{children}</ErrorBoundary>
       </main>
 
-      <footer className="mt-12 py-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between text-sm text-gray-500">
-            <p>&copy; 2026 DWS IQ &middot; Climate Intelligence Platform</p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-gray-700">Documentation</a>
-              <a href="#" className="hover:text-gray-700">API</a>
-              <a href="#" className="hover:text-gray-700">Support</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <DashboardFooter />
     </div>
   );
 }
@@ -168,17 +239,26 @@ function DashboardWithPanels() {
 
   const handleNavigate = (view: string) => {
     switch (view) {
-      case 'dashboard': navigate('/'); setSidePanel(null); break;
-      case 'agents': navigate('/agents'); break;
-      case 'settings': navigate('/settings'); break;
-      case 'billing': navigate('/billing'); break;
+      case 'dashboard':
+        navigate('/');
+        setSidePanel(null);
+        break;
+      case 'agents':
+        navigate('/agents');
+        break;
+      case 'settings':
+        navigate('/settings');
+        break;
+      case 'billing':
+        navigate('/billing');
+        break;
     }
   };
 
   useEffect(() => {
     if (!user) return;
-    const onboardingDone = user.user_metadata?.onboarding_completed
-      || localStorage.getItem(`dws_onboarded_${user.id}`);
+    const onboardingDone =
+      user.user_metadata?.onboarding_completed || localStorage.getItem(`dws_onboarded_${user.id}`);
     if (!onboardingDone) {
       setShowOnboarding(true);
     }
@@ -212,7 +292,19 @@ function DashboardWithPanels() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0 cursor-pointer" onClick={() => navigate('/')} role="button" tabIndex={0} aria-label="Go to dashboard">
+            <div
+              className="flex items-center gap-3 min-w-0 cursor-pointer"
+              onClick={() => navigate('/')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate('/');
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label="Go to dashboard"
+            >
               <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center shrink-0">
                 <span className="text-white font-bold text-lg">D</span>
               </div>
@@ -222,12 +314,30 @@ function DashboardWithPanels() {
               </div>
             </div>
             <div className="hidden md:flex items-center gap-2">
-              <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
-              <button onClick={() => navigate('/memory')} className="btn-secondary">Memory</button>
-              <button onClick={() => navigate('/ec3')} className="btn-secondary">EC3 Materials</button>
-              <button onClick={() => navigate('/firehorse')} className="btn-secondary">Firehorse</button>
-              <button onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')} className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}>AI Assistant</button>
-              <button onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')} className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}>Meeting</button>
+              <button onClick={() => navigate('/agents')} className="btn-secondary">
+                Agent Monitor
+              </button>
+              <button onClick={() => navigate('/memory')} className="btn-secondary">
+                Memory
+              </button>
+              <button onClick={() => navigate('/ec3')} className="btn-secondary">
+                EC3 Materials
+              </button>
+              <button onClick={() => navigate('/firehorse')} className="btn-secondary">
+                Firehorse
+              </button>
+              <button
+                onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')}
+                className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}
+              >
+                AI Assistant
+              </button>
+              <button
+                onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')}
+                className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}
+              >
+                Meeting
+              </button>
             </div>
 
             <div className="flex items-center gap-4">
@@ -254,10 +364,7 @@ function DashboardWithPanels() {
                 </button>
               </div>
 
-              <button
-                onClick={() => setShowChat(!showChat)}
-                className="btn-primary"
-              >
+              <button onClick={() => setShowChat(!showChat)} className="btn-primary">
                 {showChat ? 'Hide Assistant' : 'AI Assistant'}
               </button>
             </div>
@@ -277,7 +384,12 @@ function DashboardWithPanels() {
               />
               <div className="md:hidden">
                 <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white text-xs font-semibold ring-2 ring-white shadow-sm select-none">
-                  {((user?.user_metadata?.full_name as string) || user?.email || 'U').split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
+                  {((user?.user_metadata?.full_name as string) || user?.email || 'U')
+                    .split(' ')
+                    .map((n: string) => n[0])
+                    .join('')
+                    .slice(0, 2)
+                    .toUpperCase()}
                 </div>
               </div>
             </div>
@@ -326,7 +438,7 @@ function DashboardWithPanels() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {projects.map(project => (
+                      {projects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                       ))}
                     </div>
@@ -346,18 +458,7 @@ function DashboardWithPanels() {
         </ErrorBoundary>
       </main>
 
-      <footer className="mt-12 py-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between text-sm text-gray-500">
-            <p>&copy; 2026 DWS IQ &middot; Climate Intelligence Platform</p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-gray-700">Documentation</a>
-              <a href="#" className="hover:text-gray-700">API</a>
-              <a href="#" className="hover:text-gray-700">Support</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <DashboardFooter />
     </div>
   );
 }
@@ -367,113 +468,177 @@ function App() {
     <ErrorBoundary>
       <CommandPalette />
       <Routes>
-        <Route path="/login" element={
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        } />
-        <Route path="/reset-password" element={
-          <PublicRoute>
-            <ResetPasswordPage />
-          </PublicRoute>
-        } />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <PublicRoute>
+              <ResetPasswordPage />
+            </PublicRoute>
+          }
+        />
 
-        <Route path="/" element={
-          <ProtectedRoute>
-            <DashboardWithPanels />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <DashboardWithPanels />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/settings" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <SettingsPage />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/carbon" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <CarbonTrackingPage />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/reports" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <ReportViewerPage />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/templates" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <TemplateEditorPage />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/billing" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <BillingPage />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/agents" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <AgentMonitorDashboard onClose={() => window.history.back()} />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/health" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Suspense fallback={<PageLoader />}>
-                <HealthPage />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/firehorse" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <FirehorsePipelinePage />
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/memory" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <MemoryDashboard />
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/ec3" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <EC3DashboardPage />
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <SettingsPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/carbon"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <CarbonTrackingPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <ReportViewerPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/templates"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <TemplateEditorPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/billing"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <BillingPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/agents"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <AgentMonitorDashboard onClose={() => window.history.back()} />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/health"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <HealthPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/firehorse"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <FirehorsePipelinePage />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/memory"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <MemoryDashboard />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ec3"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <EC3DashboardPage />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="*" element={
-          <Suspense fallback={<PageLoader />}>
-            <NotFoundPage />
-          </Suspense>
-        } />
+        {/* Payment return routes — no DashboardLayout, payment providers redirect here */}
+        <Route
+          path="/payment/success"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<PageLoader />}>
+                <PaymentSuccessPage />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment/cancel"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<PageLoader />}>
+                <PaymentCancelPage />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <NotFoundPage />
+            </Suspense>
+          }
+        />
       </Routes>
     </ErrorBoundary>
   );

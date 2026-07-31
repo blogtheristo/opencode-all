@@ -12,7 +12,7 @@
  * All routes are protected by JWT authentication.
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
@@ -67,14 +67,14 @@ const validateRequest = (req: Request, res: Response, next: express.NextFunction
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.warn('Agent request validation error', {
-      errors: errors.array().map((e) => e.msg),
+      errors: errors.array().map((e: { msg: string }) => e.msg),
     });
     return res.status(400).json({
       error: 'Validation Error',
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 // ============ ROUTES ============
@@ -87,14 +87,14 @@ router.get('/', authenticateToken, (_req: Request, res: Response) => {
   try {
     const agents = agentRegistry.listAgents();
 
-    res.status(200).json({
+    return res.status(200).json({
       agents,
       count: agents.length,
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to list agents', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list agents',
     });
@@ -105,9 +105,13 @@ router.get('/', authenticateToken, (_req: Request, res: Response) => {
  * GET /api/agents/:name
  * Get details for a specific agent
  */
-router.get('/:name', authenticateToken, (req: Request, res: Response) => {
+router.get('/:name', authenticateToken, (req: Request, res: Response, next: express.NextFunction) => {
   try {
     const { name } = req.params;
+    if (name === 'workflows' || name === 'events' || name === 'discover') {
+      return next();
+    }
+
     const agent = agentRegistry.getAgent(name);
 
     if (!agent) {
@@ -119,13 +123,13 @@ router.get('/:name', authenticateToken, (req: Request, res: Response) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       agent: agent.getConfig(),
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to get agent details', { error: err.message, agent: req.params.name });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get agent details',
     });
@@ -159,7 +163,7 @@ router.post(
     const context: AgentContext = {
       projectId: bodyContext.projectId,
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || bodyContext.orgId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: bodyContext.sessionId,
     };
 
@@ -172,7 +176,7 @@ router.post(
     try {
       const result = await agentRegistry.executeAgent(name, context, input);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         result,
         timestamp: new Date().toISOString(),
@@ -192,7 +196,7 @@ router.post(
         });
       }
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Agent Execution Error',
         message: err.message || 'An unexpected error occurred during agent execution',
       });
@@ -220,7 +224,7 @@ router.post(
     const context: AgentContext = {
       projectId: req.body.context?.projectId || `dashboard-${Date.now()}`,
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || req.body.context?.orgId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: req.body.context?.sessionId || `run-${Date.now()}`,
     };
 
@@ -233,7 +237,7 @@ router.post(
       const startTime = Date.now();
       const result = await agentRegistry.executeAgent(name, context, input);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         agentName: result.agentName,
         status: 'success',
@@ -252,7 +256,7 @@ router.post(
         });
       }
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Agent Execution Error',
         message: err.message || 'An unexpected error occurred during agent execution',
       });
@@ -286,7 +290,7 @@ router.post(
     const context: AgentContext = {
       projectId: `chat-${Date.now()}`,
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: req.body.sessionId || `chat-${Date.now()}`,
     };
 
@@ -304,7 +308,7 @@ router.post(
         mode: 'chat',
       });
 
-      res.status(200).json({
+      return res.status(200).json({
         reply: result.reasoning || 'Analysis complete. See result for details.',
         confidence: result.confidence,
         agentName: result.agentName,
@@ -321,7 +325,7 @@ router.post(
         });
       }
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Agent Chat Error',
         message: err.message || 'An unexpected error occurred',
       });
@@ -340,7 +344,7 @@ router.get('/discover/:capability', authenticateToken, (req: Request, res: Respo
     const { capability } = req.params;
     const agents = agentRegistry.discoverAgents(capability);
 
-    res.status(200).json({
+    return res.status(200).json({
       capability,
       agents,
       count: agents.length,
@@ -348,7 +352,7 @@ router.get('/discover/:capability', authenticateToken, (req: Request, res: Respo
     });
   } catch (err: any) {
     logger.error('Agent discovery failed', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to discover agents',
     });
@@ -369,14 +373,14 @@ router.get('/workflows', authenticateToken, (_req: Request, res: Response) => {
       timeoutMs: wf.timeoutMs,
     }));
 
-    res.status(200).json({
+    return res.status(200).json({
       workflows,
       count: workflows.length,
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to list workflows', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list workflows',
     });
@@ -410,7 +414,7 @@ router.post(
     const context: AgentContext = {
       projectId: bodyContext?.projectId || 'workflow-session',
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || bodyContext?.orgId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: bodyContext?.sessionId || `wf-${Date.now()}`,
     };
 
@@ -429,7 +433,7 @@ router.post(
         stepResults[key] = value;
       }
 
-      res.status(200).json({
+      return res.status(200).json({
         success: execution.status === 'completed',
         execution: {
           ...execution,
@@ -444,7 +448,7 @@ router.post(
         userId: context.userId,
       });
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Workflow Execution Error',
         message: err.message || 'An unexpected error occurred during workflow execution',
       });
@@ -461,10 +465,14 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
   try {
     const pattern = req.query.pattern as string | undefined;
     const limit = parseInt(req.query.limit as string) || 50;
+    const orgId = req.organizationId || `user:${req.userId || 'unknown'}`;
 
-    const events = eventBus.getRecentEvents(pattern, limit);
+    const events = eventBus
+      .getRecentEvents(pattern, limit * 2)
+      .filter((event) => !event.orgId || event.orgId === orgId)
+      .slice(0, limit);
 
-    res.status(200).json({
+    return res.status(200).json({
       events,
       count: events.length,
       pattern: pattern || '*',
@@ -472,7 +480,7 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
     });
   } catch (err: any) {
     logger.error('Failed to get events', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get events',
     });

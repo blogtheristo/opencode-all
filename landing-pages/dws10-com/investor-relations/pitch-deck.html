@@ -1,656 +1,688 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor Pitch Deck | Lifetime Oy — Carbon Balance Sheet Infrastructure for Industrial Europe</title>
-    <meta name="description" content="Carbon balance sheet infrastructure for industrial Europe. Double-entry bookkeeping for CO2 across 20 EU-regulated industries. DWS IQ Platform by Lifetime Oy.">
-    <meta name="keywords" content="DWS IQ, EU compliance, climate intelligence">
-    <meta name="author" content="Lifetime Oy">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Investor Pitch Deck | Lifetime Oy — Carbon Balance Sheet Infrastructure for Industrial Europe">
-    <meta property="og:description" content="Carbon balance sheet infrastructure for industrial Europe. Double-entry bookkeeping for CO2 across 20 EU-regulated industries. DWS IQ Platform by Lifetime Oy.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dws10.com/investor-relations/pitch-deck.html">
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-    <meta property="og:site_name" content="DWS IQ Platform">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Investor Pitch Deck | Lifetime Oy — Carbon Balance Sheet Infrastructure for Industrial Europe">
-    <meta name="twitter:description" content="Carbon balance sheet infrastructure for industrial Europe. Double-entry bookkeeping for CO2 across 20 EU-regulated industries. DWS IQ Platform by Lifetime Oy.">
-    <link rel="canonical" href="https://dws10.com/investor-relations/pitch-deck.html">
-    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Investor Pitch Deck | Lifetime Oy — Carbon Balance Sheet Infrastructure for Industrial Europe
+    </title>
+    <meta
+      name="description"
+      content="DWS 365 Skilled Agents — software-led, priced like labor, with software margins. Agents do the regulated EU compliance work and deliver the signed artifact across EU-regulated industries. On the DWS IQ platform, by Lifetime Oy."
+    />
+    <meta name="keywords" content="DWS IQ, EU compliance, climate intelligence" />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Investor Pitch Deck | Lifetime Oy — Carbon Balance Sheet Infrastructure for Industrial Europe"
+    />
+    <meta
+      property="og:description"
+      content="DWS 365 Skilled Agents — software-led, priced like labor, with software margins. Agents do the regulated EU compliance work and deliver the signed artifact across EU-regulated industries. On the DWS IQ platform, by Lifetime Oy."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/investor-relations/pitch-deck.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Investor Pitch Deck | Lifetime Oy — Carbon Balance Sheet Infrastructure for Industrial Europe"
+    />
+    <meta
+      name="twitter:description"
+      content="DWS 365 Skilled Agents — software-led, priced like labor, with software margins. Agents do the regulated EU compliance work and deliver the signed artifact across EU-regulated industries. On the DWS IQ platform, by Lifetime Oy."
+    />
+    <link rel="canonical" href="https://dws10.com/investor-relations/pitch-deck.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <style>
-        :root {
-            --primary: #1a365d;
-            --secondary: #2d5a87;
-            --accent: #e53e3e;
-            --light: #f7fafc;
-            --dark: #1a202c;
-            --gold: #ffd700;
-        }
+      :root {
+        --primary: #1a365d;
+        --secondary: #2d5a87;
+        --accent: #e53e3e;
+        --light: #f7fafc;
+        --dark: #1a202c;
+        --gold: #ffd700;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #f1f5f9;
-            overflow: hidden;
-            height: 100vh;
-        }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        color: #f1f5f9;
+        overflow: hidden;
+        height: 100vh;
+      }
 
-        /* Slideshow Container */
-        .slideshow-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-        }
+      /* Slideshow Container */
+      .slideshow-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
 
+      .slide {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 20px 30px;
+        opacity: 0;
+        transition: opacity 5s ease-in-out;
+        overflow-y: auto;
+      }
+
+      @media (min-width: 768px) {
         .slide {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 20px 30px;
-            opacity: 0;
-            transition: opacity 5s ease-in-out;
-            overflow-y: auto;
+          padding: 30px 40px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .slide {
-                padding: 30px 40px;
-            }
+      @media (min-width: 1200px) {
+        .slide {
+          padding: 40px 60px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .slide {
-                padding: 40px 60px;
-            }
+      .slide.active {
+        display: block;
+        opacity: 1;
+      }
+
+      .slide.fade-out {
+        opacity: 0;
+      }
+
+      /* Slide Content */
+      .slide-header h1 {
+        font-size: 1.5rem;
+        color: var(--gold);
+        margin-bottom: 5px;
+      }
+
+      .slide-header h2 {
+        font-size: 1.3rem;
+        color: #60a5fa;
+        margin-bottom: 10px;
+      }
+
+      .slide-header h3 {
+        font-size: 1.1rem;
+        color: #94a3b8;
+      }
+
+      @media (min-width: 768px) {
+        .slide-header h1 {
+          font-size: 2rem;
         }
-
-        .slide.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .slide.fade-out {
-            opacity: 0;
-        }
-
-        /* Slide Content */
-        .slide-.slide-header h1 {
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-bottom: 5px;
-        }
-
         .slide-header h2 {
-            font-size: 1.3rem;
-            color: #60a5fa;
-            margin-bottom: 10px;
+          font-size: 1.8rem;
         }
-
         .slide-header h3 {
-            font-size: 1.1rem;
-            color: #94a3b8;
+          font-size: 1.4rem;
         }
+      }
 
-        @media (min-width: 768px) {
-            .slide-.slide-header h1 {
-                font-size: 2rem;
-            }
-            .slide-header h2 {
-                font-size: 1.8rem;
-            }
-            .slide-header h3 {
-                font-size: 1.4rem;
-            }
+      @media (min-width: 1200px) {
+        .slide-header h1 {
+          font-size: 2.5rem;
         }
-
-        @media (min-width: 1200px) {
-            .slide-.slide-header h1 {
-                font-size: 2.5rem;
-            }
-            .slide-header h2 {
-                font-size: 2rem;
-            }
-            .slide-header h3 {
-                font-size: 1.6rem;
-            }
+        .slide-header h2 {
+          font-size: 2rem;
         }
-
-        @media (min-width: 768px) {
-            }
-
-        @media (min-width: 1200px) {
-            }
-
-        .bullet-list {
-            list-style: none;
-            padding: 0;
-            max-width: 1000px;
-            margin: 0 auto;
+        .slide-header h3 {
+          font-size: 1.6rem;
         }
+      }
 
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .bullet-list li {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        padding-left: 25px;
+        position: relative;
+      }
+
+      .bullet-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      @media (min-width: 768px) {
         .bullet-list li {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
+          font-size: 1.1rem;
+          line-height: 1.7;
+          margin-bottom: 15px;
+          padding-left: 30px;
         }
-
         .bullet-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--gold);
-            font-weight: bold;
-            font-size: 1.1rem;
+          font-size: 1.4rem;
         }
+      }
 
-        @media (min-width: 768px) {
-            .bullet-list li {
-                font-size: 1.1rem;
-                line-height: 1.7;
-                margin-bottom: 15px;
-                padding-left: 30px;
-            }
-            .bullet-list li:before {
-                font-size: 1.4rem;
-            }
+      @media (min-width: 1200px) {
+        .bullet-list li {
+          font-size: 1.2rem;
+          line-height: 1.8;
+          margin-bottom: 18px;
+          padding-left: 35px;
         }
-
-        @media (min-width: 1200px) {
-            .bullet-list li {
-                font-size: 1.2rem;
-                line-height: 1.8;
-                margin-bottom: 18px;
-                padding-left: 35px;
-            }
-            .bullet-list li:before {
-                font-size: 1.6rem;
-            }
+        .bullet-list li:before {
+          font-size: 1.6rem;
         }
+      }
 
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 15px 0;
+      }
+
+      @media (min-width: 768px) {
         .content-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 15px 0;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          margin: 20px 0;
         }
+      }
 
-        @media (min-width: 768px) {
-            .content-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                margin: 20px 0;
-            }
+      @media (min-width: 1200px) {
+        .content-grid {
+          gap: 25px;
+          margin: 25px 0;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .content-grid {
-                gap: 25px;
-                margin: 25px 0;
-            }
-        }
+      .content-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+      }
 
+      @media (min-width: 768px) {
         .content-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
+          padding: 20px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .content-card {
-                padding: 20px;
-            }
+      @media (min-width: 1200px) {
+        .content-card {
+          border-radius: 12px;
+          padding: 25px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .content-card {
-                border-radius: 12px;
-                padding: 25px;
-            }
-        }
+      .content-card h4 {
+        color: #60a5fa;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
 
+      @media (min-width: 768px) {
         .content-card h4 {
-            color: #60a5fa;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+          font-size: 1.3rem;
+          margin-bottom: 12px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .content-card h4 {
-                font-size: 1.3rem;
-                margin-bottom: 12px;
-            }
+      @media (min-width: 1200px) {
+        .content-card h4 {
+          font-size: 1.5rem;
+          margin-bottom: 15px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .content-card h4 {
-                font-size: 1.5rem;
-                margin-bottom: 15px;
-            }
-        }
+      .content-card p,
+      .content-card ul {
+        color: #cbd5e1;
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
 
+      @media (min-width: 768px) {
         .content-card p,
         .content-card ul {
-            color: #cbd5e1;
-            font-size: 0.85rem;
-            line-height: 1.5;
+          font-size: 0.95rem;
+          line-height: 1.6;
         }
+      }
 
-        @media (min-width: 768px) {
-            .content-card p,
-            .content-card ul {
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
+      @media (min-width: 1200px) {
+        .content-card p,
+        .content-card ul {
+          font-size: 1.05rem;
+          line-height: 1.7;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .content-card p,
-            .content-card ul {
-                font-size: 1.05rem;
-                line-height: 1.7;
-            }
-        }
+      .highlight-box {
+        background: rgba(255, 215, 0, 0.1);
+        border-left: 4px solid var(--gold);
+        padding: 15px;
+        border-radius: 6px;
+        margin: 15px 0;
+        font-size: 0.9rem;
+      }
 
+      @media (min-width: 768px) {
         .highlight-box {
-            background: rgba(255, 215, 0, 0.1);
-            border-left: 4px solid var(--gold);
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-            font-size: 0.9rem;
+          padding: 20px;
+          margin: 20px 0;
+          font-size: 1.05rem;
         }
+      }
 
-        @media (min-width: 768px) {
-            .highlight-box {
-                padding: 20px;
-                margin: 20px 0;
-                font-size: 1.05rem;
-            }
+      @media (min-width: 1200px) {
+        .highlight-box {
+          padding: 25px;
+          border-radius: 8px;
+          margin: 25px 0;
+          font-size: 1.15rem;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .highlight-box {
-                padding: 25px;
-                border-radius: 8px;
-                margin: 25px 0;
-                font-size: 1.15rem;
-            }
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: 0.7rem;
+        display: block;
+        overflow-x: auto;
+      }
 
+      @media (min-width: 768px) {
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-            font-size: 0.7rem;
-            display: block;
-            overflow-x: auto;
+          margin: 20px 0;
+          font-size: 0.85rem;
+          display: table;
         }
+      }
 
-        @media (min-width: 768px) {
-            table {
-                margin: 20px 0;
-                font-size: 0.85rem;
-                display: table;
-            }
+      @media (min-width: 1200px) {
+        table {
+          font-size: 0.95rem;
         }
+      }
 
-        @media (min-width: 1200px) {
-            table {
-                font-size: 0.95rem;
-            }
-        }
+      table th,
+      table td {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        text-align: left;
+      }
 
+      @media (min-width: 768px) {
         table th,
         table td {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px;
-            text-align: left;
+          padding: 10px;
         }
+      }
 
-        @media (min-width: 768px) {
-            table th,
-            table td {
-                padding: 10px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            table th,
-            table td {
-                padding: 12px;
-            }
-        }
-
-        table th {
-            background: rgba(96, 165, 250, 0.2);
-            color: var(--gold);
-            font-weight: bold;
-        }
-
+      @media (min-width: 1200px) {
+        table th,
         table td {
-            color: #cbd5e1;
+          padding: 12px;
         }
+      }
 
+      table th {
+        background: rgba(96, 165, 250, 0.2);
+        color: var(--gold);
+        font-weight: bold;
+      }
+
+      table td {
+        color: #cbd5e1;
+      }
+
+      pre {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 0.7rem;
+        line-height: 1.4;
+        overflow-x: auto;
+      }
+
+      @media (min-width: 768px) {
         pre {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 0.7rem;
-            line-height: 1.4;
-            overflow-x: auto;
+          padding: 15px;
+          font-size: 0.85rem;
+          line-height: 1.5;
         }
+      }
 
-        @media (min-width: 768px) {
-            pre {
-                padding: 15px;
-                font-size: 0.85rem;
-                line-height: 1.5;
-            }
+      @media (min-width: 1200px) {
+        pre {
+          border-radius: 8px;
+          padding: 20px;
+          font-size: 0.95rem;
+          line-height: 1.6;
         }
+      }
 
-        @media (min-width: 1200px) {
-            pre {
-                border-radius: 8px;
-                padding: 20px;
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
-        }
+      .cta-section {
+        text-align: center;
+        margin-top: 20px;
+      }
 
+      @media (min-width: 768px) {
         .cta-section {
-            text-align: center;
-            margin-top: 20px;
+          margin-top: 30px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .cta-section {
-                margin-top: 30px;
-            }
+      @media (min-width: 1200px) {
+        .cta-section {
+          margin-top: 40px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .cta-section {
-                margin-top: 40px;
-            }
-        }
+      .cta-button {
+        display: inline-block;
+        background: var(--gold);
+        color: var(--dark);
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin: 5px;
+      }
 
+      @media (min-width: 768px) {
         .cta-button {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--dark);
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin: 5px;
+          padding: 12px 24px;
+          font-size: 1rem;
+          margin: 8px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .cta-button {
-                padding: 12px 24px;
-                font-size: 1rem;
-                margin: 8px;
-            }
+      @media (min-width: 1200px) {
+        .cta-button {
+          padding: 14px 28px;
+          border-radius: 8px;
+          font-size: 1.1rem;
+          margin: 10px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .cta-button {
-                padding: 14px 28px;
-                border-radius: 8px;
-                font-size: 1.1rem;
-                margin: 10px;
-            }
-        }
+      /* Navigation Controls */
+      .slide-controls {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 1000;
+        background: rgba(26, 54, 93, 0.9);
+        padding: 8px 15px;
+        border-radius: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 95%;
+      }
 
-        /* Navigation Controls */
+      @media (min-width: 768px) {
         .slide-controls {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 1000;
-            background: rgba(26, 54, 93, 0.9);
-            padding: 8px 15px;
-            border-radius: 25px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 95%;
+          bottom: 20px;
+          gap: 15px;
+          padding: 12px 25px;
+          border-radius: 40px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .slide-controls {
-                bottom: 20px;
-                gap: 15px;
-                padding: 12px 25px;
-                border-radius: 40px;
-            }
+      @media (min-width: 1200px) {
+        .slide-controls {
+          bottom: 30px;
+          gap: 20px;
+          padding: 15px 30px;
+          border-radius: 50px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .slide-controls {
-                bottom: 30px;
-                gap: 20px;
-                padding: 15px 30px;
-                border-radius: 50px;
-            }
-        }
+      .slide-controls button {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.3s;
+      }
 
+      @media (min-width: 768px) {
         .slide-controls button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s;
+          padding: 8px 16px;
+          font-size: 0.9rem;
         }
+      }
 
-        @media (min-width: 768px) {
-            .slide-controls button {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
+      @media (min-width: 1200px) {
+        .slide-controls button {
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-size: 1rem;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .slide-controls button {
-                padding: 10px 20px;
-                border-radius: 8px;
-                font-size: 1rem;
-            }
-        }
+      .slide-controls button:hover {
+        background: rgba(96, 165, 250, 0.3);
+        border-color: #60a5fa;
+      }
 
-        .slide-controls button:hover {
-            background: rgba(96, 165, 250, 0.3);
-            border-color: #60a5fa;
-        }
+      .slide-indicator {
+        color: white;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+      }
 
+      @media (min-width: 768px) {
         .slide-indicator {
-            color: white;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
+          font-size: 0.9rem;
+          padding: 0 15px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .slide-indicator {
-                font-size: 0.9rem;
-                padding: 0 15px;
-            }
+      @media (min-width: 1200px) {
+        .slide-indicator {
+          font-size: 1rem;
+          padding: 0 20px;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .slide-indicator {
-                font-size: 1rem;
-                padding: 0 20px;
-            }
-        }
+      /* Big Picture Image */
+      .big-picture {
+        text-align: center;
+        margin: 15px 0;
+      }
 
-        /* Big Picture Image */
+      @media (min-width: 768px) {
         .big-picture {
-            text-align: center;
-            margin: 15px 0;
+          margin: 20px 0;
         }
+      }
 
-        @media (min-width: 768px) {
-            .big-picture {
-                margin: 20px 0;
-            }
+      @media (min-width: 1200px) {
+        .big-picture {
+          margin: 25px 0;
         }
+      }
 
-        @media (min-width: 1200px) {
-            .big-picture {
-                margin: 25px 0;
-            }
-        }
+      .big-picture img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 2px solid rgba(255, 215, 0, 0.3);
+      }
 
+      @media (min-width: 768px) {
         .big-picture img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
+          max-width: 90%;
+          border-radius: 10px;
         }
+      }
 
-        @media (min-width: 768px) {
-            .big-picture img {
-                max-width: 90%;
-                border-radius: 10px;
-            }
+      @media (min-width: 1200px) {
+        .big-picture img {
+          max-width: 80%;
+          border-radius: 12px;
         }
-
-        @media (min-width: 1200px) {
-            .big-picture img {
-                max-width: 80%;
-                border-radius: 12px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="slideshow-container">
-        <!-- Slide 1: Title & Why Now -->
-        <div class="slide active">
-            <div class="logo-section">
-                <img src="../OneLifetime+Logo.png" alt="Lifetime Oy Logo">
-                <h1>Lifetime Oy — DWS IQ</h1>
-                <h3>Carbon Balance Sheet Infrastructure for Industrial Europe</h3>
-            </div>
-            <div class="slide-header">
-                <h2>The Carbon Balance Sheet</h2>
-            </div>
-            <ul class="bullet-list">
-                <li><strong>Double-entry bookkeeping for CO2</strong> — every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure</li>
-                <li><strong>€7k MRR live</strong>, <strong>100% retention</strong>, 5 paying customers, zero churn</li>
-                <li><strong>50,000+ EU companies</strong> need a carbon balance sheet by 2028 — mandatory demand</li>
-                <li><strong>20 EU-regulated industries</strong> on one ledger — cross-vertical intelligence is the moat</li>
-                <li><strong>€650k SAFE @ €3.8M cap</strong>, bridge to <strong>€15M+ Series A</strong> in 2026</li>
-                <li><strong>Persistent carbon ledger ships July 2026</strong> (DWS IQ 7 Phase 2)</li>
-                <li><strong>Network effect</strong>: Customer A's verified emissions improve Customer B's accuracy</li>
+      <!-- Slide 1: Title & Why Now -->
+      <div class="slide active">
+        <div class="logo-section">
+          <img src="../OneLifetime+Logo.png" alt="Lifetime Oy Logo" />
+          <h1>Lifetime Oy — DWS 365 Skilled Agents</h1>
+          <h3>Software-led, priced like labor, with software margins · on the DWS IQ platform</h3>
+        </div>
+        <div class="slide-header">
+          <h2>The Carbon Balance Sheet</h2>
+        </div>
+        <ul class="bullet-list">
+          <li>
+            <strong>Double-entry bookkeeping for CO2</strong> — every tonne tracked like every euro,
+            from ETS surrender through CBAM import to CSRD disclosure
+          </li>
+          <li>
+            <strong>€7k MRR live</strong>, <strong>100% retention</strong>, 6 paying customers, zero
+            churn
+          </li>
+          <li>
+            <strong>50,000+ EU companies</strong> need a carbon balance sheet by 2028 — mandatory
+            demand
+          </li>
+          <li>
+            <strong>20 EU-regulated industries</strong> on one ledger — cross-vertical intelligence
+            is the moat
+          </li>
+          <li>
+            <strong>€650K SAFE @ €3.8M cap</strong>, bridge to <strong>€15M+ Series A</strong> in
+            2026
+          </li>
+          <li><strong>Persistent carbon ledger ships July 2026</strong> (DWS IQ 7 Phase 2)</li>
+          <li>
+            <strong>Network effect</strong>: Customer A's verified emissions improve Customer B's
+            accuracy
+          </li>
+        </ul>
+      </div>
+
+      <!-- Slide 2: The Problem -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>The Problem</h2>
+          <h3>Regulation & Pain</h3>
+        </div>
+        <div class="content-grid">
+          <div class="content-card">
+            <h4>Real-World Pain Points</h4>
+            <ul style="list-style: none; padding: 0">
+              <li style="margin-bottom: 15px">
+                <strong>1. 40–80 hours of manual Excel work per project</strong>
+                <ul style="padding-left: 20px; margin-top: 10px">
+                  <li>Construction & logistics companies manually tracking emissions</li>
+                  <li>Data scattered across invoices, fuel receipts, subcontractor reports</li>
+                  <li>No standardized format, high error rate, audit failures</li>
+                </ul>
+              </li>
+              <li style="margin-bottom: 15px">
+                <strong>2. €10,000–€50,000 in fines & penalties</strong>
+                <ul style="padding-left: 20px; margin-top: 10px">
+                  <li>Projects delayed due to missing CSRD documentation</li>
+                  <li>Public tenders rejected for incomplete climate reporting</li>
+                  <li>ETS compliance failures leading to direct financial penalties</li>
+                </ul>
+              </li>
+              <li>
+                <strong>3. Lost business opportunities</strong>
+                <ul style="padding-left: 20px; margin-top: 10px">
+                  <li>Cannot bid on public contracts without climate compliance</li>
+                  <li>Private sector clients requiring ESG documentation</li>
+                  <li>Supply chain partners demanding Scope 3 reporting</li>
+                </ul>
+              </li>
             </ul>
+          </div>
         </div>
-
-        <!-- Slide 2: The Problem -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>The Problem</h2>
-                <h3>Regulation & Pain</h3>
-            </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h4>Real-World Pain Points</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 15px;"><strong>1. 40–80 hours of manual Excel work per project</strong>
-                            <ul style="padding-left: 20px; margin-top: 10px;">
-                                <li>Construction & logistics companies manually tracking emissions</li>
-                                <li>Data scattered across invoices, fuel receipts, subcontractor reports</li>
-                                <li>No standardized format, high error rate, audit failures</li>
-                            </ul>
-                        </li>
-                        <li style="margin-bottom: 15px;"><strong>2. €10,000–€50,000 in fines & penalties</strong>
-                            <ul style="padding-left: 20px; margin-top: 10px;">
-                                <li>Projects delayed due to missing CSRD documentation</li>
-                                <li>Public tenders rejected for incomplete climate reporting</li>
-                                <li>ETS compliance failures leading to direct financial penalties</li>
-                            </ul>
-                        </li>
-                        <li><strong>3. Lost business opportunities</strong>
-                            <ul style="padding-left: 20px; margin-top: 10px;">
-                                <li>Cannot bid on public contracts without climate compliance</li>
-                                <li>Private sector clients requiring ESG documentation</li>
-                                <li>Supply chain partners demanding Scope 3 reporting</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="highlight-box">
-                <strong>The Regulatory Timeline:</strong> Companies must buy something
-                <table style="margin-top: 20px; font-size: 1.1rem;">
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Regulation</th>
-                            <th>Impact</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024–2025</td>
-                            <td><strong>CSRD</strong></td>
-                            <td>50,000+ EU companies must report</td>
-                        </tr>
-                        <tr>
-                            <td>2025–2026</td>
-                            <td><strong>Fit for 55</strong></td>
-                            <td>All major renovations require energy/climate documentation</td>
-                        </tr>
-                        <tr>
-                            <td>2026–2030</td>
-                            <td><strong>EPBD</strong></td>
-                            <td>Mandatory building passports across EU</td>
-                        </tr>
-                        <tr>
-                            <td>2027–2035</td>
-                            <td><strong>ETS expansion</strong></td>
-                            <td>Construction, logistics, healthcare included</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="highlight-box">
+          <strong>The Regulatory Timeline:</strong> Companies must buy something
+          <table style="margin-top: 20px; font-size: 1.1rem">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Regulation</th>
+                <th>Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2024–2025</td>
+                <td><strong>CSRD</strong></td>
+                <td>50,000+ EU companies must report</td>
+              </tr>
+              <tr>
+                <td>2025–2026</td>
+                <td><strong>Fit for 55</strong></td>
+                <td>All major renovations require energy/climate documentation</td>
+              </tr>
+              <tr>
+                <td>2026–2030</td>
+                <td><strong>EPBD</strong></td>
+                <td>Mandatory building passports across EU</td>
+              </tr>
+              <tr>
+                <td>2027–2035</td>
+                <td><strong>ETS expansion</strong></td>
+                <td>Construction, logistics, healthcare included</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        <!-- Slide 3: The Solution -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>The Solution</h2>
-                <h3>Climate Reporting Starter Bundle & DWS IQ 6</h3>
-            </div>
-            <div class="highlight-box">
-                <strong>The Firehorse Framework: Brain–Memory–Body–Hands</strong>
-                <pre style="margin-top: 20px;">
+      <!-- Slide 3: The Solution -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>The Solution</h2>
+          <h3>Climate Reporting Starter Bundle & DWS IQ 6</h3>
+        </div>
+        <div class="highlight-box">
+          <strong>The Firehorse Framework: Brain–Memory–Body–Hands</strong>
+          <pre style="margin-top: 20px">
 ┌──────────────────────────────────────────────────────────┐
 │                    DWS IQ 6 (Brain)                      │
 │          Climate intelligence & orchestration             │
@@ -673,212 +705,226 @@
         │   Custom Agents     │
         └─────────────────────┘
                 </pre>
-            </div>
-            <div class="content-card" style="margin-top: 30px;">
-                <h4>What We Deliver: Audit-Ready Climate Reports in 4 Weeks</h4>
-                <p><strong>Climate Reporting Starter Bundle</strong></p>
-                <ol style="font-size: 1.2rem; line-height: 2; margin-top: 15px;">
-                    <li><strong>DWS IQ Base</strong> – Private cloud instance with MCP-native architecture</li>
-                    <li><strong>Firehorse Report</strong> – Pre-configured climate reporting agent</li>
-                    <li><strong>Workshop & Onboarding</strong> – 8-hour setup with customer's team</li>
-                    <li><strong>Output</strong>: Audit-ready CSRD/Fit for 55 report with:
-                        <ul style="padding-left: 30px; margin-top: 10px;">
-                            <li>Scope 1, 2, 3 emissions calculations</li>
-                            <li>Regulatory compliance documentation</li>
-                            <li>Project-level tracking & reporting</li>
-                            <li>Continuous monitoring dashboard</li>
-                        </ul>
-                    </li>
-                </ol>
-                <p style="margin-top: 20px; font-size: 1.4rem; color: var(--gold);"><strong>Time to Value: 4 weeks from contract to audit-ready report</strong></p>
-            </div>
         </div>
-
-        <!-- Slide 4: Traction & Metrics -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Traction & Metrics</h2>
-                <h3>Real Revenue, Real Customers, Real Results</h3>
-            </div>
-            <div class="highlight-box">
-                <strong>Current State (December 2025)</strong>
-                <ul class="bullet-list" style="margin-top: 20px;">
-                    <li><strong>€7k MRR</strong> – Live recurring revenue</li>
-                    <li><strong>5 paying customers</strong> + 2 pilot customers</li>
-                    <li><strong>100% retention</strong> – Zero churn on paying customers</li>
-                    <li><strong>€70k–€120k annual value per logo</strong> (logistics sector)</li>
-                    <li><strong>40+ hours/month saved</strong> per customer (manual work eliminated)</li>
-                </ul>
-            </div>
-            <table style="margin-top: 30px;">
-                <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Vertical</th>
-                        <th>Status</th>
-                        <th>MRR</th>
-                        <th>Annual Savings</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Logistics Operator 1</td>
-                        <td>Logistics</td>
-                        <td>Paid</td>
-                        <td>€2,500</td>
-                        <td>€50,000</td>
-                    </tr>
-                    <tr>
-                        <td>Logistics Operator 2</td>
-                        <td>Logistics</td>
-                        <td>Paid</td>
-                        <td>€2,000</td>
-                        <td>€40,000</td>
-                    </tr>
-                    <tr>
-                        <td>Logistics Operator 3</td>
-                        <td>Healthcare</td>
-                        <td>Paid</td>
-                        <td>€2,500</td>
-                        <td>€60,000</td>
-                    </tr>
-                    <tr>
-                        <td>Construction Co. A</td>
-                        <td>Construction</td>
-                        <td>Pilot</td>
-                        <td>€0 (→€3k)</td>
-                        <td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>Construction Co. B</td>
-                        <td>Construction</td>
-                        <td>Pilot</td>
-                        <td>€0 (→€3k)</td>
-                        <td>TBD</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="content-card" style="margin-top: 30px;">
-                <h4>Path to €14k MRR (Q1 2026)</h4>
-                <ul style="font-size: 1.2rem; line-height: 2;">
-                    <li>Convert 2 construction pilots → +€6k MRR</li>
-                    <li>Add 1 new healthcare customer → +€2.5k MRR</li>
-                    <li>Upsell existing customers with advanced features → +€1.5k MRR</li>
-                    <li><strong>Total: €14k MRR</strong> by end of Q1 2026</li>
-                </ul>
-            </div>
+        <div class="content-card" style="margin-top: 30px">
+          <h4>What We Deliver: Audit-Ready Climate Reports in 4 Weeks</h4>
+          <p><strong>Climate Reporting Starter Bundle</strong></p>
+          <ol style="font-size: 1.2rem; line-height: 2; margin-top: 15px">
+            <li>
+              <strong>DWS IQ Base</strong> – Private cloud instance with MCP-native architecture
+            </li>
+            <li><strong>Firehorse Report</strong> – Pre-configured climate reporting agent</li>
+            <li><strong>Workshop & Onboarding</strong> – 8-hour setup with customer's team</li>
+            <li>
+              <strong>Output</strong>: Audit-ready CSRD/Fit for 55 report with:
+              <ul style="padding-left: 30px; margin-top: 10px">
+                <li>Scope 1, 2, 3 emissions calculations</li>
+                <li>Regulatory compliance documentation</li>
+                <li>Project-level tracking & reporting</li>
+                <li>Continuous monitoring dashboard</li>
+              </ul>
+            </li>
+          </ol>
+          <p style="margin-top: 20px; font-size: 1.4rem; color: var(--gold)">
+            <strong>Time to Value: 4 weeks from contract to audit-ready report</strong>
+          </p>
         </div>
+      </div>
 
-        <!-- Slide 5: Market (TAM & Timing) with BIG PICTURE -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Market (TAM & Timing)</h2>
-                <h3>€2.68B Nordic TAM, €15–20B EU TAM</h3>
-            </div>
-            <div class="big-picture">
-                <img src="../toimialat.png" alt="8 Industries - Big Picture">
-                <p style="font-size: 1.3rem; margin-top: 20px; color: var(--gold);"><strong>8 High-Value Verticals</strong></p>
-            </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h4>Nordic Market</h4>
-                    <ul style="font-size: 1.1rem;">
-                        <li>150,000 companies affected by CSRD/Fit for 55/EPBD</li>
-                        <li>Average: €6,500 setup + €1,999/year = €2,500/year blended</li>
-                        <li><strong>Nordic TAM: €375M annual recurring</strong></li>
-                        <li>Multi-vertical expansion: <strong>€2.68B over 10 years</strong></li>
-                    </ul>
-                </div>
-                <div class="content-card">
-                    <h4>EU Market</h4>
-                    <ul style="font-size: 1.1rem;">
-                        <li>50,000+ companies under CSRD mandate</li>
-                        <li>500,000+ affected by Fit for 55 & EPBD</li>
-                        <li><strong>EU TAM: €15–20B over 10 years</strong></li>
-                    </ul>
-                </div>
-            </div>
-            <table style="margin-top: 30px;">
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Driver</th>
-                        <th>Vertical</th>
-                        <th>Market Size</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2025–2026</td>
-                        <td><strong>CSRD</strong></td>
-                        <td>All large enterprises</td>
-                        <td>€2B</td>
-                    </tr>
-                    <tr>
-                        <td>2026–2028</td>
-                        <td><strong>Fit for 55</strong></td>
-                        <td>Logistics, Construction</td>
-                        <td>€5B</td>
-                    </tr>
-                    <tr>
-                        <td>2027–2030</td>
-                        <td><strong>EPBD</strong></td>
-                        <td>Real Estate, Construction</td>
-                        <td>€8B</td>
-                    </tr>
-                    <tr>
-                        <td>2030–2035</td>
-                        <td><strong>ETS Expansion</strong></td>
-                        <td>Healthcare, Manufacturing, Agriculture</td>
-                        <td>€10B</td>
-                    </tr>
-                </tbody>
-            </table>
+      <!-- Slide 4: Traction & Metrics -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Traction & Metrics</h2>
+          <h3>Real Revenue, Real Customers, Real Results</h3>
         </div>
+        <div class="highlight-box">
+          <strong>Current State (April 2026)</strong>
+          <ul class="bullet-list" style="margin-top: 20px">
+            <li><strong>€7k MRR</strong> – Live recurring revenue</li>
+            <li><strong>6 paying customers</strong> + 2 pilot customers</li>
+            <li><strong>100% retention</strong> – Zero churn on paying customers</li>
+            <li><strong>€70k–€120k annual value per logo</strong> (logistics sector)</li>
+            <li><strong>40+ hours/month saved</strong> per customer (manual work eliminated)</li>
+          </ul>
+        </div>
+        <table style="margin-top: 30px">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Vertical</th>
+              <th>Status</th>
+              <th>MRR</th>
+              <th>Annual Savings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Logistics Operator 1</td>
+              <td>Logistics</td>
+              <td>Paid</td>
+              <td>€2,500</td>
+              <td>€50,000</td>
+            </tr>
+            <tr>
+              <td>Logistics Operator 2</td>
+              <td>Logistics</td>
+              <td>Paid</td>
+              <td>€2,000</td>
+              <td>€40,000</td>
+            </tr>
+            <tr>
+              <td>Logistics Operator 3</td>
+              <td>Healthcare</td>
+              <td>Paid</td>
+              <td>€2,500</td>
+              <td>€60,000</td>
+            </tr>
+            <tr>
+              <td>Construction Co. A</td>
+              <td>Construction</td>
+              <td>Pilot</td>
+              <td>€0 (→€3k)</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td>Construction Co. B</td>
+              <td>Construction</td>
+              <td>Pilot</td>
+              <td>€0 (→€3k)</td>
+              <td>TBD</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="content-card" style="margin-top: 30px">
+          <h4>Path to €14k MRR (Q1 2026)</h4>
+          <ul style="font-size: 1.2rem; line-height: 2">
+            <li>Convert 2 construction pilots → +€6k MRR</li>
+            <li>Add 1 new healthcare customer → +€2.5k MRR</li>
+            <li>Upsell existing customers with advanced features → +€1.5k MRR</li>
+            <li><strong>Total: €14k MRR</strong> by end of Q1 2026</li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- Slide 6: Product/Tech & Moat -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Product / Tech & Moat</h2>
-                <h3>Carbon Balance Sheet: Three Pillars No Competitor Has</h3>
-            </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h4>1. The Carbon Balance Sheet</h4>
-                    <ul style="font-size: 1.1rem; line-height: 1.8;">
-                        <li>Double-entry bookkeeping for CO2 — debits and credits in EUR + tCO2e</li>
-                        <li>ETS surrender = debit. Free allocation = credit. CBAM certificate = debit</li>
-                        <li>Same tonne flows across ETS, CBAM, CSRD, Taxonomy — four regulations, one ledger</li>
-                        <li>Network effect: Customer A's verified emissions improve Customer B's accuracy</li>
-                    </ul>
-                </div>
-                <div class="content-card">
-                    <h4>2. Lifetime World Model — Proprietary Intelligence</h4>
-                    <ul style="font-size: 1.1rem; line-height: 1.8;">
-                        <li>15,000+ EU regulatory documents across 20 industries</li>
-                        <li>13 open data sources baked in (ENTSO-E, EUTL, EFRAG, Eurostat, EMBER)</li>
-                        <li>Seven years and six platform versions to build — 3-5 years to replicate</li>
-                    </ul>
-                </div>
-                <div class="content-card">
-                    <h4>3. Edge AI — EUR 17K/year vs EUR 350K/year</h4>
-                    <ul style="font-size: 1.1rem; line-height: 1.8;">
-                        <li>NVIDIA Jetson inference at industrial sites where cloud can't reach</li>
-                        <li>Model-agnostic: swap Claude for any LLM, the ledger still works</li>
-                        <li>100% EU data residency (Finland, Germany)</li>
-                    </ul>
-                </div>
-                <div class="content-card">
-                    <h4>4. Cross-Vertical Intelligence</h4>
-                    <ul style="font-size: 1.1rem; line-height: 1.8;">
-                        <li>Steel CBAM correlates with construction CSRD from the same supply chain</li>
-                        <li>20 industries on one ledger = data no single-vertical tool can match</li>
-                        <li>Transaction-verified Scope 3: &plusmn;3% accuracy vs &plusmn;40% for competitors</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="highlight-box" style="margin-top: 30px;">
-                <pre style="font-size: 1.2rem; line-height: 2;">
+      <!-- Slide 5: Market (TAM & Timing) with BIG PICTURE -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Market (TAM & Timing)</h2>
+          <h3>€2.68B Nordic TAM, €15–20B EU TAM</h3>
+        </div>
+        <div class="big-picture">
+          <img src="../toimialat.png" alt="8 Industries - Big Picture" />
+          <p style="font-size: 1.3rem; margin-top: 20px; color: var(--gold)">
+            <strong>8 High-Value Verticals</strong>
+          </p>
+        </div>
+        <div class="content-grid">
+          <div class="content-card">
+            <h4>Nordic Market</h4>
+            <ul style="font-size: 1.1rem">
+              <li>150,000 companies affected by CSRD/Fit for 55/EPBD</li>
+              <li>Average: €6,500 setup + €1,999/year = €2,500/year blended</li>
+              <li><strong>Nordic TAM: €375M annual recurring</strong></li>
+              <li>Multi-vertical expansion: <strong>€2.68B over 10 years</strong></li>
+            </ul>
+          </div>
+          <div class="content-card">
+            <h4>EU Market</h4>
+            <ul style="font-size: 1.1rem">
+              <li>50,000+ companies under CSRD mandate</li>
+              <li>500,000+ affected by Fit for 55 & EPBD</li>
+              <li><strong>EU TAM: €15–20B over 10 years</strong></li>
+            </ul>
+          </div>
+        </div>
+        <table style="margin-top: 30px">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Driver</th>
+              <th>Vertical</th>
+              <th>Market Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025–2026</td>
+              <td><strong>CSRD</strong></td>
+              <td>All large enterprises</td>
+              <td>€2B</td>
+            </tr>
+            <tr>
+              <td>2026–2028</td>
+              <td><strong>Fit for 55</strong></td>
+              <td>Logistics, Construction</td>
+              <td>€5B</td>
+            </tr>
+            <tr>
+              <td>2027–2030</td>
+              <td><strong>EPBD</strong></td>
+              <td>Real Estate, Construction</td>
+              <td>€8B</td>
+            </tr>
+            <tr>
+              <td>2030–2035</td>
+              <td><strong>ETS Expansion</strong></td>
+              <td>Healthcare, Manufacturing, Agriculture</td>
+              <td>€10B</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Slide 6: Product/Tech & Moat -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Product / Tech & Moat</h2>
+          <h3>Three Pillars No Competitor Has</h3>
+        </div>
+        <div class="content-grid">
+          <div class="content-card">
+            <h4>
+              1. Avoid €millions in tariff exposure with real-time embedded carbon tariff automation
+              (CBAM) + supply chain disclosure mapping (CSRD)
+            </h4>
+            <ul style="font-size: 1.1rem; line-height: 1.8">
+              <li>Double-entry bookkeeping for CO2 — debits and credits in EUR + tCO2e</li>
+              <li>ETS surrender = debit. Free allocation = credit. CBAM certificate = debit</li>
+              <li>
+                Same tonne flows across ETS, CBAM, CSRD, Taxonomy — four regulations, one ledger
+              </li>
+              <li>Network effect: Customer A's verified emissions improve Customer B's accuracy</li>
+            </ul>
+          </div>
+          <div class="content-card">
+            <h4>2. Lifetime World Model — Proprietary Intelligence</h4>
+            <ul style="font-size: 1.1rem; line-height: 1.8">
+              <li>15,000+ EU regulatory documents across 20 industries</li>
+              <li>13 open data sources baked in (ENTSO-E, EUTL, EFRAG, Eurostat, EMBER)</li>
+              <li>Seven years and six platform versions to build — 3-5 years to replicate</li>
+            </ul>
+          </div>
+          <div class="content-card">
+            <h4>3. Edge AI — EUR 17K/year vs EUR 350K/year</h4>
+            <ul style="font-size: 1.1rem; line-height: 1.8">
+              <li>NVIDIA Jetson inference at industrial sites where cloud can't reach</li>
+              <li>Model-agnostic: swap Claude for any LLM, the ledger still works</li>
+              <li>100% EU data residency (Finland, Germany)</li>
+            </ul>
+          </div>
+          <div class="content-card">
+            <h4>4. Cross-Vertical Intelligence</h4>
+            <ul style="font-size: 1.1rem; line-height: 1.8">
+              <li>Steel CBAM correlates with construction CSRD from the same supply chain</li>
+              <li>20 industries on one ledger = data no single-vertical tool can match</li>
+              <li>
+                Transaction-verified Scope 3: &plusmn;3% accuracy vs &plusmn;40% for competitors
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px">
+          <pre style="font-size: 1.2rem; line-height: 2">
 <strong>Competitors</strong> &rarr; Guess your footprint (spend-based, &plusmn;40% accuracy)
 <strong>DWS IQ</strong>     &rarr; Reconcile your carbon balance sheet (transaction-verified, &plusmn;3%)
 
@@ -888,330 +934,363 @@
 <strong>Competitors</strong> &rarr; Cloud SaaS (data leaves EU)
 <strong>DWS IQ</strong>     &rarr; Edge AI + EU-hosted (sovereign by design, EUR 333K/year cheaper)
                 </pre>
-            </div>
         </div>
+      </div>
 
-        <!-- Slide 7: Business Model & Pricing -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Business Model & Pricing</h2>
-                <h3>Climate Reporting Starter Bundle</h3>
-            </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h4>Standard Package</h4>
-                    <p><strong>Setup Fee: €6,500 (one-time)</strong></p>
-                    <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px;">
-                        <li>Private cloud instance deployment</li>
-                        <li>DWS IQ Base configuration</li>
-                        <li>Firehorse Report agent setup</li>
-                        <li>8-hour workshop + onboarding</li>
-                        <li>First audit-ready report</li>
-                    </ul>
-                    <p style="margin-top: 20px;"><strong>Annual Subscription: €1,999/year</strong></p>
-                    <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px;">
-                        <li>Continuous monitoring & reporting</li>
-                        <li>Regulatory updates</li>
-                        <li>Support & maintenance</li>
-                        <li>Additional reports (quarterly/annual)</li>
-                    </ul>
-                </div>
-            </div>
-            <table style="margin-top: 30px;">
-                <thead>
-                    <tr>
-                        <th>Vertical</th>
-                        <th>Avg Setup</th>
-                        <th>Avg Annual</th>
-                        <th>Multi-Site Multiplier</th>
-                        <th>Typical 3-Year Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Logistics</strong></td>
-                        <td>€6,500</td>
-                        <td>€1,999</td>
-                        <td>5–10 sites</td>
-                        <td>€70k–€120k</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Construction</strong></td>
-                        <td>€6,500</td>
-                        <td>€2,499</td>
-                        <td>10–20 projects</td>
-                        <td>€80k–€150k</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Healthcare</strong></td>
-                        <td>€6,500</td>
-                        <td>€2,999</td>
-                        <td>3–5 hospitals</td>
-                        <td>€60k–€100k</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Manufacturing</strong></td>
-                        <td>€6,500</td>
-                        <td>€2,499</td>
-                        <td>5–15 facilities</td>
-                        <td>€70k–€130k</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="highlight-box" style="margin-top: 30px;">
-                <strong>Unit Economics</strong>
-                <ul class="bullet-list" style="margin-top: 15px; font-size: 1.2rem;">
-                    <li>Customer Acquisition Cost (CAC): €5,000–€8,000</li>
-                    <li>Lifetime Value (LTV): €70,000–€120,000 (3-year avg, logistics)</li>
-                    <li><strong>LTV:CAC ratio: 10:1 to 15:1</strong></li>
-                    <li><strong>Gross Margin: 75%+</strong> (cloud infrastructure + support)</li>
-                </ul>
-            </div>
+      <!-- Slide 7: Business Model & Pricing -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Business Model & Pricing</h2>
+          <h3>Priced like labor, with software margins</h3>
         </div>
+        <p style="max-width:820px;margin:0 auto 18px;text-align:center;line-height:1.5">
+          We sell the role, not the seat — each agent is anchored to the human cost of the work it
+          does (a fraction of a loaded FTE or consultancy day-rate), at &gt;80% gross margin that
+          expands as model cost falls.
+        </p>
+        <div class="content-grid">
+          <div class="content-card">
+            <h4>Standard Package</h4>
+            <p><strong>Setup Fee: €6,500 (one-time)</strong></p>
+            <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px">
+              <li>Private cloud instance deployment</li>
+              <li>DWS IQ Base configuration</li>
+              <li>Firehorse Report agent setup</li>
+              <li>8-hour workshop + onboarding</li>
+              <li>First audit-ready report</li>
+            </ul>
+            <p style="margin-top: 20px"><strong>Annual Subscription: €1,999/year</strong></p>
+            <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px">
+              <li>Continuous monitoring & reporting</li>
+              <li>Regulatory updates</li>
+              <li>Support & maintenance</li>
+              <li>Additional reports (quarterly/annual)</li>
+            </ul>
+          </div>
+        </div>
+        <table style="margin-top: 30px">
+          <thead>
+            <tr>
+              <th>Vertical</th>
+              <th>Avg Setup</th>
+              <th>Avg Annual</th>
+              <th>Multi-Site Multiplier</th>
+              <th>Typical 3-Year Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Logistics</strong></td>
+              <td>€6,500</td>
+              <td>€1,999</td>
+              <td>5–10 sites</td>
+              <td>€70k–€120k</td>
+            </tr>
+            <tr>
+              <td><strong>Construction</strong></td>
+              <td>€6,500</td>
+              <td>€2,499</td>
+              <td>10–20 projects</td>
+              <td>€80k–€150k</td>
+            </tr>
+            <tr>
+              <td><strong>Healthcare</strong></td>
+              <td>€6,500</td>
+              <td>€2,999</td>
+              <td>3–5 hospitals</td>
+              <td>€60k–€100k</td>
+            </tr>
+            <tr>
+              <td><strong>Manufacturing</strong></td>
+              <td>€6,500</td>
+              <td>€2,499</td>
+              <td>5–15 facilities</td>
+              <td>€70k–€130k</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="highlight-box" style="margin-top: 30px">
+          <strong>Unit Economics</strong>
+          <ul class="bullet-list" style="margin-top: 15px; font-size: 1.2rem">
+            <li>Customer Acquisition Cost (CAC): €5,000–€8,000</li>
+            <li>Lifetime Value (LTV): €70,000–€120,000 (3-year avg, logistics)</li>
+            <li><strong>LTV:CAC ratio: 10:1 to 15:1</strong></li>
+            <li><strong>Gross Margin: 75%+</strong> (cloud infrastructure + support)</li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- Slide 8: Team & Finland Advantage -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Team & "Finland Advantage"</h2>
-            </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h4>Team</h4>
-                    <p><strong>Founder & CEO</strong></p>
-                    <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px;">
-                        <li>15+ years enterprise software & cloud architecture</li>
-                        <li>Built agentic AI systems for Fortune 500 clients</li>
-                        <li>Deep expertise in MCP, Claude, and autonomous agent orchestration</li>
-                        <li>Track record: successful exits, enterprise deployments, regulatory compliance projects</li>
-                    </ul>
-                    <p style="margin-top: 20px;"><strong>Advisory Board</strong></p>
-                    <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px;">
-                        <li>Climate compliance experts (CSRD, Fit for 55, EPBD)</li>
-                        <li>Enterprise SaaS GTM advisors</li>
-                        <li>Technical advisors (MCP ecosystem, Anthropic partnerships)</li>
-                    </ul>
-                </div>
-                <div class="content-card">
-                    <h4>The Finland Advantage</h4>
-                    <p style="margin-bottom: 15px;"><strong>Why Finland = Investor Protection & Market Edge</strong></p>
-                    <ul class="bullet-list" style="font-size: 1.2rem;">
-                        <li><strong>AAA Credit Rating</strong> – Sovereign stability, rule of law</li>
-                        <li><strong>GDPR Compliance Leader</strong> – Data protection built into national infrastructure</li>
-                        <li><strong>Nordic Regulatory First-Mover</strong> – Finland implements EU directives faster</li>
-                        <li><strong>Innovation Ecosystem</strong> – Slush, Nordic VC networks, government R&D support</li>
-                        <li><strong>Investor Protection</strong> – Strong legal framework, transparent governance</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="highlight-box" style="margin-top: 30px; text-align: center;">
-                <p style="font-size: 1.4rem; color: var(--gold);"><strong>Finland is not just a location. It's a strategic advantage for EU climate tech.</strong></p>
-            </div>
+      <!-- Slide 8: Team & Finland Advantage -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Team & "Finland Advantage"</h2>
         </div>
+        <div class="content-grid">
+          <div class="content-card">
+            <h4>Team</h4>
+            <p><strong>Founder & CEO</strong></p>
+            <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px">
+              <li>15+ years enterprise software & cloud architecture</li>
+              <li>Built agentic AI systems for Fortune 500 clients</li>
+              <li>Deep expertise in MCP, Claude, and autonomous agent orchestration</li>
+              <li>
+                Track record: successful exits, enterprise deployments, regulatory compliance
+                projects
+              </li>
+            </ul>
+            <p style="margin-top: 20px"><strong>Advisory Board</strong></p>
+            <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 10px">
+              <li>Climate compliance experts (CSRD, Fit for 55, EPBD)</li>
+              <li>Enterprise SaaS GTM advisors</li>
+              <li>Technical advisors (MCP ecosystem, Anthropic partnerships)</li>
+            </ul>
+          </div>
+          <div class="content-card">
+            <h4>The Finland Advantage</h4>
+            <p style="margin-bottom: 15px">
+              <strong>Why Finland = Investor Protection & Market Edge</strong>
+            </p>
+            <ul class="bullet-list" style="font-size: 1.2rem">
+              <li><strong>AAA Credit Rating</strong> – Sovereign stability, rule of law</li>
+              <li>
+                <strong>GDPR Compliance Leader</strong> – Data protection built into national
+                infrastructure
+              </li>
+              <li>
+                <strong>Nordic Regulatory First-Mover</strong> – Finland implements EU directives
+                faster
+              </li>
+              <li>
+                <strong>Innovation Ecosystem</strong> – Slush, Nordic VC networks, government R&D
+                support
+              </li>
+              <li>
+                <strong>Investor Protection</strong> – Strong legal framework, transparent
+                governance
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px; text-align: center">
+          <p style="font-size: 1.4rem; color: var(--gold)">
+            <strong
+              >Finland is not just a location. It's a strategic advantage for EU climate
+              tech.</strong
+            >
+          </p>
+        </div>
+      </div>
 
-        <!-- Slide 9: Fundraise & Use of Funds -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Fundraise & Use of Funds</h2>
-                <h3>Raising €150k SAFE @ €3.8M Cap</h3>
-            </div>
-            <div class="highlight-box">
-                <strong>SAFE Terms</strong>
-                <ul class="bullet-list" style="margin-top: 15px; font-size: 1.3rem;">
-                    <li><strong>Amount:</strong> €150,000</li>
-                    <li><strong>Valuation Cap:</strong> €3,800,000</li>
-                    <li><strong>Discount:</strong> 20% on next priced round</li>
-                    <li><strong>Conversion:</strong> Converts at Series A (target €15M+ in 2026)</li>
-                </ul>
-            </div>
-            <table style="margin-top: 30px;">
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Allocation</th>
-                        <th>Purpose</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Engineering</strong></td>
-                        <td>40% (€60k)</td>
-                        <td>
-                            - DWS IQ 6 core platform development<br>
-                            - MCP agent library expansion<br>
-                            - Construction vertical agents<br>
-                            - Infrastructure automation
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sales & GTM</strong></td>
-                        <td>30% (€45k)</td>
-                        <td>
-                            - Pilot-to-paid conversion (construction)<br>
-                            - Healthcare vertical expansion<br>
-                            - Customer success & onboarding<br>
-                            - Marketing collateral & case studies
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Infrastructure</strong></td>
-                        <td>20% (€30k)</td>
-                        <td>
-                            - Private cloud hosting (GCP EU)<br>
-                            - GDPR/SOC2 compliance infrastructure<br>
-                            - Monitoring & security<br>
-                            - Backup & disaster recovery
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Compliance & Legal</strong></td>
-                        <td>10% (€15k)</td>
-                        <td>
-                            - Regulatory tracking & updates<br>
-                            - Legal contracts & IP protection<br>
-                            - Series A preparation
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="content-card" style="margin-top: 30px;">
-                <h4>12–18 Month Milestones</h4>
-                <ul style="font-size: 1.2rem; line-height: 2;">
-                    <li>Convert construction pilots → €14k MRR (Q1 2026)</li>
-                    <li>Launch healthcare vertical → €22k MRR (Q2 2026)</li>
-                    <li>Expand to Sweden/Norway → €40k MRR (Q3 2026)</li>
-                    <li>Series A readiness → €60k+ MRR, €900k ARR run rate (Q4 2026)</li>
-                    <li>Breakeven visibility → €80k MRR, path to profitability (Q1 2027)</li>
-                </ul>
-            </div>
+      <!-- Slide 9: Fundraise & Use of Funds -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Fundraise & Use of Funds</h2>
+          <h3>Raising €650K SAFE @ €3.8M Cap</h3>
         </div>
+        <div class="highlight-box">
+          <strong>SAFE Terms</strong>
+          <ul class="bullet-list" style="margin-top: 15px; font-size: 1.3rem">
+            <li><strong>Amount:</strong> €650,000</li>
+            <li><strong>Valuation Cap:</strong> €3,800,000</li>
+            <li><strong>Discount:</strong> 18% on next priced round</li>
+            <li><strong>Conversion:</strong> Converts at Series A (target €15M+ in 2026)</li>
+          </ul>
+        </div>
+        <table style="margin-top: 30px">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Allocation</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Engineering</strong></td>
+              <td>40% (€260k)</td>
+              <td>
+                - DWS IQ 6 core platform development<br />
+                - MCP agent library expansion<br />
+                - Construction vertical agents<br />
+                - Infrastructure automation
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Sales & GTM</strong></td>
+              <td>30% (€195k)</td>
+              <td>
+                - Pilot-to-paid conversion (construction)<br />
+                - Healthcare vertical expansion<br />
+                - Customer success & onboarding<br />
+                - Marketing collateral & case studies
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Infrastructure</strong></td>
+              <td>20% (€130k)</td>
+              <td>
+                - Private cloud hosting (GCP EU)<br />
+                - GDPR/SOC2 compliance infrastructure<br />
+                - Monitoring & security<br />
+                - Backup & disaster recovery
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Compliance & Legal</strong></td>
+              <td>10% (€65k)</td>
+              <td>
+                - Regulatory tracking & updates<br />
+                - Legal contracts & IP protection<br />
+                - Series A preparation
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="content-card" style="margin-top: 30px">
+          <h4>12–18 Month Milestones</h4>
+          <ul style="font-size: 1.2rem; line-height: 2">
+            <li>Convert construction pilots → €14k MRR (Q1 2026)</li>
+            <li>Launch healthcare vertical → €22k MRR (Q2 2026)</li>
+            <li>Expand to Sweden/Norway → €40k MRR (Q3 2026)</li>
+            <li>Series A readiness → €60k+ MRR, €900k ARR run rate (Q4 2026)</li>
+            <li>Breakeven visibility → €80k MRR, path to profitability (Q1 2027)</li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- Slide 10: Closing / Call to Action -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2>Closing / Call to Action</h2>
-            </div>
-            <div class="highlight-box" style="text-align: center; padding: 50px; margin: 50px 0;">
-                <p style="font-size: 2rem; line-height: 1.8; color: var(--gold);">
-                    <strong>Raising €150k now to turn logistics traction into the first construction pilots and prepare for a €15M+ Series A.</strong>
-                </p>
-            </div>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h4>Why Invest Now</h4>
-                    <ul class="bullet-list" style="font-size: 1.3rem;">
-                        <li><strong>Proven traction</strong>: €7k MRR, 100% retention, live deployments</li>
-                        <li><strong>Mandatory market</strong>: CSRD/Fit for 55 regulations = forced purchases</li>
-                        <li><strong>Platform moat</strong>: MCP-native architecture, not a point solution</li>
-                        <li><strong>Clear path to Series A</strong>: €900k ARR milestone in 18 months</li>
-                        <li><strong>Downside protection</strong>: Finland-based, EU regulation tailwind</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="cta-section">
-                <h3 style="font-size: 2rem; margin-bottom: 30px;">Contact</h3>
-                <p style="font-size: 1.3rem; margin-bottom: 20px;"><strong>Lifetime Oy</strong></p>
-                <p style="font-size: 1.2rem; margin-bottom: 10px;">DWS IQ 6 – Climate Intelligence Platform</p>
-                <p style="font-size: 1.2rem; margin-bottom: 30px;">
-                    📧 <a href="mailto:investor@dws10.com" style="color: var(--gold);">investor@dws10.com</a><br>
-                    🌐 <a href="https://dws10.com/legal" style="color: var(--gold);">dws10.com/legal</a>
-                </p>
-                <p style="font-size: 1.8rem; color: var(--gold); margin-top: 40px;">
-                    <strong>Let's build the future of climate compliance together.</strong>
-                </p>
-            </div>
+      <!-- Slide 10: Closing / Call to Action -->
+      <div class="slide">
+        <div class="slide-header">
+          <h2>Closing / Call to Action</h2>
         </div>
+        <div class="highlight-box" style="text-align: center; padding: 50px; margin: 50px 0">
+          <p style="font-size: 2rem; line-height: 1.8; color: var(--gold)">
+            <strong
+              >Raising €650K now to turn logistics traction into the first construction pilots and
+              prepare for a €15M+ Series A.</strong
+            >
+          </p>
+        </div>
+        <div class="content-grid">
+          <div class="content-card">
+            <h4>Why Invest Now</h4>
+            <ul class="bullet-list" style="font-size: 1.3rem">
+              <li><strong>Proven traction</strong>: €7k MRR, 100% retention, live deployments</li>
+              <li>
+                <strong>Mandatory market</strong>: CSRD/Fit for 55 regulations = forced purchases
+              </li>
+              <li><strong>Platform moat</strong>: MCP-native architecture, not a point solution</li>
+              <li><strong>Clear path to Series A</strong>: €900k ARR milestone in 18 months</li>
+              <li><strong>Downside protection</strong>: Finland-based, EU regulation tailwind</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cta-section">
+          <h3 style="font-size: 2rem; margin-bottom: 30px">Contact</h3>
+          <p style="font-size: 1.3rem; margin-bottom: 20px"><strong>Lifetime Oy</strong></p>
+          <p style="font-size: 1.2rem; margin-bottom: 10px">
+            DWS IQ 6 – Climate Intelligence Platform
+          </p>
+          <p style="font-size: 1.2rem; margin-bottom: 30px">
+            📧 <a href="mailto:investor@dws10.com" style="color: var(--gold)">investor@dws10.com</a
+            ><br />
+            🌐 <a href="https://dws10.com/legal" style="color: var(--gold)">dws10.com/legal</a>
+          </p>
+          <p style="font-size: 1.8rem; color: var(--gold); margin-top: 40px">
+            <strong>Let's build the future of climate compliance together.</strong>
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Slide Controls -->
     <div class="slide-controls">
-        <button onclick="prevSlide()">◄ Previous</button>
-        <div class="slide-indicator">
-            <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
-        </div>
-        <button onclick="nextSlide()">Next ►</button>
-        <button onclick="toggleAutoplay()" id="autoplayBtn">⏸ Pause</button>
+      <button onclick="prevSlide()">◄ Previous</button>
+      <div class="slide-indicator">
+        <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+      </div>
+      <button onclick="nextSlide()">Next ►</button>
+      <button onclick="toggleAutoplay()" id="autoplayBtn">⏸ Pause</button>
     </div>
 
     <script>
-        let currentSlideIndex = 0;
-        let autoplayInterval = null;
-        let isAutoplay = true;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+      let currentSlideIndex = 0;
+      let autoplayInterval = null;
+      let isAutoplay = true;
+      const slides = document.querySelectorAll(".slide");
+      const totalSlides = slides.length;
 
-        // Settings: show 10 seconds, cross-fade 5 seconds
-        const SHOW_DURATION = 10000; // 10 seconds
-        const FADE_DURATION = 5000;  // 5 seconds cross-fade
+      // Settings: show 10 seconds, cross-fade 5 seconds
+      const SHOW_DURATION = 10000; // 10 seconds
+      const FADE_DURATION = 5000; // 5 seconds cross-fade
 
-        document.getElementById('totalSlides').textContent = totalSlides;
+      document.getElementById("totalSlides").textContent = totalSlides;
 
-        function showSlide(index) {
-            // Hide all slides
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-                slide.classList.add('fade-out');
-            });
-
-            // Show the selected slide
-            slides[index].classList.remove('fade-out');
-            slides[index].classList.add('active');
-
-            // Update indicator
-            document.getElementById('currentSlide').textContent = index + 1;
-            currentSlideIndex = index;
-        }
-
-        function nextSlide() {
-            let next = (currentSlideIndex + 1) % totalSlides;
-            showSlide(next);
-        }
-
-        function prevSlide() {
-            let prev = (currentSlideIndex - 1 + totalSlides) % totalSlides;
-            showSlide(prev);
-        }
-
-        function startAutoplay() {
-            if (autoplayInterval) clearInterval(autoplayInterval);
-            autoplayInterval = setInterval(nextSlide, SHOW_DURATION);
-            isAutoplay = true;
-            document.getElementById('autoplayBtn').textContent = '⏸ Pause';
-        }
-
-        function stopAutoplay() {
-            if (autoplayInterval) {
-                clearInterval(autoplayInterval);
-                autoplayInterval = null;
-            }
-            isAutoplay = false;
-            document.getElementById('autoplayBtn').textContent = '▶ Play';
-        }
-
-        function toggleAutoplay() {
-            if (isAutoplay) {
-                stopAutoplay();
-            } else {
-                startAutoplay();
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                nextSlide();
-                stopAutoplay();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-                stopAutoplay();
-            }
+      function showSlide(index) {
+        // Hide all slides
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+          slide.classList.add("fade-out");
         });
 
-        // Start autoplay on load
-        startAutoplay();
+        // Show the selected slide
+        slides[index].classList.remove("fade-out");
+        slides[index].classList.add("active");
+
+        // Update indicator
+        document.getElementById("currentSlide").textContent = index + 1;
+        currentSlideIndex = index;
+      }
+
+      function nextSlide() {
+        let next = (currentSlideIndex + 1) % totalSlides;
+        showSlide(next);
+      }
+
+      function prevSlide() {
+        let prev = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+        showSlide(prev);
+      }
+
+      function startAutoplay() {
+        if (autoplayInterval) clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(nextSlide, SHOW_DURATION);
+        isAutoplay = true;
+        document.getElementById("autoplayBtn").textContent = "⏸ Pause";
+      }
+
+      function stopAutoplay() {
+        if (autoplayInterval) {
+          clearInterval(autoplayInterval);
+          autoplayInterval = null;
+        }
+        isAutoplay = false;
+        document.getElementById("autoplayBtn").textContent = "▶ Play";
+      }
+
+      function toggleAutoplay() {
+        if (isAutoplay) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === " ") {
+          nextSlide();
+          stopAutoplay();
+        } else if (e.key === "ArrowLeft") {
+          prevSlide();
+          stopAutoplay();
+        }
+      });
+
+      // Start autoplay on load
+      startAutoplay();
     </script>
-<script src="/shared-assets/nav/ironclad-nav.js"></script>
-<script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
-
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
 </html>
-

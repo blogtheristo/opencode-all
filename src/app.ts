@@ -7,56 +7,108 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Initialize OTel before any module that may emit spans (agent registry,
+// llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
+import { initOtel, shutdownOtel } from './observability/otel.js';
+initOtel();
+
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
+import { brokerRouter } from './broker/broker.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
+import bookingRoutes from './routes/booking.routes.js';
+import supportRoutes from './routes/support.routes.js';
+import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
+import nudgeRoutes from './routes/nudge.routes.js';
+import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
-import grokConsentRoutes from './routes/grok-consent.routes.js';
-import capTableRouter from './investor-reports/cap-table-routes.js';
+// import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
 import paymentRoutes from './routes/payment.routes.js';
-import { createMCPRouter } from './mcp/agent-server.js';
+import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
+import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
-import memoryRoutes from './routes/memory.routes.js';
+import { contentRoutes } from './contentms/index.js';
+import gtmEventsRoutes from './routes/gtm-events.routes.js';
+import emailWebhookRoutes from './routes/email-webhook.routes.js';
+import analyticsRoutes from './routes/analytics.routes.js';
+import erpTrackingRoutes from './routes/erp-tracking.routes.js';
+import {
+  erpRoutes,
+  initializeERPIntegrations,
+  shutdownERPIntegrations,
+} from './integrations/erp/index.js';
+import roleTrackingRoutes from './routes/role-tracking.routes.js';
+import gapsRoutes from './routes/gaps.routes.js';
+import agentsRoutes from './routes/agents.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
-import { contentRoutes } from './contentms/index.js';
-import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
+import { memoryScheduler } from './agents/memory.scheduler.js';
+import { signalPoller } from './agents/signal-poller.js';
+import { inboundTicketScheduler } from './services/inbound-ticket.service.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
-import { requestTimeout } from './middleware/request-timeout.js';
-import { initErrorTracking, errorTrackingMiddleware } from './middleware/error-tracking.js';
+import { createMCPRouter } from './mcp/agent-server.js';
+import capTableRouter from './investor-reports/cap-table-routes.js';
+import { loadSecrets } from './config/secret-loader.js';
+
+// ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
+// tsconfig.json excludes src/firehorse/** and src/integrations/** from
+// compilation (they have unresolved type errors that surfaced when the
+// modules were brought back into the strict-build graph; see PR-1208 follow-up).
+// Static imports from these paths would crash the container with
+// ERR_MODULE_NOT_FOUND before app.listen() — breaking Cloud Run health
+// checks. Instead we expose no-op stubs; affected routes will 404 and
+// scheduled hooks are no-ops. Unstub by restoring the modules in tsconfig
+// `include` and reverting this block (see follow-up PR for the type fixes).
+const firehorseRoutes = express.Router();
+const initFirehorsePilot = (): void => {
+  logger.warn('firehorse stubbed — module excluded from build');
+};
+const shutdownFirehorsePilot = (): void => {
+  /* no-op */
+};
+// ================================================================
 
 dotenv.config();
+
+// ============ VAULT BOOTSTRAP ============
+// Pull secrets from configured vault (Aiven / GCP Secret Manager) into
+// process.env before validation. No-op if VAULT_PROVIDER is not set.
+await loadSecrets();
 
 // ============ STARTUP VALIDATION ============
 
@@ -70,7 +122,8 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 }
 
 const app: Express = express();
-const PORT = process.env.PORT || 8080; // Cloud Run default
+app.disable('x-powered-by');
+const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -79,18 +132,23 @@ const __dirname = path.dirname(__filename);
 // ============ MIDDLEWARE ============
 
 // Security headers - configured to allow static HTML pages with inline scripts
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https:'],
+        connectSrc: [
+          "'self'",
+          'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud',
+        ],
+      },
     },
-  },
-}));
+  }),
+);
 
 // CORS configuration with explicit allowlist
 // Default allowed origins for development and production
@@ -104,7 +162,7 @@ const defaultOrigins = [
 ];
 
 const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim())
   : defaultOrigins;
 
 const corsOptions = {
@@ -133,7 +191,13 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key', 'X-Correlation-ID'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Session-Id',
+    'X-Admin-Key',
+    'X-Correlation-ID',
+  ],
 };
 app.use(cors(corsOptions));
 
@@ -144,8 +208,24 @@ app.use(correlationId);
 app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+//
+// IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
+// down in this file's STRIPE WEBHOOK MOUNT block) so that preserveRawBody can
+// read the raw HTTP stream. If express.json() processes the request first,
+// the stream is consumed and `req.on('data')` / `req.on('end')` never fire,
+// causing the webhook handler to hang until Cloud Run kills the request at
+// the 60s timeout.
+app.use((req, res, next) => {
+  // Webhooks that verify an HMAC over the raw body must NOT be pre-parsed.
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
+  return express.json({ limit: '10kb' })(req, res, next);
+});
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
+  return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
+});
 
 // Rate limiting (general)
 const limiter = rateLimit({
@@ -167,9 +247,6 @@ const loginLimiter = rateLimit({
 app.use('/api/v1/auth/login', loginLimiter);
 app.use('/api/v1/auth/register', loginLimiter);
 app.use('/api/v1/auth/forgot-password', loginLimiter);
-
-// Request timeout — abort after 30s (configurable via REQUEST_TIMEOUT_MS)
-app.use(requestTimeout());
 
 // Request logging middleware (includes correlation ID for tracing)
 app.use((req: Request, _res: Response, next: NextFunction) => {
@@ -205,6 +282,7 @@ app.use('/landing-pages', express.static(landingPagesPath));
 // ============ API ROUTES ============
 
 // Auth routes
+app.use('/api/v1/broker', brokerRouter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
@@ -213,6 +291,9 @@ app.use('/api/climate-assistant', climateAssistantRoutes);
 
 // Climate Assistant Gated routes (tiered access with lead capture)
 app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
+
+// Admin support chat channel (settings panel)
+app.use('/api/v1/admin/support', adminSupportRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
@@ -223,17 +304,20 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // Firehorse Omnichannel Pilot (sales automation, signals, lead management)
 app.use('/api/v1/firehorse', firehorseRoutes);
 
+// Firehorse Content DMS (Evidence Vault: 5 agents, HIL review, artifact publishing)
+app.use('/api/v1/content', contentRoutes);
+
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
-
-// V10 Dashboard agent routes — alias at /api/v1/agents for dashboard compatibility
-app.use('/api/v1/agents', agentRoutes);
 
 // Usage metering (MVP Feature 2)
 app.use('/api/v1/usage', usageRoutes);
 
 // Onboarding wizard (baseline compliance assessment)
 app.use('/api/v1/onboard', onboardRoutes);
+
+// Memory dashboard stats + audit endpoints
+app.use('/api/v1/memory', memoryRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
@@ -247,15 +331,25 @@ app.use('/api/v1/user/api-keys', apiKeyRoutes);
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
 
+// B2B Payment Flow (Revolut deposit + Stripe invoice)
+app.use('/api/v1/b2b', b2bPaymentRoutes);
+
+// Stripe webhook (invoice payments, refunds, customer events)
+app.use('/webhooks/stripe', stripeWebhookRoutes);
+
+// Nudge callback webhook (Teams/Slack button click → resolveNudge).
+// Mounted before express.json so its HMAC can verify the raw body.
+app.use('/webhooks/nudge', nudgeWebhookRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/booking', bookingRoutes);
+app.use('/api/v1/support', supportRoutes);
+app.use('/api/v1/support', supportReviewRoutes);
 app.use('/api/v1/captain', captainRoutes);
-
-// Firehorse ContentMS (content pipeline: blog, email, social, digest)
-app.use('/api/v1/content', contentRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
@@ -263,19 +357,55 @@ app.use('/webhooks', webhookRoutes);
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
 
+// Nudge inbox (in_app channel — list + resolve pending proactive nudges)
+app.use('/api/v1/nudges', nudgeRoutes);
+
+// GTM Events API (Google Tag Manager event logging — Phase 1)
+app.use('/api/gtm/events', gtmEventsRoutes);
+
+// Email Webhooks (Amazon SES bounce/delivery/open/click/complaint — Phase 2a)
+app.use('/webhooks/email', emailWebhookRoutes);
+
+// Analytics API (Funnel dashboard + drop-off analysis — Phase 2b)
+app.use('/api/v1/analytics', analyticsRoutes);
+app.use('/api/erp/track', erpTrackingRoutes);
+app.use('/api/roles/track', roleTrackingRoutes);
+app.use('/api/v1/gaps', gapsRoutes);
+app.use('/api/v1/agents', agentsRoutes);
+
+const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
+  Array.isArray(value) ? value[0] : value;
+
+const extractBearerToken = (authorization: string | undefined): string | undefined => {
+  if (!authorization) return undefined;
+  return authorization.toLowerCase().startsWith('bearer ')
+    ? authorization.slice(7).trim()
+    : authorization.trim();
+};
+
+const isAuthorizedAdminKey = (
+  provided: string | undefined,
+  expected: string | undefined,
+): boolean => {
+  if (!provided || !expected) return false;
+  const providedHash = crypto.createHash('sha256').update(provided, 'utf8').digest();
+  const expectedHash = crypto.createHash('sha256').update(expected, 'utf8').digest();
+  return crypto.timingSafeEqual(providedHash, expectedHash);
+};
+
 // KYA CLI Snap endpoint (simulation trigger for demo)
 app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['authorization']?.replace('Bearer ', '')
-    || req.headers['x-admin-key'];
-
-  if (adminKey && provided) {
-    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
-    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
+  const authHeader = getHeaderValue(req.headers.authorization);
+  const adminHeader = getHeaderValue(req.headers['x-admin-key']);
+  const provided = extractBearerToken(authHeader) || adminHeader;
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
   }
 
   const { sessionId, reason, forceCascade, source } = req.body;
@@ -312,17 +442,17 @@ app.use('/api/bim', bimRoutes);
 // HIL (Human-in-the-Loop) one-click task completion from morning briefing email
 app.use('/api/hil', hilRoutes);
 
+// ERP Integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves connectors)
+app.use('/api/v1/erp', erpRoutes);
+
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
 // Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
-app.use('/api/grok-consent', grokConsentRoutes);
+// app.use('/api/grok-consent', grokConsentRoutes); // TODO: restore when grok-consent is available
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
-
-// Memory dashboard (stats, audit, decay dry-run)
-app.use('/api/v1/memory', memoryRoutes);
 
 // Project delivery status (investor view) — dashboard fetches latest on admin login
 app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
@@ -330,7 +460,12 @@ app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
   const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
   try {
     const raw = fs.readFileSync(configPath, 'utf-8');
-    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    const data = JSON.parse(raw) as {
+      timestamp?: string;
+      mvp?: number;
+      v1?: number;
+      dws7?: number;
+    };
     res.json({
       timestamp: data.timestamp ?? fallback.timestamp,
       mvp: data.mvp ?? fallback.mvp,
@@ -345,20 +480,14 @@ app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
   // SECURITY: Use constant-time comparison to prevent timing attacks
   if (!adminKey) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-  if (!provided || typeof provided !== 'string') {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-  const providedBuffer = Buffer.from(provided.padEnd(256, '\0'));
-  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -376,9 +505,13 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
 // Construction leads manual trigger (secured by admin key)
 app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
-  if (!adminKey || provided !== adminKey) {
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -396,9 +529,13 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
 // Captain inquiry status update — triggers pre-briefing email on "booked"
 app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
-  if (!adminKey || provided !== adminKey) {
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -429,11 +566,17 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           apikey: supabaseKey,
           Authorization: `Bearer ${supabaseKey}`,
         },
-      }
+      },
     );
 
     if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
-    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    const rows = (await fetchRes.json()) as Array<{
+      name: string;
+      email: string;
+      industry: string;
+      seat_level: string;
+      status: string;
+    }>;
     if (rows.length === 0) {
       res.status(404).json({ error: 'Inquiry not found' });
       return;
@@ -442,19 +585,16 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
     const inquiry = rows[0];
 
     // Update status
-    const updateRes = await fetch(
-      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({ status }),
-      }
-    );
+    const updateRes = await fetch(`${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ status }),
+    });
 
     if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
 
@@ -467,7 +607,7 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           inquiry.email,
           inquiry.name,
           inquiry.industry,
-          inquiry.seat_level
+          inquiry.seat_level,
         );
         emailSent = true;
         logger.info('Captain pre-briefing email sent', {
@@ -494,15 +634,39 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
   }
 });
 
+// Memory maintenance manual trigger (secured by admin key)
+// Used for Helsinki sandbox pilot demo — run decay/consolidation on demand
+app.post('/api/v1/admin/memory/maintenance', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = getHeaderValue(req.headers['x-admin-key']);
+
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const job = (req.body?.job as string) || 'all';
+  const validJobs = ['decay', 'consolidation', 'all'];
+  if (!validJobs.includes(job)) {
+    res.status(400).json({ error: 'Invalid job', valid: validJobs });
+    return;
+  }
+
+  try {
+    await memoryScheduler.runManually(job as 'decay' | 'consolidation' | 'all');
+    res.json({ status: 'complete', job, timestamp: new Date().toISOString() });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual memory maintenance failed', { error: msg, job });
+    res.status(500).json({ error: 'Maintenance failed', message: msg });
+  }
+});
+
 // ============ ERROR HANDLING ============
-
-// Initialize error tracking early (Sentry when SENTRY_DSN is set, console fallback otherwise).
-// Called without app arg — we use errorTrackingMiddleware() below instead of
-// Sentry's own Express handler, so ordering is explicit and predictable.
-initErrorTracking().catch(() => { /* logged internally */ });
-
-// Error tracking middleware — captures exceptions before error handler formats response
-app.use(errorTrackingMiddleware());
 
 // 404 handler — must be after all routes
 app.use(notFoundHandler);
@@ -541,19 +705,37 @@ const server = app.listen(PORT, () => {
   // but covers local dev and always-on deployments.
   outreachScheduler.start();
 
+  // Memory maintenance: decay at 03:00 Helsinki, consolidation at 03:30 Helsinki
+  // Manual trigger available via POST /api/v1/admin/memory/maintenance
+  memoryScheduler.start();
+
+  // Proactive observation: watch the signal catalogue and raise human nudges,
+  // plus sweep overdue nudges for escalation (restart-safe).
+  signalPoller.start();
+
+  // ERP integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves). Scheduler
+  // itself only starts when ERP_SCHEDULER_ENABLED=true (checked internally).
+  initializeERPIntegrations();
+  // Poll inbound_emails → create support_tickets every INBOUND_TICKET_POLL_MS (default 30s).
+  // Disable with INBOUND_TICKET_DISABLED=true.
+  inboundTicketScheduler.start();
+
   // Initialize email queue (Redis Streams)
-  emailQueue.initialize().then((ready) => {
-    if (ready) {
-      emailQueue.start();
-      logger.info('Email queue worker started (Redis Streams)');
-    } else {
-      logger.info('Email queue unavailable — emails will be sent directly');
-    }
-  }).catch((err) => {
-    logger.warn('Email queue init error — emails will be sent directly', {
-      error: err.message,
+  emailQueue
+    .initialize()
+    .then((ready) => {
+      if (ready) {
+        emailQueue.start();
+        logger.info('Email queue worker started (Redis Streams)');
+      } else {
+        logger.info('Email queue unavailable — emails will be sent directly');
+      }
+    })
+    .catch((err) => {
+      logger.warn('Email queue init error — emails will be sent directly', {
+        error: err.message,
+      });
     });
-  });
 });
 
 // ============ PROCESS ERROR HANDLERS ============
@@ -580,8 +762,12 @@ process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  memoryScheduler.stop();
+  signalPoller.stop();
+  inboundTicketScheduler.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);
@@ -593,8 +779,12 @@ process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  memoryScheduler.stop();
+  signalPoller.stop();
+  inboundTicketScheduler.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);

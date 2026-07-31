@@ -16,7 +16,7 @@ DWS IQ 6 is the operations compliance layer that sits between ERP systems and EU
 
 The short version: connect your ERP, import your building assessments, get audit-ready compliance reports every quarter without manual work.
 
-The platform runs 18 AI agents across 20 EU-regulated industries, governed by the KYA Standard — hardware-attested agent identity with court-defensible audit trails.
+The platform runs a fleet of skilled agents across 25 EU-regulated industries, governed by the KYA Standard — hardware-attested agent identity with court-defensible audit trails.
 
 ### How did you get here?
 
@@ -28,10 +28,10 @@ But once the building is operating? Once the factory is running? Once the fleet 
 
 ### What stage are you at?
 
-- **€7K MRR** (€84k ARR), five paying customers
+- **€7K MRR** (€84k ARR), six paying customers
 - **100% customer retention** — zero churn
 - **40+ hours/month saved** per customer vs. manual reporting
-- **Platform:** 18 AI agents, 32 products, 5 cloud environments, 20 EU-regulated industries
+- **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 EU-regulated industries
 - **V1 Launch:** June 15, 2026 at Arctic 15 (Helsinki)
 - Seed stage — raising €650K SAFE at €3.8M cap
 
@@ -44,12 +44,13 @@ But once the building is operating? Once the factory is running? Once the fleet 
 **Profile:** Seed-stage climate tech or B2B SaaS investors who understand EU regulatory compliance as a market driver.
 
 **Ideal investors:**
+
 - Climate-focused VCs (Pale Blue Dot, World Fund, 2150, Norrsken VC)
 - Nordic seed funds with enterprise SaaS portfolio (Maki.vc, Lifeline Ventures, Icebreaker.vc)
 - EU regulatory compliance specialists
 - Angels with CFO/sustainability director background at industrials
 
-**Why now:** CSRD reporting deadlines are live. 49,000 EU companies face mandatory filing. This isn't a "nice-to-have" market — it's a "buy or get fined" market. V1 launches at Arctic 15 on June 15, 2026. Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data (available August 15, 2026).
+**Why now:** CSRD reporting deadlines are live. Post-Omnibus, fewer than 5,000 of the largest EU companies (>1,000 employees, >€450M turnover) face mandatory filing — and pull their value chains into Scope-3 reporting. This isn't a "nice-to-have" market — it's a "buy or get fined" market. V1 launches at Arctic 15 on June 15, 2026. Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data (available August 15, 2026).
 
 **Ask:** €650K SAFE — €500K Fleet Admiral + 8 × €50K Captain Seats. Path to €900k ARR by end of 2026.
 
@@ -64,6 +65,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 3. **Compliance Bridge (€10k/mo)** — Enterprise sustainability directors at industrials running SAP or IFS. Full CSRD + ETS + CBAM pipeline.
 
 **Ideal first customer introductions:**
+
 - Nordic logistics companies (10+ fleet vehicles, CSRD deadline approaching)
 - Finnish/Swedish construction portfolio managers (NCC, Skanska, YIT, SRV — they use IFS Cloud)
 - Mid-market manufacturers running Visma, Monitor, or Dynamics 365
@@ -84,6 +86,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 5. **Big 4 / advisory firms** — EY, KPMG, Deloitte, PwC all have CSRD advisory practices. They need tools for their clients. Reseller/referral partnerships.
 
 **Specific asks:**
+
 - Intro to anyone at One Click LCA's partnership or BD team
 - Intro to IFS Cloud's ISV/marketplace team (Nordic region)
 - Intro to SAP sustainability solution managers
@@ -98,6 +101,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 We've deliberately positioned as the "operations compliance layer" — not a platform that does everything. This means we integrate with existing tools (One Click LCA for design data, ERPs for operational data) rather than trying to replace them.
 
 **Brainstorming welcome on:**
+
 - Is "layer" positioning defensible long-term, or does it invite being squeezed?
 - Should we lead with ERP integration (data pull) or LCA integration (data import) in messaging?
 - How to price for EU mid-market vs. Nordic enterprise (current: €3k-10k/mo)?
@@ -105,14 +109,16 @@ We've deliberately positioned as the "operations compliance layer" — not a pla
 ### Key competitive question: Moat durability
 
 Our moats:
-1. **KYA Standard** — Hardware-attested agent governance with D&O safe harbor proof. No competitor has an equivalent. KYA-S certification reduces D&O insurance premiums by 8–12% (EU AI Act Article 99 compliance).
+
+1. **KYA Standard** — Hardware-attested agent governance producing Art. 12 + Art. 26 deployer evidence. No competitor has an equivalent. KYA-S certification targets 8–12% D&O premium reduction for AI-governance coverage (EU AI Act Art. 99(4): €15M/3% turnover).
 2. **ERP connectors** — No carbon compliance competitor has Nordic ERP connectors (Visma, Monitor, Jeeves). Persefoni, Greenly, Sweep = zero ERP connectors.
 3. **Dual revenue model** — SaaS subscription + API transactions for standard customers (Tiers 1–3). Alpha-Share (Decline-to-Scale) reserved for Enterprise World Tier 4 only — large industrials who understand value-based pricing.
-4. **Agentic Efficiency Law** — Governed agent swarms compound efficiency gains across the fleet. More agents deployed → more data → better optimization → higher platform revenue → more customer value. This is the network effect for industrial AI.
+4. **Compliance data flywheel** — Governed agents under KYA produce court-defensible evidence on every run. More coverage → more proprietary compliance data → better outcomes → higher retention and expansion. The network effect is in the data and the audit-ready outcomes, not in agent headcount.
 5. **Operations compliance position** — Different question than design LCA. Recurring subscription vs. one-time assessment.
 6. **Finland first-mover** — Finland implements EU directives first. Build here, prove here, expand.
 
 **Brainstorming welcome on:**
+
 - How fast can well-funded competitors (Watershed: $225M raised) build ERP connectors?
 - Is the Nordic mid-market (Visma/Monitor) a real moat or just a speed bump?
 - Should we pursue SOC 2 / ISO 27001 certification now or after Series A?
@@ -120,9 +126,10 @@ Our moats:
 ### Key go-to-market question: Which vertical first?
 
 Revenue today: 100% logistics/healthcare, 0% construction.
-Ambition: operations compliance across 20 EU-regulated industries.
+Ambition: operations compliance across 25 EU-regulated industries.
 
 **Brainstorming welcome on:**
+
 - Double down on logistics (proven) or push into construction (bigger TAM, harder sale)?
 - EU-27 expansion timing — Finland first, then Nordics, then DACH, then rest?
 - Channel strategy — direct sales vs. Big 4 reseller vs. ERP marketplace?
@@ -132,22 +139,25 @@ Ambition: operations compliance across 20 EU-regulated industries.
 ## 4. Context That Builds Across Calls
 
 ### Metrics to track week-over-week:
+
 - **MRR:** €7K (March 2026)
 - **ARR:** €84k
-- **Customers:** 5 paying, 100% retention
+- **Customers:** 6 paying, 100% retention
 - **Pipeline:** 2 construction pilots converting
-- **Platform:** 18 agents, 32 products, 5 cloud environments
-- **Industries:** 20 EU-regulated verticals
+- **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments
+- **Industries:** 25 EU-regulated verticals
 - **Round:** €650K SAFE at €3.8M cap (€500K Fleet Admiral + 8 × €50K Captain)
-- **Team:** Solo founder + AI-assisted development
+- **Team:** Two humans — Risto Päärni (Founder/CEO) + Lucille Santiago (Office Chief / HIC, partner-track Lifetime AB) — plus AI-assisted development; senior technical (CTO) hire funded by the raise
 
 ### Key dates:
+
 - **June 15, 2026** — V1 Launch at Arctic 15 (Helsinki). Sales kickoff event.
 - **June 15 – August 15, 2026** — 100% sales sprint (2-month dedicated push)
 - **August 15, 2026** — First sales cycle data available (investor decision point)
 - **Q3–Q4 2026** — Series A process (€15M+ pre-money target)
 
 ### Milestones to report:
+
 - [ ] €650K SAFE closed (target: before Arctic 15)
 - [ ] Arctic 15 V1 launch (June 15, 2026)
 - [ ] First construction customer conversion (target: Q2 2026)
@@ -157,8 +167,9 @@ Ambition: operations compliance across 20 EU-regulated industries.
 - [ ] Series A process begins (Q3 2026)
 
 ### Founder context:
+
 - Based in Helsinki, Finland
-- Solo founder with 35+ years industrial management experience
+- Founder with 35+ years industrial management experience; two-person team with Lucille Santiago (Office Chief / HIC)
 - Building with AI-assisted development (Claude Code, parallel agents)
 - EU-first company: GDPR compliant, EU-hosted (Supabase EU, Google Cloud Finland)
 - Finnish company = AAA sovereign credit, strong IP protection, Nordic innovation ecosystem
@@ -170,29 +181,29 @@ Ambition: operations compliance across 20 EU-regulated industries.
 
 ### Tier 1 — Highest impact, most urgent:
 
-| Introduction | Why it converts | What I'd say |
-|-------------|-----------------|--------------|
-| **One Click LCA BD/partnerships** | Their outputs become our inputs. Mutual customer value. | "We're building the operations compliance layer that extends your design-phase LCA data into ongoing CSRD reporting. Your output is our input. We grow each other's value." |
-| **IFS Cloud ISV/marketplace team** | Our most production-ready connector. Their customers need compliance automation. | "We have a working IFS Cloud connector that pulls asset and project data for automated climate compliance reporting. We want to be on the IFS marketplace." |
-| **Nordic logistics CFO** (50+ vehicles) | Proven product, proven ROI (40h/mo saved), €3k/mo, fast close. | "We already do this for Uber and Bolt in Finland. Connect your fleet data, get Scope 1-2-3 reports automatically. 4 weeks to audit-ready." |
+| Introduction                            | Why it converts                                                                  | What I'd say                                                                                                                                                                |
+| --------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **One Click LCA BD/partnerships**       | Their outputs become our inputs. Mutual customer value.                          | "We're building the operations compliance layer that extends your design-phase LCA data into ongoing CSRD reporting. Your output is our input. We grow each other's value." |
+| **IFS Cloud ISV/marketplace team**      | Our most production-ready connector. Their customers need compliance automation. | "We have a working IFS Cloud connector that pulls asset and project data for automated climate compliance reporting. We want to be on the IFS marketplace."                 |
+| **Nordic logistics CFO** (50+ vehicles) | Proven product, proven ROI (40h/mo saved), €3k/mo, fast close.                   | "We already do this for Uber and Bolt in Finland. Connect your fleet data, get Scope 1-2-3 reports automatically. 4 weeks to audit-ready."                                  |
 
 ### Tier 2 — Strategic, longer cycle:
 
-| Introduction | Why it converts | What I'd say |
-|-------------|-----------------|--------------|
-| **Climate VC partner** (Pale Blue Dot, World Fund) | Mandatory market, proven traction, seed round open. | "€7K MRR, 5 customers, 100% retention, 49,000 EU companies must file CSRD. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
-| **SAP sustainability PM** | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation." |
-| **Big 4 sustainability lead (Nordics)** | Channel to 100s of CSRD-obligated companies. | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model." |
-| **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS. | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports." |
+| Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "€7K MRR, 6 customers, 100% retention; post-Omnibus, fewer than 5,000 of the largest EU companies must file CSRD and pull their value chains into Scope 3. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
+| **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                                                                                                        |
+| **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                                                                                                             |
+| **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."                                                                                  |
 
 ### Tier 3 — Ecosystem, long-term:
 
-| Introduction | Why it converts |
-|-------------|-----------------|
-| **Rakennustieto partnerships** | Finnish construction data standard. Extend their value chain. |
-| **SYKE (Finnish Environment Institute)** | CO2data.fi integration. Government credibility. |
-| **Business Finland advisor** | R&D funding, international expansion support. |
-| **EU Commission DG FISMA contacts** | Regulatory alignment, early input on evolving standards. |
+| Introduction                             | Why it converts                                               |
+| ---------------------------------------- | ------------------------------------------------------------- |
+| **Rakennustieto partnerships**           | Finnish construction data standard. Extend their value chain. |
+| **SYKE (Finnish Environment Institute)** | CO2data.fi integration. Government credibility.               |
+| **Business Finland advisor**             | R&D funding, international expansion support.                 |
+| **EU Commission DG FISMA contacts**      | Regulatory alignment, early input on evolving standards.      |
 
 ---
 
@@ -200,36 +211,36 @@ Ambition: operations compliance across 20 EU-regulated industries.
 
 These numbers are the single source of truth. Boardy MUST use these — do not deviate.
 
-| Metric | Value | Source |
-|--------|-------|--------|
-| MRR | €7K | INVESTOR_MEMO.md v3.0 |
-| Round total | €650K | €500K Fleet Admiral + 8 × €50K Captain |
-| Valuation cap | €3.8M | SAFE terms |
-| Customers | 5 paying | 100% retention |
-| Industries | 20 | EU-regulated verticals |
-| Agents | 18 | Operational |
-| Products | 32 | dws10.com catalog |
-| Cloud environments | 5 | US, EU, Aiwen, Hetzner, Edge |
-| V1 launch | June 15, 2026 | Arctic 15, Helsinki |
-| Sales data available | August 15, 2026 | First cycle complete |
-| ARR target | €900K | End of 2026 |
-| Series A target | €15M+ pre-money | Q3–Q4 2026 |
-| Contact email | risto@onelifetime.world | Canonical |
-| Deputy Captain seats | Unlimited | Price TBD |
+| Metric               | Value                   | Source                                             |
+| -------------------- | ----------------------- | -------------------------------------------------- |
+| MRR                  | €7K                     | INVESTOR_MEMO.md v3.0                              |
+| Round total          | €650K                   | €500K Fleet Admiral + 8 × €50K Captain             |
+| Valuation cap        | €3.8M                   | SAFE terms                                         |
+| Customers            | 6 paying                | 100% retention                                     |
+| Industries           | 20                      | EU-regulated verticals                             |
+| Hours saved/customer | 40+ per month           | vs. manual reporting                               |
+| Products             | 32                      | dws10.com catalog                                  |
+| Cloud environments   | 4 + roadmap             | US, EU, Hetzner, Edge + Full Sovereignty (Q2 2026) |
+| V1 launch            | June 15, 2026           | Arctic 15, Helsinki                                |
+| Sales data available | August 15, 2026         | First cycle complete                               |
+| ARR target           | €900K                   | End of 2026                                        |
+| Series A target      | €15M+ pre-money         | Q3–Q4 2026                                         |
+| Contact email        | risto@onelifetime.world | Canonical                                          |
+| Deputy Captain seats | Unlimited               | Price TBD                                          |
 
 ---
 
 ## Quick Reference Card (For the Call)
 
-**One-liner:** "DWS IQ 6 trains and runs governed AI agent swarms for 20 EU-regulated industries — KYA-certified, court-defensible, D&O insurable."
+**One-liner:** "DWS IQ 6 turns EU compliance obligations into audit-ready, court-defensible filings for 20 regulated industries — KYA-certified, EU-sovereign, D&O-insurable."
 
-**Traction:** €7K MRR, 5 customers, 100% retention, 40h/mo saved per customer.
+**Traction:** €7K MRR, 6 customers, 100% retention, 40h/mo saved per customer.
 
-**Platform:** 18 agents, 32 products, 5 cloud environments, 20 industries.
+**Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 industries.
 
-**Market:** 49,000 EU companies, mandatory CSRD filing, no automated ERP-to-report tool exists.
+**Market:** post-Omnibus, fewer than 5,000 of the largest EU companies under mandatory CSRD (+ their value chains via Scope 3), no automated ERP-to-report tool exists.
 
-**Moats:** KYA Standard (D&O safe harbor, 8–12% premium reduction), dual revenue model (SaaS + Enterprise World Alpha-Share), ERP connectors (no competitor has Nordic ERPs), Agentic Efficiency Law (fleet-level compounding).
+**Moats:** KYA Standard (D&O safe harbor, 8–12% premium reduction), dual revenue model (SaaS + Enterprise World Alpha-Share), ERP connectors (no competitor has Nordic ERPs), compliance data flywheel (retention compounds with coverage).
 
 **Raise:** €650K SAFE, €3.8M cap. Fleet Admiral (€500K) + 8 Captain Seats (€50K each). Deputy Captain unlimited, price TBD.
 

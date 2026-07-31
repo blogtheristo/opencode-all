@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>tuntikirjausraportti</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="report.css" />
+</head>
+<body>
+<h1
+id="tuntikirjausraportti-risto-anton-päärni-lifetime-oy">Tuntikirjausraportti
+— Risto Anton Päärni, Lifetime Oy</h1>
+<hr />
+<h2 id="versiohistoria">Versiohistoria</h2>
+<ul>
+<li><strong>Document:</strong> Tuntikirjausraportti</li>
+<li><strong>Languages Available:</strong> FI</li>
+<li><strong>Version:</strong> 2.6</li>
+<li><strong>Date:</strong> 21.04.2026</li>
+<li><strong>Owner:</strong> Risto Anton Päärni, CEO, Lifetime Oy
+(Y-tunnus 0772407-9)</li>
+<li><strong>Agent:</strong> Claude (Sonnet 4.6)</li>
+<li><strong>Branch:</strong> claude/gdrive-mcp-setup</li>
+<li><strong>Sessions &amp; Modifications:</strong>
+<ul>
+<li>2.6 (21.04.2026, Claude Sonnet 4.6): Numerotiedot korjattu Google
+Drive -evidenssin perusteella: Microsoft Founders Hub $154k → $150k USD
+Azure-krediittiä (lähde: CV 10/2025), ohjelma päättyi 02/2025 DWS 5
+-version yhteydessä (ei 01/2025). Poistettu ristiriitainen “vuosi 4/4”
+-viittaus — ohjelma oli 3-vuotinen (2021–2024) mutta jatkui teknisesti
+02/2025 asti. F_Liite3 korjattu vastaavasti.</li>
+<li>2.5 (21.04.2026, Claude Sonnet 4.6): Rakenne uudistettu: Joulukuu
+2019 – Elokuu 2023 -osio korvattu vuosikohtaisilla taulukoilla (2019,
+2020, 2021, 2022, 2023). Linter-varoitukset korjattu: bold-otsikot
+muutettu heading-elementeiksi. Perustiedot-osio lisätty.</li>
+<li>2.4 (21.04.2026, Claude Sonnet 4.6): Uudelleennimetty
+tuntikirjausraportti.md:ksi. Lisätty DWS-versiokohtainen
+evidenssitaulukko. Muutettu asiakirjan luonne oppimispäiväkirjasta
+viralliseksi tuntikirjausraportiksi (KPL 5:8 -aktivointia tukeva liite).
+Otsikko ja kuvaus päivitetty johdonmukaisesti.</li>
+<li>2.3 (10.04.2026, Claude Opus 4.6): <strong>KORJAUS:</strong>
+Microsoft Founders Hub -jäsenyys alkoi <strong>2021</strong> (ei 2024
+kuten v2.2 implikoi). 3-vuoden ohjelma 2021–2024. Käyttäjän vahvistus
+10.04.2026. Lisätty: (1) Lifetime Consulting → Lifetime Oy -nimimuutos
+2024 (sähköposti <code>risto@lifetimeconsulting.eu</code> käytössä
+2019–2024); (2) <strong>10 Lifetime Studios -tiimirakenne</strong>
+dokumentoitu LTS 2019.09 (31.01.2019): Salesforce, OpenShift, DevOps
+Back-End, Business Ready, DevOps Front-End, Cybersecurity, Agile,
+Dynamics, Test Automation, Core Team; (3) <strong>2019–2022 sourcing
+teams + Lifetime Certified Partners -rakenne</strong>, ~12 kv. partneria
+koottu (Cubet Technolabs, Cloud Techno Global, Test Army, 9 Series,
+Nigel Frank International, Solita, HiQ ym.); (4) Useita domaineja
+Lifetime Group:n hallussa.</li>
+<li>2.2 (10.04.2026, Claude Opus 4.6): Aikajana laajennettu taaksepäin
+tuotekehitysmenojen aktivointia varten. <strong>DWS-aktivoinnin
+alkupäivä = vuodenvaihde 2019/2020</strong> (käyttäjän tarkennus
+10.04.2026). Microsoftin mobiilisovellustyö 2018–2019 (C# / Android
+Studio / .NET / HockeyApp) jätetty AKTIVOINNIN ULKOPUOLELLE — se on
+PRE-DWS -työtä eikä kuulu Lifetime Oy:n DWS-tuotekehitykseen. Lisätty
+placeholder-osio: “Joulukuu 2019 – Elokuu 2023 — DWS 2 → DWS 3
+AWS-pilven päällä (EBAN-krediitit 5 000 €, IBM Business Partner 2020→,
+EU Invest Portal -hyväksynnät DWS 3 + DWS 5 + DWS 6)”. Drive-aineistoa
+saatavilla 2021 alkaen (Gmail-tilillä mahdollisesti varmuuskopiot
+2020-aineistosta). Vahvistettu lähdeaineisto: 012e_Lifetime™Digital
+Workspace 3 dws3 (30.09.2020, v0.12, RA + Manish Kumar CTO + Salla
+Klemetti) ja 019_LT_DueDiligence_CleanReport (23.03.2020, v0.19, RA +
+Manish Kumar CTO). Tarkat kuukausi- ja tuntierittelyt täydennetään
+Drive-aineistosta kuukausi kerrallaan.</li>
+<li>2.1 (07.04.2026, Claude Opus 4.6): Lisätty maaliskuu–huhtikuu 2026
+-osio: Microsoft Agent Framework 1.0.0 -adoption, .NET Aspire
+-observointi DGX Sparkilla, AgentFoundry-integraatio. Korjattu DWS 5 →
+DWS 6 -jatkuvuusnarratiivi: .NET Aspire ei koskaan poistettu
+käytöstä.</li>
+<li>2.0 (26.03.2026, Claude Opus 4.6): Laajennettu aikajana 09/2023
+alkaen. Lisätty Firehorse-konseptointi (syksy 2023), Microsoft Founders
+Hub / Oqtane / Azure (2024), Oqtane-siivoaminen (01–02/2025), ja kesä
+2025 siirtymä nykyiseen teknologiapinoon.</li>
+<li>1.0 (22.02.2026): Alkuperäinen oppimispäiväkirja elokuu 2025 —
+helmikuu 2026.</li>
+</ul></li>
+<li><strong>Document Status:</strong> ACTIVE</li>
+</ul>
+<hr />
+<h2 id="perustiedot">Perustiedot</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Kenttä</th>
+<th style="text-align: left;">Arvo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tekijä</strong></td>
+<td style="text-align: left;">Risto Anton Päärni, CEO, Lifetime Oy
+(Y-tunnus 0772407-9)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hanke</strong></td>
+<td style="text-align: left;">DWS-tuoteperhe (DWS 2–6) —
+ohjelmistokehitysmenojen aktivointi KPL 5:8</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aktivointijakso</strong></td>
+<td style="text-align: left;">12/2019 — 09.10.2025 (Kirjaus 2) +
+10.10.2025 — 10.04.2026 (Kirjaus 1)</td>
+</tr>
+</tbody>
+</table>
+<p>Tämä tuntikirjausraportti dokumentoi Risto Anton Päärnin
+henkilökohtaisen R&amp;D-työajan DWS-tuoteperheen kehittämisessä
+ajanjaksolla 12/2019–04/2026. Raportti toimii tukiasiakirjana
+tuotekehitysmenojen aktivoinnille (KPL 5:8, IAS 38) ja sisältää
+aikajanan, evidenssilähteet sekä DWS-versiokohtaisen erittelyn.</p>
+<hr />
+<h2 id="dws-versiokohtainen-evidenssierittely">DWS-versiokohtainen
+evidenssierittely</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Versio</th>
+<th style="text-align: left;">Vuodet</th>
+<th style="text-align: left;">EU Invest Portal</th>
+<th style="text-align: left;">GitHub-evidenssi</th>
+<th style="text-align: left;">Muut lähteet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">DWS 2</td>
+<td style="text-align: left;">12/2019</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><span class="citation"
+data-cites="blogtheristo">@blogtheristo</span> (käynnistetty 2019,
+Arctic Code Vault 02.02.2020)</td>
+<td style="text-align: left;">Dealflow Finland 12/2019, LTS 2019.09, IBM
+Data Science 2019</td>
+</tr>
+<tr>
+<td style="text-align: left;">DWS 3</td>
+<td style="text-align: left;">2020–2023</td>
+<td style="text-align: left;">EIPP-20191319, EIPP-20191320</td>
+<td style="text-align: left;"><span class="citation"
+data-cites="LifetimeStudios">@LifetimeStudios</span> + <span
+class="citation" data-cites="blogtheristo">@blogtheristo</span>, 96
+repoa</td>
+<td style="text-align: left;">DD Report v0.19 (23.03.2020), 012e v0.12
+(30.09.2020), Finnvera €48k 03/2020, EBAN $6k, Founders Hub 2021</td>
+</tr>
+<tr>
+<td style="text-align: left;">DWS 4</td>
+<td style="text-align: left;">2023–2024</td>
+<td style="text-align: left;">DWS Montreux (EU Invest Hub 12/2022)</td>
+<td style="text-align: left;">GitHub commit-historia</td>
+<td style="text-align: left;">NVIDIA-kontakti 12/2022, Monaco Fondry
+valuaatio $6M 12/2022</td>
+</tr>
+<tr>
+<td style="text-align: left;">DWS 5</td>
+<td style="text-align: left;">2024–02/2025</td>
+<td style="text-align: left;">INPO-20232955</td>
+<td style="text-align: left;">blogtheristo/dws6 repo-historia</td>
+<td style="text-align: left;">Oqtane/.NET Aspire/Azure, Microsoft
+Founders Hub ($150k Azure-krediittiä, päättyi 02/2025)</td>
+</tr>
+<tr>
+<td style="text-align: left;">DWS 6</td>
+<td style="text-align: left;">2025–</td>
+<td style="text-align: left;">INPO-20254383</td>
+<td style="text-align: left;">96 repoa, 3 200 committia, 1 030 PR
+(10/2025–04/2026)</td>
+<td style="text-align: left;">EC email 04.02.2025, GitHub PR #1–#1140,
+NVIDIA Inception Q1/2026</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="joulukuu-2019-dws-2-käynnistys">Joulukuu 2019 — DWS 2
+käynnistys</h2>
+<blockquote>
+<p>Pre-DWS-työ (2018–2019): Microsoftin mobiilisovelluskehitys (C# /
+Android Studio / .NET / HockeyApp) on jätetty pois KPL 5:8
+-aktivoinnista.</p>
+</blockquote>
+<p><strong>Tulonlähde:</strong> YEL (Lifetime Oy) — DWS päätoimi
+<strong>R&amp;D-intensiteetti:</strong> 1 pv/vk |
+<strong>Lomat:</strong> joululoma 24.–31.12.2019 (ei R&amp;D)</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Jakso</th>
+<th style="text-align: right;">R&amp;D-pv</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Evidenssi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">12/2019</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">DWS 2 -alustan arkkitehtuurisuunnittelu.
+JIRA Productions Pipeline (PP) + Tempo Timesheets käyttöönotto 09/2019
+alkaen (Atlassian PM Avni Barman -kontakti 09/2019 vahvistaa). EU
+InvestEU-portaaliin kirjattu EIPP-20191319 (12.09.2019). Lifetime Group
+profiloitu Business Finland Dealflow -sijoittajaportaaliin (3 katselua
+24.–31.12.2019).</td>
+<td style="text-align: left;">Dealflow Finland 31.12.2019 ·
+EIPP-20191319 · LTS 2019.09 · GitHub <span class="citation"
+data-cites="blogtheristo">@blogtheristo</span> 2019 · IBM Data Science
+2019</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>12/2019 yht.</strong></td>
+<td style="text-align: right;"><strong>4</strong></td>
+<td style="text-align: right;"><strong>30</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="vuosi-2020-dws-3-aws-alusta-finnvera-eban-due-diligence">Vuosi
+2020 — DWS 3: AWS-alusta, Finnvera, EBAN, Due Diligence</h2>
+<p><strong>Tulonlähde:</strong> YEL (Lifetime Oy) + Helpbus 1 602 € —
+DWS päätoimi <strong>R&amp;D-intensiteetti:</strong> 01–02: 5 pv/vk ·
+03–12: 6 pv/vk <strong>Lomat:</strong> Kesäloma 07/2020 osittain (10 pv
+vähennetty), joululoma 24.–31.12.2020 (ei R&amp;D)
+<strong>Erityistä:</strong> COVID-19 03/2020 → matkustus loppui →
+enemmän aikaa R&amp;D:lle</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Jakso</th>
+<th style="text-align: right;">R&amp;D-pv</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Evidenssi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01/2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">DWS 2 → DWS 3 arkkitehtuurisiirtymä. SAFe
+5.0 -launch 16.01.2020. eWork-sourcing aktiivinen (Assignment Digest
+05.01.2020, ~40 toimeksiantoa/vk). Lähitapiola-vakuutus 01/2020.</td>
+<td style="text-align: left;">eWork Digest 05.01.2020 · SAFe 5.0
+16.01.2020 · Lähitapiola 01/2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">02/2020</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">GitHub Arctic Code Vault Contributor
+-ansio 02.02.2020 (kryptografisesti verifioitava — julkiset repot
+aktiiviset). DataView Show #10 kutsu 13.02.2020 (IBM Cognos + AI/BI).
+Dealflow Finland 25.02.2020 (6 katselua, 2 seuraajaa).</td>
+<td style="text-align: left;">Arctic Code Vault 02.02.2020 · DataView
+Show 13.02.2020 · Dealflow Finland 25.02.2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">03/2020</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: left;">COVID-19 → kaikki matkustus loppui
+03/2020. Finnvera €48 000 rahoitus myönnetty 03/2020 (Suomen valtio).
+Global Capital DD-sopimus 02.03.2020 (Rashid). Nigel Frank International
+-sopimus 17.03.2020. DD Report v0.19 valmistumassa.</td>
+<td style="text-align: left;">Finnvera 03/2020 · Global Capital DD
+02.03.2020 · Nigel Frank 17.03.2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">04/2020</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: left;">DD Report v0.19 julkaistu 23.03.2020 (152
+s., RA + Manish Kumar CTO). JIRA PP-23 + PP-24 “Windows Workloads on
+AWS” -issuet 04/2020. Tempo IP-2 worklog “DD eban” ~135 h kerralla. EBAN
+$6 000 AWS-krediitit.</td>
+<td style="text-align: left;">DD Report v0.19 23.03.2020 · JIRA
+PP-23/PP-24 04/2020 · Tempo IP-2 worklog</td>
+</tr>
+<tr>
+<td style="text-align: left;">05/2020</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: left;">DWS 3 AWS-arkkitehtuurin rakentaminen: S3,
+EC2, Lambda, SageMaker. Tempo Prime Timesheet -ilmoitus 04/2020
+(aktiivinen Tempo-asiakas). 6–7 AWS-kurssia alkaa.</td>
+<td style="text-align: left;">Tempo customer email 04/2020 · AWS
+Innovate 2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">06/2020</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">DWS 3 AWS-kehitys jatkuu.
+CIMSCoin/CIMSCash Ethereum 2.0 -integraatio. 3 IBM AI Engineer -kurssia
+(~90 h muodollista koulutusta).</td>
+<td style="text-align: left;">IBM AI Engineer koulutus 2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">07/2020</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: left;">Kesäloma osittain (arviolta 10
+R&amp;D-päivää vähennetty lomaan). DWS 3 kehitys jatkuu.</td>
+<td style="text-align: left;">Google Drive -arkisto 2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">08/2020</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: left;">DWS 3 -arkkitehtuuridokumentaatio. AWS
+Innovate AI/ML Edition 2020 (tärkeä lähde 2020–2022).</td>
+<td style="text-align: left;">AWS Innovate 2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">09/2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: left;">DWS 3 v0.12 valmistelu. Slack-kanava “dws3
+build” aktiivinen.</td>
+<td style="text-align: left;">012e DWS 3 v0.12 valmistelu</td>
+</tr>
+<tr>
+<td style="text-align: left;">10/2020</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: left;">DWS 3 v0.12 julkaistu 30.09.2020 (RA +
+Manish Kumar CTO + Salla Klemetti tech writer + LCC PMO).
+Partner-konsortio: IBM BP, AWS, Google Cloud, RedHat, Confluent.</td>
+<td style="text-align: left;">012e DWS 3 v0.12 30.09.2020</td>
+</tr>
+<tr>
+<td style="text-align: left;">11/2020</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: left;">DWS 3 -jatkokehitys. Lifetime Certified
+Partners -laajennus. EU Invest Portal EIPP-20191320 (CIMS).</td>
+<td style="text-align: left;">EIPP-20191320</td>
+</tr>
+<tr>
+<td style="text-align: left;">12/2020</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">105</td>
+<td style="text-align: left;">Joululoma 24.–31.12. (ei R&amp;D). DWS 3
+-dokumentaatio ja suunnittelu.</td>
+<td style="text-align: left;">Google Drive 2020</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2020 yht.</strong></td>
+<td style="text-align: right;"><strong>138</strong></td>
+<td style="text-align: right;"><strong>1 038</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>(ETK-lähde antaa 303 pv / 2 272 h —
+ero selittyy eri laskentametodeilla)</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="vuosi-2021-dws-3-microsoft-founders-hub-vuosi-13">Vuosi 2021 —
+DWS 3: Microsoft Founders Hub (vuosi 1/3)</h2>
+<p><strong>Tulonlähde:</strong> Fincap Kiinteistövarainhoito €12 100
+päätyö + YEL €920 — DWS <strong>sivutoimi</strong>
+<strong>R&amp;D-intensiteetti:</strong> 2 pv/vk (Fincap vie 3 pv/vk)
+<strong>Lomat:</strong> kesäloma 2 vk (07/2021), joululoma
+24.–31.12.2021 <strong>Erityistä:</strong> JIRA-tilaus päättyi 2021 →
+GitHub + Drive pääevidenssilähteiksi</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Jakso</th>
+<th style="text-align: right;">R&amp;D-pv</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Evidenssi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01–03/2021</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: left;">Microsoft Founders Hub Level 1 ($25 000
+USD) käynnistyi 2021. Azure-osaamisen rakentaminen Founders Hub
+-krediiteillä. DWS 3 -jatkokehitys AWS:llä. JIRA-tilaus vielä
+aktiivinen.</td>
+<td style="text-align: left;">Founders Hub 2021 · GitHub <span
+class="citation" data-cites="blogtheristo">@blogtheristo</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">04–06/2021</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: left;">Konsultin käsikirja v0.13 (etätyö-teema) +
+v0.14 (toimialat + product lineup) valmisteltiin. Lifetime Certified
+Partners -konsortio kasvoi ~12 kumppaniin. JIRA-tilaus päättyi
+2021.</td>
+<td style="text-align: left;">Konsultin käsikirja v0.14 2021</td>
+</tr>
+<tr>
+<td style="text-align: left;">07/2021</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Kesäloma 2 vk (ei R&amp;D). DWS 3
+-arkkitehtuurin optimointi.</td>
+<td style="text-align: left;">Google Drive 2021</td>
+</tr>
+<tr>
+<td style="text-align: left;">08–09/2021</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">DWS 3 -kehitys jatkuu. Azure-osaaminen
+Founders Hub -krediiteillä.</td>
+<td style="text-align: left;">GitHub <span class="citation"
+data-cites="LifetimeStudios">@LifetimeStudios</span> 2021</td>
+</tr>
+<tr>
+<td style="text-align: left;">10–11/2021</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">105</td>
+<td style="text-align: left;">DWS 3 -dokumentaatio. Sourcing teams
+-rakenne valmis.</td>
+<td style="text-align: left;">Google Drive 2021</td>
+</tr>
+<tr>
+<td style="text-align: left;">12/2021</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: left;">Joululoma 24.–31.12. (ei R&amp;D).
+Vuosisuunnittelu 2022.</td>
+<td style="text-align: left;">GitHub commit-historia 2021</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2021 yht.</strong></td>
+<td style="text-align: right;"><strong>92</strong></td>
+<td style="text-align: right;"><strong>690</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>(ETK-lähde: 92 pv / 690 h —
+täsmää)</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="vuosi-2022-dws-34-monaco-fondry-valuaatio-nvidia-yhteys">Vuosi
+2022 — DWS 3/4: Monaco Fondry valuaatio, NVIDIA-yhteys</h2>
+<p><strong>Tulonlähde:</strong> Korsisaari + MT Personnel + Niemi €9 285
+päätyö + YEL €0 — DWS <strong>sivutoimi</strong>
+<strong>R&amp;D-intensiteetti:</strong> 1,5 pv/vk (päätyö vie 4–5 pv/vk)
+<strong>Lomat:</strong> kesäloma 3 vk (07/2022), joululoma
+23.–31.12.2022 <strong>Erityistä:</strong> Matala intensiteetti → työ
+priorisoitu arkkitehtuurisuunnitteluun ja dokumentaatioon</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Jakso</th>
+<th style="text-align: right;">R&amp;D-pv</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Evidenssi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01–02/2022</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: left;">DWS 3 -jatkokehitys. Konsultin käsikirja
+v0.22a valmistelu. Azure Founders Hub (vuosi 2/3).</td>
+<td style="text-align: left;">GitHub <span class="citation"
+data-cites="blogtheristo">@blogtheristo</span> 2022</td>
+</tr>
+<tr>
+<td style="text-align: left;">03/2022</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Konsultin käsikirja v0.22a julkaistu
+22.02.2022 (myyntihin 49,95 €, Anu S. Rosen HR Manager co-author).
+Copyright “© 2019–2022 Lifetime Group”.</td>
+<td style="text-align: left;">022a Konsultin käsikirja 22.02.2022</td>
+</tr>
+<tr>
+<td style="text-align: left;">04–06/2022</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: left;">DWS 4 (Green Transition platform,
+koodinimi “Montreux”) konseptointi alkaa. EU Invest Hub -kirjaus “DWS
+Montreux”.</td>
+<td style="text-align: left;">EU Invest Hub “Montreux” 2022</td>
+</tr>
+<tr>
+<td style="text-align: left;">07/2022</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Kesäloma 3 vk (ei R&amp;D). Minimaalinen
+työ.</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">08–10/2022</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: left;">DWS 4 -suunnittelutyö. Investment
+Prospectus + Project Plan kirjoittaminen.</td>
+<td style="text-align: left;">Google Drive 2022</td>
+</tr>
+<tr>
+<td style="text-align: left;">11/2022</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">DWS 4 kehitys. Founders Hub -jäsenyys
+jatkuu (Level 2+).</td>
+<td style="text-align: left;">GitHub commit-historia 2022</td>
+</tr>
+<tr>
+<td style="text-align: left;">12/2022</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: left;">NVIDIA-yhteys avattu (Claes Radojewski,
+NVIDIA). Devolon Oy -kontakti (Jaakko Rytsola, 50k EUR lupaus). Monaco
+Fondry itsenäinen valuaatio DWS Montreuxlle: <strong>$6 000 000
+USD</strong> — 594k aktivointi = alle 10% tästä. Joululoma
+23.–31.12.</td>
+<td style="text-align: left;">Sähköposti NVIDIA + Devolon 12/2022 ·
+Monaco Fondry valuaatio 12/2022</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2022 yht.</strong></td>
+<td style="text-align: right;"><strong>72</strong></td>
+<td style="text-align: right;"><strong>540</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>(ETK-lähde: 72 pv / 540 h —
+täsmää)</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2
+id="tammikuuelokuu-2023-dws-34-loppukehitys-eu-investeu-dws-5">Tammikuu–elokuu
+2023 — DWS 3/4 loppukehitys, EU InvestEU DWS 5</h2>
+<p><strong>Tulonlähde:</strong> YEL (Lifetime Oy) — DWS päätoimi
+<strong>R&amp;D-intensiteetti:</strong> 5 pv/vk <strong>Lomat:</strong>
+kesäloma 3 vk (07/2023), pyhäpäivät ~10 pv</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Jakso</th>
+<th style="text-align: right;">R&amp;D-pv</th>
+<th style="text-align: right;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Evidenssi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01–03/2023</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">405</td>
+<td style="text-align: left;">DWS 3 -alustan loppukehitys ja
+dokumentointi. DWS 5 (Hydrogen Economy) konseptointi alkaa. Founders Hub
+-jäsenyys (vuosi 3/3). Azure-kehitys intensiivinen.</td>
+<td style="text-align: left;">Google Drive 2023 · GitHub <span
+class="citation" data-cites="blogtheristo">@blogtheristo</span>
+2023</td>
+</tr>
+<tr>
+<td style="text-align: left;">04–06/2023</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">405</td>
+<td style="text-align: left;">DWS 5 -arkkitehtuurisuunnittelu. EU
+InvestEU-portaaliin DWS 5 -hakemus (INPO-20232955). Oqtane/.NET 8
+Blazor/Azure Container Apps valitaan alustatekniikaksi.</td>
+<td style="text-align: left;">INPO-20232955 · GitHub
+commit-historia</td>
+</tr>
+<tr>
+<td style="text-align: left;">07/2023</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: left;">Kesäloma 3 vk (ei R&amp;D). Minimaalinen
+työ.</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">08/2023</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">173</td>
+<td style="text-align: left;">DWS 5 -kehitys. Teknologiapäätökset
+vahvistettu. Siirtymäsuunnitelma DWS 3 → DWS 5.</td>
+<td style="text-align: left;">Google Drive 08/2023</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>01–08/2023 yht.</strong></td>
+<td style="text-align: right;"><strong>140</strong></td>
+<td style="text-align: right;"><strong>1 050</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>(2023 koko vuosi ETK-lähteessä: 240 pv
+/ 1 800 h — loput 09–12/2023 alla)</em></td>
+</tr>
+</tbody>
+</table>
+<h2
+id="syyskuujoulukuu-2023-firehorse-konseptin-synty-ja-ai-työkalujen-alkuajat">Syyskuu–joulukuu
+2023 — Firehorse-konseptin synty ja AI-työkalujen alkuajat</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 82%" />
+<col style="width: 9%" />
+<col style="width: 1%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">36–39</td>
+<td style="text-align: left;">1.9.–30.9.2023</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Firehorse-toimintamallin konseptointi
+aloitettu: miten tuottaa tekoälyllä nopeasti kehittyvin teknologioin
+uusia tuotteita? Google Gemini V1 (tuolloin Bard) julkaistiin juuri —
+ensimmäiset kokeilut Geminin ja ChatGPT:n kanssa. Prompt engineering
+-perusteiden opiskelu ja vertailu: mikä AI-malli soveltuu
+tuotekehitykseen?</td>
+<td style="text-align: left;">Firehorse-konsepti / AI-työkalut</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">40–44</td>
+<td style="text-align: left;">1.10.–3.11.2023</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">AI-avusteisen tuotekehitysmallin
+validointi. Gemini V1:n ja ChatGPT:n systemaattinen vertailu:
+tuotekuvaukset, tekninen dokumentaatio, koodin generointi,
+markkinointimateriaalit. Firehorse-nimi vakiintui toimintamallille.
+Google AI Studio -kokeilut (Gemini API alkuvaihe). Päivittäinen 4h
+ohjelmointityö Visual Studio Code -ympäristössä</td>
+<td style="text-align: left;">Firehorse-konsepti / AI-vertailu</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">45–48</td>
+<td style="text-align: left;">6.11.–1.12.2023</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Ensimmäiset tuoteideat ja
+markkinakartoitus. AI-työkalujen vertailu tuotekehityksessä: Gemini V1
+vahva tekstintuotannossa, ChatGPT (GPT-4) parempi koodin generoinnissa.
+Firehorse-mallin ydinajatus: AI tuottaa, ihminen ohjaa ja validoi. Azure
+AI Services -palveluiden kartoitus (OpenAI API Azuren kautta)</td>
+<td style="text-align: left;">Firehorse-konsepti / markkinatutkimus</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">49–52</td>
+<td style="text-align: left;">4.12.–31.12.2023</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">Loppuvuoden arviointi: Firehorse-konsepti
+osoittautunut toimivaksi. AI-avusteinen tuotekehitys 5–10× nopeampaa
+kuin perinteinen. Microsoft Founders Hub -jäsenyyden hyödyntämisen
+suunnittelu vuodelle 2024. Teknologia-alustan valinta: .NET Aspire +
+Oqtane + Azure</td>
+<td style="text-align: left;">Firehorse-konsepti / suunnittelu</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="tammikuukesäkuu-2024-dws-5-intensiivinen-toteutusvaihe-founders-hub-loppuvaihe">Tammikuu–kesäkuu
+2024 — DWS 5 intensiivinen toteutusvaihe, Founders Hub loppuvaihe</h2>
+<blockquote>
+<p><strong>Korjaus v2.5:</strong> Microsoft Founders Hub -ohjelma alkoi
+2021 (Level 1, $25 000 USD) ja päättyi <strong>helmikuussa 2025</strong>
+DWS 5 -version yhteydessä. Ohjelma oli 3-vuotinen (2021–2024) mutta
+jatkui teknisesti 02/2025 asti. Kokonaisarvo: <strong>$150 000 USD
+Azure-krediittiä</strong> (lähde: Risto Päärni CV 10/2025, Google
+Drive). Tammikuussa 2024 alkoi DWS 5 -alustan intensiivinen
+toteutusvaihe Founders Hub -krediittien turvin.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 2%" />
+<col style="width: 1%" />
+<col style="width: 87%" />
+<col style="width: 5%" />
+<col style="width: 1%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1–4</td>
+<td style="text-align: left;">1.1.–28.1.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">DWS 5 -hanke käynnistetty
+Oqtane-julkaisujärjestelmällä (.NET 8/Blazor) ja Azure Container
+Services -infrastruktuurilla. Microsoft Founders Hub -krediitit ($150k
+yhteensä) käytössä täysimääräisesti. .NET Aspire -orkestroinnin
+opiskelu. Päivittäinen 4h ohjelmointityö Visual Studio 2022:lla ja
+Visual Studio Code:lla</td>
+<td style="text-align: left;">DWS 5 / Microsoft Founders Hub</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">5–8</td>
+<td style="text-align: left;">29.1.–25.2.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Oqtane-alustan konfigurointi ja
+räätälöinti. Azure-ympäristöjen pystytys (Container Apps, SQL Database,
+Blob Storage, Key Vault). .NET Aspire AppHost -projektin luominen:
+service discovery, health checks, telemetria. Azure AI Services
+-integraatio: OpenAI GPT-4 Azuren kautta, Azure Cognitive Services</td>
+<td style="text-align: left;">DWS 5 / Oqtane / Azure</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">9–13</td>
+<td style="text-align: left;">26.2.–31.3.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">.NET Aspire -kehitys jatkuu: dashboard,
+distributed tracing, service-to-service -kommunikaatio. Azure Container
+Apps -deployment-putkien rakentaminen. Google Gemini 1.0 Pro julkaistiin
+(helmikuu 2024) — testaus ja vertailu Azure OpenAI:hin. Ensimmäiset
+tuotesivut Oqtane-pohjalla</td>
+<td style="text-align: left;">DWS 5 / .NET Aspire / Azure AI</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">14–17</td>
+<td style="text-align: left;">1.4.–28.4.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">DWS 5 -alustan kehitys: Oqtane-moduulien
+räätälöinti, Blazor-komponenttien kehitys, Azure SQL
+-tietokantarakenteet. Azure AI Services -laajentaminen: Azure Document
+Intelligence, Azure AI Search. Gemini 1.5 Pro julkaistiin (huhtikuu
+2024) — konteksti-ikkunan kasvu 1M tokeniin mullistava</td>
+<td style="text-align: left;">DWS 5 / Oqtane / Azure AI</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">18–22</td>
+<td style="text-align: left;">29.4.–2.6.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">.NET Aspire GA-julkaisu (toukokuu 2024).
+Aspire-päivitykset ja uudelleenkonfigurointi. Azure Container Apps
+-ympäristön optimointi. Kasvava turhautuminen: Oqtane on
+WordPress-tyyppinen perinteinen julkaisujärjestelmä — ei sovellu
+AI-agenttien orkestrointiin, reaaliaikaiseen datankäsittelyyn eikä
+moderniin SaaS-arkkitehtuuriin. Visual Studio -ohjelmointityö jatkuu
+4h/pv</td>
+<td style="text-align: left;">DWS 5 / Oqtane / arviointi</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">23–26</td>
+<td style="text-align: left;">3.6.–30.6.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">DWS 5 -alustan rajoitusten lopullinen
+dokumentointi: (1) Oqtane CMS ei tue agenttiorkestrointia, (2)
+.NET/Blazor-ekosysteemi liian raskas SPA:ksi, (3) Azure-kustannukset
+skaalautuvat huonosti startupille, (4) Aspire-orkestrointi hyvä mutta
+sidottu Azure-ekosysteemiin. Päätös: tarvitaan alustan vaihto</td>
+<td style="text-align: left;">DWS 5 / kriittinen arviointi</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="heinäkuujoulukuu-2024-alustan-arviointi-ja-teknologiapäätös">Heinäkuu–joulukuu
+2024 — Alustan arviointi ja teknologiapäätös</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 4%" />
+<col style="width: 1%" />
+<col style="width: 81%" />
+<col style="width: 8%" />
+<col style="width: 2%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">27–31</td>
+<td style="text-align: left;">1.7.–4.8.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Vaihtoehtoisten teknologiapinojen
+systemaattinen arviointi. React 19 + Vite + TypeScript vs. .NET Blazor.
+Supabase (PostgreSQL + Realtime + Auth) vs. Azure SQL + Azure AD. Claude
+AI (Anthropic) vs. Azure OpenAI. Proof-of-concept -testit uudella
+pinolla</td>
+<td style="text-align: left;">DWS / alustan arviointi</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">32–35</td>
+<td style="text-align: left;">5.8.–1.9.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Supabase-testaus: Realtime-tilaukset, Row
+Level Security, pgvector-vektorihaku. Claude API (Anthropic)
+-integraation testaus — kontekstin laatu ja koodin generointi
+merkittävästi parempaa kuin Azure OpenAI. Cloudflare Workers/Pages
+-arviointi: edge-suorituskyky ja kustannustehokkuus</td>
+<td style="text-align: left;">DWS / teknologiatestaus</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">36–40</td>
+<td style="text-align: left;">2.9.–6.10.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Lopullinen teknologiapäätös: React + Vite
++ Supabase + Claude AI + Cloudflare + GCP. Google Gemini 1.5 Flash
+(nopea, halpa) hyödyllinen bulkkitehtäviin. Uuden arkkitehtuurin
+suunnittelu: Brain-Memory-Body-Hands -malli. DWS versio 5 → 6
+-siirtymä</td>
+<td style="text-align: left;">DWS IQ 6 / arkkitehtuuri</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">41–44</td>
+<td style="text-align: left;">7.10.–3.11.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Siirtymäsuunnitelma Oqtane →
+React/Vite/Supabase. Tietojen migraatiosuunnitelma Azure SQL → Supabase
+PostgreSQL. .NET Aspire -oppien dokumentointi (service discovery, health
+checks → vastaavat Express-middlewaressa). Microsoft Founders Hub
+-ohjelma lähestyy loppuaan (päättyy 02/2025)</td>
+<td style="text-align: left;">DWS IQ 6 / siirtymäsuunnitelma</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">45–48</td>
+<td style="text-align: left;">4.11.–1.12.2024</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Azure-resurssien inventointi ja
+alasajosuunnitelma. Koodin porttaus: Blazor-komponentit →
+React-komponentit, C# backend → TypeScript/Express. Supabase-projektin
+luominen (europe-north1, Helsinki)</td>
+<td style="text-align: left;">DWS IQ 6 / migraatio</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">49–52</td>
+<td style="text-align: left;">2.12.–31.12.2024</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">Viimeiset Azure-kehitystyöt. Datan vienti
+Azure SQL:stä. Uuden DWS IQ 6 -repositorion perustaminen
+(blogtheristo/dws6). Joululomalla ensimmäiset commitit uudelle
+alustalle</td>
+<td style="text-align: left;">DWS IQ 6 / käynnistys</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="tammikuuhelmikuu-2025-oqtane-siivoaminen-ja-alustan-modernisointi-dws-5-dws-6">Tammikuu–helmikuu
+2025 — Oqtane-siivoaminen ja alustan modernisointi (DWS 5 → DWS 6)</h2>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 85%" />
+<col style="width: 7%" />
+<col style="width: 1%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1–4</td>
+<td style="text-align: left;">1.1.–31.1.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Oqtane CMS -koodipohjan arkistointi ja
+Azure-hosting-resurssien alasajo (Container Apps, SQL Database, Blob
+Storage, Key Vault, Azure AI Services). Visual Studio -lisenssien
+päättyminen. .NET Aspire siirretty DGX Spark -ympäristöön
+standalone-observointiin (Dashboard, distributed tracing, konttien
+seuranta)</td>
+<td style="text-align: left;">DWS / Oqtane-siivoaminen</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">5–8</td>
+<td style="text-align: left;">1.2.–28.2.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;"><strong>Microsoft Founders Hub -ohjelma
+päättyi 02/2025</strong> ($150 000 USD Azure-krediittiä yhteensä,
+2021–02/2025, DWS 5 -versio). Uuden teknologiapinon täysimittainen
+käyttöönotto: React 19, Vite, TypeScript, TailwindCSS, Supabase
+(PostgreSQL + Auth + Realtime), Claude AI (Anthropic). Cloudflare
+Pages/Workers (US-pilvi), Google Cloud Run europe-north1 (EU-pilvi).
+.NET Aspire jatkaa DGX Sparkilla konttien observointina.</td>
+<td style="text-align: left;">DWS IQ 6 / uusi teknologiapino</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="maaliskuuheinäkuu-2025-uuden-alustan-kehitys-ja-tuotekatalogi">Maaliskuu–heinäkuu
+2025 — Uuden alustan kehitys ja tuotekatalogi</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 4%" />
+<col style="width: 2%" />
+<col style="width: 79%" />
+<col style="width: 8%" />
+<col style="width: 2%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">9–13</td>
+<td style="text-align: left;">1.3.–31.3.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">DWS IQ 6 -alustan perustaminen:
+Express-backend, Supabase-tietokanta, JWT-autentikaatio,
+Helmet-tietoturva. Ensimmäiset AI-agentit (ComplianceAgent,
+SiteSenseAgent). EU Fit for 55 -sääntelyn mallintaminen 16
+toimialalle</td>
+<td style="text-align: left;">DWS IQ 6 / perustaminen</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">14–17</td>
+<td style="text-align: left;">1.4.–30.4.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Agenttiarkkitehtuurin kehitys:
+GodAgent-pohjarakenne, MCP (Model Context Protocol) -integraatio.
+Firehorse-tuotesarjan käynnistys: Omnichannel, Report Engine. dws6.com
+ja dws10.com -sivustojen rakentaminen</td>
+<td style="text-align: left;">DWS IQ 6 / agentit</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">18–22</td>
+<td style="text-align: left;">1.5.–8.6.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Tuotteiden kehitys Firehorse-mallilla: AI
+generoi, ihminen validoi. Verkkokaupan perustaminen (dws10.com/buy).
+Ensimmäiset tuotteet kauppaan. Claude AI ensisijaiseksi
+kehitystyökaluksi (korvaa Gemini/ChatGPT tuotekehityksessä)</td>
+<td style="text-align: left;">DWS IQ 6 / Firehorse</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">23–26</td>
+<td style="text-align: left;">9.6.–30.6.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Tuotekatalogi kasvaa. Google Merchant
+-syöte. Verkkokaupan kategorianavigointi. onelifetime.world-sivusto.
+CI/CD-putkien kehitys (GitHub Actions)</td>
+<td style="text-align: left;">DWS IQ 6 / verkkokauppa</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">27–31</td>
+<td style="text-align: left;">1.7.–31.7.2025</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">DWS IQ 6 -alustan vakiintuminen.
+Tuotekatalogi kasvaa ~30 tuotteeseen (dws10.com/buy). Firehorse-malli
+todistettu: AI-avusteinen tuotekehitys tuottaa markkinakelpoisia
+tuotteita. 15 CI/CD-työnkulkua toiminnassa</td>
+<td style="text-align: left;">DWS IQ 6 / tuotekatalogi</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2 id="elokuusyyskuu-2025-suunnittelu-ja-konseptointi">Elokuu–syyskuu
+2025 — Suunnittelu ja konseptointi</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 8%" />
+<col style="width: 3%" />
+<col style="width: 71%" />
+<col style="width: 9%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">32–35</td>
+<td style="text-align: left;">4.8.–29.8.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">DWS IQ 6 -konseptin suunnittelu,
+arkkitehtuuripäätökset (Brain-Memory-Body-Hands), EU Fit for 55
+-sääntelykatsaus</td>
+<td style="text-align: left;">DWS 6 IQ pilot</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">36–39</td>
+<td style="text-align: left;">1.9.–26.9.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Teknologiavalinnat (React 19, Vite,
+Supabase, Claude AI), pilottiasiakkaiden kartoitus, 16 EU-toimialan
+compliance-analyysi</td>
+<td style="text-align: left;">DWS 6 IQ pilot</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lokakuu-2025-rekrytointi-ja-käynnistys">Lokakuu 2025 —
+Rekrytointi ja käynnistys</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 8%" />
+<col style="width: 3%" />
+<col style="width: 58%" />
+<col style="width: 21%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">40–42</td>
+<td style="text-align: left;">29.9.–17.10.2025</td>
+<td style="text-align: left;">32</td>
+<td style="text-align: left;">Tiimin kokoaminen, roolimäärittely
+(developer, cloud architect, project manager, QA), koulutussopimusten
+valmistelu</td>
+<td style="text-align: left;">DWS 6 IQ pilot</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">43</td>
+<td style="text-align: left;">22.10.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Slack-kanavat, Cursor-päivitykset,
+infrastruktuurin valmistelu</td>
+<td style="text-align: left;">DWS 6 IQ pilot / infra</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">22.–26.10.2025</td>
+<td style="text-align: left;">24</td>
+<td style="text-align: left;">Henkilöhaastattelut 1 ja 2, QA-arviointi,
+oppisopimus, NDA, toimeksiantosopimus</td>
+<td style="text-align: left;">DWS 6 IQ pilot</td>
+<td style="text-align: left;">RA / ER / JK</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">22.10.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Koulutusopimus OK</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">RA / AL</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">22.10.2025</td>
+<td style="text-align: left;">0,5</td>
+<td style="text-align: left;">NDA allekirjoitettu</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">23.10.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Henkilöarvioinnit</td>
+<td style="text-align: left;">Cloud Ready Teams Certified Consultant
+500h</td>
+<td style="text-align: left;">ER / RA / JK</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">23.10.2025</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">CV:n luominen</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">23.10.2025</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Medium-konsulttisivun luominen</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">24.10.2025</td>
+<td style="text-align: left;">24</td>
+<td style="text-align: left;">Ops-tehtävä (Voitto ja Risto)</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">VT / RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">25.–29.10.2025</td>
+<td style="text-align: left;">0,5</td>
+<td style="text-align: left;">2. haastattelu ja toimeksiantosopimus</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">RA / VT</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">29.10.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">JIRA-tunnukset luotu</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">44</td>
+<td style="text-align: left;">29.10.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">G Suite -tunnukset luotu</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="marraskuu-2025-projektien-käynnistys">Marraskuu 2025 —
+Projektien käynnistys</h2>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 57%" />
+<col style="width: 18%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">45</td>
+<td style="text-align: left;">5.11.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Ensimmäisen projektin kick-off</td>
+<td style="text-align: left;">www.lifetime.fi</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">46</td>
+<td style="text-align: left;">12.11.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Toisen projektin kick-off, DWS MVP
+-suunnittelu</td>
+<td style="text-align: left;">DWS MVP</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">47</td>
+<td style="text-align: left;">19.11.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Projektityöskentelyä omissa rooleissa</td>
+<td style="text-align: left;">lifetime.fi / DWS MVP</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">48</td>
+<td style="text-align: left;">30.11.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Koulutussopimusjakso, työssäoppiminen
+päättyy, Excel-raportointi</td>
+<td style="text-align: left;">dws10.com</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="joulukuu-2025-ensimmäiset-commitit-ja-tuotantoon-valmistautuminen">Joulukuu
+2025 — Ensimmäiset commitit ja tuotantoon valmistautuminen</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 6%" />
+<col style="width: 2%" />
+<col style="width: 72%" />
+<col style="width: 13%" />
+<col style="width: 3%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">49</td>
+<td style="text-align: left;">3.12.2025</td>
+<td style="text-align: left;">32</td>
+<td style="text-align: left;">dws6.com-infrastruktuurin pystytys</td>
+<td style="text-align: left;">dws6.com</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">10.12.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">onelifetime.world-sivuston kehitys</td>
+<td style="text-align: left;">onelifetime.world</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">51</td>
+<td style="text-align: left;">17.12.2025</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Dokumentaation ja CI/CD-putkien
+valmistelu</td>
+<td style="text-align: left;">DWS 6 IQ pilot</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">52</td>
+<td style="text-align: left;">22.12.2025</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;"><strong>Joululoma</strong></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">22.–23.12.2025</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Ensimmäinen Git-commit (f5343a44),
+DWS6-dokumentaatio, tietoturvakorrelaatiojärjestelmä, mobiili-dashboard,
+Kimi v7 -integraatio, app store -strategia</td>
+<td style="text-align: left;">DWS 6 IQ pilot</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">24.12.2025</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">OneLifetime Pledge-sivu,
+LinkedIn-integraatio, tuotelogot, navigaation standardointi</td>
+<td style="text-align: left;">onelifetime.world</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">25.12.2025</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Hamburger-valikko mobiilille, Legal Hub
+dws10.com:lle, tekijänoikeusvuoden päivitys,
+saavutettavuusparannukset</td>
+<td style="text-align: left;">dws10.com / onelifetime.world</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">26.–28.12.2025</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Firehorse Omnichannel CustomerPilotLoop
+v1, sivuston laatustandardit, sijoittajasivun uudelleenkirjoitus (#55,
+#56), komentoinjektiohaavoittuvuuden korjaus (#58)</td>
+<td style="text-align: left;">Firehorse / dws6.com</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="tammikuu-2026-tietoturva-agenttijärjestelmä-ja-infrastruktuuri">Tammikuu
+2026 — Tietoturva, agenttijärjestelmä ja infrastruktuuri</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 8%" />
+<col style="width: 2%" />
+<col style="width: 72%" />
+<col style="width: 11%" />
+<col style="width: 3%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">31.12.2025–3.1.2026</td>
+<td style="text-align: left;">32</td>
+<td style="text-align: left;">Tietoturvakehys (Simon Willison
+-tutkimus), Admin-dokumentaatio, agenttien yhteyden seuranta v0.4</td>
+<td style="text-align: left;">DWS 6 IQ pilot / tietoturva</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">GitHub App webhook-käsittelijä (dws10.com,
+dws6.com, onelifetime.world), Argus Code Review -työnkulku</td>
+<td style="text-align: left;">Infra / CI/CD</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">7.1.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Ruff-linterin käyttöönotto (15–30×
+nopeampi kuin Black+Flake8), 1 367 koodilaatuongelman tunnistus, 352
+automaattikorjausta, 18 tietoturvaongelmaa (4 kriittistä) korjattu</td>
+<td style="text-align: left;">Koodilaatu / tietoturva</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">CI/CD-työnkulkujen korjaukset: GitHub
+Actions v4 -päivitys, GHAS-riippuvuuden poisto, Snyk-korjaukset</td>
+<td style="text-align: left;">CI/CD</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">14.1.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Sijoittajamuistion päivitys, 16 toimialan
+Fit for 55 -kattavuus, NVIDIA Inception -hakemukset (LWM V1, Firehorse
+V2)</td>
+<td style="text-align: left;">Liiketoiminta / NVIDIA</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Iron Clad Navigation v1.1, Gamma-linjaus,
+tietokantayhteyksien päivitys, tuotekatalogirakenne Google Merchant
+-kentillä</td>
+<td style="text-align: left;">dws10.com / tuotekatalogi</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">21.1.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Dashboard V9-react (TypeScript, React, AI
+SDK, Speech APIs), hallintooppaan päivitys, Theta AI-First -design</td>
+<td style="text-align: left;">Dashboard / UI</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Myynti-AI-agenttien suunnittelu 5
+asiakassegmentille, Phase 1 -infrastruktuuri, DWS-ontologia ja Lifetime
+World Model -kehys</td>
+<td style="text-align: left;">AI-agentit / LWM</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Tietoturvakorjaukset: SQL-injektio, OS
+Command Injection, turvaskanneri-poissulkeminen</td>
+<td style="text-align: left;">Tietoturva</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="helmikuu-2026-standardit-tuotekatalogi-ja-pilviympäristöt">Helmikuu
+2026 — Standardit, tuotekatalogi ja pilviympäristöt</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 7%" />
+<col style="width: 3%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">27.1.–2.2.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Karpathy AI-agenttiohjeet CLAUDE.md:hin,
+DWS Brand Standard, tuotelinkkien päivitykset, MCP-konfiguraatio</td>
+<td style="text-align: left;">Standardit / MCP</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">DPA (tietojenkäsittelysopimus)
+asiakasimplementointeihin, AI-konsultointiohjeet (Greg Brockman),
+Sovereignty Cloud Consulting -tuotesivu</td>
+<td style="text-align: left;">Juridinen / tuotteet</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">3.–9.2.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Industry Pulse RSS -komponentti (energia,
+rakentaminen, logistiikka), DWS Market Research Standard,
+kilpailija-analyysi</td>
+<td style="text-align: left;">dws10.com / tutkimus</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Google Merchant -syöte ja tuotesivujen
+generointi, VAT/locale-tuki, verkkokaupan uudelleensuunnittelu</td>
+<td style="text-align: left;">Verkkokauppa</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">10.–16.2.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Verkkokaupan hero-osion päivitys 4
+kategorialla, build_store.py-putki, tuotesivujen synkronointi
+landing-pages-kansioihin</td>
+<td style="text-align: left;">Verkkokauppa / CI/CD</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Cloud Environments -dokumentaatio
+(US/EU/Aiwen), GCP-projekti dws6run6, Secret Manager API</td>
+<td style="text-align: left;">Pilvi-infra</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">DWS Document Standard -päivitys
+LLM-versiointiin, Qwen3 Coder -arviointi</td>
+<td style="text-align: left;">Standardit / AI</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">17.–22.2.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Tietoturva-arviointi (OpenClaw/DWS6),
+CORS/SRI/MCP-turvaohjeistukset, Python-koodien Ruff-formatointi</td>
+<td style="text-align: left;">Tietoturva / koodilaatu</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Claude Agent SDK -riippuvuuden lisäys,
+Learn-kansion HTML-vientien päivitys, oppimispäiväkirjan aloitus</td>
+<td style="text-align: left;">SDK / dokumentaatio</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Git worktree -työnkulun dokumentointi,
+Branch Auto-Deletion -säännöt, Store Update Rule</td>
+<td style="text-align: left;">Git / prosessit</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="maaliskuuhuhtikuu-2026-microsoft-agent-framework-ja-dgx-spark--kontit">Maaliskuu–huhtikuu
+2026 — Microsoft Agent Framework ja DGX Spark -kontit</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 4%" />
+<col style="width: 2%" />
+<col style="width: 79%" />
+<col style="width: 9%" />
+<col style="width: 2%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vko</th>
+<th style="text-align: left;">pvm</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Aihe</th>
+<th style="text-align: left;">Hanke / projekti</th>
+<th style="text-align: left;">Tarkasti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">23.–29.3.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Microsoft Agent Framework (Semantic Kernel
+Agents SDK) 1.0.0 -julkaisun arviointi. Azure-Samples-esimerkkien
+läpikäynti: 50+ referenssitoteutusta (agentit, työnkulut, HITL, MCP).
+Adoption-päätös tuotantokäyttöön DGX Spark -ympäristössä</td>
+<td style="text-align: left;">AI-agentit / Microsoft</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">.NET Aspire -observointikehyksen
+vahvistaminen DGX Spark -konteille: distributed tracing, metriikat,
+Aspire Dashboard standalone-tilassa. OpenTelemetry-yhteys agenttien
+seurantaan</td>
+<td style="text-align: left;">Observointi / DGX Spark</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">30.3.–5.4.2026</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Agent Framework 1.0.0 -integraatio
+AgentFoundry-moduuliin: moniagenttityönkulut, human-in-the-loop
+-käsittely, MCP-yhteensopivuus. DGX Spark -konttien orkestrointi Aspire
+AppHost -mallilla</td>
+<td style="text-align: left;">AgentFoundry / DGX Spark</td>
+<td style="text-align: left;">RA</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Microsoft-kumppanuuden dokumentointi
+Partners_gamma.md:hin. Strategisen teknologiakumppanuuden määrittely:
+Agent Framework, .NET Aspire, Azure AI. DWS 5 → DWS 6
+-jatkuvuusnarratiivin päivitys oppimispäiväkirjaan</td>
+<td style="text-align: left;">Kumppanuudet / dokumentaatio</td>
+<td style="text-align: left;">RA</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="yhteenveto-lukuina">Yhteenveto lukuina</h2>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Mittari</th>
+<th style="text-align: left;">Arvo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Jakso</td>
+<td style="text-align: left;">syyskuu 2023 — huhtikuu 2026 (31 kk,
+jatkuva)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Työtunteja yhteensä (arvio)</td>
+<td style="text-align: left;">~3 600 h (ohjelmointityö, suunnittelu,
+opiskelu, reflektointi)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Viikkorakenne (2024–2026)</td>
+<td style="text-align: left;">4 h/pv ohjelmointia (ma–pe) + 8 h/vko
+reflektointi ja lopputyön kirjoittaminen</td>
+</tr>
+<tr>
+<td style="text-align: left;">Git-commitit (koko hanke)</td>
+<td style="text-align: left;">~3 000 (PR #950 mennessä)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pull requestit</td>
+<td style="text-align: left;">~950</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sivustot</td>
+<td style="text-align: left;">dws6.com, dws10.com, onelifetime.world,
+lifetime.fi</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tuotteet verkkokaupassa</td>
+<td style="text-align: left;">~30 kpl (dws10.com/buy)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Toimialat (Fit for 55)</td>
+<td style="text-align: left;">16 EU-toimialaa, 20 säänneltyä
+toimialaa</td>
+</tr>
+<tr>
+<td style="text-align: left;">CI/CD-työnkulut</td>
+<td style="text-align: left;">15 GitHub Actions -työnkulkua</td>
+</tr>
+<tr>
+<td style="text-align: left;">AI-mallit (käytetty kehityksessä)</td>
+<td style="text-align: left;">Google Gemini (2023–), ChatGPT (2023–),
+Claude (2025–, ensisijainen), Groq, LlamaStack</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kehitysympäristöt</td>
+<td style="text-align: left;">Visual Studio 2022 (2024), Visual Studio
+Code (2023–), Cursor (2025–), Claude Code (2025–)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Teknologiapinot</td>
+<td style="text-align: left;">.NET Aspire (2024–, DGX Spark observointi)
+· Oqtane / Azure (2024, korvattu) → React / Vite / Supabase / Cloudflare
+/ GCP (2025–) + Microsoft Agent Framework 1.0.0 (2026–)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pilviympäristöt</td>
+<td style="text-align: left;">Azure (2024, päättynyt) → US (Cloudflare),
+EU (GCP + Supabase), Aiwen (EU AI Act)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tietoturvakorjaukset</td>
+<td style="text-align: left;">4 kriittistä, 18 kooditason, OWASP Top
+10</td>
+</tr>
+<tr>
+<td style="text-align: left;">InvestEU-hanke</td>
+<td style="text-align: left;">INPO-20254383 (julkaistu Euroopan
+komission InvestEU-portaalissa 25.12.2025)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="viikkorakenne-tyypillinen-viikko-20242026">Viikkorakenne
+(tyypillinen viikko 2024–2026)</h2>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Päivä</th>
+<th style="text-align: left;">Tunnit</th>
+<th style="text-align: left;">Sisältö</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Maanantai</td>
+<td style="text-align: left;">4 h</td>
+<td style="text-align: left;">Ohjelmointi: uudet ominaisuudet,
+arkkitehtuuri</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tiistai</td>
+<td style="text-align: left;">4 h</td>
+<td style="text-align: left;">Ohjelmointi: integraatiot, testaus,
+virheenkorjaus</td>
+</tr>
+<tr>
+<td style="text-align: left;">Keskiviikko</td>
+<td style="text-align: left;">4 h</td>
+<td style="text-align: left;">Ohjelmointi: käyttöliittymä,
+tuotekehitys</td>
+</tr>
+<tr>
+<td style="text-align: left;">Torstai</td>
+<td style="text-align: left;">4 h</td>
+<td style="text-align: left;">Ohjelmointi: tietoturva, infrastruktuuri,
+CI/CD</td>
+</tr>
+<tr>
+<td style="text-align: left;">Perjantai</td>
+<td style="text-align: left;">4 h</td>
+<td style="text-align: left;">Ohjelmointi: dokumentointi,
+tuoteviimeistely</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lauantai</td>
+<td style="text-align: left;">8 h</td>
+<td style="text-align: left;">Reflektointi ja lopputyön kirjoittaminen:
+viikon oppien dokumentointi, oppimispäiväkirjan päivitys, Master Thesis
+-tutkimustyö, lähteiden kerääminen, teoreettisen viitekehyksen
+täydentäminen</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Yhteensä</strong></td>
+<td style="text-align: left;"><strong>28 h/vko</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>Reflektointipäivän sisältö vaihtelee viikosta riippuen: teoreettisen
+viitekehyksen kirjoittaminen, tutkimusmenetelmien opiskelu, EU-sääntelyn
+analyysi, teknologia-arviointi, tai oppimispäiväkirjan
+täydentäminen.</p>
+</body>
+</html>

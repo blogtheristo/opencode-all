@@ -6,14 +6,14 @@
  * No Supabase calls are made — pure calculation testing.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { CapTableService } from '../investor-reports/cap-table-service.js';
 import {
-  Shareholder,
-  InvestmentRound,
-  ShareClass,
-  ShareholderType,
+  type InvestmentRound,
   RoundType,
+  ShareClass,
+  type Shareholder,
+  ShareholderType,
 } from '../investor-reports/cap-table-types.js';
 
 // ============================================================================

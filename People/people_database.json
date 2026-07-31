@@ -584,5 +584,284 @@
       "created_by": "risto-001",
       "updated_by": "risto-001"
     }
+  },
+  {
+    "id": "pia-kruse-001",
+    "type": "customer",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Pia",
+      "last_name": "Kruse",
+      "full_name": "Pia Kruse",
+      "title": "Head of Sustainability",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/pia-kruse-b42b682",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "NCC Building Nordics",
+      "department": "Sustainability",
+      "role": "Head of Sustainability",
+      "location": {
+        "city": "Oslo",
+        "country": "Norway",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "MS Biology (Ecology, Indoor Air, Microbiology) Copenhagen; Executive MBA BI Norwegian Business School; Strategic Leadership Stockholm School of Economics",
+      "expertise": [
+        "CSRD/ESRS Reporting",
+        "EU Taxonomy Alignment",
+        "GRI Standards",
+        "GHG Protocol",
+        "CDP Disclosure",
+        "ISO 14001",
+        "ISO 9001",
+        "ISO 45001",
+        "BREEAM Certification",
+        "Construction Sustainability",
+        "Multi-Jurisdiction Compliance",
+        "EU Regulatory Frameworks"
+      ],
+      "languages": [
+        "Norwegian",
+        "Danish",
+        "English",
+        "Swedish"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "customer",
+        "prospect",
+        "construction",
+        "sustainability",
+        "CSRD",
+        "ESRS",
+        "EPBD",
+        "EU-taxonomy",
+        "NCC",
+        "compliance",
+        "fit-for-55",
+        "GRI",
+        "GHG",
+        "CDP",
+        "BREEAM",
+        "multi-jurisdiction",
+        "NO-DK-FI",
+        "linkedin-first-view",
+        "sales-pipeline"
+      ],
+      "products": [
+        "dws-iq",
+        "firehorse"
+      ],
+      "interests": [
+        "CSRD-ESRS multi-jurisdiction reporting",
+        "EU Taxonomy CapEx/OpEx alignment",
+        "EPBD embodied carbon compliance",
+        "ERP integration for carbon data",
+        "Multi-country data consolidation (NO/DK/FI)"
+      ],
+      "engagement_level": "medium",
+      "last_contact": "2026-04-02",
+      "thread_token": "YPGW53RPFQ",
+      "outreach_status": "contacted",
+      "outreach_channel": "LinkedIn Sales Navigator",
+      "next_action": "Wait for LinkedIn response. If no reply by 2026-04-09, send follow-up InMail with construction compliance brief.",
+      "notes": "20+ year Nordic construction sustainability veteran. Career: Skanska (3y) → AF Gruppen (4y) → Veidekke (3y) → NCC Building Nordics (Oct 2021–present). Board member EU Commission FP7 ChemXchange consortium. Skills are near-perfect match for DWS IQ platform. KEY INSIGHT: She knows every standard we cover — don't explain CSRD. Lead with the data layer, ERP integration, and the multi-jurisdiction pain point (managing NO/DK/FI compliance simultaneously). NCC Building Nordics covers Norway, Denmark, and Finland. OUTREACH LOG: 2026-04-02 — Contacted via LinkedIn Sales Navigator. Identified as real person behind placeholder 'Sustainability Director (NCC AB)' T:YPGW53RPFQ."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-04-02T07:00:00Z",
+      "updated_at": "2026-04-06T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "susanna-hypponen-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Susanna",
+      "last_name": "Hyppönen",
+      "full_name": "Susanna Hyppönen",
+      "title": "AI Governance & Data Protection Professional · Author",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/susannaph",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Independent / Alma Insights (author)",
+      "department": "Data Protection & AI Governance",
+      "role": "AI Governance & Data Protection Professional, DPO, Author",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "AI Governance",
+        "Data Protection & GDPR",
+        "EU AI Act",
+        "CSRD",
+        "DPIAs",
+        "Risk & Compliance",
+        "Policy & Process Development",
+        "Change & Project Management",
+        "Service Design & Lean",
+        "ISO/IEC 42001 (AI Management System)",
+        "ISO/IEC 27001:2022",
+        "ISO 9001:2015",
+        "QEHS"
+      ],
+      "languages": [
+        "Finnish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "advisor",
+        "consultant",
+        "prospect",
+        "data-protection",
+        "tietosuojajohtaminen",
+        "ai-governance",
+        "gdpr",
+        "eu-ai-act",
+        "iso-42001",
+        "iso-27001",
+        "dpia",
+        "dpo",
+        "csrd",
+        "author",
+        "nordic",
+        "compliance-hub",
+        "legal-hub"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Data protection management (tietosuojajohtaminen)",
+        "AI Management Systems (ISO 42001)",
+        "AI risk management & governance",
+        "GDPR / DPIA practice",
+        "EU AI Act readiness"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-06-10",
+      "outreach_status": "first-contact",
+      "outreach_channel": "Business card",
+      "next_action": "Connect on LinkedIn (in/susannaph). Reference Tietosuojajohtaminen (Alma Insights, 2026) and the ISO 42001 / EU AI Act overlap with DWS AI governance + KYA. Do not explain GDPR/AI Act — she authored the field.",
+      "notes": "AI Governance & Data Protection professional with a business background; experience as consultant, privacy manager, and DPO across controllers and processors. Currently focused on AI Management Systems, AI governance capabilities, and AI risk management. Co-author of 'Tietosuojajohtaminen' (Data Protection Management), Alma Insights 2026, ISBN 978-952-14-5353-3, hardcover 432pp, with Miia Kataja and Titta Penttilä — https://kirjakauppa.almainsights.fi/sivu/tuote/tietosuojajohtaminen/5537565 . DWS FIT: maps directly onto the DWS IQ compliance/sovereignty stack — ISO 42001 AIMS underpins DWS AI governance + KYA; GDPR aligns with EU-sovereign data posture; CSRD/DPIA overlap regulatory-radar & compliance agent. Engagement angle: advisory / thought-leadership on data protection management + potential channel referral. Possible Digia Hub channel overlap (Lifetime Oy is a Digia Hub partner company). INTERNAL ONLY — do not name on public Legal/Compliance Hub pages until a relationship is established. Captured from business card 2026-06-10."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-06-10T00:00:00Z",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "martin-torngren-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Martin",
+      "last_name": "Törngren",
+      "full_name": "Martin Törngren",
+      "title": "Professor in Embedded Control Systems, KTH · Director, TECoSA",
+      "email": "martint@kth.se",
+      "phone": "+46 8 790 63 07",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "KTH Royal Institute of Technology",
+      "department": "Mechatronics division, Dept. of Engineering Design; Director of TECoSA",
+      "role": "Professor / Center Director",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "Professor since 2002; post-doc EU-JRC; sabbaticals UC Berkeley (2011/12, 2018) and Stevens Institute (2018)",
+      "expertise": [
+        "Trustworthy edge computing",
+        "Cyber-physical systems",
+        "System and functional safety",
+        "Safety argumentation / assurance cases",
+        "Model-based engineering",
+        "Autonomous and connected CPS architectures"
+      ],
+      "languages": [
+        "Swedish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "director",
+        "academic",
+        "trustworthy-edge",
+        "prospect",
+        "nordic"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Trustworthy edge computing",
+        "Safety evidence",
+        "TECoSA phase-2 trustworthiness themes",
+        "AD-EYE verification"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-07-14",
+      "next_action": "Reply to Broman with Törngren CC'd; lead with trustworthy edge computing / safety evidence; map Article-12 logging + KYA to his safety-argumentation framework; propose 30-min call.",
+      "notes": "Warm referral from David Broman (KTH EECS), 14.07.2026. Director of TECoSA (Trustworthy Edge Computing Systems and Applications), now in phase 2 with trustworthiness emphasis. Runs industrial-PhD program (Scania/Alstom/Ericsson) — strong industry-academia bridge. See People/partners/academic/martin-torngren.md and docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "",
+      "contract_end": "",
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-07-14T00:00:00Z",
+      "updated_at": "2026-07-14T00:00:00Z",
+      "created_by": "claude-code",
+      "updated_by": "claude-code"
+    }
   }
 ]

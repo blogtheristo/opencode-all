@@ -3,8 +3,8 @@
 # Updated: 2026-01-10 (Gamma v2.0 Security Fixes)
 
 # Cryptography - updated to fix HIGH severity CVE
-# Previous: 41.0.7 -> Current: 46.0.3
-cryptography>=46.0.0
+# Previous: 41.0.7 -> 46.0.6 -> Current: 48.0.1+
+cryptography>=48.0.1
 
 # JWT Authentication - updated to fix MODERATE severity CVE
 # Previous: 2.7.0 -> Current: 2.10.1

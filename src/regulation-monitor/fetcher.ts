@@ -10,13 +10,13 @@
 
 import { createHash } from 'crypto';
 import logger from '../utils/logger.js';
-import { REGULATORY_SOURCES, REGULATION_KEYWORDS } from './sources.js';
+import { REGULATION_KEYWORDS, REGULATORY_SOURCES } from './sources.js';
 import type {
+  AlertSeverity,
+  MonitorDigest,
   NewsItem,
   RegulationType,
-  AlertSeverity,
   RegulatorySource,
-  MonitorDigest,
 } from './types.js';
 
 // ============================================================================

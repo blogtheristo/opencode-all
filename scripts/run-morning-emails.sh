@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Morning Emails — Unified Local Runner (Linux/macOS)
+# Morning Brief V2 — Unified Local Runner (DGX Spark)
 #
-# Runs ALL daily email digests from this machine. Replaces 7 GitHub Actions workflows.
-# Trigger: systemd timer at 05:00 EET, or on machine startup.
+# Sends Morning Brief V2 (one combined email) + Friday/Monday extras.
+# DGX Spark owns the autonomous business process layer; GitHub Actions for CI/CD only.
+# Trigger: systemd timer at 03:00 UTC, or on machine startup.
 #
 # Usage:
 #   ./scripts/run-morning-emails.sh              # Run all morning emails
@@ -68,25 +69,23 @@ send_all() {
   log "========== MORNING EMAILS START =========="
   log "Day: $(date '+%a %Y-%m-%d %H:%M') | MonSat=$IS_MON_SAT Weekday=$IS_WEEKDAY Fri=$IS_FRIDAY Mon=$IS_MONDAY"
 
-  # 1. EU Regulation Monitor (Mon-Fri)
-  [ "$IS_WEEKDAY" -eq 1 ] && run_script "Regulation Digest" scripts/send-regulation-digest.ts
+  # --- Morning Brief V2 (Mon-Sat) ---
+  # Replaces 5 separate emails with ONE combined brief:
+  #   - CEO Cockpit (was: send-morning-briefing.ts)
+  #   - Outreach Digest (was: send-outreach-digest.ts)
+  #   - Captain Briefing (was: send-captain-briefing.ts)
+  #   - Regulation Digest (was: send-regulation-digest.ts)
+  #   - Social Digest (was: send-social-digest.ts)
+  # Old scripts kept in scripts/ but NO LONGER CALLED here.
+  # flow-orchestrator-digest.ts also replaced (moved out of scripts/daily/).
+  [ "$IS_MON_SAT" -eq 1 ] && run_script "Morning Brief V2" scripts/send-morning-brief-v2.ts
 
-  # 2. CEO Cockpit Morning Briefing (Mon-Sat)
-  [ "$IS_MON_SAT" -eq 1 ] && run_script "CEO Cockpit" scripts/send-morning-briefing.ts
+  # --- Standalone emails (not replaced by V2) ---
 
-  # 3. Outreach Digest (Mon-Sat)
-  [ "$IS_MON_SAT" -eq 1 ] && run_script "Outreach Digest" scripts/send-outreach-digest.ts
-
-  # 4. Captain Pre-Briefing (Mon-Fri)
-  [ "$IS_WEEKDAY" -eq 1 ] && run_script "Captain Briefing" scripts/send-captain-briefing.ts --auto
-
-  # 5. Social Digest / LinkedIn Queue (Mon-Fri)
-  [ "$IS_WEEKDAY" -eq 1 ] && run_script "Social Digest" scripts/send-social-digest.ts
-
-  # 6. Weekly Campaign Newsletter (Friday only)
+  # Weekly Campaign Newsletter (Friday only, different audience: subscribers)
   [ "$IS_FRIDAY" -eq 1 ] && run_script "Campaign Newsletter" scripts/send-campaign-newsletter.ts
 
-  # 7. Weekly Report (Monday only)
+  # Weekly Report (Monday only)
   [ "$IS_MONDAY" -eq 1 ] && run_script "Weekly Report" scripts/send-weekly-report-email.ts
 
   log "========== MORNING EMAILS DONE =========="
@@ -107,6 +106,30 @@ cmd_send() {
 
 cmd_test() {
   send_all
+}
+
+cmd_force() {
+  # Bypass lock AND time guard. Useful when the daily run was stale or skipped.
+  rm -f "$LOCK_FILE"
+  export BRIEF_FORCE=1
+  export SKIP_TIME_CHECK=true
+  send_all
+  mark_sent_today
+}
+
+cmd_preview() {
+  # Generate HTML preview only — no email sent. Default path: logs/morning-brief-preview.html
+  cd "$PROJECT_DIR"
+  if [ -f .env ]; then set -a; source .env; set +a; fi
+  export SKIP_TIME_CHECK=true
+  export BRIEF_PREVIEW=1
+  "$NPX_BIN" tsx scripts/send-morning-brief-v2.ts --preview "$@"
+  local preview_path="${BRIEF_HTML_OUT:-logs/morning-brief-preview.html}"
+  echo ""
+  echo "Preview written. Open it locally:"
+  echo "  xdg-open $PROJECT_DIR/$preview_path   # Linux"
+  echo "  start    $PROJECT_DIR/$preview_path   # Windows PowerShell"
+  echo "  open     $PROJECT_DIR/$preview_path   # macOS"
 }
 
 cmd_install() {
@@ -131,10 +154,10 @@ UNIT
 
   cat > "$service_dir/dws6-morning-emails.timer" <<UNIT
 [Unit]
-Description=Morning Emails Timer (05:00 Helsinki, daily)
+Description=Morning Brief V2 Timer (03:00 UTC daily — DGX Spark owns business process layer)
 
 [Timer]
-OnCalendar=*-*-* 05:00 Europe/Helsinki
+OnCalendar=*-*-* 03:00 UTC
 Persistent=true
 RandomizedDelaySec=60
 
@@ -152,7 +175,7 @@ UNIT
   systemctl --user disable dws6-morning-briefing.timer 2>/dev/null || true
 
   echo "Installed:"
-  echo "  - Timer: 05:00 Helsinki daily"
+  echo "  - Timer: 03:00 UTC daily (DGX Spark business process layer)"
   echo "  - Service: also runs on login (Persistent=true catches missed runs)"
   systemctl --user list-timers dws6-morning-emails.timer --no-pager 2>/dev/null || true
 }
@@ -182,13 +205,17 @@ cmd_uninstall() {
 case "${1:-send}" in
   send)      cmd_send ;;
   test)      cmd_test ;;
+  force)     shift; cmd_force "$@" ;;
+  preview)   shift; cmd_preview "$@" ;;
   install)   cmd_install ;;
   status)    cmd_status ;;
   uninstall) cmd_uninstall ;;
   *)
-    echo "Usage: $0 {send|test|install|status|uninstall}"
+    echo "Usage: $0 {send|test|force|preview|install|status|uninstall}"
     echo "  send      — Run all morning emails (default, skips if already sent today)"
     echo "  test      — Send all immediately (no lock check)"
+    echo "  force     — Clear today's lock and re-send immediately (use after a stale brief)"
+    echo "  preview   — Build HTML to logs/morning-brief-preview.html, NO email sent"
     echo "  install   — Install systemd timer (05:00 Helsinki) + login trigger"
     echo "  status    — Show timer status and recent logs"
     echo "  uninstall — Remove systemd units"

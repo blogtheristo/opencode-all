@@ -1,6 +1,8 @@
--- PENDING MIGRATIONS 030-037
--- Supabase Studio -> SQL Editor -> paste -> Run
+-- PENDING MIGRATIONS 030-037 (legacy bundled run)
+-- STATUS: Applied on hosted DB — 030-037 complete; no further action from this file.
+-- Supabase Studio -> SQL Editor -> paste -> Run (idempotent replay still safe)
 -- All statements idempotent (IF NOT EXISTS / ON CONFLICT DO NOTHING)
+-- New work: use numbered files in this folder (038+) and `supabase db push` / migration history.
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 

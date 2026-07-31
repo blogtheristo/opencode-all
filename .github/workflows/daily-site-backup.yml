@@ -1,10 +1,10 @@
 name: Daily Site Backup
 
 on:
-  schedule:
-    # Runs at 02:00 UTC daily
-    - cron: '0 2 * * *'
-  workflow_dispatch:  # Allow manual trigger
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/backup-sites.sh)
+  # GitHub Actions was failover only, consuming ~150 min/month even on skip checks.
+  # Was: cron '0 2 * * *' (daily at 02:00 UTC)
+  workflow_dispatch: # Allow manual trigger
 
 # Concurrency: prevent multiple backup jobs running simultaneously
 concurrency:
@@ -43,7 +43,7 @@ jobs:
         with:
           fetch-depth: 0
           # Ensure we have write access for commit
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
 
       - name: 🔍 Verify site directories exist
         id: verify_sites

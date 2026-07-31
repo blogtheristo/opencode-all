@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awesome LLM Apps - Agent Extraction Guide for DWS6 &amp; DWS7 v1.0</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:1000px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:0 -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+.col2{column-count:2;column-gap:32px}
+.col2 li{break-inside:avoid}
+.status-DRAFT{color:#b45309;font-weight:600}.status-ACTIVE{color:#15803d;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Awesome LLM Apps - Agent Extraction Guide for DWS6 &amp; DWS7</span>
+  <span class="dws-version-badge">v1.0</span>
+  <span class="dws-version-meta">Lifetime Oy · Learn/ (private)</span>
+</div>
+<h1>Awesome LLM Apps - Agent Extraction Guide for DWS6 & DWS7</h1>
+<p>**<em> <h1>VERSION AND AGENT HISTORY</h1></p>
+<p>Version: 1.0</p>
+<p>Sessions & Modifications:   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial analysis of 146 agents from awesome-llm-apps repo, mapped to DWS6/DWS7 needs</p>
+<p>Session Links & References:   - Source repo: github.com/Shubhamsaboo/awesome-llm-apps   - DeepWiki: deepwiki.com/Shubhamsaboo/awesome-llm-apps   - Claude Code: https://github.com/blogtheristo/dws6/commits/claude/deepwiki-agent-extraction-aS6Ub</p>
+<p>Document Status:   - Created: 11.02.2026   - Last Modified: 11.02.2026   - Language: English   - Publication Status: ACTIVE</p>
+</em>**
+<h2>Repository Overview</h2>
+<strong>Shubhamsaboo/awesome-llm-apps</strong> contains 146 agent implementations across 427 Python files (~37,000 LOC). It's a catalog of production-ready patterns using multiple frameworks.
+<h3>Framework Distribution</h3>
+<table><thead><tr><th>Framework</th><th>Usage</th><th>Notes</th></tr></thead><tbody><tr><td><strong>Agno</strong> (ex-Phidata)</td><td>79%</td><td>Dominant. Multi-model, tool integration, teams</td></tr><tr><td><strong>Google ADK</strong></td><td>22%</td><td>Sequential/Coordinator patterns, Gemini native</td></tr><tr><td><strong>LangChain</strong></td><td>23%</td><td>Used within other frameworks for tools</td></tr><tr><td><strong>OpenAI Agents SDK</strong></td><td>5%</td><td>Newest. Handoffs, structured output, tracing</td></tr><tr><td><strong>CrewAI</strong></td><td>3%</td><td>Role-based teams</td></tr><tr><td><strong>AutoGen (AG2)</strong></td><td>2%</td><td>Microsoft. Nested chats, game agents</td></tr></tbody></table>
+<h3>Key Insight</h3>
+<p>Most agents are 100-300 lines of Python. Self-contained. The "bacterial code" pattern applies perfectly - extract the pattern, rewrite for DWS6's TypeScript/BaseAgent standard.</p>
+<hr />
+<h2>HIGH FIT - Extract and Implement for DWS6</h2>
+<p>These agents directly solve gaps identified in `Learn/MISSING_AGENTS_ANALYSIS.md`.</p>
+<h3>1. Data Analysis Agent → <strong>Emissions Data Analyst</strong></h3>
+<strong>Source:</strong> `starter_ai_agents/ai_data_analysis_agent/ai_data_analyst.py` (125 LOC)
+<strong>Pattern:</strong> Upload CSV/Excel → DuckDB SQL engine → Natural language queries → Formatted results
+<strong>Why it fits DWS6:</strong>
+<li>Customers upload emissions data (Scope 1/2/3) as CSV/Excel from ERPs</li>
+<li>Natural language queries: "What's our total CO2 for Q4?" or "Which facility exceeds ETS allowance?"</li>
+<li>DuckDB runs SQL without a full database server - perfect for edge/serverless</li>
+<strong>Extraction plan:</strong>
+<li>Core logic: `preprocess_and_save()` for data cleaning + DuckDB tool integration</li>
+<li>Adapt system prompt for emissions/compliance domain</li>
+<li>Rewrite as TypeScript BaseAgent with Supabase storage instead of temp files</li>
+<li>Add EN 15978 lifecycle stage awareness to queries</li>
+<strong>DWS6 agent:</strong> `emissions-data-analyst` (implemented in `src/agents/emissions-data-analyst.agent.ts`)
+<hr />
+<h3>2. Research Agent → <strong>Compliance Researcher</strong></h3>
+<strong>Source:</strong> `starter_ai_agents/opeani_research_agent/research_agent.py` (331 LOC)
+<strong>Pattern:</strong> Triage Agent → Research Agent (web search + fact collection) → Editor Agent (report synthesis) with Pydantic structured output
+<strong>Why it fits DWS6:</strong>
+<li>CSRD/ETS/CBAM regulations change frequently. Manual tracking is unsustainable across 25+ industries</li>
+<li>The triage→research→report pattern maps perfectly to: regulatory scan → impact analysis → compliance report</li>
+<li>Structured output (`ResearchPlan`, `ResearchReport`) matches DWS document standard</li>
+<li>`save_important_fact()` tool creates audit trail (EU AI Act Article 12)</li>
+<strong>Extraction plan:</strong>
+<li>Core pattern: 3-agent handoff with structured Pydantic output</li>
+<li>Adapt: Replace web search with EUR-Lex/Finlex API search</li>
+<li>Rewrite as TypeScript BaseAgent</li>
+<li>Add compliance-specific output schema (regulation ID, impact level, deadline, affected industries)</li>
+<strong>DWS6 agent:</strong> `compliance-researcher` (implemented in `src/agents/compliance-researcher.agent.ts`)
+<hr />
+<h3>3. Email GTM Outreach Agent → <strong>Sales Outreach</strong></h3>
+<strong>Source:</strong> `advanced_ai_agents/multi_agent_apps/ai_email_gtm_outreach_agent/ai_email_gtm_outreach_agent.py` (361 LOC)
+<strong>Pattern:</strong> 4-stage pipeline: Company Finder → Contact Finder → Research (website + Reddit) → Email Writer. SQLite persistence, JSON structured output, configurable email styles.
+<strong>Why it fits DWS6:</strong>
+<li>Directly fills the Lead Scout + Outreach agent gap from `MISSING_AGENTS_ANALYSIS.md`</li>
+<li>4-stage pipeline matches DWS sales playbook in `SALES_AI_AGENT_DESIGN_FI_v1.md`</li>
+<li>Configurable email styles (Professional, Cold, Consultative) match B2B EU enterprise sales</li>
+<li>SQLite persistence → adapt to Supabase for shared state across team</li>
+<strong>Extraction plan:</strong>
+<li>Core logic: `run_pipeline()` with 4 sequential stages + `extract_json_or_raise()` for robust parsing</li>
+<li>Adapt: Replace Exa tools with DuckDuckGo/SerpAPI (no dependency on niche APIs)</li>
+<li>Rewrite as TypeScript BaseAgent</li>
+<li>Add DWS-specific targeting: EU industrial companies, climate compliance decision-makers, sustainability officers</li>
+<strong>DWS6 agent:</strong> `sales-outreach` (implemented in `src/agents/sales-outreach.agent.ts`)
+<hr />
+<h3>4. Agent Governance → <strong>Policy Engine Pattern</strong></h3>
+<strong>Source:</strong> `advanced_ai_agents/single_agent_apps/ai_agent_governance/ai_agent_governance.py` (601 LOC)
+<strong>Pattern:</strong> PolicyEngine with pluggable rules (Filesystem, Network, RateLimit, ApprovalRequired) + governed_tool decorator + audit log. YAML-configurable.
+<strong>Why it fits DWS6:</strong>
+<li>EU AI Act requires governance guardrails for autonomous agents</li>
+<li>DWS already has 3 autonomy tiers (full/supervised/human-in-loop)</li>
+<li>PolicyEngine pattern maps directly to tier enforcement</li>
+<li>Audit log matches Article 12 automatic logging requirement</li>
+<li>YAML config enables per-customer policy customization</li>
+<strong>Extraction plan:</strong>
+<li>Core: `PolicyEngine`, `PolicyRule` subclasses, `governed_tool` decorator, `AuditEntry`</li>
+<li>Adapt: Rewrite in TypeScript, integrate with Supabase audit table</li>
+<li>Replace interactive approval with webhook/Slack notification</li>
+<li>Add DWS-specific policies: data residency (EU only), emissions threshold alerts, financial transaction limits</li>
+<strong>DWS6 integration:</strong> Not a separate agent - integrate into `src/agents/base.agent.ts` as governance middleware
+<hr />
+<h2>MEDIUM FIT - Useful Patterns for DWS7</h2>
+<h3>5. Multi-MCP Agent → <strong>ERP Integration Orchestrator</strong></h3>
+<strong>Source:</strong> `mcp_ai_agents/multi_mcp_agent/multi_mcp_agent.py`
+<strong>Pattern:</strong> Coordinates 4+ MCP servers (GitHub, Perplexity, Calendar, Gmail) with SQLite memory, user sessions, streaming. CLI interface.
+<strong>DWS7 application:</strong>
+<li>Replace MCP servers with: SAP MCP, IFS MCP, Dynamics MCP, Supabase MCP</li>
+<li>Orchestrate cross-ERP queries: "Show carbon intensity across all facilities in SAP and IFS"</li>
+<li>Session persistence for multi-turn compliance investigations</li>
+<hr />
+<h3>6. Customer Support Voice Agent → <strong>Compliance Voice Assistant</strong></h3>
+<strong>Source:</strong> `voice_ai_agents/customer_support_voice_agent/customer_support_voice_agent.py`
+<strong>Pattern:</strong> Firecrawl crawls docs → Qdrant vector DB → Voice query → Vector search → TTS response
+<strong>DWS7 application:</strong>
+<li>Crawl EU regulation sites → store in Supabase pgvector</li>
+<li>Field workers query compliance requirements hands-free</li>
+<li>Multilingual (Finnish, Swedish, English, German) for EU operations</li>
+<hr />
+<h3>7. Mixture of Agents → <strong>Compliance Consensus Engine</strong></h3>
+<strong>Source:</strong> `starter_ai_agents/mixture_of_agents/mixture-of-agents.py` (100 LOC)
+<strong>Pattern:</strong> 4 LLMs in parallel → aggregator synthesizes consensus answer
+<strong>DWS7 application:</strong>
+<li>Run compliance question through Groq + Claude + Gemini in parallel</li>
+<li>Aggregator identifies consensus and flags disagreements</li>
+<li>Reduces risk of single-model hallucination on regulatory interpretations</li>
+<li>~100 lines to implement</li>
+<hr />
+<h3>8. Life Insurance Advisor → <strong>CBAM Tariff Calculator</strong></h3>
+<strong>Source:</strong> `starter_ai_agents/ai_life_insurance_advisor_agent/life_insurance_advisor_agent.py`
+<strong>Pattern:</strong> Questionnaire → E2B sandbox for deterministic calculation → Web research for products → JSON structured output with step-by-step math
+<strong>DWS7 application:</strong>
+<li>Replace insurance questionnaire with import data (country of origin, material type, quantity)</li>
+<li>E2B sandbox → deterministic CBAM tariff calculation (no LLM hallucination on math)</li>
+<li>Web research → EU ETS price lookup</li>
+<li>Step-by-step calculation trail for customs audit</li>
+<hr />
+<h3>9. Teaching Agent Team → <strong>Customer Onboarding Team</strong></h3>
+<strong>Source:</strong> `advanced_ai_agents/multi_agent_apps/agent_teams/ai_teaching_agent_team/teaching_agent_team.py`
+<strong>Pattern:</strong> 4 specialized agents (Professor, Advisor, Librarian, TA) working in parallel, outputting to Google Docs
+<strong>DWS7 application:</strong>
+<li>Replace with: Compliance Trainer, Roadmap Planner, Resource Finder, Exercise Builder</li>
+<li>Generate per-customer onboarding materials for CSRD compliance</li>
+<li>Output to customer's document system (Notion, Google Docs, SharePoint)</li>
+<hr />
+<h3>10. AI Services Agency → <strong>DWS Team Simulation</strong></h3>
+<strong>Source:</strong> `advanced_ai_agents/multi_agent_apps/ai_services_agency/agency.py`
+<strong>Pattern:</strong> 5-agent organization (CEO, CTO, Product Manager, Developer, Client Manager) with shared context and communication flows using Agency Swarm
+<strong>DWS7 application:</strong>
+<li>Maps to DWS Internal Team agents (Architect, Builder, DevOps, Security, Product)</li>
+<li>Shared context via `context.set()` → Supabase shared state</li>
+<li>Role-based communication flows model the weekly coordination cycle in AGENTS.md Section 4</li>
+<hr />
+<h2>LOW FIT - Reference Only</h2>
+<table><thead><tr><th>Agent</th><th>Source</th><th>Why Low</th><th>DWS Learning</th></tr></thead><tbody><tr><td>Chess/TicTacToe</td><td>game_playing_agents/</td><td>Entertainment</td><td>Multi-agent turn-based patterns</td></tr><tr><td>Home Renovation</td><td>ai_home_renovation_agent/</td><td>Different domain</td><td>Multimodal image + text pipeline</td></tr><tr><td>Meme Generator</td><td>ai_meme_generator_agent/</td><td>Entertainment</td><td>Browser automation pattern</td></tr><tr><td>Music Generator</td><td>ai_music_generator_agent/</td><td>Entertainment</td><td>Generative pipeline</td></tr><tr><td>Breakup Recovery</td><td>ai_breakup_recovery_agent/</td><td>Consumer</td><td>Conversational agent pattern</td></tr><tr><td>Movie Production</td><td>ai_movie_production_agent/</td><td>Entertainment</td><td>Creative workflow</td></tr></tbody></table>
+<hr />
+<h2>Framework Recommendations for DWS6/DWS7</h2>
+<h3>Current: TypeScript BaseAgent (keep)</h3>
+<p>DWS6 already has a solid agent standard. The awesome-llm-apps patterns should be extracted and rewritten as BaseAgent implementations, not imported as Python dependencies.</p>
+<h3>Future: Consider Adding</h3>
+<table><thead><tr><th>Framework</th><th>When</th><th>Why</th></tr></thead><tbody><tr><td><strong>Agno</strong></td><td>DWS7 Python agents</td><td>79% of ecosystem uses it. Mature, multi-model, tool integration</td></tr><tr><td><strong>Google ADK</strong></td><td>Edge agents on Jetson</td><td>SequentialAgent/Coordinator patterns ideal for SiteSense</td></tr><tr><td><strong>OpenAI Agents SDK</strong></td><td>Research/report agents</td><td>Best handoff pattern, structured output, native tracing</td></tr></tbody></table>
+<h3>Anti-Pattern: Don't Import</h3>
+<li>Don't add awesome-llm-apps as a dependency</li>
+<li>Don't copy Streamlit UI code (DWS uses React)</li>
+<li>Don't copy API key management patterns (DWS has .env standard)</li>
+<li>Extract the core logic only - "bacterial code" philosophy</li>
+<hr />
+<h2>Implemented Agents (This Session)</h2>
+<table><thead><tr><th>Agent</th><th>Source Pattern</th><th>DWS6 File</th><th>Lines</th></tr></thead><tbody><tr><td>emissions-data-analyst</td><td>Data Analysis Agent</td><td>`src/agents/emissions-data-analyst.agent.ts`</td><td>~250</td></tr><tr><td>compliance-researcher</td><td>Research Agent</td><td>`src/agents/compliance-researcher.agent.ts`</td><td>~280</td></tr><tr><td>sales-outreach</td><td>Email GTM Outreach</td><td>`src/agents/sales-outreach.agent.ts`</td><td>~300</td></tr></tbody></table>
+<p>All three follow BaseAgent standard, use AgentContext/AgentResponse types, log to Supabase, and handle missing LLM gracefully.</p>
+<hr />
+<h2>Key Takeaways for HIL</h2>
+<li><strong>146 agents, 79% use Agno</strong> - The Python AI agent ecosystem has standardized around Agno. DWS should consider Agno for any Python-side agents.</li>
+<li><strong>Most agents are 100-300 LOC</strong> - Validates the "bacterial code" philosophy. Enterprise agents don't need to be complex.</li>
+<li><strong>4 agents directly fill DWS6 gaps</strong> - Data Analysis → Emissions, Research → Compliance, GTM Outreach → Sales, Governance → Policy Engine.</li>
+<li><strong>MCP pattern is emerging</strong> - 5 dedicated MCP agents show the protocol is gaining traction. DWS's existing MCP infrastructure is well-positioned.</li>
+<li><strong>Voice is underexplored in DWS</strong> - 3 voice agents in the repo demonstrate RAG + TTS. Consider for DWS7 field worker interfaces.</li>
+<li><strong>Governance pattern is critical</strong> - The PolicyEngine from ai_agent_governance aligns perfectly with EU AI Act Article 12. Should be integrated into BaseAgent as middleware.</li>
+</body>
+</html>

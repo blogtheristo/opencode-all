@@ -16,8 +16,9 @@
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
-import { createLLMClient, LLMClient } from './llm-client.js';
+import { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
 import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { isPhaseAtLeast } from './autonomy.js';
 import type {
   AgentConfig,
   AgentContext,
@@ -34,15 +35,11 @@ import type {
 } from './types.js';
 import { buildSDKSandboxConfig, validateNIS2Compliance, getSandboxStage } from '../sandbox/index.js';
 import type { SDKSandboxConfig } from '../sandbox/index.js';
-import { MemoryService, memoryService } from './memory.service.js';
 
 export abstract class BaseAgent {
   protected config: AgentConfig;
   private supabase: SupabaseClient | null = null;
   private llmClient: LLMClient | null | undefined = undefined; // undefined = not yet initialized
-
-  /** Shared memory service for store/recall/forget/profile operations */
-  protected readonly memory: MemoryService = memoryService;
 
   constructor(config: AgentConfig) {
     this.config = {
@@ -98,15 +95,7 @@ export abstract class BaseAgent {
     totalTokens: { input: number; output: number };
     model: string;
   }> {
-    // Agent loops use 'agent' mode: Ollama primary, Anthropic fallback
-    const orgScopedClient = createLLMClient(this.config.model, context.orgId, 'agent');
-    if (!orgScopedClient && context.orgId) {
-      logger.debug('runLoop: no provider available', {
-        agent: this.config.name,
-        orgId: context.orgId,
-      });
-    }
-    const client = orgScopedClient ?? this.getLLMClient();
+    const client = this.getLLMClient();
     if (!client) {
       return {
         content: JSON.stringify({
@@ -124,19 +113,32 @@ export abstract class BaseAgent {
       logIterations: true,
     };
 
-    // Merge agent-specific tools with built-in tools (including memory)
+    // Merge agent-specific tools with built-in tools
     const allTools: ToolDefinition[] = [
       ...(tools || []),
       BUILTIN_TOOLS.query_database,
       BUILTIN_TOOLS.emit_event,
-      BUILTIN_TOOLS.memory_store,
-      BUILTIN_TOOLS.memory_recall,
     ];
 
     // Only include delegation tool if allowed
     if (loopConfig.allowDelegation) {
       allTools.push(BUILTIN_TOOLS.delegate_to_agent);
     }
+
+    // Proactive notification: offered only to agents at autonomy phase >= advisor.
+    // The handler re-checks this gate, but withholding the tool keeps silent-pilot
+    // agents from ever attempting an outbound nudge.
+    const autonomyPhase = this.config.autonomyPhase ?? 'silent_pilot';
+    if (isPhaseAtLeast(autonomyPhase, 'advisor')) {
+      allTools.push(BUILTIN_TOOLS.send_notification);
+    }
+
+    // Inject per-agent runtime policy so tool handlers can enforce phase + limits.
+    context.agentRuntime = {
+      name: this.config.name,
+      autonomyPhase,
+      notify: this.config.notify,
+    };
 
     // Include fetch if sandbox allows it
     if (context.sandbox?.allowedDomains?.length || !context.sandbox) {
@@ -157,10 +159,10 @@ export abstract class BaseAgent {
     for (let i = 0; i < loopConfig.maxIterations; i++) {
       const iterStart = Date.now();
 
-      // OBSERVE + THINK: Send to LLM; pass orgId so Grok consent gate can verify
+      // OBSERVE + THINK: Send to LLM
       let response: LLMResponse;
       try {
-        response = await client.chat(messages, allTools, { orgId: context.orgId });
+        response = await client.chat(messages, allTools);
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown LLM error';
         logger.error('Agentic loop LLM call failed', {
@@ -251,12 +253,26 @@ export abstract class BaseAgent {
   // ============ DWS7: MULTI-PROVIDER LLM CLIENT (Fix #3) ============
 
   /**
-   * Get or create the LLM client. Supports Anthropic, Groq, and OpenAI-compatible.
-   * Returns null if no provider is configured.
+   * Get or create the LLM client.
+   *
+   * When modelTier is set on the agent config, uses task-aware model selection
+   * to pick the leanest model (prefers local Ollama/vLLM on Acer when available).
+   * Otherwise falls back to legacy environment-based provider resolution.
+   *
+   * Supports: Anthropic, Groq, Google Gemini, Ollama, vLLM, OpenAI-compatible.
    */
   protected getLLMClient(): LLMClient | null {
     if (this.llmClient === undefined) {
-      this.llmClient = createLLMClient(this.config.model);
+      if (this.config.modelTier) {
+        // Task-aware path: select leanest model for this agent's tier
+        this.llmClient = createLLMClientForAgent(this.config.name, {
+          tierOverride: this.config.modelTier,
+          requiresTools: !!(this.config.tools && this.config.tools.length > 0),
+        });
+      } else {
+        // Legacy path: environment-based provider resolution
+        this.llmClient = createLLMClient(this.config.model);
+      }
     }
     return this.llmClient;
   }
@@ -497,8 +513,17 @@ export abstract class BaseAgent {
       }
 
       case 'cost-limit': {
+        // NOT ENFORCED. This branch has never consulted spend — it always allowed
+        // the call. It previously reported "(tracking active)", which was false and
+        // is exactly the failure mode CLAUDE.md Rule 12 (Fail Loud) names: a
+        // cost-control path reporting a guarantee it does not provide.
+        //
+        // Enforcing it needs a spend read against token_usage_events
+        // (src/services/token-usage.service.ts already carries cost_eur, model,
+        // session_id and task_id). Until that read exists, say so rather than imply
+        // a limit is in force.
         const maxCost = (policy.config.max_daily_eur as number) || 50;
-        return { policyId: policy.id, allowed: true, reason: `Cost limit: EUR ${maxCost}/day (tracking active)`, enforcement: policy.enforcement };
+        return { policyId: policy.id, allowed: true, reason: `Cost limit configured at EUR ${maxCost}/day — NOT ENFORCED (no spend lookup wired)`, enforcement: policy.enforcement };
       }
 
       case 'approval-required': {

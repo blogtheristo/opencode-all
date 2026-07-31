@@ -2,7 +2,13 @@ name: Claude Auto-Fix
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+      - '.github/workflows/**.disabled'
   workflow_dispatch:
     inputs:
       task:
@@ -15,16 +21,25 @@ on:
         default: 'Read,Edit,Bash(npm run lint),Bash(npm run test),Bash(npm run build)'
         type: string
 
+# Cancel earlier in-flight auto-fix runs when a new commit is pushed.
+# claude-auto-fix is the largest per-PR minute consumer (npm ci + Claude CLI install
+# + full lint/test). Cancellation prevents stacking on rapid-fire pushes.
+concurrency:
+  group: claude-auto-fix-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
 jobs:
   auto-fix:
     name: Claude Auto-Fix
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 10
-    # Skip bot-triggered events to prevent fix loops
+    # Skip bot-triggered events to prevent fix loops.
+    # Skip drafts — only run once a PR is marked ready for review.
     if: |
+      (github.event_name != 'pull_request' || !github.event.pull_request.draft) &&
       github.actor != 'github-actions[bot]' &&
       github.actor != 'copilot[bot]'
 
@@ -32,7 +47,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Check for skip-ci in last commit
@@ -45,23 +60,36 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Detect Anthropic API key
+        id: anthropic
+        if: steps.skip_check.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "ANTHROPIC_API_KEY not configured — skipping Claude auto-fix"
+          fi
+
       - name: Setup Node.js
-        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
-        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         run: npm ci
 
       - name: Install Claude Code CLI
-        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Run Claude Auto-Fix
-        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -80,7 +108,7 @@ jobs:
           head -c 50000 claude-output.json
 
       - name: Commit fixes
-        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         run: |
           git config user.name "Claude Code Bot"
           git config user.email "claude-bot@dws6.com"

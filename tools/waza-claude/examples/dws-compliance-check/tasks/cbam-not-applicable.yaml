@@ -1,0 +1,40 @@
+id: cbam-not-applicable-001
+name: CBAM non-applicability for services company
+description: >
+  Test that the skill correctly identifies CBAM does NOT apply to a
+  pure software/services company (no physical goods imports).
+
+inputs:
+  prompt: >
+    Run a compliance check for:
+    - Name: SoftHouse Oy
+    - Sector: Software development (NACE J62)
+    - Employees: 85
+    - Revenue: €12M
+    - Domicile: Finland (EU)
+    - Imports: Software licenses only, no physical goods
+    Does CBAM apply?
+
+  context:
+    regulation: CBAM
+    jurisdiction: EU
+
+expected:
+  output_contains_any:
+    - "does not apply"
+    - "not applicable"
+    - "exempt"
+    - "no CBAM obligation"
+
+graders:
+  - name: correct_cbam_determination
+    type: text
+    config:
+      regex_match:
+        - "(?i)not applicable|does not apply|exempt|no.*cbam|cbam.*not"
+
+  - name: no_false_obligation
+    type: text
+    config:
+      regex_not_match:
+        - "(?i)must report|cbam obligation|cbam applies"

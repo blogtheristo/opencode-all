@@ -27,6 +27,7 @@ export class ApolloAgent extends BaseAgent {
         'lead-feedback-analysis',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 
@@ -148,7 +149,7 @@ Return JSON: {
 
     let synthesis = {
       contentAngle: '',
-      outreachSequence: [],
+      outreachSequence: [] as string[],
       seoOpportunity: '',
       contentBrief: '',
       apolloBriefing: '',

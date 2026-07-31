@@ -30,6 +30,7 @@ export class MarsAgent extends BaseAgent {
       description: 'Construction & Buildings Industry Specialist — EPBD recast, whole-life carbon (EN 15978), EU Taxonomy buildings criteria for Climate IQ',
       capabilities: ['epbd-compliance', 'whole-life-carbon-en15978', 'eu-taxonomy-buildings', 'construction-csrd', 'retrofit-assessment'],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'standard',
     });
   }
 

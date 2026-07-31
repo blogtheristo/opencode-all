@@ -15,7 +15,7 @@
  */
 
 import logger from '../utils/logger.js';
-import { createLLMClient, LLMClient } from './llm-client.js';
+import { createLLMClient, type LLMClient } from './llm-client.js';
 import { memoryService } from './memory.service.js';
 import type {
   ExtractedFact,
@@ -208,7 +208,7 @@ export class FactExtractionService {
   /** Lazy-initialize LLM client */
   private getLLMClient(): LLMClient | null {
     if (this.llmClient) return this.llmClient;
-    this.llmClient = createLLMClient('claude-haiku', { mode: 'agent' });
+    this.llmClient = createLLMClient('claude-haiku', undefined, 'agent');
     return this.llmClient;
   }
 }

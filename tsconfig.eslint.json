@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/cloudflare/**/*",
+    "src/firehorse/**/*",
+    "src/integrations/**/*",
+    "src/investor-reports/**/*",
+    "src/mcp/**/*",
+    "src/payments/**/*",
+    "src/sandbox/**/*",
+    "src/web/**/*",
+    "src/database/**/*",
+    "src/config/**/*"
+  ]
+}

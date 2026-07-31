@@ -6,7 +6,7 @@
  *   2. Sales Outreach — product pitch to CSRD-obligated companies
  *   3. Partnership — peer/integration conversation
  *
- * Each returns { subject, html, text } ready for Resend.
+ * Each returns { subject, html, text } ready for Amazon SES.
  * Templates use prospect data from v_outreach_enriched.
  */
 
@@ -49,10 +49,9 @@ function wrapHtml(body: string): string {
   <div style="${CONTAINER_STYLE}">
     ${body}
     <div style="${SIGNATURE_STYLE}">
-      <p style="margin: 0;">Risto Paarni</p>
-      <p style="margin: 2px 0; color: #666;">Founder & CEO, DWS IQ</p>
-      <p style="margin: 2px 0; color: #666;">risto@onelifetime.world</p>
-      <p style="margin: 2px 0; color: #666;">Helsinki, Finland</p>
+      <p style="margin: 0;">Risto Anton Päärni</p>
+      <p style="margin: 2px 0; color: #666;">Founder, CEO &middot; Lifetime Oy</p>
+      <p style="margin: 2px 0; color: #666;">risto@onelifetime.world &middot; +358 400 319 010</p>
     </div>
   </div>
 </body>
@@ -90,9 +89,9 @@ I'd welcome a 20-minute conversation about how DWS IQ fits${ctx.investorType ? `
 Would any time next week work for a quick call?
 
 Best,
-Risto Paarni
-Founder & CEO, DWS IQ
-risto@onelifetime.world`;
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy
+risto@onelifetime.world · +358 400 319 010`;
 
   const html = wrapHtml(`
     <p style="${TEXT_STYLE}">Hi ${name},</p>
@@ -122,6 +121,7 @@ function salesEmail(ctx: ProspectContext): EmailContent {
   const org = ctx.orgName || 'your company';
   const segment = ctx.customerSegment || 'EU-regulated industry';
   const angle = ctx.ourAngle || `automate CSRD compliance reporting for ${segment} companies`;
+  void angle; // Reserved for personalised email body in v2
 
   const subject = `${org} — Automate CSRD Compliance with DWS IQ`;
 
@@ -141,9 +141,9 @@ Our platform handles the complexity so your team can focus on operations rather 
 Would a 15-minute demo be useful? I can show you exactly how ${org} would benefit.
 
 Best,
-Risto Paarni
-Founder & CEO, DWS IQ
-risto@onelifetime.world`;
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy
+risto@onelifetime.world · +358 400 319 010`;
 
   const html = wrapHtml(`
     <p style="${TEXT_STYLE}">Hi ${name},</p>
@@ -192,9 +192,9 @@ Our stack:
 I think there's a conversation worth having about how we could work together. Would you have 20 minutes for a peer conversation?
 
 Best,
-Risto Paarni
-Founder & CEO, DWS IQ
-risto@onelifetime.world`;
+Risto Anton Päärni
+Founder, CEO · Lifetime Oy
+risto@onelifetime.world · +358 400 319 010`;
 
   const html = wrapHtml(`
     <p style="${TEXT_STYLE}">Hi ${name},</p>

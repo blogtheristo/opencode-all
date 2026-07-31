@@ -48,6 +48,7 @@ jobs:
               if (labels.includes('ai-changes-requested')) continue;
               if (labels.includes('do-not-merge')) continue;
               if (labels.includes('needs-human-review')) continue;
+              if (labels.includes('has-conflicts')) continue;
 
               // Check if all status checks pass
               const { data: checks } = await github.rest.checks.listForRef({

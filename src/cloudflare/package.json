@@ -10,19 +10,16 @@
     "dev:gateway": "wrangler dev -c wrangler.gateway.toml",
     "dev:sandbox": "wrangler dev -c wrangler.sandbox.toml",
     "dev:billing": "wrangler dev -c wrangler.billing.toml",
-    "dev:team-chat": "wrangler dev -c wrangler.team-chat.toml",
     "build": "npm run build:worker && npm run build:gateway && npm run build:sandbox && npm run build:billing",
     "build:worker": "esbuild worker-agent.ts --bundle --format=esm --outfile=dist/worker-agent.js --external:__STATIC_CONTENT_MANIFEST",
     "build:gateway": "esbuild mcp-gateway.ts --bundle --format=esm --outfile=dist/mcp-gateway.js --external:__STATIC_CONTENT_MANIFEST",
     "build:sandbox": "esbuild tenant-sandbox.ts --bundle --format=esm --outfile=dist/tenant-sandbox.js --external:__STATIC_CONTENT_MANIFEST",
     "build:billing": "esbuild billing-integration.ts --bundle --format=esm --outfile=dist/billing-integration.js --external:__STATIC_CONTENT_MANIFEST",
-    "build:team-chat": "esbuild team-chat-worker.ts --bundle --format=esm --outfile=dist/team-chat-worker.js",
     "deploy": "npm run deploy:worker && npm run deploy:gateway && npm run deploy:sandbox && npm run deploy:billing",
     "deploy:worker": "wrangler deploy",
     "deploy:gateway": "wrangler deploy -c wrangler.gateway.toml",
     "deploy:sandbox": "wrangler deploy -c wrangler.sandbox.toml",
     "deploy:billing": "wrangler deploy -c wrangler.billing.toml",
-    "deploy:team-chat": "wrangler deploy -c wrangler.team-chat.toml",
     "deploy:staging": "npm run deploy:worker:staging && npm run deploy:gateway:staging && npm run deploy:sandbox:staging && npm run deploy:billing:staging",
     "deploy:worker:staging": "wrangler deploy --env staging",
     "deploy:gateway:staging": "wrangler deploy -c wrangler.gateway.toml --env staging",
@@ -61,8 +58,8 @@
     "esbuild": "^0.27.0",
     "eslint": "^9.15.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0",
-    "wrangler": ">=3.114.16"
+    "vitest": "^4.1.5",
+    "wrangler": "^4.65.0"
   },
   "keywords": [
     "cloudflare",
@@ -76,7 +73,7 @@
   "author": "Lifetime Oy <risto@lifetime.fi>",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.17.0"
   },
   "repository": {
     "type": "git",
@@ -85,10 +82,6 @@
   },
   "overrides": {
     "rollup-plugin-inject": "npm:@rollup/plugin-inject@^5.0.0",
-    "esbuild": "^0.27.0",
-    "minimatch": ">=3.1.3",
-    "undici": ">=6.24.0",
-    "flatted": ">=3.4.0",
-    "ajv": ">=6.14.0"
+    "esbuild": "^0.27.0"
   }
 }

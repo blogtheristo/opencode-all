@@ -1,10 +1,16 @@
 name: Monthly Security Audit - Enhanced with Correlation
 
 on:
-  schedule:
-    # Runs at 00:00 UTC on day 1 of every month
-    - cron: '0 0 1 * *'
-  workflow_dispatch:  # Allow manual triggering
+  # Schedule REMOVED 2026-05-25 (#1384) — comment originally claimed
+  # scripts/weekly/security-audit.sh "covers monthly too". It doesn't, and shouldn't:
+  # this workflow's compliance score comes from scripts/security_audit.py, which is a
+  # hardcoded placeholder (always prints "Overall Score: 85/100" — see its own
+  # docstring), not a real audit. This workflow was creating monthly GitHub issues
+  # with a fabricated score before its schedule was removed. Do not re-enable the
+  # schedule or build a DGX equivalent until security_audit.py computes a real score
+  # (verified 2026-07-03: no currently-open issue is presenting the fake score).
+  # Was: cron '0 0 1 * *' (1st of month at 00:00 UTC)
+  workflow_dispatch:  # Allow manual triggering — kept for now, but produces fake data
 
 jobs:
   enhanced-security-audit:
@@ -47,37 +53,26 @@ jobs:
           # List the report
           ls -la audit-report-*.md
 
-      # --- PHASE 2: Fetch Aikido Zen Attack Data ---
-      # Note: AIKIDO_API_TOKEN is optional - workflow will use sample data if not configured
-      - name: Fetch Aikido Zen Attack Data
+      # --- PHASE 2: Fetch ZenFree Attack Data ---
+      # ZenFree logs attacks to security-attacks.jsonl (local file, no API needed)
+      - name: Fetch ZenFree Attack Data
         id: aikido
-        env:
-          AIKIDO_API_TOKEN: ${{ secrets.AIKIDO_API_TOKEN }}
         run: |
-          # Check if Aikido API token is available
-          if [ -n "$AIKIDO_API_TOKEN" ]; then
-            echo "Fetching live data from Aikido Zen API..."
-            curl -H "Authorization: Bearer $AIKIDO_API_TOKEN" \
-              "https://api.aikido.dev/v1/attacks?since=30d" \
-              > aikido-attacks.json || echo "API call failed, using sample data"
-          fi
+          echo "Reading ZenFree attack logs..."
           
-          # Fallback to sample data if token is missing or API call failed
-          if [ ! -s aikido-attacks.json ]; then
-            echo "Using sample data (Aikido API token not configured or API failed)"
-            cat > aikido-attacks.json << 'EOF'
-          {
-            "attacks": [
-              {
-                "timestamp": "2025-12-22T10:30:00Z",
-                "attack_type": "sql_injection",
-                "endpoint": "/api/v1/customer/{id}",
-                "severity": "high",
-                "detected_by": "aikido_zen"
-              }
-            ]
-          }
-          EOF
+          # Convert JSONL log to JSON array expected by correlation script
+          if [ -f security-attacks.jsonl ] && [ -s security-attacks.jsonl ]; then
+            echo '{ "attacks":' > aikido-attacks.json
+            python3 -c "
+import json, sys
+attacks = [json.loads(l) for l in open('security-attacks.jsonl') if l.strip()]
+json.dump(attacks, sys.stdout, indent=2)
+" >> aikido-attacks.json
+            echo '}' >> aikido-attacks.json
+            echo "Loaded $(wc -l < security-attacks.jsonl) ZenFree attack records"
+          else
+            echo "No ZenFree attack log found — using empty dataset"
+            echo '{ "attacks": [] }' > aikido-attacks.json
           fi
           
           echo "aikido_attacks_fetched=true" >> "$GITHUB_OUTPUT"
@@ -155,7 +150,7 @@ jobs:
       - name: Create Monthly Summary Issue
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
           script: |
             const score = ${{ steps.audit.outputs.audit_score }};
             const critical = ${{ steps.correlation.outputs.critical_issues }};
@@ -206,71 +201,97 @@ jobs:
               labels: ['security', 'monthly-audit', 'automated']
             });
 
-      # --- PHASE 8: Slack Notification (Optional) ---
-      # Note: SLACK_WEBHOOK_URL is optional - notification will be skipped if not configured
-      - name: Send Slack Notification
+      # --- PHASE 8: Microsoft Teams notification (optional) ---
+      # Add repo secret TEAMS_WEBHOOK_URL = Teams channel Incoming Webhook URL (Workflow or connector).
+      # Skips quietly if the secret is unset. Uses MessageCard (same pattern as Firehorse automation).
+      - name: Send Microsoft Teams notification
         if: always()
-        uses: slackapi/slack-github-action@v1
         continue-on-error: true
-        with:
-          payload: |
-            {
-              "text": "Monthly Security Audit Complete",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "Security Audit Report - ${{ steps.audit.outputs.audit_score }}%"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Compliance Score:*\n${{ steps.audit.outputs.audit_score }}%"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Critical Issues:*\n${{ steps.correlation.outputs.critical_issues }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*New Issues Created:*\n${{ steps.issues.outputs.issues_created }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Status:*\nComplete"
-                    }
-                  ]
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Results"
-                      },
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    },
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "Aikido Dashboard"
-                      },
-                      "url": "https://app.aikido.dev"
-                    }
-                  ]
-                }
-              ]
-            }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          AUDIT_SCORE: ${{ steps.audit.outputs.audit_score }}
+          CRITICAL_ISSUES: ${{ steps.correlation.outputs.critical_issues }}
+          ISSUES_CREATED: ${{ steps.issues.outputs.issues_created }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 << 'PY'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+
+          url = (os.environ.get("TEAMS_WEBHOOK_URL") or "").strip()
+          if not url:
+              print("Skip: TEAMS_WEBHOOK_URL secret not configured")
+              sys.exit(0)
+
+          score = os.environ.get("AUDIT_SCORE", "n/a")
+          critical = os.environ.get("CRITICAL_ISSUES", "0")
+          issues = os.environ.get("ISSUES_CREATED", "0")
+          run_url = os.environ.get("RUN_URL", "")
+          aikido_url = "https://app.aikido.dev"
+
+          card = {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "themeColor": "0076D7",
+              "summary": "Monthly Security Audit Complete",
+              "sections": [
+                  {
+                      "activityTitle": "Security audit report — %s%%" % (score,),
+                      "facts": [
+                          {"name": "Compliance score", "value": "%s%%" % (score,)},
+                          {"name": "Critical issues", "value": str(critical)},
+                          {"name": "New issues created", "value": str(issues)},
+                          {"name": "Status", "value": "Complete"},
+                      ],
+                      "markdown": True,
+                  }
+              ],
+              "potentialAction": [
+                  {
+                      "@type": "OpenUri",
+                      "name": "View GitHub Actions run",
+                      "targets": [{"os": "default", "uri": run_url}],
+                  },
+                  {
+                      "@type": "OpenUri",
+                      "name": "Aikido dashboard",
+                      "targets": [{"os": "default", "uri": aikido_url}],
+                  },
+              ],
+          }
+
+          data = json.dumps(card).encode("utf-8")
+          req = urllib.request.Request(
+              url,
+              data=data,
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  body = resp.read().decode("utf-8", errors="replace")
+                  print(resp.status, body[:200])
+          except urllib.error.HTTPError as e:
+              err = e.read().decode("utf-8", errors="replace")
+              print("Teams webhook HTTP error:", e.code, err[:500])
+              raise
+          PY
+
+      # --- PHASE 8: GitHub Summary Notification ---
+      - name: Write Security Audit Summary
+        if: always()
+        run: |
+          {
+            echo "## Monthly Security Audit Complete"
+            echo ""
+            echo "- Compliance score: ${{ steps.audit.outputs.audit_score }}%"
+            echo "- Critical issues: ${{ steps.correlation.outputs.critical_issues }}"
+            echo "- New issues created: ${{ steps.issues.outputs.issues_created }}"
+            echo "- Aikido dashboard: https://app.aikido.dev"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   # --- Job 2: Update Metrics Dashboard ---
   update-dashboard:

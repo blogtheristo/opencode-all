@@ -1,0 +1,648 @@
+<!doctype html>
+<!--
+  Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt
+  Code-Version: 1.0
+  Branch: claude/add-drone-defense-units-ttSoy
+  Date: 2026-05-15
+  Owner: Lifetime Oy
+  Languages: en (canonical), fi, sv
+  Related:
+    - docs/field-notes/2026-04-15-finland-drone-strategy-lifetime-fleet.md
+    - docs/field-notes/2026-04-01-yakovenko-drone-industrial-darwinism-interceptor-signal.md
+    - posts/core-resilience-hybrid-threats.html
+-->
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palokunnat droonitorjuntayksiköiksi — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Suomessa on 33 alueellista pelastuslaitosta, yli 700 vapaapalokuntaa (VPK) ja noin 13 000 aktiivivapaaehtoista. Droonitorjunta on minuuttipeliä. Kolme syytä, miksi palokuntaverkko on maan luonteva ensimmäisen kerroksen C-UAS-rakenne — ja mitä emme lupaa liikaa."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-05-15" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt"
+    />
+    <meta
+      property="og:description"
+      content="Nopea toiminta. Paikallinen tuntemus. Fail-over. Miksi Suomen palokunnat ja VPK:t ovat luonteva ensimmäisen kerroksen droonitorjunta."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="sv_SE" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/palokunnat-droonitorjuntayksikot.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-05-15" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Puolustus" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Palokunnat ja VPK:t droonitorjuntayksiköiksi"
+    />
+    <meta
+      name="twitter:description"
+      content="Kolme syytä: nopea toiminta, paikallisten olosuhteiden tuntemus, fail-over."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/palokunnat-droonitorjuntayksikot.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/fire-brigades-drone-defense-units.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/palokunnat-droonitorjuntayksikot.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/brandkarer-dronarforsvars-enheter.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/fire-brigades-drone-defense-units.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .callout {
+        background: rgba(6, 182, 212, 0.07);
+        border-left: 3px solid #06b6d4;
+        border-radius: 4px;
+      }
+      .callout-gold {
+        background: rgba(212, 168, 67, 0.08);
+        border-left: 3px solid #d4a843;
+        border-radius: 4px;
+      }
+      .reason-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .reason-card:hover {
+        border-color: rgba(6, 182, 212, 0.45);
+        transform: translateY(-2px);
+      }
+      .version-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        background: rgba(6, 182, 212, 0.15);
+        color: #67e8f9;
+        border: 1px solid rgba(6, 182, 212, 0.35);
+      }
+      .lang-bar {
+        display: inline-flex;
+        gap: 0.25rem;
+        font-size: 0.75rem;
+      }
+      .lang-bar a {
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        color: #94a3b8;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+      }
+      .lang-bar a:hover {
+        color: #67e8f9;
+        border-color: rgba(6, 182, 212, 0.5);
+      }
+      .lang-bar a.active {
+        color: #0f172a;
+        background: #67e8f9;
+        border-color: #67e8f9;
+        font-weight: 700;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt",
+        "description": "Miksi Suomen pelastuslaitokset ja vapaapalokunnat ovat luonteva ensimmäisen kerroksen C-UAS-rakenne.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-05-15",
+        "mainEntityOfPage": "https://onelifetime.world/posts/palokunnat-droonitorjuntayksikot.html",
+        "articleSection": "Puolustus",
+        "inLanguage": "fi"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Valikko">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Kauppa</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lehdistö</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ -alusta</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Kauppa</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12">
+        <header class="mb-8">
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <span class="version-chip">Puolustus &middot; Kenttämuistiinpano</span>
+            <div class="lang-bar" aria-label="Kieli">
+              <a href="/posts/fire-brigades-drone-defense-units.html" hreflang="en">EN</a>
+              <a class="active" href="/posts/palokunnat-droonitorjuntayksikot.html" hreflang="fi"
+                >FI</a
+              >
+              <a href="/posts/brandkarer-dronarforsvars-enheter.html" hreflang="sv">SV</a>
+            </div>
+          </div>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Palokunnat ja VPK:t droonitorjuntayksiköiksi &mdash; kolme syytä rakentaa verkko nyt
+          </h1>
+          <p class="mt-3 text-sm" style="color: #94a3b8">
+            <time datetime="2026-05-15">15. toukokuuta 2026</time> &middot; Risto Anton Päärni
+          </p>
+        </header>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">Uutinen yhdellä rivillä</p>
+          <p class="mb-2">
+            Suomen kansallinen droonistrategia (2026&ndash;2030) nimeää dual-use Drone-as-a-Servicen
+            siviili- ja puolustusviranomaisten malliksi. Ukrainan rintama opettaa saman läksyn
+            nopeammin. Lähimpänä taivasta olevat ihmiset ovat jo organisoituneet, koulutettuja ja
+            valmiudessa tänä iltana &mdash; heillä on keltaiset kypärät.
+          </p>
+          <p class="text-xs" style="color: #94a3b8">
+            Lähteet: Suomen kansallinen UxS-strategia, 2026; DWS-kenttämuistiinpanot 15.4.2026 ja
+            1.4.2026.
+          </p>
+        </section>
+
+        <p class="mb-6 text-lg leading-relaxed" style="color: #cbd5e1">
+          Hyvät uutiset tulevat jo valmiina.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Suomessa on 33 alueellista pelastuslaitosta, yli 700 vapaapalokuntaa (VPK) ja noin 13 000
+          aktiivivapaaehtoista. He ovat hälytysvalmiudessa tänä iltana. Heidän tekeminen maan
+          ensimmäisen kerroksen droonitorjuntaverkoksi ei ole uutta rakentamista. Se on pieni
+          jatke vanhan päälle.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Ja koska verkkoa ei kehumalla pystytetä, tässä rehellinen osa.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          1. Nopea toiminta &mdash; minuutteja, ei tunteja
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Sähköaseman yllä leijuva drooni antaa päätöksentekoaikaa minuutteja, ei tunteja.
+          Kansallinen C-UAS-yksikkö, kuinka hyvin tahansa varusteltuna, ei voi olla 700 paikassa
+          yhtä aikaa. VPK on jo. Keskimääräinen hälytysaika kohteessa: 6&ndash;10 minuuttia. Se on
+          mittari, joka uhalla todellisuudessa on.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #d4a843">
+            Miltä kello näyttää
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm" style="color: #cbd5e1">
+            <li>Kaupallinen drooni 60 km/h kattaa 5 km viidessä minuutissa.</li>
+            <li>
+              Kansallinen C-UAS-rotorinnousu yhdeltä tukikohdalta: 20&ndash;40 minuuttia.
+            </li>
+            <li>VPK:n hälytysaika omassa kunnassa: 6&ndash;10 minuuttia keskimäärin.</li>
+            <li>
+              Ensimmäiset silmät vihamielisessä ilma-aluksessa eivät ole ne, jotka saapuvat
+              lentoonlähdön jälkeen. Ne ovat ne, jotka ovat jo asemalla.
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          2. Paikallisten olosuhteiden tuntemus &mdash; tuuli, metsä, johdot
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Droonitorjuntayksikön on luettava taivasta niin kuin paikallinen lukee säätä. Mihin
+          vaurioitunut ilma-alus putoaa? Mikä metsätie on ajokelpoinen huhtikuussa? Mikä
+          sähköasema syöttää sairaalaa, mikä meijeriä? VPK vastaa näihin kysymyksiin joka
+          viikonloppu.
+        </p>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Kansallinen toimija, joka lentää paikalle ensi kertaa, tarvitsee tunnin pelkästään
+          oppiakseen sen, minkä paikallinen tietää ulkoa. Drooni-tapauksessa se tunti on koko
+          tapaus.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #d4a843">
+            Mitä &rdquo;paikallinen tuntemus&rdquo; oikeasti tarkoittaa
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm" style="color: #cbd5e1">
+            <li>
+              Mikroilmasto: revontulien aiheuttama GPS-virhe, merisumun aikaikkunat,
+              järvi-ilmiön lumikäytävät.
+            </li>
+            <li>
+              Maasto: mitkä metsäaukot päästävät matalan ilma-aluksen läpi, mitkä aukeat ovat
+              turvallisia verkko-otoksen pisteitä.
+            </li>
+            <li>
+              Siviiliasutus: koulureitit, ambulanssiväylät, pilkkialueet, joiden yllä on ihmisiä
+              minkä tahansa pirstalevyön alla.
+            </li>
+            <li>
+              Kriittinen infrastruktuuri: mikä sähköasema, masto tai pumppaamo on minkäkin
+              syötön takana, ja mikä kaatuu jos se kaatuu.
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          3. Fail-over &mdash; 700 solmua voittaa yhden
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Keskitetyt järjestelmät kaatuvat keskitetysti. Hajautetut järjestelmät heikkenevät
+          hallitusti. Jos yksi häirintätapahtuma kaataa alueen viestinnän, tai yksi
+          komentokeskus joutuu kiistaan, 700 solmun verkko pysyy toiminnassa.
+        </p>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Ukrainan oppi on sama oppi, jonka internet oppi vuonna 1969: selviytyvyys on topologian
+          ominaisuus, ei yhden solmun. Vahvin droonitorjunta on se, jolla ei ole yhtä
+          hyökkäyspistettä.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #d4a843">
+            Miksi redundanssi on varsinainen tuote
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm" style="color: #cbd5e1">
+            <li>
+              33 pelastuslaitosta + 700+ VPK = yli 700 asemaa, joilla on itsenäinen sähkönsyöttö,
+              itsenäinen viestintä-varajärjestelmä, itsenäinen hälytys.
+            </li>
+            <li>
+              Yksi solmu pois: 0,14 % maan kattavuudesta menetetty. Yksi pataljoona pois: koko
+              sektorin kattavuus menetetty.
+            </li>
+            <li>
+              Paikallinen verkko jatkaa havaitsemista ja eristämistä, vaikka kansallinen
+              kuljetustaso olisi katki. Kun yhteys palaa, havainnot synkronoituvat ylöspäin.
+            </li>
+            <li>
+              Tällä tavalla verkko selvisi 1939&ndash;1944. Tällä tavalla taivas selviää 2026.
+            </li>
+          </ul>
+        </div>
+
+        <section class="callout-gold p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #d4a843">
+            Mitä VPK-malli ei lupaa &mdash; ja miksi sillä on väliä
+          </p>
+          <p class="mb-2">
+            VPK:t ovat ensivaste, eivät loppuratkaisu. Malli olettaa, että kansallinen taso omistaa
+            edelleen pitkän kantaman tunnistuksen, aikomuksen päättelyn, kineettisen torjunnan
+            mandaatin pienkaupallisia drooneja suuremmilla kohteilla sekä rajat ylittävän
+            koordinaation Venäjän, Naton ja EASA U-spacen kanssa.
+          </p>
+          <p class="mb-0">
+            VPK-kerros on silmät, eristys ja ensimmäiset minuutit. Se ei ole kineettinen ratkaisu
+            kiinteäsiipiseen tunkeutujaan. Emme lupaa vapaaehtoisen mandaatista enempää kuin se
+            kestää.
+          </p>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Mihin DWS asettuu pelastuskerroksen päälle
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Sankarit ovat jo vuorossa. Me lisäämme agenttikerroksen heidän päälleen &mdash; emme
+          yksikköä heidän alleen.
+        </p>
+
+        <ul class="list-disc pl-6 space-y-2 mb-8 text-sm" style="color: #cbd5e1">
+          <li>
+            <strong>Yksi tablettikäyttöliittymä</strong> &mdash; Fleet Commander -triagenäkymä,
+            KYA-sidottu vahvistettuun operaattoriin. Sama työnkulku, jota päivystäjä käyttää jo
+            paloon ja etsintään.
+          </li>
+          <li>
+            <strong>Paikallinen laskenta ensin</strong> &mdash; havaitseminen ja luokittelu
+            tapahtuvat aseman reunalla. Toimii ilman yhteyttä. Synkronoituu, kun yhteys palaa.
+          </li>
+          <li>
+            <strong>EASA U-space -integraatio</strong> &mdash; jotta kansallinen taso näkee sen,
+            mitä paikallinen näkee, paikallisella aikaleimalla ja paikallisella
+            todenperäisyystodisteella.
+          </li>
+          <li>
+            <strong>EU AI Act -artiklan 12 päättelypolku</strong> &mdash; jokainen havainto
+            kantaa peukaloimattoman jäljen. Hyväksyttävissä tuomioistuimessa, puolustettavissa
+            tarkastuksessa.
+          </li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Konkreettinen esimerkki &mdash; karjalainen ilta klo 19.42
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Drooni, kaupallinen luokka, 60 km/h, matalalla. Ylittää itärajan Imatran pohjoispuolelta.
+          Tunnistamaton. Suuntaa Saimaan rantaa pitkin vesivoimalaa kohti.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-3" style="color: #d4a843">
+            Aikajana: hälytyksestä tapauksen sulkemiseen
+          </p>
+          <ul class="space-y-3 text-sm" style="color: #cbd5e1">
+            <li>
+              <strong style="color: #67e8f9">Sekunti 0.</strong> Imatran rajavartioston tutka maalaa
+              kohteen. Hälytys lähtee.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Sekunti 12 &mdash; Control Room (kenttä).</strong>
+              Joutsenon VPK:n päivystäjä saa hälytyksen tabletilleen. Fleet Commander
+              -triagenäkymä näyttää kolme asiaa kerralla: kohteen lentoradan, paikallisen tuulen
+              (luode, 4&nbsp;m/s) ja lähimmän yksikön 6 minuutin saapumisajan. KYA sitoo
+              päivystäjän henkilöllisyyden tähän tapaukseen &mdash; kaikki, mitä tästä lähtien
+              tapahtuu, kantaa hänen nimeään.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Sekunti 18 &mdash; SiteSense-agentti.</strong>
+              Lentorata yhdistetään paikalliseen infrakarttaan. Vesivoimala. 220&nbsp;kV linja.
+              Koulun piha 800&nbsp;m sivussa. Päivystäjä näkee saman ruudun &mdash; sama
+              päättelyketju, sama todistus.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minuutti 1:30 &mdash; Situation Room (strateginen).</strong>
+              Helsinki katsoo samaa kohdetta isommassa kuvassa. Onko muita samanaikaisia? Kyllä,
+              kaksi: Kotka ja Lappeenranta. Tämä on parvi, ei yksittäinen. Themis-agentti avaa
+              tapauksen ja jakaa kolme rinnakkaista kenttätehtävää.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minuutti 4.</strong> Joutsenon yksikkö paikalla.
+              Eristys käynnissä. Paikalliset silmät, paikallinen verkko, paikallinen päätös.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minuutti 6:30.</strong> Kansallinen C-UAS-yksikkö
+              (Karjalan lennosto) saa Themisin kokoaman tilannekuvan: kolme kohdetta, kolme
+              paikallista eristystä, GPS, paikalliset todisteketjut. Ei toistettavaa työtä. Ei
+              kysymyksiä siitä, kuka näki mitä ja milloin.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minuutti 9.</strong> Lennosto ottaa kineettisen
+              vastuun. Joutseno pitää eristyksen. Liikenne kulkee &mdash; ei autonominen yksikkö
+              olisi pärjännyt yksin, ei kansallinen olisi ehtinyt yksin.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minuutti 22.</strong> Tapaus suljettu. EU AI Act
+              -artiklan 12 päättelypolku tallennettu kahdeltatoista agentilta ja kolmelta
+              ihmiseltä. Tarkastettavissa kuukauden, vuoden tai vuosikymmenen kuluttua.
+            </li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl font-bold mt-8 mb-3" style="color: #f1f5f9">
+          Mitä Control Room ja Situation Room antavat erikseen
+        </h3>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          <strong>Control Room</strong> (paikallinen) tekee yhden asian hyvin: muuttaa hälytyksen
+          päätökseksi minuuteissa, paikallinen tuntemus mukana ja päätös jäljitettävissä.
+        </p>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          <strong>Situation Room</strong> (strateginen) tekee toisen asian hyvin: näkee parven, ei
+          yksittäistä, ja ompelee 700 paikallista solmua yhdeksi kuvaksi pysäyttämättä yhtäkään
+          niistä.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Yhdessä ne tekevät kolmannen asian, jota kumpikaan ei tee yksin: pitävät paikallisen
+          toimijuuden ja kansallisen kokonaiskuvan samassa työnkulussa &mdash; saman KYA-juurroksen,
+          saman päättelyketjun ja saman tilannekuvan alla.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Miksi emme keskitä tätä
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Houkutus on aina keskittää. Yksi C-UAS-pataljoona, yksi komentokeskus, yksi hankinta. Se
+          näyttää siistiltä PowerPointissa. Se häviää ensimmäisenä päivänä.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Syvyyspuolustus ei ole iskulause. Se on se, mikä selvisi 2022&ndash;2026 itäisellä
+          rintamalla. Suomen strategia nimeää jo dual-use DaaS:n. Institutionaalinen muoto
+          &mdash; palokunnat plus VPK &mdash; on jo paikoillaan. Lisää agenttikerros päälle, ei
+          yksikköä alle.
+        </p>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">Lyhyt versio</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>
+              Suomessa on jo 33 pelastuslaitosta, 700+ VPK:ta, noin 13 000 koulutettua
+              vapaaehtoista.
+            </li>
+            <li>Droonitorjunta on minuuttipeliä. Vain hajautetut yksiköt ehtivät minuuteissa.</li>
+            <li>Paikallista tuntemusta maastosta, tuulesta ja infrasta ei voi ostaa.</li>
+            <li>
+              700 solmun verkko heikkenee hallitusti, missä yksi pataljoona kaatuu kokonaan.
+            </li>
+            <li>
+              Fleet Commander tuo agentti- ja identiteettikerroksen. Sankarit ovat jo vuorossa.
+            </li>
+          </ul>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Lue seuraavaksi</h2>
+
+        <ul class="list-disc pl-6 space-y-2 mb-10 text-sm" style="color: #cbd5e1">
+          <li>
+            <a href="/posts/core-resilience-hybrid-threats.html" class="text-cyan-400 hover:underline"
+              >CORE &mdash; EU:n malli, joka kartoittaa kaikki hybridiuhat</a
+            >
+          </li>
+          <li>
+            <a href="/posts/kya-standard-v1.html" class="text-cyan-400 hover:underline"
+              >KYA-standardi v1 &mdash; agentin toiminta sidottuna vahvistettuun ihmiseen</a
+            >
+          </li>
+          <li>
+            <a href="/posts/solid-layers-aiven-scaleway-kya.html" class="text-cyan-400 hover:underline"
+              >Kerroksemme ovat lujia &mdash; Aiven, Scaleway, KYA + Foundry</a
+            >
+          </li>
+        </ul>
+
+        <hr class="border-slate-700 my-8" />
+
+        <p class="text-sm" style="color: #94a3b8">
+          Risto Anton Päärni<br />
+          <em
+            >toimitusjohtaja, Lifetime Oy &middot; päätoimittaja, Lifetime Scope Journal</em
+          >
+        </p>
+      </article>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/fire-brigades-drone-defense-units.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now</span>
+                    </a>
+                    <a href="/posts/brandkarer-dronarforsvars-enheter.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fpalokunnat-droonitorjuntayksikot.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Palokunnat%20ja%20VPK%3At%20droonitorjuntayksik%C3%B6iksi%20%E2%80%94%20kolme%20syyt%C3%A4%20rakentaa%20verkko%20nyt%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fpalokunnat-droonitorjuntayksikot.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="mailto:?subject=Palokunnat%20ja%20VPK%3At%20droonitorjuntayksik%C3%B6iksi%20%E2%80%94%20kolme%20syyt%C3%A4%20rakentaa%20verkko%20nyt&body=Palokunnat%20ja%20VPK%3At%20droonitorjuntayksik%C3%B6iksi%20%E2%80%94%20kolme%20syyt%C3%A4%20rakentaa%20verkko%20nyt%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fpalokunnat-droonitorjuntayksikot.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/palokunnat-droonitorjuntayksikot.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€4,999</p>
+                            <p class="text-xs text-gray-500">18+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€6,500</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€499</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; ALV FI07724079 &middot; Helsinki, Suomi</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ -alusta</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Kauppa</a> &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Journal</a>
+      </p>
+    </footer>
+  </body>
+</html>

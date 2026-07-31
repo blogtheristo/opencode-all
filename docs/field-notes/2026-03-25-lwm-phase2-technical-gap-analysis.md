@@ -3,20 +3,22 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Initial field note — maps the technical gap between Phase 1 (regulatory intelligence engine) and Phase 2 (latent planning for physical operations). Scopes what's known, unknown, and what needs to be built.
+  - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Appended "Training Economics Addendum (LWM1)" — folds in the 23.05.2026 Colab Pro+ vs NVIDIA Cloud price study. €50–70/industry is the on-prem rate; ~€10/industry is the Colab-cloud rate. 25-industry V1 coverage is now a ~€230 line item, not a roadmap blocker.
 
 Session Links & References:
   - Claude Code (claude/research-leworldmodel-r3VRA): https://github.com/blogtheristo/dws6/commits/claude/research-leworldmodel-r3VRA
   - LeWorldModel research: docs/LeWorldModel.md
   - LWM Training Manual: product-catalog/LWM/training-manual.md
   - Grok LWM Planning: docs/field-notes/2026-03-04-grok-advice-lwm-planning-multi-tool.md
+  - LWM price estimate (Colab vs NVIDIA Cloud): docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md
 
 Document Status:
   - Created: 25.03.2026
-  - Last Modified: 25.03.2026
+  - Last Modified: 23.05.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -36,7 +38,7 @@ This field note scopes the **Phase 1 → Phase 2 bridge** — the technical gap 
 
 | Component | Status | Location |
 |-----------|--------|----------|
-| Regulatory intelligence graph | Shipping | 15,000+ EU docs, 18 agents, 20 industries |
+| Regulatory intelligence graph | Shipping | 15,000+ EU docs, 21 agents, 20 industries |
 | Carbon balance sheet (in-memory) | V1 | `src/compliance/debit-credit-ledger.ts` |
 | Carbon balance sheet (persistent) | DWS 7, July 2026 | 8 PRs (093A-093H) |
 | QLoRA fine-tuned models | Training manual ready | Llama/Mistral/Qwen on GN-100 |
@@ -138,3 +140,50 @@ The bad news: nobody has done this before. LeWorldModel validates the latent pla
 3. Evaluate OpenUSD SDK for scene encoding (after SAFE close)
 4. Run LeWorldModel code (github.com/lucas-maes/le-wm) on GN-100 as capability test
 5. Scope Helsinki pilot environment requirements with City of Helsinki
+
+---
+
+## Training Economics Addendum (LWM1, 23.05.2026)
+
+The Phase 2 budget table above implicitly assumed per-industry fine-tunes priced at the `product-catalog/LWM/training-manual.md` rate of **€50–70/industry**. That number reflects the on-prem Acer Veriton GN-100 hardware-amortization + electricity case. It is no longer the operative number for non-sovereign workloads.
+
+### Observed Colab Pro+ 9B SLM run (22–23 May 2026)
+
+| Metric | Value |
+|---|---|
+| Hardware | NVIDIA A100 80GB (single GPU, Colab Pro+) |
+| Wall clock | 10:25 (10 min step + 7 h train + 1.5 h eval + 1.25 h validation + 30 min GGUF/MLX) |
+| Spend | **$13.99 CAD (~$10.20 USD ≈ €9.40)** |
+| Operator pattern | Codex + computer-use Chrome extension steps notebook unattended overnight |
+| Output | One finished, eval/validated, GGUF/MLX-converted 9B model |
+
+### NVIDIA Cloud price benchmark (A100 80GB on-demand, 10.25 h)
+
+| Provider | 10.25 h total |
+|---|---:|
+| Colab Pro+ (observed) | **~$10 USD** |
+| RunPod Community (NVIDIA Inception) | $12–19 USD |
+| Lambda Cloud (NVIDIA partner) | $18 USD |
+| CoreWeave / NVIDIA Brev | $19–26 USD |
+| NVIDIA DGX Cloud (H100-equiv) | $66+ USD |
+
+Detail: `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md`.
+
+### Loaded BOM per industry (SLM engineer at €100/h)
+
+Compute is cheap. Engineer time is not. Realistic touch-time per overnight unattended cycle is **1.5 h** (0.5 h kickoff + 0.5 h morning verification + 0.5 h smoke-test/registry push).
+
+| Line | Cost |
+|---|---:|
+| GPU compute (A100 80GB, ~10.25 h, Colab Pro+) | €9 |
+| Claude API data generation | €40–60 |
+| SLM engineer labor (€100/h × 1.5 h) | **€150** |
+| **Loaded per-industry BOM** | **€199–€219** |
+| **25-industry V1 coverage** | **€4 975–€5 475** |
+
+### What this changes in the Phase 2 plan
+
+1. **The Phase 2 budget tightens, but the structure holds.** 25-industry V1 coverage is a ~€5K line item with loaded labor (not the ~€230 raw-compute figure — that ignored engineer time).
+2. **The Claude API data-generation line is no longer dominant.** Engineer labor is. Compute is a rounding error. Optimization priority order: (1) reduce engineer touch-time per cycle, (2) collapse the Claude API line via `gpt-oss` local generation, (3) ignore GPU $/h shopping.
+3. **The Aegis split holds and gets cheaper to defend.** Sovereign-tier industries on Lambda EU cost ~€10 more per industry than Colab — well under one engineer-hour. We can default Aegis customers to sovereign cloud at essentially no price penalty.
+4. **The real blocker is operator-unattended reliability.** The Codex + computer-use overnight loop is the cost lever. 5 successful unattended runs in a row collapses the engineer line from 1.5 h to ~0.5 h (verification-only) and drops the per-industry BOM to **~€100**.

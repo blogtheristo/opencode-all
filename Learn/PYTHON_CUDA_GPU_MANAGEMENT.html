@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python CUDA GPU Management — Wheel Variants &amp; Packaging vunknown</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:1000px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:0 -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+.col2{column-count:2;column-gap:32px}
+.col2 li{break-inside:avoid}
+.status-DRAFT{color:#b45309;font-weight:600}.status-ACTIVE{color:#15803d;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Python CUDA GPU Management — Wheel Variants &amp; Packaging</span>
+  <span class="dws-version-badge">vunknown</span>
+  <span class="dws-version-meta">Lifetime Oy · Learn/ (private)</span>
+</div>
+<h1>Python CUDA GPU Management — Wheel Variants & Packaging</h1>
+<p>VERSION AND AGENT HISTORY <li>Version: 1.0</li> <li>Date: 2026-03-08</li> <li>Author: Claude Code (Opus 4.6)</li> <li>Agent: claude/python-cuda-gpu-learning-uk2LZ</li> <li>Status: Active Learning Document</li></p>
+<hr />
+<h2>1. The Problem: GPU Package Hell</h2>
+<p>Installing NVIDIA GPU-accelerated Python packages has historically been painful:</p>
+<li>Navigate to pytorch.org / jax.dev / rapids.ai to find your CUDA version</li>
+<li>Copy a custom `pip` or `uv` command with a special index URL</li>
+<li>Use special package names like `nvidia-<package>-cu{11|12}`</li>
+<li>Different packages use different naming conventions (`xgboost` vs `xgboost-cpu`)</li>
+<li>Overlapping file installs between CPU and GPU variants cause unpredictable behavior</li>
+<strong>Security risk:</strong> Suffixed variant packages (e.g. `numpy-cuda`) enable name-squatting supply chain attacks.
+<strong>Scale of the problem:</strong> As of 2025-12-05, 552 out of 8,136 (6.8%) of issues on uv's issue tracker contained the term "torch" — largely installation confusion.
+<hr />
+<h2>2. The Solution: Wheel Variants (PEP 817 + PEP 825)</h2>
+<h3>What Are Wheel Variants?</h3>
+<p>An extension to the Python binary distribution format that allows:</p>
+<li>Package maintainers to declare <strong>multiple build variants</strong> for the same package version</li>
+<li>Installers to <strong>automatically select</strong> the most appropriate variant based on system hardware/software</li>
+<h3>Three Pillars</h3>
+<table><thead><tr><th>Pillar</th><th>Description</th></tr></thead><tbody><tr><td><strong>Wheel Variant System</strong></td><td>Multiple wheels for same package version, distinguished by hardware attributes</td></tr><tr><td><strong>Provider Plugin System</strong></td><td>Vendor-shipped packages that detect system capabilities (CUDA version, CPU features)</td></tr><tr><td><strong>Hash-based Identification</strong></td><td>Ensures compatibility while maintaining clarity in package naming</td></tr></tbody></table>
+<h3>The WheelNext Initiative</h3>
+<p>NVIDIA initiated the <strong>WheelNext</strong> open source project to fix Python packaging for scientific computing, AI, and HPC. Collaborators: <strong>NVIDIA, Meta, Astral (uv), Quansight, PyTorch team</strong>.</p>
+<li>Website: wheelnext.dev</li>
+<li>PEP 817: Wheel Variants — Beyond Platform Tags</li>
+<li>PEP 825: Wheel Variants — Package Format (split from PEP 817)</li>
+<hr />
+<h2>3. How It Works — Architecture</h2>
+<h3>Variant Metadata Format</h3>
+<p>Wheels encode "properties" declaring hardware requirements using a declarative format:</p>
+<pre><code>nvidia :: cuda_version_lower_bound :: 12.8
+x86_64 :: microarchitecture :: v3
+</code></pre>
+<p>The syntax uses a <strong>3-element tuple</strong>: `namespace :: feature_name :: value`</p>
+<h3>Provider Plugins</h3>
+<p>Provider plugins are purpose-specific modules that:</p>
+<li><strong>Detect</strong> local software and hardware capabilities</li>
+<li><strong>Filter</strong> incompatible wheel variants</li>
+<li><strong>Rank</strong> remaining variants by preference</li>
+<p>Example flow with `uv pip install torch`: <li>uv queries available PyTorch variants from the index</li> <li>NVIDIA provider plugin detects local GPU state (CUDA driver version, compute capability)</li> <li>uv cross-references variants with detected capabilities</li> <li>Best-fitting variant is installed automatically</li></p>
+<h3>Sorting Priority (Three Layers)</h3>
+<li><strong>Provider plugin</strong> — default priority defined by the plugin itself</li>
+<li><strong>Package</strong> — variant information embedded in the wheel</li>
+<li><strong>User</strong> — explicit override via install command</li>
+<p>If `nvidia` namespace has higher priority than `x86_64`, a CUDA variant is preferred over an x86-64-v3 variant.</p>
+<h3>PyTorch Variant Example (as of October 2025)</h3>
+<p>PyTorch publishes <strong>7 variants</strong> per release:</p>
+<table><thead><tr><th>Variant</th><th>Description</th></tr></thead><tbody><tr><td>CPU-only</td><td>Null variant (always supported, fallback)</td></tr><tr><td>CUDA ≥12.1</td><td>Older CUDA runtime</td></tr><tr><td>CUDA ≥12.6</td><td>Mid-range CUDA</td></tr><tr><td>CUDA ≥12.8</td><td>Latest CUDA</td></tr><tr><td>ROCm (×2)</td><td>AMD GPU variants</td></tr><tr><td>XPU (Linux)</td><td>Intel GPU variant</td></tr></tbody></table>
+<hr />
+<h2>4. Installation — The New Way</h2>
+<h3>Install Variant-Enabled uv</h3>
+<pre><code># Install experimental variant-enabled uv build
+curl -LsSf https://astral.sh/uv/install.sh | \
+  INSTALLER_DOWNLOAD_URL=https://wheelnext.astral.sh sh
+</code></pre>
+<h3>Install PyTorch (Automatic Detection)</h3>
+<pre><code># The dream: this just works now
+uv pip install torch
+<p># Explicitly select a variant label uv pip install torch#cu128    # Force CUDA 12.8 variant uv pip install torch#sm120    # Target specific GPU architecture </code></pre></p>
+<p>The `#` syntax allows explicit variant label selection.</p>
+<h3>Backward Compatibility</h3>
+<li>Older pip versions that don't understand variants <strong>simply ignore them</strong></li>
+<li>Variant wheel filenames never match the previous Wheel Regex</li>
+<li>Existing infrastructure continues to work unchanged</li>
+<hr />
+<h2>5. Beyond GPUs — Other Use Cases</h2>
+<p>Wheel variants aren't just for CUDA:</p>
+<table><thead><tr><th>Use Case</th><th>Example</th></tr></thead><tbody><tr><td><strong>Linear Algebra</strong></td><td>SciPy with OpenBLAS vs Intel MKL vs Apple Accelerate</td></tr><tr><td><strong>MPI</strong></td><td>mpi4py targeting OpenMPI vs MPICH vs Intel MPI</td></tr><tr><td><strong>Graphics</strong></td><td>Game dev libraries with Vulkan vs DirectX vs Metal</td></tr><tr><td><strong>CPU Extensions</strong></td><td>Packages optimized for AVX-512, AMX, etc.</td></tr></tbody></table>
+<hr />
+<h2>6. DWS6 Context — Acer GPU & Edge Devices</h2>
+<h3>Current Hardware Stack</h3>
+<table><thead><tr><th>Device</th><th>GPU</th><th>CUDA</th><th>Role</th></tr></thead><tbody><tr><td><strong>Acer laptop</strong></td><td>NVIDIA GeForce/RTX</td><td>CUDA 12.x</td><td>Development workstation</td></tr><tr><td><strong>NVIDIA Jetson Orin Nano</strong></td><td>Integrated (1024 CUDA cores)</td><td>CUDA 12.6 (JetPack 6.x)</td><td>Edge AI (Lifetime Fleet)</td></tr></tbody></table>
+<h3>Setting Up Python CUDA on Acer</h3>
+<pre><code># 1. Verify NVIDIA driver and CUDA
+nvidia-smi
+nvcc --version
+<p># 2. Install variant-enabled uv (recommended over pip for CUDA) curl -LsSf https://astral.sh/uv/install.sh | \   INSTALLER_DOWNLOAD_URL=https://wheelnext.astral.sh sh</p>
+<p># 3. Create virtual environment uv venv .venv --python 3.12 source .venv/bin/activate</p>
+<p># 4. Install PyTorch (auto-detects your GPU) uv pip install torch torchvision torchaudio</p>
+<p># 5. Verify CUDA is available python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}, Device: {torch.cuda.get_device_name(0)}')" </code></pre></p>
+<h3>Setting Up Python CUDA on Jetson Orin Nano</h3>
+<pre><code># JetPack pre-installs CUDA toolkit
+# Use NVIDIA's PyTorch wheel for Jetson
+pip install --no-cache \
+  https://developer.download.nvidia.com/compute/redist/jp/v60/pytorch/torch-2.5.0a0+872d972e41.nv24.08-cp312-cp312-linux_aarch64.whl
+<p># Install supporting packages sudo apt install python3-tensorrt python3-pip git cmake pip install numpy cupy-cuda12x </code></pre></p>
+<h3>Key Packages for GPU Development</h3>
+<table><thead><tr><th>Package</th><th>Purpose</th><th>Install</th></tr></thead><tbody><tr><td><strong>PyTorch</strong></td><td>Deep learning</td><td>`uv pip install torch`</td></tr><tr><td><strong>CuPy</strong></td><td>NumPy-compatible GPU arrays</td><td>`uv pip install cupy-cuda12x`</td></tr><tr><td><strong>RAPIDS cuDF</strong></td><td>GPU DataFrames</td><td>`uv pip install cudf-cu12`</td></tr><tr><td><strong>RAPIDS cuML</strong></td><td>GPU Machine Learning</td><td>`uv pip install cuml-cu12`</td></tr><tr><td><strong>TensorRT</strong></td><td>Inference optimization</td><td>`pip install tensorrt`</td></tr><tr><td><strong>Triton</strong></td><td>GPU kernel compiler</td><td>`uv pip install triton`</td></tr></tbody></table>
+<hr />
+<h2>7. Best Practices for Python CUDA Management</h2>
+<h3>Environment Management</h3>
+<li><strong>Use `uv` over `pip`</strong> — faster, better dependency resolution, variant support</li>
+<li><strong>One venv per project</strong> — never install GPU packages globally</li>
+<li><strong>Pin CUDA version</strong> — match your driver's maximum supported CUDA version</li>
+<li><strong>Use `.python-version`</strong> — lock Python version per project</li>
+<h3>CUDA Version Compatibility</h3>
+<pre><code>Driver Version → Maximum CUDA Toolkit Version
+≥ 555.42       → CUDA 12.5
+≥ 560.28       → CUDA 12.6
+≥ 565.57       → CUDA 12.8
+</code></pre>
+<p>Check your driver: `nvidia-smi` (top right shows max CUDA version)</p>
+<h3>Troubleshooting</h3>
+<pre><code># Check if CUDA is visible
+python -c "import torch; print(torch.cuda.is_available())"
+<p># Check CUDA version PyTorch was built with python -c "import torch; print(torch.version.cuda)"</p>
+<p># List GPU devices python -c "import torch; [print(f'{i}: {torch.cuda.get_device_name(i)}') for i in range(torch.cuda.device_count())]"</p>
+<p># Monitor GPU usage watch -n 1 nvidia-smi </code></pre></p>
+<hr />
+<h2>8. Key Takeaways</h2>
+<li><strong>Wheel Variants (PEP 817/825)</strong> solve the GPU package installation mess</li>
+<li><strong>`uv pip install torch` will "just work"</strong> — no more manual CUDA version matching</li>
+<li><strong>Provider plugins</strong> auto-detect your hardware and select the right binary</li>
+<li><strong>Backward compatible</strong> — existing tools continue to work</li>
+<li><strong>Security improvement</strong> — eliminates the name-squatting attack vector</li>
+<li><strong>Multi-vendor</strong> — supports NVIDIA CUDA, AMD ROCm, Intel XPU, and more</li>
+<li><strong>Experimental today</strong> — PyTorch 2.8+ supports it; expect broad adoption in 2026</li>
+<hr />
+<h2>Sources</h2>
+<li>NVIDIA Technical Blog: Streamline CUDA-Accelerated Python Install and Packaging Workflows with Wheel Variants</li>
+  https://developer.nvidia.com/blog/streamline-cuda-accelerated-python-install-and-packaging-workflows-with-wheel-variants
+<li>PEP 817: Wheel Variants — Beyond Platform Tags</li>
+  https://peps.python.org/pep-0817/
+<li>PEP 825: Wheel Variants — Package Format</li>
+  https://peps.python.org/pep-0825/
+<li>WheelNext Project</li>
+  https://wheelnext.dev/
+<li>Astral (uv): An experimental, variant-enabled build of uv</li>
+  https://astral.sh/blog/wheel-variants
+<li>PyTorch Blog: PyTorch Wheel Variants, the Frontier of Python Packaging</li>
+  https://pytorch.org/blog/pytorch-wheel-variants/
+<li>Quansight Labs: Python Wheels — from Tags to Variants</li>
+  https://labs.quansight.org/blog/python-wheels-from-tags-to-variants
+<li>AMD: PyTorch 2.9 Wheel Variant support expands to ROCm</li>
+  https://www.amd.com/en/developer/resources/technical-articles/2025/pytorch-2-9-wheel-variant-support-expands-to-rocm.html
+</body>
+</html>

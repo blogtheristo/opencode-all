@@ -17,7 +17,7 @@ This directory contains all resources, strategies, and workflows for investor ou
 - **Deck**: `https://dws10.com/captain/deck/`
 - **Purpose**: Central hub for Captain seat programme and investor information
 - **Content**:
-  - 8 Platinum Captain seats (EUR 50k SAFE, EUR 3.8M cap, 20% discount)
+  - 8 Platinum Captain seats (EUR 50k SAFE, EUR 3.8M cap, 18% discount)
   - Current traction: EUR 7k+ MRR, 100% retention
   - Industry vertical ownership model
   - Full pitch deck

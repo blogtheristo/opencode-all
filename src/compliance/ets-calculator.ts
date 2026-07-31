@@ -11,10 +11,10 @@
  */
 
 import {
-  ETS_EMISSION_FACTORS,
-  ETS_CARBON_PRICE_EUR,
-  getFactorsForSector,
   type EmissionFactor,
+  ETS_CARBON_PRICE_EUR,
+  ETS_EMISSION_FACTORS,
+  getFactorsForSector,
 } from './emission-factors.js';
 
 // ============ TYPES ============

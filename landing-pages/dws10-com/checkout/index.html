@@ -491,26 +491,7 @@
                 console.log('Order notification queued');
             }
 
-            // Also open mailto as backup
-            const subject = encodeURIComponent(`New Order: ${orderData.product.name} - ${orderData.orderId}`);
-            const body = encodeURIComponent(`
-Order ID: ${orderData.orderId}
-Product: ${orderData.product.name}
-Amount: €${orderData.product.price}
-Payment Method: ${orderData.paymentMethod}
-
-Customer:
-Name: ${orderData.customer.firstName} ${orderData.customer.lastName}
-Email: ${orderData.customer.email}
-Company: ${orderData.customer.company || 'N/A'}
-Country: ${orderData.customer.country}
-
-Timestamp: ${orderData.timestamp}
-            `);
-
-            // Open in new tab so it doesn't interrupt redirect
-            const mailtoLink = `mailto:orders@lifetime.fi?subject=${subject}&body=${body}`;
-            window.open(mailtoLink, '_blank');
+            // No mailto fallback: notifications must use API POST only.
         }
     </script>
 </body>

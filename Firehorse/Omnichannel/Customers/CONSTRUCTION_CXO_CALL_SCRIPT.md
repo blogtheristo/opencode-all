@@ -133,7 +133,7 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 > - **Neljännesvuosittainen compliance-briefing** juuri rakennusalalle räätälöitynä
 > - **Suora vaikutus tuotekehitykseen** rakennussektorilla
 > - **Vuosittainen 1:1 strategiasessio** CEO:n kanssa
-> - **Etuoikeus seuraavaan rahoituskierrokseen** — 20% alennus ja MFN-ehdot
+> - **Etuoikeus seuraavaan rahoituskierrokseen** — 18% alennus ja MFN-ehdot
 >
 > "**Arctic 15 Helsingissä 15.6.** on V1-julkaisu. Captainit ovat siellä eturivissä."
 
@@ -234,7 +234,7 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 ## Avainluvut muistiin
 
 - **Pilottiyhtiöt:** 2 kpl, €59 900 luokan sopimukset (tarkista status ennen soittoa: allekirjoitettu / sopimusvaiheessa / pilotissa)
-- **Captain-hinta:** €50 000 SAFE (20% alennus, MFN, €3.8M cap)
+- **Captain-hinta:** €50 000 SAFE (18% alennus, MFN, €3.8M cap)
 - **Deputy Captain:** hinta TBD (ei mainita soitossa ennen kuin lukittu)
 - **Rakennusalan paikka:** OPEN — älä väitä "täyttymässä" ellei toinen Captain-keskustelu ole oikeasti käynnissä
 - **Arctic 15:** Helsinki, 15.6.2026 — V1-julkaisu

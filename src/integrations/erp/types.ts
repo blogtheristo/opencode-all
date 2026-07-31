@@ -20,13 +20,13 @@ export enum ERPProvider {
   DYNAMICS_365 = 'dynamics365',
   SAP = 'sap',
   VISMA = 'visma',
-  JEEVES = 'jeeves'
+  JEEVES = 'jeeves',
 }
 
 export enum SyncDirection {
   TO_ERP = 'to_erp',
   FROM_ERP = 'from_erp',
-  BIDIRECTIONAL = 'bidirectional'
+  BIDIRECTIONAL = 'bidirectional',
 }
 
 export enum SyncStatus {
@@ -34,7 +34,7 @@ export enum SyncStatus {
   IN_PROGRESS = 'in_progress',
   COMPLETED = 'completed',
   FAILED = 'failed',
-  PARTIALLY_SYNCED = 'partially_synced'
+  PARTIALLY_SYNCED = 'partially_synced',
 }
 
 export enum EntityType {
@@ -49,7 +49,7 @@ export enum EntityType {
   COST_TRANSACTION = 'cost_transaction',
   EMPLOYEE_TIME = 'employee_time',
   ASSET = 'asset',
-  ESG_METRIC = 'esg_metric'
+  ESG_METRIC = 'esg_metric',
 }
 
 // ============================================================================
@@ -130,7 +130,13 @@ export interface SyncResult {
 export interface SyncError {
   recordId?: string;
   entityType: EntityType;
+  /**
+   * Machine-readable error identifier (e.g. 'SAP_SYNC_FAILED').
+   * Both `errorCode` (legacy) and `code` (standardized) are emitted so
+   * downstream callers and assertions can migrate at their own pace.
+   */
   errorCode: string;
+  code: string;
   errorMessage: string;
   timestamp: Date;
   retryable: boolean;

@@ -10,7 +10,7 @@
  */
 
 import logger from '../utils/logger.js';
-import type { PostDraft, PostCategory, WeeklySchedule } from './types.js';
+import type { PostCategory, PostDraft, WeeklySchedule } from './types.js';
 
 // ============================================================================
 // CONTENT CALENDAR
@@ -24,11 +24,16 @@ export const DEFAULT_WEEKLY_SCHEDULE: WeeklySchedule = {
   friday: 'webinar_promo',
 };
 
-const CATEGORY_PROMPTS: Record<PostCategory, string> = {
-  thought_leadership: 'Share an insight about EU climate compliance, AI in sustainability, or the future of industrial regulation. Tone: authoritative, concise, personal.',
-  product_update: 'Highlight a DWS IQ 6 feature, new agent capability, or platform improvement. Tone: practical, benefit-focused.',
-  compliance_news: 'React to a recent EU regulation update (CSRD, Fit for 55, CBAM, EPBD, EU AI Act). Tone: informative, slightly urgent.',
-  case_study: 'Share a customer success story or pilot result. Tone: specific, numbers-driven, proof-focused.',
+// Category prompts for LLM-generated posts (v2 — currently using deterministic templates)
+export const CATEGORY_PROMPTS: Record<PostCategory, string> = {
+  thought_leadership:
+    'Share an insight about EU climate compliance, AI in sustainability, or the future of industrial regulation. Tone: authoritative, concise, personal.',
+  product_update:
+    'Highlight a DWS IQ 6 feature, new agent capability, or platform improvement. Tone: practical, benefit-focused.',
+  compliance_news:
+    'React to a recent EU regulation update (CSRD, Fit for 55, CBAM, EPBD, EU AI Act). Tone: informative, slightly urgent.',
+  case_study:
+    'Share a customer success story or pilot result. Tone: specific, numbers-driven, proof-focused.',
   webinar_promo: 'Promote an upcoming webinar, workshop, or event. Tone: inviting, value-forward.',
   hiring: 'Share a hiring update or team milestone. Tone: authentic, mission-driven.',
 };
@@ -43,7 +48,7 @@ const CATEGORY_PROMPTS: Record<PostCategory, string> = {
  */
 export function generateDraft(
   category: PostCategory,
-  context?: { headline?: string; body?: string; cta?: string; url?: string }
+  context?: { headline?: string; body?: string; cta?: string; url?: string },
 ): PostDraft {
   const templates = getDraftTemplates(category, context);
   // Pick a random template variant
@@ -60,7 +65,7 @@ export function generateDraft(
 
 function getDraftTemplates(
   category: PostCategory,
-  ctx?: { headline?: string; body?: string; cta?: string; url?: string }
+  ctx?: { headline?: string; body?: string; cta?: string; url?: string },
 ): string[] {
   const headline = ctx?.headline || '[HEADLINE]';
   const body = ctx?.body || '[KEY INSIGHT OR UPDATE]';
@@ -108,12 +113,10 @@ function getDraftTemplates(
  */
 function getNextPublishSlot(): string {
   const now = new Date();
-  const helsinki = new Date(
-    now.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' })
-  );
+  const helsinki = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
 
   // Find next weekday
-  let target = new Date(helsinki);
+  const target = new Date(helsinki);
   target.setHours(9, 0, 0, 0);
 
   // If today's slot has passed, move to tomorrow
@@ -133,9 +136,17 @@ function getNextPublishSlot(): string {
  * Get today's content category from the weekly schedule.
  */
 export function getTodaysCategory(
-  schedule: WeeklySchedule = DEFAULT_WEEKLY_SCHEDULE
+  schedule: WeeklySchedule = DEFAULT_WEEKLY_SCHEDULE,
 ): PostCategory | null {
-  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
+  const dayNames = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ] as const;
   const today = dayNames[new Date().getDay()];
 
   if (today === 'sunday' || today === 'saturday') return null;
@@ -145,9 +156,12 @@ export function getTodaysCategory(
 /**
  * Generate today's LinkedIn post draft based on the weekly calendar.
  */
-export function generateTodaysDraft(
-  context?: { headline?: string; body?: string; cta?: string; url?: string }
-): PostDraft | null {
+export function generateTodaysDraft(context?: {
+  headline?: string;
+  body?: string;
+  cta?: string;
+  url?: string;
+}): PostDraft | null {
   const category = getTodaysCategory();
   if (!category) {
     logger.info('Social scheduler: weekend, no draft generated');

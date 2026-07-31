@@ -1,29 +1,33 @@
 # Investor Outreach Templates — DWS IQ 6
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 2.0
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Full rewrite. Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries. KYA governance story. Removed stale demo link, old EUR 150K round, construction-only framing.
-  - Version: 1.0 | Tool: Unknown | Date: Jan 2026 | Changes: Initial 4 email templates. EUR 150K SAFE, construction-only, 8 industries.
+
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Full rewrite. Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries. KYA governance story. Removed stale demo link, old EUR 150K round, construction-only framing.
+- Version: 1.0 | Tool: Unknown | Date: Jan 2026 | Changes: Initial 4 email templates. EUR 150K SAFE, construction-only, 8 industries.
 
 Document Status:
-  - Created: January 2026
-  - Last Modified: 15.03.2026 (v2.0)
-  - Language: English
-  - Languages Available: EN
-  - Publication Status: ACTIVE
-  - Classification: CONFIDENTIAL — Investor Outreach
+
+- Created: January 2026
+- Last Modified: 15.03.2026 (v2.0)
+- Language: English
+- Languages Available: EN
+- Publication Status: ACTIVE
+- Classification: CONFIDENTIAL — Investor Outreach
 
 Related Documents:
-  - investor-outreach/INVESTOR_MEMO.md (v2.0 — primary investor document)
-  - docs/INVESTOR_HOOK_DECK.md (v2.0 — 3-slide teaser)
-  - Legal/KYA_OPTIMIZATION_v1.4.md (KYA-O — Alpha-Share, Performance Guarantee, D&O)
-  - docs/field-notes/2026-03-15-investor-materials-audit.md (audit — conflicts resolved)
 
-***
+- investor-outreach/INVESTOR_MEMO.md (v2.0 — primary investor document)
+- docs/INVESTOR_HOOK_DECK.md (v2.0 — 3-slide teaser)
+- Legal/KYA_OPTIMIZATION_v1.4.md (KYA-O — Alpha-Share, Performance Guarantee, D&O)
+- docs/field-notes/2026-03-15-investor-materials-audit.md (audit — conflicts resolved)
+
+---
 
 ---
 
@@ -134,12 +138,14 @@ Lifetime Oy
 ## Key Talking Points (For Calls)
 
 ### Traction & Sales Motion
+
 - **EUR 7K/month MRR** (March 2026, 100% retention, zero churn)
 - **5+ paying/pilot accounts**
 - **Sales motion:** Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers at average EUR 36K ARR = EUR 900K.
 - **Sales sprint:** June 15 – August 15, 2026 (2 months, 100% sales focus)
 
 ### Product — KYA Governance
+
 - **DWS IQ 6** — train and run enterprise AI agent swarms safely
 - **KYA (Know Your Agent)** — hardware-attested isolation, court-defensible audit trails
 - **Dual revenue model** — SaaS subscription + API fees (Tiers 1–3); Alpha-Share Decline-to-Scale reserved for Enterprise World Tier 4 only
@@ -148,34 +154,38 @@ Lifetime Oy
 - **Edge AI** — NVIDIA Jetson Orin Nano, works offline, solar-capable, 7-15W
 
 ### Market
+
 - **20 EU-regulated industries** — from construction to pharma
 - **EU AI Act** — mandatory compliance starting 2025-2027
 - **50,000+ EU companies** forced into CSRD reporting
 - **Fit for 55 / EPBD** — hard mandates hitting 2025-2028
 
 ### Moat (Three Pillars)
+
 - **Lifetime World Model** — 15,000+ EU regulatory docs, 7 years and 6 versions to build, roadmap through v8 (3-5 years to replicate)
 - **Edge deployment** — NVIDIA Jetson at industrial sites (2-3 years to replicate)
 - **Model-agnostic orchestration** — swap any LLM, intelligence lives in the World Model (1-2 years to replicate)
 
 ### Business Model
+
 - **Per-industry value:** EUR 180K–EUR 50M annually per enterprise
 - **Dual model:** SaaS (Tiers 1–3) + Alpha-Share (Enterprise World Tier 4) — broad market + value-aligned enterprise
 - **Target:** EUR 900K ARR by end of 2026 (25 customers x EUR 36K avg)
 
 ### Seat Structure
 
-| Tier | Investment | Seats | Key Benefits |
-|------|-----------|-------|-------------|
-| **Fleet Admiral** | EUR 500,000 | 1 | Board observer, first refusal on follow-on, annual 1:1 |
-| **Captain** | EUR 150,000 | Limited | Strategy briefings, priority pilots, Situation Room |
-| **Industry Captain** | EUR 50,000 | 8 | Named captain of 1 of 20 industries |
-| **Deputy Captain** | EUR 5,000 | Unlimited | Quarterly briefings, upgrade path |
+| Tier                 | Investment  | Seats     | Key Benefits                                           |
+| -------------------- | ----------- | --------- | ------------------------------------------------------ |
+| **Fleet Admiral**    | EUR 500,000 | 1         | Board observer, first refusal on follow-on, annual 1:1 |
+| **Captain**          | EUR 150,000 | Limited   | Strategy briefings, priority pilots, Situation Room    |
+| **Industry Captain** | EUR 50,000  | 8         | Named captain of 1 of 20 industries                    |
+| **Deputy Captain**   | EUR 5,000   | Unlimited | Quarterly briefings, upgrade path                      |
 
 - **Valuation cap:** EUR 3.8M
-- **Instrument:** SAFE with 20% discount
+- **Instrument:** SAFE with 18% discount
 
 ### Team
+
 - **Risto Anton Päärni** — Founder & CEO
   - 35 years of domain expertise in industrial IT, construction, and infrastructure — the moat is the founder. Not a first-time founder learning the industry; a career operator encoding decades of compliance knowledge into AI agents.
   - EU regulation expertise (Fit for 55, EPBD, AI Act)
@@ -188,6 +198,7 @@ Lifetime Oy
   - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 
 ### Partnerships
+
 - **NVIDIA Connect Partner (Groq)**, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - Three **InvestEU Portal** listings (INPO-20254383)
 - 100% EU data residency (Finland, Germany, Netherlands)
@@ -197,21 +208,25 @@ Lifetime Oy
 ## Target Investor Profiles
 
 ### Tier 1: Industrial/Climate VCs
+
 - **Focus:** Industrial AI, climate tech, EU regulatory tech
 - **Check size:** EUR 150K–500K (Captain or Fleet Admiral)
 - **Examples:** Nordic deep tech funds, climate-focused VCs
 
 ### Tier 2: Operator Angels (Industry Executives)
+
 - **Profile:** Former CEO/COO/CDO in heavy industry, construction, energy
 - **Check size:** EUR 50K–150K (Industry Captain or Captain)
 - **Value-add:** Industry connections, pilot intros, regulatory insight
 
 ### Tier 3: Family Offices (Nordic/EU)
+
 - **Focus:** B2B SaaS, industrial AI, EU compliance
 - **Check size:** EUR 50K–500K
 - **Sweet spot:** Industrial/energy/construction background
 
 ### Tier 4: Corporate VCs (Industry Groups)
+
 - **Profile:** Innovation arms of large industrial groups
 - **Check size:** EUR 50K–150K
 - **Value-add:** Pilot access, reference customers, industry data
@@ -221,9 +236,11 @@ Lifetime Oy
 ## Follow-Up Sequence
 
 ### Email 1: Initial Outreach (Day 0)
+
 Use template above based on investor profile.
 
 ### Email 2: Follow-Up (Day 5, if no response)
+
 **Subject:** Re: DWS IQ 6 — AI agent governance
 
 Hi [First name],
@@ -239,6 +256,7 @@ Best,
 Risto
 
 ### Email 3: Final Follow-Up (Day 10, if no response)
+
 **Subject:** Last note — DWS IQ 6 seats filling
 
 Hi [First name],
@@ -256,18 +274,23 @@ Risto
 ## Objection Handling
 
 ### "Too early for us"
+
 > "Fair. We're at EUR 7K/month MRR with zero churn. Our sales sprint runs June 15 – August 15. Would you be open to a check-in in September with post-sprint metrics?"
 
 ### "What's the exit potential?"
+
 > "Two paths: (1) Acquisition by enterprise AI governance platform (ServiceNow, Palantir, IBM) — KYA standard + 20-industry data is the asset. (2) Standalone scale via Alpha-Share revenue on growing agent populations. Construction tech exits: Trimble/Viewpoint EUR 1.2B, Oracle/Aconex EUR 1.6B, Autodesk/PlanGrid EUR 875M."
 
 ### "How defensible is this?"
+
 > "Three moats: (1) Lifetime World Model — 15,000+ regulatory docs, 7 years to build. (2) Edge AI deployment on NVIDIA Jetson — hardware+software integration. (3) KYA governance standard — court-defensible audit trails that reduce D&O premiums. Each takes 2-5 years to replicate. Together they compound."
 
 ### "Why should boards care about KYA?"
-> "EU AI Act Article 99: directors face personal liability for AI failures. KYA gives them hardware-attested proof of agent governance. D&O insurers offer 8-12% premium reductions for KYA-certified operations. The alternative is uncovered personal liability."
+
+> "EU AI Act Art. 99(4) imposes €15M/3%-turnover fines for high-risk deployer non-compliance; national corporate governance codes extend that to personal director liability. KYA produces the Art. 12 + Art. 26 evidence D&O insurers require for AI-governance coverage, targeting 8-12% premium reduction."
 
 ### "Cap too high for this stage"
+
 > "EUR 3.8M cap reflects: (1) EUR 7K MRR with 100% retention, (2) proprietary Lifetime World Model (7 years IP), (3) KYA governance standard (first-mover in EU AI Act compliance), (4) partnerships (NVIDIA, Microsoft, Google, AWS). Happy to discuss but this is the structure."
 
 ---
@@ -284,6 +307,7 @@ Risto
 ---
 
 **Related files:**
+
 - `investor-outreach/INVESTOR_MEMO.md` (v2.0) — Full investment case
 - `docs/INVESTOR_HOOK_DECK.md` (v2.0) — 3-slide hook deck
 - `src/services/email.service.ts` — Resend SDK (production ready)

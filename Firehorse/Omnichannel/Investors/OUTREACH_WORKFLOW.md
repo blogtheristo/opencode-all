@@ -48,7 +48,7 @@ This document describes the end-to-end investor outreach workflow, connecting co
 ## Current Status (March 2026)
 
 ### Traction Metrics
-- **MRR**: EUR 7-14k with 5 paying customers
+- **MRR**: EUR 7-14k with 6 paying customers
 - **Retention**: 100% (zero churn, 12+ months)
 - **Customer LTV**: EUR 70k-120k per logo
 - **Gross margin**: >90%
@@ -133,7 +133,7 @@ risto@onelifetime.world
 **Page Content:**
 1. **Hero Section**
    - Headline: "Own an Industry Vertical — Platinum Captain Seats"
-   - Subtitle: "EUR 50k SAFE at EUR 3.8M cap, 20% discount"
+   - Subtitle: "EUR 50k SAFE at EUR 3.8M cap, 18% discount"
    - Key metrics: EUR 7k+ MRR, 100% retention, mandatory market
    - CTA: "Request full deck / intro call"
 
@@ -151,7 +151,7 @@ risto@onelifetime.world
 
 4. **Traction Section**
    - EUR 7-14k MRR live (March 2026)
-   - 5 paying customers
+   - 6 paying customers
    - 100% retention (12+ months)
    - Customer table with annual values
    - 2 construction pilots at EUR 59,900 level
@@ -160,7 +160,7 @@ risto@onelifetime.world
    - Fleet Admiral: EUR 500K SAFE (1 seat — strategic co-pilot, board observer)
    - Captain: EUR 50K SAFE x 8 (one per industry — own a vertical)
    - Deputy Captain: TBD (unlimited, quarterly briefings, upgrade path)
-   - Total round: EUR 650K at EUR 3.8M cap, 20% discount
+   - Total round: EUR 650K at EUR 3.8M cap, 18% discount
    - Target close: Q2 2026 (Arctic 15 deadline: 15.6.2026)
    - What EUR 650K buys:
      - 3-5 flagship portfolios onboarded
@@ -387,7 +387,7 @@ Current traction:
 - >90% gross margin, EUR 15-50/mo infra cost
 
 We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
-cap, 20% discount. Each Captain owns one of 20 EU industry verticals.
+cap, 18% discount. Each Captain owns one of 20 EU industry verticals.
 Construction is available.
 
 Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
@@ -452,7 +452,7 @@ We're automating CSRD compliance for construction portfolios:
 - Mandatory market (Fit for 55 live 2025-2028)
 
 I'm filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M cap,
-20% discount. Each Captain owns one of 20 EU industry verticals.
+18% discount. Each Captain owns one of 20 EU industry verticals.
 Also seeking one Fleet Admiral (EUR 500K, board observer rights).
 
 Full deck: https://dws10.com/captain/deck/?campaign={{campaign_id}}&investor={{investor_id}}

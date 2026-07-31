@@ -7,22 +7,24 @@
 
 import logger from '../utils/logger.js';
 import {
-  searchConstructionTenders,
   buildNoticeUrl,
+  DEFAULT_QUERY_CONFIG,
   parseContractType,
   parseNoticeType,
   parseValue,
-  DEFAULT_QUERY_CONFIG,
+  searchConstructionTenders,
 } from './ted-api.js';
 import type {
-  TedNotice,
-  TedQueryConfig,
   ConstructionLead,
-  ConstructionLeadRow,
-  ConstructionLeadsSummary,
   ConstructionLeadDeadline,
   ConstructionLeadNew,
+  ConstructionLeadRow,
+  ConstructionLeadsSummary,
+  TedNotice,
+  TedQueryConfig,
 } from './types.js';
+import { matchComplianceKeywords, passesComplianceFilter } from './compliance-keywords.js';
+import { resolveErpForBuyer } from './company-erp-resolver.js';
 
 // ============================================================================
 // SUPABASE HELPER (same pattern as outreach/daily-digest.ts)
@@ -151,15 +153,23 @@ export function calculateRelevance(notice: TedNotice): number {
 // NOTICE → LEAD CONVERSION
 // ============================================================================
 
+/** Normalized buyer name for DB unique (company_name, tender_id) — must match migration 047 trigger. */
+export function normalizeCompanyNameForDedup(name: string | null | undefined): string {
+  return (name || '').trim();
+}
+
 /**
  * Convert a raw TED notice to a ConstructionLead.
  */
 export function noticeToLead(notice: TedNotice): ConstructionLead {
   const noticeId = notice.ND || notice.documentNumber || `unknown-${Date.now()}`;
   const title = notice.TI || notice.titleOriginalLanguage || `Construction tender ${noticeId}`;
+  const company_name = normalizeCompanyNameForDedup(notice.AA);
 
   return {
     ted_notice_id: noticeId,
+    company_name,
+    tender_id: noticeId,
     document_number: notice.documentNumber || null,
     title,
     description: null,
@@ -187,18 +197,34 @@ export function noticeToLead(notice: TedNotice): ConstructionLead {
   };
 }
 
+/**
+ * Attach ERP hint + compliance keyword hits for TED pipeline / ted_leads view.
+ */
+export function tedEnrichLead(notice: TedNotice, lead: ConstructionLead): ConstructionLead {
+  const resolved_erp = resolveErpForBuyer(lead.buyer_name, lead.country_code);
+  const compliance_keywords = matchComplianceKeywords(notice);
+  return {
+    ...lead,
+    resolved_erp,
+    compliance_keywords: compliance_keywords.length ? compliance_keywords : null,
+  };
+}
+
 // ============================================================================
 // DATABASE OPERATIONS
 // ============================================================================
 
 /**
- * Store leads in Supabase, skipping duplicates by ted_notice_id.
- * Returns count of newly inserted leads.
+ * Store leads in Supabase. Dedup is DB-enforced on (company_name, tender_id) — see migration 047.
+ *
+ * @returns Row count returned by PostgREST for each batch (`return=representation` with
+ * `merge-duplicates`). That is one row per input row in the batch — **inserts plus updates**,
+ * not net-new inserts only.
  */
 export async function storeLeads(leads: ConstructionLead[]): Promise<number> {
   if (leads.length === 0) return 0;
 
-  let inserted = 0;
+  let upsertedRows = 0;
 
   // Process in batches of 20 to avoid large payloads
   const batchSize = 20;
@@ -206,16 +232,18 @@ export async function storeLeads(leads: ConstructionLead[]): Promise<number> {
     const batch = leads.slice(i, i + batchSize);
 
     try {
-      // Upsert: insert new, skip existing (on ted_notice_id conflict)
-      const result = await supabaseFetch<ConstructionLeadRow[]>('construction_leads', {
-        method: 'POST',
-        headers: {
-          Prefer: 'resolution=merge-duplicates,return=representation',
+      const result = await supabaseFetch<ConstructionLeadRow[]>(
+        'construction_leads?on_conflict=company_name,tender_id',
+        {
+          method: 'POST',
+          headers: {
+            Prefer: 'resolution=merge-duplicates,return=representation',
+          },
+          body: JSON.stringify(batch),
         },
-        body: JSON.stringify(batch),
-      });
+      );
 
-      inserted += result.length;
+      upsertedRows += result.length;
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       logger.error('Construction leads: batch insert failed', {
@@ -228,10 +256,10 @@ export async function storeLeads(leads: ConstructionLead[]): Promise<number> {
 
   logger.info('Construction leads: stored in database', {
     attempted: leads.length,
-    inserted,
+    upsertedRows,
   });
 
-  return inserted;
+  return upsertedRows;
 }
 
 /**
@@ -356,7 +384,8 @@ export async function fetchAndProcessLeads(
   config: TedQueryConfig = DEFAULT_QUERY_CONFIG,
 ): Promise<{
   fetched: number;
-  stored: number;
+  /** Rows returned from upsert (`merge-duplicates`); includes updates, not inserts only. */
+  upsertedRows: number;
   orgsCreated: number;
   topCountries: Record<string, number>;
 }> {
@@ -365,16 +394,26 @@ export async function fetchAndProcessLeads(
   // 1. Fetch from TED
   const notices = await searchConstructionTenders(config);
 
-  // 2. Convert to leads
-  const leads = notices.map(noticeToLead);
+  // 2. Compliance filter (CPV in TED query; keywords narrow to climate/compliance language)
+  const filtered = notices.filter((n) => passesComplianceFilter(n));
+  if (filtered.length < notices.length) {
+    logger.info('Construction leads: compliance filter dropped notices', {
+      before: notices.length,
+      after: filtered.length,
+      mode: process.env.TED_COMPLIANCE_FILTER || 'strict',
+    });
+  }
+
+  // 3. Convert to leads + ERP / keyword enrichment
+  const leads = filtered.map((notice) => tedEnrichLead(notice, noticeToLead(notice)));
 
   // Sort by relevance score descending
   leads.sort((a, b) => b.relevance_score - a.relevance_score);
 
-  // 3. Store in database
-  const stored = await storeLeads(leads);
+  // 4. Store in database
+  const upsertedRows = await storeLeads(leads);
 
-  // 4. Create buyer orgs for high-value leads
+  // 5. Create buyer orgs for high-value leads
   const orgsCreated = await createBuyerOrgs(leads);
 
   // Summary stats
@@ -386,7 +425,7 @@ export async function fetchAndProcessLeads(
 
   const summary = {
     fetched: notices.length,
-    stored,
+    upsertedRows,
     orgsCreated,
     topCountries,
   };

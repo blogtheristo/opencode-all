@@ -56,7 +56,12 @@ export const ETS_EMISSION_FACTORS: EmissionFactor[] = [
   // Refining
   { id: 'ETS-REF-CWT', sector: 'energy', product: 'Refinery CWT', factor: 0.0295, unit: 'tCO2e/CWT', source: 'EU ETS Benchmark 2021-2025', methodology: 'ets-benchmark', year: 2024 },
 
-  // Construction materials
+  // Lime — dual-use critical raw material (steel flux, cement feedstock, chemical precursor)
+  // Reclassified from 'construction' to 'lime' sector for cross-vertical intelligence (2026-03-30)
+  { id: 'ETS-LIME-CALCINATION', sector: 'lime', product: 'Lime (calcination)', factor: 0.954, unit: 'tCO2e/t lime', source: 'EU ETS Benchmark 2021-2025', methodology: 'ets-benchmark', year: 2024, lastVerified: '2026-03-30' },
+  { id: 'ETS-LIME-QUICKLIME', sector: 'lime', product: 'Quicklime (CaO)', factor: 1.092, unit: 'tCO2e/t quicklime', source: 'EU ETS Benchmark 2021-2025 (dolite benchmark)', methodology: 'ets-benchmark', year: 2024, lastVerified: '2026-03-30' },
+
+  // Construction materials (lime retained here for backward compat)
   { id: 'ETS-CONST-LIME', sector: 'construction', product: 'Lime', factor: 0.954, unit: 'tCO2e/t lime', source: 'EU ETS Benchmark 2021-2025', methodology: 'ets-benchmark', year: 2024 },
   { id: 'ETS-CONST-BRICK', sector: 'construction', product: 'Bricks', factor: 0.171, unit: 'tCO2e/t bricks', source: 'EU ETS Benchmark 2021-2025', methodology: 'ets-benchmark', year: 2024 },
   { id: 'ETS-CONST-GLASS', sector: 'construction', product: 'Float glass', factor: 0.453, unit: 'tCO2e/t glass', source: 'EU ETS Benchmark 2021-2025', methodology: 'ets-benchmark', year: 2024 },
@@ -82,6 +87,10 @@ export const CBAM_DEFAULT_FACTORS: EmissionFactor[] = [
   { id: 'CBAM-FERT-NITRATE', sector: 'fertilizers', product: 'Ammonium nitrate', factor: 3.100, unit: 'tCO2e/t product', source: 'CBAM transitional default values', methodology: 'cbam-default', year: 2024 },
   { id: 'CBAM-HYDROGEN', sector: 'hydrogen', product: 'Hydrogen', factor: 9.200, unit: 'tCO2e/t H2', source: 'CBAM transitional default values', methodology: 'cbam-default', year: 2024 },
   { id: 'CBAM-ELECTRICITY', sector: 'energy', product: 'Electricity', factor: 0.450, unit: 'tCO2e/MWh', source: 'CBAM EU average default', methodology: 'cbam-default', year: 2024 },
+
+  // Lime — not yet in CBAM Annex I but flagged for inclusion under CRMA strategic review
+  // Using ETS benchmark as proxy until CBAM amendment. Source: EU ETS Benchmark 2021-2025
+  { id: 'CBAM-LIME-PROXY', sector: 'lime', product: 'Lime (calcination, ETS proxy)', factor: 0.954, unit: 'tCO2e/t lime', source: 'EU ETS Benchmark (CBAM proxy — lime not yet in Annex I)', methodology: 'ets-benchmark', year: 2024 },
 ];
 
 /**

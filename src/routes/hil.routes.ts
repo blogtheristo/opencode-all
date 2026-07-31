@@ -7,7 +7,9 @@
  *   No authentication needed — done_token is a UUID unguessable without the email.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
+import { sendEmail } from '../utils/send-email.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
@@ -114,7 +116,7 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     recipient: escalationEmail,
     status: 'pending',
     created_at: new Date().toISOString(),
-    resolved_at: null,
+    resolved_at: null as string | null,
   };
 
   // Persist to Supabase if available
@@ -135,30 +137,47 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     }
   }
 
-  // Email notification via Resend (if configured)
-  const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey && escalationChannel === 'email') {
+  // Email notification via SES SMTP
+  let notificationAttempted = false;
+  let notificationSent = false;
+  let notificationError: string | null = null;
+  if (escalationChannel === 'email') {
+    notificationAttempted = true;
     try {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${resendKey}`,
-        },
-        body: JSON.stringify({
-          from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
-          to: escalationEmail,
-          subject: `[HIL] ${agentName} escalation — confidence ${Math.round((confidence ?? 0) * 100)}%`,
-          html: `<h2>Agent Escalation</h2>
+      const result = await sendEmail({
+        from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+        to: escalationEmail,
+        subject: `[HIL] ${agentName} escalation — confidence ${Math.round((confidence ?? 0) * 100)}%`,
+        html: `<h2>Agent Escalation</h2>
 <p><strong>Agent:</strong> ${agentName}</p>
 <p><strong>Confidence:</strong> ${Math.round((confidence ?? 0) * 100)}%</p>
 <p><strong>Reason:</strong> ${reason}</p>
 <pre>${JSON.stringify(context, null, 2)}</pre>
 <p><em>Escalation ID: ${escalationId}</em></p>`,
-        }),
+        source: 'platform',
+        templateType: 'hil_escalation',
+        metadata: { agentName, escalationId, confidence: confidence ?? null },
       });
-    } catch {
-      // Non-blocking
+
+      if (result.ok) {
+        notificationSent = true;
+      } else {
+        notificationError = result.error || 'SES SMTP send failed';
+        logger.error('HIL escalation email delivery failed', {
+          escalationId,
+          agentName,
+          recipient: escalationEmail,
+          error: notificationError,
+        });
+      }
+    } catch (err) {
+      notificationError = err instanceof Error ? err.message : 'Unknown email error';
+      logger.error('HIL escalation email exception', {
+        escalationId,
+        agentName,
+        recipient: escalationEmail,
+        error: notificationError,
+      });
     }
   }
 
@@ -167,7 +186,17 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     status: 'pending',
     channel: escalationChannel,
     recipient: escalationEmail,
-    message: `Escalation created for agent "${agentName}" — human notified via ${escalationChannel}`,
+    message:
+      escalationChannel === 'email'
+        ? notificationSent
+          ? `Escalation created for agent "${agentName}" — human notified via email`
+          : `Escalation created for agent "${agentName}" — email notification failed`
+        : `Escalation created for agent "${agentName}"`,
+    notification: {
+      attempted: notificationAttempted,
+      sent: notificationSent,
+      error: notificationError,
+    },
   });
 });
 

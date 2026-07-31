@@ -1,8 +1,8 @@
 name: AGENTS.md Freshness Check
 
 on:
-  schedule:
-    - cron: '0 6 * * 1'  # Monday 06:00 UTC
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark cron
+  # Was: cron '0 6 * * 1' (Monday 06:00 UTC)
   workflow_dispatch: {}
 
 permissions:
@@ -15,12 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # DGX Spark cron-runner mirrors this job (cron-runner.ts: agents-md-freshness).
+      # If DGX heartbeat is healthy, skip — this workflow is GHA-failover only.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
       - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Run AGENTS.md freshness verification
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: verify
         run: |
           set +e
@@ -34,7 +44,7 @@ jobs:
           cat freshness-report.txt
 
       - name: Create issue if failures found
-        if: steps.verify.outputs.exit_code != '0'
+        if: steps.failover.outputs.dgx_alive != 'true' && steps.verify.outputs.exit_code != '0'
         uses: actions/github-script@v7
         with:
           script: |
@@ -87,7 +97,7 @@ jobs:
             }
 
       - name: Upload report artifact
-        if: always()
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: agents-md-freshness-report

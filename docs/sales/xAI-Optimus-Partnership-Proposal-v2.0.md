@@ -57,7 +57,7 @@ Exact Claude-Code feel on iPhone: Grok Build PWA (Safari → Add to Home Screen)
 ## Costs for the Founder
 
 - **€0 out-of-pocket** to start prototype on the free GN-100
-- **Platinum Captain seat** = €50k SAFE (€3.8M cap, 20% discount, first tranche of 8 seats) — paid by incoming investors, not from pocket
+- **Platinum Captain seat** = €50k SAFE (€3.8M cap, 18% discount, first tranche of 8 seats) — paid by incoming investors, not from pocket
 - **Full Captain's Bridge** (8–16 GN-100 units) funded by the roles + VCs after the first seats fill
 
 ## Grok + Optimus = The Win

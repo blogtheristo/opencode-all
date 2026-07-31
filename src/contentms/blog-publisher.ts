@@ -16,11 +16,11 @@
 
 import logger from '../utils/logger.js';
 import {
-  ContentItem,
+  type ContentItem,
+  ContentLanguage,
   ContentStatus,
   ContentType,
-  ContentLanguage,
-  PublishResult,
+  type PublishResult,
 } from './types.js';
 import MarkdownIt from 'markdown-it';
 import DOMPurify from 'isomorphic-dompurify';
@@ -36,12 +36,16 @@ import DOMPurify from 'isomorphic-dompurify';
  * Security:
  * - Uses markdown-it with `html: false` so raw HTML in markdown is not rendered.
  * - Output is sanitized with DOMPurify to prevent XSS.
+ * - `linkify` is OFF: linkify-it's fuzzy-match scan is O(N^2) on inputs with many
+ *   email/URL-like substrings (unpatched upstream, no GHSA/OSV entry as of 08.07.2026;
+ *   ~2.5s CPU per 64KB of repeated "a@b.com" on this synchronous request path with no
+ *   body_markdown length cap). Explicit markdown links `[text](url)` are unaffected.
  */
 export function renderMarkdownToHtml(markdown: string): string {
   // Configure markdown-it parser
   const md = new MarkdownIt({
     html: false, // do not render raw HTML from markdown
-    linkify: true,
+    linkify: false, // see security note above — do not re-enable without an upstream fix
     breaks: true,
   });
 
@@ -131,10 +135,9 @@ export function renderLearningHtml(item: ContentItem): string {
   );
 
   const bodyHtml = item.body_html || renderMarkdownToHtml(item.body_markdown);
-  const tags = [
-    ...(item.regulation_tags || []),
-    ...(item.custom_tags || []),
-  ].map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join(' ');
+  const tags = [...(item.regulation_tags || []), ...(item.custom_tags || [])]
+    .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
+    .join(' ');
 
   const lang = item.language === ContentLanguage.FI ? 'fi' : 'en';
 
@@ -207,7 +210,7 @@ export async function publishLearningArticle(item: ContentItem): Promise<Publish
   }
 
   try {
-    const _html = renderLearningHtml(item);
+    void renderLearningHtml(item);
 
     // MVP: HTML is rendered and ready. In production, this writes to
     // the customer's portal storage (Supabase Storage or CDN).

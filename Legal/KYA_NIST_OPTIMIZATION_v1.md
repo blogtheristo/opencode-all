@@ -40,7 +40,7 @@ Related Documents:
 
 This companion standard defines the optimization and compliance layer of the KYA (Know Your Agent) governance framework. DWS IQ is a platform to train and run enterprise industrial agent swarms safely — this document demonstrates how hardware-attested agent governance creates court-defensible audit trails for EU Carbon Border Adjustment Mechanism (CBAM) compliance, with a reference implementation for Green Steel at the 50-tonne import threshold.
 
-Key capabilities: 122ms Firehorse Snap for real-time compliance enforcement, Rebate Pulse for continuous emissions rebate verification, and 35% efficiency uplift from leash-aware self-correction (autoresearch governed by KYA capability manifests). The Helsinki Sandbox provides a physical proof environment for the decarbonization dividend.
+Key capabilities: < 125ms (Firecracker MicroVM, AWS benchmark) Firehorse Snap for real-time compliance enforcement, Rebate Pulse for continuous emissions rebate verification, and 35% efficiency uplift from leash-aware self-correction (autoresearch governed by KYA capability manifests). The Helsinki Sandbox provides a physical proof environment for the decarbonization dividend.
 
 Note: Financial projections and revenue models are maintained separately (see `docs/field-notes/2026-03-10-kya-financial-projections.md`). This document focuses on technical architecture and compliance mechanisms.
 
@@ -89,7 +89,7 @@ Steel Production Telemetry (IoT sensors, ERP data)
 │   IF cumulative_tonnes >= 50:                                │
 │     → Trigger CBAM certificate calculation                   │
 │     → Generate court-defensible emissions attestation        │
-│     → Firehorse Snap ready (122ms) if non-compliance         │
+│     → Firehorse Snap ready (< 125ms (Firecracker MicroVM, AWS benchmark)) if non-compliance         │
 │                                                              │
 │ Rebate Pulse:                                                │
 │   Continuous check for applicable carbon price differentials │
@@ -119,7 +119,7 @@ Steel Production Telemetry (IoT sensors, ERP data)
 |-----------|--------|-------------|
 | < 50 tonnes cumulative | Monitor + pre-calculate | Agent runs in advisory mode |
 | = 50 tonnes | **CBAM TRIGGER** | Certificate requirement activated, emissions report certified |
-| > 50 tonnes, non-compliant | **Firehorse Snap (122ms)** | Agent alerts operator, blocks non-compliant shipment release |
+| > 50 tonnes, non-compliant | **Firehorse Snap (< 125ms (Firecracker MicroVM, AWS benchmark))** | Agent alerts operator, blocks non-compliant shipment release |
 | > 50 tonnes, compliant | **Rebate Pulse active** | Continuous rebate verification for carbon price differentials |
 
 ---

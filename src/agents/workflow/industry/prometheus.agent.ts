@@ -12,6 +12,7 @@
 
 import { BaseAgent } from '../../base.agent.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
+import { CBAM_CN_CODES } from '../../../synthetic-data/cbam-schema.js';
 
 const SOUL = `You are Prometheus, Hydrogen & Energy Transition Specialist for Climate IQ.
 
@@ -33,9 +34,17 @@ export class PrometheusAgent extends BaseAgent {
   constructor() {
     super({
       name: 'prometheus',
-      description: 'Hydrogen & Energy Transition Specialist — RFNBO/RED III compliance, additionality, green H2 certification for Climate IQ',
-      capabilities: ['rfnbo-compliance', 'green-hydrogen-certification', 'red-iii-hydrogen', 'additionality-assessment', 'energy-transition'],
+      description:
+        'Hydrogen & Energy Transition Specialist — RFNBO/RED III compliance, additionality, green H2 certification for Climate IQ',
+      capabilities: [
+        'rfnbo-compliance',
+        'green-hydrogen-certification',
+        'red-iii-hydrogen',
+        'additionality-assessment',
+        'energy-transition',
+      ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'standard',
     });
   }
 
@@ -44,14 +53,34 @@ export class PrometheusAgent extends BaseAgent {
     const { agentRegistry } = await import('../../index.js');
     const annualEmissions = typeof input.annualEmissions === 'number' ? input.annualEmissions : 0;
     const hydrogenType = typeof input.hydrogenType === 'string' ? input.hydrogenType : 'unknown';
-    const productionCapacity = typeof input.productionCapacity === 'number' ? input.productionCapacity : null;
-    const renewableSource = typeof input.renewableSource === 'string' ? input.renewableSource : null;
-    const hasAdditionality = typeof input.hasAdditionality === 'boolean' ? input.hasAdditionality : null;
-    const currentMeasures = (typeof input.currentMeasures === 'object' && input.currentMeasures !== null)
-      ? input.currentMeasures as Record<string, boolean>
-      : { carbonReporting: false, emissionsMonitoring: false, supplyChainDueDiligence: false, aiSystemLogging: false };
+    const productionCapacity =
+      typeof input.productionCapacity === 'number' ? input.productionCapacity : null;
+    const renewableSource =
+      typeof input.renewableSource === 'string' ? input.renewableSource : null;
+    const hasAdditionality =
+      typeof input.hasAdditionality === 'boolean' ? input.hasAdditionality : null;
+    const currentMeasures =
+      typeof input.currentMeasures === 'object' && input.currentMeasures !== null
+        ? (input.currentMeasures as Record<string, boolean>)
+        : {
+            carbonReporting: false,
+            emissionsMonitoring: false,
+            supplyChainDueDiligence: false,
+            aiSystemLogging: false,
+          };
 
-    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { annualEmissions, hydrogenType, productionCapacity }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input: { annualEmissions, hydrogenType, productionCapacity },
+      output: null,
+      status: 'started',
+      duration_ms: 0,
+      created_at: new Date().toISOString(),
+    });
 
     let complianceResult: AgentResponse | null = null;
     try {
@@ -65,10 +94,23 @@ export class PrometheusAgent extends BaseAgent {
       });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: {}, output: null, status: 'error', error_message: msg, duration_ms: Date.now() - startTime, created_at: new Date().toISOString() });
+      await this.logExecution({
+        agent_name: this.config.name,
+        user_id: context.userId,
+        org_id: context.orgId,
+        session_id: context.sessionId,
+        project_id: context.projectId,
+        input: {},
+        output: null,
+        status: 'error',
+        error_message: msg,
+        duration_ms: Date.now() - startTime,
+        created_at: new Date().toISOString(),
+      });
       throw err;
     }
 
+    const cbamHydrogenCodes = CBAM_CN_CODES.hydrogen.codes; // Source: CBAM Annex I via cbam-schema.ts
     const isGreenClaim = hydrogenType === 'green' || hydrogenType === 'rfnbo';
     const rfnboQualified = isGreenClaim && hasAdditionality === true && renewableSource !== null;
 
@@ -81,26 +123,60 @@ Hydrogen client data:
 - Renewable source: ${renewableSource ?? 'not provided'}
 - Additionality demonstrated: ${hasAdditionality ?? 'not assessed'}
 - RFNBO pre-qualification: ${rfnboQualified ? 'LIKELY QUALIFIES' : 'GAPS PRESENT'}
+- CBAM CN codes in scope: ${cbamHydrogenCodes.join(', ')}
 - Annual emissions: ${annualEmissions.toLocaleString()} tCO2e
 - Compliance score: ${complianceResult?.result?.overallScore ?? 'n/a'}/100
 
 Return JSON: { "rfnboCompliance", "additionalityStatus", "temporalCorrelation", "prioritizedActions": [], "riskSummary" }`,
     );
 
-    let synthesis = { rfnboCompliance: '', additionalityStatus: '', temporalCorrelation: '', prioritizedActions: [] as string[], riskSummary: '' };
-    try { synthesis = { ...synthesis, ...JSON.parse(llmResult.content) }; } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
+    let synthesis = {
+      rfnboCompliance: '',
+      additionalityStatus: '',
+      temporalCorrelation: '',
+      prioritizedActions: [] as string[],
+      riskSummary: '',
+    };
+    try {
+      synthesis = { ...synthesis, ...JSON.parse(llmResult.content) };
+    } catch {
+      synthesis.riskSummary = llmResult.content.slice(0, 200);
+    }
 
     const durationMs = Date.now() - startTime;
     const response: AgentResponse = {
       agentName: this.config.name,
-      result: { hydrogenType, productionCapacity, renewableSource, rfnboQualified, hasAdditionality, ...synthesis, baseCompliance: complianceResult?.result ?? null },
+      result: {
+        hydrogenType,
+        productionCapacity,
+        renewableSource,
+        rfnboQualified,
+        hasAdditionality,
+        ...synthesis,
+        baseCompliance: complianceResult?.result ?? null,
+      },
       confidence: complianceResult ? complianceResult.confidence : 0.55,
       reasoning: `Prometheus assessed hydrogen sector. Type: ${hydrogenType}. RFNBO pre-qualification: ${rfnboQualified}.`,
       recommendations: synthesis.prioritizedActions,
-      metadata: { durationMs, llmModel: llmResult.model, llmTokens: llmResult.inputTokens + llmResult.outputTokens },
+      metadata: {
+        durationMs,
+        llmModel: llmResult.model,
+        llmTokens: llmResult.inputTokens + llmResult.outputTokens,
+      },
     };
 
-    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { annualEmissions }, output: response, status: 'completed', duration_ms: durationMs, created_at: new Date().toISOString() });
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input: { annualEmissions },
+      output: response,
+      status: 'completed',
+      duration_ms: durationMs,
+      created_at: new Date().toISOString(),
+    });
     return response;
   }
 }

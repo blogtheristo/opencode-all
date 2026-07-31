@@ -30,7 +30,7 @@ Palantir AIP is a **platform partner opportunity**, not a competitor. Here's why
 
 | Palantir Has | Palantir Lacks | DWS IQ Provides |
 |-------------|---------------|-----------------|
-| Enterprise agent orchestration (AIP) | Hardware-level agent isolation | Firecracker MicroVM (122ms kill) |
+| Enterprise agent orchestration (AIP) | Hardware-level agent isolation | Firecracker MicroVM (< 125ms (Firecracker MicroVM, AWS benchmark) kill) |
 | Fortune 500 customer base | EU CBAM/ETS/Fit for 55 compliance depth | 20-industry regulatory engine |
 | Ontology data model | TPM 2.0 hardware attestation | Court-defensible audit trail |
 | Software guardrails | Sub-5ms VMM-layer guardrails | Hardware-enforced behavioral enforcement |
@@ -66,7 +66,7 @@ Palantir AIP is a **platform partner opportunity**, not a competitor. Here's why
 │ │                                           │                │
 │ │  Capability Manifest enforced at VMM      │                │
 │ │  Egress: only Palantir API endpoints      │                │
-│ │  Kill time: < 122ms                       │                │
+│ │  Kill time: < 125ms (Firecracker MicroVM, AWS benchmark)                       │                │
 │ └───────────────────────────────────────────┘                │
 │                                                              │
 │ Output: EU-compliant, TPM-attested, Firehorse-audited        │
@@ -80,7 +80,7 @@ Palantir AIP is a **platform partner opportunity**, not a competitor. Here's why
 ### 3.1 What DWS IQ Adds to Palantir AIP
 
 1. **EU regulatory moat** — CBAM, ETS, CSRD, EU AI Act compliance that Palantir doesn't offer natively
-2. **Hardware kill mechanism** — Sub-122ms agent termination that software guardrails can't match
+2. **Hardware kill mechanism** — Sub-< 125ms (Firecracker MicroVM, AWS benchmark) agent termination that software guardrails can't match
 3. **TPM attestation** — Court-defensible proof that agent runtime hasn't been tampered with
 4. **Carbon compliance** — 50-tonne CBAM threshold monitoring, Rebate Pulse for carbon price differentials
 5. **20 EU industries** — Deep industry models that Palantir can activate without building from scratch

@@ -29,6 +29,7 @@ export class NeptuneAgent extends BaseAgent {
       description: 'Maritime & Shipping Industry Specialist — EU ETS shipping inclusion, FuelEU Maritime, MRV reporting obligations for Climate IQ',
       capabilities: ['maritime-ets-compliance', 'fueleu-maritime', 'mrv-shipping', 'maritime-decarbonization'],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'standard',
     });
   }
 

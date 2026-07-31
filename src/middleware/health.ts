@@ -5,10 +5,9 @@
  * Cloud Run uses this to determine container readiness.
  */
 
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import { getSupabaseClient } from '../config/supabase.js';
 import { emailQueue } from '../services/email-queue.service.js';
-import logger from '../utils/logger.js';
 
 interface DependencyStatus {
   status: 'ok' | 'degraded' | 'down';
@@ -63,8 +62,9 @@ function checkLlmProviders(): DependencyStatus {
   const hasAnthropic = !!process.env.ANTHROPIC_API_KEY;
   const hasGemini = !!process.env.GOOGLE_GEMINI_API_KEY;
 
-  const available = [hasGroq && 'groq', hasAnthropic && 'anthropic', hasGemini && 'gemini']
-    .filter(Boolean);
+  const available = [hasGroq && 'groq', hasAnthropic && 'anthropic', hasGemini && 'gemini'].filter(
+    Boolean,
+  );
 
   if (available.length === 0) {
     return { status: 'down', error: 'No LLM provider configured' };
@@ -103,7 +103,7 @@ export async function healthCheck(_req: Request, res: Response): Promise<void> {
 
   // Return 200 even when degraded (Cloud Run should keep serving)
   // Return 503 only if we want Cloud Run to restart the container
-  const httpStatus = overall === 'down' ? 503 : 200;
+  const httpStatus = (overall as string) === 'down' ? 503 : 200;
 
   res.status(httpStatus).json(response);
 }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Skills Implementation Memo — Decisions &amp; Competitive Edge v1.0</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+/* Version badge header */
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:-0px -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Claude Skills Implementation Memo — Decisions &amp; Competitive Edge</span>
+  <span class="dws-version-badge">v1.0</span>
+  <span class="dws-version-meta">Lifetime Oy · 2026-03-31 · Learn/ (private)</span>
+</div>
+<hr />
+VERSION AND AGENT HISTORY
+Document: Claude-memo.md
+Version: 1.0
+Date: 2026-03-31
+Owner: Risto Päärni / Claude Code (Opus 4.6)
+Branch: claude/review-claude-skills-vZQ0r
+Introduced-In: PR-TBD
+<hr />
+<h1>Claude Skills Implementation Memo</h1>
+<h2>Purpose</h2>
+<p>This memo documents our implementation decisions for Claude Code skills, agents, and hooks in DWS6 — and why we chose a domain-specific architecture over adopting a generic framework.</p>
+<h2>The Decision: Learn, Don't Clone</h2>
+<p>On 2026-03-31, we evaluated <strong>everything-claude-code</strong> (ECC) — a 120k-star MIT-licensed framework with 136 skills, 30 subagents, 60 slash commands, 34 rule files, and 14 MCP server templates.</p>
+<strong>Decision: Extract high-value patterns. Do not adopt the framework.</strong>
+<h2>What We Took</h2>
+<table><thead><tr><th>Pattern</th><th>ECC Source</th><th>DWS6 Implementation</th></tr></thead><tbody><tr><td>Specialized subagents</td><td>30 agents (planner, architect, reviewer, language-specific)</td><td>4 agents: `mcp-expert`, `code-reviewer`, `security-reviewer`, `architect`</td></tr><tr><td>Secret scanning</td><td>AgentShield (1,282 tests, 102 rules, 14 secret patterns)</td><td>`secret-scan.sh` PreToolUse hook — 14 patterns, audit-logged</td></tr><tr><td>Token optimization</td><td>Compaction at 50%, thinking cap 10k, Sonnet default for subagents</td><td>Subagents default to Sonnet; discipline skills under 150 words</td></tr><tr><td>Session persistence</td><td>SQLite state store via hooks</td><td>SessionStart/Stop hooks with trust boundary zones</td></tr></tbody></table>
+<h2>What We Rejected (and Why)</h2>
+<table><thead><tr><th>ECC Feature</th><th>Why Rejected</th></tr></thead><tbody><tr><td>136 generic skills</td><td>Token budget bloat. Our 21 skills are domain-specific — EU compliance, construction safety, carbon analysis. Generic skills like "write Django view" add noise, not value.</td></tr><tr><td>30 language-specific agents</td><td>DWS6 is TypeScript + React. Language-specific agents for Go, Rust, PHP, Java are dead weight.</td></tr><tr><td>PM2 lifecycle orchestration</td><td>Conflicts with our Supabase + MCP Hub + DGX Spark architecture.</td></tr><tr><td>SQLite session state</td><td>We use Supabase pgVector for semantic memory and Redis for session state. Adding SQLite creates a third state store.</td></tr><tr><td>Cross-IDE DRY adapter</td><td>Our `.cursorrules` file is sufficient. Full adapter pattern adds maintenance for marginal gain.</td></tr><tr><td>34 rule files</td><td>Our single CLAUDE.md (with 12 linked standards) is more coherent. Splitting into 34 files fragments context and wastes tokens loading irrelevant rules.</td></tr><tr><td>Console.log detection hook</td><td>ESLint already catches this. Duplicating lint rules in hooks is the wrong layer.</td></tr></tbody></table>
+<h2>Our Competitive Edge</h2>
+<h3>1. Domain Specificity Over Genericity</h3>
+<p>ECC answers: "How do I use Claude Code well for any project?" DWS6 answers: "How do I run enterprise industrial AI agents safely in the EU?"</p>
+<p>Our skills encode <strong>regulated domain knowledge</strong> that generic frameworks cannot:</p>
+<li>`/compliance-check` — ETS, CBAM, CSRD, Fit for 55, EU AI Act scoring</li>
+<li>`/carbon-analysis` — EN 15978 lifecycle assessment (stages A1-D)</li>
+<li>`/sovereignty-assess` — CLOUD Act exposure, data residency, RLS, GDPR</li>
+<li>`/site-safety` — EN 13001 crane safety with weather risk scoring</li>
+<p>No generic skill marketplace provides this. It is our moat.</p>
+<h3>2. Six-Layer Information Architecture</h3>
+<p>We control context injection at every layer (L0-L6), documented in `DWS_INFORMATION_LAYERING_STRATEGY.md`:</p>
+<table><thead><tr><th>Layer</th><th>What</th><th>Control</th></tr></thead><tbody><tr><td>L0</td><td>Claude base model</td><td>None (Anthropic)</td></tr><tr><td>L1</td><td>Organization policies</td><td>`managed-settings.json`</td></tr><tr><td>L2</td><td>Project context</td><td>CLAUDE.md + 12 standards</td></tr><tr><td>L3</td><td>User settings</td><td>`.claude/settings.local.json`</td></tr><tr><td>L4</td><td>Learned state</td><td>Supabase pgVector, Redis</td></tr><tr><td>L5</td><td>Session state</td><td>Git branch, open files</td></tr><tr><td>L6</td><td>Tool result injection</td><td>System-reminder hooks</td></tr></tbody></table>
+<p>ECC operates at L2-L3 only. We control L1 through L6.</p>
+<h3>3. Hard Gates > Soft Suggestions</h3>
+<p>ECC skills are advisory. Our discipline skills are <strong>blocking gates</strong>:</p>
+<li><strong>verification-gate</strong> — Cannot claim "done" without fresh test evidence. Blocks "should work" completions.</li>
+<li><strong>design-first</strong> — Cannot implement features touching 3+ files without approved design. Blocks cowboy coding.</li>
+<li><strong>dual-folder-sync</strong> — Cannot commit root folder changes without syncing landing-pages. Blocks production drift.</li>
+<p>These are not suggestions. They are enforced via hook exit code 2 (BLOCK).</p>
+<h3>4. Trust Boundary Zones</h3>
+<p>Our SessionStart hook classifies every action into GREEN/YELLOW/RED zones:</p>
+<li><strong>GREEN</strong> (full auto): Read, Edit, Write, lint, test, build, git on feature branches</li>
+<li><strong>YELLOW</strong> (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push</li>
+<li><strong>RED</strong> (human required): DB migrations, deploys, emails, thesis files, Store sync, standards updates</li>
+<p>ECC has no equivalent. Their hooks detect secrets but don't classify action risk.</p>
+<h3>5. gstack Workflow Integration</h3>
+<p>Our development workflow follows Garry Tan's gstack methodology with enforced role separation:</p>
+<pre><code>/plan-ceo-review  →  /plan-eng-review  →  /review  →  /ship  →  /retro
+  (Founder)          (Eng Manager)       (Staff Eng)  (Release)  (Retro)
+</code></pre>
+<p>Each skill forces a different cognitive mode. A CEO review asks "are we building the right thing?" while a Staff Engineer review asks "will this break production?" ECC has no workflow orchestration — skills are independent.</p>
+<h3>6. Agent-First Product Rule</h3>
+<p>Every DWS product must pass 5 gates before shipping:</p>
+<li>CLI exists (`npx tsx cli/src/cli.ts <command>`)</li>
+<li>Output is JSON (structured, parseable)</li>
+<li>MCP tools exposed (`/mcp` endpoint)</li>
+<li>Claude Code skill exists (`.claude/commands/*.md`)</li>
+<li>Docs are markdown (in repo)</li>
+<p>This means our skills are not developer convenience — they are <strong>product interfaces</strong>. The `/compliance-check` skill is the same compliance engine that enterprise customers use via API.</p>
+<h2>Current Inventory</h2>
+<h3>Slash Commands (17)</h3>
+<table><thead><tr><th>Category</th><th>Skills</th></tr></thead><tbody><tr><td>gstack workflow</td><td>`plan-ceo-review`, `plan-eng-review`, `review`, `ship`, `browse`, `retro`</td></tr><tr><td>EU compliance</td><td>`compliance-check`, `carbon-analysis`, `sovereignty-assess`, `site-safety`</td></tr><tr><td>Agent control</td><td>`discover-agents`, `agent-run`, `workflow`</td></tr><tr><td>Operations</td><td>`flow-status`, `email`, `remote-control`</td></tr><tr><td>Code quality</td><td>`simplify`, `designer`</td></tr></tbody></table>
+<h3>Discipline Skills (4)</h3>
+<table><thead><tr><th>Skill</th><th>Gate</th></tr></thead><tbody><tr><td>`verification-gate`</td><td>No completion without evidence</td></tr><tr><td>`design-first`</td><td>No implementation without approved design (3+ files)</td></tr><tr><td>`dual-folder-sync`</td><td>No root changes without landing-pages sync</td></tr><tr><td>`last30days`</td><td>Research agent (Reddit/X/Web, last 30 days)</td></tr></tbody></table>
+<h3>Subagents (4)</h3>
+<table><thead><tr><th>Agent</th><th>Role</th></tr></thead><tbody><tr><td>`mcp-expert`</td><td>MCP server configuration specialist</td></tr><tr><td>`code-reviewer`</td><td>Staff Engineer bug finder (not style nits)</td></tr><tr><td>`security-reviewer`</td><td>OWASP Top 10 + DWS Security Standard auditor</td></tr><tr><td>`architect`</td><td>Minimal design planner, anti-overengineering</td></tr></tbody></table>
+<h3>Hooks (Active)</h3>
+<table><thead><tr><th>Hook</th><th>Event</th><th>Purpose</th></tr></thead><tbody><tr><td>`session-start.sh`</td><td>SessionStart</td><td>Trust boundary zones, branch check, MCP health</td></tr><tr><td>`session-stop.sh`</td><td>Stop</td><td>Uncommitted changes, dual-folder sync, thesis rules</td></tr><tr><td>`secret-scan.sh`</td><td>PreToolUse (Bash/Write)</td><td>14-pattern secret detection, audit-logged</td></tr></tbody></table>
+<h2>Next Steps (Not Committed To)</h2>
+<p>Patterns worth evaluating in future sessions:</p>
+<li><strong>Token budget config</strong> — Compaction threshold at 50% (ECC default) vs current 95%</li>
+<li><strong>PostToolUse hooks</strong> — Lint/format after Write operations</li>
+<li><strong>Session state persistence</strong> — Save/restore context across sessions via Redis</li>
+<li><strong>Language-specific rules</strong> — Split TypeScript rules from CLAUDE.md into `rules/typescript.md` (only if CLAUDE.md exceeds token budget)</li>
+<p>These are options, not commitments. Ship first, harden later.</p>
+<h2>References</h2>
+<li>ECC repo: github.com/affaan-m/everything-claude-code (MIT, 120k stars)</li>
+<li>DWS Skills Guide: `docs/DWS_SKILLS_GUIDE.md`</li>
+<li>Information Layering: `docs/DWS_INFORMATION_LAYERING_STRATEGY.md`</li>
+<li>Security Standard: `DWS_SECURITY_STANDARD.md`</li>
+<li>AGENTS.md Section 16: Rise of CLIs</li>
+</body>
+</html>

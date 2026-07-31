@@ -3,10 +3,10 @@ version: 1.0.0
 schema: v1
 
 models:
-  - name: Qwen 2.5 Coder 32B (Tunnel)
+  - name: Qwen3-Coder 30B (Tunnel)
     provider: ollama
-    model: qwen2.5-coder:32b
-    apiBase: http://localhost:11435
+    model: qwen3-coder:30b
+    apiBase: http://127.0.0.1:11435
     roles:
       - chat
       - edit
@@ -22,5 +22,5 @@ context:
   - provider: terminal
 
 rules:
-  - Use the SSH tunnel on localhost:11435 for Ollama access.
-  - Assume the remote host serves qwen2.5-coder:32b via Ollama.
+  - Use SSH to admin100@192.168.101.113 (DGX interface wlP9s9) with -L 127.0.0.1:11435:localhost:11434; Continue apiBase stays http://127.0.0.1:11435.
+  - Assume the remote host serves qwen3-coder:30b via Ollama.

@@ -6,7 +6,7 @@
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/steel-industry-case-study-t1FYM | Date: 14.03.2026 | Changes: Initial steel industry sales wedge. KYA v1.1 NIST submission positioning, EU Art.12 court-defensible Green Steel at 50-tonne CBAM threshold, 122ms Firehorse Snap, Rebate Pulse, 35% leash-aware uplift, Helsinki Sandbox proof
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/steel-industry-case-study-t1FYM | Date: 14.03.2026 | Changes: Initial steel industry sales wedge. KYA v1.1 NIST submission positioning, EU Art.12 court-defensible Green Steel at 50-tonne CBAM threshold, < 125ms (Firecracker MicroVM, AWS benchmark) Firehorse Snap, Rebate Pulse, 35% leash-aware uplift, Helsinki Sandbox proof
 
 Document Status:
   - Created: 14.03.2026
@@ -51,7 +51,7 @@ No steel company is ready for all three simultaneously. That's the wedge.
 
 | Capability | What It Does | Proof Point |
 |-----------|-------------|-------------|
-| **122ms Firehorse Snap** | Hardware-level agent termination at hypervisor layer. Agent violates manifest → killed in 122ms, memory snapshot preserved for forensics | TPM 2.0 sealed, below agent OS. No software workaround possible |
+| **< 125ms (Firecracker MicroVM, AWS benchmark) Firehorse Snap** | Hardware-level agent termination at hypervisor layer. Agent violates manifest → killed in < 125ms (Firecracker MicroVM, AWS benchmark), memory snapshot preserved for forensics | TPM 2.0 sealed, below agent OS. No software workaround possible |
 | **Rebate Pulse** | Real-time CBAM Art. 9 carbon price differential verification. Deducts origin-country carbon tax automatically | Turkey steel: deducts ~€5/tCO2e, saves €40–60/tCO2e vs. manual filing |
 | **35% Leash-Aware Uplift** | KYA agents read governance manifest, optimize within bounds — no guardrail collisions, no retry penalties | Helsinki Sandbox: Baseline + 35% vs. ungoverned optimization |
 | **EU Art. 12 Audit Trail** | Every agent action TPM-sealed, watermarked, court-defensible. Firehorse forensic telemetry — not log files | Satisfies EU AI Act Article 12 transparency requirements |
@@ -86,7 +86,7 @@ A steel importer crosses the CBAM 50-tonne threshold. Here's what happens with a
 1. **Vulcan agent** (Steel & Metals specialist) monitors embedded emissions continuously
 2. **50-tonne crossing detected in real-time** — automatic CBAM certificate generation triggered
 3. **Rebate Pulse activates** — deducts origin-country carbon tax (CBAM Art. 9), generates court-defensible differential certificate
-4. **Agent Trust Score (ATS) tracks compliance posture:** Green (0.85–1.00) = full access, Amber (0.70–0.84) = restricted, Red (0.50–0.69) = read-only, Quarantine (<0.50) = 122ms Snap
+4. **Agent Trust Score (ATS) tracks compliance posture:** Green (0.85–1.00) = full access, Amber (0.70–0.84) = restricted, Red (0.50–0.69) = read-only, Quarantine (<0.50) = < 125ms (Firecracker MicroVM, AWS benchmark) Snap
 5. **Firehorse audit trail**: TPM-sealed, every action attributed, every optimization governed
 
 **Time to value:** Hours, not quarters. **Savings:** €40–60/tCO2e on rebate recovery alone.
@@ -163,7 +163,7 @@ Pull strategy. No pitch in connection request.
 
 ### Message 3 — Follow-up (Day 7, Only If No Response)
 
-> Quick follow-up — wrote up the 50-tonne CBAM threshold scenario for steel importers. Court-defensible audit trail, 122ms hardware kill switch, real-time rebate verification.
+> Quick follow-up — wrote up the 50-tonne CBAM threshold scenario for steel importers. Court-defensible audit trail, < 125ms (Firecracker MicroVM, AWS benchmark) hardware kill switch, real-time rebate verification.
 >
 > Happy to share the Helsinki Sandbox results if useful.
 
@@ -179,7 +179,7 @@ If the sea is not ready, move on. No drip campaigns. No automation spam.
 | "We handle CBAM internally" | Are you claiming Art. 9 rebates? Most internal teams miss €40–60/tCO2e in deductions. 15-min audit will tell. |
 | "We don't use AI agents yet" | CBAM compliance will require automated monitoring at scale. Question is whether your future agents will have court-defensible audit trails or not. |
 | "NIST submission doesn't mean NIST-approved" | Correct. It means the framework is rigorous enough to submit. Your auditors will see TPM 2.0 attestation chain — that's what matters. |
-| "122ms kill switch sounds aggressive" | It's the safety net. Agents that stay within manifest never trigger it. The value is that you can prove to regulators your AI governance has teeth. |
+| "< 125ms (Firecracker MicroVM, AWS benchmark) kill switch sounds aggressive" | It's the safety net. Agents that stay within manifest never trigger it. The value is that you can prove to regulators your AI governance has teeth. |
 | "What's the pricing model?" | Fixed SaaS subscription + transparent API fees. You keep 100% of efficiency gains. No revenue sharing — predictable monthly cost. |
 
 ---

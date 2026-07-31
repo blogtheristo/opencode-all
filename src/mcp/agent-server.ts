@@ -19,19 +19,26 @@
  *   - dws_workflow: Trigger a multi-agent workflow
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
+import { randomUUID } from 'crypto';
 import logger from '../utils/logger.js';
 import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
 import { memoryService } from '../agents/memory.service.js';
 import { factExtractionService } from '../agents/fact-extraction.service.js';
+import { telemetryService } from '../agents/telemetry.service.js';
+import { checkpointService } from '../agents/session-checkpoint.service.js';
 import type { AgentContext } from '../agents/types.js';
+import type { ToolSafetyState } from '../agents/types.js';
 import type { MemoryType } from '../agents/memory.types.js';
+import { MCPToolRegistry, ToolColor } from './security/tool-colors.js';
+import { authenticateToken } from '../middleware/auth.middleware.js';
+import { contentMcpTools } from '../contentms/index.js';
 
 // ============ SUPPORTED WORKFLOWS REGISTRY ============
 // Single source of truth — used in tool descriptions, validation, and error messages.
 const SUPPORTED_WORKFLOWS = ['compliance-assessment', 'construction-full', 'seo-pipeline'] as const;
-type SupportedWorkflow = typeof SUPPORTED_WORKFLOWS[number];
+export type SupportedWorkflow = (typeof SUPPORTED_WORKFLOWS)[number];
 
 // ============ MCP PROTOCOL TYPES ============
 
@@ -59,6 +66,86 @@ interface MCPResponse {
   error?: { code: number; message: string; data?: unknown };
 }
 
+const mcpToolSafetyBySession = new Map<string, ToolSafetyState>();
+const issuedMcpSessions = new Map<string, Set<string>>();
+
+function getMcpSessionNamespace(userId: string, orgId: string): string {
+  return `${orgId}:${userId}`;
+}
+
+function issueMcpSessionId(userId: string, orgId: string): string {
+  const namespace = getMcpSessionNamespace(userId, orgId);
+  const sessionId = `mcp-${randomUUID()}`;
+  const sessions = issuedMcpSessions.get(namespace) ?? new Set<string>();
+  sessions.add(sessionId);
+  issuedMcpSessions.set(namespace, sessions);
+  return sessionId;
+}
+
+function applyMcpSessionToolSafety(
+  toolName: string,
+  context: AgentContext,
+): { allowed: boolean; reason?: string } {
+  const color = MCPToolRegistry.getToolColor(toolName);
+  const priorRedTools = context.toolSafety?.taintedRedTools ?? [];
+
+  if (priorRedTools.length > 0 && color === ToolColor.BLUE) {
+    return {
+      allowed: false,
+      reason:
+        `LETHAL TRIFECTA DETECTED ACROSS MCP SESSION!\n` +
+        `Prior RED tools (untrusted input): ${priorRedTools.join(', ')}\n` +
+        `Current BLUE tool (critical action): ${toolName}\n\n` +
+        `A prior RED tool tainted this MCP session, so this BLUE action is blocked.`,
+    };
+  }
+
+  if (color === ToolColor.RED) {
+    context.toolSafety = {
+      taintedRedTools: Array.from(new Set([...priorRedTools, toolName])),
+    };
+  }
+
+  return { allowed: true };
+}
+
+function getExposedToolColor(toolName: string): ToolColor {
+  switch (toolName) {
+    case 'dws_list_agents':
+    case 'dws_discover':
+    case 'dws_workflow':
+    case 'dws_memory_recall':
+    case 'dws_memory_profile':
+    case 'dws_tool_telemetry':
+    case 'dws_session_checkpoint':
+    case 'dws_extract_facts':
+      return ToolColor.GREEN;
+    case 'dws_events':
+      return ToolColor.RED;
+    case 'dws_memory_store':
+    case 'dws_memory_forget':
+      return ToolColor.BLUE;
+    default:
+      throw new Error(`Unknown MCP tool classification: ${toolName}`);
+  }
+}
+
+function ensureMCPToolClassification(toolName: string): ToolColor {
+  try {
+    return MCPToolRegistry.getToolColor(toolName);
+  } catch {
+    const agentName = toolName.startsWith('dws_') ? toolName.slice(4) : '';
+    if (agentName && agentRegistry.getAgent(agentName)) {
+      MCPToolRegistry.registerTool(toolName, ToolColor.GREEN);
+      return ToolColor.GREEN;
+    }
+
+    const color = getExposedToolColor(toolName);
+    MCPToolRegistry.registerTool(toolName, color);
+    return color;
+  }
+}
+
 // ============ MCP SERVER ============
 
 /**
@@ -68,9 +155,21 @@ interface MCPResponse {
 function buildToolList(): MCPToolDefinition[] {
   const agents = agentRegistry.listAgents();
   const tools: MCPToolDefinition[] = [];
+  const registerTool = (tool: MCPToolDefinition): void => {
+    try {
+      ensureMCPToolClassification(tool.name);
+      tools.push(tool);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown MCP tool classification';
+      logger.warn('Skipping MCP tool registration until classification is explicit', {
+        tool: tool.name,
+        error: message,
+      });
+    }
+  };
 
   // Meta-tool: list agents
-  tools.push({
+  registerTool({
     name: 'dws_list_agents',
     description: 'List all available DWS IQ agents with their capabilities and models.',
     inputSchema: {
@@ -80,9 +179,10 @@ function buildToolList(): MCPToolDefinition[] {
   });
 
   // Meta-tool: discover by capability
-  tools.push({
+  registerTool({
     name: 'dws_discover',
-    description: 'Find DWS IQ agents by capability tag (e.g., "compliance", "carbon", "construction").',
+    description:
+      'Find DWS IQ agents by capability tag (e.g., "compliance", "carbon", "construction").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -96,7 +196,7 @@ function buildToolList(): MCPToolDefinition[] {
   });
 
   // Meta-tool: trigger workflow
-  tools.push({
+  registerTool({
     name: 'dws_workflow',
     description: `Trigger a multi-agent workflow. Available workflows: ${SUPPORTED_WORKFLOWS.join(', ')}.`,
     inputSchema: {
@@ -116,9 +216,10 @@ function buildToolList(): MCPToolDefinition[] {
   });
 
   // Meta-tool: event history
-  tools.push({
+  registerTool({
     name: 'dws_events',
-    description: 'Get recent events from the DWS IQ event bus. Useful for monitoring agent activity and compliance events.',
+    description:
+      'Get recent events from the DWS IQ event bus. Useful for monitoring agent activity and compliance events.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -135,9 +236,10 @@ function buildToolList(): MCPToolDefinition[] {
   });
 
   // Memory tools
-  tools.push({
+  registerTool({
     name: 'dws_memory_store',
-    description: 'Store a fact, preference, or knowledge as a persistent agent memory. Memories are embedded for vector search and scoped to the organization.',
+    description:
+      'Store a fact, preference, or knowledge as a persistent agent memory. Memories are embedded for vector search and scoped to the organization.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -153,24 +255,29 @@ function buildToolList(): MCPToolDefinition[] {
     },
   });
 
-  tools.push({
+  registerTool({
     name: 'dws_memory_recall',
-    description: 'Search stored memories using hybrid search (vector similarity + text matching). Returns the most relevant memories for the query.',
+    description:
+      'Search stored memories using hybrid search (vector similarity + text matching). Returns the most relevant memories for the query.',
     inputSchema: {
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Natural language search query' },
         memory_type: { type: 'string', description: 'Filter by memory type (optional)' },
         limit: { type: 'number', description: 'Maximum results (default: 5)' },
-        similarity_threshold: { type: 'number', description: 'Minimum similarity 0-1 (default: 0.5)' },
+        similarity_threshold: {
+          type: 'number',
+          description: 'Minimum similarity 0-1 (default: 0.5)',
+        },
       },
       required: ['query'],
     },
   });
 
-  tools.push({
+  registerTool({
     name: 'dws_memory_forget',
-    description: 'Soft-delete a memory by ID. Marked as expired for audit compliance, not hard-deleted.',
+    description:
+      'Soft-delete a memory by ID. Marked as expired for audit compliance, not hard-deleted.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -181,9 +288,10 @@ function buildToolList(): MCPToolDefinition[] {
     },
   });
 
-  tools.push({
+  registerTool({
     name: 'dws_memory_profile',
-    description: 'Get an aggregated profile built from stored memories for a customer or organization. Returns facts, preferences, and recent context.',
+    description:
+      'Get an aggregated profile built from stored memories for a customer or organization. Returns facts, preferences, and recent context.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -198,18 +306,64 @@ function buildToolList(): MCPToolDefinition[] {
     },
   });
 
-  // Fact extraction tool
-  tools.push({
-    name: 'dws_extract_facts',
-    description: 'Extract structured facts (subject-predicate-value triples) from text using LLM. Facts are persisted as memories for later recall and profile building.',
+  // ASTA Phase 1: Tool telemetry
+  registerTool({
+    name: 'dws_tool_telemetry',
+    description:
+      'Get aggregated tool-use metrics for an agent (invocation rate, skip rate, failure rate, partial failures). Part of the ASTA adaptation framework.',
     inputSchema: {
       type: 'object',
       properties: {
-        text: { type: 'string', description: 'Text to extract facts from (conversation, document, etc.)' },
-        source: { type: 'string', description: 'Source identifier (e.g., conversation, email, document)' },
-        persist: { type: 'boolean', description: 'Whether to store extracted facts as memories (default: true)' },
-        min_confidence: { type: 'number', description: 'Minimum confidence to persist a fact (0-1, default: 0.7)' },
-        customer_id: { type: 'string', description: 'Optional customer ID to scope extracted facts' },
+        agent_name: { type: 'string', description: 'Agent name to get metrics for' },
+        window_hours: { type: 'number', description: 'Time window in hours (default: 24)' },
+      },
+      required: ['agent_name'],
+    },
+  });
+
+  // ASTA Phase 1: Session checkpoints
+  registerTool({
+    name: 'dws_session_checkpoint',
+    description:
+      'Recover or inspect a session checkpoint for an interrupted agent session. Returns the saved state if available.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        session_id: { type: 'string', description: 'Session ID to recover' },
+        agent_name: { type: 'string', description: 'Agent name' },
+      },
+      required: ['session_id', 'agent_name'],
+    },
+  });
+
+  // Fact extraction tool
+  registerTool({
+    name: 'dws_extract_facts',
+    description:
+      'Extract structured facts (subject-predicate-value triples) from text using LLM. Facts are persisted as memories for later recall and profile building.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        text: {
+          type: 'string',
+          description: 'Text to extract facts from (conversation, document, etc.)',
+        },
+        source: {
+          type: 'string',
+          description: 'Source identifier (e.g., conversation, email, document)',
+        },
+        persist: {
+          type: 'boolean',
+          description: 'Whether to store extracted facts as memories (default: true)',
+        },
+        min_confidence: {
+          type: 'number',
+          description: 'Minimum confidence to persist a fact (0-1, default: 0.7)',
+        },
+        customer_id: {
+          type: 'string',
+          description: 'Optional customer ID to scope extracted facts',
+        },
       },
       required: ['text'],
     },
@@ -221,7 +375,7 @@ function buildToolList(): MCPToolDefinition[] {
   for (const agent of agents) {
     const hasSchema = agent.inputSchema && Object.keys(agent.inputSchema.properties).length > 0;
 
-    tools.push({
+    registerTool({
       name: `dws_${agent.name.replace(/-/g, '_')}`,
       description: `[DWS IQ Agent] ${agent.description}. Capabilities: ${agent.capabilities.join(', ')}. Model: ${agent.model}.`,
       inputSchema: hasSchema
@@ -253,6 +407,19 @@ function buildToolList(): MCPToolDefinition[] {
     });
   }
 
+  // Content DMS tools — Evidence Vault: upload, search, HIL review, publish.
+  // NOTE: these are not yet present in MCPToolRegistry.TOOL_CLASSIFICATIONS
+  // (src/mcp/security/tool-colors.ts), so registerTool() will currently skip
+  // them with a warning until each tool gets an explicit RED/BLUE/GREEN risk
+  // classification — see PR-1208 follow-up.
+  for (const tool of contentMcpTools) {
+    registerTool({
+      name: tool.name,
+      description: `[DWS Content DMS] ${tool.description}`,
+      inputSchema: tool.inputSchema as MCPToolDefinition['inputSchema'],
+    });
+  }
+
   return tools;
 }
 
@@ -263,6 +430,7 @@ async function handleMCPRequest(
   request: MCPRequest,
   userId: string,
   orgId: string,
+  sessionId: string,
 ): Promise<MCPResponse> {
   const { id, method, params } = request;
 
@@ -273,6 +441,7 @@ async function handleMCPRequest(
         id,
         result: {
           protocolVersion: '2024-11-05',
+          sessionId,
           capabilities: {
             tools: { listChanged: true },
           },
@@ -296,25 +465,53 @@ async function handleMCPRequest(
     case 'tools/call': {
       const toolName = (params?.name as string) || '';
       const toolArgs = (params?.arguments as Record<string, unknown>) || {};
+      ensureMCPToolClassification(toolName);
+      const toolSafety = MCPToolRegistry.validateToolCombination(new Set([toolName]));
+
+      if (!toolSafety.isSafe) {
+        return {
+          jsonrpc: '2.0',
+          id,
+          error: { code: -32000, message: toolSafety.reason },
+        };
+      }
 
       // Build execution context
       const context: AgentContext = {
         projectId: (toolArgs.projectId as string) || 'mcp-session',
         userId,
         orgId,
-        sessionId: `mcp-${id}`,
+        sessionId,
+        toolSafety: mcpToolSafetyBySession.get(sessionId),
       };
+
+      const sessionSafety = applyMcpSessionToolSafety(toolName, context);
+      if (context.toolSafety) {
+        mcpToolSafetyBySession.set(sessionId, context.toolSafety);
+      }
+      if (!sessionSafety.allowed) {
+        return {
+          jsonrpc: '2.0',
+          id,
+          error: { code: -32000, message: sessionSafety.reason || 'Unsafe MCP session tool plan' },
+        };
+      }
 
       try {
         const result = await executeToolCall(toolName, toolArgs, context);
+        if (context.toolSafety) {
+          mcpToolSafetyBySession.set(sessionId, context.toolSafety);
+        }
         return {
           jsonrpc: '2.0',
           id,
           result: {
-            content: [{
-              type: 'text',
-              text: JSON.stringify(result, null, 2),
-            }],
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
           },
         };
       } catch (err: unknown) {
@@ -323,10 +520,12 @@ async function handleMCPRequest(
           jsonrpc: '2.0',
           id,
           result: {
-            content: [{
-              type: 'text',
-              text: JSON.stringify({ error: msg }),
-            }],
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify({ error: msg }),
+              },
+            ],
             isError: true,
           },
         };
@@ -341,6 +540,40 @@ async function handleMCPRequest(
       };
     }
   }
+}
+
+function resolveMcpSessionId(
+  req: Request,
+  request: MCPRequest,
+  userId: string,
+  orgId: string,
+): { sessionId?: string; responseSessionId?: string; error?: string } {
+  const namespace = getMcpSessionNamespace(userId, orgId);
+  const providedSessionId =
+    req.header('x-mcp-session-id') ||
+    req.header('mcp-session-id') ||
+    (request.params?.sessionId as string | undefined) ||
+    ((request.params?.arguments as Record<string, unknown> | undefined)?.sessionId as
+      string | undefined);
+
+  if (request.method === 'initialize') {
+    const sessionId = issueMcpSessionId(userId, orgId);
+    return { sessionId: `${namespace}:${sessionId}`, responseSessionId: sessionId };
+  }
+
+  if (!providedSessionId) {
+    return {
+      error:
+        'Missing MCP session. Call initialize first and send X-MCP-Session-ID on subsequent requests.',
+    };
+  }
+
+  const knownSessions = issuedMcpSessions.get(namespace);
+  if (!knownSessions?.has(providedSessionId)) {
+    return { error: 'Unknown MCP session. Call initialize first to obtain a valid session ID.' };
+  }
+
+  return { sessionId: `${namespace}:${providedSessionId}`, responseSessionId: providedSessionId };
 }
 
 /**
@@ -422,6 +655,31 @@ async function executeToolCall(
     );
   }
 
+  // ASTA: Tool telemetry
+  if (toolName === 'dws_tool_telemetry') {
+    const agentName = args.agent_name as string;
+    const windowHours = (args.window_hours as number) || 24;
+    return telemetryService.getMetrics(agentName, windowHours);
+  }
+
+  // ASTA: Session checkpoint recovery
+  if (toolName === 'dws_session_checkpoint') {
+    const sessionId = args.session_id as string;
+    const agentName = args.agent_name as string;
+    const state = await checkpointService.recover(sessionId, context.orgId, agentName);
+    if (!state) {
+      return { found: false, message: 'No checkpoint found or checkpoint expired' };
+    }
+    return {
+      found: true,
+      agentName: state.agentName,
+      iterationIndex: state.iterationIndex,
+      checkpointedAt: state.checkpointedAt,
+      messageCount: state.messages.length,
+      partialResultCount: state.partialResults.length,
+    };
+  }
+
   // Fact extraction
   if (toolName === 'dws_extract_facts') {
     return factExtractionService.extract({
@@ -438,11 +696,20 @@ async function executeToolCall(
   if (toolName.startsWith('dws_')) {
     const agentName = toolName.slice(4).replace(/_/g, '-');
     // Support both wrapped ({input: {...}}) and flat schema formats
-    const input = (args.input as Record<string, unknown>) || (() => {
-      const { projectId: _pid, ...rest } = args;
-      return rest;
-    })();
+    const input =
+      (args.input as Record<string, unknown>) ||
+      (() => {
+        const { projectId: _pid, ...rest } = args;
+        return rest;
+      })();
     return agentRegistry.executeAgent(agentName, context, input);
+  }
+
+  // Content DMS tools — route to contentMcpTools registry by exact name match
+  if (toolName.startsWith('contentms_')) {
+    const tool = contentMcpTools.find((t) => t.name === toolName);
+    if (!tool) throw new Error(`Unknown content tool: ${toolName}`);
+    return tool.handler(args);
   }
 
   throw new Error(`Unknown tool: ${toolName}`);
@@ -520,7 +787,9 @@ async function executeWorkflow(
     }
 
     default:
-      throw new Error(`Unknown workflow: ${workflowName}. Available: ${SUPPORTED_WORKFLOWS.join(', ')}`);
+      throw new Error(
+        `Unknown workflow: ${workflowName}. Available: ${SUPPORTED_WORKFLOWS.join(', ')}`,
+      );
   }
 }
 
@@ -535,40 +804,91 @@ export function createMCPRouter(): Router {
 
   // MCP JSON-RPC endpoint
   router.post('/', async (req: Request, res: Response) => {
-    const request = req.body as MCPRequest;
+    try {
+      const request = req.body as MCPRequest;
 
-    if (!request.jsonrpc || !request.method) {
-      res.status(400).json({
+      if (
+        !request ||
+        request.jsonrpc !== '2.0' ||
+        typeof request.method !== 'string' ||
+        request.method.length === 0
+      ) {
+        res.status(400).json({
+          jsonrpc: '2.0',
+          id: null,
+          error: { code: -32600, message: 'Invalid JSON-RPC request' },
+        });
+        return;
+      }
+
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({
+          jsonrpc: '2.0',
+          id: request.id ?? null,
+          error: { code: -32001, message: 'Unauthorized MCP request' },
+        });
+        return;
+      }
+
+      // Until JWTs carry validated organization membership, isolate MCP state
+      // per authenticated user instead of falling back to a shared tenant.
+      const orgId = req.organizationId || `user:${userId}`;
+
+      logger.info('MCP request', {
+        method: request.method,
+        id: request.id,
+        userId,
+        orgId,
+      });
+
+      const session = resolveMcpSessionId(req, request, userId, orgId);
+      if (!session.sessionId) {
+        res.status(400).json({
+          jsonrpc: '2.0',
+          id: request.id ?? null,
+          error: { code: -32002, message: session.error || 'Invalid MCP session' },
+        });
+        return;
+      }
+
+      if (session.responseSessionId) {
+        res.setHeader('X-MCP-Session-ID', session.responseSessionId);
+      }
+
+      const response = await handleMCPRequest(request, userId, orgId, session.sessionId);
+      if (
+        request.method === 'initialize' &&
+        session.responseSessionId &&
+        response.result &&
+        typeof response.result === 'object'
+      ) {
+        (response.result as Record<string, unknown>).sessionId = session.responseSessionId;
+      }
+      res.json(response);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Internal MCP error';
+      logger.error('Unhandled MCP route error', { error: message });
+      res.status(500).json({
         jsonrpc: '2.0',
         id: null,
-        error: { code: -32600, message: 'Invalid JSON-RPC request' },
+        error: { code: -32603, message },
       });
-      return;
     }
-
-    // Extract user identity from JWT or default for MCP sessions
-    const userId = req.userId || 'mcp-anonymous';
-    const orgId = req.organizationId || 'default';
-
-    logger.info('MCP request', {
-      method: request.method,
-      id: request.id,
-      userId,
-    });
-
-    const response = await handleMCPRequest(request, userId, orgId);
-    res.json(response);
   });
 
   // MCP Server-Sent Events for streaming (optional)
-  router.get('/sse', (req: Request, res: Response) => {
+  router.get('/sse', authenticateToken, (req: Request, res: Response) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
+    const orgId = req.organizationId || `user:${req.userId || 'unknown'}`;
 
-    // Subscribe to all agent events and forward via SSE
+    // Subscribe only to events belonging to the caller's tenant scope.
     const unsubscribe = eventBus.subscribe('*', async (event) => {
-      res.write(`data: ${JSON.stringify(event)}\n\n`);
+      if (event.orgId === orgId) {
+        res.write(`data: ${JSON.stringify(event)}\n\n`);
+      }
     });
 
     req.on('close', () => {

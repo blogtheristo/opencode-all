@@ -4,13 +4,13 @@
  * Validates company→ERP resolution for Nordic construction companies.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
+  COMPANY_ERP_REGISTRY,
+  getAllRegisteredCompanies,
+  getCompaniesByProvider,
   resolveCompanyERP,
   resolveCompanyERPBatch,
-  getCompaniesByProvider,
-  getAllRegisteredCompanies,
-  COMPANY_ERP_REGISTRY,
 } from '../integrations/erp/company-registry';
 import { ERPProvider } from '../integrations/erp/types';
 

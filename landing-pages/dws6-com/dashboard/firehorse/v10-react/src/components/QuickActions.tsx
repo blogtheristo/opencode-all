@@ -55,6 +55,15 @@ const ACTIONS: QuickAction[] = [
     color: 'from-purple-500 to-indigo-700',
     input: { url: 'https://dws10.com', depth: 'quick' },
   },
+  {
+    id: 'memory-stats',
+    label: 'Memory Health',
+    description: 'Check agent memory status',
+    agent: 'memory',
+    icon: '\u{1F9E0}',
+    color: 'from-cyan-500 to-teal-700',
+    input: {},
+  },
 ];
 
 interface ActionResult {
@@ -74,10 +83,14 @@ export function QuickActions() {
     }));
 
     try {
-      const res = await fetch(`${API_BASE}/api/agents/${action.agent}/execute`, {
-        method: 'POST',
+      const isMemoryAction = action.agent === 'memory';
+      const endpoint = isMemoryAction
+        ? `${API_BASE}/api/v1/memory/stats`
+        : `${API_BASE}/api/agents/${action.agent}/execute`;
+      const res = await fetch(endpoint, {
+        method: isMemoryAction ? 'GET' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: action.input }),
+        ...(isMemoryAction ? {} : { body: JSON.stringify({ input: action.input }) }),
         signal: AbortSignal.timeout(15000),
       });
 
@@ -100,7 +113,7 @@ export function QuickActions() {
   return (
     <div className="card">
       <h3 className="text-sm font-semibold text-gray-900 mb-3">Quick Actions</h3>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {ACTIONS.map((action) => {
           const result = results[action.id];
           const isLoading = result?.loading;
@@ -125,7 +138,7 @@ export function QuickActions() {
                   offline
                 </span>
               )}
-              {result?.data && !isLoading && (
+              {!!result?.data && !isLoading && (
                 <span className="absolute top-2 right-2 text-xs bg-white/20 px-1.5 py-0.5 rounded">
                   done
                 </span>

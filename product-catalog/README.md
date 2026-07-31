@@ -1,89 +1,70 @@
 # Product Catalog - DWS IQ Platform
 
 ***
+
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 3.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code | Session: r6bU3 | Date: 23.01.2026 | Changes: Initial product catalog structure, Google Merchant schema, file naming conventions
-  - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; added full 30-product catalog table from products.json; added product lifecycle stages; added Store Product Format section
-  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-define-application-guide-gS1du | Date: 25.03.2026 | Changes: Added DWS IQ Climate Intelligence (DWS-CLIMATE-001) and DWS IQ Aegis (DWS-AEGIS-001) platform products; 30→32 products
+
+- Version: 1.0 | Tool: Claude Code | Session: r6bU3 | Date: 23.01.2026 | Changes: Initial product catalog structure, Google Merchant schema, file naming conventions
+- Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; added full 30-product catalog table from products.json; added product lifecycle stages; added Store Product Format section
+- Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-define-application-guide-gS1du | Date: 25.03.2026 | Changes: Added DWS IQ Climate Intelligence (DWS-CLIMATE-001) and DWS IQ Aegis (DWS-AEGIS-001) platform products; 30→32 products
+- Version: 3.0 | Tool: Claude Code (Opus 4.7) | Session: claude/centralized-price-list-rl82P | Date: 23.04.2026 | Changes: Removed all hardcoded price tables (stale across 4 sections); prices are now maintained in a single place — `dws10.com/config/products.json` — and rendered on `https://dws10.com/price-list/`. Quarterly review cadence established (priceList metadata block in products.json).
 
 Session Links & References:
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/product-catalog/README.md
+
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/product-catalog/README.md
 
 Document Status:
-  - Created: 23.01.2026
-  - Last Modified: 02.03.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ACTIVE
+
+- Created: 23.01.2026
+- Last Modified: 23.04.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
 
 ***
 
 **Structured Product Information Repository**
 
-Last Updated: 2026-03-02
+Last Updated: 2026-04-23
 Managed By: Product Management & Marketing
 
 ---
 
-## 📦 Complete Product Catalog (32 Products)
+## 💶 Prices — Single Source of Truth
 
-Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-25.
+> **Do not hardcode prices in this file.** Previous versions of this README duplicated
+> prices inline and went stale (Firehorse Omnichannel, hourly consulting, bundle pricing
+> all drifted from the real figures). As of v3.0 of this catalog, this README no longer
+> contains price tables.
 
-### Platform Products
+**Canonical price list:**
 
-| ID | Name | Price | Type | Category | Status |
-|----|------|-------|------|----------|--------|
-| DWS-IQ-006 | Lifetime DWS IQ Platform (Version 6) | €4,999 | one-time + €499/mo | platform | active |
-| FH-AUTO-001 | Firehorse Automation | €4,950 | one-time | platform | active |
-| LIFETIME-BUNDLE-2026 | Climate Reporting Starter Bundle | €6,500 | one-time + €1,999/yr | platform | active |
-| FH-OMNI-001 | Firehorse Omnichannel Next | €499 | one-time | platform | active |
-| FH-RPT-001 | DWS IQ Report | €1,999 | one-time | platform | active |
-| FH-CMS-001 | Firehorse Content Management | €2,999 | one-time | platform | active |
-| DWS-CLIMATE-001 | DWS IQ Climate Intelligence | €2,999/mo | monthly + €4,990 setup | platform | active |
-| DWS-AEGIS-001 | DWS IQ Aegis | €59,990 + €599/mo | one-time + subscription | platform | active |
+| Channel                         | Location                                    | Format                                                        |
+| ------------------------------- | ------------------------------------------- | ------------------------------------------------------------- |
+| **Authoritative data**          | `dws10.com/config/products.json`            | JSON — one record per product, `price` + `priceNote` + `type` |
+| **Client-ready published list** | https://dws10.com/price-list/               | HTML, printable, B2B VAT 0%, EUR                              |
+| **Live store**                  | https://dws10.com/buy/                      | Pagination 1/3, Revolut checkout                              |
+| **Google Merchant feed**        | https://dws10.com/feeds/google-products.xml | XML, derived from products.json                               |
 
-### Advisory & Training
+**Governance** (mirrored in `products.json` → `priceList` block):
 
-| ID | Name | Price | Type | Category | Status |
-|----|------|-------|------|----------|--------|
-| expert-services | Workshop 3 Days — Expert Advisory | €4,500 | one-time | advisory | active |
-| consulting-hourly | Consulting — Hourly Rate | €98 | hourly | advisory | active |
-| LIFETIME-EXP-001 | Expert Advisory & Implementation | €3,000 | monthly | advisory | active |
-| consulting-fit55 | Consulting Fit for 55 Specialist | €3,000 | monthly | advisory | active |
-| lean-project | AI Project Accelerator | €4,960 | one-time | advisory | active |
-| ai-consultant-day | AI Consultant Day | €699 | one-time | advisory | active |
-| business-mentor-30 | Business Mentor — AI Strategy 30 Hours | €4,960 | one-time | advisory | active |
-| firehorse-coach | EU AI Act Literacy Training | €499 | one-time | advisory | active |
-| omnichannel-multimodal | Firehorse Omnichannel & Multimodal AI Assistant | €699 | monthly | advisory | active |
-| ai-koulutus-3d | AI Koulutus 3 Days Programme | €6,250 | one-time | advisory | active |
+- **Currency:** EUR (list prices)
+- **VAT treatment:** B2B · VAT 0% (reverse charge for EU intra-community; FI 25.5% added at FI checkout)
+- **Review cadence:** Quarterly — current version `2026.Q2`, next review `2026-07-01`
+- **Payment terms:** Net 14
+- **Quote validity:** 30 days
+- **Owner:** Risto Anton Päärni (Lifetime Oy, BUID 0772407-9, VAT FI07724079)
 
-### AI Cloud & Engineering
+**Workflow to change a price:**
 
-| ID | Name | Price | Type | Category | Status |
-|----|------|-------|------|----------|--------|
-| aws-consultancy | AI Engineering & Cloud Solutions Consultancy | €4,500 | one-time | ai-cloud | active |
-| conversational-agent | Conversational Agent Solution | €3,500 | one-time | ai-cloud | active |
-| ai-agent-engineering | AI & Agent Engineering | €99 | hourly | ai-cloud | active |
-| devops-lead | Manufacturing AI Readiness Assessment | €2,500 | one-time | ai-cloud | active |
-| ai-consulting-agentic | AI Consulting — Agentic Software Development | €2,500 | one-time | ai-cloud | active |
-| sovereignty-cloud-consulting | Sovereignty Cloud Consulting — European Cloud Migration | €1,500 | monthly | ai-cloud | active |
-
-### Digital Services
-
-| ID | Name | Price | Type | Category | Status |
-|----|------|-------|------|----------|--------|
-| m365-consultancy | Microsoft Consultancy | €1,120 | one-time | digital | active |
-| firehorse-flow | AI Customer Agent | €499 | one-time | digital | active |
-| professional-web-pages | Professional Web Pages | €799 | one-time | digital | active |
-| secure-email-proton | Protonmail Secure Email & Domains Implementation | €499 | one-time | digital | active |
-| firehorse-data-services | Firehorse Data Services | €899 | one-time | digital | active |
-| agentti-sanasto | Agentti Sanasto Englanti-Suomi | €0.99 | one-time | digital | active |
-| digital-design-gold | Digital Design Gold | €2,499 | one-time | digital | active |
-| cloud-ready-teams | On-Demand AI & Cloud Engineers | €950 | one-time | digital | active |
+1. Edit `dws10.com/config/products.json` (canonical).
+2. Sync to `landing-pages/dws10-com/config/products.json` in the same commit (dual-folder rule).
+3. Bump `priceList.version` if the change is material; append a `changeLog` entry.
+4. No other file — store, price-list page, and Merchant feed all consume products.json at runtime. Do **not** add price tables to marketing docs.
 
 ---
 
@@ -91,15 +72,16 @@ Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-25.
 
 Every product MUST have one of these lifecycle states set in `products.json` under `availability` and tracked here:
 
-| Stage | `availability` value | Meaning | Action Required |
-|-------|---------------------|---------|-----------------|
-| **draft** | `preorder` | Under development, not yet for sale | Set `availability: preorder` in products.json |
-| **active** | `in_stock` | Live, purchasable, fully supported | Default state |
-| **limited** | `in_stock` | Active but being phased out — no new features | Add `limited: true` to product metadata |
-| **deprecated** | `out_of_stock` | No longer sold; existing customers supported | Set `availability: out_of_stock`, add sunset date |
-| **sunset** | *(remove from products.json)* | Removed from catalog entirely | Move to `product-catalog/archive/` |
+| Stage          | `availability` value          | Meaning                                       | Action Required                                   |
+| -------------- | ----------------------------- | --------------------------------------------- | ------------------------------------------------- |
+| **draft**      | `preorder`                    | Under development, not yet for sale           | Set `availability: preorder` in products.json     |
+| **active**     | `in_stock`                    | Live, purchasable, fully supported            | Default state                                     |
+| **limited**    | `in_stock`                    | Active but being phased out — no new features | Add `limited: true` to product metadata           |
+| **deprecated** | `out_of_stock`                | No longer sold; existing customers supported  | Set `availability: out_of_stock`, add sunset date |
+| **sunset**     | _(remove from products.json)_ | Removed from catalog entirely                 | Move to `product-catalog/archive/`                |
 
 **Lifecycle transition rules:**
+
 - `draft → active`: Product Manager + Engineering sign-off required
 - `active → limited`: Product Manager decision, communicate to sales team
 - `limited → deprecated`: 90-day notice to existing customers required
@@ -150,27 +132,29 @@ This product catalog serves as the **single source of truth** for all DWS IQ pla
 
 ### Standard Files in Each Version Folder:
 
-| File Name | Purpose | Format |
-|-----------|---------|--------|
-| `google-merchant-product.json` | Google Merchant Center feed | JSON |
-| `product-specification.md` | Technical specs (NVIDIA, sales) | Markdown |
-| `pricing-model.json` | Pricing tiers & revenue model | JSON |
-| `marketing-assets.md` | Copy, taglines, positioning | Markdown |
-| `competitive-analysis.md` | vs. competitors comparison | Markdown |
-| `customer-testimonials.md` | Case studies, quotes | Markdown |
-| `technical-benchmarks.md` | Performance data, benchmarks | Markdown |
+| File Name                      | Purpose                         | Format   |
+| ------------------------------ | ------------------------------- | -------- |
+| `google-merchant-product.json` | Google Merchant Center feed     | JSON     |
+| `product-specification.md`     | Technical specs (NVIDIA, sales) | Markdown |
+| `pricing-model.json`           | Pricing tiers & revenue model   | JSON     |
+| `marketing-assets.md`          | Copy, taglines, positioning     | Markdown |
+| `competitive-analysis.md`      | vs. competitors comparison      | Markdown |
+| `customer-testimonials.md`     | Case studies, quotes            | Markdown |
+| `technical-benchmarks.md`      | Performance data, benchmarks    | Markdown |
 
 ---
 
 ## 🔄 Version Naming Scheme
 
 **Format:** `V{number}` where:
+
 - **V0** = Original/baseline content (pre-NVIDIA)
 - **V1** = First major revision (NVIDIA Inception submission)
 - **V2** = Second major revision (market-ready, post-Inception)
 - **V3+** = Future iterations
 
 **When to Create New Version:**
+
 - Major feature additions (e.g., new NVIDIA tech integration)
 - Significant pricing model changes
 - Rebranding or repositioning
@@ -183,6 +167,7 @@ This product catalog serves as the **single source of truth** for all DWS IQ pla
 All `google-merchant-product.json` files follow Google Merchant Next schema:
 
 ### Core Required Fields:
+
 - `id` - Unique product identifier (e.g., "LWM-V1-2026")
 - `title` - Product name (150 chars max)
 - `description` - Full description (5000 chars max)
@@ -194,6 +179,7 @@ All `google-merchant-product.json` files follow Google Merchant Next schema:
 - `brand` - Brand name (Lifetime Oy)
 
 ### DWS-Specific Custom Fields:
+
 - `customLabel0` - Primary category (e.g., "Physical AI")
 - `customLabel1` - Industry vertical (e.g., "Construction Tech")
 - `customLabel2` - Regulatory focus (e.g., "Fit for 55")
@@ -201,7 +187,9 @@ All `google-merchant-product.json` files follow Google Merchant Next schema:
 - `customLabel4` - Partnership status (e.g., "NVIDIA Inception")
 
 ### Product Details Array:
+
 Used for technical specifications:
+
 ```json
 "productDetail": [
   {
@@ -213,7 +201,9 @@ Used for technical specifications:
 ```
 
 ### Product Highlights Array:
+
 Bullet points for key selling points (max 10):
+
 ```json
 "productHighlights": [
   "55B parameter construction-specific Physical AI model",
@@ -252,22 +242,27 @@ Bullet points for key selling points (max 10):
 ## 🛠️ Maintenance Workflow
 
 ### Weekly Tasks:
+
 - [ ] Validate `availability` status (in_stock vs. out_of_stock)
 - [ ] Check `price` accuracy against sales team updates
 - [ ] Update `expirationDate` if products extended
 
 ### Monthly Tasks:
+
 - [ ] Refresh `description` for SEO optimization
 - [ ] Update `productHighlights` based on customer feedback
 - [ ] Review `productDetail` for technical accuracy
 
 ### Quarterly Tasks:
+
 - [ ] Audit competitive positioning (`competitive-analysis.md`)
 - [ ] Update customer testimonials (`customer-testimonials.md`)
 - [ ] Refresh technical benchmarks (`technical-benchmarks.md`)
 
 ### Version Release Checklist:
+
 When creating new version (e.g., V1 → V2):
+
 1. ✅ Create new version folder (`mkdir product-catalog/LWM/V2`)
 2. ✅ Copy previous version files as baseline
 3. ✅ Update `product_data_version` in JSON
@@ -286,11 +281,11 @@ The `Store/` directory contains product markdown files consumed by `scripts/buil
 
 ### Rule
 
-| Location | Format | Header |
-|----------|--------|--------|
-| `Store/*.md` | **Store Product Format** (YAML frontmatter) | `title`, `price`, `sku`, etc. |
-| `product-catalog/` | Product Catalog Standard | Google Merchant JSON + spec markdown |
-| Everything else | DWS Document Standard | VERSION AND AGENT HISTORY block |
+| Location           | Format                                      | Header                               |
+| ------------------ | ------------------------------------------- | ------------------------------------ |
+| `Store/*.md`       | **Store Product Format** (YAML frontmatter) | `title`, `price`, `sku`, etc.        |
+| `product-catalog/` | Product Catalog Standard                    | Google Merchant JSON + spec markdown |
+| Everything else    | DWS Document Standard                       | VERSION AND AGENT HISTORY block      |
 
 ### Required YAML Frontmatter Fields
 
@@ -311,18 +306,18 @@ storeCategory: "platform"
 ---
 ```
 
-| Field | Required | Type | Notes |
-|-------|----------|------|-------|
-| `title` | Yes | string | Product display name |
-| `price` | Yes | string | Decimal format, e.g. `"499.00"` |
-| `currency` | Yes | string | ISO 4217, always `"EUR"` |
-| `sku` | Yes | string | Unique product ID, matches `products.json` |
-| `availability` | Yes | string | `in_stock`, `out_of_stock`, or `preorder` |
-| `condition` | Yes | string | `new`, `refurbished`, or `used` |
-| `google_product_category` | Yes | string | Google taxonomy string |
-| `image_link` | Yes | string | Full URL to product image |
-| `brand` | Yes | string | `Lifetime` or `Firehorse` |
-| `storeCategory` | No | string | `platform`, `advisory`, `ai-cloud`, `digital` |
+| Field                     | Required | Type   | Notes                                         |
+| ------------------------- | -------- | ------ | --------------------------------------------- |
+| `title`                   | Yes      | string | Product display name                          |
+| `price`                   | Yes      | string | Decimal format, e.g. `"499.00"`               |
+| `currency`                | Yes      | string | ISO 4217, always `"EUR"`                      |
+| `sku`                     | Yes      | string | Unique product ID, matches `products.json`    |
+| `availability`            | Yes      | string | `in_stock`, `out_of_stock`, or `preorder`     |
+| `condition`               | Yes      | string | `new`, `refurbished`, or `used`               |
+| `google_product_category` | Yes      | string | Google taxonomy string                        |
+| `image_link`              | Yes      | string | Full URL to product image                     |
+| `brand`                   | Yes      | string | `Lifetime` or `Firehorse`                     |
+| `storeCategory`           | No       | string | `platform`, `advisory`, `ai-cloud`, `digital` |
 
 ### Markdown Body
 
@@ -334,13 +329,16 @@ After the `---` closing delimiter, write standard markdown:
 **Price:** €499 (pricing note)
 
 ## Description
+
 Product description text.
 
 ## Key Features
+
 - Feature 1
 - Feature 2
 
 ## Ideal For
+
 - Target audience 1
 - Target audience 2
 ```
@@ -349,10 +347,10 @@ Product description text.
 
 The build pipeline reads from two sources. **`products.json` is the primary source** for all store products. `Store/*.md` files provide extended descriptions for products that need detailed pages.
 
-| Source | Purpose | Products |
-|--------|---------|----------|
-| `dws10.com/config/products.json` | Primary: all ~30 store products | Full catalog |
-| `Store/*.md` | Extended: detailed product pages | Subset with long descriptions |
+| Source                           | Purpose                          | Products                      |
+| -------------------------------- | -------------------------------- | ----------------------------- |
+| `dws10.com/config/products.json` | Primary: all ~30 store products  | Full catalog                  |
+| `Store/*.md`                     | Extended: detailed product pages | Subset with long descriptions |
 
 ### What NOT to Do
 
@@ -403,15 +401,18 @@ git commit -m "Add Carbon Calculator V1 product catalog"
 ## 🎨 Brand Assets
 
 **Product Logos:**
+
 - LWM: `/dws10.com/DWS_IQ2026.png`
 - Firehorse: `/dws10.com/Firehorse2026.png`
 - DWS IQ Platform: `/dws10.com/DWS_IQ2026.png`
 
 **Trust Badges:**
+
 - EU-Sovereign: `/product-catalog/assets/badges/EU_Sovereign.png`
 - See [Badge README](./assets/badges/README.md) for usage guidelines
 
 **Brand Colors:**
+
 - NVIDIA Green: `#76B900` (Firehorse V2)
 - DWS Blue: `#0066cc` (Platform primary)
 - Dark Background: `#0a1628` (Enterprise theme)
@@ -435,6 +436,7 @@ These guarantees apply to explicitly designated EU-sovereign deployment options 
 **Sovereignty Landing Page:** [/sovereignty/sovereignty.html](/sovereignty/sovereignty.html)
 
 **Badge Placement Required On:**
+
 - All product specification headers (with deployment tier clarity)
 - Product pages on dws10.com
 - Marketing materials and sales decks
@@ -445,17 +447,20 @@ These guarantees apply to explicitly designated EU-sovereign deployment options 
 ## 📞 Contact & Ownership
 
 **Product Catalog Maintainers:**
+
 - **Product Management:** Define features, pricing, positioning
 - **Marketing:** Write copy, competitive analysis, testimonials
 - **Engineering:** Validate technical specs, benchmarks
 - **Sales:** Confirm pricing, customer feedback
 
 **Review Cadence:**
+
 - **Weekly:** Product Ops (availability, pricing sync)
 - **Monthly:** Product Manager (strategy alignment)
 - **Quarterly:** Cross-functional (roadmap, positioning)
 
 **Questions or Updates:**
+
 - Slack: `#product-catalog`
 - Email: `product@lifetime.fi`
 
@@ -464,6 +469,7 @@ These guarantees apply to explicitly designated EU-sovereign deployment options 
 ## 🔮 Future Enhancements
 
 **Planned Improvements:**
+
 1. **Automated JSON → Website Sync:** GitHub Actions to auto-update product pages
 2. **Multi-language Support:** EN, FI, SV versions of all content
 3. **A/B Testing Metadata:** Track which `productHighlights` convert best

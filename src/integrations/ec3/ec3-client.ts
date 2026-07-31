@@ -20,13 +20,13 @@
  * data, attribute Building Transparency and EC3 in documentation.
  */
 
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import axios, { type AxiosError, type AxiosInstance } from 'axios';
 import pino from 'pino';
 import { normalizeToKg, resolveCanonicalUnit } from '../../agents/unit-normalization.js';
 import type {
+  EC3CategoryStats,
   EC3Epd,
   EC3SearchResponse,
-  EC3CategoryStats,
   NormalizedEpd,
 } from './types.js';
 
@@ -120,7 +120,7 @@ export class EC3Client {
     const ec3Category = MATERIAL_TO_EC3_CATEGORY[normalizedName];
 
     if (!ec3Category) {
-      logger.info('No EC3 category mapping for material', { materialName });
+      logger.info({ materialName }, 'No EC3 category mapping for material');
       return this.emptyStats(materialName);
     }
 
@@ -150,11 +150,7 @@ export class EC3Client {
       const epds = response.results ?? response.items ?? [];
       return this.buildCategoryStats(materialName, ec3Category, epds);
     } catch (err: any) {
-      logger.error('EC3 API search failed', {
-        materialName,
-        ec3Category,
-        error: err.message,
-      });
+      logger.error({ materialName, ec3Category, error: err.message }, 'EC3 API search failed');
       return this.emptyStats(materialName);
     }
   }
@@ -166,7 +162,7 @@ export class EC3Client {
     try {
       return await this.fetchWithRetry<EC3Epd>(`/epds/${id}`, { method: 'GET' });
     } catch (err: any) {
-      logger.error('EC3 API get EPD failed', { id, error: err.message });
+      logger.error({ id, error: err.message }, 'EC3 API get EPD failed');
       return null;
     }
   }
@@ -197,7 +193,7 @@ export class EC3Client {
     }
 
     if (normalizedEpds.length === 0) {
-      logger.warn('All EPDs failed normalization', { materialName, rawCount: epds.length });
+      logger.warn({ materialName, rawCount: epds.length }, 'All EPDs failed normalization');
       return this.emptyStats(materialName);
     }
 
@@ -211,11 +207,7 @@ export class EC3Client {
     const confidence = this.assessConfidence(normalizedEpds.length);
 
     if (confidence === 'low') {
-      logger.warn('EC3 low confidence: fewer than 3 EPDs in category', {
-        materialName,
-        ec3Category,
-        epdCount: normalizedEpds.length,
-      });
+      logger.warn({ materialName, ec3Category, epdCount: normalizedEpds.length }, 'EC3 low confidence: fewer than 3 EPDs in category');
     }
 
     return {
@@ -386,7 +378,7 @@ export class EC3Client {
 
         // Exponential backoff: 1s, 2s, 4s
         const delay = Math.pow(2, attempt) * 1000;
-        logger.warn('EC3 API retrying', { path, status, attempt: attempt + 1, delayMs: delay });
+        logger.warn({ path, status, attempt: attempt + 1, delayMs: delay }, 'EC3 API retrying');
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
     }

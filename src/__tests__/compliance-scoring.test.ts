@@ -4,9 +4,9 @@
  * Deterministic input→output tests for the core product logic.
  */
 
-import { describe, it, expect } from 'vitest';
-import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
-import { ESRS_REGISTRY, getMandatoryDisclosures, TOTAL_DISCLOSURES, MANDATORY_DISCLOSURES } from '../compliance/esrs-registry.js';
+import { describe, expect, it } from 'vitest';
+import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
+import { ESRS_REGISTRY, getMandatoryDisclosures, MANDATORY_DISCLOSURES, TOTAL_DISCLOSURES } from '../compliance/esrs-registry.js';
 import { generateReport } from '../compliance/report-generator.js';
 
 // ============ ESRS REGISTRY TESTS ============

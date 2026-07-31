@@ -362,7 +362,7 @@ Before sending ANY DM, verify:
 
 > Great to hear from you, [First Name]. Before the demo, a quick note on what makes this different:
 >
-> Instead of a generic angel round, I'm opening 8 Platinum Industry Captain seats — EUR 50k SAFE at EUR 3.8M cap with 20% discount. Each Captain owns one of 20 EU industry verticals: founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
+> Instead of a generic angel round, I'm opening 8 Platinum Industry Captain seats — EUR 50k SAFE at EUR 3.8M cap with 18% discount. Each Captain owns one of 20 EU industry verticals: founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
 >
 > [Industry] is available. One seat per industry.
 >

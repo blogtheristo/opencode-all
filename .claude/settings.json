@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "Shared project settings for Claude Code across all repo-backed sessions.",
+  "env": {
+    "DISABLE_BUG_COMMAND": 0,
+    "DISABLE_AUTO_UPDATE": 0
+  },
+  "cleanupPeriodDays": 180,
+  "disableAllHooks": false,
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -NoProfile -Command:*)",
+      "Bash(pandoc:*)",
+      "Bash(pip install:*)",
+      "Bash(python -c:*)",
+      "Bash(python -X utf8 -c:*)",
+      "Bash(ls:*)",
+      "Bash(python:*)",
+      "Bash(git:*)",
+      "Bash(start:*)",
+      "Bash(xargs grep *)",
+      "Bash(node dws10.com/feeds/generate-local-inventory.cjs)",
+      "Bash(cat)",
+      "Bash(bash /tmp/audit.sh)",
+      "Bash(grep -v \"index.html$\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/metropolia/master-thesis/en/V3Thesis_EN.md\" \"F:/2026/Repos2026/dws6/Learn/V3Thesis_EN.md\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/metropolia/master-thesis/fi/V3Thesis_FI.md\" \"F:/2026/Repos2026/dws6/Learn/V3Thesis_FI.md\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/PHD_FIREHORSE_EN.md\" \"F:/2026/Repos2026/dws6/Learn/PHD_FIREHORSE_EN.md\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/PHD_FIREHORSE_FI.md\" \"F:/2026/Repos2026/dws6/Learn/PHD_FIREHORSE_FI.md\")",
+      "Bash(node scripts/gen-thesis-html.cjs)",
+      "Bash(claude update *)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo *)",
+      "Bash(sudo:*)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*secret*)",
+      "Read(**/*credentials*)",
+      "Bash(printenv)",
+      "Bash(printenv:*)",
+      "Bash(env)",
+      "Bash(cat .env)",
+      "Bash(cat .env.*)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "dws-gateway-local"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse-guard.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-commands.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/sql-safety-guard.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-signature.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/blog-draft-gate.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/md-restore-version-delimiters.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || npx eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-output-scan.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/token-usage-record.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

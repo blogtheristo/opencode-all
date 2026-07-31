@@ -1,785 +1,473 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lifetime World Model | Regulatory Intelligence for 20 EU Industries | DWS IQ 6</title>
-  <meta name="description" content="Lifetime World Model — sovereign regulatory intelligence engine. 20 EU-regulated industries, 15,000+ regulations indexed, carbon balance sheet infrastructure. On-premise deployment.">
-  <meta name="keywords" content="world model, physical AI, sovereign AI, EU compliance, CSRD, ETS, CBAM, Fit for 55, construction AI, NVIDIA Cosmos, edge AI, climate LLM">
-  <meta name="author" content="Lifetime Oy">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Lifetime World Model | 55B Sovereign Physical AI | DWS IQ 6">
-  <meta property="og:description" content="55B parameter sovereign AI for 20 EU-regulated industries. 15,000+ regulations indexed. On-premise deployment. Zero cloud risk.">
-  <meta property="og:type" content="product">
-  <meta property="og:url" content="https://dws10.com/world-model/">
-  <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-  <meta property="og:site_name" content="DWS IQ Platform">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Lifetime World Model | 55B Sovereign Physical AI">
-  <meta name="twitter:description" content="55B parameter sovereign AI for 20 EU-regulated industries. On-premise. Zero cloud risk.">
-  <link rel="canonical" href="https://dws10.com/world-model/">
-  <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
-  <style>
-    :root {
-      --accent-blue: #60a5fa;
-      --accent-green: #4ade80;
-      --accent-amber: #fbbf24;
-      --accent-red: #ef4444;
-      --surface: rgba(30, 41, 59, 0.5);
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      min-height: 100vh;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-    /* Hero */
-    .hero {
-      padding: 80px 0 60px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(96, 165, 250, 0.15);
-      color: var(--accent-blue);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      border: 1px solid rgba(96, 165, 250, 0.3);
-    }
-
-    .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 span { color: var(--accent-blue); }
-
-    .hero p.subtitle {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 30px;
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .hero-stat {
-      text-align: center;
-    }
-
-    .hero-stat .number {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-blue);
-      display: block;
-    }
-
-    .hero-stat .label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Sections */
-    section { padding: 60px 0; }
-    section:nth-child(even) { background: var(--surface); }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    h2 span { color: var(--accent-blue); }
-
-    .section-sub {
-      text-align: center;
-      color: var(--text-muted);
-      margin-bottom: 40px;
-      font-size: 1.1rem;
-    }
-
-    /* Cards */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 30px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 28px;
-    }
-
-    .card h3 {
-      font-size: 1.2rem;
-      color: var(--accent-blue);
-      margin-bottom: 12px;
-    }
-
-    .card p, .card li {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .card li {
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .card li::before {
-      content: "\2192 ";
-      color: var(--accent-blue);
-    }
-
-    /* Architecture */
-    .arch-box {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 30px;
-      margin: 30px auto;
-      max-width: 800px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-      color: var(--accent-blue);
-      overflow-x: auto;
-      white-space: pre;
-      line-height: 1.5;
-    }
-
-    /* Industries grid */
-    .industry-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 30px;
-    }
-
-    .industry-item {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .industry-item i {
-      color: var(--accent-blue);
-      font-size: 1.2rem;
-      width: 24px;
-      text-align: center;
-    }
-
-    .industry-item span {
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-
-    .tier-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent-amber);
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* Pricing */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 30px;
-    }
-
-    .price-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-    }
-
-    .price-card.featured {
-      border-color: var(--accent-blue);
-      background: rgba(96, 165, 250, 0.08);
-    }
-
-    .price-card h3 {
-      font-size: 1.3rem;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .price-card .price {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--accent-blue);
-      margin: 16px 0;
-    }
-
-    .price-card .price small {
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-
-    .price-card ul {
-      list-style: none;
-      padding: 0;
-      text-align: left;
-      margin-top: 20px;
-    }
-
-    .price-card li {
-      padding: 8px 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .price-card li::before {
-      content: "\2713 ";
-      color: var(--accent-green);
-      font-weight: bold;
-    }
-
-    /* CTA */
-    .cta-section {
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      background: var(--accent-blue);
-      color: #0f172a;
-      padding: 16px 32px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: opacity 0.2s;
-    }
-
-    .cta-btn:hover { opacity: 0.9; }
-
-    .cta-secondary {
-      display: inline-block;
-      color: var(--accent-blue);
-      border: 2px solid var(--accent-blue);
-      padding: 14px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-left: 16px;
-      transition: background 0.2s;
-    }
-
-    .cta-secondary:hover {
-      background: rgba(96, 165, 250, 0.1);
-    }
-
-    /* Comparison table */
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-    }
-
-    .compare-table th, .compare-table td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.9rem;
-    }
-
-    .compare-table th {
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-    }
-
-    .compare-table td { color: var(--text); }
-
-    .compare-table tr:hover td {
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .check { color: var(--accent-green); }
-    .cross { color: var(--accent-red); }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .hero-stats { gap: 20px; }
-      .card-grid, .pricing-grid { grid-template-columns: 1fr; }
-      .industry-grid { grid-template-columns: repeat(2, 1fr); }
-      .cta-secondary { margin-left: 0; margin-top: 12px; display: block; }
-    }
-  </style>
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Lifetime World Model (LWM)",
-    "description": "55B parameter sovereign Physical AI for 20 EU-regulated industries. On-premise deployment, 15,000+ EU regulations indexed, 20 industry-specific models.",
-    "brand": {
-      "@type": "Brand",
-      "name": "DWS IQ Platform"
-    },
-    "manufacturer": {
-      "@type": "Organization",
-      "name": "Lifetime Oy",
-      "url": "https://dws10.com"
-    },
-    "category": "Enterprise AI Software",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "API Access",
-        "price": "99",
-        "priceCurrency": "EUR",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "99",
-          "priceCurrency": "EUR",
-          "unitText": "per asset per month"
-        },
-        "availability": "https://schema.org/InStock"
-      },
-      {
-        "@type": "Offer",
-        "name": "Enterprise License",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/PreOrder",
-        "description": "Custom pricing — on-premise sovereign AI deployment. Contact for quote."
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifetime World Model V1 | Europe's Sovereign Industrial Intelligence | DWS IQ 6</title>
+    <meta
+      name="description"
+      content="Europe's first Sovereign Industrial Intelligence engine. Air-gapped physical AI that commands complex industrial operations, respects physical laws, and leads European regulatory environments — from inside your network boundary."
+    />
+    <meta
+      name="keywords"
+      content="sovereign industrial intelligence, physical AI, sovereign AI, NVIDIA DGX, world model, European industry, air-gapped AI, on-premise AI, industrial AI, EU AI Act, CBAM, dual-use"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Lifetime World Model V1 | Europe's Sovereign Industrial Intelligence"
+    />
+    <meta
+      property="og:description"
+      content="Air-gapped physical AI for European heavy industry. Trained on-prem. Data never leaves. Your model is yours."
+    />
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="https://dws10.com/world-model/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Europe's Sovereign Industrial Intelligence" />
+    <meta
+      name="twitter:description"
+      content="Air-gapped physical AI for European heavy industry. Your data stays. Your model is yours."
+    />
+    <link rel="canonical" href="https://dws10.com/world-model/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <style>
+      :root {
+        --accent-blue: #60a5fa;
+        --accent-green: #4ade80;
+        --accent-amber: #fbbf24;
+        --accent-purple: #a78bfa;
+        --surface: rgba(30, 41, 59, 0.5);
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
       }
-    ]
-  }
-  </script>
-</head>
 
-<body>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-badge">Carbon Balance Sheet Infrastructure</div>
-      <h1>Lifetime <span>World Model</span></h1>
-      <p class="subtitle">The regulatory intelligence engine that tracks every tonne like every euro. Double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and Taxonomy. Built for 20 EU-regulated industries.</p>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        line-height: 1.7;
+        color: var(--text);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
+      }
 
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="number">6</span>
-          <span class="label">Customers</span>
+      .container {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 100px 0 70px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(167, 139, 250, 0.15);
+        color: var(--accent-purple);
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 28px;
+        border: 1px solid rgba(167, 139, 250, 0.3);
+        letter-spacing: 0.04em;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+      }
+
+      .hero h1 span {
+        color: var(--accent-blue);
+      }
+
+      .hero p.subtitle {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        max-width: 620px;
+        margin: 0 auto 12px;
+        line-height: 1.7;
+      }
+
+      .hero-powered {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 24px;
+        letter-spacing: 0.03em;
+      }
+
+      .hero-powered strong {
+        color: var(--accent-green);
+      }
+
+      /* Sections */
+      section {
+        padding: 72px 0;
+      }
+
+      section + section {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+
+      h2 span {
+        color: var(--accent-blue);
+      }
+
+      .section-lead {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        line-height: 1.7;
+      }
+
+      .section-body {
+        color: var(--text-muted);
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .section-body p + p {
+        margin-top: 16px;
+      }
+
+      .section-body strong {
+        color: var(--text);
+      }
+
+      /* Guarantee items */
+      .guarantee-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 28px;
+      }
+
+      .guarantee-list li {
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        font-size: 1rem;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .guarantee-list li::before {
+        content: "\2713";
+        color: var(--accent-green);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* Case study */
+      .case-label {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent-amber);
+        margin-bottom: 12px;
+      }
+
+      /* Not SaaS callout */
+      .not-saas-line {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      /* CTA */
+      .cta-section {
+        text-align: center;
+        padding: 80px 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .cta-section h2 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+
+      .cta-sub {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        margin-bottom: 36px;
+      }
+
+      .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .cta-btn {
+        display: block;
+        background: var(--accent-blue);
+        color: #0f172a;
+        padding: 18px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.05rem;
+        transition: opacity 0.2s;
+      }
+
+      .cta-btn:hover {
+        opacity: 0.9;
+      }
+
+      .cta-btn-outline {
+        display: block;
+        color: var(--accent-blue);
+        border: 2px solid var(--accent-blue);
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background 0.2s;
+      }
+
+      .cta-btn-outline:hover {
+        background: rgba(96, 165, 250, 0.1);
+      }
+
+      .cta-btn-ghost {
+        display: block;
+        color: var(--accent-green);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background 0.2s;
+      }
+
+      .cta-btn-ghost:hover {
+        background: rgba(74, 222, 128, 0.08);
+      }
+
+      .cta-btn-sub {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+        font-weight: 400;
+      }
+
+      .cta-contact {
+        margin-top: 24px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+        .hero {
+          padding: 60px 0 50px;
+        }
+        section {
+          padding: 50px 0;
+        }
+        .cta-buttons {
+          max-width: 100%;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Lifetime World Model V1 (LWM)",
+        "description": "Europe's first Sovereign Industrial Intelligence engine. Air-gapped physical AI for 25 EU-regulated industries on NVIDIA hardware.",
+        "brand": { "@type": "Brand", "name": "DWS IQ Platform" },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "category": "Sovereign Industrial Intelligence",
+        "offers": {
+          "@type": "Offer",
+          "name": "Enterprise License",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/PreOrder",
+          "description": "Sovereign on-premise industrial intelligence deployment. Contact for consultation."
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">Lifetime World Model V1</div>
+        <h1>Europe's Sovereign <span>Industrial Intelligence</span></h1>
+        <p class="subtitle">
+          The era of generic, cloud-dependent AI is over for heavy industry. LWM V1 is an air-gapped
+          physical AI foundation built to command complex industrial operations, respect physical
+          laws, and lead European regulatory environments &mdash; from inside your network boundary.
+        </p>
+        <p class="hero-powered">
+          Natively powered by <strong>NVIDIA</strong>. Deployed globally by
+          <strong>Lifetime Oy</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- The Architecture of Command -->
+    <section>
+      <div class="container">
+        <h2>The Architecture of <span>Command</span></h2>
+        <div class="section-body">
+          <p>
+            Sovereign Industrial Intelligence is built on a dual-helix architecture:
+            <strong>Operational DNA</strong> (thermodynamic profiles, acoustic signatures, shift
+            patterns, process workflows) and <strong>Regulatory DNA</strong> (CBAM, CSRD, EU AI Act
+            Art.&nbsp;12, NIS2). One governed model that internalises both &mdash; on-site,
+            air-gapped &mdash; so compliance becomes a native byproduct of operational awareness.
+          </p>
         </div>
-        <div class="hero-stat">
-          <span class="number">20</span>
-          <span class="label">Industries</span>
-        </div>
-        <div class="hero-stat">
-          <span class="number">15,000+</span>
-          <span class="label">EU Regulations</span>
-        </div>
-        <div class="hero-stat">
-          <span class="number">82</span>
-          <span class="label">ESRS Disclosures</span>
+        <ul class="guarantee-list">
+          <li>
+            <strong>Zero Cloud Dependency.</strong> The model trains and executes entirely on your
+            NVIDIA hardware. Every byte of operational telemetry stays inside your walls. Finnish
+            jurisdiction only &mdash; no CLOUD Act, no FISA 702.
+          </li>
+          <li>
+            <strong>Compound Returns.</strong> Every shift, every sensor reading, every operational
+            decision makes the model smarter. After twelve months your factory&rsquo;s intelligence
+            is a permanent corporate asset that no competitor can copy, rent, or reverse-engineer.
+          </li>
+          <li>
+            <strong>Unreplicable Moat.</strong> Per-site unique model trained where the data lives.
+            You own 100% of the resulting model weights. The moat is not the model &mdash; it is
+            whose data trained it.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Industrial Intelligence in Action -->
+    <section>
+      <div class="container">
+        <span class="case-label">Industrial Intelligence in Action</span>
+        <h2>The Tornio <span>Paradigm</span></h2>
+        <div class="section-body">
+          <p>
+            At Outokumpu's Tornio Stainless Steel Mill, the Lifetime World Model doesn't just
+            analyze data &mdash; it internalizes the physical reality of the facility.
+          </p>
+          <p>
+            By running an entirely air-gapped training cascade on local NVIDIA hardware, the model
+            learns the unique thermodynamic profiles, acoustic signatures, and operational workflows
+            of high-energy electric arc furnaces. It automates complex compliance logging for the EU
+            AI Act and CBAM as a <strong>native byproduct of its operational awareness</strong>.
+          </p>
+          <p>The data stays in the mill. The intelligence stays in the boardroom.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- What Is LWM -->
-  <section>
-    <div class="container">
-      <h2>Three Layers of <span>Intelligence</span></h2>
-      <p class="section-sub">Not a wrapper around a general-purpose LLM. Domain-specific knowledge encoded over 7 years.</p>
-
-      <div class="card-grid">
-        <div class="card">
-          <h3><i class="fas fa-brain"></i> Carbon Balance Sheet</h3>
-          <ul>
-            <li>Double-entry bookkeeping for CO2 (EUR + tCO2e)</li>
-            <li>Cross-regulation reconciliation (ETS, CBAM, CSRD, Taxonomy)</li>
-            <li>Network effect: verified emissions improve all customers</li>
-            <li>87% compliance time reduction (validated)</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3><i class="fas fa-gavel"></i> EU Regulatory Intelligence</h3>
-          <ul>
-            <li>15,000+ EU regulations indexed</li>
-            <li>Fit for 55 stack: ETS, CBAM, CSRD, EPBD, ESR</li>
-            <li>82 ESRS disclosures pre-mapped</li>
-            <li>Cross-regulation mapping (CBAM ↔ CSRD ↔ ETS)</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3><i class="fas fa-industry"></i> 20 Industry Models</h3>
-          <ul>
-            <li>QLoRA fine-tuned on Llama 3.1 8B</li>
-            <li>Industry-specific compliance logic</li>
-            <li>Validated emission factors per sector</li>
-            <li>Continuous learning from operations</li>
-          </ul>
+    <!-- This Is Not SaaS -->
+    <section>
+      <div class="container">
+        <h2>This Is <span>Not SaaS</span></h2>
+        <p class="not-saas-line">
+          You cannot build an unassailable corporate moat on a subscription basis.
+        </p>
+        <div class="section-body">
+          <p>
+            SaaS platforms force you to export your proprietary operational DNA to external servers,
+            effectively subsidizing a generic model that will eventually be sold back to your
+            rivals.
+          </p>
+          <p>
+            <strong
+              >We don't rent you software. We deploy permanent cognitive infrastructure that you own
+              outright.</strong
+            >
+          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Architecture -->
-  <section>
-    <div class="container">
-      <h2>Brain — Memory — Body — <span>Hands</span></h2>
-      <p class="section-sub">Four-pillar architecture. Each pillar is a product.</p>
-
-      <div class="arch-box">
-┌─────────────────────────────────────────────────┐
-│  BRAIN   DWS IQ 6 Platform                      │
-│          Agent Swarm Training &amp; Orchestration    │
-├─────────────────────────────────────────────────┤
-│  MEMORY  Lifetime World Model (LWM)             │
-│          Climate LLM + EU Regs + Industry Models │
-├─────────────────────────────────────────────────┤
-│  BODY    Firehorse Suite                         │
-│          Reports · Automation · ContentMS · Omni │
-├─────────────────────────────────────────────────┤
-│  HANDS   Lifetime Fleet                          │
-│          IoT Sensors · Edge Nodes · Robots       │
-└─────────────────────────────────────────────────┘</div>
-    </div>
-  </section>
-
-  <!-- 20 Industries -->
-  <section>
-    <div class="container">
-      <h2><span>20</span> EU-Regulated Industries</h2>
-      <p class="section-sub">One platform. Every industry your business touches. No new vendor needed.</p>
-
-      <div class="industry-grid">
-        <div class="industry-item">
-          <i class="fas fa-bolt"></i>
-          <div><span>Power &amp; Heat</span><span class="tier-label">ETS Direct</span></div>
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to See What <span>Sovereign Intelligence</span> Looks Like?</h2>
+        <p class="cta-sub">
+          One conversation. We assess your operational topology, regulatory exposure, and deployment
+          timeline.
+        </p>
+        <div class="cta-buttons">
+          <a
+            href="https://wa.me/358400319010?text=I%27m%20interested%20in%20Sovereign%20Industrial%20Intelligence.%20Can%20we%20set%20up%20a%20pilot%20conversation%3F"
+            class="cta-btn"
+            target="_blank"
+            >Start a Pilot Conversation
+            <span class="cta-btn-sub"
+              >Teams &middot; WhatsApp &middot; Jitsi &mdash; your choice</span
+            >
+          </a>
+          <a
+            href="mailto:risto@lifetime.fi?subject=Request%3A%20Sovereign%20Industrial%20Intelligence%20Pilot%20Delivery%20Plan&body=Please%20send%20the%20Pilot%20Delivery%20Plan%20for%20our%20review.%0A%0ACompany%3A%20%0AIndustry%3A%20%0AKey%20regulatory%20exposure%3A%20%0A"
+            class="cta-btn-outline"
+            >Request Pilot Delivery Plan
+            <span class="cta-btn-sub"
+              >Receive a customized pilot scope, timeline, and NVIDIA hardware specification</span
+            >
+          </a>
+          <a
+            href="https://wa.me/358400319010?text=I%27d%20like%20to%20receive%20the%20European%20Sovereign%20Industrial%20Intelligence%20whitepaper."
+            class="cta-btn-ghost"
+            target="_blank"
+            >Learn More &mdash; Request the Whitepaper
+            <span class="cta-btn-sub"
+              >European Sovereign Industrial Intelligence &mdash; the full thesis, architecture, and
+              25-industry model library</span
+            >
+          </a>
         </div>
-        <div class="industry-item">
-          <i class="fas fa-hammer"></i>
-          <div><span>Iron &amp; Steel</span><span class="tier-label">ETS + CBAM</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-building"></i>
-          <div><span>Cement &amp; Lime</span><span class="tier-label">ETS + CBAM</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-flask"></i>
-          <div><span>Chemicals</span><span class="tier-label">ETS + REACH</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-plane"></i>
-          <div><span>Aviation</span><span class="tier-label">ETS + ReFuelEU</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-ship"></i>
-          <div><span>Maritime</span><span class="tier-label">ETS (2024)</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-truck"></i>
-          <div><span>Road Transport</span><span class="tier-label">ETS2 (2027)</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-hard-hat"></i>
-          <div><span>Construction</span><span class="tier-label">EPBD + EN 15978</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-tractor"></i>
-          <div><span>Agriculture</span><span class="tier-label">ESR + CAP</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-recycle"></i>
-          <div><span>Waste Management</span><span class="tier-label">ESR</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-cube"></i>
-          <div><span>Aluminium</span><span class="tier-label">ETS + CBAM</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-scroll"></i>
-          <div><span>Pulp &amp; Paper</span><span class="tier-label">ETS</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-oil-can"></i>
-          <div><span>Petroleum Refining</span><span class="tier-label">ETS Direct</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-utensils"></i>
-          <div><span>Food &amp; Beverage</span><span class="tier-label">ESR + CSRD</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-wine-glass"></i>
-          <div><span>Glass &amp; Ceramics</span><span class="tier-label">ETS</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-mountain"></i>
-          <div><span>Mining &amp; Quarrying</span><span class="tier-label">ESR</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-home"></i>
-          <div><span>Real Estate</span><span class="tier-label">EPBD + CSRD</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-cogs"></i>
-          <div><span>Manufacturing</span><span class="tier-label">ETS + CSRD</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-heartbeat"></i>
-          <div><span>Healthcare</span><span class="tier-label">CSRD + GDPR</span></div>
-        </div>
-        <div class="industry-item">
-          <i class="fas fa-university"></i>
-          <div><span>Financial Services</span><span class="tier-label">SFDR + CSRD</span></div>
-        </div>
+        <p class="cta-contact">risto@lifetime.fi &middot; Lifetime Oy &middot; Helsinki, Finland</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Why Sovereign -->
-  <section>
-    <div class="container">
-      <h2>Why <span>Sovereign</span> AI?</h2>
-      <p class="section-sub">Your structural IP never leaves your infrastructure.</p>
-
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Cloud AI (GPT, Gemini)</th>
-            <th>LWM On-Premise</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Data leaves your network</td>
-            <td><span class="cross">Yes</span></td>
-            <td><span class="check">Never</span></td>
-          </tr>
-          <tr>
-            <td>CLOUD Act exposure</td>
-            <td><span class="cross">US jurisdiction</span></td>
-            <td><span class="check">Zero</span></td>
-          </tr>
-          <tr>
-            <td>Works offline</td>
-            <td><span class="cross">No</span></td>
-            <td><span class="check">Yes — edge nodes</span></td>
-          </tr>
-          <tr>
-            <td>Industry-specific models</td>
-            <td><span class="cross">Generic</span></td>
-            <td><span class="check">20 fine-tuned models</span></td>
-          </tr>
-          <tr>
-            <td>EU AI Act ready</td>
-            <td><span class="cross">Varies</span></td>
-            <td><span class="check">Article 12 logging built-in</span></td>
-          </tr>
-          <tr>
-            <td>Learns from your operations</td>
-            <td><span class="cross">No</span></td>
-            <td><span class="check">Continuous learning</span></td>
-          </tr>
-          <tr>
-            <td>Monthly infrastructure cost</td>
-            <td>$350,000+/year</td>
-            <td>From €15/month (edge)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- Technical -->
-  <section>
-    <div class="container">
-      <h2>Technical <span>Specifications</span></h2>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Model Architecture</h3>
-          <ul>
-            <li>55B parameters (NVIDIA Cosmos foundation)</li>
-            <li>Industry models: Llama 3.1 8B + QLoRA</li>
-            <li>FP4 precision for edge efficiency</li>
-            <li>Context: entire project lifecycle</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>NVIDIA Stack</h3>
-          <ul>
-            <li>Cosmos: physics prediction, world understanding</li>
-            <li>GB10 Grace Blackwell Superchip</li>
-            <li>Jetson Orin Nano (edge deployment)</li>
-            <li>OpenUSD + Omniverse digital twins</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Deployment Options</h3>
-          <ul>
-            <li>On-premise: sovereign AI factory</li>
-            <li>EU cloud: Finland (europe-north1)</li>
-            <li>Edge: NVIDIA Jetson, sub-second latency</li>
-            <li>Hybrid: cloud + edge federation</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Compliance -->
-  <section>
-    <div class="container">
-      <h2>EU Compliance <span>Built In</span></h2>
-      <p class="section-sub">Not bolted on. The regulatory intelligence graph is the foundation.</p>
-
-      <div class="card-grid">
-        <div class="card">
-          <h3>Fit for 55 Package</h3>
-          <ul>
-            <li>ETS Phase 4 allowance calculations</li>
-            <li>CBAM transitional + definitive (2026)</li>
-            <li>CSRD with 82 ESRS disclosures mapped</li>
-            <li>EPBD energy performance compliance</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Reporting Automation</h3>
-          <ul>
-            <li>Scope 1, 2, 3 emissions analysis</li>
-            <li>EU Taxonomy alignment scoring</li>
-            <li>Double materiality assessment</li>
-            <li>Audit-ready documentation</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Data Sources</h3>
-          <ul>
-            <li>EU ETS benchmarks (Reg. 2021/447)</li>
-            <li>CBAM defaults (Reg. 2023/1773)</li>
-            <li>18 EU country grid emission factors</li>
-            <li>EEA GHG Inventory, Eurostat</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section>
-    <div class="container">
-      <h2>Pricing</h2>
-      <p class="section-sub">Start with API access. Scale to full platform.</p>
-
-      <div class="pricing-grid">
-        <div class="price-card">
-          <h3>API Access</h3>
-          <div class="price">€99<small>/asset/month</small></div>
-          <ul>
-            <li>Compliance cost per asset (CSRD, ETS, Taxonomy)</li>
-            <li>Scope 2 carbon cost calculations</li>
-            <li>EU-hosted API (Finland)</li>
-            <li>JSON response, 2-second SLA</li>
-            <li>Free trial: 2 assets, 30 days</li>
-          </ul>
-        </div>
-
-        <div class="price-card featured">
-          <h3>Compliance Platform</h3>
-          <div class="price">€6,500<small>/year</small></div>
-          <ul>
-            <li>Full CSRD reporting suite</li>
-            <li>82 ESRS disclosures automated</li>
-            <li>Firehorse Reports + Automation</li>
-            <li>AI-powered data collection</li>
-            <li>Audit-ready documentation</li>
-            <li>Operational in 30 days</li>
-          </ul>
-        </div>
-
-        <div class="price-card">
-          <h3>Enterprise License</h3>
-          <div class="price">Custom<small> — contact us</small></div>
-          <ul>
-            <li>Full LWM on-premise deployment</li>
-            <li>55B parameter sovereign AI</li>
-            <li>20 industry models included</li>
-            <li>Digital twin synchronization</li>
-            <li>Custom model fine-tuning</li>
-            <li>Edge hardware sold separately (from €4,000)</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container">
-      <h2>Ready to Deploy <span>Sovereign AI</span>?</h2>
-      <p class="section-sub">Start with a free API trial. No commitment, no cloud risk.</p>
-      <div style="margin-top: 30px;">
-        <a href="mailto:risto@lifetime.fi?subject=LWM%20API%20Trial" class="cta-btn">Start Free Trial</a>
-        <a href="/csrd/" class="cta-secondary">See CSRD Reporting</a>
-      </div>
-      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">
-        Or email risto@lifetime.fi for enterprise pricing discussion.
-      </p>
-    </div>
-  </section>
-
-<script src="/shared-assets/nav/ironclad-nav.js"></script>
-<script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
-
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
 </html>

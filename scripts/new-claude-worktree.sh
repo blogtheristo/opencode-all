@@ -414,7 +414,7 @@ fi
 # STEP 6: Ping Docker & MCP Services
 # ============================================================================
 
-log_info "[6/7] Checking Docker & MCP services..."
+log_info "[6/7] Checking Docker & MCP configuration..."
 
 # Check if Docker is running
 DOCKER_RUNNING=false
@@ -423,11 +423,10 @@ if command -v docker &>/dev/null; then
         log_info "  Docker: running"
         DOCKER_RUNNING=true
     else
-        log_error "  Docker: NOT running — MCP containers unavailable"
-        VALIDATION_ERRORS+=("Docker is not running — start Docker first")
+        log_warn "  Docker: NOT running — local container checks skipped"
     fi
 else
-    log_error "  Docker: NOT installed or not in PATH"
+    log_warn "  Docker: NOT installed or not in PATH (OK for remote MCP)"
 fi
 
 if [[ "$DOCKER_RUNNING" == true ]]; then
@@ -449,46 +448,45 @@ if [[ "$DOCKER_RUNNING" == true ]]; then
 
     if [[ $CONTAINER_COUNT -eq 0 ]]; then
         log_warn "  No Docker containers running"
-        echo "  Start with: docker-compose -f docker-compose.hybrid.yml up -d"
+        echo "  Win11 developer MCP should stay local and non-Docker; DGX hosts the orchestration hub"
     fi
 
-    # Ping known MCP endpoints from .mcp.json
+    # Check configured MCP endpoints from .mcp.json
     WORKTREE_MCP="$NEW_WORKTREE/.mcp.json"
     if [[ -f "$WORKTREE_MCP" ]] && command -v curl &>/dev/null; then
         echo ""
         echo -e "  ${CYAN}MCP server connectivity:${NC}"
 
-        # Extract health endpoints and URLs from .mcp.json
-        # Check REST API endpoints (Docker-based MCPs)
-        while IFS= read -r url; do
-            url=$(echo "$url" | tr -d '",' | xargs)
-            if [[ "$url" == http* ]]; then
-                server_name=$(echo "$url" | sed 's|http://localhost:[0-9]*/||')
-                if curl -s --max-time 3 "$url" &>/dev/null; then
-                    echo -e "    ${GREEN}reachable${NC}: $url"
-                else
-                    echo -e "    ${RED}UNREACHABLE${NC}: $url"
-                fi
-            fi
-        done < <(grep -o '"http://[^"]*health[^"]*"' "$WORKTREE_MCP" 2>/dev/null)
-
-        # Check npx-based MCP servers (just report configured)
-        while IFS= read -r server; do
-            server=$(echo "$server" | tr -d '":,' | xargs)
-            if [[ -n "$server" && "$server" != "mcpServers" ]]; then
-                # Check if it has a "command" key (npx-based)
-                echo -e "    ${GREEN}configured${NC}: $server (spawns on session start)"
-            fi
-        done < <(python3 -c "
+        python3 -c "
 import json, sys
 try:
     with open('$WORKTREE_MCP') as f:
         data = json.load(f)
     for name, conf in data.get('mcpServers', {}).items():
-        if 'command' in conf:
-            print(name)
+        url = conf.get('url')
+        command = conf.get('command')
+        if url:
+            if '\${' in url:
+                print(f'ENV|{name}|{url}')
+            else:
+                health = f'{url}/health' if url.endswith('/mcp') else url
+                print(f'URL|{name}|{health}')
+        elif command:
+            print(f'CMD|{name}|{command}')
 except: pass
-" 2>/dev/null)
+" 2>/dev/null | while IFS='|' read -r kind name value; do
+            if [[ "$kind" == "URL" ]]; then
+                if curl -s --max-time 3 "$value" &>/dev/null; then
+                    echo -e "    ${GREEN}$name${NC}: reachable ($value)"
+                else
+                    echo -e "    ${RED}$name${NC}: UNREACHABLE ($value)"
+                fi
+            elif [[ "$kind" == "ENV" ]]; then
+                echo -e "    ${YELLOW}$name${NC}: needs environment variables ($value)"
+            elif [[ "$kind" == "CMD" ]]; then
+                echo -e "    ${GREEN}$name${NC}: configured (local command: $value)"
+            fi
+        done
     fi
 fi
 

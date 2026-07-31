@@ -9,10 +9,16 @@
  * Date: 2026-03-21
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Request, Response, NextFunction } from 'express';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextFunction, type Request, type Response } from 'express';
 import { AppError } from '../../middleware/error-handler.js';
-import { validate, ComplianceCheckSchema, OnboardingSchema } from '../../middleware/validate.js';
+import {
+  ComplianceCheckSchema,
+  OnboardingAssessSchema,
+  OnboardingErpTestSchema,
+  OnboardingSchema,
+  validate,
+} from '../../middleware/validate.js';
 
 // ============ HELPERS ============
 
@@ -34,8 +40,14 @@ function mockRes(): Response & { _status: number; _json: any } {
   const res = {
     _status: 200,
     _json: null,
-    status(code: number) { this._status = code; return this; },
-    json(data: any) { this._json = data; return this; },
+    status(code: number) {
+      this._status = code;
+      return this;
+    },
+    json(data: any) {
+      this._json = data;
+      return this;
+    },
     headersSent: false,
   } as unknown as Response & { _status: number; _json: any };
   return res;
@@ -194,6 +206,45 @@ describe('Onboarding Schema Validation', () => {
   });
 });
 
+describe('Onboarding Assess Schema Validation', () => {
+  it('accepts valid assessment payload', () => {
+    const result = OnboardingAssessSchema.safeParse({
+      dataPoints: [{ disclosureId: 'E1-1', provided: true }],
+      annualEmissions: 12345,
+      importValue: 5000,
+      hasTransitionPlan: true,
+      hasEmissionsMonitoring: true,
+      hasSupplyChainDD: false,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects negative emissions', () => {
+    const result = OnboardingAssessSchema.safeParse({
+      annualEmissions: -1,
+    });
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('Onboarding ERP Test Schema Validation', () => {
+  it('accepts manual ERP test payload without host', () => {
+    const result = OnboardingErpTestSchema.safeParse({
+      type: 'manual',
+      authMethod: 'none',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('requires host for ERP systems', () => {
+    const result = OnboardingErpTestSchema.safeParse({
+      type: 'sap',
+      authMethod: 'oauth2',
+    });
+    expect(result.success).toBe(false);
+  });
+});
+
 // ============ VALIDATE MIDDLEWARE INTEGRATION ============
 
 describe('validate() middleware', () => {
@@ -290,7 +341,11 @@ describe('Compliance Scoring Pipeline (Integration)', () => {
     expect(score.overallScore).toBeLessThanOrEqual(100);
     expect(score.regulationScores).toBeDefined();
 
-    const report = generateReport(input, score);
+    const report = generateReport(score, {
+      name: 'Test Steel Co',
+      industry: 'steel',
+      country: 'FI',
+    });
     expect(report.reportId).toBeDefined();
     expect(report.summary.overallScore).toBe(score.overallScore);
     expect(report.gaps.length).toBeGreaterThan(0);
@@ -337,10 +392,7 @@ describe('Compliance Scoring Pipeline (Integration)', () => {
       dataPoints: [],
     });
 
-    const report = generateReport(
-      { industry: 'steel', annualEmissions: 75000 },
-      score,
-    );
+    const report = generateReport({ industry: 'steel', annualEmissions: 75000 }, score);
     expect(report.summary).toBeDefined();
   });
 });

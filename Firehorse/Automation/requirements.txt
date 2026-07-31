@@ -9,7 +9,7 @@ pydantic>=2.5.0
 
 # HTTP Client
 httpx>=0.26.0
-aiohttp>=3.9.0
+aiohttp>=3.12.14
 
 # Scheduling
 apscheduler>=3.10.0
@@ -19,7 +19,7 @@ supabase>=2.3.0
 redis>=5.0.0
 
 # Utilities
-python-dotenv>=1.0.0
+python-dotenv>=1.2.2  # >=1.2.2: set_key symlink-overwrite fix
 
 # Monitoring
 structlog>=24.1.0

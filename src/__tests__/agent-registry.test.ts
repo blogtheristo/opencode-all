@@ -5,7 +5,7 @@
  * These are deterministic tests that don't require LLM API keys.
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { AgentRegistry } from '../agents/index.js';
 import { BaseAgent } from '../agents/base.agent.js';
 import type { AgentContext, AgentResponse } from '../agents/types.js';

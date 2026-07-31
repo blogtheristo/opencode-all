@@ -15,46 +15,45 @@
  */
 
 import crypto from 'node:crypto';
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { z } from 'zod';
-import { AppError, Errors } from '../middleware/error-handler.js';
+import { Errors } from '../middleware/error-handler.js';
 import { validate } from '../middleware/validate.js';
 import {
   createContent,
-  getContent,
-  getContentBySlug,
-  listContent,
-  updateContent,
-  transitionStatus,
-  getContentStats,
-  getPublishedLearning,
-  searchContent,
-  getExpiringCertificates,
   createShareLink,
+  getContent,
+  getContentStats,
+  getExpiringCertificates,
+  getPublishedLearning,
   getSharedContent,
+  listContent,
+  searchContent,
+  transitionStatus,
+  updateContent,
 } from './service.js';
 import { publishLearningArticle } from './blog-publisher.js';
 import { publishArtifact } from './artifact-publisher.js';
 import { distributeContent } from './omnichannel.js';
 import { generateDigest, sendDigestEmail } from './digest.js';
 import {
+  approveHilReview,
+  getAuditStats,
   getAuditTrail,
   getPendingReviews,
-  requestHilReview,
-  approveHilReview,
-  rejectHilReview,
   isHilApproved,
-  getAuditStats,
+  rejectHilReview,
+  requestHilReview,
 } from './audit.js';
 import {
-  CreateContentSchema,
-  UpdateContentSchema,
-  ContentFilterSchema,
-  DigestRequestSchema,
-  ShareLinkRequestSchema,
-  ContentStatus,
   ArtifactType,
+  ContentFilterSchema,
+  ContentStatus,
+  CreateContentSchema,
+  DigestRequestSchema,
   OmnichannelTarget,
+  ShareLinkRequestSchema,
+  UpdateContentSchema,
 } from './types.js';
 
 const router = Router();
@@ -113,7 +112,7 @@ const LearningQuerySchema = z.object({
 
 const StatusTransitionSchema = z.object({
   status: z.nativeEnum(ContentStatus, {
-    errorMap: () => ({ message: `Invalid status. Valid: ${Object.values(ContentStatus).join(', ')}` }),
+    error: `Invalid status. Valid: ${Object.values(ContentStatus).join(', ')}`,
   }),
 });
 
@@ -125,7 +124,7 @@ const HilReviewerSchema = z.object({
 
 const ArtifactPublishSchema = z.object({
   artifact_type: z.nativeEnum(ArtifactType, {
-    errorMap: () => ({ message: `Invalid artifact_type. Valid: ${Object.values(ArtifactType).join(', ')}` }),
+    error: `Invalid artifact_type. Valid: ${Object.values(ArtifactType).join(', ')}`,
   }),
   publisher_id: z.string().min(1, 'publisher_id is required'),
   publisher_name: z.string().min(1, 'publisher_name is required'),
@@ -137,9 +136,11 @@ const DistributeSchema = z.object({
   distributor_name: z.string().min(1, 'distributor_name is required'),
 });
 
-const DigestSendSchema = z.object({
-  to: z.string().email('Invalid email address'),
-}).passthrough();
+const DigestSendSchema = z
+  .object({
+    to: z.string().email('Invalid email address'),
+  })
+  .passthrough();
 
 // ============================================================================
 // EVIDENCE VAULT ROUTES
@@ -149,7 +150,8 @@ const DigestSendSchema = z.object({
  * GET /api/v1/content/stats
  * Evidence Vault dashboard statistics — scoped to a single organization.
  */
-router.get('/stats',
+router.get(
+  '/stats',
   validate({ query: OrgIdQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -165,7 +167,8 @@ router.get('/stats',
  * GET /api/v1/content/search
  * Search Agent — natural language search across the Evidence Vault.
  */
-router.get('/search',
+router.get(
+  '/search',
   validate({ query: SearchQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -182,7 +185,8 @@ router.get('/search',
  * GET /api/v1/content/expiring
  * Expiration Tracker — certificates expiring within N days.
  */
-router.get('/expiring',
+router.get(
+  '/expiring',
   validate({ query: ExpiringQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -199,7 +203,8 @@ router.get('/expiring',
  * GET /api/v1/content/learning
  * Published learning articles for customer's internal portal.
  */
-router.get('/learning',
+router.get(
+  '/learning',
   validate({ query: LearningQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -232,7 +237,8 @@ router.get('/shared/:token', async (req: Request, res: Response, next: NextFunct
  * GET /api/v1/content
  * List content with optional filters.
  */
-router.get('/',
+router.get(
+  '/',
   validate({ query: ContentFilterSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -264,7 +270,8 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
  * POST /api/v1/content
  * Upload / create a new content item. Document Classifier auto-tags it.
  */
-router.post('/',
+router.post(
+  '/',
   validate({ body: CreateContentSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -280,7 +287,8 @@ router.post('/',
  * PATCH /api/v1/content/:id
  * Update a content item.
  */
-router.patch('/:id',
+router.patch(
+  '/:id',
   validate({ body: UpdateContentSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -299,7 +307,8 @@ router.patch('/:id',
  * POST /api/v1/content/:id/transition
  * Transition content status (draft → review → approved → published → archived).
  */
-router.post('/:id/transition',
+router.post(
+  '/:id/transition',
   validate({ body: StatusTransitionSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -335,7 +344,8 @@ router.post('/:id/publish', async (req: Request, res: Response, next: NextFuncti
  * POST /api/v1/content/:id/share
  * Access Controller — generate a secure temporary link for auditors/stakeholders.
  */
-router.post('/:id/share',
+router.post(
+  '/:id/share',
   validate({ body: ShareLinkRequestSchema.omit({ content_id: true }) }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -354,7 +364,8 @@ router.post('/:id/share',
  * POST /api/v1/content/digest
  * Generate an Evidence Vault digest (expiring certs + recent uploads).
  */
-router.post('/digest',
+router.post(
+  '/digest',
   validate({ body: DigestRequestSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -370,7 +381,8 @@ router.post('/digest',
  * POST /api/v1/content/digest/send
  * Generate and send digest via email. Requires admin API key.
  */
-router.post('/digest/send',
+router.post(
+  '/digest/send',
   requireAdminKey,
   validate({ body: DigestSendSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
@@ -432,7 +444,8 @@ router.get('/hil/stats', async (_req: Request, res: Response, next: NextFunction
  * POST /api/v1/content/:id/hil/request
  * Request a human review for content before publishing.
  */
-router.post('/:id/hil/request',
+router.post(
+  '/:id/hil/request',
   validate({ body: HilReviewerSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -451,7 +464,8 @@ router.post('/:id/hil/request',
  * POST /api/v1/content/:id/hil/approve
  * Approve content after human review — unlocks artifact publishing.
  */
-router.post('/:id/hil/approve',
+router.post(
+  '/:id/hil/approve',
   validate({ body: HilReviewerSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -477,7 +491,8 @@ router.post('/:id/hil/approve',
  * POST /api/v1/content/:id/hil/reject
  * Reject content — sends back to draft for revision.
  */
-router.post('/:id/hil/reject',
+router.post(
+  '/:id/hil/reject',
   validate({ body: HilReviewerSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -508,7 +523,8 @@ router.post('/:id/hil/reject',
  * Publish content as a site artifact (blog post or legal document).
  * Requires HIL approval for compliance traceability.
  */
-router.post('/:id/artifact/publish',
+router.post(
+  '/:id/artifact/publish',
   validate({ body: ArtifactPublishSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -545,7 +561,8 @@ router.post('/:id/artifact/publish',
  * POST /api/v1/content/:id/distribute
  * Distribute content across Omnichannel channels (product pages, email, LinkedIn, store).
  */
-router.post('/:id/distribute',
+router.post(
+  '/:id/distribute',
   validate({ body: DistributeSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -555,7 +572,9 @@ router.post('/:id/distribute',
       }
 
       if (item.status !== ContentStatus.Approved && item.status !== ContentStatus.Published) {
-        throw Errors.badRequest(`Content must be approved before distribution (status: ${item.status})`);
+        throw Errors.badRequest(
+          `Content must be approved before distribution (status: ${item.status})`,
+        );
       }
 
       const result = await distributeContent(item, {

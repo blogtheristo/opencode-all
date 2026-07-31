@@ -77,7 +77,7 @@ DWS IQ 6 is a **live, revenue-generating product.**
 
 It serves as the **Brain** for industrial sites across the EU:
 - 100% local inference on customer-owned hardware
-- 6 AI agents, MCP orchestration, 16-industry compliance coverage
+- 6 AI agents, MCP orchestration, 25+-industry compliance coverage
 - 60+ public landing pages, 15 CI/CD workflows
 - The only "Last Mile" solution that predicts EU Fit for 55 compliance while maintaining total data sovereignty
 
@@ -136,7 +136,7 @@ Without a sovereign compliance wrapper, Optimus waits in the hallway for legal c
 | **Machinery Regulation 2023/1230** | Optimus is "machinery" — notified body CE assessment required | DWS IQ provides technical file, compliance documentation, 27-language EU manuals |
 | **GDPR Article 22** | Automated physical decisions with legal effect | Human Captain always has final override — DWS IQ enforces this architecturally |
 | **NIS2** | Critical infrastructure sectors require EU-jurisdiction AI | Air-gapped GN-100 cluster — zero US cloud dependency |
-| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS Aiwen logging layer captures all AI events locally, immutable, exportable |
+| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS sovereignty audit logging layer captures all AI events locally, immutable, exportable |
 | **EU Language Requirements** | Technical docs in 27 official EU languages | DWS delivers 27-country localization at launch |
 
 **The strategic reframe:** DWS IQ is not just a customer of xAI/Tesla. **DWS IQ is the compliance bridge that makes Optimus V3 legally deployable in EU regulated industry.** This is a distribution partnership, not a vendor relationship.
@@ -217,7 +217,7 @@ Zero code rewrite. Zero downtime. Full audit log created automatically. All 27 E
 
 **What DWS IQ provides:**
 - Pre-built EU regulatory compliance layer (Fit for 55, ETS, CBAM, CSRD, EU AI Act)
-- 16-industry vertical coverage already operational
+- 25+-industry vertical coverage already operational
 - 4-partner hardware stack live (Acer + NVIDIA + Siemens + ABB)
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (Finnish all-weather satellite data — EU unique situational awareness)
@@ -294,7 +294,7 @@ All high-value command titles are **strictly human — never AI.** Grok and Opti
 | Role | Description | Investment |
 |------|-------------|-----------|
 | **Fleet Admiral** | Lead investor — strategic sector oversight across the entire Lifetime Fleet | €500k SAFE (first tranche of 10 seats) |
-| **Platinum Industry Captain** | Owner of the 8-seat hardware bundle + Lifetime World Model | €50k SAFE (€3.8M cap, 20% discount) |
+| **Platinum Industry Captain** | Owner of the 8-seat hardware bundle + Lifetime World Model | €50k SAFE (€3.8M cap, 18% discount) |
 | **Navigator** | Domain expert using Grok interface to chart the site's course | Per-seat license |
 
 **Design principle:** Grok and Optimus never touch these titles. They only amplify human power and productivity. Every human holder becomes worth 10× their pre-DWS-IQ output.
@@ -354,7 +354,7 @@ The DWS IQ Hands layer is robot-hardware-agnostic at the control layer. Optimus 
 | KUKA industrial arms | Open | KUKA KRL + ROS2 |
 | Custom (ROS2-compatible) | Open | Any ROS2 platform |
 
-Being Optimus in the DWS IQ ecosystem means being the **default recommendation** for all 16 industries and all 27 EU countries. Every Captain's Bridge sold is a potential Optimus deployment.
+Being Optimus in the DWS IQ ecosystem means being the **default recommendation** for all 25+ industries and all 27 EU countries. Every Captain's Bridge sold is a potential Optimus deployment.
 
 ---
 
@@ -363,7 +363,7 @@ Being Optimus in the DWS IQ ecosystem means being the **default recommendation**
 | Phase | Period | Milestone |
 |-------|--------|-----------|
 | Phase 1 | Feb–Apr 2026 | Production launch, 3 customers, Grok integration begins |
-| Phase 2 | May–Jul 2026 | EU AI Act Article 12 compliance certified (Aiwen logging live) |
+| Phase 2 | May–Jul 2026 | EU AI Act Article 12 compliance certified (sovereignty audit logging live) |
 | Phase 3 | Aug–Oct 2026 | ISO 27001 initiated · first robot integration test in lab (Finland) |
 | **Phase 4** | **Nov 2026–Jan 2027** | **🤖 Hands layer live — first physical robot at EU industrial site** |
 | Phase 5 | Feb–May 2027 | 16 customers · Optimus at ≥ 3 EU industrial sites |
@@ -378,7 +378,7 @@ Being Optimus in the DWS IQ ecosystem means being the **default recommendation**
 | Tranche | Seats | Price/Seat | Total | Terms |
 |---------|-------|-----------|-------|-------|
 | Fleet Admiral (first tranche) | 10 seats | €50 000 | €500 000 | Lead investor role, strategic sector oversight |
-| Platinum Industry Captain | 8 seats | €50 000 | €400 000 | €3.8M cap, 20% discount |
+| Platinum Industry Captain | 8 seats | €50 000 | €400 000 | €3.8M cap, 18% discount |
 | Navigator | Per-seat license | Negotiated | — | Domain expert access |
 
 **Hardware cost (prototype):** €0 out-of-pocket. Runs on free GN-100 from Acer Finland.

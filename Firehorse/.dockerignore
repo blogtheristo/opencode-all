@@ -1,0 +1,52 @@
+# Firehorse Docker Build Context
+# Only api/Dockerfile uses context: . (Firehorse root)
+# It needs: api/, report_engine.py, templates/
+# Everything else is excluded to keep the build fast and small
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
+
+# Documentation (not needed at runtime)
+*.md
+*.sql
+
+# Subdirectories not needed by any Dockerfile build
+OK_Firehorse/
+V7_extracted/
+mobile-app/
+Omnichannel/
+ContentMS/
+Control/
+Report/
+Situation/
+Starter/
+
+# Other services (they use their own build context)
+# Automation/ — has its own Dockerfile with context: ./Automation
+# dms/ — has its own Dockerfile with context: ./dms
+
+# Reports output (runtime volume, not build-time)
+reports/
+
+# Python artifacts
+__pycache__
+*.pyc
+*.pyo
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Secrets
+.env
+.env.*
+
+# Docker files (prevent recursive)
+docker-compose*.yml
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -25,8 +25,49 @@ export interface AgentContext {
   orgId: string;
   /** Unique session ID for tracing a conversation or workflow */
   sessionId: string;
+  /** Case ID — links agent execution to a unified Case entity (cases table) */
+  caseId?: string;
+  /** Session-scoped tool safety state used to block unsafe red-to-blue chains */
+  toolSafety?: ToolSafetyState;
   /** Sandbox isolation settings (optional — applied when SANDBOX_STAGE is set) */
   sandbox?: SandboxContext;
+  /**
+   * Per-agent runtime policy injected by BaseAgent.runLoop so tool handlers
+   * (e.g. send_notification) can authoritatively enforce the autonomy phase
+   * gate and notification rate limits, independent of which tools were offered.
+   */
+  agentRuntime?: AgentRuntimeContext;
+}
+
+/**
+ * Autonomy phase (KYA tier). Gates proactive action tools.
+ * - silent_pilot: observe only, no outbound action
+ * - advisor: may send proactive nudges (requires human confirm/override)
+ * - autonomous: may act within guardrails, exception-only approval
+ */
+export type AutonomyPhase = 'silent_pilot' | 'advisor' | 'autonomous';
+
+/** Proactive notification config — applied when autonomyPhase >= advisor */
+export interface NotifyConfig {
+  /** Delivery channels for proactive nudges */
+  channels: Array<'email' | 'teams' | 'slack' | 'in_app'>;
+  /** Max nudges this agent may send per rolling hour (default 5) */
+  maxPerHour: number;
+  /** Max nudges this agent may send per rolling day (default 20) */
+  maxPerDay: number;
+}
+
+/** Runtime policy attached to AgentContext for tool-level enforcement */
+export interface AgentRuntimeContext {
+  name: string;
+  autonomyPhase: AutonomyPhase;
+  notify?: NotifyConfig;
+}
+
+/** Tracks session taint from prior RED tool calls */
+export interface ToolSafetyState {
+  /** RED tools already executed in this session */
+  taintedRedTools: string[];
 }
 
 /** Sandbox isolation context attached to agent executions */
@@ -63,6 +104,12 @@ export interface AgentResponse {
 
 // ============ AGENT CONFIG ============
 
+/** Model tier for task-aware model selection (see model-selector.ts) */
+export type ModelTier = 'lite' | 'standard' | 'heavy';
+
+/** Ollama model presets mapped to task types */
+export type OllamaModelPreset = 'fast' | 'agent' | 'quality' | 'vision' | 'coding' | 'default';
+
 /** Registration metadata for an agent */
 export interface AgentConfig {
   /** Unique machine-readable name (kebab-case) */
@@ -71,9 +118,19 @@ export interface AgentConfig {
   description: string;
   /** List of capability tags for discovery */
   capabilities: string[];
-  /** LLM model identifier used by this agent */
+  /** LLM model identifier used by this agent (legacy — prefer modelTier) */
   model: string;
-  /** JSON Schema for the agent's expected input — used by MCP tool builder for client autocomplete */
+  /**
+   * Model tier for dynamic model selection.
+   * When set, the model selector picks the leanest available model for this tier.
+   * Overrides the static `model` field. See model-selector.ts for tier definitions.
+   *
+   * - lite: classification, scoring, alerts (Gemini Flash-Lite, Qwen 7B, Llama 8B)
+   * - standard: compliance, synthesis, domain analysis (Haiku 4.5, Llama 70B, Gemini Flash)
+   * - heavy: orchestration, novel reasoning, board reports (Sonnet 4, Qwen 32B, Gemini 3 Pro)
+   */
+  modelTier?: ModelTier;
+  /** JSON Schema for the agent's expected input (used by MCP tooling and validation) */
   inputSchema?: {
     type: 'object';
     properties: Record<string, unknown>;
@@ -83,6 +140,13 @@ export interface AgentConfig {
   tools?: ToolDefinition[];
   /** Agentic loop configuration (DWS7: observe-think-act) */
   loop?: AgentLoopConfig;
+  /**
+   * Autonomy phase (KYA tier). Defaults to 'silent_pilot' when unset.
+   * Agents below 'advisor' cannot send proactive notifications.
+   */
+  autonomyPhase?: AutonomyPhase;
+  /** Proactive notification config (only honored when autonomyPhase >= advisor) */
+  notify?: NotifyConfig;
 }
 
 // ============ TOOL USE / FUNCTION CALLING (DWS7) ============

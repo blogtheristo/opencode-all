@@ -49,7 +49,7 @@ Two years ago I looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD,
 
 So I built it.
 
-**DWS IQ 6** is an AI platform that automates climate compliance across 16 EU industries. Not a dashboard. Not a consulting slide deck with a login screen. A real platform that thinks, remembers, and deploys.
+**DWS IQ 6** is an AI platform that automates climate compliance across **16 captain hats covering 25+ EU industries**. Not a dashboard. Not a consulting slide deck with a login screen. A real platform that thinks, remembers, and deploys.
 
 The part that matters to an engineer:
 - We run edge AI on NVIDIA Jetson devices. Inference under 100ms.
@@ -106,7 +106,7 @@ Design these as clean, dark-themed slides matching DWS brand. One fact per slide
 **Slide 5 — Traction**
 "EUR 7-14k MRR (Fleet division)"
 "EUR 59,900 in Q1 2026 pilot contracts"
-"16 EU industries covered"
+"16 captain hats covering 25+ EU industries"
 
 **Slide 6 — CTA**
 "Looking for 6 Fleet Captains."
@@ -136,7 +136,7 @@ This post uses the **Captain** language track (for BAs). Do not mix with the **V
 **Body:**
 > Quick version: DWS IQ 6 automates Fit for 55 compliance for EU industrial companies. We run edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud competitors. Fleet division does EUR 7-14k MRR today. Two pilots signed for Q1.
 >
-> I'm raising EUR 150k via SAFE (EUR 3.8M cap, 20% discount) and keeping it to 6 founding Captains at EUR 50k+. Each Captain gets founding World Model access, quarterly briefings, and priority pilot introductions.
+> I'm raising EUR 150k via SAFE (EUR 3.8M cap, 18% discount) and keeping it to 6 founding Captains at EUR 50k+. Each Captain gets founding World Model access, quarterly briefings, and priority pilot introductions.
 >
 > Happy to send the one-pager or jump on a 15-min call. What works?
 

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F — Tuotekehitysmenojen aktivointi — Toimituspaketti kirjanpitäjälle</title>
+<style>
+  :root {
+    --blue: #1a3a5c;
+    --accent: #2e6da4;
+    --light: #f4f7fb;
+    --border: #c8d8ec;
+    --text: #1a1a2e;
+    --muted: #5a6a7a;
+    --green: #1e6b3a;
+    --green-bg: #eaf5ee;
+    --warn: #7a4800;
+    --warn-bg: #fff8ec;
+    --red: #7a1a1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fff;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    color: var(--blue);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-size: 1.15rem;
+    color: var(--blue);
+    margin: 32px 0 10px;
+    padding-left: 8px;
+    border-left: 4px solid var(--accent);
+  }
+  h3 {
+    font-size: 1rem;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .meta-block {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0 24px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .meta-block strong { color: var(--text); }
+  .status-badge {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .cover-letter {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .cover-letter .header-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin-bottom: 18px;
+    font-size: 0.9rem;
+  }
+  .cover-letter .subject {
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+  .booking-box {
+    background: var(--blue);
+    color: #fff;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+  .booking-box h3 { color: #b8d4f0; margin-top: 0; }
+  .booking-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.93rem;
+  }
+  .booking-line:last-child { border-bottom: none; }
+  .booking-line .amount { font-weight: 700; font-size: 1rem; }
+  .booking-total {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid rgba(255,255,255,0.4);
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.88rem;
+  }
+  th {
+    background: var(--blue);
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--light); }
+  tr.total-row td { font-weight: 700; background: #dce9f7; }
+  .note {
+    background: var(--warn-bg);
+    border-left: 4px solid #e6a020;
+    color: var(--warn);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-size: 0.88rem;
+  }
+  .note strong { display: block; margin-bottom: 4px; }
+  .balance-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .balance-card {
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .balance-card.before { background: #fdecea; border: 1px solid #f0b0a8; }
+  .balance-card.change { background: #dce9f7; border: 1px solid var(--border); }
+  .balance-card.after { background: var(--green-bg); border: 1px solid #a0d0b0; }
+  .balance-card .label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+  .balance-card .value { font-size: 1.5rem; font-weight: 700; }
+  .balance-card.before .value { color: var(--red); }
+  .balance-card.change .value { color: var(--accent); }
+  .balance-card.after .value { color: var(--green); }
+  .eu-list { list-style: none; padding: 0; }
+  .eu-list li {
+    padding: 6px 10px;
+    margin: 4px 0;
+    background: var(--light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+  }
+  .eu-list li code {
+    font-weight: 700;
+    color: var(--blue);
+    background: none;
+    font-size: 0.9rem;
+  }
+  .section-divider {
+    border: none;
+    border-top: 2px solid var(--border);
+    margin: 36px 0 28px;
+  }
+  .signature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 16px 0;
+  }
+  .sig-box {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .sig-box .sig-name { font-weight: 700; color: var(--blue); }
+  .sig-line {
+    border-bottom: 1px solid #888;
+    height: 32px;
+    margin: 16px 0 8px;
+  }
+  .sig-label { font-size: 0.8rem; color: var(--muted); }
+  .attachments-list { counter-reset: att; list-style: none; padding: 0; }
+  .attachments-list li {
+    counter-increment: att;
+    padding: 7px 10px 7px 38px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .attachments-list li::before {
+    content: counter(att);
+    position: absolute;
+    left: 10px;
+    background: var(--accent);
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    top: 8px;
+  }
+  .generation-tag {
+    display: inline-block;
+    background: #e8f0fb;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.78rem;
+    padding: 1px 7px;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  @media (max-width: 640px) {
+    .balance-box { grid-template-columns: 1fr; }
+    .signature-grid { grid-template-columns: 1fr; }
+    .cover-letter .header-row { grid-template-columns: 1fr; }
+  }
+  @media print {
+    body { padding: 16px; font-size: 13px; }
+    .booking-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="status-badge">VALMIS TOIMITETTAVAKSI</div>
+<h1>F — Tuotekehitysmenojen aktivointi<br>Toimituspaketti kirjanpitäjälle</h1>
+
+<div class="meta-block">
+  <strong>Asiakirja:</strong> F &nbsp;|&nbsp;
+  <strong>Versio:</strong> 1.3 &nbsp;|&nbsp;
+  <strong>Päivämäärä:</strong> 21.04.2026 &nbsp;|&nbsp;
+  <strong>Omistaja:</strong> Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)<br>
+  <strong>Muutoshistoria:</strong> 1.0 (12.04) Alkuperäinen · 1.1 (12.04) KILA-viitteet poistettu, KPL 5:8 -perustelu yleistetty · 1.2 (13.04) Lemonsoft-kirjaukset saatekirjeeseen, EU Invest Portal -viitteet täydennetty, Liite 2 lisätty · 1.3 (21.04) Kirjanpitäjäneutraali, päivälukueron selitys selkeytetty
+</div>
+
+<!-- ========== SAATEKIRJE ========== -->
+<h2>Saatekirje kirjanpitäjälle</h2>
+
+<div class="cover-letter">
+  <div class="header-row">
+    <div><strong>Vastaanottaja:</strong> [Kirjanpitäjä, rantalainen.fi]</div>
+    <div><strong>Lähettäjä:</strong> Risto Anton Päärni, CEO, Lifetime Oy<br>
+    <strong>Päivämäärä:</strong> 21.04.2026</div>
+  </div>
+  <div class="note" style="margin-bottom:14px"><strong>Huomio kirjanpitäjänvaihdoksesta:</strong> Kirjanpito on siirtynyt 21.04.2026. Edellinen kirjanpitäjä Merja Turunen (Mt-tili Lkv) on vastannut kirjanpidosta 20.04.2026 asti.</div>
+  <div class="subject">Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta</div>
+
+  <p>Hyvä Merja,</p>
+  <p style="margin-top:10px">Tämä on versio 1.3. Kirjaussummat ja tilit eivät ole muuttuneet. Toimituspaketti sisältää neljä asiakirjaa: (1) tämä saatekirje, (2) Liite 1 — Tuntikirjaukset kuukausitasolla, (3) Liite 2 — Käänteislaskutuksen kuukausijaottelu, (4) hallituksen pöytäkirja 31.12.2025.</p>
+  <p style="margin-top:10px">Viitaten hallituksen päätökseen tässä on ohje kirjauksia (2 kpl) varten. Molemmat kirjaukset ovat pakollisia — kyseessä ei ole vaihtoehtoja vaan yhden kokonaisuuden kaksi osaa.</p>
+
+  <h3>Lemonsoft-kirjaukset</h3>
+
+  <div class="booking-box">
+    <h3>Kirjaus 1 — DWS IQ 6 (viimeinen 6 kuukautta)</h3>
+    <div class="booking-line"><span>Debet 1030 Kehittämismenot</span><span class="amount">100 000,00 €</span></div>
+    <div class="booking-line"><span>Kredit 3950 Valmistus omaan käyttöön</span><span class="amount">100 000,00 €</span></div>
+
+    <h3 style="margin-top:18px">Kirjaus 2 — DWS-tuoteperheen kehitys 12/2019–30.09.2025</h3>
+    <div class="booking-line"><span>Debet 1030 Kehittämismenot</span><span class="amount">494 000,00 €</span></div>
+    <div class="booking-line"><span>Kredit 3950 Valmistus omaan käyttöön</span><span class="amount">494 000,00 €</span></div>
+
+    <div class="booking-total"><span>Yhteensä aktivoitava aineeton käyttöomaisuus (tili 1030)</span><span>594 000,00 €</span></div>
+  </div>
+
+  <p style="margin-top:12px">Aktivointi on tehty KPL 5:8 §:n mukaisesti. Kirjanpitolautakunnan yleinen lausunto vahvistaa, että kehittämismenojen aktivointi on sallittua kun edellytykset täyttyvät. Lifetime Oy:n aktivointi täyttää nämä edellytykset.</p>
+
+  <h3>Evidenssi (saatekirje)</h3>
+  <ul style="padding-left:18px; font-size:0.92rem">
+    <li>Merjan tekemä Lifetime Oy:n kirjanpito vuodesta 2010: taksituotot ja muut sivutoimiset tuotot päivätason tarkkuudella (käänteiskirjausmenetelmä)</li>
+    <li>Eläketurvakeskuksen viralliset ansiotiedot 2020–2025 (kolmannen osapuolen vahvistus työrytmille)</li>
+    <li>GitHub: 96 repositorya, 3 200 committia, 1 030 Pull Requestia (viimeinen 6 kk)</li>
+    <li>Omistajan pääomitukset ja lainat yhtiölle (Lemonsoft-tasekirjaukset)</li>
+    <li>Euroopan komission EU Invest Portal -hyväksynnät (EIPP-20191319, EIPP-20191320, INPO-20254383)</li>
+    <li>Riippumattomat valuaatiot: Gust 3,8 milj. € (2021), Monaco Fondry 6 milj. USD (2022)</li>
+  </ul>
+
+  <h3>Liitteet (saatekirje)</h3>
+  <ol style="padding-left:18px; font-size:0.92rem">
+    <li>Hallituksen pöytäkirja 31.12.2025</li>
+    <li>Liite 1: Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu</li>
+    <li>Liite 2: Käänteislaskutuksen kuukausijaottelu — taksityö vs. R&amp;D</li>
+    <li>Liite 3: Aktivoitavat tuotteet — DWS-tuoteperhe 12/2019–04/2026</li>
+    <li>GitHub-aktiivisuusraportti 10.10.2025–10.04.2026</li>
+    <li>Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)</li>
+    <li>Taksilaskutusrekisteri (Google Sheets / Lemonsoft -viite)</li>
+    <li>Palkkavertailu.fi -lähdeviite tuntihinnalle</li>
+    <li>InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)</li>
+  </ol>
+
+  <p style="margin-top:18px">Ystävällisin terveisin,<br>
+  <strong>Risto Anton Päärni</strong><br>
+  CEO, Lifetime Oy · Y-tunnus 0772407-9<br>
+  <a href="mailto:risto.paarni@lifetime.fi">risto.paarni@lifetime.fi</a> · +358 400 319 010</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== OSIO 1: YHTEENVETO ========== -->
+<h2>1. Aktivoinnin yhteenveto</h2>
+
+<h3>Yritystiedot</h3>
+<table>
+  <tr><td><strong>Yritys</strong></td><td>Lifetime Oy</td></tr>
+  <tr><td><strong>Y-tunnus</strong></td><td>0772407-9</td></tr>
+  <tr><td><strong>ALV-tunnus</strong></td><td>FI07724079</td></tr>
+  <tr><td><strong>Osoite</strong></td><td>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</td></tr>
+  <tr><td><strong>CEO</strong></td><td>Risto Anton Päärni</td></tr>
+  <tr><td><strong>Kirjanpitäjä</strong></td><td>Merja Turunen, Mt-tili Lkv (–20.04.2026) → rantalainen.fi (21.04.2026→)</td></tr>
+</table>
+
+<h3>Aktivoinnin perusta</h3>
+<ul style="padding-left:18px">
+  <li>Kirjanpitolaki 5 luku 8 § (kehittämismenot)</li>
+  <li>IAS 38 (aineettomat hyödykkeet) — IFRS-vastine</li>
+  <li>Hallituksen päätös 31.12.2025</li>
+  <li>Kirjanpitolautakunnan yleinen lausunto vahvistaa kehittämismenojen aktivoinnin sallittavuuden kun KPL 5:8 -edellytykset täyttyvät</li>
+</ul>
+
+<h3>Aktivoitava aineeton hyödyke: DWS IQ -tuoteperhe</h3>
+<p>DWS IQ -tuoteperhe (Lifetime Digital Workspace) on Lifetime Oy:n jatkuva tuotekehityshanke joulukuusta 2019 alkaen. Jokainen versio kasvoi temaattisesti edellisestä — aineetonta pääomaa on siirretty sukupolvelta toiselle.</p>
+
+<table style="margin-top:12px">
+  <thead><tr><th>Sukupolvi</th><th>Vuosi</th><th>Kuvaus</th><th>EU / Rahoitus</th></tr></thead>
+  <tbody>
+    <tr><td><span class="generation-tag">DWS 2</span></td><td>2019</td><td>Ensimmäinen versio, Digital Workspace -konseptin syntyvaihe</td><td>—</td></tr>
+    <tr><td><span class="generation-tag">DWS 3</span></td><td>2020–2023</td><td>Platform-tuote AWS-pilvellä</td><td>EU Invest Portal EIPP-20191319 (12.09.2019) · EBAN $6 000 USD · Finnvera 48 000 €</td></tr>
+    <tr><td><span class="generation-tag">DWS 4</span></td><td>2023–2024</td><td>Vihreän siirtymän platform "Montreux"</td><td>Monaco Fondry valuaatio 6 milj. USD (12/2022) · EU Invest Hub -listaus</td></tr>
+    <tr><td><span class="generation-tag">DWS 5</span></td><td>2024</td><td>Vetytalouden platform · Oqtane / .NET 8 Blazor / Azure</td><td>EU Invest Portal INPO-20232955 (17.04.2023, 1 250 000 €, archived) · MS Founders Hub $154 000 USD</td></tr>
+    <tr><td><span class="generation-tag">DWS 6</span></td><td>2025–nyt</td><td>EU-vaatimustenmukaisuus ja ilmastoäly · React 19 / Supabase / Google Cloud</td><td>EU Invest Portal INPO-20254383 (25.12.2025, 500 000 €, published)</td></tr>
+  </tbody>
+</table>
+
+<p style="margin-top:10px; font-size:0.9rem">Liitännäishanke: <strong>CIMS</strong> (Crypto Investment Management Studio), EU Invest Portal EIPP-20191320 (2019). CIMS muodostaa DWS 7:n Digital Euro -integraatiokerroksen perustan — ECB:n Digital Euro -tavoiteaikataulu ~2029.</p>
+
+<h3>EU InvestEU Portal -viitteet</h3>
+<ul class="eu-list">
+  <li><code>EIPP-20191319</code> — Lifetime Digital Workspace / DWS 3 (12.09.2019)</li>
+  <li><code>EIPP-20191320</code> — CIMS liitännäishanke (2019)</li>
+  <li><code>INPO-20232955</code> — DWS 5 distributed intelligence platform (17.04.2023, 1 250 000 €, archived)</li>
+  <li><code>INPO-20254383</code> — Lifetime World / DWS IQ 6 / Firehorse (29.05.2025, 500 000 €, published)</li>
+</ul>
+<p style="font-size:0.88rem; color:var(--muted); margin-top:6px">EC:n sähköposti 04.02.2025 (ec-no-reply-investeu@ec.europa.eu) vahvistaa portaalin aktiivisen statuksen ja pyytää "Financing Secured" -päivitystä.</p>
+
+<h3>Aktivoinnin tekijä ja tuntihinta</h3>
+<p>Vain <strong>Risto Anton Päärni</strong> (founder/CEO) — hänen oma laskennallinen työaikansa.<br>
+Tuntihinta: <strong>80–100 €/tunti</strong> (inflaatiotarkistettu 2019–2026, markkinaehtoinen mediaani senior developer -tasolla Helsingin seudulla, lähde: Palkkavertailu.fi / Duunitori / ICT-alan palkkatilastot).</p>
+
+<hr class="section-divider">
+
+<!-- ========== OSIO 2: KIRJAUS 1 ========== -->
+<h2>2. Kirjaus 1 — DWS IQ 6 (viimeinen 6 kuukautta)</h2>
+
+<table>
+  <tr><td><strong>Päivämäärä</strong></td><td>10.04.2026</td></tr>
+  <tr><td><strong>Summa</strong></td><td><strong>100 000,00 euroa</strong></td></tr>
+  <tr><td><strong>Ajanjakso</strong></td><td>10.10.2025 – 10.04.2026 (6 kuukautta)</td></tr>
+  <tr><td><strong>Kohde</strong></td><td>DWS IQ 6 -tuotekehitys</td></tr>
+</table>
+
+<h3>Laskentaperuste</h3>
+<table>
+  <tr><td>GitHub-repositoryt</td><td>96 (@blogtheristo + @LifetimeStudios)</td></tr>
+  <tr><td>Commitit (6 kk)</td><td>3 200</td></tr>
+  <tr><td>Pull Requestit (6 kk)</td><td>1 030</td></tr>
+  <tr><td>Arvioitu tuntimäärä</td><td>1 000 tuntia (GitHub-commit-pohjainen estimaatti)</td></tr>
+  <tr><td>Tuntihinta</td><td>100 €/tunti</td></tr>
+  <tr class="total-row"><td>Aktivoitava summa</td><td>100 000,00 euroa</td></tr>
+</table>
+
+<h3>Evidenssi</h3>
+<p style="font-size:0.9rem">Evidenssi perustuu GitHub-repositorioiden commit- ja pull request -historiaan sekä ajalliseen jatkumoon. Commit hash yksilöi Git-objektin. Mahdollinen lisänäyttö muodostuu Verified-statuksen commit/tag-merkinnöistä, suojatuista brancheista ja PR-pohjaisesta muutostenhallinnasta. Aikaleimat ovat Gitin commit-metatietoa — aineistoa käytetään työmäärän ja kehityshistorian tukevana dokumentaationa yhdessä GitHubin lokien, PR-keskustelujen ja arkistoitujen exporttien kanssa.</p>
+
+<div class="booking-box">
+  <h3>Lemonsoft-kirjaus 1 — päivämäärä 10.04.2026</h3>
+  <div class="booking-line"><span>Debet 1030 Kehittämismenot</span><span class="amount">100 000,00 €</span></div>
+  <div class="booking-line"><span>Kredit 3950 Valmistus omaan käyttöön</span><span class="amount">100 000,00 €</span></div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== OSIO 3: KIRJAUS 2 ========== -->
+<h2>3. Kirjaus 2 — DWS-tuoteperheen kehitys (12/2019 – 09/2025)</h2>
+
+<table>
+  <tr><td><strong>Päivämäärä</strong></td><td>10.04.2026</td></tr>
+  <tr><td><strong>Summa</strong></td><td><strong>494 000,00 euroa</strong></td></tr>
+  <tr><td><strong>Ajanjakso</strong></td><td>12/2019 – 30.09.2025 (noin 6 vuotta)</td></tr>
+  <tr><td><strong>Kohde</strong></td><td>DWS-tuoteperheen tuotekehitys (DWS 2, DWS 3, DWS 4 Montreux, DWS 5)</td></tr>
+</table>
+
+<h3>Laskentaperuste — ETK-ansiotiedot</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vuosi / Jakso</th>
+      <th>Työnantaja / YEL</th>
+      <th>Tulo €</th>
+      <th>DWS pv/vk</th>
+      <th>Viikkoja</th>
+      <th>R&amp;D-päiviä</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>12/2019</td><td>YEL (Lifetime Oy)</td><td>(osa 2019)</td><td>1</td><td>4</td><td>4</td></tr>
+    <tr><td>2020</td><td>YEL <strong>17 428</strong> + Helpbus 1 602</td><td>19 030</td><td>5</td><td>48</td><td>240</td></tr>
+    <tr><td>2021</td><td>Fincap <strong>12 100</strong> + YEL 920 + 36 pv työtön</td><td>13 020</td><td>2</td><td>46</td><td>92</td></tr>
+    <tr><td>2022</td><td>Korsisaari + MT Personnel + Niemi <strong>9 285</strong></td><td>9 285</td><td>1,5</td><td>48</td><td>72</td></tr>
+    <tr><td>2023</td><td>YEL <strong>7 850</strong> (ei muita työnantajia)</td><td>7 850</td><td>5</td><td>48</td><td>240</td></tr>
+    <tr><td>2024</td><td>YEL <strong>15 163</strong> + Taxivirpi 5 490</td><td>20 653</td><td>4</td><td>48</td><td>192</td></tr>
+    <tr><td>01–24.03.2025</td><td>YEL (Lifetime Oy, ennen Nobinaa)</td><td>(osa 2025)</td><td>5</td><td>12</td><td>60</td></tr>
+    <tr><td>25.03–29.09.2025</td><td>Nobina <strong>31 302</strong> + YEL 2 199 (päätoiminen)</td><td>33 501</td><td>2</td><td>27</td><td>54</td></tr>
+    <tr class="total-row"><td colspan="5"><strong>Yhteensä (ETK-pohjainen laskennallinen maksimi)</strong></td><td><strong>962</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <strong>HUOM: Ajanjaksot eivät mene päällekkäin.</strong>
+  Tämä taulukko kattaa Kirjaus 2:n ajanjakson (12/2019–30.09.2025). Kirjaus 1 (01.10.2025–10.04.2026) on erillinen ja perustuu GitHub-evidenssiin. Yhteensä nämä kaksi kirjausta kattavat koko kehityshistorian 12/2019–04/2026 ilman päällekkäisyyttä.
+</div>
+
+<table style="margin-top:14px">
+  <tr><td>Laskennallinen R&amp;D-arvo (962 pv)</td><td>962 × 7,5 h = 7 215 h × 100 €/h = <strong>721 500 €</strong></td></tr>
+  <tr><td>Aktivoitava (konservatiivinen)</td><td>4 940 h × 100 €/h = <strong>494 000 € (68,5 %)</strong></td></tr>
+  <tr><td>Turvamarginaali</td><td>721 500 − 494 000 = <strong>227 500 €</strong></td></tr>
+</table>
+
+<div class="note">
+  <strong>Päivälukuero ja konservatiivisuus:</strong> ETK-ansiotiedot antavat enimmillään 962 R&amp;D-päivää. Käänteislaskutus (Liite 2) antaa 931 päivää. Aktivoidaan 659 päivää (494 000 EUR Kirjaus 2:ssa). Erotus 962 − 659 = 303 päivää = lomapäivät, sairaspäivät, pyhäpäivät ja muu ei-R&amp;D-aika. Aktivointi on tahallisesti konservatiivinen — todellinen R&amp;D-kapasiteetti ylittää aktivoidun selvästi molemmilla menetelmillä.
+</div>
+
+<h3>Vuosikohtainen työrytmi</h3>
+<p style="font-size:0.88rem; color:var(--muted)">6 päivän työviikko 05/2018 alkaen. Normaali työpäivä 7,5 h, taksityöpäivä 12 h viikonloppuisin.</p>
+
+<table>
+  <thead><tr><th>Jakso</th><th>Ma–Pe</th><th>La–Su</th><th>DWS R&amp;D pv/vk</th><th>Huomio</th></tr></thead>
+  <tbody>
+    <tr><td>05/2018–12/2019</td><td>Toimisto (DWS)</td><td>Taksi (12 h/pv)</td><td>5</td><td>Viikot toimistolla, vkl taksissa</td></tr>
+    <tr><td>01–02/2020</td><td>Toimisto (DWS)</td><td>Taksi (12 h/pv)</td><td>5</td><td>Sama jatkuu</td></tr>
+    <tr><td>03–12/2020</td><td>Toimisto (DWS)</td><td>Toimisto (DWS)</td><td>6</td><td>Korona: taksi pysähtyi</td></tr>
+    <tr><td>2021</td><td>Taksi</td><td>DWS</td><td>2</td><td>Käänteinen: viikolla taksi, vkl DWS</td></tr>
+    <tr><td>2022–2024</td><td>TBD</td><td>TBD</td><td>TBD</td><td>Tarkistettava Google Sheets -laskuista</td></tr>
+    <tr><td>01–24.03.2025</td><td>Toimisto (DWS)</td><td>Toimisto (DWS)</td><td>5–6</td><td>Full-time DWS ennen Nobinaa</td></tr>
+    <tr style="background:#fff3e0"><td><strong>25.03–29.09.2025</strong></td><td><strong>Nobina (päätoiminen)</strong></td><td><strong>DWS (illat/vkl)</strong></td><td><strong>2</strong></td><td><strong>Linja-autonkuljettaja päätoimisesti</strong></td></tr>
+    <tr><td>01.10.2025–04/2026</td><td>Toimisto (DWS IQ 6)</td><td>Toimisto (DWS IQ 6)</td><td>6</td><td>Full-time DWS (Kirjaus 1 -jakso)</td></tr>
+  </tbody>
+</table>
+
+<h3>KPL 5:8 -edellytysten täyttyminen</h3>
+<table>
+  <tr><td>Tunnistettava aineeton hyödyke</td><td>DWS-tuoteperhe, 5 sukupolvea ✓</td></tr>
+  <tr><td>Taloudellinen hyöty tulevaisuudessa</td><td>Valuaatiot: Gust 3,8 M€ (2021), Monaco Fondry 6 M$ (2022) ✓</td></tr>
+  <tr><td>Menot luotettavasti mitattavissa</td><td>Käänteiskirjausmenetelmä + ETK-ansiotiedot + GitHub ✓</td></tr>
+  <tr><td>Hallituksen päätös</td><td>Pöytäkirja 31.12.2025 ✓</td></tr>
+</table>
+
+<div class="booking-box" style="margin-top:20px">
+  <h3>Lemonsoft-kirjaus 2 — päivämäärä 10.04.2026</h3>
+  <div class="booking-line"><span>Debet 1030 Kehittämismenot</span><span class="amount">494 000,00 €</span></div>
+  <div class="booking-line"><span>Kredit 3950 Valmistus omaan käyttöön</span><span class="amount">494 000,00 €</span></div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== OSIO 4: TASE-VAIKUTUS ========== -->
+<h2>4. Yhteenlaskettu tase-vaikutus</h2>
+
+<div class="balance-box">
+  <div class="balance-card before">
+    <div class="label">Oma pääoma ennen</div>
+    <div class="value">−71 000 €</div>
+  </div>
+  <div class="balance-card change">
+    <div class="label">Aktivoinnin vaikutus</div>
+    <div class="value">+594 000 €</div>
+  </div>
+  <div class="balance-card after">
+    <div class="label">Oma pääoma jälkeen</div>
+    <div class="value">+523 000 €</div>
+  </div>
+</div>
+
+<h3>Konservatiivisuuden arviointi</h3>
+<table>
+  <tr><td>Gust-valuaatio (2021)</td><td>3 800 000 €</td></tr>
+  <tr><td>Monaco Fondry -valuaatio (12/2022)</td><td>6 000 000 USD (~5 500 000 €)</td></tr>
+  <tr class="total-row"><td>Aktivointi 594 000 € suhteessa Monaco Fondryn valuaatioon</td><td><strong>10,8 % — erittäin konservatiivinen</strong></td></tr>
+</table>
+
+<h3>Omistajan pääomarahoitus ja aktivoinnin yhteys</h3>
+<p>Omistaja on rahoittanut yhtiötä kahdella tavalla:</p>
+<ol style="padding-left:18px; margin:8px 0; font-size:0.92rem">
+  <li>Suorat pääomitukset ja lainat yhtiölle (näkyy taseessa velkoina)</li>
+  <li>Palkaton tuotekehitystyö DWS-tuoteperheelle (EI näkynyt taseessa — tähän asti)</li>
+</ol>
+<p style="font-size:0.92rem">Tämä aktivointi korjaa historiallisen alikirjauksen. Se ei luo uutta kassavirtaa eikä uutta velkaa — se tunnistaa arvon joka on jo olemassa mutta jota ei ole kirjattu. <strong>Omistajan saamiset yhtiöltä eivät muutu.</strong></p>
+
+<hr class="section-divider">
+
+<!-- ========== OSIO 5: LIITTEET ========== -->
+<h2>5. Liitteet (toimitettavat)</h2>
+
+<ol class="attachments-list">
+  <li>Hallituksen pöytäkirja 31.12.2025 (alkuperäinen, PDF)</li>
+  <li>Liite 1: Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu (F_Liite_Tuntikirjaukset.md)</li>
+  <li>Liite 2: Käänteislaskutuksen kuukausijaottelu — taksityö vs. R&amp;D (F_Liite2_Käänteislaskutus_Kuukausijaottelu.md)</li>
+  <li>Liite 3: Aktivoitavat tuotteet — DWS-tuoteperhe 12/2019–04/2026 (F_Liite3_Aktivoitavat_Tuotteet.md)</li>
+  <li>GitHub-aktiivisuusraportti 10.10.2025–10.04.2026 (Kirjaus 1 -evidenssi)</li>
+  <li>Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)</li>
+  <li>Taksilaskutusrekisteri (Google Sheets / Lemonsoft -viite, Kirjaus 2 -evidenssi)</li>
+  <li>Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle</li>
+  <li>InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)</li>
+</ol>
+
+<hr class="section-divider">
+
+<!-- ========== OSIO 6: ALLEKIRJOITUKSET ========== -->
+<h2>6. Allekirjoitukset</h2>
+
+<div class="signature-grid">
+  <div class="sig-box">
+    <div class="sig-name">Risto Anton Päärni</div>
+    <div style="color:var(--muted); font-size:0.88rem">CEO, Lifetime Oy · Y-tunnus 0772407-9</div>
+    <div class="sig-line"></div>
+    <div class="sig-label">Päivämäärä</div>
+    <div class="sig-line" style="margin-top:16px"></div>
+    <div class="sig-label">Allekirjoitus</div>
+  </div>
+  <div class="sig-box">
+    <div class="sig-name">[Kirjanpitäjä, rantalainen.fi]</div>
+    <div style="color:var(--muted); font-size:0.88rem">Kirjanpitäjä</div>
+    <div class="sig-line"></div>
+    <div class="sig-label">Päivämäärä</div>
+    <div class="sig-line" style="margin-top:16px"></div>
+    <div class="sig-label">Allekirjoitus</div>
+  </div>
+</div>
+
+<div class="footer">
+  Lifetime Oy · Y-tunnus 0772407-9 · VAT FI07724079<br>
+  Laidunmaanraitti 2 A 25, 02330 Espoo, Finland<br>
+  Asiakirja F v1.3 · 21.04.2026
+</div>
+
+</body>
+</html>

@@ -64,7 +64,7 @@ Date: 27 February 2026
 | Current MRR | €7 000 (Lifetime Fleet — Kela care taxi, Ford purchased €10 000) |
 | Cloud experience | 3 full years hands-on Azure (Microsoft granted €155 000 USD credits 2022–2025) |
 | Hardware (received) | Free Acer Veriton GN-100 AI Mini Workstation from Acer Finland (worth €3 999) |
-| Platform status | DWS IQ 6 pilot live — 6 AI agents, MCP orchestration, 16-industry compliance, 60+ landing pages |
+| Platform status | DWS IQ 6 pilot live — 6 AI agents, MCP orchestration, 25+-industry compliance, 60+ landing pages |
 | Strategic interest | Google and NVIDIA already open to the project |
 | Roadmap | DWS 7: 247 PRs, 22 months, 16 paying industrial customers, €72k+ MRR target by Q4 2027 |
 | Investor status | No investor closed yet — first-mover opportunity |
@@ -84,7 +84,7 @@ DWS IQ is the **Brain-Memory-Body-Hands** industrial AI ecosystem for EU-regulat
 │     16 AI agents, MCP coordination, real-time reasoning      │
 ├──────────────────────────────────────────────────────────────┤
 │  💾 MEMORY — Lifetime World Model                           │
-│     15 000+ EU regulations, climate LLM, 16-industry data   │
+│     15 000+ EU regulations, climate LLM, 25+-industry data   │
 │     Grok as master conductor across all 16 vertical LLMs     │
 ├──────────────────────────────────────────────────────────────┤
 │  🏭 BODY — Firehorse Suite                                  │
@@ -135,8 +135,8 @@ Tesla and xAI are US companies. The CLOUD Act means US authorities can demand an
 | **Machinery Regulation 2023/1230** | Optimus is "machinery" — requires notified body CE-like assessment | DWS IQ provides technical file, compliance documentation, EU-language manuals |
 | **GDPR Article 22** | Automated decision-making with legal/physical effect | Human Captain always has final override — DWS IQ enforces this architecturally |
 | **NIS2** | Critical infrastructure sectors require EU-jurisdiction AI | Air-gapped GN-100 cluster — zero US cloud dependency |
-| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS Aiwen logging layer captures all AI events locally |
-| **Language requirements** | EU AI Act requires technical docs in official EU languages | DWS delivers 27-country localization across all 16 industries |
+| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS sovereignty audit logging layer captures all AI events locally |
+| **Language requirements** | EU AI Act requires technical docs in official EU languages | DWS delivers 27-country localization across all 25+ industries |
 
 **The reframe:** DWS IQ is not just a customer of xAI/Tesla. **DWS IQ is the compliance bridge that makes Optimus V3 legally deployable in EU regulated industries.** This is a strategic distribution partnership, not a vendor relationship.
 
@@ -314,7 +314,7 @@ The `dws-robot-api` interface layer (in development, DWS7 Phase 4) accepts:
 | **Agility Robotics Digit** | Open for partnership | Medium |
 | **Custom industrial robots (ROS2)** | Open | Any ROS2-compatible platform |
 
-**What this means for xAI:** Being Optimus in the DWS IQ ecosystem means being the default recommendation for all 16 industries and all 27 EU countries. Every time a DWS Captain opens their wallet, Optimus is the robot on the shortlist.
+**What this means for xAI:** Being Optimus in the DWS IQ ecosystem means being the default recommendation for all 25+ industries and all 27 EU countries. Every time a DWS Captain opens their wallet, Optimus is the robot on the shortlist.
 
 **Robot Development Partnership Invitation:**
 
@@ -355,7 +355,7 @@ These roles exist exclusively for premium wallet-openers from any of the 27 EU c
 | Revocation | Instant model + data revocation, one click | GDPR Article 17 |
 | Incident reporting | Structured log exportable for national authority | EU AI Act Article 18 |
 
-**Aiwen Logging Layer (DWS7 Phase 2, Q2 2026):** Dedicated EU-only Article 12 compliance service, running on GN-100 cluster, separate from production AI inference. Every Grok decision and every Optimus action gets a tamper-evident log entry.
+**Full Sovereignty audit logging (DWS7 Phase 2, Q2 2026):** Dedicated EU-only Article 12 compliance service, running on GN-100 cluster, separate from production AI inference. Every Grok decision and every Optimus action gets a tamper-evident log entry.
 
 ---
 
@@ -401,14 +401,14 @@ These roles exist exclusively for premium wallet-openers from any of the 27 EU c
 
 | Item | Value |
 |------|-------|
-| DWS IQ provides | Pre-qualified access to decision-makers in 16 EU industries |
+| DWS IQ provides | Pre-qualified access to decision-makers in 25+ EU industries |
 | xAI provides | Grok + Optimus brand equity in EU industrial marketing |
 | Joint | Case studies from first 3 Optimus industrial deployments |
 | Target | 27 EU countries, €2.4T industrial GDP, 22.9% CAGR AI adoption |
 
 **What DWS IQ delivers for xAI:**
 - Pre-built EU regulatory compliance layer (Fit for 55, ETS, CBAM, CSRD, EU AI Act)
-- 16-industry vertical coverage already live and operational
+- 25+-industry vertical coverage already live and operational
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (unique EU situational awareness data stream)
 - Direct access to Platinum Captains — decision-makers with €50 000 SAFE investment capacity
@@ -420,7 +420,7 @@ These roles exist exclusively for premium wallet-openers from any of the 27 EU c
 
 | Role | Price | Notes |
 |------|-------|-------|
-| Platinum Industry Captain | €50 000 SAFE | €3.8 M cap, 20% discount, first tranche of 8 seats |
+| Platinum Industry Captain | €50 000 SAFE | €3.8 M cap, 18% discount, first tranche of 8 seats |
 | Full 8–16 unit Captain's Bridge | Funded by incoming role purchases + VCs | After first seats fill |
 | 16 open-source LLMs | €0 licensing | Sovereign stack, runs locally |
 | Grok Enterprise license | Negotiated with xAI | Per-cluster or revenue share |

@@ -22,15 +22,15 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
-import { iceyeClient, bboxToPolygon, bboxAreaKm2 } from '../integrations/iceye/client.js';
+import { bboxAreaKm2, bboxToPolygon, iceyeClient } from '../integrations/iceye/client.js';
 import type {
+  BoundingBox,
   DwsIndustry,
+  GeoJsonPolygon,
   OrbitalScanRequest,
   OrbitalScanResult,
   OrbitalTarget,
   SarSignaturePattern,
-  GeoJsonPolygon,
-  BoundingBox,
 } from '../integrations/iceye/types.js';
 
 // ============ SAR SIGNATURE DATABASE (20 INDUSTRIES) ============
@@ -51,28 +51,52 @@ const SAR_SIGNATURES: SarSignaturePattern[] = [
     industry: 'power-heat-generation',
     label: 'Power Plant / Heat Generation Facility',
     backscatterProfile: { intensityRange: [-5, 10], texture: 'metallic', changeRate: 'dynamic' },
-    targetFeatures: ['cooling towers', 'smokestacks', 'turbine halls', 'coal/gas storage', 'transmission lines'],
-    minConfidence: 0.70,
+    targetFeatures: [
+      'cooling towers',
+      'smokestacks',
+      'turbine halls',
+      'coal/gas storage',
+      'transmission lines',
+    ],
+    minConfidence: 0.7,
   },
   {
     industry: 'iron-steel',
     label: 'Steel Mill / Iron Works',
     backscatterProfile: { intensityRange: [-3, 15], texture: 'metallic', changeRate: 'dynamic' },
-    targetFeatures: ['blast furnaces', 'rolling mills', 'slag heaps', 'rail yards', 'raw material stockpiles'],
+    targetFeatures: [
+      'blast furnaces',
+      'rolling mills',
+      'slag heaps',
+      'rail yards',
+      'raw material stockpiles',
+    ],
     minConfidence: 0.72,
   },
   {
     industry: 'cement-lime',
     label: 'Cement Plant / Lime Kiln',
     backscatterProfile: { intensityRange: [-8, 8], texture: 'rough', changeRate: 'slow' },
-    targetFeatures: ['rotary kilns', 'clinker silos', 'quarry adjacent', 'dust plumes', 'conveyor systems'],
-    minConfidence: 0.70,
+    targetFeatures: [
+      'rotary kilns',
+      'clinker silos',
+      'quarry adjacent',
+      'dust plumes',
+      'conveyor systems',
+    ],
+    minConfidence: 0.7,
   },
   {
     industry: 'chemicals-petrochemicals',
     label: 'Chemical / Petrochemical Complex',
     backscatterProfile: { intensityRange: [-2, 12], texture: 'metallic', changeRate: 'dynamic' },
-    targetFeatures: ['distillation columns', 'tank farms', 'flare stacks', 'pipeline networks', 'cooling ponds'],
+    targetFeatures: [
+      'distillation columns',
+      'tank farms',
+      'flare stacks',
+      'pipeline networks',
+      'cooling ponds',
+    ],
     minConfidence: 0.68,
   },
   {
@@ -87,63 +111,111 @@ const SAR_SIGNATURES: SarSignaturePattern[] = [
     label: 'Port / Maritime Terminal',
     backscatterProfile: { intensityRange: [-20, 10], texture: 'mixed', changeRate: 'rapid' },
     targetFeatures: ['berths', 'container yards', 'cranes', 'vessel signatures', 'breakwaters'],
-    minConfidence: 0.80,
+    minConfidence: 0.8,
   },
   {
     industry: 'road-transport-logistics',
     label: 'Logistics Hub / Distribution Center',
     backscatterProfile: { intensityRange: [-10, 5], texture: 'urban', changeRate: 'rapid' },
-    targetFeatures: ['loading docks', 'truck parking', 'warehouse roofs', 'road networks', 'intermodal yards'],
+    targetFeatures: [
+      'loading docks',
+      'truck parking',
+      'warehouse roofs',
+      'road networks',
+      'intermodal yards',
+    ],
     minConfidence: 0.65,
   },
   {
     industry: 'construction-buildings',
     label: 'Construction Site / Building Development',
     backscatterProfile: { intensityRange: [-12, 8], texture: 'rough', changeRate: 'rapid' },
-    targetFeatures: ['crane signatures', 'excavation areas', 'material stockpiles', 'temporary structures', 'foundation work'],
-    minConfidence: 0.60,
+    targetFeatures: [
+      'crane signatures',
+      'excavation areas',
+      'material stockpiles',
+      'temporary structures',
+      'foundation work',
+    ],
+    minConfidence: 0.6,
   },
   // Tier 2: Important Emissions
   {
     industry: 'agriculture-livestock',
     label: 'Agricultural Facility / Livestock Operation',
     backscatterProfile: { intensityRange: [-18, 2], texture: 'vegetation', changeRate: 'slow' },
-    targetFeatures: ['field patterns', 'irrigation systems', 'livestock enclosures', 'silos', 'greenhouses'],
+    targetFeatures: [
+      'field patterns',
+      'irrigation systems',
+      'livestock enclosures',
+      'silos',
+      'greenhouses',
+    ],
     minConfidence: 0.65,
   },
   {
     industry: 'waste-management-recycling',
     label: 'Waste Processing / Landfill Site',
     backscatterProfile: { intensityRange: [-15, 5], texture: 'rough', changeRate: 'slow' },
-    targetFeatures: ['landfill cells', 'sorting facilities', 'leachate ponds', 'methane capture', 'vehicle patterns'],
+    targetFeatures: [
+      'landfill cells',
+      'sorting facilities',
+      'leachate ponds',
+      'methane capture',
+      'vehicle patterns',
+    ],
     minConfidence: 0.62,
   },
   {
     industry: 'aluminium',
     label: 'Aluminium Smelter / Processing',
     backscatterProfile: { intensityRange: [-2, 14], texture: 'metallic', changeRate: 'dynamic' },
-    targetFeatures: ['potlines', 'anode plants', 'casting halls', 'alumina storage', 'power substations'],
+    targetFeatures: [
+      'potlines',
+      'anode plants',
+      'casting halls',
+      'alumina storage',
+      'power substations',
+    ],
     minConfidence: 0.72,
   },
   {
     industry: 'pulp-paper-printing',
     label: 'Pulp & Paper Mill',
     backscatterProfile: { intensityRange: [-8, 8], texture: 'mixed', changeRate: 'slow' },
-    targetFeatures: ['digesters', 'paper machines', 'wood yards', 'effluent treatment', 'chip piles'],
+    targetFeatures: [
+      'digesters',
+      'paper machines',
+      'wood yards',
+      'effluent treatment',
+      'chip piles',
+    ],
     minConfidence: 0.68,
   },
   {
     industry: 'petroleum-refining',
     label: 'Oil Refinery',
     backscatterProfile: { intensityRange: [0, 15], texture: 'metallic', changeRate: 'dynamic' },
-    targetFeatures: ['distillation towers', 'tank farms', 'flare stacks', 'pipeline manifolds', 'jetties'],
+    targetFeatures: [
+      'distillation towers',
+      'tank farms',
+      'flare stacks',
+      'pipeline manifolds',
+      'jetties',
+    ],
     minConfidence: 0.78,
   },
   {
     industry: 'food-beverage',
     label: 'Food / Beverage Processing Plant',
     backscatterProfile: { intensityRange: [-10, 5], texture: 'urban', changeRate: 'slow' },
-    targetFeatures: ['processing halls', 'cold storage', 'loading areas', 'wastewater treatment', 'silos'],
+    targetFeatures: [
+      'processing halls',
+      'cold storage',
+      'loading areas',
+      'wastewater treatment',
+      'silos',
+    ],
     minConfidence: 0.55,
   },
   {
@@ -151,13 +223,20 @@ const SAR_SIGNATURES: SarSignaturePattern[] = [
     label: 'Glass / Ceramics Factory',
     backscatterProfile: { intensityRange: [-5, 10], texture: 'mixed', changeRate: 'slow' },
     targetFeatures: ['furnaces', 'batch houses', 'raw material storage', 'finished goods yards'],
-    minConfidence: 0.60,
+    minConfidence: 0.6,
   },
   {
     industry: 'mining-quarrying',
     label: 'Mining Operation / Quarry',
     backscatterProfile: { intensityRange: [-15, 5], texture: 'rough', changeRate: 'dynamic' },
-    targetFeatures: ['open pit', 'tailings ponds', 'haul roads', 'crushers', 'conveyor belts', 'waste dumps'],
+    targetFeatures: [
+      'open pit',
+      'tailings ponds',
+      'haul roads',
+      'crushers',
+      'conveyor belts',
+      'waste dumps',
+    ],
     minConfidence: 0.75,
   },
   // Tier 3: Wedge Industries (typically NOT visible from orbit — use co-location inference)
@@ -165,29 +244,45 @@ const SAR_SIGNATURES: SarSignaturePattern[] = [
     industry: 'fintech-trading',
     label: 'Data Center / Financial Infrastructure',
     backscatterProfile: { intensityRange: [-8, 6], texture: 'urban', changeRate: 'static' },
-    targetFeatures: ['large flat roofs', 'HVAC arrays', 'backup generators', 'security perimeter', 'fiber optic routes'],
+    targetFeatures: [
+      'large flat roofs',
+      'HVAC arrays',
+      'backup generators',
+      'security perimeter',
+      'fiber optic routes',
+    ],
     minConfidence: 0.45,
   },
   {
     industry: 'pharma-biotech',
     label: 'Pharmaceutical / Biotech Campus',
     backscatterProfile: { intensityRange: [-8, 5], texture: 'urban', changeRate: 'static' },
-    targetFeatures: ['clean room buildings', 'R&D campus', 'controlled access', 'parking structures'],
-    minConfidence: 0.40,
+    targetFeatures: [
+      'clean room buildings',
+      'R&D campus',
+      'controlled access',
+      'parking structures',
+    ],
+    minConfidence: 0.4,
   },
   {
     industry: 'cybersecurity',
     label: 'Cybersecurity Operations Center',
     backscatterProfile: { intensityRange: [-8, 4], texture: 'urban', changeRate: 'static' },
     targetFeatures: ['office complex', 'antenna arrays', 'secure perimeter', 'backup power'],
-    minConfidence: 0.30,
+    minConfidence: 0.3,
   },
   {
     industry: 'healthcare-medtech',
     label: 'Hospital / MedTech Facility',
     backscatterProfile: { intensityRange: [-10, 6], texture: 'urban', changeRate: 'static' },
-    targetFeatures: ['hospital buildings', 'helipads', 'parking structures', 'medical waste facilities'],
-    minConfidence: 0.50,
+    targetFeatures: [
+      'hospital buildings',
+      'helipads',
+      'parking structures',
+      'medical waste facilities',
+    ],
+    minConfidence: 0.5,
   },
 ];
 
@@ -206,7 +301,8 @@ export class ArgusAgent extends BaseAgent {
         'change-detection',
         'geospatial-intelligence',
       ],
-      model: 'claude-sonnet-4-20250514', // Vision-capable model for SAR analysis
+      model: 'claude-sonnet-5', // Vision-capable model for SAR analysis
+      modelTier: 'lite',
     });
   }
 
@@ -231,7 +327,7 @@ export class ArgusAgent extends BaseAgent {
       };
     } else {
       // Default: Helsinki metro area
-      aoi = { west: 24.80, south: 60.10, east: 25.20, north: 60.30 };
+      aoi = { west: 24.8, south: 60.1, east: 25.2, north: 60.3 };
     }
 
     return {
@@ -248,10 +344,7 @@ export class ArgusAgent extends BaseAgent {
     };
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
     const scanRequest = this.normalizeInput(input);
 
@@ -285,24 +378,13 @@ export class ArgusAgent extends BaseAgent {
       const images = await this.acquireImagery(scanRequest, aoiPolygon);
 
       // 3. Run SAR signature matching (deterministic pre-classification)
-      const preClassified = this.preClassifyTargets(
-        images.length,
-        aoiBbox,
-        scanRequest.industries,
-      );
+      const preClassified = this.preClassifyTargets(images.length, aoiBbox, scanRequest.industries);
 
       // 4. Refine with LLM vision analysis
-      const refinedTargets = await this.refineWithLLM(
-        preClassified,
-        scanRequest,
-        areaKm2,
-      );
+      const refinedTargets = await this.refineWithLLM(preClassified, scanRequest, areaKm2);
 
       // 5. Apply KYA governance to every label
-      const governedTargets = this.applyKyaGovernance(
-        refinedTargets,
-        context,
-      );
+      const governedTargets = this.applyKyaGovernance(refinedTargets, context);
 
       // 6. Build industry summary
       const industrySummary = this.buildIndustrySummary(governedTargets);
@@ -331,12 +413,15 @@ export class ArgusAgent extends BaseAgent {
 
       const response: AgentResponse = {
         agentName: this.config.name,
-        result: scanResult,
+        result: scanResult as unknown as Record<string, unknown>,
         confidence: this.computeOverallConfidence(governedTargets),
-        reasoning: `Orbital scan of ${areaKm2.toFixed(1)} km² processed ${images.length} SAR images. ` +
+        reasoning:
+          `Orbital scan of ${areaKm2.toFixed(1)} km² processed ${images.length} SAR images. ` +
           `Detected ${governedTargets.length} industrial targets across ${industrySummary.length} industries. ` +
           `KYA governance applied to all ${governedTargets.length} labeling decisions. ` +
-          (changes ? `Change detection: ${changes.newTargets} new, ${changes.modifiedTargets} modified, ${changes.removedTargets} removed.` : ''),
+          (changes
+            ? `Change detection: ${changes.newTargets} new, ${changes.modifiedTargets} modified, ${changes.removedTargets} removed.`
+            : ''),
         recommendations: this.buildRecommendations(scanResult),
         metadata: { durationMs, llmModel: this.config.model, llmTokens: 0 },
       };
@@ -393,10 +478,7 @@ export class ArgusAgent extends BaseAgent {
     };
   }
 
-  private async acquireImagery(
-    request: OrbitalScanRequest,
-    aoiPolygon: GeoJsonPolygon,
-  ) {
+  private async acquireImagery(request: OrbitalScanRequest, aoiPolygon: GeoJsonPolygon) {
     const client = iceyeClient;
 
     if (request.acquisitionMode === 'tasking' || request.acquisitionMode === 'both') {
@@ -441,12 +523,13 @@ export class ArgusAgent extends BaseAgent {
     // Estimate target density based on area and industry type
     for (const sig of signatures) {
       // Skip wedge industries with very low orbital detectability
-      if (sig.minConfidence < 0.40) continue;
+      if (sig.minConfidence < 0.4) continue;
 
       // Probability of detection scales with area and industry prevalence
-      const expectedCount = Math.max(0, Math.round(
-        areaKm2 * this.industryDensityFactor(sig.industry) * (imageCount || 1) * 0.1,
-      ));
+      const expectedCount = Math.max(
+        0,
+        Math.round(areaKm2 * this.industryDensityFactor(sig.industry) * (imageCount || 1) * 0.1),
+      );
 
       for (let i = 0; i < Math.min(expectedCount, 5); i++) {
         const targetLon = bbox.west + Math.random() * (bbox.east - bbox.west);
@@ -466,10 +549,18 @@ export class ArgusAgent extends BaseAgent {
           areaSqM: 10000 + Math.random() * 500000,
           description: `${sig.label} detected via SAR signature matching. Features: ${sig.targetFeatures.slice(0, 3).join(', ')}`,
           sarAttributes: {
-            meanIntensity: sig.backscatterProfile.intensityRange[0] +
-              Math.random() * (sig.backscatterProfile.intensityRange[1] - sig.backscatterProfile.intensityRange[0]),
-            changeDetected: sig.backscatterProfile.changeRate === 'rapid' || sig.backscatterProfile.changeRate === 'dynamic',
-            changeMagnitude: sig.backscatterProfile.changeRate === 'rapid' ? 0.6 + Math.random() * 0.4 : Math.random() * 0.3,
+            meanIntensity:
+              sig.backscatterProfile.intensityRange[0] +
+              Math.random() *
+                (sig.backscatterProfile.intensityRange[1] -
+                  sig.backscatterProfile.intensityRange[0]),
+            changeDetected:
+              sig.backscatterProfile.changeRate === 'rapid' ||
+              sig.backscatterProfile.changeRate === 'dynamic',
+            changeMagnitude:
+              sig.backscatterProfile.changeRate === 'rapid'
+                ? 0.6 + Math.random() * 0.4
+                : Math.random() * 0.3,
           },
           sourceImage: {
             imageId: `iceye-${Date.now()}-${i}`,
@@ -479,9 +570,9 @@ export class ArgusAgent extends BaseAgent {
           },
           kyaGovernance: {
             labelingAgentId: 'argus',
-            agentKyaScore: 0,       // Set later by applyKyaGovernance
+            agentKyaScore: 0, // Set later by applyKyaGovernance
             humanReviewRequired: false,
-            firehorseTraceId: '',    // Set later
+            firehorseTraceId: '', // Set later
           },
         });
       }
@@ -499,7 +590,7 @@ export class ArgusAgent extends BaseAgent {
       'iron-steel': 0.02,
       'cement-lime': 0.03,
       'chemicals-petrochemicals': 0.04,
-      'aviation': 0.01,
+      aviation: 0.01,
       'maritime-shipping': 0.02,
       'agriculture-livestock': 0.3,
       'waste-management-recycling': 0.06,
@@ -511,7 +602,7 @@ export class ArgusAgent extends BaseAgent {
   /** Refine pre-classified targets with LLM reasoning */
   private async refineWithLLM(
     targets: OrbitalTarget[],
-    request: OrbitalScanRequest,
+    _request: OrbitalScanRequest,
     areaKm2: number,
   ): Promise<OrbitalTarget[]> {
     if (targets.length === 0) return targets;
@@ -521,9 +612,10 @@ export class ArgusAgent extends BaseAgent {
 You have pre-classified ${targets.length} targets in a ${areaKm2.toFixed(1)} km² area.
 
 Pre-classified targets (industry, confidence, features):
-${targets.slice(0, 15).map((t) =>
-  `- ${t.industry}: ${(t.confidence * 100).toFixed(0)}% — ${t.description}`
-).join('\n')}
+${targets
+  .slice(0, 15)
+  .map((t) => `- ${t.industry}: ${(t.confidence * 100).toFixed(0)}% — ${t.description}`)
+  .join('\n')}
 
 For each target, assess if the classification is plausible given:
 1. Co-location patterns (e.g., steel mills near ports, power plants near industrial zones)
@@ -552,16 +644,16 @@ Only include targets where you'd adjust confidence. Max 10 adjustments.`,
   }
 
   /** Apply KYA governance to every labeling decision */
-  private applyKyaGovernance(
-    targets: OrbitalTarget[],
-    context: AgentContext,
-  ): OrbitalTarget[] {
+  private applyKyaGovernance(targets: OrbitalTarget[], context: AgentContext): OrbitalTarget[] {
     // KYA governance rules for orbital labeling:
     // - Low confidence (< 0.5) → human review required
     // - Wedge industries (fintech, pharma, cyber, healthcare) → always human review
     // - Every target gets a Firehorse trace ID
     const wedgeIndustries: DwsIndustry[] = [
-      'fintech-trading', 'pharma-biotech', 'cybersecurity', 'healthcare-medtech',
+      'fintech-trading',
+      'pharma-biotech',
+      'cybersecurity',
+      'healthcare-medtech',
     ];
 
     return targets.map((target) => ({
@@ -569,9 +661,7 @@ Only include targets where you'd adjust confidence. Max 10 adjustments.`,
       kyaGovernance: {
         labelingAgentId: 'argus',
         agentKyaScore: 75, // Default agent trust score (would come from ATS engine in production)
-        humanReviewRequired:
-          target.confidence < 0.5 ||
-          wedgeIndustries.includes(target.industry),
+        humanReviewRequired: target.confidence < 0.5 || wedgeIndustries.includes(target.industry),
         firehorseTraceId: `fh-argus-${context.sessionId}-${target.targetId}`,
       },
     }));
@@ -588,7 +678,8 @@ Only include targets where you'd adjust confidence. Max 10 adjustments.`,
     return Array.from(groups.entries()).map(([industry, industryTargets]) => ({
       industry,
       targetCount: industryTargets.length,
-      avgConfidence: industryTargets.reduce((sum, t) => sum + t.confidence, 0) / industryTargets.length,
+      avgConfidence:
+        industryTargets.reduce((sum, t) => sum + t.confidence, 0) / industryTargets.length,
       totalAreaSqM: industryTargets.reduce((sum, t) => sum + t.areaSqM, 0),
     }));
   }
@@ -626,22 +717,34 @@ Only include targets where you'd adjust confidence. Max 10 adjustments.`,
 
     const lowConfidence = result.targets.filter((t) => t.confidence < 0.5);
     if (lowConfidence.length > 0) {
-      recs.push(`${lowConfidence.length} targets have low confidence — consider higher-resolution spotlight tasking`);
+      recs.push(
+        `${lowConfidence.length} targets have low confidence — consider higher-resolution spotlight tasking`,
+      );
     }
 
     if (result.changes && result.changes.significantChanges.length > 0) {
-      recs.push(`${result.changes.significantChanges.length} significant changes detected — review for compliance impact`);
+      recs.push(
+        `${result.changes.significantChanges.length} significant changes detected — review for compliance impact`,
+      );
     }
 
     const highEmitters = result.industrySummary
-      .filter((s) => ['iron-steel', 'cement-lime', 'power-heat-generation', 'chemicals-petrochemicals'].includes(s.industry))
+      .filter((s) =>
+        ['iron-steel', 'cement-lime', 'power-heat-generation', 'chemicals-petrochemicals'].includes(
+          s.industry,
+        ),
+      )
       .reduce((sum, s) => sum + s.targetCount, 0);
     if (highEmitters > 0) {
-      recs.push(`${highEmitters} high-emission industrial targets detected — cross-reference with ETS/CBAM obligations`);
+      recs.push(
+        `${highEmitters} high-emission industrial targets detected — cross-reference with ETS/CBAM obligations`,
+      );
     }
 
     if (result.areaScanedKm2 > 1000) {
-      recs.push('Large scan area — consider sub-region spotlight scans for higher-confidence classification');
+      recs.push(
+        'Large scan area — consider sub-region spotlight scans for higher-confidence classification',
+      );
     }
 
     if (recs.length === 0) {

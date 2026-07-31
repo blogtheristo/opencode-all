@@ -20,7 +20,8 @@ export class IrisAgent extends BaseAgent {
   constructor() {
     super({
       name: 'iris',
-      description: 'Research & Market Intelligence — competitor surveillance, regulatory extraction, and SEO keyword analysis for Climate IQ',
+      description:
+        'Research & Market Intelligence — competitor surveillance, regulatory extraction, and SEO keyword analysis for Climate IQ',
       capabilities: [
         'market-intelligence',
         'competitor-surveillance',
@@ -29,48 +30,64 @@ export class IrisAgent extends BaseAgent {
         'industry-trend-analysis',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
     const { agentRegistry } = await import('../../index.js');
 
-    const query = typeof input.query === 'string' ? input.query : 'EU climate compliance market intelligence';
+    const query =
+      typeof input.query === 'string' ? input.query : 'EU climate compliance market intelligence';
     const mode: IrisMode = (input.mode as IrisMode) || 'all';
     const domain = typeof input.domain === 'string' ? input.domain : undefined;
 
-    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { query, mode, domain }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input: { query, mode, domain },
+      output: null,
+      status: 'started',
+      duration_ms: 0,
+      created_at: new Date().toISOString(),
+    });
 
     const tasks: Promise<AgentResponse>[] = [];
     const taskLabels: string[] = [];
 
     if (mode === 'market' || mode === 'all') {
-      tasks.push(agentRegistry.executeAgent('competitor-surveillance', context, {
-        projectId: context.projectId,
-        query,
-        domain,
-      }));
+      tasks.push(
+        agentRegistry.executeAgent('competitor-surveillance', context, {
+          projectId: context.projectId,
+          query,
+          domain,
+        }),
+      );
       taskLabels.push('competitor-surveillance');
     }
 
     if (mode === 'regulatory' || mode === 'all') {
-      tasks.push(agentRegistry.executeAgent('deepwiki-extractor', context, {
-        query,
-        source: domain || 'eu-regulations',
-      }));
+      tasks.push(
+        agentRegistry.executeAgent('deepwiki-extractor', context, {
+          query,
+          source: domain || 'eu-regulations',
+        }),
+      );
       taskLabels.push('deepwiki-extractor');
     }
 
     if (mode === 'seo' || mode === 'all') {
-      tasks.push(agentRegistry.executeAgent('keyword-intent', context, {
-        projectId: context.projectId,
-        query,
-        industry: (input.industry as string) || 'climate-compliance',
-      }));
+      tasks.push(
+        agentRegistry.executeAgent('keyword-intent', context, {
+          projectId: context.projectId,
+          query,
+          industry: (input.industry as string) || 'climate-compliance',
+        }),
+      );
       taskLabels.push('keyword-intent');
     }
 
@@ -106,7 +123,11 @@ Return JSON: {
 }`,
     );
 
-    let synthesis = { keyFindings: [], actionableInsights: [], intelligenceSummary: '' };
+    let synthesis = {
+      keyFindings: [] as Record<string, unknown>[],
+      actionableInsights: [] as string[],
+      intelligenceSummary: '',
+    };
     try {
       synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
@@ -123,9 +144,7 @@ Return JSON: {
         intelligenceSummary: synthesis.intelligenceSummary,
         keyFindings: synthesis.keyFindings,
         actionableInsights: synthesis.actionableInsights,
-        rawIntelligence: Object.fromEntries(
-          successful.map((r) => [r.label, r.result?.result]),
-        ),
+        rawIntelligence: Object.fromEntries(successful.map((r) => [r.label, r.result?.result])),
         sourcesConsulted: successful.map((r) => r.label),
       },
       confidence: successful.length / Math.max(tasks.length, 1),
@@ -139,7 +158,18 @@ Return JSON: {
         findingCount: (synthesis.keyFindings as unknown[]).length,
       },
     };
-    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { query, mode }, output: response, status: 'completed', duration_ms: durationMs, created_at: new Date().toISOString() });
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input: { query, mode },
+      output: response,
+      status: 'completed',
+      duration_ms: durationMs,
+      created_at: new Date().toISOString(),
+    });
     return response;
   }
 }

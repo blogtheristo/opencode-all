@@ -20,8 +20,8 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
-import { normalizeToKg, type NormalizationResult } from './unit-normalization.js';
-import { createEC3Client, type EC3Client, type EC3CategoryStats } from '../integrations/ec3/index.js';
+import { type NormalizationResult, normalizeToKg } from './unit-normalization.js';
+import { createEC3Client, type EC3CategoryStats, type EC3Client } from '../integrations/ec3/index.js';
 
 // ============ EMISSION FACTORS DATABASE ============
 // kgCO2e per unit (based on ICE Database v3 and EPD averages)
@@ -94,6 +94,24 @@ const EMISSION_FACTORS: Record<string, EmissionFactor> = {
     a1_a3: 1.99, a4: 0.03, a5: 0.015, b: 0.005, c: 0.04, d: -0.45,
     unit: 'kg', category: 'Structural',
   },
+  // Lime products — dual-use critical raw material (steel flux, cement, decontamination)
+  // Source: EU ETS Benchmark 2021-2025 (0.954 tCO2e/t lime)
+  lime: {
+    a1_a3: 0.954, a4: 0.02, a5: 0.008, b: 0.001, c: 0.018, d: -0.04,
+    unit: 'kg', category: 'Binders',
+  },
+  quicklime: {
+    a1_a3: 1.092, a4: 0.02, a5: 0.008, b: 0.001, c: 0.02, d: -0.035,
+    unit: 'kg', category: 'Binders',
+  },
+  slaked_lime: {
+    a1_a3: 0.742, a4: 0.018, a5: 0.007, b: 0.001, c: 0.015, d: -0.03,
+    unit: 'kg', category: 'Binders',
+  },
+  limestone: {
+    a1_a3: 0.032, a4: 0.015, a5: 0.005, b: 0.001, c: 0.01, d: -0.005,
+    unit: 'kg', category: 'Aggregates',
+  },
 };
 
 /** Lower-carbon alternatives lookup */
@@ -123,6 +141,16 @@ const ALTERNATIVES: Record<string, Array<{ name: string; reduction: number; note
   ],
   glass: [
     { name: 'Recycled-content glass (50%)', reduction: 0.25, note: 'Widely available in EU market' },
+  ],
+  lime: [
+    { name: 'Electric calcination lime (Litherm)', reduction: 0.90, note: 'Fully electric calcination — zero process CO2. SigmaRoc/Litherm EUR 6.5M seed (2026)' },
+    { name: 'Lime with CCS', reduction: 0.85, note: 'Carbon capture at kiln — SigmaRoc Köping pilot operational' },
+  ],
+  quicklime: [
+    { name: 'Electric calcination quicklime', reduction: 0.90, note: 'Litherm Technologies GmbH — eliminates combustion and process CO2' },
+  ],
+  limestone: [
+    { name: 'Recycled calcium carbonate', reduction: 0.40, note: 'From water treatment sludge or paper mill waste' },
   ],
 };
 
@@ -159,6 +187,7 @@ export class MaterialOracleAgent extends BaseAgent {
         'ec3-epd-lookup',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
     this.ec3Client = createEC3Client();
   }

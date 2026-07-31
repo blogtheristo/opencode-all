@@ -16,7 +16,7 @@ Would you be open to a short call to see if this fits your climate / constructio
 
 | Metric | Value |
 |--------|-------|
-| **Current MRR** | €7k (5 paying customers) |
+| **Current MRR** | €7k (6 paying customers) |
 | **Retention** | 100% (zero churn) |
 | **Customer LTV** | €70k–€120k per logo |
 | **Time Saved** | 40–80 hours per project |
@@ -238,7 +238,7 @@ Risto
 "We automate CSRD and Fit for 55 compliance reporting for construction portfolios. Think: 40–80 hours of manual Excel work per project → 4 weeks to audit-ready reports and live dashboards."
 
 ### Traction (30 seconds)
-"We're at €7k MRR with 5 paying customers, 100% retention. Customer LTV is €70k–€120k per logo. We have 2 construction pilots converting to +€6k MRR in Q1 2026."
+"We're at €7k MRR with 6 paying customers, 100% retention. Customer LTV is €70k–€120k per logo. We have 2 construction pilots converting to +€6k MRR in Q1 2026."
 
 ### Market (30 seconds)
 "CSRD and Fit for 55 are mandatory starting 2025. 3.5M EU construction firms must comply or face €10k–€50k fines per project. This is forced purchasing – a 'mandatory spend' SaaS market."
@@ -263,7 +263,7 @@ A: CSRD / Fit for 55 compliance automation for construction portfolios. Plug int
 A: Construction and infrastructure portfolio owners (CDOs, CFOs) managing 10–100+ projects.
 
 **Q: What's the traction?**  
-A: €7k MRR, 5 paying customers, 100% retention, €70k–€120k LTV per logo.
+A: €7k MRR, 6 paying customers, 100% retention, €70k–€120k LTV per logo.
 
 **Q: Why now?**  
 A: CSRD / Fit for 55 mandatory 2025. 3.5M EU firms must comply. We're first to market with automated solution.

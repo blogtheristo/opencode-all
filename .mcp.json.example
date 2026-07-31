@@ -1,18 +1,20 @@
 {
   "mcpServers": {
-    "GitHub Official": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_personal_access_token_here"
-      }
+    "dws-agents-local": {
+      "type": "http",
+      "url": "http://localhost:3001/mcp"
     },
-    "Supabase Official": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/supabase-mcp@latest"],
+    "dws-gateway-local": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "mcp-servers/cloud-run-gateway/server.py",
+        "--transport",
+        "stdio"
+      ],
       "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
-        "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
       }
     }
   }

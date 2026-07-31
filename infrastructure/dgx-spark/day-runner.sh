@@ -10,8 +10,9 @@
 #                    that hasn't run yet today/this hour
 #
 # Convention-based auto-discovery:
-#   scripts/daily/*.{ts,sh}    — run once per day (06:00 UTC check)
-#   scripts/hourly/*.{ts,sh}   — run once per hour
+#   scripts/daily/*.{ts,sh}     — run once per day (06:00 UTC check)
+#   scripts/weekly/*.{ts,sh}    — run once per week (Sunday 04:00 UTC)
+#   scripts/hourly/*.{ts,sh}    — run once per hour
 #   scripts/on-deploy/*.{ts,sh} — run after every git pull that has changes
 #
 # State tracked in: /home/admin100/dws6/logs/day-runner-state.json
@@ -29,7 +30,7 @@ STATE_FILE="${REPO_DIR}/logs/day-runner-state.json"
 LOG_PREFIX="[DAY-RUNNER $(date -u +%H:%M)]"
 
 cd "$REPO_DIR"
-mkdir -p logs scripts/daily scripts/hourly scripts/on-deploy
+mkdir -p logs scripts/daily scripts/hourly scripts/weekly scripts/on-deploy
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -176,6 +177,20 @@ if [ "$CURRENT_HOUR" = "06" ] || [ "$CURRENT_HOUR" = "03" ] || [ "$CURRENT_HOUR"
     if [ "$(last_run "daily:$name")" != "$TODAY" ]; then
       run_script "$script"
       mark_run "daily:$name" "$TODAY"
+    fi
+  done
+fi
+
+# --- weekly scripts (run once per week, Sunday at 04:00 UTC window) ---
+THIS_WEEK=$(date -u +%Y-W%V)
+DAY_OF_WEEK=$(date -u +%u)  # 7 = Sunday
+if [ "$DAY_OF_WEEK" = "7" ] && { [ "$CURRENT_HOUR" = "04" ] || [ "$CURRENT_HOUR" = "03" ]; }; then
+  for script in scripts/weekly/*.{ts,sh}; do
+    [ -f "$script" ] || continue
+    name=$(basename "$script")
+    if [ "$(last_run "weekly:$name")" != "$THIS_WEEK" ]; then
+      run_script "$script"
+      mark_run "weekly:$name" "$THIS_WEEK"
     fi
   done
 fi

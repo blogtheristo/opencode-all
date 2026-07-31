@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifetime Oy — Myyjän paketti / Sales Kit</title>
+    <style>
+      :root {
+        --ink: #15182b;
+        --muted: #5a6072;
+        --line: #dfe2ec;
+        --accent: #0b3d91;
+        --green: #0a7d5a;
+        --flag: #b00020;
+        --amber: #9a6700;
+        --bg: #f7f8fb;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        line-height: 1.45;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 32px 40px;
+        background: var(--bg);
+        font-size: 11pt;
+      }
+      header {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 14px;
+        margin-bottom: 8px;
+      }
+      h1 {
+        font-size: 22pt;
+        margin: 0;
+        color: var(--accent);
+      }
+      .sub {
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .policy {
+        background: #fff5f5;
+        border-left: 4px solid var(--flag);
+        border-radius: 5px;
+        padding: 9px 13px;
+        margin: 16px 0;
+        font-size: 9.8pt;
+      }
+      h2 {
+        font-size: 12pt;
+        margin: 26px 0 6px;
+        color: var(--ink);
+      }
+      h2 .tag {
+        font-size: 8.5pt;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        vertical-align: middle;
+        margin-left: 8px;
+        text-transform: uppercase;
+      }
+      .tag.share {
+        background: #e3f5ec;
+        color: var(--green);
+      }
+      .tag.nda {
+        background: #fdeee0;
+        color: var(--amber);
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+      }
+      .card h3 {
+        margin: 0 0 4px;
+        font-size: 11.5pt;
+      }
+      .card p {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 10pt;
+        flex-grow: 1;
+      }
+      .links a {
+        display: inline-block;
+        font-size: 9.6pt;
+        text-decoration: none;
+        color: #fff;
+        background: var(--accent);
+        padding: 5px 11px;
+        border-radius: 6px;
+        margin: 2px 6px 2px 0;
+      }
+      .links a.alt {
+        background: #475069;
+      }
+      .links a.ext {
+        background: var(--green);
+      }
+      .badge {
+        font-size: 8pt;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 9px;
+        align-self: flex-start;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .b-share {
+        background: #e3f5ec;
+        color: var(--green);
+      }
+      .b-nda {
+        background: #fdeee0;
+        color: var(--amber);
+      }
+      .b-draft {
+        background: #eef0f5;
+        color: var(--muted);
+      }
+      .status {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 12px 16px;
+        margin: 14px 0;
+        font-size: 10pt;
+      }
+      .status b {
+        color: var(--accent);
+      }
+      footer {
+        margin-top: 22px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+        font-size: 8.8pt;
+        color: var(--muted);
+      }
+      @media (max-width: 680px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lifetime Oy — Myyjän paketti</h1>
+      <div class="sub">
+        Sales Kit &middot; DWS IQ 6 sovereign-AI compliance &middot; kootut myynti-, DD- ja
+        sijoittajadokumentit (2026)
+      </div>
+    </header>
+
+    <div class="policy">
+      <strong>Julkaisupolitiikka:</strong> vihreät
+      <span style="color: var(--green)">JAETTAVA</span> -kortit voi jakaa asiakkaalle vapaasti.
+      Oranssit <span style="color: var(--amber)">NDA</span> -kortit ovat luottamuksellisia — jaa
+      vain NDA:n alla data-roomissa. Älä julkaise "term sheet -kelpoinen" -statusta julkisesti (DD
+      §18). Kaikki luvut täsmäävät DD-raporttiin (source of truth).
+    </div>
+
+    <h2>1. Asiakaspinta <span class="tag share">Jaettava</span></h2>
+    <div class="cards">
+      <div class="card">
+        <span class="badge b-share">Jaettava · FI</span>
+        <h3>Trust-kansio (ostajan due diligence)</h3>
+        <p>
+          Vastaa ostajan kysymyksiin: onko yritys luotettava, mitä asiakkaat sanovat, mitkä ovat
+          riskit — + dws10.com/buy-tuotekartta.
+        </p>
+        <div class="links"><a href="./TRUST_DOSSIER_LIFETIME_OY_FI.md">Trust-kansio (MD)</a></div>
+      </div>
+      <div class="card">
+        <span class="badge b-share">Julkinen</span>
+        <h3>Verkkokauppa — dws10.com/buy</h3>
+        <p>100+ tuotetta, hinnat yhdestä lähteestä. Pilotit 0 € (30–60 pv) paras sisäänheitto.</p>
+        <div class="links"><a class="ext" href="https://dws10.com/buy">Avaa kauppa ↗</a></div>
+      </div>
+    </div>
+
+    <h2>2. Sijoittaja & Due Diligence <span class="tag nda">NDA</span></h2>
+    <div class="cards">
+      <div class="card">
+        <span class="badge b-nda">NDA · Source of truth</span>
+        <h3>DD Clean Report 2026 (YC-rakenne)</h3>
+        <p>
+          Täysi due diligence YC Series A -checklistillä. Kaikki muut dokumentit peilaavat tätä.
+          Sis. §18 julkaisupolitiikka.
+        </p>
+        <div class="links">
+          <a href="../Learn/022_LT_DueDiligence_CleanReport_2026.md">DD-raportti (MD)</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="badge b-nda">NDA · 1 sivu</span>
+        <h3>Pre-term-sheet checklist</h3>
+        <p>Cap table → SAFE:t → IP → muu dataroom, red flags ja "valmis kun" -portti.</p>
+        <div class="links">
+          <a href="../Learn/022b_LT_PreTermSheet_DiligenceChecklist_2026.md">Checklist (MD)</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="badge b-nda">NDA</span>
+        <h3>Investor Q&amp;A — cap table / SAFE / IP</h3>
+        <p>Mitä sijoittaja käytännössä kysyy → vastaus nyt → mitä paperia hän haluaa nähdä.</p>
+        <div class="links">
+          <a href="../Learn/022c_LT_InvestorQA_CapTable_SAFE_IP_2026.md">Investor Q&amp;A (MD)</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="badge b-nda">NDA · 1 sivu</span>
+        <h3>Investor One-Pager</h3>
+        <p>
+          Gated sijoittajatiivistelmä — clean cap table, the ask, key-person-disclosure. Hyväksytty
+          ulkoinen muoto readinessille.
+        </p>
+        <div class="links">
+          <a href="../investor-outreach/INVESTOR_ONEPAGER_LIFETIME_OY_2026.html"
+            >One-Pager (HTML)</a
+          >
+          <a class="alt" href="../investor-outreach/INVESTOR_ONEPAGER_LIFETIME_OY_2026.md">MD</a>
+        </div>
+      </div>
+    </div>
+
+    <h2>3. Legal <span class="tag nda">NDA</span></h2>
+    <div class="cards">
+      <div class="card">
+        <span class="badge b-draft">DRAFT · juristin tarkistus</span>
+        <h3>Founder → Lifetime Oy IPR-luovutus</h3>
+        <p>
+          Allekirjoitusvalmis IP-luovutuspohja (koodi, mallit, agentit, brändi, patentit). Sulkee
+          DD:n ainoan avoimen IP-aukon.
+        </p>
+        <div class="links">
+          <a href="../Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.html">Sopimus (HTML)</a>
+          <a class="alt" href="../Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.md">MD</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="status">
+      <b>Lukittu lopputila:</b> Cap table ✅ puhdas (100 % Risto Anton Päärni, ei SAFEja/optioita) ·
+      IP-luovutus 📄 pohja valmis (allekirjoitus + juristin tarkistus jäljellä) ·
+      Term-sheet-kelpoinen kun IP allekirjoitettu + board approvalt koossa · readiness pidetään
+      NDA-gated.
+    </div>
+
+    <footer>
+      Lifetime Oy &middot; Y-tunnus 0772407-9 &middot; VAT FI07724079 &middot; Laidunmaanraitti 2 A
+      25, 02330 Espoo, Suomi &middot; risto.paarni@lifetime.fi<br />
+      Sisäinen myynnin työkalu. NDA-kortit luottamuksellisia. Luvut täsmäävät:
+      Learn/022_LT_DueDiligence_CleanReport_2026 (source of truth).
+    </footer>
+  </body>
+</html>

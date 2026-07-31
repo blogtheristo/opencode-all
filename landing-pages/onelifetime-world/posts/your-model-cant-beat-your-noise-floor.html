@@ -1,0 +1,624 @@
+<!doctype html>
+<!--
+  Your Model Can't Beat Your Noise Floor
+  Code-Version: 1.0
+  Introduced-In: PR-ontologies-agricultural-data
+  Branch: claude/ontologies-agricultural-data-iY08V
+  Date: 2026-06-15
+  Owner: Lifetime Oy
+  Related:
+    - docs/field-notes/2026-06-15-noise-floor-ontology-old-labels.md
+    - docs/field-notes/2026-06-05-aipcon10-usda-agricultural-ontology.md
+    - ONTOLOGY.md (§8 Active Pruning)
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Model Can't Beat Your Noise Floor</title>
+    <meta
+      name="description"
+      content="An ML project is roughly 50% evaluation, 40% data cleaning, 8% integration, 2% training. Evaluation and clean labels set the noise floor — the Shannon bound of your data — and no bigger model drops below it. Only a governed ontology lowers it."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-06-15" />
+    <meta property="og:title" content="Your Model Can't Beat Your Noise Floor" />
+    <meta
+      property="og:description"
+      content="A bigger model cannot recover information your data never held. The noise floor is set upstream — by evaluation and clean labels. The governed ontology is the only thing that moves it."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-06-15" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Ontology" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Model Can't Beat Your Noise Floor" />
+    <meta
+      name="twitter:description"
+      content="50% evaluation, 40% data cleaning, 8% integration, 2% training. The first two set the noise floor — and only a governed ontology lowers it."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .signal-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .signal-card:hover {
+        border-color: rgba(96, 165, 250, 0.55);
+        transform: translateY(-2px);
+      }
+      .news-box {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 24px 0;
+        color: #e2e8f0;
+      }
+      .gold-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 28px 0;
+        color: #f1f5f9;
+      }
+      .gold-box h3 {
+        color: #d4a843;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .short-box {
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 10px;
+        padding: 22px 26px;
+        margin: 34px 0;
+      }
+      .short-box h3 {
+        color: #60a5fa;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      blockquote.pull {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 0 8px 8px 0;
+        padding: 20px 24px;
+        margin: 28px 0;
+        font-style: italic;
+        color: #e2e8f0;
+      }
+      blockquote.pull cite {
+        display: block;
+        margin-top: 10px;
+        font-style: normal;
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      table.effort {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 24px 0;
+        font-size: 0.95rem;
+      }
+      table.effort th,
+      table.effort td {
+        text-align: left;
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      }
+      table.effort th {
+        color: #60a5fa;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      table.effort td:nth-child(2) {
+        color: #d4a843;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Your Model Can't Beat Your Noise Floor",
+        "description": "Evaluation and clean labels set the noise floor — the Shannon bound of your data — and no model drops below it. Only a governed ontology lowers it.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "datePublished": "2026-06-15",
+        "mainEntityOfPage": "https://onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html",
+        "articleSection": "Ontology",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Field Note &middot; Ontology</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Your model can't beat your noise floor
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            15 June 2026 &middot; Risto Anton Paarni &middot; Helsinki, Finland
+          </p>
+        </header>
+
+        <p>Most people picture an ML project as one thing: training. It isn't.</p>
+
+        <div class="news-box">
+          In reality a project is about <strong>50% evaluation</strong>,
+          <strong>40% data cleaning</strong>, <strong>8% integration</strong>, and
+          <strong>2% training</strong>. The part everyone imagines is the whole job is the smallest
+          sliver of it.
+        </div>
+
+        <table class="effort">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Share</th>
+              <th>What it actually is</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Evaluation</td>
+              <td>50%</td>
+              <td>Defining what "correct" means, building the test set, scoring honestly</td>
+            </tr>
+            <tr>
+              <td>Data cleaning</td>
+              <td>40%</td>
+              <td>Labels, dedup, reconciliation, removing contradictions</td>
+            </tr>
+            <tr>
+              <td>Integration</td>
+              <td>8%</td>
+              <td>Wiring the model into systems that act on the output</td>
+            </tr>
+            <tr>
+              <td>Training</td>
+              <td>2%</td>
+              <td>The part everyone pictures as the entire project</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          Read the top two rows again. Evaluation and data cleaning are ninety percent of the work —
+          and they are exactly the part an off-the-shelf model hands you nothing for.
+        </p>
+
+        <h2>The floor is set before the model sees the data</h2>
+
+        <p>
+          Here is the part that decides everything. Evaluation and clean labels set the
+          <strong>noise floor</strong> for learning. No model drops below it.
+        </p>
+
+        <blockquote class="pull">
+          The model cannot lower the noise floor. That floor is the optimal bound of the Shannon
+          encoding of your data — information your data never captured cannot be recovered by a
+          bigger network.
+        </blockquote>
+
+        <p>
+          This is not a tuning problem you can out-compute. Dirty labels are an
+          information-theoretic ceiling. Buy a larger model, rent more GPUs, and you still hit the
+          same wall — because the wall is in the data, not the math.
+        </p>
+
+        <p>
+          So the honest question is never "which model?" It is "what is our noise floor, and what
+          moves it?" One thing moves it: a governed ontology that keeps labels clean, consistent,
+          and current. That is the same thesis we keep returning to —
+          <a href="/posts/point-it-at-the-ontology.html"
+            >the ontology, not the model, is the product</a
+          >
+          — now stated in information theory rather than anecdote.
+        </p>
+
+        <h2>What a high noise floor looks like</h2>
+
+        <p>
+          It is rarely dramatic. It is old labels quietly going wrong, in every industry we work in.
+        </p>
+
+        <div class="grid gap-4 my-6">
+          <div class="signal-card rounded-lg p-5">
+            <h3 class="font-bold text-lg mb-2" style="color: #60a5fa">Construction</h3>
+            <p class="mb-0">
+              A component tagged to last year's EN standard, a supplier cert that lapsed, an
+              embodied-carbon factor nobody refreshed. The model learns the stale tag faithfully.
+            </p>
+          </div>
+          <div class="signal-card rounded-lg p-5">
+            <h3 class="font-bold text-lg mb-2" style="color: #4ade80">
+              Energy &amp; Manufacturing
+            </h3>
+            <p class="mb-0">
+              Two systems disagree on a plant's emission factor and nobody reconciled them. Train on
+              that and you have taught the model the contradiction, not the truth.
+            </p>
+          </div>
+          <div class="signal-card rounded-lg p-5">
+            <h3 class="font-bold text-lg mb-2" style="color: #38bdf8">
+              Agriculture &amp; Logistics
+            </h3>
+            <p class="mb-0">
+              A parcel's subsidy status or a consignment's customs class changed at the regulation
+              boundary, but the label still reads the old value. Stale labels raise the floor for
+              everything downstream.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          None of these are fixed by training. All of them are fixed by reviewing old labels —
+          continuously, as a system rule, not a spring-clean.
+        </p>
+
+        <h2>Why old labels are the job, not the chore</h2>
+
+        <p>
+          Not a single day goes by without thinking about ontology. Labels rot. Definitions drift.
+          Yesterday's correct tag is today's contradiction. We built this conviction into the
+          platform years ago and called it <strong>Active Pruning</strong>: old, contradictory, or
+          invalidated knowledge is actively removed, and the system forces reconciliation between
+          old facts and new stories.
+        </p>
+
+        <p>
+          We even set a target for it — a healthy 5–10% of labelled artifacts turn over every
+          quarter. Turnover is not decay. It is the floor being held down on purpose.
+        </p>
+
+        <div class="gold-box">
+          <h3>The honest part</h3>
+          <p class="mb-0" style="color: #f1f5f9">
+            A clean ontology lowers the noise floor. It does not invent signal that was never
+            collected. If the measurement was never taken, no governance and no model will conjure
+            it — you go and collect it. And evaluation is the half nobody wants to fund: without an
+            honest test set, you cannot even <em>see</em> your floor, let alone lower it. We will
+            not sell label hygiene as a substitute for measuring the right things in the first
+            place.
+          </p>
+        </div>
+
+        <div class="short-box">
+          <h3>The short version</h3>
+          <ul class="mb-0">
+            <li>ML is ~50% evaluation, 40% data cleaning, 8% integration, 2% training.</li>
+            <li>
+              Evaluation and clean labels set the noise floor — the Shannon bound of your data.
+            </li>
+            <li>
+              No model drops below it. A bigger model cannot recover information you never captured.
+            </li>
+            <li>
+              A governed ontology is the only thing that lowers the floor — by keeping labels clean
+              and current.
+            </li>
+            <li>Reviewing old labels isn't maintenance. It's the job.</li>
+          </ul>
+        </div>
+
+        <h2>Read next</h2>
+        <ul>
+          <li>
+            <a href="/posts/point-it-at-the-ontology.html"
+              >Don't Point the LLM at the Data — Point It at the Ontology</a
+            >
+          </li>
+          <li>
+            <a href="/posts/four-capital-classes.html"
+              >Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era</a
+            >
+          </li>
+          <li>
+            <a href="/posts/software-vs-world-model.html"
+              >Software You Operate vs Intelligence That Operates</a
+            >
+          </li>
+          <li>
+            <a href="/posts/the-ontology-lives-in-the-team.html">The Ontology Lives in the Team</a>
+          </li>
+          <li>
+            <a href="/posts/your-model-cant-beat-your-noise-floor.fi.html"
+              >Mallisi ei voita kohinatasoasi (FI)</a
+            >
+          </li>
+        </ul>
+
+        <hr class="my-10 border-gray-700" />
+
+        <p class="text-sm text-gray-500">
+          <em>Risto Anton Paarni — CEO, Lifetime Oy &middot; Editor in Chief, Lifetime Scope Journal.</em>
+          Principle catalogued in
+          <code>docs/field-notes/2026-06-15-noise-floor-ontology-old-labels.md</code>; Active
+          Pruning machinery in <code>ONTOLOGY.md</code> §8. This post is commentary on ML
+          engineering practice.
+        </p>
+      </article>
+
+      <!-- Featured Products -->
+      <div class="max-w-3xl mx-auto px-4 pb-12">
+        <h3 class="text-lg font-bold mb-4" style="color: #d4a843">From the Store</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a
+            href="https://dws10.com/products/dwsiq.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Flagship</span
+            >
+            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;4,999</p>
+            <p class="text-xs text-gray-500">
+              The governed ontology layer that lowers your noise floor
+            </p>
+          </a>
+
+          <a
+            href="https://dws10.com/products/bundle.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Best Value</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;6,500</p>
+            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+          </a>
+
+          <a
+            href="https://dws10.com/products/firehorse-omnichannel.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Start Here</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;499</p>
+            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <div id="ontology-cta"></div>
+    <script src="https://dws10.com/shared-assets/cta/ontology-cta.js" defer></script>
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

@@ -4,7 +4,10 @@
  * STRICT: first non-quoted line only. One reply = one update.
  * Multiple updates = multiple replies to the digest email.
  *
- * Token T:XXXXXXXX = 8-char alphanumeric stored in outreach_threads.thread_token.
+ * Type 2: Delegates to src/signals/ for token generation and status resolution.
+ * Backward compatible — all T:XXXXXXXX commands still work.
+ *
+ * Token T:XXXXXXXX = 10-char alphanumeric (Type 2 universal signal token).
  * Generated once at creation, stable forever. Looked up via exact match.
  *
  * Examples:
@@ -20,8 +23,8 @@
  *   T:XXXXXXXX note <text>                   — set next_action text without status change
  */
 
-import crypto from 'crypto';
 import type { OutreachStatus } from './types.js';
+import { generateSignalToken } from '../signals/signal-token.js';
 
 // ============================================================================
 // TYPES
@@ -49,18 +52,12 @@ export interface ApplyResult {
 }
 
 // ============================================================================
-// TOKEN GENERATION — matches PG function generate_thread_token()
+// TOKEN GENERATION — delegates to Type 2 signal token system
 // ============================================================================
 
-/** Safe alphabet: no 0/O, 1/I/L confusion. 30 chars. */
-const TOKEN_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
-
-/** Generate a 10-char random token (matches the PG generate_thread_token function) */
+/** Generate a 10-char random token (delegates to universal signal token) */
 export function generateThreadToken(len = 10): string {
-  const bytes = crypto.randomBytes(len);
-  return Array.from(bytes)
-    .map((b) => TOKEN_ALPHABET[b % TOKEN_ALPHABET.length])
-    .join('');
+  return generateSignalToken(len);
 }
 
 // ============================================================================
@@ -107,6 +104,10 @@ const STATUS_ALIASES: Record<string, OutreachStatus> = {
   park: 'parked',
   pause: 'parked',
   hold: 'parked',
+  done: 'passed',
+  complete: 'passed',
+  completed: 'passed',
+  resolved: 'passed',
 };
 
 function resolveStatus(input: string): OutreachStatus | null {
@@ -157,7 +158,7 @@ function extractFreshLines(text: string): { first: string | null; count: number 
  * Token regex: T: followed by 4-10 alphanumeric chars (case-insensitive).
  * Standard is 8 chars but we allow a range for flexibility.
  */
-const TOKEN_REGEX = /^T:([A-Z0-9]{4,10})\s+(.+)$/i;
+const TOKEN_REGEX = /^T:([A-Z0-9]{4,12})\s+(.+)$/i;
 
 /** Parse a single command line */
 function parseLine(line: string): UpdateCommand | string {
@@ -168,17 +169,24 @@ function parseLine(line: string): UpdateCommand | string {
 
   const token = tokenMatch[1].toUpperCase();
   const rest = tokenMatch[2].trim();
+  const normalizedRest = rest.replace(/[.!]+$/g, '').trim();
 
   // Shorthand: T:XXXXXXXX park
-  if (/^park$/i.test(rest)) {
+  if (/^park$/i.test(normalizedRest)) {
     return { token, action: 'status', status: 'parked', raw: line };
   }
-  if (/^pass$/i.test(rest)) {
+  if (/^pass$/i.test(normalizedRest)) {
     return { token, action: 'status', status: 'passed', raw: line };
   }
 
+  // Generic shorthand: T:XXXXXXXX responded / done / contacted / ...
+  const shorthandStatus = resolveStatus(normalizedRest);
+  if (shorthandStatus) {
+    return { token, action: 'status', status: shorthandStatus, raw: line };
+  }
+
   // T:XXXXXXXX status <status> [, <notes>]
-  const statusMatch = rest.match(/^status\s+(.+)$/i);
+  const statusMatch = normalizedRest.match(/^status\s+(.+)$/i);
   if (statusMatch) {
     const statusRest = statusMatch[1];
     const commaIdx = statusRest.indexOf(',');
@@ -200,7 +208,7 @@ function parseLine(line: string): UpdateCommand | string {
   }
 
   // T:XXXXXXXX next <date> [type <type>]
-  const nextMatch = rest.match(/^next\s+(\d{4}-\d{2}-\d{2})(?:\s+type\s+(\w+))?$/i);
+  const nextMatch = normalizedRest.match(/^next\s+(\d{4}-\d{2}-\d{2})(?:\s+type\s+(\w+))?$/i);
   if (nextMatch) {
     return {
       token,
@@ -212,7 +220,7 @@ function parseLine(line: string): UpdateCommand | string {
   }
 
   // T:XXXXXXXX note <text>
-  const noteMatch = rest.match(/^note\s+(.+)$/i);
+  const noteMatch = normalizedRest.match(/^note\s+(.+)$/i);
   if (noteMatch) {
     return {
       token,
@@ -240,7 +248,8 @@ export function parseReplyText(text: string): ParseResult {
   if (count > 1) {
     return {
       command: null,
-      error: 'Multiple lines found — only ONE command per reply. Send separate replies for each update.',
+      error:
+        'Multiple lines found — only ONE command per reply. Send separate replies for each update.',
     };
   }
 
@@ -252,36 +261,28 @@ export function parseReplyText(text: string): ParseResult {
   return { command: result, error: null };
 }
 
-// ============================================================================
-// RESEND WEBHOOK SIGNATURE VERIFICATION
-// ============================================================================
-
 /**
- * Verify Resend webhook signature (Svix-based).
- * Headers: svix-id, svix-timestamp, svix-signature
- * Secret: RESEND_WEBHOOK_SECRET (from Resend dashboard, starts with whsec_)
+ * Parse a command from an email subject line.
+ * Supports common prefixes (Re:, Fwd:) and extracts command from first `T:...`.
  */
-export function verifyResendSignature(
-  rawBody: string,
-  svixId: string,
-  svixTimestamp: string,
-  svixSignature: string
-): boolean {
-  const secret = process.env.RESEND_WEBHOOK_SECRET;
-  if (!secret) return false;
+export function parseSubjectCommand(subject: string): ParseResult {
+  if (!subject.trim()) {
+    return { command: null, error: 'No command found in subject.' };
+  }
 
-  // Svix secret format: whsec_<base64>
-  const secretBytes = Buffer.from(secret.replace('whsec_', ''), 'base64');
-  const signedContent = `${svixId}.${svixTimestamp}.${rawBody}`;
-  const computed = crypto
-    .createHmac('sha256', secretBytes)
-    .update(signedContent)
-    .digest('base64');
+  const cleaned = subject.replace(/^\s*((re|fwd?):\s*)+/i, '').trim();
+  const tokenStart = cleaned.toUpperCase().indexOf('T:');
+  if (tokenStart < 0) {
+    return { command: null, error: 'No token command found in subject.' };
+  }
 
-  const expectedSig = `v1,${computed}`;
+  const candidate = cleaned.slice(tokenStart).trim();
+  const result = parseLine(candidate);
+  if (typeof result === 'string') {
+    return { command: null, error: result };
+  }
 
-  // svix-signature can contain multiple signatures separated by space
-  return svixSignature.split(' ').some((sig) => sig.trim() === expectedSig);
+  return { command: result, error: null };
 }
 
 // ============================================================================
@@ -290,9 +291,18 @@ export function verifyResendSignature(
 
 /** Check if the email sender is the authorized digest recipient */
 export function isAuthorizedSender(from: string): boolean {
-  const authorizedEmail = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
+  const primaryAuthorizedEmail = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
+  const fallbackAllowed = 'risto.anton@lifetime.fi';
+  const extraAllowed = process.env.OUTREACH_DIGEST_ALLOWED_SENDERS || fallbackAllowed;
+
+  const allowed = new Set(
+    [primaryAuthorizedEmail, ...extraAllowed.split(',')]
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => e.length > 0),
+  );
+
   // Email from header can be "Name <email>" or just "email"
   const emailMatch = from.match(/<([^>]+)>/) || [null, from.trim()];
   const senderEmail = (emailMatch[1] || '').toLowerCase().trim();
-  return senderEmail === authorizedEmail.toLowerCase();
+  return allowed.has(senderEmail);
 }

@@ -12,30 +12,32 @@ DWS6 is designed for consortium-grade governance, contracting, and compliance—
 
 Our certified training partners deliver workshops, certifications, and implementation support for Firehorse ESG Report and DWS IQ 6 platform.
 
-| Partner Type | Focus | Revenue Model |
-|--------------|-------|---------------|
-| **Licensed Trainer** | ESG workshops & certification | 70% revenue share |
-| **Co-Branded Partner** | Joint marketing & delivery | 60% revenue share |
-| **White-Label Partner** | Full curriculum license | 50% revenue share |
+| Partner Type            | Focus                         | Revenue Model     |
+| ----------------------- | ----------------------------- | ----------------- |
+| **Licensed Trainer**    | ESG workshops & certification | 70% revenue share |
+| **Co-Branded Partner**  | Joint marketing & delivery    | 60% revenue share |
+| **White-Label Partner** | Full curriculum license       | 50% revenue share |
 
 ### Training Products Available
 
-| Workshop | Duration | Target Audience |
-|----------|----------|-----------------|
-| ESG Fundamentals | 1 day | Management, sustainability teams |
-| CSRD Compliance Deep Dive | 2 days | Finance, compliance officers |
-| Carbon Accounting Masterclass | 1 day | Technical staff, consultants |
-| Firehorse Platform Certification | 3 days | Implementation partners |
+| Workshop                         | Duration | Target Audience                  |
+| -------------------------------- | -------- | -------------------------------- |
+| ESG Fundamentals                 | 1 day    | Management, sustainability teams |
+| CSRD Compliance Deep Dive        | 2 days   | Finance, compliance officers     |
+| Carbon Accounting Masterclass    | 1 day    | Technical staff, consultants     |
+| Firehorse Platform Certification | 3 days   | Implementation partners          |
 
 ### Become a Training Partner
 
 **Requirements:**
+
 - Domain expertise in ESG, sustainability, or compliance
 - Training delivery experience
 - Commitment to certification program
 - Customer network in target industries
 
 **Benefits:**
+
 - Certified Trainer status
 - Access to training materials & curriculum
 - Co-marketing support
@@ -47,16 +49,18 @@ Our certified training partners deliver workshops, certifications, and implement
 ### Featured Training Partners
 
 #### 🏆 Robertsson Oy
+
 **ESG Training & Business Consulting**
 
 Hannamari Robertsson brings exceptional expertise in ESG compliance, change management, and strategic business consulting. With a PhD research focus on profitability through organizational transformation and extensive experience as a keynote speaker for Alma Talent, Rastor, and Professio, Robertsson Oy delivers world-class training that bridges sustainability requirements with practical business outcomes.
 
-> *"Robertsson Oy represents the highest level of professional expertise in ESG and business management consulting. Their unique combination of academic rigor and practical implementation experience makes them an invaluable partner for organizations navigating the EU sustainability transition."*
+> _"Robertsson Oy represents the highest level of professional expertise in ESG and business management consulting. Their unique combination of academic rigor and practical implementation experience makes them an invaluable partner for organizations navigating the EU sustainability transition."_
 > — **Lifetime Oy**
 
 **Specialties:** ESG Training, CSRD Compliance, Change Management, Strategic Planning, Carbon Accounting
 
 #### 🚀 Allora Growth Oy
+
 **Growth Strategy & Business Development**
 
 Allora Growth Oy specializes in helping companies scale sustainably through strategic growth consulting and business development. Their expertise in market expansion, sales optimization, and growth strategy complements our ESG training portfolio perfectly.
@@ -69,12 +73,12 @@ Allora Growth Oy specializes in helping companies scale sustainably through stra
 
 ### Product Portfolio
 
-| Product | Description | Target Market |
-|---------|-------------|---------------|
-| **Firehorse ESG Report** | EU CSRD/ESRS compliance reporting, carbon accounting | Mid-market & Enterprise |
-| **Firehorse Automation** | Workflow automation for industrial processes | All segments |
-| **Firehorse Omnichannel** | Multi-channel communication platform | Sales & Marketing teams |
-| **DWS IQ 6 Platform** | Industrial AI platform for regulated collaboration | Enterprise |
+| Product                   | Description                                          | Target Market           |
+| ------------------------- | ---------------------------------------------------- | ----------------------- |
+| **Firehorse ESG Report**  | EU CSRD/ESRS compliance reporting, carbon accounting | Mid-market & Enterprise |
+| **Firehorse Automation**  | Workflow automation for industrial processes         | All segments            |
+| **Firehorse Omnichannel** | Multi-channel communication platform                 | Sales & Marketing teams |
+| **DWS IQ 6 Platform**     | Industrial AI platform for regulated collaboration   | Enterprise              |
 
 ### Firehorse ESG Report
 
@@ -88,20 +92,20 @@ Allora Growth Oy specializes in helping companies scale sustainably through stra
 
 **Pricing Tiers:**
 
-| Tier | Monthly | Annual | Best For |
-|------|---------|--------|----------|
-| **Starter** | €499 | €4,990 | SMEs, first-time reporters |
-| **Pro** | €999 | €9,990 | Mid-market companies |
-| **Enterprise** | €2,499 | €24,990 | Large enterprises, multi-site |
+| Tier           | Monthly | Annual  | Best For                      |
+| -------------- | ------- | ------- | ----------------------------- |
+| **Starter**    | €499    | €4,990  | SMEs, first-time reporters    |
+| **Pro**        | €999    | €9,990  | Mid-market companies          |
+| **Enterprise** | €2,499  | €24,990 | Large enterprises, multi-site |
 
 ### Partner Reseller Program (JM-oikeus)
 
-| Tier | Annual Commitment | Your Margin | Support Level |
-|------|-------------------|-------------|---------------|
-| **Bronze** | 5 licenses | 15% | Email |
-| **Silver** | 15 licenses | 20% | Email + Chat |
-| **Gold** | 30 licenses | 25% | Dedicated CSM |
-| **Platinum** | 50+ licenses | 30% | White-label option |
+| Tier         | Annual Commitment | Your Margin | Support Level      |
+| ------------ | ----------------- | ----------- | ------------------ |
+| **Bronze**   | 5 licenses        | 15%         | Email              |
+| **Silver**   | 15 licenses       | 20%         | Email + Chat       |
+| **Gold**     | 30 licenses       | 25%         | Dedicated CSM      |
+| **Platinum** | 50+ licenses      | 30%         | White-label option |
 
 ---
 
@@ -109,13 +113,13 @@ Allora Growth Oy specializes in helping companies scale sustainably through stra
 
 ### Quick Overview
 
-| Tier | Annual Fee | Accounts | Bidding Access | Primary Use Case |
-|------|-----------|----------|----------------|------------------|
-| **Consortium Member** | Custom | Custom | Buyer/Owner | Corporate customers, asset owners |
-| **Platinum Partner** | €25,000 | Unlimited | Priority | Lead delivery partners, prime contractors |
-| **Gold Partner** | €15,000 | 50 | Privileged | Mid-size system integrators |
-| **Silver Partner** | €5,000 | 25 | Subcontractor | Specialist SMEs, niche providers |
-| **Membership Partner** | €600 | 5 | Review-based | Freelancers, startups, individual experts |
+| Tier                   | Annual Fee | Accounts  | Bidding Access | Primary Use Case                          |
+| ---------------------- | ---------- | --------- | -------------- | ----------------------------------------- |
+| **Consortium Member**  | Custom     | Custom    | Buyer/Owner    | Corporate customers, asset owners         |
+| **Platinum Partner**   | €25,000    | Unlimited | Priority       | Lead delivery partners, prime contractors |
+| **Gold Partner**       | €15,000    | 50        | Privileged     | Mid-size system integrators               |
+| **Silver Partner**     | €5,000     | 25        | Subcontractor  | Specialist SMEs, niche providers          |
+| **Membership Partner** | €600       | 5         | Review-based   | Freelancers, startups, individual experts |
 
 ### Consortium Member (Corporate Customer) — Custom Pricing
 
@@ -227,18 +231,21 @@ This gives corporate customers a strong position to:
 All partners must maintain the following baseline standards:
 
 ### Security & Compliance
+
 - **Security certifications**: ISO 27001, SOC 2, Cyber Essentials, or equivalent (required for Gold/Platinum; recommended for Silver)
 - **GDPR compliance**: documented data processing procedures, DPO contact, records of processing activities
 - **Insurance**: professional indemnity (€1M minimum for Platinum/Gold), cyber liability insurance (recommended)
 - **Incident response**: 24-hour notification of security incidents, documented response procedures
 
 ### Operational Requirements
+
 - **Quarterly reporting**: delivery KPIs, project status, compliance attestation
 - **Code of conduct**: ethics baseline, anti-corruption, conflict of interest disclosure
 - **Subcontractor management**: all subcontractors must meet same baseline or be disclosed and approved
 - **Audit rights**: customer and consortium right to audit compliance and security controls
 
 ### Contract Terms
+
 - **Annual renewal**: automatic renewal unless 60 days' notice given
 - **Termination**: 30-day notice period; immediate termination for material breach
 - **Data handover**: 30-day transition period for data and deliverables on exit
@@ -251,21 +258,25 @@ All partners must maintain the following baseline standards:
 **Total timeline: ~6 weeks from application to active partner status**
 
 ### Week 1-2: Application & Review
+
 - Submit partner application via office@dws10.com
 - Initial screening (capability fit, references, basic compliance check)
 - Discovery call with partnership team
 
 ### Week 3: Due Diligence & NDA
+
 - Sign mutual NDA
 - Due diligence documentation (certifications, insurance, references)
 - Risk assessment and approval
 
 ### Week 4-5: Contract Finalization
+
 - Partner agreement review and negotiation
 - Data Processing Agreement (DPA) execution
 - Security baseline alignment and gap assessment
 
 ### Week 6: Onboarding & Activation
+
 - Account provisioning and access setup
 - Partner directory profile creation
 - Onboarding training (platform, governance, compliance)
@@ -276,6 +287,7 @@ All partners must maintain the following baseline standards:
 ## What We Are Actively Looking For
 
 ### Technology Partners
+
 - **Low-code / no-code / code resources**: builders, automations, connectors, workflow engines
 - **AI/agentic workflows**: orchestration platforms, decision intelligence, LLM integrations
 - **Industrial integrations**: ERP/MES/SCADA/IoT data platforms, cybersecurity tooling, compliance automation
@@ -283,11 +295,13 @@ All partners must maintain the following baseline standards:
 - **Data platforms**: time-series databases, data lakes, analytics engines
 
 ### Delivery Partners
+
 - **System integrators**: industrial automation, digital transformation, smart manufacturing
 - **Consultancies**: sustainability advisory, Fit for 55 compliance, carbon accounting
 - **Implementation specialists**: change management, training, operational excellence
 
 ### Sector Accelerators
+
 - **Energy**: renewable electrification, grid optimization, energy management systems
 - **Mobility**: fleet management, logistics optimization, autonomous systems
 - **Manufacturing**: smart factories, predictive maintenance, quality control
@@ -303,7 +317,7 @@ All partners must maintain the following baseline standards:
 - **Industrial pilots**: 8+ pilots delivered in energy, logistics, and manufacturing sectors
 - **Geographic coverage**: Finland, Sweden, Germany, Netherlands, with expansion to Central Europe
 
-*Partner testimonials and case studies available on request.*
+_Partner testimonials and case studies available on request._
 
 ---
 
@@ -318,6 +332,14 @@ DWS IQ 6 is built on world-class technology partnerships that enable enterprise-
 - **AI & Analytics**: Advanced machine learning and data insights powered by Google Cloud AI
 - **Innovation & Scalability**: Cloud-native architecture for growth and future-ready operations
 - **Security & Compliance**: Enterprise-grade data protection and regulatory compliance (GDPR, ISO 27001)
+
+### Microsoft Partnership
+
+**Microsoft × DWS IQ**: Strategic partnership for enterprise AI agent orchestration, container observability, and Azure AI integration.
+
+- **Agent Framework**: Production-grade multi-agent orchestration powered by Microsoft Agent Framework (Semantic Kernel Agents SDK) 1.0.0 — workflows, human-in-the-loop, MCP integration
+- **Observability**: .NET Aspire telemetry and monitoring for DGX Spark container lifecycle, distributed tracing, and Aspire Dashboard (standalone)
+- **AgentFoundry Integration**: Python agents with Microsoft orchestration on DGX Spark — 50+ Azure-Samples reference implementations for agents, workflows, and HITL patterns
 
 ---
 
@@ -339,22 +361,27 @@ Contact office@dws10.com to request documentation pack.
 ## Contact & Next Steps
 
 ### General Inquiries
+
 **Email**: office@dws10.com  
 **Response time**: 2 business days
 
 ### Partnership Applications
+
 **Email**: office@dws10.com (Subject: "Partner Application - [Your Company]")  
 **Include**: company profile, capability overview, relevant certifications, 2-3 references
 
 ### Corporate / Consortium Inquiries
+
 **Email**: office@dws10.com (Subject: "Consortium Member Inquiry - [Your Company]")  
 **Include**: program scope, desired outcomes, timeline, budget range
 
 ### Discovery Calls
+
 **Booking**: Contact office@dws10.com to schedule a 30-minute discovery call  
 **Topics**: partnership fit, onboarding process, pricing, consortium opportunities
 
 ### Follow Us
+
 - **Website**: https://dws10.com/partners
 - **LinkedIn**: [Lifetime Oy](https://www.linkedin.com/company/lifetime-consulting-oy)
 - **Platform**: https://dws10.com

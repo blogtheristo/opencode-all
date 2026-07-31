@@ -70,6 +70,7 @@ export class AtlasAgent extends BaseAgent {
         'risk-triage',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
       loop: {
         maxIterations: 8,
         allowDelegation: true,

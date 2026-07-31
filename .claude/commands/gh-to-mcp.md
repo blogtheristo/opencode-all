@@ -1,0 +1,83 @@
+---
+name: gh-to-mcp
+description: Use when translating a gh CLI command to the equivalent GitHub MCP tool call, or when clarifying that gh CLI and GitHub MCP are independently versioned.
+---
+
+Translate a `gh` command to the equivalent `mcp__github__*` tool call.
+
+Usage: `/gh-to-mcp <gh command or capability>`
+
+Input: $ARGUMENTS
+
+## Steps
+
+1. Parse `$ARGUMENTS` — identify the gh sub-command (e.g. `pr create`, `issue list`, `api repos/...`).
+2. Look up the mapping in `docs/GITHUB_CLI_VS_MCP.md` (source of truth).
+3. Emit a response in this format:
+
+   ```
+   gh command: <original>
+   MCP tool:   mcp__github__<tool>
+   Required args: owner=blogtheristo, repo=dws6, <others>
+   Notes: <any semantic differences, e.g. auto-browser vs JSON return>
+   ```
+
+4. If the gh capability has **no MCP equivalent** (e.g. `gh run`, `gh workflow`, `gh codespace`, `gh gist`, `gh alias`), say so explicitly and list the closest workaround or declare it unavailable.
+5. If the user asked a version question (e.g. "is gh 2.54 the same as MCP?"), reply:
+   - "No — gh CLI and GitHub MCP are independent products. They share the GitHub API but not a version scheme."
+   - Link to `docs/GITHUB_CLI_VS_MCP.md` for the full comparison.
+
+## Quick translation table (hot path)
+
+| gh                           | MCP                                                                 |
+| ---------------------------- | ------------------------------------------------------------------- |
+| `gh pr create`               | `mcp__github__create_pull_request`                                  |
+| `gh pr view <n>`             | `mcp__github__pull_request_read` (method: `get`)                    |
+| `gh pr diff <n>`             | `mcp__github__pull_request_read` (method: `get_diff`)               |
+| `gh pr checks <n>`           | `mcp__github__pull_request_read` (method: `get_status`)             |
+| `gh pr merge <n>`            | `mcp__github__merge_pull_request`                                   |
+| `gh pr review <n>`           | `mcp__github__pull_request_review_write`                            |
+| `gh issue create`            | `mcp__github__issue_write` (method: `create`)                       |
+| `gh issue list`              | `mcp__github__list_issues`                                          |
+| `gh issue comment <n>`       | `mcp__github__add_issue_comment`                                    |
+| `gh search prs "..."`        | `mcp__github__search_pull_requests`                                 |
+| `gh search issues "..."`     | `mcp__github__search_issues`                                        |
+| `gh search code "..."`       | `mcp__github__search_code`                                          |
+| `gh release view --latest`   | `mcp__github__get_latest_release`                                   |
+| `gh api repos/.../commits`   | `mcp__github__list_commits`                                         |
+| `gh api .../contents/<path>` | `mcp__github__get_file_contents`                                    |
+| _(multi-file commit)_        | `mcp__github__push_files` — prefer over repeated single-file writes |
+| _(live PR events)_           | `mcp__github__subscribe_pr_activity` — no gh equivalent             |
+
+Full map: `docs/GITHUB_CLI_VS_MCP.md`.
+
+## Capabilities with NO MCP equivalent
+
+- `gh run` / `gh workflow` — cannot trigger or rerun Actions
+- `gh api <raw endpoint>` — no pass-through; MCP surface is fixed
+- `gh codespace`, `gh gist`, `gh extension`
+- `gh auth`, `gh config`, `gh alias` — OAuth is managed by Claude Code
+
+If a user needs one of these, surface the limitation — do not fabricate a workaround.
+
+## Examples
+
+```
+/gh-to-mcp gh pr create --title "Fix X" --body "..."
+→ mcp__github__create_pull_request(owner:"blogtheristo", repo:"dws6", title:"Fix X", body:"...", head:"<branch>", base:"main")
+
+/gh-to-mcp gh pr checks 1150
+→ mcp__github__pull_request_read(method:"get_status", owner:"blogtheristo", repo:"dws6", pullNumber:1150)
+
+/gh-to-mcp is gh 2.54 compatible with github mcp?
+→ No. Independent products, independent versions. They share the GitHub API surface but not release cadence. See docs/GITHUB_CLI_VS_MCP.md.
+
+/gh-to-mcp gh run rerun 12345
+→ No MCP equivalent. Claude Code cannot rerun GitHub Actions via MCP. Ask the human to rerun from the web UI.
+```
+
+## When NOT to use
+
+- Already know the MCP tool → call it directly
+- User wants to execute something outside the `blogtheristo/dws6` scope → MCP is scope-locked
+- User wants to run gh locally on Win11 with `gh` installed → just use gh; this skill is for Claude Code sessions

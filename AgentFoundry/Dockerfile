@@ -3,7 +3,7 @@
 # Supports: Lead Scout, Outreach, Discovery, Meeting, Proposal, Customer Success agents
 
 # ============================================================================
-# Stage 1: Base Python environment
+# Stage 1: Base Python environment (minimal runtime)
 # ============================================================================
 FROM python:3.11-slim as base
 
@@ -13,20 +13,24 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+# Install runtime-only system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    git \
-    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
 WORKDIR /app
 
 # ============================================================================
-# Stage 2: Dependencies
+# Stage 2: Dependencies (includes build tools, discarded after)
 # ============================================================================
 FROM base as dependencies
+
+# Install build tools needed for compiling Python packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file
 COPY requirements.txt .
@@ -35,24 +39,29 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ============================================================================
-# Stage 3: Application
+# Stage 3: Application (clean runtime, no build tools)
 # ============================================================================
 FROM base as application
 
-# Copy installed dependencies from previous stage
+# Copy installed dependencies from build stage
 COPY --from=dependencies /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=dependencies /usr/local/bin /usr/local/bin
+
+# Create non-root user
+RUN groupadd --gid 1000 appgroup && \
+    useradd --uid 1000 --gid 1000 --shell /bin/false --create-home appuser
 
 # Copy application code
 COPY AgentFoundry/ /app/AgentFoundry/
 COPY mcp-hub/ /app/mcp-hub/
 COPY src/ /app/src/
 
-# Create logs directory
-RUN mkdir -p /app/AgentFoundry/logs
+# Create logs directory and set ownership
+RUN mkdir -p /app/AgentFoundry/logs && \
+    chown -R appuser:appgroup /app
 
-# Set permissions
-RUN chmod -R 755 /app
+# Switch to non-root user
+USER appuser
 
 # Expose port (Cloud Run requires listening on $PORT)
 ENV PORT=8080

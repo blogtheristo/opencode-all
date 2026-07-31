@@ -130,7 +130,7 @@ export function CommandPalette() {
         <div className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
           {/* Search input */}
           <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100">
-            <span className="text-gray-400 text-sm">\u{1F50E}</span>
+            <span className="text-gray-400 text-sm">🔎</span>
             <input
               ref={inputRef}
               type="text"

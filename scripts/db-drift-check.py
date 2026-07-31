@@ -11,13 +11,15 @@ Alert publishing logic lives in dws_alerts.py (shared module).
 
 Usage:
     python scripts/db-drift-check.py                  # Plan mode (detect drift)
+    python scripts/db-drift-check.py --offline         # File-only (no DB, no Redis)
     python scripts/db-drift-check.py --verify          # Verify mode (post-apply checks)
     python scripts/db-drift-check.py --advisor         # Supabase advisor alerts only
     python scripts/db-drift-check.py --all             # Drift check + advisor (full)
     python scripts/db-drift-check.py --dry-run         # Report only, no Redis publish
 
 Requires:
-    pip install httpx redis python-dotenv
+    pip install redis python-dotenv
+    pip install httpx                (optional — only needed for live DB comparison)
 
 Environment:
     SUPABASE_URL           - Supabase project URL
@@ -27,8 +29,8 @@ Environment:
     REDIS_PORT             - Redis port (default: 6380)
 
 Author: DWS IQ Team
-Version: 2.0
-Date: 2026-02-10
+Version: 3.0
+Date: 2026-04-07
 """
 
 import argparse
@@ -41,8 +43,7 @@ from pathlib import Path
 try:
     import httpx
 except ImportError:
-    print("ERROR: httpx not installed. Run: pip install httpx")
-    sys.exit(1)
+    httpx = None  # Offline mode — live DB comparison unavailable
 
 try:
     from dotenv import load_dotenv
@@ -84,10 +85,16 @@ def get_live_tables() -> set[str]:
       1. Docker/local Supabase MCP endpoint (local dev)
       2. Supabase PostgREST OpenAPI spec (requires SUPABASE_URL + SUPABASE_SERVICE_KEY)
 
+    If httpx is not installed, returns empty set (offline mode).
     If SUPABASE_URL is set but enumeration fails, prints a clear error and returns
     an empty set (caller will skip live comparison and report the gap).
     If SUPABASE_URL is not set, prints a warning and returns an empty set.
     """
+    if httpx is None:
+        print("WARNING: httpx not installed. Live DB comparison unavailable.")
+        print("  Install with: pip install httpx")
+        return set()
+
     # 1. Try Docker/local Supabase MCP endpoint (local development)
     try:
         resp = httpx.post(
@@ -153,7 +160,8 @@ def get_migration_tables() -> dict[str, list[str]]:
 
     for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
         content = f.read_text(encoding="utf-8", errors="replace")
-        # Match CREATE TABLE statements
+        # Strip single-line SQL comments to avoid false positives (e.g. "if")
+        content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
         for match in re.finditer(
             r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:public\.)?(\w+)",
             content,
@@ -163,6 +171,28 @@ def get_migration_tables() -> dict[str, list[str]]:
             tables.setdefault(table_name, []).append(f.name)
 
     return tables
+
+
+def get_migration_views() -> dict[str, list[str]]:
+    """Parse CREATE VIEW statements from migration files.
+    Returns {view_name: [migration_files_that_reference_it]}."""
+    views: dict[str, list[str]] = {}
+
+    if not MIGRATIONS_DIR.exists():
+        return views
+
+    for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        content = f.read_text(encoding="utf-8", errors="replace")
+        content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
+        for match in re.finditer(
+            r"CREATE\s+(?:OR\s+REPLACE\s+)?VIEW\s+(?:public\.)?(\w+)",
+            content,
+            re.IGNORECASE,
+        ):
+            view_name = match.group(1).lower()
+            views.setdefault(view_name, []).append(f.name)
+
+    return views
 
 
 def get_migration_files() -> list[dict]:
@@ -190,33 +220,92 @@ def get_migration_files() -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
+# File hygiene checks
+# ---------------------------------------------------------------------------
+
+def detect_duplicate_numbers() -> dict[str, list[str]]:
+    """Detect migration files sharing the same numeric prefix.
+
+    Returns {prefix: [filenames]} for prefixes with 2+ files.
+    Excludes _OLD, consolidated, run-pending, test_, and README files.
+    """
+    if not MIGRATIONS_DIR.exists():
+        return {}
+
+    prefix_map: dict[str, list[str]] = {}
+    for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        name = f.name
+        # Skip meta-files and superseded migrations
+        if name.startswith(("consolidated", "run-pending", "test_")):
+            continue
+        if "_OLD" in name:
+            continue
+        match = re.match(r"^(\d+)", name)
+        if match:
+            prefix = match.group(1)
+            prefix_map.setdefault(prefix, []).append(name)
+
+    duplicates = {k: v for k, v in prefix_map.items() if len(v) > 1}
+
+    if duplicates:
+        print(f"\n[CRITICAL] {len(duplicates)} duplicate migration number(s):")
+        for prefix, files in sorted(duplicates.items()):
+            print(f"  {prefix}: {', '.join(files)}")
+        print("  Execution order within duplicates is non-deterministic!")
+        print("  Rule: migrations 056+ MUST have unique numbers.")
+    else:
+        print("[OK] No duplicate migration numbers.")
+
+    return duplicates
+
+
+# ---------------------------------------------------------------------------
 # Plan mode — detect drift
 # ---------------------------------------------------------------------------
 
-def run_plan(dry_run: bool = False):
-    """Plan phase: detect drift between repo and live DB."""
+def run_plan(dry_run: bool = False, offline: bool = False):
+    """Plan phase: detect drift between repo and live DB.
+
+    Args:
+        dry_run: If True, don't publish to Redis.
+        offline: If True, skip live DB comparison entirely (file analysis only).
+    """
+    mode = "Offline" if offline else "Plan"
     print("=" * 60)
-    print("  DWS6 Database Drift Check — Plan Phase")
+    print(f"  DWS6 Database Drift Check — {mode} Phase")
     print("=" * 60)
     print(f"  Migrations dir: {MIGRATIONS_DIR}")
-    print(f"  Supabase URL:   {SUPABASE_URL[:40]}..." if SUPABASE_URL else "  Supabase URL:   NOT SET")
-    print(f"  Redis:          {REDIS_HOST}:{REDIS_PORT}")
+    if not offline:
+        print(f"  Supabase URL:   {SUPABASE_URL[:40]}..." if SUPABASE_URL else "  Supabase URL:   NOT SET")
+        print(f"  Redis:          {REDIS_HOST}:{REDIS_PORT}")
+    else:
+        print("  Mode:           OFFLINE (file analysis only)")
     print()
 
     # 1. Parse migration files
     migration_files = get_migration_files()
     migration_tables = get_migration_tables()
+    migration_views = get_migration_views()
     print(f"[INFO] Found {len(migration_files)} migration files")
     print(f"[INFO] Found {len(migration_tables)} tables defined in migrations")
+    print(f"[INFO] Found {len(migration_views)} views defined in migrations")
+
+    # 1b. Check for duplicate migration numbers (CRITICAL)
+    duplicate_numbers = detect_duplicate_numbers()
 
     # 2. Check migration file safety
     unsafe_migrations = []
     no_rls_tables = []
 
+    # Skip _OLD, consolidated, run-pending, test_ from safety warnings
+    skip_prefixes = ("consolidated", "run-pending", "test_")
     for mf in migration_files:
+        name = mf["filename"]
+        if name.startswith(skip_prefixes) or "_OLD" in name:
+            continue
         if not mf["has_begin_commit"]:
-            unsafe_migrations.append(mf["filename"])
-            print(f"[WARNING] {mf['filename']}: Missing BEGIN/COMMIT wrapper")
+            unsafe_migrations.append(name)
+            print(f"[WARNING] {name}: Missing BEGIN/COMMIT wrapper")
 
     # Pre-scan all migration files once to find tables with RLS enabled
     rls_enabled_tables: set[str] = set()
@@ -226,6 +315,7 @@ def run_plan(dry_run: bool = False):
     )
     for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
         content = f.read_text(encoding="utf-8", errors="replace")
+        content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
         for match in rls_pattern.finditer(content):
             table_name = match.group(1)
             if table_name:
@@ -236,19 +326,23 @@ def run_plan(dry_run: bool = False):
             no_rls_tables.append(table)
 
     if no_rls_tables:
-        print("\n[SECURITY] Tables without RLS in migrations:")
+        print("\n[SECURITY] Tables without RLS in their CREATE TABLE migration:")
+        print("  Note: Some may be remediated by later migrations (e.g. 011_fix_security_issues.sql)")
+        print("  Run 056_schema_health_check.sql on live DB for definitive RLS audit.")
         for t in no_rls_tables:
-            print(f"  ! {t}")
+            print(f"  ? {t}")
 
-    # 3. Get live tables and diff
-    live_tables = get_live_tables()
+    # 3. Get live tables and diff (skip in offline mode)
+    live_tables = set() if offline else get_live_tables()
     drift_alerts = []
 
     if live_tables:
         repo_tables = set(migration_tables.keys())
+        # Combine tables + views so views don't appear as "unmigrated tables"
+        repo_objects = repo_tables | set(migration_views.keys())
 
-        # Tables in DB but not in repo migrations
-        unmigrated = live_tables - repo_tables
+        # Tables/views in DB but not in repo migrations
+        unmigrated = live_tables - repo_objects
         # Tables in repo but not in DB
         unapplied = repo_tables - live_tables
 
@@ -277,9 +371,20 @@ def run_plan(dry_run: bool = False):
         verified = repo_tables & live_tables
         print(f"\n[OK] {len(verified)} of {len(repo_tables)} migration tables verified in live DB")
     else:
-        print("\n[SKIP] Live table comparison skipped (could not connect to Supabase)")
+        reason = "offline mode" if offline else "could not connect to Supabase"
+        print(f"\n[SKIP] Live table comparison skipped ({reason})")
 
     # 4. Publish drift alerts
+    if duplicate_numbers and not offline:
+        publish_alert(
+            severity="CRITICAL",
+            title=f"{len(duplicate_numbers)} duplicate migration numbers",
+            message=f"Duplicate prefixes: {', '.join(sorted(duplicate_numbers.keys())[:10])}. "
+                    "Non-deterministic execution order.",
+            details={"duplicates": {k: v for k, v in sorted(duplicate_numbers.items())}},
+            dry_run=dry_run,
+        )
+
     if drift_alerts:
         severity = "HIGH" if len(drift_alerts) > 3 else "WARNING"
         publish_alert(
@@ -311,12 +416,14 @@ def run_plan(dry_run: bool = False):
         )
 
     # Summary
-    total_issues = len(drift_alerts) + len(unsafe_migrations) + len(no_rls_tables)
+    total_issues = len(drift_alerts) + len(unsafe_migrations) + len(no_rls_tables) + len(duplicate_numbers)
     print(f"\n{'=' * 60}")
     if total_issues == 0:
         print("  RESULT: No drift detected. Schema is clean.")
     else:
         print(f"  RESULT: {total_issues} issues found.")
+        if duplicate_numbers:
+            print(f"    Duplicate nums: {len(duplicate_numbers)} (CRITICAL)")
         print(f"    Drift:          {len(drift_alerts)}")
         print(f"    Unsafe scripts: {len(unsafe_migrations)}")
         print(f"    Missing RLS:    {len(no_rls_tables)}")
@@ -376,12 +483,18 @@ def main():
                "  python scripts/db-drift-check.py --verify      # Post-apply verification\n",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
+    parser.add_argument("--offline", action="store_true",
+                        help="File-only analysis — no live DB, no Redis, no httpx needed")
     parser.add_argument("--verify", action="store_true", help="Run verify phase (post-apply checks)")
     parser.add_argument("--advisor", action="store_true", help="Run Supabase Performance Advisor check")
     parser.add_argument("--all", action="store_true", help="Run drift check + advisor (full)")
     parser.add_argument("--dry-run", action="store_true", help="Report only, don't publish to Redis")
     parser.add_argument("--channel", default=REDIS_CHANNEL, help=f"Redis channel (default: {REDIS_CHANNEL})")
     args = parser.parse_args()
+
+    # Offline implies dry-run (no Redis publishing)
+    if args.offline:
+        args.dry_run = True
 
     total_issues = 0
 
@@ -390,11 +503,14 @@ def main():
     elif args.advisor:
         total_issues = run_advisor_check(channel=args.channel, dry_run=args.dry_run)
     elif args.all:
-        total_issues = run_plan(dry_run=args.dry_run)
+        total_issues = run_plan(dry_run=args.dry_run, offline=args.offline)
         print()  # separator
-        total_issues += run_advisor_check(channel=args.channel, dry_run=args.dry_run)
+        if not args.offline:
+            total_issues += run_advisor_check(channel=args.channel, dry_run=args.dry_run)
+        else:
+            print("[SKIP] Advisor check skipped (offline mode)")
     else:
-        total_issues = run_plan(dry_run=args.dry_run)
+        total_issues = run_plan(dry_run=args.dry_run, offline=args.offline)
 
     sys.exit(1 if total_issues > 0 else 0)
 

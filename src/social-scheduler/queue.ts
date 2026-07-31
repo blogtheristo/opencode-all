@@ -8,7 +8,7 @@
  */
 
 import logger from '../utils/logger.js';
-import type { SocialPost, PostDraft, PostStatus } from './types.js';
+import type { PostDraft, PostStatus, SocialPost } from './types.js';
 
 // ============================================================================
 // SUPABASE HELPER
@@ -65,7 +65,7 @@ export async function enqueueDraft(draft: PostDraft): Promise<string | null> {
     scheduled_at: draft.scheduled_at || null,
     source: draft.source,
     status: 'draft' as PostStatus,
-    approval_notes: null,
+    approval_notes: null as string | null,
     created_at: now,
     updated_at: now,
   };

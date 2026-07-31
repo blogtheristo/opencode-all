@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 25+ EU industries.
 
 **Repository size:** ~500+ files, TypeScript/JavaScript/Python polyglot codebase  
 **Main languages:** TypeScript 5.9, Python 3.11+, React 19.2  

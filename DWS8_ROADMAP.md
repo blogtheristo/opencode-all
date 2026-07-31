@@ -1,10 +1,10 @@
 # DWS8 ROADMAP — Feynman-Era Agentic Platform
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 2.0.0
+> **Version:** 2.1.0
 > **Status:** Living Document
 > **Created:** 2026-03-16
-> **Updated:** 2026-03-24 — v2.0: Added carbon balance sheet thesis, debit-credit ledger architecture, 18-source data mesh, cross-vertical intelligence layer, enterprise data sovereignty add-ons
+> **Updated:** 2026-06-02 — v2.2: Added Phase 3B — Post-Quantum Foundation (Q1–Q4 2029), a crypto-agility / PQC-migration track aligned with the 2029 industry migration target (Google / Cloudflare / Ethereum Foundation). Sourced from Field Note #3 (q-day / Shor-on-ECC). Hands the long-horizon (2030+) PQC platform off to the new DWS9 roadmap. Previously: 2026-05-31 — v2.1: CEO reshape lockstep with DWS 7. Scope-split PR 8-041 — the single-entity EUTL-verified Scope 3 slice moves forward to DWS 7 Phase 2.6 (new PR 093I); 8-041 now scopes only the cross-customer network effect (needs multi-customer critical mass, Phase 2B). Earlier: 2026-03-24 — v2.0: carbon balance sheet thesis, debit-credit ledger architecture, 18-source data mesh, cross-vertical intelligence layer, enterprise data sovereignty add-ons
 > **Timeline:** Q1 2028 → Q4 2029 (24 months)
 > **Target:** DWS IQ 8 — Carbon balance sheet infrastructure for industrial Europe
 
@@ -14,6 +14,8 @@
 Version: 1.0
 
 Sessions & Modifications:
+  - Version: 2.2 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: v2.2 — Added Phase 3B (Post-Quantum Foundation, Q1–Q4 2029): crypto-agility inventory, hash-based signing, NIST FIPS 203/204/205 baseline, HNDL re-encryption, hardware KYA PQC. Anchored to the 2029 migration target shared by Google/Cloudflare/Ethereum Foundation. Cross-referenced Field Note #3 and the new DWS9 roadmap (2030+ PQC platform). Updated Phase Overview + PR count summary
+  - Version: 2.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: v2.1 — CEO reshape lockstep with DWS 7. Scope-split PR 8-041: single-entity EUTL-verified Scope 3 slice moved forward to DWS 7 Phase 2.6 (PR 093I); 8-041 retains only the cross-customer network effect
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: v2.0 — Carbon balance sheet thesis, debit-credit ledger as core architecture, 18-source data mesh, cross-vertical intelligence, enterprise data sovereignty add-ons, Qantic BESS integration context
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/nvidia-gtc-2026-notes-cYO48 | Date: 16.03.2026 | Changes: Initial creation — DWS 8 roadmap based on NVIDIA GTC 2026 Feynman architecture announcements, post-DWS 7 planning horizon
 
@@ -23,7 +25,7 @@ Session Links & References:
 
 Document Status:
   - Created: 16.03.2026
-  - Last Modified: 16.03.2026
+  - Last Modified: 31.05.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -141,6 +143,7 @@ A Firehorse Report agent that knows steel CBAM factors, construction CSRD benchm
 | **2A** | Q3-Q4 2028 | **Silicon Photonics** | Hardware | Optical interconnects for sovereign on-premise |
 | **2B** | Q3-Q4 2028 | **Cross-Vertical Intelligence** | Data | Supply chain carbon flow, network effect, enterprise connectors |
 | **3** | Q1-Q2 2029 | **Edge Fleet** | Hardware | BlueField-5 DPU, hardware KYA |
+| **3B** | Q1-Q4 2029 | **Post-Quantum Foundation** | Security | Crypto-agility inventory, hash-based signing, NIST FIPS 203/204/205 baseline, HNDL re-encryption |
 | **4** | Q3-Q4 2029 | **DWS 8 GA** | Both | Full release, migration, carbon balance sheet as default |
 
 ---
@@ -193,7 +196,7 @@ This phase runs in parallel with DWS 7 Phase 6 (GA release).
 | 8-031 | Dual-unit entries (EUR + tCO2e) | P0 | Every entry carries both financial (EUR) and physical (tCO2e) amounts. 1.852 tCO2e/t is the universal unit. Carbon price at time of entry preserved for audit trail |
 | 8-032 | XBRL/iXBRL export | P0 | Export ledger to ESRS-compliant XBRL for regulatory filing. Consumes EFRAG XBRL taxonomy (auto-synced). Machine-readable CSRD reports |
 | 8-033 | Multi-entity consolidation | P1 | Group-level carbon balance sheet. Parent company consolidates subsidiaries. Eliminates intercompany carbon double-counting |
-| 8-034 | Audit trail with Aiwen signing | P0 | Every ledger entry signed via Aiwen layer (EU AI Act Article 12). Tamper-proof. Auditor can verify chain from entry → agent → data source → regulation |
+| 8-034 | Audit trail with sovereignty signing | P0 | Every ledger entry signed via Full Sovereignty layer (EU AI Act Article 12). Tamper-proof. Auditor can verify chain from entry → agent → data source → regulation |
 | 8-035 | Chart of carbon accounts | P1 | Standardized account structure: Scope 1 Direct, Scope 2 Indirect, Scope 3 Upstream, Scope 3 Downstream, Offsets, Free Allocation. Maps to ESRS E1 disclosures |
 | 8-036 | ERP GL integration | P1 | Sync carbon ledger entries to financial GL in SAP/IFS/Dynamics. Carbon costs appear as line items in the financial P&L. Bi-directional: ERP purchase orders → CBAM debit entries |
 | 8-037 | Variance analysis engine | P2 | Predicted vs actual compliance costs per quarter. Budget vs actual carbon balance. Alerts when ledger diverges from forecast by >10% |
@@ -222,7 +225,7 @@ This phase runs in parallel with DWS 7 Phase 6 (GA release).
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
 | 8-040 | Supply chain carbon flow graph | P0 | Track carbon from extraction → manufacturing → construction → disposal. Graph DB (or pgvector adjacency) linking supplier ledger entries to buyer ledger entries. One company's output (credit) becomes another's input (debit) |
-| 8-041 | Verified supplier emission factors | P0 | Replace CBAM Reg. 2023/1773 defaults with actual verified emissions from EUTL when supplier is on the platform. Customer A's verified data improves customer B's accuracy. This is the network effect |
+| 8-041 | Verified supplier emission factors (cross-customer network effect) | P0 | **Scope split:** the single-entity slice (use a supplier's own EUTL installation record instead of Reg. 2023/1773 defaults) ships earlier in DWS 7 Phase 2.6 as PR 093I. What remains here is the **network effect**: when customer A's verified EUTL data becomes the actual emission factor for customer B's CBAM calculation, both ledgers get more accurate. Requires multi-customer ledger critical mass (Phase 2B), which is why it stays in DWS 8 |
 | 8-042 | Enterprise data connectors (Bloomberg, Refinitiv, Ecoinvent) | P1 | "Data Sovereignty Add-ons" — customer brings their own license, DWS provides connector. Env var activation (`BLOOMBERG_API_KEY`). Ingest existing feeds, don't replace data providers |
 | 8-043 | Cross-vertical benchmarking dashboard | P1 | CFO sees how their ETS exposure compares across industries. Steel vs cement vs chemicals on the same carbon balance sheet. Powered by Eurostat NACE + EEA + CDP data |
 | 8-044 | Intercompany carbon elimination | P1 | When two subsidiaries of the same group trade, eliminate intercompany carbon the same way financial accounting eliminates intercompany revenue. Prevents double-counting in consolidated reports |
@@ -243,6 +246,26 @@ This phase runs in parallel with DWS 7 Phase 6 (GA release).
 | 8-016 | Autonomous vehicle integration (DRIVE Hyperion v2) | P2 | Lifetime Fleet autonomous logistics on industrial sites |
 | 8-017 | Edge-to-cloud agent synchronization | P1 | Agents running on edge seamlessly delegate to cloud when needed |
 | 8-018 | Satellite data integration (Space-1 paradigm) | P3 | If NVIDIA Space-1 reaches commercial status, integrate orbital compute nodes |
+
+---
+
+## Phase 3B: Post-Quantum Foundation (Q1-Q4 2029)
+
+**Goal:** Make the DWS 8 platform **crypto-agile** by the **2029 industry migration target** — the same date held by Google, Cloudflare, and the Ethereum Foundation. This phase does **not** attempt the full post-quantum platform (that is DWS 9, 2030+). It lays the foundation: know every cryptographic dependency, sign with quantum-resistant primitives, and neutralize harvest-now-decrypt-later (HNDL) exposure on sovereign data.
+
+**Source:** `docs/field-notes/2026-06-02-quantum-qday-shor-ecc-field-note.md` (q-day / Shor-on-ECC). The 2030–2035 q-day window and the ~20× cheaper Shor-on-secp256k1 estimate re-price every long-lived ciphertext DWS holds today.
+
+**Posture:** Do not panic; do migrate deliberately. Crypto-agility (algorithm-replaceability) is the deliverable — not a bet on a specific q-day date.
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 8-050 | Cryptographic dependency inventory | P0 | Enumerate every primitive in the stack — JWT signing, TLS, DB-at-rest, KZG/BLS-style commitments, audit-trail signatures (Article 12), KYA identity spine. Output a machine-readable crypto bill of materials (CBOM) |
+| 8-051 | NIST FIPS 203/204/205 baseline | P0 | Adopt ML-KEM (203), ML-DSA (204), SLH-DSA (205) as the approved PQC set. Hybrid classical+PQC where standards/libraries are immature. Pin versions in `DWS_SECURITY_STANDARD.md` |
+| 8-052 | Hash-based audit-trail signing | P0 | Migrate the sovereignty/Article-12 audit signatures to hash-based (SLH-DSA) signing — conservative, well-understood primitives. Aligns with the lean-Ethereum hash-based direction (leanVM) |
+| 8-053 | HNDL re-encryption sweep | P1 | Re-encrypt long-lived sovereign data-at-rest under PQC/hybrid KEM. Prioritize records whose confidentiality must survive past 2032. Rotate keys held by a single custodian |
+| 8-054 | Hardware KYA PQC enforcement | P1 | Extend BlueField-5 hardware KYA (Phase 3) so the agent identity spine and leash-snap chain use PQC signatures at the DPU level |
+| 8-055 | Crypto-agility test harness | P1 | CI gate that swaps the active signature/KEM algorithm and proves the platform still verifies end-to-end. Algorithm-replaceability becomes a tested invariant, not a promise |
+| 8-056 | Rightful Oy R-Sac² readiness mapping | P2 | Map the EU-origin post-quantum readiness instrument (Field Note #2) onto the CBOM. Customer-facing PQC posture report |
 
 ---
 
@@ -341,16 +364,17 @@ DWS 7 customers get DWS 8 as an upgrade path. DWS 7 continues as "DWS 7 LTS" for
 
 ## PR Count Summary
 
-| Phase | Hardware PRs | Data PRs | Total |
-|-------|-------------|----------|-------|
-| **0** | 6 | — | 6 |
-| **1A** | 8 | — | 8 |
-| **1B** | — | 9 | 9 |
-| **2A** | 5 | — | 5 |
-| **2B** | — | 8 | 8 |
-| **3** | 5 | — | 5 |
-| **4** | 5 | — | 5 |
-| **Total** | **29** | **17** | **46** |
+| Phase | Hardware PRs | Data PRs | Security PRs | Total |
+|-------|-------------|----------|--------------|-------|
+| **0** | 6 | — | — | 6 |
+| **1A** | 8 | — | — | 8 |
+| **1B** | — | 9 | — | 9 |
+| **2A** | 5 | — | — | 5 |
+| **2B** | — | 8 | — | 8 |
+| **3** | 5 | — | — | 5 |
+| **3B** | — | — | 7 | 7 |
+| **4** | 5 | — | — | 5 |
+| **Total** | **29** | **17** | **7** | **53** |
 
 ---
 

@@ -31,7 +31,7 @@ DWS IQ's compliance layer is deployable today in a Finnish lab:
 |-----------|--------|----------|
 | JSON-RPC 2.0 local control protocol | **Live** | MCP endpoint operational, agent coordination running |
 | ≤10 ms control loop | **Spec ready** | GN-100 NVIDIA Grace Blackwell edge node — hardware in Finland |
-| Immutable on-prem logging (Article 12) | **Active** | Aiwen logging layer capturing all AI events; 7-year retention |
+| Immutable on-prem logging (Article 12) | **Active** | Sovereignty audit logging layer capturing all AI events; 7-year retention |
 | Reasoning lineage + confidence scores | **Active** | Goes beyond Article 12 minimum — exactly what notified bodies want |
 | Human override with audit trail | **Active** | Captain's Bridge UI + physical e-stop spec |
 | NDJSON export for national authorities | **Active** | Export format tested, SHA-256 integrity hashing |

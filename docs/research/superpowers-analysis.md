@@ -22,22 +22,22 @@ Core philosophy: agents should follow a staged process, not jump straight to cod
 
 ### 2.1 Skill Catalog
 
-| Skill | Purpose |
-|-------|---------|
-| `brainstorming` | Socratic design refinement, 2-3 approaches |
-| `writing-plans` | Bite-sized tasks (2-5 min each) |
-| `executing-plans` | Batch execution with checkpoints |
-| `test-driven-development` | RED-GREEN-REFACTOR iron law |
-| `systematic-debugging` | 4-phase root cause analysis |
-| `verification-before-completion` | Evidence-based completion claims |
-| `dispatching-parallel-agents` | Concurrent subagent workflows |
-| `subagent-driven-development` | Two-stage review (spec → quality) |
-| `using-git-worktrees` | Isolated parallel branches |
-| `requesting-code-review` | Pre-review validation |
-| `receiving-code-review` | Feedback incorporation |
-| `finishing-a-development-branch` | Merge/PR decisions |
-| `writing-skills` | Meta: creating new skills |
-| `using-superpowers` | System introduction |
+| Skill                            | Purpose                                    |
+| -------------------------------- | ------------------------------------------ |
+| `brainstorming`                  | Socratic design refinement, 2-3 approaches |
+| `writing-plans`                  | Bite-sized tasks (2-5 min each)            |
+| `executing-plans`                | Batch execution with checkpoints           |
+| `test-driven-development`        | RED-GREEN-REFACTOR iron law                |
+| `systematic-debugging`           | 4-phase root cause analysis                |
+| `verification-before-completion` | Evidence-based completion claims           |
+| `dispatching-parallel-agents`    | Concurrent subagent workflows              |
+| `subagent-driven-development`    | Two-stage review (spec → quality)          |
+| `using-git-worktrees`            | Isolated parallel branches                 |
+| `requesting-code-review`         | Pre-review validation                      |
+| `receiving-code-review`          | Feedback incorporation                     |
+| `finishing-a-development-branch` | Merge/PR decisions                         |
+| `writing-skills`                 | Meta: creating new skills                  |
+| `using-superpowers`              | System introduction                        |
 
 ## 3. Patterns DWS Should Adopt
 
@@ -46,6 +46,7 @@ Core philosophy: agents should follow a staged process, not jump straight to cod
 **Problem:** DWS standards are monolithic documents (DWS_BRAND_STANDARD.md, DWS_SECURITY_STANDARD.md, etc.). They work as reference but cost many tokens to load and are hard for agents to discover contextually.
 
 **Superpowers pattern:** Each skill is a self-contained file with:
+
 - YAML frontmatter (`name`, `description` max 1024 chars)
 - Standardized sections: Overview → When to Use → Core Pattern → Quick Reference → Common Mistakes
 - CSO (Claude Search Optimization) — descriptions optimized for agent discovery
@@ -54,8 +55,9 @@ Core philosophy: agents should follow a staged process, not jump straight to cod
 **Recommendation:** Create `skills/` folder with bite-sized SKILL.md files extracted from existing standards. Keep monolithic standards as reference; extract actionable patterns into discoverable skills.
 
 **Candidate skills to extract:**
+
 - `skills/dual-folder-sync/SKILL.md` — from CLAUDE.md Store Update Rule
-- `skills/safe-sql-migration/SKILL.md` — from Boardy's SQL safety rules
+- `skills/safe-sql-migration/SKILL.md` — from Marcus's SQL safety rules
 - `skills/eu-compliance-data/SKILL.md` — from validated mock data rules
 - `skills/design-first/SKILL.md` — new, based on superpowers brainstorming gate
 
@@ -66,6 +68,7 @@ Core philosophy: agents should follow a staged process, not jump straight to cod
 **Superpowers pattern:** Hard gate — "Do NOT invoke any implementation skill until you have presented a design and the user has approved it." For features requiring 3+ file changes.
 
 **Recommendation:** Add to CLAUDE.md:
+
 ```
 HARD GATE: For features requiring 3+ file changes, present a design with
 2-3 approaches and get user approval BEFORE writing production code.
@@ -78,12 +81,12 @@ Use /plan-ceo-review for product decisions, /plan-eng-review for architecture.
 
 **Superpowers pattern:** "NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST." Includes rationalization table:
 
-| Excuse | Counter |
-|--------|---------|
-| "It's a small change" | Small changes cause big bugs |
-| "I'll add tests after" | You won't. Write them now |
-| "The existing tests cover it" | Prove it — show the failing test |
-| "It's just a refactor" | Refactors need tests to prove behavior unchanged |
+| Excuse                        | Counter                                          |
+| ----------------------------- | ------------------------------------------------ |
+| "It's a small change"         | Small changes cause big bugs                     |
+| "I'll add tests after"        | You won't. Write them now                        |
+| "The existing tests cover it" | Prove it — show the failing test                 |
+| "It's just a refactor"        | Refactors need tests to prove behavior unchanged |
 
 **Recommendation:** Create `skills/tdd-iron-law/SKILL.md` with the rationalization table. Particularly important for EU AI Act compliance — agent behaviors must be verifiable.
 
@@ -94,6 +97,7 @@ Use /plan-ceo-review for product decisions, /plan-eng-review for architecture.
 **Superpowers pattern:** "NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE." Red flag language: "should work," "probably," "seems," "appears."
 
 **Recommendation:** Add to CLAUDE.md after the Output Standards section:
+
 ```
 VERIFICATION GATE: Before claiming any task complete:
 1. Run the relevant verification command (test, build, lint)
@@ -107,6 +111,7 @@ VERIFICATION GATE: Before claiming any task complete:
 **Problem:** DWS uses Agent tool but subagent results are free-form. No standard protocol for reporting outcomes.
 
 **Superpowers pattern:** Four status codes:
+
 - `DONE` — Task completed successfully
 - `DONE_WITH_CONCERNS` — Completed but found issues worth noting
 - `NEEDS_CONTEXT` — Blocked, needs information from parent
@@ -119,6 +124,7 @@ VERIFICATION GATE: Before claiming any task complete:
 **Problem:** DWS skill descriptions don't follow a standard format for agent discoverability.
 
 **Superpowers pattern:** Description rules:
+
 - Start with "Use when..." + specific symptoms/contexts
 - Include keywords agents would search for
 - Never summarize workflow in description (causes agents to skip reading full skill)
@@ -128,27 +134,27 @@ VERIFICATION GATE: Before claiming any task complete:
 
 ## 4. Where DWS Is Already Ahead
 
-| Area | DWS Advantage | Superpowers Gap |
-|------|---------------|-----------------|
-| **EU regulatory compliance** | Article 12 logging, GDPR, CSRD, EU AI Act, CBAM | Zero regulatory awareness |
-| **Document traceability** | VERSION AND AGENT HISTORY block on every document | No version tracking |
-| **Worktree automation** | Full scripts with env copy, venv symlink, Docker health, MCP config | Basic git worktree usage |
-| **Security standards** | KYA framework, sandbox stages, shell exec safety, SRI hashes | No security coverage |
-| **Multi-standard ecosystem** | 10+ specialized standards (brand, data, security, market research) | Development workflow only |
-| **Information layering** | Six-layer context architecture with JIT loading | Flat skill loading |
-| **Validated mock data** | Every mock value needs cited source (EU ETS, IPCC, Eurostat) | No data validation rules |
-| **Session handover** | Structured continuation prompts across context windows | No handover protocol |
+| Area                         | DWS Advantage                                                       | Superpowers Gap           |
+| ---------------------------- | ------------------------------------------------------------------- | ------------------------- |
+| **EU regulatory compliance** | Article 12 logging, GDPR, CSRD, EU AI Act, CBAM                     | Zero regulatory awareness |
+| **Document traceability**    | VERSION AND AGENT HISTORY block on every document                   | No version tracking       |
+| **Worktree automation**      | Full scripts with env copy, venv symlink, Docker health, MCP config | Basic git worktree usage  |
+| **Security standards**       | KYA framework, sandbox stages, shell exec safety, SRI hashes        | No security coverage      |
+| **Multi-standard ecosystem** | 10+ specialized standards (brand, data, security, market research)  | Development workflow only |
+| **Information layering**     | Six-layer context architecture with JIT loading                     | Flat skill loading        |
+| **Validated mock data**      | Every mock value needs cited source (EU ETS, IPCC, Eurostat)        | No data validation rules  |
+| **Session handover**         | Structured continuation prompts across context windows              | No handover protocol      |
 
 ## 5. Implementation Priority
 
-| Priority | Action | Effort | Impact |
-|----------|--------|--------|--------|
-| P1 | Add verification gate to CLAUDE.md | Low | High — prevents false completion claims |
-| P1 | Add hard design gate to CLAUDE.md | Low | High — prevents wasted implementation |
-| P2 | Create `skills/` folder with 3 sample skills | Medium | High — proves composable pattern |
-| P2 | Elevate TDD with rationalization table | Low | High — code quality + compliance |
-| P3 | Adopt subagent status codes in AGENTS.md | Low | Medium — standardizes coordination |
-| P3 | Formalize CSO rule for skill descriptions | Low | Medium — improves discoverability |
+| Priority | Action                                       | Effort | Impact                                  |
+| -------- | -------------------------------------------- | ------ | --------------------------------------- |
+| P1       | Add verification gate to CLAUDE.md           | Low    | High — prevents false completion claims |
+| P1       | Add hard design gate to CLAUDE.md            | Low    | High — prevents wasted implementation   |
+| P2       | Create `skills/` folder with 3 sample skills | Medium | High — proves composable pattern        |
+| P2       | Elevate TDD with rationalization table       | Low    | High — code quality + compliance        |
+| P3       | Adopt subagent status codes in AGENTS.md     | Low    | Medium — standardizes coordination      |
+| P3       | Formalize CSO rule for skill descriptions    | Low    | Medium — improves discoverability       |
 
 ## 6. Conclusion
 

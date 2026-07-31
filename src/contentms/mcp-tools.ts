@@ -19,36 +19,35 @@
 
 import {
   createContent,
-  getContent,
-  listContent,
-  updateContent,
-  transitionStatus,
-  getContentStats,
-  searchContent,
-  getExpiringCertificates,
   createShareLink,
-  getPublishedLearning,
+  getContent,
+  getContentStats,
+  getExpiringCertificates,
+  listContent,
+  searchContent,
+  transitionStatus,
+  updateContent,
 } from './service.js';
 import { publishLearningArticle } from './blog-publisher.js';
 import { publishArtifact } from './artifact-publisher.js';
 import { distributeContent } from './omnichannel.js';
 import { generateDigest } from './digest.js';
 import {
+  approveHilReview,
   getAuditTrail,
   getPendingReviews,
-  requestHilReview,
-  approveHilReview,
-  rejectHilReview,
   isHilApproved,
+  rejectHilReview,
+  requestHilReview,
 } from './audit.js';
 import {
-  ContentStatus,
-  ContentType,
-  ContentLanguage,
-  ContentTag,
-  ContentCategory,
-  ContentVisibility,
   ArtifactType,
+  ContentCategory,
+  ContentLanguage,
+  ContentStatus,
+  ContentTag,
+  ContentType,
+  ContentVisibility,
   OmnichannelTarget,
 } from './types.js';
 
@@ -69,20 +68,41 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_upload',
-    description: 'Upload a document to the Evidence Vault. Document Classifier auto-tags it by regulation (EU ETS, CBAM, CSRD, ISO, etc.).',
+    description:
+      'Upload a document to the Evidence Vault. Document Classifier auto-tags it by regulation (EU ETS, CBAM, CSRD, ISO, etc.).',
     inputSchema: {
       type: 'object',
-      required: ['title', 'slug', 'type', 'language', 'category', 'body_markdown', 'owner_id', 'organization_id', 'author'],
+      required: [
+        'title',
+        'slug',
+        'type',
+        'language',
+        'category',
+        'body_markdown',
+        'owner_id',
+        'organization_id',
+        'author',
+      ],
       properties: {
         title: { type: 'string', description: 'Document title' },
         slug: { type: 'string', description: 'URL-safe slug' },
-        type: { type: 'string', enum: Object.values(ContentType), description: 'document | certificate | report | learning | template' },
+        type: {
+          type: 'string',
+          enum: Object.values(ContentType),
+          description: 'document | certificate | report | learning | template',
+        },
         language: { type: 'string', enum: Object.values(ContentLanguage) },
         category: { type: 'string', enum: Object.values(ContentCategory) },
         visibility: { type: 'string', enum: Object.values(ContentVisibility), default: 'team' },
-        body_markdown: { type: 'string', description: 'Content body or document description in Markdown' },
+        body_markdown: {
+          type: 'string',
+          description: 'Content body or document description in Markdown',
+        },
         excerpt: { type: 'string', description: 'Short summary (max 500 chars)' },
-        file_name: { type: 'string', description: 'Original filename (e.g., iso14001-cert-2026.pdf)' },
+        file_name: {
+          type: 'string',
+          description: 'Original filename (e.g., iso14001-cert-2026.pdf)',
+        },
         file_type: { type: 'string', description: 'File type: pdf, docx, jpg, png, cad, xlsx' },
         file_size_bytes: { type: 'number' },
         issued_by: { type: 'string', description: 'Certificate issuer (for certificates)' },
@@ -107,13 +127,18 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_expiring',
-    description: 'Find certificates expiring within N days. Alerts before critical green certificates expire.',
+    description:
+      'Find certificates expiring within N days. Alerts before critical green certificates expire.',
     inputSchema: {
       type: 'object',
       required: ['organization_id'],
       properties: {
         organization_id: { type: 'string', description: 'Customer organization ID' },
-        within_days: { type: 'number', default: 30, description: 'Days until expiry (default: 30)' },
+        within_days: {
+          type: 'number',
+          default: 30,
+          description: 'Days until expiry (default: 30)',
+        },
       },
     },
     handler: async (input) => {
@@ -127,7 +152,8 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_search',
-    description: 'Search the Evidence Vault using natural language. Finds documents by title, body, tags, regulation, issuer.',
+    description:
+      'Search the Evidence Vault using natural language. Finds documents by title, body, tags, regulation, issuer.',
     inputSchema: {
       type: 'object',
       required: ['query', 'organization_id'],
@@ -151,13 +177,18 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_share',
-    description: 'Generate a secure, temporary share link for an auditor or stakeholder. Link expires automatically.',
+    description:
+      'Generate a secure, temporary share link for an auditor or stakeholder. Link expires automatically.',
     inputSchema: {
       type: 'object',
       required: ['content_id', 'created_by'],
       properties: {
         content_id: { type: 'string', description: 'Content item UUID to share' },
-        expires_in_hours: { type: 'number', default: 48, description: 'Hours until link expires (max 720 = 30 days)' },
+        expires_in_hours: {
+          type: 'number',
+          default: 48,
+          description: 'Hours until link expires (max 720 = 30 days)',
+        },
         created_by: { type: 'string', description: 'User creating the share link' },
       },
     },
@@ -175,7 +206,8 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_stats',
-    description: 'Evidence Vault dashboard — document counts by type/status, expiring certificates count.',
+    description:
+      'Evidence Vault dashboard — document counts by type/status, expiring certificates count.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -189,7 +221,8 @@ export const contentMcpTools: McpTool[] = [
 
   {
     name: 'contentms_transition',
-    description: 'Transition document status (draft → review → approved → published → archived). Archive Manager handles retention.',
+    description:
+      'Transition document status (draft → review → approved → published → archived). Archive Manager handles retention.',
     inputSchema: {
       type: 'object',
       required: ['id', 'status'],
@@ -208,7 +241,8 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_list',
-    description: 'List Evidence Vault items with filters (type, status, category, regulation tag, expiry).',
+    description:
+      'List Evidence Vault items with filters (type, status, category, regulation tag, expiry).',
     inputSchema: {
       type: 'object',
       properties: {
@@ -265,7 +299,7 @@ export const contentMcpTools: McpTool[] = [
 
   {
     name: 'contentms_publish_learning',
-    description: 'Publish a learning article to the customer\'s internal knowledge portal.',
+    description: "Publish a learning article to the customer's internal knowledge portal.",
     inputSchema: {
       type: 'object',
       required: ['id'],
@@ -382,7 +416,8 @@ export const contentMcpTools: McpTool[] = [
 
   {
     name: 'contentms_audit_trail',
-    description: 'Get the full audit trail for a content item — all actions, reviewers, timestamps.',
+    description:
+      'Get the full audit trail for a content item — all actions, reviewers, timestamps.',
     inputSchema: {
       type: 'object',
       required: ['content_id'],
@@ -400,13 +435,18 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_publish_artifact',
-    description: 'Publish content as a site artifact (blog post to onelifetime.world/posts/ or legal document to onelifetime.world/legal/). Requires HIL approval.',
+    description:
+      'Publish content as a site artifact (blog post to onelifetime.world/posts/ or legal document to onelifetime.world/legal/). Requires HIL approval.',
     inputSchema: {
       type: 'object',
       required: ['content_id', 'artifact_type', 'publisher_id', 'publisher_name'],
       properties: {
         content_id: { type: 'string', description: 'Content item UUID' },
-        artifact_type: { type: 'string', enum: Object.values(ArtifactType), description: 'blog_post or legal_document' },
+        artifact_type: {
+          type: 'string',
+          enum: Object.values(ArtifactType),
+          description: 'blog_post or legal_document',
+        },
         publisher_id: { type: 'string', description: 'Publisher user ID' },
         publisher_name: { type: 'string', description: 'Publisher display name' },
       },
@@ -433,7 +473,8 @@ export const contentMcpTools: McpTool[] = [
   // ==========================================================================
   {
     name: 'contentms_distribute',
-    description: 'Distribute content across Omnichannel channels — product pages, blog, email campaigns, LinkedIn, store listings. Product marketing automation.',
+    description:
+      'Distribute content across Omnichannel channels — product pages, blog, email campaigns, LinkedIn, store listings. Product marketing automation.',
     inputSchema: {
       type: 'object',
       required: ['content_id', 'targets', 'distributor_id', 'distributor_name'],
@@ -442,7 +483,8 @@ export const contentMcpTools: McpTool[] = [
         targets: {
           type: 'array',
           items: { type: 'string', enum: Object.values(OmnichannelTarget) },
-          description: 'Channels to distribute to: product_page, blog_post, email_campaign, linkedin, store_listing',
+          description:
+            'Channels to distribute to: product_page, blog_post, email_campaign, linkedin, store_listing',
         },
         distributor_id: { type: 'string', description: 'Distributor user ID' },
         distributor_name: { type: 'string', description: 'Distributor display name' },

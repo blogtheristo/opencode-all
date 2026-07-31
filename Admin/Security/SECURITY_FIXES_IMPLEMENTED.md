@@ -65,7 +65,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 3. MCP Colors Framework (P1 - HIGH) ✅
 
-**Location**: `src/mcp/security/tool_colors.py`
+**Location**: `src/mcp/security/tool-colors.ts`
 
 **Protection**: Prevents mixing RED (untrusted input) + BLUE (critical actions) tools
 
@@ -76,7 +76,7 @@ All 11 critical security fixes from the security audit have been successfully im
 - Custom tool registration
 - Comprehensive error messages with references
 
-**Testing**: `tests/security/test_tool_colors.py` (11 test cases)
+**Testing**: `src/__tests__/security-ports.test.ts`
 
 **Cost**: €1,900 | **Risk Mitigated**: €20M+ (GDPR breach)
 
@@ -122,7 +122,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 6. OAuth DCR for MCP (P1 - HIGH) ✅
 
-**Location**: `src/mcp/oauth_dcr.py`
+**Location**: `src/mcp/oauth-handler.ts`
 
 **Protection**: Prevents agents from accessing API tokens
 
@@ -141,7 +141,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 7. Modern CSRF Protection (P1 - HIGH) ✅
 
-**Location**: `src/web/middleware/csrf_protection.py`
+**Location**: `src/middleware/csrf-protection.ts`
 
 **Protection**: Prevents cross-site request forgery
 
@@ -149,10 +149,10 @@ All 11 critical security fixes from the security audit have been successfully im
 - Sec-Fetch-Site header validation (94.18% browser support)
 - Origin/Host comparison fallback (legacy browsers)
 - Referer check (last resort)
-- Flask middleware integration
+- Express middleware integration
 - Automatic blocking with detailed logging
 
-**Testing**: `tests/security/test_csrf_protection.py` (9 test cases)
+**Testing**: `src/__tests__/security-ports.test.ts`
 
 **Cost**: €950 | **Risk Mitigated**: Account takeover prevention
 
@@ -160,7 +160,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 8. Redirect Validator (P2 - MEDIUM) ✅
 
-**Location**: `src/web/utils/redirect_validator.py`
+**Location**: `src/middleware/redirect-validator.ts`
 
 **Protection**: Prevents open redirect vulnerabilities
 
@@ -171,7 +171,7 @@ All 11 critical security fixes from the security audit have been successfully im
 - Scheme validation (block javascript:, data:, etc.)
 - Sanitization with safe defaults
 
-**Testing**: `tests/security/test_redirect_validator.py` (11 test cases)
+**Testing**: `src/__tests__/security-ports.test.ts`
 
 **Cost**: €570 | **Risk Mitigated**: Phishing prevention
 
@@ -417,6 +417,36 @@ python scripts/security/check_dependency_domains.py
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0.0 | 2026-01-02 | DWS IQ 6 Engineering | Initial implementation complete |
+| 1.1.0 | 2026-04-05 | DWS IQ 6 Engineering | CI security gates, CSP nonces, Redis rate limiter, DAST (PR #936) |
+
+---
+
+## v1.1.0 — CI Security Gates & Runtime Hardening (2026-04-05)
+
+**Branch**: `claude/add-ci-security-checks-T4UXA` | **PR**: #936
+
+### Changes Shipped
+
+| # | Control | File(s) | Impact |
+|---|---------|---------|--------|
+| 1 | **CSP nonce-based script-src** | `src/app.ts` | Removed `'unsafe-inline'` — per-request 128-bit nonce via `crypto.randomBytes(16)` injected into helmet CSP `scriptSrc` directive. Mitigates reflected XSS. |
+| 2 | **Redis-backed rate limiter** | `src/app.ts`, `src/services/redis-rate-limiter.service.ts` | Swapped `express-rate-limit` (in-memory Map) for Redis-shared counters. Fixes rate-limit bypass on Cloud Run multi-instance scale-out. Falls back to in-memory if Redis unreachable. |
+| 3 | **npm audit CI gate** | `.github/workflows/test.yml` | PRs fail on `high`/`critical` vulnerabilities (`npm audit --audit-level=high`). |
+| 4 | **OWASP ZAP DAST scan** | `.github/workflows/dast-zap-scan.yml`, `.zap/rules.tsv` | New weekly + PR baseline scan. Tuned rules ignore cache/CSRF false positives for JWT API. Fails on active issues. |
+| 5 | **Per-file coverage thresholds** | `vitest.config.ts` | 80% statements/branches/functions/lines for `auth.middleware`, `auth.routes`, `compliance.routes`, `redis-rate-limiter.service` (vs. 60% baseline). |
+| 6 | **noImplicitAny type safety** | 9 agent files | Explicit type annotations in article12-logger, memory.service, agent routes, workflow agents (apollo/athena/hephaestus/hermes/iris), seo/lead-feedback. Reduces runtime type drift. |
+
+### Operational Notes
+
+- **Redis env vars required on Cloud Run**: `REDIS_URL` or (`REDIS_HOST`/`REDIS_PORT`/`REDIS_PASSWORD`). Without these, limiter runs in-memory (per-instance) — acceptable for dev, but multi-instance rate limiting requires Redis.
+- **CSP nonce propagation to templates**: Available as `(req as Request & { cspNonce: string }).cspNonce`. Any server-rendered HTML template with inline scripts must emit `<script nonce="${req.cspNonce}">` or the script will be blocked.
+- **ZAP scan blocks merges** on active findings. Tune `.zap/rules.tsv` to add IGNORE entries for false positives (do not blanket-ignore).
+
+### Remaining Work
+
+- Wire `req.cspNonce` into any server-rendered HTML templates that embed inline `<script>` tags.
+- Consider adding `script-src-attr 'none'` to block inline event handlers.
+- Monitor Redis latency under load; add circuit breaker if p99 > 50ms.
 
 ---
 

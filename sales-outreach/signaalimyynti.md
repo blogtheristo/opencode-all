@@ -226,7 +226,7 @@ Aihe: Parasta portfolio-ohjelmistoa markkinoilla!
 Hei,
 
 Olemme DWS IQ 6 – maailman johtava rakennusalan AI-ratkaisu.
-Meillä on 20 moatia ja NVIDIA Jetson -teknologia.
+Meillä on 21 moatia ja NVIDIA Jetson -teknologia.
 
 Haluaisitko ostaa meidän tuotteen? Meillä on erikoistarjous tällä viikolla!
 
@@ -628,7 +628,7 @@ Aihe: Parasta rakennusalan ohjelmistoa!
 Hei,
 
 Olemme DWS IQ 6 – maailman johtava AI-pohjainen portfolio-ohjausratkaisu.
-Meillä on NVIDIA Jetson -teknologia ja 20 moatia. Tuotteemme on käytössä
+Meillä on NVIDIA Jetson -teknologia ja 21 moatia. Tuotteemme on käytössä
 joka puolella maailmaa ja asiakkaamme ovat erittäin tyytyväisiä.
 
 Haluaisitko ostaa tuotteemme? Meillä on erikoistarjous tällä viikolla:

@@ -1,13 +1,26 @@
 /**
  * DWS IQ 6 - Email Queue Service (Redis Streams)
  *
- * Reliable async email delivery using Redis Streams as the message broker.
+ * Reliable async email delivery AND inbound processing using Redis Streams.
  * Provides at-least-once delivery with consumer groups, dead-letter handling,
  * and automatic fallback to direct send when Redis is unavailable.
  *
- * Stream:   email:outbox         — pending emails to deliver
- * Group:    email-workers        — consumer group for competing consumers
- * DLQ:      email:dead-letters   — failed emails after max retries
+ * Streams:
+ *   email:outbox         — outbound: pending emails to deliver via Amazon SES (SMTP)
+ *   email:inbox          — inbound: received emails from webhooks + other sources
+ *
+ * Groups:
+ *   email-workers        — consumer group for outbound delivery
+ *   inbox-workers        — consumer group for inbound processing
+ *
+ * DLQ:
+ *   email:dead-letters   — failed outbound emails after max retries
+ *   email:inbox-dlq      — failed inbound processing after max retries
+ *
+ * Architecture:
+ *   enqueue() ──► email:outbox ──► Redis Stream ──► Amazon SES (SMTP) delivery
+ *   inbound webhook ──► /webhooks/resend/inbound ──► email:inbox ──► processing
+ *   MCP agents / Firehorse ──────────────────────► email:inbox ──► processing
  *
  * Environment variables:
  *   REDIS_URL            — Redis connection string (ioredis format)
@@ -44,6 +57,28 @@ export interface QueuedEmail {
   source?: string;
 }
 
+export interface InboundEmail {
+  /** Sender email address */
+  from: string;
+  /** Recipient address (one of our addresses) */
+  to: string;
+  /** Email subject */
+  subject: string;
+  /** Plain text body */
+  text: string;
+  /** HTML body (optional) */
+  html?: string;
+  /** Resend message ID or external reference */
+  messageId: string;
+  /** Source: resend-webhook, mcp-agent, firehorse, manual */
+  source: string;
+  /** Raw payload for audit */
+  rawPayload?: string;
+}
+
+/** Handler function for processing inbound emails */
+export type InboundEmailHandler = (email: InboundEmail) => Promise<void>;
+
 interface StreamMessage {
   id: string;
   to: string;
@@ -61,8 +96,11 @@ interface StreamMessage {
 // ============================================================
 
 const STREAM_KEY = 'email:outbox';
+const INBOX_STREAM_KEY = 'email:inbox';
 const DLQ_KEY = 'email:dead-letters';
+const INBOX_DLQ_KEY = 'email:inbox-dlq';
 const GROUP_NAME = 'email-workers';
+const INBOX_GROUP_NAME = 'inbox-workers';
 const MAX_RETRIES = parseInt(process.env.EMAIL_QUEUE_MAX_RETRIES || '3', 10);
 const BATCH_SIZE = parseInt(process.env.EMAIL_QUEUE_BATCH_SIZE || '10', 10);
 const BLOCK_MS = parseInt(process.env.EMAIL_QUEUE_BLOCK_MS || '5000', 10);
@@ -77,11 +115,24 @@ class EmailQueueService {
   private redis: Redis | null = null;
   private consumerId: string;
   private running = false;
+  private inboxRunning = false;
   private pollTimer: ReturnType<typeof setTimeout> | null = null;
+  private inboxPollTimer: ReturnType<typeof setTimeout> | null = null;
+  private inboundHandler: InboundEmailHandler | null = null;
 
   constructor() {
     // Unique consumer ID per process instance (Cloud Run / k8s pod)
     this.consumerId = `worker-${process.pid}-${Date.now()}`;
+  }
+
+  /**
+   * Register a handler for inbound emails.
+   * The handler receives parsed InboundEmail objects from the inbox stream.
+   * Typically wired to the same logic as the Resend webhook route.
+   */
+  onInbound(handler: InboundEmailHandler): void {
+    this.inboundHandler = handler;
+    logger.info('Inbound email handler registered');
   }
 
   // ----------------------------------------------------------
@@ -132,7 +183,7 @@ class EmailQueueService {
       // Create consumer group (MKSTREAM creates the stream if absent)
       try {
         await this.redis.xgroup('CREATE', STREAM_KEY, GROUP_NAME, '0', 'MKSTREAM');
-        logger.info('Email queue consumer group created', { group: GROUP_NAME });
+        logger.info('Email outbox consumer group created', { group: GROUP_NAME });
       } catch (err: any) {
         // BUSYGROUP = group already exists — expected on restart
         if (!err.message?.includes('BUSYGROUP')) {
@@ -140,10 +191,22 @@ class EmailQueueService {
         }
       }
 
+      // Create inbox consumer group
+      try {
+        await this.redis.xgroup('CREATE', INBOX_STREAM_KEY, INBOX_GROUP_NAME, '0', 'MKSTREAM');
+        logger.info('Email inbox consumer group created', { group: INBOX_GROUP_NAME });
+      } catch (err: any) {
+        if (!err.message?.includes('BUSYGROUP')) {
+          throw err;
+        }
+      }
+
       logger.info('Email queue initialized (Redis Streams)', {
         consumer: this.consumerId,
-        stream: STREAM_KEY,
-        group: GROUP_NAME,
+        outbox: STREAM_KEY,
+        inbox: INBOX_STREAM_KEY,
+        outboxGroup: GROUP_NAME,
+        inboxGroup: INBOX_GROUP_NAME,
       });
 
       return true;
@@ -179,14 +242,22 @@ class EmailQueueService {
       const messageId = await this.redis.xadd(
         STREAM_KEY,
         '*',
-        'to', email.to,
-        'subject', email.subject,
-        'html', email.html,
-        'templateType', email.templateType || 'custom',
-        'metadata', JSON.stringify(email.metadata || {}),
-        'source', email.source || 'platform',
-        'attempts', '0',
-        'enqueuedAt', new Date().toISOString(),
+        'to',
+        email.to,
+        'subject',
+        email.subject,
+        'html',
+        email.html,
+        'templateType',
+        email.templateType || 'custom',
+        'metadata',
+        JSON.stringify(email.metadata || {}),
+        'source',
+        email.source || 'platform',
+        'attempts',
+        '0',
+        'enqueuedAt',
+        new Date().toISOString(),
       );
 
       logger.info('Email enqueued', {
@@ -220,12 +291,17 @@ class EmailQueueService {
     if (this.running || !this.redis) return;
 
     this.running = true;
-    logger.info('Email queue worker started', { consumer: this.consumerId });
+    logger.info('Email outbox worker started', { consumer: this.consumerId });
     this.poll();
+
+    // Also start inbox consumer if handler is registered
+    if (this.inboundHandler && !this.inboxRunning) {
+      this.startInbox();
+    }
   }
 
   /**
-   * Stop the consumer loop gracefully.
+   * Stop both outbox and inbox consumer loops gracefully.
    */
   stop(): void {
     this.running = false;
@@ -233,7 +309,8 @@ class EmailQueueService {
       clearTimeout(this.pollTimer);
       this.pollTimer = null;
     }
-    logger.info('Email queue worker stopped', { consumer: this.consumerId });
+    this.stopInbox();
+    logger.info('Email queue workers stopped', { consumer: this.consumerId });
   }
 
   /**
@@ -248,17 +325,23 @@ class EmailQueueService {
 
       // 2. Read new messages
       const results = await this.redis.xreadgroup(
-        'GROUP', GROUP_NAME, this.consumerId,
-        'COUNT', BATCH_SIZE,
-        'BLOCK', BLOCK_MS,
-        'STREAMS', STREAM_KEY, '>'
+        'GROUP',
+        GROUP_NAME,
+        this.consumerId,
+        'COUNT',
+        BATCH_SIZE,
+        'BLOCK',
+        BLOCK_MS,
+        'STREAMS',
+        STREAM_KEY,
+        '>',
       );
 
       if (results) {
         const streams = results as [string, [string, string[]][]][];
         for (const [, messages] of streams) {
           for (const [id, fields] of messages) {
-            await this.processMessage(id, this.parseFields(fields));
+            await this.processMessage(id, this.parseStreamMessage(this.parseFields(fields)));
           }
         }
       }
@@ -286,7 +369,13 @@ class EmailQueueService {
         subject: msg.subject,
         html: msg.html,
         templateType: msg.templateType,
-        metadata: (() => { try { return JSON.parse(msg.metadata || '{}'); } catch { return {}; } })(),
+        metadata: (() => {
+          try {
+            return JSON.parse(msg.metadata || '{}');
+          } catch {
+            return {};
+          }
+        })(),
         source: msg.source,
       });
 
@@ -330,15 +419,24 @@ class EmailQueueService {
         // Update attempt count on the stream entry
         try {
           await this.redis!.xadd(
-            STREAM_KEY, '*',
-            'to', msg.to,
-            'subject', msg.subject,
-            'html', msg.html,
-            'templateType', msg.templateType,
-            'metadata', msg.metadata,
-            'source', msg.source,
-            'attempts', String(attempts),
-            'enqueuedAt', msg.enqueuedAt,
+            STREAM_KEY,
+            '*',
+            'to',
+            msg.to,
+            'subject',
+            msg.subject,
+            'html',
+            msg.html,
+            'templateType',
+            msg.templateType,
+            'metadata',
+            msg.metadata,
+            'source',
+            msg.source,
+            'attempts',
+            String(attempts),
+            'enqueuedAt',
+            msg.enqueuedAt,
           );
           // ACK the original (we re-enqueued with updated attempts)
           await this.redis!.xack(STREAM_KEY, GROUP_NAME, id);
@@ -358,10 +456,13 @@ class EmailQueueService {
     try {
       // XAUTOCLAIM: automatically claim idle messages
       const result = await this.redis.xautoclaim(
-        STREAM_KEY, GROUP_NAME, this.consumerId,
+        STREAM_KEY,
+        GROUP_NAME,
+        this.consumerId,
         CLAIM_MIN_IDLE_MS,
         '0-0',
-        'COUNT', BATCH_SIZE
+        'COUNT',
+        BATCH_SIZE,
       );
 
       if (result && Array.isArray(result) && result.length >= 2) {
@@ -373,7 +474,7 @@ class EmailQueueService {
           });
           for (const [id, fields] of messages) {
             if (fields) {
-              await this.processMessage(id, this.parseFields(fields));
+              await this.processMessage(id, this.parseStreamMessage(this.parseFields(fields)));
             }
           }
         }
@@ -388,31 +489,292 @@ class EmailQueueService {
   /**
    * Move a failed message to the dead-letter stream.
    */
-  private async moveToDlq(
-    originalId: string,
-    msg: StreamMessage,
-    error: string
-  ): Promise<void> {
+  private async moveToDlq(originalId: string, msg: StreamMessage, error: string): Promise<void> {
     if (!this.redis) return;
 
     try {
       await this.redis.xadd(
-        DLQ_KEY, '*',
-        'originalId', originalId,
-        'to', msg.to,
-        'subject', msg.subject,
-        'html', msg.html,
-        'templateType', msg.templateType,
-        'metadata', msg.metadata,
-        'source', msg.source,
-        'attempts', msg.attempts,
-        'enqueuedAt', msg.enqueuedAt,
-        'failedAt', new Date().toISOString(),
-        'error', error,
+        DLQ_KEY,
+        '*',
+        'originalId',
+        originalId,
+        'to',
+        msg.to,
+        'subject',
+        msg.subject,
+        'html',
+        msg.html,
+        'templateType',
+        msg.templateType,
+        'metadata',
+        msg.metadata,
+        'source',
+        msg.source,
+        'attempts',
+        msg.attempts,
+        'enqueuedAt',
+        msg.enqueuedAt,
+        'failedAt',
+        new Date().toISOString(),
+        'error',
+        error,
       );
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Failed to write to DLQ', { error: errMsg, originalId });
+    }
+  }
+
+  // ----------------------------------------------------------
+  // INBOUND: ENQUEUE INCOMING EMAIL
+  // ----------------------------------------------------------
+
+  /**
+   * Push an inbound email to the inbox stream for async processing.
+   * Called from Resend webhook route, MCP agents, or Firehorse automation.
+   * Falls back to direct handler invocation if Redis is unavailable.
+   */
+  async enqueueInbound(email: InboundEmail): Promise<string> {
+    if (!this.redis) {
+      // Fallback: invoke handler directly
+      if (this.inboundHandler) {
+        logger.debug('Inbox queue unavailable — processing inbound directly', { from: email.from });
+        await this.inboundHandler(email);
+      } else {
+        logger.warn('No inbound handler registered — inbound email dropped', { from: email.from });
+      }
+      return 'direct';
+    }
+
+    try {
+      const messageId = await this.redis.xadd(
+        INBOX_STREAM_KEY,
+        '*',
+        'from',
+        email.from,
+        'to',
+        email.to,
+        'subject',
+        email.subject,
+        'text',
+        email.text,
+        'html',
+        email.html || '',
+        'messageId',
+        email.messageId,
+        'source',
+        email.source,
+        'rawPayload',
+        email.rawPayload || '',
+        'attempts',
+        '0',
+        'receivedAt',
+        new Date().toISOString(),
+      );
+
+      logger.info('Inbound email enqueued', {
+        streamMessageId: messageId,
+        from: email.from,
+        source: email.source,
+        subject: email.subject,
+      });
+
+      return messageId!;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Failed to enqueue inbound email — processing directly', { error: msg });
+      if (this.inboundHandler) {
+        await this.inboundHandler(email);
+      }
+      return 'direct';
+    }
+  }
+
+  // ----------------------------------------------------------
+  // INBOUND CONSUMER (INBOX WORKER)
+  // ----------------------------------------------------------
+
+  /**
+   * Start the inbox consumer loop. Reads from email:inbox stream
+   * and passes each message to the registered inbound handler.
+   */
+  startInbox(): void {
+    if (this.inboxRunning || !this.redis || !this.inboundHandler) {
+      if (!this.inboundHandler) {
+        logger.warn('Cannot start inbox consumer — no inbound handler registered');
+      }
+      return;
+    }
+
+    this.inboxRunning = true;
+    logger.info('Email inbox worker started', { consumer: this.consumerId });
+    this.pollInbox();
+  }
+
+  /**
+   * Stop the inbox consumer loop gracefully.
+   */
+  stopInbox(): void {
+    this.inboxRunning = false;
+    if (this.inboxPollTimer) {
+      clearTimeout(this.inboxPollTimer);
+      this.inboxPollTimer = null;
+    }
+    logger.info('Email inbox worker stopped', { consumer: this.consumerId });
+  }
+
+  /**
+   * Poll loop for inbox: read new inbound messages.
+   */
+  private async pollInbox(): Promise<void> {
+    if (!this.inboxRunning || !this.redis || !this.inboundHandler) return;
+
+    try {
+      const results = await this.redis.xreadgroup(
+        'GROUP',
+        INBOX_GROUP_NAME,
+        this.consumerId,
+        'COUNT',
+        BATCH_SIZE,
+        'BLOCK',
+        BLOCK_MS,
+        'STREAMS',
+        INBOX_STREAM_KEY,
+        '>',
+      );
+
+      if (results) {
+        const streams = results as [string, [string, string[]][]][];
+        for (const [, messages] of streams) {
+          for (const [id, fields] of messages) {
+            await this.processInboundMessage(id, this.parseFields(fields));
+          }
+        }
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Email inbox poll error', { error: msg });
+    }
+
+    // Schedule next poll
+    if (this.inboxRunning) {
+      this.inboxPollTimer = setTimeout(() => this.pollInbox(), 100);
+    }
+  }
+
+  /**
+   * Process a single inbound stream message: invoke handler, ACK or DLQ.
+   */
+  private async processInboundMessage(id: string, fields: Record<string, string>): Promise<void> {
+    const attempts = parseInt(fields.attempts || '0', 10) + 1;
+
+    const email: InboundEmail = {
+      from: fields.from || '',
+      to: fields.to || '',
+      subject: fields.subject || '',
+      text: fields.text || '',
+      html: fields.html || undefined,
+      messageId: fields.messageId || id,
+      source: fields.source || 'redis-stream',
+      rawPayload: fields.rawPayload || undefined,
+    };
+
+    try {
+      if (this.inboundHandler) {
+        await this.inboundHandler(email);
+      }
+
+      // ACK: remove from pending
+      await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+
+      logger.info('Inbound email processed from inbox stream', {
+        messageId: id,
+        from: email.from,
+        source: email.source,
+        attempts,
+      });
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+
+      if (attempts >= MAX_RETRIES) {
+        logger.error('Inbound email processing exhausted retries — moving to DLQ', {
+          messageId: id,
+          from: email.from,
+          attempts,
+          error: errorMsg,
+        });
+
+        // Move to inbox DLQ
+        try {
+          await this.redis!.xadd(
+            INBOX_DLQ_KEY,
+            '*',
+            'originalId',
+            id,
+            'from',
+            email.from,
+            'to',
+            email.to,
+            'subject',
+            email.subject,
+            'text',
+            email.text,
+            'source',
+            email.source,
+            'attempts',
+            String(attempts),
+            'failedAt',
+            new Date().toISOString(),
+            'error',
+            errorMsg,
+          );
+        } catch (dlqErr) {
+          logger.error('Failed to write inbound to DLQ', { error: (dlqErr as Error).message });
+        }
+
+        await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+      } else {
+        logger.warn('Inbound email processing failed — will retry', {
+          messageId: id,
+          from: email.from,
+          attempts,
+          error: errorMsg,
+        });
+
+        try {
+          await this.redis!.xadd(
+            INBOX_STREAM_KEY,
+            '*',
+            'from',
+            email.from,
+            'to',
+            email.to,
+            'subject',
+            email.subject,
+            'text',
+            email.text,
+            'html',
+            email.html || '',
+            'messageId',
+            email.messageId,
+            'source',
+            email.source,
+            'rawPayload',
+            email.rawPayload || '',
+            'attempts',
+            String(attempts),
+            'receivedAt',
+            new Date().toISOString(),
+          );
+          await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+        } catch (requeueErr) {
+          const requeueError = requeueErr instanceof Error ? requeueErr.message : 'Unknown error';
+          logger.error('Failed to requeue inbound email for retry', {
+            messageId: id,
+            error: requeueError,
+          });
+        }
+      }
     }
   }
 
@@ -429,18 +791,22 @@ class EmailQueueService {
       await emailService.sendWelcomeEmail(email.to, email.metadata.name as string);
     } else if (email.templateType === 'password_reset' && email.metadata?.resetLink) {
       await emailService.sendPasswordResetEmail(email.to, email.metadata.resetLink as string);
-    } else if (email.templateType === 'report_delivery' && email.metadata?.reportName && email.metadata?.downloadUrl) {
+    } else if (
+      email.templateType === 'report_delivery' &&
+      email.metadata?.reportName &&
+      email.metadata?.downloadUrl
+    ) {
       await emailService.sendReportDeliveryEmail(
         email.to,
         email.metadata.reportName as string,
-        email.metadata.downloadUrl as string
+        email.metadata.downloadUrl as string,
       );
     } else if (email.templateType === 'invoice' && email.metadata?.invoiceId) {
       await emailService.sendInvoiceEmail(
         email.to,
         email.metadata.invoiceId as string,
         email.metadata.amount as number,
-        email.metadata.currency as string
+        email.metadata.currency as string,
       );
     } else {
       // Generic notification — use the notification template
@@ -455,7 +821,7 @@ class EmailQueueService {
   private async logToSupabase(
     messageId: string,
     email: QueuedEmail,
-    status: string
+    status: string,
   ): Promise<void> {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
@@ -490,7 +856,7 @@ class EmailQueueService {
   private async updateSupabaseStatus(
     messageId: string,
     status: string,
-    error?: string
+    error?: string,
   ): Promise<void> {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
@@ -516,7 +882,7 @@ class EmailQueueService {
             Prefer: 'return=minimal',
           },
           body: JSON.stringify(body),
-        }
+        },
       );
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
@@ -533,43 +899,48 @@ class EmailQueueService {
    */
   async getQueueInfo(): Promise<{
     available: boolean;
-    streamLength: number;
-    pendingCount: number;
-    dlqLength: number;
+    outbox: { streamLength: number; pendingCount: number; dlqLength: number };
+    inbox: { streamLength: number; pendingCount: number; dlqLength: number };
     consumer: string;
   }> {
+    const empty = { streamLength: 0, pendingCount: 0, dlqLength: 0 };
+
     if (!this.redis) {
       return {
         available: false,
-        streamLength: 0,
-        pendingCount: 0,
-        dlqLength: 0,
+        outbox: { ...empty },
+        inbox: { ...empty },
         consumer: this.consumerId,
       };
     }
 
     try {
-      const [streamLength, dlqLength, pendingInfo] = await Promise.all([
-        this.redis.xlen(STREAM_KEY),
-        this.redis.xlen(DLQ_KEY).catch(() => 0),
-        this.redis.xpending(STREAM_KEY, GROUP_NAME).catch(() => null),
-      ]);
+      const [outboxLen, outboxDlq, outboxPending, inboxLen, inboxDlq, inboxPending] =
+        await Promise.all([
+          this.redis.xlen(STREAM_KEY),
+          this.redis.xlen(DLQ_KEY).catch(() => 0),
+          this.redis.xpending(STREAM_KEY, GROUP_NAME).catch(() => null),
+          this.redis.xlen(INBOX_STREAM_KEY),
+          this.redis.xlen(INBOX_DLQ_KEY).catch(() => 0),
+          this.redis.xpending(INBOX_STREAM_KEY, INBOX_GROUP_NAME).catch(() => null),
+        ]);
 
-      const pendingCount = Array.isArray(pendingInfo) ? (pendingInfo[0] as number) || 0 : 0;
+      const outboxPendingCount = Array.isArray(outboxPending)
+        ? (outboxPending[0] as number) || 0
+        : 0;
+      const inboxPendingCount = Array.isArray(inboxPending) ? (inboxPending[0] as number) || 0 : 0;
 
       return {
         available: true,
-        streamLength,
-        pendingCount,
-        dlqLength,
+        outbox: { streamLength: outboxLen, pendingCount: outboxPendingCount, dlqLength: outboxDlq },
+        inbox: { streamLength: inboxLen, pendingCount: inboxPendingCount, dlqLength: inboxDlq },
         consumer: this.consumerId,
       };
     } catch {
       return {
         available: false,
-        streamLength: 0,
-        pendingCount: 0,
-        dlqLength: 0,
+        outbox: { ...empty },
+        inbox: { ...empty },
         consumer: this.consumerId,
       };
     }
@@ -587,6 +958,7 @@ class EmailQueueService {
    */
   async shutdown(): Promise<void> {
     this.stop();
+    this.stopInbox();
     if (this.redis) {
       await this.redis.quit();
       this.redis = null;
@@ -598,12 +970,26 @@ class EmailQueueService {
   // HELPERS
   // ----------------------------------------------------------
 
-  private parseFields(fields: string[]): StreamMessage {
+  private parseFields(fields: string[]): Record<string, string> {
     const obj: Record<string, string> = {};
     for (let i = 0; i < fields.length; i += 2) {
       obj[fields[i]] = fields[i + 1];
     }
-    return obj as unknown as StreamMessage;
+    return obj;
+  }
+
+  private parseStreamMessage(fields: Record<string, string>): StreamMessage {
+    return {
+      id: fields.id || '',
+      to: fields.to || '',
+      subject: fields.subject || '',
+      html: fields.html || '',
+      templateType: fields.templateType || 'custom',
+      metadata: fields.metadata || '{}',
+      source: fields.source || 'platform',
+      attempts: fields.attempts || '0',
+      enqueuedAt: fields.enqueuedAt || new Date().toISOString(),
+    };
   }
 }
 

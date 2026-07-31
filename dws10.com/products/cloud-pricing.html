@@ -1,421 +1,583 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cloud Pricing — US Cloud vs EU Sovereign | DWS IQ Platform</title>
-    <meta name="description" content="DWS IQ Platform cloud pricing. US Cloud (Supabase + Cloudflare) from €299/mo. EU Sovereign (Aiven + Hetzner/Scaleway) from €499/mo. Zero CLOUD Act exposure on EU tiers.">
-    <meta name="keywords" content="cloud pricing, EU sovereign cloud, US cloud, Supabase, Aiven, Hetzner, Scaleway, CLOUD Act, DWS IQ, AI platform pricing">
-    <meta name="author" content="Lifetime Oy">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Cloud Pricing — US Cloud vs EU Sovereign | DWS IQ Platform">
-    <meta property="og:description" content="Choose your cloud: US Cloud from €299/mo or EU Sovereign from €499/mo. Same platform, different sovereignty posture.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dws10.com/products/cloud-pricing.html">
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-    <meta property="og:site_name" content="DWS IQ Platform">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://dws10.com/products/cloud-pricing.html">
-    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <meta name="description" content="DWS IQ Platform cloud pricing. US Cloud (Supabase + Cloudflare) from €299/mo. EU Sovereign (Aiven + Hetzner/Scaleway) from €499/mo. Zero CLOUD Act exposure on EU tiers." />
+    <meta name="keywords" content="cloud pricing, EU sovereign cloud, US cloud, Supabase, Aiven, Hetzner, Scaleway, CLOUD Act, DWS IQ, AI platform pricing" />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Cloud Pricing — US Cloud vs EU Sovereign | DWS IQ Platform" />
+    <meta property="og:description" content="Choose your cloud: US Cloud from €299/mo or EU Sovereign from €499/mo. Same platform, different sovereignty posture." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/products/cloud-pricing.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://dws10.com/products/cloud-pricing.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <link rel="stylesheet" href="../static/css/style.css" />
     <style>
-        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 1100px; margin: 40px auto; padding: 20px; flex-grow: 1; }
-        h1 { color: #60a5fa; text-align: center; font-size: 2rem; margin-bottom: 8px; }
-        .subtitle { text-align: center; color: #94a3b8; font-size: 1.1rem; margin-bottom: 40px; }
-        a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
-
-        /* Cloud toggle */
-        .cloud-toggle { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
-        .cloud-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; }
-        .badge-us { background: rgba(59, 130, 246, 0.15); border: 1px solid #3b82f6; color: #93c5fd; }
-        .badge-eu { background: rgba(74, 222, 128, 0.15); border: 1px solid #4ade80; color: #86efac; }
-        .badge-label { font-size: 0.75rem; color: #94a3b8; display: block; }
-
-        /* Pricing grid */
-        .pricing-section { margin-bottom: 48px; }
-        .pricing-section h2 { color: #e2e8f0; font-size: 1.4rem; margin-bottom: 4px; }
-        .pricing-section .section-sub { color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
-
-        .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-        .tier-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 24px; position: relative; transition: border-color 0.2s; }
-        .tier-card:hover { border-color: rgba(255,255,255,0.2); }
-        .tier-card.featured { border-color: #4ade80; box-shadow: 0 0 24px rgba(74,222,128,0.08); }
-        .tier-card.us { border-top: 3px solid #3b82f6; }
-        .tier-card.eu { border-top: 3px solid #4ade80; }
-
-        .tier-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-        .tier-name { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; }
-        .tier-cloud-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
-        .tag-us { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
-        .tag-eu { background: rgba(74, 222, 128, 0.2); color: #86efac; }
-
-        .tier-price { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
-        .tier-price.us-price { color: #60a5fa; }
-        .tier-price.eu-price { color: #4ade80; }
-        .tier-price span { font-size: 0.85rem; font-weight: 400; color: #94a3b8; }
-        .tier-setup { font-size: 0.85rem; color: #64748b; margin-bottom: 16px; }
-
-        .tier-features { list-style: none; padding: 0; margin: 0; }
-        .tier-features li { padding: 6px 0; font-size: 0.88rem; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
-        .check { color: #4ade80; flex-shrink: 0; }
-        .cross { color: #475569; flex-shrink: 0; }
-
-        .tier-cta { display: block; text-align: center; margin-top: 20px; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s; }
-        .tier-cta:hover { opacity: 0.85; }
-        .cta-us { background: #2563eb; color: white; }
-        .cta-eu { background: #16a34a; color: white; }
-
-        /* Comparison table */
-        .compare-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
-        .compare-table th { text-align: left; padding: 10px 12px; background: rgba(30, 41, 59, 0.8); color: #94a3b8; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .compare-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #cbd5e1; }
-        .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
-        .compare-table .col-us { color: #93c5fd; }
-        .compare-table .col-eu { color: #86efac; }
-
-        /* Savings callout */
-        .savings { display: inline-block; background: rgba(250, 204, 21, 0.15); border: 1px solid rgba(250, 204, 21, 0.3); color: #fde047; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 8px; }
-
-        /* Stack info */
-        .stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
-        .stack-card { background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; }
-        .stack-card h3 { margin-top: 0; font-size: 1rem; }
-        .stack-card.us-stack h3 { color: #60a5fa; }
-        .stack-card.eu-stack h3 { color: #4ade80; }
-        .stack-card ul { padding-left: 16px; margin: 8px 0 0; }
-        .stack-card li { font-size: 0.88rem; color: #94a3b8; margin-bottom: 4px; }
-
-        @media (max-width: 768px) {
-            .tier-grid { grid-template-columns: 1fr; }
-            .stack-grid { grid-template-columns: 1fr; }
-            .compare-table { font-size: 0.8rem; }
-        }
+      body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+      .container { max-width: 1100px; margin: 40px auto; padding: 20px; flex-grow: 1; }
+      h1 { color: #60a5fa; text-align: center; font-size: 2rem; margin-bottom: 8px; }
+      .subtitle { text-align: center; color: #94a3b8; font-size: 1.1rem; margin-bottom: 40px; }
+      a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
+      .cloud-toggle { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+      .cloud-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; }
+      .badge-us { background: rgba(59,130,246,0.15); border: 1px solid #3b82f6; color: #93c5fd; }
+      .badge-eu { background: rgba(74,222,128,0.15); border: 1px solid #4ade80; color: #86efac; }
+      .badge-label { font-size: 0.75rem; color: #94a3b8; display: block; }
+      .pricing-section { margin-bottom: 48px; }
+      .pricing-section h2 { color: #e2e8f0; font-size: 1.4rem; margin-bottom: 4px; }
+      .pricing-section .section-sub { color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
+      .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+      .tier-card { background: rgba(30,41,59,0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 24px; position: relative; transition: border-color 0.2s; }
+      .tier-card:hover { border-color: rgba(255,255,255,0.2); }
+      .tier-card.featured { border-color: #4ade80; box-shadow: 0 0 24px rgba(74,222,128,0.08); }
+      .tier-card.us { border-top: 3px solid #3b82f6; }
+      .tier-card.eu { border-top: 3px solid #4ade80; }
+      .tier-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+      .tier-name { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; }
+      .tier-cloud-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+      .tag-us { background: rgba(59,130,246,0.2); color: #93c5fd; }
+      .tag-eu { background: rgba(74,222,128,0.2); color: #86efac; }
+      .tier-price { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+      .tier-price.us-price { color: #60a5fa; }
+      .tier-price.eu-price { color: #4ade80; }
+      .tier-price span { font-size: 0.85rem; font-weight: 400; color: #94a3b8; }
+      .tier-setup { font-size: 0.85rem; color: #64748b; margin-bottom: 16px; }
+      .tier-features { list-style: none; padding: 0; margin: 0; }
+      .tier-features li { padding: 6px 0; font-size: 0.88rem; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
+      .check { color: #4ade80; flex-shrink: 0; }
+      .cross { color: #475569; flex-shrink: 0; }
+      .tier-cta { display: block; text-align: center; margin-top: 20px; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s; }
+      .tier-cta:hover { opacity: 0.85; }
+      .cta-us { background: #2563eb; color: white; }
+      .cta-eu { background: #16a34a; color: white; }
+      .compare-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
+      .compare-table th { text-align: left; padding: 10px 12px; background: rgba(30,41,59,0.8); color: #94a3b8; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .compare-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #cbd5e1; }
+      .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+      .compare-table .col-us { color: #93c5fd; }
+      .compare-table .col-eu { color: #86efac; }
+      .savings { display: inline-block; background: rgba(250,204,21,0.15); border: 1px solid rgba(250,204,21,0.3); color: #fde047; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 8px; }
+      .stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+      .stack-card { background: rgba(30,41,59,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; }
+      .stack-card h3 { margin-top: 0; font-size: 1rem; }
+      .stack-card.us-stack h3 { color: #60a5fa; }
+      .stack-card.eu-stack h3 { color: #4ade80; }
+      .stack-card ul { padding-left: 16px; margin: 8px 0 0; }
+      .stack-card li { font-size: 0.88rem; color: #94a3b8; margin-bottom: 4px; }
+      @media (max-width: 768px) { .tier-grid { grid-template-columns: 1fr; } .stack-grid { grid-template-columns: 1fr; } .compare-table { font-size: 0.8rem; } }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <script src="../shared-assets/nav/ironclad-nav.js"></script>
+    <script src="../shared-assets/nav/product-actions.js"></script>
     <div class="container">
-        <a href="../" class="back-link">&larr; Back to Store</a>
+      <a href="../" class="back-link">&larr; Back to Store</a>
 
-        <h1>DWS IQ Platform — Cloud Pricing</h1>
-        <p class="subtitle">Same platform. Choose your sovereignty posture.</p>
+      <!-- DWS IQ deployment options banner (added 2026-07-16) -->
+      <aside class="dws-deploy-banner" aria-label="DWS IQ deployment options" style="margin:16px 0;padding:12px 16px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.28);border-left:3px solid #38bdf8;border-radius:8px;font-size:0.9rem;line-height:1.6;color:#cbd5e1;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
+        <strong style="color:#e2e8f0;">One platform, three deployments:</strong>
+        <a href="/products/cloud-pricing.html" style="color:#7dd3fc;">EU-Sovereign Cloud</a> &middot;
+        <a href="/products/aegis.html" style="color:#7dd3fc;">Dedicated Cloud (Aegis)</a> &middot;
+        <a href="/products/dgx-spark.html" style="color:#7dd3fc;">Own NVIDIA DGX</a>
+        &mdash; rent sovereign capacity or own the machine.
+        <a href="/price-list/#deployment" style="color:#6ee7b7;font-weight:600;white-space:nowrap;">Compare deployments &rarr;</a>
+      </aside>
+      <h1>DWS IQ Platform — Cloud Pricing</h1>
+      <p class="subtitle">Same platform. Choose your sovereignty posture.</p>
+      <div class="cloud-toggle">
+        <div class="cloud-badge badge-us"><span>&#9729;</span><div><span class="badge-label">Fast &amp; affordable</span>US Cloud</div></div>
+        <div class="cloud-badge badge-eu"><span>&#9881;</span><div><span class="badge-label">Zero CLOUD Act</span>EU Sovereign</div></div>
+      </div>
 
-        <div class="cloud-toggle">
-            <div class="cloud-badge badge-us">
-                <span>&#9729;</span>
-                <div>
-                    <span class="badge-label">Fast &amp; affordable</span>
-                    US Cloud
-                </div>
-            </div>
-            <div class="cloud-badge badge-eu">
-                <span>&#9881;</span>
-                <div>
-                    <span class="badge-label">Zero CLOUD Act</span>
-                    EU Sovereign
-                </div>
-            </div>
+      <div class="pricing-section">
+        <h2>Navigator</h2><p class="section-sub">First compliance project. Get running in 1 week.</p>
+        <div class="tier-grid">
+          <div class="tier-card us">
+            <div class="tier-header"><div class="tier-name">US Cloud Navigator</div><span class="tier-cloud-tag tag-us">US Cloud</span></div>
+            <div class="tier-price us-price">&euro;299 <span>/mo</span></div>
+            <div class="tier-setup">&euro;990 one-time setup <span class="savings">Save 40%</span></div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> DWS IQ Platform (Cloudflare + Supabase)</li>
+              <li><span class="check">&#10003;</span> 3 AI agents (Compliance, Report, Discovery)</li>
+              <li><span class="check">&#10003;</span> Basic CSRD dashboard</li>
+              <li><span class="check">&#10003;</span> 1 user seat</li>
+              <li><span class="check">&#10003;</span> Email support</li>
+              <li><span class="cross">&#10007;</span> CLOUD Act exposed (Supabase US-owned)</li>
+              <li><span class="cross">&#10007;</span> No EU AI Act Article 12 logging</li>
+              <li><span class="cross">&#10007;</span> No sovereignty score</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-us">Start Free Trial</a>
+          </div>
+          <div class="tier-card eu">
+            <div class="tier-header"><div class="tier-name">Enterprise Navigator</div><span class="tier-cloud-tag tag-eu">EU Sovereign</span></div>
+            <div class="tier-price eu-price">&euro;499 <span>/mo</span></div>
+            <div class="tier-setup">&euro;1,490 one-time setup</div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> DWS IQ Platform (Hetzner/Scaleway + Aiven)</li>
+              <li><span class="check">&#10003;</span> 3 AI agents (Compliance, Report, Discovery)</li>
+              <li><span class="check">&#10003;</span> Basic CSRD dashboard</li>
+              <li><span class="check">&#10003;</span> 1 user seat</li>
+              <li><span class="check">&#10003;</span> Email support</li>
+              <li><span class="check">&#10003;</span> Zero CLOUD Act exposure</li>
+              <li><span class="check">&#10003;</span> EU data residency (Finland)</li>
+              <li><span class="check">&#10003;</span> Sovereignty score monitoring</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-eu">Start Free Trial</a>
+          </div>
         </div>
+      </div>
 
-        <!-- ============ STARTER TIER ============ -->
-        <div class="pricing-section">
-            <h2>Starter</h2>
-            <p class="section-sub">First compliance project. Get running in 1 week.</p>
-            <div class="tier-grid">
-                <div class="tier-card us">
-                    <div class="tier-header">
-                        <div class="tier-name">US Cloud Starter</div>
-                        <span class="tier-cloud-tag tag-us">US Cloud</span>
-                    </div>
-                    <div class="tier-price us-price">&euro;299 <span>/mo</span></div>
-                    <div class="tier-setup">&euro;990 one-time setup <span class="savings">Save 40%</span></div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> DWS IQ Platform (Cloudflare + Supabase)</li>
-                        <li><span class="check">&#10003;</span> 3 AI agents (Compliance, Report, Discovery)</li>
-                        <li><span class="check">&#10003;</span> Basic CSRD dashboard</li>
-                        <li><span class="check">&#10003;</span> 1 user seat</li>
-                        <li><span class="check">&#10003;</span> Email support</li>
-                        <li><span class="cross">&#10007;</span> CLOUD Act exposed (Supabase US-owned)</li>
-                        <li><span class="cross">&#10007;</span> No EU AI Act Article 12 logging</li>
-                        <li><span class="cross">&#10007;</span> No sovereignty score</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: US Cloud Starter (DWS-US-STARTER)" class="tier-cta cta-us">Start Free Trial</a>
-                </div>
-                <div class="tier-card eu">
-                    <div class="tier-header">
-                        <div class="tier-name">EU Sovereign Starter</div>
-                        <span class="tier-cloud-tag tag-eu">EU Sovereign</span>
-                    </div>
-                    <div class="tier-price eu-price">&euro;499 <span>/mo</span></div>
-                    <div class="tier-setup">&euro;1,490 one-time setup</div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> DWS IQ Platform (Hetzner/Scaleway + Aiven)</li>
-                        <li><span class="check">&#10003;</span> 3 AI agents (Compliance, Report, Discovery)</li>
-                        <li><span class="check">&#10003;</span> Basic CSRD dashboard</li>
-                        <li><span class="check">&#10003;</span> 1 user seat</li>
-                        <li><span class="check">&#10003;</span> Email support</li>
-                        <li><span class="check">&#10003;</span> Zero CLOUD Act exposure</li>
-                        <li><span class="check">&#10003;</span> EU data residency (Finland)</li>
-                        <li><span class="check">&#10003;</span> Sovereignty score monitoring</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: EU Sovereign Starter (DWS-EU-STARTER)" class="tier-cta cta-eu">Start Free Trial</a>
-                </div>
-            </div>
+      <div class="pricing-section">
+        <h2>Premium</h2><p class="section-sub">4-week evaluation with real data. Prove ROI before scaling.</p>
+        <div class="tier-grid">
+          <div class="tier-card us">
+            <div class="tier-header"><div class="tier-name">US Cloud Premium</div><span class="tier-cloud-tag tag-us">US Cloud</span></div>
+            <div class="tier-price us-price">&euro;799 <span>/mo</span></div>
+            <div class="tier-setup">&euro;2,490 one-time setup <span class="savings">Save 40%</span></div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> Everything in Navigator</li>
+              <li><span class="check">&#10003;</span> 8 AI agents (full Firehorse suite)</li>
+              <li><span class="check">&#10003;</span> <a href="firehorse-reports.html" style="color: #4ade80; text-decoration: none; border-bottom: 1px dotted rgba(74,222,128,0.4);">Firehorse Report</a> module</li>
+              <li><span class="check">&#10003;</span> 5 user seats</li>
+              <li><span class="check">&#10003;</span> Kickoff workshop (remote, 2h)</li>
+              <li><span class="check">&#10003;</span> WhatsApp/Teams support</li>
+              <li><span class="cross">&#10007;</span> CLOUD Act exposed</li>
+              <li><span class="cross">&#10007;</span> No EU AI Act Article 12 logging</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-us">Start Premium</a>
+          </div>
+          <div class="tier-card eu featured">
+            <div class="tier-header"><div class="tier-name">Enterprise Premium</div><span class="tier-cloud-tag tag-eu">EU Sovereign</span></div>
+            <div class="tier-price eu-price">&euro;1,499 <span>/mo</span></div>
+            <div class="tier-setup">&euro;3,990 one-time setup</div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> Everything in Navigator</li>
+              <li><span class="check">&#10003;</span> 8 AI agents (full Firehorse suite)</li>
+              <li><span class="check">&#10003;</span> <a href="firehorse-reports.html" style="color: #4ade80; text-decoration: none; border-bottom: 1px dotted rgba(74,222,128,0.4);">Firehorse Report</a> module</li>
+              <li><span class="check">&#10003;</span> 5 user seats</li>
+              <li><span class="check">&#10003;</span> Kickoff workshop (remote, 2h)</li>
+              <li><span class="check">&#10003;</span> WhatsApp/Teams support</li>
+              <li><span class="check">&#10003;</span> Zero CLOUD Act exposure</li>
+              <li><span class="check">&#10003;</span> EU AI Act Article 12 logging</li>
+              <li><span class="check">&#10003;</span> NIS2 compliance dashboard</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-eu">Start Premium</a>
+          </div>
         </div>
+      </div>
 
-        <!-- ============ PILOT TIER ============ -->
-        <div class="pricing-section">
-            <h2>Pilot</h2>
-            <p class="section-sub">4-week evaluation with real data. Prove ROI before scaling.</p>
-            <div class="tier-grid">
-                <div class="tier-card us">
-                    <div class="tier-header">
-                        <div class="tier-name">US Cloud Pilot</div>
-                        <span class="tier-cloud-tag tag-us">US Cloud</span>
-                    </div>
-                    <div class="tier-price us-price">&euro;799 <span>/mo</span></div>
-                    <div class="tier-setup">&euro;2,490 one-time setup <span class="savings">Save 40%</span></div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> Everything in Starter</li>
-                        <li><span class="check">&#10003;</span> 8 AI agents (full Firehorse suite)</li>
-                        <li><span class="check">&#10003;</span> Firehorse Report module</li>
-                        <li><span class="check">&#10003;</span> 5 user seats</li>
-                        <li><span class="check">&#10003;</span> Kickoff workshop (remote, 2h)</li>
-                        <li><span class="check">&#10003;</span> Slack/Teams support</li>
-                        <li><span class="cross">&#10007;</span> CLOUD Act exposed</li>
-                        <li><span class="cross">&#10007;</span> No Aiwen logging</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: US Cloud Pilot (DWS-US-PILOT)" class="tier-cta cta-us">Start Pilot</a>
-                </div>
-                <div class="tier-card eu featured">
-                    <div class="tier-header">
-                        <div class="tier-name">EU Sovereign Pilot</div>
-                        <span class="tier-cloud-tag tag-eu">EU Sovereign</span>
-                    </div>
-                    <div class="tier-price eu-price">&euro;1,499 <span>/mo</span></div>
-                    <div class="tier-setup">&euro;3,990 one-time setup</div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> Everything in Starter</li>
-                        <li><span class="check">&#10003;</span> 8 AI agents (full Firehorse suite)</li>
-                        <li><span class="check">&#10003;</span> Firehorse Report module</li>
-                        <li><span class="check">&#10003;</span> 5 user seats</li>
-                        <li><span class="check">&#10003;</span> Kickoff workshop (remote, 2h)</li>
-                        <li><span class="check">&#10003;</span> Slack/Teams support</li>
-                        <li><span class="check">&#10003;</span> Zero CLOUD Act exposure</li>
-                        <li><span class="check">&#10003;</span> Aiwen EU AI Act Article 12 logging</li>
-                        <li><span class="check">&#10003;</span> NIS2 compliance dashboard</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: EU Sovereign Pilot (DWS-EU-PILOT)" class="tier-cta cta-eu">Start Pilot</a>
-                </div>
-            </div>
+      <div class="pricing-section">
+        <h2>Nordic</h2><p class="section-sub">Production deployment. Multi-site compliance at scale.</p>
+        <div class="tier-grid">
+          <div class="tier-card us">
+            <div class="tier-header"><div class="tier-name">US Cloud Nordic</div><span class="tier-cloud-tag tag-us">US Cloud</span></div>
+            <div class="tier-price us-price">&euro;1,999 <span>/mo</span></div>
+            <div class="tier-setup">&euro;4,990 one-time setup <span class="savings">Save 40%</span></div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> Everything in Premium</li>
+              <li><span class="check">&#10003;</span> 21 AI agents (full DWS IQ swarm)</li>
+              <li><span class="check">&#10003;</span> <a href="firehorse-amplify.html" style="color: #4ade80; text-decoration: none; border-bottom: 1px dotted rgba(74,222,128,0.4);">Firehorse Amplify</a> + <a href="firehorse-omnichannel.html" style="color: #4ade80; text-decoration: none; border-bottom: 1px dotted rgba(74,222,128,0.4);">Omnichannel</a></li>
+              <li><span class="check">&#10003;</span> 25 user seats</li>
+              <li><span class="check">&#10003;</span> ERP integration (SAP/IFS/Dynamics)</li>
+              <li><span class="check">&#10003;</span> Dedicated success manager</li>
+              <li><span class="cross">&#10007;</span> CLOUD Act exposed</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-us">Contact Sales</a>
+          </div>
+          <div class="tier-card eu">
+            <div class="tier-header"><div class="tier-name">Enterprise Nordic</div><span class="tier-cloud-tag tag-eu">EU Sovereign</span></div>
+            <div class="tier-price eu-price">&euro;3,499 <span>/mo</span></div>
+            <div class="tier-setup">&euro;7,990 one-time setup</div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> Everything in Premium</li>
+              <li><span class="check">&#10003;</span> 21 AI agents (full DWS IQ swarm)</li>
+              <li><span class="check">&#10003;</span> <a href="firehorse-amplify.html" style="color: #4ade80; text-decoration: none; border-bottom: 1px dotted rgba(74,222,128,0.4);">Firehorse Amplify</a> + <a href="firehorse-omnichannel.html" style="color: #4ade80; text-decoration: none; border-bottom: 1px dotted rgba(74,222,128,0.4);">Omnichannel</a></li>
+              <li><span class="check">&#10003;</span> 25 user seats</li>
+              <li><span class="check">&#10003;</span> ERP integration (SAP/IFS/Dynamics)</li>
+              <li><span class="check">&#10003;</span> Dedicated success manager</li>
+              <li><span class="check">&#10003;</span> GDPR DSAR automation</li>
+              <li><span class="check">&#10003;</span> Continuous sovereignty agent</li>
+              <li><span class="check">&#10003;</span> Custom DPA + SCC templates</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-eu">Contact Sales</a>
+          </div>
         </div>
+      </div>
 
-        <!-- ============ GROWTH TIER ============ -->
-        <div class="pricing-section">
-            <h2>Growth</h2>
-            <p class="section-sub">Production deployment. Multi-site compliance at scale.</p>
-            <div class="tier-grid">
-                <div class="tier-card us">
-                    <div class="tier-header">
-                        <div class="tier-name">US Cloud Growth</div>
-                        <span class="tier-cloud-tag tag-us">US Cloud</span>
-                    </div>
-                    <div class="tier-price us-price">&euro;1,999 <span>/mo</span></div>
-                    <div class="tier-setup">&euro;4,990 one-time setup <span class="savings">Save 40%</span></div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> Everything in Pilot</li>
-                        <li><span class="check">&#10003;</span> 18 AI agents (full DWS IQ swarm)</li>
-                        <li><span class="check">&#10003;</span> Firehorse Automation + Omnichannel</li>
-                        <li><span class="check">&#10003;</span> 25 user seats</li>
-                        <li><span class="check">&#10003;</span> ERP integration (SAP/IFS/Dynamics)</li>
-                        <li><span class="check">&#10003;</span> Dedicated success manager</li>
-                        <li><span class="cross">&#10007;</span> CLOUD Act exposed</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: US Cloud Growth (DWS-US-GROWTH)" class="tier-cta cta-us">Contact Sales</a>
-                </div>
-                <div class="tier-card eu">
-                    <div class="tier-header">
-                        <div class="tier-name">EU Sovereign Growth</div>
-                        <span class="tier-cloud-tag tag-eu">EU Sovereign</span>
-                    </div>
-                    <div class="tier-price eu-price">&euro;3,499 <span>/mo</span></div>
-                    <div class="tier-setup">&euro;7,990 one-time setup</div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> Everything in Pilot</li>
-                        <li><span class="check">&#10003;</span> 18 AI agents (full DWS IQ swarm)</li>
-                        <li><span class="check">&#10003;</span> Firehorse Automation + Omnichannel</li>
-                        <li><span class="check">&#10003;</span> 25 user seats</li>
-                        <li><span class="check">&#10003;</span> ERP integration (SAP/IFS/Dynamics)</li>
-                        <li><span class="check">&#10003;</span> Dedicated success manager</li>
-                        <li><span class="check">&#10003;</span> GDPR DSAR automation</li>
-                        <li><span class="check">&#10003;</span> Continuous sovereignty agent</li>
-                        <li><span class="check">&#10003;</span> Custom DPA + SCC templates</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: EU Sovereign Growth (DWS-EU-GROWTH)" class="tier-cta cta-eu">Contact Sales</a>
-                </div>
-            </div>
+      <div class="pricing-section">
+        <h2>Sovereign</h2><p class="section-sub">Dedicated infrastructure. Full sovereignty. SLA-backed.</p>
+        <div class="tier-grid">
+          <div class="tier-card us">
+            <div class="tier-header"><div class="tier-name">US Sovereign</div><span class="tier-cloud-tag tag-us">US Cloud</span></div>
+            <div class="tier-price us-price">&euro;3,999 <span>/mo</span></div>
+            <div class="tier-setup">Custom setup — contact sales</div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> Everything in Nordic</li>
+              <li><span class="check">&#10003;</span> Unlimited agents + custom agents</li>
+              <li><span class="check">&#10003;</span> Unlimited user seats</li>
+              <li><span class="check">&#10003;</span> White-label option</li>
+              <li><span class="check">&#10003;</span> 99.9% SLA</li>
+              <li><span class="check">&#10003;</span> Priority support (4h response)</li>
+              <li><span class="cross">&#10007;</span> CLOUD Act exposed</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-us">Contact Sales</a>
+          </div>
+          <div class="tier-card eu">
+            <div class="tier-header"><div class="tier-name">Enterprise Sovereign</div><span class="tier-cloud-tag tag-eu">EU Sovereign</span></div>
+            <div class="tier-price eu-price">&euro;6,999 <span>/mo</span></div>
+            <div class="tier-setup">Custom setup — contact sales</div>
+            <ul class="tier-features">
+              <li><span class="check">&#10003;</span> Everything in Nordic</li>
+              <li><span class="check">&#10003;</span> Unlimited agents + custom agents</li>
+              <li><span class="check">&#10003;</span> Unlimited user seats</li>
+              <li><span class="check">&#10003;</span> White-label option</li>
+              <li><span class="check">&#10003;</span> 99.9% SLA</li>
+              <li><span class="check">&#10003;</span> Priority support (4h response)</li>
+              <li><span class="check">&#10003;</span> Dedicated EU cluster</li>
+              <li><span class="check">&#10003;</span> Air-gapped option</li>
+              <li><span class="check">&#10003;</span> 24/7 sovereign SRE</li>
+              <li><span class="check">&#10003;</span> ISO 27001 evidence pack</li>
+            </ul>
+            <a href="https://dws10.com/book" class="tier-cta cta-eu">Contact Sales</a>
+          </div>
         </div>
+      </div>
 
-        <!-- ============ ENTERPRISE TIER ============ -->
-        <div class="pricing-section">
-            <h2>Enterprise</h2>
-            <p class="section-sub">Dedicated infrastructure. Full sovereignty. SLA-backed.</p>
-            <div class="tier-grid">
-                <div class="tier-card us">
-                    <div class="tier-header">
-                        <div class="tier-name">US Cloud Enterprise</div>
-                        <span class="tier-cloud-tag tag-us">US Cloud</span>
-                    </div>
-                    <div class="tier-price us-price">&euro;3,999 <span>/mo</span></div>
-                    <div class="tier-setup">Custom setup — contact sales</div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> Everything in Growth</li>
-                        <li><span class="check">&#10003;</span> Unlimited agents + custom agents</li>
-                        <li><span class="check">&#10003;</span> Unlimited user seats</li>
-                        <li><span class="check">&#10003;</span> White-label option</li>
-                        <li><span class="check">&#10003;</span> 99.9% SLA</li>
-                        <li><span class="check">&#10003;</span> Priority support (4h response)</li>
-                        <li><span class="cross">&#10007;</span> CLOUD Act exposed</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: US Cloud Enterprise (DWS-US-ENTERPRISE)" class="tier-cta cta-us">Contact Sales</a>
-                </div>
-                <div class="tier-card eu">
-                    <div class="tier-header">
-                        <div class="tier-name">EU Sovereign Enterprise</div>
-                        <span class="tier-cloud-tag tag-eu">EU Sovereign</span>
-                    </div>
-                    <div class="tier-price eu-price">&euro;6,999 <span>/mo</span></div>
-                    <div class="tier-setup">Custom setup — contact sales</div>
-                    <ul class="tier-features">
-                        <li><span class="check">&#10003;</span> Everything in Growth</li>
-                        <li><span class="check">&#10003;</span> Unlimited agents + custom agents</li>
-                        <li><span class="check">&#10003;</span> Unlimited user seats</li>
-                        <li><span class="check">&#10003;</span> White-label option</li>
-                        <li><span class="check">&#10003;</span> 99.9% SLA</li>
-                        <li><span class="check">&#10003;</span> Priority support (4h response)</li>
-                        <li><span class="check">&#10003;</span> Dedicated EU cluster</li>
-                        <li><span class="check">&#10003;</span> Air-gapped option</li>
-                        <li><span class="check">&#10003;</span> 24/7 sovereign SRE</li>
-                        <li><span class="check">&#10003;</span> ISO 27001 evidence pack</li>
-                    </ul>
-                    <a href="mailto:risto@lifetime.fi?subject=Order: EU Sovereign Enterprise (DWS-EU-ENTERPRISE)" class="tier-cta cta-eu">Contact Sales</a>
-                </div>
-            </div>
+      <h2 style="color: #e2e8f0; margin-top: 48px">Infrastructure Stack</h2>
+      <div class="stack-grid">
+        <div class="stack-card us-stack">
+          <h3>&#9729; US Cloud Stack</h3>
+          <ul>
+            <li><strong>Database:</strong> Supabase (PostgreSQL + pgvector)</li>
+            <li><strong>Compute:</strong> Cloudflare Workers + Pages</li>
+            <li><strong>CDN:</strong> Cloudflare Global (300+ PoPs)</li>
+            <li><strong>Auth:</strong> Supabase Auth (JWT)</li>
+            <li><strong>Region:</strong> US-primary, global edge</li>
+            <li><strong>Provider HQ:</strong> USA (CLOUD Act applies)</li>
+            <li><strong>Best for:</strong> Non-EU-regulated, fast start, cost-sensitive</li>
+          </ul>
         </div>
-
-        <!-- ============ INFRASTRUCTURE COMPARISON ============ -->
-        <h2 style="color: #e2e8f0; margin-top: 48px;">Infrastructure Stack</h2>
-        <div class="stack-grid">
-            <div class="stack-card us-stack">
-                <h3>&#9729; US Cloud Stack</h3>
-                <ul>
-                    <li><strong>Database:</strong> Supabase (PostgreSQL + pgvector)</li>
-                    <li><strong>Compute:</strong> Cloudflare Workers + Pages</li>
-                    <li><strong>CDN:</strong> Cloudflare Global (300+ PoPs)</li>
-                    <li><strong>Auth:</strong> Supabase Auth (JWT)</li>
-                    <li><strong>Region:</strong> US-primary, global edge</li>
-                    <li><strong>Provider HQ:</strong> USA (CLOUD Act applies)</li>
-                    <li><strong>Best for:</strong> Non-EU-regulated, fast start, cost-sensitive</li>
-                </ul>
-            </div>
-            <div class="stack-card eu-stack">
-                <h3>&#9881; EU Sovereign Stack</h3>
-                <ul>
-                    <li><strong>Database:</strong> Aiven PostgreSQL (EU Finland)</li>
-                    <li><strong>Compute:</strong> Hetzner Cloud / Scaleway</li>
-                    <li><strong>CDN:</strong> Hetzner / BunnyCDN (EU-owned)</li>
-                    <li><strong>Auth:</strong> Supabase EU or self-hosted</li>
-                    <li><strong>Region:</strong> Finland / Germany / France</li>
-                    <li><strong>Provider HQ:</strong> EU (zero CLOUD Act)</li>
-                    <li><strong>Best for:</strong> EU-regulated industries, CSRD/NIS2, public sector</li>
-                </ul>
-            </div>
+        <div class="stack-card eu-stack">
+          <h3>&#9881; EU Sovereign Stack</h3>
+          <ul>
+            <li><strong>Database:</strong> Aiven PostgreSQL (EU Finland)</li>
+            <li><strong>Compute:</strong> Hetzner Cloud / Scaleway</li>
+            <li><strong>CDN:</strong> Hetzner / BunnyCDN (EU-owned)</li>
+            <li><strong>Auth:</strong> Supabase EU or self-hosted</li>
+            <li><strong>Region:</strong> Finland / Germany / France</li>
+            <li><strong>Provider HQ:</strong> EU (zero CLOUD Act)</li>
+            <li><strong>Best for:</strong> EU-regulated industries, CSRD/NIS2, public sector</li>
+          </ul>
         </div>
+      </div>
 
-        <!-- ============ COMPARISON TABLE ============ -->
-        <h2 style="color: #e2e8f0; margin-top: 32px;">Feature Comparison</h2>
-        <table class="compare-table">
-            <thead>
-                <tr>
-                    <th>Feature</th>
-                    <th class="col-us">US Cloud</th>
-                    <th class="col-eu">EU Sovereign</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>CLOUD Act exposure</td>
-                    <td class="col-us">Exposed (US-owned providers)</td>
-                    <td class="col-eu">Zero (EU-owned providers)</td>
-                </tr>
-                <tr>
-                    <td>Data residency</td>
-                    <td class="col-us">Global (US-primary)</td>
-                    <td class="col-eu">EU-only (Finland/Germany)</td>
-                </tr>
-                <tr>
-                    <td>GDPR Article 48</td>
-                    <td class="col-us">Risk — foreign court access</td>
-                    <td class="col-eu">Compliant — EU jurisdiction only</td>
-                </tr>
-                <tr>
-                    <td>NIS2 Directive</td>
-                    <td class="col-us">Partial</td>
-                    <td class="col-eu">Full compliance</td>
-                </tr>
-                <tr>
-                    <td>EU AI Act Art. 12</td>
-                    <td class="col-us">Not included</td>
-                    <td class="col-eu">Aiwen logging (Pilot+)</td>
-                </tr>
-                <tr>
-                    <td>Sovereignty score</td>
-                    <td class="col-us">Not included</td>
-                    <td class="col-eu">Continuous monitoring</td>
-                </tr>
-                <tr>
-                    <td>Database provider</td>
-                    <td class="col-us">Supabase (US-owned)</td>
-                    <td class="col-eu">Aiven (Finnish-owned)</td>
-                </tr>
-                <tr>
-                    <td>Compute provider</td>
-                    <td class="col-us">Cloudflare (US-owned)</td>
-                    <td class="col-eu">Hetzner (DE) / Scaleway (FR)</td>
-                </tr>
-                <tr>
-                    <td>Starter price</td>
-                    <td class="col-us">&euro;299/mo</td>
-                    <td class="col-eu">&euro;499/mo</td>
-                </tr>
-                <tr>
-                    <td>Pilot price</td>
-                    <td class="col-us">&euro;799/mo</td>
-                    <td class="col-eu">&euro;1,499/mo</td>
-                </tr>
-                <tr>
-                    <td>Growth price</td>
-                    <td class="col-us">&euro;1,999/mo</td>
-                    <td class="col-eu">&euro;3,499/mo</td>
-                </tr>
-                <tr>
-                    <td>Enterprise price</td>
-                    <td class="col-us">&euro;3,999/mo</td>
-                    <td class="col-eu">&euro;6,999/mo</td>
-                </tr>
-            </tbody>
-        </table>
+      <h2 style="color: #e2e8f0; margin-top: 32px">Feature Comparison</h2>
+      <table class="compare-table">
+        <thead><tr><th>Feature</th><th class="col-us">US Cloud</th><th class="col-eu">EU Sovereign</th></tr></thead>
+        <tbody>
+          <tr><td>CLOUD Act exposure</td><td class="col-us">Exposed (US-owned providers)</td><td class="col-eu">Zero (EU-owned providers)</td></tr>
+          <tr><td>Data residency</td><td class="col-us">Global (US-primary)</td><td class="col-eu">EU-only (Finland/Germany)</td></tr>
+          <tr><td>GDPR Article 48</td><td class="col-us">Risk — foreign court access</td><td class="col-eu">Compliant — EU jurisdiction only</td></tr>
+          <tr><td>NIS2 Directive</td><td class="col-us">Partial</td><td class="col-eu">Full compliance</td></tr>
+          <tr><td>EU AI Act Art. 12</td><td class="col-us">Not included</td><td class="col-eu">EU AI Act Article 12 logging (Pilot+)</td></tr>
+          <tr><td>Sovereignty score</td><td class="col-us">Not included</td><td class="col-eu">Continuous monitoring</td></tr>
+          <tr><td>Database provider</td><td class="col-us">Supabase (US-owned)</td><td class="col-eu">Aiven (Finnish-owned)</td></tr>
+          <tr><td>Compute provider</td><td class="col-us">Cloudflare (US-owned)</td><td class="col-eu">Hetzner (DE) / Scaleway (FR)</td></tr>
+          <tr><td>Navigator price</td><td class="col-us">&euro;299/mo</td><td class="col-eu">&euro;499/mo</td></tr>
+          <tr><td>Premium price</td><td class="col-us">&euro;799/mo</td><td class="col-eu">&euro;1,499/mo</td></tr>
+          <tr><td>Nordic price</td><td class="col-us">&euro;1,999/mo</td><td class="col-eu">&euro;3,499/mo</td></tr>
+          <tr><td>Sovereign price</td><td class="col-us">&euro;3,999/mo</td><td class="col-eu">&euro;6,999/mo</td></tr>
+        </tbody>
+      </table>
 
-        <p style="color: #64748b; font-size: 0.85rem; margin-top: 32px;">
-            <strong>Upgrade path:</strong> Start on US Cloud, migrate to EU Sovereign anytime. We handle the migration at no extra cost (Growth+ tiers).
-            All prices exclude VAT. Annual billing: 2 months free. Minimum commitment: 3 months (Starter), 6 months (Pilot+).
-        </p>
+      <p style="color: #64748b; font-size: 0.85rem; margin-top: 32px"><strong>Upgrade path:</strong> Start on US Cloud, migrate to EU Sovereign anytime. We handle the migration at no extra cost (Nordic+ tiers). All prices exclude VAT. Annual billing: 2 months free. Minimum commitment: 3 months (Navigator), 6 months (Premium+).</p>
 
-        <div style="text-align: center; margin: 40px 0;">
-            <a href="mailto:risto@lifetime.fi?subject=DWS IQ Cloud Pricing Inquiry" style="display: inline-block; background: #2563eb; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.1rem;">Contact Sales</a>
-        </div>
+      <div style="text-align: center; margin: 40px 0">
+        <a href="mailto:risto@onelifetime.world?subject=DWS IQ Cloud Pricing Inquiry" style="display: inline-block; background: #2563eb; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.1rem;">Contact Sales</a>
+      </div>
     </div>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
+<section class="eco-block" id="dws-ecosystem" aria-label="DWS ecosystem — related products + EU industry workflows">
+  <style>
+    .eco-block {
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      border-top: 4px solid #003399;
+      border-bottom: 4px solid #76B900;
+      margin: 40px 0 0;
+      padding: 56px 20px 64px;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e2e8f0;
+    }
+    .eco-block .eco-inner { max-width: 1080px; margin: 0 auto; }
+    .eco-block .eco-tag {
+      display: inline-block;
+      background: #76B900;
+      color: #000;
+      padding: 5px 14px;
+      border-radius: 4px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .eco-block h2.eco-h {
+      font-size: clamp(1.45rem, 3.2vw, 2rem);
+      font-weight: 800;
+      color: #f8fafc;
+      margin: 0 0 10px;
+      line-height: 1.2;
+    }
+    .eco-block .eco-lead {
+      color: #cbd5e1;
+      max-width: 780px;
+      margin-bottom: 28px;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+    .eco-block h3.eco-section-h {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #67e8f9;
+      margin: 36px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(103,232,249,0.25);
+    }
+    .eco-block strong { color: #f1f5f9; }
+    .eco-block .eco-tier-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #a3e635;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .eco-block .eco-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin: 6px 0 12px;
+    }
+    .eco-block .eco-product-card {
+      display: block;
+      background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.95));
+      border: 1px solid rgba(118,185,0,0.22);
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-decoration: none;
+      transition: border-color 0.25s ease, transform 0.2s ease;
+      color: inherit;
+    }
+    .eco-block .eco-product-card:hover {
+      border-color: rgba(118,185,0,0.6);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .eco-block .eco-product-card .eco-pc-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(118,185,0,0.18);
+      color: #a3e635;
+      border: 1px solid rgba(118,185,0,0.35);
+      border-radius: 4px;
+      padding: 2px 7px;
+      margin-bottom: 7px;
+    }
+    .eco-block .eco-product-card .eco-pc-name { color: #f1f5f9; font-weight: 700; font-size: 0.92rem; margin-bottom: 3px; line-height: 1.3; }
+    .eco-block .eco-product-card .eco-pc-price { display: none; color: #76B900; font-weight: 800; font-size: 1.1rem; margin-bottom: 4px; }
+    .eco-block .eco-product-card .eco-pc-desc { color: #94a3b8; font-size: 0.76rem; line-height: 1.4; }
+    .eco-block .eco-industries-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      margin: 14px 0 4px;
+    }
+    .eco-block .eco-industries-grid > div {
+      background: rgba(15,23,42,0.5);
+      border-left: 3px solid #76B900;
+      padding: 11px 14px;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+      border-radius: 0 6px 6px 0;
+    }
+    .eco-block .eco-industries-grid > div strong { color: #67e8f9; }
+    .eco-block .eco-industries-grid > div.eco-flagship { border-left-color: #d4a843; background: rgba(212,168,67,0.06); }
+    .eco-block .eco-callout {
+      background: rgba(6,182,212,0.08);
+      border-left: 4px solid #06b6d4;
+      padding: 14px 18px;
+      margin: 24px 0 12px;
+      border-radius: 0 8px 8px 0;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .eco-block .eco-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    .eco-block .eco-cta {
+      display: inline-block;
+      padding: 11px 22px;
+      background: #76B900;
+      color: #000;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .eco-block .eco-cta:hover { background: #5a8c00; color: #fff; text-decoration: none; }
+    .eco-block .eco-cta-secondary {
+      background: transparent;
+      border: 1px solid rgba(226,232,240,0.4);
+      color: #e2e8f0;
+    }
+    .eco-block .eco-cta-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.08); color: #fff; }
+    @media (max-width: 640px) {
+      .eco-block { padding: 40px 16px 50px; }
+      .eco-block h3.eco-section-h { font-size: 1rem; }
+      .eco-block .eco-product-card { padding: 14px 16px; }
+    }
+  </style>
+
+  <div class="eco-inner">
+    <div>
+      <span class="eco-tag">The Full Picture</span>
+      <h2 class="eco-h">The DWS sovereign stack — every layer, one ecosystem.</h2>
+      <p class="eco-lead">This product is one piece. The whole stack ties together: sovereign hardware at the edge, on-premise inference, an EU service team, and the recurring NVIDIA-model relationship that compounds. Pick the next rung you need.</p>
+    </div>
+
+    <h3 class="eco-section-h">Related products — the full ladder</h3>
+
+    <span class="eco-tier-label">Sensor edge — NVIDIA Jetson tier</span>
+    <div class="eco-product-grid">
+      <a href="/products/jetson-sensor.html" class="eco-product-card">
+        <span class="eco-pc-tag">Single sensor</span>
+        <div class="eco-pc-name">Jetson Sensor Node (Orin Nano Super)</div>
+        <div class="eco-pc-price">€764</div>
+        <div class="eco-pc-desc">67 TOPS · 8 GB · camera, acoustic, IoT, bedside — events only forward.</div>
+      </a>
+      <a href="/products/jetson-sensor.html" class="eco-product-card">
+        <span class="eco-pc-tag">Mid · 2–4 lanes</span>
+        <div class="eco-pc-name">Jetson Sensor Mid (Orin NX 16 GB)</div>
+        <div class="eco-pc-price">€1,990</div>
+        <div class="eco-pc-desc">100 TOPS · 16 GB · rail wayside, mid-size kalustohalli, factory cell.</div>
+      </a>
+      <a href="/products/jetson-sensor.html" class="eco-product-card">
+        <span class="eco-pc-tag">Concentrator · 4–8 lanes</span>
+        <div class="eco-pc-name">Jetson Sensor Concentrator (AGX Orin)</div>
+        <div class="eco-pc-price">€2,694</div>
+        <div class="eco-pc-desc">275 TOPS · 64 GB · VPK forward node, port operations, energy substation.</div>
+      </a>
+    </div>
+
+    <span class="eco-tier-label">Operations &amp; situation command — NVIDIA GB10 Grace Blackwell</span>
+    <div class="eco-product-grid">
+      <a href="/products/edge-node-gn100.html" class="eco-product-card">
+        <span class="eco-pc-tag">Compliance · 1-node</span>
+        <div class="eco-pc-name">Control Room (Acer Veriton GN100)</div>
+        <div class="eco-pc-price">€5,294</div>
+        <div class="eco-pc-desc">1 PFLOPS FP4 · 128 GB · sovereign AI brain on the desk.</div>
+      </a>
+      <a href="/products/dgx-spark.html" class="eco-product-card">
+        <span class="eco-pc-tag">NVIDIA-branded</span>
+        <div class="eco-pc-name">DGX Spark</div>
+        <div class="eco-pc-price">€5,994</div>
+        <div class="eco-pc-desc">Same GB10 silicon in NVIDIA's own SKU. ConnectX-7 pair for 405 B-param models.</div>
+      </a>
+      <a href="/products/situation-room.html" class="eco-product-card">
+        <span class="eco-pc-tag">Crisis ops · 2-node</span>
+        <div class="eco-pc-name">Situation Room (2× bridged GN100)</div>
+        <div class="eco-pc-price">€10,093</div>
+        <div class="eco-pc-desc">Tensor-parallel · failover · VPK drone defence dual-use.</div>
+      </a>
+      <a href="/products/igx-orin.html" class="eco-product-card">
+        <span class="eco-pc-tag">Industrial / medical</span>
+        <div class="eco-pc-name">IGX Orin</div>
+        <div class="eco-pc-price">€11,990</div>
+        <div class="eco-pc-desc">ECC memory · 10-year NVIDIA support · Pharma, healthcare, nuclear.</div>
+      </a>
+    </div>
+
+    <span class="eco-tier-label">Platform · subscription · service</span>
+    <div class="eco-product-grid">
+      <a href="/products/dwsiq.html" class="eco-product-card">
+        <span class="eco-pc-tag">Platform</span>
+        <div class="eco-pc-name">DWS IQ 6 — Skilled Agents Fleet</div>
+        <div class="eco-pc-price">€4,999</div>
+        <div class="eco-pc-desc">EU compliance automation: Fit for 55, CSRD, EPBD, EU AI Act Article 12.</div>
+      </a>
+      <a href="/products/aegis.html" class="eco-product-card">
+        <span class="eco-pc-tag">Sovereign tier</span>
+        <div class="eco-pc-name">DWS IQ Aegis</div>
+        <div class="eco-pc-price">from €59,990</div>
+        <div class="eco-pc-desc">Single-tenant sovereign AI · 21 EU-regulated industries · dual-use.</div>
+      </a>
+      <a href="/products/nvidia-model-install.html" class="eco-product-card">
+        <span class="eco-pc-tag">Install + service</span>
+        <div class="eco-pc-name">NVIDIA Model Install + Full Service</div>
+        <div class="eco-pc-price">€995 / device</div>
+        <div class="eco-pc-desc">For your own NVIDIA hardware or a fleet expansion. Full service bundled.</div>
+      </a>
+      <a href="/buy/" class="eco-product-card">
+        <span class="eco-pc-tag">Recurring</span>
+        <div class="eco-pc-name">Sovereign Model Updates Subscription</div>
+        <div class="eco-pc-price">€299 / mo</div>
+        <div class="eco-pc-desc">Monthly NIMs · weekly security · daily hotfixes · 24/7 support · warranty.</div>
+      </a>
+    </div>
+
+    <div class="eco-callout">
+      Every box ships with on-site install + operator training + 24/7 technical support + warranty servicing + remote configuration. The NVIDIA models compound monthly. Lifetime Oy is an <strong>NVIDIA Connect ISV</strong> (approved 2026-03-08) and <strong>NVIDIA Inception applicant</strong> on the Sovereign EU Edge AI track. Finnish / EU B2B pricing (VAT 0 % reverse charge).
+    </div>
+
+    <h3 class="eco-section-h">25 EU-regulated industries — same pattern, your bundle</h3>
+    <p class="eco-lead" style="margin-bottom: 12px;">The same sovereign topology — sensor edge → operations command → situation command, wrapped in service — repeats across every EU-regulated industry. Different bundle per workload, same moat underneath.</p>
+    <div class="eco-industries-grid">
+      <div><strong>1. Construction</strong><br />Site safety dispatch (SiteSense vision + Whisper + Llama Nemotron Super) · EPBD / CSRD report generation · BIM-aware reasoning</div>
+      <div><strong>2. Cement</strong><br />Emissions intensity (kgCO₂ / t cement) · ETS allowance calculation · CBAM exports · kiln anomaly detection</div>
+      <div><strong>3. Steel</strong><br />CBAM origin tracking · energy carrier optimisation · ETS · scrap composition vision</div>
+      <div><strong>4. Aluminium</strong><br />CBAM imports compliance · smelter energy logs · ETS · pot-line vision QA</div>
+      <div><strong>5. Chemicals</strong><br />REACH dossier drafting · hazardous incident response triage · process safety event RAG</div>
+      <div><strong>6. Pharmaceuticals</strong><br />GMP batch release Article 12 · clinical trial protocol compliance · GxP sovereign log</div>
+      <div><strong>7. Healthcare (hospitals)</strong><br />Local-data triage assist · GDPR-safe dictation (Nemotron Speech) · sovereign EHR Q&amp;A</div>
+      <div class="eco-flagship"><strong>8. Defence / dual-use</strong><br />Drone detection (YOLOv8-x + acoustic + Cosmos Reason 2) · export-control screening · Reg 2021/821 reasoning</div>
+      <div><strong>9. Energy / electricity grid</strong><br />Balancing forecasts · NIS2 24 h incident reports · sovereign DSO/TSO telemetry</div>
+      <div><strong>10. Oil &amp; gas</strong><br />Pipeline anomaly detection · sanctions screening · sovereign well-log RAG</div>
+      <div><strong>11. Nuclear</strong><br />IAEA reporting prep · operational safety log analysis · air-gapped reactor twin</div>
+      <div><strong>12. Water utilities</strong><br />Leak detection on local SCADA · sovereign customer + meter data · NIS2 incident logging</div>
+      <div><strong>13. Telecommunications</strong><br />NIS2 24 h incident reports · sovereign call-metadata analysis · BGP / DNS anomaly triage</div>
+      <div><strong>14. Banking / finance</strong><br />DORA operational resilience · MiFID II call-log review · sovereign KYC RAG</div>
+      <div><strong>15. Insurance</strong><br />Claims triage on local PII · fraud signal detection · sovereign claimant document Q&amp;A</div>
+      <div><strong>16. Maritime / shipping</strong><br />MRV CO₂ reporting · port operations dispatch · sovereign AIS &amp; cargo manifests</div>
+      <div><strong>17. Aviation</strong><br />EU ETS aviation reporting · NOTAM-aware dispatch · sovereign passenger / crew data</div>
+      <div><strong>18. Rail</strong><br />Predictive maintenance · ERTMS sovereign telemetry · NIS2 incident reports</div>
+      <div><strong>19. Logistics &amp; customs</strong><br />Declaration assist · dual-use export checking · sovereign carrier manifests</div>
+      <div><strong>20. Agriculture</strong><br />CAP compliance · traceability of crop inputs · EUDR due diligence</div>
+      <div><strong>21. Food processing</strong><br />HACCP audit assist · allergen tracing · sovereign batch genealogy</div>
+      <div><strong>22. Forestry / pulp &amp; paper</strong><br />EUDR deforestation due diligence · chain of custody · sovereign harvest plans</div>
+      <div><strong>23. Mining</strong><br />CRMA reporting (critical raw materials) · safety dispatch · sovereign assay data</div>
+      <div class="eco-flagship"><strong>24. Government / civil defence (VPK)</strong><br />Drone defence dual-use · dispatch + incident report generation · sovereign citizen data</div>
+      <div><strong>25. Education / research</strong><br />Sovereign research data · intra-EU collaboration without cloud LLMs · EU AI Act literacy training</div>
+    </div>
+
+    <div class="eco-cta-row">
+      <a href="/buy/" class="eco-cta">Browse the full catalogue →</a>
+      <a href="/price-list/" class="eco-cta eco-cta-secondary">Open price list (v1.20)</a>
+      <a href="/nvidia-inception/" class="eco-cta eco-cta-secondary">NVIDIA Inception page</a>
+      <a href="mailto:risto@onelifetime.world?subject=DWS sovereign stack — demo request" class="eco-cta eco-cta-secondary">Book a demo</a>
+    </div>
+  </div>
+</section>
+
+  </body>
 </html>

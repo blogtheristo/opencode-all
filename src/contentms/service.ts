@@ -22,20 +22,20 @@
 import { randomUUID } from 'node:crypto';
 import logger from '../utils/logger.js';
 import {
-  ContentItem,
-  CreateContentInput,
-  UpdateContentInput,
-  ContentFilter,
-  ContentStatus,
-  ContentType,
-  ContentTag,
-  ContentStats,
-  ContentItemSchema,
-  CreateContentSchema,
-  ShareLinkRequest,
-  ShareLinkResult,
-  SearchResult,
   AuditAction,
+  type ContentFilter,
+  type ContentItem,
+  ContentItemSchema,
+  type ContentStats,
+  ContentStatus,
+  ContentTag,
+  ContentType,
+  type CreateContentInput,
+  CreateContentSchema,
+  type SearchResult,
+  type ShareLinkRequest,
+  type ShareLinkResult,
+  type UpdateContentInput,
 } from './types.js';
 import { renderMarkdownToHtml } from './blog-publisher.js';
 import { contentMemory } from './memory.js';
@@ -57,11 +57,10 @@ import { recordAudit } from './audit.js';
  *
  * MVP: keyword matching. Production: LLM-based classification.
  */
-function classifyDocument(input: {
-  title: string;
-  body_markdown: string;
-  file_name?: string;
-}): { tags: ContentTag[]; confidence: number } {
+function classifyDocument(input: { title: string; body_markdown: string; file_name?: string }): {
+  tags: ContentTag[];
+  confidence: number;
+} {
   const text = `${input.title} ${input.body_markdown} ${input.file_name || ''}`.toLowerCase();
   const tags: ContentTag[] = [];
 
@@ -72,12 +71,21 @@ function classifyDocument(input: {
     { keywords: ['iso 14001', 'iso14001', 'environmental management'], tag: ContentTag.ISO14001 },
     { keywords: ['iso 27001', 'iso27001', 'information security'], tag: ContentTag.ISO27001 },
     { keywords: ['iso 45001', 'iso45001', 'occupational health'], tag: ContentTag.ISO45001 },
-    { keywords: ['en 15978', 'en15978', 'lifecycle assessment', 'embodied carbon'], tag: ContentTag.EN15978 },
+    {
+      keywords: ['en 15978', 'en15978', 'lifecycle assessment', 'embodied carbon'],
+      tag: ContentTag.EN15978,
+    },
     { keywords: ['scope 1', 'scope1', 'direct emissions'], tag: ContentTag.Scope1 },
-    { keywords: ['scope 2', 'scope2', 'indirect emissions', 'purchased energy'], tag: ContentTag.Scope2 },
+    {
+      keywords: ['scope 2', 'scope2', 'indirect emissions', 'purchased energy'],
+      tag: ContentTag.Scope2,
+    },
     { keywords: ['scope 3', 'scope3', 'value chain'], tag: ContentTag.Scope3 },
     { keywords: ['epd', 'environmental product declaration'], tag: ContentTag.EPD },
-    { keywords: ['renewable energy', 'green certificate', 'guarantee of origin'], tag: ContentTag.RenewableEnergy },
+    {
+      keywords: ['renewable energy', 'green certificate', 'guarantee of origin'],
+      tag: ContentTag.RenewableEnergy,
+    },
     { keywords: ['safety', 'en 13001', 'ppe', 'risk assessment'], tag: ContentTag.Safety },
     { keywords: ['gdpr', 'data protection', 'privacy'], tag: ContentTag.GDPR },
     { keywords: ['eu ai act', 'artificial intelligence act'], tag: ContentTag.EUAIAct },
@@ -107,7 +115,7 @@ export async function createContent(input: CreateContentInput): Promise<ContentI
 
   // Auto-classify if no regulation tags provided
   let regulationTags = parsed.regulation_tags;
-  let confidence = parsed.ai_classification_confidence;
+  let confidence: number | undefined;
   if (!regulationTags || regulationTags.length === 0) {
     const classification = classifyDocument({
       title: parsed.title,
@@ -180,7 +188,8 @@ export async function searchContent(
   limit = 20,
 ): Promise<SearchResult> {
   const q = query.toLowerCase();
-  const items = contentMemory.values()
+  const items = contentMemory
+    .values()
     .filter((item) => item.organization_id === organizationId)
     .filter((item) => {
       const searchable = [
@@ -192,7 +201,9 @@ export async function searchContent(
         item.ai_summary || '',
         ...(item.regulation_tags || []),
         ...(item.custom_tags || []),
-      ].join(' ').toLowerCase();
+      ]
+        .join(' ')
+        .toLowerCase();
       return searchable.includes(q);
     })
     .slice(0, limit);
@@ -208,7 +219,8 @@ export async function listContent(
 ): Promise<ContentItem[]> {
   let items = contentMemory.values();
 
-  if (filter.organization_id) items = items.filter((i) => i.organization_id === filter.organization_id);
+  if (filter.organization_id)
+    items = items.filter((i) => i.organization_id === filter.organization_id);
   if (filter.type) items = items.filter((i) => i.type === filter.type);
   if (filter.status) items = items.filter((i) => i.status === filter.status);
   if (filter.language) items = items.filter((i) => i.language === filter.language);
@@ -222,16 +234,13 @@ export async function listContent(
   }
   if (filter.search) {
     const q = filter.search.toLowerCase();
-    items = items.filter((i) =>
-      i.title.toLowerCase().includes(q) ||
-      i.body_markdown.toLowerCase().includes(q),
+    items = items.filter(
+      (i) => i.title.toLowerCase().includes(q) || i.body_markdown.toLowerCase().includes(q),
     );
   }
   if (filter.expires_before) {
     const cutoff = new Date(filter.expires_before);
-    items = items.filter((i) =>
-      i.expires_at && new Date(i.expires_at) <= cutoff,
-    );
+    items = items.filter((i) => i.expires_at && new Date(i.expires_at) <= cutoff);
   }
 
   // Sort by updated_at desc
@@ -351,13 +360,15 @@ export async function getExpiringCertificates(
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() + withinDays);
 
-  return contentMemory.values()
-    .filter((item) =>
-      item.organization_id === organizationId &&
-      item.type === ContentType.Certificate &&
-      item.expires_at &&
-      new Date(item.expires_at) <= cutoff &&
-      item.status !== ContentStatus.Archived,
+  return contentMemory
+    .values()
+    .filter(
+      (item) =>
+        item.organization_id === organizationId &&
+        item.type === ContentType.Certificate &&
+        item.expires_at &&
+        new Date(item.expires_at) <= cutoff &&
+        item.status !== ContentStatus.Archived,
     )
     .sort((a, b) => {
       const aExp = a.expires_at ? new Date(a.expires_at).getTime() : Infinity;
@@ -373,9 +384,7 @@ export async function getExpiringCertificates(
 /**
  * Generate a temporary secure link for sharing a document (e.g., with an auditor).
  */
-export async function createShareLink(
-  request: ShareLinkRequest,
-): Promise<ShareLinkResult> {
+export async function createShareLink(request: ShareLinkRequest): Promise<ShareLinkResult> {
   const item = await contentMemory.get(request.content_id);
   if (!item) throw new Error('Content not found');
 
@@ -452,8 +461,7 @@ export async function getSharedContent(token: string): Promise<ContentItem | nul
  * Get Evidence Vault statistics for a customer organization.
  */
 export async function getContentStats(organizationId: string): Promise<ContentStats> {
-  const items = contentMemory.values()
-    .filter((i) => i.organization_id === organizationId);
+  const items = contentMemory.values().filter((i) => i.organization_id === organizationId);
 
   const byType: Record<string, number> = {};
   const byStatus: Record<string, number> = {};
@@ -466,11 +474,12 @@ export async function getContentStats(organizationId: string): Promise<ContentSt
   // Count certificates expiring within 30 days
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() + 30);
-  const expiringSoon = items.filter((i) =>
-    i.type === ContentType.Certificate &&
-    i.expires_at &&
-    new Date(i.expires_at) <= cutoff &&
-    i.status !== ContentStatus.Archived,
+  const expiringSoon = items.filter(
+    (i) =>
+      i.type === ContentType.Certificate &&
+      i.expires_at &&
+      new Date(i.expires_at) <= cutoff &&
+      i.status !== ContentStatus.Archived,
   ).length;
 
   return {
@@ -486,7 +495,7 @@ export async function getContentStats(organizationId: string): Promise<ContentSt
  */
 export async function getPublishedLearning(
   organizationId: string,
-  language = 'en',
+  _language = 'en',
   limit = 10,
 ): Promise<ContentItem[]> {
   return listContent({

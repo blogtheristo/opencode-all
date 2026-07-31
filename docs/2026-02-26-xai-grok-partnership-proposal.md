@@ -44,9 +44,9 @@ Document Status:
 
 **Proposal:** Make xAI Grok the official AI Captain's Brain in the DWS IQ 6 physical Control Room + Situation Room — a fully air-gapped, EU-sovereign cluster called the **Captain's Bridge**.
 
-**Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 16 industries.
+**Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 25+ industries.
 
-**Vehicle:** Platinum Industry Captain seat (€50k SAFE @ €3.8M cap, 20% product discount — first tranche, Feb 26 2026 data) combined with an xAI Enterprise on-prem MoU.
+**Vehicle:** Platinum Industry Captain seat (€50k SAFE @ €3.8M cap, 18% product discount — first tranche, Feb 26 2026 data) combined with an xAI Enterprise on-prem MoU.
 
 **Key differentiator:** All Grok inference runs locally on the GN100 cluster. Raw site data never leaves the customer's private fabric. Consented anonymized reasoning traces are the only optional data sharing — explicit opt-in, instantly revocable, fully auditable.
 
@@ -58,7 +58,7 @@ The DWS10 Captain Program offers industry leaders early access to sovereign AI i
 
 | Tier | Investment | Cap | Discount | Seats |
 | ---- | ---------- | --- | -------- | ----- |
-| Platinum | €50,000 SAFE | €3.8M | 20% | Limited |
+| Platinum | €50,000 SAFE | €3.8M | 18% | Limited |
 | Gold | €25,000 SAFE | €3.8M | 15% | Limited |
 | Silver | €10,000 SAFE | €3.8M | 10% | Open |
 
@@ -186,7 +186,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 
 Dear Risto and xAI Enterprise Team,
 
-I am claiming a Platinum Industry Captain seat (€50k SAFE, €3.8M cap, 20% discount – first tranche) and simultaneously proposing a strategic partnership between Lifetime Oy / DWS10 and xAI to make Grok the official AI Captain's Brain in the new DWS IQ 6 physical Control Room + Situation Room.
+I am claiming a Platinum Industry Captain seat (€50k SAFE, €3.8M cap, 18% discount – first tranche) and simultaneously proposing a strategic partnership between Lifetime Oy / DWS10 and xAI to make Grok the official AI Captain's Brain in the new DWS IQ 6 physical Control Room + Situation Room.
 
 **Project Overview – "Captain's Bridge"**
 

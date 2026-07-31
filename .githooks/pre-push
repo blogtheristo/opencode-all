@@ -94,5 +94,24 @@ elif [ -f "$SCANNER" ] && command -v python >/dev/null 2>&1; then
   echo "✅ ZenFree: no critical/high issues found"
 fi
 
+# ─── Local CI runner + audit log ──────────────────────────────────────────────
+# Replaces GitHub Actions checks: test.yml, secret-scan-gitleaks.yml, ruff.yml,
+# and the npm-audit portion of dependency_review.yml. Each run produces an
+# immutable audit record in .ci-audit/runs/ (hash-chained) and is POSTed to
+# Supabase ci_audit_log when env vars are set. See docs/CI_AUDIT.md.
+LOCAL_CI="$(git rev-parse --show-toplevel)/scripts/local-ci.sh"
+if [ -x "$LOCAL_CI" ] && [ "${SKIP_LOCAL_CI:-}" != "1" ]; then
+  echo ""
+  echo "🧪 Running local CI (vitest + gitleaks + npm audit + ruff)..."
+  if ! CI_TRIGGER_KIND=pre-push bash "$LOCAL_CI"; then
+    echo ""
+    echo "ERROR: local CI failed — see .ci-audit/runs/ for the failure record." 1>&2
+    echo "  • Fix the failures and retry (a new audit record will be appended and become the latest record for this branch/commit)." 1>&2
+    echo "  • Bypass (still audited via git reflog): git push --no-verify" 1>&2
+    echo "  • Skip only the CI (keep ZenFree): SKIP_LOCAL_CI=1 git push" 1>&2
+    exit 1
+  fi
+fi
+
 exit 0
 

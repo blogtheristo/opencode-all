@@ -4,8 +4,8 @@
  * Tests for EU benchmarks, ESG report extraction, and public data integration.
  */
 
-import { describe, it, expect } from 'vitest';
-import { getBenchmark, compareAgainstBenchmark, EU_SECTOR_BENCHMARKS } from '../compliance/eu-benchmarks.js';
+import { describe, expect, it } from 'vitest';
+import { compareAgainstBenchmark, EU_SECTOR_BENCHMARKS, getBenchmark } from '../compliance/eu-benchmarks.js';
 import { extractWithPatterns } from '../compliance/esg-report-extractor.js';
 import { scoreCompliance } from '../compliance/scoring-engine.js';
 import { getMandatoryDisclosures } from '../compliance/esrs-registry.js';

@@ -90,7 +90,12 @@ export interface EphemeralContainerStatus {
 // ============================================================================
 
 const DEFAULT_REGION = 'europe-north1'; // Finland — EU data residency
-const DEFAULT_IMAGE = 'europe-north1-docker.pkg.dev/dws-iq-pilot/agents/dws-agent-runner:latest';
+// Image is resolved from env so the runner is not pinned to a single (now-decommissioned)
+// project. Set AGENT_RUNNER_IMAGE for a full override, otherwise it is built from
+// GOOGLE_CLOUD_PROJECT's Artifact Registry.
+const DEFAULT_IMAGE =
+  process.env.AGENT_RUNNER_IMAGE ||
+  `europe-north1-docker.pkg.dev/${process.env.GOOGLE_CLOUD_PROJECT ?? ''}/agents/dws-agent-runner:latest`;
 const DEFAULT_TIMEOUT = 300; // 5 minutes
 const DEFAULT_MEMORY = '512Mi';
 const DEFAULT_CPU = '1';
@@ -120,7 +125,14 @@ export async function executeInEphemeralContainer(
   const startedAt = new Date();
   const executionId = `exec-${config.tenantId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const region = config.region || DEFAULT_REGION;
-  const project = process.env.GOOGLE_CLOUD_PROJECT || 'dws-iq-pilot';
+  const project = process.env.GOOGLE_CLOUD_PROJECT;
+  if (!project) {
+    // Fail loud rather than silently target a decommissioned default project.
+    throw new Error(
+      'GOOGLE_CLOUD_PROJECT env var is required for ephemeral Cloud Run execution ' +
+        '(the former dws-iq-pilot default has been removed).',
+    );
+  }
 
   logger.info('Creating ephemeral container for agent execution', {
     executionId,
@@ -129,7 +141,10 @@ export async function executeInEphemeralContainer(
     region,
   });
 
-  const jobName = `agent-${config.tenantId}-${Date.now()}`.toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 63);
+  const jobName = `agent-${config.tenantId}-${Date.now()}`
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')
+    .slice(0, 63);
 
   try {
     // Step 1: Create the Cloud Run Job
@@ -192,7 +207,7 @@ function buildJobSpec(
   jobName: string,
   config: CloudRunTaskConfig,
   executionId: string,
-  region: string,
+  _region: string,
 ): Record<string, unknown> {
   return {
     apiVersion: 'run.googleapis.com/v1',
@@ -216,33 +231,46 @@ function buildJobSpec(
           },
           annotations: {
             // VPC connector for private backend access
-            ...(config.vpcConnector ? {
-              'run.googleapis.com/vpc-access-connector': config.vpcConnector,
-              'run.googleapis.com/vpc-access-egress': 'all-traffic',
-            } : {}),
+            ...(config.vpcConnector
+              ? {
+                  'run.googleapis.com/vpc-access-connector': config.vpcConnector,
+                  'run.googleapis.com/vpc-access-egress': 'all-traffic',
+                }
+              : {}),
           },
         },
         spec: {
-          containers: [{
-            image: config.image || DEFAULT_IMAGE,
-            resources: {
-              limits: {
-                memory: config.memoryLimit || DEFAULT_MEMORY,
-                cpu: config.cpuLimit || DEFAULT_CPU,
+          containers: [
+            {
+              image: config.image || DEFAULT_IMAGE,
+              resources: {
+                limits: {
+                  memory: config.memoryLimit || DEFAULT_MEMORY,
+                  cpu: config.cpuLimit || DEFAULT_CPU,
+                },
               },
+              env: [
+                { name: 'TENANT_ID', value: config.tenantId },
+                { name: 'AGENT_NAME', value: config.agentName },
+                { name: 'EXECUTION_ID', value: executionId },
+                { name: 'AGENT_INPUT', value: JSON.stringify(config.input) },
+                {
+                  name: 'GROQ_API_KEY',
+                  valueFrom: { secretKeyRef: { name: 'groq-api-key', key: 'latest' } },
+                },
+                {
+                  name: 'SUPABASE_URL',
+                  valueFrom: { secretKeyRef: { name: 'supabase-url', key: 'latest' } },
+                },
+                {
+                  name: 'SUPABASE_SERVICE_KEY',
+                  valueFrom: { secretKeyRef: { name: 'supabase-service-key', key: 'latest' } },
+                },
+              ],
             },
-            env: [
-              { name: 'TENANT_ID', value: config.tenantId },
-              { name: 'AGENT_NAME', value: config.agentName },
-              { name: 'EXECUTION_ID', value: executionId },
-              { name: 'AGENT_INPUT', value: JSON.stringify(config.input) },
-              { name: 'GROQ_API_KEY', valueFrom: { secretKeyRef: { name: 'groq-api-key', key: 'latest' } } },
-              { name: 'SUPABASE_URL', valueFrom: { secretKeyRef: { name: 'supabase-url', key: 'latest' } } },
-              { name: 'SUPABASE_SERVICE_KEY', valueFrom: { secretKeyRef: { name: 'supabase-service-key', key: 'latest' } } },
-            ],
-          }],
+          ],
           timeoutSeconds: config.timeoutSeconds || DEFAULT_TIMEOUT,
-          serviceAccountName: `agent-runner@${process.env.GOOGLE_CLOUD_PROJECT || 'dws-iq-pilot'}.iam.gserviceaccount.com`,
+          serviceAccountName: `agent-runner@${process.env.GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com`,
         },
       },
     },
@@ -264,7 +292,7 @@ async function createCloudRunJob(
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(jobSpec),
@@ -279,18 +307,14 @@ async function createCloudRunJob(
 /**
  * Run (execute) an existing Cloud Run Job.
  */
-async function runCloudRunJob(
-  project: string,
-  region: string,
-  jobName: string,
-): Promise<void> {
+async function runCloudRunJob(project: string, region: string, jobName: string): Promise<void> {
   const url = `https://${region}-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/${project}/jobs/${jobName}:run`;
   const token = await getAccessToken();
 
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   });
@@ -304,18 +328,14 @@ async function runCloudRunJob(
 /**
  * Delete a Cloud Run Job (destroys container and all associated data).
  */
-async function deleteCloudRunJob(
-  project: string,
-  region: string,
-  jobName: string,
-): Promise<void> {
+async function deleteCloudRunJob(project: string, region: string, jobName: string): Promise<void> {
   const url = `https://${region}-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/${project}/jobs/${jobName}`;
   const token = await getAccessToken();
 
   const response = await fetch(url, {
     method: 'DELETE',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -345,11 +365,11 @@ async function waitForJobCompletion(
     const token = await getAccessToken();
 
     const response = await fetch(url, {
-      headers: { 'Authorization': `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     if (response.ok) {
-      const job = await response.json() as {
+      const job = (await response.json()) as {
         status?: {
           conditions?: Array<{ type: string; status: string; reason?: string }>;
           executionCount?: number;
@@ -366,7 +386,8 @@ async function waitForJobCompletion(
       }
 
       const failedCondition = job.status?.conditions?.find(
-        (c: { type: string; reason?: string }) => c.type === 'Ready' && c.reason === 'ContainerFailed',
+        (c: { type: string; reason?: string }) =>
+          c.type === 'Ready' && c.reason === 'ContainerFailed',
       );
 
       if (failedCondition) {
@@ -396,8 +417,8 @@ async function fetchExecutionResult(executionId: string): Promise<Record<string,
 
   const response = await fetch(url, {
     headers: {
-      'apikey': supabaseKey,
-      'Authorization': `Bearer ${supabaseKey}`,
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
     },
   });
 
@@ -405,7 +426,7 @@ async function fetchExecutionResult(executionId: string): Promise<Record<string,
     throw new Error(`Failed to fetch execution result: ${response.status}`);
   }
 
-  const rows = await response.json() as Array<{
+  const rows = (await response.json()) as Array<{
     output: Record<string, unknown> | null;
     status: string;
     error_message?: string;
@@ -458,7 +479,7 @@ export async function groqInference(
   const response = await fetch(GROQ_API_URL, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${apiKey}`,
+      Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -478,7 +499,7 @@ export async function groqInference(
     throw new Error(`Groq inference failed: ${response.status} ${error}`);
   }
 
-  const data = await response.json() as {
+  const data = (await response.json()) as {
     choices?: Array<{ message?: { content?: string } }>;
     usage?: { prompt_tokens?: number; completion_tokens?: number };
     model?: string;
@@ -510,7 +531,7 @@ async function getAccessToken(): Promise<string> {
     );
 
     if (response.ok) {
-      const data = await response.json() as { access_token: string };
+      const data = (await response.json()) as { access_token: string };
       return data.access_token;
     }
   } catch {
@@ -523,7 +544,7 @@ async function getAccessToken(): Promise<string> {
 
   throw new Error(
     'No GCP credentials available. Set GOOGLE_ACCESS_TOKEN for local dev, ' +
-    'or deploy to Cloud Run for automatic auth.',
+      'or deploy to Cloud Run for automatic auth.',
   );
 }
 

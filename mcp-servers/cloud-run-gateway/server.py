@@ -66,8 +66,10 @@ def _get_github_headers():
 # ---------------------------------------------------------------------------
 mcp = FastMCP(
     "DWS MCP Gateway",
-    version="1.0.0",
-    description="Cloud Run MCP gateway for mobile Claude Code sessions",
+    instructions="Cloud Run MCP gateway for mobile Claude Code sessions",
+    host=os.getenv("HOST", "0.0.0.0"),
+    port=int(os.getenv("PORT", "8080")),
+    streamable_http_path="/mcp",
 )
 
 
@@ -506,8 +508,6 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="DWS MCP Gateway")
-    parser.add_argument("--host", default="0.0.0.0")
-    parser.add_argument("--port", type=int, default=int(os.getenv("PORT", "8080")))
     parser.add_argument(
         "--transport",
         choices=["streamable-http", "sse", "stdio"],
@@ -515,11 +515,5 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    logger.info(
-        "Starting MCP Gateway on %s:%d (transport=%s)",
-        args.host,
-        args.port,
-        args.transport,
-    )
-
-    mcp.run(transport=args.transport, host=args.host, port=args.port)
+    logger.info("Starting MCP Gateway (transport=%s)", args.transport)
+    mcp.run(transport=args.transport)

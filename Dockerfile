@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image
 
 # ============ BUILD STAGE ============
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY src/ ./src/
 RUN npm run build
 
 # ============ PRODUCTION STAGE ============
-FROM node:22-alpine AS production
+FROM node:24-alpine AS production
 
 # Add security: run as non-root user
 RUN addgroup -g 1001 -S nodejs && \
@@ -37,10 +37,10 @@ RUN npm ci --only=production && npm cache clean --force
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy config (project delivery status for dashboard)
-COPY --chown=nodejs:nodejs config/ ./config/
+# Copy required dashboard delivery status config
+COPY --chown=nodejs:nodejs config/project-delivery-status.json ./config/project-delivery-status.json
 
-# Copy public assets if they exist
+# Copy public assets committed in the repo
 COPY --chown=nodejs:nodejs public/ ./public/
 
 # Set environment variables

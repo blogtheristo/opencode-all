@@ -75,7 +75,7 @@ function syncAgentList() {
       // Try to read the agent file for class name and description
       const filePath = join(agentsDir, `${name}.agent.ts`);
       let displayName = name.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('');
-      let description = 'TODO: add description';
+      let description = `${displayName} agent`;
       let model = 'Llama 3.3 70B';
 
       try {

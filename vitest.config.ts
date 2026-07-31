@@ -5,17 +5,25 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     setupFiles: ['./src/__tests__/setup.ts'],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/.claude/worktrees/**',
+      // Stale PR-snapshot worktrees checked into the repo. They carry their
+      // own outdated tests/mocks and must not run as part of main CI.
+      'artifacts/**',
+      // Standalone package with its own package.json + jest runner, not an
+      // npm workspace member — root `npm ci` never installs its deps
+      // (react, @reduxjs/toolkit, etc.), so Vitest picking these up fails
+      // with ERR_MODULE_NOT_FOUND rather than actually running them.
+      'Firehorse/mobile-app/**',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'text-summary', 'json-summary', 'html'],
       reportsDirectory: './coverage',
       include: ['src/**/*.ts'],
-      exclude: [
-        'src/__tests__/**',
-        'src/**/*.d.ts',
-        'src/**/types.ts',
-        'src/**/index.ts',
-      ],
+      exclude: ['src/__tests__/**', 'src/**/*.d.ts', 'src/**/types.ts'],
       thresholds: {
         statements: 60,
         branches: 50,

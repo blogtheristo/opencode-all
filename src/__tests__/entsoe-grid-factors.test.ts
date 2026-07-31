@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getGridFactors, getGridFactor, clearGridFactorCache } from '../compliance/entsoe-grid-factors.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { clearGridFactorCache, getGridFactor, getGridFactors } from '../compliance/entsoe-grid-factors.js';
 
 describe('entsoe-grid-factors', () => {
   beforeEach(() => {

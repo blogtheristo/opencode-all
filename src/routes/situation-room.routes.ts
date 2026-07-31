@@ -9,11 +9,12 @@
  *   Dashboard polling       → GET  /api/situation-room/reports
  */
 
-import express, { Router, Request, Response } from 'express';
-import { body, query, param, validationResult } from 'express-validator';
+import express, { type Request, type Response, type Router } from 'express';
+import { body, param, query, validationResult } from 'express-validator';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
+import { getModelSelectionSummary, estimateLocalModelDiskUsage, AGENT_TIER_MAP, ACER_GN100_BUDGET } from '../agents/model-selector.js';
 
 const router: Router = express.Router();
 
@@ -21,8 +22,11 @@ const router: Router = express.Router();
 // Supabase service client
 // ---------------------------------------------------------------------------
 const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseKey =
+  process.env.SUPABASE_SERVICE_KEY
+  || process.env.SUPABASE_SERVICE_ROLE_KEY
+  || '';
+const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseKey) : null;
 
 // ---------------------------------------------------------------------------
 // Authorization helper
@@ -32,11 +36,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
  * Verify that the authenticated user is an active member of the given org.
  * Returns true if authorized; writes a 403 response and returns false otherwise.
  */
-async function assertOrgMember(
-  userId: string,
-  orgId: string,
-  res: Response
-): Promise<boolean> {
+async function assertOrgMember(userId: string, orgId: string, res: Response): Promise<boolean> {
+  if (!supabase) {
+    res.status(503).json({ error: 'Database not configured' });
+    return false;
+  }
   const { data, error } = await supabase
     .from('organization_members')
     .select('user_id')
@@ -59,6 +63,17 @@ async function assertOrgMember(
 
   return true;
 }
+
+// ---------------------------------------------------------------------------
+// Guard: reject all requests when Supabase is not configured
+// ---------------------------------------------------------------------------
+router.use((_req: Request, res: Response, next) => {
+  if (!supabase) {
+    res.status(503).json({ error: 'Database not configured' });
+    return;
+  }
+  next();
+});
 
 // ---------------------------------------------------------------------------
 // Validation helpers
@@ -87,9 +102,9 @@ router.post(
   [
     body('org_id').isUUID(),
     body('project_id').isString().trim().isLength({ min: 1, max: 100 }),
-    body('report_type').isString().isIn([
-      'bim-carbon', 'safety', 'schedule', 'quality', 'compliance',
-    ]),
+    body('report_type')
+      .isString()
+      .isIn(['bim-carbon', 'safety', 'schedule', 'quality', 'compliance']),
     body('title').optional().isString().trim().isLength({ max: 300 }),
     body('payload').isObject(),
     body('total_kg_co2e').optional().isFloat({ min: 0 }),
@@ -103,14 +118,21 @@ router.post(
 
     try {
       const {
-        org_id, project_id, report_type, title, payload,
-        total_kg_co2e, fit55_score, compliance_rag, country,
+        org_id,
+        project_id,
+        report_type,
+        title,
+        payload,
+        total_kg_co2e,
+        fit55_score,
+        compliance_rag,
+        country,
         pipeline_workflow_id,
       } = req.body;
 
-      if (!await assertOrgMember(req.userId!, org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .insert({
           org_id,
@@ -163,9 +185,9 @@ router.get(
     try {
       const orgId = req.query.org_id as string;
 
-      if (!await assertOrgMember(req.userId!, orgId, res)) return;
+      if (!(await assertOrgMember(req.userId!, orgId, res))) return;
 
-      let qb = supabase
+      let qb = supabase!
         .from('situation_room_reports')
         .select('*')
         .eq('org_id', orgId)
@@ -211,7 +233,7 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .select('*')
         .eq('id', req.params.id)
@@ -222,7 +244,7 @@ router.get(
         return;
       }
 
-      if (!await assertOrgMember(req.userId!, data.org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, data.org_id, res))) return;
 
       res.json(data);
     } catch (err) {
@@ -262,7 +284,7 @@ router.patch(
       }
 
       // Fetch first to get org_id for membership check
-      const { data: existing } = await supabase
+      const { data: existing } = await supabase!
         .from('situation_room_reports')
         .select('org_id')
         .eq('id', req.params.id)
@@ -273,9 +295,9 @@ router.patch(
         return;
       }
 
-      if (!await assertOrgMember(req.userId!, existing.org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, existing.org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .update(updates)
         .eq('id', req.params.id)
@@ -292,6 +314,63 @@ router.patch(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Situation Room report update error', { error: msg });
+      res.status(500).json({ error: msg });
+    }
+  },
+);
+
+// ============================================================================
+// GET /api/situation-room/model-usage — Model selection summary for board view
+// ============================================================================
+router.get(
+  '/model-usage',
+  authenticateToken,
+  async (_req: Request, res: Response) => {
+    try {
+      const summary = getModelSelectionSummary();
+
+      res.json({
+        ...summary,
+        acerBudget: ACER_GN100_BUDGET,
+        agentTierMap: AGENT_TIER_MAP,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Model usage summary error', { error: msg });
+      res.status(500).json({ error: msg });
+    }
+  },
+);
+
+// ============================================================================
+// POST /api/situation-room/model-usage/estimate — Estimate disk/RAM for agent set
+// ============================================================================
+router.post(
+  '/model-usage/estimate',
+  authenticateToken,
+  [body('agents').isArray({ min: 1, max: 50 })],
+  async (req: Request, res: Response) => {
+    if (!validateRequest(req, res)) return;
+
+    try {
+      const agents: string[] = req.body.agents;
+      const estimate = estimateLocalModelDiskUsage(agents);
+
+      res.json({
+        ...estimate,
+        acerBudget: ACER_GN100_BUDGET,
+        diskUtilizationPct: Math.round(
+          (estimate.totalDiskGb / ACER_GN100_BUDGET.availableModelDiskGb) * 10000,
+        ) / 100,
+        ramUtilizationPct: Math.round(
+          (estimate.totalRamGb / ACER_GN100_BUDGET.availableModelRamGb) * 10000,
+        ) / 100,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Model usage estimate error', { error: msg });
       res.status(500).json({ error: msg });
     }
   },

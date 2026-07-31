@@ -20,7 +20,7 @@
  */
 
 import { getSupabaseClient } from '../config/supabase.js';
-import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
+import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
 import { estimateETSCost } from '../compliance/ets-calculator.js';
 import { estimateCBAMCost } from '../compliance/cbam-calculator.js';
 import logger from '../utils/logger.js';

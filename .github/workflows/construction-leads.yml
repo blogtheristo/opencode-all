@@ -6,23 +6,22 @@
 name: Construction Lead Scraper
 
 on:
-  schedule:
-    - cron: '0 3 * * 1-6'
-    - cron: '0 4 * * 1-6'
-
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/construction-leads.sh)
+  # GitHub Actions was failover only, consuming ~241 min/month even on skip checks.
+  # Was: cron '0 3 * * 1-6' + '0 4 * * 1-6' (2x daily Mon-Sat for DST coverage)
   workflow_dispatch:
     inputs:
       country:
-        description: 'Country filter (comma-separated 2-letter codes, e.g., FI,SE,NO)'
+        description: "Country filter (comma-separated 2-letter codes, e.g., FI,SE,NO)"
         required: false
         type: string
       days:
-        description: 'Lookback period in days (default: 1)'
+        description: "Lookback period in days (default: 1)"
         required: false
         type: string
-        default: '1'
+        default: "1"
       skip_email:
-        description: 'Skip sending email digest'
+        description: "Skip sending email digest"
         required: false
         type: boolean
         default: false
@@ -74,8 +73,8 @@ jobs:
         if: steps.timecheck.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          cache: 'pip'
+          python-version: "3.12"
+          cache: "pip"
 
       - name: Install dependencies
         if: steps.timecheck.outputs.should_run == 'true'

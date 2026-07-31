@@ -1,206 +1,820 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media & Press Center — OneLifetime.World</title>
-    <meta name="description" content="Official press releases and media resources from Lifetime Oy. DWS IQ platform announcements, product launches, and company news.">
-    <meta property="og:title" content="Media & Press Center — OneLifetime.World">
-    <meta property="og:description" content="Official press releases, media resources, and company news from Lifetime Oy.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://onelifetime.world/press/">
-    <meta property="og:site_name" content="OneLifetime.World">
-    <link rel="canonical" href="https://onelifetime.world/press/">
-    <link rel="stylesheet" href="../static/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Press & Media | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Official press releases, media statements, and contact information from Lifetime Oy and the DWS IQ and Firehorse product lines."
+    />
+    <meta property="og:title" content="Press & Media | Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="Official press releases, media statements, and contact information from Lifetime Oy and the DWS IQ and Firehorse product lines."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://onelifetime.world/press/" />
+    <meta property="og:site_name" content="OneLifetime.World" />
+    <link rel="canonical" href="https://onelifetime.world/press/" />
+    <link rel="stylesheet" href="../static/css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .press-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-        .press-card:hover {
-            border-color: rgba(184, 134, 11, 0.5);
-            transform: translateY(-2px);
-        }
-        .tag {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .tag-product { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
-        .tag-investor { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
-        .tag-partnership { background: rgba(250, 204, 21, 0.15); color: #facc15; }
-        .tag-launch { background: rgba(184, 134, 11, 0.15); color: #b8860b; }
-        .sovereignty-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .sovereignty-badge.eu-data { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-        .sovereignty-badge.eu-ai { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
+      .press-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .press-card:hover {
+        border-color: rgba(184, 134, 11, 0.5);
+        transform: translateY(-2px);
+      }
+      .tag {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+      .tag-product {
+        background: rgba(96, 165, 250, 0.15);
+        color: #60a5fa;
+      }
+      .tag-investor {
+        background: rgba(74, 222, 128, 0.15);
+        color: #4ade80;
+      }
+      .tag-partnership {
+        background: rgba(250, 204, 21, 0.15);
+        color: #facc15;
+      }
+      .tag-launch {
+        background: rgba(184, 134, 11, 0.15);
+        color: #b8860b;
+      }
+      .sovereignty-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+      .sovereignty-badge.eu-data {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+      }
+      .sovereignty-badge.eu-ai {
+        background: rgba(96, 165, 250, 0.15);
+        color: #60a5fa;
+      }
+      .hero-panel {
+        background:
+          radial-gradient(circle at top right, rgba(184, 134, 11, 0.18), transparent 38%),
+          linear-gradient(135deg, rgba(30, 41, 59, 0.94) 0%, rgba(15, 23, 42, 0.98) 100%);
+        border: 1px solid rgba(184, 134, 11, 0.24);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+      }
+      .gold-kicker {
+        color: #d4a843;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .media-bar {
+        background: rgba(15, 23, 42, 0.78);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+      }
     </style>
-</head>
-<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
-    <script>
-        function toggleMobileMenu() {
-            var menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
-
-    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
-        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
-            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-            </button>
-            <a href="/" class="flex items-center">
-                <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
-            </a>
-            <a href="https://dws10.com/buy" class="text-xs font-bold px-3 py-1 rounded" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a;">
-                Store
-            </a>
-        </div>
-        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
-            <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Blog</a>
-            <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Press</a>
-            <a href="https://dws10.com" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">DWS IQ Platform</a>
-            <a href="https://dws10.com/buy" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Store</a>
-            <a href="https://lifetime.fi" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Lifetime Consulting</a>
-        </div>
-    </nav>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
 
     <main class="flex-1">
-        <!-- Hero -->
-        <section class="max-w-4xl mx-auto px-4 pt-16 pb-8">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(184, 134, 11, 0.15); color: #b8860b; border: 1px solid rgba(184, 134, 11, 0.25);">
-                    Official
-                </span>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: #e2e8f0;">Media & Press Center</h1>
-            <p class="text-lg text-gray-400 max-w-2xl">
-                Official press releases and announcements from Lifetime Oy, maker of DWS IQ — the industrial AI platform for EU-regulated industries.
+      <!-- Hero -->
+      <section class="max-w-5xl mx-auto px-4 pt-20 pb-8">
+        <div class="hero-panel rounded-2xl p-8 md:p-12">
+          <p id="press-kicker" class="gold-kicker text-sm font-semibold mb-4">Official media hub</p>
+          <h1 id="press-title" class="text-4xl md:text-5xl font-bold mb-4" style="color: #f8fafc">
+            Press & Media
+          </h1>
+          <p id="press-intro" class="text-lg text-slate-300 max-w-3xl">
+            Official press releases, media statements, and contact information from Lifetime Oy and
+            the DWS IQ and Firehorse product lines. This page is the public reference point for
+            launch news, company announcements, and selected press materials.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-6">
+            <span id="press-badge-data" class="sovereignty-badge eu-data">EU Data Residency</span>
+            <span id="press-badge-statements" class="sovereignty-badge eu-ai"
+              >Official Statements</span
+            >
+            <span id="press-badge-contact" class="sovereignty-badge tag-launch"
+              >Media Contact Available</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <div
+        class="w-16 h-0.5 mx-auto mb-8"
+        style="background: linear-gradient(90deg, #b8860b, #d97706)"
+      ></div>
+
+      <!-- Contact bar -->
+      <section class="max-w-4xl mx-auto px-4 mb-12">
+        <div
+          class="media-bar rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
+          <div>
+            <p id="press-contact-kicker" class="gold-kicker text-xs font-semibold mb-2">
+              Media contact
             </p>
-            <div class="flex flex-wrap gap-2 mt-6">
-                <span class="sovereignty-badge eu-data">EU Data Residency</span>
-                <span class="sovereignty-badge eu-ai">EU AI Act Compliant</span>
-            </div>
-        </section>
+            <p id="press-contact-name" class="text-sm font-bold" style="color: #e2e8f0">
+              Risto Anton Paarni, Founder & CEO
+            </p>
+            <p id="press-contact-company" class="text-sm text-gray-400">
+              Lifetime Oy · Espoo, Finland
+            </p>
+          </div>
+          <a
+            href="mailto:risto@onelifetime.world"
+            class="inline-block px-5 py-2 rounded text-sm font-bold"
+            style="background: linear-gradient(135deg, #b8860b, #d97706); color: #0f172a"
+          >
+            risto@onelifetime.world
+          </a>
+        </div>
+      </section>
 
-        <div class="w-16 h-0.5 mx-auto mb-8" style="background: linear-gradient(90deg, #b8860b, #d97706);"></div>
+      <!-- Latest News heading -->
+      <section class="max-w-4xl mx-auto px-4 mb-4">
+        <h2 id="press-featured-heading" class="gold-kicker text-sm font-bold">Featured releases</h2>
+      </section>
 
-        <!-- Contact bar -->
-        <section class="max-w-4xl mx-auto px-4 mb-12">
-            <div class="press-card rounded-lg p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <p class="text-sm font-bold" style="color: #e2e8f0;">Media Contact</p>
-                    <p class="text-sm text-gray-400">Risto Paarni, Founder & CEO</p>
-                </div>
-                <a href="mailto:risto@onelifetime.world" class="inline-block px-5 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #b8860b, #d97706); color: #0f172a;">
-                    risto@onelifetime.world
-                </a>
-            </div>
-        </section>
-
-        <!-- Latest News heading -->
-        <section class="max-w-4xl mx-auto px-4 mb-4">
-            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-500">Latest News</h2>
-        </section>
-
-        <!-- Press Release #1: Aegis Launch -->
-        <section class="max-w-4xl mx-auto px-4 mb-8">
-            <article class="press-card rounded-lg overflow-hidden">
-                <!-- Hero image -->
-                <div class="w-full h-48 md:h-64 flex items-center justify-center" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
-                    <img src="../static/images/firehorse-dws10-full.png" alt="DWS IQ Aegis — Firehorse" class="h-full w-auto object-contain" style="max-height: 220px;">
-                </div>
-
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="tag tag-launch">Launch</span>
-                        <span class="tag tag-product">Product</span>
-                    </div>
-
-                    <p class="text-xs text-gray-500 mb-2">March 26, 2026 &middot; Helsinki, Finland</p>
-
-                    <h3 class="text-xl md:text-2xl font-bold mb-3" style="color: #e2e8f0;">
-                        DWS Launches "IQ Aegis" to Secure Global Dual-Use Industrial Trade
-                    </h3>
-
-                    <p class="text-gray-400 leading-relaxed mb-4">
-                        <strong class="text-gray-200">LONDON/HELSINKI</strong> — DWS today announced the formal release of IQ Aegis, a specialised security and compliance suite designed specifically for dual-use industries. As global regulations tighten around the export of sensitive technologies, IQ Aegis serves as a digital shield, ensuring that innovation remains secure and compliant across borders.
-                    </p>
-
-                    <blockquote class="border-l-4 pl-5 py-3 my-6" style="border-color: #b8860b; background: rgba(184, 134, 11, 0.06); border-radius: 0 8px 8px 0;">
-                        <p class="italic text-sm" style="color: #e2e8f0;">
-                            "IQ Aegis is the 'Firehorse' of our stable. It represents speed, power, and the reinforced protection required in today's geopolitical climate."
-                        </p>
-                        <cite class="block mt-2 text-xs not-italic text-gray-500">— The Team at OneLifetime</cite>
-                    </blockquote>
-
-                    <p class="text-gray-400 leading-relaxed mb-4">
-                        DWS IQ Aegis deploys six autonomous AI agents — including orbital intelligence via SAR satellite data (e.g. ICEYE), CLOUD Act sovereignty monitoring, EU AI Act Article 12 logging, and the KYA (Know Your Agent) governance framework — covering all 20 EU-regulated industries. The platform is available exclusively on European sovereign cloud or enterprise private cloud.
-                    </p>
-
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        Aegis is designed for the Finnish Defence Tech Hub ecosystem including the NATO DIANA Accelerator (VTT, Espoo). The platform is compatible with SAR satellite data from providers such as ICEYE, and supported by technology partnerships with NVIDIA (edge AI) and Shufti (agent identity).
-                    </p>
-
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://dws10.com/dual-use-industries/" class="inline-block px-5 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #b8860b, #d97706); color: #0f172a;">
-                            Learn More
-                        </a>
-                        <a href="/posts/en/dws-iq-aegis-dual-use-ai-platform.html" class="inline-block px-5 py-2 rounded text-sm font-bold border" style="border-color: rgba(184, 134, 11, 0.4); color: #b8860b;">
-                            Full Press Release
-                        </a>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- Archive heading -->
-        <section class="max-w-4xl mx-auto px-4 mb-4 mt-12">
-            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-500">Archive</h2>
-        </section>
-
-        <!-- Older press releases (compact cards) -->
-        <section class="max-w-4xl mx-auto px-4 space-y-4 mb-16">
-            <a href="https://dws10.com/press-releases/#pr-2026-02-16-deep-tech-thesis" class="press-card rounded-lg p-5 block no-underline">
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="tag tag-product">Product</span>
-                    <span class="text-xs text-gray-500">16 February 2026</span>
-                </div>
-                <h3 class="font-bold mb-1" style="color: #e2e8f0;">Lifetime Oy Positions DWS IQ 6 as Deep Tech Compliance Engine with EUR 333,000/Year Cost Advantage</h3>
-                <p class="text-sm text-gray-400">Three proprietary pillars: Lifetime World Model, NVIDIA Jetson edge AI, and model-agnostic MCP orchestration.</p>
+      <!-- Press Release (latest): MCP Apps & KYA Identity Spine -->
+      <section class="max-w-4xl mx-auto px-4 mb-8">
+        <article class="press-card rounded-lg p-6 md:p-8">
+          <div class="flex items-center gap-2 mb-3">
+            <span id="pr1-tag-product" class="tag tag-product">Product</span>
+            <span id="pr1-tag-position" class="tag tag-partnership">Position</span>
+          </div>
+          <p class="text-xs text-gray-500 mb-2">April 22, 2026 &middot; Helsinki, Finland</p>
+          <h3 id="pr1-title" class="text-xl md:text-2xl font-bold mb-3" style="color: #e2e8f0">
+            KYA is the Identity Spine Beneath MCP Apps — Every New Open Standard Under AAIF Makes
+            Know Your Agent More Necessary, Not Less
+          </h3>
+          <p id="pr1-body" class="text-gray-400 leading-relaxed mb-4">
+            <strong class="text-gray-200">HELSINKI</strong> — Following the AAIF MCP Apps launch
+            that turns Model Context Protocol servers into interactive UIs rendering inside ChatGPT,
+            Claude, Goose, and VS Code, Lifetime Oy publishes its position: interactive agent
+            surfaces need more identity binding, not less. KYA binds every agent to a verified
+            human, with TC-4 Leash Snap for one-action revocation.
+          </p>
+          <blockquote
+            class="border-l-4 pl-5 py-3 my-6"
+            style="
+              border-color: #60a5fa;
+              background: rgba(96, 165, 250, 0.06);
+              border-radius: 0 8px 8px 0;
+            "
+          >
+            <p id="pr1-quote" class="italic text-sm" style="color: #e2e8f0">
+              "MCP Apps extends the frontier. KYA is the spine underneath. Every new open standard
+              makes KYA more necessary, not less."
+            </p>
+            <cite class="block mt-2 text-xs not-italic text-gray-500"
+              >— Risto Anton Paarni, Founder &amp; CEO, Lifetime Oy</cite
+            >
+          </blockquote>
+          <div class="flex flex-wrap gap-3">
+            <a
+              href="/posts/mcp-apps-identity-spine.html"
+              class="inline-block px-5 py-2 rounded text-sm font-bold"
+              style="background: linear-gradient(135deg, #60a5fa, #2563eb); color: #0f172a"
+            >
+              <span id="pr1-primary">Read the Post</span>
             </a>
-
-            <a href="https://dws10.com/press-releases/#pr-2026-02-15-captain-seats" class="press-card rounded-lg p-5 block no-underline">
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="tag tag-investor">Investor</span>
-                    <span class="text-xs text-gray-500">15 February 2026</span>
-                </div>
-                <h3 class="font-bold mb-1" style="color: #e2e8f0;">Lifetime Oy Opens Platinum Industry Captain Seats for Europe's Leading Fit for 55 Platform</h3>
-                <p class="text-sm text-gray-400">8 Platinum Industry Captain seats at EUR 50,000 SAFE each. EUR 500,000 first tranche at EUR 3.8M valuation cap.</p>
+            <a
+              href="https://dws10.com/press-releases/#pr-2026-04-22-mcp-apps-kya-identity-spine"
+              class="inline-block px-5 py-2 rounded text-sm font-bold border"
+              style="border-color: rgba(96, 165, 250, 0.4); color: #60a5fa"
+            >
+              <span id="pr1-secondary">Full Press Release</span>
             </a>
-        </section>
+          </div>
+        </article>
+      </section>
+
+      <!-- Press Release (latest): Solid Layers — Aiven + Scaleway + KYA -->
+      <section class="max-w-4xl mx-auto px-4 mb-8">
+        <article class="press-card rounded-lg p-6 md:p-8">
+          <div class="flex items-center gap-2 mb-3">
+            <span id="pr2-tag-partnership" class="tag tag-partnership">Partnership</span>
+            <span id="pr2-tag-product" class="tag tag-product">Product</span>
+          </div>
+          <p class="text-xs text-gray-500 mb-2">April 22, 2026 &middot; Helsinki, Finland</p>
+          <h3 id="pr2-title" class="text-xl md:text-2xl font-bold mb-3" style="color: #e2e8f0">
+            The EU-Sovereign Stack Confirmed: Aiven (Helsinki) + Scaleway (Paris) + KYA — 21 Skilled
+            Compliance Agents Per Client
+          </h3>
+          <p id="pr2-body" class="text-gray-400 leading-relaxed mb-4">
+            <strong class="text-gray-200">HELSINKI</strong> — Responding to Satya Nadella's
+            Microsoft Foundry post, Lifetime Oy publishes the architecture underneath DWS IQ 6:
+            Foundry solves the sandbox half; KYA solves the identity half. The sovereign ground
+            underneath is Aiven and Scaleway. Every EU client gets 21 skilled compliance agents in
+            per-client MicroVMs — zero CLOUD Act exposure.
+          </p>
+          <blockquote
+            class="border-l-4 pl-5 py-3 my-6"
+            style="
+              border-color: #4ade80;
+              background: rgba(74, 222, 128, 0.06);
+              border-radius: 0 8px 8px 0;
+            "
+          >
+            <p id="pr2-quote" class="italic text-sm" style="color: #e2e8f0">
+              "Nadella solves the sandbox half. KYA solves the identity half. Aiven and Scaleway
+              hold the EU-sovereign ground underneath."
+            </p>
+            <cite class="block mt-2 text-xs not-italic text-gray-500"
+              >— Risto Anton Paarni, Founder &amp; CEO, Lifetime Oy</cite
+            >
+          </blockquote>
+          <div class="flex flex-wrap gap-3">
+            <a
+              href="/posts/solid-layers-aiven-scaleway-kya.html"
+              class="inline-block px-5 py-2 rounded text-sm font-bold"
+              style="background: linear-gradient(135deg, #4ade80, #22c55e); color: #0f172a"
+            >
+              <span id="pr2-primary">Read the Post</span>
+            </a>
+            <a
+              href="https://dws10.com/press-releases/#pr-2026-04-22-solid-layers-aiven-scaleway-kya"
+              class="inline-block px-5 py-2 rounded text-sm font-bold border"
+              style="border-color: rgba(74, 222, 128, 0.4); color: #4ade80"
+            >
+              <span id="pr2-secondary">Full Press Release</span>
+            </a>
+          </div>
+        </article>
+      </section>
+
+      <!-- Press Release #1: Aegis Launch -->
+      <section class="max-w-4xl mx-auto px-4 mb-8">
+        <article class="press-card rounded-lg overflow-hidden">
+          <!-- Hero image -->
+          <div
+            class="w-full h-48 md:h-64 flex items-center justify-center"
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)"
+          >
+            <img
+              src="../static/images/firehorse-dws10-full.png"
+              alt="DWS IQ Aegis — Firehorse"
+              class="h-full w-auto object-contain"
+              style="max-height: 220px"
+            />
+          </div>
+
+          <div class="p-6 md:p-8">
+            <div class="flex items-center gap-2 mb-3">
+              <span id="aegis-tag-launch" class="tag tag-launch">Launch</span>
+              <span id="aegis-tag-product" class="tag tag-product">Product</span>
+            </div>
+
+            <p class="text-xs text-gray-500 mb-2">March 26, 2026 &middot; Helsinki, Finland</p>
+
+            <h3 id="aegis-title" class="text-xl md:text-2xl font-bold mb-3" style="color: #e2e8f0">
+              Lifetime Oy launches DWS IQ Aegis for regulated and dual-use operations
+            </h3>
+
+            <p id="aegis-body-1" class="text-gray-400 leading-relaxed mb-4">
+              <strong class="text-gray-200">HELSINKI</strong> — Lifetime Oy announced DWS IQ Aegis,
+              an EU-sovereign AI platform for defence organisations, dual-use manufacturers, and
+              other regulated operators. The release combines AI governance, compliance logging,
+              sovereignty monitoring, and SAR-enabled operational intelligence in one deployment
+              model.
+            </p>
+
+            <blockquote
+              class="border-l-4 pl-5 py-3 my-6"
+              style="
+                border-color: #b8860b;
+                background: rgba(184, 134, 11, 0.06);
+                border-radius: 0 8px 8px 0;
+              "
+            >
+              <p id="aegis-quote" class="italic text-sm" style="color: #e2e8f0">
+                "European defence and regulated operators need AI systems they can deploy under
+                their own governance rules. Aegis was built to give them auditability, sovereignty
+                controls, and operational visibility in one platform."
+              </p>
+              <cite class="block mt-2 text-xs not-italic text-gray-500"
+                >— Risto Anton Paarni, Founder & CEO, Lifetime Oy</cite
+              >
+            </blockquote>
+
+            <p id="aegis-body-2" class="text-gray-400 leading-relaxed mb-4">
+              DWS IQ Aegis brings together six specialised AI agents under the KYA (Know Your Agent)
+              framework, covering 25 EU-regulated industries. The platform includes SAR-enabled
+              monitoring, sovereignty controls, and Article 12 logging for compliance-sensitive
+              workflows.
+            </p>
+
+            <p id="aegis-body-3" class="text-gray-400 leading-relaxed mb-6">
+              Aegis is available for deployment on European sovereign cloud and selected enterprise
+              private cloud environments. It is positioned for organisations operating in the
+              Finnish defence and deep-tech ecosystem and for other regulated operators requiring
+              auditable AI deployment.
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+              <a
+                href="https://dws10.com/dual-use-industries/"
+                class="inline-block px-5 py-2 rounded text-sm font-bold"
+                style="background: linear-gradient(135deg, #b8860b, #d97706); color: #0f172a"
+              >
+                <span id="aegis-primary">Learn More</span>
+              </a>
+              <a
+                href="/posts/en/dws-iq-aegis-dual-use-ai-platform.html"
+                class="inline-block px-5 py-2 rounded text-sm font-bold border"
+                style="border-color: rgba(184, 134, 11, 0.4); color: #b8860b"
+              >
+                <span id="aegis-secondary">Full Press Release</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Archive heading -->
+      <section class="max-w-4xl mx-auto px-4 mb-4 mt-12">
+        <h2 id="press-archive-heading" class="gold-kicker text-sm font-bold">Selected archive</h2>
+      </section>
+
+      <!-- Older press releases (compact cards) -->
+      <section class="max-w-4xl mx-auto px-4 space-y-4 mb-16">
+        <a
+          href="https://dws10.com/press-releases/#pr-2026-02-16-deep-tech-thesis"
+          class="press-card rounded-lg p-5 block no-underline"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <span id="archive-1-tag" class="tag tag-product">Product</span>
+            <span class="text-xs text-gray-500">16 February 2026</span>
+          </div>
+          <h3 id="archive-1-title" class="font-bold mb-1" style="color: #e2e8f0">
+            Lifetime Oy Positions DWS IQ 6 as Deep Tech Compliance Engine with EUR 333,000/Year Cost
+            Advantage
+          </h3>
+          <p id="archive-1-summary" class="text-sm text-gray-400">
+            Three proprietary pillars: Lifetime World Model, NVIDIA Jetson edge AI, and
+            model-agnostic MCP orchestration.
+          </p>
+        </a>
+
+        <a
+          href="https://dws10.com/press-releases/#pr-2026-02-15-captain-seats"
+          class="press-card rounded-lg p-5 block no-underline"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <span id="archive-2-tag" class="tag tag-investor">Investor</span>
+            <span class="text-xs text-gray-500">15 February 2026</span>
+          </div>
+          <h3 id="archive-2-title" class="font-bold mb-1" style="color: #e2e8f0">
+            Lifetime Oy Opens Platinum Industry Captain Seats for Europe's Leading Fit for 55
+            Platform
+          </h3>
+          <p id="archive-2-summary" class="text-sm text-gray-400">
+            8 Platinum Industry Captain seats at EUR 50,000 SAFE each. EUR 500,000 first tranche at
+            EUR 3.8M valuation cap.
+          </p>
+        </a>
+      </section>
+
+      <!-- Subscribe (ICEYE-style) -->
+      <section class="max-w-4xl mx-auto px-4 mb-16 mt-12">
+        <div
+          id="press-subscribe"
+          data-dws-press-subscribe
+          data-site="onelifetime.world"
+          data-title="Subscribe to OneLifetime press &amp; blog updates"
+          data-sub="Get DWS press releases and Lifetime Scope Monthly directly to your inbox. Follow us on LinkedIn and X for updates. For press inquiries, contact risto@onelifetime.world."
+        ></div>
+      </section>
+      <script src="/shared-assets/press-subscribe.js" defer></script>
+      <script>
+        (function () {
+          const pressTranslations = {
+            en: {
+              pageTitle: "Press & Media | Lifetime Oy",
+              metaDescription:
+                "Official press releases, media statements, and contact information from Lifetime Oy and the DWS IQ and Firehorse product lines.",
+              heroKicker: "Official media hub",
+              heroTitle: "Press & Media",
+              heroIntro:
+                "Official press releases, media statements, and contact information from Lifetime Oy and the DWS IQ and Firehorse product lines. This page is the public reference point for launch news, company announcements, and selected press materials.",
+              badgeData: "EU Data Residency",
+              badgeStatements: "Official Statements",
+              badgeContact: "Media Contact Available",
+              contactKicker: "Media contact",
+              contactName: "Risto Anton Paarni, Founder & CEO",
+              contactCompany: "Lifetime Oy · Espoo, Finland",
+              featuredHeading: "Featured releases",
+              product: "Product",
+              position: "Position",
+              partnership: "Partnership",
+              launch: "Launch",
+              investor: "Investor",
+              pr1Title:
+                "KYA is the Identity Spine Beneath MCP Apps — Every New Open Standard Under AAIF Makes Know Your Agent More Necessary, Not Less",
+              pr1Body:
+                '<strong class="text-gray-200">HELSINKI</strong> — Following the AAIF MCP Apps launch that turns Model Context Protocol servers into interactive UIs rendering inside ChatGPT, Claude, Goose, and VS Code, Lifetime Oy publishes its position: interactive agent surfaces need more identity binding, not less. KYA binds every agent to a verified human, with TC-4 Leash Snap for one-action revocation.',
+              pr1Quote:
+                '"MCP Apps extends the frontier. KYA is the spine underneath. Every new open standard makes KYA more necessary, not less."',
+              pr2Title:
+                "The EU-Sovereign Stack Confirmed: Aiven (Helsinki) + Scaleway (Paris) + KYA — 21 Skilled Compliance Agents Per Client",
+              pr2Body:
+                '<strong class="text-gray-200">HELSINKI</strong> — Responding to Satya Nadella\'s Microsoft Foundry post, Lifetime Oy publishes the architecture underneath DWS IQ 6: Foundry solves the sandbox half; KYA solves the identity half. The sovereign ground underneath is Aiven and Scaleway. Every EU client gets 21 skilled compliance agents in per-client MicroVMs — zero CLOUD Act exposure.',
+              primaryCta: "Read the Post",
+              secondaryCta: "Full Press Release",
+              pr2Quote:
+                '"Nadella solves the sandbox half. KYA solves the identity half. Aiven and Scaleway hold the EU-sovereign ground underneath."',
+              aegisTitle: "Lifetime Oy launches DWS IQ Aegis for regulated and dual-use operations",
+              aegisBody1:
+                '<strong class="text-gray-200">HELSINKI</strong> — Lifetime Oy announced DWS IQ Aegis, an EU-sovereign AI platform for defence organisations, dual-use manufacturers, and other regulated operators. The release combines AI governance, compliance logging, sovereignty monitoring, and SAR-enabled operational intelligence in one deployment model.',
+              aegisQuote:
+                '"European defence and regulated operators need AI systems they can deploy under their own governance rules. Aegis was built to give them auditability, sovereignty controls, and operational visibility in one platform."',
+              aegisBody2:
+                "DWS IQ Aegis brings together six specialised AI agents under the KYA (Know Your Agent) framework, covering 25 EU-regulated industries. The platform includes SAR-enabled monitoring, sovereignty controls, and Article 12 logging for compliance-sensitive workflows.",
+              aegisBody3:
+                "Aegis is available for deployment on European sovereign cloud and selected enterprise private cloud environments. It is positioned for organisations operating in the Finnish defence and deep-tech ecosystem and for other regulated operators requiring auditable AI deployment.",
+              aegisPrimary: "Learn More",
+              archiveHeading: "Selected archive",
+              archive1Title:
+                "Lifetime Oy Positions DWS IQ 6 as Deep Tech Compliance Engine with EUR 333,000/Year Cost Advantage",
+              archive1Summary:
+                "Three proprietary pillars: Lifetime World Model, NVIDIA Jetson edge AI, and model-agnostic MCP orchestration.",
+              archive2Title:
+                "Lifetime Oy Opens Platinum Industry Captain Seats for Europe's Leading Fit for 55 Platform",
+              archive2Summary:
+                "8 Platinum Industry Captain seats at EUR 50,000 SAFE each. EUR 500,000 first tranche at EUR 3.8M valuation cap.",
+              subscribeTitle: "Subscribe to OneLifetime press & blog updates",
+              subscribeSub:
+                "Get DWS press releases and Lifetime Scope Monthly directly to your inbox. Follow us on LinkedIn and X for updates. For press inquiries, contact risto@onelifetime.world.",
+              subscribePlaceholder: "you@company.com",
+              subscribeButton: "Subscribe",
+              subscribeNote:
+                'By submitting, you agree to Lifetime Oy’s <a href="https://dws10.com/privacy-policy/">Privacy Policy</a>. Double opt-in. Unsubscribe any time.',
+            },
+            fi: {
+              pageTitle: "Lehdisto ja media | Lifetime Oy",
+              metaDescription:
+                "Lifetime Oyn viralliset tiedotteet, mediakannanotot ja yhteystiedot DWS IQ- ja Firehorse-tuotelinjoille.",
+              heroKicker: "Virallinen mediahubi",
+              heroTitle: "Lehdisto ja media",
+              heroIntro:
+                "Lifetime Oyn viralliset tiedotteet, mediakannanotot ja yhteystiedot DWS IQ- ja Firehorse-tuotelinjoille. Tama sivu toimii julkisena lahteena lanseerausuutisille, yhtiotiedotteille ja valituille lehdistomateriaaleille.",
+              badgeData: "EU-datan sijainti",
+              badgeStatements: "Viralliset kannanotot",
+              badgeContact: "Mediayhteys saatavilla",
+              contactKicker: "Mediayhteys",
+              contactName: "Risto Anton Paarni, perustaja ja toimitusjohtaja",
+              contactCompany: "Lifetime Oy · Espoo, Suomi",
+              featuredHeading: "Nostetut tiedotteet",
+              product: "Tuote",
+              position: "Kannanotto",
+              partnership: "Kumppanuus",
+              launch: "Julkaisu",
+              investor: "Sijoittaja",
+              pr1Title:
+                "KYA on MCP Apps -sovellusten alla oleva identiteettiranka - jokainen uusi avoin standardi tekee Know Your Agentista entista tarpeellisemman",
+              pr1Body:
+                '<strong class="text-gray-200">HELSINKI</strong> - AAIF MCP Apps -julkaisun jalkeen, joka tuo Model Context Protocol -palvelimet kayttoliittymina ChatGPT:hen, Claudeen, Goosen ja VS Coden sisaan, Lifetime Oy julkaisee kantansa: interaktiiviset agenttipinnat tarvitsevat enemman identiteettisidontaa, eivat vahemman. KYA sitoo jokaisen agentin vahvistettuun ihmiseen, ja TC-4 Leash Snap mahdollistaa yhden toiminnon peruutuksen.',
+              pr1Quote:
+                '"MCP Apps laajentaa eturintamaa. KYA on sen alla oleva ranka. Jokainen uusi avoin standardi tekee KYA:sta entista tarpeellisemman."',
+              pr2Title:
+                "EU-suvereeni pino vahvistui: Aiven (Helsinki) + Scaleway (Pariisi) + KYA - 21 osaavaa compliance-agenttia per asiakas",
+              pr2Body:
+                '<strong class="text-gray-200">HELSINKI</strong> - Vastauksena Satya Nadellan Microsoft Foundry -kirjoitukseen Lifetime Oy julkaisee DWS IQ 6:n alla olevan arkkitehtuurin: Foundry ratkaisee sandbox-puolen, KYA identiteettipuolen. Suvereeni pohja rakentuu Aivenista ja Scalewaysta. Jokainen EU-asiakas saa 21 osaavaa compliance-agenttia asiakaskohtaisissa MicroVM-ymparistoissa - ilman CLOUD Act -altistusta.',
+              primaryCta: "Lue kirjoitus",
+              secondaryCta: "Koko tiedote",
+              pr2Quote:
+                '"Nadella ratkaisee sandbox-puolen. KYA ratkaisee identiteettipuolen. Aiven ja Scaleway muodostavat EU-suverenin perustan."',
+              aegisTitle:
+                "Lifetime Oy julkaisee DWS IQ Aegisin sanneltyihin ja dual-use-toimintoihin",
+              aegisBody1:
+                '<strong class="text-gray-200">HELSINKI</strong> - Lifetime Oy julkisti DWS IQ Aegisin, EU-suverenin AI-alustan puolustusorganisaatioille, dual-use-valmistajille ja muille sannellyille toimijoille. Julkaisu yhdistaa AI-hallinnan, compliance-lokituksen, suvereniteetin valvonnan ja SAR-tuetun operatiivisen tilannekuvan yhteen toimitusmalliin.',
+              aegisQuote:
+                '"Eurooppalaiset puolustus- ja sannellyt toimijat tarvitsevat AI-jarjestelmia, joita ne voivat kayttaa omien hallintasaatontensa alla. Aegis rakennettiin tarjoamaan auditointikyky, suvereniteettikontrollit ja operatiivinen nakyvyys yhdessa alustassa."',
+              aegisBody2:
+                "DWS IQ Aegis kokoaa kuusi erikoistunutta AI-agenttia KYA-kehyksen alle kattaen 25 EU-sanneltya toimialaa. Alusta sisaltaa SAR-tuetun valvonnan, suvereniteettikontrollit ja artikla 12 -lokituksen compliance-herkkiin tyokulkuihin.",
+              aegisBody3:
+                "Aegis on saatavilla eurooppalaiseen suvereeniin pilveen ja valittuihin yritysten yksityispilviymparistoihin. Se on suunnattu Suomen puolustus- ja deep tech -ekosysteemissa toimiville organisaatioille seka muille sannellyille toimijoille, jotka tarvitsevat auditoitavaa AI-kayttoa.",
+              aegisPrimary: "Lue lisaa",
+              archiveHeading: "Valittu arkisto",
+              archive1Title:
+                "Lifetime Oy asemoi DWS IQ 6:n deep tech -compliance-moottoriksi, jonka kustannusetu on 333 000 euroa vuodessa",
+              archive1Summary:
+                "Kolme omaa pilaria: Lifetime World Model, NVIDIA Jetson -reuna-AI ja malliriippumaton MCP-orkestrointi.",
+              archive2Title:
+                "Lifetime Oy avaa Platinum Industry Captain -paikat Euroopan johtavalle Fit for 55 -alustalle",
+              archive2Summary:
+                "8 Platinum Industry Captain -paikkaa, 50 000 euroa SAFE per paikka. Ensimmainen 500 000 euron eraa 3,8 miljoonan euron arvostuskatolla.",
+              subscribeTitle: "Tilaa OneLifetimen lehdisto- ja blogipaivitykset",
+              subscribeSub:
+                "Saat DWS:n tiedotteet ja Lifetime Scope Monthlyn suoraan sahkopostiisi. Seuraa meita LinkedInissa ja X:ssa. Lehdistokyselyt: risto@onelifetime.world.",
+              subscribePlaceholder: "sinä@yritys.fi",
+              subscribeButton: "Tilaa",
+              subscribeNote:
+                'Lahyttamalla hyvaksyta Lifetime Oyn <a href="https://dws10.com/privacy-policy/">tietosuojakaytannon</a>. Double opt-in. Voit peruuttaa milloin tahansa.',
+            },
+            sv: {
+              pageTitle: "Press och media | Lifetime Oy",
+              metaDescription:
+                "Officiella pressmeddelanden, medieuttalanden och kontaktuppgifter fran Lifetime Oy for produktlinjerna DWS IQ och Firehorse.",
+              heroKicker: "Officiellt mediecenter",
+              heroTitle: "Press och media",
+              heroIntro:
+                "Officiella pressmeddelanden, medieuttalanden och kontaktuppgifter fran Lifetime Oy for produktlinjerna DWS IQ och Firehorse. Den har sidan ar den offentliga referenspunkten for lanseringsnyheter, bolagsmeddelanden och utvalt pressmaterial.",
+              badgeData: "EU-datalagring",
+              badgeStatements: "Officiella uttalanden",
+              badgeContact: "Presskontakt tillganglig",
+              contactKicker: "Presskontakt",
+              contactName: "Risto Anton Paarni, grundare och vd",
+              contactCompany: "Lifetime Oy · Esbo, Finland",
+              featuredHeading: "Utvalda lanseringar",
+              product: "Produkt",
+              position: "Stallningstagande",
+              partnership: "Partnerskap",
+              launch: "Lansering",
+              investor: "Investerare",
+              pr1Title:
+                "KYA ar identitetsryggraden under MCP Apps - varje ny oppen standard gor Know Your Agent mer nodvandigt, inte mindre",
+              pr1Body:
+                '<strong class="text-gray-200">HELSINGFORS</strong> - Efter lanseringen av AAIF MCP Apps, som gor Model Context Protocol-servrar till interaktiva grannitt i ChatGPT, Claude, Goose och VS Code, publicerar Lifetime Oy sin position: interaktiva agentytor behovar mer identitetsbindning, inte mindre. KYA binder varje agent till en verifierad manniska med TC-4 Leash Snap for omedelbar aterkallelse.',
+              pr1Quote:
+                '"MCP Apps flyttar fram frontlinjen. KYA ar ryggraden under. Varje ny oppen standard gor KYA mer nodvandigt, inte mindre."',
+              pr2Title:
+                "Den EU-suvarana stacken bekraftad: Aiven (Helsingfors) + Scaleway (Paris) + KYA - 21 skickliga compliance-agenter per kund",
+              pr2Body:
+                '<strong class="text-gray-200">HELSINGFORS</strong> - Som svar pa Satya Nadellas Microsoft Foundry-inlagg publicerar Lifetime Oy arkitekturen under DWS IQ 6: Foundry loser sandbox-delen, KYA identitetsdelen. Den suvarana grunden ar Aiven och Scaleway. Varje EU-kund far 21 skickliga compliance-agenter i kundspecifika MicroVM-miljoer - utan CLOUD Act-exponering.',
+              primaryCta: "Las inlagget",
+              secondaryCta: "Hela pressmeddelandet",
+              pr2Quote:
+                '"Nadella loser sandbox-delen. KYA loser identitetsdelen. Aiven och Scaleway utgor den EU-suvarana grunden under."',
+              aegisTitle:
+                "Lifetime Oy lanserar DWS IQ Aegis for reglerade och dual-use-verksamheter",
+              aegisBody1:
+                '<strong class="text-gray-200">HELSINGFORS</strong> - Lifetime Oy presenterade DWS IQ Aegis, en EU-suvaran AI-plattform for forsvarsorganisationer, dual-use-tillverkare och andra reglerade operatorer. Lanseringen kombinerar AI-styrning, compliance-loggning, suveranitetsuppfoljning och SAR-stodd operativ intelligens i en och samma leveransmodell.',
+              aegisQuote:
+                '"Europeiska forsvars- och reglerade operatorer behover AI-system som de kan driftsatta under egna styrningsregler. Aegis byggdes for att ge dem spårbarhet, suveranitetskontroller och operativ synlighet i en plattform."',
+              aegisBody2:
+                "DWS IQ Aegis samlar sex specialiserade AI-agenter under KYA-ramverket och tacker 25 EU-reglerade branscher. Plattformen innehaller SAR-stodd overvakning, suveranitetskontroller och artikel 12-loggning for compliance-kritiska arbetsfloden.",
+              aegisBody3:
+                "Aegis finns tillganglig for europeisk suveran molndrift och utvalda privata foretagsmoln. Den ar positionerad for organisationer i det finska forsvars- och deep tech-ekosystemet och andra reglerade operatorer som krav auditerbar AI-drift.",
+              aegisPrimary: "Las mer",
+              archiveHeading: "Valt arkiv",
+              archive1Title:
+                "Lifetime Oy positionerar DWS IQ 6 som en deep tech-compliance-motor med en kostnadsfordel pa 333 000 euro per ar",
+              archive1Summary:
+                "Tre proprietara pelare: Lifetime World Model, NVIDIA Jetson edge AI och modellagnostisk MCP-orkestrering.",
+              archive2Title:
+                "Lifetime Oy oppnar Platinum Industry Captain-platser for Europas ledande Fit for 55-plattform",
+              archive2Summary:
+                "8 Platinum Industry Captain-platser till 50 000 euro SAFE vardera. Forsta transchen pa 500 000 euro med ett varderingstak pa 3,8 miljoner euro.",
+              subscribeTitle: "Prenumerera pa OneLifetimes press- och blogguppdateringar",
+              subscribeSub:
+                "Fa DWS pressmeddelanden och Lifetime Scope Monthly direkt till din inkorg. Folj oss pa LinkedIn och X. For pressforfragningar: risto@onelifetime.world.",
+              subscribePlaceholder: "du@foretag.se",
+              subscribeButton: "Prenumerera",
+              subscribeNote:
+                'Genom att skicka godkanner du Lifetime Oys <a href="https://dws10.com/privacy-policy/">integritetspolicy</a>. Double opt-in. Avregistrera nar som helst.',
+            },
+            de: {
+              pageTitle: "Presse und Medien | Lifetime Oy",
+              metaDescription:
+                "Offizielle Pressemitteilungen, Medienstatements und Kontaktinformationen von Lifetime Oy fur die Produktlinien DWS IQ und Firehorse.",
+              heroKicker: "Offizielles Medienzentrum",
+              heroTitle: "Presse und Medien",
+              heroIntro:
+                "Offizielle Pressemitteilungen, Medienstatements und Kontaktinformationen von Lifetime Oy fur die Produktlinien DWS IQ und Firehorse. Diese Seite ist der offentliche Referenzpunkt fur Launch-News, Unternehmensmeldungen und ausgewahlte Pressematerialien.",
+              badgeData: "EU-Datenresidenz",
+              badgeStatements: "Offizielle Statements",
+              badgeContact: "Pressekontakt verfugbar",
+              contactKicker: "Pressekontakt",
+              contactName: "Risto Anton Paarni, Grunder und CEO",
+              contactCompany: "Lifetime Oy · Espoo, Finnland",
+              featuredHeading: "Ausgewahlte Meldungen",
+              product: "Produkt",
+              position: "Position",
+              partnership: "Partnerschaft",
+              launch: "Launch",
+              investor: "Investor",
+              pr1Title:
+                "KYA ist das Identitatsruckgrat unter MCP Apps - jeder neue offene Standard macht Know Your Agent notwendiger, nicht weniger notwendig",
+              pr1Body:
+                '<strong class="text-gray-200">HELSINKI</strong> - Nach dem AAIF-MCP-Apps-Launch, der Model-Context-Protocol-Server in interaktive Oberflachen innerhalb von ChatGPT, Claude, Goose und VS Code verwandelt, veroffentlicht Lifetime Oy seine Position: Interaktive Agentenoberflachen brauchen mehr Identitatsbindung, nicht weniger. KYA bindet jeden Agenten an einen verifizierten Menschen; TC-4 Leash Snap erlaubt einen Widerruf mit einer Aktion.',
+              pr1Quote:
+                '"MCP Apps erweitert die Frontlinie. KYA ist das Ruckgrat darunter. Jeder neue offene Standard macht KYA notwendiger, nicht weniger notwendig."',
+              pr2Title:
+                "Der EU-souverane Stack bestatigt: Aiven (Helsinki) + Scaleway (Paris) + KYA - 21 qualifizierte Compliance-Agenten pro Kunde",
+              pr2Body:
+                '<strong class="text-gray-200">HELSINKI</strong> - Als Reaktion auf Satya Nadellas Microsoft-Foundry-Beitrag veroffentlicht Lifetime Oy die Architektur unter DWS IQ 6: Foundry lost die Sandbox-Halfte, KYA die Identitats-Halfte. Der souverane Unterbau sind Aiven und Scaleway. Jeder EU-Kunde erhalt 21 qualifizierte Compliance-Agenten in kundenspezifischen MicroVMs - ohne CLOUD-Act-Exposition.',
+              primaryCta: "Beitrag lesen",
+              secondaryCta: "Vollstandige Pressemitteilung",
+              pr2Quote:
+                '"Nadella lost die Sandbox-Halfte. KYA lost die Identitats-Halfte. Aiven und Scaleway bilden den EU-souveranen Unterbau."',
+              aegisTitle: "Lifetime Oy startet DWS IQ Aegis fur regulierte und Dual-Use-Einsatze",
+              aegisBody1:
+                '<strong class="text-gray-200">HELSINKI</strong> - Lifetime Oy stellte DWS IQ Aegis vor, eine EU-souverane KI-Plattform fur Verteidigungsorganisationen, Dual-Use-Hersteller und andere regulierte Betreiber. Die Veroffentlichung kombiniert KI-Governance, Compliance-Logging, Souveranitatsmonitoring und SAR-gestutzte operative Aufklarung in einem Bereitstellungsmodell.',
+              aegisQuote:
+                '"Europaische Verteidigungs- und regulierte Betreiber brauchen KI-Systeme, die sie unter ihren eigenen Governance-Regeln einsetzen konnen. Aegis wurde gebaut, um Auditierbarkeit, Souveranitatskontrollen und operative Sichtbarkeit in einer Plattform zu liefern."',
+              aegisBody2:
+                "DWS IQ Aegis vereint sechs spezialisierte KI-Agenten unter dem KYA-Rahmenwerk fur 25 EU-regulierte Branchen. Die Plattform umfasst SAR-gestutztes Monitoring, Souveranitatskontrollen und Artikel-12-Logging fur compliance-sensitive Workflows.",
+              aegisBody3:
+                "Aegis ist fur europaische souverane Cloud-Umgebungen und ausgewahlte private Enterprise-Clouds verfugbar. Die Positionierung richtet sich an Organisationen im finnischen Verteidigungs- und Deep-Tech-Okosystem sowie an andere regulierte Betreiber mit Bedarf an auditierbarer KI.",
+              aegisPrimary: "Mehr erfahren",
+              archiveHeading: "Ausgewahltes Archiv",
+              archive1Title:
+                "Lifetime Oy positioniert DWS IQ 6 als Deep-Tech-Compliance-Engine mit 333.000 EUR Kostenvorteil pro Jahr",
+              archive1Summary:
+                "Drei proprietare Saulen: Lifetime World Model, NVIDIA-Jetson-Edge-AI und modellagnostische MCP-Orchestrierung.",
+              archive2Title:
+                "Lifetime Oy offnet Platinum Industry Captain Seats fur Europas fuhrende Fit-for-55-Plattform",
+              archive2Summary:
+                "8 Platinum Industry Captain Seats zu je 50.000 EUR SAFE. Erste Tranche uber 500.000 EUR bei einer Bewertungsobergrenze von 3,8 Mio. EUR.",
+              subscribeTitle: "OneLifetime Presse- und Blog-Updates abonnieren",
+              subscribeSub:
+                "Erhalten Sie DWS-Pressemitteilungen und Lifetime Scope Monthly direkt in Ihr Postfach. Folgen Sie uns auf LinkedIn und X. Presseanfragen an risto@onelifetime.world.",
+              subscribePlaceholder: "sie@unternehmen.de",
+              subscribeButton: "Abonnieren",
+              subscribeNote:
+                'Mit dem Absenden stimmen Sie der <a href="https://dws10.com/privacy-policy/">Datenschutzerklarung</a> von Lifetime Oy zu. Double opt-in. Abmeldung jederzeit moglich.',
+            },
+            fr: {
+              pageTitle: "Presse et medias | Lifetime Oy",
+              metaDescription:
+                "Communiques de presse officiels, prises de position media et coordonnees de Lifetime Oy pour les gammes DWS IQ et Firehorse.",
+              heroKicker: "Hub media officiel",
+              heroTitle: "Presse et medias",
+              heroIntro:
+                "Communiques de presse officiels, prises de position media et coordonnees de Lifetime Oy pour les gammes DWS IQ et Firehorse. Cette page est le point de reference public pour les annonces de lancement, les communications de lentreprise et une selection de ressources presse.",
+              badgeData: "Residence des donnees UE",
+              badgeStatements: "Declarations officielles",
+              badgeContact: "Contact presse disponible",
+              contactKicker: "Contact presse",
+              contactName: "Risto Anton Paarni, fondateur et CEO",
+              contactCompany: "Lifetime Oy · Espoo, Finlande",
+              featuredHeading: "Communiques mis en avant",
+              product: "Produit",
+              position: "Position",
+              partnership: "Partenariat",
+              launch: "Lancement",
+              investor: "Investisseur",
+              pr1Title:
+                "KYA est la colonne identitaire sous MCP Apps - chaque nouveau standard ouvert rend Know Your Agent plus necessaire, et non moins",
+              pr1Body:
+                '<strong class="text-gray-200">HELSINKI</strong> - Apres le lancement de AAIF MCP Apps, qui transforme les serveurs Model Context Protocol en interfaces interactives dans ChatGPT, Claude, Goose et VS Code, Lifetime Oy publie sa position: les surfaces dagents interactives ont besoin de plus de liaison didentite, pas moins. KYA relie chaque agent a un humain verifie, avec TC-4 Leash Snap pour une revocation en une action.',
+              pr1Quote:
+                '"MCP Apps etend la frontiere. KYA est la colonne en dessous. Chaque nouveau standard ouvert rend KYA plus necessaire, pas moins."',
+              pr2Title:
+                "La pile souveraine de lUE confirmee: Aiven (Helsinki) + Scaleway (Paris) + KYA - une flotte dagents compliance qualifies par client",
+              pr2Body:
+                '<strong class="text-gray-200">HELSINKI</strong> - En reponse au billet Microsoft Foundry de Satya Nadella, Lifetime Oy publie larchitecture sous DWS IQ 6: Foundry resout la moitie sandbox; KYA resout la moitie identite. Le socle souverain repose sur Aiven et Scaleway. Chaque client UE recoit une flotte dagents compliance qualifies dans des MicroVM dediees - zero exposition au CLOUD Act.',
+              primaryCta: "Lire larticle",
+              secondaryCta: "Communique complet",
+              pr2Quote:
+                '"Nadella resout la moitie sandbox. KYA resout la moitie identite. Aiven et Scaleway tiennent le socle souverain europeen."',
+              aegisTitle:
+                "Lifetime Oy lance DWS IQ Aegis pour les operations reglementees et dual-use",
+              aegisBody1:
+                '<strong class="text-gray-200">HELSINKI</strong> - Lifetime Oy a annonce DWS IQ Aegis, une plateforme IA souveraine europeenne pour les organisations de defense, les fabricants dual-use et dautres operateurs reglementes. Le lancement combine gouvernance IA, journalisation compliance, supervision de la souverainete et intelligence operationnelle assistee par SAR dans un seul modele de deploiement.',
+              aegisQuote:
+                '"Les operateurs europeens de defense et les acteurs reglementes ont besoin de systemes IA deployables sous leurs propres regles de gouvernance. Aegis a ete concu pour offrir auditabilite, controles de souverainete et visibilite operationnelle sur une seule plateforme."',
+              aegisBody2:
+                "DWS IQ Aegis reunit six agents IA specialises sous le cadre KYA, couvrant 25 industries reglementees de lUE. La plateforme comprend supervision assistee par SAR, controles de souverainete et journalisation article 12 pour les workflows sensibles en matiere de compliance.",
+              aegisBody3:
+                "Aegis est disponible pour un deploiement sur cloud souverain europeen et sur certains environnements cloud prives dentreprise. Le positionnement vise les organisations du secteur defense et deep tech finlandais ainsi que dautres operateurs reglementes exigeant une IA auditable.",
+              aegisPrimary: "En savoir plus",
+              archiveHeading: "Archives selectionnees",
+              archive1Title:
+                "Lifetime Oy positionne DWS IQ 6 comme moteur deep tech de compliance avec un avantage de cout de 333 000 EUR par an",
+              archive1Summary:
+                "Trois piliers proprietaires: Lifetime World Model, edge AI NVIDIA Jetson et orchestration MCP agnostique au modele.",
+              archive2Title:
+                "Lifetime Oy ouvre des places Platinum Industry Captain pour la plateforme Fit for 55 leader en Europe",
+              archive2Summary:
+                "8 places Platinum Industry Captain a 50 000 EUR SAFE chacune. Premiere tranche de 500 000 EUR avec plafond de valorisation a 3,8 M EUR.",
+              subscribeTitle: "Recevoir les mises a jour presse et blog OneLifetime",
+              subscribeSub:
+                "Recevez les communiques DWS et Lifetime Scope Monthly directement dans votre boite mail. Suivez-nous sur LinkedIn et X. Pour la presse: risto@onelifetime.world.",
+              subscribePlaceholder: "vous@entreprise.fr",
+              subscribeButton: "Sabonner",
+              subscribeNote:
+                'En envoyant ce formulaire, vous acceptez la <a href="https://dws10.com/privacy-policy/">politique de confidentialite</a> de Lifetime Oy. Double opt-in. Desinscription a tout moment.',
+            },
+          };
+
+          function setText(selector, value) {
+            const element = document.querySelector(selector);
+            if (element) element.textContent = value;
+          }
+
+          function setHtml(selector, value) {
+            const element = document.querySelector(selector);
+            if (element) element.innerHTML = value;
+          }
+
+          function applyPressLanguage(lang) {
+            const t = pressTranslations[lang] || pressTranslations.en;
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            const metaDescription = document.querySelector('meta[name="description"]');
+            const ogDescription = document.querySelector('meta[property="og:description"]');
+            if (metaDescription) metaDescription.setAttribute("content", t.metaDescription);
+            if (ogDescription) ogDescription.setAttribute("content", t.metaDescription);
+
+            setText("#press-kicker", t.heroKicker);
+            setText("#press-title", t.heroTitle);
+            setText("#press-badge-data", t.badgeData);
+            setText("#press-badge-statements", t.badgeStatements);
+            setText("#press-badge-contact", t.badgeContact);
+            setText("#press-contact-kicker", t.contactKicker);
+            setText("#press-contact-name", t.contactName);
+            setText("#press-contact-company", t.contactCompany);
+            setText("#press-featured-heading", t.featuredHeading);
+            setText("#pr1-tag-product", t.product);
+            setText("#pr1-tag-position", t.position);
+            setText("#pr2-tag-partnership", t.partnership);
+            setText("#pr2-tag-product", t.product);
+            setText("#aegis-tag-launch", t.launch);
+            setText("#aegis-tag-product", t.product);
+            setText("#press-archive-heading", t.archiveHeading);
+            setText("#archive-1-tag", t.product);
+            setText("#archive-2-tag", t.investor);
+            setText("#pr1-title", t.pr1Title);
+            setText("#pr1-quote", t.pr1Quote);
+            setText("#pr1-primary", t.primaryCta);
+            setText("#pr1-secondary", t.secondaryCta);
+            setText("#pr2-title", t.pr2Title);
+            setText("#pr2-quote", t.pr2Quote);
+            setText("#pr2-primary", t.primaryCta);
+            setText("#pr2-secondary", t.secondaryCta);
+            setText("#aegis-title", t.aegisTitle);
+            setText("#aegis-primary", t.aegisPrimary);
+            setText("#aegis-secondary", t.secondaryCta);
+            setText("#archive-1-title", t.archive1Title);
+            setText("#archive-1-summary", t.archive1Summary);
+            setText("#archive-2-title", t.archive2Title);
+            setText("#archive-2-summary", t.archive2Summary);
+            setHtml("#press-intro", t.heroIntro);
+            setHtml("#pr1-body", t.pr1Body);
+            setHtml("#pr2-body", t.pr2Body);
+            setHtml("#aegis-body-1", t.aegisBody1);
+            setHtml("#aegis-body-2", t.aegisBody2);
+            setHtml("#aegis-body-3", t.aegisBody3);
+            setText("#aegis-quote", t.aegisQuote);
+
+            const subscribeHost = document.getElementById("press-subscribe");
+            if (subscribeHost) {
+              subscribeHost.setAttribute("data-title", t.subscribeTitle);
+              subscribeHost.setAttribute("data-sub", t.subscribeSub);
+
+              const subscribeTitle = subscribeHost.querySelector(".dws-ps-title");
+              const subscribeSub = subscribeHost.querySelector(".dws-ps-sub");
+              const subscribeInput = subscribeHost.querySelector(".dws-ps-input");
+              const subscribeButton = subscribeHost.querySelector(".dws-ps-btn");
+              const subscribeNote = subscribeHost.querySelector(".dws-ps-note");
+
+              if (subscribeTitle) subscribeTitle.textContent = t.subscribeTitle;
+              if (subscribeSub) subscribeSub.textContent = t.subscribeSub;
+              if (subscribeInput) {
+                subscribeInput.setAttribute("placeholder", t.subscribePlaceholder);
+                subscribeInput.setAttribute("aria-label", t.subscribePlaceholder);
+              }
+              if (subscribeButton) subscribeButton.textContent = t.subscribeButton;
+              if (subscribeNote) subscribeNote.innerHTML = t.subscribeNote;
+            }
+          }
+
+          const initialLang = localStorage.getItem("dws-lang") || "en";
+          document.addEventListener("DOMContentLoaded", function () {
+            applyPressLanguage(initialLang);
+          });
+          window.addEventListener("dws-lang-change", function (event) {
+            applyPressLanguage((event.detail && event.detail.lang) || "en");
+          });
+        })();
+      </script>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-700 py-8 text-center text-xs text-gray-500" style="background: #0f172a;">
-        <p>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; Espoo, Finland</p>
-        <p class="mt-1">
-            <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ Platform</a> &middot;
-            <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Store</a> &middot;
-            <a href="/blog/" class="text-blue-400 hover:underline">Blog</a> &middot;
-            <a href="mailto:risto@onelifetime.world" class="text-blue-400 hover:underline">Contact</a>
-        </p>
-    </footer>
-</body>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
 </html>

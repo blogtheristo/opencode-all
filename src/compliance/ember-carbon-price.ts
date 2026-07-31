@@ -24,6 +24,9 @@
  * Owner: Lifetime Oy
  */
 
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import logger from '../utils/logger.js';
 
 // ============ TYPES ============
@@ -34,7 +37,13 @@ export interface CarbonPrice {
   /** Date of the price (YYYY-MM-DD) */
   date: string;
   /** Data source used */
-  source: 'ember-live' | 'ember-cached' | 'sandbag-live' | 'sandbag-cached' | 'fallback-static';
+  source:
+    | 'ember-live'
+    | 'ember-cached'
+    | 'sandbag-live'
+    | 'sandbag-cached'
+    | 'file-cache'
+    | 'fallback-static';
   /** When this data was fetched */
   fetchedAt: string;
 }
@@ -45,7 +54,13 @@ export interface CarbonPriceHistory {
   avgPrice30d: number;
   minPrice30d: number;
   maxPrice30d: number;
-  source: 'ember-live' | 'ember-cached' | 'sandbag-live' | 'sandbag-cached' | 'fallback-static';
+  source:
+    | 'ember-live'
+    | 'ember-cached'
+    | 'sandbag-live'
+    | 'sandbag-cached'
+    | 'file-cache'
+    | 'fallback-static';
   fetchedAt: string;
 }
 
@@ -57,6 +72,12 @@ const STATIC_PRICE_EUR = 65;
 /** EMBER Carbon Price API endpoint.
  * Public dataset: EU ETS settlement price (ICE ECX) */
 const EMBER_API_URL = 'https://api.ember-climate.org/v1/carbon-price/eu-ets';
+
+/** Path to the daily-persisted price file written by scripts/daily/cbam-price-fetch.sh */
+const PRICE_FILE_PATH = resolve(process.cwd(), 'config', 'cbam-price.json');
+
+/** File cache TTL: 26 hours — tolerates up to 2h daily-script drift before forcing live fetch */
+const FILE_CACHE_TTL_MS = 26 * 60 * 60 * 1000;
 
 // ============ IN-MEMORY CACHE ============
 
@@ -72,23 +93,85 @@ let historyCache: CacheEntry<CarbonPriceHistory> | null = null;
 const PRICE_CACHE_TTL_MS = 4 * 60 * 60 * 1000;
 const HISTORY_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
+// ============ FILE CACHE ============
+
+interface PersistedPriceFile {
+  priceEur: number;
+  date: string;
+  source: string;
+  fetchedAt: string;
+  validUntil?: string;
+}
+
+/**
+ * Read the price written daily by scripts/daily/cbam-price-fetch.sh.
+ * Returns null if the file is missing, unreadable, or older than FILE_CACHE_TTL_MS.
+ */
+function loadPersistedPrice(): CarbonPrice | null {
+  try {
+    const raw = readFileSync(PRICE_FILE_PATH, 'utf8');
+    const parsed = JSON.parse(raw) as PersistedPriceFile;
+
+    if (typeof parsed.priceEur !== 'number' || parsed.priceEur <= 0) return null;
+    if (typeof parsed.fetchedAt !== 'string' || typeof parsed.date !== 'string') return null;
+
+    // Reject seed-fallback entries — they carry no live data
+    if (parsed.source === 'seed-fallback') return null;
+
+    const fetchedAtMs = new Date(parsed.fetchedAt).getTime();
+    if (!Number.isFinite(fetchedAtMs)) return null;
+
+    const dateMs = new Date(parsed.date).getTime();
+    if (!Number.isFinite(dateMs)) return null;
+
+    const age = Date.now() - fetchedAtMs;
+    if (age > FILE_CACHE_TTL_MS) return null;
+
+    return {
+      priceEur: parsed.priceEur,
+      date: parsed.date,
+      source: 'file-cache',
+      fetchedAt: parsed.fetchedAt,
+    };
+  } catch {
+    return null;
+  }
+}
+
 // ============ PUBLIC API ============
 
 /**
  * Get latest EU ETS carbon price.
  *
- * Cascade: 1) cache  2) EMBER API  3) Sandbag  4) static fallback (EUR 65)
- *
- * No API key required for EMBER or Sandbag.
+ * Cascade (first success wins):
+ *   1. In-memory cache (< 4 hours)
+ *   2. Persisted file cache written by scripts/daily/cbam-price-fetch.sh (< 26 hours)
+ *   3. EMBER Climate API (live, CC BY 4.0, no key)
+ *   4. Sandbag Carbon Price Tracker (live, open)
+ *   5. Static fallback EUR 65 (2024 EU ETS average)
  */
 export async function getCarbonPrice(): Promise<CarbonPrice> {
-  // 1. Check cache
+  // 1. In-memory cache
   if (priceCache && priceCache.expiresAt > Date.now()) {
-    const cachedSource = priceCache.data.source.replace('-live', '-cached') as CarbonPrice['source'];
+    const cachedSource = priceCache.data.source.replace(
+      '-live',
+      '-cached',
+    ) as CarbonPrice['source'];
     return { ...priceCache.data, source: cachedSource };
   }
 
-  // 2. Try EMBER API
+  // 2. File cache (written daily by cbam-price-fetch.sh — survives process restarts)
+  const persisted = loadPersistedPrice();
+  if (persisted) {
+    priceCache = { data: persisted, expiresAt: Date.now() + PRICE_CACHE_TTL_MS };
+    logger.info('CBAM price loaded from file cache', {
+      price: persisted.priceEur,
+      date: persisted.date,
+    });
+    return persisted;
+  }
+
+  // 3. Try EMBER API
   try {
     const price = await fetchEmberLatestPrice();
     priceCache = { data: price, expiresAt: Date.now() + PRICE_CACHE_TTL_MS };
@@ -100,7 +183,7 @@ export async function getCarbonPrice(): Promise<CarbonPrice> {
     });
   }
 
-  // 3. Try Sandbag Carbon Price Tracker
+  // 4. Try Sandbag Carbon Price Tracker
   try {
     const price = await fetchSandbagLatestPrice();
     priceCache = { data: price, expiresAt: Date.now() + PRICE_CACHE_TTL_MS };
@@ -112,7 +195,7 @@ export async function getCarbonPrice(): Promise<CarbonPrice> {
     });
   }
 
-  // 4. Static fallback
+  // 5. Static fallback
   return {
     priceEur: STATIC_PRICE_EUR,
     date: new Date().toISOString().slice(0, 10),
@@ -180,7 +263,7 @@ export function clearCarbonPriceCache(): void {
 
 async function fetchEmberLatestPrice(): Promise<CarbonPrice> {
   const response = await fetch(`${EMBER_API_URL}/latest`, {
-    headers: { 'Accept': 'application/json' },
+    headers: { Accept: 'application/json' },
     signal: AbortSignal.timeout(10_000),
   });
 
@@ -188,7 +271,7 @@ async function fetchEmberLatestPrice(): Promise<CarbonPrice> {
     throw new Error(`EMBER API ${response.status}: ${response.statusText}`);
   }
 
-  const data = await response.json() as Record<string, unknown>;
+  const data = (await response.json()) as Record<string, unknown>;
 
   // EMBER API returns: { price: number, currency: "EUR", date: "YYYY-MM-DD", unit: "tCO2" }
   const priceEur = typeof data.price === 'number' ? round2(data.price) : STATIC_PRICE_EUR;
@@ -206,19 +289,16 @@ async function fetchEmberHistory(): Promise<CarbonPriceHistory> {
   const endDate = new Date().toISOString().slice(0, 10);
   const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
-  const response = await fetch(
-    `${EMBER_API_URL}?start_date=${startDate}&end_date=${endDate}`,
-    {
-      headers: { 'Accept': 'application/json' },
-      signal: AbortSignal.timeout(15_000),
-    },
-  );
+  const response = await fetch(`${EMBER_API_URL}?start_date=${startDate}&end_date=${endDate}`, {
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(15_000),
+  });
 
   if (!response.ok) {
     throw new Error(`EMBER API ${response.status}: ${response.statusText}`);
   }
 
-  const data = await response.json() as Record<string, unknown>;
+  const data = (await response.json()) as Record<string, unknown>;
 
   // EMBER returns array of { date, price, currency }
   const rawPrices = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : [];
@@ -231,10 +311,12 @@ async function fetchEmberHistory(): Promise<CarbonPriceHistory> {
   }));
 
   const priceValues = prices.map((p) => p.priceEur);
-  const latestPrice = priceValues.length > 0 ? priceValues[priceValues.length - 1] : STATIC_PRICE_EUR;
-  const avgPrice30d = priceValues.length > 0
-    ? round2(priceValues.reduce((s, p) => s + p, 0) / priceValues.length)
-    : STATIC_PRICE_EUR;
+  const latestPrice =
+    priceValues.length > 0 ? priceValues[priceValues.length - 1] : STATIC_PRICE_EUR;
+  const avgPrice30d =
+    priceValues.length > 0
+      ? round2(priceValues.reduce((s, p) => s + p, 0) / priceValues.length)
+      : STATIC_PRICE_EUR;
 
   return {
     prices,
@@ -256,7 +338,7 @@ const SANDBAG_API_URL = 'https://sandbag.be/api/carbon-price/latest';
 
 async function fetchSandbagLatestPrice(): Promise<CarbonPrice> {
   const response = await fetch(SANDBAG_API_URL, {
-    headers: { 'Accept': 'application/json' },
+    headers: { Accept: 'application/json' },
     signal: AbortSignal.timeout(10_000),
   });
 
@@ -264,7 +346,7 @@ async function fetchSandbagLatestPrice(): Promise<CarbonPrice> {
     throw new Error(`Sandbag API ${response.status}: ${response.statusText}`);
   }
 
-  const data = await response.json() as Record<string, unknown>;
+  const data = (await response.json()) as Record<string, unknown>;
   const priceEur = typeof data.price === 'number' ? round2(data.price) : STATIC_PRICE_EUR;
   const date = typeof data.date === 'string' ? data.date : new Date().toISOString().slice(0, 10);
 

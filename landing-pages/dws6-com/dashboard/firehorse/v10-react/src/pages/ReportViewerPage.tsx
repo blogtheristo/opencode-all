@@ -5,7 +5,7 @@
  * Report metadata is fetched from Supabase.
  */
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
@@ -94,7 +94,7 @@ export function ReportViewerPage() {
     : reports.filter((r) => r.type === filterType);
 
   const handleDownload = useCallback((reportId: string) => {
-    const url = `${API_BASE}/v1/reports/${reportId}/download`;
+    const url = `${API_BASE}/api/v1/reports/${reportId}/download`;
     window.open(url, '_blank', 'noopener,noreferrer');
   }, []);
 
@@ -218,58 +218,13 @@ export function ReportViewerPage() {
           </div>
         )}
 
-        {/* Preview Modal */}
+        {/* Preview Modal — PDF iframe or HTML fallback */}
         {previewReport && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="bg-gray-900 border border-gray-700 rounded-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col">
-              {/* Modal Header */}
-              <div className="flex items-center justify-between p-5 border-b border-gray-800">
-                <div>
-                  <h2 className="text-lg font-semibold text-white">{previewReport.title}</h2>
-                  <p className="text-xs text-gray-400 mt-0.5">
-                    {previewReport.type} &middot; {previewReport.project_name} &middot; {previewReport.period}
-                  </p>
-                </div>
-                <button
-                  onClick={closePreview}
-                  className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
-                  aria-label="Close preview"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Modal Body - Placeholder */}
-              <div className="flex-1 overflow-y-auto p-8 flex items-center justify-center min-h-[300px]">
-                <div className="text-center text-gray-500">
-                  <svg className="w-12 h-12 mx-auto mb-3 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                  <p className="text-sm font-medium">Report Preview</p>
-                  <p className="text-xs mt-1">Full PDF preview will render here when the report engine is connected.</p>
-                </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="p-4 border-t border-gray-800 flex justify-end gap-2">
-                <button
-                  onClick={closePreview}
-                  className="px-4 py-2 text-sm text-gray-300 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
-                >
-                  Close
-                </button>
-                <button
-                  onClick={() => handleDownload(previewReport.id)}
-                  disabled={previewReport.status !== 'complete'}
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Download Report
-                </button>
-              </div>
-            </div>
-          </div>
+          <ReportPreviewModal
+            report={previewReport}
+            onClose={closePreview}
+            onDownload={handleDownload}
+          />
         )}
       </div>
     </div>
@@ -284,6 +239,183 @@ function mapReportType(raw: string | undefined): ReportType {
   if (normalized.includes('compliance') || normalized.includes('csrd') || normalized.includes('epbd')) return 'Compliance';
   if (normalized.includes('financial') || normalized.includes('cost')) return 'Financial';
   return 'Carbon';
+}
+
+/**
+ * Fetch a signed URL for the report PDF stored in Supabase Storage.
+ * Bucket: "reports", path: "<reportId>.pdf"
+ * Falls back to the API download endpoint if storage is unavailable.
+ */
+async function getReportPreviewUrl(reportId: string): Promise<{ url: string; type: 'pdf' | 'fallback' }> {
+  try {
+    const { data, error } = await supabase.storage
+      .from('reports')
+      .createSignedUrl(`${reportId}.pdf`, 300); // 5 min expiry
+
+    if (!error && data?.signedUrl) {
+      return { url: data.signedUrl, type: 'pdf' };
+    }
+  } catch {
+    // Storage not available — fall through
+  }
+
+  // Fallback: use the API download endpoint (may trigger download instead of preview)
+  const apiUrl = `${API_BASE}/api/v1/reports/${reportId}/download`;
+  return { url: apiUrl, type: 'fallback' };
+}
+
+function ReportPreviewModal({
+  report,
+  onClose,
+  onDownload,
+}: {
+  report: Report;
+  onClose: () => void;
+  onDownload: (id: string) => void;
+}) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewType, setPreviewType] = useState<'pdf' | 'fallback' | 'loading'>('loading');
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (report.status !== 'complete') {
+      setPreviewType('fallback');
+      return;
+    }
+
+    getReportPreviewUrl(report.id).then(({ url, type }) => {
+      if (!cancelled) {
+        setPreviewUrl(url);
+        setPreviewType(type);
+      }
+    });
+
+    return () => { cancelled = true; };
+  }, [report.id, report.status]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-gray-900 border border-gray-700 rounded-xl w-full max-w-4xl mx-4 max-h-[90vh] flex flex-col">
+        {/* Modal Header */}
+        <div className="flex items-center justify-between p-5 border-b border-gray-800">
+          <div>
+            <h2 className="text-lg font-semibold text-white">{report.title}</h2>
+            <p className="text-xs text-gray-400 mt-0.5">
+              {report.type} &middot; {report.project_name} &middot; {report.period}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
+            aria-label="Close preview"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Modal Body — PDF iframe or HTML summary */}
+        <div className="flex-1 overflow-hidden min-h-[400px]">
+          {previewType === 'loading' && (
+            <div className="flex items-center justify-center h-full">
+              <div className="animate-pulse text-gray-500 text-sm">Loading preview...</div>
+            </div>
+          )}
+
+          {previewType === 'pdf' && previewUrl && (
+            <iframe
+              ref={iframeRef}
+              src={previewUrl}
+              title={`Preview: ${report.title}`}
+              className="w-full h-full border-0"
+              style={{ minHeight: '400px' }}
+            />
+          )}
+
+          {previewType === 'fallback' && (
+            <div className="p-6 overflow-y-auto h-full">
+              <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-3 h-3 rounded-full ${
+                    report.status === 'complete' ? 'bg-green-400' :
+                    report.status === 'generating' ? 'bg-yellow-400 animate-pulse' :
+                    'bg-red-400'
+                  }`} />
+                  <span className="text-sm text-gray-300 font-medium">{STATUS_LABELS[report.status]}</span>
+                </div>
+
+                <h3 className="text-white font-semibold text-lg mb-2">{report.title}</h3>
+
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mt-4">
+                  <div>
+                    <dt className="text-gray-500">Type</dt>
+                    <dd className="text-gray-200">{report.type}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-gray-500">Project</dt>
+                    <dd className="text-gray-200">{report.project_name}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-gray-500">Period</dt>
+                    <dd className="text-gray-200">{report.period}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-gray-500">Generated</dt>
+                    <dd className="text-gray-200">
+                      {new Date(report.created_at).toLocaleDateString('en-GB', {
+                        day: 'numeric', month: 'short', year: 'numeric',
+                      })}
+                    </dd>
+                  </div>
+                  {report.file_size_kb > 0 && (
+                    <div>
+                      <dt className="text-gray-500">File Size</dt>
+                      <dd className="text-gray-200">{report.file_size_kb} KB</dd>
+                    </div>
+                  )}
+                </dl>
+
+                {report.status !== 'complete' && (
+                  <p className="text-xs text-gray-500 mt-4">
+                    {report.status === 'generating'
+                      ? 'This report is still being generated. Check back shortly.'
+                      : 'Report generation failed. Please retry or contact support.'}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Modal Footer */}
+        <div className="p-4 border-t border-gray-800 flex justify-end gap-2">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-300 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+          >
+            Close
+          </button>
+          <button
+            onClick={() => onDownload(report.id)}
+            disabled={report.status !== 'complete'}
+            className="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Download Report
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function getDemoReports(): Report[] {

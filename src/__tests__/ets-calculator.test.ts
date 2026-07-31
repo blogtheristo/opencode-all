@@ -5,9 +5,9 @@
  * and cost estimation with real EU benchmark factors.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { calculateETS, estimateETSCost, type ETSInstallation } from '../compliance/ets-calculator.js';
-import { ETS_EMISSION_FACTORS, ETS_CARBON_PRICE_EUR } from '../compliance/emission-factors.js';
+import { ETS_CARBON_PRICE_EUR, ETS_EMISSION_FACTORS } from '../compliance/emission-factors.js';
 
 describe('ETS Calculator', () => {
   const steelPlant: ETSInstallation = {

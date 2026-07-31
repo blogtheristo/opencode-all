@@ -1,0 +1,242 @@
+#!/usr/bin/env node
+/**
+ * skill-manifest-sync.mjs — canonical skills manifest checker / sync tool
+ *
+ * Source of truth: skills/manifest.json
+ *
+ * Modes:
+ *   --check         Validate manifest entries vs disk and verify guide matrix sync.
+ *   --matrix        Print the generated surface matrix markdown to stdout.
+ *   --write-guide   Replace the generated matrix block inside docs/DWS_SKILLS_GUIDE.md.
+ *   --antigravity   Generate .antigravity/agents/*.yaml stubs for supported admin skills.
+ */
+
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const MANIFEST_PATH = path.join(ROOT, "skills", "manifest.json");
+const GUIDE_PATH = path.join(ROOT, "docs", "DWS_SKILLS_GUIDE.md");
+const ANTIGRAVITY_DIR = path.join(ROOT, ".antigravity", "agents");
+const MATRIX_START = "<!-- skills-surface-matrix:start -->";
+const MATRIX_END = "<!-- skills-surface-matrix:end -->";
+
+const args = new Set(process.argv.slice(2));
+
+function fail(message) {
+  console.error(`ERROR: ${message}`);
+  process.exit(1);
+}
+
+function readJson(filePath) {
+  return JSON.parse(readFileSync(filePath, "utf8"));
+}
+
+function getActiveCommandFiles() {
+  const dir = path.join(ROOT, ".claude", "commands");
+  return readdirSync(dir)
+    .filter((file) => file.endsWith(".md") && !file.endsWith(".OLD"))
+    .sort()
+    .map((file) => path.join(".claude", "commands", file).replaceAll("\\", "/"));
+}
+
+function getActiveSkillFiles() {
+  const dir = path.join(ROOT, "skills");
+  return readdirSync(dir)
+    .filter((name) => !name.endsWith("_OLD"))
+    .map((name) => path.join(dir, name))
+    .filter((fullPath) => existsSync(fullPath) && !path.basename(fullPath).includes("."))
+    .filter((fullPath) => existsSync(path.join(fullPath, "SKILL.md")))
+    .sort()
+    .map((fullPath) => path.relative(ROOT, path.join(fullPath, "SKILL.md")).replaceAll("\\", "/"));
+}
+
+function expandEntries(manifest) {
+  return manifest.entries.map((entry) => {
+    const profile = manifest.profiles[entry.profile];
+    if (!profile) {
+      fail(`Entry "${entry.name}" references unknown profile "${entry.profile}"`);
+    }
+    return {
+      ...profile,
+      ...entry,
+      transport: [...(profile.transport ?? []), ...(entry.transport ?? [])],
+      surfaceSupport: {
+        ...(profile.surfaceSupport ?? {}),
+        ...(entry.surfaceSupport ?? {}),
+      },
+      visibility: entry.visibility ?? profile.visibility,
+      status: entry.status ?? profile.status,
+      note: entry.note ?? profile.note,
+    };
+  });
+}
+
+function validateManifest(manifest, entries) {
+  const commandFilesOnDisk = new Set(getActiveCommandFiles());
+  const skillFilesOnDisk = new Set(getActiveSkillFiles());
+  const manifestCommandFiles = new Set();
+  const manifestSkillFiles = new Set();
+  const ids = new Set();
+  const failures = [];
+
+  for (const entry of entries) {
+    const entryId = entry.id ?? entry.name;
+    if (ids.has(entryId)) failures.push(`Duplicate manifest entry id: ${entryId}`);
+    ids.add(entryId);
+
+    if (entry.commandFile) {
+      manifestCommandFiles.add(entry.commandFile);
+      if (!existsSync(path.join(ROOT, entry.commandFile))) {
+        failures.push(`Missing command file for ${entry.name}: ${entry.commandFile}`);
+      }
+    }
+
+    if (entry.skillPackFile) {
+      manifestSkillFiles.add(entry.skillPackFile);
+      if (!existsSync(path.join(ROOT, entry.skillPackFile))) {
+        failures.push(`Missing skill file for ${entry.name}: ${entry.skillPackFile}`);
+      }
+    }
+
+    for (const surface of manifest.surfaces) {
+      if (!(surface.id in entry.surfaceSupport)) {
+        failures.push(`Entry ${entry.name} is missing support flag for surface ${surface.id}`);
+      }
+    }
+  }
+
+  for (const file of commandFilesOnDisk) {
+    if (!manifestCommandFiles.has(file)) failures.push(`Unregistered command file: ${file}`);
+  }
+  for (const file of skillFilesOnDisk) {
+    if (!manifestSkillFiles.has(file)) failures.push(`Unregistered skill file: ${file}`);
+  }
+
+  return failures;
+}
+
+function statusCell(value, status) {
+  if (!value) return "❌";
+  if (status === "experimental" || status === "deferred") return "⚠️";
+  return "✅";
+}
+
+function buildMatrix(manifest, entries) {
+  const header = [
+    MATRIX_START,
+    `<!-- generated: ${manifest.updated} -->`,
+    "",
+    "| Skill | Kind | Status | Visibility | Win11 CLI | Desktop | Web | iOS | Android | Chromebook/Antigravity | Transport | Notes |",
+    "| ----- | ---- | ------ | ---------- | --------- | ------- | --- | --- | ------- | ---------------------- | --------- | ----- |",
+  ];
+
+  const rows = entries
+    .slice()
+    .sort((a, b) => (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name))
+    .map((entry) => {
+      const cells = manifest.surfaces.map((surface) =>
+        statusCell(entry.surfaceSupport[surface.id], entry.status),
+      );
+      return `| \`${entry.displayName ?? entry.name}\` | ${entry.kind} | ${entry.status} | ${entry.visibility} | ${cells.join(" | ")} | ${entry.transport.join(", ")} | ${entry.note} |`;
+    });
+
+  const footer = ["", MATRIX_END];
+  return [...header, ...rows, ...footer].join("\n");
+}
+
+function replaceGeneratedBlock(filePath, startMarker, endMarker, replacement) {
+  const original = readFileSync(filePath, "utf8");
+  const start = original.indexOf(startMarker);
+  const end = original.indexOf(endMarker);
+  if (start === -1 || end === -1 || end < start) {
+    fail(`Could not find guide markers in ${path.relative(ROOT, filePath)}`);
+  }
+  const before = original.slice(0, start);
+  const after = original.slice(end + endMarker.length);
+  return `${before}${replacement}${after}`;
+}
+
+function buildAntigravityYaml(entry) {
+  const agentId = entry.antigravityAgent?.id ?? `${entry.name}-antigravity-001`;
+  const scope = entry.antigravityAgent?.scope ?? "google-admin-environment-tweak";
+  return [
+    "# DWS IQ 6 — Antigravity agent stub",
+    "# Generated by node scripts/skill-manifest-sync.mjs --antigravity",
+    "# Scope: admin@dws6.com Google environment tweaks only.",
+    "",
+    "agent:",
+    `  id: "${agentId}"`,
+    `  name: "${entry.displayName ?? entry.name}"`,
+    `  source_skill: "${entry.commandFile}"`,
+    '  owner_account: "admin@dws6.com"',
+    `  scope: "${scope}"`,
+    '  status: "active"',
+    '  surface: "chromebook-antigravity"',
+  ].join("\n");
+}
+
+function writeAntigravity(entries) {
+  mkdirSync(ANTIGRAVITY_DIR, { recursive: true });
+  for (const existing of readdirSync(ANTIGRAVITY_DIR)) {
+    if (existing.endsWith(".yaml")) {
+      rmSync(path.join(ANTIGRAVITY_DIR, existing));
+    }
+  }
+  const generated = entries.filter((entry) => entry.surfaceSupport["chromebook-antigravity"]);
+  for (const entry of generated) {
+    const filePath = path.join(ANTIGRAVITY_DIR, `${entry.id ?? entry.name}.yaml`);
+    writeFileSync(filePath, `${buildAntigravityYaml(entry)}\n`, "utf8");
+  }
+  return generated.length;
+}
+
+function checkGuideSync(matrixMarkdown) {
+  const guide = readFileSync(GUIDE_PATH, "utf8");
+  return guide.includes(matrixMarkdown);
+}
+
+const manifest = readJson(MANIFEST_PATH);
+const entries = expandEntries(manifest);
+const failures = validateManifest(manifest, entries);
+const matrixMarkdown = buildMatrix(manifest, entries);
+
+if (args.has("--matrix")) {
+  console.log(matrixMarkdown);
+}
+
+if (args.has("--write-guide")) {
+  const nextGuide = replaceGeneratedBlock(GUIDE_PATH, MATRIX_START, MATRIX_END, matrixMarkdown);
+  writeFileSync(GUIDE_PATH, nextGuide, "utf8");
+  console.log(`Updated ${path.relative(ROOT, GUIDE_PATH)} from skills/manifest.json`);
+}
+
+if (args.has("--antigravity")) {
+  const count = writeAntigravity(entries);
+  console.log(`Generated ${count} Antigravity agent stub(s) in ${path.relative(ROOT, ANTIGRAVITY_DIR)}`);
+}
+
+if (args.has("--check")) {
+  if (!checkGuideSync(matrixMarkdown)) {
+    failures.push("docs/DWS_SKILLS_GUIDE.md surface matrix is out of sync with skills/manifest.json");
+  }
+  const expectedAntigravity = entries.filter((entry) => entry.surfaceSupport["chromebook-antigravity"]);
+  for (const entry of expectedAntigravity) {
+    const filePath = path.join(ANTIGRAVITY_DIR, `${entry.id ?? entry.name}.yaml`);
+    if (!existsSync(filePath)) {
+      failures.push(`Missing Antigravity agent stub: ${path.relative(ROOT, filePath).replaceAll("\\", "/")}`);
+    }
+  }
+}
+
+if (failures.length > 0) {
+  for (const failure of failures) {
+    console.error(`- ${failure}`);
+  }
+  process.exit(1);
+}
+
+if (!args.has("--matrix") && !args.has("--write-guide") && !args.has("--antigravity") && !args.has("--check")) {
+  console.log("Usage: node scripts/skill-manifest-sync.mjs [--check] [--matrix] [--write-guide] [--antigravity]");
+}

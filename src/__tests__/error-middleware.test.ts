@@ -5,11 +5,11 @@
  * Covers the P0-RC2 backend error hardening changes.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Request, Response, NextFunction } from 'express';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextFunction, type Request, type Response } from 'express';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { requestTimeout } from '../middleware/request-timeout.js';
-import { AppError, Errors, errorHandler } from '../middleware/error-handler.js';
+import { AppError, errorHandler, Errors } from '../middleware/error-handler.js';
 
 // ============ HELPERS ============
 
@@ -20,6 +20,8 @@ function mockReq(overrides: Partial<Request> = {}): Request {
     headers: {},
     get: vi.fn(),
     ip: '127.0.0.1',
+    destroyed: false,
+    destroy: vi.fn(),
     ...overrides,
   } as unknown as Request;
 }
@@ -28,7 +30,9 @@ function mockRes(): Response {
   const res = {
     status: vi.fn().mockReturnThis(),
     json: vi.fn().mockReturnThis(),
+    end: vi.fn(),
     headersSent: false,
+    writableEnded: false,
     on: vi.fn(),
   } as unknown as Response;
   return res;
@@ -118,12 +122,15 @@ describe('requestTimeout', () => {
     // Advance past the timeout
     vi.advanceTimersByTime(150);
 
-    // next should have been called twice: once for chain, once with timeout error
-    expect(next).toHaveBeenCalledTimes(2);
-    const timeoutError = next.mock.calls[1][0];
-    expect(timeoutError).toBeInstanceOf(AppError);
-    expect(timeoutError.statusCode).toBe(408);
-    expect(timeoutError.code).toBe('REQUEST_TIMEOUT');
+    // The middleware responds directly with 408 (does not call next with error)
+    expect(next).toHaveBeenCalledTimes(1); // only the initial chain call
+    expect(res.status).toHaveBeenCalledWith(408);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        code: 'REQUEST_TIMEOUT',
+      }),
+    );
+    expect(res.end).toHaveBeenCalled();
 
     vi.useRealTimers();
   });
@@ -135,7 +142,9 @@ describe('requestTimeout', () => {
     const res = {
       ...mockRes(),
       headersSent: false,
-      on: vi.fn((event: string, cb: Function) => { listeners[event] = cb; }),
+      on: vi.fn((event: string, cb: Function) => {
+        listeners[event] = cb;
+      }),
     } as unknown as Response;
     const next = vi.fn();
 

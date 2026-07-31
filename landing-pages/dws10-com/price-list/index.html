@@ -1,0 +1,1232 @@
+<!doctype html>
+<!--
+  ============================================================================
+  DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
+  ============================================================================
+  Document: dws10.com/price-list/index.html
+  Version: 1.21
+  Effective: 2026-07-16
+  Owner: Lifetime Oy (sales@lifetime.fi)
+  Publication Status: ACTIVE
+  Language: English (primary) · Suomi · Svenska · Deutsch · Français
+  Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
+
+  Sessions & Modifications:
+    - Version 1.21 | claude/scaleway-pricing-update-19g8df | 2026-07-16 |
+        Added the "Choose your deployment" section: DWS IQ 6 delivered three ways —
+        EU-Sovereign Cloud (Scaleway SaaS, from €4,999), Dedicated Sovereign Cloud
+        (Aegis, €59,990 + €999/mo, UpCloud/Hetzner), and Sovereign On-Premise on
+        NVIDIA DGX (customer-owned hardware, air-gapped). Added a Cloud-vs-DGX
+        comparison table (capex/opex, residency, model ownership, air-gap, scaling).
+        Reference prices mirror /config/products.json — no new SKUs, no price changes.
+        (Note: meta/footer already read 1.20 while this history block still read 1.19;
+        realigned both to 1.21.)
+    - Version 1.19 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Reaffirmed all hardware prices as Finnish / EU B2B (VAT 0% reverse charge).
+        Pricing held - no drops. DGX Spark stays €5,994 turnkey, IGX Orin stays
+        €11,990 turnkey. Both set against EMEA distributor channel (not US list)
+        with our Lifetime margin baked in.
+        Added priceList.policy.marketNote, <meta dws-doc-market>, and a visible
+        "Finnish / EU B2B · VAT 0 %" line in the price-list footer so the
+        framing is explicit on every consumer of the JSON and the rendered HTML.
+    - Version 1.18 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Added LF-DGX-SPARK, LF-JETSON-NX, LF-IGX-ORIN.
+        Hardware ladder now: Jetson Nano (€764) → Jetson NX (€1,990) → Jetson AGX (€2,494)
+        → Control Room (€4,994) → DGX Spark (€5,994) → Situation Room (€8,993) → IGX Orin
+        (€11,990). Plus NVIDIA Install (€995/device) and Sovereign Model Updates
+        Subscription (€299/mo). New Boardy hero on every hardware product page:
+        "On-site sovereign AI hardware for regulated work."
+    - Version 1.17 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Added LF-JETSON-NANO (€764) and LF-JETSON-AGX (€2,494) — Jetson sensor tier.
+        Verified NVIDIA Jetson Orin Nano Super USD 249 and AGX Orin 64 GB USD 1,999.
+    - Version 1.16 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Removed 'Price AI like labor' hero (negative connotation).
+        New tagline: 'Sovereign intelligence and compliance.' + how-we-help-you-succeed line.
+        Added Control Room (€4,994), Situation Room (€8,993), NVIDIA Install (€995),
+        and Sovereign Model Updates Subscription (€299/mo) to the catalog feed.
+    - Version 1.15 | claude/ai-pricing-labor-catalog-1raj8 | 2026-05-14 |
+        Added DWS 365 / Firehorse / Agentic Commerce T3 bundles.
+    - Prior history: see priceHistory[] in /config/products.json.
+
+  Source of truth for pricing: /dws10.com/config/products.json (mirrored to
+  /landing-pages/dws10-com/config/products.json in the same commit).
+  ============================================================================
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Price List · DWS IQ Platform · Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="dws-doc-version" content="1.21" />
+    <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
+    <meta name="dws-doc-effective" content="2026-07-16" />
+    <meta name="dws-doc-status" content="ACTIVE" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="Official B2B price list, EUR, VAT 0%. Quarterly review. Single source of truth."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/price-list/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <link rel="canonical" href="https://dws10.com/price-list/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        overflow-x: clip;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.55;
+        min-height: 100vh;
+      }
+      a {
+        color: #60a5fa;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      /* Header */
+      .masthead {
+        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        padding-bottom: 24px;
+        margin-bottom: 32px;
+      }
+      .brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        color: #f1f5f9;
+        letter-spacing: 0.02em;
+      }
+      .brand img {
+        height: 36px;
+        width: 36px;
+      }
+      .brand-text {
+        font-size: 0.95rem;
+      }
+      .brand-text small {
+        display: block;
+        font-size: 0.72rem;
+        color: #94a3b8;
+        font-weight: 500;
+      }
+      .nav-links {
+        display: flex;
+        gap: 14px;
+        font-size: 0.85rem;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+      }
+      .nav-links a:hover {
+        background: rgba(59, 130, 246, 0.12);
+        color: #fff;
+        text-decoration: none;
+      }
+      h1 {
+        font-size: 2.1rem;
+        color: #f8fafc;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+
+      /* Meta bar */
+      .meta-bar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 24px 0 8px;
+        padding: 18px 20px;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(71, 85, 105, 0.35);
+        border-radius: 12px;
+      }
+      .meta-cell label {
+        display: block;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+      }
+      .meta-cell span {
+        font-weight: 600;
+        color: #f1f5f9;
+        font-size: 0.95rem;
+      }
+      .vat-banner {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(59, 130, 246, 0.14));
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin: 16px 0 32px;
+        font-size: 0.92rem;
+        color: #d1fae5;
+      }
+      .vat-banner strong {
+        color: #6ee7b7;
+      }
+
+      /* Category block */
+      .cat-block {
+        margin-bottom: 40px;
+      }
+      .cat-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+      }
+      .cat-heading h2 {
+        font-size: 1.3rem;
+        color: #f1f5f9;
+      }
+      .cat-count {
+        font-size: 0.78rem;
+        color: #94a3b8;
+      }
+
+      /* Price table */
+      .price-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(15, 23, 42, 0.55);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(71, 85, 105, 0.3);
+      }
+      .price-table thead th {
+        background: rgba(30, 41, 59, 0.9);
+        color: #cbd5e1;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.4);
+      }
+      .price-table tbody td {
+        padding: 14px;
+        border-bottom: 1px solid rgba(71, 85, 105, 0.2);
+        font-size: 0.9rem;
+        vertical-align: top;
+      }
+      .price-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .price-table tbody tr:hover {
+        background: rgba(59, 130, 246, 0.06);
+      }
+      .col-id {
+        font-family: ui-monospace, "SF Mono", Consolas, monospace;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        white-space: nowrap;
+      }
+      .col-name {
+        color: #f1f5f9;
+        font-weight: 600;
+      }
+      .col-name small {
+        display: block;
+        font-size: 0.78rem;
+        color: #94a3b8;
+        font-weight: 400;
+        margin-top: 2px;
+      }
+      .col-price {
+        font-weight: 700;
+        color: #6ee7b7;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+      }
+      .col-unit {
+        color: #cbd5e1;
+        font-size: 0.82rem;
+        white-space: nowrap;
+      }
+      .col-sku {
+        font-family: ui-monospace, "SF Mono", Consolas, monospace;
+        font-size: 0.78rem;
+        color: #94a3b8;
+      }
+      .col-link {
+        white-space: nowrap;
+      }
+      .col-link .act-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .col-link .act-btns a {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 999px;
+        border: 1px solid;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .col-link .act-btns a:hover {
+        text-decoration: none;
+        opacity: 0.82;
+      }
+      .act-card {
+        border-color: rgba(148, 163, 184, 0.35) !important;
+        color: #cbd5e1 !important;
+      }
+      .act-detail {
+        border-color: rgba(59, 130, 246, 0.5) !important;
+        color: #93c5fd !important;
+      }
+      .act-book {
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        color: #6ee7b7 !important;
+      }
+      .act-email {
+        border-color: rgba(251, 191, 36, 0.4) !important;
+        color: #fcd34d !important;
+      }
+
+      .loading,
+      .error {
+        text-align: center;
+        padding: 60px 20px;
+        color: #94a3b8;
+      }
+      .error {
+        color: #fca5a5;
+      }
+
+      /* Footer & Legal */
+      .legal {
+        margin-top: 48px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(148, 163, 184, 0.2);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+        font-size: 0.82rem;
+        color: #94a3b8;
+      }
+      .legal h3 {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #cbd5e1;
+        margin-bottom: 8px;
+      }
+      .legal p {
+        margin-bottom: 6px;
+      }
+
+      /* Print */
+      @media print {
+        body {
+          background: #fff;
+          color: #111;
+        }
+        .wrap {
+          max-width: 100%;
+          padding: 16px;
+        }
+        .nav-links,
+        .vat-banner,
+        .col-link {
+          display: none !important;
+        }
+        a {
+          color: #111;
+          text-decoration: none;
+        }
+        .price-table thead th {
+          background: #f3f4f6;
+          color: #111;
+        }
+        .price-table tbody td,
+        .masthead,
+        .legal,
+        .meta-bar {
+          border-color: #ddd !important;
+          color: #111 !important;
+        }
+        .col-name,
+        .cat-heading h2,
+        h1,
+        .brand {
+          color: #111 !important;
+        }
+        .col-price {
+          color: #065f46 !important;
+        }
+        .col-id,
+        .col-sku,
+        .col-unit,
+        .col-name small,
+        .cat-count,
+        .meta-cell label,
+        .subtitle,
+        .legal p {
+          color: #555 !important;
+        }
+        .meta-bar,
+        .price-table {
+          background: #fff !important;
+        }
+        .price-table tbody tr:hover {
+          background: transparent !important;
+        }
+      }
+
+      @media (max-width: 720px) {
+        h1 {
+          font-size: 1.6rem;
+        }
+        .price-table thead {
+          display: none;
+        }
+        .price-table,
+        .price-table tbody,
+        .price-table tr,
+        .price-table td {
+          display: block;
+          width: 100%;
+        }
+        .price-table tbody tr {
+          padding: 12px;
+          border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        .price-table tbody td {
+          padding: 3px 0;
+          border: none;
+        }
+        .price-table tbody td::before {
+          content: attr(data-label);
+          display: inline-block;
+          width: 80px;
+          color: #94a3b8;
+          font-size: 0.72rem;
+          text-transform: uppercase;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="masthead">
+        <div class="brand-row">
+          <div class="brand">
+            <img src="/DWS_IQ2026.png" alt="DWS IQ" />
+            <div class="brand-text">
+              Lifetime Oy
+              <small>DWS IQ Platform · EU Sovereign AI</small>
+            </div>
+          </div>
+          <nav class="nav-links" aria-label="Cross-page navigation">
+            <a href="/buy/">Store</a>
+            <a href="/">Home</a>
+            <a
+              href="#"
+              onclick="
+                window.print();
+                return false;
+              "
+              title="Print this price list"
+              >Print</a
+            >
+          </nav>
+        </div>
+        <h1>Sovereign intelligence and compliance.</h1>
+        <p class="subtitle">
+          Our products help your company succeed by making EU compliance, sovereign AI, and
+          on-premise hardware boring — predictable line items instead of executive risk. Official
+          DWS Skilled Agents price list. Single source of truth, reviewed quarterly.
+        </p>
+
+        <div class="meta-bar" id="metaBar">
+          <div class="meta-cell"><label>Version</label><span id="mVersion">—</span></div>
+          <div class="meta-cell"><label>Effective</label><span id="mEffective">—</span></div>
+          <div class="meta-cell"><label>Next review</label><span id="mNext">—</span></div>
+          <div class="meta-cell"><label>Currency</label><span id="mCurrency">EUR</span></div>
+          <div class="meta-cell"><label>VAT</label><span id="mVat">B2B · 0%</span></div>
+          <div class="meta-cell"><label>Payment terms</label><span id="mTerms">Net 14</span></div>
+        </div>
+
+        <div class="vat-banner">
+          <strong>B2B Pricing · VAT 0% (reverse charge).</strong>
+          All prices in EUR, excluding VAT. Finnish VAT (25.5%) is added at checkout for FI-billed
+          customers. EU intra-community supplies are reverse-charged against a valid EU VAT number.
+          Quote valid <span id="mQuote">30 days</span>.
+        </div>
+      </header>
+
+      <!-- ============================================================
+           DEPLOYMENT OPTIONS — DWS IQ 6 (added v1.21, 2026-07-16)
+           One platform, three delivery models. Cloud (EU-Sovereign SaaS +
+           Aegis single-tenant) vs Sovereign On-Premise (NVIDIA DGX).
+           Reference prices mirror /config/products.json (no new SKUs).
+           ============================================================ -->
+      <section id="deployment" class="deploy-block" aria-label="DWS IQ 6 deployment options">
+        <style>
+          .deploy-block {
+            margin: 8px 0 44px;
+            padding: 26px 24px 28px;
+            background: rgba(30, 41, 59, 0.45);
+            border: 1px solid rgba(71, 85, 105, 0.35);
+            border-radius: 14px;
+          }
+          .deploy-block .deploy-h {
+            font-size: 1.35rem;
+            color: #f1f5f9;
+            margin-bottom: 6px;
+          }
+          .deploy-block .deploy-lead {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            max-width: 820px;
+            margin-bottom: 22px;
+          }
+          .deploy-block .deploy-lead strong {
+            color: #cbd5e1;
+          }
+          .deploy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+          }
+          .deploy-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(71, 85, 105, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+          }
+          .deploy-card.is-cloud {
+            border-top: 3px solid #38bdf8;
+          }
+          .deploy-card.is-dedicated {
+            border-top: 3px solid #6ee7b7;
+          }
+          .deploy-card.is-onprem {
+            border-top: 3px solid #d4a843;
+          }
+          .deploy-tag {
+            display: inline-block;
+            align-self: flex-start;
+            font-size: 0.66rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+          }
+          .is-cloud .deploy-tag {
+            background: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+          }
+          .is-dedicated .deploy-tag {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+          }
+          .is-onprem .deploy-tag {
+            background: rgba(212, 168, 67, 0.15);
+            color: #e2c377;
+            border: 1px solid rgba(212, 168, 67, 0.4);
+          }
+          .deploy-card h3 {
+            font-size: 1.05rem;
+            color: #f1f5f9;
+            margin-bottom: 2px;
+          }
+          .deploy-card .deploy-price {
+            font-weight: 700;
+            color: #6ee7b7;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            font-variant-numeric: tabular-nums;
+          }
+          .deploy-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 14px;
+          }
+          .deploy-card li {
+            font-size: 0.84rem;
+            color: #cbd5e1;
+            padding: 4px 0 4px 18px;
+            position: relative;
+            line-height: 1.45;
+          }
+          .deploy-card li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #64748b;
+          }
+          .deploy-card .deploy-best {
+            margin-top: auto;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid rgba(71, 85, 105, 0.35);
+            padding-top: 10px;
+          }
+          .deploy-card .deploy-best strong {
+            color: #cbd5e1;
+          }
+          .deploy-compare-h {
+            font-size: 1.1rem;
+            color: #f1f5f9;
+            margin: 4px 0 4px;
+          }
+          .deploy-compare-sub {
+            color: #94a3b8;
+            font-size: 0.88rem;
+            margin-bottom: 14px;
+          }
+          .deploy-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+          }
+          .deploy-table th,
+          .deploy-table td {
+            text-align: left;
+            padding: 9px 12px;
+            border-bottom: 1px solid rgba(71, 85, 105, 0.25);
+            vertical-align: top;
+          }
+          .deploy-table thead th {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #cbd5e1;
+            background: rgba(30, 41, 59, 0.7);
+          }
+          .deploy-table td:first-child {
+            color: #94a3b8;
+            font-weight: 600;
+            white-space: nowrap;
+          }
+          .deploy-table .c-cloud {
+            color: #bae6fd;
+          }
+          .deploy-table .c-onprem {
+            color: #efd8a3;
+          }
+          .deploy-note {
+            margin-top: 16px;
+            font-size: 0.86rem;
+            color: #cbd5e1;
+            background: rgba(56, 189, 248, 0.07);
+            border-left: 3px solid #38bdf8;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.55;
+          }
+          @media print {
+            .deploy-block {
+              background: #fff;
+              border-color: #ddd;
+            }
+            .deploy-card {
+              background: #fff;
+              border-color: #ddd;
+            }
+            .deploy-h,
+            .deploy-card h3,
+            .deploy-compare-h {
+              color: #111 !important;
+            }
+            .deploy-table th,
+            .deploy-table td {
+              color: #111 !important;
+              border-color: #ddd !important;
+            }
+          }
+        </style>
+
+        <h2 class="deploy-h">Choose your deployment — one platform, three ways</h2>
+        <p class="deploy-lead">
+          DWS IQ 6 is a single agent platform delivered in three ways. You pick by
+          <strong>sovereignty posture</strong>, not by feature set — the same 18+ agent brain runs
+          in every model; only the jurisdiction, infrastructure, and ownership change. Two of the
+          three are <strong>cloud versions we host for you</strong>; the third is a
+          <strong>sovereign NVIDIA DGX solution you own and run on your own premises</strong>.
+        </p>
+
+        <div class="deploy-grid">
+          <div class="deploy-card is-cloud">
+            <span class="deploy-tag">Cloud · Multi-tenant SaaS</span>
+            <h3>EU-Sovereign Cloud</h3>
+            <div class="deploy-price">DWS IQ 6 · from €4,999 · live in 30 days</div>
+            <ul>
+              <li>Scaleway serverless (Paris / Amsterdam), French-owned (Iliad Group)</li>
+              <li>Zero US CLOUD Act exposure · EU-only Managed PostgreSQL + pgvector</li>
+              <li>Scale-to-zero, pay-per-request; nothing to operate</li>
+              <li>EU AI Act Article 12 logging built in</li>
+            </ul>
+            <div class="deploy-best">
+              <strong>Best for:</strong> EU/UK-regulated mid-market and enterprise — construction,
+              logistics, energy, manufacturing. A cost-sensitive
+              <a href="/products/cloud-pricing.html">US-Cloud posture (from €299/mo)</a> is also
+              available for non-EU-regulated workloads.
+            </div>
+          </div>
+
+          <div class="deploy-card is-dedicated">
+            <span class="deploy-tag">Cloud · Single-tenant</span>
+            <h3>Dedicated Sovereign Cloud — Aegis</h3>
+            <div class="deploy-price">DWS IQ Aegis · €59,990 + €999/mo</div>
+            <ul>
+              <li>UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, zero CLOUD Act</li>
+              <li>Aiven managed PostgreSQL (no US-incorporated vendor in the data path)</li>
+              <li>Themis control plane · Article 12 pipeline · EUDI Wallet auth</li>
+              <li>Dedicated instance, not shared tenancy</li>
+            </ul>
+            <div class="deploy-best">
+              <strong>Best for:</strong> defence, government, critical infrastructure — sovereignty
+              mandated but a physical air-gap is not.
+              <a href="/products/aegis.html">Aegis details →</a>
+            </div>
+          </div>
+
+          <div class="deploy-card is-onprem">
+            <span class="deploy-tag">On-premise · Air-gapped</span>
+            <h3>Sovereign On-Premise — NVIDIA DGX</h3>
+            <div class="deploy-price">Your hardware · you own the weights</div>
+            <ul>
+              <li>Control Room (Acer Veriton GN100) €5,294 · DGX Spark €6,694</li>
+              <li>Situation Room (2× GN100) €10,093 · IGX Orin €11,990</li>
+              <li>+ NVIDIA Model Install €995/device · Sovereign Model Updates €299/mo</li>
+              <li>Data never leaves your network · you own 100% of model weights</li>
+            </ul>
+            <div class="deploy-best">
+              <strong>Best for:</strong> steel, construction, nuclear, dual-use, classified — where
+              a physical air-gap or weight ownership is a hard requirement.
+              <a href="/products/dgx-spark.html">DGX Spark →</a>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="deploy-compare-h">Cloud vs sovereign NVIDIA DGX — the honest comparison</h3>
+        <p class="deploy-compare-sub">
+          Both paths are sovereign and both close the CLOUD Act. The real decision is capex vs opex,
+          elasticity vs ownership, and whether a physical air-gap is mandated.
+        </p>
+        <table class="deploy-table">
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th class="c-cloud">EU-Sovereign Cloud (SaaS / Aegis)</th>
+              <th class="c-onprem">Sovereign On-Premise (NVIDIA DGX)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Capital outlay</td>
+              <td class="c-cloud">None — you rent capacity</td>
+              <td class="c-onprem">Hardware capex €5,294–€11,990 per node</td>
+            </tr>
+            <tr>
+              <td>Running cost</td>
+              <td class="c-cloud">€4,999 setup (SaaS) · €999/mo (Aegis dedicated)</td>
+              <td class="c-onprem">€299/mo model updates + electricity + rack space</td>
+            </tr>
+            <tr>
+              <td>Data residency</td>
+              <td class="c-cloud">EU cloud (Paris / Amsterdam / Helsinki)</td>
+              <td class="c-onprem">Never leaves your premises</td>
+            </tr>
+            <tr>
+              <td>Model ownership</td>
+              <td class="c-cloud">Platform-hosted (dedicated instance on Aegis)</td>
+              <td class="c-onprem">You own 100% of the model weights</td>
+            </tr>
+            <tr>
+              <td>Network dependency</td>
+              <td class="c-cloud">Requires EU-cloud connectivity</td>
+              <td class="c-onprem">Fully air-gap capable — runs offline</td>
+            </tr>
+            <tr>
+              <td>Time to value</td>
+              <td class="c-cloud">30 days (SaaS); provisioned for you</td>
+              <td class="c-onprem">Hardware lead time + on-site install</td>
+            </tr>
+            <tr>
+              <td>Scaling</td>
+              <td class="c-cloud">Elastic — scale-to-zero, burst on demand</td>
+              <td class="c-onprem">Fixed to installed nodes; add boxes to grow</td>
+            </tr>
+            <tr>
+              <td>CLOUD Act exposure</td>
+              <td class="c-cloud">Zero — EU-incorporated providers</td>
+              <td class="c-onprem">Zero — no cloud in the path at all</td>
+            </tr>
+            <tr>
+              <td>Best economic fit</td>
+              <td class="c-cloud">Bursty / variable load, fast start, low ops</td>
+              <td class="c-onprem">Steady 24/7 high utilisation; air-gap required</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="deploy-note">
+          <strong>Rule of thumb.</strong> Start on <strong>EU-Sovereign Cloud</strong> — it is the
+          fastest, lowest-risk path and closes the CLOUD Act on day one. Move to
+          <strong>Aegis</strong> when you need single-tenant isolation and a full Article 12 control
+          plane. Choose the <strong>sovereign NVIDIA DGX</strong> solution when a physical air-gap
+          or 100% model-weight ownership is non-negotiable, or when a steady, high-utilisation
+          workload makes owned hardware cheaper than metered cloud over a 2–3 year horizon. Many
+          customers run both: DGX at the regulated edge, cloud for elastic burst.
+          <a href="/products/cloud-pricing.html">Compare cloud tiers →</a>
+        </p>
+      </section>
+
+      <main id="priceListMain">
+        <div class="loading">
+          <p>Loading price list…</p>
+        </div>
+      </main>
+
+      <footer class="legal">
+        <div>
+          <h3>Legal entity</h3>
+          <p id="lName">Lifetime Oy</p>
+          <p id="lAddr">Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</p>
+          <p>Business ID: <span id="lBuid">0772407-9</span></p>
+          <p>VAT ID: <span id="lVat">FI07724079</span></p>
+        </div>
+        <div>
+          <h3>Price list governance</h3>
+          <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
+          <p>Cadence: Reviewed every calendar quarter</p>
+          <p>
+            DWS Document Standard version: <strong>1.21</strong> · Effective
+            <strong>2026-07-16</strong>
+          </p>
+          <p style="margin-top: 6px">
+            Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs
+            reflect verified EU distributor and EMEA launch prices — not converted from US list.
+            NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.
+          </p>
+          <p style="margin-top: 6px">
+            v1.20 sovereign-hardware ladder (Finnish B2B): Jetson Nano €764 · Jetson NX €1,990 ·
+            Jetson AGX €2,694 · Control Room €5,294 · DGX Spark €6,694 · Situation Room €10,093 ·
+            IGX Orin €11,990 · NVIDIA Install €995/device · Sovereign Model Updates €299/mo.
+          </p>
+          <p>Source of truth: <code>dws10.com/config/products.json</code></p>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Sales: <a id="lSales" href="mailto:sales@lifetime.fi">sales@lifetime.fi</a></p>
+          <p>Phone requests via email.</p>
+          <p>
+            For a signed quote on this price list, email sales with the product IDs in the leftmost
+            column.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var CATEGORY_LABELS = {
+          platform: "Platform & Products",
+          "ai-cloud": "AI &amp; Cloud",
+          advisory: "Expert Advisory &amp; Training",
+          digital: "Digital Services",
+          hardware: "Sovereign Hardware",
+          "add-on": "Add-ons",
+          subscription: "Required Subscriptions",
+        };
+        var CATEGORY_ORDER = [
+          "platform",
+          "ai-cloud",
+          "advisory",
+          "digital",
+          "hardware",
+          "add-on",
+          "subscription",
+        ];
+        var TIER_COLOR = {
+          T0: "#94a3b8",
+          T1: "#0ea5e9",
+          T2: "#16a34a",
+          T3: "#7c3aed",
+          T4: "#dc2626",
+          land: "#ea580c",
+          meter: "#475569",
+        };
+        function tierBadge(tier) {
+          if (!tier) return "";
+          var label =
+            tier === "land" || tier === "meter"
+              ? tier.charAt(0).toUpperCase() + tier.slice(1)
+              : tier;
+          var c = TIER_COLOR[tier] || "#475569";
+          return (
+            '<span style="display:inline-block;background:' +
+            c +
+            ";color:#fff;font-size:0.7rem;font-weight:700;padding:2px 7px;" +
+            'border-radius:4px;margin-right:8px;letter-spacing:0.05em;">' +
+            label +
+            "</span>"
+          );
+        }
+        function replacesLine(p) {
+          var r = p && p.replaces;
+          if (!r || typeof r !== "object") return "";
+          var role = r.role || "human role";
+          var fte = r.fteCount;
+          var cost = r.fullyLoadedAnnualCostEUR;
+          var pct = null;
+          var price = p.price || 0;
+          var unit = p.priceUnit || "";
+          if (cost && price) {
+            var annual = unit === "per-month" ? price * 12 : unit === "per-year" ? price : null;
+            if (annual) pct = Math.round((annual / cost) * 100);
+          }
+          var tail = pct !== null ? " at ~" + pct + "% of fully loaded cost" : "";
+          var fteStr = fte === undefined || fte === null ? "?" : String(fte);
+          return (
+            '<div class="replaces-line" style="font-size:0.82rem;color:#34d399;' +
+            'margin-top:6px;font-style:italic;">Replaces ' +
+            escapeHtml(role) +
+            " ≈ " +
+            escapeHtml(fteStr) +
+            " FTE" +
+            escapeHtml(tail) +
+            ".</div>"
+          );
+        }
+        function upsellLine(p) {
+          var nxt = p && p.nextUpsellSku;
+          if (!nxt) return "";
+          return (
+            '<div class="upsell-line" style="font-size:0.78rem;color:#94a3b8;' +
+            'margin-top:2px;">Next upsell: <strong style="color:#cbd5e1;">' +
+            escapeHtml(nxt) +
+            "</strong></div>"
+          );
+        }
+
+        function eur(n) {
+          if (n === null || n === undefined) return "—";
+          try {
+            return new Intl.NumberFormat("en-IE", {
+              style: "currency",
+              currency: "EUR",
+              maximumFractionDigits: 0,
+            }).format(n);
+          } catch (e) {
+            return "€" + String(n);
+          }
+        }
+
+        function unitLabel(type) {
+          switch (type) {
+            case "hourly":
+              return "per hour";
+            case "daily":
+              return "per day";
+            case "monthly":
+              return "per month";
+            case "subscription":
+              return "per year";
+            case "one-time":
+              return "one-time";
+            default:
+              return type || "—";
+          }
+        }
+
+        function escapeHtml(s) {
+          if (s === null || s === undefined) return "";
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function fmtDate(iso) {
+          if (!iso) return "—";
+          try {
+            var d = new Date(iso);
+            return d.toISOString().slice(0, 10);
+          } catch (e) {
+            return iso;
+          }
+        }
+
+        function render(data) {
+          var pl = data.priceList || {};
+          var policy = pl.policy || {};
+          var gov = pl.governance || {};
+
+          document.getElementById("mVersion").textContent = pl.version || "—";
+          document.getElementById("mEffective").textContent = fmtDate(pl.effectiveDate);
+          document.getElementById("mNext").textContent = fmtDate(pl.nextReviewDate);
+          document.getElementById("mCurrency").textContent = policy.currency || "EUR";
+          document.getElementById("mVat").textContent =
+            policy.vatTreatment === "B2B_VAT_0" ? "B2B · 0%" : policy.vatTreatment || "—";
+          document.getElementById("mTerms").textContent = policy.paymentTerms || "Net 14";
+          document.getElementById("mQuote").textContent = policy.quoteValidity || "30 days";
+
+          if (gov.legalEntity) document.getElementById("lName").textContent = gov.legalEntity;
+          if (gov.address) document.getElementById("lAddr").textContent = gov.address;
+          if (gov.businessId) document.getElementById("lBuid").textContent = gov.businessId;
+          if (gov.vatId) document.getElementById("lVat").textContent = gov.vatId;
+          if (gov.owner) document.getElementById("lOwner").textContent = gov.owner;
+          if (gov.salesEmail) {
+            var a = document.getElementById("lSales");
+            a.href = "mailto:" + gov.salesEmail;
+            a.textContent = gov.salesEmail;
+          }
+
+          var products = data.products || {};
+          var subscriptions = data.subscriptions || {};
+          var buckets = {};
+          var archived = [];
+
+          // Merge subscriptions into the product map so they render in the
+          // "Required Subscriptions" category on the live price list page.
+          Object.keys(subscriptions).forEach(function (key) {
+            if (!products[key]) {
+              products[key] = Object.assign({ storeCategory: "subscription" }, subscriptions[key]);
+            }
+          });
+
+          Object.keys(products).forEach(function (key) {
+            var p = products[key];
+            if (!p || typeof p !== "object") return;
+            if (p.productType === "archived") {
+              archived.push(p);
+              return;
+            }
+            // Public price list never shows Blue/pilot SKUs (T0 or
+            // deploymentColor:"blue"). They remain in products.json
+            // but render only on internal pilot list.
+            if (p.deploymentColor === "blue") return;
+            var cat = p.storeCategory || "other";
+            if (!buckets[cat]) buckets[cat] = [];
+            buckets[cat].push(p);
+          });
+
+          var main = document.getElementById("priceListMain");
+          main.innerHTML = "";
+
+          var orderedCats = CATEGORY_ORDER.filter(function (c) {
+            return buckets[c] && buckets[c].length;
+          }).concat(
+            Object.keys(buckets).filter(function (c) {
+              return CATEGORY_ORDER.indexOf(c) === -1;
+            }),
+          );
+
+          orderedCats.forEach(function (cat) {
+            var list = buckets[cat];
+            list.sort(function (a, b) {
+              var ao = a.buyPageOrder == null ? 999 : a.buyPageOrder;
+              var bo = b.buyPageOrder == null ? 999 : b.buyPageOrder;
+              if (ao !== bo) return ao - bo;
+              return (a.name || "").localeCompare(b.name || "");
+            });
+
+            var block = document.createElement("section");
+            block.className = "cat-block";
+            block.innerHTML =
+              '<div class="cat-heading">' +
+              "<h2>" +
+              (CATEGORY_LABELS[cat] || cat) +
+              "</h2>" +
+              '<span class="cat-count">' +
+              list.length +
+              " product" +
+              (list.length === 1 ? "" : "s") +
+              "</span>" +
+              "</div>" +
+              '<table class="price-table"><thead><tr>' +
+              "<th>ID</th><th>Product</th><th>Price (EUR)</th><th>Unit</th>" +
+              "<th>SKU / MPN</th><th>Actions</th>" +
+              "</tr></thead><tbody>" +
+              list
+                .map(function (p) {
+                  var priceCell =
+                    p.price === 0 ? '<span style="color:#fbbf24">Free / POA</span>' : eur(p.price);
+                  var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
+                  var caption = p.caption
+                    ? '<small class="pl-caption" style="display:block;color:#1e3a5f;font-style:italic;margin:3px 0;">' +
+                      escapeHtml(p.caption) +
+                      "</small>"
+                    : "";
+                  var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
+                  var isMailto = rawDetails.indexOf("mailto:") === 0;
+                  var detailsHref = isMailto ? "" : rawDetails;
+                  var pid = escapeHtml(p.id || "");
+                  var pname = encodeURIComponent(p.name || p.id || "Product");
+                  var cardBtn =
+                    '<a class="act-card" href="/buy/#product-' +
+                    pid +
+                    '" title="Product card">Card</a>';
+                  var detailBtn = detailsHref
+                    ? '<a class="act-detail" href="' +
+                      escapeHtml(detailsHref) +
+                      '" title="Full product details">Details</a>'
+                    : "";
+                  var bookBtn =
+                    '<a class="act-book" href="/book/?service=demo&amp;product=' +
+                    pid +
+                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                  var emailBtn =
+                    '<a class="act-email" href="mailto:sales@lifetime.fi?subject=Enquiry%3A%20' +
+                    pname +
+                    '" title="Email sales">Email</a>';
+                  var btns =
+                    '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
+                  var tierHtml = tierBadge(p.tier);
+                  var anchor = replacesLine(p);
+                  var upsell = upsellLine(p);
+                  return (
+                    "<tr>" +
+                    '<td class="col-id" data-label="ID">' +
+                    escapeHtml(p.id || "") +
+                    "</td>" +
+                    '<td class="col-name" data-label="Product">' +
+                    tierHtml +
+                    escapeHtml(p.name || "") +
+                    caption +
+                    note +
+                    anchor +
+                    upsell +
+                    "</td>" +
+                    '<td class="col-price" data-label="Price">' +
+                    priceCell +
+                    "</td>" +
+                    '<td class="col-unit" data-label="Unit">' +
+                    escapeHtml(unitLabel(p.type)) +
+                    "</td>" +
+                    '<td class="col-sku" data-label="SKU">' +
+                    escapeHtml(p.mpn || p.sku || "—") +
+                    "</td>" +
+                    '<td class="col-link" data-label="Actions">' +
+                    btns +
+                    "</td>" +
+                    "</tr>"
+                  );
+                })
+                .join("") +
+              "</tbody></table>";
+            main.appendChild(block);
+          });
+
+          if (archived.length) {
+            var a = document.createElement("section");
+            a.className = "cat-block";
+            a.innerHTML =
+              '<div class="cat-heading">' +
+              '<h2 style="color:#94a3b8">Retired (not for sale)</h2>' +
+              '<span class="cat-count">' +
+              archived.length +
+              " archived</span>" +
+              "</div>" +
+              '<p style="color:#94a3b8;font-size:0.85rem;margin-bottom:10px">' +
+              "Shown for historical reference only. Not available for new purchase. Contact sales for transition options." +
+              "</p>" +
+              '<table class="price-table"><thead><tr><th>ID</th><th>Product</th><th>Last list price</th></tr></thead><tbody>' +
+              archived
+                .map(function (p) {
+                  return (
+                    "<tr>" +
+                    '<td class="col-id" data-label="ID">' +
+                    escapeHtml(p.id || "") +
+                    "</td>" +
+                    '<td class="col-name" data-label="Product">' +
+                    escapeHtml(p.name || "") +
+                    "</td>" +
+                    '<td class="col-price" data-label="Price" style="color:#94a3b8">' +
+                    eur(p.price) +
+                    "</td>" +
+                    "</tr>"
+                  );
+                })
+                .join("") +
+              "</tbody></table>";
+            main.appendChild(a);
+          }
+        }
+
+        function fail(msg) {
+          document.getElementById("priceListMain").innerHTML =
+            '<div class="error"><p>Could not load price list: ' +
+            escapeHtml(msg) +
+            "</p>" +
+            '<p style="margin-top:10px">Please refresh, or email <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a>.</p></div>';
+        }
+
+        fetch("../config/products.json", { cache: "no-store" })
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          })
+          .then(render)
+          .catch(function (e) {
+            fail(e && e.message ? e.message : "unknown error");
+          });
+      })();
+    </script>
+  </body>
+</html>

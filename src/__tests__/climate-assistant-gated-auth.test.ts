@@ -3,9 +3,9 @@
  * Tests the security fix for proper JWT token validation
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
-import express, { Express } from 'express';
+import express, { type Express } from 'express';
 import climateAssistantGatedRoutes from '../routes/climate-assistant-gated.routes.js';
 import AuthService from '../services/auth.service.js';
 

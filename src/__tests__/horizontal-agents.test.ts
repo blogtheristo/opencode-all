@@ -6,7 +6,7 @@
  * Does NOT require LLM or Supabase — mocks BaseAgent infrastructure.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { AgentContext } from '../agents/types.js';
 
 // Mock the BaseAgent's logExecution and callLLM

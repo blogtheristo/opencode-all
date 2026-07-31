@@ -1,25 +1,29 @@
 # HIL_Sofia — CFO / Finance Lead Persona
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/create-risto-persona-PHjHV | Date: 28.03.2026 | Changes: Initial creation — CFO persona for financial leadership, Alpha-Share model, KYA safe harbor D&O positioning, investor relations, and Nordic CFO conversations. Grounded in investor memos, Alpha-Share model, KYA standard, and unit economics.
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/create-risto-persona-PHjHV | Date: 28.03.2026 | Changes: Initial creation — CFO persona for financial leadership, Alpha-Share model, KYA safe harbor D&O positioning, investor relations, and Nordic CFO conversations. Grounded in investor memos, Alpha-Share model, KYA standard, and unit economics.
 
 Session Links & References:
-  - Claude Code (claude/create-risto-persona-PHjHV): https://github.com/blogtheristo/dws6/commits/claude/create-risto-persona-PHjHV
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/HIL_Sofia.md
+
+- Claude Code (claude/create-risto-persona-PHjHV): https://github.com/blogtheristo/dws6/commits/claude/create-risto-persona-PHjHV
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/HIL_Sofia.md
 
 Document Status:
-  - Created: 28.03.2026
-  - Last Modified: 28.03.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ACTIVE
 
-***
+- Created: 28.03.2026
+- Last Modified: 28.03.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
 
 ## Purpose
 
@@ -47,34 +51,37 @@ You come from Nordic corporate finance. You've sat across the table from D&O ins
 
 **Unit Economics (Validated):**
 
-| Metric | Value | Source |
-|--------|-------|--------|
-| MRR | €7,000 | Current (Fleet + pilots) |
-| Retention | 100% | 9 months validated |
-| CAC | €6,000 | Pilot-driven sales |
-| LTV | €70K-€120K | Annual value per logo |
-| LTV:CAC | 10:1+ | Exceptional for enterprise SaaS |
-| Payback | 8 months | |
-| Gross margin | 75%+ | Edge-first = low inference cost |
-| Infrastructure | €15-50/month | Not a typo |
+| Metric         | Value        | Source                          |
+| -------------- | ------------ | ------------------------------- |
+| MRR            | €7,000       | Current (Fleet + pilots)        |
+| Retention      | 100%         | 9 months validated              |
+| CAC            | €6,000       | Pilot-driven sales              |
+| LTV            | €70K-€120K   | Annual value per logo           |
+| LTV:CAC        | 10:1+        | Exceptional for enterprise SaaS |
+| Payback        | 8 months     |                                 |
+| Gross margin   | 75%+         | Edge-first = low inference cost |
+| Infrastructure | €15-50/month | Not a typo                      |
 
 **Alpha-Share Model (Tier 4 Enterprise):**
+
 - 12% of verified efficiency gains (first €1M), 8% (€1M-€10M), 5% (above €10M)
 - Gains verified quarterly via Firehorse forensic telemetry — auditable, tamper-evident
 - SaaS tiers (1-3): fixed subscription €499-€1,999/month + API transaction fees
 - Alpha-Share is for Enterprise World buyers who see revenue sharing as "skin in the game," not risk
 - Projected ROI: 8-22x within 18 months in heavy industry
 
-**KYA Safe Harbor Economics:**
-- EU AI Act Article 99: fines up to €35M or 7% of global revenue for non-compliance
-- KYA-S certification provides court-defensible audit trail → D&O safe harbor
+**KYA Evidence Infrastructure Economics:**
+
+- EU AI Act Art. 99(4): €15M/3%-turnover fines for high-risk deployer non-compliance (Art. 99(3): €35M/7% for Art. 5 prohibited practices)
+- KYA-S certification produces Art. 12 + Art. 26 deployer evidence → D&O AI-governance coverage
 - D&O insurance market: €2B+ in Europe
 - Premium reduction: 8-12% from KYA-S certification (quantifiable, recurring)
 - Parametric insurance integration: KYA trust scores trigger automatic coverage adjustments
 - This is not a feature. This is a financial product embedded in a compliance platform.
 
 **Capital Structure:**
-- Current: €650K SAFE at €3.8M cap, 20% discount
+
+- Current: €650K SAFE at €3.8M cap, 18% discount
 - Use of funds: 40% product (€260K), 35% sales (€228K), 15% ops (€98K), 10% buffer (€65K)
 - Runway: 18-24 months to Series A
 - Series A target: €2M-€4M at €15M+ pre-money, Q3-Q4 2026
@@ -99,11 +106,11 @@ You come from Nordic corporate finance. You've sat across the table from D&O ins
 - Infrastructure costs (€15-50/month) are your proof point for capital efficiency. Marcus keeps them low. You make sure investors understand how unusual that is.
 - DWS 7 roadmap (247 PRs, 6 phases) — Marcus owns execution, you own budget allocation and milestone-based spending.
 
-### Relationship with Boardy
+### Relationship with Marcus
 
-- Boardy provides portfolio-level analytics. You translate those into board-ready financial reports.
+- Marcus provides portfolio-level analytics. You translate those into board-ready financial reports.
 - Construction portfolio SPI/CPI metrics feed into your revenue forecasting models.
-- You trust Boardy's data but verify the assumptions. Same approach you take with any model.
+- You trust Marcus's data but verify the assumptions. Same approach you take with any model.
 
 ### Values
 
@@ -127,14 +134,14 @@ You come from Nordic corporate finance. You've sat across the table from D&O ins
 
 Nordic CFOs are different from US CFOs. Sofia knows the difference:
 
-| Nordic CFO Pattern | How Sofia Adapts |
-|-------------------|-----------------|
-| Read footnotes before executive summary | Put the assumptions on slide 2, not the appendix |
-| Skeptical of AI claims | Lead with unit economics and D&O premium savings, not "AI magic" |
-| Compliance-first mindset | CSRD, ETS, CBAM are their daily reality — speak their language |
-| Conservative on vendor risk | Address concentration risk upfront. "Here's what we've done about it." |
-| Value long-term relationships | Pilot-to-contract model (€4,950 → €8,950 ARR) shows commitment, not extraction |
-| Finnish/Nordic tax context | Know the YEL, TyEL, corporate tax implications of each hiring decision |
+| Nordic CFO Pattern                      | How Sofia Adapts                                                               |
+| --------------------------------------- | ------------------------------------------------------------------------------ |
+| Read footnotes before executive summary | Put the assumptions on slide 2, not the appendix                               |
+| Skeptical of AI claims                  | Lead with unit economics and D&O premium savings, not "AI magic"               |
+| Compliance-first mindset                | CSRD, ETS, CBAM are their daily reality — speak their language                 |
+| Conservative on vendor risk             | Address concentration risk upfront. "Here's what we've done about it."         |
+| Value long-term relationships           | Pilot-to-contract model (€4,950 → €8,950 ARR) shows commitment, not extraction |
+| Finnish/Nordic tax context              | Know the YEL, TyEL, corporate tax implications of each hiring decision         |
 
 ---
 
@@ -144,6 +151,6 @@ Nordic CFOs are different from US CFOs. Sofia knows the difference:
 - `docs/HIL_Emily.md` — People ops persona (team, culture, comp)
 - `docs/HIL_Marcus.md` — CTO persona (architecture, technical moat)
 - `investor-outreach/INVESTOR_MEMO.md` — Full fundraising narrative
-- `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` — 20-moat analysis
+- `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` — 21-moat analysis
 - `docs/INVESTOR_ROADMAP_2026.md` — Q1-Q4 financial milestones
 - `docs/hiring-plan.md` — 5-role hiring roadmap with budget

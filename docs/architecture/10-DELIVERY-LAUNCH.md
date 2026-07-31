@@ -1057,7 +1057,7 @@ Q4 2026: SCALE
 
 **Milestones for Next Round:**
 1. €70K MRR (10x current)
-2. 25 paying customers
+2. 26 paying customers
 3. Successful Nordic expansion
 4. SOC 2 Type II certification
 
@@ -1138,7 +1138,7 @@ Customer: _______________ Date: ___
 
 4. TRACTION
    - €7K MRR (100% retention)
-   - 5 paying customers
+   - 6 paying customers
    - NCC & T2H pilots (€100K pipeline)
    - Microsoft ISV Partner
 

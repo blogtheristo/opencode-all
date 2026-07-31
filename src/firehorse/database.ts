@@ -3,15 +3,8 @@
  * CustomerPilotLoop v1
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import {
-  Lead,
-  LeadState,
-  EventType,
-  TaskType,
-  ReplyIntent,
-  EmailTemplate,
-} from './types';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { type EmailTemplate, EventType, type Lead, type LeadState, type ReplyIntent, type TaskType } from './types';
 
 // ============================================================================
 // DATABASE CLIENT
@@ -65,9 +58,7 @@ class FirehorseDatabase {
   }
 
   async getCold2Candidates(): Promise<Lead[]> {
-    const { data, error } = await this.supabase
-      .from('firehorse_cold2_candidates')
-      .select('*');
+    const { data, error } = await this.supabase.from('firehorse_cold2_candidates').select('*');
 
     if (error) {
       console.error('Error fetching Cold 2 candidates:', error);
@@ -78,9 +69,7 @@ class FirehorseDatabase {
   }
 
   async getCold3Candidates(): Promise<Lead[]> {
-    const { data, error } = await this.supabase
-      .from('firehorse_cold3_candidates')
-      .select('*');
+    const { data, error } = await this.supabase.from('firehorse_cold3_candidates').select('*');
 
     if (error) {
       console.error('Error fetching Cold 3 candidates:', error);
@@ -218,8 +207,9 @@ class FirehorseDatabase {
    * Get country-specific context text for email personalization
    */
   async getCountryContext(countryCode: string): Promise<string> {
-    const { data, error } = await this.supabase
-      .rpc('get_country_context', { country_code: countryCode });
+    const { data, error } = await this.supabase.rpc('get_country_context', {
+      country_code: countryCode,
+    });
 
     if (error) {
       console.error('Error fetching country context:', error);
@@ -279,5 +269,15 @@ class FirehorseDatabase {
   }
 }
 
-// Export singleton instance
-export const db = new FirehorseDatabase();
+// Export lazy singleton — defers construction until first use so that
+// importing this module doesn't throw when SUPABASE_URL is unset (e.g. tests).
+let _db: FirehorseDatabase | null = null;
+export const db = new Proxy({} as FirehorseDatabase, {
+  get(_target, prop, receiver) {
+    if (!_db) {
+      _db = new FirehorseDatabase();
+    }
+    const val = Reflect.get(_db, prop, receiver);
+    return typeof val === 'function' ? val.bind(_db) : val;
+  },
+});

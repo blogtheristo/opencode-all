@@ -311,7 +311,7 @@ Using Zvec (Alibaba) would undermine the **CLOUD Act Free** positioning. While t
 │  Spatial Map + Temporal Timeline + Causal Logic              │
 │  • Edge vectors sync to cloud for LWM training              │
 │  • Cloud vectors inform LWM reasoning                       │
-│  • Aiwen layer logs all vector operations (Article 12)      │
+│  • Sovereignty audit logs all vector operations (Article 12) │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -348,7 +348,7 @@ When the LWM needs to make a causal inference (e.g., "Will this equipment fail?"
 2. **Similarity search**: Finds nearest historical patterns from maintenance records
 3. **Cloud enrichment**: pgvector retrieves relevant regulatory requirements and manufacturer specs
 4. **LLM reasoning**: Claude/Llama processes retrieved context for decision
-5. **Aiwen logging**: Full reasoning lineage recorded for Article 12 compliance
+5. **Sovereignty audit logging**: Full reasoning lineage recorded for Article 12 compliance
 
 ### 6.4 Vector Sync Protocol (Edge ↔ Cloud)
 
@@ -439,7 +439,7 @@ For the Lifetime World Model to fully integrate vector search:
 - [ ] Sync protocol between edge and cloud defined and tested
 - [ ] Embedding models selected for each sensor type
 - [ ] Anomaly detection baselines established per equipment type
-- [ ] Article 12 logging covers all vector operations (Aiwen layer)
+- [ ] Article 12 logging covers all vector operations (sovereignty audit layer)
 - [ ] NIS2 supply chain assessment completed for vector DB components
 - [ ] Control Room dashboard shows vector search results in real-time
 - [ ] Robot navigation tested with spatial embeddings on edge

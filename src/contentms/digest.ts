@@ -15,16 +15,8 @@
 
 import logger from '../utils/logger.js';
 import emailService from '../services/email.service.js';
-import { listContent, getExpiringCertificates } from './service.js';
-import {
-  ContentItem,
-  ContentStatus,
-  ContentType,
-  ContentLanguage,
-  DigestRequest,
-  DigestResult,
-  DigestRequestSchema,
-} from './types.js';
+import { getExpiringCertificates, listContent } from './service.js';
+import { type ContentItem, type DigestRequest, DigestRequestSchema, type DigestResult } from './types.js';
 
 // ============================================================================
 // DIGEST GENERATOR
@@ -87,10 +79,7 @@ export async function generateDigest(request: DigestRequest): Promise<DigestResu
 /**
  * Generate and send digest via email.
  */
-export async function sendDigestEmail(
-  to: string,
-  request: DigestRequest,
-): Promise<void> {
+export async function sendDigestEmail(to: string, request: DigestRequest): Promise<void> {
   const digest = await generateDigest(request);
 
   if (digest.expiring_certificates.length === 0 && digest.recent_uploads.length === 0) {
@@ -101,13 +90,13 @@ export async function sendDigestEmail(
     return;
   }
 
-  const subject = request.period === 'daily'
-    ? `Evidence Vault — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
-    : `Evidence Vault Weekly — Week ${getWeekNumber(new Date())}`;
+  const subject =
+    request.period === 'daily'
+      ? `Evidence Vault — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+      : `Evidence Vault Weekly — Week ${getWeekNumber(new Date())}`;
 
-  await emailService.send({
+  await emailService.sendRawEmail({
     to,
-    from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
     subject,
     html: digest.html,
   });
@@ -128,9 +117,8 @@ function renderDigestHtml(
   recent: ContentItem[],
   request: DigestRequest,
 ): string {
-  const title = request.period === 'daily'
-    ? 'Evidence Vault — Daily Digest'
-    : 'Evidence Vault — Weekly Digest';
+  const title =
+    request.period === 'daily' ? 'Evidence Vault — Daily Digest' : 'Evidence Vault — Weekly Digest';
 
   return `
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #f1f5f9; padding: 24px;">
@@ -142,9 +130,11 @@ function renderDigestHtml(
   </div>
   ${expiring.length > 0 ? renderExpiringSection(expiring) : ''}
   ${recent.length > 0 ? renderRecentSection(recent) : ''}
-  ${expiring.length === 0 && recent.length === 0
-    ? '<p style="color: #94a3b8; text-align: center; padding: 32px 0;">No updates this period.</p>'
-    : ''}
+  ${
+    expiring.length === 0 && recent.length === 0
+      ? '<p style="color: #94a3b8; text-align: center; padding: 32px 0;">No updates this period.</p>'
+      : ''
+  }
   <div style="border-top: 1px solid #334155; padding-top: 16px; margin-top: 24px; text-align: center;">
     <p style="font-size: 12px; color: #64748b;">
       Firehorse ContentMS · Evidence Vault · Lifetime Oy
@@ -157,13 +147,10 @@ function renderExpiringSection(items: ContentItem[]): string {
   const rows = items
     .map((item) => {
       const expiresAt = item.expires_at ? new Date(item.expires_at) : null;
-      const daysLeft = expiresAt
-        ? Math.ceil((expiresAt.getTime() - Date.now()) / 86400000)
-        : null;
+      const daysLeft = expiresAt ? Math.ceil((expiresAt.getTime() - Date.now()) / 86400000) : null;
       const urgency = daysLeft !== null && daysLeft <= 7 ? '#ef4444' : '#f59e0b';
-      const daysText = daysLeft !== null
-        ? `${daysLeft} day${daysLeft === 1 ? '' : 's'} left`
-        : 'No expiry date';
+      const daysText =
+        daysLeft !== null ? `${daysLeft} day${daysLeft === 1 ? '' : 's'} left` : 'No expiry date';
 
       return `
       <tr>
@@ -199,7 +186,10 @@ function renderRecentSection(items: ContentItem[]): string {
 
   const rows = items
     .map((item) => {
-      const date = new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const date = new Date(item.created_at).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+      });
       const typeLabel = typeLabels[item.type] || item.type;
       return `
       <tr>
@@ -224,15 +214,12 @@ function renderRecentSection(items: ContentItem[]): string {
 }
 
 function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function getWeekNumber(date: Date): number {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
 }

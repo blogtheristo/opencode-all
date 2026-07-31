@@ -342,11 +342,11 @@
     <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Visit Our Store</h2>
     <div class="flex justify-center">
         <div class="max-w-2xl text-center">
-            <a href="https://lifetime.fi/buy" target="_blank" class="block">
+            <a href="https://dws10.com/buy" target="_blank" class="block">
                 <img src="./static/images/Firehorse_Store.jpg" alt="Lifetime Store" class="w-full h-auto rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300">
             </a>
             <div class="mt-8">
-                <a href="https://lifetime.fi/buy" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg transition-all shadow-md hover:shadow-lg">
+                <a href="https://dws10.com/buy" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg transition-all shadow-md hover:shadow-lg">
                     Go to Lifetime Store
                     <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 </a>
@@ -361,7 +361,21 @@
         <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">Book a Meeting</h2>
         <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
             <!-- Google Calendar Appointment Scheduling begin -->
-            <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+            <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+            <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+            <script>
+            (function() {
+              var target = document.currentScript;
+              window.addEventListener('load', function() {
+                calendar.schedulingButton.load({
+                  url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0hQGAYfzQjNr5hMzYZsTuZXPXc6F2Bd3hxP9SW_A-04MFnPwFWxGTVmUmN-TV9NqvsKhdhDlRi?gv=true',
+                  color: '#039BE5',
+                  label: 'Book a meeting',
+                  target,
+                });
+              });
+            })();
+            </script>
             <!-- end Google Calendar Appointment Scheduling -->
         </div>
     </div>

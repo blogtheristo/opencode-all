@@ -58,7 +58,7 @@ Until KYA.
 | Capability | Software Guardrails | KYA (Hardware) |
 |-----------|-------------------|----------------|
 | Agent isolation | Container / process isolation | **Firecracker MicroVM** (separate kernel) |
-| Kill time | Graceful shutdown (seconds) | **122ms** (Firehorse Snap) |
+| Kill time | Graceful shutdown (seconds) | **< 125ms (Firecracker MicroVM, AWS benchmark)** (Firehorse Snap) |
 | Tamper evidence | Application logs | **TPM 2.0 sealed** (hardware root of trust) |
 | Memory overhead | 50–200MB per container | **< 5MB** per MicroVM |
 | Boot time | Seconds | **< 125ms** |

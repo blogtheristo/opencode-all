@@ -16,22 +16,20 @@
  * Owner: Claude Code (Opus 4.6)
  */
 
-import { writeFile, mkdir } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 import { existsSync } from 'node:fs';
 import logger from '../utils/logger.js';
 import {
-  ContentItem,
-  ContentType,
-  ContentStatus,
-  ContentLanguage,
-  OmnichannelTarget,
-  OmnichannelDistributeRequest,
-  OmnichannelDistributeResult,
   AuditAction,
+  type ContentItem,
+  type OmnichannelDistributeRequest,
+  type OmnichannelDistributeResult,
+  OmnichannelTarget,
 } from './types.js';
 import { renderMarkdownToHtml } from './blog-publisher.js';
 import { recordAudit } from './audit.js';
+import { linkedInService } from '../firehorse/linkedin-service.js';
 
 // ============================================================================
 // HELPERS
@@ -64,12 +62,12 @@ function renderProductPageHtml(item: ContentItem): string {
   const bodyHtml = item.body_html || renderMarkdownToHtml(item.body_markdown);
   const sku = item.product_sku || 'N/A';
   const price = item.price_eur ? `€${item.price_eur.toLocaleString()}` : '';
-  const tags = [
-    ...(item.regulation_tags || []),
-    ...(item.custom_tags || []),
-  ];
+  const tags = [...(item.regulation_tags || []), ...(item.custom_tags || [])];
   const tagBadges = tags
-    .map((t) => `<span style="display:inline-block;padding:2px 8px;font-size:0.7rem;border-radius:3px;background:rgba(96,165,250,0.15);color:#60a5fa;margin:0 4px 4px 0;">${escapeHtml(t)}</span>`)
+    .map(
+      (t) =>
+        `<span style="display:inline-block;padding:2px 8px;font-size:0.7rem;border-radius:3px;background:rgba(96,165,250,0.15);color:#60a5fa;margin:0 4px 4px 0;">${escapeHtml(t)}</span>`,
+    )
     .join('');
 
   return `<!DOCTYPE html>
@@ -106,11 +104,15 @@ function renderProductPageHtml(item: ContentItem): string {
             ${bodyHtml}
         </div>
 
-        ${item.update_summary ? `
+        ${
+          item.update_summary
+            ? `
         <div class="mt-8 p-4 rounded-lg" style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2);">
             <p style="color: #22c55e; font-weight: 600; font-size: 0.875rem; margin-bottom: 4px;">Latest Update</p>
             <p style="color: #94a3b8; font-size: 0.875rem;">${escapeHtml(item.update_summary)}</p>
-        </div>` : ''}
+        </div>`
+            : ''
+        }
 
         <div class="mt-8">
             <a href="https://dws10.com/buy" class="inline-block px-8 py-3 rounded font-bold" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a;">
@@ -183,19 +185,27 @@ export async function distributeContent(
         }
 
         case OmnichannelTarget.LinkedIn: {
-          // STATUS: PLANNED — linkedin-service.ts is a stub (console.log only).
-          // PhantomBuster was evaluated but not deployed.
-          // No messages have ever been sent via automation.
-          // TODO: Connect to LinkedIn Marketing API or approved third-party tool.
-          logger.warn('Omnichannel: LinkedIn target is PLANNED — not connected to live API', {
+          const postText = [item.title, item.excerpt || '', item.product_sku ? `SKU: ${item.product_sku}` : '']
+            .filter(Boolean)
+            .join('\n\n');
+
+          const postUrl = item.slug ? `https://dws10.com/products/${item.slug}.html` : undefined;
+
+          const shareResult = await linkedInService.sharePost({
+            text: postText,
+            url: postUrl,
             content_id: item.id,
-            status: 'dry_run',
           });
+
           results.push({
             target,
-            success: false,
-            error: 'LinkedIn distribution not yet connected (planned)',
-            path: 'linkedin:not_connected',
+            success: shareResult.success,
+            path: shareResult.post_id
+              ? `linkedin:post:${shareResult.post_id}`
+              : shareResult.dry_run
+                ? 'linkedin:dry_run'
+                : undefined,
+            error: shareResult.error,
           });
           break;
         }

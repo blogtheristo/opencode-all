@@ -10,8 +10,8 @@
  */
 
 import pino from 'pino';
-import { ERPProvider } from './types';
-import { COMPANY_ERP_REGISTRY, CompanyERPEntry } from './company-erp-registry';
+import { type ERPProvider } from './types.js';
+import { COMPANY_ERP_REGISTRY, type CompanyERPEntry } from './company-erp-registry.js';
 
 const logger = pino({ name: 'company-erp-resolver' });
 
@@ -52,10 +52,10 @@ export function resolveCompanyERP(companyName: string): CompanyERPResolution {
   // 1. Exact match on canonical name
   for (const entry of COMPANY_ERP_REGISTRY) {
     if (entry.name.toLowerCase() === normalized) {
-      logger.info('Company ERP resolved (exact)', {
+      logger.info({
         query: companyName,
         provider: entry.erpProvider
-      });
+      }, 'Company ERP resolved (exact)');
       return {
         query: companyName,
         found: true,
@@ -69,11 +69,11 @@ export function resolveCompanyERP(companyName: string): CompanyERPResolution {
   // 2. Alias match
   for (const entry of COMPANY_ERP_REGISTRY) {
     if (entry.aliases.some(alias => alias.toLowerCase() === normalized)) {
-      logger.info('Company ERP resolved (alias)', {
+      logger.info({
         query: companyName,
         provider: entry.erpProvider,
         matchedAs: entry.name
-      });
+      }, 'Company ERP resolved (alias)');
       return {
         query: companyName,
         found: true,
@@ -85,9 +85,9 @@ export function resolveCompanyERP(companyName: string): CompanyERPResolution {
   }
 
   // 3. Not found
-  logger.warn('Company ERP not found — manual check required', {
+  logger.warn({
     query: companyName
-  });
+  }, 'Company ERP not found — manual check required');
   return {
     query: companyName,
     found: false,

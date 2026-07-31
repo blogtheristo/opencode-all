@@ -1,840 +1,946 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Series A Strategic View — Lifetime Oy | The Agent Outcome Factory</title>
-    <meta name="description" content="Lifetime Oy Series A strategic overview. Three platform products, four structural moats, EU regulatory tailwind. From convertible note to institutional round.">
-    <meta name="author" content="Lifetime Oy">
-    <meta name="robots" content="noindex, nofollow">
-    <meta property="og:title" content="Series A Strategic View — Lifetime Oy">
-    <meta property="og:description" content="The Agent Outcome Factory. Three products. Four moats. 50,000+ obligated companies.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dws10.com/series-a/">
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    <meta
+      name="description"
+      content="Lifetime Oy Series A strategic overview. Software-led, priced like labor, with software margins — DWS 365 Skilled Agents do the regulated work and deliver the signed artifact. 21-moat fortress across 4 tiers, EU regulatory tailwind. From convertible note to institutional round."
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Series A Strategic View — Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="The Agent Outcome Factory. Three products. Four moats. 50,000+ obligated companies."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/series-a/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <style>
-        :root {
-            --bg-primary: #0f172a;
-            --bg-surface: rgba(30, 41, 59, 0.7);
-            --border-subtle: rgba(255,255,255,0.1);
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --text-accent: #60a5fa;
-            --color-gold: #b8860b;
-            --color-gold-light: #d4a843;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --radius-xl: 16px;
-            --radius-full: 9999px;
-            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-        }
+      :root {
+        --bg-primary: #0f172a;
+        --bg-surface: rgba(30, 41, 59, 0.7);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --text-accent: #60a5fa;
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            color: var(--text-primary);
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            min-height: 100vh;
-            line-height: 1.7;
-        }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        color: var(--text-primary);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
+        line-height: 1.7;
+      }
 
-        /* Hero */
-        .hero {
-            position: relative;
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
+      /* Hero */
+      .hero {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 70%, rgba(184, 134, 11, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 30%, rgba(96, 165, 250, 0.06) 0%, transparent 50%);
-            pointer-events: none;
-        }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 20% 70%, rgba(184, 134, 11, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 30%, rgba(96, 165, 250, 0.06) 0%, transparent 50%);
+        pointer-events: none;
+      }
 
-        .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(184, 134, 11, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(184, 134, 11, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(184, 134, 11, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(184, 134, 11, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
 
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 120px 24px 80px;
-            text-align: center;
-        }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 120px 24px 80px;
+        text-align: center;
+      }
 
-        .hero-overline {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--color-gold);
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
+      .hero-overline {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
 
-        .hero h1 {
-            font-size: clamp(2.4rem, 5vw, 3.6rem);
-            font-weight: 800;
-            line-height: 1.08;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
+      .hero h1 {
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        font-weight: 800;
+        line-height: 1.08;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+      }
 
-        .hero-accent {
-            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+      .hero-accent {
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            max-width: 650px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
-        }
+      .hero-subtitle {
+        font-size: 1.15rem;
+        color: var(--text-secondary);
+        max-width: 650px;
+        margin: 0 auto 40px;
+        line-height: 1.7;
+      }
 
-        .hero-kpi-row {
-            display: flex;
-            gap: 32px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
+      .hero-kpi-row {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
 
-        .hero-kpi {
-            text-align: center;
-        }
+      .hero-kpi {
+        text-align: center;
+      }
 
-        .hero-kpi-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--color-gold-light);
-            display: block;
-        }
+      .hero-kpi-value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--color-gold-light);
+        display: block;
+      }
 
-        .hero-kpi-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
+      .hero-kpi-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
 
-        /* Sections */
-        .section {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 80px 24px;
-        }
+      /* Sections */
+      .section {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 80px 24px;
+      }
 
-        .section-divider {
-            border: none;
-            border-top: 1px solid var(--border-subtle);
-            margin: 0;
-        }
+      .section-divider {
+        border: none;
+        border-top: 1px solid var(--border-subtle);
+        margin: 0;
+      }
 
-        .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: var(--color-gold);
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
+      .section-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
 
-        .section-title {
-            font-size: clamp(1.5rem, 3vw, 2.1rem);
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            letter-spacing: -0.01em;
-        }
+      .section-title {
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+        letter-spacing: -0.01em;
+      }
 
-        .section-body {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            max-width: 700px;
-        }
+      .section-body {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        max-width: 700px;
+      }
 
-        .section-body strong { color: var(--text-primary); }
+      .section-body strong {
+        color: var(--text-primary);
+      }
 
-        /* Thesis grid */
+      /* Thesis grid */
+      .thesis-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
         .thesis-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 40px;
+          grid-template-columns: 1fr;
         }
+      }
 
-        @media (max-width: 768px) {
-            .thesis-grid { grid-template-columns: 1fr; }
-        }
+      .thesis-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-top: 3px solid var(--color-gold);
+        border-radius: var(--radius-lg);
+        padding: 32px 24px;
+      }
 
-        .thesis-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-top: 3px solid var(--color-gold);
-            border-radius: var(--radius-lg);
-            padding: 32px 24px;
-        }
+      .thesis-card h3 {
+        font-size: 1.1rem;
+        color: var(--color-gold-light);
+        margin-bottom: 12px;
+      }
 
-        .thesis-card h3 {
-            font-size: 1.1rem;
-            color: var(--color-gold-light);
-            margin-bottom: 12px;
-        }
+      .thesis-card p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
 
-        .thesis-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
+      .thesis-card .thesis-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gold-light);
+        margin-bottom: 8px;
+        display: block;
+      }
 
-        .thesis-card .thesis-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--color-gold-light);
-            margin-bottom: 8px;
-            display: block;
-        }
+      /* Timeline */
+      .timeline {
+        margin-top: 40px;
+      }
 
-        /* Timeline */
-        .timeline {
-            margin-top: 40px;
-        }
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 24px;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--border-subtle);
+      }
 
+      .timeline-item:last-child {
+        border-bottom: none;
+      }
+
+      @media (max-width: 600px) {
         .timeline-item {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 24px;
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border-subtle);
+          grid-template-columns: 1fr;
+          gap: 8px;
         }
+      }
 
-        .timeline-item:last-child { border-bottom: none; }
+      .timeline-date {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--color-gold-light);
+        padding-top: 2px;
+      }
 
-        @media (max-width: 600px) {
-            .timeline-item { grid-template-columns: 1fr; gap: 8px; }
-        }
+      .timeline-content h4 {
+        font-size: 1rem;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
 
-        .timeline-date {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--color-gold-light);
-            padding-top: 2px;
-        }
+      .timeline-content p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
 
-        .timeline-content h4 {
-            font-size: 1rem;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
+      .timeline-badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: var(--radius-full);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: 8px;
+      }
 
-        .timeline-content p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
+      .badge-done {
+        background: rgba(74, 222, 128, 0.15);
+        color: #4ade80;
+      }
+      .badge-now {
+        background: rgba(250, 204, 21, 0.15);
+        color: #facc15;
+      }
+      .badge-next {
+        background: rgba(96, 165, 250, 0.15);
+        color: #60a5fa;
+      }
 
-        .timeline-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: var(--radius-full);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-left: 8px;
-        }
+      /* Moat grid */
+      .moat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 32px;
+      }
 
-        .badge-done { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
-        .badge-now { background: rgba(250, 204, 21, 0.15); color: #facc15; }
-        .badge-next { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
-
-        /* Moat grid */
+      @media (max-width: 768px) {
         .moat-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 32px;
+          grid-template-columns: 1fr;
         }
+      }
 
-        @media (max-width: 768px) {
-            .moat-grid { grid-template-columns: 1fr; }
-        }
+      .moat-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-left: 4px solid var(--color-gold);
+        border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        padding: 28px;
+      }
 
-        .moat-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-left: 4px solid var(--color-gold);
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            padding: 28px;
-        }
+      .moat-card h3 {
+        font-size: 1rem;
+        color: var(--color-gold-light);
+        margin-bottom: 8px;
+      }
 
-        .moat-card h3 {
-            font-size: 1rem;
-            color: var(--color-gold-light);
-            margin-bottom: 8px;
-        }
+      .moat-card p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
 
-        .moat-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
+      /* Use of funds */
+      .funds-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-top: 32px;
+      }
 
-        /* Use of funds */
+      @media (max-width: 768px) {
         .funds-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-top: 32px;
+          grid-template-columns: repeat(2, 1fr);
         }
+      }
 
-        @media (max-width: 768px) {
-            .funds-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+      .funds-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 24px 20px;
+        text-align: center;
+      }
 
-        .funds-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 24px 20px;
-            text-align: center;
-        }
+      .funds-pct {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gold-light);
+        margin-bottom: 4px;
+      }
 
-        .funds-pct {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--color-gold-light);
-            margin-bottom: 4px;
-        }
+      .funds-label {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
 
-        .funds-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
+      /* Family office fit */
+      .fit-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 32px;
+      }
 
-        /* Family office fit */
+      @media (max-width: 768px) {
         .fit-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 32px;
+          grid-template-columns: 1fr;
         }
+      }
 
-        @media (max-width: 768px) {
-            .fit-grid { grid-template-columns: 1fr; }
-        }
+      .fit-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 28px;
+      }
 
-        .fit-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-        }
+      .fit-card h3 {
+        font-size: 1rem;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
 
-        .fit-card h3 {
-            font-size: 1rem;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
+      .fit-card p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
 
-        .fit-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
+      .fit-card .fit-icon {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        display: block;
+      }
 
-        .fit-card .fit-icon {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-            display: block;
-        }
+      /* CTA */
+      .cta-section {
+        background: linear-gradient(
+          135deg,
+          rgba(184, 134, 11, 0.12) 0%,
+          rgba(30, 41, 59, 0.9) 100%
+        );
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        border-radius: var(--radius-xl);
+        padding: 64px 36px;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 80px;
+      }
 
-        /* CTA */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(184, 134, 11, 0.12) 0%, rgba(30, 41, 59, 0.9) 100%);
-            border: 1px solid rgba(184, 134, 11, 0.2);
-            border-radius: var(--radius-xl);
-            padding: 64px 36px;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 80px;
-        }
+      .cta-section h3 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        color: var(--color-gold-light);
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
 
-        .cta-section h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            color: var(--color-gold-light);
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
+      .cta-section p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 28px;
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.7;
+      }
 
-        .cta-section p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 28px;
-            max-width: 550px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
-        }
+      .cta-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
 
-        .cta-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+      .btn-gold {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 36px;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: var(--radius-full);
+        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.3);
+        transition: all var(--transition-base);
+      }
 
-        .btn-gold {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 36px;
-            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-            color: #0f172a;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: var(--radius-full);
-            box-shadow: 0 10px 30px rgba(184, 134, 11, 0.3);
-            transition: all var(--transition-base);
-        }
+      .btn-gold:hover {
+        box-shadow: 0 15px 40px rgba(184, 134, 11, 0.4);
+        transform: translateY(-2px);
+      }
 
-        .btn-gold:hover {
-            box-shadow: 0 15px 40px rgba(184, 134, 11, 0.4);
-            transform: translateY(-2px);
-        }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 36px;
+        background: transparent;
+        color: var(--text-primary);
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: 2px solid rgba(184, 134, 11, 0.4);
+        border-radius: var(--radius-full);
+        transition: all var(--transition-base);
+      }
 
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            padding: 16px 36px;
-            background: transparent;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 2px solid rgba(184, 134, 11, 0.4);
-            border-radius: var(--radius-full);
-            transition: all var(--transition-base);
-        }
+      .btn-outline:hover {
+        border-color: var(--color-gold);
+        color: var(--color-gold-light);
+      }
 
-        .btn-outline:hover {
-            border-color: var(--color-gold);
-            color: var(--color-gold-light);
-        }
+      .sov-badges {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        justify-content: center;
+      }
 
-        .sov-badges {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 24px;
-            justify-content: center;
-        }
+      .sov-badge {
+        padding: 6px 14px;
+        background: rgba(184, 134, 11, 0.1);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--color-gold-light);
+      }
 
-        .sov-badge {
-            padding: 6px 14px;
-            background: rgba(184, 134, 11, 0.1);
-            border: 1px solid rgba(184, 134, 11, 0.2);
-            border-radius: var(--radius-md);
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--color-gold-light);
-        }
+      /* Boilerplate */
+      .boilerplate {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 24px 64px;
+      }
 
-        /* Boilerplate */
-        .boilerplate {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px 64px;
-        }
+      .boilerplate-inner {
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 32px;
+      }
 
-        .boilerplate-inner {
-            border-top: 1px solid var(--border-subtle);
-            padding-top: 32px;
-        }
+      .boilerplate p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 12px;
+      }
 
-        .boilerplate p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .boilerplate .legal {
-            font-size: 0.75rem;
-            color: #475569;
-            line-height: 1.6;
-        }
+      .boilerplate .legal {
+        font-size: 0.75rem;
+        color: #475569;
+        line-height: 1.6;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-grid"></div>
-        <div class="hero-inner">
-            <div class="hero-overline">Lifetime Oy &mdash; Series A Strategic View</div>
-            <h1>The Agent<br><span class="hero-accent">Outcome Factory</span></h1>
-            <p class="hero-subtitle">
-                50,000+ EU companies must comply with CSRD, CBAM, ETS, EU AI Act, and NIS2 by 2028.
-                We built the factory that produces their compliance outcomes &mdash;
-                autonomous AI agents that observe, think, and act. The regulatory wave is
-                legislated, not speculated.
-            </p>
+      <div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div class="hero-overline">Lifetime Oy &mdash; Series A Strategic View</div>
+        <h1>The Agent<br /><span class="hero-accent">Outcome Factory</span></h1>
+        <p class="hero-subtitle">
+          50,000+ EU companies must comply with CSRD, CBAM, ETS, EU AI Act, and NIS2 by 2028. We
+          built the factory that produces their compliance outcomes &mdash; autonomous AI agents
+          that observe, think, and act. The regulatory wave is legislated, not speculated.
+        </p>
 
-            <div class="hero-kpi-row">
-                <div class="hero-kpi">
-                    <span class="hero-kpi-value">&euro;3.8M</span>
-                    <span class="hero-kpi-label">Current Cap (Note)</span>
-                </div>
-                <div class="hero-kpi">
-                    <span class="hero-kpi-value">&euro;7k</span>
-                    <span class="hero-kpi-label">MRR (100% retention)</span>
-                </div>
-                <div class="hero-kpi">
-                    <span class="hero-kpi-value">3</span>
-                    <span class="hero-kpi-label">Platform Products</span>
-                </div>
-                <div class="hero-kpi">
-                    <span class="hero-kpi-value">20</span>
-                    <span class="hero-kpi-label">EU Industries</span>
-                </div>
-            </div>
+        <div class="hero-kpi-row">
+          <div class="hero-kpi">
+            <span class="hero-kpi-value">&euro;3.8M</span>
+            <span class="hero-kpi-label">Current Cap (Note)</span>
+          </div>
+          <div class="hero-kpi">
+            <span class="hero-kpi-value">&euro;7k</span>
+            <span class="hero-kpi-label">MRR (100% retention)</span>
+          </div>
+          <div class="hero-kpi">
+            <span class="hero-kpi-value">3</span>
+            <span class="hero-kpi-label">Platform Products</span>
+          </div>
+          <div class="hero-kpi">
+            <span class="hero-kpi-value">20</span>
+            <span class="hero-kpi-label">EU Industries</span>
+          </div>
         </div>
+      </div>
     </section>
 
-    <hr class="section-divider">
+    <hr class="section-divider" />
 
     <!-- INVESTMENT THESIS -->
     <section class="section">
-        <div class="section-label">Investment Thesis</div>
-        <h2 class="section-title">Three reasons this works.</h2>
-        <div class="section-body">
-            <p>
-                The EU has legislated compliance obligations for every industrial company.
-                We built the only agent platform that delivers those compliance outcomes
-                autonomously &mdash; across defence, climate, and ERP distribution.
-            </p>
-        </div>
+      <div class="section-label">Investment Thesis</div>
+      <h2 class="section-title">Three reasons this works.</h2>
+      <div class="section-body">
+        <p>
+          The EU has legislated compliance obligations for every industrial company. We built the
+          only agent platform that delivers those compliance outcomes autonomously &mdash; across
+          defence, climate, and ERP distribution.
+        </p>
+      </div>
 
-        <div class="thesis-grid">
-            <div class="thesis-card">
-                <span class="thesis-number">1</span>
-                <h3>Legislated Demand</h3>
-                <p>
-                    CSRD, CBAM, ETS, EU AI Act, NIS2 &mdash; these are laws, not trends.
-                    50,000+ companies must comply by 2028. The market is created by
-                    regulation, not by sales effort. Every company that files taxes
-                    will need compliance outcomes.
-                </p>
-            </div>
-            <div class="thesis-card">
-                <span class="thesis-number">2</span>
-                <h3>Agent Outcomes, Not Dashboards</h3>
-                <p>
-                    Competitors sell dashboards and manual data collection.
-                    We deploy autonomous agents that deliver audit-ready compliance
-                    documentation. Observe-think-act loops replace &euro;200k
-                    consultant engagements with &euro;2,999/mo subscriptions.
-                </p>
-            </div>
-            <div class="thesis-card">
-                <span class="thesis-number">3</span>
-                <h3>Distribution Through ERPs</h3>
-                <p>
-                    We don't sell direct to 50,000 companies. We sell through the ERPs
-                    they already use &mdash; IFS, Visma, SAP, Dynamics, Monitor, Jeeves.
-                    Six channels. Three marketplaces. The ERP is the distribution moat.
-                </p>
-            </div>
+      <div class="thesis-grid">
+        <div class="thesis-card">
+          <span class="thesis-number">1</span>
+          <h3>Legislated Demand</h3>
+          <p>
+            CSRD, CBAM, ETS, EU AI Act, NIS2 &mdash; these are laws, not trends. 50,000+ companies
+            must comply by 2028. The market is created by regulation, not by sales effort. Every
+            company that files taxes will need compliance outcomes.
+          </p>
         </div>
+        <div class="thesis-card">
+          <span class="thesis-number">2</span>
+          <h3>Agent Outcomes, Not Dashboards</h3>
+          <p>
+            Competitors sell dashboards and manual data collection. We deploy autonomous agents that
+            deliver audit-ready compliance documentation. Observe-think-act loops replace &euro;200k
+            consultant engagements with &euro;2,999/mo subscriptions.
+          </p>
+        </div>
+        <div class="thesis-card">
+          <span class="thesis-number">3</span>
+          <h3>Distribution Through ERPs</h3>
+          <p>
+            We don't sell direct to 50,000 companies. We sell through the ERPs they already use
+            &mdash; IFS, Visma, SAP, Dynamics, Monitor, Jeeves. Six channels. Three marketplaces.
+            The ERP is the distribution moat.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <hr class="section-divider">
+    <hr class="section-divider" />
 
     <!-- PRODUCT PORTFOLIO -->
     <section class="section">
-        <div class="section-label">Product Portfolio</div>
-        <h2 class="section-title">Three products prove platform breadth.</h2>
-        <div class="section-body">
-            <p>
-                Not a single-product bet. Three product lines address different buyers,
-                price points, and distribution channels &mdash; while sharing one
-                agent orchestration engine.
-            </p>
-        </div>
+      <div class="section-label">Product Portfolio</div>
+      <h2 class="section-title">Three products prove platform breadth.</h2>
+      <div class="section-body">
+        <p>
+          Not a single-product bet. Three product lines address different buyers, price points, and
+          distribution channels &mdash; while sharing one agent orchestration engine.
+        </p>
+      </div>
 
-        <div class="thesis-grid">
-            <div class="thesis-card" style="border-top-color: var(--color-gold-light);">
-                <h3>DWS IQ Aegis</h3>
-                <p style="font-size: 1.3rem; font-weight: 800; color: var(--color-gold-light); margin-bottom: 4px;">&euro;59,990</p>
-                <p style="font-size: 0.8rem; margin-bottom: 12px;">+ &euro;599/mo &mdash; EU-only</p>
-                <p>
-                    Defence &amp; dual-use platform. 20 EU industries. Orbital intelligence
-                    (ICEYE SAR), sovereignty monitoring, KYA agent governance.
-                    Government and military supply chains.
-                </p>
-            </div>
-            <div class="thesis-card" style="border-top-color: #4ade80;">
-                <h3>DWS IQ Climate Intelligence</h3>
-                <p style="font-size: 1.3rem; font-weight: 800; color: #4ade80; margin-bottom: 4px;">&euro;2,999/mo</p>
-                <p style="font-size: 0.8rem; margin-bottom: 12px;">+ &euro;4,990 setup</p>
-                <p>
-                    8 GodAgents automate EU climate compliance &mdash; ETS, CBAM, CSRD,
-                    ESRS, carbon accounting. Replaces &euro;200k consultant engagements.
-                    Recurring SaaS for 50,000+ obligated companies.
-                </p>
-            </div>
-            <div class="thesis-card" style="border-top-color: var(--text-accent);">
-                <h3>Firehorse V2</h3>
-                <p style="font-size: 1.3rem; font-weight: 800; color: var(--text-accent); margin-bottom: 4px;">ERP Stores</p>
-                <p style="font-size: 0.8rem; margin-bottom: 12px;">SAP, IFS, Visma, Dynamics, Monitor, Jeeves</p>
-                <p>
-                    Omnichannel sales, report engine, content DMS.
-                    The distribution vehicle that puts GodAgents into every
-                    connected ERP marketplace. Six partner channels.
-                </p>
-            </div>
+      <div class="thesis-grid">
+        <div class="thesis-card" style="border-top-color: var(--color-gold-light)">
+          <h3>DWS IQ Aegis</h3>
+          <p
+            style="
+              font-size: 1.3rem;
+              font-weight: 800;
+              color: var(--color-gold-light);
+              margin-bottom: 4px;
+            "
+          >
+            &euro;59,990
+          </p>
+          <p style="font-size: 0.8rem; margin-bottom: 12px">+ &euro;599/mo &mdash; EU-only</p>
+          <p>
+            Defence &amp; dual-use platform. 21 EU-regulated industries (Aegis defence/dual-use tier). Orbital
+            intelligence (ICEYE SAR), sovereignty monitoring, KYA agent governance. Government and military
+            supply chains.
+          </p>
         </div>
+        <div class="thesis-card" style="border-top-color: #4ade80">
+          <h3>DWS IQ Climate Intelligence</h3>
+          <p style="font-size: 1.3rem; font-weight: 800; color: #4ade80; margin-bottom: 4px">
+            &euro;2,999/mo
+          </p>
+          <p style="font-size: 0.8rem; margin-bottom: 12px">+ &euro;4,990 setup</p>
+          <p>
+            A fleet of skilled agents automates EU climate compliance &mdash; ETS, CBAM, CSRD, ESRS, carbon
+            accounting. Replaces &euro;200k consultant engagements. Recurring SaaS for 50,000+
+            obligated companies.
+          </p>
+        </div>
+        <div class="thesis-card" style="border-top-color: var(--text-accent)">
+          <h3>Firehorse V2</h3>
+          <p
+            style="
+              font-size: 1.3rem;
+              font-weight: 800;
+              color: var(--text-accent);
+              margin-bottom: 4px;
+            "
+          >
+            ERP Stores
+          </p>
+          <p style="font-size: 0.8rem; margin-bottom: 12px">
+            SAP, IFS, Visma, Dynamics, Monitor, Jeeves
+          </p>
+          <p>
+            Omnichannel sales, report engine, content DMS. The distribution vehicle that puts
+            Skilled Agents into every connected ERP marketplace. Six partner channels.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <hr class="section-divider">
+    <hr class="section-divider" />
 
     <!-- FOUR MOATS -->
     <section class="section">
-        <div class="section-label">Defensibility</div>
-        <h2 class="section-title">Four structural moats.</h2>
+      <div class="section-label">Defensibility</div>
+      <h2 class="section-title">21-moat fortress across 4 tiers.</h2>
+      <div class="section-body">
+        <p>
+          &euro;3&ndash;6M / 24&ndash;36 month entry barrier for competitors. Canonical framework
+          &mdash; full numbered breakdown in the V4.3 Investor Pitch Deck.
+        </p>
+      </div>
+        <p>
+          Underneath the four tiers sit the <strong>4P Capital Classes</strong> &mdash; the durable
+          value an agentic operator accumulates that a competitor cannot simply buy.
+          <strong>Prompt</strong> (codified intelligence: skills, agent configs, eval datasets),
+          <strong>People</strong> (calibrated judgment from the human-in-the-loop phase),
+          <strong>Plant</strong> (the sovereign, mobile two-room Control Room + Situation Room stack),
+          and <strong>Perception</strong> (a governed world model and a closed
+          sense&rarr;decide&rarr;act loop). Perception is the only class with data-network effects: a
+          rival can buy edge hardware, but not a year of your governed, lineage-logged observations
+          &mdash; so the moat compounds rather than erodes as foundation models commoditise.
+        </p>
 
-        <div class="moat-grid">
-            <div class="moat-card">
-                <h3>1. Regulated Payer</h3>
-                <p>
-                    KELA-backed recurring revenue. Government integration built over 17 years
-                    of operator relationships. Cannot be bought &mdash; only earned.
-                </p>
-            </div>
-            <div class="moat-card">
-                <h3>2. Agent Governance (KYA)</h3>
-                <p>
-                    Know Your Agent &mdash; sub-5ms cryptographic kill-switches via Firecracker MicroVMs.
-                    Hardware-enforced safety. No competitor has this for industrial AI.
-                </p>
-            </div>
-            <div class="moat-card">
-                <h3>3. EU Sovereignty</h3>
-                <p>
-                    Finnish hosting. Zero CLOUD Act exposure. EU AI Act Article 12 logging native.
-                    US platforms cannot replicate EU-sovereign architecture.
-                </p>
-            </div>
-            <div class="moat-card">
-                <h3>4. ERP Channel Lock</h3>
-                <p>
-                    Six ERP ecosystems: IFS, Visma, SAP, Dynamics, Monitor, Jeeves.
-                    European stores first. Distribution is the moat &mdash; not direct sales.
-                </p>
-            </div>
+      <div class="moat-grid">
+        <div class="moat-card">
+          <h3>T1 &mdash; Impossible (24&ndash;36 months)</h3>
+          <p>
+            EU/Nordic Operations + Single Market access (450M consumers), Government Validation
+            (4.2M citizens served), NCC Reference, InvestEU Portal acknowledgment, Tech Stack
+            (NVIDIA, Google, AWS, Groq). Replication cost: &euro;2.8M&ndash;6.25M.
+          </p>
         </div>
+        <div class="moat-card">
+          <h3>T2 &mdash; Very Hard (12&ndash;24 months)</h3>
+          <p>
+            NIS2 Article 21 expertise (114 requirements), Edge Computing deployed (NVIDIA Jetson
+            live), CIDM patent (filed Dec 2024), Multi-Tenant Architecture, B2B2G switching costs.
+            Replication cost: &euro;800k&ndash;1.5M.
+          </p>
+        </div>
+        <div class="moat-card">
+          <h3>T3 &mdash; Moderate (6&ndash;12 months)</h3>
+          <p>
+            Nordic languages, construction domain depth, dual product strategy (DWS + Firehorse),
+            offline capability, regulatory-first DNA. Replication cost: &euro;300k&ndash;600k.
+          </p>
+        </div>
+        <div class="moat-card">
+          <h3>T4 &mdash; Operational (3&ndash;6 months)</h3>
+          <p>
+            &euro;3.50/mo infrastructure (95% gross margin), sub-100ms latency, data benchmarking
+            network effects, skilled agents with KYA governance (hardware-attested, leash-snap
+            kill-switches), authentic positioning, AI-native dev system (KYA-audited). Replication
+            cost: &euro;150k&ndash;300k.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <hr class="section-divider">
+    <hr class="section-divider" />
 
     <!-- FUNDRAISING TIMELINE -->
     <section class="section">
-        <div class="section-label">Capital Path</div>
-        <h2 class="section-title">From convertible note to Series A.</h2>
-        <div class="section-body">
-            <p>
-                Disciplined capital raises. Each round unlocks specific product milestones
-                and distribution channels. The Series A conversation starts when three
-                conditions are met: &euro;50k+ MRR, two ERP store listings live,
-                and Aegis pilot deployed.
-            </p>
-        </div>
+      <div class="section-label">Capital Path</div>
+      <h2 class="section-title">From convertible note to Series A.</h2>
+      <div class="section-body">
+        <p>
+          Disciplined capital raises. Each round unlocks specific product milestones and
+          distribution channels. The Series A conversation starts when three conditions are met:
+          &euro;50k+ MRR, two ERP store listings live, and Aegis pilot deployed.
+        </p>
+      </div>
 
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">Q4 2025</div>
-                <div class="timeline-content">
-                    <h4>Platform Foundation <span class="timeline-badge badge-done">Done</span></h4>
-                    <p>18+ GodAgents deployed. DWS IQ 6 platform live. MCP protocol. CLI access. 20 EU industries covered.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Q1 2026</div>
-                <div class="timeline-content">
-                    <h4>Convertible Note &mdash; &euro;1M target <span class="timeline-badge badge-now">Now</span></h4>
-                    <p>&euro;3.8M post-money cap. Captain seats at &euro;50k SAFE. 9 industry verticals. Fleet Admiral investor programme launched.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Q2 2026</div>
-                <div class="timeline-content">
-                    <h4>First ERP Store Listings <span class="timeline-badge badge-next">Next</span></h4>
-                    <p>IFS Cloud Marketplace and SAP Store submissions. Climate Intelligence pilot deployments. DEFINE Defence Tech Hub application.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Q3 2026</div>
-                <div class="timeline-content">
-                    <h4>Aegis Pilot + ISO 27001 <span class="timeline-badge badge-next">Next</span></h4>
-                    <p>First Aegis deployment with defence contractor. ISO 27001 certification. Expand to 3+ ERP channels.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Q4 2026</div>
-                <div class="timeline-content">
-                    <h4>Series A Readiness <span class="timeline-badge badge-next">Next</span></h4>
-                    <p>Target &euro;50k+ MRR. SOC 2 Type II. Two ERP stores live. Aegis pilot reference. Institutional round at &euro;15-25M valuation.</p>
-                </div>
-            </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">Q4 2025</div>
+          <div class="timeline-content">
+            <h4>Platform Foundation <span class="timeline-badge badge-done">Done</span></h4>
+            <p>
+              A fleet of skilled agents deployed. DWS IQ 6 platform live. MCP protocol. CLI access. 25
+              EU-regulated industries covered.
+            </p>
+          </div>
         </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Q1 2026</div>
+          <div class="timeline-content">
+            <h4>
+              Convertible Note &mdash; &euro;1M target
+              <span class="timeline-badge badge-now">Now</span>
+            </h4>
+            <p>
+              &euro;3.8M post-money cap. Captain seats at &euro;50k SAFE. 9 industry verticals.
+              Fleet Admiral investor programme launched.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Q2 2026</div>
+          <div class="timeline-content">
+            <h4>First ERP Store Listings <span class="timeline-badge badge-next">Next</span></h4>
+            <p>
+              IFS Cloud Marketplace and SAP Store submissions. Climate Intelligence pilot
+              deployments. DEFINE Defence Tech Hub application.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Q3 2026</div>
+          <div class="timeline-content">
+            <h4>Aegis Pilot + ISO 27001 <span class="timeline-badge badge-next">Next</span></h4>
+            <p>
+              First Aegis deployment with defence contractor. ISO 27001 certification. Expand to 3+
+              ERP channels.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Q4 2026</div>
+          <div class="timeline-content">
+            <h4>Series A Readiness <span class="timeline-badge badge-next">Next</span></h4>
+            <p>
+              Target &euro;50k+ MRR. SOC 2 Type II. Two ERP stores live. Aegis pilot reference.
+              Institutional round at &euro;15-25M valuation.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <hr class="section-divider">
+    <hr class="section-divider" />
 
     <!-- USE OF FUNDS -->
     <section class="section">
-        <div class="section-label">Use of Funds</div>
-        <h2 class="section-title">Where the capital goes.</h2>
-        <div class="section-body">
-            <p>
-                Lean allocation. &euro;15-50/mo infrastructure cost means capital goes to
-                people and distribution &mdash; not cloud bills. Every euro accelerates
-                time-to-ERP-store.
-            </p>
-        </div>
+      <div class="section-label">Use of Funds</div>
+      <h2 class="section-title">Where the capital goes.</h2>
+      <div class="section-body">
+        <p>
+          Lean allocation. &euro;15-50/mo infrastructure cost means capital goes to people and
+          distribution &mdash; not cloud bills. Every euro accelerates time-to-ERP-store.
+        </p>
+      </div>
 
-        <div class="funds-grid">
-            <div class="funds-card">
-                <div class="funds-pct">40%</div>
-                <div class="funds-label">Engineering &amp; Product</div>
-            </div>
-            <div class="funds-card">
-                <div class="funds-pct">25%</div>
-                <div class="funds-label">ERP Distribution</div>
-            </div>
-            <div class="funds-card">
-                <div class="funds-pct">20%</div>
-                <div class="funds-label">Sales &amp; Pilots</div>
-            </div>
-            <div class="funds-card">
-                <div class="funds-pct">15%</div>
-                <div class="funds-label">Compliance &amp; Certs</div>
-            </div>
+      <div class="funds-grid">
+        <div class="funds-card">
+          <div class="funds-pct">40%</div>
+          <div class="funds-label">Engineering &amp; Product</div>
         </div>
+        <div class="funds-card">
+          <div class="funds-pct">25%</div>
+          <div class="funds-label">ERP Distribution</div>
+        </div>
+        <div class="funds-card">
+          <div class="funds-pct">20%</div>
+          <div class="funds-label">Sales &amp; Pilots</div>
+        </div>
+        <div class="funds-card">
+          <div class="funds-pct">15%</div>
+          <div class="funds-label">Compliance &amp; Certs</div>
+        </div>
+      </div>
     </section>
 
-    <hr class="section-divider">
+    <hr class="section-divider" />
 
     <!-- FAMILY OFFICE FIT -->
     <section class="section">
-        <div class="section-label">Family Office Fit</div>
-        <h2 class="section-title">Why this works for patient capital.</h2>
-        <div class="section-body">
-            <p>
-                Lifetime Oy is not a blitz-scale bet. It is a regulation-driven, capital-efficient
-                platform with structural moats and a clear path to recurring revenue.
-                Built for investors who think in decades, not quarters.
-            </p>
-        </div>
+      <div class="section-label">Family Office Fit</div>
+      <h2 class="section-title">Why this works for patient capital.</h2>
+      <div class="section-body">
+        <p>
+          Lifetime Oy is not a blitz-scale bet. It is a regulation-driven, capital-efficient
+          platform with structural moats and a clear path to recurring revenue. Built for investors
+          who think in decades, not quarters.
+        </p>
+      </div>
 
-        <div class="fit-grid">
-            <div class="fit-card">
-                <h3>Regulation = Guaranteed Demand</h3>
-                <p>
-                    Unlike consumer trends, EU regulations cannot be ignored. CSRD is law.
-                    CBAM is law. 50,000+ companies <strong>must</strong> comply.
-                    This is not market creation &mdash; it is market capture.
-                </p>
-            </div>
-            <div class="fit-card">
-                <h3>Capital Efficient</h3>
-                <p>
-                    &euro;15-50/mo infrastructure cost. 18+ agents running on lean cloud spend.
-                    No AWS bill that grows faster than revenue. Capital goes to people
-                    and distribution, not servers.
-                </p>
-            </div>
-            <div class="fit-card">
-                <h3>Tangible Moats</h3>
-                <p>
-                    KELA relationship (17 years), KYA governance (hardware-enforced),
-                    EU sovereignty (architectural), ERP channels (distribution lock).
-                    Each moat is structural, not narrative.
-                </p>
-            </div>
-            <div class="fit-card">
-                <h3>Generational Asset</h3>
-                <p>
-                    EU compliance obligations compound every year. New regulations
-                    (NIS2, EU AI Act, future CBAM expansion) add agent workloads
-                    without new R&amp;D. The platform becomes more valuable over time.
-                </p>
-            </div>
+      <div class="fit-grid">
+        <div class="fit-card">
+          <h3>Regulation = Guaranteed Demand</h3>
+          <p>
+            Unlike consumer trends, EU regulations cannot be ignored. CSRD is law. CBAM is law.
+            50,000+ companies <strong>must</strong> comply. This is not market creation &mdash; it
+            is market capture.
+          </p>
         </div>
+        <div class="fit-card">
+          <h3>Capital Efficient</h3>
+          <p>
+            &euro;15-50/mo infrastructure cost. A fleet of skilled agents running on lean cloud spend. No AWS bill
+            that grows faster than revenue. Capital goes to people and distribution, not servers.
+          </p>
+        </div>
+        <div class="fit-card">
+          <h3>Tangible Moats</h3>
+          <p>
+            KELA relationship (17 years), KYA governance (hardware-enforced), EU sovereignty
+            (architectural), ERP channels (distribution lock). Each moat is structural, not
+            narrative.
+          </p>
+        </div>
+        <div class="fit-card">
+          <h3>Generational Asset</h3>
+          <p>
+            EU compliance obligations compound every year. New regulations (NIS2, EU AI Act, future
+            CBAM expansion) add agent workloads without new R&amp;D. The platform becomes more
+            valuable over time.
+          </p>
+        </div>
+        <div class="fit-card">
+          <h3>Accumulated Capital</h3>
+          <p>
+            Seven months of production operation built four capital classes a competitor cannot
+            reconstruct overnight: Prompt (validated skills corpus), People (calibrated operator
+            judgment), Plant (sovereign mobile two-room stack), and Perception (a governed world
+            model that compounds with every field deployment). The fourth class is the one that
+            re-rates the question from &ldquo;software&rdquo; to &ldquo;world model.&rdquo;
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- CTA -->
     <div class="cta-section">
-        <h3>Start the Conversation</h3>
-        <p>
-            Convertible note open at &euro;3.8M cap. Captain seats at &euro;50,000 SAFE.
-            Series A readiness targeted Q4 2026.
-        </p>
-        <div class="cta-actions">
-            <a href="mailto:risto@onelifetime.world?subject=Series A — Investor Inquiry" class="btn-gold">Contact Risto Anton P&auml;&auml;rni</a>
-            <a href="/fleet-admiral/" class="btn-outline">Fleet Admiral Details</a>
-        </div>
-        <div class="sov-badges">
-            <span class="sov-badge">EU Data Residency</span>
-            <span class="sov-badge">CLOUD Act Free</span>
-            <span class="sov-badge">InvestEU INPO-20254383</span>
-            <span class="sov-badge">Finnish Sovereign</span>
-        </div>
+      <h3>Start the Conversation</h3>
+      <p>
+        Convertible note open at &euro;3.8M cap. Captain seats at &euro;50,000 SAFE. Series A
+        readiness targeted Q4 2026.
+      </p>
+      <div class="cta-actions">
+        <a
+          href="mailto:risto@onelifetime.world?subject=Series A — Investor Inquiry"
+          class="btn-gold"
+          >Contact Risto Anton P&auml;&auml;rni</a
+        >
+        <a href="/fleet-admiral/" class="btn-outline">Fleet Admiral Details</a>
+      </div>
+      <div class="sov-badges">
+        <span class="sov-badge">EU Data Residency</span>
+        <span class="sov-badge">CLOUD Act Free</span>
+        <span class="sov-badge">InvestEU INPO-20254383</span>
+        <span class="sov-badge">Finnish Sovereign</span>
+      </div>
     </div>
 
     <!-- Boilerplate -->
     <div class="boilerplate">
-        <div class="boilerplate-inner">
-            <p>
-                <strong>Lifetime Oy</strong> (Y-tunnus 0772407-9) builds DWS IQ &mdash; the Agent Outcome Factory
-                for EU-regulated industries. 20 industries. 18+ GodAgents. EU-sovereign. Helsinki, Finland.
-            </p>
-            <p class="legal">
-                This page is for informational purposes only and does not constitute an offer to sell or a
-                solicitation of an offer to buy securities. Investment involves risk. Past performance does not
-                guarantee future results. Convertible note terms are subject to negotiation and legal review.
-                Contact risto@onelifetime.world for full terms and documentation.
-            </p>
-            <p style="font-size: 0.75rem; color: #475569;">
-                &copy; 2026 Lifetime Oy &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
-            </p>
-        </div>
+      <div class="boilerplate-inner">
+        <p>
+          <strong>Lifetime Oy</strong> (Y-tunnus 0772407-9) builds DWS IQ &mdash; the Agent Outcome
+          Factory for EU-regulated industries. 25 industries. 50+ Production Agents. EU-sovereign.
+          Helsinki, Finland.
+        </p>
+        <p class="legal">
+          This page is for informational purposes only and does not constitute an offer to sell or a
+          solicitation of an offer to buy securities. Investment involves risk. Past performance
+          does not guarantee future results. Convertible note terms are subject to negotiation and
+          legal review. Contact risto@onelifetime.world for full terms and documentation.
+        </p>
+        <p style="font-size: 0.75rem; color: #475569">
+          &copy; 2026 Lifetime Oy &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
+        </p>
+      </div>
     </div>
 
-<script src="/shared-assets/nav/ironclad-nav.js"></script>
-<script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
 </html>

@@ -43,32 +43,32 @@ export interface GridFactorResponse {
 /** Generation type → emission factor (gCO2/kWh).
  * Source: IPCC 2006 Guidelines, Table 2.2 + EU reference values */
 const GENERATION_FACTORS: Record<string, number> = {
-  'B01': 900,   // Biomass — depends on feedstock, using EU average
-  'B02': 0,     // Fossil Brown coal/Lignite → handled by B05
-  'B03': 0,     // Fossil Coal-derived gas → handled by B05
-  'B04': 370,   // Fossil Gas (CCGT)
-  'B05': 900,   // Fossil Hard coal
-  'B06': 650,   // Fossil Oil
-  'B07': 0,     // Fossil Oil shale → use B06
-  'B08': 0,     // Fossil Peat → 1070 gCO2/kWh but rare
-  'B09': 0,     // Geothermal
-  'B10': 0,     // Hydro Pumped Storage — consumption, not generation
-  'B11': 0,     // Hydro Run-of-river
-  'B12': 0,     // Hydro Water Reservoir
-  'B13': 0,     // Marine
-  'B14': 0,     // Nuclear
-  'B15': 0,     // Other renewable
-  'B16': 0,     // Solar
-  'B17': 0,     // Waste — 330 gCO2/kWh but excluded (biogenic fraction)
-  'B18': 0,     // Wind Offshore
-  'B19': 0,     // Wind Onshore
-  'B20': 0,     // Other
+  B01: 900, // Biomass — depends on feedstock, using EU average
+  B02: 0, // Fossil Brown coal/Lignite → handled by B05
+  B03: 0, // Fossil Coal-derived gas → handled by B05
+  B04: 370, // Fossil Gas (CCGT)
+  B05: 900, // Fossil Hard coal
+  B06: 650, // Fossil Oil
+  B07: 0, // Fossil Oil shale → use B06
+  B08: 0, // Fossil Peat → 1070 gCO2/kWh but rare
+  B09: 0, // Geothermal
+  B10: 0, // Hydro Pumped Storage — consumption, not generation
+  B11: 0, // Hydro Run-of-river
+  B12: 0, // Hydro Water Reservoir
+  B13: 0, // Marine
+  B14: 0, // Nuclear
+  B15: 0, // Other renewable
+  B16: 0, // Solar
+  B17: 0, // Waste — 330 gCO2/kWh but excluded (biogenic fraction)
+  B18: 0, // Wind Offshore
+  B19: 0, // Wind Onshore
+  B20: 0, // Other
 };
 
 /** Country → ENTSO-E bidding zone mapping */
 const COUNTRY_TO_ZONE: Record<string, string> = {
   FI: '10YFI-1--------U',
-  SE: '10YSE-1--------K',  // SE1-SE4, using SE total
+  SE: '10YSE-1--------K', // SE1-SE4, using SE total
   NO: '10YNO-0--------C',
   DK: '10Y1001A1001A65H', // DK1
   DE: '10Y1001A1001A83F', // DE-LU
@@ -89,9 +89,24 @@ const COUNTRY_TO_ZONE: Record<string, string> = {
 
 /** Fallback static factors — same as bess-calculator.ts defaults */
 const STATIC_FALLBACK: Record<string, number> = {
-  FI: 68, SE: 36, NO: 19, DK: 130, DE: 385, FR: 55,
-  NL: 340, PL: 650, ES: 170, IT: 260, AT: 90, BE: 155,
-  PT: 180, GR: 310, IE: 300, EE: 550, LT: 120, LV: 95,
+  FI: 68,
+  SE: 36,
+  NO: 19,
+  DK: 130,
+  DE: 385,
+  FR: 55,
+  NL: 340,
+  PL: 650,
+  ES: 170,
+  IT: 260,
+  AT: 90,
+  BE: 155,
+  PT: 180,
+  GR: 310,
+  IE: 300,
+  EE: 550,
+  LT: 120,
+  LV: 95,
   EU: 230,
 };
 
@@ -100,11 +115,14 @@ const STATIC_FALLBACK: Record<string, number> = {
  * Finnish auditors may require Energiavirasto figure over ENTSO-E EU-wide data.
  * Source: Finnish Energy Authority (Energiavirasto) annual reports.
  */
-const NATIONAL_AUTHORITY_OVERRIDES: Record<string, {
-  factor: number;
-  source: string;
-  year: number;
-}> = {
+const NATIONAL_AUTHORITY_OVERRIDES: Record<
+  string,
+  {
+    factor: number;
+    source: string;
+    year: number;
+  }
+> = {
   FI: { factor: 68, source: 'Energiavirasto 2024 annual report', year: 2024 },
 };
 
@@ -112,11 +130,13 @@ const NATIONAL_AUTHORITY_OVERRIDES: Record<string, {
  * Get national authority grid factor if available.
  * Use for domestic reporting where national regulator figure is required.
  */
-export function getNationalGridFactor(country: string): {
-  factor: number;
-  source: string;
-  year: number;
-} | undefined {
+export function getNationalGridFactor(country: string):
+  | {
+      factor: number;
+      source: string;
+      year: number;
+    }
+  | undefined {
   return NATIONAL_AUTHORITY_OVERRIDES[country.toUpperCase()];
 }
 
@@ -168,9 +188,10 @@ export async function getGridFactors(
 
   try {
     const factors = await fetchGenerationMix(apiKey, zone, startDate, endDate);
-    const periodAverage = factors.length > 0
-      ? round2(factors.reduce((sum, f) => sum + f.factor, 0) / factors.length)
-      : STATIC_FALLBACK[cc] ?? STATIC_FALLBACK['EU'];
+    const periodAverage =
+      factors.length > 0
+        ? round2(factors.reduce((sum, f) => sum + f.factor, 0) / factors.length)
+        : (STATIC_FALLBACK[cc] ?? STATIC_FALLBACK['EU']);
 
     const response: GridFactorResponse = {
       factors,
@@ -245,16 +266,17 @@ async function fetchGenerationMix(
   const periodStart = formatEntsoeDate(startDate);
   const periodEnd = formatEntsoeDate(endDate);
 
-  const url = `https://web-api.tp.entsoe.eu/api?` +
+  const url =
+    `https://web-api.tp.entsoe.eu/api?` +
     `securityToken=${encodeURIComponent(apiKey)}` +
-    `&documentType=A75` +        // Actual generation per type
-    `&processType=A16` +         // Realised
+    `&documentType=A75` + // Actual generation per type
+    `&processType=A16` + // Realised
     `&in_Domain=${encodeURIComponent(zone)}` +
     `&periodStart=${periodStart}` +
     `&periodEnd=${periodEnd}`;
 
   const response = await fetch(url, {
-    headers: { 'Accept': 'application/xml' },
+    headers: { Accept: 'application/xml' },
     signal: AbortSignal.timeout(10_000),
   });
 
@@ -292,15 +314,13 @@ function parseGenerationXml(xml: string, zone: string): GridFactor[] {
     const emissionFactor = GENERATION_FACTORS[psrType] ?? 0;
 
     // Get resolution
-    const resMatch = series.match(/<resolution>PT(\d+)M<\/resolution>/);
-    const resolutionMin = resMatch ? parseInt(resMatch[1], 10) : 60;
-
-    // Get start time
-    const startMatch = series.match(/<start>([\dT:Z+-]+)<\/start>/);
-    const periodStart = startMatch ? new Date(startMatch[1]).getTime() : 0;
+    // Resolution and start time parsed for future per-interval granularity
+    void series.match(/<resolution>PT(\d+)M<\/resolution>/);
+    void series.match(/<start>([\dT:Z+-]+)<\/start>/);
 
     // Extract points
-    const pointRegex = /<Point>\s*<position>(\d+)<\/position>\s*<quantity>([\d.]+)<\/quantity>\s*<\/Point>/g;
+    const pointRegex =
+      /<Point>\s*<position>(\d+)<\/position>\s*<quantity>([\d.]+)<\/quantity>\s*<\/Point>/g;
     let pointMatch;
     while ((pointMatch = pointRegex.exec(series)) !== null) {
       const position = parseInt(pointMatch[1], 10);

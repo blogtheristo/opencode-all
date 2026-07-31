@@ -38,7 +38,7 @@ Document Status:
 3. [Architecture Evolution](#3-architecture-evolution)
 4. [Migration Timeline (6 Phases, 247 PRs)](#4-migration-timeline-6-phases-247-prs)
 5. [Compliance Engine — Fit for 55](#5-compliance-engine--fit-for-55)
-6. [EU AI Act Compliance (Aiwen Layer)](#6-eu-ai-act-compliance-aiwen-layer)
+6. [EU AI Act Compliance (Full Sovereignty Layer)](#6-eu-ai-act-compliance-full-sovereignty-layer)
 7. [Cloud & Infrastructure Changes](#7-cloud--infrastructure-changes)
 8. [Security & Certification Path](#8-security--certification-path)
 9. [Agentic AI & Intelligence Layer](#9-agentic-ai--intelligence-layer)
@@ -178,7 +178,7 @@ These DWS6 components carry forward unchanged or with incremental improvements:
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Aiwen Layer (EU AI Act Compliance Overlay)                 │
+│  EU AI Act Compliance Overlay (Full Sovereignty / Aegis)    │
 │  ┌──────────────┐  ┌─────────────┐  ┌────────────────────┐ │
 │  │ OpenTelemetry│  │ Reasoning   │  │ Audit Log          │ │
 │  │ Trace Collect│  │ Store       │  │ Append-only PG     │ │
@@ -349,9 +349,9 @@ DWS7 is the only platform that covers all four major EU climate regulations in a
 
 ---
 
-## 6. EU AI Act Compliance (Aiwen Layer)
+## 6. EU AI Act Compliance (Full Sovereignty Layer)
 
-DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Aiwen compliance layer, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
+DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Full Sovereignty (Aegis) compliance layer, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
 
 ### Article 12 — Automatic Logging
 
@@ -446,15 +446,36 @@ User Query → Agent Selection → Model Inference → Tool Calls → Output →
 | Key rotation (90-day cycle) | Phase 3 | ISO 27001 A.10 |
 | SOC 2 Type II controls | Phase 6 | AICPA TSC |
 | ISO 27001 certification | Phase 6 | ISO/IEC 27001:2022 |
+| ASPICE gap analysis (Lifetime Fleet) | Phase 3 | Automotive SPICE v4.0 / ISO/IEC 33000 |
+| SQuaRE quality metrics (agents + KYA) | Phase 3 | ISO/IEC 25010:2023 |
+| ASPICE Level 2 readiness (Fleet) | Phase 5 | Automotive SPICE v4.0 |
+| ASPICE Level 3 assessment (Fleet) | Phase 6 | Automotive SPICE v4.0 |
 
 ### Certification Timeline
 
 ```
 Phase 1 (Feb-Apr 2026)    → Security hardening + vulnerability fixes
 Phase 3 (Aug-Oct 2026)    → ISO 27001 gap analysis + control implementation
+                          → ASPICE gap analysis for Lifetime Fleet (advisor-led)
+                          → SQuaRE quality metrics framework for agents + KYA
 Phase 5 (Feb-May 2027)    → ISO 27001 Stage 1 audit
+                          → ASPICE Level 2 readiness for Fleet (SWE.1–SWE.6 + SUP.1, SUP.8, SUP.9, SUP.10)
 Phase 6 (Jun-Dec 2027)    → ISO 27001 Stage 2 audit + SOC 2 Type II engagement
+                          → ASPICE Level 3 external assessment for Fleet (Tier-1 automotive OEM requirement)
 ```
+
+### Lifetime Fleet ASPICE Roadmap (DWS IQ 7)
+
+Lifetime Fleet targets Tier-1 industrial/automotive OEMs (Bosch, Continental, Volvo, Scania) for which **Automotive SPICE Level 2–3 is a hard procurement gate**. Without ASPICE maturity, Fleet cannot enter the automotive supply chain regardless of technical capability.
+
+| Phase | Deliverable | ASPICE Processes | Owner |
+|-------|------------|------------------|-------|
+| Phase 3 (Aug-Oct 2026) | Gap analysis against ASPICE v4.0 | Full VDA Scope (SYS.1–SYS.5, SWE.1–SWE.6, SUP, MAN, ACQ.4) | Standards & Compliance Advisor (Teemu Vesala candidate) |
+| Phase 3 | Process asset library (templates, checklists, work products) | SUP.8 Configuration Management, SUP.9 Problem Resolution, SUP.10 Change Request Management | Advisor + Engineering |
+| Phase 5 (Feb-May 2027) | Internal ASPICE Level 2 assessment | SWE.1 Software Requirements Analysis → SWE.6 Software Testing | Engineering |
+| Phase 6 (Jun-Dec 2027) | External Level 3 assessment (intacsᵀᴹ competent assessor) | All Level 3 Capability Indicators | Certified assessor |
+
+**Rationale:** ASPICE complements existing EU regulatory stack (EU AI Act Article 12, CBAM, NIS2) by adding **process-maturity evidence** automotive OEMs require in addition to regulatory compliance. Roadmap entry-point for this work is the Teemu Vesala advisor engagement (see `docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md`).
 
 ---
 
@@ -548,7 +569,7 @@ Factory Floor                    Cloud                         Regulator
 3. **Calculate**: Cloud Run computes emissions using fuel-based or mass-balance methodology
 4. **Verify**: Automated cross-checks against historical data and regulatory thresholds
 5. **Report**: MRV report generated and submitted to EU ETS registry
-6. **Audit**: Complete data lineage stored in Aiwen audit log (7-year retention)
+6. **Audit**: Complete data lineage stored in sovereignty audit log (7-year retention)
 
 ---
 
@@ -646,7 +667,7 @@ ABB Ability Platform                    DWS7
 | API exploration | Q3 2026 | ABB Ability API access, data format mapping |
 | Pilot connector | Q4 2026 | Energy Manager → DWS7 data pipeline (1 customer site) |
 | Production | Q1 2027 | Multi-site deployment, ABB Marketplace listing |
-| Scale | Q2 2027+ | Cross-sell to ABB installed base across 16 verticals |
+| Scale | Q2 2027+ | Cross-sell to ABB installed base across 25+ verticals |
 
 **Market Opportunity:** ABB's 105,000+ industrial customers in Europe represent the largest addressable market for DWS7's IoT-to-compliance pipeline. Steel, cement, and chemicals verticals overlap directly with EU ETS Phase 4 regulated installations.
 

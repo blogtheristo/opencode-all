@@ -1,33 +1,38 @@
 # Admin Manual: Files and Folders Structure
 
 ---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
-  - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
-  - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added Site Quality Standards, Workflow Management System, Daily Backups, Multi-Site Deployment coverage
-  - Version: 1.3 | Tool: Claude Code | Session: bold-herschel | Commit: (pending) | Date: 13.02.2026 | Changes: Added Claude Session Backup System documentation
+
+- Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
+- Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
+- Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added Site Quality Standards, Workflow Management System, Daily Backups, Multi-Site Deployment coverage
+- Version: 1.3 | Tool: Claude Code | Session: bold-herschel | Commit: (pending) | Date: 13.02.2026 | Changes: Added Claude Session Backup System documentation
+- Version: 1.4 | Tool: Cursor | Session: claude/amazon-ses-google-drive | Commit: (pending) | Date: 13.03.2026 | Changes: Added ClaudeCode root-folder policy and secret triage rules (Admin/Claudecode_Secrets)
 
 Session Links & References:
-  - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md
+
+- Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md
 
 Document Status:
-  - Created: 09.12.2025
-  - Last Modified: 26.12.2025
-  - Language: English (Suomi thesis included)
-  - Languages Available: English, Suomi (partial)
-  - Publication Status: ✅ ACTIVE
+
+- Created: 09.12.2025
+- Last Modified: 22.04.2026
+- Language: English (Suomi thesis included)
+- Languages Available: English, Suomi (partial)
+- Publication Status: ✅ ACTIVE
 
 ---
 
-**Document Version**: 1.3
-**Last Updated**: February 13, 2026 (Session bold-herschel)
+**Document Version**: 1.4
+**Last Updated**: March 13, 2026 (Session claude/amazon-ses-google-drive)
 **Maintainer**: Risto Anton Päärni (risto@lifetime.fi)
-**Session Update**: Claude Session Backup System
+**Session Update**: ClaudeCode folder policy and secret triage
 
 ---
 
@@ -78,6 +83,7 @@ Admin/
 This comprehensive admin manual describes the complete file and folder structure for the DWS IQ Platform project repository. The DWS6 ecosystem now includes:
 
 **Core Systems:**
+
 - **Next.js Website Projects** - Modern web applications in `in-update-claude/` directory
 - **Site Quality Management** - Shared component architecture and quality standards
 - **Workflow Orchestration** - Automated workflow management, monitoring, and failure recovery
@@ -85,6 +91,7 @@ This comprehensive admin manual describes the complete file and folder structure
 - **Multi-Site Deployment** - Synchronized deployment for dws6.com, dws10.com, and onelifetime.world
 
 **New in Version 1.2 (Session IjtD0 - December 26, 2025):**
+
 1. **Shared Components Architecture** (`shared/` directory)
    - Eliminates code duplication across 37+ pages
    - Single navigation component used site-wide
@@ -117,6 +124,7 @@ This manual provides operational guidance for developers, DevOps engineers, syst
 Tämä kattava admin-käsikirja kuvaa DWS IQ Platform -projektiarkiston täydellisen tiedosto- ja kansiorakenteen. DWS6-ekosysteemi sisältää nyt:
 
 **Ydinjärjestelmät:**
+
 - **Next.js-verkkosovellukset** - Modernit web-sovellukset `in-update-claude/` -kansiossa
 - **Sivuston laatuhallinta** - Jaettu komponenttiarkkitehtuuri ja laatustandardit
 - **Workflow-orkestrointi** - Automaattinen työnkulkuhallinta, seuranta ja vianhallinta
@@ -124,6 +132,7 @@ Tämä kattava admin-käsikirja kuvaa DWS IQ Platform -projektiarkiston täydell
 - **Monisivuston käyttöönotto** - Synkronoitu deployment dws6.com, dws10.com ja onelifetime.world -sivustoille
 
 **Uutta versiossa 1.2 (Sessio IjtD0 - 26. joulukuuta 2025):**
+
 1. **Jaettu komponenttiarkkitehtuuri** (`shared/` -kansio)
    - Poistaa koodin duplikaation 37+ sivulta
    - Yksi navigointikomponentti kaikille sivuille
@@ -202,11 +211,11 @@ in-update-claude/documentation/
 
 **File Details:**
 
-| File | Size | Purpose | Priority |
-|------|------|---------|----------|
-| ACCOUNTS_SETUP_GUIDE.md | 10.8 KB | Lists 11 required services with signup instructions | High |
-| DEPLOYMENT_GUIDE.md | 9.0 KB | Complete deployment walkthrough from local to production | High |
-| PROJECT_SUMMARY.md | 12.5 KB | Comprehensive session overview and next steps | Critical |
+| File                    | Size    | Purpose                                                  | Priority |
+| ----------------------- | ------- | -------------------------------------------------------- | -------- |
+| ACCOUNTS_SETUP_GUIDE.md | 10.8 KB | Lists 11 required services with signup instructions      | High     |
+| DEPLOYMENT_GUIDE.md     | 9.0 KB  | Complete deployment walkthrough from local to production | High     |
+| PROJECT_SUMMARY.md      | 12.5 KB | Comprehensive session overview and next steps            | Critical |
 
 #### 2. next-js-projects/
 
@@ -254,42 +263,52 @@ in-update-claude/next-js-projects/
 ### Configuration Files
 
 #### package.json
+
 **Purpose**: Node.js dependencies and scripts
 **Used by**: npm/yarn package managers
 **Contains**:
+
 - Dependencies (React, Next.js, TypeScript, etc.)
 - Dev dependencies (ESLint, TypeScript compiler, etc.)
 - Scripts (dev, build, start, lint)
 - Project metadata
 
 #### tsconfig.json
+
 **Purpose**: TypeScript compiler configuration
 **Key Settings**:
+
 - Strict mode enabled
-- Path aliases (@/* for src/*)
+- Path aliases (@/_ for src/_)
 - App Router support
 - Incremental compilation
 
 #### tailwind.config.ts
+
 **Purpose**: Tailwind CSS configuration
 **Customizations**:
+
 - Custom color scheme
 - Component variants
 - shadcn/ui integration
 - Font family configuration
 
 #### next.config.js
+
 **Purpose**: Next.js framework configuration
 **Features**:
+
 - Security headers
 - Image optimization settings
 - Compression enabled
 - CORS configuration
 
 #### .env.example
+
 **Purpose**: Template for environment variables
 **⚠️ Security**: NEVER commit actual .env files
 **Contents**:
+
 - API keys (placeholders)
 - Service URLs
 - Feature flags
@@ -298,27 +317,33 @@ in-update-claude/next-js-projects/
 ### Documentation Files (.md)
 
 #### README.md
+
 **Purpose**: Project overview and quick start guide
 **Audience**: Developers
 **Contents**:
+
 - Tech stack overview
 - Getting started instructions
 - Development commands
 - Deployment info
 
 #### SITEMAP.md
+
 **Purpose**: Complete website structure planning
 **Audience**: Developers, Product Managers
 **Contents**:
+
 - All pages and routes
 - Page hierarchies
 - MVP phases (30/60/90 days)
 - Feature priorities
 
 #### SESSION_SUMMARY.md
+
 **Purpose**: Session recap and artifacts inventory
 **Audience**: Project stakeholders
 **Contents**:
+
 - What was accomplished
 - Files created
 - Decisions made
@@ -327,23 +352,29 @@ in-update-claude/next-js-projects/
 ### Source Code Files
 
 #### Layout Files (layout.tsx)
+
 **Purpose**: Root application layout
 **Contains**:
+
 - HTML structure
 - Font imports
 - Global metadata (SEO)
 - Body wrapper
 
 #### Page Files (page.tsx)
+
 **Purpose**: Route pages
 **Contains**:
+
 - Page components
 - Section composition
 - Server/Client component logic
 
 #### Component Files (components/)
+
 **Purpose**: Reusable UI elements
 **Categories**:
+
 - **layout/**: Header, Footer (site-wide)
 - **sections/**: Hero, Features, CTA (page-specific)
 - **ui/**: Button, Form, Card (atomic components)
@@ -351,36 +382,106 @@ in-update-claude/next-js-projects/
 ### Script Files
 
 #### setup-env.sh
+
 **Purpose**: Interactive environment setup
 **Usage**: `./scripts/setup-env.sh`
 **Function**: Prompts for env vars, creates .env.local
 
 #### upload-secrets.sh
+
 **Purpose**: Upload secrets to GitHub
 **Usage**: `./scripts/upload-secrets.sh`
 **Requires**: gh CLI installed and authenticated
 **Function**: Reads .env.local, uploads to GitHub Secrets
 
+#### local-ci.sh (PR #TBD, branch `claude/ci-hygiene-audit-vBYGo`)
+
+**Purpose**: Local-first CI runner — replaces GitHub Actions `test.yml`, `secret-scan-gitleaks.yml`, `ruff.yml`, and npm-audit of `dependency_review.yml`
+**Usage**: `bash scripts/local-ci.sh` (full) or `bash scripts/local-ci.sh --quick` (staged-diff only)
+**Runs**: vitest → gitleaks → npm audit (root) → ruff (if `.py` changed)
+**Output**: Writes a hash-chained audit record to `.ci-audit/runs/<ts>_<sha>.json` and POSTs to Supabase `ci_audit_log` if `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` are set
+**Invoked by**: `.githooks/pre-push` (automatic on `git push`), `scripts/weekly/security-audit.sh` (DGX Spark)
+**Exit 0** = all checks passed; **Exit 1** = at least one failed; **Exit 2** = infrastructure error
+
+#### ci-audit-verify.sh (PR #TBD)
+
+**Purpose**: Verify the local CI audit hash chain and HEAD coverage
+**Usage**: `bash scripts/ci-audit-verify.sh` (HEAD) / `--chain-only` / `--commit <sha>` / `--allow-failure`
+**Function**: Walks `.ci-audit/runs/` in timestamp order, recomputes SHA-256 of each record's canonical body, verifies `prev_record_hash` chain and that HEAD has an `overall_pass=true` record
+**Invoked by**: `.github/workflows/ci-audit-verify.yml` (3-second GitHub gate), developers locally
+**Exit 0** = chain intact + HEAD covered + overall_pass; **Exit 1** = any of those fail
+
+#### ci-audit-upload.ts (PR #TBD)
+
+**Purpose**: POST a single `.ci-audit/runs/*.json` record to Supabase `ci_audit_log`
+**Usage**: `npx tsx scripts/ci-audit-upload.ts <record.json>`
+**Requires**: `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` env vars
+**No-op mode**: Exits 0 with a warning if env unset or `ci_audit_log` table missing — allows local-ci to succeed before migration is applied
+**Invoked by**: `scripts/local-ci.sh` (finalize step)
+
+#### weekly/security-audit.sh (PR #TBD)
+
+**Purpose**: DGX Spark weekly replacement for `security-audit-enhanced.yml`, `security-scan-weekly.yml`, `security-scan-biweekly.yml`, `monthly-security-audit-enhanced.yml`
+**Usage**: Auto-discovered by day-runner; runs Sunday 04:00 UTC on DGX Spark
+**Function**: Runs `npm audit --audit-level=moderate`, `bandit`, `safety`, full `gitleaks detect`, then `local-ci.sh` with `runner_kind=dgx-spark`, `trigger_kind=weekly-security-audit`
+**Output**: Reports in `logs/security-audit/<date>/` + audit record in Supabase
+
 ### Workflow Files (.github/workflows/)
 
 #### ci.yml
+
 **Purpose**: Main CI/CD pipeline
 **Triggers**: Push to main/develop, Pull requests
 **Jobs**:
+
 1. Lint & Type Check
 2. Build verification
 3. Deploy to Vercel (preview/production)
 4. Lighthouse performance audit
 
 #### codeql.yml
+
 **Purpose**: Security vulnerability scanning
 **Triggers**: Push, PR, weekly schedule
 **Function**: Analyzes code for security issues
 
 #### dependency-review.yml
+
 **Purpose**: Dependency vulnerability check
 **Triggers**: Pull requests
 **Function**: Blocks PRs with high-severity vulnerabilities
+
+#### ci-audit-verify.yml (PR #TBD, branch `claude/ci-hygiene-audit-vBYGo`)
+
+**Purpose**: 3-second GitHub gate — verifies every pushed HEAD has a local CI audit record with `overall_pass=true`. Replaces the need to re-run vitest/gitleaks/etc. on GitHub's meter.
+**Triggers**: Push to `main` or `claude/**`, pull_request targeting `main`
+**Function**: `actions/checkout` → `bash scripts/ci-audit-verify.sh --commit <sha>`. Fails if chain broken, HEAD lacks a record, or latest record shows failure.
+**Replaces**: `test.yml`, `secret-scan-gitleaks.yml`, `dependency_review.yml`, `ruff.yml` (all renamed `.yml.disabled` in the same PR)
+**Duration**: ~3 seconds
+
+### Disabled Workflows (`.yml.disabled`)
+
+Disabled = kept as failover, rename back to `.yml` to re-enable. Renamed in PR #TBD (branch `claude/ci-hygiene-audit-vBYGo`):
+
+- `test.yml.disabled` — replaced by `scripts/local-ci.sh` check `vitest`
+- `secret-scan-gitleaks.yml.disabled` — replaced by check `gitleaks-full`
+- `dependency_review.yml.disabled` — replaced by check `npm-audit-root` + `scripts/daily/dependabot-audit.sh`
+- `ruff.yml.disabled` — replaced by check `ruff-check`
+- `campaign-newsletter.yml.disabled`, `captain-briefing.yml.disabled`, `morning-briefing.yml.disabled`, `outreach-digest.yml.disabled`, `regulation-monitor.yml.disabled`, `social-scheduler.yml.disabled`, `weekly-report.yml.disabled` — pre-existing, migrated to DGX Spark cron
+
+### CI Audit Directory (`.ci-audit/`) — PR #TBD
+
+Tamper-evident local mirror of the Supabase `ci_audit_log` legal record-of-truth.
+
+- `.ci-audit/README.md` — quick-reference: record format, tamper evidence, retention
+- `.ci-audit/runs/<ISO>_<shortsha>.json` — one file per CI run, hash-chained. Never delete; git history is the retention policy.
+
+### CI Audit Documentation — PR #TBD
+
+- `docs/CI_AUDIT.md` — Full developer spec: architecture diagram, record schema, Supabase migration SQL (RED-zone, apply manually), setup instructions, failure-mode cheatsheet
+- `Admin/ADMIN_MANUAL_AUDIT.md` — External-auditor manual: audit-trail inventory, sample SQL queries, integrity verification, retention policy, auditor access model
+- `Admin/GITHUB_APPS_AUDIT.md` — Audit of 9 installed GitHub Apps with keep / review / remove verdict; suspected source of `submit-pypi`; Continue → Claude Code migration patterns
+- `docs/field-notes/2026-04-22-ci-hygiene-audit.md` — Baseline audit of main's CI red state (5 root causes, 8 failures categorised)
 
 ---
 
@@ -456,6 +557,7 @@ find in-update-claude -type f -name "*.sh" -exec chmod 755 {} \;
 ### Security Considerations
 
 **NEVER commit these files**:
+
 - ❌ `.env`
 - ❌ `.env.local`
 - ❌ `.env.production`
@@ -464,6 +566,7 @@ find in-update-claude -type f -name "*.sh" -exec chmod 755 {} \;
 - ❌ Personal access tokens
 
 **Always in .gitignore**:
+
 ```gitignore
 .env*.local
 .env
@@ -478,22 +581,26 @@ node_modules/
 ## Maintenance Schedule
 
 ### Daily
+
 - Monitor CI/CD pipeline status
 - Check Sentry for errors
 - Review Vercel deployment logs
 
 ### Weekly
+
 - Update dependencies: `npm update`
 - Review security alerts (GitHub Dependabot)
 - Check analytics (Plausible/GA4)
 
 ### Monthly
+
 - Rotate API keys and tokens
 - Review and update documentation
 - Performance audit (Lighthouse)
 - Security scan (npm audit)
 
 ### Quarterly
+
 - Major dependency upgrades
 - Comprehensive security review
 - Backup verification
@@ -506,6 +613,7 @@ node_modules/
 ### Common Issues
 
 #### 1. "Module not found" errors
+
 ```bash
 # Solution: Install dependencies
 npm install
@@ -516,6 +624,7 @@ npm install
 ```
 
 #### 2. Port already in use
+
 ```bash
 # Solution: Change port in package.json or kill process
 # dws10-com uses port 3000
@@ -527,6 +636,7 @@ netstat -ano | findstr :3000   # Windows
 ```
 
 #### 3. Build failures
+
 ```bash
 # Solution: Check TypeScript errors
 npm run type-check
@@ -540,6 +650,7 @@ npm run build
 ```
 
 #### 4. Environment variables not loading
+
 ```bash
 # Solution: Ensure .env.local exists
 cp .env.example .env.local
@@ -556,9 +667,11 @@ npm run dev
 ## Shared Components Architecture
 
 ### Purpose
+
 The `shared/` directory contains reusable components that eliminate code duplication across all 37+ website pages.
 
 ### Directory Structure
+
 ```
 shared/
 ├── components/
@@ -570,20 +683,23 @@ shared/
 ```
 
 ### Key Benefits
+
 - **93% Code Reduction** - From 5,550+ lines of duplicate navigation to single component
 - **Consistency** - Same navigation across all pages
 - **Mobile-First** - Responsive design out of the box
 - **WCAG 2.1 AA** - Accessibility compliance built-in
 
 ### Usage
+
 ```html
 <!-- Include in any page -->
 <div id="navigation-container"></div>
 <script src="/shared/components/navigation.js"></script>
-<link rel="stylesheet" href="/shared/components/cta-buttons.css">
+<link rel="stylesheet" href="/shared/components/cta-buttons.css" />
 ```
 
 ### Related Files
+
 - **SITE_QUALITY_STANDARDS.md** - Quality policy and standards
 - **IMPLEMENTATION_GUIDE.md** - Step-by-step implementation guide
 - **IMPLEMENTATION_WORKFLOW.md** - 10-phase update workflow
@@ -594,9 +710,11 @@ shared/
 ## Workflow Management System
 
 ### Purpose
+
 The `.workflows/` directory provides centralized workflow orchestration, monitoring, and automated failure recovery for all 14 system workflows.
 
 ### Directory Structure
+
 ```
 .workflows/
 ├── README.md                    # System overview
@@ -624,7 +742,9 @@ The `.workflows/` directory provides centralized workflow orchestration, monitor
 ### Key Features
 
 #### 1. Workflow Registry
+
 Tracks all 14 workflows:
+
 - 2 daily workflows (backups, security)
 - 2 weekly workflows (reports, cache purge)
 - 3 monthly workflows (audits, investor tracking)
@@ -633,6 +753,7 @@ Tracks all 14 workflows:
 - 1 manual workflow (site quality implementation)
 
 #### 2. Automated Failure Recovery
+
 ```bash
 # When a workflow fails:
 1. Failure detected automatically
@@ -642,6 +763,7 @@ Tracks all 14 workflows:
 ```
 
 #### 3. Visibility Dashboard
+
 ```bash
 # View today's workflows
 cat .workflows/schedules/daily.json
@@ -656,6 +778,7 @@ cat .workflows/registry/WORKFLOW_REGISTRY.json
 ### Common Operations
 
 #### Check Workflow Status
+
 ```bash
 # View all workflows
 grep -A5 '"name":' .workflows/registry/WORKFLOW_REGISTRY.json
@@ -665,6 +788,7 @@ grep -B5 '"status": "failing"' .workflows/registry/WORKFLOW_REGISTRY.json
 ```
 
 #### Run Audit Agent
+
 ```bash
 # Audit latest failure
 node .workflows/agents/audit-agent.js --latest
@@ -674,6 +798,7 @@ node .workflows/agents/audit-agent.js --workflow sync-site-content
 ```
 
 #### Run Fix Agent
+
 ```bash
 # Generate fix for latest failure
 node .workflows/agents/fix-agent.js --latest
@@ -683,6 +808,7 @@ node .workflows/agents/fix-agent.js --latest --apply
 ```
 
 ### Related Files
+
 - **.github/workflows/** - All GitHub Actions workflows
 - **scripts/** - Utility scripts used by workflows
 - **GITHUB_COPILOT_GUIDE.md** - Integration instructions
@@ -692,11 +818,13 @@ node .workflows/agents/fix-agent.js --latest --apply
 ## Daily Backup Procedures
 
 ### Purpose
+
 Automated daily backups protect all sites against data loss, accidental deletions, and deployment failures with date-stamped archives.
 
 ### Backup Configuration
 
 #### What Gets Backed Up
+
 - `dws6.com/` - Main DWS6 site
 - `dws10.com/` - Platform site
 - `onelifetime.world/` - Community site
@@ -705,11 +833,13 @@ Automated daily backups protect all sites against data loss, accidental deletion
 - `landing-pages/onelifetime-world/` - Community landing pages
 
 #### Backup Schedule
+
 - **Frequency:** Daily at 2:00 AM UTC
 - **Retention:** 30 days
 - **Storage:** GitHub Actions artifacts + local `backups/` directory
 
 ### Directory Structure
+
 ```
 backups/
 └── sites/
@@ -726,6 +856,7 @@ backups/
 ### Common Operations
 
 #### Manual Backup
+
 ```bash
 # Run backup script manually
 ./scripts/backup-sites.sh
@@ -734,6 +865,7 @@ backups/
 ```
 
 #### List Backups
+
 ```bash
 # List all backups
 ls -lh backups/sites/
@@ -746,6 +878,7 @@ cat backups/sites/latest/MANIFEST.txt
 ```
 
 #### Restore Site
+
 ```bash
 # Example: Restore dws10.com
 tar -xzf backups/sites/2025-12-26/dws10-com_*.tar.gz
@@ -762,6 +895,7 @@ git push origin main
 ### Fail-Over Scenarios
 
 #### Accidental Deletion
+
 ```bash
 # Restore from latest backup
 tar -xzf backups/sites/latest/[site-name]_*.tar.gz
@@ -771,6 +905,7 @@ git push
 ```
 
 #### Bad Deployment
+
 ```bash
 # Rollback to previous day
 tar -xzf backups/sites/2025-12-25/[site-name]_*.tar.gz
@@ -780,6 +915,7 @@ git push
 ```
 
 ### Related Files
+
 - **scripts/backup-sites.sh** - Backup script
 - **.github/workflows/daily-site-backup.yml** - Automated workflow
 - **BACKUP_PROCEDURES.md** - Complete backup documentation
@@ -797,21 +933,21 @@ Claude Code sessions contain valuable trained agents, custom commands, skills, h
 
 The Claude Session Backup System uses two complementary mechanisms:
 
-| Method | Trigger | Storage | Retention |
-|--------|---------|---------|-----------|
-| **Daily Automated** | GitHub Actions, 6:00 AM UTC | `sessions-backup` branch + GitHub artifacts | 30 days |
-| **Manual Script** | On-demand (`Backup-ClaudeSessions.ps1`) | Local timestamped archives | 30 days (configurable) |
+| Method              | Trigger                                 | Storage                                     | Retention              |
+| ------------------- | --------------------------------------- | ------------------------------------------- | ---------------------- |
+| **Daily Automated** | GitHub Actions, 6:00 AM UTC             | `sessions-backup` branch + GitHub artifacts | 30 days                |
+| **Manual Script**   | On-demand (`Backup-ClaudeSessions.ps1`) | Local timestamped archives                  | 30 days (configurable) |
 
 ### What Gets Backed Up
 
 Every backup captures the full `.claude/` directory from each worktree:
 
-| Directory | Contents |
-|-----------|----------|
-| `agents/` | Custom trained Claude agents |
-| `commands/` | Custom commands and macros |
-| `hooks/` | Automation hooks |
-| `skills/` | Trained Claude capabilities |
+| Directory             | Contents                         |
+| --------------------- | -------------------------------- |
+| `agents/`             | Custom trained Claude agents     |
+| `commands/`           | Custom commands and macros       |
+| `hooks/`              | Automation hooks                 |
+| `skills/`             | Trained Claude capabilities      |
 | `settings.local.json` | Session preferences and settings |
 
 ### Daily Automated Backups
@@ -896,11 +1032,11 @@ gh run download --name claude-sessions-backup --dir ./restored-sessions/
 
 ### Storage Locations
 
-| Environment | Local Backup Path |
-|-------------|-------------------|
-| Windows | `F:\2026\Repos2026\dws6\backups\claude-sessions\` |
-| macOS/Linux | `~/dws6/backups/claude-sessions/` |
-| GitHub | `sessions-backup` branch + Actions artifacts |
+| Environment | Local Backup Path                                 |
+| ----------- | ------------------------------------------------- |
+| Windows     | `F:\2026\Repos2026\dws6\backups\claude-sessions\` |
+| macOS/Linux | `~/dws6/backups/claude-sessions/`                 |
+| GitHub      | `sessions-backup` branch + Actions artifacts      |
 
 ### Claude Settings Backup
 
@@ -910,19 +1046,19 @@ In addition to session data, worktree `settings.local.json` files are backed up 
 
 **Backed up worktrees (as of February 12, 2026):**
 
-| Worktree | Branch |
-|----------|--------|
-| bold-lewin | `claude/bold-lewin` |
-| elated-zhukovsky | `claude/elated-zhukovsky` |
-| friendly-edison | `claude/friendly-edison` |
+| Worktree            | Branch                       |
+| ------------------- | ---------------------------- |
+| bold-lewin          | `claude/bold-lewin`          |
+| elated-zhukovsky    | `claude/elated-zhukovsky`    |
+| friendly-edison     | `claude/friendly-edison`     |
 | intelligent-lamport | `claude/intelligent-lamport` |
-| keen-swirles | `claude/keen-swirles` |
-| nostalgic-bose | `claude/nostalgic-bose` |
-| quirky-knuth | `claude/quirky-knuth` |
-| sharp-lalande | `claude/sharp-lalande` |
-| silly-bassi | `claude/silly-bassi` |
-| stoic-wilbur | `claude/stoic-wilbur` |
-| zealous-mcclintock | `claude/zealous-mcclintock` |
+| keen-swirles        | `claude/keen-swirles`        |
+| nostalgic-bose      | `claude/nostalgic-bose`      |
+| quirky-knuth        | `claude/quirky-knuth`        |
+| sharp-lalande       | `claude/sharp-lalande`       |
+| silly-bassi         | `claude/silly-bassi`         |
+| stoic-wilbur        | `claude/stoic-wilbur`        |
+| zealous-mcclintock  | `claude/zealous-mcclintock`  |
 
 **When to use:** Before resolving merge conflicts in `.claude/settings.local.json` files. The timestamped backups allow safe rollback if conflict resolution goes wrong.
 
@@ -930,26 +1066,27 @@ In addition to session data, worktree `settings.local.json` files are backed up 
 
 Audit of all 12 worktree `settings.local.json` files found **9 out of 12 had incomplete configurations** caused by merge conflict resolution that kept only one side. **All 12 worktrees have been fixed** using `Fix-ClaudeSettings.ps1`.
 
-| Worktree | Hooks | Permissions | Status |
-|----------|-------|-------------|--------|
-| bold-herschel | OK | OK | FIXED |
-| bold-lewin | OK | OK | CORRECT |
-| elated-zhukovsky | OK | OK | FIXED |
-| friendly-edison | OK | OK | FIXED |
-| intelligent-lamport | OK | OK | FIXED |
-| keen-swirles | OK | OK | FIXED |
-| nostalgic-bose | OK | OK | FIXED |
-| quirky-knuth | OK | OK | FIXED |
-| sharp-lalande | OK | OK | FIXED |
-| silly-bassi | OK | OK | CORRECT |
-| stoic-wilbur | OK | OK | FIXED |
-| zealous-mcclintock | OK | OK | FIXED |
+| Worktree            | Hooks | Permissions | Status  |
+| ------------------- | ----- | ----------- | ------- |
+| bold-herschel       | OK    | OK          | FIXED   |
+| bold-lewin          | OK    | OK          | CORRECT |
+| elated-zhukovsky    | OK    | OK          | FIXED   |
+| friendly-edison     | OK    | OK          | FIXED   |
+| intelligent-lamport | OK    | OK          | FIXED   |
+| keen-swirles        | OK    | OK          | FIXED   |
+| nostalgic-bose      | OK    | OK          | FIXED   |
+| quirky-knuth        | OK    | OK          | FIXED   |
+| sharp-lalande       | OK    | OK          | FIXED   |
+| silly-bassi         | OK    | OK          | CORRECT |
+| stoic-wilbur        | OK    | OK          | FIXED   |
+| zealous-mcclintock  | OK    | OK          | FIXED   |
 
 **Root cause:** Merge conflict resolution kept only one side (hooks OR permissions, not both).
 
 **Resolution:** `Fix-ClaudeSettings.ps1` added the missing sections to all 12 worktrees. Run periodically to prevent recurrence.
 
 **Correct combined configuration** (`settings.local.json`):
+
 ```json
 {
   "hooks": {
@@ -993,6 +1130,7 @@ Audit of all 12 worktree `settings.local.json` files found **9 out of 12 had inc
 ```
 
 **What the script does:**
+
 1. Lists all git worktrees (skips `main`)
 2. Reads each worktree's `.claude/settings.local.json`
 3. Checks for missing `hooks` or `permissions` sections
@@ -1007,14 +1145,15 @@ Audit of all 12 worktree `settings.local.json` files found **9 out of 12 had inc
 
 **To be published to GitHub:** Scheduled for February 13, 2026 (commit pending)
 
-| Component | File | Status |
-|-----------|------|--------|
+| Component               | File                                        | Status         |
+| ----------------------- | ------------------------------------------- | -------------- |
 | GitHub Actions workflow | `.github/workflows/daily-claude-backup.yml` | Live on `main` |
-| Manual backup script | `scripts/Backup-ClaudeSessions.ps1` | Live on `main` |
-| CLAUDE.md documentation | `CLAUDE.md` (Section 4) | Live on `main` |
-| Admin manual section | This file | Live on `main` |
+| Manual backup script    | `scripts/Backup-ClaudeSessions.ps1`         | Live on `main` |
+| CLAUDE.md documentation | `CLAUDE.md` (Section 4)                     | Live on `main` |
+| Admin manual section    | This file                                   | Live on `main` |
 
 **System status:**
+
 - Daily automated backups run at **6:00 AM UTC** (first run: February 14, 2026)
 - 12+ Claude worktrees protected with automated session data backups
 - 30-day retention on GitHub (artifacts + `sessions-backup` branch)
@@ -1029,6 +1168,7 @@ Audit of all 12 worktree `settings.local.json` files found **9 out of 12 had inc
 When working with multiple worktrees, choose the right tool for creating PRs:
 
 **Use Claude Code Sessions when:**
+
 - Reviewing code changes in context
 - Interactive development — making final tweaks before PR
 - Branch-specific work — when actively working in that worktree
@@ -1036,12 +1176,14 @@ When working with multiple worktrees, choose the right tool for creating PRs:
 - Writing PR descriptions with Claude's help (better context awareness)
 
 **Use Terminal/Command-line when:**
+
 - Batch operations — creating multiple PRs at once
 - Administrative tasks — branches you don't actively work in
 - Quick PRs for simple changes
 - When Claude session isn't available for that branch
 
 **Recommendation for active worktrees:**
+
 1. Switch to each worktree's Claude session
 2. Review and finalize changes in that session
 3. Create PR from within Claude — it has better context about the changes
@@ -1054,42 +1196,43 @@ Sessions frequently move across environments and editors during a single feature
 
 **Quick switch keywords** — include any of these in your message to tell Claude your current environment:
 
-| Keyword | Environment |
-|---------|-------------|
+| Keyword          | Environment        |
+| ---------------- | ------------------ |
 | `win` or `win11` | Windows 11 desktop |
-| `mobile` | Mobile/web session |
-| `chromebook` | Chromebook (Linux) |
-| `vscode` | Editing in VS Code |
-| `cursor` | Editing in Cursor |
+| `mobile`         | Mobile/web session |
+| `chromebook`     | Chromebook (Linux) |
+| `vscode`         | Editing in VS Code |
+| `cursor`         | Editing in Cursor  |
 
 Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords in a message**, not slash commands — do NOT type `/win` as a standalone command (it triggers a skill lookup error). When no keyword is given, Claude auto-detects using these signals:
 
-| Signal | Mobile/Web | Windows 11 Desktop | Chromebook |
-|--------|-----------|-------------------|------------|
-| Git remote URL | `local_proxy@127.0.0.1` | `github.com` | `github.com` |
-| Platform | `linux` (cloud) | `win32` / `MINGW64_NT` | `linux` (native) |
-| `gh` CLI | Not available | Available | May be available |
-| PowerShell | Not available | Available | Not available |
+| Signal         | Mobile/Web              | Windows 11 Desktop     | Chromebook       |
+| -------------- | ----------------------- | ---------------------- | ---------------- |
+| Git remote URL | `local_proxy@127.0.0.1` | `github.com`           | `github.com`     |
+| Platform       | `linux` (cloud)         | `win32` / `MINGW64_NT` | `linux` (native) |
+| `gh` CLI       | Not available           | Available              | May be available |
+| PowerShell     | Not available           | Available              | Not available    |
 
 **Editor context** (same environment, different editors):
 
-| Editor | Usage |
-|--------|-------|
-| **Claude Code CLI** | Full Claude session, terminal-based |
-| **VS Code** | User edits files directly; Claude via extension or terminal |
-| **Cursor** | AI-native editor; similar to VS Code |
+| Editor              | Usage                                                       |
+| ------------------- | ----------------------------------------------------------- |
+| **Claude Code CLI** | Full Claude session, terminal-based                         |
+| **VS Code**         | User edits files directly; Claude via extension or terminal |
+| **Cursor**          | AI-native editor; similar to VS Code                        |
 
 **Typical multi-environment workflow:**
 
-| Step | Environment + Editor | Activity |
-|------|---------------------|----------|
-| 1 | Mobile | Start work, draft changes, push branch |
-| 2 | Win11 + VS Code | Review code, refine, run tests |
-| 3 | Chromebook | Quick fixes on the go |
-| 4 | Mobile | Documentation updates |
-| 5 | Win11 + Cursor | Final review, create PR |
+| Step | Environment + Editor | Activity                               |
+| ---- | -------------------- | -------------------------------------- |
+| 1    | Mobile               | Start work, draft changes, push branch |
+| 2    | Win11 + VS Code      | Review code, refine, run tests         |
+| 3    | Chromebook           | Quick fixes on the go                  |
+| 4    | Mobile               | Documentation updates                  |
+| 5    | Win11 + Cursor       | Final review, create PR                |
 
 **Convention:** Commit messages may include the environment tag when helpful:
+
 - `feat: add backup docs (Win11/VS Code)`
 - `fix: typo (mobile)`
 - `docs: update manual (Chromebook)`
@@ -1107,9 +1250,11 @@ See `CLAUDE.md` → "Session Environment Detection" for the full detection logic
 ## Multi-Site Deployment
 
 ### Purpose
+
 The `landing-pages/` directory provides synchronized deployment for all three sites (dws6.com, dws10.com, onelifetime.world) with automated rsync and Cloudflare Pages integration.
 
 ### Directory Structure
+
 ```
 landing-pages/
 ├── dws6-com/           # Synced from dws6.com/
@@ -1120,22 +1265,25 @@ landing-pages/
 ### Sync Workflow
 
 #### Automated Sync
+
 Triggered when content changes in source directories:
+
 ```yaml
 # .github/workflows/sync-dws6-landing-pages.yml
 on:
   push:
     paths:
-      - 'dws6.com/**'
-      - 'dws10.com/**'
-      - 'onelifetime.world/**'
+      - "dws6.com/**"
+      - "dws10.com/**"
+      - "onelifetime.world/**"
     paths-ignore:
-      - '.workflows/**'
-      - '**/*.md'
-      - '.github/**'
+      - ".workflows/**"
+      - "**/*.md"
+      - ".github/**"
 ```
 
 #### Sync Process
+
 ```bash
 # 1. Create directories
 mkdir -p landing-pages/{dws6-com,dws10-com,onelifetime-world}
@@ -1157,6 +1305,7 @@ git push origin main
 ```
 
 ### Deployment Targets
+
 - **dws6.com** → Cloudflare Pages
 - **dws10.com** → Cloudflare Pages
 - **onelifetime.world** → Cloudflare Pages
@@ -1164,6 +1313,7 @@ git push origin main
 ### Common Operations
 
 #### Manual Sync
+
 ```bash
 # Sync all sites
 rsync -av --delete --exclude='.git' dws6.com/ landing-pages/dws6-com/
@@ -1172,6 +1322,7 @@ rsync -av --delete --exclude='.git' onelifetime.world/ landing-pages/onelifetime
 ```
 
 #### Verify Sync
+
 ```bash
 # Compare source and landing-pages
 diff -r dws6.com/ landing-pages/dws6-com/ \
@@ -1179,6 +1330,7 @@ diff -r dws6.com/ landing-pages/dws6-com/ \
 ```
 
 #### Deploy to Cloudflare
+
 ```bash
 # Automatic on push to main
 git push origin main
@@ -1188,6 +1340,7 @@ gh workflow run sync-dws6-landing-pages.yml
 ```
 
 ### Related Files
+
 - **.github/workflows/sync-dws6-landing-pages.yml** - Sync workflow
 - **.github/workflows/sync-site-content.yml** - Legacy sync workflow
 - **.workflows/audit/failures/sync-dws6-landing-pages-fix.md** - Sync fixes
@@ -1209,15 +1362,15 @@ observability/
 
 ### Current Maturity: Level 1/5 (Basic)
 
-| Dimension | Status | Gap |
-|-----------|--------|-----|
-| Logging | Basic Python logging | Minor — needs structured JSON |
-| Tracing | None | CRITICAL — no distributed tracing |
-| Metrics | None | CRITICAL — no token/latency/cost tracking |
-| Agent Visibility | None | CRITICAL — no decision path tracing |
-| MCP Tool Tracing | None | HIGH — no end-to-end tool call visibility |
-| Cost Tracking | None | HIGH — no real-time token/API cost |
-| Eval/Quality | None | MEDIUM — no LLM-as-judge evaluation |
+| Dimension        | Status               | Gap                                       |
+| ---------------- | -------------------- | ----------------------------------------- |
+| Logging          | Basic Python logging | Minor — needs structured JSON             |
+| Tracing          | None                 | CRITICAL — no distributed tracing         |
+| Metrics          | None                 | CRITICAL — no token/latency/cost tracking |
+| Agent Visibility | None                 | CRITICAL — no decision path tracing       |
+| MCP Tool Tracing | None                 | HIGH — no end-to-end tool call visibility |
+| Cost Tracking    | None                 | HIGH — no real-time token/API cost        |
+| Eval/Quality     | None                 | MEDIUM — no LLM-as-judge evaluation       |
 
 ### Key Findings
 
@@ -1246,20 +1399,47 @@ observability/
 ## Related Documentation
 
 **Primary Docs** (Start Here):
+
 1. `in-update-claude/documentation/PROJECT_SUMMARY.md`
 2. `in-update-claude/documentation/ACCOUNTS_SETUP_GUIDE.md`
 3. `in-update-claude/documentation/DEPLOYMENT_GUIDE.md`
 
-**Project-Specific**:
-4. `in-update-claude/next-js-projects/dws10-com/README.md`
-5. `in-update-claude/next-js-projects/onelifetime-world/README.md`
+**Project-Specific**: 4. `in-update-claude/next-js-projects/dws10-com/README.md` 5. `in-update-claude/next-js-projects/onelifetime-world/README.md`
 
-**Technical Details**:
-6. `in-update-claude/next-js-projects/dws10-com/SITEMAP.md`
-7. `in-update-claude/next-js-projects/onelifetime-world/SITEMAP.md`
+**Technical Details**: 6. `in-update-claude/next-js-projects/dws10-com/SITEMAP.md` 7. `in-update-claude/next-js-projects/onelifetime-world/SITEMAP.md`
 
-**Session Context**:
-8. `in-update-claude/SESSION_SUMMARY.md` (this session)
+**Session Context**: 8. `in-update-claude/SESSION_SUMMARY.md` (this session)
+
+---
+
+## Document Generation Tooling (June 2026)
+
+Branded HTML for key Markdown documents is **generated, not hand-edited**, so content never drifts
+from the canonical Markdown source. Two generators reuse the elegant 2024 Lifetime stylesheet
+(gold accents, navy headers, styled tables/blockquotes).
+
+**Handbook:**
+
+- Source of truth: `docs/KONSULTOINNIN_KASIKIRJA_2026.md`
+- Generator: `node scripts/gen-handbook-html.cjs`
+- Output: `docs/Konsultoinnin_kasikirja_2026.html`
+- Run after every handbook edit; the script pulls the version from the Markdown `Version:` line.
+
+**Whitepapers** (`docs/whitepapers/`):
+
+- Series plan + status: `docs/whitepapers/README.md` (WP01–WP12; reconciled against existing
+  whitepapers — see below)
+- Generic generator: `node scripts/gen-doc-html.cjs <input.md> <output.html> "Title"`
+- Example: `node scripts/gen-doc-html.cjs docs/whitepapers/WP01_AUGMENT_NOT_REPLACE.md docs/whitepapers/WP01_AUGMENT_NOT_REPLACE.html "Augment, Not Replace"`
+
+**Existing whitepaper inventory** (do not duplicate; refresh in place): KYA suite
+(`Learn/KYA-IDV-CERT-Whitepaper-v1.0.html`, published `dws10.com/kya-standard/whitepaper/`),
+European Sovereign Industrial Intelligence (`Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html`),
+Shufti KYA (`docs/field-notes/`). Canonical inventory + LLM bundling: `scripts/bundle-whitepapers-for-llm.cjs`.
+
+**Note:** these are manual generators (run on edit), not scheduled jobs. `.md` files stay in `docs/`
+and are never published to public-site folders (CLAUDE.md Non-Negotiable Rule 5). Security incidents:
+`security@lifetime.fi`.
 
 ---
 
@@ -1269,12 +1449,12 @@ observability/
 
 As of February 6, 2026, DWS6 uses a three-layer backup strategy:
 
-| Layer | Tool | Location | What |
-|-------|------|----------|------|
-| 1. Git | GitHub (private repo) | `github.com/blogtheristo/dws6` | All source code + business docs + admin files |
-| 2. Proton Drive | `Sync-ToProton.ps1` | `F:\Proton\Proton\My files\2026\` | Business files + sensitive/gitignored files |
-| 3. Full Repo Backup | `Sync-ToProton.ps1 -FullRepo` | `F:\2026\Backups\dws6\` | Complete repo copy (excluding build artifacts) |
-| 4. Supabase Storage | `Sync-ToSupabase.ps1` | EU cloud (`admin-vault` bucket) | Admin/, AgentFoundry/, Team/, docs/ |
+| Layer               | Tool                          | Location                          | What                                           |
+| ------------------- | ----------------------------- | --------------------------------- | ---------------------------------------------- |
+| 1. Git              | GitHub (private repo)         | `github.com/blogtheristo/dws6`    | All source code + business docs + admin files  |
+| 2. Proton Drive     | `Sync-ToProton.ps1`           | `F:\Proton\Proton\My files\2026\` | Business files + sensitive/gitignored files    |
+| 3. Full Repo Backup | `Sync-ToProton.ps1 -FullRepo` | `F:\2026\Backups\dws6\`           | Complete repo copy (excluding build artifacts) |
+| 4. Supabase Storage | `Sync-ToSupabase.ps1`         | EU cloud (`admin-vault` bucket)   | Admin/, AgentFoundry/, Team/, docs/            |
 
 ### Why Three Layers?
 
@@ -1367,35 +1547,37 @@ F:\2026\Backups\dws6\
 
 ### Scripts Reference
 
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| `scripts/Sync-ToProton.ps1` | Sync business files to Proton Drive | `.\Sync-ToProton.ps1` or `.\Sync-ToProton.ps1 -DryRun` |
-| `scripts/Sync-ToProton.ps1 -FullRepo` | Full repo backup to F:\2026\Backups | `.\Sync-ToProton.ps1 -FullRepo` |
-| `scripts/Sync-ToSupabase.ps1` | Upload to Supabase Storage | `.\Sync-ToSupabase.ps1 -CreateBucket` |
-| `scripts/Startup-DailySync.bat` | Daily auto-sync on Windows login | Place shortcut in Startup folder |
-| `scripts/Install-StartupSync.ps1` | Install/remove Startup shortcut | `.\Install-StartupSync.ps1` or `-Remove` |
+| Script                                | Purpose                             | Usage                                                  |
+| ------------------------------------- | ----------------------------------- | ------------------------------------------------------ |
+| `scripts/Sync-ToProton.ps1`           | Sync business files to Proton Drive | `.\Sync-ToProton.ps1` or `.\Sync-ToProton.ps1 -DryRun` |
+| `scripts/Sync-ToProton.ps1 -FullRepo` | Full repo backup to F:\2026\Backups | `.\Sync-ToProton.ps1 -FullRepo`                        |
+| `scripts/Sync-ToSupabase.ps1`         | Upload to Supabase Storage          | `.\Sync-ToSupabase.ps1 -CreateBucket`                  |
+| `scripts/Startup-DailySync.bat`       | Daily auto-sync on Windows login    | Place shortcut in Startup folder                       |
+| `scripts/Install-StartupSync.ps1`     | Install/remove Startup shortcut     | `.\Install-StartupSync.ps1` or `-Remove`               |
 
 ### VS Code / Cursor Tasks
 
 Available from Terminal > Run Task:
 
-| Task | What it does |
-|------|-------------|
-| Sync to Proton Drive | Runs `Sync-ToProton.ps1` |
-| Sync to Proton Drive (dry run) | Shows what would be synced |
-| Backup to Supabase Storage | Uploads to Supabase `admin-vault` bucket |
-| Full Sync (Proton + Supabase) | Runs both syncs in sequence |
-| Full Repo Backup to Proton | Copies entire repo to `F:\2026\Backups\dws6\` |
-| Pull and Sync | `git pull` then Proton sync |
+| Task                           | What it does                                  |
+| ------------------------------ | --------------------------------------------- |
+| Sync to Proton Drive           | Runs `Sync-ToProton.ps1`                      |
+| Sync to Proton Drive (dry run) | Shows what would be synced                    |
+| Backup to Supabase Storage     | Uploads to Supabase `admin-vault` bucket      |
+| Full Sync (Proton + Supabase)  | Runs both syncs in sequence                   |
+| Full Repo Backup to Proton     | Copies entire repo to `F:\2026\Backups\dws6\` |
+| Pull and Sync                  | `git pull` then Proton sync                   |
 
 ### Automation
 
 **Daily sync on Windows login:**
+
 1. Run `.\scripts\Install-StartupSync.ps1` (one-time setup)
 2. Creates shortcut in `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\`
 3. On login: waits 120 seconds for Proton Drive → `git pull` → `Sync-ToProton.ps1`
 
 **Post-merge hook (automatic on git pull):**
+
 - `.githooks/post-merge` runs `Sync-ToProton.ps1` after every `git pull`
 - Install: `git config core.hooksPath .githooks`
 
@@ -1403,25 +1585,47 @@ Available from Terminal > Run Task:
 
 This is a **PRIVATE** repository. Only actual secrets are gitignored:
 
-| Gitignored | Examples | Reason |
-|------------|----------|--------|
-| Secrets | `.env`, `.env.*`, `credentials.json`, `*.key`, `*.pem` | API keys, passwords, tokens |
-| Build artifacts | `node_modules/`, `.next/`, `dist/`, `build/`, `venv/` | Generated, large, reproducible |
-| OS/IDE junk | `.DS_Store`, `Thumbs.db`, `.idea/` | System files |
-| Logs | `*.log` | May contain sensitive data |
+| Gitignored      | Examples                                               | Reason                         |
+| --------------- | ------------------------------------------------------ | ------------------------------ |
+| Secrets         | `.env`, `.env.*`, `credentials.json`, `*.key`, `*.pem` | API keys, passwords, tokens    |
+| Build artifacts | `node_modules/`, `.next/`, `dist/`, `build/`, `venv/`  | Generated, large, reproducible |
+| OS/IDE junk     | `.DS_Store`, `Thumbs.db`, `.idea/`                     | System files                   |
+| Logs            | `*.log`                                                | May contain sensitive data     |
 
-| **NOT** gitignored (tracked) | Examples | Reason |
-|------------------------------|----------|--------|
-| Admin docs | `Admin/`, `ADMIN_MANUAL_*.md` | Must persist across sessions |
-| Business docs | `AgentFoundry/`, `Team/`, `docs/` | Must persist across sessions |
-| MCP configs | `mcp-hub/`, `mcp-servers/` | Deployment documentation |
-| VS Code config | `.vscode/tasks.json` | Shared sync task definitions |
+| **NOT** gitignored (tracked) | Examples                          | Reason                       |
+| ---------------------------- | --------------------------------- | ---------------------------- |
+| Admin docs                   | `Admin/`, `ADMIN_MANUAL_*.md`     | Must persist across sessions |
+| Business docs                | `AgentFoundry/`, `Team/`, `docs/` | Must persist across sessions |
+| MCP configs                  | `mcp-hub/`, `mcp-servers/`        | Deployment documentation     |
+| VS Code config               | `.vscode/tasks.json`              | Shared sync task definitions |
+
+### ClaudeCode Folder Placement Policy (March 2026)
+
+To keep managed settings visible and avoid over-classifying non-secret files:
+
+- `ClaudeCode/` lives at repository root and is tracked in Git.
+- Only genuinely secret-bearing files belong in `Admin/Claudecode_Secrets/`.
+- Before moving any file out of `ClaudeCode/`, scan contents for key/secret patterns first.
+- If no actual secret value exists, keep the file in `ClaudeCode/`.
+
+**Current rule application:**
+
+- `ClaudeCode/managed-settings.json.example` remains in root `ClaudeCode/` (template only, no live key material).
+- `Admin/Claudecode_Secrets/` is reserved for files that contain real credentials, tokens, private keys, or equivalent sensitive values.
 
 ---
 
 ## Changelog
 
+### 2026-03-13 - ClaudeCode Root Folder Policy & Secret Triage
+
+- Added explicit policy: `ClaudeCode/` must live at repo root
+- Added rule: only true secret-bearing files move to `Admin/Claudecode_Secrets/`
+- Added mandatory scan-first process before moving files to secret storage
+- Updated document version to 1.4
+
 ### 2026-02-13 - Claude Session Backup System, PR Workflow & Environment Detection
+
 - Added Claude Session Backup System section documenting automated daily backups
 - Covers daily-claude-backup.yml workflow (6:00 AM UTC)
 - Covers Backup-ClaudeSessions.ps1 manual backup script
@@ -1439,6 +1643,7 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 - Session: Windows 11 desktop (VS Code)
 
 ### 2026-02-06 - Backup Infrastructure & .gitignore Cleanup
+
 - Added Sync-ToProton.ps1, Sync-ToSupabase.ps1, Startup-DailySync.bat
 - Restored 19 Admin/ files to git tracking
 - Rewrote .gitignore from 230 to 101 lines (private repo policy)
@@ -1447,6 +1652,7 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 - Documented backup folder structure and Proton Drive mappings
 
 ### 2025-12-09 - Initial Creation
+
 - Created `in-update-claude/` directory structure
 - Added Next.js projects for both websites
 - Copied session documentation
@@ -1458,6 +1664,7 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 ## Contact & Support
 
 **Primary Maintainer**: Risto Anton Päärni
+
 - **Email**: risto@lifetime.fi
 - **GitHub**: @blogtheristo
 - **LinkedIn**: linkedin.com/in/ristopaarni
@@ -1465,6 +1672,7 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 **Repository**: https://github.com/blogtheristo/dws6
 
 **For Questions About**:
+
 - **Files/Structure**: Review this document
 - **Deployment**: See DEPLOYMENT_GUIDE.md
 - **Accounts/Services**: See ACCOUNTS_SETUP_GUIDE.md

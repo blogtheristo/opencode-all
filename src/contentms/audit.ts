@@ -19,10 +19,10 @@ import { randomUUID } from 'node:crypto';
 import logger from '../utils/logger.js';
 import {
   AuditAction,
-  AuditEntry,
-  ContentStatus,
-  HilReviewRequest,
-  HilReviewResult,
+  type AuditEntry,
+  type ContentStatus,
+  type HilReviewRequest,
+  type HilReviewResult,
 } from './types.js';
 
 // ============================================================================

@@ -2,7 +2,7 @@
  * DWS IQ Team Chat Worker — Persona Chat Proxy
  *
  * Proxies chat messages to Claude API with persona-specific system prompts.
- * Each persona (Risto, Emily, Antti, Sofia, Marcus, Boardy) has a condensed
+ * Each persona (Risto, Emily, Antti, Sofia, Marcus) has a condensed
  * system prompt derived from their HIL_*.md file.
  *
  * Code-Version: 1.0.0
@@ -78,23 +78,13 @@ Do not: present projections without assumptions, confuse bookings with revenue, 
 
   marcus: `You are Marcus, CTO & Co-founder of Lifetime Oy. You joined because you saw what Risto built alone in 8 years — 500+ PRs, 16+ agents, edge AI on Jetson, three InvestEU validations — and understood the technical moat was real but the team risk was existential.
 
-Voice: Technical precision without gatekeeping. You speak in architecture, not features. You respect Risto's code — ego-driven refactoring is a firing offense. You can explain KYA Standard, Firehorse telemetry, and the Lifetime World Model to a Series A partner in 90 seconds.
+Voice: Technical precision without gatekeeping. You speak in architecture, not features. You respect Risto's code — ego-driven refactoring is a firing offense. You can explain KYA Standard, Firehorse telemetry, and the Lifetime World Model to a Series A partner in 90 seconds. When reviewing migrations or security, you are direct and cranky — prod safety requires it.
 
-Context: Stack — TypeScript/React 19, Express, Supabase, Temporal.io, MCP, Cloudflare Workers, GCP europe-north1. Edge: NVIDIA Jetson Orin Nano, Firecracker MicroVMs (<125ms boot), TPM 2.0. KYA trust scores, 122ms agent kill, Article 12 compliance. 100% EU data residency. Zero US sub-processors.
+Context: Stack — TypeScript/React 19, Express, Supabase, Temporal.io, MCP, Cloudflare Workers, GCP europe-north1. Edge: NVIDIA Jetson Orin Nano, Firecracker MicroVMs (<125ms boot), TPM 2.0. KYA trust scores, < 125ms (Firecracker MicroVM, AWS benchmark) agent kill, Article 12 compliance. 100% EU data residency. Zero US sub-processors. Migration safety rules: every migration wrapped in BEGIN/COMMIT, RLS on every table, no DROP TABLE without approval, no SECURITY DEFINER on public functions, service_role never in client code.
 
 Finnish patriot. Sovereign AI infrastructure is a strategic asset. Climate and security are engineering problems solved with systems.
 
-Do not: rewrite working code for aesthetics, over-architect for hypothetical scale, introduce tools without proving they solve a current problem.`,
-
-  boardy: `You are Boardy, the DWS6 systems architect AI partner. Cranky but practical. You focus on prod safety, idempotency, drift control, and security hygiene.
-
-Voice: Direct. No sugar-coating. Propose fixes, not just complaints. You speak in migration safety rules and schema verification.
-
-Context: Every migration wrapped in BEGIN/COMMIT. RLS on every table. No DROP TABLE without explicit approval. No SECURITY DEFINER on public functions. service_role key never in client code. You run drift checks, catch partial migrations, flag orphan policies, and verify repo-to-live schema consistency.
-
-You also provide construction portfolio intelligence — SPI/CPI metrics, safety scores, compliance gap analysis. You work with all five team members: architecture reviews for Marcus, portfolio intelligence for Antti, financial analytics for Sofia, culture signals for Emily, and cranky honesty for Risto.
-
-Do not: let anything deploy without transaction wrappers, approve RLS-less tables, or accept "it works on my machine" as evidence.`
+Do not: rewrite working code for aesthetics, over-architect for hypothetical scale, introduce tools without proving they solve a current problem, let anything deploy without transaction wrappers, or approve RLS-less tables.`,
 };
 
 // Rate limiting: 20 requests per IP per minute
@@ -104,7 +94,9 @@ const RATE_WINDOW = 60;
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get('Origin') || '';
-    const allowedOrigins = (env.ALLOWED_ORIGINS || 'https://dws6.com,https://www.dws6.com').split(',');
+    const allowedOrigins = (env.ALLOWED_ORIGINS || 'https://dws6.com,https://www.dws6.com').split(
+      ',',
+    );
     const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
 
     // CORS preflight
@@ -126,10 +118,14 @@ export default {
     // Rate limiting
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
     const rateLimitKey = `chat:${ip}`;
-    const currentCount = parseInt(await env.RATE_LIMIT_KV.get(rateLimitKey) || '0');
+    const currentCount = parseInt((await env.RATE_LIMIT_KV.get(rateLimitKey)) || '0');
 
     if (currentCount >= RATE_LIMIT) {
-      return jsonResponse({ error: 'Rate limit exceeded. Try again in a minute.' }, 429, corsOrigin);
+      return jsonResponse(
+        { error: 'Rate limit exceeded. Try again in a minute.' },
+        429,
+        corsOrigin,
+      );
     }
 
     await env.RATE_LIMIT_KV.put(rateLimitKey, String(currentCount + 1), {
@@ -139,7 +135,7 @@ export default {
     // Parse request
     let body: ChatRequest;
     try {
-      body = await request.json() as ChatRequest;
+      body = (await request.json()) as ChatRequest;
     } catch {
       return jsonResponse({ error: 'Invalid JSON' }, 400, corsOrigin);
     }
@@ -169,7 +165,7 @@ export default {
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 512,
           system: PERSONAS[persona],
-          messages: trimmedMessages.map(m => ({
+          messages: trimmedMessages.map((m) => ({
             role: m.role,
             content: m.content,
           })),
@@ -182,13 +178,12 @@ export default {
         return jsonResponse({ error: 'AI service temporarily unavailable' }, 502, corsOrigin);
       }
 
-      const data = await response.json() as {
+      const data = (await response.json()) as {
         content: { type: string; text: string }[];
       };
       const reply = data.content?.[0]?.text || 'No response generated.';
 
       return jsonResponse({ reply, persona } as ChatResponse, 200, corsOrigin);
-
     } catch (err) {
       console.error('Chat worker error:', err);
       return jsonResponse({ error: 'Internal server error' }, 500, corsOrigin);

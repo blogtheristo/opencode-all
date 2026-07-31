@@ -37,7 +37,13 @@ import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
 
 // Lazy import to avoid circular dependency (construction is registered in index.ts)
-let _registry: { executeAgent: (name: string, context: AgentContext, input: Record<string, unknown>) => Promise<AgentResponse> } | null = null;
+let _registry: {
+  executeAgent: (
+    name: string,
+    context: AgentContext,
+    input: Record<string, unknown>,
+  ) => Promise<AgentResponse>;
+} | null = null;
 async function getRegistry() {
   if (!_registry) {
     const mod = await import('./index.js');
@@ -52,7 +58,15 @@ interface ConstructionProject {
   name: string;
   location: string;
   type: 'residential' | 'commercial' | 'infrastructure' | 'industrial' | 'renovation';
-  phase: 'planning' | 'permitting' | 'foundation' | 'structure' | 'envelope' | 'mep' | 'finishing' | 'handover';
+  phase:
+    | 'planning'
+    | 'permitting'
+    | 'foundation'
+    | 'structure'
+    | 'envelope'
+    | 'mep'
+    | 'finishing'
+    | 'handover';
   budget: number;
   startDate: string;
   endDate: string;
@@ -67,7 +81,12 @@ interface SubcontractorInfo {
 
 interface ConstructionInput {
   projectId: string;
-  action: 'compliance-check' | 'subcontractor-vet' | 'material-assessment' | 'schedule-risk' | 'full-assessment';
+  action:
+    | 'compliance-check'
+    | 'subcontractor-vet'
+    | 'material-assessment'
+    | 'schedule-risk'
+    | 'full-assessment';
   project: ConstructionProject;
   site?: Record<string, unknown>;
   materials?: Record<string, unknown>;
@@ -79,25 +98,40 @@ interface ConstructionInput {
 
 /** Building phases mapped to required permits/inspections (Finnish MRL) */
 const PHASE_REQUIREMENTS: Record<string, string[]> = {
-  planning: ['Asemakaava (zoning plan) verification', 'Environmental impact assessment if >10,000 m²'],
-  permitting: ['Rakennuslupa (building permit) from municipality', 'Pääsuunnittelija (lead designer) appointment'],
-  foundation: ['Aloituskokous (kick-off meeting) with building inspector', 'Pohjatutkimus (geotechnical survey)'],
+  planning: [
+    'Asemakaava (zoning plan) verification',
+    'Environmental impact assessment if >10,000 m²',
+  ],
+  permitting: [
+    'Rakennuslupa (building permit) from municipality',
+    'Pääsuunnittelija (lead designer) appointment',
+  ],
+  foundation: [
+    'Aloituskokous (kick-off meeting) with building inspector',
+    'Pohjatutkimus (geotechnical survey)',
+  ],
   structure: ['Rakennekatselmus (structural inspection)', 'Raudoituskatselmus (rebar inspection)'],
   envelope: ['Vedeneristyskatselmus (waterproofing inspection)', 'Energy performance verification'],
   mep: ['LVI-katselmus (HVAC inspection)', 'Sähkökatselmus (electrical inspection)'],
   finishing: ['Palotarkastus (fire inspection)', 'Esteettömyystarkastus (accessibility check)'],
-  handover: ['Loppukatselmus (final inspection)', 'Energiatodistus (energy certificate)', 'Käyttöönottotarkastus (commissioning)'],
+  handover: [
+    'Loppukatselmus (final inspection)',
+    'Energiatodistus (energy certificate)',
+    'Käyttöönottotarkastus (commissioning)',
+  ],
 };
 
-/** Construction safety thresholds (Finnish VNa 205/2009 + EU Directive 92/57/EEC) */
-const SAFETY_THRESHOLDS = {
-  maxWorkersWithoutCoordinator: 10,
-  maxFallHeight_m: 2.0,
-  minTemperature_c: -25,
-  maxWindForCrane_ms: 17,
-  requiredFirstAiders_per50: 1,
-  noiseLimit_dB: 85,
-};
+/** Construction safety thresholds (Finnish VNa 205/2009 + EU Directive 92/57/EEC)
+ * Retained for future SiteSense agent integration.
+ */
+// const SAFETY_THRESHOLDS = {
+//   maxWorkersWithoutCoordinator: 10,
+//   maxFallHeight_m: 2.0,
+//   minTemperature_c: -25,
+//   maxWindForCrane_ms: 17,
+//   requiredFirstAiders_per50: 1,
+//   noiseLimit_dB: 85,
+// };
 
 /** Tilaajavastuu checks for subcontractor vetting */
 const SUBCONTRACTOR_CHECKS = [
@@ -147,13 +181,11 @@ export class ConstructionAgent extends BaseAgent {
         'finnish-mrl-compliance',
       ],
       model: 'llama-3.1-70b-versatile',
+      modelTier: 'standard',
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
     await this.logExecution({
@@ -190,7 +222,10 @@ export class ConstructionAgent extends BaseAgent {
           ({ result, reasoning, recommendations } = this.runScheduleRisk(validated));
           break;
         case 'full-assessment':
-          ({ result, reasoning, recommendations } = await this.runFullAssessment(validated, context));
+          ({ result, reasoning, recommendations } = await this.runFullAssessment(
+            validated,
+            context,
+          ));
           break;
         default:
           throw new Error(`Unknown action: ${validated.action}`);
@@ -283,10 +318,14 @@ export class ConstructionAgent extends BaseAgent {
 
     // Budget checks
     if (project.budget > 500000) {
-      flags.push('Project >EUR 500k: Rakentamisen tiedonantovelvollisuus (construction reporting obligation) applies');
+      flags.push(
+        'Project >EUR 500k: Rakentamisen tiedonantovelvollisuus (construction reporting obligation) applies',
+      );
     }
     if (project.budget > 10000000) {
-      flags.push('Project >EUR 10M: Enhanced safety coordination required (EU Directive 92/57/EEC)');
+      flags.push(
+        'Project >EUR 10M: Enhanced safety coordination required (EU Directive 92/57/EEC)',
+      );
     }
 
     // Timeline assessment
@@ -294,22 +333,34 @@ export class ConstructionAgent extends BaseAgent {
     const end = new Date(project.endDate);
     const durationDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
     if (durationDays > 500) {
-      flags.push('Project duration >500 days: Prior notice to occupational safety authority required');
+      flags.push(
+        'Project duration >500 days: Prior notice to occupational safety authority required',
+      );
     }
 
     // Location-based checks (Finland-specific)
-    if (project.location.toLowerCase().includes('helsinki') || project.location.toLowerCase().includes('espoo') || project.location.toLowerCase().includes('vantaa')) {
-      recommendations.push('Pääkaupunkiseutu (capital region): Check municipal-specific zoning requirements');
+    if (
+      project.location.toLowerCase().includes('helsinki') ||
+      project.location.toLowerCase().includes('espoo') ||
+      project.location.toLowerCase().includes('vantaa')
+    ) {
+      recommendations.push(
+        'Pääkaupunkiseutu (capital region): Check municipal-specific zoning requirements',
+      );
     }
 
     // CSRD reporting check
     if (project.budget > 1000000) {
-      recommendations.push('EU CSRD: Include this project in corporate sustainability reporting (ESRS E1 Climate Change)');
+      recommendations.push(
+        'EU CSRD: Include this project in corporate sustainability reporting (ESRS E1 Climate Change)',
+      );
     }
 
     // EN 15978 lifecycle assessment
     if (project.type === 'residential' || project.type === 'commercial') {
-      recommendations.push('EN 15978: Whole-life carbon assessment required. Use MaterialOracle agent for A1-A5, B, C, D stages');
+      recommendations.push(
+        'EN 15978: Whole-life carbon assessment required. Use MaterialOracle agent for A1-A5, B, C, D stages',
+      );
     }
 
     return {
@@ -358,14 +409,24 @@ export class ConstructionAgent extends BaseAgent {
       checks.push({ check: 'Asbestiselvitys (asbestos survey)', status: 'required' });
     }
     if (sub.role.toLowerCase().includes('electric') || sub.role.toLowerCase().includes('sähkö')) {
-      checks.push({ check: 'Sähköurakointioikeus (electrical contracting license)', status: 'required' });
+      checks.push({
+        check: 'Sähköurakointioikeus (electrical contracting license)',
+        status: 'required',
+      });
     }
     if (sub.role.toLowerCase().includes('crane') || sub.role.toLowerCase().includes('nosturi')) {
-      checks.push({ check: 'Nosturinkuljettajan pätevyys (crane operator certification)', status: 'required' });
+      checks.push({
+        check: 'Nosturinkuljettajan pätevyys (crane operator certification)',
+        status: 'required',
+      });
     }
 
-    recommendations.push(`Verify all ${checks.length} checks via Tilaajavastuu/Vastuu Group for ${sub.name}`);
-    recommendations.push('Request valid certificates before work begins (Tilaajavastuulaki 1233/2006)');
+    recommendations.push(
+      `Verify all ${checks.length} checks via Tilaajavastuu/Vastuu Group for ${sub.name}`,
+    );
+    recommendations.push(
+      'Request valid certificates before work begins (Tilaajavastuulaki 1233/2006)',
+    );
 
     return {
       result: {
@@ -390,19 +451,29 @@ export class ConstructionAgent extends BaseAgent {
     const recommendations: string[] = [];
     const { project } = input;
 
-    recommendations.push('Run MaterialOracle agent with full material list for EN 15978 lifecycle assessment');
-    recommendations.push('Ensure EPD (Environmental Product Declaration) available for each material');
+    recommendations.push(
+      'Run MaterialOracle agent with full material list for EN 15978 lifecycle assessment',
+    );
+    recommendations.push(
+      'Ensure EPD (Environmental Product Declaration) available for each material',
+    );
 
     // CBAM check for imported materials
-    recommendations.push('Check CBAM applicability: cement, steel, aluminium imports from non-EU require CBAM certificates');
+    recommendations.push(
+      'Check CBAM applicability: cement, steel, aluminium imports from non-EU require CBAM certificates',
+    );
 
     // Phase-specific material guidance
     if (project.phase === 'structure') {
-      recommendations.push('Structural phase: Consider low-carbon concrete (30% GGBS) and EAF steel for significant carbon reduction');
+      recommendations.push(
+        'Structural phase: Consider low-carbon concrete (30% GGBS) and EAF steel for significant carbon reduction',
+      );
       recommendations.push('HYBRIT green hydrogen steel available from SSAB (Nordic supply chain)');
     }
     if (project.phase === 'envelope') {
-      recommendations.push('Envelope phase: Wood fiber insulation offers 80% carbon reduction vs EPS');
+      recommendations.push(
+        'Envelope phase: Wood fiber insulation offers 80% carbon reduction vs EPS',
+      );
       recommendations.push('Recycled-content glass (50%) widely available in EU market');
     }
 
@@ -412,7 +483,14 @@ export class ConstructionAgent extends BaseAgent {
         phase: project.phase,
         materialInputProvided: !!input.materials,
         agentChain: ['construction → material-oracle → viability'],
-        en15978Stages: ['A1-A3 (product)', 'A4 (transport)', 'A5 (construction)', 'B (use)', 'C (end-of-life)', 'D (beyond boundary)'],
+        en15978Stages: [
+          'A1-A3 (product)',
+          'A4 (transport)',
+          'A5 (construction)',
+          'B (use)',
+          'C (end-of-life)',
+          'D (beyond boundary)',
+        ],
       },
       reasoning: `Material assessment for "${project.name}" (${project.phase} phase). ${input.materials ? 'Material data provided - ready for MaterialOracle analysis.' : 'No material data provided - request material list for full EN 15978 assessment.'}`,
       recommendations,
@@ -441,18 +519,33 @@ export class ConstructionAgent extends BaseAgent {
     });
 
     if (winterOverlap) {
-      recommendations.push('Finnish winter overlap detected: Plan for talvibetonointi (winter concreting), heated enclosures, reduced daylight hours');
-      recommendations.push('Wind/temperature monitoring critical Oct-Mar: Integrate SiteSense agent for daily site safety checks');
+      recommendations.push(
+        'Finnish winter overlap detected: Plan for talvibetonointi (winter concreting), heated enclosures, reduced daylight hours',
+      );
+      recommendations.push(
+        'Wind/temperature monitoring critical Oct-Mar: Integrate SiteSense agent for daily site safety checks',
+      );
     }
 
     // Phase transition risks
-    const phaseOrder = ['planning', 'permitting', 'foundation', 'structure', 'envelope', 'mep', 'finishing', 'handover'];
+    const phaseOrder = [
+      'planning',
+      'permitting',
+      'foundation',
+      'structure',
+      'envelope',
+      'mep',
+      'finishing',
+      'handover',
+    ];
     const currentPhaseIdx = phaseOrder.indexOf(project.phase);
     const remainingPhases = phaseOrder.length - currentPhaseIdx - 1;
     const daysPerPhase = durationDays / (remainingPhases + 1);
 
     if (daysPerPhase < 30) {
-      recommendations.push(`WARNING: Only ${Math.round(daysPerPhase)} days per remaining phase (${remainingPhases} phases left). Schedule is compressed.`);
+      recommendations.push(
+        `WARNING: Only ${Math.round(daysPerPhase)} days per remaining phase (${remainingPhases} phases left). Schedule is compressed.`,
+      );
     }
 
     recommendations.push('Run ScheduleGenius agent with task list for critical path analysis');
@@ -473,7 +566,10 @@ export class ConstructionAgent extends BaseAgent {
     };
   }
 
-  private async runFullAssessment(input: ConstructionInput, context: AgentContext): Promise<{
+  private async runFullAssessment(
+    input: ConstructionInput,
+    context: AgentContext,
+  ): Promise<{
     result: Record<string, unknown>;
     reasoning: string;
     recommendations: string[];
@@ -494,27 +590,37 @@ export class ConstructionAgent extends BaseAgent {
         // SiteSense: site safety scoring (if site data provided)
         if (input.site) {
           delegations.push(
-            registry.executeAgent('sitesense', context, {
-              siteId: input.projectId,
-              siteName: input.project.name,
-              ...input.site,
-            }).then(r => { delegatedResults.sitesense = r; }).catch(e => {
-              logger.warn('SiteSense delegation failed', { error: (e as Error).message });
-              delegatedResults.sitesense = null;
-            })
+            registry
+              .executeAgent('sitesense', context, {
+                siteId: input.projectId,
+                siteName: input.project.name,
+                ...input.site,
+              })
+              .then((r) => {
+                delegatedResults.sitesense = r;
+              })
+              .catch((e) => {
+                logger.warn('SiteSense delegation failed', { error: (e as Error).message });
+                delegatedResults.sitesense = null;
+              }),
           );
         }
 
         // MaterialOracle: carbon assessment (if materials provided)
         if (input.materials) {
           delegations.push(
-            registry.executeAgent('material-oracle', context, {
-              projectId: input.projectId,
-              ...input.materials,
-            }).then(r => { delegatedResults['material-oracle'] = r; }).catch(e => {
-              logger.warn('MaterialOracle delegation failed', { error: (e as Error).message });
-              delegatedResults['material-oracle'] = null;
-            })
+            registry
+              .executeAgent('material-oracle', context, {
+                projectId: input.projectId,
+                ...input.materials,
+              })
+              .then((r) => {
+                delegatedResults['material-oracle'] = r;
+              })
+              .catch((e) => {
+                logger.warn('MaterialOracle delegation failed', { error: (e as Error).message });
+                delegatedResults['material-oracle'] = null;
+              }),
           );
         }
 
@@ -537,7 +643,7 @@ export class ConstructionAgent extends BaseAgent {
     // Merge sub-agent recommendations
     for (const [agentName, response] of Object.entries(delegatedResults)) {
       if (response?.recommendations) {
-        allRecommendations.push(...response.recommendations.map(r => `[${agentName}] ${r}`));
+        allRecommendations.push(...response.recommendations.map((r) => `[${agentName}] ${r}`));
       }
     }
 
@@ -575,7 +681,7 @@ export class ConstructionAgent extends BaseAgent {
         delegatedResults: Object.fromEntries(
           Object.entries(delegatedResults)
             .filter(([, r]) => r !== null)
-            .map(([name, r]) => [name, { confidence: r!.confidence, result: r!.result }])
+            .map(([name, r]) => [name, { confidence: r!.confidence, result: r!.result }]),
         ),
         recommendationCount: uniqueRecs.length,
       },
@@ -587,7 +693,13 @@ export class ConstructionAgent extends BaseAgent {
   // ============ HELPERS ============
 
   private validateInput(input: Record<string, unknown>): ConstructionInput {
-    const actions = ['compliance-check', 'subcontractor-vet', 'material-assessment', 'schedule-risk', 'full-assessment'];
+    const actions = [
+      'compliance-check',
+      'subcontractor-vet',
+      'material-assessment',
+      'schedule-risk',
+      'full-assessment',
+    ];
     if (!actions.includes(input.action as string)) {
       throw new Error(`action must be one of: ${actions.join(', ')}`);
     }
@@ -629,7 +741,10 @@ export class ConstructionAgent extends BaseAgent {
     return regs;
   }
 
-  private async enhanceWithLLM(input: ConstructionInput, result: Record<string, unknown>): Promise<string[] | null> {
+  private async enhanceWithLLM(
+    input: ConstructionInput,
+    result: Record<string, unknown>,
+  ): Promise<string[] | null> {
     const prompt = [
       `You are a Finnish construction compliance expert.`,
       `Project: ${input.project.name} (${input.project.type}, ${input.project.phase} phase)`,

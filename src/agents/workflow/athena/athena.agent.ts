@@ -14,24 +14,26 @@
 import { BaseAgent } from '../../base.agent.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
-const SOUL = `You are Athena, Compliance Intelligence Officer of Climate IQ.
-
-You assess EU regulatory compliance with surgical precision. Your output always leads with deadline urgency.
-
-Rules:
-- State the specific regulation and article, not just the topic
-- Urgency order: overdue > urgent (≤90 days) > approaching (≤365 days) > comfortable
-- Scope first: does this regulation apply before assessing gaps
-- Give the specific action, not "consult a lawyer"
-- When deterministic scoring and LLM analysis diverge, flag it
-
-Respond with JSON: { deadlineSummary, criticalGaps, prioritizedActions, riskNarrative }`;
+// Athena soul prompt — injected via agent context, not used as a local const.
+// const SOUL = `You are Athena, Compliance Intelligence Officer of Climate IQ.
+//
+// You assess EU regulatory compliance with surgical precision. Your output always leads with deadline urgency.
+//
+// Rules:
+// - State the specific regulation and article, not just the topic
+// - Urgency order: overdue > urgent (≤90 days) > approaching (≤365 days) > comfortable
+// - Scope first: does this regulation apply before assessing gaps
+// - Give the specific action, not "consult a lawyer"
+// - When deterministic scoring and LLM analysis diverge, flag it
+//
+// Respond with JSON: { deadlineSummary, criticalGaps, prioritizedActions, riskNarrative }`;
 
 export class AthenaAgent extends BaseAgent {
   constructor() {
     super({
       name: 'athena',
-      description: 'Compliance Intelligence — deadline-first EU regulatory assessment (ETS, CBAM, CSRD, Fit for 55, EU AI Act) for Climate IQ',
+      description:
+        'Compliance Intelligence — deadline-first EU regulatory assessment (ETS, CBAM, CSRD, Fit for 55, EU AI Act) for Climate IQ',
       capabilities: [
         'eu-compliance-assessment',
         'regulatory-deadline-tracking',
@@ -40,13 +42,11 @@ export class AthenaAgent extends BaseAgent {
         'eu-ai-act-article-12',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
     const { agentRegistry } = await import('../../index.js');
 
@@ -105,7 +105,12 @@ Return JSON: {
 }`,
     );
 
-    let synthesis = { deadlineSummary: '', criticalGaps: [], prioritizedActions: [], riskNarrative: '' };
+    let synthesis = {
+      deadlineSummary: '',
+      criticalGaps: [] as string[],
+      prioritizedActions: [] as string[],
+      riskNarrative: '',
+    };
     try {
       synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
@@ -113,8 +118,14 @@ Return JSON: {
     }
 
     const durationMs = Date.now() - startTime;
-    const gaps = (complianceData.gaps as Array<{ gap: string; severity: string; regulation: string }>) || [];
-    const deadlines = (complianceData.deadlines as Array<{ regulation: string; daysRemaining: number; urgency: string }>) || [];
+    const gaps =
+      (complianceData.gaps as Array<{ gap: string; severity: string; regulation: string }>) || [];
+    const deadlines =
+      (complianceData.deadlines as Array<{
+        regulation: string;
+        daysRemaining: number;
+        urgency: string;
+      }>) || [];
 
     return {
       agentName: this.config.name,

@@ -51,14 +51,18 @@ interface EmissionsDataAnalystInput {
 
 /** CSRD double materiality thresholds */
 const CSRD_THRESHOLDS = {
-  scope1_material: 10000,       // tCO2e - likely material if above
-  scope2_material: 5000,        // tCO2e
-  scope3_material: 25000,       // tCO2e
-  intensity_high: 0.5,          // tCO2e per EUR million revenue
+  scope1_material: 10000, // tCO2e - likely material if above
+  scope2_material: 5000, // tCO2e
+  scope3_material: 25000, // tCO2e
+  intensity_high: 0.5, // tCO2e per EUR million revenue
 };
 
-/** Unit strings recognised as tonne-scale CO2 equivalents for ETS cost calculation */
-const ETS_TONNE_UNITS = new Set(['tCO2e', 'tco2e', 'tCO2', 'tco2', 't', 'tonne', 'tonnes', 'MT', 'mt']);
+/** Unit strings recognised as tonne-scale CO2 equivalents for ETS cost calculation
+ * Retained for future ETS cost calculation integration.
+ */
+// const ETS_TONNE_UNITS = new Set([
+//   'tCO2e', 'tco2e', 'tCO2', 'tco2', 't', 'tonne', 'tonnes', 'MT', 'mt',
+// ]);
 
 /** Normalised tonne-scale units (lowercase) used by computeStatistics */
 const TONNE_UNITS = new Set(['tco2e', 'tco2', 't', 'tonne', 'tonnes', 'mt']);
@@ -68,7 +72,10 @@ const KG_UNITS = new Set(['kgco2e', 'kgco2', 'kg']);
 
 /** Lowercase + trim a unit string for set lookups */
 function normalizeUnit(unit: string): string {
-  return unit.trim().toLowerCase().replace(/[\s_-]/g, '');
+  return unit
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_-]/g, '');
 }
 
 // ============ AGENT IMPLEMENTATION ============
@@ -88,13 +95,11 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
         'cbam-assessment',
       ],
       model: 'llama-3.1-70b-versatile',
+      modelTier: 'standard',
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
     await this.logExecution({
@@ -187,7 +192,10 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
         result: { error: errorMessage },
         confidence: 0,
         reasoning: `Analysis failed: ${errorMessage}`,
-        recommendations: ['Verify data format matches expected schema', 'Ensure all records have amount and unit fields'],
+        recommendations: [
+          'Verify data format matches expected schema',
+          'Ensure all records have amount and unit fields',
+        ],
         metadata: { durationMs, model: this.config.model },
       };
     }
@@ -210,7 +218,9 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
       return !isValidAmount || !isValidUnit;
     });
     if (invalidRecords.length > 0) {
-      throw new Error(`${invalidRecords.length} record(s) missing required fields: 'amount' (finite number) and 'unit' (non-empty string)`);
+      throw new Error(
+        `${invalidRecords.length} record(s) missing required fields: 'amount' (finite number) and 'unit' (non-empty string)`,
+      );
     }
     const validContexts = ['ets', 'csrd', 'cbam', 'en15978', 'general'];
     const ctx = typeof input.context === 'string' ? input.context : 'general';
@@ -284,7 +294,10 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
       scopeBreakdown,
       facilityBreakdown,
       categoryBreakdown,
-      topEmitters: sortedFacilities.map(([name, amount]) => ({ name, amount: Math.round(amount * 100) / 100 })),
+      topEmitters: sortedFacilities.map(([name, amount]) => ({
+        name,
+        amount: Math.round(amount * 100) / 100,
+      })),
       average: Math.round((totalEmissions / data.length) * 100) / 100,
     };
   }
@@ -305,10 +318,14 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
         const normalizedTotal = stats.normalizedTotalTCO2e as number;
 
         if (missingUnitCount > 0) {
-          flags.push(`${missingUnitCount} record(s) missing unit information — ETS cost estimate requires all records to specify tCO2e`);
+          flags.push(
+            `${missingUnitCount} record(s) missing unit information — ETS cost estimate requires all records to specify tCO2e`,
+          );
         }
         if (normFlags.length > 0) {
-          flags.push(`Data contains unrecognized units (${normFlags.join(', ')}) that cannot be auto-converted to tCO2e`);
+          flags.push(
+            `Data contains unrecognized units (${normFlags.join(', ')}) that cannot be auto-converted to tCO2e`,
+          );
         }
 
         if (total > 25000) {
@@ -317,11 +334,17 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
           recommendations.push('Consider purchasing ETS allowances for surplus emissions');
         }
         if (normFlags.length === 0 && missingUnitCount === 0) {
-          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')}`);
+          recommendations.push(
+            `Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')}`,
+          );
         } else if (normalizedTotal > 0) {
-          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated partial cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')} (partial — excludes records with unrecognized units)`);
+          recommendations.push(
+            `Current EU ETS price ~EUR 68/tonne. Estimated partial cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')} (partial — excludes records with unrecognized units)`,
+          );
         } else {
-          recommendations.push('Convert all emission data to tCO2e to enable accurate ETS cost estimation (EU ETS price ~EUR 68/tonne)');
+          recommendations.push(
+            'Convert all emission data to tCO2e to enable accurate ETS cost estimation (EU ETS price ~EUR 68/tonne)',
+          );
         }
         break;
       }
@@ -337,14 +360,20 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
         }
         recommendations.push('Prepare ESRS E1 (Climate Change) disclosure for material scopes');
         if (flags.length === 0) {
-          recommendations.push('Emissions below materiality thresholds - simplified reporting may apply');
+          recommendations.push(
+            'Emissions below materiality thresholds - simplified reporting may apply',
+          );
         }
         break;
       }
       case 'cbam': {
-        flags.push('CBAM transitional reporting required for imports of: cement, iron/steel, aluminium, fertilisers, electricity, hydrogen');
+        flags.push(
+          'CBAM transitional reporting required for imports of: cement, iron/steel, aluminium, fertilisers, electricity, hydrogen',
+        );
         recommendations.push('Verify embedded emissions declarations from non-EU suppliers');
-        recommendations.push('Prepare for CBAM definitive system (January 2026+): purchase CBAM certificates');
+        recommendations.push(
+          'Prepare for CBAM definitive system (January 2026+): purchase CBAM certificates',
+        );
         break;
       }
       case 'en15978': {
@@ -360,12 +389,15 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
         break;
       }
       default:
-        recommendations.push('Specify a regulatory context (ets, csrd, cbam, en15978) for targeted analysis');
+        recommendations.push(
+          'Specify a regulatory context (ets, csrd, cbam, en15978) for targeted analysis',
+        );
     }
 
-    const summary = flags.length > 0
-      ? `Found ${flags.length} regulatory flag(s): ${flags[0]}`
-      : 'No regulatory flags raised';
+    const summary =
+      flags.length > 0
+        ? `Found ${flags.length} regulatory flag(s): ${flags[0]}`
+        : 'No regulatory flags raised';
 
     return { summary, flags, recommendations };
   }

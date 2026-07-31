@@ -1,10 +1,9 @@
 name: Daily Campaign Post Generator
 
 on:
-  schedule:
-    # Run at 03:00 and 04:00 UTC to cover Helsinki DST shifts (06:00 Helsinki)
-    - cron: '0 3 * * *'
-    - cron: '0 4 * * *'
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/generate-campaign-post.sh)
+  # GitHub Actions was failover only, consuming ~480 min/month even on skip checks.
+  # Was: cron '0 3 * * *' + '0 4 * * *' (2x daily for DST coverage)
   workflow_dispatch:
     inputs:
       day_number:
@@ -19,12 +18,15 @@ on:
 
 env:
   CAMPAIGN_START_DATE: '2026-03-16'
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
 
 jobs:
   generate-post:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    outputs:
+      campaign_day: ${{ steps.calc-day.outputs.day }}
 
     steps:
       - uses: actions/checkout@v4
@@ -134,7 +136,7 @@ Phase: $([ $DAY -le 100 ] && echo 'Foundation' || ([ $DAY -le 300 ] && echo 'Dep
       - name: Create PR for review (optional)
         if: steps.time-check.outputs.skip != 'true' && steps.calc-day.outputs.active == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           DAY="${{ steps.calc-day.outputs.day }}"
           # Only create PR for batch runs or manual triggers
@@ -185,7 +187,7 @@ Review within 24 hours or posts auto-publish." \
           await sendEmail({
             to: 'risto@lifetime.fi',
             from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
-            subject: '🚨 Campaign Post Generator FAILED — Day ${{ steps.calc-day.outputs.day || 'unknown' }}',
+            subject: '🚨 Campaign Post Generator FAILED — Day ${{ needs.generate-post.outputs.campaign_day || 'unknown' }}',
             html: '<h2>Campaign Post Generator Failed</h2>' +
               '<p><strong>Workflow:</strong> campaign-daily-posts.yml</p>' +
               '<p><strong>Run:</strong> <a href=\"https://github.com/blogtheristo/dws6/actions/runs/${{ github.run_id }}\">View logs</a></p>' +

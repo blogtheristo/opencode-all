@@ -6,7 +6,7 @@
 import { Router, Request, Response } from 'express';
 import { metricsService } from './metrics-calculation';
 import { reportService } from './report-service';
-import { InvestorReportData, ReportPeriod } from './types';
+import { InvestorReportData } from './types';
 
 const router = Router();
 
@@ -145,7 +145,7 @@ router.get('/metrics/customers', async (req: Request, res: Response) => {
  * Get sales pipeline metrics (from Firehorse)
  * GET /investor-reports/metrics/pipeline
  */
-router.get('/metrics/pipeline', async (req: Request, res: Response) => {
+router.get('/metrics/pipeline', async (_req: Request, res: Response) => {
   try {
     const pipelineMetrics = await metricsService.getPipelineMetrics();
 
@@ -187,7 +187,7 @@ router.get('/metrics/runway', async (req: Request, res: Response) => {
  * Get unit economics (CAC, LTV, ARPU)
  * GET /investor-reports/metrics/unit-economics
  */
-router.get('/metrics/unit-economics', async (req: Request, res: Response) => {
+router.get('/metrics/unit-economics', async (_req: Request, res: Response) => {
   try {
     const unitEconomics = await metricsService.getUnitEconomics();
 
@@ -252,7 +252,7 @@ router.get('/historical/arr', async (req: Request, res: Response) => {
  * Get monthly metrics summary (last 12 months)
  * GET /investor-reports/summary
  */
-router.get('/summary', async (req: Request, res: Response) => {
+router.get('/summary', async (_req: Request, res: Response) => {
   try {
     const summary = await metricsService.getMonthlyMetricsSummary(12);
 
@@ -271,7 +271,7 @@ router.get('/summary', async (req: Request, res: Response) => {
  * Get current MRR breakdown by customer
  * GET /investor-reports/mrr-by-customer
  */
-router.get('/mrr-by-customer', async (req: Request, res: Response) => {
+router.get('/mrr-by-customer', async (_req: Request, res: Response) => {
   try {
     const mrrByCustomer = await metricsService.getCurrentMRRByCustomer();
 
@@ -314,7 +314,7 @@ router.post('/generate', async (req: Request, res: Response) => {
       await reportService.sendReportEmail(reportData, pdfPath, recipients);
     }
 
-    res.json({
+    return res.json({
       success: true,
       report_id: reportData.report_period.toISOString(),
       pdf_path: pdfPath,
@@ -322,7 +322,7 @@ router.post('/generate', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error generating report:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -330,7 +330,7 @@ router.post('/generate', async (req: Request, res: Response) => {
  * Manually trigger monthly report generation (for current month)
  * POST /investor-reports/jobs/monthly
  */
-router.post('/jobs/monthly', async (req: Request, res: Response) => {
+router.post('/jobs/monthly', async (_req: Request, res: Response) => {
   try {
     const now = new Date();
     const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -361,7 +361,7 @@ router.post('/jobs/monthly', async (req: Request, res: Response) => {
  * Health check endpoint
  * GET /investor-reports/health
  */
-router.get('/health', async (req: Request, res: Response) => {
+router.get('/health', async (_req: Request, res: Response) => {
   res.json({
     success: true,
     status: 'healthy',

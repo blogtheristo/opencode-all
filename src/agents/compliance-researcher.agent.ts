@@ -167,6 +167,7 @@ export class ComplianceResearcherAgent extends BaseAgent {
         'industry-mapping',
       ],
       model: 'llama-3.1-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

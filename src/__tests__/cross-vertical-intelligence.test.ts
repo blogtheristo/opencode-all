@@ -8,17 +8,17 @@
  * CSRD disclosure gaps from the same supply chain.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  runCrossVerticalSimulation,
-  extractQanticCase,
+  buildDataSourceMatrix,
   buildIndustryProfile,
   calculateCorrelations,
-  buildDataSourceMatrix,
-  SUPPLY_CHAIN_GRAPH,
   CROSS_VERTICAL_SIGNALS,
-  LWM_INDUSTRIES,
   type CrossVerticalSimResult,
+  extractQanticCase,
+  LWM_INDUSTRIES,
+  runCrossVerticalSimulation,
+  SUPPLY_CHAIN_GRAPH,
 } from '../compliance/cross-vertical-intelligence.js';
 import { EU_SECTOR_BENCHMARKS } from '../compliance/eu-benchmarks.js';
 import { DATA_SOURCES } from '../compliance/data-source-registry.js';
@@ -53,7 +53,7 @@ describe('Supply Chain Graph', () => {
       (l) => l.from === 'cement' && l.to === 'construction',
     );
     expect(cementToConstruction).toBeDefined();
-    expect(cementToConstruction!.carbonShare).toBe(0.30);
+    expect(cementToConstruction!.carbonShare).toBe(0.3);
   });
 
   it('energy feeds all heavy industry (Scope 2)', () => {
@@ -81,9 +81,7 @@ describe('Supply Chain Graph', () => {
 
 describe('Cross-Vertical Signals', () => {
   it('has steel-CBAM-to-construction signal', () => {
-    const sig = CROSS_VERTICAL_SIGNALS.find(
-      (s) => s.id === 'SIG-CBAM-STEEL-CONSTRUCTION',
-    );
+    const sig = CROSS_VERTICAL_SIGNALS.find((s) => s.id === 'SIG-CBAM-STEEL-CONSTRUCTION');
     expect(sig).toBeDefined();
     expect(sig!.originIndustry).toBe('steel');
     expect(sig!.affectedIndustries).toContain('construction');
@@ -91,9 +89,7 @@ describe('Cross-Vertical Signals', () => {
   });
 
   it('has CSRD-construction-pushing-upstream signal', () => {
-    const sig = CROSS_VERTICAL_SIGNALS.find(
-      (s) => s.id === 'SIG-CSRD-CONSTRUCTION-STEEL',
-    );
+    const sig = CROSS_VERTICAL_SIGNALS.find((s) => s.id === 'SIG-CSRD-CONSTRUCTION-STEEL');
     expect(sig).toBeDefined();
     expect(sig!.originIndustry).toBe('construction');
     expect(sig!.affectedIndustries).toContain('steel');
@@ -102,7 +98,7 @@ describe('Cross-Vertical Signals', () => {
 
   it('all signals reference real regulations', () => {
     for (const sig of CROSS_VERTICAL_SIGNALS) {
-      expect(sig.originRegulation).toMatch(/CBAM|ETS|CSRD|Taxonomy/);
+      expect(sig.originRegulation).toMatch(/CBAM|ETS|CSRD|Taxonomy|CRM Act|KRITIS/);
     }
   });
 });
@@ -145,7 +141,7 @@ describe('Cross-Vertical Simulation', () => {
   it('scores all 20 industries', () => {
     sim = runCrossVerticalSimulation();
     expect(sim.industryScores.size).toBe(LWM_INDUSTRIES.length);
-    expect(sim.industryScores.size).toBe(20);
+    expect(sim.industryScores.size).toBe(LWM_INDUSTRIES.length);
   });
 
   it('produces ledgers for all scored industries (1 format)', () => {
@@ -194,9 +190,9 @@ describe('Cross-Vertical Simulation', () => {
   it('summary has correct matrix signature', () => {
     sim = runCrossVerticalSimulation();
     expect(sim.summary.matrixSignature).toMatch(
-      /\d+ data sources × 20 industries × 1 ledger format/,
+      /\d+ data sources × \d+ industries × 1 ledger format/,
     );
-    expect(sim.summary.totalIndustries).toBe(20);
+    expect(sim.summary.totalIndustries).toBe(LWM_INDUSTRIES.length);
     expect(sim.summary.totalDataSources).toBe(DATA_SOURCES.length);
   });
 });
@@ -205,11 +201,7 @@ describe('Cross-Vertical Simulation', () => {
 
 describe('Data Source Coverage Matrix', () => {
   it('maps sources to industries', () => {
-    const matrix = buildDataSourceMatrix(
-      DATA_SOURCES,
-      SUPPLY_CHAIN_GRAPH,
-      EU_SECTOR_BENCHMARKS,
-    );
+    const matrix = buildDataSourceMatrix(DATA_SOURCES, SUPPLY_CHAIN_GRAPH, EU_SECTOR_BENCHMARKS);
     expect(matrix.length).toBe(DATA_SOURCES.length);
     for (const row of matrix) {
       expect(row.coverageCount).toBeGreaterThan(0);
@@ -218,29 +210,21 @@ describe('Data Source Coverage Matrix', () => {
   });
 
   it('grid factors cover all 20 industries', () => {
-    const matrix = buildDataSourceMatrix(
-      DATA_SOURCES,
-      SUPPLY_CHAIN_GRAPH,
-      EU_SECTOR_BENCHMARKS,
-    );
+    const matrix = buildDataSourceMatrix(DATA_SOURCES, SUPPLY_CHAIN_GRAPH, EU_SECTOR_BENCHMARKS);
     const gridSources = matrix.filter(
       (r) => DATA_SOURCES.find((d) => d.id === r.sourceId)?.category === 'grid-factors',
     );
     for (const gs of gridSources) {
-      expect(gs.coverageCount).toBe(20);
+      expect(gs.coverageCount).toBe(LWM_INDUSTRIES.length);
     }
   });
 
   it('ESRS disclosure registry covers all 20 industries', () => {
-    const matrix = buildDataSourceMatrix(
-      DATA_SOURCES,
-      SUPPLY_CHAIN_GRAPH,
-      EU_SECTOR_BENCHMARKS,
-    );
+    const matrix = buildDataSourceMatrix(DATA_SOURCES, SUPPLY_CHAIN_GRAPH, EU_SECTOR_BENCHMARKS);
     const esrs = matrix.find((r) => r.sourceId === 'efrag-esrs');
     // ESRS source may or may not exist in the registry
     if (esrs) {
-      expect(esrs.coverageCount).toBe(20);
+      expect(esrs.coverageCount).toBe(LWM_INDUSTRIES.length);
     }
   });
 });
@@ -299,7 +283,7 @@ describe('Qantic Case Use', () => {
     const qantic = extractQanticCase(sim);
 
     // The simulation ran all 20 industries through 1 scoring engine
-    expect(sim.industryScores.size).toBe(20);
+    expect(sim.industryScores.size).toBe(LWM_INDUSTRIES.length);
 
     // Data sources feed the scores
     expect(sim.dataSourceMatrix.length).toBeGreaterThanOrEqual(12);

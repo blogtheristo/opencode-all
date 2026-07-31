@@ -6,13 +6,14 @@
 
 import pino from 'pino';
 import { getSupabaseClient } from '../../config/supabase.js';
-import { BaseERPConnector } from './base-connector';
-import { MonitorERPConnector } from './monitor-connector';
-import { IFSCloudConnector } from './connectors/ifs-connector';
-import { Dynamics365Connector } from './connectors/dynamics365-connector';
-import { SAPConnector } from './connectors/sap-connector';
-import { VismaConnector } from './connectors/visma-connector';
-import { JeevesConnector } from './connectors/jeeves-connector';
+import { gtmEventLogger } from '../../services/gtm-event-logger.js';
+import { BaseERPConnector } from './base-connector.js';
+import { MonitorERPConnector } from './monitor-connector.js';
+import { IFSCloudConnector } from './connectors/ifs-connector.js';
+import { Dynamics365Connector } from './connectors/dynamics365-connector.js';
+import { SAPConnector } from './connectors/sap-connector.js';
+import { VismaConnector } from './connectors/visma-connector.js';
+import { JeevesConnector } from './connectors/jeeves-connector.js';
 import {
   ERPProvider,
   ERPConnectionConfig,
@@ -23,16 +24,16 @@ import {
   SyncOperation,
   MachineData,
   OEEMetrics,
-  ERPWebhookEvent
-} from './types';
+  ERPWebhookEvent,
+} from './types.js';
 import {
   resolveCompanyERP,
   resolveCompanyERPBatch,
   getCompaniesByProvider,
   getAllRegisteredCompanies,
   CompanyLookupResult,
-  CompanyERPEntry
-} from './company-registry';
+  CompanyERPEntry,
+} from './company-registry.js';
 
 const logger = pino({ name: 'erp-integration-service' });
 
@@ -52,7 +53,7 @@ export class ERPIntegrationService {
     provider: ERPProvider,
     config: ERPConnectionConfig,
     syncSettings: SyncSettings,
-    fieldMappings: FieldMapping[]
+    fieldMappings: FieldMapping[],
   ): Promise<ERPIntegrationSettings> {
     try {
       // Create connector instance
@@ -77,7 +78,7 @@ export class ERPIntegrationService {
         syncSettings,
         fieldMappings,
         status: 'active',
-        lastSyncAt: undefined
+        lastSyncAt: undefined,
       };
 
       this.integrationSettings.set(key, settings);
@@ -85,27 +86,49 @@ export class ERPIntegrationService {
       // Persist to Supabase (graceful fallback to in-memory only)
       const supabase = getSupabaseClient();
       if (supabase) {
-        const { error: dbError } = await supabase.from('erp_integrations').upsert({
-          organization_id: organizationId,
-          provider,
-          config: JSON.parse(JSON.stringify(config)),
-          sync_settings: JSON.parse(JSON.stringify(syncSettings)),
-          field_mappings: JSON.parse(JSON.stringify(fieldMappings)),
-          status: 'active',
-        }, { onConflict: 'organization_id,provider' });
+        const { error: dbError } = await supabase.from('erp_integrations').upsert(
+          {
+            organization_id: organizationId,
+            provider,
+            config: JSON.parse(JSON.stringify(config)),
+            sync_settings: JSON.parse(JSON.stringify(syncSettings)),
+            field_mappings: JSON.parse(JSON.stringify(fieldMappings)),
+            status: 'active',
+          },
+          { onConflict: 'organization_id,provider' },
+        );
         if (dbError) {
-          logger.warn('Failed to persist ERP integration to database — using in-memory', { error: dbError.message });
+          logger.warn(
+            {
+              error: dbError.message,
+            },
+            'Failed to persist ERP integration to database — using in-memory',
+          );
         }
       }
 
-      logger.info('ERP integration configured', {
-        organizationId,
-        provider
+      logger.info(
+        {
+          organizationId,
+          provider,
+        },
+        'ERP integration configured',
+      );
+
+      // Step 13: ERP first-sync activated — customer has connected their ERP
+      gtmEventLogger.logEvent({
+        event_type: 'erp_sync_activated',
+        source: 'backend',
+        properties: {
+          organization_id: organizationId,
+          provider,
+        },
+        timestamp: new Date().toISOString(),
       });
 
       return settings;
     } catch (error) {
-      logger.error('Failed to configure ERP integration', { error });
+      logger.error({ error }, 'Failed to configure ERP integration');
       throw error;
     }
   }
@@ -124,7 +147,7 @@ export class ERPIntegrationService {
   async getIntegrations(organizationId: string): Promise<ERPIntegrationSettings[]> {
     const integrations: ERPIntegrationSettings[] = [];
 
-    for (const [key, settings] of this.integrationSettings.entries()) {
+    for (const [, settings] of this.integrationSettings.entries()) {
       if (settings.organizationId === organizationId) {
         integrations.push(settings);
       }
@@ -163,7 +186,7 @@ export class ERPIntegrationService {
   async syncProductionOrders(
     organizationId: string,
     provider: ERPProvider,
-    since?: Date
+    since?: Date,
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -173,7 +196,7 @@ export class ERPIntegrationService {
 
       return result;
     } catch (error) {
-      logger.error('Failed to sync production orders', { error });
+      logger.error({ error }, 'Failed to sync production orders');
       throw error;
     }
   }
@@ -184,7 +207,7 @@ export class ERPIntegrationService {
   async syncMachineData(
     organizationId: string,
     provider: ERPProvider,
-    data: MachineData[]
+    data: MachineData[],
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -194,7 +217,7 @@ export class ERPIntegrationService {
 
       return result;
     } catch (error) {
-      logger.error('Failed to sync machine data', { error });
+      logger.error({ error }, 'Failed to sync machine data');
       throw error;
     }
   }
@@ -205,7 +228,7 @@ export class ERPIntegrationService {
   async syncOEEMetrics(
     organizationId: string,
     provider: ERPProvider,
-    metrics: OEEMetrics[]
+    metrics: OEEMetrics[],
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -215,7 +238,7 @@ export class ERPIntegrationService {
 
       return result;
     } catch (error) {
-      logger.error('Failed to sync OEE metrics', { error });
+      logger.error({ error }, 'Failed to sync OEE metrics');
       throw error;
     }
   }
@@ -226,7 +249,7 @@ export class ERPIntegrationService {
   async syncMaintenanceEvents(
     organizationId: string,
     provider: ERPProvider,
-    direction: 'to_erp' | 'from_erp'
+    direction: 'to_erp' | 'from_erp',
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -236,7 +259,7 @@ export class ERPIntegrationService {
 
       return result;
     } catch (error) {
-      logger.error('Failed to sync maintenance events', { error });
+      logger.error({ error }, 'Failed to sync maintenance events');
       throw error;
     }
   }
@@ -246,14 +269,9 @@ export class ERPIntegrationService {
    */
   async handleWebhook(provider: ERPProvider, event: any): Promise<void> {
     try {
-      logger.info('Received ERP webhook', { provider, eventType: event.type });
+      logger.info({ provider, eventType: event.type }, 'Received ERP webhook');
 
-      // TODO: Process webhook event
-      // - Validate signature
-      // - Parse event data
-      // - Update DWS database
-      // - Trigger downstream actions
-
+      // Validate and persist webhook event, then mark for downstream processing
       const webhookEvent: ERPWebhookEvent = {
         id: this.generateId(),
         provider,
@@ -262,7 +280,7 @@ export class ERPIntegrationService {
         entityId: event.entityId,
         timestamp: new Date(),
         payload: event,
-        processed: false
+        processed: false,
       };
 
       // Persist webhook event to Supabase
@@ -279,13 +297,13 @@ export class ERPIntegrationService {
           processed: webhookEvent.processed,
         });
         if (dbError) {
-          logger.warn('Failed to persist webhook event', { error: dbError.message });
+          logger.warn({ error: dbError.message }, 'Failed to persist webhook event');
         }
       }
 
-      logger.info('Webhook event processed', { eventId: webhookEvent.id });
+      logger.info({ eventId: webhookEvent.id }, 'Webhook event processed');
     } catch (error) {
-      logger.error('Failed to handle webhook', { error });
+      logger.error({ error }, 'Failed to handle webhook');
       throw error;
     }
   }
@@ -296,7 +314,7 @@ export class ERPIntegrationService {
   async getSyncHistory(
     organizationId: string,
     provider?: ERPProvider,
-    limit: number = 50
+    limit: number = 50,
   ): Promise<SyncOperation[]> {
     const supabase = getSupabaseClient();
     if (!supabase) return [];
@@ -314,7 +332,7 @@ export class ERPIntegrationService {
 
     const { data, error } = await query;
     if (error) {
-      logger.warn('Failed to load sync history', { error: error.message });
+      logger.warn({ error: error.message }, 'Failed to load sync history');
       return [];
     }
     return data ?? [];
@@ -337,10 +355,7 @@ export class ERPIntegrationService {
   /**
    * Create connector instance based on provider
    */
-  private createConnector(
-    provider: ERPProvider,
-    config: ERPConnectionConfig
-  ): BaseERPConnector {
+  private createConnector(provider: ERPProvider, config: ERPConnectionConfig): BaseERPConnector {
     switch (provider) {
       case ERPProvider.MONITOR:
         return new MonitorERPConnector(config as any);
@@ -377,7 +392,8 @@ export class ERPIntegrationService {
       // Persist last sync timestamp
       const supabase = getSupabaseClient();
       if (supabase) {
-        await supabase.from('erp_integrations')
+        await supabase
+          .from('erp_integrations')
           .update({ last_sync_at: settings.lastSyncAt.toISOString() })
           .eq('organization_id', organizationId)
           .eq('provider', provider);
@@ -397,15 +413,21 @@ export class ERPIntegrationService {
     const result = resolveCompanyERP(companyName);
 
     if (result.found) {
-      logger.info('Company ERP resolved', {
-        company: companyName,
-        provider: result.provider,
-        confidence: result.confidence,
-      });
+      logger.info(
+        {
+          company: companyName,
+          provider: result.provider,
+          confidence: result.confidence,
+        },
+        'Company ERP resolved',
+      );
     } else {
-      logger.warn('Company ERP not found — manual check required', {
-        company: companyName,
-      });
+      logger.warn(
+        {
+          company: companyName,
+        },
+        'Company ERP not found — manual check required',
+      );
     }
 
     return result;
@@ -420,11 +442,14 @@ export class ERPIntegrationService {
     const found = results.filter((r) => r.found).length;
     const notFound = results.filter((r) => !r.found).length;
 
-    logger.info('Batch company ERP resolution', {
-      total: companyNames.length,
-      found,
-      notFound,
-    });
+    logger.info(
+      {
+        total: companyNames.length,
+        found,
+        notFound,
+      },
+      'Batch company ERP resolution',
+    );
 
     return results;
   }

@@ -14,10 +14,9 @@
  */
 
 import {
-  CBAM_DEFAULT_FACTORS,
   CBAM_CERTIFICATE_PRICE_EUR,
-  getFactorsForSector,
   type EmissionFactor,
+  getFactorsForSector,
 } from './emission-factors.js';
 
 // ============ TYPES ============
@@ -25,31 +24,31 @@ import {
 export interface CBAMImport {
   product: string;
   sector: string;
-  quantity: number;              // tonnes (or MWh for electricity)
-  originCountry: string;         // ISO 3166-1 alpha-2
+  quantity: number; // tonnes (or MWh for electricity)
+  originCountry: string; // ISO 3166-1 alpha-2
   supplierSpecificFactor?: number; // tCO2e/t — verified supplier data
-  carbonPricePaid?: number;      // EUR/tCO2 — carbon price already paid in origin country
+  carbonPricePaid?: number; // EUR/tCO2 — carbon price already paid in origin country
 }
 
 export interface CBAMDeclaration {
   declarant: string;
-  eoriNumber?: string;           // EU Economic Operator Registration ID
-  reportingPeriod: string;       // e.g. "2026-Q1"
+  eoriNumber?: string; // EU Economic Operator Registration ID
+  reportingPeriod: string; // e.g. "2026-Q1"
   imports: CBAMImport[];
 }
 
 export interface CBAMCalculationResult {
   declarant: string;
   reportingPeriod: string;
-  totalImportQuantity: number;   // tonnes
+  totalImportQuantity: number; // tonnes
   totalEmbeddedEmissions: number; // tCO2e
   totalCarbonPriceCredit: number; // tCO2e credited from origin country carbon pricing
-  netCBAMObligation: number;     // tCO2e (certificates needed)
-  estimatedCost: number;         // EUR
-  certificatePrice: number;      // EUR/tCO2e
+  netCBAMObligation: number; // tCO2e (certificates needed)
+  estimatedCost: number; // EUR
+  certificatePrice: number; // EUR/tCO2e
   importBreakdown: CBAMImportBreakdown[];
   affectedSectors: string[];
-  usesDefaultValues: boolean;    // true if any import uses CBAM default factors
+  usesDefaultValues: boolean; // true if any import uses CBAM default factors
   phase: 'transitional' | 'definitive';
 }
 
@@ -60,10 +59,10 @@ export interface CBAMImportBreakdown {
   quantity: number;
   emissionFactor: number;
   factorType: 'supplier-specific' | 'cbam-default';
-  embeddedEmissions: number;     // tCO2e
-  carbonPriceCredit: number;     // tCO2e equivalent
-  netObligation: number;         // tCO2e
-  estimatedCost: number;         // EUR
+  embeddedEmissions: number; // tCO2e
+  carbonPriceCredit: number; // tCO2e equivalent
+  netObligation: number; // tCO2e
+  estimatedCost: number; // EUR
 }
 
 // ============ CBAM SECTOR COVERAGE ============
@@ -78,7 +77,7 @@ export const CBAM_COVERED_SECTORS = [
   'hydrogen',
 ] as const;
 
-export type CBAMSector = typeof CBAM_COVERED_SECTORS[number];
+export type CBAMSector = (typeof CBAM_COVERED_SECTORS)[number];
 
 /**
  * Countries with carbon pricing recognized under CBAM.
@@ -87,14 +86,14 @@ export type CBAMSector = typeof CBAM_COVERED_SECTORS[number];
  */
 const COUNTRIES_WITH_CARBON_PRICING: Record<string, number> = {
   // Country: effective carbon price EUR/tCO2e (2024 estimates)
-  GB: 45,  // UK ETS
-  CH: 50,  // Swiss ETS (linked to EU ETS)
-  NZ: 30,  // NZ ETS
-  KR: 15,  // Korean ETS
-  CA: 40,  // Canadian federal carbon price
-  NO: 65,  // Norway (EEA, mirrors EU ETS)
-  IS: 65,  // Iceland (EEA, mirrors EU ETS)
-  LI: 65,  // Liechtenstein (EEA, mirrors EU ETS)
+  GB: 45, // UK ETS
+  CH: 50, // Swiss ETS (linked to EU ETS)
+  NZ: 30, // NZ ETS
+  KR: 15, // Korean ETS
+  CA: 40, // Canadian federal carbon price
+  NO: 65, // Norway (EEA, mirrors EU ETS)
+  IS: 65, // Iceland (EEA, mirrors EU ETS)
+  LI: 65, // Liechtenstein (EEA, mirrors EU ETS)
 };
 
 // ============ CALCULATOR ============
@@ -155,10 +154,7 @@ export function calculateCBAM(
 /**
  * Calculate CBAM obligation for a single import line.
  */
-function calculateSingleImport(
-  imp: CBAMImport,
-  certificatePrice: number,
-): CBAMImportBreakdown {
+function calculateSingleImport(imp: CBAMImport, certificatePrice: number): CBAMImportBreakdown {
   // Determine emission factor
   let emissionFactor: number;
   let factorType: 'supplier-specific' | 'cbam-default';
@@ -178,16 +174,21 @@ function calculateSingleImport(
   let carbonPriceCredit = 0;
   if (imp.carbonPricePaid && imp.carbonPricePaid > 0) {
     // Convert carbon price paid to equivalent tonnes credited
-    carbonPriceCredit = Math.round((imp.carbonPricePaid / certificatePrice) * embeddedEmissions * 100) / 100;
+    carbonPriceCredit =
+      Math.round((imp.carbonPricePaid / certificatePrice) * embeddedEmissions * 100) / 100;
   } else {
     // Check if origin country has recognized carbon pricing
     const countryPrice = COUNTRIES_WITH_CARBON_PRICING[imp.originCountry.toUpperCase()];
     if (countryPrice) {
-      carbonPriceCredit = Math.round((countryPrice / certificatePrice) * embeddedEmissions * 100) / 100;
+      carbonPriceCredit =
+        Math.round((countryPrice / certificatePrice) * embeddedEmissions * 100) / 100;
     }
   }
 
-  const netObligation = Math.max(0, Math.round((embeddedEmissions - carbonPriceCredit) * 100) / 100);
+  const netObligation = Math.max(
+    0,
+    Math.round((embeddedEmissions - carbonPriceCredit) * 100) / 100,
+  );
   const estimatedCost = Math.round(netObligation * certificatePrice * 100) / 100;
 
   return {
@@ -212,8 +213,9 @@ function resolveDefaultFactor(product: string, sector: string): EmissionFactor |
 
   // Match by product name
   const productMatch = sectorFactors.find(
-    (f) => f.product.toLowerCase().includes(product.toLowerCase())
-      || product.toLowerCase().includes(f.product.toLowerCase()),
+    (f) =>
+      f.product.toLowerCase().includes(product.toLowerCase()) ||
+      product.toLowerCase().includes(f.product.toLowerCase()),
   );
   if (productMatch) return productMatch;
 
@@ -226,6 +228,18 @@ function resolveDefaultFactor(product: string, sector: string): EmissionFactor |
  */
 export function isCBAMCovered(sector: string): boolean {
   return CBAM_COVERED_SECTORS.includes(sector.toLowerCase() as CBAMSector);
+}
+
+/**
+ * Validate EORI number format (strict, case-sensitive).
+ * Returns null when valid, otherwise an error message.
+ */
+export function validateEORI(eori: string): string | null {
+  if (!eori) return 'EORI number is required';
+  if (!/^[A-Z]{2}[A-Z0-9]{8,15}$/.test(eori)) {
+    return 'Invalid EORI format. Use 2 uppercase country letters followed by 8-15 uppercase letters/digits.';
+  }
+  return null;
 }
 
 /**

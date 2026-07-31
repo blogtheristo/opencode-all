@@ -10,9 +10,9 @@
  * Creates: org (upsert by domain), person (upsert by linkedin_url), thread, initial activity
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, validationResult } from 'express-validator';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 
 const router: Router = express.Router();

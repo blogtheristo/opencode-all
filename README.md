@@ -9,6 +9,7 @@
 ---
 
 ## PRODUCTION: V1.0 LAUNCHED
+
 **Status:** V1.0 launched February 23, 2026 — Pilot validation with Tier 1 European Partners
 **Update:** Customer onboarding wizard + compliance scoring shipped March 2026
 **Revenue:** €7k MRR today (scaling to €14k via Lifetime Fleet AND to €60k MRR with DWS IQ Sales 2026)
@@ -28,17 +29,18 @@ DWS IQ 6 is not a point solution. It is a **complete industrial intelligence org
 
 > **DWS IQ 6 is the de facto platform for Fit for 55 compliance — covering critical and important carbon credit works across the entire EU regulatory stack.**
 
-| Regulatory Layer | Coverage | DWS IQ 6 Capability |
-|------------------|----------|---------------------|
-| **ETS** | Emissions Trading System | Allowance tracking, trading, surrender automation |
-| **CBAM** | Carbon Border Adjustment | Import carbon calculations, certificate management |
-| **CSRD** | Sustainability Reporting | ESRS E1 climate disclosures, audit-ready data |
-| **EPBD** | Building Performance | Embodied carbon (EN 15978), lifecycle assessment |
-| **ESR** | Effort Sharing | National target tracking, non-ETS emissions |
-| **LULUCF** | Land Use & Forestry | Carbon sink accounting, forestry compliance |
-| **ReFuelEU** | Aviation & Maritime | SAF mandates, fuel intensity tracking |
-| **NIS2** | Cybersecurity | Secure infrastructure for critical entities |
-| **EU AI Act** | AI Governance | Article 12 logging, reasoning lineage (Aiwen layer Q2 2026) |
+| Regulatory Layer | Coverage                     | DWS IQ 6 Capability                                                                    |
+| ---------------- | ---------------------------- | -------------------------------------------------------------------------------------- |
+| **ETS**          | Emissions Trading System     | Allowance tracking, trading, surrender automation                                      |
+| **CBAM**         | Carbon Border Adjustment     | Import carbon calculations, certificate management                                     |
+| **CSRD**         | Sustainability Reporting     | ESRS E1 climate disclosures, audit-ready data                                          |
+| **EPBD**         | Building Performance         | Embodied carbon (EN 15978), lifecycle assessment                                       |
+| **ESR**          | Effort Sharing               | National target tracking, non-ETS emissions                                            |
+| **LULUCF**       | Land Use & Forestry          | Carbon sink accounting, forestry compliance                                            |
+| **ReFuelEU**     | Aviation & Maritime          | SAF mandates, fuel intensity tracking                                                  |
+| **NIS2**         | Cybersecurity Resilience     | Secure infrastructure, incident reporting, board accountability (Dir. 2022/2555)       |
+| **CER**          | Critical Entities Resilience | Physical protection of critical infrastructure against hybrid threats (Dir. 2022/2557) |
+| **EU AI Act**    | AI Governance                | Article 12 logging, reasoning lineage (Full Sovereignty layer Q2 2026)                 |
 
 Full Industry Coverage: [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
 
@@ -90,7 +92,9 @@ LEVEL 5: TRANSFORMATION (DWS IQ 6 Ecosystem)
 ```
 
 ### BRAIN (DWS IQ 6 Platform)
+
 Multi-agent AI orchestration with 18 specialized agents. Powered by EU-hosted Google Cloud Run + Groq (Llama 3.3 70B) + Claude API.
+
 - **62% faster decisions** vs. manual processes
 - **73% fewer errors** through AI-driven validation
 - **Agent-first design**: Every feature accessible via `dws <command>` CLI, MCP tools, and Claude Code skills
@@ -98,7 +102,9 @@ Multi-agent AI orchestration with 18 specialized agents. Powered by EU-hosted Go
 **Core Agents:** SiteSense (safety), MaterialOracle (carbon), ScheduleGenius (planning), CustomerSat (health), Compliance (EU regs), ConstructionAgent, LogisticsAgent, EmissionsDataAnalyst, QualityGate, SovereigntyMonitor, Argus (satellite imagery), and more.
 
 ### MEMORY (Lifetime World Model)
+
 Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM, Omnibus) and enterprise models trained on industry specifications and standards.
+
 - **15,000+ EU regulations** indexed and searchable
 - **20 industry verticals** pre-trained (Fit for 55 coverage)
 - **pgvector** semantic search for regulations and compliance rules
@@ -106,7 +112,9 @@ Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, 
 **Enterprise Integrations:** SAP S/4HANA • Aspentech • ABB Robotics • NVIDIA Omniverse • Microsoft Azure • Google Workspace
 
 ### BODY (20 Industrial Solutions + Firehorse Suite)
+
 Vertical-specific applications for Construction, Manufacturing, Logistics, and more:
+
 - **Firehorse Report Engine** – Automated compliance reporting
 - **Firehorse Automation** – Workflow orchestration & triggers
 - **Firehorse Content DMS** – Document management for audits
@@ -114,6 +122,7 @@ Vertical-specific applications for Construction, Manufacturing, Logistics, and m
 - **DWS Store** – 32 products across platform, services, and education categories
 
 ### HANDS (Lifetime Fleet)
+
 Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generating €7-14k MRR)** — proof of market-product fit.
 
 ---
@@ -129,6 +138,7 @@ Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generatin
 **Lifetime World. Lifetime Friends. Sustainability Partner.**
 
 ### Platform Products
+
 - DWS IQ 6 - Industrial Climate Intelligence Platform
 - Lifetime AIQ solutions
 - LTW Investor Studio
@@ -136,17 +146,20 @@ Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generatin
 - Lifetime Studio 2026
 
 ### Firehorse Product line
+
 - Firehorse Report Engine
 - Firehorse Automation
 - Firehorse Content DMS
 - Firehorse Omnichannel Next
 
 ### Technology
+
 - Lifetime Quantum Elements
 - Lifetime Robotics
 - Lifetime Cloud
 
 ### Digital Assets
+
 - **Lifetime World Coin ($LTW)**
 - **Lifetime World Coin**
 - **LTWCash**
@@ -160,6 +173,7 @@ Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generatin
 **Lifetime Happiness** = Livelihood Independence + Prosperity Creation – Carbon Footprint – Erosion Expansion – Droughts Mitigation
 
 ### Renewable Energy Stack
+
 Renewable Energy + Solar + Wind + H2 + Storage + Electricity + Heat/Cool + Water + Food + Fuel + Land
 
 ---
@@ -169,6 +183,7 @@ Renewable Energy + Solar + Wind + H2 + Storage + Electricity + Heat/Cool + Water
 DWS is an industrial platform for enterprises who wish to transform their purpose and operations into **intelligent industries** using Physical Artificial Intelligence and data-driven decisioning.
 
 ### To Survive:
+
 - The transition to electrification and H2 solutions
 - New EU AI Act and advancing industrial governance requirements
 - High standards of the sustainability age
@@ -176,9 +191,11 @@ DWS is an industrial platform for enterprises who wish to transform their purpos
 While offering customers leading-edge products and services.
 
 ### The Hydrogen Age
+
 Hydrogen age will become mandatory to fight and prevent worst-case climate change scenarios.
 
 ### Industry 5.0 Call-to-Action
+
 The new industrial age Industry 5.0 requires significant changes to company production technologies and products. **Using DWS, any company finds it easier to transform into the new industrial age.**
 
 Changing environmental compliance requirements demand action now.
@@ -215,12 +232,12 @@ Manufacturing SMEs in Europe face a "twin transition"—simultaneous digital and
 
 **Security baseline that satisfies your CISO:**
 
-| Requirement | Our Answer |
-|-------------|------------|
-| "We need SOC 2 / ISO 27001" | ISO 27001 certification Q3 2026, SOC 2 Type II Q4 2026. Pen test report available now. |
-| "Data must stay in EU" | 100% EU hosting (Finland/Germany). Customer VPC deployment available. |
-| "We need to review your security" | Full vendor risk package ready: DPA, security policies, sub-processor list. |
-| "Can you deploy in our environment?" | Yes. Customer VPC, private cloud, or hybrid edge deployment. |
+| Requirement                          | Our Answer                                                                             |
+| ------------------------------------ | -------------------------------------------------------------------------------------- |
+| "We need SOC 2 / ISO 27001"          | ISO 27001 certification Q3 2026, SOC 2 Type II Q4 2026. Pen test report available now. |
+| "Data must stay in EU"               | 100% EU hosting (Finland/Germany). Customer VPC deployment available.                  |
+| "We need to review your security"    | Full vendor risk package ready: DPA, security policies, sub-processor list.            |
+| "Can you deploy in our environment?" | Yes. Customer VPC, private cloud, or hybrid edge deployment.                           |
 
 **ROI:** €50-100k annual savings through automated compliance workflows
 
@@ -236,27 +253,27 @@ We are validating DWS6 with 2-3 construction or manufacturing companies in Europ
 
 ### Tech Stack
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| **Frontend** | React, Vite, TypeScript, TailwindCSS | 19.2, 7.2, 5.9, 4.1 |
-| **Backend** | Express + TypeScript, Node.js | 4.19, 22 |
-| **AI/LLM** | Groq (Llama 3.3 70B), Claude API, Gemini | Production |
-| **Database** | Supabase (PostgreSQL + pgvector + Auth) | EU region (europe-north1) |
-| **Orchestration** | MCP Hub (JSON-RPC 2.0), Temporal.io | Active |
-| **Infrastructure** | Google Cloud Run, Cloudflare Pages/Workers | Auto-scaling 0-10 |
-| **Edge** | NVIDIA Jetson Orin Nano | 50 sites |
-| **Testing** | Vitest | 4.0 |
-| **CI/CD** | GitHub Actions | 37 workflows |
+| Layer              | Technology                                 | Version                   |
+| ------------------ | ------------------------------------------ | ------------------------- |
+| **Frontend**       | React, Vite, TypeScript, TailwindCSS       | 19.2, 7.2, 5.9, 4.1       |
+| **Backend**        | Express + TypeScript, Node.js              | 4.19, 22                  |
+| **AI/LLM**         | Groq (Llama 3.3 70B), Claude API, Gemini   | Production                |
+| **Database**       | Supabase (PostgreSQL + pgvector + Auth)    | EU region (europe-north1) |
+| **Orchestration**  | MCP Hub (JSON-RPC 2.0), Temporal.io        | Active                    |
+| **Infrastructure** | Google Cloud Run, Cloudflare Pages/Workers | Auto-scaling 0-10         |
+| **Edge**           | NVIDIA Jetson Orin Nano                    | 50 sites                  |
+| **Testing**        | Vitest                                     | 4.0                       |
+| **CI/CD**          | GitHub Actions                             | 37 workflows              |
 
 ### Cloud Environments
 
-| Environment | Provider | Region | Purpose |
-|-------------|----------|--------|---------|
-| **US Cloud** | Cloudflare Pages/Workers | Global CDN | Landing pages, store, dashboard SPA |
-| **EU Cloud** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend, agents, database, auth |
-| **Aiwen** | EU Cloud overlay | EU-only | EU AI Act Article 12 logging (Q2 2026) |
-| **Hetzner** | Self-hosted CX22 | Helsinki | Jitsi Meet + Email (V3) |
-| **Aiven** | PostgreSQL sandbox | Finland | Agent workspace, DR mirror |
+| Environment  | Provider                    | Region                  | Purpose                                |
+| ------------ | --------------------------- | ----------------------- | -------------------------------------- |
+| **US Cloud** | Cloudflare Pages/Workers    | Global CDN              | Landing pages, store, dashboard SPA    |
+| **EU Cloud** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend, agents, database, auth        |
+| **Full Sov. (Aegis)** | EU Cloud overlay     | EU-only                 | EU AI Act Article 12 logging (Q2 2026) |
+| **Hetzner**  | Self-hosted CX22            | Helsinki                | Jitsi Meet + Email (V3)                |
+| **Aiven**    | PostgreSQL sandbox          | Finland                 | Agent workspace, DR mirror             |
 
 ### Hybrid Cloud + NVIDIA Edge
 
@@ -281,6 +298,7 @@ We are validating DWS6 with 2-3 construction or manufacturing companies in Europ
 Our Model Context Protocol (MCP) Hub enables sophisticated multi-agent orchestration across the entire DWS IQ ecosystem:
 
 **Core Components:**
+
 1. **Multi-Agent Orchestration**
    - MCP Coordination Hub: Coordinates Claude Code, Cursor AI, and Gemini Pro
    - Supabase MCP Server: Integration with Firehorse Add-Ons and customer-owned tools
@@ -309,11 +327,13 @@ Our Model Context Protocol (MCP) Hub enables sophisticated multi-agent orchestra
    - EN 15978 carbon calculation storage
 
 **Business Impact:**
+
 - **Development Efficiency**: +62% velocity increase, -73% bug reduction
 - **Cost Savings**: €23,640/year infrastructure savings
 - **Runway Extension**: 17.2 months from €150k SAFE vs. 6.7 months without MCP optimization
 
 **Quick Deployment:**
+
 ```bash
 # One-command setup
 ./scripts/setup-mcp-hub.sh
@@ -333,13 +353,13 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 
 ### Tier 1 Construction (Direct Outreach)
 
-| Company | HQ | Revenue | Focus |
-|---------|-----|---------|-------|
-| Vinci | Paris | €74B | Construction + concessions |
-| Bouygues | Paris | €37B | Public works, property |
-| ACS Group | Madrid | €37B | Concessions + energy |
-| Strabag | Vienna | €11B | Central European focus |
-| Hochtief | Essen | €39B | Public/private infrastructure |
+| Company   | HQ     | Revenue | Focus                         |
+| --------- | ------ | ------- | ----------------------------- |
+| Vinci     | Paris  | €74B    | Construction + concessions    |
+| Bouygues  | Paris  | €37B    | Public works, property        |
+| ACS Group | Madrid | €37B    | Concessions + energy          |
+| Strabag   | Vienna | €11B    | Central European focus        |
+| Hochtief  | Essen  | €39B    | Public/private infrastructure |
 
 ### Tier 2 Regional (SME Pilots)
 
@@ -371,7 +391,7 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 - **Current MRR**: €7-14k (Lifetime Fleet) - **Secures Runway**
 - **12-Month Edge Savings**: €333,000 (cloud cost avoidance)
 - **Result**: +€281,370 PROFIT in Month 12
-- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 20% discount
+- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 18% discount
 - **Hardware ROI**: 515% annually (NVIDIA Jetson investment)
 
 ---
@@ -379,8 +399,8 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 ## Timeline
 
 - **Feb 23, 2026**: V1.0 Launch (completed)
-- **Q1 2026**: Customer onboarding wizard, compliance scoring, 18-agent swarm
-- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act Aiwen layer
+- **Q1 2026**: Customer onboarding wizard, compliance scoring, 21-agent swarm
+- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act compliance layer (Full Sovereignty)
 - **Q3 2026**: ISO 27001 certification, production scaling
 - **Q4 2026**: SOC 2 Type II, profitability target
 
@@ -394,26 +414,26 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 
 DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries. Security is a prerequisite—not a feature.
 
-| Capability | Implementation |
-|------------|----------------|
-| **Deployment** | Customer VPC / Private Cloud (your environment, your control) |
-| **Data Residency** | 100% EU (Finland, Germany). Data never leaves EU/EEA. |
-| **Encryption** | AES-256-GCM at rest, TLS 1.3 in transit, BYOK/CMEK supported |
-| **Access Control** | RBAC + ABAC, SSO (SAML 2.0 / OIDC), MFA enforced |
-| **Audit Logging** | Immutable logs, 7-year retention, SIEM export ready |
-| **AI Data Policy** | We do NOT train public models on customer data |
+| Capability         | Implementation                                                |
+| ------------------ | ------------------------------------------------------------- |
+| **Deployment**     | Customer VPC / Private Cloud (your environment, your control) |
+| **Data Residency** | 100% EU (Finland, Germany). Data never leaves EU/EEA.         |
+| **Encryption**     | AES-256-GCM at rest, TLS 1.3 in transit, BYOK/CMEK supported  |
+| **Access Control** | RBAC + ABAC, SSO (SAML 2.0 / OIDC), MFA enforced              |
+| **Audit Logging**  | Immutable logs, 7-year retention, SIEM export ready           |
+| **AI Data Policy** | We do NOT train public models on customer data                |
 
 ### Compliance by Industry
 
-| Standard | Construction | Manufacturing | Lifetime Fleet |
-|----------|--------------|---------------|----------------|
-| **ISO 27001** | Q3 2026 | Q3 2026 | Q3 2026 |
-| **NIS2** | Active | Active | — |
-| **IEC 62443** | — | Q4 2026 | — |
-| **SOC 2 Type II** | — | — | Q4 2026 |
-| **DORA** | — | — | Roadmap 2026 |
-| **GDPR** | Active | Active | Active |
-| **EU AI Act** | Q2 2026 | Q2 2026 | Q2 2026 |
+| Standard          | Construction | Manufacturing | Lifetime Fleet |
+| ----------------- | ------------ | ------------- | -------------- |
+| **ISO 27001**     | Q3 2026      | Q3 2026       | Q3 2026        |
+| **NIS2**          | Active       | Active        | —              |
+| **IEC 62443**     | —            | Q4 2026       | —              |
+| **SOC 2 Type II** | —            | —             | Q4 2026        |
+| **DORA**          | —            | —             | Roadmap 2026   |
+| **GDPR**          | Active       | Active        | Active         |
+| **EU AI Act**     | Q2 2026      | Q2 2026       | Q2 2026        |
 
 ### Vendor Risk Package (Ready)
 
@@ -429,13 +449,13 @@ Full Security Documentation: [SECURITY_COMPLIANCE.md](Admin/SECURITY_COMPLIANCE.
 
 ### Legal & Privacy
 
-*   [Privacy Policy & GDPR Statement](privacy-policy/privacy-policy_V1.md)
-*   [Data Processing Agreement](privacy-policy/Agreement_Project_Terms.md)
-*   [DWS IQ Terms of Service](privacy-policy/TermsofServiceforDWSIQ.md)
-*   [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md)
-*   [Firehorse Terms of Service](privacy-policy/TermsofServiceforFirehorse.md)
-*   [Lifetime Fleet Terms](privacy-policy/TermsofServiceforLifetimeFleet.md)
-*   [Professional Services Terms](privacy-policy/TermsofServiceforProfessional.md)
+- [Privacy Policy & GDPR Statement](privacy-policy/privacy-policy_V1.md)
+- [Data Processing Agreement](privacy-policy/Agreement_Project_Terms.md)
+- [DWS IQ Terms of Service](privacy-policy/TermsofServiceforDWSIQ.md)
+- [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md)
+- [Firehorse Terms of Service](privacy-policy/TermsofServiceforFirehorse.md)
+- [Lifetime Fleet Terms](privacy-policy/TermsofServiceforLifetimeFleet.md)
+- [Professional Services Terms](privacy-policy/TermsofServiceforProfessional.md)
 
 ---
 

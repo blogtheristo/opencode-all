@@ -4,17 +4,18 @@
  */
 
 import {
-  LeadState,
+  type EmailOpenedPayload,
+  type EmailReplyPayload,
   EventType,
+  LeadState,
+  type LinkClickedPayload,
+  type MeetingBookedPayload,
   ReplyIntent,
-  EmailOpenedPayload,
-  LinkClickedPayload,
-  EmailReplyPayload,
-  MeetingBookedPayload,
 } from './types';
 import * as actions from './actions';
 import logger from '../utils/logger.js';
 import { getEmailTemplateForCountry } from './helpers';
+import { eventBus } from '../agents/event-bus.js';
 
 // ============================================================================
 // STATE MACHINE LOGIC
@@ -38,6 +39,20 @@ export async function handleEmailOpened(payload: EmailOpenedPayload): Promise<vo
     event_type: EventType.EmailOpened,
     lead_id,
     metadata: { opened_at: payload.opened_at },
+  });
+
+  // Emit to GTM event bus (Phase 2a)
+  await eventBus.emit({
+    type: 'sales.email_opened',
+    source: 'firehorse_state_machine',
+    payload: {
+      lead_id,
+      opened_at: payload.opened_at,
+    },
+    priority: 'normal',
+    timestamp: new Date().toISOString(),
+    orgId: lead.org_id || 'unknown',
+    sessionId: lead.session_id || 'unknown',
   });
 
   // State transitions
@@ -68,14 +83,26 @@ export async function handleLinkClicked(payload: LinkClickedPayload): Promise<vo
     metadata: { link_url, clicked_at: payload.clicked_at },
   });
 
+  // Emit to GTM event bus (Phase 2a)
+  await eventBus.emit({
+    type: 'sales.email_clicked',
+    source: 'firehorse_state_machine',
+    payload: {
+      lead_id,
+      link_url,
+      clicked_at: payload.clicked_at,
+    },
+    priority: 'normal',
+    timestamp: new Date().toISOString(),
+    orgId: lead.org_id || 'unknown',
+    sessionId: lead.session_id || 'unknown',
+  });
+
   // Update last engagement
   await actions.updateLastEngagement(lead_id, payload.clicked_at);
 
   // State transitions
-  if (
-    lead.state === LeadState.Cold_1_Sent ||
-    lead.state === LeadState.Cold_1_Opened
-  ) {
+  if (lead.state === LeadState.Cold_1_Sent || lead.state === LeadState.Cold_1_Opened) {
     await actions.changeState({
       new_state: LeadState.Engaged,
       lead_id,
@@ -145,10 +172,7 @@ export async function handleEmailReply(payload: EmailReplyPayload): Promise<void
       new_state: LeadState.Parked,
       lead_id,
     });
-  } else if (
-    intent === ReplyIntent.WrongPerson ||
-    intent === ReplyIntent.NotRelevant
-  ) {
+  } else if (intent === ReplyIntent.WrongPerson || intent === ReplyIntent.NotRelevant) {
     await actions.changeState({
       new_state: LeadState.Disqualified,
       lead_id,
@@ -327,11 +351,7 @@ function analyzeReplyIntent(replyText: string): ReplyIntent {
     return ReplyIntent.Interested;
   }
 
-  if (
-    text.includes('demo') ||
-    text.includes('esittely') ||
-    text.includes('show me')
-  ) {
+  if (text.includes('demo') || text.includes('esittely') || text.includes('show me')) {
     return ReplyIntent.Demo;
   }
 

@@ -10,7 +10,7 @@
  * - Timing attack prevention (dummy hash on non-existent user)
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 process.env.JWT_SECRET = 'test-secret-that-is-at-least-32-characters-long-for-security';
 

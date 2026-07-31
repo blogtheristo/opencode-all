@@ -1,6 +1,6 @@
 ---
 name: site-safety
-description: Runs a construction site safety assessment using the SiteSense agent, scoring conditions 0–100 with EN 13001 crane warnings. Use when user mentions "site safety", "safety score", "construction safety", "is it safe to work", "weather risk", "crane operation", "wind speed", "worker capacity", or gives site conditions like temperature, humidity, worker count.
+description: Use when scoring construction site conditions such as weather, crane risk, wind, or worker capacity with SiteSense.
 ---
 
 Run a DWS IQ site safety assessment using the SiteSense agent.

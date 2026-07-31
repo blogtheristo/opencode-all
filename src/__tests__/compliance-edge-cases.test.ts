@@ -5,9 +5,9 @@
  * and the full assessment→report pipeline.
  */
 
-import { describe, it, expect } from 'vitest';
-import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
-import { getMandatoryDisclosures, ESRS_REGISTRY } from '../compliance/esrs-registry.js';
+import { describe, expect, it } from 'vitest';
+import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
+import { ESRS_REGISTRY, getMandatoryDisclosures } from '../compliance/esrs-registry.js';
 import { generateReport } from '../compliance/report-generator.js';
 
 const allMandatory = getMandatoryDisclosures().map((d) => ({

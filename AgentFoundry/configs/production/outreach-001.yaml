@@ -15,7 +15,7 @@ agent:
   model:
     provider: "groq"
     name: "llama-3.1-70b-versatile"
-    temperature: 0.7  # Higher temp for creative, personalized email copy
+    temperature: 0.7 # Higher temp for creative, personalized email copy
     max_tokens: 2000
     api_key_env: "GROQ_API_KEY"
 
@@ -179,25 +179,25 @@ agent:
         input_per_1m_tokens: 0.59
         output_per_1m_tokens: 0.79
     api_costs:
-      resend: 10.00  # Monthly subscription
-      linkedin_sales_nav: 79.99  # Monthly subscription
-      perplexity: 20.00  # Monthly subscription
+      resend: 10.00 # Monthly subscription
+      linkedin_sales_nav: 79.99 # Monthly subscription
+      perplexity: 20.00 # Monthly subscription
 
   # Deployment Configuration
   deployment:
-    phase: "advisor"  # silent_pilot → advisor → autonomous
-    approval_required: true  # Every email requires HIL approval in Advisor mode
-    start_date: "2026-01-26"  # Week 2 of Phase 1
+    phase: "advisor" # silent_pilot → advisor → autonomous
+    approval_required: true # Every email requires HIL approval in Advisor mode
+    start_date: "2026-01-26" # Week 2 of Phase 1
     review_frequency: "daily"
     advance_to_autonomous_after_days: 60
 
   # Performance Metrics
   success_metrics:
     target_emails_sent_per_week: 200
-    target_open_rate: 0.45  # 45%
-    target_click_rate: 0.10  # 10%
-    target_reply_rate: 0.12  # 12%
-    target_meeting_booked_rate: 0.06  # 6%
+    target_open_rate: 0.45 # 45%
+    target_click_rate: 0.10 # 10%
+    target_reply_rate: 0.12 # 12%
+    target_meeting_booked_rate: 0.06 # 6%
 
   # Logging & Monitoring
   logging:
@@ -207,7 +207,9 @@ agent:
     retention_days: 90
 
   monitoring:
-    slack_webhook: "${SLACK_WEBHOOK_URL}"
+    primary_channel: "whatsapp"
+    notify_webhook: "${NOTIFY_WEBHOOK_URL}"
+    whatsapp_recipient: "${WHATSAPP_DEFAULT_RECIPIENT}"
     alert_on_error: true
     alert_on_spam_complaint: true
     alert_on_unsubscribe: true
@@ -243,8 +245,8 @@ agent:
       - "[OUTREACH-001]:ERROR:spam-complaint:{lead_id}"
       - "[OUTREACH-001]:COMPLETE:sequence-finished:{lead_id}"
     listens:
-      - "[LEAD-SCOUT-001]:READY:lead-enriched:{lead_id}"  # Trigger outreach when high-priority lead enriched
-      - "[MEETING-001]:READY:meeting-scheduled:{lead_id}"  # Stop sequence when meeting booked
+      - "[LEAD-SCOUT-001]:READY:lead-enriched:{lead_id}" # Trigger outreach when high-priority lead enriched
+      - "[MEETING-001]:READY:meeting-scheduled:{lead_id}" # Stop sequence when meeting booked
 
   # A/B Test Configuration
   ab_tests:
@@ -289,7 +291,7 @@ notes: |
 
   APPROVAL WORKFLOW (Advisor Mode):
   1. Agent drafts email → saves to firehorse_events with status='pending_approval'
-  2. HIL Director reviews in Supabase dashboard or Slack notification
+  2. HIL Director reviews in Supabase dashboard or WhatsApp/webhook notification
   3. HIL Director approves/rejects:
      - Approve: Update status='scheduled', agent sends at optimized time
      - Reject: Update status='rejected', provide feedback in notes field

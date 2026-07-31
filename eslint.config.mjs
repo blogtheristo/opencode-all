@@ -36,26 +36,39 @@ export default tseslint.config(
       globals: {
         ...globals.node,
       },
+      parserOptions: {
+        project: './tsconfig.eslint.json',
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
       // ── Unused variables ────────────────────────────────────────
-      '@typescript-eslint/no-unused-vars': ['error', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
 
       // ── No console.log (use pino logger instead) ────────────────
-      'no-console': ['warn', {
-        allow: ['warn', 'error'],
-      }],
+      'no-console': [
+        'warn',
+        {
+          allow: ['warn', 'error'],
+        },
+      ],
 
       // ── Security: no eval or implied eval ───────────────────────
-      'no-eval': ['error', {
-        // Remediation: Replace eval() with JSON.parse(), new Function(),
-        // or a proper parser. eval() enables arbitrary code execution
-        // and is a critical security vulnerability (DWS_SECURITY_STANDARD.md).
-      }],
+      'no-eval': [
+        'error',
+        {
+          // Remediation: Replace eval() with JSON.parse(), new Function(),
+          // or a proper parser. eval() enables arbitrary code execution
+          // and is a critical security vulnerability (DWS_SECURITY_STANDARD.md).
+        },
+      ],
       'no-implied-eval': 'error',
       // TypeScript version catches more cases (setTimeout/setInterval with strings)
       '@typescript-eslint/no-implied-eval': 'error',
@@ -66,30 +79,40 @@ export default tseslint.config(
       // ── Import ordering ─────────────────────────────────────────
       // Note: If eslint-plugin-import-x is installed, uncomment the
       // import block below. Without the plugin, use IDE sort-imports.
-      'sort-imports': ['warn', {
-        ignoreCase: true,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-        allowSeparatedGroups: true,
-      }],
+      'sort-imports': [
+        'warn',
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+          allowSeparatedGroups: true,
+        },
+      ],
 
       // ── Code quality ────────────────────────────────────────────
       'no-var': 'error',
       'prefer-const': 'error',
-      'eqeqeq': ['error', 'always', {
-        // Remediation: Replace == with ===. Loose equality causes
-        // type coercion bugs. Use === for strict comparison.
-      }],
+      eqeqeq: [
+        'error',
+        'always',
+        {
+          // Remediation: Replace == with ===. Loose equality causes
+          // type coercion bugs. Use === for strict comparison.
+        },
+      ],
       'no-throw-literal': 'error',
 
       // ── TypeScript strict overrides ─────────────────────────────
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/consistent-type-imports': ['warn', {
-        prefer: 'type-imports',
-        fixStyle: 'inline-type-imports',
-      }],
+      '@typescript-eslint/consistent-type-imports': [
+        'warn',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'inline-type-imports',
+        },
+      ],
 
       // ── Async safety ────────────────────────────────────────────
       'no-return-await': 'off',
@@ -98,14 +121,24 @@ export default tseslint.config(
       '@typescript-eslint/require-await': 'off',
 
       // ── No restricted syntax (agent-friendly messages) ──────────
-      'no-restricted-syntax': ['error',
+      'no-restricted-syntax': [
+        'error',
         {
           selector: 'CallExpression[callee.name="exec"]',
-          message: 'SECURITY: Do not use exec(). Use execFile() with argument arrays instead. See DWS_SECURITY_STANDARD.md shell command rules.',
+          message:
+            'SECURITY: Do not use exec(). Use execFile() with argument arrays instead. See DWS_SECURITY_STANDARD.md shell command rules.',
         },
         {
-          selector: 'CallExpression[callee.property.name="exec"][callee.object.name="child_process"]',
-          message: 'SECURITY: Do not use child_process.exec(). Use child_process.execFile() with argument arrays. String interpolation in shell commands enables injection attacks.',
+          selector:
+            'CallExpression[callee.property.name="exec"][callee.object.name="child_process"]',
+          message:
+            'SECURITY: Do not use child_process.exec(). Use child_process.execFile() with argument arrays. String interpolation in shell commands enables injection attacks.',
+        },
+        {
+          selector:
+            'CallExpression[callee.property.name="spawn"] Property[key.name="shell"][value.value=true]',
+          message:
+            'SECURITY: Do not use spawn with shell:true. It enables command injection. Use spawn without shell option or use execFile().',
         },
       ],
     },

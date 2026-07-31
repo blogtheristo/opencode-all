@@ -5,15 +5,19 @@
  * origin country carbon price credits, and CBAM sector coverage.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
   calculateCBAM,
-  estimateCBAMCost,
-  isCBAMCovered,
   CBAM_COVERED_SECTORS,
   type CBAMDeclaration,
+  estimateCBAMCost,
+  isCBAMCovered,
+  validateEORI,
 } from '../compliance/cbam-calculator.js';
-import { CBAM_DEFAULT_FACTORS, CBAM_CERTIFICATE_PRICE_EUR } from '../compliance/emission-factors.js';
+import {
+  CBAM_CERTIFICATE_PRICE_EUR,
+  CBAM_DEFAULT_FACTORS,
+} from '../compliance/emission-factors.js';
 
 describe('CBAM Calculator', () => {
   const steelImport: CBAMDeclaration = {
@@ -82,7 +86,7 @@ describe('CBAM Calculator', () => {
           sector: 'steel',
           quantity: 1_000,
           originCountry: 'CN',
-          supplierSpecificFactor: 1.200, // Lower than default 1.852
+          supplierSpecificFactor: 1.2, // Lower than default 1.852
         },
       ],
     };
@@ -145,10 +149,12 @@ describe('CBAM Calculator', () => {
     const withPrice = calculateCBAM(withPricePaid);
     const withoutPrice = calculateCBAM({
       ...withPricePaid,
-      imports: [{
-        ...withPricePaid.imports[0],
-        carbonPricePaid: undefined,
-      }],
+      imports: [
+        {
+          ...withPricePaid.imports[0],
+          carbonPricePaid: undefined,
+        },
+      ],
     });
 
     // Explicit price should reduce obligation
@@ -197,6 +203,21 @@ describe('estimateCBAMCost', () => {
   });
 });
 
+describe('validateEORI', () => {
+  it('accepts valid uppercase EORI format', () => {
+    expect(validateEORI('FI1234567890')).toBeNull();
+  });
+
+  it('rejects lowercase country code in strict format mode', () => {
+    expect(validateEORI('fi1234567890')).not.toBeNull();
+  });
+
+  it('rejects malformed EORI values', () => {
+    expect(validateEORI('F1234567890')).not.toBeNull();
+    expect(validateEORI('FI123')).not.toBeNull();
+  });
+});
+
 describe('CBAM Default Factors', () => {
   it('covers all CBAM Annex I sectors', () => {
     const factorSectors = new Set(CBAM_DEFAULT_FACTORS.map((f) => f.sector));
@@ -211,8 +232,10 @@ describe('CBAM Default Factors', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('all methodology is cbam-default', () => {
+  it('all methodology is cbam-default (except proxy entries)', () => {
     for (const f of CBAM_DEFAULT_FACTORS) {
+      // CBAM-LIME-PROXY uses ets-benchmark as proxy — lime is not yet in CBAM Annex I
+      if (f.id.endsWith('-PROXY')) continue;
       expect(f.methodology).toBe('cbam-default');
     }
   });

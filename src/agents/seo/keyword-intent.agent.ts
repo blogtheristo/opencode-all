@@ -11,11 +11,11 @@
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
 import type {
+  ContentType,
+  FunnelStage,
   KeywordIntentInput,
   KeywordIntentOutput,
   PriorityKeyword,
-  FunnelStage,
-  ContentType,
 } from './types.js';
 
 /** Patterns used to classify queries into funnel stages */
@@ -95,6 +95,7 @@ export class KeywordIntentAgent extends BaseAgent {
         'keyword-clustering',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 

@@ -23,7 +23,7 @@
  *   app.use('/webhooks/',      createRateLimiter(RATE_LIMIT_PRESETS.webhook));
  */
 
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 
 // ---------------------------------------------------------------------------

@@ -1,9 +1,10 @@
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
-import { loginRateLimit, authenticateToken } from '../middleware/auth.middleware.js';
+import { authenticateToken, loginRateLimit } from '../middleware/auth.middleware.js';
 import EmailService from '../services/email.service.js';
+import { isReservedEmailDomain } from '../utils/email-domain-guard.js';
 
 const router: Router = express.Router();
 
@@ -28,16 +29,21 @@ const passwordValidation = body('password')
   .trim();
 
 const registerValidation = [
-  body('email').isEmail().normalizeEmail(),
+  body('email')
+    .isEmail()
+    .normalizeEmail()
+    .custom((value: string) => {
+      if (isReservedEmailDomain(value)) {
+        throw new Error('Email domain is reserved for documentation/testing and cannot register');
+      }
+      return true;
+    }),
   passwordValidation,
   body('firstName').isLength({ min: 1, max: 100 }).trim(),
   body('lastName').isLength({ min: 1, max: 100 }).trim(),
 ];
 
-const loginValidation = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').trim(),
-];
+const loginValidation = [body('email').isEmail().normalizeEmail(), body('password').trim()];
 
 // ============ MIDDLEWARE ============
 
@@ -45,7 +51,7 @@ const validateRequest = (req: Request, res: Response, next: any) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // SECURITY FIX #7: Sanitize errors - don't expose submitted values
-    const sanitizedErrors = errors.array().map(err => ({
+    const sanitizedErrors = errors.array().map((err) => ({
       field: err.type === 'field' ? (err as any).path : 'unknown',
       message: err.msg,
       location: (err as any).location,
@@ -54,10 +60,10 @@ const validateRequest = (req: Request, res: Response, next: any) => {
     logger.warn('Validation error', { errors: sanitizedErrors });
     return res.status(400).json({
       error: 'Validation Error',
-      details: sanitizedErrors,  // Return sanitized errors, not raw
+      details: sanitizedErrors, // Return sanitized errors, not raw
     });
   }
-  next();
+  return next();
 };
 
 // ============ ROUTES ============
@@ -72,108 +78,117 @@ const validateRequest = (req: Request, res: Response, next: any) => {
  * Note: Primary registration may also be handled by Supabase Auth on the frontend.
  * This endpoint handles API-based registration with full backend flow.
  */
-router.post('/register', registerValidation, validateRequest, async (req: Request, res: Response) => {
-  try {
-    const { email, password, firstName, lastName, role, accessLevel } = req.body;
+router.post(
+  '/register',
+  registerValidation,
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { email, password, firstName, lastName, role, accessLevel } = req.body;
 
-    logger.info('User registration attempt', { email });
+      logger.info('User registration attempt', { email });
 
-    // Register user (persists to dev store, will be Supabase in production)
-    const user = await AuthService.registerUser(email, password, {
-      firstName,
-      lastName,
-      role,
-      accessLevel,
-    });
+      // Register user (persists to dev store, will be Supabase in production)
+      const user = await AuthService.registerUser(email, password, {
+        firstName,
+        lastName,
+        role,
+        accessLevel,
+      });
 
-    // Generate email verification token
-    const verificationToken = AuthService.generateEmailVerificationToken(email);
+      // Generate email verification token (side-effect: stores token for later verification)
+      AuthService.generateEmailVerificationToken(email);
 
-    // Send verification email (non-blocking — registration succeeds even if email fails)
-    const verifyLink = `${process.env.APP_URL || 'https://dws6.com'}/api/v1/auth/verify-email?token=${verificationToken}`;
-    EmailService.sendWelcomeEmail(email, firstName || email).catch((err) => {
-      logger.warn('Failed to send welcome email', { error: err.message, email });
-    });
+      // Send verification email (non-blocking — registration succeeds even if email fails)
+      EmailService.sendWelcomeEmail(email, firstName || email).catch((err) => {
+        logger.warn('Failed to send welcome email', { error: err.message, email });
+      });
 
-    logger.info('User registered successfully', {
-      userId: user.id,
-      email: user.email,
-    });
-
-    res.status(201).json({
-      message: 'Registration successful. Check your email to verify your account.',
-      user: {
+      logger.info('User registered successfully', {
+        userId: user.id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
-        accessLevel: user.accessLevel,
-      },
-    });
-  } catch (error: any) {
-    logger.error('Registration error', { error: error.message });
+      });
 
-    if (error.message.includes('already exists') || error.message.includes('duplicate')) {
-      return res.status(409).json({
+      return res.status(201).json({
+        message: 'Registration successful. Check your email to verify your account.',
+        user: {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
+          accessLevel: user.accessLevel,
+        },
+      });
+    } catch (error: any) {
+      logger.error('Registration error', { error: error.message });
+
+      if (error.message.includes('already exists') || error.message.includes('duplicate')) {
+        return res.status(409).json({
+          error: 'Registration failed',
+          message: 'An account with this email already exists.',
+        });
+      }
+
+      return res.status(500).json({
         error: 'Registration failed',
-        message: 'An account with this email already exists.',
+        message: 'An error occurred during registration. Please try again later.',
       });
     }
-
-    res.status(500).json({
-      error: 'Registration failed',
-      message: 'An error occurred during registration. Please try again later.',
-    });
-  }
-});
+  },
+);
 
 /**
  * POST /api/v1/auth/login
  * User login
  * Rate limited by both IP (app.ts) and email (custom middleware)
  */
-router.post('/login', loginValidation, validateRequest, loginRateLimit(), async (req: Request, res: Response) => {
-  try {
-    const { email, password, rememberMe, communityMode } = req.body;
+router.post(
+  '/login',
+  loginValidation,
+  validateRequest,
+  loginRateLimit(),
+  async (req: Request, res: Response) => {
+    try {
+      const { email, password, communityMode } = req.body;
 
-    logger.info('User login attempt', { email, communityMode });
+      logger.info('User login attempt', { email, communityMode });
 
-    // Authenticate user with email and password
-    const authResponse = await AuthService.authenticate({ email, password });
+      // Authenticate user with email and password
+      const authResponse = await AuthService.authenticate({ email, password });
 
-    // Note: Cookie-based rememberMe not yet implemented (requires cookie-parser)
-    // Frontend should store refreshToken in localStorage if rememberMe is true
-    // TODO: Install cookie-parser and uncomment below for secure cookie storage
-    // if (rememberMe && authResponse.refreshToken) {
-    //   res.cookie('refreshToken', authResponse.refreshToken, {
-    //     httpOnly: true,
-    //     secure: process.env.NODE_ENV === 'production',
-    //     sameSite: 'strict',
-    //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    //   });
-    // }
+      // Cookie-based rememberMe deferred — requires cookie-parser middleware.
+      // Frontend stores refreshToken in localStorage when rememberMe is true.
+      // if (rememberMe && authResponse.refreshToken) {
+      //   res.cookie('refreshToken', authResponse.refreshToken, {
+      //     httpOnly: true,
+      //     secure: process.env.NODE_ENV === 'production',
+      //     sameSite: 'strict',
+      //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      //   });
+      // }
 
-    logger.info('User logged in successfully', { 
-      userId: authResponse.user.id,
-      email,
-      communityMode: communityMode || false,
-    });
+      logger.info('User logged in successfully', {
+        userId: authResponse.user.id,
+        email,
+        communityMode: communityMode || false,
+      });
 
-    res.status(200).json({
-      message: 'Login successful',
-      token: authResponse.token,
-      refreshToken: authResponse.refreshToken,
-      expiresIn: authResponse.expiresIn,
-      user: authResponse.user,
-    });
-  } catch (error: any) {
-    logger.error('Login error', { error: error.message });
-    res.status(401).json({
-      error: 'Login failed',
-      message: 'Invalid email or password',
-    });
-  }
-});
+      res.status(200).json({
+        message: 'Login successful',
+        token: authResponse.token,
+        refreshToken: authResponse.refreshToken,
+        expiresIn: authResponse.expiresIn,
+        user: authResponse.user,
+      });
+    } catch (error: any) {
+      logger.error('Login error', { error: error.message });
+      res.status(401).json({
+        error: 'Login failed',
+        message: 'Invalid email or password',
+      });
+    }
+  },
+);
 
 /**
  * POST /api/v1/auth/logout
@@ -189,7 +204,7 @@ router.post('/logout', authenticateToken, async (req: Request, res: Response) =>
   try {
     // SECURITY FIX #4: Revoke the access token (async for Redis support)
     if (req.token) {
-      await AuthService.revokeToken(req.token, 86400);  // 24h expiry for access tokens
+      await AuthService.revokeToken(req.token, 86400); // 24h expiry for access tokens
     }
 
     logger.info('User logout successful - token revoked', {
@@ -214,48 +229,53 @@ router.post('/logout', authenticateToken, async (req: Request, res: Response) =>
  * POST /api/v1/auth/verify-email
  * Verify email address
  */
-router.post('/verify-email', [body('token').trim()], validateRequest, async (req: Request, res: Response) => {
-  try {
-    const { token } = req.body;
+router.post(
+  '/verify-email',
+  [body('token').trim()],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { token } = req.body;
 
-    logger.info('Email verification attempt');
+      logger.info('Email verification attempt');
 
-    // Validate the token and get the associated email
-    const email = AuthService.verifyEmailToken(token);
+      // Validate the token and get the associated email
+      const email = AuthService.verifyEmailToken(token);
 
-    if (!email) {
-      res.status(400).json({
-        error: 'Email verification failed',
-        message: 'Invalid or expired verification token.',
+      if (!email) {
+        res.status(400).json({
+          error: 'Email verification failed',
+          message: 'Invalid or expired verification token.',
+        });
+        return;
+      }
+
+      // Mark the user's email as verified
+      const marked = AuthService.markEmailVerified(email);
+
+      if (!marked) {
+        res.status(404).json({
+          error: 'Email verification failed',
+          message: 'User account not found.',
+        });
+        return;
+      }
+
+      logger.info('Email verified successfully', { email });
+
+      res.status(200).json({
+        message: 'Email verified successfully. You can now log in.',
+        email,
       });
-      return;
-    }
-
-    // Mark the user's email as verified
-    const marked = AuthService.markEmailVerified(email);
-
-    if (!marked) {
-      res.status(404).json({
+    } catch (error: any) {
+      logger.error('Email verification error', { error: error.message });
+      res.status(500).json({
         error: 'Email verification failed',
-        message: 'User account not found.',
+        message: 'An error occurred during email verification.',
       });
-      return;
     }
-
-    logger.info('Email verified successfully', { email });
-
-    res.status(200).json({
-      message: 'Email verified successfully. You can now log in.',
-      email,
-    });
-  } catch (error: any) {
-    logger.error('Email verification error', { error: error.message });
-    res.status(500).json({
-      error: 'Email verification failed',
-      message: 'An error occurred during email verification.',
-    });
-  }
-});
+  },
+);
 
 /**
  * POST /api/v1/auth/refresh
@@ -288,14 +308,14 @@ router.post('/refresh', async (req: Request, res: Response) => {
 
     logger.info('Access token refreshed successfully');
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Token refreshed',
       token: newAccessToken,
       expiresIn: 86400, // 24 hours
     });
   } catch (error: any) {
     logger.error('Token refresh error', { error: error.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Token refresh failed',
       message: 'An error occurred while refreshing the token. Please try again later.',
     });
@@ -310,72 +330,78 @@ router.post('/refresh', async (req: Request, res: Response) => {
  * SECURITY: Always returns 200 regardless of whether the email exists
  * to prevent email enumeration attacks.
  */
-router.post('/forgot-password', [body('email').isEmail().normalizeEmail()], validateRequest, async (req: Request, res: Response) => {
-  try {
-    const { email } = req.body;
+router.post(
+  '/forgot-password',
+  [body('email').isEmail().normalizeEmail()],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
 
-    logger.info('Password reset request', { email });
+      logger.info('Password reset request', { email });
 
-    // Generate reset token (returns null if user doesn't exist, but we don't tell the caller)
-    const resetToken = AuthService.generatePasswordResetToken(email);
+      // Generate reset token (returns null if user doesn't exist, but we don't tell the caller)
+      const resetToken = AuthService.generatePasswordResetToken(email);
 
-    if (resetToken) {
-      // User exists — send the reset email
-      const resetLink = `${process.env.APP_URL || 'https://dws6.com'}/reset-password?token=${resetToken}`;
-      EmailService.sendPasswordResetEmail(email, resetLink).catch((err) => {
-        logger.warn('Failed to send password reset email', { error: err.message });
+      if (resetToken) {
+        // User exists — send the reset email
+        const resetLink = `${process.env.APP_URL || 'https://dws6.com'}/reset-password?token=${resetToken}`;
+        EmailService.sendPasswordResetEmail(email, resetLink).catch((err) => {
+          logger.warn('Failed to send password reset email', { error: err.message });
+        });
+      }
+
+      // Always return 200 to prevent email enumeration
+      res.status(200).json({
+        message: 'If an account with that email exists, a password reset link has been sent.',
+      });
+    } catch (error: any) {
+      logger.error('Password reset error', { error: error.message });
+      res.status(500).json({
+        error: 'Password reset failed',
+        message: 'An error occurred while processing your request. Please try again later.',
       });
     }
-
-    // Always return 200 to prevent email enumeration
-    res.status(200).json({
-      message: 'If an account with that email exists, a password reset link has been sent.',
-    });
-  } catch (error: any) {
-    logger.error('Password reset error', { error: error.message });
-    res.status(500).json({
-      error: 'Password reset failed',
-      message: 'An error occurred while processing your request. Please try again later.',
-    });
-  }
-});
+  },
+);
 
 /**
  * POST /api/v1/auth/reset-password
  * Reset password using a valid reset token
  */
-router.post('/reset-password', [
-  body('token').isString().trim().isLength({ min: 1 }),
-  passwordValidation,
-], validateRequest, async (req: Request, res: Response) => {
-  try {
-    const { token, password } = req.body;
+router.post(
+  '/reset-password',
+  [body('token').isString().trim().isLength({ min: 1 }), passwordValidation],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { token, password } = req.body;
 
-    logger.info('Password reset attempt');
+      logger.info('Password reset attempt');
 
-    const success = await AuthService.resetPassword(token, password);
+      const success = await AuthService.resetPassword(token, password);
 
-    if (!success) {
-      res.status(400).json({
-        error: 'Password reset failed',
-        message: 'Invalid or expired reset token.',
+      if (!success) {
+        res.status(400).json({
+          error: 'Password reset failed',
+          message: 'Invalid or expired reset token.',
+        });
+        return;
+      }
+
+      logger.info('Password reset successful');
+
+      res.status(200).json({
+        message: 'Password reset successful. You can now log in with your new password.',
       });
-      return;
+    } catch (error: any) {
+      logger.error('Password reset error', { error: error.message });
+      res.status(500).json({
+        error: 'Password reset failed',
+        message: 'An error occurred while resetting your password.',
+      });
     }
-
-    logger.info('Password reset successful');
-
-    res.status(200).json({
-      message: 'Password reset successful. You can now log in with your new password.',
-    });
-  } catch (error: any) {
-    logger.error('Password reset error', { error: error.message });
-    res.status(500).json({
-      error: 'Password reset failed',
-      message: 'An error occurred while resetting your password.',
-    });
-  }
-});
+  },
+);
 
 export default router;
-

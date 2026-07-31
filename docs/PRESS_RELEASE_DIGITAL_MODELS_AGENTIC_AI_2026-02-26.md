@@ -75,7 +75,7 @@ EU climate compliance is not a single workflow. It is dozens of overlapping regu
 
 This is precisely the problem that agentic AI is designed to solve.
 
-DWS IQ's multi-agent system assigns specialized agents to each regulatory domain, runs continuous monitoring across all 16 industries, and surfaces compliance gaps before they become fines. When a new CBAM declaration deadline approaches, an agent doesn't wait to be triggered — it begins assembling the required supply chain carbon data, cross-references it against the Lifetime World Model's regulation index, and initiates the Firehorse report workflow without human instruction.
+DWS IQ's multi-agent system assigns specialized agents to each regulatory domain, runs continuous monitoring across all 25+ industries, and surfaces compliance gaps before they become fines. When a new CBAM declaration deadline approaches, an agent doesn't wait to be triggered — it begins assembling the required supply chain carbon data, cross-references it against the Lifetime World Model's regulation index, and initiates the Firehorse report workflow without human instruction.
 
 The MIT CISR researchers describe this dynamic as agentic AI "sitting between tools and human workers, deriving much of its value from adaptability — how it responds to changing conditions and learns over time." In EU industrial compliance, those changing conditions arrive with every quarterly ETS auction, every CSRD reporting season, and every CBAM certificate submission window.
 
@@ -108,7 +108,7 @@ DWS IQ runs entirely within EU cloud infrastructure (Google Cloud Run, europe-no
 
 ### About DWS IQ 6
 
-DWS IQ 6 is an enterprise-grade industrial climate intelligence and compliance platform developed by Lifetime Oy, Helsinki. It automates EU climate compliance — Fit for 55, ETS, CBAM, CSRD — across 16 regulated industries through a multi-agent AI architecture. The platform is available via the DWS AI Supermarket at dws10.com and is deployed on EU-sovereign cloud infrastructure (Google Cloud Run, europe-north1).
+DWS IQ 6 is an enterprise-grade industrial climate intelligence and compliance platform developed by Lifetime Oy, Helsinki. It automates EU climate compliance — Fit for 55, ETS, CBAM, CSRD — across 16 regulated industries through a multi-agent AI architecture. The platform is available via the DWS Sovereign AI Store at dws10.com and is deployed on EU-sovereign cloud infrastructure (Google Cloud Run, europe-north1).
 
 **Industries served:** Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviation, Maritime, Road Transport, Construction & Buildings, Agriculture, Waste Management, Aluminium, Pulp & Paper, Petroleum Refining, Food & Beverage, Glass & Ceramics, Mining & Quarrying.
 

@@ -19,10 +19,13 @@
  */
 
 import { EU_SECTOR_BENCHMARKS, type SectorBenchmark } from './eu-benchmarks.js';
-import { ETS_EMISSION_FACTORS, CBAM_DEFAULT_FACTORS, type EmissionFactor } from './emission-factors.js';
 import { DATA_SOURCES, type DataSource } from './data-source-registry.js';
-import { scoreCompliance, type ComplianceScoringInput, type ScoringResult } from './scoring-engine.js';
-import { costBreakdownToLedger, type ComplianceLedger } from './debit-credit-ledger.js';
+import {
+  type ComplianceScoringInput,
+  scoreCompliance,
+  type ScoringResult,
+} from './scoring-engine.js';
+import { type ComplianceLedger, costBreakdownToLedger } from './debit-credit-ledger.js';
 import { getMandatoryDisclosures } from './esrs-registry.js';
 
 // ============ TYPES ============
@@ -121,39 +124,203 @@ export interface SimSummary {
  */
 export const SUPPLY_CHAIN_GRAPH: SupplyChainLink[] = [
   // Steel feeds into construction, manufacturing, transport, energy
-  { from: 'steel', to: 'construction', material: 'Structural steel (rebar, beams)', carbonShare: 0.35, regulatoryLinks: ['cbam', 'csrd-scope3', 'taxonomy'] },
-  { from: 'steel', to: 'manufacturing', material: 'Steel components', carbonShare: 0.20, regulatoryLinks: ['cbam', 'csrd-scope3'] },
-  { from: 'steel', to: 'transport', material: 'Vehicle steel', carbonShare: 0.15, regulatoryLinks: ['cbam', 'csrd-scope3'] },
-  { from: 'steel', to: 'energy', material: 'Wind tower steel', carbonShare: 0.08, regulatoryLinks: ['cbam', 'taxonomy'] },
+  {
+    from: 'steel',
+    to: 'construction',
+    material: 'Structural steel (rebar, beams)',
+    carbonShare: 0.35,
+    regulatoryLinks: ['cbam', 'csrd-scope3', 'taxonomy'],
+  },
+  {
+    from: 'steel',
+    to: 'manufacturing',
+    material: 'Steel components',
+    carbonShare: 0.2,
+    regulatoryLinks: ['cbam', 'csrd-scope3'],
+  },
+  {
+    from: 'steel',
+    to: 'transport',
+    material: 'Vehicle steel',
+    carbonShare: 0.15,
+    regulatoryLinks: ['cbam', 'csrd-scope3'],
+  },
+  {
+    from: 'steel',
+    to: 'energy',
+    material: 'Wind tower steel',
+    carbonShare: 0.08,
+    regulatoryLinks: ['cbam', 'taxonomy'],
+  },
 
   // Cement feeds into construction
-  { from: 'cement', to: 'construction', material: 'Portland cement, concrete', carbonShare: 0.30, regulatoryLinks: ['cbam', 'csrd-scope3', 'taxonomy'] },
+  {
+    from: 'cement',
+    to: 'construction',
+    material: 'Portland cement, concrete',
+    carbonShare: 0.3,
+    regulatoryLinks: ['cbam', 'csrd-scope3', 'taxonomy'],
+  },
 
   // Aluminium feeds into construction, manufacturing, transport
-  { from: 'aluminium', to: 'construction', material: 'Aluminium facades, frames', carbonShare: 0.10, regulatoryLinks: ['cbam', 'csrd-scope3'] },
-  { from: 'aluminium', to: 'manufacturing', material: 'Aluminium parts', carbonShare: 0.15, regulatoryLinks: ['cbam', 'csrd-scope3'] },
-  { from: 'aluminium', to: 'transport', material: 'Vehicle aluminium', carbonShare: 0.12, regulatoryLinks: ['cbam'] },
+  {
+    from: 'aluminium',
+    to: 'construction',
+    material: 'Aluminium facades, frames',
+    carbonShare: 0.1,
+    regulatoryLinks: ['cbam', 'csrd-scope3'],
+  },
+  {
+    from: 'aluminium',
+    to: 'manufacturing',
+    material: 'Aluminium parts',
+    carbonShare: 0.15,
+    regulatoryLinks: ['cbam', 'csrd-scope3'],
+  },
+  {
+    from: 'aluminium',
+    to: 'transport',
+    material: 'Vehicle aluminium',
+    carbonShare: 0.12,
+    regulatoryLinks: ['cbam'],
+  },
 
   // Chemicals feed into manufacturing, construction, fertilizers
-  { from: 'chemicals', to: 'manufacturing', material: 'Industrial chemicals', carbonShare: 0.10, regulatoryLinks: ['ets', 'csrd-scope3'] },
-  { from: 'chemicals', to: 'construction', material: 'Paints, adhesives, coatings', carbonShare: 0.05, regulatoryLinks: ['csrd-scope3'] },
-  { from: 'chemicals', to: 'fertilizers', material: 'Ammonia feedstock', carbonShare: 0.60, regulatoryLinks: ['ets', 'cbam'] },
+  {
+    from: 'chemicals',
+    to: 'manufacturing',
+    material: 'Industrial chemicals',
+    carbonShare: 0.1,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
+  {
+    from: 'chemicals',
+    to: 'construction',
+    material: 'Paints, adhesives, coatings',
+    carbonShare: 0.05,
+    regulatoryLinks: ['csrd-scope3'],
+  },
+  {
+    from: 'chemicals',
+    to: 'fertilizers',
+    material: 'Ammonia feedstock',
+    carbonShare: 0.6,
+    regulatoryLinks: ['ets', 'cbam'],
+  },
 
   // Energy feeds into everything (Scope 2)
-  { from: 'energy', to: 'steel', material: 'Grid electricity', carbonShare: 0.15, regulatoryLinks: ['ets', 'csrd-scope3'] },
-  { from: 'energy', to: 'cement', material: 'Grid electricity', carbonShare: 0.10, regulatoryLinks: ['ets', 'csrd-scope3'] },
-  { from: 'energy', to: 'aluminium', material: 'Grid electricity (smelting)', carbonShare: 0.40, regulatoryLinks: ['ets', 'csrd-scope3'] },
-  { from: 'energy', to: 'chemicals', material: 'Grid electricity', carbonShare: 0.20, regulatoryLinks: ['ets', 'csrd-scope3'] },
-  { from: 'energy', to: 'construction', material: 'Site electricity', carbonShare: 0.05, regulatoryLinks: ['csrd-scope3'] },
-  { from: 'energy', to: 'manufacturing', material: 'Grid electricity', carbonShare: 0.25, regulatoryLinks: ['ets', 'csrd-scope3'] },
+  {
+    from: 'energy',
+    to: 'steel',
+    material: 'Grid electricity',
+    carbonShare: 0.15,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
+  {
+    from: 'energy',
+    to: 'cement',
+    material: 'Grid electricity',
+    carbonShare: 0.1,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
+  {
+    from: 'energy',
+    to: 'aluminium',
+    material: 'Grid electricity (smelting)',
+    carbonShare: 0.4,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
+  {
+    from: 'energy',
+    to: 'chemicals',
+    material: 'Grid electricity',
+    carbonShare: 0.2,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
+  {
+    from: 'energy',
+    to: 'construction',
+    material: 'Site electricity',
+    carbonShare: 0.05,
+    regulatoryLinks: ['csrd-scope3'],
+  },
+  {
+    from: 'energy',
+    to: 'manufacturing',
+    material: 'Grid electricity',
+    carbonShare: 0.25,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
 
   // Hydrogen feeds into steel (DRI), chemicals, energy
-  { from: 'hydrogen', to: 'steel', material: 'Green H2 for DRI', carbonShare: 0.05, regulatoryLinks: ['ets', 'taxonomy'] },
-  { from: 'hydrogen', to: 'chemicals', material: 'H2 feedstock', carbonShare: 0.15, regulatoryLinks: ['ets', 'cbam'] },
-  { from: 'hydrogen', to: 'energy', material: 'H2 for storage/peaking', carbonShare: 0.03, regulatoryLinks: ['taxonomy'] },
+  {
+    from: 'hydrogen',
+    to: 'steel',
+    material: 'Green H2 for DRI',
+    carbonShare: 0.05,
+    regulatoryLinks: ['ets', 'taxonomy'],
+  },
+  {
+    from: 'hydrogen',
+    to: 'chemicals',
+    material: 'H2 feedstock',
+    carbonShare: 0.15,
+    regulatoryLinks: ['ets', 'cbam'],
+  },
+  {
+    from: 'hydrogen',
+    to: 'energy',
+    material: 'H2 for storage/peaking',
+    carbonShare: 0.03,
+    regulatoryLinks: ['taxonomy'],
+  },
 
   // Fertilizers feed into agriculture (not tracked) but also loop through transport
-  { from: 'fertilizers', to: 'transport', material: 'Fertilizer logistics', carbonShare: 0.02, regulatoryLinks: ['csrd-scope3'] },
+  {
+    from: 'fertilizers',
+    to: 'transport',
+    material: 'Fertilizer logistics',
+    carbonShare: 0.02,
+    regulatoryLinks: ['csrd-scope3'],
+  },
+
+  // Lime — dual-use critical raw material (Nordkalk/SigmaRoc pattern, 2026-03-30)
+  // Lime is THE upstream dependency for steel (flux), cement (clinker), and chemicals (calcium carbide)
+  {
+    from: 'lime',
+    to: 'steel',
+    material: 'Lime flux (impurity removal in BF/BOF)',
+    carbonShare: 0.08,
+    regulatoryLinks: ['ets', 'cbam', 'csrd-scope3'],
+  },
+  {
+    from: 'lime',
+    to: 'cement',
+    material: 'Limestone feedstock (calcination)',
+    carbonShare: 0.6,
+    regulatoryLinks: ['ets', 'cbam', 'csrd-scope3'],
+  },
+  {
+    from: 'lime',
+    to: 'chemicals',
+    material: 'Calcium carbide precursor',
+    carbonShare: 0.05,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
+  {
+    from: 'lime',
+    to: 'construction',
+    material: 'Quicklime for mortar, soil stabilization',
+    carbonShare: 0.04,
+    regulatoryLinks: ['csrd-scope3', 'taxonomy'],
+  },
+  {
+    from: 'lime',
+    to: 'energy',
+    material: 'Flue-gas desulphurisation (FGD)',
+    carbonShare: 0.02,
+    regulatoryLinks: ['ets', 'csrd-scope3'],
+  },
 ];
 
 // ============ CROSS-VERTICAL SIGNALS ============
@@ -168,7 +335,8 @@ export const CROSS_VERTICAL_SIGNALS: CrossVerticalSignal[] = [
     originIndustry: 'steel',
     originRegulation: 'CBAM (Reg. 2023/956)',
     affectedIndustries: ['construction', 'manufacturing', 'transport'],
-    description: 'Steel CBAM certificate cost flows into construction material budgets as Scope 3 upstream. Construction companies importing non-EU steel face CBAM + must disclose under CSRD E1-6.',
+    description:
+      'Steel CBAM certificate cost flows into construction material budgets as Scope 3 upstream. Construction companies importing non-EU steel face CBAM + must disclose under CSRD E1-6.',
     propagationFactor: 0.35, // 35% of construction embodied carbon = steel
   },
   {
@@ -176,7 +344,8 @@ export const CROSS_VERTICAL_SIGNALS: CrossVerticalSignal[] = [
     originIndustry: 'energy',
     originRegulation: 'EU ETS Phase 4',
     affectedIndustries: ['steel', 'aluminium', 'cement', 'chemicals'],
-    description: 'ETS carbon price increase on electricity raises Scope 2 for all heavy industry. Grid emission factor × consumption = cascading cost.',
+    description:
+      'ETS carbon price increase on electricity raises Scope 2 for all heavy industry. Grid emission factor × consumption = cascading cost.',
     propagationFactor: 0.15, // Scope 2 share of total steel emissions
   },
   {
@@ -184,15 +353,17 @@ export const CROSS_VERTICAL_SIGNALS: CrossVerticalSignal[] = [
     originIndustry: 'construction',
     originRegulation: 'CSRD (Dir. 2022/2464)',
     affectedIndustries: ['steel', 'cement', 'aluminium'],
-    description: 'Construction company CSRD E1-6 disclosure requires supplier emission data. Pushes steel/cement to provide verified carbon content — creates demand signal for upstream data quality.',
-    propagationFactor: 0.80, // 80% of construction Scope 3 = material suppliers
+    description:
+      'Construction company CSRD E1-6 disclosure requires supplier emission data. Pushes steel/cement to provide verified carbon content — creates demand signal for upstream data quality.',
+    propagationFactor: 0.8, // 80% of construction Scope 3 = material suppliers
   },
   {
     id: 'SIG-TAXONOMY-ENERGY-CONSTRUCTION',
     originIndustry: 'energy',
     originRegulation: 'EU Taxonomy (Reg. 2020/852)',
     affectedIndustries: ['construction', 'hydrogen', 'steel'],
-    description: 'Taxonomy-aligned green energy (Activity 4.10 BESS, 4.1 solar) affects embodied carbon of downstream products. Qantic BESS dispatch → grid factor → construction LCA.',
+    description:
+      'Taxonomy-aligned green energy (Activity 4.10 BESS, 4.1 solar) affects embodied carbon of downstream products. Qantic BESS dispatch → grid factor → construction LCA.',
     propagationFactor: 0.05, // Site electricity share of construction carbon
   },
   {
@@ -200,31 +371,70 @@ export const CROSS_VERTICAL_SIGNALS: CrossVerticalSignal[] = [
     originIndustry: 'aluminium',
     originRegulation: 'CBAM (Reg. 2023/956)',
     affectedIndustries: ['construction', 'manufacturing', 'transport'],
-    description: 'Aluminium CBAM default factor (6.7 tCO2e/t) is the highest per-unit cost in CBAM. Construction facades using imported aluminium face significant cost pass-through.',
-    propagationFactor: 0.10, // Aluminium share of construction carbon
+    description:
+      'Aluminium CBAM default factor (6.7 tCO2e/t) is the highest per-unit cost in CBAM. Construction facades using imported aluminium face significant cost pass-through.',
+    propagationFactor: 0.1, // Aluminium share of construction carbon
   },
   {
     id: 'SIG-SCOPE3-CHEMICALS-MANUFACTURING',
     originIndustry: 'chemicals',
     originRegulation: 'CSRD Scope 3 (ESRS E1-6)',
     affectedIndustries: ['manufacturing', 'construction', 'fertilizers'],
-    description: 'Chemical industry ammonia emissions (1.619 tCO2e/t) cascade through fertilizer and manufacturing supply chains. CSRD Scope 3 makes this visible.',
-    propagationFactor: 0.10,
+    description:
+      'Chemical industry ammonia emissions (1.619 tCO2e/t) cascade through fertilizer and manufacturing supply chains. CSRD Scope 3 makes this visible.',
+    propagationFactor: 0.1,
+  },
+  // Lime dual-use disruption signal — discovered via Nordkalk fire analysis (2026-03-30)
+  // Pattern: lime facility disruption → steel flux shortage → CBAM cost spike → construction carbon gap → CSRD E1 degradation
+  {
+    id: 'SIG-DUALUSE-LIME-STEEL',
+    originIndustry: 'lime',
+    originRegulation: 'EU CRM Act (Reg. 2024/1252) + KRITIS Umbrella Law',
+    affectedIndustries: ['steel', 'cement', 'chemicals', 'construction'],
+    description:
+      'Lime facility disruption (fire, sabotage, supply constraint) cascades through steel (flux shortage → quality/output drop), cement (calcination feedstock), and chemicals (calcium carbide). Under KRITIS law (Jan 2026), dual-use facility incidents trigger mandatory reporting. PRISMEX campaign (Jan 2026) specifically targets Northern European industrial control systems. A single lime plant outage can stress-test the entire steel→construction CBAM chain.',
+    propagationFactor: 0.08, // Lime is 8% of steel embodied carbon via flux
+  },
+  {
+    id: 'SIG-CRM-SUPPLY-RESILIENCE',
+    originIndustry: 'lime',
+    originRegulation: 'EU CRM Act (Reg. 2024/1252)',
+    affectedIndustries: ['steel', 'cement', 'construction', 'energy'],
+    description:
+      'EU CRMA second round (Jan 2026) granted 95 strategic projects same security priority as military bases. Lime processing plants now classified as Critical National Infrastructure. Supply concentration risk: Nordkalk controls majority of Northern European lime supply. Single-point-of-failure for Finnish/Swedish steel sector.',
+    propagationFactor: 0.12, // Higher because of supply concentration
   },
 ];
 
 // ============ INDUSTRY UNIVERSE ============
 
-/** All 20 industries in the Lifetime World Model */
+/** All 21 industries in the Lifetime World Model */
 export const LWM_INDUSTRIES = [
-  'steel', 'cement', 'aluminium', 'chemicals', 'fertilizers',
-  'hydrogen', 'energy', 'manufacturing', 'construction', 'transport',
+  'steel',
+  'cement',
+  'aluminium',
+  'chemicals',
+  'fertilizers',
+  'hydrogen',
+  'energy',
+  'manufacturing',
+  'construction',
+  'transport',
+  'lime', // Added 2026-03-30: dual-use critical raw material (Nordkalk pattern)
   // Extended universe (scored with manufacturing/default benchmarks)
-  'maritime', 'aviation', 'mining', 'pulp-paper', 'food-beverage',
-  'textiles', 'electronics', 'automotive', 'pharmaceuticals', 'real-estate',
+  'maritime',
+  'aviation',
+  'mining',
+  'pulp-paper',
+  'food-beverage',
+  'textiles',
+  'electronics',
+  'automotive',
+  'pharmaceuticals',
+  'real-estate',
 ] as const;
 
-export type LWMIndustry = typeof LWM_INDUSTRIES[number];
+export type LWMIndustry = (typeof LWM_INDUSTRIES)[number];
 
 // ============ SIMULATION ENGINE ============
 
@@ -278,9 +488,7 @@ export function calculateCorrelations(
       if (!downstreamScore) continue;
 
       // Find the supply chain link
-      const link = links.find(
-        (l) => l.from === signal.originIndustry && l.to === affected,
-      );
+      const link = links.find((l) => l.from === signal.originIndustry && l.to === affected);
       if (!link) continue;
 
       // Correlation: upstream cost × carbon share = downstream hidden exposure
@@ -290,17 +498,18 @@ export function calculateCorrelations(
       );
 
       // Coefficient: higher when upstream has high cost AND downstream has low readiness
-      const upstreamPressure = 1 - (originScore.overallScore / 100);
-      const downstreamVulnerability = 1 - (downstreamScore.overallScore / 100);
-      const coefficient = Math.round(
-        (upstreamPressure + downstreamVulnerability) / 2 * 100,
-      ) / 100;
+      const upstreamPressure = 1 - originScore.overallScore / 100;
+      const downstreamVulnerability = 1 - downstreamScore.overallScore / 100;
+      const coefficient =
+        Math.round(((upstreamPressure + downstreamVulnerability) / 2) * 100) / 100;
 
       // Determine primary regulation pair
-      const upReg = signal.originRegulation.includes('CBAM') ? 'cbam'
-        : signal.originRegulation.includes('ETS') ? 'ets' : 'csrd';
-      const downReg = downstreamScore.gaps.some((g) => g.regulation === 'csrd')
-        ? 'csrd' : 'ets';
+      const upReg = signal.originRegulation.includes('CBAM')
+        ? 'cbam'
+        : signal.originRegulation.includes('ETS')
+          ? 'ets'
+          : 'csrd';
+      const downReg = downstreamScore.gaps.some((g) => g.regulation === 'csrd') ? 'csrd' : 'ets';
 
       correlations.push({
         pair: `${signal.originIndustry}-${upReg} ↔ ${affected}-${downReg}`,
@@ -331,10 +540,7 @@ export function buildDataSourceMatrix(
 ): DataSourceCoverage[] {
   const allIndustries = new Set(LWM_INDUSTRIES);
   const benchmarkSectors = new Set(benchmarks.map((b) => b.sector));
-  const linkedSectors = new Set([
-    ...links.map((l) => l.from),
-    ...links.map((l) => l.to),
-  ]);
+  void new Set([...links.map((l) => l.from), ...links.map((l) => l.to)]);
 
   return sources.map((source) => {
     // Determine which industries this source covers based on category
@@ -423,10 +629,7 @@ export function runCrossVerticalSimulation(): CrossVerticalSimResult {
 
   // 4. Summary
   const strongestCorrelation = correlations.length > 0 ? correlations[0] : null;
-  const hiddenExposureEur = correlations.reduce(
-    (sum, c) => sum + c.downstreamExposureEur,
-    0,
-  );
+  const hiddenExposureEur = correlations.reduce((sum, c) => sum + c.downstreamExposureEur, 0);
 
   return {
     generatedAt: new Date().toISOString(),
@@ -477,10 +680,10 @@ export function extractQanticCase(sim: CrossVerticalSimResult): {
   const constructionScore = sim.industryScores.get('construction');
 
   const steelCbamCostEur = steelScore?.costBreakdown?.cbamCostEur ?? 0;
-  const constructionCsrdScore = constructionScore?.regulationScores
-    .find((r) => r.regulation === 'csrd')?.score ?? 0;
-  const constructionCsrdGaps = constructionScore?.gaps
-    .filter((g) => g.regulation === 'csrd').length ?? 0;
+  const constructionCsrdScore =
+    constructionScore?.regulationScores.find((r) => r.regulation === 'csrd')?.score ?? 0;
+  const constructionCsrdGaps =
+    constructionScore?.gaps.filter((g) => g.regulation === 'csrd').length ?? 0;
 
   const constructionHiddenExposureEur = chainCorrelations
     .filter((c) => c.downstreamIndustry === 'construction')

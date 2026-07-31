@@ -67,11 +67,11 @@ Automatic merge failed; fix conflicts and then commit the result.
 Open each conflicting file in your editor (VS Code, Cursor, Notepad++, etc.). You'll see conflict markers like:
 
 ```html
-<<<<<<< HEAD
-Your changes from the PR branch
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+<title>Investor Progress Report - DWS</title>
 =======
-Changes from main
->>>>>>> origin/main
+<title>Progress Report - DWS</title>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
 ```
 
 **For each conflict:**

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SalesOutreachAgent } from '../agents/sales-outreach.agent.js';
 
 vi.mock('../utils/logger.js', () => ({

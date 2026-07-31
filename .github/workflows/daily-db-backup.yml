@@ -1,9 +1,9 @@
 name: Daily Database Backup
 
 on:
-  schedule:
-    # 02:30 UTC daily (04:30 Helsinki time)
-    - cron: '30 2 * * *'
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/db-backup.sh)
+  # GitHub Actions was failover only, consuming ~120 min/month even on skip checks.
+  # Was: cron '30 2 * * *' (daily at 02:30 UTC)
   workflow_dispatch:
 
 permissions:
@@ -41,10 +41,17 @@ jobs:
             .github
           sparse-checkout-cone-mode: false
 
-      - name: Install PostgreSQL client
+      # Client major must be >= Supabase Postgres (see supabase/.temp/postgres-version → PG 17).
+      # https://supabase.com/docs/guides/local-development/cli/config (db.major_version)
+      - name: Install PostgreSQL 17 client (pg_dump/psql match hosted PG17)
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq postgresql-client-15 gnupg
+          sudo apt-get install -y -qq curl ca-certificates gnupg lsb-release
+          sudo install -d /usr/share/postgresql-common/pgdg
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-17
 
       - name: Create backup directory
         run: |

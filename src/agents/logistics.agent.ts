@@ -180,6 +180,7 @@ export class LogisticsAgent extends BaseAgent {
         'en16258-transport-emissions',
       ],
       model: 'llama-3.1-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

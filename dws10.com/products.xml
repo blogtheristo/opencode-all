@@ -19,8 +19,8 @@
     </item>
     <item>
       <g:id>FH-AUTO-001</g:id>
-      <g:title>Firehorse Automation</g:title>
-      <g:description>&lt;p&gt;Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Event-driven compliance workflows&lt;/li&gt;&lt;li&gt;Eliminate manual data entry errors&lt;/li&gt;&lt;li&gt;Complete audit trail for ESG data&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Firehorse Amplify</g:title>
+      <g:description>&lt;p&gt;Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Event-driven compliance workflows&lt;/li&gt;&lt;li&gt;Eliminate manual data entry errors&lt;/li&gt;&lt;li&gt;Complete audit trail for ESG data&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-auto-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
@@ -177,7 +177,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     <item>
       <g:id>conversational-agent</g:id>
       <g:title>Conversational Agent Solution</g:title>
-      <g:description>&lt;p&gt;Deploy AI agents where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Teams, Slack, WhatsApp &amp; Zoom&lt;/li&gt;&lt;li&gt;Custom LLM choice for sovereignty&lt;/li&gt;&lt;li&gt;Live in 25 hours&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Deploy AI agents where your team already works — WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;WhatsApp, Teams, Zoom &amp; secure webhooks&lt;/li&gt;&lt;li&gt;Custom LLM choice for sovereignty&lt;/li&gt;&lt;li&gt;Live in 25 hours&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/conversational-agent.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
@@ -331,19 +331,6 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
-      <g:id>agentti-sanasto</g:id>
-      <g:title>Agentti Sanasto Englanti-Suomi</g:title>
-      <g:description>&lt;p&gt;Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;English-Finnish AI terminology&lt;/li&gt;&lt;li&gt;Comprehensive agent concepts&lt;/li&gt;&lt;li&gt;Essential for Finnish tech teams&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/agentti-sanasto.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>0.99 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
       <g:id>devops-lead</g:id>
       <g:title>Manufacturing AI Readiness Assessment</g:title>
       <g:description>&lt;p&gt;Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complete AI readiness assessment&lt;/li&gt;&lt;li&gt;ROI projection included&lt;/li&gt;&lt;li&gt;30-day performance monitoring&lt;/li&gt;&lt;/ul&gt;</g:description>
@@ -359,12 +346,12 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     <item>
       <g:id>digital-design-gold</g:id>
       <g:title>Digital Design Gold</g:title>
-      <g:description>&lt;p&gt;Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository — brand assets, marketing collateral, campaign visuals, and analytics dashboards — all governed by your brand standard. From identity system to live campaign intelligence in one engagement.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complete brand asset system&lt;/li&gt;&lt;li&gt;Campaign visual library&lt;/li&gt;&lt;li&gt;Live analytics dashboards&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;The Gold-tier production engine for enterprise brands. One engagement delivers your own Gold Standards (brand, document, design + security canon), Gold Skillful Agents trained on those standards, and the Firehorse production engine that outputs every marketing asset, campaign visual, compliance report, and live analytics dashboard.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Gold Standards — your own brand, doc, design + security canon&lt;/li&gt;&lt;li&gt;Gold Skillful Agents trained on your Gold Standards&lt;/li&gt;&lt;li&gt;Firehorse production engine for every marketing asset&lt;/li&gt;&lt;li&gt;Live analytics dashboards governed by Gold Standards&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/digital-design-gold.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:image_link>https://dws10.com/static/images/digital-design-gold-hero.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>2499 EUR</g:price>
+      <g:price>24990 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>

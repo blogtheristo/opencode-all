@@ -70,18 +70,10 @@ export class SiteSenseAgent extends BaseAgent {
         'incident-trend-detection',
       ],
       model: 'llama-3.3-70b-versatile',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          temperature: { type: 'number', description: 'Temperature in Celsius' },
-          humidity: { type: 'number', description: 'Relative humidity percentage (0-100)' },
-          windSpeed: { type: 'number', description: 'Wind speed in m/s' },
-          workerCount: { type: 'number', description: 'Number of workers on site' },
-          incidentCount: { type: 'number', description: 'Incidents in last 30 days' },
-          siteId: { type: 'string', description: 'Site identifier' },
-        },
-        required: ['temperature', 'humidity', 'windSpeed', 'workerCount'],
-      },
+      modelTier: 'lite',
+      // Proactive: Phase 2 (advisor) — objective safety thresholds, edge data.
+      autonomyPhase: 'advisor',
+      notify: { channels: ['teams', 'in_app'], maxPerHour: 5, maxPerDay: 20 },
     });
   }
 

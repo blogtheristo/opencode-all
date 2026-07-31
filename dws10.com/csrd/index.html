@@ -1,615 +1,882 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSRD Reporting Software | DWS IQ 6 by Lifetime Oy</title>
-  <meta name="description" content="Automate CSRD reporting with 82 ESRS disclosures mapped, AI-powered data collection, and audit-ready reports. EU-hosted. Operational in 30 days.">
-  <meta name="keywords" content="CSRD reporting software, ESRS, double materiality, sustainability reporting, EU compliance, ESG reporting tool, corporate sustainability">
-  <meta name="author" content="Lifetime Oy">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="CSRD Reporting Software | DWS IQ 6 by Lifetime Oy">
-  <meta property="og:description" content="Your clients need CSRD reporting — we deliver it. 82 ESRS disclosures, AI-powered, EU-hosted. Operational in 30 days.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dws10.com/csrd/">
-  <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-  <meta property="og:site_name" content="DWS IQ Platform">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CSRD Reporting Software | DWS IQ 6">
-  <meta name="twitter:description" content="Your clients need CSRD reporting — we deliver it. 82 ESRS disclosures, AI-powered, EU-hosted.">
-  <link rel="canonical" href="https://dws10.com/csrd/">
-  <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
-  <style>
-    :root {
-      --accent-blue: #60a5fa;
-      --accent-green: #4ade80;
-      --accent-amber: #fbbf24;
-      --accent-red: #ef4444;
-      --surface: rgba(30, 41, 59, 0.5);
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      min-height: 100vh;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 80px 20px 60px;
-    }
-    .hero-tagline {
-      font-size: 1.1rem;
-      color: var(--accent-amber);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      color: var(--text);
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-    .hero h1 span { color: var(--accent-blue); }
-    .hero-sub {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 32px;
-    }
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #2563eb;
-      color: #fff;
-      padding: 16px 36px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: background 0.2s;
-    }
-    .hero-cta:hover { background: #1d4ed8; }
-    .hero-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent-blue);
-      padding: 16px 24px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    .hero-secondary:hover { text-decoration: underline; }
-
-    /* Urgency Banner */
-    .urgency-banner {
-      background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), rgba(251, 191, 36, 0.15));
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      border-radius: 10px;
-      padding: 20px 28px;
-      margin: 0 auto 48px;
-      max-width: 800px;
-      text-align: center;
-    }
-    .urgency-banner strong { color: var(--accent-red); }
-    .urgency-banner p { color: var(--text-muted); margin: 0; }
-
-    /* Scope Section */
-    .scope-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin: 24px 0;
-    }
-    .scope-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-    }
-    .scope-card .number {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-blue);
-    }
-    .scope-card .label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Content Section */
-    .section {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 36px;
-      margin: 0 auto 32px;
-      max-width: 1000px;
-    }
-    .section h2 {
-      color: var(--accent-blue);
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-    .section h3 {
-      color: var(--text);
-      font-size: 1.3rem;
-      margin-top: 24px;
-      margin-bottom: 12px;
-    }
-    .section p { color: var(--text-muted); margin-bottom: 14px; }
-    .section ul { list-style: none; padding: 0; margin-bottom: 16px; }
-    .section li {
-      padding: 10px 0 10px 32px;
-      position: relative;
-      color: var(--text-muted);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .section li:last-child { border-bottom: none; }
-    .section li::before {
-      content: '\f058';
-      font-family: 'Font Awesome 6 Free';
-      font-weight: 900;
-      position: absolute;
-      left: 0;
-      color: var(--accent-green);
-    }
-
-    /* Feature Grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin: 24px 0;
-    }
-    .feature-card {
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 24px;
-    }
-    .feature-card i {
-      font-size: 1.5rem;
-      color: var(--accent-blue);
-      margin-bottom: 12px;
-    }
-    .feature-card h4 {
-      color: var(--text);
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-    .feature-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin: 0;
-    }
-
-    /* Pricing */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin: 24px 0;
-    }
-    .price-card {
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 28px;
-      position: relative;
-    }
-    .price-card.recommended {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 24px rgba(96, 165, 250, 0.15);
-    }
-    .price-card.recommended::before {
-      content: 'RECOMMENDED';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent-blue);
-      color: #0f172a;
-      padding: 4px 16px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-    .price-card h4 { color: var(--text); font-size: 1.2rem; margin-bottom: 8px; }
-    .price-card .price {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-green);
-      margin-bottom: 4px;
-    }
-    .price-card .price-note {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-    .price-card ul { list-style: none; padding: 0; }
-    .price-card li {
-      padding: 6px 0 6px 24px;
-      position: relative;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-    .price-card li::before {
-      content: '\f00c';
-      font-family: 'Font Awesome 6 Free';
-      font-weight: 900;
-      position: absolute;
-      left: 0;
-      color: var(--accent-green);
-      font-size: 0.8rem;
-    }
-    .price-card .cta-btn {
-      display: block;
-      text-align: center;
-      background: #2563eb;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 20px;
-      transition: background 0.2s;
-    }
-    .price-card .cta-btn:hover { background: #1d4ed8; }
-
-    /* Trust Bar */
-    .trust-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 32px;
-      padding: 32px 20px;
-      margin: 0 auto;
-      max-width: 900px;
-    }
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-    .trust-item i { color: var(--accent-green); font-size: 1.2rem; }
-
-    /* CTA Bottom */
-    .cta-bottom {
-      text-align: center;
-      padding: 48px 20px 64px;
-    }
-    .cta-bottom h2 {
-      color: var(--text);
-      font-size: 2rem;
-      margin-bottom: 12px;
-    }
-    .cta-bottom p {
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      font-size: 1.1rem;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .hero { padding: 60px 16px 40px; }
-      .section { padding: 24px; }
-      .pricing-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "DWS IQ 6 — CSRD Reporting",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Cloud (Web-based)",
-    "description": "AI-powered CSRD reporting software with 82 ESRS disclosures mapped. EU-hosted, audit-ready, operational in 30 days.",
-    "url": "https://dws10.com/csrd/",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Firehorse Reports",
-        "price": "1999",
-        "priceCurrency": "EUR"
-      },
-      {
-        "@type": "Offer",
-        "name": "Climate Reporting Starter Bundle",
-        "price": "6500",
-        "priceCurrency": "EUR"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSRD Reporting Software | DWS IQ 6 by Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Automate CSRD reporting with 82 ESRS disclosures mapped, AI-powered data collection, and audit-ready reports. EU-hosted. Operational in 30 days."
+    />
+    <meta
+      name="keywords"
+      content="CSRD reporting software, ESRS, double materiality, sustainability reporting, EU compliance, ESG reporting tool, corporate sustainability"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="CSRD Reporting Software | DWS IQ 6 by Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="Your clients need CSRD reporting — we deliver it. 82 ESRS disclosures, AI-powered, EU-hosted. Operational in 30 days."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/csrd/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CSRD Reporting Software | DWS IQ 6" />
+    <meta
+      name="twitter:description"
+      content="Your clients need CSRD reporting — we deliver it. 82 ESRS disclosures, AI-powered, EU-hosted."
+    />
+    <link rel="canonical" href="https://dws10.com/csrd/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      :root {
+        --accent-blue: #60a5fa;
+        --accent-green: #4ade80;
+        --accent-amber: #fbbf24;
+        --accent-red: #ef4444;
+        --surface: rgba(30, 41, 59, 0.5);
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
       }
-    ],
-    "provider": {
-      "@type": "Organization",
-      "name": "Lifetime Oy",
-      "url": "https://dws10.com",
-      "address": { "@type": "PostalAddress", "addressCountry": "FI" }
-    }
-  }
-  </script>
-</head>
 
-<body>
-<script src="/shared-assets/nav/ironclad-nav.js"></script>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-<!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <p class="hero-tagline">CSRD Reporting Software</p>
-    <h1>Your Clients Need <span>CSRD Reporting</span> — We Deliver It</h1>
-    <p class="hero-sub">82 ESRS disclosures mapped. AI-powered data collection. Audit-ready reports. EU-hosted in Finland. Operational in 30 days.</p>
-    <div>
-      <a href="/products/lifetime-bundle-2026.html" class="hero-cta">
-        <i class="fas fa-rocket"></i> Get the Starter Bundle — €6,500
-      </a>
-      <a href="/products/firehorse-reports.html" class="hero-secondary">
-        Or start with Firehorse Reports — €1,999 <i class="fas fa-arrow-right"></i>
-      </a>
-    </div>
-  </div>
-</section>
+      body {
+        font-family:
+          "IBM Plex Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
+        border-top: 3px solid var(--color-gold-light);
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      }
 
-<!-- Trust Bar -->
-<div class="trust-bar">
-  <div class="trust-item"><i class="fas fa-shield-halved"></i> EU-hosted (Finland)</div>
-  <div class="trust-item"><i class="fas fa-check-double"></i> 82 ESRS disclosures</div>
-  <div class="trust-item"><i class="fas fa-robot"></i> 18 AI agents</div>
-  <div class="trust-item"><i class="fas fa-gavel"></i> GDPR compliant</div>
-  <div class="trust-item"><i class="fas fa-certificate"></i> NVIDIA ISV Partner</div>
-</div>
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-<!-- Urgency Banner -->
-<div class="urgency-banner container">
-  <p><strong><i class="fas fa-clock"></i> CSRD Deadlines Are Here</strong></p>
-  <p>Wave 1 (companies already under NFRD): reporting on <strong>FY 2024</strong>, due 2025. Wave 2 (large companies meeting 2-of-3 criteria): reporting on <strong>FY 2025</strong>, due 2026. Listed SMEs: <strong>FY 2026</strong>, due 2027. Non-compliance penalties set by each EU member state — including fines, public censure, and filing injunctions.</p>
-</div>
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 80px 20px 60px;
+      }
+      .hero-tagline {
+        font-size: 1.1rem;
+        color: var(--accent-amber);
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .hero h1 {
+        font-size: 2.8rem;
+        color: var(--text);
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+      .hero h1 span {
+        color: var(--accent-blue);
+      }
+      .hero-sub {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto 32px;
+      }
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #2563eb;
+        color: #fff;
+        padding: 16px 36px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: background 0.2s;
+      }
+      .hero-cta:hover {
+        background: #1d4ed8;
+      }
+      .hero-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent-blue);
+        padding: 16px 24px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .hero-secondary:hover {
+        text-decoration: underline;
+      }
 
-<!-- Who Needs CSRD -->
-<div class="section container">
-  <h2><i class="fas fa-users"></i> Does Your Company Need CSRD?</h2>
-  <p>CSRD applies to you if your company meets <strong>two of three criteria</strong>:</p>
-  <div class="scope-grid">
-    <div class="scope-card">
-      <div class="number">250+</div>
-      <div class="label">Employees</div>
-    </div>
-    <div class="scope-card">
-      <div class="number">€50M+</div>
-      <div class="label">Net turnover</div>
-    </div>
-    <div class="scope-card">
-      <div class="number">€25M+</div>
-      <div class="label">Total assets</div>
-    </div>
-    <div class="scope-card">
-      <div class="number">~50,000</div>
-      <div class="label">EU companies in scope</div>
-    </div>
-  </div>
-  <p>Also applies to: all EU-listed companies (except micro), non-EU companies with €150M+ EU revenue, and subsidiaries of in-scope parent companies.</p>
-</div>
+      /* Urgency Banner */
+      .urgency-banner {
+        background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), rgba(251, 191, 36, 0.15));
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 10px;
+        padding: 20px 28px;
+        margin: 0 auto 48px;
+        max-width: 800px;
+        text-align: center;
+      }
+      .urgency-banner strong {
+        color: var(--accent-red);
+      }
+      .urgency-banner p {
+        color: var(--text-muted);
+        margin: 0;
+      }
 
-<!-- What is CSRD -->
-<div class="section container">
-  <h2>What is CSRD?</h2>
-  <p>The Corporate Sustainability Reporting Directive (CSRD) is the EU law requiring companies to report on environmental, social, and governance (ESG) impacts using the European Sustainability Reporting Standards (ESRS). It replaces the previous NFRD with far more detailed requirements.</p>
+      /* Scope Section */
+      .scope-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+      .scope-card {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+      }
+      .scope-card .number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent-blue);
+      }
+      .scope-card .label {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
 
-  <div class="feature-grid">
-    <div class="feature-card">
-      <i class="fas fa-expand"></i>
-      <h4>Expanded Scope</h4>
-      <p>From ~11,700 (NFRD) to ~50,000 companies. If you have 250+ employees or are EU-listed, you're likely in scope.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-list-check"></i>
-      <h4>82 ESRS Disclosures</h4>
-      <p>Detailed reporting across Environment (E1-E5), Social (S1-S4), and Governance (G1) standards. Double materiality assessment required.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-magnifying-glass"></i>
-      <h4>Mandatory Audit</h4>
-      <p>Sustainability reports must be independently audited — limited assurance initially, moving to reasonable assurance by 2028.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-code"></i>
-      <h4>Digital Tagging (XBRL)</h4>
-      <p>Reports must be digitally tagged in XHTML/iXBRL format for machine-readable access by regulators and investors.</p>
-    </div>
-  </div>
-</div>
+      /* Content Section */
+      .section {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 36px;
+        margin: 0 auto 32px;
+        max-width: 1000px;
+      }
+      .section h2 {
+        color: var(--accent-blue);
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+      .section h3 {
+        color: var(--text);
+        font-size: 1.3rem;
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+      .section p {
+        color: var(--text-muted);
+        margin-bottom: 14px;
+      }
+      .section ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 16px;
+      }
+      .section li {
+        padding: 10px 0 10px 32px;
+        position: relative;
+        color: var(--text-muted);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .section li:last-child {
+        border-bottom: none;
+      }
+      .section li::before {
+        content: "\f058";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: var(--accent-green);
+      }
 
-<!-- How DWS IQ Helps -->
-<div class="section container">
-  <h2>How DWS IQ 6 Solves CSRD</h2>
-  <p>DWS IQ 6 with Firehorse Reports automates the entire CSRD workflow — from raw data to audit-ready report.</p>
+      /* Feature Grid */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin: 24px 0;
+      }
+      .feature-card {
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 24px;
+      }
+      .feature-card i {
+        font-size: 1.5rem;
+        color: var(--accent-blue);
+        margin-bottom: 12px;
+      }
+      .feature-card h4 {
+        color: var(--text);
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+      .feature-card p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin: 0;
+      }
 
-  <div class="feature-grid">
-    <div class="feature-card">
-      <i class="fas fa-database"></i>
-      <h4>Automate Data Collection</h4>
-      <p>Connect to SAP, ERP, IoT sensors, and manual sources. 18 AI agents collect, validate, and structure your ESG data automatically.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-check-circle"></i>
-      <h4>82 ESRS Disclosures Mapped</h4>
-      <p>Every ESRS data point pre-mapped in our Compliance Engine. Gap analysis shows exactly what you're missing and how to fix it.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-file-contract"></i>
-      <h4>Audit-Ready Reports</h4>
-      <p>Generate board packs and annual report sections in your exact format. Complete audit trail with 7-year retention (CSRD requirement).</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-calculator"></i>
-      <h4>ETS &amp; CBAM Calculations</h4>
-      <p>Built-in emission factors from EU ETS benchmarks (Reg. 2021/447) and CBAM defaults (Reg. 2023/1773). Scope 1/2/3 ready.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-shield-halved"></i>
-      <h4>EU Data Sovereignty</h4>
-      <p>Hosted in Finland (europe-north1). No CLOUD Act exposure. GDPR-native architecture. Your compliance data never leaves the EU.</p>
-    </div>
-    <div class="feature-card">
-      <i class="fas fa-bolt"></i>
-      <h4>Operational in 30 Days</h4>
-      <p>Kickoff workshop, data mapping, first automated report within one month. Not a 12-month implementation — a 30-day deployment.</p>
-    </div>
-  </div>
-</div>
+      /* Pricing */
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin: 24px 0;
+      }
+      .price-card {
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 28px;
+        position: relative;
+      }
+      .price-card.recommended {
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 24px rgba(96, 165, 250, 0.15);
+      }
+      .price-card.recommended::before {
+        content: "RECOMMENDED";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent-blue);
+        color: #0f172a;
+        padding: 4px 16px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+      .price-card h4 {
+        color: var(--text);
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+      }
+      .price-card .price {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent-green);
+        margin-bottom: 4px;
+      }
+      .price-card .price-note {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+      }
+      .price-card ul {
+        list-style: none;
+        padding: 0;
+      }
+      .price-card li {
+        padding: 6px 0 6px 24px;
+        position: relative;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+      .price-card li::before {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: var(--accent-green);
+        font-size: 0.8rem;
+      }
+      .price-card .cta-btn {
+        display: block;
+        text-align: center;
+        background: #2563eb;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: background 0.2s;
+      }
+      .price-card .cta-btn:hover {
+        background: #1d4ed8;
+      }
 
-<!-- Pricing -->
-<div class="section container">
-  <h2>Pricing</h2>
-  <p>Transparent pricing. No hidden fees. Choose the option that matches your CSRD timeline.</p>
+      /* Trust Bar */
+      .trust-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
+        padding: 32px 20px;
+        margin: 0 auto;
+        max-width: 900px;
+      }
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+      .trust-item i {
+        color: var(--accent-green);
+        font-size: 1.2rem;
+      }
 
-  <div class="pricing-grid">
-    <div class="price-card">
-      <h4>Firehorse Reports</h4>
-      <div class="price">€1,999</div>
-      <div class="price-note">One-time setup</div>
+      /* CTA Bottom */
+      .cta-bottom {
+        text-align: center;
+        padding: 48px 20px 64px;
+      }
+      .cta-bottom h2 {
+        color: var(--text);
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+      .cta-bottom p {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        font-size: 1.1rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero {
+          padding: 60px 16px 40px;
+        }
+        .section {
+          padding: 24px;
+        }
+        .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "DWS IQ 6 — CSRD Reporting",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Cloud (Web-based)",
+        "description": "AI-powered CSRD reporting software with 82 ESRS disclosures mapped. EU-hosted, audit-ready, operational in 30 days.",
+        "url": "https://dws10.com/csrd/",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Firehorse Reports",
+            "price": "1999",
+            "priceCurrency": "EUR"
+          },
+          {
+            "@type": "Offer",
+            "name": "Climate Reporting Starter Bundle",
+            "price": "6500",
+            "priceCurrency": "EUR"
+          }
+        ],
+        "provider": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com",
+          "address": { "@type": "PostalAddress", "addressCountry": "FI" }
+        }
+      }
+    </script>
+      <!-- FAQ-JSONLD:START (generated by scripts/on-deploy/inject-faq-jsonld.mjs — edit dws10.com/config/faq.json) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is DWS IQ CSRD reporting software?",
+          "acceptedAnswer": { "@type": "Answer", "text": "DWS IQ automates CSRD sustainability reporting with 82 ESRS disclosures mapped, AI-powered data collection and audit-ready reports — EU-hosted by Lifetime Oy." }
+        },
+        {
+          "@type": "Question",
+          "name": "How fast can we be CSRD-ready?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The CSRD reporting workflow is designed to be operational in 30 days." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which ESRS disclosures are covered?",
+          "acceptedAnswer": { "@type": "Answer", "text": "82 ESRS disclosures are mapped across the European Sustainability Reporting Standards, with AI-assisted data collection feeding audit-ready output." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is CSRD data kept in the EU?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. CSRD data is EU-hosted under Finnish jurisdiction and aligned with GDPR, NIS2 and the EU AI Act." }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is DWS IQ CSRD reporting for?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is for organisations in scope of CSRD across the 25 EU-regulated industries DWS IQ covers." }
+        }
+        ]
+      }
+    </script>
+    <!-- FAQ-JSONLD:END -->
+  </head>
+
+  <body>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero-tagline">CSRD Reporting Software</p>
+        <h1>Your Clients Need <span>CSRD Reporting</span> — We Deliver It</h1>
+        <p class="hero-sub">
+          The CSRD hub of the <strong>DWS IQ Industrial Intelligence suite</strong> — core engine
+          DWS IQ 6, sovereign dual-use tier Aegis. 82 ESRS disclosures mapped across the
+          EU-regulated industries CSRD touches — construction, power &amp; heat, steel, cement and
+          beyond. AI-powered data collection, audit-ready reports, EU-hosted in Finland, operational
+          in 30 days.
+        </p>
+        <div>
+          <a href="/products/lifetime-bundle-2026.html" class="hero-cta">
+            <i class="fas fa-rocket"></i> Get the Starter Bundle — €6,500
+          </a>
+          <a href="/products/firehorse-reports.html" class="hero-secondary">
+            Or start with Firehorse Reports — €1,999 <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+      <div class="trust-item"><i class="fas fa-shield-halved"></i> EU-hosted (Finland)</div>
+      <div class="trust-item"><i class="fas fa-check-double"></i> 82 ESRS disclosures</div>
+      <div class="trust-item"><i class="fas fa-robot"></i> 21 AI agents</div>
+      <div class="trust-item"><i class="fas fa-gavel"></i> GDPR-aligned</div>
+      <div class="trust-item"><i class="fas fa-certificate"></i> NVIDIA ISV Partner</div>
+    </div>
+
+    <!-- Urgency Banner -->
+    <div class="urgency-banner container">
+      <p>
+        <strong><i class="fas fa-clock"></i> CSRD Deadlines Are Here</strong>
+      </p>
+      <p>
+        Wave 1 (companies already under NFRD): reporting on <strong>FY 2024</strong>, due 2025. Wave
+        2 (large companies meeting 2-of-3 criteria): reporting on <strong>FY 2025</strong>, due
+        2026. Listed SMEs: <strong>FY 2026</strong>, due 2027. Non-compliance penalties set by each
+        EU member state — including fines, public censure, and filing injunctions.
+      </p>
+    </div>
+
+    <!-- Who Needs CSRD -->
+    <div class="section container">
+      <h2><i class="fas fa-users"></i> Does Your Company Need CSRD?</h2>
+      <p>CSRD applies to you if your company meets <strong>two of three criteria</strong>:</p>
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="number">250+</div>
+          <div class="label">Employees</div>
+        </div>
+        <div class="scope-card">
+          <div class="number">€50M+</div>
+          <div class="label">Net turnover</div>
+        </div>
+        <div class="scope-card">
+          <div class="number">€25M+</div>
+          <div class="label">Total assets</div>
+        </div>
+        <div class="scope-card">
+          <div class="number">~50,000</div>
+          <div class="label">EU companies in scope</div>
+        </div>
+      </div>
+      <p>
+        Also applies to: all EU-listed companies (except micro), non-EU companies with €150M+ EU
+        revenue, and subsidiaries of in-scope parent companies.
+      </p>
+    </div>
+
+    <!-- What is CSRD -->
+    <div class="section container">
+      <h2>What is CSRD?</h2>
+      <p>
+        The Corporate Sustainability Reporting Directive (CSRD) is the EU law requiring companies to
+        report on environmental, social, and governance (ESG) impacts using the European
+        Sustainability Reporting Standards (ESRS). It replaces the previous NFRD with far more
+        detailed requirements.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-expand"></i>
+          <h4>Expanded Scope</h4>
+          <p>
+            From ~11,700 (NFRD) to ~50,000 companies. If you have 250+ employees or are EU-listed,
+            you're likely in scope.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-list-check"></i>
+          <h4>82 ESRS Disclosures</h4>
+          <p>
+            Detailed reporting across Environment (E1-E5), Social (S1-S4), and Governance (G1)
+            standards. Double materiality assessment required.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-magnifying-glass"></i>
+          <h4>Mandatory Audit</h4>
+          <p>
+            Sustainability reports must be independently audited — limited assurance initially,
+            moving to reasonable assurance by 2028.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-code"></i>
+          <h4>Digital Tagging (XBRL)</h4>
+          <p>
+            Reports must be digitally tagged in XHTML/iXBRL format for machine-readable access by
+            regulators and investors.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- How DWS IQ Helps -->
+    <div class="section container">
+      <h2>How DWS IQ 6 Solves CSRD</h2>
+      <p>
+        DWS IQ 6 with Firehorse Reports automates the entire CSRD workflow — from raw data to
+        audit-ready report.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-database"></i>
+          <h4>Automate Data Collection</h4>
+          <p>
+            Connect to SAP, ERP, IoT sensors, and manual sources. 21 AI agents collect, validate,
+            and structure your ESG data automatically.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-check-circle"></i>
+          <h4>82 ESRS Disclosures Mapped</h4>
+          <p>
+            Every ESRS data point pre-mapped in our Compliance Engine. Gap analysis shows exactly
+            what you're missing and how to fix it.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-file-contract"></i>
+          <h4>Audit-Ready Reports</h4>
+          <p>
+            Generate board packs and annual report sections in your exact format. Complete audit
+            trail with 7-year retention (CSRD requirement).
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-calculator"></i>
+          <h4>ETS &amp; CBAM Calculations</h4>
+          <p>
+            Built-in emission factors from EU ETS benchmarks (Reg. 2021/447) and CBAM defaults (Reg.
+            2023/1773). Scope 1/2/3 ready.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-shield-halved"></i>
+          <h4>EU Data Sovereignty</h4>
+          <p>
+            Hosted in Finland (europe-north1). No CLOUD Act exposure. GDPR-native architecture. Your
+            compliance data never leaves the EU.
+          </p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-bolt"></i>
+          <h4>Operational in 30 Days</h4>
+          <p>
+            Kickoff workshop, data mapping, first automated report within one month. Not a 12-month
+            implementation — a 30-day deployment.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="section container">
+      <h2>Pricing</h2>
+      <p>Transparent pricing. No hidden fees. Choose the option that matches your CSRD timeline.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h4>Firehorse Reports</h4>
+          <div class="price">€1,999</div>
+          <div class="price-note">One-time setup</div>
+          <ul>
+            <li>One automated report template</li>
+            <li>SAP/ERP integration setup</li>
+            <li>4-week validation cycle</li>
+            <li>ESRS-aligned output format</li>
+            <li>Audit trail included</li>
+          </ul>
+          <a href="/products/firehorse-reports.html" class="cta-btn">Learn More</a>
+        </div>
+
+        <div class="price-card recommended">
+          <h4>Climate Reporting Starter Bundle</h4>
+          <div class="price">€6,500</div>
+          <div class="price-note">Complete CSRD solution</div>
+          <ul>
+            <li>DWS IQ Base Platform</li>
+            <li>Firehorse Report Module</li>
+            <li>Kickoff Workshop (3 days)</li>
+            <li>82 ESRS disclosures mapped</li>
+            <li>30-day deployment guarantee</li>
+            <li>First month support included</li>
+          </ul>
+          <a href="/products/lifetime-bundle-2026.html" class="cta-btn">Get Started</a>
+        </div>
+
+        <div class="price-card">
+          <h4>DWS IQ 6 Platform</h4>
+          <div class="price">€4,999</div>
+          <div class="price-note">Full platform license</div>
+          <ul>
+            <li>18 AI compliance agents</li>
+            <li>Compliance Engine V1.0</li>
+            <li>ETS, CBAM, CSRD, EPBD, EU AI Act</li>
+            <li>25 EU-regulated industries covered</li>
+            <li>MCP-native, CLI-accessible</li>
+            <li>Edge AI ready (NVIDIA Jetson)</li>
+          </ul>
+          <a href="/products/dwsiq.html" class="cta-btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Regulations Covered -->
+    <div class="section container">
+      <h2>Regulations Covered</h2>
+      <p>DWS IQ 6 covers the full EU Fit for 55 regulatory stack — not just CSRD.</p>
       <ul>
-        <li>One automated report template</li>
-        <li>SAP/ERP integration setup</li>
-        <li>4-week validation cycle</li>
-        <li>ESRS-aligned output format</li>
-        <li>Audit trail included</li>
+        <li>
+          <strong>CSRD</strong> — Corporate Sustainability Reporting Directive (82 ESRS disclosures)
+        </li>
+        <li>
+          <strong>EU ETS</strong> — Emissions Trading System Phase 4 (2021-2030), emission factor
+          calculations
+        </li>
+        <li>
+          <strong>CBAM</strong> — Carbon Border Adjustment Mechanism (transitional + definitive
+          2026)
+        </li>
+        <li><strong>EPBD</strong> — Energy Performance of Buildings Directive (2028 deadlines)</li>
+        <li>
+          <strong>EU Taxonomy</strong> — Sustainable activity classification aligned with climate
+          objectives
+        </li>
+        <li>
+          <strong>NIS2</strong> — Cybersecurity Resilience Directive: board accountability, incident
+          reporting, critical entity obligations (Dir. 2022/2555)
+        </li>
+        <li>
+          <strong>CER</strong> — Critical Entities Resilience Directive: physical protection against
+          hybrid threats, resilience plans, CORE framework alignment (Dir. 2022/2557)
+        </li>
+        <li>
+          <strong>EU AI Act</strong> — Article 12 logging and transparency for high-risk AI systems
+        </li>
       </ul>
-      <a href="/products/firehorse-reports.html" class="cta-btn">Learn More</a>
     </div>
 
-    <div class="price-card recommended">
-      <h4>Climate Reporting Starter Bundle</h4>
-      <div class="price">€6,500</div>
-      <div class="price-note">Complete CSRD solution</div>
-      <ul>
-        <li>DWS IQ Base Platform</li>
-        <li>Firehorse Report Module</li>
-        <li>Kickoff Workshop (3 days)</li>
-        <li>82 ESRS disclosures mapped</li>
-        <li>30-day deployment guarantee</li>
-        <li>First month support included</li>
-      </ul>
-      <a href="/products/lifetime-bundle-2026.html" class="cta-btn">Get Started</a>
+    <!-- Related Products for Energy Sector -->
+    <div class="section container">
+      <h2>Related Products for Energy &amp; Industrial Companies</h2>
+      <p>
+        CSRD is just one piece of the compliance puzzle. Energy companies also face ETS, CBAM, and
+        EPBD obligations. These products complete your compliance stack.
+      </p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h4>Firehorse Amplify</h4>
+          <div class="price">€4,950</div>
+          <div class="price-note">Zero-touch compliance workflows</div>
+          <ul>
+            <li>Event-driven CSRD data pipelines</li>
+            <li>Sensor-to-report automation</li>
+            <li>ERP/SCADA integration</li>
+            <li>Audit trail with 7-year retention</li>
+          </ul>
+          <a href="/products/firehorse-amplify.html" class="cta-btn">Learn More</a>
+        </div>
+
+        <div class="price-card">
+          <h4>Firehorse Data Services</h4>
+          <div class="price">€899</div>
+          <div class="price-note">API integration consultancy</div>
+          <ul>
+            <li>API bridge for energy simulation data</li>
+            <li>Emission factor data integration</li>
+            <li>Data monetization strategy</li>
+            <li>Remote and on-site consulting</li>
+          </ul>
+          <a href="mailto:sales@lifetime.fi?subject=Data Services - Energy Sector" class="cta-btn"
+            >Contact Sales</a
+          >
+        </div>
+
+        <div class="price-card">
+          <h4>Fit for 55 Specialist Consulting</h4>
+          <div class="price">€4,500</div>
+          <div class="price-note">Expert regulatory guidance</div>
+          <ul>
+            <li>ETS Phase 4 compliance strategy</li>
+            <li>CBAM transitional + definitive 2026</li>
+            <li>EPBD building energy requirements</li>
+            <li>Multi-regulation gap analysis</li>
+          </ul>
+          <a href="/products/consulting-fit55.html" class="cta-btn">Learn More</a>
+        </div>
+      </div>
     </div>
 
-    <div class="price-card">
-      <h4>DWS IQ 6 Platform</h4>
-      <div class="price">€4,999</div>
-      <div class="price-note">Full platform license</div>
-      <ul>
-        <li>18 AI compliance agents</li>
-        <li>Compliance Engine V1.0</li>
-        <li>ETS, CBAM, CSRD, EPBD, EU AI Act</li>
-        <li>16 EU industries covered</li>
-        <li>MCP-native, CLI-accessible</li>
-        <li>Edge AI ready (NVIDIA Jetson)</li>
-      </ul>
-      <a href="/products/dwsiq.html" class="cta-btn">Learn More</a>
+    <!-- Operational Trace Log (illustrative) — CSRD ontology in action -->
+    <div class="section container">
+      <div
+        style="
+          display: inline-block;
+          background: rgba(212, 168, 67, 0.14);
+          color: var(--color-gold-light);
+          border: 1px solid rgba(212, 168, 67, 0.4);
+          padding: 6px 14px;
+          border-radius: 999px;
+          font-size: 0.8rem;
+          font-weight: 700;
+          letter-spacing: 0.07em;
+          margin-bottom: 14px;
+        "
+      >
+        ILLUSTRATIVE &middot; PRE-GA &middot; ANONYMIZED
+      </div>
+      <h2 style="color: var(--color-gold-light)">Operational Trace Log (illustrative)</h2>
+      <p>
+        A representative end-to-end trace showing the CSRD ontology — trigger &rarr; named DWS IQ
+        agents &rarr; regulatory outcome. This is an illustrative, anonymized deployment pattern,
+        not a real named customer, consented deployment, or actual incident. Figures are
+        representative.
+      </p>
+      <div
+        style="
+          background: rgba(30, 41, 59, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-left: 4px solid var(--color-gold);
+          border-radius: 0 12px 12px 0;
+          padding: 24px 28px;
+          font-size: 0.95rem;
+          line-height: 1.8;
+        "
+      >
+        <p style="margin-bottom: 12px">
+          <strong style="color: var(--color-gold-light)">Trigger</strong> — A large EU industrial
+          group (anonymized) must file its first CSRD/ESRS statement. The first wave of CSRD
+          reports, covering FY2024, became due in <strong>2025</strong>; the group's wave is
+          reporting on FY2025, due 2026.
+        </p>
+        <p style="margin-bottom: 12px">
+          <strong style="color: var(--color-gold-light)">Agents</strong> — DWS IQ 6 compliance
+          agents ingest SAP/ERP and IoT data, pre-map all 82 ESRS disclosures, run the double
+          materiality assessment, and apply EU ETS benchmark (Reg. 2021/447) and CBAM default (Reg.
+          2023/1773) emission factors for Scope 1/2/3, with a 7-year audit trail.
+        </p>
+        <p style="margin: 0">
+          <strong style="color: var(--color-gold-light)">Outcome</strong> — An audit-ready, iXBRL
+          digitally-tagged ESRS report with an immutable EU AI Act Article 12 decision log. The
+          architecture is <strong>ALIGNED</strong> to ESRS and is architected to satisfy CBAM's
+          definitive period (from 2026, after the transitional period through 2025) for in-scope
+          materials.
+        </p>
+      </div>
+      <p style="color: #64748b; font-size: 0.85rem; margin-top: 18px">
+        Regulatory anchor: CSRD wave-1 reports for FY2024 were filed in 2025; CBAM definitive period
+        begins 2026 after the transitional period through 2025; reasonable assurance phases in by
+        2028. (Checkable EU regulatory timeline facts.)
+      </p>
+      <p style="text-align: right; color: #64748b; font-size: 0.78rem; margin-top: 24px">
+        CSRD Hub — page v1.1 &middot; 2026-06-23
+      </p>
     </div>
-  </div>
-</div>
 
-<!-- Regulations Covered -->
-<div class="section container">
-  <h2>Regulations Covered</h2>
-  <p>DWS IQ 6 covers the full EU Fit for 55 regulatory stack — not just CSRD.</p>
-  <ul>
-    <li><strong>CSRD</strong> — Corporate Sustainability Reporting Directive (82 ESRS disclosures)</li>
-    <li><strong>EU ETS</strong> — Emissions Trading System Phase 4 (2021-2030), emission factor calculations</li>
-    <li><strong>CBAM</strong> — Carbon Border Adjustment Mechanism (transitional + definitive 2026)</li>
-    <li><strong>EPBD</strong> — Energy Performance of Buildings Directive (2028 deadlines)</li>
-    <li><strong>EU Taxonomy</strong> — Sustainable activity classification aligned with climate objectives</li>
-    <li><strong>EU AI Act</strong> — Article 12 logging and transparency for high-risk AI systems</li>
-  </ul>
-</div>
+    <!-- Bottom CTA -->
+    <section class="cta-bottom">
+      <div class="container">
+        <h2>Your CSRD Deadline Won't Wait</h2>
+        <p>Start with the Starter Bundle and be audit-ready in 30 days.</p>
+        <a href="/products/lifetime-bundle-2026.html" class="hero-cta">
+          <i class="fas fa-rocket"></i> Get Started — €6,500
+        </a>
+        <a href="/buy/" class="hero-secondary" style="margin-top: 16px">
+          Browse All Products <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
 
-<!-- Related Products for Energy Sector -->
-<div class="section container">
-  <h2>Related Products for Energy &amp; Industrial Companies</h2>
-  <p>CSRD is just one piece of the compliance puzzle. Energy companies also face ETS, CBAM, and EPBD obligations. These products complete your compliance stack.</p>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <h4>Firehorse Automation</h4>
-      <div class="price">€4,950</div>
-      <div class="price-note">Zero-touch compliance workflows</div>
-      <ul>
-        <li>Event-driven CSRD data pipelines</li>
-        <li>Sensor-to-report automation</li>
-        <li>ERP/SCADA integration</li>
-        <li>Audit trail with 7-year retention</li>
-      </ul>
-      <a href="/products/firehorse-automation.html" class="cta-btn">Learn More</a>
-    </div>
-
-    <div class="price-card">
-      <h4>Firehorse Data Services</h4>
-      <div class="price">€899</div>
-      <div class="price-note">API integration consultancy</div>
-      <ul>
-        <li>API bridge for energy simulation data</li>
-        <li>Emission factor data integration</li>
-        <li>Data monetization strategy</li>
-        <li>Remote and on-site consulting</li>
-      </ul>
-      <a href="mailto:sales@lifetime.fi?subject=Data Services - Energy Sector" class="cta-btn">Contact Sales</a>
-    </div>
-
-    <div class="price-card">
-      <h4>Fit for 55 Specialist Consulting</h4>
-      <div class="price">€4,500</div>
-      <div class="price-note">Expert regulatory guidance</div>
-      <ul>
-        <li>ETS Phase 4 compliance strategy</li>
-        <li>CBAM transitional + definitive 2026</li>
-        <li>EPBD building energy requirements</li>
-        <li>Multi-regulation gap analysis</li>
-      </ul>
-      <a href="/products/consulting-fit55.html" class="cta-btn">Learn More</a>
-    </div>
-  </div>
-</div>
-
-<!-- Bottom CTA -->
-<section class="cta-bottom">
-  <div class="container">
-    <h2>Your CSRD Deadline Won't Wait</h2>
-    <p>Start with the Starter Bundle and be audit-ready in 30 days.</p>
-    <a href="/products/lifetime-bundle-2026.html" class="hero-cta">
-      <i class="fas fa-rocket"></i> Get Started — €6,500
-    </a>
-    <a href="/buy/" class="hero-secondary" style="margin-top: 16px;">
-      Browse All Products <i class="fas fa-arrow-right"></i>
-    </a>
-  </div>
-</section>
-
-<script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
-
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
 </html>

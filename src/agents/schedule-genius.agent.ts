@@ -62,6 +62,7 @@ export class ScheduleGeniusAgent extends BaseAgent {
         'resource-leveling-hints',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

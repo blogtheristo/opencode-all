@@ -4,9 +4,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 21.04.2026 | Changes: Revised Appendix F - replaced overclaimed self-improving agents with honest description of actual tooling (codebase health script, CI/CD workflow, MCP Hub reflection)
+  - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 11.02.2026 | Changes: Added Appendix F - Self-Improving Agent Protocol (self-diagnostic agent, reflection agent, codebase health automation, CI/CD test workflow)
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: MCP-HIL-Reduction | Date: 09.02.2026 | Changes: Added Section 6.8 - Reducing HIL Errors with MCP Integration (MCP architecture for eliminating transcription/context-switch/approval-fatigue errors, cloud-hosted MCP strategy)
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added Section 6.7 - Human-in-the-Loop Learning Pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Operational Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation results metrics
@@ -22,10 +24,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 09.02.2026
+  - Last Modified: 21.04.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 with MCP HIL Reduction)
+  - Publication Status: DRAFT (V3.4)
 
 ---
 
@@ -70,6 +72,10 @@ Tama opinnaytetyo tutkii Firehorse-tuotevalmistuksen toimintamallia, joka yhdist
 10. [Conclusions](#10-conclusions)
 11. [References](#11-references)
 12. [Appendices](#12-appendices)
+    - [Appendix F: Development Quality Tooling](#appendix-f-development-quality-tooling)
+      - [F.5 Implementation Results](#f5-implementation-results)
+      - [F.6 EU AI Act Compliance Contribution](#f6-eu-ai-act-compliance-contribution)
+      - [F.7 Academic Significance](#f7-academic-significance)
 
 ---
 
@@ -604,7 +610,7 @@ The Firehorse Operations Model demonstrates that AI-assisted e-commerce manageme
 2. Integration patterns for Google Merchant Center and Revolut Business
 3. A roadmap for audio chat with carbon calculator integration (4 phases)
 4. EU compliance mapping for industrial software products
-5. Product recommendation engine architecture for 16 EU industries
+5. Product recommendation engine architecture for 25+ EU industries
 6. Proton products security strategy for GDPR/NIS2 compliance
 
 ## 10.3 Future Work
@@ -789,8 +795,54 @@ The adoption of Karpathy principles in DWS6 development achieved:
 - **Implementation:** `/CLAUDE.md` in repository root
 - **Applicable tools:** Claude Code, Cursor AI, GitHub Copilot, and similar agentic coding assistants
 
+## Appendix F: Development Quality Tooling
+
+### F.1 Motivation
+
+AI-assisted development sessions (Claude Code, Cursor) benefit from knowing what needs fixing before the developer starts work. DWS6 addresses this with three lightweight tools that create a feedback loop: a health-check script surfaces priorities, a CI workflow prevents regressions, and the MCP Hub's existing reflection endpoint enables iterative quality evaluation of agent outputs.
+
+### F.2 Components
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Codebase Health Script | `scripts/codebase_health.py` | Prints health report with metrics, agent-to-test linkage, and prioritized recommendations |
+| CI/CD Test Workflow | `.github/workflows/test-on-pr.yml` | Runs TypeScript type checks, Vitest tests, and secret-pattern scans on every PR |
+| MCP Hub Reflection | `mcp-hub/server.py` (`/workflow/reflection`) | Iterative refinement workflow for agent output quality evaluation |
+
+### F.3 Codebase Health Script
+
+The Python script (`scripts/codebase_health.py`) analyzes agent files, test files, and CI/CD workflows to produce a health score (0-100). It writes nothing to disk by default — output goes to stdout. An optional `--output-file` flag persists JSON for tooling consumption.
+
+Key metrics: test file count, test case count, agent error-handling and logging coverage, CI/CD workflow presence. The script also computes `tested_in` linkage — for each agent file, it searches test files for the agent's class name or registered name, producing an honest coverage map rather than a boolean flag.
+
+### F.4 CI/CD Test Workflow
+
+The workflow (`.github/workflows/test-on-pr.yml`) runs on PRs targeting `main` and pushes to `main`. It performs:
+
+1. TypeScript type checking (`tsc --noEmit`)
+2. Vitest test suite execution
+3. Security pattern scanning for hardcoded API keys
+
+This prevents regressions from being merged and serves as the automated quality gate.
+
+### F.5 MCP Hub Reflection Workflow
+
+The MCP Hub (`mcp-hub/server.py`) already provided a `/workflow/reflection` endpoint before this work. It accepts agent output and returns quality evaluation across configurable dimensions. This lives at the orchestration layer — the correct architectural location for cross-agent quality evaluation, rather than as a peer agent in the registry.
+
+### F.6 EU AI Act Compliance Contribution
+
+These tools support EU AI Act Article 12 (Automatic Logging) requirements:
+
+1. **Automatic Logging**: All agent executions logged to Supabase via `logExecution()` with timing, input/output, and status
+2. **Traceability**: Health reports and CI artifacts create a timestamped audit trail of codebase quality evolution
+3. **Reasoning Lineage**: The `AgentResponse.reasoning` field documents every agent decision; the MCP Hub reflection workflow can evaluate reasoning quality
+
+### F.7 Lessons Learned
+
+An initial implementation included dedicated self-diagnostic and reflection agents registered alongside the five domain agents. These were removed after audit because they duplicated functionality already present in `codebase_health.py` and the MCP Hub, and placed development tooling concerns inside the production agent registry. The lesson: feedback loops work best when they use appropriate tools at the right architectural layer, not when every capability is forced into the agent abstraction.
+
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: February 2026*
-*Version: 3.2*
+*Last updated: April 2026*
+*Version: 3.4*

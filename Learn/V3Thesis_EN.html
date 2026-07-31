@@ -101,6 +101,9 @@ Product Manufacturing Operating Model</a>
 <li><a href="#hybrid-ai-edge-architecture-for-climate-intelligent-industrial-platforms" id="toc-hybrid-ai-edge-architecture-for-climate-intelligent-industrial-platforms">Hybrid
 AI-Edge Architecture for Climate-Intelligent Industrial
 Platforms</a></li>
+</ul></li>
+<li><a href="#version-and-agent-history" id="toc-version-and-agent-history">VERSION AND AGENT HISTORY</a>
+<ul>
 <li><a href="#abstract" id="toc-abstract">Abstract</a></li>
 <li><a href="#tiivistelma" id="toc-tiivistelma">Tiivistelma</a></li>
 <li><a href="#ai-tool-usage-disclosure" id="toc-ai-tool-usage-disclosure">AI Tool Usage Disclosure</a></li>
@@ -296,6 +299,10 @@ G: Glossary</a></li>
 Automated PR Workflow (HIL Automation)</a></li>
 <li><a href="#climate-iq-pantheon-greekroman-god-multi-agent-system" id="toc-climate-iq-pantheon-greekroman-god-multi-agent-system">10.13
 Climate IQ Pantheon — Greek/Roman God Multi-Agent System</a></li>
+<li><a href="#agent-system-hardening-production-reliability" id="toc-agent-system-hardening-production-reliability">10.14 Agent
+System Hardening — Production Reliability</a></li>
+<li><a href="#postgresql-columnar-htap-architecture-dws-data-standard" id="toc-postgresql-columnar-htap-architecture-dws-data-standard">10.15
+PostgreSQL Columnar HTAP Architecture — DWS Data Standard</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -303,24 +310,57 @@ Climate IQ Pantheon — Greek/Roman God Multi-Agent System</a></li>
 Product Manufacturing Operating Model</h1>
 <h2 id="hybrid-ai-edge-architecture-for-climate-intelligent-industrial-platforms">Hybrid
 AI-Edge Architecture for Climate-Intelligent Industrial Platforms</h2>
-<table style="width:6%;">
-<colgroup>
-<col style="width: 5%" />
-</colgroup>
-<tbody>
-<tr>
-<td># VERSION AND AGENT HISTORY</td>
-</tr>
-<tr>
-<td>Version: 3.18</td>
-</tr>
-<tr>
-<td>Sessions &amp; Modifications: - Version: 3.18 | Tool: GitHub Copilot
-(Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 |
-Changes: Added Section 9.5 Learn Thinking — daily learning loop via
-Learn/ folder, thesis files added to Generate-PDFs pipeline, reflective
-learning framework for AI-assisted product development - Version: 3.17 |
-Tool: Claude Code (Sonnet 4.6) | Session:
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 3.25</p>
+<p>Sessions &amp; Modifications: - Version: 3.25 | Tool: Claude Code
+(Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt |
+Date: 14.03.2026 | Changes: Added Section 10.16 (Harness Engineering —
+From Prompt Engineering to System Design): OpenAI’s 8 principles, DWS IQ
+6 comparison with 6-layer L0-L6 architecture, empirical result
+(52.8%→66.5% from harness alone), EU regulation requires different
+harness than Silicon Valley; added Key Contribution #19 - Version: 3.24
+| Tool: Claude Code (Opus 4.6) | Session:
+claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes:
+Expanded Appendix G glossary with Data Architecture (9 terms) and
+Research Methodology (4 terms) — autoresearch, HTAP, Hypercore, two-tier
+architecture, KYA, proxy-to-scale - Version: 3.23 | Tool: Claude Code
+(Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date:
+13.03.2026 | Changes: Updated Section 10.15 with 2026 Aiven-first
+mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks
+(Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven
+whitelist confirmed (pg_duckdb BLOCKED), two-tier HTAP (Aiven managed +
+GN100 edge), edge PostgreSQL deployment; added Key Contribution #18;
+updated footer - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session:
+claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added
+Section 10.15 (PostgreSQL Columnar HTAP Architecture — DWS Data
+Standard): pg_duckdb + TimescaleDB on Aiven EU for single-database HTAP,
+4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance
+matrix (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854);
+added Key Contribution #17; updated footer - Version: 3.21 | Tool:
+Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date:
+09.03.2026 | Changes: Added Section 10.14 (Agent System Hardening —
+Production Reliability): 6 TypeScript compilation errors fixed, 3 test
+failures resolved, SandboxContext type alignment with opensandbox stage,
+MCP/HIL route wiring, locale-deterministic number formatting, dependency
+hygiene (luxon); added Key Contribution #16; updated footer - Version:
+3.20 | Tool: Claude Code (Opus 4.6) | Session:
+claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key
+Contribution #15 (Customer-Facing MVP Features — API Key Management,
+Usage Metering with 3-tier billing, Compliance Report Export with
+scheduling); demonstrates transition from developer tools to
+customer-ready SaaS platform; validates Solution Factory productization
+hypothesis - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session:
+claude/happy-rhodes | Date: 07.03.2026 | Changes: Expanded Section 2.5.3
+MCP Hub Orchestration Patterns with implementation details (4 patterns:
+Fan-Out, Sequential, Reflection, Pipeline), endpoints, context passing,
+production readiness table; added Section 2.5.4 Skills and CLIs as Agent
+Interfaces (Three-Interface Rule: CLI + MCP + Skills) - Version: 3.18 |
+Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date:
+04.03.2026 | Changes: Added Section 9.5 Learn Thinking — daily learning
+loop via Learn/ folder, thesis files added to Generate-PDFs pipeline,
+reflective learning framework for AI-assisted product development -
+Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session:
 claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes:
 Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent
 System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern,
@@ -420,25 +460,20 @@ Changes: Major revision - Added Solution Factory model, AgentFoundry
 documentation, Lifetime Scope Signals theory, SWOT analysis, research
 questions answers, complete theoretical framework - Version: 1.0 | Tool:
 GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes:
-Applied DWS document standard, synchronized with Finnish version</td>
-</tr>
-<tr>
-<td>Session Links &amp; References: - Claude Code (2026-02-10): V3 merge
+Applied DWS document standard, synchronized with Finnish version</p>
+<p>Session Links &amp; References: - Claude Code (2026-02-10): V3 merge
 and Scandinavian character fixes - Claude Code (2026-01-28): DWS10 store
 integration, Google Merchant, Revolut, Audio chat roadmap - Cursor AI
 (2026-01-05): Thesis revision integrating codebase evidence - GitHub
 Copilot (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
 - View on GitHub:
-https://github.com/blogtheristo/dws6/blob/main/docs/metropolia/master-thesis/en/V3Thesis_EN.md</td>
-</tr>
-<tr>
-<td>Document Status: - Created: 30.12.2025 - Last Modified: 02.03.2026 -
+https://github.com/blogtheristo/dws6/blob/main/docs/metropolia/master-thesis/en/V3Thesis_EN.md</p>
+<p>Document Status: - Created: 30.12.2025 - Last Modified: 14.03.2026 -
 Language: English - Languages Available: English, Suomi - Publication
-Status: DRAFT (V3.17 — Claude Code engineering structure: AI workflow as
-first-class engineering)</td>
-</tr>
-</tbody>
-</table>
+Status: DRAFT (V3.25 — Harness Engineering section: OpenAI 8 principles,
+DWS 6-layer L0-L6, empirical 52.8%→66.5% result, EU harness
+divergence)</p>
+<hr />
 <p><strong>Master’s Thesis</strong> <strong>Metropolia University of
 Applied Sciences</strong></p>
 <p><strong>Author:</strong> Risto Anton Päärni <strong>Program:</strong>
@@ -877,16 +912,154 @@ emission</strong> to unblock dependent agents.</p>
 </table>
 <h3 id="mcp-hub-orchestration-patterns">2.5.3 MCP Hub Orchestration
 Patterns</h3>
-<p>The Model Context Protocol (MCP) Hub implements three workflow
-patterns for agent coordination:</p>
-<ol type="1">
-<li><strong>Fan-Out pattern:</strong> Parallel task distribution to
-multiple agents</li>
-<li><strong>Reflection pattern:</strong> Self-evaluation and iterative
-improvement</li>
-<li><strong>Sequential pattern:</strong> Step-by-step execution with
-dependencies</li>
-</ol>
+<p>The Model Context Protocol (MCP) Hub (<code>mcp-hub/server.py</code>,
+port 8765) implements four workflow patterns for multi-agent
+coordination. Each pattern exposes a dedicated HTTP endpoint and handles
+agent routing, error propagation, and result aggregation.</p>
+<p><strong>1. Fan-Out Pattern</strong>
+(<code>POST /workflow/fan-out</code>) Distributes tasks to multiple
+agents in parallel using <code>asyncio.gather()</code>. All agents
+execute concurrently with a shared HTTP client (300s timeout).
+Exceptions are serialized per-task, enabling partial success — if one
+agent fails, others still return results. Used for Category B
+(Operations) agents where tasks are independent.</p>
+<p><strong>2. Sequential Pattern</strong>
+(<code>POST /workflow/sequential</code>) Executes tasks one by one in
+dependency order. Each task’s result is injected as
+<code>context[&quot;previous_result&quot;]</code> into the next task, creating an
+explicit data flow chain. Suitable for pipelines where output of one
+agent feeds the next (e.g., data extraction → analysis → report
+generation).</p>
+<p><strong>3. Reflection Pattern</strong>
+(<code>POST /workflow/reflection</code>) Implements an iterative
+implementation-evaluation loop. An implementation agent produces output,
+an evaluation agent scores it (0.0–1.0) and provides feedback. If the
+score falls below a configurable threshold (default 0.85), the feedback
+is injected back into the implementation agent for another iteration
+(max 3 by default). Used for Category C (Customer-facing) agents where
+output quality is critical.</p>
+<p><strong>4. Pipeline Pattern</strong>
+(<code>POST /workflow/pipeline</code>) — <em>Recommended for
+production</em> Combines parallel and sequential execution through
+staged workflows. Each stage contains a list of tasks that execute in
+parallel (fan-out within stage), while stages execute sequentially
+(results from stage N flow as context into stage N+1). This avoids the
+sequential bottleneck while maintaining dependency ordering between
+logical phases.</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 25%" />
+<col style="width: 35%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Parallelism</th>
+<th>Context Passing</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan-Out</td>
+<td>Full parallel</td>
+<td>None</td>
+<td>Independent tasks</td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td>None</td>
+<td>Previous → Next</td>
+<td>Dependent chains</td>
+</tr>
+<tr>
+<td>Reflection</td>
+<td>None</td>
+<td>Feedback loop</td>
+<td>Quality-critical output</td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td>Parallel within stages</td>
+<td>Stage → Stage</td>
+<td>Production workloads</td>
+</tr>
+</tbody>
+</table>
+<h3 id="skills-and-clis-as-agent-interfaces">2.5.4 Skills and CLIs as
+Agent Interfaces</h3>
+<p>The “Build for Agents” principle establishes that every DWS product
+must be accessible through three complementary interfaces beyond the
+GUI: a CLI, an MCP server, and Claude Code Skills.</p>
+<p><strong>CLI (Command-Line Interface)</strong> The CLI
+(<code>npx tsx cli/src/cli.ts &lt;command&gt;</code>) provides
+structured JSON output for every agent operation. This follows the
+industry trend where AI agents consume tools through command-line
+interfaces rather than graphical interfaces. Key commands:</p>
+<ul>
+<li><code>dws agents</code> — List all registered agents</li>
+<li><code>dws run &lt;agent&gt; --input &#39;{...}&#39;</code> — Execute a named
+agent with structured input</li>
+<li><code>dws workflow &lt;name&gt;</code> — Trigger a multi-agent
+workflow</li>
+</ul>
+<p>The CLI-first approach ensures that every feature is automatable,
+testable, and composable. A product that exists only as GUI is
+considered incomplete.</p>
+<p><strong>MCP Server</strong> The MCP endpoint (<code>/mcp</code>,
+JSON-RPC 2.0) makes all agents auto-discoverable via
+<code>tools/list</code>. External AI systems (Claude Code, Cursor, VS
+Code Copilot) can connect to the MCP server and invoke any agent as a
+tool. This implements the Model Context Protocol specification for
+standardized tool integration.</p>
+<p><strong>Claude Code Skills</strong> Skills
+(<code>.claude/commands/*.md</code>) are reusable workflow components
+that encapsulate agent invocations as slash commands. Six production
+skills are deployed:</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/compliance-check</code></td>
+<td>EU regulatory gap analysis (ETS, CBAM, CSRD)</td>
+</tr>
+<tr>
+<td><code>/agent-run</code></td>
+<td>Execute any named agent with structured input</td>
+</tr>
+<tr>
+<td><code>/workflow</code></td>
+<td>Trigger multi-agent workflows</td>
+</tr>
+<tr>
+<td><code>/discover-agents</code></td>
+<td>Find agents by capability keyword</td>
+</tr>
+<tr>
+<td><code>/site-safety</code></td>
+<td>Construction site safety assessment</td>
+</tr>
+<tr>
+<td><code>/carbon-analysis</code></td>
+<td>Embodied carbon footprint calculation</td>
+</tr>
+</tbody>
+</table>
+<p>Each skill is a callable, testable component that combines prompt
+engineering with tool orchestration. The skill pattern ensures that
+agent capabilities are accessible without requiring users to understand
+the underlying MCP protocol or CLI syntax.</p>
+<p><strong>Three-Interface Rule:</strong> Every new agent must ship with
+all three interfaces (CLI command, MCP tool, Claude Code Skill). This
+guarantees that agents are usable by humans (CLI), other AI systems
+(MCP), and within development workflows (Skills).</p>
 <h2 id="conceptual-model-firehorse-solution-factory">2.6 Conceptual
 Model: Firehorse Solution Factory</h2>
 <p>The Firehorse Solution Factory model synthesizes the aforementioned
@@ -2519,7 +2692,8 @@ deployments:</p>
 <tr>
 <td><strong>Orchestration</strong></td>
 <td>MCP Hub + LlamaStack</td>
-<td>3 workflow patterns implemented</td>
+<td>4 workflow patterns implemented (Fan-Out, Sequential, Reflection,
+Pipeline)</td>
 </tr>
 </tbody>
 </table>
@@ -4171,9 +4345,50 @@ for AI Applications.” https://github.com/alibaba/OpenSandbox</li>
 </ol>
 <h2 id="internal-reference-artifacts">Internal Reference Artifacts</h2>
 <ol start="27" type="1">
-<li>Lifetime Oy (2026). <em>Lifetime World LLM Scaling Blueprint (GN-100
-hybrid + cloud path).</em>
-<code>Admin/Model/LLM_TRAINING_FEASIBILITY.md</code>.</li>
+<li><p>Lifetime Oy (2026). <em>Lifetime World LLM Scaling Blueprint
+(GN-100 hybrid + cloud path).</em>
+<code>Admin/Model/LLM_TRAINING_FEASIBILITY.md</code>.</p></li>
+<li><p>Lifetime Oy (2026). <em>DWS Security Standard</em>, version 1.5.
+<code>DWS_SECURITY_STANDARD.md</code>. Internal framework governing AI
+safety, middleware security controls (correlation ID, Zod validation,
+centralized error handling), CORS policies, SRI integrity, Article 12
+logging, and API boundary validation. Establishes the security
+architecture for all backend API routes and the MCP agent
+server.</p></li>
+<li><p>Lifetime Oy (2026). <em>ESRS Data Point Registry</em>, version
+1.0. <code>src/compliance/esrs-registry.ts</code>. Machine-readable
+mapping of all 82 European Sustainability Reporting Standards (ESRS)
+disclosure requirements across E1-E5 (Environment), S1-S4 (Social), and
+G1 (Governance). Each disclosure is classified as mandatory or voluntary
+under the CSRD Directive (EU) 2022/2464.</p></li>
+<li><p>Lifetime Oy (2026). <em>Compliance Scoring Engine</em>, version
+1.0. <code>src/compliance/scoring-engine.ts</code>. Deterministic
+compliance scoring algorithm computing CSRD readiness, ETS exposure, and
+CBAM risk scores. Formula: overall = CSRD(0.50) + ETS(0.25) +
+CBAM(0.25), where CSRD = (mandatory data points provided / total
+mandatory) × 80 + bonus modifiers.</p></li>
+<li><p>Lifetime Oy (2026). <em>Site Quality Standards</em>, version 2.1.
+<code>SITE_QUALITY_STANDARDS.md</code>. Code quality, component
+architecture, and UI resilience patterns for the DWS IQ dashboard.
+Defines ErrorBoundary, Skeleton loading, and EmptyState component
+standards for enterprise-grade user experience.</p></li>
+<li><p>Lifetime Oy (2026). <em>AGENTS.md</em>, version 2.2.
+<code>AGENTS.md</code>. Agent inventory and operational guidance
+following the agents.md open specification. Documents 15 AI agents, the
+compliance scoring engine architecture, middleware stack ordering, and
+the “Build for Agents” product rule requiring CLI + MCP + Skills
+interfaces.</p></li>
+<li><p>Lifetime Oy (2026). <em>DWS IQ Platform Admin Manual</em>,
+version 2.7. <code>Admin/ADMIN_MANUAL.md</code>. Operational procedures
+for health check monitoring, compliance scoring engine operations, and
+dashboard resilience troubleshooting. Includes the Claude Code Project
+Engineering Structure and Multi-Agent Orchestration sections.</p></li>
+<li><p>Lifetime Oy (2026). <em>Enterprise Security &amp;
+Compliance</em>, version 1.8. <code>Admin/SECURITY_COMPLIANCE.md</code>.
+Security controls for CISOs and procurement teams. Documents agent
+runtime security, dashboard resilience controls, backend middleware
+security controls, and compliance engine data protection with RLS
+policies.</p></li>
 </ol>
 <hr />
 <h2 id="claude-code-engineering-structure-ai-workflow-as-first-class-engineering">10.13
@@ -4858,6 +5073,119 @@ user/organization</td>
 </tr>
 </tbody>
 </table>
+<h3 id="data-architecture-and-analytics">Data Architecture and
+Analytics</h3>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 28%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term (EN)</th>
+<th>Finnish</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Autoresearch</strong></td>
+<td>Autotutkimus</td>
+<td>Karpathy-inspired autonomous validation loop: hypothesize → modify →
+verify → keep/discard → repeat</td>
+</tr>
+<tr>
+<td><strong>Columnar Storage</strong></td>
+<td>Saraketallennustila</td>
+<td>Database storage format organizing data by columns instead of rows,
+enabling 10-100× compression and faster analytical queries</td>
+</tr>
+<tr>
+<td><strong>HTAP</strong></td>
+<td>HTAP</td>
+<td>Hybrid Transactional/Analytical Processing — single database handles
+both OLTP and OLAP workloads</td>
+</tr>
+<tr>
+<td><strong>Hypercore</strong></td>
+<td>Hypercore</td>
+<td>TimescaleDB’s automatic hybrid row→columnar tiering engine with
+90-98% compression</td>
+</tr>
+<tr>
+<td><strong>Hypertable</strong></td>
+<td>Hypertaulu</td>
+<td>TimescaleDB time-partitioned table for time-series data with
+automatic chunk management</td>
+</tr>
+<tr>
+<td><strong>pg_duckdb</strong></td>
+<td>pg_duckdb</td>
+<td>PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration
+(edge-only in DWS)</td>
+</tr>
+<tr>
+<td><strong>pgvector</strong></td>
+<td>pgvector</td>
+<td>PostgreSQL extension for vector similarity search, used in RAG
+pipelines</td>
+</tr>
+<tr>
+<td><strong>TimescaleDB</strong></td>
+<td>TimescaleDB</td>
+<td>PostgreSQL extension for time-series data with compression and
+continuous aggregates</td>
+</tr>
+<tr>
+<td><strong>Two-Tier HTAP</strong></td>
+<td>Kaksitasoinen HTAP</td>
+<td>Architecture pattern: Tier 1 (Aiven managed, TimescaleDB) + Tier 2
+(self-managed edge, pg_duckdb)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="research-methodology">Research Methodology</h3>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 28%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term (EN)</th>
+<th>Finnish</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aiven-first Mandate</strong></td>
+<td>Aiven-ensisijaisuus</td>
+<td>DWS policy requiring all production database extensions to be
+Aiven-compatible before adoption</td>
+</tr>
+<tr>
+<td><strong>DWS Data Standard</strong></td>
+<td>DWS-tietostandardi</td>
+<td>Internal standard governing data storage decisions, extension
+governance, and EU regulatory compliance</td>
+</tr>
+<tr>
+<td><strong>KYA Standard</strong></td>
+<td>KYA-standardi</td>
+<td>Know Your Agent/Architecture — dual-purpose standard for AI agent
+security (Shield) and optimization governance (Sword)</td>
+</tr>
+<tr>
+<td><strong>Proxy-to-Scale</strong></td>
+<td>Pienestä suureen -validointi</td>
+<td>Karpathy pattern: validate changes on small proxy (depth=12) before
+scaling to production (depth=24)</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="appendix-h-automated-pr-workflow-hil-automation">Appendix H:
 Automated PR Workflow (HIL Automation)</h2>
@@ -5124,6 +5452,610 @@ strategy. Red-hot accuracy.”</li>
 <p>These personas appear at onelifetime.world/team alongside human
 staff, reinforcing the product thesis: humans and AI agents work side by
 side. One of them never sleeps.</p>
+<h2 id="agent-system-hardening-production-reliability">10.14 Agent
+System Hardening — Production Reliability</h2>
+<h3 id="motivation-1">10.14.1 Motivation</h3>
+<p>The 31-agent system (13 core + 5 SEO + 13 workflow/industry) had
+accumulated 6 TypeScript compilation errors and 3 test failures that
+blocked production builds. These were not design flaws but integration
+debt: type mismatches across module boundaries, missing route wiring,
+uninstalled dependencies, and locale-dependent formatting. This section
+documents the systematic hardening that restored zero-error compilation
+and full test coverage.</p>
+<h3 id="type-system-alignment-sandboxcontext">10.14.2 Type System
+Alignment: SandboxContext</h3>
+<p>The <code>SandboxStage</code> type in
+<code>src/sandbox/index.ts</code> defined four stages:
+<code>&#39;1&#39; | &#39;opensandbox&#39; | &#39;2&#39; | &#39;3&#39;</code>, where
+<code>&#39;opensandbox&#39;</code> represents the Stage 1.5 Docker-based
+isolation on Acer Veriton GN100 hardware (Section 10.10). However,
+<code>SandboxContext.stage</code> in <code>src/agents/types.ts</code>
+only accepted <code>&#39;1&#39; | &#39;2&#39; | &#39;3&#39;</code>, creating a compile-time
+error when <code>BaseAgent</code> attempted to assign the sandbox stage.
+The fix aligned both types, ensuring agents can execute in all four
+isolation stages.</p>
+<h3 id="route-wiring-mcp-and-human-in-the-loop">10.14.3 Route Wiring:
+MCP and Human-in-the-Loop</h3>
+<p>Two critical routes were unreachable due to missing imports in
+<code>src/app.ts</code>:</p>
+<ol type="1">
+<li><p><strong>MCP Agent Server</strong> (<code>/mcp</code>) — The
+<code>createMCPRouter()</code> function from
+<code>src/mcp/agent-server.ts</code> exposes all agents as MCP tools via
+JSON-RPC 2.0. Without this import, external MCP clients (Claude Desktop,
+other AI agents) could not discover or invoke DWS agents.</p></li>
+<li><p><strong>Human-in-the-Loop</strong> (<code>/api/hil</code>) — The
+HIL endpoint enables one-click task completion from morning briefing
+emails. Without this route, the Captain Pre-Briefing Agent’s “Done”
+buttons returned 404 errors.</p></li>
+</ol>
+<h3 id="locale-deterministic-number-formatting">10.14.4
+Locale-Deterministic Number Formatting</h3>
+<p>The Emissions Data Analyst agent formats ETS cost estimates using
+<code>Number.toLocaleString()</code>. On EU-locale machines (Finland,
+Germany), this produces space-separated numbers (e.g.,
+<code>2 040 000</code>), while tests expected US comma-separated format
+(<code>2,040,000</code>). The fix specifies <code>&#39;en-US&#39;</code> locale
+explicitly, ensuring deterministic output regardless of deployment
+environment. This is critical for EU-hosted Cloud Run instances where
+system locale defaults to European conventions.</p>
+<h3 id="dependency-hygiene">10.14.5 Dependency Hygiene</h3>
+<p>The <code>luxon</code> library (timezone-aware date handling for
+Helsinki business hours) was imported in the Social Scheduler but never
+added to <code>package.json</code>. The Resend email SDK’s batch
+response type was a union
+(<code>undefined[] | CreateBatchSuccessResponse</code>) that required
+runtime array detection before calling <code>.map()</code>.</p>
+<h3 id="research-contribution-5">10.14.6 Research Contribution</h3>
+<p>This hardening session demonstrates a pattern relevant to multi-agent
+system maintenance: <strong>integration debt accumulates at module
+boundaries, not within modules</strong>. Each individual agent was
+correctly implemented, but the connections between agents, sandbox,
+routes, and tests had drifted. The fix touched 6 files across 5
+subsystems in a single commit, restoring:</p>
+<ul>
+<li><strong>0 TypeScript errors</strong> (was 6)</li>
+<li><strong>47/47 tests passing</strong> (was 44/47)</li>
+<li><strong>Full MCP discoverability</strong> for all 31 agents</li>
+<li><strong>HIL operational</strong> for morning briefing workflows</li>
+</ul>
+<hr />
+<h2 id="postgresql-columnar-htap-architecture-dws-data-standard">10.15
+PostgreSQL Columnar HTAP Architecture — DWS Data Standard</h2>
+<h3 id="motivation-2">10.15.1 Motivation</h3>
+<p>DWS6 runs all analytics against transactional heap tables with no
+columnar or HTAP capabilities. As the platform scales toward IoT
+telemetry (DWS7 Phase 4), 7-year Article 12 audit retention, and growing
+agent execution logs, the single-engine approach creates performance
+bottlenecks: campaign funnel aggregation hits raw event tables, agent
+cost rollups require full table scans, and audit log storage costs grow
+linearly with no compression.</p>
+<p>The PostgreSQL “columnar extension” pattern — pioneered by Hydra and
+now production-ready across six implementations — enables true HTAP
+(Hybrid Transactional/Analytical Processing) within a single database:
+transactional tables remain as standard heap, analytics tables become
+columnar, with seamless joins and zero data movement.</p>
+<h3 id="extension-evaluation-updated-march-2026-aiven-first-mandate">10.15.2
+Extension Evaluation (Updated March 2026 — Aiven-First Mandate)</h3>
+<p>The original v3.22 evaluation assumed pg_duckdb availability on
+Aiven. March 2026 findings invalidated this:</p>
+<ul>
+<li><strong>Hydra</strong> core team joined Supabase (Feb 2026) to build
+“Supabase Warehouse” — Hydra is effectively dead as an independent
+project.</li>
+<li><strong>pg_mooncake</strong> acquired by Databricks (Oct 2025) —
+future uncertain for self-hosted deployments.</li>
+<li><strong>CRITICAL: pg_duckdb is BLOCKED on the Aiven extension
+whitelist</strong> — it is NOT available on Aiven managed PostgreSQL.
+This was the key finding that forced the two-tier architecture
+redesign.</li>
+<li><strong>TimescaleDB 2.25.x Hypercore</strong> is the ONLY
+columnar/HTAP option natively available on Aiven.</li>
+</ul>
+<p><strong>ClickBench performance context:</strong> pg_duckdb achieves
+50-600× over vanilla PostgreSQL; TimescaleDB Hypercore achieves 10-100×
+with 98% compression on time-series data.</p>
+<p>Updated evaluation reflecting 2026 reality:</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th>Solution</th>
+<th>Engine</th>
+<th>Speed vs PG</th>
+<th>Aiven?</th>
+<th>Supabase?</th>
+<th>Self-Host?</th>
+<th>DWS Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hydra (→Supabase Warehouse)</td>
+<td>DuckDB</td>
+<td>100-600×</td>
+<td>No</td>
+<td>Alpha</td>
+<td>Yes</td>
+<td>Monitor</td>
+</tr>
+<tr>
+<td>pg_duckdb v1.x</td>
+<td>DuckDB</td>
+<td>50-600×</td>
+<td><strong>NO (blocked)</strong></td>
+<td>Yes</td>
+<td><strong>Yes</strong></td>
+<td>Edge only</td>
+</tr>
+<tr>
+<td>pg_mooncake (→Databricks)</td>
+<td>DuckDB</td>
+<td>Top-10 ClickBench</td>
+<td>No</td>
+<td>Custom</td>
+<td>Yes</td>
+<td>Phase 3</td>
+</tr>
+<tr>
+<td>TimescaleDB 2.25.x Hypercore</td>
+<td>PG+SIMD</td>
+<td>10-100×</td>
+<td><strong>Yes (native)</strong></td>
+<td>Yes</td>
+<td><strong>Yes</strong></td>
+<td><strong>PRIMARY</strong></td>
+</tr>
+<tr>
+<td>ParadeDB pg_analytics</td>
+<td>DuckDB</td>
+<td>10-100×</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Not recommended</td>
+</tr>
+<tr>
+<td>Citus Columnar</td>
+<td>PG</td>
+<td>5-50×</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>Not recommended</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommended-stack-two-tier-htap-architecture">10.15.3
+Recommended Stack (Two-Tier HTAP Architecture)</h3>
+<p>The Aiven whitelist constraint (pg_duckdb BLOCKED) drives a
+<strong>two-tier architecture</strong> — managed production on Aiven
+with full extension freedom on edge hardware:</p>
+<p><strong>Tier 1: Aiven Managed (Production) — TimescaleDB 2.25.x
+Hypercore ONLY</strong></p>
+<ul>
+<li>Automatic hybrid row→columnar storage via Hypercore: recent data
+stays in heap for OLTP, older data compresses into columnar format
+automatically.</li>
+<li>98% compression on time-series and audit data (agent_metrics,
+agent_costs, article12_audit_log, IoT sensor data).</li>
+<li>10-100× analytical acceleration over vanilla PostgreSQL via SIMD
+vectorized scans.</li>
+<li>99.99% SLA, EU Finland (europe-north1), managed backups, automatic
+failover.</li>
+<li>No pg_duckdb, no Hydra, no pg_mooncake — only Aiven-whitelisted
+extensions.</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- TimescaleDB Hypercore hybrid table (Aiven production)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="kw">events</span> (</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">time</span> TIMESTAMPTZ <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  device_id TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  metric_name TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">value</span> <span class="dt">DOUBLE</span> <span class="dt">PRECISION</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>) <span class="kw">WITH</span> (timescaledb.hybrid <span class="op">=</span> <span class="kw">true</span>);</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> create_hypertable(<span class="st">&#39;events&#39;</span>, <span class="st">&#39;time&#39;</span>);</span></code></pre></div>
+<p><strong>Tier 2: GN100 Edge (Analytics) — TimescaleDB + pg_duckdb +
+pgvector</strong></p>
+<ul>
+<li>Deployed 2026-03-13 on Acer Veriton GN100 via Docker with SSH tunnel
+to Aiven.</li>
+<li>Full extension stack: pg_duckdb (50-600× OLAP), pgvector (AI
+embeddings), TimescaleDB (time-series).</li>
+<li>Use cases: ad-hoc analytical queries, ClickBench-class workloads, AI
+vector search, data exploration.</li>
+<li>Not production-critical — edge device serves as analytical
+sandbox.</li>
+</ul>
+<p><strong>Local dev parity:</strong>
+<code>timescale/timescaledb:2.25.2-pg16</code> Docker image ensures
+developers match Aiven production schema.</p>
+<p><strong>pg_mooncake</strong> (Phase 3, 2027) for Iceberg/Parquet
+export satisfying EU Data Act 2023/2854 IoT data portability
+requirements — pending Databricks acquisition outcome.</p>
+<h3 id="dws-data-standard">10.15.4 DWS Data Standard</h3>
+<p>A new <code>DWS_DATA_STANDARD.md</code> was created to govern all
+data storage decisions. Key sections:</p>
+<ol type="1">
+<li><strong>Storage Engine Policy</strong> — decision matrix for row vs
+columnar vs hybrid</li>
+<li><strong>Extension Governance</strong> — approved registry with
+sovereignty assessment</li>
+<li><strong>Retention Policy</strong> — per-table rules mapped to EU
+regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2 Art 23: 5yr,
+Finnish Accounting Act 1336/1997: 10yr)</li>
+<li><strong>Partitioning Standard</strong> — TimescaleDB hypertables
+preferred over native partitioning</li>
+<li><strong>Compression Policy</strong> — tiered compression targets
+(1:1 hot → 20:1 archive)</li>
+<li><strong>EU Regulatory Compliance</strong> — matrix mapping 11 EU
+regulations to database requirements</li>
+</ol>
+<h3 id="phased-rollout-updated-aiven-first-mandate">10.15.5 Phased
+Rollout (Updated — Aiven-First Mandate)</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 29%" />
+<col style="width: 23%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Timeline</th>
+<th>Target</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Q1 2026</td>
+<td>Supabase</td>
+<td>Table partitioning, materialized views</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Q2 2026</td>
+<td>Aiven V1 + GN100 Edge</td>
+<td>TimescaleDB Hypercore hypertables (Aiven), pg_duckdb + pgvector
+deployed on edge (done)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Q3-Q4 2026</td>
+<td>Aiven + Edge</td>
+<td>Audit log compression (98%), IoT hypertables, edge analytical
+queries</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2027</td>
+<td>Full HTAP</td>
+<td>pg_mooncake lakehouse, Iceberg/Parquet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="research-contribution-6">10.15.6 Research Contribution</h3>
+<p>This work demonstrates that the <strong>single-database HTAP
+pattern</strong> is viable for regulated EU industrial platforms: same
+SQL, same clients, same RLS, zero ETL. The phased approach — starting
+with natively-supported extensions on a managed EU-sovereign provider
+(Aiven Finland) — eliminates the traditional choice between operational
+simplicity and analytical capability. The DWS Data Standard codifies
+this as an organizational standard, ensuring that storage engine
+decisions are deliberate, documented, and EU-compliant.</p>
+<p>The March 2026 Aiven whitelist finding adds a critical practical
+contribution: <strong>managed-provider extension constraints drive
+architectural decisions in ways not captured by extension benchmarks
+alone.</strong> The pg_duckdb extension achieves 50-600× analytical
+speedups but is unusable on Aiven managed PostgreSQL. This forced the
+two-tier HTAP architecture (Aiven managed + GN100 edge), demonstrating
+how real-world provider constraints shape database architecture for
+regulated EU deployments — a pattern likely applicable to any
+organization adopting managed PostgreSQL with HTAP ambitions.</p>
+<h3 id="harness-engineering-from-prompt-engineering-to-system-design">10.16
+Harness Engineering — From Prompt Engineering to System Design</h3>
+<p><strong>Source:</strong> OpenAI, “Harness engineering: leveraging
+Codex in an agent-first world”, 13.02.2026; Martin Fowler, “Harness
+Engineering”, 2026; Datadog, “Closing the verification loop”, 2026.</p>
+<p><strong>Context:</strong> OpenAI’s Harness team built a product in
+five months without writing a single line of code manually — one million
+lines, ~1,500 PRs, 3-7 engineers. This section analyzes the 8 harness
+engineering principles and compares them with DWS IQ 6’s independently
+developed architecture.</p>
+<h4 id="definition">10.16.1 Definition</h4>
+<p><strong>Harness</strong> = the entire environment (scaffolding,
+constraints, feedback loops) surrounding an AI agent that enables
+stable, productive work.</p>
+<p><strong>Harness Engineering</strong> = the shift from writing code
+to: - <strong>Environment design</strong> — designing the workspace
+agents operate in - <strong>Intent specification</strong> — defining
+what needs to happen, not how - <strong>Feedback loop
+construction</strong> — building mechanisms for agents to
+self-correct</p>
+<p>When something fails, the question is not “try harder” but
+<strong>“what capability is missing?”</strong></p>
+<h4 id="the-eight-principles-dws-iq-6-comparison">10.16.2 The Eight
+Principles — DWS IQ 6 Comparison</h4>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 18%" />
+<col style="width: 27%" />
+<col style="width: 31%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Principle</th>
+<th>OpenAI Approach</th>
+<th>DWS IQ 6 Approach</th>
+<th>Readiness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>AGENTS.md = map, not encyclopedia</td>
+<td>~100 lines, acts as table of contents</td>
+<td>CLAUDE.md + AGENTS.md + JIT L0-L6 six-layer loading</td>
+<td><strong>90%</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>“Boring technology” wins</td>
+<td>Stable, well-documented tech stacks</td>
+<td>Express 4, React 19, PostgreSQL — CLI-first mandate</td>
+<td><strong>95%</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Golden Principles quality gates</td>
+<td>Automated background scanning + fix PRs</td>
+<td>11 standards + Boardy architect persona review</td>
+<td><strong>75%</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Mechanical architecture enforcement</td>
+<td>Linters with fix instructions in errors</td>
+<td>ESLint + security coding rules (OWASP, SRI, CORS)</td>
+<td><strong>60%</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Knowledge belongs in the repo</td>
+<td>If it’s not in the repo, it doesn’t exist</td>
+<td>71 docs + DWS Document Standard + VERSION AND AGENT HISTORY</td>
+<td><strong>95%</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Agent-agent code review</td>
+<td>“Ralph Wiggum Loop” — self-review cycles</td>
+<td>Simplify skill + Boardy + human-in-the-loop</td>
+<td><strong>50%</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Compounding returns (build capabilities)</td>
+<td>Diagnose missing capability, build into repo</td>
+<td>10 skills + 16 agents + MCP Hub + workflow orchestration</td>
+<td><strong>85%</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Engineers as environment designers</td>
+<td>3.5 PR/engineer/day throughput</td>
+<td>Worktree workflow + session handover protocol</td>
+<td><strong>80%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Overall DWS readiness: ~79%</strong> against OpenAI’s harness
+engineering principles.</p>
+<h4 id="key-empirical-finding-the-model-does-not-solve-the-harness-does">10.16.3
+Key Empirical Finding: The Model Does Not Solve — The Harness Does</h4>
+<p>The most significant empirical finding from the harness engineering
+literature:</p>
+<blockquote>
+<p>The same model (gpt-5.2-codex) improved its benchmark results from
+<strong>52.8% to 66.5%</strong> purely through harness improvements
+(LangChain case). No model change — only system-level improvements.</p>
+</blockquote>
+<p>This validates DWS IQ 6’s core architectural hypothesis: <strong>the
+system surrounding the model matters more than the model
+itself.</strong> DWS’s six-layer information architecture (L0 Platform
+Model → L6 Tool Result Injection) is a formalization of this
+principle.</p>
+<p><strong>Progressive disclosure works empirically:</strong> - Cursor
+achieved <strong>46.9% token savings</strong> through context management
+- Vercel reduced context from <strong>145K → 67K tokens</strong> with
+JIT loading - DWS’s L6 Tool Injection layer (system-reminder after every
+tool call) shows <strong>15-47% better rule compliance</strong> than
+system prompt alone</p>
+<h4 id="dws-six-layer-architecture-l0-l6-as-harness-formalization">10.16.4
+DWS Six-Layer Architecture (L0-L6) as Harness Formalization</h4>
+<p>DWS IQ 6 has independently developed a six-layer information
+architecture that formalizes the harness concept:</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 14%" />
+<col style="width: 23%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Name</th>
+<th>Function</th>
+<th>OpenAI Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L0</strong></td>
+<td>Platform Model</td>
+<td>Base LLM capabilities</td>
+<td>Implicit (Codex model)</td>
+</tr>
+<tr>
+<td><strong>L1</strong></td>
+<td>System Prompt</td>
+<td>Session-level instructions</td>
+<td>AGENTS.md injection</td>
+</tr>
+<tr>
+<td><strong>L2</strong></td>
+<td>Standards (JIT)</td>
+<td>On-demand standard loading</td>
+<td>docs/ folder references</td>
+</tr>
+<tr>
+<td><strong>L3</strong></td>
+<td>Task Context</td>
+<td>Current task specification</td>
+<td>PR description + issue</td>
+</tr>
+<tr>
+<td><strong>L4</strong></td>
+<td>Auto-Learned State</td>
+<td>Persistent memory (Supabase + MEMORY.md)</td>
+<td>Not described by OpenAI</td>
+</tr>
+<tr>
+<td><strong>L5</strong></td>
+<td>Tool Results</td>
+<td>Output from tool executions</td>
+<td>Agent loop tool calls</td>
+</tr>
+<tr>
+<td><strong>L6</strong></td>
+<td>Tool Result Injection</td>
+<td>System reminders after each tool call</td>
+<td>Not described by OpenAI</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DWS innovations beyond OpenAI:</strong> - <strong>L4
+Auto-Learned State:</strong> Agents learn across sessions via persistent
+memory — OpenAI does not describe equivalent capability - <strong>L6
+Tool Result Injection:</strong> System reminders injected after every
+tool call, achieving 15-47% better standard compliance than prompt-only
+approaches - <strong>12 Factor Agents compliance:</strong> DWS documents
+12/12 compliance with the 12 Factor Agents framework — OpenAI does not
+reference this</p>
+<h4 id="eu-regulation-requires-a-different-harness">10.16.5 EU
+Regulation Requires a Different Harness</h4>
+<p>The most significant divergence between OpenAI and DWS approaches
+stems from regulatory context:</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 40%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>OpenAI (Silicon Valley)</th>
+<th>DWS IQ 6 (EU-regulated)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Optimization target</strong></td>
+<td>Speed (3.5 PR/engineer/day)</td>
+<td>Traceability, auditability, human-in-the-loop</td>
+</tr>
+<tr>
+<td><strong>Autonomy level</strong></td>
+<td>Near-full agent autonomy</td>
+<td>Human remains final approver (Karpathy principles)</td>
+</tr>
+<tr>
+<td><strong>Code review</strong></td>
+<td>Agent-agent only (Ralph Wiggum Loop)</td>
+<td>Agent pre-review + human final approval</td>
+</tr>
+<tr>
+<td><strong>Audit trail</strong></td>
+<td>Not described</td>
+<td>VERSION AND AGENT HISTORY in every document, court-defensible</td>
+</tr>
+<tr>
+<td><strong>Data residency</strong></td>
+<td>US-centric</td>
+<td>EU data residency (Finland/Germany), GDPR, EU AI Act</td>
+</tr>
+<tr>
+<td><strong>Industries served</strong></td>
+<td>Internal tooling</td>
+<td>20 EU-regulated industries (construction, energy, chemicals…)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Thesis argument:</strong> Both approaches are valid, but for
+different contexts. OpenAI optimizes for velocity in an unregulated
+internal environment. DWS optimizes for compliance, traceability, and
+trust in EU-regulated industries where autonomous agent decisions carry
+legal liability.</p>
+<p>The EU AI Act (effective August 2026) explicitly requires: -
+<strong>Article 12:</strong> Logging of AI system operations for at
+least 7 years - <strong>Article 14:</strong> Human oversight of
+high-risk AI systems - <strong>Article 15:</strong> Accuracy,
+robustness, and cybersecurity requirements</p>
+<p>These requirements make OpenAI’s “full autonomy” model non-compliant
+for high-risk applications in EU-regulated industries. DWS’s
+human-in-the-loop harness is not a limitation — it is an architectural
+response to regulatory requirements.</p>
+<h4 id="open-research-questions">10.16.6 Open Research Questions</h4>
+<ol type="1">
+<li><p><strong>Does the harness model scale to EU-regulated
+industries?</strong> OpenAI’s case is internal tooling without
+regulatory requirements. DWS operates across 20 regulated industries —
+empirical validation is ongoing.</p></li>
+<li><p><strong>What is the optimal autonomy level?</strong> OpenAI:
+near-full autonomy. DWS: human-in-the-loop. Which produces better
+outcomes in regulated contexts?</p></li>
+<li><p><strong>Is the six-layer context architecture
+generalizable?</strong> DWS’s L0-L6 model is specific to its standards
+ecosystem, but the principles may be universal.</p></li>
+<li><p><strong>Verification gap:</strong> Martin Fowler noted that
+OpenAI’s article lacks behavioral verification — how does the harness
+ensure generated code does the right thing, not just compiles?</p></li>
+</ol>
+<h4 id="research-contribution-7">10.16.7 Research Contribution</h4>
+<p>This section contributes three findings to the harness engineering
+discourse:</p>
+<ol type="1">
+<li><p><strong>Formalization:</strong> DWS’s L0-L6 six-layer
+architecture provides a formal framework for what OpenAI describes
+informally. This makes harness design reproducible and
+auditable.</p></li>
+<li><p><strong>Regulatory divergence:</strong> EU-regulated industries
+require fundamentally different harness design — prioritizing
+traceability and human oversight over speed. This is not a weakness but
+an architectural constraint analogous to how Aiven’s extension whitelist
+drives database architecture (Section 10.15).</p></li>
+<li><p><strong>Empirical confirmation:</strong> The 52.8% → 66.5%
+improvement from harness alone (not model change) validates DWS’s
+investment in system architecture over model selection. The six-layer
+architecture, DWS Document Standard, and progressive disclosure are all
+harness engineering practices developed independently before OpenAI
+published its findings.</p></li>
+</ol>
 <hr />
 <p><strong>Document Information:</strong></p>
 <p><strong>Title:</strong> Firehorse Product Manufacturing Operating
@@ -5133,12 +6065,9 @@ Platforms <strong>Author:</strong> Risto Anton Päärni
 <strong>Program:</strong> Smart Factory, Master’s Degree (YAMK)
 <strong>Supervisor:</strong> Jarno Varteva (with Erkki Räsänen)
 <strong>Company:</strong> Lifetime Oy (Firehorse brand)
-<strong>Status:</strong> DRAFT - V3.17 — Climate IQ Pantheon + Industry
-Specialist agents <strong>Status:</strong> DRAFT - V3.17 — Claude Code
-Engineering Structure (CLAUDE.md as project memory, Skills, Hooks,
-Subagents) <strong>Version:</strong> 3.17 <strong>Last
-Modified:</strong> 02.03.2026 <strong>V1.0 Release Target:</strong> 23
-February 2026</p>
+<strong>Status:</strong> DRAFT - V3.25 <strong>Version:</strong> 3.25
+<strong>Last Modified:</strong> 14.03.2026 <strong>V1.0 Release
+Target:</strong> 23 February 2026</p>
 <p><strong>Languages:</strong> English, Suomi <strong>Related
 Documents:</strong> - <a href="../fi/V3Thesis_FI.md">Finnish Version</a>
 - <a href="../../../.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md">Agent
@@ -5170,7 +6099,39 @@ reusable workflow components, Hooks for automated quality enforcement;
 demonstrates AI workflow design as software engineering discipline 13.
 Learn Thinking — Reflective learning framework: thesis as living
 document, daily Learn/ folder reflection loop, extension of
-Build-Measure-Learn cycle for AI-assisted product development</p>
+Build-Measure-Learn cycle for AI-assisted product development 14. MCP
+Hub Orchestration + Three-Interface Rule — Four production workflow
+patterns (Fan-Out, Sequential, Reflection, Pipeline) with documented
+endpoints; Skills/CLI as mandatory agent interfaces ensuring every agent
+is accessible to humans, AI systems, and development workflows 15.
+Customer-Facing MVP Features — Three production features transitioning
+DWS IQ from developer tooling to customer-ready SaaS: (a) Self-service
+API Key Management with SHA-256 hashing and scope-based access, (b)
+Usage Metering with 3-tier billing enforcement (Free/Pro/Enterprise) and
+dashboard progress bars, (c) Compliance Report Export with CSV/JSON
+download and recurring schedule support. Validates Solution Factory
+productization hypothesis — platform is market-ready for regulated EU
+industries 16. Agent System Hardening — Production reliability
+restoration: 6 TypeScript compilation errors fixed across 5 subsystems,
+SandboxContext type alignment, MCP/HIL route wiring,
+locale-deterministic number formatting, dependency hygiene; demonstrates
+integration debt patterns in multi-agent systems 17. PostgreSQL Columnar
+HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on
+Aiven EU; DWS Data Standard creation governing storage engines,
+extension registry, retention policies, and EU regulatory compliance
+(GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act); 4-phase rollout from
+table partitioning to lakehouse integration 18. Two-Tier HTAP
+Architecture — Aiven-first mandate locks TimescaleDB 2.25.x Hypercore as
+approved standard for managed production (10-100× analytics, 98%
+compression); pg_duckdb (50-600× OLAP) relegated to edge device only due
+to Aiven whitelist; GN100 edge PostgreSQL deployed with full extension
+stack for ad-hoc analytics 19. Harness Engineering — Analysis of
+OpenAI’s 8 harness engineering principles against DWS IQ 6 architecture;
+empirical finding that harness improvements alone yield 52.8%→66.5%
+benchmark gains (model unchanged); DWS’s L0-L6 six-layer architecture as
+formal harness framework; EU regulation requires fundamentally different
+harness (traceability + human-in-the-loop vs Silicon Valley speed
+optimization)</p>
 <p><strong>License:</strong> Proprietary - Lifetime Oy
 <strong>Contact:</strong> risto@lifetime.fi</p>
 </body>

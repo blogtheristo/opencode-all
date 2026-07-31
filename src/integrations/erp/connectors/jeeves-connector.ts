@@ -9,17 +9,15 @@
  * - Swedish market specialization
  */
 
-import { BaseERPConnector } from '../base-connector';
+import { BaseERPConnector } from '../base-connector.js';
 import {
   ERPProvider,
   JeevesConfig,
   SyncResult,
   EntityType,
-  ProductionOrder,
   MachineData,
   OEEMetrics,
-  MaintenanceEvent
-} from '../types';
+} from '../types.js';
 
 export class JeevesConnector extends BaseERPConnector {
   private jeevesConfig: JeevesConfig;
@@ -46,7 +44,7 @@ export class JeevesConnector extends BaseERPConnector {
       await this.get('/api/v1/system/info');
       return true;
     } catch (error) {
-      this.logger.error('Jeeves connection test failed', { error });
+      this.logger.error({ error }, 'Jeeves connection test failed');
       return false;
     }
   }
@@ -62,7 +60,11 @@ export class JeevesConnector extends BaseERPConnector {
       return this.createSyncResult(operation, true);
     } catch (error) {
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.PRODUCTION_ORDER, 'JEEVES_SYNC_FAILED', (error as Error).message)
+        this.createSyncError(
+          EntityType.PRODUCTION_ORDER,
+          'JEEVES_SYNC_FAILED',
+          (error as Error).message,
+        ),
       ]);
     }
   }

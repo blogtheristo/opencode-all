@@ -1,149 +1,1358 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DWS IQ Aegis — Sovereign Enterprise AI Platform | Lifetime Firehorse™Store</title>
-    <meta name="description" content="DWS IQ Aegis — Single-tenant sovereign AI platform on Finnish infrastructure. UpCloud Kubernetes + Helm. EU AI Act compliant. Available August 2026.">
-    <meta name="keywords" content="DWS IQ, Aegis, sovereign AI, EU AI Act, UpCloud, Kubernetes, Helm, defence, dual-use, Finnish cloud">
-    <meta name="author" content="Lifetime Oy">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="DWS IQ Aegis — Sovereign Enterprise AI Platform">
-    <meta property="og:description" content="Single-tenant sovereign AI on Finnish infrastructure. 18+ industrial AI agents. UpCloud Kubernetes + Helm. EU AI Act Article 12 native. Available August 2026.">
-    <meta property="og:type" content="product">
-    <meta property="og:url" content="https://dws10.com/products/aegis.html">
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-    <meta property="og:site_name" content="DWS IQ Platform">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="DWS IQ Aegis — Sovereign Enterprise AI Platform">
-    <meta name="twitter:description" content="Single-tenant sovereign AI on Finnish infrastructure. Available August 2026.">
-    <link rel="canonical" href="https://dws10.com/products/aegis.html">
-    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
-    <link rel="stylesheet" href="../static/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing | Lifetime
+      Firehorse™Store
+    </title>
+    <meta
+      name="description"
+      content="DWS IQ Aegis — EDIP-ready sovereign AI platform on Finnish infrastructure. A fleet of skilled agents, UpCloud Kubernetes, EU AI Act Article 12 native. Available September 2026."
+    />
+    <meta
+      name="keywords"
+      content="DWS IQ, Aegis, sovereign AI, EU AI Act, UpCloud, Kubernetes, Helm, defence, dual-use, Finnish cloud"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <!-- Vertical language bar switches the hero in-place across 5 EU languages (no redirect) -->
+    <meta name="dws-lang-stay" content="true" />
+    <meta
+      property="og:title"
+      content="DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing"
+    />
+    <meta
+      property="og:description"
+      content="EDIP-ready sovereign AI on Finnish infrastructure. 21+ industrial AI agents. EU AI Act Article 12 native. Zero CLOUD Act exposure. Available September 2026."
+    />
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="https://dws10.com/products/aegis.html" />
+    <meta property="og:image" content="https://dws10.com/static/images/firehorse-aegis-head.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing"
+    />
+    <meta
+      name="twitter:description"
+      content="Single-tenant sovereign AI on Finnish infrastructure. Available September 2026."
+    />
+    <link rel="canonical" href="https://dws10.com/products/aegis.html" />
+    <link rel="icon" type="image/png" href="/static/images/firehorse-aegis-head.png" />
+    <link rel="stylesheet" href="../static/css/style.css" />
     <style>
-        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 900px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }
-        h1 { color: #60a5fa; }
-        h2 { color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-top: 32px; }
-        .price { font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 8px; }
-        .price-note { color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px; }
-        .availability-badge { display: inline-block; background: #854d0e; color: #fbbf24; padding: 6px 16px; border-radius: 4px; font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
-        a.buy-btn { display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }
-        a.buy-btn:hover { background: #1d4ed8; }
-        a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-        th { text-align: left; padding: 10px 12px; background: rgba(30, 41, 59, 0.8); color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #334155; }
-        td { padding: 10px 12px; border-bottom: 1px solid rgba(51, 65, 85, 0.5); }
-        .spec-label { color: #94a3b8; font-weight: 500; }
-        .spec-value { color: #e2e8f0; }
-        .sovereign-badge { display: inline-block; background: #065f46; color: #6ee7b7; padding: 3px 10px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; }
-        .section-intro { color: #94a3b8; margin-bottom: 16px; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
+      body {
+        font-family: system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        flex-grow: 1;
+      }
+      h1 {
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin-bottom: 4px;
+      }
+      h2 {
+        color: var(--color-gold-light);
+        border-bottom: 1px solid rgba(212, 168, 67, 0.3);
+        padding-bottom: 8px;
+        margin-top: 32px;
+      }
+      .price {
+        font-size: 2rem;
+        color: #4ade80;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .price-note {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+      .availability-badge {
+        display: inline-block;
+        background: rgba(184, 134, 11, 0.18);
+        color: var(--color-gold-light);
+        border: 1px solid rgba(212, 168, 67, 0.45);
+        padding: 6px 16px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+      }
+      a.buy-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        padding: 15px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        margin-top: 20px;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
+      }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
+      }
+      a.back-link {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+      }
+      a.back-link:hover {
+        color: var(--color-gold-light);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+      }
+      th {
+        text-align: left;
+        padding: 10px 12px;
+        background: rgba(184, 134, 11, 0.1);
+        color: var(--color-gold-light);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid rgba(212, 168, 67, 0.35);
+      }
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      }
+      .spec-label {
+        color: #94a3b8;
+        font-weight: 500;
+      }
+      .spec-value {
+        color: #e2e8f0;
+      }
+      .sovereign-badge {
+        display: inline-block;
+        background: #065f46;
+        color: #6ee7b7;
+        padding: 3px 10px;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .section-intro {
+        color: #94a3b8;
+        margin-bottom: 16px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/vertical-lang-bar.js" defer></script>
     <div class="container">
-        <a href="../buy/" class="back-link">&larr; Back to Store</a>
+      <a href="../buy/" class="back-link">&larr; Back to Store</a>
 
-        <h1>DWS IQ Aegis</h1>
-        <p style="color: #94a3b8; font-size: 1.1rem; margin-top: -8px;">Sovereign Enterprise AI Platform</p>
 
-        <div class="availability-badge">Available August 2026</div>
+      <!-- DWS IQ deployment options banner (added 2026-07-16) -->
+      <aside class="dws-deploy-banner" aria-label="DWS IQ deployment options" style="margin:16px 0;padding:12px 16px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.28);border-left:3px solid #38bdf8;border-radius:8px;font-size:0.9rem;line-height:1.6;color:#cbd5e1;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
+        <strong style="color:#e2e8f0;">One platform, three deployments:</strong>
+        <a href="/products/cloud-pricing.html" style="color:#7dd3fc;">EU-Sovereign Cloud</a> &middot;
+        <a href="/products/aegis.html" style="color:#7dd3fc;">Dedicated Cloud (Aegis)</a> &middot;
+        <a href="/products/dgx-spark.html" style="color:#7dd3fc;">Own NVIDIA DGX</a>
+        &mdash; rent sovereign capacity or own the machine.
+        <a href="/price-list/#deployment" style="color:#6ee7b7;font-weight:600;white-space:nowrap;">Compare deployments &rarr;</a>
+      </aside>
+      <h1>DWS IQ Aegis</h1>
+      <p
+        id="aegisProdTagline"
+        style="color: #cbd5e1; font-size: 1.2rem; margin-top: -4px; font-weight: 600"
+      >
+        Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing
+      </p>
 
-        <div class="price">&euro;59,990</div>
-        <div class="price-note">One-time platform deployment + &euro;999/mo subscription. Enterprise and government pricing on request.</div>
+      <div style="margin: 18px 0 22px">
+        <span class="availability-badge">Part of the DWS IQ Industrial Intelligence Suite</span>
+        <span class="availability-badge">General Availability: August 2026</span>
+        <span class="availability-badge">Architected for EDIP Alignment</span>
+      </div>
 
-        <p>Named after Athena's shield — Aegis provides protection through intelligence. A single-tenant sovereign AI platform deployed on Finnish infrastructure, covering all 20 EU-regulated industries. Dedicated Kubernetes cluster per customer. No shared tenancy. No US cloud. No CLOUD Act exposure.</p>
+      <p id="aegisProdIntro">
+        Aegis is a single-tenant sovereign AI platform engineered specifically for dual-use
+        factories, heavy manufacturing, and critical raw material infrastructure. Deployed on
+        dedicated Finnish infrastructure, Aegis continuously optimizes and secures the production
+        facilities that supply Europe's defence sector — ensuring absolute data isolation with zero
+        US cloud dependencies and zero CLOUD Act exposure.
+      </p>
+      <p style="color: #94a3b8; font-size: 0.95rem">
+        Named after Athena's shield — Aegis provides protection through intelligence. Dedicated
+        Kubernetes cluster per customer. No shared tenancy. No US cloud. Covering all 21
+        EU-regulated industries including dual-use critical raw materials.
+      </p>
 
-        <h2>Why Aegis</h2>
-        <ul>
-            <li><strong>True sovereignty</strong> — Finnish-owned infrastructure (UpCloud, Helsinki DC). Zero CLOUD Act exposure. Not "EU-hosted on US cloud" — actually EU-owned.</li>
-            <li><strong>Single-tenant</strong> — Your own Kubernetes cluster, your own database, your own agents. No shared infrastructure with other customers.</li>
-            <li><strong>Defence-grade governance</strong> — KYA (Know Your Agent) identity verification, Firecracker MicroVM isolation, hardware kill-switch authority.</li>
-            <li><strong>EU AI Act native</strong> — Article 12 audit trails built in. Every AI decision logged with reasoning lineage.</li>
-        </ul>
+      <a
+        href="mailto:risto@lifetime.fi?subject=Aegis — Deployment Scoping Session (DWS-AEGIS-001)"
+        class="buy-btn"
+        >Request a Deployment Scoping Session</a
+      >
 
-        <h2>Technical Specifications</h2>
+      <h2>EDIP-Ready: Built for the EU Defence Industrial Programme</h2>
+      <p class="section-intro">
+        The European Commission adopted its &euro;1.5 billion EDIP work programme on 30 March 2026,
+        allocating &euro;700M+ for industrial production ramp-up, &euro;240M for joint procurement,
+        and &euro;100M for defence SME equity. Aegis is explicitly architected to satisfy EDIP
+        Article 9 eligibility requirements, providing ready-made compliance infrastructure for
+        facilities receiving EDIP funding (subject to formal EU evaluation).
+      </p>
+      <table>
+        <caption>
+          EDIP Article 9 eligibility criteria and Aegis status / technical alignment.
+        </caption>
+        <tr>
+          <th scope="row" class="spec-label">EU Establishment</th>
+          <td class="spec-value">
+            Finland (Lifetime Oy, Y-tunnus 0772407-9)
+            <span class="sovereign-badge">ALIGNED</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Third-Country Control</th>
+          <td class="spec-value">
+            100% Finnish-owned, no US parent or corporate dependencies
+            <span class="sovereign-badge">ALIGNED</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Buy European (65%)</th>
+          <td class="spec-value">
+            UpCloud Helsinki hosting, entirely EU-owned and operated stack
+            <span class="sovereign-badge">ALIGNED</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Defence Supply Chain</th>
+          <td class="spec-value">
+            Pre-mapped to 21 regulated industries including dual-use Critical Raw Materials
+            <span class="sovereign-badge">ALIGNED</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">EDIP Compliance Stack</th>
+          <td class="spec-value">
+            ETS + CBAM + CSRD + NIS2 + EU AI Act + dual-use export control (Reg. 2021/821)
+          </td>
+        </tr>
+      </table>
 
-        <table>
-            <tr><td class="spec-label">Deployment Model</td><td class="spec-value">Single-tenant Kubernetes (Helm chart) <span class="sovereign-badge">EU Sovereign</span></td></tr>
-            <tr><td class="spec-label">Infrastructure</td><td class="spec-value">UpCloud Managed Kubernetes (UKS), Helsinki DC (fi-hel1 / fi-hel2)</td></tr>
-            <tr><td class="spec-label">Sovereignty</td><td class="spec-value">Finnish-owned (Tesi-backed), ISO 27001, CISPE member, EU-only staff access</td></tr>
-            <tr><td class="spec-label">CLOUD Act Exposure</td><td class="spec-value">None — no US parent company, no US-owned infrastructure</td></tr>
-            <tr><td class="spec-label">Kubernetes</td><td class="spec-value">CNCF-conformant, full Helm support, HPA + VPA + Cluster Autoscaler</td></tr>
-            <tr><td class="spec-label">SLA</td><td class="spec-value">99.999% (UpCloud infrastructure)</td></tr>
-            <tr><td class="spec-label">Database</td><td class="spec-value">UpCloud Managed PostgreSQL + pgvector (HA, automated backups, Helsinki DC)</td></tr>
-            <tr><td class="spec-label">Cache / Queue</td><td class="spec-value">UpCloud Managed Valkey/Redis</td></tr>
-            <tr><td class="spec-label">GPU</td><td class="spec-value">NVIDIA L40S nodes available for local LLM inference</td></tr>
-            <tr><td class="spec-label">Egress</td><td class="spec-value">Zero cost (UpCloud Essentials)</td></tr>
-            <tr><td class="spec-label">Load Balancer</td><td class="spec-value">Included (UpCloud Managed)</td></tr>
-            <tr><td class="spec-label">Agent Isolation</td><td class="spec-value">Firecracker MicroVM per agent (KYA v1.4)</td></tr>
-            <tr><td class="spec-label">AI Agents</td><td class="spec-value">18+ industrial AI agents (same codebase as DWS IQ 6)</td></tr>
-            <tr><td class="spec-label">CLI Access</td><td class="spec-value"><code>dws</code> CLI — all agents manageable via command line</td></tr>
-            <tr><td class="spec-label">EU AI Act</td><td class="spec-value">Article 12 logging, reasoning lineage, Aiwen compliance layer</td></tr>
-            <tr><td class="spec-label">Compliance</td><td class="spec-value">GDPR, NIS2, EU AI Act, dual-use export control (Reg. 2021/821)</td></tr>
-            <tr><td class="spec-label">Certifications Roadmap</td><td class="spec-value">ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)</td></tr>
-        </table>
+      <h2>Why Aegis</h2>
+      <ul>
+        <li>
+          <strong>True industrial sovereignty</strong> — Deployed exclusively on Finnish-owned
+          UpCloud infrastructure (Helsinki DC). Your factory's operational telemetry, production
+          volumes, and proprietary manufacturing recipes never touch a US-owned cloud or face CLOUD
+          Act exposure.
+        </li>
+        <li>
+          <strong>Single-tenant</strong> — Your own Kubernetes cluster, your own database, your own
+          agents. No shared infrastructure with other customers.
+        </li>
+        <li>
+          <strong>Dual-use compliance native</strong> — Purpose-built for the intersection of heavy
+          industry and defence. Natively automates NIS2, the EU AI Act (Article 12 reasoning
+          lineage), and complex dual-use export controls (Reg. 2021/821).
+        </li>
+        <li>
+          <strong>Deterministic factory execution</strong> — Isolated Firecracker MicroVM agents
+          monitor supply chains, track embodied carbon (CBAM/CSRD), and flag industrial disruptions
+          with auditable, zero-hallucination data paths — governed by KYA (Know Your Agent) with
+          kill-switch authority.
+        </li>
+        <li>
+          <strong>EDIP-aligned</strong> — Architected specifically to satisfy Article 9
+          establishment and control requirements, providing the compliance framework for EDIP-funded
+          facilities.
+        </li>
+      </ul>
 
-        <h2>Agents Included</h2>
-        <table>
-            <tr><th>Agent</th><th>Capability</th></tr>
-            <tr><td>ComplianceAgent</td><td>EU regulatory compliance (CSRD, ETS, CBAM, Fit for 55, EU AI Act)</td></tr>
-            <tr><td>SovereigntyMonitor</td><td>CLOUD Act exposure detection, EU data residency verification</td></tr>
-            <tr><td>ArgusAgent</td><td>Orbital intelligence — SAR satellite industrial target detection</td></tr>
-            <tr><td>SiteSenseAgent</td><td>Site safety scoring, weather risk, worker capacity</td></tr>
-            <tr><td>MaterialOracle</td><td>Embodied carbon tracking, sustainable procurement</td></tr>
-            <tr><td>ScheduleGenius</td><td>Timeline optimization, resource allocation</td></tr>
-            <tr><td>CustomerSat</td><td>Customer health scoring, churn prediction</td></tr>
-            <tr><td>Viability</td><td>Unit economics, financial health, LTV</td></tr>
-            <tr><td>QualityGate</td><td>Deployment readiness, quality scoring</td></tr>
-            <tr><td>EmissionsDataAnalyst</td><td>Emissions analysis with EU regulatory context</td></tr>
-            <tr><td>LogisticsAgent</td><td>Fleet compliance, route optimization, supply chain carbon</td></tr>
-            <tr><td>ConstructionAgent</td><td>Construction project compliance orchestration</td></tr>
-            <tr><td>KYA Engine</td><td>Know Your Agent — identity, isolation, kill authority</td></tr>
-            <tr><td>Article12Logger</td><td>EU AI Act audit trails for all AI decisions</td></tr>
-            <tr><td>+ 4 more</td><td>Sales outreach, deep wiki extraction, compliance research, designer</td></tr>
-        </table>
+      <h2>The financial engine of compliance</h2>
+      <p>
+        The shift from experimental AI to regulated enterprise operations is not merely a technical
+        challenge — it is a strategic pivot to monetize industrial certified assets. By decoupling
+        AI innovation from safety-critical kernels, industrial enterprises move from a cycle of
+        continuous re-certification costs to a repeatable, scalable asset model.
+      </p>
+      <p>
+        Integrating DWS IQ turns compliance from a cost center into a driver of what we call
+        &ldquo;Financial Alpha&rdquo; — the point where efficiency gains outpace compute costs.
+        Governed, KYA-tiered swarm deployments are architected to reach that threshold faster than
+        unmanaged, single-agent deployments. The same architecture lets industrial enterprises
+        automate compliance, reduce re-certification cost and liability exposure compared with
+        manual processes, and produce the defensible, auditable evidence trail that insurers and
+        courts weigh under the Revised Product Liability Directive.
+      </p>
 
-        <h2>Target Market</h2>
-        <ul>
-            <li><strong>Government agencies</strong> — EU member states, defence ministries, public sector</li>
-            <li><strong>Defence industry</strong> — Contractors, shipyards, aerospace, dual-use manufacturing</li>
-            <li><strong>Critical infrastructure</strong> — Energy, transport, water, banking (NIS2 scope)</li>
-            <li><strong>Regulated enterprise</strong> — Any organization requiring sovereignty under their own infrastructure control</li>
-            <li><strong>Geography:</strong> EU only</li>
-        </ul>
+      <h2>Sovereignty posture — our Three-Pillar Governance Framework</h2>
+      <p class="section-intro">
+        Aegis enforces sovereign isolation through our proprietary Three-Pillar Governance
+        Framework, mapping data, technology, and operational control strictly within EU boundaries.
+        <a
+          href="https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html"
+          style="color: #67e8f9"
+          >See Sovereignty Field Note #2</a
+        >
+        for the full taxonomy.
+      </p>
+      <table>
+        <caption>
+          Pillar coverage. Aegis serves the J1 (EU) jurisdiction with all three pillars at full
+          EU-sovereign (Tier 1 vendor class). Quantum-readiness path via Rightful Oy R-Sac².
+        </caption>
+        <tr>
+          <th scope="row" class="spec-label">Data Sovereignty (KYA SIB-track)</th>
+          <td class="spec-value">
+            Full — EU residency, EU-only access path, Finnish-owned infrastructure, zero CLOUD Act
+            exposure <span class="sovereign-badge">PASS</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Technology Sovereignty (KYA CSB-track)</th>
+          <td class="spec-value">
+            Full — UpCloud + open Kubernetes + open Postgres stack; algorithm-rotation supported; no
+            proprietary lock-in <span class="sovereign-badge">PASS</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Operational Sovereignty (KYA EAB-track)</th>
+          <td class="spec-value">
+            Full — Finnish escalation, EU-only on-call, Firecracker MicroVM isolation, hardware
+            kill-switch authority <span class="sovereign-badge">PASS</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Jurisdiction emphasis</th>
+          <td class="spec-value">
+            J1 (EU) primary. J2 (US) and J3 (Singapore) market access via Connect tier.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="spec-label">Quantum-Resistant Layer (R-Sac² Architecture)</th>
+          <td class="spec-value">
+            Integrated cryptographic surface developed in partnership with Rightful Oy, enabling
+            NIST PQC migration (FIPS 203 / 204 / 205) to protect defence data against "Harvest Now,
+            Decrypt Later" (HNDL) vectors ahead of the 2030–2035 mandate
+          </td>
+        </tr>
+      </table>
 
-        <h2>Competitive Positioning</h2>
-        <table>
-            <tr><th>Competitor</th><th>Gap Aegis Fills</th></tr>
-            <tr><td>Palantir AIP</td><td>US-based, CLOUD Act exposed. Not EU-sovereign. No EU AI Act compliance.</td></tr>
-            <tr><td>Anduril Lattice</td><td>Hardware-focused. No compliance agents. US-only.</td></tr>
-            <tr><td>C3.ai</td><td>Dashboard platform, not agent outcomes. US-hosted.</td></tr>
-            <tr><td>Big 4 consulting</td><td>Advisory only. No autonomous agents. No orbital intelligence.</td></tr>
-        </table>
+      <h2>Technical Specifications</h2>
 
-        <h2>Pricing</h2>
-        <table>
-            <tr><th>Tier</th><th>Price</th><th>Included</th></tr>
-            <tr><td><strong>Aegis Platform</strong></td><td>&euro;59,990 + &euro;999/mo</td><td>18+ agents, 20 industries, dedicated K8s cluster, Article 12 logging, KYA governance</td></tr>
-            <tr><td><strong>Enterprise</strong></td><td>Custom</td><td>Dedicated sovereign instance, SLA, custom agents, SAR AOI budget</td></tr>
-            <tr><td><strong>Government</strong></td><td>Custom</td><td>Air-gapped deployment, security clearance support, on-premises option</td></tr>
-        </table>
+      <table>
+        <tr>
+          <td class="spec-label">Deployment Model</td>
+          <td class="spec-value">
+            Single-tenant Kubernetes (Helm chart) <span class="sovereign-badge">EU Sovereign</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Infrastructure</td>
+          <td class="spec-value">
+            UpCloud Managed Kubernetes (UKS), Helsinki DC (fi-hel1 / fi-hel2)
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Sovereignty</td>
+          <td class="spec-value">
+            Finnish-owned (Tesi-backed), ISO 27001 (UpCloud infrastructure), CISPE member, EU-only
+            staff access
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">CLOUD Act Exposure</td>
+          <td class="spec-value">None — no US parent company, no US-owned infrastructure</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Kubernetes</td>
+          <td class="spec-value">
+            CNCF-conformant, full Helm support, HPA + VPA + Cluster Autoscaler
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">SLA</td>
+          <td class="spec-value">
+            99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Database</td>
+          <td class="spec-value">
+            UpCloud Managed PostgreSQL + pgvector (HA, automated backups, Helsinki DC)
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Cache / Queue</td>
+          <td class="spec-value">UpCloud Managed Valkey/Redis</td>
+        </tr>
+        <tr>
+          <td class="spec-label">GPU</td>
+          <td class="spec-value">
+            NVIDIA L40S nodes for in-cluster LLM inference (EU cloud &mdash; no hardware shipped to
+            site)
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Egress</td>
+          <td class="spec-value">Zero cost (UpCloud Essentials)</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Load Balancer</td>
+          <td class="spec-value">Included (UpCloud Managed)</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Agent Isolation</td>
+          <td class="spec-value">Firecracker MicroVM per agent (KYA v1.4)</td>
+        </tr>
+        <tr>
+          <td class="spec-label">AI Agents</td>
+          <td class="spec-value">
+            21+ industrial AI agents across 21 verticals (same codebase as DWS IQ 6)
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">CLI Access</td>
+          <td class="spec-value"><code>dws</code> CLI — all agents manageable via command line</td>
+        </tr>
+        <tr>
+          <td class="spec-label">EU AI Act</td>
+          <td class="spec-value">Article 12 logging, reasoning lineage, Aiwen compliance layer</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Compliance</td>
+          <td class="spec-value">
+            GDPR, NIS2, EU AI Act, CER Directive, EU CRM Act, KRITIS, dual-use export control (Reg.
+            2021/821)
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Certifications Roadmap</td>
+          <td class="spec-value">
+            ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026); UpCloud
+            infrastructure already ISO 27001 certified
+          </td>
+        </tr>
+        <tr>
+          <td class="spec-label">Security Audit</td>
+          <td class="spec-value">
+            <span class="sovereign-badge">PiTuKri Audited</span> Traficom NCSC-FI cloud security
+            criteria v1.1 — 11 subdivisions, 52 criteria assessed
+          </td>
+        </tr>
+      </table>
 
-        <h2>Distribution</h2>
-        <ul>
-            <li><strong>IFS Cloud Marketplace</strong> — Nordic defence/industrial (Saab, BAE Systems Nordic)</li>
-            <li><strong>SAP Store</strong> — Defence supply chain S/4HANA integration</li>
-            <li><strong>Microsoft AppSource</strong> — Dynamics 365 for defence contractors</li>
-            <li><strong>DEFINE / Defence Tech Hub</strong> — Finnish defence ecosystem</li>
-            <li><strong>Direct enterprise sales</strong> — Defence contractors, government procurement</li>
-        </ul>
+      <h2>Agents Included</h2>
+      <table>
+        <tr>
+          <th>Agent</th>
+          <th>Capability</th>
+        </tr>
+        <tr>
+          <td>ComplianceAgent</td>
+          <td>EU regulatory compliance (CSRD, ETS, CBAM, Fit for 55, EU AI Act)</td>
+        </tr>
+        <tr>
+          <td>SovereigntyMonitor</td>
+          <td>CLOUD Act exposure detection, EU data residency verification</td>
+        </tr>
+        <tr>
+          <td>ArgusAgent</td>
+          <td>
+            Orbital industrial intelligence — SAR monitoring of logistics hubs, raw-material
+            storage, and facility perimeters to predict factory supply-chain disruptions
+          </td>
+        </tr>
+        <tr>
+          <td>SiteSenseAgent</td>
+          <td>
+            Dual-use production-facility safety scoring, weather-related operational risk, and
+            worker capacity limits
+          </td>
+        </tr>
+        <tr>
+          <td>MaterialOracle</td>
+          <td>Embodied carbon tracking, sustainable procurement</td>
+        </tr>
+        <tr>
+          <td>OperationalChronos</td>
+          <td>
+            Mission-timeline optimization, industrial resource allocation, and critical-path
+            synchronization under supply-chain disruption
+          </td>
+        </tr>
+        <tr>
+          <td>QualityGate</td>
+          <td>Deployment readiness, quality scoring</td>
+        </tr>
+        <tr>
+          <td>EmissionsDataAnalyst</td>
+          <td>Emissions analysis with EU regulatory context</td>
+        </tr>
+        <tr>
+          <td>LogisticsAgent</td>
+          <td>Fleet compliance, route optimization, supply chain carbon</td>
+        </tr>
+        <tr>
+          <td>ConstructionAgent</td>
+          <td>Construction project compliance orchestration</td>
+        </tr>
+        <tr>
+          <td>KYA Engine</td>
+          <td>Know Your Agent — identity, isolation, kill authority</td>
+        </tr>
+        <tr>
+          <td>Article12Logger</td>
+          <td>EU AI Act audit trails for all AI decisions</td>
+        </tr>
+        <tr>
+          <td>CrossVerticalIntel</td>
+          <td>
+            Supply chain signal propagation — detects compliance cascades across 21 industries
+          </td>
+        </tr>
+        <tr>
+          <td>GaiaAgent</td>
+          <td>
+            Critical raw materials — dependency, extraction-rate, and processing-bottleneck
+            monitoring for dual-use inputs (cement, lime, rare earths) feeding military
+            infrastructure
+          </td>
+        </tr>
+        <tr>
+          <td>VulcanAgent</td>
+          <td>
+            Steel &amp; heavy metals — production-level compliance for high-stress manufacturing,
+            mapping ETS Phase 4 allocations and CBAM carbon declarations to defence supply-chain
+            requirements
+          </td>
+        </tr>
+        <tr>
+          <td>+ more</td>
+          <td>
+            Compliance research, deep-wiki extraction, Hermes logistics — and the wider DWS IQ
+            industrial agent fleet
+          </td>
+        </tr>
+      </table>
 
-        <a href="mailto:risto@lifetime.fi?subject=Aegis Inquiry — DWS-AEGIS-001" class="buy-btn">Contact Sales — Available August 2026</a>
+      <h2>Target Market</h2>
+      <ul>
+        <li>
+          <strong>Government agencies</strong> — EU member states, defence ministries, public sector
+        </li>
+        <li>
+          <strong>Defence industry</strong> — Contractors, shipyards, aerospace, dual-use
+          manufacturing
+        </li>
+        <li>
+          <strong>Critical infrastructure</strong> — Energy, transport, water, banking (NIS2 scope)
+        </li>
+        <li>
+          <strong>Regulated enterprise</strong> — Any organization requiring sovereignty under their
+          own infrastructure control
+        </li>
+        <li><strong>Geography:</strong> EU only</li>
+      </ul>
+
+      <h2>Competitive Positioning</h2>
+      <p class="section-intro">
+        <strong>Market signal (June 2026):</strong> The U.S. Army selected Palantir Foundry as its
+        NGC2 (Next Generation Command &amp; Control) cloud data layer and Anduril Lattice as the
+        tactical data layer — proof that operational advantage is won at the sovereign data layer.
+        Aegis does not compete on the tactical frontline; it wins on the factory floor and across
+        the supply chain — the dual-use industrial base that powers defence — on absolute EU
+        sovereignty and deep compliance.
+      </p>
+      <table>
+        <tr>
+          <th>Competitor</th>
+          <th>Core capabilities</th>
+          <th>The sovereign industrial advantage of Aegis</th>
+        </tr>
+        <tr>
+          <td>Palantir AIP / Foundry</td>
+          <td>
+            Enterprise data integration and operational analytics, with established European
+            subsidiaries.
+          </td>
+          <td>
+            US CLOUD Act vulnerability — a US corporate parent makes proprietary European
+            manufacturing blueprints and defence supply-chain metrics subject to extraterritorial
+            discovery requests. Aegis is 100% EU-owned and immune to US jurisdiction.
+          </td>
+        </tr>
+        <tr>
+          <td>Anduril Lattice</td>
+          <td>
+            Outstanding tactical hardware integration, perimeter security, and drone orchestration.
+          </td>
+          <td>
+            Kinetic focus — primarily optimized for frontline battlefield hardware, missing the deep
+            industrial compliance layer (CBAM, NIS2, EU AI Act) required to safely run an
+            EU-regulated dual-use manufacturing plant.
+          </td>
+        </tr>
+        <tr>
+          <td>C3.ai</td>
+          <td>Predictive maintenance models and generalized enterprise dashboards.</td>
+          <td>
+            Hyperscaler dependency — runs entirely as an overlay on commercial US public clouds.
+            Aegis executes deterministic, isolated multi-agent reasoning inside a single-tenant EU
+            enclave.
+          </td>
+        </tr>
+        <tr>
+          <td>Big Four consulting</td>
+          <td>High-level regulatory advisory and compliance implementation planning.</td>
+          <td>
+            Advisory only — delivers frameworks, not software. Aegis ships deployable autonomous
+            agents and integrated orbital intelligence directly into your production environment.
+          </td>
+        </tr>
+      </table>
+
+      <h2>Signal Trace: Cross-Vertical Dual-Use Detection</h2>
+      <p class="section-intro" style="border-left: 3px solid var(--color-gold); padding-left: 14px">
+        <strong>Illustrative cross-vertical trace — pre-GA model demonstration</strong><br />
+        <em
+          >Deterministic reconstruction from public EU data sources, representative of the Aegis
+          signal-tracing model ahead of August 2026 general availability.</em
+        >
+      </p>
+      <p>
+        Representative scenario: a kiln structural failure disrupts a major regional lime processing
+        facility, and local media dismisses it as a routine, isolated maintenance event. The Aegis
+        model intercepts the facility's anomaly signatures and traces the downstream dual-use
+        industrial supply-chain cascade:
+      </p>
+      <table>
+        <tr>
+          <th>Signal Stage</th>
+          <th>Industry</th>
+          <th>Trace</th>
+        </tr>
+        <tr>
+          <td>1. Trigger</td>
+          <td>Critical raw materials</td>
+          <td>
+            Localized facility shutdown flagged; regional supply-concentration risk for high-purity
+            calcium oxide recalculated
+          </td>
+        </tr>
+        <tr>
+          <td>2. Upstream</td>
+          <td>Steel &amp; alloys</td>
+          <td>
+            Flux shortage detected &rarr; imminent CBAM tariff spike predicted for non-EU steel
+            imports required by nearby shipyards
+          </td>
+        </tr>
+        <tr>
+          <td>3. Midstream</td>
+          <td>Cement &amp; infrastructure</td>
+          <td>
+            Calcination feedstock constraint &rarr; cascading clinker bottleneck impacting regional
+            defence installations
+          </td>
+        </tr>
+        <tr>
+          <td>4. Downstream</td>
+          <td>Defence infrastructure</td>
+          <td>
+            Raw-material substitution linked to net embodied-carbon increase &rarr; prime
+            contractors warned of impending CSRD E1 disclosure breach
+          </td>
+        </tr>
+        <tr>
+          <td>5. Regulatory</td>
+          <td>Cross-vertical</td>
+          <td>
+            Structural failure cross-referenced against the CER Act &mdash; unmonitored
+            mineral-processing vulnerability exposed
+          </td>
+        </tr>
+      </table>
+      <p style="color: #94a3b8; margin-top: 12px">
+        <strong>The metric:</strong> five interconnected industrial sectors mapped, four European
+        regulatory frameworks satisfied, one signal chain resolved via deterministic,
+        zero-hallucination multi-agent tracing — fully audited back to verifiable public EU sources.
+      </p>
+
+      <h2>Pricing</h2>
+      <table>
+        <tr>
+          <th>Tier</th>
+          <th>Onboarding + Integration</th>
+          <th>Monthly</th>
+          <th>Included</th>
+        </tr>
+        <tr>
+          <td><strong>Aegis Standard</strong></td>
+          <td>&euro;59,990</td>
+          <td>&euro;999/mo</td>
+          <td>
+            Skilled agents, dedicated K8s cluster, Article 12 logging, KYA governance, standard
+            support
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Aegis Defence</strong></td>
+          <td>&euro;89,990</td>
+          <td>&euro;1,999/mo</td>
+          <td>
+            Everything in Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA),
+            EDIP compliance reporting
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Aegis Sovereign</strong></td>
+          <td>Custom</td>
+          <td>&euro;4,999/mo</td>
+          <td>
+            Everything in Defence + security clearance support, dedicated engineering team, custom
+            SLA, heightened sovereignty assurance
+          </td>
+        </tr>
+      </table>
+      <p style="margin-top: 18px; opacity: 0.85">
+        <strong>Tiers price hardware, SLA, support and sovereignty assurance &mdash; they do not
+        gate the deployment mode.</strong> Local / edge operation is available in every tier,
+        because the control-room use case requires it architecturally rather than as an upgrade.
+        <strong>No hardware is bundled or resold in any mode.</strong> DWS supplies the software
+        platform and the governance layer only. Cloud-mode GPU inference runs on L40S nodes inside
+        the EU-hosted single-tenant cluster &mdash; nothing is shipped to site. Local and hybrid
+        deployments run on customer- or partner-procured hardware, scoped per engagement. Edge
+        devices are sold as their own SKUs, separately from Aegis onboarding.
+      </p>
+
+      <h3 style="margin-top: 28px">Deployment Architecture</h3>
+      <p style="opacity: 0.9">
+        Aegis is engineered <strong>local-first</strong> for deep and reliable industrial
+        operations. In manufacturing control rooms, dual-use facilities, and air-gapped plants,
+        compliance execution cannot rely on external connectivity.
+        <strong>Local operation is an architectural requirement for critical environments</strong>,
+        while cloud hosting remains a valid deployment choice for broader enterprise workloads.
+      </p>
+      <h4 style="margin-top: 20px">Deployment Modes</h4>
+      <ul style="opacity: 0.9; line-height: 1.7">
+        <li>
+          <strong>Local / Edge:</strong> For manufacturing control rooms and other critical or
+          dual-use sites. Core agent execution, evidence capture, identity verification, audit logs,
+          and human kill authority stay strictly on-site, so core operational outcomes do not depend
+          on network availability.
+        </li>
+        <li>
+          <strong>EU-Sovereign Cloud:</strong> For non-critical enterprise workloads, development
+          environments, cross-site reporting, and customers that accept network dependency.
+        </li>
+        <li>
+          <strong>Hybrid:</strong> Local execution (preserving bounded, dimensioned compute
+          economics for deep workflows) with optional outbound synchronization, backup, or
+          compliance reporting to an EU-sovereign cloud.
+        </li>
+      </ul>
+      <h4 style="margin-top: 20px">Commercial &amp; Staging Path</h4>
+      <p style="opacity: 0.9">
+        Pricing tiers structure commercial coverage, hardware footprint, SLAs, and dedicated
+        engineering support &mdash; <strong>they do not gate deployment modes</strong>. Local-first
+        execution is required for control-room deployments, but Aegis does not claim that every
+        enterprise deployment is offline by default.
+      </p>
+      <p style="opacity: 0.9">
+        To validate local execution before committing to major hardware investments, the
+        <strong>3-month Aegis Pilot</strong> proves the complete local operational path directly on
+        existing customer infrastructure or a compact edge appliance prior to DGX procurement.
+      </p>
+      <p style="opacity: 0.9">
+        The pilot is a <strong>staged first payment, not an additional fee</strong> &mdash; it is
+        credited in full against Aegis onboarding if you proceed within six months, so the total
+        cost to production is unchanged.
+      </p>
+      <p style="margin-top: 12px; opacity: 0.85">
+        <strong>Supply continuity.</strong> The models we adopt ship as open weights, so the
+        inference layer is portable by design rather than tied to one vendor's stack. A non-NVIDIA
+        fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, and hardware
+        compatibility is validated per engagement rather than assumed. The full supply-risk register
+        is available under NDA.
+      </p>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 12px">
+        <strong>Year-1 cost context:</strong> Aegis Standard totals ≈ &euro;72K in Year 1
+        (&euro;59,990 + &euro;999&times;12) — roughly <strong>13&times; lower</strong> than a
+        comparable Palantir Year-1 engagement (~&euro;920K). The Defence and Sovereign tiers scale
+        with GPU, support, and clearance requirements (Defence Year-1 ≈ &euro;114K). Comparison
+        applies to the Standard tier.
+      </p>
+
+      <h2>Distribution</h2>
+      <ul>
+        <li>
+          <strong>IFS Cloud Marketplace</strong> — Nordic defence/industrial (Saab, BAE Systems
+          Nordic)
+        </li>
+        <li><strong>SAP Store</strong> — Defence supply chain S/4HANA integration</li>
+        <li><strong>Microsoft AppSource</strong> — Dynamics 365 for defence contractors</li>
+        <li><strong>DEFINE / Defence Tech Hub</strong> — Finnish defence ecosystem</li>
+        <li>
+          <strong>Direct enterprise sales</strong> — Defence contractors, government procurement
+        </li>
+      </ul>
+
+      <a
+        href="mailto:risto@lifetime.fi?subject=Aegis — Deployment Scoping Call (DWS-AEGIS-001)"
+        class="buy-btn"
+        >Schedule a Deployment Scoping Call — General Availability August 2026</a
+      >
+      <p class="page-version">DWS IQ Aegis — product page v1.1 · 2026-06-23</p>
     </div>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+    <section
+      class="eco-block"
+      id="dws-ecosystem"
+      aria-label="DWS ecosystem — related products + EU industry workflows"
+    >
+      <style>
+        .eco-block {
+          background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+          border-top: 4px solid #003399;
+          border-bottom: 4px solid #76b900;
+          margin: 40px 0 0;
+          padding: 56px 20px 64px;
+          font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+          color: #e2e8f0;
+        }
+        .eco-block .eco-inner {
+          max-width: 1080px;
+          margin: 0 auto;
+        }
+        .eco-block .eco-tag {
+          display: inline-block;
+          background: #76b900;
+          color: #000;
+          padding: 5px 14px;
+          border-radius: 4px;
+          font-size: 0.74rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+        .eco-block h2.eco-h {
+          font-size: clamp(1.45rem, 3.2vw, 2rem);
+          font-weight: 800;
+          color: #f8fafc;
+          margin: 0 0 10px;
+          line-height: 1.2;
+        }
+        .eco-block .eco-lead {
+          color: #cbd5e1;
+          max-width: 780px;
+          margin-bottom: 28px;
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+        .eco-block h3.eco-section-h {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: #67e8f9;
+          margin: 36px 0 14px;
+          padding-bottom: 6px;
+          border-bottom: 1px solid rgba(103, 232, 249, 0.25);
+        }
+        .eco-block strong {
+          color: #f1f5f9;
+        }
+        .eco-block .eco-tier-label {
+          display: block;
+          font-size: 0.68rem;
+          font-weight: 700;
+          color: #a3e635;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 14px;
+        }
+        .eco-block .eco-product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 14px;
+          margin: 6px 0 12px;
+        }
+        .eco-block .eco-product-card {
+          display: block;
+          background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+          border: 1px solid rgba(118, 185, 0, 0.22);
+          border-radius: 10px;
+          padding: 16px 18px;
+          text-decoration: none;
+          transition:
+            border-color 0.25s ease,
+            transform 0.2s ease;
+          color: inherit;
+        }
+        .eco-block .eco-product-card:hover {
+          border-color: rgba(118, 185, 0, 0.6);
+          transform: translateY(-2px);
+          text-decoration: none;
+        }
+        .eco-block .eco-product-card .eco-pc-tag {
+          display: inline-block;
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          background: rgba(118, 185, 0, 0.18);
+          color: #a3e635;
+          border: 1px solid rgba(118, 185, 0, 0.35);
+          border-radius: 4px;
+          padding: 2px 7px;
+          margin-bottom: 7px;
+        }
+        .eco-block .eco-product-card .eco-pc-name {
+          color: #f1f5f9;
+          font-weight: 700;
+          font-size: 0.92rem;
+          margin-bottom: 3px;
+          line-height: 1.3;
+        }
+        .eco-block .eco-product-card .eco-pc-price {
+          display: none;
+          color: #76b900;
+          font-weight: 800;
+          font-size: 1.1rem;
+          margin-bottom: 4px;
+        }
+        .eco-block .eco-product-card .eco-pc-desc {
+          color: #94a3b8;
+          font-size: 0.76rem;
+          line-height: 1.4;
+        }
+        .eco-block .eco-industries-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 10px;
+          margin: 14px 0 4px;
+        }
+        .eco-block .eco-industries-grid > div {
+          background: rgba(15, 23, 42, 0.5);
+          border-left: 3px solid #76b900;
+          padding: 11px 14px;
+          font-size: 0.82rem;
+          color: #cbd5e1;
+          line-height: 1.45;
+          border-radius: 0 6px 6px 0;
+        }
+        .eco-block .eco-industries-grid > div strong {
+          color: #67e8f9;
+        }
+        .eco-block .eco-industries-grid > div.eco-flagship {
+          border-left-color: #d4a843;
+          background: rgba(212, 168, 67, 0.06);
+        }
+        .eco-block .eco-callout {
+          background: rgba(6, 182, 212, 0.08);
+          border-left: 4px solid #06b6d4;
+          padding: 14px 18px;
+          margin: 24px 0 12px;
+          border-radius: 0 8px 8px 0;
+          color: #cbd5e1;
+          font-size: 0.92rem;
+          line-height: 1.5;
+        }
+        .eco-block .eco-cta-row {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 22px;
+        }
+        .eco-block .eco-cta {
+          display: inline-block;
+          padding: 11px 22px;
+          background: #76b900;
+          color: #000;
+          border-radius: 6px;
+          font-weight: 700;
+          font-size: 0.92rem;
+          text-decoration: none;
+          letter-spacing: 0.02em;
+        }
+        .eco-block .eco-cta:hover {
+          background: #5a8c00;
+          color: #fff;
+          text-decoration: none;
+        }
+        .eco-block .eco-cta-secondary {
+          background: transparent;
+          border: 1px solid rgba(226, 232, 240, 0.4);
+          color: #e2e8f0;
+        }
+        .eco-block .eco-cta-secondary:hover {
+          border-color: #fff;
+          background: rgba(255, 255, 255, 0.08);
+          color: #fff;
+        }
+        @media (max-width: 640px) {
+          .eco-block {
+            padding: 40px 16px 50px;
+          }
+          .eco-block h3.eco-section-h {
+            font-size: 1rem;
+          }
+          .eco-block .eco-product-card {
+            padding: 14px 16px;
+          }
+        }
+      </style>
+
+      <div class="eco-inner">
+        <div>
+          <span class="eco-tag">The Full Picture</span>
+          <h2 class="eco-h">The DWS sovereign stack — every layer, one ecosystem.</h2>
+          <p class="eco-lead">
+            This product is one piece. The whole stack ties together: sovereign hardware at the
+            edge, on-premise inference, an EU service team, and the recurring NVIDIA-model
+            relationship that compounds. Pick the next rung you need.
+          </p>
+        </div>
+
+        <h3 class="eco-section-h">Related products — the full ladder</h3>
+
+        <span class="eco-tier-label">Sensor edge — NVIDIA Jetson tier</span>
+        <div class="eco-product-grid">
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Single sensor</span>
+            <div class="eco-pc-name">Jetson Sensor Node (Orin Nano Super)</div>
+            <div class="eco-pc-price">€764</div>
+            <div class="eco-pc-desc">
+              67 TOPS · 8 GB · camera, acoustic, IoT, bedside — events only forward.
+            </div>
+          </a>
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Mid · 2–4 lanes</span>
+            <div class="eco-pc-name">Jetson Sensor Mid (Orin NX 16 GB)</div>
+            <div class="eco-pc-price">€1,990</div>
+            <div class="eco-pc-desc">
+              100 TOPS · 16 GB · rail wayside, mid-size kalustohalli, factory cell.
+            </div>
+          </a>
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Concentrator · 4–8 lanes</span>
+            <div class="eco-pc-name">Jetson Sensor Concentrator (AGX Orin)</div>
+            <div class="eco-pc-price">€2,694</div>
+            <div class="eco-pc-desc">
+              275 TOPS · 64 GB · VPK forward node, port operations, energy substation.
+            </div>
+          </a>
+        </div>
+
+        <span class="eco-tier-label"
+          >Operations &amp; situation command — NVIDIA GB10 Grace Blackwell</span
+        >
+        <div class="eco-product-grid">
+          <a href="/products/edge-node-gn100.html" class="eco-product-card">
+            <span class="eco-pc-tag">Compliance · 1-node</span>
+            <div class="eco-pc-name">Control Room (Acer Veriton GN100)</div>
+            <div class="eco-pc-price">€5,294</div>
+            <div class="eco-pc-desc">1 PFLOPS FP4 · 128 GB · sovereign AI brain on the desk.</div>
+          </a>
+          <a href="/products/dgx-spark.html" class="eco-product-card">
+            <span class="eco-pc-tag">NVIDIA-branded</span>
+            <div class="eco-pc-name">DGX Spark</div>
+            <div class="eco-pc-price">€5,994</div>
+            <div class="eco-pc-desc">
+              Same GB10 silicon in NVIDIA's own SKU. ConnectX-7 pair for 405 B-param models.
+            </div>
+          </a>
+          <a href="/products/situation-room.html" class="eco-product-card">
+            <span class="eco-pc-tag">Crisis ops · 2-node</span>
+            <div class="eco-pc-name">Situation Room (2× bridged GN100)</div>
+            <div class="eco-pc-price">€10,093</div>
+            <div class="eco-pc-desc">Tensor-parallel · failover · VPK drone defence dual-use.</div>
+          </a>
+          <a href="/products/igx-orin.html" class="eco-product-card">
+            <span class="eco-pc-tag">Industrial / medical</span>
+            <div class="eco-pc-name">IGX Orin</div>
+            <div class="eco-pc-price">€11,990</div>
+            <div class="eco-pc-desc">
+              ECC memory · 10-year NVIDIA support · Pharma, healthcare, nuclear.
+            </div>
+          </a>
+        </div>
+
+        <span class="eco-tier-label">Platform · subscription · service</span>
+        <div class="eco-product-grid">
+          <a href="/products/dwsiq.html" class="eco-product-card">
+            <span class="eco-pc-tag">Platform</span>
+            <div class="eco-pc-name">DWS IQ 6 — Skilled Agents Fleet</div>
+            <div class="eco-pc-price">€4,999</div>
+            <div class="eco-pc-desc">
+              EU compliance automation: Fit for 55, CSRD, EPBD, EU AI Act Article 12.
+            </div>
+          </a>
+          <a href="/products/aegis.html" class="eco-product-card">
+            <span class="eco-pc-tag">Sovereign tier</span>
+            <div class="eco-pc-name">DWS IQ Aegis</div>
+            <div class="eco-pc-price">from €59,990</div>
+            <div class="eco-pc-desc">
+              Single-tenant sovereign AI · 21 EU-regulated industries · dual-use.
+            </div>
+          </a>
+          <a href="/products/nvidia-model-install.html" class="eco-product-card">
+            <span class="eco-pc-tag">Install + service</span>
+            <div class="eco-pc-name">NVIDIA Model Install + Full Service</div>
+            <div class="eco-pc-price">€995 / device</div>
+            <div class="eco-pc-desc">
+              For your own NVIDIA hardware or a fleet expansion. Full service bundled.
+            </div>
+          </a>
+          <a href="/buy/" class="eco-product-card">
+            <span class="eco-pc-tag">Recurring</span>
+            <div class="eco-pc-name">Sovereign Model Updates Subscription</div>
+            <div class="eco-pc-price">€299 / mo</div>
+            <div class="eco-pc-desc">
+              Monthly NIMs · weekly security · daily hotfixes · 24/7 support · warranty.
+            </div>
+          </a>
+        </div>
+
+        <div class="eco-callout">
+          Every box ships with on-site install + operator training + 24/7 technical support +
+          warranty servicing + remote configuration. The NVIDIA models compound monthly. Lifetime Oy
+          is an <strong>NVIDIA Connect ISV</strong> (approved 2026-03-08) and
+          <strong>NVIDIA Inception applicant</strong> on the Sovereign EU Edge AI track. Finnish /
+          EU B2B pricing (VAT 0 % reverse charge).
+        </div>
+
+        <h3 class="eco-section-h">
+          DWS IQ 6 platform — 25 EU-regulated industries (Aegis activates 21 for dual-use)
+        </h3>
+        <p class="eco-lead" style="margin-bottom: 12px">
+          The wider DWS IQ 6 platform covers 25 EU-regulated industries (see
+          <a
+            href="https://github.com/blogtheristo/dws6/blob/main/INDUSTRIES.md"
+            style="color: #67e8f9"
+            >INDUSTRIES.md</a
+          >). The Aegis defence/dual-use tier activates 21 of them — excluding consumer-facing
+          verticals like Healthcare, Financial Services, and Public Sector that aren't relevant to
+          defence supply chains. The same sovereign topology — sensor edge → operations command →
+          situation command, wrapped in service — repeats across every EU-regulated industry.
+          Different bundle per workload, same moat underneath.
+        </p>
+        <div class="eco-industries-grid">
+          <div>
+            <strong>1. Construction</strong><br />Site safety dispatch (SiteSense vision + Whisper +
+            Llama Nemotron Super) · EPBD / CSRD report generation · BIM-aware reasoning
+          </div>
+          <div>
+            <strong>2. Cement</strong><br />Emissions intensity (kgCO₂ / t cement) · ETS allowance
+            calculation · CBAM exports · kiln anomaly detection
+          </div>
+          <div>
+            <strong>3. Steel</strong><br />CBAM origin tracking · energy carrier optimisation · ETS
+            · scrap composition vision
+          </div>
+          <div>
+            <strong>4. Aluminium</strong><br />CBAM imports compliance · smelter energy logs · ETS ·
+            pot-line vision QA
+          </div>
+          <div>
+            <strong>5. Chemicals</strong><br />REACH dossier drafting · hazardous incident response
+            triage · process safety event RAG
+          </div>
+          <div>
+            <strong>6. Pharmaceuticals</strong><br />GMP batch release Article 12 · clinical trial
+            protocol compliance · GxP sovereign log
+          </div>
+          <div>
+            <strong>7. Healthcare (hospitals)</strong><br />Local-data triage assist · GDPR-safe
+            dictation (Nemotron Speech) · sovereign EHR Q&amp;A
+          </div>
+          <div class="eco-flagship">
+            <strong>8. Defence / dual-use</strong><br />Drone detection (YOLOv8-x + acoustic +
+            Cosmos Reason 2) · export-control screening · Reg 2021/821 reasoning
+          </div>
+          <div>
+            <strong>9. Energy / electricity grid</strong><br />Balancing forecasts · NIS2 24 h
+            incident reports · sovereign DSO/TSO telemetry
+          </div>
+          <div>
+            <strong>10. Oil &amp; gas</strong><br />Pipeline anomaly detection · sanctions screening
+            · sovereign well-log RAG
+          </div>
+          <div>
+            <strong>11. Nuclear</strong><br />IAEA reporting prep · operational safety log analysis
+            · air-gapped reactor twin
+          </div>
+          <div>
+            <strong>12. Water utilities</strong><br />Leak detection on local SCADA · sovereign
+            customer + meter data · NIS2 incident logging
+          </div>
+          <div>
+            <strong>13. Telecommunications</strong><br />NIS2 24 h incident reports · sovereign
+            call-metadata analysis · BGP / DNS anomaly triage
+          </div>
+          <div>
+            <strong>14. Banking / finance</strong><br />DORA operational resilience · MiFID II
+            call-log review · sovereign KYC RAG
+          </div>
+          <div>
+            <strong>15. Insurance</strong><br />Claims triage on local PII · fraud signal detection
+            · sovereign claimant document Q&amp;A
+          </div>
+          <div>
+            <strong>16. Maritime / shipping</strong><br />MRV CO₂ reporting · port operations
+            dispatch · sovereign AIS &amp; cargo manifests
+          </div>
+          <div>
+            <strong>17. Aviation</strong><br />EU ETS aviation reporting · NOTAM-aware dispatch ·
+            sovereign passenger / crew data
+          </div>
+          <div>
+            <strong>18. Rail</strong><br />Predictive maintenance · ERTMS sovereign telemetry · NIS2
+            incident reports
+          </div>
+          <div>
+            <strong>19. Logistics &amp; customs</strong><br />Declaration assist · dual-use export
+            checking · sovereign carrier manifests
+          </div>
+          <div>
+            <strong>20. Agriculture</strong><br />CAP compliance · traceability of crop inputs ·
+            EUDR due diligence
+          </div>
+          <div>
+            <strong>21. Food processing</strong><br />HACCP audit assist · allergen tracing ·
+            sovereign batch genealogy
+          </div>
+          <div>
+            <strong>22. Forestry / pulp &amp; paper</strong><br />EUDR deforestation due diligence ·
+            chain of custody · sovereign harvest plans
+          </div>
+          <div>
+            <strong>23. Mining</strong><br />CRMA reporting (critical raw materials) · safety
+            dispatch · sovereign assay data
+          </div>
+          <div class="eco-flagship">
+            <strong>24. Government / civil defence (VPK)</strong><br />Drone defence dual-use ·
+            dispatch + incident report generation · sovereign citizen data
+          </div>
+          <div>
+            <strong>25. Education / research</strong><br />Sovereign research data · intra-EU
+            collaboration without cloud LLMs · EU AI Act literacy training
+          </div>
+        </div>
+
+        <div class="eco-cta-row">
+          <a href="/buy/" class="eco-cta">Browse the full catalogue →</a>
+          <a href="/price-list/" class="eco-cta eco-cta-secondary">Open price list (v1.20)</a>
+          <a href="/nvidia-inception/" class="eco-cta eco-cta-secondary">NVIDIA Inception page</a>
+          <a
+            href="mailto:risto@onelifetime.world?subject=DWS sovereign stack — demo request"
+            class="eco-cta eco-cta-secondary"
+            >Book a demo</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Aegis minimum hero text in 5 EU languages; switches in-place with the vertical language bar -->
+    <script>
+      (function () {
+        var I18N = {
+          en: {
+            tagline: "Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing",
+            intro:
+              "Aegis is a single-tenant sovereign AI platform engineered specifically for dual-use factories, heavy manufacturing, and critical raw-material infrastructure. Deployed on dedicated Finnish infrastructure, it continuously optimizes and secures the facilities that supply Europe’s defence sector — zero US cloud dependencies, zero CLOUD Act exposure.",
+          },
+          fi: {
+            tagline: "Suvereeni teollisen älyn alusta kaksikäyttöiseen valmistukseen",
+            intro:
+              "Aegis on yhden vuokralaisen suvereeni tekoälyalusta, joka on suunniteltu kaksikäyttöisille tehtaille, raskaalle teollisuudelle ja kriittisille raaka-ainelaitoksille. Omistetussa suomalaisessa infrastruktuurissa se optimoi ja turvaa jatkuvasti Euroopan puolustussektoria palvelevat laitokset — ei riippuvuutta yhdysvaltalaisesta pilvestä, nolla CLOUD Act -altistusta.",
+          },
+          sv: {
+            tagline: "Suverän plattform för industriell intelligens för dual-use-tillverkning",
+            intro:
+              "Aegis är en suverän AI-plattform för en kund, byggd för dual-use-fabriker, tung industri och kritiska råvaruanläggningar. På dedikerad finländsk infrastruktur optimerar och säkrar den löpande de anläggningar som försörjer Europas försvarssektor — inga amerikanska molnberoenden, noll CLOUD Act-exponering.",
+          },
+          de: {
+            tagline: "Souveräne Plattform für industrielle Intelligenz für die Dual-Use-Fertigung",
+            intro:
+              "Aegis ist eine souveräne KI-Plattform für einen einzelnen Mandanten, konzipiert für Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen. Auf dedizierter finnischer Infrastruktur optimiert und sichert sie laufend die Anlagen, die Europas Verteidigungssektor beliefern — keine US-Cloud-Abhängigkeiten, null CLOUD-Act-Risiko.",
+          },
+          fr: {
+            tagline:
+              "Plateforme souveraine d’intelligence industrielle pour la fabrication à double usage",
+            intro:
+              "Aegis est une plateforme d’IA souveraine mono-locataire, conçue pour les usines à double usage, l’industrie lourde et les installations de matières premières critiques. Sur une infrastructure finlandaise dédiée, elle optimise et sécurise en continu les sites qui approvisionnent le secteur de la défense européen — aucune dépendance au cloud américain, zéro exposition au CLOUD Act.",
+          },
+        };
+        function setText(id, value) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = value;
+        }
+        function applyLang(code) {
+          var d = I18N[code] || I18N.en;
+          setText("aegisProdTagline", d.tagline);
+          setText("aegisProdIntro", d.intro);
+          document.documentElement.lang = code;
+        }
+        var stored = localStorage.getItem("dws-lang");
+        applyLang(stored && I18N[stored] ? stored : "en");
+        window.addEventListener("dws-lang-change", function (e) {
+          applyLang(e.detail && e.detail.lang);
+        });
+      })();
+    </script>
+  </body>
 </html>

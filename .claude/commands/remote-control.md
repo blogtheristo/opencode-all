@@ -1,6 +1,6 @@
 ---
 name: remote-control
-description: Remote control interface for LWM Acer edge device, Control Room (field operations), and Situation Room (strategic command). Use when user mentions "remote control", "control acer", "LWM device", "edge device", "control room status", "situation room", "fleet status", "robot feed", "mission dispatch", "remote access", "device health", or wants to interact with Lifetime Fleet hardware or command centers.
+description: Use when checking or controlling Lifetime Fleet devices, Control Room, Situation Room, missions, or device health.
 ---
 
 Remote control hub for DWS IQ 6 physical infrastructure — the LWM Acer edge device, Control Room operations, and Situation Room strategic views.

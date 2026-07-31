@@ -1,20 +1,20 @@
 # Morning Briefing — CEO Cockpit
 #
-# PRIMARY: DGX Spark (24/7, cron-runner.ts)
-# FAILOVER: This GitHub Actions workflow (checks DGX heartbeat first)
+# PRIMARY: GitHub Actions (re-enabled 2026-06-15; DGX Spark optional failover)
+# FAILOVER: DGX Spark cron-runner.ts (when heartbeat URL is configured)
 # MANUAL: workflow_dispatch always runs regardless of DGX status
 
 name: Morning Briefing
 
 on:
   schedule:
-    - cron: '0 3 * * 1-6'   # 06:00 Helsinki in summer (EEST, UTC+3)
-    - cron: '0 4 * * 1-6'   # 06:00 Helsinki in winter (EET, UTC+2)
+    - cron: "0 3 * * 1-6" # 06:00 Helsinki in summer (EEST, UTC+3)
+    - cron: "0 4 * * 1-6" # 06:00 Helsinki in winter (EET, UTC+2)
 
   workflow_dispatch:
     inputs:
       recipient:
-        description: 'Override recipient email (optional)'
+        description: "Override recipient email (optional)"
         required: false
         type: string
 
@@ -43,8 +43,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -67,4 +67,4 @@ jobs:
           MRR_EUR: ${{ secrets.MRR_EUR }}
           MVP_ETA: ${{ secrets.MVP_ETA }}
           SKIP_TIME_CHECK: ${{ github.event_name == 'workflow_dispatch' }}
-        run: npx tsx scripts/send-morning-briefing.ts
+        run: node --import tsx scripts/send-morning-brief-v2.ts

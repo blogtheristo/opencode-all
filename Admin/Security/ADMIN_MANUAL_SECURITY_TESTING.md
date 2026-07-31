@@ -35,14 +35,8 @@ python -m pytest tests/security/ -v
 # Domain Validator tests (10 tests)
 python -m pytest tests/security/test_domain_validator.py -v
 
-# CSRF Protection tests (9 tests)
-python -m pytest tests/security/test_csrf_protection.py -v
-
-# Tool Colors tests (11 tests)
-python -m pytest tests/security/test_tool_colors.py -v
-
-# Redirect Validator tests (11 tests)
-python -m pytest tests/security/test_redirect_validator.py -v
+# TypeScript security port tests
+npx vitest run src/__tests__/security-ports.test.ts
 
 # File Access Control tests (10 tests)
 python -m pytest tests/security/test_file_access_control.py -v
@@ -111,9 +105,9 @@ tests/security/test_domain_validator.py::TestDomainValidator::test_regulatory_do
 
 ---
 
-### 2. CSRF Protection Tests (9 tests)
+### 2. CSRF Protection Tests
 
-**File**: `tests/security/test_csrf_protection.py`  
+**File**: `src/__tests__/security-ports.test.ts`  
 **Purpose**: Validate modern CSRF protection using Sec-Fetch-Site header
 
 **Test Cases**:
@@ -152,9 +146,9 @@ tests/security/test_domain_validator.py::TestDomainValidator::test_regulatory_do
 
 ---
 
-### 3. Tool Colors Tests (11 tests)
+### 3. Tool Colors Tests
 
-**File**: `tests/security/test_tool_colors.py`  
+**File**: `src/__tests__/security-ports.test.ts`  
 **Purpose**: Validate MCP Colors Framework (prevents Lethal Trifecta)
 
 **Test Cases**:
@@ -168,8 +162,8 @@ tests/security/test_domain_validator.py::TestDomainValidator::test_regulatory_do
 ✅ test_green_tools_classified
    - GREEN tools (safe) correctly classified
    
-✅ test_unknown_tool_defaults_to_green
-   - Unknown tools default to safe
+✅ test_unknown_tool_fails_closed
+   - Unknown tools are rejected until classified
    
 ✅ test_red_blue_combination_blocked
    - RED + BLUE = BLOCKED (Lethal Trifecta)
@@ -198,9 +192,9 @@ tests/security/test_domain_validator.py::TestDomainValidator::test_regulatory_do
 
 ---
 
-### 4. Redirect Validator Tests (11 tests)
+### 4. Redirect Validator Tests
 
-**File**: `tests/security/test_redirect_validator.py`  
+**File**: `src/__tests__/security-ports.test.ts`  
 **Purpose**: Prevent open redirect vulnerabilities
 
 **Test Cases**:
@@ -350,7 +344,7 @@ time python -m pytest tests/security/ -v
 
 **Action**:
 1. **STOP** all deployments immediately
-2. Review recent changes to `src/mcp/security/tool_colors.py`
+2. Review recent changes to `src/mcp/security/tool-colors.ts`
 3. Check if tool classifications were modified
 4. Restore from last known good version
 5. Investigate root cause
@@ -376,7 +370,7 @@ time python -m pytest tests/security/ -v
 **Meaning**: CSRF protection may be compromised
 
 **Action**:
-1. Review `src/web/middleware/csrf_protection.py`
+1. Review `src/middleware/csrf-protection.ts`
 2. Check Flask middleware registration
 3. Verify header validation logic
 4. Test manually with browser dev tools

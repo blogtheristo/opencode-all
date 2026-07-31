@@ -8,10 +8,10 @@
  * POST /api/investor-reports/cap-table/rounds    Record an investment round
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { body, query, validationResult } from 'express-validator';
 import { capTableService } from './cap-table-service.js';
-import { ShareClass, ShareholderType, RoundType } from './cap-table-types.js';
+import { RoundType, ShareClass, ShareholderType } from './cap-table-types.js';
 
 const router = Router();
 

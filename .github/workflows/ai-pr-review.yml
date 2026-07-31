@@ -13,7 +13,19 @@ name: AI Code Review (HIL Automation)
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+      - '.github/workflows/**.disabled'
+
+# Cancel earlier in-flight reviews when a new commit is pushed to the same PR.
+# Saves significant minutes on rapid push sequences during active development.
+concurrency:
+  group: ai-pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,14 +38,124 @@ jobs:
     runs-on: ubuntu-latest
     # Skip github-actions[bot] (pure CI automation) but allow Copilot actors
     # so the "@copilot fixes → push → re-review" loop runs correctly.
+    # Skip drafts — review only runs once a PR is marked ready.
     # Livelock is prevented by the iteration cap in the "Route fixes to Copilot" step.
-    if: github.actor != 'github-actions[bot]'
+    if: |
+      !github.event.pull_request.draft &&
+      github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # ──────────────────────────────────────────────
+      # CONFLICT CHECK: Detect merge conflicts before review.
+      # If the PR branch cannot merge cleanly into the base,
+      # name the conflicting files, post a comment, and skip
+      # all AI review steps until conflicts are resolved.
+      # ──────────────────────────────────────────────
+      - name: Check for merge conflicts
+        id: conflict-check
+        run: |
+          git fetch origin '${{ github.base_ref }}' --depth=50
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          # Attempt a dry-run merge to detect conflicts
+          if git merge --no-commit --no-ff "origin/${{ github.base_ref }}" 2>/dev/null; then
+            # Clean merge — abort (we only wanted to test)
+            git merge --abort 2>/dev/null || true
+            echo "has_conflicts=false" >> $GITHUB_OUTPUT
+          else
+            # Conflicts found — capture the file list before aborting.
+            # Use both --diff-filter=U and git ls-files -u for comprehensive detection
+            # (covers standard text conflicts and unmerged paths like submodule conflicts).
+            CONFLICT_FILES=$(
+              { git diff --name-only --diff-filter=U 2>/dev/null; git ls-files -u 2>/dev/null | awk '{print $4}'; } \
+              | sort -u
+            )
+            git merge --abort 2>/dev/null || true
+            if [ -n "$CONFLICT_FILES" ]; then
+              echo "has_conflicts=true" >> $GITHUB_OUTPUT
+              {
+                echo "conflict_files<<EOF"
+                echo "$CONFLICT_FILES"
+                echo "EOF"
+              } >> $GITHUB_OUTPUT
+            else
+              # Merge failed for a reason other than file conflicts
+              echo "has_conflicts=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Post merge conflict comment
+        if: steps.conflict-check.outputs.has_conflicts == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const raw = `${{ steps.conflict-check.outputs.conflict_files }}`;
+            const files = raw.trim().split('\n').filter(f => f.trim());
+
+            // Defensive guard — should not happen, but skip if no files were captured
+            if (files.length === 0) {
+              core.warning('has_conflicts=true but no conflicting files were captured — skipping comment');
+              return;
+            }
+
+            const fileList = files.map(f => `- \`${f.trim()}\``).join('\n');
+
+            const base = '${{ github.base_ref }}';
+            const body = [
+              '## ⚠️ Merge Conflicts Detected',
+              '',
+              `This PR cannot merge cleanly into \`${base}\`. The following file(s) have conflicts that must be resolved before the AI review will run:`,
+              '',
+              fileList,
+              '',
+              '**To fix:**',
+              '```bash',
+              `git fetch origin ${base}`,
+              `git rebase origin/${base}`,
+              '# Resolve conflicts in each file listed above, then:',
+              'git push --force-with-lease',
+              '```',
+              '',
+              '*AI code review is paused until conflicts are resolved.*',
+              '',
+              '*Automated by ai-pr-review.yml*'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+            // Ensure has-conflicts label exists and apply it
+            try {
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'has-conflicts'
+              });
+            } catch {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'has-conflicts',
+                color: 'e11d48',
+                description: 'PR has merge conflicts — resolve before review'
+              });
+            }
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['has-conflicts']
+            });
 
       - name: Get PR diff and context
         id: diff
@@ -64,10 +186,15 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Claude Review
         id: claude-review
-        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "Claude review skipped — ANTHROPIC_API_KEY not set" > /tmp/claude-review.txt
+            exit 0
+          fi
+
           DIFF=$(cat /tmp/pr-diff.txt)
           FILES=$(cat /tmp/changed-files.txt)
           PR_TITLE="${{ github.event.pull_request.title }}"
@@ -123,7 +250,7 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Gemini HIL Review
         id: gemini-review
-        if: ${{ secrets.GOOGLE_AI_API_KEY != '' || secrets.GOOGLE_API_KEY != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           # Prefer GOOGLE_AI_API_KEY (backwards-compatible name used across the repo);
           # fall back to GOOGLE_API_KEY for environments that only have the shorter name.
@@ -132,6 +259,11 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
+          if [ -z "${GEMINI_API_KEY:-}" ]; then
+            echo "Gemini HIL review skipped — GOOGLE_AI_API_KEY / GOOGLE_API_KEY not set" > /tmp/gemini-review.txt
+            exit 0
+          fi
+
           PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
           # Static prompt — no dynamic content here (avoids backtick/subshell injection)
@@ -257,111 +389,34 @@ IMPORTANT RULES:
           fi
 
       # ──────────────────────────────────────────────
-      # STEP 2b: Grok Fast Review (xAI — alternative gate)
-      # Uses grok-3-fast via OpenAI-compatible xAI API.
-      # Acts as tiebreaker / Gemini fallback when neither GOOGLE_AI_API_KEY
-      # nor GOOGLE_API_KEY is configured. Any REQUEST_CHANGES from any reviewer blocks merge.
-      # ──────────────────────────────────────────────
-      - name: Grok Fast Review
-        id: grok-review
-        if: ${{ secrets.XAI_API_KEY != '' }}
-        env:
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_BODY_RAW: ${{ github.event.pull_request.body }}
-        run: |
-          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 1000)
-
-          PROMPT_STATIC='You are a fast senior engineer doing a focused code review. Be concise and high-signal only.
-
-Project: DWS IQ 6 — enterprise climate intelligence platform
-Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
-
-Check ONLY:
-1. Security (API key exposure, injection, auth gaps)
-2. Logic errors and null/undefined issues
-3. Missing tests for new logic
-
-FORMAT EXACTLY AS:
-## Grok Fast Review
-**Summary:** [1 sentence]
-**Issues:** [list with file:line, or None]
-**Verdict:** APPROVE / REQUEST_CHANGES'
-
-          PAYLOAD=$(jq -n \
-            --arg static "$PROMPT_STATIC" \
-            --arg title  "$PR_TITLE" \
-            --arg body   "$PR_BODY" \
-            --rawfile diff  /tmp/pr-diff.txt \
-            --rawfile files /tmp/changed-files.txt \
-            '{
-              model: "grok-3-fast",
-              max_tokens: 800,
-              messages: [{
-                role: "user",
-                content: (
-                  $static
-                  + "\n\nPR Title: " + $title
-                  + "\nPR Description: " + $body
-                  + "\n\nChanged files:\n" + $files
-                  + "\nDiff:\n" + $diff
-                )
-              }]
-            }')
-
-          RESPONSE=$(curl -s --max-time 60 -X POST \
-            "https://api.x.ai/v1/chat/completions" \
-            -H "Authorization: Bearer ${XAI_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
-            | jq -r '.choices[0].message.content // "Grok review unavailable"')
-
-          echo "$RESPONSE" > /tmp/grok-review.txt
-
-          if echo "$RESPONSE" | grep -q "APPROVE" && ! echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
-            echo "verdict=approve" >> $GITHUB_OUTPUT
-          else
-            echo "verdict=request_changes" >> $GITHUB_OUTPUT
-          fi
-
-      # ──────────────────────────────────────────────
       # STEP 3: Combine verdicts and post review
-      # Any REQUEST_CHANGES blocks. Gemini is primary gate;
-      # Grok is alternative gate when Gemini is absent.
+      # Any REQUEST_CHANGES blocks. Gemini is the HIL gate.
       # ──────────────────────────────────────────────
       - name: Determine combined verdict
         id: combined
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         run: |
           CLAUDE="${{ steps.claude-review.outputs.verdict }}"
           GEMINI="${{ steps.gemini-review.outputs.verdict }}"
-          GROK="${{ steps.grok-review.outputs.verdict }}"
 
-          # Gate priority: Gemini → Grok → Claude
+          # Gate priority: Gemini → Claude
           # Any single request_changes blocks merge.
-          # If Gemini absent, Grok acts as the HIL gate.
-          if [ -z "$GEMINI" ] && [ -z "$GROK" ] && [ -z "$CLAUDE" ]; then
+          if [ -z "$GEMINI" ] && [ -z "$CLAUDE" ]; then
             echo "verdict=comment" >> $GITHUB_OUTPUT
             echo "gate=none" >> $GITHUB_OUTPUT
-          elif [ -z "$GEMINI" ] && [ -z "$GROK" ]; then
+          elif [ -z "$GEMINI" ]; then
             echo "verdict=$CLAUDE" >> $GITHUB_OUTPUT
             echo "gate=claude-only" >> $GITHUB_OUTPUT
-          elif [ -z "$GEMINI" ]; then
-            # Grok is the gate (Gemini absent)
-            if [ "$GROK" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
-              echo "verdict=request_changes" >> $GITHUB_OUTPUT
-            else
-              echo "verdict=approve" >> $GITHUB_OUTPUT
-            fi
-            echo "gate=grok-gate" >> $GITHUB_OUTPUT
-          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ] || [ "$GROK" = "request_changes" ]; then
+          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
             echo "verdict=request_changes" >> $GITHUB_OUTPUT
-            echo "gate=triple" >> $GITHUB_OUTPUT
+            echo "gate=dual" >> $GITHUB_OUTPUT
           else
             echo "verdict=approve" >> $GITHUB_OUTPUT
-            echo "gate=triple" >> $GITHUB_OUTPUT
+            echo "gate=dual" >> $GITHUB_OUTPUT
           fi
 
       - name: Post combined review comment
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -371,12 +426,10 @@ FORMAT EXACTLY AS:
 
             let body = '## AI Code Review (HIL Automation)\n\n';
 
-            if (gate === 'triple') {
-              body += '> Triple-model review: Claude (sanity) + Gemini (deep HIL) + Grok Fast (alternative gate)\n\n';
-            } else if (gate === 'grok-gate') {
-              body += '> Dual-model review: Claude (sanity) + Grok Fast (HIL gate — Gemini unavailable)\n\n';
+            if (gate === 'dual') {
+              body += '> Dual-model review: Claude (sanity) + Gemini (deep HIL)\n\n';
             } else if (gate === 'claude-only') {
-              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` (or `GOOGLE_API_KEY`) or `XAI_API_KEY` to enable HIL gate)\n\n';
+              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` or `GOOGLE_API_KEY` to enable HIL gate)\n\n';
             } else {
               body += '> No AI review available (configure API key secrets)\n\n';
             }
@@ -394,14 +447,6 @@ FORMAT EXACTLY AS:
               const gemini = fs.readFileSync('/tmp/gemini-review.txt', 'utf8');
               if (gemini && !gemini.includes('unavailable')) {
                 body += gemini + '\n\n---\n\n';
-              }
-            } catch {}
-
-            // Grok review (alternative gate)
-            try {
-              const grok = fs.readFileSync('/tmp/grok-review.txt', 'utf8');
-              if (grok && !grok.includes('unavailable')) {
-                body += grok + '\n\n---\n\n';
               }
             } catch {}
 
@@ -634,11 +679,17 @@ FORMAT EXACTLY AS:
       # ──────────────────────────────────────────────
       - name: Level 5 - Ollama Review (GN-100)
         id: ollama-review
-        if: ${{ secrets.OLLAMA_HOST != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           OLLAMA_HOST: ${{ secrets.OLLAMA_HOST }}
-          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen2.5-coder:14b' }}
+          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen3-coder:30b' }}
         run: |
+          if [ -z "${OLLAMA_HOST:-}" ]; then
+            echo "Ollama review skipped — OLLAMA_HOST not configured" > /tmp/ollama-review.txt
+            echo "verdict=skip" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           DIFF=$(cat /tmp/pr-diff.txt | head -c 30000)
           FILES=$(cat /tmp/changed-files.txt)
           PR_TITLE="${{ github.event.pull_request.title }}"
@@ -714,6 +765,7 @@ FORMAT EXACTLY AS:
       # STEP 6: Apply labels based on verdict
       # ──────────────────────────────────────────────
       - name: Apply review labels
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         uses: actions/github-script@v7
         with:
           script: |

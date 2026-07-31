@@ -75,15 +75,35 @@ export interface StepResult {
 
 // --- Built-in Workflow Templates ---
 
-const WORKFLOW_TEMPLATES: Record<string, Omit<WorkflowDefinition, 'id' | 'createdBy' | 'createdAt' | 'updatedAt'>> = {
+const WORKFLOW_TEMPLATES: Record<
+  string,
+  Omit<WorkflowDefinition, 'id' | 'createdBy' | 'createdAt' | 'updatedAt'>
+> = {
   'compliance-assessment': {
     name: 'Compliance Assessment Pipeline',
     description: 'Run full EU compliance assessment: score → report → notify stakeholders',
     industry: 'any',
     steps: [
-      { id: 'score', name: 'Run Compliance Scoring', action: 'run_agent', config: { agent: 'compliance', input: {} } },
-      { id: 'report', name: 'Generate Board Pack Report', action: 'generate_report', config: { format: 'board-pack' }, dependsOn: ['score'] },
-      { id: 'notify', name: 'Notify Stakeholders', action: 'send_email', config: { template: 'compliance-report' }, dependsOn: ['report'] },
+      {
+        id: 'score',
+        name: 'Run Compliance Scoring',
+        action: 'run_agent',
+        config: { agent: 'compliance', input: {} },
+      },
+      {
+        id: 'report',
+        name: 'Generate Board Pack Report',
+        action: 'generate_report',
+        config: { format: 'board-pack' },
+        dependsOn: ['score'],
+      },
+      {
+        id: 'notify',
+        name: 'Notify Stakeholders',
+        action: 'send_email',
+        config: { template: 'compliance-report' },
+        dependsOn: ['report'],
+      },
     ],
   },
   'lead-nurture': {
@@ -91,11 +111,40 @@ const WORKFLOW_TEMPLATES: Record<string, Omit<WorkflowDefinition, 'id' | 'create
     description: 'Automated lead nurture: Cold 1 → wait 3d → Cold 2 → wait 5d → Cold 3',
     industry: 'any',
     steps: [
-      { id: 'cold1', name: 'Send Cold 1 Email', action: 'send_email', config: { template: 'cold_1' } },
-      { id: 'wait1', name: 'Wait 3 Days', action: 'wait', config: { durationMs: 3 * 24 * 60 * 60 * 1000 }, dependsOn: ['cold1'] },
-      { id: 'cold2', name: 'Send Cold 2 Email', action: 'send_email', config: { template: 'cold_2' }, dependsOn: ['wait1'] },
-      { id: 'wait2', name: 'Wait 5 Days', action: 'wait', config: { durationMs: 5 * 24 * 60 * 60 * 1000 }, dependsOn: ['cold2'] },
-      { id: 'cold3', name: 'Send Cold 3 Email', action: 'send_email', config: { template: 'cold_3' }, dependsOn: ['wait2'] },
+      {
+        id: 'cold1',
+        name: 'Send Cold 1 Email',
+        action: 'send_email',
+        config: { template: 'cold_1' },
+      },
+      {
+        id: 'wait1',
+        name: 'Wait 3 Days',
+        action: 'wait',
+        config: { durationMs: 3 * 24 * 60 * 60 * 1000 },
+        dependsOn: ['cold1'],
+      },
+      {
+        id: 'cold2',
+        name: 'Send Cold 2 Email',
+        action: 'send_email',
+        config: { template: 'cold_2' },
+        dependsOn: ['wait1'],
+      },
+      {
+        id: 'wait2',
+        name: 'Wait 5 Days',
+        action: 'wait',
+        config: { durationMs: 5 * 24 * 60 * 60 * 1000 },
+        dependsOn: ['cold2'],
+      },
+      {
+        id: 'cold3',
+        name: 'Send Cold 3 Email',
+        action: 'send_email',
+        config: { template: 'cold_3' },
+        dependsOn: ['wait2'],
+      },
     ],
   },
   'erp-sync': {
@@ -103,9 +152,26 @@ const WORKFLOW_TEMPLATES: Record<string, Omit<WorkflowDefinition, 'id' | 'create
     description: 'Sync production orders from ERP, calculate emissions, generate report',
     industry: 'manufacturing',
     steps: [
-      { id: 'sync', name: 'Sync ERP Production Orders', action: 'sync_erp', config: { direction: 'from_erp' } },
-      { id: 'calc', name: 'Calculate Emissions', action: 'run_agent', config: { agent: 'emissions-data-analyst' }, dependsOn: ['sync'] },
-      { id: 'report', name: 'Generate Carbon Report', action: 'generate_report', config: { format: 'carbon-footprint' }, dependsOn: ['calc'] },
+      {
+        id: 'sync',
+        name: 'Sync ERP Production Orders',
+        action: 'sync_erp',
+        config: { direction: 'from_erp' },
+      },
+      {
+        id: 'calc',
+        name: 'Calculate Emissions',
+        action: 'run_agent',
+        config: { agent: 'emissions-data-analyst' },
+        dependsOn: ['sync'],
+      },
+      {
+        id: 'report',
+        name: 'Generate Carbon Report',
+        action: 'generate_report',
+        config: { format: 'carbon-footprint' },
+        dependsOn: ['calc'],
+      },
     ],
   },
   'carbon-reporting': {
@@ -113,9 +179,26 @@ const WORKFLOW_TEMPLATES: Record<string, Omit<WorkflowDefinition, 'id' | 'create
     description: 'EN 15978 lifecycle carbon assessment → report → eSignature',
     industry: 'construction',
     steps: [
-      { id: 'assess', name: 'Run Material Oracle', action: 'run_agent', config: { agent: 'material-oracle' } },
-      { id: 'report', name: 'Generate Carbon Report', action: 'generate_report', config: { format: 'carbon-footprint' }, dependsOn: ['assess'] },
-      { id: 'sign', name: 'Send for eSignature', action: 'webhook', config: { url: '/api/v1/firehorse/reports/sign' }, dependsOn: ['report'] },
+      {
+        id: 'assess',
+        name: 'Run Material Oracle',
+        action: 'run_agent',
+        config: { agent: 'material-oracle' },
+      },
+      {
+        id: 'report',
+        name: 'Generate Carbon Report',
+        action: 'generate_report',
+        config: { format: 'carbon-footprint' },
+        dependsOn: ['assess'],
+      },
+      {
+        id: 'sign',
+        name: 'Send for eSignature',
+        action: 'webhook',
+        config: { url: '/api/v1/firehorse/reports/sign' },
+        dependsOn: ['report'],
+      },
     ],
   },
 };
@@ -193,7 +276,10 @@ export const FirehorseWorkflowEngine = {
    * Execute a workflow. Runs steps in dependency order.
    * Steps without dependencies run first; dependent steps wait.
    */
-  async execute(workflowId: string, input: Record<string, unknown> = {}): Promise<WorkflowExecution> {
+  async execute(
+    workflowId: string,
+    input: Record<string, unknown> = {},
+  ): Promise<WorkflowExecution> {
     const supabase = getSupabaseClient();
 
     // Load workflow definition
@@ -259,7 +345,7 @@ export const FirehorseWorkflowEngine = {
       const ready = workflow.steps.filter(
         (step) =>
           !completed.has(step.id) &&
-          (!step.dependsOn || step.dependsOn.every((dep) => completed.has(dep)))
+          (!step.dependsOn || step.dependsOn.every((dep) => completed.has(dep))),
       );
 
       if (ready.length === 0) break;
@@ -349,14 +435,14 @@ export const FirehorseWorkflowEngine = {
   async executeStep(
     step: WorkflowStep,
     input: Record<string, unknown>,
-    previousResults: Record<string, StepResult>,
+    _previousResults: Record<string, StepResult>,
   ): Promise<Record<string, unknown>> {
     logger.info('Executing workflow step', { stepId: step.id, action: step.action });
 
     switch (step.action) {
       case 'run_agent': {
         const agentName = step.config.agent as string;
-        const agentInput = { ...input, ...(step.config.input as Record<string, unknown> || {}) };
+        const agentInput = { ...input, ...((step.config.input as Record<string, unknown>) || {}) };
         try {
           const context = {
             userId: (input.userId as string) || 'workflow',
@@ -374,7 +460,10 @@ export const FirehorseWorkflowEngine = {
             recommendations: agentResult.recommendations,
           };
         } catch (err) {
-          logger.error('Workflow agent execution failed', { agentName, error: (err as Error).message });
+          logger.error('Workflow agent execution failed', {
+            agentName,
+            error: (err as Error).message,
+          });
           return {
             action: 'run_agent',
             agent: agentName,
@@ -387,11 +476,19 @@ export const FirehorseWorkflowEngine = {
       case 'generate_report': {
         const format = step.config.format as string;
         try {
-          const reportModule = new FirehorseReportModule();
+          const reportModule = FirehorseReportModule;
+          const now = new Date().toISOString().split('T')[0];
+          const yearStart = `${new Date().getFullYear()}-01-01`;
           const report = await reportModule.generate({
-            orgId: (input.orgId as string) || 'workflow',
-            format: format as 'board-pack' | 'annual-report' | 'compliance-summary' | 'carbon-footprint',
+            organizationId: (input.orgId as string) || 'workflow',
+            format: format as
+              | 'board-pack'
+              | 'annual-report'
+              | 'compliance-summary'
+              | 'carbon-footprint',
             industry: (input.industry as string) || 'manufacturing',
+            periodStart: yearStart,
+            periodEnd: now,
           });
           return {
             action: 'generate_report',
@@ -401,7 +498,10 @@ export const FirehorseWorkflowEngine = {
             sections: report.sections.length,
           };
         } catch (err) {
-          logger.error('Workflow report generation failed', { format, error: (err as Error).message });
+          logger.error('Workflow report generation failed', {
+            format,
+            error: (err as Error).message,
+          });
           return {
             action: 'generate_report',
             format,

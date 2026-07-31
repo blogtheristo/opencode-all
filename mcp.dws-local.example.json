@@ -1,62 +1,21 @@
 {
   "mcpServers": {
-    "DWS Carbon API": {
-      "_type": "rest-api",
-      "_container": "dws-carbon-api",
-      "_endpoints": {
-        "query": "POST http://localhost:8766/tools/query",
-        "insert": "POST http://localhost:8766/tools/insert",
-        "log_activity": "POST http://localhost:8766/tools/log_agent_activity",
-        "health": "GET http://localhost:8766/health"
-      }
+    "dws-agents-local": {
+      "type": "http",
+      "url": "http://localhost:3001/mcp"
     },
-    "Supabase Official (Docker)": {
-      "command": "docker",
+    "dws-gateway-local": {
+      "type": "stdio",
+      "command": "python",
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "SUPABASE_ACCESS_TOKEN",
-        "-e",
-        "SUPABASE_PROJECT_REF",
-        "dws6-supabase-official-mcp:latest"
+        "mcp-servers/cloud-run-gateway/server.py",
+        "--transport",
+        "stdio"
       ],
       "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
-        "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
       }
-    },
-    "Redis MCP": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic/redis-mcp@latest"
-      ],
-      "env": {
-        "REDIS_URL": "redis://user:password@host:port"
-      }
-    },
-    "MCP Hub": {
-      "_type": "coordination-hub",
-      "_port": 8765,
-      "_endpoints": {
-        "hub": "http://localhost:8765"
-      }
-    },
-    "Agent Browser": {
-      "_type": "cli-tool",
-      "_description": "Native Rust headless browser automation for AI agents (vercel-labs/agent-browser)",
-      "_install": "npm install -g agent-browser && agent-browser install",
-      "_usage": {
-        "snapshot": "agent-browser snapshot",
-        "navigate": "agent-browser open <url>",
-        "click": "agent-browser click @e1",
-        "fill": "agent-browser fill @e2 'text'",
-        "screenshot": "agent-browser screenshot ./path.png",
-        "auto-connect": "./scripts/agent-browser-auto-connect.sh open <url>"
-      },
-      "_notes": "140+ commands. Uses Snapshot+Refs for 93% token savings. Native Rust CLI + CDP direct to Chrome. Use ./scripts/agent-browser-auto-connect.sh (which can rely on AGENT_BROWSER_AUTO_CONNECT=1) to auto-discover a running Chrome instance; plain `agent-browser` commands do not auto-discover Chrome by default."
     }
   }
 }

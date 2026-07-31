@@ -116,18 +116,28 @@ const DWS_DESIGN_TOKENS = {
 // ============ COMPLEXITY CLASSIFICATION ============
 
 /** Classify change complexity for designer safety */
-export function classifyComplexity(action: DesignerAction, description: string): {
+export function classifyComplexity(
+  action: DesignerAction,
+  description: string,
+): {
   level: 'safe' | 'moderate' | 'review-required';
   reason: string;
   engineerReview: boolean;
 } {
   const desc = description.toLowerCase();
-  const riskyPatterns = /api|fetch|database|auth|token|session|route|navigation|form.*submit|delete|mutation/i;
+  const riskyPatterns =
+    /api|fetch|database|auth|token|session|route|navigation|form.*submit|delete|mutation/i;
 
   // Safe: purely visual changes
   if (action === 'style-change' || action === 'polish-fix') {
-    const visualOnly = /color|font|spacing|padding|margin|border|radius|shadow|opacity|size|width|height|align|text/i;
-    if (visualOnly.test(desc) && !desc.includes('state') && !desc.includes('data') && !riskyPatterns.test(desc)) {
+    const visualOnly =
+      /color|font|spacing|padding|margin|border|radius|shadow|opacity|size|width|height|align|text/i;
+    if (
+      visualOnly.test(desc) &&
+      !desc.includes('state') &&
+      !desc.includes('data') &&
+      !riskyPatterns.test(desc)
+    ) {
       return {
         level: 'safe',
         reason: 'Visual-only change — safe for designer to ship',
@@ -172,14 +182,73 @@ export function classifyComplexity(action: DesignerAction, description: string):
 // ============ EDGE CASE PATTERNS ============
 
 const EDGE_CASE_CATEGORIES = [
-  { category: 'Empty states', checks: ['No data loaded', 'Empty list/table', 'First-time user (no content)', 'Search with no results'] },
-  { category: 'Loading states', checks: ['Initial load', 'Pagination loading', 'Background refresh', 'Slow network (3G simulation)'] },
-  { category: 'Error states', checks: ['Network failure', 'Server error (500)', 'Auth expired (401)', 'Validation errors on form'] },
-  { category: 'Content overflow', checks: ['Long text truncation', 'Many items in list (100+)', 'Wide content in narrow container', 'Missing/broken images'] },
-  { category: 'Responsive', checks: ['Mobile (320px)', 'Tablet (768px)', 'Desktop (1280px)', 'Ultra-wide (2560px)'] },
-  { category: 'Accessibility', checks: ['Keyboard navigation (Tab order)', 'Screen reader labels', 'Color contrast (WCAG AA)', 'Focus indicators visible'] },
-  { category: 'Internationalization', checks: ['Long translations (German/Finnish)', 'RTL text direction', 'Date/number formatting', 'Currency symbols'] },
-  { category: 'Interaction', checks: ['Double-click prevention', 'Rapid toggle (spam click)', 'Browser back button', 'Form with unsaved changes'] },
+  {
+    category: 'Empty states',
+    checks: [
+      'No data loaded',
+      'Empty list/table',
+      'First-time user (no content)',
+      'Search with no results',
+    ],
+  },
+  {
+    category: 'Loading states',
+    checks: [
+      'Initial load',
+      'Pagination loading',
+      'Background refresh',
+      'Slow network (3G simulation)',
+    ],
+  },
+  {
+    category: 'Error states',
+    checks: [
+      'Network failure',
+      'Server error (500)',
+      'Auth expired (401)',
+      'Validation errors on form',
+    ],
+  },
+  {
+    category: 'Content overflow',
+    checks: [
+      'Long text truncation',
+      'Many items in list (100+)',
+      'Wide content in narrow container',
+      'Missing/broken images',
+    ],
+  },
+  {
+    category: 'Responsive',
+    checks: ['Mobile (320px)', 'Tablet (768px)', 'Desktop (1280px)', 'Ultra-wide (2560px)'],
+  },
+  {
+    category: 'Accessibility',
+    checks: [
+      'Keyboard navigation (Tab order)',
+      'Screen reader labels',
+      'Color contrast (WCAG AA)',
+      'Focus indicators visible',
+    ],
+  },
+  {
+    category: 'Internationalization',
+    checks: [
+      'Long translations (German/Finnish)',
+      'RTL text direction',
+      'Date/number formatting',
+      'Currency symbols',
+    ],
+  },
+  {
+    category: 'Interaction',
+    checks: [
+      'Double-click prevention',
+      'Rapid toggle (spam click)',
+      'Browser back button',
+      'Form with unsaved changes',
+    ],
+  },
 ];
 
 // ============ AGENT IMPLEMENTATION ============
@@ -206,7 +275,7 @@ export class DesignerAgent extends BaseAgent {
         'accessibility-check',
         'responsive-design',
       ],
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-5',
     });
 
     // Designer-friendly SOUL prompt
@@ -263,10 +332,7 @@ export class DesignerAgent extends BaseAgent {
     return cloned;
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
     const sanitizedInput = this.sanitizeInputForLogging(input);
 
@@ -471,7 +537,9 @@ export class DesignerAgent extends BaseAgent {
       recommendations.push('Verify color contrast meets WCAG AA (4.5:1 for text, 3:1 for UI)');
     }
     if (styleCategories.includes('font')) {
-      recommendations.push('Ensure custom fonts are loaded — check for FOUT (Flash of Unstyled Text)');
+      recommendations.push(
+        'Ensure custom fonts are loaded — check for FOUT (Flash of Unstyled Text)',
+      );
     }
     if (styleCategories.includes('spacing')) {
       recommendations.push('Use the spacing scale (multiples of 4px) for consistent rhythm');
@@ -505,8 +573,12 @@ export class DesignerAgent extends BaseAgent {
     const scaffold = this.generateComponentScaffold(componentName, input);
 
     recommendations.push(`Create the component file: src/components/${componentName}.tsx`);
-    recommendations.push('Add a Storybook story or preview page to test the component in isolation');
-    recommendations.push('Include at least: default state, loading state, empty state, error state');
+    recommendations.push(
+      'Add a Storybook story or preview page to test the component in isolation',
+    );
+    recommendations.push(
+      'Include at least: default state, loading state, empty state, error state',
+    );
     recommendations.push('Test keyboard navigation (Tab, Enter, Escape)');
 
     return {
@@ -537,9 +609,13 @@ export class DesignerAgent extends BaseAgent {
     const recommendations: string[] = [];
 
     // State changes are higher risk — always recommend engineer review
-    recommendations.push('ENGINEER REVIEW REQUIRED: State management affects data flow across the app');
+    recommendations.push(
+      'ENGINEER REVIEW REQUIRED: State management affects data flow across the app',
+    );
     recommendations.push('Test all components that read this state after the change');
-    recommendations.push('Check for race conditions: what happens if the state updates while user is interacting?');
+    recommendations.push(
+      'Check for race conditions: what happens if the state updates while user is interacting?',
+    );
     recommendations.push('Verify the change works with browser back/forward navigation');
 
     const statePattern = this.identifyStatePattern(input.description);
@@ -604,7 +680,7 @@ export class DesignerAgent extends BaseAgent {
     }
 
     recommendations.push('Test the fix in the browser before shipping');
-    recommendations.push('Check that the fix doesn\'t break anything nearby');
+    recommendations.push("Check that the fix doesn't break anything nearby");
     if (input.issueUrl) {
       recommendations.push(`Link this fix to the GitHub issue: ${input.issueUrl}`);
     }
@@ -644,10 +720,16 @@ export class DesignerAgent extends BaseAgent {
     const highPriority = relevantCases.filter((c) => c.applicability === 'high');
     const mediumPriority = relevantCases.filter((c) => c.applicability === 'medium');
 
-    recommendations.push(`${highPriority.length} high-priority edge case categories identified — address these before shipping`);
-    recommendations.push(`${mediumPriority.length} medium-priority categories — address in follow-up iteration`);
+    recommendations.push(
+      `${highPriority.length} high-priority edge case categories identified — address these before shipping`,
+    );
+    recommendations.push(
+      `${mediumPriority.length} medium-priority categories — address in follow-up iteration`,
+    );
     recommendations.push('Create a checklist from the edge cases and test each one manually');
-    recommendations.push('This audit catches issues that used to only surface when engineers built the feature');
+    recommendations.push(
+      'This audit catches issues that used to only surface when engineers built the feature',
+    );
 
     return {
       result: {
@@ -661,7 +743,8 @@ export class DesignerAgent extends BaseAgent {
           mediumPriority: mediumPriority.length,
           totalChecks: relevantCases.reduce((sum, c) => sum + c.checks.length, 0),
         },
-        designPhaseValue: 'Edge cases discovered during design phase save 2-3x engineering time vs discovering them during implementation',
+        designPhaseValue:
+          'Edge cases discovered during design phase save 2-3x engineering time vs discovering them during implementation',
       },
       reasoning: `Edge case audit for "${input.description}". ${highPriority.length} high-priority and ${mediumPriority.length} medium-priority edge case categories identified. This catches issues before engineering starts — the same approach Anthropic designers use with Claude Code.`,
       recommendations,
@@ -720,15 +803,22 @@ export class DesignerAgent extends BaseAgent {
 
   private validateInput(input: Record<string, unknown>): DesignerInput {
     const actions: DesignerAction[] = [
-      'screenshot-to-code', 'style-change', 'component-create',
-      'state-change', 'polish-fix', 'edge-case-audit', 'design-review',
+      'screenshot-to-code',
+      'style-change',
+      'component-create',
+      'state-change',
+      'polish-fix',
+      'edge-case-audit',
+      'design-review',
     ];
 
     if (!actions.includes(input.action as DesignerAction)) {
       throw new Error(`action must be one of: ${actions.join(', ')}`);
     }
     if (!input.description || typeof input.description !== 'string') {
-      throw new Error('description (string) is required — describe what you want in plain language');
+      throw new Error(
+        'description (string) is required — describe what you want in plain language',
+      );
     }
 
     const allowedFrameworks: Array<'react' | 'html' | 'vue'> = ['react', 'html', 'vue'];
@@ -737,7 +827,10 @@ export class DesignerAgent extends BaseAgent {
 
     if (rawFramework === undefined) {
       framework = 'react';
-    } else if (typeof rawFramework === 'string' && allowedFrameworks.includes(rawFramework as 'react' | 'html' | 'vue')) {
+    } else if (
+      typeof rawFramework === 'string' &&
+      allowedFrameworks.includes(rawFramework as 'react' | 'html' | 'vue')
+    ) {
       framework = rawFramework as 'react' | 'html' | 'vue';
     } else {
       throw new Error(`framework must be one of: ${allowedFrameworks.join(', ')}`);
@@ -760,7 +853,8 @@ export class DesignerAgent extends BaseAgent {
     const desc = description.toLowerCase();
 
     if (/color|bg|background|theme|dark|light|brand/.test(desc)) categories.push('color');
-    if (/font|text|typography|heading|title|size|weight|bold|italic/.test(desc)) categories.push('font');
+    if (/font|text|typography|heading|title|size|weight|bold|italic/.test(desc))
+      categories.push('font');
     if (/spacing|padding|margin|gap|space/.test(desc)) categories.push('spacing');
     if (/border|radius|rounded|outline/.test(desc)) categories.push('border');
     if (/shadow|elevation|depth/.test(desc)) categories.push('shadow');
@@ -771,37 +865,49 @@ export class DesignerAgent extends BaseAgent {
     return categories.length > 0 ? categories : ['general'];
   }
 
-  private mapToTailwind(categories: string[], description: string): Record<string, string[]> {
+  private mapToTailwind(categories: string[], _description: string): Record<string, string[]> {
     const mapping: Record<string, string[]> = {};
 
     if (categories.includes('color')) {
       mapping.color = [
-        'bg-{color}-{shade}', 'text-{color}-{shade}', 'border-{color}-{shade}',
-        'dark:bg-{color}-{shade}', 'dark:text-{color}-{shade}',
+        'bg-{color}-{shade}',
+        'text-{color}-{shade}',
+        'border-{color}-{shade}',
+        'dark:bg-{color}-{shade}',
+        'dark:text-{color}-{shade}',
       ];
     }
     if (categories.includes('font')) {
       mapping.font = [
-        'text-sm/base/lg/xl/2xl', 'font-normal/medium/semibold/bold',
-        'leading-tight/normal/relaxed', 'tracking-tight/normal/wide',
+        'text-sm/base/lg/xl/2xl',
+        'font-normal/medium/semibold/bold',
+        'leading-tight/normal/relaxed',
+        'tracking-tight/normal/wide',
       ];
     }
     if (categories.includes('spacing')) {
       mapping.spacing = [
-        'p-{0-12}', 'm-{0-12}', 'gap-{0-12}',
-        'px-{n} py-{n}', 'space-x-{n} space-y-{n}',
+        'p-{0-12}',
+        'm-{0-12}',
+        'gap-{0-12}',
+        'px-{n} py-{n}',
+        'space-x-{n} space-y-{n}',
       ];
     }
     if (categories.includes('layout')) {
       mapping.layout = [
-        'flex', 'flex-col', 'flex-row', 'items-center', 'justify-between',
-        'grid', 'grid-cols-{n}', 'gap-{n}',
+        'flex',
+        'flex-col',
+        'flex-row',
+        'items-center',
+        'justify-between',
+        'grid',
+        'grid-cols-{n}',
+        'gap-{n}',
       ];
     }
     if (categories.includes('responsive')) {
-      mapping.responsive = [
-        'sm:{class}', 'md:{class}', 'lg:{class}', 'xl:{class}',
-      ];
+      mapping.responsive = ['sm:{class}', 'md:{class}', 'lg:{class}', 'xl:{class}'];
     }
 
     return mapping;
@@ -810,11 +916,26 @@ export class DesignerAgent extends BaseAgent {
   private inferComponentName(description: string): string {
     const desc = description.toLowerCase();
     const nameMap: Record<string, string> = {
-      button: 'Button', card: 'Card', modal: 'Modal', dialog: 'Dialog',
-      form: 'Form', input: 'Input', table: 'DataTable', list: 'List',
-      nav: 'Navigation', header: 'Header', footer: 'Footer', sidebar: 'Sidebar',
-      dropdown: 'Dropdown', menu: 'Menu', toast: 'Toast', badge: 'Badge',
-      avatar: 'Avatar', tabs: 'Tabs', accordion: 'Accordion', tooltip: 'Tooltip',
+      button: 'Button',
+      card: 'Card',
+      modal: 'Modal',
+      dialog: 'Dialog',
+      form: 'Form',
+      input: 'Input',
+      table: 'DataTable',
+      list: 'List',
+      nav: 'Navigation',
+      header: 'Header',
+      footer: 'Footer',
+      sidebar: 'Sidebar',
+      dropdown: 'Dropdown',
+      menu: 'Menu',
+      toast: 'Toast',
+      badge: 'Badge',
+      avatar: 'Avatar',
+      tabs: 'Tabs',
+      accordion: 'Accordion',
+      tooltip: 'Tooltip',
     };
 
     for (const [key, name] of Object.entries(nameMap)) {
@@ -831,7 +952,12 @@ export class DesignerAgent extends BaseAgent {
       return {
         fileName: `${name}.tsx`,
         template: 'functional-component',
-        features: ['TypeScript props interface', 'TailwindCSS classes', 'Dark mode support', 'ARIA labels'],
+        features: [
+          'TypeScript props interface',
+          'TailwindCSS classes',
+          'Dark mode support',
+          'ARIA labels',
+        ],
         structure: {
           props: `interface ${name}Props { /* Define visual properties */ }`,
           component: `export function ${name}({ ...props }: ${name}Props) { return <div className="...">...</div>; }`,
@@ -878,7 +1004,10 @@ export class DesignerAgent extends BaseAgent {
     return cases;
   }
 
-  private assessEdgeCaseRelevance(category: string, description: string): 'high' | 'medium' | 'low' {
+  private assessEdgeCaseRelevance(
+    category: string,
+    description: string,
+  ): 'high' | 'medium' | 'low' {
     const desc = description.toLowerCase();
 
     // High priority for all: empty states, error states, responsive
@@ -889,7 +1018,8 @@ export class DesignerAgent extends BaseAgent {
     if (category === 'Content overflow' && /text|list|table|card/.test(desc)) return 'high';
     if (category === 'Accessibility') return 'high'; // Always high priority
     if (category === 'Interaction' && /button|form|click|toggle|modal/.test(desc)) return 'high';
-    if (category === 'Internationalization' && /text|label|date|price|currency/.test(desc)) return 'medium';
+    if (category === 'Internationalization' && /text|label|date|price|currency/.test(desc))
+      return 'medium';
 
     return 'medium';
   }
@@ -907,7 +1037,10 @@ export class DesignerAgent extends BaseAgent {
     return 'General component state';
   }
 
-  private calculateConfidence(input: DesignerInput, complexity: ReturnType<typeof classifyComplexity>): number {
+  private calculateConfidence(
+    input: DesignerInput,
+    complexity: ReturnType<typeof classifyComplexity>,
+  ): number {
     let confidence = 0.7;
 
     // Higher confidence for safe visual changes
@@ -931,58 +1064,59 @@ export class DesignerAgent extends BaseAgent {
 
 // ============ LOCAL TESTS (VITEST) ============
 
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+if ((import.meta as any).vitest) {
+  const { describe, it, expect } = (import.meta as any).vitest;
 
   describe('classifyComplexity', () => {
-  it('classifies purely visual style changes as safe without engineer review', () => {
-    const result = classifyComplexity(
-      'style-change',
-      'Update button color and padding for better visual hierarchy'
-    );
+    it('classifies purely visual style changes as safe without engineer review', () => {
+      const result = classifyComplexity(
+        'style-change',
+        'Update button color and padding for better visual hierarchy',
+      );
 
-    expect(result.level).toBe('safe');
-    expect(result.engineerReview).toBe(false);
-  });
+      expect(result.level).toBe('safe');
+      expect(result.engineerReview).toBe(false);
+    });
 
-  it('requires engineer review for explicit state-change actions', () => {
-    const result = classifyComplexity(
-      'state-change',
-      'Refactor dashboard widget state management to fix race condition'
-    );
+    it('requires engineer review for explicit state-change actions', () => {
+      const result = classifyComplexity(
+        'state-change',
+        'Refactor dashboard widget state management to fix race condition',
+      );
 
-    expect(result.level).toBe('review-required');
-    expect(result.engineerReview).toBe(true);
-  });
+      expect(result.level).toBe('review-required');
+      expect(result.engineerReview).toBe(true);
+    });
 
-  it('requires engineer review when risky patterns like API or auth are present', () => {
-    const result = classifyComplexity(
-      'style-change',
-      'Update form layout and connect submit to new auth API endpoint'
-    );
+    it('requires engineer review when risky patterns like API or auth are present', () => {
+      const result = classifyComplexity(
+        'style-change',
+        'Update form layout and connect submit to new auth API endpoint',
+      );
 
-    expect(result.level).toBe('review-required');
-    expect(result.engineerReview).toBe(true);
-  });
+      expect(result.level).toBe('review-required');
+      expect(result.engineerReview).toBe(true);
+    });
 
-  it('classifies new components or screenshot-to-code as moderate without mandatory review', () => {
-    const result = classifyComplexity(
-      'component-create',
-      'Create new card component with header, body, and footer regions'
-    );
+    it('classifies new components or screenshot-to-code as moderate without mandatory review', () => {
+      const result = classifyComplexity(
+        'component-create',
+        'Create new card component with header, body, and footer regions',
+      );
 
-    expect(result.level).toBe('moderate');
-    expect(result.engineerReview).toBe(false);
-  });
+      expect(result.level).toBe('moderate');
+      expect(result.engineerReview).toBe(false);
+    });
 
-  it('defaults to moderate for mixed changes without risky patterns', () => {
-    const result = classifyComplexity(
-      'design-review',
-      'Review layout and interaction of settings page, including hover states'
-    );
+    it('defaults to moderate for mixed changes without risky patterns', () => {
+      const result = classifyComplexity(
+        'design-review',
+        'Review layout and interaction of settings page, including hover states',
+      );
 
-    expect(result.level).toBe('moderate');
-    expect(result.engineerReview).toBe(false);
-  });
+      expect(result.level).toBe('moderate');
+      expect(result.engineerReview).toBe(false);
+    });
   });
 }
