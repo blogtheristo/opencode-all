@@ -291,3 +291,46 @@ Records updated: `docs/field-notes/2026-07-30-network-independent-critical-opera
 
 **HIC question counter: the next question on this branch is Q7.** The counter is branch-scoped and
 never restarts (`DWS_LEARNING_STANDARD.md` §10.1.1).
+
+
+## 31.07.2026 — local-model drift closed; depth routing live
+
+**It was a runtime bug, not doc rot.** `MODEL_CATALOG` and `llm-client.ts` named
+Ollama models the box has never had (`qwen2.5:7b`, `qwen2.5:32b`), so `selectModel()`
+requested a nonexistent model — failing, or falling through to metered cloud. The
+sovereign local path was selectable in name only. Ten sources disagreed; all now bind
+to the exported `OLLAMA_DEPLOYED_MODELS {deep: nemotron-3-super, fast: qwen3-coder:30b}`,
+with **no literal Ollama id left in the catalog**. Tests read `check-ollama-models.sh`
+and `deploy.sh` from disk, so drift fails CI.
+
+Also fixed: standard tier had **no** ollama-local entry (Ollama-only hosts went
+straight to Groq/Anthropic); `infrastructure/dgx-spark/.env.example` named the pair
+`--models-cleanup` deletes; `nemotron-3-super` footprint corrected 34/38 GB → 87/90 GB
+from `Deploy-DgxSpark.ps1` + `heartbeat.ts`.
+
+**`contextWindow` is now load-bearing.** `modelFitsDepth()` in both selection loops;
+required depth = input + tier's reserved output. `ModelSelection` carries
+`contextWindow` + `requiredContextTokens`. 8 tests added, verified falsifiable.
+
+**A Gemini spec was rejected** — it would have re-added the phantom model, added an
+undeployed external signal (`nemotron-cascade-2-30b-a3b`, a field-note market signal,
+NOT a DWS model), and removed the model docker-compose actually runs. It also assumed a
+different codebase shape. Lesson kept: **truth flows from the deployed reality inward.**
+
+**HIC question counter: next is Q10.** Q8 (Outokumpu 240 h / €200 h basis) and
+Q9 (are catalog context-window values fit to route on?) are both OPEN.
+
+### Carried into the next session
+
+1. **Q9 option 3** — probe Ollama `/api/show` at startup to populate `contextWindow`
+   from the box instead of vendor knowledge. Depth routing currently routes on
+   unmeasured numbers.
+2. **Dynamic `num_ctx`** on the Ollama call (`min(model.contextWindow, max(32768,
+   estimatedTokens + maxTokens))`). `OLLAMA_NUM_CTX` exists as a static env var only.
+   Good idea, from the otherwise-rejected Gemini spec.
+3. **`requireLocal` selection constraint** — no way to force the sovereign path today.
+   Needed before the Aegis KPI 4 severed-uplink test.
+4. **Depth-curve sweep still unrun** (`scripts/weekly/depth-curve-sweep.sh`, self-schedules
+   Sun 04:00 UTC). Until it runs, §14.45 economics is an architectural hypothesis.
+5. **Q8** blocks sending the Outokumpu tuntiraportti annex.
+6. **37-file harness-language exposure pack** — still unwritten.

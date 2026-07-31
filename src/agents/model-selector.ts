@@ -311,8 +311,11 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         // --models-cleanup actively removes. See OLLAMA_DEPLOYED_MODELS.
         id: OLLAMA_DEPLOYED_MODELS.deep,
         provider: 'ollama-local',
-        diskGb: 34,
-        ramGb: 38,
+        // ~87GB pull per Deploy-DgxSpark.ps1; MoE 120B total / 12.7B active per
+        // heartbeat.ts. Tight against the 98GB RAM budget by design — if it stops
+        // fitting, isLocalModelFeasible() should reject it rather than OOM the box.
+        diskGb: 87,
+        ramGb: 90,
         costPer1MInput: 0,
         costPer1MOutput: 0,
         contextWindow: 131072,
