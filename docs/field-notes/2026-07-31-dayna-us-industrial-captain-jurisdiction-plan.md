@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: US Industrial Captain jurisdiction plan — Dayna Blackwell deal
-Version: 1.0
+Version: 1.1
 Date: 2026-07-31
 Author: Claude Code (Sonnet 5), session claude/partner-outreach-dayna-tda0d1
 Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
@@ -20,6 +20,7 @@ Related: partners-outreach/LETTER_DAYNA_BLACKWELL_BLACKWELL_SYSTEMS.md (v1.4,
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Risto ruled on §2.1 — "Compliance is not a US product." The CSRD/CBAM/ETS/EU-AI-Act frame (and the SEC-climate-disclosure / California SB 253/261 candidates this plan floated) is ruled out as the US demand driver, not merely deprioritized. Narrows the remaining candidate list to operational efficiency (agent labor replacing FTE cost); federal-procurement-ESG-for-defense-adjacent-suppliers is regulatory-adjacent and its status under this ruling is undecided. Does not yet affirmatively answer "what does the US pitch lead with" — that's still open (§4, item 1).
 - Version: 1.0 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Initial plan. Surveyed the repo (Explore agent) for existing US-market material before drafting, per Rule 8. Findings: no US legal entity, no USD pricing, no US contract/ToS/DPA, no ITAR/EAR analysis exist anywhere — all would need to be built. Partial precedent exists on infrastructure (DWS IQ Connect tier already runs on US Public cloud) and on positioning (three-pillar sovereignty framing already argues EU-sovereign ≠ US-hostile). Most important finding, not previously flagged: the US is not a declared Sales Jurisdiction under DWS_DEPLOYMENT_STANDARD.md (today's two sets are EU Tier and Non-EU/Connect Tier) — adding one is explicitly RED-zone. Deeper than that: the company's core "regulation drives demand" thesis (CSRD/CBAM/ETS/EU AI Act) has no direct US federal analogue for Arizona/Texas industrial buyers, which is a product-market-fit question, not just a legal one.
 -->
 
@@ -44,6 +45,8 @@ None of this blocks the call with Dayna. It does mean the call should be honest 
 ### 2.1 Product-market fit for the US regulatory story (biggest open question, address first)
 
 DWS IQ's entire pitch — to investors, to Captains, in every doc this letter has referenced — is "regulation drives demand": CSRD, CBAM, ETS, EU AI Act. Arizona and Texas industrial buyers face none of these. **Before pricing or legal work, the actual question is: what makes a US industrial account buy this?** Candidates worth checking (not yet researched): SEC climate-disclosure rules (contested, uneven enforcement), state-level programs (California's SB 253/261 has extraterritorial reach for large companies, but that's California, not AZ/TX), federal procurement ESG requirements for defense-adjacent industrial suppliers, or simply operational efficiency (agent labor replacing FTE cost) sold on its own merits without a regulatory hook. This needs a real answer before Dayna is asked to sell against it — a mismatched pitch burns a channel relationship fast.
+
+**Risto (31.07.2026): "Compliance is not a US product."** Ruled out, not just deprioritized — the compliance/regulatory-conformance frame (CSRD/CBAM/ETS/EU AI Act, and the SEC-climate-disclosure and California SB 253/261 candidates above) is not the demand driver for Arizona/Texas industrial accounts and should not be the pitch. This narrows the candidate list to the non-regulatory ones: **operational efficiency (agent labor replacing FTE cost)** is the remaining candidate already listed above; federal-procurement-ESG-for-defense-adjacent-suppliers is regulatory-adjacent and questionable under the same ruling — needs Risto's call on whether it survives. **Not yet decided: what the US pitch affirmatively leads with** — this note rules something out, it doesn't yet answer the question in the open-decisions list below.
 
 ### 2.2 US Sales Jurisdiction declaration (policy decision, RED-zone)
 
@@ -96,12 +99,12 @@ Already flagged in the Dayna letter and in `docs/field-notes/2026-07-31-investor
 
 ## 4. Open decisions for the HIC
 
-1. **What's the US demand driver (2.1)?** This is the one that changes what Dayna is actually selling — needs an answer before pricing or legal work matters much.
+1. **What's the US demand driver (2.1)?** Narrowed 31.07.2026 — Risto ruled out compliance/regulatory framing ("compliance is not a US product"), which eliminates the CSRD/CBAM/ETS/EU-AI-Act frame and the SEC/California candidates. Operational efficiency (agent labor replacing FTE cost) is the remaining candidate on the list; not yet affirmatively confirmed as the answer. This still changes what Dayna is actually selling — needs a real answer before pricing or legal work matters much.
 2. **US Sales Jurisdiction — declare now or fold into Connect (2.2)?** RED-zone per the deployment standard; Risto's decision explicitly, not a default.
 3. **Entity-formation trigger (2.4)** — what specific signal (an LOI? a specific buyer's procurement requirement?) should trigger forming a US entity, so it's not decided reactively mid-negotiation.
 
 ---
 
-**Document Version:** 1.0
+**Document Version:** 1.1
 **Classification:** INTERNAL / CONFIDENTIAL — planning record, not yet actioned
 **Owner:** Risto Anton Päärni
