@@ -74,11 +74,11 @@ const SECRET_MAP: Record<string, string> = {
   BROKER_SIGNING_KEY: 'broker-signing-key',
   BROKER_AGENT_TOKENS: 'broker-agent-tokens',
 
-  OPENCLAW_ENDPOINT: 'openclaw-endpoint',
-  OPENCLAW_API_KEY: 'openclaw-api-key',
+  NEMOCLAW_ENDPOINT: 'nemoclaw-endpoint',
+  NEMOCLAW_API_KEY: 'nemoclaw-api-key',
+  NEMOCLAW_NGC_KEY: 'nemoclaw-ngc-key', // NIM/Nemotron pull token
 
   EXA_API_KEY: 'exa-api-key',
-  EXA_API_KEY_OPENCLAW: 'exa-api-key-openclaw',
 };
 
 async function loadFromAiven(connectionUrl: string): Promise<Record<string, string>> {
