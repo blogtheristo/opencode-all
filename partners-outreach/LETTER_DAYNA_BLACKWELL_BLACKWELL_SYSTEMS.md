@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Risto revised the Captain P&L same day, naming it "Liquidity Engine 2.0": replaced the flat 20%/24-month structure with a two-phase one — **15% of net cash collected until €50K is recovered (Phase 1), then 7.5% of the same accounts for a 12-month taper (Phase 2), then the share ends.** Verified the stated €333K collected-revenue threshold against the 15% rate (15% × €333,333 ≈ €50,000 — consistent, not a separately invented number). Added: CTO appointment decided after a 5-business-day skills and fit test (resolves the decision-_date_ half of the prior open item; technical scope of the test still undefined). Explicit "no guaranteed payback, no access theatre" framing carried into the record. Flagged, not resolved: `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` is the pre-existing canonical company-wide Liquidity Engine document (v1.0) with its own unreconciled pricing variant (Fleet Admiral €250K) — "Liquidity Engine 2.0" here is scoped to Dayna's individual deal only; whether this 15%→7.5% structure should become the standard for all 9 Captain seats is a separate decision not made this session. v1.3's flat-rate structure kept below, marked superseded.
 - Version: 1.3 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Modeled the Captain P&L Boardy asked for (deal-size math grounded in canonical figures from `investor-outreach/captain-deck.md` v1.4), recommended 20% revenue share on flagship-tier deals, and asked Risto to confirm via AskUserQuestion. Risto confirmed and refined: **20% of net cash actually collected, for 24 months, on flagship industrial contracts she originates and materially advances, CTO compensation entirely separate** — plus guardrails (named-account attribution before outreach, payment only after cash clears, net of VAT/pass-through costs, no share on deals not materially advanced, no automatic renewal of the share past 24 months). Recorded as CONFIRMED structure, ready to present on the call v1.2 proposes. v1.2's DM text is unchanged — these are call terms, not a DM rewrite.
 - Version: 1.2 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Recorded the extended Boardy negotiation that moved the offer through several frames — paid contractor → CTO-track technical partner → Industrial Captain (capital-in) combined with immediate Technical Partner status and a CTO door open after a short skills/fit test. Added v1.2 draft. The €50,000 Captain commitment in the draft is the canonical Captain-seat figure per `docs/LOCKED_DECISIONS.md` LD-2026-014 (Captain €50K × 9 seats, reconciled 2026-07-31 in `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`) — confirmed consistent before drafting, not invented for this letter. **Not resolved:** the Captain P&L — how she earns back €50K within ~12 months (referral fee / revenue share / paid role / equity mix) — was Boardy's last open question to Risto and remains undecided; v1.2 states that honestly rather than inventing numbers, and proposes a call to work it out before any capital commitment. v1.1 retained below, marked superseded.
 - Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Recorded the Boardy discussion (Jan's point) that reframes the offer — Dayna should not be positioned only as a Captain-seat sales/fundraiser partner. Added v1.1 draft: technical partner with CTO-level potential (earn the role, not a title upfront) — structured path of (1) technical/commercial conversation, (2) paid 3-month engagement owning the MCP/orchestration + deployment layer, (3) longer-term CTO/technical-partner discussion if the working fit is strong. Her European network / Captain-candidate access repositioned as additive upside, not the condition for the technical role. v1.0 contract-first draft retained below, marked superseded, per the Document Standard's formulation-preservation rule — not deleted.
@@ -146,30 +147,37 @@ Grounded in canonical DWS numbers already in the repo (not invented for this mod
 
 **The math only closes if her Captain mandate is explicitly scoped to flagship-tier industrial accounts** (the €150K+ ARR range), not blended-average volume — which also matches her actual value: a small number of serious European industrial relationships, not outreach volume. That's a positioning choice as much as a percentage choice.
 
-**CONFIRMED structure (Risto, 31.07.2026 — ready to present on the call):**
+**SUPERSEDED (v1.3 structure, 31.07.2026):** flat 20% of net cash collected for 24 months, then stops. Replaced same-day by the two-phase structure below — kept here per Rule 12, not deleted.
 
-1. **20% of net cash actually collected**, for 24 months, on flagship industrial contracts she originates and materially advances. CTO compensation is entirely separate — not blended into this.
-2. **Why 20%, not 15%:** one €199,990 DWS 365 contract yields ~€40K at 20% — two contracts recovers the €50K Captain commitment and creates real upside. At 15%, one flagship deal is only €30K, which weakens the payback story.
-3. **Guardrails (all confirmed, non-negotiable in the terms):**
+**CONFIRMED structure — "Liquidity Engine 2.0" (Risto, 31.07.2026 — ready to present on the call):**
+
+1. **Phase 1 — payback:** 15% of net cash collected from industrial deals she originates and materially advances, running until €50,000 is recovered.
+2. **Phase 2 — 12-month taper:** 7.5% (half the Phase-1 rate) of net cash collected from those same accounts, for the 12 months immediately following payback. Then the share ends — no further renewal.
+3. **The €333K collected-revenue threshold, verified:** 15% × €333,333 ≈ €50,000 — this is the pipeline requirement Phase 1 implies, not a separate number invented alongside it. On flagship DWS 365 Skilled Agents contracts (€199,990/yr each), that's roughly 1.7 contracts' worth of first-year collections — consistent with the "flagship-tier, not blended-average" scoping from the table above.
+4. **CTO compensation is entirely separate**, unchanged from v1.3 — not blended into the Captain P&L.
+5. **CTO appointment decided after a 5-business-day skills and fit test.** This resolves half of the open decision below (the _date_); the technical _scope_ of what she needs to demonstrate is still undefined — see Open Decision.
+6. **Guardrails (carried forward from v1.3, still in force):**
    - Named-account attribution agreed _before_ outreach starts — no retroactive claiming.
    - Payment only after customer cash actually clears (not on signature, not on invoice).
    - Net of VAT and pass-through costs.
    - No share on deals she did not materially advance.
-   - No automatic renewal of the share after the 24-month window — it ends there, by design, not an oversight.
-4. **The framing Risto wants conveyed:** "a serious industrial relationship mandate with a measurable liquidity path — not a membership fee, and not a disguised CTO purchase."
+   - Collection timing and named pipeline must be shown to her as part of the offer, not asserted — this is what makes it a P&L and not a pitch.
+7. **Explicit, stated to Dayna: no guaranteed payback.** The €50K recovery depends on real deals she originates actually closing and collecting — not promised, not "access theatre."
 
-This is now ready to present live on the call proposed in v1.2 — it is deal terms, not something to bury in a LinkedIn DM. v1.2's DM stands as sent/sendable; these are the terms to bring to the conversation it proposes, not a v1.3 rewrite of the message itself.
+This is now ready to present live on the call proposed in v1.2 — it is deal terms, not something to bury in a LinkedIn DM. v1.2's DM stands as sent/sendable; these are the terms to bring to the conversation it proposes, not a DM rewrite.
+
+**Flagged, not resolved this session — naming collision worth Risto's attention:** `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` already exists as the canonical company-wide "DWS Liquidity Engine" investor document (v1.0, 25.04.2026) describing the Fleet Admiral/Captain seat architecture generally — and that document was already flagged in `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md` as carrying an unreconciled fourth pricing variant (Fleet Admiral €250K, Deputy €25K — inconsistent with the LD-2026-014 canonical figures used in this letter). "Liquidity Engine 2.0" as used here is scoped to Dayna's individual Captain deal, not a rewrite of that canonical document. If this deal-sourcing revenue-share mechanism (15% → 7.5% taper) is meant to become the standard structure offered to all 9 Captain seats — not just Dayna's — that's a separate decision that would touch the canonical document and should probably resolve the flagged Fleet Admiral inconsistency at the same time, rather than drift into a second unreconciled variant.
 
 ## Open Decision for the HIC
 
 One remaining:
 
-1. **Skills/fit-test scope and decision date** — what exactly does Dayna need to demonstrate on the MCP/orchestration/deployment layer, and by when, for the CTO decision to be made? Undefined this session.
+1. **Skills/fit-test scope** — the decision _date_ is now set (5 business days), but what exactly Dayna needs to demonstrate on the MCP/orchestration/deployment layer for a pass is still undefined.
 
-~~Captain P&L mechanism and %~~ — **RESOLVED 31.07.2026**, see confirmed structure above.
+~~Captain P&L mechanism and %~~ — **RESOLVED 31.07.2026**, revised same day from flat 20%/24mo to the 15%→7.5% taper above ("Liquidity Engine 2.0").
 
 ---
 
-**Document Version:** 1.3
+**Document Version:** 1.4
 **Classification:** INTERNAL / CONFIDENTIAL (sendable copy)
 **Owner:** Risto Anton Päärni
