@@ -58,6 +58,9 @@ data/agent-outcomes/
 
 # Clawdbot queue + state are gitignored down in the .claude/* section.
 
+# --- SESSION TELEMETRY (harness-generated runtime data — NEVER commit) ---
+telemetry/
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/
