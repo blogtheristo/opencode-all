@@ -884,6 +884,11 @@ function parseEdpSearch(json: string, limit: number): Array<Record<string, unkno
     catalog: r.catalog?.title?.en || r.catalog?.id || '',
     formats: [...new Set((r.distributions || []).map((d: any) => d.format?.id).filter(Boolean))],
     landingPage: r.resource || (r.id ? `https://data.europa.eu/data/datasets/${r.id}` : ''),
+    // DCAT-AP modification date, if the Search API returns one — feeds
+    // regulatory-radar's dataset-version-diff scan (scripts/weekly/edp-dataset-diff.sh).
+    // Not live-verified against the real API shape yet; null here means the
+    // diff script must fall back to id-presence diffing instead of trusting this field.
+    modified: r.modified || r.issued || null,
   }));
 }
 
@@ -2376,8 +2381,22 @@ async function cmdKB(
     case 'preflight': {
       // Verify the configured embedding provider is actually usable.
       // Done client-side (no API hop) so it works even when the backend is down.
-      const { preflightEmbeddings } =
-        (await import('../../src/utils/embeddings.js')) as typeof import('../../src/utils/embeddings.js');
+      //
+      // The embeddings util lives in the main backend package (src/utils/),
+      // outside this CLI package's own rootDir — a non-literal specifier
+      // keeps tsc from pulling that file (and its `pino` dependency chain)
+      // into this package's compilation unit, which would violate rootDir.
+      // Node still resolves the path normally at runtime.
+      const embeddingsModulePath: string = '../../src/utils/embeddings.js';
+      const { preflightEmbeddings } = (await import(embeddingsModulePath)) as {
+        preflightEmbeddings: () => Promise<{
+          provider: string;
+          ok: boolean;
+          checks: Array<{ name: string; ok: boolean; detail?: string }>;
+          hint?: string;
+          dimensions?: number;
+        }>;
+      };
       const result = await preflightEmbeddings();
       if (JSON_MODE) {
         output(result);

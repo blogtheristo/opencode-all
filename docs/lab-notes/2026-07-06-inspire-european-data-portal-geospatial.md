@@ -4,22 +4,25 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/eu-data-live-verify-tfy7aw | Date: 19.07.2026 | Changes: Implemented Actions item 3 — `scripts/weekly/edp-dataset-diff.sh`, the first concrete piece of the regulatory-radar ingestion layer (reuses `dws eu-data search`, diffs a watchlist against `config/edp-dataset-state.json`, writes changes to `docs/regulatory-radar/edp-dataset-diffs/`). Tested against a stubbed `dws` binary (new/no-change/modified paths all verified); not live-tested against the real EDP Search API — same network-policy block as the rest of this lab note. Also fixed the pre-existing broken `cli/` tsc build (missing `cli/node_modules`, plus a cross-package rootDir violation on the `dws kb preflight` dynamic import into `src/utils/embeddings.ts`, resolved via a non-literal import specifier + local type). `.claude/commands/regulatory-radar.md` §Data freshness and §Agent lineage updated to match.
+- Version: 1.2 | Tool: Claude Code | Session: claude/eu-data-live-verify-tfy7aw | Date: 14.07.2026 | Changes: Live-verify attempt of `dws eu-data status` against PRH/FMI/EDP upstreams (carried-over next step from PR #1640). All three hosts (avoindata.prh.fi, opendata.fmi.fi, data.europa.eu) returned CONNECT 403 from this session's agent proxy — confirmed via `/root/.ccr/__agentproxy/status` relay log as `connect_rejected` / organization egress-policy denial, not a transient or code-level fault. This is the second independent Claude Code cloud session to hit the identical block (first: claude/european-datasets-lab-note-8mlg9u, 2026-07-06/09). Added a "Live Verification Log" section below; the CLI's fail-loud path (`mode`, `partial`, `hint`) is now confirmed correct on live infrastructure — only the reachability itself remains unverified. Recommend running from a non-Claude-Code-cloud machine (local dev box, DGX Spark, or any host outside this org's cloud-session egress policy).
 - Version: 1.1 | Tool: Claude Code | Session: claude/european-datasets-lab-note-8mlg9u | Date: 06.07.2026 | Changes: Web verification pass (INSPIRE Geoportal retirement on 1 July 2026 confirmed via web search; portal search/API architecture documented from EDP provider manual), added IPR Considerations section and testing/onboarding dataset shortlist.
 - Version: 1.0 | Tool: Claude Code | Session: claude/european-datasets-lab-note-8mlg9u | Date: 06.07.2026 | Changes: Initial lab note — INSPIRE geospatial datasets migrating to data.europa.eu (effective 1 July 2026), new dataset versioning feature, and Digital Europe eDelivery cross-border exchange framework, mapped to DWS IQ data-ingestion and sovereignty relevance.
 
 Session Links & References:
 
 - Claude Code (claude/european-datasets-lab-note-8mlg9u): https://github.com/blogtheristo/dws6/commits/claude/european-datasets-lab-note-8mlg9u
+- Claude Code (claude/eu-data-live-verify-tfy7aw): https://github.com/blogtheristo/dws6/commits/claude/eu-data-live-verify-tfy7aw
 - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md
 
 Document Status:
 
 - Created: 06.07.2026
-- Last Modified: 06.07.2026
+- Last Modified: 19.07.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -36,9 +39,9 @@ Related Documents:
 
 ***
 
-**Version:** 1.1
+**Version:** 1.3
 **Effective Date:** 2026-07-06
-**Last Updated:** 2026-07-06
+**Last Updated:** 2026-07-19
 **Status:** Active
 
 ---
@@ -146,9 +149,22 @@ Three developments from the European Data Portal, all live as of July 2026:
 
 1. **No immediate code change.** This is ecosystem intelligence; no DWS surface breaks or requires update today.
 2. **Candidate skill (deferred until asked twice):** an `eu-data` ingestion skill targeting the data.europa.eu SPARQL/REST API with HVD + INSPIRE theme filters and version-aware fetch. Log here as the first ask; codify per the Skill Codification Rule if a second concrete need appears.
-3. **regulatory-radar enhancement candidate:** add data.europa.eu dataset-version diffs as a scan source alongside EUR-Lex/EFRAG document pipelines.
+3. **regulatory-radar enhancement — implemented 2026-07-19, not yet live-verified:** `scripts/weekly/edp-dataset-diff.sh` scans a small watchlist (EU ETS verified emissions, E-PRTR, Eurostat energy statistics) via `dws eu-data search`, diffs against `config/edp-dataset-state.json`, and writes changes to `docs/regulatory-radar/edp-dataset-diffs/`. EUR-Lex/EFRAG document pipelines remain unbuilt (see `.claude/commands/regulatory-radar.md` §Data freshness).
 4. **sovereignty-pillars-assess:** consider adding eDelivery compatibility as an EU-pillar interoperability signal when that skill is next revised.
 5. **IPR hygiene from day one:** any `eu-data` ingestion design must capture license URI, publisher, and dataset version per record (see §IPR Considerations) so attribution and provenance are automatic, not retrofitted.
+
+---
+
+## Live Verification Log
+
+Tracks attempts to run `dws eu-data status` against real upstreams, per Action item 2's shipped `eu-data` CLI (`b412eaa`, 2026-07-06) and the PR #1640 handoff carry-over.
+
+| Date       | Session                                  | Environment                        | PRH     | FMI     | EDP     | Result                                                                                                                                                                                                                                                                                                                                                        |
+| ---------- | ---------------------------------------- | ---------------------------------- | ------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-06 | claude/european-datasets-lab-note-8mlg9u | Claude Code cloud (remote sandbox) | blocked | blocked | blocked | Fail-loud path only — network policy blocked all 3 hosts at CONNECT                                                                                                                                                                                                                                                                                           |
+| 2026-07-14 | claude/eu-data-live-verify-tfy7aw        | Claude Code cloud (remote sandbox) | blocked | blocked | blocked | Same result. Confirmed via agent-proxy relay log as `connect_rejected` — an organization egress-policy denial (403 on CONNECT), not a code, DNS, or transient fault. Per `/root/.ccr/README.md`: 403/407 from the proxy means "the destination host is not allowed by your organization's egress policy for this session... do not retry or route around it." |
+
+**Standing conclusion:** the `eu-data` CLI's fail-loud contract (mode/partial/hint, non-zero exit when all upstreams fail) is verified correct on live infrastructure — it degrades exactly as designed. What remains unverified is upstream reachability itself, and two independent sessions now agree that verification requires a host **outside** Claude Code's cloud-session egress policy (a local dev machine, DGX Spark, or CI runner with open internet). Re-running this check inside another Claude Code cloud session is not expected to produce a different result — do not re-attempt it here; hand off to a human or non-restricted runner instead.
 
 ## References
 
