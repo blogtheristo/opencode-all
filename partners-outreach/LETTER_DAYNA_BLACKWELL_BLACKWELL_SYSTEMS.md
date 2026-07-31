@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Risto, reviewing v1.5: "This is too unfinished to send the letter." Confirmed correct — v1.2's DM text was never updated for the same-day US Industrial Captain reframe and still pitches the generic/EU Captain frame against EUR figures. Marked the document status **DO NOT SEND** (was incorrectly still "sendable copy"), rewrote the Send Checklist's first item as an explicit block with the two real options (rewrite the DM for the US reframe, or deliberately hold outreach), and corrected checklist item 3's stale reference to the superseded flat-20%/24mo Captain P&L structure — it now points to "Liquidity Engine 2.0" and flags that structure as itself pending US rework. No DM content changed; v1.2 remains the last drafted text, now explicitly marked not to send.
 - Version: 1.5 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Risto reframed the deal same day — Dayna is a **US Industrial Captain** (Arizona/Texas flagship industrial accounts, US-jurisdiction DWS versions), not an EU Captain with a US territory. Added pointer to the new plan doc `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md`, which surveys what exists (US Public cloud infra precedent via DWS IQ Connect tier, three-pillar sovereignty positioning) versus what doesn't (US legal entity, USD pricing, US contract/ToS/DPA, ITAR/EAR screening — none exist in the repo) and flags that the US isn't a declared Sales Jurisdiction under `DWS_DEPLOYMENT_STANDARD.md` (RED-zone to add) and that the company's "regulation drives demand" thesis has no direct US-market analogue. The v1.4 Liquidity Engine 2.0 economics (EUR-denominated, EU-market assumptions) are flagged as pending rework for the US reframe, not yet redone.
 - Version: 1.4 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Risto revised the Captain P&L same day, naming it "Liquidity Engine 2.0": replaced the flat 20%/24-month structure with a two-phase one — **15% of net cash collected until €50K is recovered (Phase 1), then 7.5% of the same accounts for a 12-month taper (Phase 2), then the share ends.** Verified the stated €333K collected-revenue threshold against the 15% rate (15% × €333,333 ≈ €50,000 — consistent, not a separately invented number). Added: CTO appointment decided after a 5-business-day skills and fit test (resolves the decision-_date_ half of the prior open item; technical scope of the test still undefined). Explicit "no guaranteed payback, no access theatre" framing carried into the record. Flagged, not resolved: `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` is the pre-existing canonical company-wide Liquidity Engine document (v1.0) with its own unreconciled pricing variant (Fleet Admiral €250K) — "Liquidity Engine 2.0" here is scoped to Dayna's individual deal only; whether this 15%→7.5% structure should become the standard for all 9 Captain seats is a separate decision not made this session. v1.3's flat-rate structure kept below, marked superseded.
 - Version: 1.3 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Modeled the Captain P&L Boardy asked for (deal-size math grounded in canonical figures from `investor-outreach/captain-deck.md` v1.4), recommended 20% revenue share on flagship-tier deals, and asked Risto to confirm via AskUserQuestion. Risto confirmed and refined: **20% of net cash actually collected, for 24 months, on flagship industrial contracts she originates and materially advances, CTO compensation entirely separate** — plus guardrails (named-account attribution before outreach, payment only after cash clears, net of VAT/pass-through costs, no share on deals not materially advanced, no automatic renewal of the share past 24 months). Recorded as CONFIRMED structure, ready to present on the call v1.2 proposes. v1.2's DM text is unchanged — these are call terms, not a DM rewrite.
@@ -25,7 +26,7 @@ Document Status:
 - Created: 31.07.2026
 - Last Modified: 31.07.2026
 - Language: English
-- Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL (sendable copy)
+- Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL — **DO NOT SEND** (v1.2 DM text predates the 31.07.2026 US Industrial Captain reframe; it still reads as the generic/EU Captain pitch against EUR figures modeled on EU-market assumptions — see v1.5 history entry and Open Decision below)
 
 ***
 
@@ -126,9 +127,10 @@ risto.paarni2024@lifetime.fi · +358 400 319 010
 
 ## Send Checklist
 
-- [ ] Send the **v1.2** reply via LinkedIn DM (existing 1st-degree thread — no connection request needed). Do not send v1.1 or v1.0. Captain P&L terms (below) are call material, not DM content — don't fold them into the message.
-- [ ] On her agreement to a call: prepare the skills/working-fit test scope (MCP/orchestration + deployment layer) with a clear decision date — still undefined, the one open item left (see Open Decision below).
-- [ ] Bring the CONFIRMED Captain P&L terms to the call (20% of net cash collected, 24 months, flagship-tier deals only, guardrails as listed) — ready, no further prep needed on this front.
+- [ ] **BLOCKED — do not send v1.2 as-is.** Risto (31.07.2026): "This is too unfinished to send the letter." v1.2 predates the same-day US Industrial Captain reframe and still pitches the generic/EU Captain frame against EUR figures. Needs either (a) a v1.6 DM rewritten for the US reframe, honest about what's still open per the jurisdiction plan's §2.1/2.2/2.4, or (b) a deliberate decision to hold outreach until those questions are answered. Neither has happened yet.
+- [ ] Once send-ready: send the current version via LinkedIn DM (existing 1st-degree thread — no connection request needed). Do not send v1.1 or v1.0. Captain P&L terms (below) are call material, not DM content — don't fold them into the message.
+- [ ] On her agreement to a call: prepare the skills/working-fit test scope (MCP/orchestration + deployment layer) with a clear decision date — still undefined, the one open item left in this file (see Open Decision below).
+- [ ] Bring the Captain P&L terms to the call — currently "Liquidity Engine 2.0" (15% payback / 7.5% taper, superseding the earlier flat 20%/24mo), itself EUR-modeled and pending rework for the US reframe (see jurisdiction plan §2.3, §2.7) before it's presentable as-is.
 - [ ] Send NDA (`Partners/NDA_TEMPLATE_EU_2026.md`) before sharing architecture docs, once she's in the technical/commercial conversation.
 - [ ] Log in `outreach_contacts` (pipeline = 'partner', target = Dayna Blackwell / Blackwell Systems, channel = 'linkedin_dm').
 - [ ] If a call date is confirmed: calendar it (`Google_Calendar.create_event`) — not done in this session because no confirmed date exists yet.
@@ -182,6 +184,6 @@ Two remaining in this file (see the linked jurisdiction plan for three more, US-
 
 ---
 
-**Document Version:** 1.5
-**Classification:** INTERNAL / CONFIDENTIAL (sendable copy)
+**Document Version:** 1.6
+**Classification:** INTERNAL / CONFIDENTIAL — DO NOT SEND
 **Owner:** Risto Anton Päärni
