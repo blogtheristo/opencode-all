@@ -1,7 +1,7 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
   "version": "1.0",
-  "updated": "2026-07-27",
+  "updated": "2026-07-31",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
     {
@@ -33,10 +33,7 @@
     "slash-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "slash-command",
-        "local-tools"
-      ],
+      "transport": ["slash-command", "local-tools"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -50,10 +47,7 @@
     "slash-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": [
-        "slash-command",
-        "local-tools"
-      ],
+      "transport": ["slash-command", "local-tools"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -67,10 +61,7 @@
     "slash-dgx": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "slash-command",
-        "dgx-ssh"
-      ],
+      "transport": ["slash-command", "dgx-ssh"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -84,11 +75,7 @@
     "slash-admin-antigravity": {
       "status": "active",
       "visibility": "admin-only",
-      "transport": [
-        "slash-command",
-        "gcloud",
-        "antigravity"
-      ],
+      "transport": ["slash-command", "gcloud", "antigravity"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -102,9 +89,7 @@
     "slash-deferred": {
       "status": "deferred",
       "visibility": "internal",
-      "transport": [
-        "slash-command"
-      ],
+      "transport": ["slash-command"],
       "surfaceSupport": {
         "win11-claude-cli": false,
         "claude-desktop": false,
@@ -118,10 +103,7 @@
     "skill-pack-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "skill-pack",
-        "local-files"
-      ],
+      "transport": ["skill-pack", "local-files"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -135,10 +117,7 @@
     "skill-pack-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": [
-        "skill-pack",
-        "local-files"
-      ],
+      "transport": ["skill-pack", "local-files"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -152,9 +131,7 @@
     "discipline-gate": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "discipline-gate"
-      ],
+      "transport": ["discipline-gate"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -173,6 +150,21 @@
       "kind": "slash-command",
       "profile": "slash-cli",
       "commandFile": ".claude/commands/agent-run.md"
+    },
+    {
+      "id": "train-model",
+      "name": "train-model",
+      "kind": "slash-command",
+      "profile": "slash-dgx",
+      "commandFile": ".claude/commands/train-model.md"
+    },
+    {
+      "id": "train-model-pack",
+      "name": "train-model",
+      "displayName": "train-model (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/train-model/SKILL.md"
     },
     {
       "id": "browse",
@@ -300,6 +292,13 @@
       "kind": "slash-command",
       "profile": "slash-cli",
       "commandFile": ".claude/commands/gh-to-mcp.md"
+    },
+    {
+      "id": "hilma-watch",
+      "name": "hilma-watch",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/hilma-watch.md"
     },
     {
       "id": "investor-outreach",
@@ -510,6 +509,14 @@
       "skillPackFile": "skills/firehorse-report/SKILL.md"
     },
     {
+      "id": "hilma-watch-pack",
+      "name": "hilma-watch",
+      "displayName": "hilma-watch (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/hilma-watch/SKILL.md"
+    },
+    {
       "id": "loop",
       "name": "loop",
       "kind": "skill-pack",
@@ -558,6 +565,29 @@
       "kind": "skill-pack",
       "profile": "skill-pack-cli",
       "skillPackFile": "skills/skill-cleaner/SKILL.md"
+    },
+    {
+      "id": "mgd-report-command",
+      "name": "mgd-report",
+      "displayName": "mgd-report (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/mgd-report.md"
+    },
+    {
+      "id": "mgd-report-pack",
+      "name": "mgd-report",
+      "displayName": "mgd-report (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/mgd-report/SKILL.md"
+    },
+    {
+      "id": "supermetrics-seo-sync",
+      "name": "supermetrics-seo-sync",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/supermetrics-seo-sync/SKILL.md"
     },
     {
       "id": "verification-gate",

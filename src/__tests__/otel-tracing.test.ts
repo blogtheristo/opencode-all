@@ -161,6 +161,22 @@ describe('tracing helpers', () => {
     expect(s.attributes['gen_ai.response.finish_reasons']).toEqual(['end_turn']);
   });
 
+  it('withToolSpan stamps the real gate verdict instead of defaulting to "ungated"', async () => {
+    await withToolSpan(
+      'database_write',
+      {
+        agentName: 'compliance',
+        kya: { decision: 'denied', gate: 'runtime-auth' },
+      },
+      async () => 'blocked',
+    );
+
+    const spans = memoryExporter.getFinishedSpans();
+    expect(spans).toHaveLength(1);
+    expect(spans[0].attributes['dws.kya.verdict']).toBe('denied');
+    expect(spans[0].attributes['dws.kya.gate']).toBe('runtime-auth');
+  });
+
   it('withToolSpan records error status when handler throws', async () => {
     const err = new Error('boom');
     await expect(

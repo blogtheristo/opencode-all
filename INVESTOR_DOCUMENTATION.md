@@ -107,11 +107,11 @@ DWS IQ targets 8 industries with high impact on climate change mitigation:
 
 ### New Products (January 2026)
 
-| Product                           | Status         | Target               |
-| --------------------------------- | -------------- | -------------------- |
-| **Lifetime Agent Foundry**        | ✅ Available   | Enterprise customers |
-| **Agent Administration Platform** | ✅ Available   | CISO/CIO teams       |
-| **Enterprise Model Training**     | 📅 Jan 8, 2026 | Custom LLM needs     |
+| Product                           | Status                                                                                                      | Target               |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- |
+| **Lifetime Agent Foundry**        | ✅ Available                                                                                                | Enterprise customers |
+| **Agent Administration Platform** | ✅ Available                                                                                                | CISO/CIO teams       |
+| **Enterprise Model Training**     | ✅ Cloud (GCP) available · ✅ On-prem GN100 pipeline delivered & CI-tested (go-live pending 1 hardware run) | Custom LLM needs     |
 
 See `Store/PRODUCT_*.md` for detailed product documentation.
 
@@ -320,7 +320,7 @@ We're seeking partnerships with:
 
 ### Hardware Timeline
 
-- **January 8, 2026**: Acer node setup for on-premise training capability
+- **On-premise GN100 training**: ✅ Pipeline delivered & CI-tested — QLoRA trainer + reference configs, eval harness, and a test suite (including an end-to-end CPU smoke fine-tune that writes a checkpoint) under `infrastructure/llm-training/`, plus an ARM64 training container and on-prem deploy script (`scripts/deploy-acer-training.sh`). Targets the real Acer Veriton GN100 (ARM64/GB10, ~120 GiB unified). ⏳ Go-live pending one real QLoRA run on the box (eval report = evidence); see `Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`. Cloud training (GCP A3 Mega, `europe-north1` Finland) is fully available today. (An earlier "January 8, 2026" x86-node target was never provisioned; superseded by the GN100 pipeline.)
 - **February 23, 2026**: DWS IQ 6 V1.0 launch
 
 ### Blockers

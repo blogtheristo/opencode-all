@@ -18,6 +18,9 @@
     "diag:dws-api": "tsx scripts/test-dws-api.ts",
     "diag:mcp": "tsx scripts/test-mcp-http.ts",
     "diag:ollama": "tsx scripts/test-veriton-ollama.ts",
+    "train:deploy": "bash scripts/deploy-acer-training.sh deploy",
+    "train:status": "bash scripts/deploy-acer-training.sh status",
+    "train:smoke": "python3 -m pytest infrastructure/llm-training/tests -v",
     "diag:ses": "node --import tsx scripts/test-ses-smtp.ts",
     "morning:briefing": "node --import tsx scripts/send-morning-briefing.ts",
     "morning:briefing:force": "node --import tsx scripts/send-morning-briefing.ts --force",
@@ -43,6 +46,7 @@
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
     "validate:pricing": "tsx scripts/validate-pricing.ts",
+    "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },

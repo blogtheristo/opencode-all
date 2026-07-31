@@ -194,7 +194,7 @@ router.get('/services', async (_req: Request, res: Response) => {
   try {
     const supabase = getSupabaseClient();
     if (!supabase) {
-      return res.status(500).json({ error: 'Database unavailable' });
+      return res.status(503).json({ error: 'Database unavailable' });
     }
     const { data, error } = await supabase
       .from('booking_services')
@@ -232,7 +232,7 @@ router.get(
 
     const supabase = getSupabaseClient();
     if (!supabase) {
-      return res.status(500).json({ error: 'Database unavailable' });
+      return res.status(503).json({ error: 'Database unavailable' });
     }
     const { serviceId } = req.params;
     let { startDate, endDate } = req.query;
@@ -386,7 +386,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
 
   const supabase = getSupabaseClient();
   if (!supabase) {
-    return res.status(500).json({ error: 'Database unavailable' });
+    return res.status(503).json({ error: 'Database unavailable' });
   }
 
   const {
@@ -584,7 +584,7 @@ router.get('/reservations/:email', emailParamValidation, async (req: Request, re
 
   const supabase = getSupabaseClient();
   if (!supabase) {
-    return res.status(500).json({ error: 'Database unavailable' });
+    return res.status(503).json({ error: 'Database unavailable' });
   }
   const { email } = req.params;
 
@@ -623,7 +623,7 @@ router.delete('/reservations/:id', idParamValidation, async (req: Request, res: 
 
   const supabase = getSupabaseClient();
   if (!supabase) {
-    return res.status(500).json({ error: 'Database unavailable' });
+    return res.status(503).json({ error: 'Database unavailable' });
   }
   const { id } = req.params;
 

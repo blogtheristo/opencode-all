@@ -1,0 +1,71 @@
+# =============================================================================
+# GN100 on-premise reference config — Llama 3.1 8B QLoRA
+# =============================================================================
+# The delivered on-premise recipe for the Acer Veriton GN100 (ARM64 / NVIDIA
+# GB10 / ~120 GiB unified memory). Matches the EMT-001 Starter tier and the
+# LWM training manual (product-catalog/LWM/training-manual.md).
+#
+# Run on the GN100 (inside the ARM64 training container):
+#   python scripts/train-70b-lora.py --config configs/gn100-8b-qlora.yaml \
+#     --dataset /datasets/<industry>.jsonl --output-dir /checkpoints/8b-qlora
+#
+# NOTE: the base NGC container prints "Detected NVIDIA GB10 GPU, which may not
+# yet be supported" — smoke-test advanced kernels; nf4 QLoRA + LoRA is fine.
+# =============================================================================
+
+# Model
+model_name: "meta-llama/Llama-3.1-8B-Instruct"
+use_4bit: true
+use_8bit: false
+bnb_4bit_compute_dtype: "bfloat16"
+bnb_4bit_quant_type: "nf4"
+use_double_quant: true
+
+# LoRA
+lora_r: 32
+lora_alpha: 64
+lora_dropout: 0.05
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+
+# Training
+output_dir: "/checkpoints/8b-qlora"
+num_train_epochs: 3
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+learning_rate: 0.0002
+weight_decay: 0.01
+warmup_ratio: 0.03
+lr_scheduler_type: "cosine"
+max_seq_length: 2048
+fp16: false
+bf16: true
+gradient_checkpointing: true
+optim: "paged_adamw_8bit"
+
+# Data
+dataset_name: null
+dataset_path: null          # set via --dataset (JSONL with a "text" column)
+text_column: "text"
+max_samples: null
+
+# Evaluation (held-out eval set enables periodic eval during training)
+eval_dataset_path: null     # set via --eval to turn on eval_strategy="steps"
+
+# Logging / checkpoints
+logging_steps: 10
+save_steps: 100
+eval_steps: 100
+save_total_limit: 3
+
+# Tracking (MLflow runs locally in the training container; W&B optional)
+use_wandb: false
+wandb_project: "lifetime-world-model"
+use_mlflow: true
+mlflow_experiment: "lifetime-llm-training-gn100"

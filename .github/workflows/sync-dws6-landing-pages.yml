@@ -120,7 +120,13 @@ jobs:
           echo "🔗 View: https://github.com/blogtheristo/dws6/actions"
 
       - name: ☁️ Purge Cloudflare Cache
-        if: steps.check_changes.outputs.has_changes == 'true'
+        # Run on EVERY invocation (push or workflow_dispatch) — not gated on
+        # has_changes, because dual-folder PRs that pre-mirror the landing-
+        # pages produce no rsync diff but DO change source content that must
+        # be re-cached. The has_changes gate caused stale CDN cache on the
+        # 25-industries deploy (PR #1326). The `paths:` filter on `on.push`
+        # already ensures this workflow only runs when one of the source
+        # folders changed, so an unconditional purge is safe.
         env:
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
