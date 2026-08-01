@@ -175,8 +175,7 @@
     }).join('');
 
     el.innerHTML =
-      '<div class="lifetime-vlb-heading">🌍 Agents · Loops · Workflows &mdash; 5 Languages</div>' +
-      rows;
+      '<div class="lifetime-vlb-heading">🌍 Sovereign by Design. Global by Choice.</div>' + rows;
 
     el.querySelectorAll('.lifetime-vlb-row').forEach(function (row) {
       row.addEventListener('click', function (e) {
