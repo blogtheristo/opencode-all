@@ -42,12 +42,80 @@ Boardy's framing, adopted: **"Stop selling generic 'AI careers.' Build careers a
 | #   | Decision                                            | Detail                                                                                                                                                                                                                                                                                                   |
 | --- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | **Captain model: carry-bearing**                    | Contractual share of collected revenue / account economics from named industrial accounts they originate and materially advance. **Attribution, payment trigger, term, and margin rules must be explicit. No vague equity promise, no guaranteed payback.** Supersedes LD-2026-014's no-carry structure. |
-| 2   | **Deputy Captains: capability-named, per industry** | Each role owns a concrete industrial AI motion (deployment, compliance, sales, implementation, architecture, safety, domain ops) **with defined decision rights and compensation**.                                                                                                                      |
+| 2   | **Deputy Captains: capability-named, per industry** | Each role owns a concrete industrial AI motion (deployment, compliance, sales, implementation, architecture, safety, domain ops) **with defined decision rights and compensation**. **→ SUPERSEDED by the 01.08.2026 refinement below — read that instead.**                                             |
 | 3   | **Fleet VIP roles: remove**                         | Fleet Field Engineer and Fleet Driver (Uber/Taksi/Kela) come off the careers page entirely — "they belong to the operating fleet, not the Captain career system."                                                                                                                                        |
+
+### 🔒 HIC ruling, 01.08.2026 — Captain seats are INVESTOR positions, and the round math settles the figures
+
+Verbatim:
+
+> "Captain seat are investor position. there 9 but only 8 is counted to capital of 650k where Admiral is 250k and 8x50 = 400k. 9th is Dual Use and it is extra but do not get confused. We fill 8 or 9 or more that is irrelevant really"
+
+**This resolves the pricing blocker. The round total is the anchor:**
+
+| Seat            | Price     | Count            | Counts toward the €650k round?             |
+| --------------- | --------- | ---------------- | ------------------------------------------ |
+| Fleet Admiral   | **€250k** | 1                | ✅ €250k                                   |
+| Captain         | **€50k**  | 8 counted        | ✅ 8 × €50k = **€400k**                    |
+| Captain (9th)   | €50k      | 1 — **Dual Use** | ❌ **additive, outside the capital count** |
+| **Round total** |           |                  | **€650,000**                               |
+
+**→ `LD-2026-014`'s "Fleet Admiral €200,000" is WRONG and must be corrected to €250,000.** €250k is what `investor-outreach/captain-deck.md` ("the single Admiral seat — €250K, scalable to the full €650K"), the live `/captain/` and `/fleet-admiral/` pages, and `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` all already carry — LD-2026-014 is the outlier, not the source of truth. Correcting it needs a new `LD-2026-0NN` per the supersession process below.
+
+**Seat-count framing:** the 9th (Dual Use) seat is deliberately outside the €650k count — do not fold it in, and do not "fix" the arithmetic by making it 9 × €50k = €450k. Per the HIC, **how many actually fill (8, 9, or more) is not the point** — the €650k is the capital target, not a seat quota. Don't build scarcity messaging around an exact seat number.
+
+**Captain is an investor position** — €50k in. That is compatible with decision #1 above (carry-bearing): the live `/captain/` model is _"€50k SAFE + 5% lifetime carry on every deal closed in your industry,"_ i.e. invests **and** earns. The **paid operational role is the Industrial Deputy Captain**, specified next. Keep the two distinct: Captain = capital in + carry; Industrial Deputy Captain = the sales/delivery job.
+
+### ⭐ Refined spec — HIC, 01.08.2026 (supersedes decision #2 above)
+
+**Role name: `Industrial Deputy Captain`.** Verbatim from the HIC:
+
+> "it is Industrial Deputy Captain for each industry (unlimited number of personas, 3 jurisdictions / sales areas)
+> Manages an Industry Vertical in named Jurisdiction • Named Client Lead and Sales Manager for the region."
+
+Structure is **industry × jurisdiction**, not industry × capability (which is what decision #2 originally said). The second line is written in the exact style of the existing careers-page card subtitles, so it is almost certainly the replacement subtitle for the Deputy card — which currently reads _"Entry Partner Position • Platform & Community Access"_ with body copy _"platform credit and standing in the Captain community."_ **That swap alone is the core fix**: from community standing to "manages an industry vertical, named client lead and sales manager for the region." A job, not unpaid ambition.
+
+**Also clarified:** _"AI Careers is onelifetime.world/careers where the content and role is based working with AI"_ — i.e. the whole page is the "AI careers" problem, not a subsection. Confirms the from-scratch rebuild.
+
+**Named titles:** _"Each of them can have named role as well like CTO, CSO and so on. they are just labels we can offer to each deputy captain."_ **Raised but NOT decided** — HIC dismissed the question. Two unresolved risks recorded for whoever picks this up:
+
+1. `DWS_ROLES_REGISTRY.md` R04 = CTO and R07 = CSO are **buyer personas** — the customer-side people DWS sells _to_. Reusing them as titles DWS hands out inverts the registry's meaning.
+2. A **live CTO appointment is in flight** with Dayna Blackwell (pending a 5-business-day skills/fit test). Handing "CTO" to an unlimited number of deputies while negotiating a real CTO role collides — and in a Finnish Oy a C-title implies authority to represent the company. Industry-scoped variants ("CTO — Construction") would carry the seniority signal without the statutory exposure.
+
+**⚠️ "3 jurisdictions" does not map cleanly to canon — ASSUMPTION STATED, needs HIC confirmation.** `DWS_DEPLOYMENT_STANDARD.md` §"Sales / Regulatory Jurisdiction" defines two non-overlapping sets: **EU Tier (Sovereign infra / Aegis) = NO · DK · FI** and **Non-EU Tier (Connect) = UAE · Singapore · USA (Arizona, Texas)** — six named, not three. Separately, the three-pillar sovereignty model (per `skills/sovereignty-pillars-assess`) is **EU / US / SG**, and there are three _Cloud_ Jurisdictions (US Public / EU Development / Aegis Sovereign) which are a different axis entirely. Because the HIC said "sales areas" and "for the region," **the working assumption is EU / US / SG** (regions, not the NO·DK·FI country triple, which is one region). Confirm before building the matrix — it sets the seat count.
+
+**Seat math under the assumption:** 25 industries × 3 regions = **75 named seat slots**, with _unlimited personas_.
+
+**⚠️ Unresolved tension in "unlimited":** "unlimited number of personas" sits badly with "**Named** Client Lead and Sales Manager for the region" and with the carry model's requirement that **attribution be explicit** (Boardy: _"Attribution, payment trigger, term, and margin rules must be explicit"_). If two people can both hold Construction × EU, commission attribution collides on the same accounts. Likely intent is _unlimited across the 75-slot matrix_ (no scarcity cap on the programme), **not** unlimited per slot — but that needs confirming before terms are written, because it decides whether a slot is exclusive.
+
+**Industry count is settled:** the HIC's "25 industries" is **canon-correct** — `dws10.com/config/industries.json` v2.0 `summary.industriesServedTotal: 25`, approved phrase _"16 captain hats covering 25+ EU industries."_ Locked in `DWS_TRUTH_STANDARD.md` v1.9/2.0 after a real drift incident where "16" was misread as the industry count. Aegis dual-use tier = **21**, never attribute 25 to Aegis.
+
+**But the existing seat structure is 16, not 25 — HIC dismissed the question, so this is still open.** `industries.json` defines **16 captain hats, each already carrying BOTH a Platinum seat AND a Deputy seat = 32 seats, all `OPEN`.** Gaps if moving to per-industry seats:
+
+- **4 hats bundle two industries each** and would need splitting: CONSTRUCTION (Construction & Buildings + Real Estate), MARITIME (Maritime Shipping + Shipbuilding), ROAD_LOGISTICS (Road Transport + Logistics), CHEMICALS (Chemicals & Petrochemicals + RFNBO/Green H2).
+- **5 industries deliberately have NO hat**, each with a documented rationale — Manufacturing (cross-cutting; spans Iron & Steel / Chemicals / Aluminium), Healthcare (EHDS/MDR), Financial Services (SFDR — financed vs. operational emissions), Public Sector (GPP/NIS2), Data Centres (EED). Design decision, not oversight. Creating seats for them means taking a position on compliance regimes the captain framework was scoped to exclude.
+- Hats cover **20** of the 25 industries. So the honest options are 16 (per hat, matches canon exactly, zero supersession), 20 (per hat-covered industry, splits bundles), or 25 (HIC's stated number, requires an `industries.json` revision + Truth Standard update).
+
+**Sixth conflicting number found:** the live `dws10.com/captain/` page advertises **"30 industries · 5 Clusters · 30 Captain Seats"** — contradicts canon outright (25 industries / 16 hats / 32 seats). Add to the reconciliation list below.
 
 The **Dayna Blackwell** structure is the only carry model pressure-tested against a real person and is the natural template for #1: €50K in → **15%** of net cash collected until repaid → **7.5%** taper for 12 months → ends. Guardrails already drafted there (named-account attribution agreed before outreach, payment only after customer cash clears, net of VAT/pass-through, no share on deals not materially advanced, no guaranteed payback) map 1:1 onto Boardy's "explicit rules" requirement. **Note:** that deal is `DO NOT SEND` / unsigned, is EUR-denominated pending a US rework, and was explicitly never adopted as the standard for all 9 seats — treat as template, not precedent.
 
-### ⚠️ BLOCKER — five conflicting Captain economics are live simultaneously
+### ✅ RESOLVED (01.08.2026) — the conflicting Captain economics, and which one won
+
+**The HIC ruling above settles this.** Canonical: **Admiral €250k + 8 counted Captains × €50k = €650k round**, 9th Captain seat = Dual Use, additive and outside the count. Captain = investor position (capital in) that also carries. The table below is kept as the drift map — it shows which documents now need correcting, and to what.
+
+| Source                                     | Verdict after the ruling                                                                               |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `LOCKED_DECISIONS.md` **LD-2026-014**      | ❌ **WRONG on the Admiral figure (€200k).** Correct to €250k via a new LD entry. Also lacks carry.     |
+| Live `/captain/` + `/fleet-admiral/`       | ✅ €250k Admiral is right. ❌ "30 industries / 5 clusters / 30 seats" is wrong (canon: 25 / 16 hats).  |
+| `captain-deck.md` v1.4                     | ✅ €250k → €650k round is right. ❌ "Captain is a client position, not an investor seat" is now wrong. |
+| `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` | ✅ €250k Admiral is right. ❓ €25k Deputy figure unverified against the ruling.                        |
+| `dws10.com/investor-relations/`            | ❌ Reconciled to LD-2026-014's €200k — now the wrong figure. Needs updating with everything else.      |
+| Dayna deal (unsigned)                      | ✅ €50k Captain buy-in consistent. Carry mechanics (15%→7.5%) remain a template, not adopted canon.    |
+
+**Remaining open (not settled by the ruling):** the Deputy €5k figure, the carry percentage for Captains, and the Industrial Deputy Captain's own compensation. Prior blocker text kept below for the paper trail.
+
+### ⚠️ Prior blocker text (superseded — kept for the trail)
 
 Nothing should publish until one wins. Decision #1 above sets the _direction_ (carry-bearing) but not the _figures_.
 
