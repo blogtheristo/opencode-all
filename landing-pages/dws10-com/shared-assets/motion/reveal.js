@@ -38,10 +38,14 @@
   root.classList.add('js');
 
   var CSS = [
-    '.js .reveal{opacity:0;transition:opacity 1.1s ease-out}',
+    '.js .reveal{opacity:0;transition:opacity 2.5s ease-out}',
     '.js .reveal.is-visible{opacity:1}',
-    '.js .reveal-slow{transition-duration:2.2s}',
-    '.js .reveal-fast{transition-duration:.45s}',
+    '.js .reveal-slow{transition-duration:3.5s}',
+    '.js .reveal-fast{transition-duration:.6s}',
+    // Backstop state: appear NOW, with no transition. A 2.5s fade started by the
+    // backstop would mean up to 5s from load before content is readable on the
+    // failure path — so the rescue must be instant, not another slow fade.
+    '.js .reveal.reveal-now{opacity:1!important;transition:none!important}',
     // Siblings arrive in sequence rather than as one block.
     '.js .reveal-stagger>*:nth-child(2){transition-delay:80ms}',
     '.js .reveal-stagger>*:nth-child(3){transition-delay:160ms}',
@@ -92,8 +96,10 @@
     var els = document.querySelectorAll('.reveal');
     if (!els.length) return;
 
+    // Used by the reduced-motion path and by bfcache restore — both want content
+    // present immediately, not fading.
     function showAll() {
-      for (var j = 0; j < els.length; j++) els[j].classList.add('is-visible');
+      for (var j = 0; j < els.length; j++) els[j].classList.add('reveal-now', 'is-visible');
     }
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -121,12 +127,18 @@
     setTimeout(function () {
       for (var m = 0; m < els.length; m++) {
         if (!els[m].classList.contains('is-visible')) {
-          void els[m].offsetWidth;
-          els[m].classList.add('is-visible');
+          // reveal-now, not just is-visible: the rescue must be instant. Adding
+          // is-visible alone would start the full 2.5s fade from here.
+          els[m].classList.add('reveal-now', 'is-visible');
         }
       }
       io.disconnect();
-    }, 2500);
+      // 6s, not 2.5s. The backstop must sit clear of the fade itself: when the
+      // two were both 2.5s, any page that took ~2.5s to fire `load` had its
+      // animation cancelled by its own safety net — every element arrived via
+      // reveal-now with no fade at all. The backstop is for genuine observer
+      // failure, not for slow-but-working pages.
+    }, 6000);
 
     // Restoring from bfcache does not re-run the script; make sure a restored
     // page is never left mid-fade.
