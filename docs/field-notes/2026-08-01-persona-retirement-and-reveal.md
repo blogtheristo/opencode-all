@@ -31,7 +31,7 @@ Follow-on from the careers rebuild. The HIC approved retiring the four AI-person
 
 - **Personas retired from two homepages, not one.** `dws10.com/index.html` and — found only while verifying the first — `onelifetime.world/index.html` both carried Rocky / Adrian / Marcus / Sofia. Both are now clean. Section copy on each points at the real career ladder. **This closes the last open Article 50 exposure on live pages.** Image files kept on disk, de-referenced only (CLAUDE.md Rule 6).
 - **Reveal fade set to 2.5s** and wired onto all 16 pages touched across this and the previous session.
-- **PhD `§14.46` + Key Contribution #51** added in EN/FI lockstep, 3.95 → 3.96.
+- **PhD `§14.46` + Key Contribution #51** written in EN/FI lockstep (3.95 → 3.96) but **moved to its own branch** `claude/phd-14-46-article-50` rather than shipped here — see §6.
 
 ## 4. Bugs found by verifying rather than assuming
 
@@ -48,6 +48,10 @@ Both were introduced by the 2.5s change itself, and both were invisible without 
 - **"Retire it" is cheaper than "label it" when the content is already scheduled for replacement.** Labelling the personas would have meant investing in assets the HIC had already called an empty promise. The regulatory exposure and the product decision resolved with the same edit.
 
 ## 6. Fail-loud register and HIC question
+
+**The PhD addition is written but NOT merged with this PR.** `truth-lint` failed on the branch — 23 deprecated-phrase FAILs in `PHD_FIREHORSE_EN/FI`. Verified against `origin/main`: the offending strings are present in **identical counts** (`three-capital model` ×7, `GodAgent` ×5, `16 industries` ×1, `tokens consumed` ×1) both before and after my edit, so **this change introduced none of them**. Touching the files merely pulled pre-existing drift into the changed-files lint scope for the first time.
+
+A bulk terminology fix would have been wrong, and one instance proves it: line 56's `three-capital model` sits inside a **VERSION AND AGENT HISTORY entry describing the migration _from_ three-capital _to_ the 4P model**. Replacing it would make the changelog assert the opposite of what happened — a Rule 12 formulation-data loss. The remaining hits need the same per-instance judgment (historical citation vs. live primary copy), which is not work to do unsupervised at the end of a long session. The thesis files were therefore restored to `main`'s content on this branch and the §14.46 work preserved on `claude/phd-14-46-article-50`.
 
 **Not done, deliberately:**
 
