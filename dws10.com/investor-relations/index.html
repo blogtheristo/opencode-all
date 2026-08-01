@@ -1417,9 +1417,48 @@
                 </div>
               </div>
 
-              <!-- Video Slide removed 31.07.2026 (HIC: hero video old, message outdated) —
-                   carousel JS queries .carousel-slide dynamically (index.html:2827/2922/2966),
-                   so dropping this slide needs no other change. -->
+              <!-- Video Slide — dedicated investor video added 01.08.2026 (distinct asset from the
+                   homepage hero video, per HIC request). AI-generated; EU "AI GENERATED" icon burned
+                   into the frame (bottom-right, throughout) per Article 50 -- see
+                   docs/field-notes/2026-07-31-article-50-transparency-marking-audit.md §7.1. -->
+              <div class="carousel-slide">
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 40px 20px;
+                    min-height: 550px;
+                  "
+                >
+                  <h3 style="color: #ffd700; margin-bottom: 20px">🎬 Investor Video</h3>
+                  <video
+                    controls
+                    poster="../public/videos/investor-video-poster.jpg"
+                    style="
+                      width: 100%;
+                      max-width: 800px;
+                      border-radius: 12px;
+                      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                    "
+                  >
+                    <source
+                      src="../public/videos/Investor_Modern_Nordic_in_labeled.webm"
+                      type="video/webm"
+                    />
+                    <source
+                      src="../public/videos/Investor_Modern_Nordic_in_labeled.mp4"
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                  <p style="color: #cbd5e1; margin-top: 15px; font-size: 0.9rem">
+                    10-second investor overview: software-led, priced like labor, with software
+                    margins
+                  </p>
+                </div>
+              </div>
             </div>
 
             <!-- Carousel Controls -->
