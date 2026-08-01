@@ -58,6 +58,9 @@ data/agent-outcomes/
 
 # Clawdbot queue + state are gitignored down in the .claude/* section.
 
+# --- SESSION TELEMETRY (harness-generated runtime data — NEVER commit) ---
+telemetry/
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/
@@ -196,6 +199,3 @@ Admin/Acer-Veriton-GN100/training/datasets/
 Admin/Acer-Veriton-GN100/training/cache/
 # Keep the committed env template (the broad .env.* rule above would hide it)
 !Admin/Acer-Veriton-GN100/training/.env.training.example
-
-# Claude Code session telemetry (auto-generated token-usage logs, not project content)
-telemetry/
