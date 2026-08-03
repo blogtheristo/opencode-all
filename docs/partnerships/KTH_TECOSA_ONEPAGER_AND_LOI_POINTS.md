@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: KTH / TECoSA — one-pager and proposed Letter of Intent topics
-Version: 1.3
+Version: 1.4
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -35,7 +35,7 @@ That matters structurally, not just topically. In the Vinnova competence-centre 
 >
 > **Where KTH's contribution would be decisive.** DWS IQ can *produce* the evidence — lineage, trust scores, containment events. What it does not yet have is a **rigorous assurance argument** connecting that evidence to a defensible safety claim: what the evidence is sufficient for, where it is not, and how an assurance case for a sovereign edge AI system should be structured and validated. That is TECoSA's discipline, not ours.
 >
-> **Capacity to carry partner commitments.** Relevant because a competence-centre partner must sustain co-funding and participation over several years, not because it is a pitch. A licensed transport operation and a small consulting practice run at approximately **€7,000/month combined**, putting the company at cash break-even with a founder salary of €0 — services and transport revenue, explicitly not software revenue. Two enterprise pilots were contracted in **Q1/2026 at €29,950 each (€59,900 booked)**. Team is a two-person core with a contracted engineering bench under NDA. Lifetime is a small partner and says so; the contribution offered is the operating environment and the platform, not headcount.
+> **Capacity to carry partner commitments.** Relevant because a competence-centre partner must sustain co-funding and participation over several years, not because it is a pitch. A licensed transport operation and a small consulting practice run at approximately **€7,000/month combined**, putting the company at cash break-even with a founder salary of €0 — services and transport revenue, explicitly not software revenue. Two enterprise pilots were contracted in **Q1/2026 at €29,950 each (€59,900 booked)**. Team is a two-person core with a contracted engineering bench under NDA. Lifetime is a small partner and says so; the contribution offered is the operating environment and the platform, not headcount. Lifetime is also pursuing several EU and national funding tracks in parallel, so its capacity to carry a co-funding share does not depend on any single call.
 >
 > **Structure.** Lifetime Oy (Finland) holds the IP, the Finnish customers and the EU-programme track. **Lifetime AB is not yet registered, but can be established on an accelerated schedule if the Swedish research and financing track becomes concrete.** Which entity would act as the Swedish counterparty, and on what basis, is one of the points proposed for the Letter of Intent.
 >
@@ -44,6 +44,8 @@ That matters structurally, not just topically. In the Vinnova competence-centre 
 ---
 
 ## 2. Proposed LoI topics
+
+**The construction proposed is a Vinnova competence-centre partnership between KTH and Lifetime** — TECoSA coordinating, Lifetime joining as an industrial partner. The topics below are written inside that frame; they are not a menu of possible relationships.
 
 Sent **with the one-pager**, not as a separate list. Ordered so that the questions determining whether the collaboration is *feasible* come immediately after the questions determining whether it is *interesting* — the Swedish applicant entity, the coordinator and the co-funding decide feasibility, and leaving them to the end invites an enthusiastic answer to a project that cannot be built.
 
@@ -95,4 +97,6 @@ A tension worth resolving before drafting rather than inside the draft.
 - **No eligibility is claimed anywhere.** Per the same HIC instruction: Vinnova eligibility is not asserted until the company exists and the Swedish implementation model is confirmed. Item 6 now states this as an open question and offers three possible constructions rather than presuming one.
 - **Traction wording is reproduced from the canonical block** (`docs/TRACTION_CANONICAL.md` §2). No MRR figure, no customer count, no dispatch operator named as a customer, Aegis never "live". If any of this is edited before sending, re-check it against that file.
 - **TECoSA partner count (~19) and centre framing** are taken from public KTH and Vinnova material and are `unverified` against current centre documentation. Do not quote a partner count back to its own director; the number is here for our orientation only.
+- **Five further EU funding tracks are asserted but not yet recorded.** HIC states (2026-08-03) that five EU grant routes beyond Vinnova have been verified. **The names are not yet supplied and are therefore `unverified` here.** They are deliberately **kept out of the outgoing material**: Martin needs a clean Vinnova partnership proposal, not a grant portfolio, and naming a track we cannot substantiate is the same failure mode that this document has already caught twice. Their only role is the single unnamed sentence in the one-pager — that co-funding capacity does not depend on one call. Once the five are named they belong in their own document and, if they recur in outward-facing claims, in `DWS_TRUTH_STANDARD.md` §2 per the register-or-it-drifts rule (§3A).
+
 - **Nothing has been sent.** No email, no attachment, no commitment. Awaiting HIC approval.
