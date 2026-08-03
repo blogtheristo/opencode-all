@@ -103,18 +103,22 @@ mid-path component with our API keys for unproven savings).
 
 ## 4. HIC Learning Outcome (six-step record)
 
-1. **KB update:** N/A — this field note is the canonical record; KB ingest
-   deferred to the next `/kb` compile run (note is in its source path).
+1. **KB update:** done — concept article
+   `kb/wiki/concepts/decision-layer-egress-channel.md` (index regeneration
+   happens at the next `dws kb compile`, per the auto-maintained index rule).
 2. **Field note:** this file.
-3. **Learn/ HTML:** N/A — `scripts/render-doc.sh` run deferred to the next
-   local session; cloud container lacks the pandoc toolchain (Rule 12: stated,
-   not silent).
-4. **Drive export:** N/A — deferred with #3 so the exported artifact matches
-   the rendered version; repo remains source-of-truth.
-5. **HIC question:** in the session's closing message (adapt-now vs. park).
-6. **Calendar:** N/A — no dated commitment produced; the only date-like item
-   (re-check Levanto for a published DPA/EU hosting) is contingent on the
-   HIC's adapt decision, not a standing deadline.
+3. **Learn/ HTML:** done — pandoc installed in-session;
+   `Learn/field-note-agent-factory-sageroute-audit_v1.1.html` (+ `.docx`) and
+   thesis lockstep renders `Learn/V3Thesis_{EN,FI}_v3.97.html` (+ `.docx`).
+4. **Drive export:** done — Google Doc "2026-08-03 Agent Factory + SageRoute —
+   Audit & DWS Factory Router (field note v1.2)", id
+   `1ITjNCV-NOpOrc18Ic7MLgAg5LGrOKWQjk8OsHC8oDlc`; repo file remains
+   source-of-truth.
+5. **HIC question:** asked and answered across two turns — adapt-vs-park
+   (answered "Yes if it makes dws factory") and the wiring-target question in
+   the session's closing message.
+6. **Calendar:** N/A — no dated commitment produced; threshold tuning is
+   gated on wiring the router into a live checkpoint path, not on a date.
 
 ## 5. Implementation record (HIC approved 2026-08-03: "Yes if it makes dws factory")
 
@@ -147,5 +151,11 @@ VERSION AND AGENT HISTORY
   decision. Agent session `claude/agent-factory-research-audit-l6hks2`.
 - v1.1 (2026-08-03) — HIC approved the adapt path; DWS Factory Router shipped
   (`src/factory/`, CLI, skill, tests). Same session.
+- v1.2 (2026-08-03) — Propagation on HIC instruction: Admin Manual v3.12
+  runbook section; thesis lockstep 3.96→3.97 (V3Thesis §10.28 EN/FI
+  implementation evidence; PHD_FIREHORSE §14.47 / Key Contribution #52 EN/FI —
+  the Decision-Layer Egress Channel); KB concept
+  `decision-layer-egress-channel`; Learn/ HTML renders; Drive export. Same
+  session.
 
 ***

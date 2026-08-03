@@ -1,7 +1,7 @@
 # Handoff — claude/agent-factory-research-audit-l6hks2
 
-**Last updated:** 2026-08-03
-**State:** complete — audit + adaptation shipped, pushed
+**Last updated:** 2026-08-03 (v3 — propagation + learning standard complete)
+**State:** complete — audit + adaptation + documentation propagation shipped; PR created and merged on HIC instruction
 
 ## What this branch contains
 
@@ -26,6 +26,18 @@
 `npm run skills:check` fails on ~10 unregistered skill files (soul-audit,
 token-capital, skill-creator, …) — verified present on a clean tree before this
 branch's changes. Not fixed here (Rule 3, surgical changes).
+
+## Propagation (third commit, HIC: "Update admin documentation and thesis. Do learning standard.")
+
+- Admin Manual v3.12: "DWS Factory Router (model escalation runbook)" section.
+- Thesis lockstep 3.96→3.97 (all four files): V3Thesis §10.28 EN/FI
+  (implementation evidence); PHD_FIREHORSE §14.47 + Key Contribution #52 EN/FI
+  (the Decision-Layer Egress Channel — market-signal framing).
+- Learning standard six-step: KB concept
+  `kb/wiki/concepts/decision-layer-egress-channel.md`; field note v1.2;
+  Learn/ HTML (`V3Thesis_{EN,FI}_v3.97`, field-note render); Drive export
+  (Google Doc id `1ITjNCV-NOpOrc18Ic7MLgAg5LGrOKWQjk8OsHC8oDlc`); HIC
+  questions asked; calendar N/A (no dated commitment).
 
 ## Next steps if continued
 
