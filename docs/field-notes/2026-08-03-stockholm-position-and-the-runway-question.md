@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.6
+Version: 1.7
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.6 → 1.7: HIC instruction — trafikansvarig reminder moved 31.08 → 15.10.2026, since the August date reminded of a step that cannot be taken until the capacity proof exists. The reminder is now gated on whether the 17.08 outreach produced deals, and carries both routes with prices so the decision can be made from the reminder itself.
 Change 1.5 → 1.6: HIC correction — the consultant trafikansvarig route was NOT rejected. v1.5 recorded an agent recommendation as an HIC decision, and the companion coaching document repeated it as fact. Both corrected. §5b now keeps both routes open, states the cost case and the execution-risk case separately, and labels the recommendation as a recommendation.
 Change 1.4 → 1.5: Priced both trafikansvarig routes. Consultant is €250–429/mo recurring; own exam is a ~€124–267 one-off course plus exam fees — a factor of 10–17 over twelve months. Recommendation recorded: own exam, because the consultant buys speed on a step that is not the bottleneck (the application is blocked by the €8 900 capacity proof, not by the competence requirement). Noted the six-month window in which all four delprov must be passed.
 Change 1.3 → 1.4: Registered as canonical in `DWS_TRUTH_STANDARD.md` §2 row 34. All monetary figures converted to EUR-first per the new §2H currency rule (founder directive, 03.08.2026); local currency now follows in parentheses.
@@ -173,7 +174,7 @@ The wedge is therefore identical to the Finnish one — an Article 4 literacy re
 | ----------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | 2026-08-10  | **Lifetime AB registration filed** via verksamt.se (funds already on account)               | Everything downstream waits. The operator licence cannot even be applied for until the AB exists. |
 | 2026-08-17  | Swedish + Finnish public-sector coaching outreach sent (SV translation done first)          | The fastest euro available stays unearned another month. Independent of the AB and the licence.  |
-| 2026-08-31  | **`trafikansvarig` resolved** — own `yrkeskunnande` exam booked, or consultant engaged      | The true bottleneck. Left unresolved, the licence application cannot be filed at all.            |
+| ~~2026-08-31~~ **2026-10-15** | **`trafikansvarig` route decided** — own `yrkeskunnande` exam, or a rented trafikansvarig | Moved forward on HIC instruction, 2026-08-03. The August date reminded of something that could not yet be done: trafikansvarig is the *third* step, and nothing can be filed until the €8 900 (100 000 SEK) capacity proof exists. October gives the 17.08 outreach time to produce deals first. The reminder now opens with a gate — no deals, move it again and spend nothing on this chain. |
 | 2026-09-07  | Derived: AB registered (1–3 weeks) → **`taxitrafiktillstånd` application filed**             | Each week of delay here moves clearance one week into 2027.                                      |
 | 2027-01-15  | Derived: `taxitrafiktillstånd` expected to clear (8–12 weeks from a complete application)    | Stockholm move becomes executable. If not cleared, the AB timing question in §7 reopens.          |
 
