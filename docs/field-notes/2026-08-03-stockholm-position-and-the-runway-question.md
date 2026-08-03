@@ -1,8 +1,9 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.0
+Version: 1.1
 Date: 2026-08-03
+Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
 Status: Active
@@ -60,23 +61,38 @@ Forty hours a week behind a wheel yields at best ~1 500 €/month. That is **≈
 
 A six-hour lecture is **≈ 317 €/hour**. The ratio against driving is **~35×**, and the material is already written, already priced, already in Finnish, already aimed at a public-sector buyer that exists today.
 
+**Qualifier added in v1.1:** this compares the use of *founder hours*, not the existence of vehicle income. FOB-319 producing daily in Helsinki is an operating asset and is not what this section argues against. What it argues against is the founder personally spending 40 h/week at ~9 €/h when the same hours sell at ~317 €/h.
+
 The second half is what closes the loop: **driving income is invisible to a cap table.** It is not revenue, it does not appear in a data room, and a founder driving full-time reads to an investor as a product nobody bought. Two signed 5 900 € deliveries read as the opposite — and they are the single strongest argument the AB round can carry. Cash and access to cash come from the same act.
 
 ## 5. Sequence
 
-1. **Now, from Helsinki, no licence and no move** — the existing public-sector brochure and cover letter go out to buyers. Zero production cost, zero permit delay, zero break in tax residency, no disruption to Lifetime Oy's EIC path.
-2. **In parallel** — `taxiförarlegitimation` (Transportstyrelsen: medical + written exam, ~2–3 months) is started, because the lead time runs regardless. It is the safety net, not plan A.
+**HIC correction, 2026-08-03 — the premise under v1.0 was wrong.** FOB-319 already produces income in Helsinki every day. There is therefore **no zero-income gap** to protect against, and the licence process costs nothing but calendar time while existing income continues.
+
+> **Superseded (v1.0), retained per Rule 12:** *"Do not start with the taxi licence. It opens a three-month zero-income hole at precisely the moment money is the stated problem."* This assumed no operating income asset existed. It did. The conclusion is reversed; the reasoning is kept so the correction is legible rather than silently erased.
+
+1. **`taxiförarlegitimation` starts now** (Transportstyrelsen: medical + written exam, ~2–3 months). The lead time is the binding constraint on the whole Stockholm move, and it runs while Helsinki income continues uninterrupted. Starting it first costs nothing and buys three months.
+2. **Public-sector outreach runs in parallel** — Sweden (§5a) and Finland. Zero production cost, the material exists, and neither depends on the licence.
 3. **Structure unchanged** — Lifetime Oy stays in Finland with the IP, Finnish customers and EIC path. Lifetime AB remains the Nordic financing and university structure. Only the funding source moved: from the wheel to the invoice.
 
-Do not start with the taxi licence. It opens a three-month zero-income hole at precisely the moment money is the stated problem.
+## 5a. Sweden — why the public sector is reachable right now
+
+Two facts make Swedish public bodies a live market this quarter rather than a 2027 ambition:
+
+- **`Direktupphandlingsgräns` is 700 000 SEK** and unchanged since 2022. The full coaching range (1 900–7 500 € ≈ **21 000–85 000 SEK**) sits far below it. Every product in the brochure can be sold **directly, without competitive tender**. This is the single most important commercial fact about the Swedish list.
+- **EU AI Act Article 4 supervision fully activated on 2026-08-02** — yesterday. The literacy obligation has applied since February 2025, but sanctions arrived with the rest of the Act's enforcement mechanisms. Swedish agencies, municipalities and regions are in scope, and the government has already tasked **25 agencies** to report on their AI use, competence initiatives and risks.
+
+The wedge is therefore identical to the Finnish one — an Article 4 literacy record — but with a deadline that passed one day ago and a purchase route that requires no tender. Target list: `docs/coaching/KOHDELISTA_JULKISHALLINTO_SE.md`.
+
+**Known gap:** the brochure and cover letter exist in Finnish only. Swedish-language versions are required before outreach; prices also need SEK presentation alongside EUR.
 
 ## 6. Dated commitments
 
-| Date        | Item                                                                                     | Consequence if missed                                        |
-| ----------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| 2026-08-10  | Public-sector coaching outreach sent (brochure + cover letter, existing material)         | The fastest euro available stays unearned another month.      |
-| 2026-08-17  | `taxiförarlegitimation` application started with Transportstyrelsen                       | Safety net arrives ~November instead of ~October.             |
-| 2026-11-03  | Derived: taxiförarlegitimation expected to clear (~2–3 months from application)            | If coaching revenue has not landed, this is the fallback date.|
+| Date        | Item                                                                                      | Consequence if missed                                                                       |
+| ----------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| 2026-08-10  | `taxiförarlegitimation` application started with Transportstyrelsen                        | The binding constraint on the whole Stockholm move slips a month. Helsinki income continues meanwhile, so there is no cost to starting early — only cost to starting late. |
+| 2026-08-17  | Swedish + Finnish public-sector coaching outreach sent (SV translation done first)          | The fastest euro available stays unearned another month.                                     |
+| 2026-11-03  | Derived: taxiförarlegitimation expected to clear (~2–3 months from application)             | Stockholm move becomes executable. If it has not cleared, the AB timing question in §7 reopens.|
 
 ## 7. HIC question
 
