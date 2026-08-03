@@ -4,6 +4,7 @@ Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway 
 Version: 1.2
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.2 → 1.3: HIC corrected the available funds — ~2 500 €, not the ~11 000 € the §5b chain requires. This does not block the AB (registration costs ~2 425 €) but it does block the Swedish operator licence, whose 100 000 SEK financial-capacity proof is unfunded. The Swedish taxi fallback is therefore removed from the near-term plan and coaching revenue becomes the sole path, not one of two. See §5c.
 Change 1.1 → 1.2: HIC supplied the Finnish operator licence (Traficom taksiliikennelupa 00010089, Lifetime Oy, valid to 2034) and directed that founding Lifetime AB be added to the sequence, with share capital already on account. This exposed a wrong licence type in v1.1 — the Swedish requirement is `taxitrafiktillstånd` (company-level), not only `taxiförarlegitimation` (driver-level) — and a hard dependency: the AB must exist before the operator licence can be applied for. Timeline revised from ~3 months to ~4–5 months. See §5b.
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -107,6 +108,28 @@ Two facts make Swedish public bodies a live market this quarter rather than a 20
 The wedge is therefore identical to the Finnish one — an Article 4 literacy record — but with a deadline that passed one day ago and a purchase route that requires no tender. Target list: `docs/coaching/KOHDELISTA_JULKISHALLINTO_SE.md`.
 
 **Known gap:** the brochure and cover letter exist in Finnish only. Swedish-language versions are required before outreach; prices also need SEK presentation alongside EUR.
+
+## 5c. The funding reality — corrected 2026-08-03
+
+**Available: ~2 500 €, not ~11 000 €** (HIC, 2026-08-03). The v1.2 chain in §5b assumed the latter. At ~11,2 SEK/EUR that is roughly **28 000 SEK**, and it splits the plan cleanly in two:
+
+| Item | Cost | Funded? |
+| ---- | ---- | ------- |
+| AB share capital | 25 000 SEK | ✅ |
+| Bolagsverket registration (verksamt.se) | 1 900 SEK | ✅ |
+| Verklig huvudman filing | 250 SEK | ✅ |
+| **AB total** | **27 150 SEK ≈ 2 425 €** | ✅ **— with about 75 € left over** |
+| Financial-capacity proof, first vehicle | **100 000 SEK ≈ 8 900 €** | ❌ **unfunded** |
+
+**Two consequences, and the second is the important one.**
+
+1. **The AB is affordable today** — but it consumes essentially the entire cash position and leaves no buffer. The AB has no operating function until either a financing round needs the vehicle or the licence becomes fundable; neither is true this month. Registering now is defensible as securing the structure; deferring is defensible as keeping the only liquidity that exists. **This is a HIC call, not an agent call** — the memo records both readings rather than picking one.
+
+2. **The Swedish taxi operation leaves the near-term plan entirely.** It was framed in v1.1–v1.2 as the safety net under the coaching bet. That safety net costs 100 000 SEK and the money is not there, so **it is not a fallback — it is a second thing that also needs funding.** Coaching revenue is therefore not one of two paths. It is the only one.
+
+**The gap is two sales.** 100 000 SEK ≈ 8 900 €. Two 5 900 € deliveries (11 800 €) clear it with margin; a 5 900 € plus a 4 500 € (10 400 €) also clears it. That is the whole distance between here and a funded Swedish licence, and it is a smaller number than the session's earlier framing implied.
+
+**What is not at risk:** Lifetime Oy's Traficom licence 00010089 runs to **24.10.2034** and FOB-319 keeps producing in Helsinki throughout. The downside of a slow Swedish path is delay, not loss of income.
 
 ## 6. Dated commitments
 
