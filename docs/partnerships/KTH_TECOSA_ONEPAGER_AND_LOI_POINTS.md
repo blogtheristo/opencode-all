@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: KTH / TECoSA — one-pager and proposed Letter of Intent topics
-Version: 1.4
+Version: 1.5
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -45,7 +45,9 @@ That matters structurally, not just topically. In the Vinnova competence-centre 
 
 ## 2. Proposed LoI topics
 
-**The construction proposed is a Vinnova competence-centre partnership between KTH and Lifetime** — TECoSA coordinating, Lifetime joining as an industrial partner. The topics below are written inside that frame; they are not a menu of possible relationships.
+**The relationship sought is a research partnership on the Vinnova track — KTH and Lifetime as partners, not supplier and client.** That much is our position. **Which Vinnova construction actually fits, and who coordinates, is a question for KTH, not an assumption of ours** — see item 5, and the covering email.
+
+_Audit note (2026-08-03): v1.4 of this file stated the construction as decided ("TECoSA coordinating, Lifetime joining as an industrial partner… not a menu of possible relationships"). That pre-empted the very question being asked of Martin and contradicted the instruction not to lock the route, coordinator or co-funding model before he has commented. Corrected in v1.5; the partnership *character* is asserted, the *construction* is not._
 
 Sent **with the one-pager**, not as a separate list. Ordered so that the questions determining whether the collaboration is *feasible* come immediately after the questions determining whether it is *interesting* — the Swedish applicant entity, the coordinator and the co-funding decide feasibility, and leaving them to the end invites an enthusiastic answer to a project that cannot be built.
 
