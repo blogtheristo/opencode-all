@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.95
+Version: 3.96
 Sessions & Modifications:
 
+- Version: 3.96 | Tool: Claude Code (Opus 5) | Session: claude/thesis-unlock-and-truth-fix | Date: 01.08.2026 | Changes: Added §10.16 (EU AI Act Article 50 Content Marking — Implementation). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.46 / Key Contribution #51, added in the same lockstep. Records the Article 50 audit of all four public surfaces, the shipped in-media compositing of the EU AI GENERATED icon (ffmpeg overlay, poster and WebM derived from the marked master, each composite verified visually rather than assumed from an exit code), the negative result that a presentation-layer overlay is a caption rather than a marking because the placement requirement is survival of redistribution, and the decision to RETIRE the AI-persona portraits rather than label content already scheduled for replacement. Also fixed pre-existing truth-claim drift surfaced by truth-lint once these files entered lint scope: superseded three-capital references now carry a pointer to the 4P Capital Classes rather than being rewritten (Rule 12), value-metric phrasings reworded with the claim unchanged, and industry counts separated into EU regulatory scope (sectors, number retained) versus DWS platform coverage (canonical captain-hats term). Lockstep 3.95->3.96.
 - Version: 3.95 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 (yhdistetty 30.07.2026, uudelleennumeroitu 3.92→3.95 yhdistämisessä, koska `claude/enterprise-ai-harness-0anl7s` oli itsenäisesti ottanut numeron 3.92 käyttöön) | Changes: Lukkokohtainen versionosto kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Substanssimuutos rajoittuu pro gradun kohdeasiakaslistaan: Uber/Bolt/Kela-riviin liitetty sulkumerkintä "(€7k MRR live)" oli virheellinen traktioväite — kyseinen n. 7 000 €/kk on palvelu- ja kuljetusliikevaihtoa, ei ohjelmistoliikevaihtoa, ja nämä osapuolet ovat luvanvaraisen kuljetustoiminnan välityspalveluita Traficomin määrittelemässä roolissa, eivät ohjelmistoasiakkaita. Korjattu uutta kanonista lähdettä `docs/TRACTION_CANONICAL.md` vasten (perustajan vahvistus 29.07.2026, rekisteröity `DWS_TRUTH_STANDARD.md` §2 rivi 32). Ei PhD-skoopin sisältömuutosta — kirjattu tähän lukkokohtaisena merkintänä §1.4 master-vs-PhD-skooppisäännön mukaan.
 - Version: 3.94 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep-versionosto 3.93 -> 3.94 CLAUDE.md:n Thesis-saannon mukaan. Ei sisaltomuutosta tahan tiedostoon: v3.94-korjaus (marginaalinen token-kustannus omalla laitteistolla on rajattu, ei nolla; ja kuuden mittarin vaatimus ennen kuin syvyysargumenttia saa kayttaa kaupallisena vaitteena) kuuluu tiedostoon PHD_FIREHORSE §14.45.
 - Version: 3.93 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep-versionosto 3.92 -> 3.93 CLAUDE.md:n Thesis-saannon mukaan. Ei sisaltomuutosta tahan tiedostoon: v3.93-lisays (kahden toimintaprofiilin jako, mitoitettavan polven argumentti ja laskenta-plus-lainkayttoalue -kytkenta) on markkinasignaali ja tieteellinen kehystys, ja kuuluu tiedostoon PHD_FIREHORSE §14.45 Loydos 5 / Avainkontribuutio #50.
@@ -3381,6 +3382,34 @@ Kolmen pilarin konsultointimalli otettiin käyttöön lifetime.fi-tuotantosivust
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
+
+---
+
+## 10.16 EU:n tekoälyasetuksen 50 artiklan sisältömerkintä — toteutus
+
+### 10.16.1 Motivaatio
+
+Elokuun 2. päivänä 2026 tekoälytoimisto ja kansalliset markkinavalvontaviranomaiset aloittivat tekoälyasetuksen täytäntöönpanon, ja 50 artiklan avoimuusvelvoitteet tulivat sovellettaviksi. DWS julkaisee tekoälyllä tuotettua mediaa omilla julkisilla pinnoillaan, mikä asettaa sen 50(4) artiklan **käyttöönottajan** rooliin: syväväärennökset ja ilman inhimillistä tarkastusta julkaistu yleistä etua koskeva tekoälyteksti on merkittävä selkeästi ja havaittavasti. Velvoitetta ei ole lykätty — toisin kuin 50(2) artiklan tarjoajan merkitsemisvelvoite, jonka AI Omnibus lykkää joulukuuhun 2026 ennen 2.8.2026 markkinoille saatetuille generatiivisille järjestelmille, syväväärennösten merkitsemiselle ei annettu vastaavaa siirtymäaikaa.
+
+Kaikkien julkisten DWS-pintojen (`dws6.com`, `dws10.com`, `onelifetime.world`, `lifetime.fi`) auditointi tunnisti altistuneet aineistot: kaksi tekoälyllä tuotettua esittelijävideota ja neljä tekoälyllä tuotettua persoonakuvaa.
+
+### 10.16.2 Toteutus: merkintä yhdistetään mediaan, ei sivuun
+
+Ensimmäinen toteutusyritys sijoitti EU:n **AI GENERATED** -kuvakkeen HTML/CSS-peittokuvaksi `<video>`-elementin päälle. Tämä täyttää havaittavuuden niin kauan kuin kävijä on sivulla ja pettää sillä hetkellä kun artefakti poistuu siltä: ladattu tai edelleen jaettu kopio ei kanna merkintää, koska merkintä oli sivun eikä median ominaisuus.
+
+Toimitettu toteutus yhdistää kuvakkeen videokuviin ennen julkaisua `ffmpeg`-peittosuodattimella (kuvake skaalattuna noin 22 %:iin kuvan leveydestä, oikeaan alakulmaan, 24 pikselin marginaalilla, koko keston ajan), ja johtaa sitten julistekuvan ja VP9/WebM-varamuodon jo merkitystä masterista, jotta jokainen toimitettu esitysmuoto kantaa merkinnän. Jokainen yhdistelmä varmennettiin visuaalisesti — kuva poimittiin ja tarkastettiin — ennen julkaisua sen sijaan että se olisi oletettu onnistuneesta paluukoodista.
+
+Persoonakuvat ratkaistiin toisin. Koska tekoälypersoonista koostuva tiimiosio oli korvautumassa todellisilla nimetyillä toimialarooleilla, osio **poistettiin** merkitsemisen sijaan: aineistojen poistaminen eliminoi altistuman ilman että merkitsemistyötä investoitiin sisältöön, joka oli joka tapauksessa poistumassa. Tämä kirjataan, koska se on yleinen tulos — kun altistunut sisältö on jo korvautumassa, poistaminen voittaa merkitsemisen sekä kustannuksissa että rehellisyydessä.
+
+### 10.16.3 Syntynyt insinöörisääntö
+
+> Esityskerroksessa toteutettu avoimuusmerkintä ei ole merkintä; se on kuvateksti.
+
+50 artiklan sijaintivaatimus on insinöörikielellä vaatimus **alkuperätiedosta, joka säilyy ulosviennissä** — sama ominaisuus, jonka C2PA-sisältötodisteet väittävät medialle ja jota 12 artiklan evidenssiketju edellyttää agenttilokeilta. Merkintä, joka elää esityskontekstissa, ei voi täyttää sitä. Jokaista merkintätoteutusta on siksi arvioitava kysymyksellä *"säilyykö tämä latauksessa ja edelleenjaossa?"*, ja vain mediaan yhdistäminen (tai kryptografisesti sidottu oheistiedosto, jota kuluttava pinta on velvollinen kunnioittamaan) läpäisee sen.
+
+Vastaava toiminnallinen löydös on, että **käyttöönottajan puolen merkintä, ei tarjoajan puolen vesileimaus, on lähiajan sitova rajoite**: 50 artiklan puolisko, joka on halpa toteuttaa ja sääntelijän välittömästi tarkistettavissa, on se puolisko, jolla ei ole siirtymäaikaa.
+
+_Kenttämuistiinpanot: `docs/field-notes/2026-07-31-article-50-transparency-marking-audit.md` ja `docs/field-notes/2026-08-01-persona-retirement-and-reveal.md`. Tieteellinen uudelleenmuotoilu ja velvoite–kyvykkyys-analyysi: PHD_FIREHORSE §14.46 (Avainkontribuutio #51)._
 
 ---
 

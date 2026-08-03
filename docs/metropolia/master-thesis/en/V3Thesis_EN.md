@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.95
+Version: 3.96
 Sessions & Modifications:
 
+- Version: 3.96 | Tool: Claude Code (Opus 5) | Session: claude/thesis-unlock-and-truth-fix | Date: 01.08.2026 | Changes: Added §10.16 (EU AI Act Article 50 Content Marking — Implementation). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.46 / Key Contribution #51, added in the same lockstep. Records the Article 50 audit of all four public surfaces, the shipped in-media compositing of the EU AI GENERATED icon (ffmpeg overlay, poster and WebM derived from the marked master, each composite verified visually rather than assumed from an exit code), the negative result that a presentation-layer overlay is a caption rather than a marking because the placement requirement is survival of redistribution, and the decision to RETIRE the AI-persona portraits rather than label content already scheduled for replacement. Also fixed pre-existing truth-claim drift surfaced by truth-lint once these files entered lint scope: superseded three-capital references now carry a pointer to the 4P Capital Classes rather than being rewritten (Rule 12), value-metric phrasings reworded with the claim unchanged, and industry counts separated into EU regulatory scope (sectors, number retained) versus DWS platform coverage (canonical captain-hats term). Lockstep 3.95->3.96.
 - Version: 3.95 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 (merged 30.07.2026, renumbered 3.92→3.95 on merge to avoid colliding with an independently-landed 3.92 from `claude/enterprise-ai-harness-0anl7s`) | Changes: Lockstep version bump across all 4 thesis files per the CLAUDE.md thesis rule. Substantive change is confined to the master's thesis target-customer list: the parenthetical "(EUR 7k MRR live)" attached to Uber/Bolt/Kela was a false traction claim — that ~€7k/month is services and transport revenue, not software revenue, and those parties are dispatch operators of the licensed transport operation in the Traficom-defined role, not software customers. Corrected against the new canonical source `docs/TRACTION_CANONICAL.md` (founder-confirmed 29.07.2026, registered as `DWS_TRUTH_STANDARD.md` §2 row 32). No PhD-scope content change — recorded here as a lockstep-only entry per the §1.4 master-vs-PhD scope rule.
 - Version: 3.94 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.93 -> 3.94 per the CLAUDE.md Thesis Rule. No content change here: the v3.94 correction (marginal token cost on owned hardware is bounded, not zero; and the six-metric requirement before the depth argument may be used as a commercial claim) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45.
 - Version: 3.93 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.92 -> 3.93 per the CLAUDE.md Thesis Rule. No content change here: the v3.93 addition (the two-operational-profile split, the dimensionable-knee argument, and the compute-plus-jurisdiction coupling) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45 Finding 5 / Key Contribution #50.
@@ -3583,6 +3584,34 @@ The commercial conclusion follows directly, and it shapes what the platform sell
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
+
+---
+
+## 10.16 EU AI Act Article 50 Content Marking — Implementation
+
+### 10.16.1 Motivation
+
+On 2 August 2026 the AI Office and national market surveillance authorities began enforcing the AI Act, and the Article 50 transparency obligations entered application. DWS publishes AI-generated media on its own public surfaces, which places it in the Article 50(4) **deployer** role: deepfakes and AI-generated text on matters of public interest published without human review must carry a clear and perceivable label. The obligation is not deferred — unlike the Article 50(2) provider marking duty, which the AI Omnibus defers to December 2026 for generative systems placed on the market before 2 August 2026, deepfake labelling received no equivalent grace period.
+
+An audit of every public DWS surface (`dws6.com`, `dws10.com`, `onelifetime.world`, `lifetime.fi`) identified the exposed assets: two AI-generated presenter videos and four AI-generated persona portraits.
+
+### 10.16.2 Implementation: the mark is composited into the media, not the page
+
+The first implementation attempt placed the EU **AI GENERATED** icon as an HTML/CSS overlay positioned above the `<video>` element. This satisfies perceivability while the visitor is on the page and fails the moment the artefact leaves it: a downloaded or re-shared copy carries no label, because the label was a property of the page rather than of the media.
+
+The shipped implementation composites the icon into the video frames before publication, using an `ffmpeg` overlay filter (icon scaled to ~22% of frame width, bottom-right, 24 px margin, present for the full duration), then derives the poster frame and the VP9/WebM fallback from the already-marked master so every delivered representation carries the mark. Each composite was verified visually — a frame extracted and inspected — before publication, rather than assumed from a successful exit code.
+
+The persona portraits were resolved differently. Because the AI-persona team section was being replaced by real named industry roles, the section was **retired** rather than labelled: removing the assets eliminated the exposure without investing marking effort in content scheduled for deletion. This is recorded because it is a general result — where exposed content is already slated for replacement, retirement dominates labelling on both cost and honesty.
+
+### 10.16.3 The engineering rule this produced
+
+> A transparency marking implemented at the presentation layer is not a marking; it is a caption.
+
+Article 50's placement requirement is, in engineering terms, a demand for **provenance that survives egress** — the same property C2PA content credentials assert for media and the same property the Article 12 evidence chain requires of agent logs. A label that lives in the rendering context cannot satisfy it. Any marking implementation must therefore be evaluated against the question *"does this survive download and re-share?"*, and only in-media compositing (or a cryptographically bound sidecar the consuming surface is obliged to honour) passes.
+
+The corresponding operational finding is that **deployer-side labelling, not provider-side watermarking, is the near-term binding constraint**: the half of Article 50 that is cheap to implement and immediately verifiable by a regulator is the half with no grace period.
+
+_Field note: `docs/field-notes/2026-07-31-article-50-transparency-marking-audit.md` and `docs/field-notes/2026-08-01-persona-retirement-and-reveal.md`. Scientific restatement and the obligation–capability analysis: PHD_FIREHORSE §14.46 (Key Contribution #51)._
 
 ---
 

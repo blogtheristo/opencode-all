@@ -102,20 +102,20 @@ Chat output is for the HIC to **decide and act**, not to watch the agent think.
 
 **Task-specific routing.** Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
 
-| If the task touches…                                                                                                                                                                                   | Load                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection                                                                 | `DWS_SECURITY_STANDARD.md`                                             |
-| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention, document rewrite/restructure, formulation preservation | `DWS_DOCUMENT_STANDARD.md`                                             |
-| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                                                                               | `DWS_BRAND_STANDARD.md`                                                |
-| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                                                                         | `DWS_MARKET_RESEARCH_STANDARD.md`                                      |
-| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                                                                          | `SITE_QUALITY_STANDARDS.md`                                            |
-| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                                                                                    | `docs/DWS_SKILLS_GUIDE.md`                                             |
-| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ — **always run `/blog-draft`; HIC approval before publishing is Non-Negotiable Rule 13**                             | `docs/BLOG_STANDARD.md` (§3.3 draft gate)                              |
-| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                                                                            | `AI_AGENT_GUIDELINES.md`                                               |
-| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                                                                        | `AGENTS.md`                                                            |
-| asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                                                                            | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
-| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                                                                                    | `DWS_ROLES_REGISTRY.md`                                                |
-| "which standard governs X?" / index lookup / standards catalogue                                                                                                                                       | `DWS_STANDARDS_LIBRARY.md`                                             |
+| If the task touches…                                                                                                                                                                                    | Load                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection                                                                  | `DWS_SECURITY_STANDARD.md`                                             |
+| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention, document rewrite/restructure, formulation preservation  | `DWS_DOCUMENT_STANDARD.md`                                             |
+| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                                                                                | `DWS_BRAND_STANDARD.md`                                                |
+| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                                                                          | `DWS_MARKET_RESEARCH_STANDARD.md`                                      |
+| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                                                                           | `SITE_QUALITY_STANDARDS.md`                                            |
+| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                                                                                     | `docs/DWS_SKILLS_GUIDE.md`                                             |
+| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ — **always run `/blog-draft`; HIC approval before publishing is Non-Negotiable Rule 13**                              | `docs/BLOG_STANDARD.md` (§3.3 draft gate)                              |
+| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                                                                             | `AI_AGENT_GUIDELINES.md`                                               |
+| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                                                                         | `AGENTS.md`                                                            |
+| asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                                                                             | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
+| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                                                                                     | `DWS_ROLES_REGISTRY.md`                                                |
+| "which standard governs X?" / index lookup / standards catalogue                                                                                                                                        | `DWS_STANDARDS_LIBRARY.md`                                             |
 | ending a substantive session; new idea / concept / theory / code / whitepaper / artifact / signal to capture; field note; `Learn/` HTML; keeping the HIC informed; EU AI Act Article 14 human oversight | `DWS_LEARNING_STANDARD.md`                                             |
 
 **Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
@@ -183,6 +183,19 @@ If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four to
 - `docs/PHD_FIREHORSE_FI.md`
 
 Also regenerate `Learn/` versioned HTML outputs. Never delete old thesis HTML versions.
+
+### Thesis Autonomy Boundary (HIC decision, 01.08.2026)
+
+**Additive** thesis content is GREEN on **all four** files — a new `§x.y` section plus its Key Contribution and the lockstep version bump. This replaces the earlier rule that treated all master's-thesis content as RED; the risk being guarded against was never additive content, and the old boundary stopped the thesis tracking the work actually being done.
+
+**Structural** thesis edits remain RED (human required) on all four files:
+
+- TOC or chapter restructure
+- renumbering existing sections
+- rewriting or deleting existing `VERSION AND AGENT HISTORY` entries
+- removing existing content
+
+Superseding a claim is additive, not structural: keep the original formulation and add a pointer to what replaced it (Rule 12). Never silently rewrite an existing passage to match new canon.
 
 ### Thesis Content Scope Rule
 
