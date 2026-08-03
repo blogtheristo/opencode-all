@@ -1,11 +1,11 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: KTH / TECoSA — one-pager and proposed Letter of Intent topics
-Version: 1.1
+Version: 1.2
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
-Status: Draft — awaiting HIC approval before sending
+Status: BLOCKED — Lifetime AB registration status must be resolved before sending (see §3)
 Agent: Claude Code, session claude/fuengirola-uber-cashflow-5dr1n3
 Purpose: Response material for Prof. Martin Törngren (KTH), who asked for a one-pager and the points worth covering in a Letter of Intent. All traction claims reproduced from DWS_TRACTION_CANONICAL rules; no MRR, no dispatch operators as customers, no "live" Aegis. Structural context: docs/field-notes/2026-08-03-stockholm-position-and-the-runway-question.md §5d.
 Valuutta: EUR johtaa, paikallisvaluutta sulkeissa (DWS_TRUTH_STANDARD.md §2H).
@@ -45,33 +45,33 @@ That matters structurally, not just topically. In the Vinnova competence-centre 
 
 ## 2. Proposed LoI topics
 
-Ordered by how much each one reduces ambiguity later. The first four are the ones that decide whether the collaboration is real.
+Sent **with the one-pager**, not as a separate list. Ordered so that the questions determining whether the collaboration is *feasible* come immediately after the questions determining whether it is *interesting* — the Swedish applicant entity, the coordinator and the co-funding decide feasibility, and leaving them to the end invites an enthusiastic answer to a project that cannot be built.
 
 **Scope and technical substance**
 
 1. **Safety argumentation and assurance cases for sovereign edge AI** — the core KTH contribution. What claim structure is appropriate; what the KYA evidence (identity binding, session trust scoring, containment events, Article 12 lineage) is and is not sufficient to support; how the argument is validated rather than asserted.
-1a. **Safety–performance trade-offs** — the question underneath the assurance case and squarely TECoSA's territory: what containment, trust scoring and lineage capture *cost* in latency, throughput and availability at the edge, and where the defensible operating point sits. A safety argument that ignores its own performance price is not an engineering result. This belongs in scope from the start, not as a later finding.
-2. **TECoSA's validation and testbed role, and Lifetime's contribution as an industrial use case** — the collaboration is a university-coordinated partnership: TECoSA brings the validation methodology, Lifetime brings the industrial use case and piloting environment. Cover data access, safety envelope, and what may be instrumented on vehicles carrying paying passengers under a Traficom operator licence. Name the constraint explicitly; a testbed with real duty of care has boundaries a lab does not.
+2. **Safety–performance trade-offs** — the question underneath the assurance case and squarely TECoSA's territory: what containment, trust scoring and lineage capture *cost* in latency, throughput and availability at the edge, and where the defensible operating point sits. A safety argument that ignores its own performance price is not an engineering result. In scope from the start, not as a later finding.
 3. **Trustworthiness properties in scope** — which of TECoSA's predictability, safety and security concerns the collaboration actually targets, and which are out of scope. A short exclusion list is worth more than a long inclusion list.
-4. **Vinnova route and the partner construction** — whether the intended vehicle is TECoSA partnership, a joint call, or a separate application, and who coordinates. This determines the eligibility and co-funding structure below, so it should not be left implicit.
+4. **TECoSA's validation role and Lifetime's contribution as an industrial use case** — a university-coordinated partnership: TECoSA brings the validation methodology, Lifetime brings the industrial use case and piloting environment. **No commitment is made here about access to passenger data.** Instrumentation and data access are **defined separately and subsequently**, within safety, GDPR and operator-licence-holder boundaries. A testbed carrying a real duty of care has limits a laboratory does not, and those limits are set before anything is instrumented, not negotiated afterwards.
+
+**Feasibility — entity, coordination and money**
+
+5. **Vinnova route and the partner construction** — TECoSA partnership, a joint call, or a separate application, and **who coordinates**. Everything below follows from this answer, so it should not be left implicit.
+6. **Swedish applicant entity and the eligibility precondition** — a Vinnova-funded party must be a **Swedish legal person conducting operations in Sweden**; foreign actors without a Swedish `filial` or `driftställe` may participate as project partners but cannot receive funding. State which Lifetime entity is intended to be the funded party. Better raised by us than discovered in an eligibility check.
+7. **Co-funding** — Vinnova's share is capped (up to 80 % on planning grants), so **≥20 % own financing** is required. Say what form Lifetime's contribution takes: cash, in-kind engineering time, or fleet and platform access. In-kind access to an operating regulated environment is the strongest card and should be **priced and scoped**, not offered vaguely.
+8. **Indicative timeline and milestones**, tied to a specific call deadline once the route in item 5 is chosen.
 
 **People**
 
-5. **Researcher pathway — three options, not one.** An `industridoktorand` employed by Lifetime AB and enrolled at KTH at ≥50 %; a **licentiate** as the lighter intermediate route (a real Swedish degree at roughly half a doctorate, and the realistic option for a founder who cannot commit four years); or a **postdoc** hosted at KTH and part-funded by the project, which puts research capacity on the problem without depending on the founder's own time at all. Cover supervision, admission requirements and expected start for whichever is chosen. Offering all three signals seriousness about the research, not just about the funding.
-6. **Named contacts and decision rights** on both sides, so the LoI does not depend on a single thread.
-
-**Money and eligibility**
-
-7. **Funding structure and the Swedish-entity precondition** — state plainly that a Vinnova-funded party must be a Swedish legal person with operations in Sweden, and that Lifetime AB is being established for this purpose. Better raised by us than discovered by them.
-8. **Co-funding reality** — Vinnova's share is capped (up to 80 % on planning grants), so ≥20 % own financing is required. Say what form Lifetime's contribution takes: cash, in-kind engineering time, or fleet and platform access. In-kind fleet access is the strongest card and should be priced, not given away vaguely.
-9. **Indicative timeline and milestones**, tied to a specific call deadline once chosen.
+9. **Researcher pathway — three options, not one.** An `industridoktorand` employed by the Swedish entity and enrolled at KTH at ≥50 %; a **licentiate** as the lighter intermediate route (a real Swedish degree at roughly half a doctorate, and the realistic option for a founder who cannot commit four years); or a **postdoc** hosted at KTH and part-funded by the project, which puts research capacity on the problem without depending on the founder's own time. Cover supervision, admission requirements and expected start for whichever is chosen. Offering all three signals seriousness about the research, not only about the funding.
+10. **Named contacts and decision rights** on both sides, so the collaboration does not depend on a single email thread.
 
 **Boundaries**
 
-10. **IP** — background IP stays with its owner; foreground IP allocation stated per category (research results, software, data). DWS IQ, the KYA engine and Aegis are background IP and remain Lifetime's.
-11. **Publication rights and review window** — KTH must be able to publish; Lifetime needs a defined review period (30 days is customary) to flag confidential material and file before disclosure. Say the number.
-12. **Data protection and confidentiality** — operational fleet data involves personal data of passengers and drivers. Name GDPR roles (controller/processor), what is anonymised or aggregated before it leaves the operational system, and what never leaves.
-13. **Non-binding character and duration** — the LoI expresses intent, commits no funds, and states what would supersede it (a consortium agreement or a Vinnova project agreement) and by when.
+11. **IP** — background IP stays with its owner; foreground IP allocated per category (research results, software, data). DWS IQ, the KYA engine and Aegis are background IP and remain Lifetime's.
+12. **Publication rights and review window** — KTH must be able to publish; Lifetime needs a defined review period (30 days is customary) to flag confidential material and file before disclosure. State the number.
+13. **Data protection and confidentiality** — operational fleet data involves personal data of passengers and drivers. Name GDPR roles (controller / processor), what is anonymised or aggregated before it leaves the operational system, and what never leaves it at all.
+14. **Non-binding character and duration** — the LoI expresses intent and commits no funds. It is **non-binding except as to confidentiality, data protection, publication review, and any agreed IP provisions**, which bind on signature. State what supersedes it (a consortium agreement or a Vinnova project agreement) and by when.
 
 ---
 
@@ -87,7 +87,7 @@ A tension worth resolving before drafting rather than inside the draft.
 
 ## 3. What must be true before this is sent
 
-- **Lifetime AB does not exist yet.** The one-pager says "is being established" and the LoI topics say the same. Neither may be softened into implying a registered Swedish entity. This is also why the 2026-08-10 AB decision now has an external commitment attached to it — a Swedish research partner has been told the entity is coming.
+- **BLOCKING — the Lifetime AB wording is unresolved and the one-pager is not sendable until it is.** A revision was proposed replacing *"Lifetime AB is being established"* with *"Lifetime AB is registered in Sweden and is being prepared as the Swedish research and financing entity."* **That change has not been made.** Everything else in this session says the AB is **not** registered: the 2026-08-10 calendar entry is the decision *whether* to register it, §5c prices the registration at €2 425 (27 150 SEK) against a ~€2 500 cash position, and the HIC's own instruction was *"lisää listaan Lifetime AB perustaminen"*. Writing "is registered in Sweden" to a research partner while that is untrue is a false statement of fact to a third party, and it would be discovered at the first eligibility check. Either the AB is already registered — in which case most of this session's funding arithmetic needs revisiting — or the wording stays as it is. **HIC must resolve before sending.** The LoI topic list is written entity-neutral ("which Lifetime entity is intended to be the funded party") so it is unaffected either way.
 - **Traction wording is reproduced from the canonical block** (`docs/TRACTION_CANONICAL.md` §2). No MRR figure, no customer count, no dispatch operator named as a customer, Aegis never "live". If any of this is edited before sending, re-check it against that file.
 - **TECoSA partner count (~19) and centre framing** are taken from public KTH and Vinnova material and are `unverified` against current centre documentation. Do not quote a partner count back to its own director; the number is here for our orientation only.
 - **Nothing has been sent.** No email, no attachment, no commitment. Awaiting HIC approval.
