@@ -537,7 +537,7 @@ This conceptual model provides a replicable framework for other industrial AI st
 
 European industry faces unprecedented regulatory pressure through the EU's Fit for 55 package. This creates forced demand for climate compliance solutions across 20 industries.
 
-### 3.1.1 The 16 Industries Affected by Fit for 55
+### 3.1.1 The 16 Sectors Affected by Fit for 55
 
 The EU's Fit for 55 package mandates 55% net emissions reduction by 2030. This creates an unprecedented compliance burden on 20 industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory compliance.
 
@@ -1157,7 +1157,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 
 **Goal:** Industry-specific carbon footprint calculations with product recommendations
 
-### Industry Carbon Profiles (16 EU Industries)
+### Industry Carbon Profiles (16 EU Sectors)
 
 | Industry    | Primary Emissions           | Recommended Products            |
 | ----------- | --------------------------- | ------------------------------- |
@@ -1528,7 +1528,7 @@ A critical finding from the platform architecture work is that **no single open 
 
 Each enterprise tenant can have their Lifetime World Model trained on their own industry data with their chosen LLM as the base model.
 
-### 10.6.1 Why 16 Industries Make DWS IQ Stronger
+### 10.6.1 Why 16 Captain Hats Make DWS IQ Stronger
 
 From the customer's perspective, a platform covering 25+ EU industries is not complexity — it is **the competitive advantage they are buying**. The 25+-industry architecture creates compounding value that a single-industry platform cannot match:
 
@@ -2324,7 +2324,7 @@ DWS6 answers a different question: "How do I run enterprise industrial AI agents
 
 | #   | DWS6 Advantage                                                               | ECC Equivalent                    | Research Significance                                                |
 | --- | ---------------------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- |
-| 1   | **Domain-specific skills** encoding EU regulation                            | Generic language/framework skills | Domain knowledge as competitive moat — not replicable by skill count |
+| 1   | **Domain-specific skills** encoding EU regulation                            | Generic language/framework skills | Domain knowledge as competitive moat — not replicable by skill inventory |
 | 2   | **Six-layer information architecture** (L0-L6) controlling context injection | Operates at L2-L3 only            | Deeper control over agent behavior at every layer                    |
 | 3   | **Hard gates** (verification-gate, design-first, dual-folder-sync)           | Advisory-only skills              | Structural enforcement vs behavioral suggestion                      |
 | 4   | **Trust boundary zones** (GREEN/YELLOW/RED) with action classification       | Secret scanning only              | Risk-proportionate automation — not binary allow/deny                |
@@ -3280,7 +3280,7 @@ This section documents the implementation evidence for what the PhD thesis (§14
 
 #### 10.23.2 Token Capital — Measured Inventory (June 2026)
 
-Token capital is the reusable organisational asset produced by sustained AI-assisted operations. It is not the tokens consumed; it is the durable output that survives session boundaries and persists in codified form.
+Token capital is the reusable organisational asset produced by sustained AI-assisted operations. It is not the token spend; it is the durable output that survives session boundaries and persists in codified form.
 
 **Measured inventory as of June 2026:**
 
@@ -3347,15 +3347,15 @@ The June 2026 observation — the gym returning to the schedule — is the opera
 
 #### 10.23.6 Research Contribution
 
-The three-capital model, grounded in seven months of production HIL operations, provides three implementation-level contributions:
+The three-capital model (since superseded by the 4P Capital Classes), grounded in seven months of production HIL operations, provides three implementation-level contributions:
 
 1. **A measurable definition of the HIL → HIC transition** — specific per-domain preconditions (token capital threshold, human capital threshold, Control Room capital threshold) that can be instrumented and tracked, giving the transition an engineering definition rather than a management intuition.
 
-2. **A skills corpus as the primary KPI of agentic operating-model maturity** — the size, coverage, and invocation rate of the `skills/` corpus is a more operationally meaningful maturity indicator than agent count, model capability, or token spend.
+2. **A skills corpus as the primary KPI of agentic operating-model maturity** — the size, coverage, and invocation rate of the `skills/` corpus is a more operationally meaningful maturity indicator than agent headcount, model capability, or token spend.
 
 3. **The HIL phase as a planned capital formation programme** — reframing the seven-month HIL phase from a cost to an investment in three simultaneous capital forms changes how the phase should be resourced, measured, and communicated to stakeholders.
 
-**Key Contribution #32 — Three-Capital Accumulation Model: Implementation Evidence from Seven Months of Production HIL Operations:** The DWS IQ 6 production record (October 2025 – June 2026) provides the first empirical, multi-month implementation evidence for the theoretical three-capital model developed in §14.25. The token capital inventory (30+ skills, 150+ field notes, 50-agent foundry with Article 12 logging), the documented human capital deepening (pattern recognition, prompt calibration intuition, architectural judgment, failure mode literacy), and the Control Room capital (calibrated thresholds, validated HIL gates, populated Article 12 audit trail, tested multi-provider routing) together constitute a measurable baseline for what a production agentic operating model accumulates over a seven-month HIL phase. The contribution provides: (a) a set of per-capital measurable indicators that operationalise the theoretical model; (b) an engineering definition of the HIL → HIC transition with domain-specific preconditions; (c) the skills corpus as the primary KPI of agentic operating-model maturity. This contribution is positioned at the implementation horizon (current product scope) and is empirically grounded — the June 2026 transition event is a documented operational observable, not a projected milestone.
+**Key Contribution #32 — Three-Capital Accumulation Model: Implementation Evidence from Seven Months of Production HIL Operations:** The DWS IQ 6 production record (October 2025 – June 2026) provides the first empirical, multi-month implementation evidence for the theoretical three-capital model developed in §14.25 and since superseded by the 4P Capital Classes. The token capital inventory (30+ skills, 150+ field notes, 50-agent foundry with Article 12 logging), the documented human capital deepening (pattern recognition, prompt calibration intuition, architectural judgment, failure mode literacy), and the Control Room capital (calibrated thresholds, validated HIL gates, populated Article 12 audit trail, tested multi-provider routing) together constitute a measurable baseline for what a production agentic operating model accumulates over a seven-month HIL phase. The contribution provides: (a) a set of per-capital measurable indicators that operationalise the theoretical model; (b) an engineering definition of the HIL → HIC transition with domain-specific preconditions; (c) the skills corpus as the primary KPI of agentic operating-model maturity. This contribution is positioned at the implementation horizon (current product scope) and is empirically grounded — the June 2026 transition event is a documented operational observable, not a projected milestone.
 
 ---
 

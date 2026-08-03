@@ -109,21 +109,72 @@ function loadRules() {
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const boundary = (p) => new RegExp(`(?<![\\w-])${esc(p)}(?![\\w-])`, 'gi');
 
+// ---- Historical-context escape -------------------------------------------
+// A deprecation check that cannot tell "we renamed X to Y" from a live use of X
+// makes it impossible to WRITE the history of a rename: the changelog entry that
+// records a deprecation trips the very rule it documents, and so does any field
+// note explaining the drift. Explicitly historical lines are therefore downgraded
+// FAIL -> WARN rather than blocking. This mirrors the disambiguator design the
+// ambiguous rules already use, and keeps live primary copy blocking.
+const HISTORICAL_MARKERS = [
+  'formerly',
+  'historical',
+  'deprecat', // deprecated / deprecation
+  'renamed',
+  'superseded',
+  'replaced by',
+  'no longer',
+  'retired',
+];
+const isHistoricalLine = (lcLine, inHistoryBlock) =>
+  inHistoryBlock || HISTORICAL_MARKERS.some((m) => lcLine.includes(m));
+
+// Use vs. mention: a deprecated term wrapped in quotes is being TALKED ABOUT,
+// not asserted — `From "GodAgent" to a Three-Tier Naming System` is the sentence
+// that documents the rename. Quoting is the standard way to mention a term, so a
+// quoted hit is a mention and does not block. An unquoted hit is a live use and
+// still fails.
+const QUOTE_PAIRS = [
+  ['"', '"'],
+  ["'", "'"],
+  ['`', '`'],
+  ['“', '”'], // curly double
+  ['‘', '’'], // curly single
+  ['«', '»'], // guillemets
+];
+const isQuotedMention = (line, start, end) => {
+  const before = line[start - 1];
+  const after = line[end];
+  return QUOTE_PAIRS.some(([o, c]) => before === o && after === c);
+};
+
 // ---- 2. Lint a single block of text --------------------------------------
 function lintText(text, rules, where = '<text>') {
   const findings = [];
   const lines = text.split(/\r?\n/);
+  // VERSION AND AGENT HISTORY blocks are historical records by definition; the
+  // block ends at the next heading.
+  let inHistoryBlock = false;
   lines.forEach((line, li) => {
     const lcLine = line.toLowerCase();
+    if (/^#{0,6}\s*version and agent history\b/i.test(line.trim())) inHistoryBlock = true;
+    else if (inHistoryBlock && /^#{1,6}\s+\S/.test(line)) inHistoryBlock = false;
+    const historical = isHistoricalLine(lcLine, inHistoryBlock);
     for (const rule of rules.deprecated) {
       for (const m of line.matchAll(boundary(rule.phrase))) {
+        const mention = isQuotedMention(line, m.index, m.index + m[0].length);
+        const excused = historical || mention;
         findings.push({
-          severity: 'FAIL',
+          severity: excused ? 'WARN' : 'FAIL',
           file: where,
           line: li + 1,
           col: m.index + 1,
           phrase: m[0],
-          reason: 'deprecated phrase',
+          reason: excused
+            ? mention
+              ? 'deprecated phrase quoted as a mention, not asserted — allowed, not blocking'
+              : 'deprecated phrase in historical/changelog context — allowed, not blocking'
+            : 'deprecated phrase',
           suggest: rule.approved.slice(0, 2),
         });
       }

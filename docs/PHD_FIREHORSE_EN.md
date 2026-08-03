@@ -2073,7 +2073,7 @@ A March 2026 benchmarking study compared the DWS6 harness architecture against *
 
 Six competitive differentiators identified:
 
-1. **Domain-specific skills** encoding EU regulation (ETS, CBAM, CSRD, EN 15978, EN 13001) — not replicable by generic skill count
+1. **Domain-specific skills** encoding EU regulation (ETS, CBAM, CSRD, EN 15978, EN 13001) — not replicable by a generic skill inventory
 2. **Six-layer information architecture** (L0-L6) controlling context injection at every layer — ECC operates at L2-L3 only
 3. **Hard gates** (verification-gate, design-first, dual-folder-sync) using exit code 2 (BLOCK) — ECC skills are advisory-only
 4. **Trust boundary zones** (GREEN/YELLOW/RED) with risk-proportionate action classification — ECC has binary secret scanning only
@@ -2711,13 +2711,13 @@ The §14.24.3 capital-efficiency inversion supplies a missing predicate to the K
 
 Satya Nadella's Build 2026 framing introduced a vocabulary that the Firehorse Operations Model confirms from seven months of production evidence: AI-assisted operations simultaneously accumulate **token capital** and accelerate the accumulation of **human capital**. The observable phenomenology — "suddenly you have time to go to the gym daily again" — marks the transition from intensive HIL (human-in-the-loop) to HIC (human-in-control), a phase transition that has specific architectural preconditions and competitive implications.
 
-This section introduces a third capital form — **Control Room Capital** — that is specific to the DWS edge-cloud architecture and that completes the three-capital model as a unified framework for understanding what a production agentic operating model builds over time.
+This section introduces a third capital form — **Control Room Capital** — that is specific to the DWS edge-cloud architecture and that completes the three-capital model — since superseded by the 4P Capital Classes (§14.26) — as a unified framework for understanding what a production agentic operating model builds over time.
 
 **Primary evidence source:** Seven months of documented production HIL operations in the DWS IQ 6 ecosystem (October 2025 – June 2026), with the transition event observed in June 2026. Companion artefact: `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md`. Nadella framing: Microsoft Build 2026, as noted on LinkedIn.
 
 #### 14.25.2 Token Capital
 
-Token capital is the durable, reusable organisational asset that accumulates as a byproduct of sustained AI-assisted operations. It is not the raw tokens consumed — those are operating costs. It is the output that persists and compounds:
+Token capital is the durable, reusable organisational asset that accumulates as a byproduct of sustained AI-assisted operations. It is not the raw token spend — that is an operating cost. It is the output that persists and compounds:
 
 - Validated skill files (`skills/<name>/SKILL.md`) — parameterised judgment procedures executable without human re-derivation
 - Evaluated agent datasets (`src/evals/datasets/{agent-name}.jsonl`) — ground-truth samples from production that catch silent drift
@@ -2805,7 +2805,7 @@ A competitor entering the industrial AI market in June 2026 faces the same HIL p
 
 #### 14.25.8 Research Contribution
 
-**Key Contribution #30 — Three-Capital Accumulation Model for Production Agentic Operating Systems:** The observation that sustained agentic operations produce three distinct durable capital forms — token capital (reusable codified judgment), human capital (deepened-not-eroded operator expertise), and Control Room capital (calibrated edge infrastructure and operational sovereignty) — constitutes a novel framing for the competitive economics of production AI deployment. The empirical basis is seven months of documented HIL operations in the Firehorse Operating Model (October 2025 – June 2026), with the HIL → HIC phase transition observed as an operational event (June 2026) and cross-validated against Satya Nadella's Build 2026 vocabulary (token capital, human capital, "gym returns"). The three-capital model has four research implications: (a) it reframes the HIL phase from pure operating cost to simultaneous capital formation, changing the ROI calculus for industrial AI deployment programmes; (b) it provides a falsifiable definition of the HIL → HIC transition — the threshold at which architectural oversight is achievable — with specific preconditions measurable per domain; (c) it frames the HIL phase as a competitive barrier whose duration cannot be shortcut by capital investment and that compounds for early entrants; (d) it suggests a new KYA Standard conformance dimension — architectural vs. transactional oversight — that extends EU AI Act Article 14 from a quality gate to an operational-maturity gate. The contribution is positioned at the 3–7 year horizon (per §1.3) because the self-reinforcing dynamics of the three-capital system, and the competitive barrier implications, play out over multi-year operational trajectories — the June 2026 observation is the first data point, not the last. Companion artefact: `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md`.
+**Key Contribution #30 — Three-Capital Accumulation Model for Production Agentic Operating Systems:** The observation that sustained agentic operations produce three distinct durable capital forms — token capital (reusable codified judgment), human capital (deepened-not-eroded operator expertise), and Control Room capital (calibrated edge infrastructure and operational sovereignty) — constitutes a novel framing for the competitive economics of production AI deployment. The empirical basis is seven months of documented HIL operations in the Firehorse Operating Model (October 2025 – June 2026), with the HIL → HIC phase transition observed as an operational event (June 2026) and cross-validated against Satya Nadella's Build 2026 vocabulary (token capital, human capital, "gym returns"). The three-capital model, since superseded by the 4P Capital Classes (§14.26), has four research implications: (a) it reframes the HIL phase from pure operating cost to simultaneous capital formation, changing the ROI calculus for industrial AI deployment programmes; (b) it provides a falsifiable definition of the HIL → HIC transition — the threshold at which architectural oversight is achievable — with specific preconditions measurable per domain; (c) it frames the HIL phase as a competitive barrier whose duration cannot be shortcut by capital investment and that compounds for early entrants; (d) it suggests a new KYA Standard conformance dimension — architectural vs. transactional oversight — that extends EU AI Act Article 14 from a quality gate to an operational-maturity gate. The contribution is positioned at the 3–7 year horizon (per §1.3) because the self-reinforcing dynamics of the three-capital system, and the competitive barrier implications, play out over multi-year operational trajectories — the June 2026 observation is the first data point, not the last. Companion artefact: `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md`.
 
 ---
 
@@ -2813,7 +2813,7 @@ A competitor entering the industrial AI market in June 2026 faces the same HIL p
 
 #### 14.26.1 Extending the Three-Capital Framework
 
-§14.25 established three forms of durable value in agentic operating systems: Token Capital (codified intelligence), Human Capital (deepened operator judgment), and Control Room Capital (deployed edge infrastructure and operational sovereignty). The empirical record from seven months of HIL operations supports the three-capital model, but a structural analysis reveals a gap: none of the three classes cleanly captures the **accumulating, governed world-model** the Control Room produces, nor the **closed sense→decide→act loop** through which it operates on the physical world.
+§14.25 established three forms of durable value in agentic operating systems: Token Capital (codified intelligence), Human Capital (deepened operator judgment), and Control Room Capital (deployed edge infrastructure and operational sovereignty). The empirical record from seven months of HIL operations supports the three-capital model — since superseded by the 4P Capital Classes (§14.26) — but a structural analysis reveals a gap: none of the three classes cleanly captures the **accumulating, governed world-model** the Control Room produces, nor the **closed sense→decide→act loop** through which it operates on the physical world.
 
 The three capitals describe _intelligence_ (Token), _people_ (Human), and _infrastructure_ (Control Room) — but the Control Room as described in §14.25.4 is about the _box and its sovereignty_, not the _signal and the actuation_. When the Control Room ingests live multi-source signal — sensors, mobility data, satellite imagery, robotics feeds — and then **controls process input**, it produces a fourth class of durable asset: a proprietary, accumulating world-model and the closed control loop that acts on it.
 
@@ -3404,7 +3404,7 @@ Counter-position acknowledged: hybrid architectures combining LLM linguistic kno
 
 #### 14.38.4 Industry World Model Requirements — The 16-Industry Matrix
 
-A systematic mapping of Fit for 55 regulatory requirements against world model capabilities produces industry-specific specifications. Common requirements across all 16 industries:
+A systematic mapping of Fit for 55 regulatory requirements against world model capabilities produces industry-specific specifications. Common requirements across all covered EU-regulated industries:
 
 - Regulatory constraint layer (hard-encoded EU regulation)
 - Carbon accounting engine (Scope 1/2/3 per GHG Protocol)
