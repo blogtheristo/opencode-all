@@ -79,7 +79,7 @@ Token Capital Assessment — <scope>
 ## Common Mistakes
 
 - Confusing model access with token capital. Renting GPT-class access is not owning IP.
-- Optimising for benchmark scores instead of **private evals on outcomes that matter**.
+- Optimising for public leaderboard benchmarks instead of **private evals on outcomes that matter**.
 - An open loop: shipping improvements that never become training signal. No compounding,
   no token capital — just compute running in circles.
 
