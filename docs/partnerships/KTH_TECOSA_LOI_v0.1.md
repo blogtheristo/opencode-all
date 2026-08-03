@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Basis for discussion — towards a Letter of Intent, KTH / TECoSA and Lifetime Oy
-Version: 0.3
+Version: 0.4
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -12,7 +12,7 @@ Purpose: Sent to Prof. Martin Törngren alongside the one-pager and scope list. 
 Valuutta: EUR johtaa, paikallisvaluutta sulkeissa (DWS_TRUTH_STANDARD.md §2H).
 -->
 
-# Towards a Letter of Intent — a basis for discussion
+# Discussion basis for a possible Letter of Intent
 
 **KTH Royal Institute of Technology / TECoSA and Lifetime Oy (Business ID 0772407-9), Espoo, Finland**
 
@@ -87,7 +87,7 @@ Each side keeps the other's non-public information confidential and uses it only
 
 ## 11. If this becomes a Letter of Intent
 
-When there is enough agreement to draft one, we would expect it to commit no funds and to be **non-binding except as to data protection, publication review, confidentiality and any IP provisions expressly agreed** — and to be superseded by a consortium or Vinnova project agreement.
+When there is enough agreement to draft one, we would expect it to commit no funds and to be **non-binding except as to data protection, publication review and confidentiality**. **Anything binding on intellectual property would arise only in a separate written agreement**, not in the Letter of Intent itself. The Letter would be superseded by a consortium or Vinnova project agreement.
 
 Flagging that now so it is not a surprise later, not asking for it today.
 
@@ -103,5 +103,5 @@ A written reply is entirely sufficient. A call only if that is easier for you.
 ---
 
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy · the Agent Outcome Company
+Founder, CEO · Lifetime Oy
 risto.paarni@lifetime.fi · +358 400 319 010
