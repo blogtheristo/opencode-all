@@ -2,7 +2,7 @@
 
 **Date:** August 3, 2026
 **Owner:** Lifetime Oy
-**Status:** ✅ Decided — REJECT adoption as-is; ADAPT two specific pieces
+**Status:** ✅ Decided and shipped — REJECT adoption as-is; ADAPT shipped as `src/factory/`
 **Session:** `claude/agent-factory-research-audit-l6hks2`
 **Subjects:** av1dlive "Agent Factory" thread (x.com/av1dlive/status/2082505465569910850) + [codejunkie99/sageroute](https://github.com/codejunkie99/sageroute)
 
@@ -116,6 +116,27 @@ mid-path component with our API keys for unproven savings).
    (re-check Levanto for a published DPA/EU hosting) is contingent on the
    HIC's adapt decision, not a standing deadline.
 
+## 5. Implementation record (HIC approved 2026-08-03: "Yes if it makes dws factory")
+
+Shipped in the same session as the **DWS Factory Router**:
+
+- `src/factory/{types,evidence,detectors,ladder,index}.ts` — trajectory
+  recovery for both Anthropic Messages and OpenAI Responses wires,
+  deterministic detectors, and the guarded escalation ladder. The Levanto call
+  is replaced by the transparent additive heuristic
+  (`interventionProbability` + `actionProbabilities`); no network, no egress.
+- `scripts/factory-route.ts` + `npm run factory:route` — CLI with structured
+  JSON output and verdict exit codes (0/2/3/4), per the Agent Productization
+  Rule.
+- `skills/factory-route/SKILL.md` + `skills/manifest.json` entry + regenerated
+  `docs/DWS_SKILLS_GUIDE.md` matrix row.
+- `src/__tests__/factory-router.test.ts` — 15 tests asserting intent (loop
+  kinds, thrash counting, gate calibration, hysteresis, one-way ladder,
+  budget hard stop, switch/restart exhaustion). `tsc --noEmit` clean.
+- MIT attribution to codejunkie99/sageroute carried in every adapted file
+  header. Not ported (deliberately): the proxy server, subscription OAuth /
+  first-party client impersonation, and the Sage API client.
+
 ***
 
 VERSION AND AGENT HISTORY
@@ -124,5 +145,7 @@ VERSION AND AGENT HISTORY
 
 - v1.0 (2026-08-03) — Initial research, source-level audit, and adoption
   decision. Agent session `claude/agent-factory-research-audit-l6hks2`.
+- v1.1 (2026-08-03) — HIC approved the adapt path; DWS Factory Router shipped
+  (`src/factory/`, CLI, skill, tests). Same session.
 
 ***

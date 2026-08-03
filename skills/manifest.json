@@ -1,7 +1,7 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
   "version": "1.0",
-  "updated": "2026-07-31",
+  "updated": "2026-08-03",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
     {
@@ -33,7 +33,10 @@
     "slash-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["slash-command", "local-tools"],
+      "transport": [
+        "slash-command",
+        "local-tools"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -47,7 +50,10 @@
     "slash-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": ["slash-command", "local-tools"],
+      "transport": [
+        "slash-command",
+        "local-tools"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -61,7 +67,10 @@
     "slash-dgx": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["slash-command", "dgx-ssh"],
+      "transport": [
+        "slash-command",
+        "dgx-ssh"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -75,7 +84,11 @@
     "slash-admin-antigravity": {
       "status": "active",
       "visibility": "admin-only",
-      "transport": ["slash-command", "gcloud", "antigravity"],
+      "transport": [
+        "slash-command",
+        "gcloud",
+        "antigravity"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -89,7 +102,9 @@
     "slash-deferred": {
       "status": "deferred",
       "visibility": "internal",
-      "transport": ["slash-command"],
+      "transport": [
+        "slash-command"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": false,
         "claude-desktop": false,
@@ -103,7 +118,10 @@
     "skill-pack-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["skill-pack", "local-files"],
+      "transport": [
+        "skill-pack",
+        "local-files"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -117,7 +135,10 @@
     "skill-pack-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": ["skill-pack", "local-files"],
+      "transport": [
+        "skill-pack",
+        "local-files"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -131,7 +152,9 @@
     "discipline-gate": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["discipline-gate"],
+      "transport": [
+        "discipline-gate"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -595,6 +618,15 @@
       "kind": "discipline-gate",
       "profile": "discipline-gate",
       "skillPackFile": "skills/verification-gate/SKILL.md"
+    },
+    {
+      "id": "factory-route-pack",
+      "name": "factory-route",
+      "displayName": "factory-route (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/factory-route/SKILL.md",
+      "note": "DWS Factory Router: deterministic cheap->strong escalation ladder, fully offline. Adapted from sageroute (MIT)."
     }
   ]
 }
