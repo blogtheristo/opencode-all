@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Basis for discussion — towards a Letter of Intent, KTH / TECoSA and Lifetime Oy
-Version: 0.2
+Version: 0.3
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -58,7 +58,7 @@ We have deliberately not filled this in.
 
 - **Which route** — a TECoSA partnership, a joint call, or a separate application?
 - **Who would normally coordinate** in that route?
-- **Which entity would need to be the applicant or funded party?** Lifetime Oy is a Finnish company. Our reading is that a Swedish construction may be required — a subsidiary, a `filial`, or participation alongside a Swedish funded party. **We make no claim to be eligible today; no Swedish entity is currently registered.** One can be established on an accelerated schedule if the track becomes concrete, but we would rather build the right construction than the fast one.
+- **Which entity would need to be the applicant or funded party?** The party to this discussion is **Lifetime Oy** — the Finnish company that owns the IP and runs the existing operations. Our reading is that a Swedish construction may be required: a subsidiary, a `filial`, or participation alongside a Swedish funded party. If so, **Lifetime AB could be established on an accelerated schedule** as the Swedish research and financing entity. **It does not exist today and we make no claim that it would be eligible** — that is exactly what we would want settled before building anything. We would rather build the right construction than the fast one.
 - **How would our co-funding contribution be defined and valued?** Cash, engineering time, or scoped in-kind access to the licensed operating environment and platform. Would an in-kind regulated-edge testbed contribution be accepted, and what evidence or valuation would be expected?
 
 ## 6. Researcher pathway — three options, no preference yet
