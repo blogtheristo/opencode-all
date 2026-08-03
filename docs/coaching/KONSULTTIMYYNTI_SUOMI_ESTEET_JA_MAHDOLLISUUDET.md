@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Konsulttimyynti Suomessa — esteet ja mahdollisuudet (Claude Code -coaching, Lifetime Oy)
-Version: 1.0
+Version: 1.1
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -19,12 +19,29 @@ Puuttuva rahoitus on **€8 900 (100 000 SEK)**. Kysymys ei ole "voiko sen hankk
 
 | Reitti | Aika | Hinta | Sivuvaikutus |
 | ------ | ---- | ----- | ------------ |
-| **Kaksi coaching-kauppaa** | 4–10 vk | 0 € | **Positiivinen** — liikevaihtoa, referenssi, paras yksittäinen argumentti AB-kierrokselle |
-| Pankki / Finnvera | 6–12 vk | korko + vakuus | Neutraali. Vaatii vakuuden, jota ei ole. |
-| Omistajalaina | heti, jos rahaa on | 0 € | Ei ratkaise mitään — raha on jo laskettu, sitä ei ole |
+| **Coaching-kaupat** | 4–10 vk | 0 € | **Positiivinen** — liikevaihtoa, referenssi, paras yksittäinen argumentti AB-kierrokselle |
+| **Qred-yrityslaina** _(HIC, 03.08.2026: uskoo saavansa €6 000 liiketoimintasuunnitelmaa vastaan)_ | 1–2 vk | korko + kk-maksu | Nopein. Velkaa yhtiölle, jonka vapaa kassa on €2 500. Ks. riski alla. |
+| **Tohtoriohjelman apuraha** _(HIC: mahdollisuus jos pääsee ohjelmaan)_ | 3–12 kk | 0 €, ei-laimentava | Rahoittaa tutkimusta, ei lähtökohtaisesti yhtiön pääomaa — tarkista käyttötarkoituksen rajaus |
+| Pankki / Finnvera | 6–12 vk | korko + vakuus | Vaatii vakuuden, jota ei ole |
 | Lykkäys | ∞ | 0 € | Tukholma siirtyy, Helsinki-tulo jatkuu |
 
-**Suomen myynti on siis samanaikaisesti rahoituskeino ja tuote.** Se on ainoa reitti, joka ei maksa mitään ja jonka sivuvaikutus on myönteinen.
+### Laskelma kolmella lähteellä
+
+| Erä | Määrä |
+| --- | ----- |
+| Kassassa | €2 500 |
+| Qred (oletus) | €6 000 |
+| **Yhteensä** | **€8 500** |
+| Tarve: AB €2 425 + kapasiteetti €8 900 | **€11 325** |
+| **Vajaus** | **≈ €2 825** |
+
+**Vajaus on yksi kauppa.** Yksi 2 päivän työpaja (€4 500) kattaa sen selvästi; yksi luento (€1 900) ei aivan riitä. Aiempi "kaksi kauppaa" putoaa siis **yhteen**, jos Qred toteutuu.
+
+### Riski, joka voi kaataa Qred-reitin vaikka raha tulisi
+
+Kapasiteettivaatimus koskee **Lifetime AB:n** pääomaa ja reservejä, ei Lifetime Oy:n. Lifetime Oy:n ottama laina, joka siirretään AB:hen, syntyy AB:n taseeseen **velkana** — se voi pienentää nettopääomaa juuri sillä summalla, joka piti osoittaa. Transportstyrelsen hyväksyy usein vaihtoehtona **bankgarantin**. `unverified`: varmista Transportstyrelseniltä ennen kuin lainaa nostetaan, hyväksytäänkö lainarahoitteinen pääoma vai vaaditaanko pankkitakaus. Väärä instrumentti tarkoittaa, että raha on otettu, korko juoksee eikä testi mene läpi.
+
+**Suomen myynti on samanaikaisesti rahoituskeino ja tuote.** Se on ainoa reitti, joka ei maksa mitään, jonka sivuvaikutus on myönteinen ja joka ei ole riippuvainen yllä olevasta instrumenttikysymyksestä.
 
 ## 2. Mahdollisuudet
 
