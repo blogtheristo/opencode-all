@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Konsulttimyynti Suomessa — esteet ja mahdollisuudet (Claude Code -coaching, Lifetime Oy)
-Version: 1.2
+Version: 1.3
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -53,7 +53,9 @@ Qredin laina-aika on aina 36 kk. Todellinen korko riippuu tarjouksesta; alla kol
 
 1. **Se ei riitä.** €6 000 AB:hen jättää €2 825 vajeen. Ongelma, jota varten laina otettiin, jää ratkaisematta.
 2. **Instrumenttiriski (ks. alla).** Lifetime Oy:n laina AB:lle kirjautuu AB:ssa velaksi ja voi jäädä hyväksymättä pääomana. Silloin €6 000 on lainattu, korko juoksee eikä testi mene läpi.
-3. **Kiinteä kulu yhtiölle, jonka vapaa kassa on €2 500.** €381–498/kk on kokoluokaltaan sama kuin trafikansvarig-konsultti (€250–429/kk) — ja HIC hylkäsi sen jo, koska se ostaa nopeutta väärään rajoitteeseen. Sama päättely pätee tähän.
+3. **Kiinteä kulu yhtiölle, jonka vapaa kassa on €2 500.** €381–498/kk on kokoluokaltaan sama kuin trafikansvarig-konsultti (€250–429/kk), mutta olennainen ero on sitovuus: **konsulttisopimus on irtisanottavissa, 36 kk:n laina ei ole.** Toistuva kulu, jonka voi lopettaa, ja toistuva kulu, jota ei voi, ovat eri riskiluokkaa.
+
+_Korjaus 03.08.2026: aiemmassa versiossa luki, että HIC oli hylännyt konsulttireitin. **Ei ollut** — se oli agentin suositus, joka kirjattiin virheellisesti päätökseksi. Konsulttireitti on auki; ks. field noten §5b._
 
 **HIC:n oma arvio (03.08.2026) — "riskialtis rahoitus, korko on korkea" — on laskelman tukema.** Kirjattu tähän, koska johtopäätös on sama kuin arvio, ei sitä vastaan.
 

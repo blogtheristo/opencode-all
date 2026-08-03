@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.5
+Version: 1.6
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.5 → 1.6: HIC correction — the consultant trafikansvarig route was NOT rejected. v1.5 recorded an agent recommendation as an HIC decision, and the companion coaching document repeated it as fact. Both corrected. §5b now keeps both routes open, states the cost case and the execution-risk case separately, and labels the recommendation as a recommendation.
 Change 1.4 → 1.5: Priced both trafikansvarig routes. Consultant is €250–429/mo recurring; own exam is a ~€124–267 one-off course plus exam fees — a factor of 10–17 over twelve months. Recommendation recorded: own exam, because the consultant buys speed on a step that is not the bottleneck (the application is blocked by the €8 900 capacity proof, not by the competence requirement). Noted the six-month window in which all four delprov must be passed.
 Change 1.3 → 1.4: Registered as canonical in `DWS_TRUTH_STANDARD.md` §2 row 34. All monetary figures converted to EUR-first per the new §2H currency rule (founder directive, 03.08.2026); local currency now follows in parentheses.
 Change 1.2 → 1.3: HIC corrected the available funds — ~2 500 €, not the ~11 000 € the §5b chain requires. This does not block the AB (registration costs ~2 425 €) but it does block the Swedish operator licence, whose 100 000 SEK financial-capacity proof is unfunded. The Swedish taxi fallback is therefore removed from the near-term plan and coaching revenue becomes the sole path, not one of two. See §5c.
@@ -118,9 +119,18 @@ Hiring an external trafikansvarig is explicitly lawful provided the person meets
 
 **Over twelve months: €3 100–5 300 (consultant) against ~€300 one-off (own exam).** A factor of 10–17.
 
-**Recommendation: own exam.** The consultant buys *speed on a step that is not the bottleneck.* Nothing downstream is waiting on trafikansvarig — the application is blocked by the €8 900 (100 000 SEK) capacity proof, not by the competence requirement. Paying €250–429 every month to accelerate past a gate that is already shut is spending the scarcest resource on the wrong constraint. The €124 course costs less than one month of any consultant.
+**Both routes stay open — this is an HIC decision, not a settled one.** An earlier draft of this section recommended the own exam and a companion document then recorded that recommendation as if the HIC had *rejected* the consultant. The HIC had not. Corrected 2026-08-03; the agent recommendation is kept below, clearly labelled as a recommendation.
 
-**The real price of the own-exam route is not money.** Four `delprov` in Swedish (three at 45 minutes, one at 120), and **all four must be passed within six months of the first pass** — so the clock starts at the first exam, not at the first study session. That is the constraint to plan around, and it argues for starting the course early and sitting the exams close together.
+**What the money says:** €3 100–5 300 over twelve months (consultant) against ~€300 one-off (own exam). On cost alone the own exam wins by a factor of 10–17, and the €124 course is less than one month of any consultant.
+
+**What the money does not capture, and why the consultant is a live option:**
+
+- **Execution risk is real, not theoretical.** Four `delprov` in Swedish (three at 45 minutes, one at 120), and **all four must be passed within six months of the first pass** — the clock starts at the first exam, not the first study session. A missed window burns the whole period and restarts it. The consultant converts "can a non-native speaker running a company pass four Swedish exams inside six months" into a monthly line item.
+- **The fee is not incurred until engagement.** Nothing obliges starting the consultant now. Engaged when the capacity proof is funded, it is not buying speed on a shut gate — it is the instrument that opens the last step fast.
+- **It is cancellable.** Unlike a 36-month loan, a consultant contract can be ended. A recurring cost you can stop and a recurring cost you cannot are different risk classes.
+- **Once revenue exists, €250–429/month is trivial** against a €5 900 delivery.
+
+**Agent recommendation (not a decision):** buy the €124 course now as cheap optionality — it costs less than one consultant month and is affordable even at the current cash position — and keep the consultant as the instrument to engage when the capacity proof lands, or sooner if the exam window looks tight. The two routes are not exclusive; the course is a hedge, not a commitment.
 
 **`unverified` — worth one phone call before accepting the timeline.** The working assumption here is that the Finnish operator licence does **not** transfer, because taxi falls outside the EU road-transport mutual-recognition regime (Regulation 1071/2009 covers goods and bus). If that assumption is wrong, months disappear from this chain. Ten years of documented Finnish operation should in any case support the `gott anseende` assessment even if the licence itself does not carry over.
 
