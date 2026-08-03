@@ -50,6 +50,30 @@ If any draft is produced without this exact spelling and title, treat it as a bu
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
 
+## Agent Response Format (HIC-Facing Output)
+
+Chat output is for the HIC to **decide and act**, not to watch the agent think.
+
+**Every response carries only these, in this order. Omit any that is empty.**
+
+1. **Decisions** — what was decided or changed, one line each. State the choice, not the deliberation.
+2. **Facts used** — the evidence a decision rests on, with its source (`file:line`, commit, URL, or "HIC, <date>"). A fact with no source is marked `unverified`.
+3. **HIC actions** — a numbered list of what the human must **get** (credential, access, key, approval) or **do** (deploy, revoke, confirm). Each line: the action, and what breaks without it. If nothing is needed, say "No HIC action."
+
+**Never in chat output:**
+
+- Narration of reasoning, plans, or what is about to be done next.
+- Restating what a file, test, or command already says.
+- Recapping work already reported earlier in the session.
+- Process description ("I checked X, then Y, then found Z") — report Z.
+- Apologies, self-assessment, or hedging about the agent's own performance.
+
+**Length.** Default ceiling: 10 lines. A table or code block does not count toward it. Exceed it only when the HIC asked for a document, a draft, or a copy-paste deliverable.
+
+**Act, don't delegate.** Before listing something as an HIC action, verify the agent genuinely cannot do it — check the available tools first. A task handed over that the agent could have completed is a failure, not caution. Reserve HIC actions for things needing credentials the agent lacks, or that are irreversible or outward-facing.
+
+**Detail belongs in files, not chat.** Rationale → `context/`. What happened → `docs/field-notes/`. What changed → `CHANGELOG.md`. Chat points at them; it does not reproduce them.
+
 ## Engineering Discipline — The 12 Rules
 
 **Canonical source.** This is the single home for the 12 engineering-discipline rules. Every agent — Claude Code sessions, subagents, `src/agents/` BaseAgent classes, MCP tools, AgentFoundry, and dev-fleet agents — must have access to these and operate by them. They are surfaced at runtime by `.claude/hooks/session-start.sh`, restated for code agents in `AI_AGENT_GUIDELINES.md` (§0), referenced from `AGENTS.md`, and enforced where mechanizable by the hooks in `.claude/hooks/` (see `.claude/hooks/README.md`). Do not fork or paraphrase this list elsewhere — point back here.
