@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: KTH / TECoSA — one-pager and proposed Letter of Intent topics
-Version: 1.0
+Version: 1.1
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -35,7 +35,7 @@ That matters structurally, not just topically. In the Vinnova competence-centre 
 >
 > **Where KTH's contribution would be decisive.** DWS IQ can *produce* the evidence — lineage, trust scores, containment events. What it does not yet have is a **rigorous assurance argument** connecting that evidence to a defensible safety claim: what the evidence is sufficient for, where it is not, and how an assurance case for a sovereign edge AI system should be structured and validated. That is TECoSA's discipline, not ours.
 >
-> **Commercial standing (for completeness).** Two enterprise pilots were contracted in **Q1/2026 at €29,950 each (€59,900 booked)**. A licensed transport operation and a small consulting practice run at approximately **€7,000/month combined**, putting the company at cash break-even with a founder salary of €0 — this is services and transport revenue and is explicitly not software revenue. Team is a two-person core with a contracted engineering bench under NDA.
+> **Capacity to carry partner commitments.** Relevant because a competence-centre partner must sustain co-funding and participation over several years, not because it is a pitch. A licensed transport operation and a small consulting practice run at approximately **€7,000/month combined**, putting the company at cash break-even with a founder salary of €0 — services and transport revenue, explicitly not software revenue. Two enterprise pilots were contracted in **Q1/2026 at €29,950 each (€59,900 booked)**. Team is a two-person core with a contracted engineering bench under NDA. Lifetime is a small partner and says so; the contribution offered is the operating environment and the platform, not headcount.
 >
 > **Structure.** Lifetime Oy (Finland) holds the IP, the Finnish customers and the EU-programme track. **Lifetime AB (Sweden) is being established** as the Nordic research and financing entity, and is the intended counterparty for Swedish research collaboration and Vinnova-funded work.
 >
@@ -50,13 +50,14 @@ Ordered by how much each one reduces ambiguity later. The first four are the one
 **Scope and technical substance**
 
 1. **Safety argumentation and assurance cases for sovereign edge AI** — the core KTH contribution. What claim structure is appropriate; what the KYA evidence (identity binding, session trust scoring, containment events, Article 12 lineage) is and is not sufficient to support; how the argument is validated rather than asserted.
-2. **Validation and testbed activities on an operating licensed fleet** — scope, data access, safety envelope, and what may be instrumented on vehicles that carry paying passengers under a Traficom operator licence. Name the constraint explicitly; a testbed with real duty of care has boundaries a lab does not.
+1a. **Safety–performance trade-offs** — the question underneath the assurance case and squarely TECoSA's territory: what containment, trust scoring and lineage capture *cost* in latency, throughput and availability at the edge, and where the defensible operating point sits. A safety argument that ignores its own performance price is not an engineering result. This belongs in scope from the start, not as a later finding.
+2. **TECoSA's validation and testbed role, and Lifetime's contribution as an industrial use case** — the collaboration is a university-coordinated partnership: TECoSA brings the validation methodology, Lifetime brings the industrial use case and piloting environment. Cover data access, safety envelope, and what may be instrumented on vehicles carrying paying passengers under a Traficom operator licence. Name the constraint explicitly; a testbed with real duty of care has boundaries a lab does not.
 3. **Trustworthiness properties in scope** — which of TECoSA's predictability, safety and security concerns the collaboration actually targets, and which are out of scope. A short exclusion list is worth more than a long inclusion list.
 4. **Vinnova route and the partner construction** — whether the intended vehicle is TECoSA partnership, a joint call, or a separate application, and who coordinates. This determines the eligibility and co-funding structure below, so it should not be left implicit.
 
 **People**
 
-5. **Doctoral or researcher pathway** — an `industridoktorand` employed by Lifetime AB and enrolled at KTH at ≥50 %, or a lighter researcher-exchange arrangement. Supervision, admission requirements and expected start.
+5. **Researcher pathway — three options, not one.** An `industridoktorand` employed by Lifetime AB and enrolled at KTH at ≥50 %; a **licentiate** as the lighter intermediate route (a real Swedish degree at roughly half a doctorate, and the realistic option for a founder who cannot commit four years); or a **postdoc** hosted at KTH and part-funded by the project, which puts research capacity on the problem without depending on the founder's own time at all. Cover supervision, admission requirements and expected start for whichever is chosen. Offering all three signals seriousness about the research, not just about the funding.
 6. **Named contacts and decision rights** on both sides, so the LoI does not depend on a single thread.
 
 **Money and eligibility**
@@ -73,6 +74,16 @@ Ordered by how much each one reduces ambiguity later. The first four are the one
 13. **Non-binding character and duration** — the LoI expresses intent, commits no funds, and states what would supersede it (a consortium agreement or a Vinnova project agreement) and by when.
 
 ---
+
+## 2a. Write this LoI for Vinnova, not for EIC
+
+A tension worth resolving before drafting rather than inside the draft.
+
+**The two programmes place KTH in incompatible roles.** In the Vinnova competence-centre model KTH **coordinates** and companies join as **partners** — a peer relationship. **EIC Accelerator takes a single company applicant**, applying alone and never as a consortium; a university cannot be a partner there. Under EIC, KTH would be a **subcontractor** or the author of a support letter.
+
+**Writing the LoI to serve an EIC application would therefore demote KTH to supplier in the very document meant to establish a partnership** — the exact failure mode to avoid, and one that a competence-centre director will recognise immediately.
+
+**So:** draft the LoI purely as a university-coordinated research partnership on the Vinnova track. The EIC benefit is real but indirect — a credible KTH collaboration strengthens the research and validation substance of any later EIC work package — and it should be a consequence of the partnership, never a stated purpose of the LoI.
 
 ## 3. What must be true before this is sent
 
