@@ -1,7 +1,7 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
   "version": "1.0",
-  "updated": "2026-07-31",
+  "updated": "2026-08-03",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
     {
@@ -33,7 +33,10 @@
     "slash-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["slash-command", "local-tools"],
+      "transport": [
+        "slash-command",
+        "local-tools"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -47,7 +50,10 @@
     "slash-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": ["slash-command", "local-tools"],
+      "transport": [
+        "slash-command",
+        "local-tools"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -61,7 +67,10 @@
     "slash-dgx": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["slash-command", "dgx-ssh"],
+      "transport": [
+        "slash-command",
+        "dgx-ssh"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -75,7 +84,11 @@
     "slash-admin-antigravity": {
       "status": "active",
       "visibility": "admin-only",
-      "transport": ["slash-command", "gcloud", "antigravity"],
+      "transport": [
+        "slash-command",
+        "gcloud",
+        "antigravity"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -89,7 +102,9 @@
     "slash-deferred": {
       "status": "deferred",
       "visibility": "internal",
-      "transport": ["slash-command"],
+      "transport": [
+        "slash-command"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": false,
         "claude-desktop": false,
@@ -103,7 +118,10 @@
     "skill-pack-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["skill-pack", "local-files"],
+      "transport": [
+        "skill-pack",
+        "local-files"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -117,7 +135,10 @@
     "skill-pack-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": ["skill-pack", "local-files"],
+      "transport": [
+        "skill-pack",
+        "local-files"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -131,7 +152,9 @@
     "discipline-gate": {
       "status": "active",
       "visibility": "internal",
-      "transport": ["discipline-gate"],
+      "transport": [
+        "discipline-gate"
+      ],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
@@ -595,6 +618,231 @@
       "kind": "discipline-gate",
       "profile": "discipline-gate",
       "skillPackFile": "skills/verification-gate/SKILL.md"
+    },
+    {
+      "id": "factory-route-pack",
+      "name": "factory-route",
+      "displayName": "factory-route (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/factory-route/SKILL.md",
+      "note": "DWS Factory Router: deterministic cheap->strong escalation ladder, fully offline. Adapted from sageroute (MIT)."
+    },
+    {
+      "id": "autoresearch",
+      "name": "autoresearch",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/autoresearch.md"
+    },
+    {
+      "id": "contentms",
+      "name": "contentms",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/contentms.md"
+    },
+    {
+      "id": "edge-control-room-capital",
+      "name": "edge-control-room-capital",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/edge-control-room-capital.md"
+    },
+    {
+      "id": "helpdesk-triage",
+      "name": "helpdesk-triage",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/helpdesk-triage.md"
+    },
+    {
+      "id": "human-capital",
+      "name": "human-capital",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/human-capital.md"
+    },
+    {
+      "id": "sign-document",
+      "name": "sign-document",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/sign-document.md"
+    },
+    {
+      "id": "swarm",
+      "name": "swarm",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/swarm.md"
+    },
+    {
+      "id": "token-capital",
+      "name": "token-capital",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/token-capital.md"
+    },
+    {
+      "id": "autoresearch-pack",
+      "name": "autoresearch",
+      "displayName": "autoresearch (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/autoresearch/SKILL.md"
+    },
+    {
+      "id": "brain-ops-pack",
+      "name": "brain-ops",
+      "displayName": "brain-ops (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/brain-ops/SKILL.md"
+    },
+    {
+      "id": "briefing-pack",
+      "name": "briefing",
+      "displayName": "briefing (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/briefing/SKILL.md"
+    },
+    {
+      "id": "citation-fixer-pack",
+      "name": "citation-fixer",
+      "displayName": "citation-fixer (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/citation-fixer/SKILL.md"
+    },
+    {
+      "id": "cron-scheduler-pack",
+      "name": "cron-scheduler",
+      "displayName": "cron-scheduler (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/cron-scheduler/SKILL.md"
+    },
+    {
+      "id": "daily-task-manager-pack",
+      "name": "daily-task-manager",
+      "displayName": "daily-task-manager (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/daily-task-manager/SKILL.md"
+    },
+    {
+      "id": "edge-control-room-capital-pack",
+      "name": "edge-control-room-capital",
+      "displayName": "edge-control-room-capital (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/edge-control-room-capital/SKILL.md"
+    },
+    {
+      "id": "enrich-pack",
+      "name": "enrich",
+      "displayName": "enrich (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/enrich/SKILL.md"
+    },
+    {
+      "id": "human-capital-pack",
+      "name": "human-capital",
+      "displayName": "human-capital (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/human-capital/SKILL.md"
+    },
+    {
+      "id": "ingest-pack",
+      "name": "ingest",
+      "displayName": "ingest (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/ingest/SKILL.md"
+    },
+    {
+      "id": "maintain-pack",
+      "name": "maintain",
+      "displayName": "maintain (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/maintain/SKILL.md"
+    },
+    {
+      "id": "outreach-agents-pack",
+      "name": "outreach-agents",
+      "displayName": "outreach-agents (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/outreach-agents/SKILL.md"
+    },
+    {
+      "id": "query-pack",
+      "name": "query",
+      "displayName": "query (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/query/SKILL.md"
+    },
+    {
+      "id": "reports-pack",
+      "name": "reports",
+      "displayName": "reports (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/reports/SKILL.md"
+    },
+    {
+      "id": "signal-detector-pack",
+      "name": "signal-detector",
+      "displayName": "signal-detector (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/signal-detector/SKILL.md"
+    },
+    {
+      "id": "signature-pack",
+      "name": "signature",
+      "displayName": "signature (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/signature/SKILL.md"
+    },
+    {
+      "id": "skill-creator-pack",
+      "name": "skill-creator",
+      "displayName": "skill-creator (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/skill-creator/SKILL.md"
+    },
+    {
+      "id": "skillpack-check-pack",
+      "name": "skillpack-check",
+      "displayName": "skillpack-check (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/skillpack-check/SKILL.md"
+    },
+    {
+      "id": "soul-audit-pack",
+      "name": "soul-audit",
+      "displayName": "soul-audit (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/soul-audit/SKILL.md"
+    },
+    {
+      "id": "token-capital-pack",
+      "name": "token-capital",
+      "displayName": "token-capital (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/token-capital/SKILL.md"
     }
   ]
 }

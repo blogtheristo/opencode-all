@@ -157,8 +157,15 @@ function lintText(text, rules, where = '<text>') {
   let inHistoryBlock = false;
   lines.forEach((line, li) => {
     const lcLine = line.toLowerCase();
-    if (/^#{0,6}\s*version and agent history\b/i.test(line.trim())) inHistoryBlock = true;
-    else if (inHistoryBlock && /^#{1,6}\s+\S/.test(line)) inHistoryBlock = false;
+    // Markdown heading or its pandoc-rendered HTML form — a rendered history
+    // block (Learn/ output) is the same historical record as its source.
+    if (
+      /^#{0,6}\s*version and agent history\b/i.test(line.trim()) ||
+      /<h[1-6][^>]*>\s*version and agent history\b/i.test(line)
+    )
+      inHistoryBlock = true;
+    else if (inHistoryBlock && (/^#{1,6}\s+\S/.test(line) || /<h[1-6][\s>]/i.test(line)))
+      inHistoryBlock = false;
     const historical = isHistoricalLine(lcLine, inHistoryBlock);
     for (const rule of rules.deprecated) {
       for (const m of line.matchAll(boundary(rule.phrase))) {

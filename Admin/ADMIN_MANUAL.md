@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.11
+Version: 3.12
 
 Sessions & Modifications:
 
+- Version: 3.12 | Tool: Claude Code (Fable) | Session: claude/agent-factory-research-audit-l6hks2 | Date: 03.08.2026 | Changes: Added "DWS Factory Router (model escalation runbook)" section — offline evidence-based cheap->strong escalation ladder (src/factory/), CLI usage with verdict exit codes, detector and guardrail reference, tuning defaults, and the two upstream features deliberately not ported (external decision API, subscription-OAuth client impersonation). Cross-refs: field note 2026-08-03-agent-factory-sageroute-audit.md, V3Thesis §10.28, PHD_FIREHORSE §14.47.
 - Version: 3.11 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Documented the 4P Capital Classes model (Prompt / People / Plant / Perception) as the company's canonical capital model; added Related Documentation row; registered the future "4p-diligence" assessment lens (Agent Productization Rule). Canonical source: DWS_BRAND_STANDARD.md §23; DWS_TRUTH_STANDARD.md §2 row 25.
 - Version: 3.10 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added "Aspire Dashboard Observability (DGX Spark)" section — three-port reference (18888 UI / 18889 OTLP-gRPC / 18890 OTLP-HTTP), the 18890 rule for all http/protobuf producers after the silent-telemetry incident (compose v1.2.0 pointed producers at the gRPC port then the UI port; both dropped telemetry silently; fixed compose v1.3.1), post-deploy verification procedure (traces visible + GenAI sparkle on LLM spans), GenAI message-content capture flagged as human data-protection decision (default OFF), Unsecured-auth hardening trigger, and version-pinning discipline. Cross-refs: field note 2026-07-07-aspire-development-evolution-pr1500-to-main.md §6.2, V3Thesis §10.25.
 - Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added `ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` to the Admin Manuals Index — CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory, and agentic commerce / KYA data-handling plan.
@@ -331,6 +332,32 @@ The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **
 - **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
 - **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
 - **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
+
+---
+
+## DWS Factory Router (model escalation runbook)
+
+Evidence-based cheap→strong model escalation for agent runs. Fully offline — verdicts are computed locally from deterministic detectors; nothing leaves the machine. Adapted from codejunkie99/sageroute (MIT) after a source-level audit; adopt/adapt record: `docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md`. Implementation: `src/factory/`; thesis treatment: V3Thesis §10.28 / PHD_FIREHORSE §14.47.
+
+**What it decides.** Given an agent request body (Anthropic Messages or OpenAI Responses wire), it returns one of four actions on a one-way ladder: `continue` → `switch_model` → `restart_clean` → `escalate_human`. `escalate_human` is a hard stop (EU AI Act Art. 14 intervention point) — surface it to the HIC, never route around it.
+
+**Run it:**
+
+```powershell
+npm run factory:route -- --file trajectory.json --model claude-haiku-4-5 --tier cheap --cost 0.40 --budget 5 --switches 0 --restarts 0 --bad 0
+```
+
+Hysteresis is stateful across checkpoints: feed the previous run's `ladder.consecutiveBad` / `switchesUsed` / `restartsUsed` (from the JSON output) back in via `--bad` / `--switches` / `--restarts`, or the disruptive rungs (`restart_clean`, `escalate_human`) can never accumulate their two agreeing checkpoints.
+
+Structured JSON on stdout; exit codes `0` continue / `2` switch_model / `3` restart_clean / `4` escalate_human / `1` input error, so pipelines branch without parsing. Add `--evidence` to print the rendered evidence block on stderr. Skill form: `/factory-route`.
+
+**Operator notes:**
+
+- Detectors fire before any heuristic: identical action+observation 3×, same error class 3×, ping-pong 4×, write→failing-test thrash, steps-since-progress, budget burn. Every verdict is explainable from the `signals` block in the output.
+- Guardrails are code, not prompt: budget stop precedes all other logic; a cheap-tier restart becomes a switch while a switch remains (capability before retry); first cheap→strong hop fires on one bad checkpoint, disruptive actions need two (asymmetric hysteresis); the ladder never demotes.
+- Defaults (tunable in `src/factory/types.ts`): gate 0.6, hysteresis 2, maxSwitches 1, maxRestarts 1, budget stop at 85 % burn. Thresholds are sageroute's untuned defaults — tune on real DWS trajectories before relying on them for cost claims.
+- Library use for BaseAgent/swarm integration: hold one `LadderState` per session and call `decide()` at each checkpoint (`src/factory/index.ts` exports).
+- Do NOT reintroduce the upstream extras: no external decision API (sovereignty), no subscription-OAuth client impersonation (provider-ToS/account-ban vector).
 
 ---
 

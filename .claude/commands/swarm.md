@@ -3,12 +3,11 @@ name: swarm
 version: 1.0
 date: 2026-06-09
 description: >
-  Runs an agent-swarm operation over a dataset using one of six recurring patterns
-  (classify-and-act, fan-out-and-synthesize, adversarial-verification, generate-and-filter,
-  tournament, loop-until-done). Use when user says "run a swarm", "fan out over", "synthesize
-  these N files", "classify and route", "red-team / adversarially verify", "generate and filter
-  candidates", "tournament / compare approaches", "loop until done", or has many items to process
-  in parallel and merge. Composes DWS agents, glues with deterministic code, tiers models by cost.
+  Runs an agent-swarm operation over a dataset using one of six patterns: classify-and-act, fan-
+  out-and-synthesize, adversarial-verification, generate-and-filter, tournament, loop-until-
+  done. Use when user says "run a swarm", "fan out over", "adversarially verify", "loop until
+  done", or has many items to process in parallel and merge. Code orchestrates; models are
+  tiered by cost.
 ---
 
 Run a swarm operation: the orchestrator is **code**, the expensive reasoning stays in the

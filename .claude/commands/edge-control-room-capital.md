@@ -1,6 +1,11 @@
 ---
 name: edge-control-room-capital
-description: Inventories and scores a firm's edge control-room capital — the physical sense-and-actuate substrate it owns (edge AI devices, sensors, robots, Control Room / Situation Room) — and runs the loop-closure test: do its proprietary real-world traces actually feed token capital, or dead-end as cost? The DWS-specific third capital form (Nadella coined human + token capital; this is the DWS extension). Use when user says "edge capital", "edge control room capital", "robots and sensors", "fleet capital", "do our sensors feed the loop", "control room capital", "physical AI moat". Chains /human-capital → here → /token-capital.
+description: >
+  Use when assessing a firm's edge control-room capital — the physical sense-and-actuate
+  substrate it owns (edge devices, sensors, robots, Control Room / Situation Room) — and testing
+  whether real-world traces close the loop into token capital. Says "edge capital", "fleet
+  capital", "do our sensors feed the loop", "physical AI moat". Chains /human-capital → here →
+  /token-capital.
 argument-hint: "firm or customer name, or a description of the edge / fleet / sensor estate"
 ---
 
