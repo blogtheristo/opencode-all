@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Konsulttimyynti Suomessa — esteet ja mahdollisuudet (Claude Code -coaching, Lifetime Oy)
-Version: 1.1
+Version: 1.2
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -25,17 +25,39 @@ Puuttuva rahoitus on **€8 900 (100 000 SEK)**. Kysymys ei ole "voiko sen hankk
 | Pankki / Finnvera | 6–12 vk | korko + vakuus | Vaatii vakuuden, jota ei ole |
 | Lykkäys | ∞ | 0 € | Tukholma siirtyy, Helsinki-tulo jatkuu |
 
-### Laskelma kolmella lähteellä
+### Laskelma — Qred €11 000, josta €6 000 AB:hen (HIC, 03.08.2026)
 
 | Erä | Määrä |
 | --- | ----- |
 | Kassassa | €2 500 |
-| Qred (oletus) | €6 000 |
-| **Yhteensä** | **€8 500** |
-| Tarve: AB €2 425 + kapasiteetti €8 900 | **€11 325** |
+| Qredistä **AB:hen** | €6 000 |
+| **AB:n käytettävissä** | **€8 500** |
+| AB:n tarve: osakepääoma €2 425 + kapasiteetti €8 900 | **€11 325** |
 | **Vajaus** | **≈ €2 825** |
 
-**Vajaus on yksi kauppa.** Yksi 2 päivän työpaja (€4 500) kattaa sen selvästi; yksi luento (€1 900) ei aivan riitä. Aiempi "kaksi kauppaa" putoaa siis **yhteen**, jos Qred toteutuu.
+**Tämä on laskelman ratkaiseva rivi: €11 000 lainaa ei sulje Ruotsin kuilua**, koska vain €6 000 menee AB:hen. Loput €5 000 jäävät Lifetime Oy:n käyttöpääomaksi — täysin pätevä käyttötarkoitus, mutta eri tarkoitus. Lainan jälkeen Ruotsin lupa on yhä rahoittamatta ja päälle on tullut 36 kuukauden velka.
+
+### Mitä €11 000 / 36 kk maksaa
+
+Qredin laina-aika on aina 36 kk. Todellinen korko riippuu tarjouksesta; alla kolme skenaariota, jotta suuruusluokka on näkyvissä:
+
+| Todellinen vuosikorko | Kuukausierä | Takaisin yhteensä | Korkokulu |
+| --------------------- | ----------- | ----------------- | --------- |
+| 15 % | €381 | €13 720 | €2 720 |
+| 25 % | €437 | €15 745 | €4 745 |
+| 35 % | €498 | €17 913 | €6 913 |
+
+**Kuukausierä €381–498 juoksee 36 kuukautta riippumatta siitä toteutuuko Ruotsin lupa koskaan.** Vertailukohta: yksi 3 päivän coaching-toimitus (€5 900) tuo enemmän kuin vuoden lainanhoitokulut eikä sitä tarvitse maksaa takaisin.
+
+### Kolme syytä olla ottamatta tätä lainaa Ruotsin lupaa varten
+
+1. **Se ei riitä.** €6 000 AB:hen jättää €2 825 vajeen. Ongelma, jota varten laina otettiin, jää ratkaisematta.
+2. **Instrumenttiriski (ks. alla).** Lifetime Oy:n laina AB:lle kirjautuu AB:ssa velaksi ja voi jäädä hyväksymättä pääomana. Silloin €6 000 on lainattu, korko juoksee eikä testi mene läpi.
+3. **Kiinteä kulu yhtiölle, jonka vapaa kassa on €2 500.** €381–498/kk on kokoluokaltaan sama kuin trafikansvarig-konsultti (€250–429/kk) — ja HIC hylkäsi sen jo, koska se ostaa nopeutta väärään rajoitteeseen. Sama päättely pätee tähän.
+
+**HIC:n oma arvio (03.08.2026) — "riskialtis rahoitus, korko on korkea" — on laskelman tukema.** Kirjattu tähän, koska johtopäätös on sama kuin arvio, ei sitä vastaan.
+
+Jos laina otetaan, se kannattaa arvioida **Lifetime Oy:n käyttöpääomana**, jolla ostetaan myyntiaikaa — ei Ruotsin lupamaksuna. Se on eri päätös, eri perustelu ja eri mittari.
 
 ### Riski, joka voi kaataa Qred-reitin vaikka raha tulisi
 
