@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.2
+Version: 1.4
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.3 → 1.4: Registered as canonical in `DWS_TRUTH_STANDARD.md` §2 row 34. All monetary figures converted to EUR-first per the new §2H currency rule (founder directive, 03.08.2026); local currency now follows in parentheses.
 Change 1.2 → 1.3: HIC corrected the available funds — ~2 500 €, not the ~11 000 € the §5b chain requires. This does not block the AB (registration costs ~2 425 €) but it does block the Swedish operator licence, whose 100 000 SEK financial-capacity proof is unfunded. The Swedish taxi fallback is therefore removed from the near-term plan and coaching revenue becomes the sole path, not one of two. See §5c.
 Change 1.1 → 1.2: HIC supplied the Finnish operator licence (Traficom taksiliikennelupa 00010089, Lifetime Oy, valid to 2034) and directed that founding Lifetime AB be added to the sequence, with share capital already on account. This exposed a wrong licence type in v1.1 — the Swedish requirement is `taxitrafiktillstånd` (company-level), not only `taxiförarlegitimation` (driver-level) — and a hard dependency: the AB must exist before the operator licence can be applied for. Timeline revised from ~3 months to ~4–5 months. See §5b.
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
@@ -14,6 +15,10 @@ Purpose: Record the location decision (Lifetime AB / Stockholm), the three citie
 -->
 
 # The City Was Never the Question — 2026-08-03
+
+_Canonical registry — single source of truth for the Lifetime Oy / Lifetime AB split, transport operator licences, and currency presentation. Registered in `DWS_TRUTH_STANDARD.md` §2 row 34 (+ §2H)._
+
+**Currency convention (§2H):** EUR leads, local currency in parentheses.
 
 ## 1. What the session was
 
@@ -88,9 +93,9 @@ The second half is what closes the loop: **driving income is invisible to a cap 
 
 | # | Step | Cost | Time | Note |
 | - | ---- | ---- | ---- | ---- |
-| 1 | **Lifetime AB registered** (Bolagsverket via verksamt.se) | 25 000 SEK share capital + 1 900 SEK fee + 250 SEK verklig huvudman | **1–3 weeks** | Beneficial owner must be filed within 4 weeks of registration. HIC confirms funds are on account. |
+| 1 | **Lifetime AB registered** (Bolagsverket via verksamt.se) | €2 225 (25 000 SEK) share capital + €170 (1 900 SEK) fee + €22 (250 SEK) verklig huvudman | **1–3 weeks** | Beneficial owner must be filed within 4 weeks of registration. |
 | 2 | **`trafikansvarig` with approved `yrkeskunnande`** | exam fees | **the real bottleneck** | Four `delprov` covering legal rules, business and financial management, technical norms, and road safety. Taken in Swedish. A consultant can serve as trafikansvarig instead — that is the fast path. |
-| 3 | **Financial capacity proof** | **100 000 SEK** first vehicle, +50 000 SEK each additional | — | **On top of** the 25 000 SEK share capital. Minimum tied capital for one car is therefore **~125 000 SEK ≈ 11 000 €**. |
+| 3 | **Financial capacity proof** | **€8 900 (100 000 SEK)** first vehicle, **+€4 450 (50 000 SEK)** each additional | — | **On top of** the share capital. Minimum tied capital for one car is therefore **~€11 100 (125 000 SEK)**. |
 | 4 | **`taxitrafiktillstånd` application** (Transportstyrelsen) | — | **8–12 weeks** with complete documentation | Assessed on yrkeskunnande, ekonomiska förhållanden and gott anseende. |
 | 5 | **`taxiförarlegitimation`** for whoever drives | — | runs in parallel | Driver-level, not company-level. |
 
@@ -102,7 +107,7 @@ The second half is what closes the loop: **driving income is invisible to a cap 
 
 Two facts make Swedish public bodies a live market this quarter rather than a 2027 ambition:
 
-- **`Direktupphandlingsgräns` is 700 000 SEK** and unchanged since 2022. The full coaching range (1 900–7 500 € ≈ **21 000–85 000 SEK**) sits far below it. Every product in the brochure can be sold **directly, without competitive tender**. This is the single most important commercial fact about the Swedish list.
+- **`Direktupphandlingsgräns` is €62 500 (700 000 SEK)** and unchanged since 2022. The full coaching range (**€1 900–7 500**, i.e. 21 000–85 000 SEK) sits far below it. Every product in the brochure can be sold **directly, without competitive tender**. This is the single most important commercial fact about the Swedish list.
 - **EU AI Act Article 4 supervision fully activated on 2026-08-02** — yesterday. The literacy obligation has applied since February 2025, but sanctions arrived with the rest of the Act's enforcement mechanisms. Swedish agencies, municipalities and regions are in scope, and the government has already tasked **25 agencies** to report on their AI use, competence initiatives and risks.
 
 The wedge is therefore identical to the Finnish one — an Article 4 literacy record — but with a deadline that passed one day ago and a purchase route that requires no tender. Target list: `docs/coaching/KOHDELISTA_JULKISHALLINTO_SE.md`.
@@ -111,23 +116,23 @@ The wedge is therefore identical to the Finnish one — an Article 4 literacy re
 
 ## 5c. The funding reality — corrected 2026-08-03
 
-**Available: ~2 500 €, not ~11 000 €** (HIC, 2026-08-03). The v1.2 chain in §5b assumed the latter. At ~11,2 SEK/EUR that is roughly **28 000 SEK**, and it splits the plan cleanly in two:
+**Available: ~€2 500, not ~€11 000** (HIC, 2026-08-03). The v1.2 chain in §5b assumed the latter. At ~11,2 SEK/EUR that is roughly €2 500 (28 000 SEK), and it splits the plan cleanly in two:
 
 | Item | Cost | Funded? |
 | ---- | ---- | ------- |
-| AB share capital | 25 000 SEK | ✅ |
-| Bolagsverket registration (verksamt.se) | 1 900 SEK | ✅ |
-| Verklig huvudman filing | 250 SEK | ✅ |
-| **AB total** | **27 150 SEK ≈ 2 425 €** | ✅ **— with about 75 € left over** |
-| Financial-capacity proof, first vehicle | **100 000 SEK ≈ 8 900 €** | ❌ **unfunded** |
+| AB share capital | €2 225 (25 000 SEK) | ✅ |
+| Bolagsverket registration (verksamt.se) | €170 (1 900 SEK) | ✅ |
+| Verklig huvudman filing | €22 (250 SEK) | ✅ |
+| **AB total** | **€2 425 (27 150 SEK)** | ✅ **— with about €75 left over** |
+| Financial-capacity proof, first vehicle | **€8 900 (100 000 SEK)** | ❌ **unfunded** |
 
 **Two consequences, and the second is the important one.**
 
 1. **The AB is affordable today** — but it consumes essentially the entire cash position and leaves no buffer. The AB has no operating function until either a financing round needs the vehicle or the licence becomes fundable; neither is true this month. Registering now is defensible as securing the structure; deferring is defensible as keeping the only liquidity that exists. **This is a HIC call, not an agent call** — the memo records both readings rather than picking one.
 
-2. **The Swedish taxi operation leaves the near-term plan entirely.** It was framed in v1.1–v1.2 as the safety net under the coaching bet. That safety net costs 100 000 SEK and the money is not there, so **it is not a fallback — it is a second thing that also needs funding.** Coaching revenue is therefore not one of two paths. It is the only one.
+2. **The Swedish taxi operation leaves the near-term plan entirely.** It was framed in v1.1–v1.2 as the safety net under the coaching bet. That safety net costs €8 900 (100 000 SEK) and the money is not there, so **it is not a fallback — it is a second thing that also needs funding.** Coaching revenue is therefore not one of two paths. It is the only one.
 
-**The gap is two sales.** 100 000 SEK ≈ 8 900 €. Two 5 900 € deliveries (11 800 €) clear it with margin; a 5 900 € plus a 4 500 € (10 400 €) also clears it. That is the whole distance between here and a funded Swedish licence, and it is a smaller number than the session's earlier framing implied.
+**The gap is two sales.** €8 900 (100 000 SEK). Two €5 900 deliveries (€11 800) clear it with margin; a €5 900 plus a €4 500 (€10 400) also clears it. That is the whole distance between here and a funded Swedish licence, and it is a smaller number than the session's earlier framing implied.
 
 **What is not at risk:** Lifetime Oy's Traficom licence 00010089 runs to **24.10.2034** and FOB-319 keeps producing in Helsinki throughout. The downside of a slow Swedish path is delay, not loss of income.
 
