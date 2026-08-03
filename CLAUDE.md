@@ -223,6 +223,15 @@ Never tell the user to copy-paste content from rendered chat/canvas — rendered
 
 **"Give copy" / "copy paste" / "give a copy-paste" means: output the full content inside a single fenced code block** — no preamble before the user has to scroll, the whole deliverable in one copyable block. This applies regardless of length (even long whitepapers). A file or export (PDF, Google Docs, Gamma) is an addition on request, never a substitute for the code block when copy is asked.
 
+## Productivity Stack Rule (HIC, 03.08.2026)
+
+**The stack is Google Workspace, not Microsoft Office.** Docs, Sheets, Slides, Drive, Calendar and Gmail on the `risto.paarni2024@lifetime.fi` Workspace account.
+
+- Deliverables that leave the repo go out as **Google Docs / Sheets / Slides** (via the Google Drive tools), a **PDF**, or a **fenced code block** — never a `.docx`/`.xlsx`/`.pptx` as the default handoff format. Produce an Office file only when a counterparty explicitly requires one (e.g. a customer's tender template).
+- Calendar means **Google Calendar**; mail means **Gmail** on that Workspace account. This is the same account named in the Sender Identity table above.
+- Repository-first still applies (`DWS_TRUTH_STANDARD.md` §2E): the repo `.md` is the master and the Workspace document is the generated copy, never the reverse.
+- "Office day" in the HIC's calendar means a day working at the office — it is not a Microsoft Office reference.
+
 ## PNG Export Rule
 
 Every deliverable PNG (chart, roadmap, screenshot handed to the user) is rendered at 4K resolution — at least 3840 px on the long side. Use `scripts/screenshot.mjs`, whose defaults (width 1280 × scale 3) enforce this; lower resolutions are for debug-only shots.
