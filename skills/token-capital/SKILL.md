@@ -1,12 +1,10 @@
 ---
 name: token-capital
 description: >
-  Use when assessing a firm's token capital — the AI capability it builds and OWNS:
-  private evals, private RL environments, knowledge base, and the learning loop on top
-  of models. Tests model-swap sovereignty: can you change the generalist model without
-  losing company-veteran expertise? Says "token capital", "learning loop", "do we own
-  our AI IP", "hill climbing machine", "private evals", "swap the model", "is our AI
-  capability ours or the vendor's". Pairs with /human-capital.
+  Use when assessing a firm's token capital — the AI capability it builds and owns: private
+  evals, RL environments, knowledge base, the learning loop on top of models. Tests model-swap
+  sovereignty: can you change the generalist model without losing veteran expertise? Says "token
+  capital", "learning loop", "private evals", "swap the model". Pairs with /human-capital.
 argument-hint: "firm or customer name, or a description of the AI stack / loop to inventory"
 allowed-tools: [Read, Glob, Grep, Bash]
 ---

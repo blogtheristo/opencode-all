@@ -344,8 +344,10 @@ Evidence-based cheap→strong model escalation for agent runs. Fully offline —
 **Run it:**
 
 ```powershell
-npm run factory:route -- --file trajectory.json --model claude-haiku-4-5 --tier cheap --cost 0.40 --budget 5 --switches 0 --restarts 0
+npm run factory:route -- --file trajectory.json --model claude-haiku-4-5 --tier cheap --cost 0.40 --budget 5 --switches 0 --restarts 0 --bad 0
 ```
+
+Hysteresis is stateful across checkpoints: feed the previous run's `ladder.consecutiveBad` / `switchesUsed` / `restartsUsed` (from the JSON output) back in via `--bad` / `--switches` / `--restarts`, or the disruptive rungs (`restart_clean`, `escalate_human`) can never accumulate their two agreeing checkpoints.
 
 Structured JSON on stdout; exit codes `0` continue / `2` switch_model / `3` restart_clean / `4` escalate_human / `1` input error, so pipelines branch without parsing. Add `--evidence` to print the rendered evidence block on stderr. Skill form: `/factory-route`.
 

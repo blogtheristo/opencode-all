@@ -58,13 +58,14 @@ export function actionProbabilities(report: SignalReport): Record<FactoryAction,
     escalate_human: 0.05,
   };
 
+  // Budget is deliberately absent here: spend policy is decide()'s hard stop,
+  // driven by config.budgetEscalateFraction — never a magic number in scoring.
   const verified = report.lastVerificationPassed === true;
   if (verified && report.recentErrorRate < 0.4) scores.continue = 0.93;
   else if (report.loopDetected && report.switchesUsed >= 1) scores.restart_clean = 0.78;
   else if (report.recentErrorRate >= 0.5 || report.loopDetected || report.stepsSinceProgress >= 3)
     scores.switch_model = 0.82;
   else scores.continue = 0.71;
-  if (report.budgetBurn >= 0.85) scores.escalate_human = 0.95;
 
   return scores;
 }

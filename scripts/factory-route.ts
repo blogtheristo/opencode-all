@@ -17,6 +17,12 @@
  *   --budget <usd>      Session budget; 0 disables budget policing (default: 0)
  *   --switches <n>      Cheap→strong switches already used (default: 0)
  *   --restarts <n>      Clean restarts already used (default: 0)
+ *   --bad <n>           Consecutive bad checkpoints carried from the previous
+ *                       invocation (default: 0). Hysteresis lives across
+ *                       checkpoints: feed back the `ladder.consecutiveBad`
+ *                       value from the previous run's JSON output, or
+ *                       restart_clean/escalate_human can never accumulate the
+ *                       two agreeing checkpoints they require.
  *   --evidence          Also print the rendered evidence block to stderr
  *
  * Exit codes: 0 continue, 2 switch_model, 3 restart_clean, 4 escalate_human,
@@ -64,6 +70,7 @@ const { values } = parseArgs({
     budget: { type: 'string' },
     switches: { type: 'string' },
     restarts: { type: 'string' },
+    bad: { type: 'string' },
     evidence: { type: 'boolean' },
   },
 });
@@ -88,7 +95,7 @@ try {
 const state: LadderState = {
   switchesUsed: Math.floor(toNumber(values.switches, 0, 'switches')),
   restartsUsed: Math.floor(toNumber(values.restarts, 0, 'restarts')),
-  consecutiveBad: 0,
+  consecutiveBad: Math.floor(toNumber(values.bad, 0, 'bad')),
 };
 
 const trajectory = extractTrajectoryFromBody(body);

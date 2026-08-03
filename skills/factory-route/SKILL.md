@@ -1,14 +1,11 @@
 ---
 name: factory-route
 description: >
-  Use when deciding whether a running agent should stay on its cheap model, switch
-  to a stronger one, restart clean, or escalate to a human. Says "factory route",
-  "should this agent escalate", "is the agent stuck", "route this trajectory",
-  "model ladder", "cheap to strong". Wraps the deterministic DWS Factory Router
-  (src/factory/ + scripts/factory-route.ts) — detectors and ladder are pure code,
-  no LLM and no network (CLAUDE.md Rule 5). Fully offline: nothing leaves the
-  machine.
-argument-hint: "FILE=<request-body.json> [MODEL=<name>] [TIER=cheap|strong] [COST=<usd> BUDGET=<usd>] [SWITCHES=<n> RESTARTS=<n>]"
+  Use when deciding whether a running agent should stay on its cheap model, switch stronger,
+  restart clean, or escalate to a human. Says "factory route", "is the agent stuck", "route this
+  trajectory", "model ladder". Wraps the deterministic DWS Factory Router (src/factory/) — pure
+  code, no LLM, no network; nothing leaves the machine.
+argument-hint: "FILE=<request-body.json> [MODEL=<name>] [TIER=cheap|strong] [COST=<usd> BUDGET=<usd>] [SWITCHES=<n> RESTARTS=<n> BAD=<n>]"
 allowed-tools: [Read, Bash]
 ---
 
@@ -37,11 +34,16 @@ construction: no external decision service, no data egress.
    npm run -s factory:route -- --file <FILE> \
      --model <MODEL> --tier <cheap|strong> \
      --cost <COST> --budget <BUDGET> \
-     --switches <SWITCHES> --restarts <RESTARTS>
+     --switches <SWITCHES> --restarts <RESTARTS> --bad <BAD>
    ```
 
    Stdin piping works too. Add `--evidence` to print the rendered evidence block
    (the standard input for any DWS routing/KYA scoring layer) on stderr.
+   **Hysteresis lives across checkpoints:** feed the previous run's
+   `ladder.consecutiveBad` (and `switchesUsed`/`restartsUsed`) back in via
+   `--bad`/`--switches`/`--restarts`, or the disruptive actions
+   (`restart_clean`, `escalate_human`) can never accumulate the two agreeing
+   checkpoints they require.
 3. Act on the verdict. Exit codes let shell pipelines branch without parsing:
    `0` continue · `2` switch_model · `3` restart_clean · `4` escalate_human ·
    `1` input error.

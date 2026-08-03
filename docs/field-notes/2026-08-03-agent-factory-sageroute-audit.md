@@ -1,10 +1,21 @@
 # Agent Factory + SageRoute — Research, Audit, Adoption Decision
 
-**Date:** August 3, 2026
+**Date:** 2026-08-03
+**Author:** Risto Anton Päärni (risto.paarni@lifetime.fi) via Claude Code agent session
 **Owner:** Lifetime Oy
+**Location:** Espoo, Finland (remote cloud session)
+**Context:** DWS IQ 6 agent-infrastructure sourcing — model-router adoption decision
 **Status:** ✅ Decided and shipped — REJECT adoption as-is; ADAPT shipped as `src/factory/`
 **Session:** `claude/agent-factory-research-audit-l6hks2`
 **Subjects:** av1dlive "Agent Factory" thread (x.com/av1dlive/status/2082505465569910850) + [codejunkie99/sageroute](https://github.com/codejunkie99/sageroute)
+
+## Ontology Tags
+
+- **Geography:** Global > GitHub OSS; vendor jurisdiction unknown (Levanto Labs)
+- **Sector:** Software > Agent_Infrastructure > Model_Routing
+- **Entities:** SageRoute, Levanto Labs (Sage API), Anthropic, OpenAI, DWS-IQ6, DWS Factory Router
+- **Temporal Context:** 2026-Q3, post-AI-Act-enforcement (Art. 50 live 02.08.2026)
+- **Confidence:** High (source-level audit; every claim traceable to file:line)
 
 ---
 
@@ -157,5 +168,11 @@ VERSION AND AGENT HISTORY
   the Decision-Layer Egress Channel); KB concept
   `decision-layer-egress-channel`; Learn/ HTML renders; Drive export. Same
   session.
+- v1.3 (2026-08-03) — Copilot review fixes on PR #1788: CLI `--bad` flag so
+  hysteresis persists across checkpoint invocations; `verificationsRun` counted
+  directly; `distinctFilesTouched` keyed on file path, not args digest; stage-2
+  scoring freed of the hardcoded budget number (decide()'s hard stop owns spend
+  policy); HTML `lang` attribute in renders; field-note required elements +
+  Ontology Tags added per `docs/field-notes/README.md`. Same session.
 
 ***

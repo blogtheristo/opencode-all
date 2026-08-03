@@ -55,6 +55,8 @@ export interface SignalReport {
   loopKind: string;
   noToolCallStreak: number;
   distinctFilesTouched: number;
+  /** Total executions observed — every one is a verification opportunity. */
+  verificationsRun: number;
   /** Executions that ran and failed: the closest thing to a failed verification here. */
   failedVerifications: number;
   consecutiveFailedVerifications: number;
@@ -98,6 +100,16 @@ function isWrite(step: TrajectoryStep): boolean {
 /** Only answered steps are evidence: a pending call has not told us anything yet. */
 function answered(steps: readonly TrajectoryStep[]): TrajectoryStep[] {
   return steps.filter((step) => step.outputDigest !== '');
+}
+
+/**
+ * Identity of the file a write step touched. The args digest changes whenever any
+ * argument changes, so two edits to the same file would count as two "files"; prefer
+ * the file path when it survives in the args preview, falling back to the digest.
+ */
+function fileKey(step: TrajectoryStep): string {
+  const m = step.argsPreview.match(/"(?:file_path|path|filename|file)"\s*:\s*"([^"]+)"/);
+  return m ? m[1]! : step.argsDigest;
 }
 
 function detectLoops(report: SignalReport, steps: readonly TrajectoryStep[]): void {
@@ -208,6 +220,7 @@ export function computeSignals(trajectory: Trajectory, inputs: SignalInputs): Si
     loopKind: '',
     noToolCallStreak: trajectory.noToolTurns,
     distinctFilesTouched: 0,
+    verificationsRun: 0,
     failedVerifications: 0,
     consecutiveFailedVerifications: 0,
     lastVerificationPassed: null,
@@ -234,10 +247,11 @@ export function computeSignals(trajectory: Trajectory, inputs: SignalInputs): Si
   }
 
   report.distinctFilesTouched = new Set(
-    steps.filter((step) => isWrite(step)).map((step) => step.argsDigest),
+    steps.filter((step) => isWrite(step)).map((step) => fileKey(step)),
   ).size;
 
   const execs = steps.filter(isExec);
+  report.verificationsRun = execs.length;
   report.failedVerifications = execs.filter((step) => !step.ok).length;
   report.consecutiveFailedVerifications = trailingStreak(execs, (step) => !step.ok);
   report.lastVerificationPassed = execs.length > 0 ? execs[execs.length - 1]!.ok : null;
@@ -297,7 +311,7 @@ export function renderEvidence(report: SignalReport, goal: string): string {
     `rewrite_retest_fail_cycles=${report.rewriteRetestCycles}`,
     `steps_since_progress=${report.stepsSinceProgress} no_tool_call_streak=${report.noToolCallStreak}`,
     `files_touched=${report.distinctFilesTouched}`,
-    `verifications_run=${report.failedVerifications + (report.lastVerificationPassed === true ? 1 : 0)} ` +
+    `verifications_run=${report.verificationsRun} ` +
       `last_verification_passed=${report.lastVerificationPassed === null ? 'unknown' : report.lastVerificationPassed}`,
     `cost_usd=${report.costUsd.toFixed(4)} budget_usd=${report.budgetUsd.toFixed(2)} ` +
       `budget_burn=${report.budgetBurn.toFixed(2)}`,

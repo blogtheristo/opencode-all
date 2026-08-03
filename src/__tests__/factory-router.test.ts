@@ -121,6 +121,9 @@ describe('detectors', () => {
     expect(report.rewriteRetestCycles).toBe(2);
     expect(report.loopDetected).toBe(false);
     expect(report.consecutiveFailedVerifications).toBe(2);
+    expect(report.verificationsRun).toBe(2);
+    // Two edits to the same file_path are one file, not two.
+    expect(report.distinctFilesTouched).toBe(1);
   });
 
   it('resets stepsSinceProgress only on a successful execution, not a rewrite', () => {
@@ -133,6 +136,8 @@ describe('detectors', () => {
       ]),
     );
     expect(report.stepsSinceProgress).toBe(3);
+    // Both executions count as verifications run, not just failures + last pass.
+    expect(report.verificationsRun).toBe(2);
   });
 });
 
