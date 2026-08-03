@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.7
+Version: 1.8
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.7 → 1.8: HIC supplied the two actual drivers for Lifetime AB — KTH (Kungliga Tekniska Högskolan) and Vinnova, not the auditor and consultancy the agent had guessed from the abbreviations. This inverts §5d: Vinnova requires the coordinating party to be a Swedish legal person, and foreign actors without a Swedish filial cannot receive funding at all. It is the first item in the session that Lifetime Oy structurally cannot do and Lifetime AB can. Flags the LUT-vs-KTH doctoral-home question against the Thesis Rule.
 Change 1.6 → 1.7: HIC instruction — trafikansvarig reminder moved 31.08 → 15.10.2026, since the August date reminded of a step that cannot be taken until the capacity proof exists. The reminder is now gated on whether the 17.08 outreach produced deals, and carries both routes with prices so the decision can be made from the reminder itself.
 Change 1.5 → 1.6: HIC correction — the consultant trafikansvarig route was NOT rejected. v1.5 recorded an agent recommendation as an HIC decision, and the companion coaching document repeated it as fact. Both corrected. §5b now keeps both routes open, states the cost case and the execution-risk case separately, and labels the recommendation as a recommendation.
 Change 1.4 → 1.5: Priced both trafikansvarig routes. Consultant is €250–429/mo recurring; own exam is a ~€124–267 one-off course plus exam fees — a factor of 10–17 over twelve months. Recommendation recorded: own exam, because the consultant buys speed on a step that is not the bottleneck (the application is blocked by the €8 900 capacity proof, not by the competence requirement). Noted the six-month window in which all four delprov must be passed.
@@ -167,6 +168,25 @@ The wedge is therefore identical to the Finnish one — an Article 4 literacy re
 **The gap is two sales.** €8 900 (100 000 SEK). Two €5 900 deliveries (€11 800) clear it with margin; a €5 900 plus a €4 500 (€10 400) also clears it. That is the whole distance between here and a funded Swedish licence, and it is a smaller number than the session's earlier framing implied.
 
 **What is not at risk:** Lifetime Oy's Traficom licence 00010089 runs to **24.10.2034** and FOB-319 keeps producing in Helsinki throughout. The downside of a slow Swedish path is delay, not loss of income.
+
+## 5d. Why the AB actually exists — Vinnova and KTH (HIC, 2026-08-03)
+
+The session spent most of its length testing the AB against the wrong two drivers. Both were examined and both are genuinely non-urgent:
+
+- **The Swedish taxi licence** needs the AB, but the application is blocked by an unfunded €8 900 (100 000 SEK) capacity proof. Founding the AB first accelerates nothing while that gate is shut.
+- **EIC** does not need the AB at all. The applicant is a *single* company established in an EU or associated country, and Lifetime Oy already qualifies. Applying via a subsidiary is possible but adds a burden (a credible European business strategy), not a shortcut.
+
+**The real drivers are Vinnova and KTH, and they invert the conclusion.**
+
+**Vinnova is a hard eligibility wall, not a preference.** The coordinating party must be **a Swedish legal person conducting operations in Sweden**. Foreign actors without a registered `filial` or `driftställe` in Sweden **may participate as project partners but cannot receive funding from Vinnova.** Lifetime Oy therefore cannot be paid by Vinnova in any structure. This is the first thing in the entire session that Lifetime Oy structurally *cannot* do and Lifetime AB *can* — every other blocked item has been blocked by money, not by legal form.
+
+Note also the co-funding floor: on planning grants the Vinnova contribution is capped at 80 % of eligible costs, so **≥20 % own financing** is required. Vinnova money is matched money, not free money.
+
+**KTH supplies the vehicle.** An `industridoktorand` is a doctoral student **employed outside KTH** — in industry — and enrolled at KTH for at least 50 % of full time, financed by some combination of the employing company, public or private research funding, and centre-based programmes. The natural employer in that construction is Lifetime AB. This is also where the HIC's earlier note — *"jos pääsen tohtoriohjelmaan apurahamahdollisuus"* — connects: the grant possibility and the AB are the same structure viewed from two ends.
+
+**Consequence for the 2026-08-10 decision.** The AB is no longer a positioning gesture with no near-term function. It is the precondition for an entire funding channel that the Finnish company cannot enter. That does not make the cash arithmetic in §5c wrong — registration still consumes nearly the whole cash position — but it changes what the money buys from *optionality* to *access*.
+
+**Flag, not a blocker — the doctoral home.** `CLAUDE.md`'s Thesis Rule names `docs/PHD_FIREHORSE_EN.md` / `_FI.md` as the **LUT** track. If KTH becomes the doctoral home, that is a canon change touching all four thesis files and their lockstep versioning. Raised here so it is decided deliberately rather than discovered later. Not actioned in this session.
 
 ## 6. Dated commitments
 
