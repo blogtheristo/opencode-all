@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.4
+Version: 1.5
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.4 → 1.5: Priced both trafikansvarig routes. Consultant is €250–429/mo recurring; own exam is a ~€124–267 one-off course plus exam fees — a factor of 10–17 over twelve months. Recommendation recorded: own exam, because the consultant buys speed on a step that is not the bottleneck (the application is blocked by the €8 900 capacity proof, not by the competence requirement). Noted the six-month window in which all four delprov must be passed.
 Change 1.3 → 1.4: Registered as canonical in `DWS_TRUTH_STANDARD.md` §2 row 34. All monetary figures converted to EUR-first per the new §2H currency rule (founder directive, 03.08.2026); local currency now follows in parentheses.
 Change 1.2 → 1.3: HIC corrected the available funds — ~2 500 €, not the ~11 000 € the §5b chain requires. This does not block the AB (registration costs ~2 425 €) but it does block the Swedish operator licence, whose 100 000 SEK financial-capacity proof is unfunded. The Swedish taxi fallback is therefore removed from the near-term plan and coaching revenue becomes the sole path, not one of two. See §5c.
 Change 1.1 → 1.2: HIC supplied the Finnish operator licence (Traficom taksiliikennelupa 00010089, Lifetime Oy, valid to 2034) and directed that founding Lifetime AB be added to the sequence, with share capital already on account. This exposed a wrong licence type in v1.1 — the Swedish requirement is `taxitrafiktillstånd` (company-level), not only `taxiförarlegitimation` (driver-level) — and a hard dependency: the AB must exist before the operator licence can be applied for. Timeline revised from ~3 months to ~4–5 months. See §5b.
@@ -100,6 +101,26 @@ The second half is what closes the loop: **driving income is invisible to a cap 
 | 5 | **`taxiförarlegitimation`** for whoever drives | — | runs in parallel | Driver-level, not company-level. |
 
 **Revised total: ~4–5 months, not 2–3.** The v1.1 date of 2026-11-03 was built on the wrong licence and is too optimistic; realistic clearance is **January–February 2027** if step 1 starts now.
+
+### Trafikansvarig — the two routes priced (2026-08-03)
+
+Hiring an external trafikansvarig is explicitly lawful provided the person meets the requirements. Both routes were priced:
+
+| Route | Cost | Note |
+| ----- | ---- | ---- |
+| **Consultant — Trafikexperten** | **€250/mo** (2 800 SEK) from | recurring |
+| **Consultant — Yrkestrafik.se / Ekonomico** | **€259/mo** (2 900 SEK) first vehicle | falls per additional vehicle (2 500 / 2 000 / 1 500 / 1 000 SEK) |
+| **Consultant — Svenska Yrkestrafikgruppen** | **€357/mo** (4 000 SEK) + **€71** (800 SEK) per vehicle, **€179** (2 000 SEK) setup | ≈ €429/mo for one car |
+| **Own exam — course, Taxikurs.nu** | **€124 one-off** (1 390 SEK incl. VAT) | |
+| **Own exam — course, alternative** | **€267 one-off** (2 995 SEK incl. VAT) | |
+| Trafikverket exam fee | `unverified` | booked and paid separately |
+| Transportstyrelsen application fee | `unverified` — "a few thousand SEK" | confirm current fee |
+
+**Over twelve months: €3 100–5 300 (consultant) against ~€300 one-off (own exam).** A factor of 10–17.
+
+**Recommendation: own exam.** The consultant buys *speed on a step that is not the bottleneck.* Nothing downstream is waiting on trafikansvarig — the application is blocked by the €8 900 (100 000 SEK) capacity proof, not by the competence requirement. Paying €250–429 every month to accelerate past a gate that is already shut is spending the scarcest resource on the wrong constraint. The €124 course costs less than one month of any consultant.
+
+**The real price of the own-exam route is not money.** Four `delprov` in Swedish (three at 45 minutes, one at 120), and **all four must be passed within six months of the first pass** — so the clock starts at the first exam, not at the first study session. That is the constraint to plan around, and it argues for starting the course early and sitting the exams close together.
 
 **`unverified` — worth one phone call before accepting the timeline.** The working assumption here is that the Finnish operator licence does **not** transfer, because taxi falls outside the EU road-transport mutual-recognition regime (Regulation 1071/2009 covers goods and bus). If that assumption is wrong, months disappear from this chain. Ten years of documented Finnish operation should in any case support the `gott anseende` assessment even if the licence itself does not carry over.
 
