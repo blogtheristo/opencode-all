@@ -1,11 +1,11 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: KTH / TECoSA — one-pager and proposed Letter of Intent topics
-Version: 1.2
+Version: 1.3
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
-Status: BLOCKED — Lifetime AB registration status must be resolved before sending (see §3)
+Status: Ready to send — awaiting HIC go
 Agent: Claude Code, session claude/fuengirola-uber-cashflow-5dr1n3
 Purpose: Response material for Prof. Martin Törngren (KTH), who asked for a one-pager and the points worth covering in a Letter of Intent. All traction claims reproduced from DWS_TRACTION_CANONICAL rules; no MRR, no dispatch operators as customers, no "live" Aegis. Structural context: docs/field-notes/2026-08-03-stockholm-position-and-the-runway-question.md §5d.
 Valuutta: EUR johtaa, paikallisvaluutta sulkeissa (DWS_TRUTH_STANDARD.md §2H).
@@ -19,7 +19,7 @@ Prof. Martin Törngren directs **TECoSA — Trustworthy Edge Computing Systems a
 
 That matters structurally, not just topically. In the Vinnova competence-centre model **the university coordinates and companies join as partners** — which is the lightest available route into Vinnova funding, since it does not require Lifetime to coordinate its own call. It remains subject to the same eligibility wall: **a funded party must be a Swedish legal person with operations in Sweden.** Lifetime Oy cannot be a funded party; Lifetime AB can.
 
-**Disclosure obligation:** Lifetime AB is **not yet registered**. Nothing sent to KTH may imply otherwise. See §3.
+**Disclosure obligation:** Lifetime AB is **not yet registered**, and **no Vinnova eligibility is claimed** until it exists and the Swedish implementation model is confirmed. The eligibility rule above is our current understanding, recorded for orientation — it is not asserted to KTH as a settled position. See §3.
 
 ---
 
@@ -37,7 +37,7 @@ That matters structurally, not just topically. In the Vinnova competence-centre 
 >
 > **Capacity to carry partner commitments.** Relevant because a competence-centre partner must sustain co-funding and participation over several years, not because it is a pitch. A licensed transport operation and a small consulting practice run at approximately **€7,000/month combined**, putting the company at cash break-even with a founder salary of €0 — services and transport revenue, explicitly not software revenue. Two enterprise pilots were contracted in **Q1/2026 at €29,950 each (€59,900 booked)**. Team is a two-person core with a contracted engineering bench under NDA. Lifetime is a small partner and says so; the contribution offered is the operating environment and the platform, not headcount.
 >
-> **Structure.** Lifetime Oy (Finland) holds the IP, the Finnish customers and the EU-programme track. **Lifetime AB (Sweden) is being established** as the Nordic research and financing entity, and is the intended counterparty for Swedish research collaboration and Vinnova-funded work.
+> **Structure.** Lifetime Oy (Finland) holds the IP, the Finnish customers and the EU-programme track. **Lifetime AB is not yet registered, but can be established on an accelerated schedule if the Swedish research and financing track becomes concrete.** Which entity would act as the Swedish counterparty, and on what basis, is one of the points proposed for the Letter of Intent.
 >
 > Risto Anton Päärni · Founder, CEO · Lifetime Oy · risto.paarni@lifetime.fi · +358 400 319 010
 
@@ -57,7 +57,7 @@ Sent **with the one-pager**, not as a separate list. Ordered so that the questio
 **Feasibility — entity, coordination and money**
 
 5. **Vinnova route and the partner construction** — TECoSA partnership, a joint call, or a separate application, and **who coordinates**. Everything below follows from this answer, so it should not be left implicit.
-6. **Swedish applicant entity and the eligibility precondition** — a Vinnova-funded party must be a **Swedish legal person conducting operations in Sweden**; foreign actors without a Swedish `filial` or `driftställe` may participate as project partners but cannot receive funding. State which Lifetime entity is intended to be the funded party. Better raised by us than discovered in an eligibility check.
+6. **Swedish applicant entity — an open question, not a solved one.** Our present understanding is that a Vinnova-funded party must be a **Swedish legal person conducting operations in Sweden**, and that foreign actors without a Swedish `filial` or `driftställe` may participate as project partners but cannot receive funding. **Lifetime makes no claim to be eligible today** — no Swedish entity is registered, and the Swedish implementation model is not yet confirmed. What the LoI should settle is which construction the collaboration would actually use (Swedish subsidiary, `filial`, or Lifetime participating unfunded alongside a funded Swedish party), and what each implies. Raised by us at the outset rather than discovered in an eligibility check.
 7. **Co-funding** — Vinnova's share is capped (up to 80 % on planning grants), so **≥20 % own financing** is required. Say what form Lifetime's contribution takes: cash, in-kind engineering time, or fleet and platform access. In-kind access to an operating regulated environment is the strongest card and should be **priced and scoped**, not offered vaguely.
 8. **Indicative timeline and milestones**, tied to a specific call deadline once the route in item 5 is chosen.
 
@@ -73,6 +73,10 @@ Sent **with the one-pager**, not as a separate list. Ordered so that the questio
 13. **Data protection and confidentiality** — operational fleet data involves personal data of passengers and drivers. Name GDPR roles (controller / processor), what is anonymised or aggregated before it leaves the operational system, and what never leaves it at all.
 14. **Non-binding character and duration** — the LoI expresses intent and commits no funds. It is **non-binding except as to confidentiality, data protection, publication review, and any agreed IP provisions**, which bind on signature. State what supersedes it (a consortium agreement or a Vinnova project agreement) and by when.
 
+**Next step**
+
+15. **One short call to settle items 5–7**, before any text is drafted. The route, the coordinator and the co-funding form determine what the LoI can even say; a document written before those three are answered will need rewriting rather than editing. Everything else on this list can then be drafted in one pass and adjusted from KTH's side.
+
 ---
 
 ## 2a. Write this LoI for Vinnova, not for EIC
@@ -87,7 +91,8 @@ A tension worth resolving before drafting rather than inside the draft.
 
 ## 3. What must be true before this is sent
 
-- **BLOCKING — the Lifetime AB wording is unresolved and the one-pager is not sendable until it is.** A revision was proposed replacing *"Lifetime AB is being established"* with *"Lifetime AB is registered in Sweden and is being prepared as the Swedish research and financing entity."* **That change has not been made.** Everything else in this session says the AB is **not** registered: the 2026-08-10 calendar entry is the decision *whether* to register it, §5c prices the registration at €2 425 (27 150 SEK) against a ~€2 500 cash position, and the HIC's own instruction was *"lisää listaan Lifetime AB perustaminen"*. Writing "is registered in Sweden" to a research partner while that is untrue is a false statement of fact to a third party, and it would be discovered at the first eligibility check. Either the AB is already registered — in which case most of this session's funding arithmetic needs revisiting — or the wording stays as it is. **HIC must resolve before sending.** The LoI topic list is written entity-neutral ("which Lifetime entity is intended to be the funded party") so it is unaffected either way.
+- **RESOLVED (HIC, 2026-08-03) — the AB wording.** A revision had been proposed replacing *"Lifetime AB is being established"* with *"Lifetime AB is registered in Sweden"*. It was **rejected by the HIC** because the AB is not registered; the 2026-08-10 calendar entry is the decision *whether* to register it. The agreed wording is: **"Lifetime AB is not yet registered, but can be established on an accelerated schedule if the Swedish research and financing track becomes concrete."** Kept here as a record of a claim that was one edit away from going out and would have failed at the first eligibility check.
+- **No eligibility is claimed anywhere.** Per the same HIC instruction: Vinnova eligibility is not asserted until the company exists and the Swedish implementation model is confirmed. Item 6 now states this as an open question and offers three possible constructions rather than presuming one.
 - **Traction wording is reproduced from the canonical block** (`docs/TRACTION_CANONICAL.md` §2). No MRR figure, no customer count, no dispatch operator named as a customer, Aegis never "live". If any of this is edited before sending, re-check it against that file.
 - **TECoSA partner count (~19) and centre framing** are taken from public KTH and Vinnova material and are `unverified` against current centre documentation. Do not quote a partner count back to its own director; the number is here for our orientation only.
 - **Nothing has been sent.** No email, no attachment, no commitment. Awaiting HIC approval.
