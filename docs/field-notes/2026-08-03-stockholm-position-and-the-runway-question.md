@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.1
+Version: 1.2
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.1 → 1.2: HIC supplied the Finnish operator licence (Traficom taksiliikennelupa 00010089, Lifetime Oy, valid to 2034) and directed that founding Lifetime AB be added to the sequence, with share capital already on account. This exposed a wrong licence type in v1.1 — the Swedish requirement is `taxitrafiktillstånd` (company-level), not only `taxiförarlegitimation` (driver-level) — and a hard dependency: the AB must exist before the operator licence can be applied for. Timeline revised from ~3 months to ~4–5 months. See §5b.
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
 Status: Active
@@ -71,9 +72,30 @@ The second half is what closes the loop: **driving income is invisible to a cap 
 
 > **Superseded (v1.0), retained per Rule 12:** *"Do not start with the taxi licence. It opens a three-month zero-income hole at precisely the moment money is the stated problem."* This assumed no operating income asset existed. It did. The conclusion is reversed; the reasoning is kept so the correction is legible rather than silently erased.
 
-1. **`taxiförarlegitimation` starts now** (Transportstyrelsen: medical + written exam, ~2–3 months). The lead time is the binding constraint on the whole Stockholm move, and it runs while Helsinki income continues uninterrupted. Starting it first costs nothing and buys three months.
-2. **Public-sector outreach runs in parallel** — Sweden (§5a) and Finland. Zero production cost, the material exists, and neither depends on the licence.
-3. **Structure unchanged** — Lifetime Oy stays in Finland with the IP, Finnish customers and EIC path. Lifetime AB remains the Nordic financing and university structure. Only the funding source moved: from the wheel to the invoice.
+1. **Register Lifetime AB** — this is now step one, not a later structural step, because the operator licence is issued to a *company* and cannot be applied for before the AB exists (§5b).
+2. **`taxitrafiktillstånd` application follows registration** — the binding constraint on the whole Stockholm move. It runs while Helsinki income continues uninterrupted, so early start costs nothing and late start costs months.
+3. **Public-sector outreach runs in parallel** — Sweden (§5a) and Finland. Zero production cost, the material exists, and neither depends on any licence or on the AB.
+4. **Structure unchanged** — Lifetime Oy stays in Finland with the IP, Finnish customers, the EIC path **and its operating taxi licence**. Lifetime AB remains the Nordic financing and university structure. Only the funding source moved: from the wheel to the invoice.
+
+## 5b. The Swedish licence chain — corrected
+
+**v1.1 named the wrong licence.** `taxiförarlegitimation` is the *driver's* permit. What Lifetime AB needs, and what the Finnish document in hand is the equivalent of, is **`taxitrafiktillstånd`** — the company-level operator licence under Taxitrafiklag (2012:211). Both are eventually required; only the second gates the business.
+
+**Asset in hand (HIC, 2026-08-03):** Traficom **taksiliikennelupa 00010089**, holder Lifetime Oy (0772407-9), valid **24.10.2024 – 24.10.2034**. Ten years of runway on the Finnish side, already operating via FOB-319.
+
+**The chain, in dependency order:**
+
+| # | Step | Cost | Time | Note |
+| - | ---- | ---- | ---- | ---- |
+| 1 | **Lifetime AB registered** (Bolagsverket via verksamt.se) | 25 000 SEK share capital + 1 900 SEK fee + 250 SEK verklig huvudman | **1–3 weeks** | Beneficial owner must be filed within 4 weeks of registration. HIC confirms funds are on account. |
+| 2 | **`trafikansvarig` with approved `yrkeskunnande`** | exam fees | **the real bottleneck** | Four `delprov` covering legal rules, business and financial management, technical norms, and road safety. Taken in Swedish. A consultant can serve as trafikansvarig instead — that is the fast path. |
+| 3 | **Financial capacity proof** | **100 000 SEK** first vehicle, +50 000 SEK each additional | — | **On top of** the 25 000 SEK share capital. Minimum tied capital for one car is therefore **~125 000 SEK ≈ 11 000 €**. |
+| 4 | **`taxitrafiktillstånd` application** (Transportstyrelsen) | — | **8–12 weeks** with complete documentation | Assessed on yrkeskunnande, ekonomiska förhållanden and gott anseende. |
+| 5 | **`taxiförarlegitimation`** for whoever drives | — | runs in parallel | Driver-level, not company-level. |
+
+**Revised total: ~4–5 months, not 2–3.** The v1.1 date of 2026-11-03 was built on the wrong licence and is too optimistic; realistic clearance is **January–February 2027** if step 1 starts now.
+
+**`unverified` — worth one phone call before accepting the timeline.** The working assumption here is that the Finnish operator licence does **not** transfer, because taxi falls outside the EU road-transport mutual-recognition regime (Regulation 1071/2009 covers goods and bus). If that assumption is wrong, months disappear from this chain. Ten years of documented Finnish operation should in any case support the `gott anseende` assessment even if the licence itself does not carry over.
 
 ## 5a. Sweden — why the public sector is reachable right now
 
@@ -90,9 +112,11 @@ The wedge is therefore identical to the Finnish one — an Article 4 literacy re
 
 | Date        | Item                                                                                      | Consequence if missed                                                                       |
 | ----------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| 2026-08-10  | `taxiförarlegitimation` application started with Transportstyrelsen                        | The binding constraint on the whole Stockholm move slips a month. Helsinki income continues meanwhile, so there is no cost to starting early — only cost to starting late. |
-| 2026-08-17  | Swedish + Finnish public-sector coaching outreach sent (SV translation done first)          | The fastest euro available stays unearned another month.                                     |
-| 2026-11-03  | Derived: taxiförarlegitimation expected to clear (~2–3 months from application)             | Stockholm move becomes executable. If it has not cleared, the AB timing question in §7 reopens.|
+| 2026-08-10  | **Lifetime AB registration filed** via verksamt.se (funds already on account)               | Everything downstream waits. The operator licence cannot even be applied for until the AB exists. |
+| 2026-08-17  | Swedish + Finnish public-sector coaching outreach sent (SV translation done first)          | The fastest euro available stays unearned another month. Independent of the AB and the licence.  |
+| 2026-08-31  | **`trafikansvarig` resolved** — own `yrkeskunnande` exam booked, or consultant engaged      | The true bottleneck. Left unresolved, the licence application cannot be filed at all.            |
+| 2026-09-07  | Derived: AB registered (1–3 weeks) → **`taxitrafiktillstånd` application filed**             | Each week of delay here moves clearance one week into 2027.                                      |
+| 2027-01-15  | Derived: `taxitrafiktillstånd` expected to clear (8–12 weeks from a complete application)    | Stockholm move becomes executable. If not cleared, the AB timing question in §7 reopens.          |
 
 ## 7. HIC question
 
