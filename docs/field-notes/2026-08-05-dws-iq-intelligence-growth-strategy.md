@@ -1,6 +1,6 @@
 # Field Note — DWS IQ Intelligence Growth Strategy Loop
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -23,7 +23,7 @@ Document Status:
 - Document Type: Field Note
 - Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 
-***
+---
 
 ## Field note metadata
 
@@ -59,9 +59,9 @@ The catalog should be organized into one Intelligence Core, Intelligence Functio
 - **Decision owner:** Risto Anton Päärni, Founder, CEO (R22).
 - **Decision date:** 2026-08-05.
 - **HIC response:** “approve Q1. agree.”
-- **Approved removals:** `secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, and `business-mentor-30`.
-- **Retained:** `professional-web-pages` as a cari.fi-powered SME web-presence outcome with 12-hour delivery; Claude Code AI Coaching as the adoption offer.
-- **Parallel-session boundary:** Do not change `FLEET-VIP-001` or product implementation files here; active work continues in https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW.
+- **Approved removals:** `secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, and `FLEET-VIP-001`.
+- **Retained:** `professional-web-pages` as a cari.fi-powered SME web-presence outcome with 12-hour delivery; `business-mentor-30` renamed "Claude Code AI Coaching — 30 Hours" as the retained adoption offer.
+- **Correction (Strategy_Loop.md v1.3):** this entry originally swapped `business-mentor-30` and `FLEET-VIP-001` — the "lifetime.fi careers" reason belongs to `FLEET-VIP-001` (its VIP transport/edge-robotics copy is already on `lifetime.fi/careers/index.html`), not to `business-mentor-30`. Catalog implementation in https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW is complete and merged.
 - **Reversibility:** Two-way door.
 - **Unblocks:** Three evaluated decision workflows, Evidence Room design, and catalog reclassification.
 
@@ -81,7 +81,7 @@ The catalog should be organized into one Intelligence Core, Intelligence Functio
 - **Concepts:** Product Strategy > Intelligence Growth; AI Governance > EU AI Act Articles 12 and 14; Metrics > MGD and CRC; Research > Reproducibility, Evaluation, Causal Reasoning, Discovery
 - **Confidence:** Medium-High — strategy is evidence-grounded; product-level scores require formal evaluation
 
-***
+---
 
 **Document version:** v1.2 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.

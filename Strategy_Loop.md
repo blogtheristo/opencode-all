@@ -1,14 +1,18 @@
 # DWS IQ Intelligence Growth Strategy Loop
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
-- Version: 1.2 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Recorded HIC approval of Q1; narrowed the removal list to five SKUs; retained `professional-web-pages` as the cari.fi 12-hour SME web-presence offer; removed `FLEET-VIP-001` from this disposition; and documented the parallel Claude Code ownership boundary.
+- Version: 1.3 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: Merge-resolved the two independent 1.2 edits below. Corrected a factual error introduced in the Copilot CLI 1.2 pass: `business-mentor-30` has no relationship to "lifetime.fi careers" and was never approved for removal — the HIC's instruction attached the careers-page reason to `FLEET-VIP-001` specifically (confirmed: `lifetime.fi/careers/index.html` already carries the Uber Comfort/Priority + edge-robotics copy that is `FLEET-VIP-001`'s own product description). Restored `business-mentor-30` to "Repositioned, not sunset" as Claude Code AI Coaching, and restored `FLEET-VIP-001` to the approved-removal table. `dws10.com/config/products.json` (source of truth) already had the correct state through both merged branches — this was a documentation-only correction.
+
+- Version: 1.2 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: HIC-directed correction to §8 "Remove from the DWS IQ line, separate, or sunset" — `professional-web-pages` and `business-mentor-30` moved out of sunset and repositioned (not removed); `secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, `FLEET-VIP-001` removed from `dws10.com/config/products.json` per HIC instruction (5 SKUs, down from the original 7-row table). Catalog and mirror both updated in the same commit.
+
+- Version: 1.2 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Recorded HIC approval of Q1; narrowed the removal list to five SKUs; retained `professional-web-pages` as the cari.fi 12-hour SME web-presence offer; removed `FLEET-VIP-001` from this disposition; and documented the parallel Claude Code ownership boundary. Superseded by 1.3 — this entry's §8 table misattributed the "lifetime.fi careers" reason to `business-mentor-30` instead of `FLEET-VIP-001`; kept here verbatim per the no-formulation-loss rule, not as current guidance.
 
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Replaced deprecated activity-metric phrases after truth-lint and preserved MGD/CRC as the approved intelligence proof.
 
@@ -23,7 +27,7 @@ Document Status:
 - Document Type: Internal Research Note / Product Strategy
 - Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 
-***
+---
 
 ## Executive decision
 
@@ -96,14 +100,14 @@ The hypothesis fails if DWS IQ cannot outperform an agreed baseline on decision 
 
 ## 4. Intelligence maturity model
 
-| Level | Name | Observable behavior | Enterprise proof |
-|---:|---|---|---|
-| 0 | Utility | Executes a fixed task | Successful completion |
-| 1 | Assistant | Retrieves, drafts, or summarizes | Sources and human acceptance |
-| 2 | Specialist | Applies bounded domain rules and tools | Domain test set and expert review |
-| 3 | Governed decision intelligence | Recommends with evidence, uncertainty, lineage, controls, and HIC approval | Audit replay, calibrated evaluation, measured outcome |
-| 4 | Doctorate-level intelligence | Answers a difficult bounded question through a reproducible method | Independent reproduction, adversarial review, expert baseline |
-| 5 | Post-doctorate-level intelligence | Generates and validates a novel hypothesis that changes enterprise action or knowledge | Prospective validation and reusable customer-owned knowledge |
+| Level | Name                              | Observable behavior                                                                    | Enterprise proof                                              |
+| ----: | --------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+|     0 | Utility                           | Executes a fixed task                                                                  | Successful completion                                         |
+|     1 | Assistant                         | Retrieves, drafts, or summarizes                                                       | Sources and human acceptance                                  |
+|     2 | Specialist                        | Applies bounded domain rules and tools                                                 | Domain test set and expert review                             |
+|     3 | Governed decision intelligence    | Recommends with evidence, uncertainty, lineage, controls, and HIC approval             | Audit replay, calibrated evaluation, measured outcome         |
+|     4 | Doctorate-level intelligence      | Answers a difficult bounded question through a reproducible method                     | Independent reproduction, adversarial review, expert baseline |
+|     5 | Post-doctorate-level intelligence | Generates and validates a novel hypothesis that changes enterprise action or knowledge | Prospective validation and reusable customer-owned knowledge  |
 
 Only Levels 3–5 belong in the flagship DWS IQ Intelligence line. Levels 0–2 may remain components or onboarding services but must not headline the intelligence claim.
 
@@ -160,22 +164,37 @@ This replaces fleet-size, capability-inventory, compute-throughput, and frontier
 
 Q1 was approved by the HIC on 05.08.2026. The approved removal scope is exactly five SKUs:
 
-| SKU | Gap | Action |
-|---|---|---|
-| `secure-email-proton` | Commodity implementation outside the intelligence strategy | Remove from the product catalog |
-| `m365-consultancy` | Tool-specific implementation outside the intelligence strategy | Remove from the product catalog |
-| `digital-design-gold` | Brand-content production outside the intelligence strategy | Remove from the product catalog |
-| `cloud-ready-teams` | Staff augmentation outside the intelligence strategy | Remove from the product catalog |
-| `business-mentor-30` | The careers pathway now lives on lifetime.fi; Claude Code AI Coaching is the retained adoption offer | Remove from the product catalog |
+**Merge note, v1.3:** the two branches' v1.2 edits disagreed on which SKU the
+"lifetime.fi careers" reason applies to. Resolved against the HIC's original
+instruction and a verified fact: `lifetime.fi/careers/index.html` already
+carries the Uber Comfort/Priority + edge-robotics copy that is
+`FLEET-VIP-001`'s own product description — the careers reason belongs to
+`FLEET-VIP-001`, not `business-mentor-30`. `dws10.com/config/products.json`
+already had the correct state (business-mentor-30 kept, FLEET-VIP-001
+removed) through both merged branches; only this table's text was wrong.
 
-#### Retained and repositioned
+| SKU                   | Gap                               | Action                                                                                                           |
+| --------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `secure-email-proton` | Commodity implementation          | Removed from products.json                                                                                       |
+| `m365-consultancy`    | Tool-specific implementation      | Removed from products.json                                                                                       |
+| `digital-design-gold` | Brand-content production          | Removed from products.json; product page retired (`_RETIRED`)                                                    |
+| `cloud-ready-teams`   | Staff augmentation                | Removed from products.json                                                                                       |
+| `FLEET-VIP-001`       | Mobility mixed with edge robotics | Now listed on lifetime.fi careers, not a product — removed from products.json; product page retired (`_RETIRED`) |
 
-- `professional-web-pages` remains a product for SMEs building their web presence. Position it as a cari.fi-powered outcome with 12-hour delivery; customer-facing copy should describe the outcome, not technical implementation details.
-- Claude Code AI Coaching remains in the Adoption Services layer.
+#### Repositioned, not sunset (HIC correction, 05.08.2026)
 
-#### Parallel-work boundary
+| SKU                      | Original disposition                           | Correction                                                                                                                                                                                                   |
+| ------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `professional-web-pages` | Sunset or move outside DWS IQ                  | Repositioned around the proven `cari.fi` delivery: SME web presence, live in 12 hours, non-technical copy. Kept in the catalog and rewritten.                                                                |
+| `business-mentor-30`     | Replace with decision-specific research sprint | Renamed "Claude Code AI Coaching — 30 Hours" — the one coaching SKU singled out for this treatment; the four dedicated `claude-code-coaching-*` SKUs are unaffected. Remains in the Adoption Services layer. |
 
-This strategy update does not edit product definitions, product pages, pricing, or dual-folder mirrors. Those implementation changes, including `FLEET-VIP-001`, are owned by the ongoing [Claude Code session](https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW). Do not modify or duplicate that work from this strategy branch.
+#### Parallel-work boundary — resolved
+
+The catalog, feed, and page implementation work referenced above (owned by the
+[Claude Code session](https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW))
+is complete and merged as of v1.3: `dws10.com/config/products.json` and its
+`landing-pages/` mirror, `google-products.xml`, `local-inventory.tsv`, and the
+`professional-web-pages.html` / `*_RETIRED.html` product pages.
 
 #### Infrastructure enablers, not intelligence products
 
@@ -200,20 +219,20 @@ The `LAND-*` offers have the better pattern because they attach enablement to a 
 
 #### Generic assistants and growth tools requiring upgrade
 
-| SKU/family | Required upgrade |
-|---|---|
-| `conversational-agent` | Domain decision, evidence graph, abstention policy, and evaluation |
-| `firehorse-flow` | Controlled experiments, causal attribution, confidence, and economics |
-| `omnichannel-multimodal`, `FH-OMNI-001` | Hypotheses, incrementality testing, and governed claims |
-| `CSAT-T1/T2` | Prospectively validated indicators and retained-revenue interventions |
-| `LF-T1/T2` | Tested product hypotheses, not feedback summarization |
-| `CS-T1/T2` | Materiality, scenarios, prediction tracking, and decision impact |
-| `SEO-T1/T2` | Separate or connect to causal commercial experiments |
-| `DW-T1/T2` | Use beneath governed engineering decisions |
-| `FH-CMS-001` | Contradiction, expiry-impact, evidence-quality, and lineage features |
-| `FH-SIGN-001` | Keep only as a governed-artifact add-on |
-| `firehorse-data-services` | Replace broad promise with a bounded data-to-decision product |
-| `devops-lead` | Publish scoring, evidence, sensitivity, baseline, and outcome |
+| SKU/family                              | Required upgrade                                                      |
+| --------------------------------------- | --------------------------------------------------------------------- |
+| `conversational-agent`                  | Domain decision, evidence graph, abstention policy, and evaluation    |
+| `firehorse-flow`                        | Controlled experiments, causal attribution, confidence, and economics |
+| `omnichannel-multimodal`, `FH-OMNI-001` | Hypotheses, incrementality testing, and governed claims               |
+| `CSAT-T1/T2`                            | Prospectively validated indicators and retained-revenue interventions |
+| `LF-T1/T2`                              | Tested product hypotheses, not feedback summarization                 |
+| `CS-T1/T2`                              | Materiality, scenarios, prediction tracking, and decision impact      |
+| `SEO-T1/T2`                             | Separate or connect to causal commercial experiments                  |
+| `DW-T1/T2`                              | Use beneath governed engineering decisions                            |
+| `FH-CMS-001`                            | Contradiction, expiry-impact, evidence-quality, and lineage features  |
+| `FH-SIGN-001`                           | Keep only as a governed-artifact add-on                               |
+| `firehorse-data-services`               | Replace broad promise with a bounded data-to-decision product         |
+| `devops-lead`                           | Publish scoring, evidence, sensitivity, baseline, and outcome         |
 
 #### Strategic inconsistencies
 
@@ -264,7 +283,7 @@ It is not working if growth is explained mainly by more agents, SKUs, pilots, mo
 6. OECD, AI in policy evaluation: https://www.oecd.org/en/publications/governing-with-artificial-intelligence_795de142-en/full-report/ai-in-policy-evaluation_c88cc2fd.html
 7. Internal sources: `DWS_TRUTH_STANDARD.md`, `DWS_PRODUCT_STANDARD.md`, `DWS_MARKET_RESEARCH_STANDARD.md`, `DWS_ROLES_REGISTRY.md`, `AI_AGENT_GUIDELINES.md`, `config/truth/mgd-crc-metrics.json`, and `dws10.com/config/products.json`.
 
-***
+---
 
 **Document version:** v1.2 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
