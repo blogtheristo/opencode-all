@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+
+- Version: 1.2 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Recorded HIC approval of Q1; narrowed the removal list to five SKUs; retained `professional-web-pages` as the cari.fi 12-hour SME web-presence offer; removed `FLEET-VIP-001` from this disposition; and documented the parallel Claude Code ownership boundary.
 
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Replaced deprecated activity-metric phrases after truth-lint and preserved MGD/CRC as the approved intelligence proof.
 
@@ -17,7 +19,7 @@ Document Status:
 - Created: 05.08.2026
 - Last Modified: 05.08.2026
 - Language: English
-- Publication Status: DRAFT
+- Publication Status: ACTIVE
 - Document Type: Internal Research Note / Product Strategy
 - Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 
@@ -154,17 +156,26 @@ This replaces fleet-size, capability-inventory, compute-throughput, and frontier
 
 ### Do not meet the flagship strategy as currently sold
 
-#### Remove from the DWS IQ line, separate, or sunset
+#### Approved removal from the product catalog
+
+Q1 was approved by the HIC on 05.08.2026. The approved removal scope is exactly five SKUs:
 
 | SKU | Gap | Action |
 |---|---|---|
-| `professional-web-pages` | General IT support and websites | Sunset or move outside DWS IQ |
-| `secure-email-proton` | Commodity implementation | Move to partner/referral catalog |
-| `m365-consultancy` | Tool-specific implementation | Repackage around a governed DWS workflow |
-| `digital-design-gold` | Brand-content production | Separate Firehorse creative service |
-| `cloud-ready-teams` | Staff augmentation | Remove from core catalog |
-| `business-mentor-30` | Generic, non-reproducible mentoring | Replace with decision-specific research sprint |
-| `FLEET-VIP-001` | Mobility mixed with edge robotics | Split; remove mobility from DWS IQ |
+| `secure-email-proton` | Commodity implementation outside the intelligence strategy | Remove from the product catalog |
+| `m365-consultancy` | Tool-specific implementation outside the intelligence strategy | Remove from the product catalog |
+| `digital-design-gold` | Brand-content production outside the intelligence strategy | Remove from the product catalog |
+| `cloud-ready-teams` | Staff augmentation outside the intelligence strategy | Remove from the product catalog |
+| `business-mentor-30` | The careers pathway now lives on lifetime.fi; Claude Code AI Coaching is the retained adoption offer | Remove from the product catalog |
+
+#### Retained and repositioned
+
+- `professional-web-pages` remains a product for SMEs building their web presence. Position it as a cari.fi-powered outcome with 12-hour delivery; customer-facing copy should describe the outcome, not technical implementation details.
+- Claude Code AI Coaching remains in the Adoption Services layer.
+
+#### Parallel-work boundary
+
+This strategy update does not edit product definitions, product pages, pricing, or dual-folder mirrors. Those implementation changes, including `FLEET-VIP-001`, are owned by the ongoing [Claude Code session](https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW). Do not modify or duplicate that work from this strategy branch.
 
 #### Infrastructure enablers, not intelligence products
 
@@ -231,18 +242,17 @@ The strategy works when MGD and CRC grow; evidence coverage and calibration impr
 
 It is not working if growth is explained mainly by more agents, SKUs, pilots, model calls, or consulting hours.
 
-## 12. HIC decision point
+## 12. HIC decision — Q1 APPROVED
 
-**Q1 — Should DWS adopt the Intelligence Product Gate from Q4 2026?**  
-**Options:** A — adopt Level 3 as the minimum flagship threshold and require evaluation cards plus independent review for Level 4–5 claims; B — retain the current broad DWS IQ catalog positioning.  
-**RECOMMEND:** A — APPROVE the gate.  
-**Decision owner:** Risto Anton Päärni, Founder, CEO (R22).  
-**Reversibility:** Two-way door; revise after quarterly evidence.  
-**Unblocks:** Selection of the first three evaluated decision workflows, Evidence Room design, and catalog reclassification.  
-**Cost of delay:** Product breadth continues to dilute the intelligence claim, and new offers can enter the catalog without reproducible evidence.  
-**Rests on — verified:** Current `products.json`, DWS standards, MGD/CRC doctrine, and source documents were inspected in this session.  
-**Rests on — propagated:** Stanford HAI, McKinsey, NIST, European Commission, and OECD findings are cited from their official publications; no independent reproduction of their underlying studies was performed.  
-**Answer format:** `Q1 APPROVE` or `Q1 REJECT — <reason>`.
+**Decision:** Adopt the Intelligence Product Gate from Q4 2026. Level 3 is the minimum threshold for an offer to headline DWS IQ Intelligence; Level 4–5 claims require an evaluation card and independent review.
+**Decision owner:** Risto Anton Päärni, Founder, CEO (R22).
+**Decision date:** 05.08.2026.
+**HIC response:** “approve Q1. agree.”
+**Reversibility:** Two-way door; revise after quarterly evidence.
+**Unblocks:** Selection of the first three evaluated decision workflows, Evidence Room design, and catalog reclassification.
+**Approved catalog correction:** Five removals only; retain `professional-web-pages` under the clarified cari.fi SME outcome; keep Claude Code AI Coaching; leave `FLEET-VIP-001` to its active Claude Code session.
+**Rests on — verified:** Current `products.json`, DWS standards, MGD/CRC doctrine, source documents, and the HIC decision dated 05.08.2026.
+**Rests on — propagated:** Stanford HAI, McKinsey, NIST, European Commission, and OECD findings are cited from their official publications; no independent reproduction of their underlying studies was performed.
 
 ## Sources
 
@@ -256,6 +266,6 @@ It is not working if growth is explained mainly by more agents, SKUs, pilots, mo
 
 ***
 
-**Document version:** v1.1 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.2 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

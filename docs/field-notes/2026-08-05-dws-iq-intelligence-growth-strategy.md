@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+
+- Version: 1.2 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Closed Q1 as HIC-approved, recorded the exact five-SKU removal scope, retained the cari.fi SME web-presence offer and Claude Code AI Coaching, and documented the parallel-session boundary for `FLEET-VIP-001`.
 
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Completed truth-lint wording correction and required field-note ontology metadata.
 
@@ -48,21 +50,20 @@ The catalog should be organized into one Intelligence Core, Intelligence Functio
 2. **Field note:** This file.
 3. **Learn HTML:** `Learn/2026-08-05-dws-iq-intelligence-growth-strategy.html`.
 4. **Drive export:** N/A — no Google Drive connector is available in this tool session. Repository and merged PR remain the source of truth.
-5. **HIC decision:** Q1 below.
-6. **Calendar:** N/A — no Google Calendar connector is available in this tool session. The proposed Q4 2026 gate is a strategic decision point, not an approved commitment; calendar it after Q1 approval.
+5. **HIC decision:** Q1 approved by Risto Anton Päärni on 05.08.2026.
+6. **Calendar:** N/A — no Google Calendar connector is available in this tool session, and the approved Q4 2026 gate does not yet have an exact implementation date. Calendar the implementation review when that date is selected.
 
-## HIC decision point
+## HIC decision — Q1 APPROVED
 
-**Q1 — Should DWS adopt the Intelligence Product Gate from Q4 2026?**  
-**Options:** A — adopt Level 3 as the minimum flagship threshold and require evaluation cards plus independent review for Level 4–5 claims; B — retain current broad positioning.  
-**RECOMMEND:** A — APPROVE the gate.  
-**Decision owner:** Risto Anton Päärni, Founder, CEO (R22).  
-**Reversibility:** Two-way door.  
-**Unblocks:** Three evaluated decision workflows, Evidence Room design, and catalog reclassification.  
-**Cost of delay:** The catalog continues diluting the intelligence claim and admits offers without reproducible proof.  
-**Rests on — verified:** Repository catalog, standards, metrics doctrine, and source documents inspected this session.  
-**Rests on — propagated:** Findings cited from official Stanford HAI, McKinsey, NIST, European Commission, and OECD publications; their underlying studies were not independently reproduced.  
-**Answer format:** `Q1 APPROVE` or `Q1 REJECT — <reason>`.
+- **Decision:** Adopt Level 3 as the minimum flagship threshold and require evaluation cards plus independent review for Level 4–5 claims.
+- **Decision owner:** Risto Anton Päärni, Founder, CEO (R22).
+- **Decision date:** 2026-08-05.
+- **HIC response:** “approve Q1. agree.”
+- **Approved removals:** `secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, and `business-mentor-30`.
+- **Retained:** `professional-web-pages` as a cari.fi-powered SME web-presence outcome with 12-hour delivery; Claude Code AI Coaching as the adoption offer.
+- **Parallel-session boundary:** Do not change `FLEET-VIP-001` or product implementation files here; active work continues in https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW.
+- **Reversibility:** Two-way door.
+- **Unblocks:** Three evaluated decision workflows, Evidence Room design, and catalog reclassification.
 
 ## Next Steps after approval
 
@@ -82,6 +83,6 @@ The catalog should be organized into one Intelligence Core, Intelligence Functio
 
 ***
 
-**Document version:** v1.1 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.2 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
