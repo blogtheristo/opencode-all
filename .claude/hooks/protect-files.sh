@@ -2,14 +2,17 @@
 # protect-files.sh — PreToolUse hook for Edit and Write tools
 # exit 2 = block, exit 0 = allow
 #
-# Code-Version: 2.0
-# Date: 2026-04-13
+# Code-Version: 2.1
+# Date: 2026-08-05
 # Branch: claude/fix-partners-stub-issue-A7eFH
 # Introduced-In: PR fix-partners-stub-issue-A7eFH
 # Owner: Lifetime Oy
 set -euo pipefail
 
-file=$(jq -r '.tool_input.file_path // .tool_input.path // ""')
+INPUT=$(cat)
+
+tool=$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')
+file=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // ""')
 [ -z "$file" ] && exit 0
 
 # Normalize to relative path
