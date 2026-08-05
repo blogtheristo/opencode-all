@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWS IQ Aegis Pilot (3 months) | Lifetime Firehorse™Store</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 800px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }
+        h1 { color: #60a5fa; }
+        .price { font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 20px; }
+        a.buy-btn { display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+        a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
+
+        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <a href="../../" class="nav-brand">
+            DWS IQ Platform
+        </a>
+        <div class="nav-links">
+            <a href="../../">Home</a>
+            <a href="../../buy/">Store</a>
+        </div>
+    </div>
+    <div class="container">
+        <a href="../" class="back-link">← Back to Store</a>
+        <h1>DWS IQ Aegis Pilot (3 months)</h1>
+        <div class="price">€19990</div>
+        <div class="content">
+            <h1>DWS IQ Aegis Pilot</h1>
+<p><strong>Prove the local-first path before you buy the silicon</strong> — a 3-month scoped engagement, part of DWS IQ Aegis</p>
+<h2>What it is</h2>
+<p>A fixed-price, fixed-duration engagement that proves the complete <strong>local-first operational path</strong> for Aegis on infrastructure you already have — or on a compact edge appliance — <strong>before any DGX procurement</strong>.</p>
+<p>The pilot exists because the control-room requirement is testable. In manufacturing control rooms, dual-use facilities and air-gapped plants, compliance execution cannot depend on external connectivity. That is either true of a deployment or it is not, and the way to find out is to run it and pull the cable — not to model it in a proposal.</p>
+<h2>What it proves</h2>
+<p>The five requirements that define a control-room deployment, demonstrated rather than asserted:</p>
+<ol>
+<li><strong>Local execution and local evidence</strong> — the outcome is produced on site, and the evidence of it is written on site.</li>
+<li><strong>Local identity, logs and kill authority</strong> — agent identity, the Article 12 record and the ability to stop an agent all resolve locally.</li>
+<li><strong>No network dependency for the core outcome</strong> — the critical path completes with the uplink down.</li>
+<li><strong>Cloud only for optional sync, backup or non-critical reporting</strong> — never the outcome, never the evidence chain, never the stop.</li>
+<li><strong>Graceful degradation</strong> — specified in advance, then demonstrated, rather than discovered during an incident.</li>
+</ol>
+<p><strong>The acceptance KPI is binary and deliberately blunt.</strong> With the uplink severed for an agreed window: (i) does the piloted workflow run to completion, (ii) is the EU AI Act Article 12 record still being written locally, and (iii) can an operator still stop a running agent? <strong>All three must pass.</strong> A pilot that does not pass has produced a useful negative result — a valid outcome, not a defect — and you will have learned it for €19,990 instead of after a hardware programme.</p>
+<h2>What you get</h2>
+<ul>
+<li>A scoped architecture for your site, with the deployment mode named (Local / Edge, Hybrid, or EU-Sovereign Cloud) and justified.</li>
+<li>A demonstrated uplink-down run against your own workflow.</li>
+<li>The Article 12 evidence record, produced locally throughout the engagement.</li>
+<li>Hardware sizing for production — informed by measured behaviour on your workload rather than a vendor spec sheet.</li>
+<li>A written recommendation, including the honest one: if your workload does not need local-first, the pilot says so.</li>
+</ul>
+<h2>How the three months run</h2>
+<p>Five phases. The ordering is deliberate: the substrate is proven before the workflow exists, and the acceptance test is rehearsed before it is taken. Each phase has an exit gate, and a gate that does not pass is reported rather than worked around.</p>
+<h3>Phase 0 — Scoping and baseline · weeks 0–2 · no charge</h3>
+<p><strong>Objective.</strong> Establish what "the core outcome" actually is, precisely enough that it can be tested.</p>
+<ul>
+<li><strong>We do:</strong> site, workflow and deployment-mode selection workshop; read-only audit of the source systems; <strong>criticality classification</strong> — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.</li>
+<li><strong>You do:</strong> nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window, its date, and <strong>the isolation method</strong>.</li>
+<li><strong>Exit gate:</strong> a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in <em>your</em> operational language, not ours.</li>
+</ul>
+<p><strong>On the isolation method.</strong> Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be <strong>enforced above the stack</strong> (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and <strong>egress must be attempted and shown to fail</strong> before the run starts. The weaker methods prove less about the network boundary and exactly as much about the workload; the acceptance record names which was used, so a reader in three years knows what was demonstrated.
+- <strong>This phase fails if</strong> the workflow cannot be described as a terminating sequence with a defined "complete" state. If there is no completion, there is nothing to test, and we say so before you have spent anything.</p>
+<h3>Phase 1 — Local substrate · weeks 3–5</h3>
+<p><strong>Objective.</strong> Stand up execution, identity, evidence and kill authority on site. Nothing about your workflow yet.</p>
+<ul>
+<li><strong>We do:</strong> deploy the execution runtime and local model serving on your hardware or a compact edge appliance; issue KYA agent identity that resolves locally, with no reachable control plane; stand up the Article 12 log writer against local durable storage; wire the kill path operator → running agent with no network hop.</li>
+<li><strong>You do:</strong> hardware placement, power, network segment, operator account provisioning.</li>
+<li><strong>Exit gate:</strong> the <strong>four locals</strong> demonstrated in isolation with the uplink already down — an agent runs, is identified, writes a record, and can be stopped.</li>
+<li><strong>Why before the workflow.</strong> Proving the substrate first means a Phase 3 failure is a workflow problem, not a platform problem. If identity or kill authority turns out to need a round-trip, that is the pilot's finding and it is reported at week 5, not discovered at week 11.</li>
+</ul>
+<h3>Phase 2 — Workflow integration · weeks 6–9</h3>
+<p><strong>Objective.</strong> Your actual control-room workflow, running on the local substrate.</p>
+<ul>
+<li><strong>We do:</strong> configure the agent set that workflow requires and no more; read-only source-system integration; map each decision point to the Article 12 record schema; implement the degraded-mode behaviour and the reconnect reconciliation order specified in Phase 0.</li>
+<li><strong>You do:</strong> the workflow owner validates each decision point; the operator is trained on the kill path.</li>
+<li><strong>Exit gate:</strong> the workflow runs to completion online, with a complete Article 12 record, accepted by its owner.</li>
+<li><strong>This phase fails if</strong> a step classified core turns out to need the network. That either reclassifies the step or redesigns it — surfaced here, where it is cheap.</li>
+</ul>
+<h3>Phase 3 — Severed-uplink acceptance test · weeks 10–11</h3>
+<p><strong>Objective.</strong> The binary KPI, announced, witnessed and recorded.</p>
+<ul>
+<li><strong>We do:</strong> a <strong>rehearsal run</strong> first under a short window, with findings fixed; then the acceptance run under the agreed window with your witness present; instrumented capture of all three conditions; observation of reconnection behaviour and verification that reconciliation happens in the specified order.</li>
+<li><strong>You do:</strong> authorise the window; provide the witness; your operator executes the stop.</li>
+<li><strong>Exit gate — all three, or it is a negative result:</strong> (i) the workflow ran to completion without network access, (ii) the Article 12 record was written locally throughout, with no gap, (iii) the operator stopped a running agent.</li>
+<li><strong>Why rehearse.</strong> An unrehearsed test measures the deployment engineer's luck, not the architecture. The rehearsal is where problems are meant to appear.</li>
+</ul>
+<h3>Phase 4 — Sizing, report and decision · weeks 12–13</h3>
+<p><strong>Objective.</strong> Convert measured behaviour into a production decision.</p>
+<ul>
+<li><strong>We do:</strong> production hardware sizing derived from your measured load, not a vendor spec sheet; deployment mode confirmed or revised against what the test actually showed; before/after report against the baseline; written recommendation and conversion terms.</li>
+<li><strong>You do:</strong> decide.</li>
+<li><strong>Exit gate:</strong> report delivered and walked through. The credit terms below run from here.</li>
+</ul>
+<h2>Pricing</h2>
+<p>| | |
+| --- | --- |
+| <strong>Price</strong> | €19,990 fixed |
+| <strong>Duration</strong> | 3 months |
+| <strong>Hardware</strong> | None purchased. Runs on existing customer infrastructure or a compact edge appliance. |
+| <strong>Credit</strong> | <strong>Credited in full against the €59,990 Aegis onboarding</strong> if you proceed within 6 months |</p>
+<p><strong>One net price, not two.</strong> The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.</p>
+<p>If you do not proceed, you keep the architecture, the measurements and the evidence record. Nothing further is owed.</p>
+<h3>Exactly what is in scope</h3>
+<p><strong>The €19,990 includes:</strong> one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.</p>
+<p><strong>Outside the credit, stated so there is no ambiguity later:</strong> LWM integration; any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate <strong>DWS IQ Aegis Implementation Programme</strong> (<code>DWS-AEGIS-IMPL-001</code>, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.</p>
+<h3>Commercial summary</h3>
+<p>| Stage | Fee | Credit applied | Balance due at production rollout |
+| --- | --- | --- | --- |
+| Aegis 3-month pilot | €19,990 | €19,990 (100%) | €40,000 of the €59,990 onboarding |
+| Proceed to production | €40,000 | — | €0 — onboarding settled; licence from €999/mo begins |
+| <strong>Total cost to production</strong> | <strong>€59,990</strong> | | Unchanged by taking the pilot |</p>
+<p><strong>Why the scope is written this tightly.</strong> A pilot priced at a large fraction of the product stops being a pilot and becomes the product under a lower-commitment name. €19,990 is a bounded subset of onboarding, which is what makes crediting it in full defensible rather than a discount in disguise.</p>
+<h2>Who it is for</h2>
+<p>Manufacturing control rooms, dual-use facilities and other critical sites where a network outage is an operational event rather than an inconvenience — and where somebody has to be able to state, to a regulator or a board, what the system did while the link was down.</p>
+<h2>Related</h2>
+<ul>
+<li><strong>DWS IQ Aegis</strong> — the full platform (<code>DWS-AEGIS-001</code>), €59,990 onboarding + from €999/mo.</li>
+<li><strong>DWS IQ Aegis Implementation Programme</strong> — the three-phase engagement (<code>DWS-AEGIS-IMPL-001</code>), €45,000, additive and not credited.</li>
+<li>Deployment architecture, modes and the control-room requirement: see the Aegis product page.</li>
+</ul>
+        </div>
+        <a href="mailto:risto@lifetime.fi?subject=Order Inquiry: DWS IQ Aegis Pilot (3 months) (DWS-AEGIS-PILOT-001)" class="buy-btn">Contact Sales to Order</a>
+    </div>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
+        <p><strong>LEGAL NOTICE</strong></p>
+        <p><strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland).</p>
+        <p><strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.</p>
+        <p style="margin-top: 20px;">Copyright © 2025 Lifetime Oy. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
