@@ -1,12 +1,14 @@
 # DWS IQ Intelligence Growth Strategy Loop
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+
+- Version: 1.4 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: Reconciled the HIC-supplied Gemini review against this document (new §13): adopted the five-question strategic review layer as a quarterly complement to §6 and clarified that deterministic calculators are Level 0–2 components unless embedded in a governed workflow; rejected four Gemini positions with reasons (its weaker RQ Main, "100% cryptographic proof," deterministic retrieval, and deprecation on Post-Doc failure). No catalog scope change — approved removals remain exactly five. Also fixed two v1.3 leftovers: footer version string (was v1.2) and §12's stale FLEET-VIP-001/coaching attribution echo.
 
 - Version: 1.3 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: Merge-resolved the two independent 1.2 edits below. Corrected a factual error introduced in the Copilot CLI 1.2 pass: `business-mentor-30` has no relationship to "lifetime.fi careers" and was never approved for removal — the HIC's instruction attached the careers-page reason to `FLEET-VIP-001` specifically (confirmed: `lifetime.fi/careers/index.html` already carries the Uber Comfort/Priority + edge-robotics copy that is `FLEET-VIP-001`'s own product description). Restored `business-mentor-30` to "Repositioned, not sunset" as Claude Code AI Coaching, and restored `FLEET-VIP-001` to the approved-removal table. `dws10.com/config/products.json` (source of truth) already had the correct state through both merged branches — this was a documentation-only correction.
 
@@ -23,11 +25,12 @@ Document Status:
 - Created: 05.08.2026
 - Last Modified: 05.08.2026
 - Language: English
+- Languages Available: English
 - Publication Status: ACTIVE
 - Document Type: Internal Research Note / Product Strategy
 - Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 
----
+***
 
 ## Executive decision
 
@@ -142,6 +145,18 @@ Score each gate 0–3: absent, claimed, demonstrated, independently validated. P
 10. **Scale:** sell the proven decision to the next role, site, business unit, or industry.
 
 Review failures weekly, prioritize by MGD/CRC monthly, gate every SKU quarterly, and independently reproduce Level 4–5 claims annually.
+
+### Quarterly strategic review layer (adopted from external review, 05.08.2026 — see §13)
+
+The ten steps above are the operational loop. Once per quarter, before the SKU
+gating pass, answer five positioning questions in order; each answer must cite
+Evidence Room artifacts, not intentions:
+
+1. **Purpose** — why does an enterprise buyer pay for DWS IQ instead of a generic LLM wrapper or legacy GRC tool this quarter?
+2. **Landscape** — where are incumbent tools currently failing on hallucination, reproducibility, or passive data collection, and which of those failures do we exploit?
+3. **Climate** — which regulatory forces (EU AI Act enforcement wave, CSRD double-materiality audits, CBAM tightening) are creating demand for defensible evidence right now?
+4. **Doctrine** — is the non-negotiable still holding: no ungrounded assertion reaches a customer without a verifiable audit chain (TRUTH row 35; Gate 3)?
+5. **Execution** — how fast did customer feedback change an evaluation case, ontology, or threshold last quarter (loop steps 7–8), and what blocked it?
 
 ## 7. Enterprise-visible proof
 
@@ -269,9 +284,53 @@ It is not working if growth is explained mainly by more agents, SKUs, pilots, mo
 **HIC response:** “approve Q1. agree.”
 **Reversibility:** Two-way door; revise after quarterly evidence.
 **Unblocks:** Selection of the first three evaluated decision workflows, Evidence Room design, and catalog reclassification.
-**Approved catalog correction:** Five removals only; retain `professional-web-pages` under the clarified cari.fi SME outcome; keep Claude Code AI Coaching; leave `FLEET-VIP-001` to its active Claude Code session.
+**Approved catalog correction:** Five removals only (`secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, `FLEET-VIP-001`); retain `professional-web-pages` under the clarified cari.fi SME outcome and `business-mentor-30` as Claude Code AI Coaching. Implementation merged (PR #1797).
 **Rests on — verified:** Current `products.json`, DWS standards, MGD/CRC doctrine, source documents, and the HIC decision dated 05.08.2026.
 **Rests on — propagated:** Stanford HAI, McKinsey, NIST, European Commission, and OECD findings are cited from their official publications; no independent reproduction of their underlying studies was performed.
+
+## 13. External review reconciliation — Gemini input via HIC, 05.08.2026
+
+The HIC supplied a Gemini-authored review of the same strategy question. Compared
+line-by-line against this document. Per the surface-conflicts rule, each point is
+adopted, confirmed as existing canon, or rejected with a reason — never blended.
+
+### Adopted
+
+| Gemini point                                                                                                             | Disposition                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Five-question strategy cycle (Purpose → Landscape → Climate → Doctrine → Execution)                                      | Added to §6 as the quarterly strategic review layer. It is a positioning cycle; the 10-step loop remains the operational loop. They compose, they do not compete.                                                                                                                  |
+| Deterministic carbon/ESG calculators "pass basic math, fail Post-Doc" | Correct only at the component level: a calculator is Level 0–2 by itself. Embedded within a governed decision workflow it can support Levels 3–4; Level 5 requires novel hypothesis generation and prospective validation beyond deterministic calculation. |
+
+### Confirmed — already canon (no change)
+
+- Benchmark definitions of doctorate/post-doctorate intelligence match the Executive decision in substance.
+- Material claims without evidence are blocked = `DWS_TRUTH_STANDARD` row 35 + Product Gate 3.
+- Generic Q&A chatbots and LLM wrappers failing both gates = the §8 "generic assistants requiring upgrade" list (`conversational-agent`, `firehorse-flow`).
+- Ungrounded manual consulting failing the Doctorate gate = the §8 adoption-services reclassification.
+- Passive regulatory news feeds failing both gates = why `/regulatory-radar` scores per-customer impact instead of aggregating headlines.
+
+### Rejected — with reasons
+
+| Gemini position                                                           | Why rejected                                                                                                                                                                        |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Its "RQ Main" as the primary research question                            | Weaker duplicate of RQ0 (§2): no MGD/CRC measurability, no falsifiable hypothesis, no sovereignty/confidentiality/oversight constraints. RQ0 stays canonical.                       |
+| "100% of outputs provide cryptographic- or audit-grade evidentiary proof" | Absolutist and unfalsifiable as a requirement. The scored gate (§5: 0–3 per gate, ≥24/30, production proof on Gates 1/3/6/7/9) is the enforceable form of the same intent.          |
+| "Deterministic retrieval and proof-chain generation before any response" | Retrieval and model inference are not generally deterministic, and non-material output does not require a proof chain. DWS instead requires reconstructable audit replay and evidence for every material claim. |
+| "Deprecate anything failing the Post-Doctorate gate"                      | Directly contradicts the HIC-approved Q1 decision: Level 3 is the approved flagship floor; Level 5 is the aspirational tier. Applying Gemini's rule would gut the approved catalog. |
+| Category-level catalog exclusions as removal instructions                 | The approved removal scope is exactly the five SKUs in §12. Any further removal requires a new numbered HIC decision.                                                               |
+
+## 14. Academic interlock — the four-year LUT doctorate as an external validation pathway
+
+The doctorate-level claim in this strategy must not be self-certified. The LUT PhD
+programme (4 years, 2027–2030, supervision discussions with Prof. Kari
+Smolander in progress) can independently test and publish evidence relevant to it. Each DWS IQ
+version supplies the production testbed that makes the research questions
+falsifiable (DWS 7 customer evidence → Article I–II; DWS 8 carbon ledger →
+Article II–III; the §5 Product Gate scores → Article III's measurement
+instrument), and each peer-reviewed article can become an Evidence Room artifact —
+public, citable evidence relevant to Level 4 behavior. Product-level claims still
+require the independent reproduction and evaluation defined by the Product Gate. Full plan, year-by-year map, shared success scoreboard, and risk
+controls: `docs/lut/dws-iq-phd-interlock-roadmap-2026-2030.md`.
 
 ## Sources
 
@@ -283,8 +342,8 @@ It is not working if growth is explained mainly by more agents, SKUs, pilots, mo
 6. OECD, AI in policy evaluation: https://www.oecd.org/en/publications/governing-with-artificial-intelligence_795de142-en/full-report/ai-in-policy-evaluation_c88cc2fd.html
 7. Internal sources: `DWS_TRUTH_STANDARD.md`, `DWS_PRODUCT_STANDARD.md`, `DWS_MARKET_RESEARCH_STANDARD.md`, `DWS_ROLES_REGISTRY.md`, `AI_AGENT_GUIDELINES.md`, `config/truth/mgd-crc-metrics.json`, and `dws10.com/config/products.json`.
 
----
+***
 
-**Document version:** v1.2 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.4 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
