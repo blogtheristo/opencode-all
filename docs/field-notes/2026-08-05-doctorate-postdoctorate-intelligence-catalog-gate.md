@@ -216,6 +216,39 @@ flagged by the session-stop hook. Parked — not read or acted on here; a separa
 APPROVED` per Non-Negotiable Rule 13. Not touched in this session (out of scope,
 Rule 3 surgical changes).
 
+## Merge resolution — PR #1797 vs. the independently-merged Q1-approval PR #1796
+
+While this branch's PR #1797 sat open, a parallel GitHub Copilot CLI session
+recorded the HIC's Q1 approval directly to `main` (PR #1796) and, in the same
+pass, re-derived its own version of the SKU disposition table — independently
+reaching the same 5-remove/2-reposition split, but **swapping which SKU the
+"lifetime.fi careers" reason attaches to**: their table removed
+`business-mentor-30` and left `FLEET-VIP-001` for "the active Claude Code
+session" to handle.
+
+Merging `origin/main` into this branch surfaced the conflict. Resolved against
+the HIC's original instruction plus a verified fact, not a guess:
+`lifetime.fi/careers/index.html` already carries the Uber Comfort/Priority +
+edge-robotics copy that is `FLEET-VIP-001`'s own product description —
+`business-mentor-30` (AI coaching) has no relationship to a careers page.
+`dws10.com/config/products.json` itself was never wrong (both branches'
+implementation code agreed: `business-mentor-30` kept, `FLEET-VIP-001`
+removed) — only the Copilot-authored _documentation_ of that state was
+wrong, in four places: `Strategy_Loop.md` §8, its companion field note
+(`docs/field-notes/2026-08-05-dws-iq-intelligence-growth-strategy.md`), and
+two `.claude/handoffs/*.md` files. All four corrected in this pass;
+`Strategy_Loop.md` bumped v1.2 → v1.3 with the correction recorded in its own
+version history (not silently overwritten, per Rule 12).
+
+**Lesson for the record:** two independently-reasoning agents converged on
+the same numeric split (5 removed, 2 repositioned) from the same HIC
+instruction, but diverged on which specific SKU carried which reason. Same
+class of error as this note's own keyword-heuristic miss earlier — a
+plausible-sounding attribution ("careers pathway... adoption offer") that
+wasn't checked against the actual page content. Checking the claim against
+`lifetime.fi/careers/index.html` directly, rather than trusting either
+agent's prose, is what resolved it.
+
 ## Next steps
 
 - HIC answers the decision above.

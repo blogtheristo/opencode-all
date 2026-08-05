@@ -124,14 +124,89 @@ an intelligence outcome. First remediation step is tagging each SKU with whether
 makes an intelligence claim at all, before treating absence of evidence language as
 a finding.
 
-## HIC decision needed
+## Reconciliation — `Strategy_Loop.md` (merged main, PR #1795, ~03:36 UTC 05.08.2026)
 
-Should this gate (a) become a canonical `DWS_TRUTH_STANDARD` row plus a reusable
-`/catalog-gate` skill — since re-running this by hand each time a SKU is added is
-exactly the "asked twice = failure" pattern the Skill Codification Rule exists to
-catch — and (b) be wired as a hard pre-condition for Green-ratifying any SKU, or
-stay advisory until KYA itself clears its own four gates? A third option is to do
-neither yet and treat this note as a one-time audit.
+The claimed file was real, just not findable earlier because it hadn't been
+authored yet: it landed on `main` directly (self-merged, no review window) as
+`Strategy_Loop.md` + `docs/field-notes/2026-08-05-dws-iq-intelligence-growth-strategy.md`
+
+- `Learn/2026-08-05-dws-iq-intelligence-growth-strategy.html`, authored by
+  GitHub Copilot CLI (GPT-5.6 Sol) with Cursor AI as co-author per the commit
+  trailer — confirming the HIC's stated origin.
+
+**It supersedes this note as the canonical document.** It is broader (a full
+6-level intelligence maturity model 0–5, not a flat pass/fail; a scored
+10-point Product Gate 0–3 per gate, ≥24/30 threshold, mandatory production
+proof on gates 1/3/6/7/9; a 10-step Strategy Loop; a 90-day programme; an
+"Evidence Room" concept), externally grounded (Stanford HAI 2025 AI Index,
+McKinsey State of AI 2025, NIST AI RMF, EU AI Act Art. 12/14, OECD), and gives
+every flagged SKU a specific qualitative disposition (sunset / infra-enabler /
+adoption-service / needs-upgrade / strategic-inconsistency) rather than this
+note's binary keyword-presence split. It also already carries a pending HIC
+decision (**Q1 — adopt the Intelligence Product Gate from Q4 2026, answer
+`Q1 APPROVE` or `Q1 REJECT — <reason>`**) — that decision, not a second one
+from this note, is the one the HIC should act on. The "HIC decision needed"
+ask originally here is retracted as redundant.
+
+**Cross-validation.** This note's crude "does-not-meet" list (built from a
+products.json keyword scan for audit/attestation/signed/verified/watermark)
+matched `Strategy_Loop.md`'s qualitative "remove/sunset" list exactly on all
+7 SKUs it names: `professional-web-pages`, `secure-email-proton`,
+`m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`,
+`business-mentor-30`, `FLEET-VIP-001`. Keyword absence was a reliable signal
+at the bottom of the distribution.
+
+**Corrections to this note's "candidate set."** Keyword _presence_ was a
+noisier signal — `Strategy_Loop.md`'s qualitative read demotes four SKUs this
+note had wrongly promoted to "candidate" on surface language alone:
+
+| SKU             | This note said                     | `Strategy_Loop.md` says                                                                       |
+| --------------- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
+| `AIS-EU-SOV-OC` | candidate (has "audit")            | infrastructure enabler, not an intelligence product                                           |
+| `FH-CMS-001`    | candidate (has "audit"/"evidence") | generic assistant — needs contradiction/expiry-impact/evidence-quality/lineage features first |
+| `FH-SIGN-001`   | candidate (has "audit"/"signed")   | keep only as a governed-artifact add-on, not a flagship product                               |
+| `SEO-T1/T2`     | candidate, T2 (has "audit")        | separate, or connect to causal commercial experiments                                         |
+
+The lesson: a keyword match on "audit"/"verified" in a product's JSON record
+is necessary but not sufficient evidence of doctorate-level intelligence —
+exactly the point G2–G3 were trying to make, now demonstrated on the tool
+itself. Treat this note's candidate-set table above as superseded by
+`Strategy_Loop.md` §8; its does-not-meet list stands as corroborated.
+
+**Process gaps this note has, that the superseding document doesn't:** it was
+not run through `/truth-check` (its authors' was, per their version history:
+"replaced deprecated activity-metric phrases after truth-lint"); it did not
+cite external market evidence. **Process gaps the superseding document has,
+that this note doesn't:** its own field note records Drive export and
+Calendar as N/A ("no connector available in this tool session") — this
+session's connectors were available and did complete both (Drive doc:
+`https://docs.google.com/document/d/1WYxaxJicFXMZ6kO4KTkkkDbJjam0p77SlO8ZmKJNNvU/edit`).
+That Drive doc should be treated as covering this note only, not as the
+Learning Standard Drive record for `Strategy_Loop.md` — that record is still
+open on the other side.
+
+## HIC correction to the "remove/sunset" list — 05.08.2026
+
+The HIC agreed the does-not-meet direction but corrected 2 of the 7 SKUs: they
+were never meant to be sunset, only mispositioned.
+
+- **`professional-web-pages`** — kept, repositioned around the proven
+  `cari.fi` delivery (SME web presence, live in 12 hours, non-technical
+  copy), not removed.
+- **`business-mentor-30`** — kept, renamed "Claude Code AI Coaching — 30
+  Hours" — singled out from the coaching family for this treatment; the four
+  `claude-code-coaching-*` SKUs are untouched.
+- The remaining 5 (`secure-email-proton`, `m365-consultancy`,
+  `digital-design-gold`, `cloud-ready-teams`, `FLEET-VIP-001` — the last now
+  living on lifetime.fi careers, not a product) were removed from
+  `dws10.com/config/products.json` and its `landing-pages/` mirror in this
+  session. Standalone product pages for `digital-design-gold` and
+  `FLEET-VIP-001` (`lifetime-vip-ai-services.html`) were retired to
+  `*_RETIRED.html` in both copies rather than deleted (Non-Negotiable Rule 6).
+
+Net effect: the "cross-validation: 7/7 exact match" claim above is now
+partial — 5/7 held, 2/7 were corrected. `Strategy_Loop.md` §8 was updated to
+match (v1.1 → v1.2); see its own version history for the full record.
 
 ## Also surfaced this session (parked, not this task's scope)
 
@@ -140,6 +215,39 @@ flagged by the session-stop hook. Parked — not read or acted on here; a separa
 `/blog-draft` pass is needed to show the HIC the full text and get `Status:
 APPROVED` per Non-Negotiable Rule 13. Not touched in this session (out of scope,
 Rule 3 surgical changes).
+
+## Merge resolution — PR #1797 vs. the independently-merged Q1-approval PR #1796
+
+While this branch's PR #1797 sat open, a parallel GitHub Copilot CLI session
+recorded the HIC's Q1 approval directly to `main` (PR #1796) and, in the same
+pass, re-derived its own version of the SKU disposition table — independently
+reaching the same 5-remove/2-reposition split, but **swapping which SKU the
+"lifetime.fi careers" reason attaches to**: their table removed
+`business-mentor-30` and left `FLEET-VIP-001` for "the active Claude Code
+session" to handle.
+
+Merging `origin/main` into this branch surfaced the conflict. Resolved against
+the HIC's original instruction plus a verified fact, not a guess:
+`lifetime.fi/careers/index.html` already carries the Uber Comfort/Priority +
+edge-robotics copy that is `FLEET-VIP-001`'s own product description —
+`business-mentor-30` (AI coaching) has no relationship to a careers page.
+`dws10.com/config/products.json` itself was never wrong (both branches'
+implementation code agreed: `business-mentor-30` kept, `FLEET-VIP-001`
+removed) — only the Copilot-authored _documentation_ of that state was
+wrong, in four places: `Strategy_Loop.md` §8, its companion field note
+(`docs/field-notes/2026-08-05-dws-iq-intelligence-growth-strategy.md`), and
+two `.claude/handoffs/*.md` files. All four corrected in this pass;
+`Strategy_Loop.md` bumped v1.2 → v1.3 with the correction recorded in its own
+version history (not silently overwritten, per Rule 12).
+
+**Lesson for the record:** two independently-reasoning agents converged on
+the same numeric split (5 removed, 2 repositioned) from the same HIC
+instruction, but diverged on which specific SKU carried which reason. Same
+class of error as this note's own keyword-heuristic miss earlier — a
+plausible-sounding attribution ("careers pathway... adoption offer") that
+wasn't checked against the actual page content. Checking the claim against
+`lifetime.fi/careers/index.html` directly, rather than trusting either
+agent's prose, is what resolved it.
 
 ## Next steps
 

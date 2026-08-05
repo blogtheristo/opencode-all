@@ -4,11 +4,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: Merge-resolved the two independent 1.2 edits below. Corrected a factual error introduced in the Copilot CLI 1.2 pass: `business-mentor-30` has no relationship to "lifetime.fi careers" and was never approved for removal — the HIC's instruction attached the careers-page reason to `FLEET-VIP-001` specifically (confirmed: `lifetime.fi/careers/index.html` already carries the Uber Comfort/Priority + edge-robotics copy that is `FLEET-VIP-001`'s own product description). Restored `business-mentor-30` to "Repositioned, not sunset" as Claude Code AI Coaching, and restored `FLEET-VIP-001` to the approved-removal table. `dws10.com/config/products.json` (source of truth) already had the correct state through both merged branches — this was a documentation-only correction.
+
 - Version: 1.2 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: HIC-directed correction to §8 "Remove from the DWS IQ line, separate, or sunset" — `professional-web-pages` and `business-mentor-30` moved out of sunset and repositioned (not removed); `secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, `FLEET-VIP-001` removed from `dws10.com/config/products.json` per HIC instruction (5 SKUs, down from the original 7-row table). Catalog and mirror both updated in the same commit.
+
+- Version: 1.2 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Recorded HIC approval of Q1; narrowed the removal list to five SKUs; retained `professional-web-pages` as the cari.fi 12-hour SME web-presence offer; removed `FLEET-VIP-001` from this disposition; and documented the parallel Claude Code ownership boundary. Superseded by 1.3 — this entry's §8 table misattributed the "lifetime.fi careers" reason to `business-mentor-30` instead of `FLEET-VIP-001`; kept here verbatim per the no-formulation-loss rule, not as current guidance.
 
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Replaced deprecated activity-metric phrases after truth-lint and preserved MGD/CRC as the approved intelligence proof.
 
@@ -19,7 +23,7 @@ Document Status:
 - Created: 05.08.2026
 - Last Modified: 05.08.2026
 - Language: English
-- Publication Status: DRAFT
+- Publication Status: ACTIVE
 - Document Type: Internal Research Note / Product Strategy
 - Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 
@@ -156,11 +160,18 @@ This replaces fleet-size, capability-inventory, compute-throughput, and frontier
 
 ### Do not meet the flagship strategy as currently sold
 
-#### Remove from the DWS IQ line, separate, or sunset
+#### Approved removal from the product catalog
 
-**HIC correction, 05.08.2026:** `professional-web-pages` and `business-mentor-30`
-do not belong in this table — repositioned instead, see below. The remaining 5
-were removed from `dws10.com/config/products.json` (+ mirror) in this pass.
+Q1 was approved by the HIC on 05.08.2026. The approved removal scope is exactly five SKUs:
+
+**Merge note, v1.3:** the two branches' v1.2 edits disagreed on which SKU the
+"lifetime.fi careers" reason applies to. Resolved against the HIC's original
+instruction and a verified fact: `lifetime.fi/careers/index.html` already
+carries the Uber Comfort/Priority + edge-robotics copy that is
+`FLEET-VIP-001`'s own product description — the careers reason belongs to
+`FLEET-VIP-001`, not `business-mentor-30`. `dws10.com/config/products.json`
+already had the correct state (business-mentor-30 kept, FLEET-VIP-001
+removed) through both merged branches; only this table's text was wrong.
 
 | SKU                   | Gap                               | Action                                                                                                           |
 | --------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -172,10 +183,18 @@ were removed from `dws10.com/config/products.json` (+ mirror) in this pass.
 
 #### Repositioned, not sunset (HIC correction, 05.08.2026)
 
-| SKU                      | Original disposition                           | Correction                                                                                                                                                           |
-| ------------------------ | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `professional-web-pages` | Sunset or move outside DWS IQ                  | Repositioned around the proven `cari.fi` delivery: SME web presence, live in 12 hours, non-technical copy. Kept in the catalog and rewritten.                        |
-| `business-mentor-30`     | Replace with decision-specific research sprint | Renamed "Claude Code AI Coaching — 30 Hours" — the one coaching SKU singled out for this treatment; the four dedicated `claude-code-coaching-*` SKUs are unaffected. |
+| SKU                      | Original disposition                           | Correction                                                                                                                                                                                                   |
+| ------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `professional-web-pages` | Sunset or move outside DWS IQ                  | Repositioned around the proven `cari.fi` delivery: SME web presence, live in 12 hours, non-technical copy. Kept in the catalog and rewritten.                                                                |
+| `business-mentor-30`     | Replace with decision-specific research sprint | Renamed "Claude Code AI Coaching — 30 Hours" — the one coaching SKU singled out for this treatment; the four dedicated `claude-code-coaching-*` SKUs are unaffected. Remains in the Adoption Services layer. |
+
+#### Parallel-work boundary — resolved
+
+The catalog, feed, and page implementation work referenced above (owned by the
+[Claude Code session](https://claude.ai/code/session_01T3cDnVQrtyrBNvLT9KeyeW))
+is complete and merged as of v1.3: `dws10.com/config/products.json` and its
+`landing-pages/` mirror, `google-products.xml`, `local-inventory.tsv`, and the
+`professional-web-pages.html` / `*_RETIRED.html` product pages.
 
 #### Infrastructure enablers, not intelligence products
 
@@ -242,18 +261,17 @@ The strategy works when MGD and CRC grow; evidence coverage and calibration impr
 
 It is not working if growth is explained mainly by more agents, SKUs, pilots, model calls, or consulting hours.
 
-## 12. HIC decision point
+## 12. HIC decision — Q1 APPROVED
 
-**Q1 — Should DWS adopt the Intelligence Product Gate from Q4 2026?**  
-**Options:** A — adopt Level 3 as the minimum flagship threshold and require evaluation cards plus independent review for Level 4–5 claims; B — retain the current broad DWS IQ catalog positioning.  
-**RECOMMEND:** A — APPROVE the gate.  
-**Decision owner:** Risto Anton Päärni, Founder, CEO (R22).  
-**Reversibility:** Two-way door; revise after quarterly evidence.  
-**Unblocks:** Selection of the first three evaluated decision workflows, Evidence Room design, and catalog reclassification.  
-**Cost of delay:** Product breadth continues to dilute the intelligence claim, and new offers can enter the catalog without reproducible evidence.  
-**Rests on — verified:** Current `products.json`, DWS standards, MGD/CRC doctrine, and source documents were inspected in this session.  
-**Rests on — propagated:** Stanford HAI, McKinsey, NIST, European Commission, and OECD findings are cited from their official publications; no independent reproduction of their underlying studies was performed.  
-**Answer format:** `Q1 APPROVE` or `Q1 REJECT — <reason>`.
+**Decision:** Adopt the Intelligence Product Gate from Q4 2026. Level 3 is the minimum threshold for an offer to headline DWS IQ Intelligence; Level 4–5 claims require an evaluation card and independent review.
+**Decision owner:** Risto Anton Päärni, Founder, CEO (R22).
+**Decision date:** 05.08.2026.
+**HIC response:** “approve Q1. agree.”
+**Reversibility:** Two-way door; revise after quarterly evidence.
+**Unblocks:** Selection of the first three evaluated decision workflows, Evidence Room design, and catalog reclassification.
+**Approved catalog correction:** Five removals only; retain `professional-web-pages` under the clarified cari.fi SME outcome; keep Claude Code AI Coaching; leave `FLEET-VIP-001` to its active Claude Code session.
+**Rests on — verified:** Current `products.json`, DWS standards, MGD/CRC doctrine, source documents, and the HIC decision dated 05.08.2026.
+**Rests on — propagated:** Stanford HAI, McKinsey, NIST, European Commission, and OECD findings are cited from their official publications; no independent reproduction of their underlying studies was performed.
 
 ## Sources
 
@@ -267,6 +285,6 @@ It is not working if growth is explained mainly by more agents, SKUs, pilots, mo
 
 ---
 
-**Document version:** v1.1 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.2 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
