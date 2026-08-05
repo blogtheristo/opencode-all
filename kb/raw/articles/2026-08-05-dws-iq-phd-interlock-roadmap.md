@@ -75,9 +75,10 @@ changes to it are an external act requiring a HIC decision — PR #1745).
 The applicant **graduated from LUT in 07/2007 with a Master's degree
 (DI) in Industrial Management (tuotantotalous)** — a LUT alumnus applying back
 to the alma mater. LUT's degree prerequisite for doctoral admission is met by
-this 2007 degree; the Metropolia master's thesis living in this repo is a
-separate, independent track and is **not** a gate for the LUT application. Do
-not re-ask this. Remaining eligibility to-do is administrative only: obtain
+this 2007 degree. The Metropolia YAMK thesis was graded **5/5 (Kiitettävä) on
+05.06.2026** (per `docs/lut/tutkimussuunnitelma-lut-2026-fi.md`) — additional
+supporting evidence, **not** a gate for the LUT application. Do not re-ask
+this. Remaining eligibility to-do is administrative only: obtain
 degree certificate + transcript copies for the Studyinfo attachment set (LUT
 registry can reissue if the 2007 paper copies aren't at hand).
 
