@@ -1,12 +1,14 @@
 # DWS IQ Intelligence Growth Strategy Loop
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+
+- Version: 1.2 | Tool: Claude Code | Session: session_01T3cDnVQrtyrBNvLT9KeyeW | Date: 05.08.2026 | Changes: HIC-directed correction to §8 "Remove from the DWS IQ line, separate, or sunset" — `professional-web-pages` and `business-mentor-30` moved out of sunset and repositioned (not removed); `secure-email-proton`, `m365-consultancy`, `digital-design-gold`, `cloud-ready-teams`, `FLEET-VIP-001` removed from `dws10.com/config/products.json` per HIC instruction (5 SKUs, down from the original 7-row table). Catalog and mirror both updated in the same commit.
 
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.6 Sol) | Session: dbab1ef1-b889-481d-bd82-b8485342d40d | Date: 05.08.2026 | Changes: Replaced deprecated activity-metric phrases after truth-lint and preserved MGD/CRC as the approved intelligence proof.
 
@@ -21,7 +23,7 @@ Document Status:
 - Document Type: Internal Research Note / Product Strategy
 - Owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 
-***
+---
 
 ## Executive decision
 
@@ -94,14 +96,14 @@ The hypothesis fails if DWS IQ cannot outperform an agreed baseline on decision 
 
 ## 4. Intelligence maturity model
 
-| Level | Name | Observable behavior | Enterprise proof |
-|---:|---|---|---|
-| 0 | Utility | Executes a fixed task | Successful completion |
-| 1 | Assistant | Retrieves, drafts, or summarizes | Sources and human acceptance |
-| 2 | Specialist | Applies bounded domain rules and tools | Domain test set and expert review |
-| 3 | Governed decision intelligence | Recommends with evidence, uncertainty, lineage, controls, and HIC approval | Audit replay, calibrated evaluation, measured outcome |
-| 4 | Doctorate-level intelligence | Answers a difficult bounded question through a reproducible method | Independent reproduction, adversarial review, expert baseline |
-| 5 | Post-doctorate-level intelligence | Generates and validates a novel hypothesis that changes enterprise action or knowledge | Prospective validation and reusable customer-owned knowledge |
+| Level | Name                              | Observable behavior                                                                    | Enterprise proof                                              |
+| ----: | --------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+|     0 | Utility                           | Executes a fixed task                                                                  | Successful completion                                         |
+|     1 | Assistant                         | Retrieves, drafts, or summarizes                                                       | Sources and human acceptance                                  |
+|     2 | Specialist                        | Applies bounded domain rules and tools                                                 | Domain test set and expert review                             |
+|     3 | Governed decision intelligence    | Recommends with evidence, uncertainty, lineage, controls, and HIC approval             | Audit replay, calibrated evaluation, measured outcome         |
+|     4 | Doctorate-level intelligence      | Answers a difficult bounded question through a reproducible method                     | Independent reproduction, adversarial review, expert baseline |
+|     5 | Post-doctorate-level intelligence | Generates and validates a novel hypothesis that changes enterprise action or knowledge | Prospective validation and reusable customer-owned knowledge  |
 
 Only Levels 3–5 belong in the flagship DWS IQ Intelligence line. Levels 0–2 may remain components or onboarding services but must not headline the intelligence claim.
 
@@ -156,15 +158,24 @@ This replaces fleet-size, capability-inventory, compute-throughput, and frontier
 
 #### Remove from the DWS IQ line, separate, or sunset
 
-| SKU | Gap | Action |
-|---|---|---|
-| `professional-web-pages` | General IT support and websites | Sunset or move outside DWS IQ |
-| `secure-email-proton` | Commodity implementation | Move to partner/referral catalog |
-| `m365-consultancy` | Tool-specific implementation | Repackage around a governed DWS workflow |
-| `digital-design-gold` | Brand-content production | Separate Firehorse creative service |
-| `cloud-ready-teams` | Staff augmentation | Remove from core catalog |
-| `business-mentor-30` | Generic, non-reproducible mentoring | Replace with decision-specific research sprint |
-| `FLEET-VIP-001` | Mobility mixed with edge robotics | Split; remove mobility from DWS IQ |
+**HIC correction, 05.08.2026:** `professional-web-pages` and `business-mentor-30`
+do not belong in this table — repositioned instead, see below. The remaining 5
+were removed from `dws10.com/config/products.json` (+ mirror) in this pass.
+
+| SKU                   | Gap                               | Action                                                                                                           |
+| --------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `secure-email-proton` | Commodity implementation          | Removed from products.json                                                                                       |
+| `m365-consultancy`    | Tool-specific implementation      | Removed from products.json                                                                                       |
+| `digital-design-gold` | Brand-content production          | Removed from products.json; product page retired (`_RETIRED`)                                                    |
+| `cloud-ready-teams`   | Staff augmentation                | Removed from products.json                                                                                       |
+| `FLEET-VIP-001`       | Mobility mixed with edge robotics | Now listed on lifetime.fi careers, not a product — removed from products.json; product page retired (`_RETIRED`) |
+
+#### Repositioned, not sunset (HIC correction, 05.08.2026)
+
+| SKU                      | Original disposition                           | Correction                                                                                                                                                           |
+| ------------------------ | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `professional-web-pages` | Sunset or move outside DWS IQ                  | Repositioned around the proven `cari.fi` delivery: SME web presence, live in 12 hours, non-technical copy. Kept in the catalog and rewritten.                        |
+| `business-mentor-30`     | Replace with decision-specific research sprint | Renamed "Claude Code AI Coaching — 30 Hours" — the one coaching SKU singled out for this treatment; the four dedicated `claude-code-coaching-*` SKUs are unaffected. |
 
 #### Infrastructure enablers, not intelligence products
 
@@ -189,20 +200,20 @@ The `LAND-*` offers have the better pattern because they attach enablement to a 
 
 #### Generic assistants and growth tools requiring upgrade
 
-| SKU/family | Required upgrade |
-|---|---|
-| `conversational-agent` | Domain decision, evidence graph, abstention policy, and evaluation |
-| `firehorse-flow` | Controlled experiments, causal attribution, confidence, and economics |
-| `omnichannel-multimodal`, `FH-OMNI-001` | Hypotheses, incrementality testing, and governed claims |
-| `CSAT-T1/T2` | Prospectively validated indicators and retained-revenue interventions |
-| `LF-T1/T2` | Tested product hypotheses, not feedback summarization |
-| `CS-T1/T2` | Materiality, scenarios, prediction tracking, and decision impact |
-| `SEO-T1/T2` | Separate or connect to causal commercial experiments |
-| `DW-T1/T2` | Use beneath governed engineering decisions |
-| `FH-CMS-001` | Contradiction, expiry-impact, evidence-quality, and lineage features |
-| `FH-SIGN-001` | Keep only as a governed-artifact add-on |
-| `firehorse-data-services` | Replace broad promise with a bounded data-to-decision product |
-| `devops-lead` | Publish scoring, evidence, sensitivity, baseline, and outcome |
+| SKU/family                              | Required upgrade                                                      |
+| --------------------------------------- | --------------------------------------------------------------------- |
+| `conversational-agent`                  | Domain decision, evidence graph, abstention policy, and evaluation    |
+| `firehorse-flow`                        | Controlled experiments, causal attribution, confidence, and economics |
+| `omnichannel-multimodal`, `FH-OMNI-001` | Hypotheses, incrementality testing, and governed claims               |
+| `CSAT-T1/T2`                            | Prospectively validated indicators and retained-revenue interventions |
+| `LF-T1/T2`                              | Tested product hypotheses, not feedback summarization                 |
+| `CS-T1/T2`                              | Materiality, scenarios, prediction tracking, and decision impact      |
+| `SEO-T1/T2`                             | Separate or connect to causal commercial experiments                  |
+| `DW-T1/T2`                              | Use beneath governed engineering decisions                            |
+| `FH-CMS-001`                            | Contradiction, expiry-impact, evidence-quality, and lineage features  |
+| `FH-SIGN-001`                           | Keep only as a governed-artifact add-on                               |
+| `firehorse-data-services`               | Replace broad promise with a bounded data-to-decision product         |
+| `devops-lead`                           | Publish scoring, evidence, sensitivity, baseline, and outcome         |
 
 #### Strategic inconsistencies
 
@@ -254,7 +265,7 @@ It is not working if growth is explained mainly by more agents, SKUs, pilots, mo
 6. OECD, AI in policy evaluation: https://www.oecd.org/en/publications/governing-with-artificial-intelligence_795de142-en/full-report/ai-in-policy-evaluation_c88cc2fd.html
 7. Internal sources: `DWS_TRUTH_STANDARD.md`, `DWS_PRODUCT_STANDARD.md`, `DWS_MARKET_RESEARCH_STANDARD.md`, `DWS_ROLES_REGISTRY.md`, `AI_AGENT_GUIDELINES.md`, `config/truth/mgd-crc-metrics.json`, and `dws10.com/config/products.json`.
 
-***
+---
 
 **Document version:** v1.1 · **Date:** 05.08.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.

@@ -185,6 +185,29 @@ That Drive doc should be treated as covering this note only, not as the
 Learning Standard Drive record for `Strategy_Loop.md` — that record is still
 open on the other side.
 
+## HIC correction to the "remove/sunset" list — 05.08.2026
+
+The HIC agreed the does-not-meet direction but corrected 2 of the 7 SKUs: they
+were never meant to be sunset, only mispositioned.
+
+- **`professional-web-pages`** — kept, repositioned around the proven
+  `cari.fi` delivery (SME web presence, live in 12 hours, non-technical
+  copy), not removed.
+- **`business-mentor-30`** — kept, renamed "Claude Code AI Coaching — 30
+  Hours" — singled out from the coaching family for this treatment; the four
+  `claude-code-coaching-*` SKUs are untouched.
+- The remaining 5 (`secure-email-proton`, `m365-consultancy`,
+  `digital-design-gold`, `cloud-ready-teams`, `FLEET-VIP-001` — the last now
+  living on lifetime.fi careers, not a product) were removed from
+  `dws10.com/config/products.json` and its `landing-pages/` mirror in this
+  session. Standalone product pages for `digital-design-gold` and
+  `FLEET-VIP-001` (`lifetime-vip-ai-services.html`) were retired to
+  `*_RETIRED.html` in both copies rather than deleted (Non-Negotiable Rule 6).
+
+Net effect: the "cross-validation: 7/7 exact match" claim above is now
+partial — 5/7 held, 2/7 were corrected. `Strategy_Loop.md` §8 was updated to
+match (v1.1 → v1.2); see its own version history for the full record.
+
 ## Also surfaced this session (parked, not this task's scope)
 
 `docs/blog-drafts/kya-s1-one-signed-page.md` is a drafted-but-unpublished blog post
