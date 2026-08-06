@@ -1,13 +1,14 @@
-# KYA-S1 — Know Your Agent Security Standard for Autonomous Agents
+# KYA-S1 — Know Your Agent Security Specification for Autonomous Agents
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Reclassified KYA-S1 from "Standard" to "Specification" throughout (title, Document Type, header, body self-references) per HIC correction — KYA-S1 has not been through a standards-body process (no SDO, no formal consensus track) and calling it a "standard" overstates its status; "Specification" is the accurate term for a vendor-authored, publicly-published technical document open for comment. No control content, scope, or tier structure changed. Propagated to DWS_TRUTH_STANDARD.md row 35, DWS_STANDARDS_LIBRARY.md §3.3, docs/BLOG_STANDARD.md registry, the kya-s1-one-signed-page blog post (all copies), and dws10.com/compliance/ in the same session.
 - Version: 1.2 | Tool: Claude Code (claude-opus-5) | Session: claude/study-palantir-mas2-MwtEw | Date: 04.08.2026 | Changes: **Re-landed on current `main` after the original branch became unmergeable** (main was re-rooted between May and August 2026; no common ancestor remained, so PR #1317 was closed as superseded — redo prompt: `docs/pr-cleanup/next-prompts-v2-bundle.md`). Content updates on re-land: new §4 **Regulatory anchoring** mapping the seven controls to the EU AI Act duties that are now in force — **Article 50 applies from 2 August 2026**, two days before this version — kept deliberately distinct from Article 12 and Article 14 per `DWS_TRUTH_STANDARD.md` row 31. Public-comment window reset to 04.08.2026–04.11.2026 (the v1.0 window opened 15.05.2026 and had nearly closed while the standard sat unmerged). Sender identity corrected to the canonical umlaut spelling **Risto Anton Päärni** (the v1.0/v1.1 files carried the ASCII-name bug flagged in `docs/BLOG_STANDARD.md` v2.6). Reference implementation re-pointed at current KYA family versions (KYA-Standard v1.11, KYA-Security v1.8, KYA-Optimization v1.9). Cloudflare Pages deploy workflow **removed from this standard's scope** and split to its own change per the redo prompt. All v1.0/v1.1 formulations preserved per CLAUDE.md Rule 12.
 - Version: 1.1 | Tool: Claude Code | Session: claude/study-palantir-mas2-MwtEw | Date: 15.05.2026 | Changes: Editorial tone-down — dropped the "sibling standard" / "co-attestation" / "full mission-assurance surface" framing relative to Palantir's MA-S2. KYA-S1 stands on its own; MA-S2 referenced only as structural-inspiration credit. §6 reframed from "Co-Attestation with MA-S2" to "How KYA-S1 sits next to adjacent standards." No control-content changes.
 - Version: 1.0 | Tool: Claude Code | Session: claude/study-palantir-mas2-MwtEw | Date: 15.05.2026 | Changes: Initial KYA-S1 — four core control domains (IDV / BHM / REG / TC4) plus three extension domains (FLT / TRS / PRV). Evidence meta-rule (no self-attestation) and attestation tiers (Bronze / Silver / Gold).
@@ -15,12 +16,12 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 15.05.2026
-- Last Modified: 04.08.2026
+- Last Modified: 06.08.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT (public comment)
 - Classification: PUBLIC
-- Document Type: Vendor-Facing Security Standard
+- Document Type: Vendor-Facing Security Specification
 
 Related Documents:
 
@@ -35,7 +36,7 @@ Related Documents:
 ---
 
 **Lifetime Oy | DWS IQ Platform**
-**Standard:** KYA-S1 v1.2
+**Specification:** KYA-S1 v1.3
 **Status:** Draft for public comment — window open 4 August 2026 to 4 November 2026
 **Lead Architect:** Risto Anton Päärni, Founder, CEO, Lifetime Oy
 **Date:** August 2026
@@ -265,7 +266,7 @@ A reference implementation of KYA-S1 is operated by Lifetime Oy as part of the D
 - **TRS** — Agent Trust Score engine
 - **PRV** — Memory Audit Trail + output watermarking
 
-The reference implementation is documented in `Legal/KYA_STANDARD_v1.md` (implementation manual) and `Legal/KYA_SECURITY_v1.2.md` (security subset). KYA-S1 is the vendor-facing standard derived from those internal documents.
+The reference implementation is documented in `Legal/KYA_STANDARD_v1.md` (implementation manual) and `Legal/KYA_SECURITY_v1.2.md` (security subset). KYA-S1 is the vendor-facing specification derived from those internal documents.
 
 **Lifetime Oy holds itself to §3.** No KYA-S1 attestation letter will be self-issued for the DWS IQ Platform. Until an independent assessor signs one, DWS claims **no tier** — the reference implementation above is an architecture description, not an attestation.
 
@@ -273,11 +274,11 @@ The reference implementation is documented in `Legal/KYA_STANDARD_v1.md` (implem
 
 ## 10. Adoption
 
-KYA-S1 is published under a **CC BY 4.0** license. Vendors are free to adopt, attest, and reference the standard provided attribution is preserved.
+KYA-S1 is published under a **CC BY 4.0** license. Vendors are free to adopt, attest, and reference the specification provided attribution is preserved.
 
 A vendor claiming KYA-S1 alignment should state:
 
-> _"This product is aligned with KYA-S1 v1.2 at the **{Bronze / Silver / Gold}** tier, assessed by **{assessor name}** on **{date}**. KYA-S1 is published by Lifetime Oy and attests the autonomous-agent identity-and-behavior layer."_
+> _"This product is aligned with KYA-S1 v1.3 at the **{Bronze / Silver / Gold}** tier, assessed by **{assessor name}** on **{date}**. KYA-S1 is published by Lifetime Oy and attests the autonomous-agent identity-and-behavior layer."_
 
 ---
 
@@ -285,9 +286,9 @@ A vendor claiming KYA-S1 alignment should state:
 
 KYA-S1 follows semantic versioning. Control identifiers (IDV-1, BHM-2, etc.) are stable across minor versions. Major versions may renumber domains; a mapping document is published alongside any major release.
 
-Public-comment period for KYA-S1 v1.2: **4 August 2026 – 4 November 2026.** Feedback: risto.paarni@lifetime.fi.
+Public-comment period for KYA-S1 v1.3: **4 August 2026 – 4 November 2026.** Feedback: risto.paarni@lifetime.fi.
 
-_(The v1.0 comment window opened 15 May 2026 and was due to close 15 August 2026. The standard sat unpublished while the branch carrying it went stale, so the window is reset here rather than quietly counted as served.)_
+_(The v1.0 comment window opened 15 May 2026 and was due to close 15 August 2026. The specification sat unpublished while the branch carrying it went stale, so the window is reset here rather than quietly counted as served.)_
 
 ---
 
