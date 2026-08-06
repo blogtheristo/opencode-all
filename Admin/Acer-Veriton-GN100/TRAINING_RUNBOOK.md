@@ -3,19 +3,21 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/acer-node-claim-verification-u7jai1 | Date: 24.07.2026 | Changes: Initial on-premise training runbook — end-to-end QLoRA fine-tuning on the Acer Veriton GN100 via scripts/deploy-acer-training.sh, backing the EMT-001 / TM-001 products.
+  - Version: 1.1 | Tool: GitHub Copilot Coding Agent | Session: PR #1802 | Date: 06.08.2026 | Changes: Bumped mlflow minimum to >=3.11.0 (security — critical CVEs CVE-2025-15036 / CVE-2026-2651 / CVE-2026-0596 / CVE-2026-4035). Updated prerequisites, security notes section, and failure modes table.
 
 Session Links & References:
   - Device manual: `Admin/Acer-Veriton-GN100/README.md`
   - Pipeline: `infrastructure/llm-training/`
   - Methodology: `AgentFoundry/Calculus_for_Training.md`
+  - Security fix: PR #1802 — `infrastructure/llm-training/requirements.txt`
 
 Document Status:
   - Created: 24.07.2026
-  - Last Modified: 24.07.2026
+  - Last Modified: 06.08.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -37,6 +39,30 @@ a delivered on-premise capability for EMT-001 / TM-001.
   `README.md §"2026-03-11 Environment Validation"`).
 - A Hugging Face token with access to the base model (e.g. Llama 3.1 8B).
 - The training dataset as JSONL with a `text` column (SFT format).
+- **mlflow ≥ 3.11.0** — enforced by `infrastructure/llm-training/requirements.txt`
+  (PR #1802). Earlier versions carry critical CVEs (path traversal, command
+  injection, secret exfiltration — see §Security Notes below).
+
+## 0a. Security Notes
+
+The experiment-tracking dependency mlflow was upgraded to **≥ 3.11.0** (06.08.2026)
+to address four critical open-source vulnerabilities:
+
+| CVE | CVSS | Issue | Fixed in |
+|-----|------|-------|---------|
+| CVE-2025-15036 | 10.0 | Path traversal in artifact extraction — RCE | 3.7.0 |
+| CVE-2026-2651 | 9.0 | Unauthorized MPU artifact overwrite — supply-chain poisoning | 3.10.0 |
+| CVE-2026-0596 | 9.6 | Command injection via `model_uri` when `enable_mlserver=True` | 3.10.x |
+| CVE-2026-4035 | 9.1 | AI Gateway secret/env-var exfiltration | 3.11.0 |
+
+**Action:** If you are running a locally installed mlflow outside the container,
+upgrade it before connecting to any remote tracking server:
+
+```bash
+pip install "mlflow>=3.11.0"
+```
+
+Never pin mlflow below 3.11.0 in any derived requirements file.
 
 ## 1. CI-verify the pipeline first (any host)
 
@@ -137,3 +163,4 @@ tier from "pipeline delivered / go-live pending" to "live":
 | `GB10 may not yet be supported` warning | NGC container caveat | Expected; QLoRA works — smoke-test exotic kernels |
 | OOM during load | box still in production mode | Ensure `training-mode.sh` ran and freed memory (`status`) |
 | bitsandbytes error on CPU | no GPU visible | The trainer degrades to full precision off-GPU; on the GN100 this means the GPU isn't visible — check `nvidia-smi` |
+| mlflow `Permission denied` / `403` on artifact upload | mlflow < 3.11.0 installed locally | Upgrade: `pip install "mlflow>=3.11.0"` (see §0a Security Notes) |
