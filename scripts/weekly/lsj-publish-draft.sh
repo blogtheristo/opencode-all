@@ -12,6 +12,14 @@
 #   3. Never auto-posts to LinkedIn — the Editor in Chief (Risto) sends manually
 #   4. On publish week with < 4 posts, logs a skipped-issue entry and notifies
 #
+# HARD LIMIT — this script drafts, it never publishes.
+#   Per CLAUDE.md Non-Negotiable Rule 13, no blog post is published until the HIC
+#   has read its full text and the draft at docs/blog-drafts/<slug>.md reads
+#   Status: APPROVED. An unattended cron run has no HIC in the loop by definition,
+#   so it must leave the issue as a draft and surface it for review. Running on a
+#   schedule is not approval, and "the cron did it" is not an exemption.
+#   See docs/BLOG_STANDARD.md §3.3 and .claude/hooks/blog-draft-gate.sh.
+#
 # Flags:
 #   --dry-run       Print what would be drafted, touch no files
 #   --force         Run regardless of ISO week parity (useful for manual runs)

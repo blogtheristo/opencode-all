@@ -103,6 +103,20 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
   (`REGULATION_DEADLINES`) — accurate as of each date's last manual update in
   that file, not auto-refreshed. Check the file's own history if a deadline
   looks stale.
+- **EDP dataset-version diffs: implemented, not yet live-verified.**
+  `scripts/weekly/edp-dataset-diff.sh` runs weekly (Script Automation Rule —
+  DGX day-runner, no cron config needed), reuses `dws eu-data search` against
+  a small watchlist (EU ETS verified emissions, E-PRTR, Eurostat energy
+  statistics), and diffs each dataset's `modified` timestamp / id-presence
+  against `config/edp-dataset-state.json`. Changes land as a dated report
+  under `docs/regulatory-radar/edp-dataset-diffs/`. Fail-loud by design: a
+  non-`live` mode response or fetch error never overwrites cached state or
+  fabricates a diff — see `docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md`
+  §Actions item 3 and §Live Verification Log for why this session couldn't
+  run it against the real API (network-policy-blocked, same as `eu-data
+status`). The `modified` field's presence in the live Search API response
+  is unconfirmed; the script self-detects and warns if it's absent instead
+  of silently degrading.
 - EUR-Lex snapshot: **planned** daily refresh via `scripts/daily/eur-lex-sync.ts` once the regulatory-radar ingestion jobs are implemented
 - DG consultation pages: **planned** weekly refresh via `scripts/weekly/dg-consultations-sync.ts` once the consultation crawler is implemented
 - EFRAG / CINEA: **planned** event-driven refresh on Commission press releases
@@ -113,5 +127,5 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
 - **Brain:** thin wrapper over the existing `compliance` agent (`compliance.agent.ts`) — no new agent process; a dedicated `regulatory-radar` agent with live EUR-Lex ingestion remains future work
 - **Memory:** currently just `compliance.agent.ts`'s `REGULATION_DEADLINES` table; the Lifetime World Model regulatory-pipeline ontology (EUR-Lex CELEX + in-force dates + customer-impact rules) is still future work
 - **Body:** plain JSON/markdown response today; signed radar PDF via Firehorse Report Engine remains future work
-- **Hands:** none yet — EUR-Lex daily scrape + DG consultation weekly scrape are still unbuilt
+- **Hands:** `scripts/weekly/edp-dataset-diff.sh` (EDP dataset-version diffs, weekly) — first ingestion hand built; EUR-Lex daily scrape + DG consultation weekly scrape are still unbuilt
 - **MCP tool:** not yet exposed at `/mcp tools/list`

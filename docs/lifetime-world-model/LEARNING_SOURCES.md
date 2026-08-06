@@ -4,18 +4,21 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Copilot CLI | Session: claude/add-nemotron-docs-MPKhc | Date: 31.07.2026 | Changes: Merged main into PR 1367 branch; resolved conflict in Sessions and Modifications and Stream 3 sections; added missing Languages Available field per Document Standard.
 - Version: 1.1 | Tool: Claude Code | Session: claude/european-datasets-lab-note-8mlg9u | Date: 06.07.2026 | Changes: Updated latest-lab-note pointer to 2026-07-06 INSPIRE / European Data Portal note
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/add-nemotron-docs-MPKhc | Date: 20.05.2026 | Changes: Added "Recent additions" subsection to Stream 3 (Lab Notes) listing `2026-05-20-nemotron-labs-diffusion-lwm-control-room.md` (NVIDIA Nemotron-Labs-Diffusion evaluation for LWM / Control Room / Situation Room).
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/skills-based-agents-M2aG9 | Date: 16.04.2026 | Changes: Initial LWM learning sources index — all data streams, update cadence, ingestion priority
 
 Document Status:
 
 - Created: 16.04.2026
-- Last Modified: 06.07.2026
+- Last Modified: 31.07.2026
 - Language: English
+- Languages Available: English
 - Publication Status: ACTIVE
 - Document Type: Architecture / Knowledge Management
 
@@ -95,6 +98,10 @@ This file is the **canonical index of all data streams** that feed the Lifetime 
 **First lab note:** `docs/lab-notes/` created 2026-04-16.
 
 **Latest lab note:** `docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md` — INSPIRE geospatial datasets consolidated into data.europa.eu (1 July 2026), portal dataset versioning, and eDelivery cross-border exchange, mapped to DWS ingestion and sovereignty threads.
+
+**Recent additions:**
+
+- `2026-05-20-nemotron-labs-diffusion-lwm-control-room.md` — NVIDIA Nemotron-Labs-Diffusion (3B–14B, incl. VL) evaluated against the LWM and the Control / Situation Room surfaces; V1.x / V2 candidate decoder. Source: https://nvda.ws/4tEnTxP
 
 ---
 

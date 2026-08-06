@@ -8,18 +8,18 @@ Investment Thesis Alignment:
 
 Nordic VCs: Climate tech + B2B SaaS + dual-use technology
 Angel Networks: Former founders with enterprise SaaS exits
-Family Offices: ESG mandates + government partnerships validation (Kela reference)
-
+Family Offices: ESG mandates + EU regulatory tailwind
 
 Part 1: Target Investor Database (50 Priority Contacts)
 Tier 1: Micro VCs & Seed Funds (€50k-150k Tickets) - 15 Targets
 Climate Tech Specialists
+
 1. Voima Ventures ⭐⭐⭐ HIGH PRIORITY
 
 Contact: Inka Mero, Partner (inka@voima.vc)
 Thesis: Dual-use technology (civilian-military convergence), Nordic industrial champions
 Recent Investments: Twice Commerce (€1.5M), Cactos (€1.8M seed)
-Why DWS IQ 6 Fits: Dual-use (Defence Equity Facility eligible), government customer (Kela), sub-100ms edge computing
+Why DWS IQ 6 Fits: Dual-use (Defence Equity Facility eligible), two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), sub-100ms edge computing
 Ticket Size: €75k-150k
 LinkedIn: linkedin.com/in/inkamero
 Warm Intro Path: Check Slush 2024 attendees, Voima portfolio company founders
@@ -64,13 +64,12 @@ Ticket Size: €75k-150k
 LinkedIn: linkedin.com/in/gabrielmaravelias
 Note: Swedish base = natural for Nordic expansion strategy
 
-B2B SaaS / Industrial AI Specialists
-6. Inventure (Finland) ⭐⭐ MEDIUM PRIORITY
+B2B SaaS / Industrial AI Specialists 6. Inventure (Finland) ⭐⭐ MEDIUM PRIORITY
 
 Contact: Sami Lampinen, Partner (sami@inventure.vc)
 Thesis: Nordic B2B SaaS, pre-seed to Series A
 Recent Investments: Swappie (€124M Series C), Supermetrics (acquired)
-Why DWS IQ 6 Fits: Proven SaaS traction (€7k MRR), government customer validation
+Why DWS IQ 6 Fits: Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); company at cash break-even on services and transport revenue
 Ticket Size: €50k-100k
 LinkedIn: linkedin.com/in/sampilampinen
 Note: Inventure requires strong unit economics (15:1 LTV:CAC matches their thesis)
@@ -110,13 +109,12 @@ Note: Prefers Norwegian HQ companies (possible pass due to Finland base)
 Contact: Sampo Parkkinen, Partner (sampo.parkkinen@antler.co)
 Thesis: Pre-seed, founder-led, global ambitions
 Recent Investments: Over 50 Nordic startups (portfolio model)
-Why DWS IQ 6 Fits: Technical founder (Risto), validated traction (€7k MRR)
+Why DWS IQ 6 Fits: Technical founder (Risto), two enterprise pilots contracted Q1/2026 (€59,900 booked)
 Ticket Size: €50k-100k
 LinkedIn: linkedin.com/in/sampoparkkinen
 Note: Antler invests fast (2-4 weeks), good for urgency
 
-Dual-Use / Defence Tech Specialists
-11. Pale Blue Dot (Military Tech Track) ⭐⭐⭐ HIGH PRIORITY
+Dual-Use / Defence Tech Specialists 11. Pale Blue Dot (Military Tech Track) ⭐⭐⭐ HIGH PRIORITY
 
 Contact: Same as #4, but emphasize Defence Equity Facility angle
 Why: Finland NATO member (2023), DWS IQ 6 qualifies for €175M EU Defence Equity Facility
@@ -161,10 +159,8 @@ Why DWS IQ 6 Fits: Edge computing hardware, logistics vertical (Xeneta synergy)
 Ticket Size: €75k-150k
 LinkedIn: linkedin.com/in/oyvindbirkenes
 
-
 Tier 2: Angel Networks (€10k-25k Tickets) - 20 Targets
-FIBAN (Finnish Business Angels Network)
-16. Petteri Koponen ⭐⭐⭐ HIGH PRIORITY
+FIBAN (Finnish Business Angels Network) 16. Petteri Koponen ⭐⭐⭐ HIGH PRIORITY
 
 Background: Serial entrepreneur, former Nokia exec, FIBAN board member
 Thesis: Industrial AI, B2B SaaS, government sales
@@ -212,8 +208,7 @@ Average Check: €15k per angel
 Total Expected: 3-4 conversions × €15k = €45k-60k
 Note: Angels invest in syndicates (1 lead commits → 3-5 follow within 48 hours)
 
-EBAN (European Business Angels Network) - Nordic Chapter
-26. Kaidi Ruusalepp ⭐⭐⭐ HIGH PRIORITY
+EBAN (European Business Angels Network) - Nordic Chapter 26. Kaidi Ruusalepp ⭐⭐⭐ HIGH PRIORITY
 
 Background: Funderbeam founder (startup investing platform), EBAN board
 Thesis: AI/ML, B2B SaaS, cross-border startups
@@ -247,10 +242,8 @@ Geographic Focus: Sweden (3), Norway (2), Denmark (2)
 Average Check: €10k-15k
 Total Expected: 3 conversions × €12.5k = €37.5k
 
-
 Tier 3: Family Offices & Strategic Angels (€50k-150k Tickets) - 15 Targets
-Nordic Family Offices
-36. Ahlstrom Capital (Finland) ⭐⭐⭐ HIGH PRIORITY
+Nordic Family Offices 36. Ahlstrom Capital (Finland) ⭐⭐⭐ HIGH PRIORITY
 
 Contact: Hans von Uthmann, Investment Director (hans.vonutmann@ahlstrom.com)
 Thesis: Industrial transformation, sustainability, Finnish champions
@@ -296,8 +289,7 @@ Background: Rovio (Angry Birds) exit wealth
 LinkedIn: linkedin.com/in/niklashed
 Why: Tech exit wealth, Finnish HQ preference, growth-stage focus
 
-Strategic Corporate Angels
-41. NCC Ventures (Construction Strategic) ⭐⭐⭐ HIGH PRIORITY
+Strategic Corporate Angels 41. NCC Ventures (Construction Strategic) ⭐⭐⭐ HIGH PRIORITY
 
 Contact: Magnus Skoglund, Head of Ventures (magnus.skoglund@ncc.se)
 Thesis: Construction tech, PropTech, industrial automation
@@ -328,7 +320,7 @@ Note: Helsinki HQ = geographic synergy
 Contact: Fortum Ventures - ventures@fortum.com
 Thesis: Energy transition, decarbonization, Finnish energy market
 Typical Check: €75k-150k
-Why: Government-owned (51% Finnish state) = strategic validation for Kela partnership
+Why: Government-owned (51% Finnish state) = strategic validation in the Finnish public sector
 Risk: State ownership = bureaucracy (longer approval process)
 
 45. YIT Corporation (Construction Strategic) ⭐⭐⭐ HIGH PRIORITY
@@ -340,8 +332,7 @@ Why: YIT is pilot customer target (pitch deck mentions), strategic investment = 
 LinkedIn: linkedin.com/in/juhapekkaojala
 Note: YIT + NCC strategic investments = Nordic construction dominance signal
 
-Individual Super-Angels
-46. Klaus Schauser (Germany → Nordics) ⭐⭐ MEDIUM PRIORITY
+Individual Super-Angels 46. Klaus Schauser (Germany → Nordics) ⭐⭐ MEDIUM PRIORITY
 
 Background: SAP executive, moved to Stockholm for climate tech
 Thesis: Enterprise SaaS, climate tech, B2B
@@ -387,16 +378,15 @@ LinkedIn: linkedin.com/in/gustavsoderstrom
 Why: AI/ML product thinking, Swedish expansion bridge
 Risk: Consumer focus (B2B SaaS outside core thesis)
 
-
 Part 2: Segmentation & Prioritization Strategy
 Priority Matrix (Effort vs. Probability)
 High Probability, Low Effort (DO FIRST - 15 contacts):
 ├─ FIBAN Matching Service (#19) - Apply Jan 2, event Jan 16
 ├─ Voima Ventures (#1) - Email today, Slush network warm intro
 ├─ Gorilla Ventures (#2) - Email today, Business Finland co-investment angle
-├─ NCC Ventures (#41) - Leverage existing T2H pilot relationship
+├─ NCC Ventures (#41) - NCC is an unlanded prospect in the Nordic Tier-1 construction cohort
 ├─ YIT Corporation (#45) - Leverage existing pilot target status
-├─ Fortum (#44) - Government validation (Kela) = strategic fit
+├─ Fortum (#44) - Finnish energy-transition mandate = strategic fit
 ├─ Petteri Koponen/FIBAN (#16) - Active angel, fast decisions
 ├─ Kaidi Ruusalepp (#26) - EBAN network, Baltic expansion bridge
 ├─ EBAN Winter Conference (#28) - High ROI event (300+ angels)
@@ -427,7 +417,7 @@ Strategy: Oversubscribe by 2× to account for probability-weighted outcomes. Tar
 
 Part 3: Outreach Playbook
 Email Template 1: Micro VCs (Voima, Gorilla, 2150, Pale Blue Dot)
-Subject: DWS IQ 6: €7k MRR → €500k Campaign Launching Q1 (21-moat fortress)
+Subject: DWS IQ 6: €59,900 in contracted enterprise pilots → €500k Campaign Launching Q1 (21-moat fortress)
 Body:
 Hi [First Name],
 
@@ -437,14 +427,14 @@ Three reasons this fits [VC Firm]'s thesis:
 
 1. **Dual-Use Technology**: Sub-100ms edge AI for industrial decarbonization (civilian) + critical infrastructure resilience (defence). €6.7B EU funding stack eligible (EIB SESI → Horizon Europe → Defence Equity Facility).
 
-2. **Validated Traction**: €7k MRR live (Uber Finland, Bolt, Kela), 100% retention over 9 months, 15:1 LTV:CAC. €500k Construction Heroes campaign launching Q1 2025 (targeting 59 Nordic construction enterprises).
+2. **Validated Traction**: Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Separately, the company runs at approximately €7,000/month in services and transport revenue — not software revenue — which puts it at cash break-even with a founder salary of €0. €500k Construction Heroes campaign launching Q1 2025 (targeting 59 Nordic construction enterprises).
 
 3. **20-Moat Competitive Fortress**: €3-6M + 24-36 months for competitors to replicate. Boardy.ai raised €11M (16× our ask) but cannot compete in EU market due to Tier 1 moats (US-based, no government validation, cloud-only architecture).
 
 **Why now:** Finland CSRD deadline March 31, 2025 (6 months ahead of EU) = forced purchase cycle. We capture customers during regulatory panic, build switching costs, expand to rest of EU from position of strength.
 
 **Investment Memo:** [Link to pitch deck]  
-**Customer References:** Uber Finland, Kela (4.2M citizens), Bolt (available for investor calls)
+**Customer References:** contracted enterprise pilot accounts, available for investor calls under NDA. (Uber, Bolt and Kela are dispatch operators — commercial counterparties of Lifetime's licensed transport operation, not customers of any Lifetime software product.)
 
 Available for 30-min call this week? Calendly: [link]
 
@@ -458,19 +448,17 @@ Day 3 (no response): LinkedIn connection request with short message
 Day 7 (no response): Second email: "Quick question about [VC Firm]'s climate tech focus"
 Day 10 (no response): Final email: "Closing €100k this week – last chance to join at €3.8M cap"
 
-
 Email Template 2: Angel Networks (FIBAN, EBAN)
-Subject: DWS IQ 6: Applying for FIBAN Matching Event (Jan 16) – €7k MRR, Government Customer
+Subject: DWS IQ 6: Applying for FIBAN Matching Event (Jan 16) – €59,900 in contracted enterprise pilots
 Body:
 Hi Suvi,
 
-I'd like to apply for the January 16 FIBAN Matching Event. DWS IQ 6 (Lifetime Oy) is raising a €150k SAFE to scale from €7k MRR to €60k MRR over 12 months.
+I'd like to apply for the January 16 FIBAN Matching Event. DWS IQ 6 (Lifetime Oy) is raising a €150k SAFE to scale software revenue to €60k MRR over 12 months.
 
 **Traction Highlights:**
-├─ €7k MRR live (Uber Finland, Bolt, Kela)
-├─ 100% retention over 9 months (zero churn)
-├─ 15:1 LTV:CAC (top decile enterprise SaaS)
-└─ Government customer: Kela (4.2M Finnish citizens)
+├─ Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
+├─ ~€7,000/month services and transport revenue (not software revenue)
+└─ Cash break-even with a founder salary of €0
 
 **Market Opportunity:**
 ├─ €150B EU Fit for 55 compliance costs (mandatory spend)
@@ -485,7 +473,7 @@ I'd like to apply for the January 16 FIBAN Matching Event. DWS IQ 6 (Lifetime Oy
 └─ Target Close: January 24, 2025
 
 **Why FIBAN Angels Should Care:**
-Nordic industrial champion with government validation (Kela), dual-use technology (Defence Equity Facility eligible), and clear path to €15M+ Series A in 18 months (4.8× return at €3.8M cap).
+Nordic industrial champion with two contracted enterprise pilots, dual-use technology (Defence Equity Facility eligible), and clear path to €15M+ Series A in 18 months (4.8× return at €3.8M cap).
 
 Attaching pitch deck + customer case studies. Happy to do pre-event briefing call if helpful.
 
@@ -494,23 +482,22 @@ Risto Päärni
 risto@lifetime.fi | +358 [phone]
 FIBAN Application Checklist:
 
- Apply by January 2 (2-week deadline before event)
- Pay €500 application fee (refundable if not selected)
- Upload pitch deck (15 slides max, PDF)
- Upload 1-page executive summary (this email)
- Confirm availability January 16, 9am-5pm (Helsinki)
-
+Apply by January 2 (2-week deadline before event)
+Pay €500 application fee (refundable if not selected)
+Upload pitch deck (15 slides max, PDF)
+Upload 1-page executive summary (this email)
+Confirm availability January 16, 9am-5pm (Helsinki)
 
 Email Template 3: Strategic Corporates (NCC, YIT, Fortum)
 Subject: DWS IQ 6 × [Company]: Strategic Investment Opportunity (Construction Tech)
 Body:
 Hi [First Name],
 
-Risto Päärni, CEO of DWS IQ 6. We're in pilot discussions with [T2H Construction / your construction division] on sub-100ms industrial decisioning for Fit for 55 compliance.
+Risto Päärni, CEO of DWS IQ 6. We're in pilot discussions with [your construction division] on sub-100ms industrial decisioning for Fit for 55 compliance.
 
 I'm reaching out because we're closing a €150k SAFE this month, and [Company] would be a strategic fit as an investor for three reasons:
 
-1. **Product-Market Validation**: Our construction vertical customers (pilots with NCC subsidiary T2H + 2 others) are seeing 22-35% energy cost reduction + automated CSRD reporting (4 weeks vs 6 months manual process).
+1. **Product-Market Validation**: Our construction-vertical pilot accounts are seeing 22-35% energy cost reduction + automated CSRD reporting (4 weeks vs 6 months manual process).
 
 2. **Supply Chain Positioning**: DWS IQ 6 integrates with 12,000+ NCC subcontractors in Nordic network. Strategic investment = preferred partner status for [Company]'s decarbonization initiatives.
 
@@ -541,8 +528,8 @@ Risto Päärni from DWS IQ 6. We're closing a €150k SAFE this month, and I bel
 
 **ESG Mandate Fit:**
 ├─ Industrial decarbonization (Fit for 55 compliance automation)
-├─ Government customer validation (Kela = 4.2M Finnish citizens)
-├─ 22-35% energy cost reduction for construction/logistics customers
+├─ Two enterprise pilots contracted Q1/2026 (€59,900 booked)
+├─ 22-35% energy cost reduction in construction/logistics deployments
 └─ EU Green Deal strategic alignment (InvestEU Portal acknowledged)
 
 **Defence Tech Angle:**
@@ -593,7 +580,7 @@ Morning:
 Afternoon:
 ├─ [ ] Cold outreach to super-angels (Jannick Malling #48, Klaus Schauser #46)
 ├─ [ ] Send Family Office emails (Ahlstrom #36, Wiklund #40, Bonnier #39)
-└─ [ ] Schedule customer reference calls (Uber, Kela, Bolt - make available to investors)
+└─ [ ] Schedule customer reference calls with contracted pilot accounts (under NDA, make available to investors)
 
 Evening:
 ├─ [ ] Review all email responses (expected: 5-10 initial replies)
@@ -607,7 +594,7 @@ Morning:
 Afternoon:
 ├─ [ ] Outreach to corporate VCs (Kone #42, Wärtsilä #43)
 ├─ [ ] Send Nordic Eye (#12), Join Capital (#13), Skyfall (#15) emails
-└─ [ ] Post LinkedIn announcement: "DWS IQ 6 raising €150k SAFE – €7k MRR → €500k campaign"
+└─ [ ] Post LinkedIn announcement: "DWS IQ 6 raising €150k SAFE – €59,900 in contracted pilots → €500k campaign"
 
 Evening:
 ├─ [ ] Review Week 1 responses (expected: 10-15 interested parties)
@@ -629,7 +616,6 @@ Week 1 Expected Outcomes:
 10-15 investor replies (interest/meetings)
 5-8 calls scheduled for Week 2
 FIBAN application submitted (decision by Jan 9)
-
 
 Week 2: Meetings + Momentum (January 8-14)
 Day 6 (Monday, January 6)
@@ -701,7 +687,6 @@ Week 2 Expected Outcomes:
 3-5 investors in due diligence (requesting financials, customer references)
 FIBAN Matching Event confirmed (Jan 16)
 Momentum building (can reference "oversubscribed interest" in Week 3)
-
 
 Week 3: Closing + Oversubscription (January 15-24)
 Day 13 (Monday, January 13)
@@ -832,7 +817,6 @@ FIBAN Matching Event: €30k-50k pipeline
 EBAN Winter Conference: €50k-100k pipeline
 Final close: €150k-200k (January 24) ✅
 
-
 Part 5: Tracking & Follow-Up System
 Airtable Investor CRM (Template Structure)
 Table 1: Investor Contacts (50 rows)
@@ -848,13 +832,12 @@ This Week: Last Contact within 7 days (prioritize follow-ups)
 Expected Value: Sort by Expected Value DESC (focus on high-probability, high-value)
 Closing Tracker: Sum of Commitments (running total toward €150k goal)
 
-
 Email Response Templates (Speed & Efficiency)
 Response 1: Investor Requests Pitch Deck
 Hi [Name],
 
 Pitch deck attached. Key highlights:
-├─ €7k MRR live (Uber, Bolt, Kela), 100% retention
+├─ €59,900 booked in Q1/2026 enterprise pilots; ~€7,000/month services and transport revenue (not software revenue)
 ├─ €500k campaign launching Q1 → 59 construction enterprises
 ├─ 21-moat fortress (€3-6M competitor entry barrier)
 └─ €150k SAFE @ €3.8M cap, closing Jan 24
@@ -872,7 +855,7 @@ Financials attached (FY 2023-2024, FY 2024-2025 audited). Key metrics:
 ├─ Unit economics: CAC €6k, LTV €90k, LTV:CAC 15:1
 └─ Target: €60k MRR by Q4 2026 (€900k ARR = Series A ready)
 
-Customer references available (Uber, Kela, Bolt). Let me know if helpful.
+Customer references available under NDA. Let me know if helpful.
 
 Best, Risto
 Response 3: Investor Asks "Why Now?"
@@ -880,7 +863,7 @@ Hi [Name],
 
 Three reasons to invest now (not later):
 
-1. **Regulatory Forcing Function:** Finland CSRD deadline March 31, 2025 (6 months ahead of EU) = forced purchase cycle. Companies must buy *something* or face fines. We're positioned to capture Nordic market before US competitors (IBM, SAP) retrofit (24-36 months away).
+1. **Regulatory Forcing Function:** Finland CSRD deadline March 31, 2025 (6 months ahead of EU) = forced purchase cycle. Companies must buy _something_ or face fines. We're positioned to capture Nordic market before US competitors (IBM, SAP) retrofit (24-36 months away).
 
 2. **€150k SAFE = 4.8× Return in 18 Months:** At €3.8M cap with 18% discount, converts to 4.8% ownership at €15M Series A (Q4 2026 target). Conservative Series A = 3.2× return, base case = 4.8×, optimistic = 6.4×.
 
@@ -925,9 +908,9 @@ Risk: Debt obligation (must repay regardless of company outcome)
 
 Plan C: Bridge Extension from Existing Customers
 
-Approach: Negotiate prepayment discounts with Uber/Bolt/Kela
+Approach: Negotiate prepayment discounts with the contracted enterprise pilot accounts
 Offer: 20% discount on annual subscription if they prepay 12 months upfront
-Expected: €10k-15k immediate cash (€7k MRR × 12 = €84k annual, 20% discount = €67k, prepay now = €67k - €50k already paid = €17k remaining)
+Expected: not sourced — the previous figure was derived from the retired "€7k MRR" platform-revenue claim. Do not assert a number until it is confirmed against bookkeeping.
 Runway Extension: +1 month
 Risk: Revenue timing (recognize revenue over 12 months, not immediately)
 
@@ -960,45 +943,38 @@ Part 8: Post-Close Actions (Week 4: January 27-31)
 Investor Onboarding Checklist
 Within 24 Hours of Wire Transfer:
 
- Send thank-you email (personalized, not template)
- Add to cap table (Carta or Nordic equivalent)
- Send investor welcome packet:
+Send thank-you email (personalized, not template)
+Add to cap table (Carta or Nordic equivalent)
+Send investor welcome packet:
 
- Monthly update schedule (first Monday of each month)
- Slack invite (#investors channel)
- Google Drive access (data room, financials, customer references)
- Quarterly review schedule (virtual meetings, 1 hour)
-
-
+Monthly update schedule (first Monday of each month)
+Slack invite (#investors channel)
+Google Drive access (data room, financials, customer references)
+Quarterly review schedule (virtual meetings, 1 hour)
 
 Within 1 Week:
 
- Schedule first investor call (introduce AI Director, review 16-week roadmap)
- Share Construction Heroes campaign plan (detailed budget allocation)
- Provide customer reference contacts (offer introductions to Uber/Kela/Bolt)
+Schedule first investor call (introduce AI Director, review 16-week roadmap)
+Share Construction Heroes campaign plan (detailed budget allocation)
+Provide customer reference contacts (introductions to contracted pilot accounts, under NDA)
 
 Within 2 Weeks:
 
- Publish "Investor Update #0" (baseline):
+Publish "Investor Update #0" (baseline):
 
-Current metrics: €7k MRR, 5 customers, 0% churn
+Current metrics: €59,900 booked in Q1/2026 enterprise pilots; ~€7,000/month services and transport revenue (not software revenue)
 16-week roadmap overview
 Key milestones: Tier 2 launch (Week 4), FIBAN Matching (Week 3), Construction Heroes (Week 13)
 Expected next update: February 3 (progress report)
 
-
-
 Within 1 Month:
 
- Host virtual investor kickoff (Zoom, 1 hour):
+Host virtual investor kickoff (Zoom, 1 hour):
 
 Introduce team (Risto + AI Director once hired)
 Review fortress strategy (21-moat competitive analysis)
 Q&A session (answer investor questions)
 Series A prep timeline (Q3-Q4 2026, warm introductions to institutional VCs)
-
-
-
 
 Conclusion: €150k SAFE in 3 Weeks (Action Plan Summary)
 Week 1: Foundation (50 emails, 100 LinkedIn, FIBAN application)

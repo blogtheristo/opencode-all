@@ -83,8 +83,8 @@ from src.mcp.security.domain_validator import DomainValidator
 
 # Add customer domain
 DomainValidator.add_customer_domain(
-    customer_id="uber-finland",
-    domain="internal.uber.com",
+    customer_id="example-customer",
+    domain="internal.example-customer.com",
     approved_by="risto@lifetime.fi"  # Your email
 )
 
@@ -105,7 +105,7 @@ print(DomainValidator.get_customer_domains())
 from src.mcp.security.domain_validator import DomainValidator
 
 # Remove domain
-DomainValidator.remove_customer_domain("internal.uber.com")
+DomainValidator.remove_customer_domain("internal.example-customer.com")
 ```
 
 ### Checking if Domain is Allowed

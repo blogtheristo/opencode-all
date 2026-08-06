@@ -358,40 +358,6 @@
       "buyPage": 1,
       "buyPageOrder": 27
     },
-    "m365-consultancy": {
-      "id": "m365-consultancy",
-      "gtin": null,
-      "mpn": "M365-ATK-2026",
-      "name": "Microsoft 365 Agent Consultancy",
-      "price": 1200,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Build Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams, and Office using the Microsoft 365 Agents Toolkit (ATK) — the evolution of Teams Toolkit. Zero-configuration approach with built-in M365 identity, Microsoft Graph, and Azure integration. 8 hours of expert engagement.",
-      "features": [
-        "Declarative & Custom Engine Agents for M365 Copilot",
-        "Teams conversational agents with Microsoft Teams SDK",
-        "Office Add-ins for Excel, Word, PowerPoint and Outlook",
-        "Zero-configuration M365 identity + Microsoft Graph",
-        "Deploy to Azure with ATK templates"
-      ],
-      "priceNote": "8 hours",
-      "revolutLink": null,
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "digital",
-      "buyPage": 3,
-      "buyPageOrder": 4
-    },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
       "gtin": null,
@@ -494,15 +460,15 @@
       "id": "business-mentor-30",
       "gtin": null,
       "mpn": "MENTOR-30-2026",
-      "name": "Business Mentor - AI Strategy 30 Hours",
+      "name": "Claude Code AI Coaching — 30 Hours",
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
+      "description": "30 hours of strategic Claude Code coaching, scheduled on your terms. Covers AI strategy, business process redesign with agents, and Claude Code adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation with Claude Code.",
       "features": [
-        "30 hours strategic AI mentoring",
+        "30 hours strategic Claude Code coaching",
         "12-month flexible schedule",
-        "Leadership AI transformation"
+        "Leadership Claude Code adoption"
       ],
       "priceNote": "30 hours, valid 12 months",
       "revolutLink": null,
@@ -622,18 +588,17 @@
       "id": "professional-web-pages",
       "gtin": null,
       "mpn": "ATK-APU-PK-2026",
-      "name": "Atk-apu pk-yritykselle",
+      "name": "Kotisivut pk-yritykselle",
       "price": 750,
       "currency": "EUR",
       "type": "package",
-      "description": "Pk-yrityksen IT-tuki yhdellä numerolla. Tuntipankki 10 h hintaan 75 €/h + alv, käytetään 6 kk sisällä. Sisältää työasema- ja sähköpostituen, tietoturvan perusteet, varmuuskopiot, kuljetus- ja toimialakohtaisen IT-tuen, laskutuskytkennät, AI-avusteisen toimiston sekä kotisivut tarpeen mukaan. Vain suomenkielinen palvelu.",
+      "description": "Ammattimainen verkkosivu pk-yritykselle — livenä 12 tunnissa. Sama toimintamalli, jolla rakensimme cari.fi:n asiakkaallemme. Kerrot mitä yrityksesi tarvitsee, me hoidamme loput.",
       "features": [
-        "Tuntipankki 10 h × 75 €/h, voimassa 6 kk",
-        "Työasema-, sähköposti- ja tietoturvatuki",
-        "Kuljetusalan IT, laskutus, AI-toimisto, kotisivut",
-        "Etätuki sisältyy, vain suomenkielinen palvelu"
+        "Livenä 12 tunnissa tilauksesta",
+        "Suunniteltu pk-yrityksen verkkonäkyvyydelle",
+        "Toimiva esimerkki: cari.fi"
       ],
-      "priceNote": "Tuntipankki 10 h, alv 0 % (75 €/h + alv)",
+      "priceNote": "Kiinteä pakettihinta",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
@@ -650,38 +615,6 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 6
-    },
-    "secure-email-proton": {
-      "id": "secure-email-proton",
-      "gtin": null,
-      "mpn": "PROTON-EMAIL-2026",
-      "name": "Protonmail Secure Email & Domains Implementation",
-      "price": 499,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "GDPR-compliant email in one business day. Full Proton Business Suite — encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
-      "features": [
-        "GDPR-compliant encrypted email",
-        "NIS2 & EU AI Act compliant",
-        "Operational in 1 business day"
-      ],
-      "priceNote": "8-hour implementation",
-      "revolutLink": null,
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "fi"
-      },
-      "storeCategory": "digital",
-      "buyPage": 2,
-      "buyPageOrder": 7
     },
     "firehorse-data-services": {
       "id": "firehorse-data-services",
@@ -746,70 +679,6 @@
       "storeCategory": "ai-cloud",
       "buyPage": 3,
       "buyPageOrder": 5
-    },
-    "digital-design-gold": {
-      "id": "digital-design-gold",
-      "gtin": null,
-      "mpn": "DESIGN-GOLD-2026",
-      "name": "Digital Design Gold",
-      "price": 2499,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository — brand assets, marketing collateral, campaign visuals, and analytics dashboards — all governed by your brand standard. From identity system to live campaign intelligence in one engagement.",
-      "features": [
-        "Complete brand asset system",
-        "Campaign visual library",
-        "Live analytics dashboards"
-      ],
-      "priceNote": "One-time setup",
-      "revolutLink": null,
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "digital",
-      "buyPage": 1,
-      "buyPageOrder": 9
-    },
-    "cloud-ready-teams": {
-      "id": "cloud-ready-teams",
-      "gtin": null,
-      "mpn": "CRT-2026",
-      "name": "EU On-Demand AI & Cloud Engineers (Sovereign)",
-      "price": 950,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by the full agent-capability library — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.",
-      "features": [
-        "Pillar 3: disruption-free continuity with Keskeytyslaskuri",
-        "Full agent-capability library backing EU-resident engineers",
-        "Sovereign by construction — engineer + data both in EU"
-      ],
-      "priceNote": "Team setup",
-      "revolutLink": null,
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "digital",
-      "buyPage": 2,
-      "buyPageOrder": 9
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -1213,16 +1082,16 @@
       "gtin": null,
       "mpn": "LF-DGX-SPARK-2026",
       "name": "DGX Spark — NVIDIA-branded Sovereign Edge AI + Install & Service",
-      "price": 5994,
+      "price": 6694,
       "currency": "EUR",
       "type": "one-time",
       "description": "NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.",
       "features": [
-        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €4,999 hardware (Finnish EMEA pricing)",
+        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €5,699 hardware (Finnish EMEA pricing; above NVIDIA USD 4,699 list, Feb 2026)",
         "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
         "Pair two for 405 B-param models over the ConnectX-7 200 Gbps link"
       ],
-      "priceNote": "€5,994 one-time · €4,999 hardware + €995 install · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€6,694 one-time · €5,699 hardware + €995 install · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1544,7 +1413,7 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available September 2026.",
       "features": [
         "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
         "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
@@ -1567,6 +1436,112 @@
       "storeCategory": "platform",
       "buyPage": 1,
       "buyPageOrder": 1
+    },
+    "DWS-AEGIS-PILOT-001": {
+      "id": "DWS-AEGIS-PILOT-001",
+      "gtin": null,
+      "mpn": "DWS-AEGIS-PILOT-2026",
+      "name": "DWS IQ Aegis Pilot (3 months)",
+      "price": 19990,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "features": [
+        "3-month scoped engagement — fixed price, fixed end date, one site and one control-room workflow",
+        "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
+        "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
+        "Binary acceptance KPI — uplink severed: workflow completes, Article 12 record still written locally, operator can still stop an agent. All three, or the pilot reports a negative result",
+        "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
+        "Credited in full against Aegis onboarding within 6 months; credit capped at €19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations"
+      ],
+      "priceNote": "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at €59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-aegis-head.png",
+      "detailsUrl": "../products/aegis-pilot.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 2,
+      "credited": true,
+      "includes": [
+        "Single site, single control-room workflow, single deployment-mode recommendation",
+        "Only the agent set the selected control-room workflow requires",
+        "Local execution, evidence capture, identity verification, Article 12 audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance",
+        "Production hardware and compute sizing derived from measured behaviour on that workload"
+      ],
+      "acceptanceKpi": {
+        "condition": "WAN uplink severed for an agreed evaluation window",
+        "requiredOutcomes": [
+          "The piloted control-room workflow runs to completion without network access",
+          "The EU AI Act Article 12 record continues to be written locally, without loss",
+          "An operator can still invoke human kill authority to stop a running agent"
+        ],
+        "rule": "Pass requires all three outcomes. A pilot that fails under a severed uplink has delivered a valid negative result about environment readiness — it is not a product defect."
+      },
+      "exclusions": [
+        "LWM (Large World Model) integration",
+        "Any hardware procurement or appliance supply",
+        "Multi-site rollout, and any industry vertical beyond the one piloted",
+        "Custom ERP, BIM or SCADA integrations",
+        "The DWS-AEGIS-IMPL-001 Implementation Programme (EUR 45,000, additive and not credited)",
+        "Credit is capped at EUR 19,990, applies only against Aegis onboarding (EUR 59,990 baseline), and lapses if the customer does not proceed within 6 months"
+      ],
+      "phases": [
+        "Phase 0 — Scoping and baseline (weeks 0-2, no charge): site, workflow and deployment mode locked; every workflow step classified core (must survive an outage) or non-core; degradation and reconciliation spec drafted; the isolation method for the acceptance test selected from the ranked ladder and recorded with its validity note (enforced above the stack, egress verified to fail); the three acceptance conditions written in the customer's own operational language; outage window dated",
+        "Phase 1 — Local substrate (weeks 3-5): execution runtime, model serving, KYA identity, Article 12 log writer and operator kill authority stood up on site, each resolving locally with no control-plane round trip. Exit gate is the four locals proven with the uplink already down, before any customer workflow exists",
+        "Phase 2 — Workflow integration (weeks 6-9): the agent set that workflow requires and no more; read-only source-system integration; decision points mapped to the Article 12 record schema; degraded-mode behaviour and reconnect reconciliation implemented per the Phase 0 spec. Exit gate is the workflow running to completion online, accepted by its owner",
+        "Phase 3 — Severed-uplink acceptance test (weeks 10-11): rehearsal run first with findings fixed, then the witnessed acceptance run under the agreed window. Binary gate — workflow completes, Article 12 record written locally with no gap, operator stops a running agent. All three, or the pilot reports a negative result",
+        "Phase 4 — Sizing, report and decision (weeks 12-13): production hardware sizing derived from measured load rather than a spec sheet; deployment mode confirmed or revised against what the test showed; before/after report and written recommendation, including the recommendation not to proceed where the evidence supports it"
+      ]
+    },
+    "DWS-AEGIS-IMPL-001": {
+      "id": "DWS-AEGIS-IMPL-001",
+      "gtin": null,
+      "mpn": "DWS-AEGIS-IMPL-2026",
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "price": 45000,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, €5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, €15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, €25,000): world-model integration so operational knowledge accumulates. ADDITIVE to Aegis onboarding and licence — this programme is NOT credited against onboarding, because Phase 3 is integration work that onboarding does not include.",
+      "features": [
+        "Phase 1 — Audit, 2 weeks, €5,000: current state to gap analysis",
+        "Phase 2 — Agent-in-production, 6 weeks, €15,000: one skilled agent live and EU-compliant",
+        "Phase 3 — LWM integration, 8 weeks, €25,000: world-model integration, operational knowledge accumulates",
+        "Additive to Aegis onboarding and licence — not credited",
+        "Scoped per engagement; phases can be taken in sequence or individually"
+      ],
+      "priceNote": "€45,000 for all three phases (Audit €5,000 + Agent-in-production €15,000 + LWM integration €25,000). ADDITIVE to Aegis onboarding (€59,990) and licence — NOT credited against them. Phase 3 is integration work outside onboarding scope.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-aegis-head.png",
+      "detailsUrl": "../products/aegis-implementation.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 3,
+      "credited": false,
+      "phases": [
+        "Phase 1 — Operational Audit (2 weeks, EUR 5,000): control-room workflow mapping, security boundary verification, risk analysis, edge hardware readiness assessment",
+        "Phase 2 — Agent-in-Production (6 weeks, EUR 15,000): staged production deployment of the domain agents, local identity and Article 12 audit trail configuration, operator kill-switch training",
+        "Phase 3 — LWM Integration (8 weeks, EUR 25,000): world-model telemetry synchronisation, CAD/BIM/SCADA data pipeline hookups, multi-site reporting"
+      ]
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -4483,40 +4458,6 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 2
-    },
-    "FLEET-VIP-001": {
-      "id": "FLEET-VIP-001",
-      "gtin": null,
-      "mpn": "LF-FLEET-VIP-2026",
-      "name": "Lifetime VIP AI Services",
-      "price": 2990,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Premium mobility and edge robotics, on call. First-class Uber Comfort and Uber Priority transport for your team and guests, plus NVIDIA Connect edge device services for robotics solutions — managed end-to-end by Lifetime Fleet, the physical “hands” of the DWS IQ platform. Inference stays local and EU-sovereign at the edge (NVIDIA Jetson Orin · Grace Blackwell). One annual fee, billed once. Finnish / EU B2B (VAT 0% reverse charge).",
-      "features": [
-        "First-class Uber Comfort & Uber Priority transport — booked and managed for you",
-        "NVIDIA Connect edge device services for robotics solutions (Jetson Orin · Grace Blackwell)",
-        "EU-sovereign by design — local inference, your data stays in Europe",
-        "One-time annual VIP fee — ≈ 2 months free vs monthly"
-      ],
-      "priceNote": "€2,990/year — VIP membership (one-time annual fee) · Finnish / EU B2B (VAT 0% reverse charge)",
-      "revolutLink": "https://revolut.me/lifetimeoy",
-      "paypalPlanId": null,
-      "image": "/static/images/lifetime-fleet/LifetimeFleetCare.png",
-      "detailsUrl": "../products/lifetime-vip-ai-services.html",
-      "featured": true,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime Fleet",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "advisory",
-      "version": "1.0",
-      "buyPage": 1,
-      "buyPageOrder": 28
     }
   },
   "settings": {
@@ -4556,11 +4497,11 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-06-09T00:00:00Z",
-  "priceVersion": "1.20",
+  "lastUpdated": "2026-07-30T00:00:00Z",
+  "priceVersion": "1.25",
   "priceList": {
-    "version": "1.22",
-    "effectiveDate": "2026-06-25",
+    "version": "1.23",
+    "effectiveDate": "2026-07-16",
     "nextReviewDate": "2026-08-01",
     "policy": {
       "currency": "EUR",
@@ -4579,6 +4520,38 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.25",
+      "date": "2026-07-30",
+      "author": "claude/enterprise-ai-harness-0anl7s",
+      "changes": [
+        "CORRECTION. DWS-AEGIS-PILOT-001 €45,000 -> €19,990 (3 months, credited in full). The €45,000 was never a pilot price: the April 2026 engagement model is a THREE-PHASE PROGRAMME (Audit 2wk €5,000 + Aegis pilot 6wk €15,000 + LWM integration 8wk €25,000), additive to the licence. Only the middle phase is a pilot. At €45,000 credited, everything after the pilot cost €14,990, which cannot cover fleet rollout across 21 industries; and a pilot at 75% of the product is the product under a lower-commitment name.",
+        "€19,990 is ~33% of the €59,990 onboarding, leaves €40,000 for the work that genuinely remains, and sits above the €9,990 6-week AIS-OUTCOME-PILOT (this engagement is longer and broader). Full credit is now defensible because the pilot is a bounded subset of onboarding.",
+        "NEW SKU DWS-AEGIS-IMPL-001 (DWS IQ Aegis Implementation Programme, 3 phases) €45,000 — the April structure preserved as its own product, ADDITIVE and NOT credited. The word 'pilot' is deliberately absent from its id, name and copy: that ambiguity is what produced the original error.",
+        "Wording guard added to DWS-AEGIS-PILOT-001 per HIC instruction: priceNote and description now state explicitly what the €19,990 includes, the binary acceptance KPI (uplink severed - workflow completes, Article 12 record still written locally, operator can still stop an agent), and what remains outside the credit (LWM integration, hardware, multi-site rollout, other industries, custom integrations, the implementation programme; capped at €19,990, lapses after 6 months)."
+      ]
+    },
+    {
+      "version": "1.24",
+      "date": "2026-07-30",
+      "author": "claude/enterprise-ai-harness-0anl7s",
+      "changes": [
+        "NEW SKU DWS-AEGIS-PILOT-001 (DWS IQ Aegis Pilot, 3 months): €45,000 one-time. Reference scope carried over from the April 2026 Aegis engagement model.",
+        "Structured as a CREDITED stage, not an additive fee: the €45,000 is credited in full against the €59,990 Aegis onboarding if the customer proceeds within 6 months. Net cost to production is unchanged at €59,990. The April model implied €45,000 + €59,990 = €104,990 before production, which reads as paying twice for one journey and does not survive procurement review.",
+        "Created because the 3-month Aegis Pilot was named in customer-facing copy with no SKU here, which would have drifted the figure between copy and feed."
+      ]
+    },
+    {
+      "version": "1.23",
+      "date": "2026-07-16",
+      "author": "claude/scaleway-pricing-update-19g8df",
+      "changes": [
+        "LF-DGX-SPARK (DGX Spark): €5,994 -> €6,694. Hardware €4,999 -> €5,699 + €995 install. Per CEO direction: the one hardware SKU held at v1.20 (while Control Room / Situation Room / Jetson AGX were bumped) is now brought in line with the same 'small reseller margin above the NVIDIA/Acer EU channel base' logic.",
+        "Context: NVIDIA raised DGX Spark USD 3,999 -> USD 4,699 (+18%, memory supply) effective 2026-02-23 (see docs/field-notes/2026-07-16-nvidia-hardware-pricing.md). v1.20 had knowingly held DGX Spark at €5,994 despite that list move; this closes the gap so it is not the only unbumped node. Note: the €4,999 EMEA hardware line already covered the USD 4,699 list, so this is a margin-forward decision, not a margin-restoration one.",
+        "All other SKUs held at v1.22 prices. Finnish / EU B2B (VAT 0% reverse charge) framing preserved.",
+        "Synced to landing-pages/dws10-com/config/products.json in the same commit; updated all live customer-visible copies (dgx-spark.html, price-list, Google product feed, healthcare, lwm-ontology, lifetime-vip-ai-services). Auto-generated price-list/versions/ snapshots left to the quarterly-price-list workflow."
+      ]
+    },
     {
       "version": "1.22",
       "date": "2026-06-25",
@@ -4937,7 +4910,7 @@
         "QLoRA fine-tuning pipeline on your NVIDIA hardware (GB10/DGX Spark)",
         "On-site deployment + operator training + 12-month sovereign update subscription"
       ],
-      "priceNote": "€49,990 one-time + €9,990/year sovereign updates | Pairs with Control Room (€5,294) or DGX Spark (€5,994)",
+      "priceNote": "€49,990 one-time + €9,990/year sovereign updates | Pairs with Control Room (€5,294) or DGX Spark (€6,694)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",

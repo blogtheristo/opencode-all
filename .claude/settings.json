@@ -53,7 +53,9 @@
       "Bash(cat .env.*)"
     ]
   },
-  "enabledMcpjsonServers": ["dws-gateway-local"],
+  "enabledMcpjsonServers": [
+    "dws-gateway-local"
+  ],
   "hooks": {
     "SessionStart": [
       {
@@ -102,6 +104,10 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-signature.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/blog-draft-gate.sh\""
           }
         ]
       }
@@ -141,6 +147,10 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/token-usage-record.sh\""
           }
         ]
       }

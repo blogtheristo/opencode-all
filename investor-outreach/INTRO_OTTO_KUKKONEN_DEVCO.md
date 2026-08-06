@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Partner Intro Note — Otto Kukkonen, DevCo Partners
-Version: 1.0
+Version: 1.1
 Date: 2026-06-07
 Author: Claude Opus 4 + Human Review
 Branch: claude/devco-sisu-partners-dws-vFgUc
@@ -9,6 +9,7 @@ Story Lock: Story A (Regulatory Compliance Infrastructure / labor economics)
 Intro Type: Cold, warmed by signal (LinkedIn engagement)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-06-07): Initial draft. DevCo studied as PARTNER (portfolio-as-customer channel), not investor — stage mismatch. Warm hook built on Otto's McKinsey quantum-value LinkedIn share + DevCo's Bluefors/Vexve portfolio. SAFE suppressed entirely per study. Defense/Aegis suppressed for portfolio-CFO context.
 -->
 
@@ -16,7 +17,7 @@ AGENT HISTORY:
 
 ## Frame: PARTNER, not investor
 
-DevCo buys majority control of €50–500M-revenue niche leaders. DWS at €84K ARR is far below that mandate — there is **no instrument** by which DevCo's fund invests in our SAFE. So this is **not** an investor approach. The goal is a **portfolio-as-customer partnership**: get DWS in front of Vexve / Medix Biochemica / Bluefors as a compliance-automation supplier. Otto is the relationship door; the pilot lives at the portfolio company (see `INTRO_MIA_PIIRAINEN_VEXVE.md`).
+DevCo buys majority control of €50–500M-revenue niche leaders. DWS, with two enterprise pilots contracted Q1/2026 (€59,900 booked) and no other software revenue, is far below that mandate — there is **no instrument** by which DevCo's fund invests in our SAFE. So this is **not** an investor approach. The goal is a **portfolio-as-customer partnership**: get DWS in front of Vexve / Medix Biochemica / Bluefors as a compliance-automation supplier. Otto is the relationship door; the pilot lives at the portfolio company (see `INTRO_MIA_PIIRAINEN_VEXVE.md`).
 
 ## Target Profile
 

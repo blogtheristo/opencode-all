@@ -13,6 +13,8 @@ supersedes: v1–v6 length variants, v7 (two-industry), v8 (three-industry / 3:3
 
 # Founder Video Script — Deep SAGE 2026
 
+> **Correction (29.07.2026):** v8.3 of this script was the submitted cut (31 May 2026), so the script body is preserved verbatim as performed/delivered material. The traction claims in it are wrong and must not be reused or re-recorded. (1) "six paying customers, seven thousand monthly recurring, one hundred percent retention since launch" (Script beat 4; Delivery-notes table; v9 changelog) → two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts; the ~€7,000/month is **services and transport revenue** (licensed transport operation + consulting), **not** software revenue, and puts the company at cash break-even with a founder salary of €0. (2) "one hundred percent retention since launch" → retired; no retention rate is asserted, because no cohort data exists. (3) "Outokumpu pilot under review" (beat 4) → Outokumpu is an **active discussion with documented inbound replies**; the offer letter is dated 27.6.2026 and carries no send confirmation, so the status is "in discussion" — never "filed", "won", or "under review". (4) "NCC in construction" / "NCC as construction reference" → **NCC is an unlanded prospect**, never a customer or reference. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
 The Deep SAGE 2026 application asks for a **3-minute** founder video. The reviewer pool
 (TIS Inc., NUS Enterprise, regional investors) explicitly scores executive presence,
 personality, scope, and cohort-fit reasoning — not just product compression.

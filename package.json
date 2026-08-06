@@ -18,6 +18,9 @@
     "diag:dws-api": "tsx scripts/test-dws-api.ts",
     "diag:mcp": "tsx scripts/test-mcp-http.ts",
     "diag:ollama": "tsx scripts/test-veriton-ollama.ts",
+    "train:deploy": "bash scripts/deploy-acer-training.sh deploy",
+    "train:status": "bash scripts/deploy-acer-training.sh status",
+    "train:smoke": "python3 -m pytest infrastructure/llm-training/tests -v",
     "diag:ses": "node --import tsx scripts/test-ses-smtp.ts",
     "morning:briefing": "node --import tsx scripts/send-morning-briefing.ts",
     "morning:briefing:force": "node --import tsx scripts/send-morning-briefing.ts --force",
@@ -26,6 +29,7 @@
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
     "ted:learning": "node --import tsx scripts/ted-learning-weekly.ts",
     "ted:daily": "node --import tsx scripts/ted-daily-pipeline.ts",
+    "funding:rss": "node --import tsx scripts/eu-funding-rss.ts",
     "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
     "vault:push": "tsx scripts/provision-secrets-aiven.ts",
@@ -42,6 +46,8 @@
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
     "validate:pricing": "tsx scripts/validate-pricing.ts",
+    "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
+    "factory:route": "tsx scripts/factory-route.ts",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
@@ -77,6 +83,9 @@
     "sharp": "^0.34.5",
     "stripe": "^22.1.0",
     "zod": "^4.3.6"
+  },
+  "overrides": {
+    "undici": "7.29.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

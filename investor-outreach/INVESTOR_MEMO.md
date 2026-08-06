@@ -24,9 +24,8 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 
 **Current Metrics (April 2026):**
 
-- MRR: **€7K live run-rate**
-- Paying Customers: 6
-- Retention: 100% (zero churn)
+- Services and transport revenue: **~€7,000/month** — not software revenue; company at cash break-even with founder salary €0
+- Software pipeline: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 - Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - Platform: a fleet of skilled agents, 32 products, 5 cloud environments
 - Industries served: 25 EU-regulated verticals
@@ -36,7 +35,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - DWS IQ 7 jurisdictions: EU + US live, UAE via G42 planned Q3 2027, ASEA placeholder
 
 **Sales Motion:**
-Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
+Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 2 contracted enterprise pilots (€59,900 booked) + new logos from sales sprint and pipeline conversion.
 
 **Sales Timeline:**
 
@@ -399,8 +398,8 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Traction & Validation
 
-- **Current MRR:** €7K (April 2026) with 6 paying customers
-- **Customer Retention:** 100% (zero churn demonstrates product-market fit)
+- **Services and transport revenue:** ~€7,000/month (April 2026) — not software revenue; company at cash break-even with founder salary €0
+- **Software pipeline:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 - **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
 - **Platform Scale:** a fleet of skilled agents, 32 products, 5 cloud environments, 25 industries

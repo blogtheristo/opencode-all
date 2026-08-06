@@ -92,9 +92,11 @@ jobs:
         if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_TASK: ${{ github.event.inputs.task || 'Run lint and tests, fix any errors found' }}
+          CLAUDE_ALLOWED_TOOLS: ${{ github.event.inputs.allowed_tools || 'Read,Edit,Bash(npm run lint),Bash(npm run test),Bash(npm run build)' }}
         run: |
-          TASK="${{ github.event.inputs.task || 'Run lint and tests, fix any errors found' }}"
-          TOOLS="${{ github.event.inputs.allowed_tools || 'Read,Edit,Bash(npm run lint),Bash(npm run test),Bash(npm run build)' }}"
+          TASK="$CLAUDE_TASK"
+          TOOLS="$CLAUDE_ALLOWED_TOOLS"
 
           echo "Task: $TASK"
           echo "Allowed tools: $TOOLS"

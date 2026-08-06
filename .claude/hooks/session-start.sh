@@ -8,9 +8,12 @@ set -euo pipefail
 cat <<'CONTEXT'
 ## Auto-Mode Trust Boundary Active
 
-GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches, and WEB/STATIC-SITE DEPLOYMENTS. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts. Web deploys are not gated: dws6.com / dws10.com / onelifetime.world / lifetime.fi auto-publish via Cloudflare Pages on merge to main (blue/green; rollback = promote previous deployment).
+GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches, and WEB/STATIC-SITE DEPLOYMENTS. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts. Web deploys are not gated: dws6.com / dws10.com / onelifetime.world / lifetime.fi auto-publish via Cloudflare Pages on merge to main (blue/green; rollback = promote previous deployment). ADDITIVE thesis content is GREEN on BOTH theses (HIC decision 01.08.2026): PhD market-signal sections in PHD_FIREHORSE_EN/FI (§14.x + Key Contribution) and master's implementation sections in V3Thesis_EN/FI, each with the lockstep version bump per §1.4. Scope split still applies — implementation evidence to the master's, market signals and scientific framing to the PhD (CLAUDE.md "Thesis Content Scope Rule"). The Thesis Rule's four-file lockstep is unchanged.
 YELLOW zone (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push
-RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), outbound email, thesis files, Store sync, secrets
+RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), outbound email, STRUCTURAL thesis edits on any of the four files (TOC/chapter restructure, renumbering existing sections, rewriting or deleting existing VERSION AND AGENT HISTORY entries, removing existing content), Store sync, secrets
+
+BLOG POSTS ARE RED — Non-Negotiable Rule 13 (ABSOLUTE)
+No blog entry publishes until the HIC has read its full text and approved it. Any language, any site, translations, LSJ issues, cron-drafted posts. Run /blog-draft: write the whole text to docs/blog-drafts/<slug>.md, show the HIC ONE fenced code block, then STOP AND ASK in that turn. Publish only after an explicit approval about that post sets Status: APPROVED. Enforced by .claude/hooks/blog-draft-gate.sh — but the rule binds even where the hook does not reach (generators, cron, unloaded hooks). A bypass is not permission. Rules: docs/BLOG_STANDARD.md §3.3.
 
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/

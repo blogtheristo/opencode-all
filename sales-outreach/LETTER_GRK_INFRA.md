@@ -15,6 +15,7 @@ Transport: Amazon SES SMTP only (CLAUDE.md non-negotiable rule #4 — no Resend)
 Sender: risto.paarni@lifetime.fi (never noreply@, rule #3)
 Recipient: [IDENTIFY FIRST — private company, no public email pattern. Find COO/CDO
            via LinkedIn then verify email. Do not send to generic info@ or myynti@.]
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — T2H and NCC removed as "Asiakkaamme / Our customers" (T2H is a dispatch operator, NCC an unlanded prospect); replaced with contracted-pilot framing. Not-yet-sent draft, so the body was edited.
 -->
 
 # Cold Email — GRK Infra / COO or CDO
@@ -25,7 +26,7 @@ Recipient: [IDENTIFY FIRST — private company, no public email pattern. Find CO
 
 - A: `GRK Infra CSRD Wave 2 — Scope 1 konekalustosta automaattisesti`
 - B: `GRK 6,7 % liiketulos 2025 — CSRD-infrastruktuuri kasvun ajaksi`
-- C: `T2H hoitaa CSRD-raportoinnin automaattisesti — GRK seuraava?`
+- C: `CSRD-raportointi automaattisesti konekalustosta — GRK seuraava?`
 
 Suositus: **Subject B** — tunnistaa heidän oman menestyksensä, ei aloita velvoitteella.
 
@@ -37,7 +38,7 @@ Hei [Etunimi],
 
 Näin GRK Infran 2025 liiketuloksen — 6,7 % on selvästi paras vuosi pitkään aikaan, ja infrarakentaminen pitää marginaalin asuntorakentajia vahvempana. Juuri kun volyymi kasvaa, CSRD Wave 2 iskee ensimmäistä kertaa: Scope 1 -päästöt konekalustosta ja työmailta raportoitava projektikohtaisesti FY2025-raportissa.
 
-Asiakkaamme T2H (infrarakentaminen, aktiivinen pilotti) ja NCC hoitavat tämän automaattisesti DWS IQ 6:lla — dataa ei kerätä manuaalisesti, raportti generoidaan suoraan projekteista.
+DWS IQ 6 hoitaa tämän automaattisesti sovituissa yritysasiakaspiloteissamme — dataa ei kerätä manuaalisesti, raportti generoidaan suoraan projekteista.
 
 Kiinnostaako 15 min? Näytän miten GRK:n projektiportfolio näyttäisi dashboardilla.
 
@@ -56,7 +57,7 @@ Hi [First name],
 
 GRK Infra's 2025 operating result — 6.7% EBIT — is the strongest in years, and infrastructure margins are holding well above housing construction peers. Exactly when volume is scaling up, CSRD Wave 2 lands for the first time: Scope 1 emissions from your construction machinery fleet must be reported at project level, starting with FY2025 data.
 
-Our customers T2H (active pilot, infrastructure adjacent) and NCC handle this automatically with DWS IQ 6 — no manual data collection, CSRD report generated directly from project data.
+DWS IQ 6 handles this automatically in our contracted enterprise pilots — no manual data collection, CSRD report generated directly from project data.
 
 Worth 15 minutes to show you how GRK's project portfolio would look in the dashboard?
 
@@ -73,7 +74,7 @@ https://dws10.com
 
 > Hei [Nimi],
 >
-> GRK:n 2025 tulos — 6,7 % liiketulos — on infrarakentamisen merkkipaalu. CSRD Wave 2 iskee juuri nyt ensimmäistä kertaa: Scope 1 konekalustosta projektikohtaisesti. T2H hoitaa tämän automaattisesti meidän kanssa. Kiinnostaako 15 min demo?
+> GRK:n 2025 tulos — 6,7 % liiketulos — on infrarakentamisen merkkipaalu. CSRD Wave 2 iskee juuri nyt ensimmäistä kertaa: Scope 1 konekalustosta projektikohtaisesti. Meidän alustallamme tämä hoituu automaattisesti. Kiinnostaako 15 min demo?
 
 ---
 
@@ -91,7 +92,7 @@ https://dws10.com
 - **Sender:** `risto.paarni@lifetime.fi`
 - **Attachments first send:** NONE
 - **Follow-up:** One follow-up max (Day 14), then silence
-- **Peer reference to use:** T2H (active pilot — same infra vertical, strongest social proof for GRK)
+- **Peer reference to use:** a contracted Q1/2026 enterprise pilot, named only under NDA. T2H and NCC are **not** customers — T2H is a dispatch-operator counterparty of the transport business and NCC is an unlanded prospect (`docs/TRACTION_CANONICAL.md` §3).
 
 ## Data Source Note
 

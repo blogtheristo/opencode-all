@@ -1,12 +1,13 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Elena Laleh, Kline Hill Partners
-Version: 1.0
+Version: 1.1
 Date: 2026-03-29
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/dws-captains-outreach-4uPTL
 Status: COLD — Conference outreach (PE Insights Switzerland, June 18 2026)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-29): Profile created from PE Insights Switzerland agenda + web research. GP-led secondaries MD at Kline Hill Partners ($5.4B AUM, Zurich-based). Panel: "Single-Asset Deals, Continuation Funds & Beyond: Secondaries Redefined." Strong GP-led/continuation fund expertise. Ex-Partners Group (7 years). Conference networking target.
 -->
 
@@ -85,7 +86,7 @@ Lead with:
 
 1. **Small-deal GP-led angle** — "Your mid-market GP-led portfolio companies face CSRD/ETS/CBAM obligations but can't afford Big 4 compliance consultants. We automate that at €36K/year per company — 10x cheaper than manual compliance"
 2. **Continuation fund valuation** — "When you're structuring a continuation vehicle around a single asset, carbon compliance readiness directly affects the LP pitch. Our carbon balance sheet gives you auditable ESG data for LP reporting"
-3. **Portfolio-wide deployment** — "What if every new GP-led deal KHP closes included automated carbon compliance as part of the value-creation plan? We're already live with 5 industrial customers, zero churn"
+3. **Portfolio-wide deployment** — "What if every new GP-led deal KHP closes included automated carbon compliance as part of the value-creation plan? We have two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)"
 
 **Do NOT lead with:**
 
@@ -129,7 +130,7 @@ Hi Elena,
 
 Your panel at PE Insights was excellent — especially your point about [specific insight on GP-led structuring/valuation]. It crystallized something I've been thinking about.
 
-I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure for EU-regulated industrial companies. a fleet of deterministic skilled agents, 20 industry verticals, live with 6 customers at 100% retention.
+I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure for EU-regulated industrial companies. a fleet of deterministic skilled agents, 20 industry verticals, two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked).
 
 The connection to your work: mid-market GP-led portfolio companies face the same ETS/CBAM/CSRD mandates as large-caps, but without the compliance teams. We automate that at €36K/year — which is a rounding error in a value-creation budget but can materially de-risk the ESG story for LP reporting and exit positioning.
 

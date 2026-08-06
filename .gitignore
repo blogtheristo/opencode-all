@@ -46,7 +46,20 @@ dws6.com/**/config/*.local.js
 logs/
 *.log
 
+# --- AGENT OUTCOMES (runtime data — NEVER commit) ---
+# agent_executions rows carry user_id / org_id / input / output payloads (PII;
+# CLAUDE.md Non-Negotiable Rule 1). The Supabase table is the source of truth,
+# not git. compute-mgd.mjs reads the live table via --supabase; any offline
+# export lands here and stays untracked. Synthetic samples for tests live in
+# src/__tests__/fixtures/ and ARE committed.
+data/agent-outcomes/
+*.agent-executions.json
+*.agent-outcomes.json
+
 # Clawdbot queue + state are gitignored down in the .claude/* section.
+
+# --- SESSION TELEMETRY (harness-generated runtime data — NEVER commit) ---
+telemetry/
 
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
@@ -131,6 +144,8 @@ claude-sessions/
 !landing-pages/dws10-com/products.csv
 !dws10.com/products.csv
 !Learn/data/activation/billing-*.csv
+# Source-of-truth financial figure exports (Document Standard §24.2) — NOT PII
+!docs/investor/**/*.csv
 investor-outreach/ready_to_send*/
 scripts/investor-contacts.local.json
 
@@ -153,6 +168,9 @@ reports/figures/*.png
 reports/*.json
 models/*.pkl
 
+# Counterfactual fairness pilot — generated evidence (regenerate via npm run fairness:pilot)
+reports/fairness-pilot/
+
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
 .snykdist
@@ -173,3 +191,11 @@ data/raw_dataset.csv
 data/cleaned_dataset.csv
 
 /.env.old
+
+# LLM training pipeline (infrastructure/llm-training + Acer GN100 training)
+infrastructure/llm-training/.smoke-out/
+Admin/Acer-Veriton-GN100/training/checkpoints/
+Admin/Acer-Veriton-GN100/training/datasets/
+Admin/Acer-Veriton-GN100/training/cache/
+# Keep the committed env template (the broad .env.* rule above would hide it)
+!Admin/Acer-Veriton-GN100/training/.env.training.example

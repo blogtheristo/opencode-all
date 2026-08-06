@@ -1,0 +1,4 @@
+{
+  "$comment": "data.europa.eu dataset-version-diff cache. Written weekly by scripts/weekly/edp-dataset-diff.sh. Read by the same script on its next run. Do not edit manually.",
+  "queries": {}
+}

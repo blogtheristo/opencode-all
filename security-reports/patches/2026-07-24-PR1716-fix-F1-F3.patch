@@ -1,0 +1,215 @@
+diff --git a/src/__tests__/attestation-signing.test.ts b/src/__tests__/attestation-signing.test.ts
+index 2861f51..f7e3da2 100644
+--- a/src/__tests__/attestation-signing.test.ts
++++ b/src/__tests__/attestation-signing.test.ts
+@@ -1,3 +1,5 @@
++import { createPublicKey, generateKeyPairSync } from 'node:crypto';
++
+ import { describe, expect, it } from 'vitest';
+ 
+ import { issueVerifiedDoneAttestation } from '../identity/ats-engine.js';
+@@ -118,7 +120,69 @@ describe('verifyVerifiedDoneAttestation (§14.7.1)', () => {
+   });
+ });
+ 
++describe('proof options are covered by the signature (§7.2 — F1 regression)', () => {
++  // Before the F1 fix the signature covered only the credential body, so every
++  // field below could be rewritten after signing and still verify. These are
++  // the tampering cases the original suite did not exercise.
++
++  it('rejects a credential whose proof.created was tampered after signing', () => {
++    const signer = makeSigner();
++    const { publicKey } = generateIssuerKeyPair();
++    const signed = signVerifiedDoneAttestation(issueVerifiedDoneAttestation(makeInput()), signer);
++
++    // Re-derive the public key that actually matches this signer's private key
++    const pub = createPublicKey(signer.privateKey);
++    expect(verifyVerifiedDoneAttestation(signed.credential, pub)).toBe(true);
++
++    signed.credential.proof!.created = '2020-01-01T00:00:00.000Z';
++    expect(verifyVerifiedDoneAttestation(signed.credential, pub)).toBe(false);
++    // sanity: an unrelated key never verifies either
++    expect(verifyVerifiedDoneAttestation(signed.credential, publicKey)).toBe(false);
++  });
++
++  it('rejects a credential whose proof.verificationMethod was tampered after signing', () => {
++    const signer = makeSigner();
++    const signed = signVerifiedDoneAttestation(issueVerifiedDoneAttestation(makeInput()), signer);
++    const pub = createPublicKey(signer.privateKey);
++
++    signed.credential.proof!.verificationMethod = 'did:web:attacker.example#key-1';
++    expect(verifyVerifiedDoneAttestation(signed.credential, pub)).toBe(false);
++  });
++
++  it('rejects a credential whose proof.proofPurpose or type was tampered after signing', () => {
++    const signer = makeSigner();
++    const pub = createPublicKey(signer.privateKey);
++
++    const a = signVerifiedDoneAttestation(issueVerifiedDoneAttestation(makeInput()), signer);
++    a.credential.proof!.proofPurpose = 'authentication';
++    expect(verifyVerifiedDoneAttestation(a.credential, pub)).toBe(false);
++
++    const b = signVerifiedDoneAttestation(issueVerifiedDoneAttestation(makeInput()), signer);
++    b.credential.proof!.type = 'DataIntegrityProof';
++    expect(verifyVerifiedDoneAttestation(b.credential, pub)).toBe(false);
++  });
++});
++
+ describe('loadIssuerSignerFromEnv — key never hardcoded (§14.7.1)', () => {
++  it('throws on a non-Ed25519 issuer key rather than failing later at sign time (F3)', () => {
++    const { privateKey: rsaKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
++    const prevPem = process.env.KYA_ISSUER_PRIVATE_KEY_PEM;
++    const prevVm = process.env.KYA_ISSUER_VERIFICATION_METHOD;
++    process.env.KYA_ISSUER_PRIVATE_KEY_PEM = rsaKey
++      .export({ type: 'pkcs8', format: 'pem' })
++      .toString();
++    process.env.KYA_ISSUER_VERIFICATION_METHOD = 'did:web:standards.dws.eu#key-1';
++    try {
++      // Misconfigured must throw — it must NOT quietly degrade to the unsigned path
++      expect(() => loadIssuerSignerFromEnv('2026-07-22T10:00:02.000Z')).toThrow(/Ed25519/);
++    } finally {
++      if (prevPem !== undefined) process.env.KYA_ISSUER_PRIVATE_KEY_PEM = prevPem;
++      else delete process.env.KYA_ISSUER_PRIVATE_KEY_PEM;
++      if (prevVm !== undefined) process.env.KYA_ISSUER_VERIFICATION_METHOD = prevVm;
++      else delete process.env.KYA_ISSUER_VERIFICATION_METHOD;
++    }
++  });
++
+   it('returns null when the issuer key env is not configured (unsigned path stays valid)', () => {
+     const prevPem = process.env.KYA_ISSUER_PRIVATE_KEY_PEM;
+     const prevVm = process.env.KYA_ISSUER_VERIFICATION_METHOD;
+diff --git a/src/identity/attestation-signing.ts b/src/identity/attestation-signing.ts
+index dcfcc16..391a4bd 100644
+--- a/src/identity/attestation-signing.ts
++++ b/src/identity/attestation-signing.ts
+@@ -67,10 +67,37 @@ function canonicalJSON(value: unknown): string {
+   return `{${body}}`;
+ }
+ 
+-/** Canonical bytes of the credential WITHOUT its proof block (what gets signed). */
+-function credentialSigningBytes(credential: VerifiedDoneAttestation): Buffer {
+-  const { proof: _proof, ...unsigned } = credential;
+-  return Buffer.from(canonicalJSON(unsigned), 'utf8');
++/** Proof metadata covered by the signature — every proof field except `proofValue`. */
++type ProofOptions = Omit<AttestationProof, 'proofValue'>;
++
++/**
++ * Canonical bytes that get signed: the credential WITHOUT its proof block,
++ * bound together with the proof options (every proof field except
++ * `proofValue`).
++ *
++ * Binding the proof options into the signed payload is REQUIRED, not
++ * cosmetic. If only the credential body were signed — as an earlier revision
++ * did — then `created`, `verificationMethod`, `proofPurpose` and `type` could
++ * all be rewritten after signing and the credential would still verify. Two
++ * consequences made that unacceptable:
++ *
++ *   1. `created` is the timestamp on an Article 12 evidence artifact. An
++ *      evidence record whose date can be altered without detection is not
++ *      evidence.
++ *   2. `verificationMethod` tells a verifier WHICH KEY to trust. Leaving it
++ *      outside the signature invites a verifier that resolves the key from it
++ *      (the did:web flow of §14.7.1) to pick its trust anchor from
++ *      attacker-modifiable data.
++ *
++ * This mirrors W3C Data Integrity, which canonicalizes the proof options
++ * together with the document for exactly this reason.
++ */
++function credentialSigningBytes(
++  credential: VerifiedDoneAttestation,
++  proofOptions: ProofOptions,
++): Buffer {
++  const { proof: _proof, ...document } = credential;
++  return Buffer.from(canonicalJSON({ document, proofOptions }), 'utf8');
+ }
+ 
+ /** Generate a fresh Ed25519 issuer key pair (e.g. for a tenant admin rotating keys, §14.7.1). */
+@@ -94,27 +121,44 @@ export function signVerifiedDoneAttestation(
+     throw new Error('cannot sign a revoked attestation (KYA §14.7)');
+   }
+ 
+-  const headerB64 = Buffer.from(JSON.stringify(EDDSA_JWS_HEADER)).toString('base64url');
+-  const payloadB64 = credentialSigningBytes(issued.credential).toString('base64url');
+-  const signature = cryptoSign(null, Buffer.from(`${headerB64}.${payloadB64}`), signer.privateKey);
+-  // Detached JWS: payload segment omitted (recomputed from the credential on verify)
+-  const detachedJws = `${headerB64}..${signature.toString('base64url')}`;
+-
+-  const proof: AttestationProof = {
++  // Proof options are fixed BEFORE signing, then covered by the signature.
++  const proofOptions: ProofOptions = {
+     type: 'JsonWebSignature2020',
+     created: signer.created,
+     verificationMethod: signer.verificationMethod,
+     proofPurpose: 'assertionMethod',
+-    proofValue: detachedJws,
+   };
+ 
++  const headerB64 = Buffer.from(JSON.stringify(EDDSA_JWS_HEADER)).toString('base64url');
++  const payloadB64 = credentialSigningBytes(issued.credential, proofOptions).toString('base64url');
++  const signature = cryptoSign(null, Buffer.from(`${headerB64}.${payloadB64}`), signer.privateKey);
++  // Detached JWS: payload segment omitted (recomputed from the credential on verify)
++  const detachedJws = `${headerB64}..${signature.toString('base64url')}`;
++
++  const proof: AttestationProof = { ...proofOptions, proofValue: detachedJws };
++
+   return { credential: { ...issued.credential, proof }, proofStatus: 'signed' };
+ }
+ 
+ /**
+  * Verifies a signed Verified-Done credential against an issuer public key.
+  * Returns false (never throws) on any structural or cryptographic failure —
+- * missing/malformed proof, wrong algorithm, tampered subject, or bad key.
++ * missing/malformed proof, wrong algorithm, tampered subject, tampered proof
++ * metadata (`created` / `verificationMethod` / `proofPurpose` / `type`), or a
++ * key that does not match.
++ *
++ * TWO THINGS THIS FUNCTION DOES NOT ANSWER — callers MUST handle both:
++ *
++ *   1. **Issuer binding.** A `true` result proves the bytes were signed by the
++ *      key supplied in `publicKey`. It does NOT prove that key is authorized
++ *      to speak for `credential.issuer`. A verifier that resolves the key from
++ *      `proof.verificationMethod` MUST independently check that the method is
++ *      authorized by the signed `issuer` field, or an attacker can present a
++ *      credential signed by their own key naming someone else as issuer
++ *      (KYA §7.3).
++ *   2. **Revocation.** The travelling credential carries no status. `true`
++ *      means "these bytes are authentic", NOT "this attestation is in force".
++ *      Check the issuer's revocation status separately (KYA §7.5).
+  */
+ export function verifyVerifiedDoneAttestation(
+   credential: VerifiedDoneAttestation,
+@@ -135,7 +179,11 @@ export function verifyVerifiedDoneAttestation(
+   }
+   if (header.alg !== 'EdDSA') return false;
+ 
+-  const payloadB64 = credentialSigningBytes(credential).toString('base64url');
++  // Recompute over the credential AND the proof options as presented, so any
++  // post-signing edit to created / verificationMethod / proofPurpose / type
++  // changes the payload and fails the signature.
++  const { proofValue: _proofValue, ...proofOptions } = proof;
++  const payloadB64 = credentialSigningBytes(credential, proofOptions).toString('base64url');
+   try {
+     return cryptoVerify(
+       null,
+@@ -159,5 +207,20 @@ export function loadIssuerSignerFromEnv(created: string): AttestationSigner | nu
+   const pem = process.env.KYA_ISSUER_PRIVATE_KEY_PEM;
+   const verificationMethod = process.env.KYA_ISSUER_VERIFICATION_METHOD;
+   if (!pem || !verificationMethod) return null;
+-  return { privateKey: createPrivateKey(pem), verificationMethod, created };
++
++  const privateKey = createPrivateKey(pem);
++
++  // Fail loud at load, not at first signature (Rule 12). Without this, an RSA
++  // or EC key loads happily and only blows up inside cryptoSign(null, …) with
++  // an opaque error — while the JWS header has already claimed alg:'EdDSA'.
++  // A key-type mismatch is a misconfiguration, never a reason to degrade to
++  // the unsigned path: unconfigured means null, misconfigured means throw.
++  if (privateKey.asymmetricKeyType !== 'ed25519') {
++    throw new Error(
++      `KYA_ISSUER_PRIVATE_KEY_PEM must be an Ed25519 private key, got ` +
++        `'${privateKey.asymmetricKeyType ?? 'unknown'}' (KYA §14.7.1)`,
++    );
++  }
++
++  return { privateKey, verificationMethod, created };
+ }

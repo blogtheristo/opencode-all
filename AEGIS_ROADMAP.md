@@ -5,7 +5,7 @@
 > **Status:** Living Document (planning horizon)
 > **Created:** 2026-07-05
 > **Updated:** 2026-07-05 — v1.0: Initial creation. Scopes an AI-native defense capability track for the existing DWS IQ Aegis platform (`Store/PRODUCT_AEGIS.md`), built on the DWS Security Standard's 6-layer defense-in-depth model and the KYA 5-layer trust framework, plus the `aegis` vulnerability/patch-SLA agent (`src/agents/aegis.agent.ts`). Framed against the thesis that AI now accelerates attackers (AI-crafted exploits, deepfake social engineering, autonomous recon/malware) faster than manual defense can respond — so the defense has to be AI-native too.
-> **Timeline:** Q3 2026 → Q2 2027 (aligned with Aegis GA, August 2026)
+> **Timeline:** Q3 2026 → Q2 2027 (aligned with Aegis GA, September 2026)
 > **Target:** DWS IQ Aegis — AI-native defense add-on across all three Aegis tiers (Standard / Defence / Sovereign)
 
 ***

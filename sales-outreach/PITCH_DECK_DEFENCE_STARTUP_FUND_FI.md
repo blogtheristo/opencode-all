@@ -11,6 +11,7 @@ Purpose: Pitch deck (FI) Defence Startup Fund -täydennettyyn hakemukseen —
          docs/DEFENCE_STARTUP_FUND_APPLICATION.md.
 Branch: claude/aegis-defence-deliverables-3clsx0
 Owner: risto.paarni@lifetime.fi
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — Kalvo 8: dispatch operators removed as "Nykyasiakkaat", "MRR 7 000 €/kk, 100 % retentio" and "17 v operaattorisuhteet" retired/relabelled, Nokia replaced with "puolustusalan päähankkija" (NDA).
 -->
 
 # Pitch Deck — Defence Startup Fund (Lifetime Oy)
@@ -71,8 +72,9 @@ NVIDIA Jetson Orin Nano + Acer Veriton GN100 reunalaskentana kentällä: kenttä
 ## Kalvo 8 — Liiketoimintamalli ja veto
 
 - **Tuotelähtöinen** yhtiö; tulorahoitus (ei ulkoista pääomaa).
-- Nykyasiakkaat: **Kela, Uber, Bolt, Taksi Helsinki** — MRR **7 000 €/kk, 100 % retentio**, 17 v operaattorisuhteet.
-- Veto puolustusalalla: **Aegis × Nokia × DEFINE** -keskustelut (Tommi Haapala, Nokia; NDA 14.4.2026).
+- Ohjelmistoveto: **kaksi yritysasiakaspilottia sovittu Q1/2026**, 29 950 € kumpikin (**59 900 € kirjattu**).
+- Tulorahoitus: **~7 000 €/kk palvelu- ja kuljetusliikevaihtoa (ei ohjelmistoliikevaihtoa)**; yhtiö kassavirtatasapainossa perustajan palkalla 0 €. Kela, Uber, Bolt ja Taksi Helsinki ovat **välityspalveluoperaattoreita** (Traficomin määrittelemä rooli) — luvanvaraisen kuljetusliiketoiminnan kaupallisia vastapuolia, **eivät DWS IQ:n, Aegiksen tai minkään Lifetimen ohjelmistotuotteen asiakkaita**. 17 vuoden operaattorisuhteet ovat kuljetusliiketoiminnan toimialakokemusta, eivät alustavetoa.
+- Veto puolustusalalla: **Aegis × puolustusalan päähankkija × DEFINE** -keskustelut (NDA 14.4.2026; vastapuoli luottamuksellinen).
 - InvestEU-portaaliin julkaistu hanke (INPO-20254383).
 
 ## Kalvo 9 — Tiimi ja kumppanit

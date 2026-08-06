@@ -119,9 +119,6 @@ BEGIN
     last_name      = EXCLUDED.last_name,
     email_verified = EXCLUDED.email_verified;
   RETURN NEW;
-EXCEPTION WHEN OTHERS THEN
-  RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
-  RETURN NEW;
 EXCEPTION
   WHEN unique_violation THEN
     -- email unique constraint: an existing profile row already holds this email

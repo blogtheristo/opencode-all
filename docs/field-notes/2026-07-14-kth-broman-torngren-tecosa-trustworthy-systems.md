@@ -93,7 +93,7 @@ Per the CLAUDE.md Thesis Content Scope Rule: this is a **market/academic signal 
 
 ## Next Steps
 
-1. **Reply now — keep Martin CC'd, address him directly, lead with trustworthy edge computing (not compliance).** Thank Broman for the routing; give Törngren three tight sentences framed in _his_ register — safety evidence / trustworthiness / audit-grade evidence — mapping the DWS Article-12 logging pipeline to his safety-argumentation framework; name his industrial-trustworthy-edge position paper and the AD-EYE→verification analogue; propose a 30-minute intro call. Sales-outreach context → send **as Lifetime Oy** from `risto.paarni2024@lifetime.fi`, short sig. Draft prepared (see companion reply).
+1. **Reply now — keep Martin CC'd, address him directly, lead with trustworthy edge computing (not compliance).** Thank Broman for the routing; give Törngren three tight sentences framed in _his_ register — safety evidence / trustworthiness / audit-grade evidence — mapping the DWS Article-12 logging pipeline to his safety-argumentation framework; name his industrial-trustworthy-edge position paper and the AD-EYE→verification analogue; propose a 30-minute intro call. Sales-outreach context → send **as Lifetime Oy** from `risto.paarni@lifetime.fi`, short sig. Draft prepared (see companion reply).
 2. **Do the homework before the call:** pull his industrial trustworthy-edge-computing position paper and the AD-EYE testbed writeup; name 1–2 TECoSA phase-2 trustworthiness themes / partners (Scania, Alstom, Ericsson) the DWS edge-control-room + KYA work maps onto, so the conversation is specific, not generic.
 3. **Frame the ask as collaboration, not a sale:** explore TECoSA affiliate/partner engagement or a joint demonstrator (trustworthy agentic edge + KYA trust scoring) rather than pitching a product. Academic centers open to peers, not vendors.
 4. **Log the relationship** in the sales-outreach / CRM path so the thread doesn't go stale (park-stale-threads discipline); set a follow-up if no reply from Törngren within ~2 weeks.
@@ -118,7 +118,7 @@ Per the CLAUDE.md Thesis Content Scope Rule: this is a **market/academic signal 
 >
 > Risto Anton Päärni
 > Founder, CEO · Lifetime Oy
-> risto.paarni2024@lifetime.fi · +358 400 319 010
+> risto.paarni@lifetime.fi · +358 400 319 010
 
 <details>
 <summary>v3 draft (superseded by v4 honest-founder reframe, 14.07.2026 — kept per formulation-preservation rule)</summary>
@@ -164,7 +164,7 @@ Per the CLAUDE.md Thesis Content Scope Rule: this is a **market/academic signal 
 >
 > Risto Anton Päärni
 > Founder, CEO · Lifetime Oy
-> risto.paarni2024@lifetime.fi · +358 400 319 010
+> risto.paarni@lifetime.fi · +358 400 319 010
 
 </details>
 

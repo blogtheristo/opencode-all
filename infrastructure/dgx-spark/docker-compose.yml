@@ -2,12 +2,19 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.3.1
-# Introduced-In: claude/bumblebee-dgx-observability-mzV5U
-# Branch: claude/aspire-development-evolution-16fxg0
-# Date: 2026-07-07
+# Code-Version: 1.3.2
+# Introduced-In: claude/aspire-version-update-w21fyd
+# Branch: claude/ollama-orchestration-merge-047pj7
+# Date: 2026-07-26
 # Owner: Lifetime Oy
-# Change: v1.3.1 — Fixed OTLP/HTTP endpoint port 18888→18890 on all three
+# Change: v1.3.2 — Bumped aspire-dashboard image 13.3.5 → 13.4.6 (current latest
+#         stable per microsoft/aspire, verified 2026-07-26; 13.5.0 is preview —
+#         stay on stable, never :latest). Dashboard-only footprint means the
+#         Aspire 13.4 breaking changes (Postgres 18.3 data-volume, RabbitMQ 4.3,
+#         K8s/Foundry renames) do not apply — zero migration surface. Supersedes
+#         PR #1557 (dirty against v1.3.1). See field note
+#         docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md §3.8.
+#         Prior (1.3.1): Fixed OTLP/HTTP endpoint port 18888→18890 on all three
 #         producers (dws-backend, dws-cron, bumblebee-collector). Port 18888
 #         is the dashboard UI; the dashboard's OTLP/HTTP listener defaults to
 #         18890 (ASPIRE_DASHBOARD_OTLP_HTTP_ENDPOINT_URL, per aspire.dev
@@ -148,7 +155,8 @@ services:
   # ==========================================================================
   # MCP Gateway — Supabase + GitHub tools for remote Claude Code sessions
   # (mobile/desktop). Ported from Cloud Run per docs/CLOUD_ENVIRONMENTS.md
-  # §12.9 — DGX Spark is priority 1 for this workload (zero marginal cost,
+  # §12.9 — DGX Spark is priority 1 for this workload (no external per-token
+  # billing; power/amortisation/serving remain — bounded, not zero,
   # EU-sovereign); the gateway's in-process MCP session state needs no
   # porting here since this is a persistent host, unlike Workers isolates.
   # No host port — reached only via the cloudflare-tunnel service below, over
@@ -360,7 +368,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   # ==========================================================================
-  # Aspire Dashboard 13.3.5 — Distributed traces, metrics, logs (OTel aggregator)
+  # Aspire Dashboard 13.4.6 — Distributed traces, metrics, logs (OTel aggregator)
   # Dashboard-only install — no AppHost or .NET toolchain required.
   # Three distinct endpoints (aspire.dev dashboard configuration reference):
   #   UI:        http://dgx-spark:18888          (browser)
@@ -372,7 +380,7 @@ services:
   # Ref: docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md
   # ==========================================================================
   aspire-dashboard:
-    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.3.5
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.4.6
     container_name: aspire-dashboard
     restart: unless-stopped
     ports:

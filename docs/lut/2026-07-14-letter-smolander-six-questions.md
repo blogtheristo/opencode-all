@@ -71,7 +71,7 @@ Risto
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy · LUT doctoral candidate (DWS IQ Research)
-risto.paarni2024@lifetime.fi · +358 400 319 010
+risto.paarni@lifetime.fi · +358 400 319 010
 
 ---
 

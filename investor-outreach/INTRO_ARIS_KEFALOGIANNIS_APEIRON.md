@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Aris Kefalogiannis, Apeiron Venture Capital
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: Sovereign AI + Dual-use Defense + Integrated Hardware-Software
 Intro Type: Warm (Risto direct conversation)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Partner at Apeiron Venture Capital, deploys €25M fund, writes €300K–€1M initial checks into pre-seed/seed. Focus: cybersecurity, defense tech, integrated hardware-software — exact sovereign AI + dual-use thesis match. €20M+ dry powder remaining, aggressively looking for traction-stage teams. Drawback: strong preference for Greek founders. Mitigation: thesis fit is strong enough that traction data + dual-use/sovereignty alignment overrides the geographic preference. Strategy: lead with V1 launch readiness, Aegis dual-use, Messe Germany commercial pipe.
 -->
 
@@ -61,7 +62,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 1. **Exact thesis match** — Cybersecurity + defense tech + integrated hardware-software IS the DWS IQ 6 + Aegis story. This is not a stretch, it's his core mandate.
 2. **Check size fits the round** — €300K-€1M. Our €650K SAFE can be anchored by a single Apeiron check. He could lead.
 3. **€20M+ dry powder** — Not "raising a new fund, come back later." He has capital, he's deploying now.
-4. **Aggressively looking for traction-stage teams** — We have traction: EUR 7K MRR, 6 paying customers, 100% retention, V1 launching June 15.
+4. **Aggressively looking for traction-stage teams** — We have traction: ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked), V1 launching June 15.
 5. **Hardware-software integration** — Future Fleet Admiral / Jetson / edge compute roadmap aligns, but the current V1 pitch is pure software. Hardware-software story is a latent upside, not a need.
 6. **Warm channel** — Recent conversation. No cold-open friction. Can go direct with follow-up.
 
@@ -71,7 +72,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Strategy
 
-- **Lead with V1 + traction + Messe pipe** — He wants traction-stage. Open with EUR 7K MRR, 100% retention, 6 weeks to V1, Messe Germany commercial push post-launch. This is exactly his criterion.
+- **Lead with V1 + traction + Messe pipe** — He wants traction-stage. Open with the two contracted enterprise pilots (EUR 59,900 booked), 6 weeks to V1, Messe Germany commercial push post-launch. This is exactly his criterion.
 - **Dual-use + sovereignty front and center** — Aegis module, EU AI Act compliance, sovereign data residency (Finland/Germany), no CLOUD Act exposure. His cybersecurity + defense filter.
 - **Ticket size as lead or meaningful participation** — His €300K-€1M check fits the SAFE round. Either he leads the Captain seat tier (pulling others in) or takes a significant slice himself.
 - **Address geographic preference directly** — Don't pretend it doesn't exist. Acknowledge "I know you lean Greek, but here's why the thesis fit is worth the shot" — he'll respect the directness.
@@ -84,13 +85,13 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Aris — good talking recently. Quick update: V1 launches at Arctic 15 in 6 weeks (June 15), Messe Germany commercial push right after.
 
-Lifetime Oy — sovereign AI compliance for EU industrial/defense. A fleet of skilled agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 6 customers, 100% retention, 25 EU-regulated industries.
+Lifetime Oy — sovereign AI compliance for EU industrial/defense. A fleet of skilled agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked), 25 EU-regulated industries.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — sized for a single anchor check in your €300K-€1M range. Fits your sovereign AI + dual-use + hardware-software thesis. Send the Aegis memo?
 
 ## Draft Email (if email channel preferred)
 
-**Subject:** Follow-up — DWS IQ 6 V1, sovereign AI + Aegis dual-use, EUR 7K MRR
+**Subject:** Follow-up — DWS IQ 6 V1, sovereign AI + Aegis dual-use, two contracted enterprise pilots
 
 Hi Aris,
 
@@ -100,7 +101,7 @@ DWS IQ 6 is the sovereign AI compliance platform for EU industrial and defense c
 
 Traction:
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026

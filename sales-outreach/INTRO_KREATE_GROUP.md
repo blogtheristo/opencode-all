@@ -21,13 +21,13 @@ Source: construction-profitability-targeting-FI.md (Tier C — vakaat)
 
 ## ICP Gate Check
 
-| Gate                          | Status        | Evidence                                                                                                          |
-| ----------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Regulatory exposure confirmed | PASS — STRONG | Listed company; CSRD Wave 1 mandatory FY2024; CSRD report already being produced                                  |
-| Physical asset footprint      | PASS          | Bridges, railways, waterways, marine infrastructure — major project sites Finland-wide                            |
-| Decision-maker identified     | STRONG        | CEO: Timo Repo [VERIFY current status — listed companies have public leadership]                                  |
-| Pain signal present           | PASS          | 3.2% margin (at median, no clear upside path without operational improvement); CSRD reporting is a live cost item |
-| Peer reference applicable     | PASS          | Kela (buildings), T2H (infra), NCC Group (Nordic construction)                                                    |
+| Gate                          | Status        | Evidence                                                                                                                                                                                                                                        |
+| ----------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Regulatory exposure confirmed | PASS — STRONG | Listed company; CSRD Wave 1 mandatory FY2024; CSRD report already being produced                                                                                                                                                                |
+| Physical asset footprint      | PASS          | Bridges, railways, waterways, marine infrastructure — major project sites Finland-wide                                                                                                                                                          |
+| Decision-maker identified     | STRONG        | CEO: Timo Repo [VERIFY current status — listed companies have public leadership]                                                                                                                                                                |
+| Pain signal present           | PASS          | 3.2% margin (at median, no clear upside path without operational improvement); CSRD reporting is a live cost item                                                                                                                               |
+| Peer reference applicable     | WEAK          | No landed construction reference. Contracted Q1/2026 enterprise pilots may be cited only under NDA. Kela and T2H are dispatch-operator counterparties of the transport business; NCC is an unlanded prospect (`docs/TRACTION_CANONICAL.md` §3). |
 
 **ICP Score: STRONG** (listed, CSRD mandatory, identified decision-maker, physical assets confirmed, peer references applicable)
 
@@ -62,7 +62,7 @@ Kreate is Tier C: stable, disciplined, consistently around sector median. The ne
 - Kreate is already producing mandatory CSRD reports as a listed company
 - The pain: manual data collection from project sites, subcontractor data requests, sustainability team overhead
 - The fix: DWS IQ 6 automates Scope 1/2 collection and CSRD report generation
-- Reference: "Uber Finland leikkasi raportoinnin 60 tunnista 8 tuntiin kuukaudessa"
+- Reference: "DWS IQ 6 leikkaa raportoinnin 60 tunnista 8 tuntiin kuukaudessa"
 - Cost of pilot: €5,990/month × 5 months = €29,950 vs. estimated €40–80k/year in reporting labor
 
 ### Angle 2: AI orchestration for project portfolio (Tier C kärki per construction-profitability-targeting-FI.md)
@@ -115,7 +115,7 @@ No note. Profile must signal construction compliance + DWS IQ 6.
 >
 > Kiitos yhteydestä — Kreate ja Lifetime Oy, molemmat Espoosta, se on harvinaista.
 >
-> Näin Kreaten CSRD-raportoinnin olevan jo käynnissä listatun yhtiön velvoitteena. Monilla asiakkaillamme (T2H, Kela, NCC-pilotti) se tarkoittaa 60 tunnin manuaalityötä kuukaudessa. DWS IQ 6 leikkaa sen 8 tuntiin — automaattinen Scope 1/2 -data projekteiltanne, CSRD-raportti valmiina.
+> Näin Kreaten CSRD-raportoinnin olevan jo käynnissä listatun yhtiön velvoitteena. Listatuissa rakennusalan yhtiöissä se tarkoittaa tyypillisesti 60 tunnin manuaalityötä kuukaudessa. DWS IQ 6 leikkaa sen 8 tuntiin — automaattinen Scope 1/2 -data projekteiltanne, CSRD-raportti valmiina.
 >
 > Kiinnostaako 15 min? Näytän miten Kreaten projektiportfolio näyttäisi dashboardilla.
 
@@ -129,11 +129,11 @@ Status: **not yet sent**
 
 ## Assets
 
-| Asset                  | Status                                                                      |
-| ---------------------- | --------------------------------------------------------------------------- |
-| INTRO_KREATE_GROUP.md  | This file                                                                   |
-| LETTER_KREATE_GROUP.md | Drafted — send after LinkedIn attempt                                       |
-| Peer references        | Kela (government validation), T2H (active pilot), NCC (Nordic construction) |
+| Asset                  | Status                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| INTRO_KREATE_GROUP.md  | This file                                                                                              |
+| LETTER_KREATE_GROUP.md | Drafted — send after LinkedIn attempt                                                                  |
+| Peer references        | Contracted Q1/2026 enterprise pilots, under NDA only. Kela / T2H / NCC must not be cited as customers. |
 
 ## Next Steps
 

@@ -87,7 +87,7 @@ export default function AlertsScreen() {
           <View style={styles.headerRow}>
             <View>
               <Text style={styles.headerTitle}>Portfolio Alert Center</Text>
-              <Text style={styles.headerSubtitle}>NCC Corporate · cross-project alerts</Text>
+              <Text style={styles.headerSubtitle}>Corporate portfolio · cross-project alerts</Text>
             </View>
             <Icon name="bell-alert" size={40} color={nordicColors.white} />
           </View>

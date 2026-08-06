@@ -35,8 +35,6 @@
     "src/integrations/esg/**/*",
     "src/integrations/iceye/**/*",
     "src/integrations/trade/**/*",
-    "src/investor-reports/**/*",
-    "src/mcp/**/*",
     "src/payments/**/*",
     "src/sandbox/**/*",
     "src/web/**/*",

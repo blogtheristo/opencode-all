@@ -235,8 +235,8 @@ npm run build
 # Deploy to Cloudflare Pages
 wrangler pages deploy dist --project-name=dws-iq-dashboard-v9
 
-# Or deploy to Google Cloud Storage
-gsutil -m rsync -r dist/ gs://dws-iq-dashboard-v9/
+# Or deploy to Google Cloud Storage (gcloud storage replaces the deprecated gsutil)
+gcloud storage rsync -r dist/ gs://dws-iq-dashboard-v9/
 ```
 
 **Environment Configuration:**

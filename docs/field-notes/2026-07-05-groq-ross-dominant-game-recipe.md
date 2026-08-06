@@ -1,5 +1,7 @@
 # Field Note: Ross on Choosing the Dominant Game — The DWS Winning Recipe
 
+> **Canonical registry — single source of truth for the MGD/CRC north-star metric pair (§3).** Registered in `DWS_TRUTH_STANDARD.md` §2 row 29. Structured mirror: `dws10.com/config/metrics-northstar.json` (+ landing-pages mirror). Founder-ratified by Risto Anton Päärni (Founder, CEO) 13.07.2026. The rest of this note remains a historical field note; only the §3 metric-pair definitions are canonical.
+
 ---
 
 VERSION AND AGENT HISTORY

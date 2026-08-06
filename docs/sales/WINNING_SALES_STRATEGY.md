@@ -1,6 +1,6 @@
 # Winning Sales Strategy — Why the Client Says Yes
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -22,13 +22,13 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (internal sales tooling)
 
----
+***
 
 ## Strategy Documents (Split 28.06.2026)
 
 This file contains the Noah framework, sales DNA principles, and six-case pipeline. For operational strategy with SWOT, 4P, market intelligence, and product roadmaps:
 
-1. **[Lifetime Fleet Personal Winning Sales Strategy](LIFETIME_FLEET_PERSONAL_WINNING_SALES_STRATEGY.md)** — Personal service sales (Uber, Kela, Taksi Helsinki, Bolt). VIP driving, silence principle, five-star framework. Finland + Sweden market trends. 6-12 month horizon.
+1. **[Lifetime Fleet Personal Winning Sales Strategy](LIFETIME_FLEET_PERSONAL_WINNING_SALES_STRATEGY.md)** — Transport-service selling through the dispatch operators (Uber, Kela, Taksi Helsinki, Bolt — dispatch counterparties of the licensed transport operation, never software customers; see `docs/TRACTION_CANONICAL.md`). VIP driving, silence principle, five-star framework. Finland + Sweden market trends. 6-12 month horizon.
 
 2. **[Enterprise Winning Sales Strategy](ENTERPRISE_WINNING_SALES_STRATEGY.md)** — DWS IQ 6 enterprise sales. Climate IQ, Industrial IQ, Aegis product tiers. Six-case pipeline. Finland + Sweden market intelligence. Regulatory forcing timeline. 6-12 month horizon.
 
@@ -116,7 +116,7 @@ People do not buy features. They buy the removal of a feeling:
 
 | Feeling Removed                              | What Triggers the Yes                                               | DWS Proof Point                                                                                      |
 | -------------------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Anxiety** ("Am I making a mistake?")       | Published prices, clear pilot scope, government customer reference  | Kela uses DWS IQ 6. €5,990/mo published. 5-month pilot with clear exit.                              |
+| **Anxiety** ("Am I making a mistake?")       | Published prices, clear pilot scope, contracted pilot references    | Two enterprise pilots contracted Q1/2026 at €29,950 each. €5,990/mo published. 5-month pilot with clear exit. |
 | **Confusion** ("I don't understand this")    | Simple explanation, structured proposal, one-question qualification | "Think of DWS IQ as a team of specialist agents you can hire by the task, not by the seat."          |
 | **Loneliness** ("No one else is doing this") | Social proof, industry-specific case studies, regulatory mandate    | "CBAM 2026 is not optional. 25 EU industries must report. Here is how the first three are doing it." |
 | **Distrust** ("This vendor will disappear")  | Sovereign infrastructure, Finnish hosting, no CLOUD Act exposure    | EU data residency badge. NVIDIA ISV Partner. Red Hat Technology Partner.                             |
@@ -300,7 +300,7 @@ The winning formula plays out differently depending on the deal type. Two active
 
 **What it is:** ORK/1462/2026 — AI Expert Services for the Legal Register Centre (Ministry of Justice). Framework agreement, 2+1+1 years, three scope areas (agent development, customer solution support, agent-based systems development). Formal public procurement via Hilma.
 
-**Why it matters:** Government validation. ORK is a judicial authority — winning this is a stamp that Lifetime Oy can deliver sovereign AI to the most security-sensitive Finnish institutions. Same credibility signal as Kela, but in a different branch of government.
+**Why it matters:** Government validation. ORK is a judicial authority — winning this is a stamp that Lifetime Oy can deliver sovereign AI to the most security-sensitive Finnish institutions. It would be the first Finnish government software reference — Kela is a dispatch counterparty of the transport operation, not a software customer, and cannot be cited as one.
 
 **The challenge — many caveats:**
 
@@ -467,7 +467,7 @@ PROMISED OFFER WIN = FREE ENTRY + BOARD-READY PACKAGE + PATIENCE + HONEST TIER F
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Material quality** | Defence-grade buyer expects defence-grade materials. Our bid may have looked like a startup pitch, not a mil-spec proposal. | Nokia Defence evaluates thousands of vendor proposals. The materials must look like they came from a company that already operates in this space. |
 | **Credibility gap**  | Lifetime Oy has no defence-sector delivery track record. Strong tech, but no reference customer in this segment.            | Without a defence reference, the materials must overcompensate with technical depth, compliance attestations, and architecture documentation.     |
-| **Product maturity** | Aegis Defence tier is pre-GA (August 2026). Nokia may have needed production-ready, not pilot-ready.                        | Defence procurement needs certainty. "GA in August" sounds like risk to a buyer who needs operational capability now.                             |
+| **Product maturity** | Aegis Defence tier is pre-GA (September 2026). Nokia may have needed production-ready, not pilot-ready.                        | Defence procurement needs certainty. "GA in August" sounds like risk to a buyer who needs operational capability now.                             |
 | **Packaging**        | The offer may not have spoken Nokia Defence's language — STANAG, AQAP, ITAR-free, TEMPEST, DEFCON.                          | Defence vocabulary matters. Every sentence must signal domain fluency.                                                                            |
 
 **What Noah would say:** "Scripts only get you so far. The real shift happens when you understand what someone actually cares about." We may have pitched our technology instead of understanding Nokia Defence's actual procurement criteria.
@@ -489,7 +489,7 @@ DEFENCE SALE = DEFENCE-GRADE MATERIALS × REFERENCE CUSTOMER × PRODUCTION READI
 
 ### Case Diana (Riihimäki NATO) — "Improve and Try Again"
 
-**What it is:** NATO Diana defence innovation programme application via Riihimäen Tilat ja Kehitys Oy (RTOY). Business advisor: Laura Manner-Raappana. Not a pure investor pitch — a defence innovation funding application with specific evaluation criteria.
+**What it is:** **Defence Startup Fund** application, administered by **Riihimäen Tilat ja Kehitys Oy (RTOY)** — a municipal grant instrument (€20k + €20k matching), **not** a NATO DIANA application. Rejected 23.4.2026. (A separate, genuine DIANA submission is in preparation; do not conflate the two.) Business advisor: Laura Manner-Raappana. Not a pure investor pitch — a defence innovation funding application with specific evaluation criteria.
 
 **What happened:** Application rejected. Laura's feedback was explicit and constructive:
 
@@ -586,7 +586,7 @@ COMPETITION WIN = RIGHT FRAME × HARD NUMBERS × LEGIBILITY × MOMENTUM EVIDENCE
 
 | Dimension           | ORK                      | Outokumpu                             | Kemira                                 | Nokia Defence                 | Diana (Riihimäki)                      | Arctic15                              |
 | ------------------- | ------------------------ | ------------------------------------- | -------------------------------------- | ----------------------------- | -------------------------------------- | ------------------------------------- |
-| **Status**          | BID FILED                | WAITING                               | ONGOING                                | LOST                          | IMPROVE & RETRY                        | IMPROVE & RETRY                       |
+| **Status**          | BID IN PREPARATION (deadline 14.8.2026) | IN DISCUSSION        | IN DISCUSSION                          | LOST                          | IMPROVE & RETRY                        | IMPROVE & RETRY                       |
 | **Type**            | Public procurement       | Enterprise pilot                      | Enterprise platform                    | Defence platform              | Defence funding                        | Startup competition                   |
 | **Metaphor**        | Buffet                   | Captain                               | Vineyard                               | Captain (failed)              | Vineyard                               | Vineyard                              |
 | **Contact**         | Committee (anon)         | Ari Hirvonen                          | Maria Sederholm                        | Tommi Haapala                 | Laura Manner-Raappana                  | SIRA judges                           |
@@ -612,7 +612,7 @@ The fix is one fix. Build a modular material kit:
 | **Video demo (2-3 min)**       | Diana, Arctic15, all future pitches | BUILT — `MODULE_1_VIDEO_SCRIPT.md` (record with OBS/Loom) |
 | **Pitch deck (10 slides)**     | Diana, Arctic15, investors          | BUILT — `MODULE_2_PITCH_DECK.md` (produce in Gamma/PPT)   |
 | **Hard traction page**         | Arctic15, investors                 | BUILT — `MODULE_3_TRACTION_PAGE.md` (verify numbers)      |
-| **Defence-specific insert**    | Diana, Nokia Defence (round 2)      | BUILT — `MODULE_4_DEFENCE_INSERT.md` (3-page bolt-on)     |
+| **Defence-specific insert**    | Defence Startup Fund, defence-prime round 2 | BUILT — `MODULE_4_DEFENCE_INSERT.md` (3-page bolt-on) |
 | **Sovereignty lead story**     | Arctic15, all investor materials    | EXISTS — needs to move to headline position               |
 | **Trajectory/momentum page**   | Arctic15                            | EXISTS — needs assembly                                   |
 | **Board-ready offer template** | Kemira, future enterprise           | EXISTS (Kemira tarjouskirje is the model)                 |

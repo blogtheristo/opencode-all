@@ -18,10 +18,10 @@ import {
   DocuSignEnvironment,
   CreateEnvelopeRequest,
   EnvelopeResult,
+  EnvelopeStatus,
   EnvelopeStatusResult,
   Recipient,
   RecipientType,
-  EnvelopeDocument,
   SignatureType,
 } from './types';
 
@@ -195,7 +195,7 @@ export class DocuSignClient {
 
     return {
       envelopeId: data.envelopeId,
-      status: data.status,
+      status: data.status as EnvelopeStatus,
       statusDateTime: data.statusDateTime,
       uri: data.uri,
     };
@@ -221,7 +221,7 @@ export class DocuSignClient {
 
     return {
       envelopeId: envelope.envelopeId as string,
-      status: envelope.status as string,
+      status: envelope.status as EnvelopeStatus,
       statusChangedDateTime: envelope.statusChangedDateTime as string,
       sender: {
         email: sender?.email || '',
@@ -265,7 +265,7 @@ export class DocuSignClient {
     return ((data.envelopes || []) as Record<string, string>[]).map(
       (e) => ({
         envelopeId: e.envelopeId,
-        status: e.status,
+        status: e.status as EnvelopeStatus,
         statusChangedDateTime: e.statusChangedDateTime,
         sender: { email: '', name: '' },
         recipients: [],

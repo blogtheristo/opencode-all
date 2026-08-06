@@ -353,7 +353,7 @@
       );
     }).join('');
 
-    el.innerHTML = '<div class="dws-vlb-heading">\uD83C\uDF0D 5 European Languages</div>' + rows;
+    el.innerHTML = '<div class="dws-vlb-heading">\uD83C\uDF0D Sovereign by Design. Global by Choice.</div>' + rows;
 
     // On stay pages (store/product): clicking switches active language in-place
     if (stays) {

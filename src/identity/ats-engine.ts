@@ -21,12 +21,15 @@ import { z } from 'zod';
 import type {
   ATSBreakdown,
   ATSResult,
+  AttestationInput,
   CapabilityManifest,
+  IssuedAttestation,
   MandateGateDecision,
   MandateGateRequest,
   PermissionLevel,
   TelemetryEntry,
   TenantGatingProfile,
+  VerifiedDoneAttestation,
 } from './types.js';
 
 // ============ CONSTANTS ============
@@ -334,4 +337,75 @@ export function evaluateMandateGate(
     reason: 'within ATS band, spend_authority scope, and tenant profile',
     evaluatedAt,
   };
+}
+
+// ============ VERIFIED-DONE ATTESTATION (KYA §14.7, v1.10) ============
+
+/** JSON-LD contexts for a KYA Verified-Done credential (VC data model 2.0). */
+const VERIFIED_DONE_CONTEXTS = [
+  'https://www.w3.org/ns/credentials/v2',
+  'https://standards.dws.eu/kya/v1',
+];
+
+/** Credential types for a KYA Verified-Done credential. */
+const VERIFIED_DONE_TYPES = ['VerifiableCredential', 'KYAVerifiedDoneCredential'];
+
+/**
+ * Issues a Verified-Done Attestation for an executed mandate (KYA §14.7).
+ *
+ * This is the terminal link of the §14.4 trust chain (verified human → signed
+ * manifest → signed mandate → verified-done attestation): it packages the
+ * facts of a completed mandate into a portable W3C Verifiable Credential a
+ * counterparty can check, instead of trusting the agent blind.
+ *
+ * Deny-by-default carries through from the gate: a mandate the gate did NOT
+ * allow cannot be attested "done" (throws), and there is no anonymous
+ * attestation — the HIC binding from §14.3 is required (throws on empty HIC).
+ *
+ * SIGNING IS DEFERRED. This stub returns the credential UNSIGNED
+ * (proofStatus:'unsigned', no `proof` block). Cryptographic signing
+ * (Ed25519 / Data Integrity) waits on the KYA v2.0 key-management decision —
+ * which DID method, and where the issuer key lives. Issuance time and issuer
+ * are caller-supplied so the credential is deterministic and the engine holds
+ * no clock or key authority for a portable artifact.
+ *
+ * The returned credential should be logged to `kya_verified_done_attestations`
+ * and recorded as a `mandate.attest` event on the §14.5 evidence chain
+ * (migration 079).
+ */
+export function issueVerifiedDoneAttestation(input: AttestationInput): IssuedAttestation {
+  if (!input.gateDecision.allowed) {
+    throw new Error(
+      'cannot attest a mandate the gate did not allow — deny-by-default carries through (KYA §14.7)',
+    );
+  }
+  if (!input.hic || input.hic.trim() === '') {
+    throw new Error(
+      'verified-done attestation requires a HIC binding — never anonymous (KYA §14.3)',
+    );
+  }
+
+  const credential: VerifiedDoneAttestation = {
+    '@context': [...VERIFIED_DONE_CONTEXTS],
+    type: [...VERIFIED_DONE_TYPES],
+    issuer: input.issuer,
+    validFrom: input.issuedAt,
+    credentialSubject: {
+      id: `urn:kya:mandate:${input.mandateVcId}`,
+      sessionId: input.sessionId,
+      subagentId: input.subagentId,
+      hic: input.hic,
+      protocol: input.protocol,
+      mandateType: input.mandateType,
+      amount: input.amount,
+      currency: input.currency,
+      atsAtExecution: input.atsAtExecution,
+      kyaVerified: true,
+      gateReason: input.gateDecision.reason,
+      article12TraceId: input.article12TraceId,
+    },
+  };
+
+  // Unsigned until KYA v2.0 wires real signing — no `proof` block yet.
+  return { credential, proofStatus: 'unsigned' };
 }

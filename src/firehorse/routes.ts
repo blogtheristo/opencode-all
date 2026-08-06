@@ -17,6 +17,7 @@ import { LeadCountry } from './types';
 import { FirehorseReportModule } from './report-module';
 import { reportScheduler } from './report-scheduler';
 import { FirehorseWorkflowEngine } from './workflow-engine';
+import * as linkedinPending from './linkedin-pending.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -664,6 +665,139 @@ router.get('/workflows/executions', async (req: Request, res: Response) => {
 // ============================================================================
 // HEALTH CHECK
 // ============================================================================
+
+// ============================================================================
+// LINKEDIN PENDING QUEUE (V1: stubbed LinkedIn + human queue per CLAUDE.md)
+// ============================================================================
+
+/**
+ * GET /firehorse/linkedin/pending  — list queued drafts awaiting manual send
+ * Query: ?status=pending|sent|dismissed|all (default: pending)
+ *
+ * Returns 400 for any other status value or for an array (e.g., ?status=a&status=b).
+ */
+const LINKEDIN_PENDING_LIST_STATUSES = ['pending', 'sent', 'dismissed', 'all'] as const;
+type LinkedInPendingListStatus = (typeof LINKEDIN_PENDING_LIST_STATUSES)[number];
+
+router.get('/linkedin/pending', async (req: Request, res: Response) => {
+  const raw = req.query.status;
+  if (Array.isArray(raw)) {
+    return res.status(400).json({
+      error: 'status must be a single value',
+      allowed: LINKEDIN_PENDING_LIST_STATUSES,
+    });
+  }
+  const status: string = typeof raw === 'string' && raw.length > 0 ? raw : 'pending';
+  if (!LINKEDIN_PENDING_LIST_STATUSES.includes(status as LinkedInPendingListStatus)) {
+    return res.status(400).json({
+      error: `Invalid status '${status}'`,
+      allowed: LINKEDIN_PENDING_LIST_STATUSES,
+    });
+  }
+  try {
+    const all = await linkedinPending.listAll();
+    const entries = status === 'all' ? all : all.filter((e) => e.status === status);
+    const queueStats = await linkedinPending.stats();
+    return res.json({ success: true, entries, count: entries.length, stats: queueStats });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending list failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
+
+/**
+ * GET /firehorse/linkedin/pending/:id  — fetch one
+ */
+router.get('/linkedin/pending/:id', async (req: Request, res: Response) => {
+  try {
+    const entry = await linkedinPending.getEntry(req.params.id);
+    if (!entry) return res.status(404).json({ error: 'Not found' });
+    return res.json({ success: true, entry });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending get failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
+
+// Validate an optional `acted_by` field on a request body.
+// Returns the trimmed string when valid, undefined when absent, or null when invalid.
+function validateActedBy(body: unknown): string | undefined | null {
+  if (body === undefined || body === null) return undefined;
+  if (typeof body !== 'object') return null;
+  const raw = (body as Record<string, unknown>).acted_by;
+  if (raw === undefined || raw === null) return undefined;
+  if (typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  if (trimmed.length === 0 || trimmed.length > 200) return null;
+  return trimmed;
+}
+
+/**
+ * POST /firehorse/linkedin/pending/:id/sent  — ack that a human sent it manually
+ * Body: { acted_by?: string }
+ */
+router.post('/linkedin/pending/:id/sent', async (req: Request, res: Response) => {
+  const actedBy = validateActedBy(req.body);
+  if (actedBy === null) {
+    return res.status(400).json({ error: 'acted_by must be a string (1-200 chars)' });
+  }
+  try {
+    const updated = await linkedinPending.markSent(req.params.id, actedBy);
+    if (!updated) return res.status(404).json({ error: 'Not found' });
+    if (updated.status !== 'sent') {
+      return res.status(409).json({ error: `Cannot mark ${updated.status} entry as sent` });
+    }
+    return res.json({ success: true, entry: updated });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending mark-sent failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
+
+/**
+ * POST /firehorse/linkedin/pending/:id/dismiss  — remove without sending
+ * Body: { reason: string, acted_by?: string }
+ */
+router.post('/linkedin/pending/:id/dismiss', async (req: Request, res: Response) => {
+  if (!req.body || typeof req.body !== 'object') {
+    return res.status(400).json({ error: 'Request body must be a JSON object' });
+  }
+  const rawReason = (req.body as Record<string, unknown>).reason;
+  if (typeof rawReason !== 'string') {
+    return res.status(400).json({ error: 'reason is required and must be a string' });
+  }
+  const reason = rawReason.trim();
+  if (reason.length === 0 || reason.length > 500) {
+    return res.status(400).json({ error: 'reason must be 1-500 characters' });
+  }
+  const actedBy = validateActedBy(req.body);
+  if (actedBy === null) {
+    return res.status(400).json({ error: 'acted_by must be a string (1-200 chars)' });
+  }
+  try {
+    const updated = await linkedinPending.dismiss(req.params.id, reason, actedBy);
+    if (!updated) return res.status(404).json({ error: 'Not found' });
+    if (updated.status !== 'dismissed') {
+      return res.status(409).json({ error: `Cannot dismiss ${updated.status} entry` });
+    }
+    return res.json({ success: true, entry: updated });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending dismiss failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
 
 router.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', service: 'firehorse-pilot' });

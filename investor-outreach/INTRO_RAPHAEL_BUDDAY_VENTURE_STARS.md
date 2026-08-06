@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Raphael Budday, Venture Stars (Munich)
-Version: 1.0
+Version: 1.1
 Date: 2026-06-29
 Author: Claude Code (claude-opus-4-8) + Human Review
 Branch: claude/anduril-case-study-iridtj
@@ -8,6 +8,7 @@ Status: NEW — warm intro offered (via referrer); thesis overlap real, cross-bo
 Purpose: Fund intel + outreach strategy for Raphael Budday. Team story per the Founding Team & Technical-Depth Statement (two-person team). Anchors per DWS_TRUTH_STANDARD v2.4.
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-06-29): Created from referrer profile. Venture Stars (Munich), industrial tech + hardware-adjacent, tilting to defensible industrial moats; hands-on diligence, 6-week process from 2nd meeting, active portfolio support (fundraising prep + hiring). DACH-focused, EU/EEA-domiciled. Sovereign industrial AI thesis maps to his industrial-tech bias. Caveat: Munich fund / Finland founder — cross-border conviction needs extra evidence; mitigate with DACH revenue base + references.
 -->
 
@@ -44,7 +45,7 @@ AGENT HISTORY:
 
 ## Draft LinkedIn DM (warm)
 
-Hi Raphael — [referrer] suggested we connect. We're building DWS IQ 6: sovereign industrial AI for EU compliance — governed agent workflows + edge inference, with defensible industrial moats (regulatory lock-in, ERP connectors, patent). EU-sovereign hosting in Finland, DACH revenue base via Messe Germany. €7K MRR, 6 customers, 100% retention. Worth a deeper look?
+Hi Raphael — [referrer] suggested we connect. We're building DWS IQ 6: sovereign industrial AI for EU compliance — governed agent workflows + edge inference, with defensible industrial moats (regulatory lock-in, ERP connectors, patent). EU-sovereign hosting in Finland, DACH revenue base via Messe Germany. ~€7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Worth a deeper look?
 
 ## Next Steps
 

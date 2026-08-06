@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Ross Yomutbayev, Vesna Capital
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: B2B SaaS + AI architecture moat + Nordic fit
 Intro Type: Warm (Risto direct conversation)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Partner at Vesna Capital. $100K-$500K pre-seed/seed, targets CEE + Nordic founders. High-velocity: 3-week commit timeline, no fluff. Building his own AI-driven DD engine — will understand DWS IQ architecture immediately, minimal translation needed. Drawback: Lviv-based, small fund, lower ceiling than ideal for EUR 650K SAFE. Mitigation: his $100K-$500K range fits as a meaningful chunk (1-5 Captain seats), and his AI-DD background means a fast yes or no — no months of back-and-forth.
 -->
 
@@ -64,7 +65,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 2. **AI-DD builder** — He's building his own AI-driven due diligence engine. Our 21-agent architecture, ERP integration, agent scoring, sovereignty audit layer — he will grasp it in one call. No need to explain what "AI agent" means.
 3. **High velocity** — 3-week commit timeline fits our pre-Arctic 15 closing window. We need speed, he delivers speed.
 4. **Ticket range works** — $100K-$500K. Even the low end is 2x a Captain seat. The high end could anchor the round.
-5. **Pre-seed / seed stage** — We're at EUR 7K MRR with V1 launching June 15. His exact entry point.
+5. **Pre-seed / seed stage** — We have two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked), with V1 launching June 15. His exact entry point.
 6. **Warm channel** — Recent conversation with Risto. No cold-open friction.
 7. **Technical moat evaluator** — AI-DD builders look at the architecture, not just the pitch. DWS IQ 6's 21-agent + MCP + EU AI Act compliance stack is a real moat. He will see it.
 
@@ -88,7 +89,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Ross — good talking recently. Quick follow-up on Vesna timing.
 
-Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
+Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your $100K-$500K range works cleanly — looking for 2-3 anchor commits pre-Arctic. Your 3-week cycle fits. Send the memo?
 
@@ -112,7 +113,7 @@ Given your AI-DD engine work, the architecture is the fastest way in:
 
 Traction:
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026

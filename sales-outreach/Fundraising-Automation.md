@@ -1,4 +1,6 @@
-> **⚠ Canonical correction (2026-06-13).** The current raise is **EUR 500k SAFE** (EUR 3.8M cap, 18% discount), per the canonical `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md` (`DWS_TRUTH_STANDARD.md` §2). The "€150k SAFE", "€7k MRR", and dated Jan-2025 funnel figures below are an **earlier tranche snapshot**, kept only as a worked example of the automation system — they are illustrative, **not current targets**. Current traction is **EUR 7–14k MRR** + **EUR 59,900** in signed Q1 2026 pilots. Do not propagate the €150k figure or the example funnel as live facts. Reconciled per `DWS_TRUTH_STANDARD.md` §3 (Gap 1 — Investment Readiness).
+> **⚠ Canonical correction (2026-06-13).** The current raise is **EUR 500k SAFE** (EUR 3.8M cap, 18% discount), per the canonical `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md` (`DWS_TRUTH_STANDARD.md` §2). The "€150k SAFE", "€7k MRR", and dated Jan-2025 funnel figures below are an **earlier tranche snapshot**, kept only as a worked example of the automation system — they are illustrative, **not current targets**. Do not propagate the €150k figure or the example funnel as live facts. Reconciled per `DWS_TRUTH_STANDARD.md` §3 (Gap 1 — Investment Readiness).
+
+> **⚠ Canonical correction (29.07.2026).** The "EUR 7–14k MRR" range previously stated here is retired — it was Fleet (transport) revenue presented as platform MRR. Current traction per `docs/TRACTION_CANONICAL.md` §2: **two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)**, plus **~€7,000/month services and transport revenue (not software revenue)**, which puts the company at cash break-even with a founder salary of €0. Uber, Bolt, Kela and Taksi Helsinki are **dispatch operators** — commercial counterparties of the licensed transport operation, **not customers** of DWS IQ, Aegis, or any Lifetime software product. Do not assert a retention rate.
 
 ---
 
@@ -23,7 +25,7 @@ Hi Software Finland community,
 
 Risto Päärni from Lifetime Oy (DWS IQ 6). We're a Software Finland member raising €150k SAFE (€3.8M cap, 18% discount).
 
-Quick traction: €7k MRR (Uber Finland, Kela, Bolt), 100% retention, 15:1 LTV:CAC, €500k Construction Heroes campaign launching Q1.
+Quick traction: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue) keeps us at cash break-even with a founder salary of €0; €500k Construction Heroes campaign launching Q1.
 
 Looking for warm intros to:
 ├─ Nordic VCs (Voima, Gorilla, Inventure, Lifeline)
@@ -58,7 +60,7 @@ We're raising €150k SAFE and would love Software Finland's support in two ways
 
 2. **Newsletter/blog feature:** Could we be featured in next Software Finland newsletter/blog? ("Member Spotlight: DWS IQ 6 raises €150k for industrial AI")
 
-Traction: €7k MRR, government customer (Kela), €500k campaign launching Q1.
+Traction: €59,900 booked in contracted Q1/2026 enterprise pilots; €500k campaign launching Q1.
 
 Happy to provide any materials needed. Available for call this week?
 
@@ -77,7 +79,7 @@ csvInvestor Name,Firm/Network,Email,LinkedIn URL,Tier,Typical Ticket (€),Prior
 Inka Mero,Voima Ventures,inka@voima.vc,linkedin.com/in/inkamero,VC,100000,10,Cold,,Send initial email,40,40000,+358,Slush 2024 network,Dual-use tech,Twice Commerce €1.5M,Climate + defence positioning,,,,,,,
 Juhana Muikku,Gorilla Ventures,juhana@gorillaventures.fi,linkedin.com/in/juhanamuikku,VC,75000,10,Cold,,Send initial email,40,30000,+358,Software Finland?,Industrial AI + deeptech,IQM Quantum €128M,Business Finland co-invest 2:1,,,,,,,
 Petteri Koponen,FIBAN,petteri.koponen@fiban.org,linkedin.com/in/petterikoponen,Angel,20000,9,Cold,,Apply FIBAN Matching,60,12000,+358,Software Finland member?,Industrial AI + B2B SaaS,Multiple Nokia execs,Former Nokia exec,,,,,,,
-Magnus Skoglund,NCC Ventures,magnus.skoglund@ncc.se,linkedin.com/in/magnusskoglund,Strategic,150000,10,Warm,,Leverage T2H pilot,50,75000,+46,T2H Construction pilot,Construction tech,Nordic construction focus,Already in pilot discussions,,,,,,,
+Magnus Skoglund,NCC Ventures,magnus.skoglund@ncc.se,linkedin.com/in/magnusskoglund,Strategic,150000,10,Warm,,Nordic construction cohort,50,75000,+46,NCC is an unlanded prospect,Construction tech,Nordic construction focus,Prospect — not a landed account,,,,,,,
 Gabriel Maravelias,2150 VC,gabriel@2150.vc,linkedin.com/in/gabrielmaravelias,VC,100000,9,Cold,,Send initial email,35,35000,+46,,Climate tech + EU Green Deal,H2 Green Steel €4B,Swedish base for expansion,,,,,,,
 Suvi Siitonen,FIBAN Matching,suvi.siitonen@fiban.org,linkedin.com/in/suviisiitonen,Angel Network,50000,10,Cold,,Apply by Jan 2,60,30000,+358,Direct application,Angel pool access,€45M annually deployed,Application fee €500,,,,,,,
 Anne Glover,EBAN,anne.glover@eban.org,linkedin.com/in/anneglover,Angel Network,40000,9,Cold,,Book conference ticket,50,20000,+44,Direct application,European angel access,300+ angels at conference,Jan 20-21 Copenhagen €1200,,,,,,,
@@ -235,7 +237,7 @@ You are Risto Päärni, CEO of DWS IQ 6 (Lifetime Oy), raising €150k SAFE.
        Recent Investments: {investor_profile['recent_investments']}
 
        DWS IQ 6 Quick Facts:
-       - €7k MRR (Uber Finland, Kela, Bolt), 100% retention
+       - Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue)
        - €500k Construction Heroes campaign launching Q1 2025
        - 21-moat competitive fortress (€3-6M entry barrier)
        - €150k SAFE @ €3.8M cap, 18% discount, closing Jan 24
@@ -365,7 +367,7 @@ Great question. Our edge computing moat has three layers:
 
 2. **Sub-100ms latency:** Hybrid edge-cloud architecture achieves 120-300× faster decisioning than legacy BMS (Siemens, Honeywell run at 2-5 minute cycles). Physical impossibility for cloud-only competitors without complete redesign (18-36 months).
 
-3. **EU data sovereignty:** Customer proprietary data never leaves edge device (GDPR Article 4 compliant). Critical for government contracts (Kela reference).
+3. **EU data sovereignty:** Customer proprietary data never leaves edge device (GDPR Article 4 compliant). Critical for government contracts.
 
 Pitch deck Slide 6 has detailed competitive analysis: [link]
 
@@ -415,7 +417,7 @@ TALKING POINTS (AI Recommended):
 4. Ask about Voima's defence tech portfolio strategy (show you did homework)
 
 OBJECTION PREP:
-├─ "Too early stage" → Counter: €7k MRR, 100% retention, government customer (Kela)
+├─ "Too early stage" → Counter: €59,900 booked in contracted Q1/2026 enterprise pilots; cash break-even at a founder salary of €0
 ├─ "Competitive market" → Counter: 21-moat fortress, €3-6M entry barrier, Boardy.ai cannot compete
 └─ "Valuation too high" → Counter: €3.8M cap justified by fortress premium, 4.8× return at €15M Series A
 

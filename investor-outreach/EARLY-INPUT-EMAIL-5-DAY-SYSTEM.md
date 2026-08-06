@@ -3,9 +3,9 @@
 ***
 **VERSION AND AGENT HISTORY**
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
   - Version: 1.0 | Tool: Claude Code | Session: claude/add-investor-timeline-01LiEEtWsrRpjMyKADA3jpHe | Date: 12.02.2026 | Changes: Created Early Input Email template for 5-emails-per-day investor outreach system, integrated with Fundraising-Automation.md (025 metrics script)
 
 Session Links & References:
@@ -49,8 +49,8 @@ Hi [First Name],
 I'm raising €150K SAFE for DWS IQ 6 (edge AI for EU carbon compliance).
 
 Current traction:
-• €7K MRR (Uber Finland, Bolt, Kela)
-• 100% retention over 9 months
+• ~€7,000/month services and transport revenue (not software revenue) — cash break-even, founder salary €0
+• Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 • Path to €281K profit in 12 months
 
 15-min call to share pilot results? [Calendly link]
@@ -72,7 +72,7 @@ Hi [First Name],
 
 DWS IQ 6: Edge AI for EU carbon compliance (CSRD, Fit for 55).
 
-€7K MRR, 100% retention, raising €150K SAFE @ €3.8M cap.
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue). Raising €150K SAFE @ €3.8M cap.
 
 15-min call? [Calendly]
 
@@ -86,7 +86,7 @@ Hi [First Name],
 
 €150K SAFE for DWS IQ 6 (climate AI platform).
 
-Traction: Uber Finland, Kela, Bolt. €7K MRR, zero churn.
+Traction: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue).
 
 Quick call? [Calendly]
 
@@ -100,7 +100,7 @@ Hi [First Name],
 
 EU CSRD deadline = forced purchase cycle for climate reporting.
 
-DWS IQ 6: €7K MRR, 100% retention. Raising €150K SAFE.
+DWS IQ 6: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Raising €150K SAFE.
 
 15 min? [Calendly]
 
@@ -114,7 +114,7 @@ Hi [First Name],
 
 DWS IQ 6: Real-time SPI/CPI + carbon compliance for Nordic construction.
 
-€7K MRR, 6 paying customers. Raising €150K SAFE.
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Raising €150K SAFE.
 
 Call? [Calendly]
 

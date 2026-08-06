@@ -90,7 +90,12 @@ export interface EphemeralContainerStatus {
 // ============================================================================
 
 const DEFAULT_REGION = 'europe-north1'; // Finland — EU data residency
-const DEFAULT_IMAGE = 'europe-north1-docker.pkg.dev/dws-iq-pilot/agents/dws-agent-runner:latest';
+// Image is resolved from env so the runner is not pinned to a single (now-decommissioned)
+// project. Set AGENT_RUNNER_IMAGE for a full override, otherwise it is built from
+// GOOGLE_CLOUD_PROJECT's Artifact Registry.
+const DEFAULT_IMAGE =
+  process.env.AGENT_RUNNER_IMAGE ||
+  `europe-north1-docker.pkg.dev/${process.env.GOOGLE_CLOUD_PROJECT ?? ''}/agents/dws-agent-runner:latest`;
 const DEFAULT_TIMEOUT = 300; // 5 minutes
 const DEFAULT_MEMORY = '512Mi';
 const DEFAULT_CPU = '1';
@@ -120,7 +125,14 @@ export async function executeInEphemeralContainer(
   const startedAt = new Date();
   const executionId = `exec-${config.tenantId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const region = config.region || DEFAULT_REGION;
-  const project = process.env.GOOGLE_CLOUD_PROJECT || 'dws-iq-pilot';
+  const project = process.env.GOOGLE_CLOUD_PROJECT;
+  if (!project) {
+    // Fail loud rather than silently target a decommissioned default project.
+    throw new Error(
+      'GOOGLE_CLOUD_PROJECT env var is required for ephemeral Cloud Run execution ' +
+        '(the former dws-iq-pilot default has been removed).',
+    );
+  }
 
   logger.info('Creating ephemeral container for agent execution', {
     executionId,
@@ -258,7 +270,7 @@ function buildJobSpec(
             },
           ],
           timeoutSeconds: config.timeoutSeconds || DEFAULT_TIMEOUT,
-          serviceAccountName: `agent-runner@${process.env.GOOGLE_CLOUD_PROJECT || 'dws-iq-pilot'}.iam.gserviceaccount.com`,
+          serviceAccountName: `agent-runner@${process.env.GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com`,
         },
       },
     },

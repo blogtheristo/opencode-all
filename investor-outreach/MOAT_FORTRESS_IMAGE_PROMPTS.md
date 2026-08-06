@@ -1,21 +1,22 @@
----
+***
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.0
+- Version: 1.1
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Image-generation prompt pack
-- Author: Claude Code (claude-opus-4-8) + risto.paarni2024@lifetime.fi
+- Author: Claude Code (claude-opus-4-8) + risto.paarni@lifetime.fi
 - Date: 2026-06-29
 - Location: Espoo, FI (Lifetime Oy HQ)
 - Session: claude/anduril-case-study-iridtj
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Saved the finalized Nano Banana (Gemini image) prompts for the moat fortress — matched buyer (Ari) and investor versions — after the in-session render/QA loop. Pinned per-brick colors and corrected the legend/typo issues found in early renders.
 
----
+***
 
 # Moat Fortress — Image Prompt Pack
 
@@ -57,9 +58,8 @@ advantage=grey, Data/Liability de-risk=purple.
 Four ascending walls, inner keep (top) to outer (bottom). Color EACH brick
 by the color in (parentheses):
 
-Wall 1 "INNER KEEP": "EU/Nordic + Single Market (gold)", "Kela validation
-(blue)", "NCC reference (blue)", "InvestEU (blue)", "Tech-stack partners
-(blue)".
+Wall 1 "INNER KEEP": "EU/Nordic + Single Market (gold)", "InvestEU (blue)",
+"Tech-stack partners (blue)".
 Wall 2: "NIS2 Art.21 (green)", "Edge real-time <100ms (teal)", "CIDM patent
 (teal)", "Multi-tenant (purple)", "B2B2G (blue)".
 Wall 3: "Nordic languages (teal)", "Domain depth 10yr (teal)", "Dual product
@@ -98,7 +98,7 @@ Four ascending walls; each tagged with its tier + a cost/time barrier badge
 on the right edge. Color-grade from deep red (inner) to steel-grey (outer):
 
 Inner keep — "TIER 1 · IMPOSSIBLE · 24–36 mo · €2.8–6.25M":
-"EU/Nordic + Single Market (450M)", "Kela", "NCC (€55B)", "InvestEU",
+"EU/Nordic + Single Market (450M)", "InvestEU",
 "Tech stack (NVIDIA/Google/Anthropic/Groq/ICEYE)".
 Wall 2 — "TIER 2 · VERY HARD · 12–24 mo · €800k–1.5M":
 "NIS2 Art.21 (114 reqs)", "Edge <100ms, 7–15W, dual-use", "CIDM patent",
