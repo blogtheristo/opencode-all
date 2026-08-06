@@ -10,14 +10,14 @@ Purpose: Record the two openings sent to Dr. Gandhi after connecting on Boardy a
          preserve the emerging India-Europe industrial AI partnership hypothesis.
 -->
 
-# Field Note — Boardy Discussion with Dr. Anuj Gandhi
+# Field Note — Risto Boardy Discussion with Dr. Anuj Gandhi
 
 ## Field note metadata
 
 - **Date:** 2026-08-06
 - **Author:** Risto Anton Päärni, Founder, CEO, Lifetime Oy
 - **Location:** Boardy / LinkedIn, remote
-- **Context:** Partner outreach; possible India-Europe industrial AI collaboration
+- **Context:** Risto Boardy partner outreach; possible India-Europe industrial AI collaboration
 
 ## The Story — What happened
 
