@@ -223,6 +223,15 @@ Never tell the user to copy-paste content from rendered chat/canvas — rendered
 
 **"Give copy" / "copy paste" / "give a copy-paste" means: output the full content inside a single fenced code block** — no preamble before the user has to scroll, the whole deliverable in one copyable block. This applies regardless of length (even long whitepapers). A file or export (PDF, Google Docs, Gamma) is an addition on request, never a substitute for the code block when copy is asked.
 
+## Approval Request Rule (HIC, 06.08.2026)
+
+Whenever a decision is gated on the HIC's explicit approval — Rule 13 blog drafts, a document rewrite, a customer-facing artifact, anything where the next action depends on "does the HIC agree with this" — the request must hand over something the HIC can actually inspect, not a description of it:
+
+- **Text content** → the full text in one fenced code block, per the Deliverable Handoff Rule above. No partial excerpts, no "here's a summary of what changed."
+- **HTML / rendered / visual content** (a built page, an Artifact, a site preview) → a working link to the actual rendered output — a live preview URL, an Artifact link, or the file path with a note that it can be opened. Raw HTML source pasted into chat is not reviewable and does not satisfy this rule.
+
+Never ask "should I proceed?" or "approve as-is?" without one of the two attached in the same message. A description of the content ("it says X, Y, Z") is not a substitute — the HIC reviews the artifact itself, not an agent's account of it. This generalizes Rule 13's blog-draft-gate requirement (fenced-block text for blog drafts) to every approval gate, not only blog posts.
+
 ## Productivity Stack Rule (HIC, 03.08.2026)
 
 **The stack is Google Workspace, not Microsoft Office.** Docs, Sheets, Slides, Drive, Calendar and Gmail on the `risto.paarni2024@lifetime.fi` Workspace account.
