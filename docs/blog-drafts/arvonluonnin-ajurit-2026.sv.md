@@ -1,4 +1,4 @@
-Status: DRAFT
+Status: APPROVED
 Slug: arvonluonnin-ajurit-2026
 Title: Värdeskapande drivkrafter — sex huvuddimensioner, och forskningen bakom dem
 Language: sv

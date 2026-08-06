@@ -1,4 +1,4 @@
-Status: DRAFT
+Status: APPROVED
 Slug: arvonluonnin-ajurit-2026
 Title: Kuusi arvonluonnin ajuria — ja tutkimus niiden takana
 Language: fi

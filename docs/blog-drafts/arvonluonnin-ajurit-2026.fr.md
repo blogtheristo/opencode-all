@@ -1,4 +1,4 @@
-Status: DRAFT
+Status: APPROVED
 Slug: arvonluonnin-ajurit-2026
 Title: Leviers de création de valeur — six dimensions clés, et la recherche qui les sous-tend
 Language: fr

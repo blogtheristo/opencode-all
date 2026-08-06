@@ -1,4 +1,4 @@
-Status: DRAFT
+Status: APPROVED
 Slug: arvonluonnin-ajurit-2026
 Title: Wertschöpfungstreiber — sechs Hauptdimensionen, und die Forschung dahinter
 Language: de

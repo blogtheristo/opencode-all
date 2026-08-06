@@ -1,4 +1,4 @@
-Status: DRAFT
+Status: APPROVED
 Slug: arvonluonnin-ajurit-2026
 Title: Six Drivers of Value — and the Research Behind Them
 Language: en
