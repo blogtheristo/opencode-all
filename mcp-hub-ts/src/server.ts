@@ -21,6 +21,17 @@ import {
   workflowRequestSchema,
 } from "./schemas.js";
 
+function securityHeaders(req: Request, res: Response, next: () => void): void {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
+  const forwardedProto = req.headers["x-forwarded-proto"];
+  const proto = Array.isArray(forwardedProto) ? forwardedProto[0] : forwardedProto;
+  if (proto === "https") res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  next();
+}
+
 const PORT = Number(process.env.PORT ?? process.env.MCP_HUB_PORT ?? 8765);
 const MCP_HUB_API_KEY = process.env.MCP_HUB_API_KEY ?? "";
 
@@ -64,6 +75,7 @@ async function probeServiceHealth(name: string, url: string) {
 
 export function createHubApp(): express.Application {
   const app = express();
+  app.use(securityHeaders);
   app.use(cors({ origin: corsOrigins(), credentials: true }));
   app.use(express.json({ limit: "2mb" }));
   app.use(bearerAuth);
