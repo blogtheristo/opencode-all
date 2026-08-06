@@ -1028,7 +1028,11 @@ def main() -> None:
         help="Run for a single competitor only (e.g. 'Zoom', 'Sphera')",
     )
     args = parser.parse_args()
-    run_collection(args)
+    try:
+        run_collection(args)
+    except Exception:
+        logger.exception("Market research collection failed")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
