@@ -57,6 +57,6 @@ The engineering corollary, extending the same rule the media-marking work (§10.
 1. **Knowledge base:** N/A — no `kb/` directory exists in this clone; content carried by this field note and the thesis §10.17/§14.48 entries.
 2. **Field note:** this document.
 3. **`Learn/` HTML:** ✅ `Learn/2026-08-06-arvonluonnin-ajurit-blog-launch-and-text-provenance.html` (this note) plus the 4 thesis renders at v3.98 (`Learn/V3Thesis_{EN,FI}_v3.98.html`, `Learn/PHD_FIREHORSE_{EN,FI}_v3.98.html`).
-4. **Drive export:** not performed this session — offered, not yet done. Say the word and this note plus the thesis renders can be pushed to the `2026 DWS6` Drive folder.
+4. **Drive export:** ✅ Done — 3 Google Docs in the `2026 DWS6` Drive folder: this field note in full; a "Session Changes" doc with the actual new/changed text (handbook v1.11 pointer, roadmap v1.7.1 changelog, thesis §10.17/§14.48 in full — the 4 full thesis documents themselves, up to ~800KB each, were not re-uploaded whole; the repo remains their source of truth); and the 5-language blog post text in full.
 5. **HIC decision-shaped question:** see chat, end of session.
 6. **Calendar:** no new dated commitment was created this session (the KYA-S1 04.11.2026 comment-window close and the 07.08.2026 Shai-Hulud freeze review were already calendared in prior sessions). Nothing new to calendar.
