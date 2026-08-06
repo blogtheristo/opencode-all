@@ -3,11 +3,11 @@ Slug: kya-s1-one-signed-page
 Title: KYA-S1 — One Signed Page for the Agent in Your Vendor File
 Language: en
 Target: onelifetime.world/posts/kya-s1-one-signed-page.html
-Date: 2026-08-04
+Date: 2026-08-06
 
 # KYA-S1 — one signed page for the agent in your vendor file
 
-Standards · Buyer Note · 4 August 2026 · Risto Anton Päärni · Espoo, Finland
+Standards · Buyer Note · 6 August 2026 · Risto Anton Päärni · Espoo, Finland
 
 ## The news, in one line
 
@@ -72,9 +72,9 @@ PRV — Provenance. "Can you replay the decision, two years from now, for an aud
 fact carries its source, timestamp, confidence and policy version. Every consequential decision is
 replayable from inputs, state, model version and policy version.
 
-## What the EU AI Act changed two days ago
+## What the EU AI Act changed on 2 August 2026
 
-Article 50 started to apply on 2 August 2026. That is worth being precise about, because three
+Article 50 started to apply that day. That is worth being precise about, because three
 different duties are involved and they are not interchangeable.
 
 Article 12 is record-keeping — logging sufficient for traceability across the system's lifetime.
