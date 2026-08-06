@@ -120,7 +120,13 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
 
 // Compute next version: SELECT max(version) for this topic, +1.
 async function nextVersion(topic) {
-  const url = `${SUPABASE_URL}/rest/v1/firehorse_memory?topic=eq.${encodeURIComponent(topic)}&select=version&order=version.desc&limit=1`;
+  const queryParams = new URLSearchParams({
+    topic: 'eq.' + topic,
+    select: 'version',
+    order: 'version.desc',
+    limit: '1',
+  });
+  const url = `${SUPABASE_URL}/rest/v1/firehorse_memory?${queryParams}`;
   const res = await fetch(url, {
     headers: {
       apikey: SUPABASE_SERVICE_KEY,

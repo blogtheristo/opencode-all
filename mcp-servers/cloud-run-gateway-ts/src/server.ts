@@ -497,6 +497,17 @@ function createGatewayMcpServer(): McpServer {
   return server;
 }
 
+function securityHeaders(req: Request, res: Response, next: () => void): void {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
+  const forwardedProto = req.headers["x-forwarded-proto"];
+  const proto = Array.isArray(forwardedProto) ? forwardedProto[0] : forwardedProto;
+  if (proto === "https") res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  next();
+}
+
 function authMiddleware(req: Request, res: Response, next: () => void): void {
   if (req.path === "/health") {
     next();
@@ -535,6 +546,7 @@ async function runStdio(): Promise<void> {
 
 export function runHttp(): void {
   const app = createMcpExpressApp({ host: "0.0.0.0" });
+  app.use(securityHeaders);
   app.use(authMiddleware);
 
   app.get("/health", (_req: Request, res: Response) => {

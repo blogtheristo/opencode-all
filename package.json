@@ -84,6 +84,9 @@
     "stripe": "^22.1.0",
     "zod": "^4.3.6"
   },
+  "overrides": {
+    "undici": "7.29.0"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",

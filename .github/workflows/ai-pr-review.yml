@@ -189,6 +189,8 @@ jobs:
         if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_TITLE_RAW: ${{ github.event.pull_request.title }}
+          PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
           if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
             echo "Claude review skipped — ANTHROPIC_API_KEY not set" > /tmp/claude-review.txt
@@ -197,8 +199,8 @@ jobs:
 
           DIFF=$(cat /tmp/pr-diff.txt)
           FILES=$(cat /tmp/changed-files.txt)
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
+          PR_TITLE=$(printf '%s' "$PR_TITLE_RAW")
+          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
           PROMPT="You are a senior engineer doing a quick sanity review of a PR for DWS IQ 6 (enterprise climate intelligence platform, TypeScript/Python/React).
 

@@ -194,6 +194,14 @@
 
     <script>
         let answers = { industry: null, priority: null, size: null };
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
         // Product recommendations matrix
         const recommendations = {
@@ -276,32 +284,43 @@
             const priceFormatted = typeof rec.price === 'number' && rec.price >= 100
                 ? new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(rec.price)
                 : '&euro;' + rec.price;
+            const safeName = escapeHtml(rec.name);
+            const safePrice = escapeHtml(priceFormatted.replace('&euro;', '€'));
+            const safeIndustry = escapeHtml(answers.industry);
+            const safeNote = escapeHtml(rec.note.replace('&euro;', '€'));
+            const safeWhy = escapeHtml(rec.why);
+            const safeStore = escapeHtml(rec.store);
+            const safeCli = escapeHtml(rec.cli);
+            const safeFeatures = rec.features.map(f => '<li>' + escapeHtml(f) + '</li>').join('');
+            const mailtoSubject = encodeURIComponent('DWS IQ Inquiry: ' + rec.name + ' for ' + answers.industry);
+            const mailtoBody = encodeURIComponent('Industry: ' + answers.industry + ' | Priority: ' + answers.priority + ' | Team size: ' + answers.size + ' | Recommended: ' + rec.name);
+            const mailtoHref = escapeHtml('mailto:offer@lifetime.fi?subject=' + mailtoSubject + '&body=' + mailtoBody);
 
             let altsHTML = '';
             if (rec.alts && rec.alts.length) {
                 altsHTML = '<div class="alt-section"><div class="alt-title">Also Consider</div><div class="alt-grid">' +
-                    rec.alts.map(a => `<div class="alt-card"><div class="alt-name">${a.name}</div><div class="alt-price">&euro;${a.price}</div><div class="alt-desc">${a.desc}</div><a href="/buy/" class="alt-link">View in Store &rarr;</a></div>`).join('') +
+                    rec.alts.map(a => `<div class="alt-card"><div class="alt-name">${escapeHtml(a.name)}</div><div class="alt-price">&euro;${escapeHtml(a.price)}</div><div class="alt-desc">${escapeHtml(a.desc)}</div><a href="/buy/" class="alt-link">View in Store &rarr;</a></div>`).join('') +
                     '</div></div>';
             }
 
             card.innerHTML = `
                 <div class="result-label">Your Recommended Solution</div>
-                <div class="result-title">${rec.name}</div>
-                <div class="result-price">${priceFormatted}</div>
-                <div class="result-note">${rec.note}</div>
-                <ul class="result-features">${rec.features.map(f => '<li>' + f + '</li>').join('')}</ul>
+                <div class="result-title">${safeName}</div>
+                <div class="result-price">${safePrice}</div>
+                <div class="result-note">${safeNote}</div>
+                <ul class="result-features">${safeFeatures}</ul>
                 <div class="result-why">
                     <div class="result-why-title">Why This Fits You</div>
-                    <div class="result-why-text">${rec.why}</div>
+                    <div class="result-why-text">${safeWhy}</div>
                 </div>
                 <div class="result-actions">
-                    <a href="${rec.store}" class="btn btn-primary">View in Store</a>
-                    <a href="/scenarios/" class="btn btn-secondary">See ${answers.industry} Scenarios</a>
-                    <a href="mailto:offer@lifetime.fi?subject=DWS IQ Inquiry: ${rec.name} for ${answers.industry}&body=Industry: ${answers.industry}%0APriority: ${answers.priority}%0ATeam size: ${answers.size}%0ARecommended: ${rec.name}" class="btn btn-secondary">Request Enterprise Offer</a>
+                    <a href="${safeStore}" class="btn btn-primary">View in Store</a>
+                    <a href="/scenarios/" class="btn btn-secondary">See ${safeIndustry} Scenarios</a>
+                    <a href="${mailtoHref}" class="btn btn-secondary">Request Enterprise Offer</a>
                 </div>
                 <div class="cli-preview">
                     <span class="dim"># Try it now via CLI:</span><br>
-                    ${rec.cli}
+                    ${safeCli}
                 </div>
                 ${altsHTML}
                 <div style="margin-top: 24px; text-align: center;">
