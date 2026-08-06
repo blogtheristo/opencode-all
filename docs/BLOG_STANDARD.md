@@ -181,6 +181,7 @@ Chronological order. Update this table when adding/removing posts.
 | 51  | `arvonluonnin-ajurit-2026.sv.html`                       | Värdeskapande drivkrafter — sex huvuddimensioner, och forskningen bakom dem (SV parity of #49)                                                                           | 6 Aug 2026  |
 | 52  | `arvonluonnin-ajurit-2026.de.html`                       | Wertschöpfungstreiber — sechs Hauptdimensionen, und die Forschung dahinter (DE parity of #49)                                                                            | 6 Aug 2026  |
 | 53  | `arvonluonnin-ajurit-2026.fr.html`                       | Leviers de création de valeur — six dimensions clés, et la recherche qui les sous-tend (FR parity of #49)                                                                | 6 Aug 2026  |
+| 54  | `kya-s1-one-signed-page.html`                            | KYA-S1 — One Signed Page for the Agent in Your Vendor File (EN, Standards / Buyer Note)                                                                                  | 6 Aug 2026  |
 
 ---
 

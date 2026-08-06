@@ -1,4 +1,4 @@
-Status: DRAFT
+Status: APPROVED
 Slug: kya-s1-one-signed-page
 Title: KYA-S1 — One Signed Page for the Agent in Your Vendor File
 Language: en
