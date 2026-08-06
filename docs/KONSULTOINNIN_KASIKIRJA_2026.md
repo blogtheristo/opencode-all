@@ -9,7 +9,7 @@
 > 3. **Ammatillinen kehitys ja hyvinvointi** — Jatkuvien oppimismahdollisuuksien, koulutuksen ja urakehityksen tarjoaminen työntekijöille. Työhyvinvoinnista ja osaamisen kehittämisestä huolehtiminen osana yrityskulttuuria.
 > 4. **Kyvykkyyksien jatkuva kehittäminen** — Konsultin ja agenttikyvykkyyksien yhteistyö tuottaa tuloksia, joita kumpikaan yksin ei saavuttaisi. Oppimissilmukat varmistavat, että jokainen toimeksianto on parempi kuin edellinen.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -47,7 +47,7 @@ Document Status:
 - Previous version: Konsultoinnin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
 - Publication Status: DRAFT — review before distribution
 
----
+***
 
 ## Sisällysluettelo / Table of Contents
 
