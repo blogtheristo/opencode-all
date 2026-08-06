@@ -14,7 +14,7 @@ PyJWT>=2.10.0
 oauthlib>=3.3.0
 
 # Image processing for prompt injection detection
-Pillow>=10.0.0
+Pillow>=11.3.0
 pytesseract>=0.3.10
 
 # Database security
