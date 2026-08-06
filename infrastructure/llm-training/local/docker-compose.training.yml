@@ -85,7 +85,7 @@ services:
           bitsandbytes>=0.42.0 \
           trl>=0.7.0 \
           wandb \
-          mlflow>=3.9.0 \
+          mlflow>=3.11.0 \
           deepspeed>=0.13.0 \
           flash-attn --no-build-isolation &&
         python -m http.server 8890 --directory /outputs

@@ -19,5 +19,5 @@ pyyaml>=6.0
 safetensors>=0.4
 
 # Optional experiment tracking (imported lazily; safe to omit)
-mlflow>=3.9.0
+mlflow>=3.11.0
 wandb>=0.17
