@@ -13,11 +13,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 1.10
 
 Sessions & Modifications:
 
-- Version: 1.9 | Tool: Claude Code (Haiku 4.5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 05.08.2026 | Changes: Lisätty uusi §2.1 "Arvonluonnin ajurit — kuusi pääulottuvuutta" (Value Creation Drivers — Six Core Dimensions). Kartoitettu 10 keskeistä arvonluonnin ajuria ja järjestetty ne kuuden strategisen ulottuvuuden alle: Kyvykkyydet & Orkestrointi, Sääntely & Compliance, Teollisuustieto & Muutos, Taloudellisuus & Skaalaus, Kulttuurinen Erottelu, Jatkuva Oppiminen. Jokaisen ajurin alle merkitty konkreettiset mittarit, viimeisimmät tiedot Q2-Q3 2026 (asiakaspysyvyys 100%, 6 maksavaa asiakasta, 58 agenttia, 88 kyvykkyyttä, CBAM-määräaika Q3 2026). Päivitetty tuotekatalogiksi ja hinnoitteluun liittyvät numerot vastaamaan current dws10.com/config/products.json (Climate IQ €4 990 käyttöönotto + €2 999/kk, vastaan aiempi €40 978/v). Lisätty viittaukset EU AI Act Article 50 (voimaan 02.08.2026) ja KYA-S1-standardiin (uudella public-comment-windowilla 04.08.2026–04.11.2026). Säilytetty kaikki aiempi sisältö versioista 1.0–1.81; ei poistettu mitään, vaan laajennettu ymmärrystä arvonluonnista.
+- Version: 1.10 | Tool: Claude Code (Haiku 4.5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 05.08.2026 | Changes: Lisätty §2.2 "Akateeminen Arvonluonti — Tieteellinen Vaikuttavuus & Tutkimuskatkos". Uusi osio dokumentoi Risto Anton Päärnen johtaman LUT-tutkimuskaaren neljä kriittistä tutkimuskysymystä: suvereenit AI-arkkitektuurit, luottamus & delegointi, turvallisuus vs. suorituskyky, luotettavat reunalaskenta-järjestelmät. Dokumentoitu institutionaaliset kumppanuudet (LUT, KTH TECoSA, Metropolia YAMK). Perustettu akateemisen ja kaupallisen toiminnan hallinnollinen eristys: tutkimus → avoin tieteellinen edistyminen, kauppa → tuotekehitys ja konsultointi (erillinen IP-omistus). Aikakausi 2026–2029, vaikuttavuus EU AI Act -politiikkaan ja tekniseen standardointiin.
+- Version: 1.9 | Tool: Claude Code (Haiku 4.5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 05.08.2026 | Changes: Lisätty uusi §2.1 "Arvonluonnin ajurit — kuusi pääulottuvuutta" (Value Creation Drivers — Six Core Dimensions). Kartoitettu 10 keskeistä arvonluonnin ajuria ja järjestetty ne kuuden strategisen ulottuvuuden alle: Kyvykkyydet & Orkestrointi, Sääntely & Compliance, Teollisuustieto & Muutos, Taloudellisuus & Skaalaus, Kulttuurinen Erottelu, Jatkuva Oppiminen. Jokaisen ajurin alle merkitty konkreettiset mittarit, viimeisimmät tiedot Q2-Q3 2026 (asiakaspysyvyys 100%, 6 maksavaa asiakasta, 58 agenttia, 88 kyvykkyyttä, CBAM-määräaika Q3 2026). Päivitetty tuotekatalogiksi ja hinnoitteluun liittyvät numerot vastaamaan current dws10.com/config/products.json (Climate IQ €4 990 käyttöönotto + €2 999/kk). Lisätty viittaukset EU AI Act Article 50 (voimaan 02.08.2026) ja KYA-S1-standardiin (uudella public-comment-windowilla 04.08.2026–04.11.2026). Säilytetty kaikki aiempi sisältö versioista 1.0–1.81; ei poistettu mitään, vaan laajennettu ymmärrystä arvonluonnista.
 - Version: 1.80 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Tiedostonimi korjattu vastaamaan dokumentin omaa kanonista otsikkoa (rivi 1: "Konsultoinnin käsikirja 2026") — `KONSULTIN_KASIKIRJA_2026.md` → `KONSULTOINNIN_KASIKIRJA_2026.md` (`git mv`, historia säilytetty), samoin renderöidyt `Konsultin_kasikirja_2026.html`/`.docx` → `Konsultoinnin_kasikirja_2026.html`/`.docx`. Havaittu, kun HIC korjasi väärän nimimuodon CV-dokumentista (bids/ORK160826/CV_ORK160826_v172.md). Tiedostonimessä EI ole versiotagia — DWS_DOCUMENT_STANDARD.md §4.6:een lisätty tämä dokumentti nimeltä uudeksi poikkeukseksi (elävä, ~20 tiedostosta ristiviitattu sisäinen standardi; versiotagin upottaminen aiheuttaisi ristiviite-päivityksen jokaisella versionostolla, toisin kuin harvoin viitatuilla bid-artefakteilla kuten CV). Kaikki ~20 repo-laajuista ristiviittausta (mm. Admin/ADMIN_MANUAL.md, .claude/commands/dialog.md, thesis/PHD-dokumentit, docs/whitepapers/README.md, onelifetime.world/ + landing-pages-peili) päivitetty samassa commitissa.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — Konsultin käsikirja 2026 edition. Complete rewrite of the 2024 version (v0.16) to reflect Lifetime Oy's transformation from generic IT consulting to sovereign AI compliance platform. Retains Risto's strategic philosophy and practical consulting wisdom; modernizes product, technology, regulatory, and operational content.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added Enterprise Model Engineer role (Lifetime World Model ontology building, Train Model SaaS, 5 000 enterprise ontology network). Updated role count from 7 to 8.
@@ -51,6 +52,8 @@ Document Status:
 
 1. [Yrityksestämme / About Us](#1-yrityksestämme)
 2. [Missio, arvot, tarkoitus / Mission, Values, Purpose](#2-missio-arvot-tarkoitus)
+   - 2.1 [Arvonluonnin ajurit — kuusi pääulottuvuutta](#21-arvonluonnin-ajurit--kuusi-pääulottuvuutta)
+   - 2.2 [Akateeminen arvonluonti](#22-akateeminen-arvonluonti--tieteellinen-vaikuttavuus--tutkimuskatkos)
 3. [Tuotteemme / Our Products](#3-tuotteemme)
 4. [Kyvykkyysontologia / Capability Ontology](#4-kyvykkyysontologia--dws-iqn-tietämysrakenne)
 5. [Toimialat / Industries](#5-toimialat)
@@ -244,6 +247,54 @@ Lifetime Oy:n liiketoimintaarvo rakentuu kymmenen keskeisen arvonluonnin ajurin 
 | **Agenttien prompt-optimointi**     | Autoresearch-looppi: agentit testautuvat, menevät läpi evals, prompt päivittyy                                                       | Käytössä /autoresearch -skillis   | ↑ Uusi Q2 2026 | Mallin parantaminen ilman uudesta taita — prompt-iteraatio on halvempaa kuin mallin vaihtaminen                                                                                                                                         |
 | **EU AI Act Article 14 -täyttymys** | Human-in-the-Loop -valvonta: jokainen substantiaalinen sessio dokumentoidaan HIC Learning Outcome -kenttänä (6-askelinen protokolla) | Käytössä DWS_LEARNING_STANDARD.md | Pysyvä         | Lainsäädännöllinen vaatimus tulee pakolliseksi 2026 loppuun mennessä. DWS:llä on jo protokolla sisäänrakennettu. Kilpailijat kiinni jäljessä                                                                                            |
 | **Tieto ei häviä**                  | KB (Knowledge Base) -integraatio, field notes, dokumentaatio Lean/HTML                                                               | Käytössä docs/kb/ ja Learn/       | Pysyvä         | Perinteinen: ohjaaja lähtee, tieto poistuu. DWS: jokainen insight dokumentoidaan. Asiakkaalle viedään dokumentit, ei vain raportti                                                                                                      |
+
+---
+
+## 2.2 Akateeminen Arvonluonti — Tieteellinen Vaikuttavuus & Tutkimuskatkos
+
+Lifetime Oy:n arvo ei rajoitu kaupalliseen maailmaan. Rinnakkain tuotekehitykselle ja konsultoinnille, Risto Anton Päärni johtaa akateemista tutkimuskaarta, joka syventää suvereenia tekoälyä, luottamusta ja autonomista järjestelmien turvallisuutta koskevaa tieteellistä ymmärrystä.
+
+### Tutkimuskysymykset (LUT Doctoral Track)
+
+Väitöskirjan tutkimuksen pääkysymykset kattavat neljä kriittistä tutkimusaluetta:
+
+1. **Suvereenit AI-arkkitektuurit** — Infrastruktuurin riippumattomuus, kryptografinen hallinto, alueellinen kontrolli. Kysymys: Kuinka rakennetaan tekoälyä, joka ei ole altis geopoliittisille voimille tai USA:n CLOUD Act -lainsäädännölle?
+
+2. **Luottamus & delegointi** — Mekanismit, jotka hallitsevat auktoriteettia, päätöksenteon mandaatteja ja varmennettua luottamusta autonomisiin AI-järjestelmiin. Kysymys: Millä perusteella ihminen voi delegoida päätöksiä AI:lle siten, että vastuullisuus pysyy selvänä?
+
+3. **Turvallisuus vs. Suorituskyky -kompromissit** — Kvantitatiiviset mallit, jotka tasapainoittavat reaaliaikaista operatiivista tehokkuutta vasten tiukasti määriteltyjä turvallisuusrajoitteita. Kysymys: Voidaanko mitata turvallisuutta numerisesti samalla kun järjestelmä toimii tuotannossa?
+
+4. **Luotettavat reunalaskenta-järjestelmät** — Reunasijaintien käyttöönottomenetelmät, jotka priorisoivat vikasietoisuutta, matala viive ja deterministisen luotettavuuden dynaamisissa ympäristöissä. Kysymys: Kuinka varmistamme, että paikallinen AI tuotannossa on yhtä nopea ja luotettava kuin keskitetty pilvi?
+
+### Institutionaaliset Kumppanuudet
+
+Tutkimustyö toteutetaan kolmen johtavan eurooppalaisen yliopiston ja tutkimuslaitoksen kanssa:
+
+- **LUT University (Lappeenranta-Lahti)** — Päätutkimuslaitos. Fokus: kvantti-turvallisen kryptografian arkkitehtuuri, järjestelmäturvallisuus, muodollisen doktoriväitöksen ohjaus. Laitos johtaa väitöskirja-prosessia ja antaa virallisen tutkintotodistuksen.
+
+- **KTH Royal Institute of Technology (Tukholma, TECoSA-ryhmä)** — Turvallisyyden argumentoinnin metodologia, tiukka testauksemenetelmät, hardware-in-the-loop-testauslaboratorio. KTH vahvistaa turvallisuus-väitteitä ja validoi reunalaskentalaiteiston rinnalla tuotantotestissä.
+
+- **Metropolia University of Applied Sciences (Helsinki)** — Sovellettu insinöörityö, nopea prototyyppien rakentaminen, Master's (YAMK) -tutkielma-projektien integraatio. Metropolia muuntaa tutkimustulokset käytännön insinööriksi ja tuotteen ominaisuuksiksi.
+
+### Hallinnollinen Eristys: Tutkimus ≠ Kaupallinen IP
+
+> **Kriittinen periaate:** Akateeminen tutkimus on tarkoituksellisesti ja ehdottomasti erotettu kaupallisesta omistuksesta (IP) ja pääoman keräämisestä.
+>
+> Tutkimuksen tulokset pyrkivät avoimeen tieteelliseen edistymiseen:
+>
+> - Vertaisarvioidut julkaisut tieteellisissä toimittajissa
+> - Avoin lähdekoodinen tutkimuskehys (ei patentit tai suljettu koodi)
+> - Yhteisölle jaetut tietokanavat (konferenssit, arkivaalipalvelut, workshop)
+>
+> Tämä erotus varmistaa tutkimuksen akateemisen rehellisyyden ja välttää intressiristiriitoja, joissa pääoman kerääminen voisi vääristää tieteellisiä johtopäätöksiä.
+
+### Aikakausi & Vaikuttavuus
+
+Akateemisen tutkimuksen aikakausi on 2026–2029 (3 vuotta). Tutkimuksella on mahdollisuus vaikuttaa:
+
+- **Eurooppalaisen AI-politiikan luomuksiin** — EU AI Act -sääntelyt, ehdotukset horisontaalin turvallisuusjakaumaan (horizontal governance).
+- **Tekniseen standardointiin** — Osallistuminen ETSI-, ISO- ja CEN-työryhmiin suvereaniuden teknisille vaatimuksille.
+- **Tuleviin kaupallisiin tuotteisiin** — Tutkimuksesta syntyvät havainnot syötetään takaisin DWS-tuotekehitykseen (mutta eivät siirrä patentteja tai omistusta).
 
 ---
 
