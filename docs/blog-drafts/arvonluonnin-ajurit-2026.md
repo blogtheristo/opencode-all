@@ -4,7 +4,7 @@ Title: Six Drivers of Value — and the Research Behind Them
 Language: en
 Target: onelifetime.world/posts/arvonluonnin-ajurit-2026.html
 Date: 2026-08-06
-Hero image: onelifetime.world/static/images/blog/kaukopaa-monument.jpg
+Hero image: onelifetime.world/static/images/blog/arvonluonnin-ajurit-infographic-en.png
 
 # Six drivers of value — and the research behind them
 
