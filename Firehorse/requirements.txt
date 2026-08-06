@@ -3,11 +3,7 @@
 # Date: December 30, 2025
 
 # Safe formula evaluation (replaces ast.literal_eval / eval)
-<<<<<<< HEAD
-simpleeval>=1.0.5               # Safe expression evaluation for calculated fields
-=======
 simpleeval>=1.0.5               # Safe expression evaluation for calculated fields (>=1.0.5: CVE-2026-32640 sandbox-escape/RCE fix)
->>>>>>> origin/main
 
 # Core dependencies
 supabase>=2.0.0                 # Supabase Python client
