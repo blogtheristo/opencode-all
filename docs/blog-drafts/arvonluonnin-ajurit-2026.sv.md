@@ -1,56 +1,90 @@
 Status: DRAFT
 Slug: arvonluonnin-ajurit-2026
-Title: Sex värdeskapande drivkrafter — och forskningen bakom dem
+Title: Värdeskapande drivkrafter — sex huvuddimensioner, och forskningen bakom dem
 Language: sv
 Target: onelifetime.world/posts/arvonluonnin-ajurit-2026.sv.html
 Date: 2026-08-06
 Hero image: onelifetime.world/static/images/blog/arvonluonnin-ajurit-infographic-en.png
-Note: No Swedish-language version of the infographic exists yet — reuses the EN graphic. Flag if a translated infographic should be commissioned, given the KTH-Sverige relevance below.
+Note: Rewritten per HIC-supplied Swedish source text (session 2026-08-06) — follows the handbook's §2.1/§2.2 wording and structure directly rather than a free translation of the EN post. No Swedish-language infographic exists yet — reuses the EN graphic (content-identical to Sales/IMG_6896.png on main). Sales/IMG_6895.png (FI) and Sales/IMG_6896.png (EN) on main confirmed byte-identical to the two hero images already in use.
 
-# Sex värdeskapande drivkrafter — och forskningen bakom dem
+# Värdeskapande drivkrafter: Vilka är era? Kan vi samarbeta?
 
 Field Note · 6 augusti 2026 · Risto Anton Päärni · Esbo, Finland
 
-## Frågan vi ständigt får
+## Avsnitt §2.1: Värdeskapande drivkrafter — Sex huvuddimensioner
 
-"Var kommer värdet egentligen ifrån?" Investerare frågar på sitt sätt, kunder på sitt, och vårt eget team frågar det i varje retro. Det här inlägget är svaret vi landade i den här kvartalet — tio drivkrafter, organiserade i sex dimensioner, var och en spårbar till ett tal snarare än en slogan.
+Detta avsnitt kartlägger sex centrala och mångfacetterade drivkrafter utformade för att skapa hållbara konkurrensfördelar, efterlevnad av regelverk (compliance) och operativ resiliens.
 
-## 1. Kapacitet & orkestrering — dubblering av agenter istället för rekrytering
+### 1. Förmågor & Orkestrering
 
-58 agenter, 88 kapabiliteter fördelade på tio Lifetime World Model-ontologiklasser. Erbjudandet till kunden är inte "köp mjukvara" — det är "få rollen tillsatt till fredag" istället för en sex månader lång rekryteringsprocess. 95 % av produktionsbesluten kräver fortfarande mänskligt godkännande; agenterna påskyndar bedömningen, de ersätter den inte. Vi byggde ett verktyg — avbrottsräknaren (_Keskeytyslaskuri_) — som sätter en eurosumma på vad ett kapacitetsglapp faktiskt kostar: kontext som måste byggas upp på nytt, förlorad momentum, en enda nyckelperson som lämnar med processkunskapen i bagaget.
+**Nuvarande omfattning:** 58 autonoma/semiautonoma agenter, 88 dynamiska förmågor, noll rekryteringsfördröjning.
 
-## 2. Reglering & efterlevnad — automatiserat före kravet
+**Operativ räckvidd:** Använder ett orkestrerat nätverk av fleragenter som omedelbart driftsätter mikrotjänster. Denna arkitektur eliminerar traditionella flaskhalsar vid nyrekrytering och kompetensförsörjning, vilket möjliggör omedelbar skalerbarhet och snabb integration i komplexa företagsmiljöer.
 
-15 000+ EU-dokument indexerade, med en CELEX-referens bakom varje beslut systemet fattar. EU AI Act artikel 12 om granskningsbarhet har varit i produktion sedan mars 2026 — artikel 50 blev verkställbar den 2 augusti 2026, och vi var redan där. En Chronos-agent följer efterlevnadskalendern över 25 reglerade branscher och varnar innan en deadline, inte efteråt. En kunds månatliga efterlevnadsarbete gick från 60 timmar till 8 — en minskning med 87 %, inte en prognos.
+### 2. Reglering & Efterlevnad (Compliance)
 
-## 3. Branschkunskap & förändring — ingen nyckelpersonrisk
+**Nuvarande omfattning:** 15 000+ EU-dokument indexerade, Artikel 12 (EU AI Act) helt integrerad i produktion, över 25 branscher.
 
-Varje kunds Lifetime World Model-ontologi lever på hårdvara som kunden själv äger — ett Control Room eller Situation Room — inte i våra huvuden eller vårt moln. När regleringen ändras uppdateras agenten; ingen behöver rekryteras på nytt, och ingen som slutar tar kunskapen med sig. Elva branschspecifika agenter (ståls CBAM-koldioxidredovisning är ett exempel) finns eftersom kunskapen kodas en gång och återanvänds — inte återskapas per uppdrag.
+**Operativ räckvidd:** Djupgående automatiserad compliance som integrerar kraven på dokumentation, granskningsbarhet (spårbarhet) och teknisk loggning direkt i aktiva arbetsflöden. Detta tvärsektoriella ramverk minskar proaktivt juridiska och regulatoriska risker på hårt reglerade europeiska marknader.
 
-## 4. Ekonomi & skalning — enterprise-kapacitet till startup-kostnad
+### 3. Industriell domänkunskap & Transformation
 
-Kärnteamet består av två personer: en vd och en kontorschef. Jämförbara konkurrenter inom efterlevnadsverktyg driver 100–300 anställda. Vi skalar genom att lägga till agenter och ett partnernätverk med 50+ aktörer byggt sedan 2020, inte genom att anställa fler. Sex betalande kunder, noll kundbortfall, 7 000–14 000 euro i månatligen återkommande intäkt idag, på väg mot ungefär 900 000 euro i årlig intäkt 2027 — med samma tvåpersoners kärna.
+**Nuvarande omfattning:** Ontologier för Large World Models (LWM), branschanpassad processautomatisering, noll nyckelpersonsrisk.
 
-## 5. Kulturell särprägel — finländska värderingar som affärstillgång
+**Operativ räckvidd:** Strukturering av tyst och erfarenhetsbaserad operativ kunskap till maskinläsbara ontologigrafer. Genom att systematisera domänexpertis frikopplas kärnverksamheten från beroenden av enskilda medarbetare, vilket säkrar kontinuitet och snabbare automatisering av arbetsflöden.
 
-Ett publicerat pris för alla — ingen förhandling, inga dolda villkor. Suverän infrastruktur — UpCloud Helsingfors samt NVIDIA DGX och Jetson vid kanten — innebär noll exponering mot amerikanska CLOUD Act och data som aldrig lämnar EU. Och budskapet håller fast vid "AI förstärker, ersätter aldrig": beslutet att ändra personalstyrkan är kundens, aldrig vårt att fatta åt dem. Det är ett medvetet oamerikanskt anslag — bevis före adjektiv.
+### 4. Ekonomi & Skalning
 
-## 6. Kontinuerligt lärande — slingan som aldrig återställs
+**Nuvarande omfattning:** Agilt kärnteam + nätverk med 50+ strategiska partners, 100 % kundlojalitet (retention).
 
-Varje kunduppdrag matas tillbaka in i produkten. Efterlevnadsautomatiseringen som byggdes för en transportkunds 87-procentiga tidsbesparing blev en Climate IQ-funktion inom samma kvartal. EU AI Act artikel 14:s krav på mänsklig tillsyn uppfylls redan av vårt sexstegsprotokoll HIC Learning Outcome — de flesta konkurrenter bygger fortfarande mot det. Ingenting går förlorat: varje insikt landar i kunskapsbasen, en field note och en HTML-post, i den ordningen, varje gång.
+**Operativ räckvidd:** En mycket kapitaleffektiv driftsmodell som kombinerar en snabbrörlig intern ingenjörsgrupp med ett utökat ekosystem av företagspartners. Hög kundretention understryker stark product-market fit och långsiktigt värdeskapande.
 
-## Den sjunde dimensionen: forskning som inte är till salu
+### 5. Kulturell differentiering
 
-Vid sidan av produkten driver Risto ett doktorandspår — suveräna AI-arkitekturer, tillit och delegering i autonoma system, avvägningar mellan säkerhet och prestanda, samt tillförlitlig edge-beräkning — med LUT-universitetet som huvudansvarig, KTH Kungliga Tekniska Högskolans TECoSA-grupp som validerar säkerhetsargumenten, och Metropolia yrkeshögskola som omsätter resultaten i fungerande prototyper.
+**Nuvarande omfattning:** Kompromisslös ärlighet, fullständig datasuveränitet (noll exponering mot US CLOUD Act), människocentrerad styrning.
 
-Den här forskningen är medvetet avskild från kommersiellt ägande. Den publiceras i peer-granskade kanaler, under öppna licenser, utan patent — just för att kapitalanskaffning aldrig ska ha en anledning att böja en vetenskaplig slutsats. Vad den däremot kan göra är att påverka europeisk AI-politik och de tekniska standardiseringsorgan (ETSI, ISO, CEN) som arbetar med suveränitetskrav, och med tiden mata insikter tillbaka till produktfärdplanen — utan att ägandet någonsin övergår.
+**Operativ räckvidd:** Strikt efterlevnad av europeisk datasuveränitetslagstiftning som garanterar tekniskt skydd mot utomjurisdiktionella databegäranden. Förankring av teknisk utveckling i etiska, transparenta och human-in-the-loop-designprinciper.
+
+### 6. Kontinuerligt lärande
+
+**Nuvarande omfattning:** Lifetime World Model (LWM) Loop, retrospektiva återkopplingsslingor, fullständigt uppfyllande av Artikel 14 i EU AI Act.
+
+**Operativ räckvidd:** Kontinuerlig övervakning efter marknadsintroduktion och modellanpassning i realtid. Efterlevnad av Artikel 14 garanterar robusta mekanismer för mänsklig tillsyn, kontinuerlig hantering av återkoppling och systemisk resiliens.
+
+## Regulatoriska tidslinjer & Kommersiella villkor (Uppdaterat Q2–Q3 2026)
+
+- **CBAM-tidsfrist (Q3 2026):** Kritisk sista dag för efterlevnad av EU:s mekanism för koldioxidjustering vid gränserna (CBAM), vilket kräver fullständig transparens gällande koldioxidavtryck för importerade varor.
+- **EU AI Act Artikel 50 träder i kraft (2 augusti 2026):** Obligatoriskt genomförande av krav på transparens, vattenmärkning och redovisningsprotokoll för generativa och syntetiska AI-modeller.
+- **KYA-S1 fönster för offentligt samråd (4 augusti 2026 – 4 november 2026):** Öppet samrådsfönster för standardiserade specifikationsramverk för Know Your AI / säkerhet.
+- **ETS2-start (januari 2027):** Formellt ikraftträdande av EU:s utökade utsläppshandelssystem som omfattar uppvärmning av byggnader och vägtransporter.
+- **Prisstruktur för Climate IQ:**
+  - Ibruktagande & Setup: 4 990 € engångsavgift
+  - Löpande licens: 2 999 € / månad
+  - Årsalternativ: 29 990 € / år (inkluderar 2 månaders kostnadsfri tillgång)
+
+## §2.2 Akademiskt värdeskapande
+
+### Akademisk forskningsinriktning
+
+Förberedelse av doktorsavhandlingens inriktning för LUT-universitetet (Lappeenranta-Lahti University of Technology). De primära forskningsfrågorna omfattar:
+
+- **Suveräna AI-arkitekturer:** Infrastrukturoberoende, kryptografisk styrning och regionala kontrollmodeller.
+- **Förtroende & Mandat:** Mekanismer som styr behörighet, beslutsfattande mandat och verifierbart förtroende i autonoma AI-system.
+- **Avvägningar mellan säkerhet och prestanda (Safety vs. Performance trade-offs):** Kvantitativa modeller som balanserar operativ effektivitet i realtid mot stränga säkerhetsbegränsningar.
+- **Tillförlitliga Edge-AI-system:** Metoder för driftsättning i kanten (edge) som prioriterar feltolerans, låg latens och deterministisk tillförlitlighet i dynamiska miljöer.
+
+### Kartläggning av akademiska partners
+
+- **LUT-universitetet:** Fokus på kvantsäker kryptografisk forskning, systemsäkerhet och handledning av doktorandarbete.
+- **KTH Kungliga Tekniska högskolan (TECoSA):** Samarbete kring metodik för säkerhetsargumentation, rigorösa testmetoder och testbäddsvalidering (hardware-in-the-loop).
+- **Metropolia Högskola:** Tillämpad ingenjörskonst, snabb prototyputveckling samt integration av examensarbeten på högre högskolenivå (YAMK/Master).
+
+> **Styrningsbrandvägg (Governance Firewall):** Detta akademiska spår är medvetet och strikt avskilt från kommersiell immateriell egendom (IP) och finansieringsrundor. Forskningen förblir helt dedikerad till öppen vetenskaplig utveckling.
 
 Att KTH:s TECoSA-grupp i Stockholm står för säkerhetsvalideringen är inte en detalj bland andra för svenska läsare — det är en direkt koppling mellan svensk forskningsinfrastruktur och en produkt som redan används av finländska kunder inom reglerade branscher.
 
-## Varför detta spelar roll för dig
-
-Om du utvärderar oss som kund, investerare eller forskningspartner förklarar de sex kommersiella dimensionerna varför summan på fakturan är försvarbar, och den sjunde förklarar varför vetenskapen bakom den är trovärdig oavsett om fakturan betalas. Båda hälfterna bär vikt.
-
 ---
+
+Värdeskapande är en grundläggande strategisk utmaning för varje modern organisation.
 
 _Risto Anton Päärni är grundare och vd för Lifetime Oy._
