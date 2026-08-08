@@ -239,6 +239,16 @@ const posts = [
     title: 'The Harness Paywall',
     date: '30 Jul 2026',
   },
+  {
+    file: 'arvonluonnin-ajurit-2026.html',
+    title: 'Six Drivers of Value — and the Research Behind Them',
+    date: '6 Aug 2026',
+  },
+  {
+    file: 'kya-s1-one-signed-page.html',
+    title: 'KYA-S1 — One Signed Page for the Agent in Your Vendor File',
+    date: '6 Aug 2026',
+  },
 ];
 
 // Three featured products

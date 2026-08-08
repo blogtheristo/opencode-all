@@ -223,6 +223,18 @@ Never tell the user to copy-paste content from rendered chat/canvas — rendered
 
 **"Give copy" / "copy paste" / "give a copy-paste" means: output the full content inside a single fenced code block** — no preamble before the user has to scroll, the whole deliverable in one copyable block. This applies regardless of length (even long whitepapers). A file or export (PDF, Google Docs, Gamma) is an addition on request, never a substitute for the code block when copy is asked.
 
+## Approval Request Rule (HIC, 06.08.2026)
+
+Whenever a decision is gated on the HIC's explicit approval — Rule 13 blog drafts, a document rewrite, a customer-facing artifact, anything where the next action depends on "does the HIC agree with this" — the request must hand over something the HIC can actually inspect, not a description of it.
+
+**Default to a published Artifact (`Artifact` tool).** A raw fenced code block of markdown/HTML source does not render on mobile — it dumps unstyled text the HIC has to scroll and mentally parse, which fails the review on the device it's most often read on (HIC confirmed, 06.08.2026: "I cannot read md file on iphone"). For anything longer than a couple of sentences, build a clean, readable Artifact — proper typography, one document per review batch when there are multiple items — and hand over the link.
+
+- **Single short item, or the HIC explicitly asked for a copy-paste block** → the fenced code block per the Deliverable Handoff Rule still applies (that rule governs "give me a copy," which is a different request from "review and approve this").
+- **Anything meant to be read and judged** (a blog draft, a document rewrite, a multi-item batch) → an Artifact. Multiple pending items go in **one** Artifact, not one link per item — the HIC should not have to open five tabs to review five things.
+- **Already-built HTML / a live page / a site preview** → a working link to the actual rendered output — a live preview URL or the Artifact link. Raw HTML source pasted into chat is not reviewable either way.
+
+Never ask "should I proceed?" or "approve as-is?" without a working link attached in the same message. A description of the content ("it says X, Y, Z") is not a substitute — the HIC reviews the artifact itself, not an agent's account of it. This generalizes Rule 13's blog-draft-gate requirement to every approval gate, not only blog posts, and the Artifact default exists specifically because plain fenced text failed the review on a phone.
+
 ## Productivity Stack Rule (HIC, 03.08.2026)
 
 **The stack is Google Workspace, not Microsoft Office.** Docs, Sheets, Slides, Drive, Calendar and Gmail on the `risto.paarni2024@lifetime.fi` Workspace account.
