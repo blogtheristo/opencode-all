@@ -30,6 +30,8 @@ export type {
   TelemetryEvent,
   ATSResult,
   ATSBreakdown,
+  IdvState,
+  IdvStatus,
   PermissionLevel,
   FaultClass,
   FaultSeverity,

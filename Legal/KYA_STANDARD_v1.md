@@ -1,13 +1,14 @@
-# KYA Standard v1.5 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
+# KYA Standard v1.12 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.11
+Version: 1.12
 
 Sessions & Modifications:
 
+- Version: 1.12 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 07.08.2026 | Changes: §3.1 ATS-kaava sovitettu kanoniin (P0-2/P0-3). Additiivinen `+ A×0.15` oli yha voimassa taman dokumentin maaritelmana, vaikka sisardokumentit `KYA_SECURITY_v1.2.md` §3.1 ja `KYA_OPTIMIZATION_v1.4.md` §3.1 olivat molemmat todenneet additiivisen muodon score-inflaatiovektoriksi ja korvanneet sen. Korvattu multiplikatiivisella `ATS_Final = ATS_Base × (1 + A)`, A ∈ [0, 0.25], A = 0 kun V > 0. Lisatty §3.1.1 hard killit (manifest-allekirjoitus/TTL, IDV-tila/TTL) jotka edeltavat kaavaa eivatka nay siina, ja §3.1.2 superseded-muotoilut sailytettyna Rule 12:n mukaisesti (additiivinen A×0.15, A×0.18, seka epatarkka 'A×0.25' -sanamuoto). Selvennetty etta 0.25 on A:n KATTO multiplikatiivisessa muodossa, ei kerroin. §3.2:een kirjattu ratkaisematon range overflow (ATS_Final voi olla 1.25) paattamatta sita. Todettu etta koodi laskee ATS_Base:n vain ja etta se on tarkoituksellista. Lisaksi korjattu otsikon versiotunniste v1.5 -> v1.12 vastaamaan Version-kenttaa (osittainen B9/P2-3; §14 ja §14.7 omat tunnisteet yha sovittamatta).
 - Version: 1.11 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7.1 Signing & Key Custody (v2.0 target design), per Boardy review — fixes the signing model v2.0 implements without yet implementing it: Ed25519 (EdDSA) hardware-backed keys (EUDI Wallet / EU eID convergence; compact for A2A + Article 12 payloads), JWS-enveloped VC first with Data-Integrity only on counterparty demand; `did:web` DNS-rooted issuer identity (no ledger, resolvable institutional anchoring for auditors); key custody by tier (Aegis Defence on-prem DGX Spark holds everything; Standard/Sovereign in UpCloud UKS HSM with admin-gated rotation; never a shared/foreign cloud KMS); one issuer key per tenant at v2.0, root-CA → per-agent delegation deferred to v2.1; tenant-controlled rotation with no DWS escrow (DWS holds only the root CA, counter-signing tenant DID-doc updates for cross-tenant verification continuity). Also: migration 079 APPLIED + verified live in production this session. Invariant restated: the private signing key never leaves the tenant's jurisdiction.
 - Version: 1.10 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7 Verified-Done Attestation — the terminal link of the §14.4 trust chain (verified human → signed manifest → signed mandate → verified-done attestation): once a mandate executes, KYA issues a W3C Verifiable Credential attesting completion under governance, so a counterparty can check the outcome instead of trusting it blind. Deny-by-default and HIC binding carry through (no attestation for a denied/anonymous mandate); issuance is a `mandate.attest` event on the §14.5 evidence chain plus a stored credential; revocation is a status transition, not a deletion. Schema landed toward the v2.0 freeze: TS interfaces (`VerifiedDoneAttestation`/`AttestationInput`, `src/identity/types.ts`) + stub issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, 6 tests in `src/__tests__/verified-done-attestation.test.ts`) + storage (`supabase/migrations/079_kya_verified_done_attestation.sql` — `kya_verified_done_attestations` + `mandate.attest` event type extending the live 074 chain). Signing (Ed25519 / Data Integrity) deferred to the v2.0 key-management decision; credentials mint unsigned. Migration 074 (§14.5 evidence chain) confirmed live in production (dws6, eu-west-1) this session.
 - Version: 1.9.1 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: (1) Schema-stability notes added to §14.2.1 and §14.3 per Boardy review — the JSON blocks are illustrative until KYA v2.0; buyer materials quote policy semantics, not field names; the executable Zod validator is the normative shape. (2) §14.2 enforcement point is now REAL CODE: `evaluateMandateGate()` + `tenantGatingProfileSchema` implemented in `src/identity/ats-engine.ts` (deny-by-default, HIC binding required, immovable floors, tighten-only tenant profiles, ceiling/scope violations flagged for §9.2 enforcement), 21 passing tests in `src/__tests__/mandate-gate.test.ts`. Patch version (not 2.0): v2.0 is reserved for the schema freeze after the Supabase mandate-events migration and one end-to-end tenant profile exercise.
@@ -109,6 +110,8 @@ The upgrade adds **11–30%+ efficiency gains** (benchmarked from real autoresea
 | Named Laws        | None                                    | **Agentic Efficiency Law, Stacking Effect**                        |
 | Swarm Management  | Manual                                  | **Orchestrator Layer (kill early, promote winners)**               |
 | Compliance        | EU AI Act, NIS2, GDPR, Fit for 55, DORA | **+ Autoresearch audit trail for Art. 12/14**                      |
+
+> **Note (07.08.2026).** The ATS Formula row records the state **as of v1.4** and is retained unchanged as a historical entry (Rule 12). The additive `+ A×0.15` form it names was later superseded by the multiplicative `ATS_Final = ATS_Base × (1 + A)`. The current canonical formula is §3.1; the superseded forms and the reason they were replaced are §3.1.2. Do not implement from this table.
 
 ---
 
@@ -308,21 +311,49 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 
 ---
 
-## 3. Agent Trust Score (ATS) v1.4 — Now with Autoresearch Delta
+## 3. Agent Trust Score (ATS) — Multiplicative with Autoresearch Delta
 
-### 3.1 Updated Formula
+### 3.1 Formula (canonical — multiplicative, V>0 hard stop)
 
 ```
-ATS = max(0, 1.0 - V×0.25 - L - D×0.05 + A×0.15)
+ATS_Base  = max(0, 1.0 - V×0.25 - L - D×0.05)
+ATS_Final = ATS_Base × (1 + A)
 
 V = KYA_VIOLATION count       (4 violations = zero trust)
-L = 0.10 if avg_latency > 500ms
+L = 0.10 if avg_latency > 500ms (+ Cold-Start Latency Penalty, KYA-Security §4.1)
 D = DENIED path access attempts
-A = autoresearch improvement factor (capped, validated on industry proxy metrics)
-    e.g., +0.11 for 11% Time-to-GPT-2 gain; +0.09 for 9% energy efficiency
+A = autoresearch improvement factor, A ∈ [0, 0.25], validated on industry proxy metrics
+    e.g., +0.11 for 11% energy efficiency gain; +0.09 for 9% process optimization
+
+CRITICAL: If V > 0, then A = 0. No exceptions.
 ```
 
-**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls. The `A` factor is computed from the agent's validated autoresearch improvements, capped at 0.15 to prevent score inflation.
+**0.25 is a cap on A, not a multiplier.** In the superseded additive form the number after `A×` was a coefficient; here A carries its own magnitude and is bounded. Quoting "A×0.25" (as this document's own v1.4 history line does) conflates the two — see §3.1.2.
+
+**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls. The shipped engine computes **`ATS_Base` only**; the A factor is not implemented in code. This is deliberate, not an omission: security scoring must never be inflatable by optimization performance, so the security baseline ships without A and the A extension is applied by the autoresearch orchestrator layer. Any future in-code A must carry the V>0 hard stop and the §3.2 validation gates of `KYA_OPTIMIZATION_v1.4.md` with it.
+
+The engine additionally applies two **hard kills** that precede the formula and are not expressed in it — an unsigned or TTL-expired Capability Manifest, and a human principal whose IDV state is not `verified` and fresh. Either yields `ATS = 0` outright. See §3.1.1.
+
+#### 3.1.1 Hard kills (evaluated before the formula)
+
+| Condition                                                   | Result    | Control    |
+| ----------------------------------------------------------- | --------- | ---------- |
+| Capability Manifest signature unverified                    | ATS = 0   | REG-2      |
+| Capability Manifest past `signedAt + ttlSeconds`            | ATS = 0   | REG-2      |
+| IDV status not `verified` (revoked / expired / unknown)     | ATS = 0   | IDV-1, IDV-4 |
+| IDV attestation past `verifiedAt + ttlSeconds`              | ATS = 0   | IDV-3      |
+
+`unknown` fails closed by construction: an absent or unusable IDV signal is never read as permission (KYA-S1 v1.3 TRS-5). The manifest limb and the IDV limb are reported independently in `ATSBreakdown` (`manifestValid` / `idvValid`) so an operator can see which control fired.
+
+#### 3.1.2 Superseded formulations (retained per CLAUDE.md Rule 12)
+
+Do not implement these. They are kept so that anyone holding an older copy can recognise it and know why it changed.
+
+- **Additive, `+ A×0.15`** — carried in this document up to 07.08.2026. Superseded because the additive form let a highly "optimal" but "leaky" agent (high A, moderate V) hold a high score: A *compensated* for security failures instead of *amplifying* a clean baseline.
+- **Additive, `+ A×0.18`** — an earlier coefficient, cited in `KYA_OPTIMIZATION_v1.4.md` §3.1 as the form the multiplicative version replaced. Same defect.
+- **"corrected to A×0.25"** — the phrasing in `KYA_OPTIMIZATION_v1.4.md`'s own version history. Imprecise: 0.25 is the **cap on A** in the multiplicative form, not a multiplier. No additive `A×0.25` formula was ever canonical.
+
+Reconciled 07.08.2026 (`Legal/KYA_S1_REVIEW_v1.3_PROPOSAL.md` Part B, findings B3 / P0-2 / P0-3). Canonical source for the A factor, its cap, and its validation gates is `KYA_OPTIMIZATION_v1.4.md` §3; the security baseline is `KYA_SECURITY_v1.2.md` §3.1. This section restates both and must not diverge from them.
 
 ### 3.2 KYA Trust Score Ranges (v1.4 — with Financial Multiplier)
 
@@ -332,6 +363,8 @@ A = autoresearch improvement factor (capped, validated on industry proxy metrics
 | 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                              | **GO** (limited)  |
 | < 0.50    | < 50      | Suspended — human review required | —                                     | **NO_GO**         |
 | = 0.00    | = 0       | Frozen — agent terminated         | —                                     | **NO_GO**         |
+
+**Open item — range overflow (raised 07.08.2026, undecided).** With the multiplicative form, a clean agent at `ATS_Base = 1.0` and `A = 0.25` yields `ATS_Final = 1.25`, i.e. KYA 125 — outside the 0–1 normalized range this table assumes and outside the 0–100 KYA scale asserted elsewhere. Three options: clamp `ATS_Final` to 1.0; extend the scale and say so explicitly; or cap `A` such that the product cannot exceed 1.0. **No option is adopted here** — the shipped engine computes `ATS_Base` only, so the overflow is not currently reachable in code, and picking a clamp in canon before the A factor is implemented would be a guess. Flagged rather than silently resolved (Rule 12).
 
 ---
 
