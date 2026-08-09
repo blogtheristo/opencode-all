@@ -28,7 +28,7 @@ Blogi 1/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton P
 
 ## Johdanto: Tekoäly tekee päätöksiä, mutta kuka kantaa vastuun?
 
-Yritysten ja julkishallinnon hankintakansioista löytyy nykyisin kattava pino allekirjoitettuja asiakirjoja. Organisaatiotasolle on SOC 2 Type 2- ja ISO/IEC 27001 -sertifikaatit. Datalle ja tietosuojalle löytyvät GDPR- ja CSRD-todisteet. Alustaturvallisuudelle ja infrastruktuurille on osoittaa FedRAMP- tai suvereeni pilvihyväksyntä.
+Yritysten ja julkishallinnon hankintakansioista löytyy nykyisin kattava pino allekirjoitettuja asiakirjoja. Organisaatiotasolle on SOC 2 Type II- ja ISO/IEC 27001 -sertifikaatit. Datalle ja tietosuojalle löytyvät GDPR- ja CSRD-todisteet. Alustaturvallisuudelle ja infrastruktuurille on osoittaa FedRAMP- tai suvereeni pilvihyväksyntä.
 
 Hankintakansiosta puuttuu kuitenkin yksi kriittinen dokumentti: allekirjoitettu sivu autonomiselle tekoälyagentille.
 
