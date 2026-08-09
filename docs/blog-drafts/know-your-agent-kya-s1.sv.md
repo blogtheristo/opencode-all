@@ -30,7 +30,7 @@ Blogg 1/11 · DWS IQ & Lifetime World Model · 8 augusti 2026 · Risto Anton Pä
 
 ## Inledning: AI fattar beslut — men vem bär ansvaret?
 
-I företagens och den offentliga förvaltningens upphandlingspärmar finns i dag en omfattande bunt signerade dokument. På organisationsnivå finns SOC 2 Type 2- och ISO/IEC 27001-certifikat. För data och dataskydd finns GDPR- och CSRD-bevis. För plattformssäkerhet och infrastruktur finns FedRAMP eller ett suveränt molngodkännande att peka på.
+I företagens och den offentliga förvaltningens upphandlingspärmar finns i dag en omfattande bunt signerade dokument. På organisationsnivå finns SOC 2 Type II- och ISO/IEC 27001-certifikat. För data och dataskydd finns GDPR- och CSRD-bevis. För plattformssäkerhet och infrastruktur finns FedRAMP eller ett suveränt molngodkännande att peka på.
 
 Ett kritiskt dokument saknas ändå i upphandlingspärmen: en signerad sida för den autonoma AI-agenten.
 
