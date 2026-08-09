@@ -23,7 +23,7 @@ note: >-
   chapter on Palantir MA-S2. They remain in the superseded draft.
   One intentional deviation from a literal rendering: the sign-off uses the canonical
   "Founder, CEO" form required by CLAUDE.md Sender Identity, not a literal "Founder & CEO".
-  Assurance levels follow Legal/KYA_S1.md v1.4 (KYA-AL1/AL2/AL3).
+  Assurance levels follow Legal/KYA_S1.md v1.5 (KYA-AL1/AL2/AL3).
 ---
 
 # Know Your Agent (KYA-S1): One Signed Page for the AI in the Security File That Touches Your Data
