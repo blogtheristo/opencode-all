@@ -274,6 +274,56 @@ const posts = [
     title: 'Connaissez votre agent (KYA-S1) — Une page signée sur l\'IA',
     date: '8 Aug 2026',
   },
+  {
+    file: 'kya-kyc-seven-questions.fi.html',
+    title: 'KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'eu-ai-act-article-14-hic.fi.html',
+    title: 'EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'agent-classes-copilot-vs-dws-iq.fi.html',
+    title: 'Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html',
+    title: 'KYA-S1 ja BPMN 2.0: luottamustaso ohjaa teollisuusprosessia',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html',
+    title: 'KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html',
+    title: '72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV)',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-ecosystem-roadmap.fi.html',
+    title: 'KYA-S1 Ekosysteemi & Tuotanto-Roadmap',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'lifetime-world-model-state-register.fi.html',
+    title: 'Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'agentic-commerce-autonomous-payments.fi.html',
+    title: 'Agentic Commerce -protokollat & Autonomiset Maksut',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'eudi-wallet-eidas2-human-identity.fi.html',
+    title: 'Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0',
+    date: '8 Aug 2026',
+  },
 ];
 
 // Three featured products

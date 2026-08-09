@@ -187,6 +187,16 @@ Chronological order. Update this table when adding/removing posts.
 | 57 | `know-your-agent-kya-s1.sv.html` | Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data (SV, serie 1/11) | 8 Aug 2026  |
 | 58 | `know-your-agent-kya-s1.de.html` | Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI (DE, Serie 1/11) | 8 Aug 2026  |
 | 59 | `know-your-agent-kya-s1.fr.html` | Connaissez votre agent (KYA-S1) — Une page signée sur l'IA (FR, série 1/11) | 8 Aug 2026  |
+| 60 | `kya-kyc-seven-questions.fi.html` | KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä (FI, sarja 2/11) | 8 Aug 2026  |
+| 61 | `eu-ai-act-article-14-hic.fi.html` | EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita (FI, sarja 3/11) | 8 Aug 2026  |
+| 62 | `agent-classes-copilot-vs-dws-iq.fi.html` | Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit (FI, sarja 4/11) | 8 Aug 2026  |
+| 63 | `kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html` | KYA-S1 ja BPMN 2.0: luottamustaso ohjaa teollisuusprosessia (FI, sarja 5/11) | 8 Aug 2026  |
+| 64 | `bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html` | KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta (FI, sarja 6/11) | 8 Aug 2026  |
+| 65 | `flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html` | 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) (FI, sarja 7/11) | 8 Aug 2026  |
+| 66 | `kya-s1-ecosystem-roadmap.fi.html` | KYA-S1 Ekosysteemi & Tuotanto-Roadmap (FI, sarja 8/11) | 8 Aug 2026  |
+| 67 | `lifetime-world-model-state-register.fi.html` | Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti (FI, sarja 9/11) | 8 Aug 2026  |
+| 68 | `agentic-commerce-autonomous-payments.fi.html` | Agentic Commerce -protokollat & Autonomiset Maksut (FI, sarja 10/11) | 8 Aug 2026  |
+| 69 | `eudi-wallet-eidas2-human-identity.fi.html` | Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0 (FI, sarja 11/11) | 8 Aug 2026  |
 
 ---
 
