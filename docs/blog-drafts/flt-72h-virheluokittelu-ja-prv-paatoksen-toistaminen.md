@@ -9,7 +9,7 @@ Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "Osat 5, 6, 7 ja 11 hyväksytään virallisesti"
 series: "KYA-S1 -blogisarja"
 part: 7
-parts_total: 11
+parts_total: 12
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
 series: "Blogi 7/7 · DWS IQ & Lifetime World Model — sarjan päätösosa"
 editorial_fixes: |

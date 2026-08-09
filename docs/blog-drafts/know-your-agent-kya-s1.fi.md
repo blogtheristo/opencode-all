@@ -3,7 +3,7 @@ slug: know-your-agent-kya-s1.fi
 title: "Tunne agenttisi (KYA-S1): Yksi allekirjoitettu sivu tekoälystä tietoturvakansiossa, joka koskee dataasi"
 series: "KYA-S1 -blogisarja"
 part: 1
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

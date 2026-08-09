@@ -324,6 +324,11 @@ const posts = [
     title: 'Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0',
     date: '8 Aug 2026',
   },
+  {
+    file: 'kya-s1-sanasto-glossary.fi.html',
+    title: 'KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto',
+    date: '9 Aug 2026',
+  },
 ];
 
 // Three featured products

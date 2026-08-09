@@ -3,7 +3,7 @@ slug: kya-s1-ecosystem-roadmap.fi
 title: "KYA-S1 Ekosysteemi & Tuotanto-Roadmap"
 series: "KYA-S1 -blogisarja"
 part: 8
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

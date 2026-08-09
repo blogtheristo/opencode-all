@@ -197,6 +197,7 @@ Chronological order. Update this table when adding/removing posts.
 | 67 | `lifetime-world-model-state-register.fi.html` | Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti (FI, sarja 9/11) | 8 Aug 2026  |
 | 68 | `agentic-commerce-autonomous-payments.fi.html` | Agentic Commerce -protokollat & Autonomiset Maksut (FI, sarja 10/11) | 8 Aug 2026  |
 | 69 | `eudi-wallet-eidas2-human-identity.fi.html` | Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0 (FI, sarja 11/11) | 8 Aug 2026  |
+| 70 | `kya-s1-sanasto-glossary.fi.html` | KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto (FI, sarja 12/12) | 9 Aug 2026  |
 
 ---
 

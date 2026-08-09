@@ -3,7 +3,7 @@ slug: agentic-commerce-autonomous-payments.fi
 title: "Agentic Commerce -protokollat & Autonomiset Maksut"
 series: "KYA-S1 -blogisarja"
 part: 10
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
