@@ -40,9 +40,9 @@ When AI moves from generating text to autonomous action — executing code, call
 
 An autonomous AI agent is not merely software. It is an actor. That is why every agent requires an identity of its own that has been verified, a mandate to act, and an immediate emergency brake.
 
-## One page for the vendor file (KYA-S1 v1.3 Specification)
+## One page for the vendor file (KYA-S1 v1.4 Specification)
 
-KYA-S1 (Know Your Agent Security Specification v1.3) is a proposed security standard that verifies the runtime behaviour and identity of AI agents. It condenses into three clear questions that every vendor must be able to answer before an agent is let anywhere near the customer's data:
+KYA-S1 (Know Your Agent Security Specification v1.4) is a vendor-facing security specification that verifies the runtime behaviour and identity of AI agents. It condenses into three clear questions that every vendor must be able to answer before an agent is let anywhere near the customer's data:
 
 **Who is behind the agent? (IDV — Identity Verification)**
 Every decision the agent makes and every tool it requests must be traceable to a cryptographically verified human (the HIC — the human in command).
