@@ -87,6 +87,9 @@ output-metadata.json
 Thumbs.db
 *.iml
 .idea/
+# Stray nested .claude command logs written by hooks relative to cwd (root .claude/* below is root-anchored)
+**/.claude/command-log.txt
+
 # Ignore .claude contents but whitelist hooks + settings + skills for team safety nets
 .claude/*
 !.claude/HANDOFF.md
