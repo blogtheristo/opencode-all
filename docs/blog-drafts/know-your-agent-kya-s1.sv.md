@@ -38,9 +38,9 @@ När AI går från att generera text till autonoma åtgärder — köra kod, anr
 
 En autonom AI-agent är inte enbart programvara. Den är en aktör. Därför kräver varje agent en egen verifierad identitet, ett mandat att agera och en omedelbar nödbroms.
 
-## En sida till leverantörspärmen (KYA-S1 v1.3 Specification)
+## En sida till leverantörspärmen (KYA-S1 v1.4 Specification)
 
-KYA-S1 (Know Your Agent Security Specification v1.3) är ett förslag till säkerhetsstandard som verifierar AI-agenters identitet och beteende vid körning. Den kokar ner till tre tydliga frågor som varje leverantör måste kunna besvara innan en agent släpps in till kundens data:
+KYA-S1 (Know Your Agent Security Specification v1.4) är en leverantörsinriktad säkerhetsspecifikation som verifierar AI-agenters identitet och beteende vid körning. Den kokar ner till tre tydliga frågor som varje leverantör måste kunna besvara innan en agent släpps in till kundens data:
 
 **Vem står bakom agenten? (IDV — Identity Verification)**
 Varje beslut agenten fattar och varje verktyg den begär måste kunna spåras till en kryptografiskt verifierad människa (HIC — den människa som har befälet).
