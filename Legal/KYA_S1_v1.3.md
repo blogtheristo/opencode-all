@@ -1,5 +1,14 @@
 # KYA-S1 — Know Your Agent Security Standard for Autonomous Agents
 
+> **SUPERSEDED — merged 09.08.2026.** This file is a parallel v1.3 line that diverged from the
+> canonical specification. Its five new controls (TRS-4, TRS-5, PRV-4, TC4-5, FLT-4), the amended
+> TRS-1 validity period, the §8 extension-domain SLA table and the §9 TRS conformance note were
+> merged into **`Legal/KYA_S1.md` v1.5** by HIC decision. Two things in this file were deliberately
+> NOT carried over and are wrong here: the document is a **Specification**, not a "Standard"
+> (HIC correction 06.08.2026), and the levels are **KYA-AL1 / KYA-AL2 / KYA-AL3**, not
+> Bronze / Silver / Gold (HIC decision 09.08.2026). Retained for the record per CLAUDE.md Rule 12.
+> **Do not cite this file. Cite `Legal/KYA_S1.md`.**
+
 ---
 
 # VERSION AND AGENT HISTORY

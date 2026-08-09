@@ -11,19 +11,22 @@ date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-hero-fi.jpg
 hero_image_alt: "Carte de la série : les 11 parties de la série KYA-S1 en une image (en finnois)"
 hero_image_status: "PENDING FIX — Osa 8 esiintyy kahdesti (12 korttia / 11 osaa); 1024x559 alle 4K-rajan"
-Status: DRAFT
+Status: APPROVED
+approved_by: HIC (Risto Anton Päärni), 09.08.2026 — Approuvé par le HIC le 09.08.2026, à condition que le marquage de traduction par IA soit inclus.
 source: Traduction du texte finnois approuvé par le HIC (know-your-agent-kya-s1.fi.md). Section par section, affirmation par affirmation.
-ai_disclosure: required
+ai_disclosure: included (mandatory banner below the title)
 note: >-
   Partie 1/11 de la série. En attente de l'approbation du HIC (Règle 13) — le HIC a
   explicitement approuvé le FI et l'EN, pas le SV/DE/FR. Le marquage de traduction par IA
   est obligatoire à la publication (docs/BLOG_STANDARD.md §3.2.1, EU AI Act art. 50(4)).
-  Les niveaux d'assurance suivent Legal/KYA_S1.md v1.4 (KYA-AL1/AL2/AL3).
+  Les niveaux d'assurance suivent Legal/KYA_S1.md v1.5 (KYA-AL1/AL2/AL3).
 ---
 
 # Connaissez votre agent (KYA-S1) : une page signée sur l'IA, dans le dossier de sécurité qui touche vos données
 
 Blog 1/11 · DWS IQ & Lifetime World Model · 8 août 2026 · Risto Anton Päärni
+
+> **Traduction par IA.** Ce document a été traduit par IA à partir de la version maîtresse finnoise (Ground Truth). En cas d'interprétation juridique ou technique, la version finnoise prévaut.
 
 ## Introduction : l'IA prend des décisions — mais qui en porte la responsabilité ?
 
