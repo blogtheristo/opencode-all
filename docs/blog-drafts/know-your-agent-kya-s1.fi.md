@@ -1,5 +1,5 @@
 ---
-slug: tunne-agenttisi-kya-s1-yksi-allekirjoitettu-sivu
+slug: know-your-agent-kya-s1.fi
 title: "Tunne agenttisi (KYA-S1): Yksi allekirjoitettu sivu tekoälystä tietoturvakansiossa, joka koskee dataasi"
 series: "KYA-S1 -blogisarja"
 part: 1
@@ -8,15 +8,15 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-Status: DRAFT
+Status: APPROVED
+approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "suomenkielinen hyväksytty"
 source: HIC-kirjoittama ja hyväksymä teksti (sessio claude/kya-s1-blog-post-1-swb4k4). Teksti käytetty sellaisenaan; ei agentin uudelleenkirjoitusta.
 note: >-
   Sarjan osa 1/11. Korvaa aiemman itsenäisen FI-version
   docs/blog-drafts/kya-s1-one-signed-page.fi.md, joka jää talteen CLAUDE.md Rule 12:n
   mukaisesti (formulaatioita ei hävitetä). Avoin ristiriita: tämä teksti käyttää
-  varmuustasoja KYA-AL1/AL2/AL3, kun Legal/KYA_S1.md v1.3 §8 ja EN-versio käyttävät
-  nimiä Bronze/Silver/Gold — SLA:t, auditointitiheydet ja todistesyvyydet ovat samat.
-  Nimeäminen odottaa HIC:n ratkaisua ennen julkaisua.
+  varmuustasoja KYA-AL1/AL2/AL3. HIC ratkaisi nimeämisen 09.08.2026: AL-nimet jäävät, ja
+  Legal/KYA_S1.md päivitettiin v1.4:ksi (Bronze/Silver/Gold poistui). Ei enää avointa ristiriitaa.
 ---
 
 # Tunne agenttisi (KYA-S1): Yksi allekirjoitettu sivu tekoälystä tietoturvakansiossa, joka koskee dataasi
