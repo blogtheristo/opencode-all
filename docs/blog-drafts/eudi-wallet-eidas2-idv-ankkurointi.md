@@ -19,7 +19,7 @@ unverified_claims: |
      §4 nojaa siihen; jos se ei ole vielä olemassa, §4:n muotoilu on
      löysennettävä ehdolliseksi.
   3. Peruutustiedon (revocation / status list) todellinen etenemisviive
-     EUDI-toteutuksissa. §5:n koko argumentti IDV-4:n Gold-tason 60 s
+     EUDI-toteutuksissa. §5:n koko argumentti IDV-4:n KYA-AL3-tason 60 s
      yhteensopivuudesta riippuu tästä luvusta, jota EI ole mitattu.
   Yksikään näistä ei muuta tekstin arkkitehtuuriväitettä, mutta jokainen niistä
   on julkinen väite EU-sääntelystä ja siksi varmennettava lähteestä.
@@ -59,7 +59,7 @@ Ero ei ole tekninen vaan **todistustaakan suunta**. Sisäisessä SSO:ssa vastapu
 
 - **IDV-1** (reaaliaikainen henkilöllisyyden todentaminen) — wallet on tämän luonnollinen lähde, ja se tuo mukanaan LoA High -tason, jota oma biometrinen liveness-tarkistus ei sellaisenaan saavuta.
 - **IDV-2** (kryptografinen sidos ihmisen, agenttisession ja jokaisen työkalukutsun välillä, joka kestää agentilta agentille -siirrot) — tähän wallet **ei** yksinään riitä. Ks. §3.
-- **IDV-4** (peruutuksen eteneminen: Bronze 15 min, Silver 5 min, Gold 60 s) — tähän wallet tuo aidon ongelman. Ks. §5.
+- **IDV-4** (peruutuksen eteneminen: KYA-AL1 15 min, KYA-AL2 5 min, KYA-AL3 60 s) — tähän wallet tuo aidon ongelman. Ks. §5.
 
 ## 3. Se, mikä ei toimi naiivisti: agentti ei voi näyttää lompakkoa kello kolme yöllä
 
@@ -99,7 +99,7 @@ _(Tämä on kohta, jonka §0:n `unverified_claims` merkitsee tarkistettavaksi: e
 
 Tässä on kohta, jota ei kannata kaunistella.
 
-**IDV-4 vaatii Gold-tasolla, että ihmisen todennustilan muutos etenee 60 sekunnissa.** Jos henkilön valtuutus perutaan, jokaisen häneen sidotun agentin on pysähdyttävä minuutissa.
+**IDV-4 vaatii KYA-AL3-tasolla, että ihmisen todennustilan muutos etenee 60 sekunnissa.** Jos henkilön valtuutus perutaan, jokaisen häneen sidotun agentin on pysähdyttävä minuutissa.
 
 Wallet-ekosysteemin peruutustieto ei liiku sillä nopeudella. Attribuuttitodistusten voimassaolo tarkistetaan tilalistoilta ja välimuistitetuilta rakenteilta, joiden päivitysvälit on suunniteltu ihmistahtiseen käyttöön, ei sekuntitason agenttivalvontaan.
 
@@ -107,9 +107,9 @@ Kolme rehellistä vaihtoehtoa, ei yhtä hyvää:
 
 1. **Sessiokredentiaalin TTL lyhyeksi.** Jos taso 2 elää minuutteja eikä tunteja, peruutuksen viive rajautuu TTL:ään. Hinta: tiheä uudelleentunnistus, joka vaatii ihmisen läsnäoloa — eli sama ongelma kuin §3:ssa, vain pienempänä.
 2. **Kaksoiskanava.** Wallet hoitaa henkilöllisyyden vahvistuksen (hidas, vahva); oma peruutuskanava hoitaa hätäperuutuksen (nopea, sisäinen). IDV-4 täytetään sisäisellä kanavalla, wallet ei ole kriittisellä polulla. Hinta: kaksi totuutta, jotka voivat erota — ja se ero on juuri sitä, mitä TC4 on olemassa varten.
-3. **Myönnetään, ettei Gold ole saavutettavissa wallet-ankkuroidulle IDV:lle.** Rehellisin, ja mahdollisesti oikea: standardi voi todeta, että walletiin ankkuroitu IDV yltää Silveriin, ja Gold vaatii lisäksi vendorin oman peruutuskanavan.
+3. **Myönnetään, ettei KYA-AL3 ole saavutettavissa wallet-ankkuroidulle IDV:lle.** Rehellisin, ja mahdollisesti oikea: standardi voi todeta, että walletiin ankkuroitu IDV yltää KYA-AL2:een, ja KYA-AL3 vaatii lisäksi vendorin oman peruutuskanavan.
 
-**Suositus: vaihtoehto 2, dokumentoituna vaihtoehtona 3.** Kaksoiskanava toimii, mutta KYA-S1:n on sanottava ääneen, että Gold-tason 60 sekuntia tulee tällöin vendorin omasta kanavasta, ei walletista. Muuten myydään EU-tason takuuta, jota EU-taso ei anna.
+**Suositus: vaihtoehto 2, dokumentoituna vaihtoehtona 3.** Kaksoiskanava toimii, mutta KYA-S1:n on sanottava ääneen, että KYA-AL3-tason 60 sekuntia tulee tällöin vendorin omasta kanavasta, ei walletista. Muuten myydään EU-tason takuuta, jota EU-taso ei anna.
 
 ## 6. Mitä tämä paljastaa omasta toteutuksestamme
 
@@ -130,5 +130,5 @@ Käänteisessä järjestyksessä syntyisi vaikuttava demo ja sama aukko kuin enn
 - **Sisäinen SSO ei kanna ulospäin.** Kun agentti toimii kolmatta osapuolta kohtaan, todistustaakan on käännyttävä: vastapuolen on voitava tarkistaa itse.
 - **Wallet ei sovi per-teko-tunnistukseen.** Ihmisen läsnäoloon suunniteltu mekanismi ankkuroi session, ei jokaista työkalukutsua. Johdannaisketju wallet → sessiokredentiaali → Lease Token säilyttää sekä autonomian että peruutettavuuden.
 - **Henkilöllisyys ei ole valtuutus.** Edustusoikeus on oma attribuuttinsa, eikä KYA-S1 v1.3 vielä käsittele sitä.
-- **Gold-taso ja wallet ovat ristiriidassa.** 60 sekunnin peruutus ei tule wallet-ekosysteemistä. Se on sanottava, ei kierrettävä.
+- **KYA-AL3-taso ja wallet ovat ristiriidassa.** 60 sekunnin peruutus ei tule wallet-ekosysteemistä. Se on sanottava, ei kierrettävä.
 - **Oma ATS ei tunne IDV-tilaa.** Se on korjattava ennen wallet-integraatiota, ei sen jälkeen.
