@@ -36,9 +36,9 @@ Kun tekoäly siirtyy tekstin generoinnista autonomisiin toimenpiteisiin — suor
 
 Autonominen tekoälyagentti ei ole pelkkä ohjelmisto. Se on toimija. Siksi jokainen agentti edellyttää omaa todennettua identiteettiä, toimintamandaattia sekä välitöntä hätäjarrua.
 
-## Yksi sivu toimittajakansioon (KYA-S1 v1.3 Specification)
+## Yksi sivu toimittajakansioon (KYA-S1 v1.4 Specification)
 
-KYA-S1 (Know Your Agent Security Specification v1.3) on tekoälyagenttien ajonaikaisen käyttäytymisen ja identiteetin varmentava turvallisuusstandardiehdotus. Se tiivistyy kolmeen selkeään kysymykseen, joihin jokaisen toimittajan on pystyttävä vastaamaan ennen kuin agentti päästetään käsiksi asiakkaan dataan:
+KYA-S1 (Know Your Agent Security Specification v1.4) on tekoälyagenttien ajonaikaisen käyttäytymisen ja identiteetin varmentava toimittajapainotteinen tietoturvaspesifikaatio. Se tiivistyy kolmeen selkeään kysymykseen, joihin jokaisen toimittajan on pystyttävä vastaamaan ennen kuin agentti päästetään käsiksi asiakkaan dataan:
 
 **Kuka on agentin takana? (IDV — Identity Verification)**
 Jokainen agentin tekemä ratkaisu ja työkaluvaatimus on voitava jäljittää kryptografisesti todennettuun ihmiseen (HIC-johtajaan).
