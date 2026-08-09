@@ -249,6 +249,31 @@ const posts = [
     title: 'KYA-S1 — One Signed Page for the Agent in Your Vendor File',
     date: '6 Aug 2026',
   },
+  {
+    file: 'know-your-agent-kya-s1.html',
+    title: 'Know Your Agent (KYA-S1) — One Signed Page for the AI That Touches Your Data',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.fi.html',
+    title: 'Tunne agenttisi (KYA-S1) — Yksi allekirjoitettu sivu tekoälystä',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.sv.html',
+    title: 'Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.de.html',
+    title: 'Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.fr.html',
+    title: 'Connaissez votre agent (KYA-S1) — Une page signée sur l\'IA',
+    date: '8 Aug 2026',
+  },
 ];
 
 // Three featured products
