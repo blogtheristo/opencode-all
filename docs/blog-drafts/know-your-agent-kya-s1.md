@@ -32,7 +32,7 @@ Blog 1/11 · DWS IQ & Lifetime World Model · 8 August 2026 · Risto Anton Pää
 
 ## Introduction: AI makes decisions — but who carries the liability?
 
-The procurement files of enterprises and public administration today hold a substantial stack of signed documents. At the organisational level there are SOC 2 Type 2 and ISO/IEC 27001 certificates. For data and privacy there is GDPR and CSRD evidence. For platform security and infrastructure there is FedRAMP or a sovereign-cloud approval to point at.
+The procurement files of enterprises and public administration today hold a substantial stack of signed documents. At the organisational level there are SOC 2 Type II and ISO/IEC 27001 certificates. For data and privacy there is GDPR and CSRD evidence. For platform security and infrastructure there is FedRAMP or a sovereign-cloud approval to point at.
 
 One critical document is nevertheless missing from the procurement file: a signed page for the autonomous AI agent.
 
