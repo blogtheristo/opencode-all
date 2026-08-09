@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: **Attestation tiers renamed to KYA assurance levels** per HIC decision (09.08.2026): **Bronze → KYA-AL1 (Standard)**, **Silver → KYA-AL2 (Enhanced)**, **Gold → KYA-AL3 (Critical)**. Naming only — cadence, evidence depth and every propagation SLA are unchanged (AL1 15 min / AL2 5 min / AL3 60 s on IDV revocation and TC4 propagation; REG-4 cross-fleet query 5 min / 60 s / 10 s; BHM-3 red-team annual / quarterly / continuous). The metal-tier names read as a marketing ladder rather than an assurance scale, and "assurance level" is the term buyers already use from eIDAS LoA and NIST IAL/AAL; the KYA-AL prefix also namespaces the levels away from partner-programme tiers of the same metal names on dws10.com. §8 retitled "Assurance Levels (KYA-AL)"; §10 claim template now names an assurance level. Control identifiers unchanged, so §11's stability guarantee holds and this is a minor version. Prior Bronze/Silver/Gold formulations preserved in the v1.0 entry below and in the §8 supersession note per CLAUDE.md Rule 12. Propagated in the same session to DWS_TRUTH_STANDARD.md row 35, DWS_STANDARDS_LIBRARY.md §3.3, and the kya-s1 blog series (EN + FI). **Known divergence, not resolved here:** `Legal/KYA_S1_v1.3.md` is a separate, unmerged v1.3 line (07.08.2026) carrying TRS-4/TRS-5/PRV-4/TC4-5/FLT-4 and still titled "Standard" — it has NOT been renamed and needs an HIC merge decision.
 - Version: 1.3 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Reclassified KYA-S1 from "Standard" to "Specification" throughout (title, Document Type, header, body self-references) per HIC correction — KYA-S1 has not been through a standards-body process (no SDO, no formal consensus track) and calling it a "standard" overstates its status; "Specification" is the accurate term for a vendor-authored, publicly-published technical document open for comment. No control content, scope, or tier structure changed. Propagated to DWS_TRUTH_STANDARD.md row 35, DWS_STANDARDS_LIBRARY.md §3.3, docs/BLOG_STANDARD.md registry, the kya-s1-one-signed-page blog post (all copies), and dws10.com/compliance/ in the same session.
 - Version: 1.2 | Tool: Claude Code (claude-opus-5) | Session: claude/study-palantir-mas2-MwtEw | Date: 04.08.2026 | Changes: **Re-landed on current `main` after the original branch became unmergeable** (main was re-rooted between May and August 2026; no common ancestor remained, so PR #1317 was closed as superseded — redo prompt: `docs/pr-cleanup/next-prompts-v2-bundle.md`). Content updates on re-land: new §4 **Regulatory anchoring** mapping the seven controls to the EU AI Act duties that are now in force — **Article 50 applies from 2 August 2026**, two days before this version — kept deliberately distinct from Article 12 and Article 14 per `DWS_TRUTH_STANDARD.md` row 31. Public-comment window reset to 04.08.2026–04.11.2026 (the v1.0 window opened 15.05.2026 and had nearly closed while the standard sat unmerged). Sender identity corrected to the canonical umlaut spelling **Risto Anton Päärni** (the v1.0/v1.1 files carried the ASCII-name bug flagged in `docs/BLOG_STANDARD.md` v2.6). Reference implementation re-pointed at current KYA family versions (KYA-Standard v1.11, KYA-Security v1.8, KYA-Optimization v1.9). Cloudflare Pages deploy workflow **removed from this standard's scope** and split to its own change per the redo prompt. All v1.0/v1.1 formulations preserved per CLAUDE.md Rule 12.
 - Version: 1.1 | Tool: Claude Code | Session: claude/study-palantir-mas2-MwtEw | Date: 15.05.2026 | Changes: Editorial tone-down — dropped the "sibling standard" / "co-attestation" / "full mission-assurance surface" framing relative to Palantir's MA-S2. KYA-S1 stands on its own; MA-S2 referenced only as structural-inspiration credit. §6 reframed from "Co-Attestation with MA-S2" to "How KYA-S1 sits next to adjacent standards." No control-content changes.
@@ -16,7 +17,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 15.05.2026
-- Last Modified: 06.08.2026
+- Last Modified: 09.08.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: DRAFT (public comment)
@@ -36,7 +37,7 @@ Related Documents:
 ---
 
 **Lifetime Oy | DWS IQ Platform**
-**Specification:** KYA-S1 v1.3
+**Specification:** KYA-S1 v1.4
 **Status:** Draft for public comment — window open 4 August 2026 to 4 November 2026
 **Lead Architect:** Risto Anton Päärni, Founder, CEO, Lifetime Oy
 **Date:** August 2026
@@ -91,7 +92,7 @@ For every control domain in §5–§6, the vendor must produce at least one of:
 - **Architecture documentation** reviewed and signed by a qualified independent assessor.
 - **Contractual SLA commitments** with defined measurement methodology and externally verifiable breach reporting.
 
-Evidence must be **renewable** on a defined cadence (annual minimum; quarterly for Gold tier — see §8).
+Evidence must be **renewable** on a defined cadence (annual minimum; quarterly for KYA-AL2 and above — see §8).
 
 ---
 
@@ -130,7 +131,7 @@ Vendors must demonstrate:
 - **IDV-1 — Real-time identity verification** of the human principal at session initiation. Verification target: under 30 seconds end-to-end, including biometric liveness.
 - **IDV-2 — Cryptographic binding** between the verified human, the agent session, and every downstream tool invocation. Binding must survive agent-to-agent handoffs.
 - **IDV-3 — Continuous re-attestation** on privilege escalation, tool scope expansion, or trust-score change exceeding a defined threshold.
-- **IDV-4 — Revocation propagation** within bounded time (Bronze: 15 min, Silver: 5 min, Gold: 60 s) when the human principal's verification status changes.
+- **IDV-4 — Revocation propagation** within bounded time (KYA-AL1: 15 min, KYA-AL2: 5 min, KYA-AL3: 60 s) when the human principal's verification status changes.
 
 **Evidence:** Third-party IDV provider attestation (Shufti, Veriff, Signicat, Onfido, or equivalent) + platform telemetry of binding events.
 
@@ -144,7 +145,7 @@ Vendors must demonstrate:
 
 - **BHM-1 — Behavioral baseline** per agent class, capturing tool-call distribution, MCP invocation patterns, token usage, and decision-tree shape.
 - **BHM-2 — Adversarial simulation** covering at minimum: prompt injection (direct + indirect), MCP tool poisoning, agent-chain hijack, model-output exfiltration, jailbreak via chained tool calls.
-- **BHM-3 — AI-assisted red-teaming** of the agent runtime on a defined cadence (Bronze: annual, Silver: quarterly, Gold: continuous).
+- **BHM-3 — AI-assisted red-teaming** of the agent runtime on a defined cadence (KYA-AL1: annual, KYA-AL2: quarterly, KYA-AL3: continuous).
 - **BHM-4 — Behavioral guardrails** that block deviations from baseline at runtime and emit signed telemetry on every block.
 
 **Evidence:** Red-team report from accredited firm + platform telemetry of guardrail activations.
@@ -160,7 +161,7 @@ Vendors must demonstrate:
 - **REG-1 — Real-time registry** of every agent instance: its identity, the verified human it is bound to, its capability manifest (tools, MCP servers, path permissions), its model version, its trust score.
 - **REG-2 — Capability manifest** declared per agent before activation. Capabilities outside the manifest must be denied at runtime, not merely audited.
 - **REG-3 — Air-gapped operation.** The registry must function in disconnected and air-gapped environments; entries must reconcile when connectivity is restored, with conflict resolution rules defined in advance.
-- **REG-4 — Cross-fleet query** in bounded time (Bronze: 5 min, Silver: 60 s, Gold: 10 s) — "show me every agent in the fleet currently bound to user X" or "every agent currently using tool Y."
+- **REG-4 — Cross-fleet query** in bounded time (KYA-AL1: 5 min, KYA-AL2: 60 s, KYA-AL3: 10 s) — "show me every agent in the fleet currently bound to user X" or "every agent currently using tool Y."
 
 **Evidence:** Architecture review + telemetry sample showing fleet-wide query latency.
 
@@ -174,7 +175,7 @@ Vendors must demonstrate:
 
 - **TC4-1 — Trust collapse detection** with defined thresholds and signed event emission.
 - **TC4-2 — Chain termination** ("leash snap"): the offending agent, every downstream agent it spawned, and every active tool session it owns are terminated atomically.
-- **TC4-3 — Fleet-wide propagation** within bounded time (Bronze: 15 min, Silver: 5 min, Gold: 60 s), including across air-gapped boundaries on next sync.
+- **TC4-3 — Fleet-wide propagation** within bounded time (KYA-AL1: 15 min, KYA-AL2: 5 min, KYA-AL3: 60 s), including across air-gapped boundaries on next sync.
 - **TC4-4 — Post-mortem capture** — the full agent state, tool history, and decision trace at the moment of termination must be preserved for forensic review.
 
 **Evidence:** Telemetry sample of a real or staged termination event end-to-end + SLA contract on propagation time.
@@ -242,15 +243,17 @@ The three extension domains (FLT, TRS, PRV) have no analogue in any of the layer
 
 ---
 
-## 8. Attestation Tiers
+## 8. Assurance Levels (KYA-AL)
 
-| Tier       | Cadence                                           | Evidence depth                                                                                                                                     | Propagation SLAs                                                         |
+_Superseded naming (v1.0–v1.3, kept per Rule 12): these three levels were previously called **Bronze / Silver / Gold**. KYA-AL1 = Bronze, KYA-AL2 = Silver, KYA-AL3 = Gold. Thresholds and SLAs are identical; only the names changed in v1.4._
+
+| Assurance level | Cadence                                           | Evidence depth                                                                                                                                     | Propagation SLAs                                                         |
 | ---------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Bronze** | Annual                                            | Third-party audit on at least one domain + signed platform telemetry or contractual SLA across the remaining six (no self-attestation in any cell) | IDV revocation: 15 min · TC4 propagation: 15 min · BHM red-team: annual  |
-| **Silver** | Quarterly                                         | Third-party audit across IDV and BHM + signed platform telemetry (retention 12 mo) across the remaining five                                       | IDV revocation: 5 min · TC4 propagation: 5 min · BHM red-team: quarterly |
-| **Gold**   | Continuous (telemetry-based) + annual third-party | Independent assessor across all 7 domains + signed SLA                                                                                             | IDV revocation: 60 s · TC4 propagation: 60 s · BHM red-team: continuous  |
+| **KYA-AL1** (Standard) | Annual                                            | Third-party audit on at least one domain + signed platform telemetry or contractual SLA across the remaining six (no self-attestation in any cell) | IDV revocation: 15 min · TC4 propagation: 15 min · BHM red-team: annual  |
+| **KYA-AL2** (Enhanced) | Quarterly                                         | Third-party audit across IDV and BHM + signed platform telemetry (retention 12 mo) across the remaining five                                       | IDV revocation: 5 min · TC4 propagation: 5 min · BHM red-team: quarterly |
+| **KYA-AL3** (Critical) | Continuous (telemetry-based) + annual third-party | Independent assessor across all 7 domains + signed SLA                                                                                             | IDV revocation: 60 s · TC4 propagation: 60 s · BHM red-team: continuous  |
 
-Tier claims must appear with the assessor name and the assessment date.
+Assurance-level claims must appear with the assessor name and the assessment date.
 
 ---
 
@@ -268,7 +271,7 @@ A reference implementation of KYA-S1 is operated by Lifetime Oy as part of the D
 
 The reference implementation is documented in `Legal/KYA_STANDARD_v1.md` (implementation manual) and `Legal/KYA_SECURITY_v1.2.md` (security subset). KYA-S1 is the vendor-facing specification derived from those internal documents.
 
-**Lifetime Oy holds itself to §3.** No KYA-S1 attestation letter will be self-issued for the DWS IQ Platform. Until an independent assessor signs one, DWS claims **no tier** — the reference implementation above is an architecture description, not an attestation.
+**Lifetime Oy holds itself to §3.** No KYA-S1 attestation letter will be self-issued for the DWS IQ Platform. Until an independent assessor signs one, DWS claims **no assurance level** — the reference implementation above is an architecture description, not an attestation.
 
 ---
 
@@ -278,7 +281,7 @@ KYA-S1 is published under a **CC BY 4.0** license. Vendors are free to adopt, at
 
 A vendor claiming KYA-S1 alignment should state:
 
-> _"This product is aligned with KYA-S1 v1.3 at the **{Bronze / Silver / Gold}** tier, assessed by **{assessor name}** on **{date}**. KYA-S1 is published by Lifetime Oy and attests the autonomous-agent identity-and-behavior layer."_
+> _"This product is aligned with KYA-S1 v1.4 at assurance level **{KYA-AL1 / KYA-AL2 / KYA-AL3}**, assessed by **{assessor name}** on **{date}**. KYA-S1 is published by Lifetime Oy and attests the autonomous-agent identity-and-behavior layer."_
 
 ---
 
@@ -286,7 +289,7 @@ A vendor claiming KYA-S1 alignment should state:
 
 KYA-S1 follows semantic versioning. Control identifiers (IDV-1, BHM-2, etc.) are stable across minor versions. Major versions may renumber domains; a mapping document is published alongside any major release.
 
-Public-comment period for KYA-S1 v1.3: **4 August 2026 – 4 November 2026.** Feedback: risto.paarni@lifetime.fi.
+Public-comment period for KYA-S1 v1.3–v1.4: **4 August 2026 – 4 November 2026.** Feedback: risto.paarni@lifetime.fi.
 
 _(The v1.0 comment window opened 15 May 2026 and was due to close 15 August 2026. The specification sat unpublished while the branch carrying it went stale, so the window is reset here rather than quietly counted as served.)_
 
