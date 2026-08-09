@@ -6,7 +6,12 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-Status: DRAFT
+Status: SUPERSEDED
+superseded_by: docs/blog-drafts/eudi-wallet-eidas2-human-identity.fi.md (sarjan osa 11/11, HIC Ground Truth 09.08.2026)
+note_superseded: >-
+  Eri teksti kuin julkaistava osa 11. Tämä luonnos nosti aidon yhteensopivuusongelman
+  wallet-ankkuroidun IDV:n ja KYA-AL3:n 60 s peruutusvaatimuksen välillä; se kysymys ei
+  sisälly hyväksyttyyn osaan 11 eikä ole ratkaistu. Säilytetään Rule 12 mukaisesti.
 source: HIC:n sarjasuunnitelma osat 8–11 (sessio claude/agent-use-cases-comparison-h7vl25)
 series: "Blogi 11/11 · DWS IQ & Lifetime World Model — sarjan päätösosa"
 unverified_claims: |
