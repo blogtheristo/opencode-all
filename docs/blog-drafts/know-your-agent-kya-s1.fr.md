@@ -3,7 +3,7 @@ slug: know-your-agent-kya-s1.fr
 title: "Connaissez votre agent (KYA-S1) : une page signée sur l'IA, dans le dossier de sécurité qui touche vos données"
 series: "Série de blog KYA-S1"
 part: 1
-parts_total: 11
+parts_total: 12
 lang: fr
 site: onelifetime.world
 author: Risto Anton Päärni

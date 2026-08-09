@@ -3,7 +3,7 @@ slug: agent-classes-copilot-vs-dws-iq.fi
 title: "Agenttiluokat: Kehittäjän GitHub Copilot vs. teollisuuden DWS IQ -tausta-agentit"
 series: "KYA-S1 -blogisarja"
 part: 4
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

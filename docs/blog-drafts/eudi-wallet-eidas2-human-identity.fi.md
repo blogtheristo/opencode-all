@@ -3,7 +3,7 @@ slug: eudi-wallet-eidas2-human-identity.fi
 title: "Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0: Ihmisen perusidentiteetti tekoälyagentin valtuuttajana"
 series: "KYA-S1 -blogisarja"
 part: 11
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

@@ -3,7 +3,7 @@ slug: kya-kyc-seven-questions.fi
 title: "KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä"
 series: "KYA-S1 -blogisarja"
 part: 2
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

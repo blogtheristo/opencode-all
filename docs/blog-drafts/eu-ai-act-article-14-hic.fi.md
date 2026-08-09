@@ -3,7 +3,7 @@ slug: eu-ai-act-article-14-hic.fi
 title: "EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita"
 series: "KYA-S1 -blogisarja"
 part: 3
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

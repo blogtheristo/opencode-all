@@ -3,7 +3,7 @@ slug: lifetime-world-model-state-register.fi
 title: "Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti"
 series: "KYA-S1 -blogisarja"
 part: 9
-parts_total: 11
+parts_total: 12
 lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni

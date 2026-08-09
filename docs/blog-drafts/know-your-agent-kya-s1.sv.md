@@ -3,7 +3,7 @@ slug: know-your-agent-kya-s1.sv
 title: "Känn din agent (KYA-S1): En signerad sida om den AI i säkerhetspärmen som rör dina data"
 series: "KYA-S1 bloggserie"
 part: 1
-parts_total: 11
+parts_total: 12
 lang: sv
 site: onelifetime.world
 author: Risto Anton Päärni

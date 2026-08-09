@@ -3,7 +3,7 @@ slug: know-your-agent-kya-s1.de
 title: "Kenne deinen Agenten (KYA-S1): Eine unterschriebene Seite über die KI in der Sicherheitsakte, die deine Daten berührt"
 series: "KYA-S1 Blogserie"
 part: 1
-parts_total: 11
+parts_total: 12
 lang: de
 site: onelifetime.world
 author: Risto Anton Päärni
