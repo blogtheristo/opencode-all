@@ -15,8 +15,6 @@ note: >-
   Sarjan osa 3/11. Pohjautuu HIC-hallintamalliin, päivitetty kytkeytymään suoraan
   artiklaan 14, Lease Tokeniin ja KYA-S1-spesifikaatioon. Aiempi luonnos
   docs/blog-drafts/hic-hallintamalli-ja-dws-iq-agentit.md on eri aihe ja jää talteen (Rule 12).
-typos_flagged:
-  - "Hti kun poikkeama havaitaan → Heti kun (Yhteenveto)"
 ---
 
 # EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita
@@ -63,7 +61,7 @@ EU AI Act kieltää näennäisen ihmisvalvonnan ("rubber-stamping"), jossa ihmin
 
 ## Yhteenveto
 
-Artikla 14 ja agenttien autonomia eivät ole vastakohtia. KYA-S1 v1.3 -arkkitehtuurissa ihminen johtaa prosessia päällikkönä: kun olosuhteet ovat vihreällä, automaatio pyörii täydellä teholla. Hti kun poikkeama havaitaan, järjestelmä luovuttaa ohjauskapulan pehmeästi ihmiselle.
+Artikla 14 ja agenttien autonomia eivät ole vastakohtia. KYA-S1 v1.3 -arkkitehtuurissa ihminen johtaa prosessia päällikkönä: kun olosuhteet ovat vihreällä, automaatio pyörii täydellä teholla. Heti kun poikkeama havaitaan, järjestelmä luovuttaa ohjauskapulan pehmeästi ihmiselle.
 
 ## Katso sarjan muut osat
 

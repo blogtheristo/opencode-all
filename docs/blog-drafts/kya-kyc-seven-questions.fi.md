@@ -15,7 +15,6 @@ note: >-
   Sarjan osa 2/11. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
   Kirjoitusvirheitä EI ole korjattu ilman HIC:n lupaa (Rule 12) — ks. typos-kenttä.
 typos_flagged:
-  - "Pankkimailmasta → Pankkimaailmasta (Johdanto-otsikko)"
   - "eikä passiakansiota → eikä passia kansiossa? (Johdanto)"
   - "7. Voidaanko replayed? → sekakielinen; esim. 'Voiko päätöksen toistaa?' (taulukko)"
 ---
@@ -24,7 +23,7 @@ typos_flagged:
 
 Blogi 2/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
-## Johdanto: Pankkimailmasta tekoälyautomaatioon
+## Johdanto: Pankkimaailmasta tekoälyautomaatioon
 
 Rahoitusalalla tunnettu KYC-periaate (Know Your Customer) luotiin estämään väärinkäytökset, rahanpesu ja anonyymi toiminta finanssijärjestelmässä. Kun tekoälyagentit astuvat teollisuusprosessien, tietokantojen ja transaktioiden suorittajiksi, yritykset kohtaavat saman haasteen kuin pankit aikoinaan:
 
