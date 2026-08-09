@@ -5,7 +5,11 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-07
-Status: DRAFT
+Status: APPROVED
+approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "Osat 5, 6, 7 ja 11 hyväksytään virallisesti"
+series: "KYA-S1 -blogisarja"
+part: 5
+parts_total: 11
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
 series: "Blogi 5/7 · DWS IQ & Lifetime World Model"
 editorial_fixes: |
