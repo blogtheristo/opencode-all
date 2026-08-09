@@ -8,6 +8,9 @@ lang: fr
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-hero-fi.jpg
+hero_image_alt: "Carte de la série : les 11 parties de la série KYA-S1 en une image (en finnois)"
+hero_image_status: "PENDING FIX — Osa 8 esiintyy kahdesti (12 korttia / 11 osaa); 1024x559 alle 4K-rajan"
 Status: DRAFT
 source: Traduction du texte finnois approuvé par le HIC (know-your-agent-kya-s1.fi.md). Section par section, affirmation par affirmation.
 ai_disclosure: required
