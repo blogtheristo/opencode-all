@@ -97,7 +97,7 @@ The KYA-S1 specification produces material that is directly usable against the o
 - **Part 3:** EU AI Act Article 14 (HIC) and the contradiction of agent autonomy
 - **Part 4:** Agent classes: a developer's GitHub Copilot vs. industrial DWS IQ background agents
 - **Part 5:** KYA-S1 and BPMN 2.0: how an AI agent's trust level steers an industrial process in practice
-- **Part 6:** KYA-S1 v1.3 × BPMN 2.0: atomic Lease Token, fail-closed, and honest TRS computation
+- **Part 6:** KYA-S1 v1.4 × BPMN 2.0: atomic Lease Token, fail-closed, and honest TRS computation
 - **Part 7:** When something goes wrong: 72-hour fault classification (FLT) and decision replay (PRV) in practice
 - **Part 8:** The KYA-S1 ecosystem & production roadmap
 - **Part 9:** Lifetime World Model (LWM) — a global state register and memory
