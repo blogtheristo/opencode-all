@@ -30,7 +30,7 @@ Blog 1/11 · DWS IQ & Lifetime World Model · 8 août 2026 · Risto Anton Päär
 
 ## Introduction : l'IA prend des décisions — mais qui en porte la responsabilité ?
 
-Les dossiers d'achat des entreprises et de l'administration publique contiennent aujourd'hui une pile substantielle de documents signés. Au niveau organisationnel, il y a les certificats SOC 2 Type 2 et ISO/IEC 27001. Pour les données et la protection de la vie privée, il y a les preuves GDPR et CSRD. Pour la sécurité de la plateforme et l'infrastructure, on peut présenter FedRAMP ou une homologation de cloud souverain.
+Les dossiers d'achat des entreprises et de l'administration publique contiennent aujourd'hui une pile substantielle de documents signés. Au niveau organisationnel, il y a les certificats SOC 2 Type II et ISO/IEC 27001. Pour les données et la protection de la vie privée, il y a les preuves GDPR et CSRD. Pour la sécurité de la plateforme et l'infrastructure, on peut présenter FedRAMP ou une homologation de cloud souverain.
 
 Un document critique manque pourtant au dossier d'achat : une page signée pour l'agent d'IA autonome.
 
