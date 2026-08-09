@@ -134,6 +134,6 @@ Käänteisessä järjestyksessä syntyisi vaikuttava demo ja sama aukko kuin enn
 
 - **Sisäinen SSO ei kanna ulospäin.** Kun agentti toimii kolmatta osapuolta kohtaan, todistustaakan on käännyttävä: vastapuolen on voitava tarkistaa itse.
 - **Wallet ei sovi per-teko-tunnistukseen.** Ihmisen läsnäoloon suunniteltu mekanismi ankkuroi session, ei jokaista työkalukutsua. Johdannaisketju wallet → sessiokredentiaali → Lease Token säilyttää sekä autonomian että peruutettavuuden.
-- **Henkilöllisyys ei ole valtuutus.** Edustusoikeus on oma attribuuttinsa, eikä KYA-S1 v1.3 vielä käsittele sitä.
+- **Henkilöllisyys ei ole valtuutus.** Edustusoikeus on oma attribuuttinsa, eikä KYA-S1 v1.4 vielä käsittele sitä.
 - **KYA-AL3-taso ja wallet ovat ristiriidassa.** 60 sekunnin peruutus ei tule wallet-ekosysteemistä. Se on sanottava, ei kierrettävä.
 - **Oma ATS ei tunne IDV-tilaa.** Se on korjattava ennen wallet-integraatiota, ei sen jälkeen.
