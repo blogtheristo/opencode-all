@@ -45,6 +45,7 @@ type AllowedExecutable = 'bash' | 'node' | 'npx' | 'npm' | 'python3';
 interface CronCommand {
   executable: AllowedExecutable;
   args: readonly string[];
+  dwsBackendUrl?: string;
   outputFile?: string;
 }
 
@@ -96,14 +97,14 @@ const jobs: CronJob[] = [
     name: 'construction-leads',
     schedule: '0 4 * * 1-6',
     workflow: 'construction-leads.yml',
-    command: { executable: 'node', args: ['-e', `fetch('${BACKEND_URL}/api/construction-leads/fetch', {method:'POST'}).then(r=>console.log(r.status))`] },
+    command: { executable: 'node', args: ['-e', "fetch(process.env.DWS_BACKEND_URL + '/api/construction-leads/fetch', {method:'POST'}).then(r=>console.log(r.status))"], dwsBackendUrl: BACKEND_URL },
     enabled: true,
   },
   {
     name: 'outreach-digest',
     schedule: '5 4 * * 1-6',
     workflow: 'outreach-digest.yml',
-    command: { executable: 'node', args: ['-e', `fetch('${BACKEND_URL}/api/outreach/digest', {method:'POST'}).then(r=>console.log(r.status))`] },
+    command: { executable: 'node', args: ['-e', "fetch(process.env.DWS_BACKEND_URL + '/api/outreach/digest', {method:'POST'}).then(r=>console.log(r.status))"], dwsBackendUrl: BACKEND_URL },
     enabled: true,
   },
   {
@@ -117,7 +118,7 @@ const jobs: CronJob[] = [
     name: 'captain-briefing',
     schedule: '30 5 * * 1-5',
     workflow: 'captain-briefing.yml',
-    command: { executable: 'node', args: ['-e', `fetch('${BACKEND_URL}/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))`] },
+    command: { executable: 'node', args: ['-e', "fetch(process.env.DWS_BACKEND_URL + '/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))"], dwsBackendUrl: BACKEND_URL },
     enabled: true,
   },
   {
@@ -299,11 +300,24 @@ function runJob(job: CronJob): void {
   execFile(
     job.command.executable,
     [...job.command.args],
-    { timeout: 300_000, cwd: '/app', maxBuffer: 10 * 1024 * 1024 },
+    { timeout: 300_000, cwd: '/app', maxBuffer: 10 * 1024 * 1024, env: { ...process.env, ...(job.command.dwsBackendUrl ? { DWS_BACKEND_URL: job.command.dwsBackendUrl } : {}) } },
     (err, stdout, stderr) => {
       const output = stdout + (stderr ? `\nSTDERR: ${stderr}` : '');
       if (job.command.outputFile) {
-        fs.writeFileSync(job.command.outputFile, stdout);
+        const reportPath = path.resolve(job.command.outputFile);
+        const logsDir = path.resolve('/app/logs');
+        if (reportPath !== logsDir && !reportPath.startsWith(`${logsDir}${path.sep}`)) {
+          console.error(`[CRON] Refusing report write outside /app/logs: ${reportPath}`);
+        } else {
+          try {
+            fs.writeFileSync(reportPath, stdout);
+          } catch (writeError) {
+            console.error(
+              `[CRON] Failed to write report for ${job.name} to ${reportPath}:`,
+              writeError,
+            );
+          }
+        }
       }
       echoOutput(job.name, 'out', stdout);
       echoOutput(job.name, 'err', stderr);
