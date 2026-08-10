@@ -8,9 +8,9 @@ lang: sv
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-hero_image: ../static/images/blog/kya-s1-series-hero-fi.jpg
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
 hero_image_alt: "Seriekarta: KYA-S1-bloggseriens 11 delar i en bild (finska)"
-hero_image_status: "PENDING FIX — Osa 8 esiintyy kahdesti (12 korttia / 11 osaa); 1024x559 alle 4K-rajan"
+hero_image_status: "OK — 12 korttia, 3840x2001 px, lähde scripts/assets/kya-s1-series-hero-fi.html"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — Godkänd av HIC 09.08.2026 med villkoret att AI-översättningsmärkningen ingår.
 source: Översättning av den HIC-godkända finska texten (know-your-agent-kya-s1.fi.md). Avsnitt för avsnitt, påstående för påstående.

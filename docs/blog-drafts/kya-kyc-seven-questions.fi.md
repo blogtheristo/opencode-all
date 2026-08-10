@@ -12,11 +12,11 @@ Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 2/11. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
+  Sarjan osa 2/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
   Kirjoitusvirheitä EI ole korjattu ilman HIC:n lupaa (Rule 12) — ks. typos-kenttä.
 typos_flagged:
-  - "Pankkimailmasta → Pankkimaailmasta (Johdanto-otsikko)"
-  - "eikä passiakansiota → eikä passia kansiossa? (Johdanto)"
+  - "Pankkimaailmasta → Pankkimaailmasta (Johdanto-otsikko)"
+  - "eikä passia → eikä passia kansiossa? (Johdanto)"
   - "7. Voidaanko replayed? → sekakielinen; esim. 'Voiko päätöksen toistaa?' (taulukko)"
 ---
 
@@ -24,11 +24,11 @@ typos_flagged:
 
 Blogi 2/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
-## Johdanto: Pankkimailmasta tekoälyautomaatioon
+## Johdanto: Pankkimaailmasta tekoälyautomaatioon
 
 Rahoitusalalla tunnettu KYC-periaate (Know Your Customer) luotiin estämään väärinkäytökset, rahanpesu ja anonyymi toiminta finanssijärjestelmässä. Kun tekoälyagentit astuvat teollisuusprosessien, tietokantojen ja transaktioiden suorittajiksi, yritykset kohtaavat saman haasteen kuin pankit aikoinaan:
 
-> Miten voit luottaa toimijaan, jolla ei ole fyysistä kasvoa eikä passiakansiota?
+> Miten voit luottaa toimijaan, jolla ei ole fyysistä kasvoa eikä passia?
 
 KYA-S1 Specification v1.3 siirtää KYC-periaatteen tekoälymaailmaan. Se esittää seitsemän kriittistä KYA-kysymystä, joihin jokaisen organisaation tietoturva- ja hankintajohdon on saatava todennettu vastaus ennen kuin agentti päästetään ajoon.
 

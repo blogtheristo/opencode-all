@@ -12,9 +12,9 @@ Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 10/11. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
+  Sarjan osa 10/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
 typos_flagged:
-  - "Agentic Commergesta → Agentic Commercesta (Yhteenveto)"
+  - "Agentic Commercesta → Agentic Commercesta (Yhteenveto)"
 ---
 
 # Agentic Commerce -protokollat & Autonomiset Maksut
@@ -60,7 +60,7 @@ Jos maksuprosessissa tapahtuu virhe (esim. virheellinen summa tai väärä toimi
 
 ## Yhteenveto
 
-Autonominen kaupankäynti ei voi perustua luottokorttinumeron syöttämiseen agentin kontekstiin. KYA-S1 v1.3 -standardi tekee Agentic Commergesta turvallista ja auditoitavaa muuttamalla jokaisen maksun atomisesti kulutettavaksi valtuutustapahtumaksi.
+Autonominen kaupankäynti ei voi perustua luottokorttinumeron syöttämiseen agentin kontekstiin. KYA-S1 v1.3 -standardi tekee Agentic Commercesta turvallista ja auditoitavaa muuttamalla jokaisen maksun atomisesti kulutettavaksi valtuutustapahtumaksi.
 
 ## Katso sarjan muut osat
 

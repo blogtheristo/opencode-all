@@ -12,12 +12,12 @@ Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan päätösosa 11/11. Korvaa aiemman luonnoksen
+  Sarjan päätösosa 11/12. Korvaa aiemman luonnoksen
   docs/blog-drafts/eudi-wallet-eidas2-idv-ankkurointi.md, joka on eri teksti (se käsitteli
   wallet-ankkuroidun IDV:n ja KYA-AL3:n 60 s -vaatimuksen aitoa yhteensopivuusongelmaa)
   ja jää talteen (Rule 12). Se avoin kysymys ei sisälly tähän julkaistavaan versioon.
 typos_flagged:
-  - "pätövien sähköisten attribuuttitodistusten → pätevien"
+  - "pätevien sähköisten attribuuttitodistusten → pätevien"
   - "Niistä muuttuu → Niistä tulee / Ne muuttuvat (Yhteenveto)"
   - "tismalleen → täsmälleen (PRV-2-kohta)"
 ---
@@ -38,7 +38,7 @@ Tässä päätösosassa ankkuroimme KYA-S1 v1.3 -spesifikaation EU:n digitaalise
 
 ## EUDI Wallet ja eIDAS 2.0: Virallinen identiteetti tekoälymaailmaan
 
-EU:n digitaalisen identiteetin asetuksen (eIDAS 2.0) myötä jokaiselle EU-kansalaiselle ja -organisaatiolle tuodaan virallinen EUDI Wallet (European Digital Identity Wallet). Lompakko ei tarjoa ainoastaan vahvaa tunnistautumista, vaan se mahdollistaa pätövien sähköisten attribuuttitodistusten (QEAA, Qualified Electronic Attributed Credentials) esittämisen.
+EU:n digitaalisen identiteetin asetuksen (eIDAS 2.0) myötä jokaiselle EU-kansalaiselle ja -organisaatiolle tuodaan virallinen EUDI Wallet (European Digital Identity Wallet). Lompakko ei tarjoa ainoastaan vahvaa tunnistautumista, vaan se mahdollistaa pätevien sähköisten attribuuttitodistusten (QEAA, Qualified Electronic Attributed Credentials) esittämisen.
 
 EUDI Walletin avulla ihmisjohtaja voi todentaa kiistattomasti:
 
@@ -80,13 +80,13 @@ Ennen eIDAS 2.0 -integraatiota ihmisvalvonta oli usein vain sovellustason lokime
 Kytkemällä KYA-S1 ja EUDI Wallet toisiinsa artiklan 14 noudattamisesta tulee viranomaistasoisesti pitävää:
 
 - **Kiistämätön hyväksyntä (PRV-4):** Kun ihminen kuittaa poikkeaman HIC Dashboardilta, hyväksyntä allekirjoitetaan eIDAS 2.0 -pätevällä sähköisellä allekirjoituksella (QES).
-- **Aukoton auditointijälki (PRV-2):** Lifetime World Modeliin kirjaantuu ihmisen virallinen eIDAS-identiteetti, annettu sanallinen perustelu, tismalleen se näkymä, jonka ihminen näki kuitatessaan, sekä järjestelmän TRS-luottamustaso suoritushetkellä.
+- **Aukoton auditointijälki (PRV-2):** Lifetime World Modeliin kirjaantuu ihmisen virallinen eIDAS-identiteetti, annettu sanallinen perustelu, täsmälleen se näkymä, jonka ihminen näki kuitatessaan, sekä järjestelmän TRS-luottamustaso suoritushetkellä.
 
 Oikeudellisessa tarkastelussa ei tarvitse arvailla, kuka nappia painoi: auditointiloki osoittaa täsmällisen luonnollisen henkilön virallisella EU-identiteetillä.
 
 ## Yhteenveto: Sarjan päätössynteesi
 
-Tähän päättyy 11-osainen katsauksemme KYA-S1-spesifikaatioon, EU AI Actiin, BPMN 2.0 -prosessinohjaukseen ja DWS IQ -agentteihin.
+Tähän päättyy 12-osainen katsauksemme KYA-S1-spesifikaatioon, EU AI Actiin, BPMN 2.0 -prosessinohjaukseen ja DWS IQ -agentteihin.
 
 Koko arkkitehtuuri muodostaa aukottoman ketjun:
 
@@ -96,7 +96,7 @@ Koko arkkitehtuuri muodostaa aukottoman ketjun:
 4. **Lifetime World Model (LWM):** Muuttumaton tilarekisteri ja päätösten toistettavuus (PRV-2/4).
 5. **Agentic Commerce:** Turvallinen, KYA-S1-suojattu autonominen maksuliikenne ja kaupankäynti.
 
-Kun tämä kokonaisuus on paikoillaan, tekoälyagentit lakkaavat olemasta anonyymeja tietoturvariskejä. Niistä muuttuu Euroopan teollisuuden luotettava, suvereeni ja täysin ohjattavissa oleva suoritusporras.
+Kun tämä kokonaisuus on paikoillaan, tekoälyagentit lakkaavat olemasta anonyymeja tietoturvariskejä. Niistä tulee Euroopan teollisuuden luotettava, suvereeni ja täysin ohjattavissa oleva suoritusporras.
 
 ## Katso sarjan muut osat
 

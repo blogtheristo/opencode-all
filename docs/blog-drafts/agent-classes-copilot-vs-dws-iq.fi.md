@@ -12,7 +12,7 @@ Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 4/11. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
+  Sarjan osa 4/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
 ---
 
 # Agenttiluokat: Kehittäjän GitHub Copilot vs. teollisuuden DWS IQ -tausta-agentit

@@ -8,14 +8,14 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-hero_image: ../static/images/blog/kya-s1-series-hero-fi.jpg
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
 hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 11 osaa yhdellä kuvalla"
-hero_image_status: "PENDING FIX — Osa 8 esiintyy kahdesti (12 korttia / 11 osaa); 1024x559 alle 4K-rajan"
+hero_image_status: "OK — 12 korttia, 3840x2001 px, lähde scripts/assets/kya-s1-series-hero-fi.html"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "suomenkielinen hyväksytty"
 source: HIC-kirjoittama ja hyväksymä teksti (sessio claude/kya-s1-blog-post-1-swb4k4). Teksti käytetty sellaisenaan; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 1/11. Korvaa aiemman itsenäisen FI-version
+  Sarjan osa 1/12. Korvaa aiemman itsenäisen FI-version
   docs/blog-drafts/kya-s1-one-signed-page.fi.md, joka jää talteen CLAUDE.md Rule 12:n
   mukaisesti (formulaatioita ei hävitetä). Avoin ristiriita: tämä teksti käyttää
   varmuustasoja KYA-AL1/AL2/AL3. HIC ratkaisi nimeämisen 09.08.2026: AL-nimet jäävät, ja

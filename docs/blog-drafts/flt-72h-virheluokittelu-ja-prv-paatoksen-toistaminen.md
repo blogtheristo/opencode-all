@@ -85,7 +85,7 @@ Edellisen osan BPMN-mallissa PRV-kirjaus oli oma `Service Task`, johon **molemma
 3. **Käytetty Lease Token:** todiste siitä, että suorituslupa oli voimassa ja atomisesti kulutettu
 4. **Mallin tila:** malliversio, lämpötilaparametri ja järjestelmäkehotteet
 
-Tämä mahdollistaa **PRV-2:n (Decision replay)**. Vaikka varsinainen tekoälymalli päivittyisi tai vaihtuisi kahden vuoden kuluttua, alkuperäinen päätöksentekoketju voidaan rekonstruoida tismalleen samoilla reunaehdoilla.
+Tämä mahdollistaa **PRV-2:n (Decision replay)**. Vaikka varsinainen tekoälymalli päivittyisi tai vaihtuisi kahden vuoden kuluttua, alkuperäinen päätöksentekoketju voidaan rekonstruoida täsmälleen samoilla reunaehdoilla.
 
 Mitä agentti tiesi? Millä valtuudella se toimi? Miten se päätyi tulokseen? PRV antaa näihin vastauksen — myös silloin kun päättäjä oli ihminen.
 
