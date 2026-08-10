@@ -8,6 +8,8 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "suomenkielinen hyväksytty"
 source: HIC-kirjoittama ja hyväksymä teksti (sessio claude/kya-s1-blog-post-1-swb4k4). Teksti käytetty sellaisenaan; ei agentin uudelleenkirjoitusta.
