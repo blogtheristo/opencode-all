@@ -28,8 +28,15 @@ export type ToolHandler = (
 
 const toolHandlers: Map<string, ToolHandler> = new Map();
 
-/** Register a tool handler */
+/** Register a tool handler. Throws if a handler for the same name is already registered. */
 export function registerToolHandler(name: string, handler: ToolHandler): void {
+  if (toolHandlers.has(name)) {
+    // Idempotent: skip silently if the same logical registration is repeated (e.g. tests
+    // creating multiple AgentRegistry instances that share module-level state). Warn so
+    // accidental name collisions in production surface without requiring debug logging.
+    logger.warn('Tool handler already registered — skipping duplicate', { tool: name });
+    return;
+  }
   toolHandlers.set(name, handler);
   logger.debug('Tool handler registered', { tool: name });
 }
