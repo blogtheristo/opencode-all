@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-09
 **Branch:** `claude/organisaation-hankintakansio-57efio`
-**Commit:** `6d17f2f`
+**Commit:** `6d17f2f` (v1.0), + v1.1 tässä sessiossa
 
 ## Mitä tehtiin
 
@@ -20,9 +20,23 @@ Deliverable: `Legal/KYA_S1_HANKINTAKANSIO_FI.md` v1.0 — suomenkielinen ostajan
 - **Ei koskettu KYA-S1 v1.3:een.** Rule 3 (surgical) — cross-reference olisi vaatinut versiokorotuksen.
 - **MA-S2 säilyy rakenteellisena inspiraationa**, ei yhteistyönä (v1.1:n editorial tone-down).
 
+## HIC-katselmointi 10.08.2026
+
+HIC luki artefaktin ja palautti sen merkinnällä **"10.8.2026. hyväksytty. HIC"**. Dokumentti on nyt v1.1, Publication Status APPROVED.
+
+Toimitukselliset korjaukset, jotka HIC teki suoraan tekstiin ja jotka sovellettiin sellaisenaan:
+
+- §2:n varauma alkaa "Huom." — se on varoitus, ei sivulause.
+- Taulukon rivi `Alusta / Infrastruktuuri` isolla alkukirjaimella, ASCII-kaavion kanssa yhdenmukaisesti.
+- Pilkku: "syntyvät vasta, kun toimija on autonominen agentti".
+- §5:n kaksi rajausta numeroitu **1.** ja **2.** — otsikko lupasi kaksi, teksti ei näyttänyt niitä.
+- §6 yhdistää kommenttikauden ja sen kalenteroinnin samaan lukuun.
+
+**HIC poisti päätöslistalta vaihtoehdon "onelifetime.world-sivulle".** Julkista sivua ei tehdä. Jäljelle jäi kaksi: vain repoon, vai KYA-S1:n virallinen FI-liite (versiolukitus + EN-käännös). Tämä on yhä auki.
+
 ## Avoimet asiat
 
-- **04.11.2026 — KYA-S1:n kommenttikausi sulkeutuu.** Yhä kalenteroimatta (peritty edellisestä sessiosta, `docs/NEXT_SESSION_PROMPT_2026-08-08.md`). Tämä dokumentti viittaa päivään §6:ssa, joten sen sisältö vanhenee samana päivänä.
+- **Sijoituspäätös** — repo-only vai virallinen FI-liite. Jälkimmäinen tuo mukanaan EN-käännöksen ja lukituksen KYA-S1:n versioon.
 - Dokumentista ei ole EN-versiota. Jos ostajaohje halutaan muillekin markkinoille, käännöspohja on tämä tiedosto.
 
 ## Learning Outcome — kuusi askelta
@@ -30,10 +44,14 @@ Deliverable: `Legal/KYA_S1_HANKINTAKANSIO_FI.md` v1.0 — suomenkielinen ostajan
 1. **KB-päivitys** — N/A: kyseessä on olemassa olevan kanonin uudelleenjärjestely ostajanäkymäksi, ei uutta tietoa `kb/`:hen.
 2. **Field note** — tämä tiedosto.
 3. **Learn/-HTML** — N/A: `scripts/render-doc.sh` vaatii pandocin, jota ei ole asennettu tähän konttiin ("pandoc not installed"). Renderöitävä ympäristössä, jossa pandoc on.
-4. **Drive-vienti** — N/A: dokumentti on luonnos (Publication Status: DRAFT), vienti tehdään kun HIC hyväksyy sisällön.
+4. **Drive-vienti** — tekemättä. Dokumentti on nyt APPROVED, joten alkuperäinen syy ("luonnos") ei enää päde; uusi syy on että vienti riippuu sijoituspäätöksestä — FI-liitteenä se viedään EN-käännöksen kanssa, repo-only-ohjeena yksin. Tehtävä heti kun päätös on tehty.
 5. **HIC-kysymys** — alla.
-6. **Kalenterointi** — 04.11.2026 kommenttikauden sulkeutuminen on yhä kalenteroimatta; tämä sessio ei tuottanut uusia päivämääriä.
+6. **Kalenterointi** — tehty 10.08.2026 HIC:n luvalla ("2. kyllä"). Kaksi merkintää Google-kalenteriin:
+   - **04.11.2026** — "KYA-S1 v1.3 — julkinen kommenttikausi SULKEUTUU tänään". Kuvauksessa lista tiedostoista ja sivuista, jotka vanhenevat samana päivänä.
+   - **14.10.2026** — "Aloita KYA-S1 v1.4 -käsittely". Kolmen viikon etuaika, koska kommenttien läpikäynti, v1.4:n rajaus ja julkaistujen sivujen päivitys eivät mahdu sulkeutumispäivään.
+
+   Etuajan pituus on arvio, ei mitattu luku. Jos v1.4:n valmistelu osoittautuu isommaksi, merkintää siirretään aikaisemmaksi.
 
 ## HIC-kysymys
 
-Hankintakansio-ohje on nyt suomeksi ja ostajalle. Meneekö se **(a)** vain repoon myyntimateriaalin lähteeksi, **(b)** `onelifetime.world`-sivulle julkiseksi ostajan muistilistaksi, vai **(c)** KYA-S1:n viralliseksi FI-liitteeksi, jolloin se pitää lukita spesifikaation versioon ja kääntää myös EN:ksi?
+Sijoituspäätös on yhä auki: meneekö ohje **(a)** vain repoon myyntimateriaalin lähteeksi, vai **(b)** KYA-S1:n viralliseksi FI-liitteeksi, jolloin se lukitaan spesifikaation versioon ja käännetään EN:ksi? HIC poisti kolmannen vaihtoehdon (julkinen sivu) 10.08.2026.

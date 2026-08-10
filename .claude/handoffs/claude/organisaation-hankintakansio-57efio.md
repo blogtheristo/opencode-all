@@ -1,25 +1,32 @@
 # Handoff — claude/organisaation-hankintakansio-57efio
 
-**Viimeksi:** 09.08.2026
+**Viimeksi:** 10.08.2026
 
 ## Tila
 
-Valmis ja committoitu (`6d17f2f`, `docs/field-notes/2026-08-09-...`):
-- `Legal/KYA_S1_HANKINTAKANSIO_FI.md` v1.0 — suomenkielinen ostajanäkymä hankintakansion
-  kerrosmalliin (organisaatio → AI-hallintajärjestelmä → alusta → data → ohjelmistoketju →
-  autonominen agentti / KYA-S1 v1.3).
+`Legal/KYA_S1_HANKINTAKANSIO_FI.md` **v1.1, HIC-hyväksytty 10.08.2026** (Publication Status:
+APPROVED). Suomenkielinen ostajanäkymä hankintakansion kerrosmalliin: organisaatio →
+AI-hallintajärjestelmä → alusta/infrastruktuuri → data → ohjelmistoketju → autonominen agentti
+(KYA-S1 v1.3).
 
-Kanoninen lähde on `Legal/KYA_S1_v1.3.md` §7 (kerrostaulukko) ja §2–§6 (seitsemän kontrollialuetta).
-Spesifikaatioon **ei** koskettu — cross-reference olisi vaatinut versiokorotuksen kesken
-kommenttikauden.
+HIC:n toimitukselliset korjaukset sovellettu (Huom.-varauma, isot alkukirjaimet, pilkku,
+rajausten numerointi 1./2., §6 = kommenttikausi + kalenterointi). Kanoninen lähde on yhä
+`Legal/KYA_S1_v1.3.md` §7 — spesifikaatioon ei ole koskettu.
+
+Katselmointiartefakti (päivitetty): https://claude.ai/code/artifact/3042881a-45aa-4745-92ca-f33e66821ece
+
+## Kalenteroitu 10.08.2026
+
+- **14.10.2026** — "Aloita KYA-S1 v1.4 -käsittely" (3 vk etuaika).
+- **04.11.2026** — "KYA-S1 v1.3 — julkinen kommenttikausi SULKEUTUU tänään", kuvauksessa lista
+  vanhenevista tiedostoista ja sivuista.
 
 ## Avoinna
 
-- **HIC-päätös:** meneekö ohje vain repoon, onelifetime.world-sivulle vai KYA-S1:n viralliseksi
-  FI-liitteeksi (jolloin lukitus spesifikaation versioon + EN-käännös).
+- **Sijoituspäätös:** repo-only vai KYA-S1:n virallinen FI-liite (→ versiolukitus + EN-käännös).
+  HIC poisti kolmannen vaihtoehdon (onelifetime.world-sivu) 10.08.2026 — julkista sivua ei tehdä.
+- **Drive-vienti** odottaa samaa päätöstä.
 - **Learn/-HTML renderöimättä** — pandoc puuttuu tästä kontista.
-- **04.11.2026** KYA-S1:n kommenttikausi sulkeutuu, yhä kalenteroimatta. Uuden dokumentin §6
-  vanhenee samana päivänä.
 
 ## Ei tässä sessiossa
 
