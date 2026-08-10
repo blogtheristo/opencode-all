@@ -225,6 +225,11 @@ const posts = [
     date: '10 Jul 2026',
   },
   {
+    file: 'greg-isenberg-agents-need-a-signature.html',
+    title: 'Greg Isenberg Is Right About Agents. The Hard Part Is a Signature.',
+    date: 'Jul 2026',
+  },
+  {
     file: 'ai-supercomputing-meets-eda-sovereign-design.html',
     title: 'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
     date: '17 Jul 2026',

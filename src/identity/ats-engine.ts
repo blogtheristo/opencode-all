@@ -13,7 +13,7 @@
  *
  * @section DWS_SECURITY_STANDARD §18.3
  * @see Legal/KYA_SECURITY_v1.2.md §3 (ATS base formula)
- * @see Legal/KYA_S1_v1.3.md §6.2 TRS-1 (IDV state is a required scoring input)
+ * @see Legal/KYA_S1.md §6.2 TRS-1 (IDV state is a required scoring input)
  * @see Legal/KYA_OPTIMIZATION_v1.4.md §3 (canonical ATS: ATS_Final = ATS_Base × (1 + A),
  *      A capped at 0.25, A = 0 when V > 0). This engine computes ATS_Base ONLY — the A
  *      factor is applied by the autoresearch orchestrator, never inside the security
@@ -56,8 +56,12 @@ const GO_THRESHOLD = 0.5;
  * Calculates the Agent Trust Score for a subagent session.
  *
  * Pull from Firehorse telemetry logs to compute a weighted score
- * incorporating violations, latency, manifest integrity, and
- * permission overreach.
+ * incorporating violations, manifest integrity, and permission overreach.
+ *
+ * Latency is deliberately NOT a scoring input: a slow agent is not an
+ * untrustworthy one, and routing infrastructure degradation through the
+ * authorization value hides it (KYA audit P1-1). Latency is measured and
+ * reported as telemetry only — see `avgLatency` in the returned breakdown.
  *
  * @param manifest - Signed Capability Manifest for the session
  * @param telemetry - Firehorse telemetry log entries for the session
