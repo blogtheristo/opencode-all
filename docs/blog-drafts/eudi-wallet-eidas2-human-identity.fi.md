@@ -24,7 +24,7 @@ typos_flagged:
 
 # Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0: Ihmisen perusidentiteetti tekoälyagentin valtuuttajana
 
-Blogi 11/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 11/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Sisäisestä SSO-kirjautumisesta EU-tason juridiseen identiteettiin
 

@@ -17,7 +17,7 @@ note: >-
 
 # Agenttiluokat: Kehittäjän GitHub Copilot vs. teollisuuden DWS IQ -tausta-agentit
 
-Blogi 4/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 4/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Kaksi täysin eri tekoälymaailmaa
 

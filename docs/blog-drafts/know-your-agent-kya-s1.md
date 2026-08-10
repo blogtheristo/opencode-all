@@ -9,7 +9,7 @@ site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
-hero_image_alt: "Series map: the 11 parts of the KYA-S1 blog series in one image (Finnish)"
+hero_image_alt: "Series map: the 12 parts of the KYA-S1 blog series in one image (Finnish)"
 hero_image_status: "OK — 12 korttia, 3840x2001 px, lähde scripts/assets/kya-s1-series-hero-fi.html"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "englanninkielinen 100% vastaavuus = hyväksytty"
@@ -28,7 +28,7 @@ note: >-
 
 # Know Your Agent (KYA-S1): One Signed Page for the AI in the Security File That Touches Your Data
 
-Blog 1/11 · DWS IQ & Lifetime World Model · 8 August 2026 · Risto Anton Päärni
+Blog 1/12 · DWS IQ & Lifetime World Model · 8 August 2026 · Risto Anton Päärni
 
 ## Introduction: AI makes decisions — but who carries the liability?
 

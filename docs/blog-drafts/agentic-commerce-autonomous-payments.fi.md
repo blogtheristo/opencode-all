@@ -19,7 +19,7 @@ typos_flagged:
 
 # Agentic Commerce -protokollat & Autonomiset Maksut
 
-Blogi 10/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 10/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Koodista taloudelliseen toimivaltaan
 

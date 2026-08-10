@@ -1,11 +1,14 @@
 /**
- * OneLifetime.World Vertical Language Bar v1.2
+ * OneLifetime.World Vertical Language Bar v1.3
  * Introduced-In: PR-TBD (iceye-jgi-deforestation)
  * Code-Version: 1.1
  * Branch: claude/iceye-jgi-deforestation-PSzCd
  * Date: 2026-04-23
  * Owner: Lifetime Oy
  *
+ * v1.3 — Heading is set via textContent instead of interpolated into innerHTML, and the
+ *        <title> fallback no longer hard-codes a KYA-specific suffix (Copilot review,
+ *        PR #1818).
  * v1.2 — On a post page the bar now speaks about THAT post, not about the blog in general:
  *        the heading becomes the post's own title (so it changes page to page), and a
  *        language whose translation does not exist is dimmed and inert instead of silently
@@ -194,10 +197,12 @@
       if (hl && hl !== 'x-default') available[hl] = a.href;
     });
     // A single self-referential alternate means no translations exist yet.
+    // og:title is the post's own title with no site/series suffix, so prefer it verbatim.
+    // Only the <title> fallback needs trimming, and that rule stays generic — first
+    // segment before an em-dash separator — rather than hard-coding one series' name.
     var og = document.querySelector('meta[property="og:title"]');
-    var title = (og && og.content) || document.title || '';
-    title = title.split(' — KYA')[0].trim();
-    return { available: available, title: title };
+    var title = og && og.content ? og.content : (document.title || '').split(' — ')[0];
+    return { available: available, title: title.trim() };
   }
 
   function build() {
@@ -229,12 +234,16 @@
       );
     }).join('');
 
-    el.innerHTML =
-      (post && post.title
-        ? '<div class="olw-vlb-heading olw-vlb-post-title">🌍 ' +
-          post.title.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
-          '</div>'
-        : '<div class="olw-vlb-heading">🌍 5 European Languages</div>') + rows;
+    // The heading carries untrusted-ish page text (an author-set og:title), so it is set
+    // as text, never interpolated into innerHTML. Escaping only & and < left >, quotes and
+    // apostrophes able to break the markup.
+    var heading = document.createElement('div');
+    heading.className =
+      'olw-vlb-heading' + (post && post.title ? ' olw-vlb-post-title' : '');
+    heading.textContent = '🌍 ' + (post && post.title ? post.title : '5 European Languages');
+
+    el.innerHTML = rows;
+    el.insertBefore(heading, el.firstChild);
 
     el.querySelectorAll('.olw-vlb-row').forEach(function (row) {
       row.addEventListener('click', function () {

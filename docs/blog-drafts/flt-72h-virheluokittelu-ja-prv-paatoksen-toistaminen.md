@@ -11,7 +11,7 @@ series: "KYA-S1 -blogisarja"
 part: 7
 parts_total: 12
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
-series: "Blogi 7/7 · DWS IQ & Lifetime World Model — sarjan päätösosa"
+display_series: "Blogi 7/12 · DWS IQ & Lifetime World Model"
 editorial_fixes: |
   Neljä terminologiakorjausta Legal/KYA_S1.md:tä vasten (Sääntö 12 — kerrotaan ääneen):
   1. FLT = "Fault Attribution" (§6.1), ei "Fault Triaging". Viisi virheluokkaa täsmäävät

@@ -21,7 +21,7 @@ typos_flagged:
 
 # KYA-S1 Ekosysteemi & Tuotanto-Roadmap
 
-Blogi 8/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 8/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Koodista organisaation arkeen
 

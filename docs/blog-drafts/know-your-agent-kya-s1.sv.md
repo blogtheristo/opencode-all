@@ -9,22 +9,21 @@ site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
-hero_image_alt: "Seriekarta: KYA-S1-bloggseriens 11 delar i en bild (finska)"
+hero_image_alt: "Seriekarta: KYA-S1-bloggseriens 12 delar i en bild (finska)"
 hero_image_status: "OK — 12 korttia, 3840x2001 px, lähde scripts/assets/kya-s1-series-hero-fi.html"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — Godkänd av HIC 09.08.2026 med villkoret att AI-översättningsmärkningen ingår.
 source: Översättning av den HIC-godkända finska texten (know-your-agent-kya-s1.fi.md). Avsnitt för avsnitt, påstående för påstående.
 ai_disclosure: included (mandatory banner below the title)
 note: >-
-  Seriens del 1/11. Väntar på HIC:s godkännande (Regel 13) — HIC godkände uttryckligen FI
-  och EN, inte SV/DE/FR. AI-översättningsmärkning krävs vid publicering
+  Seriens del 1/12. Godkänd av HIC 09.08.2026 med villkoret att AI-översättningsmärkningen ingår. AI-översättningsmärkning krävs vid publicering
   (docs/BLOG_STANDARD.md §3.2.1, EU AI Act art. 50(4)).
   Säkerhetsnivåerna följer Legal/KYA_S1.md v1.5 (KYA-AL1/AL2/AL3).
 ---
 
 # Känn din agent (KYA-S1): En signerad sida om den AI i säkerhetspärmen som rör dina data
 
-Blogg 1/11 · DWS IQ & Lifetime World Model · 8 augusti 2026 · Risto Anton Päärni
+Blogg 1/12 · DWS IQ & Lifetime World Model · 8 augusti 2026 · Risto Anton Päärni
 
 > **AI-översättning.** Detta dokument är översatt med AI från den finska masterversionen (Ground Truth). Vid rättsliga och tekniska tolkningar har den finska versionen företräde.
 

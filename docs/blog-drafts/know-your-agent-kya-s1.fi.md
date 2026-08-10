@@ -9,7 +9,7 @@ site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
-hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 11 osaa yhdellä kuvalla"
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa yhdellä kuvalla"
 hero_image_status: "OK — 12 korttia, 3840x2001 px, lähde scripts/assets/kya-s1-series-hero-fi.html"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "suomenkielinen hyväksytty"
@@ -24,7 +24,7 @@ note: >-
 
 # Tunne agenttisi (KYA-S1): Yksi allekirjoitettu sivu tekoälystä tietoturvakansiossa, joka koskee dataasi
 
-Blogi 1/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 1/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Tekoäly tekee päätöksiä, mutta kuka kantaa vastuun?
 

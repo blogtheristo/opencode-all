@@ -22,7 +22,7 @@ typos_flagged:
 
 # KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä
 
-Blogi 2/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 2/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Pankkimaailmasta tekoälyautomaatioon
 

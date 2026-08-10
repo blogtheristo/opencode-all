@@ -21,7 +21,7 @@ typos_flagged:
 
 # EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita
 
-Blogi 3/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 3/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Autonomia vs. lakisääteinen valvonta
 

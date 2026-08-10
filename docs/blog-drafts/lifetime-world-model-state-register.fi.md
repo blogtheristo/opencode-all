@@ -21,7 +21,7 @@ typos_flagged:
 
 # Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti
 
-Blogi 9/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 9/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Älykäs moottori tarvitsee maailmanmallin
 
