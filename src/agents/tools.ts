@@ -1174,6 +1174,8 @@ export function registerBuiltinTools(): void {
       newSource,
       reason,
       agentId: context.userId || 'agent',
+      // Runtime-issued KYA trust score, not an LLM/user-supplied value.
+      agentAts: context.agentRuntime?.kya?.trustScore,
     });
 
     return {

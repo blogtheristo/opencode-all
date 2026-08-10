@@ -107,11 +107,13 @@ export interface ATSResult {
 export interface ATSBreakdown {
   baseScore: number;
   violationPenalty: number;
+  /** Legacy compatibility field. Latency penalty was removed from ATS scoring. */
   latencyPenalty: number;
   overreachPenalty: number;
   manifestValid: boolean;
   violationCount: number;
   deniedAttemptCount: number;
+  /** Observability only. Latency no longer affects ATS scoring. */
   avgLatencyMs: number;
   /** True only when the human principal is verified and the attestation is fresh */
   idvValid: boolean;

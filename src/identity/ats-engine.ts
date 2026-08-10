@@ -46,11 +46,6 @@ const VIOLATION_PENALTY = 0.25;
 /** Points deducted per DENIED path access attempt */
 const OVERREACH_PENALTY = 0.05;
 
-/** Latency threshold (ms) above which a penalty is applied */
-const LATENCY_THRESHOLD_MS = 500;
-
-/** Penalty for avg latency exceeding threshold */
-const LATENCY_PENALTY = 0.1;
 
 /** KYA score threshold for GO decision (normalized) */
 const GO_THRESHOLD = 0.5;
@@ -130,15 +125,11 @@ export function calculateATS(
   const violationPenalty = violations.length * VIOLATION_PENALTY;
   score -= violationPenalty;
 
-  // 2. Latency/SLA health
+  // 2. Latency/SLA health (Observability only - latency penalty removed for compatibility)
   let avgLatency = 0;
-  let latencyPenalty = 0;
+  const latencyPenalty = 0;
   if (telemetry.length > 0) {
     avgLatency = telemetry.reduce((sum, l) => sum + l.latency, 0) / telemetry.length;
-    if (avgLatency > LATENCY_THRESHOLD_MS) {
-      latencyPenalty = LATENCY_PENALTY;
-      score -= latencyPenalty;
-    }
   }
 
   // 3. Permission overreach (denied path access attempts)

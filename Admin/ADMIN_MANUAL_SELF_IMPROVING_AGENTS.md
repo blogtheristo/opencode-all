@@ -132,6 +132,8 @@ Scans `src/` for hardcoded API key patterns (`sk-ant-api`, `gsk_`, `eyJhbG`, `AI
 
 The MCP Hub already provides an iterative refinement workflow. When an agent's output needs quality evaluation, call the reflection workflow endpoint rather than a dedicated agent. This keeps quality evaluation at the orchestration layer where it belongs.
 
+*Note: Following the KYA audit, proactive nudges are restricted to the named advisor-phase agents (`compliance`, `customer-sat`, `sitesense`). Latency metrics are kept as observability-only telemetry in ATS to maintain trust score stability.*
+
 ---
 
 ## 5. Daily Workflow
@@ -151,7 +153,7 @@ The MCP Hub already provides an iterative refinement workflow. When an agent's o
 | `scripts/codebase_health.py` | Python health report generator |
 | `.github/workflows/test-on-pr.yml` | CI/CD test and security workflow |
 | `mcp-hub/server.py` | MCP Hub with `/workflow/reflection` endpoint |
-| `src/agents/index.ts` | Agent registry (5 domain agents) |
+| `src/agents/index.ts` | Agent registry |
 | `src/agents/base.agent.ts` | Base agent class (LLM, logging) |
 | `src/__tests__/agents.test.ts` | Agent test suite |
 | `CLAUDE.md` | Project instructions for AI sessions |

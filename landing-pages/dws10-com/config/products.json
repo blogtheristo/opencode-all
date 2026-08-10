@@ -8,9 +8,9 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a fleet of skilled agents across 10 LWM ontology classes and 16 captain hats covering 25+ EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
-        "Orchestrates a fleet of skilled agents across 10 LWM ontology classes, MCP-native with CLI access",
+        "Orchestrates a governed skilled-agent fleet with KYA/Article-12 traceability, MCP-native with CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
