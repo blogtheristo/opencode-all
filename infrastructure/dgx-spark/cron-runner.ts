@@ -18,7 +18,7 @@ import cron from 'node-cron';
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -34,10 +34,18 @@ interface CronJob {
   name: string;
   schedule: string; // cron expression (UTC)
   workflow: string; // corresponding GitHub Actions workflow
-  command: string; // what to execute
+  command: CronCommand; // what to execute
   enabled: boolean;
   lastRun?: Date;
   lastStatus?: 'success' | 'failure';
+}
+
+type AllowedExecutable = 'bash' | 'node' | 'npx' | 'npm' | 'python3';
+
+interface CronCommand {
+  executable: AllowedExecutable;
+  args: readonly string[];
+  outputFile?: string;
 }
 
 const jobs: CronJob[] = [
@@ -49,7 +57,7 @@ const jobs: CronJob[] = [
     name: 'daily-site-backup',
     schedule: '0 2 * * *',
     workflow: 'daily-site-backup.yml',
-    command: 'bash scripts/backup-sites.sh',
+    command: { executable: 'bash', args: ['scripts/backup-sites.sh'] },
     enabled: false,
   },
   // daily-db-backup: HOST-ONLY. Needs pg_dump, gpg, scp — none of which exist
@@ -58,14 +66,14 @@ const jobs: CronJob[] = [
     name: 'daily-db-backup',
     schedule: '30 2 * * *',
     workflow: 'daily-db-backup.yml',
-    command: 'bash scripts/db-daily-backup.sh',
+    command: { executable: 'bash', args: ['scripts/db-daily-backup.sh'] },
     enabled: false,
   },
   {
     name: 'campaign-daily-posts',
     schedule: '0 3 * * *',
     workflow: 'campaign-daily-posts.yml',
-    command: 'npx tsx scripts/generate-campaign-post.ts',
+    command: { executable: 'npx', args: ['tsx', 'scripts/generate-campaign-post.ts'] },
     enabled: true,
   },
   {
@@ -74,49 +82,49 @@ const jobs: CronJob[] = [
     name: 'park-stale-threads',
     schedule: '30 3 * * 1-6',
     workflow: 'park-stale-threads.yml',
-    command: 'npx tsx scripts/daily/park-stale-threads.ts',
+    command: { executable: 'npx', args: ['tsx', 'scripts/daily/park-stale-threads.ts'] },
     enabled: true,
   },
   {
     name: 'morning-brief-v2',
     schedule: '0 4 * * 1-6',
     workflow: 'morning-briefing.yml',
-    command: 'npx tsx scripts/send-morning-brief-v2.ts',
+    command: { executable: 'npx', args: ['tsx', 'scripts/send-morning-brief-v2.ts'] },
     enabled: true,
   },
   {
     name: 'construction-leads',
     schedule: '0 4 * * 1-6',
     workflow: 'construction-leads.yml',
-    command: `node -e "fetch('${BACKEND_URL}/api/construction-leads/fetch', {method:'POST'}).then(r=>console.log(r.status))"`,
+    command: { executable: 'node', args: ['-e', `fetch('${BACKEND_URL}/api/construction-leads/fetch', {method:'POST'}).then(r=>console.log(r.status))`] },
     enabled: true,
   },
   {
     name: 'outreach-digest',
     schedule: '5 4 * * 1-6',
     workflow: 'outreach-digest.yml',
-    command: `node -e "fetch('${BACKEND_URL}/api/outreach/digest', {method:'POST'}).then(r=>console.log(r.status))"`,
+    command: { executable: 'node', args: ['-e', `fetch('${BACKEND_URL}/api/outreach/digest', {method:'POST'}).then(r=>console.log(r.status))`] },
     enabled: true,
   },
   {
     name: 'social-scheduler',
     schedule: '0 6 * * 1-5',
     workflow: 'social-scheduler.yml',
-    command: 'npx tsx src/social-scheduler/post-library.ts',
+    command: { executable: 'npx', args: ['tsx', 'src/social-scheduler/post-library.ts'] },
     enabled: true,
   },
   {
     name: 'captain-briefing',
     schedule: '30 5 * * 1-5',
     workflow: 'captain-briefing.yml',
-    command: `node -e "fetch('${BACKEND_URL}/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))"`,
+    command: { executable: 'node', args: ['-e', `fetch('${BACKEND_URL}/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))`] },
     enabled: true,
   },
   {
     name: 'regulation-monitor',
     schedule: '30 3 * * 1-5',
     workflow: 'regulation-monitor.yml',
-    command: 'npx tsx scripts/send-regulation-digest.ts',
+    command: { executable: 'npx', args: ['tsx', 'scripts/send-regulation-digest.ts'] },
     enabled: true,
   },
   // daily-claude-backup: GHA-only (backs up .claude sessions to git commit)
@@ -127,14 +135,14 @@ const jobs: CronJob[] = [
     name: 'weekly-report',
     schedule: '0 9 * * 1',
     workflow: 'weekly-report.yml',
-    command: 'npx tsx scripts/send-weekly-report-email.ts',
+    command: { executable: 'npx', args: ['tsx', 'scripts/send-weekly-report-email.ts'] },
     enabled: true,
   },
   {
     name: 'campaign-newsletter',
     schedule: '0 5 * * 5',
     workflow: 'campaign-newsletter.yml',
-    command: 'npx tsx scripts/send-campaign-newsletter.ts',
+    command: { executable: 'npx', args: ['tsx', 'scripts/send-campaign-newsletter.ts'] },
     enabled: true,
   },
   // market-research-weekly: HOST-ONLY. node:22-slim has no python3.
@@ -143,7 +151,7 @@ const jobs: CronJob[] = [
     name: 'market-research-weekly',
     schedule: '0 7 * * 1',
     workflow: 'market-research-weekly.yml',
-    command: 'python3 scripts/collect_market_research.py',
+    command: { executable: 'python3', args: ['scripts/collect_market_research.py'] },
     enabled: false,
   },
   // daily-mvp-audit: feature parity check across RC1–RC5 + infra metrics.
@@ -153,7 +161,7 @@ const jobs: CronJob[] = [
     name: 'daily-mvp-audit',
     schedule: '0 2 * * *',
     workflow: 'daily-mvp-audit.yml',
-    command: 'bash scripts/daily/mvp-audit.sh',
+    command: { executable: 'bash', args: ['scripts/daily/mvp-audit.sh'] },
     enabled: true,
   },
   // ted-pipeline: daily TED tender fetch + optional SES outreach.
@@ -163,21 +171,21 @@ const jobs: CronJob[] = [
     name: 'ted-pipeline',
     schedule: '0 6 * * *',
     workflow: 'ted-pipeline.yml',
-    command: 'bash scripts/daily/ted-pipeline.sh',
+    command: { executable: 'bash', args: ['scripts/daily/ted-pipeline.sh'] },
     enabled: true,
   },
   {
     name: 'ted-followup',
     schedule: '30 7 * * *',
     workflow: 'ted-followup.yml',
-    command: 'bash scripts/daily/ted-followup.sh',
+    command: { executable: 'bash', args: ['scripts/daily/ted-followup.sh'] },
     enabled: true,
   },
   {
     name: 'ted-learning-weekly',
     schedule: '15 8 * * 1',
     workflow: 'ted-learning-weekly.yml',
-    command: 'bash scripts/weekly/ted-learning.sh',
+    command: { executable: 'bash', args: ['scripts/weekly/ted-learning.sh'] },
     enabled: true,
   },
   // housekeeping-weekly: weekly housekeeping audit per HOUSEKEEPING_POLICY.md.
@@ -187,7 +195,7 @@ const jobs: CronJob[] = [
     name: 'housekeeping-weekly',
     schedule: '0 3 * * 0',
     workflow: 'housekeeping-weekly.yml',
-    command: 'bash scripts/weekly/housekeeping-audit.sh',
+    command: { executable: 'bash', args: ['scripts/weekly/housekeeping-audit.sh'] },
     enabled: true,
   },
   // roadmap-weekly-tracker: GHA-only (creates GitHub issue with roadmap summary)
@@ -195,14 +203,14 @@ const jobs: CronJob[] = [
     name: 'agents-md-freshness',
     schedule: '0 6 * * 1',
     workflow: 'agents-md-freshness.yml',
-    command: 'node scripts/verify-agents-md.mjs --json',
+    command: { executable: 'node', args: ['scripts/verify-agents-md.mjs', '--json'] },
     enabled: true,
   },
   {
     name: 'golden-principle-scan',
     schedule: '30 6 * * 1',
     workflow: 'golden-principle-scan.yml',
-    command: 'node scripts/golden-principle-check.mjs --json',
+    command: { executable: 'node', args: ['scripts/golden-principle-check.mjs', '--json'] },
     enabled: true,
   },
   // housekeeping-weekly: GHA-only (inline shell checks in workflow)
@@ -210,14 +218,14 @@ const jobs: CronJob[] = [
     name: 'security-audit-enhanced',
     schedule: '0 2 * * 1',
     workflow: 'security-audit-enhanced.yml',
-    command: 'npm audit --json > /app/logs/npm-audit.json 2>&1',
+    command: { executable: 'npm', args: ['audit', '--json'], outputFile: '/app/logs/npm-audit.json' },
     enabled: true,
   },
   {
     name: 'dependency-review',
     schedule: '0 0 * * 0',
     workflow: 'dependency_review.yml',
-    command: 'npm audit --json > /app/logs/dependency-review.json 2>&1',
+    command: { executable: 'npm', args: ['audit', '--json'], outputFile: '/app/logs/dependency-review.json' },
     enabled: true,
   },
 
@@ -231,8 +239,7 @@ const jobs: CronJob[] = [
     name: 'security-scan-biweekly',
     schedule: '30 2 1 * *',
     workflow: 'security-scan-biweekly.yml',
-    command:
-      'python3 scripts/scan_critical_bugs.py --full --output /app/logs/critical-bugs-report.md',
+    command: { executable: 'python3', args: ['scripts/scan_critical_bugs.py', '--full', '--output', '/app/logs/critical-bugs-report.md'] },
     enabled: false,
   },
   // biweekly-auth-security-audit: not in this heartbeat-mirror list because its
@@ -288,15 +295,16 @@ function echoOutput(jobName: string, stream: string, text: string): void {
 function runJob(job: CronJob): void {
   console.log(`[CRON] Running: ${job.name} (${job.workflow})`);
 
-  // Use exec() (shell) instead of execFile() so commands with quotes,
-  // redirects (>, 2>&1), pipes, or env-var expansion work correctly.
-  // The previous execFile + naive split(' ') broke any command containing
-  // a quoted argument like `node -e "fetch('http://...')"`.
-  exec(
-    job.command,
+  // Structured executable and argument arrays avoid shell injection.
+  execFile(
+    job.command.executable,
+    [...job.command.args],
     { timeout: 300_000, cwd: '/app', maxBuffer: 10 * 1024 * 1024 },
     (err, stdout, stderr) => {
       const output = stdout + (stderr ? `\nSTDERR: ${stderr}` : '');
+      if (job.command.outputFile) {
+        fs.writeFileSync(job.command.outputFile, stdout);
+      }
       echoOutput(job.name, 'out', stdout);
       echoOutput(job.name, 'err', stderr);
       if (err) {
