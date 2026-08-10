@@ -8,13 +8,11 @@
  */
 
 import { type Request, type Response, Router } from 'express';
+import { getInternalDbPool } from '../config/internal-db.js';
 import { sendEmail } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
-
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
 router.get('/done/:token', async (req: Request, res: Response): Promise<void> => {
   const { token } = req.params;
@@ -25,36 +23,34 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
     return;
   }
 
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-    res.status(503).send('<p>Supabase not configured.</p>');
+  const pool = getInternalDbPool();
+  if (!pool) {
+    res.status(503).send('<p>Internal database not configured.</p>');
     return;
   }
 
   // Fetch the todo to get its description for the confirmation page
   let description = 'Task';
   try {
-    const fetchResp = await fetch(
-      `${SUPABASE_URL}/rest/v1/hil_todos?done_token=eq.${encodeURIComponent(token)}&select=id,description,done_at&limit=1`,
-      {
-        headers: {
-          apikey: SUPABASE_SERVICE_KEY,
-          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-        },
-      }
-    );
-    if (fetchResp.ok) {
-      const rows = (await fetchResp.json()) as Array<{ id: string; description: string; done_at: string | null }>;
-      if (rows.length === 0) {
-        res.status(404).send(confirmPage('Not found', 'This task does not exist or has already been removed.', false));
-        return;
-      }
-      const row = rows[0];
-      description = row.description;
-      if (row.done_at) {
-        // Already done — show success without re-writing
-        res.send(confirmPage('Already done ✅', description, true));
-        return;
-      }
+    const fetchResult = await pool.query<{
+      id: string;
+      description: string;
+      done_at: string | null;
+    }>(`SELECT id, description, done_at FROM hil_todos WHERE done_token = $1 LIMIT 1`, [token]);
+    if (fetchResult.rows.length === 0) {
+      res
+        .status(404)
+        .send(
+          confirmPage('Not found', 'This task does not exist or has already been removed.', false),
+        );
+      return;
+    }
+    const row = fetchResult.rows[0];
+    description = row.description;
+    if (row.done_at) {
+      // Already done — show success without re-writing
+      res.send(confirmPage('Already done ✅', description, true));
+      return;
     }
   } catch {
     // continue — still attempt the update
@@ -62,27 +58,15 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
 
   // Mark done
   try {
-    const patchResp = await fetch(
-      `${SUPABASE_URL}/rest/v1/hil_todos?done_token=eq.${encodeURIComponent(token)}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: SUPABASE_SERVICE_KEY,
-          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({ done_at: new Date().toISOString() }),
-      }
-    );
-
-    if (patchResp.ok || patchResp.status === 204) {
-      res.send(confirmPage('Done ✅', description, true));
-    } else {
-      res.status(500).send(confirmPage('Error', 'Could not mark task done — please try again.', false));
-    }
+    await pool.query(`UPDATE hil_todos SET done_at = $1 WHERE done_token = $2`, [
+      new Date().toISOString(),
+      token,
+    ]);
+    res.send(confirmPage('Done ✅', description, true));
   } catch {
-    res.status(500).send(confirmPage('Error', 'Network error — please try again.', false));
+    res
+      .status(500)
+      .send(confirmPage('Error', 'Could not mark task done — please try again.', false));
   }
 });
 
@@ -119,19 +103,27 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     resolved_at: null as string | null,
   };
 
-  // Persist to Supabase if available
-  if (SUPABASE_URL && SUPABASE_SERVICE_KEY) {
+  // Persist to the internal Postgres pool if available
+  const pool = getInternalDbPool();
+  if (pool) {
     try {
-      await fetch(`${SUPABASE_URL}/rest/v1/hil_escalations`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: SUPABASE_SERVICE_KEY,
-          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify(escalation),
-      });
+      await pool.query(
+        `INSERT INTO hil_escalations (
+           id, agent_name, reason, confidence, context, channel, recipient, status, created_at, resolved_at
+         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        [
+          escalation.id,
+          escalation.agent_name,
+          escalation.reason,
+          escalation.confidence,
+          escalation.context,
+          escalation.channel,
+          escalation.recipient,
+          escalation.status,
+          escalation.created_at,
+          escalation.resolved_at,
+        ],
+      );
     } catch {
       // Non-blocking — still return the escalation
     }

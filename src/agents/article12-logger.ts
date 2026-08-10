@@ -1,8 +1,9 @@
 /**
  * Article 12 Logger — EU AI Act Audit Trail
  *
- * Writes append-only audit entries to article12_audit_log (Supabase, europe-north1).
- * Called by every cloud agent after each Anthropic API response.
+ * Writes append-only audit entries to article12_audit_log (self-hosted Postgres
+ * on DGX Spark — dws-postgres). Called by every cloud agent after each
+ * Anthropic API response.
  *
  * Usage:
  *   const logger = new Article12Logger();
@@ -14,11 +15,12 @@
  *   - pre-flight log written BEFORE cloud egress (proves scrubbing happened first)
  *   - post-flight log written AFTER response (captures output lineage)
  *   - Both entries share the same trace_id for cross-reference
- *   - Supabase RLS denies UPDATE and DELETE — logs are tamper-evident
+ *   - RLS on this table (once ported) denies UPDATE and DELETE — logs are tamper-evident
  */
 
 import { createHash, randomUUID } from 'node:crypto';
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import type { Pool } from 'pg';
+import { getInternalDbPool } from '../config/internal-db.js';
 import type { ScrubManifest } from './pii-scrubber.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -53,18 +55,17 @@ export interface PreFlightResult {
 // ─── Logger ───────────────────────────────────────────────────────────────────
 
 export class Article12Logger {
-  private supabase: SupabaseClient;
+  private pool: Pool;
   private readonly scrubberVersion: string;
 
   constructor(scrubberVersion = '1.0.0') {
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const pool = getInternalDbPool();
 
-    if (!url || !key) {
-      throw new Error('Article12Logger: SUPABASE_URL and SUPABASE_SERVICE_KEY are required');
+    if (!pool) {
+      throw new Error('Article12Logger: INTERNAL_DB_URL is required');
     }
 
-    this.supabase = createClient(url, key);
+    this.pool = pool;
     this.scrubberVersion = scrubberVersion;
   }
 
@@ -79,40 +80,46 @@ export class Article12Logger {
       .update(JSON.stringify(entry.scrubManifest))
       .digest('hex');
 
-    const row = {
-      trace_id: traceId,
-      agent_id: entry.agentId,
-      input_hash: entry.inputHash,
-      model: entry.model,
-      thinking_effort: entry.thinkingEffort ?? 'none',
-      regulation_ids: entry.regulationIds ?? [],
-      pii_scrubbed: true,
-      pii_types_found: entry.scrubManifest.typesFound,
-      pii_replacement_count: entry.scrubManifest.replacementCount,
-      scrub_manifest_hash: manifestHash,
-      inference_in_eu: false,          // Anthropic API is US-based — honest declaration
-      pii_scrub_location: 'veriton-helsinki-fi',
-      inference_location: 'anthropic-us',
-      scrubber_version: entry.scrubberVersion ?? this.scrubberVersion,
-      risk_classification: entry.riskClassification ?? 'high',
-      // Post-flight fields left null until logPostFlight() is called
-      thinking_block_hash: null as string | null,
-      decision_summary: null as string | null,
-      input_token_count: null as number | null,
-      output_token_count: null as number | null,
-    };
+    try {
+      const result = await this.pool.query(
+        `INSERT INTO article12_audit_log (
+           trace_id, agent_id, input_hash, model, thinking_effort, regulation_ids,
+           pii_scrubbed, pii_types_found, pii_replacement_count, scrub_manifest_hash,
+           inference_in_eu, pii_scrub_location, inference_location, scrubber_version,
+           risk_classification, thinking_block_hash, decision_summary,
+           input_token_count, output_token_count
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)
+         RETURNING id`,
+        [
+          traceId,
+          entry.agentId,
+          entry.inputHash,
+          entry.model,
+          entry.thinkingEffort ?? 'none',
+          entry.regulationIds ?? [],
+          true,
+          entry.scrubManifest.typesFound,
+          entry.scrubManifest.replacementCount,
+          manifestHash,
+          false, // Anthropic API is US-based — honest declaration
+          'veriton-helsinki-fi',
+          'anthropic-us',
+          entry.scrubberVersion ?? this.scrubberVersion,
+          entry.riskClassification ?? 'high',
+          // Post-flight fields left null until logPostFlight() is called
+          null,
+          null,
+          null,
+          null,
+        ],
+      );
 
-    const { data, error } = await this.supabase
-      .from('article12_audit_log')
-      .insert(row)
-      .select('id')
-      .single();
-
-    if (error) {
-      throw new Error(`Article12Logger.logPreFlight failed: ${error.message}`);
+      return { traceId, logId: result.rows[0].id };
+    } catch (err) {
+      throw new Error(
+        `Article12Logger.logPreFlight failed: ${err instanceof Error ? err.message : String(err)}`,
+      );
     }
-
-    return { traceId, logId: data.id };
   }
 
   /**
@@ -125,30 +132,31 @@ export class Article12Logger {
       ? createHash('sha256').update(entry.thinkingBlockText).digest('hex')
       : null;
 
-    const summary = entry.decisionSummary
-      ? entry.decisionSummary.slice(0, 500)
-      : null;
+    const summary = entry.decisionSummary ? entry.decisionSummary.slice(0, 500) : null;
 
-    // Supabase RLS blocks UPDATE — we use service_role which bypasses RLS for updates
-    // only because we explicitly REVOKE UPDATE from service_role in the migration
-    // for the *public* endpoint. This internal SDK call uses the service key directly.
-    //
-    // IMPORTANT: If Supabase ever adds UPDATE RLS enforcement for service_role,
-    // switch to a two-row approach (pre-flight + post-flight as separate rows).
-    const { error } = await this.supabase
-      .from('article12_audit_log')
-      .update({
-        thinking_block_hash: thinkingHash,
-        decision_summary: summary,
-        input_token_count: entry.inputTokenCount ?? null,
-        output_token_count: entry.outputTokenCount ?? null,
-      })
-      .eq('trace_id', entry.traceId);
-
-    if (error) {
+    // IMPORTANT: If RLS on this table (once ported) ever blocks UPDATE for the
+    // service role, switch to a two-row approach (pre-flight + post-flight as
+    // separate rows) instead of relying on connection-level access control.
+    try {
+      await this.pool.query(
+        `UPDATE article12_audit_log
+         SET thinking_block_hash = $1, decision_summary = $2,
+             input_token_count = $3, output_token_count = $4
+         WHERE trace_id = $5`,
+        [
+          thinkingHash,
+          summary,
+          entry.inputTokenCount ?? null,
+          entry.outputTokenCount ?? null,
+          entry.traceId,
+        ],
+      );
+    } catch (err) {
       // Non-fatal: log to stderr but don't crash the agent response
       // The pre-flight entry is already written — partial record is better than no record
-      console.error(`Article12Logger.logPostFlight failed (trace ${entry.traceId}): ${error.message}`);
+      console.error(
+        `Article12Logger.logPostFlight failed (trace ${entry.traceId}): ${err instanceof Error ? err.message : String(err)}`,
+      );
     }
   }
 

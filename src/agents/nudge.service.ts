@@ -18,19 +18,19 @@
  *   4. Delivery — email (Amazon SES, per CLAUDE.md), Teams/Slack webhooks,
  *      and an event-bus signal for in-app handling.
  *
- * Falls back to an in-memory store when Supabase is not configured (dev/test),
- * which keeps dedup + rate-limit working single-instance.
+ * Falls back to an in-memory store when the internal Postgres pool is not
+ * configured (dev/test), which keeps dedup + rate-limit working single-instance.
  */
 
 import { randomUUID } from 'node:crypto';
 import logger from '../utils/logger.js';
-import { getSupabaseClient } from '../config/supabase.js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import { eventBus } from './event-bus.js';
 import { DEFAULT_NOTIFY_CONFIG } from './autonomy.js';
 import type { GateDecision, NudgeChannel, SignalTier } from './signal-catalogue.js';
 import type { NotifyConfig } from './types.js';
 
-const supabase = getSupabaseClient();
+const pool = getInternalDbPool();
 
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
@@ -162,17 +162,21 @@ class NudgeService {
     resolution?: string,
   ): Promise<boolean> {
     const resolvedAt = new Date().toISOString();
-    if (supabase) {
-      const { error } = await supabase
-        .from('agent_nudges')
-        .update({ status, resolution: resolution ?? null, resolved_at: resolvedAt })
-        .eq('id', nudgeId)
-        .eq('status', 'pending');
-      if (error) {
-        logger.error('Failed to resolve nudge', { nudgeId, error: error.message });
+    if (pool) {
+      try {
+        await pool.query(
+          `UPDATE agent_nudges SET status = $1, resolution = $2, resolved_at = $3
+           WHERE id = $4 AND status = 'pending'`,
+          [status, resolution ?? null, resolvedAt, nudgeId],
+        );
+        return true;
+      } catch (err) {
+        logger.error('Failed to resolve nudge', {
+          nudgeId,
+          error: err instanceof Error ? err.message : String(err),
+        });
         return false;
       }
-      return true;
     }
     const rec = this.memStore.get(nudgeId);
     if (!rec || rec.status !== 'pending') return false;
@@ -188,18 +192,19 @@ class NudgeService {
    */
   async findOverdue(nowMs: number = Date.now()): Promise<NudgeRecord[]> {
     const nowIso = new Date(nowMs).toISOString();
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('agent_nudges')
-        .select('*')
-        .eq('status', 'pending')
-        .lt('escalate_at', nowIso)
-        .limit(100);
-      if (error) {
-        logger.error('Failed to query overdue nudges', { error: error.message });
+    if (pool) {
+      try {
+        const result = await pool.query(
+          `SELECT * FROM agent_nudges WHERE status = 'pending' AND escalate_at < $1 LIMIT 100`,
+          [nowIso],
+        );
+        return result.rows.map(rowToRecord);
+      } catch (err) {
+        logger.error('Failed to query overdue nudges', {
+          error: err instanceof Error ? err.message : String(err),
+        });
         return [];
       }
-      return (data ?? []).map(rowToRecord);
     }
     return Array.from(this.memStore.values()).filter(
       (n) => n.status === 'pending' && n.escalateAt < nowIso,
@@ -208,33 +213,39 @@ class NudgeService {
 
   /** Fetch a single nudge by id (any status), or null. */
   async getNudge(nudgeId: string): Promise<NudgeRecord | null> {
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('agent_nudges')
-        .select('*')
-        .eq('id', nudgeId)
-        .limit(1)
-        .maybeSingle();
-      if (error) {
-        logger.debug('getNudge query error (treating as none)', { error: error.message });
+    if (pool) {
+      try {
+        const result = await pool.query(`SELECT * FROM agent_nudges WHERE id = $1 LIMIT 1`, [
+          nudgeId,
+        ]);
+        return result.rows[0] ? rowToRecord(result.rows[0]) : null;
+      } catch (err) {
+        logger.debug('getNudge query error (treating as none)', {
+          error: err instanceof Error ? err.message : String(err),
+        });
         return null;
       }
-      return data ? rowToRecord(data) : null;
     }
     return this.memStore.get(nudgeId) ?? null;
   }
 
   /** List pending nudges for an org (dashboard / poller dedup). */
   async listPending(orgId?: string): Promise<NudgeRecord[]> {
-    if (supabase) {
-      let q = supabase.from('agent_nudges').select('*').eq('status', 'pending').limit(200);
-      if (orgId) q = q.eq('org_id', orgId);
-      const { data, error } = await q;
-      if (error) {
-        logger.error('Failed to list pending nudges', { error: error.message });
+    if (pool) {
+      try {
+        const result = orgId
+          ? await pool.query(
+              `SELECT * FROM agent_nudges WHERE status = 'pending' AND org_id = $1 LIMIT 200`,
+              [orgId],
+            )
+          : await pool.query(`SELECT * FROM agent_nudges WHERE status = 'pending' LIMIT 200`);
+        return result.rows.map(rowToRecord);
+      } catch (err) {
+        logger.error('Failed to list pending nudges', {
+          error: err instanceof Error ? err.message : String(err),
+        });
         return [];
       }
-      return (data ?? []).map(rowToRecord);
     }
     return Array.from(this.memStore.values()).filter(
       (n) => n.status === 'pending' && (!orgId || n.orgId === orgId),
@@ -248,21 +259,21 @@ class NudgeService {
     signalKey: string,
     entityId: string,
   ): Promise<NudgeRecord | null> {
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('agent_nudges')
-        .select('*')
-        .eq('org_id', orgId)
-        .eq('signal_key', signalKey)
-        .eq('entity_id', entityId)
-        .eq('status', 'pending')
-        .limit(1)
-        .maybeSingle();
-      if (error) {
-        logger.debug('findPending query error (treating as none)', { error: error.message });
+    if (pool) {
+      try {
+        const result = await pool.query(
+          `SELECT * FROM agent_nudges
+           WHERE org_id = $1 AND signal_key = $2 AND entity_id = $3 AND status = 'pending'
+           LIMIT 1`,
+          [orgId, signalKey, entityId],
+        );
+        return result.rows[0] ? rowToRecord(result.rows[0]) : null;
+      } catch (err) {
+        logger.debug('findPending query error (treating as none)', {
+          error: err instanceof Error ? err.message : String(err),
+        });
         return null;
       }
-      return data ? rowToRecord(data) : null;
     }
     for (const n of this.memStore.values()) {
       if (
@@ -285,22 +296,24 @@ class NudgeService {
     const hourAgo = new Date(now - HOUR_MS).toISOString();
     const dayAgo = new Date(now - DAY_MS).toISOString();
 
-    if (supabase) {
-      const [{ count: hour }, { count: day }] = await Promise.all([
-        supabase
-          .from('agent_nudges')
-          .select('*', { count: 'exact', head: true })
-          .eq('agent_name', agentName)
-          .eq('org_id', orgId)
-          .gte('created_at', hourAgo),
-        supabase
-          .from('agent_nudges')
-          .select('*', { count: 'exact', head: true })
-          .eq('agent_name', agentName)
-          .eq('org_id', orgId)
-          .gte('created_at', dayAgo),
-      ]);
-      return { hour: hour ?? 0, day: day ?? 0 };
+    if (pool) {
+      try {
+        const countSql = `SELECT COUNT(*) FROM agent_nudges
+           WHERE agent_name = $1 AND org_id = $2 AND created_at >= $3`;
+        const [hourResult, dayResult] = await Promise.all([
+          pool.query(countSql, [agentName, orgId, hourAgo]),
+          pool.query(countSql, [agentName, orgId, dayAgo]),
+        ]);
+        return {
+          hour: parseInt(hourResult.rows[0]?.count ?? '0', 10),
+          day: parseInt(dayResult.rows[0]?.count ?? '0', 10),
+        };
+      } catch (err) {
+        logger.warn('countRecent query failed (treating as zero)', {
+          error: err instanceof Error ? err.message : String(err),
+        });
+        return { hour: 0, day: 0 };
+      }
     }
 
     let hour = 0;
@@ -314,11 +327,41 @@ class NudgeService {
   }
 
   private async persist(record: NudgeRecord): Promise<void> {
-    if (supabase) {
-      const { error } = await supabase.from('agent_nudges').insert(recordToRow(record));
-      if (error) {
+    if (pool) {
+      const row = recordToRow(record);
+      try {
+        await pool.query(
+          `INSERT INTO agent_nudges (
+             id, org_id, signal_key, entity_id, agent_name, recipient_role, tier,
+             gate_decision, channels, status, subject, body, action_options,
+             created_at, escalate_at, resolved_at, resolution, metadata
+           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)`,
+          [
+            row.id,
+            row.org_id,
+            row.signal_key,
+            row.entity_id,
+            row.agent_name,
+            row.recipient_role,
+            row.tier,
+            row.gate_decision,
+            row.channels,
+            row.status,
+            row.subject,
+            row.body,
+            row.action_options,
+            row.created_at,
+            row.escalate_at,
+            row.resolved_at,
+            row.resolution,
+            row.metadata,
+          ],
+        );
+      } catch (err) {
         // Unique-violation = a concurrent insert won the dedup race; tolerate it.
-        logger.warn('Nudge persist failed (falling back to memory)', { error: error.message });
+        logger.warn('Nudge persist failed (falling back to memory)', {
+          error: err instanceof Error ? err.message : String(err),
+        });
         this.memStore.set(record.id, record);
       }
       return;
