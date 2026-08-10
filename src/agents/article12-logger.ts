@@ -15,7 +15,7 @@
  *   - pre-flight log written BEFORE cloud egress (proves scrubbing happened first)
  *   - post-flight log written AFTER response (captures output lineage)
  *   - Both entries share the same trace_id for cross-reference
- *   - RLS on this table (once ported) denies UPDATE and DELETE — logs are tamper-evident
+ *   - Internal Postgres grants only SELECT/INSERT to dws_backend and revokes UPDATE/DELETE/TRUNCATE from PUBLIC — logs are tamper-evident
  */
 
 import { createHash, randomUUID } from 'node:crypto';

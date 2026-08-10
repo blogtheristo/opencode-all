@@ -23,14 +23,13 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import type { Pool } from 'pg';
 import logger from '../utils/logger.js';
 import { getInternalDbPool } from '../config/internal-db.js';
 import { eventBus } from './event-bus.js';
 import { DEFAULT_NOTIFY_CONFIG } from './autonomy.js';
 import type { GateDecision, NudgeChannel, SignalTier } from './signal-catalogue.js';
 import type { NotifyConfig } from './types.js';
-
-const pool = getInternalDbPool();
 
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
@@ -92,6 +91,10 @@ export interface CreateNudgeResult {
 class NudgeService {
   /** In-memory fallback store keyed by nudge id (used when Supabase absent) */
   private memStore: Map<string, NudgeRecord> = new Map();
+
+  private getPool(): Pool | null {
+    return getInternalDbPool();
+  }
 
   /**
    * Create a nudge if it passes dedup + rate-limit, then deliver it.
@@ -162,6 +165,7 @@ class NudgeService {
     resolution?: string,
   ): Promise<boolean> {
     const resolvedAt = new Date().toISOString();
+    const pool = this.getPool();
     if (pool) {
       try {
         await pool.query(
@@ -192,6 +196,7 @@ class NudgeService {
    */
   async findOverdue(nowMs: number = Date.now()): Promise<NudgeRecord[]> {
     const nowIso = new Date(nowMs).toISOString();
+    const pool = this.getPool();
     if (pool) {
       try {
         const result = await pool.query(
@@ -213,6 +218,7 @@ class NudgeService {
 
   /** Fetch a single nudge by id (any status), or null. */
   async getNudge(nudgeId: string): Promise<NudgeRecord | null> {
+    const pool = this.getPool();
     if (pool) {
       try {
         const result = await pool.query(`SELECT * FROM agent_nudges WHERE id = $1 LIMIT 1`, [
@@ -231,6 +237,7 @@ class NudgeService {
 
   /** List pending nudges for an org (dashboard / poller dedup). */
   async listPending(orgId?: string): Promise<NudgeRecord[]> {
+    const pool = this.getPool();
     if (pool) {
       try {
         const result = orgId
@@ -259,6 +266,7 @@ class NudgeService {
     signalKey: string,
     entityId: string,
   ): Promise<NudgeRecord | null> {
+    const pool = this.getPool();
     if (pool) {
       try {
         const result = await pool.query(
@@ -296,6 +304,7 @@ class NudgeService {
     const hourAgo = new Date(now - HOUR_MS).toISOString();
     const dayAgo = new Date(now - DAY_MS).toISOString();
 
+    const pool = this.getPool();
     if (pool) {
       try {
         const countSql = `SELECT COUNT(*) FROM agent_nudges
@@ -327,6 +336,7 @@ class NudgeService {
   }
 
   private async persist(record: NudgeRecord): Promise<void> {
+    const pool = this.getPool();
     if (pool) {
       const row = recordToRow(record);
       try {
