@@ -398,9 +398,29 @@ function buildSocialShare(post) {
                 </div>`;
 }
 
+/**
+ * Language of a post file, from its filename: `foo.fi.html` -> 'fi', `foo.html` -> 'en'.
+ * The posts array interleaves languages, so a flat idx-1/idx+1 walk sends a reader from
+ * an English post to a Finnish one. Prev/next must stay inside one language; switching
+ * language is the vertical language bar's job, driven by the hreflang alternates.
+ */
+function langOf(file) {
+  const m = file.match(/\.([a-z]{2})\.html$/);
+  return m ? m[1] : 'en';
+}
+
+function neighbours(idx) {
+  const lang = langOf(posts[idx].file);
+  const sameLang = posts.filter((p) => langOf(p.file) === lang);
+  const i = sameLang.findIndex((p) => p.file === posts[idx].file);
+  return {
+    prev: i > 0 ? sameLang[i - 1] : null,
+    next: i >= 0 && i < sameLang.length - 1 ? sameLang[i + 1] : null,
+  };
+}
+
 function buildNavBlock(idx) {
-  const prev = idx > 0 ? posts[idx - 1] : null;
-  const next = idx < posts.length - 1 ? posts[idx + 1] : null;
+  const { prev, next } = neighbours(idx);
 
   const prevHtml = prev
     ? `<a href="/posts/${prev.file}" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
@@ -476,8 +496,9 @@ for (let i = 0; i < posts.length; i++) {
   html = html.replace(marker, navBlock + marker);
 
   fs.writeFileSync(filePath, html, 'utf-8');
+  const nb = neighbours(i);
   console.log(
-    `OK: ${posts[i].file} (prev: ${i > 0 ? posts[i - 1].file : 'none'} | next: ${i < posts.length - 1 ? posts[i + 1].file : 'none'})`,
+    `OK: ${posts[i].file} [${langOf(posts[i].file)}] (prev: ${nb.prev ? nb.prev.file : 'none'} | next: ${nb.next ? nb.next.file : 'none'})`,
   );
   updated++;
 }

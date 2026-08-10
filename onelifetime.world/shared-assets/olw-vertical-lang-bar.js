@@ -1,11 +1,15 @@
 /**
- * OneLifetime.World Vertical Language Bar v1.1
+ * OneLifetime.World Vertical Language Bar v1.2
  * Introduced-In: PR-TBD (iceye-jgi-deforestation)
  * Code-Version: 1.1
  * Branch: claude/iceye-jgi-deforestation-PSzCd
  * Date: 2026-04-23
  * Owner: Lifetime Oy
  *
+ * v1.2 — On a post page the bar now speaks about THAT post, not about the blog in general:
+ *        the heading becomes the post's own title (so it changes page to page), and a
+ *        language whose translation does not exist is dimmed and inert instead of silently
+ *        doing nothing on click. Home / blog index / press pages are unchanged.
  * v1.1 — Matched dws10.com quality: 5 European languages (FI | SV | DE | FR | EN),
  *        per-page-type one-liners (home | blog | press). Each string is a single
  *        tight sentence aligned with the DWS Skilled Taxonomy brand tier.
@@ -69,12 +73,16 @@
   ];
 
   var storedLang = localStorage.getItem('dws-lang');
-  var currentLang = LANGS.some(function (l) {
-    return l.code === storedLang;
-  })
-    ? storedLang
-    : 'en';
-  if (storedLang !== currentLang) localStorage.setItem('dws-lang', currentLang);
+  // The page you are actually reading wins over a stored preference: a Finnish post must
+  // not highlight "English" just because that was the last language chosen elsewhere.
+  var docLang = (document.documentElement.getAttribute('lang') || '').slice(0, 2);
+  var known = function (c) {
+    return LANGS.some(function (l) {
+      return l.code === c;
+    });
+  };
+  var currentLang = known(docLang) ? docLang : known(storedLang) ? storedLang : 'en';
+  if (storedLang !== currentLang && !known(docLang)) localStorage.setItem('dws-lang', currentLang);
 
   // Detect page type from path for one-liner selection
   var path = window.location.pathname;
@@ -140,6 +148,24 @@
       '  flex-shrink: 0;',
       '  line-height: 1;',
       '}',
+      '.olw-vlb-row.olw-vlb-missing {',
+      '  opacity: 0.38;',
+      '  cursor: default;',
+      '}',
+      '.olw-vlb-row.olw-vlb-missing:hover {',
+      '  background: transparent;',
+      '}',
+      '.olw-vlb-missing .olw-vlb-text::after {',
+      '  content: " — ei vielä saatavilla / not yet available";',
+      '  font-size: 0.72rem;',
+      '  letter-spacing: 0.02em;',
+      '}',
+      '.olw-vlb-heading.olw-vlb-post-title {',
+      '  font-size: 0.78rem;',
+      '  letter-spacing: 0.04em;',
+      '  text-transform: none;',
+      '  color: rgba(148,190,250,0.8);',
+      '}',
       '@media (max-width: 640px) {',
       '  div.olw-vlb-row { padding: 10px 14px; }',
       '  .olw-vlb-row.olw-vlb-active { padding-left: 11px; }',
@@ -155,7 +181,27 @@
     document.head.appendChild(style);
   }
 
+  /**
+   * A post page is one that carries hreflang alternates. On those the bar is about the
+   * post: heading = the post's own title, and only languages with an alternate are live.
+   */
+  function postContext() {
+    var alts = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    if (!alts.length || pageType !== 'blog') return null;
+    var available = {};
+    alts.forEach(function (a) {
+      var hl = a.getAttribute('hreflang');
+      if (hl && hl !== 'x-default') available[hl] = a.href;
+    });
+    // A single self-referential alternate means no translations exist yet.
+    var og = document.querySelector('meta[property="og:title"]');
+    var title = (og && og.content) || document.title || '';
+    title = title.split(' — KYA')[0].trim();
+    return { available: available, title: title };
+  }
+
   function build() {
+    var post = postContext();
     var el = document.createElement('div');
     el.className = 'olw-vlb';
     el.setAttribute('role', 'navigation');
@@ -163,6 +209,7 @@
 
     var rows = LANGS.map(function (l) {
       var activeCls = l.code === currentLang ? ' olw-vlb-active' : '';
+      if (post && !post.available[l.code]) activeCls += ' olw-vlb-missing';
       return (
         '<div class="olw-vlb-row' +
         activeCls +
@@ -182,10 +229,16 @@
       );
     }).join('');
 
-    el.innerHTML = '<div class="olw-vlb-heading">🌍 5 European Languages</div>' + rows;
+    el.innerHTML =
+      (post && post.title
+        ? '<div class="olw-vlb-heading olw-vlb-post-title">🌍 ' +
+          post.title.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
+          '</div>'
+        : '<div class="olw-vlb-heading">🌍 5 European Languages</div>') + rows;
 
     el.querySelectorAll('.olw-vlb-row').forEach(function (row) {
       row.addEventListener('click', function () {
+        if (row.classList.contains('olw-vlb-missing')) return;
         var lang = row.getAttribute('lang');
         localStorage.setItem('dws-lang', lang);
         currentLang = lang;
