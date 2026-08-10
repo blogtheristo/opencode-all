@@ -89,7 +89,7 @@ export interface CreateNudgeResult {
 }
 
 class NudgeService {
-  /** In-memory fallback store keyed by nudge id (used when Supabase absent) */
+  /** In-memory fallback store keyed by nudge id (used when internal DB pool absent) */
   private memStore: Map<string, NudgeRecord> = new Map();
 
   private getPool(): Pool | null {

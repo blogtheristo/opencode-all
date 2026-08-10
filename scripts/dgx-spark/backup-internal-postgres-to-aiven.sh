@@ -10,9 +10,9 @@
 #   - psql, pg_dump, gpg installed
 #
 # Workflow (DR-3/DR-4):
-#   1. pg_dump from dws-postgres → uncompressed SQL
+#   1. pg_dump --clean --if-exists from dws-postgres → idempotent uncompressed SQL
 #   2. GPG symmetric AES-256 encrypt → delete plaintext
-#   3. pg_restore --clean --if-exists to Aiven (idempotent)
+#   3. Replay the plain SQL dump to Aiven through psql (idempotent because dump includes DROP/CREATE)
 #   4. Row count verification (DR-4)
 #   5. Prune local backups >90 days
 #
@@ -77,10 +77,10 @@ backup_workflow() {
 
   mkdir -p "$BACKUP_DIR"
 
-  # Step 1: pg_dump (preserve stderr for diagnostics)
-  log_info "Dumping dws-postgres schema and data..."
+  # Step 1: pg_dump (plain SQL with cleanup statements; preserve stderr for diagnostics)
+  log_info "Dumping dws-postgres schema and data in idempotent plain-SQL mode..."
   if [ "$DRY_RUN" != "--dry-run" ]; then
-    if ! pg_dump "$INTERNAL_DB_URL" > "$sql_file" 2>"${sql_file}.log"; then
+    if ! pg_dump --clean --if-exists "$INTERNAL_DB_URL" > "$sql_file" 2>"${sql_file}.log"; then
       log_error "pg_dump failed (see ${sql_file}.log)"
       return 1
     fi
@@ -102,15 +102,15 @@ backup_workflow() {
   local encrypted_size=$(du -h "$encrypted_file" | cut -f1)
   log_ok "Encrypted: ${encrypted_size}"
 
-  # Step 3: pg_restore to Aiven (idempotent: --clean --if-exists)
+  # Step 3: replay the idempotent plain-SQL dump to Aiven through psql
   # Preserves diagnostics: redirection goes to log file, not discarded
-  log_info "Restoring to Aiven (idempotent mode with --clean --if-exists)..."
+  log_info "Restoring to Aiven by replaying idempotent plain SQL..."
   local restore_log="${encrypted_file}.restore.log"
   if ! echo "$GPG_CRED" | gpg --quiet --batch --decrypt \
     --passphrase-fd 0 "$encrypted_file" | \
     psql "$AIVEN_DATABASE_URL" --set ON_ERROR_STOP=on \
     2>&1 | tee "$restore_log"; then
-    log_error "pg_restore failed (see ${restore_log})"
+    log_error "psql restore failed (see ${restore_log})"
     return 1
   fi
   log_ok "Restore to Aiven complete"
