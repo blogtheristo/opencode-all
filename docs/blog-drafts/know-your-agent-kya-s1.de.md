@@ -8,9 +8,6 @@ lang: de
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
-hero_image_alt: "Serienkarte: die 12 Teile der KYA-S1-Blogserie in einem Bild (finnisch)"
-hero_image_status: "OK — 12 korttia, 3840x2001 px, lähde scripts/assets/kya-s1-series-hero-fi.html"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — Vom HIC am 09.08.2026 freigegeben, unter der Bedingung, dass die KI-Übersetzungskennzeichnung enthalten ist.
 source: Übersetzung des vom HIC freigegebenen finnischen Textes (know-your-agent-kya-s1.fi.md). Abschnitt für Abschnitt, Aussage für Aussage.

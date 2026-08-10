@@ -21,7 +21,7 @@
     <meta property="og:locale" content="fi_FI" />
     <meta property="og:url" content="https://onelifetime.world/posts/agentic-commerce-autonomous-payments.fi.html" />
     <meta property="og:site_name" content="Lifetime Scope Journal" />
-    <meta property="og:image" content="https://onelifetime.world/static/images/blog/kya-s1-series-01-hero-fi.png" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
     <meta property="article:published_time" content="2026-08-08" />
     <meta property="article:author" content="Risto Anton Päärni" />
     <meta property="article:section" content="Standardit" />
@@ -110,6 +110,26 @@
         "inLanguage": "en"
       }
     </script>
+
+    <style>
+      .kya-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+      .kya-map li { margin: 0; }
+      .kya-card { display: flex; gap: 11px; align-items: flex-start; height: 100%; padding: 13px 14px;
+        background: #111c2e; border: 1px solid #22344f; border-left: 3px solid var(--kya-a);
+        border-radius: 7px; text-decoration: none; transition: border-color .16s, transform .16s, background .16s; }
+      a.kya-card:hover { background: #16233a; border-color: var(--kya-a); transform: translateY(-2px); }
+      a.kya-card:focus-visible { outline: 2px solid var(--kya-a); outline-offset: 2px; }
+      .kya-card[aria-current="page"] { background: #16233a; box-shadow: inset 0 0 0 1px var(--kya-a); }
+      .kya-n { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--kya-a); color: #08111d;
+        font-weight: 800; font-size: .78rem; display: flex; align-items: center; justify-content: center; }
+      .kya-map li::before, .kya-map li::marker { content: none !important; display: none !important; }
+      .kya-card > span:last-child { display: block; min-width: 0; }
+      .kya-t { display: block; font-size: .93rem; font-weight: 700; color: #f1f5f9; line-height: 1.25; }
+      .kya-d { display: block; font-size: .8rem; color: #93a7c0; line-height: 1.4; margin-top: 3px; }
+      .kya-card.kya-soon { opacity: .45; cursor: default; }
+      .kya-soon .kya-d::after { content: " · " attr(data-soon); }
+      @media (prefers-reduced-motion: reduce) { a.kya-card:hover { transform: none; } }
+    </style>
   </head>
   <body
     class="font-sans antialiased flex flex-col min-h-screen"
@@ -185,8 +205,6 @@
           <p class="mt-4 text-base text-gray-400">
             8. elokuuta 2026 &middot; Risto Anton P&auml;&auml;rni &middot; Espoo
           </p>
-          <img src="../static/images/blog/kya-s1-series-01-hero-fi.png" alt="Sarjakartta: KYA-S1 -blogisarjan 12 osaa" loading="lazy"
-               style="width:100%;height:auto;margin-top:1.75rem;border-radius:6px" />
         </header>
 
 <h2 id="johdanto-koodista-taloudelliseen-toimivaltaan">Johdanto:
@@ -248,31 +266,19 @@ Fault).</p>
 syöttämiseen agentin kontekstiin. KYA-S1 v1.3 -standardi tekee Agentic Commercesta turvallista ja auditoitavaa muuttamalla jokaisen maksun
 atomisesti kulutettavaksi valtuutustapahtumaksi.</p>
 <h2 id="katso-sarjan-muut-osat">Katso sarjan muut osat</h2>
-<ul>
-<li><strong>Osa 1:</strong> Tunne agenttisi (KYA-S1) — Yksi
-allekirjoitettu sivu tekoälystä tietoturvakansiossa, joka koskee
-dataasi</li>
-<li><strong>Osa 2:</strong> KYC:n vastine tekoälylle — Seitsemän
-kriittistä KYA-kysymystä</li>
-<li><strong>Osa 3:</strong> EU AI Act Artikla 14 (HIC) ja agenttien
-itsenäisyyden ristiriita</li>
-<li><strong>Osa 4:</strong> Agenttiluokat: Kehittäjän GitHub Copilot
-vs. teollisuuden DWS IQ -tausta-agentit</li>
-<li><strong>Osa 5:</strong> KYA-S1 ja BPMN 2.0: Miten tekoälyagentin
-luottamustaso ohjaa teollisuusprosessia käytännössä?</li>
-<li><strong>Osa 6:</strong> KYA-S1 v1.3 × BPMN 2.0: Atominen Lease
-Token, fail-closed ja rehellinen TRS-laskenta</li>
-<li><strong>Osa 7:</strong> Kun jotain menee pieleen: 72 tunnin
-virheluokittelu (FLT) ja päätöksen toistaminen (PRV) käytännössä</li>
-<li><strong>Osa 8:</strong> KYA-S1 Ekosysteemi &amp;
-Tuotanto-Roadmap</li>
-<li><strong>Osa 9:</strong> Lifetime World Model (LWM) — Globaali
-tilarekisteri ja muisti</li>
-<li><strong>Osa 10:</strong> Agentic Commerce -protokollat &amp;
-Autonomiset Maksut</li>
-<li><strong>Osa 11:</strong> Yhteys eWallet EU (EUDI Wallet) &amp; eIDAS
-2.0</li>
-<li><strong>Osa 12:</strong> KYA-S1 Sanasto — Käsitteistö ja sanasto</li>
+<ul class="kya-map">
+<li><a class="kya-card" href="/posts/know-your-agent-kya-s1.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">1</span><span><span class="kya-t">Tunne agenttisi (KYA-S1)</span><span class="kya-d" data-soon="tulossa">Yksi allekirjoitettu sivu tietoturvakansiossa</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-kyc-seven-questions.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">2</span><span><span class="kya-t">KYC:n vastine tekoälylle</span><span class="kya-d" data-soon="tulossa">Seitsemän kriittistä KYA-kysymystä</span></span></a></li>
+<li><a class="kya-card" href="/posts/eu-ai-act-article-14-hic.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">3</span><span><span class="kya-t">EU AI Act artikla 14 (HIC)</span><span class="kya-d" data-soon="tulossa">Ihmisen valvonta vs. agenttien itsenäisyys</span></span></a></li>
+<li><a class="kya-card" href="/posts/agent-classes-copilot-vs-dws-iq.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">4</span><span><span class="kya-t">Agenttiluokat</span><span class="kya-d" data-soon="tulossa">Copilot vs. teollisuuden tausta-agentit</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html" style="--kya-a:#f0b429"><span class="kya-n">5</span><span><span class="kya-t">KYA-S1 ja BPMN 2.0</span><span class="kya-d" data-soon="tulossa">Luottamustaso ohjaa teollisuusprosessia</span></span></a></li>
+<li><a class="kya-card" href="/posts/bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html" style="--kya-a:#f0b429"><span class="kya-n">6</span><span><span class="kya-t">KYA-S1 v1.3 × BPMN 2.0</span><span class="kya-d" data-soon="tulossa">Atominen Lease Token ja fail-closed</span></span></a></li>
+<li><a class="kya-card" href="/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" style="--kya-a:#f0b429"><span class="kya-n">7</span><span><span class="kya-t">Kun jotain menee pieleen</span><span class="kya-d" data-soon="tulossa">72 tunnin virheluokittelu ja päätöksen toistaminen</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-s1-ecosystem-roadmap.fi.html" style="--kya-a:#f0b429"><span class="kya-n">8</span><span><span class="kya-t">Ekosysteemi &amp; roadmap</span><span class="kya-d" data-soon="tulossa">Vaiheittainen käyttöönotto hankinnassa</span></span></a></li>
+<li><a class="kya-card" href="/posts/lifetime-world-model-state-register.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">9</span><span><span class="kya-t">Lifetime World Model</span><span class="kya-d" data-soon="tulossa">Globaali tilarekisteri ja muisti</span></span></a></li>
+<li><a class="kya-card" href="/posts/agentic-commerce-autonomous-payments.fi.html" style="--kya-a:#39d3a5" aria-current="page"><span class="kya-n">10</span><span><span class="kya-t">Agentic Commerce</span><span class="kya-d" data-soon="tulossa">Autonomiset maksut ja hätäjarru</span></span></a></li>
+<li><a class="kya-card" href="/posts/eudi-wallet-eidas2-human-identity.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">11</span><span><span class="kya-t">eWallet EU &amp; eIDAS 2.0</span><span class="kya-d" data-soon="tulossa">Ihmisen perusidentiteetti valtuuttajana</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-s1-sanasto-glossary.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">12</span><span><span class="kya-t">KYA-S1 sanasto</span><span class="kya-d" data-soon="tulossa">Käsitteistö ja termit viidellä kielellä</span></span></a></li>
 </ul>
 
         <hr style="border:none;border-top:1px solid rgba(148,163,184,.25);margin:2.5rem 0 1.25rem" />
