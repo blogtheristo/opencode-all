@@ -1,9 +1,9 @@
 /**
  * Article 12 Logger — EU AI Act Audit Trail
  *
- * Writes append-only audit entries to article12_audit_log (self-hosted Postgres
- * on DGX Spark — dws-postgres). Called by every cloud agent after each
- * Anthropic API response.
+ * Writes single-row, two-phase audit entries to article12_audit_log
+ * (self-hosted Postgres on DGX Spark — dws-postgres). Called by every cloud
+ * agent after each Anthropic API response.
  *
  * Usage:
  *   const logger = new Article12Logger();
@@ -13,9 +13,12 @@
  *
  * Compliance guarantee:
  *   - pre-flight log written BEFORE cloud egress (proves scrubbing happened first)
- *   - post-flight log written AFTER response (captures output lineage)
- *   - Both entries share the same trace_id for cross-reference
- *   - Internal Postgres grants only SELECT/INSERT to dws_backend and revokes UPDATE/DELETE/TRUNCATE from PUBLIC — logs are tamper-evident
+ *   - post-flight completion written AFTER response (captures output lineage)
+ *   - pre-flight insert and post-flight completion target the same row via trace_id
+ *   - Internal Postgres grants dws_backend INSERT/SELECT/UPDATE on this table,
+ *     while PUBLIC cannot UPDATE/DELETE/TRUNCATE it
+ *   - This table is not hash-chained; its evidence model is preserved partial
+ *     records plus a narrowly-scoped post-flight completion update
  */
 
 import { createHash, randomUUID } from 'node:crypto';
@@ -71,7 +74,7 @@ export class Article12Logger {
 
   /**
    * Step 1 of 2: Log before the cloud API call.
-   * Creates the audit entry with PENDING status and returns the trace_id.
+   * Inserts the audit row before egress and returns the trace_id.
    * Callers MUST call logPostFlight() after the API response.
    */
   async logPreFlight(entry: PreFlightEntry): Promise<PreFlightResult> {
@@ -123,7 +126,7 @@ export class Article12Logger {
   }
 
   /**
-   * Step 2 of 2: Update the audit entry after the cloud API response.
+   * Step 2 of 2: Complete the same audit row after the cloud API response.
    * Hashes the thinking block (never stores raw reasoning).
    * Truncates decision_summary to 500 chars — caller must ensure no PII.
    */
@@ -134,9 +137,6 @@ export class Article12Logger {
 
     const summary = entry.decisionSummary ? entry.decisionSummary.slice(0, 500) : null;
 
-    // IMPORTANT: If RLS on this table (once ported) ever blocks UPDATE for the
-    // service role, switch to a two-row approach (pre-flight + post-flight as
-    // separate rows) instead of relying on connection-level access control.
     try {
       await this.pool.query(
         `UPDATE article12_audit_log

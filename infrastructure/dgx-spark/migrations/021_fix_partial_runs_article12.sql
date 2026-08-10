@@ -61,8 +61,11 @@ BEGIN;
 -- This is the inference-shaped sibling of 019_command_audit_log.sql (071):
 -- that one logs command/skill invocations with a tamper-evident hash chain,
 -- this one logs individual model inferences (model, thinking_effort, token
--- counts, PII-scrub provenance). No hash chain here — append-only is
--- enforced purely via REVOKE, matching the source.
+-- counts, PII-scrub provenance). Unlike command_audit_log, this table keeps
+-- one row per inference: INSERT pre-flight, then a single post-flight UPDATE
+-- completes that same row with the output lineage fields. No hash chain here;
+-- evidence comes from preserving the partial pre-flight row even if the
+-- completion update fails, while delete/truncate remain revoked from PUBLIC.
 
 CREATE TABLE IF NOT EXISTS article12_audit_log (
   id                      UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -94,7 +97,7 @@ CREATE INDEX IF NOT EXISTS article12_audit_log_created_at_idx ON article12_audit
 CREATE INDEX IF NOT EXISTS article12_audit_log_model_idx      ON article12_audit_log (model);
 
 COMMENT ON TABLE article12_audit_log IS
-  'EU AI Act Article 12 audit log. Append-only. Do not delete rows. Retention: 10 years (draft regulation).';
+  'EU AI Act Article 12 audit log. Single-row two-phase record: insert pre-flight, complete once post-flight. Not hash-chained. Do not delete rows. Retention: 10 years (draft regulation).';
 COMMENT ON COLUMN article12_audit_log.inference_in_eu IS
   'Honest declaration. FALSE = Anthropic US inference. TRUE only if a GA EU endpoint is used.';
 COMMENT ON COLUMN article12_audit_log.pii_scrub_location IS
@@ -104,11 +107,10 @@ COMMENT ON COLUMN article12_audit_log.thinking_block_hash IS
 COMMENT ON COLUMN article12_audit_log.decision_summary IS
   'First 500 chars of agent output for human review. Must not contain PII (scrubbed before insert).';
 
--- GRANTS — append-only enforcement + single-consumer access.
--- GRANT ALL is deliberately not used (see 019_command_audit_log.sql for the
--- same reasoning): INSERT + SELECT only, backed by REVOKE of UPDATE/DELETE/
--- TRUNCATE as a second enforcement layer.
-GRANT SELECT, INSERT ON article12_audit_log TO dws_backend;
+-- GRANTS — single-consumer access aligned with the logger's two-phase write
+-- path. dws_backend inserts the pre-flight row and performs the one completion
+-- UPDATE; PUBLIC still cannot mutate or truncate the table.
+GRANT SELECT, INSERT, UPDATE ON article12_audit_log TO dws_backend;
 
 REVOKE UPDATE   ON article12_audit_log FROM PUBLIC;
 REVOKE DELETE   ON article12_audit_log FROM PUBLIC;

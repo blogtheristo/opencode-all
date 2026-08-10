@@ -15,6 +15,7 @@ import { Pool } from 'pg';
 import logger from '../utils/logger.js';
 
 let _pool: Pool | null = null;
+let _hasWarnedMissingInternalDbUrl = false;
 
 /**
  * Get the shared internal-operations Postgres pool.
@@ -34,9 +35,12 @@ export function getInternalDbPool(): Pool | null {
   const connectionString = process.env.INTERNAL_DB_URL;
 
   if (!connectionString) {
-    logger.warn(
-      'INTERNAL_DB_URL not configured — internal-ops Postgres disabled',
-    );
+    if (!_hasWarnedMissingInternalDbUrl) {
+      logger.warn(
+        'INTERNAL_DB_URL not configured — internal-ops Postgres disabled',
+      );
+      _hasWarnedMissingInternalDbUrl = true;
+    }
     return null;
   }
 
