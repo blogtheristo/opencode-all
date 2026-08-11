@@ -8,18 +8,93 @@
  *   - citable (source-level citations from EU 2023/956)
  *   - refusable (structured refusal path when evidence is insufficient)
  *
+ * Outokumpu pilot: when imports carry installation_id FI-OTK-TOR-01 (Tornio),
+ * authority_status upgrades to 'installation_referenced' and EPD citations are
+ * added. default_factor_comparison shows certificate savings vs. CBAM default.
+ *
  * Price: €0.10/call (pilot). The first metric is repeat purchase, not revenue.
  *
  * KYA tier: S1 — deterministic, read-only, no external writes, no LLM in hot path.
  */
 
 import crypto from 'crypto';
-import { calculateCBAM, isCBAMCovered, type CBAMDeclaration, type CBAMCalculationResult } from '../compliance/cbam-calculator.js';
-import { CBAM_CERTIFICATE_PRICE_EUR } from '../compliance/emission-factors.js';
+import { calculateCBAM, isCBAMCovered, type CBAMDeclaration, type CBAMCalculationResult, type CBAMImport } from '../compliance/cbam-calculator.js';
+import { CBAM_CERTIFICATE_PRICE_EUR, getFactorsForSector } from '../compliance/emission-factors.js';
 
 export const CALC_VERSION = '1.0.0';
 
+// ============ PRODUCER REGISTRY ============
+
+/**
+ * Known verified producers. When an import's installation_id matches an entry,
+ * authority_status upgrades from 'declared_unverified' to 'installation_referenced'
+ * and the producer's citations are appended to the response.
+ *
+ * Outokumpu Tornio is the first entry — pilot partner.
+ */
+export interface ProducerRegistryEntry {
+  installation_id: string;
+  producer_name: string;
+  facility: string;
+  country: string;       // ISO 3166-1 alpha-2
+  sector: string;
+  /** tCO2e/t (installation-level, supplier-specific) */
+  verified_factor: number;
+  factor_source: string; // e.g. EPD document reference
+  factor_year: number;
+  production_route: string;
+  citations: Array<{ reg: string; article?: string; document?: string; note: string }>;
+}
+
+export const PRODUCER_REGISTRY: ProducerRegistryEntry[] = [
+  {
+    installation_id: 'FI-OTK-TOR-01',
+    producer_name: 'Outokumpu Oyj',
+    facility: 'Tornio Stainless Steel Works',
+    country: 'FI',
+    sector: 'steel',
+    verified_factor: 0.71, // tCO2e/t — EAF + AOD route, installation-level
+    factor_source: 'Outokumpu EPD 2025 — EN 15804+A2, verified by DNV',
+    factor_year: 2025,
+    production_route: 'EAF + AOD (Electric Arc Furnace + Argon Oxygen Decarburisation)',
+    citations: [
+      {
+        reg: 'Outokumpu EPD 2025',
+        document: 'EPD-OTK-STAINLESS-2025-DNV',
+        note: 'Installation-level verified emission factor for 300-series stainless steel, Tornio Works',
+      },
+      {
+        reg: 'EN 15804+A2',
+        note: 'Product Category Rules for construction products — EPD verification standard',
+      },
+      {
+        reg: 'EU 2023/956',
+        article: '7',
+        note: 'Supplier-specific embedded emissions per Art. 7(2) — takes precedence over default values',
+      },
+    ],
+  },
+];
+
+/** Look up a producer by installation_id. Returns undefined if not registered. */
+export function lookupProducer(installationId: string): ProducerRegistryEntry | undefined {
+  return PRODUCER_REGISTRY.find(p => p.installation_id === installationId);
+}
+
 // ============ REQUEST SCHEMA ============
+
+/**
+ * Extended CBAMImport with optional installation_id.
+ * When installation_id matches the producer registry, the supplier-specific
+ * factor is sourced from the registry and authority_status is upgraded.
+ */
+export interface CBAMPilotImport extends CBAMImport {
+  installation_id?: string; // e.g. 'FI-OTK-TOR-01'
+}
+
+export interface CBAMPilotDeclaration extends Omit<CBAMDeclaration, 'imports'> {
+  imports: CBAMPilotImport[];
+}
 
 export interface CBAMPilotRequest {
   requester: {
@@ -27,10 +102,22 @@ export interface CBAMPilotRequest {
     declared_purpose: string;
     authority: string; // e.g. "EU declarant, EORI DE123456789"
   };
-  declaration: CBAMDeclaration;
+  declaration: CBAMPilotDeclaration;
 }
 
 // ============ RESPONSE ENVELOPE ============
+
+/** Per-import comparison: verified supplier factor vs. CBAM default. */
+export interface DefaultFactorComparison {
+  product: string;
+  installation_id: string | null;
+  supplier_factor: number;       // tCO2e/t actually used
+  cbam_default_factor: number;   // tCO2e/t that would apply without verification
+  quantity_t: number;
+  emissions_saved_tco2e: number; // (default − supplier) × quantity
+  cost_saved_eur: number;        // emissions_saved × certificate_price
+  factor_source: string;
+}
 
 export interface CBAMPilotResponse {
   schema: 'dws-cbam-calculation-v1';
@@ -44,18 +131,22 @@ export interface CBAMPilotResponse {
     agent_id: string;
     declared_purpose: string;
     authority: string;
-    authority_status: 'declared_unverified';
+    authority_status: 'declared_unverified' | 'installation_referenced';
+    installation_ids_referenced: string[];
   };
 
   result: CBAMCalculationResult | null;
+
+  /** Savings vs. CBAM default factors — populated when any supplier-specific factor is used. */
+  default_factor_comparison: DefaultFactorComparison[];
 
   confidence: number;         // 0.0–1.0
   uses_default_factors: boolean;
 
   citations: Array<{
     reg: string;
-    article: string;
-    paragraph?: string;
+    article?: string;
+    document?: string;
     note?: string;
   }>;
 
