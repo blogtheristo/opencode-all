@@ -1,0 +1,98 @@
+# google-oauth-keepalive.yml
+#
+# Prevents the dws6run6 Google Cloud OAuth 2.0 client from being
+# auto-deleted due to inactivity (Google policy: deleted after 6 months
+# of zero usage).
+#
+# Strategy: every 30 days perform an OAuth 2.0 token refresh call using
+# stored credentials, which counts as "activity" and resets the timer.
+#
+# Required GitHub secrets:
+#   GOOGLE_OAUTH_CLIENT_ID      — OAuth client ID from dws6run6 project
+#   GOOGLE_OAUTH_CLIENT_SECRET  — OAuth client secret
+#   GOOGLE_REFRESH_TOKEN        — Long-lived refresh token for the client
+#
+# To generate GOOGLE_REFRESH_TOKEN once:
+#   Use the OAuth Playground: https://developers.google.com/oauthplayground
+#   or run: gcloud auth application-default login with the client credentials
+
+name: Google OAuth Keep-Alive (dws6run6)
+
+on:
+  schedule:
+    # Run on the 1st of every month at 06:00 UTC (~monthly activity)
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — validate secrets exist but skip the token call'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  keepalive:
+    name: Refresh OAuth token to keep dws6run6 client active
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Validate required secrets are present
+        run: |
+          missing=()
+          [[ -z "${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}" ]]    && missing+=("GOOGLE_OAUTH_CLIENT_ID")
+          [[ -z "${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}" ]] && missing+=("GOOGLE_OAUTH_CLIENT_SECRET")
+          [[ -z "${{ secrets.GOOGLE_REFRESH_TOKEN }}" ]]       && missing+=("GOOGLE_REFRESH_TOKEN")
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "Missing secrets: ${missing[*]}"
+            echo "Add them at: https://github.com/${{ github.repository }}/settings/secrets/actions"
+            exit 1
+          fi
+          echo "All required secrets present"
+
+      - name: Refresh OAuth access token (keeps client active)
+        if: ${{ inputs.dry_run != 'true' }}
+        id: refresh
+        run: |
+          HTTP_STATUS=$(curl -s -o /tmp/token_response.json -w "%{http_code}" \
+            -X POST "https://oauth2.googleapis.com/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "client_id=${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}" \
+            -d "client_secret=${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}" \
+            -d "refresh_token=${{ secrets.GOOGLE_REFRESH_TOKEN }}" \
+            -d "grant_type=refresh_token")
+
+          if [[ "$HTTP_STATUS" == "200" ]]; then
+            TOKEN_TYPE=$(python3 -c "import json; d=json.load(open('/tmp/token_response.json')); print(d.get('token_type','unknown'))")
+            EXPIRES_IN=$(python3 -c "import json; d=json.load(open('/tmp/token_response.json')); print(d.get('expires_in','unknown'))")
+            echo "Token refreshed — type: ${TOKEN_TYPE}, expires_in: ${EXPIRES_IN}s"
+            echo "activity_registered=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Token refresh failed with HTTP $HTTP_STATUS"
+            python3 -c "import json; d=json.load(open('/tmp/token_response.json')); print('Error:', d.get('error'), d.get('error_description',''))"
+            exit 1
+          fi
+          rm -f /tmp/token_response.json
+
+      - name: Summary
+        if: always()
+        run: |
+          if [[ "${{ inputs.dry_run }}" == "true" ]]; then
+            echo "## Dry run — no token call made" >> "$GITHUB_STEP_SUMMARY"
+            echo "Secrets validated as present." >> "$GITHUB_STEP_SUMMARY"
+          elif [[ "${{ steps.refresh.outputs.activity_registered }}" == "true" ]]; then
+            echo "## OAuth keep-alive succeeded" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+            echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Project | dws6run6 |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Next run | 1st of next month 06:00 UTC |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Console | [OAuth credentials](https://console.cloud.google.com/apis/credentials?project=dws6run6) |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## OAuth keep-alive FAILED" >> "$GITHUB_STEP_SUMMARY"
+            echo "Inactivity timer has **not** been reset." >> "$GITHUB_STEP_SUMMARY"
+            echo "Visit [Google Cloud Console](https://console.cloud.google.com/apis/credentials?project=dws6run6)" >> "$GITHUB_STEP_SUMMARY"
+          fi
