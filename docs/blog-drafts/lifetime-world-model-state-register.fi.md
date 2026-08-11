@@ -8,20 +8,25 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti; osan 9 nimi lukittu
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 9/11. Päivitetty vastaamaan KYA-S1 §6.3 PRV- ja REG-vaatimuksia. Aiempi luonnos
+  Sarjan osa 9/12. Päivitetty vastaamaan KYA-S1 §6.3 PRV- ja REG-vaatimuksia. Aiempi luonnos
   docs/blog-drafts/lifetime-world-model-ja-teollisuuden-prosessimallit.md on eri aihe
   (ISA-95 / BPMN / SysML / VSM -sillat) ja jää talteen (Rule 12).
-typos_flagged:
-  - "Sarjaindeksin Osa 5: 'Miten tekoälyagentit luottamustaso' → 'tekoälyagentin' (korjattu tässä tiedostossa muun sarjan kanssa yhdenmukaiseksi)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "Sarjaindeksin Osa 5: Miten tekoälyagentit luottamustaso → tekoälyagentin"
 ---
 
 # Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti
 
-Blogi 9/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 9/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Älykäs moottori tarvitsee maailmanmallin
 

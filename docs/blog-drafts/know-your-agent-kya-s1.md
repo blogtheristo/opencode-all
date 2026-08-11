@@ -8,9 +8,6 @@ lang: en
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-hero_image: ../static/images/blog/kya-s1-series-hero-fi.jpg
-hero_image_alt: "Series map: the 11 parts of the KYA-S1 blog series in one image (Finnish)"
-hero_image_status: "PENDING FIX — Osa 8 esiintyy kahdesti (12 korttia / 11 osaa); 1024x559 alle 4K-rajan"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "englanninkielinen 100% vastaavuus = hyväksytty"
 source: 1:1 translation of the HIC-approved Finnish text (know-your-agent-kya-s1.fi.md). Section-for-section, claim-for-claim; no added or removed argument.
@@ -28,11 +25,11 @@ note: >-
 
 # Know Your Agent (KYA-S1): One Signed Page for the AI in the Security File That Touches Your Data
 
-Blog 1/11 · DWS IQ & Lifetime World Model · 8 August 2026 · Risto Anton Päärni
+Blog 1/12 · DWS IQ & Lifetime World Model · 8 August 2026 · Risto Anton Päärni
 
 ## Introduction: AI makes decisions — but who carries the liability?
 
-The procurement files of enterprises and public administration today hold a substantial stack of signed documents. At the organisational level there are SOC 2 Type II and ISO/IEC 27001 certificates. For data and privacy there is GDPR and CSRD evidence. For platform security and infrastructure there is FedRAMP or a sovereign-cloud approval to point at.
+The procurement files of enterprises and public administration today hold a substantial stack of signed documents. At the organisational level there are SOC 2 Type 2 and ISO/IEC 27001 certificates. For data and privacy there is GDPR and CSRD evidence. For platform security and infrastructure there is FedRAMP or a sovereign-cloud approval to point at.
 
 One critical document is nevertheless missing from the procurement file: a signed page for the autonomous AI agent.
 
@@ -40,9 +37,9 @@ When AI moves from generating text to autonomous action — executing code, call
 
 An autonomous AI agent is not merely software. It is an actor. That is why every agent requires an identity of its own that has been verified, a mandate to act, and an immediate emergency brake.
 
-## One page for the vendor file (KYA-S1 v1.4 Specification)
+## One page for the vendor file (KYA-S1 v1.3 Specification)
 
-KYA-S1 (Know Your Agent Security Specification v1.4) is a vendor-facing security specification that verifies the runtime behaviour and identity of AI agents. It condenses into three clear questions that every vendor must be able to answer before an agent is let anywhere near the customer's data:
+KYA-S1 (Know Your Agent Security Specification v1.3) is a proposed security standard that verifies the runtime behaviour and identity of AI agents. It condenses into three clear questions that every vendor must be able to answer before an agent is let anywhere near the customer's data:
 
 **Who is behind the agent? (IDV — Identity Verification)**
 Every decision the agent makes and every tool it requests must be traceable to a cryptographically verified human (the HIC — the human in command).
@@ -97,7 +94,7 @@ The KYA-S1 specification produces material that is directly usable against the o
 - **Part 3:** EU AI Act Article 14 (HIC) and the contradiction of agent autonomy
 - **Part 4:** Agent classes: a developer's GitHub Copilot vs. industrial DWS IQ background agents
 - **Part 5:** KYA-S1 and BPMN 2.0: how an AI agent's trust level steers an industrial process in practice
-- **Part 6:** KYA-S1 v1.4 × BPMN 2.0: atomic Lease Token, fail-closed, and honest TRS computation
+- **Part 6:** KYA-S1 v1.3 × BPMN 2.0: atomic Lease Token, fail-closed, and honest TRS computation
 - **Part 7:** When something goes wrong: 72-hour fault classification (FLT) and decision replay (PRV) in practice
 - **Part 8:** The KYA-S1 ecosystem & production roadmap
 - **Part 9:** Lifetime World Model (LWM) — a global state register and memory

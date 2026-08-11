@@ -1,3 +1,5 @@
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: DRAFT
 Slug: kya-s1-one-signed-page
 Title: Tunne agenttisi — yksi allekirjoitettu sivu tekoälystä, joka koskee dataasi

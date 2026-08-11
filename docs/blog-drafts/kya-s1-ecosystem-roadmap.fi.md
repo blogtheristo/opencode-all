@@ -8,20 +8,25 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 8/11. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
+  Sarjan osa 8/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
   Laajennusalueiden tasokohtaiset vaatimukset vastaavat Legal/KYA_S1.md v1.5 §8:n
   laajennusaluetaulukkoa (PRV-replay 30 pv / 7 pv / 24 h; FLT-4 30 pv / 10 pv / 72 h).
-typos_flagged:
-  - "ostajan työkykyinen työkalu → ostajan työkalu? (Johdanto)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "ostajan työkykyinen työkalu → ostajan työkalu (Johdanto)"
 ---
 
 # KYA-S1 Ekosysteemi & Tuotanto-Roadmap
 
-Blogi 8/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 8/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Koodista organisaation arkeen
 
@@ -29,7 +34,7 @@ Sarjan edellisissä osissa rakensimme teknisen ja ohjelmistotason pohjan tekoäl
 
 Kysymys kuuluu nyt: miten tämä malli tuodaan kooditasolta osaksi organisaation hankintaa, toimittajahallintaa ja tuotanto-roadmapia?
 
-KYA-S1 v1.3 ei ole vain tekninen protokolla, vaan se on ostajan työkykyinen työkalu toimittajahallintaan. Tässä osassa kuvaamme, miten KYA-S1 Specification v1.3 otetaan käyttöön vaiheittain teollisuuden virallisilla KYA-AL-varmuustasoilla.
+KYA-S1 v1.3 ei ole vain tekninen protokolla, vaan se on ostajan työkalu toimittajahallintaan. Tässä osassa kuvaamme, miten KYA-S1 Specification v1.3 otetaan käyttöön vaiheittain teollisuuden virallisilla KYA-AL-varmuustasoilla.
 
 ## Teollisuuden KYA-AL-varmuustasot (Assurance Levels)
 

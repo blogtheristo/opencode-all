@@ -8,19 +8,28 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan päätösosa 11/11. Korvaa aiemman luonnoksen
+  Sarjan päätösosa 11/12. Korvaa aiemman luonnoksen
   docs/blog-drafts/eudi-wallet-eidas2-idv-ankkurointi.md, joka on eri teksti (se käsitteli
   wallet-ankkuroidun IDV:n ja KYA-AL3:n 60 s -vaatimuksen aitoa yhteensopivuusongelmaa)
   ja jää talteen (Rule 12). Se avoin kysymys ei sisälly tähän julkaistavaan versioon.
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "pätövien sähköisten attribuuttitodistusten → pätevien (EUDI-luku)"
+  - "Niistä muuttuu → Niistä tulee (Yhteenveto)"
+  - "tismalleen → täsmälleen (PRV-2-kohta)"
 ---
 
 # Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0: Ihmisen perusidentiteetti tekoälyagentin valtuuttajana
 
-Blogi 11/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 11/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Sisäisestä SSO-kirjautumisesta EU-tason juridiseen identiteettiin
 
@@ -82,7 +91,7 @@ Oikeudellisessa tarkastelussa ei tarvitse arvailla, kuka nappia painoi: auditoin
 
 ## Yhteenveto: Sarjan päätössynteesi
 
-Tähän päättyy 11-osainen katsauksemme KYA-S1-spesifikaatioon, EU AI Actiin, BPMN 2.0 -prosessinohjaukseen ja DWS IQ -agentteihin.
+Tähän päättyy 12-osainen katsauksemme KYA-S1-spesifikaatioon, EU AI Actiin, BPMN 2.0 -prosessinohjaukseen ja DWS IQ -agentteihin.
 
 Koko arkkitehtuuri muodostaa aukottoman ketjun:
 

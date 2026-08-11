@@ -8,18 +8,25 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti; osan 3 nimi lukittu
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 3/11. Pohjautuu HIC-hallintamalliin, päivitetty kytkeytymään suoraan
+  Sarjan osa 3/12. Pohjautuu HIC-hallintamalliin, päivitetty kytkeytymään suoraan
   artiklaan 14, Lease Tokeniin ja KYA-S1-spesifikaatioon. Aiempi luonnos
   docs/blog-drafts/hic-hallintamalli-ja-dws-iq-agentit.md on eri aihe ja jää talteen (Rule 12).
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "Hti kun poikkeama havaitaan → Heti kun poikkeama havaitaan (Yhteenveto)"
 ---
 
 # EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita
 
-Blogi 3/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 3/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Autonomia vs. lakisääteinen valvonta
 
