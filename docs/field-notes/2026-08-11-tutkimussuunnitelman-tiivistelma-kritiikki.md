@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.4, Nokia-export v2.1 → v2.4).
+- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.5, Nokia-export v2.1 → v2.5).
 
 Session Links & References:
 
@@ -78,6 +78,24 @@ HIC hyväksyi v2.2–2.3:n korjaukset ja päätti samalla, että **Etelä-Korea 
 Nykyinen lähdetilanne 11.08.2026: Etelä-Korea esiintyy repossa vain G7-plus-kumppanit-koalition jäsenenä tekoälymenojen yhteydessä (`docs/PHD_FIREHORSE_FI.md` §14.24). Se ei kelpaa minkään yllä olevan kolmen kohdan lähteeksi.
 
 **Sama testi koskee jokaista tulevaa jurisdiktiolisäystä** — ei lisätä profiilia kehyksen symmetrian vuoksi.
+
+## 4d. Gemini-konsolidointi (v2.5, 11.08.2026)
+
+Gemini oli muokannut Drive-dokumenttia `2.0_KYA-S1_tutkimussuunnitelman_tiivistelma_FI` (id `1Ti7ExX…`) suoraan ja leimannut sen "Versio 2.1 · 11.08.2026".
+
+**Adoptoitu:**
+
+- **GTM-status-sarake** jurisdiktiotaulukkoon akateemisen roolin rinnalle — tutkimusrooli ja markkina-asema luetaan nyt samasta rivistä. Tämä on aidosti parempi kuin kaksi erillistä taulukkoa.
+- **Kahden skoopin nimeäminen:** "Akateeminen tutkimusalue (Academic Research Scope)" ja "Markkinastrategia (GTM Strategy)".
+
+**Hylätty (Sääntö 7 — ei tasoiteta):**
+
+- Gemini kirjasi GTM-statukset **ehdottomina**: "Ruotsi = kasvumarkkina", "Saksa = strateginen markkina" ja "ensimmäiset maksavat käyttöönotot priorisoidaan Suomessa, Ruotsissa ja Saksassa". Tämä poistaa HIC:n 11.08.2026 asettaman ehdon — Ruotsi ja Saksa ovat mukana **vain jos niissä on konkreettinen myyntipolku**. Ehto palautettu.
+- Tyhjä "Rajaukset:"-luettelokohta hakijatiedoissa.
+- Fallback- ja kynnyslauseiden upottaminen RQ1:n ja RQ3:n **kysymystekstiin**. Riskikäsittely pysyy omassa osiossaan, jotta kysymys pysyy kysymyksenä.
+- Taulukon karkeampi rivitys ("ASEAN / US" yhtenä rivinä): hukkaa Singaporen todennetun standardointireitin ja Yhdysvaltojen erillisen dokumenttiprofiilin.
+
+**Driftihavainto (`DWS_TRUTH_STANDARD.md` §2E):** muokkaus tehtiin suoraan Drive-dokumenttiin eikä repoon, ja se leimattiin versioksi 2.1 — numero, joka repossa on jo käytössä eri sisällölle. Repo pysyy masterina; Drive-dokumentit ovat exportteja. Jos Gemini-kierroksia tulee lisää, ne konsolidoidaan samalla tavalla repoon eikä päinvastoin.
 
 ## 5. HIC Learning Outcome — kuusi askelta
 
