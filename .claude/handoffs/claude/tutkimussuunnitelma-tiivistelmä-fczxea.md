@@ -4,10 +4,12 @@
 
 ## Mitä tehtiin
 
-HIC:n kaksi kritiikkikohtaa tutkimussuunnitelman tiivistelmään (masteri + Nokia-export, molemmat v2.1 → v2.2):
+HIC:n kaksi kritiikkikohtaa tutkimussuunnitelman tiivistelmään (masteri + Nokia-export, molemmat v2.1 → v2.3):
 
 1. **Empiirinen perusta.** Uusi osio: aineisto syntyy kaupallisessa, tuotannollisessa DWS IQ -ympäristössä; myynnin ja käyttöönottojen on onnistuttava, jotta väitös voi valmistua. Riippuvuus kirjattu riskinä (RQ1/RQ2 etenevät ilman uusia käyttöönottoja, RQ3/RQ4 eivät) + minimiaineistokynnys kk 1–6. Ristiriita "arviointi erillään kaupallisesta tuotekehityksestä" -lauseen kanssa ratkaistu: kaupallinen kanava tuottaa aineiston, ei tulkintaa.
 2. **Jurisdiktiokehys.** Ei EU–US-asetelma. RQ2 kattaa EU:n (FI/SE/DE), Yhdysvallat, Singaporen, Etelä-Korean ja ASEAN/Aasian. Taulukkoon 4 uutta riviä evidenssistatuksineen; rehellisyysvartija laajennettu kaikkiin ei-empiirisiin profiileihin. Vanha kolmen EU-maan rajaus säilytetty kumottuna (Sääntö 12).
+
+3. **Tutkimus vs. GTM (v2.3).** Uusi osio "Jurisdiktiokehys ei ole markkinasuunnitelma": laaja vertailukehikko ei laajenna markkinajoukkoa. GTM-vaihe 1 = 2–3 markkinaa nimetyllä ostajalla, kumppanilla, data-aineistolla ja toimituskyvyllä; Suomi kotimarkkina, Ruotsi/Saksa myyntipolun ehdolla, SG/KR/ASEAN myöhempiä profiileja.
 
 **Versioparius (HIC 11.08.2026):** Nokia-export kantaa aina masterin versionumeron — sekä repossa että Drive-vientinimessä. Sääntö kirjattu molempien tiedostojen headeriin.
 

@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.2, Nokia-export v2.1 → v2.2).
+- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.3, Nokia-export v2.1 → v2.3).
 
 Session Links & References:
 
@@ -53,6 +53,17 @@ v2.1:n vartija koski vain Saksaa. Uusien jurisdiktioiden lisääminen olisi ilma
 | ASEAN / laajempi Aasia | Skenaario                                                          |
 
 **Etelä-Korea on ainoa merkintä ilman lähdepohjaa.** Repositoriossa Etelä-Korea esiintyy 11.08.2026 vain G7-plus-kumppanit-koalition jäsenenä tekoälymenojen yhteydessä (`docs/PHD_FIREHORSE_FI.md` §14.24) — ei sääntely-, hankinta- eikä standardointireittinä. Merkintä `unverified` on siksi tarkoituksellinen ja poistetaan vasta lähdekartoituksen jälkeen (Sääntö 12).
+
+## 4b. Tutkimuskehys vs. GTM (HIC 11.08.2026, v2.3)
+
+Kohdan 1 ja kohdan 2 yhdistelmä tuotti uuden riskin: kun tutkimusaineisto sidotaan kaupallisiin käyttöönottoihin ja jurisdiktiokehys laajennetaan seitsemään profiiliin, lukija voi päätellä, että myös markkinajoukko laajenee seitsemään. HIC korjasi tämän ennen kuin se ehti tekstiin asti.
+
+Kirjattu erottelu:
+
+- **Tutkimus** vastaa kysymykseen "säilyykö evidenssin merkitys erilaisissa toimivalta- ja auditointiympäristöissä?" — laajuus ASEAN/Aasia, Singapore, Etelä-Korea, EU, Yhdysvallat + syvät paikalliset vertailut FI/SE/DE. Sisäänpääsyn ehto on riittävä sääntely- ja hankinta-aineisto.
+- **GTM** vastaa kysymykseen "missä saamme ensimmäiset maksavat käyttöönotot?" — vaihe 1 on 2–3 markkinaa. Sisäänpääsyn ehto on nimetty ostaja, kumppani, data-aineisto ja toimituskyky. Suomi kotimarkkinana; Ruotsi ja Saksa vain konkreettisen myyntipolun ehdolla; Singapore, Etelä-Korea ja ASEAN myöhempiä profiileja.
+
+**Periaate:** jurisdiktiorakenteen symmetria ei ole peruste laajentaa maajoukkoa. Vain empiirisen statuksen jurisdiktiot edellyttävät toimituskykyä; dokumentti- ja skenaarioprofiilit tutkitaan aineistosta, ei markkinasta.
 
 ## 5. HIC Learning Outcome — kuusi askelta
 
