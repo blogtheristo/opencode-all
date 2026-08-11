@@ -84,13 +84,12 @@ const SECURITY_CONSTANTS = {
 
 /**
  * Calculate Agent Trust Score using the KYA v1.4 formula:
- *   ATS = max(0, 1.0 - V×violationWeight - L - D×deniedAccessWeight + A×autoresearchBonusCap)
+ *   ATS = max(0, 1.0 - V×violationWeight - D×deniedAccessWeight + A×autoresearchBonusCap)
  */
 export function calculateATS(params: KyaTunableParams, session: SyntheticKyaSession): number {
   const raw =
     1.0 -
     session.violations * params.violationWeight -
-    session.latencyPenalty -
     session.deniedAccessAttempts * params.deniedAccessWeight +
     Math.min(session.autoresearchImprovement, 1.0) * params.autoresearchBonusCap;
 

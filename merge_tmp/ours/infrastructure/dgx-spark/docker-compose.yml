@@ -1,0 +1,514 @@
+# DGX Spark — Primary 24/7 Agent & Cron Runtime
+# Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
+# Failover: GitHub Actions mirrors all cron schedules
+#
+# Code-Version: 1.3.2
+# Introduced-In: claude/aspire-version-update-w21fyd
+# Branch: claude/ollama-orchestration-merge-047pj7
+# Date: 2026-07-26
+# Owner: Lifetime Oy
+# Change: v1.3.2 — Bumped aspire-dashboard image 13.3.5 → 13.4.6 (current latest
+#         stable per microsoft/aspire, verified 2026-07-26; 13.5.0 is preview —
+#         stay on stable, never :latest). Dashboard-only footprint means the
+#         Aspire 13.4 breaking changes (Postgres 18.3 data-volume, RabbitMQ 4.3,
+#         K8s/Foundry renames) do not apply — zero migration surface. Supersedes
+#         PR #1557 (dirty against v1.3.1). See field note
+#         docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md §3.8.
+#         Prior (1.3.1): Fixed OTLP/HTTP endpoint port 18888→18890 on all three
+#         producers (dws-backend, dws-cron, bumblebee-collector). Port 18888
+#         is the dashboard UI; the dashboard's OTLP/HTTP listener defaults to
+#         18890 (ASPIRE_DASHBOARD_OTLP_HTTP_ENDPOINT_URL, per aspire.dev
+#         dashboard configuration reference, verified 2026-07-07). The v1.2.0
+#         "fix" moved telemetry from the gRPC port to the UI port — telemetry
+#         was silently dropped either way. See field note
+#         docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md
+#         Prior (1.3.0): Added bumblebee-collector (Perplexity Bumblebee supply-chain
+#         scanner) as a third OTLP producer. Read-only host mount, supercronic-
+#         driven daily/weekly scans, OTel metrics + structured exposure logs
+#         pushed to aspire-dashboard via the OTLP/HTTP endpoint introduced in
+#         v1.2.0. Build pins upstream via bumblebee/bumblebee.version.
+#         Prior (1.2.0, PR-1117): Fixed OTel protocol (gRPC→HTTP, port 18889→
+#         18888 to match otel.ts HTTP exporter); added state-observer for typed
+#         system snapshots; added github-runner + state-observer to heartbeat.
+#         Prior (1.1.1): added aspire-dashboard:13.3.5 dashboard-only
+#         (field note 2026-04-10 §2.4).
+
+services:
+  # ==========================================================================
+  # DWS IQ Backend (Express + all agents + node-cron schedulers)
+  # ==========================================================================
+  dws-backend:
+    build:
+      context: ../../
+      dockerfile: infrastructure/dgx-spark/Dockerfile.backend
+      platforms:
+        - linux/arm64
+    container_name: dws-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      # Ollama on host (DGX Spark native, not containerized)
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      # Model routing: local first, API fallback
+      LLM_PRIMARY: ollama
+      LLM_FALLBACK: groq
+      OLLAMA_MODEL: nemotron-3-super
+      OLLAMA_MODEL_FAST: qwen3-coder:30b
+      # Enable all schedulers
+      ENABLE_CRON_JOBS: "true"
+      ENABLE_MORNING_BRIEFING: "true"
+      ENABLE_CONSTRUCTION_LEADS: "true"
+      ENABLE_OUTREACH_DIGEST: "true"
+      ENABLE_FIREHORSE_SCHEDULER: "true"
+      ENABLE_INVESTOR_REPORTS: "true"
+      ENABLE_ERP_SYNC: "true"
+      # Heartbeat for failover detection
+      HEARTBEAT_ENDPOINT: "true"
+      HEARTBEAT_PORT: 9999
+      # OpenTelemetry — Aspire Dashboard OTLP/HTTP listener (18890, NOT the
+      # 18888 UI port). src/observability/otel.ts appends /v1/traces.
+      OTEL_SERVICE_NAME: dws-backend
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18890
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+    volumes:
+      - backend-logs:/app/logs
+      - backup-data:/app/backups
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 2G
+
+  # ==========================================================================
+  # Cron Runner — All scheduled jobs (mirrors GitHub Actions schedules)
+  # ==========================================================================
+  dws-cron:
+    build:
+      context: ../../
+      dockerfile: infrastructure/dgx-spark/Dockerfile.cron
+      platforms:
+        - linux/arm64
+    container_name: dws-cron
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      LLM_PRIMARY: ollama
+      LLM_FALLBACK: groq
+      OLLAMA_MODEL: nemotron-3-super
+      DWS_BACKEND_URL: http://dws-backend:8080
+      # Heartbeat detection handled by the heartbeat container (:9999)
+      # No HEARTBEAT_URL — cron-runner skips the periodic POST
+      # OpenTelemetry — Aspire Dashboard OTLP/HTTP listener (18890, NOT the
+      # 18888 UI port). src/observability/otel.ts appends /v1/traces.
+      OTEL_SERVICE_NAME: dws-cron
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18890
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+    volumes:
+      - backend-logs:/app/logs
+      - backup-data:/app/backups
+      - cron-state:/app/state
+    depends_on:
+      dws-backend:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # ==========================================================================
+  # MCP Gateway — Supabase + GitHub tools for remote Claude Code sessions
+  # (mobile/desktop). Ported from Cloud Run per docs/CLOUD_ENVIRONMENTS.md
+  # §12.9 — DGX Spark is priority 1 for this workload (no external per-token
+  # billing; power/amortisation/serving remain — bounded, not zero,
+  # EU-sovereign); the gateway's in-process MCP session state needs no
+  # porting here since this is a persistent host, unlike Workers isolates.
+  # No host port — reached only via the cloudflare-tunnel service below, over
+  # the internal dws-network.
+  # ==========================================================================
+  mcp-gateway:
+    build:
+      context: ../../mcp-servers/cloud-run-gateway-ts
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    container_name: dws-mcp-gateway
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+
+  # ==========================================================================
+  # Cloudflare Tunnel — public HTTPS ingress for mcp-gateway without opening
+  # any port on the DGX host. Same image/pattern as the (deprecated) hybrid
+  # compose file's cloudflare-tunnel service. Requires CLOUDFLARE_TUNNEL_TOKEN
+  # in .env (create the tunnel + token in the Cloudflare Zero Trust dashboard,
+  # then route its public hostname to the mcp-gateway service in the tunnel's
+  # ingress config — this half is a manual, one-time step outside this repo).
+  # Opt-in via the "gateway" profile so it doesn't start on hosts that haven't
+  # provisioned a tunnel yet.
+  # ==========================================================================
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:2024.12.2
+    container_name: dws-cloudflare-tunnel
+    command: tunnel --no-autoupdate run
+    restart: unless-stopped
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      mcp-gateway:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    profiles:
+      - gateway
+
+  # ==========================================================================
+  # Firehorse Report Engine
+  # ==========================================================================
+  firehorse-reports:
+    build:
+      context: ../../Firehorse
+      dockerfile: api/Dockerfile
+      platforms:
+        - linux/arm64
+    container_name: firehorse-reports
+    restart: unless-stopped
+    ports:
+      - "8084:8084"
+    env_file:
+      - .env
+    environment:
+      PORT: 8084
+    volumes:
+      - firehorse-reports:/app/reports
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8084/health')",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================================================
+  # Redis (job queue, caching, rate limiting)
+  # ==========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: dws-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================================================
+  # NemoClaw — Local autonomous agent runtime (OpenShell-sandboxed)
+  # EU-sovereign agent surface: no network egress; Brain wired to Nemotron 3 Super
+  # via Ollama on the host. See DWS_DEPLOYMENT_STANDARD.md and field note
+  # docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md.
+  # NemoClaw is NVIDIA's open agent blueprint: the OpenShell secure runtime +
+  # a choice of harness (OpenClaw or Hermes) + model router + NeMo libraries.
+  # NEMOCLAW_IMAGE default pulls the OpenClaw harness image; repoint it at the
+  # NVIDIA-published NemoClaw image (OpenShell-governed) at migration Phase 3.
+  # ==========================================================================
+  nemoclaw:
+    image: ${NEMOCLAW_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+    container_name: dws-nemoclaw
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    env_file:
+      - .env
+    environment:
+      PORT: 8090
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      NEMOCLAW_DEFAULT_MODEL: nemotron-3-super
+      NEMOCLAW_FAST_MODEL: qwen3-coder:30b
+      # No egress by design — agent runtime stays inside the Spark LAN.
+      # If a workload requires outbound calls, add the specific allow-list here
+      # rather than opening egress wholesale.
+      NEMOCLAW_ALLOW_EGRESS: "false"
+    volumes:
+      - nemoclaw-state:/app/state
+      - nemoclaw-logs:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8090/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # ==========================================================================
+  # Heartbeat Service — Reports status to GitHub Actions failover
+  # ==========================================================================
+  heartbeat:
+    build:
+      context: .
+      dockerfile: Dockerfile.heartbeat
+      platforms:
+        - linux/arm64
+    container_name: dws-heartbeat
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    environment:
+      PORT: 9999
+      CHECK_BACKEND: http://dws-backend:8080/health
+      CHECK_CRON: http://dws-cron:8081/health
+      CHECK_OLLAMA: http://host.docker.internal:11434/api/tags
+      CHECK_REDIS: redis://redis:6379
+      CHECK_NEMOCLAW: http://nemoclaw:8090/health
+      CHECK_ASPIRE: http://aspire-dashboard:18888/health
+      CHECK_RUNNER: http://host.docker.internal:9800/healthz
+      CHECK_STATE_OBSERVER: http://state-observer:9801/health
+      CHECK_MCP_GATEWAY: http://mcp-gateway:8080/health
+      # GitHub repository for status reporting
+      GITHUB_REPOSITORY: blogtheristo/dws6
+    depends_on:
+      dws-backend:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ==========================================================================
+  # Aspire Dashboard 13.4.6 — Distributed traces, metrics, logs (OTel aggregator)
+  # Dashboard-only install — no AppHost or .NET toolchain required.
+  # Three distinct endpoints (aspire.dev dashboard configuration reference):
+  #   UI:        http://dgx-spark:18888          (browser)
+  #   OTLP gRPC: http://aspire-dashboard:18889   (grpc exporters)
+  #   OTLP HTTP: http://aspire-dashboard:18890   (http/protobuf exporters — what
+  #              dws-backend / dws-cron / bumblebee use)
+  # GenAI visualizer (sparkle icon on gen_ai.* spans) included since 9.5.
+  # Ref: docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md §2.4 option 1
+  # Ref: docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md
+  # ==========================================================================
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.4.6
+    container_name: aspire-dashboard
+    restart: unless-stopped
+    ports:
+      - "18888:18888" # Dashboard UI
+    environment:
+      DASHBOARD__FRONTEND__AUTHMODE: Unsecured
+      DASHBOARD__OTLP__AUTHMODE: Unsecured
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18888/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+
+  # ==========================================================================
+  # State Observer — Typed system snapshots (CPU, memory, GPU, containers,
+  # runner, models, drift detection). Per webframp.com/posts/you-were-never-
+  # declaring-state/ — observe what IS, not what should be.
+  # ==========================================================================
+  state-observer:
+    build:
+      context: .
+      dockerfile: Dockerfile.heartbeat
+      platforms:
+        - linux/arm64
+    container_name: dws-state-observer
+    restart: unless-stopped
+    environment:
+      PORT: 9801
+      SNAPSHOT_DIR: /app/state/snapshots
+      DASHBOARD_PATH: /app/dashboard.html
+      DOCKER_GID: "${DOCKER_GID:-999}"
+    entrypoint: ["node", "--experimental-strip-types", "/app/state-observer.ts"]
+    group_add:
+      - "${DOCKER_GID:-999}"
+    volumes:
+      - ./state-observer.ts:/app/state-observer.ts:ro
+      - ./dashboard.html:/app/dashboard.html:ro
+      - state-snapshots:/app/state/snapshots
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9801/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 64M
+
+  # ==========================================================================
+  # Bumblebee Collector — Perplexity Bumblebee supply-chain scanner.
+  # Read-only inventory of installed packages / lockfiles / MCP configs on the
+  # DGX host; results pushed to aspire-dashboard as OTel metrics + logs over
+  # OTLP/HTTP (port 18890, the dashboard's OTLP/HTTP listener — v1.3.1 fix).
+  # Pinned upstream SHA: infrastructure/dgx-spark/bumblebee/bumblebee.version
+  # ==========================================================================
+  bumblebee-collector:
+    build:
+      context: ./bumblebee
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    container_name: bumblebee-collector
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      OTEL_SERVICE_NAME: bumblebee
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18890
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+      BUMBLEBEE_HOST_LABEL: dgx-spark
+      BUMBLEBEE_HOST_ROOT: /host
+      BUMBLEBEE_CATALOG: /app/catalog.json
+      TZ: UTC
+    volumes:
+      # Read-only view of the host so Bumblebee can inventory lockfiles,
+      # package-manager metadata, and MCP configs without write access.
+      - /:/host:ro
+    depends_on:
+      aspire-dashboard:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+        reservations:
+          memory: 64M
+
+volumes:
+  backend-logs:
+  backup-data:
+  redis-data:
+  firehorse-reports:
+  cron-state:
+  nemoclaw-state:
+  nemoclaw-logs:
+  state-snapshots:
+
+networks:
+  default:
+    name: dws-network

@@ -162,4 +162,24 @@ describe('calculateATS — IDV gate (TRS-1)', () => {
     expect(result.breakdown.deniedAttemptCount).toBe(1);
     expect(result.breakdown.idvValid).toBe(true);
   });
+
+  it('does not reduce the ATS score on high latency', () => {
+    const telemetry: TelemetryEntry[] = [
+      {
+        timestamp: new Date().toISOString(),
+        sessionId: 'session-abc',
+        subagentId: 'agent-quality-01',
+        event: 'PATH_ACCESS',
+        status: 'ALLOWED',
+        latency: 2000,
+      },
+    ];
+
+    const result = calculateATS(makeManifest(), telemetry, makeIdv());
+
+    // Latency penalty is removed for compatibility
+    expect(result.score).toBe(1.0);
+    expect(result.breakdown.avgLatencyMs).toBe(2000);
+    expect(result.breakdown.latencyPenalty).toBe(0);
+  });
 });

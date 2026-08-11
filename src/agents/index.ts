@@ -182,6 +182,10 @@ export class AgentRegistry {
           orgId: context.orgId,
           sessionId: context.sessionId,
           delegationDepth: currentDepth,
+          // Forward a real verdict when the runtime already issued one (e.g. a
+          // KYA gate check before this call) instead of leaving the span to
+          // default to "ungated".
+          kya: context.agentRuntime?.kya,
         },
         async (span) => {
           const r = await agent.execute(context, input);

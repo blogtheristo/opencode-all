@@ -61,10 +61,10 @@ export type TelemetryEvent =
  * Verification status of the human principal the agent session is bound to.
  *
  * Only 'verified' authorizes autonomous action. Everything else — including
- * 'unknown' — is a hard kill, per KYA-S1 v1.3 TRS-5 (fail-closed): the absence
+ * 'unknown' — is a hard kill, per KYA-S1 v1.5 TRS-5 (fail-closed): the absence
  * of a usable IDV signal must never be read as permission.
  *
- * @see Legal/KYA_S1_v1.3.md §5.1 (IDV-1…IDV-4), §6.2 (TRS-1 documented inputs)
+ * @see Legal/KYA_S1.md §5.1 (IDV-1…IDV-4), §6.2 (TRS-1 documented inputs)
  */
 export type IdvStatus = 'verified' | 'revoked' | 'expired' | 'unknown';
 
@@ -107,11 +107,13 @@ export interface ATSResult {
 export interface ATSBreakdown {
   baseScore: number;
   violationPenalty: number;
+  /** Legacy compatibility field. Latency penalty was removed from ATS scoring. */
   latencyPenalty: number;
   overreachPenalty: number;
   manifestValid: boolean;
   violationCount: number;
   deniedAttemptCount: number;
+  /** Observability only. Latency no longer affects ATS scoring. */
   avgLatencyMs: number;
   /** True only when the human principal is verified and the attestation is fresh */
   idvValid: boolean;

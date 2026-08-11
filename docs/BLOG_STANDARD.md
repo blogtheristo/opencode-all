@@ -184,9 +184,9 @@ Chronological order. Update this table when adding/removing posts.
 | 54  | `kya-s1-one-signed-page.html`                            | KYA-S1 — One Signed Page for the Agent in Your Vendor File (EN, Standards / Buyer Note)                                                                                  | 6 Aug 2026  |
 | 55 | `know-your-agent-kya-s1.html` | Know Your Agent (KYA-S1) — One Signed Page for the AI That Touches Your Data (EN, series 1/12) | 8 Aug 2026  |
 | 56 | `know-your-agent-kya-s1.fi.html` | Tunne agenttisi (KYA-S1) — Yksi allekirjoitettu sivu tekoälystä (FI, sarja 1/12) | 8 Aug 2026  |
-| 57 | `know-your-agent-kya-s1.sv.html` | Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data (SV, serie 1/11) | 8 Aug 2026  |
-| 58 | `know-your-agent-kya-s1.de.html` | Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI (DE, Serie 1/11) | 8 Aug 2026  |
-| 59 | `know-your-agent-kya-s1.fr.html` | Connaissez votre agent (KYA-S1) — Une page signée sur l'IA (FR, série 1/11) | 8 Aug 2026  |
+| 57 | `know-your-agent-kya-s1.sv.html` | Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data (SV, serie 1/12) | 8 Aug 2026  |
+| 58 | `know-your-agent-kya-s1.de.html` | Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI (DE, Serie 1/12) | 8 Aug 2026  |
+| 59 | `know-your-agent-kya-s1.fr.html` | Connaissez votre agent (KYA-S1) — Une page signée sur l'IA (FR, série 1/12) | 8 Aug 2026  |
 | 60 | `kya-kyc-seven-questions.fi.html` | KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä (FI, sarja 2/12) | 8 Aug 2026  |
 | 61 | `eu-ai-act-article-14-hic.fi.html` | EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita (FI, sarja 3/12) | 8 Aug 2026  |
 | 62 | `agent-classes-copilot-vs-dws-iq.fi.html` | Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit (FI, sarja 4/12) | 8 Aug 2026  |
@@ -198,6 +198,7 @@ Chronological order. Update this table when adding/removing posts.
 | 68 | `agentic-commerce-autonomous-payments.fi.html` | Agentic Commerce -protokollat & Autonomiset Maksut (FI, sarja 10/12) | 8 Aug 2026  |
 | 69 | `eudi-wallet-eidas2-human-identity.fi.html` | Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0 (FI, sarja 11/12) | 8 Aug 2026  |
 | 70 | `kya-s1-sanasto-glossary.fi.html` | KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto (FI, sarja 12/12) | 9 Aug 2026  |
+| 71 | `greg-isenberg-agents-need-a-signature.html` | Greg Isenberg Is Right About Agents. The Hard Part Is a Signature. (EN field note; agent infrastructure, KYA as the shared layer, honest limit: credential mints unsigned). **EN on tämän postauksen ground truth** — käännökset johdetaan EN-versiosta. | 24 Jul 2026 |
 
 ---
 
