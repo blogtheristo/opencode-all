@@ -1,0 +1,68 @@
+# Tutkimussuunnitelman tiivistelmä — HIC:n kritiikki 11.08.2026
+
+***
+
+# VERSION AND AGENT HISTORY
+
+Version: 1.0
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.2, Nokia-export v2.1 → v2.2).
+
+Session Links & References:
+
+- Masteri: `docs/lut/tutkimussuunnitelman-tiivistelma-lut-2026-fi.md`
+- Export: `docs/lut/2026-08-10-nokia-saatio-tutkimussuunnitelma-tiivistelma-FI.md`
+
+Document Status:
+
+- Created: 11.08.2026
+- Language: Finnish
+- Publication Status: INTERNAL
+- Classification: CONFIDENTIAL — Väitöskirja- ja rahoitusaineisto
+
+***
+
+## 1. Kritiikki sellaisena kuin se annettiin
+
+1. **Väitös ei ole irrallinen paperitutkimus.** Se on kaupalliseen, tuotannolliseen DWS IQ -ympäristöön perustuva empiirinen työ. Myynnin ja käyttöönottojen pitää onnistua, jotta tutkimukselle syntyy aineisto ja väitös voi valmistua.
+2. **Jurisdiktioita ei pidä kuvata vain EU–US-asetelmana.** Mukana ovat ASEAN/Aasia, Singapore, Etelä-Korea, EU ja Yhdysvallat.
+
+## 2. Mitä tekstissä oli ennen
+
+- **Kohta 1:** tiivistelmä sanoi ainoastaan, että "tieteellinen arviointi pidetään erillään yrityksen kaupallisesta tuotekehityksestä" (v2.1, `Tutkimusympäristö ja vastuut`). Aineiston **syntymekanismia** ei kuvattu lainkaan, joten lukija saattoi päätellä, että kaupallinen toiminta on tutkimuksen kannalta yhdentekevää. Todellisuudessa se on aineiston ainoa lähde.
+- **Kohta 2:** RQ2 oli rajattu kolmeen EU-maahan (FI/SE/DE). Kehys ei siis ollut edes EU–US vaan EU-sisäinen. Laajempi EU/US/SG-arkkitehtuuri oli olemassa muualla repositoriossa (`docs/PHD_FIREHORSE_FI.md` §14.43, `docs/lut/dws-os-research-scope-fi.md` §4) mutta ei ollut kulkeutunut tiivistelmään.
+
+## 3. Ratkaistu ristiriita (Sääntö 7 — ei tasoiteta)
+
+Kohta 1 näyttää ensi lukemalta kumoavan v2.0:n erottelun tieteen ja kaupallisen tuotekehityksen välillä. Se ei kumoa. Kirjattu erottelu on nyt eksplisiittinen: **kaupallinen kanava tuottaa aineiston, ei sen tulkintaa.** Riippuvuus on aineistoriippuvuus, ei arviointiriippuvuus. Molemmat lauseet ovat voimassa yhtä aikaa, ja ne on kirjoitettu peräkkäin niin, että lukija näkee sen.
+
+## 4. Rehellisyysvartija laajennettiin
+
+v2.1:n vartija koski vain Saksaa. Uusien jurisdiktioiden lisääminen olisi ilman laajennusta tuottanut juuri sen ylimyynnin, jota vartija oli tehty estämään. Statukset nyt:
+
+| Jurisdiktio            | Status                                                             |
+| ---------------------- | ------------------------------------------------------------------ |
+| Suomi                  | Empiirinen                                                         |
+| Ruotsi                 | Ehdollinen empiirinen (KTH/TECoSA)                                 |
+| Saksa                  | Skenaario                                                          |
+| Yhdysvallat            | Dokumenttiprofiili                                                 |
+| Singapore              | Dokumenttiprofiili (ISO/IEC JTC 1/SC 42 -reitti todennettu §14.43) |
+| Etelä-Korea            | Skenaario, **`unverified`**                                        |
+| ASEAN / laajempi Aasia | Skenaario                                                          |
+
+**Etelä-Korea on ainoa merkintä ilman lähdepohjaa.** Repositoriossa Etelä-Korea esiintyy 11.08.2026 vain G7-plus-kumppanit-koalition jäsenenä tekoälymenojen yhteydessä (`docs/PHD_FIREHORSE_FI.md` §14.24) — ei sääntely-, hankinta- eikä standardointireittinä. Merkintä `unverified` on siksi tarkoituksellinen ja poistetaan vasta lähdekartoituksen jälkeen (Sääntö 12).
+
+## 5. HIC Learning Outcome — kuusi askelta
+
+1. **Knowledge base** — `N/A — ei uutta KB-käsitettä; muutos on olemassa olevan dokumentin korjaus, ei uusi konsepti.`
+2. **Kenttämuistiinpano** — tämä tiedosto.
+3. **`Learn/`-HTML** — `N/A — vaatii Pandoc-buildin, jota ei ole tässä kontissa; tiivistelmä ei myöskään ole Learn/-julkaisu vaan apurahaliite.`
+4. **Drive-vienti** — tehty 11.08.2026 kansioon **LUT PhD — Sovereign Edge AI** (ei Driven juureen):
+   - masteri `2.2_KYA-S1_tutkimussuunnitelman_tiivistelma_FI` — https://docs.google.com/document/d/11xOfwnmwKFxEw4g45EBLb4r9N3p8oH24RiTW6m6P7Wc/edit
+   - export `2.2_Nokia-säätiö tutkimussuunnitelman tiivistelmä (FI)` — https://docs.google.com/document/d/1OLAWOPOEqauKNhznKrJSgTkuXw-uoNzNd7B4B0QgxQs/edit
+   - **Versioparius (HIC 11.08.2026):** Nokia-export kantaa aina masterin versionumeron. Aiemmin masteri oli Drivessä `2.0_`-nimellä ja Nokia-export `1.1_`-nimellä, vaikka masteri oli jo v2.1 — tämä drift on nyt korjattu ja sääntö kirjattu molempien tiedostojen headeriin.
+   - Huom: masterin Drive-dokumentissa taulukon lihavointimerkit näkyvät literaaleina (`\*\*`) Docs-konversion escapetuksen vuoksi; Nokia-export on siksi viety ilman taulukon lihavointeja. MCP:llä ei voi ylikirjoittaa olemassa olevaa Docsia, joten korjattu masteri vaatii uuden vientikierroksen (ei tehty ilman HIC:n pyyntöä).
+5. **Kysymys HIC:lle** — esitetty: pidetäänkö Etelä-Korea suunnitelmassa `unverified`-merkinnällä, tehdäänkö sille lähdekartoitus ennen Nokia-säätiön DL 15.9.2026:ta, vai poistetaanko se kehyksestä.
+6. **Kalenterointi** — Nokia-säätiön DL 15.9.2026 on jo kirjattu (`docs/lut/apuraha-deadline-calendar-2026.md`); uusia päivämääriä ei syntynyt tässä sessiossa.
