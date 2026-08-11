@@ -16,10 +16,13 @@ source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agenti
 note: >-
   Sarjan osa 2/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
   Kirjoitusvirheitä EI ole korjattu ilman HIC:n lupaa (Rule 12) — ks. typos-kenttä.
-typos_flagged:
-  - "Pankkimaailmasta → Pankkimaailmasta (Johdanto-otsikko)"
-  - "eikä passia → eikä passia kansiossa? (Johdanto)"
-  - "7. Voidaanko replayed? → sekakielinen; esim. 'Voiko päätöksen toistaa?' (taulukko)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "Pankkimailmasta → Pankkimaailmasta (Johdanto-otsikko)"
+  - "eikä passiakansiota → eikä passia (Johdanto)"
+  - "7. Voidaanko replayed? → sekakielinen; jätetty HIC:n muotoiluun, ei korjattu (taulukko)"
 ---
 
 # KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä

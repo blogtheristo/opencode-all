@@ -7,6 +7,11 @@ author: Risto Anton Päärni
 date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
 hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "tismalleen → täsmälleen (PRV-2-kohta)"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "Osat 5, 6, 7 ja 11 hyväksytään virallisesti"
 series: "KYA-S1 -blogisarja"

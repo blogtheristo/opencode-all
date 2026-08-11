@@ -18,9 +18,12 @@ note: >-
   docs/blog-drafts/eudi-wallet-eidas2-idv-ankkurointi.md, joka on eri teksti (se käsitteli
   wallet-ankkuroidun IDV:n ja KYA-AL3:n 60 s -vaatimuksen aitoa yhteensopivuusongelmaa)
   ja jää talteen (Rule 12). Se avoin kysymys ei sisälly tähän julkaistavaan versioon.
-typos_flagged:
-  - "pätevien sähköisten attribuuttitodistusten → pätevien"
-  - "Niistä muuttuu → Niistä tulee / Ne muuttuvat (Yhteenveto)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "pätövien sähköisten attribuuttitodistusten → pätevien (EUDI-luku)"
+  - "Niistä muuttuu → Niistä tulee (Yhteenveto)"
   - "tismalleen → täsmälleen (PRV-2-kohta)"
 ---
 

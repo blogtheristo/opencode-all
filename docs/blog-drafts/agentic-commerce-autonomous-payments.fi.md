@@ -15,8 +15,11 @@ approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
   Sarjan osa 10/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
-typos_flagged:
-  - "Agentic Commercesta → Agentic Commercesta (Yhteenveto)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "Agentic Commergesta → Agentic Commercesta (Yhteenveto)"
 ---
 
 # Agentic Commerce -protokollat & Autonomiset Maksut

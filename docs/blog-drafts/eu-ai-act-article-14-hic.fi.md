@@ -17,8 +17,11 @@ note: >-
   Sarjan osa 3/12. Pohjautuu HIC-hallintamalliin, päivitetty kytkeytymään suoraan
   artiklaan 14, Lease Tokeniin ja KYA-S1-spesifikaatioon. Aiempi luonnos
   docs/blog-drafts/hic-hallintamalli-ja-dws-iq-agentit.md on eri aihe ja jää talteen (Rule 12).
-typos_flagged:
-  - "Heti kun poikkeama havaitaan → Heti kun (Yhteenveto)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "Hti kun poikkeama havaitaan → Heti kun poikkeama havaitaan (Yhteenveto)"
 ---
 
 # EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita

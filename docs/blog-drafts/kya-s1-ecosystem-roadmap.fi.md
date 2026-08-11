@@ -17,8 +17,11 @@ note: >-
   Sarjan osa 8/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
   Laajennusalueiden tasokohtaiset vaatimukset vastaavat Legal/KYA_S1.md v1.5 §8:n
   laajennusaluetaulukkoa (PRV-replay 30 pv / 7 pv / 24 h; FLT-4 30 pv / 10 pv / 72 h).
-typos_flagged:
-  - "ostajan työkalu → ostajan työkalu? (Johdanto)"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "ostajan työkykyinen työkalu → ostajan työkalu (Johdanto)"
 ---
 
 # KYA-S1 Ekosysteemi & Tuotanto-Roadmap
