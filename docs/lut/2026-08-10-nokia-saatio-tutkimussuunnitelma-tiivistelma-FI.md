@@ -20,7 +20,7 @@
 | ------- | -------------------------------------------------------------------------------- |
 | Versio  | 2.6                                                                              |
 | Työkalu | Claude Code                                                                      |
-| Sessio  | claude/phd-research-sovereign-edge-ok1wk3                                        |
+| Sessio  | claude/tutkimussuunnitelma-tiivistelmä-fczxea                                      |
 | Päiväys | 11.08.2026                                                                       |
 | Tila    | HYVÄKSYTTY TEKSTI + hakijarivin täydennys (HIC 10.08.2026)                        |
 | Kieli   | Suomi                                                                            |
