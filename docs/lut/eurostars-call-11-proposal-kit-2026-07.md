@@ -1,6 +1,6 @@
 # Eurostars Call 11 — Proposal-Drafting Kit (DWS IQ, SE-led via Lifetime AB)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -20,7 +20,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Proposal-drafting kit / application playbook
 
----
+***
 
 ## 0. What this is
 
@@ -58,14 +58,18 @@ strength, in this instrument.
 > structure, risk tables, Gantt), **not** as the submission structure. The actual submission is
 > the Eurostars application form on `myeurekaproject.org`. (Surface the difference; don't blend the two.)
 
-## 2. Gate 1 — locked
+## 2. Gate 1 — conditional
 
-**SE-led via Lifetime AB.** Lifetime AB (Sweden, <3 yrs) is carved out of the GBER
-"undertaking in difficulty" test, so Vinnova funds it at the 50% SME rate with no difficulty
-block. **Lifetime Oy (FI) must not be the funded Finnish participant** — its negative equity
-trips Business Finland's difficulty test until cured. If a Finnish partner is wanted for the
-≥2-country rule, use a _different_ Finnish entity (a healthy SME, or LUT as an academic partner —
-universities are assessed under their own rules, not the company difficulty test).
+**SE-led via Lifetime AB is the working route, conditional on verification.** Verify Lifetime AB's
+ownership structure and its group-level GBER eligibility with Vinnova and a Swedish accountant
+before treating Gate 1 as open. Lifetime AB (Sweden, <3 yrs) may be carved out of the GBER
+"undertaking in difficulty" test, but **Lifetime Oy's (FI) negative equity may affect
+subsidiary-group eligibility**. Confirm the group analysis and the applicable Vinnova treatment
+before relying on the 50% SME rate. **Lifetime Oy must not be the funded Finnish participant**
+unless its eligibility is separately confirmed — its negative equity trips Business Finland's
+difficulty test until cured. If a Finnish partner is wanted for the ≥2-country rule, use a
+_different_ Finnish entity (a healthy SME, or LUT as an academic partner — universities are
+assessed under their own rules, not the company difficulty test).
 
 ## 3. Consortium plan
 
