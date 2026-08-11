@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.5, Nokia-export v2.1 → v2.5).
+- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.6, Nokia-export v2.1 → v2.6).
 
 Session Links & References:
 
@@ -96,6 +96,27 @@ Gemini oli muokannut Drive-dokumenttia `2.0_KYA-S1_tutkimussuunnitelman_tiiviste
 - Taulukon karkeampi rivitys ("ASEAN / US" yhtenä rivinä): hukkaa Singaporen todennetun standardointireitin ja Yhdysvaltojen erillisen dokumenttiprofiilin.
 
 **Driftihavainto (`DWS_TRUTH_STANDARD.md` §2E):** muokkaus tehtiin suoraan Drive-dokumenttiin eikä repoon, ja se leimattiin versioksi 2.1 — numero, joka repossa on jo käytössä eri sisällölle. Repo pysyy masterina; Drive-dokumentit ovat exportteja. Jos Gemini-kierroksia tulee lisää, ne konsolidoidaan samalla tavalla repoon eikä päinvastoin.
+
+## 4e. Gemini-kierros 2 (v2.6, 11.08.2026)
+
+HIC toimitti Geminin uudemman version (leima "Versio 2.2 · 11.08.2026"), joka sisälsi asioita, joita ensimmäisessä kierroksessa ei ollut.
+
+**Adoptoitu:**
+
+- **RQ3 rehellisempi muotoilu:** "enintään kolmessa määritellyssä edge-ympäristössä, evidenssistatukset huomioiden". Aiempi "kolmessa erilaisessa teollisessa edge-ympäristössä" väitti kolmea toteutunutta ympäristöä, vaikka Saksa on skenaarioprofiili ja Ruotsi ehdollinen — muotoilu oli ristiriidassa oman rehellisyysvartijansa kanssa. Tämä on kierroksen paras yksittäinen löydös. Aikataulurivi kk 13–18 synkattu.
+- **Lause:** "GTM-tavoite ja strateginen markkina-asema eivät automaattisesti tarkoita toteutunutta tutkimusdataa — tutkimusdata on sidottu kunkin markkinan evidenssistatukseen." Ilmaisee HIC:n periaatteen tiiviimmin kuin repon aiempi muotoilu.
+- GTM-nimikkeet "Kasvumarkkina" (Ruotsi) ja "Strateginen markkina" (Saksa) — **ehdollisuus säilytettynä**.
+- Yhdysvaltojen rooliin skaalauslogiikan testi; GTM-sarakkeeseen rahoitus-/skaalauspolku (esim. PearX) eksplisiittisesti tutkimuksen pääjuonen ulkopuolella.
+- Fallback- ja kynnyslauseiden **asiasisältö** ristiviittauksena RQ-lohkon jälkeen (ei kysymysten sisään).
+
+**Hylätty (Sääntö 7):**
+
+- Ehdottomat GTM-statukset ja "ensimmäiset maksavat käyttöönotot priorisoidaan Suomessa, Ruotsissa ja Saksassa" — poistaisi HIC:n myyntipoluehdon.
+- Singaporen sulauttaminen ASEAN-riviin: hukkaa todennetun ISO/IEC JTC 1/SC 42 -reitin.
+- Evidenssistatus "teoreettinen profiili" USA:lle ja ASEANille: repon jaottelu dokumenttiprofiili (aineisto olemassa, analysoidaan) vs. skenaarioprofiili (ei aineistoa) on tarkempi.
+- Stale-rivi "Evidenssistatukset lukittu v2.0:ssa", joka listaa vain FI/SE/DE.
+
+**Varmentamaton tieto:** `PearX` on HIC:n/Geminin toimittama; repossa ei ole sille lähdettä. Kirjattu mahdollisena rahoituspolkuna, ei toteutuneena.
 
 ## 5. HIC Learning Outcome — kuusi askelta
 

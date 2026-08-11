@@ -5,7 +5,7 @@
 > **masteriin ensin** ja tuodaan tänne; tämä tiedosto kantaa vain Nokia-säätiön hakukohtaisen
 > kehyksen. Älä muokkaa tätä rinnakkaisena lähteenä — se oli 10.08.2026 asti driftin lähde.
 > **Versioparius (HIC 11.08.2026):** tämä export kantaa aina saman versionumeron kuin masteri —
-> kun masteri on 2.5, export on 2.5. Sama numero myös Drive-vientinimessä (`<versio>_...`).
+> kun masteri on 2.6, export on 2.6. Sama numero myös Drive-vientinimessä (`<versio>_...`).
 
 > Yksisivuinen tutkimussuunnitelman tiivistelmä Nokia-säätiön apurahahakua varten (DL 15.9.2026).
 > Ohjaussuhde yksiselitteisesti LUT:ssa — kaikki neljä tutkimuskysymystä muodostavat yhden
@@ -18,7 +18,7 @@
 
 | Kenttä  | Arvo                                                                             |
 | ------- | -------------------------------------------------------------------------------- |
-| Versio  | 2.5                                                                              |
+| Versio  | 2.6                                                                              |
 | Työkalu | Claude Code                                                                      |
 | Sessio  | claude/phd-research-sovereign-edge-ok1wk3                                        |
 | Päiväys | 11.08.2026                                                                       |
@@ -28,6 +28,7 @@
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.6** — Geminin toisen kierroksen konsolidointi: RQ3 terävöitetty ("enintään kolmessa määritellyssä edge-ympäristössä, evidenssistatukset huomioiden"), lisätty lause GTM-aseman ja tutkimusdatan erosta, GTM-nimikkeet Kasvumarkkina/Strateginen markkina ehdollisuus säilyttäen, USA:lle skaalauslogiikan testi + rahoitus-/skaalauspolku tutkimuksen pääjuonen ulkopuolella, ja riskikäsittelyn ristiviittaus RQ-lohkon jälkeen.
 - Version: 2.5 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.5** — Gemini-konsolidointi: jurisdiktiotaulukkoon GTM-status-sarake ja GTM-osioon akateeminen tutkimusalue / markkinastrategia -jaottelu. Geminin ehdottomat GTM-statukset (Ruotsi/Saksa ilman myyntipoluehtoa) hylätty; HIC:n ehdollisuus säilytetty.
 - Version: 2.4 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.4.** Etelä-Korea poistettu tutkimuskehyksestä (HIC 11.08.2026): verifioimatonta jurisdiktiota ei näytetä arvioijalle aktiivisena tutkimusprofiilina. Singapore ja laajempi ASEAN/Aasia kantavat Aasia-akselin.
 - Version: 2.3 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.3.** Lisätty erottelu tutkimuksen jurisdiktiokehyksen ja GTM-markkinavalinnan välille (HIC 11.08.2026): laaja vertailukehikko ei laajenna markkinajoukkoa; GTM-vaihe 1 = 2–3 markkinaa nimetyllä ostajalla, kumppanilla, data-aineistolla ja toimituskyvyllä.
@@ -80,7 +81,7 @@ Jurisdiktiokehys ei ole EU–US-asetelma: kahden navan vertailu kaventaisi tutki
 
 **RQ3: Turvallisuus ja suorituskyky**
 
-Miten KYA-S1:n turvallisuusargumentaatio ja reaaliaikainen valvonta käyttäytyvät kolmessa erilaisessa teollisessa edge-ympäristössä?
+Miten KYA-S1:n turvallisuusargumentaatio ja reaaliaikainen valvonta käyttäytyvät enintään kolmessa määritellyssä edge-ympäristössä, evidenssistatukset huomioiden?
 
 Menetelminä käytetään runtime verification -lähestymistapaa, hallittuja poikkeamatilanteita sekä viive-, laskenta- ja energiamittauksia suljetuissa reunalaskentaympäristöissä.
 
@@ -90,14 +91,16 @@ Millä ehdoilla KYA-AL1/2/3 toimii ostajan päätös- ja allekirjoitusaineistona
 
 Menetelminä käytetään laadullista monitapaustutkimusta ja ostajan päätös- ja hankinta-aineiston dokumenttianalyysiä.
 
+**Riskikäsittely kysymysten yli:** RQ1 ja RQ2 nojaavat menetelmälliseen fallbackiin, RQ3 ja RQ4 määriteltyyn aineiston vähimmäiskynnykseen (minimum data threshold).
+
 #### Jurisdiktioroolit ja niiden evidenssiarvo
 
 | Maa | Akateeminen rooli | GTM-status | Evidenssin status |
 | --- | --- | --- | --- |
 | **Suomi** | Alkuperä ja referenssi | Kotimarkkina — GTM-vaihe 1 | Empiirinen tutkimusaineisto |
-| **Ruotsi** | Safety-validointi | Laajentumismarkkina, ehdollinen | Ehdollinen empiirinen — vain jos KTH/TECoSA-yhteistyö toteutuu |
-| **Saksa** | Teollisen hankinnan stressitesti | Laajentumismarkkina, ehdollinen | Skenaarioprofiili, ei tutkimusdataa |
-| **Yhdysvallat** | Vastuu- ja hankintalogiikan vastinpari EU:lle | Ei GTM-vaiheessa 1 | Dokumenttiprofiili, ei empiiristä agenttidataa |
+| **Ruotsi** | Safety-validointi | Kasvumarkkina, ehdollinen | Ehdollinen empiirinen — vain jos KTH/TECoSA-yhteistyö toteutuu |
+| **Saksa** | Teollisen hankinnan stressitesti | Strateginen markkina, ehdollinen | Skenaarioprofiili, ei tutkimusdataa |
+| **Yhdysvallat** | Vastuu- ja hankintalogiikan vastinpari EU:lle sekä skaalauslogiikan testi | Ei GTM-vaiheessa 1 — rahoitus-/skaalauspolku, ei tutkimuksen pääjuoni | Dokumenttiprofiili, ei empiiristä agenttidataa |
 | **Singapore** | Standardointivetoinen reitti (ISO/IEC JTC 1/SC 42) | Myöhempi markkinaprofiili | Dokumenttiprofiili — reitti todennettu ensisijaislähteistä |
 | **ASEAN / laajempi Aasia** | Vientivetoinen hankintakonteksti (mm. CBAM) | Myöhempi markkinaprofiili | Skenaarioprofiili, ei tutkimusdataa |
 
@@ -125,7 +128,7 @@ Kuukaudet 1–6: tutkimusasetelman lukitseminen, evidenssityyppien ja falsifioit
 
 Kuukaudet 7–12: ensimmäinen artikkeli — ajonaikainen evidenssi ja falsifioitavuuden ehdot KYA-AL1/2/3-hankintakansiota varten (RQ1).
 
-Kuukaudet 13–18: toinen artikkeli — turvallisuusargumentaatio ja reaaliaikainen valvonta kolmessa teollisessa edge-ympäristössä, viive-, laskenta- ja energiakustannukset mukaan lukien (RQ3).
+Kuukaudet 13–18: toinen artikkeli — turvallisuusargumentaatio ja reaaliaikainen valvonta enintään kolmessa määritellyssä edge-ympäristössä, viive-, laskenta- ja energiakustannukset mukaan lukien (RQ3).
 
 Kuukaudet 19–24: kolmas artikkeli — jurisdiktioprofiilit yhteisen KYA-coren päällä (RQ2) ja neljäs artikkeli — KYA-AL1/2/3 ostajan päätös- ja allekirjoitusaineistona (RQ4). Tämän jälkeen valmistellaan väitöskirjan yhteenveto-osa.
 
@@ -133,5 +136,5 @@ Julkaisujärjestys on tarkoituksellinen: RQ1 määrittelee, mitä evidenssi on, 
 
 ***
 
-_Versio 2.5 · 11.08.2026 · © Lifetime Oy — kaikki oikeudet pidätetään._
+_Versio 2.6 · 11.08.2026 · © Lifetime Oy — kaikki oikeudet pidätetään._
 _Liikesalaisuus / Business Confidentiality: tämä asiakirja sisältää Lifetime Oy:n luottamuksellista tietoa. Ei saa jakaa ilman kirjallista lupaa._
