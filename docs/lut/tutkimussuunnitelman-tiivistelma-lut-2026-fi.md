@@ -3,17 +3,18 @@
 > **KANONINEN LÄHDE (HIC 10.08.2026).** Tämä tiedosto on tutkimuksen masteri. Apurahakohtaiset
 > versiot (esim. Nokia-säätiö) ovat **exportteja tästä**, eivät rinnakkaisia lähteitä — muutokset
 > tehdään tähän ensin. **Versioparius (HIC 11.08.2026):** Nokia-export kantaa aina saman
-> versionumeron kuin tämä masteri — kun masteri on 2.3, export on 2.3. Vientinimi seuraa versiota:
-> `2.3_KYA-S1_tutkimussuunnitelman_tiivistelma_FI.pdf` (yleisesti `<versio>_KYA-S1_...`).
+> versionumeron kuin tämä masteri — kun masteri on 2.4, export on 2.4. Vientinimi seuraa versiota:
+> `2.4_KYA-S1_tutkimussuunnitelman_tiivistelma_FI.pdf` (yleisesti `<versio>_KYA-S1_...`).
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.4
 
 Sessions & Modifications:
 
+- Version: 2.4 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Etelä-Korea poistettu tutkimuskehyksestä (HIC 11.08.2026, hyväksyntä).** Verifioimatonta jurisdiktiota ei näytetä arvioijalle aktiivisena tutkimusprofiilina. Poistettu RQ2:n kysymyksestä, jurisdiktiotaulukosta, evidenssistatusriviltä, rehellisyysvartijasta ja GTM-taulukosta. Singapore ja laajempi ASEAN/Aasia kantavat Aasia-akselin tässä versiossa. Poiston peruste ja Etelä-Korean paluuehto (sääntely-, hankinta- ja standardointireitin lähteistys) säilytetty tekstissä ja kenttämuistiinpanossa `docs/field-notes/2026-08-11-tutkimussuunnitelman-tiivistelma-kritiikki.md` (Sääntö 12). HIC hyväksyi samalla v2.2–2.3:n empiirisen riippuvuuden käsittelyn sellaisenaan: kaupallinen kanava tuottaa aineiston mutta ei määritä tieteellistä tulkintaa; RQ1/RQ2-fallback ja RQ3/RQ4-minimiaineistokynnys jäävät voimaan.
 - Version: 2.3 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Lisätty osio "Jurisdiktiokehys ei ole markkinasuunnitelma" (HIC 11.08.2026).** Tutkimuksen vertailukehikko ja GTM-markkinavalinta erotettu eksplisiittisesti taulukolla: tutkimus kattaa ASEAN/Aasian, Singaporen, Etelä-Korean, EU:n ja Yhdysvallat + syvät paikalliset vertailut FI/SE/DE, kun taas GTM-vaihe 1 on 2–3 markkinaa, joissa on nimetty ostaja, kumppani, data-aineisto ja toimituskyky. Suomi = kotimarkkina; Ruotsi ja Saksa vain konkreettisen myyntipolun ehdolla; Singapore, Etelä-Korea ja ASEAN myöhempiä profiileja, kunnes kustakin on nimetty asiakassegmentti ja entry point. Perustelu kirjattu: koska v2.2 sitoi tutkimusaineiston kaupallisiin käyttöönottoihin, laaja jurisdiktiokehys olisi voitu lukea väitteeksi laajasta markkinaläsnäolosta — jurisdiktiorakenteen symmetria ei ole peruste laajentaa maajoukkoa.
 - Version: 2.2 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **HIC:n kaksi korjausta (11.08.2026).** (1) Lisätty osio "Empiirinen perusta ja sen riippuvuus käyttöönotoista": väitöskirja ei ole irrallinen paperitutkimus, vaan aineisto syntyy kaupallisessa, tuotannollisessa DWS IQ -ympäristössä — myynnin ja käyttöönottojen on onnistuttava, jotta aineistoa syntyy ja väitös voi valmistua. Riippuvuus kirjattu riskinä RQ-kohtaisesti (RQ1/RQ2 etenevät ilman uusia käyttöönottoja, RQ3/RQ4 eivät) sekä minimiaineistokynnys kuukausiin 1–6. Ristiriita aiemman "arviointi erillään kaupallisesta tuotekehityksestä" -lauseen kanssa ratkaistu eksplisiittisesti (Sääntö 7): kaupallinen kanava tuottaa aineiston, ei tulkintaa. (2) **Jurisdiktiokehys laajennettu: ei EU–US-asetelma.** RQ2 kattaa nyt EU:n (FI/SE/DE), Yhdysvallat, Singaporen, Etelä-Korean ja laajemman ASEAN-/Aasia-alueen. Jurisdiktiotaulukkoon lisätty neljä riviä evidenssistatuksineen; rehellisyysvartija laajennettu koskemaan kaikkia ei-empiirisiä profiileja. **Etelä-Korea merkitty `unverified`** — sillä ei ole vielä ensisijaislähteisiin pohjattua kartoitusta repositoriossa (Sääntö 12). Singaporen status pohjattu `docs/PHD_FIREHORSE_FI.md` §14.43:een. Vanha kolmen EU-maan rajaus säilytetty kumottuna empiirisenä ytimenä (Sääntö 12). (3) HIC:n täsmennyksen mukaisesti empiirinen kytkös nostettu myös "Tausta ja tutkimusaukko" -osioon, jotta se luetaan jo tutkimusasetelmasta eikä vasta ympäristöosiosta. (4) **Versioparius (HIC 11.08.2026):** Nokia-export kantaa aina masterin versionumeron, myös Drive-vientinimessä; aiempi 2.0/1.1-drift korjattu.
 - Version: 2.1 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: **Merkitty kanoniseksi lähteeksi (HIC 10.08.2026)** — tämä on tutkimuksen masteri; apurahakohtaiset versiot (Nokia-säätiö) ovat exportteja tästä, eivät rinnakkaisia lähteitä. Vientinimi lukittu: `2.0_KYA-S1_tutkimussuunnitelman_tiivistelma_FI.pdf`. **Ruotsin evidenssistatus terävöitetty ehdolliseksi:** empiiristä aineistoa vain jos KTH/TECoSA-yhteistyö toteutuu, muutoin menetelmällinen vertailukohta. Evidenssistatukset lukittu v2.0-tasolle: Suomi = empiirinen · Ruotsi = ehdollinen empiirinen · Saksa = skenaario; statuksia ei tasoiteta esityksen vuoksi.
@@ -66,11 +67,11 @@ Tieteellinen kohde on **KYA-S1:n siirrettävyys ja evidenssin vertailtavuus** �
 
 ### RQ2 — Jurisdiktioprofiilit
 
-**Kysymys:** Miten sama KYA-core mukautuu eri lainkäyttöalueiden — EU:n (Suomi, Ruotsi, Saksa), Yhdysvaltojen, Singaporen, Etelä-Korean ja laajemman ASEAN-/Aasia-alueen — toimivalta-, vastuu-, hankinta- ja auditointivaatimuksiin ilman, että evidenssin merkitys hajoaa?
+**Kysymys:** Miten sama KYA-core mukautuu eri lainkäyttöalueiden — EU:n (Suomi, Ruotsi, Saksa), Yhdysvaltojen, Singaporen ja laajemman ASEAN-/Aasia-alueen — toimivalta-, vastuu-, hankinta- ja auditointivaatimuksiin ilman, että evidenssin merkitys hajoaa?
 
 **Menetelmät:** vertaileva sääntely- ja hankinta-aineiston analyysi sekä jurisdiktioprofiilien mallinnus yhteisen ytimen päälle.
 
-**Jurisdiktiokehys ei ole EU–US-asetelma (HIC 11.08.2026).** Kahden navan vertailu kaventaisi tutkimuskohteen sääntelypoliittiseksi vastakkainasetteluksi. Siirrettävyyttä testataan siksi neljää eri tyyppiä vasten: EU:n sisäinen hajonta (FI/SE/DE), Yhdysvaltojen vastuu- ja hankintalogiikka, Singaporen standardointivetoinen reitti sekä Etelä-Korean ja laajemman ASEAN-alueen vientivetoinen teollinen hankinta. Evidenssin status on jokaisella eri, eikä sitä tasoiteta esityksen vuoksi.
+**Jurisdiktiokehys ei ole EU–US-asetelma (HIC 11.08.2026).** Kahden navan vertailu kaventaisi tutkimuskohteen sääntelypoliittiseksi vastakkainasetteluksi. Siirrettävyyttä testataan siksi neljää eri tyyppiä vasten: EU:n sisäinen hajonta (FI/SE/DE), Yhdysvaltojen vastuu- ja hankintalogiikka, Singaporen standardointivetoinen reitti sekä laajemman ASEAN-/Aasia-alueen vientivetoinen teollinen hankinta. Evidenssin status on jokaisella eri, eikä sitä tasoiteta esityksen vuoksi.
 
 ### RQ3 — Turvallisuus ja suorituskyky
 
@@ -93,12 +94,13 @@ Tieteellinen kohde on **KYA-S1:n siirrettävyys ja evidenssin vertailtavuus** �
 | **Saksa**                  | Teollisen hankinnan stressitesti                                                           | **Skenaarioprofiili, ei tutkimusdataa**                                                                                                                                        |
 | **Yhdysvallat**            | Vastuu- ja hankintalogiikan vastinpari EU:lle                                              | **Dokumenttiprofiili** — sääntely- ja hankinta-aineiston analyysi, ei empiiristä agenttidataa                                                                                  |
 | **Singapore**              | Standardointivetoinen reitti (ISO/IEC JTC 1/SC 42, Enterprise Singapore, IMDA / AI Verify) | **Dokumenttiprofiili** — reitti todennettu ensisijaislähteistä (`docs/PHD_FIREHORSE_FI.md` §14.43); soveltamisala on generatiivisen tekoälyn tuotostestaus, ei agenttihallinta |
-| **Etelä-Korea**            | Aasian teollisen käyttöönoton profiili                                                     | **Skenaarioprofiili — lähdeaineisto verifioimatta (`unverified`)**; ei omaa lähdekartoitusta repositoriossa 11.08.2026                                                         |
 | **ASEAN / laajempi Aasia** | Vientivetoinen hankintakonteksti (mm. CBAM-raportointivelvoitteet EU-vientiin)             | **Skenaarioprofiili, ei tutkimusdataa**                                                                                                                                        |
 
-**Evidenssistatukset (HIC 10.08.2026, laajennettu 11.08.2026):** Suomi = empiirinen · Ruotsi = **ehdollinen** empiirinen · Saksa = skenaario · Yhdysvallat ja Singapore = dokumenttiprofiili · Etelä-Korea ja ASEAN = skenaario. Statukset ovat tarkoituksella eritasoiset, koska aineiston saatavuus on eritasoinen; niitä ei tasoiteta esityksen vuoksi.
+**Evidenssistatukset (HIC 10.08.2026, laajennettu 11.08.2026):** Suomi = empiirinen · Ruotsi = **ehdollinen** empiirinen · Saksa = skenaario · Yhdysvallat ja Singapore = dokumenttiprofiili · ASEAN/Aasia = skenaario. Statukset ovat tarkoituksella eritasoiset, koska aineiston saatavuus on eritasoinen; niitä ei tasoiteta esityksen vuoksi.
 
-**Rehellisyysvartija (HIC 10.08.2026, laajennettu 11.08.2026):** yhtäkään jurisdiktiota ei kirjoiteta empiiriseksi validointipaikaksi ennen kuin on olemassa todellinen yritys-, yliopisto- tai hankintakonteksti. Ilman sitä kyseessä on skenaario- tai dokumenttiprofiili, jolla testataan mallin siirrettävyyttä — ei havaintoaineisto, jolla väitetään tuloksia. Tämä koskee Saksaa, Yhdysvaltoja, Singaporea, Etelä-Koreaa ja ASEAN-aluetta yhtä lailla. Etelä-Korean profiili on lisäksi merkitty `unverified`, koska sitä ei ole vielä pohjattu ensisijaislähteisiin; merkintä poistetaan vasta lähdekartoituksen jälkeen.
+**Rehellisyysvartija (HIC 10.08.2026, laajennettu 11.08.2026):** yhtäkään jurisdiktiota ei kirjoiteta empiiriseksi validointipaikaksi ennen kuin on olemassa todellinen yritys-, yliopisto- tai hankintakonteksti. Ilman sitä kyseessä on skenaario- tai dokumenttiprofiili, jolla testataan mallin siirrettävyyttä — ei havaintoaineisto, jolla väitetään tuloksia. Tämä koskee Saksaa, Yhdysvaltoja, Singaporea ja ASEAN-aluetta yhtä lailla.
+
+**Etelä-Korea poistettu kehyksestä (HIC 11.08.2026):** v2.3:ssa Etelä-Korea oli mukana merkinnällä `unverified`, koska sen sääntely-, hankinta- ja standardointireittiä ei ollut lähteistetty. Verifioimatonta jurisdiktiota ei näytetä arvioijalle aktiivisena tutkimusprofiilina, joten se on poistettu kehyksestä. Singapore ja laajempi ASEAN/Aasia kantavat Aasia-akselin tässä versiossa. Etelä-Korea on säilytetty kenttämuistiinpanossa mahdollisena myöhempänä laajennuksena ja palautetaan kehykseen vasta, kun reitti on lähteistetty (Sääntö 12).
 
 ### Jurisdiktiokehys ei ole markkinasuunnitelma (HIC 11.08.2026)
 
@@ -107,10 +109,10 @@ Tutkimuksen jurisdiktiokehys ja yrityksen markkinavalinta pidetään erillään.
 | | Tutkimus | GTM |
 | --- | --- | --- |
 | **Kysymys** | Säilyttääkö evidenssin merkitys erilaisissa toimivalta-, vastuu- ja auditointiympäristöissä? | Missä saamme ensimmäiset maksavat käyttöönotot? |
-| **Laajuus** | ASEAN/Aasia, Singapore, Etelä-Korea, EU ja Yhdysvallat + syvät paikalliset vertailut Suomessa, Ruotsissa ja Saksassa | 2–3 markkinaa vaiheessa 1 |
+| **Laajuus** | ASEAN/Aasia, Singapore, EU ja Yhdysvallat + syvät paikalliset vertailut Suomessa, Ruotsissa ja Saksassa | 2–3 markkinaa vaiheessa 1 |
 | **Sisäänpääsyn ehto** | Riittävä sääntely- ja hankinta-aineisto vertailua varten | Nimetty ostaja, kumppani, data-aineisto ja toimituskyky |
 
-**GTM-vaihe 1:** Suomi on kotimarkkina. Ruotsi ja Saksa ovat perusteltuja vertailu- ja laajentumismarkkinoita **vain jos niissä on konkreettinen myyntipolku**. Singapore, Etelä-Korea ja ASEAN/Aasia pysyvät jurisdiktio- ja markkinaprofiileina siihen asti, kunnes kustakin on nimetty asiakassegmentti ja entry point.
+**GTM-vaihe 1:** Suomi on kotimarkkina. Ruotsi ja Saksa ovat perusteltuja vertailu- ja laajentumismarkkinoita **vain jos niissä on konkreettinen myyntipolku**. Singapore ja ASEAN/Aasia pysyvät jurisdiktio- ja markkinaprofiileina siihen asti, kunnes kummastakin on nimetty asiakassegmentti ja entry point.
 
 **Miksi tämä on kirjattu tähän:** koska tutkimusaineisto syntyy kaupallisista käyttöönotoista, laaja jurisdiktiokehys voitaisiin lukea väitteeksi laajasta markkinaläsnäolosta. Se ei ole sitä. Vain empiirisen statuksen jurisdiktiot edellyttävät toimituskykyä; dokumentti- ja skenaarioprofiilit tutkitaan aineistosta, ei markkinasta. Jurisdiktiorakenteen symmetria ei ole peruste laajentaa maajoukkoa.
 
@@ -155,4 +157,4 @@ Julkaisujärjestys on tarkoituksellinen: RQ1 määrittelee, mitä evidenssi on, 
 
 ## Versiotieto
 
-versio 2.3 / 11.8.2026.
+versio 2.4 / 11.8.2026.

@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.3, Nokia-export v2.1 → v2.3).
+- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.4, Nokia-export v2.1 → v2.4).
 
 Session Links & References:
 
@@ -49,7 +49,7 @@ v2.1:n vartija koski vain Saksaa. Uusien jurisdiktioiden lisääminen olisi ilma
 | Saksa                  | Skenaario                                                          |
 | Yhdysvallat            | Dokumenttiprofiili                                                 |
 | Singapore              | Dokumenttiprofiili (ISO/IEC JTC 1/SC 42 -reitti todennettu §14.43) |
-| Etelä-Korea            | Skenaario, **`unverified`**                                        |
+| Etelä-Korea            | **Poistettu kehyksestä v2.4:ssä** — ks. §4c paluuehto               |
 | ASEAN / laajempi Aasia | Skenaario                                                          |
 
 **Etelä-Korea on ainoa merkintä ilman lähdepohjaa.** Repositoriossa Etelä-Korea esiintyy 11.08.2026 vain G7-plus-kumppanit-koalition jäsenenä tekoälymenojen yhteydessä (`docs/PHD_FIREHORSE_FI.md` §14.24) — ei sääntely-, hankinta- eikä standardointireittinä. Merkintä `unverified` on siksi tarkoituksellinen ja poistetaan vasta lähdekartoituksen jälkeen (Sääntö 12).
@@ -65,6 +65,20 @@ Kirjattu erottelu:
 
 **Periaate:** jurisdiktiorakenteen symmetria ei ole peruste laajentaa maajoukkoa. Vain empiirisen statuksen jurisdiktiot edellyttävät toimituskykyä; dokumentti- ja skenaarioprofiilit tutkitaan aineistosta, ei markkinasta.
 
+## 4c. Etelä-Korea poistettu kehyksestä — paluuehto (HIC 11.08.2026)
+
+HIC hyväksyi v2.2–2.3:n korjaukset ja päätti samalla, että **Etelä-Korea poistetaan tutkimuskehyksestä nyt**, sekä masterista että Nokia-säätiön exportista. Perustelu: verifioimatonta jurisdiktiota ei näytetä arvioijalle aktiivisena tutkimusprofiilina. Singapore ja laajempi ASEAN/Aasia riittävät Aasia-akseliksi tässä versiossa.
+
+**Etelä-Korea säilytetään tässä muistiossa mahdollisena myöhempänä laajennuksena.** Paluuehto kehykseen on kolmiosainen ja kaikkien osien on täytyttävä ennen kuin profiili kirjoitetaan takaisin:
+
+1. **Sääntelyreitti** — mikä elin sääntelee agenttihallintaa ja millä instrumentilla; ensisijaislähde, ei sekundaarikatsaus.
+2. **Hankintareitti** — miten julkinen tai teollinen ostaja vaatii evidenssiä; onko olemassa hankintakansiota vastaava rakenne.
+3. **Standardointireitti** — osallistuuko kansallinen elin ISO/IEC JTC 1/SC 42:een tai vastaavaan, ja millä panoksella (vrt. Singaporen todennettu reitti, `docs/PHD_FIREHORSE_FI.md` §14.43).
+
+Nykyinen lähdetilanne 11.08.2026: Etelä-Korea esiintyy repossa vain G7-plus-kumppanit-koalition jäsenenä tekoälymenojen yhteydessä (`docs/PHD_FIREHORSE_FI.md` §14.24). Se ei kelpaa minkään yllä olevan kolmen kohdan lähteeksi.
+
+**Sama testi koskee jokaista tulevaa jurisdiktiolisäystä** — ei lisätä profiilia kehyksen symmetrian vuoksi.
+
 ## 5. HIC Learning Outcome — kuusi askelta
 
 1. **Knowledge base** — `N/A — ei uutta KB-käsitettä; muutos on olemassa olevan dokumentin korjaus, ei uusi konsepti.`
@@ -75,5 +89,5 @@ Kirjattu erottelu:
    - export `2.2_Nokia-säätiö tutkimussuunnitelman tiivistelmä (FI)` — https://docs.google.com/document/d/1OLAWOPOEqauKNhznKrJSgTkuXw-uoNzNd7B4B0QgxQs/edit
    - **Versioparius (HIC 11.08.2026):** Nokia-export kantaa aina masterin versionumeron. Aiemmin masteri oli Drivessä `2.0_`-nimellä ja Nokia-export `1.1_`-nimellä, vaikka masteri oli jo v2.1 — tämä drift on nyt korjattu ja sääntö kirjattu molempien tiedostojen headeriin.
    - Huom: masterin Drive-dokumentissa taulukon lihavointimerkit näkyvät literaaleina (`\*\*`) Docs-konversion escapetuksen vuoksi; Nokia-export on siksi viety ilman taulukon lihavointeja. MCP:llä ei voi ylikirjoittaa olemassa olevaa Docsia, joten korjattu masteri vaatii uuden vientikierroksen (ei tehty ilman HIC:n pyyntöä).
-5. **Kysymys HIC:lle** — esitetty: pidetäänkö Etelä-Korea suunnitelmassa `unverified`-merkinnällä, tehdäänkö sille lähdekartoitus ennen Nokia-säätiön DL 15.9.2026:ta, vai poistetaanko se kehyksestä.
+5. **Kysymys HIC:lle** — esitetty ja **vastattu 11.08.2026**: Etelä-Korea poistetaan kehyksestä nyt ja palautetaan vasta lähteistettynä (§4c).
 6. **Kalenterointi** — Nokia-säätiön DL 15.9.2026 on jo kirjattu (`docs/lut/apuraha-deadline-calendar-2026.md`); uusia päivämääriä ei syntynyt tässä sessiossa.
