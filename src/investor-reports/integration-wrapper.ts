@@ -3,14 +3,14 @@
  * Bridges TypeScript report generation with existing Python PDF/email/Drive infrastructure
  */
 
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { InvestorReportData } from './types';
 import { templateGenerator } from './template-generator';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 // ============================================================================
 // INTEGRATION WRAPPER
@@ -24,6 +24,17 @@ export class IntegrationWrapper {
     // Paths relative to project root
     this.reportsDir = path.join(process.cwd(), 'Reports');
     this.pythonScriptsDir = path.join(process.cwd(), 'Reports');
+  }
+
+  private resolveSafePath(baseDir: string, targetPath: string): string {
+    const resolvedBase = path.resolve(baseDir);
+    const resolvedTarget = path.resolve(targetPath);
+
+    if (resolvedTarget !== resolvedBase && !resolvedTarget.startsWith(`${resolvedBase}${path.sep}`)) {
+      throw new Error(`Unsafe path detected: ${targetPath}`);
+    }
+
+    return resolvedTarget;
   }
 
   // ==========================================================================
@@ -41,7 +52,7 @@ export class IntegrationWrapper {
 
       // Create temporary HTML file
       const month = reportData.report_period.toISOString().split('T')[0];
-      const tempHtmlPath = path.join('/tmp', `investor-report-${month}.html`);
+      const tempHtmlPath = path.join(this.reportsDir, `investor-report-${month}.html`);
       const outputPdfPath = path.join(this.reportsDir, `investor-report-${month}.pdf`);
 
       await fs.writeFile(tempHtmlPath, htmlContent, 'utf-8');
@@ -54,12 +65,22 @@ export class IntegrationWrapper {
 
       // Check if wkhtmltopdf is available
       try {
-        await execAsync('which wkhtmltopdf');
-
         // Generate PDF using wkhtmltopdf
-        await execAsync(
-          `wkhtmltopdf --enable-local-file-access --page-size A4 --margin-top 20mm --margin-bottom 20mm --margin-left 15mm --margin-right 15mm "${tempHtmlPath}" "${outputPdfPath}"`
-        );
+        await execFileAsync('wkhtmltopdf', [
+          '--enable-local-file-access',
+          '--page-size',
+          'A4',
+          '--margin-top',
+          '20mm',
+          '--margin-bottom',
+          '20mm',
+          '--margin-left',
+          '15mm',
+          '--margin-right',
+          '15mm',
+          this.resolveSafePath(this.reportsDir, tempHtmlPath),
+          this.resolveSafePath(this.reportsDir, outputPdfPath),
+        ]);
 
         console.log(`[PDF] ✓ PDF generated: ${outputPdfPath}`);
       } catch (error) {
@@ -67,14 +88,18 @@ export class IntegrationWrapper {
 
         // Fallback: Save as Markdown and use pandoc if available
         const markdownContent = templateGenerator.generateMarkdown(reportData);
-        const tempMdPath = path.join('/tmp', `investor-report-${month}.md`);
+        const tempMdPath = path.join(this.reportsDir, `investor-report-${month}.md`);
         await fs.writeFile(tempMdPath, markdownContent, 'utf-8');
 
         try {
-          await execAsync('which pandoc');
-          await execAsync(
-            `pandoc "${tempMdPath}" -o "${outputPdfPath}" --pdf-engine=xelatex -V geometry:margin=1in`
-          );
+          await execFileAsync('pandoc', [
+            this.resolveSafePath(this.reportsDir, tempMdPath),
+            '-o',
+            this.resolveSafePath(this.reportsDir, outputPdfPath),
+            '--pdf-engine=xelatex',
+            '-V',
+            'geometry:margin=1in',
+          ]);
           console.log(`[PDF] ✓ PDF generated using pandoc: ${outputPdfPath}`);
         } catch (pandocError) {
           console.log('[PDF] Neither wkhtmltopdf nor pandoc available');
@@ -130,7 +155,7 @@ export class IntegrationWrapper {
       const emailBody = this.generateEmailBody(reportData);
 
       // Save email body to temp file
-      const bodyPath = path.join('/tmp', 'investor-report-email-body.txt');
+      const bodyPath = path.join(this.reportsDir, 'investor-report-email-body.txt');
       await fs.writeFile(bodyPath, emailBody, 'utf-8');
 
       // Use existing send_weekly_report.py script (adapted for investor reports)
@@ -139,11 +164,11 @@ export class IntegrationWrapper {
       const pythonScript = this.generateEmailSenderScript(
         subject,
         emailBody,
-        pdfPath,
+        this.resolveSafePath(this.reportsDir, pdfPath),
         recipients
       );
 
-      const scriptPath = path.join('/tmp', 'send-investor-report.py');
+      const scriptPath = path.join(this.reportsDir, 'send-investor-report.py');
       await fs.writeFile(scriptPath, pythonScript, 'utf-8');
 
       console.log(`[Email] Sending report to: ${recipients.join(', ')}`);
@@ -151,7 +176,9 @@ export class IntegrationWrapper {
       console.log(`[Email] Attachment: ${pdfPath}`);
 
       // Execute Python script
-      const { stdout, stderr } = await execAsync(`python3 "${scriptPath}"`);
+      const { stdout, stderr } = await execFileAsync('python3', [
+        this.resolveSafePath(this.reportsDir, scriptPath),
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
         console.error('[Email] stderr:', stderr);
@@ -295,9 +322,14 @@ except Exception as e:
       }
 
       // Execute upload script
-      const { stdout, stderr } = await execAsync(
-        `python3 "${uploadScript}" --file "${pdfPath}"`
-      );
+      const safeUploadScript = this.resolveSafePath(this.pythonScriptsDir, uploadScript);
+      const safePdfPath = this.resolveSafePath(this.reportsDir, pdfPath);
+
+      const { stdout, stderr } = await execFileAsync('python3', [
+        safeUploadScript,
+        '--file',
+        safePdfPath,
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
         console.error('[Drive] stderr:', stderr);

@@ -8,16 +8,18 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
-  Sarjan osa 4/11. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
+  Sarjan osa 4/12. Tämä FI-teksti on käännöspohja (Ground Truth) EN/SV/DE/FR-versioille.
 ---
 
 # Agenttiluokat: Kehittäjän GitHub Copilot vs. teollisuuden DWS IQ -tausta-agentit
 
-Blogi 4/11 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
+Blogi 4/12 · DWS IQ & Lifetime World Model · 8. elokuuta 2026 · Risto Anton Päärni
 
 ## Johdanto: Kaksi täysin eri tekoälymaailmaa
 

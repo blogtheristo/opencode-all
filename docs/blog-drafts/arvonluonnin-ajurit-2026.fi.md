@@ -1,3 +1,5 @@
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
 Status: APPROVED
 Slug: arvonluonnin-ajurit-2026
 Title: Kuusi arvonluonnin ajuria — ja tutkimus niiden takana

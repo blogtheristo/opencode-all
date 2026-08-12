@@ -5,13 +5,20 @@ lang: fi
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
+hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
+hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
+typos_corrected: >-
+  Korjattu HIC:n päätöksellä 09.08.2026 ("korjaa typot"). Nämä ovat alkuperäinen →
+  korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+typos_corrected_list:
+  - "tismalleen → täsmälleen (PRV-2-kohta)"
 Status: APPROVED
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — "Osat 5, 6, 7 ja 11 hyväksytään virallisesti"
 series: "KYA-S1 -blogisarja"
 part: 7
 parts_total: 12
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
-series: "Blogi 7/7 · DWS IQ & Lifetime World Model — sarjan päätösosa"
+display_series: "Blogi 7/12 · DWS IQ & Lifetime World Model"
 editorial_fixes: |
   Neljä terminologiakorjausta Legal/KYA_S1.md:tä vasten (Sääntö 12 — kerrotaan ääneen):
   1. FLT = "Fault Attribution" (§6.1), ei "Fault Triaging". Viisi virheluokkaa täsmäävät
@@ -85,7 +92,7 @@ Edellisen osan BPMN-mallissa PRV-kirjaus oli oma `Service Task`, johon **molemma
 3. **Käytetty Lease Token:** todiste siitä, että suorituslupa oli voimassa ja atomisesti kulutettu
 4. **Mallin tila:** malliversio, lämpötilaparametri ja järjestelmäkehotteet
 
-Tämä mahdollistaa **PRV-2:n (Decision replay)**. Vaikka varsinainen tekoälymalli päivittyisi tai vaihtuisi kahden vuoden kuluttua, alkuperäinen päätöksentekoketju voidaan rekonstruoida tismalleen samoilla reunaehdoilla.
+Tämä mahdollistaa **PRV-2:n (Decision replay)**. Vaikka varsinainen tekoälymalli päivittyisi tai vaihtuisi kahden vuoden kuluttua, alkuperäinen päätöksentekoketju voidaan rekonstruoida täsmälleen samoilla reunaehdoilla.
 
 Mitä agentti tiesi? Millä valtuudella se toimi? Miten se päätyi tulokseen? PRV antaa näihin vastauksen — myös silloin kun päättäjä oli ihminen.
 
