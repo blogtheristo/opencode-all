@@ -1,6 +1,6 @@
 # KYA+I — Know Your Agent Inference: European Inference Sovereignty Engineering
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -30,9 +30,10 @@ Document Status:
 - Created: 07.05.2026
 - Last Modified: 07.05.2026
 - Language: English (Finnish summary inline)
+- Languages Available: English
 - Publication Status: ACTIVE (private — LWM field-notes corpus)
 
----
+***
 
 **Type:** Research Note / Architecture Concept
 **Scope:** KYA Standard, inference routing, EU AI Act Art. 12, three-jurisdiction compliance
