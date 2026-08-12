@@ -52,6 +52,7 @@ import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
 import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
+import cbamPilotRoutes from './routes/cbam-pilot.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
@@ -321,6 +322,11 @@ app.use('/api/v1/memory', memoryRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
+
+// CBAM Paid Pilot — KYA-S1 calculation endpoint (€0.10/call, pilot API key required)
+// GET  /api/v1/cbam/calculation/schema — free, returns JSON schema for agent self-description
+// POST /api/v1/cbam/calculation        — paid, returns LedgerNativeOutput with citations + signature
+app.use('/api/v1/cbam/calculation', cbamPilotRoutes);
 
 // Report export & scheduling (MVP Feature 3)
 app.use('/api/v1/reports', reportExportRoutes);
