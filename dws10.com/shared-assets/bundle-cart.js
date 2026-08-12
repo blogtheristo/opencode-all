@@ -16,7 +16,7 @@
  * navigation to detail pages so buyers don't lose their selection by clicking
  * Details ↗. Cart is per-domain (not shared with onelifetime.world).
  *
- * Checkout: clicking "Order Bundle" opens a mailto: with the SKU list, the
+ * Checkout: clicking "Order Bundle" opens a https://dws10.com/contact/ with the SKU list, the
  * applied discount %, and the computed total. Risto reviews and sends a single
  * Revolut payment link covering the bundle. Single-product Buy buttons remain
  * the fast path; the bundle is the upsell path.
@@ -219,7 +219,7 @@
       formatMoney(totals.netEur, 'EUR') +
       ' net';
     return (
-      'mailto:risto@lifetime.fi?subject=' +
+      'https://dws10.com/contact/?subject=' +
       encodeURIComponent(subject) +
       '&body=' +
       encodeURIComponent(lines.join('\n'))

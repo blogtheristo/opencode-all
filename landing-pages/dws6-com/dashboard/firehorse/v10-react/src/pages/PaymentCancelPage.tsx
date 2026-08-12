@@ -80,7 +80,7 @@ export function PaymentCancelPage() {
         <p className="text-center text-xs text-gray-400 mt-4">
           Had trouble?{' '}
           <a
-            href="mailto:risto@lifetime.fi?subject=DWS%20IQ%20Payment%20Issue"
+            href="https://dws10.com/contact/"
             className="underline hover:text-gray-600"
           >
             Contact support

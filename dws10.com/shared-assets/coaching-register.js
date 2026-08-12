@@ -224,9 +224,7 @@
       g('notes') +
       '\n';
     window.location.href =
-      'mailto:' +
-      TO +
-      '?subject=' +
+      'https://dws10.com/contact/?subject=' +
       encodeURIComponent(t.subject) +
       '&body=' +
       encodeURIComponent(body);

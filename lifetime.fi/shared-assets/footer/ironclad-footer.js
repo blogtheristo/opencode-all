@@ -512,7 +512,7 @@
             <a href="${contentBase}/buy/page2/">AI &amp; Cloud Consulting</a>
             <a href="${contentBase}/buy/page3/">Expert Advisory &amp; Training</a>
             <a href="${contentBase}/buy/page4/">Digital Services</a>
-            <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
+            <a href="https://dws10.com/contact/">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Industries</h4>
@@ -555,8 +555,8 @@
             <a href="${contentBase}/investor-relations/">Investor Relations</a>
             <a href="https://onelifetime.world">Community</a>
             <a href="https://onelifetime.world/blog/">LSJ Business Blog</a>
-            <a href="mailto:support@lifetime.fi">Support</a>
-            <a href="mailto:sales@lifetime.fi">Sales</a>
+            <a href="https://dws10.com/contact/">Support</a>
+            <a href="https://dws10.com/contact/">Sales</a>
             <a href="${contentBase}/legal/">Legal Hub</a>
         </div>
     </div>

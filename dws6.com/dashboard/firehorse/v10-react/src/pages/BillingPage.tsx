@@ -365,7 +365,7 @@ export function BillingPage() {
                     {checkoutLoading === plan.id ? '...' : 'Upgrade with Revolut'}
                   </button>
                   <a
-                    href={`mailto:risto@lifetime.fi?subject=DWS%20IQ%20Upgrade%20to%20${plan.name}`}
+                    href={`https://dws10.com/contact/?subject=DWS%20IQ%20Upgrade%20to%20${plan.name}`}
                     className="block text-center text-sm text-gray-500 hover:text-gray-700"
                   >
                     Or contact us to upgrade
