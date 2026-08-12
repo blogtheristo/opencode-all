@@ -21,13 +21,13 @@ Input: $ARGUMENTS (session ID + subcommand — see table below)
 
 ## Subcommands
 
-| Form                                                           | What it does                                                         |
-| -------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `/kya status <session_id>`                                     | Trust score + identity binding for a session                         |
-| `/kya inference <session_id>`                                  | Inference jurisdiction score (IJS), provider chain, CLOUD Act flags  |
-| `/kya snap <session_id> --reason <CODE>`                       | TC-4 Leash Snap — chain termination with forensic dump. DESTRUCTIVE. |
-| `/kya snap <session_id> --reason <CODE> --force-cascade --yes` | Cascade termination to all child agents, skip confirmation           |
-| `/kya snap <session_id> --reason <CODE> --dry-run`             | Preview termination payload without executing — SAFE, use first      |
+| Form                                                           | What it does                                                                                |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `/kya status <session_id>`                                     | Trust score + identity binding for a session                                                |
+| `/kya inference <session_id>`                                  | ⚠️ **Planned — not yet implemented.** Will provide IJS, provider chain, CLOUD Act flags.   |
+| `/kya snap <session_id> --reason <CODE>`                       | TC-4 Leash Snap — chain termination with forensic dump. DESTRUCTIVE.                        |
+| `/kya snap <session_id> --reason <CODE> --force-cascade --yes` | Cascade termination to all child agents, skip confirmation                                  |
+| `/kya snap <session_id> --reason <CODE> --dry-run`             | Preview termination payload without executing — SAFE, use first                             |
 
 ## Steps
 
@@ -38,12 +38,12 @@ Input: $ARGUMENTS (session ID + subcommand — see table below)
    - Require the user to type the session ID back before running without `--dry-run`
 3. Run the CLI:
    - Status: `cd cli && npx tsx src/cli.ts kya status <sessionId>`
-   - Inference: `cd cli && npx tsx src/cli.ts kya inference <sessionId>`
+   - Inference: **not yet available** — `kya inference` is not yet implemented in the CLI; inform the user and suggest using `/kya status` instead.
    - Dry-run snap: `cd cli && npx tsx src/cli.ts kya snap <sessionId> --reason <CODE> --dry-run`
    - Real snap: `cd cli && npx tsx src/cli.ts kya snap <sessionId> --reason <CODE> [--force-cascade] --yes`
 4. Report the result:
    - For `status`: trust score, identity binding, last verification, active policies
-   - For `inference`: IJS score, tier, provider chain, CLOUD Act flag, DPA status, Art. 12 compliance
+   - For `inference`: inform the user this subcommand is not yet available
    - For `snap`: `agentsTerminated`, `durationMs`, reason, forensic dump location
 
 ## Inference Jurisdiction Score (IJS)
