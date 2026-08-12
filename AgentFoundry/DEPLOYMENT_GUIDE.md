@@ -1,4 +1,5 @@
 # DWS Sales AI Agents - Deployment Guide
+
 ## Phase 1 Implementation (Weeks 1-4)
 
 ---
@@ -36,7 +37,7 @@
   - Resend API key (email)
   - LinkedIn Sales Navigator account
 - [ ] GitHub repository access (blogtheristo/dws6)
-- [ ] Slack workspace for notifications
+- [ ] Notification channel: WhatsApp Business Cloud API, Microsoft Teams webhook, or self-hosted ntfy/Gotify
 
 ### Local Development Tools
 
@@ -144,8 +145,13 @@ echo -n "your-resend-key" | gcloud secrets create resend-api-key \
   --data-file=- \
   --replication-policy="automatic"
 
-# Slack Webhook
-echo -n "https://hooks.slack.com/services/YOUR/WEBHOOK/URL" | gcloud secrets create slack-webhook \
+# Generic notification webhook (Teams, ntfy/Gotify, or other approved broker)
+echo -n "https://notify.example.internal/dws-alerts" | gcloud secrets create notify-webhook \
+  --data-file=- \
+  --replication-policy="automatic"
+
+# WhatsApp alerting bundle: WHATSAPP_* env vars in dotenv format
+printf "WHATSAPP_PHONE_NUMBER_ID=your-phone-number-id\nWHATSAPP_ACCESS_TOKEN=your-token\nWHATSAPP_DEFAULT_RECIPIENT=+358401234567\n" | gcloud secrets create whatsapp-alerting \
   --data-file=- \
   --replication-policy="automatic"
 
@@ -408,15 +414,19 @@ GROUP BY agent_id
 ORDER BY mtd_cost_eur DESC;
 ```
 
-### Slack Notifications
+### WhatsApp / Webhook Notifications
 
-**Configure Slack alerts in each agent YAML:**
+**Configure alert routing in each agent YAML:**
 
 - ✅ **Daily Summary** (9 AM CET): Leads enriched, emails sent, meetings booked
 - ⚠️ **Error Alerts**: Agent failures, API errors, GDPR violations
 - 🚨 **Critical Alerts**: Spam complaints, budget thresholds (80%), security issues
 
-**Example Slack message format:**
+WhatsApp Business Cloud API is optional and requires Meta-approved templates for outbound
+business-initiated messages. For EU-sovereignty customers, point `NOTIFY_WEBHOOK_URL` to a
+self-hosted ntfy/Gotify endpoint or an enterprise Teams webhook.
+
+**Example alert message format:**
 
 ```
 🤖 Lead Scout Agent - Daily Summary
@@ -459,21 +469,25 @@ ORDER BY mtd_cost_eur DESC;
 ### Week 1: Infrastructure & Silent Pilot
 
 **Monday (Day 1):**
+
 - [ ] Complete Google Cloud setup (service accounts, secrets)
 - [ ] Run Supabase migration 013_agent_tracking.sql
 - [ ] Verify all tables/views/functions created
 
 **Tuesday-Wednesday (Day 2-3):**
+
 - [ ] Build and deploy Lead Scout agent
 - [ ] Configure Cloud Scheduler (daily 6 AM run)
 - [ ] Test manual run, verify logs
 
 **Thursday-Friday (Day 4-5):**
+
 - [ ] Monitor first enrichment runs
 - [ ] Review 20 enriched leads manually for quality
 - [ ] Tune ICP scoring if needed (adjust YAML config)
 
 **Success Metrics (Week 1):**
+
 - ✅ 100 leads enriched
 - ✅ 30+ "High Priority" leads (ICP 70+)
 - ✅ 0 errors, 0 GDPR violations
@@ -484,16 +498,19 @@ ORDER BY mtd_cost_eur DESC;
 ### Week 2: Outreach Agent (Advisor Mode)
 
 **Monday (Day 8):**
+
 - [ ] Review Week 1 Lead Scout performance
 - [ ] Deploy Outreach Agent (Advisor mode)
 - [ ] Test approval workflow in Supabase
 
 **Tuesday-Friday (Day 9-12):**
+
 - [ ] Review and approve 10-15 emails per day
 - [ ] Monitor open rates (target 40-50%)
 - [ ] Tune subject lines based on A/B test results
 
 **Success Metrics (Week 2):**
+
 - ✅ 50 emails drafted by agent
 - ✅ 40 emails approved and sent (80% approval rate)
 - ✅ 40-50% open rate
@@ -504,12 +521,14 @@ ORDER BY mtd_cost_eur DESC;
 ### Week 3: Optimization
 
 **Monday-Friday (Day 15-19):**
+
 - [ ] Analyze Week 2 results (which subject lines performed best?)
 - [ ] Update Outreach Agent YAML with winning variants
 - [ ] Increase approval rate target to 90%
 - [ ] Test LinkedIn connection requests (20/day limit)
 
 **Success Metrics (Week 3):**
+
 - ✅ 75 emails sent
 - ✅ 50% open rate (improved from Week 2)
 - ✅ 10-15% reply rate
@@ -520,16 +539,19 @@ ORDER BY mtd_cost_eur DESC;
 ### Week 4: Scale & Review
 
 **Monday-Thursday (Day 22-25):**
+
 - [ ] Run full week at scale (200 emails drafted/week)
 - [ ] Monitor costs (should be <€50/week total)
 - [ ] Prepare for Phase 2 (Meeting & Discovery agents)
 
 **Friday (Day 26):**
+
 - [ ] End-of-Phase-1 review meeting
 - [ ] Decide: Advance Outreach Agent to Autonomous mode? (requires 60 days in Advisor)
 - [ ] Plan Phase 2 deployment (Weeks 5-12)
 
 **Success Metrics (Week 4):**
+
 - ✅ 100+ emails sent
 - ✅ 5-8 meetings booked (total across Weeks 2-4)
 - ✅ €150-200 total agent costs (well under budget)
@@ -542,6 +564,7 @@ ORDER BY mtd_cost_eur DESC;
 ### Issue: Agent not enriching leads
 
 **Symptoms:**
+
 - Leads remain in 'New' state
 - `enriched_at` column is NULL
 - No entries in `agent_signals` table
@@ -573,6 +596,7 @@ gcloud secrets versions access latest --secret=anthropic-api-key
 ```
 
 **Common Fixes:**
+
 - API key expired → Update secret in Secret Manager
 - No new leads in DB → Insert test lead manually
 - Rate limit exceeded → Reduce `max_leads_per_day` in YAML
@@ -582,6 +606,7 @@ gcloud secrets versions access latest --secret=anthropic-api-key
 ### Issue: High API costs
 
 **Symptoms:**
+
 - Agent costs > €150/month budget
 - Alert email received at 80% threshold
 
@@ -615,6 +640,7 @@ ORDER BY model_cost_eur DESC;
 ```
 
 **Common Fixes:**
+
 - Reduce `max_tokens` in YAML (4000 → 2000)
 - Lower temperature (0.7 → 0.3) for shorter responses
 - Switch expensive models (Claude Sonnet → Claude Haiku for simple tasks)
@@ -625,6 +651,7 @@ ORDER BY model_cost_eur DESC;
 ### Issue: Emails going to spam
 
 **Symptoms:**
+
 - Open rate <10% (normal is 40-50%)
 - Spam complaints in `firehorse_events`
 - Domain reputation issues
@@ -646,6 +673,7 @@ ORDER BY e.created_at DESC;
 ```
 
 **Common Fixes:**
+
 - Remove spammy keywords ("act now", "limited time")
 - Shorten email body (<75 words)
 - Improve personalization (reference company-specific news)
@@ -658,8 +686,9 @@ ORDER BY e.created_at DESC;
 ### Issue: Approval workflow not working (Outreach Agent)
 
 **Symptoms:**
+
 - Emails stuck in `pending_approval` status
-- No Slack notifications received
+- No WhatsApp/webhook notifications received
 - HIL Director can't find approval UI
 
 **Debug Steps:**
@@ -675,8 +704,9 @@ WHERE status = 'expired'
 ```
 
 **Common Fixes:**
+
 - Run `SELECT expire_pending_approvals();` to clean up old approvals
-- Verify Slack webhook URL in Secret Manager
+- Verify `notify-webhook` and `whatsapp-alerting` in Secret Manager
 - Build custom approval UI (Supabase dashboard + email link)
 
 ---
@@ -709,17 +739,20 @@ WHERE status = 'expired'
 ## Support & Resources
 
 **Documentation:**
+
 - Sales AI Agent Design: `/home/user/dws6/sales-outreach/SALES_AI_AGENT_DESIGN_FI_v1.md`
 - Agent Foundry Product Doc: `/home/user/dws6/Store/PRODUCT_AGENT_FOUNDRY.md`
 - DWS Document Standard: `/home/user/dws6/DWS_DOCUMENT_STANDARD.md`
 
 **Tools:**
+
 - Google Cloud Console: https://console.cloud.google.com
 - Supabase Dashboard: https://supabase.com/dashboard
 - Agent Logs: `gcloud logging read ...`
 - Agent Metrics: `SELECT * FROM agent_metrics`
 
 **Contacts:**
+
 - Engineering Lead: [engineering@lifetime.fi]
 - Sales HIL Director: [sales@lifetime.fi]
 - Support: [support@dws6.com]

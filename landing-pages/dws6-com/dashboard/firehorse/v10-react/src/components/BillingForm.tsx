@@ -95,7 +95,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
       if (error instanceof z.ZodError) {
         // Handle validation errors
         const fieldErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           const fieldName = err.path[0] as string;
           fieldErrors[fieldName] = err.message;
         });

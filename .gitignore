@@ -46,6 +46,21 @@ dws6.com/**/config/*.local.js
 logs/
 *.log
 
+# --- AGENT OUTCOMES (runtime data — NEVER commit) ---
+# agent_executions rows carry user_id / org_id / input / output payloads (PII;
+# CLAUDE.md Non-Negotiable Rule 1). The Supabase table is the source of truth,
+# not git. compute-mgd.mjs reads the live table via --supabase; any offline
+# export lands here and stays untracked. Synthetic samples for tests live in
+# src/__tests__/fixtures/ and ARE committed.
+data/agent-outcomes/
+*.agent-executions.json
+*.agent-outcomes.json
+
+# Clawdbot queue + state are gitignored down in the .claude/* section.
+
+# --- SESSION TELEMETRY (harness-generated runtime data — NEVER commit) ---
+telemetry/
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/
@@ -72,13 +87,23 @@ output-metadata.json
 Thumbs.db
 *.iml
 .idea/
+# Stray nested .claude command logs written by hooks relative to cwd (root .claude/* below is root-anchored)
+**/.claude/command-log.txt
+
 # Ignore .claude contents but whitelist hooks + settings + skills for team safety nets
 .claude/*
+!.claude/HANDOFF.md
+!.claude/handoffs/
 !.claude/hooks/
+!.claude/settings.json
 !.claude/settings.local.json
 !.claude/archive/
 !.claude/commands/
+!.claude/commands/*.md
 !.claude/agents/
+!.claude/clawdbot/
+.claude/clawdbot/queue/
+.claude/clawdbot/state.json
 .claude/hooks/audit/
 .claude/command-log.txt
 claude-output.json
@@ -122,10 +147,20 @@ claude-sessions/
 !landing-pages/dws10-com/products.csv
 !dws10.com/products.csv
 !Learn/data/activation/billing-*.csv
+# Source-of-truth financial figure exports (Document Standard §24.2) — NOT PII
+!docs/investor/**/*.csv
 investor-outreach/ready_to_send*/
 scripts/investor-contacts.local.json
 
 # --- REPO ARTIFACTS (directory listings, temp files accidentally committed) ---
+# Ignore the artifacts/ tree (large binaries + PR/worktree snapshots) by default,
+# but TRACK Core Artifact knowledge files (ART-*.md) and category folders so the
+# §5 Artifact Framework is source-of-truth and version-controlled.
+artifacts/*
+!artifacts/README.md
+!artifacts/*/
+artifacts/*/*
+!artifacts/*/ART-*.md
 diret
 mcp.json
 pr-description.md
@@ -135,6 +170,9 @@ pr-description.md
 reports/figures/*.png
 reports/*.json
 models/*.pkl
+
+# Counterfactual fairness pilot — generated evidence (regenerate via npm run fairness:pilot)
+reports/fairness-pilot/
 
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
@@ -156,3 +194,11 @@ data/raw_dataset.csv
 data/cleaned_dataset.csv
 
 /.env.old
+
+# LLM training pipeline (infrastructure/llm-training + Acer GN100 training)
+infrastructure/llm-training/.smoke-out/
+Admin/Acer-Veriton-GN100/training/checkpoints/
+Admin/Acer-Veriton-GN100/training/datasets/
+Admin/Acer-Veriton-GN100/training/cache/
+# Keep the committed env template (the broad .env.* rule above would hide it)
+!Admin/Acer-Veriton-GN100/training/.env.training.example

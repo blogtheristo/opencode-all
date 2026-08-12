@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-31-local-model-drift-and-depth-routing</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-31-local-model-drift-and-depth-routing</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: Local-model drift reconciled; contextWindow made load-bearing
+Version: 1.0
+Date: 2026-07-31
+Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
+Owner: Lifetime Oy
+Status: Active
+Agent: Claude Code (Opus 5), session claude/enterprise-ai-harness-0anl7s
+Purpose: Record the reconciliation of the local-model drift (a runtime bug, not
+         doc rot), the wiring of contextWindow into model selection, and the
+         rejection of a Gemini-authored spec that would have re-introduced the
+         defect. Raises Q9.
+Related: src/agents/model-selector.ts, kb/wiki/concepts/config-drift-is-a-runtime-bug.md,
+         DWS_LEARNING_STANDARD.md v1.6
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 31.07.2026 | Changes: Initial field note.
+-->
+<h1 id="field-note-the-sovereign-path-was-selectable-in-name-only">Field
+Note — The Sovereign Path Was Selectable In Name Only</h1>
+<p><strong>Document Type:</strong> Field Note — Defect + Architecture
+<strong>Ontology Tags:</strong> Sector &gt; Sovereign Compute, Edge AI |
+Entities &gt; DGX Spark, Acer Veriton GN100, Ollama, DWS IQ 6 | Temporal
+&gt; 2026-Q3 | Confidence &gt; HIGH — verified in code and tests</p>
+<h2 id="what-was-wrong">1. What was wrong</h2>
+<p>Ten places named the local Ollama models. <code>MODEL_CATALOG</code>
+listed <code>qwen2.5:7b</code> and <code>qwen2.5:32b</code>;
+<code>llm-client.ts</code> defaulted to <code>qwen2.5:32b</code>.
+<strong>None of those are on the box.</strong> The Spark runs
+<code>nemotron-3-super</code> + <code>qwen3-coder:30b</code>, and seven
+other files already agreed on that pair.</p>
+<p>This had been carried as “four-way model drift”, deferred as
+documentation hygiene. That diagnosis was wrong.
+<code>MODEL_CATALOG</code> is read by <code>selectModel()</code> on
+every agent call, so the runtime requested a model the host had never
+pulled — the call fails, or falls silently through to a metered cloud
+provider.</p>
+<p><strong>The local-first architecture we sell was, in the selection
+path, unreachable.</strong> Captured as
+<code>kb/wiki/concepts/config-drift-is-a-runtime-bug.md</code>.</p>
+<p>Two further findings:</p>
+<ul>
+<li><strong>Standard tier had no <code>ollama-local</code> entry at
+all.</strong> An Ollama-only Spark fell past both vLLM options straight
+to Groq/Anthropic. The tier meant to be local-first was the one that
+could not go local.</li>
+<li><strong><code>infrastructure/dgx-spark/.env.example</code> named
+<code>llama3.3:70b</code> + <code>qwen2.5-coder:32b</code></strong> —
+the exact pair <code>deploy.sh --models-cleanup</code> exists to delete.
+A fresh deploy read its models from a file describing the deprecated
+set.</li>
+</ul>
+<h2 id="what-changed">2. What changed</h2>
+<p>Exported <code>OLLAMA_DEPLOYED_MODELS {deep, fast}</code> as the
+single source of truth; every <code>ollama-local</code> catalog entry
+binds to it, and <strong>no literal Ollama id remains in the
+catalog</strong>. <code>llm-client.ts</code>, both
+<code>.env.example</code> files, and the standard tier now agree. Tests
+read <code>check-ollama-models.sh</code> and <code>deploy.sh</code> from
+disk, so editing those in isolation fails CI.</p>
+<p><strong><code>contextWindow</code> was declared on all 16 models and
+read by nothing.</strong> Added <code>modelFitsDepth()</code>, applied
+in the primary and fallback loops, with required depth = estimated input
+<strong>plus the tier’s reserved output</strong> (a window equal to the
+prompt cannot answer it). <code>ModelSelection</code> now carries
+<code>contextWindow</code> and <code>requiredContextTokens</code>; the
+no-model case distinguishes “no provider” from “nothing deep
+enough”.</p>
+<p>Corrected <code>nemotron-3-super</code> footprint from an invented
+34/38 GB to <strong>87 GB disk / ~90 GB RAM</strong>
+(<code>Deploy-DgxSpark.ps1</code> states the pull size;
+<code>heartbeat.ts</code> gives MoE 120B/12.7B active). It now sits
+deliberately tight against the 98 GB budget so
+<code>isLocalModelFeasible()</code> rejects it rather than OOM-ing the
+box.</p>
+<p>Also removed three surviving <strong>“€0/hour”</strong> claims —
+including the <code>reason</code> string emitted into logs and
+telemetry, where the retired cost claim was leaking into
+machine-readable output.</p>
+<h2 id="the-gemini-spec-rejected-with-the-useful-parts-kept">3. The
+Gemini spec — rejected, with the useful parts kept</h2>
+<p>A Gemini-authored execution spec arrived proposing the opposite
+direction: make <code>MODEL_CATALOG</code> canonical and rewrite the
+deployment scripts to match it.</p>
+<p><strong>Rejected, because it would have re-introduced the
+defect.</strong> It proposed adding <code>qwen2.5:7b</code> back (the
+phantom), adding <code>nemotron-cascade-2-30b-a3b</code> (an
+<em>external market signal</em> from a field note, not a deployed model,
+with no evidence it is pullable), and <strong>removing
+<code>nemotron-3-super</code></strong> — which
+<code>docker-compose.yml</code> references three times as the running
+model. It also assumed a codebase that does not exist here:
+<code>MODEL_CATALOG</code> as a flat array (it is
+<code>Record&lt;ModelTier, TierConfig&gt;</code>),
+<code>selectModel(request)</code> (it is
+<code>selectModel(agentName, options)</code>),
+<code>provider: &quot;ollama&quot;</code> (it is <code>ollama-local</code>), tiers
+<code>fast|heavy</code> (they are <code>lite|standard|heavy</code>), and
+<code>src/services/llm-client.ts</code> (it is
+<code>src/agents/</code>). Implementing it verbatim would have been a
+rewrite breaking 1046 passing tests.</p>
+<p><strong>The general lesson, which is the reusable part:</strong>
+truth flows from the deployed reality inward. You cannot fix a
+deployment by editing a constant.</p>
+<p><strong>Kept from it:</strong> (i)
+<code>infrastructure/dgx-spark/.env.example</code> was genuinely stale
+and I had missed it — fixed, though to the deployed pair rather than
+Gemini’s set; (ii) dynamic <code>num_ctx</code> sizing on the Ollama
+call is a real gap and is carried into the next session; (iii) an
+explicit <code>requireLocal</code> selection constraint is worth
+having.</p>
+<h2 id="learning-outcome-six-step">4. Learning Outcome (six-step)</h2>
+<ol type="1">
+<li><strong>KB</strong> —
+<code>kb/wiki/concepts/config-drift-is-a-runtime-bug.md</code>
+(new).</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — rendered.</li>
+<li><strong>Drive</strong> —
+<code>N/A — no customer-facing artifact in this change; the Outokumpu pack was exported 30.07 and is unchanged.</code></li>
+<li><strong>HIC question</strong> — Q9 below.</li>
+<li><strong>Calendar</strong> —
+<code>N/A — this change created no dated commitment. The six Outokumpu dates from 30.07 stand.</code></li>
+</ol>
+<h2 id="hic-decisions">5. HIC decisions</h2>
+<p><strong>Q8 (still OPEN, carried)</strong> — does the 240 h / €200 h
+basis in the Outokumpu tuntiraportti hold? Blocks sending that
+annex.</p>
+<h3 id="q9-open-are-the-context-window-values-in-the-catalog-fit-to-route-on">Q9
+(OPEN) — are the context-window values in the catalog fit to route
+on?</h3>
+<p>Depth routing is now live, and it routes on numbers <strong>nobody
+has measured</strong>. I set <code>qwen3-coder:30b</code> to 262144 and
+<code>nemotron-3-super</code> to 131072 from vendor/model-card
+knowledge, not from the box. The pre-existing vLLM entries still say
+32768, which may itself be stale. Per
+<code>kb/wiki/concepts/harness-cost-is-a-pl-line-item.md</code>, a
+number with no measurement behind it is an estimate — and these
+estimates now change which model runs.</p>
+<p><strong>Options:</strong></p>
+<ol type="1">
+<li><strong>Ship as-is, mark the values <code>unverified</code> in the
+type</strong> <em>(RECOMMEND)</em>. Depth routing is strictly better
+than the previous behaviour (no routing at all), and the field carries
+its own provenance so nobody mistakes it for measured.</li>
+<li><strong>Block depth routing until the GN-100 sweep runs.</strong>
+Most correct, but the sweep is unrun and unreachable from cloud
+containers, so this parks a working improvement behind an unscheduled
+dependency.</li>
+<li><strong>Probe the box at startup</strong> and populate
+<code>contextWindow</code> from the live Ollama <code>/api/show</code>.
+Best long-term; needs the box reachable and a cache for when it is
+not.</li>
+</ol>
+<p><strong>Reversibility:</strong> two-way. Nothing customer-facing
+depends on it yet — but it becomes ONE-WAY the moment a context-window
+figure appears in a customer proposal or the Aegis pilot sizing
+report.</p>
+<p><strong>Recommendation: option 1 now, option 3 as the durable
+fix</strong>, so the depth-curve sweep validates a mechanism that
+already exists rather than gating it.</p>
+</body>
+</html>

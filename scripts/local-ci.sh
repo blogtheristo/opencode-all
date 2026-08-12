@@ -219,7 +219,7 @@ JSON
   echo "  hash: ${this_hash:0:16}..."
 
   # Attempt Supabase upload (best-effort, never blocks the hook)
-  if [ -n "${SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
+  if [ -n "${SUPABASE_URL:-}" ] && { [ -n "${SUPABASE_SERVICE_KEY:-}" ] || [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; }; then
     if [ -f "$REPO_ROOT/scripts/ci-audit-upload.ts" ] && command -v npx >/dev/null 2>&1; then
       echo "  → uploading to Supabase ci_audit_log ..."
       if npx --yes tsx "$REPO_ROOT/scripts/ci-audit-upload.ts" "$OUT_FILE" 2>&1 | sed 's/^/    /'; then

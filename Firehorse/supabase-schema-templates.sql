@@ -5,6 +5,25 @@
 -- Date: December 30, 2025
 -- ============================================================================
 
+-- ============================================================================
+-- === Standard grants for a new public table ===
+-- Copy this block after every CREATE TABLE in the public schema.
+-- Supabase dropped the implicit Data API grants on 2026-05-30 (new projects)
+-- and enforces the same on all existing projects on 2026-10-30. Without an
+-- explicit GRANT, PostgREST / supabase-js / GraphQL return 42501 even when
+-- RLS would allow the row. RLS is the row gate; GRANT is the table gate.
+-- Backfill of record: supabase/migrations/075_public_schema_grants.sql.
+-- ============================================================================
+-- Replace <table_name>. Add anon lines only if RLS permits public access.
+-- grant select, insert, update, delete on public.<table_name>
+--   to authenticated, service_role;
+-- alter table public.<table_name> enable row level security;
+--
+-- -- Opt-in per role (only if a policy targets that role):
+-- -- grant select on public.<table_name> to anon;
+-- -- grant insert on public.<table_name> to anon;
+-- ============================================================================
+
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 

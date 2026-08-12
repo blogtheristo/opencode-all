@@ -6,20 +6,25 @@
     <title>Lifetime Oy — The Agent Outcome Company</title>
     <meta
       name="description"
-      content="Lifetime Oy builds autonomous AI agents that deliver measurable compliance outcomes for EU-regulated industries. 20 industries. Three platforms. Finnish sovereign."
+      content="Lifetime Oy builds autonomous AI agents that deliver measurable compliance outcomes for EU-regulated industries. 25 industries. Three platforms. Finnish sovereign."
     />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Lifetime Oy — The Agent Outcome Company" />
     <meta
       property="og:description"
-      content="Autonomous AI agents that deliver measurable compliance outcomes for 20 EU-regulated industries."
+      content="Autonomous AI agents that deliver measurable compliance outcomes for 25 EU-regulated industries."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lifetime.fi/" />
     <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
     <meta property="og:site_name" content="Lifetime Oy" />
     <link rel="canonical" href="https://lifetime.fi/" />
+    <link rel="alternate" hreflang="en" href="https://lifetime.fi/" />
+    <link rel="alternate" hreflang="fi" href="https://lifetime.fi/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://lifetime.fi/sv/" />
+    <link rel="alternate" hreflang="de" href="https://lifetime.fi/de/" />
+    <link rel="alternate" hreflang="fr" href="https://lifetime.fi/fr/" />
     <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
     <style>
       :root {
@@ -464,6 +469,51 @@
         color: var(--color-gold-light);
       }
 
+      /* Maturity ladder */
+      .maturity-ladder {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .maturity-rung {
+        flex: 1 1 120px;
+        padding: 16px 12px;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .maturity-rung .rung-level {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--text-secondary);
+      }
+
+      .maturity-rung .rung-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .maturity-rung.rung-active {
+        background: rgba(184, 134, 11, 0.12);
+        border-color: rgba(184, 134, 11, 0.4);
+      }
+
+      .maturity-rung.rung-active .rung-level {
+        color: var(--color-gold);
+      }
+
+      .maturity-rung.rung-active .rung-name {
+        color: var(--color-gold-light);
+      }
+
       /* Invest section */
       .invest-box {
         background: var(--bg-surface);
@@ -582,31 +632,53 @@
   </head>
   <body>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
 
     <!-- Hero -->
+    <style>
+      .hero-subline{font-size:clamp(1rem,2vw,1.25rem);color:var(--text-secondary,#9fb3d1);max-width:640px;margin:18px auto 0;line-height:1.6}
+      .hero-subline strong{color:var(--color-gold,#e8b64c)}
+      .hero-stat-label small{display:block;font-size:.7em;opacity:.75;letter-spacing:1px;margin-top:2px}
+      .control{padding:64px 24px;max-width:1080px;margin:0 auto}
+      .control-title{text-align:center;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;margin-bottom:36px}
+      .control-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+      .control-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:22px}
+      .control-item strong{display:block;color:var(--color-gold,#e8b64c);font-size:1.05rem;margin-bottom:8px}
+      .control-item span{color:var(--text-secondary,#9fb3d1);font-size:.98rem;line-height:1.5}
+    </style>
     <section class="hero">
       <div class="hero-grid"></div>
       <div class="hero-inner">
         <div class="hero-overline">Lifetime Oy &mdash; Espoo, Finland</div>
         <h1>The Agent<br /><span class="hero-accent">Outcome Company</span></h1>
         <p class="hero-tagline">
+          <strong>Open models, workflows, Agents, transactions.</strong> 
           We build autonomous AI agents &mdash; Skilled Agents &mdash; that deliver measurable
           compliance outcomes for EU-regulated industries. Not dashboards. Not reports. Not
           consulting hours. Outcomes.
         </p>
+        <p class="hero-subline">
+          Sovereign by design &mdash; agents that run on infrastructure you own, each with an
+          identity, a revocable leash, and a full EU AI Act Article&nbsp;12 audit trail.
+          <strong>Sovereignty guaranteed by physics, not policy.</strong>
+        </p>
 
         <div class="hero-stats">
           <div class="hero-stat">
-            <span class="hero-stat-value">20</span>
+            <span class="hero-stat-value">25</span>
             <span class="hero-stat-label">EU Industries</span>
           </div>
           <div class="hero-stat">
-            <span class="hero-stat-value">18+</span>
-            <span class="hero-stat-label">Industry Agents</span>
+            <span class="hero-stat-value">50</span>
+            <span class="hero-stat-label">Production Agents</span>
           </div>
           <div class="hero-stat">
             <span class="hero-stat-value">3</span>
             <span class="hero-stat-label">Platforms</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">3</span>
+            <span class="hero-stat-label">Deployment Tiers<br /><small>Cloud &middot; Own DGX &middot; Hybrid</small></span>
           </div>
           <div class="hero-stat">
             <span class="hero-stat-value">0</span>
@@ -617,6 +689,65 @@
         <div class="hero-actions">
           <a href="https://dws10.com/buy/" class="btn-gold">Explore Products</a>
           <a href="https://dws10.com/fleet-admiral/" class="btn-outline">Invest</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Who's in control? — the agent trust layer (all live in production) -->
+    <section class="control">
+      <div class="control-inner">
+        <h2 class="control-title">Who&rsquo;s in control? <span class="hero-accent">You are.</span></h2>
+        <div class="control-grid">
+          <div class="control-item"><strong>Identity</strong><span>Every agent is cryptographically bound to its principal.</span></div>
+          <div class="control-item"><strong>Revocable authority</strong><span>Cut an agent&rsquo;s power instantly &mdash; the Leash Snap.</span></div>
+          <div class="control-item"><strong>Article&nbsp;12 audit</strong><span>Reconstruct exactly what any agent did, and under whose authority.</span></div>
+          <div class="control-item"><strong>Sovereign deployment</strong><span>EU cloud, or your own on-premise NVIDIA DGX, air-gapped. Data and model weights never leave your building.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Featured product: Claude Code Coaching -->
+    <section class="section">
+      <div class="section-label">New &middot; Featured</div>
+      <h2 class="section-title">Claude Code Coaching</h2>
+      <div class="section-body">
+        <p>
+          Disciplined agentic engineering for EU teams &mdash; a 1-day lecture, a 2-day workshop,
+          and optional client project work. EU-sovereign: your code and IP never leave the
+          jurisdiction. Cohorts run <strong>July&ndash;December 2026, Fridays</strong>, live over
+          Microsoft Teams. All prices VAT&nbsp;0%.
+        </p>
+      </div>
+      <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap; margin-top: 24px">
+        <img
+          src="static/images/claude-code-coaching-hero.png"
+          alt="Claude Code Coaching &mdash; sovereign agentic engineering coaching, at a glance"
+          style="
+            flex: 0 0 280px;
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+          "
+        />
+        <div style="flex: 1 1 280px">
+          <div class="hero-actions">
+            <a href="https://dws10.com/products/claude-code-coaching.html" class="btn-gold"
+              >Coaching (EN)</a
+            >
+            <a href="https://dws10.com/products/claude-code-coaching-fi.html" class="btn-outline"
+              >Valmennus (FI)</a
+            >
+          </div>
+          <p style="margin-top: 16px; opacity: 0.75; font-size: 0.95rem">
+            Also in Svenska, Deutsch &amp; Fran&ccedil;ais.
+          </p>
         </div>
       </div>
     </section>
@@ -642,7 +773,7 @@
           <h3>DWS IQ Aegis</h3>
           <p>
             Dual-use AI platform for government agencies, military industry, and defence
-            manufacturing. 20 EU industries. Sovereignty monitoring, orbital intelligence (ICEYE
+            manufacturing. 21 EU industries. Sovereignty monitoring, orbital intelligence (ICEYE
             SAR), KYA agent governance. EU-only. Software-only.
           </p>
           <a href="https://dws10.com/dual-use/" class="card-link">Learn more &rarr;</a>
@@ -652,9 +783,9 @@
           <div class="card-label label-climate">Climate Compliance</div>
           <h3>DWS IQ Climate Intelligence</h3>
           <p>
-            8 Skilled Agents automate EU climate compliance &mdash; ETS, CBAM, CSRD, ESRS, carbon
-            accounting. Deterministic scoring. Audit-ready outcomes. Replaces &euro;200k consultant
-            engagements.
+            A fleet of skilled agents automates EU climate compliance &mdash; ETS, CBAM, CSRD, ESRS,
+            carbon accounting. Deterministic scoring. Audit-ready outcomes. Replaces &euro;200k
+            consultant engagements.
           </p>
           <a href="https://dws10.com/buy/" class="card-link">Learn more &rarr;</a>
         </div>
@@ -673,16 +804,73 @@
 
     <hr class="section-divider" />
 
+    <!-- Agents · Loops · Workflows -->
+    <section class="section" id="agents-loops-workflows">
+      <div class="section-label">The AI-Native Stack</div>
+      <h2 class="section-title">Agents. Loops. Workflows.</h2>
+      <div class="section-body">
+        <p>
+          Three layers. All live. The foundation is 50 production Skilled Agents — each extending
+          BaseAgent, emitting a ledger-native output contract (audit trail, regulatory artifact,
+          lineage). On top: self-correcting Loops and multi-agent Workflows that chain them into
+          outcomes.
+        </p>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="card-label label-defence">Foundation</div>
+          <h3>Agents</h3>
+          <p>
+            50 production Skilled Agents, live. Orchestrators (Atlas, Athena, Apollo) coordinate
+            Industrial Specialist Agents per vertical. BaseAgent architecture. Ledger-native output
+            on every execution.
+          </p>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-climate">Shipped June 2026</div>
+          <h3>Loops</h3>
+          <p>
+            Maker&ndash;Checker cycles. Disk-persisted state, budget gate, safety gate, resumable. A
+            Skilled Agent proposes; a second validates; the loop continues until the outcome is
+            correct or the budget stops it.
+          </p>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-distribution">Orchestration</div>
+          <h3>Workflows</h3>
+          <p>
+            Multi-agent orchestration via the <code>/workflow</code> skill. Fan-out, sequential, and
+            reflection patterns. MCP Hub integration. Compliance assessments, Smart Factory
+            pipelines, and KYA governance chains &mdash; all live.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; text-align: center">
+        <a href="/agents-loops-workflows/" class="btn-gold">Read the milestone update &rarr;</a>
+        &nbsp;&nbsp;
+        <a href="/agentit-silmukat-tyonkulut/" class="btn-outline">Lue suomeksi &rarr;</a>
+        &nbsp;&nbsp;
+        <a href="/laskuri/" class="btn-outline">Keskeytyslaskuri &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
     <!-- Industry Agents -->
     <section class="section industry-agent-section">
       <div class="section-label">Industry Agents</div>
-      <h2 class="section-title">One god per industry. Twenty industries.</h2>
+      <h2 class="section-title">One Industrial Specialist Agent per industry.</h2>
       <div class="section-body">
         <p>
-          Industrial Specialist Agents are industry-specific AI agents &mdash; the specialists of
-          each vertical. Each one knows the regulations, emission factors, sector benchmarks, and
+          Industrial Specialist Agents are industry-specific Skilled Agents &mdash; the specialists
+          of each vertical. Each one knows the regulations, emission factors, sector benchmarks, and
           reporting requirements for its industry. They don't assist. They
-          <strong>deliver outcomes</strong>.
+          <strong>deliver outcomes</strong>. The platform serves 25 EU-regulated industries: 20 with
+          a dedicated Industrial Specialist Agent, and 5 served at platform level.
         </p>
       </div>
 
@@ -708,6 +896,28 @@
         <div class="industry-agent-chip">Petroleum Refining</div>
         <div class="industry-agent-chip">Glass &amp; Ceramics</div>
       </div>
+
+      <div style="margin-top: 20px">
+        <p
+          style="
+            font-size: 0.8rem;
+            color: var(--text-muted, rgba(226, 232, 240, 0.5));
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 600;
+          "
+        >
+          Platform-served (5) — no dedicated specialist agent
+        </p>
+        <div class="industry-agent-grid" style="opacity: 0.55">
+          <div class="industry-agent-chip">Manufacturing (cross-sector)</div>
+          <div class="industry-agent-chip">Healthcare</div>
+          <div class="industry-agent-chip">Financial Services</div>
+          <div class="industry-agent-chip">Public Sector</div>
+          <div class="industry-agent-chip">Data Centres</div>
+        </div>
+      </div>
     </section>
 
     <hr class="section-divider" />
@@ -718,8 +928,8 @@
       <h2 class="section-title">Brain &middot; Memory &middot; Body &middot; Hands</h2>
       <div class="section-body">
         <p>
-          Four layers. The Brain orchestrates 18+ Industry Agents. Memory holds the EU regulatory
-          model. Body delivers through Firehorse. Hands execute in the physical world.
+          Four layers. The Brain orchestrates 50 production Skilled Agents. Memory holds the EU
+          regulatory model. Body delivers through Firehorse. Hands execute in the physical world.
         </p>
       </div>
 
@@ -727,7 +937,9 @@
         <div class="arch-card">
           <h4>Brain</h4>
           <div class="arch-name">DWS IQ 6</div>
-          <p>Multi-agent orchestration via MCP. 18+ Industry Agents running concurrently.</p>
+          <p>
+            Multi-agent orchestration via MCP. 50 production Skilled Agents running concurrently.
+          </p>
         </div>
         <div class="arch-card">
           <h4>Memory</h4>
@@ -773,54 +985,341 @@
 
     <hr class="section-divider" />
 
-    <!-- Consulting Services -->
+    <!-- Lifetime Consulting — Three Pillars -->
     <section class="section" id="consulting">
-      <div class="section-label">Consulting Services</div>
-      <h2 class="section-title">The Toyota Production System for EU Carbon Compliance</h2>
+      <div class="section-label">Lifetime Consulting</div>
+      <h2 class="section-title">Capability, not headcount. Outcomes, not hours.</h2>
       <div class="section-body">
         <p>
-          Creator of the <strong>Firehorse Product Line</strong> and
-          <strong>DWS IQ Product Platform</strong>. We help clients convert complex industrial
-          enterprise challenges into operational dual-use compliance solutions &mdash; hardware and
-          software AI consultancy combined with Smart Factory design and rollout.
-        </p>
-        <p style="margin-top: 16px">
-          Not just SaaS. Not just advisory. We deliver production systems &mdash; the infrastructure
-          that makes compliant outcomes inevitable.
+          We don&rsquo;t sell staff. We bring <strong>capability and readiness for change</strong>
+          &mdash; and support when disruption hits. A fleet of skilled agent capabilities across 10
+          ontology classes, available immediately. No recruitment. No onboarding. No layoffs. Your
+          people stay &mdash; they get digital colleagues that eliminate routine and free thinking
+          for strategic work.
         </p>
       </div>
 
-      <div class="platform-grid" style="margin-top: 40px">
-        <div class="platform-card">
-          <div class="card-label label-defence">Strategic AI</div>
-          <h3>AI Director Consultancy</h3>
+      <div class="platform-grid" style="margin-top: 48px">
+        <!-- Pillar 1 -->
+        <div class="platform-card" style="border-top: 3px solid var(--color-gold)">
+          <div class="card-label label-defence">Pillar 1</div>
+          <h3>We train your team to use agent capabilities</h3>
           <p>
-            Strategic AI transformation for industrial enterprises. EU AI Act compliance
-            architecture. Agent governance design. From assessment to production deployment.
+            Your team learns which agents to use for which tasks. Customised learning paths per role
+            &mdash; compliance teams get different training than IT teams. Hands-on exercises with
+            real data from day one. EU AI Act Article&nbsp;4 literacy included.
           </p>
+          <ul
+            style="
+              margin-top: 12px;
+              padding-left: 16px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.7;
+            "
+          >
+            <li>Role-based training paths (compliance, IT, operations, management)</li>
+            <li>
+              <strong style="color: var(--text-primary)">Claude Code Coaching</strong> &mdash; 1-day
+              lecture, 2-day workshop, embedded project work (&euro;1,900&ndash;&euro;7,500)
+            </li>
+            <li>
+              <strong style="color: var(--text-primary)">NVIDIA sovereign computing</strong> &mdash;
+              DGX Spark, Jetson, NVIDIA AI Workbench, local World Model build
+            </li>
+            <li>
+              <strong style="color: var(--text-primary)">Sovereign AI infrastructure</strong>
+              &mdash; EU-only deployment, CLOUD Act free, Article 12 audited
+            </li>
+            <li>EU AI Act Article 4 literacy certification</li>
+            <li>Results from the first day &mdash; not theory, outcomes</li>
+          </ul>
         </div>
 
-        <div class="platform-card">
-          <div class="card-label label-climate">Smart Factory</div>
-          <h3>Smart Factory Rollout</h3>
+        <!-- Pillar 2 -->
+        <div class="platform-card" style="border-top: 3px solid #4ade80">
+          <div class="card-label label-climate">Pillar 2</div>
+          <h3>
+            We develop industry-specific intelligent compliance workflows &mdash; and ship them to
+            production
+          </h3>
           <p>
-            End-to-end Smart Factory design &mdash; edge AI (NVIDIA Jetson), sensor integration,
-            production system optimisation. Hardware + software. On-premise + cloud hybrid.
+            We map your industry&rsquo;s regulatory landscape and identify the critical compliance
+            workflows. Then we build them: the right agents, in the right order, at the right
+            autonomy level. Scoping &rarr; pilot &rarr; validation &rarr; production. It
+            doesn&rsquo;t stay a prototype.
           </p>
+          <ul
+            style="
+              margin-top: 12px;
+              padding-left: 16px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.7;
+            "
+          >
+            <li>Industry-specific workflow design (CBAM, CSRD, ETS, NIS2&hellip;)</li>
+            <li>ERP integration (SAP, IFS, Visma, Monitor, Jeeves)</li>
+            <li>Lifetime World Model ontology from your own data</li>
+            <li>Continuous optimisation: measure, identify bottlenecks, scale</li>
+          </ul>
         </div>
 
-        <div class="platform-card">
-          <div class="card-label label-distribution">Dual-Use Compliance</div>
-          <h3>Compliance Operations</h3>
+        <!-- Pillar 3 -->
+        <div class="platform-card" style="border-top: 3px solid var(--text-accent)">
+          <div class="card-label label-distribution">Pillar 3</div>
+          <h3>We ensure the project progresses without interruptions</h3>
           <p>
-            CSRD, CBAM, ETS, NIS2, EU AI Act, dual-use export control. We build the operational
-            compliance system, not the report. Continuous. Automated. Audit-ready.
+            The
+            <a href="/laskuri/" style="color: var(--color-gold)">Interruption Cost Calculator</a>
+            quantifies what capability gaps cost: context rebuilding, momentum loss, key-person
+            risk. Our agents continue working when regulations change, supply chains break, or key
+            people move. Disruption support is built in &mdash; not bolted on.
           </p>
+          <ul
+            style="
+              margin-top: 12px;
+              padding-left: 16px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.7;
+            "
+          >
+            <li>Proactive disruption management &mdash; agents work through change</li>
+            <li>Change readiness assessment (Disruption Response Agent)</li>
+            <li>Human-in-the-loop: people decide, agents handle routine</li>
+            <li>Project Manager Agent: schedules, JIRA, documentation &mdash; always current</li>
+          </ul>
         </div>
       </div>
 
-      <div style="margin-top: 32px">
+      <!-- Ontology classes -->
+      <div
+        style="
+          margin-top: 48px;
+          padding: 36px 28px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-xl);
+        "
+      >
+        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
+          Capability Ontology &mdash; 10 knowledge classes
+        </h3>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+          "
+        >
+          Capabilities are structured as an ontology &mdash; a Lifetime World Model knowledge graph
+          where each class connects to others through inter-agent communication. New capabilities
+          always attach to the existing structure. The catalogue grows continuously.
+        </p>
+        <div class="industry-agent-grid">
+          <div class="industry-agent-chip">1. Consulting</div>
+          <div class="industry-agent-chip">2. Regulation &amp; Compliance</div>
+          <div class="industry-agent-chip">3. Industry</div>
+          <div class="industry-agent-chip">4. Orchestration</div>
+          <div class="industry-agent-chip">5. Field &amp; Project</div>
+          <div class="industry-agent-chip">6. Sales &amp; Communication</div>
+          <div class="industry-agent-chip">7. Knowledge &amp; Memory</div>
+          <div class="industry-agent-chip">8. System</div>
+          <div class="industry-agent-chip">9. Defence &amp; Security</div>
+          <div class="industry-agent-chip">10. Change &amp; Continuity</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
         <a href="mailto:risto@onelifetime.world" class="btn-gold">Book a Consultation</a>
+        <a href="/laskuri/" class="btn-outline">Keskeytyslaskuri &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- DWS IQ Adoption Framework -->
+    <section class="section" id="adoption-framework">
+      <div class="section-label">DWS IQ Adoption Framework</div>
+      <h2 class="section-title">Microsoft&rsquo;s AI Adoption Framework &mdash; accelerated.</h2>
+      <div class="section-body">
+        <p>
+          Microsoft&rsquo;s <strong>AI Adoption Framework</strong> &mdash; part of the Cloud
+          Adoption Framework for Azure &mdash; is the blueprint EU enterprises use to move from
+          ad-hoc AI experiments to secure, scaled, value-driven production. Engineers trust it and
+          Microsoft is a primary supplier, so we meet you where you already are: Lifetime Consulting
+          runs your DWS IQ deployment along the <strong>same four lifecycle phases</strong>. The
+          difference is where you land &mdash; DWS IQ lets you skip the risky experimentation and
+          arrive directly in a governed, sovereign production environment.
+        </p>
+      </div>
+
+      <div class="arch-grid" style="grid-template-columns: repeat(4, 1fr)">
+        <div class="arch-card">
+          <div class="arch-name">Phase 1</div>
+          <h4>AI Strategy</h4>
+          <p>
+            Start with the business problem, not the technology. We translate regulatory and
+            operational gaps &mdash; CBAM, CSRD, ETS, NIS2 &mdash; into concrete use cases, and pick
+            generative or deterministic AI per task. Deterministic scoring wherever an audit demands
+            it.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Phase 2</div>
+          <h4>Plan &amp; Ready</h4>
+          <p>
+            Microsoft calls it the AI Landing Zone. We stand up your sovereign one &mdash; EU-hosted
+            in Finland or on-prem edge (NVIDIA Jetson, L40S) &mdash; organise data domains, and wire
+            in governance and EU AI Act Article&nbsp;12 logging before a single agent runs.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Phase 3</div>
+          <h4>Adopt &middot; Build</h4>
+          <p>
+            Integrate AI into the flow of work. Ready-to-use Skilled Agents through to custom
+            agentic workflows inside your ERP (SAP, Visma, IFS, Monitor, Jeeves) &mdash; the
+            sovereign counterpart to the M365&nbsp;Copilot and Azure AI Foundry adoption paths.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Phase 4</div>
+          <h4>Govern, Secure &amp; Manage</h4>
+          <p>
+            Zero Trust: never trust, always verify. KYA agent governance, strict internal/external
+            workload boundaries, prompt-injection and data-leakage controls, and Responsible-AI / EU
+            AI Act compliance &mdash; grounded in the platform, not bolted on.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-secondary)">
+        Reference:
+        <a
+          href="https://learn.microsoft.com/azure/cloud-adoption-framework/scenarios/ai/"
+          style="color: var(--color-gold)"
+          target="_blank"
+          rel="noopener"
+          >Microsoft Cloud Adoption Framework for AI &rarr;</a
+        >
+        &nbsp; DWS IQ is an EU-sovereign accelerator layer on top of the same lifecycle &mdash; not
+        a replacement for it.
+      </p>
+
+      <!-- Maturity ladder -->
+      <div
+        style="
+          margin-top: 48px;
+          padding: 36px 28px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-xl);
+        "
+      >
+        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
+          Where DWS IQ lands you on the maturity curve
+        </h3>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.7;
+          "
+        >
+          Evaluated against the standard AI maturity model &mdash; from Exploring to
+          Transformational &mdash; most enterprises stall in Microsoft&rsquo;s
+          <em>Govern &amp; Secure</em> phase, blocked by data leakage, shadow AI, and
+          US&nbsp;CLOUD&nbsp;Act exposure. DWS IQ solves those out of the box, so you skip the
+          trial-and-error rungs and start near the top.
+        </p>
+
+        <div class="maturity-ladder">
+          <div class="maturity-rung">
+            <span class="rung-level">L1</span><span class="rung-name">Exploring</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L2</span><span class="rung-name">Experimenting</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L3</span><span class="rung-name">Process Optimisation</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L4</span><span class="rung-name">Advanced &amp; Scaled</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L5</span><span class="rung-name">Transformational</span>
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            text-align: right;
+            opacity: 0.85;
+          "
+        >
+          &#9632;&nbsp; DWS IQ deployments land here
+        </p>
+
+        <div class="platform-grid" style="margin-top: 32px">
+          <div class="platform-card">
+            <div class="card-label label-defence">Level 5 &middot; Industry-leading</div>
+            <h3>Security &amp; Governance</h3>
+            <p>
+              Finnish-hosted sovereign cloud plus on-prem edge = zero CLOUD&nbsp;Act exposure. EU AI
+              Act (incl. Article&nbsp;12 logging), CSRD and CBAM native. The phase most enterprises
+              fear is where DWS IQ is strongest.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-climate">Level 4 &middot; Advanced / Scaled</div>
+            <h3>Infrastructure &amp; Operations</h3>
+            <p>
+              No per-token API bottleneck. You own the compute and run sub-100&nbsp;ms inference
+              offline at the edge &mdash; secure network boundaries and continuous availability,
+              with predictable operating economics.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-distribution">Level 3&rarr;4 &middot; Optimising</div>
+            <h3>Business Adoption &amp; Automation</h3>
+            <p>
+              Past the pilot phase with active industrial customers. Not chatbots &mdash; agentic
+              compliance workflows that integrate directly into ERP systems (SAP, Visma) and deliver
+              audit-ready outcomes.
+            </p>
+          </div>
+        </div>
+
+        <p
+          style="
+            margin-top: 24px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            border-left: 3px solid var(--color-gold);
+            padding-left: 16px;
+          "
+        >
+          <strong>Bottom line:</strong> for a European industrial company following
+          Microsoft&rsquo;s AI Adoption Framework, DWS IQ is a maturity accelerator &mdash; skip the
+          risky trial-and-error and land immediately in a fully governed, secure, cost-predictable
+          production environment.
+        </p>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
+        <a
+          href="mailto:risto@onelifetime.world?subject=DWS%20IQ%20Adoption%20Assessment"
+          class="btn-gold"
+          >Book an Adoption Assessment</a
+        >
+        <a href="#consulting" class="btn-outline">See the three consulting pillars &rarr;</a>
       </div>
     </section>
 
@@ -872,9 +1371,9 @@
         <div class="footer-col">
           <h4>Lifetime Oy</h4>
           <p>
-            Creator of the Firehorse Product Line and DWS IQ Product Platform &mdash; the Toyota
-            Production System for dual-use EU carbon compliance. HW+SW AI consultancy and Smart
-            Factory rollouts. Based in Espoo.
+            Creator of the Firehorse Product Line and DWS IQ Product Platform &mdash; sovereign
+            compliance intelligence for EU-regulated industry. Consulting and training in Claude
+            Code, NVIDIA sovereign computing, and EU-sovereign AI infrastructure. Based in Espoo.
           </p>
           <p style="margin-top: 12px">
             <strong style="color: var(--text-primary)">Risto Anton P&auml;&auml;rni</strong><br />
@@ -891,6 +1390,7 @@
           <a href="https://dws10.com/fleet-admiral/">Fleet Admiral</a>
           <a href="https://dws10.com/captain/">Industry Captains</a>
           <a href="https://onelifetime.world">Lifetime World</a>
+          <a href="/laskuri/">Keskeytyslaskuri</a>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
@@ -906,5 +1406,6 @@
         <p>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</p>
       </div>
     </footer>
+      <script src="/shared-assets/motion/reveal.js" defer></script>
   </body>
 </html>

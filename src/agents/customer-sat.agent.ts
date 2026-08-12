@@ -68,6 +68,9 @@ export class CustomerSatAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'lite',
+      // Proactive: Phase 2 (advisor) — clear inactivity signals, retention stakes.
+      autonomyPhase: 'advisor',
+      notify: { channels: ['email', 'in_app'], maxPerHour: 5, maxPerDay: 20 },
     });
   }
 

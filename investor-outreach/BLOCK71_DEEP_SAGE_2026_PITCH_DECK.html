@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DWS IQ — Block71 Deep SAGE 2026 — Pitch Deck</title>
+<style>
+  :root {
+    --yc-orange: #FF6600;
+    --yc-orange-soft: #FFF1E5;
+    --ink: #0B1220;
+    --ink-soft: #4A5568;
+    --line: #E2E8F0;
+    --paper: #FFFFFF;
+    --eu: #003399;
+    --us: #B22234;
+    --sg: #ED2939;
+    --tier1: #16A34A;
+    --tier2: #F59E0B;
+    --tier3: #DC2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-feature-settings: "kern", "liga", "tnum";
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  .deck {
+    width: 100%;
+  }
+  .slide {
+    min-height: 100vh;
+    padding: 6vh 8vw;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    page-break-after: always;
+    position: relative;
+  }
+  .slide-no {
+    position: absolute;
+    top: 4vh;
+    right: 6vw;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .brand {
+    position: absolute;
+    top: 4vh;
+    left: 6vw;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .accent {
+    color: var(--yc-orange);
+  }
+  .bar {
+    width: 60px;
+    height: 4px;
+    background: var(--yc-orange);
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: clamp(40px, 6.5vw, 88px);
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+  }
+  h3 {
+    font-size: clamp(18px, 1.8vw, 24px);
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--yc-orange);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  p, li {
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  p.lead {
+    font-size: clamp(20px, 1.9vw, 28px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 900px;
+  }
+  ul {
+    list-style: none;
+    margin-top: 16px;
+  }
+  ul li {
+    padding: 10px 0 10px 24px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  ul li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--yc-orange);
+    font-weight: 700;
+  }
+  ul.clean li {
+    border: none;
+    padding: 4px 0 4px 24px;
+  }
+  .grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+  .card {
+    border: 1px solid var(--line);
+    padding: 28px;
+    border-radius: 4px;
+    background: var(--paper);
+  }
+  .card.accent-card {
+    border-color: var(--yc-orange);
+    border-width: 2px;
+    background: var(--yc-orange-soft);
+  }
+  .stat {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .stat-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 32px;
+    font-size: clamp(14px, 1.2vw, 17px);
+  }
+  table.matrix th, table.matrix td {
+    border: 1px solid var(--line);
+    padding: 16px 18px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table.matrix th {
+    background: #F8FAFC;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  table.matrix td.pillar {
+    font-weight: 700;
+    background: #F8FAFC;
+    width: 22%;
+  }
+  table.matrix .jurisdiction-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .tag-eu { background: var(--eu); }
+  .tag-us { background: var(--us); }
+  .tag-sg { background: var(--sg); }
+  .tier-1, .tier-2, .tier-3 {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: white;
+    letter-spacing: 0.05em;
+  }
+  .tier-1 { background: var(--tier1); }
+  .tier-2 { background: var(--tier2); }
+  .tier-3 { background: var(--tier3); }
+  .quote {
+    font-size: clamp(22px, 2.4vw, 36px);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    max-width: 1000px;
+    border-left: 6px solid var(--yc-orange);
+    padding-left: 32px;
+    color: var(--ink);
+  }
+  .footnote {
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 800px;
+  }
+  .title-slide {
+    background: var(--ink);
+    color: white;
+  }
+  .title-slide .brand,
+  .title-slide .slide-no { color: rgba(255,255,255,0.5); }
+  .title-slide h1 { color: white; }
+  .title-slide p.lead { color: rgba(255,255,255,0.75); }
+  .title-slide .bar { background: var(--yc-orange); }
+  .title-slide .meta {
+    margin-top: 48px;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .closing-slide {
+    background: var(--yc-orange);
+    color: white;
+  }
+  .closing-slide .brand,
+  .closing-slide .slide-no { color: rgba(255,255,255,0.75); }
+  .closing-slide h1 { color: white; }
+  .closing-slide p.lead { color: rgba(255,255,255,0.92); }
+  .closing-slide .bar { background: white; }
+  .arrow-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .arrow-step {
+    flex: 1;
+    min-width: 180px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #F8FAFC;
+  }
+  .arrow-step .num {
+    font-size: 12px;
+    color: var(--yc-orange);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .arrow-step .label {
+    font-weight: 600;
+    margin-top: 6px;
+    font-size: 16px;
+  }
+  .arrow-step .sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+  @media print {
+    .slide { min-height: auto; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- Slide 1: Title -->
+<section class="slide title-slide">
+  <div class="brand">DWS IQ × Lifetime Oy</div>
+  <div class="slide-no">01 / 12</div>
+  <div class="bar"></div>
+  <h1>The Carbon Balance Sheet,<br><span class="accent">Built for Every Jurisdiction.</span></h1>
+  <p class="lead">Double-entry bookkeeping for CO₂ — engineered EU-first, designed to land in Singapore, Japan, Korea, and beyond on the same sovereignty architecture.</p>
+  <div class="meta">Block71 Singapore — Deep SAGE 2026 Application · 26 May 2026</div>
+</section>
+
+<!-- Slide 2: One-Liner -->
+<section class="slide">
+  <div class="brand">DWS IQ</div>
+  <div class="slide-no">02 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">What we do</div>
+  <h2>We turn every industrial transaction into a compliance journal entry — automatically.</h2>
+  <p class="lead">Every tonne of CO₂ is tracked like every euro. CBAM, CSRD, ETS in Europe. Singapore Carbon Tax, GX-ETS in Japan, K-ETS in Korea — same ledger, different rule pack.</p>
+  <div class="grid grid-3" style="margin-top: 48px;">
+    <div class="card">
+      <div class="stat">21</div>
+      <div class="stat-label">Production AI Agents</div>
+    </div>
+    <div class="card">
+      <div class="stat">20</div>
+      <div class="stat-label">EU-Regulated Industries</div>
+    </div>
+    <div class="card">
+      <div class="stat">2</div>
+      <div class="stat-label">Enterprise Pilots Contracted Q1/2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: Problem -->
+<section class="slide">
+  <div class="brand">Problem</div>
+  <div class="slide-no">03 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">The problem</div>
+  <h2>Industrial CFOs are being asked an impossible question.</h2>
+  <p class="lead">"Prove your carbon position is correct, in real time, to an auditor who can seize your shipment." Today, the answer is 40–80 hours of Excel and a €350K consultant invoice.</p>
+  <div class="grid grid-2" style="margin-top: 48px;">
+    <div class="card">
+      <h3>Europe — live now</h3>
+      <ul class="clean">
+        <li><strong>50,000+</strong> EU companies under CSRD by 2028</li>
+        <li><strong>4,000+</strong> CBAM importers, full enforcement 2026</li>
+        <li><strong>ETS Phase IV</strong> caps tightening through 2030</li>
+        <li><strong>€180K–€350K/year</strong> per enterprise in consultant fees</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Asia — arriving 2026</h3>
+      <ul class="clean">
+        <li><strong>Singapore</strong> Carbon Tax: S$45/tCO₂e in 2026, S$80 by 2030</li>
+        <li><strong>Japan</strong> GX-ETS mandatory 2026 (~1,400 participants)</li>
+        <li><strong>Korea</strong> K-ETS Phase 4 begins 2026 (~700 participants)</li>
+        <li><strong>China</strong> national ETS expands into steel, cement, aluminium</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: Solution -->
+<section class="slide">
+  <div class="brand">Solution</div>
+  <div class="slide-no">04 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Our solution</div>
+  <h2>DWS IQ — the carbon balance sheet.</h2>
+  <p class="lead">Pacioli's 1494 double-entry, applied to CO₂. Every CBAM import, ETS surrender, and CSRD disclosure becomes a journal entry in the same second the payment clears.</p>
+  <div class="arrow-row">
+    <div class="arrow-step">
+      <div class="num">Step 01</div>
+      <div class="label">Transaction</div>
+      <div class="sub">Shipment, allowance trade, or invoice paid via SEPA, FAST, Qivalis, or CBDC.</div>
+    </div>
+    <div class="arrow-step">
+      <div class="num">Step 02</div>
+      <div class="label">Read</div>
+      <div class="sub">MCP connectors to SAP, Oracle, NetSuite read transaction and emission data.</div>
+    </div>
+    <div class="arrow-step">
+      <div class="num">Step 03</div>
+      <div class="label">Three Entries</div>
+      <div class="sub">CBAM obligation · CSRD Scope 1/2/3 booking · ETS surrender position.</div>
+    </div>
+    <div class="arrow-step">
+      <div class="num">Step 04</div>
+      <div class="label">Audit Log</div>
+      <div class="sub">EU AI Act Article 12 compliant, 7-year tamper-evident retention.</div>
+    </div>
+  </div>
+  <div class="footnote">Edge AI on NVIDIA Jetson Orin Nano (€500/device, 15W). Sub-100ms inference. €17,000/year vs €350,000 cloud equivalent — a 20× cost moat.</div>
+</section>
+
+<!-- Slide 5: THE WEDGE — 3 Pillars × 3 Jurisdictions -->
+<section class="slide">
+  <div class="brand">The Wedge</div>
+  <div class="slide-no">05 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Why we win — Sovereignty Field Note #2</div>
+  <h2>The 3-Pillar Sovereignty Model, scored per jurisdiction.</h2>
+  <p class="lead">Sovereignty is not a checkbox. It is a <strong>3×3 capability matrix</strong>: three pillars (SIB, CSB, EAB), scored against three jurisdictions (EU, US, Singapore). Singapore is not a market — it is the proof that our architecture is universal.</p>
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th style="width:22%">Pillar</th>
+        <th><span class="jurisdiction-tag tag-eu">EU</span></th>
+        <th><span class="jurisdiction-tag tag-us">US</span></th>
+        <th><span class="jurisdiction-tag tag-sg">Singapore</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pillar">
+          <strong>SIB</strong><br>
+          <span style="font-weight:400;font-size:13px;color:var(--ink-soft)">Substrate Integrity — where compute &amp; data live</span>
+        </td>
+        <td><span class="tier-1">TIER 1</span><br>Aiven Helsinki + Hetzner DE + Scaleway FR. No CLOUD Act. No FISA 702.</td>
+        <td><span class="tier-3">TIER 3</span><br>Supabase US + Cloudflare US. Customer acknowledges CLOUD Act at sign-up.</td>
+        <td><span class="tier-2">TIER 2</span><br>MAS-aligned SG operator (target). Jetson edge keeps OT data on-prem.</td>
+      </tr>
+      <tr>
+        <td class="pillar">
+          <strong>CSB</strong><br>
+          <span style="font-weight:400;font-size:13px;color:var(--ink-soft)">Cost-Surface Stability — what running the agents costs the deployer</span>
+        </td>
+        <td>Owned-compute (Jetson + DGX Spark). Annual envelope attestable under EU AI Act Art. 14.</td>
+        <td>Metered-API stack. Cost-band attestation not productionisable.</td>
+        <td>Owned-compute extends natively. Pricing in SGD anchors to local labour cost, not USD tokens.</td>
+      </tr>
+      <tr>
+        <td class="pillar">
+          <strong>EAB</strong><br>
+          <span style="font-weight:400;font-size:13px;color:var(--ink-soft)">Evidentiary Audit Boundary — behavioural conformance &amp; audit trail</span>
+        </td>
+        <td>Article 12 logging live since March 2026. EAC1–EAC13 mapped onto KYA conformance.</td>
+        <td>NIST AI RMF v1.0 alignment. State-by-state ESG fragmentation.</td>
+        <td>MAS Tech Risk Management Guidelines + Singapore Carbon Tax audit trail in the same log schema.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footnote">Internal vocabulary: SIB / CSB / EAB are three of the four conformance tracks in the DWS KYA Standard candidate (PHD_FIREHORSE §14.19.6, §14.20.5, §14.21). The fourth — ASB (operational safety, OWASP Top 10 for Agentic Apps) — is jurisdiction-neutral.</div>
+</section>
+
+<!-- Slide 6: Why Singapore = Global -->
+<section class="slide">
+  <div class="brand">Singapore = Global</div>
+  <div class="slide-no">06 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Why Singapore is the proof</div>
+  <h2>Singapore is the only place where all three jurisdictions converge in one customer.</h2>
+  <p class="lead">A Singapore-HQ commodity trader ships CBAM-eligible steel into the EU, pays Singapore Carbon Tax at home, and uses US cloud for analytics. They are the test case for our 3×3 matrix — and if it works for them, it works everywhere.</p>
+  <div class="grid grid-3" style="margin-top: 48px;">
+    <div class="card">
+      <h3><span class="jurisdiction-tag tag-eu">EU</span> Exposure</h3>
+      <p style="margin-top:8px">CBAM declarations on steel, cement, aluminium imports into the EU. €/tCO₂e obligations under EU Emissions Trading.</p>
+    </div>
+    <div class="card">
+      <h3><span class="jurisdiction-tag tag-sg">SG</span> Local</h3>
+      <p style="margin-top:8px">Singapore Carbon Tax at S$45/tCO₂e (2026). MAS portfolio disclosure. IRAS reporting. PDPA data residency.</p>
+    </div>
+    <div class="card">
+      <h3><span class="jurisdiction-tag tag-us">US</span> Cloud</h3>
+      <p style="margin-top:8px">Legacy analytics on AWS/Azure. CLOUD Act exposure flagged by their auditor in 2025 — looking for a way out.</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top: 48px;">"The carbon balance sheet was engineered in Helsinki. Singapore is where we prove the architecture is universal — and where the next 80% of the market lives."</div>
+</section>
+
+<!-- Slide 7: Traction -->
+<section class="slide">
+  <div class="brand">Traction</div>
+  <div class="slide-no">07 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">What is live today</div>
+  <h2>Two contracted enterprise pilots. Bootstrapped.</h2>
+  <div class="grid grid-4" style="margin-top: 32px;">
+    <div class="card accent-card">
+      <div class="stat">~€7K/mo</div>
+      <div class="stat-label">Services &amp; transport revenue — not software revenue</div>
+    </div>
+    <div class="card">
+      <div class="stat">2</div>
+      <div class="stat-label">Enterprise Pilots Contracted Q1/2026 (€59,900 booked)</div>
+    </div>
+    <div class="card">
+      <div class="stat">€0</div>
+      <div class="stat-label">Founder Salary · Cash Break-Even</div>
+    </div>
+    <div class="card">
+      <div class="stat">15:1</div>
+      <div class="stat-label">LTV : CAC</div>
+    </div>
+  </div>
+  <div class="grid grid-2" style="margin-top: 32px;">
+    <div class="card">
+      <h3>Customers &amp; Sectors</h3>
+      <ul class="clean">
+        <li><strong>Enterprise pilot 1</strong> (LAND-001) — contracted Q1/2026 — €29,950</li>
+        <li><strong>Enterprise pilot 2</strong> (LAND-002) — contracted Q1/2026 — €29,950</li>
+        <li>Uber, Bolt and Kela are <strong>dispatch operators</strong> of the licensed transport business — commercial counterparties, not software customers</li>
+        <li>3 industrial pilots — converting Q2–Q3 2026</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Product &amp; Partnerships</h3>
+      <ul class="clean">
+        <li>32 shipped products · 5 cloud environments · 20 industries</li>
+        <li>CBAM Annex I: 6 of 6 sectors · 66 CN codes</li>
+        <li>NVIDIA Connect ISV · Microsoft Founders Hub L4 · Red Hat ISV</li>
+        <li>Peachscore Cohort 25 · €100K+ in cloud credits secured</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 8: Market -->
+<section class="slide">
+  <div class="brand">Market</div>
+  <div class="slide-no">08 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Market — mandatory spend, not discretionary SaaS</div>
+  <h2>Two compliance waves. One ledger architecture.</h2>
+  <div class="grid grid-2" style="margin-top: 32px;">
+    <div class="card">
+      <h3><span class="jurisdiction-tag tag-eu">EU</span> Wave (live)</h3>
+      <p style="margin-top:8px"><strong>€15–20B</strong> EU compliance-software TAM over 10 years.</p>
+      <ul class="clean">
+        <li>50,000+ CSRD obligations 2024–2028</li>
+        <li>4,000+ CBAM importers full enforcement 2026</li>
+        <li>500,000+ companies hit by Fit for 55 / EPBD by 2028</li>
+      </ul>
+    </div>
+    <div class="card accent-card">
+      <h3><span class="jurisdiction-tag tag-sg">Asia</span> Wave (2026–2028)</h3>
+      <p style="margin-top:8px"><strong>€8–12B</strong> Asia compliance-software TAM (incremental, 10 years).</p>
+      <ul class="clean">
+        <li>1,500+ Singapore Carbon Tax filers</li>
+        <li>1,400+ Japan GX-ETS participants from 2026</li>
+        <li>700+ Korea K-ETS Phase 4 participants</li>
+        <li>3,500+ China national ETS expansion candidates</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote" style="margin-top: 48px;">The cost of getting it wrong — customs hold, audit failure, penalty exposure — is 10–100× the cost of our platform. This is mandatory spend.</div>
+</section>
+
+<!-- Slide 9: Team & Group Structure -->
+<section class="slide">
+  <div class="brand">Team &amp; Structure</div>
+  <div class="slide-no">09 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Who we are</div>
+  <h2>One founder. Two EU/EEA entities. Three academic anchors.</h2>
+  <div class="grid grid-2" style="margin-top: 32px;">
+    <div class="card">
+      <h3>Founder</h3>
+      <p style="margin-top:8px"><strong>Risto Anton Päärni</strong> — Founder &amp; CEO. 35+ years in industrial software, SAP integration, and AI infrastructure. Master's thesis at Metropolia University (2026) on AI harness engineering. PhD continuation at LUT (2027). Bootstrapped on ~€7,000/month of services and transport revenue (not software revenue), with zero prior VC.</p>
+    </div>
+    <div class="card">
+      <h3>Group Structure (transparent)</h3>
+      <ul class="clean">
+        <li><strong>DWS OÜ</strong> (Estonia) — applying entity, international expansion vehicle.</li>
+        <li><strong>Lifetime Oy</strong> (Finland) — operating entity, IP, contracted enterprise pilots.</li>
+        <li><strong>Singapore Pte. Ltd.</strong> — planned Asia commercial vehicle (post-Deep SAGE).</li>
+        <li>100% EU/EEA-owned. Founder-controlled. Zero outside capital today.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid grid-3" style="margin-top: 24px;">
+    <div class="card">
+      <h3>Metropolia (Helsinki)</h3>
+      <p style="margin-top:6px">Master's thesis live — AI harness engineering, 52.8% → 66.5% accuracy uplift.</p>
+    </div>
+    <div class="card">
+      <h3>LUT (Lappeenranta)</h3>
+      <p style="margin-top:6px">PhD continuation 2027 — Firehorse Operations Model, KYA Standard candidate.</p>
+    </div>
+    <div class="card accent-card">
+      <h3>NUS Enterprise (Singapore)</h3>
+      <p style="margin-top:6px"><strong>Target via Deep SAGE</strong> — third academic anchor; carbon-ledger formalisation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 10: Business Model & Unit Economics -->
+<section class="slide">
+  <div class="brand">Economics</div>
+  <div class="slide-no">10 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Business model — labour-anchored pricing</div>
+  <h2>We price against the 6–8 EU FTEs we replace, not against the tokens we burn.</h2>
+  <div class="grid grid-4" style="margin-top: 32px;">
+    <div class="card">
+      <div class="stat">€70–120K</div>
+      <div class="stat-label">Annual Contract Value</div>
+    </div>
+    <div class="card">
+      <div class="stat">75%+</div>
+      <div class="stat-label">Gross Margin</div>
+    </div>
+    <div class="card">
+      <div class="stat">€900K</div>
+      <div class="stat-label">ARR Target · Q4 2026</div>
+    </div>
+    <div class="card accent-card">
+      <div class="stat">20×</div>
+      <div class="stat-label">Edge AI Cost Moat</div>
+    </div>
+  </div>
+  <div class="grid grid-2" style="margin-top: 32px;">
+    <div class="card">
+      <h3>Why the moat compounds</h3>
+      <ul class="clean">
+        <li>Inference cost falls every quarter — labour cost does not.</li>
+        <li>Each new customer's verified emissions improve the CBAM default-factor model for every other customer.</li>
+        <li>The ledger architecture takes competitors 3–5 years per pillar to replicate.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Revenue roadmap</h3>
+      <ul class="clean">
+        <li><strong>Q2 2026</strong> — convert construction pilots → €14K MRR</li>
+        <li><strong>Q3 2026</strong> — Singapore pilots via Deep SAGE → +€5–10K</li>
+        <li><strong>Q4 2026</strong> — Japan/Korea pilots via TIS → +€10–15K</li>
+        <li><strong>Q1 2027</strong> — Path to breakeven</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 11: Why Now -->
+<section class="slide">
+  <div class="brand">Why Now</div>
+  <div class="slide-no">11 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow">Why Now</div>
+  <h2>The Asia compliance window opens in 7 months. It closes when local incumbents copy the architecture.</h2>
+  <div class="grid grid-2" style="margin-top: 32px;">
+    <div class="card">
+      <h3>The mandate is live</h3>
+      <ul class="clean">
+        <li>CBAM fully operational from 2026 — customs enforcement.</li>
+        <li>CSRD Wave 1 reports due 2026.</li>
+        <li>Singapore Carbon Tax steps up to S$45/tCO₂e on 1 January 2026.</li>
+        <li>Japan GX-ETS goes mandatory in 2026.</li>
+        <li>EU AI Act enforcement on high-risk systems from August 2026.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The product is live</h3>
+      <ul class="clean">
+        <li>Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked) — not vaporware.</li>
+        <li>Article 12 logging shipped <strong>5 months ahead</strong> of enforcement.</li>
+        <li>21 production agents, 32 products, 20 industries covered.</li>
+        <li>DWS IQ 7 (persistent carbon ledger) ships <strong>July 2026</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote" style="margin-top: 48px;">A buyer reading our deck today cannot do anything different tomorrow — unless we put the 3-pillar sovereignty score in their hands. Deep SAGE is the 12-week sprint that turns essay into procurement gate.</div>
+</section>
+
+<!-- Slide 12: The Ask -->
+<section class="slide closing-slide">
+  <div class="brand">The Ask</div>
+  <div class="slide-no">12 / 12</div>
+  <div class="bar"></div>
+  <div class="eyebrow" style="color:white">The Ask</div>
+  <h1>Deep SAGE 2026.</h1>
+  <p class="lead">Compress an 18-month Asia entry into 12 weeks — by adding the team, the channel, and the trust signals we cannot get cold from Helsinki.</p>
+  <div class="grid grid-3" style="margin-top: 48px;">
+    <div class="card" style="background:rgba(255,255,255,0.10);border-color:rgba(255,255,255,0.25);color:white">
+      <h3 style="color:white">Fractional CXOs</h3>
+      <p style="margin-top:8px;color:rgba(255,255,255,0.92)">CFO (EU↔SG structure) · CRO (Japan/Korea industrial sales) · CTO advisor (edge AI fleets).</p>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.10);border-color:rgba(255,255,255,0.25);color:white">
+      <h3 style="color:white">TIS Inc. + NUS Enterprise</h3>
+      <p style="margin-top:8px;color:rgba(255,255,255,0.92)">Japan SI channel into Tier-1 manufacturers. NUS as the third academic anchor (Helsinki · Lappeenranta · Singapore).</p>
+    </div>
+    <div class="card" style="background:white;color:var(--ink);border-color:white">
+      <h3>S$500K Funding Access</h3>
+      <p style="margin-top:8px">Plugs into the active €650K SAFE bridge at €3.8M cap. Extends runway to Q3 2027 and validates the Asia thesis ahead of Series A.</p>
+    </div>
+  </div>
+  <div style="margin-top: 56px; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.85)">
+    Risto Anton Päärni · Founder &amp; CEO · risto.paarni@lifetime.fi · dws10.com
+  </div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,154 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digital Sovereignty | EU Cloud Strategy | DWS IQ Platform</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
     <style>
-        :root {
-            --color-primary: #0a1628;
-            --color-accent: #0066cc;
-            --color-eu-blue: #003399;
-            --color-eu-gold: #FFCC00;
-            --color-success: #0d7a3e;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-sans); line-height: 1.6; color: #334155; background: #fff; }
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        h1 { font-size: 2.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: 24px; }
-        h2 { font-size: 1.8rem; font-weight: 700; color: var(--color-accent); margin: 40px 0 20px; }
-        h3 { font-size: 1.3rem; font-weight: 600; color: #1e293b; margin: 24px 0 12px; }
-        p { margin-bottom: 16px; color: #475569; }
-        a { color: var(--color-accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        ul { padding-left: 24px; margin-bottom: 16px; }
-        li { margin-bottom: 8px; color: #475569; }
-        .hero { background: linear-gradient(135deg, var(--color-eu-blue) 0%, #001a4d 100%); color: white; padding: 80px 20px; text-align: center; }
-        .hero h1 { color: white; font-size: 3rem; }
-        .hero p { color: rgba(255,255,255,0.9); font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px; }
-        .badge { display: inline-block; background: rgba(255,204,0,0.2); border: 1px solid rgba(255,204,0,0.4); padding: 8px 20px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; color: var(--color-eu-gold); margin: 10px 5px; }
-        .cloud-card { background: #f8fafc; border: 2px solid #e2e8f0; padding: 24px; border-radius: 12px; margin: 20px 0; }
-        .cloud-card h3 { margin-top: 0; color: var(--color-success); }
-        .rank-1 { border-color: var(--color-success); background: rgba(13,122,62,0.05); }
-        .comparison-table { overflow-x: auto; margin: 24px 0; }
-        .comparison-table table { width: 100%; border-collapse: collapse; }
-        .comparison-table th, .comparison-table td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
-        .comparison-table th { background: #f1f5f9; font-weight: 600; }
-        .check { color: var(--color-success); font-weight: bold; }
-        .cross { color: #dc2626; font-weight: bold; }
+      :root {
+        --color-primary: #0a1628;
+        --color-accent: #0066cc;
+        --color-eu-blue: #003399;
+        --color-eu-gold: #ffcc00;
+        --color-success: #0d7a3e;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        color: #334155;
+        background: #fff;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--color-primary);
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin: 40px 0 20px;
+      }
+      h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 24px 0 12px;
+      }
+      p {
+        margin-bottom: 16px;
+        color: #475569;
+      }
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      ul {
+        padding-left: 24px;
+        margin-bottom: 16px;
+      }
+      li {
+        margin-bottom: 8px;
+        color: #475569;
+      }
+      .hero {
+        background: linear-gradient(135deg, var(--color-eu-blue) 0%, #001a4d 100%);
+        color: white;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        color: white;
+        font-size: 3rem;
+      }
+      .hero p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.25rem;
+        max-width: 800px;
+        margin: 0 auto 20px;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(255, 204, 0, 0.2);
+        border: 1px solid rgba(255, 204, 0, 0.4);
+        padding: 8px 20px;
+        border-radius: 999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--color-eu-gold);
+        margin: 10px 5px;
+      }
+      .cloud-card {
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        padding: 24px;
+        border-radius: 12px;
+        margin: 20px 0;
+      }
+      .cloud-card h3 {
+        margin-top: 0;
+        color: var(--color-success);
+      }
+      .rank-1 {
+        border-color: var(--color-success);
+        background: rgba(13, 122, 62, 0.05);
+      }
+      .comparison-table {
+        overflow-x: auto;
+        margin: 24px 0;
+      }
+      .comparison-table table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .comparison-table th,
+      .comparison-table td {
+        border: 1px solid #e2e8f0;
+        padding: 12px;
+        text-align: left;
+      }
+      .comparison-table th {
+        background: #f1f5f9;
+        font-weight: 600;
+      }
+      .check {
+        color: var(--color-success);
+        font-weight: bold;
+      }
+      .cross {
+        color: #dc2626;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="hero">
-        <div class="container">
-            <div class="badge">🇪🇺 EU-Sovereign by Design</div>
-            <h1>Your Data Stays in Europe. Period.</h1>
-            <p><strong>Deploy on global hyperscalers or EU-sovereign infrastructure.</strong><br>Your compliance requirements determine the right deployment model.</p>
-        </div>
+      <div class="container">
+        <div class="badge">🇪🇺 EU-Sovereign by Design</div>
+        <h1>Sovereignty vs. Interdependence</h1>
+        <p>
+          <strong
+            >Every dependency is a lever someone else can pull — hardest at renewal, at scale, under
+            pressure.</strong
+          ><br />We build the moats you own: your data stays in Europe, your weights stay yours,
+          your exit cost stays near zero. Deploy on global hyperscalers or EU-sovereign
+          infrastructure — sovereignty is how we segment, not a single tier. The sovereign party is
+          the one who can walk away, so it never has to.
+        </p>
+      </div>
     </div>
 
     <div class="container">
-        <h2>Why Data Sovereignty Matters</h2>
-        <p>In an era of geopolitical uncertainty and evolving data regulations, where your data lives determines who can access it. For industrial clients handling sensitive operational data, intellectual property, and customer information, <strong>sovereignty is a critical competitive advantage</strong>.</p>
+      <h2>Why Data Sovereignty Matters</h2>
+      <p>
+        In an era of geopolitical uncertainty and evolving data regulations, where your data lives
+        determines who can access it. For industrial clients handling sensitive operational data,
+        intellectual property, and customer information,
+        <strong>sovereignty is a critical competitive advantage</strong>.
+      </p>
 
-        <h2>European Cloud Strategy: Top 3 Providers</h2>
-        
-        <div class="cloud-card rank-1">
-            <h3>🥇 #1: Scaleway (Partner)</h3>
-            <p><strong>Status:</strong> Active Partnership • Production Workloads</p>
-            <p><strong>Already Deployed:</strong> Powering <a href="https://dws10.com/assistant/" target="_blank">dws10.com/assistant/</a></p>
-            <ul>
-                <li><strong>No US CLOUD Act Exposure:</strong> 100% European ownership (Iliad Group, France)</li>
-                <li><strong>GAIA-X Aligned:</strong> Founding member of European cloud sovereignty initiative</li>
-                <li><strong>DPA Available:</strong> Standard Data Processing Agreement with SCCs ready</li>
-                <li><strong>Regions:</strong> Paris, Amsterdam, Warsaw</li>
-            </ul>
-            <p><a href="https://www.scaleway.com/" target="_blank"><strong>Learn more about Scaleway →</strong></a></p>
-        </div>
+      <h2>European Cloud Strategy: Top 3 Providers</h2>
 
-        <div class="cloud-card">
-            <h3>🥈 #2: Open Telekom Cloud</h3>
-            <p><strong>Status:</strong> Evaluation • Strategic Option</p>
-            <ul>
-                <li><strong>Deutsche Telekom Backing:</strong> German ownership, strict German privacy laws</li>
-                <li><strong>German Data Centers:</strong> Biere and Magdeburg</li>
-                <li><strong>Enterprise Focus:</strong> Strong compliance tools and audit trails</li>
-                <li><strong>GAIA-X Member:</strong> Aligned with European cloud sovereignty standards</li>
-            </ul>
-            <p><a href="https://open-telekom-cloud.com/" target="_blank">Learn more →</a></p>
-        </div>
-
-        <div class="cloud-card">
-            <h3>🥉 #3: OVHcloud</h3>
-            <p><strong>Status:</strong> Evaluation • Alternative</p>
-            <ul>
-                <li><strong>European Heritage:</strong> French company with strong EU presence</li>
-                <li><strong>Competitive Pricing:</strong> Cost-effective for large-scale deployments</li>
-                <li><strong>Wide EU Coverage:</strong> 19 data centers across Europe</li>
-            </ul>
-            <p><a href="https://www.ovhcloud.com/" target="_blank">Learn more →</a></p>
-        </div>
-
-        <h2>Why We Reject US Cloud Providers</h2>
-        <p>The <strong>US CLOUD Act</strong> allows US law enforcement to compel US-based companies to provide data stored anywhere in the world—even if it's physically in Europe—without notifying you.</p>
-
-        <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Criterion</th>
-                        <th>EU Providers (Scaleway, OTC)</th>
-                        <th>US Providers (AWS, Azure, GCP)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>US CLOUD Act Exposure</strong></td>
-                        <td><span class="check">✓</span> No exposure</td>
-                        <td><span class="cross">✗</span> Full exposure</td>
-                    </tr>
-                    <tr>
-                        <td><strong>EU Ownership</strong></td>
-                        <td><span class="check">✓</span> 100% European</td>
-                        <td><span class="cross">✗</span> US parent companies</td>
-                    </tr>
-                    <tr>
-                        <td><strong>GAIA-X Alignment</strong></td>
-                        <td><span class="check">✓</span> Active participants</td>
-                        <td><span class="cross">✗</span> Not eligible</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2>For Enterprise Clients: What You Get</h2>
-        <ul>
-            <li><strong>Legal Protection:</strong> Your data protected by EU law, cannot be accessed by US authorities</li>
-            <li><strong>Data Processing Agreement:</strong> Standard DPA with SCCs included in all contracts</li>
-            <li><strong>Audit Rights:</strong> Full audit trail and right to inspect infrastructure</li>
-            <li><strong>Data Portability:</strong> Export data in open formats (NDJSON, Parquet) at any time</li>
-            <li><strong>Regional Selection:</strong> Choose between Paris, Amsterdam, or Warsaw for primary storage</li>
-        </ul>
-
-        <h2>Contact</h2>
-        <ul>
-            <li><strong>Enterprise Sales:</strong> <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a></li>
-            <li><strong>Technical Questions:</strong> <a href="mailto:security@lifetime.fi">security@lifetime.fi</a></li>
-            <li><strong>Data Protection Officer:</strong> <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a></li>
-        </ul>
-
-        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p style="text-align: center; color: #64748b;">
-            <strong>Last Updated:</strong> January 28, 2026<br>
-            <a href="../legal/">← Back to Legal Hub</a> | <a href="../../">Home</a>
+      <div class="cloud-card rank-1">
+        <h3>🥇 #1: Scaleway (Partner)</h3>
+        <p><strong>Status:</strong> Active Partnership • Production Workloads</p>
+        <p>
+          <strong>Already Deployed:</strong> Powering
+          <a href="https://dws10.com/assistant/" target="_blank">dws10.com/assistant/</a>
         </p>
+        <ul>
+          <li>
+            <strong>No US CLOUD Act Exposure:</strong> 100% European ownership (Iliad Group, France)
+          </li>
+          <li>
+            <strong>GAIA-X Aligned:</strong> Founding member of European cloud sovereignty
+            initiative
+          </li>
+          <li>
+            <strong>DPA Available:</strong> Standard Data Processing Agreement with SCCs ready
+          </li>
+          <li><strong>Regions:</strong> Paris, Amsterdam, Warsaw</li>
+        </ul>
+        <p>
+          <a href="https://www.scaleway.com/" target="_blank"
+            ><strong>Learn more about Scaleway →</strong></a
+          >
+        </p>
+      </div>
+
+      <div class="cloud-card">
+        <h3>🥈 #2: Open Telekom Cloud</h3>
+        <p><strong>Status:</strong> Evaluation • Strategic Option</p>
+        <ul>
+          <li>
+            <strong>Deutsche Telekom Backing:</strong> German ownership, strict German privacy laws
+          </li>
+          <li><strong>German Data Centers:</strong> Biere and Magdeburg</li>
+          <li><strong>Enterprise Focus:</strong> Strong compliance tools and audit trails</li>
+          <li><strong>GAIA-X Member:</strong> Aligned with European cloud sovereignty standards</li>
+        </ul>
+        <p><a href="https://open-telekom-cloud.com/" target="_blank">Learn more →</a></p>
+      </div>
+
+      <div class="cloud-card">
+        <h3>🥉 #3: OVHcloud</h3>
+        <p><strong>Status:</strong> Evaluation • Alternative</p>
+        <ul>
+          <li><strong>European Heritage:</strong> French company with strong EU presence</li>
+          <li><strong>Competitive Pricing:</strong> Cost-effective for large-scale deployments</li>
+          <li><strong>Wide EU Coverage:</strong> 19 data centers across Europe</li>
+        </ul>
+        <p><a href="https://www.ovhcloud.com/" target="_blank">Learn more →</a></p>
+      </div>
+
+      <h2>Why We Reject US Cloud Providers</h2>
+      <p>
+        The <strong>US CLOUD Act</strong> allows US law enforcement to compel US-based companies to
+        provide data stored anywhere in the world—even if it's physically in Europe—without
+        notifying you.
+      </p>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Criterion</th>
+              <th>EU Providers (Scaleway, OTC)</th>
+              <th>US Providers (AWS, Azure, GCP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>US CLOUD Act Exposure</strong></td>
+              <td><span class="check">✓</span> No exposure</td>
+              <td><span class="cross">✗</span> Full exposure</td>
+            </tr>
+            <tr>
+              <td><strong>EU Ownership</strong></td>
+              <td><span class="check">✓</span> 100% European</td>
+              <td><span class="cross">✗</span> US parent companies</td>
+            </tr>
+            <tr>
+              <td><strong>GAIA-X Alignment</strong></td>
+              <td><span class="check">✓</span> Active participants</td>
+              <td><span class="cross">✗</span> Not eligible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>For Enterprise Clients: What You Get</h2>
+      <ul>
+        <li>
+          <strong>Legal Protection:</strong> Your data protected by EU law, cannot be accessed by US
+          authorities
+        </li>
+        <li>
+          <strong>Data Processing Agreement:</strong> Standard DPA with SCCs included in all
+          contracts
+        </li>
+        <li><strong>Audit Rights:</strong> Full audit trail and right to inspect infrastructure</li>
+        <li>
+          <strong>Data Portability:</strong> Export data in open formats (NDJSON, Parquet) at any
+          time
+        </li>
+        <li>
+          <strong>Regional Selection:</strong> Choose between Paris, Amsterdam, or Warsaw for
+          primary storage
+        </li>
+      </ul>
+
+      <h2>Contact</h2>
+      <ul>
+        <li>
+          <strong>Enterprise Sales:</strong>
+          <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a>
+        </li>
+        <li>
+          <strong>Technical Questions:</strong>
+          <a href="mailto:security@lifetime.fi">security@lifetime.fi</a>
+        </li>
+        <li>
+          <strong>Data Protection Officer:</strong>
+          <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a>
+        </li>
+      </ul>
+
+      <hr style="margin: 40px 0; border: 0; border-top: 1px solid #e2e8f0" />
+      <p style="text-align: center; color: #64748b">
+        <strong>Last Updated:</strong> January 28, 2026<br />
+        <a href="../legal/">← Back to Legal Hub</a> | <a href="../../">Home</a>
+      </p>
     </div>
 
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
-</body>
+  </body>
 </html>

@@ -64,7 +64,7 @@ Use one of these files directly:
 ```text
 Base URL: http://localhost:11435/v1
 API Key: ollama
-Model: qwen2.5-coder:32b
+Model: qwen3-coder:30b
 ```
 
 ### Direct mode
@@ -72,7 +72,7 @@ Model: qwen2.5-coder:32b
 ```text
 Base URL: http://<veriton-host>:11434/v1
 API Key: ollama
-Model: qwen2.5-coder:32b
+Model: qwen3-coder:30b
 ```
 
 ---

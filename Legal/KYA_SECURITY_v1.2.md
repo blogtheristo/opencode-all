@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 07.08.2026 | Changes: §3.1: A:n katto [0, 0.25] kirjattu kaavaan ja selvennetty etta 0.25 on katto ei kerroin (P0-3). Lisatty kaksi hard killia jotka edeltavat kaavaa: Capability Manifest (allekirjoitus + TTL) ja IDV-tila (status + TTL); `unknown` kaatuu kiinni. Ennen 07.08.2026 IDV-tila ei ollut syote lainkaan, joten ihmisen todennuksen peruutus ei liikuttanut pistetta (katselmus Osa B, B1). Rajat raportoidaan itsenaisesti ATSBreakdownissa.
+- Version: 1.8 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §12 Agentic Commerce Mandate Gating — Enforcement (v1.9), syncing the KYA_STANDARD_v1.md §14 mandate-gate rule into the enforcement/violation side — extends the §9.2 KYA Violation sequence with mandate revocation, documents the §14.5 evidence chain backed by `supabase/migrations/074_kya_mandate_evidence_chain.sql` (`kya_mandate_events` append-only hash chain, `kya_tenant_gating_profiles` tighten-only floor enforcement). Renumbered §12 Conclusion → §13
 - Version: 1.7 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added §11 Systems Inventory & Policy Gate — KYA absorbs the governance/inventory responsibility for Aegis-tier customers where no EU-incorporated alternative to Credo AI / Holistic AI / OneTrust / IBM Watsonx Governance exists. Defines ai_systems_registry, governance_policies, policy_decisions, deployment_approvals tables. Renumbered §11 Conclusion → §12. Companion to `DWS_ARTICLE_12_LOGGING_STANDARD.md` and `Store/PRODUCT_THEMIS.md`. Triggered by Nokia Defence demo need
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in §8.1 D&O Insurance — softened "safe harbor" positioning to "deployer evidence infrastructure (Art. 12 + Art. 26) for D&O AI-governance coverage — not a categorical safe harbor"; corrected Art. 99 citation to Art. 99(4) per PR #976 sweep pattern
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10 Memory Audit Trail — court-defensible provenance for agent memory mutations (store, supersede, forget, extract); fact extraction governance (PR-254 wiring); memory contradiction resolution requires KYA attestation before PR-255 deployment; CSRD/EU AI Act Article 12 compliance for AI-generated memory; added memory_audit_log schema; cross-referenced Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md
@@ -239,14 +241,23 @@ D = DENIED path access attempts
 **The V > 0 Hard Stop (v1.4 CRITICAL):** If `V > 0`, the autoresearch improvement factor `A` is **automatically nullified** in the companion optimization standard. You cannot optimize your way out of a security violation. This is enforced at the ATS engine level:
 
 ```
-ATS_Final = ATS_Base × (1 + A)    where A = 0 if V > 0
+ATS_Final = ATS_Base × (1 + A)    where A ∈ [0, 0.25], and A = 0 if V > 0
 ```
+
+`0.25` is a **cap on A**, not a multiplier — in the superseded additive form the number after `A×` was a coefficient. Canonical definition of A, its cap, and its validation gates: `KYA_OPTIMIZATION_v1.4.md` §3.
 
 An agent may be highly "optimal" (high A) but fundamentally "leaky" (moderate V). Under the previous additive formula, such an agent could maintain a high score. The multiplicative formula with the V > 0 gate eliminates this inflation vector entirely.
 
 **Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with the autoresearch improvement factor. The A factor is only active when `V = 0` (zero violations). A must be validated against the Industry Proxy Metric (Optimization §9) to prevent agents "marking their own homework." This security standard uses `ATS_Base` without the A factor — security scoring is never inflatable by optimization performance.
 
-**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
+**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls. The shipped engine computes `ATS_Base` only; A is applied by the autoresearch orchestrator layer, never inside the security baseline.
+
+**Two hard kills precede the formula** and are not expressed in it. Either yields `ATS = 0` outright:
+
+1. **Capability Manifest** — signature unverified, or past `signedAt + ttlSeconds` (REG-2).
+2. **IDV state** — the human principal's status is not `verified`, or the attestation is past `verifiedAt + ttlSeconds` (IDV-1 / IDV-3 / IDV-4). A status of `unknown` fails closed: an absent or unusable IDV signal is never read as permission (KYA-S1 v1.3 TRS-5).
+
+The two limbs are reported independently in `ATSBreakdown` (`manifestValid` / `idvValid`) so an operator can see which control fired. Added 07.08.2026 — before that, IDV state was not an input at all and revoking the human principal left the score untouched (`Legal/KYA_S1_REVIEW_v1.3_PROPOSAL.md` Part B, finding B1).
 
 ### 3.2 KYA Trust Score Ranges
 
@@ -888,7 +899,71 @@ Registry violations affect the Agent Trust Score:
 
 ---
 
-## 12. Conclusion
+## 12. Agentic Commerce Mandate Gating — Enforcement (v1.9)
+
+_Added: 07.07.2026 | PR: claude/kya-mandate-evidence-migration-mq7hnp | Source of truth: `Legal/KYA_STANDARD_v1.md` §14 (protocol landscape, mandate gate rule, tenant policy profiles, capability manifest extension). This section covers the enforcement/violation side only — do not fork the §14 policy text here, cross-reference it._
+
+KYA_STANDARD_v1.md §14 gates AP2/UCP/ACP payment mandates on ATS band (§14.2), implemented as `evaluateMandateGate()` in `src/identity/ats-engine.ts`. This section extends the §9.2 KYA Violation enforcement sequence to cover mandate violations, and documents the §14.5 evidence chain's runtime enforcement layer.
+
+### 12.1 Mandate Violation: Extends §9.2
+
+A mandate signed or presented outside the agent's ATS band, or a spend attempt above a manifest `spend_authority` ceiling, runs the **same enforcement sequence as §9.2**, with one addition:
+
+| Step | Action                                               | Latency   |
+| ---- | ---------------------------------------------------- | --------- |
+| 1    | Mandate gate intercepted by `evaluateMandateGate()`  | < 1 ms    |
+| 2    | KYA Violation logged to Firehorse audit trail        | < 5 ms    |
+| 3    | Subagent session terminated                          | < 50 ms   |
+| 4    | Operator notified (webhook + dashboard alert)        | < 1 s     |
+| 5    | KYA Trust Score reduced by 40 points                 | Immediate |
+| 6    | **All live mandates issued in that session revoked** | Immediate |
+
+Step 6 is unique to mandate violations (§14.2): a compromised or overreaching session cannot leave standing payment authority behind it. Revocation events are themselves logged to the §14.5 evidence chain (`kya_mandate_events`, `event_type = 'mandate.revoke'`).
+
+**Mandate Violation Log Entry** (mirrors the §9.2 shape, `kyaViolation: true` from `MandateGateDecision`):
+
+```json
+{
+  "event": "KYA_VIOLATION",
+  "severity": "CRITICAL",
+  "subagent_id": "<uuid>",
+  "session_id": "<kya-session-token>",
+  "mandate_vc_id": "<w3c-vc-id>",
+  "protocol": "ap2",
+  "attempted_ceiling_breach": { "requested": 750.0, "per_task_ceiling": 100.0 },
+  "action_taken": "TERMINATE + REVOKE_LIVE_MANDATES",
+  "kya_score_before": 85,
+  "kya_score_after": 45,
+  "timestamp": "<ISO-8601>"
+}
+```
+
+### 12.2 Evidence Chain — Runtime Enforcement Layer (§14.5)
+
+`supabase/migrations/074_kya_mandate_evidence_chain.sql` backs §14.5's "one evidence chain" with two tables, modeled on the §9.x hash-chain pattern (`command_audit_log`, migration 071):
+
+| Table                        | Role                                                                                                                                                                                                                                     |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `kya_mandate_events`         | Append-only, hash-chained (`prev_hash` → `event_hash`). One row per mandate lifecycle event (issue/present/execute/revoke), keyed by `session_id` + `mandate_vc_id`. UPDATE/DELETE denied to all roles — tamper-evident by construction. |
+| `kya_tenant_gating_profiles` | Versioned, never mutated in place. A policy change inserts a new row and sets `superseded_at`/`superseded_by` on the row it replaces — no retroactive loosening of a live session's gates (§14.2.1).                                     |
+
+**Defense-in-depth on the immovable floors (§14.2.1):** the tighten-only rule is enforced twice — once by `tenantGatingProfileSchema` (Zod, app layer) and again by a `CHECK (hnp_min_ats >= 0.90)` constraint on `kya_tenant_gating_profiles` (DB layer). A profile cannot loosen the HNP floor even if the app-level validator is bypassed. The ATS < 0.50 floor (immovable floor 1) is enforced in `evaluateMandateGate()` itself, not at the schema level, since it depends on the live ATS score rather than static profile data.
+
+**Migration status:** authored, not applied. Authoring a migration file is GREEN-zone; `psql`/`supabase db push` against the live database is RED-zone and requires human execution.
+
+### 12.3 Related Artefacts
+
+- `Legal/KYA_STANDARD_v1.md` §14 — the mandate gating policy (protocol-neutral, public document)
+- `Legal/KYA_OPTIMIZATION_v1.4.md` §13 — the financial/revenue-gate framing of Human Not Present
+- `src/identity/ats-engine.ts` — `evaluateMandateGate()`, `tenantGatingProfileSchema`, `validateTenantGatingProfile()`
+- `src/__tests__/mandate-gate.test.ts` — test coverage (21 tests)
+- `supabase/migrations/074_kya_mandate_evidence_chain.sql` — evidence-chain schema (authored, not applied)
+- `DWS_ARTICLE_12_LOGGING_STANDARD.md` — the Article 12 record-keeping side of the evidence chain
+- `DWS_SECURITY_STANDARD.md` §18 — BYO agent gate table, spend-authority gate row
+
+---
+
+## 13. Conclusion
 
 The KYA Security Standard provides a complete governance framework for autonomous AI agents operating in industrial environments. By combining hardware-level isolation, real-time identity triggers, forensic observability, agent identity watermarking, and behavioral guardrails, Lifetime Oy delivers the infrastructure that makes BYO agents safe for regulated industries.
 

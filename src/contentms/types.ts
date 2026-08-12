@@ -107,7 +107,10 @@ export enum ContentVisibility {
 export const ContentItemSchema = z.object({
   id: z.string().uuid(),
   title: z.string().min(1).max(300),
-  slug: z.string().regex(/^[a-z0-9-]+$/).max(100),
+  slug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .max(100),
   type: z.nativeEnum(ContentType),
   status: z.nativeEnum(ContentStatus),
   language: z.nativeEnum(ContentLanguage),
@@ -115,15 +118,17 @@ export const ContentItemSchema = z.object({
   visibility: z.nativeEnum(ContentVisibility).default(ContentVisibility.Team),
 
   // Content body (markdown for learning, description for documents)
-  body_markdown: z.string().min(1),
+  // Capped at 100KB: renderMarkdownToHtml() runs markdown-it synchronously on the
+  // request path with no worker isolation — an unbounded body is a CPU-DoS vector.
+  body_markdown: z.string().min(1).max(100_000),
   body_html: z.string().optional(),
   excerpt: z.string().max(500).optional(),
 
   // Document metadata
   file_name: z.string().optional(),
-  file_type: z.string().optional(),   // pdf, docx, jpg, png, cad, xlsx
+  file_type: z.string().optional(), // pdf, docx, jpg, png, cad, xlsx
   file_size_bytes: z.number().int().min(0).optional(),
-  file_url: z.string().optional(),    // Secure storage URL
+  file_url: z.string().optional(), // Secure storage URL
 
   // Certificate-specific fields
   issued_by: z.string().optional(),
@@ -139,26 +144,30 @@ export const ContentItemSchema = z.object({
 
   // Linkage — connects document to data points in DWS IQ
   linked_report_ids: z.array(z.string().uuid()).optional(),
-  linked_data_points: z.array(z.string()).optional(),  // e.g., "Q3-2026-scope2-energy"
+  linked_data_points: z.array(z.string()).optional(), // e.g., "Q3-2026-scope2-energy"
 
   // Product marketing (Omnichannel) — for type=product_marketing
-  product_sku: z.string().optional(),                  // e.g., "FH-OMNI-001"
+  product_sku: z.string().optional(), // e.g., "FH-OMNI-001"
   distribution_targets: z.array(z.string()).optional(), // OmnichannelTarget values
   campaign_id: z.string().optional(),
   update_summary: z.string().optional(),
   price_eur: z.number().optional(),
 
   // Secure sharing (Access Controller agent)
-  shared_links: z.array(z.object({
-    token: z.string(),
-    expires_at: z.string().datetime(),
-    accessed_count: z.number().int().min(0).default(0),
-    created_by: z.string(),
-  })).optional(),
+  shared_links: z
+    .array(
+      z.object({
+        token: z.string(),
+        expires_at: z.string().datetime(),
+        accessed_count: z.number().int().min(0).default(0),
+        created_by: z.string(),
+      }),
+    )
+    .optional(),
 
   // Ownership & audit trail
-  owner_id: z.string(),           // Customer user ID
-  organization_id: z.string(),    // Customer org ID
+  owner_id: z.string(), // Customer user ID
+  organization_id: z.string(), // Customer org ID
   author: z.string(),
 
   // Dates
@@ -201,8 +210,8 @@ export const ContentFilterSchema = z.object({
   visibility: z.nativeEnum(ContentVisibility).optional(),
   regulation_tag: z.nativeEnum(ContentTag).optional(),
   custom_tag: z.string().optional(),
-  search: z.string().optional(),          // Full-text / semantic search query
-  expires_before: z.string().datetime().optional(),  // Find expiring certificates
+  search: z.string().optional(), // Full-text / semantic search query
+  expires_before: z.string().datetime().optional(), // Find expiring certificates
   organization_id: z.string().optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
   offset: z.coerce.number().int().min(0).default(0),
@@ -272,7 +281,7 @@ export interface ContentStats {
   total: number;
   by_type: Record<string, number>;
   by_status: Record<string, number>;
-  expiring_soon: number;  // Certificates expiring within 30 days
+  expiring_soon: number; // Certificates expiring within 30 days
 }
 
 // ============================================================================

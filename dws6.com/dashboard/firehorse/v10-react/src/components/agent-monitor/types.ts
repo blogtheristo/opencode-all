@@ -72,7 +72,7 @@ export interface SystemHealth {
   avgResponseTime: number; // ms
 }
 
-export type ViewMode = 'office' | 'control' | 'situation' | 'runner';
+export type ViewMode = 'office' | 'control' | 'situation' | 'runner' | 'drift';
 
 export interface AgentCatalogEntry {
   name: string;

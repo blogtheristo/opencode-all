@@ -1,0 +1,476 @@
+<!doctype html>
+<!--
+  Kun jotain menee pieleen: 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) käytännössä
+  Language: fi
+  Slug: flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi
+  Date: 2026-08-08
+  Owner: Lifetime Oy
+  Note: KYA-S1 -sarja, osa 7/11. HIC Ground Truth, hyvaksytty 09.08.2026. Luonnos: docs/blog-drafts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.md
+-->
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kun jotain menee pieleen: 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) käytännössä — KYA-S1 -sarja · Osa 7/12</title>
+    <meta name="description" content="Vastuunjako lakkaa olemasta väittely ja muuttuu hakukyselyksi: viisi virhekategoriaa, 72 tunnin kello ja toistettava päätösketju." />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-08-08" />
+    <meta property="og:title" content="Kun jotain menee pieleen: 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) käytännössä" />
+    <meta property="og:description" content="Vastuunjako lakkaa olemasta väittely ja muuttuu hakukyselyksi." />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:url" content="https://onelifetime.world/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/kya-s1-series-01-hero-fi.png" />
+    <meta property="article:published_time" content="2026-08-08" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Standardit" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kun jotain menee pieleen: 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) käytännössä" />
+    <meta name="twitter:description" content="Vastuunjako lakkaa olemasta väittely ja muuttuu hakukyselyksi." />
+    <link rel="canonical" href="https://onelifetime.world/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" />
+    <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" />
+    <link rel="alternate" hreflang="x-default" href="https://onelifetime.world/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+      .control-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 20px 0;
+        color: #e2e8f0;
+      }
+      .control-box strong.tag {
+        color: #d4a843;
+        font-weight: 700;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "KYA-S1 — One Signed Page for the Agent in Your Vendor File",
+        "description": "KYA-S1 v1.2 — a vendor standard for autonomous-agent identity and behavior, written so a single signed page can sit in your procurement folder next to SOC 2 and ISO 27001.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-08-06",
+        "mainEntityOfPage": "https://onelifetime.world/posts/kya-s1-one-signed-page.html",
+        "articleSection": "Standards",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      .kya-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+      .kya-map li { margin: 0; }
+      .kya-card { display: flex; gap: 11px; align-items: flex-start; height: 100%; padding: 13px 14px;
+        background: #111c2e; border: 1px solid #22344f; border-left: 3px solid var(--kya-a);
+        border-radius: 7px; text-decoration: none; transition: border-color .16s, transform .16s, background .16s; }
+      a.kya-card:hover { background: #16233a; border-color: var(--kya-a); transform: translateY(-2px); }
+      a.kya-card:focus-visible { outline: 2px solid var(--kya-a); outline-offset: 2px; }
+      .kya-card[aria-current="page"] { background: #16233a; box-shadow: inset 0 0 0 1px var(--kya-a); }
+      .kya-n { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--kya-a); color: #08111d;
+        font-weight: 800; font-size: .78rem; display: flex; align-items: center; justify-content: center; }
+      .kya-map li::before, .kya-map li::marker { content: none !important; display: none !important; }
+      .kya-card > span:last-child { display: block; min-width: 0; }
+      .kya-t { display: block; font-size: .93rem; font-weight: 700; color: #f1f5f9; line-height: 1.25; }
+      .kya-d { display: block; font-size: .8rem; color: #93a7c0; line-height: 1.4; margin-top: 3px; }
+      .kya-card.kya-soon { opacity: .45; cursor: default; }
+      .kya-soon .kya-d::after { content: " · " attr(data-soon); }
+      @media (prefers-reduced-motion: reduce) { a.kya-card:hover { transform: none; } }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">KYA-S1 -sarja &middot; Osa 7/12</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Kun jotain menee pieleen: 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) käytännössä
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            8. elokuuta 2026 &middot; Risto Anton P&auml;&auml;rni &middot; Espoo
+          </p>
+          <img
+            src="../static/images/blog/kya-s1-series-01-hero-fi.png"
+            alt="Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
+            loading="lazy"
+            style="width:100%;height:auto;margin-top:1.75rem;border-radius:6px"
+          />
+        </header>
+
+<p><em>DWS IQ &amp; Lifetime World Model · 8. elokuuta 2026 · Risto
+Anton Päärni</em></p>
+<hr />
+<h2 id="johdanto-rehellinen-katse-poikkeamatilanteisiin">Johdanto:
+Rehellinen katse poikkeamatilanteisiin</h2>
+<p>Edellisessä kirjoituksessa koodasimme BPMN 2.0 -prosessimoottoriin
+ohjausmekanismin, joka ei jätä rakoa: atomisen <strong>Lease
+Tokenin</strong>, tehtäväkohtaiset TRS_req-kynnysarvot ja
+<strong>fail-closed</strong>-pakkosuojauksen.</p>
+<p>Vaikka tekninen arkkitehtuuri olisi kuinka tiivis,
+teollisuusympäristössä on hyväksyttävä yksi rehellinen tosiasia:</p>
+<p><strong>Ennen pitkää jokin menee vikaan.</strong></p>
+<p>Tekoäly mallintaa poikkeavan tilanteen väärin, taustajärjestelmän
+tietokantayhteys katkeaa kesken transaktion, kenttälaite syöttää
+korruptoitunutta dataa, tai ihminen antaa virheellisen syötteen.</p>
+<p>KYA-S1-spesifikaatiossa kysymys ei ole siitä, tapahtuuko virhe.
+Kysymys kuuluu: <strong>mitä tapahtuu 72 tuntia sen jälkeen, kun tapaus
+on suljettu?</strong></p>
+<hr />
+<h2 id="flt-fault-attribution-72-tunnin-kello">FLT (Fault Attribution):
+72 tunnin kello</h2>
+<p>Sopimusmaailmassa suurin kustannus virheen sattuessa ei yleensä ole
+itse tekninen vika, vaan viikkoja tai kuukausia kestävä lakimiesten ja
+toimittajien “eipäs–juupas”-väittely siitä, kenen vastuulla vahinko
+oli.</p>
+<p>KYA-S1:n <strong>FLT-periaate (Fault Attribution)</strong> poistaa
+tämän epävarmuuden. Poikkeaman jälkeen järjestelmä tuottaa
+allekirjoitetun vastuuluokittelun <strong>72 tunnin sisällä tapauksen
+sulkemisesta</strong> (FLT-2), viiteen kategoriaan:</p>
+<div style="overflow-x:auto"><table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 53%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Virheluokka</th>
+<th>Kuvaus</th>
+<th>Vastuun kohdistus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Model Fault</strong></td>
+<td>Kielimallin hallusinaatio, stokastinen virhe tai odottamaton
+ulostulo</td>
+<td>Mallitoimittaja / LLM Provider</td>
+</tr>
+<tr class="even">
+<td><strong>2. Logic Fault</strong></td>
+<td>DWS IQ -agentin sovelluslogiikan tai prompt-rakenteen
+koodivirhe</td>
+<td>Agenttiohjelmiston toimittaja</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Integration Fault</strong></td>
+<td>API-yhteysvirhe, verkkoviive, timeout tai tietokantakatko</td>
+<td>Infra- / integraatiotoimittaja</td>
+</tr>
+<tr class="even">
+<td><strong>4. Operator Fault</strong></td>
+<td>Ihmisoperaattorin antama virheellinen tai puutteellinen syöte</td>
+<td>Tilaaja / käyttäjäorganisaatio</td>
+</tr>
+<tr class="odd">
+<td><strong>5. Policy Fault</strong></td>
+<td>Säännöstön, rajoituksen tai valtuutuksen konfiguraatiovirhe</td>
+<td>Sääntöarkkitehti / turvallisuuselin</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tämän luokittelun ansiosta vastuunjako lakkaa olemasta kuluttava
+lakitekninen väittely ja muuttuu täsmälliseksi hakukyselyksi.</p>
+<hr />
+<h2 id="prv-memory-decision-provenance-tekoälyn-aikakone">PRV (Memory
+&amp; Decision Provenance): tekoälyn aikakone</h2>
+<p>Jotta FLT-luokittelu voidaan tehdä puolueettomasti, tarvitaan kovaa
+teknistä todisteaineistoa. Tässä kohtaa <strong>Lifetime World
+Model</strong> astuu peliin.</p>
+<p>Edellisen osan BPMN-mallissa PRV-kirjaus oli oma
+<code>Service Task</code>, johon <strong>molemmat</strong> polut —
+agentin suoritus ja ihmisen kuittaus — yhtyvät. Aina kun DWS IQ -agentti
+suorittaa tehtävän tai se ohjautuu HIC-dashboardille, World Modeliin
+tallennetaan kryptografisesti allekirjoitettu tilavedos:</p>
+<ol type="1">
+<li><strong>Alkuperäiset syötteet:</strong> täsmälleen se data ja
+konteksti, joka agentille syötettiin</li>
+<li><strong>Luottamustila (TRS-snapshot):</strong> agentin
+TRS-pistemäärä ja IDV-tila suoritushetkellä</li>
+<li><strong>Käytetty Lease Token:</strong> todiste siitä, että
+suorituslupa oli voimassa ja atomisesti kulutettu</li>
+<li><strong>Mallin tila:</strong> malliversio, lämpötilaparametri ja
+järjestelmäkehotteet</li>
+</ol>
+<p>Tämä mahdollistaa <strong>PRV-2:n (Decision replay)</strong>. Vaikka
+varsinainen tekoälymalli päivittyisi tai vaihtuisi kahden vuoden
+kuluttua, alkuperäinen päätöksentekoketju voidaan rekonstruoida
+täsmälleen samoilla reunaehdoilla.</p>
+<p>Mitä agentti tiesi? Millä valtuudella se toimi? Miten se päätyi
+tulokseen? PRV antaa näihin vastauksen — myös silloin kun päättäjä oli
+ihminen.</p>
+<hr />
+<h2 id="dominoefektin-katkaisu-tc4-ja-ketjun-terminointi">Dominoefektin
+katkaisu: TC4 ja ketjun terminointi</h2>
+<p>Teollisuuden moniagenttiympäristöissä yksi DWS IQ -agentti voi
+käynnistää toisia agentteja. Laadunvalvonta-agentti käynnistää
+logistiikka-agentin, joka käynnistää tilaus-agentin.</p>
+<p>Jos ensimmäisen agentin päätöksessä havaitaan virhe, suurin vaara on
+<strong>dominoefekti</strong> — virheen monistuminen
+taustajärjestelmiin.</p>
+<p>KYA-S1:n <strong>TC4 (Trust Collapse Response &amp; Chain
+Termination)</strong> katkaisee ketjun. Talon kansankielinen nimi sille
+on <em>leash snap</em> (TC4-2):</p>
+<pre><code>[ DWS IQ Agent A ] ──(Luottamusromahdus havaittu)──&gt; [ KYA-S1 TC4 Trigger ]
+                                                  │
+                                         (Mitätöi Lease Tokenit)
+                                                  │
+                                                  ▼
+                         ┌─────────────────────────────────────────┐
+                         │ ALL DOWNSTREAM AGENTS FROZEN (TC4-2)    │
+                         │ Agent B (Logistiikka)  ──&gt; PYSÄYTETTY   │
+                         │ Agent C (Tilaus)       ──&gt; PYSÄYTETTY   │
+                         └─────────────────────────────────────────┘
+                                                  │
+                                                  ▼
+                         [ Ohjaus siirretty HIC Dashboardille ]</code></pre>
+<ol type="1">
+<li><strong>TC4-1</strong> — luottamusromahdus havaitaan määritellyllä
+kynnyksellä ja siitä lähetetään allekirjoitettu tapahtuma.</li>
+<li><strong>TC4-2</strong> — ketju terminoidaan atomisesti: rikkova
+agentti, jokainen sen käynnistämä alempi agentti ja kaikki niiden
+aktiiviset työkalusessiot. Lease Tokenit mitätöityvät samalla, joten
+yksikään kesken oleva <code>Service Task</code> ei pääse kirjoittamaan
+tietokantaan.</li>
+<li><strong>TC4-4</strong> — koko agentin tila, työkaluhistoria ja
+päätösjälki säilötään terminointihetkellä forensista tutkintaa varten.
+Tästä FLT-luokittelu saa aineistonsa.</li>
+<li>Prosessi siirtyy HIC-dashboardille ihmisoperaattorin
+hallintaan.</li>
+</ol>
+<p>Huomaa järjestys: <strong>todisteet talteen ennen kuin ketju
+vapautetaan.</strong> Jos TC4-4 jää tekemättä, FLT-luokittelu 72
+tunnissa on mahdoton — jäljelle jää vain arvaus.</p>
+<hr />
+<h2
+id="yhteenveto-rehellinen-tekoälyhallinta-teollisuudessa">Yhteenveto:
+rehellinen tekoälyhallinta teollisuudessa</h2>
+<p>Tähän päättyy sarjamme KYA-S1-spesifikaatiosta, EU AI Actin
+HIC-valvontavelvoitteesta ja DWS IQ -agenttien teollisuusautomaatiosta.
+Kokonaisuus tiivistyy ketjuun:</p>
+<ol type="1">
+<li><strong>Yksi allekirjoitettu sivu:</strong> tylsä tietoturvakansio
+saa vihdoin oman sivunsa tekoälyagentille.</li>
+<li><strong>Tekninen luottamus (TRS):</strong> luottamustaso ei ole
+mittari dashboardilla, vaan BPMN 2.0 -prosessin suora ehto- ja
+ohjausmekanismi.</li>
+<li><strong>Ihmisen johtajuus (HIC):</strong> ihminen johtaa prosessia
+<em>Single Pane of Glass</em> -näkymästä, ja ohjelmisto takaa, ettei
+valvonta ole näennäistä.</li>
+<li><strong>Aukoton kriisinhallinta (FLT &amp; PRV):</strong> kun asiat
+menevät pieleen, vastuuluokittelu ja World Modelin historiatiedot
+pitävät vastuunjaon kirkkaana.</li>
+</ol>
+<p>Kun nämä palaset ovat paikoillaan, tekoälyagentit lakkaavat olemasta
+hallitsematon tietoturvariski — ja muuttuvat siksi, miksi ne on
+tarkoitettu: <strong>teollisuuden luotettavaksi ja suorituskykyiseksi
+suoritusportaaksi.</strong></p>
+
+<h2 id="kya-series-map">Katso sarjan muut osat</h2>
+<ul class="kya-map">
+<li><a class="kya-card" href="/posts/know-your-agent-kya-s1.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">1</span><span><span class="kya-t">Tunne agenttisi (KYA-S1)</span><span class="kya-d" data-soon="tulossa">Yksi allekirjoitettu sivu tietoturvakansiossa</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-kyc-seven-questions.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">2</span><span><span class="kya-t">KYC:n vastine tekoälylle</span><span class="kya-d" data-soon="tulossa">Seitsemän kriittistä KYA-kysymystä</span></span></a></li>
+<li><a class="kya-card" href="/posts/eu-ai-act-article-14-hic.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">3</span><span><span class="kya-t">EU AI Act artikla 14 (HIC)</span><span class="kya-d" data-soon="tulossa">Ihmisen valvonta vs. agenttien itsenäisyys</span></span></a></li>
+<li><a class="kya-card" href="/posts/agent-classes-copilot-vs-dws-iq.fi.html" style="--kya-a:#4da3ff"><span class="kya-n">4</span><span><span class="kya-t">Agenttiluokat</span><span class="kya-d" data-soon="tulossa">Copilot vs. teollisuuden tausta-agentit</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html" style="--kya-a:#f0b429"><span class="kya-n">5</span><span><span class="kya-t">KYA-S1 ja BPMN 2.0</span><span class="kya-d" data-soon="tulossa">Luottamustaso ohjaa teollisuusprosessia</span></span></a></li>
+<li><a class="kya-card" href="/posts/bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html" style="--kya-a:#f0b429"><span class="kya-n">6</span><span><span class="kya-t">KYA-S1 v1.3 × BPMN 2.0</span><span class="kya-d" data-soon="tulossa">Atominen Lease Token ja fail-closed</span></span></a></li>
+<li><a class="kya-card" href="/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" style="--kya-a:#f0b429" aria-current="page"><span class="kya-n">7</span><span><span class="kya-t">Kun jotain menee pieleen</span><span class="kya-d" data-soon="tulossa">72 tunnin virheluokittelu ja päätöksen toistaminen</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-s1-ecosystem-roadmap.fi.html" style="--kya-a:#f0b429"><span class="kya-n">8</span><span><span class="kya-t">Ekosysteemi &amp; roadmap</span><span class="kya-d" data-soon="tulossa">Vaiheittainen käyttöönotto hankinnassa</span></span></a></li>
+<li><a class="kya-card" href="/posts/lifetime-world-model-state-register.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">9</span><span><span class="kya-t">Lifetime World Model</span><span class="kya-d" data-soon="tulossa">Globaali tilarekisteri ja muisti</span></span></a></li>
+<li><a class="kya-card" href="/posts/agentic-commerce-autonomous-payments.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">10</span><span><span class="kya-t">Agentic Commerce</span><span class="kya-d" data-soon="tulossa">Autonomiset maksut ja hätäjarru</span></span></a></li>
+<li><a class="kya-card" href="/posts/eudi-wallet-eidas2-human-identity.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">11</span><span><span class="kya-t">eWallet EU &amp; eIDAS 2.0</span><span class="kya-d" data-soon="tulossa">Ihmisen perusidentiteetti valtuuttajana</span></span></a></li>
+<li><a class="kya-card" href="/posts/kya-s1-sanasto-glossary.fi.html" style="--kya-a:#39d3a5"><span class="kya-n">12</span><span><span class="kya-t">KYA-S1 sanasto</span><span class="kya-d" data-soon="tulossa">Käsitteistö ja termit viidellä kielellä</span></span></a></li>
+</ul>
+
+        <hr style="border:none;border-top:1px solid rgba(148,163,184,.25);margin:2.5rem 0 1.25rem" />
+        <p>
+          <strong>Risto Anton P&auml;&auml;rni</strong><br />
+          Perustaja &amp; toimitusjohtaja, Lifetime Oy<br />
+          P&auml;&auml;toimittaja, Lifetime Scope Journal
+        </p>
+
+      </article>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta</span>
+                    </a>
+                    <a href="/posts/kya-s1-ecosystem-roadmap.fi.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">KYA-S1 Ekosysteemi & Tuotanto-Roadmap</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fflt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=72%20tunnin%20virheluokittelu%20(FLT)%20ja%20p%C3%A4%C3%A4t%C3%B6ksen%20toistaminen%20(PRV)%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fflt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="mailto:?subject=72%20tunnin%20virheluokittelu%20(FLT)%20ja%20p%C3%A4%C3%A4t%C3%B6ksen%20toistaminen%20(PRV)&body=72%20tunnin%20virheluokittelu%20(FLT)%20ja%20p%C3%A4%C3%A4t%C3%B6ksen%20toistaminen%20(PRV)%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fflt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€4,999</p>
+                            <p class="text-xs text-gray-500">18+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€6,500</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€499</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

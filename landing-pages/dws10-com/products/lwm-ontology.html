@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LWM Sovereign Ontology | Europe's Pre-Built Industrial Knowledge Graph | DWS IQ</title>
+    <meta
+      name="description"
+      content="Pre-built sovereign ontology for 25 European industries and 5,000 enterprises. 7 semantic layers, OWL/RDF validated, agent-ready. Skip 12 months of ontology engineering."
+    />
+    <meta
+      name="keywords"
+      content="ontology, knowledge graph, European industry, sovereign AI, NACE, OWL, RDF, enterprise registry, compliance ontology, industrial semantics"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="LWM Sovereign Ontology | Pre-Built Industrial Knowledge Graph"
+    />
+    <meta
+      property="og:description"
+      content="25 industries. 5,000 enterprises. 7 semantic layers. The European industrial ontology that nobody else sells."
+    />
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="https://dws10.com/products/lwm-ontology.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="LWM Sovereign Ontology | European Industrial Knowledge Graph"
+    />
+    <meta
+      name="twitter:description"
+      content="Pre-built ontology for 25 EU industries. Agent-ready, sovereign, OWL/RDF validated."
+    />
+    <link rel="canonical" href="https://dws10.com/products/lwm-ontology.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-grow: 1;
+      }
+      h1 {
+        color: #60a5fa;
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+      }
+      h2 {
+        color: #94a3b8;
+        margin-top: 32px;
+      }
+      h3 {
+        color: #60a5fa;
+        margin-top: 24px;
+      }
+      .tagline {
+        color: #4ade80;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+      a.buy-btn {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .cta-section {
+        text-align: center;
+        padding: 48px 0 0;
+        margin-top: 36px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .cta-section h2 {
+        font-size: 1.6rem;
+        color: #e2e8f0;
+        margin-bottom: 8px;
+      }
+      .accent {
+        color: #60a5fa;
+      }
+      .cta-sub {
+        color: #94a3b8;
+        font-size: 1rem;
+        margin-bottom: 28px;
+      }
+      .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .cta-btn {
+        display: block;
+        background: #60a5fa;
+        color: #0f172a;
+        padding: 18px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.05rem;
+        transition: opacity 0.2s;
+      }
+      .cta-btn:hover {
+        opacity: 0.9;
+      }
+      .cta-btn-outline {
+        display: block;
+        color: #60a5fa;
+        border: 2px solid #60a5fa;
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background 0.2s;
+      }
+      .cta-btn-outline:hover {
+        background: rgba(96, 165, 250, 0.1);
+      }
+      .cta-btn-ghost {
+        display: block;
+        color: #4ade80;
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background 0.2s;
+      }
+      .cta-btn-ghost:hover {
+        background: rgba(74, 222, 128, 0.08);
+      }
+      .cta-btn-sub {
+        display: block;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        margin-top: 4px;
+        font-weight: 400;
+      }
+      .cta-btn .cta-btn-sub {
+        color: rgba(15, 23, 42, 0.6);
+      }
+      .cta-contact {
+        margin-top: 20px;
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      .ont-wp-form {
+        display: none;
+        background: rgba(30, 41, 59, 0.95);
+        border: 1px solid rgba(74, 222, 128, 0.25);
+        border-radius: 10px;
+        padding: 24px;
+        margin-top: 14px;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
+      .ont-wp-form.visible {
+        display: block;
+      }
+      .ont-wp-form label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #cbd5e1;
+        margin-bottom: 4px;
+        margin-top: 12px;
+      }
+      .ont-wp-form label:first-child {
+        margin-top: 0;
+      }
+      .ont-wp-form input[type="text"],
+      .ont-wp-form input[type="email"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(15, 23, 42, 0.8);
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .ont-wp-form input:focus {
+        border-color: #60a5fa;
+      }
+      .ont-wp-form input.error {
+        border-color: #f87171;
+      }
+      .ont-wp-form .ont-wp-error {
+        color: #f87171;
+        font-size: 0.78rem;
+        margin-top: 4px;
+        display: none;
+      }
+      .ont-wp-form .ont-wp-error.visible {
+        display: block;
+      }
+      .ont-wp-consent {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 14px;
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        line-height: 1.4;
+        cursor: pointer;
+      }
+      .ont-wp-consent input[type="checkbox"] {
+        width: auto;
+        margin-top: 2px;
+        flex-shrink: 0;
+        accent-color: #4ade80;
+      }
+      .ont-wp-consent a {
+        color: #60a5fa;
+        text-decoration: underline;
+      }
+      .ont-wp-submit {
+        width: 100%;
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        background: #4ade80;
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        transition: opacity 0.2s;
+      }
+      .ont-wp-submit:hover {
+        opacity: 0.9;
+      }
+      .ont-wp-submit:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .ont-wp-note {
+        font-size: 0.72rem;
+        color: #64748b;
+        margin-top: 8px;
+        text-align: center;
+      }
+      .ont-wp-success {
+        display: none;
+        text-align: center;
+        padding: 20px;
+      }
+      .ont-wp-success.visible {
+        display: block;
+      }
+      .ont-wp-success p {
+        color: #4ade80;
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+      }
+      .ont-wp-success .ont-wp-detail {
+        color: #94a3b8;
+        font-size: 0.82rem;
+        font-weight: 400;
+      }
+      a.back-link {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+      }
+      .tier-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+      .tier-card {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 24px;
+      }
+      .tier-card.featured {
+        border-color: #4ade80;
+        box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
+      }
+      .tier-name {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #60a5fa;
+        margin-bottom: 8px;
+      }
+      .tier-price {
+        font-size: 1.5rem;
+        color: #4ade80;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+      .tier-price span {
+        font-size: 0.8rem;
+        color: #94a3b8;
+      }
+      .tier-features {
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        padding-left: 16px;
+      }
+      .tier-features li {
+        margin-bottom: 6px;
+      }
+      .check {
+        color: #4ade80;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .gap-box {
+        background: rgba(251, 191, 36, 0.08);
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 24px 0;
+      }
+      .gap-box h3 {
+        color: #fbbf24;
+        margin-top: 0;
+      }
+      .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 8px;
+        margin: 16px 0;
+        font-size: 0.9rem;
+      }
+      .industry-grid span {
+        padding: 6px 12px;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 4px;
+      }
+      .vs-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 0.9rem;
+      }
+      .vs-table th,
+      .vs-table td {
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .vs-table th {
+        color: #94a3b8;
+        font-weight: 600;
+      }
+      .vs-table td:first-child {
+        font-weight: 600;
+        color: #cbd5e1;
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "LWM Sovereign Ontology",
+        "description": "Pre-built sovereign ontology for 25 European industries and 5,000 enterprises. 7 semantic layers, OWL/RDF validated, agent-ready.",
+        "brand": { "@type": "Brand", "name": "DWS IQ Platform" },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "category": "Knowledge Graph / Ontology",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Single Industry",
+            "price": "2990",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/PreOrder"
+          },
+          {
+            "@type": "Offer",
+            "name": "Full Suite (25 Industries)",
+            "price": "14990",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/PreOrder"
+          },
+          {
+            "@type": "Offer",
+            "name": "Sovereign On-Prem",
+            "price": "49990",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/PreOrder"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+    <div class="container">
+      <a href="../buy/?from=ontology" class="back-link">&larr; Back to Store</a>
+
+      <h1>LWM Sovereign Ontology</h1>
+      <p class="tagline">
+        The pre-built European industrial knowledge graph that nobody else sells.
+      </p>
+
+      <p>
+        The knowledge graph market sells you empty engines. Entity data vendors sell you company
+        records without semantics. Nobody sells a turnkey, sovereign, agent-ready ontology covering
+        25 European industries and 5,000 enterprises.
+      </p>
+      <p>
+        Until now. The Lifetime World Model (LWM) Ontology is the result of systematically encoding
+        the operational, regulatory, and commercial vocabulary of European heavy industry into a
+        structured, validated knowledge graph.
+      </p>
+
+      <div class="gap-box">
+        <h3>The Market Gap</h3>
+        <p>
+          <strong>Graph platforms</strong> (Stardog, Neo4j, Ontotext, eccenca) sell empty engines
+          &mdash; bring your own ontology, your own data, your own 12-month engineering project.
+        </p>
+        <p>
+          <strong>Entity data vendors</strong> (D&amp;B, Orbis/Moody's) sell company records at
+          &euro;10K&ndash;50K/year &mdash; but no semantic models, no industry taxonomy, no
+          agent-readiness.
+        </p>
+        <p>
+          <strong>LWM Ontology</strong> fills the gap: pre-built industry semantics + enterprise
+          registry + sovereign deployment + agent-ready structure. Skip the &euro;500K&ndash;2M
+          &ldquo;ontology tax&rdquo; and go live in weeks, not years.
+        </p>
+      </div>
+
+      <h2>What's Inside</h2>
+
+      <h3>7 Semantic Layers Per Industry</h3>
+      <ol>
+        <li>
+          <strong>Domain Concepts</strong> &mdash; Core vocabulary of the industry (e.g., electric
+          arc furnace, stainless steel grade, melt shop)
+        </li>
+        <li>
+          <strong>Regulatory Terms</strong> &mdash; ETS allowance, CBAM import obligation, CSRD
+          disclosure point, EU AI Act Article 12 log event
+        </li>
+        <li>
+          <strong>Operational Vocabulary</strong> &mdash; Process language as practitioners use it
+          (shift patterns, batch IDs, sensor naming conventions)
+        </li>
+        <li>
+          <strong>Process Taxonomy</strong> &mdash; Hierarchical classification of industrial
+          processes aligned to NACE Rev.&nbsp;2
+        </li>
+        <li>
+          <strong>Compliance Requirements</strong> &mdash; Per-regulation obligation mapping with
+          deadlines, thresholds, and reporting formats
+        </li>
+        <li>
+          <strong>Commercial Intelligence</strong> &mdash; Buyer roles (25-role enterprise
+          taxonomy), buying journey stages, sales wedge mapping
+        </li>
+        <li>
+          <strong>Investor Positioning</strong> &mdash; Per-industry TAM, regulatory tailwinds, and
+          growth signals
+        </li>
+      </ol>
+
+      <h3>25 European Industrial Verticals</h3>
+      <div class="industry-grid">
+        <span>Steel &amp; Metallurgy</span>
+        <span>Forestry / Pulp / Paper</span>
+        <span>Automotive</span>
+        <span>Aerospace</span>
+        <span>Chemical Processing</span>
+        <span>Pharma</span>
+        <span>Maritime / Shipbuilding</span>
+        <span>Power Generation</span>
+        <span>Renewables / Wind / Solar</span>
+        <span>Mining &amp; Minerals</span>
+        <span>Industrial Automation</span>
+        <span>Construction / Building</span>
+        <span>Food &amp; Beverage</span>
+        <span>Glass &amp; Ceramics</span>
+        <span>Electronics / Semiconductor</span>
+        <span>Oil &amp; Gas Refining</span>
+        <span>Textiles &amp; Apparel</span>
+        <span>Water &amp; Waste</span>
+        <span>Agricultural Machinery</span>
+        <span>Telecom Infrastructure</span>
+        <span>Medical Devices</span>
+        <span>High-Speed Rail</span>
+        <span>Datacenters</span>
+        <span>Battery Manufacturing</span>
+        <span>Marine / Offshore Energy</span>
+      </div>
+
+      <h3>5,000 Enterprise Registry</h3>
+      <p>
+        200 enterprises per industry, sourced from Orbis, Eurostat, EU ETS Registry, CBAM Registry,
+        patent filings, and sustainability reports. Each entry includes: country, revenue band,
+        facilities, sub-sector, regulatory exposure (ETS/CBAM/CSRD), key products, and core
+        processes.
+      </p>
+
+      <h2>Why Sovereign Ontology Wins the Deal</h2>
+
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th>Buying Trigger</th>
+            <th>What LWM Ontology Delivers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI Grounding</td>
+            <td>
+              KG+LLM is 4.2&times; more accurate than LLM-alone. Your agents hallucinate less
+              because they reason over structured industry knowledge, not token probability.
+            </td>
+          </tr>
+          <tr>
+            <td>Compliance Day 1</td>
+            <td>
+              EU AI Act, NIS2, CSRD regulatory vocabulary baked into every industry layer.
+              Audit-readiness out of the box &mdash; not a 6-month custom mapping project.
+            </td>
+          </tr>
+          <tr>
+            <td>Sovereignty</td>
+            <td>
+              EU-hosted or on-prem. Zero CLOUD Act exposure. Finnish jurisdiction. CISO sign-off
+              accelerator for regulated industries.
+            </td>
+          </tr>
+          <tr>
+            <td>Skip the Ontology Tax</td>
+            <td>
+              Enterprise KG projects cost &euro;10&ndash;20M in design, governance, and stewards. A
+              turnkey ontology at a fraction of that price is the ROI story.
+            </td>
+          </tr>
+          <tr>
+            <td>Agent-Ready</td>
+            <td>
+              Layer 6 (roles/buying-journey) and Layer 7 (TAM/wedge) make the ontology operational.
+              Your AI agents don't just know &mdash; they act.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Pricing</h2>
+
+      <div class="tier-grid">
+        <div class="tier-card">
+          <div class="tier-name">Single Industry</div>
+          <div class="tier-price">&euro;2,990<span>/year</span></div>
+          <ul class="tier-features">
+            <li>1 industry vertical (your choice)</li>
+            <li>200 enterprises with metadata</li>
+            <li>All 7 semantic layers</li>
+            <li>JSON-LD + OWL/RDF export</li>
+            <li>Quarterly registry updates</li>
+            <li>EU-hosted API access</li>
+          </ul>
+        </div>
+
+        <div class="tier-card featured">
+          <div class="tier-name">Full Suite</div>
+          <div class="tier-price">&euro;14,990<span>/year</span></div>
+          <ul class="tier-features">
+            <li>All 25 industries</li>
+            <li>5,000 enterprises</li>
+            <li>Cross-industry supply chain mapping</li>
+            <li>Regulatory cascade detection</li>
+            <li>Full API + bulk export</li>
+            <li>Priority updates</li>
+          </ul>
+        </div>
+
+        <div class="tier-card featured">
+          <div class="tier-name">Sovereign On-Prem</div>
+          <div class="tier-price">&euro;49,990<span> one-time</span></div>
+          <ul class="tier-features">
+            <li>Perpetual license &mdash; all 25 industries</li>
+            <li>Deployed on your NVIDIA hardware</li>
+            <li>QLoRA fine-tuning pipeline included</li>
+            <li>Your proprietary data integrated</li>
+            <li>On-site deployment + training</li>
+            <li>+&euro;9,990/year sovereign updates</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Technical Specifications</h2>
+      <ul>
+        <li>
+          <strong>Format:</strong> JSON-LD primary, OWL/RDF export, SPARQL endpoint (Suite +
+          Sovereign)
+        </li>
+        <li>
+          <strong>Classification:</strong> NACE Rev. 2 aligned, cross-referenced to ISIC Rev. 4
+        </li>
+        <li>
+          <strong>Validation:</strong> OWL DL consistency checking, SHACL constraint validation
+        </li>
+        <li>
+          <strong>Entity sources:</strong> Orbis, Eurostat SBS, EU ETS Registry, CBAM Registry, EPO
+          patents, GRI/CSRD sustainability reports
+        </li>
+        <li>
+          <strong>Update cadence:</strong> Quarterly (registry data), monthly (regulatory terms),
+          on-demand (Sovereign tier)
+        </li>
+        <li><strong>Integration:</strong> MCP-native, REST API, GraphQL endpoint, Python SDK</li>
+        <li>
+          <strong>Hosting:</strong> EU-only (Hetzner/Scaleway) or on-prem NVIDIA (GB10/DGX Spark/IGX
+          Orin)
+        </li>
+      </ul>
+
+      <h2>Pairs With</h2>
+      <ul>
+        <li>
+          <strong>Control Room</strong> (Acer Veriton GN100, &euro;5,294) &mdash; On-prem NVIDIA
+          hardware for Sovereign tier
+        </li>
+        <li>
+          <strong>DGX Spark</strong> (&euro;6,694) &mdash; NVIDIA-branded sovereign edge for
+          fine-tuning pipeline
+        </li>
+        <li>
+          <strong>DWS IQ Aegis</strong> (&euro;59,990) &mdash; Full sovereign AI platform with
+          ontology pre-loaded
+        </li>
+        <li>
+          <strong>DWS IQ Climate Intelligence</strong> (&euro;2,999/mo) &mdash; Ontology-grounded
+          compliance agents
+        </li>
+      </ul>
+
+      <div class="cta-section">
+        <h2>Ready to Ground Your AI on <span class="accent">Governed Knowledge</span>?</h2>
+        <p class="cta-sub">
+          One conversation. We assess your industry, regulatory exposure, and deployment timeline.
+        </p>
+        <div class="cta-buttons">
+          <a
+            href="https://wa.me/358400319010?text=I%27m%20interested%20in%20the%20LWM%20Sovereign%20Ontology.%20Industry%3A%20"
+            class="cta-btn"
+            target="_blank"
+          >
+            Start a Pilot Conversation
+            <span class="cta-btn-sub"
+              >Teams &middot; WhatsApp &middot; Jitsi &mdash; your choice</span
+            >
+          </a>
+          <a
+            href="mailto:risto@lifetime.fi?subject=Request%3A%20LWM%20Sovereign%20Ontology%20Pilot%20Delivery%20Plan&body=Please%20send%20the%20Ontology%20Pilot%20Delivery%20Plan%20for%20our%20review.%0A%0ACompany%3A%20%0AIndustry%3A%20%0AKey%20regulatory%20exposure%3A%20%0A"
+            class="cta-btn-outline"
+          >
+            Request Pilot Delivery Plan
+            <span class="cta-btn-sub"
+              >Receive a customized pilot scope, timeline, and NVIDIA hardware specification</span
+            >
+          </a>
+          <button type="button" class="cta-btn-ghost" id="ont-wp-toggle">
+            Learn More &mdash; Request the Whitepaper
+            <span class="cta-btn-sub"
+              >LWM Sovereign Ontology &mdash; the full thesis, architecture, and 25-industry
+              ontology library</span
+            >
+          </button>
+        </div>
+        <div class="ont-wp-form" id="ont-wp-form">
+          <label for="ont-wp-name">Full Name</label>
+          <input
+            type="text"
+            id="ont-wp-name"
+            placeholder="e.g. Matti Virtanen"
+            autocomplete="name"
+            required
+          />
+          <label for="ont-wp-email">Work Email</label>
+          <input
+            type="email"
+            id="ont-wp-email"
+            placeholder="matti.virtanen@company.com"
+            autocomplete="email"
+            required
+          />
+          <div class="ont-wp-error" id="ont-wp-email-err">
+            Enterprise email required. Free providers (Gmail, Outlook, Yahoo, etc.) are not
+            accepted.
+          </div>
+          <label for="ont-wp-company">Company Name</label>
+          <input
+            type="text"
+            id="ont-wp-company"
+            placeholder="e.g. Outokumpu Oyj"
+            autocomplete="organization"
+            required
+          />
+          <label class="ont-wp-consent" for="ont-wp-consent">
+            <input type="checkbox" id="ont-wp-consent" required />
+            <span
+              >I agree to the
+              <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and
+              consent to being contacted about this request.</span
+            >
+          </label>
+          <div class="ont-wp-error" id="ont-wp-consent-err">
+            Please agree to the Privacy Policy to continue.
+          </div>
+          <button type="button" class="ont-wp-submit" id="ont-wp-submit">
+            Send Me the Whitepaper
+          </button>
+          <p class="ont-wp-note">
+            We will send the whitepaper to your work email within one business day. No spam, no
+            sequences.
+          </p>
+        </div>
+        <div class="ont-wp-success" id="ont-wp-success">
+          <p>Request received.</p>
+          <span class="ont-wp-detail"
+            >The LWM Sovereign Ontology whitepaper will be sent to your work email within one
+            business day.</span
+          >
+        </div>
+        <p class="cta-contact">risto@lifetime.fi &middot; Lifetime Oy &middot; Helsinki, Finland</p>
+      </div>
+    </div>
+    <script src="../shared-assets/cta/ontology-cta-inline.js" defer></script>
+    <script src="../shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

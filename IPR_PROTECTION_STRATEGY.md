@@ -1,33 +1,38 @@
 # IPR Protection Strategy — DWS IQ 6 & Lifetime World Model
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/ipr-protection-strategy-fXNsq | Date: 19.02.2026 | Changes: Initial IPR Protection Strategy — three-tier framework (NDA, Patents, Trade Secrets) for LWM, knowledge graph, BYOC, and CIDM
+
+- Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/ipr-protection-strategy-fXNsq | Date: 19.02.2026 | Changes: Initial IPR Protection Strategy — three-tier framework (NDA, Patents, Trade Secrets) for LWM, knowledge graph, BYOC, and CIDM
 
 Session Links & References:
-  - Claude Code (claude/ipr-protection-strategy-fXNsq): https://github.com/blogtheristo/dws6/tree/claude/ipr-protection-strategy-fXNsq
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/IPR_PROTECTION_STRATEGY.md
+
+- Claude Code (claude/ipr-protection-strategy-fXNsq): https://github.com/blogtheristo/dws6/tree/claude/ipr-protection-strategy-fXNsq
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/IPR_PROTECTION_STRATEGY.md
 
 Document Status:
-  - Created: 19.02.2026
-  - Last Modified: 19.02.2026
-  - Language: English (with Finnish legal references)
-  - Languages Available: EN
-  - Publication Status: ACTIVE
-  - Classification: CONFIDENTIAL — INTERNAL USE ONLY
+
+- Created: 19.02.2026
+- Last Modified: 19.02.2026
+- Language: English (with Finnish legal references)
+- Languages Available: EN
+- Publication Status: ACTIVE
+- Classification: CONFIDENTIAL — INTERNAL USE ONLY
 
 Related Documents:
-  - Partners/NDA_TEMPLATE_EU_2026.md (EU Trade Secrets Directive compliant NDA)
-  - investor-outreach/DEFENSIVE.md (Competitive Moat Analysis — 12 advantages)
-  - DWS_SECURITY_STANDARD.md (v1.0 — Enterprise Security Framework)
-  - Admin/SECURITY_COMPLIANCE.md (External-facing compliance documentation)
-  - V1_LWM.md (Lifetime World Model — NVIDIA Inception submission)
 
-***
+- Partners/NDA_TEMPLATE_EU_2026.md (EU Trade Secrets Directive compliant NDA)
+- investor-outreach/DEFENSIVE.md (Competitive Moat Analysis — 12 advantages)
+- DWS_SECURITY_STANDARD.md (v1.0 — Enterprise Security Framework)
+- Admin/SECURITY_COMPLIANCE.md (External-facing compliance documentation)
+- V1_LWM.md (Lifetime World Model — NVIDIA Inception submission)
+
+---
 
 ## Table of Contents
 
@@ -44,52 +49,52 @@ Related Documents:
 11. [Legal Framework & Jurisdiction](#11-legal-framework--jurisdiction)
 12. [Implementation Checklist](#12-implementation-checklist)
 
-***
+---
 
 ## 1. Executive Summary
 
 Lifetime Oy:n DWS IQ 6 -alustan ja Lifetime World Model (LWM) -teknologian immateriaalioikeudet (IPR) suojataan kolmitasoisella strategialla:
 
-| Taso | Suojamekanismi | Kohde | Lain perusta |
-|------|---------------|-------|-------------|
-| **Tier 1** | Vapaa jakelu | Teaser, FCD-konsepti, markkinointimateriaali | — |
-| **Tier 2** | NDA ennen teknistä syvennystä | LWM-arkkitehtuuri, tietograafin rakenne, BYOC-logiikka | EU Trade Secrets Directive 2016/943 |
-| **Tier 3A** | Patentti | Kausaalinen päättelylogiikka, CIDM-menetelmä | PRH (FI), EPO, PCT |
-| **Tier 3B** | Trade secret | Tietograafin 10 000+ solmua, painotukset, rakenne | EU 2016/943, Finnish Trade Secrets Act |
+| Taso        | Suojamekanismi                | Kohde                                                  | Lain perusta                           |
+| ----------- | ----------------------------- | ------------------------------------------------------ | -------------------------------------- |
+| **Tier 1**  | Vapaa jakelu                  | Teaser, FCD-konsepti, markkinointimateriaali           | —                                      |
+| **Tier 2**  | NDA ennen teknistä syvennystä | LWM-arkkitehtuuri, tietograafin rakenne, BYOC-logiikka | EU Trade Secrets Directive 2016/943    |
+| **Tier 3A** | Patentti                      | Kausaalinen päättelylogiikka, CIDM-menetelmä           | PRH (FI), EPO, PCT                     |
+| **Tier 3B** | Trade secret                  | Tietograafin 10 000+ solmua, painotukset, rakenne      | EU 2016/943, Finnish Trade Secrets Act |
 
-**Key principle:** Share the *what* freely, protect the *how* with NDA, and lock the *core method* with patents and trade secrets.
+**Key principle:** Share the _what_ freely, protect the _how_ with NDA, and lock the _core method_ with patents and trade secrets.
 
-***
+---
 
 ## 2. IP Asset Inventory
 
 ### 2.1 Core Technology Assets
 
-| Asset | Type | Current Status | Protection Level |
-|-------|------|---------------|-----------------|
-| **Lifetime World Model (LWM)** | Software + method | In development | Tier 2 + 3B |
-| **CIDM (Climate-Intelligent Decision Making)** | Method/algorithm | Patent pending | Tier 3A |
-| **Knowledge Graph** (10,000+ nodes) | Database + structure | Production | Tier 3B |
-| **Causal Reasoning Engine** | Algorithm | In development | Tier 3A candidate |
-| **BYOC (Bring Your Own Cloud) Logic** | Architecture | In development | Tier 2 |
-| **FCD Concept** | Business model | Published | Tier 1 |
-| **Firehorse Suite** | Software product | Production | Tier 2 |
-| **MCP Agent Orchestration** | Architecture | Production | Tier 2 + 3B |
-| **Regulatory Risk Calculation** | Method | In development | Tier 3A candidate |
-| **Fit for 55 Compliance Engine** | Software + rules | Production | Tier 2 |
+| Asset                                          | Type                 | Current Status | Protection Level  |
+| ---------------------------------------------- | -------------------- | -------------- | ----------------- |
+| **Lifetime World Model (LWM)**                 | Software + method    | In development | Tier 2 + 3B       |
+| **CIDM (Climate-Intelligent Decision Making)** | Method/algorithm     | Patent pending | Tier 3A           |
+| **Knowledge Graph** (10,000+ nodes)            | Database + structure | Production     | Tier 3B           |
+| **Causal Reasoning Engine**                    | Algorithm            | In development | Tier 3A candidate |
+| **BYOC (Bring Your Own Cloud) Logic**          | Architecture         | In development | Tier 2            |
+| **FCD Concept**                                | Business model       | Published      | Tier 1            |
+| **Firehorse Suite**                            | Software product     | Production     | Tier 2            |
+| **MCP Agent Orchestration**                    | Architecture         | Production     | Tier 2 + 3B       |
+| **Regulatory Risk Calculation**                | Method               | In development | Tier 3A candidate |
+| **Fit for 55 Compliance Engine**               | Software + rules     | Production     | Tier 2            |
 
 ### 2.2 Non-Technical IP Assets
 
-| Asset | Type | Protection |
-|-------|------|-----------|
-| DWS IQ 6 (name) | Trademark | Registration pending |
-| Firehorse (name) | Trademark | Registration pending |
-| Lifetime World Model (name) | Trademark | Registration pending |
-| Customer data & references | Confidential | NDA + GDPR |
-| Pricing models | Business info | NDA |
-| Partner agreements | Commercial | NDA |
+| Asset                       | Type          | Protection           |
+| --------------------------- | ------------- | -------------------- |
+| DWS IQ 6 (name)             | Trademark     | Registration pending |
+| Firehorse (name)            | Trademark     | Registration pending |
+| Lifetime World Model (name) | Trademark     | Registration pending |
+| Customer data & references  | Confidential  | NDA + GDPR           |
+| Pricing models              | Business info | NDA                  |
+| Partner agreements          | Commercial    | NDA                  |
 
-***
+---
 
 ## 3. Tier 1: Public & Marketing (No NDA Required)
 
@@ -109,6 +114,7 @@ These assets are marketing materials designed for wide distribution:
 ### What NOT to Include in Tier 1
 
 Never include in public materials:
+
 - Algorithm details or pseudocode
 - Knowledge graph structure or node taxonomy
 - Internal API specifications
@@ -121,12 +127,14 @@ Never include in public materials:
 ### Tier 1 Examples
 
 **OK to share:**
+
 > "DWS IQ 6 uses AI to automate climate compliance reporting for EU-regulated industries, reducing reporting time by 90%."
 
 **NOT OK to share:**
+
 > "The LWM uses a causal reasoning graph with 10,000+ regulatory nodes weighted by temporal decay functions to predict compliance risk."
 
-***
+---
 
 ## 4. Tier 2: NDA-Protected (Before Technical Deep-Dive)
 
@@ -136,17 +144,17 @@ Never include in public materials:
 
 ### Protected Assets (Tier 2)
 
-| Category | Specific Assets |
-|----------|----------------|
-| **LWM Architecture** | Component diagram, data flow, processing pipeline, temporal latent space design |
-| **Knowledge Graph Structure** | Node taxonomy, edge types, relationship model, ontology schema |
-| **BYOC Logic** | Cloud deployment model, tenant isolation, data residency enforcement |
-| **Agent Orchestration** | MCP server configuration, agent coordination protocols, tool routing |
-| **Integration Architecture** | ERP connectors (SAP, IFS, Dynamics), ESG platform integrations |
-| **Compliance Engine** | Regulatory rule encoding, audit trail generation, validation logic |
-| **Firehorse Internals** | Omnichannel automation logic, report generation engine, CMS architecture |
-| **Performance Data** | Benchmarks, latency measurements, throughput metrics (with methodology) |
-| **Roadmap Details** | Specific feature timelines, technology choices, partnership plans |
+| Category                      | Specific Assets                                                                 |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| **LWM Architecture**          | Component diagram, data flow, processing pipeline, temporal latent space design |
+| **Knowledge Graph Structure** | Node taxonomy, edge types, relationship model, ontology schema                  |
+| **BYOC Logic**                | Cloud deployment model, tenant isolation, data residency enforcement            |
+| **Agent Orchestration**       | MCP server configuration, agent coordination protocols, tool routing            |
+| **Integration Architecture**  | ERP connectors (SAP, IFS, Dynamics), ESG platform integrations                  |
+| **Compliance Engine**         | Regulatory rule encoding, audit trail generation, validation logic              |
+| **Firehorse Internals**       | Omnichannel automation logic, report generation engine, CMS architecture        |
+| **Performance Data**          | Benchmarks, latency measurements, throughput metrics (with methodology)         |
+| **Roadmap Details**           | Specific feature timelines, technology choices, partnership plans               |
 
 ### NDA Process
 
@@ -160,22 +168,23 @@ Never include in public materials:
 
 For different partner types, configure the NDA contractual penalty (Article 7.4):
 
-| Partner Type | Penalty (EUR) | NDA Term |
-|-------------|--------------|----------|
-| Standard partner | 50,000–100,000 | 5 years |
-| Certified partner | 100,000–250,000 | 5 years |
-| Strategic / investor | 250,000–500,000 | 5 years |
-| Technology vendor | 100,000–250,000 | 5 years |
+| Partner Type         | Penalty (EUR)   | NDA Term |
+| -------------------- | --------------- | -------- |
+| Standard partner     | 50,000–100,000  | 5 years  |
+| Certified partner    | 100,000–250,000 | 5 years  |
+| Strategic / investor | 250,000–500,000 | 5 years  |
+| Technology vendor    | 100,000–250,000 | 5 years  |
 
 ### Watermarking
 
 All Tier 2 documents shared externally must include:
+
 - Recipient company name in header/footer
 - Date of disclosure
 - NDA reference number (`NDA-LT-[YEAR]-[NUMBER]`)
 - "CONFIDENTIAL — [RECIPIENT NAME]" watermark
 
-***
+---
 
 ## 5. Tier 3A: Patent Protection
 
@@ -186,9 +195,10 @@ The following methods are candidates for patent protection:
 #### 5.1 CIDM — Climate-Intelligent Decision Making (PRIORITY 1)
 
 **Status:** Patent pending
-**Novelty:** Multi-agent AI orchestration for regulatory compliance decision-making across 16 EU industries simultaneously.
+**Novelty:** Multi-agent AI orchestration for regulatory compliance decision-making across 25+ EU industries simultaneously.
 
 **Key claims (to be refined with patent attorney):**
+
 1. Method for automated climate regulatory compliance using multi-agent coordination
 2. System for real-time regulatory risk scoring across multiple jurisdictions
 3. Method for integrating edge computing with cloud-based compliance verification
@@ -198,6 +208,7 @@ The following methods are candidates for patent protection:
 **Novelty:** Using causal inference (not just correlation) to calculate regulatory risk scores for construction projects under Fit for 55, CSRD, and CBAM.
 
 **Key claims (candidates):**
+
 1. Method for causal regulatory risk calculation using directed acyclic graphs (DAGs) applied to EU climate regulations
 2. System for predicting compliance violations before they occur using temporal causal models
 3. Method for automated scenario analysis (10,000+ scenarios) for carbon optimization under regulatory constraints
@@ -207,20 +218,21 @@ The following methods are candidates for patent protection:
 **Novelty:** Persistent temporal latent space for construction project lifecycle modeling that solves the 51% spatial-temporal data loss problem.
 
 **Key claims (candidates):**
+
 1. Method for maintaining persistent world state across construction project lifecycle using temporal embeddings
 2. System for sensor fusion at microsecond resolution with edge-to-cloud synchronization
 3. Method for "dreaming through occlusion" — inferring hidden site state from partial observations
 
 ### Patent Filing Strategy
 
-| Step | Action | Timeline | Cost Estimate |
-|------|--------|----------|--------------|
-| 1 | **Prior art search** | Immediately | €3,000–5,000 |
-| 2 | **Finnish national filing (PRH)** | Before any public disclosure of method | €5,000–8,000 |
-| 3 | **Priority year** | 12 months from Finnish filing | — |
-| 4 | **PCT international application** | Within 12 months of Finnish filing | €8,000–12,000 |
-| 5 | **National phase entry** (EU, US, key markets) | 30 months from priority date | €15,000–30,000 per country |
-| 6 | **Patent prosecution** | 2–4 years | €10,000–20,000 |
+| Step | Action                                         | Timeline                               | Cost Estimate              |
+| ---- | ---------------------------------------------- | -------------------------------------- | -------------------------- |
+| 1    | **Prior art search**                           | Immediately                            | €3,000–5,000               |
+| 2    | **Finnish national filing (PRH)**              | Before any public disclosure of method | €5,000–8,000               |
+| 3    | **Priority year**                              | 12 months from Finnish filing          | —                          |
+| 4    | **PCT international application**              | Within 12 months of Finnish filing     | €8,000–12,000              |
+| 5    | **National phase entry** (EU, US, key markets) | 30 months from priority date           | €15,000–30,000 per country |
+| 6    | **Patent prosecution**                         | 2–4 years                              | €10,000–20,000             |
 
 **Total estimated cost (3 patents, EU + US):** €120,000–200,000
 
@@ -229,6 +241,7 @@ The following methods are candidates for patent protection:
 **A patent application MUST be filed BEFORE any public disclosure of the method.**
 
 This means:
+
 - No conference presentations describing the algorithm
 - No blog posts explaining the method
 - No open-source code implementing the patentable method
@@ -240,13 +253,14 @@ This means:
 ### Patent Attorney Recommendation
 
 Finnish patent attorney firms with AI/software expertise:
+
 - **Kolster Oy Ab** (Helsinki) — Finland's largest IP firm
 - **Berggren Oy** (Helsinki) — Strong in software patents
 - **Papula-Nevinpat Oy** (Helsinki) — Technology focus
 
 **Budget for initial consultation:** €2,000–5,000
 
-***
+---
 
 ## 6. Tier 3B: Trade Secret Protection
 
@@ -260,29 +274,30 @@ Under EU Directive 2016/943, Article 2, information qualifies as a trade secret 
 
 ### DWS Trade Secrets Inventory
 
-| Trade Secret | Why It's Valuable | Protection Measures |
-|-------------|-------------------|-------------------|
-| **Knowledge graph structure** (10,000+ nodes, taxonomy, weights) | Encodes years of regulatory expertise; competitor cannot know what to copy | Access control, encryption, NDA |
-| **Node relationship model** | Defines how regulations, industries, and compliance requirements interconnect | Source code access restricted |
-| **Temporal decay functions** | Determines how regulatory risk changes over time | Not in public documentation |
-| **Training data curation** | Specific dataset selection for LWM fine-tuning | Stored in separate encrypted repository |
-| **Compliance rule encoding** | How EU regulations are translated into machine-executable rules | Access-controlled codebase |
-| **Agent coordination protocols** | Specific MCP server orchestration patterns | Internal documentation only |
-| **Customer-specific adaptations** | How the platform is customized per industry/customer | Per-customer NDA |
-| **Performance optimization techniques** | Edge AI model quantization, inference optimization | Internal technical docs |
+| Trade Secret                                                     | Why It's Valuable                                                             | Protection Measures                     |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------- |
+| **Knowledge graph structure** (10,000+ nodes, taxonomy, weights) | Encodes years of regulatory expertise; competitor cannot know what to copy    | Access control, encryption, NDA         |
+| **Node relationship model**                                      | Defines how regulations, industries, and compliance requirements interconnect | Source code access restricted           |
+| **Temporal decay functions**                                     | Determines how regulatory risk changes over time                              | Not in public documentation             |
+| **Training data curation**                                       | Specific dataset selection for LWM fine-tuning                                | Stored in separate encrypted repository |
+| **Compliance rule encoding**                                     | How EU regulations are translated into machine-executable rules               | Access-controlled codebase              |
+| **Agent coordination protocols**                                 | Specific MCP server orchestration patterns                                    | Internal documentation only             |
+| **Customer-specific adaptations**                                | How the platform is customized per industry/customer                          | Per-customer NDA                        |
+| **Performance optimization techniques**                          | Edge AI model quantization, inference optimization                            | Internal technical docs                 |
 
 ### Why Trade Secret > Patent (for Knowledge Graph)
 
-| Factor | Patent | Trade Secret |
-|--------|--------|-------------|
-| **Duration** | 20 years (then public) | Indefinite (as long as secret) |
-| **Disclosure requirement** | Must publish full method | No disclosure required |
-| **Competitor awareness** | Competitor knows exactly what's protected | Competitor cannot know what to copy |
-| **Cost** | €120k–200k for 3 patents | Administrative cost only |
-| **Enforcement** | Must prove infringement | Must prove misappropriation |
-| **Risk** | Method published even if patent rejected | No publication risk |
+| Factor                     | Patent                                    | Trade Secret                        |
+| -------------------------- | ----------------------------------------- | ----------------------------------- |
+| **Duration**               | 20 years (then public)                    | Indefinite (as long as secret)      |
+| **Disclosure requirement** | Must publish full method                  | No disclosure required              |
+| **Competitor awareness**   | Competitor knows exactly what's protected | Competitor cannot know what to copy |
+| **Cost**                   | €120k–200k for 3 patents                  | Administrative cost only            |
+| **Enforcement**            | Must prove infringement                   | Must prove misappropriation         |
+| **Risk**                   | Method published even if patent rejected  | No publication risk                 |
 
 **For the knowledge graph, trade secret is the stronger protection** because:
+
 - The graph's value is in its specific structure — 10,000+ nodes and their precise relationships
 - A competitor would need to replicate years of regulatory analysis to build an equivalent
 - Publishing the structure (as required for a patent) would destroy the advantage
@@ -295,6 +310,7 @@ To maintain trade secret status under EU 2016/943, the following must be documen
 #### 6.1 Internal Classification Record
 
 Every trade secret must have a written record containing:
+
 - Description of the information
 - Why it is confidential
 - Date it was created/identified as trade secret
@@ -303,45 +319,46 @@ Every trade secret must have a written record containing:
 
 #### 6.2 Access Control
 
-| Measure | Implementation |
-|---------|---------------|
-| **Need-to-know basis** | Only team members working directly on the component |
-| **Access logs** | Git commit history, Supabase RLS, cloud IAM |
-| **Encryption at rest** | Supabase encryption, GCP KMS |
-| **Encryption in transit** | TLS 1.3 for all connections |
-| **Employee agreements** | Employment contracts with confidentiality clauses |
-| **Contractor agreements** | NDA before any code access |
-| **Physical security** | Secure development environments |
+| Measure                   | Implementation                                      |
+| ------------------------- | --------------------------------------------------- |
+| **Need-to-know basis**    | Only team members working directly on the component |
+| **Access logs**           | Git commit history, Supabase RLS, cloud IAM         |
+| **Encryption at rest**    | Supabase encryption, GCP KMS                        |
+| **Encryption in transit** | TLS 1.3 for all connections                         |
+| **Employee agreements**   | Employment contracts with confidentiality clauses   |
+| **Contractor agreements** | NDA before any code access                          |
+| **Physical security**     | Secure development environments                     |
 
 #### 6.3 Marking
 
 All trade secret materials must be marked:
+
 - Source code: `// TRADE SECRET — Lifetime Oy — Do not distribute`
 - Documents: `CONFIDENTIAL — TRADE SECRET — Lifetime Oy`
 - Databases: Access-controlled with audit logging
 
-***
+---
 
 ## 7. Classification Matrix
 
-| Information | Tier | Can share without NDA? | Can patent? | Trade secret? |
-|-------------|------|----------------------|-------------|---------------|
-| Product teaser / one-pager | 1 | Yes | — | — |
-| FCD concept overview | 1 | Yes | — | — |
-| Market sizing & problem statement | 1 | Yes | — | — |
-| LWM architecture diagram | 2 | No (NDA required) | Possibly | Yes |
-| BYOC deployment model | 2 | No (NDA required) | No | Yes |
-| Knowledge graph structure | 3B | No (NDA required) | No (trade secret preferred) | **Yes** |
-| Knowledge graph node taxonomy | 3B | No (NDA required) | No | **Yes** |
-| CIDM method | 3A | No (NDA required) | **Yes (priority)** | Partial |
-| Causal reasoning algorithm | 3A | No (NDA required) | **Yes (candidate)** | Until filed |
-| Temporal latent space method | 3A | No (NDA required) | **Yes (candidate)** | Until filed |
-| Customer data | — | No (GDPR + NDA) | No | Yes |
-| Pricing models | 2 | No (NDA required) | No | Yes |
-| Source code (general) | 2 | No | No | Yes |
-| Source code (patentable methods) | 3A | No | Included in patent | Yes (until filed) |
+| Information                       | Tier | Can share without NDA? | Can patent?                 | Trade secret?     |
+| --------------------------------- | ---- | ---------------------- | --------------------------- | ----------------- |
+| Product teaser / one-pager        | 1    | Yes                    | —                           | —                 |
+| FCD concept overview              | 1    | Yes                    | —                           | —                 |
+| Market sizing & problem statement | 1    | Yes                    | —                           | —                 |
+| LWM architecture diagram          | 2    | No (NDA required)      | Possibly                    | Yes               |
+| BYOC deployment model             | 2    | No (NDA required)      | No                          | Yes               |
+| Knowledge graph structure         | 3B   | No (NDA required)      | No (trade secret preferred) | **Yes**           |
+| Knowledge graph node taxonomy     | 3B   | No (NDA required)      | No                          | **Yes**           |
+| CIDM method                       | 3A   | No (NDA required)      | **Yes (priority)**          | Partial           |
+| Causal reasoning algorithm        | 3A   | No (NDA required)      | **Yes (candidate)**         | Until filed       |
+| Temporal latent space method      | 3A   | No (NDA required)      | **Yes (candidate)**         | Until filed       |
+| Customer data                     | —    | No (GDPR + NDA)        | No                          | Yes               |
+| Pricing models                    | 2    | No (NDA required)      | No                          | Yes               |
+| Source code (general)             | 2    | No                     | No                          | Yes               |
+| Source code (patentable methods)  | 3A   | No                     | Included in patent          | Yes (until filed) |
 
-***
+---
 
 ## 8. Disclosure Workflow
 
@@ -393,26 +410,26 @@ ONGOING RELATIONSHIP
 
 ### 8.2 Conference / Public Speaking Rules
 
-| Allowed | Not Allowed |
-|---------|-------------|
-| Problem statement (EU compliance gap) | Algorithm details |
-| High-level solution overview | Knowledge graph structure |
-| Customer impact metrics (anonymized) | Specific benchmarks with methodology |
-| "We use AI for compliance" | "We use causal DAGs with temporal decay" |
-| Architecture at box-level | Internal component interactions |
-| NVIDIA partnership mention | Edge AI model architecture |
+| Allowed                               | Not Allowed                              |
+| ------------------------------------- | ---------------------------------------- |
+| Problem statement (EU compliance gap) | Algorithm details                        |
+| High-level solution overview          | Knowledge graph structure                |
+| Customer impact metrics (anonymized)  | Specific benchmarks with methodology     |
+| "We use AI for compliance"            | "We use causal DAGs with temporal decay" |
+| Architecture at box-level             | Internal component interactions          |
+| NVIDIA partnership mention            | Edge AI model architecture               |
 
-***
+---
 
 ## 9. Patent Strategy & Timeline
 
 ### 9.1 Filing Priority
 
-| Priority | Innovation | File By | Status |
-|----------|-----------|---------|--------|
-| **P1** | CIDM method | **ASAP — before next investor pitch** | Patent pending |
-| **P2** | Causal reasoning for regulatory risk | Q2 2026 | Prior art search needed |
-| **P3** | LWM temporal latent space | Q3 2026 | Concept development |
+| Priority | Innovation                           | File By                               | Status                  |
+| -------- | ------------------------------------ | ------------------------------------- | ----------------------- |
+| **P1**   | CIDM method                          | **ASAP — before next investor pitch** | Patent pending          |
+| **P2**   | Causal reasoning for regulatory risk | Q2 2026                               | Prior art search needed |
+| **P3**   | LWM temporal latent space            | Q3 2026                               | Concept development     |
 
 ### 9.2 Filing Path
 
@@ -435,28 +452,28 @@ international filing               │
 
 ### 9.3 PRH (Patentti- ja rekisterihallitus) Process
 
-| Step | Timeline | Action |
-|------|----------|--------|
-| 1. Prior art search | 2–4 weeks | Search existing patents in CIDM/regulatory AI space |
-| 2. Draft claims | 4–6 weeks | Work with patent attorney to define claims |
-| 3. File at PRH | 1 week | Submit Finnish national application |
-| 4. Priority date | Day of filing | 12-month priority period begins |
-| 5. PCT filing | Before month 12 | International patent application |
-| 6. National phase | Month 30 | Enter specific countries (EPO, USPTO) |
-| 7. Grant | 2–4 years | Patent prosecution and examination |
+| Step                | Timeline        | Action                                              |
+| ------------------- | --------------- | --------------------------------------------------- |
+| 1. Prior art search | 2–4 weeks       | Search existing patents in CIDM/regulatory AI space |
+| 2. Draft claims     | 4–6 weeks       | Work with patent attorney to define claims          |
+| 3. File at PRH      | 1 week          | Submit Finnish national application                 |
+| 4. Priority date    | Day of filing   | 12-month priority period begins                     |
+| 5. PCT filing       | Before month 12 | International patent application                    |
+| 6. National phase   | Month 30        | Enter specific countries (EPO, USPTO)               |
+| 7. Grant            | 2–4 years       | Patent prosecution and examination                  |
 
 ### 9.4 Budget Allocation
 
-| Item | Year 1 | Year 2 | Year 3 |
-|------|--------|--------|--------|
-| Prior art searches (3×) | €12,000 | — | — |
-| Finnish filings (3×) | €20,000 | — | — |
-| PCT filings (3×) | €30,000 | — | — |
-| National phase (EU + US, 3×) | — | €60,000 | €30,000 |
-| Patent attorney (ongoing) | €15,000 | €20,000 | €15,000 |
-| **Total** | **€77,000** | **€80,000** | **€45,000** |
+| Item                         | Year 1      | Year 2      | Year 3      |
+| ---------------------------- | ----------- | ----------- | ----------- |
+| Prior art searches (3×)      | €12,000     | —           | —           |
+| Finnish filings (3×)         | €20,000     | —           | —           |
+| PCT filings (3×)             | €30,000     | —           | —           |
+| National phase (EU + US, 3×) | —           | €60,000     | €30,000     |
+| Patent attorney (ongoing)    | €15,000     | €20,000     | €15,000     |
+| **Total**                    | **€77,000** | **€80,000** | **€45,000** |
 
-***
+---
 
 ## 10. Trade Secret Management
 
@@ -475,6 +492,7 @@ Maintain a register at `Admin/TRADE_SECRET_REGISTER.md` (to be created) with:
 ### 10.2 Quarterly Review Process
 
 Every quarter:
+
 1. Review trade secret register for completeness
 2. Verify access controls are current (remove departed employees)
 3. Check that all trade secrets are still marked appropriately in code
@@ -484,12 +502,14 @@ Every quarter:
 ### 10.3 Employee Onboarding / Offboarding
 
 **Onboarding:**
+
 - Sign employment contract with confidentiality clause
 - Sign specific trade secret acknowledgment
 - Access granted on need-to-know basis only
 - Training on IPR classification tiers
 
 **Offboarding:**
+
 - Revoke all system access immediately
 - Remind of ongoing confidentiality obligations
 - Confirm return/deletion of all confidential materials
@@ -510,26 +530,27 @@ Every quarter:
 
 All files containing trade secrets must include this header. Git pre-commit hooks should verify the presence of classification markers on sensitive files.
 
-***
+---
 
 ## 11. Legal Framework & Jurisdiction
 
 ### 11.1 Applicable Law
 
-| Law | Scope | Key Protection |
-|-----|-------|---------------|
-| **EU Trade Secrets Directive 2016/943** | All EU member states | Trade secret definition, remedies, protection measures |
-| **Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)** | Finland | National implementation of EU Directive |
-| **Finnish Patent Act (patenttilaki 550/1967)** | Finland | National patent protection |
-| **European Patent Convention (EPC)** | 39 countries | Regional patent protection via EPO |
-| **Patent Cooperation Treaty (PCT)** | 157 countries | International patent filing |
-| **GDPR (EU 2016/679)** | EU/EEA | Personal data protection (overlaps with some trade secrets) |
-| **Finnish Copyright Act (tekijänoikeuslaki 404/1961)** | Finland | Software copyright (automatic, no registration needed) |
-| **EU AI Act (2024/1689)** | EU | AI system documentation requirements (may conflict with trade secrets — see §11.3) |
+| Law                                                         | Scope                | Key Protection                                                                     |
+| ----------------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------- |
+| **EU Trade Secrets Directive 2016/943**                     | All EU member states | Trade secret definition, remedies, protection measures                             |
+| **Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)** | Finland              | National implementation of EU Directive                                            |
+| **Finnish Patent Act (patenttilaki 550/1967)**              | Finland              | National patent protection                                                         |
+| **European Patent Convention (EPC)**                        | 39 countries         | Regional patent protection via EPO                                                 |
+| **Patent Cooperation Treaty (PCT)**                         | 157 countries        | International patent filing                                                        |
+| **GDPR (EU 2016/679)**                                      | EU/EEA               | Personal data protection (overlaps with some trade secrets)                        |
+| **Finnish Copyright Act (tekijänoikeuslaki 404/1961)**      | Finland              | Software copyright (automatic, no registration needed)                             |
+| **EU AI Act (2024/1689)**                                   | EU                   | AI system documentation requirements (may conflict with trade secrets — see §11.3) |
 
 ### 11.2 Copyright (Automatic Protection)
 
 Software source code is automatically protected by copyright under Finnish law:
+
 - **Duration:** 70 years from author's death
 - **Registration:** Not required (automatic)
 - **Scope:** Protects expression, not ideas/methods
@@ -537,27 +558,30 @@ Software source code is automatically protected by copyright under Finnish law:
 
 ### 11.3 EU AI Act vs. Trade Secrets
 
-The EU AI Act (enforceable August 2, 2026) requires transparency for high-risk AI systems, which may conflict with trade secret protection:
+The EU AI Act (Annex III enforcement: 2 Dec 2027 per Omnibus provisional agreement 7 May 2026; was August 2, 2026) requires transparency for high-risk AI systems, which may conflict with trade secret protection:
 
 **Potential conflict areas:**
+
 - Article 13: Transparency requirements for high-risk AI
 - Article 12: Automatic logging requirements
 - Article 71: Market surveillance access
 
 **Mitigation:**
-- Document the *reasoning lineage* (required by AI Act) without exposing the *specific implementation*
+
+- Document the _reasoning lineage_ (required by AI Act) without exposing the _specific implementation_
 - Use "Reasoning Lineage Documentation" pattern from `DWS_SECURITY_STANDARD.md`
 - Cooperate with authorities under confidentiality protections (Article 78 of AI Act allows trade secret protection during supervision)
 
 ### 11.4 Dispute Resolution
 
 Per NDA template (`Partners/NDA_TEMPLATE_EU_2026.md`):
+
 - **Governing law:** Finland
 - **Arbitration:** Helsinki, Finland Chamber of Commerce
 - **Interim relief:** Available from any competent court
 - **Contractual penalties:** EUR 50,000–500,000 depending on partner tier
 
-***
+---
 
 ## 12. Implementation Checklist
 
@@ -590,7 +614,7 @@ Per NDA template (`Partners/NDA_TEMPLATE_EU_2026.md`):
 - [ ] **Patent prosecution monitoring**
 - [ ] **New innovation assessment** — evaluate all new methods for patentability
 
-***
+---
 
 ## Summary: Three Tiers in Practice
 
@@ -620,6 +644,6 @@ Per NDA template (`Partners/NDA_TEMPLATE_EU_2026.md`):
 
 **Core principle:** Trade secret for things a competitor can't see (knowledge graph internals). Patent for things a competitor could independently discover (algorithmic methods). NDA for everything in between.
 
-***
+---
 
-*This document is itself classified as CONFIDENTIAL — INTERNAL USE ONLY. Do not share outside Lifetime Oy without CEO approval.*
+_This document is itself classified as CONFIDENTIAL — INTERNAL USE ONLY. Do not share outside Lifetime Oy without CEO approval._

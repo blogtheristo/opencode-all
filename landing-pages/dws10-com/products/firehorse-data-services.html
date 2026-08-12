@@ -1,63 +1,864 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Firehorse Data Services | Lifetime Firehorse™Store</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
+         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
+         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
     <style>
-        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 800px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }
-        h1 { color: #60a5fa; }
-        .price { font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 20px; }
-        a.buy-btn { display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }
-        a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
+      body {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
+        flex-grow: 1;
+      }
+      h1 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+      }
+      .price {
+        font-size: 2rem;
+        color: #4ade80;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      a.buy-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        padding: 15px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        margin-top: 20px;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
+      }
+      th {
+        text-align: left;
+        padding: 10px 12px;
+        background: rgba(184, 134, 11, 0.1);
+        color: var(--color-gold-light);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid rgba(212, 168, 67, 0.35);
+      }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
+      }
+      a.back-link {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+      }
 
-        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
-        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
+      .nav-header {
+        background: #1e293b;
+        padding: 20px;
+        border-bottom: 1px solid #334155;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: #60a5fa;
+      }
+
+      .lang-bar {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .lang-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #64748b;
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        transition: all 0.15s;
+        font-family: inherit;
+      }
+      .lang-btn.active,
+      .lang-btn:hover {
+        background: rgba(249, 115, 22, 0.15);
+        border-color: rgba(249, 115, 22, 0.4);
+        color: #f97316;
+      }
+      .personal-desc {
+        color: #cbd5e1;
+        line-height: 1.7;
+        margin: 0 0 28px;
+      }
+      .personal-desc p.opener {
+        font-size: 1.02rem;
+        color: #e2e8f0;
+        margin: 0 0 18px;
+      }
+      .personal-desc h3.section {
+        color: #f97316;
+        font-size: 1.02rem;
+        margin: 18px 0 6px;
+        font-weight: 700;
+      }
+      .personal-desc ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 6px;
+      }
+      .personal-desc ul li {
+        padding-left: 18px;
+        position: relative;
+        margin-bottom: 6px;
+        color: #cbd5e1;
+      }
+      .personal-desc ul li:before {
+        content: "★";
+        color: #f97316;
+        position: absolute;
+        left: 0;
+        font-size: 0.85rem;
+        top: 2px;
+      }
+      .personal-desc a.terms-link {
+        color: #60a5fa;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      [data-lang] {
+        display: none;
+      }
+      [data-lang].lang-active {
+        display: block;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="nav-header">
-        <a href="../../" class="nav-brand">
-            DWS IQ Platform
-        </a>
-        <div class="nav-links">
-            <a href="../../">Home</a>
-            <a href="../../buy/">Store</a>
-        </div>
+      <a href="../../" class="nav-brand"> DWS IQ Platform </a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../../buy/">Store</a>
+      </div>
     </div>
     <div class="container">
-        <a href="../" class="back-link">← Back to Store</a>
-        <h1>Firehorse Data Services</h1>
-        <div class="price">€899</div>
-        <div class="content">
-            <p>Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.</p>
-            <ul>
-                <li>API-driven data products</li>
-                <li>Data monetization strategy</li>
-                <li>Remote and on-site consulting</li>
-            </ul>
-            <h2>Built on the DWS Data Sovereignty Standard</h2>
-            <p>Every Firehorse Data Service runs on EU-sovereign infrastructure governed by 11 EU regulations:</p>
-            <ul>
-                <li><strong>Two-Tier HTAP:</strong> Aiven PostgreSQL (EU Finland) for production analytics + on-premises edge for local processing</li>
-                <li><strong>TimescaleDB Hypercore:</strong> 90&ndash;98% compression, 10&ndash;100&times; faster analytical queries on time-series data</li>
-                <li><strong>EU AI Act Art 12:</strong> 7-year immutable audit trail for all data transformations</li>
-                <li><strong>GDPR by design:</strong> Row-Level Security, retention policies mapped to erasure rights, encryption at rest</li>
-                <li><strong>Extension governance:</strong> Every database extension sovereignty-assessed (vendor HQ, DPA, Schrems II)</li>
-            </ul>
-        </div>
-        <a href="https://dws10.com/book" class="buy-btn">📅 Book Session</a>
+      <a href="../" class="back-link">← Back to Store</a>
+      <h1>Firehorse Data Services</h1>
+      <p style="color: #94a3b8; margin-top: -4px; font-weight: 600">
+        The data-products layer of the Firehorse line — the data and enrichment engine within the
+        DWS IQ Industrial Intelligence suite.
+      </p>
+      <div class="lang-bar">
+        <button class="lang-btn" data-pick="fi">FI</button>
+        <button class="lang-btn" data-pick="sv">SV</button>
+        <button class="lang-btn" data-pick="en">EN</button>
+      </div>
+      <div class="price">€899</div>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">
+          Kun huomaat, että 80% datastasi vain makaa SAP-tauluissa eikä tuo riviäkään liikevaihtoa.
+          Olipa kyseessä toimittajaverkostosi päästödata, asiakkaidesi käyttötiedot tai
+          sensoritrendien historia, Firehorse Data Services auttaa sinua tekemään datastasi
+          rahanlähteen paremmin kuin yksikään perinteinen BI-projekti.
+        </p>
+        <h3 class="section">Muunna datasi tuotoiksi:</h3>
+        <ul>
+          <li>Käynnistä API-pohjaiset datatuotteet, joista asiakkaasi ovat valmiit maksamaan.</li>
+          <li>
+            Suunnittele dataportfolio yhdessä asiantuntijamme kanssa — etänä tai paikan päällä.
+          </li>
+          <li>
+            Rikastuta operatiivinen datasi compliance- ja markkinatiedolla samalla työnkululla.
+          </li>
+        </ul>
+        <h3 class="section">Säilytä suvereniteetti ja luottamus:</h3>
+        <ul>
+          <li>
+            Aja kaikki EU-suvernissa pilvessä (Aiven PostgreSQL, Suomi) — ei CLOUD Act -altistusta.
+          </li>
+          <li>
+            Säilytä 7 vuoden muuttumaton auditointijälki kaikista muunnoksista (EU AI Act Art 12).
+          </li>
+          <li>
+            Rakenna GDPR by design: RLS, retention-säännöt ja salaus lepotilassa, oletusarvona.
+          </li>
+        </ul>
+        <h3 class="section">Skaalaa kasvuun ilman uudelleenkirjoittamista:</h3>
+        <ul>
+          <li>
+            Hyödynnä TimescaleDB Hypercore: 90–98% pakkaus, 10–100× nopeammat aikasarjakyselyt.
+          </li>
+          <li>Lisää uusia datalähteitä Two-Tier HTAP -arkkitehtuurilla ilman alustamuutoksia.</li>
+          <li>
+            Hallitse jokainen tietokantalaajennos sovereignty-arvioiden mukaan — ei piileviä
+            riskejä.
+          </li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">
+          När ni inser att 80% av er data bara ligger i SAP-tabeller utan att skapa en rad intäkter.
+          Oavsett om det är leverantörsnätverkets utsläppsdata, kundens användardata eller
+          sensortrenders historik, hjälper Firehorse Data Services er att göra data till en
+          intäktskälla bättre än något traditionellt BI-projekt.
+        </p>
+        <h3 class="section">Förvandla er data till intäkter:</h3>
+        <ul>
+          <li>Lansera API-baserade dataprodukter som era kunder är villiga att betala för.</li>
+          <li>Designa dataportföljen tillsammans med vår expert — på distans eller på plats.</li>
+          <li>Berika operativ data med compliance- och marknadsdata i samma arbetsflöde.</li>
+        </ul>
+        <h3 class="section">Behåll suveränitet och förtroende:</h3>
+        <ul>
+          <li>
+            Kör allt i EU-suverän cloud (Aiven PostgreSQL, Finland) — ingen CLOUD Act-exponering.
+          </li>
+          <li>
+            Behåll 7-årig oföränderlig revisionsspår för alla transformationer (EU AI Act Art 12).
+          </li>
+          <li>Bygg GDPR by design: RLS, retentionsregler och kryptering i vila som standard.</li>
+        </ul>
+        <h3 class="section">Skala för tillväxt utan omskrivning:</h3>
+        <ul>
+          <li>
+            Använd TimescaleDB Hypercore: 90–98% komprimering, 10–100× snabbare tidsseriefrågor.
+          </li>
+          <li>Lägg till nya datakällor med Two-Tier HTAP-arkitektur utan plattformsändringar.</li>
+          <li>Styr varje databastillägg via sovereignty-bedömningar — inga dolda risker.</li>
+        </ul>
+        <p>
+          <a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a>
+        </p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">
+          When you realise 80% of your data just sits in SAP tables earning no revenue. Whether it's
+          your supplier network's emissions, your customers' usage patterns or sensor trends from
+          the last five years, Firehorse Data Services helps you turn data into income better than
+          any traditional BI project will.
+        </p>
+        <h3 class="section">Turn your data into revenue:</h3>
+        <ul>
+          <li>Launch API-driven data products customers are willing to pay for.</li>
+          <li>Design the data portfolio with our expert — remote or on-site.</li>
+          <li>
+            Enrich operational data with compliance and market intelligence in the same workflow.
+          </li>
+        </ul>
+        <h3 class="section">Keep sovereignty and trust:</h3>
+        <ul>
+          <li>
+            Run everything on EU-sovereign cloud (Aiven PostgreSQL, Finland) — zero CLOUD Act
+            exposure.
+          </li>
+          <li>
+            Retain a 7-year immutable audit trail for every transformation (EU AI Act Art 12).
+          </li>
+          <li>Build GDPR by design: RLS, retention policies and encryption at rest, by default.</li>
+        </ul>
+        <h3 class="section">Scale for growth without rewrites:</h3>
+        <ul>
+          <li>
+            Use TimescaleDB Hypercore: 90–98% compression, 10–100× faster time-series queries.
+          </li>
+          <li>Add new data sources via the Two-Tier HTAP architecture without platform changes.</li>
+          <li>Govern every database extension via sovereignty assessments — no hidden risks.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
+      <script>
+        (function () {
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
+          function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
+            document.querySelectorAll("[data-lang]").forEach(function (el) {
+              el.classList.toggle("lang-active", el.getAttribute("data-lang") === l);
+            });
+            document.querySelectorAll(".lang-btn").forEach(function (btn) {
+              btn.classList.toggle("active", btn.getAttribute("data-pick") === l);
+            });
+            localStorage.setItem("dws-lang", l);
+          }
+          applyLang(lang);
+          document.querySelectorAll(".lang-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              applyLang(this.getAttribute("data-pick"));
+            });
+          });
+          window.addEventListener("dws-lang-change", function (e) {
+            applyLang(e.detail.lang);
+          });
+        })();
+      </script>
+
+      <div class="content">
+        <h2>Built on the DWS Data Sovereignty Standard</h2>
+        <p>
+          Every Firehorse Data Service runs on EU-sovereign infrastructure governed by 11 EU
+          regulations:
+        </p>
+        <ul>
+          <li>
+            <strong>Two-Tier HTAP:</strong> Aiven PostgreSQL (EU Finland) for production analytics +
+            on-premises edge for local processing
+          </li>
+          <li>
+            <strong>TimescaleDB Hypercore:</strong> 90&ndash;98% compression, 10&ndash;100&times;
+            faster analytical queries on time-series data
+          </li>
+          <li>
+            <strong>EU AI Act Art 12:</strong> 7-year immutable audit trail for all data
+            transformations
+          </li>
+          <li>
+            <strong>GDPR by design:</strong> Row-Level Security, retention policies mapped to
+            erasure rights, encryption at rest
+          </li>
+          <li>
+            <strong>Extension governance:</strong> Every database extension sovereignty-assessed
+            (vendor HQ, DPA, Schrems II)
+          </li>
+        </ul>
+      </div>
+      <a href="https://dws10.com/book" class="buy-btn">📅 Book Session</a>
+      <p class="page-version">Firehorse Data Services — page v1.1 · 2026-06-23</p>
     </div>
-    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
-        <p><strong>LEGAL NOTICE</strong></p>
-        <p><strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland).</p>
-        <p><strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.</p>
-        <p style="margin-top: 20px;">Copyright © 2025 Lifetime Oy. All Rights Reserved.</p>
+    <section
+      class="eco-block"
+      id="dws-ecosystem"
+      aria-label="DWS ecosystem — related products + EU industry workflows"
+    >
+      <style>
+        .eco-block {
+          background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+          border-top: 4px solid #003399;
+          border-bottom: 4px solid #76b900;
+          margin: 40px 0 0;
+          padding: 56px 20px 64px;
+          font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+          color: #e2e8f0;
+        }
+        .eco-block .eco-inner {
+          max-width: 1080px;
+          margin: 0 auto;
+        }
+        .eco-block .eco-tag {
+          display: inline-block;
+          background: #76b900;
+          color: #000;
+          padding: 5px 14px;
+          border-radius: 4px;
+          font-size: 0.74rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+        .eco-block h2.eco-h {
+          font-size: clamp(1.45rem, 3.2vw, 2rem);
+          font-weight: 800;
+          color: #f8fafc;
+          margin: 0 0 10px;
+          line-height: 1.2;
+        }
+        .eco-block .eco-lead {
+          color: #cbd5e1;
+          max-width: 780px;
+          margin-bottom: 28px;
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+        .eco-block h3.eco-section-h {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: #67e8f9;
+          margin: 36px 0 14px;
+          padding-bottom: 6px;
+          border-bottom: 1px solid rgba(103, 232, 249, 0.25);
+        }
+        .eco-block strong {
+          color: #f1f5f9;
+        }
+        .eco-block .eco-tier-label {
+          display: block;
+          font-size: 0.68rem;
+          font-weight: 700;
+          color: #a3e635;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 14px;
+        }
+        .eco-block .eco-product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 14px;
+          margin: 6px 0 12px;
+        }
+        .eco-block .eco-product-card {
+          display: block;
+          background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+          border: 1px solid rgba(118, 185, 0, 0.22);
+          border-radius: 10px;
+          padding: 16px 18px;
+          text-decoration: none;
+          transition:
+            border-color 0.25s ease,
+            transform 0.2s ease;
+          color: inherit;
+        }
+        .eco-block .eco-product-card:hover {
+          border-color: rgba(118, 185, 0, 0.6);
+          transform: translateY(-2px);
+          text-decoration: none;
+        }
+        .eco-block .eco-product-card .eco-pc-tag {
+          display: inline-block;
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          background: rgba(118, 185, 0, 0.18);
+          color: #a3e635;
+          border: 1px solid rgba(118, 185, 0, 0.35);
+          border-radius: 4px;
+          padding: 2px 7px;
+          margin-bottom: 7px;
+        }
+        .eco-block .eco-product-card .eco-pc-name {
+          color: #f1f5f9;
+          font-weight: 700;
+          font-size: 0.92rem;
+          margin-bottom: 3px;
+          line-height: 1.3;
+        }
+        .eco-block .eco-product-card .eco-pc-price {
+          display: none;
+          color: #76b900;
+          font-weight: 800;
+          font-size: 1.1rem;
+          margin-bottom: 4px;
+        }
+        .eco-block .eco-product-card .eco-pc-desc {
+          color: #94a3b8;
+          font-size: 0.76rem;
+          line-height: 1.4;
+        }
+        .eco-block .eco-industries-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 10px;
+          margin: 14px 0 4px;
+        }
+        .eco-block .eco-industries-grid > div {
+          background: rgba(15, 23, 42, 0.5);
+          border-left: 3px solid #76b900;
+          padding: 11px 14px;
+          font-size: 0.82rem;
+          color: #cbd5e1;
+          line-height: 1.45;
+          border-radius: 0 6px 6px 0;
+        }
+        .eco-block .eco-industries-grid > div strong {
+          color: #67e8f9;
+        }
+        .eco-block .eco-industries-grid > div.eco-flagship {
+          border-left-color: #d4a843;
+          background: rgba(212, 168, 67, 0.06);
+        }
+        .eco-block .eco-callout {
+          background: rgba(6, 182, 212, 0.08);
+          border-left: 4px solid #06b6d4;
+          padding: 14px 18px;
+          margin: 24px 0 12px;
+          border-radius: 0 8px 8px 0;
+          color: #cbd5e1;
+          font-size: 0.92rem;
+          line-height: 1.5;
+        }
+        .eco-block .eco-cta-row {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 22px;
+        }
+        .eco-block .eco-cta {
+          display: inline-block;
+          padding: 11px 22px;
+          background: #76b900;
+          color: #000;
+          border-radius: 6px;
+          font-weight: 700;
+          font-size: 0.92rem;
+          text-decoration: none;
+          letter-spacing: 0.02em;
+        }
+        .eco-block .eco-cta:hover {
+          background: #5a8c00;
+          color: #fff;
+          text-decoration: none;
+        }
+        .eco-block .eco-cta-secondary {
+          background: transparent;
+          border: 1px solid rgba(226, 232, 240, 0.4);
+          color: #e2e8f0;
+        }
+        .eco-block .eco-cta-secondary:hover {
+          border-color: #fff;
+          background: rgba(255, 255, 255, 0.08);
+          color: #fff;
+        }
+        @media (max-width: 640px) {
+          .eco-block {
+            padding: 40px 16px 50px;
+          }
+          .eco-block h3.eco-section-h {
+            font-size: 1rem;
+          }
+          .eco-block .eco-product-card {
+            padding: 14px 16px;
+          }
+        }
+      </style>
+
+      <div class="eco-inner">
+        <div>
+          <span class="eco-tag">The Full Picture</span>
+          <h2 class="eco-h">The DWS sovereign stack — every layer, one ecosystem.</h2>
+          <p class="eco-lead">
+            This product is one piece. The whole stack ties together: sovereign hardware at the
+            edge, on-premise inference, an EU service team, and the recurring NVIDIA-model
+            relationship that compounds. Pick the next rung you need.
+          </p>
+        </div>
+
+        <h3 class="eco-section-h">Related products — the full ladder</h3>
+
+        <span class="eco-tier-label">Sensor edge — NVIDIA Jetson tier</span>
+        <div class="eco-product-grid">
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Single sensor</span>
+            <div class="eco-pc-name">Jetson Sensor Node (Orin Nano Super)</div>
+            <div class="eco-pc-price">€764</div>
+            <div class="eco-pc-desc">
+              67 TOPS · 8 GB · camera, acoustic, IoT, bedside — events only forward.
+            </div>
+          </a>
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Mid · 2–4 lanes</span>
+            <div class="eco-pc-name">Jetson Sensor Mid (Orin NX 16 GB)</div>
+            <div class="eco-pc-price">€1,990</div>
+            <div class="eco-pc-desc">
+              100 TOPS · 16 GB · rail wayside, mid-size kalustohalli, factory cell.
+            </div>
+          </a>
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Concentrator · 4–8 lanes</span>
+            <div class="eco-pc-name">Jetson Sensor Concentrator (AGX Orin)</div>
+            <div class="eco-pc-price">€2,694</div>
+            <div class="eco-pc-desc">
+              275 TOPS · 64 GB · VPK forward node, port operations, energy substation.
+            </div>
+          </a>
+        </div>
+
+        <span class="eco-tier-label"
+          >Operations &amp; situation command — NVIDIA GB10 Grace Blackwell</span
+        >
+        <div class="eco-product-grid">
+          <a href="/products/edge-node-gn100.html" class="eco-product-card">
+            <span class="eco-pc-tag">Compliance · 1-node</span>
+            <div class="eco-pc-name">Control Room (Acer Veriton GN100)</div>
+            <div class="eco-pc-price">€5,294</div>
+            <div class="eco-pc-desc">1 PFLOPS FP4 · 128 GB · sovereign AI brain on the desk.</div>
+          </a>
+          <a href="/products/dgx-spark.html" class="eco-product-card">
+            <span class="eco-pc-tag">NVIDIA-branded</span>
+            <div class="eco-pc-name">DGX Spark</div>
+            <div class="eco-pc-price">€5,994</div>
+            <div class="eco-pc-desc">
+              Same GB10 silicon in NVIDIA's own SKU. ConnectX-7 pair for 405 B-param models.
+            </div>
+          </a>
+          <a href="/products/situation-room.html" class="eco-product-card">
+            <span class="eco-pc-tag">Crisis ops · 2-node</span>
+            <div class="eco-pc-name">Situation Room (2× bridged GN100)</div>
+            <div class="eco-pc-price">€10,093</div>
+            <div class="eco-pc-desc">Tensor-parallel · failover · VPK drone defence dual-use.</div>
+          </a>
+          <a href="/products/igx-orin.html" class="eco-product-card">
+            <span class="eco-pc-tag">Industrial / medical</span>
+            <div class="eco-pc-name">IGX Orin</div>
+            <div class="eco-pc-price">€11,990</div>
+            <div class="eco-pc-desc">
+              ECC memory · 10-year NVIDIA support · Pharma, healthcare, nuclear.
+            </div>
+          </a>
+        </div>
+
+        <span class="eco-tier-label">Platform · subscription · service</span>
+        <div class="eco-product-grid">
+          <a href="/products/dwsiq.html" class="eco-product-card">
+            <span class="eco-pc-tag">Platform</span>
+            <div class="eco-pc-name">DWS IQ 6 — Skilled Agents Fleet</div>
+            <div class="eco-pc-price">€4,999</div>
+            <div class="eco-pc-desc">
+              EU compliance automation: Fit for 55, CSRD, EPBD, EU AI Act Article 12.
+            </div>
+          </a>
+          <a href="/products/aegis.html" class="eco-product-card">
+            <span class="eco-pc-tag">Sovereign tier</span>
+            <div class="eco-pc-name">DWS IQ Aegis</div>
+            <div class="eco-pc-price">from €59,990</div>
+            <div class="eco-pc-desc">
+              Single-tenant sovereign AI · 21 EU-regulated industries · dual-use.
+            </div>
+          </a>
+          <a href="/products/nvidia-model-install.html" class="eco-product-card">
+            <span class="eco-pc-tag">Install + service</span>
+            <div class="eco-pc-name">NVIDIA Model Install + Full Service</div>
+            <div class="eco-pc-price">€995 / device</div>
+            <div class="eco-pc-desc">
+              For your own NVIDIA hardware or a fleet expansion. Full service bundled.
+            </div>
+          </a>
+          <a href="/buy/" class="eco-product-card">
+            <span class="eco-pc-tag">Recurring</span>
+            <div class="eco-pc-name">Sovereign Model Updates Subscription</div>
+            <div class="eco-pc-price">€299 / mo</div>
+            <div class="eco-pc-desc">
+              Monthly NIMs · weekly security · daily hotfixes · 24/7 support · warranty.
+            </div>
+          </a>
+        </div>
+
+        <div class="eco-callout">
+          Every box ships with on-site install + operator training + 24/7 technical support +
+          warranty servicing + remote configuration. The NVIDIA models compound monthly. Lifetime Oy
+          is an <strong>NVIDIA Connect ISV</strong> (approved 2026-03-08) and
+          <strong>NVIDIA Inception applicant</strong> on the Sovereign EU Edge AI track. Finnish /
+          EU B2B pricing (VAT 0 % reverse charge).
+        </div>
+
+        <h3 class="eco-section-h">25 EU-regulated industries — same pattern, your bundle</h3>
+        <p class="eco-lead" style="margin-bottom: 12px">
+          The same sovereign topology — sensor edge → operations command → situation command,
+          wrapped in service — repeats across every EU-regulated industry. Different bundle per
+          workload, same moat underneath.
+        </p>
+        <div class="eco-industries-grid">
+          <div>
+            <strong>1. Construction</strong><br />Site safety dispatch (SiteSense vision + Whisper +
+            Llama Nemotron Super) · EPBD / CSRD report generation · BIM-aware reasoning
+          </div>
+          <div>
+            <strong>2. Cement</strong><br />Emissions intensity (kgCO₂ / t cement) · ETS allowance
+            calculation · CBAM exports · kiln anomaly detection
+          </div>
+          <div>
+            <strong>3. Steel</strong><br />CBAM origin tracking · energy carrier optimisation · ETS
+            · scrap composition vision
+          </div>
+          <div>
+            <strong>4. Aluminium</strong><br />CBAM imports compliance · smelter energy logs · ETS ·
+            pot-line vision QA
+          </div>
+          <div>
+            <strong>5. Chemicals</strong><br />REACH dossier drafting · hazardous incident response
+            triage · process safety event RAG
+          </div>
+          <div>
+            <strong>6. Pharmaceuticals</strong><br />GMP batch release Article 12 · clinical trial
+            protocol compliance · GxP sovereign log
+          </div>
+          <div>
+            <strong>7. Healthcare (hospitals)</strong><br />Local-data triage assist · GDPR-safe
+            dictation (Nemotron Speech) · sovereign EHR Q&amp;A
+          </div>
+          <div class="eco-flagship">
+            <strong>8. Defence / dual-use</strong><br />Drone detection (YOLOv8-x + acoustic +
+            Cosmos Reason 2) · export-control screening · Reg 2021/821 reasoning
+          </div>
+          <div>
+            <strong>9. Energy / electricity grid</strong><br />Balancing forecasts · NIS2 24 h
+            incident reports · sovereign DSO/TSO telemetry
+          </div>
+          <div>
+            <strong>10. Oil &amp; gas</strong><br />Pipeline anomaly detection · sanctions screening
+            · sovereign well-log RAG
+          </div>
+          <div>
+            <strong>11. Nuclear</strong><br />IAEA reporting prep · operational safety log analysis
+            · air-gapped reactor twin
+          </div>
+          <div>
+            <strong>12. Water utilities</strong><br />Leak detection on local SCADA · sovereign
+            customer + meter data · NIS2 incident logging
+          </div>
+          <div>
+            <strong>13. Telecommunications</strong><br />NIS2 24 h incident reports · sovereign
+            call-metadata analysis · BGP / DNS anomaly triage
+          </div>
+          <div>
+            <strong>14. Banking / finance</strong><br />DORA operational resilience · MiFID II
+            call-log review · sovereign KYC RAG
+          </div>
+          <div>
+            <strong>15. Insurance</strong><br />Claims triage on local PII · fraud signal detection
+            · sovereign claimant document Q&amp;A
+          </div>
+          <div>
+            <strong>16. Maritime / shipping</strong><br />MRV CO₂ reporting · port operations
+            dispatch · sovereign AIS &amp; cargo manifests
+          </div>
+          <div>
+            <strong>17. Aviation</strong><br />EU ETS aviation reporting · NOTAM-aware dispatch ·
+            sovereign passenger / crew data
+          </div>
+          <div>
+            <strong>18. Rail</strong><br />Predictive maintenance · ERTMS sovereign telemetry · NIS2
+            incident reports
+          </div>
+          <div>
+            <strong>19. Logistics &amp; customs</strong><br />Declaration assist · dual-use export
+            checking · sovereign carrier manifests
+          </div>
+          <div>
+            <strong>20. Agriculture</strong><br />CAP compliance · traceability of crop inputs ·
+            EUDR due diligence
+          </div>
+          <div>
+            <strong>21. Food processing</strong><br />HACCP audit assist · allergen tracing ·
+            sovereign batch genealogy
+          </div>
+          <div>
+            <strong>22. Forestry / pulp &amp; paper</strong><br />EUDR deforestation due diligence ·
+            chain of custody · sovereign harvest plans
+          </div>
+          <div>
+            <strong>23. Mining</strong><br />CRMA reporting (critical raw materials) · safety
+            dispatch · sovereign assay data
+          </div>
+          <div class="eco-flagship">
+            <strong>24. Government / civil defence (VPK)</strong><br />Drone defence dual-use ·
+            dispatch + incident report generation · sovereign citizen data
+          </div>
+          <div>
+            <strong>25. Education / research</strong><br />Sovereign research data · intra-EU
+            collaboration without cloud LLMs · EU AI Act literacy training
+          </div>
+        </div>
+
+        <div class="eco-cta-row">
+          <a href="/buy/" class="eco-cta">Browse the full catalogue →</a>
+          <a href="/price-list/" class="eco-cta eco-cta-secondary">Open price list (v1.20)</a>
+          <a href="/nvidia-inception/" class="eco-cta eco-cta-secondary">NVIDIA Inception page</a>
+          <a
+            href="mailto:risto@onelifetime.world?subject=DWS sovereign stack — demo request"
+            class="eco-cta eco-cta-secondary"
+            >Book a demo</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem">
+      <p><strong>LEGAL NOTICE</strong></p>
+      <p>
+        <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo,
+        Finland).
+      </p>
+      <p>
+        <strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere
+        to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the
+        NIS2 Directive, and the EU AI Act.
+      </p>
+      <p style="margin-top: 20px">Copyright © 2025 Lifetime Oy. All Rights Reserved.</p>
     </footer>
-</body>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+  </body>
 </html>

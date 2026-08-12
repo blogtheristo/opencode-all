@@ -1,0 +1,63 @@
+---
+name: dialog
+description: Use when updating a document, offer, or its attachments through line-by-line HIC-confirmed dialogue. The agent proposes each change as "muutos;" (current sentence → improved sentence), the human (HIC) replies "agree" or offers a counter-sentence, and the agent applies + commits per accepted item. Especially good for proposals and their attachments reused across customers (e.g. ORK → Kemira).
+argument-hint: "TARGET=<file> [KIND=offer|handbook|attachment] [ROLE=<customer>]"
+---
+
+Update a document through a question-driven, HIC-confirmed dialogue. The agent never rewrites
+in bulk; it surfaces one change at a time, the human decides, the agent applies and checkpoints.
+
+This is the working method used to fact-check `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §1–§16. Codified
+per the Skill Codification Rule ("asked twice = failure").
+
+Usage:
+
+- `/dialog TARGET=docs/offers/OFFER_KEMIRA.md` — walk a document section by section
+- `/dialog TARGET=<file> KIND=offer ROLE=Kemira` — adapt an existing offer for a new customer
+- `/dialog TARGET=<file> KIND=attachment` — update a proposal attachment in lockstep with its parent
+
+Input: $ARGUMENTS
+
+## Work method (the contract)
+
+1. **Load canonical sources first.** Before proposing any fact change, resolve against the canonical
+   registry per `CLAUDE.md` → Resolver (products.json for pricing, INDUSTRIES.md for industry count,
+   DWS_TRUTH_STANDARD.md for any asserted fact). Never assert a number the canonical source contradicts.
+2. **Go in document order**, section by section (§1 → §N). Do not jump unless the user asks.
+3. **Propose each change as a numbered item** in this exact shape so HIC can answer fast:
+   - **Nykyinen:** the current sentence verbatim
+   - **Muutos:** the improved sentence (fact-corrected, on-brand)
+   - One line of _why_ (canonical conflict, outdated framing, broken cross-ref, price drift).
+   - Number items `§.N` (e.g. `3.2`, `8.1`) so the user can reply `"3.2 agree"` or counter just that one.
+4. **Wait for the HIC verdict per item:**
+   - `agree` → apply the Muutos verbatim.
+   - a counter-sentence → apply the user's wording instead (their formulation wins).
+   - silence on an item → leave it open, re-surface it; never apply unconfirmed.
+5. **Apply with Edit, then checkpoint.** After each accepted batch, commit + push to the working branch
+   with a scoped message. One logical group per commit (Rule 10: checkpoint every significant step).
+6. **Surface conflicts, don't average them** (Rule 7). If two canonical sources disagree, stop and ask
+   — present both and let HIC pick. If the user gives a non-exact canonical phrase ("58 agenttia ja 88
+   kyvykkyyttä, ei tarvitse olla exakti"), honor it as the anchor and stop trying to reconcile exactly.
+7. **Preserve formulation data** (Rule 12 / DWS_DOCUMENT_STANDARD §21). Quotes, mottos, philosophical
+   passages, cultural wisdom are never stripped in a rewrite — only corrected for fact.
+8. **Bump the version** per the document's convention. Handbook/offers use `.01` increments
+   (1.7 → 1.71 → 1.72). Update VERSION AND AGENT HISTORY with a single comprehensive entry for the pass.
+
+## Customer adaptation mode (KIND=offer, ROLE=<customer>)
+
+When adapting an offer/attachment for a new customer (ORK → Kemira):
+
+1. Diff the source offer against the new customer's profile (sector, regulatory exposure, buying
+   metaphor — Buffet / Captain / Vineyard per handbook §9).
+2. Walk every customer-specific token (name, sector, price tier, regulation set, contact role) as a
+   `muutos;` item. Do NOT bulk find-replace — each substitution is a confirmed decision, because a
+   wrong carried-over fact (price, regulation, sector) is the exact failure this method prevents.
+3. Keep the parent offer and its attachments in lockstep — update both in the same commit (mirrors the
+   dual-folder-sync discipline). Surface any attachment that would be left stale.
+
+## Notes
+
+- This is judgment work, not a deterministic transform — that is why it is HIC-gated per item.
+- Remove personal names from customer-facing docs unless explicitly retained (privacy default).
+- Never publish `.md` to public-site folders (CLAUDE.md Non-Negotiable Rule 5). Offers live in repo/docs.
+- The deliverable is the diff + the version-history entry, not chat scrollback.

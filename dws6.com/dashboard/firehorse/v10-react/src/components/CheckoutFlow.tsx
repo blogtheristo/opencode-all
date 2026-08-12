@@ -39,7 +39,6 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
   const [depositAmount, setDepositAmount] = useState<number>(0);
   const [billingProfileId, setBillingProfileId] = useState<string | null>(null);
   const [order, setOrder] = useState<Order | null>(null);
-  const [revolutLink, setRevolutLink] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // =========================================================================
@@ -64,9 +63,6 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
     try {
       // In production, this would generate a unique Revolut payment link
       // For now, we'll simulate it and move to billing info
-      const mockRevolutLink = `https://checkout.revolut.com/pay/mock-${Date.now()}`;
-      setRevolutLink(mockRevolutLink);
-
       // Create order with deposit amount
       const response = await fetch('/api/v1/b2b/orders', {
         method: 'POST',

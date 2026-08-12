@@ -139,7 +139,14 @@ interface DigestBuckets {
   active_deals_overflow: number;
   upcoming: BucketedThread[];
   upcoming_overflow: number;
+  /** status='new' with no outbound sent — research not started yet. Kept out of OVERDUE noise. */
+  research_backlog: BucketedThread[];
   totals: Record<OutreachPipeline, { total: number; open: number; active: number }>;
+}
+
+/** A thread that has never been contacted (status=new, no last_outbound_at) isn't "overdue"; it's an un-started research task. */
+function isResearchBacklog(t: BucketedThread): boolean {
+  return t.status === 'new' && !t.last_outbound_at;
 }
 
 function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
@@ -161,9 +168,22 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
   const tiebreak = (a: BucketedThread, b: BucketedThread) =>
     a.linkedin_url.localeCompare(b.linkedin_url);
 
+  // RESEARCH BACKLOG: status='new' with no outbound — extract first so they don't show as OVERDUE.
+  // Date asc (oldest first) → pipeline → tiebreaker.
+  const research_backlog = all.filter(isResearchBacklog).sort((a, b) => {
+    const d = (a.next_action_date || '9999-12-31').localeCompare(
+      b.next_action_date || '9999-12-31',
+    );
+    if (d !== 0) return d;
+    const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+    if (p !== 0) return p;
+    return tiebreak(a, b);
+  });
+
   // OVERDUE: date asc → pipeline → last_outbound_at asc → tiebreaker
+  // Excludes research-backlog (uncontacted new threads) — those have their own bucket.
   const overdue = all
-    .filter((t) => t.overdue && t.bucket !== 'active')
+    .filter((t) => t.overdue && t.bucket !== 'active' && !isResearchBacklog(t))
     .sort((a, b) => {
       const d = (a.next_action_date || '').localeCompare(b.next_action_date || '');
       if (d !== 0) return d;
@@ -175,8 +195,9 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
     });
 
   // TODAY: action_type → pipeline → last_outbound_at asc → tiebreaker
+  // Excludes research-backlog so an uncontacted "new" thread doesn't show here either.
   const todayList = all
-    .filter((t) => t.due_today && t.bucket !== 'active')
+    .filter((t) => t.due_today && t.bucket !== 'active' && !isResearchBacklog(t))
     .sort((a, b) => {
       const t2 = actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
       if (t2 !== 0) return t2;
@@ -233,6 +254,7 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
         !t.due_today &&
         t.bucket !== 'active' &&
         !WAITING_STATUSES.includes(t.status) &&
+        !isResearchBacklog(t) &&
         t.next_action_date &&
         t.next_action_date > today,
     )
@@ -267,6 +289,7 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
     active_deals_overflow,
     upcoming,
     upcoming_overflow,
+    research_backlog,
     totals,
   };
 }
@@ -309,6 +332,13 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
     return `${PIPELINE_LABELS[p]}: ${s.total} (${s.open} open, ${s.active} active)`;
   });
   lines.push(summaryParts.join(' | '));
+
+  // RESEARCH BACKLOG (uncontacted new threads — needs human/agent research, not a nudge)
+  renderBucketPlainText(lines, 'RESEARCH BACKLOG', buckets.research_backlog, (t) => {
+    const org = t.org ? ` (${t.org})` : '';
+    const action = t.next_action || `Research ${t.name} → prepare first-touch outreach`;
+    return `${t.name}${org} — new → ${action}`;
+  });
 
   // OVERDUE
   renderBucketPlainText(lines, 'OVERDUE', buckets.overdue, (t) => {
@@ -373,7 +403,11 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
   }
 
   // Empty state
-  const totalAction = buckets.overdue.length + buckets.today.length + buckets.active_deals.length;
+  const totalAction =
+    buckets.overdue.length +
+    buckets.today.length +
+    buckets.active_deals.length +
+    buckets.research_backlog.length;
   if (totalAction === 0 && buckets.waiting.length === 0) {
     lines.push('');
     lines.push('All pipelines quiet. Source new contacts via Boardy, LinkedIn, or conferences.');
@@ -486,6 +520,11 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
       : '';
 
   const sections = [
+    htmlBucketSection(
+      `RESEARCH BACKLOG (${buckets.research_backlog.length})`,
+      buckets.research_backlog,
+      (t) => htmlThreadRow(t, 'RESEARCH', '#8888ff'),
+    ),
     htmlBucketSection(`OVERDUE (${buckets.overdue.length})`, buckets.overdue, (t) =>
       htmlThreadRow(t, 'OVERDUE', '#ff4444'),
     ),
@@ -528,7 +567,11 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
     .join('');
 
   // Empty state
-  const totalAction = buckets.overdue.length + buckets.today.length + buckets.active_deals.length;
+  const totalAction =
+    buckets.overdue.length +
+    buckets.today.length +
+    buckets.active_deals.length +
+    buckets.research_backlog.length;
   const emptyMsg =
     totalAction === 0 && buckets.waiting.length === 0
       ? '<tr><td style="padding: 16px;"><p style="color: #888; font-size: 13px;">All pipelines quiet. Source new contacts.</p></td></tr>'
@@ -599,7 +642,25 @@ export async function sendDailyDigestEmail(): Promise<void> {
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
 
-  const { plainText, html } = await generateDailyDigest();
+  const { buckets, plainText, html } = await generateDailyDigest();
+
+  // Nothing live to report — don't send an empty digest every day. This is
+  // the same root cause as the CEO Cockpit's stalled sections: outreach_threads
+  // has had no new rows since 2026-03-29 (found during 2026-07-12 audit).
+  // Skip rather than pad the inbox with a repeated no-op email.
+  const isEmpty =
+    buckets.overdue.length === 0 &&
+    buckets.today.length === 0 &&
+    buckets.waiting.length === 0 &&
+    buckets.active_deals.length === 0 &&
+    buckets.upcoming.length === 0 &&
+    buckets.research_backlog.length === 0;
+  if (isEmpty) {
+    logger.info('Daily outreach digest: no active threads — skipping send', {
+      lastActivityHint: 'check outreach_threads for stale pipeline data',
+    });
+    return;
+  }
 
   const dateStr = new Date().toLocaleDateString('en-GB', {
     weekday: 'short',

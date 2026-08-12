@@ -8,20 +8,39 @@
 
 ## Hook Inventory
 
-| Hook                      | Event        | Matcher                | Purpose                                                                               |
-| ------------------------- | ------------ | ---------------------- | ------------------------------------------------------------------------------------- |
-| `session-start.sh`        | SessionStart | all                    | Trust boundary injection (GREEN/YELLOW/RED zones), branch + MCP checks                |
-| `pretooluse-guard.sh`     | PreToolUse   | Bash                   | Master deny list: rm -rf, force push, hard reset, git rm, sudo, pipe-to-shell, ollama |
-| `secret-scan.sh`          | PreToolUse   | Bash, Edit, Write      | 14 OWASP secret patterns (AWS, GitHub, Stripe, Anthropic, JWT, npm, Slack)            |
-| `log-commands.sh`         | PreToolUse   | Bash                   | Audit every Bash command with timestamp + branch                                      |
-| `sql-safety-guard.sh`     | PreToolUse   | Bash                   | 7 SQL rules: RLS, transactions, DROP approval, Aiven immutability                     |
-| `protect-files.sh`        | PreToolUse   | Edit, Write            | Block .env, .key, .pem, credentials, migrations, .md in public folders                |
-| prettier (inline)         | PostToolUse  | Write, Edit            | Auto-format with prettier                                                             |
-| eslint (inline)           | PostToolUse  | Write, Edit            | Auto-fix with eslint                                                                  |
-| `session-stop.sh`         | Stop         | all                    | Governance checklist (dual folder sync, thesis, uncommitted changes)                  |
-| `validate-branch-name.py` | PreToolUse   | Bash (git checkout -b) | Git Flow branch naming validation                                                     |
+| Hook                      | Event        | Matcher                | Purpose                                                                                                                                                                          |
+| ------------------------- | ------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `session-start.sh`        | SessionStart | all                    | Trust boundary injection (GREEN/YELLOW/RED zones), branch + MCP checks, surfaces `.claude/HANDOFF.md` CURRENT HANDOFF (cross-session memory)                                     |
+| `pretooluse-guard.sh`     | PreToolUse   | Bash                   | Master deny list: rm -rf, force push, hard reset, git rm, sudo, pipe-to-shell, ollama + secret-file read-bypass guard (cat/grep/env/printenv of .env\*/\*.pem/\*.key/\*secret\*) |
+| `secret-scan.sh`          | PreToolUse   | Bash, Edit, Write      | Scans tool **input** via shared `secret-patterns.sh` (provider keys, bare JWT, DSN creds, Bearer, DB passwords, OAuth secrets)                                                   |
+| `secret-output-scan.sh`   | PostToolUse  | Bash                   | Scans command **output**; advisory warning not to persist any secret that surfaced at runtime                                                                                    |
+| `secret-patterns.sh`      | (sourced)    | —                      | Shared secret-detection engine + placeholder allowlist (used by both secret-scan and secret-output-scan)                                                                         |
+| `log-commands.sh`         | PreToolUse   | Bash                   | Audit every Bash command with timestamp + branch                                                                                                                                 |
+| `sql-safety-guard.sh`     | PreToolUse   | Bash                   | 7 SQL rules: RLS, transactions, DROP approval, Aiven immutability                                                                                                                |
+| `protect-files.sh`        | PreToolUse   | Edit, Write            | Block .env, .key, .pem, credentials, migrations, .md in public folders                                                                                                           |
+| `blog-draft-gate.sh`      | PreToolUse   | Edit, Write            | Blocks hand-authored writes to `*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists and is `Status: APPROVED` — the HIC reads blog text before it ships (`/blog-draft`)   |
+| prettier (inline)         | PostToolUse  | Write, Edit            | Auto-format with prettier                                                                                                                                                        |
+| eslint (inline)           | PostToolUse  | Write, Edit            | Auto-fix with eslint                                                                                                                                                             |
+| `session-stop.sh`         | Stop         | all                    | Governance checklist (dual folder sync, thesis, uncommitted changes)                                                                                                             |
+| `validate-branch-name.py` | PreToolUse   | Bash (git checkout -b) | Git Flow branch naming validation                                                                                                                                                |
 
 **Removed (2026-04-14):** `auto-commit.sh` (silent commits caused hook regressions) · `require-tests-for-pr.sh` (duplicate of CI/CD gate)
+
+## 12 Rules — Hook Enforcement Map
+
+The 12 Engineering Discipline Rules (canonical: `CLAUDE.md`) are surfaced to every session by `session-start.sh` and mechanically enforced where possible:
+
+| Rule                          | Hook / mechanism                                                               |
+| ----------------------------- | ------------------------------------------------------------------------------ |
+| 3 Surgical changes            | `protect-files.sh` blocks edits to .env/.key/.pem/migrations/public `.md`      |
+| 6 Token budgets               | `session-start.sh` echoes `CLAUDE_AUTO_MODE_BUDGET`                            |
+| 10 Checkpoint each step       | `session-stop.sh` governance checklist (dual-folder sync, thesis, uncommitted) |
+| 11 Match conventions          | `validate-branch-name.py`; prettier + eslint PostToolUse auto-format           |
+| 12 Fail loud                  | All PreToolUse guards block (exit 2) with stderr — never silent-pass           |
+| (HIC oversight / Art. 14+50)  | `blog-draft-gate.sh` — no blog post publishes without a reviewable, approved draft |
+| (secrets / security baseline) | `secret-scan.sh`, `sql-safety-guard.sh`, `pretooluse-guard.sh`                 |
+
+Rules 1, 2, 4, 5, 7, 8, 9 are judgment-level — enforced by the session-start injection and review (`/review`, `/simplify`), not by a blocking hook.
 
 ## Exit Codes
 

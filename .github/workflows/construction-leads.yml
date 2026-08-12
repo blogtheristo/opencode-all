@@ -91,25 +91,28 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_FROM: risto@onelifetime.world
           EMAIL_TO: ${{ secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
+          COUNTRY: ${{ inputs.country }}
+          DAYS: ${{ inputs.days }}
+          SKIP_EMAIL: ${{ inputs.skip_email }}
         run: |
-          ARGS=""
+          args=()
 
           # Country filter (from workflow_dispatch or default)
-          if [ -n "${{ inputs.country }}" ]; then
-            ARGS="$ARGS --country ${{ inputs.country }}"
+          if [ -n "$COUNTRY" ]; then
+            args+=(--country "$COUNTRY")
           fi
 
           # Lookback days
-          if [ -n "${{ inputs.days }}" ]; then
-            ARGS="$ARGS --days ${{ inputs.days }}"
+          if [ -n "$DAYS" ]; then
+            args+=(--days "$DAYS")
           fi
 
           # Skip email flag
-          if [ "${{ inputs.skip_email }}" = "true" ]; then
-            ARGS="$ARGS --no-email"
+          if [ "$SKIP_EMAIL" = "true" ]; then
+            args+=(--no-email)
           fi
 
-          python scripts/fetch_tenders.py $ARGS
+          python scripts/fetch_tenders.py "${args[@]}"
 
       - name: Commit and push leads snapshot
         if: steps.timecheck.outputs.should_run == 'true'

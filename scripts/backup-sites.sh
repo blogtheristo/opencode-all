@@ -1,17 +1,59 @@
 #!/bin/bash
 # Daily Site Backup Script
-# Creates date-stamped backups of all DWS6 sites for fail-over security
+# Creates date-stamped backups of all DWS6 sites for fail-over security.
 #
-# Usage: ./scripts/backup-sites.sh
+# Tarballs are encrypted with GPG AES-256 when BACKUP_GPG_PASSPHRASE is set
+# (read from $REPO_ROOT/.env if present). Encryption is the default — pass
+# --no-encrypt to opt out for development runs only.
+#
+# Usage:
+#   ./scripts/backup-sites.sh                # encrypt if passphrase available
+#   ./scripts/backup-sites.sh --no-encrypt   # explicit dev-mode plaintext
 # Cron: 0 2 * * * /path/to/dws6/scripts/backup-sites.sh
 
 set -e
+
+# Resolve repo root so .env is found regardless of CWD when called from cron
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+ENV_FILE="$REPO_ROOT/.env"
+
+if [[ -f "$ENV_FILE" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$ENV_FILE"
+  set +a
+fi
 
 # Configuration
 BACKUP_DIR="backups/sites"
 DATE=$(date +%Y-%m-%d)
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 RETENTION_DAYS=30
+
+# Encryption defaults — enabled when passphrase available, GPG installed,
+# and --no-encrypt was not passed.
+NO_ENCRYPT=0
+for arg in "$@"; do
+  case "$arg" in
+    --no-encrypt) NO_ENCRYPT=1 ;;
+    -h|--help)
+      grep -E '^#( |$)' "$0" | sed 's/^# \?//'
+      exit 0 ;;
+  esac
+done
+
+ENCRYPT=1
+if [[ $NO_ENCRYPT -eq 1 ]]; then
+  ENCRYPT=0
+elif ! command -v gpg >/dev/null 2>&1; then
+  echo "⚠️  gpg not installed — falling back to plaintext tarballs"
+  ENCRYPT=0
+elif [[ -z "${BACKUP_GPG_PASSPHRASE:-}" ]]; then
+  echo "⚠️  BACKUP_GPG_PASSPHRASE not set in .env — falling back to plaintext"
+  echo "    Set BACKUP_GPG_PASSPHRASE to enable AES-256 encryption."
+  ENCRYPT=0
+fi
 
 # Sites to backup
 SITES=(
@@ -59,6 +101,27 @@ backup_site() {
             return 1
         }
 
+        # Encrypt + SHA256 checksum (matches scripts/db-daily-backup.sh)
+        if [[ $ENCRYPT -eq 1 ]]; then
+            local enc_file="${backup_file}.gpg"
+            if printf '%s' "$BACKUP_GPG_PASSPHRASE" | gpg --batch --yes \
+                --pinentry-mode loopback --passphrase-fd 0 --symmetric \
+                --cipher-algo AES256 \
+                --output "$enc_file" \
+                "$backup_file" 2>/dev/null; then
+                # SHA256 of the encrypted file (verifies transport integrity)
+                ( cd "$(dirname "$enc_file")" \
+                    && sha256sum "$(basename "$enc_file")" \
+                  ) > "${enc_file}.sha256"
+                # Remove plaintext tarball — only the encrypted blob persists
+                rm -f "$backup_file"
+                backup_file="$enc_file"
+            else
+                echo -e "${RED}❌ GPG encryption failed for $site — leaving plaintext${NC}"
+                return 1
+            fi
+        fi
+
         # Get backup size
         local size=$(du -h "$backup_file" | cut -f1)
         echo -e "${GREEN}✅ Backed up: $site → $backup_file ($size)${NC}"
@@ -96,17 +159,20 @@ Backup Directory: $BACKUP_DIR/$DATE
 Sites Backed Up:
 EOF
 
-for file in "$BACKUP_DIR/$DATE"/*.tar.gz; do
+shopt -s nullglob
+for file in "$BACKUP_DIR/$DATE"/*.tar.gz "$BACKUP_DIR/$DATE"/*.tar.gz.gpg; do
     if [ -f "$file" ]; then
         filename=$(basename "$file")
         filesize=$(du -h "$file" | cut -f1)
         echo "  - $filename ($filesize)" >> "$MANIFEST_FILE"
     fi
 done
+shopt -u nullglob
 
 echo "" >> "$MANIFEST_FILE"
 echo "Total: $backed_up sites backed up successfully" >> "$MANIFEST_FILE"
 echo "Skipped: $skipped sites" >> "$MANIFEST_FILE"
+echo "Encryption: $([[ $ENCRYPT -eq 1 ]] && echo 'GPG AES-256' || echo 'NONE (plaintext)')" >> "$MANIFEST_FILE"
 echo "" >> "$MANIFEST_FILE"
 echo "Backup completed at: $(date +%Y-%m-%d\ %H:%M:%S)" >> "$MANIFEST_FILE"
 
@@ -123,6 +189,7 @@ echo "=========================================="
 echo "Total sites: $total_sites"
 echo "Backed up: $backed_up"
 echo "Skipped: $skipped"
+echo "Encryption: $([[ $ENCRYPT -eq 1 ]] && echo 'GPG AES-256' || echo 'NONE (plaintext)')"
 echo "Backup location: $BACKUP_DIR/$DATE"
 echo "Manifest: $MANIFEST_FILE"
 echo ""
@@ -138,8 +205,13 @@ fi
 
 echo -e "${GREEN}✅ Daily backup completed successfully!${NC}"
 echo ""
-echo "To restore a site:"
-echo "  tar -xzf $BACKUP_DIR/$DATE/[site-name]_${TIMESTAMP}.tar.gz"
+if [[ $ENCRYPT -eq 1 ]]; then
+  echo "To restore a site (encrypted blob):"
+  echo "  gpg --decrypt $BACKUP_DIR/$DATE/[site]_${TIMESTAMP}.tar.gz.gpg | tar -xz"
+else
+  echo "To restore a site:"
+  echo "  tar -xzf $BACKUP_DIR/$DATE/[site-name]_${TIMESTAMP}.tar.gz"
+fi
 echo ""
 
 exit 0

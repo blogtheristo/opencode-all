@@ -13,10 +13,11 @@ import { type NextFunction, type Request, type Response, Router } from 'express'
 import {
   OnboardingAssessSchema,
   OnboardingErpTestSchema,
+  OnboardingInviteSchema,
   OnboardingSchema,
   validate,
 } from '../middleware/validate.js';
-import { authenticateToken } from '../middleware/auth.middleware.js';
+import { authenticateToken, requireRole } from '../middleware/auth.middleware.js';
 import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 import { getMandatoryDisclosures } from '../compliance/esrs-registry.js';
@@ -24,12 +25,14 @@ import { Errors } from '../middleware/error-handler.js';
 import logger from '../utils/logger.js';
 import { createClient } from '@supabase/supabase-js';
 import onboardingEmailService from '../services/onboarding-email.service.js';
+import { sendEmail } from '../utils/send-email.js';
 
 const router = Router();
 
 // Supabase client for server-side operations
 const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabaseServiceKey =
+  process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const supabase =
   supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
@@ -399,6 +402,56 @@ router.post(
         authMethod,
         message: `${type.toUpperCase()} connection test successful (dry-run)`,
         capabilities: getErpCapabilities(type),
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
+/**
+ * POST /api/v1/onboard/invite
+ * Invite a team member to onboarding workspace (admin/owner only).
+ */
+router.post(
+  '/invite',
+  authenticateToken,
+  requireRole(['admin', 'owner']),
+  validate({ body: OnboardingInviteSchema }),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const invitedEmail = req.body.email as string;
+      const inviterId = req.userId || 'unknown';
+      const appUrl = process.env.APP_URL || 'https://dws6.com';
+      const from = process.env.EMAIL_FROM || 'risto@onelifetime.world';
+
+      const emailResult = await sendEmail({
+        from,
+        to: invitedEmail,
+        subject: 'You are invited to DWS IQ onboarding',
+        html: `
+          <p>You have been invited to join a DWS IQ onboarding workspace.</p>
+          <p>Open the platform: <a href="${appUrl}/dashboard">${appUrl}/dashboard</a></p>
+          <p>If you did not expect this invitation, you can ignore this email.</p>
+        `,
+        source: 'admin',
+        templateType: 'onboarding-invite',
+        metadata: { inviterId },
+      });
+
+      if (!emailResult.ok) {
+        logger.warn('Onboarding invite email failed', {
+          inviterId,
+          invitedEmail,
+          error: emailResult.error,
+        });
+        throw Errors.internal('Invitation email delivery unavailable', 'INVITE_DELIVERY_FAILED');
+      }
+
+      res.status(201).json({
+        status: 'sent',
+        email: invitedEmail,
+        transport: emailResult.transport || 'ses',
       });
     } catch (err) {
       next(err);

@@ -5,6 +5,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
+ * v1.2 — 2026-05-31: Add ethics principle band (human-in-command).
  * v1.1 — 2026-03-15: Add Firehorse Mobile Google Play badge
  * v1.0 — Initial release: 5-column links, payment methods, legal bar, locale buttons
  *
@@ -16,7 +17,7 @@
     'use strict';
 
     const footerCSS = `
-/* === DWS6.com Iron Clad Footer v1.1 === */
+/* === DWS6.com Iron Clad Footer v1.2 === */
 .ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: system-ui, -apple-system, sans-serif; }
 .ironclad-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
 .ironclad-footer a:hover { color: #60a5fa; }
@@ -35,6 +36,7 @@
 .ironclad-footer-legal a { color: #64748b; font-size: 0.8rem; }
 .ironclad-footer-legal a:hover { color: #60a5fa; }
 .ironclad-footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+.ironclad-footer-principle { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; text-align: center; font-size: 0.8rem; line-height: 1.5; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
 .ironclad-footer-app { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; align-items: center; gap: 16px; }
 .ironclad-footer-app-badge { display: inline-flex; align-items: center; gap: 10px; background: #000; border: 1px solid #475569; border-radius: 8px; padding: 8px 16px 8px 12px; color: #fff; text-decoration: none !important; transition: border-color 0.2s, background 0.2s; }
 .ironclad-footer-app-badge:hover { border-color: #60a5fa; background: #1a1a2e; color: #fff !important; }
@@ -130,10 +132,13 @@
             </div>
         </a>
     </div>
+    <div class="ironclad-footer-principle">
+        We value ethics in everything we do &mdash; DWS products augment people, never replacing junior talent or the human-in-command.
+    </div>
     <div class="ironclad-footer-bottom">
         <div class="ironclad-footer-legal">
             <a href="/terms/">Website Terms</a>
-            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="https://dws10.com/privacy-policy/">Privacy Policy</a>
             <a href="/return-policy/">Return Policy</a>
             <a href="/data-handling-policy/">Data Handling</a>
             <a href="/data-security-policy/">Data Security</a>

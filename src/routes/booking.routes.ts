@@ -53,6 +53,10 @@ function handleValidationErrors(req: Request, res: Response): boolean {
 async function isFinnishHoliday(date: Date): Promise<boolean> {
   const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
   const supabase = getSupabaseClient();
+  if (!supabase) {
+    logger.error('Supabase unavailable in isFinnishHoliday');
+    return false;
+  }
   const { data, error } = await supabase
     .from('finnish_holidays')
     .select('id')
@@ -77,6 +81,10 @@ async function getAvailableSlotsForDate(
   durationMinutes: number,
 ): Promise<string[]> {
   const supabase = getSupabaseClient();
+  if (!supabase) {
+    logger.error('Supabase unavailable in getAvailableSlotsForDate');
+    return [];
+  }
   const date = new Date(dateStr + 'T00:00:00Z');
   const dayOfWeek = date.getUTCDay(); // 0=Sunday, 6=Saturday
 
@@ -182,9 +190,12 @@ async function getAvailableSlotsForDate(
 // GET /services — List all booking services
 // ============================================================================
 
-router.get('/services', async (req: Request, res: Response) => {
+router.get('/services', async (_req: Request, res: Response) => {
   try {
     const supabase = getSupabaseClient();
+    if (!supabase) {
+      return res.status(503).json({ error: 'Database unavailable' });
+    }
     const { data, error } = await supabase
       .from('booking_services')
       .select('*')
@@ -195,11 +206,11 @@ router.get('/services', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to fetch services' });
     }
 
-    res.json({ services: data });
+    return res.json({ services: data });
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Unexpected error in /services', { error: errorMsg });
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -220,6 +231,9 @@ router.get(
     if (handleValidationErrors(req, res)) return;
 
     const supabase = getSupabaseClient();
+    if (!supabase) {
+      return res.status(503).json({ error: 'Database unavailable' });
+    }
     const { serviceId } = req.params;
     let { startDate, endDate } = req.query;
 
@@ -271,7 +285,7 @@ router.get(
         .gte('date', startDate)
         .lte('date', endDate);
 
-      res.json({
+      return res.json({
         serviceId,
         durationMinutes: service[0].duration_minutes,
         availability,
@@ -280,7 +294,7 @@ router.get(
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Unexpected error in /availability', { error: errorMsg });
-      res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error' });
     }
   },
 );
@@ -364,13 +378,16 @@ router.post('/meet-invite', meetInviteValidation, async (req: Request, res: Resp
     return res.status(502).json({ error: result.error || 'Failed to send invite request' });
   }
 
-  res.status(201).json({ success: true, message: 'Invite request sent' });
+  return res.status(201).json({ success: true, message: 'Invite request sent' });
 });
 
 router.post('/reserve', reserveValidation, async (req: Request, res: Response) => {
   if (handleValidationErrors(req, res)) return;
 
   const supabase = getSupabaseClient();
+  if (!supabase) {
+    return res.status(503).json({ error: 'Database unavailable' });
+  }
 
   const {
     serviceId,
@@ -537,7 +554,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
       });
     }
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       reservationId,
       message: 'Reservation confirmed. Check your email for details.',
@@ -552,7 +569,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Unexpected error in /reserve', { error: errorMsg });
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -566,6 +583,9 @@ router.get('/reservations/:email', emailParamValidation, async (req: Request, re
   if (handleValidationErrors(req, res)) return;
 
   const supabase = getSupabaseClient();
+  if (!supabase) {
+    return res.status(503).json({ error: 'Database unavailable' });
+  }
   const { email } = req.params;
 
   try {
@@ -580,7 +600,7 @@ router.get('/reservations/:email', emailParamValidation, async (req: Request, re
       return res.status(500).json({ error: 'Failed to fetch reservations' });
     }
 
-    res.json({
+    return res.json({
       email,
       count: data?.length || 0,
       reservations: data || [],
@@ -588,7 +608,7 @@ router.get('/reservations/:email', emailParamValidation, async (req: Request, re
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Unexpected error in /reservations/:email', { error: errorMsg });
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -602,6 +622,9 @@ router.delete('/reservations/:id', idParamValidation, async (req: Request, res: 
   if (handleValidationErrors(req, res)) return;
 
   const supabase = getSupabaseClient();
+  if (!supabase) {
+    return res.status(503).json({ error: 'Database unavailable' });
+  }
   const { id } = req.params;
 
   try {
@@ -616,11 +639,11 @@ router.delete('/reservations/:id', idParamValidation, async (req: Request, res: 
     }
 
     logger.info('Reservation cancelled', { id });
-    res.json({ success: true, message: 'Reservation cancelled' });
+    return res.json({ success: true, message: 'Reservation cancelled' });
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Unexpected error in DELETE /reservations/:id', { error: errorMsg });
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 

@@ -1,103 +1,24 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "Bash(powershell -Command:*)",
-      "Bash(powershell -NoProfile -Command:*)",
-      "Bash(pandoc:*)",
-      "Bash(pip install:*)",
-      "Bash(python -c:*)",
-      "Bash(python -X utf8 -c:*)",
-      "Bash(ls:*)",
-      "Bash(python:*)",
-      "Bash(git:*)",
-      "Bash(start:*)",
-      "Bash(xargs grep *)",
-      "Bash(node dws10.com/feeds/generate-local-inventory.cjs)",
-      "Bash(cat)",
-      "Bash(bash /tmp/audit.sh)",
-      "Bash(grep -v \"index.html$\")"
-    ]
+      "Bash(cd /F/2026/Repos2026/dws6 && find . -type f -name \"*.yml\" -o -name \"*.yaml\" | head -20)",
+      "WebFetch(domain:webframp.com)",
+      "Bash(git add *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx tsc *)",
+      "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__create_event",
+      "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__update_event",
+      "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__generate",
+      "Bash(mkdir -p docs/assets/images)",
+      "Bash(mkdir -p .claude/handoffs/claude && git status --short)"
+    ],
+    "defaultMode": "bypassPermissions"
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "dws-gateway-local"
+    "dws-gateway-local",
+    "dws-agents-local"
   ],
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\""
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse-guard.sh\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-commands.sh\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/sql-safety-guard.sh\""
-          }
-        ]
-      },
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.sh\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
-          },
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/md-restore-version-delimiters.sh\""
-          },
-          {
-            "type": "command",
-            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || npx eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\""
-          }
-        ]
-      }
-    ]
-  }
+  "_comment": "Local machine-only overrides. Shared defaults live in .claude/settings.json."
 }

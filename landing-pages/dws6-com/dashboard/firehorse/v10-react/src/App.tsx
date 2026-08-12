@@ -47,6 +47,12 @@ const AgentMonitorDashboard = lazy(() =>
     default: m.AgentMonitorDashboard,
   })),
 );
+const PaymentSuccessPage = lazy(() =>
+  import('./pages/PaymentSuccessPage').then((m) => ({ default: m.PaymentSuccessPage })),
+);
+const PaymentCancelPage = lazy(() =>
+  import('./pages/PaymentCancelPage').then((m) => ({ default: m.PaymentCancelPage })),
+);
 const NotFoundPage = lazy(() =>
   import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 );
@@ -599,6 +605,28 @@ function App() {
               <DashboardLayout>
                 <EC3DashboardPage />
               </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Payment return routes — no DashboardLayout, payment providers redirect here */}
+        <Route
+          path="/payment/success"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<PageLoader />}>
+                <PaymentSuccessPage />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment/cancel"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<PageLoader />}>
+                <PaymentCancelPage />
+              </Suspense>
             </ProtectedRoute>
           }
         />

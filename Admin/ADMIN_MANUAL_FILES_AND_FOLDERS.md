@@ -1412,6 +1412,37 @@ observability/
 
 ---
 
+## Document Generation Tooling (June 2026)
+
+Branded HTML for key Markdown documents is **generated, not hand-edited**, so content never drifts
+from the canonical Markdown source. Two generators reuse the elegant 2024 Lifetime stylesheet
+(gold accents, navy headers, styled tables/blockquotes).
+
+**Handbook:**
+
+- Source of truth: `docs/KONSULTOINNIN_KASIKIRJA_2026.md`
+- Generator: `node scripts/gen-handbook-html.cjs`
+- Output: `docs/Konsultoinnin_kasikirja_2026.html`
+- Run after every handbook edit; the script pulls the version from the Markdown `Version:` line.
+
+**Whitepapers** (`docs/whitepapers/`):
+
+- Series plan + status: `docs/whitepapers/README.md` (WP01–WP12; reconciled against existing
+  whitepapers — see below)
+- Generic generator: `node scripts/gen-doc-html.cjs <input.md> <output.html> "Title"`
+- Example: `node scripts/gen-doc-html.cjs docs/whitepapers/WP01_AUGMENT_NOT_REPLACE.md docs/whitepapers/WP01_AUGMENT_NOT_REPLACE.html "Augment, Not Replace"`
+
+**Existing whitepaper inventory** (do not duplicate; refresh in place): KYA suite
+(`Learn/KYA-IDV-CERT-Whitepaper-v1.0.html`, published `dws10.com/kya-standard/whitepaper/`),
+European Sovereign Industrial Intelligence (`Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html`),
+Shufti KYA (`docs/field-notes/`). Canonical inventory + LLM bundling: `scripts/bundle-whitepapers-for-llm.cjs`.
+
+**Note:** these are manual generators (run on edit), not scheduled jobs. `.md` files stay in `docs/`
+and are never published to public-site folders (CLAUDE.md Non-Negotiable Rule 5). Security incidents:
+`security@lifetime.fi`.
+
+---
+
 ## Backup & Sync Infrastructure (February 2026)
 
 ### Overview

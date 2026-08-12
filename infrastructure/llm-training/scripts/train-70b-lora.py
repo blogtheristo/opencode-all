@@ -21,6 +21,7 @@ Usage:
 """
 
 import argparse
+import inspect
 import logging
 import os
 import sys
@@ -142,8 +143,30 @@ def load_config(config_path: str) -> dict:
     return config
 
 
+def gpu_available() -> bool:
+    """True when a CUDA device is usable. Gates quantization / flash-attn /
+    device_map so the same script also runs on a CPU-only host (CI smoke test,
+    dry-run) instead of hard-failing on bitsandbytes."""
+    try:
+        return bool(torch.cuda.is_available())
+    except Exception:  # torch built without CUDA, driver missing, etc.
+        return False
+
+
 def get_bnb_config(config: dict) -> BitsAndBytesConfig:
-    """Create BitsAndBytes quantization config."""
+    """Create BitsAndBytes quantization config.
+
+    Returns None (no quantization) when 4/8-bit is not requested OR no GPU is
+    present — bitsandbytes requires CUDA, so on CPU we fall back to full
+    precision rather than crash. Fail loud: warn when downgrading."""
+    if (config["use_4bit"] or config["use_8bit"]) and not gpu_available():
+        logging.getLogger(__name__).warning(
+            "4/8-bit requested but no CUDA GPU available — falling back to "
+            "full precision (bitsandbytes needs a GPU). This is expected on "
+            "CPU/CI; on the GN100 it means the GPU is not visible."
+        )
+        return None
+
     if config["use_4bit"]:
         compute_dtype = getattr(torch, config["bnb_4bit_compute_dtype"])
         return BitsAndBytesConfig(
@@ -188,15 +211,27 @@ def load_model_and_tokenizer(config: dict, logger: logging.Logger):
         tokenizer.pad_token = tokenizer.eos_token
         tokenizer.pad_token_id = tokenizer.eos_token_id
 
-    # Load model
+    # Load model. On a GPU host use device_map="auto", bf16/fp16 and
+    # flash-attention-2; on CPU (CI/dry-run) use eager attention + fp32 so the
+    # same code path runs everywhere.
+    use_gpu = gpu_available()
+    if use_gpu:
+        model_dtype = torch.bfloat16 if config["bf16"] else torch.float16
+        attn_impl = "flash_attention_2"
+        device_map = "auto"
+    else:
+        model_dtype = torch.float32
+        attn_impl = "eager"
+        device_map = None
+
     model = AutoModelForCausalLM.from_pretrained(
         config["model_name"],
         quantization_config=bnb_config,
-        device_map="auto",
+        device_map=device_map,
         trust_remote_code=True,
         token=os.environ.get("HF_TOKEN"),
-        torch_dtype=torch.bfloat16 if config["bf16"] else torch.float16,
-        attn_implementation="flash_attention_2",
+        torch_dtype=model_dtype,
+        attn_implementation=attn_impl,
     )
 
     # Prepare model for k-bit training
@@ -241,8 +276,26 @@ def load_dataset_from_config(
     return dataset
 
 
-def get_training_args(config: dict) -> TrainingArguments:
-    """Create TrainingArguments."""
+def load_eval_dataset(config: dict, logger: logging.Logger):
+    """Load a held-out eval dataset if eval_dataset_path is configured.
+
+    Returns None when no eval set is set — the caller then leaves
+    eval_strategy="no". A JSONL path is expected (mirrors the training set)."""
+    eval_path = config.get("eval_dataset_path")
+    if not eval_path:
+        return None
+    logger.info(f"Loading eval dataset: {eval_path}")
+    return load_dataset("json", data_files=eval_path, split="train")
+
+
+def get_training_args(config: dict, has_eval: bool = False) -> TrainingArguments:
+    """Create TrainingArguments.
+
+    When a held-out eval set is provided, run periodic evaluation
+    (eval_strategy="steps") instead of the previous hardwired "no" — the
+    pipeline now actually measures generalization during training. On CPU
+    (no GPU) bf16/fp16 are forced off so the smoke path is valid."""
+    use_gpu = gpu_available()
     return TrainingArguments(
         output_dir=config["output_dir"],
         num_train_epochs=config["num_train_epochs"],
@@ -252,20 +305,64 @@ def get_training_args(config: dict) -> TrainingArguments:
         weight_decay=config["weight_decay"],
         warmup_ratio=config["warmup_ratio"],
         lr_scheduler_type=config["lr_scheduler_type"],
-        fp16=config["fp16"],
-        bf16=config["bf16"],
-        gradient_checkpointing=config["gradient_checkpointing"],
+        fp16=config["fp16"] and use_gpu,
+        bf16=config["bf16"] and use_gpu,
+        gradient_checkpointing=config["gradient_checkpointing"] and use_gpu,
         optim=config["optim"],
         logging_steps=config["logging_steps"],
         save_steps=config["save_steps"],
-        eval_strategy="no",
+        eval_strategy="steps" if has_eval else "no",
+        eval_steps=config["eval_steps"] if has_eval else None,
         save_total_limit=config["save_total_limit"],
         report_to=["wandb"] if config["use_wandb"] and WANDB_AVAILABLE else [],
-        run_name=f"70b-lora-{datetime.now():%Y%m%d_%H%M%S}",
+        run_name=f"lora-{datetime.now():%Y%m%d_%H%M%S}",
         ddp_find_unused_parameters=False,
-        dataloader_pin_memory=True,
+        dataloader_pin_memory=use_gpu,
         remove_unused_columns=False,
     )
+
+
+def build_sft_trainer(
+    model, tokenizer, train_dataset, eval_dataset, training_args, config, logger
+):
+    """Construct an SFTTrainer across TRL versions.
+
+    Newer TRL moved ``dataset_text_field`` / ``max_seq_length`` onto SFTConfig
+    and renamed the tokenizer kwarg to ``processing_class``; older TRL accepted
+    them directly on SFTTrainer. Introspect the constructor signature and adapt
+    so the pipeline runs on whatever TRL wheel the container ships — instead of
+    the previous hardcoded call that breaks on modern TRL."""
+    sft_params = inspect.signature(SFTTrainer.__init__).parameters
+
+    kwargs = {"model": model, "args": training_args, "train_dataset": train_dataset}
+    if eval_dataset is not None:
+        kwargs["eval_dataset"] = eval_dataset
+
+    # tokenizer -> processing_class rename
+    if "processing_class" in sft_params:
+        kwargs["processing_class"] = tokenizer
+    elif "tokenizer" in sft_params:
+        kwargs["tokenizer"] = tokenizer
+
+    if "dataset_text_field" in sft_params:
+        # Legacy TRL: SFT-specific fields live on the trainer.
+        kwargs["dataset_text_field"] = config["text_column"]
+        if "max_seq_length" in sft_params:
+            kwargs["max_seq_length"] = config["max_seq_length"]
+    else:
+        # Modern TRL: SFT-specific fields must live on an SFTConfig.
+        try:
+            from trl import SFTConfig
+
+            if not isinstance(training_args, SFTConfig):
+                sft_args = SFTConfig(**training_args.to_dict())
+                sft_args.dataset_text_field = config["text_column"]
+                sft_args.max_seq_length = config["max_seq_length"]
+                kwargs["args"] = sft_args
+        except Exception as e:  # pragma: no cover - depends on installed TRL
+            logger.warning(f"Could not build SFTConfig ({e}); using base args")
+
+    return SFTTrainer(**kwargs)
 
 
 def main():
@@ -277,6 +374,14 @@ def main():
     parser.add_argument("--epochs", type=int, help="Number of epochs")
     parser.add_argument("--batch-size", type=int, help="Batch size per device")
     parser.add_argument("--lora-r", type=int, help="LoRA rank")
+    parser.add_argument(
+        "--eval", type=str, help="Path to held-out eval JSONL (enables periodic eval)"
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate config and resolve model/dataset without training",
+    )
     parser.add_argument("--log-level", type=str, default="INFO", help="Logging level")
     args = parser.parse_args()
 
@@ -305,6 +410,29 @@ def main():
         config["per_device_train_batch_size"] = args.batch_size
     if args.lora_r:
         config["lora_r"] = args.lora_r
+    if args.eval:
+        config["eval_dataset_path"] = args.eval
+
+    # Dry run: validate config + required inputs, then exit before any heavy
+    # load. Fail loud on missing dataset — do not silently "succeed".
+    if args.dry_run:
+        logger.info("DRY RUN — validating configuration only")
+        if not (config["dataset_path"] or config["dataset_name"]):
+            logger.error("dataset_path or dataset_name is required (use --dataset)")
+            sys.exit(2)
+        logger.info(f"  model:        {config['model_name']}")
+        logger.info(
+            f"  dataset:      {config['dataset_path'] or config['dataset_name']}"
+        )
+        logger.info(f"  eval set:     {config.get('eval_dataset_path') or '(none)'}")
+        logger.info(
+            f"  quantization: {'4-bit' if config['use_4bit'] else '8-bit' if config['use_8bit'] else 'none'}"
+        )
+        logger.info(f"  lora_r:       {config['lora_r']}")
+        logger.info(f"  output_dir:   {config['output_dir']}")
+        logger.info(f"  gpu_visible:  {gpu_available()}")
+        logger.info("Dry run OK — configuration is valid.")
+        return
 
     # Initialize tracking
     if config["use_wandb"] and WANDB_AVAILABLE:
@@ -323,19 +451,14 @@ def main():
         # Load model and tokenizer
         model, tokenizer = load_model_and_tokenizer(config, logger)
 
-        # Load dataset
+        # Load datasets (train + optional held-out eval)
         dataset = load_dataset_from_config(config, tokenizer, logger)
+        eval_dataset = load_eval_dataset(config, logger)
 
         # Create trainer
-        training_args = get_training_args(config)
-
-        trainer = SFTTrainer(
-            model=model,
-            train_dataset=dataset,
-            dataset_text_field=config["text_column"],
-            max_seq_length=config["max_seq_length"],
-            tokenizer=tokenizer,
-            args=training_args,
+        training_args = get_training_args(config, has_eval=eval_dataset is not None)
+        trainer = build_sft_trainer(
+            model, tokenizer, dataset, eval_dataset, training_args, config, logger
         )
 
         # Train

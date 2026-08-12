@@ -16,15 +16,14 @@ export interface GTMEvent {
   [key: string]: unknown;
 }
 
-export interface DataLayer {
-  push(event: GTMEvent): void;
-  [key: string]: unknown;
-}
+type DataLayerEntry = GTMEvent | IArguments;
+
+export type DataLayer = DataLayerEntry[];
 
 declare global {
   interface Window {
-    dataLayer: DataLayer[];
-    gtag: Function;
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
   }
 }
 
@@ -59,9 +58,9 @@ class GTMClient {
     // Configure gtag
     window.gtag =
       window.gtag ||
-      function () {
-        window.dataLayer!.push(arguments);
-      };
+      ((...args: unknown[]) => {
+        window.dataLayer!.push(args);
+      });
     window.gtag('js', new Date());
     window.gtag('config', this.containerId, {
       send_page_view: false, // we'll send custom page_view events
@@ -238,10 +237,8 @@ const getContainerId = (): string => {
   if (meta) {
     return meta.getAttribute('content') || 'GTM-XXXXXXX';
   }
-  // Fallback to environment variable (if running in Node/Vite)
-  return (
-    process.env.VITE_GTM_CONTAINER_ID || import.meta.env.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX'
-  );
+  // Fallback to environment variable
+  return process.env.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX';
 };
 
 export const gtmClient = new GTMClient(getContainerId());

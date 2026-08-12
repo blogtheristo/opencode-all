@@ -19,7 +19,7 @@
  */
 
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
-import { basename, extname, join, relative, resolve } from 'path';
+import { basename, extname, isAbsolute, join, relative, resolve } from 'path';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse, ToolDefinition } from './types.js';
 import logger from '../utils/logger.js';
@@ -147,22 +147,36 @@ function listDirectory(dir: string): Array<{ path: string; size: number; modifie
   return results;
 }
 
+function resolveWithin(baseDir: string, targetPath?: string): string | null {
+  const resolved = targetPath ? resolve(baseDir, targetPath) : resolve(baseDir);
+  const rel = relative(baseDir, resolved);
+
+  if (rel.startsWith('..') || isAbsolute(rel)) {
+    return null;
+  }
+
+  return resolved;
+}
+
 export async function registerKBToolHandlers(): Promise<void> {
   // Lazy import to avoid circular dependency
   const { registerToolHandler } = await import('./tools.js');
 
   registerToolHandler('kb_list_raw', async (args: Record<string, unknown>) => {
     const subdir = args.subdirectory as string | undefined;
-    const dir = subdir ? join(RAW_DIR, subdir) : RAW_DIR;
+    const dir = resolveWithin(RAW_DIR, subdir);
+    if (!dir) {
+      return { error: 'Path traversal not allowed — can only list kb/raw/' };
+    }
     return { files: listDirectory(dir) };
   });
 
   registerToolHandler('kb_read_file', async (args: Record<string, unknown>) => {
     const filePath = args.path as string;
-    const fullPath = join(KB_ROOT, filePath);
+    const fullPath = resolveWithin(KB_ROOT, filePath);
 
     // Security: prevent path traversal
-    if (!fullPath.startsWith(KB_ROOT)) {
+    if (!fullPath) {
       return { error: 'Path traversal not allowed' };
     }
 
@@ -182,10 +196,10 @@ export async function registerKBToolHandlers(): Promise<void> {
   registerToolHandler('kb_write_article', async (args: Record<string, unknown>) => {
     const filePath = args.path as string;
     const content = args.content as string;
-    const fullPath = join(WIKI_DIR, filePath);
+    const fullPath = resolveWithin(WIKI_DIR, filePath);
 
     // Security: prevent path traversal
-    if (!fullPath.startsWith(WIKI_DIR)) {
+    if (!fullPath) {
       return { error: 'Path traversal not allowed — can only write to kb/wiki/' };
     }
 
@@ -202,7 +216,10 @@ export async function registerKBToolHandlers(): Promise<void> {
 
   registerToolHandler('kb_list_wiki', async (args: Record<string, unknown>) => {
     const subdir = args.subdirectory as string | undefined;
-    const dir = subdir ? join(WIKI_DIR, subdir) : WIKI_DIR;
+    const dir = resolveWithin(WIKI_DIR, subdir);
+    if (!dir) {
+      return { error: 'Path traversal not allowed — can only list kb/wiki/' };
+    }
     return { files: listDirectory(dir) };
   });
 
@@ -322,7 +339,7 @@ export class KBAgent extends BaseAgent {
       name: 'kb',
       description: 'LLM-maintained Knowledge Base — compiles raw sources into a markdown wiki with auto-maintained indexes. Supports compile, ask, research, and lint operations.',
       capabilities: ['knowledge-base', 'wiki', 'research', 'compile', 'lint', 'q&a'],
-      model: 'claude-sonnet-4-6',
+      model: 'claude-sonnet-5',
       loop: {
         maxIterations: 15,
         allowDelegation: true,

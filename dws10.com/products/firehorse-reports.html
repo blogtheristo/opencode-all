@@ -29,9 +29,23 @@
     <link rel="canonical" href="https://dws10.com/products/firehorse-reports.html" />
     <link rel="icon" type="image/png" href="/static/images/firehorse-report-hero.png" />
     <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
+         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
+         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
     <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
       body {
-        font-family: system-ui, sans-serif;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
         background: #0f172a;
         color: #e2e8f0;
         line-height: 1.6;
@@ -47,11 +61,30 @@
         background: rgba(30, 41, 59, 0.5);
         padding: 40px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
         flex-grow: 1;
       }
       h1 {
-        color: #60a5fa;
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+        margin-top: 28px;
+      }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
       }
       .price {
         font-size: 2rem;
@@ -61,13 +94,22 @@
       }
       a.buy-btn {
         display: inline-block;
-        background: #2563eb;
-        color: white;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
         padding: 15px 30px;
         border-radius: 5px;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 800;
+        letter-spacing: 0.01em;
         margin-top: 20px;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
       }
       a.back-link {
         color: #94a3b8;
@@ -88,6 +130,7 @@
         display: flex;
         gap: 6px;
         margin-bottom: 14px;
+        flex-wrap: wrap;
       }
       .lang-btn {
         background: transparent;
@@ -117,8 +160,48 @@
       }
       .lang-desc {
         color: #94a3b8;
-        margin: 0 0 28px;
+        margin: 0 0 16px;
         line-height: 1.7;
+      }
+      .personal-desc {
+        color: #cbd5e1;
+        line-height: 1.7;
+        margin: 0 0 28px;
+      }
+      .personal-desc p.opener {
+        font-size: 1.02rem;
+        color: #e2e8f0;
+        margin: 0 0 18px;
+      }
+      .personal-desc h3.section {
+        color: #f97316;
+        font-size: 1.02rem;
+        margin: 18px 0 6px;
+        font-weight: 700;
+      }
+      .personal-desc ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 6px;
+      }
+      .personal-desc ul li {
+        padding-left: 18px;
+        position: relative;
+        margin-bottom: 6px;
+        color: #cbd5e1;
+      }
+      .personal-desc ul li:before {
+        content: "★";
+        color: #f97316;
+        position: absolute;
+        left: 0;
+        font-size: 0.85rem;
+        top: 2px;
+      }
+      .personal-desc a.terms-link {
+        color: #60a5fa;
+        text-decoration: none;
+        font-size: 0.9rem;
       }
       [data-lang] {
         display: none;
@@ -130,6 +213,7 @@
   </head>
   <body>
     <script src="../shared-assets/nav/ironclad-nav.js"></script>
+    <script src="../shared-assets/nav/product-actions.js"></script>
     <div class="container">
       <a href="../buy/?from=produce" class="back-link" id="back-to-store">← Back to Store</a>
       <script>
@@ -146,63 +230,163 @@
         class="hero-image"
       />
       <div class="lang-bar">
-        <button class="lang-btn" data-pick="en">EN</button>
         <button class="lang-btn" data-pick="fi">FI</button>
         <button class="lang-btn" data-pick="sv">SV</button>
-        <button class="lang-btn" data-pick="de">DE</button>
-        <button class="lang-btn" data-pick="fr">FR</button>
+        <button class="lang-btn" data-pick="en">EN</button>
       </div>
-      <p class="hero-oneliner" data-lang="en">
-        Board-ready compliance reports — from your data, signed, in hours.
-      </p>
       <p class="hero-oneliner" data-lang="fi">
         Hallitusvalmis raportti — datastasi, allekirjoitettuna, tunneissa.
       </p>
       <p class="hero-oneliner" data-lang="sv">
         Styrelseredo compliance-rapport — från era data, signerad, på timmar.
       </p>
-      <p class="hero-oneliner" data-lang="de">
-        Vorstandsfertige Compliance-Berichte — aus Ihren Daten, signiert, in Stunden.
+      <p class="hero-oneliner" data-lang="en">
+        Board-ready compliance reports — from your data, signed, in hours.
       </p>
-      <p class="hero-oneliner" data-lang="fr">
-        Rapports de conformité prêts pour le conseil — depuis vos données, signés, en quelques
-        heures.
-      </p>
-      <p class="lang-desc" data-lang="en">
-        Firehorse Report automates board-level ESG and climate compliance reporting on top of DWS
-        IQ. Pull data from your systems, structure it to regulatory requirements, and deliver board
-        packs with cryptographic signatures for CSRD and Fit for 55 — without manual compilation.
-      </p>
-      <p class="lang-desc" data-lang="fi">
-        Firehorse Report automatisoi hallitustason ESG- ja ilmastocompliance-raportoinnin DWS IQ:n
-        päälle. Hae data järjestelmistäsi, rakenna se sääntelyvaatimusten mukaan ja toimita
-        hallituspaketit kryptografisilla allekirjoituksilla CSRD:tä ja Fit for 55:tä varten — ilman
-        manuaalista koostamista.
-      </p>
-      <p class="lang-desc" data-lang="sv">
-        Firehorse Report automatiserar ESG- och klimatcompliance-rapportering på styrelsenivå ovanpå
-        DWS IQ. Hämta data från era system, strukturera det enligt regulatoriska krav och leverera
-        styrelsepaket med kryptografiska signaturer för CSRD och Fit for 55 — utan manuell
-        sammanställning.
-      </p>
-      <p class="lang-desc" data-lang="de">
-        Firehorse Report automatisiert die ESG- und Klimacompliance-Berichterstattung auf
-        Vorstandsebene auf Basis von DWS IQ. Daten aus Ihren Systemen abrufen, nach regulatorischen
-        Anforderungen strukturieren und Vorstandspakete mit kryptografischen Signaturen für CSRD und
-        Fit for 55 liefern — ohne manuelle Zusammenstellung.
-      </p>
-      <p class="lang-desc" data-lang="fr">
-        Firehorse Report automatise le reporting ESG et de conformité climatique au niveau du
-        conseil sur DWS IQ. Extrayez les données de vos systèmes, structurez-les selon les exigences
-        réglementaires et livrez des dossiers de conseil avec des signatures cryptographiques pour
-        CSRD et Fit for 55 — sans compilation manuelle.
-      </p>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">
+          Kun raportin määräaika lähestyy ja excelit eivät vain tahdo täsmätä. Olipa kyseessä
+          hallituksen ilmasto-KPI-paketti, CSRD-vuosiraportti tai Fit for 55 -auditointivastaus,
+          Firehorse Report auttaa sinua tuottamaan allekirjoitusvalmiin asiakirjan nopeammin kuin
+          mikään SaaS + sisäinen tiimi yhdistelmä.
+        </p>
+        <h3 class="section">Automatisoi raportointityösi:</h3>
+        <ul>
+          <li>
+            Anna Report-agentin herätä kuukauden 1. päivä, hakea verifioitu data DWS IQ:sta ja
+            täyttää oma PowerPoint-pohjasi.
+          </li>
+          <li>
+            Vaihda 5 työpäivän käsityö 15 minuutin tarkistukseen Teamsissa, WhatsAppissa tai
+            webhookilla.
+          </li>
+          <li>
+            Klikkaa mitä tahansa numeroa PDF:ssä ja jäljitä se takaisin lähdejärjestelmään — ei enää
+            copy-pastea.
+          </li>
+        </ul>
+        <h3 class="section">Vastaa EU-säädöksiin ilman pelkoa:</h3>
+        <ul>
+          <li>
+            Tuota CSRD-, Fit for 55-, EU ETS- ja EPBD-raportit yhdellä koneella, omalla brändilläsi.
+          </li>
+          <li>
+            Säilytä auditointiketju automaattisesti — Audit Logger tallentaa milloin ja miten
+            raportti syntyi.
+          </li>
+          <li>Vältä virheelliset luvut ja niistä seuraavat sanktiot kone-konedatavirralla.</li>
+        </ul>
+        <h3 class="section">Säästä viikkoja ja anna tiimisi tehdä oikeita töitä:</h3>
+        <ul>
+          <li>Vähennä raportointiin käytettyä työaikaa 90% (McKinsey 2025).</li>
+          <li>
+            Toimita raportti päivänä 1, ei päivänä 10 — nopeammat päätöskierrokset hallitukselle.
+          </li>
+          <li>
+            Skaalaa: lisää uusia template-pohjia (PPT, Excel, PDF, HTML) ilman uutta
+            toimittajasopimusta.
+          </li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">
+          När rapportdeadlinen närmar sig och Excel-arken bara inte stämmer. Oavsett om det handlar
+          om styrelsens klimat-KPI-paket, CSRD-årsrapport eller Fit for 55-revisionssvar, hjälper
+          Firehorse Report dig att leverera ett signeringsklart dokument snabbare än någon SaaS +
+          internt team-kombination.
+        </p>
+        <h3 class="section">Automatisera ditt rapporteringsarbete:</h3>
+        <ul>
+          <li>
+            Låt Report-agenten vakna den 1:a varje månad, hämta verifierad data från DWS IQ och
+            fylla i din egen PowerPoint-mall.
+          </li>
+          <li>
+            Byt 5 dagars handarbete mot 15 minuters granskning i Teams, WhatsApp eller via webhook.
+          </li>
+          <li>
+            Klicka på vilken siffra som helst i PDF:en och spåra den tillbaka till källsystemet —
+            inget mer copy-paste.
+          </li>
+        </ul>
+        <h3 class="section">Möt EU-regelverken utan rädsla:</h3>
+        <ul>
+          <li>
+            Producera CSRD-, Fit for 55-, EU ETS- och EPBD-rapporter med en maskin, i ert varumärke.
+          </li>
+          <li>
+            Bevara revisionsskedjan automatiskt — Audit Logger registrerar när och hur rapporten
+            skapades.
+          </li>
+          <li>
+            Undvik felaktiga siffror och de sanktioner som följer, tack vare maskin-till-maskin
+            dataflöde.
+          </li>
+        </ul>
+        <h3 class="section">Spar veckor och låt teamet göra rätt jobb:</h3>
+        <ul>
+          <li>Minska arbetstiden för rapportering med 90% (McKinsey 2025).</li>
+          <li>Leverera rapporten dag 1, inte dag 10 — snabbare beslutsrundor för styrelsen.</li>
+          <li>Skala: lägg till nya mallar (PPT, Excel, PDF, HTML) utan nytt leverantörsavtal.</li>
+        </ul>
+        <p>
+          <a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a>
+        </p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">
+          When the reporting deadline closes in and the spreadsheets simply won't reconcile. Whether
+          it's the board's climate KPI pack, your CSRD annual report or a Fit for 55 audit response,
+          Firehorse Report helps you produce a sign-off-ready document faster than any SaaS +
+          internal team combined.
+        </p>
+        <h3 class="section">Automate your reporting work:</h3>
+        <ul>
+          <li>
+            Let the Report agent wake up on the 1st of the month, pull verified data from DWS IQ and
+            fill your own PowerPoint template.
+          </li>
+          <li>
+            Trade 5 days of manual work for a 15-minute review in Teams, WhatsApp or via webhook.
+          </li>
+          <li>
+            Click any number in the PDF and trace it back to the source system — no more copy-paste.
+          </li>
+        </ul>
+        <h3 class="section">Meet EU regulations without fear:</h3>
+        <ul>
+          <li>
+            Produce CSRD, Fit for 55, EU ETS and EPBD reports on one engine, in your own branding.
+          </li>
+          <li>
+            Preserve the audit trail automatically — the Audit Logger records exactly when and how
+            the report was generated.
+          </li>
+          <li>
+            Avoid incorrect numbers and the penalties that follow, with machine-to-machine data
+            flow.
+          </li>
+        </ul>
+        <h3 class="section">Save weeks and let your team do the real work:</h3>
+        <ul>
+          <li>Cut reporting man-hours by 90% (McKinsey 2025).</li>
+          <li>Deliver the report on Day 1, not Day 10 — faster decision cycles for the board.</li>
+          <li>Scale: add new templates (PPT, Excel, PDF, HTML) without a new vendor contract.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
       <script>
         (function () {
-          var LANGS = ["en", "fi", "sv", "de", "fr"];
-          var lang = localStorage.getItem("dws-lang") || "en";
-          if (!LANGS.includes(lang)) lang = "en";
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
           function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
             document.querySelectorAll("[data-lang]").forEach(function (el) {
               el.classList.toggle("lang-active", el.getAttribute("data-lang") === l);
             });
@@ -232,9 +416,12 @@
         <h2>Description</h2>
         <p><strong>Automated reporting on top of DWS IQ.</strong></p>
         <p>
-          Firehorse Report turns the reports your team builds manually into automated, AI‑native
-          outputs in a few weeks. It plugs into SAP/your existing tools, is tailored to your exact
-          format, and usually ends up cheaper than your current SaaS + internal labour combined.
+          Firehorse Report is the reporting layer of the DWS IQ Industrial Intelligence suite — it
+          runs on top of the same sovereign DWS IQ engine that powers the wider Firehorse line and
+          the Aegis dual-use tier. It turns the reports your team builds manually into automated,
+          AI‑native outputs in a few weeks. It plugs into SAP/your existing tools, is tailored to
+          your exact format, and usually ends up cheaper than your current SaaS + internal labour
+          combined.
         </p>
         <h2>Why Firehorse Report?</h2>
         <p>
@@ -267,9 +454,10 @@
           the 1st of the month, the Report Agent wakes up. 2. <strong>Fetch:</strong> It queries DWS
           IQ for the verified emissions and operational data. 3. <strong>Generate:</strong> It
           populates your specific PowerPoint template, updating charts and text placeholders. 4.
-          <strong>Review:</strong> It sends a draft to the sustainability officer via Teams/Slack.
-          5. <strong>Outcome:</strong> The officer reviews the draft in 15 minutes, approves it, and
-          it's distributed. <strong>5 days of work becomes 15 minutes.</strong>
+          <strong>Review:</strong> It sends a draft to the sustainability officer via Teams,
+          WhatsApp, or secure webhook. 5. <strong>Outcome:</strong> The officer reviews the draft in
+          15 minutes, approves it, and it's distributed.
+          <strong>5 days of work becomes 15 minutes.</strong>
         </p>
         <h2>Expected Impact &amp; Efficiency</h2>
         <ul>
@@ -311,7 +499,7 @@
         <ul>
           <li><strong>Outputs:</strong> PowerPoint (.pptx), Excel (.xlsx), PDF, HTML.</li>
           <li><strong>Integrations:</strong> DWS IQ Core, Microsoft 365, Google Workspace.</li>
-          <li><strong>Delivery:</strong> Email, Slack, Teams, SharePoint.</li>
+          <li><strong>Delivery:</strong> Email, WhatsApp, Teams, secure webhook, SharePoint.</li>
         </ul>
         <hr />
         <h3>References</h3>
@@ -322,12 +510,450 @@
           tasks across early AI adopters).
         </p>
       </div>
-      <a
-        href="https://dws10.com/book"
-        class="buy-btn"
-        >📅 Book Session</a
-      >
+      <a href="https://dws10.com/book" class="buy-btn">📅 Book Session</a>
+      <p class="page-version">Firehorse Report — page v1.1 · 2026-06-23</p>
     </div>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <section
+      class="eco-block"
+      id="dws-ecosystem"
+      aria-label="DWS ecosystem — related products + EU industry workflows"
+    >
+      <style>
+        .eco-block {
+          background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+          border-top: 4px solid #003399;
+          border-bottom: 4px solid #76b900;
+          margin: 40px 0 0;
+          padding: 56px 20px 64px;
+          font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+          color: #e2e8f0;
+        }
+        .eco-block .eco-inner {
+          max-width: 1080px;
+          margin: 0 auto;
+        }
+        .eco-block .eco-tag {
+          display: inline-block;
+          background: #76b900;
+          color: #000;
+          padding: 5px 14px;
+          border-radius: 4px;
+          font-size: 0.74rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+        .eco-block h2.eco-h {
+          font-size: clamp(1.45rem, 3.2vw, 2rem);
+          font-weight: 800;
+          color: #f8fafc;
+          margin: 0 0 10px;
+          line-height: 1.2;
+        }
+        .eco-block .eco-lead {
+          color: #cbd5e1;
+          max-width: 780px;
+          margin-bottom: 28px;
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+        .eco-block h3.eco-section-h {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: #67e8f9;
+          margin: 36px 0 14px;
+          padding-bottom: 6px;
+          border-bottom: 1px solid rgba(103, 232, 249, 0.25);
+        }
+        .eco-block strong {
+          color: #f1f5f9;
+        }
+        .eco-block .eco-tier-label {
+          display: block;
+          font-size: 0.68rem;
+          font-weight: 700;
+          color: #a3e635;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 14px;
+        }
+        .eco-block .eco-product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 14px;
+          margin: 6px 0 12px;
+        }
+        .eco-block .eco-product-card {
+          display: block;
+          background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+          border: 1px solid rgba(118, 185, 0, 0.22);
+          border-radius: 10px;
+          padding: 16px 18px;
+          text-decoration: none;
+          transition:
+            border-color 0.25s ease,
+            transform 0.2s ease;
+          color: inherit;
+        }
+        .eco-block .eco-product-card:hover {
+          border-color: rgba(118, 185, 0, 0.6);
+          transform: translateY(-2px);
+          text-decoration: none;
+        }
+        .eco-block .eco-product-card .eco-pc-tag {
+          display: inline-block;
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          background: rgba(118, 185, 0, 0.18);
+          color: #a3e635;
+          border: 1px solid rgba(118, 185, 0, 0.35);
+          border-radius: 4px;
+          padding: 2px 7px;
+          margin-bottom: 7px;
+        }
+        .eco-block .eco-product-card .eco-pc-name {
+          color: #f1f5f9;
+          font-weight: 700;
+          font-size: 0.92rem;
+          margin-bottom: 3px;
+          line-height: 1.3;
+        }
+        .eco-block .eco-product-card .eco-pc-price {
+          display: none;
+          color: #76b900;
+          font-weight: 800;
+          font-size: 1.1rem;
+          margin-bottom: 4px;
+        }
+        .eco-block .eco-product-card .eco-pc-desc {
+          color: #94a3b8;
+          font-size: 0.76rem;
+          line-height: 1.4;
+        }
+        .eco-block .eco-industries-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 10px;
+          margin: 14px 0 4px;
+        }
+        .eco-block .eco-industries-grid > div {
+          background: rgba(15, 23, 42, 0.5);
+          border-left: 3px solid #76b900;
+          padding: 11px 14px;
+          font-size: 0.82rem;
+          color: #cbd5e1;
+          line-height: 1.45;
+          border-radius: 0 6px 6px 0;
+        }
+        .eco-block .eco-industries-grid > div strong {
+          color: #67e8f9;
+        }
+        .eco-block .eco-industries-grid > div.eco-flagship {
+          border-left-color: #d4a843;
+          background: rgba(212, 168, 67, 0.06);
+        }
+        .eco-block .eco-callout {
+          background: rgba(6, 182, 212, 0.08);
+          border-left: 4px solid #06b6d4;
+          padding: 14px 18px;
+          margin: 24px 0 12px;
+          border-radius: 0 8px 8px 0;
+          color: #cbd5e1;
+          font-size: 0.92rem;
+          line-height: 1.5;
+        }
+        .eco-block .eco-cta-row {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 22px;
+        }
+        .eco-block .eco-cta {
+          display: inline-block;
+          padding: 11px 22px;
+          background: #76b900;
+          color: #000;
+          border-radius: 6px;
+          font-weight: 700;
+          font-size: 0.92rem;
+          text-decoration: none;
+          letter-spacing: 0.02em;
+        }
+        .eco-block .eco-cta:hover {
+          background: #5a8c00;
+          color: #fff;
+          text-decoration: none;
+        }
+        .eco-block .eco-cta-secondary {
+          background: transparent;
+          border: 1px solid rgba(226, 232, 240, 0.4);
+          color: #e2e8f0;
+        }
+        .eco-block .eco-cta-secondary:hover {
+          border-color: #fff;
+          background: rgba(255, 255, 255, 0.08);
+          color: #fff;
+        }
+        @media (max-width: 640px) {
+          .eco-block {
+            padding: 40px 16px 50px;
+          }
+          .eco-block h3.eco-section-h {
+            font-size: 1rem;
+          }
+          .eco-block .eco-product-card {
+            padding: 14px 16px;
+          }
+        }
+      </style>
+
+      <div class="eco-inner">
+        <div>
+          <span class="eco-tag">The Full Picture</span>
+          <h2 class="eco-h">The DWS sovereign stack — every layer, one ecosystem.</h2>
+          <p class="eco-lead">
+            This product is one piece. The whole stack ties together: sovereign hardware at the
+            edge, on-premise inference, an EU service team, and the recurring NVIDIA-model
+            relationship that compounds. Pick the next rung you need.
+          </p>
+        </div>
+
+        <h3 class="eco-section-h">Related products — the full ladder</h3>
+
+        <span class="eco-tier-label">Sensor edge — NVIDIA Jetson tier</span>
+        <div class="eco-product-grid">
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Single sensor</span>
+            <div class="eco-pc-name">Jetson Sensor Node (Orin Nano Super)</div>
+            <div class="eco-pc-price">€764</div>
+            <div class="eco-pc-desc">
+              67 TOPS · 8 GB · camera, acoustic, IoT, bedside — events only forward.
+            </div>
+          </a>
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Mid · 2–4 lanes</span>
+            <div class="eco-pc-name">Jetson Sensor Mid (Orin NX 16 GB)</div>
+            <div class="eco-pc-price">€1,990</div>
+            <div class="eco-pc-desc">
+              100 TOPS · 16 GB · rail wayside, mid-size kalustohalli, factory cell.
+            </div>
+          </a>
+          <a href="/products/jetson-sensor.html" class="eco-product-card">
+            <span class="eco-pc-tag">Concentrator · 4–8 lanes</span>
+            <div class="eco-pc-name">Jetson Sensor Concentrator (AGX Orin)</div>
+            <div class="eco-pc-price">€2,694</div>
+            <div class="eco-pc-desc">
+              275 TOPS · 64 GB · VPK forward node, port operations, energy substation.
+            </div>
+          </a>
+        </div>
+
+        <span class="eco-tier-label"
+          >Operations &amp; situation command — NVIDIA GB10 Grace Blackwell</span
+        >
+        <div class="eco-product-grid">
+          <a href="/products/edge-node-gn100.html" class="eco-product-card">
+            <span class="eco-pc-tag">Compliance · 1-node</span>
+            <div class="eco-pc-name">Control Room (Acer Veriton GN100)</div>
+            <div class="eco-pc-price">€5,294</div>
+            <div class="eco-pc-desc">1 PFLOPS FP4 · 128 GB · sovereign AI brain on the desk.</div>
+          </a>
+          <a href="/products/dgx-spark.html" class="eco-product-card">
+            <span class="eco-pc-tag">NVIDIA-branded</span>
+            <div class="eco-pc-name">DGX Spark</div>
+            <div class="eco-pc-price">€5,994</div>
+            <div class="eco-pc-desc">
+              Same GB10 silicon in NVIDIA's own SKU. ConnectX-7 pair for 405 B-param models.
+            </div>
+          </a>
+          <a href="/products/situation-room.html" class="eco-product-card">
+            <span class="eco-pc-tag">Crisis ops · 2-node</span>
+            <div class="eco-pc-name">Situation Room (2× bridged GN100)</div>
+            <div class="eco-pc-price">€10,093</div>
+            <div class="eco-pc-desc">Tensor-parallel · failover · VPK drone defence dual-use.</div>
+          </a>
+          <a href="/products/igx-orin.html" class="eco-product-card">
+            <span class="eco-pc-tag">Industrial / medical</span>
+            <div class="eco-pc-name">IGX Orin</div>
+            <div class="eco-pc-price">€11,990</div>
+            <div class="eco-pc-desc">
+              ECC memory · 10-year NVIDIA support · Pharma, healthcare, nuclear.
+            </div>
+          </a>
+        </div>
+
+        <span class="eco-tier-label">Platform · subscription · service</span>
+        <div class="eco-product-grid">
+          <a href="/products/dwsiq.html" class="eco-product-card">
+            <span class="eco-pc-tag">Platform</span>
+            <div class="eco-pc-name">DWS IQ 6 — Skilled Agents Fleet</div>
+            <div class="eco-pc-price">€4,999</div>
+            <div class="eco-pc-desc">
+              EU compliance automation: Fit for 55, CSRD, EPBD, EU AI Act Article 12.
+            </div>
+          </a>
+          <a href="/products/aegis.html" class="eco-product-card">
+            <span class="eco-pc-tag">Sovereign tier</span>
+            <div class="eco-pc-name">DWS IQ Aegis</div>
+            <div class="eco-pc-price">from €59,990</div>
+            <div class="eco-pc-desc">
+              Single-tenant sovereign AI · 21 EU-regulated industries · dual-use.
+            </div>
+          </a>
+          <a href="/products/nvidia-model-install.html" class="eco-product-card">
+            <span class="eco-pc-tag">Install + service</span>
+            <div class="eco-pc-name">NVIDIA Model Install + Full Service</div>
+            <div class="eco-pc-price">€995 / device</div>
+            <div class="eco-pc-desc">
+              For your own NVIDIA hardware or a fleet expansion. Full service bundled.
+            </div>
+          </a>
+          <a href="/buy/" class="eco-product-card">
+            <span class="eco-pc-tag">Recurring</span>
+            <div class="eco-pc-name">Sovereign Model Updates Subscription</div>
+            <div class="eco-pc-price">€299 / mo</div>
+            <div class="eco-pc-desc">
+              Monthly NIMs · weekly security · daily hotfixes · 24/7 support · warranty.
+            </div>
+          </a>
+        </div>
+
+        <div class="eco-callout">
+          Every box ships with on-site install + operator training + 24/7 technical support +
+          warranty servicing + remote configuration. The NVIDIA models compound monthly. Lifetime Oy
+          is an <strong>NVIDIA Connect ISV</strong> (approved 2026-03-08) and
+          <strong>NVIDIA Inception applicant</strong> on the Sovereign EU Edge AI track. Finnish /
+          EU B2B pricing (VAT 0 % reverse charge).
+        </div>
+
+        <h3 class="eco-section-h">25 EU-regulated industries — same pattern, your bundle</h3>
+        <p class="eco-lead" style="margin-bottom: 12px">
+          The same sovereign topology — sensor edge → operations command → situation command,
+          wrapped in service — repeats across every EU-regulated industry. Different bundle per
+          workload, same moat underneath.
+        </p>
+        <div class="eco-industries-grid">
+          <div>
+            <strong>1. Construction</strong><br />Site safety dispatch (SiteSense vision + Whisper +
+            Llama Nemotron Super) · EPBD / CSRD report generation · BIM-aware reasoning
+          </div>
+          <div>
+            <strong>2. Cement</strong><br />Emissions intensity (kgCO₂ / t cement) · ETS allowance
+            calculation · CBAM exports · kiln anomaly detection
+          </div>
+          <div>
+            <strong>3. Steel</strong><br />CBAM origin tracking · energy carrier optimisation · ETS
+            · scrap composition vision
+          </div>
+          <div>
+            <strong>4. Aluminium</strong><br />CBAM imports compliance · smelter energy logs · ETS ·
+            pot-line vision QA
+          </div>
+          <div>
+            <strong>5. Chemicals</strong><br />REACH dossier drafting · hazardous incident response
+            triage · process safety event RAG
+          </div>
+          <div>
+            <strong>6. Pharmaceuticals</strong><br />GMP batch release Article 12 · clinical trial
+            protocol compliance · GxP sovereign log
+          </div>
+          <div>
+            <strong>7. Healthcare (hospitals)</strong><br />Local-data triage assist · GDPR-safe
+            dictation (Nemotron Speech) · sovereign EHR Q&amp;A
+          </div>
+          <div class="eco-flagship">
+            <strong>8. Defence / dual-use</strong><br />Drone detection (YOLOv8-x + acoustic +
+            Cosmos Reason 2) · export-control screening · Reg 2021/821 reasoning
+          </div>
+          <div>
+            <strong>9. Energy / electricity grid</strong><br />Balancing forecasts · NIS2 24 h
+            incident reports · sovereign DSO/TSO telemetry
+          </div>
+          <div>
+            <strong>10. Oil &amp; gas</strong><br />Pipeline anomaly detection · sanctions screening
+            · sovereign well-log RAG
+          </div>
+          <div>
+            <strong>11. Nuclear</strong><br />IAEA reporting prep · operational safety log analysis
+            · air-gapped reactor twin
+          </div>
+          <div>
+            <strong>12. Water utilities</strong><br />Leak detection on local SCADA · sovereign
+            customer + meter data · NIS2 incident logging
+          </div>
+          <div>
+            <strong>13. Telecommunications</strong><br />NIS2 24 h incident reports · sovereign
+            call-metadata analysis · BGP / DNS anomaly triage
+          </div>
+          <div>
+            <strong>14. Banking / finance</strong><br />DORA operational resilience · MiFID II
+            call-log review · sovereign KYC RAG
+          </div>
+          <div>
+            <strong>15. Insurance</strong><br />Claims triage on local PII · fraud signal detection
+            · sovereign claimant document Q&amp;A
+          </div>
+          <div>
+            <strong>16. Maritime / shipping</strong><br />MRV CO₂ reporting · port operations
+            dispatch · sovereign AIS &amp; cargo manifests
+          </div>
+          <div>
+            <strong>17. Aviation</strong><br />EU ETS aviation reporting · NOTAM-aware dispatch ·
+            sovereign passenger / crew data
+          </div>
+          <div>
+            <strong>18. Rail</strong><br />Predictive maintenance · ERTMS sovereign telemetry · NIS2
+            incident reports
+          </div>
+          <div>
+            <strong>19. Logistics &amp; customs</strong><br />Declaration assist · dual-use export
+            checking · sovereign carrier manifests
+          </div>
+          <div>
+            <strong>20. Agriculture</strong><br />CAP compliance · traceability of crop inputs ·
+            EUDR due diligence
+          </div>
+          <div>
+            <strong>21. Food processing</strong><br />HACCP audit assist · allergen tracing ·
+            sovereign batch genealogy
+          </div>
+          <div>
+            <strong>22. Forestry / pulp &amp; paper</strong><br />EUDR deforestation due diligence ·
+            chain of custody · sovereign harvest plans
+          </div>
+          <div>
+            <strong>23. Mining</strong><br />CRMA reporting (critical raw materials) · safety
+            dispatch · sovereign assay data
+          </div>
+          <div class="eco-flagship">
+            <strong>24. Government / civil defence (VPK)</strong><br />Drone defence dual-use ·
+            dispatch + incident report generation · sovereign citizen data
+          </div>
+          <div>
+            <strong>25. Education / research</strong><br />Sovereign research data · intra-EU
+            collaboration without cloud LLMs · EU AI Act literacy training
+          </div>
+        </div>
+
+        <div class="eco-cta-row">
+          <a href="/buy/" class="eco-cta">Browse the full catalogue →</a>
+          <a href="/price-list/" class="eco-cta eco-cta-secondary">Open price list (v1.20)</a>
+          <a href="/nvidia-inception/" class="eco-cta eco-cta-secondary">NVIDIA Inception page</a>
+          <a
+            href="mailto:risto@onelifetime.world?subject=DWS sovereign stack — demo request"
+            class="eco-cta eco-cta-secondary"
+            >Book a demo</a
+          >
+        </div>
+      </div>
+    </section>
   </body>
 </html>

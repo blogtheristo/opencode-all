@@ -1,0 +1,650 @@
+{
+  "$schema": "../../schemas/enterprise-entry.schema.json",
+  "industry_id": "01",
+  "industry_name": "Power & Heat Generation",
+  "description": "Top 20 European power and heat generation companies by revenue, covering thermal, nuclear, renewable generation and district heating.",
+  "last_updated": "2026-06-22",
+  "data_vintage": "FY 2025 (published Q1 2026)",
+  "methodology": "Revenue figures from annual reports and financial databases. Employee counts from official filings. Regulatory exposure assessed from EU ETS registry, CSRD scope, and company sustainability reports. All EUR conversions at approximate mid-2026 rates.",
+  "enterprises": [
+    {
+      "id": "POWER-001",
+      "name": "EDF (Electricite de France)",
+      "hq_country": "FR",
+      "revenue_eur_m": 113300,
+      "employees": 175000,
+      "eu_facilities": [
+        "Flamanville (FR)",
+        "Gravelines (FR)",
+        "Paluel (FR)",
+        "Hinkley Point (GB)",
+        "Dunkerque (FR)",
+        "Cattenom (FR)"
+      ],
+      "eu_countries": ["FR", "GB", "IT", "BE"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "nuclear generation",
+        "hydropower",
+        "offshore wind",
+        "electricity distribution",
+        "district heating",
+        "energy trading"
+      ],
+      "sustainability_initiatives": [
+        "95% decarbonized generation mix (26.5 gCO2/kWh in 2025)",
+        "EPR2 new-build reactor programme",
+        "515 TWh low-carbon generation in 2025",
+        "Renewable capacity expansion across Europe"
+      ],
+      "notes": "Fully renationalized by the French state in June 2023. World's largest nuclear fleet operator (56 reactors in France). Revenue includes energy trading and distribution."
+    },
+    {
+      "id": "POWER-002",
+      "name": "E.ON SE",
+      "hq_country": "DE",
+      "revenue_eur_m": 89000,
+      "employees": 72000,
+      "eu_facilities": [
+        "Essen (DE)",
+        "Nottingham (GB)",
+        "Stockholm (SE)",
+        "Budapest (HU)",
+        "Malmo (SE)"
+      ],
+      "eu_countries": ["DE", "GB", "SE", "HU", "CZ", "RO", "NL", "IT"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "electricity distribution networks",
+        "gas distribution",
+        "energy retail",
+        "e-mobility",
+        "smart metering",
+        "district heating"
+      ],
+      "sustainability_initiatives": [
+        "Massive grid modernization investment programme",
+        "Smart grid and digital infrastructure rollout",
+        "E-mobility charging network expansion",
+        "Energy efficiency services for customers"
+      ],
+      "notes": "Post-2016 split with Uniper, E.ON focuses on regulated networks and energy retail rather than generation. Revenue primarily from distribution and retail."
+    },
+    {
+      "id": "POWER-003",
+      "name": "Enel SpA",
+      "hq_country": "IT",
+      "revenue_eur_m": 73000,
+      "employees": 61000,
+      "eu_facilities": [
+        "Rome (IT)",
+        "Milan (IT)",
+        "Madrid (ES)",
+        "Bucharest (RO)",
+        "Brindisi (IT)"
+      ],
+      "eu_countries": ["IT", "ES", "RO", "GR"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "thermal generation",
+        "renewable generation",
+        "electricity distribution",
+        "energy retail",
+        "offshore wind",
+        "solar",
+        "battery storage"
+      ],
+      "sustainability_initiatives": [
+        "66 GW renewable capacity globally",
+        "EUR 43 billion 2025-2027 strategic investment plan",
+        "Coal phase-out acceleration",
+        "Electrification and grid digitalization"
+      ],
+      "notes": "Parent of Endesa (Spain). Largest European utility by market capitalization. Operates across 30+ countries."
+    },
+    {
+      "id": "POWER-004",
+      "name": "ENGIE SA",
+      "hq_country": "FR",
+      "revenue_eur_m": 71900,
+      "employees": 98000,
+      "eu_facilities": [
+        "La Defense (FR)",
+        "Brussels (BE)",
+        "The Hague (NL)",
+        "Ghent (BE)",
+        "Hamburg (DE)"
+      ],
+      "eu_countries": ["FR", "BE", "NL", "DE", "IT", "ES", "PT", "RO", "CZ"],
+      "regulatory_exposure": ["ETS", "CBAM", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "gas-fired generation",
+        "renewable generation",
+        "district heating",
+        "energy services",
+        "LNG",
+        "hydrogen",
+        "electricity distribution"
+      ],
+      "sustainability_initiatives": [
+        "50% renewable share of generation capacity reached end-2025",
+        "EUR 27.8 billion investment plan to 2028 for sustainable energy",
+        "Green hydrogen development projects",
+        "District heating decarbonization across Europe"
+      ],
+      "notes": "Operates in 48 countries. Strong presence in energy services, facility management, and district heating alongside generation."
+    },
+    {
+      "id": "POWER-005",
+      "name": "Uniper SE",
+      "hq_country": "DE",
+      "revenue_eur_m": 70000,
+      "employees": 7000,
+      "eu_facilities": [
+        "Dusseldorf (DE)",
+        "Wilhelmshaven (DE)",
+        "Datteln (DE)",
+        "Maasvlakte (NL)",
+        "Oskarshamn (SE)"
+      ],
+      "eu_countries": ["DE", "NL", "SE", "GB", "HU"],
+      "regulatory_exposure": ["ETS", "CBAM", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "gas-fired generation",
+        "nuclear generation",
+        "hydropower",
+        "LNG import terminals",
+        "energy trading",
+        "hydrogen"
+      ],
+      "sustainability_initiatives": [
+        "EUR 5 billion earmarked for renewable and hydrogen growth",
+        "580 MW of new renewable projects approved or under construction",
+        "LNG infrastructure for energy security transition",
+        "Dividend resumption signals financial recovery"
+      ],
+      "notes": "99.12% owned by the German federal government since 2022 bailout. Revenue heavily influenced by energy trading volumes. 13 GW flexible generation capacity."
+    },
+    {
+      "id": "POWER-006",
+      "name": "Iberdrola SA",
+      "hq_country": "ES",
+      "revenue_eur_m": 46000,
+      "employees": 42000,
+      "eu_facilities": [
+        "Bilbao (ES)",
+        "Glasgow (GB)",
+        "Lisbon (PT)",
+        "Berlin (DE)",
+        "East Anglia (GB)"
+      ],
+      "eu_countries": ["ES", "GB", "PT", "DE", "FR", "GR", "IT"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "offshore wind",
+        "onshore wind",
+        "solar",
+        "hydropower",
+        "electricity distribution",
+        "smart grids",
+        "battery storage"
+      ],
+      "sustainability_initiatives": [
+        "EUR 47 billion investment plan including EUR 17 billion in renewables",
+        "52 GW renewable target by 2025",
+        "Three consecutive years as EU leader in long-term renewable PPAs",
+        "Record net profit of EUR 7.4 billion in 2025"
+      ],
+      "notes": "Leading global wind energy company. Parent of ScottishPower (UK) and Avangrid (US). Market cap reached EUR 158 billion record in 2025."
+    },
+    {
+      "id": "POWER-007",
+      "name": "EnBW Energie Baden-Wurttemberg AG",
+      "hq_country": "DE",
+      "revenue_eur_m": 38600,
+      "employees": 31500,
+      "eu_facilities": [
+        "Karlsruhe (DE)",
+        "Stuttgart (DE)",
+        "Philippsburg (DE)",
+        "Nordsee (DE)",
+        "Hamburg (DE)"
+      ],
+      "eu_countries": ["DE"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "onshore wind",
+        "offshore wind",
+        "solar",
+        "gas-fired generation",
+        "electricity distribution",
+        "e-mobility charging",
+        "district heating"
+      ],
+      "sustainability_initiatives": [
+        "66% of installed generation from renewables, 800 MW added in 2025",
+        "Last lignite plant sold; coal capacity reduced by 1.7 GW",
+        "EUR 7.6 billion record gross investment in 2025 (87% in growth)",
+        "EUR 50 billion investment commitment 2024-2030 with shareholders"
+      ],
+      "notes": "Third-largest German utility. Primarily regional (Baden-Wurttemberg) but expanding nationally. Adjusted EBITDA EUR 5.1 billion in 2025."
+    },
+    {
+      "id": "POWER-008",
+      "name": "Endesa SA",
+      "hq_country": "ES",
+      "revenue_eur_m": 26000,
+      "employees": 9000,
+      "eu_facilities": [
+        "Madrid (ES)",
+        "Barcelona (ES)",
+        "Sevilla (ES)",
+        "As Pontes (ES)",
+        "Carboneras (ES)"
+      ],
+      "eu_countries": ["ES", "PT"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "thermal generation",
+        "nuclear generation",
+        "renewable generation",
+        "electricity distribution",
+        "energy retail"
+      ],
+      "sustainability_initiatives": [
+        "85.8% of peninsular generation from non-emitting technologies in 2025",
+        "22.6 GW net installed capacity",
+        "EBITDA grew 9% YoY to EUR 5.8 billion",
+        "Accelerated coal phase-out programme"
+      ],
+      "notes": "Subsidiary of Enel (70% owned). Largest electricity company in Spain. Generated 61 TWh in 2025."
+    },
+    {
+      "id": "POWER-009",
+      "name": "RWE AG",
+      "hq_country": "DE",
+      "revenue_eur_m": 24000,
+      "employees": 21000,
+      "eu_facilities": [
+        "Essen (DE)",
+        "Hambach (DE)",
+        "Garzweiler (DE)",
+        "Eemshaven (NL)",
+        "Pembroke (GB)"
+      ],
+      "eu_countries": ["DE", "NL", "GB", "PL", "IE"],
+      "regulatory_exposure": ["ETS", "CBAM", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "offshore wind",
+        "onshore wind",
+        "solar",
+        "lignite generation",
+        "gas-fired generation",
+        "battery storage",
+        "hydrogen"
+      ],
+      "sustainability_initiatives": [
+        "EUR 35 billion investment plan 2025-2030",
+        "Growing offshore wind portfolio across North Sea",
+        "German lignite phase-out pathway",
+        "EUR 1.5 billion share buyback programme from deferred investments"
+      ],
+      "notes": "Germany's largest electricity producer (26% of national output in 2022). Revenue lower than peers due to focus on generation over trading. Lignite transition is key regulatory challenge."
+    },
+    {
+      "id": "POWER-010",
+      "name": "Vattenfall AB",
+      "hq_country": "SE",
+      "revenue_eur_m": 21000,
+      "employees": 21000,
+      "eu_facilities": [
+        "Solna (SE)",
+        "Hamburg (DE)",
+        "Amsterdam (NL)",
+        "Ringhals (SE)",
+        "Berlin (DE)"
+      ],
+      "eu_countries": ["SE", "DE", "NL", "DK", "GB", "FI"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "nuclear generation",
+        "hydropower",
+        "offshore wind",
+        "onshore wind",
+        "solar",
+        "district heating",
+        "biomass",
+        "electricity distribution"
+      ],
+      "sustainability_initiatives": [
+        "56% total emissions reduction since 2017, aligned with 1.5C target",
+        "95 TWh fossil-free electricity production in 2025",
+        "SEK 165 billion investment plan 2026-2030",
+        "Small modular reactor (SMR) development in Sweden"
+      ],
+      "notes": "100% owned by the Swedish state. Revenue approx. SEK 230 billion. Major district heating operator in Sweden and Germany. 85% of investment EU taxonomy-aligned."
+    },
+    {
+      "id": "POWER-011",
+      "name": "EDP - Energias de Portugal SA",
+      "hq_country": "PT",
+      "revenue_eur_m": 17300,
+      "employees": 12000,
+      "eu_facilities": ["Lisbon (PT)", "Madrid (ES)", "Warsaw (PL)", "Oviedo (ES)", "Porto (PT)"],
+      "eu_countries": ["PT", "ES", "PL", "RO", "IT", "FR", "BE"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "hydropower",
+        "onshore wind",
+        "offshore wind",
+        "solar",
+        "electricity distribution",
+        "energy retail"
+      ],
+      "sustainability_initiatives": [
+        "32.7 GW total installed capacity globally",
+        "Revenue up 15.8% YoY in 2025 driven by renewables growth",
+        "Major wind and solar expansion across Iberia and Poland",
+        "Subsidiary EDPR is one of world's largest renewable-only generators"
+      ],
+      "notes": "Largest private electricity generator in Portugal. EDP Renovaveis (EDPR) subsidiary is a top-5 global renewable developer."
+    },
+    {
+      "id": "POWER-012",
+      "name": "National Grid plc",
+      "hq_country": "GB",
+      "revenue_eur_m": 24000,
+      "employees": 31700,
+      "eu_facilities": ["London (GB)", "Warwick (GB)", "Solihull (GB)", "Waltham Cross (GB)"],
+      "eu_countries": ["GB"],
+      "regulatory_exposure": ["ETS", "CSRD"],
+      "csrd_reporting": true,
+      "key_products": [
+        "electricity transmission",
+        "electricity distribution",
+        "gas transmission",
+        "interconnectors"
+      ],
+      "sustainability_initiatives": [
+        "Massive ASTI (Accelerated Strategic Transmission Investment) programme",
+        "Expanding interconnector capacity linking UK to EU grids",
+        "Net-zero aligned grid investment strategy",
+        "Largest electricity distribution network in UK"
+      ],
+      "notes": "Primarily a regulated network operator, not a generator. Revenue approx. GBP 20 billion. Also operates gas and electric utilities in northeastern US (New York, New England)."
+    },
+    {
+      "id": "POWER-013",
+      "name": "CEZ Group",
+      "hq_country": "CZ",
+      "revenue_eur_m": 14500,
+      "employees": 33600,
+      "eu_facilities": [
+        "Prague (CZ)",
+        "Dukovany (CZ)",
+        "Temelin (CZ)",
+        "Detmarovice (CZ)",
+        "Tusimice (CZ)"
+      ],
+      "eu_countries": ["CZ", "DE", "HU", "PL", "RO", "SK", "BG"],
+      "regulatory_exposure": ["ETS", "CBAM", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "nuclear generation",
+        "coal-fired generation",
+        "gas-fired generation",
+        "hydropower",
+        "onshore wind",
+        "solar",
+        "electricity distribution",
+        "district heating"
+      ],
+      "sustainability_initiatives": [
+        "Record nuclear fleet output exceeding 32 TWh in 2025",
+        "20% stake in Rolls-Royce SMR for 3 GWe of new nuclear",
+        "CZK 19 billion invested in distribution grid renovation",
+        "Renewable capacity expansion across Central Europe"
+      ],
+      "notes": "Largest utility in Central and Eastern Europe. 70% state-owned (Czech government). Conglomerate of 96 companies. Revenue approx. CZK 380 billion."
+    },
+    {
+      "id": "POWER-014",
+      "name": "SSE plc",
+      "hq_country": "GB",
+      "revenue_eur_m": 15500,
+      "employees": 15800,
+      "eu_facilities": [
+        "Perth (GB)",
+        "Glasgow (GB)",
+        "Dublin (IE)",
+        "Dogger Bank (GB)",
+        "Seagreen (GB)"
+      ],
+      "eu_countries": ["GB", "IE"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "offshore wind",
+        "onshore wind",
+        "hydropower",
+        "gas-fired generation",
+        "electricity transmission",
+        "electricity distribution"
+      ],
+      "sustainability_initiatives": [
+        "Doubled renewable output since 2011 to 10.7 TWh",
+        "Major offshore wind projects (Dogger Bank, Seagreen)",
+        "50% carbon intensity reduction target by 2030",
+        "Divested gas production to focus on clean energy"
+      ],
+      "notes": "FTSE 100 constituent. Primarily UK and Ireland operations. Revenue approx. GBP 13 billion. Strong regulated networks earnings plus growing renewables."
+    },
+    {
+      "id": "POWER-015",
+      "name": "PGE Polska Grupa Energetyczna SA",
+      "hq_country": "PL",
+      "revenue_eur_m": 14000,
+      "employees": 42000,
+      "eu_facilities": [
+        "Warsaw (PL)",
+        "Belchatow (PL)",
+        "Opole (PL)",
+        "Dolna Odra (PL)",
+        "Zarnowiec (PL)"
+      ],
+      "eu_countries": ["PL"],
+      "regulatory_exposure": ["ETS", "CBAM", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "lignite-fired generation",
+        "coal-fired generation",
+        "gas-fired generation",
+        "offshore wind",
+        "onshore wind",
+        "solar",
+        "district heating",
+        "electricity distribution"
+      ],
+      "sustainability_initiatives": [
+        "Baltica 2 offshore wind farm final investment decision in 2025",
+        "Europe's largest energy storage facility planned at Zarnowiec (263 MW / 900 MWh)",
+        "38% of Poland's electricity generation capacity",
+        "Baltic offshore wind programme for decarbonization"
+      ],
+      "notes": "Largest vertically integrated utility in Poland. State-owned majority. Operates Belchatow, the 5th-largest coal power station in the world. Significant ETS cost exposure from coal/lignite fleet."
+    },
+    {
+      "id": "POWER-016",
+      "name": "Fortum Oyj",
+      "hq_country": "FI",
+      "revenue_eur_m": 5400,
+      "employees": 5200,
+      "eu_facilities": [
+        "Espoo (FI)",
+        "Loviisa (FI)",
+        "Stockholm (SE)",
+        "Oslo (NO)",
+        "Joensuu (FI)"
+      ],
+      "eu_countries": ["FI", "SE", "NO", "DK"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "hydropower",
+        "nuclear generation",
+        "onshore wind",
+        "solar",
+        "district heating",
+        "electricity retail"
+      ],
+      "sustainability_initiatives": [
+        "99% CO2-free generation portfolio",
+        "5 GW pipeline of onshore wind and solar projects in Nordics",
+        "Largest Nordic electricity retailer (2.1 million customers)",
+        "Near-zero financial net debt achieved"
+      ],
+      "notes": "Finnish state-owned (50.8%). Third-largest Nordic power generator. 47 TWh generation in 2024, 85% of EBITDA from Nordics. Sold Uniper stake in 2022-2023."
+    },
+    {
+      "id": "POWER-017",
+      "name": "Orsted A/S",
+      "hq_country": "DK",
+      "revenue_eur_m": 9800,
+      "employees": 8000,
+      "eu_facilities": [
+        "Fredericia (DK)",
+        "Grimsby (GB)",
+        "Norderney (DE)",
+        "Borkum (DE)",
+        "Esbjerg (DK)"
+      ],
+      "eu_countries": ["DK", "DE", "GB", "NL", "IE"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III"],
+      "csrd_reporting": true,
+      "key_products": [
+        "offshore wind",
+        "onshore wind",
+        "solar",
+        "battery storage",
+        "bioenergy",
+        "green hydrogen",
+        "energy trading"
+      ],
+      "sustainability_initiatives": [
+        "Global leader in offshore wind with 10.2 GW installed and 8.1 GW under construction",
+        "Transformed from fossil-intensive to 95%+ renewable in one decade",
+        "Built world's first offshore wind farm (1991)",
+        "DKK 60 billion rights issue to fund green transition"
+      ],
+      "notes": "World's most sustainable energy company (multiple ESG rankings). Revenue DKK 73.2 billion. Divested European onshore business and partial offshore stakes in 2025 to strengthen balance sheet."
+    },
+    {
+      "id": "POWER-018",
+      "name": "Verbund AG",
+      "hq_country": "AT",
+      "revenue_eur_m": 8000,
+      "employees": 4400,
+      "eu_facilities": [
+        "Vienna (AT)",
+        "Kaprun (AT)",
+        "Ybbs-Persenbeug (AT)",
+        "Freudenau (AT)",
+        "Jochenstein (DE)"
+      ],
+      "eu_countries": ["AT", "DE"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "hydropower",
+        "onshore wind",
+        "solar",
+        "electricity trading",
+        "green hydrogen"
+      ],
+      "sustainability_initiatives": [
+        "86% of electricity from hydropower (9.1 GW capacity)",
+        "EUR 6.8 billion investment plan 2026-2028 in Germany and Austria",
+        "20 years continuous listing on VONIX sustainability index",
+        "Multiple sustainability awards in 2025"
+      ],
+      "notes": "Austria's leading energy company. 51% owned by the Republic of Austria. EBITDA EUR 2.7 billion in 2025 (down 21% due to lower hydro output and windfall tax). Listed on Vienna Stock Exchange since 1988."
+    },
+    {
+      "id": "POWER-019",
+      "name": "Statkraft AS",
+      "hq_country": "NO",
+      "revenue_eur_m": 7500,
+      "employees": 7000,
+      "eu_facilities": [
+        "Oslo (NO)",
+        "Dusseldorf (DE)",
+        "Trondheim (NO)",
+        "Stockholm (SE)",
+        "Glasgow (GB)"
+      ],
+      "eu_countries": ["NO", "SE", "DE", "GB", "IE", "FI", "NL", "FR", "ES", "IT"],
+      "regulatory_exposure": ["ETS", "CSRD", "RED III"],
+      "csrd_reporting": true,
+      "key_products": [
+        "hydropower",
+        "onshore wind",
+        "solar",
+        "gas-fired generation",
+        "district heating",
+        "energy trading"
+      ],
+      "sustainability_initiatives": [
+        "Europe's largest generator of renewable energy",
+        "Record-high production exceeding 70 TWh in 2025",
+        "NOK 16-20 billion annual investment capacity",
+        "Strategic divestment of non-core assets (NOK 15.8 billion in 2025)"
+      ],
+      "notes": "100% owned by the Norwegian state. Operates in 20+ countries. Revenue approx. NOK 80 billion. Discontinued hydrogen and additional offshore wind development in 2025 to focus on core hydro/wind/solar."
+    },
+    {
+      "id": "POWER-020",
+      "name": "TotalEnergies SE (Power & Renewables division)",
+      "hq_country": "FR",
+      "revenue_eur_m": 165000,
+      "employees": 100000,
+      "eu_facilities": [
+        "La Defense (FR)",
+        "Dunkirk (FR)",
+        "Antwerp (BE)",
+        "Leuna (DE)",
+        "Aberdeen (GB)"
+      ],
+      "eu_countries": ["FR", "BE", "DE", "GB", "NL", "ES", "IT"],
+      "regulatory_exposure": ["ETS", "CBAM", "CSRD", "RED III", "EED"],
+      "csrd_reporting": true,
+      "key_products": [
+        "gas-fired generation",
+        "solar",
+        "offshore wind",
+        "onshore wind",
+        "battery storage",
+        "LNG",
+        "refining",
+        "biofuels"
+      ],
+      "sustainability_initiatives": [
+        "Growing integrated power business alongside upstream oil & gas",
+        "Long-term low-carbon electricity PPA with EDF for French refineries",
+        "Major solar and wind investments across Europe",
+        "8.9% employee shareholding (highest in European large-cap)"
+      ],
+      "notes": "Integrated oil & gas major with rapidly growing power/renewables division. Total group revenue EUR 165 billion; power & renewables is a growing but minority share. Included for its significant and expanding EU generation footprint."
+    }
+  ]
+}

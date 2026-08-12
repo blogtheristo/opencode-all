@@ -34,7 +34,11 @@
         "Product Strategy",
         "Enterprise Sales"
       ],
-      "languages": ["Finnish", "English", "Swedish"],
+      "languages": [
+        "Finnish",
+        "English",
+        "Swedish"
+      ],
       "certifications": []
     },
     "relationship": {
@@ -54,7 +58,10 @@
         "active",
         "vip"
       ],
-      "products": ["firehorse", "dws-iq"],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
       "interests": [
         "Carbon reporting and sustainability",
         "Construction digitalization",
@@ -125,7 +132,14 @@
         "Fit for 55 Compliance",
         "Natural Language Processing"
       ],
-      "languages": ["English", "Finnish", "Swedish", "Norwegian", "Danish", "German"],
+      "languages": [
+        "English",
+        "Finnish",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "German"
+      ],
       "certifications": []
     },
     "relationship": {
@@ -145,7 +159,10 @@
         "active",
         "no-dpa"
       ],
-      "products": ["firehorse", "dws-iq"],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
       "interests": [
         "Portfolio risk assessment",
         "Fit for 55 compliance monitoring",
@@ -321,8 +338,8 @@
       ],
       "engagement_level": "medium",
       "last_contact": "2026-03-14",
-      "next_action": "Warm intro via Boardy — share INVESTOR_MEMO v3.0, emphasize 5 customers + 100% retention",
-      "notes": "Partner at Voima Ventures. Leads €500K–€3M deep tech investments in Nordics/Baltics. Invests Pre-seed to early Series A. AI and green transformation focus — directly relevant. Provides hands-on weekly support + board-level guidance, not just capital. Strong industrial network for Nordic enterprise sales. €650K SAFE at €3.8M cap fits her entry valuation range (up to €10M). Prefers teams with proof of market interest — 5 paying customers + 100% retention is the right signal. Warm intro available via Boardy. Spoke with founder recently."
+      "next_action": "Warm intro via Boardy — share INVESTOR_MEMO v3.0, emphasize the two Q1/2026 enterprise pilots at EUR 29,950 each and cash break-even at EUR 0 founder salary",
+      "notes": "Partner at Voima Ventures. Leads €500K–€3M deep tech investments in Nordics/Baltics. Invests Pre-seed to early Series A. AI and green transformation focus — directly relevant. Provides hands-on weekly support + board-level guidance, not just capital. Strong industrial network for Nordic enterprise sales. €650K SAFE at €3.8M cap fits her entry valuation range (up to €10M). Prefers teams with proof of market interest — two contracted enterprise pilots plus cash break-even at a EUR 0 founder salary is the right signal. Do not claim a customer count or retention rate (see docs/TRACTION_CANONICAL.md). Warm intro available via Boardy. Spoke with founder recently."
     },
     "business": {
       "contract_value": 0,
@@ -608,7 +625,12 @@
         "Multi-Jurisdiction Compliance",
         "EU Regulatory Frameworks"
       ],
-      "languages": ["Norwegian", "Danish", "English", "Swedish"],
+      "languages": [
+        "Norwegian",
+        "Danish",
+        "English",
+        "Swedish"
+      ],
       "certifications": []
     },
     "relationship": {
@@ -633,7 +655,10 @@
         "linkedin-first-view",
         "sales-pipeline"
       ],
-      "products": ["dws-iq", "firehorse"],
+      "products": [
+        "dws-iq",
+        "firehorse"
+      ],
       "interests": [
         "CSRD-ESRS multi-jurisdiction reporting",
         "EU Taxonomy CapEx/OpEx alignment",
@@ -660,6 +685,182 @@
       "created_at": "2026-04-02T07:00:00Z",
       "updated_at": "2026-04-06T12:00:00Z",
       "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "susanna-hypponen-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Susanna",
+      "last_name": "Hyppönen",
+      "full_name": "Susanna Hyppönen",
+      "title": "AI Governance & Data Protection Professional · Author",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/susannaph",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Independent / Alma Insights (author)",
+      "department": "Data Protection & AI Governance",
+      "role": "AI Governance & Data Protection Professional, DPO, Author",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "AI Governance",
+        "Data Protection & GDPR",
+        "EU AI Act",
+        "CSRD",
+        "DPIAs",
+        "Risk & Compliance",
+        "Policy & Process Development",
+        "Change & Project Management",
+        "Service Design & Lean",
+        "ISO/IEC 42001 (AI Management System)",
+        "ISO/IEC 27001:2022",
+        "ISO 9001:2015",
+        "QEHS"
+      ],
+      "languages": [
+        "Finnish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "advisor",
+        "consultant",
+        "prospect",
+        "data-protection",
+        "tietosuojajohtaminen",
+        "ai-governance",
+        "gdpr",
+        "eu-ai-act",
+        "iso-42001",
+        "iso-27001",
+        "dpia",
+        "dpo",
+        "csrd",
+        "author",
+        "nordic",
+        "compliance-hub",
+        "legal-hub"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Data protection management (tietosuojajohtaminen)",
+        "AI Management Systems (ISO 42001)",
+        "AI risk management & governance",
+        "GDPR / DPIA practice",
+        "EU AI Act readiness"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-06-10",
+      "outreach_status": "first-contact",
+      "outreach_channel": "Business card",
+      "next_action": "Connect on LinkedIn (in/susannaph). Reference Tietosuojajohtaminen (Alma Insights, 2026) and the ISO 42001 / EU AI Act overlap with DWS AI governance + KYA. Do not explain GDPR/AI Act — she authored the field.",
+      "notes": "AI Governance & Data Protection professional with a business background; experience as consultant, privacy manager, and DPO across controllers and processors. Currently focused on AI Management Systems, AI governance capabilities, and AI risk management. Co-author of 'Tietosuojajohtaminen' (Data Protection Management), Alma Insights 2026, ISBN 978-952-14-5353-3, hardcover 432pp, with Miia Kataja and Titta Penttilä — https://kirjakauppa.almainsights.fi/sivu/tuote/tietosuojajohtaminen/5537565 . DWS FIT: maps directly onto the DWS IQ compliance/sovereignty stack — ISO 42001 AIMS underpins DWS AI governance + KYA; GDPR aligns with EU-sovereign data posture; CSRD/DPIA overlap regulatory-radar & compliance agent. Engagement angle: advisory / thought-leadership on data protection management + potential channel referral. Possible Digia Hub channel overlap (Lifetime Oy is a Digia Hub partner company). INTERNAL ONLY — do not name on public Legal/Compliance Hub pages until a relationship is established. Captured from business card 2026-06-10."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-06-10T00:00:00Z",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "martin-torngren-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Martin",
+      "last_name": "Törngren",
+      "full_name": "Martin Törngren",
+      "title": "Professor in Embedded Control Systems, KTH · Director, TECoSA",
+      "email": "martint@kth.se",
+      "phone": "+46 8 790 63 07",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "KTH Royal Institute of Technology",
+      "department": "Mechatronics division, Dept. of Engineering Design; Director of TECoSA",
+      "role": "Professor / Center Director",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "Professor since 2002; post-doc EU-JRC; sabbaticals UC Berkeley (2011/12, 2018) and Stevens Institute (2018)",
+      "expertise": [
+        "Trustworthy edge computing",
+        "Cyber-physical systems",
+        "System and functional safety",
+        "Safety argumentation / assurance cases",
+        "Model-based engineering",
+        "Autonomous and connected CPS architectures"
+      ],
+      "languages": [
+        "Swedish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "director",
+        "academic",
+        "trustworthy-edge",
+        "prospect",
+        "nordic"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Trustworthy edge computing",
+        "Safety evidence",
+        "TECoSA phase-2 trustworthiness themes",
+        "AD-EYE verification"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-07-14",
+      "next_action": "Reply to Broman with Törngren CC'd; lead with trustworthy edge computing / safety evidence; map Article-12 logging + KYA to his safety-argumentation framework; propose 30-min call.",
+      "notes": "Warm referral from David Broman (KTH EECS), 14.07.2026. Director of TECoSA (Trustworthy Edge Computing Systems and Applications), now in phase 2 with trustworthiness emphasis. Runs industrial-PhD program (Scania/Alstom/Ericsson) — strong industry-academia bridge. See People/partners/academic/martin-torngren.md and docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "",
+      "contract_end": "",
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-07-14T00:00:00Z",
+      "updated_at": "2026-07-14T00:00:00Z",
+      "created_by": "claude-code",
       "updated_by": "claude-code"
     }
   }

@@ -109,7 +109,7 @@ The European Union is accelerating its push for digital sovereignty, driven by:
 
 ### High-Risk AI System Requirements
 
-DWS6 serves **16 EU industries** including manufacturing, energy, and industrial automation—many classified as high-risk under Annex III of the EU AI Act.
+DWS6 serves **25+ EU industries** including manufacturing, energy, and industrial automation—many classified as high-risk under Annex III of the EU AI Act.
 
 **Requirements taking effect August 2, 2026:**
 

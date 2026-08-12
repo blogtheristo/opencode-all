@@ -124,7 +124,9 @@ export class InvestorReportsScheduler {
     const now = new Date();
     const previousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
 
-    console.log(`📊 Calculating revenue metrics for ${previousMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`);
+    console.log(
+      `📊 Calculating revenue metrics for ${previousMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`,
+    );
 
     if (!this.supabase) {
       console.warn('⚠️  Supabase not configured, skipping revenue calculation');
@@ -133,10 +135,9 @@ export class InvestorReportsScheduler {
 
     try {
       // Call database function to calculate metrics
-      const { data, error } = await this.supabase.rpc(
-        'calculate_monthly_metrics',
-        { target_month: previousMonth.toISOString().split('T')[0] }
-      );
+      const { error } = await this.supabase.rpc('calculate_monthly_metrics', {
+        target_month: previousMonth.toISOString().split('T')[0],
+      });
 
       if (error) {
         throw error;
@@ -157,7 +158,9 @@ export class InvestorReportsScheduler {
     const now = new Date();
     const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    console.log(`📧 Generating monthly investor report for ${currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`);
+    console.log(
+      `📧 Generating monthly investor report for ${currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`,
+    );
 
     try {
       // Generate report data
@@ -248,8 +251,8 @@ export class InvestorReportsScheduler {
 
     return recipientsEnv
       .split(',')
-      .map(email => email.trim())
-      .filter(email => email.length > 0);
+      .map((email) => email.trim())
+      .filter((email) => email.length > 0);
   }
 
   /**
@@ -261,13 +264,15 @@ export class InvestorReportsScheduler {
     const thresholdMonths = parseFloat(process.env.RUNWAY_ALERT_THRESHOLD || '9');
 
     if (cashMetrics.runway_months < thresholdMonths) {
-      console.warn(`⚠️  RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining (threshold: ${thresholdMonths})`);
+      console.warn(
+        `⚠️  RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining (threshold: ${thresholdMonths})`,
+      );
 
       const alertRecipient = process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
       await emailService.sendNotificationEmail(
         alertRecipient,
         `RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining`,
-        `Cash runway is below the ${thresholdMonths}-month threshold. Current runway: ${cashMetrics.runway_months.toFixed(1)} months. Immediate attention required.`
+        `Cash runway is below the ${thresholdMonths}-month threshold. Current runway: ${cashMetrics.runway_months.toFixed(1)} months. Immediate attention required.`,
       );
     }
   }
@@ -281,13 +286,15 @@ export class InvestorReportsScheduler {
     const thresholdPct = parseFloat(process.env.CHURN_ALERT_THRESHOLD || '10');
 
     if (customerMetrics.monthly_churn_rate > thresholdPct) {
-      console.warn(`⚠️  CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate (threshold: ${thresholdPct}%)`);
+      console.warn(
+        `⚠️  CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate (threshold: ${thresholdPct}%)`,
+      );
 
       const alertRecipient = process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
       await emailService.sendNotificationEmail(
         alertRecipient,
         `CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% monthly churn`,
-        `Monthly churn rate has exceeded the ${thresholdPct}% threshold. Current rate: ${customerMetrics.monthly_churn_rate.toFixed(1)}%. Review customer retention strategy.`
+        `Monthly churn rate has exceeded the ${thresholdPct}% threshold. Current rate: ${customerMetrics.monthly_churn_rate.toFixed(1)}%. Review customer retention strategy.`,
       );
     }
   }

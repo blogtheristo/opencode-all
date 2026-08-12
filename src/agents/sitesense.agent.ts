@@ -71,6 +71,9 @@ export class SiteSenseAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'lite',
+      // Proactive: Phase 2 (advisor) — objective safety thresholds, edge data.
+      autonomyPhase: 'advisor',
+      notify: { channels: ['teams', 'in_app'], maxPerHour: 5, maxPerDay: 20 },
     });
   }
 

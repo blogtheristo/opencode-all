@@ -11,12 +11,12 @@
 .EXAMPLE
     pwsh -NoProfile -File .\scripts\Test-Continue-OllamaTunnel.ps1
 .EXAMPLE
-    pwsh -NoProfile -File .\scripts\Test-Continue-OllamaTunnel.ps1 -Model qwen2.5-coder:32b -VerboseConfigCheck
+    pwsh -NoProfile -File .\scripts\Test-Continue-OllamaTunnel.ps1 -Model qwen3-coder:30b -VerboseConfigCheck
 #>
 
 param(
     [string]$BaseUrl = "http://127.0.0.1:11435",
-    [string]$Model = "qwen2.5-coder:32b",
+    [string]$Model = "qwen3-coder:30b",
     [switch]$VerboseConfigCheck
 )
 
@@ -101,4 +101,4 @@ else {
     Write-Host "Create it (or merge) using docs/continue-ollama-tunnel.yaml" -ForegroundColor Yellow
 }
 
-Write-Host "`nDone. In Cursor: Continue → select model 'Qwen 2.5 Coder 32B (tunnel)' (or your name)." -ForegroundColor Cyan
+Write-Host "`nDone. In Cursor: Continue → select model 'Qwen3-Coder 30B (tunnel)' (or your name)." -ForegroundColor Cyan

@@ -1,0 +1,531 @@
+<!doctype html>
+<!--
+  AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.
+  Code-Version: 1.0
+  Introduced-In: PR-claude/eda-dws-iq-business-case-jm7p3g
+  Branch: claude/eda-dws-iq-business-case-jm7p3g
+  Date: 2026-07-17
+  Owner: Lifetime Oy
+  Related:
+    - /posts/nvidia-jetson-thor-physical-ai.html
+    - /posts/nvidia-vera-rubin-ai-factory.html
+    - /posts/eu-sovereign-ai-factories-35-supercomputers.html
+  Source: NVIDIA "AI Supercomputing Meets EDA — From Tools to Agents" (Timothy Costa, NVIDIA), and DWS business case docs/DGX_SPARK_4X_EDA_BUSINESS_CASE.md
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.
+    </title>
+    <meta
+      name="description"
+      content="NVIDIA is bringing AI supercomputing to chip design — from tools to agents. We cheer it. And for a design house, the RTL, the netlists, and the foundry PDK are the most sensitive data in the industry. A partner note on why agentic EDA only ships when the agents run on a box you own."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-07-17" />
+    <meta
+      property="og:title"
+      content="AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building."
+    />
+    <meta
+      property="og:description"
+      content="NVIDIA brings agentic AI to chip design. The compute is theirs. The design IP stays on your floor. A partner note on sovereign EDA."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/ai-supercomputing-meets-eda-sovereign-design.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-07-17" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Sovereign Compute" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="AI Supercomputing Meets EDA — The Design Agents Arrive"
+    />
+    <meta
+      name="twitter:description"
+      content="NVIDIA brings agentic AI to chip design. The compute is theirs. The RTL stays on your floor. A partner note."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/ai-supercomputing-meets-eda-sovereign-design.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .callout {
+        background: rgba(6, 182, 212, 0.07);
+        border-left: 3px solid #06b6d4;
+        border-radius: 4px;
+      }
+      .callout-gold {
+        background: rgba(212, 168, 67, 0.08);
+        border-left: 3px solid #d4a843;
+        border-radius: 4px;
+      }
+      .callout-green {
+        background: rgba(118, 185, 0, 0.08);
+        border-left: 3px solid #76b900;
+        border-radius: 4px;
+      }
+      .version-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        background: rgba(118, 185, 0, 0.15);
+        color: #a3e635;
+        border: 1px solid rgba(118, 185, 0, 0.35);
+      }
+      .layer-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .layer-card:hover {
+        border-color: rgba(118, 185, 0, 0.55);
+        transform: translateY(-2px);
+      }
+      .spec-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      .spec-table th,
+      .spec-table td {
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        padding: 8px 12px;
+        text-align: left;
+        font-size: 0.875rem;
+      }
+      .spec-table th {
+        background: rgba(30, 41, 59, 0.9);
+        color: #a3e635;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.",
+        "description": "NVIDIA brings agentic AI to chip design. The compute is theirs. The design IP stays on a box you own. A partner note on sovereign EDA.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-07-17",
+        "mainEntityOfPage": "https://onelifetime.world/posts/ai-supercomputing-meets-eda-sovereign-design.html",
+        "articleSection": "Sovereign Compute",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12">
+        <header class="mb-8">
+          <span class="version-chip">Sovereign Compute &middot; Partner Note</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            AI supercomputing meets EDA.
+          </h1>
+          <p class="mt-3 text-lg leading-relaxed" style="color: #cbd5e1">
+            NVIDIA is bringing agentic AI to chip design &mdash; from tools to agents. The compute is
+            theirs. The design IP stays on your floor.
+          </p>
+          <p class="mt-3 text-sm" style="color: #94a3b8">
+            <time datetime="2026-07-17">17 Jul 2026</time> &middot; by Risto Anton Päärni
+          </p>
+        </header>
+
+        <section class="callout-green p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #a3e635">The note, in one line</p>
+          <p class="mb-0">
+            NVIDIA calls it &ldquo;AI Supercomputing Meets EDA&rdquo;: instead of an engineer tuning
+            a tool by hand, AI agents read the whole design and propose the fix &mdash; design cycles
+            measured in hours, not weeks. We cheer it. And for a design house, the RTL, the netlists,
+            and the foundry PDK are the most guarded data in the industry. Agentic EDA only ships
+            when the agents run on a box the design house owns. <span style="color: #94a3b8"
+              >(Source: NVIDIA, Timothy Costa &mdash; &ldquo;From Tools to Agents.&rdquo;)</span
+            >
+          </p>
+        </section>
+
+        <p class="mb-6 text-lg leading-relaxed" style="color: #cbd5e1">
+          Good news from a good partner.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          We have written before that
+          <a href="/posts/nvidia-jetson-thor-physical-ai.html" class="text-cyan-400 hover:underline"
+            >the sovereign edge is still a box you own</a
+          >. Chip design is that box&rsquo;s newest job. A modern chip carries billions of
+          transistors; no human places them, verifies them, or debugs them by hand. EDA &mdash;
+          Electronic Design Automation &mdash; is the software that does. And NVIDIA is now putting
+          AI supercomputing underneath it.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          And because cheering without thinking is not a business, here is the honest part.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          What NVIDIA is actually saying
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          The framing is &ldquo;from tools to agents.&rdquo; Historically, EDA leaned on heavy
+          algorithms that ran for weeks. An engineer sat at a tool and tuned it. NVIDIA&rsquo;s pitch
+          is that AI agents now explore thousands of design variations on their own, predict
+          bottlenecks, and shrink the loop to hours.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Read it at the level NVIDIA wrote it. &ldquo;From tools to agents&rdquo; is a claim about
+          <em>design productivity</em> &mdash; faster closure, more variations explored, fewer weeks
+          lost. It is not a claim that the industry&rsquo;s IP problem is solved. We will keep the
+          same restraint they did.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Why it matters to us</h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Two facts run the economics of a tapeout. Verification and debug eat the majority of the
+          engineering effort &mdash; the long pole in every schedule. And a design escape caught only
+          after the mask set is cut costs millions, and months of respin.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          An agent that reads the failing regression, the waveform, and the RTL together &mdash; and
+          hands back a cited root-cause hypothesis in seconds &mdash; is worth real money against
+          both. That is exactly the work NVIDIA&rsquo;s framing points at. We agree with it.
+        </p>
+
+        <section class="callout-gold p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #d4a843">
+            What more teraflops do not solve
+          </p>
+          <p class="mb-2">
+            You cannot paste RTL, a netlist, or a foundry PDK into a public LLM. Foundry PDKs are
+            under strict NDA. Leading-edge design data is frequently export-controlled. And the whole
+            competitive moat of a design house <em>is</em> its unreleased silicon.
+          </p>
+          <p class="mb-0">
+            So the agent has to run where the IP already lives &mdash; inside the design network, not
+            across an ocean in someone else&rsquo;s cloud. And a model&rsquo;s answer is a hypothesis
+            a responsible engineer confirms, never a tapeout signoff. More compute does not change
+            either of those. Ownership and a governed handoff do.
+          </p>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Where the box fits &mdash; the Sovereign Silicon Design Brain
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Our answer is the same shape as the rest of this series: a box on the floor, plus the
+          governance beside it. Four
+          <a href="/posts/nvidia-jetson-thor-physical-ai.html" class="text-cyan-400 hover:underline"
+            >NVIDIA DGX Spark</a
+          >
+          units pool <strong>512&nbsp;GB</strong> of unified memory under <strong>~1&nbsp;kW</strong>
+          &mdash; a wall outlet, no HVAC. They run a frontier open-weight mixture-of-experts model
+          with a <strong>1M-token context</strong> entirely on-prem, so the agent reads the
+          <em>entire</em> manual and the <em>entire</em> log at once, not a lossy search over them.
+          Total hardware: about <strong>$24,000</strong>.
+        </p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>4&times; DGX Spark cluster</th>
+                <th>8&times; H100 enterprise server</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:#94a3b8">Indicative cost</td>
+                <td>~$24,000</td>
+                <td>$300,000+</td>
+              </tr>
+              <tr>
+                <td style="color:#94a3b8">Power</td>
+                <td>&lt; 1 kW (wall outlet)</td>
+                <td>High-voltage feed</td>
+              </tr>
+              <tr>
+                <td style="color:#94a3b8">Cooling / footprint</td>
+                <td>Ambient, single desk</td>
+                <td>Industrial HVAC, dedicated room</td>
+              </tr>
+              <tr>
+                <td style="color:#94a3b8">IP-sovereign fit</td>
+                <td>High &mdash; on-floor, air-gappable</td>
+                <td>Low &mdash; data-center bound</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          One design floor, two halves. NVIDIA owns the compute. We sit on top, where the design
+          agents get governed.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #a3e635">
+              The compute &middot; NVIDIA DGX Spark
+            </p>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #cbd5e1">
+              GB10 Grace Blackwell, 128&nbsp;GB coherent unified memory per box, native FP4. Four of
+              them, pooled over 200&nbsp;GbE with vLLM tensor parallelism, run the frontier model on
+              the floor. NVIDIA&rsquo;s ground, and a good one to stand on.
+            </p>
+          </div>
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #a3e635">
+              The agents &middot; DWS IQ, on your floor
+            </p>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #cbd5e1">
+              Verification-debug, timing-closure, lint/CDC, and PDK-compliance agents on a
+              <a
+                href="https://dws10.com/products/situation-room.html"
+                class="text-cyan-400 hover:underline"
+                >Situation Room</a
+              >
+              the customer owns &mdash; each trust-scored by KYA, tuned on your own design corpus,
+              with a human who can say no. The RTL never leaves the network.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Why we will not over-claim
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          EDA is not yet one of the regulated industries our platform ships as a first-class vertical
+          &mdash; it is an adjacent one, built on the same sovereign engine. We say that plainly
+          rather than pad a number. A verification agent is a productivity gain a design team can
+          measure; it is not a claim to replace a signoff flow.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          A benchmark is not an audit. A cited hypothesis is not a fix until an engineer confirms it
+          in the real flow. We will not say a governed design loop is faster than the model &mdash;
+          it runs <em>on</em> the model. We say the IP stays owned, the record stays local, and a
+          person stays accountable. That is enough.
+        </p>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">The short version</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>
+              NVIDIA&rsquo;s &ldquo;AI Supercomputing Meets EDA&rdquo; moves chip design from tools to
+              agents &mdash; hours, not weeks. Real, and good for everyone building silicon.
+            </li>
+            <li>
+              Verification dominates the schedule and a respin costs millions. An agent that reads
+              the whole design and cites a root cause is worth real money.
+            </li>
+            <li>
+              But RTL, netlists, and foundry PDKs cannot go to a public API &mdash; NDA,
+              export control, and the moat itself. The agent has to run where the IP lives.
+            </li>
+            <li>
+              The box: 4&times; DGX Spark, 512&nbsp;GB, ~1&nbsp;kW, 1M-token context, ~$24,000 &mdash;
+              about 1/12th the cost of a data-center server, and it stays on the floor.
+            </li>
+            <li>
+              NVIDIA makes the compute. DWS IQ governs the agents. The IP never leaves the building.
+            </li>
+          </ul>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Read next</h2>
+
+        <ul class="list-disc pl-6 space-y-2 mb-10 text-sm" style="color: #cbd5e1">
+          <li>
+            <a href="/posts/nvidia-jetson-thor-physical-ai.html" class="text-cyan-400 hover:underline"
+              >NVIDIA Jetson Thor &mdash; the supercomputer moves onto the robot, the governance sits
+              beside it</a
+            >
+          </li>
+          <li>
+            <a href="/posts/nvidia-vera-rubin-ai-factory.html" class="text-cyan-400 hover:underline"
+              >NVIDIA Vera Rubin &mdash; the AI factory grows up, and the sovereign edge is still a
+              box</a
+            >
+          </li>
+          <li>
+            <a
+              href="/posts/eu-sovereign-ai-factories-35-supercomputers.html"
+              class="text-cyan-400 hover:underline"
+              >Europe&rsquo;s AI factory came home &mdash; 35 supercomputers, and why the edge still
+              needs a box</a
+            >
+          </li>
+        </ul>
+
+        <hr class="border-slate-700 my-8" />
+
+        <p class="text-sm" style="color: #94a3b8">
+          Risto Anton Päärni<br />
+          <em>Founder, CEO, Lifetime Oy &middot; Editor in Chief, Lifetime Scope Journal</em>
+        </p>
+      </article>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/greg-isenberg-agents-need-a-signature.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">Greg Isenberg Is Right About Agents. The Hard Part Is a Signature.</span>
+                    </a>
+                    <a href="/posts/ala-treenaa-base-mallia-omista-evidenssikerros.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">Älä treenaa base-mallia, omista evidenssikerros (FI)</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fai-supercomputing-meets-eda-sovereign-design.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=AI%20Supercomputing%20Meets%20EDA%20%E2%80%94%20The%20Design%20Agents%20Arrive.%20The%20IP%20Stays%20in%20the%20Building.%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fai-supercomputing-meets-eda-sovereign-design.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="mailto:?subject=AI%20Supercomputing%20Meets%20EDA%20%E2%80%94%20The%20Design%20Agents%20Arrive.%20The%20IP%20Stays%20in%20the%20Building.&body=AI%20Supercomputing%20Meets%20EDA%20%E2%80%94%20The%20Design%20Agents%20Arrive.%20The%20IP%20Stays%20in%20the%20Building.%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fai-supercomputing-meets-eda-sovereign-design.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/ai-supercomputing-meets-eda-sovereign-design.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€4,999</p>
+                            <p class="text-xs text-gray-500">18+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€6,500</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€499</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; Helsinki, Finland</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ Platform</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Store</a> &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Journal</a>
+      </p>
+    </footer>
+  </body>
+</html>

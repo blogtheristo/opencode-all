@@ -93,6 +93,20 @@ fi
 # ============ Auto-regenerate feeds when products.json changes ============
 
 products_json="dws10.com/config/products.json"
+products_json_mirror="landing-pages/dws10-com/config/products.json"
+pricing_standard="DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md"
+
+if echo "$staged" | grep -qE "^($products_json|$products_json_mirror|$pricing_standard|scripts/validate-pricing\.ts|scripts/load-labor-catalog\.py)$"; then
+  echo "[pre-commit] Pricing files changed — running scripts/validate-pricing.ts..."
+  if command -v tsx >/dev/null 2>&1; then
+    tsx scripts/validate-pricing.ts || { echo "BLOCKED: pricing validation failed"; exit 1; }
+  elif command -v npx >/dev/null 2>&1; then
+    npx --yes tsx scripts/validate-pricing.ts || { echo "BLOCKED: pricing validation failed"; exit 1; }
+  else
+    echo "[pre-commit] tsx not available — skipping pricing validation (CI will still run it)."
+  fi
+fi
+
 if echo "$staged" | grep -q "^$products_json$"; then
   echo "[pre-commit] Detected changes to $products_json — regenerating feeds..."
 

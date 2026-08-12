@@ -190,6 +190,70 @@ def quantize_to_gptq(model_path: str, output_path: str, bits: int = 4):
         raise
 
 
+def quantize_kv_turboquant(model_path: str, output_path: str, bits: int = 3):
+    """Precompute TurboQuant KV cache codebooks for a model.
+
+    This is COMPLEMENTARY to weight quantization (GGUF/AWQ/GPTQ).
+    Weight quant compresses model storage; TurboQuant compresses runtime
+    KV cache memory, enabling longer contexts.
+
+    Source: TurboQuant (arXiv 2504.19874, ICLR 2026)
+    """
+    logger.info(f"TurboQuant KV cache codebook precomputation ({bits}-bit): {model_path}")
+
+    try:
+        from turboquant import precompute_codebooks, test_attention_fidelity
+
+        # Detect KV head dimension from model config
+        kv_dim = 128  # default for most models
+        config_path = Path(model_path) / "config.json"
+        if config_path.exists():
+            import json
+
+            with open(config_path) as f:
+                config = json.load(f)
+            # head_dim = hidden_size / num_attention_heads
+            hidden = config.get("hidden_size", 4096)
+            heads = config.get("num_attention_heads", 32)
+            kv_dim = hidden // heads
+            logger.info(f"Detected KV head dimension: {kv_dim} (hidden={hidden}, heads={heads})")
+
+        # Common dimensions to precompute (model's dim + standard sizes)
+        dims = sorted(set([64, 128, 256, kv_dim]))
+        bits_list = [bits]
+
+        output_file = Path(output_path) / f"turboquant-codebooks-{bits}bit.npz"
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+
+        precompute_codebooks(dims, bits_list, str(output_file))
+
+        # Validate with attention fidelity test
+        logger.info("Running attention fidelity validation...")
+        results = test_attention_fidelity(dim=kv_dim, bits=bits)
+
+        if results["pass"]:
+            logger.info(
+                f"Fidelity test PASSED: {results['mean_attention_fidelity']:.4f} "
+                f"(threshold: >0.995)"
+            )
+        else:
+            logger.warning(
+                f"Fidelity test BELOW THRESHOLD: {results['mean_attention_fidelity']:.4f}"
+            )
+
+        logger.info(f"TurboQuant codebooks saved: {output_file}")
+        logger.info(
+            f"Compression ratio: {results['compression_ratio']:.1f}x vs FP16 KV cache"
+        )
+        return str(output_file)
+
+    except ImportError:
+        logger.error(
+            "turboquant.py not found. Ensure turboquant.py is in the same directory."
+        )
+        raise
+
+
 def main():
     parser = argparse.ArgumentParser(description="Quantize LLM models")
     parser.add_argument("--model", "-m", required=True, help="Path to model directory")
@@ -199,12 +263,12 @@ def main():
     parser.add_argument(
         "--format",
         "-f",
-        choices=["gguf", "awq", "gptq", "all"],
+        choices=["gguf", "awq", "gptq", "turboquant-kv", "all"],
         default="gguf",
-        help="Quantization format",
+        help="Quantization format (turboquant-kv = KV cache compression)",
     )
     parser.add_argument(
-        "--bits", "-b", type=int, default=4, help="Quantization bits (for GGUF/GPTQ)"
+        "--bits", "-b", type=int, default=4, help="Quantization bits (GGUF/GPTQ: 2-8, turboquant-kv: 2-4)"
     )
     args = parser.parse_args()
 
@@ -255,6 +319,19 @@ def main():
         except Exception as e:
             logger.error(f"GPTQ quantization failed: {e}")
             if args.format == "gptq":
+                sys.exit(1)
+
+    if args.format in ["turboquant-kv", "all"]:
+        tq_bits = min(args.bits, 4)  # TurboQuant supports 2-4 bits
+        if tq_bits < 2:
+            tq_bits = 3  # default to 3-bit
+        try:
+            results["turboquant-kv"] = quantize_kv_turboquant(
+                str(model_path), str(output_path), tq_bits
+            )
+        except Exception as e:
+            logger.error(f"TurboQuant KV cache codebook generation failed: {e}")
+            if args.format == "turboquant-kv":
                 sys.exit(1)
 
     # Summary

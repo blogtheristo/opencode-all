@@ -44,7 +44,7 @@ Document Status:
 
 **Proposal:** Make xAI Grok the official AI Captain's Brain in the DWS IQ 6 physical Control Room + Situation Room — a fully air-gapped, EU-sovereign cluster called the **Captain's Bridge**.
 
-**Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 16 industries.
+**Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 25+ industries.
 
 **Vehicle:** Platinum Industry Captain seat (€50k SAFE @ €3.8M cap, 18% product discount — first tranche, Feb 26 2026 data) combined with an xAI Enterprise on-prem MoU.
 

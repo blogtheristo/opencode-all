@@ -158,14 +158,14 @@ agent:
         input_per_1m_tokens: 3.00
         output_per_1m_tokens: 15.00
     api_costs:
-      apollo_io: 79.00  # per month
-      clearbit: 99.00   # per month
-      newsapi: 0.00     # free tier
-      builtwith: 49.00  # per month
+      apollo_io: 79.00 # per month
+      clearbit: 99.00 # per month
+      newsapi: 0.00 # free tier
+      builtwith: 49.00 # per month
 
   # Deployment Configuration
   deployment:
-    phase: "silent_pilot"  # silent_pilot → advisor → autonomous
+    phase: "silent_pilot" # silent_pilot → advisor → autonomous
     approval_required: false
     start_date: "2026-01-19"
     review_frequency: "daily"
@@ -174,7 +174,7 @@ agent:
   # Performance Metrics
   success_metrics:
     target_leads_enriched_per_week: 100
-    target_icp_accuracy: 0.80  # 80% of >70 score leads convert to meetings
+    target_icp_accuracy: 0.80 # 80% of >70 score leads convert to meetings
     target_data_quality_score: 0.90
     target_confidence_score_avg: 0.85
 
@@ -186,7 +186,12 @@ agent:
     retention_days: 90
 
   monitoring:
+    # Optional: configure one or both (separate Incoming Webhook URLs)
     slack_webhook: "${SLACK_WEBHOOK_URL}"
+    teams_webhook: "${TEAMS_WEBHOOK_URL}"
+    primary_channel: "whatsapp"
+    notify_webhook: "${NOTIFY_WEBHOOK_URL}"
+    whatsapp_recipient: "${WHATSAPP_DEFAULT_RECIPIENT}"
     alert_on_error: true
     alert_on_budget_threshold: true
     daily_summary: true
@@ -221,7 +226,7 @@ agent:
       - "[LEAD-SCOUT-001]:COMPLETE:daily-batch:{date}"
       - "[LEAD-SCOUT-001]:ERROR:enrichment-failed:{reason}"
     listens:
-      - "[OUTREACH-001]:READY:sequence-triggered:{lead_id}"  # Confirmation that outreach started
+      - "[OUTREACH-001]:READY:sequence-triggered:{lead_id}" # Confirmation that outreach started
 
 # Notes for Sales HIL Director
 notes: |

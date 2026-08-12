@@ -1,0 +1,16 @@
+# npm IOC denylist — known-compromised package@version pairs.
+# Checked daily against every package-lock.json by scripts/daily/dependabot-audit.sh.
+# Format: one exact <name>@<version> per line (scoped names allowed). Comments with #.
+#
+# Maintenance: append entries from vendor advisories (Aikido / Wiz / Unit42) as
+# waves land. Never remove an entry — a purged registry version can be republished.
+#
+# --- Shai-Hulud "Here We Go Again" wave, 2026-08-04 (keyv maintainer compromise) ---
+# Exact poisoned keyv/cacheable/flat-cache/file-entry-cache versions were still
+# unverified at seeding time (advisories 403 via cloud-session proxy) — add them
+# at the 2026-08-07 freeze review. Known secondary infections (community telemetry):
+@deliveroo/reevent@1.0.1
+@or-sdk/invitations@1.4.9
+@picsart/ai-sdk@3.32.2
+@qlik/embed-runtime@1.6.4
+picasso.js@2.11.6

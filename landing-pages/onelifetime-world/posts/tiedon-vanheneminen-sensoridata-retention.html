@@ -1,0 +1,585 @@
+<!doctype html>
+<!--
+  Tiedon vanheneminen — sensoridatan tallennusstrategia Control Roomissa ja Situation Roomissa
+  Code-Version: 1.0
+  Introduced-In: claude/lifetime-handbook-web-updates-lmyi2g
+  Date: 2026-07-01
+  Owner: Lifetime Oy
+  Related:
+    - docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md
+    - Admin/ADMIN_MANUAL.md (Customer Sensor Data Retention — Control Room / Situation Room)
+    - docs/KONSULTOINNIN_KASIKIRJA_2026.md §3
+    - dws10.com/products/edge-node-gn100.html
+    - dws10.com/products/situation-room.html
+-->
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiedon vanheneminen — sensoridatan tallennusstrategia — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Kymmenen vuoden havainto rakenteettomasta tiedosta: sama tieto monessa paikassa, epäselvä omistajuus, liikaa käyttöoikeuksia. Tekoäly ei luo tätä ongelmaa — se tekee sen näkyväksi. Näin ratkaisemme sen omassa tuotteessamme."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-07-01" />
+    <meta property="og:title" content="Tiedon vanheneminen — sensoridatan tallennusstrategia" />
+    <meta
+      property="og:description"
+      content="Control Room ja Situation Room vastaanottavat jatkuvaa sensorivirtaa. Neljä kerrosta, jokaisella oma vanhenemisikä — ennen kuin rakennamme asiakkaalle saman ongelman jota myymme ratkaisuna."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/tiedon-vanheneminen-sensoridata-retention.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-07-01" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Data Governance" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tiedon vanheneminen — sensoridatan tallennusstrategia" />
+    <meta
+      name="twitter:description"
+      content="AI on peili, joka näyttää tiedonhallinnan todellisen tilan. Sama peili katsoo omaa tuotettamme."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/tiedon-vanheneminen-sensoridata-retention.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .news-box {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 24px 0;
+        color: #e2e8f0;
+      }
+      .gold-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 28px 0;
+        color: #f1f5f9;
+      }
+      .gold-box h3 {
+        color: #d4a843;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .short-box {
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 10px;
+        padding: 22px 26px;
+        margin: 34px 0;
+      }
+      .short-box h3 {
+        color: #60a5fa;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      table.retention-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0 28px;
+        font-size: 0.92rem;
+      }
+      table.retention-table th,
+      table.retention-table td {
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        padding: 10px 12px;
+        text-align: left;
+        color: #cbd5e1;
+      }
+      table.retention-table th {
+        color: #f1f5f9;
+        background: rgba(96, 165, 250, 0.08);
+      }
+      blockquote.pull {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 0 8px 8px 0;
+        padding: 20px 24px;
+        margin: 28px 0;
+        font-style: italic;
+        color: #e2e8f0;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Tiedon vanheneminen — sensoridatan tallennusstrategia Control Roomissa ja Situation Roomissa",
+        "description": "Kymmenen vuoden havainto rakenteettomasta tiedosta eri toimialoilla — ja miten sovellamme samaa kuria omaan Control Room- ja Situation Room -tuotteeseen.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "datePublished": "2026-07-01",
+        "mainEntityOfPage": "https://onelifetime.world/posts/tiedon-vanheneminen-sensoridata-retention.html",
+        "articleSection": "Data Governance",
+        "inLanguage": "fi"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Valikko">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Kauppa</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lehdistö</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ -alusta</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Kauppa</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Kenttämuistio &middot; Tiedonhallinta</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Tiedon vanheneminen
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            1. heinäkuuta 2026 &middot; Risto Anton Paarni &middot; Espoo, Suomi
+          </p>
+        </header>
+
+        <figure class="my-8">
+          <img
+            src="../static/images/blog/1994-floppy-disks-locked-box.jpg"
+            alt="Lukittu levykerasia täynnä 3,5 tuuman DOS/Windows-levykkeitä vuodelta 1994"
+            class="w-full max-w-md mx-auto rounded-lg"
+            loading="lazy"
+            width="1046"
+            height="753"
+          />
+          <figcaption class="mt-2 text-sm text-gray-500 text-center">
+            Digital Equipment Corporationin DOS/Windows-asennuslevykkeitä, 1994 &mdash; lukittuna,
+            säilytettynä, eikä kukaan enää kysy miksi. Formaatti on kuollut, käyttöjärjestelmä on
+            kuollut, mutta lukko on yhä paikallaan.
+          </figcaption>
+        </figure>
+
+        <p>
+          Tekoälystä puhutaan paljon. Keskustelu keskittyy usein malleihin, agentteihin,
+          hallusinaatioihin ja sääntelyyn.
+        </p>
+
+        <p>
+          Käytännön työssä vastaan tulee kuitenkin toinen havainto:
+          <strong>tekoäly käyttää sitä tietoa, joka organisaatiolla jo on.</strong>
+        </p>
+
+        <blockquote class="pull">
+          Tekoäly ei luo tiedonhallinnan ongelmaa. Se tekee sen näkyväksi.
+        </blockquote>
+
+        <div class="news-box">
+          Kymmenen vuoden aikana olemme analysoineet rakenteetonta tietoa eri toimialojen
+          organisaatioissa Suomessa ja kansainvälisesti. Samat ilmiöt toistuvat ympäristöstä
+          riippumatta: vanhentunutta tietoa säilytetään vuosia tai vuosikymmeniä, sama tieto löytyy
+          useista eri paikoista, käyttöoikeuksia on enemmän kuin olisi tarpeen, tiedon omistajuus on
+          epäselvä — eikä kukaan täysin tiedä, mitä kaikkea ympäristöissä on tallessa.
+        </div>
+
+        <p>
+          Tärkeää on huomata, että itse tieto ei välttämättä ole ongelma. Esimerkiksi 131&thinsp;188
+          henkilötunnusta sisältävä tiedosto ei vielä itsessään ole löydös. Löydös syntyy silloin,
+          jos tiedot sijaitsevat väärässä paikassa, niitä säilytetään pidempään kuin on tarpeen,
+          niiden omistajuus on epäselvä tai niihin on pääsy henkilöillä, joilla ei siihen pitäisi
+          olla oikeutta.
+        </p>
+
+        <p>
+          Käytännössä kyse on siis useammin tiedonhallinnan kuin tiedon olemassaolon ongelmasta. Jos
+          lähdetieto on vanhentunutta, hajanaista tai heikkolaatuista, myös tekoälyn tuottamat
+          vastaukset kärsivät. Vanha IT-maailman sanonta pätee edelleen: garbage in, garbage out.
+        </p>
+
+        <h2>Ja se koskee myös meidän omaa tuotettamme</h2>
+
+        <p>
+          Ja koska pelkkä havainto ei ole vielä bisnes, tässä on rehellinen osa: sama riski koskee
+          Lifetime Oy:tä heti, kun Control Room ja Situation Room alkavat vastaanottaa jatkuvaa
+          sensorivirtaa asiakkaan tiloista — tuotantolinjan antureita, päästömittareita,
+          kamerakuvaa, IoT-telemetriaa.
+        </p>
+
+        <p>
+          Jos emme määritä eksplisiittistä tallennusstrategiaa, rakennamme asiakkaalle juuri sen
+          ongelman, jota olemme myymässä ratkaisuna. Sama peili, joka näyttää asiakkaan
+          tiedonhallinnan todellisen tilan, näyttäisi meidän omamme.
+        </p>
+
+        <p>
+          Joten kirjoitimme sen auki. Neljä kerrosta, kukin oma vanhenemisikä ja pääsyoikeustaso:
+        </p>
+
+        <table class="retention-table">
+          <thead>
+            <tr>
+              <th>Kerros</th>
+              <th>Sisältö</th>
+              <th>Säilytys</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 &middot; Raaka sensorivirta</td>
+              <td>Anturisignaali sellaisenaan</td>
+              <td>72 tuntia, paikallislevy</td>
+            </tr>
+            <tr>
+              <td>2 &middot; Ontologisoitu tiivistelmä</td>
+              <td>LWM-tapahtuma, ei enää raakadataa</td>
+              <td>13 kuukautta</td>
+            </tr>
+            <tr>
+              <td>3 &middot; Compliance-audit-jälki</td>
+              <td>Article 12 -lokitus, hash-ketjutettu</td>
+              <td>7 vuotta, muuttumaton</td>
+            </tr>
+            <tr>
+              <td>4 &middot; Situation Room -koonti</td>
+              <td>Toimialatason aggregaatti, ei yksilöityä dataa</td>
+              <td>24 kuukautta, liukuva ikkuna</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          Raaka data ei koskaan siirry kerroksesta 1 Situation Roomiin. Situation Room ei koskaan
+          näe yksilöityä dataa. Ja kaksi kysymystä ratkaistaan käyttöönotossa, ei jälkikäteen: kuka
+          omistaa minkäkin ontologiasolmun, ja kuka pääsee mihinkin kerrokseen. Pääsyoikeudet
+          tarkistetaan neljännesvuosittain — ei kertaluonteisena päätöksenä, joka jää elämään
+          käyttämättömänä vuosia.
+        </p>
+
+        <div class="gold-box">
+          <h3>Mitä tämä ei tarkoita</h3>
+          <p style="color: #f1f5f9; margin-bottom: 0">
+            Se ei tarkoita, että säilyttäisimme vähemmän kuin sääntely vaatii. EU:n tekoälyasetuksen
+            12 artikla edellyttää 7 vuoden auditointijälkeä — sitä emme lyhennä koskaan.
+            Kaksikäyttö- ja turvaluokitellun datan (Aegis Defence) osalta emme myöskään aseta
+            ylärajaa; asiakkaan oma turvaluokitus määrää. Tiukkuus koskee juuri sitä dataa, jolla ei
+            ole eksplisiittistä käyttötarvetta viikon jälkeen.
+          </p>
+        </div>
+
+        <p>
+          Kaksi kysymystä, jotka jokaisen tiedonhallinnan, tietosuojan, tietoturvan tai digitaalisen
+          kehittämisen parissa työskentelevän kannattaa kysyä omasta ympäristöstään: kuka pääsee
+          käsiksi tietoon, ja voiko tiedon laatuun luottaa? AI on usein vain peili. Se näyttää
+          tiedonhallinnan todellisen tilanteen — riippumatta siitä, katsooko peiliin asiakas vai
+          toimittaja.
+        </p>
+
+        <div class="short-box">
+          <h3>Lyhyesti</h3>
+          <ul class="mb-0">
+            <li>Tekoäly ei luo tiedonhallinnan ongelmaa. Se tekee sen näkyväksi.</li>
+            <li>
+              Löydös ei ole tiedon olemassaolo — löydös on tieto väärässä paikassa, väärän ikäisenä,
+              ilman omistajaa.
+            </li>
+            <li>
+              Control Room / Situation Room: neljä kerrosta, jokaisella oma vanhenemisikä (72h /
+              13kk / 7v / 24kk).
+            </li>
+            <li>
+              Omistajuus ja pääsyoikeudet ratkaistaan käyttöönotossa, tarkistetaan
+              neljännesvuosittain.
+            </li>
+            <li>
+              Kaksi kysymystä riittää: kuka pääsee käsiksi tietoon, ja voiko sen laatuun luottaa?
+            </li>
+          </ul>
+        </div>
+
+        <p>
+          Olemme käynnistäneet kumppanimme kanssa kansainvälisen, riippumattoman ja ei-kaupallisen
+          tutkimuksen rakenteettoman tiedon, tiedonhallinnan ja tekoälyn riskeistä. Ei
+          markkinointilistoja, ei myyntipuheluita. Tulokset julkaistaan ennen syyskuun 2026 loppua.
+        </p>
+
+        <h2>Lue seuraavaksi</h2>
+        <ul>
+          <li>
+            <a href="/posts/point-it-at-the-ontology.html"
+              >Don't Point the LLM at the Data — Point It at the Ontology</a
+            >
+          </li>
+          <li>
+            <a href="/posts/lifetime-world-model-three-piece-loop.fi.html"
+              >Kolmiosainen silmukka valvomoille — Lifetime World Model V1</a
+            >
+          </li>
+          <li>
+            <a href="/posts/ontologia-tiimin-aivoissa.html">Ontologia elää tiimin aivoissa</a>
+          </li>
+          <li>
+            <a href="/posts/your-model-cant-beat-your-noise-floor.fi.html"
+              >Mallisi ei voita kohinatasoasi</a
+            >
+          </li>
+        </ul>
+
+        <hr class="my-10 border-gray-700" />
+
+        <p class="text-sm text-gray-500">
+          <em
+            >Risto Anton Paarni — toimitusjohtaja, Lifetime Oy &middot; päätoimittaja, Lifetime
+            Scope Journal.</em
+          >
+          Käsikirjoituksen tekninen liite:
+          <code
+            >docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md</code
+          >. Retention-malli on sama sekä asiakkaan Control Room -laitteistolla että meidän omassa
+          Admin Manualissamme — sama kuri, sama peili.
+        </p>
+
+        <p class="text-sm text-gray-500">
+          Lähde ja kansallinen viitekehys: Valtiovarainministeriö, "Kriittinen infrastruktuuri ja
+          avoin tieto — Opas turvallisuuslähtöiseen tiedonhallintaan," Valtiovarainministeriön
+          julkaisuja 2026:27, 17.6.2026 (ISBN PDF 978-952-367-188-1,
+          <a
+            href="https://urn.fi/URN:ISBN:978-952-367-188-1"
+            target="_blank"
+            rel="noopener noreferrer"
+            >urn.fi/URN:ISBN:978-952-367-188-1</a
+          >). Opas nimeää kasautumisvaikutuksen (kasaumavaikutus) kansallisen tason
+          arviointikriteeriksi — sama periaate, jonka varaan yllä kuvattu nelikerroksinen
+          retention-malli rakentuu.
+        </p>
+
+        <p class="text-sm">
+          <a href="https://x.com/blogtheristo" target="_blank" rel="noopener noreferrer"
+            >&#x1D54F; Keskustele X:ssä &rarr;</a
+          >
+        </p>
+      </article>
+
+      <!-- Featured Products -->
+      <div class="max-w-3xl mx-auto px-4 pb-12">
+        <h3 class="text-lg font-bold mb-4" style="color: #d4a843">Kaupasta</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a
+            href="https://dws10.com/products/edge-node-gn100.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Suvereeni</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Control Room</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;5&thinsp;294</p>
+            <p class="text-xs text-gray-500">Lokaali valvomo, retention-malli sisäänrakennettu</p>
+          </a>
+
+          <a
+            href="https://dws10.com/products/situation-room.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Johtohuone</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Situation Room</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;10&thinsp;093</p>
+            <p class="text-xs text-gray-500">Aggregoi vain ontologisoitua dataa, ei raakaa</p>
+          </a>
+
+          <a
+            href="https://dws10.com/products/dwsiq.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Lippulaiva</span
+            >
+            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;4&thinsp;999</p>
+            <p class="text-xs text-gray-500">
+              EU-vaatimustenmukaisuuden automatisointi, Article 12 -auditoitu
+            </p>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

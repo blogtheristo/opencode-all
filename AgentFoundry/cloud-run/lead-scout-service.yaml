@@ -20,15 +20,15 @@ spec:
   template:
     metadata:
       annotations:
-        autoscaling.knative.dev/minScale: "0"  # Scale to zero
+        autoscaling.knative.dev/minScale: "0" # Scale to zero
         autoscaling.knative.dev/maxScale: "5"
         run.googleapis.com/cpu-throttling: "true"
-        run.googleapis.com/startup-cpu-boost: "true"  # Faster cold starts
-        run.googleapis.com/execution-environment: gen2  # Second generation execution environment
+        run.googleapis.com/startup-cpu-boost: "true" # Faster cold starts
+        run.googleapis.com/execution-environment: gen2 # Second generation execution environment
     spec:
       serviceAccountName: sales-agents@PROJECT_ID.iam.gserviceaccount.com
       containerConcurrency: 10
-      timeoutSeconds: 300  # 5 minutes max per request
+      timeoutSeconds: 300 # 5 minutes max per request
 
       containers:
         - name: lead-scout-agent
@@ -37,8 +37,8 @@ spec:
           # Resource limits
           resources:
             limits:
-              cpu: "1000m"      # 1 vCPU
-              memory: "512Mi"   # 512 MB RAM
+              cpu: "1000m" # 1 vCPU
+              memory: "512Mi" # 512 MB RAM
             requests:
               cpu: "1000m"
               memory: "512Mi"
@@ -68,6 +68,11 @@ spec:
                 name: clearbit-api-key
             - secretRef:
                 name: slack-webhook
+            - secretRef:
+                name: teams-webhook
+                name: notify-webhook
+            - secretRef:
+                name: whatsapp-alerting
 
           # Health checks
           livenessProbe:
@@ -95,9 +100,9 @@ spec:
 
       # Scaling configuration
       scaling:
-        minInstances: 0  # Cost optimization: scale to zero
+        minInstances: 0 # Cost optimization: scale to zero
         maxInstances: 5
-        targetConcurrency: 8  # Request per instance before scaling up
+        targetConcurrency: 8 # Request per instance before scaling up
 
   traffic:
     - percent: 100

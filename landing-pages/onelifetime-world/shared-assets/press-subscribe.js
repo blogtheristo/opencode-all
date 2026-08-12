@@ -145,7 +145,7 @@
       '<button class="dws-ps-btn" type="submit">Subscribe</button>' +
       '</form>' +
       '<p class="dws-ps-msg" role="status" aria-live="polite"></p>' +
-      '<p class="dws-ps-note">By submitting, you agree to Lifetime Oy’s <a href="/privacy-policy/">Privacy Policy</a>. Double opt-in. Unsubscribe any time.</p>' +
+      '<p class="dws-ps-note">By submitting, you agree to Lifetime Oy’s <a href="https://dws10.com/privacy-policy/">Privacy Policy</a>. Double opt-in. Unsubscribe any time.</p>' +
       '</div>';
 
     var form = host.querySelector('.dws-ps-form');

@@ -149,6 +149,8 @@ cmd_deploy() {
     curl -sf http://localhost:8080/health 2>/dev/null && echo '' || echo 'Backend: starting...'
     echo '=== Cron ===' && \
     curl -sf http://localhost:8081/health 2>/dev/null && echo '' || echo 'Cron: starting...'
+    echo '=== NemoClaw ===' && \
+    curl -sf http://localhost:8090/health 2>/dev/null && echo '' || echo 'NemoClaw: starting...'
     echo '=== Heartbeat ===' && \
     curl -sf http://localhost:9999/health 2>/dev/null && echo '' || echo 'Heartbeat: starting...'
   "
@@ -188,14 +190,50 @@ cmd_stop() {
 cmd_ollama_models() {
   log "Pulling required Ollama models on DGX Spark..."
   ssh_run "
-    echo 'Pulling llama3.3:70b (may take a while)...'
-    ollama pull llama3.3:70b
+    echo 'Pulling nemotron-3-super (may take a while — ~87GB)...'
+    ollama pull nemotron-3-super
     echo ''
-    echo 'Pulling qwen2.5-coder:32b...'
-    ollama pull qwen2.5-coder:32b
+    echo 'Pulling qwen3-coder:30b...'
+    ollama pull qwen3-coder:30b
     echo ''
     echo 'Available models:'
     ollama list
+  "
+}
+
+# ---------------------------------------------------------------------------
+# Ollama cleanup — DESTRUCTIVE: removes deprecated models from the Spark
+# Separate from --models on purpose. Run only after the new models
+# (nemotron-3-super + qwen3-coder:30b) are verified working in production.
+# Until then, the old models (llama3.3:70b + qwen2.5-coder:32b) stay on
+# disk as warm rollback. The Spark's 3TB NVMe easily holds all four.
+# ---------------------------------------------------------------------------
+cmd_ollama_cleanup() {
+  log "Ollama cleanup — DESTRUCTIVE"
+  log "This will remove the deprecated Spark Brain models:"
+  log "  - llama3.3:70b        (previous Primary tier, ~40GB)"
+  log "  - qwen2.5-coder:32b   (previous Fast tier, ~20GB)"
+  log ""
+  log "Verify the new models work first (curl http://192.168.101.113:11434/api/generate)."
+  log "Once removed, rolling back requires re-pulling ~60GB from ollama.com."
+  log ""
+  read -r -p "Type 'remove' to confirm: " confirm
+  if [ "$confirm" != "remove" ]; then
+    log "Aborted."
+    exit 1
+  fi
+  ssh_run "
+    echo 'Removing llama3.3:70b...'
+    ollama rm llama3.3:70b 2>/dev/null && echo '  removed' || echo '  not present (already removed)'
+    echo ''
+    echo 'Removing qwen2.5-coder:32b...'
+    ollama rm qwen2.5-coder:32b 2>/dev/null && echo '  removed' || echo '  not present (already removed)'
+    echo ''
+    echo 'Remaining models:'
+    ollama list
+    echo ''
+    echo 'Ollama model dir disk usage:'
+    du -sh /usr/share/ollama/.ollama/models/ 2>/dev/null || true
   "
 }
 
@@ -233,7 +271,8 @@ cmd_help() {
   echo "  --stop         Stop services (enables GHA failover)"
   echo "  --logs         Tail container logs"
   echo "  --pull         Git pull only"
-  echo "  --models       Pull Ollama models (llama3.3:70b, qwen2.5-coder:32b)"
+  echo "  --models       Pull Ollama models (nemotron-3-super, qwen3-coder:30b)"
+  echo "  --models-cleanup  Remove deprecated models (llama3.3:70b, qwen2.5-coder:32b) — DESTRUCTIVE, prompts to confirm"
   echo "  --ssh-config   Show SSH config for Cursor/CC Mobile"
   echo "  --help         This help"
   echo ""
@@ -255,6 +294,7 @@ case "${1:-}" in
   --logs)       cmd_logs ;;
   --pull)       cmd_pull ;;
   --models)     cmd_ollama_models ;;
+  --models-cleanup) cmd_ollama_cleanup ;;
   --ssh-config) cmd_setup_ssh ;;
   --help|-h)    cmd_help ;;
   "")           cmd_deploy ;;

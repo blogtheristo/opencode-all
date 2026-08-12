@@ -43,7 +43,7 @@ jobs:
         with:
           fetch-depth: 0
           # Ensure we have write access for commit
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
 
       - name: 🔍 Verify site directories exist
         id: verify_sites

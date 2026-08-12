@@ -864,7 +864,7 @@ CREATE TABLE IF NOT EXISTS tenant_lwm_models (
     industry TEXT NOT NULL,
     model_name TEXT NOT NULL,        -- e.g. 'ncc-lwm-construction-v2.3'
     model_path TEXT NOT NULL,        -- e.g. '/models/lwm/ncc-lwm-construction-v2.3.gguf'
-    base_model TEXT NOT NULL,        -- e.g. 'qwen2.5-coder:32b'
+    base_model TEXT NOT NULL,        -- e.g. 'qwen3-coder:30b'
     version TEXT NOT NULL,
     fine_tuned_on TIMESTAMPTZ,
     training_dataset_hash TEXT,      -- SHA-256 of training data
@@ -1112,7 +1112,7 @@ scp ncc-lwm-construction-v2.3.gguf user@acer-veriton.local:/opt/dws6/models/lwm/
 # Register in Aiven PG
 psql -h localhost -U dws_agent -d dws_agents -c "
 INSERT INTO tenant_lwm_models (tenant_id, industry, model_name, model_path, base_model, version)
-VALUES ('ncc', 'construction', 'ncc-lwm-construction-v2.3', '/models/lwm/ncc-lwm-construction-v2.3.gguf', 'qwen2.5-coder:32b', '2.3');
+VALUES ('ncc', 'construction', 'ncc-lwm-construction-v2.3', '/models/lwm/ncc-lwm-construction-v2.3.gguf', 'qwen3-coder:30b', '2.3');
 "
 ```
 

@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn — hakemisto</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px 40px;
+        line-height: 1.7;
+        color: #1a1a2e;
+        background: #fafafa;
+      }
+      h1 {
+        color: #0f172a;
+        border-bottom: 3px solid #fbbf24;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #1e3a5f;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 8px;
+        margin-top: 40px;
+      }
+      h3 {
+        color: #334155;
+      }
+      h4 {
+        color: #475569;
+      }
+      code {
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      pre {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      pre code {
+        background: none;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 10px 14px;
+        text-align: left;
+      }
+      th {
+        background: #1e3a5f;
+        color: white;
+      }
+      tr:nth-child(even) {
+        background: #f8fafc;
+      }
+      blockquote {
+        border-left: 4px solid #fbbf24;
+        margin: 20px 0;
+        padding: 10px 20px;
+        background: #fffbeb;
+      }
+      a {
+        color: #2563eb;
+      }
+      strong {
+        color: #0f172a;
+      }
+      li {
+        margin: 4px 0;
+      }
+      .dws-version-banner {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 12px 20px;
+        margin: 0 -20px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.85rem;
+      }
+      .dws-version-badge {
+        background: #fbbf24;
+        color: #0f172a;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+      }
+      .dws-version-meta {
+        color: #94a3b8;
+        font-size: 0.8rem;
+      }
+      .dws-version-title {
+        color: #e2e8f0;
+        font-weight: 600;
+      }
+      .col2 {
+        column-count: 2;
+        column-gap: 32px;
+      }
+      .col2 li {
+        break-inside: avoid;
+      }
+      .status-DRAFT {
+        color: #b45309;
+        font-weight: 600;
+      }
+      .status-ACTIVE {
+        color: #15803d;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dws-version-banner">
+      <span class="dws-version-title">Learn — hakemisto</span
+      ><span class="dws-version-badge">START</span
+      ><span class="dws-version-meta"
+        >Lifetime Oy · luotu automaattisesti 2026-06-27 · privaatti</span
+      >
+    </div>
+    <h1>Learn-aineisto</h1>
+    <p>
+      Tämä sivu on luotu automaattisesti viikoittaisella cronilla
+      (<code>scripts/weekly/coach-learn-curate.sh</code>). Uusimmat versiot pidetään täällä;
+      vanhentuneet on siirretty kansioon <a href="Archive/">Archive/</a>.
+    </p>
+    <h2>Coach — koulutustarjoukset</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Asiakas</th>
+          <th>Tuoteversio</th>
+          <th>Tuotetaso</th>
+          <th>Palvelutaso</th>
+          <th>Versio</th>
+          <th>Tila</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a href="Coach_Nokia-Defence_KOULUTUSTARJOUS_NOKIA_DEFENCE_FI_v1.0.html"
+              >Nokia Defence</a
+            >
+          </td>
+          <td>DWS IQ 7</td>
+          <td>Aegis Defence</td>
+          <td>T3 Ohjelma + T4 Projekti</td>
+          <td>v1.0</td>
+          <td class="status-DRAFT">DRAFT</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="Coach_OP-Financial-Group_KOULUTUSTARJOUS_OP_FINANCIAL_GROUP_FI_v1.0.html"
+              >OP Financial Group</a
+            >
+          </td>
+          <td>DWS IQ 6</td>
+          <td>Aegis Standard</td>
+          <td>T3 Ohjelma + T4 Projekti</td>
+          <td>v1.0</td>
+          <td class="status-DRAFT">DRAFT</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Tarjoukset (bids) — 6 kpl</h2>
+    <ul>
+      <li>
+        <strong>KEMIRA</strong> — 6 dokumenttia, 0 liitettä<br /><a href="Bid_KEMIRA_CV_KEMIRA.html"
+          >CV_KEMIRA</a
+        >
+        · <a href="Bid_KEMIRA_KEMIRA_HINTALOMAKE.html">KEMIRA_HINTALOMAKE</a> ·
+        <a href="Bid_KEMIRA_KEMIRA_REFERENSSIT.html">KEMIRA_REFERENSSIT</a> ·
+        <a href="Bid_KEMIRA_KEMIRA_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >KEMIRA_RISKILUOKITUS_VAKAVARAISUUS</a
+        >
+        · <a href="Bid_KEMIRA_KEMIRA_SUVEREENINEN_TOTEUTUS.html">KEMIRA_SUVEREENINEN_TOTEUTUS</a> ·
+        <a href="Bid_KEMIRA_KEMIRA_TARJOUSKIRJE.html">KEMIRA_TARJOUSKIRJE</a>
+      </li>
+      <li>
+        <strong>LUT</strong> — 6 dokumenttia, 0 liitettä<br /><a href="Bid_LUT_CV_LUT.html"
+          >CV_LUT</a
+        >
+        · <a href="Bid_LUT_LUT_HINTALOMAKE.html">LUT_HINTALOMAKE</a> ·
+        <a href="Bid_LUT_LUT_REFERENSSIT.html">LUT_REFERENSSIT</a> ·
+        <a href="Bid_LUT_LUT_RISKILUOKITUS_VAKAVARAISUUS.html">LUT_RISKILUOKITUS_VAKAVARAISUUS</a> ·
+        <a href="Bid_LUT_LUT_SUVEREENINEN_TOTEUTUS.html">LUT_SUVEREENINEN_TOTEUTUS</a> ·
+        <a href="Bid_LUT_LUT_TARJOUSKIRJE.html">LUT_TARJOUSKIRJE</a>
+      </li>
+      <li>
+        <strong>METROPOLIA</strong> — 6 dokumenttia, 0 liitettä<br /><a
+          href="Bid_METROPOLIA_CV_METROPOLIA.html"
+          >CV_METROPOLIA</a
+        >
+        · <a href="Bid_METROPOLIA_METROPOLIA_HINTALOMAKE.html">METROPOLIA_HINTALOMAKE</a> ·
+        <a href="Bid_METROPOLIA_METROPOLIA_REFERENSSIT.html">METROPOLIA_REFERENSSIT</a> ·
+        <a href="Bid_METROPOLIA_METROPOLIA_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >METROPOLIA_RISKILUOKITUS_VAKAVARAISUUS</a
+        >
+        ·
+        <a href="Bid_METROPOLIA_METROPOLIA_SUVEREENINEN_TOTEUTUS.html"
+          >METROPOLIA_SUVEREENINEN_TOTEUTUS</a
+        >
+        · <a href="Bid_METROPOLIA_METROPOLIA_TARJOUSKIRJE.html">METROPOLIA_TARJOUSKIRJE</a>
+      </li>
+      <li>
+        <strong>NOKIADEFENCE</strong> — 6 dokumenttia, 0 liitettä<br /><a
+          href="Bid_NOKIADEFENCE_CV_NOKIADEFENCE.html"
+          >CV_NOKIADEFENCE</a
+        >
+        · <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_HINTALOMAKE.html">NOKIADEFENCE_HINTALOMAKE</a> ·
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_REFERENSSIT.html">NOKIADEFENCE_REFERENSSIT</a> ·
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >NOKIADEFENCE_RISKILUOKITUS_VAKAVARAISUUS</a
+        >
+        ·
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_SUVEREENINEN_TOTEUTUS.html"
+          >NOKIADEFENCE_SUVEREENINEN_TOTEUTUS</a
+        >
+        · <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_TARJOUSKIRJE.html">NOKIADEFENCE_TARJOUSKIRJE</a>
+      </li>
+      <li>
+        <strong>ORK160826</strong> — 12 dokumenttia, 1 liitettä<br /><a
+          href="Bid_ORK160826_CV_ORK160826.html"
+          >CV_ORK160826</a
+        >
+        · <a href="Bid_ORK160826_ORK160826_ALIHANKINTALOMAKE.html">ORK160826_ALIHANKINTALOMAKE</a> ·
+        <a href="Bid_ORK160826_ORK160826_ALIHANKKIJAKUTSU.html">ORK160826_ALIHANKKIJAKUTSU</a> ·
+        <a href="Bid_ORK160826_ORK160826_ALIHANKKIJA_EN.html">ORK160826_ALIHANKKIJA_EN</a> ·
+        <a href="Bid_ORK160826_ORK160826_HINTALOMAKE.html">ORK160826_HINTALOMAKE</a> ·
+        <a href="Bid_ORK160826_ORK160826_LIITE7_REFERENSSILOMAKE.html"
+          >ORK160826_LIITE7_REFERENSSILOMAKE</a
+        >
+        ·
+        <a href="Bid_ORK160826_ORK160826_OSA-ALUE-1-REFERENSSIT.html"
+          >ORK160826_OSA-ALUE-1-REFERENSSIT</a
+        >
+        ·
+        <a href="Bid_ORK160826_ORK160826_OSA-ALUE-2-REFERENSSIT.html"
+          >ORK160826_OSA-ALUE-2-REFERENSSIT</a
+        >
+        ·
+        <a href="Bid_ORK160826_ORK160826_OSA-ALUE-3-REFERENSSIT.html"
+          >ORK160826_OSA-ALUE-3-REFERENSSIT</a
+        >
+        ·
+        <a href="Bid_ORK160826_ORK160826_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >ORK160826_RISKILUOKITUS_VAKAVARAISUUS</a
+        >
+        ·
+        <a href="Bid_ORK160826_ORK160826_SUVEREENINEN_TOTEUTUS.html"
+          >ORK160826_SUVEREENINEN_TOTEUTUS</a
+        >
+        · <a href="Bid_ORK160826_ORK160826_TARJOUSKIRJE.html">ORK160826_TARJOUSKIRJE</a
+        ><br /><strong>Liitteet:</strong>
+        <a href="../bids/ORK160826/ORK160826_tarjous_v2_27062026.pdf"
+          >ORK160826_tarjous_v2_27062026.pdf</a
+        >
+      </li>
+      <li>
+        <strong>OUTOKUMPU</strong> — 6 dokumenttia, 0 liitettä<br /><a
+          href="Bid_OUTOKUMPU_CV_OUTOKUMPU.html"
+          >CV_OUTOKUMPU</a
+        >
+        · <a href="Bid_OUTOKUMPU_OUTOKUMPU_HINTALOMAKE.html">OUTOKUMPU_HINTALOMAKE</a> ·
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_REFERENSSIT.html">OUTOKUMPU_REFERENSSIT</a> ·
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >OUTOKUMPU_RISKILUOKITUS_VAKAVARAISUUS</a
+        >
+        ·
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_SUVEREENINEN_TOTEUTUS.html"
+          >OUTOKUMPU_SUVEREENINEN_TOTEUTUS</a
+        >
+        · <a href="Bid_OUTOKUMPU_OUTOKUMPU_TARJOUSKIRJE.html">OUTOKUMPU_TARJOUSKIRJE</a>
+      </li>
+    </ul>
+    <h2>Dokumentit (HTML) — 170 kpl</h2>
+    <ul class="col2">
+      <li>
+        <a href="012f_Lifetime_Digital_Workspace_3_DWS3.html"
+          >012f_Lifetime_Digital_Workspace_3_DWS3.html</a
+        >
+      </li>
+      <li>
+        <a href="019_LT_DueDiligence_CleanReport_2020_summary.html"
+          >019_LT_DueDiligence_CleanReport_2020_summary.html</a
+        >
+      </li>
+      <li>
+        <a href="022_LT_DueDiligence_CleanReport_2026.html"
+          >022_LT_DueDiligence_CleanReport_2026.html</a
+        >
+      </li>
+      <li>
+        <a href="022b_LT_PreTermSheet_DiligenceChecklist_2026.html"
+          >022b_LT_PreTermSheet_DiligenceChecklist_2026.html</a
+        >
+      </li>
+      <li>
+        <a href="022c_LT_InvestorQA_CapTable_SAFE_IP_2026.html"
+          >022c_LT_InvestorQA_CapTable_SAFE_IP_2026.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-01-21-karp-enterprise-ai-ontology.html"
+          >2026-01-21-karp-enterprise-ai-ontology.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-01-22-dashboard-v9-technical-stack.html"
+          >2026-01-22-dashboard-v9-technical-stack.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-01-23-design-system-audit-navigation-gaps.html"
+          >2026-01-23-design-system-audit-navigation-gaps.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-01-27-apply-ai-robotics-manufacturing-webinar.html"
+          >2026-01-27-apply-ai-robotics-manufacturing-webinar.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-01-28-eu-tech-stack-sovereignty-positioning.html"
+          >2026-01-28-eu-tech-stack-sovereignty-positioning.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-01-30-figbc-working-group-recruitment.html"
+          >2026-01-30-figbc-working-group-recruitment.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-04-qwen3-coder-next-agentic-llm.html"
+          >2026-02-04-qwen3-coder-next-agentic-llm.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-05-claude-code-agent-teams-vs-subagents.html"
+          >2026-02-05-claude-code-agent-teams-vs-subagents.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-06-ai-safety-report-2026-field-note.html"
+          >2026-02-06-ai-safety-report-2026-field-note.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-06-brockman-agentic-software-development.html"
+          >2026-02-06-brockman-agentic-software-development.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-11-eu-alden-biesen-single-market-info-note.html"
+          >2026-02-11-eu-alden-biesen-single-market-info-note.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-15-moltworker-openclaw-dws-assistant.html"
+          >2026-02-15-moltworker-openclaw-dws-assistant.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-15-tech-backlog-pyjwt-redis-conflict.html"
+          >2026-02-15-tech-backlog-pyjwt-redis-conflict.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.html"
+          >2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-16-zvec-embedded-vector-db-european-alternatives.html"
+          >2026-02-16-zvec-embedded-vector-db-european-alternatives.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-02-17-morning-email-0600-eest-incident.html"
+          >2026-02-17-morning-email-0600-eest-incident.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-03-11-veriton-gn100-docker-cuda-validation.html"
+          >2026-03-11-veriton-gn100-docker-cuda-validation.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-03-17-shufti-kya-whitepaper_v1.0.html"
+          >2026-03-17-shufti-kya-whitepaper_v1.0.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-03-18-kya-outreach-veriff-signicat_v1.0.html"
+          >2026-03-18-kya-outreach-veriff-signicat_v1.0.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-05-25-block71-deep-sage-reply-steve-leong.html"
+          >2026-05-25-block71-deep-sage-reply-steve-leong.html</a
+        >
+      </li>
+      <li><a href="2026-05-28-kypsyysnayte-esitys.html">2026-05-28-kypsyysnayte-esitys.html</a></li>
+      <li>
+        <a href="2026-05-28-rightful-oy-partnership-letter.html"
+          >2026-05-28-rightful-oy-partnership-letter.html</a
+        >
+      </li>
+      <li>
+        <a href="2026-05-28-shufti-partnership-approval-letter.html"
+          >2026-05-28-shufti-partnership-approval-letter.html</a
+        >
+      </li>
+      <li><a href="ACER_VERITON_GN100_README_v1.5.html">ACER_VERITON_GN100_README_v1.5.html</a></li>
+      <li><a href="ACER_VERITON_GN100_README.html">ACER_VERITON_GN100_README.html</a></li>
+      <li><a href="ADMIN_MANUAL_AUDIT.html">ADMIN_MANUAL_AUDIT.html</a></li>
+      <li><a href="ADMIN_MANUAL_AUTHENTICATION.html">ADMIN_MANUAL_AUTHENTICATION.html</a></li>
+      <li>
+        <a href="ADMIN_MANUAL_DATABASE_SOVEREIGNTY.html">ADMIN_MANUAL_DATABASE_SOVEREIGNTY.html</a>
+      </li>
+      <li>
+        <a href="ADMIN_MANUAL_DWS10_STORE_PAYMENTS.html">ADMIN_MANUAL_DWS10_STORE_PAYMENTS.html</a>
+      </li>
+      <li><a href="ADMIN_MANUAL_DWS6_COM.html">ADMIN_MANUAL_DWS6_COM.html</a></li>
+      <li><a href="ADMIN_MANUAL_FILES_AND_FOLDERS.html">ADMIN_MANUAL_FILES_AND_FOLDERS.html</a></li>
+      <li><a href="ADMIN_MANUAL_GAPS_ANALYSIS.html">ADMIN_MANUAL_GAPS_ANALYSIS.html</a></li>
+      <li>
+        <a href="ADMIN_MANUAL_SECURITY_MONITORING.html">ADMIN_MANUAL_SECURITY_MONITORING.html</a>
+      </li>
+      <li><a href="ADMIN_MANUAL_SECURITY_TESTING.html">ADMIN_MANUAL_SECURITY_TESTING.html</a></li>
+      <li><a href="ADMIN_MANUAL_SUPABASE_EN_v1.html">ADMIN_MANUAL_SUPABASE_EN_v1.html</a></li>
+      <li><a href="ADMIN_MANUAL_TESTING.html">ADMIN_MANUAL_TESTING.html</a></li>
+      <li><a href="ADMIN_MANUAL.html">ADMIN_MANUAL.html</a></li>
+      <li>
+        <a href="ASPIRE_SENSOR_MANAGEMENT_PLAN_v2.0.html"
+          >ASPIRE_SENSOR_MANAGEMENT_PLAN_v2.0.html</a
+        >
+      </li>
+      <li>
+        <a href="AWESOME_LLM_APPS_EXTRACTION_GUIDE.html">AWESOME_LLM_APPS_EXTRACTION_GUIDE.html</a>
+      </li>
+      <li>
+        <a href="B_Pre_Firehorse_Digital_Products.html">B_Pre_Firehorse_Digital_Products.html</a>
+      </li>
+      <li><a href="BID_EXCELLENCE_FI.html">BID_EXCELLENCE_FI.html</a></li>
+      <li><a href="Bid_KEMIRA_CV_KEMIRA.html">Bid_KEMIRA_CV_KEMIRA.html</a></li>
+      <li><a href="Bid_KEMIRA_KEMIRA_HINTALOMAKE.html">Bid_KEMIRA_KEMIRA_HINTALOMAKE.html</a></li>
+      <li><a href="Bid_KEMIRA_KEMIRA_REFERENSSIT.html">Bid_KEMIRA_KEMIRA_REFERENSSIT.html</a></li>
+      <li>
+        <a href="Bid_KEMIRA_KEMIRA_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >Bid_KEMIRA_KEMIRA_RISKILUOKITUS_VAKAVARAISUUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_KEMIRA_KEMIRA_SUVEREENINEN_TOTEUTUS.html"
+          >Bid_KEMIRA_KEMIRA_SUVEREENINEN_TOTEUTUS.html</a
+        >
+      </li>
+      <li><a href="Bid_KEMIRA_KEMIRA_TARJOUSKIRJE.html">Bid_KEMIRA_KEMIRA_TARJOUSKIRJE.html</a></li>
+      <li><a href="Bid_LUT_CV_LUT.html">Bid_LUT_CV_LUT.html</a></li>
+      <li><a href="Bid_LUT_LUT_HINTALOMAKE.html">Bid_LUT_LUT_HINTALOMAKE.html</a></li>
+      <li><a href="Bid_LUT_LUT_REFERENSSIT.html">Bid_LUT_LUT_REFERENSSIT.html</a></li>
+      <li>
+        <a href="Bid_LUT_LUT_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >Bid_LUT_LUT_RISKILUOKITUS_VAKAVARAISUUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_LUT_LUT_SUVEREENINEN_TOTEUTUS.html">Bid_LUT_LUT_SUVEREENINEN_TOTEUTUS.html</a>
+      </li>
+      <li><a href="Bid_LUT_LUT_TARJOUSKIRJE.html">Bid_LUT_LUT_TARJOUSKIRJE.html</a></li>
+      <li><a href="Bid_METROPOLIA_CV_METROPOLIA.html">Bid_METROPOLIA_CV_METROPOLIA.html</a></li>
+      <li>
+        <a href="Bid_METROPOLIA_METROPOLIA_HINTALOMAKE.html"
+          >Bid_METROPOLIA_METROPOLIA_HINTALOMAKE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_METROPOLIA_METROPOLIA_REFERENSSIT.html"
+          >Bid_METROPOLIA_METROPOLIA_REFERENSSIT.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_METROPOLIA_METROPOLIA_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >Bid_METROPOLIA_METROPOLIA_RISKILUOKITUS_VAKAVARAISUUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_METROPOLIA_METROPOLIA_SUVEREENINEN_TOTEUTUS.html"
+          >Bid_METROPOLIA_METROPOLIA_SUVEREENINEN_TOTEUTUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_METROPOLIA_METROPOLIA_TARJOUSKIRJE.html"
+          >Bid_METROPOLIA_METROPOLIA_TARJOUSKIRJE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_NOKIADEFENCE_CV_NOKIADEFENCE.html">Bid_NOKIADEFENCE_CV_NOKIADEFENCE.html</a>
+      </li>
+      <li>
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_HINTALOMAKE.html"
+          >Bid_NOKIADEFENCE_NOKIADEFENCE_HINTALOMAKE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_REFERENSSIT.html"
+          >Bid_NOKIADEFENCE_NOKIADEFENCE_REFERENSSIT.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >Bid_NOKIADEFENCE_NOKIADEFENCE_RISKILUOKITUS_VAKAVARAISUUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_SUVEREENINEN_TOTEUTUS.html"
+          >Bid_NOKIADEFENCE_NOKIADEFENCE_SUVEREENINEN_TOTEUTUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_NOKIADEFENCE_NOKIADEFENCE_TARJOUSKIRJE.html"
+          >Bid_NOKIADEFENCE_NOKIADEFENCE_TARJOUSKIRJE.html</a
+        >
+      </li>
+      <li><a href="Bid_ORK160826_CV_ORK160826.html">Bid_ORK160826_CV_ORK160826.html</a></li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_ALIHANKINTALOMAKE.html"
+          >Bid_ORK160826_ORK160826_ALIHANKINTALOMAKE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_ALIHANKKIJA_EN.html"
+          >Bid_ORK160826_ORK160826_ALIHANKKIJA_EN.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_ALIHANKKIJAKUTSU.html"
+          >Bid_ORK160826_ORK160826_ALIHANKKIJAKUTSU.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_HINTALOMAKE.html"
+          >Bid_ORK160826_ORK160826_HINTALOMAKE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_LIITE7_REFERENSSILOMAKE.html"
+          >Bid_ORK160826_ORK160826_LIITE7_REFERENSSILOMAKE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_OSA-ALUE-1-REFERENSSIT.html"
+          >Bid_ORK160826_ORK160826_OSA-ALUE-1-REFERENSSIT.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_OSA-ALUE-2-REFERENSSIT.html"
+          >Bid_ORK160826_ORK160826_OSA-ALUE-2-REFERENSSIT.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_OSA-ALUE-3-REFERENSSIT.html"
+          >Bid_ORK160826_ORK160826_OSA-ALUE-3-REFERENSSIT.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >Bid_ORK160826_ORK160826_RISKILUOKITUS_VAKAVARAISUUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_SUVEREENINEN_TOTEUTUS.html"
+          >Bid_ORK160826_ORK160826_SUVEREENINEN_TOTEUTUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_ORK160826_ORK160826_TARJOUSKIRJE.html"
+          >Bid_ORK160826_ORK160826_TARJOUSKIRJE.html</a
+        >
+      </li>
+      <li><a href="Bid_OUTOKUMPU_CV_OUTOKUMPU.html">Bid_OUTOKUMPU_CV_OUTOKUMPU.html</a></li>
+      <li>
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_HINTALOMAKE.html"
+          >Bid_OUTOKUMPU_OUTOKUMPU_HINTALOMAKE.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_REFERENSSIT.html"
+          >Bid_OUTOKUMPU_OUTOKUMPU_REFERENSSIT.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_RISKILUOKITUS_VAKAVARAISUUS.html"
+          >Bid_OUTOKUMPU_OUTOKUMPU_RISKILUOKITUS_VAKAVARAISUUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_SUVEREENINEN_TOTEUTUS.html"
+          >Bid_OUTOKUMPU_OUTOKUMPU_SUVEREENINEN_TOTEUTUS.html</a
+        >
+      </li>
+      <li>
+        <a href="Bid_OUTOKUMPU_OUTOKUMPU_TARJOUSKIRJE.html"
+          >Bid_OUTOKUMPU_OUTOKUMPU_TARJOUSKIRJE.html</a
+        >
+      </li>
+      <li><a href="CEO_PROFILE_RISTO_PAARNI_2026.html">CEO_PROFILE_RISTO_PAARNI_2026.html</a></li>
+      <li><a href="Claude-memo_v1.0.html">Claude-memo_v1.0.html</a></li>
+      <li><a href="CLAUDE.html">CLAUDE.html</a></li>
+      <li>
+        <a href="Coach_Nokia-Defence_KOULUTUSTARJOUS_NOKIA_DEFENCE_FI_v1.0.html"
+          >Coach_Nokia-Defence_KOULUTUSTARJOUS_NOKIA_DEFENCE_FI_v1.0.html</a
+        >
+      </li>
+      <li>
+        <a href="Coach_OP-Financial-Group_KOULUTUSTARJOUS_OP_FINANCIAL_GROUP_FI_v1.0.html"
+          >Coach_OP-Financial-Group_KOULUTUSTARJOUS_OP_FINANCIAL_GROUP_FI_v1.0.html</a
+        >
+      </li>
+      <li><a href="D_Konsultin_Kasikirja.html">D_Konsultin_Kasikirja.html</a></li>
+      <li><a href="DEEP_TECH_THESIS.html">DEEP_TECH_THESIS.html</a></li>
+      <li><a href="Document-index.html">Document-index.html</a></li>
+      <li>
+        <a href="DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v1.5.html"
+          >DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v1.5.html</a
+        >
+      </li>
+      <li><a href="DPA_LIFETIME_SHUFTI_v1.1.html">DPA_LIFETIME_SHUFTI_v1.1.html</a></li>
+      <li><a href="DWS_AGENTS_COMPLETE_GUIDE.html">DWS_AGENTS_COMPLETE_GUIDE.html</a></li>
+      <li><a href="DWS_DOCUMENT_STANDARD_v1.7.html">DWS_DOCUMENT_STANDARD_v1.7.html</a></li>
+      <li><a href="DWS_DOCUMENT_STANDARD.html">DWS_DOCUMENT_STANDARD.html</a></li>
+      <li><a href="DWS_SKILLS_GUIDE_v1.0.html">DWS_SKILLS_GUIDE_v1.0.html</a></li>
+      <li><a href="DWS7_ROADMAP_v1.1.0.html">DWS7_ROADMAP_v1.1.0.html</a></li>
+      <li><a href="E_Yearly_Activation_CSV_Schema.html">E_Yearly_Activation_CSV_Schema.html</a></li>
+      <li><a href="enterprise-sales.html">enterprise-sales.html</a></li>
+      <li><a href="ESITE_JULKISHALLINTO_FI.html">ESITE_JULKISHALLINTO_FI.html</a></li>
+      <li><a href="evidenssi_Founder_v1.0.html">evidenssi_Founder_v1.0.html</a></li>
+      <li>
+        <a href="F_Dual_Version_Activation_Package.html">F_Dual_Version_Activation_Package.html</a>
+      </li>
+      <li><a href="F_Liite_Tuntikirjaukset.html">F_Liite_Tuntikirjaukset.html</a></li>
+      <li>
+        <a href="F_Liite0_Hallituksen_Poytakirja_31122025.html"
+          >F_Liite0_Hallituksen_Poytakirja_31122025.html</a
+        >
+      </li>
+      <li>
+        <a href="F_Liite2_K%C3%A4%C3%A4nteislaskutus_Kuukausijaottelu.html"
+          >F_Liite2_Käänteislaskutus_Kuukausijaottelu.html</a
+        >
+      </li>
+      <li><a href="F_Liite3_Aktivoitavat_Tuotteet.html">F_Liite3_Aktivoitavat_Tuotteet.html</a></li>
+      <li>
+        <a href="F_Liite5_GitHub_Aktiivisuusraportti.html"
+          >F_Liite5_GitHub_Aktiivisuusraportti.html</a
+        >
+      </li>
+      <li>
+        <a href="F_Liite7_Taksilaskutusrekisteri_Viite.html"
+          >F_Liite7_Taksilaskutusrekisteri_Viite.html</a
+        >
+      </li>
+      <li><a href="F_Liite8_Palkkavertailu_Viite.html">F_Liite8_Palkkavertailu_Viite.html</a></li>
+      <li>
+        <a href="F_Liite9_InvestEU_Portal_Viitteet.html">F_Liite9_InvestEU_Portal_Viitteet.html</a>
+      </li>
+      <li><a href="F_Saatekirje_Rantalainen.html">F_Saatekirje_Rantalainen.html</a></li>
+      <li><a href="field-notes-README.html">field-notes-README.html</a></li>
+      <li><a href="green-pricelist-latest.html">green-pricelist-latest.html</a></li>
+      <li>
+        <a href="green-pricelist-v1.13-2026-05-10.html">green-pricelist-v1.13-2026-05-10.html</a>
+      </li>
+      <li>
+        <a href="green-pricelist-v1.14-2026-05-14.html">green-pricelist-v1.14-2026-05-14.html</a>
+      </li>
+      <li>
+        <a href="green-pricelist-v1.15-2026-05-14.html">green-pricelist-v1.15-2026-05-14.html</a>
+      </li>
+      <li>
+        <a href="HIL_INVESTOR_OUTREACH_HOWTO_v1.0.html">HIL_INVESTOR_OUTREACH_HOWTO_v1.0.html</a>
+      </li>
+      <li><a href="INVESTOR_HOOK_DECK.html">INVESTOR_HOOK_DECK.html</a></li>
+      <li><a href="INVESTOR_MEMO_v4.0.html">INVESTOR_MEMO_v4.0.html</a></li>
+      <li><a href="INVESTOR_MEMO.html">INVESTOR_MEMO.html</a></li>
+      <li>
+        <a href="INVESTOR_ONE_PAGER_AMBIENTA_v1.0.html">INVESTOR_ONE_PAGER_AMBIENTA_v1.0.html</a>
+      </li>
+      <li>
+        <a href="INVESTOR_ONE_PAGER_DACH_BERLIN_v1.0.html"
+          >INVESTOR_ONE_PAGER_DACH_BERLIN_v1.0.html</a
+        >
+      </li>
+      <li><a href="investor-pitch-deck.html">investor-pitch-deck.html</a></li>
+      <li>
+        <a href="Kriittinen_havainto_Omnibus_Fit55_analyysi_v3.2.html"
+          >Kriittinen_havainto_Omnibus_Fit55_analyysi_v3.2.html</a
+        >
+      </li>
+      <li><a href="KYA_PARTNER_ADDENDUM_v1.0.html">KYA_PARTNER_ADDENDUM_v1.0.html</a></li>
+      <li><a href="KYA-IDV-CERT-Whitepaper-v1.0.html">KYA-IDV-CERT-Whitepaper-v1.0.html</a></li>
+      <li><a href="learn-sprint.html">learn-sprint.html</a></li>
+      <li>
+        <a href="Lifetime_VIP_AI_Services_OnePager_v1.0.html"
+          >Lifetime_VIP_AI_Services_OnePager_v1.0.html</a
+        >
+      </li>
+      <li><a href="lifetime-eu-home_v1.0.html">lifetime-eu-home_v1.0.html</a></li>
+      <li><a href="lifetime-fi-home_v1.0.html">lifetime-fi-home_v1.0.html</a></li>
+      <li><a href="MISSING_AGENTS_ANALYSIS.html">MISSING_AGENTS_ANALYSIS.html</a></li>
+      <li>
+        <a href="MYYJA_PAKETTI_LIFETIME_OY_STANDALONE.html"
+          >MYYJA_PAKETTI_LIFETIME_OY_STANDALONE.html</a
+        >
+      </li>
+      <li><a href="NDA_NOKIA_2026_v1.0.html">NDA_NOKIA_2026_v1.0.html</a></li>
+      <li><a href="Oppimisp%C3%A4iv%C3%A4kirja_v2.0.html">Oppimispäiväkirja_v2.0.html</a></li>
+      <li><a href="Oppimisp%C3%A4iv%C3%A4kirja.html">Oppimispäiväkirja.html</a></li>
+      <li><a href="OUTOKUMPU_JEHL_APPENDIX_v1.0.html">OUTOKUMPU_JEHL_APPENDIX_v1.0.html</a></li>
+      <li>
+        <a href="OUTOKUMPU_PARTNERSHIP_OFFER_v1.0.html">OUTOKUMPU_PARTNERSHIP_OFFER_v1.0.html</a>
+      </li>
+      <li><a href="PHD_FIREHORSE_EN_v3.70.html">PHD_FIREHORSE_EN_v3.70.html</a></li>
+      <li><a href="PHD_FIREHORSE_FI_v3.70.html">PHD_FIREHORSE_FI_v3.70.html</a></li>
+      <li><a href="pilot-pricelist-latest.html">pilot-pricelist-latest.html</a></li>
+      <li>
+        <a href="pilot-pricelist-v1.0-2026-05-10.html">pilot-pricelist-v1.0-2026-05-10.html</a>
+      </li>
+      <li>
+        <a href="pilot-pricelist-v1.0-2026-05-14.html">pilot-pricelist-v1.0-2026-05-14.html</a>
+      </li>
+      <li>
+        <a href="pilot-pricelist-v1.1-2026-05-14.html">pilot-pricelist-v1.1-2026-05-14.html</a>
+      </li>
+      <li><a href="PRICE_LIST_v2026.Q2.html">PRICE_LIST_v2026.Q2.html</a></li>
+      <li><a href="PYTHON_CUDA_GPU_MANAGEMENT.html">PYTHON_CUDA_GPU_MANAGEMENT.html</a></li>
+      <li><a href="README.html">README.html</a></li>
+      <li><a href="RISTO_CONSULTANCY_CV_2026.html">RISTO_CONSULTANCY_CV_2026.html</a></li>
+      <li>
+        <a href="RISTO_CV_AI_DATA_ANALYTICS_CONSULTANT_2026.html"
+          >RISTO_CV_AI_DATA_ANALYTICS_CONSULTANT_2026.html</a
+        >
+      </li>
+      <li><a href="SAATE_JULKISHALLINTO_FI.html">SAATE_JULKISHALLINTO_FI.html</a></li>
+      <li><a href="SALES_AI_AGENT_DESIGN_FI_v1.html">SALES_AI_AGENT_DESIGN_FI_v1.html</a></li>
+      <li><a href="SECURITY_COMPLIANCE.html">SECURITY_COMPLIANCE.html</a></li>
+      <li>
+        <a href="sovereign-industrial-intelligence-whitepaper-v1.0.html"
+          >sovereign-industrial-intelligence-whitepaper-v1.0.html</a
+        >
+      </li>
+      <li>
+        <a href="training-manual-part1-infrastructure_v1.1.html"
+          >training-manual-part1-infrastructure_v1.1.html</a
+        >
+      </li>
+      <li>
+        <a href="training-manual-part2-data-training_v1.1.html"
+          >training-manual-part2-data-training_v1.1.html</a
+        >
+      </li>
+      <li>
+        <a href="training-manual-part3-evaluation-deployment_v1.1.html"
+          >training-manual-part3-evaluation-deployment_v1.1.html</a
+        >
+      </li>
+      <li><a href="tuntikirjausraportti.html">tuntikirjausraportti.html</a></li>
+      <li><a href="Tutkimussuunnitelma_3.51_v3.51.html">Tutkimussuunnitelma_3.51_v3.51.html</a></li>
+      <li><a href="V3-DWS-IQ6-InvestorPD_2026.html">V3-DWS-IQ6-InvestorPD_2026.html</a></li>
+      <li><a href="V3Thesis_EN_v3.70.html">V3Thesis_EN_v3.70.html</a></li>
+      <li><a href="V3Thesis_EN.html">V3Thesis_EN.html</a></li>
+      <li><a href="V3Thesis_FI_v3.70.html">V3Thesis_FI_v3.70.html</a></li>
+      <li><a href="V3Thesis_FI.html">V3Thesis_FI.html</a></li>
+      <li><a href="V4.1-DWS-IQ6-InvestorPD_2026.html">V4.1-DWS-IQ6-InvestorPD_2026.html</a></li>
+      <li><a href="WEB_CONTENT_INDEX_v1.0.html">WEB_CONTENT_INDEX_v1.0.html</a></li>
+    </ul>
+    <h2>Lähteet (Markdown) — 33 kpl</h2>
+    <ul class="col2">
+      <li>
+        <a href="012f_Lifetime_Digital_Workspace_3_DWS3.md"
+          >012f_Lifetime_Digital_Workspace_3_DWS3.md</a
+        >
+      </li>
+      <li>
+        <a href="019_LT_DueDiligence_CleanReport_2020_summary.md"
+          >019_LT_DueDiligence_CleanReport_2020_summary.md</a
+        >
+      </li>
+      <li>
+        <a href="022_LT_DueDiligence_CleanReport_2026.md"
+          >022_LT_DueDiligence_CleanReport_2026.md</a
+        >
+      </li>
+      <li>
+        <a href="022b_LT_PreTermSheet_DiligenceChecklist_2026.md"
+          >022b_LT_PreTermSheet_DiligenceChecklist_2026.md</a
+        >
+      </li>
+      <li>
+        <a href="022c_LT_InvestorQA_CapTable_SAFE_IP_2026.md"
+          >022c_LT_InvestorQA_CapTable_SAFE_IP_2026.md</a
+        >
+      </li>
+      <li>
+        <a href="AWESOME_LLM_APPS_EXTRACTION_GUIDE.md">AWESOME_LLM_APPS_EXTRACTION_GUIDE.md</a>
+      </li>
+      <li><a href="B_Pre_Firehorse_Digital_Products.md">B_Pre_Firehorse_Digital_Products.md</a></li>
+      <li><a href="Claude-memo.md">Claude-memo.md</a></li>
+      <li><a href="DWS7_ROADMAP.md">DWS7_ROADMAP.md</a></li>
+      <li><a href="DWS_AGENTS_COMPLETE_GUIDE.md">DWS_AGENTS_COMPLETE_GUIDE.md</a></li>
+      <li><a href="D_Konsultin_Kasikirja.md">D_Konsultin_Kasikirja.md</a></li>
+      <li><a href="E_Yearly_Activation_CSV_Schema.md">E_Yearly_Activation_CSV_Schema.md</a></li>
+      <li>
+        <a href="F_Dual_Version_Activation_Package.md">F_Dual_Version_Activation_Package.md</a>
+      </li>
+      <li>
+        <a href="F_Liite0_Hallituksen_Poytakirja_31122025.md"
+          >F_Liite0_Hallituksen_Poytakirja_31122025.md</a
+        >
+      </li>
+      <li>
+        <a href="F_Liite2_K%C3%A4%C3%A4nteislaskutus_Kuukausijaottelu.md"
+          >F_Liite2_Käänteislaskutus_Kuukausijaottelu.md</a
+        >
+      </li>
+      <li><a href="F_Liite3_Aktivoitavat_Tuotteet.md">F_Liite3_Aktivoitavat_Tuotteet.md</a></li>
+      <li>
+        <a href="F_Liite5_GitHub_Aktiivisuusraportti.md">F_Liite5_GitHub_Aktiivisuusraportti.md</a>
+      </li>
+      <li>
+        <a href="F_Liite7_Taksilaskutusrekisteri_Viite.md"
+          >F_Liite7_Taksilaskutusrekisteri_Viite.md</a
+        >
+      </li>
+      <li><a href="F_Liite8_Palkkavertailu_Viite.md">F_Liite8_Palkkavertailu_Viite.md</a></li>
+      <li>
+        <a href="F_Liite9_InvestEU_Portal_Viitteet.md">F_Liite9_InvestEU_Portal_Viitteet.md</a>
+      </li>
+      <li><a href="F_Liite_Tuntikirjaukset.md">F_Liite_Tuntikirjaukset.md</a></li>
+      <li><a href="F_Saatekirje_Rantalainen.md">F_Saatekirje_Rantalainen.md</a></li>
+      <li><a href="HIL_INVESTOR_OUTREACH_HOWTO.md">HIL_INVESTOR_OUTREACH_HOWTO.md</a></li>
+      <li><a href="MISSING_AGENTS_ANALYSIS.md">MISSING_AGENTS_ANALYSIS.md</a></li>
+      <li><a href="PHD_FIREHORSE_EN.md">PHD_FIREHORSE_EN.md</a></li>
+      <li><a href="PHD_FIREHORSE_FI.md">PHD_FIREHORSE_FI.md</a></li>
+      <li><a href="PYTHON_CUDA_GPU_MANAGEMENT.md">PYTHON_CUDA_GPU_MANAGEMENT.md</a></li>
+      <li><a href="README.md">README.md</a></li>
+      <li><a href="Tutkimussuunnitelma_3.51.md">Tutkimussuunnitelma_3.51.md</a></li>
+      <li><a href="V3Thesis_EN.md">V3Thesis_EN.md</a></li>
+      <li><a href="V3Thesis_FI.md">V3Thesis_FI.md</a></li>
+      <li><a href="learn-sprint.md">learn-sprint.md</a></li>
+      <li><a href="tuntikirjausraportti.md">tuntikirjausraportti.md</a></li>
+    </ul>
+    <h2>Muut tiedostot — 5 kpl</h2>
+    <ul class="col2">
+      <li>
+        <a href="2026-05-28-rightful-oy-partnership-letter.txt"
+          >2026-05-28-rightful-oy-partnership-letter.txt</a
+        >
+      </li>
+      <li>
+        <a href="2026-05-28-shufti-partnership-approval-letter.txt"
+          >2026-05-28-shufti-partnership-approval-letter.txt</a
+        >
+      </li>
+      <li>
+        <a href="Lifetime_VIP_AI_Services_OnePager_v1.0.pdf"
+          >Lifetime_VIP_AI_Services_OnePager_v1.0.pdf</a
+        >
+      </li>
+      <li><a href="V3Thesis_EN_v3.30.50.md.docx">V3Thesis_EN_v3.30.50.md.docx</a></li>
+      <li><a href="report.css">report.css</a></li>
+    </ul>
+    <h2>Kansiot</h2>
+    <ul>
+      <li><a href="Archive/">Archive/</a></li>
+      <li><a href="data/">data/</a></li>
+      <li><a href="evidence/">evidence/</a></li>
+    </ul>
+  </body>
+</html>

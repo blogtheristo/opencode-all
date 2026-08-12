@@ -56,7 +56,14 @@ const SUBSCRIPTION_PLANS = [
     price_annual_eur: 4990,
     agent_calls_per_month: 10000,
     edge_devices: 5,
-    features: ['10,000 agent calls/month', '5 edge devices', 'Email support', 'API access', 'Carbon tracking', 'Report exports'],
+    features: [
+      '10,000 agent calls/month',
+      '5 edge devices',
+      'Email support',
+      'API access',
+      'Carbon tracking',
+      'Report exports',
+    ],
     support_type: 'Email',
     is_active: true,
   },
@@ -67,8 +74,15 @@ const SUBSCRIPTION_PLANS = [
     price_annual_eur: null,
     agent_calls_per_month: -1,
     edge_devices: 50,
-    features: ['Unlimited agent calls', '50+ edge devices', 'Dedicated Slack channel', 'Custom integrations', 'Priority support', 'SLA guarantee'],
-    support_type: 'Dedicated Slack',
+    features: [
+      'Unlimited agent calls',
+      '50+ edge devices',
+      'Dedicated WhatsApp/webhook channel',
+      'Custom integrations',
+      'Priority support',
+      'SLA guarantee',
+    ],
+    support_type: 'Dedicated WhatsApp/Webhook',
     is_active: true,
   },
 ];
@@ -88,7 +102,13 @@ const DEMO_PROJECTS = [
     spent: 6200000,
     start_date: '2025-03-01',
     end_date: '2026-12-31',
-    compliance_status: { csrd: true, epbd: true, ets: true, cbam: false, last_check: new Date().toISOString() },
+    compliance_status: {
+      csrd: true,
+      epbd: true,
+      ets: true,
+      cbam: false,
+      last_check: new Date().toISOString(),
+    },
   },
   {
     name: 'Pasila Logistics Hub',
@@ -102,7 +122,13 @@ const DEMO_PROJECTS = [
     spent: 5200000,
     start_date: '2025-01-15',
     end_date: '2026-06-30',
-    compliance_status: { csrd: true, epbd: true, ets: true, cbam: true, last_check: new Date().toISOString() },
+    compliance_status: {
+      csrd: true,
+      epbd: true,
+      ets: true,
+      cbam: true,
+      last_check: new Date().toISOString(),
+    },
   },
   {
     name: 'Tampere Residential Block',
@@ -116,7 +142,13 @@ const DEMO_PROJECTS = [
     spent: 2400000,
     start_date: '2025-06-01',
     end_date: '2027-03-31',
-    compliance_status: { csrd: true, epbd: true, ets: true, cbam: false, last_check: new Date().toISOString() },
+    compliance_status: {
+      csrd: true,
+      epbd: true,
+      ets: true,
+      cbam: false,
+      last_check: new Date().toISOString(),
+    },
   },
   {
     name: 'Espoo Metro Extension',
@@ -130,7 +162,13 @@ const DEMO_PROJECTS = [
     spent: 12000000,
     start_date: '2024-09-01',
     end_date: '2026-08-31',
-    compliance_status: { csrd: true, epbd: true, ets: true, cbam: true, last_check: new Date().toISOString() },
+    compliance_status: {
+      csrd: true,
+      epbd: true,
+      ets: true,
+      cbam: true,
+      last_check: new Date().toISOString(),
+    },
   },
 ];
 
@@ -248,11 +286,7 @@ const DEMO_AGENT_EXECUTIONS = [
 
 // ============ SEED FUNCTIONS ============
 
-async function seedTable(
-  table: string,
-  data: Record<string, unknown>[],
-  label: string,
-) {
+async function seedTable(table: string, data: Record<string, unknown>[], label: string) {
   const { data: existing } = await supabase.from(table).select('id').limit(1);
   if (existing && existing.length > 0 && !force) {
     console.log(`  [skip] ${label}: already has data (use --force)`);
@@ -272,7 +306,9 @@ async function seedTable(
 async function seed() {
   console.log('DWS IQ 6 — MVP Data Seeding');
   console.log('===========================');
-  console.log(`Mode: ${force ? 'FORCE (will add data even if table has rows)' : 'safe (skip if data exists)'}`);
+  console.log(
+    `Mode: ${force ? 'FORCE (will add data even if table has rows)' : 'safe (skip if data exists)'}`,
+  );
   console.log('');
 
   await seedTable('subscription_plans', SUBSCRIPTION_PLANS, 'Subscription Plans');
@@ -284,7 +320,7 @@ async function seed() {
   console.log('Done. Run with --force to re-seed existing tables.');
 }
 
-seed().catch(err => {
+seed().catch((err) => {
   console.error('Seed failed:', err);
   process.exit(1);
 });

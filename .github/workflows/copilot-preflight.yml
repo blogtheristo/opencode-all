@@ -19,6 +19,18 @@ on:
     branches:
       - 'copilot/**'
       - 'claude/**'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+
+# Cancel earlier in-flight pre-flight runs when a new commit is pushed.
+# Copilot/Claude branches often see rapid successive pushes; only the latest
+# state needs review.
+concurrency:
+  group: preflight-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write       # needed to commit PREFLIGHT_ISSUES.md
@@ -41,8 +53,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Use GITHUB_TOKEN with write access so we can commit back
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Default token with contents: write from workflow permissions
+          token: ${{ github.token }}
 
       # ── Skip if PR already exists for this branch ──
       # Once a PR exists, ai-pr-review.yml is the authoritative gate.
@@ -85,12 +97,18 @@ jobs:
 
       # ── Step 1: Claude quick check ──
       - name: Claude Pre-flight
-        if: steps.pr-check.outputs.has_pr == 'false' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.pr-check.outputs.has_pr == 'false'
         id: claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           BRANCH: ${{ github.ref_name }}
         run: |
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "verdict=skip" >> "$GITHUB_OUTPUT"
+            echo "Skipping Claude pre-flight — ANTHROPIC_API_KEY not set"
+            exit 0
+          fi
+
           PROMPT_STATIC='You are doing a quick pre-flight review of a branch before a PR is opened.
 Be brief and actionable. Flag ONLY real blockers — security issues, logic errors, missing error handling.
 Do NOT comment on style or non-critical suggestions.

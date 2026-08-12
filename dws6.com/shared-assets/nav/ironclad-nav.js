@@ -104,7 +104,7 @@
                                 <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
                                 <li><a href="${basePath}terms-professional/">Professional Services</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
+                                <li><a href="https://dws10.com/privacy-policy/">Privacy Policy</a></li>
                                 <li><a href="${basePath}return-policy/">Return Policy</a></li>
                                 <li><a href="${basePath}investment-safety/">Investment Security</a></li>
                                 <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
@@ -224,7 +224,7 @@
                                 <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
                                 <li><a href="${basePath}terms-professional/">Professional Services</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
+                                <li><a href="https://dws10.com/privacy-policy/">Privacy Policy</a></li>
                                 <li><a href="${basePath}return-policy/">Return Policy</a></li>
                             </ul>
                         </li>

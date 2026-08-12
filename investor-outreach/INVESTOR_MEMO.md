@@ -3,10 +3,10 @@
 **Company:** DWS6 (Lifetime Oy)
 **Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 4.3
-**Last Updated:** April 20, 2026
+**Document Version:** 4.4
+**Last Updated:** June 9, 2026
 **Status:** Active Fundraising
-**Platform Status:** Public Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
+**Platform Status:** Public Cloud V1 — Production Ready (a fleet of skilled agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 **Pricing Model:** Alpha-Share — 7.5% of verified efficiency gains (agent-native, outcome-based; aligned with Salesforce Headless 360 / Agentforce thesis)
 
@@ -16,7 +16,7 @@
 
 **Lifetime builds the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro.**
 
-Every EU company filing CSRD needs a carbon balance sheet. We build the ledger infrastructure that tracks carbon debits (ETS surrenders, CBAM imports, compliance costs) and carbon credits (free allocations, offsets, avoided emissions) across 20 industries. Same carbon, four regulatory touchpoints, one auditable ledger.
+Every EU company filing CSRD needs a carbon balance sheet. We build the ledger infrastructure that tracks carbon debits (ETS surrenders, CBAM imports, compliance costs) and carbon credits (free allocations, offsets, avoided emissions) across 25 industries. Same carbon, four regulatory touchpoints, one auditable ledger.
 
 ---
 
@@ -24,21 +24,21 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 
 **Current Metrics (April 2026):**
 
-- MRR: **€7K live run-rate**
-- Paying Customers: 6
-- Retention: 100% (zero churn)
+- Services and transport revenue: **~€7,000/month** — not software revenue; company at cash break-even with founder salary €0
+- Software pipeline: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 - Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
-- Platform: 21 AI agents, 32 products, 5 cloud environments
-- Industries served: 20 EU-regulated verticals
+- Platform: a fleet of skilled agents, 32 products, 5 cloud environments
+- Industries served: 25 EU-regulated verticals
 - CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
-- Competitive Fortress: **21 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
+- Competitive Fortress: **19 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
 - DWS IQ 7 jurisdictions: EU + US live, UAE via G42 planned Q3 2027, ASEA placeholder
 
 **Sales Motion:**
-Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
+Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 2 contracted enterprise pilots (€59,900 booked) + new logos from sales sprint and pipeline conversion.
 
 **Sales Timeline:**
+
 - March–June 14, 2026: Pipeline building, Navigator → Premium conversions
 - **June 15, 2026: V1 Launch at Arctic 15** (Helsinki — sales kickoff event)
 - June 15 – August 15, 2026: 100% sales sprint (2-month dedicated push)
@@ -68,21 +68,22 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 - **Valuation Cap:** €3.8M
 - **Investment Type:** Equity-style, high-risk investment (not a loan)
 - **Total Round:** €650,000
+- **Structure:** A single **Admiral (Fleet Admiral) seat** — €250K base, scalable to the full €650K, so one investor can anchor the whole round
 - **Lead Investor Requirement:** EU/EEA-domiciled (sovereignty protection)
 
 ### Seat Tiers
 
-| Tier               | Investment | Seats Available                                                            |
-| ------------------ | ---------- | -------------------------------------------------------------------------- |
-| **Fleet Admiral**  | €200,000   | 1                                                                          |
-| **Captain**        | €50,000    | 9 (each covering a cluster of EU-regulated industries, including dual-use) |
-| **Deputy Captain** | €5,000     | Unlimited                                                                  |
+**The investor round is a single Admiral (Fleet Admiral) seat.**
 
-**Round math:** €200K (Fleet Admiral) + 9 × €50K (Captain Seats) = **€650K total**
+| Tier                                | Investment                                | Seats Available |
+| ----------------------------------- | ----------------------------------------- | --------------- |
+| **Fleet Admiral** (the investor seat) | €250,000 base — scalable €250,000–€650,000 | 1               |
 
-- **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
-- **Captain** — Named captain covering a cluster of 20 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
-- **Deputy Captain** — Open tier, unlimited seats. €5,000. Quarterly briefings, upgrade path to Captain.
+**Round math:** one Admiral seat funds **€250K up to the full €650K** target. A single EU/EEA-domiciled investor can anchor the entire round. If the lead Admiral takes less than €650K, the balance is filled by additional EU/EEA-domiciled SAFE co-investors on the **same Admiral terms** — there is no separate investor captain tier.
+
+- **Fleet Admiral** — The lead and sole investor instrument for this round. €250K minimum, scalable to the full €650K. Full board-observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds. Must be EU/EEA-domiciled (sovereignty protection).
+
+**Captain seats are a client position, not an investment.** The former Captain / Deputy Captain tiers have been repositioned as **client captains** — customers who take a named industry position on the DWS IQ platform (a commercial relationship, not equity). They are no longer part of the investor round. See `captain-deck.md`.
 
 ---
 
@@ -90,13 +91,13 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 
 Arctic 15 (Helsinki) is the V1 public launch event and the anchor date for the investor timeline:
 
-| Date | Milestone | Investor Relevance |
-|------|-----------|-------------------|
-| **Now – June 14** | Pipeline building, Navigator → Premium conversions | Pre-launch entry window |
-| **June 15, 2026** | V1 Launch at Arctic 15 | Sales kickoff — public market validation |
-| **June 15 – Aug 15** | 100% sales sprint | 2-month dedicated customer acquisition |
-| **August 15, 2026** | First sales cycle data | Hard data for Series A narrative |
-| **Q3–Q4 2026** | Series A process | €15M+ pre-money target |
+| Date                 | Milestone                                          | Investor Relevance                       |
+| -------------------- | -------------------------------------------------- | ---------------------------------------- |
+| **Now – June 14**    | Pipeline building, Navigator → Premium conversions | Pre-launch entry window                  |
+| **June 15, 2026**    | V1 Launch at Arctic 15                             | Sales kickoff — public market validation |
+| **June 15 – Aug 15** | 100% sales sprint                                  | 2-month dedicated customer acquisition   |
+| **August 15, 2026**  | First sales cycle data                             | Hard data for Series A narrative         |
+| **Q3–Q4 2026**       | Series A process                                   | €15M+ pre-money target                   |
 
 Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data.
 
@@ -346,7 +347,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 - **Valuation Cap:** €3.8M
 - **Discount:** 18%
-- **Pro-Rata Rights:** Available for €50k+ investors (Captain tier and above)
+- **Pro-Rata Rights:** Available to the Admiral seat and all SAFE co-investors on Admiral terms
 - **Information Rights:** Monthly updates for all investors
 - **MFN (Most Favored Nation):** Standard protection
 
@@ -386,9 +387,9 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Market Opportunity
 
-- **CSRD Mandatory Reporting:** Starting 2025, affects 50,000+ EU companies
+- **CSRD Mandatory Reporting:** Post-Omnibus, directly binds fewer than ~5,000 large EU companies (plus value-chain reporters)
 - **Fit for 55 / EPBD Mandates:** Hitting hard 2025–2028
-- **20 EU-Regulated Industries:** From construction to pharma — forced compliance spend
+- **25 EU-Regulated Industries:** From construction to pharma — forced compliance spend
 - **Regulatory Tailwind:** "Mandatory spend" SaaS with strong adoption drivers
 - **EU Green Deal:** Multi-year regulatory push for industrial decarbonization
 - **Pain Point:** €10k–€50k in fines per project, 40–80 hours manual work eliminated
@@ -397,22 +398,22 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Traction & Validation
 
-- **Current MRR:** €7K (April 2026) with 6 paying customers
-- **Customer Retention:** 100% (zero churn demonstrates product-market fit)
+- **Services and transport revenue:** ~€7,000/month (April 2026) — not software revenue; company at cash break-even with founder salary €0
+- **Software pipeline:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 - **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
-- **Platform Scale:** 21 agents, 32 products, 5 cloud environments, 20 industries
+- **Platform Scale:** a fleet of skilled agents, 32 products, 5 cloud environments, 25 industries
 - **Target Growth:** €900k ARR by end of 2026
 
 ### Current Customer Base
 
-| Customer | Vertical | Status | Annual Value |
-|----------|----------|--------|--------------|
-| Logistics Operator 1 | Logistics | Paid | €70,000 |
-| Logistics Operator 2 | Logistics | Paid | €60,000 |
-| Logistics Operator 3 | Healthcare | Paid | €90,000 |
-| Construction Co. A | Construction | Navigator | €80,000 (projected) |
-| Construction Co. B | Construction | Navigator | €80,000 (projected) |
+| Customer             | Vertical     | Status    | Annual Value        |
+| -------------------- | ------------ | --------- | ------------------- |
+| Logistics Operator 1 | Logistics    | Paid      | €70,000             |
+| Logistics Operator 2 | Logistics    | Paid      | €60,000             |
+| Logistics Operator 3 | Healthcare   | Paid      | €90,000             |
+| Construction Co. A   | Construction | Navigator | €80,000 (projected) |
+| Construction Co. B   | Construction | Navigator | €80,000 (projected) |
 
 ### Competitive Advantages
 
@@ -447,16 +448,16 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Q1 2026 Technical Progress
 
-| Milestone                       | Status           | Business Impact                    |
-| ------------------------------- | ---------------- | ---------------------------------- |
-| **Public Cloud Version V1**     | ✅ Complete      | Production-ready platform branding |
-| **Security Framework**          | ✅ 95% Compliant | GDPR, NIS2, EU Cybersecurity Act   |
-| **449 Code Quality Issues**     | ✅ Resolved      | Enterprise-grade codebase          |
-| **18 Security Vulnerabilities** | ✅ Fixed         | Zero critical/high issues          |
-| **Administration Portal**       | ✅ Live          | dws6.com — Admin access            |
-| **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access   |
-| **18 AI Agents**                | ✅ Operational   | Full swarm across 20 industries    |
-| **32 Products**                 | ✅ Cataloged     | dws10.com store                    |
+| Milestone                       | Status           | Business Impact                                            |
+| ------------------------------- | ---------------- | ---------------------------------------------------------- |
+| **Public Cloud Version V1**     | ✅ Complete      | Production-ready platform branding                         |
+| **Security Framework**          | ✅ 95% Compliant | GDPR, NIS2, EU Cybersecurity Act                           |
+| **449 Code Quality Issues**     | ✅ Resolved      | Enterprise-grade codebase                                  |
+| **18 Security Vulnerabilities** | ✅ Fixed         | Zero critical/high issues                                  |
+| **Administration Portal**       | ✅ Live          | dws6.com — Admin access                                    |
+| **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access                           |
+| **Skilled Agents**                | ✅ Operational   | Full swarm across 25 industries                            |
+| **32 Products**                 | ✅ Cataloged     | dws10.com store                                            |
 | **4 Cloud Environments**        | ✅ Running       | US, EU, Hetzner, Edge (+ Full Sovereignty planned Q2 2026) |
 
 **Platform URLs:**
@@ -583,16 +584,18 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 ---
 
 **Document Control:**
+
 - Version: 4.3
 - Last Updated: April 20, 2026
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
-- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
+- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (a fleet of skilled agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
 - Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 - Pricing Model: Alpha-Share (7.5% of verified efficiency gains, agent-native, outcome-based)
-- Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 21-moat fortress breakdown
+- Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 19-moat fortress breakdown
 
 **Revision History:**
+
 - v3.1 (March 21, 2026): EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
-- v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 21-moat/4-tier fortress reference, traction month refresh to April 2026
+- v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 19-moat/4-tier fortress reference, traction month refresh to April 2026

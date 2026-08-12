@@ -12,11 +12,6 @@ const POSTS_DIR = path.join(__dirname, '..', 'onelifetime.world', 'posts');
 // Chronological order of root-level posts
 const posts = [
   {
-    file: 'business-case-logistics.html',
-    title: 'Business Case: The Intelligent Fleet Pilot',
-    date: 'Dec 2025',
-  },
-  {
     file: 'kya-standard-v1.html',
     title: 'Field Note: KYA Standard for Autonomous Control Rooms',
     date: 'Mar 2026',
@@ -80,6 +75,264 @@ const posts = [
     file: 'fpe-dark-mode-construction-wedge.html',
     title: 'FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure',
     date: '27 Apr 2026',
+  },
+  {
+    file: 'dws-ontology-standard-v1.html',
+    title: 'DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars',
+    date: '29 Apr 2026',
+  },
+  {
+    file: 'baseten-inference-engineering-300m.html',
+    title: 'Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now',
+    date: '7 May 2026',
+  },
+  {
+    file: 'fire-brigades-drone-defense-units.html',
+    title: 'Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now',
+    date: '15 May 2026',
+  },
+  {
+    file: 'palokunnat-droonitorjuntayksikot.html',
+    title: 'Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt',
+    date: '15 May 2026',
+  },
+  {
+    file: 'brandkarer-dronarforsvars-enheter.html',
+    title: 'Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu',
+    date: '15 May 2026',
+  },
+  {
+    file: 'moat-is-not-the-model.html',
+    title:
+      'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
+    date: '17 May 2026',
+  },
+  {
+    file: 'sovereignty-field-note-2-three-pillars.html',
+    title: 'Sovereignty Field Note #2 — The Three Pillars Every Global Enterprise Needs',
+    date: '28 May 2026',
+  },
+  {
+    file: 'sovereignty-field-note-2-three-pillars.fi.html',
+    title: 'Suvereniteetin kenttämuistio #2 — Digitaalisen suvereniteetin kolme tasoa (FI)',
+    date: '28 May 2026',
+  },
+  {
+    file: 'point-it-at-the-ontology.html',
+    title: "Don't Point the LLM at the Data — Point It at the Ontology",
+    date: '5 Jun 2026',
+  },
+  {
+    file: 'your-model-cant-beat-your-noise-floor.html',
+    title: "Your Model Can't Beat Your Noise Floor",
+    date: '15 Jun 2026',
+  },
+  {
+    file: 'your-model-cant-beat-your-noise-floor.fi.html',
+    title: 'Mallisi ei voita kohinatasoasi (FI)',
+    date: '15 Jun 2026',
+  },
+  {
+    file: 'four-capital-classes.html',
+    title: 'Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era',
+    date: '19 Jun 2026',
+  },
+  {
+    file: 'software-vs-world-model.html',
+    title: 'Software You Operate vs Intelligence That Operates',
+    date: '20 Jun 2026',
+  },
+  {
+    file: 'ontologia-tiimin-aivoissa.html',
+    title: 'Ontologia elää tiimin aivoissa',
+    date: '20 Jun 2026',
+  },
+  {
+    file: 'the-ontology-lives-in-the-team.html',
+    title: 'The Ontology Lives in the Team',
+    date: '20 Jun 2026',
+  },
+  {
+    file: 'lifetime-world-model-three-piece-loop.html',
+    title: 'The Three-Piece Loop — Lifetime World Model V1 for Control Rooms',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.html',
+    title: 'The Four Learning Paradigms Behind a World Model',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'lifetime-world-model-three-piece-loop.fi.html',
+    title: 'Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.fi.html',
+    title: 'Maailmanmallin neljä oppimisparadigmaa (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'nvidia-vera-rubin-ai-factory.html',
+    title: 'NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box.',
+    date: '24 Jun 2026',
+  },
+  {
+    file: 'eu-sovereign-ai-factories-35-supercomputers.html',
+    title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
+    date: '25 Jun 2026',
+  },
+  {
+    file: 'nvidia-jetson-thor-physical-ai.html',
+    title:
+      'NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It.',
+    date: '26 Jun 2026',
+  },
+  {
+    file: 'industrial-intelligence-weekly-2026-06-28.html',
+    title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
+    date: '28 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.html',
+    title: 'Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.fi.html',
+    title: 'Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI)',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'tiedon-vanheneminen-sensoridata-retention.html',
+    title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.html',
+    title: 'The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'the-moats-we-hand-you.fi.html',
+    title: 'Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI)',
+    date: '1 Jul 2026',
+  },
+  {
+    file: 'nvidia-halos-robotics-physical-ai-safety.html',
+    title:
+      'NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking.',
+    date: '10 Jul 2026',
+  },
+  {
+    file: 'greg-isenberg-agents-need-a-signature.html',
+    title: 'Greg Isenberg Is Right About Agents. The Hard Part Is a Signature.',
+    date: 'Jul 2026',
+  },
+  {
+    file: 'ai-supercomputing-meets-eda-sovereign-design.html',
+    title: 'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
+    date: '17 Jul 2026',
+  },
+  {
+    file: 'ala-treenaa-base-mallia-omista-evidenssikerros.html',
+    title: 'Älä treenaa base-mallia, omista evidenssikerros (FI)',
+    date: '26 Jul 2026',
+  },
+  {
+    file: 'harness-paywall-depth-arbitrage.html',
+    title: 'The Harness Paywall',
+    date: '30 Jul 2026',
+  },
+  {
+    file: 'arvonluonnin-ajurit-2026.html',
+    title: 'Six Drivers of Value — and the Research Behind Them',
+    date: '6 Aug 2026',
+  },
+  {
+    file: 'kya-s1-one-signed-page.html',
+    title: 'KYA-S1 — One Signed Page for the Agent in Your Vendor File',
+    date: '6 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.html',
+    title: 'Know Your Agent (KYA-S1) — One Signed Page for the AI That Touches Your Data',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.fi.html',
+    title: 'Tunne agenttisi (KYA-S1) — Yksi allekirjoitettu sivu tekoälystä',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.sv.html',
+    title: 'Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.de.html',
+    title: 'Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.fr.html',
+    title: 'Connaissez votre agent (KYA-S1) — Une page signée sur l\'IA',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-kyc-seven-questions.fi.html',
+    title: 'KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'eu-ai-act-article-14-hic.fi.html',
+    title: 'EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'agent-classes-copilot-vs-dws-iq.fi.html',
+    title: 'Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html',
+    title: 'KYA-S1 ja BPMN 2.0: luottamustaso ohjaa teollisuusprosessia',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html',
+    title: 'KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html',
+    title: '72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV)',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-ecosystem-roadmap.fi.html',
+    title: 'KYA-S1 Ekosysteemi & Tuotanto-Roadmap',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'lifetime-world-model-state-register.fi.html',
+    title: 'Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'agentic-commerce-autonomous-payments.fi.html',
+    title: 'Agentic Commerce -protokollat & Autonomiset Maksut',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'eudi-wallet-eidas2-human-identity.fi.html',
+    title: 'Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-sanasto-glossary.fi.html',
+    title: 'KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto',
+    date: '9 Aug 2026',
   },
 ];
 
@@ -150,9 +403,29 @@ function buildSocialShare(post) {
                 </div>`;
 }
 
+/**
+ * Language of a post file, from its filename: `foo.fi.html` -> 'fi', `foo.html` -> 'en'.
+ * The posts array interleaves languages, so a flat idx-1/idx+1 walk sends a reader from
+ * an English post to a Finnish one. Prev/next must stay inside one language; switching
+ * language is the vertical language bar's job, driven by the hreflang alternates.
+ */
+function langOf(file) {
+  const m = file.match(/\.([a-z]{2})\.html$/);
+  return m ? m[1] : 'en';
+}
+
+function neighbours(idx) {
+  const lang = langOf(posts[idx].file);
+  const sameLang = posts.filter((p) => langOf(p.file) === lang);
+  const i = sameLang.findIndex((p) => p.file === posts[idx].file);
+  return {
+    prev: i > 0 ? sameLang[i - 1] : null,
+    next: i >= 0 && i < sameLang.length - 1 ? sameLang[i + 1] : null,
+  };
+}
+
 function buildNavBlock(idx) {
-  const prev = idx > 0 ? posts[idx - 1] : null;
-  const next = idx < posts.length - 1 ? posts[idx + 1] : null;
+  const { prev, next } = neighbours(idx);
 
   const prevHtml = prev
     ? `<a href="/posts/${prev.file}" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
@@ -228,8 +501,9 @@ for (let i = 0; i < posts.length; i++) {
   html = html.replace(marker, navBlock + marker);
 
   fs.writeFileSync(filePath, html, 'utf-8');
+  const nb = neighbours(i);
   console.log(
-    `OK: ${posts[i].file} (prev: ${i > 0 ? posts[i - 1].file : 'none'} | next: ${i < posts.length - 1 ? posts[i + 1].file : 'none'})`,
+    `OK: ${posts[i].file} [${langOf(posts[i].file)}] (prev: ${nb.prev ? nb.prev.file : 'none'} | next: ${nb.next ? nb.next.file : 'none'})`,
   );
   updated++;
 }

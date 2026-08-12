@@ -4,10 +4,33 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.15
 
 Sessions & Modifications:
 
+- Version: 2.15 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
+- Version: 2.14 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 23.07.2026 | Changes: Refined §4.7 — the exported-deliverable prefix is now the **full version number** (`2.0_`, `1.0_`, `1.9.1_`) rather than `V<MAJOR>_`, so minor bumps stay distinguishable in short-name lists. Founder compact shorthand (`1.91_kya`) recorded as an accepted equivalent. Match rule tightened to full `MAJOR.MINOR[.PATCH]`.
+- Version: 2.13a | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 22.07.2026 | Changes: Added §4.7 Exported / Shared Deliverable Naming — Version-First Prefix. Codifies that deliverables exported or shared outside the repo (Google Drive docs, PDFs, presentation exports) carry a leading `V<MAJOR>_` prefix so the version stays visible in short-name lists that truncate the tail (Drive, mobile, file pickers), while in-repo files keep the §4.6 `_vN` suffix. Prefix major must equal the header `Version:` major (same match rule as §4.6). Requested by the founder after the LUT/PhD Drive set grew past a screen.
+- Version: 2.13b | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Merged origin/main (v2.12). Added §25 (Universal Document Footer — mandatory: version · date · © Lifetime Oy all-rights-reserved · Business Confidentiality clause at the bottom of every document; footer version lockstep with the §2 header) and §26 (Repository-First, Then Export — anti-drift: an export with no repository source-of-truth is a drift incident; repo .md, plus .csv for financial models, is the master; §26.4 requires cloud export TITLES to lead with the version number for Drive manageability). Authored as §23/§24 on this branch pre-merge; renumbered to §25/§26 because main already holds §22 (Multimodal), §23 (Whitepaper), §24 (Correspondence Preservation). Internal cross-references repointed to main's §23 Whitepaper. No content lost from either side; ToC updated.
+- Version: 2.12 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Merged origin/main (v2.11) into this branch. Both sides had independently claimed §23 after diverging from §22 (Multimodal Document Assets): main renumbered the Whitepaper Standard to §23 (main v2.7), while this branch had added Correspondence Preservation as §23. Resolved by keeping main's §22 (Multimodal Document Assets) and §23 (Whitepaper Standard) intact and renumbering this branch's Correspondence Preservation section (and its subsections) to §24. No content lost from either side; ToC updated to 22 Multimodal / 23 Whitepaper / 24 Correspondence Preservation.
+- Version: 2.6 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Added Correspondence Preservation (renumbered to §24 in the v2.12 merge) — codifies "always save letters": every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy must be saved to the repo as a dated markdown file (AS SENT, with From/To/Subject/date, VERSION AND AGENT HISTORY status, and a follow-up tracker) under a context-scoped `correspondence/` path. Sender identity + phone must match the CLAUDE.md Sender Identity Rule. Triggered by the EIC/Cubet partnership-confirmation email to John Lovegin (saved to `docs/eic/correspondence/`). Added to the ToC.
+- Version: 2.11
+
+Sessions & Modifications:
+
+- Version: 2.11 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC löysi kaksi itse-ristiriitaa. (1) Tämän dokumentin oma yläotsikko käytti `---`-erotinta rivillä 3, vaikka §2.1 määrää `***`:n pandoc-yhteensopivuuden vuoksi — korjattu. (2) §20.6:n oma Layout-mallipohja (koodilohko) käytti `---`-erottimia kaikissa kolmessa kohdassa — sama virhe periytyi jokaiseen §20.6-mallia noudattavaan dokumenttiin (mm. CV_ORK160826, korjattu samassa istunnossa) — korjattu `***`:ksi. **Juurisyy löytyi:** `.claude/settings.json`:n PostToolUse-koukku (matcher `Write\|Edit`) ajaa Prettier'n `--write`-tilassa jokaisen Edit/Write-työkalukutsun jälkeen KOKO tiedostolle, ei vain muutetulle osalle — Prettier normalisoi oletusarvoisesti kaikki markdown-thematic-break-merkinnät (`***`, `___`) muotoon `---`. Tämä tarkoittaa, että `***`-sääntö ei voi koskaan pysyä voimassa suoralla Edit/Write-työkalukutsulla riippumatta siitä mitä tiedostoon kirjoitetaan — jokainen aiempi yritys korjata tämä on hiljaisesti peruuntunut seuraavassa Edit-kutsussa. Ei `.prettierrc`/`.prettierignore`-tiedostoa löytynyt, joten Prettier ajaa oletusasetuksin. Väliaikainen kiertotapa: tee `***`-korjaus Bash/sed-komennolla VIIMEISENÄ askeleena ennen committia (Bash ei laukaise tätä koukkua). Pysyvä korjaus (esim. `.prettierignore`-poikkeus VERSION-lohkoa sisältäville dokumenteille, tai koukun `proseWrap`/custom-parserin muokkaus) on vielä tekemättä — merkitty avoimeksi seuraavalle istunnolle.
+- Version: 2.10 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added §4.6 Exemption 2 (heavily cross-referenced living standards may keep an un-versioned filename instead of embedding `_vX`). Triggered by renaming `docs/KONSULTIN_KASIKIRJA_2026.md` → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` (name-spelling fix, not a version bump) — the file has ~20 repo-wide cross-references, so embedding a version tag per the §4.6 default would force a rename-plus-reference-update ripple on every future edit; HIC chose to exempt it and keep `Version:` inside the file as the single source of truth for revision tracking.
+- Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added `FINAL` to the §2.3 Publication Status Values table — a customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit uses `FINAL` in place of `ACTIVE`, since ACTIVE implies an internally-maintained lifecycle document, not a one-shot external artifact. Triggered by `bids/ORK160826/CV_ORK160826_v172.md` (→ v173 this session) which had carried `Publication Status: DRAFT` for 172 versions despite being an actively-submitted bid CV, and had never actually complied with the already-existing §20.6 rule (version block was still on page 1, not the last page) across 8+ prior editing sessions. §20.6 itself required no new text — the gap was non-compliance, not a missing rule; applying it to the CV file happens in the same commit as this entry.
+- Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Paarni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
+- Version: 2.7 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Merged origin/main (v2.5, session claude/jasenko-hadzic-outreach-ici0e7) into this branch's v2.6. Both branches had independently added a new "§22" section since diverging — this branch's §22 (Multimodal Document Assets) and main's §22 (Whitepaper Standard, defined 24.06.2026 by session claude/nvidia-halos-robotics-suqayg, entry below). Resolved by renumbering main's Whitepaper Standard section (and its §22.1–22.3 subsections, and all internal §22.x cross-references within it) to §23 — this branch's Multimodal Document Assets keeps §22 as originally numbered. No content lost from either side; only section numbers changed on the Whitepaper Standard side. Updated ToC accordingly.
+- Version: 2.6 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: §22.4 updated — `scripts/render-doc.sh` now passes `--resource-path` so relative image paths resolve against the source .md's own directory (fixes a real bug: pandoc was resolving them against the caller's cwd instead, silently dropping the image). Documented the permanent pandoc install path: `infrastructure/dgx-spark/first-boot.sh` (step 3a) installs it once on the DGX Spark box so it survives across sessions, distinct from the ephemeral cloud-session `apt-get install` fallback. First real-world use: `bids/ORK160826/CV_ORK160826_v165.md` v170 — first image reference in 170 versions, rendered to `.html`/`.docx` with the photo embedded.
+- Version: 2.5 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §22 (Multimodal Document Assets) — canonical asset locations (images/fonts/evidence PDFs), Markdown image reference convention, the Base64-embed rule for downloadable HTML/DOCX (formalizes CLAUDE.md's "Downloadable HTML Rule" here as canonical, via new `scripts/render-doc.sh` pandoc wrapper), video/audio handling (poster-frame + external link, never inline data URI), personnel photo quality bar, and the "never drop silently — HIC decision + shared Drive link" fallback rule for artifacts that can't be embedded. Triggered by discovering `bids/ORK160826/CV_ORK160826_v165.md` had zero image references across 168 versions despite a canonical photo already existing in-repo, and that the existing CV-facing photo (`CV/risto70.png`) has an unprofessional background unsuitable for procurement documents. Added §22 to ToC.
+- Version: 2.5 | Tool: Claude Code | Session: claude/jasenko-hadzic-outreach-ici0e7 | Date: 12.07.2026 | Changes: Extended §20.6 scope to explicitly cover `investor-outreach/LETTER_*` files and cloud exports (Google Docs, Drive PDFs, Gamma decks) — version block goes at the end for these, not the first page. Added §20.7 (Cloud Export Cleanup — Always Link Superseded Files): when a connector like Google Drive lacks rename/delete/update-in-place and a correction requires a new file, the agent must always link every superseded file needing manual deletion, on every correction, not just the first. Triggered by repeated Google Drive exports of an investor outreach letter (Jasenko Hadzic / Spintop Ventures) creating duplicate untitled files with no cleanup pointer.
+- Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
+- Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
+- Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
+- Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
+- Version: 2.1 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 24.06.2026 | Changes: Added Section 20 (Whitepaper Standard) — defines the outward-facing whitepaper document type: A4 portrait, Aegis logo top-right header, small-font version line at top, copyright + page-number footer, Sources line, Markdown/Learn-HTML source of truth with branded .docx + Google Docs export via scripts, and governance (truth-check, brand, Truth-Standard registration, lockstep versioning).
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
 - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
@@ -32,7 +55,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 28.04.2026
+- Last Modified: 17.07.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -60,6 +83,13 @@ Document Status:
 17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
 18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
+20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
+21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
+22. [Multimodal Document Assets](#22-multimodal-document-assets) ⭐ NEW
+23. [Whitepaper Standard](#23-whitepaper-standard) ⭐ NEW
+24. [Correspondence Preservation](#24-correspondence-preservation) ⭐ NEW
+25. [Universal Document Footer (mandatory)](#25-universal-document-footer-mandatory) ⭐ NEW
+26. [Repository-First, Then Export (anti-drift)](#26-repository-first-then-export-anti-drift) ⭐ NEW
 
 ---
 
@@ -114,7 +144,7 @@ Applies to:
 ```markdown
 # [Document Title]
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -160,14 +190,15 @@ Document Status:
 
 Use plain text status labels. Emoji icons are optional (display only).
 
-| Status           | Meaning                                                        |
-| ---------------- | -------------------------------------------------------------- |
-| **ACTIVE**       | Document is current and in use                                 |
-| **DRAFT**        | Document is work in progress                                   |
-| **OUTDATED**     | Document is superseded, no longer maintained — pending archive |
-| **ARCHIVED**     | Document is in `docs/archive/`, kept for historical reference  |
-| **DEPRECATED**   | Document is outdated and should not be used                    |
-| **UNDER REVIEW** | Document is being reviewed                                     |
+| Status           | Meaning                                                                                                                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **ACTIVE**       | Document is current and in use                                                                                                                                                                                                                   |
+| **DRAFT**        | Document is work in progress                                                                                                                                                                                                                     |
+| **OUTDATED**     | Document is superseded, no longer maintained — pending archive                                                                                                                                                                                   |
+| **ARCHIVED**     | Document is in `docs/archive/`, kept for historical reference                                                                                                                                                                                    |
+| **DEPRECATED**   | Document is outdated and should not be used                                                                                                                                                                                                      |
+| **UNDER REVIEW** | Document is being reviewed                                                                                                                                                                                                                       |
+| **FINAL**        | Customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit — used in place of ACTIVE for one-shot external deliverables (CVs, bid attachments, offers) that are not part of a maintained internal lifecycle |
 
 > **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
 > HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
@@ -404,6 +435,47 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 - Inconsistent casing: `MyFile.MD`, `myfile.Md`
 - Generic names: `document.md`, `file.txt`
 - Dates without context: `2025-12-30.md`
+
+### 4.6 Filename Version Tag Must Match the Header Version
+
+**Rule:** if a filename embeds a version number (e.g. `CV_ORK160826_v165.md`), that number **must equal** the document's own `Version:` field in the VERSION AND AGENT HISTORY block (§2.1) at all times. They are the same fact stated twice — a human scanning a directory listing must be able to trust the filename without opening the file.
+
+**Why this exists:** `bids/ORK160826/CV_ORK160826_v165.md` went through 5 internal version bumps (165→170) across normal editing sessions without ever being renamed — every edit correctly bumped the `Version:` header (per §5.2) but nothing enforced renaming the file to match, so the filename silently lied for 5 revisions before a human caught it (found 13.07.2026).
+
+**Procedure — whenever an edit bumps a filename-versioned document's `Version:` field:**
+
+1. `git mv` the file (and its rendered `.html`/`.docx` exports, if any — see §22.4) to the new version tag in the same commit as the content edit. Do not defer the rename to "later" — there is no separate cleanup pass for this.
+2. Grep the repo for the old filename before renaming (`grep -rl "<old-filename>" .`) and update any exact-path references found, same as any other rename.
+3. Record the rename itself as a line item in that commit's VERSION AND AGENT HISTORY entry, not silently.
+
+**Exemption 1 — frozen archival snapshots:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Paarni_155.md`, `CV/CV_Risto_Paarni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
+
+**Exemption 2 — heavily cross-referenced living standards:** a document that is (a) revised frequently and (b) cross-referenced by exact filename from many other files may keep an **un-versioned filename** (no `_vX` tag at all) instead of embedding a version tag, if embedding one would force a rename-plus-reference-update ripple across the repo on every single edit. Example: `docs/KONSULTOINNIN_KASIKIRJA_2026.md` — ~20 cross-references repo-wide (Admin Manual, thesis/PhD chapters, whitepapers, `.claude/commands/dialog.md`, public site pages under `onelifetime.world/` and its `landing-pages/` mirror) as of 14.07.2026. Contrast with a bid CV, which typically has 0–1 cross-references and so pays the §4.6 rename cost cheaply. When in doubt, count real cross-references before deciding: few → embed the version (§4.6 default); many → this exemption, keep the base name stable and let `Version:` inside the file be the single source of truth for "which revision is this."
+
+### 4.7 Exported / Shared Deliverable Naming — Version-First Prefix
+
+**Rule:** any deliverable **exported or shared outside the repo** — Google Drive documents, PDFs, presentation exports, files handed directly to a person — must put the **full version number first, as a prefix**: `<VERSION>_<Name>`, where `<VERSION>` is the document's exact `Version:` value (e.g. `2.0_`, `1.0_`, `1.9.1_`).
+
+**Examples:**
+
+```
+1.0_Supervisor Statement — Smolander (EN)
+2.0_20-Minute Call Prep — Kari Smolander
+1.0_Vaitoskirjan tutkimuskysymykset — nykyinen vs paivitetty (FI)
+1.9.1_KYA_Standard            (Drive export of the v1.9.1 standard)
+```
+
+The founder's compact shorthand — dropping the inner dot, e.g. `1.91_kya` for a v1.9.1 doc — is an accepted equivalent where a single leading decimal reads cleaner; keep it consistent within a set.
+
+**Why this exists:** short-name lists (Google Drive, file pickers, mobile) truncate the **tail** of a filename — so a trailing `_v2` (the §4.6 in-repo suffix) is exactly the part that disappears from view. A leading `2.0_` stays visible, so a human scanning the Drive list sees at a glance which revision they are looking at without opening the file — and, because it carries the **full** version (not just the major), a minor bump like `1.0_ → 1.1_` is distinguishable in the same list. (Requested by the founder 22.07.2026 after the LUT/PhD Drive set grew past a screen; refined to full-version precision 23.07.2026.)
+
+**Scope and relationship to §4.6:**
+
+- **In-repo files keep the §4.6 suffix convention** (`NAME_..._vN.md`) — directory tools show the full name and the suffix sorts sibling versions together.
+- **Exported / shared deliverables use this §4.7 prefix** (`<VERSION>_Name`). The prefix **must equal** the source document's header `Version:` value exactly (full `MAJOR.MINOR[.PATCH]`) — the same "filename must not lie" match rule as §4.6, now at full precision.
+- When the same document exists both in-repo and as a Drive export, the repo file carries the **suffix** and the Drive copy carries the **prefix**; both state the same version number.
+
+**On version bump:** every header `Version:` bump re-exports with the new number prefix (a v1.0→v1.1 minor update ships as `1.1_Name`, a v1→v2 as `2.0_Name`). Trash or archive the superseded Drive copy so the short-name list shows exactly one current version per deliverable.
 
 ---
 
@@ -2243,6 +2315,140 @@ rg "Env-Schema:\\s*env-v"
 
 ---
 
+## 21. Document Formulation Preservation
+
+### 21.1 Rule / Sääntö
+
+**NEVER lose original document formulation data when rewriting, updating, or exporting documents.**
+
+When a document is restructured, rewritten, or version-bumped, the agent MUST preserve all eloquent formulations, philosophical passages, key quotes, cultural wisdom, mottos, and narrative voice from earlier versions. A rewrite that strips these passages is a destructive edit — equivalent to data loss.
+
+**Älä KOSKAAN kadota alkuperäistä dokumenttien muotoilutietoa päivittäessä, uudelleenkirjoittaessa tai viedessä dokumentteja.** Kauniit muotoilut, filosofiset kappaleet, lainaukset, kulttuurinen viisaus ja kerronnallinen ääni ovat yrityksen aineetonta pääomaa.
+
+### 21.2 What Counts as Formulation Data
+
+| Category                           | Examples                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------- |
+| **Forewords & preambles**          | Founding philosophy, onboarding welcome text, mission narrative               |
+| **Quotes & mottos**                | CEO quotes, cultural proverbs, strategic slogans ("Litet bättre", "Köyhäile") |
+| **Philosophical passages**         | Values articulation, ethical reasoning, European identity statements          |
+| **Scenario wisdom**                | Strategic foresight passages, future scenario narratives, book references     |
+| **Listening & interaction wisdom** | Stakeholder engagement philosophy, customer interaction guidance              |
+| **Metaphors**                      | Game metaphors, journey metaphors, strategic framings ("päättymätön peli")    |
+| **Voice & tone**                   | The characteristic narrative voice of the document's author/era               |
+
+### 21.3 Procedure for Document Rewrites
+
+```
+1. EXTRACT:   Before rewriting, extract all formulation passages from the current version
+2. CATALOG:   List each passage with its location and category (quote, motto, philosophy, etc.)
+3. REWRITE:   Perform the structural/content rewrite
+4. REINTEGRATE: Place each extracted passage into the appropriate section of the new structure
+5. VERIFY:    Diff old vs new — confirm zero formulation data was dropped
+6. EXPORT:    When generating .docx / .pdf / .html, include all preserved formulations
+```
+
+### 21.4 DOCX Export Formulation Rules
+
+When generating `.docx` exports from markdown documents:
+
+- Preserve italic formatting for quotes and philosophical passages
+- Maintain bullet/number list structure for wisdom collections
+- Keep quote attributions (author, year, source) intact
+- Use proper heading hierarchy to frame formulation sections
+- Never summarize or paraphrase — preserve verbatim text
+
+### 21.5 Enforcement
+
+- Any agent rewrite that drops formulation data is a **Rule 12 violation** (Fail loud — never hide skipped work)
+- Version history MUST note "formulations preserved from vX.Y" when rewriting
+- If a passage cannot be placed in the new structure, append it to a "Heritage Passages" section — never delete it
+
+---
+
+## 22. Multimodal Document Assets
+
+### 22.1 Purpose / Tarkoitus
+
+Documents (CVs, whitepapers, customer documents, offers) increasingly carry more than text — photos, diagrams, screenshots, and occasionally video/audio references. This section governs where those assets live, how they are referenced from markdown, and how they get embedded into downloadable HTML/DOCX outputs — so an artifact isn't silently dropped when a document is rendered or re-versioned.
+
+Dokumentit (CV:t, whitepaperit, asiakasdokumentit, tarjoukset) kantavat yhä useammin muutakin kuin tekstiä — valokuvia, kaavioita, kuvakaappauksia ja joskus video-/äänimateriaalia. Tämä osio määrittää, missä nämä varat sijaitsevat, miten niihin viitataan markdownista, ja miten ne upotetaan ladattaviin HTML/DOCX-tulosteisiin.
+
+**Trigger discovery:** this section was added after finding that `bids/ORK160826/CV_ORK160826_v165.md` had never carried any image reference in any of its 168 versions, even though a canonical professional photo already existed in-repo (`dws10.com/static/images/Risto_Malta.png`, used site-wide) — the CV's markdown→HTML/DOCX pipeline had no rule requiring images to be looked for, referenced, or embedded.
+
+### 22.2 Canonical Asset Locations
+
+Before adding any new photo/diagram/screenshot, **check whether it already exists in the repo.** Multiple copies of the same personnel photo were found scattered across `CV/`, `dws10.com/static/images/`, `onelifetime.world/static/images/`, `landing-pages/*/static/images/`, and `kb/raw/images/people/` before this rule existed — treat that as the failure mode to avoid going forward.
+
+| Asset type                                                                | Canonical location                               | Notes                                                                                                         |
+| ------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Personnel photos (site-wide use)                                          | `dws10.com/static/images/`                       | Mirror into `onelifetime.world/static/images/` and both `landing-pages/*/static/images/` per Dual Folder Sync |
+| Personnel photos (CV/document-only use)                                   | `CV/`                                            | May differ from the site photo (formal headshot vs. site-brand photo) — see §22.6 for the quality bar         |
+| Document/brand fonts                                                      | `docs/assets/fonts/`                             | Referenced in §8.4                                                                                            |
+| Source certificate / evidence PDFs (degrees, grades, official statements) | `Learn/evidence/YYYY-MM-DD-descriptive-name.pdf` | Same folder and naming convention as evidence notes (§ below); raw source file, not a summary                 |
+| Shared JS/CSS                                                             | `dws10.com/shared-assets/`                       | Governed by `DWS_BRAND_STANDARD.md` §15                                                                       |
+
+### 22.3 Markdown Image Reference Convention
+
+Reference images with standard Markdown syntax, path relative to the `.md` file's own directory:
+
+```markdown
+![Risto Anton Päärni](../../dws10.com/static/images/Risto_Malta.png)
+```
+
+- Alt text is **required** and must be descriptive (accessibility — ties to `DWS_BRAND_STANDARD.md` §14 WCAG 2.2 AA), not a filename.
+- Do not paste raw Base64 into the markdown source — that belongs only in the rendered HTML output (§22.4), not the source of truth.
+
+### 22.4 Embedding Rule for Downloadable Documents (formalizes CLAUDE.md "Downloadable HTML Rule")
+
+Any standalone downloadable HTML document (CV, profile, report) **must** have zero external file references — every image embedded as a Base64 data URL, so the file works fully offline and doesn't break when the source image moves.
+
+**Tooling:** `scripts/render-doc.sh <input.md> [output-basename]` — wraps pandoc with `--standalone --embed-resources --resource-path=<the .md's own directory>` for HTML (auto Base64-embeds every referenced image, resolved relative to the source file so the same path also renders correctly on GitHub) and produces a `.docx` alongside it (images embed natively in DOCX, no flag needed — DOCX is a zip container). Requires `pandoc`.
+
+- **Ephemeral cloud sessions:** `apt-get install -y pandoc` (Debian/Ubuntu) or `winget install JohnMacFarlane.Pandoc` (Windows, per §8.3). **Not persisted** — reinstall at the start of a session if `render-doc.sh` reports it missing.
+- **DGX Spark (permanent):** installed once by `infrastructure/dgx-spark/first-boot.sh` (step 3a) — survives across every future session on that box. This is the durable install; the cloud-session `apt-get` above is the ephemeral fallback for containers that aren't the DGX box.
+
+```bash
+scripts/render-doc.sh bids/ORK160826/CV_ORK160826_v165.md
+# → CV_ORK160826_v165.html (self-contained, images embedded)
+# → CV_ORK160826_v165.docx (images embedded natively)
+```
+
+### 22.5 Video & Audio Assets
+
+Unlike images, video/audio should **not** be embedded as inline data URIs in HTML/DOCX — the resulting file size breaks the PDF Standard's §8.2 10 MB target almost immediately. Instead:
+
+- Host the source file externally (Google Drive shared-artifact area, or a site's own media hosting) and link to it.
+- Embed a static poster-frame/thumbnail image inline (following §22.4) so the document still shows something without a live network fetch.
+- Register the asset in a media table in the document or its evidence note: filename, format, duration, canonical URL, transcript/caption availability (accessibility requirement).
+
+### 22.6 Personnel Photo Quality Bar
+
+A photo that is technically embeddable is not automatically appropriate for a government tender, customer document, or investor deck. Minimum bar before a personnel photo goes into a customer-facing or procurement document:
+
+- Professional headshot framing, business-appropriate attire
+- **Background must not contain third-party signage, logos, other identifiable people, or anything a procurement evaluator could read as unprofessional** — this rule exists because `CV/risto70.png` (a bar/restaurant setting with visible third-party signage in the background) was found already committed under a CV-facing filename
+- Minimum resolution: 600×600 px for headshot crops
+- See `DWS_BRAND_STANDARD.md` §15.1 for the canonical photo registry and per-photo approval status
+
+### 22.7 Fallback: Artifact Cannot Be Embedded
+
+If an artifact (video, large audio file, a format pandoc/HTML cannot inline, or anything that would blow the file-size budget) cannot be embedded per §22.4–22.5, the **minimum acceptable fallback is never to drop it silently.** Instead:
+
+1. Upload it to the shared Google Drive artifact storage area, with link-sharing rights enabled ("anyone with the link can view").
+2. Present the HIC with the shareable link and an explicit decision point — do not assume it's fine to just reference-and-forget.
+3. Record the Drive link in the document's evidence note (or a media table per §22.5) so it survives version bumps.
+
+This mirrors Rule 12 (Fail loud) — a document that silently references an artifact nobody can actually open is a hidden failure, not a completed task.
+
+### 22.8 Enforcement
+
+- A document rewrite/re-version must not drop an existing image reference without an explicit, logged reason (mirrors §21.5 formulation preservation).
+- Before adding a new personnel/product photo to a customer-facing document, check §22.2's canonical locations first — do not create a new duplicate copy.
+- `scripts/render-doc.sh` output must be spot-checked (`grep -c "data:image" output.html` should be ≥ the number of images referenced) before a document ships.
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -2289,6 +2495,122 @@ Document Status:
 ```
 [CATEGORY]_[NAME]_[LANGUAGE]_v[VERSION].md
 ```
+
+### File Lifecycle Suffixes
+
+When a file is removed from active use, rename it with one of the following suffixes instead of deleting. Never use `_OLD` — use the suffix that communicates the file's actual status.
+
+| Suffix        | Meaning                                | When to use                                              | Examples                            |
+| ------------- | -------------------------------------- | -------------------------------------------------------- | ----------------------------------- |
+| `_DRAFT`      | Unpublished, awaiting approval         | Blog posts, proposals, content under review              | `deepseek-v4-flash_DRAFT.html`      |
+| `_DEPRECATED` | Replaced, will not return              | Code, scripts, configs, migrations, skills, hooks, infra | `grok-consent.routes_DEPRECATED.ts` |
+| `_RETIRED`    | Removed from production site           | HTML pages, product pages, store pages                   | `firehorse-automation_RETIRED.html` |
+| `_ARCHIVE`    | Historical snapshot kept for reference | Thesis versions, NDAs, field notes, legal docs           | `NDA_QANTIC_2026_ARCHIVE.md`        |
+
+**Rules:**
+
+1. `_DRAFT` files may be promoted to live by removing the suffix. All other suffixes are permanent.
+2. Blog drafts require explicit approval before promotion (CLAUDE.md blog draft rule).
+3. Dual-folder pairs (source + `landing-pages/`) must use the same suffix in the same commit.
+4. The `artifacts/` directory is exempt — it contains PR worktree snapshots that mirror the main tree.
+
+---
+
+## 20. Whitepaper Versioning
+
+Whitepapers are customer-facing technical documents (sovereignty, KYA, security, industrial intelligence). A serious enterprise reader treats an unversioned, silently-edited whitepaper as untrustworthy. Every whitepaper MUST carry a **document revision** and an auditable change history.
+
+### 20.1 Two versions are not the same thing
+
+A whitepaper references a **subject version** (the standard or product it describes — e.g. "KYA v1.5", "DWS IQ 6"). That is **not** the document revision. The whitepaper file carries its **own Document Revision (`vX.Y`)** that increments when the _document_ changes, independent of the subject.
+
+### 20.2 Required on every whitepaper
+
+1. **Visible revision line** near the title or in the footer:
+   `Document revision v1.1 · Last updated 25 Jun 2026`
+2. **VERSION AND AGENT HISTORY provenance block:**
+   - **Markdown-sourced** whitepapers: the standard `***`-delimited block per §2 / Appendix B.
+   - **HTML-only** whitepapers (public-site pages — `.md` is forbidden in public folders per CLAUDE.md Non-Negotiable Rule 5): embed the history as an `<!-- VERSION AND AGENT HISTORY ... -->` HTML comment immediately after `<head>`, plus the visible revision line in §20.2(1).
+
+### 20.3 Increment rule (per §5 table)
+
+| Bump            | When                                           |
+| --------------- | ---------------------------------------------- |
+| patch (1.0→1.1) | copy edit, factual correction, terminology fix |
+| minor (1.1→1.2) | new section / material content addition        |
+| major (→2.0)    | restructure or rewrite                         |
+
+A terminology/security correction (e.g. replacing a tool name) is a **patch** bump and MUST be recorded — silent edits are not permitted.
+
+### 20.4 Snapshots and dual-folder
+
+- Private `Learn/` snapshots are filename-versioned `<name>_vX.Y.html`; **never delete** old versions (per §18).
+- Public whitepaper revisions sync to the `landing-pages/` mirror in the **same commit** (CLAUDE.md dual-folder rule).
+- Live whitepapers are listed in §16 Document Index.
+
+### 20.5 HTML provenance template
+
+```html
+<!--
+  VERSION AND AGENT HISTORY
+  Document revision: v1.1
+  Last updated: 25.06.2026
+  - v1.1 | Claude Code | claude/<session> | 25.06.2026 | <change summary>
+  - v1.0 | <tool> | <session> | <date> | Initial publication
+-->
+```
+
+### 20.6 Customer-facing documents: version block goes at the END
+
+**Rule:** For documents that are delivered directly to a customer or external evaluator (consultant CVs, tender/bid attachments, proposals, price lists sent externally) — as opposed to internal or general-audience whitepapers — the full `VERSION AND AGENT HISTORY` block, `Document Status` block, copyright line, and company contact details (Lifetime Oy, Y-tunnus, address, email) go on the **last page**, not the first.
+
+**Rationale:** A customer or procurement evaluator opening the document should see the substantive content first (name, summary, offer, capability) — not an internal changelog with session IDs and tooling names. The internal provenance is still mandatory (§2 / §20.2), it just moves to the back, alongside the copyright and contact block that normally closes a professional document.
+
+**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, `investor-outreach/LETTER_*` and any other per-recipient outreach letter, and any cloud export (Google Docs, Google Drive PDFs, Gamma decks) whose immediate destination is an external reader — investor, customer, or evaluator. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
+
+**Layout:**
+
+```
+# <Document Title>
+
+***
+
+<substantive content — CV, offer, whitepaper body, etc.>
+
+***
+
+# VERSION AND AGENT HISTORY
+
+Version: X
+
+Sessions & Modifications:
+- ...
+
+Document Status:
+- ...
+
+***
+
+*Copyright <year> – Tekijänoikeudet <author/company>.*
+
+**Lifetime Oy** | Y-tunnus: 0772407-9 | VAT: FI07724079
+<address>
+<contact email / phone>
+```
+
+First applied: `bids/ORK160826/ORK_Risto_CV_FI_164.md` → v165, moving the block from top to bottom.
+
+### 20.7 Cloud Export Cleanup — Always Link Superseded Files
+
+**Rule:** Several cloud connectors used for exports (e.g. the Google Drive MCP tools available in this environment) expose `create_file` but no rename or delete operation. When a correction or update to an already-exported cloud document (Google Doc, Drive PDF, Gamma deck, etc.) requires creating a new file rather than editing the existing one in place, the agent MUST:
+
+1. State plainly that the connector cannot rename or delete in place, so a new file was created instead of updating the old one.
+2. Give the user a direct, clickable link (view URL) to every superseded file that now needs manual deletion — never just say "an old version exists," always the actual URL.
+3. Repeat this at every subsequent correction, not just the first — each new export leaves another file behind, and all of them need to be listed, not only the most recent.
+
+**Rationale:** Without an explicit link, the user has to search Drive by title to find and remove stale copies — easy to skip, and stale duplicates of investor/customer-facing letters risk being sent by mistake. Fail Loud (Rule 12) requires surfacing this cleanup burden every time, not leaving it implicit.
+
+**Applies to:** Any cloud connector without rename/delete/update-in-place support (Google Drive is the current example; the rule generalizes to any future connector with the same gap).
 
 ---
 
@@ -2426,3 +2748,128 @@ Sessions & Modifications:
 | 1.1     | 15.01.2026 | Claude Code | QVvDX      | Added examples       |
 | 2.0     | 01.02.2026 | Manual      | N/A        | Complete restructure |
 ```
+
+---
+
+## 23. Whitepaper Standard
+
+Whitepapers are outward-facing, publishable documents (market/technical/regulatory) — distinct from internal Field Notes (§12) and Core Artifacts (§11). They carry external branding and a fixed page layout because they are handed to customers, investors, Notified Bodies, and press.
+
+### 23.1 Layout (mandatory)
+
+| Element          | Requirement                                                                                                                                                                                                                                                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Page size**    | **A4** (210 × 297 mm), portrait. Margins ≈ 22 mm.                                                                                                                                                                                                                                                                       |
+| **Header**       | **Aegis logo in the top-right corner** (`dws10.com/static/images/firehorse-aegis-logo.png`), ~1.15 in wide.                                                                                                                                                                                                             |
+| **Version line** | Small font (~8 pt, grey) at the **very top** of page 1, above the title: `Whitepaper · Version X.Y · <date> · Lifetime Oy[ / <product>] · Classification: <Public\|Confidential>`.                                                                                                                                      |
+| **Footer**       | Three zones on every page (tab stops): **left** = classification (`Confidential`/`Public`, small bold); **center** = `© <year> Lifetime Oy · Y-tunnus 0772407-9 · All rights reserved.` (small); **right** = page number (larger, ~13 pt bold). Footer classification must match the §23.1 version-line classification. |
+| **Body text**    | **Justified** (both edges aligned) for a polished chapter look. **12 pt base** font with ~1.15 line spacing — readable on mobile (iPhone). Headings left-aligned.                                                                                                                                                       |
+| **Sources**      | A final _Sources_ line citing every external fact (regulatory CELEX, vendor announcements with dates).                                                                                                                                                                                                                  |
+
+### 23.2 Source of truth & formats
+
+- Author the canonical whitepaper as **Markdown** (preferred for new) or **HTML in `Learn/`** (existing). Markdown follows this standard's header block (§2); the rendered/exported copy carries the §23.1 layout.
+- **Export to `.docx` (A4, branded) and Google Docs** via `scripts/build-whitepapers.py` (`npm run build:whitepapers`) — do not hand-format per export. This is the **single pipeline; pandoc is retired** for whitepapers. Outputs land in `build/whitepapers/` (git-ignored); drag a `.docx` into Drive to get a Google Doc with formatting preserved. Embed images as packaged assets (`scripts/assets/aegis-logo.jpg`), not relative paths.
+- **Colorful branding** carries through to the Doc: navy banner + two-tone title, navy headings / blue sub-headings, navy & amber callout boxes (highlight / disclaimer / CTA), KPI cards, tier cards, and navy table-header rows — all parsed from the source markup (HTML container classes `highlight-box` / `disclaimer` / `cta-box` / `kpi-row` / `tier-grid`).
+- **Output naming:** `NN_WP<n>_<Slug>_A4.docx`, where `NN` is a zero-padded `VERSION_TAG` (env-overridable). The leading number makes the latest build sort together / be easy to find on Drive — bump `VERSION_TAG` per release.
+- **Classification:** `Confidential` = limited / intended-recipient distribution (sent to named persons), not wide audience; `Public` = freely distributable. The version-line and footer classification must match, and govern where the whitepaper may later be hosted (Confidential → password-gated page only).
+- **Never publish whitepaper `.md` in public-site folders** (Non-Negotiable Rule 5); publish HTML/PDF/Doc, keep the `.md` in `docs/` or `Learn/` source.
+
+### 23.3 Governance
+
+- **Always confirm classification with the human author when a new whitepaper is written** (Confidential vs Public) — never default it silently. Classification governs distribution and hosting (see §23.2), so it is a human-in-the-loop decision per document.
+- Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
+- Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
+- Versioning is lockstep with the header block (§2) and the top version line (§23.1) — bump both together.
+
+## 24. Correspondence Preservation
+
+Every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy — partner, investor, customer, legal, regulatory, academic — **must be saved to the repo as a dated markdown file**. The sent artifact is institutional memory; a message living only in a mail client or chat scrollback is a lost artifact (Rule 12 — fail loud).
+
+### 24.1 What to save
+
+- Any first-person message sent on behalf of the company: emails, intro notes (`INTRO_*`), letters (`LETTER_*`), formal requests, confirmations, follow-ups.
+- Save the version **AS SENT** (final wording), not only the draft. If a reply arrives, append it to the same file.
+
+### 24.2 Where & naming
+
+- Path: a `correspondence/` folder scoped to the context — e.g. `docs/eic/correspondence/`, `investor-outreach/`, `partners-outreach/<partner>/`.
+- Filename: `YYYY-MM-DD_<RECIPIENT>_<slug>.md`.
+
+### 24.3 Required content
+
+- **VERSION AND AGENT HISTORY** block (§2) with `Status = SENT <date>` (or `DRAFT` / `REPLIED`).
+- Header lines: **From** (the correct sender address per the CLAUDE.md Sender Identity Rule), **To**, **Subject**, **Sent** date.
+- The **full body as sent**.
+- A **follow-up tracker** (reply received? attachments/photo? nudge date?).
+
+### 24.4 Sender identity
+
+- The From address and signature block must match the CLAUDE.md **Sender Identity Rule** for the context (sales/partner outreach -> `risto.paarni@lifetime.fi`; DWS IQ product -> `risto@onelifetime.world`; legal/contract -> `risto.paarni@lifetime.fi`), and the **phone is always in the signature**. **Never** use `risto.paarni2024@lifetime.fi` in a saved correspondence file or any outbound document — it is a Google login name (internal account credential), not a public contact.
+
+### 24.5 Governance
+
+- `/truth-check` external claims before send; apply the Brand Standard for voice.
+- **Never** save secrets, credentials, or live tokens in a letter file (Non-Negotiable Rule 1).
+- Enforcement: an important message that was sent but not saved is an institutional-memory loss — treat as a Rule 12 violation.
+
+## 25. Universal Document Footer (mandatory)
+
+Every document produced in this repository — internal or external, narrative or tabular — **must** carry a footer block at the **bottom** of the document containing four elements:
+
+1. **Document version** — equal to the §2 header version (lockstep; never a different number).
+2. **Date** — the content date (DD.MM.YYYY). If the file is a repository copy of an externally-authored/exported artifact, also note the repo-copy date.
+3. **Copyright** — `© <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.`
+4. **Business Confidentiality clause** — unless the document is explicitly classified **Public** (see §23.2).
+
+### 25.1 Canonical footer block
+
+```
+***
+
+**Document version:** vX.Y · **Date:** DD.MM.YYYY · **Owner:** Lifetime Oy
+© <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
+```
+
+### 25.2 Rules
+
+- **Version lockstep.** The footer version must always equal the header (§2) version. Bump both in the same edit — a mismatch is a Rule 12 (fail-loud) violation.
+- **Public documents** replace the confidentiality clause with a short public-license/attribution line, but still carry version, date, and copyright.
+- **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
+- **Whitepapers (§23.1)** carry the per-page printed footer defined there; §25 is the Markdown-source equivalent and both must agree on classification.
+- **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
+
+## 26. Repository-First, Then Export (anti-drift)
+
+A Google Doc, Drive file, PDF, Gamma deck, `.docx`, or `.xlsx` that has **no repository source-of-truth file** is a data-drift incident, not a deliverable. Exports are generated copies; the repository `.md` (or `.csv` for tabular models) is the master.
+
+### 26.1 Order of operations (required)
+
+1. **Author the repository file first** — Markdown per §2 header + §25 footer, versioned normally.
+2. **Then export** — generate the Google Doc / PDF / `.docx` / Gamma from that source.
+3. **Cross-link** — the repo file names its export target(s); the export cites the repo path + version it was generated from.
+4. **On correction** — edit the repo file, bump the version, re-export. Never edit only the export. (Cloud connectors without update-in-place: follow §20.7 and link every superseded export for manual cleanup.)
+
+### 26.2 File formats — when Markdown alone is not enough
+
+- **Narrative docs** (letters, memos, strategies, one-pagers, briefs): Markdown `.md` is the canonical master. Sufficient on its own.
+- **Financial models / spreadsheets** (budget, revenue scenarios, cap table): the live model is a spreadsheet. Keep **both** a Markdown `.md` (human-readable board narrative, git-diffable, §25 footer) **and** a `.csv` export of the underlying numbers in the repo, so the figures are version-controlled and diffable independently of the Google Sheet. The `.xlsx`/Google Sheet is the working tool; the repo `.md` + `.csv` is the source-of-truth of record.
+- **Rendered/branded outputs** (`.docx`, PDF, HTML) are build artifacts — generated from the `.md` source via the documented pipeline (§8, §23.2), not hand-maintained.
+
+### 26.3 Enforcement
+
+- Before sharing any export externally, confirm the repository copy exists and its version matches. If it does not, create it first — the export does not ship until the repo master exists.
+- Registration of canonical financial/positioning figures still flows through `DWS_TRUTH_STANDARD.md` (source-of-truth registry).
+
+### 26.4 Export naming — version number FIRST (Drive/cloud)
+
+Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead their title with the version number**, so the human-in-command (HIC) can sort, group, and grab the current version at a glance in Drive's grid view — where trailing versions all truncate to the same "DWS IQ — Investor O…" and become unusable.
+
+**Format:** `V<major>.<minor> — <Document Title>[ (recipient / context)]`
+**Example:** `V1.3 — DWS IQ Investor One-Pager (Richard Würl · Redstone VC)`
+
+- **Repository files keep normal DWS naming (§4)** — the version lives in the header/footer block, not the filename. Version-first naming is an **export convention only**, for Drive manageability. (Repo master → normal name; cloud export → version-first title.)
+- The leading version must equal the repo master's current version; bump it on every re-export.
+- If a document will exceed 9 minor versions, **zero-pad the minor** (`V1.03`) so lexical sort stays correct. Same idea as the whitepaper pipeline's zero-padded `NN_` prefix (§23.2).
+- When the connector cannot rename/update-in-place (e.g. Google Drive), a re-export makes a new file — **link every superseded file for manual deletion (§20.7)** so stale versions don't accumulate.

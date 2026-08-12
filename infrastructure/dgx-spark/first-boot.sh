@@ -5,10 +5,11 @@
 # This script:
 #   1. Clones the repo (if not present)
 #   2. Installs Node.js 22 (if not present)
-#   3. Pulls Ollama models
-#   4. Copies .env.example → .env (user fills in secrets)
-#   5. Installs systemd services (auto-deploy + day-runner)
-#   6. Starts everything
+#   3. Installs pandoc (if not present) — document rendering, DWS_DOCUMENT_STANDARD.md §22
+#   4. Pulls Ollama models
+#   5. Copies .env.example → .env (user fills in secrets)
+#   6. Installs systemd services (auto-deploy + day-runner)
+#   7. Starts everything
 #
 # Usage (SSH into DGX Spark, run once):
 #   git clone git@github.com:blogtheristo/dws6.git /home/admin100/dws6
@@ -94,6 +95,20 @@ fi
 npm ci --omit=dev
 
 # ---------------------------------------------------------------------------
+# 3a. Pandoc — document rendering (CVs, whitepapers, customer docs)
+#     Persistent here so it survives across every future session on this
+#     box, unlike a cloud-session container where `apt-get install pandoc`
+#     has to be repeated per session. See DWS_DOCUMENT_STANDARD.md §22 and
+#     scripts/render-doc.sh.
+# ---------------------------------------------------------------------------
+if ! command -v pandoc &>/dev/null; then
+  log "Installing pandoc..."
+  sudo apt-get update -qq && sudo apt-get install -y pandoc
+else
+  log "pandoc $(pandoc --version | head -1 | awk '{print $2}') already installed"
+fi
+
+# ---------------------------------------------------------------------------
 # 3. Ollama models
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
@@ -106,7 +121,7 @@ if command -v ollama &>/dev/null; then
 
   # Check required models
   INSTALLED=$(ollama list 2>/dev/null | tail -n +2 | awk '{print $1}')
-  REQUIRED=("llama3.3:70b" "qwen2.5-coder:32b")
+  REQUIRED=("nemotron-3-super" "qwen3-coder:30b")
   MISSING=()
 
   for model in "${REQUIRED[@]}"; do

@@ -287,7 +287,7 @@ Upgrade to **Firehorse Enterprise** for unlimited reports and full platform acce
 - **Cost Saved**: €8,000/month (at €200/hour)
 - **ROI**: 100% in 1.5 months
 - **Annual Savings**: €96,000
-- **Customer LTV**: €70,000-€120,000
+- **Customer LTV (modelled)**: €70,000-€120,000 — a model, not an observed figure; no cohort data exists
 
 ### Enterprise (€49,999/year)
 - **Time Saved**: 200+ hours/month

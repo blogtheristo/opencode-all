@@ -1,6 +1,6 @@
 # Investor Outreach Templates — DWS IQ 6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -8,6 +8,7 @@ Version: 2.0
 
 Sessions & Modifications:
 
+- Version: 2.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — every "EUR 7K MRR / 100% retention / zero churn" instance across the four templates, the metrics block and the objection-handling section replaced with the contracted-pilot statement; €7k restated as services and transport revenue.
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Full rewrite. Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries. KYA governance story. Removed stale demo link, old EUR 150K round, construction-only framing.
 - Version: 1.0 | Tool: Unknown | Date: Jan 2026 | Changes: Initial 4 email templates. EUR 150K SAFE, construction-only, 8 industries.
 
@@ -27,7 +28,7 @@ Related Documents:
 - Legal/KYA_OPTIMIZATION_v1.4.md (KYA-O — Alpha-Share, Performance Guarantee, D&O)
 - docs/field-notes/2026-03-15-investor-materials-audit.md (audit — conflicts resolved)
 
----
+***
 
 ---
 
@@ -41,7 +42,7 @@ Hi [First name],
 
 I'm the founder & CEO of Lifetime (Espoo, Finland). We're building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. Think: autonomous compliance agents for steel mills, construction sites, and chemical plants — governed by our KYA (Know Your Agent) standard with hardware-attested isolation and court-defensible audit trails.
 
-We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA Connect Partner (Groq), Microsoft, Google, AWS, IBM, Acer Finland, and Konfitech. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
+We have **two enterprise pilots contracted in Q1/2026 at EUR 29,950 each (EUR 59,900 booked), plus four smaller landed accounts**. Separately, a licensed transport operation and a small consulting practice run at ~EUR 7,000/month — services and transport revenue, **not** software revenue — which puts us at cash break-even with a founder salary of EUR 0. We are partnered with NVIDIA Connect Partner (Groq), Microsoft, Google, AWS, IBM, Acer Finland, and Konfitech. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
 
 The moat: our **Lifetime World Model** — 15,000+ EU regulatory documents indexed across 20 industries, 7 years and 6 platform versions to build. Not a fine-tuned GPT. A proprietary regulatory intelligence graph.
 
@@ -74,7 +75,7 @@ I saw you spent [X years] at [Company] leading [role] in [industry]. You know th
 
 I'm building **DWS IQ 6** — a platform that governs AI agent swarms across 20 EU-regulated industries. Our **KYA (Know Your Agent)** standard gives enterprises hardware-attested agent isolation, court-defensible audit trails, and D&O insurance-grade governance. Directors using KYA-certified agents see **8-12% D&O premium reductions** because liability is traceable and bounded.
 
-We're live with **EUR 7K/month MRR, 100% retention**, and I'm offering 8 Industry Captain seats — one per industry tranche:
+We have **two enterprise pilots contracted in Q1/2026 at EUR 29,950 each (EUR 59,900 booked), plus four smaller landed accounts**, and I'm offering 8 Industry Captain seats — one per industry tranche:
 
 - **Industry Captain** — EUR 50K: Named captain of [industry]. Annual briefings, industry-specific regulatory intelligence, priority pilot routing.
 - **Deputy Captain** — EUR 5,000, unlimited: Quarterly briefings, upgrade path.
@@ -102,7 +103,7 @@ Hi [First name],
 
 I'm building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. The governance layer (KYA — Know Your Agent) provides hardware-attested isolation and court-defensible audit trails that reduce D&O insurance premiums by 8-12%.
 
-We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Connect Partner (Groq), Microsoft Founders Hub, Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
+We have **two enterprise pilots contracted in Q1/2026 at EUR 29,950 each (EUR 59,900 booked), plus four smaller landed accounts**; separately, a licensed transport operation and a small consulting practice run at ~EUR 7,000/month of services and transport revenue (**not** software revenue), putting us at cash break-even with a founder salary of EUR 0. Partnered with NVIDIA Connect Partner (Groq), Microsoft Founders Hub, Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
 
 I'm offering seats in a **SAFE at EUR 3.8M cap** — from EUR 50K Industry Captain seats (8 available, one per industry) to a single EUR 500K Fleet Admiral seat with board observer rights.
 
@@ -124,7 +125,7 @@ Hi [First name],
 
 I see you invest in [industrial AI / climate tech / EU regulatory]. We're building DWS IQ 6 — governs AI agent swarms across 20 EU industries with KYA (Know Your Agent) standard.
 
-**EUR 7K MRR, 100% retention**, SAFE at EUR 3.8M cap. Industry Captain seats (EUR 50K) — 8 available. Fleet Admiral (EUR 500K) — 1 seat.
+**Two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)**, SAFE at EUR 3.8M cap. Industry Captain seats (EUR 50K) — 8 available. Fleet Admiral (EUR 500K) — 1 seat.
 
 20 min call?
 
@@ -139,7 +140,8 @@ Lifetime Oy
 
 ### Traction & Sales Motion
 
-- **EUR 7K/month MRR** (March 2026, 100% retention, zero churn)
+- **Two enterprise pilots contracted Q1/2026** at EUR 29,950 each (EUR 59,900 booked), plus four smaller landed accounts
+- **~EUR 7,000/month services and transport revenue** (licensed transport operation + consulting) — **not** software revenue; cash break-even at a founder salary of EUR 0
 - **5+ paying/pilot accounts**
 - **Sales motion:** Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers at average EUR 36K ARR = EUR 900K.
 - **Sales sprint:** June 15 – August 15, 2026 (2 months, 100% sales focus)
@@ -275,7 +277,7 @@ Risto
 
 ### "Too early for us"
 
-> "Fair. We're at EUR 7K/month MRR with zero churn. Our sales sprint runs June 15 – August 15. Would you be open to a check-in in September with post-sprint metrics?"
+> "Fair. We have two enterprise pilots contracted at EUR 29,950 each — EUR 59,900 booked. Our sales sprint runs June 15 – August 15. Would you be open to a check-in in September with post-sprint metrics?"
 
 ### "What's the exit potential?"
 
@@ -291,7 +293,7 @@ Risto
 
 ### "Cap too high for this stage"
 
-> "EUR 3.8M cap reflects: (1) EUR 7K MRR with 100% retention, (2) proprietary Lifetime World Model (7 years IP), (3) KYA governance standard (first-mover in EU AI Act compliance), (4) partnerships (NVIDIA, Microsoft, Google, AWS). Happy to discuss but this is the structure."
+> "EUR 3.8M cap reflects: (1) two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked) plus four smaller landed accounts, (2) proprietary Lifetime World Model (7 years IP), (3) KYA governance standard (first-mover in EU AI Act compliance), (4) partnerships (NVIDIA, Microsoft, Google, AWS). Happy to discuss but this is the structure."
 
 ---
 

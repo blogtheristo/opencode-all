@@ -94,7 +94,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
-      const { message, sessionId, userId, conversationHistory } = req.body;
+      const { message, sessionId, conversationHistory } = req.body;
 
       // Determine tier based on authentication status (server-side only)
       // Do NOT trust client-provided tier parameter
@@ -137,7 +137,7 @@ router.post(
       const response = await GatedService.processGatedMessage({
         message,
         sessionId,
-        userId,
+        userId: req.userId,
         tier: effectiveTier,
         conversationHistory,
       });

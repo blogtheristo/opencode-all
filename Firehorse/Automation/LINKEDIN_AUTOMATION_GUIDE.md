@@ -268,7 +268,7 @@ Keywords:
 ```
 Hi [Name], noticed your investment in [Portfolio Company]. 
 We're automating CSRD compliance for construction portfolios 
-(€7k MRR, 100% retention). Worth connecting?
+(€59,900 in contracted Q1/2026 pilots). Worth connecting?
 ```
 
 #### Template 2: Construction Tech Focus
@@ -298,9 +298,9 @@ portfolios – turning 40–80 hours of Excel into audit-ready
 reports.
 
 Current traction:
-• €7k MRR, 100% retention
-• 2 construction pilots converting Q1
-• €70k–€120k LTV per customer
+• Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
+• Four additional smaller landed accounts
+• LTV is modelled, not observed
 
 Raising €500k SAFE (€3.8M cap) to scale to 5 flagship portfolios.
 
@@ -323,8 +323,8 @@ Quick intro: We're automating CSRD compliance for construction
 portfolios. The market is mandatory (Fit for 55 live 2025) and 
 we're first to market.
 
-Traction: €7k MRR, 100% retention, 2 pilots converting to 
-+€6k MRR Q1.
+Traction: two enterprise pilots contracted in Q1/2026 at 
+€29,950 each (€59,900 booked), plus four smaller landed accounts.
 
 Raising €500k SAFE to convert pilots and onboard 3 more 
 portfolios.
@@ -350,7 +350,7 @@ space, you understand the challenge of selling into
 conservative construction buyers.
 
 We're automating CSRD compliance for construction portfolios:
-• €7k MRR, 100% retention
+• €59,900 of contracted Q1/2026 enterprise pilots
 • Mandatory market (Fit for 55 live 2025)
 • €15k–€50k angel tickets
 

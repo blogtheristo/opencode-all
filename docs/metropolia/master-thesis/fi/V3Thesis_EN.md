@@ -12,7 +12,7 @@ Sessions & Modifications:
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
   - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Added DWS10.com e-commerce store findings, Google Merchant Center integration, Revolut Business payments, Audio chat evolution roadmap with Groq/Llama models, Industry carbon footprint calculator, EU compliance mapping
   - Version: 2.2 | Tool: Word (HIL) | Session: dws6.com Google Run | Date: 19.01.2026 | Changes: Google admin@dws6.com and project under Google. Established 19.1.2026. Google Workspace Standard adopted. DNS records changed from Proton to Google. Created project dws6run to serve Google Run processes.
-  - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 16-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
+  - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 25+-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
   - Version: 2.0 | Tool: Cursor AI (Claude) | Session: Thesis-Revision | Date: 05.01.2026 | Changes: Major revision - Added Solution Factory model, AgentFoundry documentation, Lifetime Scope Signals theory, SWOT analysis, research questions answers, complete theoretical framework
   - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with Finnish version
 
@@ -360,11 +360,11 @@ This conceptual model provides a replicable framework for other industrial AI st
 
 ## 3.1 European Industrial AI Landscape
 
-European industry faces unprecedented regulatory pressure through the EU's Fit for 55 package. This creates forced demand for climate compliance solutions across 16 industries.
+European industry faces unprecedented regulatory pressure through the EU's Fit for 55 package. This creates forced demand for climate compliance solutions across 25+ industries.
 
 ### 3.1.1 The 16 Industries Affected by Fit for 55
 
-The EU's Fit for 55 package mandates 55% net emissions reduction by 2030. This creates an unprecedented compliance burden on 16 industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory compliance.
+The EU's Fit for 55 package mandates 55% net emissions reduction by 2030. This creates an unprecedented compliance burden on 25+ industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory compliance.
 
 **Tier 1: Critical Emission Industries (ETS + CBAM Direct Impact)**
 
@@ -475,14 +475,14 @@ The Omnibus package **does not change** the core Fit for 55 targets:
 |------------|-----------|----------------|-----|---------|
 | **Monthly cost** | EUR 0-350 | EUR 1,400+ | EUR 4,000+ | EUR 2,000+ |
 | **Edge AI** | Native | No | No | Limited |
-| **16 verticals** | Planned | No | Yes | Yes |
+| **25+ verticals** | Planned | No | Yes | Yes |
 | **EU compliant** | Native | Partial | Partial | Yes |
 | **<100ms latency** | Edge | No | No | Partial |
 | **SME accessible** | Yes | No | No | No |
 
 ## 3.3 Customer Segments
 
-**DWS10.com (Firehorse platform) target customers across 16 industries:**
+**DWS10.com (Firehorse platform) target customers across 25+ industries:**
 
 **Tier 1 - Critical Industries (Immediate sales focus):**
 - **Construction:** NCC, Skanska, T2H, Vinci, Strabag (36-40% of EU emissions)
@@ -1150,7 +1150,7 @@ The Firehorse operating model demonstrates that AI-assisted e-commerce managemen
 2. Integration patterns for Google Merchant Center and Revolut Business
 3. Roadmap for audio chat with carbon footprint calculator integration (4 phases)
 4. EU compliance mapping for industrial software products
-5. Product recommendation engine architecture for 16 EU industries
+5. Product recommendation engine architecture for 25+ EU industries
 6. Proton security products strategy for GDPR/NIS2 compliance
 
 ## 10.3 Contribution to Theory

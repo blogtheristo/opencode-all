@@ -217,7 +217,7 @@ Update `product-catalog/LWM/training-manual-part2-data-training.md` to include:
 | Claude API (data gen) | €40-60 | €40-60 (unchanged) | 0% |
 | Electricity per industry | €5-8 | €1-3 (est.) | ~65% |
 | **Total per industry** | **€50-70** | **€45-65 (est.)** | ~10% |
-| **Total 16 industries** | **€800-1,120** | **€720-1,040 (est.)** | ~10% |
+| **Total 25+ industries** | **€800-1,120** | **€720-1,040 (est.)** | ~10% |
 
 **The real win is not cost but quality:** MoE models with 30B total parameters provide significantly better domain expertise than dense 8B models, while using less VRAM.
 
@@ -315,7 +315,7 @@ The Lifetime World Model's per-industry training approach has a natural alignmen
 | 0% accuracy loss (exact computation) | HIGH | Analytically proven Split LoRA |
 | gpt-oss-20b fits 12.8 GB VRAM | HIGH | Unsloth official benchmark |
 | MoE architecture fits LWM industry model | MEDIUM-HIGH | Architectural analysis, not yet validated |
-| Cost savings estimates for 16 industries | MEDIUM | Extrapolated from single-model benchmarks |
+| Cost savings estimates for 25+ industries | MEDIUM | Extrapolated from single-model benchmarks |
 | Edge deployment on Jetson | MEDIUM | VRAM requirements match, not tested |
 
 ---

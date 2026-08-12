@@ -16,9 +16,8 @@ name: Quarterly Price List Stamp
 # ============================================================================
 
 on:
-  schedule:
-    # 06:00 UTC on the 1st of Jan, Apr, Jul, Oct.
-    - cron: "0 6 1 1,4,7,10 *"
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark is primary (scripts/daily/price-list-quarterly-gate.sh)
+  # Was: cron '0 6 1 1,4,7,10 *' (quarterly on 1st at 06:00 UTC)
   workflow_dispatch:
     inputs:
       force:
@@ -43,12 +42,22 @@ jobs:
         with:
           fetch-depth: 0
 
+      # DGX Spark cron-runner runs the primary quarterly stamp.
+      # This GHA workflow is failover only; skip if DGX is alive.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
       - name: Setup Node
+        if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Derive quarter for today
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: q
         run: |
           YEAR=$(date -u +%Y); MONTH=$(date -u +%m); DAY=$(date -u +%d)
@@ -69,6 +78,7 @@ jobs:
           echo "today=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
 
       - name: Check if roll is needed
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: need
         run: |
           CURRENT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('dws10.com/config/products.json','utf8')).priceList.version||'')")

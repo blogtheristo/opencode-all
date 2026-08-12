@@ -50,16 +50,16 @@ NOTHING HAPPENS ← The Gap                every quarter, automatically
 
 ### This Gap Exists Across All 27 EU Countries
 
-| Country | Design-phase data | Design-phase LCA | Operations compliance |
-|---------|-------------------|-------------------|-----------------------|
-| Finland | Rakennustieto EPDs, CO2data.fi | One Click LCA | **Gap** |
-| Sweden | Boverket, IVL EPDs | One Click LCA | **Gap** |
-| Germany | ÖKOBAUDAT | One Click LCA | **Gap** |
-| France | INIES | One Click LCA | **Gap** |
-| Netherlands | NMD (Nationale Milieudatabase) | One Click LCA | **Gap** |
-| Denmark | EPD Denmark | One Click LCA | **Gap** |
-| Norway | EPD Norway | One Click LCA | **Gap** |
-| All 27 | Each has national EPD databases | Consolidated by One Click LCA | **Every country has the same gap** |
+| Country     | Design-phase data               | Design-phase LCA              | Operations compliance              |
+| ----------- | ------------------------------- | ----------------------------- | ---------------------------------- |
+| Finland     | Rakennustieto EPDs, CO2data.fi  | One Click LCA                 | **Gap**                            |
+| Sweden      | Boverket, IVL EPDs              | One Click LCA                 | **Gap**                            |
+| Germany     | ÖKOBAUDAT                       | One Click LCA                 | **Gap**                            |
+| France      | INIES                           | One Click LCA                 | **Gap**                            |
+| Netherlands | NMD (Nationale Milieudatabase)  | One Click LCA                 | **Gap**                            |
+| Denmark     | EPD Denmark                     | One Click LCA                 | **Gap**                            |
+| Norway      | EPD Norway                      | One Click LCA                 | **Gap**                            |
+| All 27      | Each has national EPD databases | Consolidated by One Click LCA | **Every country has the same gap** |
 
 Every country has mature design-phase tools. No country has automated operations compliance.
 49,000 EU companies need CSRD filing. They've designed low-carbon buildings.
@@ -97,14 +97,14 @@ DATA SOURCES                         REGULATOR-READY REPORTS
 
 ### What This Means In Practice
 
-| LCA tools tell you... | DWS IQ tells the regulator... |
-|------------------------|-------------------------------|
-| What the building SHOULD emit (design) | What it ACTUALLY emits (operations) |
-| Material carbon at construction (A1-A5) | Operational carbon over time (B1-B7) |
-| One-time assessment at design | Continuous quarterly reporting |
-| Architect/engineer is the user | CFO/sustainability director is the user |
-| Manual, project-by-project | Automated, portfolio-wide |
-| Data from BIM models | Data from ERP systems |
+| LCA tools tell you...                   | DWS IQ tells the regulator...           |
+| --------------------------------------- | --------------------------------------- |
+| What the building SHOULD emit (design)  | What it ACTUALLY emits (operations)     |
+| Material carbon at construction (A1-A5) | Operational carbon over time (B1-B7)    |
+| One-time assessment at design           | Continuous quarterly reporting          |
+| Architect/engineer is the user          | CFO/sustainability director is the user |
+| Manual, project-by-project              | Automated, portfolio-wide               |
+| Data from BIM models                    | Data from ERP systems                   |
 
 ### The Concrete Integration Claim (For /buy Page)
 
@@ -117,6 +117,7 @@ This makes DWS IQ a **buyer** of One Click LCA outputs, not a competitor.
 One Click LCA becomes a data source, like an ERP is a data source.
 
 **Why One Click LCA would partner with us (their incentive, not ours):**
+
 1. **Stickiness** — Their customers finish design-phase LCA and churn. If DWS IQ
    imports their outputs for ongoing operations compliance, the customer keeps their
    One Click LCA subscription active to feed the compliance pipeline.
@@ -132,14 +133,14 @@ One Click LCA becomes a data source, like an ERP is a data source.
 
 ### ERP Connector Audit (Honest Assessment)
 
-| Connector | Lines | Real API Paths | Auth | Data Mapping | Production Ready |
-|-----------|-------|---------------|------|-------------|-----------------|
-| IFS Cloud | 231 | Real IFS projection URLs | OAuth2 | 14-field asset mapping | **Closest** |
-| SAP S/4HANA | 107 | Verifiably real OData | Basic + sap-client | None yet | Reads only |
-| Dynamics 365 | 112 | Real MS identity URLs | OAuth2 (Azure AD) | None yet | Auth + 1 read |
-| Monitor | 551 | Plausible | OAuth2 | Full bidirectional | Unverifiable endpoints |
-| Visma | 99 | Plausible | OAuth2 (buggy) | None yet | Maybe 2 calls |
-| Jeeves | 86 | Likely fabricated | API key | None yet | Unlikely |
+| Connector    | Lines | Real API Paths           | Auth               | Data Mapping           | Production Ready       |
+| ------------ | ----- | ------------------------ | ------------------ | ---------------------- | ---------------------- |
+| IFS Cloud    | 231   | Real IFS projection URLs | OAuth2             | 14-field asset mapping | **Closest**            |
+| SAP S/4HANA  | 107   | Verifiably real OData    | Basic + sap-client | None yet               | Reads only             |
+| Dynamics 365 | 112   | Real MS identity URLs    | OAuth2 (Azure AD)  | None yet               | Auth + 1 read          |
+| Monitor      | 551   | Plausible                | OAuth2             | Full bidirectional     | Unverifiable endpoints |
+| Visma        | 99    | Plausible                | OAuth2 (buggy)     | None yet               | Maybe 2 calls          |
+| Jeeves       | 86    | Likely fabricated        | API key            | None yet               | Unlikely               |
 
 **Shared fatal flaw:** No database persistence. Data is fetched, counted, logged, and discarded.
 Every Supabase write is a `// TODO` comment.
@@ -147,6 +148,7 @@ Every Supabase write is a `// TODO` comment.
 ### First Integration Target: IFS Cloud
 
 **Why IFS first:**
+
 - Most complete connector (real projection URLs, real OAuth2, actual field mapping)
 - IFS dominates asset-intensive industries (construction, manufacturing, energy)
 - IFS Cloud is the ERP of choice for NCC, Skanska, and Nordic infrastructure companies
@@ -154,12 +156,12 @@ Every Supabase write is a `// TODO` comment.
 
 **What needs to happen to make IFS production-ready:**
 
-| Step | Task | Estimate | Measurable Gate |
-|------|------|----------|-----------------|
-| 1 | Wire Supabase persistence (replace TODO comments) | 4-6h | `SELECT count(*) FROM erp_sync_log` returns > 0 |
-| 2 | Test against real IFS Cloud sandbox | 4h | Fetch 1 real work order from IFS demo tenant |
-| 3 | Data transformation for remaining entity types | 4h | All 6 entity types produce valid JSONB rows |
-| 4 | Retry/backoff for production reliability | 2h | Automated retry on 429/503 with exponential backoff |
+| Step | Task                                              | Estimate | Measurable Gate                                     |
+| ---- | ------------------------------------------------- | -------- | --------------------------------------------------- |
+| 1    | Wire Supabase persistence (replace TODO comments) | 4-6h     | `SELECT count(*) FROM erp_sync_log` returns > 0     |
+| 2    | Test against real IFS Cloud sandbox               | 4h       | Fetch 1 real work order from IFS demo tenant        |
+| 3    | Data transformation for remaining entity types    | 4h       | All 6 entity types produce valid JSONB rows         |
+| 4    | Retry/backoff for production reliability          | 2h       | Automated retry on 429/503 with exponential backoff |
 
 **Definition of "production-ready":** A cron job runs every 6 hours, pulls IFS data,
 persists to Supabase, and the daily digest shows the latest sync timestamp.
@@ -172,6 +174,7 @@ Track sandbox access as a separate blocker.
 ### Second Integration Target: SAP S/4HANA
 
 **Why SAP second:**
+
 - Verifiably correct OData endpoints (API_PRODUCTION_ORDER_2_SRV)
 - Largest ERP market share globally
 - Enterprise customers (Compliance Bridge product) will expect SAP
@@ -200,44 +203,44 @@ WEDGE                    EXPAND                   ENTERPRISE
 Fleet Carbon Report      CSRD Autopilot           Compliance Bridge
 €3,000/mo                €5,000/mo                €10,000/mo
 ────────────────────     ────────────────────     ────────────────────
-Already selling          49,000 companies need    Replaces Persefoni
-Uber, Bolt, Kela         No ERP automation exists ($55-250k, manual CSV)
-100% retention           Natural upsell from Fleet  Natural upsell from CSRD
+2 contracted pilots      49,000 companies need    Replaces Persefoni
++ 4 landed accounts      No ERP automation exists ($55-250k, manual CSV)
+                         Natural upsell from Fleet  Natural upsell from CSRD
 ```
 
 ### Product 1: Fleet Carbon Report (Wedge — Proven)
 
-| Attribute | Detail |
-|-----------|--------|
-| What | Automated Scope 1-2-3 emissions reporting for fleet/logistics |
-| Buyer | Fleet managers, logistics CFOs |
-| Price | €3,000/mo (€36k/year) |
-| Why it's the wedge | Already selling. 100% retention. Gets us into companies. Shortest sales cycle. |
-| Upsell path | Fleet customer needs CSRD reporting → CSRD Autopilot |
-| ERP connector | SAP (transport mgmt) or IFS (asset-intensive) |
+| Attribute          | Detail                                                                                                                                                      |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| What               | Automated Scope 1-2-3 emissions reporting for fleet/logistics                                                                                               |
+| Buyer              | Fleet managers, logistics CFOs                                                                                                                              |
+| Price              | €3,000/mo (€36k/year)                                                                                                                                       |
+| Why it's the wedge | Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts. Gets us into companies. Shortest sales cycle. |
+| Upsell path        | Fleet customer needs CSRD reporting → CSRD Autopilot                                                                                                        |
+| ERP connector      | SAP (transport mgmt) or IFS (asset-intensive)                                                                                                               |
 
 ### Product 2: CSRD Autopilot (Expand — Mid-Market)
 
-| Attribute | Detail |
-|-----------|--------|
-| What | ERP-connected CSRD data collection + automated quarterly reports |
-| Buyer | Mid-market sustainability directors (250-5000 employees) |
-| Price | €5,000/mo (€60k/year) |
-| Why it sells | 49,000 EU companies must file. No tool automates data collection from ERP. |
-| Upsell path | CSRD customer also needs ETS/CBAM → Compliance Bridge |
-| ERP connector | IFS, Dynamics 365, Visma (Nordic mid-market) |
-| LCA integration | Import One Click LCA baselines as CSRD evidence |
+| Attribute       | Detail                                                                     |
+| --------------- | -------------------------------------------------------------------------- |
+| What            | ERP-connected CSRD data collection + automated quarterly reports           |
+| Buyer           | Mid-market sustainability directors (250-5000 employees)                   |
+| Price           | €5,000/mo (€60k/year)                                                      |
+| Why it sells    | 49,000 EU companies must file. No tool automates data collection from ERP. |
+| Upsell path     | CSRD customer also needs ETS/CBAM → Compliance Bridge                      |
+| ERP connector   | IFS, Dynamics 365, Visma (Nordic mid-market)                               |
+| LCA integration | Import One Click LCA baselines as CSRD evidence                            |
 
 ### Product 3: Compliance Bridge (Enterprise)
 
-| Attribute | Detail |
-|-----------|--------|
-| What | Full ERP-to-compliance pipeline: CSRD + ETS + CBAM continuous monitoring |
-| Buyer | Enterprise sustainability directors at industrials |
-| Price | €10,000/mo (€120k/year) |
-| Why it sells | Persefoni = $55-250k/year with manual CSV. We pull from SAP/IFS automatically. |
-| ERP connector | SAP S/4HANA primary, IFS Cloud secondary |
-| LCA integration | Import One Click LCA + CO2data.fi for design-vs-actual comparison |
+| Attribute       | Detail                                                                         |
+| --------------- | ------------------------------------------------------------------------------ |
+| What            | Full ERP-to-compliance pipeline: CSRD + ETS + CBAM continuous monitoring       |
+| Buyer           | Enterprise sustainability directors at industrials                             |
+| Price           | €10,000/mo (€120k/year)                                                        |
+| Why it sells    | Persefoni = $55-250k/year with manual CSV. We pull from SAP/IFS automatically. |
+| ERP connector   | SAP S/4HANA primary, IFS Cloud secondary                                       |
+| LCA integration | Import One Click LCA + CO2data.fi for design-vs-actual comparison              |
 
 ---
 
@@ -245,50 +248,52 @@ Uber, Bolt, Kela         No ERP automation exists ($55-250k, manual CSV)
 
 ### KEEP (Construction Stays, Reframed)
 
-| Keep | Reframe |
-|------|---------|
+| Keep                  | Reframe                                                             |
+| --------------------- | ------------------------------------------------------------------- |
 | Construction vertical | Reframe from "building LCA" to "construction operations compliance" |
-| SiteSense agent | Site operational monitoring (not design LCA) |
-| ScheduleGenius agent | Project timeline compliance (delivery vs. plan) |
-| MaterialOracle agent | Supply chain emissions (procurement, not design material selection) |
-| CustomerSat agent | Rename to "Account Health" - works across all verticals |
-| Viability agent | ROI/payback - works across all verticals |
-| EN 15978 knowledge | Use for operational stages (B1-B7, C, D), not design stages (A1-A5) |
-| All 6 ERP connectors | Core moat. Harden IFS first, then SAP, then rest. |
+| SiteSense agent       | Site operational monitoring (not design LCA)                        |
+| ScheduleGenius agent  | Project timeline compliance (delivery vs. plan)                     |
+| MaterialOracle agent  | Supply chain emissions (procurement, not design material selection) |
+| CustomerSat agent     | Rename to "Account Health" - works across all verticals             |
+| Viability agent       | ROI/payback - works across all verticals                            |
+| EN 15978 knowledge    | Use for operational stages (B1-B7, C, D), not design stages (A1-A5) |
+| All 6 ERP connectors  | Core moat. Harden IFS first, then SAP, then rest.                   |
 
 ### FREEZE (Don't Delete, Stop Investing)
 
-| Freeze | Why |
-|--------|-----|
-| Mobile app store submission | Web PMF first. TestFlight for demos. |
-| Lifetime Studios / Consulting / Coin | Brand noise. Zero revenue. |
-| 11 of 14 dashboard variants | Keep v10-react only. |
-| BIM/IFC parser | That's One Click LCA's job. Import their output instead. |
-| Building LCA calculations | That's One Click LCA's job. We consume, not produce. |
+| Freeze                               | Why                                                      |
+| ------------------------------------ | -------------------------------------------------------- |
+| Mobile app store submission          | Web PMF first. TestFlight for demos.                     |
+| Lifetime Studios / Consulting / Coin | Brand noise. Zero revenue.                               |
+| 11 of 14 dashboard variants          | Keep v10-react only.                                     |
+| BIM/IFC parser                       | That's One Click LCA's job. Import their output instead. |
+| Building LCA calculations            | That's One Click LCA's job. We consume, not produce.     |
 
 ### CONSOLIDATE
 
-| From | To | Reason |
-|------|-----|--------|
-| 4 domains | dws10.com (primary) + lifetime.fi (Finnish market) | One brand, one story |
-| 14 dashboards | v10-react only | One frontend to maintain |
-| 8 product lines | 3 products (Fleet, CSRD, Bridge) | One product catalog |
+| From            | To                                                 | Reason                   |
+| --------------- | -------------------------------------------------- | ------------------------ |
+| 4 domains       | dws10.com (primary) + lifetime.fi (Finnish market) | One brand, one story     |
+| 14 dashboards   | v10-react only                                     | One frontend to maintain |
+| 8 product lines | 3 products (Fleet, CSRD, Bridge)                   | One product catalog      |
 
 ---
 
 ## 6. Revenue Model (12-Month)
 
-| Product | Customers | Price/mo | MRR | Source |
-|---------|----------|----------|-----|--------|
-| Fleet Carbon Report | 10 | €3,000 | €30,000 | Nordic logistics |
-| CSRD Autopilot | 5 | €5,000 | €25,000 | Finnish/Nordic mid-market |
-| Compliance Bridge | 2 | €10,000 | €20,000 | Large industrials |
-| Existing | 3 | various | €7,000 | Uber, Bolt, Kela |
-| **Total** | **20** | | **€82,000** | **~€984k ARR** |
+| Product             | Customers  | Price/mo | MRR         | Source                                                                                              |
+| ------------------- | ---------- | -------- | ----------- | --------------------------------------------------------------------------------------------------- |
+| Fleet Carbon Report | 10         | €3,000   | €30,000     | Nordic logistics                                                                                    |
+| CSRD Autopilot      | 5          | €5,000   | €25,000     | Finnish/Nordic mid-market                                                                           |
+| Compliance Bridge   | 2          | €10,000  | €20,000     | Large industrials                                                                                   |
+| Existing base       | —          | various  | €7,000      | Services + transport revenue (licensed transport operation + consulting) — **not** software revenue |
+| **Total**           | **17 new** |          | **€82,000** | **~€984k ARR** (target)                                                                             |
+
+> Baseline today (`docs/TRACTION_CANONICAL.md` §2): two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts. The €7,000/month line above is services and transport revenue, not platform revenue, and must not be presented as MRR.
 
 ### What the math actually is: 17 enterprise sales in 12 months
 
-Be honest about what this table says. €84k → €984k means closing **17 new
+Be honest about what this table says. Reaching €984k means closing **17 new
 contracts** (10 Fleet + 5 CSRD + 2 Bridge) at an average ACV of ~€53k.
 
 That's 1.4 contracts/month. With a B2B compliance sale cycle of 3-6 months,
@@ -315,6 +320,7 @@ MONTH   PIPELINE   CLOSED   ARR
 ### Moat 1: ERP Connectors
 
 No carbon compliance competitor has Nordic ERP connectors:
+
 - **Visma** — 1M+ Nordic customers, market leader
 - **Jeeves** — Swedish mid-market manufacturing
 - **Monitor** — Nordic manufacturing standard
@@ -352,16 +358,19 @@ Build here, prove here, expand to EU-27 with Finnish reference customers.
 ## 8. The One-Liner (Final)
 
 **For investors:**
+
 > "DWS IQ is the operations compliance layer that sits between ERP systems
 > and EU regulators. We pull data from SAP/IFS/Dynamics, integrate with
 > LCA tools like One Click LCA, and auto-generate CSRD/ETS/CBAM reports.
-> €84k ARR, 100% retention, 3 paying customers, 40 hours/month saved per customer."
+> Two enterprise pilots contracted Q1/2026 at €29,950 each — €59,900 booked — plus four smaller landed accounts."
 
 **For buyers:**
+
 > "Connect your ERP. Import your building assessments.
 > Get audit-ready compliance reports every quarter, automatically."
 
 **For partners (One Click LCA, Rakennustieto):**
+
 > "We take your design-phase data and turn it into ongoing operations compliance.
 > Your output is our input. We grow each other's value."
 
@@ -369,14 +378,14 @@ Build here, prove here, expand to EU-27 with Finnish reference customers.
 
 ## 9. Immediate Next Steps
 
-| Priority | Action | Timeline |
-|----------|--------|----------|
-| 1 | Wire IFS Cloud connector to Supabase (make it real) | This week |
-| 2 | Build One Click LCA import (CSV/API) | Next week |
-| 3 | Update /buy page with operations compliance positioning | Next week |
-| 4 | Contact One Click LCA for partnership conversation | This month |
-| 5 | Build CSRD report template in Report Engine | This month |
-| 6 | First real ERP-connected demo with IFS sandbox | End of Feb |
+| Priority | Action                                                  | Timeline   |
+| -------- | ------------------------------------------------------- | ---------- |
+| 1        | Wire IFS Cloud connector to Supabase (make it real)     | This week  |
+| 2        | Build One Click LCA import (CSV/API)                    | Next week  |
+| 3        | Update /buy page with operations compliance positioning | Next week  |
+| 4        | Contact One Click LCA for partnership conversation      | This month |
+| 5        | Build CSRD report template in Report Engine             | This month |
+| 6        | First real ERP-connected demo with IFS sandbox          | End of Feb |
 
 ---
 

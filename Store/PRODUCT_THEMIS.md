@@ -18,6 +18,8 @@ mpn: "DWS-THEMIS-2026"
 
 **The Aegis Control Plane — Sovereign AI Governance for EU AI Act Article 12**
 
+_Part of the DWS IQ Industrial Intelligence suite — the governance control plane for the Aegis dual-use tier._
+
 ## One-Liner
 
 Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.
@@ -75,7 +77,7 @@ A drop-in control plane that turns any DWS IQ deployment — or any open-standar
 
 ## Demo Availability
 
-**Nokia Defence and named sovereign pilots:** live demo environment on UpCloud Helsinki, April 2026. Request access via `risto@onelifetime.world`.
+**Named sovereign pilots:** live demo environment on UpCloud Helsinki, Q2 2026 — reference customers available under NDA on request. Request access via `risto@onelifetime.world`.
 
 **General availability:** Q2 2026, targeted before 2 August 2026 EU AI Act high-risk enforcement.
 

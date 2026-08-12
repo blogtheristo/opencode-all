@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Added Related Standards entry for `DWS_DEPLOYMENT_STANDARD.md` v1.0. The Deployment Standard adopts forward-only migration as the canonical convention, recommends the expand / contract pattern for breaking schema changes, and uses the RTO / RPO targets defined here as the pre-deploy backup-freshness gate (< 24 h). No edit to existing sections 1–15.
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 4.3 (Classification for Filesystem Content Stores) — governance for `kb/raw/`, `kb/wiki/`, `kb/ephemeral/` (LLM-maintained knowledge base), ownership rules, PII prohibition, 7-day sweep of ephemeral, GDPR Art 17 erasure procedure for accidental PII ingest, secrets-scanner enforcement
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Major update — Aiven-first mandate locked, TimescaleDB 2.25.x Hypercore approved standard, 2026 comparison table (Hydra→Supabase, pg_mooncake→Databricks), Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), local dev parity, EU DPA/Schrems II analysis
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Initial creation — data storage governance, columnar/row policy, extension registry, EU regulatory compliance, retention policy, partitioning and compression standards
@@ -19,16 +20,16 @@ Session Links & References:
 Document Status:
 
 - Created: 12.03.2026
-- Last Modified: 13.03.2026
+- Last Modified: 12.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
 
 ---
 
-**Version:** 2.1
+**Version:** 2.2
 **Effective Date:** 2026-03-12
-**Last Updated:** 2026-04-10
+**Last Updated:** 2026-05-12
 **Status:** Active — Aiven-First Mandate Locked
 
 ---
@@ -219,13 +220,13 @@ Evaluate → Approve → Pilot (Developer plan) → Production (Startup plan) �
 
 Not all DWS data lives in Postgres. Some content stores are filesystem-backed markdown/PDF and follow different governance rules. They are still subject to classification and retention — just with file-level rather than row-level controls.
 
-| Path                     | Owner     | Classification        | PII allowed?          | Retention                                                       | Backup target          |
-| ------------------------ | --------- | --------------------- | --------------------- | --------------------------------------------------------------- | ---------------------- |
-| `kb/raw/`                | **Human** | INTERNAL (research)   | **NO**                | Indefinite — human curates; `dws kb lint` flags stale           | Git repo + ProtonDrive |
-| `kb/wiki/`               | **LLM**   | INTERNAL (derived)    | **NO**                | Indefinite — regenerated on each `dws kb compile`               | Git repo + ProtonDrive |
-| `kb/ephemeral/`          | LLM       | WORKING (transient)   | **NO**                | **7 days** — `scripts/daily/kb-cleanup.sh` sweeps older entries | Not backed up          |
-| `kb/kb.json`             | LLM       | INTERNAL (metadata)   | No                    | Indefinite — updated on each compile/lint                       | Git repo               |
-| `docs/field-notes/`      | Human     | INTERNAL (operations) | No                    | Indefinite — version history                                    | Git repo               |
+| Path                     | Owner     | Classification        | PII allowed?          | Retention                                                       | Backup target                   |
+| ------------------------ | --------- | --------------------- | --------------------- | --------------------------------------------------------------- | ------------------------------- |
+| `kb/raw/`                | **Human** | INTERNAL (research)   | **NO**                | Indefinite — human curates; `dws kb lint` flags stale           | Git repo + ProtonDrive          |
+| `kb/wiki/`               | **LLM**   | INTERNAL (derived)    | **NO**                | Indefinite — regenerated on each `dws kb compile`               | Git repo + ProtonDrive          |
+| `kb/ephemeral/`          | LLM       | WORKING (transient)   | **NO**                | **7 days** — `scripts/daily/kb-cleanup.sh` sweeps older entries | Not backed up                   |
+| `kb/kb.json`             | LLM       | INTERNAL (metadata)   | No                    | Indefinite — updated on each compile/lint                       | Git repo                        |
+| `docs/field-notes/`      | Human     | INTERNAL (operations) | No                    | Indefinite — version history                                    | Git repo                        |
 | `logs/email-audit.jsonl` | System    | RESTRICTED (audit)    | Yes (email addresses) | 7 years (financial record retention)                            | Sovereignty audit + ProtonDrive |
 
 **KB classification rules (enforced by operator discipline, not code):**
@@ -733,4 +734,13 @@ For edge development with pg_duckdb + pgvector: see `Admin/Acer-Veriton-GN100/po
 
 ---
 
-(c) 2026 Lifetime Oy — DWS Data Standard v2.0
+## 16. Related Standards
+
+- `DWS_DEPLOYMENT_STANDARD.md` v1.0 — Per-Surface deploy ontology. Adopts forward-only migration as the canonical convention for `supabase/migrations/`; recommends the **expand / contract** pattern for breaking schema changes (deploy 1 adds new column/table without removing old; deploy 2 backfills; deploy 3 removes old). The Deployment Standard's pre-deploy backup-freshness gate (< 24 h, per `scripts/db-daily-backup.sh`) reads the RTO / RPO targets defined in this standard. Two-tier HTAP deploy lanes (Aiven + GN100 edge) are governed there.
+- `DWS_SECURITY_STANDARD.md` v2.3 — RLS coverage, encryption at rest / in transit, backup encryption.
+- `DWS_SOVEREIGNTY_STANDARD.md` v1.2 — EU residency, CLOUD Act analysis, Aiven sovereign positioning.
+- `DWS_ARTICLE_12_LOGGING_STANDARD.md` v1.0 — EU AI Act Art. 12 audit log persistence (table `article12_audit_log`).
+
+---
+
+(c) 2026 Lifetime Oy — DWS Data Standard v2.2

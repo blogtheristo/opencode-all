@@ -33,7 +33,7 @@ import { AtlasAgent } from './workflow/atlas/atlas.agent.js';
 import { AthenaAgent } from './workflow/athena/athena.agent.js';
 import { HephaestusAgent } from './workflow/hephaestus/hephaestus.agent.js';
 import { IrisAgent } from './workflow/iris/iris.agent.js';
-import { HermesAgent } from './workflow/hermes/hermes.agent.js';
+import { MercuryAgent } from './workflow/mercury/mercury.agent.js';
 import { ApolloAgent } from './workflow/apollo/apollo.agent.js';
 import { VulcanAgent } from './workflow/industry/vulcan.agent.js';
 import { HeliosAgent } from './workflow/industry/helios.agent.js';
@@ -62,8 +62,32 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { IndustryAnalystAgent } from './industry-analyst.agent.js';
+import { OutreachLeadFinderAgent } from './outreach-lead-finder.agent.js';
+import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js';
+import { OutreachExecutorAgent } from './outreach-executor.agent.js';
+import { OutreachOrchestratorAgent } from './outreach-orchestrator.agent.js';
+import { OutreachImproverAgent } from './outreach-improver.agent.js';
+import { SalesManagerNewsletterAgent } from './sales-manager-newsletter.agent.js';
+import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
+// Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
+import { AegisAgent } from './aegis.agent.js';
+import { VestaAgent } from './vesta.agent.js';
+// Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
+import {
+  AIScopingConsultantAgent,
+  DWSDeploymentEngineerAgent,
+  ComplianceSpecialistAgent,
+  EdgeAIEngineerAgent,
+  EnterpriseModelEngineerAgent,
+  GenAISolutionArchitectAgent,
+  DevOpsEngineerAgent,
+  ProjectManagerAgent,
+} from './consultant/index.js';
+import { HelpdeskAgent } from './helpdesk.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
+import { withAgentSpan } from '../observability/tracing.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -152,7 +176,28 @@ export class AgentRegistry {
     });
 
     try {
-      const result = await agent.execute(context, input);
+      const result = await withAgentSpan(
+        name,
+        {
+          orgId: context.orgId,
+          sessionId: context.sessionId,
+          delegationDepth: currentDepth,
+          // Forward a real verdict when the runtime already issued one (e.g. a
+          // KYA gate check before this call) instead of leaving the span to
+          // default to "ungated".
+          kya: context.agentRuntime?.kya,
+        },
+        async (span) => {
+          const r = await agent.execute(context, input);
+          if (typeof r.confidence === 'number') {
+            span.setAttribute('dws.agent.confidence', r.confidence);
+          }
+          if (typeof r.metadata?.durationMs === 'number') {
+            span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
+          }
+          return r;
+        },
+      );
 
       // Emit completion event
       await eventBus.emit({
@@ -189,6 +234,7 @@ export class AgentRegistry {
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
+    this.register(new WorldModelLoopAgent());
 
     // Extraction & research agents (from DeepWiki/awesome-llm-apps)
     this.register(new DeepWikiExtractorAgent());
@@ -218,7 +264,7 @@ export class AgentRegistry {
     this.register(new AthenaAgent()); // Compliance Intelligence — EU regulatory
     this.register(new HephaestusAgent()); // Field & Site Intelligence — construction
     this.register(new IrisAgent()); // Research & Market Intelligence
-    this.register(new HermesAgent()); // Logistics & Operations
+    this.register(new MercuryAgent()); // Logistics & Operations
     this.register(new ApolloAgent()); // Content & Outreach
 
     // Climate IQ Industry Specialists — Roman/Greek gods per sector
@@ -261,6 +307,36 @@ export class AgentRegistry {
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
 
+    // Universal industry coverage — one parameterized agent for all 25 industries,
+    // closing the gap for the 12 without a dedicated pantheon specialist.
+    this.register(new IndustryAnalystAgent());
+    // Outreach Pipeline — 4-step DGX Spark-powered B2B outreach (2026-06-15)
+    this.register(new OutreachLeadFinderAgent()); // Step 1: find + score EU leads
+    this.register(new OutreachMessageCrafterAgent()); // Step 2: craft personalized email + LinkedIn drafts
+    this.register(new OutreachExecutorAgent()); // Step 3: deliver via SES / queue LinkedIn
+    this.register(new OutreachOrchestratorAgent()); // Coordinator: chains Steps 1–3
+    this.register(new OutreachImproverAgent()); // Outer loop: analyze outcomes → propose SKILL.md diffs
+    this.register(new SalesManagerNewsletterAgent()); // Stage 2: synthesize market_signals + news-to-signal into sales-manager.md format
+    // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
+    this.register(new AegisAgent()); // Vulnerability & patch SLA triage
+    this.register(new VestaAgent()); // Business-critical systems registry
+
+    // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026 (total 60)
+    this.register(new AIScopingConsultantAgent()); // Compliance-need assessment, product recommendation
+    this.register(new DWSDeploymentEngineerAgent()); // ERP integration (SAP, IFS, Visma, Monitor)
+    this.register(new ComplianceSpecialistAgent()); // CBAM, CSRD, ETS, NIS2, CER, EU AI Act
+    this.register(new EdgeAIEngineerAgent()); // NVIDIA Jetson/DGX Spark, air-gapped Aegis
+    this.register(new EnterpriseModelEngineerAgent()); // LWM ontology, Train Model SaaS
+    this.register(new GenAISolutionArchitectAgent()); // Claude Code, KYA, agent architecture
+    this.register(new DevOpsEngineerAgent()); // CI/CD, K8s, UpCloud Helsinki, security
+    this.register(new ProjectManagerAgent()); // JIRA, scheduling, customer documentation
+    // Helpdesk — AI-native support ticket triage. Off by default in production.
+    // Enable via HELPDESK_AGENT_ENABLED=true after kb/wiki/concepts/support/ policy seed has landed.
+    // In dev/test (NODE_ENV !== 'production') it registers automatically so tests can run.
+    if (process.env.HELPDESK_AGENT_ENABLED === 'true' || process.env.NODE_ENV !== 'production') {
+      this.register(new HelpdeskAgent()); // Support triage — drafts reply + recommendation; never sends
+    }
+
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
       agents: Array.from(this.agents.keys()),
@@ -294,6 +370,26 @@ export { eventBus } from './event-bus.js';
 export { BUILTIN_TOOLS, registerToolHandler } from './tools.js';
 export { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
 
+// Re-export DiffusionGemma parallel-diffusion local inference
+export {
+  createDiffusionGemmaClient,
+  resolveDiffusionGemmaConfig,
+  resolveDiffusionGemmaBaseUrl,
+  resolveDiffusionGemmaModel,
+  resolveDiffusionParams,
+  DIFFUSIONGEMMA_SPEC,
+  DIFFUSIONGEMMA_THROUGHPUT,
+  DIFFUSIONGEMMA_MODEL_ID,
+  DEFAULT_DIFFUSION_PARAMS,
+  MAX_BLOCK_TOKENS,
+} from './diffusiongemma.js';
+export type {
+  DiffusionGemmaSpec,
+  DiffusionDecodeParams,
+  DiffusionGemmaThroughput,
+  DiffusionGemmaClientOptions,
+} from './diffusiongemma.js';
+
 // Re-export model selector
 export {
   selectModel,
@@ -303,12 +399,8 @@ export {
   MODEL_CATALOG,
   ACER_GN100_BUDGET,
 } from './model-selector.js';
-export type {
-  ModelTier,
-  ModelOption,
-  ModelSelection,
-  EdgeResourceBudget,
-} from './model-selector.js';
+export type { ModelTier } from './types.js';
+export type { ModelOption, ModelSelection, EdgeResourceBudget } from './model-selector.js';
 
 // Re-export sandbox isolation module
 export { executeIsolatedAgent, getAgentFoundryConfig, getSandboxStage } from '../sandbox/index.js';

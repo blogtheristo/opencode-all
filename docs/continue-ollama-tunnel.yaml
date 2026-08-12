@@ -9,9 +9,9 @@ version: 1.0.0
 schema: v1
 
 models:
-  - name: Qwen 2.5 Coder 32B (tunnel)
+  - name: Qwen3-Coder 30B (tunnel)
     provider: ollama
-    model: qwen2.5-coder:32b
+    model: qwen3-coder:30b
     apiBase: http://127.0.0.1:11435
     roles:
       - chat
@@ -31,4 +31,4 @@ context:
 
 rules:
   - Start the tunnel first: pwsh -File scripts/Start-OllamaTunnel-Watchdog.ps1
-  - Model name must match `ollama list` on the server exactly (e.g. qwen2.5-coder:32b).
+  - Model name must match `ollama list` on the server exactly (e.g. qwen3-coder:30b).

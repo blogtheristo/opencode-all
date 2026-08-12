@@ -69,12 +69,15 @@ function checkTechStack() {
     const pkgMajor = pkgVersion.replace(/[^0-9.]/g, '').split('.')[0];
 
     if (mdMajor === pkgMajor) {
-      pass(`tech-stack:${c.name}`, `AGENTS.md says ${c.name} ${mdMatch[1]}, package.json has ^${pkgVersion}`);
+      pass(
+        `tech-stack:${c.name}`,
+        `AGENTS.md says ${c.name} ${mdMatch[1]}, package.json has ^${pkgVersion}`,
+      );
     } else {
       fail(
         `tech-stack:${c.name}`,
         `AGENTS.md says ${c.name} ${mdMatch[1]}, but package.json has ${pkgVersion}`,
-        `Update AGENTS.md §1 tech stack: ${c.name} ${pkgMajor}`
+        `Update AGENTS.md §1 tech stack: ${c.name} ${pkgMajor}`,
       );
     }
   }
@@ -89,15 +92,28 @@ function checkAgentList() {
   }
 
   const agentFiles = readdirSync(agentsDir)
-    .filter(f => f.endsWith('.agent.ts'))
-    .map(f => f.replace('.agent.ts', ''));
+    .filter((f) => f.endsWith('.agent.ts'))
+    .map((f) => f.replace('.agent.ts', ''));
 
-  // Extract agent names from AGENTS.md table in §7
+  // Extract agent names from the "Platform Agents (`src/agents/`)" table in §7 only.
+  // Scoped to that one table (not the whole file) so unrelated skills-registry
+  // tables elsewhere in the doc — markdown-only by design, see AI_AGENT_GUIDELINES
+  // §10 "thin harness, fat skills" — don't get flagged as missing code.
   const mdAgentNames = [];
-  const agentTableRegex = /\|\s*`([a-z-]+)`\s*\|/g;
-  let match;
-  while ((match = agentTableRegex.exec(agentsMd)) !== null) {
-    mdAgentNames.push(match[1]);
+  const platformAgentsSection = agentsMd.match(
+    /### Platform Agents \(`src\/agents\/`\)[\s\S]*?(?=\n### |\n## )/,
+  );
+  if (!platformAgentsSection) {
+    warn(
+      'agent-list',
+      'Could not find "### Platform Agents (`src/agents/`)" section in AGENTS.md §7',
+    );
+  } else {
+    const agentTableRegex = /\|\s*`([a-z-]+)`\s*\|/g;
+    let match;
+    while ((match = agentTableRegex.exec(platformAgentsSection[0])) !== null) {
+      mdAgentNames.push(match[1]);
+    }
   }
 
   // Check for agents in code but not in docs
@@ -109,17 +125,19 @@ function checkAgentList() {
       fail(
         `agent-list:${agent}`,
         `Agent "${agent}" exists in src/agents/ but NOT in AGENTS.md §7`,
-        `Add "${agent}" to Platform Agents table in AGENTS.md §7`
+        `Add "${agent}" to Platform Agents table in AGENTS.md §7`,
       );
     }
   }
 
   // Check for agents in docs but not in code
   for (const agent of mdAgentNames) {
-    const exists = agentFiles.includes(agent) ||
-      existsSync(join(agentsDir, `${agent}.agent.ts`));
+    const exists = agentFiles.includes(agent) || existsSync(join(agentsDir, `${agent}.agent.ts`));
     if (!exists) {
-      warn(`agent-list:${agent}`, `Agent "${agent}" listed in AGENTS.md but no .agent.ts file found`);
+      warn(
+        `agent-list:${agent}`,
+        `Agent "${agent}" listed in AGENTS.md but no .agent.ts file found`,
+      );
     }
   }
 }
@@ -146,7 +164,7 @@ function checkFilePaths() {
       fail(
         `file-paths:${label}`,
         `${path} referenced in AGENTS.md §15 but does NOT exist`,
-        `Update AGENTS.md §15 or create the missing file`
+        `Update AGENTS.md §15 or create the missing file`,
       );
     }
   }
@@ -160,7 +178,9 @@ function checkWorkflowCount() {
     return;
   }
 
-  const actualCount = readdirSync(workflowDir).filter(f => f.endsWith('.yml') || f.endsWith('.yaml')).length;
+  const actualCount = readdirSync(workflowDir).filter(
+    (f) => f.endsWith('.yml') || f.endsWith('.yaml'),
+  ).length;
 
   // Check what AGENTS.md claims
   const countMatch = agentsMd.match(/(\d+)\s+(?:CI\/CD\s+)?workflows/i);
@@ -172,7 +192,7 @@ function checkWorkflowCount() {
       fail(
         'workflow-count',
         `AGENTS.md claims ${claimed} workflows, but actual count is ${actualCount}`,
-        `Update AGENTS.md: "${actualCount} workflows" (was ${claimed})`
+        `Update AGENTS.md: "${actualCount} workflows" (was ${claimed})`,
       );
     }
   } else {
@@ -191,7 +211,7 @@ function checkLineCount() {
     fail(
       'line-count',
       `AGENTS.md is ${lines} lines — too long (target: ≤150, hard limit: ≤1200)`,
-      'Run agents-md-slim refactoring: move detail sections to docs/'
+      'Run agents-md-slim refactoring: move detail sections to docs/',
     );
   }
 }
@@ -239,8 +259,12 @@ if (jsonOutput) {
     }
   }
 
-  console.log(`\nGrade: ${results.failed.length === 0 ? 'A' : results.failed.length <= 2 ? 'B' : results.failed.length <= 5 ? 'C' : 'F'}`);
-  console.log(`Score: ${results.passed.length}/${total} passed, ${results.warnings.length} warnings, ${results.failed.length} failures\n`);
+  console.log(
+    `\nGrade: ${results.failed.length === 0 ? 'A' : results.failed.length <= 2 ? 'B' : results.failed.length <= 5 ? 'C' : 'F'}`,
+  );
+  console.log(
+    `Score: ${results.passed.length}/${total} passed, ${results.warnings.length} warnings, ${results.failed.length} failures\n`,
+  );
 }
 
 process.exit(results.failed.length > 0 ? 1 : 0);

@@ -10,17 +10,17 @@
 
 ## 🏰 Slide 1: The Fortress Advantage
 
-### We Built a 20-Moat Competitive Fortress
+### We Built a 19-Moat Competitive Fortress
 
 **Current Traction:**
-- ✅ €7k MRR live (Uber Finland, Bolt, Kela - 100% retention)
+- ✅ ~€7,000/month services and transport revenue — not software revenue; Uber, Bolt and Kela are dispatch operators of the licensed transport business, not software customers. Software pipeline: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
 - ✅ €500k Construction Heroes campaign launching Q1 2025
 - ✅ 20 competitive moats (€3-6M / 24-36 month entry barrier)
 - ✅ €6.7B EU funding-eligible (EIB SESI, Horizon Europe, Defence Equity)
 - ✅ 55B parameter Lifetime World Model (sub-100ms latency)
 
 **Fortress Structure:**
-- 🔴 **TIER 1 (Impossible)**: EU operations, Kela validation, NCC reference, InvestEU portal, tech stack
+- 🔴 **TIER 1 (Impossible)**: EU operations, InvestEU portal, tech stack
 - 🟠 **TIER 2 (Very Hard)**: NIS2 expertise, edge computing, CIDM patent, multi-tenant, B2B2G model  
 - 🟡 **TIER 3 (Moderate)**: Nordic languages, construction domain, dual products, offline, regulatory DNA
 - 🟢 **TIER 4 (Operational)**: €3.50/mo infrastructure, sub-100ms latency, data benchmarking, credits, positioning
@@ -37,13 +37,13 @@
 
 ### Pain Point 1: Compliance Burden (Validated)
 
-**Real Evidence from €7k MRR Base:**
+**Real Evidence from the Current Customer Base:**
 
 | Customer | Pain | Before | After |
 |----------|------|--------|-------|
-| Uber Finland | CSRD reporting | 60h/month | 8h/month (87% reduction) |
-| Kela | Audit readiness | 6 months | 4 weeks |
-| Bolt Finland | ETS compliance | €10k-50k penalties | €0 (compliant) |
+| Logistics Operator 1 | CSRD reporting | 60h/month | 8h/month (87% reduction) |
+| Public-sector Operator 1 | Audit readiness | 6 months | 4 weeks |
+| Logistics Operator 2 | ETS compliance | €10k-50k penalties | €0 (compliant) |
 
 **Data Fragmentation:** 5-10 systems, 35-45% tender rejection rate, 40-80 hours/month manual work
 
@@ -82,7 +82,7 @@
 
 **Tier 1: Climate Reporting Starter Bundle** (✅ VALIDATED)
 - Price: €6,500 setup + €1,999/year
-- Status: €7k MRR from Uber, Bolt, Kela
+- Status: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue is not software revenue
 - LTV: €90k | CAC: €6k | **LTV:CAC: 15:1** | Churn: 0%
 
 **Tier 2: Industrial Decisioning Platform** (🚀 LAUNCHING Q1 2025)
@@ -94,13 +94,12 @@
 
 ---
 
-## 📊 Slide 4: The 20-Moat Fortress
+## 📊 Slide 4: The 19-Moat Fortress
 
 ### €3-6M / 24-36 Month Entry Barrier
 
 **TIER 1: IMPOSSIBLE (€2.8M-6.25M / 24-36 months)**
 1. **EU/Nordic Operations**: €2.8M-6.25M GDPR/NIS2/AI Act compliance (US competitors must pay)
-2. **Government Validation**: Kela (4.2M citizens) = 24-month procurement advantage
 3. **NCC Reference**: €55B construction leader, 12,000+ subcontractor network
 4. **InvestEU Portal**: INPO-20254383 acknowledgment = €6.7B funding access
 5. **Tech Stack**: NVIDIA/Google/AWS/Groq partnerships (6-12 month hardware lead times)
@@ -189,7 +188,7 @@
 
 **Expected ROI:** 960% | **Break-even:** 4 customers
 
-### Revenue Roadmap: €7k → €60k MRR (12mo)
+### Revenue Roadmap: software pre-revenue → €60k MRR (12mo)
 
 Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: €40k (+5 Nordic) | **Q4 2026: €60k MRR = €900k ARR**
 
@@ -203,7 +202,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 
 ### Founder: Risto Anton Päärni
 
-15+ years enterprise software | Bootstrapped to €7k MRR (€0 external capital) | 100% retention | €500k campaign launch | 20-moat fortress with <€500k
+15+ years enterprise software | Bootstrapped on ~€7,000/month services and transport revenue, not software revenue (€0 external capital) | two enterprise pilots contracted Q1/2026 (€59,900 booked) | €500k campaign launch | 19-moat fortress with <€500k
 
 ### Finland = 6-12 Month Regulatory Head Start
 
@@ -226,7 +225,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 
 | Component | Value | Justification |
 |-----------|-------|---------------|
-| Base (42× MRR) | €2.9M | €7k × 42 = industry standard |
+| Base (42× MRR) | n/a | No software MRR to multiply — software is pre-revenue |
 | Fortress Premium | +€600k | €3-6M competitor barrier |
 | Campaign Optionality | +€300k | €500k launching Q1 2025 |
 | **Total** | **€3.8M** | Defensibility + catalysts |
@@ -244,7 +243,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 
 Campaign underperforms 50%? → Still €30-40k MRR, Series A €10-12M  
 Series A market deteriorates? → Break-even €35k MRR = profitable without raise  
-Competitor enters? → 20-moat fortress = 24-36mo delay minimum
+Competitor enters? → 19-moat fortress = 24-36mo delay minimum
 
 **Downside:** Even "everything wrong" = 2-3× return via acquisition (vs 4.8× Series A)
 
@@ -254,7 +253,7 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 
 ### Investment Thesis: 5 Fortress Pillars
 
-✅ **Proven Traction:** €7k MRR, 0% churn, government customer  
+✅ **Traction:** two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue funds development (not software revenue)  
 ✅ **Mandatory Market:** €150B forced purchases, Finland 6-12mo head start  
 ✅ **Technical Moat:** 120-300× faster, 24-36mo lead  
 ✅ **Strategic Funding:** €1-2.5M EU non-dilutive (€6.67-16.67 per €1 invested)  
@@ -271,7 +270,7 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 
 ### Next Steps
 
-**Week 1:** Due diligence access (GitHub, customer refs, 20-moat analysis)  
+**Week 1:** Due diligence access (GitHub, customer refs, 19-moat analysis)  
 **Week 2-3:** SAFE execution (YC template, DocuSign, wire transfer)  
 **Week 4:** Investor onboarding (quarterly updates, Slack, dashboard)
 
@@ -285,7 +284,7 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 
 | Metric | Current | Q1 2026 | Q4 2026 | Benchmark |
 |--------|---------|---------|---------|-----------|
-| MRR | €7k | €14k | €60k | - |
+| Software MRR | €0 (pre-revenue; the ~€7k/mo base is services and transport revenue) | €14k | €60k | - |
 | Customers | 5 | 8 | 25-30 | - |
 | Churn | 0% | <5% | <5% | 5-10% |
 | LTV:CAC T1 | 15:1 | 15:1 | 15:1 | 8:1 excellent |
@@ -299,13 +298,11 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 | Boardy.ai | €11M | €3M | US-based (€2.8M-6.25M EU barrier) |
 | Competitor B | €15M | €12M | Cloud-only (no sub-100ms) |
 | Competitor C | €40M | €25M | Generic AI (no domain expertise) |
-| **DWS IQ 6** | **€0** | **€84k** | **20-moat fortress** |
+| **DWS IQ 6** | **€0** | **€0 software** | **19-moat fortress** |
 
-### Customer References (Available)
+### Customer References
 
-**Uber Finland:** "60→8 hours/month CSRD reporting" | €70k 3-year value  
-**Kela:** "4 weeks vs 6 months audit readiness" | €90k 3-year value  
-**Bolt Finland:** "Zero compliance penalties" | €60k 3-year value
+Uber, Bolt and Kela are dispatch operators of Lifetime Oy's licensed transport business — commercial counterparties of that operation, not customers of DWS IQ, DWS IQ Aegis or any Lifetime software product. They are not software customer references. Software references: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), tracked under redacted LAND-* codes in the investor data room.
 
 ---
 
@@ -323,7 +320,7 @@ Business ID: 3180098-3 | Helsinki, Finland
 **Revision History:**
 - v1.0 (Dec 10, 2024): Initial deck
 - v2.0 (Dec 30, 2024): Strategic pivot to sub-100ms decisioning  
-- v3.0 (Dec 30, 2025): 20-moat fortress integration + optimized for PDF
+- v3.0 (Dec 30, 2025): 19-moat fortress integration + optimized for PDF
 
 **Prepared by:** Risto Anton Päärni, CEO | Approved: December 30, 2025
 

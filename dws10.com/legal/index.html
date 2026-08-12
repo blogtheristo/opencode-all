@@ -30,7 +30,28 @@
       content="Legal & Compliance Hub — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
     />
     <link rel="canonical" href="https://dws10.com/legal/index.html" />
+    <link rel="alternate" hreflang="en" href="https://dws10.com/legal/" />
+    <link rel="alternate" hreflang="fi" href="https://dws10.com/legal/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://dws10.com/legal/sv/" />
+    <link rel="alternate" hreflang="de" href="https://dws10.com/legal/de/" />
+    <link rel="alternate" hreflang="fr" href="https://dws10.com/legal/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://dws10.com/legal/" />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+
+    <!--
+    VERSION AND AGENT HISTORY
+    Version: 1.0
+
+    Sessions & Modifications:
+      - Version: 1.0 | Tool: Claude Code | Session: susanna-hypponen-card-tnq9cl | Date: 20.06.2026 | Changes: Formalized page version record; added vertical language bar (FI/SV/DE/FR/EN) + hreflang alternates and FI/SV/DE/FR language landing pages under /legal/<lang>/; data protection management framing, external-DPO advisory bench, ISO/IEC 42001 roadmap row, Digia Hub partner card (governed by DWS_LEGAL_STANDARD.md v1.2)
+
+    Document Status:
+      - Last Modified: 20.06.2026
+      - Publication Status: Production
+
+    Compliance:
+      - Applicable Regulations: SOC 2 Type II, ISO 27001, ISO/IEC 42001, GDPR, NIS2, EU AI Act, CSRD, EPBD, ETS2, CBAM
+    -->
 
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,6 +64,8 @@
 
     <!-- Shared Navigation -->
     <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+    <!-- 5-language vertical bar (page element) -->
+    <script src="../shared-assets/vertical-lang-bar.js" defer></script>
 
     <style>
       /* ============================================
@@ -905,6 +928,25 @@
       <ul>
         <li>
           <p>
+            <strong>Data Protection Management (Tietosuojajohtaminen):</strong>
+          </p>
+          <ul>
+            <li>
+              We run data protection as a <strong>managed, risk-based discipline</strong> — not a
+              one-off compliance badge. Leadership commitment, a planned governance model, and
+              continuous improvement underpin both effective risk management and a rising level of
+              data protection.
+            </li>
+            <li>
+              <strong>Aligned to ISO/IEC 42001</strong> (AI Management System) and
+              <strong>ISO/IEC 27001</strong>, with DPIA-driven prioritisation so effort follows the
+              highest-impact risks. See the <a href="../compliance/">Compliance Hub</a> for the
+              managed-program view.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>
             ⭐ <strong><a href="../privacy-policy/">Privacy Policy & GDPR Statement</a></strong>
           </p>
           <ul>
@@ -959,7 +1001,9 @@
           <strong>Data Protection Officer:</strong> Acting DPO – Risto Anton Päärni, CEO (<a
             href="mailto:dpo@lifetime.fi"
             >dpo@lifetime.fi</a
-          >).
+          >). The data protection management program is backed by
+          <strong>external data-protection and AI-governance expertise</strong> (advisory bench) to
+          ensure independent, risk-based oversight.
         </li>
         <li>
           <strong>AI Act Compliance:</strong> DWS IQ and Firehorse are classified as
@@ -1352,6 +1396,11 @@
               <td>Q4 2026</td>
             </tr>
             <tr>
+              <td><strong>ISO/IEC 42001 (AI Management System)</strong></td>
+              <td>Preparing</td>
+              <td>AI governance &amp; data protection management roadmap</td>
+            </tr>
+            <tr>
               <td><strong>SOC 2 Type II</strong></td>
               <td>Planned</td>
               <td>Q2 2027</td>
@@ -1383,7 +1432,9 @@
       </ul>
       <p>
         See our <a href="/.well-known/security.txt">security.txt</a> (RFC 9116) for machine-readable
-        security contact information.
+        security contact information, and the full
+        <a href="../compliance/vulnerability-disclosure-policy/">Vulnerability Disclosure Policy</a>
+        for scope, guidelines, and what to expect from us.
       </p>
 
       <div class="section-note">
@@ -1500,6 +1551,14 @@
             Subsidiary of Lifetime Oy
           </p>
         </div>
+        <div>
+          <h3>Partner Ecosystem</h3>
+          <p>
+            Digia Hub partner company<br />
+            NVIDIA Inception · Microsoft Founders Hub L1–L4<br />
+            EU-sovereign delivery partners
+          </p>
+        </div>
       </div>
 
       <hr />
@@ -1527,7 +1586,7 @@
         <li>
           <strong>KYA-S (Security Standard).</strong> Agent identity, behavioural guardrails,
           pre-execution controls. Proves which agent did what and that controls were active before
-          it acted. Enforcement latency &lt; 5 ms per decision.
+          it acted. Enforcement latency &lt; 5 ms per decision. <em>Note: KYA-S1 is distinct from EU AI Act compliance. The current reference implementation keeps proactive outbound actions limited to the named advisor-phase agents (compliance, customer-sat, sitesense), with other agents in silent_pilot by default.</em>
         </li>
         <li>
           <strong>KYA-O (Optimisation Standard).</strong> Agent Trust Score (ATS 0&ndash;100),
@@ -1631,5 +1690,6 @@
 
     <!-- Footer -->
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+      <script src="/shared-assets/motion/reveal.js" defer></script>
   </body>
 </html>

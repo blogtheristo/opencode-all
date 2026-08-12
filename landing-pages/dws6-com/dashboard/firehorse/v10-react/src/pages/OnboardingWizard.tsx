@@ -213,11 +213,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
         }));
       }
     } catch {
-      setErpTestResult({ status: 'ok', message: 'Connection test passed (offline mode)' });
-      setData((prev) => ({
-        ...prev,
-        erpConnection: prev.erpConnection ? { ...prev.erpConnection, verified: true } : null,
-      }));
+      setErpTestResult({ status: 'error', message: 'Connection test failed. Please retry when API is available.' });
     } finally {
       setErpTesting(false);
     }

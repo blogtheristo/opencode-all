@@ -12,7 +12,7 @@
 - One-liner variations
 
 **[TARGETING_QUICK_REFERENCE.md](TARGETING_QUICK_REFERENCE.md)** - Print-friendly one-page reference
-- Company snapshot (€7k MRR, 100% retention)
+- Company snapshot (€59,900 of contracted Q1/2026 pilots; ~€7,000/month services and transport revenue, not software revenue)
 - Target investor profiles (funds & angels)
 - Must-have criteria & red flags
 - Priority scoring system
@@ -44,7 +44,7 @@
 - Full pipeline from first touch to signed Captain
 - Stage definitions, success metrics, email implementation
 
-**[CAPTAIN_LINKEDIN_DM_GENERIC.md](CAPTAIN_LINKEDIN_DM_GENERIC.md)** - LinkedIn DM templates for all 16 industries
+**[CAPTAIN_LINKEDIN_DM_GENERIC.md](CAPTAIN_LINKEDIN_DM_GENERIC.md)** - LinkedIn DM templates for 16 captain hats (covering 25+ industries)
 - 4 templates: CDO/CTO, CSO/Sustainability, Board/Angel, Connection Request
 - Industry keyword map with regulation + pain point per vertical
 - Personalization checklist and daily cadence
@@ -91,7 +91,7 @@
 
 ### Institutional Investors (€100k–€500k)
 - **Stage**: Seed / Seed-extension → Series A 2026
-- **Current**: €7k MRR → **Target**: €900k ARR by 2026
+- **Current software base**: €59,900 of contracted Q1/2026 pilot value (two enterprise pilots at €29,950 each) plus four smaller landed accounts → **Target**: €900k ARR by 2026
 - **Sectors**: Climate tech, industrial decarbonization, construction/infra SaaS, ESG/CSRD automation, industrial AI
 - **Geography**: Nordics + DACH + Benelux + UK (+ EU-focused global funds)
 - **Portfolio**: Construction tech, infra/asset mgmt SaaS, climate/ESG reporting, regulatory SaaS, industrial automation
@@ -216,7 +216,7 @@
 | **README.md** | Complete strategy & workflow | Campaign setup, reference |
 | **DWS6_INVESTOR_PROFILES.md** | Detailed qualification guide | Deep research, scoring |
 | **CAPTAIN_ACQUISITION_FUNNEL.md** | 11-stage Captain funnel | End-to-end Captain acquisition |
-| **CAPTAIN_LINKEDIN_DM_GENERIC.md** | DM templates for 16 industries | Daily LinkedIn outreach |
+| **CAPTAIN_LINKEDIN_DM_GENERIC.md** | DM templates for 16 captain hats (25+ industries) | Daily LinkedIn outreach |
 | **CAPTAIN_WEBINAR_PITCH.md** | Webinar pitch + co-host strategy | Event-driven lead generation |
 | **CAPTAIN_REFERRAL_ASK.md** | Referral templates for customers | Warm intro pipeline |
 | **INDEX.md** | Navigation & overview | Finding the right doc |
