@@ -1,6 +1,6 @@
 # EU Commission + NATO DIANA Funding Instruments — Research Pack (Recovery Run)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -24,7 +24,7 @@ Document Status:
 - Classification: CONFIDENTIAL — Fundraising strategy
 - Document Type: Funding-instrument research pack (recovery)
 
----
+***
 
 ## 0. Who this is for (context carried from the roadmap)
 
