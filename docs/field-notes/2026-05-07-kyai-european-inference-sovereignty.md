@@ -36,8 +36,31 @@ Document Status:
 ***
 
 **Type:** Research Note / Architecture Concept
+**Date:** 2026-05-07
+**Author:** Risto Anton Päärni · risto.paarni@lifetime.fi
+**Location:** Helsinki, Finland
+**Context:** DWS IQ 6 — KYA+I standard design session; EU inference sovereignty positioning
 **Scope:** KYA Standard, inference routing, EU AI Act Art. 12, three-jurisdiction compliance
 **Owner:** Lifetime Oy · risto.paarni@lifetime.fi
+
+---
+
+## Ontology Tags
+
+- **Geography:** Europe > EU > Finland · EU Sovereign Cloud Zones
+- **Sector:** Technology > AI_Inference > EU_Regulatory_Compliance
+- **Entities:** Lifetime Oy, DWS IQ 6, KYA Standard, EU AI Act, GDPR, NIS2, Scaleway, OVHcloud, UpCloud, Hetzner, NVIDIA NIM EU, Groq
+- **Temporal Context:** 2026-Q2, Pre-EU AI Act Full Enforcement (August 2026)
+- **Confidence:** High
+
+---
+
+## Next Steps
+
+1. Implement `kya inference` CLI path and backend endpoint (`GET /api/v1/kya/inference/:sessionId`)
+2. Write EU inference jurisdiction metadata into Art. 12 audit log (Scaleway Object Storage)
+3. Validate IJS scoring thresholds with legal counsel before enforcing EU customer score floor
+4. Register KYA+I as a platform skill in `skills/manifest.json`
 
 ---
 
