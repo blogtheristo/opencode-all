@@ -18,7 +18,7 @@ Field Note · 6. elokuuta 2026 · Risto Anton Päärni · Espoo
 
 ## 1. Kyvykkyydet & orkestrointi — agenttidupleksointi ilman rekrytointia
 
-58 agenttia, 88 kyvykkyyttä kymmenessä Lifetime World Model -ontologialuokassa. Asiakkaalle tarjotaan ei "osta ohjelmisto" vaan "rooli täytettynä perjantaihin mennessä" kuuden kuukauden rekrytointikierroksen sijaan. 95 % tuotannon päätöksistä vaatii yhä ihmisen hyväksynnän — agentit nopeuttavat harkintaa, eivät korvaa sitä. Rakensimme työkalun — Keskeytyslaskurin — joka antaa euromäärän sille, mitä kyvykkyyskatko oikeasti maksaa: kontekstin uudelleenrakentaminen, momentumin menetys, yksi avainhenkilö joka lähtee ovesta prosessitiedon mukanaan.
+69 agenttia, 88 kyvykkyyttä kymmenessä Lifetime World Model -ontologialuokassa. Asiakkaalle tarjotaan ei "osta ohjelmisto" vaan "rooli täytettynä perjantaihin mennessä" kuuden kuukauden rekrytointikierroksen sijaan. 95 % tuotannon päätöksistä vaatii yhä ihmisen hyväksynnän — agentit nopeuttavat harkintaa, eivät korvaa sitä. Rakensimme työkalun — Keskeytyslaskurin — joka antaa euromäärän sille, mitä kyvykkyyskatko oikeasti maksaa: kontekstin uudelleenrakentaminen, momentumin menetys, yksi avainhenkilö joka lähtee ovesta prosessitiedon mukanaan.
 
 ## 2. Sääntely & compliance — automaatio ennen velvoitetta
 
