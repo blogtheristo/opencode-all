@@ -99,12 +99,12 @@ IJS is 0-100, computed at session start and re-evaluated on every provider switc
 
 ## Backend
 
-- `POST /api/v1/kya/snap` → `terminateChain()` in `src/identity/kya-engine.ts`
-- `GET  /api/v1/kya/status/:sessionId`
-- `GET  /api/v1/kya/inference/:sessionId` → returns `inference` block with IJS
+- Implemented: `POST /api/v1/kya/snap` → `terminateChain()` in `src/identity/kya-engine.ts`
+- Planned/future: `GET /api/v1/kya/status/:sessionId`
+- Planned/future: `GET /api/v1/kya/inference/:sessionId` → intended to return an `inference` block with IJS once the route is added
 - Auth: `Bearer $DWS_API_TOKEN` or `x-admin-key: $ADMIN_API_KEY` (timing-safe)
 - Webhooks: Shufti Pro → `/api/v1/kya/*` (`src/routes/kya-webhook.routes.ts`)
-- Art. 12 inference log → Scaleway Object Storage WORM (`dws-iq-aegis` project)
+- Planned/future: Art. 12 inference log archival to Scaleway Object Storage WORM (`dws-iq-aegis` project) once the log writer is implemented
 
 ## When NOT to use
 
