@@ -4,28 +4,30 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
-- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 20.04.2026 | Changes: Fixed Aiwen → Aiven spelling; reframed Aiven as (a) Finnish managed PostgreSQL provider and (b) EU AI Act Article 12 compliance overlay (per CLOUD_ENVIRONMENTS.md §7). Named Hetzner Helsinki as actual Tier 1 sovereign compute provider; removed Supabase from Aegis data path because it is US-incorporated.
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/sovereign-ai-jurisdiction-PmlIN | Date: 25.04.2026 | Changes: Added "Cross-Tier Partners — Per-Tier Graduation" section to the Partner Map. Two cross-tier rows: Shufti Pro (KYA identity verification) — Connect: DPA approved · Sovereign Infra & Aegis: exploration; Cohere + Aleph Alpha (sovereign AI platform, post-merger 24-Apr-2026) — Connect: fast-track to approved · Sovereign Infra & Aegis: exploration Q3 2026. Documents the graduation rule: cross-tier partners clear Connect first, escalate per tier as sovereignty review clears.
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 20.04.2026 | Changes: Fixed Aiven → Aiven spelling; reframed Aiven as (a) Finnish managed PostgreSQL provider and (b) EU AI Act Article 12 compliance overlay (per CLOUD_ENVIRONMENTS.md §7). Named Hetzner Helsinki as actual Tier 1 sovereign compute provider; removed Supabase from Aegis data path because it is US-incorporated.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 19.04.2026 | Changes: Initial product tier matrix (Aegis / Sovereign Infra / Connect), partner map, market segmentation, positioning statement
 
 Session Links & References:
 
 - Claude Code (claude/product-tiers-partners-Jbh0U): https://github.com/blogtheristo/dws6/commits/claude/product-tiers-partners-Jbh0U
-- Related: investor-outreach/INVESTOR_MEMO_AEGIS.md, Admin/AEGIS_SWOT_BOARDY.md, docs/CLOUD_ENVIRONMENTS.md
+- Claude Code (claude/sovereign-ai-jurisdiction-PmlIN): https://github.com/blogtheristo/dws6/commits/claude/sovereign-ai-jurisdiction-PmlIN
+- Related: investor-outreach/INVESTOR_MEMO_AEGIS.md, Admin/AEGIS_SWOT_BOARDY.md, docs/CLOUD_ENVIRONMENTS.md, docs/field-notes/2026-04-25-cohere-aleph-alpha-sovereign-ai-merger.md, docs/field-notes/2026-04-01-shufti-dpa-review-aegis-sovereignty.md
 
 Document Status:
 
 - Created: 19.04.2026
-- Last Modified: 19.04.2026
+- Last Modified: 25.04.2026
 - Language: English
 - Publication Status: ACTIVE (Internal — sales, partner, investor reference)
 
-Code-Version: 1.1
-Branch: claude/product-tiers-partners-Jbh0U
-Date: 2026-04-20
+Code-Version: 1.2
+Branch: claude/sovereign-ai-jurisdiction-PmlIN
+Date: 2026-04-25
 Owner: Risto Anton Päärni, Lifetime Oy
 
 ---
@@ -49,15 +51,23 @@ Single source of truth for the three DWS product tiers, their target customers, 
 
 Each tier is sold to a customer whose regulatory exposure determines what infrastructure they can legally use. The same agent stack is deployed differently per tier — same brain, different jurisdiction.
 
+**Updated 28.05.2026 — three-pillar refinement (v1.3).** The DWS6 product segmentation (Aegis / Sovereign Infra / Connect) is the EU-origin enterprise's *operational expression* of the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / Singapore) sovereignty model. The pillar model is canonical in `docs/PHD_FIREHORSE_EN.md` §14.23 and explained for general audiences in `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md` and the blog post `onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`. The vendor-tier model (T1/T2/T3 — `DWS_STANDARDS_LIBRARY.md` §3.6) operates *inside each pillar*, not above it.
+
+- **Aegis** = J1 (EU)-emphasis SKU. All three pillars at full EU-sovereign (T1 vendor class). R-Sac²-ready surface for the post-quantum migration (NIST FIPS 203 / 204 / 205, 2030–2035 cutover horizon).
+- **Sovereign Infra** = J1 (EU) baseline. Data pillar primary. Tech + Op pillars at EU operational sovereignty (T2 vendor class).
+- **Connect** = J2 (US) / J3 (Singapore) market-access SKU. Tech + Op pillars under non-EU jurisdiction. Data pillar deliberately light.
+
+KYA-track mapping per pillar: Data → SIB-track, Technology → CSB-track, Operational → EAB-track, ASB-track binding the identity spine. Procurement gates speak the four-track vocabulary instead of marketing language.
+
 ---
 
 ## Tier Matrix
 
-| Tier                         | Sovereignty Posture | Target Customer                              | Hosting                                                                                                | CLOUD Act Exposure | Pricing                                                             |
-| ---------------------------- | ------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
-| **DWS IQ Aegis**             | Full Sovereign      | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Aiven Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
-| **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                          | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
-| **DWS IQ Connect**           | Global              | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                       | Standard           | Tier-priced via partner channels                                    |
+| Tier                         | Sovereignty Posture | Target Customer                              | Hosting                                                                                          | CLOUD Act Exposure | Pricing                                                             |
+| ---------------------------- | ------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
+| **DWS IQ Aegis**             | Full Sovereign      | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
+| **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                    | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
+| **DWS IQ Connect**           | Global              | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                 | Standard           | Tier-priced via partner channels                                    |
 
 ---
 
@@ -65,13 +75,15 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 **Audience:** EU government agencies, defence contractors, dual-use manufacturing.
 
+**Control plane:** **Themis — the Aegis Control Plane.** DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging pipeline, Annex III systems registry, and policy gating bundled into one sovereign control plane. Ships with every Aegis deployment. Open-standard architecture documented in `DWS_ARTICLE_12_LOGGING_STANDARD.md`.
+
 **Sovereignty:**
 
 - EUDI Wallet native authentication
 - Zero CLOUD Act exposure (no US-incorporated vendor in the data path)
-- Hosting: **Hetzner Helsinki** (EU-incorporated compute, Finnish data centre)
+- Hosting: **UpCloud** / **Hetzner Helsinki** (EU-incorporated compute, Finnish data centre)
 - Database: **Aiven managed PostgreSQL** (Finnish-owned, EU region) — replaces Supabase for Aegis because Supabase is US-incorporated
-- Compliance overlay: **Aiven** Article 12 logging, reasoning lineage, immutable audit trail (per `docs/CLOUD_ENVIRONMENTS.md` §7 — Aiven is a compliance layer, not a separate cloud)
+- Control plane: **Themis** — hash-chained append-only ledger on Aiven Postgres, KYA-attested events, 6-month minimum retention, auditor JSON export under 10 business days
 - Article 26 deployer evidence on file
 
 **Use cases:**
@@ -119,6 +131,14 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 | **Nordic**               | Nordic region pack (FI, SE, NO, DK)         |
 | **World**                | EU-headquartered enterprise with global ops |
 
+**Add-on SKU:**
+
+| Add-on                               | Audience                                                                       | Price                          |
+| ------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------ |
+| **Themis — The Aegis Control Plane** | Tier 2 customers needing EU AI Act Article 12 compliance on their own EU cloud | **€14,990 one-time + €499/mo** |
+
+Themis is DWS's proprietary implementation of the open KYA standard — Article 12 logging pipeline, Annex III systems registry, policy gate, KYA policy proxy. Tier 2 customers buy it standalone and deploy on Scaleway / OVH / Red Hat OpenShift / Azure AI Foundry EU. Tier 1 customers (Aegis) receive it bundled at no extra cost. See `Store/PRODUCT_THEMIS.md` and `dws10.com/products/themis.html`.
+
 ---
 
 ## Tier 3 — DWS IQ Connect (Global)
@@ -145,6 +165,17 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 ## Partner Map
 
+### Cross-Tier Partners — Per-Tier Graduation
+
+Some partners deliver one capability across all three tiers but graduate per tier — Connect (Tier 3) clears first because its sovereignty posture is permissive; Sovereign Infra (Tier 2) and Aegis (Tier 1) graduate after stricter sovereignty review (EU-only sub-processor chain, Annex A inventory, residency assertions, sometimes addenda). Status is tracked **per tier**, not as a single flat row.
+
+| Capability                                | Partner                                                    | Tier 3 — Connect                                                     | Tier 2 — Sovereign Infra                                                          | Tier 1 — Aegis                                                                                                        |
+| ----------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Agent identity verification (KYA Layer 1) | **Shufti Pro**                                             | **DPA approved**                                                     | Exploration                                                                       | Exploration (addendum negotiation in flight per `docs/field-notes/2026-04-01-shufti-dpa-review-aegis-sovereignty.md`) |
+| Sovereign AI platform (model + serving)   | **Cohere + Aleph Alpha** (post-merger entity, 24-Apr-2026) | **Fast-track to approved** (Cohere North as Canada-anchored default) | Exploration Q3 2026 (Cohere North + Pharia on Scaleway / OVH / Red Hat OpenShift) | Exploration Q3 2026 (Pharia weights on Hetzner Helsinki, EU-only sub-processor chain)                                 |
+
+**Graduation rule:** A cross-tier partner is added at Connect first under a standard DPA, then escalated to Sovereign Infra and Aegis as the per-tier sovereignty review clears. Self-hosted Llama / Mistral remains the Aegis fallback for the sovereign AI platform row until the Tier-1 DPA clears.
+
 ### Tier 3 (Connect) — Global Hyperscaler & Regional Partners
 
 | Region      | Partner       | Program / Status                       |
@@ -166,14 +197,14 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 ### Tier 1 (Aegis) — Sovereign Stack
 
-| Function           | Partner / Provider                                 | Status                                         |
-| ------------------ | -------------------------------------------------- | ---------------------------------------------- |
-| Sovereign compute  | Hetzner Helsinki (EU-incorporated, FI data centre) | Active                                         |
-| Sovereign database | Aiven managed PostgreSQL (Finnish-owned, EU)       | Active                                         |
-| Compliance overlay | Aiven (EU AI Act Article 12 logging)               | Roadmap Q2 2026 (per CLOUD_ENVIRONMENTS.md §7) |
-| Identity           | EUDI Wallet                                        | Native (timeline per EU schedule)              |
+| Function           | Partner / Provider                                                    | Status                                                |
+| ------------------ | --------------------------------------------------------------------- | ----------------------------------------------------- |
+| Sovereign compute  | UpCloud (FI) / Hetzner Helsinki (EU-incorporated, FI data centre)     | Active                                                |
+| Sovereign database | Aiven managed PostgreSQL (Finnish-owned, EU)                          | Active                                                |
+| Control plane      | **Themis — The Aegis Control Plane** (DWS-proprietary, KYA-compliant) | Shipping with Aegis; full Article 12 pipeline Q2 2026 |
+| Identity           | EUDI Wallet                                                           | Native (timeline per EU schedule)                     |
 
-**Note:** Aiven is referenced twice above because it serves two distinct functions — (a) managed PostgreSQL hosting (the Finnish data platform company, aiven.io) and (b) the DWS compliance overlay that layers Article 12 logging on top of EU infrastructure. Supabase is **not** used in Aegis because it is US-incorporated and would void the zero-CLOUD-Act claim.
+**Note:** Aiven is a Finnish-owned managed-database SaaS (aiven.io) and is used at Aegis tier as the sovereign PostgreSQL provider and the storage backend for the Themis hash-chained event ledger. **Themis** is DWS's own proprietary control plane — not an Aiven product — implementing the open KYA standard (identity, Article 12 logging, Annex III registry, policy gating). Supabase is **not** used in Aegis because it is US-incorporated and would void the zero-CLOUD-Act claim.
 
 ---
 
@@ -202,7 +233,7 @@ If a prospect spans tiers (e.g. EU HQ with US subsidiary), default to the **high
 
 ## Cross-References
 
-- `CLOUD_ENVIRONMENTS.md` — US / EU cloud infrastructure + Aiven compliance overlay (§7)
+- `CLOUD_ENVIRONMENTS.md` — US / EU cloud infrastructure + Article 12 Logging Pipeline (§7)
 - `../DWS_DATA_STANDARD.md` — Data residency rules
 - `../DWS_SECURITY_STANDARD.md` — AI safety, enterprise security framework
 - `../Admin/SECURITY_COMPLIANCE.md` — Deployment controls and certifications
@@ -217,3 +248,5 @@ If a prospect spans tiers (e.g. EU HQ with US subsidiary), default to the **high
 - [ ] Document G42 partnership terms for Gulf/MENA (sovereign-eligible vs. Connect-only)
 - [ ] Map Sovereign Infra sub-tier pricing into `dws10.com/config/products.json`
 - [ ] Add Connect-tier ISV co-sell motion to `Partners/CERTIFIED_PARTNERS_PROGRAM.md`
+- [ ] **Shufti — graduate from Connect to Sovereign Infra and Aegis.** Close the addendum negotiation per `docs/field-notes/2026-04-01-shufti-dpa-review-aegis-sovereignty.md`; flip the Aegis cell from _Exploration_ to _DPA approved_ once signed. Sync `Store/PRODUCT_AEGIS.md` line 162 to per-tier wording (currently flat _Partnership pending_ — RED zone, human-applied).
+- [ ] **Cohere + Aleph Alpha — open Tier-3 DPA, scope Tier-1 / Tier-2 sovereignty review.** Tier 3: standard DPA on the merged entity to fast-track Connect. Tier 2: confirm EU-only processing for Pharia weights + Cohere North inference on Scaleway / OVH / OpenShift. Tier 1: assert zero non-EU data path for Pharia on Hetzner Helsinki, full Annex A sub-processor inventory. Target: Q3 2026.

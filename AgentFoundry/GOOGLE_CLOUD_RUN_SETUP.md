@@ -1,4 +1,5 @@
 # Google Cloud Run Setup - Quick Start Guide
+
 ## What Needs to Be Done on Google Cloud Run
 
 ---
@@ -13,11 +14,13 @@
 ## Overview
 
 Google Cloud Run will host:
+
 1. **Lead Scout Agent** (runs daily at 6 AM)
 2. **Outreach Agent** (runs daily at 9 AM, Mon-Fri only)
 3. **Director Dashboard** (always available, mobile-friendly)
 
 **Why Cloud Run?**
+
 - ✅ **Serverless** - Scales to zero when not in use (saves €)
 - ✅ **EU region** - europe-north1 (Finland) for GDPR compliance
 - ✅ **Cost-effective** - Pay only for actual execution time
@@ -28,6 +31,7 @@ Google Cloud Run will host:
 ## What You Need Before Starting
 
 ### 1. Google Cloud Account
+
 ```bash
 # Create free account (€300 credit for 90 days)
 # Visit: https://cloud.google.com/free
@@ -37,14 +41,14 @@ Google Cloud Run will host:
 
 ### 2. API Keys (collect these first)
 
-| Service | Key Name | Where to Get | Cost |
-|---------|----------|--------------|------|
-| **Anthropic** | ANTHROPIC_API_KEY | https://console.anthropic.com | $3/1M input tokens |
-| **Groq** | GROQ_API_KEY | https://console.groq.com | $0.59/1M tokens (cheaper!) |
-| **Apollo.io** | APOLLO_API_KEY | https://apollo.io/settings/integrations | $290/year |
-| **Clearbit is part of Hubspot** | CLEARBIT_API_KEY | https://clearbit.com/pricing | $99/month |
-| **Resend** | RESEND_API_KEY | https://resend.com/api-keys | $10/month |
-| **Supabase** | SUPABASE_URL, SUPABASE_KEY | https://supabase.com/dashboard | Included in DWS project |
+| Service                         | Key Name                   | Where to Get                            | Cost                       |
+| ------------------------------- | -------------------------- | --------------------------------------- | -------------------------- |
+| **Anthropic**                   | ANTHROPIC_API_KEY          | https://console.anthropic.com           | $3/1M input tokens         |
+| **Groq**                        | GROQ_API_KEY               | https://console.groq.com                | $0.59/1M tokens (cheaper!) |
+| **Apollo.io**                   | APOLLO_API_KEY             | https://apollo.io/settings/integrations | $290/year                  |
+| **Clearbit is part of Hubspot** | CLEARBIT_API_KEY           | https://clearbit.com/pricing            | $99/month                  |
+| **Resend**                      | RESEND_API_KEY             | https://resend.com/api-keys             | $10/month                  |
+| **Supabase**                    | SUPABASE_URL, SUPABASE_KEY | https://supabase.com/dashboard          | Included in DWS project    |
 
 ### 3. Install Google Cloud SDK
 
@@ -84,10 +88,15 @@ gcloud services enable \
   cloudscheduler.googleapis.com \
   secretmanager.googleapis.com \
   logging.googleapis.com \
-  monitoring.googleapis.com
+  monitoring.googleapis.com \
+  cloudtrace.googleapis.com \
+  telemetry.googleapis.com
 
 # Wait for APIs to be enabled...
 echo "✅ APIs enabled successfully"
+# Note: telemetry.googleapis.com (unified OTLP ingestion endpoint) is auto-activated
+# by GCP when logging/monitoring APIs are enabled (March 2026+), but listing it
+# explicitly ensures activation for projects created via API rather than console/CLI.
 ```
 
 ---
@@ -156,8 +165,13 @@ echo -n "YOUR-RESEND-KEY" | gcloud secrets create resend-api-key \
   --data-file=- \
   --replication-policy="automatic"
 
-# Slack Webhook
-echo -n "https://hooks.slack.com/services/YOUR/WEBHOOK/URL" | gcloud secrets create slack-webhook \
+# Generic notification webhook (Teams, ntfy/Gotify, or other approved broker)
+echo -n "https://notify.example.internal/dws-alerts" | gcloud secrets create notify-webhook \
+  --data-file=- \
+  --replication-policy="automatic"
+
+# WhatsApp alerting bundle: WHATSAPP_* env vars in dotenv format
+printf "WHATSAPP_PHONE_NUMBER_ID=YOUR-PHONE-NUMBER-ID\nWHATSAPP_ACCESS_TOKEN=YOUR-TOKEN\nWHATSAPP_DEFAULT_RECIPIENT=+358401234567\n" | gcloud secrets create whatsapp-alerting \
   --data-file=- \
   --replication-policy="automatic"
 
@@ -171,7 +185,7 @@ echo -n "your-linkedin-password" | gcloud secrets create linkedin-password \
   --replication-policy="automatic"
 
 # Grant service account access to secrets
-for secret in anthropic-api-key groq-api-key supabase-url supabase-service-key apollo-api-key clearbit-api-key resend-api-key slack-webhook linkedin-email linkedin-password; do
+for secret in anthropic-api-key groq-api-key supabase-url supabase-service-key apollo-api-key clearbit-api-key resend-api-key notify-webhook whatsapp-alerting linkedin-email linkedin-password; do
   gcloud secrets add-iam-policy-binding $secret \
     --member="serviceAccount:sales-agents@${PROJECT_ID}.iam.gserviceaccount.com" \
     --role="roles/secretmanager.secretAccessor"
@@ -331,18 +345,21 @@ echo "Share this URL with Sales HIL Director (login required)"
 ### Automatic Daily Execution
 
 **Lead Scout Agent:**
+
 - ⏰ Runs every day at **6:00 AM CET**
 - 🔍 Enriches up to 100 new leads
 - 📊 Calculates ICP scores
-- 🚨 Sends Slack notification with summary
+- 🚨 Sends WhatsApp/webhook notification with summary
 
 **Outreach Agent:**
+
 - ⏰ Runs Monday-Friday at **9:00 AM CET**
 - 📧 Drafts personalized email sequences
 - ⏸️ Waits for HIL Director approval (Advisor mode)
 - ✉️ Sends approved emails at optimal time
 
 **Director Dashboard:**
+
 - 📱 Always available (mobile-friendly)
 - 🔐 Requires authentication
 - 📊 Real-time metrics & approvals
@@ -352,18 +369,18 @@ echo "Share this URL with Sales HIL Director (login required)"
 
 ## Cost Breakdown (Monthly)
 
-| Service | Usage | Cost (EUR) |
-|---------|-------|------------|
-| **Cloud Run (Agents)** | ~30 requests/day, scale to zero | €5-10 |
-| **Cloud Run (Dashboard)** | Min 1 instance, low traffic | €15-20 |
-| **Cloud Build** | ~4 builds/month (deployments) | €2-5 |
-| **Cloud Scheduler** | 2 jobs, daily execution | €0.30 |
-| **Secret Manager** | 10 secrets, 60 accesses/day | €0.50 |
-| **Artifact Registry** | 2 Docker images (~500MB each) | €1-2 |
-| **LLM APIs (Anthropic + Groq)** | 100 leads/day enrichment | €50-80 |
-| **Data APIs (Apollo, Clearbit)** | Subscriptions | €178 |
-| **Email (Resend)** | 200 emails/week | €10 |
-| **TOTAL** | | **€260-306/month** |
+| Service                          | Usage                           | Cost (EUR)         |
+| -------------------------------- | ------------------------------- | ------------------ |
+| **Cloud Run (Agents)**           | ~30 requests/day, scale to zero | €5-10              |
+| **Cloud Run (Dashboard)**        | Min 1 instance, low traffic     | €15-20             |
+| **Cloud Build**                  | ~4 builds/month (deployments)   | €2-5               |
+| **Cloud Scheduler**              | 2 jobs, daily execution         | €0.30              |
+| **Secret Manager**               | 10 secrets, 60 accesses/day     | €0.50              |
+| **Artifact Registry**            | 2 Docker images (~500MB each)   | €1-2               |
+| **LLM APIs (Anthropic + Groq)**  | 100 leads/day enrichment        | €50-80             |
+| **Data APIs (Apollo, Clearbit)** | Subscriptions                   | €178               |
+| **Email (Resend)**               | 200 emails/week                 | €10                |
+| **TOTAL**                        |                                 | **€260-306/month** |
 
 **Compare to:** 3 human SDRs = €25,000-35,000/month (96% cost savings!)
 
@@ -371,20 +388,21 @@ echo "Share this URL with Sales HIL Director (login required)"
 
 ## Monitoring URLs (Bookmark These)
 
-| Resource | URL | Purpose |
-|----------|-----|---------|
-| **Cloud Run Services** | https://console.cloud.google.com/run?project=$PROJECT_ID | View all agents |
-| **Cloud Build History** | https://console.cloud.google.com/cloud-build/builds?project=$PROJECT_ID | Deployment logs |
-| **Cloud Scheduler** | https://console.cloud.google.com/cloudscheduler?project=$PROJECT_ID | Scheduled jobs |
-| **Logs Explorer** | https://console.cloud.google.com/logs/query?project=$PROJECT_ID | Debug errors |
-| **Secret Manager** | https://console.cloud.google.com/security/secret-manager?project=$PROJECT_ID | API keys |
-| **Director Dashboard** | $DASHBOARD_URL | Mobile agent control |
+| Resource                | URL                                                                          | Purpose              |
+| ----------------------- | ---------------------------------------------------------------------------- | -------------------- |
+| **Cloud Run Services**  | https://console.cloud.google.com/run?project=$PROJECT_ID                     | View all agents      |
+| **Cloud Build History** | https://console.cloud.google.com/cloud-build/builds?project=$PROJECT_ID      | Deployment logs      |
+| **Cloud Scheduler**     | https://console.cloud.google.com/cloudscheduler?project=$PROJECT_ID          | Scheduled jobs       |
+| **Logs Explorer**       | https://console.cloud.google.com/logs/query?project=$PROJECT_ID              | Debug errors         |
+| **Secret Manager**      | https://console.cloud.google.com/security/secret-manager?project=$PROJECT_ID | API keys             |
+| **Director Dashboard**  | $DASHBOARD_URL                                                               | Mobile agent control |
 
 ---
 
 ## Common Tasks After Setup
 
 ### View Recent Logs
+
 ```bash
 # Lead Scout Agent (last 100 entries)
 gcloud logging read \
@@ -394,6 +412,7 @@ gcloud logging read \
 ```
 
 ### Trigger Manual Agent Run
+
 ```bash
 # Run Lead Scout outside of schedule
 gcloud scheduler jobs run lead-scout-daily-run --location=$REGION
@@ -403,6 +422,7 @@ gcloud scheduler jobs run outreach-daily-run --location=$REGION
 ```
 
 ### Update Agent Configuration
+
 ```bash
 # Edit YAML config locally
 vim AgentFoundry/configs/production/lead-scout-001.yaml
@@ -412,6 +432,7 @@ gcloud builds submit --config=AgentFoundry/cloudbuild.yaml .
 ```
 
 ### Pause Agent Temporarily
+
 ```bash
 # Pause scheduler (agent won't run automatically)
 gcloud scheduler jobs pause lead-scout-daily-run --location=$REGION
@@ -421,6 +442,7 @@ gcloud scheduler jobs resume lead-scout-daily-run --location=$REGION
 ```
 
 ### Update Secret (e.g., API key expired)
+
 ```bash
 # Update Anthropic API key
 echo -n "sk-ant-NEW-KEY" | gcloud secrets versions add anthropic-api-key --data-file=-
@@ -435,6 +457,7 @@ echo -n "sk-ant-NEW-KEY" | gcloud secrets versions add anthropic-api-key --data-
 ### Issue: "Permission denied" errors
 
 **Fix:**
+
 ```bash
 # Ensure service account has correct permissions
 gcloud projects add-iam-policy-binding $PROJECT_ID \
@@ -445,6 +468,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 ### Issue: Build fails
 
 **Fix:**
+
 ```bash
 # Check Cloud Build logs
 gcloud builds list --limit=5
@@ -456,6 +480,7 @@ gcloud builds log BUILD_ID
 ### Issue: Agent not executing
 
 **Fix:**
+
 ```bash
 # Check scheduler status
 gcloud scheduler jobs describe lead-scout-daily-run --location=$REGION
@@ -483,6 +508,7 @@ After completing this setup:
 **Setup Complete! 🎉**
 
 You now have:
+
 - ✅ 2 AI sales agents running automatically
 - ✅ Mobile director dashboard for monitoring
 - ✅ Secure secret management

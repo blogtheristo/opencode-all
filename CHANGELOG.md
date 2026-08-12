@@ -5,20 +5,94 @@ All notable changes to DWS IQ 6 are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- DWS Factory Router (`src/factory/`): evidence-based cheap→strong model
+  escalation for agent runs. Deterministic detectors (action/observation
+  loops, repeated error classes, ping-pong, rewrite-retest thrash,
+  steps-since-progress, budget burn) feed a one-way ladder
+  (`continue` → `switch_model` → `restart_clean` → `escalate_human`) with
+  budget-stop, capability-before-retry, and asymmetric-hysteresis
+  guardrails. Fully offline — no external decision service. CLI:
+  `npm run factory:route` (structured JSON + verdict exit codes); skill:
+  `/factory-route`. Adapted from codejunkie99/sageroute (MIT) per the
+  adopt/adapt decision in
+  `docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md`.
+
+- Labor-anchored product catalog (T0–T4, Blue/pilot) wired across
+  `dws10.com/config/products.json` and the `landing-pages/` mirror.
+- 64 Blue/pilot SKUs: 39 single-agent rows (CMP / SS / MO / ED / SG /
+  CONSTR / LOG / SOV / QG / CSAT / LF / CS / SEO / DW / VIA / TH +
+  per-outcome meters), 6 Function/Workforce bundles, 9 Industry Pod
+  add-ons (Mars/Helios/Vulcan/Talos/Gaia/Ceres/Neptune/Prometheus/BESS),
+  10 Land overlay engagements.
+- §13.8 in `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` documenting the
+  labor-anchored SKU schema (`sku`, `tier`, `priceUnit`, `agents[]`,
+  `replaces{role,fteCount,fullyLoadedAnnualCostEUR}`, `nextUpsellSku`,
+  `deploymentColor`) and the public-render rule that bans SaaS-comparison
+  columns.
+- `scripts/load-labor-catalog.py` — idempotent loader for the catalog.
+- `scripts/validate-pricing.ts` + `.ps1` — schema/mirror/version-monotonic
+  validator. Wired into `.githooks/pre-commit` and a new CI workflow
+  `.github/workflows/validate-pricing.yml`.
+- `src/services/upsell-rules.ts` — pure-function trigger engine implementing
+  the §5 ladder rules with Zod-validated inputs.
+- Dashboard upsell banner on `dws6.com/dashboard/` — one card, no nags.
+- Public price-list redesign with the "Price AI like labor, not like a tool."
+  hero, tier badges, Replaces line, and Next Upsell link.
+- `/upsell-map/` page on dws10.com (mirrored) rendering the §5 ASCII ladder.
+- OneLifetime price-list + upsell-map front doors pointing to the canonical
+  dws10.com pages.
+- Tests: 25 new tests (15 upsell-rules + 10 labor-catalog) covering rule
+  logic, schema validity, mirror sync, the LAND-\* engagement+agent rule,
+  and Green/Blue HTML snapshots.
+- **Fable-incident backlog merge (2026-07-05):** cleared 9 low-risk content
+  sessions stranded by the Claude Fable 5 outage —
+  - Field notes: CUDA 13.0 / JetPack 7.0 for Jetson Thor (#1532); Sergey Brin
+    on Frontier AI Q&A (#1545); Palantir FDE Wahlqvist on US open-weight models
+    & LWM provenance implications (#1556).
+  - Docs: DWS IQ Aegis development roadmap — IQM-style phase chart (#1550);
+    AWS partner webinar decision memo + acceleration strategy (#1560).
+  - Sales/GTM: Istekki Oy SoTe-ICT market dialogue (#1561); outreach batch 2 —
+    Consti, GRK Infra, Kreate (#1454); kurso.se taxi lead research note (#1533).
+  - CV: v161 — Lifetime World project + Microsoft Founders Hub Level 4 (#1542).
+- `config/llm-registry.json` + `scripts/weekly/llm-currency-check.sh` +
+  `docs/LLM_UPDATE_TASK.md`: weekly LLM-currency task for subscription products
+  (model-drift detection, SES email report, HIC-gated `apply-model-updates.ts`).
+  Migrated deprecated `claude-sonnet-4-*` → `claude-sonnet-5` across agents (#1566).
+
+### Changed
+
+- `priceVersion` 1.13 → 1.14 (labor-anchored baseline).
+- `scripts/generate-green-pricelist.py` and `generate-pilot-pricelist.py`
+  now render tier badges, Replaces lines, and the Next Upsell SKU on every
+  row. Green list filters out every `deploymentColor:"blue"` SKU.
+
+### Governance
+
+- Every SKU lands `deploymentColor:"blue"` (pilot). No Green flips occur
+  in this changeset — flips require explicit Risto sign-off per
+  `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD` §5.
+
 ## [1.4.0] - 2026-04-02
 
 ### Added
+
 - Investor outreach pipeline with daily morning brief (auto-discovered by day-runner)
 - PII safety gate: investor emails loaded from gitignored file with `--dry-run`
 - Arctic 15 Captain Seat targets with named PE contacts
 - Liquidity Engine positioning for PE secondaries outreach
 
 ### Fixed
+
 - CapMan target correction: Heidi Erha to Pia Kall (Managing Partner, Buyout)
 
 ## [1.3.0] - 2026-03-26
 
 ### Added
+
 - DocuSign eSignature integration for NDA signature tracking
 - NDA signature verification script (`scripts/verify-nda-signatures.ts`)
 - Mutual NDA signing flow (`sendMutualNDA()` + CLI send command)
@@ -27,6 +101,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Compliance Engine V1.0 — agent wired to real scoring engine
 
 ### Fixed
+
 - Replace axios with native fetch in DocuSign client
 - Correct Qantic address umlaut (Lohmuhlenstrasse 65)
 - BESS taxonomy `substantialContribution` always false — use discharge-hour grid factors
@@ -38,6 +113,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.2.0] - 2026-03-21
 
 ### Added
+
 - GitHub security policy (SECURITY.md)
 - P0 backend hardening + dashboard resilience for V1 MVP
 - P1 integration tests, real carbon data, onboarding emails
@@ -47,6 +123,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - 21 Finnish bilingual campaign posts with landing-pages sync
 
 ### Fixed
+
 - flatted >=3.4.0 override across all packages (stack overflow DoS)
 - ajv >=6.14.0 override in src/cloudflare (ReDoS)
 - fastapi >=0.116.0 in mcp-hub for starlette >=0.49.1 compat
@@ -54,12 +131,14 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Merge conflict in package.json — keep overrides + main updates
 
 ### Security
+
 - Validated Mock Data Rule added to CLAUDE.md (Rule #6)
 - Real EU data pipeline replaces mock compliance scoring
 
 ## [1.1.0] - 2026-03-15
 
 ### Added
+
 - API versioning middleware (`X-API-Version` header)
 - Agent integration tests
 - Email analytics tracking
@@ -72,15 +151,18 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - HIL escalations migration and sovereignty-assess skill
 
 ### Fixed
+
 - Session-stop hook infinite loop
 
 ### Changed
+
 - RC2 backend hardening — production middleware wired into app.ts
 - RC3+RC4 hardening — test coverage gate, auth tests, dashboard fix
 
 ## [1.0.0] - 2026-03-06
 
 ### Added
+
 - **DWS IQ 6 Platform** — Multi-agent orchestration for enterprise industrial AI
 - **18 AI Agents**: Compliance, SiteSense, MaterialOracle, ScheduleGenius, CustomerSat, Construction, Logistics, EmissionsDataAnalyst, QualityGate, SovereigntyMonitor, Argus, DeepWikiExtractor, Designer, SalesOutreach, Viability, ComplianceResearcher, Article12Logger, Unit Normalization
 - **MCP Server** at `/mcp` — JSON-RPC 2.0 with Streamable HTTP Transport
@@ -99,6 +181,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Claude Code Skills** (17 skills in `.claude/commands/`)
 
 ### Security
+
 - Helmet CSP with strict directives
 - CORS allowlist (no wildcard)
 - Rate limiting (100 req/15min general, 5 req/15min auth)

@@ -22,7 +22,7 @@ Changes v1.3 (2026-04-22):
 - Doc title renamed: "Godagent Architecture" → "Industrial Specialist Agent Architecture"
 - Added canonical "Terminology — DWS Skilled Taxonomy" section at top (source of truth for CLAUDE.md "DWS Skilled Taxonomy Rule")
 - Three-tier pattern codified: `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>`
-- Three active axes: Agents, Workflows, Jurisdictions (EU / US / Aiwen)
+- Three active axes: Agents, Workflows, Jurisdictions (EU / US / ASEAN)
 - Count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped)
 - Scope exclusions preserved: Docker infrastructure identifiers (`dws-godagent-llm`, `dws-godagent:latest`, label `dws-godagent`) in §§ 2.4–2.6 are NOT renamed — that is a coordinated infra change, not a doc PR
 - Body prose of §§ 1–7 is migrated incrementally; the Terminology section at top declares deprecation authoritatively
@@ -66,13 +66,13 @@ Skilled <Axis>                 ← BRAND   (what we SELL)
 
 | Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
 | ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
-| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiwen) |
+| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, ASEAN) |
 | 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
 | 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
 
 - **Agents.** Industry-scoped AI agents that extend the base Athena EU-compliance layer with sector-specific knowledge. The registry is § 3 of this document.
 - **Workflows.** Deterministic compositions of agents triggered by schedule or event. "Autonomous" appears in the brand tier because workflows execute without a human in the loop; agents have it implied.
-- **Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US, and Aiwen (see `docs/CLOUD_ENVIRONMENTS.md` for data-residency architecture). "Regulatory" appears in the spec tier because a jurisdiction is defined by its regulatory surface, not its geography alone.
+- **Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD) and US, with ASEAN data-residency architecture planned (see `docs/CLOUD_ENVIRONMENTS.md`). "Regulatory" appears in the spec tier because a jurisdiction is defined by its regulatory surface, not its geography alone.
 
 ### Workflow Mechanism Descriptors (Spec-Tier Only)
 
@@ -280,53 +280,121 @@ await docker.createContainer({
 
 ---
 
-## 3. Godagent Registry — 10 Shipped + 10 Roadmap 2027
+## 3. Industry Specialist Agent Registry — 50 Agents (2026-Q2)
 
-### 3.1 SHIPPED — 10 Godagentit (tuotannossa / toteutettavissa)
+_Canonical registry. Updated: 2026-05-03. Source of truth: `src/agents/index.ts`._
+
+**50 agents total** across 5 groups: Core Orchestration (6), Utility (18), SEO Pipeline (5), Industry Specialists (11), Intelligence Expansion (10).
+
+### 3.1 Core Orchestration Agents (6)
+
+Sijainti: `src/agents/workflow/`
+
+| #   | Agent          | Role                                 | Book Type  | File                                      |
+| --- | -------------- | ------------------------------------ | ---------- | ----------------------------------------- |
+| 1   | **Atlas**      | Chief of Staff — synthesis & routing | 1, 2, 8    | `workflow/atlas/atlas.agent.ts`           |
+| 2   | **Athena**     | EU Compliance Intelligence           | 10, 21, 22 | `workflow/athena/athena.agent.ts`         |
+| 3   | **Hephaestus** | Field & Site Intelligence            | 20, 7      | `workflow/hephaestus/hephaestus.agent.ts` |
+| 4   | **Iris**       | Research & Market Intelligence       | 4, 6       | `workflow/iris/iris.agent.ts`             |
+| 5   | **Hermes**     | Logistics & Operations Intelligence  | 8, 9       | `workflow/hermes/hermes.agent.ts`         |
+| 6   | **Apollo**     | Content & Outreach                   | 15, 16     | `workflow/apollo/apollo.agent.ts`         |
+
+### 3.2 Utility Agents (18)
+
+Sijainti: `src/agents/`
+
+| #   | Agent                    | Role                           | Book Types | Status |
+| --- | ------------------------ | ------------------------------ | ---------- | ------ |
+| 7   | **SiteSense**            | Physical World Sensing / IoT   | 20, 29     | DONE   |
+| 8   | **ScheduleGenius**       | Temporal Planning              | 2, 8       | DONE   |
+| 9   | **MaterialOracle**       | Material Knowledge Retrieval   | 4, 9       | DONE   |
+| 10  | **CustomerSat**          | Conversational + Feedback      | 15, 17     | DONE   |
+| 11  | **Viability**            | Financial Advisory             | 25, 11     | DONE   |
+| 12  | **DeepWikiExtractor**    | Document Intelligence          | 5, 4       | DONE   |
+| 13  | **EmissionsDataAnalyst** | Data Analysis                  | 9, 6       | DONE   |
+| 14  | **ComplianceResearcher** | Regulatory Research            | 4, 6       | DONE   |
+| 15  | **SalesOutreach**        | Sales Automation               | 15, 17     | DONE   |
+| 16  | **Construction**         | Construction Domain Logic      | 8, 30      | DONE   |
+| 17  | **Logistics**            | Supply Chain                   | 8, 9       | DONE   |
+| 18  | **Compliance**           | EU Compliance Scoring          | 10, 21     | DONE   |
+| 19  | **QualityGate**          | Verification & Validation      | 10, 22     | DONE   |
+| 20  | **Argus**                | Security Monitor / Orbital SAR | 13, 20     | DONE   |
+| 21  | **SovereigntyMonitor**   | Data Sovereignty               | 13, 21     | DONE   |
+| 22  | **Designer**             | Design-to-Code Bridge          | 16, 12     | DONE   |
+| 23  | **KB**                   | Knowledge Base Management      | 3, 4       | DONE   |
+| 24  | **SyntheticData**        | Synthetic Data Pipeline        | 14, 9      | DONE   |
+
+### 3.3 SEO Sales Pipeline (5)
+
+Sijainti: `src/agents/seo/`
+
+| #   | Agent                      | Role                      | Book Types |
+| --- | -------------------------- | ------------------------- | ---------- |
+| 25  | **KeywordIntent**          | Keyword & Intent Analysis | 4, 17      |
+| 26  | **CompetitorSurveillance** | Competitive Intelligence  | 4, 6       |
+| 27  | **ContentBrief**           | Content Strategy          | 16, 2      |
+| 28  | **SeoAudit**               | Technical SEO Audit       | 10, 9      |
+| 29  | **LeadFeedback**           | Sales Lead Scoring        | 17, 15     |
+
+### 3.4 Industry Specialists / Sector Agents (11)
 
 Sijainti: `src/agents/workflow/industry/`
 
-LLM-strategia (Boardy #2): **Qwen 2.5 72B** primary kaikille. Claude Haiku 4.5 fallback.
-Specialist override (DeepSeek, Mistral, Gemma) vain Enterprise-tier asiakkaille.
+LLM-strategia (Boardy #2): **Qwen 2.5 72B** primary. Claude Haiku 4.5 fallback.
+Specialist override vain Enterprise-tier.
 
-| #   | Godagent       | Toimiala                 | Avainregulaatio                         | LLM          | Tiedosto              | Status  |
-| --- | -------------- | ------------------------ | --------------------------------------- | ------------ | --------------------- | ------- |
-| 1   | **Vulcan**     | Steel & Metals           | ETS Phase 4, CBAM CN 72xx               | Qwen 2.5 72B | `vulcan.agent.ts`     | DONE    |
-| 2   | **Mars**       | Construction & Buildings | EPBD recast, EN 15978, CPR              | Qwen 2.5 72B | `mars.agent.ts`       | DONE    |
-| 3   | **Helios**     | Energy & Utilities       | RED III, ETS, capacity mechanisms       | Qwen 2.5 72B | `helios.agent.ts`     | DONE    |
-| 4   | **Gaia**       | Automotive & Transport   | CO2 fleet standards, Euro 7             | Qwen 2.5 72B | `gaia.agent.ts`       | DONE    |
-| 5   | **Neptune**    | Maritime & Shipping      | FuelEU Maritime, ETS maritime           | Qwen 2.5 72B | `neptune.agent.ts`    | DONE    |
-| 6   | **Ceres**      | Agriculture & Forestry   | CAP, LULUCF, Scope 3, soil carbon       | Qwen 2.5 72B | `ceres.agent.ts`      | DONE    |
-| 7   | **Prometheus** | Cement & Concrete        | ETS (highest benchmark), CBAM           | Qwen 2.5 72B | `prometheus.agent.ts` | DONE    |
-| 8   | **Diana**      | Healthcare & Pharma      | CSRD ESRS S1, laakeketju GMP            | Qwen 2.5 72B | `diana.agent.ts`      | TODO P1 |
-| 9   | **Minerva**    | Chemicals                | REACH, CBAM CN-koodit, Seveso III       | Qwen 2.5 72B | `minerva.agent.ts`    | TODO P1 |
-| 10  | **Silvanus**   | Pulp & Paper             | ETS, kestavan metsatalouden sert., EUDR | Qwen 2.5 72B | `silvanus.agent.ts`   | TODO P1 |
+| #   | Agent            | Sector                           | Key Regulation                 | File                     | Status  |
+| --- | ---------------- | -------------------------------- | ------------------------------ | ------------------------ | ------- |
+| 30  | **Vulcan**       | Steel & Metals                   | ETS Ph.4, CBAM CN 72xx         | `vulcan.agent.ts`        | DONE    |
+| 31  | **Helios**       | Energy & Renewables              | RED III, ETS, capacity         | `helios.agent.ts`        | DONE    |
+| 32  | **Neptune**      | Maritime & Shipping              | FuelEU Maritime, ETS           | `neptune.agent.ts`       | DONE    |
+| 33  | **Ceres**        | Agriculture & Forestry           | CAP, LULUCF, soil carbon       | `ceres.agent.ts`         | DONE    |
+| 34  | **Prometheus**   | Hydrogen & Energy Transition     | ETS, CBAM, RED III H2          | `prometheus.agent.ts`    | DONE    |
+| 35  | **Mars**         | Construction & Buildings         | EPBD, EN 15978, CPR            | `mars.agent.ts`          | DONE    |
+| 36  | **Gaia**         | Cement & Earth Materials         | ETS benchmark, CBAM            | `gaia.agent.ts`          | DONE    |
+| 37  | **BESS**         | Battery Energy Storage           | EU Battery Reg. 2023/1542      | `bess.agent.ts`          | DONE    |
+| 38  | **Talos**        | Aluminium (CBAM indirect)        | CBAM CN 76xx, ETS grid         | `talos.agent.ts`         | DONE    |
+| 39  | **Juno**         | Chemical & Pharmaceutical        | REACH, CBAM CN 3102/2814       | `juno.agent.ts`          | DONE ✨ |
+| 40  | **MercuryTrade** | Trade Intelligence / CBAM Import | CBAM Reg. 2023/956 all sectors | `mercury-trade.agent.ts` | DONE ✨ |
 
-**Ceres** kattaa myos entisen Floran toimialueen (Boardy #8). Sub-domain promptit:
+**Ceres** kattaa myos entisen Floran toimialueen (Boardy #8):
+`ceres.mode` = `'forestry'` | `'crops'` | `'livestock'` | `'soil-carbon'`
 
-- `ceres.mode = 'forestry'` — metsatalous, LULUCF, hiilinielu
-- `ceres.mode = 'crops'` — peltoviljelyt, CAP-tuet, typpipaastot
-- `ceres.mode = 'livestock'` — kotielaimet, metaani, NFR
-- `ceres.mode = 'soil-carbon'` — maaperan hiili, carbon farming
+### 3.5 Intelligence Expansion — 12 New Agents (2026-05-03)
 
-### 3.2 ROADMAP 2027 — 10 Godagentit (ei toteuteta viela)
+Sijainti: `src/agents/` — Added to fill all 30 book types from "AI Engineering" (Chip Huyen, O'Reilly 2025).
 
-Boardy #7: "Sijoittaja joka katsoo 13 puuttuvaa deputya nakee scope creep, ei ambition."
+| #   | Agent            | Role                                            | Book Types | File                     |
+| --- | ---------------- | ----------------------------------------------- | ---------- | ------------------------ |
+| 39  | **Mnemosyne**    | Long-term Memory Oracle                         | 3          | `mnemosyne.agent.ts`     |
+| 40  | **Themis**       | Legal Intelligence + Ethical Reasoning          | 21, 26     | `themis.agent.ts`        |
+| 41  | **Cassandra**    | Predictive Analytics + Recommendation           | 1, 9, 17   | `cassandra.agent.ts`     |
+| 42  | **Daedalus**     | Tool Composition + MCP Bridge                   | 7          | `daedalus.agent.ts`      |
+| 43  | **Agora**        | Collective Intelligence / Multi-Agent Consensus | 28         | `agora.agent.ts`         |
+| 44  | **Minerva**      | Knowledge Transfer + Explainability (XAI)       | 22, 27     | `minerva.agent.ts`       |
+| 45  | **Panacea**      | Self-Improving / Adaptive Optimization          | 14         | `panacea.agent.ts`       |
+| 46  | **Auditor**      | Audit Trail + Hash Chain (EU AI Act Art. 12)    | 10, 22     | `auditor.agent.ts`       |
+| 47  | **VisionOracle** | Vision Language Model — site photos, SAR        | 18         | `vision-oracle.agent.ts` |
+| 48  | **Chronos**      | Temporal Workflow + EU Deadline Engine          | 2, 8       | `chronos.agent.ts`       |
 
-| #   | Godagent       | Toimiala                   | Avainregulaatio                      | Aikataulu |
-| --- | -------------- | -------------------------- | ------------------------------------ | --------- |
-| 11  | **Demeter**    | Food & Beverage            | LULUCF, packaging DPP, EUDR          | Q1 2027   |
-| 12  | **Terminus**   | Real Estate & Property     | EPBD, EPC-luokat, EU Taxonomy Art. 8 | Q1 2027   |
-| 13  | **Arachne**    | Textiles & Fashion         | Digital Product Passport (DPP), ESPR | Q2 2027   |
-| 14  | **Pluto**      | Mining & Minerals          | ETS, CBAM raaka-aineet, CRM Act      | Q2 2027   |
-| 15  | **Aqua**       | Water & Wastewater         | WFD, Urban Wastewater Directive      | Q2 2027   |
-| 16  | **Hermes**     | Logistics & Supply Chain   | CSRD Scope 3, CBAM transit           | Q3 2027   |
-| 17  | **Hephaestus** | Electronics & ICT          | RoHS, WEEE, Ecodesign ESPR           | Q3 2027   |
-| 18  | **Aeolus**     | Aviation                   | EU ETS aviation, CORSIA, SAF mandate | Q3 2027   |
-| 19  | **Vesta**      | District Heating & Cooling | EED, RED III, waste heat recovery    | Q4 2027   |
-| 20  | **Flora**      | ~~Agriculture (extended)~~ | ~~Merged into Ceres~~                | CANCELLED |
+_Note: Juno (#44 in §3.4) and MercuryTrade (#45 in §3.4) are also new — they are listed under Industry Specialists above._
 
-**Flora on poistettu.** Ceres kattaa kaiken maatalouden sub-domain prompteilla.
+### 3.6 Roadmap 2027 — Industry Specialists
+
+| #   | Agent            | Sector                     | Regulation                      | Schedule |
+| --- | ---------------- | -------------------------- | ------------------------------- | -------- |
+| 51  | **Demeter**      | Food & Beverage            | LULUCF, DPP, EUDR               | Q1 2027  |
+| 52  | **Terminus**     | Real Estate                | EPBD, EPC, EU Taxonomy Art. 8   | Q1 2027  |
+| 53  | **Arachne**      | Textiles & Fashion         | DPP, ESPR                       | Q2 2027  |
+| 54  | **Pluto**        | Mining & Minerals          | ETS, CBAM, CRM Act              | Q2 2027  |
+| 55  | **Aqua**         | Water & Wastewater         | WFD, Urban Wastewater Dir.      | Q2 2027  |
+| 56  | **Aeolus**       | Aviation                   | ETS aviation, CORSIA, SAF       | Q3 2027  |
+| 57  | **Vesta**        | District Heating & Cooling | EED, RED III, waste heat        | Q4 2027  |
+| 58  | **Silvanus**     | Pulp & Paper               | ETS, EUDR, forest certification | Q4 2027  |
+| 59  | **Diana**        | Healthcare (occupational)  | ESRS S1, GMP, Jetson edge       | Q1 2027  |
+| 60  | **Iris** (audio) | Field Audio / Voice        | Whisper transcription           | Q3 2026  |
+
+_Flora CANCELLED — merged into Ceres sub-domain prompts._
 
 ---
 
@@ -796,7 +864,7 @@ CREATE TABLE IF NOT EXISTS tenant_lwm_models (
     industry TEXT NOT NULL,
     model_name TEXT NOT NULL,        -- e.g. 'ncc-lwm-construction-v2.3'
     model_path TEXT NOT NULL,        -- e.g. '/models/lwm/ncc-lwm-construction-v2.3.gguf'
-    base_model TEXT NOT NULL,        -- e.g. 'qwen2.5-coder:32b'
+    base_model TEXT NOT NULL,        -- e.g. 'qwen3-coder:30b'
     version TEXT NOT NULL,
     fine_tuned_on TIMESTAMPTZ,
     training_dataset_hash TEXT,      -- SHA-256 of training data
@@ -1044,7 +1112,7 @@ scp ncc-lwm-construction-v2.3.gguf user@acer-veriton.local:/opt/dws6/models/lwm/
 # Register in Aiven PG
 psql -h localhost -U dws_agent -d dws_agents -c "
 INSERT INTO tenant_lwm_models (tenant_id, industry, model_name, model_path, base_model, version)
-VALUES ('ncc', 'construction', 'ncc-lwm-construction-v2.3', '/models/lwm/ncc-lwm-construction-v2.3.gguf', 'qwen2.5-coder:32b', '2.3');
+VALUES ('ncc', 'construction', 'ncc-lwm-construction-v2.3', '/models/lwm/ncc-lwm-construction-v2.3.gguf', 'qwen3-coder:30b', '2.3');
 "
 ```
 
@@ -1195,5 +1263,5 @@ docker-compose.godagent.yml                                  TODO
 - `src/agents/base.agent.ts` — BaseAgent abstract class with sandbox support
 - `src/sandbox/index.ts` — Sandbox isolation factory (Stage 1/docker/2/3)
 - `docs/FLEET_ECONOMIC_ENGINE.md` — Fleet economic model
-- `docs/CLOUD_ENVIRONMENTS.md` — US/EU/Aiwen cloud accounts
+- `docs/CLOUD_ENVIRONMENTS.md` — US/EU cloud accounts and sovereignty tiers
 - `DWS_SECURITY_STANDARD.md` — Security framework including NIS2

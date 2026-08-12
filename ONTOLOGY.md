@@ -1,24 +1,33 @@
 # DWS Ontology & Lifetime World Model (LWM)
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.6
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
-  - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
+
+- Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
+- Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
+- Version: 1.4 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/knowledge-catalog-research-J207A | Date: 04.05.2026 | Changes: Added §15 "GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like". Maps Google Cloud Knowledge Catalog three pillars (Aggregation, Enrichment, Search) to DWS ontology tiers. Adds DWSDataProduct as a named concept. Connector decision documented (export adapter only). Updates §14 lags table: Knowledge Catalog Runtime gap now tracked.
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/add-ontology-background-s0H0S | Date: 29.04.2026 | Changes: Added §1.3 "Sanan ontologia tausta / Etymology and Philosophical Background" — kreikkalainen etymologia (ón + lógos), Aristoteles, skolastiikka 1600–1700-luvuilla, merkityksen laajeneminen filosofiasta tietojenkäsittelytieteeseen ja tekoälyyn
+- Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Decision-centric roadmap — added §13 (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Where DWS Leads, Where DWS Lags. Removed third-party vendor naming; positioned as European Ontology Standard.
+- Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 25+ EU industries, key geographic entities, Alden Biesen retreat context
+- Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
 
 Session Links & References:
-  - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ONTOLOGY.md
+
+- Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ONTOLOGY.md
 
 Document Status:
-  - Created: 21.01.2026
-  - Last Modified: 11.02.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+
+- Created: 21.01.2026
+- Last Modified: 09.08.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ✅ ACTIVE
 
 ---
 
@@ -48,7 +57,7 @@ Document Status:
 
 ### Purpose / Tarkoitus
 
-This document establishes the ontological framework for DWS7 and beyond, defining how knowledge transitions from raw field notes to a living, breathing enterprise intelligence system. It addresses the core insight from Palantir CEO Alex Karp:
+This document establishes the ontological framework for DWS7 and beyond, defining how knowledge transitions from raw field notes to a living, breathing enterprise intelligence system. It is grounded in a now well-established industry insight:
 
 > **"If you just buy LLMs off the shelf and try to do any of this, it won't work. Once you build a software layer to orchestrate and manage the LLMs in a language your enterprise understands, you actually can create value."**
 
@@ -58,6 +67,7 @@ Tämä dokumentti luo ontologisen kehyksen DWS7:lle ja sen jälkeisille versioil
 ### Scope / Soveltamisala
 
 Applies to:
+
 - Field notes and customer interactions
 - Enterprise knowledge capture
 - AI/LLM orchestration layers
@@ -65,14 +75,51 @@ Applies to:
 - Regulatory compliance documentation
 - Training data for enterprise AI models
 
+### Sanan ontologia tausta / Etymology and Philosophical Background
+
+Sanan ontologia tausta liittyy filosofiaan ja erityisesti olemassaolon peruskysymyksiin.
+
+**Etymologia**
+
+Sana _ontologia_ tulee kreikan kielen sanoista:
+
+- **ὄν (on)** – oleva, se mikä on
+- **λόγος (logos)** – oppi, puhe, järjellinen selitys
+
+Kirjaimellisesti ontologia tarkoittaa siis _oppia olevasta_ — eli oppia siitä, mitä on olemassa ja millä tavoin.
+
+**Filosofinen tausta**
+
+Ontologia on yksi metafysiikan keskeisistä osa-alueista. Jo antiikin Kreikassa filosofit kuten Aristoteles pohtivat olemisen luonnetta:
+
+- mitä tarkoittaa, että jokin _on_
+- millaisia olevia on olemassa (esineet, ominaisuudet, suhteet, tapahtumat)
+- mikä on olemisen perusrakenne
+
+Varsinainen termi _ontologia_ vakiintui vasta 1600–1700-luvuilla, erityisesti skolastiikan ja varhaisen modernin filosofian piirissä, kun metafysiikkaa alettiin systematisoida omiksi osa-alueikseen.
+
+**Merkityksen laajeneminen nykyaikana**
+
+Nykyään ontologiaa käytetään useissa eri yhteyksissä:
+
+- **Filosofiassa:** tutkimus olemassaolon perusluonteesta
+- **Tietojenkäsittelytieteessä ja tekoälyssä:** muodollinen malli käsitteistä ja niiden välisistä suhteista (esim. luokat, ominaisuudet, relaatiot)
+- **Tieteenfilosofiassa:** kysymys siitä, millaisiin entiteetteihin jokin teoria sitoutuu
+
+Näin sanan alkuperäinen merkitys — _olevan jäsentäminen_ — säilyy, mutta sovelluskohde muuttuu. DWS Ontology Standard rakentuu juuri tälle perustalle: EU-säännökset ja teollisuuden käsitteet jäsennetään koneluettavaan muotoon, jota sekä ihmiset että agentit voivat kyselyillä tutkia.
+
+---
+
 ### The "Bubble" vs. "Lag" Problem
 
 **The Problem:**
+
 - Companies buy LLMs off-the-shelf
 - Expect them to work for regulated, precise tasks (underwriting, compliance)
 - Face failure due to lack of enterprise-specific context
 
 **The Solution:**
+
 - **Orchestration Layer:** Software to manage and route LLM outputs
 - **Ontology:** Enterprise-specific language and logic framework
 - **World Model:** Continuous spatial and temporal mapping of business reality
@@ -84,11 +131,13 @@ Applies to:
 ### From Static Notes to Neural Inputs
 
 **Traditional Approach (Broken):**
+
 ```
 Field Note → Document File → Archive → Forgotten
 ```
 
 **LWM Approach (Living):**
+
 ```
 Field Note → Ontology Mapping → Orchestration Rule → World Model Update → Active Intelligence
 ```
@@ -118,14 +167,14 @@ Field Note → Ontology Mapping → Orchestration Rule → World Model Update �
 
 ### Database vs. Docs Files: Decision Matrix
 
-| Use Case | Storage Location | Reasoning |
-|----------|-----------------|-----------|
-| **Structured Intelligence** | Database (Supabase) | Queryable, linkable to objects, searchable in dashboards |
-| **Narrative Context** | Docs Files (.md) | Flow of argument, white papers, briefings |
-| **Core Artifacts** | Database with Docs Reference | Metadata in DB, full content in versioned .md |
-| **Regulatory Documents** | Docs Files with DB Index | Audit trail, version control, PDF generation |
-| **Training Data** | Database (Vector Store) | Embedding-ready, RAG-optimized |
-| **Field Notes** | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact |
+| Use Case                    | Storage Location              | Reasoning                                                |
+| --------------------------- | ----------------------------- | -------------------------------------------------------- |
+| **Structured Intelligence** | Database (Supabase)           | Queryable, linkable to objects, searchable in dashboards |
+| **Narrative Context**       | Docs Files (.md)              | Flow of argument, white papers, briefings                |
+| **Core Artifacts**          | Database with Docs Reference  | Metadata in DB, full content in versioned .md            |
+| **Regulatory Documents**    | Docs Files with DB Index      | Audit trail, version control, PDF generation             |
+| **Training Data**           | Database (Vector Store)       | Embedding-ready, RAG-optimized                           |
+| **Field Notes**             | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact    |
 
 ### Recommended Hybrid Approach
 
@@ -179,7 +228,7 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 │                  │     Layer      │                     │
 │                  └───────┬────────┘                     │
 │                          │                              │
-│         ┌────────────────┼────────────────┐            │
+│         ┌────────────────┬────────────────┐            │
 │         │                │                │            │
 │    ┌────▼────┐    ┌─────▼─────┐    ┌────▼────┐       │
 │    │ LLM API │    │ Rule Base │    │ Memory  │       │
@@ -191,13 +240,13 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 
 ### How LWM Differs from Traditional RAG
 
-| Feature | Traditional RAG | LWM |
-|---------|----------------|-----|
-| **Storage** | Static embeddings | Dynamic world state |
-| **Context** | Document chunks | Spatial-temporal coordinates |
-| **Updates** | Batch re-indexing | Continuous world model updates |
-| **Conflicts** | Ignored | Actively resolved |
-| **Safety** | Query filtering | Orchestration rules + safety constraints |
+| Feature       | Traditional RAG   | LWM                                      |
+| ------------- | ----------------- | ---------------------------------------- |
+| **Storage**   | Static embeddings | Dynamic world state                      |
+| **Context**   | Document chunks   | Spatial-temporal coordinates             |
+| **Updates**   | Batch re-indexing | Continuous world model updates           |
+| **Conflicts** | Ignored           | Actively resolved                        |
+| **Safety**    | Query filtering   | Orchestration rules + safety constraints |
 
 ---
 
@@ -211,10 +260,11 @@ Every significant piece of enterprise knowledge should be captured as a **Core A
 
 **Template:**
 
-```markdown
+````markdown
 # Artifact: [Descriptive Title]
 
 ---
+
 ## METADATA (The "Coordinates")
 
 - **Artifact ID:** ART-2026-001
@@ -229,6 +279,7 @@ Every significant piece of enterprise knowledge should be captured as a **Core A
 - **Source:** Field Note FN-2026-017, Customer Interview
 
 ---
+
 ## NARRATIVE (The "Divine Story")
 
 ### The Observation
@@ -238,6 +289,7 @@ Every significant piece of enterprise knowledge should be captured as a **Core A
 ### Why It Failed
 
 The off-the-shelf LLM was trained on pre-2025 regulatory data and lacked:
+
 1. Specific knowledge of UK FCA cross-border data rules
 2. Context about Customer X's multi-jurisdiction operations
 3. The temporal understanding that regulations changed mid-process
@@ -245,11 +297,13 @@ The off-the-shelf LLM was trained on pre-2025 regulatory data and lacked:
 ### The Ground Truth
 
 **Reality that contradicts generic AI:**
+
 - UK customers with EU data must apply Rule-Set-B (post-2025)
 - This is NOT in the base LLM training data
 - This MUST be in our enterprise ontology
 
 ---
+
 ## LOGIC (The "Orchestration Rule")
 
 ### Proposed Rule
@@ -265,6 +319,7 @@ THEN:
   - Require additional_compliance_check = True
   - Flag for_human_review = True
 ```
+````
 
 ### LWM Update Instruction
 
@@ -282,14 +337,15 @@ world_model_update:
 ```
 
 ---
+
 ## VALIDATION & FEEDBACK
 
 ### Usage History
 
-| Date | User | Action | Result | Feedback |
-|------|------|--------|--------|----------|
-| 2026-01-21 | user@dws.com | Applied to Case #1234 | ✅ Valid | Prevented compliance failure |
-| 2026-01-25 | user2@dws.com | Applied to Case #1240 | ✅ Valid | Confirmed accuracy |
+| Date       | User          | Action                | Result   | Feedback                     |
+| ---------- | ------------- | --------------------- | -------- | ---------------------------- |
+| 2026-01-21 | user@dws.com  | Applied to Case #1234 | ✅ Valid | Prevented compliance failure |
+| 2026-01-25 | user2@dws.com | Applied to Case #1240 | ✅ Valid | Confirmed accuracy           |
 
 ### World Model Weight
 
@@ -299,6 +355,7 @@ world_model_update:
 - **Success Rate:** 100%
 
 ---
+
 ## RELATED ARTIFACTS
 
 - **Supersedes:** ART-2024-089 (Pre-2025 UK Rules)
@@ -306,11 +363,13 @@ world_model_update:
 - **References:** REG-UK-FCA-2025-CROSS-BORDER.pdf
 
 ---
+
 ## VERSION HISTORY
 
 - **v1.0** (2026-01-21): Initial creation from field note FN-2026-017
 - **v1.1** (2026-01-25): Updated confidence score after validation
-```
+
+````
 
 ---
 
@@ -334,7 +393,7 @@ industry:
   - sector: [Financial_Services, Manufacturing, Healthcare, ...]
   - vertical: [Insurance, Banking, MedTech, ...]
   - use_case: [Underwriting, Claims, Diagnostics, ...]
-```
+````
 
 ### Temporal Ontology (WHEN)
 
@@ -350,6 +409,35 @@ regulatory_periods:
   - post_2025: New UK FCA cross-border rules
   - fiscal_year: FY2026
 ```
+
+### Data Lifecycle & Retention Ontology (HOW LONG)
+
+Every ontology node that ingests live operational data (sensor telemetry, agent
+observations, customer system feeds) carries an explicit retention tier —
+never an unbounded "keep forever" default. This closes the gap the
+Valtiovarainministeriö security-oriented information management guide (VM
+2026:27, §4.4.2) names as the aggregation effect (kasautumisvaikutus): risk
+rarely comes from a single data point, but from unmanaged accumulation across
+time, geography, or theme.
+
+```yaml
+retention:
+  - node_owner: Single named owner per ontology node (never shared)
+  - raw_tier: Unprocessed source signal — shortest retention, most restricted access
+  - summary_tier: Ontologised/structured event derived from raw_tier — no raw signal retained
+  - audit_tier: Immutable compliance log (EU AI Act Article 12) — longest retention, SIEM-exportable
+  - rollup_tier: Cross-node aggregate for orchestration layers — never raw, never individualised
+  - aggregation_review: Quarterly check for whether accumulated data at this node now reveals
+    dependencies, vulnerabilities, or patterns no single entry would expose
+```
+
+**Reference implementation:** Control Room / Situation Room apply this exact
+four-tier model (raw 72h / summary 13mo / audit 7yr / rollup 24mo rolling) —
+see `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`
+and `Admin/ADMIN_MANUAL.md` ("Customer Sensor Data Retention"). Any new
+ontology node that ingests live data must declare its own retention tiers
+before go-live; there is no organisation-wide default duration because
+retention need is a property of the node, not the platform.
 
 ### Causal Ontology (WHY)
 
@@ -429,7 +517,7 @@ eu_single_market:
     - EU-compliant companies get privileged market access
     - Non-compliant competitors excluded by design
   dws6_leverage:
-    - 16 EU industries served across Single Market
+    - 25+ EU industries served across Single Market
     - Compliance = access key (not cost center)
     - Regulatory-first DNA as competitive advantage
 ```
@@ -441,7 +529,7 @@ eu_regulations:
   fit_for_55:
     type: Climate legislation package
     scope: EU-wide emissions reduction 55% by 2030
-    dws6_relevance: Core compliance automation target across 16 industries
+    dws6_relevance: Core compliance automation target across 25+ industries
     status: Active — implementation ongoing
 
   eu_ets:
@@ -470,7 +558,7 @@ eu_regulations:
     dws6_relevance:
       - Article 12 automatic logging (built-in)
       - Reasoning lineage documentation (LWM architecture)
-      - High-risk AI system compliance for 16 industries
+      - High-risk AI system compliance for 25+ industries
     status: Pre-enforcement — DWS IQ 6 designed for compliance
 
   gdpr:
@@ -605,23 +693,23 @@ geography_dws6:
 ```
 ┌─────────────┐
 │   CAPTURE   │  Field note / Customer interaction
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
 │   ONTOLOGY  │  Tag entities, geography, temporal context
 │   MAPPING   │
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
 │ ORCHESTRATE │  Link note to rules, actions, decisions
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
 │   REFINE    │  Elevate to Core Artifact
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
@@ -633,12 +721,14 @@ geography_dws6:
 ### Stage Details
 
 #### Stage 1: Capture
+
 - **Input:** Raw field note, customer conversation, sales call
 - **Tool:** Mobile app, web form, voice-to-text
 - **Output:** Timestamped, geo-tagged note in database
 - **LWM Impact:** Sensory input—captures edge cases LLMs miss
 
 #### Stage 2: Ontology Mapping
+
 - **Input:** Raw note
 - **Process:** Auto-tag + human review
   - Extract entities (WHO: Customer, product)
@@ -649,6 +739,7 @@ geography_dws6:
 - **LWM Impact:** Spatial mapping—teaches model where this event sits in business geography
 
 #### Stage 3: Orchestration
+
 - **Input:** Tagged note
 - **Process:**
   - Does this conflict with existing rules?
@@ -658,6 +749,7 @@ geography_dws6:
 - **LWM Impact:** Temporal logic—establishes "if X happens, Y must follow"
 
 #### Stage 4: Refinement
+
 - **Input:** Orchestrated note
 - **Process:** Human + AI collaboration
   - Validate the insight
@@ -667,6 +759,7 @@ geography_dws6:
 - **LWM Impact:** Creates reusable, validated knowledge
 
 #### Stage 5: LWM Update
+
 - **Input:** Core Artifact
 - **Process:**
   - Update vector embeddings
@@ -682,6 +775,7 @@ geography_dws6:
 ### The "World Model Collision" Protocol
 
 **When does a collision occur?**
+
 - New field note contradicts existing artifact
 - Two artifacts have conflicting rules
 - Regulatory change invalidates prior knowledge
@@ -691,35 +785,42 @@ geography_dws6:
 ```yaml
 collision_detected:
   1. Flag_Conflict:
-     - artifact_1: ART-2024-089
-     - artifact_2: FN-2026-017
-     - conflict_type: REGULATORY_CHANGE
+    - artifact_1: ART-2024-089
+    - artifact_2: FN-2026-017
+    - conflict_type: REGULATORY_CHANGE
 
   2. Human_Review_Required:
-     - assign_to: Compliance Team
-     - priority: HIGH
-     - deadline: 48 hours
+    - assign_to: Compliance Team
+    - priority: HIGH
+    - deadline: 48 hours
 
   3. Resolution_Options:
-     a. Deprecate Old Artifact:
-        - status: ART-2024-089 → DEPRECATED
-        - create_new: ART-2026-001
-     b. Merge Artifacts:
-        - combine_knowledge: true
-        - update_version: ART-2024-089 v2.0
-     c. Create Exception Rule:
-        - scope: UK_Only
-        - effective_date: 2025-01-01
+    a. Deprecate Old Artifact:
+      - status: ART-2024-089 → DEPRECATED
+      - create_new: ART-2026-001
+    b. Merge Artifacts:
+      - combine_knowledge: true
+      - update_version: ART-2024-089 v2.0
+    c. Create Exception Rule:
+      - scope: UK_Only
+      - effective_date: 2025-01-01
 
   4. LWM_Update:
-     - learning_instruction: "Post-2025 UK rules supersede pre-2025"
-     - confidence_adjustment: Decrease old rule, increase new rule
-     - notify_affected_users: true
+    - learning_instruction: "Post-2025 UK rules supersede pre-2025"
+    - confidence_adjustment: Decrease old rule, increase new rule
+    - notify_affected_users: true
 ```
 
 ### Active Pruning System
 
 **Purpose:** Prevent the database from becoming a "graveyard" of outdated knowledge.
+
+**Rationale:** Active Pruning is the operational form of an information-theoretic
+constraint — stale, contradictory labels raise the **noise floor** (the Shannon bound of
+the data), and no larger model can drop below it. Continuously reviewing and reconciling
+old labels is what keeps that floor low. See
+`docs/field-notes/2026-06-15-noise-floor-ontology-old-labels.md` and the promoted Core
+Artifact `artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md`.
 
 **Mechanism:**
 
@@ -792,6 +893,7 @@ safety_rules:
 ### Phase 1: Foundation (Weeks 1-4)
 
 **Deliverables:**
+
 1. Create `/artifacts/` directory structure
 2. Set up Supabase tables for field notes
 3. Define initial ontology tags (geography, sectors, products)
@@ -858,6 +960,7 @@ CREATE TABLE world_model_collisions (
 ### Phase 2: Ontology Mapping (Weeks 5-8)
 
 **Deliverables:**
+
 1. Implement auto-tagging for field notes (NER, regex patterns)
 2. Create ontology validation UI
 3. Train team on artifact creation process
@@ -898,6 +1001,7 @@ class OntologyMapper:
 ### Phase 3: Orchestration Layer (Weeks 9-12)
 
 **Deliverables:**
+
 1. Implement orchestration rules engine
 2. Create LLM routing logic (when to use generic vs. enterprise-tuned)
 3. Build feedback loop system
@@ -955,6 +1059,7 @@ class OrchestrationEngine:
 ### Phase 4: LWM Training (Weeks 13-16)
 
 **Deliverables:**
+
 1. Create vector embeddings for all artifacts
 2. Implement RAG with ontology-aware retrieval
 3. Build continuous learning pipeline
@@ -1013,7 +1118,7 @@ class OrchestrationEngine:
 
 ### Template 2: Battlefield/Production Learning
 
-```markdown
+````markdown
 # Field Note: Production Incident - [Brief Description]
 
 **Date:** 2026-01-21
@@ -1052,6 +1157,7 @@ new_rule:
   confidence: 0.9
   learning_priority: HIGH
 ```
+````
 
 ## Prevent Recurrence
 
@@ -1059,7 +1165,8 @@ new_rule:
 - [ ] Create monitoring alert
 - [ ] Update world model
 - [ ] Document as Core Artifact
-```
+
+````
 
 ### Template 3: Regulatory Change
 
@@ -1097,7 +1204,7 @@ world_model_collision:
   supersedes: [ART-2024-XXX, ART-2023-XXX]
   creates_new_rule: true
   requires_immediate_action: true
-```
+````
 
 ## Timeline
 
@@ -1105,7 +1212,8 @@ world_model_collision:
 - [ ] Update artifacts: [Date]
 - [ ] Deploy changes: [Date]
 - [ ] Notify customers: [Date]
-```
+
+````
 
 ---
 
@@ -1172,7 +1280,7 @@ VALUES ('ART-2026-001', 'UK Cross-Border Underwriting Rules', 'FINANCIAL_SERVICE
 
 # 4. Create embeddings
 python scripts/generate_embeddings.py --artifact ART-2026-001
-```
+````
 
 ### Flag a World Model Collision
 
@@ -1226,22 +1334,22 @@ artifact.update_confidence(feedback)
 
 ---
 
-## Appendix A: Palantir Lessons Applied
+## Appendix A: Industry Lessons Applied
 
-### Alex Karp's Insights → DWS Implementation
+### Decision-Centric Insights → DWS Implementation
 
-| Karp's Point | DWS Implementation |
-|--------------|-------------------|
-| "Off-the-shelf LLMs don't work for regulated tasks" | Orchestration layer routes queries through validated artifacts first |
-| "You need a software layer to orchestrate LLMs" | OrchestrationEngine class manages LLM routing and artifact application |
-| "In a language your enterprise understands" | Ontology framework captures enterprise-specific geography, sectors, rules |
-| "People try to build Ontology by hand" | Automated ontology mapping + human validation |
-| "Battlefield proved it works" | Production incident learning → immediate artifact updates |
-| "Sales force is shrinking" | Product "pulls" itself via demonstrated value (success metrics) |
+| Insight                                               | DWS Implementation                                                        |
+| ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| Off-the-shelf LLMs don't work for regulated tasks     | Orchestration layer routes queries through validated artifacts first      |
+| Enterprises need a software layer to orchestrate LLMs | OrchestrationEngine class manages LLM routing and artifact application    |
+| AI must speak the language the enterprise understands | Ontology framework captures enterprise-specific geography, sectors, rules |
+| Hand-rolled ontologies do not scale                   | Automated ontology mapping + human validation                             |
+| Production reality, not lab benchmarks, sets truth    | Production incident learning → immediate artifact updates                 |
+| Demonstrated value, not headcount, drives adoption    | Product "pulls" itself via demonstrated value (success metrics)           |
 
-### The Karp Principle
+### Guiding Principle
 
-> **"The gap between theoretical AI and practical enterprise value is bridged by ontology, orchestration, and continuous learning from battlefield reality."**
+> **The gap between theoretical AI and practical enterprise value is bridged by ontology, orchestration, and continuous learning from operational reality.**
 
 ---
 
@@ -1282,6 +1390,7 @@ dws6/
 ### Immediate Actions (This Quarter)
 
 1. **Create Artifacts Directory:**
+
    ```bash
    mkdir -p artifacts/{FINANCIAL_SERVICES,MANUFACTURING,HEALTHCARE,COMPLIANCE,GENERAL}
    ```
@@ -1343,6 +1452,7 @@ This section is the machine-readable source for `concept_context_policy` seed ge
 Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.sql`.
 
 <!-- CCP_SEED_START -->
+
 ```json
 {
   "source_version": "lwm_2026_04",
@@ -1438,7 +1548,405 @@ Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.s
   ]
 }
 ```
+
 <!-- CCP_SEED_END -->
+
+---
+
+## 13. Decision-Centric Roadmap (v1.2)
+
+DWS Ontology v1.0–1.1 is **knowledge-centric**: field notes → artifacts → LWM. v1.2 makes it **decision-centric**: data + logic + action + security unified per decision. The seven gaps below close that step. Each has owner, target quarter, and acceptance criteria.
+
+### 13.1 Actions (Verbs) — Write-Back Layer
+
+**Gap:** Today, agent outputs are recommendations, not committed transactions on operational substrates (ERPs, MES, WMS, IoT).
+
+**Target:** Every Skilled Agent can stage, review, and commit an `Action` against a registered substrate, with full audit.
+
+```yaml
+action_primitive:
+  id: ACT-<YYYY>-<NNN>
+  verb: [create | update | delete | dispatch]
+  subject: <ontology_object_id> # the "noun"
+  substrate: [supabase | erp_sap | wms_<id> | jetson_fleet | email_ses | ...]
+  stage: [draft | staged | reviewed | committed | reverted]
+  staged_by: <agent_or_user>
+  reviewed_by: <human_user> # required for non-trusted actions
+  committed_at: <timestamp>
+  rollback_plan: <reversal_action_id>
+  policy_envelope:
+    purpose: [compliance_report | customer_outreach | site_dispatch | ...]
+    markings: [eu_only | csrd_audit | nis2_essential | ...]
+```
+
+**Acceptance:** `core_actions` table + `staged → committed` workflow + write-back connectors for at minimum Supabase, SES email, and one ERP adapter.
+
+**Owner:** Brain (DWS IQ 6) + Body (Firehorse). **Target:** Q3 2026.
+
+### 13.2 Scenarios / Global Branching
+
+**Gap:** No sandbox to safely simulate multi-step decisions before commit.
+
+**Target:** Branch the ontology (objects + staged actions) into a named scenario; run agents against the branch; merge or discard.
+
+```yaml
+scenario:
+  id: SCN-<YYYY>-<NNN>
+  parent_branch: main
+  created_by: <agent_or_user>
+  hypothesis: "Reallocate steel from supplier A to supplier B for Q3 CBAM exposure"
+  staged_actions: [ACT-..., ACT-...]
+  simulation_runs: [SIM-..., SIM-...]
+  status: [open | merged | discarded]
+  merge_review: <human_user>
+```
+
+**Acceptance:** Postgres-level branch (schema-namespaced or row-tagged), scenario diff view, agent tool `scenario.create / stage / merge`.
+
+**Owner:** Brain. **Target:** Q4 2026.
+
+### 13.3 Per-Decision Lineage
+
+**Gap:** v1.1 captures _artifact_ lineage (which note → which artifact). v1.2 must capture _decision_ lineage (which user + data version + logic version + tool calls + committed action).
+
+```yaml
+decision_record:
+  id: DEC-<YYYY>-<NNN>
+  triggered_by: <agent_or_user>
+  data_snapshot: <ontology_branch_hash>
+  logic_invoked: [SKILL-compliance, MODEL-cbam-forecast-v3]
+  tool_calls: [<jsonl_log_pointer>]
+  scenario: <SCN-id?>
+  committed_actions: [ACT-..., ACT-...]
+  outcome: [success | reverted | partial]
+  feedback_loop: <artifact_update_or_none>
+```
+
+**Acceptance:** `decisions` table referenced by every committed `core_actions` row. Replays a decision deterministically given the snapshot hash.
+
+**Owner:** Brain + Memory (LWM). **Target:** Q3 2026 (alongside §13.1).
+
+### 13.4 Purpose-Based + Marking-Based Policies
+
+**Gap:** RLS today gates by role + row. The European Ontology Standard requires **purpose** (why is this query happening?) and **markings** (security tags that propagate through pipelines) to be evaluated alongside role.
+
+**Target:** Extend Supabase RLS + agent gateway to evaluate `(role, purpose, markings)` at every data, logic, and action invocation.
+
+```yaml
+policy_evaluation:
+  inputs:
+    role: <user_or_agent_role>
+    purpose: <declared_purpose_of_use>
+    markings: <set_of_tags_on_data_or_logic>
+    eu_ai_act_risk_tier: [minimal | limited | high | unacceptable]
+  outputs:
+    decision: [allow | deny | require_human_oversight]
+    redactions: [<column_set>]
+    audit_log: <jsonl_pointer>
+```
+
+**Acceptance:** EU AI Act Article 14 (human oversight) and Article 12 (logging) covered by automated policy evaluation, not manual review.
+
+**Owner:** Security layer (KYA + RLS + agent gateway). **Target:** Q3 2026 (locks in before AI Act enforcement 2026-08-02).
+
+### 13.5 Logic Binding
+
+**Gap:** Each Skilled Agent invokes its own ML models, optimizers, and LLM tools ad-hoc.
+
+**Target:** A single "logic binding" registry where every callable — Supabase function, Python optimizer, fine-tuned LLM, MCP tool, external API — is exposed with the same interface to agents and humans.
+
+```yaml
+logic_asset:
+  id: LGC-<YYYY>-<NNN>
+  kind: [sql_function | python_callable | llm_tool | mcp_tool | external_api]
+  uri: <runtime_endpoint>
+  signature: <jsonschema>
+  policy_envelope: <see §13.4>
+  cost_per_call: <eur | tokens>
+  latency_p95_ms: <int>
+```
+
+**Acceptance:** `tools/list` (MCP) returns every logic asset with the same shape. New agents discover capabilities, not hard-code them.
+
+**Owner:** Brain + MCP Hub. **Target:** Q4 2026.
+
+### 13.6 Multi-Tier Agent Memory
+
+**Gap:** v1.1 has artifact weights and pruning. No formal memory tiers.
+
+**Target:** Backed by `decisions` (§13.3) and `artifacts` (existing):
+
+| Memory tier | DWS substrate                                                  | TTL                      |
+| ----------- | -------------------------------------------------------------- | ------------------------ |
+| Working     | Agent run context (LangGraph state, MCP session)               | per run                  |
+| Episodic    | `decisions` table + tool-call JSONL                            | 12 months hot, then cold |
+| Semantic    | `core_artifacts` + LWM embeddings                              | active until pruned      |
+| Procedural  | `logic_assets` registry (§13.5) + Skills (`.claude/commands/`) | versioned                |
+
+**Owner:** Memory (LWM). **Target:** Q1 2027.
+
+### 13.7 Embedded Edge Ontology
+
+**Gap:** Lifetime Fleet (Hands) is spec phase. No edge ontology runtime.
+
+**Target:** A Jetson-resident slice of the ontology (relevant objects + actions + policies) that operates offline and syncs decisions back when reconnected.
+
+**Acceptance:** Jetson agent can stage `Action` offline; on reconnect, the stage is reconciled against `main` branch with conflict detection (reuse §8 collision protocol).
+
+**Owner:** Hands (Lifetime Fleet) + Memory. **Target:** Q2 2027.
+
+---
+
+## 14. Where DWS Leads, Where DWS Lags
+
+The DWS Ontology Standard is positioned as a **European Ontology Standard** — open, sovereign, regulation-native. Comparison below is against the prevailing decision-centric ontology pattern in the wider industry, not any single vendor.
+
+### Where DWS leads
+
+| Capability                                          | DWS Advantage                                                                                                                       |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **EU regulations as first-class ontology entities** | Fit for 55, ETS, CBAM, CSRD, AI Act, NIS2, GDPR are pre-modeled (§6). Other ontologies require customers to encode these from zero. |
+| **Sovereignty by design**                           | EU data residency (Finland/Germany), no CLOUD Act exposure, Gaia-X tier-3 path. Most incumbent ontologies run on US hyperscalers.   |
+| **CCP — concept_context_policy**                    | Per-customer/industry/locale term preference + forbidden-term enforcement (Appendix D). Not standard practice elsewhere.            |
+| **Active pruning + collision protocol**             | Forced reconciliation of contradictory artifacts with human gates (§8). DWS _enforces_ deprecation, not just lineage.               |
+| **Skilled Taxonomy (3-tier)**                       | Brand / Spec / UI naming for Agents, Workflows, Jurisdictions. Marketable and consistent across docs and UI.                        |
+| **Build-for-Agents discipline**                     | Every product must expose CLI + MCP + Skill (CLAUDE.md). Hard rule, not aspiration.                                                 |
+| **Tribal-knowledge pipeline**                       | Field-note → artifact → LWM is opinionated and structured (§7).                                                                     |
+| **Open European standard**                          | Spec published openly under permissive licence; runtime competitive. Schema becomes a Brussels-Effect adoption surface.             |
+
+### Where DWS lags (closed by §13)
+
+| Gap                                             | Decision-centric incumbent norm  | DWS v1.1              | DWS v1.2 plan                              |
+| ----------------------------------------------- | -------------------------------- | --------------------- | ------------------------------------------ |
+| Actions / write-back                            | Staged → committed per substrate | Missing               | §13.1 — Q3 2026                            |
+| Scenarios / Global Branching                    | Native                           | Missing               | §13.2 — Q4 2026                            |
+| Per-decision lineage                            | Native                           | Artifact-level only   | §13.3 — Q3 2026                            |
+| Purpose-based + marking policies                | Runtime-evaluated                | Role + RLS only       | §13.4 — Q3 2026                            |
+| Logic binding (unified tool surface)            | Single registry                  | Per-agent ad-hoc      | §13.5 — Q4 2026                            |
+| Multi-tier agent memory                         | Working/episodic/semantic/proc.  | Artifact weights only | §13.6 — Q1 2027                            |
+| Embedded edge ontology                          | Native edge runtime              | Spec phase            | §13.7 — Q2 2027                            |
+| Operational system connectors (ERP/MES/WMS/IoT) | Hundreds of mature adapters      | Aspirational          | Pulls from §13.1; Q4 2026 first 3 adapters |
+| **Knowledge Catalog Runtime**                   | GC-KC (Google), Atlan, Collibra  | Fragmented (5 stores) | §15 — Q2–Q4 2026                           |
+
+### Strategic posture
+
+DWS does **not** try to out-engineer 20-year-old US incumbents on operational connectors or scenario tooling. DWS wins by being the **EU-sovereign, regulation-native, agent-first, open-standard** ontology platform. The §13 roadmap closes operational gaps just enough that DWS can credibly serve EU industrial customers who require sovereignty, and the open European standard turns the schema itself into a market-shaping asset.
+
+---
+
+## 15. GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like
+
+> **Field note reference:** `docs/field-notes/2026-05-04-google-cloud-knowledge-catalog-analysis.md`
+
+In May 2026, Google Cloud released the **Knowledge Catalog** — an evolution of Dataplex described as a "universal context engine for agents." It is the closest public-cloud equivalent to what DWS is building as the EU-sovereign LWM runtime. This section maps GC-KC to DWS ontology tiers, documents the connector decision, and introduces the DWSDataProduct concept.
+
+### 15.1 GC-KC Three Pillars Mapped to DWS Ontology
+
+GC-KC operates on three pillars. Each maps directly to a DWS ontology layer:
+
+| GC-KC Pillar    | GC-KC capability                                                                           | DWS ontology tier                                      | DWS implementation                                                |
+| --------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------------- |
+| **Aggregation** | Unified metadata from BigQuery, SAP, Salesforce, Workday into one governed source of truth | Tier 1: Controlled vocabulary + entity registry        | `ONTOLOGY.md` §6 entity taxonomy + `products.json` + `kb/wiki/`   |
+| **Enrichment**  | Gemini auto-extracts entity relationships, verified SQL patterns, business glossaries      | Tier 2: Class hierarchy + properties + inference rules | `ProfileFact` subject-predicate-value + `kb.agent.ts` KB pipeline |
+| **Search**      | Hybrid semantic search, sub-second, access-control-aware, surfaced to agents               | Tier 3: Axiom-driven query with policy enforcement     | `hybrid_memory_search()` + KYA trust score + RLS                  |
+
+**Key insight:** GC-KC is an ontology runtime at Google Cloud scale. DWS has the philosophy (this document) and the substrate (Supabase, KB, hybrid search). The gap is a unified API layer that aggregates across all five DWS metadata stores.
+
+### 15.2 GC-KC Concept → DWS Concept Mapping
+
+| GC-KC concept                        | DWS equivalent                                | Status                 |
+| ------------------------------------ | --------------------------------------------- | ---------------------- |
+| Business glossary                    | ONTOLOGY.md §6 entity taxonomy                | Exists (manual)        |
+| Entity relationship extraction       | `ProfileFact` subject-predicate-value triples | Exists (per-agent)     |
+| Verified SQL / query patterns        | `hybrid_memory_search()` confidence scoring   | Exists (internal only) |
+| Data products with SLAs + governance | `DWSDataProduct` interface (§15.3)            | Planned Q3 2026        |
+| Access-control-aware search          | RLS + KYA agent trust score                   | Exists                 |
+| Automated metadata enrichment        | `kb-auto-enrich.ts` daily script              | Planned Q2 2026        |
+| Cross-system metadata aggregation    | DWS Knowledge Catalog Agent                   | Planned Q2 2026        |
+
+### 15.3 DWSDataProduct — Named Ontology Concept
+
+Inspired by GC-KC "Data Products" (self-contained blocks with intent, SLAs, governance constraints), DWS introduces the `DWSDataProduct` as a first-class ontology concept. Every agent output that crosses agent boundaries MUST be declared as a Data Product.
+
+**Planned interface** (`src/agents/data-product.types.ts`):
+
+```
+DWSDataProduct {
+  id                  kebab-case stable identifier
+  producingAgent      which agent creates this
+  outputSchema        declared JSON Schema for the output
+  sla.confidenceFloor minimum acceptable confidence (0–1)
+  sla.maxLatencyMs    SLA latency ceiling in milliseconds
+  governance.allowedConsumerAgents  which agents may consume this
+  governance.regulationIds          which EU regulations this satisfies
+  governance.dataResidency          'EU' | 'EU+US' sovereignty declaration
+  ontologyAnchors     ONTOLOGY.md entity IDs this relates to
+  lineage.memoryIds   semantic_memories this depends on
+  lineage.kbArticles  KB wiki articles consulted
+}
+```
+
+This is the DWS sovereign equivalent of GC-KC's Data Product. It bundles output semantics, SLA, governance, and lineage into one governed unit — enabling agents to trust each other's outputs without re-validating from scratch.
+
+### 15.4 Connector Decision — EU Sovereignty First
+
+**Direct GC-KC ingestion (DWS data → Google Cloud): REJECTED**
+
+Rationale: DWS runs EU-sovereign on Supabase + Aiven Finland. GC-KC runs on Google Cloud infrastructure subject to CLOUD Act. Pushing operational DWS data into GC-KC destroys the sovereignty moat that is central to DWS's EU industrial market positioning.
+
+**DWS → GC-KC Export Adapter: APPROVED for Q4 2026 (customer-optional)**
+
+For enterprise customers already running Google Cloud (BigQuery + SAP), a one-way push adapter exports `DWSDataProduct` metadata descriptors to the customer's GC-KC instance. Only the descriptor (name, schema, SLA, description) is exported — no raw data, no embeddings, no agent logs. Sovereignty preserved; Google Cloud enterprise integration story enabled.
+
+**Future file:** `src/integrations/google/knowledge-catalog-export.ts`
+
+### 15.5 DWS Knowledge Catalog Roadmap
+
+| Phase              | Deliverable                                                | Target           |
+| ------------------ | ---------------------------------------------------------- | ---------------- |
+| 0 — Foundation     | Field note + ONTOLOGY.md §15 (this section)                | Done (Q2 2026)   |
+| 1 — Aggregation    | `knowledge-catalog.agent.ts` + unified metadata search API | Q2 2026 Sprint 1 |
+| 1 — CLI            | `dws knowledge-catalog search` → JSON + MCP tool           | Q2 2026 Sprint 1 |
+| 2 — Enrichment     | `kb-auto-enrich.ts` daily script, auto-ingest field notes  | Q2 2026 Sprint 2 |
+| 3 — Data Products  | `data-product.types.ts` + 5 agent descriptors              | Q3 2026          |
+| 4 — Export Adapter | GC-KC export adapter (dry-run, customer-optional)          | Q4 2026          |
+
+### 15.6 Strategic Positioning
+
+GC-KC validates that the ontology-first orchestration approach is correct — Google's largest cloud engineering teams have converged on exactly the architecture DWS has been building since v1.0 (January 2026). The difference is the sovereignty axis:
+
+| Dimension          | GC-KC                        | DWS Knowledge Catalog                        |
+| ------------------ | ---------------------------- | -------------------------------------------- |
+| Data residency     | Google Cloud (US-controlled) | EU-sovereign (Finland/Germany)               |
+| CLOUD Act exposure | Yes                          | No                                           |
+| Regulatory native  | Generic                      | EU AI Act, GDPR, ETS, CBAM, CSRD pre-modeled |
+| Enrichment model   | Gemini auto-extract          | LLM-maintained KB (Karpathy-inspired)        |
+| Gaia-X compatible  | No                           | Tier-3 path                                  |
+| Open standard      | No                           | Spec published under permissive licence      |
+
+DWS Knowledge Catalog is the **Gaia-X native, EU AI Act compliant, regulation-first** answer to GC-KC. The primary market: EU industrial enterprises that cannot or will not route sovereign data through US hyperscalers.
+
+---
+
+## 16. KYA Ontology — Agent Governance Vocabulary (v1.6)
+
+The ontology answers WHERE, WHEN, WHY and WHO/WHAT. Once an autonomous agent is the actor,
+a fifth question appears that none of those cover: **UNDER WHAT MANDATE.** This section is the
+canonical vocabulary for that layer. Normative source: `Legal/KYA_S1.md` v1.5. Where this section
+and the specification disagree, the specification wins.
+
+Finnish is the Ground Truth for the public-facing terms (HIC decision, 09.08.2026); the other four
+languages are translations of it.
+
+### 16.1 Core concepts
+
+- **KYA (Know Your Agent)** — the governance framework that verifies an autonomous agent's runtime
+  behaviour, identity, mandate and security. The KYC principle carried into AI: you may not let an
+  actor into your systems that you cannot name, bound, and stop.
+- **KYA-S1 Specification** — the published specification defining 7 control domains, 3 assurance
+  levels and the auditability requirements. A specification, not a standard: no standards-body
+  consensus process has been run.
+- **Evidence Meta-Rule (§3)** — self-attestation is never acceptable evidence of conformance. Only a
+  third-party audit report or cryptographically signed platform telemetry counts. Binds the author
+  of the specification first.
+- **Agentic Commerce** — autonomous agent-to-agent trade, procurement and payment, where each
+  transaction is protected by a KYA-S1 authorization.
+
+### 16.2 The seven control domains
+
+| Control | Name | What it governs |
+| --- | --- | --- |
+| **IDV** | Identity Verification | Binds every agent session, tool request and decision to a cryptographically verified human (IDV-1..4). |
+| **REG** | Capability Registration | The capability manifest and live registry: permitted tools, API endpoints and execution limits, declared before activation (REG-1..2). |
+| **BHM** | Behavioral Modeling | Runtime behavioural monitoring against a baseline; detects prompt injection, tool poisoning and deviant execution paths. |
+| **TC4** | Chain Termination | The emergency brake: atomic elimination of an agent chain (leash snap) and invalidation of every active authorization token. |
+| **FLT** | Fault Attribution | A signed classification of the fault's cause within 72 hours of incident close (FLT-4). |
+| **TRS** | Trust Score & Authorization | Computes the runtime trust level and issues atomic execution grants. |
+| **PRV** | Provenance & Audit Trail | Decision replay: the decision chain, model state and the human's sign-off (PRV-4) in immutable history (PRV-2). |
+
+### 16.3 Assurance levels (KYA-AL)
+
+Renamed from Bronze / Silver / Gold in KYA-S1 v1.4 (HIC decision, 09.08.2026). Thresholds unchanged.
+
+| Level | Audit cadence | Required evidence depth | SLA (IDV & TC4) | PRV replay availability |
+| --- | --- | --- | --- | --- |
+| **KYA-AL1** (Standard) | Annual | Third-party audit in ≥1 domain + signed telemetry | ≤ 15 minutes | 30 days |
+| **KYA-AL2** (Enhanced) | Quarterly | Audit across IDV and BHM + 12 months signed telemetry | ≤ 5 minutes | 7 days |
+| **KYA-AL3** (Critical) | Continuous, real time | External assessor across all 7 domains + signed SLA | ≤ 60 seconds | 24 hours |
+
+### 16.4 Runtime mechanisms
+
+- **Lease Token (TRS-4)** — a single-use, time-bound, cryptographically signed authorization key.
+  The agent's delegate consumes it atomically via `consumeAndExecute` at the start of execution,
+  which is what closes the race-condition and double-charge windows.
+- **Fail-Closed (TRS-5)** — if the trust engine does not answer within its bounded timeout (e.g.
+  > 500 ms) or returns an error, the action never proceeds autonomously; it routes to a human
+  (User Task / HIC Dashboard) or halts.
+- **Leash Snap (TC4)** — atomic severing of an execution chain: stops a multi-agent run and
+  invalidates every active Lease Token at once.
+- **Capture Precedes Release (TC4-5)** — forensic state is committed *before* terminated resources
+  are freed. Without it, a terminated chain leaves FLT with no substrate to attribute against.
+- **Bounded Attribution Clock (FLT-4)** — a binding classification of the fault within 72 hours of
+  incident close, into five categories: model fault, application-logic fault, integration fault,
+  human input fault, configuration fault.
+- **TRS (Trust Score)** — the agent's runtime trust level (0–100, i.e. 0.00–1.00), driven by the
+  principal's verification state, BHM behavioural history and platform integrity.
+- **TRS_req (risk threshold)** — the per-task minimum trust level an agent must reach to earn
+  automatic execution authority.
+
+### 16.5 Process and integration concepts
+
+- **HIC (Human-in-Command)** — the human's real command, oversight and override authority over an
+  AI process. The DWS implementation of EU AI Act Article 14.
+- **HIC Dashboard / Single Pane of Glass** — the human commander's unified control-room view:
+  deviations, TRS scores and the User Tasks awaiting sign-off.
+- **Human Decision Provenance (PRV-4)** — the auditable record of a human sign-off: the stated
+  rationale, the human's eIDAS identity, and the situational state at the moment of the decision.
+- **BPMN 2.0 Engine** — the executable process engine (e.g. Camunda) that routes each step at
+  runtime to the automatic lane (Service Task) or to a human (User Task) based on the agent's TRS.
+- **EUDI Wallet / eIDAS 2.0** — the EU's official digital identity wallet, where the human
+  commander's base identity (IDV-1) and signing authority (QEAA / QES) are anchored at
+  public-authority level.
+
+### 16.6 Five-language term table
+
+FI is Ground Truth; EN, SV, DE and FR are translations of it.
+
+| Term / code | Suomi (FI) — Ground Truth | English (EN) | Svenska (SV) | Deutsch (DE) | Français (FR) |
+| --- | --- | --- | --- | --- | --- |
+| **KYA** | Agentin tunnistaminen | Know Your Agent | Känn din agent | Kenne deinen Agenten | Connaissez votre agent |
+| **KYA-S1 Specification** | KYA-S1-turvallisuusspesifikaatio | KYA-S1 Security Specification | KYA-S1 Säkerhetsspecifikation | KYA-S1 Sicherheitsspezifikation | Spécification de sécurité KYA-S1 |
+| **Evidence Meta-Rule (§3)** | Näyttömetasääntö (§3) | Evidence Meta-Rule (§3) | Bevis-metaregel (§3) | Evidenz-Metaregel (§3) | Méta-règle de preuve (§3) |
+| **Agentic Commerce** | Autonominen agenttikaupankäynti | Agentic Commerce | Agentisk handel | Agenten-Handel | Commerce agentique |
+| **IDV** | Todennettu ihmisjohtajan sidos | Verified Human Principal Binding | Verifierad mänsklig huvudmannakoppling | Verifizierte menschliche Hauptverbindung | Liaison d'agent à un responsable humain vérifié |
+| **REG** | Kyvykkyysmanifesti ja rekisteri | Capability Manifest & Registry | Kapacitetsmanifest och register | Fähigkeitsmanifest & Register | Manifeste et registre des capacités |
+| **BHM** | Ajonaikainen käyttäytymisen valvonta | Runtime Behavioral Modeling | Beteendemodellering vid körning | Laufzeit-Verhaltensmodellierung | Modélisation comportementale en temps réel |
+| **TC4** | Ketjun keskeytys / hätäjarru | Chain Termination / Leash Snap | Kedjeavslutning / nödbroms | Kettenabbruch / Notbremse | Terminaison de chaîne / frein d'urgence |
+| **FLT** | Aikarajoitettu virheattribuutio | Bounded Fault Attribution | Tidsbegränsad felattribuering | Zeitbegrenzte Fehlerattribuierung | Attribution limitée des fautes |
+| **TRS** | Luottamuspiste ja valtuutus | Trust Score & Authorization | Förtroendepoäng och auktorisering | Vertrauenswert & Autorisierung | Score de confiance et autorisation |
+| **PRV** | Päätösten toistettavuus ja auditointijälki | Decision Provenance & Audit Trail | Beslutsursprung och granskningskedja | Entscheidungsherkunft & Prüfpfad | Provenance de la décision et piste d'audit |
+| **KYA-AL1** | Vakiotaso | Standard Assurance | Standardgaranti | Standard-Garantie | Assurance standard |
+| **KYA-AL2** | Laajennettu taso | Enhanced Assurance | Förhöjd garanti | Erweiterte Garantie | Assurance renforcée |
+| **KYA-AL3** | Kriittinen taso | Critical Assurance | Kritisk garanti | Kritische Garantie | Assurance critique |
+| **Lease Token (TRS-4)** | Kertakäyttöinen valtuutusavain | Atomic Single-Use Lease Token | Atomisk tidsbegränsad nyttjanderätts-token | Atomares Einmal-Autorisierungs-Token | Jeton de bail atomique à usage unique |
+| **Fail-Closed (TRS-5)** | Pakkosuojaus vikatilanteessa | Fail-Closed Protection | Säker vid fel (fail-closed) | Fehlersichere Sperre (fail-closed) | Verrouillage en cas de défaillance |
+| **Leash Snap (TC4)** | Hätäjarru | Leash Snap Emergency Stop | Nödbroms | Notbremse | Frein d'urgence |
+| **Capture Precedes Release (TC4-5)** | Tallennus ennen resursseista luopumista | Capture Precedes Release | Lagring före frigörande | Erfassung vor Freigabe | Capture avant libération des ressources |
+| **Bounded Attribution Clock (FLT-4)** | Aikarajoitettu virheattribuutio (72 h) | Bounded Attribution Clock (72 h) | Tidsbegränsad felattribuering (72 h) | Zeitbegrenzte Fehlerattribuierung (72 h) | Horloge d'attribution limitée (72 h) |
+| **HIC** | Ihmisen johtamisvalta | Human-in-Command | Mänsklig ledningsrätt | Menschliche Führung | Commandement humain |
+| **Single Pane of Glass** | Yhtenäinen valvomonäkymä | Single Pane of Glass HIC Dashboard | Enhetlig kontrollvy | Zentrales Kontrollpanel | Panneau de contrôle unique |
+| **Human Decision Provenance (PRV-4)** | Ihmispäätöksen alkuperä ja kuittaus | Human Decision Provenance | Mänskligt beslutsursprung | Menschliche Entscheidungsherkunft | Provenance de la décision humaine |
+| **EUDI Wallet / eIDAS 2.0** | EU:n digitaalinen lompakko / eIDAS 2.0 | European Digital Identity Wallet / eIDAS 2.0 | EU:s digitala plånbok / eIDAS 2.0 | Digitale EU-Brieftasche / eIDAS 2.0 | Portefeuille d'identité numérique de l'UE / eIDAS 2.0 |
+
+### 16.7 Two corrections made while importing this vocabulary
+
+Recorded rather than silently applied, per Rule 12:
+
+1. **"Beteendemodellering i speltid" (SV, BHM)** was a mistranslation — *speltid* is playing time in
+   a game or a film's running time, not software runtime. Corrected to *vid körning*.
+2. **"Termination de chaîne" (FR, TC4)** is not a French word in this sense. Corrected to
+   *terminaison de chaîne*. Also **"Vertrauenspunkt" (DE, TRS)** reads as a physical point of trust;
+   corrected to *Vertrauenswert* (trust value/score).
 
 ---
 

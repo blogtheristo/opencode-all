@@ -25,8 +25,65 @@ export interface AgentContext {
   orgId: string;
   /** Unique session ID for tracing a conversation or workflow */
   sessionId: string;
+  /** Case ID — links agent execution to a unified Case entity (cases table) */
+  caseId?: string;
+  /** Session-scoped tool safety state used to block unsafe red-to-blue chains */
+  toolSafety?: ToolSafetyState;
   /** Sandbox isolation settings (optional — applied when SANDBOX_STAGE is set) */
   sandbox?: SandboxContext;
+  /**
+   * Per-agent runtime policy injected by BaseAgent.runLoop so tool handlers
+   * (e.g. send_notification) can authoritatively enforce the autonomy phase
+   * gate and notification rate limits, independent of which tools were offered.
+   */
+  agentRuntime?: AgentRuntimeContext;
+}
+
+/**
+ * Autonomy phase (KYA tier). Gates proactive action tools.
+ * - silent_pilot: observe only, no outbound action
+ * - advisor: may send proactive nudges (requires human confirm/override)
+ * - autonomous: may act within guardrails, exception-only approval
+ */
+export type AutonomyPhase = 'silent_pilot' | 'advisor' | 'autonomous';
+
+/** Proactive notification config — applied when autonomyPhase >= advisor */
+export interface NotifyConfig {
+  /** Delivery channels for proactive nudges */
+  channels: Array<'email' | 'teams' | 'slack' | 'in_app'>;
+  /** Max nudges this agent may send per rolling hour (default 5) */
+  maxPerHour: number;
+  /** Max nudges this agent may send per rolling day (default 20) */
+  maxPerDay: number;
+}
+
+/**
+ * Ex-ante KYA authorization verdict, injected by a runtime gate (KYA sandbox
+ * bridge, HIL queue) — never LLM- or user-supplied. Structurally compatible
+ * with `KYAVerdict` in `../observability/tracing.js`; kept as a local type
+ * here so `types.ts` does not import the observability module.
+ */
+export interface RuntimeKYAVerdict {
+  decision: 'allowed' | 'denied';
+  /** KYA session trust score at gate time (0-100); also used as memory ATS */
+  trustScore?: number;
+  policyVersion?: string;
+  gate?: string;
+}
+
+/** Runtime policy attached to AgentContext for tool-level enforcement */
+export interface AgentRuntimeContext {
+  name: string;
+  autonomyPhase: AutonomyPhase;
+  notify?: NotifyConfig;
+  /** Real KYA verdict from the runtime gate, when one has already been issued */
+  kya?: RuntimeKYAVerdict;
+}
+
+/** Tracks session taint from prior RED tool calls */
+export interface ToolSafetyState {
+  /** RED tools already executed in this session */
+  taintedRedTools: string[];
 }
 
 /** Sandbox isolation context attached to agent executions */
@@ -66,6 +123,9 @@ export interface AgentResponse {
 /** Model tier for task-aware model selection (see model-selector.ts) */
 export type ModelTier = 'lite' | 'standard' | 'heavy';
 
+/** Ollama model presets mapped to task types */
+export type OllamaModelPreset = 'fast' | 'agent' | 'quality' | 'vision' | 'coding' | 'default';
+
 /** Registration metadata for an agent */
 export interface AgentConfig {
   /** Unique machine-readable name (kebab-case) */
@@ -96,6 +156,13 @@ export interface AgentConfig {
   tools?: ToolDefinition[];
   /** Agentic loop configuration (DWS7: observe-think-act) */
   loop?: AgentLoopConfig;
+  /**
+   * Autonomy phase (KYA tier). Defaults to 'silent_pilot' when unset.
+   * Agents below 'advisor' cannot send proactive notifications.
+   */
+  autonomyPhase?: AutonomyPhase;
+  /** Proactive notification config (only honored when autonomyPhase >= advisor) */
+  notify?: NotifyConfig;
 }
 
 // ============ TOOL USE / FUNCTION CALLING (DWS7) ============

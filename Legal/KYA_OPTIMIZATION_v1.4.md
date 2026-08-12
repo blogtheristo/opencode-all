@@ -4,15 +4,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.10
 
 Sessions & Modifications:
 
+- Version: 1.10 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 07.08.2026 | Changes: §3.1 merkitty kanoniseksi ATS-maaritelmaksi; sisardokumentit restatettavat sen eivatka saa poiketa. Korjattu v1.4-historiarivin epatarkka sanamuoto 'ATS autoresearch factor corrected to A×0.25' — 0.25 on A:n katto multiplikatiivisessa muodossa, ei kerroin; additiivista `A×0.25` -kaavaa ei ole koskaan ollut kanonissa. Alkuperainen sanamuoto sailytetty Rule 12:n mukaisesti.
+- Version: 1.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §13 Agentic Commerce Mandate Gating — Human Not Present as Revenue Gate (v1.9), syncing KYA_STANDARD_v1.md §14 into the financial layer per Boardy's framing — HNP unattended-transaction authority as a monetizable capability unlocked by ATS tier, extending §3.2's Financial Multiplier table with a spend-authority dimension. Renumbered §13 Conclusion → §14
 - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep — corrected penalty tier from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context; softened "safe harbor" framing to "Art. 12 + Art. 26 deployer evidence for D&O AI-governance coverage" per PR #976 sweep pattern
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 12.1 Memory-Driven Financial Intelligence — fact extraction (PR-254) as data feed for per-customer financial optimization; client memory enables personalized ROI calculations, retention risk scoring, upsell opportunity detection; dual LWM+client memory architecture positions KYA-O as the only governance layer covering both domain knowledge and relationship knowledge; cross-referenced KYA-S §10 Memory Audit Trail; updated Related Documents
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Performance Guarantee (§5.4, split: internal revenue deferral + customer-facing service credit). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention. D&O investor note section drafted (docs/field-notes/)
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
-- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. [Imprecise — corrected 07.08.2026: 0.25 is the CAP on A in the multiplicative form (§3.1), not a multiplier. No additive `A×0.25` formula was ever canonical. Retained verbatim per Rule 12.] Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
 - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety), ATS autoresearch delta, financial multiplier per trust tier, per-industry efficiency gains (9–22%), Capability Manifest v1.2, Karpathy field note, projected EU-wide impact
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Financial Value Model — per-industry KYA revenue sizing, verification volume economics, insurance & liability reduction, carbon penalty avoidance ROI
 
@@ -180,6 +182,8 @@ A = autoresearch improvement factor (capped at 0.25, validated on industry proxy
 
 CRITICAL: If V > 0, then A = 0. No exceptions.
 ```
+
+**Canonical status (07.08.2026).** This §3.1 is the canonical ATS definition. `KYA_STANDARD_v1.md` §3.1 and `KYA_SECURITY_v1.2.md` §3.1 restate it and must not diverge; they carried a superseded additive form until this date (`Legal/KYA_S1_REVIEW_v1.3_PROPOSAL.md` Part B, finding B3).
 
 **Why Multiplicative (v1.6):** The previous additive formula `ATS = ... + A×0.18` was mathematically risky. An agent could be highly "optimal" (high A) but fundamentally "leaky" (moderate V) and still maintain a high score. The multiplicative formula ensures A _amplifies_ a clean security baseline rather than _compensating_ for security failures.
 
@@ -446,15 +450,15 @@ How KYA generates revenue for Lifetime Oy:
 
 **Palantir AIP** is the closest competitor on governed agentic pipelines for regulated industries. Direct comparison:
 
-| Dimension                | Palantir AIP                                | KYA (DWS IQ)                                                    | Advantage                      |
-| ------------------------ | ------------------------------------------- | --------------------------------------------------------------- | ------------------------------ |
-| **Agent isolation**      | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, < 125ms (Firecracker MicroVM, AWS benchmark))                | **KYA** — hardware > software  |
-| **Identity attribution** | Enterprise SSO / Foundry permissions        | KYC/KYB-verified identity → agent session binding               | **KYA** — legally attributable |
-| **Autoresearch**         | Not offered (manual model tuning)           | Governed self-optimization with financial attribution           | **KYA** — unique capability    |
-| **EU compliance**        | Generic (GDPR, some SOC 2)                  | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55             | **KYA** — EU-first             |
-| **Revenue model**        | Platform license (annual contract)          | SaaS + API (Tiers 1–3); Alpha-Share for Enterprise World Tier 4 | **KYA** — flexible pricing     |
-| **Industry depth**       | Defense, healthcare, energy (3–5 deep)      | 20 industries with per-industry proxy metrics                   | **KYA** — wider + deeper       |
-| **Data residency**       | US-primary (FedRAMP)                        | EU-primary (Finland/Germany, GDPR-native)                       | Context-dependent              |
+| Dimension                | Palantir AIP                                | KYA (DWS IQ)                                                                            | Advantage                      |
+| ------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------ |
+| **Agent isolation**      | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, < 125ms (Firecracker MicroVM, AWS benchmark)) | **KYA** — hardware > software  |
+| **Identity attribution** | Enterprise SSO / Foundry permissions        | KYC/KYB-verified identity → agent session binding                                       | **KYA** — legally attributable |
+| **Autoresearch**         | Not offered (manual model tuning)           | Governed self-optimization with financial attribution                                   | **KYA** — unique capability    |
+| **EU compliance**        | Generic (GDPR, some SOC 2)                  | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55                                     | **KYA** — EU-first             |
+| **Revenue model**        | Platform license (annual contract)          | SaaS + API (Tiers 1–3); Alpha-Share for Enterprise World Tier 4                         | **KYA** — flexible pricing     |
+| **Industry depth**       | Defense, healthcare, energy (3–5 deep)      | 20 industries with per-industry proxy metrics                                           | **KYA** — wider + deeper       |
+| **Data residency**       | US-primary (FedRAMP)                        | EU-primary (Finland/Germany, GDPR-native)                                               | Context-dependent              |
 
 **Key differentiator:** Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, < 125ms (Firecracker MicroVM, AWS benchmark) hardware termination. In regulated industries, hardware kill > software kill.
 
@@ -854,7 +858,39 @@ All memory-derived financial intelligence is governed by the Memory Audit Trail 
 
 ---
 
-## 13. Conclusion
+## 13. Agentic Commerce Mandate Gating — Human Not Present as Revenue Gate (v1.9)
+
+_Added: 07.07.2026 | PR: claude/kya-mandate-evidence-migration-mq7hnp | Source of truth: `Legal/KYA_STANDARD_v1.md` §14. Companion: `Legal/KYA_SECURITY_v1.2.md` §12 (enforcement/violation side)._
+
+§3.2's Financial Multiplier table already prices trust: a higher ATS band unlocks a higher OPEX-savings multiplier because the enterprise trusts that agent's autoresearch output enough to bill against it. Agentic commerce mandates (§14) add a second, more direct financial dimension to the same trust tier — **Human Not Present (HNP) execution is not a compliance checkbox, it's a revenue gate.** An agent that can transact unattended is worth more to the enterprise than one that requires a human in the loop for every payment, because unattended execution is what makes 24/7 procurement, restocking, and subscription-management agents commercially viable at all. KYA prices that capability the same way it prices autoresearch: by trust tier, never unconditionally.
+
+### 13.1 Spend Authority as a Financial Multiplier Dimension
+
+Extending §3.2's table with the mandate dimension from KYA_STANDARD_v1.md §14.2:
+
+| ATS Range | Financial Multiplier (§3.2) | Mandate Privileges (§14.2)               | HNP (unattended revenue)      | Commercial Interpretation                                                                                             |
+| --------- | --------------------------- | ---------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| >= 0.90   | 1.8–3.2x OPEX savings/yr    | Intent + Cart + Payment                  | **Allowed** (within ceilings) | Unattended commerce agent — bills for 24/7 execution, not just advisory output                                        |
+| 0.80–0.89 | 1.8–3.2x OPEX savings/yr    | Intent + Cart + Payment                  | Denied — human confirms       | Attended commerce agent — still transacts, but the human-confirmation step caps throughput (and thus billable volume) |
+| 0.50–0.79 | 1.3–2.0x                    | Intent + Cart only (human signs Payment) | Denied                        | Assembly-only agent — the human signature step is the revenue ceiling, not the agent's judgment                       |
+| < 0.50    | —                           | **No mandates**                          | Denied                        | No commerce revenue — NO_GO applies to spend the same as it applies to autoresearch                                   |
+
+**Reading the table (Boardy's framing):** the CISO's "No" still gates the CFO's "More" (§3.1's V>0 Hard Stop applies identically to mandate privileges — a security violation zeroes both the autoresearch multiplier and all spend authority). But above the security floor, HNP is the mechanism that turns a trust score into a _volume_ lever, not just a _confidence_ lever: an attended agent (0.80–0.89) and an unattended agent (>=0.90) can have near-identical per-transaction accuracy, yet the unattended agent generates materially more billable transaction volume because it doesn't wait on a human per transaction. Selling KYA-gated HNP is selling throughput, priced by trust.
+
+### 13.2 Tenant Gating Profiles Are a Commercial Lever, Not Just a Compliance One
+
+§14.2.1's tenant policy profiles (tighten-only, two immovable floors) let a customer's procurement or risk team set their own HNP ceiling and per-band confirmation thresholds — but every tightening is a **conscious trade of throughput for control**. This is a sales conversation, not just a security one: the Aegis tier's default (HNP disabled, human-signed Payment Mandates regardless of ATS, KYA_STANDARD_v1.md §14.2.1) is a defence/dual-use customer explicitly choosing lower commerce throughput in exchange for zero unattended-spend exposure. Account teams should read a tenant's gating profile the way they'd read a usage tier: it tells you the ceiling on that customer's realistic commerce-agent revenue before any product conversation happens.
+
+### 13.3 Related Artefacts
+
+- `Legal/KYA_STANDARD_v1.md` §14 — the mandate gating policy (protocol-neutral, public document)
+- `Legal/KYA_SECURITY_v1.2.md` §12 — enforcement/violation side (mandate revocation, evidence chain)
+- `src/identity/ats-engine.ts` — `evaluateMandateGate()`, spend-authority evaluation
+- `supabase/migrations/074_kya_mandate_evidence_chain.sql` — evidence-chain schema backing both sides (authored, not applied)
+
+---
+
+## 14. Conclusion
 
 The KYA Architecture Standard v1.7 (KYA-O) delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
 

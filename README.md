@@ -12,7 +12,8 @@
 
 **Status:** V1.0 launched February 23, 2026 — Pilot validation with Tier 1 European Partners
 **Update:** Customer onboarding wizard + compliance scoring shipped March 2026
-**Revenue:** €7k MRR today (scaling to €14k via Lifetime Fleet AND to €60k MRR with DWS IQ Sales 2026)
+**Software pipeline:** Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts
+**Revenue:** ~€7,000/month services and transport revenue (licensed transport operation + consulting) — **not** software revenue; puts the company at cash break-even with a founder salary of €0. Canonical source: `docs/TRACTION_CANONICAL.md`
 **Runway:** Fixed (Operational revenue covers core burn)
 **Agents:** 18 platform agents across 20 EU-regulated industries
 **CI/CD:** 37 automated workflows (security, deployment, monitoring, compliance)
@@ -40,7 +41,7 @@ DWS IQ 6 is not a point solution. It is a **complete industrial intelligence org
 | **ReFuelEU**     | Aviation & Maritime          | SAF mandates, fuel intensity tracking                                                  |
 | **NIS2**         | Cybersecurity Resilience     | Secure infrastructure, incident reporting, board accountability (Dir. 2022/2555)       |
 | **CER**          | Critical Entities Resilience | Physical protection of critical infrastructure against hybrid threats (Dir. 2022/2557) |
-| **EU AI Act**    | AI Governance                | Article 12 logging, reasoning lineage (Aiwen layer Q2 2026)                            |
+| **EU AI Act**    | AI Governance                | Article 12 logging, reasoning lineage (Full Sovereignty layer Q2 2026)                 |
 
 Full Industry Coverage: [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
 
@@ -87,7 +88,7 @@ LEVEL 5: TRANSFORMATION (DWS IQ 6 Ecosystem)
 │   32 Products in DWS Store (dws10.com)                          │
 ├─────────────────────────────────────────────────────────────────┤
 │                  HANDS - Lifetime Fleet                          │
-│           Robots • Vehicles • Drones • IoT (€7-14k MRR)        │
+│           Robots • Vehicles • Drones • IoT                      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -123,7 +124,7 @@ Vertical-specific applications for Construction, Manufacturing, Logistics, and m
 
 ### HANDS (Lifetime Fleet)
 
-Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generating €7-14k MRR)** — proof of market-product fit.
+Physical execution via Robots, Vehicles, Drones, and IoT. The licensed transport operation behind it, together with a small consulting practice, runs at **~€7,000/month** — services and transport revenue, **not** software revenue.
 
 ---
 
@@ -267,13 +268,13 @@ We are validating DWS6 with 2-3 construction or manufacturing companies in Europ
 
 ### Cloud Environments
 
-| Environment  | Provider                    | Region                  | Purpose                                |
-| ------------ | --------------------------- | ----------------------- | -------------------------------------- |
-| **US Cloud** | Cloudflare Pages/Workers    | Global CDN              | Landing pages, store, dashboard SPA    |
-| **EU Cloud** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend, agents, database, auth        |
-| **Aiwen**    | EU Cloud overlay            | EU-only                 | EU AI Act Article 12 logging (Q2 2026) |
-| **Hetzner**  | Self-hosted CX22            | Helsinki                | Jitsi Meet + Email (V3)                |
-| **Aiven**    | PostgreSQL sandbox          | Finland                 | Agent workspace, DR mirror             |
+| Environment           | Provider                    | Region                  | Purpose                                |
+| --------------------- | --------------------------- | ----------------------- | -------------------------------------- |
+| **US Cloud**          | Cloudflare Pages/Workers    | Global CDN              | Landing pages, store, dashboard SPA    |
+| **EU Cloud**          | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend, agents, database, auth        |
+| **Full Sov. (Aegis)** | EU Cloud overlay            | EU-only                 | EU AI Act Article 12 logging (Q2 2026) |
+| **Hetzner**           | Self-hosted CX22            | Helsinki                | Jitsi Meet + Email (V3)                |
+| **Aiven**             | PostgreSQL sandbox          | Finland                 | Agent workspace, DR mirror             |
 
 ### Hybrid Cloud + NVIDIA Edge
 
@@ -388,7 +389,7 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 
 - **12-Month Cash Need**: €191,630
 - **12-Month Revenue**: €140,000 (pilots + Lifetime Fleet)
-- **Current MRR**: €7-14k (Lifetime Fleet) - **Secures Runway**
+- **Current revenue**: ~€7,000/month services and transport revenue (licensed transport operation + consulting; **not** software revenue) - **cash break-even at a founder salary of €0**
 - **12-Month Edge Savings**: €333,000 (cloud cost avoidance)
 - **Result**: +€281,370 PROFIT in Month 12
 - **Investment Ask**: €150,000 SAFE @ €3.8M cap, 18% discount
@@ -400,7 +401,7 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 
 - **Feb 23, 2026**: V1.0 Launch (completed)
 - **Q1 2026**: Customer onboarding wizard, compliance scoring, 21-agent swarm
-- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act Aiwen layer
+- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act compliance layer (Full Sovereignty)
 - **Q3 2026**: ISO 27001 certification, production scaling
 - **Q4 2026**: SOC 2 Type II, profitability target
 

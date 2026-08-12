@@ -36,7 +36,10 @@ async function authenticatePayment(req: Request, res: Response, next: NextFuncti
   // 2. Try Supabase JWT (dashboard session)
   if (SUPABASE_JWT_SECRET) {
     try {
-      const supabaseDecoded = jwt.verify(token, SUPABASE_JWT_SECRET) as { sub?: string; email?: string };
+      const supabaseDecoded = jwt.verify(token, SUPABASE_JWT_SECRET) as {
+        sub?: string;
+        email?: string;
+      };
       if (supabaseDecoded?.sub) {
         req.userId = supabaseDecoded.sub;
         req.userEmail = supabaseDecoded.email ?? undefined;
@@ -53,6 +56,13 @@ async function authenticatePayment(req: Request, res: Response, next: NextFuncti
 type PlanTier = 'pro' | 'enterprise';
 type PaymentProvider = 'revolut' | 'paypal';
 
+interface SubscribeRequest {
+  plan: PlanTier;
+  payment_provider: PaymentProvider;
+  return_url?: string;
+  cancel_url?: string;
+}
+
 /**
  * POST /api/v1/payments/subscribe
  * Create subscription and return payment redirect URL.
@@ -63,7 +73,9 @@ router.post(
   authenticatePayment,
   [
     body('plan').isIn(['pro', 'enterprise']).withMessage('Plan must be pro or enterprise'),
-    body('payment_provider').isIn(['revolut', 'paypal']).withMessage('Provider must be revolut or paypal'),
+    body('payment_provider')
+      .isIn(['revolut', 'paypal'])
+      .withMessage('Provider must be revolut or paypal'),
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
@@ -71,7 +83,7 @@ router.post(
       return res.status(400).json({ error: 'Validation Error', details: errors.array() });
     }
 
-    const { plan, payment_provider } = req.body as { plan: PlanTier; payment_provider: PaymentProvider };
+    const { plan, payment_provider, return_url, cancel_url } = req.body as SubscribeRequest;
     const userEmail = req.userEmail;
     const userId = req.userId;
 
@@ -87,11 +99,13 @@ router.post(
       });
     }
 
-    const payload = {
+    const payload: Record<string, unknown> = {
       user_email: userEmail,
       user_id: userId,
       plan,
       payment_provider,
+      ...(return_url ? { return_url } : {}),
+      ...(cancel_url ? { cancel_url } : {}),
     };
 
     try {
@@ -132,7 +146,7 @@ router.post(
         message: 'Could not reach payment service. Please try again later.',
       });
     }
-  }
+  },
 );
 
 function getRawBodyBuffer(body: unknown): Buffer {
@@ -172,12 +186,13 @@ function decodeSignature(signature: string, expectedLength: number): Buffer | nu
   return null;
 }
 
-async function verifyHmacWebhookSignature(signature: string, rawBody: Buffer, webhookSecret: string): Promise<boolean> {
+async function verifyHmacWebhookSignature(
+  signature: string,
+  rawBody: Buffer,
+  webhookSecret: string,
+): Promise<boolean> {
   const crypto = await import('crypto');
-  const expectedDigest = crypto
-    .createHmac('sha256', webhookSecret)
-    .update(rawBody)
-    .digest();
+  const expectedDigest = crypto.createHmac('sha256', webhookSecret).update(rawBody).digest();
   const providedDigest = decodeSignature(signature, expectedDigest.length);
 
   if (!providedDigest || providedDigest.length !== expectedDigest.length) {
@@ -200,7 +215,7 @@ async function getPayPalAccessToken(): Promise<string | null> {
   const response = await fetch(`${apiBaseUrl}/v1/oauth2/token`, {
     method: 'POST',
     headers: {
-      'Authorization': `Basic ${auth}`,
+      Authorization: `Basic ${auth}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: 'grant_type=client_credentials',
@@ -215,7 +230,7 @@ async function getPayPalAccessToken(): Promise<string | null> {
     return null;
   }
 
-  const tokenResponse = await response.json() as { access_token?: string };
+  const tokenResponse = (await response.json()) as { access_token?: string };
   return tokenResponse.access_token || null;
 }
 
@@ -254,7 +269,7 @@ async function verifyPayPalWebhookSignature(req: Request, rawBody: Buffer): Prom
   const response = await fetch(`${apiBaseUrl}/v1/notifications/verify-webhook-signature`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -277,7 +292,7 @@ async function verifyPayPalWebhookSignature(req: Request, rawBody: Buffer): Prom
     return false;
   }
 
-  const verificationResponse = await response.json() as { verification_status?: string };
+  const verificationResponse = (await response.json()) as { verification_status?: string };
   return verificationResponse.verification_status === 'SUCCESS';
 }
 
@@ -286,75 +301,82 @@ async function verifyPayPalWebhookSignature(req: Request, rawBody: Buffer): Prom
  * Payment webhook receiver (PayPal/Revolut).
  * Verifies webhook signature before processing.
  */
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req: Request, res: Response) => {
-  const rawBody = getRawBodyBuffer(req.body);
-  const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET;
-  const customSignatureHeader = req.headers['x-webhook-signature'];
-  const paypalSignatureHeader = req.headers['paypal-transmission-sig'];
+router.post(
+  '/webhook',
+  express.raw({ type: 'application/json' }),
+  async (req: Request, res: Response) => {
+    const rawBody = getRawBodyBuffer(req.body);
+    const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET;
+    const customSignatureHeader = req.headers['x-webhook-signature'];
+    const paypalSignatureHeader = req.headers['paypal-transmission-sig'];
 
-  try {
-    if (typeof customSignatureHeader === 'string') {
-      if (!webhookSecret) {
-        logger.warn('PAYMENT_WEBHOOK_SECRET not configured for x-webhook-signature verification', {
+    try {
+      if (typeof customSignatureHeader === 'string') {
+        if (!webhookSecret) {
+          logger.warn(
+            'PAYMENT_WEBHOOK_SECRET not configured for x-webhook-signature verification',
+            {
+              ip: req.ip,
+            },
+          );
+          return res.status(401).json({ error: 'Invalid webhook signature' });
+        }
+
+        const isValidCustomSignature = await verifyHmacWebhookSignature(
+          customSignatureHeader,
+          rawBody,
+          webhookSecret,
+        );
+
+        if (!isValidCustomSignature) {
+          logger.warn('Payment webhook signature mismatch', {
+            ip: req.ip,
+          });
+          return res.status(401).json({ error: 'Invalid webhook signature' });
+        }
+      } else if (typeof paypalSignatureHeader === 'string') {
+        const isValidPayPalSignature = await verifyPayPalWebhookSignature(req, rawBody);
+
+        if (!isValidPayPalSignature) {
+          logger.warn('PayPal webhook signature mismatch', {
+            ip: req.ip,
+          });
+          return res.status(401).json({ error: 'Invalid webhook signature' });
+        }
+      } else {
+        logger.warn('Payment webhook received without a supported signature header', {
           ip: req.ip,
         });
         return res.status(401).json({ error: 'Invalid webhook signature' });
       }
 
-      const isValidCustomSignature = await verifyHmacWebhookSignature(
-        customSignatureHeader,
-        rawBody,
-        webhookSecret
-      );
+      const event = JSON.parse(rawBody.toString('utf8')) as Record<string, unknown>;
+      const eventType = (event?.type as string) || (event?.event_type as string) || 'unknown';
 
-      if (!isValidCustomSignature) {
-        logger.warn('Payment webhook signature mismatch', {
-          ip: req.ip,
-        });
-        return res.status(401).json({ error: 'Invalid webhook signature' });
-      }
-    } else if (typeof paypalSignatureHeader === 'string') {
-      const isValidPayPalSignature = await verifyPayPalWebhookSignature(req, rawBody);
-
-      if (!isValidPayPalSignature) {
-        logger.warn('PayPal webhook signature mismatch', {
-          ip: req.ip,
-        });
-        return res.status(401).json({ error: 'Invalid webhook signature' });
-      }
-    } else {
-      logger.warn('Payment webhook received without a supported signature header', {
-        ip: req.ip,
+      logger.info('Payment webhook received', {
+        type: eventType,
+        id: event?.id,
       });
-      return res.status(401).json({ error: 'Invalid webhook signature' });
+
+      // Forward to payment service for processing
+      if (PAYMENT_API_URL) {
+        await fetch(`${PAYMENT_API_URL}/v1/payments/webhook`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(event),
+        }).catch((err: Error) => {
+          logger.error('Payment webhook forwarding failed', { error: err.message });
+        });
+      }
+
+      return res.json({ received: true, type: eventType });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Payment webhook processing error', { error: msg });
+      return res.status(400).json({ error: 'Invalid webhook payload' });
     }
-
-    const event = JSON.parse(rawBody.toString('utf8')) as Record<string, unknown>;
-    const eventType = (event?.type as string) || (event?.event_type as string) || 'unknown';
-
-    logger.info('Payment webhook received', {
-      type: eventType,
-      id: event?.id,
-    });
-
-    // Forward to payment service for processing
-    if (PAYMENT_API_URL) {
-      await fetch(`${PAYMENT_API_URL}/v1/payments/webhook`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(event),
-      }).catch((err: Error) => {
-        logger.error('Payment webhook forwarding failed', { error: err.message });
-      });
-    }
-
-    return res.json({ received: true, type: eventType });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.error('Payment webhook processing error', { error: msg });
-    return res.status(400).json({ error: 'Invalid webhook payload' });
-  }
-});
+  },
+);
 
 /**
  * GET /api/v1/payments/health

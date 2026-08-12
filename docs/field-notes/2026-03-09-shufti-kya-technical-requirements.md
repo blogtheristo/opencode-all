@@ -133,7 +133,7 @@ Customer Request → [Shufti L1: Verify Human] → Agent Registration
 |---------|------------|
 | **Data residency** | EU-only (Finland/Germany). Supabase europe-north1. No US data transfer. |
 | **Auth** | Supabase Auth (JWT). Shufti tokens stored encrypted in Supabase Vault. |
-| **Compliance** | GDPR, NIS2, EU AI Act (Article 12 logging). Fit for 55 across 16 industries. |
+| **Compliance** | GDPR, NIS2, EU AI Act (Article 12 logging). Fit for 55 across 25+ industries. |
 | **Edge runtime** | Acer Veriton GN100 (Helsinki) for air-gapped sandbox (OpenSandbox Stage 1.5) |
 | **Cloud runtime** | Google Cloud Run (europe-north1) for Stage 2–3 sandboxes |
 
@@ -143,7 +143,7 @@ Customer Request → [Shufti L1: Verify Human] → Agent Registration
 2. **Risk score granularity** — Is the score 0–100 continuous or bucketed? Can we get sub-scores (AML, fraud, document)?
 3. **KYB scope** — Can Shufti verify the organization behind a BYO agent, not just the deploying user?
 4. **Latency** — Real-time IDV response time under load? Webhook delivery latency?
-5. **Pricing model** — Per-verification vs. monthly? Volume discounts for 16-industry platform?
+5. **Pricing model** — Per-verification vs. monthly? Volume discounts for 25+-industry platform?
 6. **Sandbox/test environment** — API sandbox with mock verification flows for our PoC?
 
 ---

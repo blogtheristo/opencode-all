@@ -257,7 +257,8 @@ Secrets stored in Google Secret Manager (project `dws6run6`):
 | `apollo-api-key` | Lead Scout |
 | `clearbit-api-key` | Lead Scout |
 | `resend-api-key` | Fallback email (SES SMTP primary) |
-| `slack-webhook` | Notifications |
+| `slack-webhook` | Slack notifications (Incoming Webhook); optional |
+| `teams-webhook` | Microsoft Teams notifications (Incoming Webhook); optional |
 | `linkedin-email` | Outreach |
 | `linkedin-password` | Outreach |
 

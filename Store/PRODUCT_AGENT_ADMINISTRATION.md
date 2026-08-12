@@ -1,30 +1,39 @@
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Agent Administration Platform
+
+- Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Agent Administration Platform
 
 Document Status:
-  - Created: 03.01.2026
-  - Last Modified: 03.01.2026
-  - Language: English
-  - Publication Status: Draft
-  - Document Type: Product Documentation
+
+- Created: 03.01.2026
+- Last Modified: 03.01.2026
+- Language: English
+- Publication Status: Draft
+- Document Type: Product Documentation
 
 Compliance:
-  - Applicable Regulations: EU AI Act, GDPR, SOC 2, NIS2
-  - Reference Documents: AGENTS.md, ADMIN_MANUAL_AGENTS_EN_v1.md
+
+- Applicable Regulations: EU AI Act, GDPR, SOC 2, NIS2
+- Reference Documents: AGENTS.md, ADMIN_MANUAL_AGENTS_EN_v1.md
 
 Legal:
-  - Intellectual Property: Lifetime Oy
-  - Contractual: Included with Enterprise tier
-  - Review Required: Pending (Sales, Legal)
+
+- Intellectual Property: Lifetime Oy
+- Contractual: Included with Enterprise tier
+- Review Required: Pending (Sales, Legal)
+
 ---
 
 # Agent Administration Platform
+
 ## Enterprise Management Console for AI Agent Fleets
+
+_Part of the DWS IQ Industrial Intelligence suite — the operations console for the agent fleet across the suite (DWS IQ 6 core, the Industrial Intelligence module, and the Aegis dual-use tier)._
 
 **Product Code:** AAP-001  
 **Version:** 1.0  
@@ -43,13 +52,13 @@ Legal:
 
 ### Target Users
 
-| Role | Primary Use |
-|------|-------------|
-| **CISO** | Security governance, compliance audits, incident response |
-| **CIO** | Cost management, capacity planning, ROI tracking |
-| **IT Operations** | Day-to-day monitoring, troubleshooting, scaling |
-| **DevOps** | Deployment automation, CI/CD integration |
-| **Compliance** | Audit preparation, regulatory reporting |
+| Role              | Primary Use                                               |
+| ----------------- | --------------------------------------------------------- |
+| **CISO**          | Security governance, compliance audits, incident response |
+| **CIO**           | Cost management, capacity planning, ROI tracking          |
+| **IT Operations** | Day-to-day monitoring, troubleshooting, scaling           |
+| **DevOps**        | Deployment automation, CI/CD integration                  |
+| **Compliance**    | Audit preparation, regulatory reporting                   |
 
 ---
 
@@ -80,12 +89,12 @@ Real-time visibility into all agents:
 
 Enterprise-grade permission model:
 
-| Role | Agent Access | Data Access | Actions |
-|------|--------------|-------------|---------|
-| **Admin** | All | All | Full CRUD, deploy, terminate |
-| **Operator** | All | Read + signals | Monitor, emit signals |
-| **Analyst** | Customer-facing | Read only | View dashboards |
-| **Auditor** | All (read) | Audit logs | Export, review |
+| Role         | Agent Access    | Data Access    | Actions                      |
+| ------------ | --------------- | -------------- | ---------------------------- |
+| **Admin**    | All             | All            | Full CRUD, deploy, terminate |
+| **Operator** | All             | Read + signals | Monitor, emit signals        |
+| **Analyst**  | Customer-facing | Read only      | View dashboards              |
+| **Auditor**  | All (read)      | Audit logs     | Export, review               |
 
 ### 3. Signal Monitoring
 
@@ -110,23 +119,23 @@ Signal Flow Diagram:
 
 Per-agent cost monitoring with budget enforcement:
 
-| Agent | Budget | Spent | % Used | Status |
-|-------|--------|-------|--------|--------|
-| customersat | €150/mo | €45.30 | 30% | 🟢 OK |
-| sitesense | €200/mo | €89.20 | 45% | 🟢 OK |
-| schedulegenius | €100/mo | €82.00 | 82% | 🟡 Warning |
+| Agent          | Budget  | Spent  | % Used | Status     |
+| -------------- | ------- | ------ | ------ | ---------- |
+| customersat    | €150/mo | €45.30 | 30%    | 🟢 OK      |
+| sitesense      | €200/mo | €89.20 | 45%    | 🟢 OK      |
+| schedulegenius | €100/mo | €82.00 | 82%    | 🟡 Warning |
 
-**Alerts:** Email, Slack, PagerDuty integration.
+**Alerts:** Email, WhatsApp/webhook, PagerDuty integration.
 
 ### 5. Incident Response
 
 Built-in playbooks for agent failures:
 
-| Severity | Response Time | Actions |
-|----------|---------------|---------|
-| **P1** (Agent down) | 15 min | PagerDuty, auto-restart |
-| **P2** (Errors > 10/min) | 1 hour | Slack, investigate |
-| **P3** (High latency) | 4 hours | Email, review |
+| Severity                 | Response Time | Actions                       |
+| ------------------------ | ------------- | ----------------------------- |
+| **P1** (Agent down)      | 15 min        | PagerDuty, auto-restart       |
+| **P2** (Errors > 10/min) | 1 hour        | WhatsApp/webhook, investigate |
+| **P3** (High latency)    | 4 hours       | Email, review                 |
 
 ### 6. Compliance Reporting
 
@@ -170,11 +179,11 @@ One-click export for auditors:
 
 ### Deployment Options
 
-| Option | Infrastructure | Best For |
-|--------|----------------|----------|
-| **SaaS** | Lifetime Cloud | Quick start |
-| **Dedicated** | Customer VPC (Lifetime managed) | Compliance |
-| **On-Premise** | Customer infrastructure | Regulated industries |
+| Option         | Infrastructure                  | Best For             |
+| -------------- | ------------------------------- | -------------------- |
+| **SaaS**       | Lifetime Cloud                  | Quick start          |
+| **Dedicated**  | Customer VPC (Lifetime managed) | Compliance           |
+| **On-Premise** | Customer infrastructure         | Regulated industries |
 
 ---
 
@@ -221,39 +230,39 @@ curl -X GET https://admin.dws6.com/api/audit/export?format=csv \
 
 ### SOC 2 Type II
 
-| Control | Feature | Evidence |
-|---------|---------|----------|
-| CC6.1 | RBAC for all users | Access logs |
-| CC6.2 | MFA, OAuth 2.0 | Auth logs |
-| CC7.2 | Signal-based changes | Signal log |
-| CC8.1 | Incident playbooks | Incident reports |
-| PI1.1 | Data isolation (RLS) | Database audit |
+| Control | Feature              | Evidence         |
+| ------- | -------------------- | ---------------- |
+| CC6.1   | RBAC for all users   | Access logs      |
+| CC6.2   | MFA, OAuth 2.0       | Auth logs        |
+| CC7.2   | Signal-based changes | Signal log       |
+| CC8.1   | Incident playbooks   | Incident reports |
+| PI1.1   | Data isolation (RLS) | Database audit   |
 
 ### EU AI Act
 
-| Requirement | Feature |
-|-------------|---------|
-| Transparency | Agent disclosure on all UIs |
-| Human Oversight | Advisor mode approval workflows |
-| Risk Classification | Limited Risk documentation |
-| Opt-out | Customer can disable autonomous |
+| Requirement         | Feature                         |
+| ------------------- | ------------------------------- |
+| Transparency        | Agent disclosure on all UIs     |
+| Human Oversight     | Advisor mode approval workflows |
+| Risk Classification | Limited Risk documentation      |
+| Opt-out             | Customer can disable autonomous |
 
 ### GDPR
 
-| Requirement | Feature |
-|-------------|---------|
-| Data Residency | EU (Finland) default |
+| Requirement     | Feature                |
+| --------------- | ---------------------- |
+| Data Residency  | EU (Finland) default   |
 | Data Processing | DPA with subprocessors |
-| Access Requests | Export via Admin API |
-| Deletion | Cascade delete via UI |
+| Access Requests | Export via Admin API   |
+| Deletion        | Cascade delete via UI  |
 
 ### NIS2
 
-| Requirement | Feature |
-|-------------|---------|
-| Incident Reporting | <24hr notification |
-| Risk Management | Threat model integration |
-| Supply Chain | Subprocessor monitoring |
+| Requirement        | Feature                  |
+| ------------------ | ------------------------ |
+| Incident Reporting | <24hr notification       |
+| Risk Management    | Threat model integration |
+| Supply Chain       | Subprocessor monitoring  |
 
 ---
 
@@ -267,7 +276,7 @@ curl -X GET https://admin.dws6.com/api/audit/export?format=csv \
 
 ### Notifications
 
-- **Slack:** Real-time alerts
+- **WhatsApp/webhook:** Real-time alerts
 - **PagerDuty:** P1/P2 escalation
 - **Email:** Summary reports
 - **Webhook:** Custom integrations
@@ -285,15 +294,15 @@ curl -X GET https://admin.dws6.com/api/audit/export?format=csv \
 
 **Included with Enterprise Tier**
 
-| Feature | Starter | Professional | Enterprise |
-|---------|---------|--------------|------------|
-| Dashboard | ✅ | ✅ | ✅ |
-| Signal Monitoring | ✅ | ✅ | ✅ |
-| RBAC | Basic | Full | Full + SAML |
-| Cost Tracking | ❌ | ✅ | ✅ |
-| Compliance Reports | ❌ | ✅ | ✅ |
-| Incident Playbooks | ❌ | ❌ | ✅ |
-| SLA | — | 99.5% | 99.9% |
+| Feature            | Starter | Professional | Enterprise  |
+| ------------------ | ------- | ------------ | ----------- |
+| Dashboard          | ✅      | ✅           | ✅          |
+| Signal Monitoring  | ✅      | ✅           | ✅          |
+| RBAC               | Basic   | Full         | Full + SAML |
+| Cost Tracking      | ❌      | ✅           | ✅          |
+| Compliance Reports | ❌      | ✅           | ✅          |
+| Incident Playbooks | ❌      | ❌           | ✅          |
+| SLA                | —       | 99.5%        | 99.9%       |
 
 ---
 
@@ -315,7 +324,7 @@ Settings → Users → Invite (assign roles)
 
 ### 4. Set Up Alerts
 
-Settings → Notifications → Configure Slack/PagerDuty
+Settings → Notifications → Configure WhatsApp/webhook/PagerDuty
 
 ### 5. Review Agents
 
@@ -325,11 +334,11 @@ Dashboard → Agent Fleet → View Details
 
 ## Support
 
-| Channel | Response Time | Availability |
-|---------|---------------|--------------|
-| **Admin Portal Chat** | 30 minutes | Business hours |
-| **Emergency Hotline** | 15 minutes | 24/7 |
-| **Dedicated CSM** | Same day | Enterprise only |
+| Channel               | Response Time | Availability    |
+| --------------------- | ------------- | --------------- |
+| **Admin Portal Chat** | 30 minutes    | Business hours  |
+| **Emergency Hotline** | 15 minutes    | 24/7            |
+| **Dedicated CSM**     | Same day      | Enterprise only |
 
 ---
 

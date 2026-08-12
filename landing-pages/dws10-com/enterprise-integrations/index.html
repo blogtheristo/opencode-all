@@ -314,8 +314,8 @@
             submission, Taxonomy CapEx tagging, renovation-passport triggers.
           </li>
           <li>
-            <strong>Audit</strong> &mdash; every action recorded with reasoning lineage to Aiwen
-            audit tables (Article 12) and signed with the Aegis provenance chain.
+            <strong>Audit</strong> &mdash; every action recorded with reasoning lineage to
+            sovereignty audit tables (Article 12) and signed with the Aegis provenance chain.
           </li>
         </ul>
         <p>Every integration ships with:</p>
@@ -389,7 +389,7 @@
           Siemens Building X API <span class="arrow">&rarr;</span> DWS IQ ingest adapter (EU edge)
           <span class="arrow">&rarr;</span> Lifetime World Model (EU regulatory engine)
           <span class="arrow">&rarr;</span> Firehorse ESG Report (CSRD E1 + EPBD + Taxonomy)
-          <span class="arrow">&rarr;</span> Aegis signed output + Aiwen audit log
+          <span class="arrow">&rarr;</span> Aegis signed output + sovereignty audit log
         </div>
 
         <h3>Compliance mapping</h3>
@@ -500,6 +500,42 @@
             <span class="status pilot">Pilot</span>
           </div>
         </div>
+        <div
+          style="
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: rgba(14, 165, 233, 0.07);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+          "
+        >
+          <span style="color: #94a3b8; font-size: 0.9rem"
+            >Connect your ERP to EU Fit-for-55 compliance reporting — live in weeks, not
+            months.</span
+          >
+          <a
+            href="https://dws10.com/book/?service=erp-integration"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              background: linear-gradient(135deg, #0ea5e9, #0284c7);
+              color: #fff;
+              padding: 9px 20px;
+              border-radius: 6px;
+              text-decoration: none;
+              font-weight: 600;
+              font-size: 0.85rem;
+              white-space: nowrap;
+            "
+            >📅 Book ERP Integration Demo</a
+          >
+        </div>
 
         <h3 id="industrial">Building Automation &amp; Industrial Control</h3>
         <div class="integration-grid">
@@ -562,6 +598,196 @@
           <span class="status design" style="margin: 0 6px">Design Partner</span> architecture &amp;
           scope agreed, pilot Q2&ndash;Q3 2026
         </p>
+      </div>
+
+      <!-- ================================================================
+           AGENTIC COMMERCE
+           ================================================================ -->
+      <div class="section" id="agentic-commerce">
+        <h2>
+          Agentic Commerce
+          <span
+            style="
+              font-size: 0.6em;
+              color: #1d4ed8;
+              background: rgba(59, 130, 246, 0.12);
+              padding: 3px 10px;
+              border-radius: 999px;
+              vertical-align: middle;
+              font-weight: 600;
+              letter-spacing: 0.05em;
+            "
+            >2026 Roadmap</span
+          >
+        </h2>
+        <p>
+          Agentic Commerce is the next layer of enterprise integration: AI agents that negotiate,
+          transact, and report autonomously on behalf of industrial enterprises — within
+          EU-regulatory guardrails. DWS IQ 6 implements Agentic Commerce across four protocol
+          planes.
+        </p>
+
+        <h3 id="agentic-protocols" style="margin-top: 28px">Protocols &amp; Standards</h3>
+        <div class="integration-grid">
+          <div class="integration featured">
+            <span class="category">Agent Protocol</span>
+            <h4>MCP — Model Context Protocol</h4>
+            <p>
+              Anthropic's open standard for tool-calling agents. DWS IQ exposes 48+ MCP tools
+              (<code>/mcp/tools/list</code>) so any Claude or third-party agent can query compliance
+              status, emission factors, and CSRD datapoints without human mediation.
+            </p>
+            <span class="status live">Live</span>
+          </div>
+          <div class="integration featured">
+            <span class="category">Agent Protocol</span>
+            <h4>A2A — Agent-to-Agent</h4>
+            <p>
+              Google's open Agent-to-Agent protocol for cross-vendor agent communication. DWS IQ
+              agents broadcast capability cards and accept structured task delegation from external
+              agents (logistics, ERP, IoT) via A2A task envelopes.
+            </p>
+            <span class="status pilot">Pilot</span>
+          </div>
+          <div class="integration">
+            <span class="category">Agent Protocol</span>
+            <h4>JSON-RPC 2.0 over HTTP/SSE</h4>
+            <p>
+              All DWS IQ agent endpoints implement JSON-RPC 2.0. Server-Sent Events enable streaming
+              agent responses for long-running compliance calculations and real-time carbon
+              metering.
+            </p>
+            <span class="status live">Live</span>
+          </div>
+          <div class="integration">
+            <span class="category">Agent Protocol</span>
+            <h4>OpenAI-compatible Completions API</h4>
+            <p>
+              DWS IQ agent functions are accessible via the OpenAI-compatible completions endpoint,
+              allowing any LLM orchestrator (LangChain, CrewAI, AutoGen) to invoke industrial agents
+              without vendor lock-in.
+            </p>
+            <span class="status live">Live</span>
+          </div>
+        </div>
+
+        <h3 id="agentic-transactions" style="margin-top: 28px">Agentic Transactions</h3>
+        <div class="integration-grid">
+          <div class="integration featured">
+            <span class="category">Agentic Transaction</span>
+            <h4>Autonomous Procurement Execution</h4>
+            <p>
+              DWS agents evaluate supplier carbon intensity against CBAM thresholds and execute
+              purchase orders autonomously when scope-3 criteria are met — triggering ERP write-back
+              (SAP / IFS) and ESRS E1-7 ledger entries in a single transaction.
+            </p>
+            <span class="status pilot">Pilot</span>
+          </div>
+          <div class="integration featured">
+            <span class="category">Agentic Transaction</span>
+            <h4>EU ETS Carbon Allowance Transactions</h4>
+            <p>
+              Agents monitor EU ETS spot prices (ICE/ECX) and file allowance surrender events to the
+              EU Registry API. Verified Emissions Reports (VER) are auto-generated and countersigned
+              — no human-in-the-loop for routine compliance transactions.
+            </p>
+            <span class="status pilot">Pilot</span>
+          </div>
+          <div class="integration">
+            <span class="category">Agentic Transaction</span>
+            <h4>Dynamic Contract Negotiation</h4>
+            <p>
+              Agents exchange structured offers via A2A task envelopes: price, carbon intensity,
+              delivery SLA, and Scope 3 certificate. Counter-offers are evaluated by policy engine
+              before human approval is triggered only above the configured risk threshold.
+            </p>
+            <span class="status design">Design Partner</span>
+          </div>
+          <div class="integration">
+            <span class="category">Agentic Transaction</span>
+            <h4>Automated CBAM Declarations</h4>
+            <p>
+              On import event (customs API webhook), agents compute embedded carbon, cross-reference
+              CBAM Regulation 2023/956 thresholds, generate the XML declaration, and submit to the
+              EU CBAM Registry — end-to-end without manual intervention.
+            </p>
+            <span class="status live">Live</span>
+          </div>
+        </div>
+
+        <h3 id="agentic-trust" style="margin-top: 28px">Trust, Audit &amp; EU Compliance</h3>
+        <div class="integration-grid">
+          <div class="integration">
+            <span class="category">Governance</span>
+            <h4>KYA — Know Your Agent</h4>
+            <p>
+              Every agent transaction is signed with a KYA trust score (TC-1 through TC-4). Agents
+              below TC-3 cannot execute financial transactions. Trust scores are logged immutably to
+              the DWS audit ledger (Supabase + pgvector).
+            </p>
+            <span class="status live">Live</span>
+          </div>
+          <div class="integration">
+            <span class="category">Governance</span>
+            <h4>EU AI Act Article 13 Transparency</h4>
+            <p>
+              All agentic transaction outputs include a mandatory disclosure header identifying the
+              AI system, confidence score, and human override path — compliant with EU AI Act
+              Article 13 (transparency obligations for high-risk AI systems).
+            </p>
+            <span class="status live">Live</span>
+          </div>
+          <div class="integration">
+            <span class="category">Governance</span>
+            <h4>Immutable Transaction Ledger</h4>
+            <p>
+              Every agentic transaction is appended to a tamper-evident JSONL ledger
+              (<code>logs/agent-transactions.jsonl</code>). Hash-chaining ensures audit integrity
+              for CSRD material transaction disclosures and ETS registry submissions.
+            </p>
+            <span class="status live">Live</span>
+          </div>
+          <div class="integration">
+            <span class="category">Governance</span>
+            <h4>Human Override Protocol (TC-4 Leash Snap)</h4>
+            <p>
+              When an agent chain exceeds its authority (risk score &gt; threshold), a TC-4 Leash
+              Snap event is fired: all pending transactions are paused, a human operator is
+              notified, and the agent context is frozen for audit. No transaction is lost.
+            </p>
+            <span class="status live">Live</span>
+          </div>
+        </div>
+
+        <div
+          style="
+            background: linear-gradient(
+              135deg,
+              rgba(30, 58, 138, 0.3) 0%,
+              rgba(30, 41, 59, 0.5) 100%
+            );
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-top: 28px;
+          "
+        >
+          <h4 style="color: #93c5fd; margin: 0 0 10px 0; font-size: 1rem">
+            📖 Research Basis — Agentic Commerce
+          </h4>
+          <p style="font-size: 0.88rem; color: #94a3b8; margin: 0; line-height: 1.7">
+            Agentic Commerce architecture is developed in alignment with the DWS Firehorse research
+            programme (V4 Thesis, 2026). The MCP + A2A dual-protocol stack, KYA trust scoring, and
+            EU AI Act Article 13 disclosure layer represent the implementation of the Firehorse
+            Thesis agentic transaction model. Protocol specs:
+            <a href="/kya-standard/" style="color: #60a5fa">KYA Standard v1</a> &middot;
+            <a href="/enterprise-integrations/siemens/" style="color: #60a5fa"
+              >Design Partner: Siemens</a
+            >
+            &middot;
+            <a href="/book/?service=demo" style="color: #60a5fa">Book Agentic Commerce Demo</a>
+          </p>
+        </div>
       </div>
 
       <div class="section" id="byo-agents">
@@ -685,7 +911,7 @@
             </p>
             <p style="color: #64748b; font-size: 0.85rem; margin: 0">
               <strong>Status:</strong>
-              <span style="color: #166534; font-weight: 600">Active</span> &mdash; 18+ agents
+              <span style="color: #166534; font-weight: 600">Active</span> &mdash; skilled agents
               exposed. Full reference: <code>docs/GITHUB_MCP_TOOLS.md</code>.
             </p>
           </div>
@@ -722,7 +948,7 @@
               <strong>Open-source aim:</strong> Agentic AI Foundation, NIST, European standards
               bodies &mdash; mirroring how Google donated A2A to the Linux Foundation.
               <a href="/kya-standard/" style="color: #92400e; font-weight: 600"
-                >Read the KYA Standard v1.1 &rarr;</a
+                >Read the KYA Standard v1.5 &rarr;</a
               >
             </p>
           </div>
@@ -1046,7 +1272,7 @@
           Book a 30-minute integration discovery call. We'll scope the connector, data flow, and
           compliance mapping in under an hour.
         </p>
-        <a href="https://calendar.app.google/5Kh3k9uhJtt6F3Mu9">Schedule Discovery Call</a>
+        <a href="https://dws10.com/book/?service=discovery">Schedule Discovery Call</a>
       </div>
 
       <p class="footnote">

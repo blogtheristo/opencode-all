@@ -206,15 +206,15 @@ PROPOSE FIX for every gap found.
 ```
 PRODUCT: Consulting — Hourly Rate
 PRICE: €98/hour
-CLAIMS: "Expert compliance guidance. All 16 EU industries covered. Flexible hourly booking. Most clients start with 4-hour assessment."
-FEATURES LISTED: Expert compliance guidance | All 16 EU industries covered | Flexible hourly booking
+CLAIMS: "Expert compliance guidance. All 25+ EU industries covered. Flexible hourly booking. Most clients start with 4-hour assessment."
+FEATURES LISTED: Expert compliance guidance | All 25+ EU industries covered | Flexible hourly booking
 
 TASK:
 Do extreme focus on substance. Extreme focus on getting to the truth.
 
 Evaluate:
 1. TRUTH CHECK — €98/hour is extremely low for EU compliance + AI architecture expertise. Market rate for senior EU regulatory consultants: €150–350/hour. This price either signals low confidence or is a loss leader. Which is it?
-2. TRUTH CHECK — "All 16 EU industries" covered by one person in one hour blocks? The 16 verticals span construction, manufacturing, logistics, energy, healthcare, etc. Domain expertise per vertical requires specialization.
+2. TRUTH CHECK — "All 25+ EU industries" covered by one person in one hour blocks? The 25+ verticals span construction, manufacturing, logistics, energy, healthcare, etc. Domain expertise per vertical requires specialization.
 3. TRUTH CHECK — "Most clients start with 4-hour assessment" = €392. This is below the cost of a meaningful assessment that produces a written deliverable. Is the 4-hour outcome a verbal briefing or a written report?
 4. BUYER GAP — No booking mechanism linked. No calendar integration. No retainer option or package discount shown on this SKU.
 5. COMPETITOR CHECK — Helios Climate Advisors, Normative.io advisory, local Finnish consulting at Siili Solutions, Gofore. How does €98/hr compete and retain credibility?
@@ -852,14 +852,14 @@ PROPOSE FIX for every gap found.
 ```
 PRODUCT: DWS IQ — EU Sovereign Pilot
 PRICE: €1,499/month + €3,990 one-time setup (Annual: 2 months free)
-CLAIMS: "8 AI agents + Aiwen EU AI Act Article 12 logging. NIS2 dashboard. 5 seats. Zero CLOUD Act. Full EU sovereign evaluation."
-FEATURES LISTED: 8 AI agents + Aiwen Article 12 logging | NIS2 compliance dashboard | Zero CLOUD Act + EU data residency
+CLAIMS: "8 AI agents + EU AI Act Article 12 logging. NIS2 dashboard. 5 seats. Zero CLOUD Act. Full EU sovereign evaluation."
+FEATURES LISTED: 8 AI agents + Article 12 logging | NIS2 compliance dashboard | Zero CLOUD Act + EU data residency
 
 TASK:
 Do extreme focus on substance. Extreme focus on getting to the truth.
 
 Evaluate:
-1. TRUTH CHECK — "Aiwen EU AI Act Article 12 logging" — Article 12 of the EU AI Act requires "record-keeping" for high-risk AI systems. Is DWS IQ 6 classified as a high-risk AI system (Annex III)? If not, Article 12 logging is not required. If yes, the entire system needs a Conformity Assessment. Which is it?
+1. TRUTH CHECK — "EU AI Act Article 12 logging" — Article 12 of the EU AI Act requires "record-keeping" for high-risk AI systems. Is DWS IQ 6 classified as a high-risk AI system (Annex III)? If not, Article 12 logging is not required. If yes, the entire system needs a Conformity Assessment. Which is it?
 2. TRUTH CHECK — "NIS2 compliance dashboard" — NIS2 compliance requires organizational measures far beyond a dashboard (incident reporting, governance, supply chain audits). A dashboard that shows "NIS2 compliant" without the organizational process is a checkbox, not compliance.
 3. TRUTH CHECK — Total pilot cost: €3,990 + €1,499 = €5,489 for 4 weeks. This is the most expensive pilot in the store. What is the exit/refund policy if the pilot does not prove ROI?
 4. TRUTH CHECK — "Zero CLOUD Act + EU data residency" — same Aiven infrastructure question as AGENT 36. Verify the full stack has no US-provider touchpoint (DNS, CDN, email delivery, authentication provider).

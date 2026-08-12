@@ -13,7 +13,19 @@ name: AI Code Review (HIL Automation)
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+      - '.github/workflows/**.disabled'
+
+# Cancel earlier in-flight reviews when a new commit is pushed to the same PR.
+# Saves significant minutes on rapid push sequences during active development.
+concurrency:
+  group: ai-pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,8 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     # Skip github-actions[bot] (pure CI automation) but allow Copilot actors
     # so the "@copilot fixes → push → re-review" loop runs correctly.
+    # Skip drafts — review only runs once a PR is marked ready.
     # Livelock is prevented by the iteration cap in the "Route fixes to Copilot" step.
-    if: github.actor != 'github-actions[bot]'
+    if: |
+      !github.event.pull_request.draft &&
+      github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout code
@@ -171,14 +186,21 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Claude Review
         id: claude-review
-        if: steps.conflict-check.outputs.has_conflicts != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_TITLE_RAW: ${{ github.event.pull_request.title }}
+          PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "Claude review skipped — ANTHROPIC_API_KEY not set" > /tmp/claude-review.txt
+            exit 0
+          fi
+
           DIFF=$(cat /tmp/pr-diff.txt)
           FILES=$(cat /tmp/changed-files.txt)
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
+          PR_TITLE=$(printf '%s' "$PR_TITLE_RAW")
+          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
           PROMPT="You are a senior engineer doing a quick sanity review of a PR for DWS IQ 6 (enterprise climate intelligence platform, TypeScript/Python/React).
 
@@ -230,7 +252,7 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Gemini HIL Review
         id: gemini-review
-        if: steps.conflict-check.outputs.has_conflicts != 'true' && (secrets.GOOGLE_AI_API_KEY != '' || secrets.GOOGLE_API_KEY != '')
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           # Prefer GOOGLE_AI_API_KEY (backwards-compatible name used across the repo);
           # fall back to GOOGLE_API_KEY for environments that only have the shorter name.
@@ -239,6 +261,11 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
+          if [ -z "${GEMINI_API_KEY:-}" ]; then
+            echo "Gemini HIL review skipped — GOOGLE_AI_API_KEY / GOOGLE_API_KEY not set" > /tmp/gemini-review.txt
+            exit 0
+          fi
+
           PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
           # Static prompt — no dynamic content here (avoids backtick/subshell injection)
@@ -654,11 +681,17 @@ IMPORTANT RULES:
       # ──────────────────────────────────────────────
       - name: Level 5 - Ollama Review (GN-100)
         id: ollama-review
-        if: ${{ secrets.OLLAMA_HOST != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           OLLAMA_HOST: ${{ secrets.OLLAMA_HOST }}
-          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen2.5-coder:14b' }}
+          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen3-coder:30b' }}
         run: |
+          if [ -z "${OLLAMA_HOST:-}" ]; then
+            echo "Ollama review skipped — OLLAMA_HOST not configured" > /tmp/ollama-review.txt
+            echo "verdict=skip" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           DIFF=$(cat /tmp/pr-diff.txt | head -c 30000)
           FILES=$(cat /tmp/changed-files.txt)
           PR_TITLE="${{ github.event.pull_request.title }}"

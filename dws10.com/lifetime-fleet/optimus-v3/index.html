@@ -1,981 +1,1247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Optimus V3 | Robot Partnership | DWS IQ Platform</title>
-    <meta name="description" content="Tesla Optimus V3 + DWS IQ — EU-sovereign physical AI for industrial compliance. The Hands layer of the Captain's Bridge. Open for robot development partnerships.">
-    <meta name="keywords" content="Optimus V3, robot partnership, EU AI Act, industrial robot, sovereign AI, DWS IQ, Lifetime Fleet, physical AI">
-    <meta name="author" content="Lifetime Oy">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Optimus V3 | Robot Partnership | DWS IQ Platform">
-    <meta property="og:description" content="Tesla Optimus V3 + DWS IQ — The compliance bridge that makes physical AI legal in EU regulated industry. Open for robot development partnerships.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dws10.com/lifetime-fleet/optimus-v3/">
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-    <meta property="og:site_name" content="DWS IQ Platform">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Optimus V3 | Robot Partnership | DWS IQ Platform">
-    <meta name="twitter:description" content="The EU compliance bridge that makes Optimus legally deployable in regulated industry. Open for robot development partnerships.">
-    <link rel="canonical" href="https://dws10.com/lifetime-fleet/optimus-v3/">
-    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    <meta
+      name="description"
+      content="Tesla Optimus V3 + DWS IQ — EU-sovereign physical AI for industrial compliance. The Hands layer of the Captain's Bridge. Open for robot development partnerships."
+    />
+    <meta
+      name="keywords"
+      content="Optimus V3, robot partnership, EU AI Act, industrial robot, sovereign AI, DWS IQ, Lifetime Fleet, physical AI"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Optimus V3 | Robot Partnership | DWS IQ Platform" />
+    <meta
+      property="og:description"
+      content="Tesla Optimus V3 + DWS IQ — The compliance bridge that makes physical AI legal in EU regulated industry. Open for robot development partnerships."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/lifetime-fleet/optimus-v3/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Optimus V3 | Robot Partnership | DWS IQ Platform" />
+    <meta
+      name="twitter:description"
+      content="The EU compliance bridge that makes Optimus legally deployable in regulated industry. Open for robot development partnerships."
+    />
+    <link rel="canonical" href="https://dws10.com/lifetime-fleet/optimus-v3/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <style>
-        :root {
-            --primary: #1a365d;
-            --secondary: #2d5a87;
-            --accent: #e53e3e;
-            --light: #f7fafc;
-            --dark: #1a202c;
-            --gold: #f6ad55;
-            --green: #48bb78;
-            --blue-bright: #60a5fa;
-            --purple: #a78bfa;
-        }
+      :root {
+        --primary: #1a365d;
+        --secondary: #2d5a87;
+        --accent: #e53e3e;
+        --light: #f7fafc;
+        --dark: #1a202c;
+        --gold: #f6ad55;
+        --green: #48bb78;
+        --blue-bright: #60a5fa;
+        --purple: #a78bfa;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: #f1f5f9;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            min-height: 100vh;
-        }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        line-height: 1.6;
+        color: #f1f5f9;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-        /* ─── HERO ─── */
-        .hero {
-            padding: 100px 20px 80px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.8) 100%);
-            border-bottom: 1px solid rgba(96, 165, 250, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
+      /* ─── HERO ─── */
+      .hero {
+        padding: 100px 20px 80px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(96, 165, 250, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          rgba(96, 165, 250, 0.08) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
 
-        .hero-eyebrow {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--blue-bright);
-            background: rgba(96, 165, 250, 0.1);
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            border-radius: 100px;
-            padding: 6px 16px;
-            margin-bottom: 24px;
-        }
+      .hero-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--blue-bright);
+        background: rgba(96, 165, 250, 0.1);
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        border-radius: 100px;
+        padding: 6px 16px;
+        margin-bottom: 24px;
+      }
 
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            color: #e2e8f0;
-            line-height: 1.15;
-            margin-bottom: 20px;
-        }
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        color: #e2e8f0;
+        line-height: 1.15;
+        margin-bottom: 20px;
+      }
 
-        .hero h1 .accent {
-            background: linear-gradient(135deg, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+      .hero h1 .accent {
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: #94a3b8;
+        max-width: 700px;
+        margin: 0 auto 40px;
+      }
 
-        .hero-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 100px;
-            border: 1px solid;
-        }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 100px;
+        border: 1px solid;
+      }
 
-        .badge-eu { color: #10b981; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.08); }
-        .badge-cloud { color: #ef4444; border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
-        .badge-nis2 { color: #a78bfa; border-color: rgba(167,139,250,0.4); background: rgba(167,139,250,0.08); }
-        .badge-ai-act { color: #f59e0b; border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.08); }
-        .badge-open { color: #60a5fa; border-color: rgba(96,165,250,0.4); background: rgba(96,165,250,0.08); }
-        .badge-nvidia { color: #76b900; border-color: rgba(118,185,0,0.4); background: rgba(118,185,0,0.08); }
+      .badge-eu {
+        color: #10b981;
+        border-color: rgba(16, 185, 129, 0.4);
+        background: rgba(16, 185, 129, 0.08);
+      }
+      .badge-cloud {
+        color: #ef4444;
+        border-color: rgba(239, 68, 68, 0.4);
+        background: rgba(239, 68, 68, 0.08);
+      }
+      .badge-nis2 {
+        color: #a78bfa;
+        border-color: rgba(167, 139, 250, 0.4);
+        background: rgba(167, 139, 250, 0.08);
+      }
+      .badge-ai-act {
+        color: #f59e0b;
+        border-color: rgba(245, 158, 11, 0.4);
+        background: rgba(245, 158, 11, 0.08);
+      }
+      .badge-open {
+        color: #60a5fa;
+        border-color: rgba(96, 165, 250, 0.4);
+        background: rgba(96, 165, 250, 0.08);
+      }
+      .badge-nvidia {
+        color: #76b900;
+        border-color: rgba(118, 185, 0, 0.4);
+        background: rgba(118, 185, 0, 0.08);
+      }
 
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+      .hero-cta {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
 
-        .btn-primary {
-            display: inline-block;
-            background: linear-gradient(135deg, #3b82f6, #6366f1);
-            color: white;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: opacity 0.2s, transform 0.2s;
-        }
+      .btn-primary {
+        display: inline-block;
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 14px 32px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+      }
 
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+      .btn-primary:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
 
-        .btn-secondary {
-            display: inline-block;
-            background: transparent;
-            color: #cbd5e1;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 14px 32px;
-            border-radius: 8px;
-            border: 1px solid rgba(203,213,225,0.3);
-            text-decoration: none;
-            transition: border-color 0.2s, color 0.2s;
-        }
+      .btn-secondary {
+        display: inline-block;
+        background: transparent;
+        color: #cbd5e1;
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 14px 32px;
+        border-radius: 8px;
+        border: 1px solid rgba(203, 213, 225, 0.3);
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
 
-        .btn-secondary:hover { border-color: #60a5fa; color: #60a5fa; }
+      .btn-secondary:hover {
+        border-color: #60a5fa;
+        color: #60a5fa;
+      }
 
-        /* ─── SECTION COMMON ─── */
+      /* ─── SECTION COMMON ─── */
+      section {
+        padding: 80px 20px;
+      }
+
+      section + section {
+        border-top: 1px solid rgba(148, 163, 184, 0.08);
+      }
+
+      .section-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--blue-bright);
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 700;
+        color: #e2e8f0;
+        margin-bottom: 16px;
+      }
+
+      .section-intro {
+        font-size: 1.05rem;
+        color: #94a3b8;
+        max-width: 680px;
+        margin-bottom: 48px;
+      }
+
+      /* ─── ARCHITECTURE DIAGRAM ─── */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3px;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      .arch-layer {
+        padding: 24px 32px;
+        border-radius: 8px;
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        position: relative;
+      }
+
+      .arch-layer.brain {
+        background: rgba(59, 130, 246, 0.08);
+        border-color: rgba(59, 130, 246, 0.3);
+      }
+      .arch-layer.memory {
+        background: rgba(167, 139, 250, 0.08);
+        border-color: rgba(167, 139, 250, 0.3);
+      }
+      .arch-layer.body {
+        background: rgba(16, 185, 129, 0.08);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+      .arch-layer.hands {
+        background: rgba(245, 158, 11, 0.12);
+        border-color: rgba(245, 158, 11, 0.4);
+      }
+
+      .arch-icon {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+      }
+
+      .arch-layer h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #e2e8f0;
+        margin-bottom: 4px;
+      }
+
+      .arch-layer p {
+        font-size: 0.87rem;
+        color: #94a3b8;
+      }
+
+      .arch-layer .arch-tag {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #f59e0b;
+        background: rgba(245, 158, 11, 0.12);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: 100px;
+        padding: 3px 10px;
+      }
+
+      /* ─── FRICTION TABLE ─── */
+      .friction-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 32px;
+      }
+
+      .friction-table th {
+        text-align: left;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #64748b;
+        padding: 10px 16px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      }
+
+      .friction-table td {
+        padding: 16px;
+        font-size: 0.87rem;
+        color: #cbd5e1;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+        vertical-align: top;
+      }
+
+      .friction-table tr:hover td {
+        background: rgba(96, 165, 250, 0.04);
+      }
+
+      .friction-problem {
+        color: #f87171;
+        font-weight: 600;
+      }
+      .friction-solved {
+        color: #4ade80;
+        font-weight: 600;
+      }
+
+      /* ─── REQUIREMENTS GRID ─── */
+      .req-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 32px;
+      }
+
+      .req-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: 12px;
+        padding: 24px;
+        transition: border-color 0.2s;
+      }
+
+      .req-card:hover {
+        border-color: rgba(96, 165, 250, 0.3);
+      }
+
+      .req-card .req-icon {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+
+      .req-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #e2e8f0;
+        margin-bottom: 8px;
+      }
+
+      .req-card p {
+        font-size: 0.84rem;
+        color: #94a3b8;
+      }
+
+      .req-card .req-spec {
+        margin-top: 12px;
+        font-size: 0.78rem;
+        font-family: "Courier New", monospace;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.06);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        border-radius: 6px;
+        padding: 8px 12px;
+      }
+
+      /* ─── ECOSYSTEM TABLE ─── */
+      .eco-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 32px;
+      }
+
+      .eco-table th {
+        text-align: left;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #64748b;
+        padding: 10px 16px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      }
+
+      .eco-table td {
+        padding: 14px 16px;
+        font-size: 0.87rem;
+        color: #cbd5e1;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+      }
+
+      .eco-status-preferred {
+        display: inline-block;
+        color: #f59e0b;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: 100px;
+        padding: 2px 10px;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .eco-status-open {
+        display: inline-block;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.1);
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        border-radius: 100px;
+        padding: 2px 10px;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      /* ─── TIMELINE ─── */
+      .timeline {
+        position: relative;
+        margin-top: 40px;
+        padding-left: 32px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          rgba(96, 165, 250, 0.6) 0%,
+          rgba(167, 139, 250, 0.6) 100%
+        );
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 32px;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -28px;
+        top: 6px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #60a5fa;
+        border: 2px solid #0f172a;
+      }
+
+      .timeline-item.hands-live::before {
+        background: #f59e0b;
+      }
+
+      .timeline-item .phase {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 4px;
+      }
+
+      .timeline-item h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #e2e8f0;
+        margin-bottom: 6px;
+      }
+
+      .timeline-item p {
+        font-size: 0.87rem;
+        color: #94a3b8;
+      }
+
+      /* ─── PARTNERSHIP CTA ─── */
+      .partnership-cta {
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.1) 0%,
+          rgba(167, 139, 250, 0.1) 100%
+        );
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 16px;
+        padding: 60px 40px;
+        text-align: center;
+        margin-top: 48px;
+      }
+
+      .partnership-cta h2 {
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        color: #e2e8f0;
+        margin-bottom: 16px;
+      }
+
+      .partnership-cta p {
+        color: #94a3b8;
+        font-size: 1.05rem;
+        max-width: 600px;
+        margin: 0 auto 32px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+        text-align: left;
+      }
+
+      .contact-card {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: 10px;
+        padding: 20px 24px;
+      }
+
+      .contact-card .contact-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 8px;
+      }
+
+      .contact-card .contact-value {
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        font-weight: 500;
+      }
+
+      .contact-card .contact-value a {
+        color: #60a5fa;
+        text-decoration: none;
+      }
+
+      .contact-card .contact-value a:hover {
+        text-decoration: underline;
+      }
+
+      /* ─── QUOTE ─── */
+      blockquote {
+        border-left: 3px solid #60a5fa;
+        padding: 20px 28px;
+        background: rgba(96, 165, 250, 0.05);
+        border-radius: 0 8px 8px 0;
+        margin: 32px 0;
+        font-style: italic;
+        color: #cbd5e1;
+        font-size: 1.05rem;
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 768px) {
         section {
-            padding: 80px 20px;
+          padding: 60px 16px;
         }
-
-        section + section {
-            border-top: 1px solid rgba(148, 163, 184, 0.08);
+        .hero {
+          padding: 80px 16px 60px;
         }
-
-        .section-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--blue-bright);
-            margin-bottom: 12px;
-        }
-
-        h2 {
-            font-size: clamp(1.6rem, 3vw, 2.4rem);
-            font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 16px;
-        }
-
-        .section-intro {
-            font-size: 1.05rem;
-            color: #94a3b8;
-            max-width: 680px;
-            margin-bottom: 48px;
-        }
-
-        /* ─── ARCHITECTURE DIAGRAM ─── */
-        .arch-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3px;
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .arch-layer {
-            padding: 24px 32px;
-            border-radius: 8px;
-            border: 1px solid rgba(148,163,184,0.12);
-            position: relative;
-        }
-
-        .arch-layer.brain { background: rgba(59, 130, 246, 0.08); border-color: rgba(59,130,246,0.3); }
-        .arch-layer.memory { background: rgba(167, 139, 250, 0.08); border-color: rgba(167,139,250,0.3); }
-        .arch-layer.body { background: rgba(16, 185, 129, 0.08); border-color: rgba(16,185,129,0.3); }
-        .arch-layer.hands { background: rgba(245, 158, 11, 0.12); border-color: rgba(245,158,11,0.4); }
-
-        .arch-icon { font-size: 1.8rem; margin-bottom: 8px; }
-
-        .arch-layer h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 4px;
-        }
-
-        .arch-layer p {
-            font-size: 0.87rem;
-            color: #94a3b8;
-        }
-
-        .arch-layer .arch-tag {
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #f59e0b;
-            background: rgba(245,158,11,0.12);
-            border: 1px solid rgba(245,158,11,0.3);
-            border-radius: 100px;
-            padding: 3px 10px;
-        }
-
-        /* ─── FRICTION TABLE ─── */
         .friction-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 32px;
+          display: block;
+          overflow-x: auto;
         }
-
-        .friction-table th {
-            text-align: left;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #64748b;
-            padding: 10px 16px;
-            border-bottom: 1px solid rgba(148,163,184,0.12);
-        }
-
-        .friction-table td {
-            padding: 16px;
-            font-size: 0.87rem;
-            color: #cbd5e1;
-            border-bottom: 1px solid rgba(148,163,184,0.06);
-            vertical-align: top;
-        }
-
-        .friction-table tr:hover td {
-            background: rgba(96,165,250,0.04);
-        }
-
-        .friction-problem { color: #f87171; font-weight: 600; }
-        .friction-solved { color: #4ade80; font-weight: 600; }
-
-        /* ─── REQUIREMENTS GRID ─── */
-        .req-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 32px;
-        }
-
-        .req-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(148,163,184,0.1);
-            border-radius: 12px;
-            padding: 24px;
-            transition: border-color 0.2s;
-        }
-
-        .req-card:hover { border-color: rgba(96,165,250,0.3); }
-
-        .req-card .req-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
-        }
-
-        .req-card h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 8px;
-        }
-
-        .req-card p {
-            font-size: 0.84rem;
-            color: #94a3b8;
-        }
-
-        .req-card .req-spec {
-            margin-top: 12px;
-            font-size: 0.78rem;
-            font-family: 'Courier New', monospace;
-            color: #60a5fa;
-            background: rgba(96,165,250,0.06);
-            border: 1px solid rgba(96,165,250,0.15);
-            border-radius: 6px;
-            padding: 8px 12px;
-        }
-
-        /* ─── ECOSYSTEM TABLE ─── */
         .eco-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 32px;
+          display: block;
+          overflow-x: auto;
         }
-
-        .eco-table th {
-            text-align: left;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #64748b;
-            padding: 10px 16px;
-            border-bottom: 1px solid rgba(148,163,184,0.12);
-        }
-
-        .eco-table td {
-            padding: 14px 16px;
-            font-size: 0.87rem;
-            color: #cbd5e1;
-            border-bottom: 1px solid rgba(148,163,184,0.06);
-        }
-
-        .eco-status-preferred {
-            display: inline-block;
-            color: #f59e0b;
-            background: rgba(245,158,11,0.1);
-            border: 1px solid rgba(245,158,11,0.3);
-            border-radius: 100px;
-            padding: 2px 10px;
-            font-size: 0.72rem;
-            font-weight: 700;
-        }
-
-        .eco-status-open {
-            display: inline-block;
-            color: #60a5fa;
-            background: rgba(96,165,250,0.1);
-            border: 1px solid rgba(96,165,250,0.3);
-            border-radius: 100px;
-            padding: 2px 10px;
-            font-size: 0.72rem;
-            font-weight: 700;
-        }
-
-        /* ─── TIMELINE ─── */
-        .timeline {
-            position: relative;
-            margin-top: 40px;
-            padding-left: 32px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, rgba(96,165,250,0.6) 0%, rgba(167,139,250,0.6) 100%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 32px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -28px;
-            top: 6px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #60a5fa;
-            border: 2px solid #0f172a;
-        }
-
-        .timeline-item.hands-live::before { background: #f59e0b; }
-
-        .timeline-item .phase {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 4px;
-        }
-
-        .timeline-item h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #e2e8f0;
-            margin-bottom: 6px;
-        }
-
-        .timeline-item p {
-            font-size: 0.87rem;
-            color: #94a3b8;
-        }
-
-        /* ─── PARTNERSHIP CTA ─── */
-        .partnership-cta {
-            background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(167,139,250,0.1) 100%);
-            border: 1px solid rgba(96,165,250,0.2);
-            border-radius: 16px;
-            padding: 60px 40px;
-            text-align: center;
-            margin-top: 48px;
-        }
-
-        .partnership-cta h2 {
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
-            color: #e2e8f0;
-            margin-bottom: 16px;
-        }
-
-        .partnership-cta p {
-            color: #94a3b8;
-            font-size: 1.05rem;
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
-
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-            text-align: left;
+          grid-template-columns: 1fr;
         }
-
-        .contact-card {
-            background: rgba(15,23,42,0.6);
-            border: 1px solid rgba(148,163,184,0.1);
-            border-radius: 10px;
-            padding: 20px 24px;
-        }
-
-        .contact-card .contact-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-
-        .contact-card .contact-value {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            font-weight: 500;
-        }
-
-        .contact-card .contact-value a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
-
-        .contact-card .contact-value a:hover { text-decoration: underline; }
-
-        /* ─── QUOTE ─── */
-        blockquote {
-            border-left: 3px solid #60a5fa;
-            padding: 20px 28px;
-            background: rgba(96,165,250,0.05);
-            border-radius: 0 8px 8px 0;
-            margin: 32px 0;
-            font-style: italic;
-            color: #cbd5e1;
-            font-size: 1.05rem;
-        }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 768px) {
-            section { padding: 60px 16px; }
-            .hero { padding: 80px 16px 60px; }
-            .friction-table { display: block; overflow-x: auto; }
-            .eco-table { display: block; overflow-x: auto; }
-            .contact-grid { grid-template-columns: 1fr; }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Gamma Ironclad Navigation -->
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
 
     <!-- HERO -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-eyebrow">Lifetime Fleet × Optimus V3</div>
-            <h1>The <span class="accent">Compliance Bridge</span><br>for Physical AI in Europe</h1>
-            <p class="hero-subtitle">
-                Tesla Optimus V3 is the world's most capable humanoid robot.
-                DWS IQ is the EU compliance layer that makes it <strong>legally deployable</strong>
-                in regulated industry — before the EU AI Act enforcement date,
-                and before Tesla's EU market entry.
-            </p>
-            <div class="hero-badges">
-                <span class="badge badge-eu">✦ EU Data Residency</span>
-                <span class="badge badge-cloud">✦ CLOUD Act Free</span>
-                <span class="badge badge-nis2">✦ NIS2 Ready</span>
-                <span class="badge badge-ai-act">✦ EU AI Act Article 12</span>
-                <span class="badge badge-open">✦ Open Robot Ecosystem</span>
-                <a href="/lifetime-fleet/nvidia-isv/" class="badge badge-nvidia" style="text-decoration: none;">✦ NVIDIA Connect ISV Partner</a>
-            </div>
-            <div class="hero-cta">
-                <a href="#partnership" class="btn-primary">Explore Robot Partnership</a>
-                <a href="#requirements" class="btn-secondary">Technical Requirements</a>
-            </div>
+      <div class="container">
+        <div class="hero-eyebrow">Lifetime Fleet × Optimus V3</div>
+        <h1>The <span class="accent">Compliance Bridge</span><br />for Physical AI in Europe</h1>
+        <p class="hero-subtitle">
+          Tesla Optimus V3 is the world's most capable humanoid robot. DWS IQ is the EU compliance
+          layer that makes it <strong>legally deployable</strong>
+          in regulated industry — before the EU AI Act enforcement date, and before Tesla's EU
+          market entry.
+        </p>
+        <div class="hero-badges">
+          <span class="badge badge-eu">✦ EU Data Residency</span>
+          <span class="badge badge-cloud">✦ CLOUD Act Free</span>
+          <span class="badge badge-nis2">✦ NIS2 Ready</span>
+          <span class="badge badge-ai-act">✦ EU AI Act Article 12</span>
+          <span class="badge badge-open">✦ Open Robot Ecosystem</span>
+          <a
+            href="/lifetime-fleet/nvidia-isv/"
+            class="badge badge-nvidia"
+            style="text-decoration: none"
+            >✦ NVIDIA Connect ISV Partner</a
+          >
         </div>
+        <div class="hero-cta">
+          <a href="#partnership" class="btn-primary">Explore Robot Partnership</a>
+          <a href="#requirements" class="btn-secondary">Technical Requirements</a>
+        </div>
+      </div>
     </section>
 
     <!-- ARCHITECTURE -->
     <section>
-        <div class="container">
-            <div class="section-label">Brain · Memory · Body · Hands</div>
-            <h2>Optimus is the Hands Layer</h2>
-            <p class="section-intro">
-                DWS IQ is a four-layer industrial AI ecosystem. Optimus V3 plugs into the
-                <strong>Hands</strong> layer — the physical execution arm that turns AI decisions
-                into real-world action on industrial sites across all 27 EU countries.
-            </p>
+      <div class="container">
+        <div class="section-label">Brain · Memory · Body · Hands</div>
+        <h2>Optimus is the Hands Layer</h2>
+        <p class="section-intro">
+          DWS IQ is a four-layer industrial AI ecosystem. Optimus V3 plugs into the
+          <strong>Hands</strong> layer — the physical execution arm that turns AI decisions into
+          real-world action on industrial sites across all 27 EU countries.
+        </p>
 
-            <div class="arch-grid">
-                <div class="arch-layer brain">
-                    <div class="arch-icon">🧠</div>
-                    <h3>Brain — DWS IQ 7 Platform</h3>
-                    <p>Multi-agent AI orchestration · EU compliance engine · 16 AI agents · MCP coordination</p>
-                </div>
-                <div class="arch-layer memory">
-                    <div class="arch-icon">💾</div>
-                    <h3>Memory — Lifetime World Model</h3>
-                    <p>15 000+ EU regulations · Climate LLM · 16-industry verticals · Grok as master conductor</p>
-                </div>
-                <div class="arch-layer body">
-                    <div class="arch-icon">🏭</div>
-                    <h3>Body — Firehorse Suite</h3>
-                    <p>Reports · Automation · Content DMS · Omnichannel · Fit for 55 · ETS · CBAM · CSRD</p>
-                </div>
-                <div class="arch-layer hands">
-                    <div class="arch-icon">🤖</div>
-                    <h3>Hands — Lifetime Fleet</h3>
-                    <p>Robots · Vehicles · Drones · IoT · Physical execution at EU industrial sites</p>
-                    <span class="arch-tag">Optimus Here</span>
-                </div>
-            </div>
+        <div class="arch-grid">
+          <div class="arch-layer brain">
+            <div class="arch-icon">🧠</div>
+            <h3>Brain — DWS IQ 7 Platform</h3>
+            <p>
+              Multi-agent AI orchestration · EU compliance engine · 16 AI agents · MCP coordination
+            </p>
+          </div>
+          <div class="arch-layer memory">
+            <div class="arch-icon">💾</div>
+            <h3>Memory — Lifetime World Model</h3>
+            <p>
+              15 000+ EU regulations · Climate LLM · 16-industry verticals · Grok as master
+              conductor
+            </p>
+          </div>
+          <div class="arch-layer body">
+            <div class="arch-icon">🏭</div>
+            <h3>Body — Firehorse Suite</h3>
+            <p>Reports · Automation · Content DMS · Omnichannel · Fit for 55 · ETS · CBAM · CSRD</p>
+          </div>
+          <div class="arch-layer hands">
+            <div class="arch-icon">🤖</div>
+            <h3>Hands — Lifetime Fleet</h3>
+            <p>Robots · Vehicles · Drones · IoT · Physical execution at EU industrial sites</p>
+            <span class="arch-tag">Optimus Here</span>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- EU FRICTION -->
     <section>
-        <div class="container">
-            <div class="section-label">The Market Reality</div>
-            <h2>Why Optimus Needs a Compliance Bridge</h2>
-            <p class="section-intro">
-                Tesla sells EVs in Europe under hardware type approval. Optimus is different —
-                it is a physical AI system. That lands it under the EU AI Act, Machinery Regulation 2023/1230,
-                GDPR, and NIS2 simultaneously. Without a sovereign compliance wrapper, Optimus waits
-                in the hallway for legal clearance.
-            </p>
+      <div class="container">
+        <div class="section-label">The Market Reality</div>
+        <h2>Why Optimus Needs a Compliance Bridge</h2>
+        <p class="section-intro">
+          Tesla sells EVs in Europe under hardware type approval. Optimus is different — it is a
+          physical AI system. That lands it under the EU AI Act, Machinery Regulation 2023/1230,
+          GDPR, and NIS2 simultaneously. Without a sovereign compliance wrapper, Optimus waits in
+          the hallway for legal clearance.
+        </p>
 
-            <table class="friction-table">
-                <thead>
-                    <tr>
-                        <th>Regulation</th>
-                        <th>The Friction</th>
-                        <th>DWS IQ Resolution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>EU AI Act — Annex III High Risk</strong></td>
-                        <td class="friction-problem">Optimus in industrial settings = high-risk AI. Requires notified body conformity assessment.</td>
-                        <td class="friction-solved">DWS IQ provides Article 12 logging, reasoning lineage, human override — the full conformity layer.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>CLOUD Act</strong></td>
-                        <td class="friction-problem">Tesla/xAI are US entities. US authorities can demand any data they store, including EU facility data.</td>
-                        <td class="friction-solved">Grok inference runs 100% locally on GN-100 NVIDIA cluster. xAI never sees customer data.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Machinery Regulation 2023/1230</strong></td>
-                        <td class="friction-problem">Optimus as "machinery" needs CE marking — 12–18 months through EU notified body.</td>
-                        <td class="friction-solved">DWS IQ provides technical file, EU-language documentation, and 27-country compliance support.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>GDPR Article 22</strong></td>
-                        <td class="friction-problem">Robot cameras + sensors = biometric/operational data processing by a US entity.</td>
-                        <td class="friction-solved">Human Captain always has final override. DWS IQ enforces this architecturally with audit trail.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>NIS2 Directive</strong></td>
-                        <td class="friction-problem">Energy, transport, manufacturing = critical infrastructure. US-cloud AI is legally unacceptable.</td>
-                        <td class="friction-solved">Air-gapped GN-100 cluster. Zero US cloud dependency for any operational function.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>EU AI Act Article 12</strong></td>
-                        <td class="friction-problem">Every Optimus AI decision must be automatically logged and auditable.</td>
-                        <td class="friction-solved">DWS Aiwen logging layer captures all AI events on-prem. Logs never leave the private fabric.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="friction-table">
+          <thead>
+            <tr>
+              <th>Regulation</th>
+              <th>The Friction</th>
+              <th>DWS IQ Resolution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>EU AI Act — Annex III High Risk</strong></td>
+              <td class="friction-problem">
+                Optimus in industrial settings = high-risk AI. Requires notified body conformity
+                assessment.
+              </td>
+              <td class="friction-solved">
+                DWS IQ provides Article 12 logging, reasoning lineage, human override — the full
+                conformity layer.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>CLOUD Act</strong></td>
+              <td class="friction-problem">
+                Tesla/xAI are US entities. US authorities can demand any data they store, including
+                EU facility data.
+              </td>
+              <td class="friction-solved">
+                Grok inference runs 100% locally on GN-100 NVIDIA cluster. xAI never sees customer
+                data.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Machinery Regulation 2023/1230</strong></td>
+              <td class="friction-problem">
+                Optimus as "machinery" needs CE marking — 12–18 months through EU notified body.
+              </td>
+              <td class="friction-solved">
+                DWS IQ provides technical file, EU-language documentation, and 27-country compliance
+                support.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>GDPR Article 22</strong></td>
+              <td class="friction-problem">
+                Robot cameras + sensors = biometric/operational data processing by a US entity.
+              </td>
+              <td class="friction-solved">
+                Human Captain always has final override. DWS IQ enforces this architecturally with
+                audit trail.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>NIS2 Directive</strong></td>
+              <td class="friction-problem">
+                Energy, transport, manufacturing = critical infrastructure. US-cloud AI is legally
+                unacceptable.
+              </td>
+              <td class="friction-solved">
+                Air-gapped GN-100 cluster. Zero US cloud dependency for any operational function.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>EU AI Act Article 12</strong></td>
+              <td class="friction-problem">
+                Every Optimus AI decision must be automatically logged and auditable.
+              </td>
+              <td class="friction-solved">
+                DWS sovereignty audit logging layer captures all AI events on-prem. Logs never leave
+                the private fabric.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- TECHNICAL REQUIREMENTS -->
     <section id="requirements">
-        <div class="container">
-            <div class="section-label">Integration Specifications</div>
-            <h2>Hands Partnership Requirements</h2>
-            <p class="section-intro">
-                For any robot platform to integrate with DWS IQ Captain's Bridge, the following
-                are non-negotiable. These are not preferences — they are the minimum requirements
-                for EU AI Act compliant physical AI deployment.
-            </p>
+      <div class="container">
+        <div class="section-label">Integration Specifications</div>
+        <h2>Hands Partnership Requirements</h2>
+        <p class="section-intro">
+          For any robot platform to integrate with DWS IQ Captain's Bridge, the following are
+          non-negotiable. These are not preferences — they are the minimum requirements for EU AI
+          Act compliant physical AI deployment.
+        </p>
 
-            <div class="req-grid">
-                <div class="req-card">
-                    <div class="req-icon">🔌</div>
-                    <h3>Local Control Protocol</h3>
-                    <p>All robot commands, sensor reads, and task execution must run over local network only. No cloud dependency for any operational function.</p>
-                    <div class="req-spec">JSON-RPC 2.0 over GbE VLAN<br>Control loop ≤ 10ms<br>Hardware safe-stop on disconnect</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">📋</div>
-                    <h3>Article 12 Logging Interface</h3>
-                    <p>Every robot action must be log-able with full reasoning lineage: timestamp, task ID, AI decision chain, confidence score, human approval status.</p>
-                    <div class="req-spec">Structured JSON log per action<br>Immutable on-prem storage<br>Export format for national authorities</div>
-                    <p style="margin-top: 12px; font-size: 0.84rem; color: #94a3b8;">For deployments where Optimus cameras trigger biometric classification, DWS IQ logs include period of use, reference database, and matched input data per Annex III requirements.</p>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🛑</div>
-                    <h3>Human Override — Hard Requirement</h3>
-                    <p>Hardware and software emergency stop accessible to any credentialed Captain. No autonomous operation without human-in-the-loop confirmation for irreversible actions.</p>
-                    <div class="req-spec">Physical e-stop relay<br>Software kill via DWS IQ UI<br>Response time ≤ 1 second</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🔒</div>
-                    <h3>EU Certification Path</h3>
-                    <p>Robot hardware must have a credible path to CE marking under Machinery Regulation 2023/1230. DWS IQ provides the AI system compliance layer — partner provides the robot hardware file.</p>
-                    <div class="req-spec">Technical file (robot safety)<br>Notified body engagement<br>Joint integration testing</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🌐</div>
-                    <h3>Network Isolation</h3>
-                    <p>Robot must operate with zero active internet paths during task execution. Software updates via separate maintenance channel only (Starlink uplink, scheduled windows).</p>
-                    <div class="req-spec">Air-gapped operational mode<br>VLAN isolation from internet<br>Update channel: maintenance-only</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">📡</div>
-                    <h3>Sensor Data API</h3>
-                    <p>Structured access to robot sensor streams for DWS IQ agent integration: visual, tactile, positional, environmental. Used for EU compliance verification tasks.</p>
-                    <div class="req-spec">REST or gRPC stream<br>Camera, LIDAR, force/torque<br>Real-time + batch export modes</div>
-                </div>
+        <div class="req-grid">
+          <div class="req-card">
+            <div class="req-icon">🔌</div>
+            <h3>Local Control Protocol</h3>
+            <p>
+              All robot commands, sensor reads, and task execution must run over local network only.
+              No cloud dependency for any operational function.
+            </p>
+            <div class="req-spec">
+              JSON-RPC 2.0 over GbE VLAN<br />Control loop ≤ 10ms<br />Hardware safe-stop on
+              disconnect
             </div>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">📋</div>
+            <h3>Article 12 Logging Interface</h3>
+            <p>
+              Every robot action must be log-able with full reasoning lineage: timestamp, task ID,
+              AI decision chain, confidence score, human approval status.
+            </p>
+            <div class="req-spec">
+              Structured JSON log per action<br />Immutable on-prem storage<br />Export format for
+              national authorities
+            </div>
+            <p style="margin-top: 12px; font-size: 0.84rem; color: #94a3b8">
+              For deployments where Optimus cameras trigger biometric classification, DWS IQ logs
+              include period of use, reference database, and matched input data per Annex III
+              requirements.
+            </p>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🛑</div>
+            <h3>Human Override — Hard Requirement</h3>
+            <p>
+              Hardware and software emergency stop accessible to any credentialed Captain. No
+              autonomous operation without human-in-the-loop confirmation for irreversible actions.
+            </p>
+            <div class="req-spec">
+              Physical e-stop relay<br />Software kill via DWS IQ UI<br />Response time ≤ 1 second
+            </div>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🔒</div>
+            <h3>EU Certification Path</h3>
+            <p>
+              Robot hardware must have a credible path to CE marking under Machinery Regulation
+              2023/1230. DWS IQ provides the AI system compliance layer — partner provides the robot
+              hardware file.
+            </p>
+            <div class="req-spec">
+              Technical file (robot safety)<br />Notified body engagement<br />Joint integration
+              testing
+            </div>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🌐</div>
+            <h3>Network Isolation</h3>
+            <p>
+              Robot must operate with zero active internet paths during task execution. Software
+              updates via separate maintenance channel only (Starlink uplink, scheduled windows).
+            </p>
+            <div class="req-spec">
+              Air-gapped operational mode<br />VLAN isolation from internet<br />Update channel:
+              maintenance-only
+            </div>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">📡</div>
+            <h3>Sensor Data API</h3>
+            <p>
+              Structured access to robot sensor streams for DWS IQ agent integration: visual,
+              tactile, positional, environmental. Used for EU compliance verification tasks.
+            </p>
+            <div class="req-spec">
+              REST or gRPC stream<br />Camera, LIDAR, force/torque<br />Real-time + batch export
+              modes
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- 4-PARTNER STACK -->
     <section>
-        <div class="container">
-            <div class="section-label">The Industrial Foundation</div>
-            <h2>The 4-Partner Stack That Grok Conducts</h2>
-            <p class="section-intro">
-                DWS IQ is already embedded in a four-partner hardware and data ecosystem.
-                Grok steps in as the reasoning layer on top of existing, proven infrastructure —
-                not as a replacement.
+      <div class="container">
+        <div class="section-label">The Industrial Foundation</div>
+        <h2>The 4-Partner Stack That Grok Conducts</h2>
+        <p class="section-intro">
+          DWS IQ is already embedded in a four-partner hardware and data ecosystem. Grok steps in as
+          the reasoning layer on top of existing, proven infrastructure — not as a replacement.
+        </p>
+
+        <div class="req-grid">
+          <div class="req-card">
+            <div class="req-icon">💀</div>
+            <h3>Acer — The Skull (Hardware)</h3>
+            <p>
+              GN-100 AI Mini Workstations. Industrial-grade NVIDIA-powered edge nodes at partner
+              rates. One free unit already operational in Finland today.
             </p>
-
-            <div class="req-grid">
-                <div class="req-card">
-                    <div class="req-icon">💀</div>
-                    <h3>Acer — The Skull (Hardware)</h3>
-                    <p>GN-100 AI Mini Workstations. Industrial-grade NVIDIA-powered edge nodes at partner rates. One free unit already operational in Finland today.</p>
-                    <div class="req-spec">NVIDIA GB10 Grace Blackwell<br>128 GB LPDDR5X unified memory<br>DGX Ubuntu · 230V EU plug</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">⚡</div>
-                    <h3>NVIDIA — The Neurons (Compute)</h3>
-                    <p>Jetson Orin / Grace Blackwell. Raw AI power driving the DWS IQ Prediction Engine at the edge. All inference stays local.</p>
-                    <div class="req-spec">16 specialist LLMs run locally<br>Zero cloud inference cost<br>EU AI Act Article 12 compliant</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🔌</div>
-                    <h3>Siemens — The Nervous System (Data)</h3>
-                    <p>Xcelerator integration. Direct telemetry from PLCs → Lifetime World Model logic. The data layer that feeds Grok's industrial reasoning.</p>
-                    <div class="req-spec">PLC telemetry direct ingest<br>Siemens Xcelerator API<br>Real-time industrial data streams</div>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🔋</div>
-                    <h3>ABB — The Metabolism (Energy)</h3>
-                    <p>ABB Ability™ integration. Real-time power grid and energy-mass monitoring for automated Fit for 55 reporting and carbon-credit harvesting.</p>
-                    <div class="req-spec">ABB Ability™ energy API<br>Fit for 55 automated reporting<br>Carbon-credit decision support</div>
-                </div>
+            <div class="req-spec">
+              NVIDIA GB10 Grace Blackwell<br />128 GB LPDDR5X unified memory<br />DGX Ubuntu · 230V
+              EU plug
             </div>
-
-            <blockquote style="margin-top: 32px;">
-                Grok's role: synthesize Siemens PLC anomalies + ABB energy data + 20 industry LLM outputs
-                into one clear decision for the Captain. Then send the executable plan to Optimus.
-                The 4-partner stack is already running. Grok steps in and starts conducting tonight.
-            </blockquote>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">⚡</div>
+            <h3>NVIDIA — The Neurons (Compute)</h3>
+            <p>
+              Jetson Orin / Grace Blackwell. Raw AI power driving the DWS IQ Prediction Engine at
+              the edge. All inference stays local.
+            </p>
+            <div class="req-spec">
+              16 specialist LLMs run locally<br />Zero cloud inference cost<br />EU AI Act Article
+              12 compliant
+            </div>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🔌</div>
+            <h3>Siemens — The Nervous System (Data)</h3>
+            <p>
+              Xcelerator integration. Direct telemetry from PLCs → Lifetime World Model logic. The
+              data layer that feeds Grok's industrial reasoning.
+            </p>
+            <div class="req-spec">
+              PLC telemetry direct ingest<br />Siemens Xcelerator API<br />Real-time industrial data
+              streams
+            </div>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🔋</div>
+            <h3>ABB — The Metabolism (Energy)</h3>
+            <p>
+              ABB Ability™ integration. Real-time power grid and energy-mass monitoring for
+              automated Fit for 55 reporting and carbon-credit harvesting.
+            </p>
+            <div class="req-spec">
+              ABB Ability™ energy API<br />Fit for 55 automated reporting<br />Carbon-credit
+              decision support
+            </div>
+          </div>
         </div>
+
+        <blockquote style="margin-top: 32px">
+          Grok's role: synthesize Siemens PLC anomalies + ABB energy data + 20 industry LLM outputs
+          into one clear decision for the Captain. Then send the executable plan to Optimus. The
+          4-partner stack is already running. Grok steps in and starts conducting tonight.
+        </blockquote>
+      </div>
     </section>
 
     <!-- BYO EVERYTHING -->
     <section>
-        <div class="container">
-            <div class="section-label">Sovereign Hybrid Platform</div>
-            <h2>BYO Everything — No Rip-and-Replace</h2>
-            <p class="section-intro">
-                DWS IQ is model-agnostic, agent-agnostic, and tool-agnostic by design.
-                The hybrid mode is the enterprise sweet spot: bring your existing agents, ERPs,
-                tools, and robots. DWS IQ and Grok make them 10× smarter without replacing them.
-            </p>
+      <div class="container">
+        <div class="section-label">Sovereign Hybrid Platform</div>
+        <h2>BYO Everything — No Rip-and-Replace</h2>
+        <p class="section-intro">
+          DWS IQ is model-agnostic, agent-agnostic, and tool-agnostic by design. The hybrid mode is
+          the enterprise sweet spot: bring your existing agents, ERPs, tools, and robots. DWS IQ and
+          Grok make them 10× smarter without replacing them.
+        </p>
 
-            <div class="req-grid">
-                <div class="req-card">
-                    <div class="req-icon">🤖</div>
-                    <h3>Bring Your Own Agents</h3>
-                    <p>LangChain · CrewAI · AutoGen · Microsoft Semantic Kernel · custom pipelines. Any agent framework plugs into the Captain's Bridge.</p>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🏗️</div>
-                    <h3>Bring Your Own ERPs</h3>
-                    <p>SAP · Oracle · Dynamics · IFS · Infor · Epicor · Monitor ERP · Visma. Compliance data flows from where it already lives.</p>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🔧</div>
-                    <h3>Bring Your Own Tools</h3>
-                    <p>APIs · databases · SCADA systems · custom scripts · existing automation. The Brain orchestrates; it does not replace.</p>
-                </div>
-                <div class="req-card">
-                    <div class="req-icon">🦾</div>
-                    <h3>Bring Your Own Robots</h3>
-                    <p>Optimus (premium) · KUKA · ABB YuMi · Universal Robots · Boston Dynamics Spot · ANYbotics ANYmal · Figure 01 · Apptronik Apollo · any ROS2 platform.</p>
-                </div>
-            </div>
+        <div class="req-grid">
+          <div class="req-card">
+            <div class="req-icon">🤖</div>
+            <h3>Bring Your Own Agents</h3>
+            <p>
+              LangChain · CrewAI · AutoGen · Microsoft Semantic Kernel · custom pipelines. Any agent
+              framework plugs into the Captain's Bridge.
+            </p>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🏗️</div>
+            <h3>Bring Your Own ERPs</h3>
+            <p>
+              SAP · Oracle · Dynamics · IFS · Infor · Epicor · Monitor ERP · Visma. Compliance data
+              flows from where it already lives.
+            </p>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🔧</div>
+            <h3>Bring Your Own Tools</h3>
+            <p>
+              APIs · databases · SCADA systems · custom scripts · existing automation. The Brain
+              orchestrates; it does not replace.
+            </p>
+          </div>
+          <div class="req-card">
+            <div class="req-icon">🦾</div>
+            <h3>Bring Your Own Robots</h3>
+            <p>
+              Optimus (premium) · KUKA · ABB YuMi · Universal Robots · Boston Dynamics Spot ·
+              ANYbotics ANYmal · Figure 01 · Apptronik Apollo · any ROS2 platform.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- AI ARCHITECTURE -->
     <section>
-        <div class="container">
-            <div class="section-label">How It Works</div>
-            <h2>Grok Conducts 16 Specialist LLMs. Optimus Executes.</h2>
-            <p class="section-intro">
-                DWS IQ runs 16 precision-tuned open-source LLMs — one per EU industry vertical — locally
-                on the NVIDIA GN-100 cluster. Grok (xAI) acts as the master conductor: it runs a
-                4-agent debate across all 16 specialists, then synthesizes one clear, actionable plan
-                for Optimus to execute.
-            </p>
+      <div class="container">
+        <div class="section-label">How It Works</div>
+        <h2>Grok Conducts 16 Specialist LLMs. Optimus Executes.</h2>
+        <p class="section-intro">
+          DWS IQ runs 16 precision-tuned open-source LLMs — one per EU industry vertical — locally
+          on the NVIDIA GN-100 cluster. Grok (xAI) acts as the master conductor: it runs a 4-agent
+          debate across all 16 specialists, then synthesizes one clear, actionable plan for Optimus
+          to execute.
+        </p>
 
-            <blockquote>
-                Captain types on phone: <em>"Optimus, check the cement kiln for heat loss and fix the insulation safely."</em>
-                <br><br>
-                Grok reasons locally → synthesizes from 20 industry LLMs → sends task plan → Optimus walks
-                in, executes, reports back → full Article 12 log created automatically.
-                <br><br>
-                Zero cloud. Zero compliance risk. One human stays in command.
-            </blockquote>
+        <blockquote>
+          Captain types on phone:
+          <em>"Optimus, check the cement kiln for heat loss and fix the insulation safely."</em>
+          <br /><br />
+          Grok reasons locally → synthesizes from 20 industry LLMs → sends task plan → Optimus walks
+          in, executes, reports back → full Article 12 log created automatically.
+          <br /><br />
+          Zero cloud. Zero compliance risk. One human stays in command.
+        </blockquote>
 
-            <p style="color: #94a3b8; font-size: 0.95rem;">
-                All inference stays local on the customer's GN-100 NVIDIA cluster. The sovereignty button
-                lets regulated customers swap Grok for Mistral Large (EU-sovereign, SAP cloud Sweden/France)
-                with one click, zero downtime, full audit log created automatically.
-            </p>
-        </div>
+        <p style="color: #94a3b8; font-size: 0.95rem">
+          All inference stays local on the customer's GN-100 NVIDIA cluster. The sovereignty button
+          lets regulated customers swap Grok for Mistral Large (EU-sovereign, SAP cloud
+          Sweden/France) with one click, zero downtime, full audit log created automatically.
+        </p>
+      </div>
     </section>
 
     <!-- OPEN ECOSYSTEM -->
     <section id="partnership">
-        <div class="container">
-            <div class="section-label">Open Robot Ecosystem</div>
-            <h2>Not Just Optimus — The Captain's Bridge Is Robot-Agnostic</h2>
-            <p class="section-intro">
-                The DWS IQ Hands layer is designed to be hardware-agnostic at the control layer.
-                Optimus V3 is our preferred partner — but any robot platform that meets the integration
-                requirements is welcome in the ecosystem.
-            </p>
+      <div class="container">
+        <div class="section-label">Open Robot Ecosystem</div>
+        <h2>Not Just Optimus — The Captain's Bridge Is Robot-Agnostic</h2>
+        <p class="section-intro">
+          The DWS IQ Hands layer is designed to be hardware-agnostic at the control layer. Optimus
+          V3 is our preferred partner — but any robot platform that meets the integration
+          requirements is welcome in the ecosystem.
+        </p>
 
-            <table class="eco-table">
-                <thead>
-                    <tr>
-                        <th>Robot Platform</th>
-                        <th>Status</th>
-                        <th>Integration Path</th>
-                        <th>EU AI Act Ready</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Tesla Optimus V3</strong></td>
-                        <td><span class="eco-status-preferred">⭐ Preferred Partner</span></td>
-                        <td>Seeking local control protocol agreement with xAI</td>
-                        <td>Via DWS IQ compliance layer</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Boston Dynamics Spot</strong></td>
-                        <td><span class="eco-status-open">Open Partnership</span></td>
-                        <td>REST API documented — integration 4–8 weeks</td>
-                        <td>Via DWS IQ compliance layer</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Universal Robots (UR series)</strong></td>
-                        <td><span class="eco-status-open">Open Partnership</span></td>
-                        <td>UR Script + ROS2 supported — low complexity</td>
-                        <td>Via DWS IQ compliance layer</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ABB YuMi / GoFa</strong></td>
-                        <td><span class="eco-status-open">Open Partnership</span></td>
-                        <td>ABB RobotStudio RPC integration</td>
-                        <td>Via DWS IQ compliance layer</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Agility Robotics Digit</strong></td>
-                        <td><span class="eco-status-open">Open Partnership</span></td>
-                        <td>Medium complexity — contact for spec</td>
-                        <td>Via DWS IQ compliance layer</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Custom (ROS2-compatible)</strong></td>
-                        <td><span class="eco-status-open">Open Partnership</span></td>
-                        <td>Any ROS2 platform — DWS provides adapter layer</td>
-                        <td>Via DWS IQ compliance layer</td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="eco-table">
+          <thead>
+            <tr>
+              <th>Robot Platform</th>
+              <th>Status</th>
+              <th>Integration Path</th>
+              <th>EU AI Act Ready</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tesla Optimus V3</strong></td>
+              <td><span class="eco-status-preferred">⭐ Preferred Partner</span></td>
+              <td>Seeking local control protocol agreement with xAI</td>
+              <td>Via DWS IQ compliance layer</td>
+            </tr>
+            <tr>
+              <td><strong>Boston Dynamics Spot</strong></td>
+              <td><span class="eco-status-open">Open Partnership</span></td>
+              <td>REST API documented — integration 4–8 weeks</td>
+              <td>Via DWS IQ compliance layer</td>
+            </tr>
+            <tr>
+              <td><strong>Universal Robots (UR series)</strong></td>
+              <td><span class="eco-status-open">Open Partnership</span></td>
+              <td>UR Script + ROS2 supported — low complexity</td>
+              <td>Via DWS IQ compliance layer</td>
+            </tr>
+            <tr>
+              <td><strong>ABB YuMi / GoFa</strong></td>
+              <td><span class="eco-status-open">Open Partnership</span></td>
+              <td>ABB RobotStudio RPC integration</td>
+              <td>Via DWS IQ compliance layer</td>
+            </tr>
+            <tr>
+              <td><strong>Agility Robotics Digit</strong></td>
+              <td><span class="eco-status-open">Open Partnership</span></td>
+              <td>Medium complexity — contact for spec</td>
+              <td>Via DWS IQ compliance layer</td>
+            </tr>
+            <tr>
+              <td><strong>Custom (ROS2-compatible)</strong></td>
+              <td><span class="eco-status-open">Open Partnership</span></td>
+              <td>Any ROS2 platform — DWS provides adapter layer</td>
+              <td>Via DWS IQ compliance layer</td>
+            </tr>
+          </tbody>
+        </table>
 
-            <blockquote style="margin-top: 40px;">
-                "If your hardware can connect to a local JSON-RPC 2.0 endpoint and your team wants EU industrial
-                deployment without building the compliance layer from scratch — DWS IQ is your partner.
-                We absorb the 27-country regulatory burden. You bring the robot."
-            </blockquote>
+        <blockquote style="margin-top: 40px">
+          "If your hardware can connect to a local JSON-RPC 2.0 endpoint and your team wants EU
+          industrial deployment without building the compliance layer from scratch — DWS IQ is your
+          partner. We absorb the 27-country regulatory burden. You bring the robot."
+        </blockquote>
 
-            <!-- PARTNERSHIP CTA BOX -->
-            <div class="partnership-cta">
-                <h2>🤖 Open for Robot Development Partnerships</h2>
-                <p>
-                    DWS IQ is actively seeking robot hardware partners who want sovereign, EU AI Act-compliant
-                    physical execution in EU regulated industry. We provide the compliance bridge.
-                    You provide the hardware.
-                </p>
+        <!-- PARTNERSHIP CTA BOX -->
+        <div class="partnership-cta">
+          <h2>🤖 Open for Robot Development Partnerships</h2>
+          <p>
+            DWS IQ is actively seeking robot hardware partners who want sovereign, EU AI
+            Act-compliant physical execution in EU regulated industry. We provide the compliance
+            bridge. You provide the hardware.
+          </p>
 
-                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                    <a href="mailto:risto@onelifetime.world?subject=Robot%20Partnership%20Inquiry%20%E2%80%94%20DWS%20IQ%20Hands%20Layer" class="btn-primary">
-                        Start Partnership Conversation
-                    </a>
-                    <a href="/partners/" class="btn-secondary">View Partner Program</a>
-                </div>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
+            <a
+              href="mailto:risto@onelifetime.world?subject=Robot%20Partnership%20Inquiry%20%E2%80%94%20DWS%20IQ%20Hands%20Layer"
+              class="btn-primary"
+            >
+              Start Partnership Conversation
+            </a>
+            <a href="/partners/" class="btn-secondary">View Partner Program</a>
+          </div>
 
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-label">Partnership Email</div>
-                        <div class="contact-value"><a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a></div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-label">xAI / Optimus Inquiry</div>
-                        <div class="contact-value"><a href="mailto:sales@x.ai">sales@x.ai</a> (xAI partner team)</div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-label">Technical Spec Request</div>
-                        <div class="contact-value">DWS IQ Hands layer technical spec available on signed NDA</div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-label">Deployment Target</div>
-                        <div class="contact-value">16 EU industries · 27 EU countries · Phase 4 live Nov 2026</div>
-                    </div>
-                </div>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="contact-label">Partnership Email</div>
+              <div class="contact-value">
+                <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a>
+              </div>
             </div>
+            <div class="contact-card">
+              <div class="contact-label">xAI / Optimus Inquiry</div>
+              <div class="contact-value">
+                <a href="mailto:sales@x.ai">sales@x.ai</a> (xAI partner team)
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-label">Technical Spec Request</div>
+              <div class="contact-value">
+                DWS IQ Hands layer technical spec available on signed NDA
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-label">Deployment Target</div>
+              <div class="contact-value">
+                25 EU-regulated industries · 27 EU countries · Phase 4 live Nov 2026
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- TIMELINE -->
     <section>
-        <div class="container">
-            <div class="section-label">DWS 7 Roadmap</div>
-            <h2>When Hands Go Live</h2>
-            <p class="section-intro">
-                Robot deployment is gated on software and compliance milestones — not hardware readiness.
-                The compliance layer must be certified before any physical robot activates on an EU industrial site.
-            </p>
+      <div class="container">
+        <div class="section-label">DWS 7 Roadmap</div>
+        <h2>When Hands Go Live</h2>
+        <p class="section-intro">
+          Robot deployment is gated on software and compliance milestones — not hardware readiness.
+          The compliance layer must be certified before any physical robot activates on an EU
+          industrial site.
+        </p>
 
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="phase">Phase 1 · Feb–Apr 2026</div>
-                    <h3>Production Launch — Software Only</h3>
-                    <p>DWS IQ 7 live, 3 paying customers, 16 AI agents operational. Hands layer in design.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="phase">Phase 2 · May–Jul 2026</div>
-                    <h3>EU AI Act Article 12 Compliance Certified</h3>
-                    <p>Aiwen logging layer live, reasoning lineage operational. Required gate before any robot integration begins.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="phase">Phase 3 · Aug–Oct 2026</div>
-                    <h3>First Robot Integration Test</h3>
-                    <p>ISO 27001 initiated. First physical robot at DWS IQ integration lab (Finland). Local control protocol verified.</p>
-                </div>
-                <div class="timeline-item hands-live">
-                    <div class="phase">Phase 4 · Nov 2026–Jan 2027 ← Hands Go Live</div>
-                    <h3>🤖 Physical Robot at First Customer Site</h3>
-                    <p>IoT pipeline live + first Optimus or partner robot deployed at a pilot EU industrial customer. Full article 12 logging active.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="phase">Phase 5 · Feb–May 2027</div>
-                    <h3>16 Customers — Optimus at ≥ 3 EU Sites</h3>
-                    <p>Partner ecosystem live. Optimus deployments across multiple EU industrial verticals.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="phase">Phase 6 · Jun–Dec 2027</div>
-                    <h3>DWS IQ 7 GA — Full Hands Fleet</h3>
-                    <p>Optimus and partner robots operational across 27 EU countries. Full Lifetime Fleet live.</p>
-                </div>
-            </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="phase">Phase 1 · Feb–Apr 2026</div>
+            <h3>Production Launch — Software Only</h3>
+            <p>
+              DWS IQ 7 live, two enterprise pilots contracted Q1/2026, 16 AI agents operational.
+              Hands layer in design.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="phase">Phase 2 · May–Jul 2026</div>
+            <h3>EU AI Act Article 12 Compliance Certified</h3>
+            <p>
+              Sovereignty audit logging layer live, reasoning lineage operational. Required gate
+              before any robot integration begins.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="phase">Phase 3 · Aug–Oct 2026</div>
+            <h3>First Robot Integration Test</h3>
+            <p>
+              ISO 27001 initiated. First physical robot at DWS IQ integration lab (Finland). Local
+              control protocol verified.
+            </p>
+          </div>
+          <div class="timeline-item hands-live">
+            <div class="phase">Phase 4 · Nov 2026–Jan 2027 ← Hands Go Live</div>
+            <h3>🤖 Physical Robot at First Customer Site</h3>
+            <p>
+              IoT pipeline live + first Optimus or partner robot deployed at a pilot EU industrial
+              customer. Full article 12 logging active.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="phase">Phase 5 · Feb–May 2027</div>
+            <h3>16 Customers — Optimus at ≥ 3 EU Sites</h3>
+            <p>
+              Partner ecosystem live. Optimus deployments across multiple EU industrial verticals.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="phase">Phase 6 · Jun–Dec 2027</div>
+            <h3>DWS IQ 7 GA — Full Hands Fleet</h3>
+            <p>
+              Optimus and partner robots operational across 27 EU countries. Full Lifetime Fleet
+              live.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- FOOTER QUOTE -->
     <section>
-        <div class="container" style="text-align: center; padding: 40px 20px 80px;">
-            <blockquote style="border: none; background: none; padding: 0; max-width: 800px; margin: 0 auto; font-size: 1.15rem;">
-                "Optimus is the most capable robot in the world. But in a German chemical plant,
-                a Finnish cement mill, or a French aerospace factory — 'most capable' means nothing
-                without EU AI Act certification, CLOUD Act-free data sovereignty, and a compliance
-                layer that speaks 27 languages. That is what DWS IQ provides.
-                Without it, Optimus waits in the hallway.
-                With it, Optimus walks in and starts working on day one."
-            </blockquote>
-            <p style="margin-top: 24px; color: #64748b; font-size: 0.85rem;">
-                — Risto Anton Päärni, CEO & Founder, DWS IQ & Firehorse Products
-            </p>
-            <div style="margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="/lifetime-fleet/" class="btn-secondary">← Lifetime Fleet Overview</a>
-                <a href="mailto:risto@onelifetime.world?subject=Robot%20Partnership%20Inquiry%20%E2%80%94%20DWS%20IQ" class="btn-primary">Start Partnership Conversation</a>
-            </div>
+      <div class="container" style="text-align: center; padding: 40px 20px 80px">
+        <blockquote
+          style="
+            border: none;
+            background: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.15rem;
+          "
+        >
+          "Optimus is the most capable robot in the world. But in a German chemical plant, a Finnish
+          cement mill, or a French aerospace factory — 'most capable' means nothing without EU AI
+          Act certification, CLOUD Act-free data sovereignty, and a compliance layer that speaks 27
+          languages. That is what DWS IQ provides. Without it, Optimus waits in the hallway. With
+          it, Optimus walks in and starts working on day one."
+        </blockquote>
+        <p style="margin-top: 24px; color: #64748b; font-size: 0.85rem">
+          — Risto Anton Päärni, CEO & Founder, DWS IQ & Firehorse Products
+        </p>
+        <div
+          style="
+            margin-top: 40px;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <a href="/lifetime-fleet/" class="btn-secondary">← Lifetime Fleet Overview</a>
+          <a
+            href="mailto:risto@onelifetime.world?subject=Robot%20Partnership%20Inquiry%20%E2%80%94%20DWS%20IQ"
+            class="btn-primary"
+            >Start Partnership Conversation</a
+          >
         </div>
+      </div>
     </section>
-
-</body>
+  </body>
 </html>

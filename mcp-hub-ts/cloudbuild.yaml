@@ -1,0 +1,69 @@
+# Cloud Build — DWS MCP Hub (TypeScript)
+# Cloud Run service: `mcp-hub`. Image repo: `mcp-hub-ts`.
+# Human GCP administration: **admin@dws.com**. Runtime SA: `mcp-hub@${PROJECT_ID}.iam.gserviceaccount.com`.
+# After deploying `mcp-gateway`, set env **DWS_GATEWAY_URL** on this service to that HTTPS URL.
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build'
+    args:
+      - 'build'
+      - '-t'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-hub-ts:${SHORT_SHA}'
+      - '-t'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-hub-ts:latest'
+      - '-f'
+      - 'mcp-hub-ts/Dockerfile'
+      - 'mcp-hub-ts'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-hub-ts'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'mcp-hub'
+      - '--image'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-hub-ts:${SHORT_SHA}'
+      - '--region'
+      - 'europe-north1'
+      - '--platform'
+      - 'managed'
+      - '--no-allow-unauthenticated'
+      - '--service-account'
+      - 'mcp-hub@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--cpu'
+      - '1'
+      - '--memory'
+      - '512Mi'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '5'
+      - '--concurrency'
+      - '80'
+      - '--timeout'
+      - '300s'
+      - '--set-env-vars'
+      - 'NODE_ENV=production,LOG_LEVEL=INFO'
+      - '--set-secrets'
+      - 'MCP_HUB_API_KEY=mcp-hub-api-key:latest'
+
+images:
+  - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-hub-ts:${SHORT_SHA}'
+  - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-hub-ts:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _REGION: 'europe-north1'
+
+timeout: '900s'

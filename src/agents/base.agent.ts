@@ -18,6 +18,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
 import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { isPhaseAtLeast } from './autonomy.js';
 import type {
   AgentConfig,
   AgentContext,
@@ -123,6 +124,21 @@ export abstract class BaseAgent {
     if (loopConfig.allowDelegation) {
       allTools.push(BUILTIN_TOOLS.delegate_to_agent);
     }
+
+    // Proactive notification: offered only to agents at autonomy phase >= advisor.
+    // The handler re-checks this gate, but withholding the tool keeps silent-pilot
+    // agents from ever attempting an outbound nudge.
+    const autonomyPhase = this.config.autonomyPhase ?? 'silent_pilot';
+    if (isPhaseAtLeast(autonomyPhase, 'advisor')) {
+      allTools.push(BUILTIN_TOOLS.send_notification);
+    }
+
+    // Inject per-agent runtime policy so tool handlers can enforce phase + limits.
+    context.agentRuntime = {
+      name: this.config.name,
+      autonomyPhase,
+      notify: this.config.notify,
+    };
 
     // Include fetch if sandbox allows it
     if (context.sandbox?.allowedDomains?.length || !context.sandbox) {
@@ -497,8 +513,17 @@ export abstract class BaseAgent {
       }
 
       case 'cost-limit': {
+        // NOT ENFORCED. This branch has never consulted spend — it always allowed
+        // the call. It previously reported "(tracking active)", which was false and
+        // is exactly the failure mode CLAUDE.md Rule 12 (Fail Loud) names: a
+        // cost-control path reporting a guarantee it does not provide.
+        //
+        // Enforcing it needs a spend read against token_usage_events
+        // (src/services/token-usage.service.ts already carries cost_eur, model,
+        // session_id and task_id). Until that read exists, say so rather than imply
+        // a limit is in force.
         const maxCost = (policy.config.max_daily_eur as number) || 50;
-        return { policyId: policy.id, allowed: true, reason: `Cost limit: EUR ${maxCost}/day (tracking active)`, enforcement: policy.enforcement };
+        return { policyId: policy.id, allowed: true, reason: `Cost limit configured at EUR ${maxCost}/day — NOT ENFORCED (no spend lookup wired)`, enforcement: policy.enforcement };
       }
 
       case 'approval-required': {

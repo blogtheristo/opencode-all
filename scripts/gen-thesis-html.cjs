@@ -19,7 +19,7 @@
  *         badge injected at top of every HTML output; auto-derived filenames
  */
 
-const fs   = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 const BASE = path.resolve(__dirname, '..');
@@ -45,7 +45,7 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 `.trim();
 
 function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 /**
@@ -58,7 +58,7 @@ function extractVersion(md) {
   return m ? m[1] : 'unknown';
 }
 
-function mdToHtml(md, titleBase, lang, version, date) {
+function mdToHtml(md, titleBase, lang, version, date, bannerMeta) {
   let html = md;
   // Stash fenced code blocks
   const codeBlocks = [];
@@ -70,10 +70,25 @@ function mdToHtml(md, titleBase, lang, version, date) {
   });
   // Tables
   html = html.replace(/\|(.+)\|\n\|[-| :]+\|\n((?:\|.+\|\n?)*)/g, (_, header, rows) => {
-    const th = header.split('|').filter(c => c.trim()).map(c => '<th>' + c.trim() + '</th>').join('');
-    const trs = rows.trim().split('\n').map(r =>
-      '<tr>' + r.split('|').filter(c => c.trim()).map(c => '<td>' + c.trim() + '</td>').join('') + '</tr>'
-    ).join('');
+    const th = header
+      .split('|')
+      .filter((c) => c.trim())
+      .map((c) => '<th>' + c.trim() + '</th>')
+      .join('');
+    const trs = rows
+      .trim()
+      .split('\n')
+      .map(
+        (r) =>
+          '<tr>' +
+          r
+            .split('|')
+            .filter((c) => c.trim())
+            .map((c) => '<td>' + c.trim() + '</td>')
+            .join('') +
+          '</tr>',
+      )
+      .join('');
     return '<table><thead><tr>' + th + '</tr></thead><tbody>' + trs + '</tbody></table>\n';
   });
   // Headings
@@ -92,25 +107,31 @@ function mdToHtml(md, titleBase, lang, version, date) {
   // HR
   html = html.replace(/^---+$/gm, '<hr />');
   // Restore code blocks
-  codeBlocks.forEach((cb, i) => { html = html.replace('___CODE' + i + '___', cb); });
+  codeBlocks.forEach((cb, i) => {
+    html = html.replace('___CODE' + i + '___', cb);
+  });
   // Links
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   // Paragraphs (double newline)
-  html = html.split('\n\n').map(p => {
-    p = p.trim();
-    if (!p) return '';
-    if (p.startsWith('<')) return p;
-    return '<p>' + p.replace(/\n/g, ' ') + '</p>';
-  }).join('\n');
+  html = html
+    .split('\n\n')
+    .map((p) => {
+      p = p.trim();
+      if (!p) return '';
+      if (p.startsWith('<')) return p;
+      return '<p>' + p.replace(/\n/g, ' ') + '</p>';
+    })
+    .join('\n');
 
   const fullTitle = titleBase + ' v' + version;
 
   // Visible version badge banner — RULE: every Learn/ HTML must show this
+  const metaText = bannerMeta || 'Lifetime Oy · ' + (date || '') + ' · Learn/ (private)';
   const banner = [
     '<div class="dws-version-banner">',
     '  <span class="dws-version-title">' + escHtml(titleBase) + '</span>',
     '  <span class="dws-version-badge">v' + escHtml(version) + '</span>',
-    '  <span class="dws-version-meta">Lifetime Oy · ' + (date || '') + ' · Learn/ (private)</span>',
+    '  <span class="dws-version-meta">' + escHtml(metaText) + '</span>',
     '</div>',
   ].join('\n');
 
@@ -152,7 +173,7 @@ function extractDate(md) {
   }
 
   // 1) Original format: "Date: DD.MM.YYYY"
-  const euDateMatch = md.match(/^Date:\s*([0-3]\d\.[0-1]\d\.\d{4})/mi);
+  const euDateMatch = md.match(/^Date:\s*([0-3]\d\.[0-1]\d\.\d{4})/im);
   if (euDateMatch && euDateMatch[1]) {
     return euDateMatch[1];
   }
@@ -164,7 +185,7 @@ function extractDate(md) {
   }
 
   // 3) ISO date in metadata lines like "Updated: 2026-03-01" or "Created: 2026-03-01"
-  const metaIsoMatch = md.match(/^(Updated|Created)\s*:\s*(\d{4}-\d{2}-\d{2})/mi);
+  const metaIsoMatch = md.match(/^(Updated|Created)\s*:\s*(\d{4}-\d{2}-\d{2})/im);
   if (metaIsoMatch && metaIsoMatch[2]) {
     return metaIsoMatch[2];
   }
@@ -179,45 +200,69 @@ function extractDate(md) {
 }
 
 // Source files — version and output filename are auto-derived from the markdown
+// NOTE (30.07.2026): the four thesis entries below now read the CANONICAL sources in
+// docs/ (the paths named by the CLAUDE.md Thesis Rule). They previously read duplicate
+// copies under Learn/*.md which had drifted to v3.83 while docs/ was at v3.91 — which is
+// why every regeneration silently re-emitted stale v3.83 filenames. The Learn/*.md copies
+// are now orphaned and should be retired; they are left in place rather than deleted.
 const SOURCES = [
   {
-    src:       'Learn/V3Thesis_EN.md',
+    src: 'docs/metropolia/master-thesis/en/V3Thesis_EN.md',
     titleBase: 'Firehorse Product Manufacturing Operating Model — V3 Thesis (EN)',
     outPrefix: 'Learn/V3Thesis_EN_v',
-    lang:      'en',
+    lang: 'en',
   },
   {
-    src:       'Learn/V3Thesis_FI.md',
+    src: 'docs/metropolia/master-thesis/fi/V3Thesis_FI.md',
     titleBase: 'Firehorse-tuotevalmistuksen toimintamalli — V3 Opinnäytetyö (FI)',
     outPrefix: 'Learn/V3Thesis_FI_v',
-    lang:      'fi',
+    lang: 'fi',
   },
   {
-    src:       'Learn/PHD_FIREHORSE_EN.md',
+    src: 'docs/PHD_FIREHORSE_EN.md',
     titleBase: 'PHD Firehorse — Doctoral Research (EN)',
     outPrefix: 'Learn/PHD_FIREHORSE_EN_v',
-    lang:      'en',
+    lang: 'en',
   },
   {
-    src:       'Learn/PHD_FIREHORSE_FI.md',
+    src: 'docs/PHD_FIREHORSE_FI.md',
     titleBase: 'PHD Firehorse — Väitöstutkimus (FI)',
     outPrefix: 'Learn/PHD_FIREHORSE_FI_v',
-    lang:      'fi',
+    lang: 'fi',
   },
   {
-    src:       'docs/ASPIRE_SENSOR_MANAGEMENT_PLAN.md',
+    src: 'Learn/Tutkimussuunnitelma_3.51.md',
+    titleBase: 'Tutkimussuunnitelma 3.51 — AI-Native Compliance Infrastructure',
+    outPrefix: 'Learn/Tutkimussuunnitelma_3.51_v',
+    lang: 'en',
+  },
+  {
+    src: 'docs/ASPIRE_SENSOR_MANAGEMENT_PLAN.md',
     titleBase: 'Aspire Sensor Management Plan',
     outPrefix: 'Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v',
-    lang:      'en',
+    lang: 'en',
+  },
+  {
+    src: 'partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md',
+    titleBase: 'DPA Addendum — Shufti Pro (EU-Only Processing)',
+    outPrefix: 'Learn/DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v',
+    lang: 'en',
+  },
+  {
+    src: 'partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md',
+    titleBase: 'DPA Addendum — Shufti Pro (EU-Only Processing)',
+    outPrefix: 'partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026_v',
+    lang: 'en',
+    bannerMeta: 'Lifetime Oy · For Shufti Pro Limited · Ready for Signature',
   },
 ];
 
-SOURCES.forEach(f => {
-  const md      = fs.readFileSync(path.join(BASE, f.src), 'utf8');
+SOURCES.forEach((f) => {
+  const md = fs.readFileSync(path.join(BASE, f.src), 'utf8');
   const version = extractVersion(md);
-  const date    = extractDate(md);
+  const date = extractDate(md);
   const outFile = f.outPrefix + version + '.html';
-  const htm     = mdToHtml(md, f.titleBase, f.lang, version, date);
+  const htm = mdToHtml(md, f.titleBase, f.lang, version, date);
   fs.writeFileSync(path.join(BASE, outFile), htm);
   console.log('Generated:', outFile, '(v' + version + ', ' + htm.length + ' bytes)');
 });

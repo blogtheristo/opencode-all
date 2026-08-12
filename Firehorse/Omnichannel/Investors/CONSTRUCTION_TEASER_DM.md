@@ -25,7 +25,7 @@
 >
 > Most construction teams I talk to are still doing this with consultants and spreadsheets. It works, but it's slow, expensive, and hard to scale across projects.
 >
-> I'm building software that automates this. **DWS IQ 6** reads your project data and generates the compliance reports automatically — the same reports that would take a consultant weeks to prepare. We cover construction and 19 other EU-regulated industries. We're live in production with paying customers.
+> I'm building software that automates this. **DWS IQ 6** reads your project data and generates the compliance reports automatically — the same reports that would take a consultant weeks to prepare. We cover construction and 19 other EU-regulated industries. We're live in production, with two enterprise pilots contracted in Q1/2026 at EUR 29,950 each.
 >
 > Would a 30-minute demo make sense? I can show you how it works for construction specifically — live data, not slides.
 >
@@ -123,7 +123,7 @@
 >
 > La plupart des equipes construction avec lesquelles je parle font encore cela avec des consultants et des tableurs. Ca fonctionne, mais c'est lent, couteux et difficile a mettre a l'echelle sur plusieurs projets.
 >
-> Je developpe un logiciel qui automatise tout cela. **DWS IQ 6** lit vos donnees de projet et genere les rapports de conformite automatiquement — les memes rapports qu'un consultant met des semaines a preparer. Nous couvrons la construction et 19 autres secteurs reglementes de l'UE. Nous sommes en production avec des clients payants.
+> Je developpe un logiciel qui automatise tout cela. **DWS IQ 6** lit vos donnees de projet et genere les rapports de conformite automatiquement — les memes rapports qu'un consultant met des semaines a preparer. Nous couvrons la construction et 19 autres secteurs reglementes de l'UE. Nous sommes en production, avec deux projets pilotes entreprise contractualises au T1/2026 a EUR 29 950 chacun.
 >
 > Une demo de 30 minutes, ca vous dit ? Je peux vous montrer comment ca fonctionne pour la construction concretement — donnees en direct, pas de slides.
 >
@@ -161,7 +161,7 @@
 > I'm Risto Anton Päärni, Founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — software that automates this reporting. You feed in your project data, and the platform generates the compliance reports automatically. The same reports that take a consultant weeks to prepare.
 >
 > **Where we are today:**
-> - Live in production with paying customers
+> - Live in production, with two enterprise pilots contracted in Q1/2026 at EUR 29,950 each
 > - Covers construction and 19 other EU-regulated industries
 > - SiteSense Agent running on construction sites (edge AI for real-time compliance monitoring)
 > - Platform runs on EUR 15-50/month infrastructure (capital efficient by design)

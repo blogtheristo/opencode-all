@@ -63,6 +63,8 @@ DWS IQ 6 Control Room gives construction and operations leaders a live site view
 
 ---
 
+> **Correction (29.07.2026):** this issue was published on 5 January 2026 and its text is preserved verbatim. The Executive Summary below says "we serve logistics (Uber Taksi Helsinki, Bolt, Kela) and are expanding into Nordic construction (NCC, T2H)". That is wrong. Uber, Taksi Helsinki, Bolt and Kela are **dispatch operators** in the role defined by Traficom — they dispatch ride orders to Lifetime Fleet vehicles and are commercial counterparties of Lifetime's licensed transport operation, **never** customers of DWS IQ, DWS IQ Aegis, or any Lifetime software product. NCC and T2H are unlanded prospects. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
 ## Executive Summary
 
 Lifetime Oy is building DWS IQ 6, an AI orchestration platform industrial climate OS for 16 most EU‑regulated industries. As an official InvestEU Project (INPO-20254383), we serve logistics (Uber Taksi Helsinki, Bolt, Kela) and are expanding into Nordic construction (NCC, T2H). Fit for 55 is an EU level program for carbon reduction touching every company 2028. Our hybrid architecture combines on-premises model training for GDPR/EU AI Act compliance with Google Cloud for elastic scaling.

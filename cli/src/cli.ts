@@ -638,6 +638,499 @@ async function cmdMcpCall(toolName: string, argsJson: string): Promise<void> {
   output(result);
 }
 
+// ============ BROWSE (Playwright via MCP) ============
+
+async function cmdBrowse(
+  action: string,
+  url: string,
+  flags: Record<string, string>,
+): Promise<void> {
+  if (!action) {
+    error(
+      'No browse action specified.',
+      'dws browse fetch <url>\n  dws browse screenshot <url> [--width 1280 --height 800] [--out file.png]\n  dws browse snapshot <url>',
+    );
+  }
+  if (!url) {
+    error('No URL specified.', `dws browse ${action} <url>`);
+  }
+
+  const toolMap: Record<string, string> = {
+    fetch: 'dws_browse_fetch',
+    screenshot: 'dws_browse_screenshot',
+    snapshot: 'dws_browse_snapshot',
+  };
+  const toolName = toolMap[action];
+  if (!toolName) {
+    error(`Unknown browse action '${action}'.`, 'Valid: fetch | screenshot | snapshot');
+  }
+
+  const args: Record<string, unknown> = { url };
+  if (action === 'screenshot') {
+    if (flags.width) args.width = parseInt(flags.width);
+    if (flags.height) args.height = parseInt(flags.height);
+  }
+
+  const result = (await mcpCall('tools/call', { name: toolName, arguments: args })) as {
+    content?: Array<{ type: string; text: string }>;
+  };
+
+  // MCP tools/call wraps results in {content: [{type:'text', text: '<json>'}]}.
+  // Unwrap once so consumers see the raw payload.
+  let payload: unknown = result;
+  if (result?.content?.[0]?.type === 'text') {
+    try {
+      payload = JSON.parse(result.content[0].text);
+    } catch {
+      payload = result.content[0].text;
+    }
+  }
+
+  // For screenshots, optionally write the PNG to disk and strip the base64 from
+  // stdout so the JSON stays small.
+  if (action === 'screenshot' && flags.out) {
+    const p = payload as { pngBase64?: string };
+    if (p?.pngBase64) {
+      const fs = await import('node:fs');
+      fs.writeFileSync(flags.out, Buffer.from(p.pngBase64, 'base64'));
+      delete p.pngBase64;
+      (p as Record<string, unknown>).savedTo = flags.out;
+    }
+  }
+
+  output(payload);
+}
+
+// ============ EU-DATA (European Data Portal / HVD onboarding demo) ============
+//
+// Public EU open-data upstreams (no auth). All output carries a provenance
+// block (source, license, attribution, retrieved) per the IPR rules in
+// docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md.
+// --demo serves bundled fixtures so client demos never depend on egress.
+
+const EU_DATA_UPSTREAMS = {
+  prh: {
+    label: 'PRH Finnish Business Register (companies HVD)',
+    base: 'https://avoindata.prh.fi/opendata-ytj-api/v3/companies',
+    license: 'CC BY 4.0',
+    attribution: 'Contains data from the Finnish Patent and Registration Office (PRH), CC BY 4.0',
+  },
+  fmi: {
+    label: 'FMI open data (meteorological HVD)',
+    base: 'https://opendata.fmi.fi/wfs',
+    license: 'CC BY 4.0',
+    attribution: 'Contains data from the Finnish Meteorological Institute, CC BY 4.0',
+  },
+  edp: {
+    label: 'data.europa.eu Search API (European Data Portal)',
+    base: 'https://data.europa.eu/api/hub/search/search',
+    license: 'per-dataset (HVDs: CC BY 4.0 or more permissive)',
+    attribution: 'Contains metadata from data.europa.eu',
+  },
+} as const;
+
+// Fixture data for offline demos. Company facts mirror the canonical Lifetime Oy
+// identity in CLAUDE.md (public registry data); weather and dataset entries are
+// realistic samples and are labelled fixture — never present them as live values.
+const EU_DATA_FIXTURES = {
+  company: {
+    businessId: '0772407-9',
+    name: 'Lifetime Oy',
+    companyForm: 'OY',
+    mainBusinessLine: 'Computer programming activities',
+    registeredOffice: 'Espoo',
+    address: 'Laidunmaanraitti 2 A 25, 02330 Espoo, Finland',
+    website: 'https://lifetime.fi',
+    status: 'ACTIVE',
+  },
+  weather: {
+    place: 'Espoo',
+    observations: { 't2m (°C)': 19.4, 'ws_10min (m/s)': 4.2, 'wg_10min (m/s)': 7.1 },
+    observedAt: '2026-07-06T12:00:00Z',
+  },
+  datasets: [
+    {
+      id: 'eu-ets-verified-emissions',
+      title: 'EU ETS verified emissions and allowances (Union Registry)',
+      catalog: 'European Environment Agency',
+      hvd: true,
+      dwsUse: 'CBAM / compliance-check onboarding: client installations, verified CO2, trend',
+    },
+    {
+      id: 'industrial-emissions-portal',
+      title: 'Industrial Emissions Portal (E-PRTR) facility releases',
+      catalog: 'European Environment Agency',
+      hvd: true,
+      dwsUse: 'Control Room map layer: client facility pollutant releases',
+    },
+    {
+      id: 'corine-land-cover',
+      title: 'CORINE Land Cover (Copernicus Land Monitoring Service)',
+      catalog: 'Copernicus',
+      hvd: true,
+      dwsUse: 'SiteSense / carbon-analysis geospatial site context',
+    },
+    {
+      id: 'eurostat-energy-statistics',
+      title: 'Eurostat energy statistics (prices, balances, emissions)',
+      catalog: 'Eurostat',
+      hvd: true,
+      dwsUse: 'Regulatory-radar version-diff testing; CSRD/CBAM baselines',
+    },
+    {
+      id: 'fintraffic-digitraffic',
+      title: 'Fintraffic Digitraffic real-time road and traffic data',
+      catalog: 'Traficom / Fintraffic',
+      hvd: true,
+      dwsUse: 'Control Room mobility ingestion and retention testing',
+    },
+  ],
+};
+
+interface EuDataProvenance {
+  source: string;
+  url: string;
+  license: string;
+  attribution: string;
+  retrieved: string;
+  status: 'ok' | 'error' | 'fixture';
+  error?: string;
+}
+
+async function euDataGet(url: string, timeoutMs = 15_000): Promise<string> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { 'User-Agent': 'dws-cli eu-data (https://dws6.com)' },
+    });
+    const text = await res.text();
+    if (!res.ok) throw new Error(`HTTP ${res.status} from ${new URL(url).host}`);
+    return text;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function euDataNetworkHint(): string {
+  return 'Upstream unreachable — in restricted environments (e.g. Claude Code remote sessions) the network policy may block EU data hosts. Use --demo for fixture mode.';
+}
+
+function parsePrhCompany(json: string): Record<string, unknown> {
+  const data = JSON.parse(json) as {
+    totalResults?: number;
+    companies?: Array<Record<string, any>>;
+  };
+  const c = data.companies?.[0];
+  if (!c) throw new Error('No company found for that business ID');
+  const activeName =
+    (c.names || []).find((n: any) => !n.endDate)?.name || (c.names || [])[0]?.name || '';
+  const businessLine =
+    (c.mainBusinessLine?.descriptions || []).find((d: any) => d.languageCode === '3')
+      ?.description ||
+    (c.mainBusinessLine?.descriptions || [])[0]?.description ||
+    '';
+  const addr = (c.addresses || [])[0];
+  const address = addr
+    ? [
+        addr.street,
+        addr.buildingNumber,
+        addr.apartmentNumber,
+        addr.postCode,
+        addr.postOffices?.[0]?.city,
+      ]
+        .filter(Boolean)
+        .join(' ')
+    : '';
+  return {
+    businessId: c.businessId?.value || c.businessId || '',
+    name: activeName,
+    companyForm: c.companyForms?.[0]?.type || '',
+    mainBusinessLine: businessLine,
+    registrationDate: c.registrationDate || '',
+    address,
+    website: c.website?.url || '',
+    status: c.status || '',
+  };
+}
+
+function parseFmiSimple(xml: string): Record<string, unknown> {
+  // BsWfs simple format: repeated <BsWfs:ParameterName>/<BsWfs:ParameterValue>
+  // pairs with timestamps. Keep the latest value per parameter.
+  const times = [...xml.matchAll(/<BsWfs:Time>([^<]+)<\/BsWfs:Time>/g)].map((m) => m[1]);
+  const names = [...xml.matchAll(/<BsWfs:ParameterName>([^<]+)<\/BsWfs:ParameterName>/g)].map(
+    (m) => m[1],
+  );
+  const values = [...xml.matchAll(/<BsWfs:ParameterValue>([^<]+)<\/BsWfs:ParameterValue>/g)].map(
+    (m) => m[1],
+  );
+  if (names.length === 0) throw new Error('No observations in FMI response');
+  const latest: Record<string, string> = {};
+  let latestTime = '';
+  for (let i = 0; i < names.length; i++) {
+    latest[names[i]] = values[i] ?? '';
+    if (times[i] && times[i] > latestTime) latestTime = times[i];
+  }
+  return { observations: latest, observedAt: latestTime };
+}
+
+function parseEdpSearch(json: string, limit: number): Array<Record<string, unknown>> {
+  const data = JSON.parse(json) as { result?: { count?: number; results?: Array<any> } };
+  const results = data.result?.results || [];
+  return results.slice(0, limit).map((r) => ({
+    id: r.id || '',
+    title: r.title?.en || Object.values(r.title || {})[0] || '',
+    catalog: r.catalog?.title?.en || r.catalog?.id || '',
+    formats: [...new Set((r.distributions || []).map((d: any) => d.format?.id).filter(Boolean))],
+    landingPage: r.resource || (r.id ? `https://data.europa.eu/data/datasets/${r.id}` : ''),
+    // DCAT-AP modification date, if the Search API returns one — feeds
+    // regulatory-radar's dataset-version-diff scan (scripts/weekly/edp-dataset-diff.sh).
+    // Not live-verified against the real API shape yet; null here means the
+    // diff script must fall back to id-presence diffing instead of trusting this field.
+    modified: r.modified || r.issued || null,
+  }));
+}
+
+async function cmdEuDataOnboard(businessId: string, flags: Record<string, string>): Promise<void> {
+  const demo = flags.demo === 'true';
+  const place = flags.place || 'Espoo';
+  const now = new Date().toISOString();
+  const provenance: EuDataProvenance[] = [];
+
+  if (demo) {
+    output({
+      mode: 'demo',
+      note: 'Fixture data for offline demo — NOT live values.',
+      company: EU_DATA_FIXTURES.company,
+      siteWeather: EU_DATA_FIXTURES.weather,
+      relatedDatasets: EU_DATA_FIXTURES.datasets,
+      provenance: (Object.keys(EU_DATA_UPSTREAMS) as Array<keyof typeof EU_DATA_UPSTREAMS>).map(
+        (k) => ({
+          source: EU_DATA_UPSTREAMS[k].label,
+          url: EU_DATA_UPSTREAMS[k].base,
+          license: EU_DATA_UPSTREAMS[k].license,
+          attribution: EU_DATA_UPSTREAMS[k].attribution,
+          retrieved: now,
+          status: 'fixture' as const,
+        }),
+      ),
+    });
+    return;
+  }
+
+  if (!businessId) {
+    error(
+      'No business ID specified.',
+      'dws eu-data onboard 0772407-9 [--place Espoo] | dws eu-data onboard --demo',
+    );
+  }
+
+  let company: Record<string, unknown> | null = null;
+  let weather: Record<string, unknown> | null = null;
+  let datasets: Array<Record<string, unknown>> | null = null;
+
+  // 1. Company profile (PRH)
+  const prhUrl = `${EU_DATA_UPSTREAMS.prh.base}?businessId=${encodeURIComponent(businessId)}`;
+  try {
+    company = parsePrhCompany(await euDataGet(prhUrl));
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.prh.label,
+      url: prhUrl,
+      license: EU_DATA_UPSTREAMS.prh.license,
+      attribution: EU_DATA_UPSTREAMS.prh.attribution,
+      retrieved: now,
+      status: 'ok',
+    });
+  } catch (e) {
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.prh.label,
+      url: prhUrl,
+      license: EU_DATA_UPSTREAMS.prh.license,
+      attribution: EU_DATA_UPSTREAMS.prh.attribution,
+      retrieved: now,
+      status: 'error',
+      error: e instanceof Error ? e.message : String(e),
+    });
+  }
+
+  // 2. Live weather at site (FMI)
+  const fmiUrl = `${EU_DATA_UPSTREAMS.fmi.base}?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::observations::weather::simple&place=${encodeURIComponent(place)}&parameters=t2m,ws_10min,wg_10min&maxlocations=1`;
+  try {
+    weather = { place, ...parseFmiSimple(await euDataGet(fmiUrl)) };
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.fmi.label,
+      url: fmiUrl,
+      license: EU_DATA_UPSTREAMS.fmi.license,
+      attribution: EU_DATA_UPSTREAMS.fmi.attribution,
+      retrieved: now,
+      status: 'ok',
+    });
+  } catch (e) {
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.fmi.label,
+      url: fmiUrl,
+      license: EU_DATA_UPSTREAMS.fmi.license,
+      attribution: EU_DATA_UPSTREAMS.fmi.attribution,
+      retrieved: now,
+      status: 'error',
+      error: e instanceof Error ? e.message : String(e),
+    });
+  }
+
+  // 3. Related EU datasets (data.europa.eu)
+  const query = flags.query || (company?.mainBusinessLine as string) || 'energy emissions';
+  const edpUrl = `${EU_DATA_UPSTREAMS.edp.base}?q=${encodeURIComponent(query)}&limit=5&page=0&filter=dataset`;
+  try {
+    datasets = parseEdpSearch(await euDataGet(edpUrl), 5);
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.edp.label,
+      url: edpUrl,
+      license: EU_DATA_UPSTREAMS.edp.license,
+      attribution: EU_DATA_UPSTREAMS.edp.attribution,
+      retrieved: now,
+      status: 'ok',
+    });
+  } catch (e) {
+    provenance.push({
+      source: EU_DATA_UPSTREAMS.edp.label,
+      url: edpUrl,
+      license: EU_DATA_UPSTREAMS.edp.license,
+      attribution: EU_DATA_UPSTREAMS.edp.attribution,
+      retrieved: now,
+      status: 'error',
+      error: e instanceof Error ? e.message : String(e),
+    });
+  }
+
+  const failures = provenance.filter((p) => p.status === 'error');
+  if (failures.length === provenance.length) {
+    console.error(JSON.stringify({ provenance }, null, 2));
+    error('All EU data upstreams failed.', euDataNetworkHint());
+  }
+
+  output({
+    mode: 'live',
+    partial: failures.length > 0,
+    ...(failures.length > 0
+      ? {
+          warning: `${failures.length}/${provenance.length} upstreams failed — see provenance[].error`,
+        }
+      : {}),
+    company,
+    siteWeather: weather,
+    relatedDatasets: datasets,
+    provenance,
+  });
+}
+
+async function cmdEuDataSearch(query: string, flags: Record<string, string>): Promise<void> {
+  const demo = flags.demo === 'true';
+  const limit = flags.limit ? parseInt(flags.limit) : 5;
+  const now = new Date().toISOString();
+
+  if (demo) {
+    const q = query.toLowerCase();
+    const hits = EU_DATA_FIXTURES.datasets.filter(
+      (d) => !q || `${d.title} ${d.catalog} ${d.dwsUse}`.toLowerCase().includes(q),
+    );
+    output({
+      mode: 'demo',
+      note: 'Fixture data for offline demo — NOT live results.',
+      count: hits.length,
+      results: hits.slice(0, limit),
+    });
+    return;
+  }
+
+  if (!query) {
+    error('No query specified.', 'dws eu-data search "verified emissions" [--limit 5] [--demo]');
+  }
+
+  const url = `${EU_DATA_UPSTREAMS.edp.base}?q=${encodeURIComponent(query)}&limit=${limit}&page=0&filter=dataset`;
+  try {
+    const body = await euDataGet(url);
+    const data = JSON.parse(body) as { result?: { count?: number } };
+    output({
+      mode: 'live',
+      count: data.result?.count ?? 0,
+      results: parseEdpSearch(body, limit),
+      provenance: [
+        {
+          source: EU_DATA_UPSTREAMS.edp.label,
+          url,
+          license: EU_DATA_UPSTREAMS.edp.license,
+          attribution: EU_DATA_UPSTREAMS.edp.attribution,
+          retrieved: now,
+          status: 'ok' as const,
+        },
+      ],
+    });
+  } catch (e) {
+    error(
+      `data.europa.eu search failed: ${e instanceof Error ? e.message : String(e)}`,
+      euDataNetworkHint(),
+    );
+  }
+}
+
+async function cmdEuDataStatus(): Promise<void> {
+  const probes = await Promise.all(
+    (Object.keys(EU_DATA_UPSTREAMS) as Array<keyof typeof EU_DATA_UPSTREAMS>).map(async (k) => {
+      const u = EU_DATA_UPSTREAMS[k];
+      const probeUrl =
+        k === 'prh'
+          ? `${u.base}?businessId=0772407-9`
+          : k === 'fmi'
+            ? `${u.base}?service=WFS&request=GetCapabilities`
+            : `${u.base}?q=test&limit=1`;
+      const started = Date.now();
+      try {
+        await euDataGet(probeUrl, 10_000);
+        return { upstream: k, label: u.label, reachable: true, ms: Date.now() - started };
+      } catch (e) {
+        return {
+          upstream: k,
+          label: u.label,
+          reachable: false,
+          ms: Date.now() - started,
+          error: e instanceof Error ? e.message : String(e),
+        };
+      }
+    }),
+  );
+  const allDown = probes.every((p) => !p.reachable);
+  output({
+    reachable: probes.filter((p) => p.reachable).length,
+    total: probes.length,
+    upstreams: probes,
+    ...(allDown ? { hint: euDataNetworkHint() } : {}),
+  });
+}
+
+async function cmdEuData(
+  subcommand: string,
+  positional: string[],
+  flags: Record<string, string>,
+): Promise<void> {
+  switch (subcommand) {
+    case 'onboard':
+      await cmdEuDataOnboard(positional[1] || '', flags);
+      break;
+    case 'search':
+      await cmdEuDataSearch(positional.slice(1).join(' '), flags);
+      break;
+    case 'status':
+      await cmdEuDataStatus();
+      break;
+    default:
+      error(
+        'Unknown eu-data subcommand.',
+        'dws eu-data onboard <business-id> [--place Espoo] [--demo]\n  dws eu-data search "<query>" [--limit 5] [--demo]\n  dws eu-data status',
+      );
+  }
+}
+
 // ============ SOVEREIGNTY ASSESSMENT ============
 
 async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promise<void> {
@@ -719,8 +1212,7 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
 
       // HIL escalation notice
       const hil = (res as Record<string, unknown>)?.hilEscalation as
-        | Record<string, unknown>
-        | undefined;
+        Record<string, unknown> | undefined;
       if (hil?.required) {
         console.log(fmt.yellow('  ⚠ Low confidence — escalated to human review'));
         console.log(fmt.dim(`    Reason: ${hil.reason}`));
@@ -732,6 +1224,304 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
   } catch (err) {
     s.stop();
     throw err;
+  }
+}
+
+async function cmdFirehorseReport(
+  format: string,
+  inputJson: string,
+  useStdin: boolean,
+  asMarkdown: boolean,
+): Promise<void> {
+  const validFormats = ['board-pack', 'annual-report', 'compliance-summary', 'carbon-footprint'];
+  if (!format) {
+    error(
+      'No format specified.',
+      `dws firehorse-report --format <${validFormats.join('|')}> --input '{...}'`,
+    );
+  }
+  if (!validFormats.includes(format)) {
+    error(`Invalid format '${format}'.`, `Valid formats: ${validFormats.join(', ')}`);
+  }
+
+  // JSON.parse can return null, an array, a string, a number, or a boolean for
+  // syntactically-valid JSON. Only a non-null plain object is safe to spread
+  // into the request body or check fields on with `in`. Reject everything else
+  // up front so we never throw later with a confusing TypeError.
+  function parseAsObject(raw: string, source: 'stdin' | 'input'): Record<string, unknown> {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      error(
+        `Invalid JSON in --${source}: ${raw.slice(0, 100)}`,
+        source === 'stdin'
+          ? 'Pipe valid JSON with organizationId, industry, periodStart, periodEnd'
+          : `dws firehorse-report --format ${format} --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`,
+      );
+    }
+    if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      error(
+        `--${source} must be a JSON object (got ${parsed === null ? 'null' : Array.isArray(parsed) ? 'array' : typeof parsed})`,
+        `dws firehorse-report --format ${format} --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`,
+      );
+    }
+    return parsed as Record<string, unknown>;
+  }
+
+  let input: Record<string, unknown>;
+  if (useStdin) {
+    const stdinData = await readStdin();
+    if (!stdinData)
+      error(
+        '--stdin specified but no data on stdin',
+        `echo '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}' | dws firehorse-report --format ${format} --stdin`,
+      );
+    input = parseAsObject(stdinData, 'stdin');
+  } else if (inputJson) {
+    input = parseAsObject(inputJson, 'input');
+  } else {
+    error(
+      'No input provided.',
+      `dws firehorse-report --format ${format} --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`,
+    );
+  }
+
+  const required = ['organizationId', 'industry', 'periodStart', 'periodEnd'];
+  const missing = required.filter((f) => !(f in input!));
+  if (missing.length > 0) {
+    error(
+      `Missing required fields: ${missing.join(', ')}`,
+      `Required: organizationId, industry, periodStart, periodEnd`,
+    );
+  }
+
+  const body = { ...input!, format };
+  const path = asMarkdown
+    ? '/api/v1/firehorse/reports/markdown'
+    : '/api/v1/firehorse/reports/generate';
+
+  const s = spinner(`Generating ${format} report...`);
+  try {
+    if (asMarkdown) {
+      const url = `${API_URL}${path}`;
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (API_TOKEN) headers['Authorization'] = `Bearer ${API_TOKEN}`;
+      const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+      s.stop();
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`HTTP ${response.status}: ${text}`);
+      }
+      const markdown = await response.text();
+      console.log(markdown);
+      return;
+    }
+
+    const result = await api(path, 'POST', body);
+    s.stop();
+
+    const r = result as { success?: boolean; report?: Record<string, unknown> };
+    if (!JSON_MODE && process.stdout.isTTY && r.report) {
+      const rpt = r.report;
+      const meta = rpt.metadata as {
+        complianceScore?: number;
+        dataSourceCount?: number;
+        industry?: string;
+      };
+      const sections = (rpt.sections as unknown[]) || [];
+      console.log('');
+      console.log(fmt.bold(`  ${rpt.title}`));
+      console.log('');
+      console.log(`  Report ID        ${fmt.dim(String(rpt.id))}`);
+      console.log(`  Format           ${format}`);
+      console.log(`  Industry         ${meta?.industry ?? '-'}`);
+      if (typeof meta?.complianceScore === 'number') {
+        const score = meta.complianceScore;
+        const col = score >= 70 ? fmt.green : score >= 40 ? fmt.yellow : fmt.red;
+        console.log(`  Compliance       ${col(String(score))}/100`);
+      }
+      console.log(`  Data sources     ${meta?.dataSourceCount ?? 0}`);
+      console.log(`  Sections         ${sections.length}`);
+      console.log('');
+      console.log(fmt.dim('  Run with --json for full payload, --markdown for PDF-ready output.'));
+      console.log('');
+    } else {
+      output(result);
+    }
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
+async function cmdLinkedInPending(
+  sub: string,
+  id: string,
+  flags: Record<string, string>,
+): Promise<void> {
+  if (sub === 'list') {
+    const status = flags.status || 'pending';
+    const qs = status === 'all' ? '' : `?status=${encodeURIComponent(status)}`;
+    const result = (await api(`/api/v1/firehorse/linkedin/pending${qs}`, 'GET')) as {
+      entries: Array<Record<string, unknown>>;
+      count: number;
+      stats: { pending: number; sent: number; dismissed: number; total: number };
+    };
+    if (!JSON_MODE && process.stdout.isTTY) {
+      const s = result.stats;
+      console.log('');
+      console.log(fmt.bold(`  LinkedIn Pending Queue  (${status})`));
+      console.log('');
+      console.log(
+        `  ${fmt.yellow(String(s.pending))} pending   ${fmt.green(String(s.sent))} sent   ${fmt.dim(String(s.dismissed))} dismissed   ${s.total} total`,
+      );
+      console.log('');
+      if (result.entries.length === 0) {
+        console.log(fmt.dim('  (no entries)'));
+        console.log('');
+      } else {
+        for (const e of result.entries) {
+          const msg = String(e.message || '');
+          const preview = msg.length > 80 ? msg.slice(0, 77) + '...' : msg;
+          console.log(`  ${fmt.bold(String(e.id))}  ${fmt.dim(String(e.enqueued_at))}`);
+          console.log(`    lead:     ${e.lead_id}`);
+          console.log(`    linkedin: ${e.linkedin_url}`);
+          console.log(`    template: ${e.template_id}`);
+          console.log(`    msg:      ${preview}`);
+          console.log('');
+        }
+        console.log(
+          fmt.dim(
+            `  Send manually on LinkedIn, then: dws linkedin-pending sent <id> --acted-by <name>`,
+          ),
+        );
+        console.log('');
+      }
+    } else {
+      output(result);
+    }
+    return;
+  }
+
+  if (sub === 'sent') {
+    if (!id) error('No id specified.', 'dws linkedin-pending sent <id> --acted-by <name>');
+    const result = await api(`/api/v1/firehorse/linkedin/pending/${id}/sent`, 'POST', {
+      acted_by: flags['acted-by'] || undefined,
+    });
+    output(result);
+    return;
+  }
+
+  if (sub === 'dismiss') {
+    if (!id) error('No id specified.', 'dws linkedin-pending dismiss <id> --reason <text>');
+    const reason = flags.reason || '';
+    if (!reason) error('No reason specified.', 'dws linkedin-pending dismiss <id> --reason <text>');
+    const result = await api(`/api/v1/firehorse/linkedin/pending/${id}/dismiss`, 'POST', {
+      reason,
+      acted_by: flags['acted-by'] || undefined,
+    });
+    output(result);
+    return;
+  }
+
+  if (sub === 'get') {
+    if (!id) error('No id specified.', 'dws linkedin-pending get <id>');
+    const result = await api(`/api/v1/firehorse/linkedin/pending/${id}`, 'GET');
+    output(result);
+    return;
+  }
+
+  error(
+    `Unknown subcommand '${sub}'.`,
+    'dws linkedin-pending list [--status pending|sent|dismissed|all]\n  dws linkedin-pending get <id>\n  dws linkedin-pending sent <id> --acted-by <name>\n  dws linkedin-pending dismiss <id> --reason <text>',
+  );
+}
+
+// ============ SOVEREIGNTY PILLARS ASSESSMENT ============
+
+async function cmdSovereigntyPillarsAssess(inputPath: string, useStdin: boolean): Promise<void> {
+  const { spawn } = await import('node:child_process');
+  const { existsSync } = await import('node:fs');
+  const { join, dirname } = await import('node:path');
+  const { fileURLToPath } = await import('node:url');
+
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const scriptCandidates = [
+    join(__dirname, '..', '..', 'scripts', 'sovereignty-pillars-assess.cjs'),
+    join(process.cwd(), 'scripts', 'sovereignty-pillars-assess.cjs'),
+  ];
+  const scriptPath = scriptCandidates.find((p) => existsSync(p));
+
+  if (!scriptPath) {
+    error(
+      'sovereignty-pillars-assess scorer not found.',
+      'Expected scripts/sovereignty-pillars-assess.cjs in the repo root.',
+    );
+  }
+
+  if (!useStdin && !inputPath) {
+    error(
+      'No input specified.',
+      "dws sovereignty-pillars-assess <input.json>\n  echo '{...}' | dws sovereignty-pillars-assess --stdin",
+    );
+  }
+
+  const args = useStdin ? ['--stdin'] : [inputPath];
+  const child = spawn('node', [scriptPath, ...args], {
+    stdio: useStdin ? ['inherit', 'pipe', 'inherit'] : ['ignore', 'pipe', 'inherit'],
+  });
+
+  let out = '';
+  child.stdout.on('data', (chunk) => {
+    out += chunk.toString();
+  });
+
+  const code: number = await new Promise((resolve) => {
+    child.on('close', (c) => resolve(c ?? 1));
+  });
+
+  if (code !== 0) {
+    error(`sovereignty-pillars-assess exited with code ${code}`);
+  }
+
+  let parsed: Record<string, unknown>;
+  try {
+    parsed = JSON.parse(out);
+  } catch {
+    process.stdout.write(out);
+    return;
+  }
+
+  if (!JSON_MODE && process.stdout.isTTY) {
+    const scores = parsed.scores as Record<string, Record<string, number>>;
+    const tier = parsed.overall_tier_recommendation as string;
+    const readiness = parsed.quantum_readiness as string;
+    const refer = parsed.rsac2_referral_recommended as boolean;
+
+    console.log('');
+    console.log(fmt.bold('  Sovereignty Pillars Assessment'));
+    console.log('');
+    console.log(fmt.dim('  Pillar triple (SIB / CSB / EAB) per jurisdiction:'));
+    for (const j of ['EU', 'US', 'SG']) {
+      const s = scores[j];
+      console.log(
+        `  ${j}   SIB ${String(s.SIB).padStart(3)}   CSB ${String(s.CSB).padStart(3)}   EAB ${String(s.EAB).padStart(3)}`,
+      );
+    }
+    console.log('');
+    const tierColor =
+      tier === 'Aegis' ? fmt.green : tier === 'Sovereign Infra' ? fmt.cyan : fmt.yellow;
+    console.log(`  Tier            ${tierColor(tier)}`);
+    const readyColor =
+      readiness === 'ready' ? fmt.green : readiness === 'roadmap' ? fmt.yellow : fmt.red;
+    console.log(`  Quantum         ${readyColor(readiness)}`);
+    console.log(`  R-Sac referral  ${refer ? fmt.cyan('YES (Rightful Oy)') : fmt.dim('no')}`);
+    console.log('');
+    console.log(fmt.dim('  Next step: ') + (parsed.next_step_attestation as string));
+    console.log('');
+  } else {
+    output(parsed);
   }
 }
 
@@ -838,6 +1628,21 @@ const SCENARIOS: Record<
       { label: 'List workflows', cmd: 'dws workflows' },
     ],
   },
+  jurisdiction: {
+    description: 'Nordic building compliance — EN 15978 lifecycle assessment by jurisdiction',
+    commands: [
+      { label: 'List jurisdictions', cmd: 'dws jurisdiction list' },
+      { label: 'Get FI context', cmd: 'dws jurisdiction get FI' },
+      {
+        label: 'Benchmark 320 kgCO2e/m²',
+        cmd: 'dws jurisdiction benchmark FI 320 residential',
+      },
+      {
+        label: 'Full LCA assessment',
+        cmd: 'dws jurisdiction assess --input \'{"projectId":"demo","name":"Demo Building","jurisdiction":"FI","buildingType":"residential","grossFloorArea":1200,"materials":[],"transport":[],"siteEnergy":[]}\'',
+      },
+    ],
+  },
 };
 
 async function cmdScenario(name?: string): Promise<void> {
@@ -920,7 +1725,7 @@ async function cmdDemoSnap(iterations: number): Promise<void> {
   const latencies: number[] = [];
 
   for (let i = 0; i < ITERS; i++) {
-    // Mirror OpenClawSandbox: 4 violations drop ATS to 0.0, then kill
+    // Mirror NemoClawSandbox: 4 violations drop ATS to 0.0, then kill
     const state = { status: 'running', killSwitchTriggered: false };
     const start = performance.now();
     state.killSwitchTriggered = true;
@@ -946,7 +1751,7 @@ async function cmdDemoSnap(iterations: number): Promise<void> {
   console.log(`  max   ${max.toFixed(3)}ms`);
   console.log(`  SLA (<${SLA_MS}ms)  ${slaMet ? fmt.green('PASSED ✓') : fmt.red('FAILED ✗')}`);
   console.log('');
-  console.log(fmt.dim('  Kill chain: OpenClaw sandbox (software layer)'));
+  console.log(fmt.dim('  Kill chain: NemoClaw sandbox (software layer)'));
   console.log(fmt.dim('  Firecracker VMM spec: < 125ms (AWS benchmark)'));
   console.log(fmt.dim('  Full benchmark logged to: logs/firehorse-snap-benchmark.jsonl'));
   console.log('');
@@ -1230,6 +2035,44 @@ Examples:
   dws kya snap session-abc123 --force-cascade --yes
   dws kya snap session-abc123 --dry-run`,
 
+  'linkedin-pending': `dws linkedin-pending <subcommand> — Manage the LinkedIn human-review queue
+
+V1 ships LinkedIn auto-send as a stub: prepared messages are queued in
+logs/linkedin-pending.jsonl and a human sends them manually. Use this
+command to list the queue and ack messages after you send them.
+
+Subcommands:
+  list [--status pending|sent|dismissed|all]   List queued drafts (default: pending)
+  get <id>                                      Fetch a single entry
+  sent <id> --acted-by <name>                   Ack: you sent this on LinkedIn
+  dismiss <id> --reason <text> [--acted-by <name>]  Remove without sending
+
+Examples:
+  dws linkedin-pending list
+  dws linkedin-pending list --status all
+  dws linkedin-pending sent lpq-1714... --acted-by risto
+  dws linkedin-pending dismiss lpq-1714... --reason "lead replied via email"`,
+
+  'firehorse-report': `dws firehorse-report — Generate a Firehorse Skillful Report
+
+Formats:
+  board-pack            Board-level climate compliance summary
+  annual-report         Full CSRD/ESRS annual sustainability report
+  compliance-summary    EU ETS + CBAM + CSRD + EU AI Act gap report
+  carbon-footprint      EN 15978 lifecycle carbon (A1-D) report
+
+Options:
+  --format <f>      Report format (required)
+  --input '{...}'   JSON payload (organizationId, industry, periodStart, periodEnd, orgData?, options?)
+  --stdin           Read JSON input from stdin
+  --markdown        Output markdown (for PDF conversion) instead of JSON
+  --json            Force JSON output
+
+Examples:
+  dws firehorse-report --format board-pack --input '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'
+  dws firehorse-report --format carbon-footprint --input '{"organizationId":"org-1","industry":"construction","periodStart":"2025-01-01","periodEnd":"2025-12-31"}' --markdown
+  echo '{"organizationId":"org-1","industry":"steel","periodStart":"2025-01-01","periodEnd":"2025-12-31"}' | dws firehorse-report --format compliance-summary --stdin`,
+
   'sovereignty-assess': `dws sovereignty-assess — Scan database for EU sovereignty compliance
 
 Options:
@@ -1241,6 +2084,27 @@ Examples:
   dws sovereignty-assess --input '{"provider":"supabase-eu","region":"europe-north1","rlsEnabled":true}'
   dws sovereignty-assess --input '{"provider":"aws","region":"eu-west-1"}'
   echo '{"provider":"hetzner","region":"helsinki"}' | dws sovereignty-assess --stdin`,
+
+  jurisdiction: `dws jurisdiction <subcommand> — Nordic building compliance (EN 15978) by jurisdiction
+
+Subcommands:
+  list                          List all supported jurisdictions (NO, DK, FI, SE, EU)
+  get <code>                    Get national standard, LCA method, and grid factor for a jurisdiction
+  benchmark <code> <kgCO2e/m2> [type]  Rate embodied carbon vs Nordic benchmarks
+  assess --input '{...}'        Run full EN 15978 lifecycle assessment for a building project
+
+Options:
+  --json            Force JSON output
+  --stdin           Read assessment input from stdin (assess subcommand)
+
+Examples:
+  dws jurisdiction list
+  dws jurisdiction get FI
+  dws jurisdiction get NO --json
+  dws jurisdiction benchmark FI 320 residential
+  dws jurisdiction benchmark DK 450 commercial
+  dws jurisdiction assess --input '{"projectId":"p1","name":"Office Block","jurisdiction":"NO","buildingType":"commercial","grossFloorArea":2500,"materials":[],"transport":[],"siteEnergy":[]}'
+  echo '{"projectId":"p1",...}' | dws jurisdiction assess --stdin`,
 
   mcp: `dws mcp <subcommand> — Model Context Protocol operations
 
@@ -1275,6 +2139,46 @@ Examples:
 Examples:
   dws version
   dws version --json`,
+
+  browse: `dws browse <action> <url> — Browser automation via Playwright (Chromium)
+
+Subcommands:
+  fetch <url>                 Return rendered HTML, final URL, status, title
+  screenshot <url>            Return full-page PNG (base64) of the URL
+  snapshot <url>              Return accessibility tree (role + name list)
+
+Options (screenshot):
+  --width N        Viewport width in px (default: 1280)
+  --height N       Viewport height in px (default: 800)
+  --out <file>     Write PNG bytes to file and strip base64 from JSON
+
+Examples:
+  dws browse fetch https://eur-lex.europa.eu/eli/reg/2023/956
+  dws browse screenshot https://dws10.com --out homepage.png
+  dws browse snapshot https://dws10.com/buy
+  dws browse fetch https://example.com --json | jq -r '.html'`,
+
+  'eu-data': `dws eu-data <subcommand> — European open data (data.europa.eu, HVDs) for demos & onboarding
+
+SUBCOMMANDS:
+  onboard <business-id>   Client onboarding pack: PRH company profile + FMI site
+                          weather + related data.europa.eu datasets, with per-source
+                          license/attribution provenance (CC BY 4.0 discipline).
+  search "<query>"        Search datasets on the European Data Portal (Search API).
+  status                  Probe upstream reachability (PRH, FMI, data.europa.eu).
+
+OPTIONS:
+  --demo          Serve bundled fixtures (offline-safe; output is labelled demo)
+  --place <city>  Weather location for onboard (default: Espoo)
+  --query <q>     Override dataset query for onboard (default: company business line)
+  --limit <n>     Max search results (default: 5)
+  --json          Force JSON output
+
+EXAMPLES:
+  dws eu-data onboard 0772407-9
+  dws eu-data onboard --demo
+  dws eu-data search "verified emissions" --limit 3
+  dws eu-data status --json | jq '.upstreams'`,
 };
 
 function showSubcommandHelp(command: string): boolean {
@@ -1304,6 +2208,16 @@ KYA (Know Your Agent):
 DEMO:
   dws demo snap [--iterations N]             Firehorse Snap kill-latency benchmark
 
+BROWSE (Playwright):
+  dws browse fetch <url>                     Rendered HTML for any page (JS-aware)
+  dws browse screenshot <url> [--out f.png]  Full-page PNG screenshot
+  dws browse snapshot <url>                  Accessibility tree (role + name)
+
+EU DATA (European Data Portal / HVD):
+  dws eu-data onboard <business-id> [--demo] Client onboarding pack: company + weather + datasets
+  dws eu-data search "<query>" [--limit N]   Search data.europa.eu datasets
+  dws eu-data status                         Probe EU open-data upstream reachability
+
 KNOWLEDGE BASE:
   dws kb compile [--full]                 Compile kb/raw/ → kb/wiki/
   dws kb ask "question" [--save]          Q&A against the compiled wiki
@@ -1311,6 +2225,7 @@ KNOWLEDGE BASE:
   dws kb ingest <file>                    Add a raw source to kb/raw/
   dws kb lint                             Health check (orphans, backlinks)
   dws kb status                           Show KB stats
+  dws kb preflight                        Verify embedding provider (openai|dgx-spark)
 
 AGENTS:
   dws agents                              List all registered agents
@@ -1330,6 +2245,23 @@ WORKFLOWS:
 SOVEREIGNTY:
   dws sovereignty-assess --input '{...}'  Scan database for EU sovereignty compliance
   dws sovereignty-assess --stdin          Read config from stdin
+  dws sovereignty-pillars-assess <file>   Score architecture against three-pillar x three-jurisdiction model
+
+FIREHORSE REPORTS:
+  dws firehorse-report --format <f> --input '{...}'  Generate board-pack | annual-report | compliance-summary | carbon-footprint
+  dws firehorse-report --format <f> --stdin          Read report request from stdin
+  dws firehorse-report --format <f> --markdown       Output markdown (for PDF conversion)
+
+FIREHORSE AUTOMATION:
+  dws linkedin-pending list [--status ...]           List LinkedIn drafts awaiting manual send
+  dws linkedin-pending sent <id> --acted-by <name>   Ack a manually-sent draft
+  dws linkedin-pending dismiss <id> --reason <text>  Remove a draft without sending
+
+JURISDICTION (EN 15978):
+  dws jurisdiction list                   List all supported jurisdictions (NO, DK, FI, SE, EU)
+  dws jurisdiction get <code>             Get national standard, LCA method, grid factor
+  dws jurisdiction benchmark <c> <m2>     Rate embodied carbon vs Nordic benchmarks
+  dws jurisdiction assess --input '{...}' Full EN 15978 lifecycle assessment
 
 MCP:
   dws mcp tools                           List MCP tools
@@ -1347,6 +2279,7 @@ SCENARIOS (dws scenario <name>):
   manufacturing   ETS compliance, emissions analysis, quality gates
   logistics       Fleet emissions, CSRD reporting, competitor scan
   energy          Fit for 55, GHG reporting, SEO pipeline
+  jurisdiction    Nordic building compliance — EN 15978 LCA by jurisdiction
 
 OPTIONS:
   --json        Force JSON output (default when piped)
@@ -1428,7 +2361,8 @@ function parseArgs(argv: string[]): {
         key === 'force-cascade' ||
         key === 'dry-run' ||
         key === 'yes' ||
-        key === 'force'
+        key === 'force' ||
+        key === 'demo'
       ) {
         flags[key] = 'true';
       } else {
@@ -1599,6 +2533,260 @@ async function cmdActivity(limit?: number): Promise<void> {
   }
 }
 
+// ============ JURISDICTION ============
+
+const JURISDICTION_CODES = [
+  {
+    code: 'NO',
+    country: 'Norway',
+    standard: 'NS 3720:2018',
+    lcaMethod: 'TEK17 + NS 3031',
+    gridFactor: 0.008,
+  },
+  {
+    code: 'DK',
+    country: 'Denmark',
+    standard: 'BR18 LCA (from 2023)',
+    lcaMethod: 'DS/EN 15978 + BR18 Annex 2',
+    gridFactor: 0.149,
+  },
+  {
+    code: 'FI',
+    country: 'Finland',
+    standard: 'YM decree 2025',
+    lcaMethod: 'EN 15978 + One Click LCA',
+    gridFactor: 0.072,
+  },
+  {
+    code: 'SE',
+    country: 'Sweden',
+    standard: 'Boverkets klimatdeklaration',
+    lcaMethod: 'EN 15978 + Boverkets',
+    gridFactor: 0.013,
+  },
+  {
+    code: 'EU',
+    country: 'EU (generic)',
+    standard: 'EN 15978:2011',
+    lcaMethod: 'EN 15978 (generic)',
+    gridFactor: 0.23,
+  },
+];
+
+async function cmdJurisdiction(
+  subcommand: string,
+  flags: Record<string, string>,
+  positional: string[],
+): Promise<void> {
+  switch (subcommand) {
+    case 'list': {
+      output(JURISDICTION_CODES, (data) => {
+        const rows = data as typeof JURISDICTION_CODES;
+        const lines = [fmt.bold('Supported Jurisdictions (EN 15978)'), ''];
+        for (const j of rows) {
+          lines.push(
+            `  ${fmt.cyan(j.code.padEnd(4))} ${j.country.padEnd(16)} ${fmt.dim(j.standard)}`,
+          );
+          lines.push(`       Grid: ${j.gridFactor} kgCO2e/kWh  Method: ${j.lcaMethod}`);
+          lines.push('');
+        }
+        return lines.join('\n');
+      });
+      break;
+    }
+
+    case 'get': {
+      const code = (positional[1] || flags.code || '').toUpperCase();
+      const valid = JURISDICTION_CODES.map((j) => j.code);
+      if (!code || !valid.includes(code)) {
+        error(
+          `Invalid jurisdiction code '${code}'.`,
+          `Valid codes: ${valid.join(', ')}\n  Example: dws jurisdiction get FI`,
+        );
+      }
+      const s = spinner(`Fetching jurisdiction context for ${code}...`);
+      try {
+        const result = await api(`/api/v1/compliance/construction/jurisdiction/${code}`);
+        s.stop();
+        output(result, (data) => {
+          const d = data as {
+            jurisdiction: string;
+            national: { standard: string; lcaMethod: string };
+            gridFactor: number;
+          };
+          return [
+            '',
+            fmt.bold(`  Jurisdiction: ${d.jurisdiction}`),
+            '',
+            `  Standard     ${d.national.standard}`,
+            `  LCA Method   ${d.national.lcaMethod}`,
+            `  Grid Factor  ${d.gridFactor} kgCO2e/kWh`,
+            '',
+          ].join('\n');
+        });
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'benchmark': {
+      const code = (positional[1] || '').toUpperCase();
+      const embodiedPerM2 = parseFloat(positional[2] || flags['embodied-per-m2'] || '');
+      const buildingType = positional[3] || flags['building-type'] || 'residential';
+      const valid = JURISDICTION_CODES.map((j) => j.code);
+      if (!code || !valid.includes(code)) {
+        error(
+          `Invalid jurisdiction code.`,
+          `Usage: dws jurisdiction benchmark <code> <kgCO2e/m2> [buildingType]\n  Example: dws jurisdiction benchmark FI 320 residential`,
+        );
+      }
+      if (isNaN(embodiedPerM2) || embodiedPerM2 <= 0) {
+        error(
+          `Invalid embodied carbon value.`,
+          `Provide a positive number: dws jurisdiction benchmark FI 320 residential`,
+        );
+      }
+      const BENCHMARKS: Record<string, { low: number; average: number; high: number }> = {
+        residential: { low: 200, average: 350, high: 500 },
+        commercial: { low: 250, average: 400, high: 600 },
+        industrial: { low: 180, average: 300, high: 450 },
+        mixed: { low: 230, average: 370, high: 550 },
+      };
+      const bench = BENCHMARKS[buildingType] || BENCHMARKS.mixed;
+      const rating =
+        embodiedPerM2 <= bench.low
+          ? 'excellent'
+          : embodiedPerM2 <= bench.average
+            ? 'good'
+            : embodiedPerM2 <= bench.high
+              ? 'average'
+              : 'poor';
+      const percentile =
+        embodiedPerM2 <= bench.low
+          ? 'Top 25%'
+          : embodiedPerM2 <= bench.average
+            ? 'Top 50%'
+            : embodiedPerM2 <= bench.high
+              ? 'Top 75%'
+              : 'Bottom 25%';
+      const result = {
+        jurisdiction: code,
+        buildingType,
+        embodiedCarbonPerM2: embodiedPerM2,
+        rating,
+        percentile,
+        benchmarks: { low: bench.low, average: bench.average, high: bench.high },
+        source: 'SBI/Aalborg University 2024, VTT Technical Research Centre Finland',
+      };
+      output(result, (data) => {
+        const d = data as typeof result;
+        const ratingColor =
+          d.rating === 'excellent'
+            ? fmt.green
+            : d.rating === 'good'
+              ? fmt.cyan
+              : d.rating === 'average'
+                ? fmt.yellow
+                : fmt.red;
+        return [
+          '',
+          fmt.bold(`  Benchmark: ${d.jurisdiction} / ${d.buildingType}`),
+          '',
+          `  Input       ${d.embodiedCarbonPerM2} kgCO2e/m²`,
+          `  Rating      ${ratingColor(d.rating.toUpperCase())}`,
+          `  Percentile  ${d.percentile}`,
+          '',
+          fmt.dim(
+            `  Nordic benchmarks — low: ${d.benchmarks.low}, avg: ${d.benchmarks.average}, high: ${d.benchmarks.high} kgCO2e/m²`,
+          ),
+          '',
+        ].join('\n');
+      });
+      break;
+    }
+
+    case 'assess': {
+      let input: Record<string, unknown>;
+      if (flags.stdin === 'true') {
+        const stdinData = await readStdin();
+        if (!stdinData)
+          error(
+            '--stdin specified but no data on stdin',
+            'echo \'{"projectId":"p1",...}\' | dws jurisdiction assess --stdin',
+          );
+        try {
+          input = JSON.parse(stdinData);
+        } catch {
+          error('Invalid JSON on stdin');
+        }
+      } else if (flags.input) {
+        try {
+          input = JSON.parse(flags.input);
+        } catch {
+          error(`Invalid JSON in --input: ${flags.input.slice(0, 100)}`);
+        }
+      } else {
+        error(
+          'No input provided.',
+          'dws jurisdiction assess --input \'{"projectId":"p1","name":"Test","jurisdiction":"FI","buildingType":"residential","grossFloorArea":1200,"materials":[],"transport":[],"siteEnergy":[]}\'\n  or: dws jurisdiction assess --stdin',
+        );
+      }
+      const s = spinner('Running EN 15978 lifecycle assessment...');
+      try {
+        const result = await api('/api/v1/compliance/construction/assess', 'POST', input);
+        s.stop();
+        output(result, (data) => {
+          const d = data as {
+            projectName: string;
+            jurisdiction: string;
+            totalEmbodiedCarbonPerM2: number;
+            epbd: { epbdCompliant: boolean | null; nationalStandard: string };
+            dataQuality: number;
+            benchmark: { rating: string; percentile: string };
+            regulatoryExposure: { ets2CostEur: number; totalRegulatoryExposureEur: number };
+          };
+          const compliant =
+            d.epbd.epbdCompliant === null
+              ? fmt.dim('N/A')
+              : d.epbd.epbdCompliant
+                ? fmt.green('YES')
+                : fmt.red('NO');
+          const qColor =
+            d.dataQuality >= 70 ? fmt.green : d.dataQuality >= 40 ? fmt.yellow : fmt.red;
+          return [
+            '',
+            fmt.bold(`  ${d.projectName} (${d.jurisdiction})`),
+            '',
+            `  Embodied carbon   ${d.totalEmbodiedCarbonPerM2} kgCO2e/m²`,
+            `  EPBD compliant    ${compliant}`,
+            `  Standard          ${d.epbd.nationalStandard}`,
+            `  Benchmark         ${d.benchmark.rating.toUpperCase()} (${d.benchmark.percentile})`,
+            `  Data quality      ${qColor(String(d.dataQuality) + '/100')}`,
+            `  ETS2 cost         €${d.regulatoryExposure.ets2CostEur}`,
+            `  Total reg. cost   €${d.regulatoryExposure.totalRegulatoryExposureEur}`,
+            '',
+          ].join('\n');
+        });
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    default:
+      error(
+        `Unknown jurisdiction subcommand '${subcommand}'.`,
+        'dws jurisdiction list                                List all supported jurisdictions\n' +
+          '  dws jurisdiction get <code>                        Get context (NO, DK, FI, SE, EU)\n' +
+          '  dws jurisdiction benchmark <code> <kgCO2e/m2>      Rate embodied carbon vs Nordic benchmarks\n' +
+          "  dws jurisdiction assess --input '{}'               Run full EN 15978 LCA",
+      );
+  }
+}
+
 // ============ KNOWLEDGE BASE ============
 
 async function cmdKB(
@@ -1745,6 +2933,50 @@ async function cmdKB(
       break;
     }
 
+    case 'preflight': {
+      // Verify the configured embedding provider is actually usable.
+      // Done client-side (no API hop) so it works even when the backend is down.
+      //
+      // The embeddings util lives in the main backend package (src/utils/),
+      // outside this CLI package's own rootDir — a non-literal specifier
+      // keeps tsc from pulling that file (and its `pino` dependency chain)
+      // into this package's compilation unit, which would violate rootDir.
+      // Node still resolves the path normally at runtime.
+      const embeddingsModulePath: string = '../../src/utils/embeddings.js';
+      const { preflightEmbeddings } = (await import(embeddingsModulePath)) as {
+        preflightEmbeddings: () => Promise<{
+          provider: string;
+          ok: boolean;
+          checks: Array<{ name: string; ok: boolean; detail?: string }>;
+          hint?: string;
+          dimensions?: number;
+        }>;
+      };
+      const result = await preflightEmbeddings();
+      if (JSON_MODE) {
+        output(result);
+      } else {
+        const mark = (ok: boolean): string => (ok ? fmt.green('✓') : fmt.red('✗'));
+        console.log(fmt.bold(`Embeddings preflight — provider: ${result.provider}`));
+        console.log('');
+        for (const c of result.checks) {
+          const detail = c.detail ? fmt.dim(`  (${c.detail})`) : '';
+          console.log(`  ${mark(c.ok)}  ${c.name}${detail}`);
+        }
+        console.log('');
+        if (result.ok) {
+          console.log(
+            fmt.green(`OK — ${result.dimensions ?? '?'}-dim vectors from ${result.provider}.`),
+          );
+        } else {
+          console.log(fmt.red('NOT READY'));
+          if (result.hint) console.log(`  ${result.hint}`);
+        }
+      }
+      if (!result.ok) process.exit(1);
+      break;
+    }
+
     default:
       error(
         `Unknown kb subcommand '${subcommand}'.`,
@@ -1753,7 +2985,8 @@ async function cmdKB(
           '  dws kb research "question"      Deep research\n' +
           '  dws kb lint                     Health check\n' +
           '  dws kb status                   Show stats\n' +
-          '  dws kb ingest <file>            Add raw source',
+          '  dws kb ingest <file>            Add raw source\n' +
+          '  dws kb preflight                Verify embedding provider',
       );
   }
 }
@@ -1909,6 +3142,26 @@ async function main(): Promise<void> {
         await cmdSovereigntyAssess(flags.input || '', flags.stdin === 'true');
         break;
 
+      case 'firehorse-report':
+        await cmdFirehorseReport(
+          flags.format || '',
+          flags.input || '',
+          flags.stdin === 'true',
+          flags.markdown === 'true',
+        );
+        break;
+
+      case 'linkedin-pending':
+        await cmdLinkedInPending(subcommand || 'list', positional[1] || '', flags);
+        break;
+
+      case 'sovereignty-pillars-assess':
+        await cmdSovereigntyPillarsAssess(
+          subcommand || positional[0] || '',
+          flags.stdin === 'true',
+        );
+        break;
+
       case 'profile':
         await cmdProfile();
         break;
@@ -1927,6 +3180,20 @@ async function main(): Promise<void> {
 
       case 'kb':
         await cmdKB(subcommand || 'status', flags, positional);
+        break;
+
+      case 'jurisdiction':
+        await cmdJurisdiction(subcommand || 'list', flags, positional);
+        break;
+
+      case 'browse': {
+        const browseUrl = positional[1] || '';
+        await cmdBrowse(subcommand || '', browseUrl, flags);
+        break;
+      }
+
+      case 'eu-data':
+        await cmdEuData(subcommand || '', positional, flags);
         break;
 
       case 'mcp':
@@ -1968,10 +3235,16 @@ async function main(): Promise<void> {
           'init',
           'demo',
           'sovereignty-assess',
+          'firehorse-report',
+          'linkedin-pending',
+          'jurisdiction',
+          'sovereignty-pillars-assess',
           'profile',
           'notifications',
           'dashboard',
           'activity',
+          'browse',
+          'eu-data',
           'version',
           'help',
         ];

@@ -1,11 +1,6 @@
 ---
 name: compliance
-description: >
-  EU regulatory compliance scoring for Fit for 55, ETS, CBAM, CSRD, and EU AI
-  Act. Produces scored gap lists, cost estimates, deadline urgency, and
-  remediation roadmaps. Use when: "compliance check", "am I compliant", "CSRD
-  status", "ETS obligations", "CBAM reporting", "Fit for 55", "regulatory gap",
-  "compliance score", "carbon cost estimate".
+description: "EU regulatory compliance scoring: Fit for 55, ETS, CBAM, CSRD, AI Act. Produces gap lists, cost estimates, deadline urgency, remediation roadmaps."
 argument-hint: "industry, regulations, annual emissions (tCO2e), import value (EUR)"
 allowed-tools: [Bash, WebSearch]
 ---
@@ -90,6 +85,19 @@ allowed-tools: [Bash, WebSearch]
 - Board reporting on regulatory exposure
 - CSRD data gap identification before reporting deadline
 - CBAM transitional period filings (quarterly, due by Jan/April/July/Oct)
+
+## Latent vs Deterministic
+
+| Step                                               | Where                                                    | Kind          |
+| -------------------------------------------------- | -------------------------------------------------------- | ------------- |
+| Score computation (0–100 per regulation)           | `src/compliance/scoring-engine.ts`                       | Deterministic |
+| ETS allowance / CBAM certificate arithmetic        | `src/compliance/ets-calculator.ts`, `cbam-calculator.ts` | Deterministic |
+| ESRS data-point coverage lookup                    | `src/compliance/esrs-registry.ts`                        | Deterministic |
+| Gap severity judgment (critical/high/medium)       | LLM                                                      | Latent        |
+| Cost-vs-risk prioritization in remediation roadmap | LLM                                                      | Latent        |
+| Narrative / report markdown                        | LLM                                                      | Latent        |
+
+Rule: do not ask the LLM to compute the compliance score. The score is a function of inputs and must match `scoring-engine.ts`.
 
 ## Standards References
 

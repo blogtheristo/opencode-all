@@ -1,13 +1,15 @@
 # DWS6 Document Index
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 2.0
 
 Sessions & Modifications:
 
+- Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-document-delimiters-wVtR8 | Date: 28.04.2026 | Changes: Migrated VERSION AND AGENT HISTORY block delimiters from --- to \*\*\* per DWS_DOCUMENT_STANDARD.md §2.1 (Pandoc compatibility); --- is misinterpreted as YAML frontmatter by Pandoc and breaks PDF generation
+- Version: 1.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 24.04.2026 | Changes: Updated admin payment documentation index for Revolut + Stripe + Google Merchant payment process refresh
 - Version: 1.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 22.04.2026 | Changes: Added missing index entries for local-first CI audit docs (`docs/CI_AUDIT.md`), external audit manual, and CI hygiene field note; refreshed metadata
 - Version: 1.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 21.04.2026 | Changes: Added DWS Standards Library and Vesala standards field note entries; synced index metadata for standards/web-content governance updates
 - Version: 1.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index field note entry, refreshed field note count, and linked current MCP/CLI package split into the repository index
@@ -32,12 +34,12 @@ Session Links & References:
 Document Status:
 
 - Created: 04.02.2026
-- Last Modified: 22.04.2026
+- Last Modified: 28.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 ## Purpose
 
@@ -52,19 +54,18 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 
 ## Quick Navigation
 
-| Category                                                        | Count | Description                                                      |
-| --------------------------------------------------------------- | ----- | ---------------------------------------------------------------- |
-| [Admin Manuals](#admin-manuals)                                 | 8     | System administration and deployment guides                      |
-| [Architecture](#architecture-docs)                              | 12    | Technical architecture blueprints                                |
-| [Field Notes](#field-notes)                                     | 52+   | LWM knowledge capture (Shufti DPA, KYA, DGX Spark, autoresearch) |
-| [Firehorse Product](#firehorse-product)                         | 35+   | Product suite documentation                                      |
-| [Standards & Guidelines](#standards--guidelines)                | 13+   | Coding and documentation standards (+CLI, Skills Guide, Data)    |
-| [Security](#security)                                           | 8+    | Security policies, compliance, KYA control surfaces              |
-| [Agent Documentation](#agent-documentation)                     | 15+   | AI agent tracking, KB agent, autoresearch, KYA engine            |
-| [Deployment & DevOps](#deployment--devops)                      | 15+   | CI/CD, Docker, Cloudflare, DGX Spark runtime                     |
-| [Thesis & Academic](#thesis--academic)                          | 4     | Metropolia thesis (EN/FI) + PHD Firehorse (EN/FI)                |
-| [Configuration](#configuration)                                 | 10+   | Environment and setup guides                                     |
-| [April 2026 Catch-up Additions](#april-2026-catch-up-additions) | 20+   | DWS CLI, KB, KYA, Aegis, BIM, DGX Spark, /kya, /kb, legal        |
+| Category                                         | Count | Description                                  |
+| ------------------------------------------------ | ----- | -------------------------------------------- |
+| [Admin Manuals](#admin-manuals)                  | 8     | System administration and deployment guides  |
+| [Architecture](#architecture-docs)               | 12    | Technical architecture blueprints            |
+| [Field Notes](#field-notes)                      | 13    | LWM knowledge capture from real-world events |
+| [Firehorse Product](#firehorse-product)          | 35+   | Product suite documentation                  |
+| [Standards & Guidelines](#standards--guidelines) | 10+   | Coding and documentation standards           |
+| [Security](#security)                            | 5+    | Security policies and compliance             |
+| [Agent Documentation](#agent-documentation)      | 10+   | AI agent tracking and coordination           |
+| [Deployment & DevOps](#deployment--devops)       | 15+   | CI/CD, Docker, Cloudflare guides             |
+| [Thesis & Academic](#thesis--academic)           | 10+   | Metropolia master thesis documents           |
+| [Configuration](#configuration)                  | 10+   | Environment and setup guides                 |
 
 ---
 
@@ -80,7 +81,7 @@ System administration and deployment guides. All admin manuals are in `Admin/` f
 | Supabase Manual       | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md`               | ACTIVE   | 2026-02-06    | Supabase configuration                                                 |
 | Gaps Analysis         | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md`                | ACTIVE   | 2026-02-06    | Documentation gap analysis                                             |
 | DWS6.com Manual       | `/Admin/ADMIN_MANUAL_DWS6_COM.md`                     | ACTIVE   | 2026-02-06    | Main site deployment                                                   |
-| DWS10 Store Payments  | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`         | ACTIVE   | 2026-02-06    | Revolut Web SDK store                                                  |
+| DWS10 Store Payments  | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`         | ACTIVE   | 2026-04-24    | Revolut + Stripe hybrid process, Google Merchant feed/payment ops      |
 | Testing Manual        | `/Admin/ADMIN_MANUAL_TESTING.md`                      | ACTIVE   | 2026-02-06    | Testing procedures                                                     |
 | Files & Folders       | `/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md`            | ACTIVE   | 2026-02-06    | Repo structure guide                                                   |
 | Security Compliance   | `/Admin/SECURITY_COMPLIANCE.md`                       | ACTIVE   | 2026-02-06    | Security & compliance                                                  |
@@ -182,6 +183,22 @@ Technical architecture blueprints for DWS IQ 6 multi-agent system.
 
 LWM knowledge capture from real-world events - raw sensory input for the Lifetime World Model.
 
+| Document                           | Path                                                                              | Date       | Topic                                                                                    | Ontology Tags                                         |
+| ---------------------------------- | --------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Karp Enterprise AI                 | `/docs/field-notes/2026-01-21-karp-enterprise-ai-ontology.md`                     | 2026-01-21 | Palantir CEO insights                                                                    | Strategy, AI, Ontology                                |
+| Dashboard V9 Stack                 | `/docs/field-notes/2026-01-22-dashboard-v9-technical-stack.md`                    | 2026-01-22 | Technical stack analysis                                                                 | Technology, React, Vite                               |
+| Design System Audit                | `/docs/field-notes/2026-01-23-design-system-audit-navigation-gaps.md`             | 2026-01-23 | UI/UX audit                                                                              | Design, Navigation, Gaps                              |
+| AI Robotics Webinar                | `/docs/field-notes/2026-01-27-apply-ai-robotics-manufacturing-webinar.md`         | 2026-01-27 | Manufacturing AI                                                                         | Manufacturing, Robotics                               |
+| EU Tech Sovereignty                | `/docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`           | 2026-01-28 | EU data sovereignty                                                                      | Compliance, EU, Strategy                              |
+| FIGBC Working Group                | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md`                 | 2026-01-30 | FIGBC recruitment                                                                        | Construction, Finland                                 |
+| Qwen3-Coder LLM                    | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md`                    | 2026-02-04 | Qwen3 coding agent                                                                       | LLM, Agentic, Local Dev                               |
+| Agent Teams vs Subagents           | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md`            | 2026-02-05 | Claude Code parallel work                                                                | Multi-Agent, Teams, Subagents                         |
+| AI Safety Report 2026              | `/docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md`                | 2026-02-06 | AI safety research analysis                                                              | AI Safety, Risk, Compliance                           |
+| Brockman Agentic Software          | `/docs/field-notes/2026-02-06-brockman-agentic-software-development.md`           | 2026-02-06 | Agentic dev insights                                                                     | Agentic, Software Dev, Strategy                       |
+| EU Alden Biesen Single Market      | `/docs/field-notes/2026-02-11-eu-alden-biesen-single-market-info-note.md`         | 2026-02-11 | EU single market retreat                                                                 | EU, Single Market, Policy                             |
+| Obsidian CLI + Claude Code         | `/docs/field-notes/2026-04-22-obsidian-cli-claude-code-integration.md`            | 2026-04-22 | CLI vault access benchmarks                                                              | Obsidian, CLI, Knowledge Mgmt                         |
+| Research Agent Architecture        | `/docs/field-notes/2026-04-22-research-agent-architecture-lifetime-scope.md`      | 2026-04-22 | 5-capability system design                                                               | Multi-Agent, Content, PhD, Research                   |
+| Field Notes README                 | `/docs/field-notes/README.md`                                                     | -          | Guidelines                                                                               | -                                                     |
 | Document                           | Path                                                                              | Date       | Topic                                                                                    | Ontology Tags                                         |
 | ---------------------------------- | --------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | Karp Enterprise AI                 | `/docs/field-notes/2026-01-21-karp-enterprise-ai-ontology.md`                     | 2026-01-21 | Palantir CEO insights                                                                    | Strategy, AI, Ontology                                |
@@ -423,7 +440,7 @@ Environment and setup configuration guides.
 
 ## Industry Documentation
 
-Industry-specific documentation for 16 EU industries.
+Industry-specific documentation for 25+ EU industries.
 
 | Document               | Path                | Status | Description            |
 | ---------------------- | ------------------- | ------ | ---------------------- |

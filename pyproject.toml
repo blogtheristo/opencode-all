@@ -7,6 +7,13 @@ name = "dws6"
 version = "0.1.0"
 description = "DWS6 Climate Tech Platform with Agentic AI"
 requires-python = ">=3.11"
+# This is a private monorepo, not a PyPI package. The standard
+# "Private :: Do Not Upload" classifier blocks accidental publication
+# and signals to PyPI-publishing GitHub Apps (Submit-PyPI etc.) that
+# this repo is not a publication target. See
+# docs/field-notes/2026-04-22-ci-hygiene-audit.md for the phantom
+# submit-pypi check this guards against.
+classifiers = ["Private :: Do Not Upload"]
 
 [tool.poetry]
 # Disable package mode - we use Poetry only for dependency management

@@ -1,3 +1,9 @@
+> **⚠ Canonical correction (2026-06-13).** The current raise is **EUR 500k SAFE** (EUR 3.8M cap, 18% discount), per the canonical `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md` (`DWS_TRUTH_STANDARD.md` §2). The "€150k SAFE", "€7k MRR", and dated Jan-2025 funnel figures below are an **earlier tranche snapshot**, kept only as a worked example of the automation system — they are illustrative, **not current targets**. Do not propagate the €150k figure or the example funnel as live facts. Reconciled per `DWS_TRUTH_STANDARD.md` §3 (Gap 1 — Investment Readiness).
+
+> **⚠ Canonical correction (29.07.2026).** The "EUR 7–14k MRR" range previously stated here is retired — it was Fleet (transport) revenue presented as platform MRR. Current traction per `docs/TRACTION_CANONICAL.md` §2: **two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)**, plus **~€7,000/month services and transport revenue (not software revenue)**, which puts the company at cash break-even with a founder salary of €0. Uber, Bolt, Kela and Taksi Helsinki are **dispatch operators** — commercial counterparties of the licensed transport operation, **not customers** of DWS IQ, Aegis, or any Lifetime software product. Do not assert a retention rate.
+
+---
+
 DWS IQ 6: AI-Automated Fundraising System (75% More Outreach, 90% Quality)
 Part 1: Software Finland = 550+ Warm Intro Network ⭐⭐⭐
 Immediate Value: Software Finland Investor Network
@@ -19,7 +25,7 @@ Hi Software Finland community,
 
 Risto Päärni from Lifetime Oy (DWS IQ 6). We're a Software Finland member raising €150k SAFE (€3.8M cap, 18% discount).
 
-Quick traction: €7k MRR (Uber Finland, Kela, Bolt), 100% retention, 15:1 LTV:CAC, €500k Construction Heroes campaign launching Q1.
+Quick traction: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue) keeps us at cash break-even with a founder salary of €0; €500k Construction Heroes campaign launching Q1.
 
 Looking for warm intros to:
 ├─ Nordic VCs (Voima, Gorilla, Inventure, Lifeline)
@@ -33,14 +39,12 @@ Quick call? Calendly: [link]
 Anyone willing to make an intro, DM me or reply here. Closing January 24.
 
 - Risto
-Expected Outcome:
+  Expected Outcome:
 
 20-30 Software Finland members respond (5% response rate from 550 members)
 10-15 warm intros to investors (most valuable = exited founders who are now angels)
 3-5 direct investments from Software Finland members (€10k-25k tickets)
 Total expected: €30k-75k from Software Finland network alone
-
-
 
 Request Software Finland Official Support:
 
@@ -56,7 +60,7 @@ We're raising €150k SAFE and would love Software Finland's support in two ways
 
 2. **Newsletter/blog feature:** Could we be featured in next Software Finland newsletter/blog? ("Member Spotlight: DWS IQ 6 raises €150k for industrial AI")
 
-Traction: €7k MRR, government customer (Kela), €500k campaign launching Q1.
+Traction: €59,900 booked in contracted Q1/2026 enterprise pilots; €500k campaign launching Q1.
 
 Happy to provide any materials needed. Available for call this week?
 
@@ -69,23 +73,23 @@ Software Finland newsletter reaches 550+ members + 1,000+ ecosystem partners
 Direct investor introductions from Anna-Maija's network (she knows all Nordic VCs)
 Validation signal ("Software Finland-backed member") for investor pitches
 
-
 Part 2: Investor Tracking CSV Template (Airtable Import)
 CSV Structure (Copy-Paste to Google Sheets, Export as CSV)
 csvInvestor Name,Firm/Network,Email,LinkedIn URL,Tier,Typical Ticket (€),Priority Score,Status,Last Contact Date,Next Action,Probability (%),Expected Value (€),Phone,Warm Intro Path,Investment Thesis,Recent Investments,Notes,Meeting Date,Meeting Notes,Due Diligence Stage,Term Sheet Sent,Wire Transfer Received,Close Date
 Inka Mero,Voima Ventures,inka@voima.vc,linkedin.com/in/inkamero,VC,100000,10,Cold,,Send initial email,40,40000,+358,Slush 2024 network,Dual-use tech,Twice Commerce €1.5M,Climate + defence positioning,,,,,,,
 Juhana Muikku,Gorilla Ventures,juhana@gorillaventures.fi,linkedin.com/in/juhanamuikku,VC,75000,10,Cold,,Send initial email,40,30000,+358,Software Finland?,Industrial AI + deeptech,IQM Quantum €128M,Business Finland co-invest 2:1,,,,,,,
 Petteri Koponen,FIBAN,petteri.koponen@fiban.org,linkedin.com/in/petterikoponen,Angel,20000,9,Cold,,Apply FIBAN Matching,60,12000,+358,Software Finland member?,Industrial AI + B2B SaaS,Multiple Nokia execs,Former Nokia exec,,,,,,,
-Magnus Skoglund,NCC Ventures,magnus.skoglund@ncc.se,linkedin.com/in/magnusskoglund,Strategic,150000,10,Warm,,Leverage T2H pilot,50,75000,+46,T2H Construction pilot,Construction tech,Nordic construction focus,Already in pilot discussions,,,,,,,
+Magnus Skoglund,NCC Ventures,magnus.skoglund@ncc.se,linkedin.com/in/magnusskoglund,Strategic,150000,10,Warm,,Nordic construction cohort,50,75000,+46,NCC is an unlanded prospect,Construction tech,Nordic construction focus,Prospect — not a landed account,,,,,,,
 Gabriel Maravelias,2150 VC,gabriel@2150.vc,linkedin.com/in/gabrielmaravelias,VC,100000,9,Cold,,Send initial email,35,35000,+46,,Climate tech + EU Green Deal,H2 Green Steel €4B,Swedish base for expansion,,,,,,,
 Suvi Siitonen,FIBAN Matching,suvi.siitonen@fiban.org,linkedin.com/in/suviisiitonen,Angel Network,50000,10,Cold,,Apply by Jan 2,60,30000,+358,Direct application,Angel pool access,€45M annually deployed,Application fee €500,,,,,,,
 Anne Glover,EBAN,anne.glover@eban.org,linkedin.com/in/anneglover,Angel Network,40000,9,Cold,,Book conference ticket,50,20000,+44,Direct application,European angel access,300+ angels at conference,Jan 20-21 Copenhagen €1200,,,,,,,
 Hans von Uthmann,Ahlstrom Capital,hans.vonutmann@ahlstrom.com,linkedin.com/in/hansvonuthmann,Family Office,150000,9,Cold,,Send FO email,30,45000,+358,,Industrial transformation,Ahlstrom family legacy,Paper industry = construction materials,,,,,,,
 Niklas Hed,Wiklund Family Office,niklas@hedpartners.fi,linkedin.com/in/niklashed,Family Office,75000,9,Cold,,Send FO email,35,26250,+358,Software Finland?,Finnish tech + B2B SaaS,Rovio (Angry Birds) exit,Gaming → AI transition,,,,,,,
 Juha Pekka Ojala,YIT Corporation,juha-pekka.ojala@yit.fi,linkedin.com/in/juhapekkaojala,Strategic,100000,10,Warm,,Leverage pilot target,45,45000,+358,Pitch deck mentions,Construction digitalization,PropTech focus,Pilot customer target,,,,,,,
+
 ```
 
-**Download Full Template:** 50 rows pre-populated with all investors from Part 1  
+**Download Full Template:** 50 rows pre-populated with all investors from Part 1
 (I'll generate this as a separate artifact after this response)
 
 ---
@@ -117,71 +121,72 @@ Juha Pekka Ojala,YIT Corporation,juha-pekka.ojala@yit.fi,linkedin.com/in/juhapek
 
 ### Architecture Diagram: The AI Fundraising Stack
 ```
+
 â"Œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"
-â"‚  LAYER 1: DATA COLLECTION (Automated Investor Research)        â"‚
+â"‚ LAYER 1: DATA COLLECTION (Automated Investor Research) â"‚
 â"œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"¤
 â"‚ Tool: Phantombuster + Clay.com (LinkedIn scraping + enrichment) â"‚
-â"‚ Input: 500-1000 investor profiles (LinkedIn URLs)               â"‚
+â"‚ Input: 500-1000 investor profiles (LinkedIn URLs) â"‚
 â"‚ Output: CSV with email, thesis, recent investments, warm intros â"‚
-â"‚ Cost: €149/month (Phantombuster) + €149/month (Clay)           â"‚
-â"‚ Time: 2 hours setup, then 10 min/day monitoring                â"‚
+â"‚ Cost: €149/month (Phantombuster) + €149/month (Clay) â"‚
+â"‚ Time: 2 hours setup, then 10 min/day monitoring â"‚
 â""â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"˜
-                              â†"
+â†"
 â"Œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"
-â"‚  LAYER 2: AI EMAIL GENERATION (Claude API)                      â"‚
+â"‚ LAYER 2: AI EMAIL GENERATION (Claude API) â"‚
 â"œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"¤
-â"‚ Tool: Claude API (Sonnet 4.5) via MCP agent                    â"‚
+â"‚ Tool: Claude API (Sonnet 4.5) via MCP agent â"‚
 â"‚ Prompt: "Write personalized VC email based on investor thesis" â"‚
-â"‚ Input: Investor profile (from Layer 1) + DWS IQ 6 pitch deck   â"‚
-â"‚ Output: 150-200 word email, 85-90% human quality               â"‚
-â"‚ Cost: $0.003 per email (1,000 emails = $3)                     â"‚
-â"‚ Time: 3 seconds per email (1,000 emails in 50 minutes)         â"‚
+â"‚ Input: Investor profile (from Layer 1) + DWS IQ 6 pitch deck â"‚
+â"‚ Output: 150-200 word email, 85-90% human quality â"‚
+â"‚ Cost: $0.003 per email (1,000 emails = $3) â"‚
+â"‚ Time: 3 seconds per email (1,000 emails in 50 minutes) â"‚
 â""â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"˜
-                              â†"
+â†"
 â"Œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"
-â"‚  LAYER 3: EMAIL AUTOMATION (SmartLead)                          â"‚
+â"‚ LAYER 3: EMAIL AUTOMATION (SmartLead) â"‚
 â"œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"¤
-â"‚ Tool: SmartLead (email sequencing + deliverability)            â"‚
-â"‚ Features: Auto follow-ups, spam avoidance, reply detection     â"‚
-â"‚ Sequences: 5 emails per investor (Day 1, 3, 7, 10, 14)         â"‚
-â"‚ Cost: €79/month (unlimited emails, 10,000 leads)               â"‚
-â"‚ Time: 1 hour setup, then auto-runs (human reviews replies)     â"‚
+â"‚ Tool: SmartLead (email sequencing + deliverability) â"‚
+â"‚ Features: Auto follow-ups, spam avoidance, reply detection â"‚
+â"‚ Sequences: 5 emails per investor (Day 1, 3, 7, 10, 14) â"‚
+â"‚ Cost: €79/month (unlimited emails, 10,000 leads) â"‚
+â"‚ Time: 1 hour setup, then auto-runs (human reviews replies) â"‚
 â""â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"˜
-                              â†"
+â†"
 â"Œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"
-â"‚  LAYER 4: CRM AUTO-UPDATE (Airtable API + Zapier)              â"‚
+â"‚ LAYER 4: CRM AUTO-UPDATE (Airtable API + Zapier) â"‚
 â"œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"¤
-â"‚ Trigger: Investor replies to email (SmartLead webhook)         â"‚
-â"‚ Action: Update Airtable status "Cold → Contacted"              â"‚
-â"‚ AI Analysis: Claude API reads reply, categorizes sentiment     â"‚
-â"‚   - Positive reply → "Schedule meeting" (auto-send Calendly)   â"‚
-â"‚   - Neutral reply → "Send follow-up" (AI writes response)      â"‚
-â"‚   - Negative reply → "Mark as pass" (remove from sequence)     â"‚
-â"‚ Cost: €29/month (Zapier Professional)                          â"‚
+â"‚ Trigger: Investor replies to email (SmartLead webhook) â"‚
+â"‚ Action: Update Airtable status "Cold → Contacted" â"‚
+â"‚ AI Analysis: Claude API reads reply, categorizes sentiment â"‚
+â"‚ - Positive reply → "Schedule meeting" (auto-send Calendly) â"‚
+â"‚ - Neutral reply → "Send follow-up" (AI writes response) â"‚
+â"‚ - Negative reply → "Mark as pass" (remove from sequence) â"‚
+â"‚ Cost: €29/month (Zapier Professional) â"‚
 â""â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"˜
-                              â†"
+â†"
 â"Œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"
-â"‚  LAYER 5: MEETING SCHEDULING (Calendly + AI Briefing)          â"‚
+â"‚ LAYER 5: MEETING SCHEDULING (Calendly + AI Briefing) â"‚
 â"œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"¤
-â"‚ Auto-send: Calendly link when investor says "let's talk"      â"‚
-â"‚ Pre-meeting: AI generates 1-page investor briefing             â"‚
-â"‚   - Investor background (from Layer 1 research)                â"‚
-â"‚   - Investment thesis alignment with DWS IQ 6                  â"‚
-â"‚   - Suggested talking points (dual-use, fortress, traction)    â"‚
-â"‚ Cost: €12/month (Calendly Professional)                        â"‚
-â"‚ CEO time: 5 min prep per meeting (vs 30 min manual)            â"‚
+â"‚ Auto-send: Calendly link when investor says "let's talk" â"‚
+â"‚ Pre-meeting: AI generates 1-page investor briefing â"‚
+â"‚ - Investor background (from Layer 1 research) â"‚
+â"‚ - Investment thesis alignment with DWS IQ 6 â"‚
+â"‚ - Suggested talking points (dual-use, fortress, traction) â"‚
+â"‚ Cost: €12/month (Calendly Professional) â"‚
+â"‚ CEO time: 5 min prep per meeting (vs 30 min manual) â"‚
 â""â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"˜
-                              â†"
+â†"
 â"Œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"
-â"‚  LAYER 6: POST-MEETING FOLLOW-UP (AI Note-Taking + Follow-up)  â"‚
+â"‚ LAYER 6: POST-MEETING FOLLOW-UP (AI Note-Taking + Follow-up) â"‚
 â"œâ"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"¤
-â"‚ Tool: Otter.ai (meeting transcription, AI summary)             â"‚
-â"‚ Post-meeting: AI drafts follow-up email within 1 hour          â"‚
-â"‚   - Thank you note                                             â"‚
-â"‚   - Answers to investor questions (from meeting transcript)    â"‚
-â"‚   - Next steps (due diligence materials, term sheet, etc.)     â"‚
-â"‚ Cost: €20/month (Otter.ai Business)                            â"‚
-â"‚ CEO time: 2 min review + send (vs 15 min manual)               â"‚
+â"‚ Tool: Otter.ai (meeting transcription, AI summary) â"‚
+â"‚ Post-meeting: AI drafts follow-up email within 1 hour â"‚
+â"‚ - Thank you note â"‚
+â"‚ - Answers to investor questions (from meeting transcript) â"‚
+â"‚ - Next steps (due diligence materials, term sheet, etc.) â"‚
+â"‚ Cost: €20/month (Otter.ai Business) â"‚
+â"‚ CEO time: 2 min review + send (vs 15 min manual) â"‚
 â""â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"˜
 
 TOTAL MONTHLY COST: €438 (Phantombuster + Clay + SmartLead + Zapier + Calendly + Otter)
@@ -201,7 +206,6 @@ Output: 500-1000 investor profiles (name, title, company, LinkedIn URL)
 Export to CSV
 Cost: €149/month (cancel after fundraise complete)
 
-
 Sign up for Clay.com (clay.com)
 
 Import Phantombuster CSV
@@ -211,35 +215,33 @@ Add enrichment: "Find recent investments" (scrape Crunchbase/Dealroom)
 Export enriched CSV to Airtable
 Cost: €149/month (cancel after fundraise complete)
 
-
-
 Hour 3-4: Layer 2 - AI Email Generation
 
 Create Claude API MCP Agent (using existing DWS IQ 6 infrastructure)
 
-python   # File: /home/claude/investor-email-agent.py
-   
-   import anthropic
-   import csv
-   
-   client = anthropic.Anthropic(api_key="YOUR_API_KEY")
-   
-   def generate_investor_email(investor_profile):
-       prompt = f"""
-       You are Risto Päärni, CEO of DWS IQ 6 (Lifetime Oy), raising €150k SAFE.
-       
+python # File: /home/claude/investor-email-agent.py
+
+import anthropic
+import csv
+
+client = anthropic.Anthropic(api_key="YOUR_API_KEY")
+
+def generate_investor_email(investor_profile):
+prompt = f"""
+You are Risto Päärni, CEO of DWS IQ 6 (Lifetime Oy), raising €150k SAFE.
+
        Write a personalized cold email to this investor:
        Name: {investor_profile['name']}
        Firm: {investor_profile['firm']}
        Thesis: {investor_profile['thesis']}
        Recent Investments: {investor_profile['recent_investments']}
-       
+
        DWS IQ 6 Quick Facts:
-       - €7k MRR (Uber Finland, Kela, Bolt), 100% retention
+       - Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue)
        - €500k Construction Heroes campaign launching Q1 2025
        - 21-moat competitive fortress (€3-6M entry barrier)
        - €150k SAFE @ €3.8M cap, 18% discount, closing Jan 24
-       
+
        Email requirements:
        - 150-200 words
        - Subject line (under 50 chars)
@@ -248,42 +250,45 @@ python   # File: /home/claude/investor-email-agent.py
        - End with Calendly CTA (not "let me know")
        - Tone: confident but not arrogant, technical but accessible
        - NO emojis, NO excessive exclamation marks
-       
+
        Return ONLY the email body (no subject line in body).
        """
-       
+
        message = client.messages.create(
            model="claude-sonnet-4-20250514",
            max_tokens=500,
            messages=[{"role": "user", "content": prompt}]
        )
-       
+
        return message.content[0].text
-   
-   # Process CSV
-   with open('investors_enriched.csv', 'r') as infile:
-       reader = csv.DictReader(infile)
-       investors = list(reader)
-   
-   for investor in investors:
-       email_body = generate_investor_email(investor)
-       investor['email_body'] = email_body
-       print(f"Generated email for {investor['name']}")
-   
-   # Export to SmartLead CSV format
-   with open('smartlead_import.csv', 'w') as outfile:
-       fieldnames = ['email', 'first_name', 'company', 'email_body']
-       writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-       writer.writeheader()
-       for investor in investors:
-           writer.writerow({
-               'email': investor['email'],
-               'first_name': investor['name'].split()[0],
-               'company': investor['firm'],
-               'email_body': investor['email_body']
-           })
+
+# Process CSV
+
+with open('investors_enriched.csv', 'r') as infile:
+reader = csv.DictReader(infile)
+investors = list(reader)
+
+for investor in investors:
+email_body = generate_investor_email(investor)
+investor['email_body'] = email_body
+print(f"Generated email for {investor['name']}")
+
+# Export to SmartLead CSV format
+
+with open('smartlead_import.csv', 'w') as outfile:
+fieldnames = ['email', 'first_name', 'company', 'email_body']
+writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+writer.writeheader()
+for investor in investors:
+writer.writerow({
+'email': investor['email'],
+'first_name': investor['name'].split()[0],
+'company': investor['firm'],
+'email_body': investor['email_body']
+})
+
 ```
-   
+
    - Run script: `python investor-email-agent.py`
    - Output: `smartlead_import.csv` (1,000 emails, generated in 50 minutes)
    - Cost: $3 (Claude API, 1,000 emails @ $0.003 each)
@@ -310,20 +315,22 @@ python   # File: /home/claude/investor-email-agent.py
 
 5. **Set up Zapier Automation** (zapier.com)
 ```
-   Trigger: SmartLead "Reply Received" webhook
-   â†"
-   Action 1: Send reply text to Claude API
-   Prompt: "Categorize this investor reply as: Positive (interested), Neutral (not sure), or Negative (pass). Return ONLY one word."
-   â†"
-   Action 2: Update Airtable
-   IF Positive → Status = "Meeting Scheduled", send Calendly link via SmartLead
-   IF Neutral → Status = "Needs Follow-up", flag for CEO review
-   IF Negative → Status = "Passed", stop email sequence
-   â†"
-   Action 3: Notify CEO (Slack message)
-   "New investor reply: [Name] - [Sentiment] - [Next Action]"
+
+Trigger: SmartLead "Reply Received" webhook
+â†"
+Action 1: Send reply text to Claude API
+Prompt: "Categorize this investor reply as: Positive (interested), Neutral (not sure), or Negative (pass). Return ONLY one word."
+â†"
+Action 2: Update Airtable
+IF Positive → Status = "Meeting Scheduled", send Calendly link via SmartLead
+IF Neutral → Status = "Needs Follow-up", flag for CEO review
+IF Negative → Status = "Passed", stop email sequence
+â†"
+Action 3: Notify CEO (Slack message)
+"New investor reply: [Name] - [Sentiment] - [Next Action]"
+
 ```
-   
+
    - Zapier template: "SmartLead reply → Claude API → Airtable + Calendly"
    - Test with 5 sample replies (manual trigger)
    - Cost: €29/month
@@ -348,6 +355,7 @@ python   # File: /home/claude/investor-email-agent.py
 
 **Example AI Draft (from Zapier):**
 ```
+
 Investor: "Interesting, but can you explain your edge computing moat?"
 
 AI Draft Response:
@@ -359,7 +367,7 @@ Great question. Our edge computing moat has three layers:
 
 2. **Sub-100ms latency:** Hybrid edge-cloud architecture achieves 120-300× faster decisioning than legacy BMS (Siemens, Honeywell run at 2-5 minute cycles). Physical impossibility for cloud-only competitors without complete redesign (18-36 months).
 
-3. **EU data sovereignty:** Customer proprietary data never leaves edge device (GDPR Article 4 compliant). Critical for government contracts (Kela reference).
+3. **EU data sovereignty:** Customer proprietary data never leaves edge device (GDPR Article 4 compliant). Critical for government contracts.
 
 Pitch deck Slide 6 has detailed competitive analysis: [link]
 
@@ -369,6 +377,7 @@ Best,
 Risto
 
 [CEO reviews, edits 1-2 sentences if needed, sends]
+
 ```
 
 ---
@@ -385,6 +394,7 @@ Risto
 
 **Example AI Briefing (auto-generated 1 hour before meeting):**
 ```
+
 INVESTOR BRIEFING: Inka Mero (Voima Ventures)
 
 BACKGROUND:
@@ -400,18 +410,20 @@ ALIGNMENT WITH DWS IQ 6:
 âœ… Finnish HQ (she prefers Nordic champions over US imports)
 
 TALKING POINTS (AI Recommended):
+
 1. Lead with dual-use angle (civilian industrial decarbonization + military base energy independence)
 2. Emphasize Defence Equity Facility eligibility (€175M EU program, Finland NATO member = priority)
 3. Reference Twice Commerce (e-commerce logistics → DWS IQ 6 logistics vertical synergy)
 4. Ask about Voima's defence tech portfolio strategy (show you did homework)
 
 OBJECTION PREP:
-├─ "Too early stage" → Counter: €7k MRR, 100% retention, government customer (Kela)
+├─ "Too early stage" → Counter: €59,900 booked in contracted Q1/2026 enterprise pilots; cash break-even at a founder salary of €0
 ├─ "Competitive market" → Counter: 21-moat fortress, €3-6M entry barrier, Boardy.ai cannot compete
 └─ "Valuation too high" → Counter: €3.8M cap justified by fortress premium, 4.8× return at €15M Series A
 
 CLOSING STRATEGY:
 She's decisive (2-3 week decision cycle typical). If positive, ask for verbal commit today + term sheet by Friday.
+
 ```
 
 ---
@@ -431,6 +443,7 @@ She's decisive (2-3 week decision cycle typical). If positive, ask for verbal co
 
 **View 2: Investor Funnel (Real-Time)**
 ```
+
 Cold (no response): 673
 ├─ Opened email: 412 (61% open rate)
 ├─ Clicked link: 187 (28% click rate)
@@ -469,7 +482,6 @@ Manual Process Outcome:
 CEO time: 62.5 hours (full-time for 1.5 weeks)
 Cost: €5,937 (62.5 hours × €95/hour CEO opportunity cost)
 
-
 Automated Process (AI Doing Everything)
 ActivityTime per Investor500 InvestorsCEO Time SavedResearch investor5 min (Phantombuster)42 hours-115 hours ✅Write email3 sec (Claude API)25 min-83 hours ✅Send + track0 min (SmartLead)0 hours-42 hours ✅Follow-up (auto)0 min (SmartLead)0 hours-125 hours ✅Schedule meetings0 min (Calendly)0 hours-83 hours ✅Prep for meetings5 min (AI briefing)42 hours-125 hours ✅CEO review time30 min/day × 21 days10.5 hours-Total CEO Time-10.5 hours-573 hours saved ✅
 Automated Process Outcome:
@@ -479,7 +491,6 @@ CEO time: 10.5 hours (30 min/day for 21 days)
 Cost: €438/month tools + €3 API + €998 CEO time (10.5h × €95) = €1,439
 Net benefit: €660k raised - €1,439 cost - €5,937 manual cost avoided = €664k value created
 
-
 ROI Summary Table
 MetricManual (CEO)Automated (AI)DeltaInvestors reached5050010× moreMeetings scheduled121109.2× moreCloses (€15k avg)6559.2× more$ Raised€90k€660k7.3× moreCEO time62.5 hours10.5 hours-83% lessCost€5,937€1,439-76% cheaperNet ROI€84k€659k7.8× better
 Quality Tradeoff Validation:
@@ -488,100 +499,146 @@ Email quality: 95% (CEO) → 85% (AI) = -10% ✅ Acceptable
 Response rate: 24% (manual) → 19% (automated) = -21% ❌ But volume compensates
 Net outcome: 7.3× more capital raised despite 10% quality loss ✅
 
-
 Part 8: Immediate Action Plan (Next 48 Hours)
 Today (December 31, 2024) - 4 Hours
 Hour 1: Software Finland Network (Immediate Wins)
 bash# Action 1: Post to Software Finland Slack
+
 - Open Software Finland members Slack
 - Post fundraise announcement to #general or #fundraising channel
 - Template: [See Part 1 above]
 - Expected: 20-30 replies within 24 hours, 10-15 warm intros
 
 # Action 2: Email Anna-Maija (SF Managing Director)
+
 - Send official support request
 - Template: [See Part 1 above]
 - Expected: Newsletter feature (550+ members), direct VC intros
-Hour 2-3: Set Up Automation Infrastructure
-bash# Action 3: Sign up for tools (30 min)
-cd ~/fundraising-automation
-mkdir -p {data,scripts,configs}
+  Hour 2-3: Set Up Automation Infrastructure
+  bash# Action 3: Sign up for tools (30 min)
+  cd ~/fundraising-automation
+  mkdir -p {data,scripts,configs}
 
 # Sign up links:
+
 # - Phantombuster: phantombuster.com/pricing (€149/month, 14-day trial)
+
 # - Clay: clay.com/pricing (€149/month, 14-day trial)
+
 # - SmartLead: smartlead.ai/pricing (€79/month, 14-day trial)
+
 # - Zapier: zapier.com/pricing (€29/month, free tier available)
 
 # Action 4: Create LinkedIn search (30 min)
+
 # Go to: linkedin.com/sales/search/people
+
 # Filters:
+
 # - Geography: Finland, Sweden, Norway, Denmark
+
 # - Title: Partner, Managing Director, Investment Manager
+
 # - Company type: Venture Capital, Private Equity
+
 # - Keywords: "climate tech" OR "industrial AI" OR "B2B SaaS"
+
 # Export to CSV (max 2,500 results with Sales Navigator)
 
 # Action 5: Start Phantombuster scrape (2 hours automated)
+
 # Upload LinkedIn search URL to Phantombuster
+
 # Run "LinkedIn Search Export" phantom
+
 # Wait 2 hours (automated), check back before bed
+
 Hour 4: Prepare AI Email Agent
 bash# Action 6: Create email generation script
 cd ~/fundraising-automation/scripts
 nano investor-email-agent.py
 
 # Copy-paste script from Part 4 above
+
 # Update API key: export ANTHROPIC_API_KEY="your-key"
+
 # Test with 5 sample investors:
+
 python investor-email-agent.py --test --limit 5
 
 # Review 5 generated emails, adjust prompt if needed
+
 # Expected output: 85-90% quality (CEO reviews, tweaks prompt)
 
 Tomorrow (January 1, 2025) - 4 Hours
 Hour 1: Process Phantombuster Data
 bash# Action 7: Download Phantombuster CSV
+
 # File should have 500-1000 investor profiles
+
 # Import to Clay.com for enrichment (email finding + thesis extraction)
 
 # Clay enrichment waterfall:
+
 # 1. Find email: Hunter.io → Snov.io → Clearbit (3 services, 90% find rate)
+
 # 2. Find investment thesis: Scrape VC website "About" page → Claude API extract
+
 # 3. Find recent investments: Scrape Crunchbase/Dealroom → Claude API parse
 
 # Expected: 450-900 emails found (90% success rate)
+
 Hour 2-3: Generate 500 Emails with AI
 bash# Action 8: Run full email generation
 python investor-email-agent.py --production --limit 500
 
 # This will:
+
 # - Read Clay enriched CSV (500 investors)
+
 # - Generate personalized email for each (Claude API)
+
 # - Export SmartLead import CSV
+
 # - Cost: $1.50 (500 emails × $0.003)
+
 # - Time: 25 minutes (3 seconds per email)
 
 # CEO review: Randomly sample 20 emails (4% of total)
+
 # Approval threshold: 80%+ quality (if below, adjust prompt and re-run)
+
 Hour 4: Launch SmartLead Campaign
 bash# Action 9: Import CSV to SmartLead
+
 # - Upload smartlead_import.csv (500 rows)
+
 # - Configure email sequence (5 emails, Days 0/3/7/10/14)
+
 # - Set daily send limit: 50 emails/day (avoid spam filters)
+
 # - Enable warm-up mode: 2 weeks before full blast (Jan 2-16)
 
 # Action 10: Set up Zapier automation
+
 # - Connect SmartLead webhook → Claude API → Airtable
+
 # - Test with 3 sample replies (manual trigger)
+
 # - Enable production mode (auto-runs for all replies)
 
 # Expected outcome by Jan 16:
+
 # - 500 emails sent (50/day × 10 days)
+
 # - 95 replies (19% response rate)
+
 # - 43 meetings scheduled (45% of positive replies)
+
 # - 19 verbal commits (44% close rate from meetings)
+
 # - €285k expected commitments (19 × €15k avg ticket)
+
 ```
 
 ---
@@ -590,7 +647,7 @@ bash# Action 9: Import CSV to SmartLead
 
 ### Risk 1: Email Deliverability (Spam Filters)
 
-**Problem:** 500 cold emails/day = high spam risk  
+**Problem:** 500 cold emails/day = high spam risk
 **Solution:**
 - Use 5 email addresses (risto@lifetime.fi, risto.paarni@dws10.com, ceo@dws10.com, founder@lifetime.fi, hello@dws10.com)
 - Send 100 emails/day per address (below spam threshold)
@@ -606,7 +663,7 @@ bash# Action 9: Import CSV to SmartLead
 
 ### Risk 2: AI Email Quality Drift
 
-**Problem:** AI might generate generic/spammy emails over time  
+**Problem:** AI might generate generic/spammy emails over time
 **Solution:**
 - CEO reviews 5 random emails daily (10 min, morning routine)
 - Quality threshold: 80%+ approval rate
@@ -624,7 +681,7 @@ bash# Action 9: Import CSV to SmartLead
 
 ### Risk 3: Meeting Volume Overload
 
-**Problem:** 100+ meetings scheduled = CEO can't handle  
+**Problem:** 100+ meetings scheduled = CEO can't handle
 **Solution:**
 - Pre-qualify in Calendly form (ticket size, investment timeline)
 - Only accept €50k+ tickets (ignore €5k-10k angels for now)
@@ -633,6 +690,7 @@ bash# Action 9: Import CSV to SmartLead
 
 **Meeting Prioritization (Auto-Ranking in Airtable):**
 ```
+
 Priority Score = (Ticket Size × 0.4) + (Thesis Fit × 0.3) + (Decision Speed × 0.3)
 
 Example:
@@ -659,41 +717,40 @@ Strategy: Close first €150k by Jan 17, then extend to €200k-250k by Jan 24 (
 Conclusion: Implementation Checklist
 Today (Dec 31) - 4 Hours
 
- Post to Software Finland Slack (#general, #fundraising)
- Email Anna-Maija Karjalainen (Software Finland support request)
- Sign up: Phantombuster + Clay + SmartLead + Zapier + Calendly
- Create LinkedIn Sales Navigator search (500-1000 Nordic investors)
- Start Phantombuster scrape (2 hours automated)
- Write investor-email-agent.py (Claude API email generator)
- Test with 5 sample investors, review quality
+Post to Software Finland Slack (#general, #fundraising)
+Email Anna-Maija Karjalainen (Software Finland support request)
+Sign up: Phantombuster + Clay + SmartLead + Zapier + Calendly
+Create LinkedIn Sales Navigator search (500-1000 Nordic investors)
+Start Phantombuster scrape (2 hours automated)
+Write investor-email-agent.py (Claude API email generator)
+Test with 5 sample investors, review quality
 
 Tomorrow (Jan 1) - 4 Hours
 
- Download Phantombuster CSV (500-1000 investor profiles)
- Import to Clay.com (email enrichment + thesis extraction)
- Run full email generation: python investor-email-agent.py --production --limit 500
- CEO review: 20 random emails (4% sample), approve if 80%+ quality
- Import to SmartLead (500 emails, 5-email sequence)
- Configure Zapier automation (SmartLead → Claude → Airtable)
- Enable email warm-up (Jan 2-16, gradual ramp to 50 emails/day)
+Download Phantombuster CSV (500-1000 investor profiles)
+Import to Clay.com (email enrichment + thesis extraction)
+Run full email generation: python investor-email-agent.py --production --limit 500
+CEO review: 20 random emails (4% sample), approve if 80%+ quality
+Import to SmartLead (500 emails, 5-email sequence)
+Configure Zapier automation (SmartLead → Claude → Airtable)
+Enable email warm-up (Jan 2-16, gradual ramp to 50 emails/day)
 
 Week 1-3 (Jan 2-24) - 30 Min/Day CEO Time
 
- Morning routine (15 min): Review new replies, AI drafts responses, CEO edits 10%
- Evening routine (15 min): Review next day's meetings, read AI briefings
- Daily quality check (10 min): Review 5 random AI emails, adjust prompt if needed
- Weekly metrics review (30 min Mon): Check dashboard, optimize underperforming areas
+Morning routine (15 min): Review new replies, AI drafts responses, CEO edits 10%
+Evening routine (15 min): Review next day's meetings, read AI briefings
+Daily quality check (10 min): Review 5 random AI emails, adjust prompt if needed
+Weekly metrics review (30 min Mon): Check dashboard, optimize underperforming areas
 
 Expected Outcome (Jan 24)
 
- €690k total interest (46 commits × €15k avg)
- €150k first tranche (Jan 17, 10 investors)
- €50k-100k second tranche (Jan 24, 6-10 investors)
- Oversubscribed 1.3-1.6× (close €200k-250k instead of €150k target)
- CEO time saved: 573 hours (62.5 manual → 10.5 automated)
- Cost: €1,439 (tools + API + 10.5h CEO time)
- ROI: 140× return (€200k raised / €1,439 cost)
-
+€690k total interest (46 commits × €15k avg)
+€150k first tranche (Jan 17, 10 investors)
+€50k-100k second tranche (Jan 24, 6-10 investors)
+Oversubscribed 1.3-1.6× (close €200k-250k instead of €150k target)
+CEO time saved: 573 hours (62.5 manual → 10.5 automated)
+Cost: €1,439 (tools + API + 10.5h CEO time)
+ROI: 140× return (€200k raised / €1,439 cost)
 
 Next Immediate Action: Post to Software Finland Slack right now (2 minutes). This unlocks 20-30 warm intros within 24 hours while automation infrastructure spins up. Don't wait for perfect automation – get warm intros TODAY, automate cold outreach TOMORROW.
 

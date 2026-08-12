@@ -1,30 +1,39 @@
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Agent Foundry
+
+- Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Agent Foundry
 
 Document Status:
-  - Created: 03.01.2026
-  - Last Modified: 03.01.2026
-  - Language: English
-  - Publication Status: Draft
-  - Document Type: Product Documentation
+
+- Created: 03.01.2026
+- Last Modified: 03.01.2026
+- Language: English
+- Publication Status: Draft
+- Document Type: Product Documentation
 
 Compliance:
-  - Applicable Regulations: EU AI Act, GDPR, SOC 2
-  - Reference Documents: AGENTS.md, AgentFoundry/README.md
+
+- Applicable Regulations: EU AI Act, GDPR, SOC 2
+- Reference Documents: AGENTS.md, AgentFoundry/README.md
 
 Legal:
-  - Intellectual Property: Lifetime Oy
-  - Contractual: Enterprise License Agreement required
-  - Review Required: Pending (Sales, Legal)
+
+- Intellectual Property: Lifetime Oy
+- Contractual: Enterprise License Agreement required
+- Review Required: Pending (Sales, Legal)
+
 ---
 
 # Lifetime Agent Foundry
+
 ## Enterprise AI Agent Framework
+
+_Part of the DWS IQ Industrial Intelligence suite — the framework for building the Skilled and Industrial Specialist Agents that run across the suite (DWS IQ 6 core, the Industrial Intelligence module, and the Aegis dual-use tier)._
 
 **Product Code:** LAF-001  
 **Version:** 1.0  
@@ -43,12 +52,12 @@ Legal:
 
 ### Target Customers
 
-| Segment | Use Cases |
-|---------|-----------|
-| **Construction** | Site monitoring, material optimization, carbon tracking |
-| **Manufacturing** | Quality control, predictive maintenance, supply chain |
-| **Energy** | Grid optimization, demand forecasting, renewable integration |
-| **Logistics** | Route optimization, fleet management, sustainability |
+| Segment           | Use Cases                                                    |
+| ----------------- | ------------------------------------------------------------ |
+| **Construction**  | Site monitoring, material optimization, carbon tracking      |
+| **Manufacturing** | Quality control, predictive maintenance, supply chain        |
+| **Energy**        | Grid optimization, demand forecasting, renewable integration |
+| **Logistics**     | Route optimization, fleet management, sustainability         |
 
 ---
 
@@ -63,17 +72,17 @@ agent:
   id: "sitesense-construction-001"
   name: "SiteSense Agent"
   version: "1.0.0"
-  
+
   model:
     provider: "anthropic"
     name: "claude-sonnet-4.5"
     temperature: 0.3
-  
+
   system_prompt: |
     You are a construction site monitoring specialist.
     Monitor material usage, flag waste, track carbon footprint.
     Escalate safety issues immediately.
-  
+
   tools:
     - query_bim_model
     - calculate_carbon_footprint
@@ -84,11 +93,11 @@ agent:
 
 **Three-Phase Rollout with Human Oversight:**
 
-| Phase | Duration | Mode | Approval |
-|-------|----------|------|----------|
-| **Silent Pilot** | 30 days | Observe only | None |
-| **Advisor** | 60 days | Recommend | Human approval required |
-| **Autonomous** | Ongoing | Execute | Exception-based |
+| Phase            | Duration | Mode         | Approval                |
+| ---------------- | -------- | ------------ | ----------------------- |
+| **Silent Pilot** | 30 days  | Observe only | None                    |
+| **Advisor**      | 60 days  | Recommend    | Human approval required |
+| **Autonomous**   | Ongoing  | Execute      | Exception-based         |
 
 **EU AI Act Compliance:** Human oversight built into every phase.
 
@@ -119,6 +128,7 @@ cost_tracking:
 ### 5. MCP Hub Integration
 
 All agents coordinate through the MCP Hub:
+
 - Fan-out pattern for parallel tasks
 - Reflection pattern for self-review
 - Sequential pattern for dependencies
@@ -137,13 +147,13 @@ Agent-to-agent coordination protocol:
 
 ### Pre-Built Templates
 
-| Template | Industry | Purpose |
-|----------|----------|---------|
-| **CustomerSat Agent** | All | NPS monitoring, churn prevention |
-| **Viability Agent** | All | Unit economics, financial health |
-| **SiteSense Agent** | Construction | Real-time site monitoring |
-| **ScheduleGenius Agent** | Construction | Timeline optimization |
-| **MaterialOracle Agent** | Construction | Carbon tracking, procurement |
+| Template                 | Industry     | Purpose                          |
+| ------------------------ | ------------ | -------------------------------- |
+| **CustomerSat Agent**    | All          | NPS monitoring, churn prevention |
+| **Viability Agent**      | All          | Unit economics, financial health |
+| **SiteSense Agent**      | Construction | Real-time site monitoring        |
+| **ScheduleGenius Agent** | Construction | Timeline optimization            |
+| **MaterialOracle Agent** | Construction | Carbon tracking, procurement     |
 
 ### Custom Agent Development
 
@@ -160,12 +170,12 @@ Enterprise customers can create custom agents:
 
 ### Infrastructure
 
-| Component | Requirement |
-|-----------|-------------|
-| **Runtime** | Docker, Kubernetes v1.25+ |
-| **Database** | Supabase (PostgreSQL + pgvector) |
-| **Secrets** | Google Secret Manager, Vault, AWS KMS |
-| **Network** | HTTPS to Anthropic, Groq APIs |
+| Component    | Requirement                           |
+| ------------ | ------------------------------------- |
+| **Runtime**  | Docker, Kubernetes v1.25+             |
+| **Database** | Supabase (PostgreSQL + pgvector)      |
+| **Secrets**  | Google Secret Manager, Vault, AWS KMS |
+| **Network**  | HTTPS to Anthropic, Groq APIs         |
 
 ### API Keys Required
 
@@ -182,6 +192,7 @@ Enterprise customers can create custom agents:
 **Classification:** Limited Risk (Article 52)
 
 **Requirements Met:**
+
 - ✅ Transparency: Users know they're interacting with AI
 - ✅ Human Oversight: Advisor mode requires approval
 - ✅ Opt-out: Customers can disable autonomous actions
@@ -189,6 +200,7 @@ Enterprise customers can create custom agents:
 ### SOC 2 Type II
 
 **Controls Mapped:**
+
 - CC6.1: Role-based agent permissions
 - CC7.2: Signal-based change management
 - CC8.1: Error signals and incident response
@@ -196,6 +208,7 @@ Enterprise customers can create custom agents:
 ### GDPR
 
 **Data Processing:**
+
 - EU data residency (Finland, `europe-north1`)
 - Data Processing Agreement (DPA) required
 - No customer data used for model training
@@ -204,11 +217,11 @@ Enterprise customers can create custom agents:
 
 ## Pricing
 
-| Tier | Agents | Features | Price |
-|------|--------|----------|-------|
-| **Starter** | Up to 3 | Standard templates, Silent Pilot only | €500/mo |
-| **Professional** | Up to 10 | Custom agents, Advisor mode | €2,000/mo |
-| **Enterprise** | Unlimited | Autonomous mode, custom models, SLA | Custom |
+| Tier             | Agents    | Features                              | Price     |
+| ---------------- | --------- | ------------------------------------- | --------- |
+| **Starter**      | Up to 3   | Standard templates, Silent Pilot only | €500/mo   |
+| **Professional** | Up to 10  | Custom agents, Advisor mode           | €2,000/mo |
+| **Enterprise**   | Unlimited | Autonomous mode, custom models, SLA   | Custom    |
 
 **Contact:** sales@lifetime.fi
 
@@ -260,11 +273,11 @@ python scripts/advance_phase.py --agent=customersat --phase=advisor
 
 ## Support
 
-| Channel | Response Time | Availability |
-|---------|---------------|--------------|
-| **Email** | 4 hours | Business hours |
-| **Slack** | 1 hour | Business hours |
-| **Emergency** | 15 minutes | 24/7 (P1/P2) |
+| Channel              | Response Time | Availability   |
+| -------------------- | ------------- | -------------- |
+| **Email**            | 4 hours       | Business hours |
+| **WhatsApp/Webhook** | 1 hour        | Business hours |
+| **Emergency**        | 15 minutes    | 24/7 (P1/P2)   |
 
 **Contact:** support@dws6.com
 

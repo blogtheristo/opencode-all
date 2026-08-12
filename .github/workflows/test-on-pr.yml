@@ -8,14 +8,20 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'src/**'
-      - 'package.json'
-      - 'tsconfig.json'
-      - 'vitest.config.ts'
+      - "src/**"
+      - "tests/**"
+      - "dws10.com/shared-assets/footer/**"
+      - "dws10.com/free-audit/**"
+      - "package.json"
+      - "tsconfig.json"
+      - "vitest.config.ts"
   push:
     branches: [main]
     paths:
-      - 'src/**'
+      - "src/**"
+      - "tests/**"
+      - "dws10.com/shared-assets/footer/**"
+      - "dws10.com/free-audit/**"
 
 concurrency:
   group: test-${{ github.ref }}
@@ -23,7 +29,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 10
 
     steps:
@@ -33,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -58,7 +64,7 @@ jobs:
           retention-days: 7
 
   lint-check:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 5
 
     steps:
@@ -68,7 +74,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies

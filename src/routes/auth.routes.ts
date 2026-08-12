@@ -4,6 +4,7 @@ import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
 import { authenticateToken, loginRateLimit } from '../middleware/auth.middleware.js';
 import EmailService from '../services/email.service.js';
+import { isReservedEmailDomain } from '../utils/email-domain-guard.js';
 
 const router: Router = express.Router();
 
@@ -28,7 +29,15 @@ const passwordValidation = body('password')
   .trim();
 
 const registerValidation = [
-  body('email').isEmail().normalizeEmail(),
+  body('email')
+    .isEmail()
+    .normalizeEmail()
+    .custom((value: string) => {
+      if (isReservedEmailDomain(value)) {
+        throw new Error('Email domain is reserved for documentation/testing and cannot register');
+      }
+      return true;
+    }),
   passwordValidation,
   body('firstName').isLength({ min: 1, max: 100 }).trim(),
   body('lastName').isLength({ min: 1, max: 100 }).trim(),

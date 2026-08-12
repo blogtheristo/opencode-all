@@ -31,7 +31,7 @@ DWS7 exploits **4 gaps no competitor fills:**
 
 | Gap | Opportunity | Competitors Missing It |
 |-----|-------------|----------------------|
-| **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 16 industries | Everyone specializes in one regulation |
+| **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 25+ industries | Everyone specializes in one regulation |
 | **IoT-to-compliance pipeline** | Sensor data → verified regulatory filings, no manual steps | Schneider does IoT, Persefoni does reporting — nobody bridges them |
 | **Agentic AI compliance** | Multi-agent autonomous compliance checking + report generation | CO2 AI and Schneider are exploring; nobody has shipped it |
 | **Sovereign on-premise AI** | Compliance workloads that cannot leave the customer's premises — local inference on dedicated hardware, EU data residency guaranteed by physics not policy | Every SaaS competitor routes data through US cloud APIs; nobody ships on-premise AI inference as a standard offering |
@@ -58,14 +58,14 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | EU Cloud backend | Google Cloud Run (`europe-north1`) | Express API, AI agents, EU data residency |
 | Database | Supabase (EU) | PostgreSQL + Auth + Realtime + pgvector |
 | CDN / Edge | Cloudflare Pages + Workers | Landing pages, dashboard SPA, edge API |
-| Aiwen layer | EU Cloud overlay | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
+| Sovereignty audit layer | EU Cloud overlay | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
 
 ### What GN100 enables for the roadmap
 
 - **PR 161 (Climate LLM):** Fine-tune Llama 3.3 70B locally — no cloud training cost, no data leaving premises
 - **Sovereign on-premise AI gap:** The 4th competitive gap (above) is real because this hardware already exists
 - **Groq risk mitigation:** Immediate fallback inference for Llama 3.3 70B (~40 GB VRAM) and Mistral Large (~45 GB VRAM) without cloud dependency
-- **EU AI Act Article 12:** All local inference workloads log to Aiwen layer — compliance-by-default
+- **EU AI Act Article 12:** All local inference workloads log to sovereignty audit layer — compliance-by-default
 
 ---
 
@@ -172,7 +172,7 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 | 051 | ETS MRV report generator (monitoring plan format) | P0 | Auto-generate Monitoring, Reporting, Verification documents |
 | 052 | ETS verification workflow | P1 | Status tracking: draft → submitted → verified → approved |
 | 053 | ETS compliance calendar with deadline alerts | P1 | Key dates: Mar 31 report, Apr 30 surrender, Sep 30 verification |
-| 054 | ETS sector benchmarks (cement, steel, chemicals) | P1 | Pre-loaded benchmark values for 16 industries |
+| 054 | ETS sector benchmarks (cement, steel, chemicals) | P1 | Pre-loaded benchmark values for 25+ industries |
 | 055 | ETS allowance trading decision support | P2 | Buy/sell recommendation based on position and price forecast |
 | 056 | ETS historical emissions dashboard | P1 | Year-over-year trend visualization, target vs actual |
 | 057 | ETS export to national registry XML format | P1 | Generate submission-ready XML for EU Transaction Log |

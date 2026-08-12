@@ -1,13 +1,13 @@
 # Ecosummit Pitch Deck — DWS IQ 6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/update-pillar-1-messaging-63wXw | Date: 20.04.2026 | Changes: Initial creation — 10-slide Ecosummit pitch deck for October 7-8 2026 Berlin. Tuned for climate tech investor audience (no CBAM/CSRD explanations, leads with tariff risk, network effect as hero slide). Based on INVESTOR_HOOK_DECK.md v3.0 but reframed for 5-minute stage format.
 
 Session Links & References:
@@ -24,7 +24,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE — submit as PDF to Ecosummit
 
----
+***
 
 > **Format:** 10 slides · 5-minute stage pitch · recorded + published on YouTube
 > **Audience:** Climate tech investors, corporate decarbonization leads, industrial VCs
@@ -49,7 +49,7 @@ Raising: EUR 650K SAFE · EUR 3.8M cap · 18% discount
 
 - **ETS Phase 4** — free allocation tightening 2026–2030. Every tonne surrendered costs real money.
 - **CBAM full implementation 2026** — steel, aluminium, cement, fertiliser, hydrogen, electricity. Default rates are wrong and expensive.
-- **CSRD wave 2025–2028** — 50,000 companies filing double-materiality reports. Scope 3 requires supplier emission data.
+- **CSRD wave 2025–2028** — fewer than 5,000 large companies (post-Omnibus, >1,000 employees) filing double-materiality reports. Scope 3 requires supplier emission data.
 - **EU Taxonomy** — alignment requires the same underlying carbon data as ETS, CBAM, and CSRD.
 
 **The problem:** Same carbon. Four regulatory touchpoints. Four separate compliance silos. No shared ledger.
@@ -96,7 +96,7 @@ The same tonne flows across ETS, CBAM, CSRD, and Taxonomy — four regulations, 
 - Siloed ETS registry reconciliation
 - Consultant-led Taxonomy alignment assessments
 
-**Delivery:** 21 AI agents. Real-time. Edge-deployable on NVIDIA Jetson at industrial sites where cloud cannot reach. EUR 17K/year vs EUR 350K/year cloud-only alternatives.
+**Delivery:** a fleet of skilled agents. Real-time. Edge-deployable on NVIDIA Jetson at industrial sites where cloud cannot reach. EUR 17K/year vs EUR 350K/year cloud-only alternatives.
 
 ---
 
@@ -122,10 +122,10 @@ As more producers submit verified data, every downstream importer's CBAM calcula
 
 Live. Paying. Retaining.
 
-- **EUR 7K MRR** (March 2026) — 100% retention, zero churn
-- **6 paying customers** across industrial verticals
-- **20 EU-regulated industries** covered
-- **21 AI agents** in production
+- **~EUR 7,000/month services and transport revenue** (not software revenue) — cash break-even, founder salary EUR 0
+- **Two enterprise pilots contracted Q1/2026** at EUR 29,950 each (EUR 59,900 booked)
+- **25 EU-regulated industries** covered
+- **a fleet of skilled agents** in production
 - **13 open data sources** baked in (EUTL, ENTSO-E, EFRAG, Eurostat, EMBER, EEA)
 - **3 InvestEU Portal listings** (INPO-20254383)
 - **V1 public launch:** Arctic 15 Helsinki, June 15 2026
@@ -148,7 +148,7 @@ Three pillars. Each takes years to build. Together they are infrastructure.
 Avoid €millions in tariff exposure with real-time embedded carbon tariff automation (CBAM) + supply chain disclosure mapping (CSRD). Double-entry ledger with network effects. No competitor has this. 3–5 years to replicate.
 
 **Pillar 2 — Lifetime World Model**
-15,000+ EU regulatory documents indexed across 20 industries. Seven years and six platform versions to build. Not a fine-tuned GPT on PDFs — a regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. 3–5 years to replicate.
+15,000+ EU regulatory documents indexed across 25 industries. Seven years and six platform versions to build. Not a fine-tuned GPT on PDFs — a regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. 3–5 years to replicate.
 
 **Pillar 3 — Edge AI + Model-Agnostic Orchestration**
 NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels — where cloud cannot reach. EUR 17K/year vs EUR 350K/year cloud. Swap any LLM tomorrow; the ledger still works. Built on Model Context Protocol (MCP). 2–3 years to replicate.
@@ -157,15 +157,15 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 
 ## Slide 8 — Market
 
-**50,000+ EU companies need a carbon balance sheet by 2028.**
+**Post-Omnibus, ~5,000 large EU filers and their value chains need a carbon balance sheet by 2028.**
 
 - CBAM full implementation: 2026 (steel, aluminium, cement, fertiliser, hydrogen, electricity)
 - CSRD wave 1: 250 large companies filing 2025
-- CSRD wave 2: 50,000 companies filing 2026–2028
+- CSRD wave 2: fewer than 5,000 large companies (post-Omnibus, >1,000 employees) filing 2026–2028
 - ETS Phase 4 tightening: annual Linear Reduction Factor raised to 4.3% (2024–2027), 4.4% (2028–2030)
 
 **EU TAM: EUR 15–20B over 10 years**
-(Source: Lifetime market model — compliance automation across 20 industries)
+(Source: Lifetime market model — compliance automation across 25 industries)
 
 **Beachhead:** Nordic and DACH industrial companies (steel, construction, manufacturing) with active CBAM exposure and CSRD filing obligations. EUR 4,950 pilot → EUR 36K annual contract.
 
@@ -176,7 +176,7 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 ## Slide 9 — Team
 
 **Risto Päärni — Founder / CEO**
-35 years in enterprise software and industrial ICT. M.Sc. Industrial Management. Built DWS IQ 6 solo — 1,030+ PRs, 21 AI agents, edge AI on NVIDIA Jetson, three InvestEU validations. Encodes 35 years of industrial domain knowledge into agents.
+35 years in enterprise software and industrial ICT. M.Sc. Industrial Management. Built DWS IQ 6 solo — 1,030+ PRs, a fleet of skilled agents, edge AI on NVIDIA Jetson, three InvestEU validations. Encodes 35 years of industrial domain knowledge into agents.
 
 **AI agents operating under Risto's editorial authority — this is the product in action:**
 

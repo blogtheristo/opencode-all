@@ -271,7 +271,7 @@ All plans: **2 months free** with annual billing.
 - DACH region — Germany, Austria, Switzerland (Q3 2026)
 - EU-wide (Q4 2026)
 
-**Industry Verticals (DWS IQ 16 industries):**
+**Industry Verticals (DWS IQ 25+ industries):**
 - Construction, Manufacturing, Energy, Transport, Real Estate
 - Agriculture, Maritime, Mining, Chemicals, Aviation
 - Waste Management, Water Utilities, Steel, Cement, Paper, Glass

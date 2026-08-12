@@ -4,8 +4,8 @@ Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
-Status: HOLD-ACTIVE-MONITOR — Solo-founder hard blocker; active reactivation catalyst in flight (Anthony Maurin)
-Story Lock: N/A — deferred pending co-founder / co-builder addition or policy change
+Status: READY-TO-REACTIVATE — two-person complementary team now (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB) materially addresses the complementary-team blocker
+Story Lock: Two-person complementary team; technical depth via governed agent workflows + Cubet engineering partner + funded senior technical search
 Intro Type: Blocked (reactivation trigger armed)
 
 AGENT HISTORY:
@@ -15,24 +15,50 @@ AGENT HISTORY:
 
 # Investor Intro Note — Arthur Perissich, Plug and Play Tech Center
 
-## Status: HOLD — DO NOT SEND (reactivation catalyst in flight)
+---
 
-**Hard blocker:** Arthur explicitly prefers teams of 2-3 founders with complementary skill sets. DWS IQ 6 is raising as a solo founder. Do not burn the warm channel on a profile that fails his stated criteria.
+## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: DISTRIBUTION
+
+> Master template: `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md`. This block refreshes the opening of this INTRO around the labor-pricing thesis. Investor-specific context below (Target Profile, Fit Assessment, Strategy, Attachments, Next Steps) is preserved.
+
+**Subject line:** MACC-burn + AppExchange — DWS 365 Skilled Agents · 2026 Q2 SAFE
+
+**Email body — opening three paragraphs + ask:**
+
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+
+Distribution wedge is MACC-burn + AppExchange. Every Tier-1 target enterprise sits on an active Microsoft Azure Consumption Commitment; Azure Marketplace listings burn the customer's committed-but-unspent cloud spend at our sticker, with Microsoft co-sell credit. AppExchange Agentforce listing slots us inside Salesforce's 'digital labor' vocabulary — same language, defensible price ceiling. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
+
+**Ask + two slots + unsubscribe:**
+
+We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commercial pickup through Q3/26. Two slots that work: Thu 22 May 09:00 CET (30 min) or Tue 27 May 14:00 CET (30 min). Messe Germany stand visit (Stuttgart, Sep 17–19, 2026) is also open if you'd rather see it live. If this isn't a fit, reply STOP and you won't hear from me again.
+
+**Sender:** `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never noreply@.
+
+**Attachment for first touch:** `docs/investor/INVESTOR_ONE_PAGER_2026Q2.pdf` (HTML mirror at `docs/investor/INVESTOR_ONE_PAGER_2026Q2.html`).
+
+> The investor-specific context (Target Profile, Fit Assessment, Drawbacks / Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps) below this section is the prior INTRO content and remains canonical for fund-specific intel. The opening above replaces the **email opening only**; everything below stays.
+
+## Status: READY-TO-REACTIVATE (two-person complementary team)
+
+**Former hard blocker, now addressed:** Arthur prefers teams of 2-3 founders with complementary skill sets. DWS IQ 6 is now a **two-person team** — Risto (product/domain) + Lucille Santiago (Office Chief / partner-track in Lifetime AB, operations/customer) — complementary skill sets. Technical depth runs on governed agent workflows + a Cubet Techno Labs engineering partner, with a senior technical hire funded and in active search. This materially addresses his stated criteria; if he specifically wants a technical co-founder, lead with the agent-workflow + Cubet + funded-search model and let him weigh it.
 
 **Active catalyst (2026-04-19):** Anthony Maurin (Paris, ex-Volted.ai, MCP open-source builder) is in the pipeline as Track 3 CTO co-builder + angel. If he signs the co-builder structure, Arthur's blocker materially weakens and this file moves to ACTIVE inside 48 hours. See `INTRO_ANTHONY_MAURIN_CTO_COBUILDER.md`.
 
 ## Target Profile
 
-| Field           | Value                                                                                    |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| **Name**        | Arthur Perissich                                                                         |
-| **Role**        | VC Investor, Plug and Play Tech Center                                                   |
-| **Fund**        | Plug and Play — global accelerator + VC, 500+ corporate partners                         |
-| **Focus**       | Dual-use / defense tech, physical AI, advanced manufacturing software layer              |
-| **Stage**       | Pre-seed / seed B2B software                                                             |
-| **Edge**        | Corporate pilot access across 500+ enterprise partners                                   |
-| **Intro Type** | BLOCKED — solo-founder mismatch                                                           |
-| **LinkedIn**    | https://www.linkedin.com/in/ACoAAB6XXIwBMdCj56ABU9mat-qnGmO93P1v3IQ                      |
+| Field          | Value                                                                       |
+| -------------- | --------------------------------------------------------------------------- |
+| **Name**       | Arthur Perissich                                                            |
+| **Role**       | VC Investor, Plug and Play Tech Center                                      |
+| **Fund**       | Plug and Play — global accelerator + VC, 500+ corporate partners            |
+| **Focus**      | Dual-use / defense tech, physical AI, advanced manufacturing software layer |
+| **Stage**      | Pre-seed / seed B2B software                                                |
+| **Edge**       | Corporate pilot access across 500+ enterprise partners                      |
+| **Intro Type** | READY — two-person complementary team addresses the mismatch                |
+| **LinkedIn**   | https://www.linkedin.com/in/ACoAAB6XXIwBMdCj56ABU9mat-qnGmO93P1v3IQ         |
 
 ## Why This Would Otherwise Be a Strong Fit
 
@@ -43,7 +69,7 @@ AGENT HISTORY:
 
 ## Why We Are Not Sending
 
-- **Solo founder** — Arthur's stated criterion is 2-3 complementary founders. This is not a soft preference, it's a filter.
+- **Team** — Arthur's criterion is 2-3 complementary founders. Now a two-person complementary team (Risto + Lucille Santiago, partner-track Lifetime AB) — materially clears the filter; if he wants a technical co-founder specifically, present the agent-workflow + Cubet + funded-search model.
 - **Warm channel has ONE shot** — a rejection on founder-count grounds kills this contact for 12+ months.
 - **Better to wait for leverage** — either (a) a co-founder is added, (b) post-Messe traction data is strong enough that the founder-count rule is overridden, or (c) an inbound happens via a Plug and Play corporate partner.
 

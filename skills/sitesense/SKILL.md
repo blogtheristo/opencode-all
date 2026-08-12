@@ -1,10 +1,6 @@
 ---
 name: sitesense
-description: >
-  Construction site safety assessment scoring 0–100 with EN 13001 crane
-  warnings, weather risk, and worker safety metrics. Use when: "safety score",
-  "is it safe to work", "site conditions", "crane operation", "weather risk",
-  "construction safety", "site assessment".
+description: "Construction site safety assessment scoring 0–100. EN 13001 crane warnings, weather risk, worker safety metrics."
 argument-hint: "location or siteId, date, activity type"
 allowed-tools: [Bash, WebSearch, WebFetch]
 ---
@@ -28,24 +24,24 @@ allowed-tools: [Bash, WebSearch, WebFetch]
 
 ### Temperature thresholds (°C)
 
-| Range     | Status                                |
-| --------- | ------------------------------------- |
-| < -15     | CRITICAL — Stop work                  |
-| -15 to 0  | WARNING — Cold weather protocols      |
-| 0 to 10   | CAUTION — Monitor workers             |
-| 10 to 30  | OPTIMAL                               |
-| 30 to 35  | CAUTION — Heat stress risk            |
-| 35 to 40  | WARNING — High heat stress risk       |
-| ≥ 40      | CRITICAL — Stop work                  |
+| Range    | Status                           |
+| -------- | -------------------------------- |
+| < -15    | CRITICAL — Stop work             |
+| -15 to 0 | WARNING — Cold weather protocols |
+| 0 to 10  | CAUTION — Monitor workers        |
+| 10 to 30 | OPTIMAL                          |
+| 30 to 35 | CAUTION — Heat stress risk       |
+| 35 to 40 | WARNING — High heat stress risk  |
+| ≥ 40     | CRITICAL — Stop work             |
 
 ### Wind speed thresholds (m/s) — EN 13001
 
-| Speed       | Crane status                     |
-| ----------- | -------------------------------- |
-| ≤ 9         | Safe — normal operations         |
-| 9–14        | Caution — reduce load            |
-| > 14 to 20  | STOP — cease crane operations    |
-| > 20        | Emergency — secure all equipment |
+| Speed      | Crane status                     |
+| ---------- | -------------------------------- |
+| ≤ 9        | Safe — normal operations         |
+| 9–14       | Caution — reduce load            |
+| > 14 to 20 | STOP — cease crane operations    |
+| > 20       | Emergency — secure all equipment |
 
 ### Score formula
 
@@ -93,6 +89,19 @@ Score bands: 90–100 EXCELLENT | 70–89 GOOD | 50–69 FAIR | 30–49 POOR | 0
 - For crane lift planning and approval
 - CSRD S1 worker safety reporting data collection
 - EU AI Act Article 9 risk management documentation
+
+## Latent vs Deterministic
+
+| Step                                                                     | Where                               | Kind          |
+| ------------------------------------------------------------------------ | ----------------------------------- | ------------- |
+| `score = 100 − temp_pen − wind_pen − incident_pen − humidity_pen`        | `src/agents/sitesense.agent.ts`     | Deterministic |
+| EN 13001 wind threshold lookup (≤9 / 9–14 / >14–20 / >20 m/s)            | Agent code (fixed table)            | Deterministic |
+| Temperature band classification (CRITICAL / WARNING / CAUTION / OPTIMAL) | Agent code (fixed table)            | Deterministic |
+| Worker capacity adjustment given conditions                              | LLM judgment over scored conditions | Latent        |
+| "Stop work" recommendation phrasing                                      | LLM                                 | Latent        |
+| Cause attribution for incidents in narrative                             | LLM                                 | Latent        |
+
+Rule: the safety score is a formula, not an opinion. The LLM never picks the number. The LLM judges what to _do_ about the number.
 
 ## Standards References
 

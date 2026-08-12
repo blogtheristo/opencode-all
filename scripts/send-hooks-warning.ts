@@ -30,7 +30,7 @@ const html = `
     <li>.md files in public site folders blocked</li>
     <li>DB migrations require human authoring</li>
     <li>14 secret patterns detected and blocked</li>
-    <li>Aiwen Article 12 audit tables: immutable</li>
+    <li>EU AI Act Article 12 audit tables: immutable</li>
   </ul>
 
   <h3 style="color:#22c55e;font-size:14px">Auto-Actions</h3>
@@ -55,7 +55,7 @@ const html = `
 const text = `WARNING: SAFETY HOOKS DEPLOYED
 ${now} UTC | Branch: ${branch}
 
-HARD BLOCKS: rm -rf, force push, hard reset, git rm, ollama, sudo, secrets, .env writes, .md in public folders, DB migrations, Aiwen immutability.
+HARD BLOCKS: rm -rf, force push, hard reset, git rm, ollama, sudo, secrets, .env writes, .md in public folders, DB migrations, sovereignty audit immutability.
 
 AUTO: prettier+eslint, governance checklist, auto-commit, test gate.
 

@@ -6,7 +6,7 @@ const state = {
   cacheTtlMs: { portfolio: 300000, alerts: 120000, projects: 600000 },
   websocket: null,
   lastFetch: {},
-  isOnline: navigator.onLine
+  isOnline: navigator.onLine,
 };
 function setToken(token) {
   state.token = token;
@@ -34,8 +34,19 @@ window.DWS.setOnline = setOnline;
     const token = window.prompt('Enter bearer token (dev only):');
     if (token) setToken(token);
   }
-  function handleCallback() { /* TODO: OIDC callback */ }
-  function logout() { setToken(null); }
+  function handleCallback() {
+    // OIDC callback handler: extract token from URL hash/query, validate JWT, store in state
+    // TODO: Implement full OIDC callback validation (JWT decode + signature verification)
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const token = params.get('access_token') || params.get('id_token');
+    if (token) {
+      setToken(token);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+  function logout() {
+    setToken(null);
+  }
   window.DWS.auth = { authHeader, beginLogin, handleCallback, logout };
 })();
 
@@ -48,8 +59,9 @@ window.DWS.setOnline = setOnline;
     log[lvl] = (...args) => {
       if (!enabled) return;
       const ts = new Date().toISOString();
-      console[lvl] ? console[lvl](`[${ts}] [${lvl.toUpperCase()}]`, ...args)
-                   : console.log(`[${ts}] [${lvl.toUpperCase()}]`, ...args);
+      console[lvl]
+        ? console[lvl](`[${ts}] [${lvl.toUpperCase()}]`, ...args)
+        : console.log(`[${ts}] [${lvl.toUpperCase()}]`, ...args);
     };
   });
   window.DWS.log = log;
@@ -77,12 +89,18 @@ window.DWS.setOnline = setOnline;
   async function swr(key, fetcher, ttlMs) {
     const cached = getCached(key);
     if (cached.data) {
-      window.dispatchEvent(new CustomEvent('cache:update', { detail: { key, data: cached.data, stale: cached.stale } }));
+      window.dispatchEvent(
+        new CustomEvent('cache:update', {
+          detail: { key, data: cached.data, stale: cached.stale },
+        }),
+      );
     }
     try {
       const fresh = await fetcher();
       setCached(key, fresh, ttlMs);
-      window.dispatchEvent(new CustomEvent('cache:update', { detail: { key, data: fresh, stale: false } }));
+      window.dispatchEvent(
+        new CustomEvent('cache:update', { detail: { key, data: fresh, stale: false } }),
+      );
       return { data: fresh, stale: false };
     } catch (err) {
       return { data: cached.data, stale: true, error: err };
@@ -96,8 +114,12 @@ window.DWS.setOnline = setOnline;
   const { state } = window.DWS;
   const { authHeader } = window.DWS.auth;
   const { log } = window.DWS;
-  function sleep(ms) { return new Promise((res) => setTimeout(res, ms)); }
-  function shouldRetry(status) { return status === 429 || (status >= 500 && status < 600); }
+  function sleep(ms) {
+    return new Promise((res) => setTimeout(res, ms));
+  }
+  function shouldRetry(status) {
+    return status === 429 || (status >= 500 && status < 600);
+  }
   async function backoffRetry(status, retriesLeft) {
     const base = 500;
     const jitter = Math.random() * 300;
@@ -105,23 +127,35 @@ window.DWS.setOnline = setOnline;
     log?.warn?.(`Retrying after ${status}, waiting ${Math.round(delay)}ms`);
     await sleep(delay);
   }
-  async function request(path, { method = 'GET', body, headers = {}, timeoutMs = 8000, retries = 1 } = {}) {
+  async function request(
+    path,
+    { method = 'GET', body, headers = {}, timeoutMs = 8000, retries = 1 } = {},
+  ) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeoutMs);
     const url = `${state.apiBase}${path}`;
     const finalHeaders = { 'Content-Type': 'application/json', ...authHeader(), ...headers };
     try {
-      const res = await fetch(url, { method, headers: finalHeaders, body: body ? JSON.stringify(body) : undefined, signal: controller.signal });
+      const res = await fetch(url, {
+        method,
+        headers: finalHeaders,
+        body: body ? JSON.stringify(body) : undefined,
+        signal: controller.signal,
+      });
       clearTimeout(id);
       const rate = {
         limit: res.headers.get('X-RateLimit-Limit'),
         remaining: res.headers.get('X-RateLimit-Remaining'),
         reset: res.headers.get('X-RateLimit-Reset'),
-        retryAfter: res.headers.get('Retry-After')
+        retryAfter: res.headers.get('Retry-After'),
       };
       const text = await res.text();
       let data = null;
-      try { data = text ? JSON.parse(text) : null; } catch (_) { data = text; }
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch (_) {
+        data = text;
+      }
       if (!res.ok) {
         const errPayload = data && data.error ? data.error : {};
         const err = {
@@ -129,7 +163,7 @@ window.DWS.setOnline = setOnline;
           message: errPayload.message || res.statusText,
           status: res.status,
           traceId: errPayload.traceId,
-          rate
+          rate,
         };
         if (shouldRetry(res.status) && retries > 0) {
           await backoffRetry(res.status, retries);
@@ -168,7 +202,7 @@ window.DWS.setOnline = setOnline;
     getResources: (id) => request(`/projects/${id}/resources`),
     getCashflow: (id) => request(`/projects/${id}/cashflow`),
     getAlerts: (params = {}) => request('/alerts' + toQuery(params)),
-    ackAlerts: (alertIds) => request('/alerts', { method: 'POST', body: { alertIds } })
+    ackAlerts: (alertIds) => request('/alerts', { method: 'POST', body: { alertIds } }),
   };
   window.DWS.api = endpoints;
 })();
@@ -177,8 +211,13 @@ window.DWS.setOnline = setOnline;
 (function () {
   const listeners = [];
   let guard = null;
-  function currentPath() { return window.location.hash.replace('#', '') || '/dashboard'; }
-  function navigate(path) { if (!path.startsWith('#')) path = '#' + path; window.location.hash = path; }
+  function currentPath() {
+    return window.location.hash.replace('#', '') || '/dashboard';
+  }
+  function navigate(path) {
+    if (!path.startsWith('#')) path = '#' + path;
+    window.location.hash = path;
+  }
   async function handleRouteChange() {
     const path = currentPath();
     if (guard) {
@@ -188,8 +227,12 @@ window.DWS.setOnline = setOnline;
     listeners.forEach((cb) => cb(path));
     highlightNav(path);
   }
-  function onRouteChange(cb) { listeners.push(cb); }
-  function beforeEach(fn) { guard = fn; }
+  function onRouteChange(cb) {
+    listeners.push(cb);
+  }
+  function beforeEach(fn) {
+    guard = fn;
+  }
   function highlightNav(path) {
     const route = path.replace(/^\//, '');
     document.querySelectorAll('.nav-btn').forEach((btn) => {
@@ -237,7 +280,9 @@ window.DWS.setOnline = setOnline;
     ws.onerror = () => scheduleReconnect('error');
   }
   function scheduleReconnect(reason) {
-    window.dispatchEvent(new CustomEvent('ws:status', { detail: { status: 'reconnecting', reason } }));
+    window.dispatchEvent(
+      new CustomEvent('ws:status', { detail: { status: 'reconnecting', reason } }),
+    );
     reconnectDelay = Math.min(30000, reconnectDelay * 2 + Math.random() * 500);
     log?.warn?.(`WS reconnect in ${Math.round(reconnectDelay)}ms`);
     setTimeout(connect, reconnectDelay);

@@ -1130,8 +1130,12 @@ const spec = {
                   reason: { type: 'string' },
                   confidence: { type: 'number', minimum: 0, maximum: 1 },
                   context: { type: 'object' },
-                  channel: { type: 'string', enum: ['email', 'slack'], default: 'email' },
-                  recipient: { type: 'string', format: 'email' },
+                  channel: {
+                    type: 'string',
+                    enum: ['email', 'webhook', 'teams'],
+                    default: 'email',
+                  },
+                  recipient: { type: 'string' },
                 },
                 required: ['agentName', 'reason'],
               },
@@ -1379,6 +1383,391 @@ const spec = {
           '200': { description: 'Session chain terminated' },
           '400': { description: 'Missing sessionId' },
           '401': { description: 'Unauthorized' },
+        },
+      },
+    },
+
+    // -------------------------------------------------------------------------
+    // INVESTOR REPORTS — cap-table metrics, MRR/ARR, runway, report generation
+    // -------------------------------------------------------------------------
+
+    '/api/v1/investor-reports/metrics': {
+      get: {
+        tags: ['Reports'],
+        summary: 'Get all investor metrics for a given month',
+        operationId: 'getInvestorMetrics',
+        description:
+          'Returns MRR, ARR, customer, pipeline, cash, unit economics, and 12-month historical series in one call.',
+        parameters: [
+          {
+            name: 'month',
+            in: 'query',
+            schema: { type: 'string', format: 'date', example: '2026-04-01' },
+            description: 'Target month (YYYY-MM-DD). Defaults to current month.',
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Investor metrics bundle',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean' },
+                    data: {
+                      type: 'object',
+                      properties: {
+                        mrr_metrics: { type: 'object' },
+                        arr_metrics: { type: 'object' },
+                        customer_metrics: { type: 'object' },
+                        pipeline_metrics: { type: 'object' },
+                        cash_metrics: { type: 'object' },
+                        unit_economics: { type: 'object' },
+                        historical_mrr: { type: 'array', items: { type: 'object' } },
+                        historical_arr: { type: 'array', items: { type: 'object' } },
+                      },
+                    },
+                    timestamp: { type: 'string', format: 'date-time' },
+                  },
+                },
+              },
+            },
+          },
+          '500': { description: 'Internal server error' },
+        },
+      },
+    },
+
+    '/api/v1/investor-reports/metrics/mrr': {
+      get: {
+        tags: ['Reports'],
+        summary: 'Get MRR metrics only',
+        operationId: 'getInvestorMrr',
+        parameters: [
+          {
+            name: 'month',
+            in: 'query',
+            schema: { type: 'string', format: 'date' },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'MRR metrics',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean' },
+                    data: {
+                      type: 'object',
+                      properties: {
+                        current_mrr: { type: 'number' },
+                        mrr_growth: { type: 'number' },
+                        new_mrr: { type: 'number' },
+                        churned_mrr: { type: 'number' },
+                        expansion_mrr: { type: 'number' },
+                      },
+                    },
+                    timestamp: { type: 'string', format: 'date-time' },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+
+    '/api/v1/investor-reports/summary': {
+      get: {
+        tags: ['Reports'],
+        summary: 'Get monthly metrics summary (last 12 months)',
+        operationId: 'getInvestorSummary',
+        description: 'Returns a 12-month rolling summary of MRR, ARR, customers, and cash.',
+        responses: {
+          '200': {
+            description: 'Monthly metrics summary',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean' },
+                    data: { type: 'array', items: { type: 'object' } },
+                    timestamp: { type: 'string', format: 'date-time' },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+
+    '/api/v1/investor-reports/generate': {
+      post: {
+        tags: ['Reports'],
+        summary: 'Generate monthly investor PDF report',
+        operationId: 'generateInvestorReport',
+        description:
+          'Computes metrics for the given month, generates a PDF, and optionally emails it to recipients.',
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  month: {
+                    type: 'string',
+                    format: 'date',
+                    example: '2026-04-01',
+                    description: 'First day of the report month',
+                  },
+                  auto_send: { type: 'boolean', default: false },
+                  recipients: {
+                    type: 'array',
+                    items: { type: 'string', format: 'email' },
+                  },
+                },
+                required: ['month'],
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Report generated',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean' },
+                    report_id: { type: 'string' },
+                    pdf_path: { type: 'string' },
+                    message: { type: 'string' },
+                  },
+                },
+              },
+            },
+          },
+          '400': { description: 'Missing month field' },
+          '401': { description: 'Unauthorized' },
+        },
+      },
+    },
+
+    // -------------------------------------------------------------------------
+    // CONTENT DMS — Evidence Vault CRUD + status lifecycle
+    // -------------------------------------------------------------------------
+
+    '/api/v1/content': {
+      get: {
+        tags: ['Firehorse'],
+        summary: 'List Evidence Vault content items',
+        operationId: 'listContent',
+        description: 'Returns content items filtered by organization, type, status, or tags.',
+        parameters: [
+          {
+            name: 'organization_id',
+            in: 'query',
+            required: true,
+            schema: { type: 'string', format: 'uuid' },
+          },
+          {
+            name: 'status',
+            in: 'query',
+            schema: {
+              type: 'string',
+              enum: ['draft', 'review', 'approved', 'published', 'archived'],
+            },
+          },
+          {
+            name: 'content_type',
+            in: 'query',
+            schema: { type: 'string' },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Content list',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    items: { type: 'array', items: { type: 'object' } },
+                    count: { type: 'integer' },
+                  },
+                },
+              },
+            },
+          },
+          '400': { description: 'Missing organization_id' },
+        },
+      },
+      post: {
+        tags: ['Firehorse'],
+        summary: 'Upload / create a content item (Document Classifier auto-tags)',
+        operationId: 'createContent',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  organization_id: { type: 'string', format: 'uuid' },
+                  title: { type: 'string' },
+                  content_type: { type: 'string' },
+                  body: { type: 'string' },
+                  tags: { type: 'array', items: { type: 'string' } },
+                  expires_at: { type: 'string', format: 'date-time' },
+                },
+                required: ['organization_id', 'title', 'content_type'],
+              },
+            },
+          },
+        },
+        responses: {
+          '201': { description: 'Content item created' },
+          '400': { description: 'Validation error' },
+        },
+      },
+    },
+
+    '/api/v1/content/stats': {
+      get: {
+        tags: ['Firehorse'],
+        summary: 'Evidence Vault dashboard statistics',
+        operationId: 'getContentStats',
+        description: 'Returns counts by status, expiring certificates, and recent uploads.',
+        parameters: [
+          {
+            name: 'organization_id',
+            in: 'query',
+            required: true,
+            schema: { type: 'string', format: 'uuid' },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Vault statistics',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    total: { type: 'integer' },
+                    by_status: { type: 'object' },
+                    expiring_soon: { type: 'integer' },
+                    recent_uploads: { type: 'integer' },
+                  },
+                },
+              },
+            },
+          },
+          '400': { description: 'Missing organization_id' },
+        },
+      },
+    },
+
+    '/api/v1/content/{id}/transition': {
+      post: {
+        tags: ['Firehorse'],
+        summary: 'Transition content status',
+        operationId: 'transitionContentStatus',
+        description:
+          'Move a content item through its lifecycle: draft → review → approved → published → archived.',
+        parameters: [
+          { name: 'id', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  status: {
+                    type: 'string',
+                    enum: ['draft', 'review', 'approved', 'published', 'archived'],
+                  },
+                },
+                required: ['status'],
+              },
+            },
+          },
+        },
+        responses: {
+          '200': { description: 'Status updated' },
+          '400': { description: 'Invalid status' },
+          '404': { description: 'Content not found' },
+        },
+      },
+    },
+
+    // -------------------------------------------------------------------------
+    // OUTREACH SEND — Quick-send prospect email via SES SMTP
+    // -------------------------------------------------------------------------
+
+    '/api/v1/outreach/send-email': {
+      post: {
+        tags: ['Outreach'],
+        summary: 'Send outreach email to a prospect',
+        operationId: 'sendOutreachEmail',
+        description:
+          'Sends an investor, sales, or partnership email to the prospect linked to the given thread token. ' +
+          'Logs an outreach_activity for audit trail. Requires Admin API key.',
+        security: [{ adminKey: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  thread_token: {
+                    type: 'string',
+                    description: 'Unique token identifying the outreach thread',
+                  },
+                  email_type: {
+                    type: 'string',
+                    enum: ['investor', 'sales', 'partnership'],
+                  },
+                },
+                required: ['thread_token', 'email_type'],
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Email sent',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    ok: { type: 'boolean' },
+                    sent_to: { type: 'string', format: 'email' },
+                    email_type: { type: 'string' },
+                    thread_token: { type: 'string' },
+                    name: { type: 'string' },
+                  },
+                },
+              },
+            },
+          },
+          '400': { description: 'Missing thread_token or invalid email_type' },
+          '401': { description: 'Invalid or missing Admin API key' },
+          '404': { description: 'Thread token not found' },
+          '422': { description: 'Prospect has no email address on file' },
+          '503': { description: 'SMTP not configured (set SMTP_HOST, SMTP_USER, SMTP_PASS)' },
         },
       },
     },

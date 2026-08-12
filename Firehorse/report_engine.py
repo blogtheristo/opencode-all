@@ -708,7 +708,6 @@ class FirehorseReportEngine:
             2D list of table data
         """
         columns = field.get("columns", [])
-        field.get("rows", [])
         value = field.get("value", [])
 
         if not columns:
@@ -802,13 +801,14 @@ class FirehorseReportEngine:
         for rule in validation_rules:
             rule_name = rule.get("rule", "")
             severity = rule.get("severity", "error")
-            rule.get("message", f"Validation failed: {rule_name}")
+            message = rule.get("message", f"Validation failed: {rule_name}")
 
             # Evaluate rule (simplified)
             # In production, implement proper rule evaluation
             if severity == "error":
                 # Check rule condition
-                pass  # Implement rule checking logic
+                # TODO: Implement rule checking logic
+                pass
 
         # EN 15978 specific validation
         if standard == "EN 15978":
@@ -833,8 +833,8 @@ class FirehorseReportEngine:
         """
         errors = []
 
-        # Check life cycle stages
-        required_stages = ["A1_A3", "A4", "A5", "B6", "C1_C4"]
+        # Check life cycle stages (EN 15978 requires A1-A5, B1-B7, C1-C4, D)
+        required_stages = ["A1_A3", "A4", "A5", "B1_B7", "C1_C4", "D"]
         life_cycle_data = report.get("carbon_budget", {}).get(
             "life_cycle_breakdown", {}
         )

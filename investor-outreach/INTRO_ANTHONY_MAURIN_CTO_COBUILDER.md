@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: CTO Co-Builder + Angel Intro Note — Anthony Maurin, Paris
-Version: 1.1
+Version: 1.2
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,25 +9,52 @@ Story Lock: Technical co-builder + angel check — stacks on SAFE round, not in 
 Intro Type: Warm (third party intro available)
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Repeat technical founder, just exited Volted.ai (acquired by Backbone late 2025). Built a node-based AI platform in 10 days to beta. Currently building open-source MCP server tooling — exact DWS IQ stack language. Full-stack: Solidity, Node.js, Python, C++. Paris-based. Currently deploying angel capital, not CTO-hunting. Pitch must be "co-builder + angel" not "hire." Fits as Track 3 of the CTO search alongside Mikko (Track 1, direct) and LinkedIn public pool (Track 2). If Anthony says yes as co-builder, the Mikko conversation reframes to advisory. If Mikko says yes first, Anthony becomes angel + technical advisor with first right on future CTO expansion. No double-promising the CTO seat.
 - v1.1 (2026-04-19): Tightened equity sequencing. Two tracks must NOT blur: (1) SAFE angel ticket closes FIRST — standard SAFE equity, no special terms. (2) Co-builder equity (2-3% contribution-milestone) only begins vesting AFTER code ships — no upfront grant, no signing bonus. Email and DM redrafted to reflect "angel first, build second" framing. Prevents the failure mode where Anthony commits capital but never ships code and still holds co-builder equity.
 -->
 
 # CTO Co-Builder + Angel Intro Note — Anthony Maurin, Paris
 
+---
+
+## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: EU_INDUSTRIAL
+
+> Master template: `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md`. This block refreshes the opening of this INTRO around the labor-pricing thesis. Investor-specific context below (Target Profile, Fit Assessment, Strategy, Attachments, Next Steps) is preserved.
+
+**Subject line:** The EU industrial base is on a regulatory and headcount cliff — DWS 365 Skilled Agents · 2026 Q2 SAFE
+
+**Email body — opening three paragraphs + ask:**
+
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+
+The EU industrial base — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger and tier-1 peers — sits on a regulatory cliff (CSRD + CBAM + Fit-for-55) and a headcount cliff (ESG and compliance officers do not exist at the volume the regulation demands). Labor-priced Skilled Agents are the only stack that lands as a budget line a department head already owns. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
+
+**Ask + two slots + unsubscribe:**
+
+We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commercial pickup through Q3/26. Two slots that work: Thu 22 May 09:00 CET (30 min) or Tue 27 May 14:00 CET (30 min). Messe Germany stand visit (Stuttgart, Sep 17–19, 2026) is also open if you'd rather see it live. If this isn't a fit, reply STOP and you won't hear from me again.
+
+**Sender:** `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never noreply@.
+
+**Attachment for first touch:** `docs/investor/INVESTOR_ONE_PAGER_2026Q2.pdf` (HTML mirror at `docs/investor/INVESTOR_ONE_PAGER_2026Q2.html`).
+
+> The investor-specific context (Target Profile, Fit Assessment, Drawbacks / Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps) below this section is the prior INTRO content and remains canonical for fund-specific intel. The opening above replaces the **email opening only**; everything below stays.
+
 ## Target Profile
 
-| Field          | Value                                                                                    |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| **Name**       | Anthony Maurin                                                                           |
-| **Role**       | Repeat technical founder, angel investor, open-source MCP builder                        |
-| **Last Exit**  | Volted.ai — acquired by Backbone, late 2025 (node-based AI platform, 10 days to beta)    |
-| **Currently**  | Deploying angel capital + building open-source MCP server tooling                        |
-| **Stack**      | Solidity, Node.js, Python, C++ — full-stack, ships production code himself               |
-| **Location**   | Paris                                                                                    |
-| **Intro Type** | Warm — third party intro available                                                       |
-| **Pitch Mode** | Co-builder + angel, NOT hire — he's not looking for a CTO role                           |
-| **LinkedIn**   | https://www.linkedin.com/in/ACoAACQVfJsBBo_KiOPo4tAgEAgcbLGkj-vds1k                      |
+| Field          | Value                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------- |
+| **Name**       | Anthony Maurin                                                                        |
+| **Role**       | Repeat technical founder, angel investor, open-source MCP builder                     |
+| **Last Exit**  | Volted.ai — acquired by Backbone, late 2025 (node-based AI platform, 10 days to beta) |
+| **Currently**  | Deploying angel capital + building open-source MCP server tooling                     |
+| **Stack**      | Solidity, Node.js, Python, C++ — full-stack, ships production code himself            |
+| **Location**   | Paris                                                                                 |
+| **Intro Type** | Warm — third party intro available                                                    |
+| **Pitch Mode** | Co-builder + angel, NOT hire — he's not looking for a CTO role                        |
+| **LinkedIn**   | https://www.linkedin.com/in/ACoAACQVfJsBBo_KiOPo4tAgEAgcbLGkj-vds1k                   |
 
 ## Fit Assessment
 
@@ -44,7 +71,7 @@ AGENT HISTORY:
 ## Drawbacks / Mitigations
 
 - **He's NOT looking for a CTO role** — He's deploying capital, not job-hunting. **Mitigation:** frame the ask as "co-builder + angel," not "hire." Structure: angel check into the SAFE + meaningful equity for technical co-build contribution + optional CTO conversion trigger if he wants it. Low-commitment entry, high-commitment option kept open.
-- **Paris location (not Helsinki)** — Mikko (Track 1) is Finnish and time-zone co-located. Anthony would be remote-first. **Mitigation:** entire DWS IQ 6 stack is async-friendly (GitHub, MCP, Aiwen audit trail). Remote co-builder model is standard for post-Volted founder. Paris is +1h from Helsinki, not a real friction.
+- **Paris location (not Helsinki)** — Mikko (Track 1) is Finnish and time-zone co-located. Anthony would be remote-first. **Mitigation:** entire DWS IQ 6 stack is async-friendly (GitHub, MCP, sovereignty audit trail). Remote co-builder model is standard for post-Volted founder. Paris is +1h from Helsinki, not a real friction.
 - **Conflict with Mikko (Track 1 CTO search)** — Cannot promise the CTO seat to two people. **Mitigation:** sequencing discipline.
   - IF Anthony says yes as co-builder + angel BEFORE Mikko's formal ask (week of April 28): reframe the Mikko conversation from "CTO ask" to "strategic advisor ask" — still valuable, honest framing, preserves the relationship
   - IF Mikko says yes as CTO first: Anthony remains angel + technical advisor, with first right on any future senior technical expansion (VP Eng, second co-builder on Aegis module)
@@ -71,19 +98,19 @@ AGENT HISTORY:
 
 Hi Anthony — saw your open-source MCP work, congrats on the Volted exit.
 
-I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, Aiwen audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
+I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act audit trail. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). V1 launches at Arctic 15 on June 15.
 
 Not pitching you a CTO role — I know you're in angel mode. First ask is simple: would you take an angel ticket into our SAFE (EUR 3.8M cap, standard terms)? If yes and the architecture also pulls you in, we can open a separate conversation later about a contribution-milestone co-builder structure — but angel first, build second, no bundling. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
 
 ## Draft Email (cold, if no warm intro yet)
 
-**Subject:** MCP architecture review — 21 agents, EU compliance stack, Volted-alumni angle
+**Subject:** MCP architecture review — skilled-agent fleet, EU compliance stack, Volted-alumni angle
 
 Hi Anthony,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because your open-source MCP work and the Volted exit put you in rare territory — a repeat technical founder, fluent in the exact stack we're shipping, and currently deploying angel capital.
 
-DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), Aiwen reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 6 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
+DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), EU AI Act reasoning lineage, EU AI Act compliant from v0. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). V1 launches June 15 at Arctic 15, German Messe commercial push follows.
 
 **Why I'm writing:** I'm not recruiting you as CTO. You're deploying capital, you're in builder-mode, you just exited. The ask is sequenced — angel first, build second, no bundling:
 

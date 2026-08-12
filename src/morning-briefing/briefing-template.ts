@@ -12,7 +12,18 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CaptainInquiriesData, CockpitData, ConstructionLeadsData, HilTodosData, LearnArtifactsData, OutreachSummaryData, SendListItem, WorkflowData } from './data-collectors.js';
+import type {
+  CaptainInquiriesData,
+  CockpitData,
+  ConstructionLeadsData,
+  HilTodosData,
+  LearnArtifactsData,
+  MarketSignalsData,
+  OutreachSummaryData,
+  SendListItem,
+  WebLeadsData,
+  WorkflowData,
+} from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -159,8 +170,29 @@ function renderOutreachSummaryPlainText(summary: OutreachSummaryData): string {
 // SECTION RENDERERS
 // ============================================================================
 
+const NO_DATA_STRINGS = new Set([
+  'No pipeline movement',
+  'No product signals captured',
+  'No delivery changes',
+]);
+
 function renderChanges(data: CockpitData): string {
   const { changes } = data;
+
+  // If all three sub-fields are the generic "nothing happened" fallback, don't
+  // pad the email with three repeated empty-looking rows — say it once.
+  if (
+    NO_DATA_STRINGS.has(changes.pipeline) &&
+    NO_DATA_STRINGS.has(changes.product) &&
+    NO_DATA_STRINGS.has(changes.delivery)
+  ) {
+    return `
+    <tr><td style="padding: 12px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 6px; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1.5px;">3 Changes</h3>
+      <p style="margin: 0; font-size: 12px; color: #555;">No live pipeline/product/delivery activity to report.</p>
+    </td></tr>`;
+  }
+
   return `
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
       <h3 style="margin: 0 0 10px; font-size: 12px; color: #00d4aa; text-transform: uppercase; letter-spacing: 1.5px;">3 Changes</h3>
@@ -282,7 +314,25 @@ function renderSendActionButton(
   return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#000;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
 }
 
-function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: string): string {
+function renderReplyMailto(
+  label: string,
+  color: string,
+  token: string,
+  command: string,
+  replyTo: string,
+): string {
+  const subject = `Re: [T:${token}] ${command}`;
+  const body = `T:${token} ${command}\n\n--\nSent via Morning Briefing reply link.`;
+  const url = `mailto:${encodeURIComponent(replyTo)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#fff;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
+}
+
+function renderSendList(
+  sendList: SendListItem[],
+  baseUrl: string,
+  adminKey: string,
+  replyTo: string,
+): string {
   if (sendList.length === 0) {
     return `
       <tr><td style="padding: 16px 20px;">
@@ -341,6 +391,16 @@ function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: str
           buttons = btnPartner + btnSales;
         } else {
           buttons = btnInvestor + btnSales + btnPartner;
+        }
+
+        // Reply-by-mailto status actions — one click → mail client opens with
+        // pre-filled "T:xxx park" body. User hits Send. Parser flips status,
+        // entry disappears from tomorrow's brief. No copy-paste of codes.
+        if (replyTo) {
+          buttons +=
+            ' &nbsp; ' +
+            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park', replyTo) +
+            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass', replyTo);
         }
       }
 
@@ -575,6 +635,53 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 }
 
 // ============================================================================
+// MARKET SIGNALS SECTION
+// ============================================================================
+
+function renderMarketSignalsHtml(data: MarketSignalsData): string {
+  if (data.signals.length === 0) return '';
+
+  const rows = data.signals
+    .map((s) => {
+      const scoreColor =
+        s.cascade_score >= 60 ? '#ff4444' : s.cascade_score >= 40 ? '#ffaa00' : '#888';
+      const title = s.title.length > 90 ? s.title.slice(0, 87) + '...' : s.title;
+      const industries = s.industries
+        ? s.industries
+            .split(',')
+            .map((i) => i.trim())
+            .join(', ')
+        : '';
+      return `<div style="padding: 6px 0; border-bottom: 1px solid #1a1a1a;">
+          <div style="font-size: 13px; color: #e0e0e0;">
+            <span style="color: ${scoreColor}; font-size: 10px; font-weight: 600;">${s.cascade_score}</span>
+            ${s.dual_use ? '<span style="color: #ff4444; font-size: 10px;"> [DUAL-USE]</span>' : ''}
+            ${esc(title)}
+          </div>
+          <div style="font-size: 11px; color: #666; margin-top: 2px;">${esc(industries)}</div>
+        </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ff4444; text-transform: uppercase; letter-spacing: 1.5px;">Market Signals</h3>
+      ${rows}
+    </td></tr>`;
+}
+
+function renderMarketSignalsPlainText(data: MarketSignalsData): string {
+  if (data.signals.length === 0) return '';
+  const lines: string[] = ['MARKET SIGNALS'];
+  for (const s of data.signals) {
+    const title = s.title.length > 80 ? s.title.slice(0, 77) + '...' : s.title;
+    lines.push(`  [${s.cascade_score}]${s.dual_use ? ' [DUAL-USE]' : ''} ${title}`);
+    if (s.industries) lines.push(`    ${s.industries}`);
+  }
+  return lines.join('\n') + '\n';
+}
+
+// ============================================================================
 // CAPTAIN INQUIRIES SECTION
 // ============================================================================
 
@@ -622,6 +729,90 @@ function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
       ${rows}
       <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
     </td></tr>`;
+}
+
+// ============================================================================
+// WEB LEADS SECTION (inbound newsletter / free-audit / contact)
+// ============================================================================
+
+const WEB_LEAD_SOURCE_COLORS: Record<string, string> = {
+  free_audit: '#4ade80',
+  newsletter: '#60a5fa',
+  contact: '#d4a843',
+};
+
+function renderWebLeadsHtml(data: WebLeadsData): string {
+  if (data.newCount === 0) return '';
+
+  const rows = data.leads
+    .map((lead) => {
+      const color = WEB_LEAD_SOURCE_COLORS[lead.source] || '#888';
+      const label = lead.source.replace('_', ' ').toUpperCase();
+      const time = new Date(lead.created_at).toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Helsinki',
+      });
+      const who = lead.name || lead.email;
+      const ctx = [lead.company, lead.industry]
+        .filter((x): x is string => Boolean(x))
+        .map(esc)
+        .join(' · ');
+      const ctxLine = ctx ? `<span style="color: #555;"> — ${ctx}</span>` : '';
+      const msgLine = lead.message
+        ? `<div style="font-size: 11px; color: #666; margin-top: 2px; font-style: italic;">"${esc(lead.message.length > 120 ? lead.message.slice(0, 117) + '...' : lead.message)}"</div>`
+        : '';
+
+      return `<div style="padding: 8px 0; border-bottom: 1px solid #1a1a1a;">
+        <div style="font-size: 13px; color: #e0e0e0;">
+          <span style="color: ${color}; font-size: 10px; font-weight: 600;">[${label}]</span>
+          <strong>${esc(who)}</strong>${ctxLine}
+        </div>
+        <div style="font-size: 11px; color: #888; margin-top: 2px;">
+          <a href="mailto:${esc(lead.email)}" style="color: #60a5fa; text-decoration: none;">${esc(lead.email)}</a>
+          &nbsp;|&nbsp; ${time}
+        </div>
+        ${msgLine}
+      </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #4ade80; text-transform: uppercase; letter-spacing: 1.5px;">Web Leads (${data.newCount} new)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Inbound from the public sites — qualify and add to the outreach pipeline</p>
+    </td></tr>`;
+}
+
+function renderWebLeadsPlainText(data: WebLeadsData): string {
+  if (data.newCount === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`WEB LEADS (${data.newCount} new)`);
+  for (const lead of data.leads) {
+    const label = lead.source.replace('_', ' ').toUpperCase();
+    const time = new Date(lead.created_at).toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Europe/Helsinki',
+    });
+    const who = lead.name || lead.email;
+    const ctx = [lead.company, lead.industry].filter(Boolean).join(' · ');
+    lines.push(`  [${label}] ${who}${ctx ? ' — ' + ctx : ''}`);
+    lines.push(`    Email: ${lead.email} | ${time}`);
+    if (lead.message) {
+      const msg = lead.message.length > 100 ? lead.message.slice(0, 97) + '...' : lead.message;
+      lines.push(`    "${msg}"`);
+    }
+  }
+  lines.push('  → Qualify and add to the outreach pipeline');
+  lines.push('');
+  return lines.join('\n');
 }
 
 // ============================================================================
@@ -768,6 +959,91 @@ function renderHilTodosPlainText(data: HilTodosData): string {
 // MAIN TEMPLATES
 // ============================================================================
 
+// ============================================================================
+// SALES BRIEF — slim weekday brief, fires from MorningBriefingScheduler
+// ============================================================================
+
+/**
+ * Build the Sales Brief HTML email — outreach + send list + leads + inquiries.
+ * Skips the CEO-strategy sections (3 changes / bets / risk / momentum / metrics)
+ * so the operator can scan the actionable pipeline in under a minute.
+ */
+export function buildSalesBriefHtml(data: CockpitData, baseUrl?: string): string {
+  const apiBaseUrl = baseUrl || process.env.BACKEND_URL || 'https://localhost:8080';
+  const adminKey = process.env.ADMIN_API_KEY || '';
+  const replyTo = process.env.OUTREACH_REPLY_TO_EMAIL || process.env.EMAIL_FROM || '';
+
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 520px; margin: 0 auto; background-color: #111;">
+    <tr>
+      <td style="padding: 20px; background: linear-gradient(135deg, #111 0%, #1a2e1a 100%); border-bottom: 2px solid #00d4aa;">
+        <h1 style="margin: 0; font-size: 16px; color: #00d4aa; letter-spacing: -0.3px;">Sales Brief</h1>
+        <p style="margin: 4px 0 0; font-size: 12px; color: #666;">${esc(data.dateFormatted)}</p>
+      </td>
+    </tr>
+
+    ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderCaptainInquiriesHtml(data.captainInquiries)}
+    ${renderWebLeadsHtml(data.webLeads)}
+    ${renderConstructionLeadsHtml(data.constructionLeads)}
+
+    <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
+
+    ${renderSendList(data.sendList, apiBaseUrl, adminKey, replyTo)}
+
+    <tr>
+      <td style="padding: 12px 20px; text-align: center;">
+        <p style="margin: 0; font-size: 10px; color: #333;">DWS IQ 6 — Sales Brief</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
+ * Plain-text fallback for the Sales Brief.
+ */
+export function buildSalesBriefPlainText(data: CockpitData): string {
+  const lines: string[] = [];
+
+  lines.push(`SALES BRIEF — ${data.dateFormatted}`);
+  lines.push('='.repeat(50));
+  lines.push('');
+
+  lines.push(renderOutreachSummaryPlainText(data.outreachSummary));
+  lines.push('');
+  lines.push(renderCaptainInquiriesPlainText(data.captainInquiries));
+  lines.push('');
+  lines.push(renderWebLeadsPlainText(data.webLeads));
+  lines.push('');
+  lines.push(renderConstructionLeadsPlainText(data.constructionLeads));
+  lines.push('');
+
+  lines.push(`SEND LIST (${data.sendList.length})`);
+  lines.push('-'.repeat(50));
+  if (data.sendList.length === 0) {
+    lines.push('Pipeline quiet. Source new contacts today.');
+  } else {
+    for (const item of data.sendList) {
+      const org = item.org ? ` (${item.org})` : '';
+      lines.push(`  [${item.pipeline}] ${item.name}${org}`);
+      lines.push(`    -> ${item.action}`);
+      if (item.thread_token) {
+        lines.push(`    Reply "T:${item.thread_token} park" to drop from tomorrow's brief.`);
+      }
+    }
+  }
+  lines.push('');
+  lines.push('--');
+  lines.push('DWS IQ 6 — Sales Brief');
+
+  return lines.join('\n');
+}
+
 /**
  * Build the CEO Cockpit HTML email.
  * @param data Cockpit data
@@ -776,6 +1052,7 @@ function renderHilTodosPlainText(data: HilTodosData): string {
 export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
   const apiBaseUrl = baseUrl || process.env.BACKEND_URL || 'https://localhost:8080';
   const adminKey = process.env.ADMIN_API_KEY || '';
+  const replyTo = process.env.OUTREACH_REPLY_TO_EMAIL || process.env.EMAIL_FROM || '';
 
   return `<!DOCTYPE html>
 <html>
@@ -791,7 +1068,9 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     </tr>
 
     ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderMarketSignalsHtml(data.marketSignals)}
     ${renderCaptainInquiriesHtml(data.captainInquiries)}
+    ${renderWebLeadsHtml(data.webLeads)}
     ${renderChanges(data)}
     ${renderBets(data.bets)}
     ${renderRisk(data)}
@@ -805,7 +1084,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
 
-    ${renderSendList(data.sendList, apiBaseUrl, adminKey)}
+    ${renderSendList(data.sendList, apiBaseUrl, adminKey, replyTo)}
 
     <!-- Footer -->
     <tr>
@@ -834,10 +1113,22 @@ export function buildCockpitPlainText(data: CockpitData): string {
     lines.push(outreachText);
   }
 
+  // Market Signals
+  const marketSignalsText = renderMarketSignalsPlainText(data.marketSignals);
+  if (marketSignalsText) {
+    lines.push(marketSignalsText);
+  }
+
   // Captain Inquiries
   const captainText = renderCaptainInquiriesPlainText(data.captainInquiries);
   if (captainText) {
     lines.push(captainText);
+  }
+
+  // Web Leads (inbound from public sites)
+  const webLeadsText = renderWebLeadsPlainText(data.webLeads);
+  if (webLeadsText) {
+    lines.push(webLeadsText);
   }
 
   // 3 Changes

@@ -1,0 +1,526 @@
+<!doctype html>
+<!--
+  Our Layers Are Solid — Aiven, Scaleway, KYA + Microsoft Foundry
+  Code-Version: 1.0
+  Introduced-In: PR-kya-verification-setup
+  Branch: claude/kya-verification-setup-QKFtu
+  Date: 2026-04-22
+  Owner: Lifetime Oy
+  Related:
+    - Legal/KYA_STANDARD_v1.md (KYA Standard v1.5, source of truth)
+    - DWS_SOVEREIGNTY_STANDARD.md (EU Tier 1: Aiven + Scaleway)
+    - DWS_DATA_STANDARD.md (Aiven-First Mandate)
+    - skills/compliance/SKILL.md (21 skilled compliance agents per client)
+    - onelifetime.world/posts/kya-standard-v1-5-what-changed.html
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry</title>
+    <meta
+      name="description"
+      content="Satya Nadella's Foundry post describes the half we've been shipping. The other half is KYA. The layers underneath are Aiven (Helsinki) and Scaleway (Paris). 21 skilled compliance agents per EU client — sandboxed, identified, sovereign."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-04-22" />
+    <meta property="og:title" content="Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry" />
+    <meta
+      property="og:description"
+      content="Nadella solves the sandbox half. KYA solves the identity half. Aiven and Scaleway hold the EU-sovereign ground underneath. 21 skilled compliance agents per client, properly wired."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/solid-layers-aiven-scaleway-kya.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-04-22" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Agent Infrastructure" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry" />
+    <meta
+      name="twitter:description"
+      content="Nadella solves the sandbox half. KYA solves the identity half. Aiven and Scaleway hold the sovereign ground."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/solid-layers-aiven-scaleway-kya.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .callout {
+        background: rgba(6, 182, 212, 0.07);
+        border-left: 3px solid #06b6d4;
+        border-radius: 4px;
+      }
+      .callout-gold {
+        background: rgba(212, 168, 67, 0.08);
+        border-left: 3px solid #d4a843;
+        border-radius: 4px;
+      }
+      .layer-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .layer-card:hover {
+        border-color: rgba(6, 182, 212, 0.45);
+        transform: translateY(-2px);
+      }
+      .version-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        background: rgba(6, 182, 212, 0.15);
+        color: #67e8f9;
+        border: 1px solid rgba(6, 182, 212, 0.35);
+      }
+      table.map-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      table.map-table th,
+      table.map-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+        vertical-align: top;
+        color: #cbd5e1;
+      }
+      table.map-table th {
+        text-align: left;
+        color: #d4a843;
+        font-weight: 700;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry",
+        "description": "Nadella solves the sandbox half. KYA solves the identity half. Aiven and Scaleway hold the EU-sovereign ground underneath. 21 skilled compliance agents per client, properly wired.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-04-22",
+        "mainEntityOfPage": "https://onelifetime.world/posts/solid-layers-aiven-scaleway-kya.html",
+        "articleSection": "Agent Infrastructure",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12">
+        <header class="mb-8">
+          <span class="version-chip">Agent Infrastructure &middot; Commentary</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Our layers are solid &mdash; Aiven, Scaleway, KYA meet Nadella&rsquo;s Foundry
+          </h1>
+          <p class="mt-3 text-sm" style="color: #94a3b8">
+            <time datetime="2026-04-22">22 April 2026</time> &middot; by Risto Anton Paarni
+          </p>
+        </header>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">Satya Nadella, this week</p>
+          <p class="italic">
+            &ldquo;Every agent will need its own computer. And with new Hosted agents in Foundry,
+            every agent gets its own dedicated enterprise-grade sandbox, with durable state,
+            built-in identity and governance, and support for any harness or framework.&rdquo;
+          </p>
+        </section>
+
+        <p class="mb-6 text-lg leading-relaxed" style="color: #cbd5e1">
+          That is the other half of what we have been shipping. The sandbox half is now a Microsoft
+          product. The identity half is <strong>KYA</strong>. The EU-sovereign ground underneath is
+          <strong>Aiven</strong> (Helsinki) and <strong>Scaleway</strong> (Paris). Our layers are
+          solid, and they line up one-to-one with what Foundry asks for.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Four layers, one stack</h2>
+
+        <div class="space-y-6 mb-12">
+          <div class="layer-card rounded-lg p-5">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #d4a843">
+              Layer 1 &middot; Distribution
+            </p>
+            <h3 class="mt-2 text-xl font-bold" style="color: #f1f5f9">
+              Microsoft Foundry &mdash; Connect tier
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #94a3b8">
+              Foundry&rsquo;s Hosted Agents give each agent a dedicated sandbox with durable state
+              and harness freedom. For DWS clients already on the Microsoft stack, Connect tier is
+              how our skilled agents land in their environment without re-platforming. One sandbox
+              per KYA-bound agent, per tenant, per policy. Metadata to Foundry; data stays on EU
+              sovereign infra.
+            </p>
+          </div>
+
+          <div class="layer-card rounded-lg p-5">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #d4a843">
+              Layer 2 &middot; Data plane
+            </p>
+            <h3 class="mt-2 text-xl font-bold" style="color: #f1f5f9">
+              Aiven &mdash; Helsinki, Finland
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #94a3b8">
+              Aiven is the Finnish managed open-source data platform (PostgreSQL, Kafka, ClickHouse,
+              OpenSearch, Valkey) with an official <strong>Aiven MCP server</strong> &mdash; AI
+              agents call SQL, pgvector similarity search and Kafka topics through RBAC-enforced
+              tool calls. EU HQ <em>and</em> EU data centres means sovereignty is about
+              jurisdiction, not just pin-code. DWS_DATA_STANDARD locks Aiven-first; Aiven&rsquo;s
+              own sovereignty stance (&ldquo;data residency in Frankfurt or Helsinki can still fall
+              under foreign jurisdictions if the cloud provider is headquartered outside the
+              EU&rdquo;) is why.
+            </p>
+          </div>
+
+          <div class="layer-card rounded-lg p-5">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #d4a843">
+              Layer 3 &middot; Compute
+            </p>
+            <h3 class="mt-2 text-xl font-bold" style="color: #f1f5f9">
+              Scaleway &mdash; Paris / Amsterdam
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #94a3b8">
+              SecNumCloud-eligible, French-headquartered, EU-only execution. Our compliance agents
+              &mdash; ETS, CBAM, CSRD (E1&ndash;E5, S1&ndash;S4, G1), EU AI Act Article 12, EPBD,
+              EED &mdash; run here, not on a US hyperscaler. CLOUD Act exposure on the execution
+              path: effectively zero. The data never leaves the bloc.
+            </p>
+          </div>
+
+          <div class="layer-card rounded-lg p-5" style="border-color: rgba(6, 182, 212, 0.45)">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #67e8f9">
+              Layer 4 &middot; Identity spine
+            </p>
+            <h3 class="mt-2 text-xl font-bold" style="color: #f1f5f9">
+              KYA Standard v1.5 &mdash; Know Your Agent
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #94a3b8">
+              Every agent session bound to a KYB/KYC-verified human. Five pillars: Identity
+              Attribution, Capability Gating, Forensic Observability, Autoresearch Governance, KYA
+              Vision. TC-4 Leash Snap terminates the full agent chain when trust drops. Foundry says
+              &ldquo;every agent has a computer.&rdquo; KYA says &ldquo;every agent has an
+              accountable human.&rdquo; Both are true at once.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          What Nadella describes, in our words
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Foundry covers three things explicitly: sandbox, durable state, built-in identity and
+          governance. &ldquo;Built-in identity&rdquo; inside a Microsoft tenant is fine &mdash;
+          until you are deploying 21 skilled compliance agents for a regulated EU client, and the
+          auditor asks: <em>whose</em> identity, <em>whose</em> tenant, under <em>whose</em> legal
+          regime. KYA answers that with a cryptographic identity token issued by Lifetime Oy
+          (Helsinki) and honored by the sandbox. The Microsoft identity is the seat. The KYA
+          identity is the worker.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Concrete shape: a fleet of skilled compliance agents per client
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          For a single EU enterprise under a CSRD + CBAM + EU AI Act engagement, the wiring is the
+          same every time:
+        </p>
+
+        <ul class="list-disc pl-6 space-y-2 mb-6 text-sm" style="color: #cbd5e1">
+          <li>
+            <strong>Skilled agents</strong> &mdash; ETS, CBAM (transitional + definitive), CSRD
+            disclosures across E1&ndash;E5 / S1&ndash;S4 / G1, EU AI Act Article 12, EPBD, EED.
+          </li>
+          <li>Each one gets its own Foundry Hosted Agent sandbox.</li>
+          <li>
+            Each one is bound to a KYA identity with capability gating and Firehorse trace IDs.
+          </li>
+          <li>
+            Each one reads and writes on <strong>Aiven for PostgreSQL</strong> (client tenant,
+            RLS-enforced, pgvector for similarity search).
+          </li>
+          <li>Each one executes on <strong>Scaleway EU compute</strong>.</li>
+          <li>
+            Every action is logged to the Firehorse audit trail and signed by the sovereignty audit
+            overlay for EU AI Act Article 12.
+          </li>
+          <li>
+            A single TC-4 Leash Snap revokes all 21 sandboxes at once if the bound human&rsquo;s
+            trust score drops below threshold.
+          </li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Foundry asks &rarr; KYA already answers
+        </h2>
+
+        <section class="callout-gold p-1 rounded mb-10">
+          <table class="map-table">
+            <thead>
+              <tr>
+                <th>Foundry requirement</th>
+                <th>KYA answer (already shipping v1.5)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Built-in identity, per agent</td>
+                <td>
+                  Pillar 1 &mdash; Identity Attribution. KYB/KYC-verified human &rarr; agent binding
+                  with cryptographic token.
+                </td>
+              </tr>
+              <tr>
+                <td>Governance</td>
+                <td>
+                  Pillar 3 &mdash; Forensic Observability. Firehorse trace IDs on every action,
+                  tamper-evident chain.
+                </td>
+              </tr>
+              <tr>
+                <td>Durable state</td>
+                <td>
+                  Aiven for PostgreSQL + memory audit trail (KYA-S v1.5 &sect;10, KYA-O v1.7
+                  &sect;12).
+                </td>
+              </tr>
+              <tr>
+                <td>Any harness or framework</td>
+                <td>
+                  Skills as <code class="text-cyan-300 text-xs">.md</code> contracts, CLI + MCP;
+                  portable across runtimes by design.
+                </td>
+              </tr>
+              <tr>
+                <td>Accountability when the agent acts wrong</td>
+                <td>
+                  Pillar 2 &mdash; Capability Gating + TC-4 Leash Snap. One revoke, full chain
+                  terminates.
+                </td>
+              </tr>
+              <tr>
+                <td>Data residency (EU-regulated clients)</td>
+                <td>Layers 2 and 3 above. Aiven + Scaleway. EU HQ, EU DC, EU law.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Foundry gives the agent a computer. KYA gives the agent a conscience.
+        </h2>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          That is the one-line version. The fuller version is that our four layers &mdash;
+          distribution (Foundry Connect), data (Aiven), compute (Scaleway), identity (KYA) &mdash;
+          compose. None of them compete with Nadella&rsquo;s announcement; all of them complete it.
+          For EU-regulated industrial clients, this is the shape the regulation will accept.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Read next</h2>
+
+        <ul class="list-disc pl-6 space-y-2 mb-10 text-sm" style="color: #cbd5e1">
+          <li>
+            <a
+              href="/posts/kya-standard-v1-5-what-changed.html"
+              class="text-cyan-400 hover:underline"
+              >KYA Standard v1.5 &mdash; what changed since the v1 field note</a
+            >
+          </li>
+          <li>
+            <a href="/posts/kya-standard-v1.html" class="text-cyan-400 hover:underline"
+              >KYA Standard v1 &mdash; the original field note (why software-level scaffolding is
+              not enough)</a
+            >
+          </li>
+          <li>
+            KYA Standard v1.5 source of truth:
+            <code class="px-1 rounded bg-slate-800 text-cyan-300 text-xs"
+              >Legal/KYA_STANDARD_v1.md</code
+            >
+          </li>
+          <li>
+            Sovereignty Standard:
+            <code class="px-1 rounded bg-slate-800 text-cyan-300 text-xs"
+              >DWS_SOVEREIGNTY_STANDARD.md</code
+            >
+            (Aiven + Scaleway as EU Tier&nbsp;1)
+          </li>
+          <li>
+            Data Standard &mdash; Aiven-First Mandate:
+            <code class="px-1 rounded bg-slate-800 text-cyan-300 text-xs"
+              >DWS_DATA_STANDARD.md</code
+            >
+          </li>
+        </ul>
+
+        <hr class="border-slate-700 my-8" />
+
+        <p class="text-sm" style="color: #94a3b8">
+          Risto Anton Paarni<br />
+          <em>CEO, Lifetime Oy &middot; Editor in Chief, Lifetime Scope Journal</em>
+        </p>
+      </article>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/core-resilience-hybrid-threats.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">CORE: The EU Model That Maps Every Hybrid Threat</span>
+                    </a>
+                    <a href="/posts/mcp-apps-identity-spine.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">MCP Apps Extends the Frontier — KYA Is the Identity Spine</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fsolid-layers-aiven-scaleway-kya.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Our%20Layers%20Are%20Solid%20%E2%80%94%20Aiven%2C%20Scaleway%2C%20KYA%20%2B%20Foundry%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fsolid-layers-aiven-scaleway-kya.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="mailto:?subject=Our%20Layers%20Are%20Solid%20%E2%80%94%20Aiven%2C%20Scaleway%2C%20KYA%20%2B%20Foundry&body=Our%20Layers%20Are%20Solid%20%E2%80%94%20Aiven%2C%20Scaleway%2C%20KYA%20%2B%20Foundry%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fsolid-layers-aiven-scaleway-kya.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/solid-layers-aiven-scaleway-kya.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€4,999</p>
+                            <p class="text-xs text-gray-500">18+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€6,500</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€499</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    </main>
+
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; Helsinki, Finland</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ Platform</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Store</a> &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Journal</a>
+      </p>
+    </footer>
+  </body>
+</html>

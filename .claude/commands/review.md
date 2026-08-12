@@ -12,17 +12,20 @@ Input: $ARGUMENTS (branch name, file paths, or description of changes)
 ## Review Process
 
 ### 1. Understand the Change
+
 - Read ALL modified files (use `git diff` or `git diff --staged`)
 - Understand the intent — what problem does this solve?
 - Check if tests were added/updated
 
 ### 2. Correctness Review
+
 - Does the logic actually solve the stated problem?
 - Are there off-by-one errors, race conditions, or null pointer issues?
 - Are error paths handled correctly?
 - Does the happy path work? Does the sad path work?
 
 ### 3. Security Review (DWS Security Standard)
+
 - No `exec()` with string interpolation
 - No `origin: '*'` CORS
 - All external CDN deps have SRI hashes
@@ -32,18 +35,21 @@ Input: $ARGUMENTS (branch name, file paths, or description of changes)
 - SQL injection prevention (parameterized queries)
 
 ### 4. Performance Review
+
 - N+1 queries?
 - Unbounded loops or recursion?
 - Missing indexes on queried columns?
 - Large payloads without pagination?
 
 ### 5. DWS Standard Compliance
+
 - Build for Agents: CLI + MCP + Skills exposed?
 - Dual folder rule: root AND landing-pages updated?
 - Store update rule: all 6 checklist items?
 - Document standard: VERSION AND AGENT HISTORY block?
 
 ### 6. Code Quality
+
 - Dead code introduced?
 - Unnecessary complexity? (100 lines where 10 suffice)
 - Missing type safety? (Zod schemas, TypeScript strict)
@@ -80,4 +86,4 @@ VERDICT: [APPROVE / REQUEST CHANGES / BLOCK]
 
 - If APPROVE → run `/ship` to push and create PR
 - If REQUEST CHANGES → fix issues, re-run `/review`
-- If BLOCK → serious architectural issue, go back to `/plan-eng-review`
+- If BLOCK → serious architectural issue, go back to `/plan-review ROLE=eng`

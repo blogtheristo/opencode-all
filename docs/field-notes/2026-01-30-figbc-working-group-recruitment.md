@@ -130,7 +130,7 @@ This new RT card provides guidance on carbon footprint management in constructio
 |---------|------------------------|----------|
 | **Scope** | Single building carbon calculation | Full enterprise compliance platform |
 | **Standards** | Finnish Construction Act | EN 15978, EN 15804 + Fit for 55 stack |
-| **Industries** | Construction only | 16 EU industries |
+| **Industries** | Construction only | 25+ EU industries |
 | **Regulations** | Ilmastoselvitys (FI) | ETS, CBAM, CSRD, EPBD, ESR (EU-wide) |
 | **Data Sources** | Tuotetieto database | ERP, BIM, IoT, Supply Chain |
 | **Pricing** | Per-project licensing | Enterprise subscription (€60-150k/year) |

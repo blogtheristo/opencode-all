@@ -1,5 +1,5 @@
 import Redis from 'ioredis';
-import { getSupabaseClient } from '../config/supabase.js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 
 export interface ResolveContext {
@@ -92,28 +92,29 @@ export async function resolveTerm(ctx: ResolveContext): Promise<ResolveResult> {
     }
   }
 
-  // 2) Supabase RPC
+  // 2) resolve_term RPC (internal-ops Postgres)
   try {
-    const supabase = getSupabaseClient();
-    if (!supabase) {
+    const pool = getInternalDbPool();
+    if (!pool) {
       return { error: 'unresolved', concept_id: ctx.concept_id };
     }
 
-    const { data, error } = await supabase.rpc('resolve_term', {
-      p_concept_id: ctx.concept_id,
-      p_tenant_id: ctx.tenant_id ?? null,
-      p_industry: ctx.industry ?? null,
-      p_lwm_version: ctx.lwm_version ?? null,
-      p_product_edition: ctx.product_edition ?? null,
-      p_platform_version: ctx.platform_version ?? null,
-      p_legal_profile: ctx.legal_profile ?? null,
-      p_cloud_profile: ctx.cloud_profile ?? null,
-      p_locale: ctx.locale ?? 'en',
-    });
+    const { rows } = await pool.query(
+      `SELECT * FROM resolve_term($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      [
+        ctx.concept_id,
+        ctx.tenant_id ?? null,
+        ctx.industry ?? null,
+        ctx.lwm_version ?? null,
+        ctx.product_edition ?? null,
+        ctx.platform_version ?? null,
+        ctx.legal_profile ?? null,
+        ctx.cloud_profile ?? null,
+        ctx.locale ?? 'en',
+      ],
+    );
 
-    if (error) throw error;
-
-    const row = Array.isArray(data) ? data[0] : data;
+    const row = rows[0];
     const result: ResolveResult = row
       ? row.policy_level === 'forbidden'
         ? { error: 'forbidden_by_policy', concept_id: ctx.concept_id }

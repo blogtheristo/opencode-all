@@ -5,9 +5,14 @@
  * Delivered via GitHub Actions (.github/workflows/morning-briefing.yml).
  */
 
-export { sendBriefingNow } from './scheduler.js';
+export { sendBriefingNow, sendSalesBriefNow } from './scheduler.js';
 export { collectCockpitData } from './data-collectors.js';
-export { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
+export {
+  buildCockpitHtml,
+  buildCockpitPlainText,
+  buildSalesBriefHtml,
+  buildSalesBriefPlainText,
+} from './briefing-template.js';
 export type {
   CockpitData,
   ThreeChanges,

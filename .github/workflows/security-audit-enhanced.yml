@@ -1,9 +1,8 @@
 name: Enhanced Security Audit
 
 on:
-  schedule:
-    # Run weekly on Mondays at 2 AM UTC
-    - cron: '0 2 * * 1'
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark cron-runner mirrors scheduled runs
+  # Was: cron '0 2 * * 1' (Monday 02:00 UTC)
   workflow_dispatch:
   push:
     branches: [ main ]
@@ -17,13 +16,29 @@ jobs:
   security-audit:
     name: Comprehensive Security Audit
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
+      # DGX Spark cron-runner mirrors the scheduled run (cron-runner.ts: security-audit-enhanced).
+      # Push-triggered runs (when security-relevant files change) still run on GHA — DGX wouldn't
+      # see the push until its next 5-min poll.
+      - name: DGX Spark failover check
+        id: failover
+        if: github.event_name == 'schedule'
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Skip if DGX is primary (scheduled run)
+        if: github.event_name == 'schedule' && steps.failover.outputs.dgx_alive == 'true'
+        run: |
+          echo "DGX Spark is healthy — scheduled audit runs on DGX. Skipping GHA run."
+          exit 0
+
       - name: Verify deployment file protections
         id: verify-protections
         run: |

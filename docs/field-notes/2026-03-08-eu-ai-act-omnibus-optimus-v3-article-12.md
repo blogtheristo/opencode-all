@@ -20,7 +20,7 @@ Document Status:
 
 ## Context
 
-From the shop floor in regulated EU plants (automotive Tier-1s, pharma, logistics), Article 12 is not optional — it's the audit-proof backbone that notified bodies demand before they'll sign off a CE mark under the Machinery Regulation. DWS IQ's landing page positions their "Aiwen logging layer" as the turnkey solution that lets Optimus V3 (or any humanoid) pass this gate without the OEM or integrator building it from scratch.
+From the shop floor in regulated EU plants (automotive Tier-1s, pharma, logistics), Article 12 is not optional — it's the audit-proof backbone that notified bodies demand before they'll sign off a CE mark under the Machinery Regulation. DWS IQ's landing page positions their sovereignty audit logging layer as the turnkey solution that lets Optimus V3 (or any humanoid) pass this gate without the OEM or integrator building it from scratch.
 
 Their claims are technically credible and go beyond the minimum in several places, but they are aspirational on timeline and partnership status. The page is clearly written for robot makers who are staring at 12–18 month CE delays and want a local-control wrapper that ticks the boxes.
 
@@ -42,7 +42,7 @@ For certain Annex III systems (e.g. biometric identification), minimum fields in
 
 ### DWS IQ Claims (exact page language)
 
-- "DWS Aiwen logging layer captures all AI events on-prem… full Article 12 log created automatically."
+- "DWS sovereignty audit logging layer captures all AI events on-prem… full Article 12 log created automatically."
 - "Article 12 Logging Interface: Every robot action… timestamp, task ID, AI decision chain, confidence score, human approval status."
 - "Structured JSON log per action / Immutable on-prem storage / Export format for national authorities."
 - "Reasoning lineage operational… Logs never leave the private fabric."
@@ -148,7 +148,7 @@ This is one of the cleaner regulatory-bridge plays from a small EU player. The s
 
 ## Next Steps (Available on Request)
 
-- Full log schema comparison (DWS Aiwen vs. Article 12 minimum fields) — **DONE:** `docs/article-12-annex-iv-log-schema-mapping.md`
+- Full log schema comparison (DWS IQ sovereignty audit log vs. Article 12 minimum fields) — **DONE:** `docs/article-12-annex-iv-log-schema-mapping.md`
 - Sales outreach brief for robot OEMs — **DONE:** `docs/sales-outreach-robot-oem-partnership.md`
 - Machinery Regulation cross-check (CE marking path for humanoid robots)
 - Competitor analysis: how Boston Dynamics / Figure are handling the same requirements

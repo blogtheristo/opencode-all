@@ -348,8 +348,7 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
         status: 'unknown',
         detail: 'Region not specified — cannot verify EU residency',
       };
-    const regionLower = si.region.toLowerCase();
-    const isEu = EU_REGIONS.some((r) => regionLower.includes(r));
+    const isEu = this.isEuResident(si.region);
     return isEu
       ? { score: 100, status: 'pass', detail: `Data resident in EU region: ${si.region}` }
       : {
@@ -484,8 +483,7 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
   } {
     if (!si.backupRegion)
       return { score: 0, status: 'unknown', detail: 'Backup region not specified' };
-    const regionLower = si.backupRegion.toLowerCase();
-    const isEu = EU_REGIONS.some((r) => regionLower.includes(r));
+    const isEu = this.isEuResident(si.backupRegion);
     return isEu
       ? { score: 100, status: 'pass', detail: `Backups in EU region: ${si.backupRegion}` }
       : { score: 0, status: 'fail', detail: `Backups NOT in EU: ${si.backupRegion}` };

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-30-composio-harness-token-efficiency-benchmark</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-30-composio-harness-token-efficiency-benchmark</h1>
+</header>
+<!--
+VERSION AND AGENT HISTORY
+Document: Composio harness token-efficiency benchmark — and what DWS can (and cannot) measure about its own cost per task
+Version: 1.1
+Date: 2026-07-30
+Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
+Owner: Lifetime Oy
+Status: Active
+Agent: Claude Code, session claude/enterprise-ai-harness-0anl7s
+Purpose: Capture Composio's 3-harness benchmark of Kimi K3 (28 identical tasks;
+         up to 30x token spread at similar success rates) as a market signal, with
+         the vendor-run caveat declared up front. Pairs it with an audit of what
+         DWS can actually measure about its own harness cost per completed task —
+         answer: nothing durable. Empirical half of the cost-per-task sub-signal
+         logged this morning in the Nadella harness note §5.
+Related: docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md,
+         docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md,
+         docs/field-notes/2026-06-19-karpathy-12-rules-harness-hardening.md,
+         docs/field-notes/2026-05-28-agent-deployment-execution-harness.md,
+         kb/wiki/concepts/adopt-the-base-own-the-loop.md,
+         kb/wiki/concepts/harness-cost-is-a-pl-line-item.md,
+         AI_AGENT_GUIDELINES.md §6
+
+Sessions & Modifications:
+
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Re-labelled this note's HIC decision point as **Q2** under the new branch-scoped numbering convention (DWS_LEARNING_STANDARD.md §10.1.1, added v1.4). All three field notes on this branch previously opened at "Q1", so three distinct decisions shared one label and could not be answered by reference. Label only — the question, its options, the recommendation and the reasoning are unchanged (Rule 12).
+- Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Initial field note. Records the Composio 3-harness / 28-task Kimi K3 benchmark with its published token, cost, success and runtime figures; declares the vendor-run interest (Hermes is Composio's own harness) and the DWS internal naming collision on "Hermes"; and adds §5, an audit establishing that DWS cannot currently measure its own cost per completed task, with the exact file-level gaps and the surviving git/handoff proxies.
+-->
+<h1 id="field-note-the-harness-is-the-cost-line-composios-3-harness-benchmark-and-what-dws-cannot-measure">Field
+Note — The Harness Is the Cost Line: Composio’s 3-Harness Benchmark, and
+What DWS Cannot Measure</h1>
+<p><strong>Document Type:</strong> Field Note — Competitive / Market
+Signal + Internal Audit <strong>Scope:</strong> A third-party benchmark
+showing that agent-harness choice, not model choice, drives cost per
+completed task by up to an order of magnitude — and a reproducible audit
+of what DWS can measure about its own harness spend. Capture and audit
+only; no instrumentation built, no harness migration proposed.
+<strong>Ontology Tags:</strong> Geography &gt; Global, EU-27 | Sector
+&gt; Enterprise AI &gt; Agent Harnesses, Coding Agents, Token Economics
+| Entities &gt; Composio, Moonshot AI, Kimi K3, Kimi Code, Hermes
+(Composio), Claude Code, Anthropic, Lifetime Oy, DWS IQ | Temporal
+Context &gt; 2026-Q3, post-open-weight-parity | Confidence &gt; HIGH
+that the figures are as published; <strong>MEDIUM-LOW that they
+generalise</strong> (vendor-run, single model, single run — §2, §6)</p>
+<h2 id="the-benchmark">1. The benchmark</h2>
+<p>Composio ran <strong>Kimi K3 through three agent harnesses on 28
+identical tasks</strong>. Same model, same tasks; only the harness
+changed.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Harness</th>
+<th>Median tokens/task</th>
+<th>Avg cost/task (@ $3/M input)</th>
+<th>Success</th>
+<th>Median runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Kimi Code</strong></td>
+<td>61k</td>
+<td>$0.22</td>
+<td>22/28</td>
+<td>297 s</td>
+</tr>
+<tr class="even">
+<td><strong>Hermes</strong> (Composio’s own)</td>
+<td>67k</td>
+<td>$0.28</td>
+<td>21/28</td>
+<td>179 s</td>
+</tr>
+<tr class="odd">
+<td><strong>Claude Code</strong></td>
+<td>340k</td>
+<td>$2.00</td>
+<td>20/28</td>
+<td>348 s</td>
+</tr>
+</tbody>
+</table>
+<p>Headline: <strong>up to 30× more tokens for the same task depending
+on the harness</strong>, at broadly similar success rates. The median
+task cost nearly <strong>6× more</strong> in Claude Code than in Kimi
+Code. Composio’s stated cost model assumes input tokens are ~95% of
+agentic spend.</p>
+<p>Composio’s own conclusion, quoted:</p>
+<blockquote>
+<p>If you want to reduce agent costs, examine the harness before
+switching models.</p>
+</blockquote>
+<h2 id="declared-interest-read-this-before-the-numbers-fail-loud">2.
+Declared interest — read this before the numbers (fail loud)</h2>
+<p><strong>Hermes is Composio’s own agent harness.</strong> Composio
+designed the benchmark, ran it, published it, and its own product placed
+<strong>2nd on tokens, 1st on runtime, 2nd on success</strong>. That
+does not make the numbers wrong, and the <em>direction</em> of the
+finding is consistent with what anyone who has watched an agent loop
+burn context already suspects. But this is <strong>vendor-run research
+with the vendor near the top of its own leaderboard</strong>, and it
+must never be cited in a DWS document, deck or investor conversation
+without that sentence attached.</p>
+<p>Further limits, stated once so nobody re-derives them later:</p>
+<ul>
+<li><strong>One model</strong> (Kimi K3), <strong>one run</strong>,
+<strong>28 tasks</strong>. Nothing here licenses a claim about harness
+efficiency on Opus 5, Sonnet 5, or any other model.</li>
+<li>The <strong>task set and methodology were not readable</strong> in
+what was verified — success criteria, retry policy, context-window
+settings and MCP tool load per harness are all unknown, and every one of
+them moves token counts substantially.</li>
+<li>The <strong>95%-input assumption</strong> is Composio’s, adopted for
+their dollar math. Plausible for agentic workloads; unaudited here.</li>
+</ul>
+<p><strong>Naming collision — flag for future readers.</strong> “Hermes”
+in this note is <strong>Composio’s harness</strong>. DWS already uses
+<em>Hermes</em> as an internal agent name (the logistics/ops captain,
+<code>AGENTS.md:337</code>, with a brand colour in
+<code>DWS_BRAND_STANDARD.md</code>). They are unrelated. Do not let a
+future session conflate them.</p>
+<h2 id="why-this-matters-to-dws-specifically">3. Why this matters to DWS
+specifically</h2>
+<p><strong>DWS runs on Claude Code</strong> — the harness that placed
+last on all three reported metrics in this benchmark. That is a
+statement about DWS’s own cost base, not a market observation.</p>
+<p>What it is <strong>not</strong>: a reason to migrate. Twenty-eight
+tasks on one model, measured by an interested party, with an unpublished
+task set, does not justify moving the harness that the entire
+<code>.claude/</code> governance layer — hooks, skills, the
+learning-outcome gate, the handoff protocol — is built on. The switching
+cost is the governance, not the CLI.</p>
+<p>What it <strong>is</strong>: evidence that harness overhead is a
+first-order cost term, and confirmation that DWS’s own per-call cost
+model is built on an estimate it has already disproved.
+<code>2026-07-26-ollama-boss-cost-architecture.md</code> costed T2
+escalation at ~3,000 input / 800 output per call ≈ $0.035/call — then §4
+of that same note observed one session running <strong>~25 subagents at
+80k–200k tokens each</strong> and concluded “the expensive part is the
+orchestrator’s own accumulating context.” Composio’s 340k median for
+Claude Code sits in the same order of magnitude as that observation and
+roughly 100× the modelled per-call assumption.</p>
+<h2 id="the-link-to-this-mornings-signal">4. The link to this morning’s
+signal</h2>
+<p>This is the <strong>empirical half</strong> of the sub-signal logged
+in <code>2026-07-30-nadella-harness-model-swappability-signal.md</code>
+§5.</p>
+<ul>
+<li><strong>Nadella (29.07.2026):</strong> the harness is the durable
+layer; the model is swappable underneath it.</li>
+<li><strong>Composio (29–30.07.2026):</strong> the harness is also where
+the money goes — by up to 30×, at equal success.</li>
+</ul>
+<p>Put together: <strong>harness choice is a P&amp;L line item, and the
+completed task is the unit it should be priced in.</strong> That is
+precisely the unit the third-party tool teased in §5 intends to sell.
+The uncomfortable part is §5’s own conclusion, now sharpened by §5
+below: DWS asserted it “has the telemetry to answer” this. It does not.
+It has the <em>schema</em>.</p>
+<h2 id="dws-harness-cost-audit-what-is-measurable-today">5. DWS harness
+cost audit — what is measurable today</h2>
+<p>Scope: can DWS state its own cost per completed task?
+<strong>No.</strong> Not from anything that survives a session. The
+gaps, each verified in-repo this session:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>What exists</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Command volume</td>
+<td><code>.claude/hooks/log-commands.sh</code> writes
+<code>.claude/hooks/audit/bash-commands.log</code> +
+<code>.claude/command-log.txt</code></td>
+<td>❌ <strong>Neither file exists in this container and neither is
+git-tracked</strong> — <code>.gitignore:78</code> ignores
+<code>.claude/*</code>, whitelisting only <code>HANDOFF.md</code>,
+<code>handoffs/</code>, <code>hooks/</code>,
+<code>settings*.json</code>, <code>archive/</code>,
+<code>commands/</code>. Per-session volume dies with the container</td>
+</tr>
+<tr class="even">
+<td>Token budget</td>
+<td>Rule 6: per-task 4,000 / per-session 30,000
+(<code>CLAUDE_AUTO_MODE_BUDGET</code>)</td>
+<td>❌ <strong>Advisory only</strong> —
+<code>.claude/hooks/session-start.sh</code> merely <em>echoes</em> the
+value. Nothing accumulates, nothing enforces</td>
+</tr>
+<tr class="odd">
+<td>Agent cost policy</td>
+<td><code>src/agents/base.agent.ts:515-517</code>,
+<code>case &#39;cost-limit&#39;</code></td>
+<td>❌ <strong>Stub</strong> — <code>max_daily_eur || 50</code>, returns
+<code>allowed: true</code> with the string “(tracking active)”. No
+tracking is active</td>
+</tr>
+<tr class="even">
+<td>Agent execution log</td>
+<td><code>supabase/migrations/030_agent_logging_tables.sql</code> →
+<code>agent_executions</code></td>
+<td>⚠️ <code>duration_ms</code> only, <strong>no token or cost
+columns</strong>. <code>AI_AGENT_GUIDELINES.md:332</code> explicitly
+forbids documenting
+<code>prompt_tokens</code>/<code>completion_tokens</code>/<code>total_tokens</code>
+as current columns</td>
+</tr>
+<tr class="odd">
+<td>Real cost ledger</td>
+<td><code>src/services/token-usage.service.ts</code> →
+<code>token_usage_events</code></td>
+<td>⚠️ <strong>Exists and is good</strong> — carries
+<code>prompt_tokens, completion_tokens, cached_tokens, cost_eur, model, session_id, task_id</code>.
+But it instruments <strong>product</strong> usage (climate assistant /
+API), <strong>not Claude Code sessions</strong>. The per-task
+attribution schema is already built and pointed at the wrong
+workload</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Surviving cross-container proxies</strong> (reproducible from
+the repo, no external data):</p>
+<ul>
+<li>499 commits since 2026-07-01, of which <strong>325 authored by
+Claude</strong> —
+<code>git log --author=Claude --since=2026-07-01 | wc -l</code>.</li>
+<li><strong>36</strong> branch handoff files in
+<code>.claude/handoffs/claude/</code>; <strong>95</strong> handoff
+additions since 2026-07-01.</li>
+<li>One empirical token observation on record: <strong>~25 subagents ×
+80k–200k tokens</strong>, one session, ollama-boss note §4.</li>
+</ul>
+<p><strong>Honest conclusion:</strong> a commit is not a task and a
+handoff is not a session-cost record. DWS can count <em>output</em>
+(commits, handoffs, notes) and cannot count <em>input</em> (tokens,
+euros). A cost-per-task number derived from these proxies would be a
+fabrication dressed as a metric, so this audit produces none. What it
+produces is the precise gap: <strong>one Claude-side token log, written
+against a table that already has <code>task_id</code>.</strong> That is
+<code>Open Item 5</code> of the ollama-boss note, open since
+26.07.2026.</p>
+<h2 id="verification-note-fail-loud">6. Verification note (fail
+loud)</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>28 tasks, 3 harnesses, up to 30× token spread; medians 61k / 67k /
+340k; $0.22 / $0.28 / $2.00 at $3/M</td>
+<td><strong>CONFIRMED as published</strong> — Composio,
+29–30.07.2026</td>
+</tr>
+<tr class="even">
+<td>Success 22/28 Kimi Code, 21/28 Hermes, 20/28 Claude Code; median
+runtimes 297 s / 179 s / 348 s</td>
+<td><strong>CONFIRMED as published</strong></td>
+</tr>
+<tr class="odd">
+<td>Hermes is Composio’s own harness</td>
+<td><strong>CONFIRMED</strong> — composio.dev publishes Hermes
+integration docs and harness comparison content</td>
+</tr>
+<tr class="even">
+<td>Independence of the benchmark</td>
+<td><strong>NOT INDEPENDENT.</strong> Vendor-run; vendor’s own harness
+placed near the top. Declared, not discounted to zero</td>
+</tr>
+<tr class="odd">
+<td>Task set, success criteria, retry policy, per-harness tool load</td>
+<td><strong>UNVERIFIED</strong> — not readable in what was checked. Each
+materially affects token counts</td>
+</tr>
+<tr class="even">
+<td>“~95% of agentic spend is input tokens”</td>
+<td><strong>Composio’s assumption</strong>, adopted for their dollar
+math. Plausible, unaudited</td>
+</tr>
+<tr class="odd">
+<td>Related Composio claim: K3 matched Claude Fable 5 on a separate
+14-task benchmark (same 9 passes, 5 failures)</td>
+<td><strong>NOTED, NOT RELIED ON</strong> — same vendor, separate
+benchmark, not verified here. Do not propagate</td>
+</tr>
+<tr class="even">
+<td>DWS’s own cost per completed task</td>
+<td><strong>NOT MEASURABLE TODAY</strong> — §5. No Claude-side token log
+survives a container</td>
+</tr>
+<tr class="odd">
+<td>DWS proxy counts (499 / 325 commits, 36 / 95 handoffs)</td>
+<td><strong>REPRODUCIBLE</strong> from <code>git log</code> and
+<code>ls</code> in this repo, 30.07.2026</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-five-step-learning-standard-record">7. The five-step
+Learning Standard record</h2>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 40%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Step</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Knowledge base</strong></td>
+<td>✅
+<code>kb/raw/signals/2026-07-30-composio-harness-token-efficiency-benchmark.md</code>
++ new concept
+<code>kb/wiki/concepts/harness-cost-is-a-pl-line-item.md</code> (the
+durable rule; the benchmark numbers will age)</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Field note</strong></td>
+<td>✅ this file;
+<code>2026-07-30-nadella-harness-model-swappability-signal.md</code>
+bumped to v1.1 with a §5 cross-reference</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong><code>Learn/</code> HTML</strong></td>
+<td>✅
+<code>Learn/2026-07-30-composio-harness-token-efficiency-benchmark.html</code>
++ <code>.docx</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Drive export</strong></td>
+<td>✅ Google Doc “2026-07-30 Field Note v1.0 — The Harness Is the Cost
+Line…” in the <code>2026 DWS6</code> folder
+(<code>docs.google.com/document/d/1tI8jclu3Zc4axEhLb6GG9psvH4m3bEWYcL-BZF9hP9U</code>).
+The Drive connector dropped mid-session and reconnected; repo is source
+of truth either way (Truth Standard §2E)</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>HIC question</strong></td>
+<td>✅ §8, session reply, and
+<code>.claude/handoffs/claude/enterprise-ai-harness-0anl7s.md</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps-and-the-hic-question">8. Next steps and the HIC
+question</h2>
+<p><strong>Routed, not executed:</strong></p>
+<ol type="1">
+<li><strong>Instrumentation is not built here.</strong> No hook changes,
+no migration, no edit to <code>token-usage.service.ts</code>. See the
+question below.</li>
+<li><strong>No harness migration</strong> proposed or evaluated. The
+switching cost is the <code>.claude/</code> governance layer, not the
+CLI.</li>
+<li><strong><code>/truth-check</code></strong> before any external use
+of the 30× figure — and never without the vendor-run caveat (§2).</li>
+<li><strong>PhD thesis</strong> — the “harness overhead dominates model
+price” finding is market-signal data for
+<code>PHD_FIREHORSE_{EN,FI}</code>. Deferred, pending HIC approval.
+Master’s thesis untouched.</li>
+</ol>
+<h3 id="hic-question-eu-ai-act-art.-14-intervention-point">HIC question
+(EU AI Act Art. 14 intervention point)</h3>
+<p><strong>Q2. DWS’s own cost per completed task is unmeasured, and the
+table that would hold it (<code>token_usage_events</code>, with
+<code>task_id</code>) already exists. Do we instrument it?</strong></p>
+<p><strong>Options:</strong></p>
+<ol type="1">
+<li><strong>Instrument the Claude-side token log</strong> against the
+existing <code>token_usage_events</code> schema — closes ollama-boss
+Open Item 5, replaces the disproved 3K/800 estimate with measurement,
+and makes every future cost claim defensible. Cost: real engineering on
+the harness layer, plus a decision about where session token counts come
+from.</li>
+<li><strong>Do not instrument; cap by policy instead</strong> — set a
+hard <code>CLAUDE_AUTO_MODE_BUDGET</code> and actually enforce it in
+<code>session-start.sh</code>, accepting that DWS manages spend without
+ever knowing its per-task cost.</li>
+<li><strong>Fold cost-per-task into a customer-facing
+capability</strong> — treat the measurement as the first increment of
+the pricing tool flagged in the Nadella note §5, rather than as internal
+telemetry.</li>
+</ol>
+<p><strong>(RECOMMEND: 1, scoped to internal measurement only.</strong>
+Option 3 is the same work with a product commitment attached, and
+committing to a customer-facing pricing surface before DWS can measure
+<em>one</em> number about <em>itself</em> is the wrong order. Option 2
+caps the bleeding while guaranteeing we never learn where it comes from
+— and Rule 12 makes an unmeasured “tracking active” string in
+<code>base.agent.ts:517</code> a live fail-loud violation regardless of
+which option wins.)</p>
+<ul>
+<li><strong>Reversibility:</strong> two-way door for 1 and 2. Option 3
+becomes one-way once a price is published.</li>
+<li><strong>Unblocks:</strong> ollama-boss Open Item 5; a defensible
+per-task figure for the PhD entry and for any investor cost claim;
+option 3 later, if wanted.</li>
+<li><strong>Cost of delay:</strong> compounding but quiet. Every session
+without a token log is a session whose cost is unrecoverable — the data
+is gone when the container is.</li>
+<li><strong>Rests on:</strong> <strong>verified</strong> for the in-repo
+audit (§5, every row checked this session);
+<strong>published-but-vendor-run</strong> for the Composio figures. The
+recommendation does not depend on Composio being right — the measurement
+gap is real either way.</li>
+</ul>
+<h2 id="references">9. References</h2>
+<p><strong>Primary</strong></p>
+<ul>
+<li>Composio, “We ran Kimi K3 through 3 agent harnesses…” —
+<code>https://x.com/composio/status/2082452269522378858</code>
+(29–30.07.2026)</li>
+<li>Composio, K3 vs Claude Fable 5 on a 14-task agentic benchmark —
+<code>https://x.com/composio/status/2082091871493574936</code> (noted,
+not relied on)</li>
+<li>Composio, “OpenClaw vs Hermes Agent: The best agent harness in 2026”
+— <code>https://composio.dev/content/openclaw-vs-hermes-agent</code>
+(establishes Hermes as Composio’s own)</li>
+<li>Composio, “GLM 5.2 vs Kimi K3” —
+<code>https://composio.dev/content/glm-vs-kimi</code></li>
+<li><code>moonshotai/Kimi-K3</code> — Hugging Face model card</li>
+</ul>
+<p><strong>DWS internal</strong></p>
+<ul>
+<li><code>docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-06-19-karpathy-12-rules-harness-hardening.md</code>
+<em>(DWS internal)</em></li>
+<li><code>docs/field-notes/2026-05-28-agent-deployment-execution-harness.md</code>
+<em>(DWS internal)</em></li>
+<li><code>kb/wiki/concepts/harness-cost-is-a-pl-line-item.md</code>
+<em>(DWS internal)</em></li>
+<li><code>src/services/token-usage.service.ts</code>,
+<code>src/agents/base.agent.ts:515-517</code>,
+<code>supabase/migrations/030_agent_logging_tables.sql</code>,
+<code>AI_AGENT_GUIDELINES.md</code> §6 <em>(DWS internal)</em></li>
+</ul>
+<hr />
+<p><em>This document follows DWS Document Standard, DWS Market Research
+Standard §8.3, and DWS Learning Standard (EU AI Act Article 14).</em>
+<em>Ontology: Enterprise AI &gt; Agent Harnesses &gt; Token Economics
+&gt; Cost Per Completed Task</em></p>
+</body>
+</html>

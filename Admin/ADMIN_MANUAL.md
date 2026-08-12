@@ -1,13 +1,31 @@
 # DWS IQ Platform - Admin Manual
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 3.12
 
 Sessions & Modifications:
 
+- Version: 3.12 | Tool: Claude Code (Fable) | Session: claude/agent-factory-research-audit-l6hks2 | Date: 03.08.2026 | Changes: Added "DWS Factory Router (model escalation runbook)" section — offline evidence-based cheap->strong escalation ladder (src/factory/), CLI usage with verdict exit codes, detector and guardrail reference, tuning defaults, and the two upstream features deliberately not ported (external decision API, subscription-OAuth client impersonation). Cross-refs: field note 2026-08-03-agent-factory-sageroute-audit.md, V3Thesis §10.28, PHD_FIREHORSE §14.47.
+- Version: 3.11 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Documented the 4P Capital Classes model (Prompt / People / Plant / Perception) as the company's canonical capital model; added Related Documentation row; registered the future "4p-diligence" assessment lens (Agent Productization Rule). Canonical source: DWS_BRAND_STANDARD.md §23; DWS_TRUTH_STANDARD.md §2 row 25.
+- Version: 3.10 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added "Aspire Dashboard Observability (DGX Spark)" section — three-port reference (18888 UI / 18889 OTLP-gRPC / 18890 OTLP-HTTP), the 18890 rule for all http/protobuf producers after the silent-telemetry incident (compose v1.2.0 pointed producers at the gRPC port then the UI port; both dropped telemetry silently; fixed compose v1.3.1), post-deploy verification procedure (traces visible + GenAI sparkle on LLM spans), GenAI message-content capture flagged as human data-protection decision (default OFF), Unsecured-auth hardening trigger, and version-pinning discipline. Cross-refs: field note 2026-07-07-aspire-development-evolution-pr1500-to-main.md §6.2, V3Thesis §10.25.
+- Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added `ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` to the Admin Manuals Index — CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory, and agentic commerce / KYA data-handling plan.
+- Version: 3.8 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Ontology-schema implementation — retention is now a node property" subsection recording the `ONTOLOGY.md` v1.5 schema change (Data Lifecycle & Retention Ontology, §6): every LWM ontology node ingesting live data now declares node_owner/raw_tier/summary_tier/audit_tier/rollup_tier/aggregation_review at design time. Documents the operator action (reject node definitions missing the retention block) and the full cross-reference chain from ONTOLOGY.md through the field note, this Admin Manual, the handbook, and the public product pages.
+- Version: 3.7 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "National reference: VM 2026:27 recommendation audit" subsection under Customer Sensor Data Retention — maps Table 16 (§4.4.3) risk-management measure categories from the Finnish Ministry of Finance guide (VM 2026:27) to the four-layer retention model (content-modification → Layer 2/4, user-management → RLS/Layer 3, distribution-control → Situation Room, aggregation-effect mitigation → §4.4.2), plus the guide's Stage 5 documentation-disclosure warning applied to this checklist itself. Source archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`.
+- Version: 3.6 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Customer Sensor Data Retention — Control Room / Situation Room" section — operator-facing summary of the four-layer retention model (72h raw / 13mo ontologised / 7yr Article 12 audit trail / 24mo Situation Room rollup), ontology-node ownership and quarterly access-review responsibilities, and a compliance checklist. Canonical source: `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`.
+- Version: 3.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added "NemoClaw Agent Runtime (DGX Spark / sovereign edge)" section — one-runtime-per-room-profile model (Control Room / Situation Room / Mobile Command-Situation Room are config overlays, not separate builds), the per-box secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled), and operate/health/migration pointers. Cross-links DWS_DEPLOYMENT_STANDARD.md and the OpenClaw→NemoClaw migration plan.
+- Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added NVIDIA AI Workbench on DGX Spark section — enterprise sovereign training workflow, mode-switch architecture (training-mode.sh / production-mode.sh), QLoRA fine-tuning procedures, 4-stage sovereign training cascade reference, CR-1/CR-2 memory budget guidance
+- Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added "Company Capital Model — The 4P Capital Classes" section documenting Prompt / People / Plant / Perception Capital as the canonical capital model (canon: DWS_BRAND_STANDARD.md §23); added an Ontology Series entry to a new Content Registry sub-section; registered the future `4p-diligence` assessment lens per the Agent Productization Rule (CLI path `dws diligence-4p`, structured JSON output, MCP + skill registration intent).
+- Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
+- Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
+- Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
+- Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
+- Version: 3.0 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Finalized major Cloud Run CI auth migration in admin docs: GitHub OIDC / Workload Identity Federation is now the authoritative path for `dws-iq-60`; documented Cloud Shell provider creation, exact GitHub Secrets values (`GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT`), `.github/workflows/deploy-staging.yml` OIDC switch, and retirement of legacy `GCP_SA_KEY`. Marked service-account key creation as prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
+- Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Google Cloud Run CI identity runbook (`gcr-skill`) for admin-owned project `dws-iq-60`: project creation, billing link, ADC quota alignment, required API enablement, deployer service account IAM bindings (including `roles/iam.serviceAccountTokenCreator` fix), and GitHub secret migration checklist
+- Version: 2.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added Google Cloud billing IAM transfer note for `dws-mcp-hub`: confirmed `admin@dws6.com` as project owner and documented billing account `011602-801DEC-A53E8F` policy update (`roles/billing.user` for `admin@dws6.com`, `roles/billing.admin` retained for `risto.paarni2024@lifetime.fi`) with follow-up to enable billing and rotate CI deploy credentials under admin-owned control plane
+- Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Agent accountability/observability layer (AgentLogger JSONL + Supabase agent_executions, AgentVersionRegistry, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring, HIL review queue API + ReviewQueuePanel + ConfidenceDriftView); Baseten added as OpenAI-compatible LLM provider in model-selector.ts with BASETEN_API_KEY/BASETEN_BASE_URL/BASETEN_MODEL env vars; /case-run skill registered, Themis v2.0 case-coordinate action (case-type→sub-agent mapping, Legora AOS competitive analysis); Blog V2 engagement layer (lsj-poll.js reader polls, lsj-ads.js ad slots, /advertise rate card, post #18 — The Strike Price State); TokenSpeed inference engine field note (LightSeek MIT, DGX Spark fit); Outokumpu CBAM partnership offer print-ready HTML v1.0; Axios vulnerability patched across mobile subprojects
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
 - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
 - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -21,6 +39,9 @@ Sessions & Modifications:
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
 - Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Local-First CI + Audit Log section; new Audit Manual linked; Files & Folders manual indexed
+- Version: 2.3 | Tool: Copilot CLI (GPT-5.3-Codex) | Session: claude/fix-booking-email-delivery-20260429 | Date: 29.04.2026 | Changes: SES SMTP runtime hardening, Supabase runtime env audit, Cloud Run env requirements updated
+- Version: 2.4 | Tool: Cursor / Claude agents | Session: Rg5Jy | Date: 25.04.2026 | Changes: Browse SSRF hardening (`url-guard`), Playwright moved to production dependencies for DGX `npm ci --omit=dev`
+- Version: 2.5 | Tool: Cursor Agent | Session: cursor-admin-node-workspace-20260510 | Date: 10.05.2026 | Changes: Documented dual `npm ci` (repository root + `src/cloudflare`) for backend and Cloudflare agent workers; PowerShell-first command examples for local dev and cloud agent runtimes
 
 Session Links & References:
 
@@ -30,45 +51,145 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 22.04.2026
+- Last Modified: 06.07.2026
+- Version: 4.0
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
 
----
+***
 
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
 
+## Company Capital Model — The 4P Capital Classes
+
+DWS is not a SaaS vendor; it is a **System of Action operator**. The company's
+capital model — the way it names the durable value it accumulates — is the **4P
+Capital Classes**. This is canonical in `DWS_BRAND_STANDARD.md` §23 and registered
+in `DWS_TRUTH_STANDARD.md` §2 row 25 (structured mirror `dws10.com/config/capitals.json`).
+
+| #   | Capital Class (4P)     | Finnish        | Was                  | What it is                                                                                                                                                                                  |
+| --- | ---------------------- | -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Prompt Capital**     | Prompt-pääoma  | Token Capital        | Codified intelligence — validated prompts, skills, agent configs, eval datasets, automation.                                                                                                |
+| 2   | **People Capital**     | Ihmispääoma    | Human Capital        | Calibrated operator judgment from the HIL phase (human-in-the-loop → human-in-control).                                                                                                     |
+| 3   | **Plant Capital**      | Laitospääoma   | Control Room Capital | The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle.                                                                                     |
+| 4   | **Perception Capital** | Havaintopääoma | _new_                | The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics). The only class with data-network effects and a physical-AI character — the re-rate lever. |
+
+**Order is fixed** (Prompt, People, Plant, Perception — the mnemonic depends on it).
+**Deprecated in new copy:** "three-capital model", "Token Capital", "Control Room
+Capital" as primary terms; "Human Capital" only as a parenthetical. `/truth-check`
+enforces this on public copy.
+
+### Content Registry
+
+Canonical long-form explainers of the company's positioning and capital model.
+Treat these as the source for any derived deck, blog, or sales copy.
+
+| Asset                        | Location                                                                          | Scope                                                                                                                                                                                                                                         |
+| ---------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **4P Capital Classes canon** | `DWS_BRAND_STANDARD.md` §23                                                       | The canonical terminology, usage rules, and deprecations.                                                                                                                                                                                     |
+| **4P field note (v2.0)**     | `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md` | The theory: how the HIL phase forms each class; the Nadella signal; capital-as-a-service.                                                                                                                                                     |
+| **Ontology Series**          | `onelifetime.world/posts/` (+ `landing-pages/onelifetime-world/posts/` mirror)    | Public, qualitative arc — 5 posts: `point-it-at-the-ontology`, `four-capital-classes`, `software-vs-world-model`, `the-ontology-lives-in-the-team` (EN) and `ontologia-tiimin-aivoissa` (FI). Cross-linked via `scripts/inject-blog-nav.cjs`. |
+| **Theory + Kaukopää case**   | `docs/PHD_FIREHORSE_EN.md` §14.26–§14.27                                          | Scientific framing of the 4P model and the tacit-ontology (People + Perception walk-out) risk.                                                                                                                                                |
+| **Architecture mapping**     | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` §10.23.7                        | How the 4P classes map to the DWS IQ Brain-Memory-Body-Hands architecture.                                                                                                                                                                    |
+
+### Future Assessment Lens — `4p-diligence` (registration intent)
+
+Per the **Agent Productization Rule** (CLAUDE.md), the 4P model should become an
+agent-accessible **diligence lens** that scores any agentic operator (a target, a
+partner, or DWS itself) on the four classes. Registered here as intent — to be
+built and approved before shipping:
+
+- **CLI path:** `dws diligence-4p --target <name> [--json]` — score Prompt / People / Plant / Perception 0–100, with the shrinking-team risk flag (People + Perception walking out together — the Kaukopää failure mode).
+- **Structured output:** JSON `{ target, scores: { prompt, people, plant, perception }, walkOutRisk, notes[] }` for downstream MCP / report consumption.
+- **MCP exposure:** expose as an MCP tool once the CLI stabilizes, consistent with the other DWS assessment skills (`/kya`, `/sovereignty-assess`, `/compliance-check`).
+- **Skill registration:** add `skills/4p-diligence/SKILL.md` (parameterized: `TARGET`, optional `MODE=invest|acquire|self`) and register in `docs/DWS_SKILLS_GUIDE.md` when approved.
+
+---
+
+## GBrain Standalone Setup
+
+Use standalone GBrain when you want local brain-memory workflows from any shell without depending on OpenClaw, Hermes, Docker, or a hosted database.
+
+### Install and initialize
+
+```powershell
+bun install -g --ignore-scripts github:blogtheristo/gbrain
+gbrain init --pglite --no-embedding
+gbrain doctor
+```
+
+- **Install source:** `blogtheristo/gbrain` fork
+- **Brain path:** `C:\Users\risto\.gbrain\brain.pglite`
+- **Fast local mode:** PGLite, no server, no Docker
+
+### Optional fork checkout for development
+
+```powershell
+Set-Location F:\2026\Repos2026
+git clone https://github.com/blogtheristo/gbrain.git
+Set-Location .\gbrain
+git remote add upstream https://github.com/garrytan/gbrain.git
+```
+
+### Daily operator commands
+
+```powershell
+gbrain doctor
+gbrain import .\skills
+gbrain search "qa test first"
+gbrain query "What skills are available for release safety?"
+gbrain graph-query "Show links from verification-gate"
+```
+
+### DWS6 workspace requirements
+
+GBrain health checks in this repository expect:
+
+1. `skills\RESOLVER.md` to exist.
+2. Skill frontmatter to include `triggers:`.
+3. Skill markdown to use **LF** line endings when GBrain parses frontmatter on Windows.
+
+If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the affected `skills\*.md` files to LF and re-run the doctor command.
+
+### When to use standalone vs agent-platform mode
+
+- Use **standalone** for local search, skill discovery, and memory workflows from PowerShell.
+- Use **agent-platform mode** only when you need GBrain scaffold/skillpack behavior inside an existing agent workspace.
+
 ## Table of Contents
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
-3. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-4. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-5. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-6. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-7. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-8. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-9. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-10. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-11. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-12. [GitHub Copilot Instructions](#github-copilot-instructions)
-13. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-14. [Files and Folders Structure](#files-and-folders-structure)
-15. [Document Index](#document-index)
-16. [AI Agent Policy](#ai-agent-policy)
-17. [Deployment Procedures](#deployment-procedures)
-18. [Session History](#session-history)
-19. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-20. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-21. [Code Review Process](#code-review-process)
-22. [Maintenance Tasks](#maintenance-tasks)
-23. [Git Workflow](#git-workflow)
-24. [Sensitive Data Protection](#sensitive-data-protection)
-25. [Emergency Procedures](#emergency-procedures)
-26. [Training](#training)
+3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
+4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
+7. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+8. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+9. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+10. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+11. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+12. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+13. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+14. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+15. [GitHub Copilot Instructions](#github-copilot-instructions)
+16. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+17. [Files and Folders Structure](#files-and-folders-structure)
+18. [Document Index](#document-index)
+19. [AI Agent Policy](#ai-agent-policy)
+20. [Deployment Procedures](#deployment-procedures)
+21. [Session History](#session-history)
+22. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+23. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+24. [Code Review Process](#code-review-process)
+25. [Maintenance Tasks](#maintenance-tasks)
+26. [Git Workflow](#git-workflow)
+27. [Sensitive Data Protection](#sensitive-data-protection)
+28. [Emergency Procedures](#emergency-procedures)
+29. [Training](#training)
 
 ---
 
@@ -78,38 +199,42 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Core Platform
 
-| Manual                               | Location                                                                 | Language | Description                                                                                                    |
-| ------------------------------------ | ------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------- |
-| **Admin Manual** (this file)         | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                     | EN       | Master admin manual - platform operations                                                                      |
-| **Audit Manual (external auditors)** | [`ADMIN_MANUAL_AUDIT.md`](ADMIN_MANUAL_AUDIT.md)                         | EN       | Audit-trail inventory, sample SQL, integrity checks, auditor access model (EU AI Act Art. 12, GDPR, ISO 27001) |
-| **GitHub Apps Audit**                | [`GITHUB_APPS_AUDIT.md`](GITHUB_APPS_AUDIT.md)                           | EN       | Audit of 9 installed GitHub Apps; keep / review / remove verdict; Continue → Claude Code migration             |
-| **Authentication Manual**            | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)       | EN       | JWT auth, login flows, token management                                                                        |
-| **Supabase Manual**                  | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)       | EN       | Database, RLS, migrations, storage                                                                             |
-| **Testing Manual**                   | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                     | EN       | Vitest, security tests, CI/CD testing                                                                          |
-| **Files & Folders Index**            | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN       | Every script, workflow, config, doc — what it does and how it's used                                           |
-| **Gaps Analysis**                    | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)         | EN       | Missing features and remediation plan                                                                          |
+| Manual                                    | Location                                                                       | Language | Description                                                                                                                               |
+| ----------------------------------------- | ------------------------------------------------------------------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin Manual** (this file)              | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                           | EN       | Master admin manual - platform operations                                                                                                 |
+| **Audit Manual (external auditors)**      | [`ADMIN_MANUAL_AUDIT.md`](ADMIN_MANUAL_AUDIT.md)                               | EN       | Audit-trail inventory, sample SQL, integrity checks, auditor access model (EU AI Act Art. 12, GDPR, ISO 27001)                            |
+| **GitHub Apps Audit**                     | [`GITHUB_APPS_AUDIT.md`](GITHUB_APPS_AUDIT.md)                                 | EN       | Audit of 9 installed GitHub Apps; keep / review / remove verdict; Continue → Claude Code migration                                        |
+| **Authentication Manual**                 | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)             | EN       | JWT auth, login flows, token management                                                                                                   |
+| **Supabase Manual**                       | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)             | EN       | Database, RLS, migrations, storage                                                                                                        |
+| **Database Sovereignty & Cloud Fit Plan** | [`ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md`](ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md) | EN       | CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory (ERP/MCP), agentic commerce & KYA data handling |
+| **Testing Manual**                        | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                           | EN       | Vitest, security tests, CI/CD testing                                                                                                     |
+| **Files & Folders Index**                 | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md)       | EN       | Every script, workflow, config, doc — what it does and how it's used                                                                      |
+| **Gaps Analysis**                         | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)               | EN       | Missing features and remediation plan                                                                                                     |
 
 ### Websites & Store
 
-| Manual                     | Location                                                                                                        | Language | Description                                     |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------- |
-| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                         |
-| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut Web SDK, Cloudflare Worker, 25 products |
-| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                 |
-| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                 |
-| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                  |
-| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                      |
-| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                 |
+| Manual                     | Location                                                                                                        | Language | Description                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------- |
+| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                                        |
+| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut + Stripe hybrid flow, Google Merchant ops, 38 products |
+| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                                |
+| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                                |
+| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                                 |
+| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                                     |
+| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                                |
 
 ### Security
 
-| Manual                     | Location                                                                                             | Language | Description                                 |
-| -------------------------- | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------- |
-| **Security Manuals Index** | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation         |
-| **Domain Validator**       | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security          |
-| **Security Monitoring**    | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting            |
-| **Security Testing**       | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning |
-| **Security Audit Report**  | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings              |
+| Manual                         | Location                                                                                             | Language | Description                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------ |
+| **Security Manuals Index**     | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation                                                        |
+| **Domain Validator**           | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security                                                         |
+| **Security Monitoring**        | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting                                                           |
+| **Security Testing**           | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning                                                |
+| **Security Audit Report**      | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings                                                             |
+| **Business-Critical Systems**  | [`docs/BUSINESS_CRITICAL_SYSTEMS.md`](../docs/BUSINESS_CRITICAL_SYSTEMS.md)                          | EN       | Systems/services inventory with criticality tiers, kept in lockstep with the `Vesta` agent |
+| **Security Roles & Guidance**  | [`docs/SECURITY_ROLES_AND_GUIDANCE.md`](../docs/SECURITY_ROLES_AND_GUIDANCE.md)                      | EN       | Internal security roles, `Aegis`/`Vesta` agent bindings, operational guidance              |
+| **Security Training Skeleton** | [`docs/SECURITY_TRAINING_PROGRAM_SKELETON.md`](../docs/SECURITY_TRAINING_PROGRAM_SKELETON.md)        | EN       | Internal staff training program framework (not yet delivered — see doc for status)         |
 
 ### Products & Architecture
 
@@ -121,13 +246,16 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                | Location                                                                            | Description                                        |
-| ----------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **CLAUDE.md**           | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles) |
-| **DPA Agreement**       | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                     |
-| **MCP Configuration**   | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                |
-| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status           |
-| **Security Glossary**   | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                |
+| Document                  | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
+| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
+| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
+| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
+| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
+| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
+| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
+| **4P Capital Classes**    | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
 
 ---
 
@@ -143,6 +271,93 @@ This section links the **full maintenance plan** in one place:
 
 - **Security maintenance**:
   - [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance) (audit status, fix history, monthly budget, roadmap)
+
+---
+
+## NemoClaw Agent Runtime (DGX Spark / sovereign edge)
+
+NemoClaw is NVIDIA's open agent blueprint — the **OpenShell** secure runtime + a choice of harness (**OpenClaw** or **Hermes**) + a model router + NVIDIA NeMo libraries — running as the local autonomous-agent surface on customer-owned hardware (DGX Spark / Acer Veriton GN100). OpenShell governs how each agent accesses files, networks and tools (policy-based security at every layer). It runs inside the KYA-governed sandbox; the DWS bridge (`src/mcp/nemoclaw-bridge.ts`) talks to it locally and logs every call to the Article-12 trail. Full canonical detail: `DWS_DEPLOYMENT_STANDARD.md` → "NemoClaw Runtime (per Surface)".
+
+### One runtime, per-room profile
+
+Do **not** stand up separate NemoClaw builds per room. The same runtime + bridge + sandbox + KYA governance deploys everywhere; only a config overlay differs:
+
+| Room                          | Hardware          | Model set                      | Egress             |
+| ----------------------------- | ----------------- | ------------------------------ | ------------------ |
+| Control Room                  | 1× GN100          | `nemotron-3-super` + fast path | Internal LAN only  |
+| Situation Room                | 2× bridged GN100  | + 405B-class bridged           | Air-gapped         |
+| Mobile Command-Situation Room | 1× GN100 / Jetson | Smallest viable set            | Intermittent / off |
+
+A new room is a **new profile, not a new build**. Per-room differences (model set, KYA ATS thresholds, `allowedSkills`, egress) are deployment config.
+
+### Secrets to provision (per box)
+
+NemoClaw is local-first and needs the fewest secrets. Set these in the secret manager / `.env` (never commit):
+
+| Secret                   | Required    | When      | Purpose                                                                                         |
+| ------------------------ | ----------- | --------- | ----------------------------------------------------------------------------------------------- |
+| `nemoclaw-ngc-key`       | Yes         | provision | NVIDIA NGC token to pull/license NIM microservices + Nemotron. Pull-time only.                  |
+| `nemoclaw-api-key`       | Recommended | runtime   | Local bearer token so only the KYA bridge can call the NemoClaw RPC endpoint. Generate per box. |
+| `NEMOCLAW_ENDPOINT`      | No (config) | runtime   | Internal URL — plain env var, **not** a secret. Default `http://127.0.0.1:3100`.                |
+| Exa / external tool keys | If enabled  | runtime   | Per-skill; **disabled** on air-gapped Situation Room / Mobile profiles.                         |
+
+Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no token meter). Env knobs are documented in `src/middleware/env-validation.ts` (`NEMOCLAW_*`).
+
+### Operate
+
+- Deploy / health: `infrastructure/dgx-spark/` (`docker-compose.yml` service `nemoclaw`, `deploy.sh`, `heartbeat.ts` check `nemoclaw`). Health: `http://nemoclaw:8090/health` (LAN).
+- `NEMOCLAW_IMAGE` defaults to the upstream OpenClaw image; NemoClaw is NVIDIA's OpenShell-sandboxed distribution — point `NEMOCLAW_IMAGE` at the NVIDIA-published image once provisioned (migration Phase 3).
+- Migration status / runbook: `docs/migrations/2026-06-25-openclaw-to-nemoclaw.md`.
+
+---
+
+## Aspire Dashboard Observability (DGX Spark)
+
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+
+### The three ports (do not mix them up)
+
+| Port  | What it is                      | Who uses it                                                |
+| ----- | ------------------------------- | ---------------------------------------------------------- |
+| 18888 | Browser UI (+ `/health`)        | Humans: `http://dgx-spark:18888`; heartbeat/state-observer |
+| 18889 | OTLP/**gRPC** ingest            | gRPC exporters only (none in our stack today)              |
+| 18890 | OTLP/**HTTP** ingest (protobuf) | `dws-backend`, `dws-cron`, `bumblebee-collector`           |
+
+**Rule:** every `OTEL_EXPORTER_OTLP_ENDPOINT` with `OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf` points at `http://aspire-dashboard:18890`. History: compose v1.2.0 pointed producers at the gRPC port, then at the UI port — both dropped telemetry **silently** (the OTel BatchSpanProcessor swallows export errors; every liveness check still passes). Fixed in compose v1.3.1 (2026-07-07). Incident write-up: `docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md` §6.2; thesis treatment: V3Thesis §10.25.
+
+### Operate
+
+- **Verify after any deploy:** open `http://dgx-spark:18888` → Traces. You must see `dws-backend` spans within minutes of API traffic. LLM calls show the **GenAI sparkle icon** (`gen_ai.*` spans from `src/observability/tracing.ts`). A dashboard with zero traces is a wiring failure, not an idle system.
+- **Enable/disable per service:** telemetry is opt-in via `OTEL_EXPORTER_OTLP_ENDPOINT` (unset = no-op, nothing leaves the host). Service names via `OTEL_SERVICE_NAME`.
+- **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
+- **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
+- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
+
+---
+
+## DWS Factory Router (model escalation runbook)
+
+Evidence-based cheap→strong model escalation for agent runs. Fully offline — verdicts are computed locally from deterministic detectors; nothing leaves the machine. Adapted from codejunkie99/sageroute (MIT) after a source-level audit; adopt/adapt record: `docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md`. Implementation: `src/factory/`; thesis treatment: V3Thesis §10.28 / PHD_FIREHORSE §14.47.
+
+**What it decides.** Given an agent request body (Anthropic Messages or OpenAI Responses wire), it returns one of four actions on a one-way ladder: `continue` → `switch_model` → `restart_clean` → `escalate_human`. `escalate_human` is a hard stop (EU AI Act Art. 14 intervention point) — surface it to the HIC, never route around it.
+
+**Run it:**
+
+```powershell
+npm run factory:route -- --file trajectory.json --model claude-haiku-4-5 --tier cheap --cost 0.40 --budget 5 --switches 0 --restarts 0 --bad 0
+```
+
+Hysteresis is stateful across checkpoints: feed the previous run's `ladder.consecutiveBad` / `switchesUsed` / `restartsUsed` (from the JSON output) back in via `--bad` / `--switches` / `--restarts`, or the disruptive rungs (`restart_clean`, `escalate_human`) can never accumulate their two agreeing checkpoints.
+
+Structured JSON on stdout; exit codes `0` continue / `2` switch_model / `3` restart_clean / `4` escalate_human / `1` input error, so pipelines branch without parsing. Add `--evidence` to print the rendered evidence block on stderr. Skill form: `/factory-route`.
+
+**Operator notes:**
+
+- Detectors fire before any heuristic: identical action+observation 3×, same error class 3×, ping-pong 4×, write→failing-test thrash, steps-since-progress, budget burn. Every verdict is explainable from the `signals` block in the output.
+- Guardrails are code, not prompt: budget stop precedes all other logic; a cheap-tier restart becomes a switch while a switch remains (capability before retry); first cheap→strong hop fires on one bad checkpoint, disruptive actions need two (asymmetric hysteresis); the ladder never demotes.
+- Defaults (tunable in `src/factory/types.ts`): gate 0.6, hysteresis 2, maxSwitches 1, maxRestarts 1, budget stop at 85 % burn. Thresholds are sageroute's untuned defaults — tune on real DWS trajectories before relying on them for cost claims.
+- Library use for BaseAgent/swarm integration: hold one `LadderState` per session and call `decide()` at each checkpoint (`src/factory/index.ts` exports).
+- Do NOT reintroduce the upstream extras: no external decision API (sovereignty), no subscription-OAuth client impersonation (provider-ToS/account-ban vector).
 
 ---
 
@@ -167,6 +382,244 @@ This section links the **full maintenance plan** in one place:
 - `Admin/Installation/Public/groq/` - Edge AI hardware
 
 **Start Here:** Choose your platform and follow the README in that folder.
+
+---
+
+## Google Cloud Run CI Identity Runbook (gcr-skill)
+
+**Purpose:** Bootstrap or repair Google Cloud Run staging/prod CI identity under the correct owner account (`admin@dws6.com`) and fix `iam.serviceAccounts.getAccessToken` failures.
+
+**Scope:** This runbook is the authoritative command set for project `dws-iq-60` and service account `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+
+### Preconditions
+
+1. You are authenticated as `admin@dws6.com`.
+2. Billing account is available and linkable.
+3. You run commands in `cmd` or Cloud Shell terminal.
+
+### cmd Command Sequence (authoritative)
+
+```cmd
+gcloud auth login admin@dws6.com
+gcloud auth list
+
+set PROJECT_ID=dws-iq-60
+set PROJECT_NAME=DWS IQ 60
+set SA_NAME=github-actions-deployer
+
+gcloud projects create %PROJECT_ID% --name="%PROJECT_NAME%"
+gcloud billing projects link %PROJECT_ID% --billing-account=018486-885BFB-BDDEFA
+
+gcloud config set project %PROJECT_ID%
+gcloud auth application-default set-quota-project %PROJECT_ID%
+
+gcloud services enable iamcredentials.googleapis.com run.googleapis.com artifactregistry.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com --project=%PROJECT_ID%
+
+gcloud iam service-accounts create %SA_NAME% --display-name="GitHub Actions Deployer"
+set DEPLOYER_SA=%SA_NAME%@%PROJECT_ID%.iam.gserviceaccount.com
+
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/run.admin"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/artifactregistry.writer"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountUser"
+gcloud iam service-accounts add-iam-policy-binding %DEPLOYER_SA% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountTokenCreator"
+```
+
+### Validation Commands
+
+```cmd
+gcloud services list --enabled --project=dws-iq-60 | findstr /I "iamcredentials run artifactregistry cloudbuild secretmanager"
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+```
+
+### Key Creation Policy (Important)
+
+On `dws-iq-60`, service-account key creation is blocked by policy:
+
+- `constraints/iam.disableServiceAccountKeyCreation`
+
+If you see:
+
+- `FAILED_PRECONDITION: Key creation is not allowed on this service account`
+
+that is the expected secure state. **Do not attempt to bypass it.** Use GitHub OIDC / Workload Identity Federation instead.
+
+### Cloud Shell OIDC / Workload Identity Federation Commands (authoritative)
+
+```bash
+PROJECT_ID="dws-iq-60"
+PROJECT_NUMBER="134875067432"
+POOL="github-pool"
+PROVIDER="github-provider"
+REPO="blogtheristo/dws6"
+SA="github-actions-deployer@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud config set project "$PROJECT_ID"
+
+gcloud iam workload-identity-pools create "$POOL" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --display-name="GitHub Actions Pool" || true
+
+gcloud iam workload-identity-pools providers create-oidc "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL" \
+  --display-name="GitHub Provider" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository,attribute.ref=assertion.ref" \
+  --attribute-condition="assertion.repository=='blogtheristo/dws6'" || true
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam workload-identity-pools providers describe "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL"
+```
+
+### GitHub Secrets (exact values)
+
+Create these repository secrets in **GitHub -> Settings -> Secrets and variables -> Actions**:
+
+1. `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `projects/134875067432/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+2. `GCP_SERVICE_ACCOUNT`
+   - `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`
+
+### Workflow Migration (authoritative file path)
+
+The staging workflow now authenticates with OIDC in:
+
+- `.github/workflows/deploy-staging.yml`
+
+Required auth block:
+
+```yaml
+- name: Authenticate to GCP
+  uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+    service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    token_format: access_token
+```
+
+The workflow also now sets:
+
+- `PROJECT_ID: dws-iq-60`
+
+### GitHub CI Migration Checklist
+
+1. Replace project refs from `dws-iq-pilot` -> `dws-iq-60`.
+2. Replace deployer SA refs to `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+3. Add repository secrets:
+   - `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `GCP_SERVICE_ACCOUNT`
+4. Replace old workflow auth blocks using `credentials_json: ${{ secrets.GCP_SA_KEY }}` with the OIDC auth block above.
+5. Re-run staging workflow and confirm no IAM token error.
+6. After successful deploy, delete legacy GitHub secret:
+   - `GCP_SA_KEY`
+
+### CI Failure Checks for Reuse (authoritative)
+
+Use this checklist whenever Cloud Run staging or OWASP ZAP fails in GitHub Actions. These checks are now the canonical triage flow for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`.
+
+| Failure signature                                                                                | Root cause                                                                                             | Required check                                                                                                                    | Fix                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Permission 'iam.serviceAccounts.getAccessToken' denied`                                         | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above                                                                                            |
+| `Repository "dws-iq-repo" not found` during `Build Staging Image`                                | Artifact Registry repository does not exist in `dws-iq-60`                                             | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60`                             | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
+| Cloud Run deploy rejects `PORT` in `env_vars`                                                    | `PORT` is a reserved Cloud Run runtime variable                                                        | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars`                                                       | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically                                                                        |
+| `Notify on Failure` cannot create issue (`Resource not accessible by integration`)               | Workflow permissions omit issue-write scope                                                            | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml`                                                  | Add `issues: write` alongside `contents: read` and `id-token: write`                                                                                    |
+| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health`                               | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml`                                                           | Keep lightweight public handlers in `src/app.ts` for those three routes                                                                                 |
+| OWASP ZAP baseline fails intermittently before scan starts                                       | App is not fully ready when ZAP begins                                                                 | Check that workflow waits on `/health` with retries rather than a fixed sleep                                                     | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP                                                                           |
+
+### Current known-good workflow checks
+
+For reuse in other workflows, the following checks are now considered the safe baseline:
+
+1. **Artifact Registry preflight** — before `docker/build-push-action`, run `gcloud artifacts repositories describe ...` and skip the staging deploy cleanly if the repository is missing.
+2. **Cloud Run reserved env guard** — never include `PORT` in `env_vars`; treat it like a platform-owned variable.
+3. **Failure-notify permission check** — any workflow that auto-creates GitHub issues must include `issues: write` in its top-level `permissions:` block.
+4. **DAST readiness check** — wait for `curl -sSf http://localhost:8080/health` to succeed in a loop before launching ZAP.
+5. **DAST crawler compatibility check** — keep `/`, `/robots.txt`, and `/sitemap.xml` returning 200 in CI-safe environments so baseline spiders do not fail on framework-default 404s.
+6. **Supabase CI compatibility check** — for local CI app startup, provide both `SUPABASE_SERVICE_KEY` and `SUPABASE_SERVICE_ROLE_KEY` when the code may read either one.
+
+### Copy-paste validation commands
+
+```bash
+# 1) OIDC / identity
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+
+# 2) Artifact Registry repository exists
+gcloud artifacts repositories describe dws-iq-repo \
+  --location=europe-north1 \
+  --project=dws-iq-60
+
+# 3) Cloud Run deploy target exists
+gcloud run services describe dws6run6-staging \
+  --region=europe-north1 \
+  --project=dws-iq-60
+
+# 4) GitHub workflow rerun after fix
+gh workflow run deploy-staging.yml --ref claude/admin-support-chat-20260513
+```
+
+### Operational Note
+
+If terminal line continuation keeps breaking provider creation, prefer Cloud Shell over local `cmd`. Cloud Shell `bash` handles the OIDC provider creation command reliably.
+
+### Known Failure and Root Cause
+
+- **Error:** `Permission 'iam.serviceAccounts.getAccessToken' denied`
+- **Cause:** Missing `roles/iam.serviceAccountTokenCreator` on deployer SA
+- **Fix:** SA-level binding shown above (non-negotiable for token minting flows)
+
+---
+
+## Node.js workspace setup (backend and Cloudflare agents)
+
+**Purpose:** On a fresh clone, CI runner, or Cursor Cloud Agents runtime, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
+
+DWS6 ships **two** lockfile-rooted JavaScript projects:
+
+| Location          | Package / role                         | Typical commands                                                    |
+| ----------------- | -------------------------------------- | ------------------------------------------------------------------- |
+| Repository root   | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`                      |
+| `src/cloudflare/` | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
+
+Use **`npm ci`** in each directory (not `npm install`) so installs match `package-lock.json` exactly—required for reproducible CI and agent environments.
+
+### PowerShell (primary on Windows 11)
+
+From your clone root (set the path to match your machine):
+
+```powershell
+Set-Location <path-to-dws6-clone>
+npm ci
+Set-Location .\src\cloudflare
+npm ci
+```
+
+Older PowerShell builds do not treat `&&` as a command separator; use separate lines or `;` instead of copying bash one-liners.
+
+### Bash (macOS, Linux, Git Bash)
+
+```bash
+cd /path/to/dws6 && npm ci && cd src/cloudflare && npm ci
+```
+
+### Worktrees and cloud agents
+
+Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree. Cursor or remote cloud agents should execute both installs from the workspace root before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
+
+**Related:** [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) (Vitest and CI), [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) (Wrangler from `src/cloudflare`).
 
 ---
 
@@ -453,6 +906,203 @@ Go to **Settings → Secrets and variables → Actions** and add:
 # Trigger deployment from CLI
 gh workflow run deploy-scaleway.yml
 ```
+
+---
+
+## DGX Spark Cron Failover Wrap
+
+**Status:** ✅ **ACTIVE** — Reduces GitHub Actions minute consumption by routing scheduled workloads to on-prem DGX Spark
+**Wrap commit:** `2f3777c` (PR #1314, merged 2026-05-14)
+**Owner:** Platform / Infra
+**Projected savings:** 1,100–1,700 GHA minutes/month
+
+### What it does
+
+GitHub Actions scheduled workflows (cron-triggered) check a public heartbeat URL before doing any work. If the DGX Spark on-prem box is healthy, the GHA job short-circuits (`dgx_alive=true`) and exits after ~1 second — the actual work runs on DGX via the cron-runner. If DGX is unreachable, the GHA workflow continues as before (automatic failover). Net effect: scheduled work runs on owned hardware while keeping GHA as a hot standby.
+
+### Architecture
+
+```
+GitHub Actions scheduled run
+        │
+        ▼
+.github/actions/dgx-failover-check
+        │
+        ▼ curl --max-time 10 ${DGX_SPARK_HEARTBEAT_URL}/health
+        │
+        ▼
+heartbeat.dws6.com (Cloudflare-proxied, orange-cloud)
+        │
+        ▼ (Cloudflare Tunnel, outbound-only QUIC over UDP/443)
+        │
+cloudflared on DGX Spark
+        │
+        ▼ http://localhost:9999/health
+        │
+DGX heartbeat service (port 9999)
+        │
+        ▼
+DGX cron-runner (mirrors all 13 wrapped workflows)
+```
+
+### Components
+
+| Component                 | Location                                                                                     | Notes                                                                                     |
+| ------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| GitHub Actions variable   | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
+| Reusable composite action | `.github/actions/dgx-failover-check/action.yml`                                              | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`)             |
+| Cloudflare Tunnel         | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b`                              | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard)      |
+| DNS record                | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com`                                  | Proxied (orange cloud) — required for tunnels                                             |
+| Tunnel ingress rule       | `/etc/cloudflared/config.yml` on DGX                                                         | Routes `heartbeat.dws6.com` → `http://localhost:9999`                                     |
+| Heartbeat service         | `localhost:9999` on DGX Spark                                                                | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}`                     |
+| Cron-runner               | Separate concern — mirrors wrapped workflows on DGX                                          | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs                |
+
+### Wrapped workflows (13)
+
+These all start with the DGX failover check and skip the rest of their steps when DGX is alive:
+
+```
+agents-md-freshness          campaign-daily-posts          construction-leads
+daily-db-backup              daily-mvp-audit               daily-site-backup
+golden-principle-scan        housekeeping-weekly           quarterly-price-list
+security-audit-enhanced      ted-followup                  ted-learning-weekly
+ted-pipeline
+```
+
+### Adding the wrap to a new scheduled workflow
+
+Insert the failover check as the first step after `actions/checkout@v4`, and gate every subsequent step on `steps.failover.outputs.dgx_alive != 'true'`:
+
+```yaml
+jobs:
+  my-scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Real work
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: node scripts/whatever.mjs
+
+      - name: Upload artifact
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: report.json
+```
+
+Also mirror the job in the DGX cron-runner so the work actually runs somewhere when GHA skips.
+
+### Verifying the wrap is working
+
+1. Dispatch a wrapped workflow on any branch: https://github.com/blogtheristo/dws6/actions/workflows/agents-md-freshness.yml → **Run workflow**.
+2. Expand the **DGX Spark failover check** step. Expected output:
+   ```
+   Checking DGX Spark heartbeat: https://heartbeat.dws6.com
+   DGX Spark is ALIVE — this workflow is FAILOVER only
+   ```
+3. All downstream steps should show as **skipped** (greyed out, no duration). Each skipped run saves 30–120 seconds of GHA time vs. the previous baseline.
+
+Monthly verification: https://github.com/blogtheristo/dws6/settings/billing/actions — minutes-used graph should show a stepwise drop after the wrap goes active.
+
+### Troubleshooting
+
+Read the **DGX Spark failover check** step log. The HTTP code printed in `DGX Spark is DOWN (HTTP <code>)` tells you which layer is broken:
+
+| HTTP code                      | Layer broken                                   | Fix                                                                                                                                                                           |
+| ------------------------------ | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `000` / `000000`               | DNS or TCP — runner couldn't connect at all    | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
+| `404`                          | Tunnel up, but `/health` path not exposed      | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested                                                                                         |
+| `502`                          | Tunnel up, origin service down                 | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON)                                                         |
+| `530` / `1033`                 | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed                                                                                                               |
+| `200` but workflow runs anyway | Variable misconfigured or empty                | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash                                            |
+
+### DGX-side operations
+
+All commands run on the DGX Spark box (ARM64, `uname -m` → `aarch64`).
+
+```bash
+# Tunnel status (expect 3–4 active connections to nearest Cloudflare PoPs)
+cloudflared tunnel list
+cloudflared tunnel info dgx-heartbeat
+
+# Service status & recent logs
+sudo systemctl status cloudflared
+sudo journalctl -u cloudflared -n 50 --no-pager
+
+# Restart the tunnel (briefly drops connections; ~5–10s unreachability)
+sudo systemctl restart cloudflared
+
+# View current ingress rules
+sudo cat /etc/cloudflared/config.yml
+
+# Heartbeat service local check
+ss -tlnp | grep :9999
+curl -sS http://localhost:9999/health
+```
+
+### Updating cloudflared on DGX
+
+The daemon is installed via `dpkg`, not via the in-place auto-updater (which is disabled by the `--no-autoupdate` flag in the systemd unit). To upgrade:
+
+```bash
+curl -L -o /tmp/cloudflared.deb \
+  https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+ls -lh /tmp/cloudflared.deb        # expect ~16–35 MB
+sudo dpkg -i /tmp/cloudflared.deb
+sudo systemctl restart cloudflared
+cloudflared --version              # verify version bump
+sudo systemctl status cloudflared  # confirm "active (running)" + fresh Registered tunnel connection lines
+```
+
+Use `cloudflared-linux-amd64.deb` for x86_64 hardware; `arm64` is for the Grace-based DGX Spark.
+
+If both `/usr/bin/cloudflared` and `/usr/local/bin/cloudflared` exist, `which cloudflared` may report the unmanaged copy in `/usr/local/bin` while systemd actually runs `/usr/bin/cloudflared`. Reconcile by removing the unmanaged binary after confirming it's unowned:
+
+```bash
+dpkg -S /usr/local/bin/cloudflared   # expect: "no path found matching"
+sudo rm /usr/local/bin/cloudflared
+hash -r
+```
+
+### Adding a new public hostname to the tunnel (future)
+
+If a second on-prem service needs public exposure via this tunnel:
+
+```bash
+# 1. Create the proxied DNS CNAME
+cloudflared tunnel route dns dgx-heartbeat <new-subdomain>.dws6.com
+
+# 2. Edit /etc/cloudflared/config.yml — add ingress rule BEFORE the catch-all 404:
+#    - hostname: <new-subdomain>.dws6.com
+#      service: http://localhost:<port>
+#    - service: http_status:404
+
+# 3. Restart the daemon
+sudo systemctl restart cloudflared
+```
+
+### Failure & rollback
+
+The wrap is rollout-safe by design:
+
+- If `DGX_SPARK_HEARTBEAT_URL` is unset, the action prints `No DGX_SPARK_HEARTBEAT_URL configured — running as primary` and the workflow runs on GHA as before.
+- If the heartbeat URL returns anything other than HTTP 200, the workflow runs on GHA as before.
+- To temporarily force all wrapped workflows back onto GHA: clear or rename the `DGX_SPARK_HEARTBEAT_URL` variable. No code change needed.
+- To remove the wrap from a specific workflow: delete the `DGX Spark failover check` step and the `if: steps.failover.outputs.dgx_alive != 'true'` conditions from each step in that file.
 
 ---
 
@@ -749,36 +1399,194 @@ app.use(
 
 ---
 
-## Google Cloud Run (Optional/Backup)
+## Google Cloud Run (Active - B2B Payment Stack)
 
-**Status:** ⏸️ **PENDING** - Requires billing setup
+**Status:** ✅ **ACTIVE** - Deployed for B2B payment webhooks
 
-### Project: dws6run
+### Project: dws6run6
 
-| Property              | Value                                              |
-| --------------------- | -------------------------------------------------- |
-| **Project ID**        | `dws6run`                                          |
-| **Project Number**    | `446442351781`                                     |
-| **Region**            | `europe-north1` (Finland)                          |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
-| **Admin Account**     | `admin@dws6.com`                                   |
+| Property              | Value                                               |
+| --------------------- | --------------------------------------------------- |
+| **Project ID**        | `dws6run6`                                          |
+| **Project Number**    | `1074393862472`                                     |
+| **Region**            | `europe-north1` (Finland)                           |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
+| **Admin Account**     | `admin@dws6.com`                                    |
+| **Service**           | `dws-iq-backend` (Stripe webhook endpoint)          |
+| **Endpoint**          | `https://dws-iq-backend-[hash]-uc.a.run.app`        |
 
-### Service Account Permissions
+### Billing & ownership transfer update (2026-05-11)
 
-Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requires:
+`admin@dws6.com` is now project owner for:
 
-- `roles/artifactregistry.writer` - Push Docker images
-- `roles/logging.logWriter` - Write build logs
+- **Project Name:** `DWS MCP Hub`
+- **Project ID:** `dws-mcp-hub`
+- **Project Number:** `191347396816`
 
-### Deployment Commands
+Billing account IAM was updated as follows:
 
-```powershell
-# Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+| Billing Account        | Principal                           | Role                  |
+| ---------------------- | ----------------------------------- | --------------------- |
+| `011602-801DEC-A53E8F` | `user:risto.paarni2024@lifetime.fi` | `roles/billing.admin` |
+| `011602-801DEC-A53E8F` | `user:admin@dws6.com`               | `roles/billing.user`  |
 
-# Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+Current status recorded during transfer:
+
+- `dws-mcp-hub` parent is organization `1074856518213` (`lifetime.fi`) ✅
+- Billing IAM grant succeeded ✅
+- Project billing link still needs to be activated from `admin@dws6.com` context (`billingEnabled` was `false` at capture time) ⚠️
+
+#### Billing account management inventory (2026-05-11)
+
+| Property                     | Value                  |
+| ---------------------------- | ---------------------- |
+| Billing account ID           | `011602-801DEC-A53E8F` |
+| Billing account display name | `Lifetime Oy Account`  |
+| Organisation                 | `lifetime.fi`          |
+| Account type                 | `Direct`               |
+
+**Projects linked to this billing account:**
+
+- `dws-mcp-hub` (DWS MCP Hub)
+- `dws-iq-pilot` (DWS IQ Pilot)
+- `dws6login` (dws6login)
+
+**Billing administrators:**
+
+- `risto.paarni2024@lifetime.fi`
+- `admin@dws6.com`
+
+### ⚠️ CRITICAL: Cloud Build Service Account IAM Roles
+
+**Service Account:** `1074393862472-compute@developer.gserviceaccount.com`
+
+**Required Roles** (grant ALL of these or build will fail):
+
+| Role                             | Permission                | Why Needed                         |
+| -------------------------------- | ------------------------- | ---------------------------------- |
+| `roles/cloudbuild.builds.editor` | Cloud Build operations    | Build and push Docker images       |
+| `roles/storage.admin`            | Cloud Storage access      | Upload source code tarball + cache |
+| `roles/logging.logWriter`        | Write build logs          | Display build output and errors    |
+| `roles/artifactregistry.writer`  | Push to Artifact Registry | Store Docker images                |
+| `roles/run.developer`            | Deploy to Cloud Run       | Create/update Cloud Run services   |
+
+**Setup Commands** (run once per project):
+
+```bash
+# Grant Cloud Build permissions
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/cloudbuild.builds.editor
+
+# Grant Storage access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/storage.admin
+
+# Grant Logging access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/logging.logWriter
+
+# Grant Artifact Registry access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/artifactregistry.writer
+
+# Grant Cloud Run access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/run.developer
 ```
+
+### Deployment Commands (from repo root in CMD)
+
+```bash
+# Authenticate with Google Cloud
+gcloud auth login --project=dws6run6
+
+# Set active project
+gcloud config set project dws6run6
+
+# Build and push Docker image
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest
+
+# Deploy to Cloud Run with environment variables
+gcloud run deploy dws-iq-backend ^
+  --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest ^
+  --region europe-north1 ^
+  --allow-unauthenticated ^
+  --memory 512Mi ^
+  --cpu 1 ^
+  --timeout 300 ^
+  --set-env-vars="STRIPE_SECRET_KEY=sk_live_...,STRIPE_WEBHOOK_SECRET=whsec_...,NODE_ENV=production"
+
+# View deployment logs
+gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
+```
+
+### Troubleshooting
+
+| Error                                                    | Cause                             | Fix                                 |
+| -------------------------------------------------------- | --------------------------------- | ----------------------------------- |
+| `PERMISSION_DENIED: does not have permission`            | Missing IAM role                  | Run one of the setup commands above |
+| `does not have storage.objects.get access`               | Missing `roles/storage.admin`     | Grant storage.admin role            |
+| `does not have permission to write logs`                 | Missing `roles/logging.logWriter` | Grant logging.logWriter role        |
+| `Build step failure: gcr.io/cloud-builders/gcb-internal` | Multiple permission issues        | Run ALL setup commands              |
+
+### Webhook Configuration
+
+**Stripe Workbench Setup:**
+
+- Endpoint URL: `https://dws-iq-backend-[hash]-uc.a.run.app/webhooks/stripe`
+- Events: `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_attempt_required`, `invoice.payment_action_required`, `charge.refunded`, `customer.deleted`
+- Signing Secret: `whsec_...` (from Stripe Workbench → Destination)
+
+**Environment Variables Required:**
+
+- `STRIPE_SECRET_KEY` (sk*live*...)
+- `STRIPE_WEBHOOK_SECRET` (whsec\_...)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+
+### Runtime Environment Audit (2026-04-29)
+
+**Scope:** Verify that production runtime instances include Supabase credentials required for booking + email audit logging, and align email delivery with SES SMTP-only policy.
+
+#### Cloud Run verification result
+
+| Project        | Service          | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status                                                                        |
+| -------------- | ---------------- | ------------ | -------------------- | ----------------------------------------------------------------------------- |
+| `dws6run6`     | `dws-iq-backend` | `secret`     | `secret`             | ✅ OK                                                                         |
+| `dws6-backend` | N/A              | N/A          | N/A                  | ⚠️ No services visible to current operator identity (or no services deployed) |
+
+#### SES SMTP-only runtime requirements
+
+For booking confirmations and admin notifications to send reliably, Cloud Run runtime must include:
+
+- `SMTP_HOST`
+- `SMTP_PORT` (default `587`)
+- `SMTP_SECURE` (default `false`)
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_FROM` (default `risto@onelifetime.world`)
+- `BOOKING_ADMIN_EMAIL` (default `risto@lifetime.fi`)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+
+#### Implemented hardening changes (same remediation set)
+
+1. Cloud Run GitHub deployment now injects SMTP + Supabase envs:
+   - `.github/workflows/deploy-cloudrun.yml`
+2. Manual PowerShell Cloud Run deployment now validates and injects SMTP + Supabase envs:
+   - `scripts/Deploy-CloudRun.ps1`
+3. Core mail sender switched to SES SMTP-only behavior (Resend fallback removed):
+   - `src/utils/send-email.ts`
+4. Additional email flows switched from Resend/SendGrid fallback to SES SMTP sender:
+   - `src/morning-briefing/scheduler.ts`
+   - `src/outreach/daily-digest.ts`
+   - `src/routes/hil.routes.ts`
+   - `src/routes/webhook.routes.ts`
 
 ---
 
@@ -792,24 +1600,32 @@ gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dw
 
 > "You are the hands; the human is the architect. Move fast, but never faster than the human can verify."
 
-### Critical Behaviors for DWS IQ Operations
+### The 12 Engineering Discipline Rules
 
-| #   | Behavior                     | Operational Impact                                                                     |
-| --- | ---------------------------- | -------------------------------------------------------------------------------------- |
-| 1   | **Assumption Surfacing**     | All AI agents must state assumptions before implementing changes to production systems |
-| 2   | **Confusion Management**     | STOP when encountering conflicting configs (e.g., .env vs production secrets)          |
-| 3   | **Push Back When Warranted** | Agents must flag security risks even if human requests them                            |
-| 4   | **Simplicity Enforcement**   | Prefer boring, obvious solutions over clever abstractions                              |
-| 5   | **Scope Discipline**         | Never modify files outside the requested scope                                         |
-| 6   | **Dead Code Hygiene**        | Ask before deleting - prevents accidental data loss                                    |
+**Canonical source:** [`CLAUDE.md`](../CLAUDE.md) -> "Engineering Discipline — The 12 Rules". Every agent has access to these — they are injected into every Claude Code session by `.claude/hooks/session-start.sh`, restated for code agents in [`AI_AGENT_GUIDELINES.md`](../AI_AGENT_GUIDELINES.md) §0, and enforced where mechanizable by the hooks (see `.claude/hooks/README.md`). This table is the operational reference; the rules themselves are not edited here.
+
+| #   | Rule                          | Operational impact for DWS IQ                                                                  |
+| --- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| 1   | Think before coding           | State assumptions before changing production systems; never guess.                             |
+| 2   | Simplicity first              | Boring, minimum-code solutions; no speculative "future flexibility" abstractions.              |
+| 3   | Surgical changes              | Modify only files in scope; no opportunistic refactors.                                        |
+| 4   | Goal-driven execution         | Define success criteria upfront; loop/HIL until verified, then stop.                           |
+| 5   | Model only for judgment calls | LLM for classify/draft/summarize/extract; routing, retries, status codes, transforms are code. |
+| 6   | Token budgets are real        | Per-task 4000 / per-session 30000 (`CLAUDE_AUTO_MODE_BUDGET`); over budget -> checkpoint.      |
+| 7   | Surface conflicts             | Conflicting configs (e.g. .env vs production secrets) -> flag and pick one, never average.     |
+| 8   | Read before you write         | Read exports/callers/shared utils first; reuse over duplicate.                                 |
+| 9   | Tests verify intent           | Assert business meaning, not just field presence; a test that can't fail is wrong.             |
+| 10  | Checkpoint each step          | Commit/verify before the next step; session-stop governance checklist backs this.              |
+| 11  | Match conventions             | Follow established idioms (BaseAgent, test patterns, naming); no silent forks.                 |
+| 12  | Fail loud                     | Surface uncertainty and skipped records; never report success while hiding gaps.               |
 
 ### DWS-Specific Failure Modes
 
-| #   | Failure Mode                                 | Prevention                        |
-| --- | -------------------------------------------- | --------------------------------- |
-| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md` |
-| 14  | Deleting files without asking                | Explicit approval required        |
-| 15  | Using new environment without security check | Verify .gitignore and .env first  |
+| #   | Failure Mode                                 | Prevention                                           |
+| --- | -------------------------------------------- | ---------------------------------------------------- |
+| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md`                    |
+| 14  | Deleting files without asking                | Explicit approval required (prefer rename-to-`_OLD`) |
+| 15  | Using new environment without security check | Verify .gitignore and .env first                     |
 
 ### EU AI Act Alignment
 
@@ -1797,6 +2613,53 @@ Switched to **Claude Opus 4.5** which has:
 
 ---
 
+## Agent Capabilities — Browse + Second Brain (2026-04-25)
+
+Two agent-facing capabilities ship in branch `claude/add-playwright-implementation-Rg5Jy`. Full design in [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md) and [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md).
+
+### Browse (Playwright)
+
+| Surface        | Command / endpoint                                                               |
+| -------------- | -------------------------------------------------------------------------------- |
+| CLI            | `dws browse fetch <url>` / `screenshot <url>` / `snapshot <url>`                 |
+| MCP tools      | `dws_browse_fetch`, `dws_browse_screenshot`, `dws_browse_snapshot`               |
+| Skill          | `/browse`                                                                        |
+| Runtime dep    | `playwright` is in `dependencies` (so `npm ci --omit=dev` keeps it on the Spark) |
+| One-time setup | `npx playwright install chromium` per machine (browser binary not in git)        |
+
+**SSRF guard (`src/utils/url-guard.ts`):** every URL — both the user-supplied one AND any redirect / sub-resource Chromium tries to load via `page.route('**/*')` — is checked against a default-deny list of IPv4/IPv6 private, loopback, link-local, cloud-metadata (`169.254.169.254`), CGNAT, and unique-local ranges. Hostnames `localhost`, `*.local`, `*.internal`, `*.intranet` are blocked without a DNS lookup; all other hostnames are resolved and rejected if **any** answer is private. Override for local dev only: `BROWSE_ALLOW_PRIVATE=1`. Residual risk: DNS rebinding (documented; not fully mitigated).
+
+URL guard also accepts `http://` and `https://` only; 30 s navigation timeout; fresh `BrowserContext` per call. Results return rendered HTML / base64 PNG / accessibility-tree JSON.
+
+### Agent Second Brain (DGX Spark embeddings + KB watcher)
+
+| Surface                 | Command / file                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| Embeddings provider     | `src/utils/embeddings.ts` — `EMBEDDING_PROVIDER=openai\|dgx-spark`  |
+| DGX Spark probe (shell) | `scripts/ollama-spark-embed.sh --preflight`                         |
+| Preflight (CLI)         | `dws kb preflight` (exits non-zero on failure with actionable hint) |
+| Inbox watcher           | `scripts/daily/kb-watch-inbox.sh` (auto-discovered by day-runner)   |
+| Cap (operator-tunable)  | `KB_WATCH_MAX_PER_RUN` (default `25`)                               |
+
+`memoryService` (`semantic_memories` pgvector) keeps OpenAI 1536-dim by default. Switching it to DGX Spark's 768-dim `nomic-embed-text` requires a schema migration (RED zone) and is documented as a follow-up.
+
+### Operator runbook (DGX Spark embeddings)
+
+```bash
+# 1. Probe — verify SSH alias + Ollama + model in one call
+dws kb preflight
+
+# 2. If model missing, pull it on the Spark
+ssh dgx-spark ollama pull nomic-embed-text
+
+# 3. Flip the env var only after preflight is green
+export EMBEDDING_PROVIDER=dgx-spark
+```
+
+The watcher's first run backfills the existing inbox up to the cap and rolls remaining files into the next day. No manual sentinel deletion is needed.
+
+---
+
 ## Code Review Process
 
 ### Overview
@@ -2191,7 +3054,7 @@ dws6/
 ├── investor-materials/     # ⛔ NEVER COMMIT - Investor decks, financials
 ├── customer-data/          # ⛔ NEVER COMMIT - GDPR protected data
 ├── pilot-data/             # ⛔ NEVER COMMIT - Pilot customer data
-├── ncc-data/               # ⛔ NEVER COMMIT - NCC customer data
+├── ncc-data/               # ⛔ NEVER COMMIT - NCC prospect/evaluation data (NCC is an unlanded prospect, not a customer)
 ├── t2h-data/               # ⛔ NEVER COMMIT - T2H customer data
 ├── admin/                  # ⛔ NEVER COMMIT - Admin manual (ProtonDrive only)
 ├── dws-core/
@@ -2263,6 +3126,96 @@ To ensure automatic protection, use these naming conventions:
 | Financial models  | `*financial-model*` | `2025-financial-model.xlsx`    |
 | ROI calculators   | `*roi-calculator*`  | `customer-roi-calculator.xlsx` |
 | Cap tables        | `*cap-table*`       | `lifetime-cap-table.xlsx`      |
+
+---
+
+## Customer Sensor Data Retention — Control Room / Situation Room
+
+### Overview
+
+Control Room and Situation Room ingest continuous customer sensor data (production-line telemetry, emissions sensors, cameras, IoT). Without an explicit, automated retention schedule, this data accumulates in the same way the unstructured-data problem does at every audited customer — undated, unowned, over-permissioned. The canonical policy is `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`; this section is the operator-facing summary.
+
+### Four-layer retention model (default)
+
+| Layer                          | Content                                                  | Retention                 | Where                         |
+| ------------------------------ | -------------------------------------------------------- | ------------------------- | ----------------------------- |
+| 1 — Raw sensor stream (hot)    | Unprocessed signal (temperature, emissions, camera, IoT) | 72 hours                  | Control Room local NVMe only  |
+| 2 — Ontologised summary (warm) | LWM-structured events, no raw signal                     | 13 months                 | Control Room                  |
+| 3 — Compliance audit trail     | EU AI Act Article 12 log, hash-chained, immutable        | 7 years                   | Control Room, SIEM-exportable |
+| 4 — Situation Room rollup      | Site-level aggregate only, never raw                     | 24 months, rolling window | Situation Room                |
+
+Layer 1 is never forwarded to Situation Room. Layer 4 never contains individualised data.
+
+### Operator responsibilities
+
+- **Do not extend Layer 1 retention** without a documented, customer-approved processing basis — the default is deliberately stricter than production-optimisation would prefer (GDPR Art. 5(1)(c) minimisation).
+- **Ontology-node ownership** is assigned per customer during onboarding (Pillar 2 scoping) — one named owner per LWM ontology class, never shared ownership.
+- **Access review** is quarterly, tracked alongside the Situation Room review cycle — not a one-time onboarding decision left stale for years.
+- **Dual-use / classified customer data** (Aegis Defence, ArgusAgent SAR) follows the customer's own classification schedule; DWS enforces only the 7-year Layer 3 audit-trail minimum, never a retention ceiling.
+- **Customer-facing copy** of this policy lives on the product pages (`dws10.com/products/edge-node-gn100.html`, `dws10.com/products/situation-room.html`) and must stay in lockstep with this section and the field note — update all three in the same commit.
+
+### Compliance Checklist (Control Room / Situation Room)
+
+- [ ] Layer 1 auto-purge timer active on every deployed Control Room box (no manual cleanup step)
+- [ ] Ontology-node owner named per customer at go-live
+- [ ] RLS access tiers match the four layers (operational vs. compliance vs. consultant)
+- [ ] Quarterly access review scheduled in the customer's Situation Room cadence
+- [ ] Product pages, handbook §3, and this section reference the same field note version
+
+### National reference: VM 2026:27 recommendation audit
+
+Source: Ministry of Finance (Finland), "Kriittinen infrastruktuuri ja avoin tieto — Opas turvallisuuslähtöiseen tiedonhallintaan," VM 2026:27, 17.6.2026 (ISBN PDF 978-952-367-188-1). Full guide archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`. Not legally binding, but the first comprehensive national framework naming the **aggregation effect** (kasautumisvaikutus) as a core assessment criterion — every measure below (Table 16, §4.4.3 of the guide) has a direct equivalent already implemented or plannable in the four-layer retention model above.
+
+**Content-modification measures (maps to Layer 2/4 — ontologised summary, Situation Room rollup):**
+
+```
+Häivyttäminen suurempaan tietomassaan — Kun riski liittyy yksittäisen kohteen tunnistamiseen.
+Karsiminen — Kun riskit liittyvät tiettyihin yksityiskohtiin, meta-, attribuutti-, ominaisuustietoihin, ajantasaisuuteen tai maantieteelliseen tarkkuuteen.
+Tiedon keräämisen lopettaminen tai tiedon poistaminen — Kun tiedolle ei ole riittävää käyttötarvetta ja sen tuottaminen synnyttää jatkuvan riskin.
+Anonymisointi — Kun riski liittyy henkilön tunnistettavuuteen, eikä henkilötietoja ole tarpeen säilyttää.
+Pseudonymisointi — Kun riski liittyy suoraan henkilön tunnistettavuuteen, mutta tietoa on edelleen tarpeen käyttää hallitusti.
+```
+
+**User-management measures (maps to RLS + Layer 3 audit trail):**
+
+```
+Pääsyn rajaaminen need to know -periaatteella — Kun tieto on hyödyllistä rajatulle käyttäjäjoukolle, mutta ei avoimeen jakoon.
+Lokitus ja monitorointi — Kun halutaan havaita poikkeavaa käyttöä, massalatauksia tai väärinkäyttöä.
+API-avainten käyttö — Kun tietoa jaetaan rajapinnan kautta ja käyttöä halutaan rajata tietylle käyttäjäjoukolle.
+```
+
+**Distribution-control measures (maps to Situation Room — never receives raw data, only aggregates):**
+
+```
+Katselupalvelu latauspalvelun tai rajapinnan sijaan — Kun hyöty syntyy tarkastelusta, mutta massalataus lisäisi riskiä.
+Lataus- tai kyselymäärien rajaaminen — Kun riski liittyy massapoimintaan tai automaattiseen keruuseen.
+```
+
+**Aggregation-effect mitigation (§4.4.2 of the guide — the core principle behind the whole retention model):**
+
+```
+Kasautumista voidaan pienentää vähentämällä kertyvän tiedon määrää tai laatua.
+Kasautumisen vähentäminen voidaan toteuttaa rajaamalla viranomaisiin kertyvä tieto vain ehdottomasti tarvittaviin.
+Kasautumisen aiheuttamaa riskiä voidaan pienentää lisäämällä järjestelmien tietoturvatasoa sekä vähentämällä tiedon käsittelijöiden määrää, tiedon jakelukanavia ja -tapoja.
+```
+
+**Documentation requirement (Stage 5, §4.5 of the guide) — applies to this checklist itself:**
+
+```
+Dokumentoinnissa voi kuvata esimerkiksi arvioinnin kohteena olleen tiedon tai tietoaineiston, sovellettavat säädökset, tunnistetut hyödyt ja riskit, valitut riskienhallintatoimenpiteet, niiden perustelut sekä se, miten toimenpiteiden vaikutuksia seurataan.
+Dokumentoinnissa on hyvä huomioida, että riskienhallintatoimenpiteiden kuvaaminen julkisessa asiakirjassa voi itsessään paljastaa haavoittuvuuksia tai muodostaa muun riskin.
+```
+
+**Operator note on the last quote:** the public product pages (`edge-node-gn100.html`, `situation-room.html`) only publish the top-level layer model and default durations — never customer-specific measures, named ontology-node owners, or implementation detail. If a future customer engagement documents element-level redactions or per-customer measures, that detail stays in this Admin Manual / the customer's own scoping file, never on the public site.
+
+### Ontology-schema implementation — retention is now a node property
+
+`ONTOLOGY.md` §6 (v1.5) was updated to add a **Data Lifecycle & Retention Ontology (HOW LONG)** subsection. Every LWM ontology node that ingests live operational data must now declare, at design time, its own `node_owner`, `raw_tier`, `summary_tier`, `audit_tier`, `rollup_tier`, and `aggregation_review` cadence — the same five fields the Control Room / Situation Room four-layer model already implements. This closes the gap between the retention policy above (product-specific) and the ontology schema (platform-wide): retention is now a declared property of every node, not an implicit default inherited from the platform.
+
+- **What changed:** `ONTOLOGY.md` §6, between Spatial and Causal Ontology — see the "Data Lifecycle & Retention Ontology" YAML block.
+- **Why:** closes the aggregation-effect gap named in VM 2026:27 §4.4.2 — without a per-node retention declaration, new ontology nodes default to "keep forever," recreating the unstructured-data problem this whole retention effort exists to prevent.
+- **Operator action:** when defining a new ontology node (new industry vertical, new sensor class, new customer-specific extension), the retention YAML block is a required design-time field, not an optional add-on. Reject node definitions that omit it.
+- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §3 → public product pages.
 
 ---
 
@@ -2669,20 +3622,75 @@ auditor-access model.
 
 ---
 
+## Recent Session Artifacts
+
+Digest of the ~100 most recent important session artifacts (commits + changed
+docs) as of 19.06.2026, grouped by theme. Source of truth is git history; this
+is a navigational snapshot, not a replacement for `git log`. Regenerate with
+`git log --since="75 days ago" --name-only` and re-group.
+
+### Engineering discipline & harness
+
+- **12 Engineering Discipline Rules** codified as canonical in `CLAUDE.md`,
+  mirrored to `AI_AGENT_GUIDELINES.md` §0, `AGENTS.md`, injected per-session by
+  `.claude/hooks/session-start.sh`, and mapped to enforcing hooks in
+  `.claude/hooks/README.md`.
+- **Loop Engineering** — Maker/Checker agent loop with disk state and budget
+  gate (`skills/loop/`), plus three critical state/budget bug fixes.
+- AGENTS.md auto-sync (`scripts/sync-agents-md.mjs`) and freshness check.
+
+### Truth, brand & store
+
+- `/truth-check` lint + CI gate wired to `DWS_TRUTH_STANDARD` §5/§7/§8.
+- Store search-hero refreshed to 2026 sovereignty-led copy; industry count
+  locked to canonical **25 EU-regulated industries**; store profile description
+  (FI/EN).
+- **Lifetime VIP AI Services** (SKU `FLEET-VIP-001`): product page, Revolut
+  payment link, one-page sales sheet + PDF, Tornio "Forte line" scenario;
+  weekly Firehorse Store posts (2026-W24 / W24b); products.json + Google
+  Merchant / NVIDIA ISV feed sync.
+
+### Investor, sales & partners
+
+- Matti Heikkonen DD (PASS, pitch files parked); Lifeline Ventures
+  (Timo Ahopelto) added as Dual-Use target; SSAB + Outokumpu illustrative cases.
+- SIRA Innovation Awards: Top-15 analysis + next-round profile (fact-fixes for
+  readiness drift, sovereignty lead, momentum).
+- Digia Hub co-marketing inquiry + partner card; Susanna Hyppönen card + data
+  protection management across hubs.
+
+### Thesis, research & field notes
+
+- Master's (`V3Thesis_EN/FI`) and PhD (`PHD_FIREHORSE_EN/FI`) updates incl.
+  §14.24 AI-spending asymmetry (G7+partners vs China), v3.62.
+- Field notes: AIPCon 10 USDA agricultural ontology, quantum Q-day (Shor/ECC),
+  three-pillar sovereignty.
+
+### Infrastructure
+
+- DGX Spark primary runtime: `infrastructure/dgx-spark/` docker-compose,
+  heartbeat, cron-runner, deploy scripts.
+
+---
+
 ## Document Changelog
 
-| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                               | Session ID |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                 | vBYGo      |
-| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw      |
-| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                       | krDzD      |
-| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                        | r6bU3      |
-| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                  | -          |
-| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                               | -          |
-| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                 | PxSux      |
-| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                            | -          |
-| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                   | -          |
-| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                          | -          |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
+| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                         | karpathy-12-rules-u47rx1             |
+| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
+| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
+| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo                                |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw                                |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD                                |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3                                |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -                                    |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -                                    |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux                                |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -                                    |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -                                    |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -                                    |
 
 ---
 

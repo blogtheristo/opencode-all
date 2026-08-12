@@ -18,12 +18,15 @@ on:
 
 env:
   CAMPAIGN_START_DATE: '2026-03-16'
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
 
 jobs:
   generate-post:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    outputs:
+      campaign_day: ${{ steps.calc-day.outputs.day }}
 
     steps:
       - uses: actions/checkout@v4
@@ -95,18 +98,24 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CAMPAIGN_START_DATE: ${{ env.CAMPAIGN_START_DATE }}
+          BATCH_START: ${{ inputs.batch_start }}
+          BATCH_END: ${{ inputs.batch_end }}
+          DAY_NUMBER: ${{ inputs.day_number }}
+          CALCULATED_DAY: ${{ steps.calc-day.outputs.day }}
         run: |
-          if [ -n "${{ inputs.batch_start }}" ] && [ -n "${{ inputs.batch_end }}" ]; then
-            echo "Batch mode: days ${{ inputs.batch_start }}-${{ inputs.batch_end }}"
-            npx tsx scripts/generate-campaign-post.ts --batch ${{ inputs.batch_start }} ${{ inputs.batch_end }}
-          elif [ -n "${{ inputs.day_number }}" ]; then
-            echo "Single day mode: day ${{ inputs.day_number }}"
-            npx tsx scripts/generate-campaign-post.ts --day ${{ inputs.day_number }}
+          if [ -n "$BATCH_START" ] && [ -n "$BATCH_END" ]; then
+            echo "Batch mode: days $BATCH_START-$BATCH_END"
+            args=(npx tsx scripts/generate-campaign-post.ts --batch "$BATCH_START" "$BATCH_END")
+            "${args[@]}"
+          elif [ -n "$DAY_NUMBER" ]; then
+            echo "Single day mode: day $DAY_NUMBER"
+            args=(npx tsx scripts/generate-campaign-post.ts --day "$DAY_NUMBER")
+            "${args[@]}"
           else
-            echo "Auto mode: day ${{ steps.calc-day.outputs.day }}"
-            npx tsx scripts/generate-campaign-post.ts --day ${{ steps.calc-day.outputs.day }}
+            echo "Auto mode: day $CALCULATED_DAY"
+            args=(npx tsx scripts/generate-campaign-post.ts --day "$CALCULATED_DAY")
+            "${args[@]}"
           fi
-
       - name: Commit and push
         if: steps.time-check.outputs.skip != 'true' && steps.calc-day.outputs.active == 'true'
         run: |
@@ -133,7 +142,7 @@ Phase: $([ $DAY -le 100 ] && echo 'Foundation' || ([ $DAY -le 300 ] && echo 'Dep
       - name: Create PR for review (optional)
         if: steps.time-check.outputs.skip != 'true' && steps.calc-day.outputs.active == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           DAY="${{ steps.calc-day.outputs.day }}"
           # Only create PR for batch runs or manual triggers
@@ -184,7 +193,7 @@ Review within 24 hours or posts auto-publish." \
           await sendEmail({
             to: 'risto@lifetime.fi',
             from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
-            subject: '🚨 Campaign Post Generator FAILED — Day ${{ steps.calc-day.outputs.day || 'unknown' }}',
+            subject: '🚨 Campaign Post Generator FAILED — Day ${{ needs.generate-post.outputs.campaign_day || 'unknown' }}',
             html: '<h2>Campaign Post Generator Failed</h2>' +
               '<p><strong>Workflow:</strong> campaign-daily-posts.yml</p>' +
               '<p><strong>Run:</strong> <a href=\"https://github.com/blogtheristo/dws6/actions/runs/${{ github.run_id }}\">View logs</a></p>' +

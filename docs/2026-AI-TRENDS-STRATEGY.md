@@ -6,7 +6,7 @@
 Version: 2.0
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Sonnet 4.5) | Session: claude/2026-trends-strategy-ot9vn | Date: 15.03.2026 | Changes: Updated for DWS 7 production platform — 21 agents, 37 workflows, 32 products, 20 industries; added GN100 Blackwell, Aiwen compliance layer, 5-partner ecosystem (NVIDIA/Siemens/ABB/xAI/Mistral), 6-phase roadmap (247 PRs); updated financial trajectory €7k→€72k+ MRR
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.5) | Session: claude/2026-trends-strategy-ot9vn | Date: 15.03.2026 | Changes: Updated for DWS 7 production platform — 21 agents, 37 workflows, 32 products, 20 industries; added GN100 Blackwell, EU AI Act compliance layer, 5-partner ecosystem (NVIDIA/Siemens/ABB/xAI/Mistral), 6-phase roadmap (247 PRs); updated financial trajectory €7k→€72k+ MRR
   - Version: 1.0 | Tool: Claude Code | Session: claude/2026-trends-strategy-ot9vn | Date: 25.01.2026 | Changes: Initial creation for DWS 7 platform
 
 Session Links & References:
@@ -33,7 +33,7 @@ This document analyzes the 10 major AI trends for 2026 (as identified by SAS ind
 
 **DWS 7** is the production evolution of the **DWS IQ 6 pilot platform**, delivered through a **247-PR roadmap across 6 phases** (February 2026 → December 2027). As of March 15, 2026: **V1.0 launched** (Feb 23), **21 agents**, **37 CI/CD workflows**, **32 products**, **20 industries** covered.
 
-**Key Finding:** DWS 7 is already implementing 8 out of 10 major trends, positioning us as a market leader in industrial AI compliance platforms, with **sovereign on-premise AI** (NVIDIA GN100 Blackwell), **Aiwen EU AI Act compliance layer**, and a **5-partner ecosystem** (NVIDIA, Siemens, ABB, xAI, Mistral).
+**Key Finding:** DWS 7 is already implementing 8 out of 10 major trends, positioning us as a market leader in industrial AI compliance platforms, with **sovereign on-premise AI** (NVIDIA GN100 Blackwell), **EU AI Act compliance layer (Full Sovereignty tier)**, and a **5-partner ecosystem** (NVIDIA, Siemens, ABB, xAI, Mistral).
 
 ### Strategic Positioning
 
@@ -44,7 +44,7 @@ This document analyzes the 10 major AI trends for 2026 (as identified by SAS ind
 │  ✅ 8/10 Trends Already Implemented (V1.0)                      │
 │  🚀 2 Trends = Strategic Differentiation (Phases 3-4)           │
 │  🎯 Target: De Facto Platform for Fit for 55 by Q4 2027         │
-│  🇪🇺 Sovereign AI: GN100 Blackwell + Aiwen Compliance Layer     │
+│  🇪🇺 Sovereign AI: GN100 Blackwell + EU AI Act Compliance Layer  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -916,9 +916,9 @@ interface ModelRouter {
   - Mistral inference: €5k (12%)
   - Siemens integration: €4k (9%)
 
-### Aiwen EU AI Act Compliance Layer
+### EU AI Act Compliance Layer (Full Sovereignty tier)
 
-**Aiwen** is DWS 7's EU AI Act compliance overlay—a parallel infrastructure layer that logs, audits, and proves compliance for every AI decision.
+The **Full Sovereignty (Aegis) tier** is DWS 7's EU AI Act compliance overlay—a parallel infrastructure layer that logs, audits, and proves compliance for every AI decision.
 
 **Architecture:**
 
@@ -927,7 +927,7 @@ interface ModelRouter {
 │                  DWS 7 Application Layer                     │
 │         (Compliance Agents, Firehorse, Workflows)            │
 ├──────────────────────────────────────────────────────────────┤
-│                    Aiwen Compliance Layer                    │
+│              EU AI Act Compliance Layer (Aegis)              │
 │         (Article 12 Logging, Reasoning Lineage)              │
 │                                                               │
 │  • Immutable audit logs (write-once, 7-year retention)      │
@@ -944,24 +944,24 @@ interface ModelRouter {
 
 **EU AI Act Article 12 Compliance:**
 
-| Requirement | Aiwen Implementation | Evidence |
-|-------------|---------------------|----------|
-| Automatic logging of AI system events | Every agent call logged to immutable Supabase table | `aiwen_audit_log` table with 127k+ entries |
+| Requirement | Implementation | Evidence |
+|-------------|---------------|----------|
+| Automatic logging of AI system events | Every agent call logged to immutable Supabase table | `sovereignty_audit_log` table with 127k+ entries |
 | Logs enable traceability | Reasoning chain links input → model → regulation → output | `reasoning_chain` JSONB field per log entry |
 | Retention periods | 7 years (per EU AI Act + GDPR Art. 5) | S3 Glacier archival after 2 years active storage |
-| Technical documentation | Real-time generation from audit logs | `/api/aiwen/generate-technical-doc` endpoint |
+| Technical documentation | Real-time generation from audit logs | `/api/sovereignty/generate-technical-doc` endpoint |
 
-**Aiwen as Competitive Differentiator:**
+**Full Sovereignty tier as Competitive Differentiator:**
 
 - **DWS 7 is the only industrial AI platform with native EU AI Act compliance** (competitors treat compliance as afterthought)
-- **Sales objection pre-handled:** "How do you prove your AI's decisions?" → "Here's your Aiwen audit log export."
+- **Sales objection pre-handled:** "How do you prove your AI's decisions?" → "Here's your sovereignty audit log export."
 - **Enterprise procurement:** ISO 27001 + SOC 2 + EU AI Act = shortens sales cycle by 30%
 
 **Business Impact:**
 
-- **Aiwen increases DWS 7 ACV by €8-12k per customer** (compliance = premium pricing)
+- **Full Sovereignty tier increases DWS 7 ACV by €8-12k per customer** (compliance = premium pricing)
 - **Target customers:** Enterprises in EU AI Act "high-risk" sectors (healthcare, energy, transport, finance)
-- **Regulatory moat:** 2-3 year head start over competitors (Aiwen development began Jan 2025, EU AI Act enforced Aug 2026)
+- **Regulatory moat:** 2-3 year head start over competitors (EU AI Act compliance development began Jan 2025, EU AI Act enforced Aug 2026)
 
 ### 6-Phase DWS 7 Roadmap (247 PRs)
 

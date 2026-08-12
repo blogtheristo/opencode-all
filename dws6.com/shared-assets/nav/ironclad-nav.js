@@ -12,21 +12,21 @@
  * The script will automatically inject the navigation at the start of <body>
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    // Determine base path based on current location
-    const getBasePath = () => {
-        const path = window.location.pathname;
-        const depth = (path.match(/\//g) || []).length - 1;
-        if (depth === 0 || path === '/' || path === '/index.html') return '';
-        return '../'.repeat(depth);
-    };
+  // Determine base path based on current location
+  const getBasePath = () => {
+    const path = window.location.pathname;
+    const depth = (path.match(/\//g) || []).length - 1;
+    if (depth === 0 || path === '/' || path === '/index.html') return '';
+    return '../'.repeat(depth);
+  };
 
-    const basePath = getBasePath();
+  const basePath = getBasePath();
 
-    // Navigation HTML (Gamma-aligned with hamburger support)
-    const navHTML = `
+  // Navigation HTML (Gamma-aligned with hamburger support)
+  const navHTML = `
 <!-- DWS10.com Iron Clad / Gamma Navigation v3.0 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
@@ -93,16 +93,6 @@
                                 <li><a href="${basePath}lifetime-fleet/">Lifetime Fleet</a></li>
                             </ul>
                         </li>
-                        <!-- Designs flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma (Current)</a></li>
-                                <li><a href="${basePath}theta/">Theta</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
-                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">Ultra II - Industrial</a></li>
-                            </ul>
-                        </li>
                         <!-- Legal & Compliance flyout -->
                         <li class="ironclad-has-submenu">
                             <a href="${basePath}legal/" class="ironclad-legal">Legal ▸</a>
@@ -114,7 +104,7 @@
                                 <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
                                 <li><a href="${basePath}terms-professional/">Professional Services</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
+                                <li><a href="https://dws10.com/privacy-policy/">Privacy Policy</a></li>
                                 <li><a href="${basePath}return-policy/">Return Policy</a></li>
                                 <li><a href="${basePath}investment-safety/">Investment Security</a></li>
                                 <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
@@ -186,7 +176,7 @@
                     <ul class="ironclad-dropdown ironclad-dropdown-wide">
                         <li><a href="${basePath}products/dwsiq.html" class="ironclad-primary">DWS IQ Platform v6</a></li>
                         <li><a href="${basePath}products/bundle.html">Climate Reporting Bundle</a></li>
-                        <li><a href="${basePath}products/firehorse-automation.html">Firehorse Automation</a></li>
+                        <li><a href="${basePath}products/firehorse-amplify.html">Firehorse Amplify</a></li>
                         <li><a href="${basePath}products/firehorse-omnichannel.html">Firehorse Omnichannel Next</a></li>
                         <li><a href="${basePath}products/expert-services.html">Workshop 3 Days</a></li>
                         <li><a href="${basePath}products/expert-advisory.html">Expert Advisory (Monthly)</a></li>
@@ -222,14 +212,6 @@
                             </ul>
                         </li>
                         <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}theta/" class="ironclad-secondary">Theta</a></li>
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
-                            </ul>
-                        </li>
-                        <li class="ironclad-has-submenu">
                             <a href="${basePath}legal/" class="ironclad-legal">Legal ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
@@ -242,13 +224,17 @@
                                 <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
                                 <li><a href="${basePath}terms-professional/">Professional Services</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
+                                <li><a href="https://dws10.com/privacy-policy/">Privacy Policy</a></li>
                                 <li><a href="${basePath}return-policy/">Return Policy</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
 
+                <!-- Book Meeting CTA -->
+                <li class="ironclad-menu-item">
+                    <a href="https://dws10.com/book/?service=demo" class="ironclad-cta-book" title="Book a meeting — Demo or Consultation">📅 Book Meeting</a>
+                </li>
                 <!-- IQ Login Button - Gamma Style -->
                 <li class="ironclad-menu-item">
                     <a href="https://dws6.com/login" class="ironclad-cta" title="DWS IQ Login">IQ Login</a>
@@ -274,8 +260,8 @@
 </header>
 `;
 
-    // Navigation CSS
-    const navCSS = `
+  // Navigation CSS
+  const navCSS = `
 /* ============================================
    IRONCLAD NAVIGATION - DWS10.com v3.0
    Gamma-aligned with mobile hamburger menu
@@ -496,6 +482,28 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
     background: linear-gradient(135deg, #152238 0%, #1e3a5f 100%);
+}
+
+/* Book Meeting CTA - Green (matches Schedule Demo buttons) */
+.ironclad-cta-book {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    border: 1px solid #059669;
+    transition: all 0.3s;
+}
+
+.ironclad-cta-book:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
 
 .ironclad-icon-link,
@@ -773,7 +781,8 @@
     }
 
     /* CTA in mobile menu */
-    .ironclad-cta {
+    .ironclad-cta,
+    .ironclad-cta-book {
         margin: 12px 20px;
         justify-content: center;
         height: 40px;
@@ -800,117 +809,119 @@
 }
 `;
 
-    // Inject CSS
-    const styleElement = document.createElement('style');
-    styleElement.textContent = navCSS;
-    document.head.appendChild(styleElement);
+  // Inject CSS
+  const styleElement = document.createElement('style');
+  styleElement.textContent = navCSS;
+  document.head.appendChild(styleElement);
 
-    // Inject Navigation HTML at the start of body
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if navigation already exists
-        if (document.querySelector('.ironclad-header')) {
-            return;
+  // Inject Navigation HTML at the start of body
+  document.addEventListener('DOMContentLoaded', function () {
+    // Check if navigation already exists
+    if (document.querySelector('.ironclad-header')) {
+      return;
+    }
+
+    // Create nav element
+    const navContainer = document.createElement('div');
+    navContainer.innerHTML = navHTML;
+
+    // Insert at the beginning of body
+    document.body.insertBefore(navContainer.firstElementChild, document.body.firstChild);
+
+    // Create backdrop element
+    const backdrop = document.createElement('div');
+    backdrop.className = 'ironclad-backdrop';
+    document.body.appendChild(backdrop);
+
+    // Highlight store link when on /buy
+    const pathname = window.location.pathname || '';
+    if (pathname === '/buy' || pathname === '/buy/' || pathname.endsWith('/buy/index.html')) {
+      const storeLink = document.querySelector('.ironclad-store-link');
+      if (storeLink) {
+        storeLink.classList.add('ironclad-active');
+      }
+    }
+
+    // ---- Mobile Hamburger Menu Logic ----
+    const hamburger = document.querySelector('.ironclad-hamburger');
+    const nav = document.querySelector('.ironclad-nav');
+    const closeBtn = document.querySelector('.ironclad-close');
+
+    function openMenu() {
+      nav.classList.add('open');
+      backdrop.classList.add('active');
+      hamburger.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      nav.classList.remove('open');
+      backdrop.classList.remove('active');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener('click', function () {
+        if (nav.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
         }
+      });
+    }
 
-        // Create nav element
-        const navContainer = document.createElement('div');
-        navContainer.innerHTML = navHTML;
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeMenu);
+    }
 
-        // Insert at the beginning of body
-        document.body.insertBefore(navContainer.firstElementChild, document.body.firstChild);
+    backdrop.addEventListener('click', closeMenu);
 
-        // Create backdrop element
-        const backdrop = document.createElement('div');
-        backdrop.className = 'ironclad-backdrop';
-        document.body.appendChild(backdrop);
-
-        // Highlight store link when on /buy
-        const pathname = window.location.pathname || '';
-        if (pathname === '/buy' || pathname === '/buy/' || pathname.endsWith('/buy/index.html')) {
-            const storeLink = document.querySelector('.ironclad-store-link');
-            if (storeLink) {
-                storeLink.classList.add('ironclad-active');
-            }
-        }
-
-        // ---- Mobile Hamburger Menu Logic ----
-        const hamburger = document.querySelector('.ironclad-hamburger');
-        const nav = document.querySelector('.ironclad-nav');
-        const closeBtn = document.querySelector('.ironclad-close');
-
-        function openMenu() {
-            nav.classList.add('open');
-            backdrop.classList.add('active');
-            hamburger.classList.add('active');
-            hamburger.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMenu() {
-            nav.classList.remove('open');
-            backdrop.classList.remove('active');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-
-        if (hamburger) {
-            hamburger.addEventListener('click', function() {
-                if (nav.classList.contains('open')) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeMenu);
-        }
-
-        backdrop.addEventListener('click', closeMenu);
-
-        // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && nav.classList.contains('open')) {
-                closeMenu();
-            }
-        });
-
-        // ---- Mobile tap-to-expand dropdowns and submenus ----
-        const mobileQuery = window.matchMedia('(max-width: 900px)');
-
-        // Find all links that have a dropdown or submenu as next sibling
-        document.querySelectorAll('.ironclad-link, .ironclad-has-submenu > a').forEach(function(link) {
-            const sibling = link.nextElementSibling;
-            if (!sibling) return;
-            const isDropdown = sibling.classList.contains('ironclad-dropdown');
-            const isSubmenu = sibling.classList.contains('ironclad-submenu');
-            if (!isDropdown && !isSubmenu) return;
-
-            link.addEventListener('click', function(e) {
-                if (mobileQuery.matches) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    sibling.classList.toggle('expanded');
-                } else if (link.getAttribute('href') === '#') {
-                    // Prevent hash jump on desktop for # links
-                    e.preventDefault();
-                }
-            });
-        });
-
-        // Reset mobile state on resize to desktop
-        mobileQuery.addEventListener('change', function(e) {
-            if (!e.matches) {
-                closeMenu();
-                // Remove all expanded classes
-                document.querySelectorAll('.ironclad-dropdown.expanded, .ironclad-submenu.expanded').forEach(function(el) {
-                    el.classList.remove('expanded');
-                });
-            }
-        });
-
-        console.log('Iron Clad / Gamma Navigation v3.0 loaded (mobile hamburger ready)');
+    // Close on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        closeMenu();
+      }
     });
+
+    // ---- Mobile tap-to-expand dropdowns and submenus ----
+    const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+    // Find all links that have a dropdown or submenu as next sibling
+    document.querySelectorAll('.ironclad-link, .ironclad-has-submenu > a').forEach(function (link) {
+      const sibling = link.nextElementSibling;
+      if (!sibling) return;
+      const isDropdown = sibling.classList.contains('ironclad-dropdown');
+      const isSubmenu = sibling.classList.contains('ironclad-submenu');
+      if (!isDropdown && !isSubmenu) return;
+
+      link.addEventListener('click', function (e) {
+        if (mobileQuery.matches) {
+          e.preventDefault();
+          e.stopPropagation();
+          sibling.classList.toggle('expanded');
+        } else if (link.getAttribute('href') === '#') {
+          // Prevent hash jump on desktop for # links
+          e.preventDefault();
+        }
+      });
+    });
+
+    // Reset mobile state on resize to desktop
+    mobileQuery.addEventListener('change', function (e) {
+      if (!e.matches) {
+        closeMenu();
+        // Remove all expanded classes
+        document
+          .querySelectorAll('.ironclad-dropdown.expanded, .ironclad-submenu.expanded')
+          .forEach(function (el) {
+            el.classList.remove('expanded');
+          });
+      }
+    });
+
+    console.log('Iron Clad / Gamma Navigation v3.0 loaded (mobile hamburger ready)');
+  });
 })();

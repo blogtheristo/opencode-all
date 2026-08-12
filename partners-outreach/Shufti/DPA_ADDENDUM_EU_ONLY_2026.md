@@ -1,14 +1,19 @@
 # ADDENDUM TO DATA PROCESSING AGREEMENT — EU-Only Processing
 
 VERSION AND AGENT HISTORY
-Version: 1.1
-Date: 2026-04-08
-Author: Claude Code (claude/audit-shufti-dpa-artifacts-HFEGx)
+Version: 1.5
+Date: 2026-04-24
+Author: Claude Code (claude/fix-dpa-addendum-SzFLQ)
 Owner: Lifetime Oy
-Status: Ready for Signature
+Status: Non-Binding Partner Alignment Reference (forward-looking)
+Signature target: NONE — original Shufti DPA (26.02.2026) is the binding instrument
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/fix-dpa-addendum-SzFLQ | Date: 24.04.2026 | Changes: Reclassified the document from "Addendum to DPA — Ready for Signature" to "Partner Alignment Memorandum — Non-Binding Reference" per Risto direction (24.04.2026). Rationale: the document references Lifetime Oy's public KYA Standard v1.5 (Clause 8) which is a mutable Lifetime-owned standard; making the document binding would tie Shufti's contractual obligations to a unilaterally-mutable external reference, which is not appropriate for a third-party data processing contract. Signature target reverts to Shufti's original DPA dated 26 February 2026 (`partners-outreach/Shufti/Shufti Data Processing Agreement 26022026.docx`), which is signed as-is. The four EU-compliance commitments confirmed by Shufti Compliance on 2 April 2026 (EU-only processing, GCP EEA lock, 30-day sub-processor notice, EU-only clause insertion) remain captured in writing via the compliance@shufti.com email of 2 April 2026 and are referenced in this memo as shared partner intent. Added prominent NON-BINDING banner; added "Partnership Vision" preamble framing KYA Memory Binding (Clause 8) as Lifetime's invitation for Shufti to align with the broader Aegis sovereignty roadmap. Clause text unchanged from v1.4 — only framing, banner, status, and changelog updated. v1.4 file retained as version history.
+- Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/fix-dpa-addendum-SzFLQ | Date: 24.04.2026 | Changes: Re-emit partner-facing HTML (Learn/ + partners-outreach/Shufti/) as a single well-formed DOCTYPE; v1.3 artifact contained two concatenated HTML documents which broke browser rendering for Haris R. (Shufti). Wrapped orphan `<li>` items in `<ul>`, replaced leaked markdown italics (`_Source: ..._`) with `<em>` tags, wrapped clause body text in `<p>` blocks. No clause text changes; rendering fix only. Scope confirmed by Risto: addendum only — base Shufti DPA (26.02.2026) is NOT being modified or signed in this round.
+- Version: 1.3 | Tool: Codex 5.3 | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Replaced markdown `~~strike~~` syntax with semantic HTML `<del>` tags for the removed sub-processor row (Programmers Force) so legal strike-through renders in browsers. NOTE: artifact was published with a duplicated DOCTYPE prefix (v1.2 document concatenated above v1.3 document) — superseded by v1.4 rendering fix.
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added Clause 8 (KYA Memory Binding alignment — tenant isolation of verification data; no cross-customer blending; memory-mutation audit trail) per public KYA Standard v1.5 §3 (Memory Binding)
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Added Clause 6 (ML training prohibition — binding contractual obligation per PR #768 audit finding A) and Clause 7 (GDPR Art. 9 legal basis for biometric processing per audit finding #3)
 - Version: 1.0 | Tool: Claude Code | Session: claude/check-dpa-status-YD0A1 | Date: 07.04.2026 | Changes: Initial addendum with EU-only processing, GCP EEA lock, 30-day sub-processor notification, breach notification chain
 
@@ -136,6 +141,24 @@ _Source: DPA clause-by-clause audit finding A (2026-04-02, PR #768)._
 **7.3** The Data Controller is solely responsible for obtaining valid explicit consent from each data subject before submitting biometric data to the Data Processor for verification.
 
 _Source: DPA clause-by-clause audit finding #3 (2026-04-02, PR #768)._
+
+---
+
+## Clause 8: KYA Memory Binding — Tenant Isolation of Verification Data
+
+**8.1** The Parties acknowledge that Lifetime Oy operates under the Know Your Agent (KYA) Standard v1.5, whose Memory Binding principle (Section 3) requires that customer data remain tenant-isolated, provenance-logged, and not blended into shared model state.
+
+**8.2 Tenant Isolation.** The Data Processor shall ensure that Personal Data processed on behalf of Lifetime Oy — including biometric data, identity document images, verification metadata, and verification results — is stored, indexed, and retrieved in a manner that prevents co-mingling with data originating from other Shufti Pro customers. Access controls shall enforce tenant boundaries at the record level.
+
+**8.3 No Shared-Model Promotion.** The Data Processor shall not promote, aggregate, anonymize, or otherwise transfer Personal Data processed on behalf of Lifetime Oy into any shared knowledge base, shared model, or shared analytics pool used to serve other customers, except where (a) explicit written consent is obtained from the Data Controller and (b) the contribution is limited to anonymized, aggregated patterns that do not permit re-identification of individual data subjects.
+
+**8.4 Memory-Mutation Audit Trail.** The Data Processor shall maintain an immutable log of operations that create, update, supersede, or delete Personal Data records on behalf of Lifetime Oy. Each log entry shall record at minimum: operation type, timestamp, actor (system or human reviewer), affected record identifier, and reason code where applicable. The log shall be retained for the duration of the Agreement plus five (5) years, consistent with EU AI Act Article 12 logging requirements.
+
+**8.5 Availability to Controller.** Upon reasonable written request, the Data Processor shall provide Lifetime Oy with an export of the Memory-Mutation Audit Trail entries pertaining to Lifetime Oy's data, in a machine-readable format (JSON or equivalent), within ten (10) business days.
+
+**8.6** This clause complements Clause 6 (ML Training Prohibition): Clause 6 prohibits use for model improvement; Clause 8 governs how the data is held and logged regardless of downstream use.
+
+_Source: Public KYA Standard v1.5 §3 Memory Binding — https://dws10.com/kya-standard/ (published 23.04.2026)._
 
 ---
 

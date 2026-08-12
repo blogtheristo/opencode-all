@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.2
+version: 3.5
 created: 2026-02-07
-last_modified: 2026-04-10
+last_modified: 2026-07-31
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,24 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 3.5
 
 Sessions & Modifications:
 
+- Version: 3.5 | Tool: Claude Code (Sonnet 5) | Session: claude/ai-pact-enforcement-transparency-gnnipk | Date: 31.07.2026 | Changes: Added §20 (Public Vulnerability Disclosure) — pointer to the new standalone `dws10.com/compliance/vulnerability-disclosure-policy/` page (adapted from the European Commission's public VDP, EC-institution-specific legal references dropped as inapplicable to a private company). Locked the SLA (48h ack, Critical 48h/High 7d/Medium 30d/Low next release) as the single source of truth, now cross-linked from `.well-known/security.txt`, `legal/index.html` §10, and `compliance/trust-center/index.html` rather than restated independently in each.
+- Version: 3.4 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §16.0.1 (Data API Grants — Supabase May/Oct 2026 change). Every `CREATE TABLE public.*` must be paired with an explicit `GRANT` to `service_role` + `authenticated` (anon opt-in) — Supabase dropped the implicit Data API grants on 2026-05-30 for new projects and enforces the same on all existing projects on 2026-10-30. Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for the 88 existing public tables and sets `alter default privileges` so future migrations do not silently break the Data API. Standard block codified in `Firehorse/supabase-schema-templates.sql` (top of file).
+- Version: 3.3 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Continued live-vs-dead-code Dependabot triage. Raised live `cryptography` floor to `>=48.0.1` (2 files). Removed unused `python-jose` from `AgentFoundry`/`Firehorse/api` requirements (eliminated the unpatched `python-ecdsa` Minerva transitive). Relaxed `mcp-hub` `fastapi==0.115.12` → `>=0.115.12` to unstick Starlette from the vulnerable 0.46.2 (the hard pin capped `starlette<0.47.0`). Raised `lxml` floor `>=5.0.0` → `>=6.1.0` in `AgentFoundry`/`scripts/requirements-signals.txt` (XXE fix). Confirmed live copies of axios, vite, react-router, form-data, babel, undici, fast-uri, ws were already patched — vulnerable versions only in deleted `artifacts/` or `*_DEPRECATED/` trees.
+- Version: 3.2 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Disabled `markdown-it` `linkify:true` in `src/contentms/blog-publisher.ts` and capped `body_markdown` to 100KB (`src/contentms/types.ts`) — closed a real, live request-path CPU-DoS via `linkify-it`'s O(N^2) fuzzy-match scan (unpatched upstream, no GHSA/OSV entry). Deleted `artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/` (997MB of accidentally-committed duplicate repo checkouts from PR #1573) — confirmed source of at least 5 live Dependabot alerts against dead code (APScheduler RCE, shell-quote injection, Vitest UI file-read, axios prototype-pollution MITM, plus more). Documented `*_DEPRECATED/` directories as expected, accepted alert noise — left in place per repo convention, not a live-code risk. Flagged a tracked-in-git `100326.env` file at repo root (added PR #1573) for human review/rotation — not read, per secret-egress policy.
+- Version: 3.1 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Ran `pip-audit` across the repo's Python requirement files (no lockfile/hash-pinning exists for pip deps, flagged as a standing gap). Found and fixed `python-dotenv` CVE-2026-28684 in `mcp-hub/requirements.txt` (1.1.0 → 1.2.2, non-breaking patch bump). Logged `pyjwt`/`starlette` transitive-dependency advisories in the same file as open tracked findings — both need an explicit version constraint plus a FastAPI-compatibility check before bumping, so deferred rather than force-applied.
+- Version: 3.0 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Added §13.6 (Dependency Lockfile & Vulnerability SLA Policy) — closed two missing-lockfile gaps (`lambda/ses-inbound-parser`, `infrastructure/dgx-spark/bumblebee`), fixed `scripts/daily/dependabot-audit.sh` `PACKAGE_DIRS` (was missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and both directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED`), documented the Aegis agent's remediation SLA (critical=2d/high=7d/moderate=30d/low=90d) as the canonical policy, and logged an open moderate `@opentelemetry/*` finding (`GHSA-8988-4f7v-96qf`) in the bumblebee scanner pending a breaking-change upgrade.
+- Version: 3.0 | Tool: Claude Code | Session: claude/aiven-postgres-upcloud-ddjnsu | Date: 07.07.2026 | Changes: Updated §3.6.1 DR table and §17 for a topology change — DWS-internal operational tables (agent memory, cron/command audit logs, tool telemetry, agent nudges) are moving from the shared Supabase project to a self-hosted `dws-postgres` container on DGX Spark (Tier 1), which also already served as a backup _destination_ for Supabase (DR-2). Marked DR-5 "Superseded" — a same-session audit found the originally-described Supabase→Aiven daily mirror was never actually wired to any automation (no CI/cron, no confirmed secrets, no evidence of a real run) despite being documented "Active." Added DR-8: the new, real Aiven role is offsite backup target for `dws-postgres` (`scripts/dgx-spark-postgres-backup-to-aiven.sh`), status "Pending" until the Aiven service's EU region is confirmed and wired in. No RLS on the new internal Postgres (connection-level access control only — no real end-users on these tables). Added §3.6.3 Infrastructure Subscription Costs (Aiven pg-32ace152, $75/month Developer tier, DigitalOcean Frankfurt — dev/DR tier; production per-client deployments upgrade to UpCloud professional).
+- Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
+- Version: 2.8 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Resolved the §17.5 Aiven Open Question per founder decision — approved Aiven-managed PostgreSQL on `google-europe-north1` as the DWS IQ 6 (dws6.com) DB layer, recorded as an explicit sovereignty exception (not a "None" CLOUD Act rating) with residual risk noted: Aiven's US-VC ownership is still unclear, and the underlying GCP infra is elsewhere classified "Transitional"/migrate-away for compute. `scripts/aiven-vault-bootstrap.sh` / `mcp-hub/config/aiven-mcp.json` required no changes — already defaulted to this region.
+- Version: 2.7 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Supabase/Aiven audit — fixed broken §17.5 cross-reference ("AGENTS.md Section 20" does not exist, now points to docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md); flagged that Aiven does not offer Hetzner as a deployable region, so the existing "DB layer on Hetzner infra only" approval condition for Aiven is currently unsatisfiable by any script in the repo — added an Open Question pending a human sovereignty decision.
+- Version: 2.6 | Tool: Claude Code | Session: claude/ai-codebase-security-audit-BgY2H | Date: 21.06.2026 | Changes: Added Secret Egress Control to Layer 3 (Data Protection) — closes the write-side exfiltration gap. New shared pattern engine `.claude/hooks/secret-patterns.sh` consumed by three hooks: read-bypass guard in `pretooluse-guard.sh` (blocks Bash `cat`/`grep`/`env`/`printenv`/`base64` of `.env*`/`*.pem`/`*.key`/`*secret*`, which previously bypassed `Read`-tool deny rules), input scan in `secret-scan.sh` (now also catches bare JWTs, DSNs with embedded creds, Bearer tokens, DB passwords, OAuth client secrets; placeholders allowlisted), and new output scan `secret-output-scan.sh` (PostToolUse/Bash, warns on secrets surfaced in command output). Added matching Secret Egress Rules to CLAUDE.md and defence-in-depth `deny` entries to `.claude/settings.json`.
+- Version: 2.5 | Tool: Claude Code (claude-opus-4-7) | Session: claude/bumblebee-dgx-observability-mzV5U | Date: 24.05.2026 | Changes: Added Section 13.5 (Supply-Chain Inventory — Bumblebee on DGX Spark) documenting the new `bumblebee-collector` container in `infrastructure/dgx-spark/`, OTel metric contract surfaced on the existing Aspire Dashboard (`bumblebee.packages.total`, `bumblebee.exposures.{total,by_severity}`, `bumblebee.scan.{duration_ms,last_success_timestamp}`), pinned upstream SHA in `bumblebee.version`, daily/weekly scan cadence via supercronic, read-only `/host` mount with dropped capabilities, and exposure-catalog handling as untrusted input per §13.
+- Version: 2.4 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 integration status and versioning; enabled TypeScript redirect sanitization in the Express stack and CSRF enforcement on auth/payment routes; added Vitest coverage for the TypeScript security ports; switched MCP tool classification to fail closed for unknown tools; updated testing and pentest references to the TypeScript paths.
+- Version: 2.3 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported legacy November 2025 security components from Python/Flask to TypeScript/Express (Modern CSRF, Redirect Validation, MCP DCR, Tool Colors, Image Prompt Injection); archived legacy Python components as \_OLD.py.
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
@@ -45,7 +59,7 @@ Session Links & References:
 Document Status:
 
 - Created: 07.02.2026
-- Last Modified: 09.03.2026
+- Last Modified: 21.06.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -269,27 +283,55 @@ The AI Safety Report 2026 recommends **defence-in-depth** — layering multiple 
 
 **Purpose:** Prevent cross-domain attacks and privilege escalation through tool separation.
 
-| Control                          | Implementation                                        | Status |
-| -------------------------------- | ----------------------------------------------------- | ------ |
-| RED/BLUE tool separation         | MCP Colors prevents mixing untrusted + critical tools | Active |
-| Tool approval workflow           | MCP tool access requires authorization                | Active |
-| Protected configuration          | Immutable config with restricted write access         | Active |
-| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)            | Active |
+| Control                          | Implementation                                                                                                  | Status            |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------- | ----------------- |
+| RED/BLUE tool separation         | MCP Colors classification library with fail-closed handling for unknown tools (src/mcp/security/tool-colors.ts) | Active            |
+| Tool approval workflow           | MCP tool access requires authorization                                                                          | Active            |
+| Protected configuration          | Immutable config with restricted write access                                                                   | Active            |
+| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)                                                                      | Active            |
+| Dynamic Client Registration      | RFC 7591 compliant MCP registration utility for MCP integrations (src/mcp/oauth-handler.ts)                     | Integration-ready |
 
 ### Layer 3: Data Protection
 
 **Purpose:** Prevent data exfiltration, injection, and unauthorized access.
 
-| Control                          | Implementation                                                      | Status |
-| -------------------------------- | ------------------------------------------------------------------- | ------ |
-| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains | Active |
-| File access control              | Protected system files from agent modification                      | Active |
-| CSRF protection                  | Modern Sec-Fetch-Site based CSRF middleware (94.18% coverage)       | Active |
-| Redirect validation              | Open redirect prevention                                            | Active |
-| SQL injection prevention         | Secure Query Builder (parameterized queries)                        | Active |
-| Image prompt injection detection | Detects hidden instructions in uploaded images                      | Active |
-| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                  | Active |
-| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                | Active |
+| Control                          | Implementation                                                                                                                                                                                             | Status            |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains                                                                                                                                        | Active            |
+| File access control              | Protected system files from agent modification                                                                                                                                                             | Active            |
+| CSRF protection                  | Modern Sec-Fetch-Site based CSRF on `/api/v1/auth` and `/api/v1/payments` (src/middleware/csrf-protection.ts)                                                                                              | Active            |
+| Redirect validation              | Open redirect prevention applied to Express query handling (src/middleware/redirect-validator.ts)                                                                                                          | Active            |
+| SQL injection prevention         | Secure Query Builder (parameterized queries)                                                                                                                                                               | Active            |
+| Image prompt injection detection | Detects hidden instructions in images (src/mcp/security/image-sanitizer.ts)                                                                                                                                | Integration-ready |
+| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                                                                                                                                                         | Active            |
+| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                                                                                                                                                       | Active            |
+| Secret read-bypass guard         | Bash readers (`cat`/`grep`/`env`/`printenv`/`base64`…) of `.env*`, `*.pem`, `*.key`, `*secret*` blocked at `.claude/hooks/pretooluse-guard.sh` (closes the gap where Bash bypasses `Read`-tool deny rules) | Active            |
+| Secret-write input scan          | `Write`/`Edit`/`Bash` input scanned for secrets before execution (`.claude/hooks/secret-scan.sh`)                                                                                                          | Active            |
+| Secret-output egress scan        | `Bash` command **output** scanned post-execution; agent warned not to persist surfaced secrets (`.claude/hooks/secret-output-scan.sh`)                                                                     | Active            |
+
+#### Secret Egress Control (read + write sides)
+
+Read-tool deny rules (`Read(.env)`, `Read(**/*secret*)`) cover only the read half
+of the threat, and per the Adversa AI disclosure the `settings.json` `deny` list
+can be silently bypassed (e.g. the ~50-subcommand parser cap). The high-severity
+vector in AI-assisted codebases is the agent **writing a secret into a place
+nobody checks** — a committed file, a PR/issue body, a log, or an MCP call. DWS
+closes both halves with a shared pattern engine (`.claude/hooks/secret-patterns.sh`)
+consumed by three hooks:
+
+1. **Read-bypass guard** (PreToolUse/Bash, blocking) — denies Bash reads of secret
+   material so it never enters model context. `.env.example`/`.sample`/`.template`
+   remain readable.
+2. **Input scan** (PreToolUse/Bash+Write+Edit, blocking) — blocks writing a secret
+   into any file or command. Covers provider keys, bare JWTs, DSNs with embedded
+   credentials, `Bearer` tokens, DB passwords, and OAuth client secrets;
+   placeholder values (`your-…`, `user:pass@host`) are allowlisted.
+3. **Output scan** (PostToolUse/Bash, advisory) — scans command output and warns
+   the agent not to persist any secret that surfaced at runtime.
+
+The prompt-layer counterpart lives in `CLAUDE.md` → Security Coding Rules → _Secret
+Egress Rules_. Hooks are the enforcement layer; `settings.json` `deny` is
+defence-in-depth only.
 
 ### Layer 4: Human Oversight (Firehorse Human-in-the-Loop)
 
@@ -352,7 +394,7 @@ Supabase (production) → pg_dump (daily) → 4 destinations:
 | DR-3 | Backup encryption             | GPG symmetric AES-256 encryption before any cloud/remote transfer. Unencrypted dumps deleted after encryption. Passphrase in `.env` (never hardcoded).        | `gpg --symmetric --cipher-algo AES256`                        | Active |
 | DR-4 | Restore verification          | Row count snapshot (`row_counts.json`) taken during backup, compared after Aiven restore. Delta > 5% triggers warning.                                        | `Backup-Database.ps1`, `Mirror-ToAiven.ps1`                   | Active |
 | DR-5 | Sandbox mirror (Aiven)        | Daily mirror to Aiven PostgreSQL (EU Finland) for agent work and LWM training. Also serves as warm standby. Auth stubs for RLS compatibility.                 | `Mirror-ToAiven.ps1`, `aiven-init.sql`                        | Active |
-| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Marcus review                                 | Active |
+| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Boardy review                                 | Active |
 | DR-7 | Deletion protection           | Supabase project-level deletion protection enabled in dashboard. Aiven service termination protection enabled.                                                | Provider dashboard settings                                   | Active |
 
 **RTO/RPO Targets:**
@@ -490,20 +532,20 @@ The **NIS2 Directive (EU 2022/2555)** applies to DWS as a provider of digital se
 
 ### 7.2 NIS2 Article-by-Article Compliance
 
-| NIS2 Article      | Requirement                                               | DWS Implementation                                                                                                      | Status     | AI Safety Report Relevance                                                             |
-| ----------------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| **Art. 21(1)**    | Risk management measures                                  | DWS Security Standard (this document)                                                                                   | Active     | Report: "risk management frameworks are still immature" — our framework addresses this |
-| **Art. 21(2)(a)** | Policies on risk analysis and information system security | Threat model (AgentFoundry/Security.md), SECURITY_COMPLIANCE.md                                                         | Active     | Report: three risk categories (malicious use, malfunction, systemic) integrated        |
-| **Art. 21(2)(b)** | Incident handling                                         | 24h early warning to Traficom, 72h final report                                                                         | Active     | Report: AI-assisted cyberattacks require faster detection                              |
-| **Art. 21(2)(c)** | Business continuity and crisis management                 | Daily pg_dump → 4 destinations (local/Proton/Helsinki/GitHub), Aiven sandbox mirror, RPO 24h, RTO 4h. See Section 3.6.1 | Active     | Report: societal resilience requires recovery capability                               |
-| **Art. 21(2)(d)** | Supply chain security                                     | Sub-processor list, vendor risk assessment                                                                              | Active     | Report: open-weight models cannot be recalled — supply chain risk                      |
-| **Art. 21(2)(e)** | Security in network and information systems               | VPC isolation, TLS 1.3, mTLS                                                                                            | Active     | Report: AI expands attack surface                                                      |
-| **Art. 21(2)(f)** | Policies and procedures for assessing effectiveness       | Quarterly security metrics review, red team exercises                                                                   | Planned Q2 | Report: "evaluation gap" — testing must be continuous                                  |
-| **Art. 21(2)(g)** | Basic cyber hygiene and training                          | Security glossary (EN/FI), automation bias training                                                                     | Partial    | Report: automation bias weakens critical thinking                                      |
-| **Art. 21(2)(h)** | Policies on use of cryptography and encryption            | AES-256-GCM, BYOK/CMEK, TLS 1.3                                                                                         | Active     | —                                                                                      |
-| **Art. 21(2)(i)** | Human resources security, access control                  | RBAC + ABAC, SSO (SAML 2.0/OIDC)                                                                                        | Active     | Report: agent access control critical                                                  |
-| **Art. 21(2)(j)** | Multi-factor authentication                               | MFA for all administrative access                                                                                       | Active     | Report: AI-assisted credential attacks                                                 |
-| **Art. 23**       | Reporting obligations                                     | 24h early warning, 72h notification, 1 month final report                                                               | Active     | Report: AI incidents need same reporting discipline                                    |
+| NIS2 Article      | Requirement                                               | DWS Implementation                                                                                                                                                                                                                                                              | Status     | AI Safety Report Relevance                                                             |
+| ----------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
+| **Art. 21(1)**    | Risk management measures                                  | DWS Security Standard (this document)                                                                                                                                                                                                                                           | Active     | Report: "risk management frameworks are still immature" — our framework addresses this |
+| **Art. 21(2)(a)** | Policies on risk analysis and information system security | Threat model (AgentFoundry/Security.md), SECURITY_COMPLIANCE.md                                                                                                                                                                                                                 | Active     | Report: three risk categories (malicious use, malfunction, systemic) integrated        |
+| **Art. 21(2)(b)** | Incident handling                                         | 24h early warning to Traficom, 72h final report                                                                                                                                                                                                                                 | Active     | Report: AI-assisted cyberattacks require faster detection                              |
+| **Art. 21(2)(c)** | Business continuity and crisis management                 | Daily pg_dump → 4 destinations (local/Proton/Helsinki/GitHub), Aiven sandbox mirror, RPO 24h, RTO 4h. See Section 3.6.1                                                                                                                                                         | Active     | Report: societal resilience requires recovery capability                               |
+| **Art. 21(2)(d)** | Supply chain security                                     | Sub-processor list; vendor risk assessment exists (Aiven/Supabase CLOUD Act analysis, Shufti Pro DPA review) but runs ad hoc per decision, not on a recurring schedule — see `docs/SECURITY_ROLES_AND_GUIDANCE.md` role #3 for the honest current-state note and cadence target | Partial    | Report: open-weight models cannot be recalled — supply chain risk                      |
+| **Art. 21(2)(e)** | Security in network and information systems               | VPC isolation, TLS 1.3, mTLS                                                                                                                                                                                                                                                    | Active     | Report: AI expands attack surface                                                      |
+| **Art. 21(2)(f)** | Policies and procedures for assessing effectiveness       | Quarterly security metrics review, red team exercises                                                                                                                                                                                                                           | Planned Q2 | Report: "evaluation gap" — testing must be continuous                                  |
+| **Art. 21(2)(g)** | Basic cyber hygiene and training                          | Security glossary (EN/FI); internal training program skeleton defined in `docs/SECURITY_TRAINING_PROGRAM_SKELETON.md` (2026-07-03) — do not mark Active until at least one full cycle has actually run and been logged, per that document                                       | Partial    | Report: automation bias weakens critical thinking                                      |
+| **Art. 21(2)(h)** | Policies on use of cryptography and encryption            | AES-256-GCM, BYOK/CMEK, TLS 1.3                                                                                                                                                                                                                                                 | Active     | —                                                                                      |
+| **Art. 21(2)(i)** | Human resources security, access control                  | RBAC + ABAC, SSO (SAML 2.0/OIDC)                                                                                                                                                                                                                                                | Active     | Report: agent access control critical                                                  |
+| **Art. 21(2)(j)** | Multi-factor authentication                               | MFA for all administrative access                                                                                                                                                                                                                                               | Active     | Report: AI-assisted credential attacks                                                 |
+| **Art. 23**       | Reporting obligations                                     | 24h early warning, 72h notification, 1 month final report                                                                                                                                                                                                                       | Active     | Report: AI incidents need same reporting discipline                                    |
 
 ### 7.3 NIS2 Incident Response for AI-Related Events
 
@@ -696,7 +738,7 @@ DWS Security Standard (this document)
 └── IMPLEMENTATION
     ├── src/config/protected_config.py     ← Protected configuration
     ├── src/mcp/security/                  ← MCP security modules
-    ├── src/web/                           ← CSRF, redirect validation
+    ├── src/middleware/                    ← CSRF, redirect validation
     ├── src/database/                      ← SQL injection prevention
     └── .github/workflows/security-*.yml   ← 8 security workflows
 ```
@@ -861,6 +903,77 @@ await exec(`command "${userInput}"`);
 // REQUIRED:
 await execFile("command", [userInput]);
 ```
+
+### 13.5 Supply-Chain Inventory (Bumblebee on DGX Spark)
+
+**When a supply-chain advisory drops, we must answer in seconds whether the DGX Spark host has the compromised version installed.** This control deploys Perplexity's **Bumblebee** (Apache 2.0, Go static binary, https://github.com/perplexityai/bumblebee) as a read-only inventory scanner inside the DGX Spark docker-compose stack.
+
+**Where it runs.** `infrastructure/dgx-spark/bumblebee/` builds the scanner from a pinned upstream commit (recorded in `bumblebee.version`) and runs it as the `bumblebee-collector` container alongside the existing Aspire Dashboard. The host filesystem is mounted **read-only** at `/host`; the container drops all Linux capabilities and runs `read_only: true` with `no-new-privileges`.
+
+**Cadence.** `supercronic` inside the container runs:
+
+- `project` profile daily at 04:00 UTC (focused scan of project lockfiles)
+- `deep` profile weekly on Sunday 05:00 UTC (whole-host inventory)
+- Ad-hoc: `docker exec bumblebee-collector /app/run-scan.sh deep`
+
+**Observability surface.** The collector parses Bumblebee's NDJSON output and emits OTel metrics + structured logs to the existing `aspire-dashboard:18888` OTLP/HTTP endpoint — the same pipeline already used by `dws-backend` and `dws-cron` (protocol `http/protobuf`, post-v1.2.0). No new dashboard service. Metrics published:
+
+| Metric                                  | Type      | Purpose                                        |
+| --------------------------------------- | --------- | ---------------------------------------------- |
+| `bumblebee.packages.total`              | gauge     | Inventoried package count                      |
+| `bumblebee.packages.by_ecosystem`       | gauge     | Breakdown by npm / pypi / go / gem / mcp / ext |
+| `bumblebee.exposures.total`             | gauge     | Catalog matches in the latest scan             |
+| `bumblebee.exposures.by_severity`       | gauge     | Per-severity counts                            |
+| `bumblebee.scan.duration_ms`            | histogram | Wall time of each scan                         |
+| `bumblebee.scan.last_success_timestamp` | gauge     | Staleness alarm for cron failures              |
+
+Per-finding `bumblebee.exposure` events are also logged as structured JSON so the Aspire **Structured Logs** view surfaces the advisory ID, ecosystem, package name, and version of each match.
+
+**Exposure catalog.** `infrastructure/dgx-spark/bumblebee/catalog.json` is the canonical source of known-compromised package versions. Updates go through PR review — Bumblebee's outputs and any catalog input from third-party feeds are treated as **untrusted external content** per §13.
+
+**Caveat (inherited, not introduced).** Aspire Dashboard runs in `Unsecured` auth mode on `:18888`. Exposure data is sensitive; access to the DGX Spark observability port is governed by the existing host-network posture and must not be widened.
+
+### 13.6 Dependency Lockfile & Vulnerability SLA Policy
+
+**Every directory with a `package.json` MUST also carry a committed `package-lock.json`.** `npm audit` (and `scripts/daily/dependabot-audit.sh`, its automated caller) cannot assess a directory without a lockfile — an unpinned directory is an audit blind spot, not just a reproducibility gap. `.github/dependabot.yml` covers every such directory on a weekly cadence, grouped by minor/patch, across `npm`, root `pip`, and `github-actions` ecosystems.
+
+**Audit log of lockfile gaps found and closed:**
+
+| Date       | Directory                            | Finding                                                                                                                                                                                  | Fix                                                                                   |
+| ---------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 08.07.2026 | `lambda/ses-inbound-parser`          | `package.json` with no `package-lock.json`                                                                                                                                               | Lockfile generated and committed                                                      |
+| 08.07.2026 | `infrastructure/dgx-spark/bumblebee` | `package.json` with no `package-lock.json`                                                                                                                                               | Lockfile generated and committed                                                      |
+| 08.07.2026 | `scripts/daily/dependabot-audit.sh`  | `PACKAGE_DIRS` missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and the two directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED` | Directory list corrected to match every `package.json` location the repo actually has |
+
+**Vulnerability remediation SLA.** Once Dependabot or `npm audit` surfaces a finding, it is triaged by the **Aegis agent** (`src/agents/aegis.agent.ts`) against a fixed, NIS2-style SLA:
+
+| Severity | SLA (days to remediate) |
+| -------- | ----------------------- |
+| Critical | 2                       |
+| High     | 7                       |
+| Moderate | 30                      |
+| Low      | 90                      |
+
+Aegis does not fetch findings itself — it classifies whatever `scripts/daily/dependabot-audit.sh` and `scripts/weekly/security-audit.sh` (via `scripts/scan_critical_bugs.py --full`) already produced, and flags breach / at-risk / on-track per finding. This is the canonical SLA policy; do not restate different numbers elsewhere.
+
+**Open tracked finding:** `infrastructure/dgx-spark/bumblebee` carries 9 moderate `npm audit` findings in the `@opentelemetry/*` tree (`GHSA-8988-4f7v-96qf`, unbounded memory allocation in W3C Baggage propagation). The only available fix is a major-version bump (`@opentelemetry/exporter-metrics-otlp-proto` `^0.57.0` → `0.220.0`) that is a breaking change for the OTLP emitter this scanner depends on. Deferred rather than force-applied blind; owner must upgrade and re-verify the OTLP pipeline before the 30-day moderate SLA lapses (opened 08.07.2026).
+
+**pip lockfile gap.** No `requirements.txt` in the repo is hash-pinned (`pip-compile`/`poetry.lock` equivalent) — direct pins exist but transitive dependencies float, so `pip-audit` results vary run to run. `mcp-hub/requirements.txt` was found via `pip-audit` (08.07.2026) to depend on:
+
+| Package (pin type)       | Version | Finding                                     | Fix                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------ | ------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `python-dotenv` (direct) | 1.1.0   | CVE-2026-28684                              | Bumped to 1.2.2 (patch, non-breaking) — done 08.07.2026                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `pyjwt` (transitive)     | 2.9.0   | Multiple PYSEC-2026-\* advisories           | Fix available in 2.12.1–2.13.0 (minor, likely non-breaking) — **not yet applied**, no direct pin to bump; needs an explicit constraint added and the auth flow re-tested first                                                                                                                                                                                                                                                                                                                               |
+| `starlette` (transitive) | 0.46.2  | Multiple PYSEC-2026-_/CVE-2026-_ advisories | Root cause: `mcp-hub/requirements.txt` hard-pinned `fastapi==0.115.12`, which requires `starlette<0.47.0,>=0.40.0` — physically capping Starlette at the vulnerable 0.46.2. Relaxed to `fastapi>=0.115.12` (08.07.2026) so pip can resolve a FastAPI that pulls a fixed Starlette; **smoke-test the hub server before deploy.** The 4 other live FastAPI files (`AgentFoundry`, `Firehorse/{Automation,api,dms}`) already pin `starlette>=0.49.1` with an open `fastapi>=0.109.0`, so they were never stuck. |
+
+Moderate-severity SLA clock opened 08.07.2026 for the `pyjwt`/`starlette` items; owner must add explicit constraints, verify FastAPI compatibility, and re-run `pip-audit` before it lapses. `starlette` root cause addressed 08.07.2026 (FastAPI pin relaxed) — verify the resolved versions after the next `mcp-hub` install.
+
+**`lxml` XXE (`< 6.1.0`, live direct-pin floor too low).** `AgentFoundry/requirements.txt` and `scripts/requirements-signals.txt` pinned `lxml>=5.0.0`, which permits the vulnerable 5.4.0 (XXE-to-local-file via default `iterparse()`/`ETCompatXMLParser()` config, patched in 6.1.0). Floor raised to `lxml>=6.1.0` in both (08.07.2026) — real live finding, not dead-code noise.
+
+**Dead-code alert noise (root cause of the bulk of the repo's Dependabot count, closed 08.07.2026).** GitHub's dependency graph scans every manifest file in the repo tree regardless of `.github/dependabot.yml` directory scoping. Two categories of dead code were inflating the alert count with findings against code nothing runs:
+
+- **`artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/`** — full duplicate repo checkouts (997MB combined) accidentally committed in PR #1573 as merge-check/worktree leftovers. Not referenced by any script, CI workflow, or doc. Confirmed responsible for at least 5 alerts pulled from live GitHub push output on 08.07.2026 (APScheduler insecure-deserialization RCE, `shell-quote` shell-injection, Vitest UI arbitrary-file-read, `axios` prototype-pollution MITM) plus an unknown share of the remainder. **Deleted** (`git rm -r`) — fits the "temporary/generated output" exception to the no-destructive-deletes rule (CLAUDE.md Non-Negotiable Rule 6). Top-level media files in `artifacts/` (photos/videos, `pr925-view.json`) were intentionally left in place — not part of this cleanup.
+- **`*_DEPRECATED/` directories** (`mcp-hub_DEPRECATED`, `mcp-servers/{claude,supabase,cloudrun,lwm}_DEPRECATED`, etc.) — intentionally archived per repo convention (rename-to-`_DEPRECATED` rather than delete), still generate real alerts against pinned dependency versions in dead code (e.g. `mcp-servers/cloudrun_DEPRECATED/requirements.txt` pins `cryptography==38.0.4`, flagged for two separate CVEs). **Left in place** — this is expected, accepted noise from intentionally-archived code, not a live-code risk. Do not chase alerts filed against any `*_DEPRECATED/` path; verify the finding's path before triaging it as a live issue.
 
 ---
 
@@ -1198,22 +1311,31 @@ All tools exposed via MCP `tools/list`:
 
 **The rule:** No US-owned cloud provider (Google, AWS, Azure) for DWS production customer data. EU hosting on US cloud is NOT sovereign.
 
-| Status                      | Provider                  | CLOUD Act Exposure       | DWS Policy                                                                      |
-| --------------------------- | ------------------------- | ------------------------ | ------------------------------------------------------------------------------- |
-| **Approved (EU-sovereign)** | Scaleway (French, Iliad)  | None                     | **DWS IQ 6**: Serverless containers, multi-tenant SaaS                          |
-| **Approved (EU-sovereign)** | UpCloud (Finnish, Tesi)   | None                     | **Aegis**: Managed K8s (UKS) + Helm, Helsinki DC, single-tenant enterprise      |
-| **Approved (EU-sovereign)** | Clever Cloud (French)     | None                     | Alternative PaaS                                                                |
-| **Approved (EU-sovereign)** | OVHcloud (French, public) | None                     | K8s workloads                                                                   |
-| **Approved (EU-sovereign)** | Hetzner (German, family)  | None                     | VMs, DB hosting, Aiven infra                                                    |
-| **Approved (EU-sovereign)** | STACKIT (German, Schwarz) | None                     | Enterprise K8s (German market)                                                  |
-| **Transitional**            | Google Cloud Run          | Yes (US-owned)           | Dev + early production only. Migrate to DWS IQ 6 (Scaleway) or Aegis (UpCloud). |
-| **Banned**                  | AWS, Azure                | Yes (US-owned)           | Never use for DWS services                                                      |
-| **Yellow flag**             | Aiven (Finnish, US VC)    | Unclear (US investors)   | DB layer on Hetzner infra only                                                  |
-| **Dead**                    | Nebula / Telia Cloud 9    | N/A (dissolved Oct 2023) | Not an option                                                                   |
+| Status                      | Provider                  | CLOUD Act Exposure                   | DWS Policy                                                                                                                          |
+| --------------------------- | ------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Approved (EU-sovereign)** | Scaleway (French, Iliad)  | None                                 | **DWS IQ 6**: Serverless containers, multi-tenant SaaS                                                                              |
+| **Approved (EU-sovereign)** | UpCloud (Finnish, Tesi)   | None                                 | **Aegis**: Managed K8s (UKS) + Helm, Helsinki DC, single-tenant enterprise                                                          |
+| **Approved (EU-sovereign)** | Clever Cloud (French)     | None                                 | Alternative PaaS                                                                                                                    |
+| **Approved (EU-sovereign)** | OVHcloud (French, public) | None                                 | K8s workloads                                                                                                                       |
+| **Approved (EU-sovereign)** | Hetzner (German, family)  | None                                 | VMs, DB hosting, Aiven infra                                                                                                        |
+| **Approved (EU-sovereign)** | STACKIT (German, Schwarz) | None                                 | Enterprise K8s (German market)                                                                                                      |
+| **Transitional**            | Google Cloud Run          | Yes (US-owned)                       | Dev + early production only. Migrate to DWS IQ 6 (Scaleway) or Aegis (UpCloud).                                                     |
+| **Banned**                  | AWS, Azure                | Yes (US-owned)                       | Never use for DWS services                                                                                                          |
+| **Approved (exception)**    | Aiven (Finnish, US VC)    | Unclear (US investors), on GCP infra | **DWS IQ 6 (dws6.com)**: Managed PostgreSQL DB layer, `google-europe-north1`. Explicit sovereignty exception — see rationale below. |
+| **Dead**                    | Nebula / Telia Cloud 9    | N/A (dissolved Oct 2023)             | Not an option                                                                                                                       |
 
-**Migration timeline:** See AGENTS.md Section 20 for phased migration plan.
+**Migration timeline:** See `docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md` for the phased migration plan. (Corrected 2026-07-02 — this previously pointed to "AGENTS.md Section 20," which does not exist; AGENTS.md tops out at Section 8.)
 
 **Enforcement:** New services MUST target EU-sovereign providers. Existing Google Cloud Run services migrate per the phased plan. Any new GCP service creation requires explicit sovereignty exception documented in PR.
+
+**Aiven row — resolved 2026-07-02 (founder decision, supabase/aiven audit):** This table previously read "DB layer on Hetzner infra only" for Aiven, but Aiven does not offer Hetzner as a deployable cloud region — its supported infrastructure providers are AWS, Google Cloud, Azure, OVHcloud, Oracle Cloud, Exoscale, and UpCloud ([Aiven — Available cloud regions](https://aiven.io/docs/platform/reference/list_of_clouds)); that condition was unsatisfiable as written. The founder decided to approve Aiven's own `google-europe-north1` region for the DWS IQ 6 (dws6.com) database layer instead, under the Enforcement clause's existing "explicit sovereignty exception documented" carve-out.
+
+**Residual risk, recorded rather than hidden:** this is a deliberate exception, not a "None" CLOUD Act rating. Two layers of exposure remain and are accepted, not resolved:
+
+1. Aiven itself is US-VC-backed, which is exactly why it carried the "Yellow flag" in the first place — that ownership question is still "unclear," not cleared.
+2. The underlying infrastructure is Google Cloud, which this same table classifies as only **"Transitional"** for DWS's own compute (Cloud Run) — approved for dev/early-production only, with an active plan to migrate _away_ from it. This exception now runs the database, which holds all customer data, on infrastructure the standard otherwise treats as temporary.
+
+No script changes were needed: `scripts/aiven-vault-bootstrap.sh` and `mcp-hub/config/aiven-mcp.json` already default to `google-europe-north1`, so they are in compliance with this exception as-is. If the underlying Cloud Run migration-away plan (Scaleway/UpCloud) completes, revisit whether the DB layer should follow rather than being left as the last GCP-resident piece.
 
 ---
 
@@ -1350,6 +1472,28 @@ All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback
 **Atomic counter increment:** `increment_usage_counter()` — `SECURITY DEFINER` function with service_role caller guard. Uses `INSERT ... ON CONFLICT DO UPDATE` for race-free counter updates.
 
 **Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
+
+### 16.0.1 Data API Grants (Supabase 2026-05-30 / 2026-10-30)
+
+**Context.** Supabase dropped the implicit grants on `public.*` for the Data API roles (`anon`, `authenticated`, `service_role`) on 2026-05-30 for new projects. All existing projects — including `dws6-production` — are enforced on 2026-10-30. Without an explicit table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` **even when RLS would allow the row.** RLS is the row gate; `GRANT` is the table gate. Both are now required.
+
+**Standard block.** Every `CREATE TABLE public.<name>` in a migration must be followed by:
+
+```sql
+grant select, insert, update, delete on public.<name>
+  to authenticated, service_role;
+alter table public.<name> enable row level security;
+
+-- Opt-in only if a policy explicitly targets that role:
+-- grant select on public.<name> to anon;
+-- grant insert on public.<name> to anon;
+```
+
+Reference copy at the top of `Firehorse/supabase-schema-templates.sql`.
+
+**Backfill.** `supabase/migrations/075_public_schema_grants.sql` grants CRUD on every existing public table to `service_role` + `authenticated`, plus per-table anon SELECT/INSERT for the surfaces whose RLS policies explicitly target `anon` (booking\_\* public reads, subscription_plans, file_index, captain_inquiries submissions, web_leads, playbook_leads). It also sets `alter default privileges in schema public` so a future migration that forgets the inline block still lands with the correct grants — a belt-and-suspenders safeguard against silent 42501s in production.
+
+**Anon posture.** Anon is deny-by-default at the GRANT layer: the standard block does not include `anon`. Add it only when an RLS policy already permits the action for `anon` or the `public` pseudo-role — never grant `anon` privileges the RLS layer does not corroborate.
 
 ### 16.1 API Key Management Security
 
@@ -1501,16 +1645,17 @@ Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
 
 ### 18.4 BYO Agent Registration Gates
 
-| Gate                         | Requirement                                                                  | Enforcement                                               |
-| ---------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
-| **G1 — Manifest**            | Agent manifest submitted (name, version, tool requirements, source URL)      | DWS Agent Registry API                                    |
-| **G2 — Identity Binding**    | Agent bound to a verified human identity (KYA L1 pass required)              | IDV verification must be PASSED before agent registration |
-| **G3 — Capability Review**   | Requested MCP tools reviewed against org policy                              | MCP Tool Approval workflow (Section 17)                   |
-| **G4 — Sandbox Entry**       | Agent placed in isolated sandbox (Stage 1–3 based on tenant tier)            | Sandbox Isolation Architecture (Section 14)               |
-| **G5 — Runtime Monitoring**  | Continuous telemetry active: egress attempts, file writes, token consumption | KYA L4 telemetry pipeline                                 |
-| **G6 — Dynamic Restriction** | If IDV risk score changes, sandbox permissions adjust in real-time           | KYA L5 webhook → event bus → sandbox policy engine        |
+| Gate                         | Requirement                                                                                                                                                                                          | Enforcement                                                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **G1 — Manifest**            | Agent manifest submitted (name, version, tool requirements, source URL)                                                                                                                              | DWS Agent Registry API                                                                                                       |
+| **G2 — Identity Binding**    | Agent bound to a verified human identity (KYA L1 pass required)                                                                                                                                      | IDV verification must be PASSED before agent registration                                                                    |
+| **G3 — Capability Review**   | Requested MCP tools reviewed against org policy                                                                                                                                                      | MCP Tool Approval workflow (Section 17)                                                                                      |
+| **G4 — Sandbox Entry**       | Agent placed in isolated sandbox (Stage 1–3 based on tenant tier)                                                                                                                                    | Sandbox Isolation Architecture (Section 14)                                                                                  |
+| **G5 — Runtime Monitoring**  | Continuous telemetry active: egress attempts, file writes, token consumption                                                                                                                         | KYA L4 telemetry pipeline                                                                                                    |
+| **G6 — Dynamic Restriction** | If IDV risk score changes, sandbox permissions adjust in real-time                                                                                                                                   | KYA L5 webhook → event bus → sandbox policy engine                                                                           |
+| **G7 — Spend Authority**     | Agent may sign/present an AP2/UCP/ACP payment mandate only within its ATS band, and only with a signed `spend_authority` block bound to the G2 verified human (`hic`) — no anonymous spend authority | `evaluateMandateGate()` (`src/identity/ats-engine.ts`); see `Legal/KYA_STANDARD_v1.md` §14, `Legal/KYA_SECURITY_v1.2.md` §12 |
 
-**Critical rule:** No BYO agent may execute outside a sandbox. Sandbox stage selection follows Section 14 based on tenant tier.
+**Critical rule:** No BYO agent may execute outside a sandbox. Sandbox stage selection follows Section 14 based on tenant tier. G7 composes with G2: spend authority always resolves to the same verified human identity G2 established — there is no separate identity path for commerce.
 
 ### 18.5 Partner Access Controls for IDV Providers
 
@@ -1592,6 +1737,24 @@ DWS IQ integrates NVIDIA NeMo DataDesigner to generate synthetic regulatory data
 ### 19.3 NIS2 Compliance Statement
 
 > "DWS IQ's Synthetic Nervous System generates regulatory training data using NVIDIA NeMo DataDesigner under strict data provenance, schema validation, and adversarial integrity controls. All synthetic data is cryptographically tagged, isolated from production systems, and validated against EU regulatory logic before agent training. Fine-tuned models maintain full lineage tracking and rollback capability, ensuring compliance with NIS2 Article 21(2)(e) security in network and information systems acquisition, development and maintenance."
+
+## 20. Public Vulnerability Disclosure
+
+The canonical public-facing Vulnerability Disclosure Policy lives at
+`dws10.com/compliance/vulnerability-disclosure-policy/index.html` (+ `landing-pages/dws10-com/` mirror,
+Dual Folder Sync). It is adapted from the European Commission's public VDP, rewritten for a private
+company scope — Commission Decision EC 2017/46 and EU-institution legal-action provisions do not apply
+to Lifetime Oy and were dropped rather than misapplied.
+
+- **Scope:** dws10.com, dws6.com, onelifetime.world, their public API endpoints, and MCP servers —
+  matching `.well-known/security.txt`. Third-party vendor systems are explicitly out of scope.
+- **Contact:** `security@lifetime.fi` (no PGP key published yet — stated plainly on the page rather
+  than implied).
+- **SLA (single source, do not fork a second one):** acknowledge within 48 hours; fix timeline
+  Critical 48h / High 7d / Medium 30d / Low next release. The same values are committed in
+  `.well-known/security.txt` and `legal/index.html` §10 (Responsible Disclosure) — all three now
+  cross-link to the standalone policy page rather than restating it.
+- Registered 31.07.2026, branch `claude/ai-pact-enforcement-transparency-gnnipk`.
 
 ---
 

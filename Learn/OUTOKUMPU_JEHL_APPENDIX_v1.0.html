@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Outokumpu × Lifetime Oy — CBAM Follow-Up Appendix</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        font-size: 15px;
+        line-height: 1.65;
+        color: #1a1a1a;
+        background: #f5f5f3;
+        padding: 2rem 1rem;
+      }
+
+      /* Version banner */
+      .version-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #1c2b3a;
+        color: #e8e8e6;
+        padding: 0.6rem 1.4rem;
+        border-radius: 6px 6px 0 0;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .version-banner .doc-title {
+        font-weight: 600;
+        color: #c8d8e8;
+      }
+
+      .version-badge {
+        background: #f5c842;
+        color: #1a1a1a;
+        font-weight: 700;
+        padding: 2px 10px;
+        border-radius: 3px;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+
+      .version-banner .meta {
+        color: #8a9aaa;
+        font-size: 11px;
+      }
+
+      /* Document container */
+      .doc {
+        background: #ffffff;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 3rem 3.5rem;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Send note */
+      .send-note {
+        background: #f0f4f8;
+        border-left: 3px solid #4a7fa5;
+        padding: 0.7rem 1rem;
+        border-radius: 0 4px 4px 0;
+        font-size: 13px;
+        color: #445566;
+        margin-bottom: 2.5rem;
+      }
+
+      /* Header */
+      .doc-header {
+        border-bottom: 2px solid #e8e8e6;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .doc-header h1 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1c2b3a;
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.02em;
+      }
+
+      .doc-header .subtitle {
+        font-size: 13px;
+        color: #667788;
+      }
+
+      /* Sections */
+      section {
+        margin-bottom: 2.5rem;
+      }
+
+      h2 {
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #4a7fa5;
+        margin-bottom: 0.9rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #e8f0f8;
+      }
+
+      p {
+        margin-bottom: 0.8rem;
+        color: #2a2a2a;
+      }
+
+      ol,
+      ul {
+        padding-left: 1.4rem;
+        margin-bottom: 0.8rem;
+      }
+
+      li {
+        margin-bottom: 0.45rem;
+        color: #2a2a2a;
+      }
+
+      strong {
+        color: #1a1a1a;
+        font-weight: 600;
+      }
+
+      /* Tables */
+      .table-wrap {
+        overflow-x: auto;
+        margin: 1rem 0 0.6rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+
+      thead th {
+        background: #1c2b3a;
+        color: #e8e8e6;
+        text-align: left;
+        padding: 0.55rem 0.9rem;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.03em;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #f8f9fb;
+      }
+
+      tbody tr:hover {
+        background: #eef4fa;
+      }
+
+      tbody td {
+        padding: 0.55rem 0.9rem;
+        border-bottom: 1px solid #e8e8e6;
+        vertical-align: top;
+        color: #2a2a2a;
+      }
+
+      /* Highlight row */
+      tbody tr.highlight td {
+        background: #e8f4e8;
+        font-weight: 600;
+        color: #1a4a1a;
+      }
+
+      /* Key number callout */
+      .callout {
+        background: #1c2b3a;
+        color: #e8e8e6;
+        border-radius: 6px;
+        padding: 1.1rem 1.4rem;
+        margin: 1.2rem 0;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .callout strong {
+        color: #f5c842;
+      }
+
+      /* Source note */
+      .source-note {
+        font-size: 11.5px;
+        color: #889aaa;
+        margin-top: 0.4rem;
+        font-style: italic;
+      }
+
+      /* Commit list */
+      .commit-table {
+        width: 100%;
+        font-size: 13px;
+      }
+
+      .commit-table td:first-child {
+        font-weight: 600;
+        color: #1c2b3a;
+        white-space: nowrap;
+        padding-right: 1.2rem;
+      }
+
+      /* Signature */
+      .signature {
+        border-top: 1px solid #e8e8e6;
+        padding-top: 1.5rem;
+        margin-top: 2.5rem;
+        font-size: 13.5px;
+      }
+
+      .signature .name {
+        font-weight: 700;
+        font-size: 15px;
+        color: #1c2b3a;
+        margin-bottom: 0.2rem;
+      }
+
+      .signature .contact {
+        color: #445566;
+        line-height: 1.8;
+      }
+
+      .signature a {
+        color: #4a7fa5;
+        text-decoration: none;
+      }
+
+      /* Private label */
+      .private-label {
+        display: inline-block;
+        background: #fff3cd;
+        color: #7a5a00;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 3px;
+        margin-bottom: 1rem;
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+
+        .doc {
+          box-shadow: none;
+          border-radius: 0;
+          padding: 2rem 2.5rem;
+        }
+
+        .version-banner {
+          border-radius: 0;
+        }
+
+        .send-note {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Version banner -->
+    <div class="version-banner">
+      <span class="doc-title">Outokumpu × Lifetime Oy — CBAM Appendix</span>
+      <span class="version-badge">v1.0</span>
+      <span class="meta">Lifetime Oy &middot; 10 May 2026 &middot; Learn/ (private)</span>
+    </div>
+
+    <div class="doc">
+      <span class="private-label">Private &mdash; not for distribution</span>
+
+      <!-- Header -->
+      <div class="doc-header">
+        <h1>CBAM Compliance Partnership — Follow-Up Detail</h1>
+        <p class="subtitle">
+          For Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu &middot; Send on
+          reply to first note
+        </p>
+      </div>
+
+      <!-- Send note -->
+      <div class="send-note">
+        Send on reply to the first email, or as second-contact attachment if no reply in 10 days. Do
+        <strong>not</strong> include in the first send.
+      </div>
+
+      <!-- Section 1: Problem in Numbers -->
+      <section>
+        <h2>The Problem in Numbers</h2>
+        <p>
+          Without a path from Outokumpu's ISO 14067 certificates to a CBAM annual declaration,
+          fabricators default to the EU punitive default emission factors. Those defaults reflect
+          worst-case non-EU production — not Outokumpu's 75%-below-average footprint.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Emission factor</th>
+                <th>Embedded CO&#x2082;</th>
+                <th>CBAM cost @ &euro;65/tCO&#x2082;e</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Non-EU supplier, no verified data (EU default)</td>
+                <td>
+                  1.852 tCO&#x2082;e/t<br /><span style="font-size: 11px; color: #889aaa"
+                    >Reg. 2023/1773</span
+                  >
+                </td>
+                <td>1,852 tCO&#x2082;e</td>
+                <td><strong>&euro;120,380</strong></td>
+              </tr>
+              <tr>
+                <td>Non-EU supplier, verified low-carbon data</td>
+                <td>
+                  ~0.5&ndash;0.9 tCO&#x2082;e/t<br /><span style="font-size: 11px; color: #889aaa"
+                    >actual</span
+                  >
+                </td>
+                <td>~500&ndash;900 tCO&#x2082;e</td>
+                <td><strong>&euro;32,500&ndash;&euro;58,500</strong></td>
+              </tr>
+              <tr class="highlight">
+                <td>
+                  Outokumpu EU-origin steel<br />
+                  <span style="font-size: 11px; color: #336633; font-weight: 400"
+                    >Fabricator's CBAM certificate cost &mdash; not Outokumpu's production
+                    cost&thinsp;&#8202;&#185;</span
+                  >
+                </td>
+                <td>EU-produced &mdash; no import, no CBAM event</td>
+                <td>0 tCO&#x2082;e CBAM liability</td>
+                <td><strong>&euro;0</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source-note">
+          Sources: EU default from Commission Implementing Regulation 2023/1773; ETS price EU
+          average 2024. Illustrative basis: 1,000 tonnes steel import.<br />
+          &#185;&thinsp;CBAM is levied on the <em>importer</em> when goods cross an EU border from a
+          non-EU country. Outokumpu produces in Finland, Germany, and Sweden &mdash; all inside the
+          EU. No cross-border import occurs, so no CBAM certificate is required. Outokumpu does pay
+          EU ETS allowances on its own production emissions; those costs are already priced into the
+          steel. The &euro;0 here is the fabricator&rsquo;s CBAM certificate cost only.
+        </p>
+
+        <div class="callout">
+          The fabricator switching from non-EU default to Outokumpu EU steel saves up to
+          <strong>&euro;120,000 per 1,000 tonnes</strong> in CBAM certificates. That number belongs
+          in their procurement meeting, not just their sustainability report. The 60-day pilot puts
+          it there.
+        </div>
+      </section>
+
+      <!-- Section 2: What the Pilot Produces -->
+      <section>
+        <h2>What the Pilot Produces</h2>
+        <p>For each nominated fabricator account:</p>
+        <ol>
+          <li>
+            A complete CBAM annual declaration for calendar year 2026 imports, using Outokumpu ISO
+            14067 PCF data as the verified emission source (not EU defaults)
+          </li>
+          <li>
+            A CFO-readable cost comparison: CBAM liability with Outokumpu EU steel vs. equivalent
+            non-EU tonnage at default factors
+          </li>
+          <li>
+            An audit-ready evidence package for the mandatory verified annual report (deadline:
+            <strong>30 September 2027</strong>)
+          </li>
+        </ol>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Party</th>
+                <th>Commitment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Outokumpu</strong></td>
+                <td>
+                  Nominate 2&ndash;3 accounts; provide PCF certificate data for the grades they
+                  purchase
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Lifetime Oy</strong></td>
+                <td>Onboard at no charge; deliver within 60 days; report results</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: Revenue argument -->
+      <section>
+        <h2>A Revenue Argument, Not a Sustainability Argument</h2>
+        <p>
+          Outokumpu's carbon credentials are already documented and TÜV-validated. The gap is that
+          fabricator procurement teams cannot put a euro figure on them without compliance tooling.
+          Once they can, Outokumpu steel has a quantified price advantage in every competitive bid
+          against non-EU alternatives &mdash; and that advantage grows as ETS prices rise.
+        </p>
+        <p>
+          The pilot converts an intangible sustainability claim into a line-item CFO decision before
+          the first account manager conversation.
+        </p>
+      </section>
+
+      <!-- Section 4: Five industries -->
+      <section>
+        <h2>Five Industries, One Integration</h2>
+        <p>
+          The Outokumpu ISO 14067 integration is not limited to CBAM filers. The same verified data
+          populates compliance filings across all five major Outokumpu customer industries. Account
+          managers in every vertical carry the same referral message.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Industry</th>
+                <th>EU Pressure (2026&ndash;2030)</th>
+                <th>Where Outokumpu PCF Data Flows</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Construction &amp; Architecture</strong></td>
+                <td>EPBD (embodied carbon by 2028), ETS2, CSRD</td>
+                <td>A1&ndash;A3 stages in EN 15978 LCA</td>
+              </tr>
+              <tr>
+                <td><strong>Chemical &amp; Process Industry</strong></td>
+                <td>ETS (direct), CBAM precursors, CSRD</td>
+                <td>Scope 3 Category 2 (capital goods)</td>
+              </tr>
+              <tr>
+                <td><strong>Food &amp; Beverage Processing</strong></td>
+                <td>CSRD, Energy Efficiency Directive</td>
+                <td>Scope 3 Category 2 (processing equipment)</td>
+              </tr>
+              <tr>
+                <td><strong>Automotive &amp; Heavy Mobility</strong></td>
+                <td>CSRD Scope 3 Cat 1, EU Battery Reg 2027</td>
+                <td>Tier-1 supplier Scope 3 Category 1</td>
+              </tr>
+              <tr>
+                <td><strong>Energy &amp; Utilities</strong></td>
+                <td>ETS, EU Taxonomy, CSRD</td>
+                <td>Scope 3 Category 2, Taxonomy evidence</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 5: Data & Security -->
+      <section>
+        <h2>Data &amp; Security</h2>
+        <ul>
+          <li>EU-hosted exclusively &mdash; Finland / Germany infrastructure</li>
+          <li>GDPR-compliant &mdash; Data Processing Agreement available</li>
+          <li>No US-cloud AI processing for compliance data</li>
+          <li>NIS2 audit trail &mdash; immutable event log per declaration</li>
+          <li>ISO 14067 ingestion validated against EU CBAM Regulation (EU) 2023/956</li>
+        </ul>
+      </section>
+
+      <!-- Section 6: Commercial model -->
+      <section>
+        <h2>Post-Pilot Commercial Model</h2>
+        <p><strong>No cost to Outokumpu in any scenario.</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stream</th>
+                <th>Industries</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CBAM declarations</strong></td>
+                <td>Construction, Chemical, Automotive, Fabricators</td>
+                <td>Fabricator accounts pay Lifetime Oy &euro;2,400&ndash;9,600/year</td>
+              </tr>
+              <tr>
+                <td><strong>CSRD Scope 3 reporting</strong></td>
+                <td>All five industries</td>
+                <td>PCF data auto-populates Scope 3 Category 1 &amp; 2 for ESRS E1 disclosures</td>
+              </tr>
+              <tr>
+                <td><strong>EN 15978 LCA automation</strong></td>
+                <td>Construction</td>
+                <td>Outokumpu grade data feeds A1&ndash;A3 stages without manual lookup</td>
+              </tr>
+              <tr>
+                <td><strong>Co-marketing</strong></td>
+                <td>All five industries</td>
+                <td>Joint webinar, case study, press release per vertical</td>
+              </tr>
+              <tr>
+                <td><strong>Referral programme</strong></td>
+                <td>All five industries</td>
+                <td>
+                  Optional revenue share on accounts sourced through Outokumpu (terms post-pilot)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Signature -->
+      <div class="signature">
+        <div class="name">Risto P&auml;&auml;rni</div>
+        <div class="contact">
+          CEO, Lifetime Oy (0772407-9)<br />
+          <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a><br />
+          +358 400 319 010<br />
+          Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; VAT: FI07724079
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -32,7 +32,9 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "parent-module": "^3.2.0",
     "postcss": "^8.5.6",
+    "resolve-from": "^5.0.0",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
@@ -44,9 +46,12 @@
     "flatted": ">=3.4.2",
     "picomatch": ">=4.0.4",
     "path-to-regexp": ">=0.1.13",
-    "brace-expansion": ">=1.1.13",
+    "@eslint/config-array": {
+      "brace-expansion": "^2.0.1"
+    },
     "lodash": ">=4.18.0",
     "@xmldom/xmldom": ">=0.8.12",
-    "defu": ">=6.1.5"
+    "defu": ">=6.1.5",
+    "fast-uri": "^3.1.5"
   }
 }

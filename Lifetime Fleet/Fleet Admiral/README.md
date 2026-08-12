@@ -46,8 +46,8 @@ Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Phys
 | **Instrument** | Convertible Note |
 | **Post-Money Cap** | €3.8M |
 | **First Close Target** | €1M (April 15, 2026) |
-| **MRR** | €10k (Uber, Bolt, Taksi Helsinki / KELA) |
-| **Retention** | 100%, zero churn |
+| **Services & transport revenue** | ~€7k/month — licensed transport operation + consulting. **Not software revenue.** Company at cash break-even, founder salary €0. Ride orders arrive via the dispatch operators (Uber, Bolt, Taksi Helsinki, Kela) in the Traficom-defined role — they are commercial counterparties, not software customers. |
+| **Software** | €59,900 contracted Q1/2026 — two enterprise pilots at €29,950 each. No retention or churn rate asserted (no cohort data). See `docs/TRACTION_CANONICAL.md`. |
 | **Partners** | NVIDIA ISV, Acer, Siemens, ABB |
 | **KYA Alpha Clause** | >10% fleet latency improvement = valuation floor |
 

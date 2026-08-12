@@ -19,16 +19,14 @@
 import { readdir, readFile, stat } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import {
   getLeadsSummary,
   getNewLeads,
   getUpcomingDeadlines,
 } from '../construction-leads/lead-processor.js';
-import {
-  getSourceCounts,
-  getSourcesSummary,
-} from '../construction-leads/lead-sources.js';
+import { getSourceCounts, getSourcesSummary } from '../construction-leads/lead-sources.js';
 import type {
   ConstructionLeadDeadline,
   ConstructionLeadNew,
@@ -80,15 +78,15 @@ export interface MetricsStrip {
 
 /** AI/DS Workflow Accelerator — last pipeline run data */
 export interface WorkflowData {
-  last_run: string | null;        // ISO timestamp
-  mode: string;                   // "dry_run" | "full"
+  last_run: string | null; // ISO timestamp
+  mode: string; // "dry_run" | "full"
   total_time_seconds: number;
   all_passed: boolean;
   stages: Array<{ name: string; status: string; time: number }>;
   best_model: string | null;
   best_f1: number | null;
   top_feature: string | null;
-  savings_percent: number;        // vs traditional cycle
+  savings_percent: number; // vs traditional cycle
 }
 
 /** A single Learn/ HTML artifact for the morning briefing */
@@ -170,6 +168,39 @@ export interface CaptainInquiriesData {
   inquiries: CaptainInquiryItem[];
 }
 
+export interface WebLeadItem {
+  id: string;
+  created_at: string;
+  source: string; // newsletter | free_audit | contact
+  email: string;
+  name: string | null;
+  company: string | null;
+  industry: string | null;
+  message: string | null;
+  status: string;
+}
+
+export interface WebLeadsData {
+  newCount: number;
+  leads: WebLeadItem[];
+}
+
+/** A single cross-vertical market/incident signal from news-to-signal.sh */
+export interface MarketSignalItem {
+  timestamp: string;
+  title: string;
+  source: string;
+  industries: string; // comma-separated
+  dual_use: boolean;
+  cascade_score: number;
+}
+
+/** Market signals scanned in the last 3 days, above alert threshold */
+export interface MarketSignalsData {
+  signals: MarketSignalItem[];
+  scannedAt: string | null; // most recent scan timestamp found, or null if no scan output exists
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -184,8 +215,10 @@ export interface CockpitData {
   constructionLeads: ConstructionLeadsData;
   outreachSummary: OutreachSummaryData;
   captainInquiries: CaptainInquiriesData;
+  webLeads: WebLeadsData;
   learnArtifacts: LearnArtifactsData;
   hilTodos: HilTodosData;
+  marketSignals: MarketSignalsData;
 }
 
 // ============================================================================
@@ -238,7 +271,7 @@ async function collectPipelineChange(): Promise<string> {
 
   // Count threads updated since yesterday
   const threads = await supabaseFetch<Array<{ status: string; pipeline: string }>>(
-    `v_outreach_enriched?created_at=gte.${yesterday}T00:00:00&select=status,pipeline`
+    `v_outreach_enriched?created_at=gte.${yesterday}T00:00:00&select=status,pipeline`,
   );
 
   if (!threads || threads.length === 0) return 'No pipeline movement';
@@ -248,9 +281,7 @@ async function collectPipelineChange(): Promise<string> {
     byPipeline[t.pipeline] = (byPipeline[t.pipeline] || 0) + 1;
   }
 
-  const parts = Object.entries(byPipeline).map(
-    ([p, count]) => `${count} ${p}`
-  );
+  const parts = Object.entries(byPipeline).map(([p, count]) => `${count} ${p}`);
   return `${threads.length} threads moved: ${parts.join(', ')}`;
 }
 
@@ -261,13 +292,15 @@ async function collectPipelineChange(): Promise<string> {
 async function collectProductChange(): Promise<string> {
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
-  const metrics = await supabaseFetch<Array<{
-    agent_id: string;
-    leads_processed: number;
-    emails_sent: number;
-    meetings_booked: number;
-  }>>(
-    `agent_metrics?select=agent_id,leads_processed,emails_sent,meetings_booked&metric_date=gte.${yesterday}`
+  const metrics = await supabaseFetch<
+    Array<{
+      agent_id: string;
+      leads_processed: number;
+      emails_sent: number;
+      meetings_booked: number;
+    }>
+  >(
+    `agent_metrics?select=agent_id,leads_processed,emails_sent,meetings_booked&date=gte.${yesterday}`,
   );
 
   if (metrics && metrics.length > 0) {
@@ -293,7 +326,7 @@ async function collectDeliveryChange(): Promise<string> {
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
   const converted = await supabaseFetch<Array<{ state: string }>>(
-    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(Engaged,Meeting_Booked)`
+    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(Engaged,Meeting_Booked)`,
   );
 
   if (converted && converted.length > 0) {
@@ -328,9 +361,16 @@ async function collectTodaysBets(): Promise<string[]> {
   const today = new Date().toISOString().split('T')[0];
 
   const threads = await supabaseFetch<
-    Array<{ status: string; pipeline: string; next_action: string; next_action_date: string; first_name: string; org_name: string }>
+    Array<{
+      status: string;
+      pipeline: string;
+      next_action: string;
+      next_action_date: string;
+      first_name: string;
+      org_name: string;
+    }>
   >(
-    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=status,pipeline,next_action,next_action_date,first_name,org_name`
+    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=status,pipeline,next_action,next_action_date,first_name,org_name`,
   );
 
   if (!threads || threads.length === 0) {
@@ -360,15 +400,21 @@ async function collectTopRisk(): Promise<TopRisk> {
 
   // Find the most overdue thread
   const overdue = await supabaseFetch<
-    Array<{ first_name: string; org_name: string; next_action_date: string; pipeline: string; next_action: string }>
+    Array<{
+      first_name: string;
+      org_name: string;
+      next_action_date: string;
+      pipeline: string;
+      next_action: string;
+    }>
   >(
-    `v_outreach_enriched?next_action_date=lt.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=1&select=first_name,org_name,next_action_date,pipeline,next_action`
+    `v_outreach_enriched?next_action_date=lt.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=1&select=first_name,org_name,next_action_date,pipeline,next_action`,
   );
 
   if (overdue && overdue.length > 0) {
     const t = overdue[0];
     const daysOverdue = Math.floor(
-      (Date.now() - new Date(t.next_action_date).getTime()) / 86_400_000
+      (Date.now() - new Date(t.next_action_date).getTime()) / 86_400_000,
     );
     return {
       blocker: `${t.first_name} (${t.org_name || t.pipeline}) — ${daysOverdue}d overdue`,
@@ -391,14 +437,20 @@ async function collectMomentum(): Promise<CaptainMomentum> {
   // Active deals + due today: these are the people to ping
   const threads = await supabaseFetch<
     Array<{
-      first_name: string; last_name: string; org_name: string;
-      pipeline: string; next_action: string; linkedin_url: string;
-      status: string; next_action_date: string;
-      primary_email: string | null; person_phone: string | null;
+      first_name: string;
+      last_name: string;
+      org_name: string;
+      pipeline: string;
+      next_action: string;
+      linkedin_url: string;
+      status: string;
+      next_action_date: string;
+      primary_email: string | null;
+      person_phone: string | null;
       thread_token: string | null;
     }>
   >(
-    `v_outreach_enriched?or=(status.in.(responded,meeting_booked,in_negotiation),next_action_date.eq.${today})&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`
+    `v_outreach_enriched?or=(status.in.(responded,meeting_booked,in_negotiation),next_action_date.eq.${today})&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`,
   );
 
   const contacts: SendListItem[] = (threads || []).map((t) => ({
@@ -432,7 +484,7 @@ async function collectMetrics(): Promise<MetricsStrip> {
 
   // Active conversations: count non-closed outreach threads
   const convos = await supabaseFetch<Array<{ id: string }>>(
-    `v_outreach_enriched?status=not.in.(converted,passed,parked)&select=id`
+    `v_outreach_enriched?status=not.in.(converted,passed,parked)&select=id`,
   );
   const active_conversations = convos?.length || 0;
 
@@ -445,7 +497,7 @@ async function collectMetrics(): Promise<MetricsStrip> {
       const since = new Date(Date.now() - 7 * 86_400_000).toISOString();
       const resp = await fetch(
         `https://api.github.com/repos/${ghRepo}/commits?since=${since}&per_page=100`,
-        { headers: { Authorization: `Bearer ${ghToken}`, 'User-Agent': 'dws6-cockpit' } }
+        { headers: { Authorization: `Bearer ${ghToken}`, 'User-Agent': 'dws6-cockpit' } },
       );
       if (resp.ok) {
         const commits = (await resp.json()) as Array<unknown>;
@@ -475,14 +527,20 @@ async function collectSendList(): Promise<SendListItem[]> {
 
   const threads = await supabaseFetch<
     Array<{
-      first_name: string; last_name: string; org_name: string;
-      pipeline: string; next_action: string; linkedin_url: string;
-      status: string; next_action_date: string;
-      primary_email: string | null; person_phone: string | null;
+      first_name: string;
+      last_name: string;
+      org_name: string;
+      pipeline: string;
+      next_action: string;
+      linkedin_url: string;
+      status: string;
+      next_action_date: string;
+      primary_email: string | null;
+      person_phone: string | null;
       thread_token: string | null;
     }>
   >(
-    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`
+    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`,
   );
 
   return (threads || []).map((t) => ({
@@ -508,9 +566,8 @@ async function collectSendList(): Promise<SendListItem[]> {
 async function collectWorkflowData(): Promise<WorkflowData | null> {
   try {
     // Find project root (reports/ lives at repo root, two levels up from src/morning-briefing/)
-    const currentDir = typeof __dirname !== 'undefined'
-      ? __dirname
-      : resolve(fileURLToPath(import.meta.url), '..');
+    const currentDir =
+      typeof __dirname !== 'undefined' ? __dirname : resolve(fileURLToPath(import.meta.url), '..');
     const projectRoot = resolve(currentDir, '..', '..');
     const pipelinePath = resolve(projectRoot, 'reports', 'pipeline_run.json');
     const metricsPath = resolve(projectRoot, 'reports', 'metrics.json');
@@ -549,9 +606,7 @@ async function collectWorkflowData(): Promise<WorkflowData | null> {
 
     const totalSeconds = pipelineData.total_time_seconds || 0;
     const traditionalHours = pipelineData.traditional_time_hours || 104;
-    const savings = traditionalHours > 0
-      ? (1 - totalSeconds / (traditionalHours * 3600)) * 100
-      : 0;
+    const savings = traditionalHours > 0 ? (1 - totalSeconds / (traditionalHours * 3600)) * 100 : 0;
 
     return {
       last_run: pipelineData.timestamp || null,
@@ -586,13 +641,18 @@ async function collectOutreachSummary(): Promise<OutreachSummaryData> {
   // Pipeline summary: count threads by pipeline and status bucket
   const allThreads = await supabaseFetch<
     Array<{
-      id: string; pipeline: string; status: string;
-      next_action_date: string | null; next_action: string | null;
-      first_name: string; last_name: string | null;
-      org_name: string | null; thread_token: string;
+      id: string;
+      pipeline: string;
+      status: string;
+      next_action_date: string | null;
+      next_action: string | null;
+      first_name: string;
+      last_name: string | null;
+      org_name: string | null;
+      thread_token: string;
     }>
   >(
-    `v_outreach_enriched?status=not.in.(converted,passed,parked)&select=id,pipeline,status,next_action_date,next_action,first_name,last_name,org_name,thread_token`
+    `v_outreach_enriched?status=not.in.(converted,passed,parked)&select=id,pipeline,status,next_action_date,next_action,first_name,last_name,org_name,thread_token`,
   );
 
   const OPEN_STATUSES = ['new', 'researched', 'intro_requested', 'intro_made', 'contacted'];
@@ -615,7 +675,7 @@ async function collectOutreachSummary(): Promise<OutreachSummaryData> {
       if (t.next_action_date && t.next_action_date < today) {
         overdueCount++;
         const daysOverdue = Math.floor(
-          (Date.now() - new Date(t.next_action_date).getTime()) / 86_400_000
+          (Date.now() - new Date(t.next_action_date).getTime()) / 86_400_000,
         );
         overdueThreads.push({
           token: t.thread_token,
@@ -639,7 +699,7 @@ async function collectOutreachSummary(): Promise<OutreachSummaryData> {
   // Count inbound emails received today
   let emailsReceivedToday = 0;
   const inboundEmails = await supabaseFetch<Array<{ id: string }>>(
-    `inbound_emails?received_at=gte.${todayStart}&select=id`
+    `inbound_emails?received_at=gte.${todayStart}&select=id`,
   );
   if (inboundEmails) {
     emailsReceivedToday = inboundEmails.length;
@@ -689,12 +749,29 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
  */
 async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
   const inquiries = await supabaseFetch<CaptainInquiryItem[]>(
-    `captain_inquiries?status=eq.new&order=created_at.desc&limit=10&select=id,created_at,name,email,industry,seat_level,message,status`
+    `captain_inquiries?status=eq.new&order=created_at.desc&limit=10&select=id,created_at,name,email,industry,seat_level,message,status`,
   );
 
   return {
     newCount: inquiries?.length || 0,
     inquiries: inquiries || [],
+  };
+}
+
+/**
+ * Inbound web leads captured from the public sites (footer newsletter,
+ * /free-audit/, contact). Surfaces new ones so they enter the sales pipeline.
+ * Stays on Supabase (Tier 2 — inbound external data per three-tier policy).
+ * Note: requires migration 070_web_leads.sql to be applied.
+ */
+async function collectWebLeads(): Promise<WebLeadsData> {
+  const leads = await supabaseFetch<WebLeadItem[]>(
+    `web_leads?status=eq.new&order=created_at.desc&limit=15&select=id,created_at,source,email,name,company,industry,message,status`,
+  );
+
+  return {
+    newCount: leads?.length || 0,
+    leads: leads || [],
   };
 }
 
@@ -723,9 +800,8 @@ function learnFilenameToTitle(filename: string): string {
  */
 async function collectLearnArtifacts(): Promise<LearnArtifactsData> {
   try {
-    const currentDir = typeof __dirname !== 'undefined'
-      ? __dirname
-      : resolve(fileURLToPath(import.meta.url), '..');
+    const currentDir =
+      typeof __dirname !== 'undefined' ? __dirname : resolve(fileURLToPath(import.meta.url), '..');
     const projectRoot = resolve(currentDir, '..', '..');
     const learnDir = resolve(projectRoot, 'Learn');
 
@@ -771,10 +847,10 @@ function getSupabaseRestConfig(): { url: string; key: string } | null {
 }
 
 /**
- * Upsert a HIL todo into Supabase via PostgREST.
+ * Upsert a HIL todo into the internal Postgres pool (DGX Spark).
  * Uses dedup_key for idempotency — safe to call on every briefing run.
  * When done_at is NULL a new todo is created; if the dedup_key already exists
- * and is still open the row is left untouched (on_conflict=ignore).
+ * and is still open the row is left untouched (ON CONFLICT DO NOTHING).
  */
 async function upsertHilTodo(todo: {
   category: string;
@@ -782,21 +858,16 @@ async function upsertHilTodo(todo: {
   context: Record<string, unknown>;
   dedup_key: string;
 }): Promise<void> {
-  const cfg = getSupabaseRestConfig();
-  if (!cfg) return;
-  const { url, key } = cfg;
+  const pool = getInternalDbPool();
+  if (!pool) return;
 
   try {
-    await fetch(`${url}/rest/v1/hil_todos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        Prefer: 'resolution=ignore-duplicates',  // don't overwrite existing open todos
-      },
-      body: JSON.stringify(todo),
-    });
+    await pool.query(
+      `INSERT INTO hil_todos (category, description, context, dedup_key)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (dedup_key) DO NOTHING`,
+      [todo.category, todo.description, todo.context, todo.dedup_key],
+    );
   } catch {
     // best-effort — a failing upsert must not break the briefing
   }
@@ -821,26 +892,32 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
     try {
       const r = await fetch(`${url}/rest/v1/${table}?limit=0`, { headers });
       return r.ok;
-    } catch { return true; } // network error → assume exists, don't spam todos
+    } catch {
+      return true;
+    } // network error → assume exists, don't spam todos
   }
 
   async function columnExists(table: string, column: string): Promise<boolean> {
     try {
       const r = await fetch(`${url}/rest/v1/${table}?select=${column}&limit=1`, { headers });
       return r.ok;
-    } catch { return true; }
+    } catch {
+      return true;
+    }
   }
 
   const checks: Array<{ id: string; check: () => Promise<boolean>; description: string }> = [
     {
       id: '030',
       check: () => tableExists('agent_activity'),
-      description: 'Run migration 030_agent_logging_tables.sql — creates agent_activity, agent_logs, agent_executions',
+      description:
+        'Run migration 030_agent_logging_tables.sql — creates agent_activity, agent_logs, agent_executions',
     },
     {
       id: '032',
       check: () => columnExists('persons', 'phone'),
-      description: 'Run migration 032_add_person_phone.sql — adds phone column to persons (enables direct calls from briefing)',
+      description:
+        'Run migration 032_add_person_phone.sql — adds phone column to persons (enables direct calls from briefing)',
     },
     {
       id: '034',
@@ -850,7 +927,8 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
     {
       id: '036',
       check: () => tableExists('construction_leads'),
-      description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
+      description:
+        'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
     },
     // Migration 037 (resend_email_id) removed — Resend SDK removed 2026-03-26 for security.
     // Email delivery tracking now uses SES message IDs via email-audit.jsonl.
@@ -861,7 +939,7 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
     checks.map(async (c) => {
       const exists = await c.check();
       if (!exists) missing.push({ id: c.id, description: c.description });
-    })
+    }),
   );
   return missing;
 }
@@ -897,8 +975,8 @@ async function collectHilTodos(): Promise<HilTodosData> {
         description: m.description,
         context: { migration_id: m.id },
         dedup_key: `pending_migration:${m.id}`,
-      })
-    )
+      }),
+    ),
   );
 
   // 1. Find competitors with null price from the last collection run
@@ -914,11 +992,14 @@ async function collectHilTodos(): Promise<HilTodosData> {
           apikey: supabaseKey,
           Authorization: `Bearer ${supabaseKey}`,
         },
-      }
+      },
     );
 
     if (nullPricesResp.ok) {
-      const rows = (await nullPricesResp.json()) as Array<{ product_name: string; collected_at: string }>;
+      const rows = (await nullPricesResp.json()) as Array<{
+        product_name: string;
+        collected_at: string;
+      }>;
       // Upsert one HIL todo per competitor with null price
       await Promise.all(
         rows.map((r) =>
@@ -927,8 +1008,8 @@ async function collectHilTodos(): Promise<HilTodosData> {
             description: `Fill price manually in Supabase → competitor_products for: ${r.product_name}`,
             context: { competitor_name: r.product_name, collected_at: r.collected_at },
             dedup_key: `competitor_price:${r.product_name}`,
-          })
-        )
+          }),
+        ),
       );
     }
   } catch {
@@ -940,7 +1021,7 @@ async function collectHilTodos(): Promise<HilTodosData> {
   if (dayOfWeek === 1) {
     const now = new Date();
     const week = Math.ceil(
-      ((now.getTime() - new Date(now.getFullYear(), 0, 1).getTime()) / 86_400_000 + 1) / 7
+      ((now.getTime() - new Date(now.getFullYear(), 0, 1).getTime()) / 86_400_000 + 1) / 7,
     );
     await upsertHilTodo({
       category: 'market_brief',
@@ -967,7 +1048,8 @@ async function collectHilTodos(): Promise<HilTodosData> {
       if (ollamaService && ollamaService.status === 'down') {
         await upsertHilTodo({
           category: 'model_update',
-          description: 'DGX Spark: Ollama service is DOWN — models unavailable. SSH in and check: systemctl status ollama',
+          description:
+            'DGX Spark: Ollama service is DOWN — models unavailable. SSH in and check: systemctl status ollama',
           context: { system: status.system, services: status.services },
           dedup_key: `model_update:ollama_down:${new Date().toISOString().slice(0, 10)}`,
         });
@@ -990,7 +1072,8 @@ async function collectHilTodos(): Promise<HilTodosData> {
     // DGX Spark unreachable — create a TODO so HIL knows
     await upsertHilTodo({
       category: 'model_update',
-      description: 'DGX Spark heartbeat UNREACHABLE — check if machine is online and heartbeat container is running',
+      description:
+        'DGX Spark heartbeat UNREACHABLE — check if machine is online and heartbeat container is running',
       context: { checked_at: new Date().toISOString() },
       dedup_key: `model_update:unreachable:${new Date().toISOString().slice(0, 10)}`,
     });
@@ -998,29 +1081,93 @@ async function collectHilTodos(): Promise<HilTodosData> {
 
   // 4. Fetch all open todos from the table (oldest first)
   try {
-    const openResp = await fetch(
-      `${supabaseUrl}/rest/v1/hil_todos` +
-        `?select=id,category,description,context,done_token,created_at` +
-        `&done_at=is.null` +
-        `&order=created_at.asc` +
-        `&limit=20`,
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-        },
-      }
-    );
-
-    if (openResp.ok) {
-      const todos = (await openResp.json()) as HilTodo[];
-      return { todos, backendUrl };
+    const pool = getInternalDbPool();
+    if (pool) {
+      const result = await pool.query<HilTodo>(
+        `SELECT id, category, description, context, done_token, created_at
+         FROM hil_todos
+         WHERE done_at IS NULL
+         ORDER BY created_at ASC
+         LIMIT 20`,
+      );
+      return { todos: result.rows, backendUrl };
     }
   } catch {
     // best-effort
   }
 
   return { todos: [], backendUrl };
+}
+
+// ============================================================================
+// MARKET SIGNALS COLLECTOR
+// ============================================================================
+
+/**
+ * Collect cross-vertical market/incident signals produced by
+ * scripts/daily/news-to-signal.sh, which writes alerts-YYYY-MM-DD.jsonl to
+ * logs/news-signals/ (DGX Spark local disk — day-runner.sh runs the scanner
+ * and this collector on the same box, so the path is shared, not fetched
+ * over the network). Reads the last 3 days of alert files so a signal isn't
+ * missed if the briefing runs slightly before/after the scan window.
+ *
+ * Was previously generated but never surfaced anywhere — this collector
+ * closes that gap (found during the 2026-07-12 stalled-briefing audit).
+ */
+async function collectMarketSignals(): Promise<MarketSignalsData> {
+  try {
+    const currentDir =
+      typeof __dirname !== 'undefined' ? __dirname : resolve(fileURLToPath(import.meta.url), '..');
+    const projectRoot = resolve(currentDir, '..', '..');
+    const logDir = resolve(projectRoot, 'logs', 'news-signals');
+
+    const signals: MarketSignalItem[] = [];
+    let scannedAt: string | null = null;
+
+    for (let daysAgo = 0; daysAgo < 3; daysAgo++) {
+      const d = new Date(Date.now() - daysAgo * 86_400_000);
+      const dateStamp = d.toISOString().split('T')[0];
+      const alertsPath = resolve(logDir, `alerts-${dateStamp}.jsonl`);
+
+      let raw: string;
+      try {
+        raw = await readFile(alertsPath, 'utf-8');
+      } catch {
+        continue; // no scan output for this day — not an error, just nothing to report
+      }
+
+      for (const line of raw.split('\n')) {
+        if (!line.trim()) continue;
+        try {
+          const alert = JSON.parse(line) as {
+            timestamp: string;
+            title: string;
+            cascade_score: number;
+            industries: string;
+            dual_use: boolean;
+          };
+          signals.push({
+            timestamp: alert.timestamp,
+            title: alert.title,
+            source: 'news-to-signal',
+            industries: alert.industries || '',
+            dual_use: Boolean(alert.dual_use),
+            cascade_score: alert.cascade_score || 0,
+          });
+          if (!scannedAt || alert.timestamp > scannedAt) scannedAt = alert.timestamp;
+        } catch {
+          // malformed line — skip, don't fail the whole collector over one bad row
+        }
+      }
+    }
+
+    signals.sort((a, b) => b.cascade_score - a.cascade_score);
+    return { signals: signals.slice(0, 8), scannedAt };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Market signals collection failed (non-critical)', { error: msg });
+    return { signals: [], scannedAt: null };
+  }
 }
 
 // ============================================================================
@@ -1041,7 +1188,22 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, captainInquiries, learnArtifacts, hilTodos] = await Promise.all([
+  const [
+    changes,
+    bets,
+    risk,
+    momentum,
+    metrics,
+    sendList,
+    workflow,
+    constructionLeads,
+    outreachSummary,
+    captainInquiries,
+    webLeads,
+    learnArtifacts,
+    hilTodos,
+    marketSignals,
+  ] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
@@ -1052,8 +1214,10 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectConstructionLeads(),
     collectOutreachSummary(),
     collectCaptainInquiries(),
+    collectWebLeads(),
     collectLearnArtifacts(),
     collectHilTodos(),
+    collectMarketSignals(),
   ]);
 
   // Heartbeat upsert — prevents Supabase from pausing due to inactivity
@@ -1073,33 +1237,35 @@ export async function collectCockpitData(): Promise<CockpitData> {
     constructionLeads,
     outreachSummary,
     captainInquiries,
+    webLeads,
     learnArtifacts,
     hilTodos,
+    marketSignals,
   };
 }
 
 async function supabaseUpsertHeartbeat(): Promise<void> {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key) return;
+  const pool = getInternalDbPool();
+  if (!pool) return;
 
   try {
-    await fetch(`${url}/rest/v1/system_heartbeat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        Prefer: 'resolution=merge-duplicates',
-      },
-      body: JSON.stringify({
-        id: 'dws6',
-        last_beat: new Date().toISOString(),
-        source: 'morning-briefing',
-        version: process.env.npm_package_version || 'unknown',
-      }),
-    });
+    await pool.query(
+      `INSERT INTO system_heartbeat (id, last_beat, source, version)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (id) DO UPDATE SET
+         last_beat = EXCLUDED.last_beat,
+         source = EXCLUDED.source,
+         version = EXCLUDED.version`,
+      [
+        'dws6',
+        new Date().toISOString(),
+        'morning-briefing',
+        process.env.npm_package_version || 'unknown',
+      ],
+    );
   } catch (err) {
-    logger.warn('Heartbeat upsert failed', { error: err instanceof Error ? err.message : 'unknown' });
+    logger.warn('Heartbeat upsert failed', {
+      error: err instanceof Error ? err.message : 'unknown',
+    });
   }
 }

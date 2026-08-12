@@ -194,6 +194,14 @@
 
     <script>
         let answers = { industry: null, priority: null, size: null };
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
         // Product recommendations matrix
         const recommendations = {
@@ -202,12 +210,12 @@
                 compliance: {
                     solo: { name: 'Firehorse Report', price: 1999, note: 'One-time license', features: ['Automated Fit for 55 dashboard', 'SAP integration ready', 'PDF board pack generation', 'Single-user license'], why: 'Solo compliance officers need fast, affordable reporting. Firehorse Report automates CSRD dashboards without a full platform.', store: '/buy/', cli: 'dws run compliance --input \'{"industry":"__INDUSTRY__","regulations":["csrd","ets"]}\'', alts: [{ name: 'Consulting Hourly', price: '98/hr', desc: 'On-demand expert guidance' }] },
                     small: { name: 'Climate Reporting Starter Bundle', price: 6500, note: 'One-time + &euro;1,999/year', features: ['DWS IQ Platform + Firehorse Report', 'Kickoff Workshop included', 'First CSRD deadline ready in 30 days', 'Up to 5 users'], why: 'Small teams need a complete package that gets them compliant fast. The bundle includes onboarding and platform access.', store: '/buy/', cli: 'dws workflow compliance-assessment --input \'{"industry":"__INDUSTRY__"}\'', alts: [{ name: 'Expert Workshop', price: '4,500', desc: '3-day hands-on compliance workshop' }] },
-                    medium: { name: 'DWS IQ Platform', price: 4999, note: 'One-time + &euro;499/mo', features: ['18+ AI agents for compliance automation', 'Multi-site support', 'ETS + CBAM + CSRD + EU AI Act', 'Unlimited users', 'API + CLI access'], why: 'Medium orgs need the full platform to manage compliance across departments and sites. AI agents handle the heavy lifting.', store: '/buy/', cli: 'dws run compliance --input \'{"industry":"__INDUSTRY__","regulations":["ets","cbam","csrd","fit-for-55"]}\'', alts: [{ name: 'Firehorse Automation', price: '4,950', desc: 'Event-driven compliance workflows' }, { name: 'Expert Advisory', price: '3,000/mo', desc: 'Dedicated compliance strategist' }] },
-                    enterprise: { name: 'DWS IQ Platform + Expert Advisory', price: 7999, note: 'Platform + &euro;3,000/mo advisory', features: ['Full platform with all 21+ agents', 'Dedicated compliance strategist', 'Multi-country, multi-site', 'ERP integration (SAP, IFS, Dynamics)', 'EU sovereign data residency', 'Quarterly board pack automation'], why: 'Enterprise needs the platform plus a dedicated strategist who knows your industry and can manage multi-country compliance.', store: '/buy/', cli: 'dws workflow compliance-assessment --input \'{"industry":"__INDUSTRY__","scope":"enterprise"}\'', alts: [{ name: 'Sovereignty Cloud', price: '1,500-5,000/mo', desc: 'EU-only cloud migration' }] },
+                    medium: { name: 'DWS IQ Platform', price: 4999, note: 'One-time + &euro;499/mo', features: ['18+ AI agents for compliance automation', 'Multi-site support', 'ETS + CBAM + CSRD + EU AI Act', 'Unlimited users', 'API + CLI access'], why: 'Medium orgs need the full platform to manage compliance across departments and sites. AI agents handle the heavy lifting.', store: '/buy/', cli: 'dws run compliance --input \'{"industry":"__INDUSTRY__","regulations":["ets","cbam","csrd","fit-for-55"]}\'', alts: [{ name: 'Firehorse Amplify', price: '4,950', desc: 'Event-driven compliance workflows' }, { name: 'Expert Advisory', price: '3,000/mo', desc: 'Dedicated compliance strategist' }] },
+                    enterprise: { name: 'DWS IQ Platform + Expert Advisory', price: 7999, note: 'Platform + &euro;3,000/mo advisory', features: ['Full platform with the complete skilled agent fleet', 'Dedicated compliance strategist', 'Multi-country, multi-site', 'ERP integration (SAP, IFS, Dynamics)', 'EU sovereign data residency', 'Quarterly board pack automation'], why: 'Enterprise needs the platform plus a dedicated strategist who knows your industry and can manage multi-country compliance.', store: '/buy/', cli: 'dws workflow compliance-assessment --input \'{"industry":"__INDUSTRY__","scope":"enterprise"}\'', alts: [{ name: 'Sovereignty Cloud', price: '1,500-5,000/mo', desc: 'EU-only cloud migration' }] },
                 },
                 automation: {
                     solo: { name: 'Firehorse Report', price: 1999, note: 'One-time license', features: ['Auto-generated dashboards', 'PDF export', 'SAP data import'], why: 'Start automating reporting immediately. Single-user, no platform overhead.', store: '/buy/', cli: 'dws run emissions-data-analyst --input \'{"query":"generate quarterly report"}\'', alts: [] },
-                    small: { name: 'Firehorse Automation', price: 4950, note: 'One-time license', features: ['Event-driven compliance workflows', 'Automated data collection', 'Alert system', 'Up to 10 workflows'], why: 'Small teams get maximum leverage by automating recurring compliance tasks with event-driven workflows.', store: '/buy/', cli: 'dws workflows', alts: [{ name: 'Climate Bundle', price: '6,500', desc: 'Full starter package' }] },
+                    small: { name: 'Firehorse Amplify', price: 4950, note: 'One-time license', features: ['Event-driven compliance workflows', 'Automated data collection', 'Alert system', 'Up to 10 workflows'], why: 'Small teams get maximum leverage by amplifying recurring compliance tasks with event-driven workflows.', store: '/buy/', cli: 'dws workflows', alts: [{ name: 'Climate Bundle', price: '6,500', desc: 'Full starter package' }] },
                     medium: { name: 'DWS IQ Platform', price: 4999, note: 'One-time + &euro;499/mo', features: ['Full automation engine', '18+ AI agents', 'Custom workflows', 'API access'], why: 'Medium orgs need the full automation engine to handle cross-department reporting at scale.', store: '/buy/', cli: 'dws agents', alts: [{ name: 'Firehorse Content Management', price: '2,999', desc: 'Evidence vault + auto-tagging' }] },
                     enterprise: { name: 'DWS IQ Platform + Firehorse Suite', price: 13947, note: 'Full stack', features: ['Platform + Report + Automation + CMS + Omnichannel', 'ERP integration', 'Custom agent development', 'Dedicated support'], why: 'Enterprise automation requires the full Firehorse suite. Report, automate, manage evidence, and communicate results.', store: '/buy/', cli: 'dws workflow compliance-assessment --input \'{"scope":"enterprise","automate":true}\'', alts: [] },
                 },
@@ -276,32 +284,43 @@
             const priceFormatted = typeof rec.price === 'number' && rec.price >= 100
                 ? new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(rec.price)
                 : '&euro;' + rec.price;
+            const safeName = escapeHtml(rec.name);
+            const safePrice = escapeHtml(priceFormatted.replace('&euro;', '€'));
+            const safeIndustry = escapeHtml(answers.industry);
+            const safeNote = escapeHtml(rec.note.replace('&euro;', '€'));
+            const safeWhy = escapeHtml(rec.why);
+            const safeStore = escapeHtml(rec.store);
+            const safeCli = escapeHtml(rec.cli);
+            const safeFeatures = rec.features.map(f => '<li>' + escapeHtml(f) + '</li>').join('');
+            const mailtoSubject = encodeURIComponent('DWS IQ Inquiry: ' + rec.name + ' for ' + answers.industry);
+            const mailtoBody = encodeURIComponent('Industry: ' + answers.industry + ' | Priority: ' + answers.priority + ' | Team size: ' + answers.size + ' | Recommended: ' + rec.name);
+            const mailtoHref = escapeHtml('mailto:offer@lifetime.fi?subject=' + mailtoSubject + '&body=' + mailtoBody);
 
             let altsHTML = '';
             if (rec.alts && rec.alts.length) {
                 altsHTML = '<div class="alt-section"><div class="alt-title">Also Consider</div><div class="alt-grid">' +
-                    rec.alts.map(a => `<div class="alt-card"><div class="alt-name">${a.name}</div><div class="alt-price">&euro;${a.price}</div><div class="alt-desc">${a.desc}</div><a href="/buy/" class="alt-link">View in Store &rarr;</a></div>`).join('') +
+                    rec.alts.map(a => `<div class="alt-card"><div class="alt-name">${escapeHtml(a.name)}</div><div class="alt-price">&euro;${escapeHtml(a.price)}</div><div class="alt-desc">${escapeHtml(a.desc)}</div><a href="/buy/" class="alt-link">View in Store &rarr;</a></div>`).join('') +
                     '</div></div>';
             }
 
             card.innerHTML = `
                 <div class="result-label">Your Recommended Solution</div>
-                <div class="result-title">${rec.name}</div>
-                <div class="result-price">${priceFormatted}</div>
-                <div class="result-note">${rec.note}</div>
-                <ul class="result-features">${rec.features.map(f => '<li>' + f + '</li>').join('')}</ul>
+                <div class="result-title">${safeName}</div>
+                <div class="result-price">${safePrice}</div>
+                <div class="result-note">${safeNote}</div>
+                <ul class="result-features">${safeFeatures}</ul>
                 <div class="result-why">
                     <div class="result-why-title">Why This Fits You</div>
-                    <div class="result-why-text">${rec.why}</div>
+                    <div class="result-why-text">${safeWhy}</div>
                 </div>
                 <div class="result-actions">
-                    <a href="${rec.store}" class="btn btn-primary">View in Store</a>
-                    <a href="/scenarios/" class="btn btn-secondary">See ${answers.industry} Scenarios</a>
-                    <a href="mailto:offer@lifetime.fi?subject=DWS IQ Inquiry: ${rec.name} for ${answers.industry}&body=Industry: ${answers.industry}%0APriority: ${answers.priority}%0ATeam size: ${answers.size}%0ARecommended: ${rec.name}" class="btn btn-secondary">Request Enterprise Offer</a>
+                    <a href="${safeStore}" class="btn btn-primary">View in Store</a>
+                    <a href="/scenarios/" class="btn btn-secondary">See ${safeIndustry} Scenarios</a>
+                    <a href="${mailtoHref}" class="btn btn-secondary">Request Enterprise Offer</a>
                 </div>
                 <div class="cli-preview">
                     <span class="dim"># Try it now via CLI:</span><br>
-                    ${rec.cli}
+                    ${safeCli}
                 </div>
                 ${altsHTML}
                 <div style="margin-top: 24px; text-align: center;">

@@ -62,6 +62,18 @@ Before publishing an artifact:
 - **Flag for deprecation:** If unused for 180 days
 - **Immediate review:** If world model collision detected
 
+## Operational snapshots (git-tracked)
+
+Ephemeral **PR / worktree exports** sometimes land here for dreaming and merge triage (large trees — prefer periodic cleanup or archival policy):
+
+| Path | Typical use |
+|------|-------------|
+| `pr925-view.json` | PR metadata export |
+| `pr925-worktree/` | Full worktree for parallel agents or backlog replay |
+| `pr1295-mergecheck/` | Merge-conflict check snapshot |
+
+See `.claude/clawdbot/proposals/dream-on-2026-05-14.md` for the latest continuation memo tied to these snapshots.
+
 ## Related Documents
 
 - **Ontology Framework:** `/ONTOLOGY.md`

@@ -81,7 +81,7 @@ High search volume regulatory terms where DWS can establish authority through de
 
 ### Tier C — Industry-Specific Keywords
 
-Vertical search terms targeting DWS's 16 EU industries with specific compliance needs.
+Vertical search terms targeting DWS's 25+ EU industries with specific compliance needs.
 
 | # | Keyword | Funnel | Volume Est. | Difficulty | Cluster | Content Type | Source |
 |---|---------|--------|-------------|------------|---------|-------------|--------|

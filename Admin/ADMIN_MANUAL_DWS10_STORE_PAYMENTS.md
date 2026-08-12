@@ -1,12 +1,13 @@
-# ADMIN MANUAL: DWS10.com Store & Revolut Payments
+# ADMIN MANUAL: DWS10.com Store Payments (Revolut, Stripe, Google Merchant)
 
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: Rm8Jw | Date: 06.02.2026 | Changes: Initial creation - Revolut Merchant API integration, Cloudflare Worker deployment, store payment flow documentation
+  - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 24.04.2026 | Changes: Added latest payment updates: Revolut + Stripe hybrid process, Google Merchant feed status, and refreshed product/payment process notes
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -14,16 +15,16 @@ Session Links & References:
 
 Document Status:
   - Created: 06.02.2026
-  - Last Modified: 06.02.2026
+  - Last Modified: 24.04.2026
   - Language: English
   - Publication Status: ACTIVE
 
 ---
 
-**Version:** 1.0
-**Purpose:** Admin, maintenance & deployment guide for DWS10.com store and Revolut payment integration
+**Version:** 1.1
+**Purpose:** Admin, maintenance & deployment guide for DWS10.com store payments (Revolut, Stripe, Google Merchant)
 **Audience:** DevOps, System Administrators, Web Developers, IT Operations
-**Updated:** 06.02.2026
+**Updated:** 24.04.2026
 
 ---
 
@@ -41,6 +42,7 @@ Document Status:
 10. [Troubleshooting](#10-troubleshooting)
 11. [Monitoring & Logs](#11-monitoring--logs)
 12. [Revolut Dashboard Operations](#12-revolut-dashboard-operations)
+13. [Latest Updates (April 2026)](#13-latest-updates-april-2026)
 
 ---
 
@@ -48,8 +50,9 @@ Document Status:
 
 ### What This Covers
 
-The DWS10.com store sells 30 digital products (software, consulting, training) via:
+The DWS10.com store sells 38 digital products (software, consulting, training) via:
 - **Revolut Pay** (primary) - Web SDK popup + hosted checkout fallback
+- **Stripe Invoice** (B2B remainder billing after Revolut deposit)
 - **PayPal** (secondary) - Standard `_xclick` checkout
 
 All Revolut payments flow through a **Cloudflare Worker** (`dws-revolut-checkout`) that creates orders server-side via the Revolut Merchant API. The secret key never touches the frontend.
@@ -297,7 +300,7 @@ SDK Popup (best UX)
 }
 ```
 
-#### Product Count: 30
+#### Product Count: 38
 
 | # | Product ID | Price (EUR) | Has Static Revolut Link |
 |---|-----------|-------------|------------------------|
@@ -332,9 +335,10 @@ SDK Popup (best UX)
 | 29 | cloud-ready-teams | 950 | No |
 | 30 | ai-koulutus-3d | 6,250 | No |
 
+- **38 products** are listed in `products.json`
 - **10 products** have pre-created static Revolut checkout links (fallback)
-- **20 products** rely on dynamic order creation via the Worker
-- **All 30 products** can accept Revolut payments through the Worker
+- **28 products** rely on dynamic order creation via the Worker
+- **All 38 products** can accept Revolut payments through the Worker
 
 #### Adding a New Product
 
@@ -357,7 +361,7 @@ Add to the `products` object in `products.json`:
   "detailsUrl": "../buy/",
   "featured": false,
   "google": {
-    "productCategory": "Software > Business & Productivity Software",
+    "productCategory": "1505",
     "condition": "new",
     "availability": "in_stock",
     "brand": "Lifetime",
@@ -697,3 +701,40 @@ dws6/
 - `ADMIN_MANUAL_DWS6_COM.md` - dws6.com deployment
 - `ADMIN_MANUAL_AUTHENTICATION.md` - Authentication system
 - `ADMIN_MANUAL_SUPABASE_EN_v1.md` - Supabase backend
+
+---
+
+## 13. Latest Updates (April 2026)
+
+### 13.1 Payment Stack (Current)
+
+1. **Revolut Merchant API** remains the primary checkout path for store cards (`/checkout/create-order`).
+2. **Stripe** is active for B2B remainder invoicing after deposit confirmation (hybrid payment process).
+3. **PayPal** remains secondary fallback checkout.
+
+### 13.2 Hybrid Payment Process (Revolut -> Stripe)
+
+1. Customer pays deposit or full amount via Revolut checkout.
+2. For B2B split payments, backend confirms Revolut transaction on `/api/v1/b2b/orders/:id/confirm-deposit`.
+3. Backend creates Stripe invoice for the remainder amount and stores `stripe_invoice_id`.
+4. Stripe webhook updates order status to paid when invoice payment succeeds.
+
+### 13.3 Google Merchant Feed Status
+
+Current source of truth is `dws10.com/config/products.json`:
+
+- Merchant feed URL: `https://dws10.com/feeds/google-products.xml`
+- Content language at merchant level: `en`
+- Target countries: `FI`, `SE`, `NO`, `DK`, `DE`
+- Product categories use Google numeric taxonomy IDs (e.g., `1505`, `1426`, `2682`)
+
+Latest feed remediation reference:
+
+- `docs/GOOGLE_MERCHANT_FIX_2026_04_24.md`
+
+### 13.4 Admin Ops Checklist (Payments + Merchant)
+
+1. Keep `dws10.com/config/products.json` and `landing-pages/dws10-com/config/products.json` in sync.
+2. After product/category edits, regenerate feed with `node dws10.com/feeds/generate-feed.cjs`.
+3. Sync `dws10.com/feeds/google-products.xml` to `landing-pages/dws10-com/feeds/google-products.xml`.
+4. Verify payment process in order: Revolut checkout -> (optional) Stripe invoice -> webhook status update.

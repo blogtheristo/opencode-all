@@ -14,7 +14,7 @@ END VERSION AND AGENT HISTORY
 **Category:** Physical AI for Nordic Healthcare — Agent Self-Optimization Governance
 **Status:** Locked for Helsinki Sandbox (March 2026)
 
----
+***
 
 ## The 3 Diamonds — Why This Is a Perfect Storm
 
@@ -160,7 +160,7 @@ Convertible Note @ €3.8M cap
 - Partners: Uber, Bolt, Taksi Helsinki (KELA National Care rides)
 - NVIDIA Connect ISV Partner
 - 4-partner hardware stack: NVIDIA, Acer, Siemens, ABB
-- 100% customer retention, zero churn
+- All dispatch relationships still active. No retention or churn percentage is asserted — see `docs/TRACTION_CANONICAL.md`.
 - Helsinki Sandbox prepped for pilot deployment
 
 ### Helsinki Sandbox Context

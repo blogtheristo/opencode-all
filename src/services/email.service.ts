@@ -1,31 +1,33 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service with dual-provider support:
- *   - Primary: Resend API
- *   - Fallback: SendGrid API
+ * Production email delivery. Transport is Amazon SES (SMTP) ONLY — per CLAUDE.md
+ * Non-Negotiable Rule 4 (never Resend/SendGrid) — via src/utils/send-email.ts,
+ * which also persists an audit trail to the Supabase email_queue.
  *
  * Features:
- *   - Automatic failover from Resend to SendGrid
+ *   - Amazon SES (SMTP) transport
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   RESEND_API_KEY   - Resend API key (primary provider)
- *   SENDGRID_API_KEY - SendGrid API key (fallback provider)
+ *   SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASS - Amazon SES SMTP credentials
  *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL     - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
 import logger from '../utils/logger.js';
+import { sendEmail as sesSendEmail } from '../utils/send-email.js';
 import {
   welcomeTemplate,
   passwordResetTemplate,
   reportDeliveryTemplate,
   notificationTemplate,
   invoiceTemplate,
+  bookingConfirmationTemplate,
+  bookingAdminNotificationTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -55,29 +57,23 @@ interface EmailLogEntry {
   metadata: Record<string, unknown> | null;
 }
 
-type ProviderName = 'resend' | 'sendgrid';
-
 // ============================================================
 // EMAIL SERVICE
 // ============================================================
 
 class EmailService {
   private readonly fromAddress: string;
-  private readonly resendApiKey: string | undefined;
-  private readonly sendgridApiKey: string | undefined;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
     this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-    this.resendApiKey = process.env.RESEND_API_KEY;
-    this.sendgridApiKey = process.env.SENDGRID_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    if (!this.resendApiKey && !this.sendgridApiKey) {
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
       logger.warn(
-        'No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY. Emails will be logged but not delivered.'
+        'No SES SMTP transport configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS. Emails will be logged but not delivered.',
       );
     }
   }
@@ -117,7 +113,7 @@ class EmailService {
   async sendReportDeliveryEmail(
     to: string,
     reportName: string,
-    downloadUrl: string
+    downloadUrl: string,
   ): Promise<void> {
     await this.sendEmail({
       to,
@@ -131,11 +127,7 @@ class EmailService {
   /**
    * Send a generic notification email with custom subject and body text.
    */
-  async sendNotificationEmail(
-    to: string,
-    subject: string,
-    body: string
-  ): Promise<void> {
+  async sendNotificationEmail(to: string, subject: string, body: string): Promise<void> {
     await this.sendEmail({
       to,
       subject,
@@ -151,7 +143,7 @@ class EmailService {
     to: string,
     invoiceId: string,
     amount: number,
-    currency: string
+    currency: string,
   ): Promise<void> {
     await this.sendEmail({
       to,
@@ -162,115 +154,87 @@ class EmailService {
     });
   }
 
+  /**
+   * Send a custom email with template and variables.
+   * Supports 'booking_confirmation' and 'booking_admin_notification' templates.
+   */
+  async send(options: {
+    to: string;
+    template: string;
+    variables: Record<string, unknown>;
+  }): Promise<void> {
+    const { to, template, variables } = options;
+
+    let subject = '';
+    let html = '';
+
+    if (template === 'booking_confirmation') {
+      subject = 'Varaus vahvistettu — Risto Anton Päärni';
+      html = bookingConfirmationTemplate(
+        variables as Parameters<typeof bookingConfirmationTemplate>[0],
+      );
+    } else if (template === 'booking_admin_notification') {
+      subject = `Uusi varaus — ${(variables.serviceName as string) || 'Demo/Konsultaatio'}`;
+      html = bookingAdminNotificationTemplate(
+        variables as Parameters<typeof bookingAdminNotificationTemplate>[0],
+      );
+    } else {
+      throw new Error(`Unknown template: ${template}`);
+    }
+
+    await this.sendEmail({
+      to,
+      subject,
+      html,
+      templateType: template,
+      metadata: variables,
+    });
+  }
+
   // ----------------------------------------------------------
   // CORE SEND LOGIC (PRIVATE)
   // ----------------------------------------------------------
 
   /**
-   * Send an email through Resend (primary) with SendGrid fallback.
-   * Logs every attempt to Supabase when configured.
+   * Send an email through Amazon SES (SMTP). Logs every attempt to the
+   * Supabase email_logs table when configured.
    */
   private async sendEmail(options: EmailOptions): Promise<void> {
     const { to, subject, html, templateType, metadata } = options;
 
-    logger.info('Sending email', {
-      templateType: templateType || 'custom',
+    logger.info('Sending email', { templateType: templateType || 'custom' });
+
+    const result = await sesSendEmail({
+      from: this.fromAddress,
+      to,
+      subject,
+      html,
+      source: 'platform',
+      templateType,
+      metadata,
     });
 
-    // Attempt primary provider (Resend)
-    if (this.resendApiKey) {
-      try {
-        await this.sendViaResend(to, subject, html);
-        logger.info('Email sent via Resend', {
-          templateType: templateType || 'custom',
-          transport: 'resend',
-        });
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'sent',
-          sent_at: new Date().toISOString(),
-          error: null,
-          metadata: metadata || null,
-        });
-        return;
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Unknown Resend error';
-        logger.warn('Resend send failed, attempting SendGrid fallback', {
-          error: errorMessage,
-        });
-      }
-    }
-
-    // Attempt fallback provider (SendGrid)
-    if (this.sendgridApiKey) {
-      try {
-        await this.sendViaSendGrid(to, subject, html);
-        logger.info('Email sent via SendGrid (fallback)', {
-          templateType: templateType || 'custom',
-          transport: 'sendgrid',
-        });
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'sent',
-          sent_at: new Date().toISOString(),
-          error: null,
-          metadata: metadata || null,
-        });
-        return;
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Unknown SendGrid error';
-        logger.error('SendGrid send failed', { error: errorMessage });
-
-        // Log the failure
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'failed',
-          sent_at: null,
-          error: errorMessage,
-          metadata: metadata || null,
-        });
-
-        throw new Error(
-          `Email delivery failed through all providers: ${errorMessage}`
-        );
-      }
-    }
-
-    // No provider available - log only
-    if (!this.resendApiKey && !this.sendgridApiKey) {
-      logger.warn('No email provider configured - email not delivered', {
-        to,
-        subject,
+    if (result.ok) {
+      logger.info('Email sent via SES', {
+        templateType: templateType || 'custom',
+        transport: result.transport || 'ses',
       });
       await this.logEmail({
         to_email: to,
         from_email: this.fromAddress,
         subject,
         template_type: templateType || null,
-        status: 'failed',
-        sent_at: null,
-        error: 'No email provider configured',
+        status: 'sent',
+        sent_at: new Date().toISOString(),
+        error: null,
         metadata: metadata || null,
       });
       return;
     }
 
-    // Resend was configured but failed and SendGrid is not configured
-    logger.error('Primary provider failed and no fallback configured', {
-      to,
-      subject,
-    });
+    const errorMessage = result.error || 'Unknown SES error';
+    const notConfigured = /SMTP transport unavailable/i.test(errorMessage);
+
     await this.logEmail({
       to_email: to,
       from_email: this.fromAddress,
@@ -278,79 +242,18 @@ class EmailService {
       template_type: templateType || null,
       status: 'failed',
       sent_at: null,
-      error: 'Primary provider failed; no fallback configured',
+      error: errorMessage,
       metadata: metadata || null,
     });
-    throw new Error(
-      'Email delivery failed: primary provider failed and no fallback configured'
-    );
-  }
 
-  // ----------------------------------------------------------
-  // PROVIDER IMPLEMENTATIONS
-  // ----------------------------------------------------------
-
-  /**
-   * Send email via Resend REST API.
-   * @see https://resend.com/docs/api-reference/emails/send-email
-   */
-  private async sendViaResend(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<void> {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.resendApiKey}`,
-      },
-      body: JSON.stringify({
-        from: this.fromAddress,
-        to: [to],
-        subject,
-        html,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(
-        `Resend API error (${response.status}): ${errorBody}`
-      );
+    if (notConfigured) {
+      // No transport configured (e.g. local/dev) — log only, do not throw.
+      logger.warn('No SES transport configured - email not delivered', { to, subject });
+      return;
     }
-  }
 
-  /**
-   * Send email via SendGrid v3 Mail Send API.
-   * @see https://docs.sendgrid.com/api-reference/mail-send/mail-send
-   */
-  private async sendViaSendGrid(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<void> {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.sendgridApiKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: to }] }],
-        from: { email: this.fromAddress },
-        subject,
-        content: [{ type: 'text/html', value: html }],
-      }),
-    });
-
-    // SendGrid returns 202 on success
-    if (!response.ok && response.status !== 202) {
-      const errorBody = await response.text();
-      throw new Error(
-        `SendGrid API error (${response.status}): ${errorBody}`
-      );
-    }
+    logger.error('SES send failed', { error: errorMessage });
+    throw new Error(`Email delivery failed: ${errorMessage}`);
   }
 
   // ----------------------------------------------------------
@@ -372,19 +275,16 @@ class EmailService {
     }
 
     try {
-      const response = await fetch(
-        `${this.supabaseUrl}/rest/v1/email_logs`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: this.supabaseServiceKey,
-            Authorization: `Bearer ${this.supabaseServiceKey}`,
-            Prefer: 'return=minimal',
-          },
-          body: JSON.stringify(entry),
-        }
-      );
+      const response = await fetch(`${this.supabaseUrl}/rest/v1/email_logs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: this.supabaseServiceKey,
+          Authorization: `Bearer ${this.supabaseServiceKey}`,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify(entry),
+      });
 
       if (!response.ok) {
         const errorBody = await response.text();
@@ -394,10 +294,28 @@ class EmailService {
         });
       }
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Unknown error';
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
       logger.warn('Email log persistence error', { error: errorMessage });
     }
+  }
+
+  /**
+   * Send captain pre-briefing email (stub)
+   */
+  async sendCaptainPreBriefing(
+    email: string,
+    name: string,
+    industry: string,
+    seatLevel: string,
+  ): Promise<void> {
+    logger.debug('Stub: sendCaptainPreBriefing', { email, name, industry, seatLevel });
+  }
+
+  /**
+   * Send raw email with custom options (stub)
+   */
+  async sendRawEmail(options: any): Promise<void> {
+    logger.debug('Stub: sendRawEmail', options);
   }
 }
 

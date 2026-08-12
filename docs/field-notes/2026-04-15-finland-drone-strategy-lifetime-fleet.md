@@ -178,7 +178,7 @@ Cross-referencing the Nordic interceptor TAM from `docs/market-research/nordic-f
 No current drone intelligence platform combines:
 
 1. Arctic environmental modeling
-2. EU-sovereign data residency (Aiwen layer)
+2. EU-sovereign data residency (Full Sovereignty tier)
 3. MUM-T command interface with EU AI Act conformity
 4. Dual-use civilian + defence scoring
 

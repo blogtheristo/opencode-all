@@ -2,11 +2,7 @@
 name: multilingual
 version: "1.0"
 date: "2026-04-17"
-description: >
-  Adds or audits EU multilingual content for dws10.com, onelifetime.world, store, and product pages.
-  Use when user says "add language bar", "translate hero text", "speak 5 languages", "multilingual",
-  "vertical language bar", "language offering", "European languages", or requests content in
-  FI / SV / DE / FR. Also runs the audit (do all language page H1s match the bar texts?).
+description: "Use when adding or auditing EU language bars, hero translations, or FI/SV/DE/FR content for DWS pages."
 ---
 
 Add or audit EU multilingual content — vertical language bar, hero translations, product card strips.

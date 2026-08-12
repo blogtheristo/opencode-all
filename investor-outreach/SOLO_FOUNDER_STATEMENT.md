@@ -1,33 +1,39 @@
 <!-- VERSION AND AGENT HISTORY
-Document: Solo-Founder Statement — DWS IQ 6 / Lifetime Oy
-Version: 1.2
-Date: 2026-04-19
+Document: Founding Team & Technical-Depth Statement — DWS IQ 6 / Lifetime Oy
+Version: 1.4
+Date: 2026-06-29
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
-Status: NEAR-READY — Mikko one-liner pending the week-of-April-28 conversation; all other fields locked
-Purpose: Single source of truth on the solo-founder question. Referenced verbatim from all INTRO_*.md files so every investor conversation at firm level tells the same story.
+Status: ACTIVE — two-person team confirmed; senior technical (CTO) hire still funded by the raise
+Purpose: Single source of truth on the founding-team & technical-depth question. Referenced verbatim from all INTRO_*.md files so every investor conversation at firm level tells the same story.
 
 AGENT HISTORY:
+- v1.4 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
+- v1.3 (2026-06-29): Retitled from "Solo-Founder Statement" — the company is NOT solo. Added Lucille Santiago as second human / co-lead (Office Chief, Human-In-Command, offered partnership in Lifetime AB). Reframed the acknowledgment from "solo-founder round" to "two-person founding team; technical depth (CTO) is the honest open hire." Per DWS_TRUTH_STANDARD v2.3 §2 row 23 (human team vs AI-agent personas). Branch claude/anduril-case-study-iridtj.
 - v1.0 (2026-04-19): Initial draft. Honest positioning — acknowledges solo-founder, names real advisors (Robertsson commercial/ESG, Varteva + Räsänen academic), identifies named CTO candidate (Mikko Honganmäki, background TBD), states offer structure and timeline, explicitly acknowledges Messe scale-up production risk until CTO in seat. No invented redundancy. No fractional pretense (unpaid-only constraint). Designed to survive operator-grade due diligence from Wilke (42CAP), Zawadzinski (Hard2beat), Perissich (Plug and Play).
 - v1.1 (2026-04-19): Added public LinkedIn CTO search launched same day. Dual-track search (Mikko direct + public LinkedIn inbound). See docs/field-notes/2026-04-19-cto-linkedin-search-launched.md for post text and rationale.
 - v1.2 (2026-04-19): Revised equity to market-rate (advisor 0.5% not 1.0%; CTO 7.5% not 8%). Outreach timing locked: soft DM week of April 21-25, formal ask week of April 28. Two-step outreach preserves first-pick signal to Mikko before public post saturates his feed.
 -->
 
-# Solo-Founder Statement — DWS IQ 6 / Lifetime Oy
+# Founding Team & Technical-Depth Statement — DWS IQ 6 / Lifetime Oy
 
 **One source of truth. Every INTRO file links here. Every investor at every firm sees the same story.**
 
+> Supersedes the former "Solo-Founder Statement" (v1.2). The company is **not** solo-founder — see The Acknowledgment.
+
 ## The Acknowledgment
 
-DWS IQ 6 is raised as a solo-founder round. We know this is a flag for several funds. We do not hide from it.
+DWS IQ 6 is built by a **two-person founding team** — Risto Anton Päärni (Founder/CEO) and **Lucille Santiago** (Office Chief / Human-In-Command, offered partnership in **Lifetime AB**) — complementary skill sets (product/domain + operations/customer). It is **not** a solo-founder company. Technical leadership is **covered today** — founder (hands-on, 1,030+ PRs) + governed AI agent workflows, with engineering capacity via partner **Cubet Techno Labs (Kochi)** — and a **senior technical leadership hire is funded with search active** to add depth as we scale. Coverage now, investment on top — not a gap. We do not hide from it.
 
 ## What Is In Place Today
 
 **Founder:** Risto Anton Päärni — 13 years in EU-regulated industries (construction, manufacturing, ESG), deep SAP / IFS Cloud / Dynamics 365 domain expertise, CEO Lifetime Oy.
 
-**Product:** DWS IQ 6 live in production. 21 AI agents, ERP connectors, MCP tool exposure, EU AI Act compliant, Aiwen audit layer.
+**Co-lead:** Lucille Santiago — Office Chief / Chief Hospitality Officer, **Human-In-Command (HIC)**; offered partnership in **Lifetime AB**. Owns operations, customer onboarding, investor relations, and the human-experience layer — complementary to the founder's product/domain depth.
 
-**Traction:** 6 paying customers, 100% retention, EUR 7K MRR, EUR 4,950 pilot converting to EUR 8,950/year.
+**Product:** DWS IQ 6 live in production. A fleet of skilled agents, ERP connectors, MCP tool exposure, EU AI Act compliant, sovereignty audit layer.
+
+**Traction:** two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); ~EUR 7,000/month services and transport revenue (not software revenue), company at cash break-even with founder salary EUR 0; EUR 4,950 pilot converting to EUR 8,950/year.
 
 **Advisors (commercial + academic):**
 
@@ -38,20 +44,20 @@ DWS IQ 6 is raised as a solo-founder round. We know this is a flag for several f
 
 ## What They Do Not Cover — And What We Are Doing About It
 
-**Robertsson and Metropolia advisors do not cover the technical CTO role.** We don't claim they do. Investors flagging solo-founder are flagging technical depth — who fixes production, who owns the 21-agent architecture at scale. That is a separate hire.
+**Technical leadership today = founder + governed AI agent workflows + Cubet Techno Labs (Kochi) capacity.** The founder is hands-on (1,030+ PRs shipped); governed agent workflows execute architecture and technical-DD under his command (Human-In-Command); Cubet Techno Labs provides human engineering capacity (named in the ORK/Outokumpu subcontractor bid). A dedicated **senior technical leadership hire is funded and in active search** to add depth as we scale — investment on top of working coverage, not a gap.
 
 ### CTO Search — Dual Track (Live 2026-04-19)
 
 **Track 1: Direct outreach — priority warm lead**
 
-| Field                   | Value                                                                              |
-| ----------------------- | ---------------------------------------------------------------------------------- |
-| **Candidate**           | Mikko Honganmäki                                                                   |
-| **Background**          | [TO FILL — one line: role, company, SaaS/engineering depth, why he fits DWS IQ 6]  |
-| **Status**              | Named candidate, direct outreach scheduled week of 2026-04-28                      |
-| **Offer structure**     | Advisor-first (unpaid, 0.5% equity vesting 2 yrs) → CTO on SAFE close              |
-| **Target in-seat date** | August-September 2026 (before Messe Germany scale-up window)                       |
-| **CTO equity**          | 7.5% vested over 4 years, 1-year cliff, post-SAFE option pool                      |
+| Field                   | Value                                                                             |
+| ----------------------- | --------------------------------------------------------------------------------- |
+| **Candidate**           | Mikko Honganmäki                                                                  |
+| **Background**          | [TO FILL — one line: role, company, SaaS/engineering depth, why he fits DWS IQ 6] |
+| **Status**              | Named candidate, direct outreach scheduled week of 2026-04-28                     |
+| **Offer structure**     | Advisor-first (unpaid, 0.5% equity vesting 2 yrs) → CTO on SAFE close             |
+| **Target in-seat date** | August-September 2026 (before Messe Germany scale-up window)                      |
+| **CTO equity**          | 7.5% vested over 4 years, 1-year cliff, post-SAFE option pool                     |
 
 The advisor-first structure lowers the ask: Mikko evaluates the company without quitting his current role. If the advisor relationship works, it converts to CTO on SAFE close. This gives us technical review depth immediately, and a committed co-leader by Messe ramp.
 
@@ -65,7 +71,7 @@ Both tracks run in parallel — the one that closes first wins. If Mikko accepts
 
 We do NOT have a fractional CTO engaged. Budget does not currently support one and we will not pretend otherwise.
 
-We do NOT have 24/7 on-call technical redundancy today. Production incidents route to the founder. Current scale (5 customers) is manageable. **Messe scale-up (target 25 customers by Q4 2026) carries real reliability risk until CTO is in seat.** We name this risk explicitly because investors who have scaled B2B SaaS will see it whether we name it or not.
+We do NOT have 24/7 on-call technical redundancy today. Production incidents route to the founder. Current scale (6 customers) is manageable. **Messe scale-up (target 25 customers by Q4 2026) carries real reliability risk until CTO is in seat.** We name this risk explicitly because investors who have scaled B2B SaaS will see it whether we name it or not.
 
 ## The Path From Here
 
@@ -79,13 +85,13 @@ We do NOT have 24/7 on-call technical redundancy today. Production incidents rou
 
 ## For Investors Who Weigh Solo-Founder As A Hard Filter
 
-If founder count at this stage is a non-negotiable criterion, we understand. The honest answer is that Mikko joining as CTO closes that gap on a defined timeline. Before he signs, we are solo. We would rather miss a fund on that criterion than overstate the position and lose credibility on DD.
+If complementary-technical-co-founder depth at this stage is a non-negotiable criterion, we understand. The honest answer: we are a **two-person team** (founder + Office Chief/HIC, partner-track in Lifetime AB) — not solo — and a senior CTO-level hire closes the technical-depth gap on a defined timeline. We would rather miss a fund on that criterion than overstate the position and lose credibility on DD.
 
 ## Referencing This Document
 
-Every INTRO_*.md file with a solo-founder drawback should reference this statement verbatim in the **Drawbacks / Mitigations** section:
+Every INTRO\_\*.md file with a founder-count / team drawback should reference this statement verbatim in the **Drawbacks / Mitigations** section:
 
-> **Solo-founder flag** — Acknowledged. See `SOLO_FOUNDER_STATEMENT.md` for the single-source position: 13-yr operator + paying customers + named advisors (Robertsson, Metropolia) + named CTO candidate (Mikko Honganmäki) with advisor-first → CTO-on-SAFE-close structure, target in-seat August-September 2026 before Messe scale-up. Messe-scale reliability risk named explicitly.
+> **Team / founder-count flag** — Acknowledged. See `Founding Team & Technical-Depth Statement` (`SOLO_FOUNDER_STATEMENT.md`) for the single-source position: **two-person core** (Risto Päärni, Founder/CEO + Lucille Santiago, Office Chief) plus a contracted engineering bench under NDA + 13-yr operator + two contracted enterprise pilots + named advisors (Robertsson, Metropolia). Open hire: senior technical (CTO) seat, funded by the raise. Messe-scale reliability risk named explicitly until that seat is filled.
 
 Do not restate the position in each file — link it. Consistency at firm level is the goal (e.g. Laouiti and Perissich at Plug and Play must see the same story).
 

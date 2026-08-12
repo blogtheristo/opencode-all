@@ -77,7 +77,7 @@ All three share: Token Embedding Layer → N× Decoder blocks (pre-norm RMSNorm,
 
 - **A4B = ~4B active parameters** routed from 26B total. Inference cost tracks the active set while capacity tracks the total.
 - Same attention structure; the FFN block is swapped for MoE + RMSNorm.
-- **DWS fit:** Cloud Run batch workloads, Aiwen reasoning lineage tier, multi-tenant agent backends where throughput per GPU matters more than single-query latency. Competitive with Qwen3-Coder-Next's MoE (80B / ~3B active) at a smaller total footprint.
+- **DWS fit:** Cloud Run batch workloads, sovereignty audit reasoning lineage tier, multi-tenant agent backends where throughput per GPU matters more than single-query latency. Competitive with Qwen3-Coder-Next's MoE (80B / ~3B active) at a smaller total footprint.
 
 ---
 

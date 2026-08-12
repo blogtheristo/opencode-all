@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "description": "Exposure catalog consumed by Bumblebee on DGX Spark. Each advisory entry lists known-compromised package versions. Populated manually as advisories arrive; auto-refresh from GHSA is a separate follow-up.",
+  "advisories": []
+}

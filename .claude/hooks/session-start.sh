@@ -8,12 +8,20 @@ set -euo pipefail
 cat <<'CONTEXT'
 ## Auto-Mode Trust Boundary Active
 
-GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches
+GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches, and WEB/STATIC-SITE DEPLOYMENTS. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts. Web deploys are not gated: dws6.com / dws10.com / onelifetime.world / lifetime.fi auto-publish via Cloudflare Pages on merge to main (blue/green; rollback = promote previous deployment). ADDITIVE thesis content is GREEN on BOTH theses (HIC decision 01.08.2026): PhD market-signal sections in PHD_FIREHORSE_EN/FI (§14.x + Key Contribution) and master's implementation sections in V3Thesis_EN/FI, each with the lockstep version bump per §1.4. Scope split still applies — implementation evidence to the master's, market signals and scientific framing to the PhD (CLAUDE.md "Thesis Content Scope Rule"). The Thesis Rule's four-file lockstep is unchanged.
 YELLOW zone (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push
-RED zone (BLOCKED — human required): DB migrations, deploys, emails, thesis files, Store sync, secrets
+RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), outbound email, STRUCTURAL thesis edits on any of the four files (TOC/chapter restructure, renumbering existing sections, rewriting or deleting existing VERSION AND AGENT HISTORY entries, removing existing content), Store sync, secrets
+
+BLOG POSTS ARE RED — Non-Negotiable Rule 13 (ABSOLUTE)
+No blog entry publishes until the HIC has read its full text and approved it. Any language, any site, translations, LSJ issues, cron-drafted posts. Run /blog-draft: write the whole text to docs/blog-drafts/<slug>.md, show the HIC ONE fenced code block, then STOP AND ASK in that turn. Publish only after an explicit approval about that post sets Status: APPROVED. Enforced by .claude/hooks/blog-draft-gate.sh — but the rule binds even where the hook does not reach (generators, cron, unloaded hooks). A bypass is not permission. Rules: docs/BLOG_STANDARD.md §3.3.
 
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/
+
+## Engineering Discipline — The 12 Rules (canonical: CLAUDE.md → "Engineering Discipline")
+
+Every agent operates by these. Full text + DWS bindings in CLAUDE.md.
+1 Think before coding (state assumptions, don't guess) · 2 Simplicity first (no speculative abstractions) · 3 Surgical changes (touch only what you must) · 4 Goal-driven (define success, loop until verified) · 5 Model only for judgment calls (not routing/retries/deterministic transforms) · 6 Token budgets per-task 4000 / per-session 30000 · 7 Surface conflicts, don't average them · 8 Read before you write (exports, callers, shared utils) · 9 Tests verify intent, not just behavior · 10 Checkpoint every significant step · 11 Match codebase conventions · 12 Fail loud (surface uncertainty, never hide skipped work)
 
 CONTEXT
 
@@ -72,6 +80,26 @@ echo "Current branch: $BRANCH"
 # Warn if on main
 if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
   echo "WARNING: On main branch. Create a feature branch before making changes."
+fi
+
+# Surface this branch's handoff file (git-committed memory that survives
+# ephemeral cloud containers). Per-branch under .claude/handoffs/<branch>.md
+# so concurrent branches never clobber or misread each other's state — see
+# .claude/HANDOFF.md for the protocol. Cap output so a bloated file can't
+# flood context.
+BRANCH_HANDOFF_FILE=".claude/handoffs/${BRANCH}.md"
+if [ "$BRANCH" != "unknown" ] && [ -f "$BRANCH_HANDOFF_FILE" ]; then
+  echo ""
+  echo "## Session Handoff (from $BRANCH_HANDOFF_FILE — update it at checkpoints and before ending the session)"
+  echo ""
+  head -60 "$BRANCH_HANDOFF_FILE"
+elif [ "$BRANCH" != "unknown" ]; then
+  echo ""
+  echo "## Session Handoff: no file yet at .claude/handoffs/${BRANCH}.md"
+  echo "This looks like a fresh branch. Create this file at your first checkpoint"
+  echo "(see .claude/HANDOFF.md for the protocol). Recent cross-branch history:"
+  echo ""
+  awk '/^## HANDOFF HISTORY/{f=1} f' ".claude/HANDOFF.md" 2>/dev/null | tail -n +2 | head -8
 fi
 
 # Auto-discover and index all skills (Anthropic Skills paradigm)

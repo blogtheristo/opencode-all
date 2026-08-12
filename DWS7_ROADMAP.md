@@ -1,10 +1,10 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.5.0
+> **Version:** 1.7.1
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md
+> **Updated:** 2026-08-06 — Positioning content shipped: the six commercial value-creation drivers (capabilities/orchestration, regulation/compliance, industry knowledge, economics/scale, cultural differentiation, continuous learning — canonical source `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §2.1) published as a 5-language blog post (`onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`, `docs/BLOG_STANDARD.md` #49–53). No PR/phase content changed — this is a go-to-market artifact, not a product PR. Previously: 2026-05-31 — CEO reshape (Cortex AI-native framing): rewrote Executive Summary around the "Cortex Orchestrator + AI Actions layer for EU industrial carbon" thesis (DWS owns layer 5 — signed regulatory filings — while horizontals commoditize layers 1–4); added Cortex-shift framing to Phase 2.6; pulled EUTL transaction-verified Scope 3 forward from DWS 8 (new PR 093I, was 8-041 single-entity slice); Firehorse agents re-chartered as ledger-native (see `AI_AGENT_GUIDELINES.md` §2 LedgerNativeAgentOutput contract). Phase 2 56→57 PRs, total 261→262. Previously: 2026-05-23 — Added Phase 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D): product-surface scaffold, LWM V2 NIM container, Control Room ↔ Situation Room federation, KYA TC-3 access control. Sits next to §4.5 eIDAS 2.0 & Trust Services (added separately via #1376). Decision record: `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md` (V2 timing pin) and `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` (two-budget split). Previously: 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -12,7 +12,21 @@
 
 ## Executive Summary
 
-DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **265 planned pull requests** organized in 6 phases.
+**Positioning (the one sentence):** DWS IQ 7 is the **Cortex Orchestrator + AI Actions layer for EU industrial carbon** — the only platform that turns an LLM answer into a _signed, sovereign regulatory filing_.
+
+The industry is converging on one stack: Data → Unified Platform → Semantic/Vector → Frontier LLM → Orchestrator → AI Actions. Snowflake Cortex, Databricks Mosaic, and Palantir AIP commoditize layers 1–4 across 2026–2027. DWS owns **layer 5**: the carbon balance sheet, the iXBRL signature, and the EU AI Act Article 12 lineage attached to every entry. Old BI ended at a dashboard; AI-native Cortex ends at an answer; **DWS ends at a _filed_ CSRD report, a _settled_ CBAM declaration, and a _posted_ journal entry in the customer's ERP** — on hardware in the customer's building, with no data leaving the EU. Cortex generates text; DWS posts journal entries.
+
+| Cortex Layer          | DWS equivalent                                                  | Defensibility vs a horizontal Cortex deployment            |
+| --------------------- | --------------------------------------------------------------- | ---------------------------------------------------------- |
+| Unified Data Platform | 18-source carbon data mesh (EUTL, ENTSO-E, EFRAG XBRL, PRODCOM) | HIGH — no curated EU regulatory corpus off the shelf       |
+| Semantic / Vector     | pgvector + ESRS/CBAM/ETS ontology (82 disclosures)              | MEDIUM — replicable, but the ontology is the asset         |
+| Frontier LLMs         | Groq + Nemotron 3 Super on Acer GN100                           | LOW on raw intelligence, HIGH on sovereign local inference |
+| Orchestrator          | Brain–Memory–Body–Hands + 15 ledger-native Firehorse agents     | MEDIUM — same shape, domain-specialized output contract    |
+| AI Actions / Outcomes | Signed iXBRL filing, ledger entry, ERP GL writeback             | HIGH — Cortex stops at the answer; DWS finishes the action |
+
+**Proof targets (Q4 2027 GA):** 16 paying industrial customers (steel, cement, chemicals, construction, energy), €72K MRR, ISO 27001 certified, ledger-backed CSRD/CBAM artifacts demonstrable end-to-end.
+
+DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between today (two enterprise pilots contracted Q1/2026 at €29,950 each) and the Q4/2027 target of a production platform with 16 paying industrial customers and growing profits requires disciplined execution across **265 planned pull requests** organized in 6 phases.
 
 **Actual velocity (audited 2026-03-15):** 342 PRs already merged (#132→#829), 1,846 total commits. March 2026 pace: 10 PRs/day, 43 commits/day. The 251-PR roadmap plan has been exceeded in raw PR count, but many PRs are feature additions, fixes, and infrastructure — the roadmap PRs represent specific product milestones that are tracked below.
 
@@ -26,7 +40,7 @@ DWS7 exploits **4 gaps no competitor fills:**
 
 | Gap                             | Opportunity                                                                                                                                                | Competitors Missing It                                                                                               |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 16 industries                                                                                           | Everyone specializes in one regulation                                                                               |
+| **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 25+ industries                                                                                          | Everyone specializes in one regulation                                                                               |
 | **IoT-to-compliance pipeline**  | Sensor data → verified regulatory filings, no manual steps                                                                                                 | Schneider does IoT, Persefoni does reporting — nobody bridges them                                                   |
 | **Agentic AI compliance**       | Multi-agent autonomous compliance checking + report generation                                                                                             | CO2 AI and Schneider are exploring; nobody has shipped it                                                            |
 | **Sovereign on-premise AI**     | Compliance workloads that cannot leave the customer's premises — local inference on dedicated hardware, EU data residency guaranteed by physics not policy | Every SaaS competitor routes data through US cloud APIs; nobody ships on-premise AI inference as a standard offering |
@@ -41,10 +55,10 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 
 ### Compute
 
-| Asset                       | Specs                                                             | Role                                                                                        | Status                                                          |
-| --------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| **Acer Veriton GN100**      | NVIDIA Blackwell GPU, 120 GiB RAM, 20 CPU cores, Ubuntu 24.04 LTS | Local AI inference, Climate LLM fine-tuning (PR 161), sovereign on-premise product offering | In-house, operational. See `Admin/Acer-Veriton-GN100/README.md` |
-| **NVIDIA Jetson Orin Nano** | Edge AI module, JetPack SDK                                       | Factory/site edge agent deployment (PR 154), offline IoT-to-compliance                      | Roadmap target deployment                                       |
+| Asset                       | Specs                                                                                                     | Role                                                                                                                                                                                                                                                        | Status                                                                                                                                |
+| --------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Acer Veriton GN100**      | NVIDIA GB10 Grace Blackwell, 128 GB unified LPDDR5x, 20 CPU cores (10× X925 + 10× A725), Ubuntu 24.04 LTS | Local AI inference (Nemotron 3 Super primary, Qwen3-Coder 30B fast, OpenClaw agent runtime), Climate LLM inference for PR 161 fine-tuned adapter (training runs on EU-sovereign cloud GPU — Spark is inference-only), sovereign on-premise product offering | In-house, operational. See `Admin/Acer-Veriton-GN100/README.md` and `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md`. |
+| **NVIDIA Jetson Orin Nano** | Edge AI module, JetPack SDK                                                                               | Factory/site edge agent deployment (PR 154), offline IoT-to-compliance                                                                                                                                                                                      | Roadmap target deployment                                                                                                             |
 
 ### Cloud
 
@@ -53,27 +67,28 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | EU Cloud backend | Google Cloud Run (`europe-north1`) | Express API, AI agents, EU data residency                  |
 | Database         | Supabase (EU)                      | PostgreSQL + Auth + Realtime + pgvector                    |
 | CDN / Edge       | Cloudflare Pages + Workers         | Landing pages, dashboard SPA, edge API                     |
-| Aiwen layer      | EU Cloud overlay                   | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
+| Full Sov. layer  | EU Cloud overlay                   | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
 
 ### What GN100 enables for the roadmap
 
-- **PR 161 (Climate LLM):** Fine-tune Llama 3.3 70B locally — no cloud training cost, no data leaving premises
-- **Sovereign on-premise AI gap:** The 4th competitive gap (above) is real because this hardware already exists
-- **Groq risk mitigation:** Immediate fallback inference for Llama 3.3 70B (~40 GB VRAM) and Mistral Large (~45 GB VRAM) without cloud dependency
-- **EU AI Act Article 12:** All local inference workloads log to Aiwen layer — compliance-by-default
+- **PR 161 (Climate LLM):** LoRA fine-tune on Nemotron 3 Super; training on EU-sovereign cloud GPU (Spark is inference-only per Saiyam Pathak 2026-03-13), adapter deploys to the Spark for ~19.5 tok/s local inference, no production data leaving premises at inference time
+- **Sovereign on-premise AI gap:** The 4th competitive gap (above) is real because this hardware already exists, and the local Brain is now Nemotron 3 Super (~4.5× faster than dense Llama 70B on the same hardware)
+- **Groq risk mitigation:** Immediate local inference fallback via Nemotron 3 Super (~87 GB Q4_K_M) and Qwen3-Coder 30B (~19 GB Q4 MoE) on the Spark — no cloud dependency, no per-token cost
+- **OpenClaw agent runtime:** Local autonomous-agent surface for confidential workloads (healthcare / finance / legal / defense data, code review on private repos, 256K-context long-document reasoning) — see `DWS_DEPLOYMENT_STANDARD.md` Surfaces table
+- **EU AI Act Article 12:** All local inference workloads log to sovereignty audit layer — compliance-by-default
 
 ---
 
 ## Phase Overview
 
-| Phase | Period            | Theme                                        | PRs | Milestone                                                                     |
-| ----- | ----------------- | -------------------------------------------- | --- | ----------------------------------------------------------------------------- |
-| **1** | Feb–Apr 2026      | **Launch & Stabilize**                       | 45  | V1.0 production launch, first 3 paying customers                              |
-| **2** | May–Jul 2026      | **Compliance Engine + Carbon Balance Sheet** | 56  | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger           |
-| **3** | Aug–Oct 2026      | **Scale & Harden**                           | 48  | 8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra       |
-| **4** | Nov 2026–Jan 2027 | **Intelligence Layer**                       | 40  | Agentic AI workflows, IoT pipeline live                                       |
-| **5** | Feb–May 2027      | **Market Expansion**                         | 44  | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
-| **6** | Jun–Dec 2027      | **DWS7 Release**                             | 32  | V7.0 GA, investor metrics dashboard, profitability                            |
+| Phase | Period            | Theme                                        | PRs | Milestone                                                                                  |
+| ----- | ----------------- | -------------------------------------------- | --- | ------------------------------------------------------------------------------------------ |
+| **1** | Feb–Apr 2026      | **Launch & Stabilize**                       | 45  | V1.0 production launch, first 3 paying customers                                           |
+| **2** | May–Jul 2026      | **Compliance Engine + Carbon Balance Sheet** | 57  | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger, EUTL-verified Scope 3 |
+| **3** | Aug–Oct 2026      | **Scale & Harden**                           | 48  | 8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra                    |
+| **4** | Nov 2026–Jan 2027 | **Intelligence Layer**                       | 40  | Agentic AI workflows, IoT pipeline live, **Situation Room ships (LWM V2)**                 |
+| **5** | Feb–May 2027      | **Market Expansion**                         | 44  | 16 customers, supplier portal, partner ecosystem, open-source agent framework              |
+| **6** | Jun–Dec 2027      | **DWS7 Release**                             | 32  | V7.0 GA, investor metrics dashboard, profitability                                         |
 
 ---
 
@@ -166,7 +181,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ---
 
-## Phase 2: Compliance Engine (May–Jul 2026) — 56 PRs
+## Phase 2: Compliance Engine (May–Jul 2026) — 57 PRs
 
 ### 2.1 EU ETS Module (PRs 046–057)
 
@@ -180,7 +195,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 051 | ETS MRV report generator (monitoring plan format)  | P0       | Auto-generate Monitoring, Reporting, Verification documents      |
 | 052 | ETS verification workflow                          | P1       | Status tracking: draft → submitted → verified → approved         |
 | 053 | ETS compliance calendar with deadline alerts       | P1       | Key dates: Mar 31 report, Apr 30 surrender, Sep 30 verification  |
-| 054 | ETS sector benchmarks (cement, steel, chemicals)   | P1       | Pre-loaded benchmark values for 16 industries                    |
+| 054 | ETS sector benchmarks (cement, steel, chemicals)   | P1       | Pre-loaded benchmark values for 25+ industries                   |
 | 055 | ETS allowance trading decision support             | P2       | Buy/sell recommendation based on position and price forecast     |
 | 056 | ETS historical emissions dashboard                 | P1       | Year-over-year trend visualization, target vs actual             |
 | 057 | ETS export to national registry XML format         | P1       | Generate submission-ready XML for EU Transaction Log             |
@@ -241,7 +256,9 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 092 | Industry-specific compliance templates (batch 2: aluminum, fertilizers, hydrogen) | P1       | Next 3 CBAM-covered industries                                   |
 | 093 | Regulatory readiness score per customer                                           | P1       | Weighted score across all applicable regulations                 |
 
-### 2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093H)
+### 2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093I)
+
+**Cortex-shift framing:** This subsection is DWS's "AI Actions" layer (see Executive Summary). A horizontal Cortex/Mosaic/AIP deployment can generate a carbon dashboard from a Snowflake notebook by Q3 2026; what it cannot do is post a signed, source-traced journal entry that reconciles ETS + CBAM + CSRD into one auditable balance. The ledger is the line item neither competitor can replicate without rebuilding their agent layer. It must ship in DWS7 Phase 2 — 2028 (DWS 8) is too late.
 
 **Why now (not DWS 8):** The debit-credit ledger is the Series A story. Investors fund infrastructure, not features. A persistent carbon balance sheet that unifies ETS + CBAM + CSRD into one auditable ledger is the moat — and it must be demonstrable before fundraising.
 
@@ -249,16 +266,17 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 **The pitch:** _"From 'How do we guess our footprint?' to 'How do we reconcile our carbon balance sheet?'"_
 
-| PR   | Title                                             | Priority | Description                                                                                                                                                                                                                                                                                                                         |
-| ---- | ------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 093A | Persistent carbon ledger table                    | P0       | Immutable append-only ledger in Supabase. Schema: `(id, org_id, entry_type, category, amount_eur, amount_tco2e, regulation, source_id, verified, description, created_at)`. RLS enforced. No UPDATE/DELETE — corrections are reverse entries. Builds on PR 075 (audit trail) and PR 097 (mutation logging)                          |
-| 093B | Dual-unit entries (EUR + tCO2e)                   | P0       | Every compliance entry carries both financial (EUR) and physical (tCO2e) amounts. Carbon price at time of entry preserved for audit trail. ETS surrender = debit (EUR + tCO2e). Free allocation = credit. CBAM certificate = debit. Links PR 050 (ETS financial exposure) to PR 062 (CBAM certificate cost) through the same ledger |
-| 093C | Chart of carbon accounts                          | P1       | Standardized account structure mapping to ESRS E1: Scope 1 Direct (ETS), Scope 2 Indirect (grid), Scope 3 Upstream (CBAM imports), Scope 3 Downstream, Offsets/Credits, Free Allocation. Every entry in PRs 046–093 maps to one account. CFO sees a balance sheet, not a spreadsheet                                                |
-| 093D | ETS ↔ CBAM ↔ CSRD cross-regulation reconciliation | P0       | The same tonne of CO2e that appears as an ETS surrender debit for a steel mill becomes a CBAM embedded emission for the importer, becomes a CSRD Scope 3 upstream disclosure for the buyer. One ledger entry, three regulatory views. Transforms PR 085 (cross-regulation data sharing) from data copying to ledger reconciliation  |
-| 093E | Ledger-native compliance scoring                  | P0       | Refactor scoring engine to read from ledger entries instead of computing from scratch. Score = f(ledger balance). Deterministic, auditable, reproducible. Every score traces back to specific debit/credit entries with source citations                                                                                            |
-| 093F | Carbon balance dashboard (CFO view)               | P1       | Balance sheet view: total carbon liabilities (debits) vs carbon assets (credits, free allocation, offsets). Net carbon position. Trend over time. Drill down by regulation, scope, entity. This is the investor demo screen                                                                                                         |
-| 093G | ERP GL sync (carbon → financial ledger)           | P1       | Push carbon ledger entries to SAP/IFS/Dynamics general ledger as line items. Carbon costs appear in the financial P&L alongside material costs. Bi-directional: ERP purchase orders generate CBAM debit entries automatically. Builds on PR 088 (compliance status API) and PRs 129–137 (ERP connectors)                            |
-| 093H | XBRL/iXBRL export from ledger                     | P1       | Export carbon balance sheet to ESRS-compliant XBRL for regulatory filing. Machine-readable CSRD reports. Extends PR 077 (XBRL tagging) with full ledger-backed data. EFRAG taxonomy auto-mapped from chart of carbon accounts                                                                                                       |
+| PR   | Title                                             | Priority | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---- | ------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 093A | Persistent carbon ledger table                    | P0       | Immutable append-only ledger in Supabase. Schema: `(id, org_id, entry_type, category, amount_eur, amount_tco2e, regulation, source_id, verified, description, created_at)`. RLS enforced. No UPDATE/DELETE — corrections are reverse entries. Builds on PR 075 (audit trail) and PR 097 (mutation logging)                                                                                                                                                                                                                                      |
+| 093B | Dual-unit entries (EUR + tCO2e)                   | P0       | Every compliance entry carries both financial (EUR) and physical (tCO2e) amounts. Carbon price at time of entry preserved for audit trail. ETS surrender = debit (EUR + tCO2e). Free allocation = credit. CBAM certificate = debit. Links PR 050 (ETS financial exposure) to PR 062 (CBAM certificate cost) through the same ledger                                                                                                                                                                                                             |
+| 093C | Chart of carbon accounts                          | P1       | Standardized account structure mapping to ESRS E1: Scope 1 Direct (ETS), Scope 2 Indirect (grid), Scope 3 Upstream (CBAM imports), Scope 3 Downstream, Offsets/Credits, Free Allocation. Every entry in PRs 046–093 maps to one account. CFO sees a balance sheet, not a spreadsheet                                                                                                                                                                                                                                                            |
+| 093D | ETS ↔ CBAM ↔ CSRD cross-regulation reconciliation | P0       | The same tonne of CO2e that appears as an ETS surrender debit for a steel mill becomes a CBAM embedded emission for the importer, becomes a CSRD Scope 3 upstream disclosure for the buyer. One ledger entry, three regulatory views. Transforms PR 085 (cross-regulation data sharing) from data copying to ledger reconciliation                                                                                                                                                                                                              |
+| 093E | Ledger-native compliance scoring                  | P0       | Refactor scoring engine to read from ledger entries instead of computing from scratch. Score = f(ledger balance). Deterministic, auditable, reproducible. Every score traces back to specific debit/credit entries with source citations                                                                                                                                                                                                                                                                                                        |
+| 093F | Carbon balance dashboard (CFO view)               | P1       | Balance sheet view: total carbon liabilities (debits) vs carbon assets (credits, free allocation, offsets). Net carbon position. Trend over time. Drill down by regulation, scope, entity. This is the investor demo screen                                                                                                                                                                                                                                                                                                                     |
+| 093G | ERP GL sync (carbon → financial ledger)           | P1       | Push carbon ledger entries to SAP/IFS/Dynamics general ledger as line items. Carbon costs appear in the financial P&L alongside material costs. Bi-directional: ERP purchase orders generate CBAM debit entries automatically. Builds on PR 088 (compliance status API) and PRs 129–137 (ERP connectors)                                                                                                                                                                                                                                        |
+| 093H | XBRL/iXBRL export from ledger                     | P1       | Export carbon balance sheet to ESRS-compliant XBRL for regulatory filing. Machine-readable CSRD reports. Extends PR 077 (XBRL tagging) with full ledger-backed data. EFRAG taxonomy auto-mapped from chart of carbon accounts                                                                                                                                                                                                                                                                                                                   |
+| 093I | EUTL transaction-verified Scope 3 factors         | P0       | Pulled forward from DWS 8 (was 8-041, single-entity slice). Replace CBAM Reg. 2023/1773 default emission factors with actual verified emissions from the EUTL installation record when the supplier is identifiable. Moves activity-based estimates (±15%) toward transaction-verified accuracy (±3%). The cross-customer network-effect version (one customer's verified data improving another's ledger) remains in DWS 8 (8-041). This is the sales wedge: "your CBAM number is traced to EUTL installation DE-123456, not a sector average" |
 
 **What this enables for fundraising:**
 
@@ -394,18 +412,18 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ### 4.3 Climate LLM Enhancement (PRs 161–170)
 
-| PR  | Title                                                 | Priority | Description                                                                                                                                                                        |
-| --- | ----------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 161 | Fine-tuned climate LLM (LoRA on Llama 3.3 70B)        | P1       | Domain-specific model trained on EU regulation corpus. Primary fine-tuning platform: Acer Veriton GN100 (NVIDIA Blackwell, 120 GiB RAM) — see `Admin/Acer-Veriton-GN100/README.md` |
-| 162 | RAG pipeline for regulation knowledge base            | P0       | Retrieve relevant regulation text for AI responses                                                                                                                                 |
-| 163 | Multi-language climate assistant (EN, FI, DE, SV, NO) | P1       | Localized responses for Nordic + DACH markets                                                                                                                                      |
-| 164 | Climate assistant conversation memory                 | P1       | Context-aware follow-up questions across sessions                                                                                                                                  |
-| 165 | Climate assistant source citations                    | P0       | Every AI answer cites specific regulation article/section                                                                                                                          |
-| 166 | Climate assistant confidence scoring                  | P1       | Show certainty level, flag when human expert needed                                                                                                                                |
-| 167 | Regulation comparison tool (AI-powered)               | P2       | "What changed between CSRD draft and final?" style queries                                                                                                                         |
-| 168 | Climate scenario modeling assistant                   | P1       | "What if carbon price reaches €150?" financial projections                                                                                                                         |
-| 169 | Batch query API for programmatic access               | P1       | Process multiple compliance questions via API                                                                                                                                      |
-| 170 | Climate assistant feedback loop                       | P1       | Users rate answers, feedback improves model over time                                                                                                                              |
+| PR  | Title                                                 | Priority | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --- | ----------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 161 | Fine-tuned climate LLM (LoRA on Nemotron 3 Super)     | P1       | Domain-specific model trained on EU regulation corpus. Base model: NVIDIA Nemotron 3 Super (`nemotron_h_moe`, 123.6B total / 12.7B active, Mamba-2 + attention + Latent MoE, pretrained NVFP4). LoRA training runs on EU-sovereign cloud GPU (DGX Cloud Frankfurt / Scaleway H100/H200) — the DGX Spark is an inference rig, not a training rig. The trained LoRA adapter then deploys to the Spark for inference at ~19.5 tok/s Q4_K_M (~4.5× dense Llama 3.3 70B). Re-based from Llama 3.3 70B (2026-05-16) — see `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` §Model Routing Strategy for the new Primary tier rationale. Training framework: NeMo / NeMo RL (NVIDIA released recipes; see Saiyam Pathak 2026-03-13 DGX Spark write-up). |
+| 162 | RAG pipeline for regulation knowledge base            | P0       | Retrieve relevant regulation text for AI responses                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| 163 | Multi-language climate assistant (EN, FI, DE, SV, NO) | P1       | Localized responses for Nordic + DACH markets                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 164 | Climate assistant conversation memory                 | P1       | Context-aware follow-up questions across sessions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 165 | Climate assistant source citations                    | P0       | Every AI answer cites specific regulation article/section                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| 166 | Climate assistant confidence scoring                  | P1       | Show certainty level, flag when human expert needed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 167 | Regulation comparison tool (AI-powered)               | P2       | "What changed between CSRD draft and final?" style queries                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 168 | Climate scenario modeling assistant                   | P1       | "What if carbon price reaches €150?" financial projections                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 169 | Batch query API for programmatic access               | P1       | Process multiple compliance questions via API                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 170 | Climate assistant feedback loop                       | P1       | Users rate answers, feedback improves model over time                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ### 4.4 Analytics & Reporting (PRs 171–177)
 
@@ -418,6 +436,37 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 175 | Benchmark comparison (industry peers)          | P2       | Anonymized comparison against similar companies             |
 | 176 | Carbon reduction tracking vs targets           | P0       | SBTi target progress visualization                          |
 | 177 | Board-ready ESG presentation export            | P1       | PowerPoint/PDF export formatted for board meetings          |
+
+### 4.5 eIDAS 2.0 & Trust Services (PRs TBD — call-conditional)
+
+Added to support DIGITAL-2026-AI-DATA-10 grant deliverable. Not counted in the 40 PR Phase 4 total; triggered when EUDI Wallet Large Scale Pilots reach production in target jurisdictions (Finland, Germany). See `docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md` §3 requirement #7.
+
+| PR  | Title                                                         | Priority | Description                                                                                       |
+| --- | ------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------- |
+| TBD | EUDI Wallet relying-party integration (OIDC4VP / ISO 18013-5) | P1       | Authenticate natural + legal persons via wallet-issued PIDs when submitting compliance data       |
+| TBD | Qualified Electronic Seal (QSeal) on compliance submissions   | P1       | Apply QTSP-issued seals to ETS / CBAM / CSRD reports per eIDAS 2.0                                |
+| TBD | Qualified Electronic Ledger integration                       | P2       | Tamper-evident audit trail for regulatory submissions via qualified ledger (eIDAS 2.0 Art. 45h)   |
+| TBD | EUDI Wallet verification at Supplier Portal onboarding        | P2       | Verify supplier legal identity via wallet-issued LPID at Phase 5 Supplier Portal (PR 178) sign-up |
+
+**Trigger condition:** European Commission EUDI Wallet rollout — LSPs (Large Scale Pilots) reaching GA in FI/DE. Track via EU Digital Identity Wallet Toolbox + national wallet providers (FI: DVV, DE: Bundesdruckerei).
+
+### 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D)
+
+**Strategic context:** Situation Room is the productized strategic-command surface that sits above per-customer Control Rooms (which run LWM1 / V1 per-industry models locally on Acer Veriton GN-100). Situation Room consumes **LWM V2** (omnimodal, NVFP4-native, ≥100B class) for cross-room reasoning. V2 ships in Phase 4 per `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md`. Earlier roadmap drafts left this surface implicit inside Phase 4.1 Agentic AI Workflows; pinning it as its own subsection 4.6 prevents slip into Phase 5+ and gives the work explicit ownership. See `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` for the two-budget split that separates V1 fine-tune economics (cheap A100 cloud, Train Model TM-001 SKU) from V2 pretrain economics (Blackwell silicon, Enterprise Model Training EMT-001 SKU).
+
+| PR   | Title                                                       | Priority | Description                                                                                                                                                                                                                                  |
+| ---- | ----------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 177A | Situation Room product surface scaffold                     | P0       | React dashboard component + backend API. Strategic-command view consuming LWM V2 inference. Parallel to Control Room field-ops view, not a replacement — Control Rooms continue to run LWM V1 per-industry models locally per customer site. |
+| 177B | LWM V2 inference container (NVFP4 native, Blackwell)        | P0       | NVIDIA NIM container packaging LWM V2 with NVFP4 weights for B100 / B200 / GB10 deployment. Inference-only; V2 training pipeline scoped in NVFP4 lab note. ~28 GB on disk (NVFP4), fits single Acer GN-100 or DGX Spark chassis.             |
+| 177C | Control Room → Situation Room federation                    | P1       | Cross-room data flow: per-site Control Room state aggregated into Situation Room strategic view. Per-customer privacy boundaries enforced via KYA chain-of-custody; cross-customer queries gated by Aegis tier.                              |
+| 177D | Situation Room access control (KYA TC-3 + Article 12 audit) | P0       | KYA TC-3 strategic-command trust tier (above TC-2 field-ops default). Multi-party approval for cross-customer queries. Full EU AI Act Article 12 reasoning lineage logged for every Situation Room session.                                  |
+
+**Owners / dependencies:**
+
+- Depends on V2 pretraining (separate workstream, see NVFP4 lab note)
+- Depends on PR 137A–137D Aegis K8s inference infra (Phase 3.6)
+- Depends on KYA v1.4 (already in place, internal)
+- Unblocks: Situation Room product SKU (Store catalog entry, separate PR in Phase 5 marketing track)
 
 ---
 
@@ -679,9 +728,9 @@ dws status | jq .agents                 # Pipe JSON out
 | Open-Source Agent Framework | 6       | 5       |
 | Mobile & i18n               | 9       | 5       |
 | Investor & Financial        | 9       | 6       |
-| Carbon Balance Sheet        | 8       | 2       |
+| Carbon Balance Sheet        | 9       | 2       |
 | Advanced Features           | 13      | 6       |
-| **Total**                   | **261** |         |
+| **Total**                   | **262** |         |
 
 ---
 
@@ -712,6 +761,7 @@ DWS7 is eligible for multiple EU funding instruments. These are non-dilutive and
 | **Horizon Europe — Cluster 5: Climate, Energy & Mobility** | Up to €5M per project                | Rolling calls 2026-2027                                     | Climate compliance automation, IoT monitoring, ETS optimization                                                                                                                                                                                               | 2, 4  |
 | **EIC Accelerator**                                        | Up to €2.5M grant + €15M equity      | Cut-off dates: Mar, Jun, Oct 2026                           | Deep-tech AI platform with market traction, <€5M revenue                                                                                                                                                                                                      | 3     |
 | **Digital Europe Programme (DIGITAL)**                     | €50K–€2M (€63.2M envelope announced) | 4 of 7 calls open, deadline 2026-10-01 — monitor for 3 more | AI deployment in industry, cybersecurity, cloud-to-edge. Current open 4 are low DWS fit (medical-imaging, EDIC CSA, info-integrity cascading grants, D&E CSA). See `docs/field-notes/2026-04-22-digital-europe-programme-ai-health-online-safety-call.md` §3. | 1, 4  |
+| **DIGITAL-2026-AI-DATA-10 (AI Continent / Compliance)**    | Lump sum grant (3–4 projects)        | **Deadline 01 Oct 2026**                                    | Direct thesis match: automate EU regulatory reporting via trusted data sharing. One of the "3 more" DIGITAL topics referenced above. See [`docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md`](docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md).                          | 2, 3  |
 | **EIC Pathfinder**                                         | Up to €4M                            | Annual calls                                                | Novel multi-agent coordination, agentic AI for compliance                                                                                                                                                                                                     | 4     |
 | **LIFE Programme — Clean Energy Transition**               | Up to €2M co-funding                 | Annual calls Q1                                             | Tools for industrial decarbonization, ETS compliance                                                                                                                                                                                                          | 2     |
 | **InvestEU — Sustainable Infrastructure**                  | Loan guarantees, equity              | Continuous via intermediaries                               | Scale-up funding for climate-tech platforms                                                                                                                                                                                                                   | 5, 6  |
@@ -745,18 +795,19 @@ Phase 6 (Jun-Dec 2027): Apply for InvestEU (scale-up infrastructure)
 
 ### Funding Application Calendar
 
-| Month    | Program                          | Action                                                                      | Estimated Value       |
-| -------- | -------------------------------- | --------------------------------------------------------------------------- | --------------------- |
-| Mar 2026 | Business Finland Tempo           | Submit application                                                          | €50K                  |
-| Apr 2026 | Digital Europe Programme         | Reviewed: 4 of 7 topics open, none primary DWS fit — monitor for topics 5–7 | €200K–€500K (if fit)  |
-| Jun 2026 | LIFE Programme                   | Submit consortium proposal                                                  | €500K–€1M             |
-| Jul 2026 | Academy of Finland               | PhD funding application                                                     | €150K (4 years)       |
-| Oct 2026 | Digital Europe Programme         | Submit only if a primary-fit topic opens (deadline 2026-10-01) — else skip  | €200K–€500K           |
-| Oct 2026 | EIC Accelerator                  | Submit full application                                                     | €2.5M grant + equity  |
-| Nov 2026 | Horizon Europe Cluster 4         | Submit consortium proposal                                                  | €500K–€1M (DWS share) |
-| Jan 2027 | EU Innovation Fund (small-scale) | Submit application                                                          | €2.5M                 |
-| Mar 2027 | Business Finland Co-Innovation   | Submit with industrial partners                                             | €1M                   |
-| Jun 2027 | Climate Fund (Ilmastorahasto)    | Growth investment discussion                                                | €2M–€5M               |
+| Month    | Program                              | Action                                                                      | Estimated Value         |
+| -------- | ------------------------------------ | --------------------------------------------------------------------------- | ----------------------- |
+| Mar 2026 | Business Finland Tempo               | Submit application                                                          | €50K                    |
+| Apr 2026 | Digital Europe Programme             | Reviewed: 4 of 7 topics open, none primary DWS fit — monitor for topics 5–7 | €200K–€500K (if fit)    |
+| Apr 2026 | DIGITAL-2026-AI-DATA-10 (Compliance) | Topic opens 21 Apr — confirmed primary fit, queue for Oct submission        | €200K–€500K             |
+| Jun 2026 | LIFE Programme                       | Submit consortium proposal                                                  | €500K–€1M               |
+| Jul 2026 | Academy of Finland                   | PhD funding application                                                     | €150K (4 years)         |
+| Oct 2026 | DIGITAL-2026-AI-DATA-10 (Compliance) | Submit by 01 Oct 17:00 Brussels                                             | Lump sum (3–4 projects) |
+| Oct 2026 | EIC Accelerator                      | Submit full application                                                     | €2.5M grant + equity    |
+| Nov 2026 | Horizon Europe Cluster 4             | Submit consortium proposal                                                  | €500K–€1M (DWS share)   |
+| Jan 2027 | EU Innovation Fund (small-scale)     | Submit application                                                          | €2.5M                   |
+| Mar 2027 | Business Finland Co-Innovation       | Submit with industrial partners                                             | €1M                     |
+| Jun 2027 | Climate Fund (Ilmastorahasto)        | Growth investment discussion                                                | €2M–€5M                 |
 
 ### Total Non-Dilutive Funding Potential: €7M–€12M (2026-2027)
 
@@ -777,15 +828,15 @@ This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workf
 
 ## Risk Register
 
-| Risk                                  | Impact   | Mitigation                                                                                                                                                                                          |
-| ------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Regulation changes mid-implementation | High     | Modular compliance engine, regulation change tracker (PR 086)                                                                                                                                       |
-| Key customer churn during pilot       | High     | Customer success metrics (PR 224), NPS tracking                                                                                                                                                     |
-| Security breach before ISO 27001      | Critical | Daily security scans (existing), pentest (PR 099)                                                                                                                                                   |
-| Groq API pricing increase             | Medium   | Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 (NVIDIA Blackwell, in-house) provides immediate fallback inference for Llama 3.3 70B and Mistral Large without cloud dependency |
-| Edge AI hardware supply issues        | Medium   | Cloud-only fallback mode for IoT pipeline                                                                                                                                                           |
-| Competitor acquires market share      | Medium   | Speed to market on unified Fit-for-55 platform; open-source framework (Phase 5.4) creates ecosystem gravity                                                                                         |
-| Team scaling challenges               | Medium   | AI-assisted development (Claude Code), modular architecture                                                                                                                                         |
+| Risk                                  | Impact   | Mitigation                                                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Regulation changes mid-implementation | High     | Modular compliance engine, regulation change tracker (PR 086)                                                                                                                                                                                                                                                                                                                |
+| Key customer churn during pilot       | High     | Customer success metrics (PR 224), NPS tracking                                                                                                                                                                                                                                                                                                                              |
+| Security breach before ISO 27001      | Critical | Daily security scans (existing), pentest (PR 099)                                                                                                                                                                                                                                                                                                                            |
+| Groq API pricing increase             | Medium   | Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 / DGX Spark (NVIDIA GB10 Blackwell, in-house) provides immediate sovereign inference via Nemotron 3 Super (Primary) and Qwen3-Coder 30B (Fast) without cloud dependency. Compute-scarcity hedge: owned, EU-sited, fixed-power compute is increasingly valuable as hyperscalers compete for delivered GW. |
+| Edge AI hardware supply issues        | Medium   | Cloud-only fallback mode for IoT pipeline                                                                                                                                                                                                                                                                                                                                    |
+| Competitor acquires market share      | Medium   | Speed to market on unified Fit-for-55 platform; open-source framework (Phase 5.4) creates ecosystem gravity                                                                                                                                                                                                                                                                  |
+| Team scaling challenges               | Medium   | AI-assisted development (Claude Code), modular architecture                                                                                                                                                                                                                                                                                                                  |
 
 ---
 
@@ -1221,14 +1272,14 @@ GTC 2026 announced 7 platform shifts. 5 directly impact DWS architecture. Items 
 
 ### GTC 2026 → DWS 7 Mapping
 
-| Phase | New PR | Title                                      | Priority | Source Technology                            | Description                                                                                                                                                                                                             |
-| ----- | ------ | ------------------------------------------ | -------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2     | 248    | NemoClaw/OpenClaw agent sandbox evaluation | P1       | NemoClaw stack                               | Evaluate OpenShell Runtime as KYA-compatible agent sandbox. Map to existing BaseAgent framework. Test Nemotron open-source models as Climate LLM candidates vs Llama 3.3 70B                                            |
-| 2     | 249    | NVIDIA Agent Toolkit as MCP tool provider  | P2       | NemoClaw stack                               | Integrate NVIDIA Agent Toolkit tools into DWS MCP server. Expands agent capabilities via NVIDIA-backed tooling                                                                                                          |
-| 3     | 250    | Groq 3 LPU inference benchmarking          | P1       | Groq acquisition ($20B, full asset purchase) | Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. NVIDIA now owns training AND inference silicon. Ships Q3 2026                                  |
-| 4     | 251    | Vera Rubin infrastructure planning         | P2       | Vera Rubin platform                          | Plan next-gen sovereign on-premise hardware. 10x perf/watt vs Blackwell. Monitor EU cloud availability (AWS/Azure/GCP). Shipping H2 2026                                                                                |
-| 5     | 252    | DRIVE Hyperion fleet evaluation            | P3       | Autonomous driving                           | Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles                                                                          |
-| 3     | 253    | cuDF pilot for compliance bulk assessment  | P2       | cuDF ($120B structured data)                 | GPU-accelerated DataFrame processing on GN100 for bulk ETS/CBAM calculations (10,000+ records). Replace Pandas with cuDF in workflow/ and Firehorse/ Python pipelines. Complement pg_duckdb database-level acceleration |
+| Phase | New PR | Title                                      | Priority | Source Technology                            | Description                                                                                                                                                                                                                                                                                                                                                             |
+| ----- | ------ | ------------------------------------------ | -------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2     | 248    | NemoClaw/OpenClaw agent sandbox evaluation | P1       | NemoClaw stack                               | **Closed 2026-05-16**: Nemotron 3 Super selected as Climate LLM Primary tier on the Spark (replaces Llama 3.3 70B) — ~4.5× faster decode at Q4_K_M, native NVFP4 pretraining, `thinking` + tool-calling capabilities. OpenClaw wired into docker-compose as EU-sovereign local agent runtime. Remaining: OpenShell Runtime KYA-attested sandbox layer for L4 telemetry. |
+| 2     | 249    | NVIDIA Agent Toolkit as MCP tool provider  | P2       | NemoClaw stack                               | Integrate NVIDIA Agent Toolkit tools into DWS MCP server. Expands agent capabilities via NVIDIA-backed tooling                                                                                                                                                                                                                                                          |
+| 3     | 250    | Groq 3 LPU inference benchmarking          | P1       | Groq acquisition ($20B, full asset purchase) | Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. NVIDIA now owns training AND inference silicon. Ships Q3 2026                                                                                                                                                                                  |
+| 4     | 251    | Vera Rubin infrastructure planning         | P2       | Vera Rubin platform                          | Plan next-gen sovereign on-premise hardware. 10x perf/watt vs Blackwell. Monitor EU cloud availability (AWS/Azure/GCP). Shipping H2 2026                                                                                                                                                                                                                                |
+| 5     | 252    | DRIVE Hyperion fleet evaluation            | P3       | Autonomous driving                           | Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles                                                                                                                                                                                                                          |
+| 3     | 253    | cuDF pilot for compliance bulk assessment  | P2       | cuDF ($120B structured data)                 | GPU-accelerated DataFrame processing on GN100 for bulk ETS/CBAM calculations (10,000+ records). Replace Pandas with cuDF in workflow/ and Firehorse/ Python pipelines. Complement pg_duckdb database-level acceleration                                                                                                                                                 |
 
 **Updated totals:** 261 PRs (was 253) across 6 phases.
 
@@ -1352,7 +1403,7 @@ Complete feature inventory for DWS 7 MVP V1, based on codebase audit of 1,846 co
 
 | #   | Feature                   | Components                                                                                                                                                                                                                             | Readiness |
 | --- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| 1   | **Agent Swarm Platform**  | 15 AI agents (8 platform + 7 specialized), BaseAgent framework, Llama 3.3 70B                                                                                                                                                          | 85%       |
+| 1   | **Agent Swarm Platform**  | 15 AI agents (8 platform + 7 specialized), BaseAgent framework, Nemotron 3 Super (Spark Primary) + Groq Llama 3.3 70B Versatile (cloud fallback)                                                                                       | 85%       |
 | 2   | **MCP Orchestration**     | 6 MCP servers, JSON-RPC 2.0, `/mcp` endpoint, SSE events, workflows                                                                                                                                                                    | 80%       |
 | 3   | **CLI Interface**         | `dws agents`, `dws run`, `dws workflow`, structured JSON output                                                                                                                                                                        | 75%       |
 | 4   | **17 Claude Code Skills** | /compliance-check, /agent-run, /workflow, /discover-agents, /site-safety, /carbon-analysis, /remote-control, /sovereignty-assess, /flow-status, /email, /plan-ceo-review, /plan-eng-review, /review, /ship, /browse, /retro, /simplify | 90%       |
@@ -1385,18 +1436,18 @@ Complete feature inventory for DWS 7 MVP V1, based on codebase audit of 1,846 co
 
 ### Not Started (Phase 2+)
 
-| #   | Feature                             | Target Phase |
-| --- | ----------------------------------- | ------------ |
-| 26  | Aiwen EU AI Act compliance layer    | Phase 2      |
-| 27  | Multi-tenancy / tenant isolation    | Phase 3      |
-| 28  | ISO 27001 / SOC 2 certification     | Phase 3      |
-| 29  | IoT pipeline (Jetson Orin Nano)     | Phase 4      |
-| 30  | XBRL/XML regulatory export          | Phase 2      |
-| 31  | Supplier self-service portal (CBAM) | Phase 2      |
-| 32  | On-premise AI inference (GN100)     | Phase 3      |
-| 33  | Temporal.io workflow orchestration  | Phase 4      |
-| 34  | Climate LLM fine-tuning             | Phase 4      |
-| 35  | Partner ecosystem (5 partners)      | Phase 5      |
+| #   | Feature                                     | Target Phase |
+| --- | ------------------------------------------- | ------------ |
+| 26  | Full Sovereignty EU AI Act compliance layer | Phase 2      |
+| 27  | Multi-tenancy / tenant isolation            | Phase 3      |
+| 28  | ISO 27001 / SOC 2 certification             | Phase 3      |
+| 29  | IoT pipeline (Jetson Orin Nano)             | Phase 4      |
+| 30  | XBRL/XML regulatory export                  | Phase 2      |
+| 31  | Supplier self-service portal (CBAM)         | Phase 2      |
+| 32  | On-premise AI inference (GN100)             | Phase 3      |
+| 33  | Temporal.io workflow orchestration          | Phase 4      |
+| 34  | Climate LLM fine-tuning                     | Phase 4      |
+| 35  | Partner ecosystem (5 partners)              | Phase 5      |
 
 ### Readiness Summary
 

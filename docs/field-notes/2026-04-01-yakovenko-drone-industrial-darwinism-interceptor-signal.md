@@ -164,7 +164,7 @@ This is a **six-layer intelligence stack** that no competitor can replicate beca
 1. Cross-vertical signal processing (lime → steel → drones → defence)
 2. Deterministic regulatory scoring (not LLM-generated opinions)
 3. Dual-use context (civilian compliance + defence dependency)
-4. EU-sovereign data residency (Aiwen layer)
+4. EU-sovereign data residency (Full Sovereignty tier)
 
 ---
 

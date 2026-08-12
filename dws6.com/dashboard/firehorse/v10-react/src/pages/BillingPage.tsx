@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../components/Toast';
 
 interface Plan {
   id: string;
@@ -45,6 +46,7 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 export function BillingPage() {
   const navigate = useNavigate();
   const { session } = useAuth();
+  const { toast } = useToast();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPlan, setCurrentPlan] = useState<string>('free');
@@ -66,18 +68,20 @@ export function BillingPage() {
         if (error || !data || data.length === 0) {
           setPlans(getFallbackPlans());
         } else {
-          setPlans(data.map((p: Record<string, unknown>) => ({
-            id: p.id as string,
-            tier: p.tier as string,
-            name: p.name as string,
-            price_monthly_eur: Number(p.price_monthly_eur) || 0,
-            price_annual_eur: p.price_annual_eur ? Number(p.price_annual_eur) : null,
-            agent_calls_per_month: Number(p.agent_calls_per_month) ?? 100,
-            edge_devices: Number(p.edge_devices) ?? 0,
-            features: Array.isArray(p.features) ? p.features as string[] : [],
-            support_type: (p.support_type as string) || 'Community',
-            is_active: Boolean(p.is_active),
-          })));
+          setPlans(
+            data.map((p: Record<string, unknown>) => ({
+              id: p.id as string,
+              tier: p.tier as string,
+              name: p.name as string,
+              price_monthly_eur: Number(p.price_monthly_eur) || 0,
+              price_annual_eur: p.price_annual_eur ? Number(p.price_annual_eur) : null,
+              agent_calls_per_month: Number(p.agent_calls_per_month) ?? 100,
+              edge_devices: Number(p.edge_devices) ?? 0,
+              features: Array.isArray(p.features) ? (p.features as string[]) : [],
+              support_type: (p.support_type as string) || 'Community',
+              is_active: Boolean(p.is_active),
+            })),
+          );
         }
       } catch {
         setPlans(getFallbackPlans());
@@ -107,19 +111,28 @@ export function BillingPage() {
             .from('usage_records')
             .select('action_type')
             .eq('user_id', session.user.id)
-            .gte('created_at', new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
+            .gte(
+              'created_at',
+              new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString(),
+            );
 
           if (usageData) {
-            const agentCalls = usageData.filter((u: { action_type: string }) => u.action_type === 'agent_call').length;
-            const reportExports = usageData.filter((u: { action_type: string }) => u.action_type === 'report_export').length;
+            const agentCalls = usageData.filter(
+              (u: { action_type: string }) => u.action_type === 'agent_call',
+            ).length;
+            const reportExports = usageData.filter(
+              (u: { action_type: string }) => u.action_type === 'report_export',
+            ).length;
             const periodStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
             const periodEnd = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
 
             setUsage({
               agent_calls_used: agentCalls,
-              agent_calls_limit: currentPlan === 'enterprise' ? -1 : currentPlan === 'pro' ? 10000 : 100,
+              agent_calls_limit:
+                currentPlan === 'enterprise' ? -1 : currentPlan === 'pro' ? 10000 : 100,
               report_exports_used: reportExports,
-              report_exports_limit: currentPlan === 'enterprise' ? -1 : currentPlan === 'pro' ? 100 : 5,
+              report_exports_limit:
+                currentPlan === 'enterprise' ? -1 : currentPlan === 'pro' ? 100 : 5,
               period_start: periodStart.toISOString(),
               period_end: periodEnd.toISOString(),
             });
@@ -173,7 +186,13 @@ export function BillingPage() {
         price_annual_eur: 4990,
         agent_calls_per_month: 10000,
         edge_devices: 5,
-        features: ['10,000 agent calls/month', '5 edge devices', 'Email support', 'API access', 'Carbon tracking'],
+        features: [
+          '10,000 agent calls/month',
+          '5 edge devices',
+          'Email support',
+          'API access',
+          'Carbon tracking',
+        ],
         support_type: 'Email',
         is_active: true,
       },
@@ -185,14 +204,21 @@ export function BillingPage() {
         price_annual_eur: null,
         agent_calls_per_month: -1,
         edge_devices: 50,
-        features: ['Unlimited agent calls', '50+ edge devices', 'Dedicated Slack channel', 'Custom integrations', 'Priority support', 'SLA guarantee'],
-        support_type: 'Dedicated Slack',
+        features: [
+          'Unlimited agent calls',
+          '50+ edge devices',
+          'Dedicated WhatsApp/webhook channel',
+          'Custom integrations',
+          'Priority support',
+          'SLA guarantee',
+        ],
+        support_type: 'Dedicated WhatsApp/Webhook',
         is_active: true,
       },
     ];
   }
 
-  const formatCalls = (n: number) => n === -1 ? 'Unlimited' : n.toLocaleString();
+  const formatCalls = (n: number) => (n === -1 ? 'Unlimited' : n.toLocaleString());
 
   async function handleUpgrade(plan: Plan, provider: 'paypal' | 'revolut') {
     if (plan.tier === 'free') return;
@@ -202,6 +228,9 @@ export function BillingPage() {
       return;
     }
     setCheckoutLoading(plan.id);
+    const origin = window.location.origin;
+    const return_url = `${origin}/payment/success?plan=${plan.tier}`;
+    const cancel_url = `${origin}/payment/cancel?plan=${plan.tier}`;
     try {
       const res = await fetch(`${API_BASE}/api/v1/payments/subscribe`, {
         method: 'POST',
@@ -212,21 +241,31 @@ export function BillingPage() {
         body: JSON.stringify({
           plan: plan.tier as 'pro' | 'enterprise',
           payment_provider: provider,
+          return_url,
+          cancel_url,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
         const msg = data?.message || data?.error || 'Payment service unavailable';
-        alert(msg);
+        toast({ type: 'error', title: 'Checkout failed', message: msg });
         return;
       }
       if (data?.payment_url) {
         window.location.href = data.payment_url;
       } else {
-        alert('No payment URL received. Please contact support.');
+        toast({
+          type: 'error',
+          title: 'Checkout failed',
+          message: 'No payment URL received. Please contact support.',
+        });
       }
     } catch {
-      alert('Unable to start checkout. Please try again or contact support.');
+      toast({
+        type: 'error',
+        title: 'Checkout unavailable',
+        message: 'Unable to start checkout. Please try again or contact support.',
+      });
     } finally {
       setCheckoutLoading(null);
     }
@@ -254,21 +293,21 @@ export function BillingPage() {
 
       {loading ? (
         <div className="grid gap-6 md:grid-cols-3">
-          {[1, 2, 3].map(i => (
+          {[1, 2, 3].map((i) => (
             <div key={i} className="card animate-pulse h-80" />
           ))}
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-3">
-          {plans.map(plan => (
+          {plans.map((plan) => (
             <div
               key={plan.id}
               className={`card p-6 flex flex-col ${
                 plan.tier === currentPlan
                   ? 'ring-2 ring-primary-500'
                   : plan.tier === 'pro'
-                  ? 'border-2 border-primary-300 shadow-md'
-                  : ''
+                    ? 'border-2 border-primary-300 shadow-md'
+                    : ''
               }`}
             >
               <div className="flex justify-between items-start mb-4">
@@ -281,9 +320,7 @@ export function BillingPage() {
               </div>
 
               <div className="mb-4">
-                <span className="text-3xl font-bold text-gray-900">
-                  €{plan.price_monthly_eur}
-                </span>
+                <span className="text-3xl font-bold text-gray-900">€{plan.price_monthly_eur}</span>
                 <span className="text-gray-500">/month</span>
                 {plan.price_annual_eur != null && plan.price_annual_eur > 0 && (
                   <p className="text-sm text-gray-500 mt-1">
@@ -296,9 +333,7 @@ export function BillingPage() {
                 <li className="text-sm text-gray-600">
                   {formatCalls(plan.agent_calls_per_month)} agent calls/month
                 </li>
-                <li className="text-sm text-gray-600">
-                  {plan.edge_devices} edge devices
-                </li>
+                <li className="text-sm text-gray-600">{plan.edge_devices} edge devices</li>
                 {plan.features.slice(0, 4).map((f, i) => (
                   <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
                     <span className="text-primary-500">✓</span>
@@ -347,9 +382,16 @@ export function BillingPage() {
         <div className="mt-8 card p-6">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">Current Period Usage</h3>
           <p className="text-xs text-gray-500 mb-4">
-            {new Date(usage.period_start).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })}
+            {new Date(usage.period_start).toLocaleDateString('en-GB', {
+              month: 'short',
+              day: 'numeric',
+            })}
             {' — '}
-            {new Date(usage.period_end).toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' })}
+            {new Date(usage.period_end).toLocaleDateString('en-GB', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            })}
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <UsageBar
@@ -371,13 +413,15 @@ export function BillingPage() {
         <div className="mt-6 card p-6">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">Invoice History</h3>
           <div className="divide-y divide-gray-100">
-            {invoices.map(inv => (
+            {invoices.map((inv) => (
               <div key={inv.id} className="flex items-center justify-between py-3">
                 <div>
                   <p className="text-sm font-medium text-gray-900">{inv.period}</p>
                   <p className="text-xs text-gray-500">
                     {new Date(inv.created_at).toLocaleDateString('en-GB', {
-                      day: 'numeric', month: 'short', year: 'numeric',
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
                     })}
                   </p>
                 </div>
@@ -385,11 +429,15 @@ export function BillingPage() {
                   <span className="text-sm font-medium text-gray-900">
                     &euro;{inv.amount_eur.toLocaleString()}
                   </span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                    inv.status === 'paid' ? 'bg-green-100 text-green-700' :
-                    inv.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                    'bg-red-100 text-red-700'
-                  }`}>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                      inv.status === 'paid'
+                        ? 'bg-green-100 text-green-700'
+                        : inv.status === 'pending'
+                          ? 'bg-yellow-100 text-yellow-700'
+                          : 'bg-red-100 text-red-700'
+                    }`}
+                  >
                     {inv.status}
                   </span>
                 </div>
@@ -402,8 +450,8 @@ export function BillingPage() {
       <div className="mt-6 card p-4">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Payment Methods</h3>
         <p className="text-sm text-gray-500">
-          We accept PayPal and Revolut Business. Invoices are sent monthly. For Enterprise,
-          contact us for custom payment terms.
+          We accept PayPal and Revolut Business. Invoices are sent monthly. For Enterprise, contact
+          us for custom payment terms.
         </p>
         <button
           type="button"

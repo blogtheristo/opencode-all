@@ -6,7 +6,7 @@ Contact: mailto:security@lifetime.fi
 Expires: 2027-03-18T00:00:00.000Z
 Preferred-Languages: en, fi
 Canonical: https://dws10.com/.well-known/security.txt
-Policy: https://dws10.com/legal/#responsible-disclosure
+Policy: https://dws10.com/compliance/vulnerability-disclosure-policy/
 
 # Scope: dws10.com, dws6.com, onelifetime.world, API endpoints, MCP servers
 # Out of scope: Social engineering, physical attacks, denial of service

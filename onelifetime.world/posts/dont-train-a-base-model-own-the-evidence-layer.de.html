@@ -1,0 +1,391 @@
+<!doctype html>
+<!--
+  Älä treenaa base-mallia, omista evidenssikerros
+  Code-Version: 1.0
+  Introduced-In: claude/ollama-orchestration-merge-047pj7
+  Date: 2026-07-26
+  Owner: Lifetime Oy
+  Related:
+    - docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md
+    - docs/field-notes/2026-07-26-lwm-training-hardware-reality.md
+    - docs/risk-register/DWS_PRODUCT_RISK_REGISTER.md
+    - docs/PHD_FIREHORSE_EN.md §14.44 / Key Contribution #49
+    - Store/PRODUCT_AEGIS.md (two-layer architecture)
+-->
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Jedes KI-Startup trainiert sein eigenes Modell nach. Für EU-souveräne Compliance ist das die falsche Frage. Der Burggraben ist die Bindung an die Regulierung."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-07-26" />
+    <meta property="og:title" content="Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht" />
+    <meta
+      property="og:description"
+      content="Physische KI und Compliance-Evidenz sind zwei Optimierungsprobleme. Übernimm die Komponenten, investiere in die Schleife — die kannst du nicht kaufen."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="de_DE" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.de.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-07-26" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Architektur" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht" />
+    <meta
+      name="twitter:description"
+      content="Das Basismodell wird zur Massenware. Die Schleife nicht. Komponenten kannst du kaufen — die Evidenzschicht nicht."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/ala-treenaa-base-mallia-omista-evidenssikerros.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: 9999px;
+        background: rgba(212, 168, 67, 0.15);
+        color: #d4a843;
+        border: 1px solid rgba(212, 168, 67, 0.25);
+      }
+      .prose-light p {
+        margin: 1.15rem 0;
+        line-height: 1.75;
+        color: #cbd5e1;
+        font-size: 1.05rem;
+      }
+      .prose-light h2 {
+        margin: 2.25rem 0 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #f8fafc;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #22d3ee;
+        text-decoration: underline;
+      }
+      .prose-light ul {
+        margin: 1.15rem 0;
+        padding-left: 1.25rem;
+        color: #cbd5e1;
+        line-height: 1.75;
+      }
+      .prose-light li {
+        margin: 0.4rem 0;
+        list-style: disc;
+      }
+      .pullquote {
+        margin: 2rem 0;
+        padding: 1.25rem 1.5rem;
+        border-left: 3px solid #d4a843;
+        background: rgba(30, 41, 59, 0.6);
+        color: #f1f5f9;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menü">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Shop</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Presse</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ-Plattform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Shop</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Standpunkt &middot; Architektur</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            26. Juli 2026 &middot; Risto Anton Päärni &middot; Espoo, Finnland
+          </p>
+        </header>
+        <aside class="ai-notice" role="note" aria-label="Von künstlicher Intelligenz (KI) generierter Inhalt" style="margin:0 0 1.75rem;padding:0.85rem 1.1rem;border-left:3px solid #94a3b8;background:rgba(30,41,59,0.55);color:#cbd5e1;font-size:0.85rem;line-height:1.6">
+          <strong style="color:#f1f5f9">Von künstlicher Intelligenz (KI) generierter Inhalt</strong> &middot; Diese Seite ist eine maschinelle Übersetzung des finnischen Originals und wurde nicht von einem menschlichen Übersetzer geprüft. Die finnische Fassung ist der rechtsverbindliche Text.
+            <a href="/posts/ala-treenaa-base-mallia-omista-evidenssikerros.html" hreflang="fi" lang="fi" style="color:#22d3ee;text-decoration:underline">Das finnische Original lesen &rarr;</a>
+        </aside>
+
+
+        <p>
+          Jedes KI-Startup erzählt gerade, es tune sein eigenes Modell fein. Für EU-souveräne
+          Compliance-Arbeit ist das die falsche Frage.
+        </p>
+
+        <p>
+          Das Problem ist nicht die Modellqualität. Das Problem heißt <strong>artifact-legitimacy gap</strong>: technische
+          Reife und Legitimität folgen nicht derselben Uhr. Ein Frontier-Modell liefert das Artefakt
+          in Stunden. Es an die regulatorische Wirklichkeit zu binden &mdash; Peer Review,
+          unabhängige Umsetzung, behördliche Freigabe, juristische Prüfung je Rechtsordnung &mdash;
+          dauert Wochen oder Monate und wird nicht kürzer. Ein eigenes Modell schließt diese Lücke
+          nicht. Es verschiebt sie.
+        </p>
+
+        <p>
+          Und physische KI und Compliance-Evidenz sind zwei verschiedene Optimierungsprobleme.
+          Wahrnehmung&rarr;Aktion eines Roboters in Echtzeit ist eine andere Aufgabe als eine
+          gerichtsfeste Argumentationskette. Ein Modell für beides ist ein Kompromiss in beide
+          Richtungen.
+        </p>
+
+        <h2>Machen Sie es stattdessen so</h2>
+
+        <p>
+          <strong>Übernehmen Sie eine fertige souveräne Komponente für die physische Schicht.</strong> NVIDIA Cosmos 3
+          Edge ist ein offenes Weltmodell, das auf dem Gerät läuft &mdash; on-prem, auf der Kiste,
+          die Sie schon haben. Sie trainieren es nicht. Sie nehmen es in Betrieb.
+        </p>
+
+        <p>
+          <strong>Fahren Sie das Compliance-Reasoning mit einem offenen LLM</strong> über NIM. Das ist nicht-souveräne
+          Arbeit: Benchmarking und Entwürfe, nicht der Kern Ihrer Kundendaten.
+        </p>
+
+        <p>
+          <strong>Investieren Sie in das, was Sie nicht kaufen können: in die eigene Evidenzschleife.</strong>
+          Private Evals, RL-Umgebung, Adaption mit eigenen fleet-data, KYA-Governance,
+          Nachweis nach Artikel 12. Das Base-Modell wird jeden Monat zur Commodity. Die Schleife
+          nicht. Sie ist die einzige Schicht, die ein Wettbewerber nicht kopieren kann, weil sie auf
+          Ihrem Betrieb aufgebaut ist.
+        </p>
+
+        <h2>Benennen Sie das Risiko, statt es zu verstecken</h2>
+
+        <p>
+          Der NVIDIA-Stack dominiert: Hardware, Modell und Serving von einem Anbieter. Das ist echte
+          Konzentration. Aber weil die Gewichte offen sind (Open Weights), ist Portabilität real.
+          Halten Sie ein offenes Modell und eine Workload auf einem Nicht-NVIDIA-Beschleuniger
+          (AMD MI300, Intel Gaudi) lauffähig, auf Testbed-Niveau. Dann sind die Exit-Kosten
+          auditierbar statt theoretisch.
+        </p>
+
+        <div class="pullquote">
+          Abhängigkeit ist erst beherrscht, wenn der Exit vorgeführt ist &mdash; nicht, wenn er behauptet wird.
+        </div>
+
+        <h2>So sieht das in der Produktlinie aus</h2>
+
+        <p>Ein Produkt, drei Tiers &mdash; nicht vier lose Produkte.</p>
+
+        <p>
+          <strong>DWS IQ Aegis</strong> ist ein Produkt aus zwei Schichten: physische
+          Wahrnehmung&rarr;Aktion (ein übernommenes Weltmodell der Klasse Cosmos 3 Edge) und
+          Compliance-Evidenz (eine eigene LLM-Schicht), zusammengebunden durch die KYA-Schleife.
+          Seine Tiers skalieren die Souveränität: <strong>Sovereign Infra</strong> trennt das physische Fleet/Edge vom
+          Cloud-Compliance-Teil, <strong>Connect</strong> ist der globale Tier ohne Souveränitätsauflagen. Und
+          <strong>Firehorse Production Engine</strong> fährt operator-independent-Workflows per Computer Vision
+          dort, wo die Wahrnehmung des Bedieners ersetzt wird &mdash; Bauforensik, kein neues
+          Modell.
+        </p>
+
+        <h2>Was noch fehlt</h2>
+
+        <p>
+          Weil die artifact-legitimacy gap auch uns betrifft. Der Fallback-Plan für das
+          NVIDIA-Lieferrisiko gehört sichtbar ins Risikoregister, je Produkt, in dem DGX, Cosmos
+          oder NIM kritisch ist. Es reicht nicht, dass der Exit möglich ist; er muss geprobt sein.
+          Das ist die Frage, die Investoren und Enterprise-Käufer stellen, sobald Sie die
+          NVIDIA-Abhängigkeit erwähnen. Wir sagen es laut, bevor sie fragen.
+        </p>
+
+        <h2>Das Prinzip ist universal</h2>
+
+        <p>
+          Der Burggraben liegt nicht im Modell. Er liegt darin, wie der Output des Modells an die
+          regulatorische Wirklichkeit gebunden wird. Komponenten können Sie kaufen. Die
+          Evidenzschicht nicht.
+        </p>
+
+        <p>
+          Mehr zu Architektur und Produkten:
+          <a href="https://dws10.com/aegis/index.de.html" target="_blank" rel="noopener">DWS IQ Aegis</a>.
+        </p>
+
+        <p class="mt-10 text-sm text-gray-400">
+          Risto Anton Päärni<br />
+          Founder, CEO &middot; Lifetime Oy &middot; the Agent Outcome Company
+        </p>
+      </article>
+
+    </main>
+
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/ai-supercomputing-meets-eda-sovereign-design.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.</span>
+                    </a>
+                    <span></span>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fdont-train-a-base-model-own-the-evidence-layer.de.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Trainiere%20kein%20Basismodell.%20Besitze%20die%20Evidenzschicht.%20(DE)%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fdont-train-a-base-model-own-the-evidence-layer.de.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="mailto:?subject=Trainiere%20kein%20Basismodell.%20Besitze%20die%20Evidenzschicht.%20(DE)&body=Trainiere%20kein%20Basismodell.%20Besitze%20die%20Evidenzschicht.%20(DE)%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fdont-train-a-base-model-own-the-evidence-layer.de.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.de.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€4,999</p>
+                            <p class="text-xs text-gray-500">18+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€6,500</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-lg font-bold text-cyan-400 my-1">€499</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+    <nav class="i18n-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">
+      <a href="/posts/ala-treenaa-base-mallia-omista-evidenssikerros.html" hreflang="fi" lang="fi" style="margin:0 8px;color:inherit">🇫🇮 Suomeksi</a>
+      <a href="/posts/dont-train-a-base-model-own-the-evidence-layer.html" hreflang="en" lang="en" style="margin:0 8px;color:inherit">🇬🇧 In English</a>
+      <a href="/posts/dont-train-a-base-model-own-the-evidence-layer.sv.html" hreflang="sv" lang="sv" style="margin:0 8px;color:inherit">🇸🇪 Svenska</a>
+      <a href="/posts/dont-train-a-base-model-own-the-evidence-layer.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
+    </nav>
+
+  </body>
+</html>

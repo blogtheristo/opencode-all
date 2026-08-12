@@ -1,5 +1,7 @@
 # 019 Lifetime Group Due Diligence Clean Report 2020 — tiivistelmä
 
+> **🗄 HISTORICAL / ARCHIVED — marked old 2026-06-13.** This is the **2020** Lifetime Group DD summary, marked old as part of the DD-artifact cleanup. **It remains valid accounting evidence:** the appendix to the 31.12.2025 board decision for the €594,000 R&D-expense capitalization (KPL 5:8, IAS 38). Archival is organizational only — it is **not** withdrawn or superseded as evidence.
+
 ---
 
 **VERSION AND AGENT HISTORY**
@@ -18,7 +20,7 @@
 - **Branch:** claude/activate-dev-expenses-Cbb1q
 - **Sessions & Modifications:**
   - 1.0 (10.04.2026, Claude Opus 4.6): Tiivistelmä luotu DD Clean Report v0.19 -lähteestä jonka käyttäjä toimitti 10.04.2026 sessiossa. Sisältää AINOASTAAN faktoja jotka esiintyvät alkuperäisessä lähteessä — ei tulkintaa, ei laajennusta, ei keksittyjä lukuja. Tarkoitus: tarjota kirjanpitäjälle (Merja) ja sijoittajille riippumaton todistus Lifetime Group:n tilanteesta 03/2020 osana €594 000 tuotekehitysmenojen aktivointia.
-- **Document Status:** ACTIVE
+- **Document Status:** ARCHIVED (historical 2020 record — marked old 2026-06-13; remains valid as accounting evidence per Use Case below)
 - **Use Case:** Tuotekehitysmenojen aktivoinnin (KPL 5:8, IAS 38) lähdetiivistelmä. Liite hallituksen päätökseen 31.12.2025.
 
 ---
@@ -99,6 +101,7 @@
 > **Later confirmation (not part of the 23.03.2020 DD report):** käyttäjän vahvistuksen mukaan kumppanuus on ollut voimassa edelleen 04/2026.
 >
 > **Interpretation for activation:** jos tämä myöhempi vahvistus hyväksytään erilliseksi taustatiedoksi, sitä voidaan käyttää näyttönä pitkäkestoisesta strategisesta kumppanuudesta Top 5 -tier-1 -teknologiatoimittajan kanssa ja mahdollisena tukena KPL 5:8 "tekninen toteutettavuus" -arvioinnissa.
+
 ## 5. Asiakassopimukset ja kumppanisopimukset (vahvistettu 03/2020)
 
 | Sopimus                                  | Päivämäärä | Tyyppi                 |
@@ -197,11 +200,11 @@ DD-raportin liitteenä mainittu kirjanpidollinen valmius:
 
 **Allekirjoitus:**
 Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: ****\_\_****
+Päivämäärä: \***\*\_\_\*\***
 
 **Hyväksyntä (kirjanpitäjä):**
-Merja ****\_\_****
-Päivämäärä: ****\_\_****
+Merja \***\*\_\_\*\***
+Päivämäärä: \***\*\_\_\*\***
 
 ---
 

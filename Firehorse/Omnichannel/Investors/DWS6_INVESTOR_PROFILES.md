@@ -3,8 +3,9 @@
 ## Company Context
 
 - **Current Stage**: Seed / Seed-extension
-- **Current MRR**: €7k
-- **Target ARR**: €900k by 2026
+- **Software pipeline (contracted)**: €59,900 — two Q1/2026 enterprise pilots at €29,950 each, plus four smaller landed accounts (names redacted pending authorization)
+- **Services and transport revenue**: ~€7,000/month (licensed transport operation + consulting) — **not** software revenue; puts the company at cash break-even with a founder salary of €0
+- **Target ARR**: €900k by 2026 (target, not a run-rate)
 - **Fundraising Goal**: Bridge to Series A in 2026
 - **Sector**: Climate tech / Construction & Infrastructure SaaS / ESG compliance automation
 
@@ -144,7 +145,7 @@
 - ✅ Invests at seed/seed-extension stage (not pre-seed only, not Series A+)
 - ✅ Check size matches: €15k–€50k (angels) or €100k–€500k (funds)
 - ✅ Geographic focus includes EU (especially Nordics/DACH/Benelux/UK)
-- ✅ Comfortable with €7k MRR (not requiring €50k+ MRR)
+- ✅ Comfortable with an early software base of €59,900 in contracted Q1/2026 pilots (not requiring €50k+ MRR)
 
 ### Strong Fit Indicators (Prioritize if Present)
 - 🎯 Portfolio includes construction tech, infra SaaS, or climate reporting

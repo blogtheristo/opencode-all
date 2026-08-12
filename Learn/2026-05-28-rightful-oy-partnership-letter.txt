@@ -1,0 +1,133 @@
+KUMPPANUUSEHDOTUS — LIFETIME OY x RIGHTFUL OY
+================================================
+
+Lähettäjä:   Lifetime Oy, Y-tunnus 0772407-9, ALV FI07724079
+             Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
+             Risto Anton Päärni, CEO
+             risto.paarni@lifetime.fi | +358 400 319 010
+
+Vastaanottaja: Tatu Heiskanen, CEO
+               Rightful Oy
+               Espoo, Suomi
+
+Päiväys:     28. toukokuuta 2026
+
+
+1. YHTEENVETO
+-------------
+
+Hei Tatu,
+
+DWS6 / Lifetime Oy ehdottaa strategista kumppanuutta Rightful Oy:n kanssa.
+Yhdistämme kolmen pilarin (data, teknologia, toiminnallinen) suvereniteetin
+operatiivisen mallin ja Rightfulin R-Sac^2 -post-kvanttivalmiusmenetelmän
+siten, että EU-lähtöiset säännellyn alan asiakkaat saavat yhden kumppanuuden,
+joka kattaa suvereniteettiaseman JA PQC-siirtymän. Olemme molemmat Espoo-
+pohjaisia EU-jurisdiktion ankkureita; kumppanuus vahvistaa EU-suvereniteetti-
+narratiivin sulkematta pois USA- tai Singapore-markkinapääsyä.
+
+Ehdotamme 30 minuutin keskustelutapaamista kahden viikon sisällä tämän
+luonnoksen pohjalta.
+
+[English: Lifetime Oy proposes a strategic partnership combining DWS6's
+three-pillar sovereignty operating model with Rightful's R-Sac^2 post-quantum
+readiness methodology. Both parties are Espoo-headquartered EU-jurisdictional
+anchors. We seek a 30-minute discovery call within two weeks.]
+
+
+2. DWS6:N SUVERENITEETIN OPERATIIVINEN MALLI — KOLME PILARIA
+------------------------------------------------------------
+
+DWS6 toimittaa agenttipohjaista compliance-arkkitehtuuria EU-säännellyille
+toimialoille. Olemme julkaisseet 28.5.2026 Sovereignty Field Note #2
+-kenttämuistion:
+https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html
+
+Kolmen pilarin malli:
+
+  1. Datasuvereniteetti — kyky hallita datan sijaintia ja pääsyä
+     (GDPR, Schrems II, CLOUD Act -suoja)
+  2. Teknologiasuvereniteetti — riippumattomuus yksittäisistä toimittajista,
+     avoin lähdekoodi, portabiliteetti
+  3. Toiminnallinen suvereniteetti — jatkuvuus ilman ulkopuolista häiriötä
+     geopoliittisessa paineessa (NIS2, DORA)
+
+
+3. DWS6-TUOTTEEN TASOKARTTA
+---------------------------
+
+  DWS IQ Aegis            EU dual-use / puolustus / kriittiset sektorit
+                          Kaikki kolme pilaria täydellä EU-suvereniteetilla
+                          R-Sac^2-valmis
+
+  DWS IQ Sovereign Infra  EU-yritysten perustaso
+                          Datapilari ensisijainen
+
+  DWS IQ Connect          EU:n ulkopuoliset markkinat
+                          Datapilari kevyt
+
+
+4. RIGHTFUL R-Sac^2 -YHTEENSOPIVUUS KYA-NELIJÄLKEEN
+---------------------------------------------------
+
+  1. Tunnista kvanttiriskit          SIB - HNDL-altistuspinnan arviointi
+  2. Arvioi nykyinen kryptografia    CSB - krypto-inventaario
+  3. Suunnittele siirtymä            CSB + EAB - migraatiosuunnitelma
+  4. Toteuta ja integroi             EAB - toteutuksen todennus
+  5. Seuraa ja pysy hallinnassa      EAB - jatkuva todennus
+
+
+5. KUMPPANUUSEHDOTUKSEN KOLME VAIHTOEHTOA
+-----------------------------------------
+
+  A. Suosittelukumppanuus (Referral) - molemminpuolinen, ei eksklusiivinen
+  B. Yhteismarkkinointi (Co-marketing) - webinaari, whitepaper, Slush 2026
+  C. Tekninen integraatio - R-Sac^2 vaihe 5 KYA SIB-radalle
+
+Suositus: aloitetaan A + B; C arvioidaan ensimmäisen yhteisen asiakkaan
+tunnistamisen jälkeen.
+
+
+6. KAUPALLINEN KEHYS
+--------------------
+
+Ei sitovia ehtoja tässä luonnoksessa. Sovitaan keskustelussa.
+
+
+7. YHTEINEN ASIAKASSOPIVUUS
+---------------------------
+
+  1. Suomalainen puolustus- / dual-use-teollisuus (Aegis-taso)
+  2. Pohjoismainen finanssi / FSI (MAS-vastaava kvanttiriskiohjeistus)
+  3. Helsinki / Espoo -pohjaiset globaalit valmistajat
+
+
+8. SEURAAVA ASKEL
+-----------------
+
+30 minuutin keskustelutapaaminen seuraavien kahden viikon aikana.
+Ehdotetut ajat (Helsinki-aika, EET):
+
+  - Maanantai    2.6.2026  klo 10:00-10:30
+  - Keskiviikko  4.6.2026  klo 14:00-14:30
+  - Perjantai    6.6.2026  klo 09:30-10:00
+
+Tapaaminen voi olla online tai kasvotusten Espoossa.
+
+
+Ystävällisin terveisin,
+
+Risto Anton Päärni
+CEO, Lifetime Oy
+risto.paarni@lifetime.fi | +358 400 319 010
+
+---
+Liitteet:
+  - Sovereignty Field Note #2 EN: https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html
+  - Sovereignty Field Note #2 FI: https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.fi.html
+  - PhD: PHD_FIREHORSE_EN.md §14.23 (kolmen pilarin suvereniteettitaksonomia)
+  - Lifetime Oy: Y-tunnus 0772407-9, ALV FI07724079
+  - Rightful R-Sac^2 -infografiikka (vastaanotettu 28.5.2026)
+
+Canonical Markdown source: docs/sales/2026-05-28-rightful-oy-partnership-proposal.md
+Dispatch transport: Amazon SES (per CLAUDE.md non-negotiable #4)

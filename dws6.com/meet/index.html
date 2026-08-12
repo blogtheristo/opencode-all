@@ -260,14 +260,14 @@
       <div class="divider"></div>
 
       <div class="invite-section">
-        <h3>&#9993; Send Email Invitation</h3>
-        <label for="invite-email">Recipient email</label>
-        <input type="email" id="invite-email" placeholder="colleague@company.com" required />
+        <h3>&#9993; Request Meeting Invite</h3>
+        <label for="invite-email">Your email</label>
+        <input type="email" id="invite-email" placeholder="you@company.com" required />
         <label for="invite-room">Room name (optional)</label>
         <input type="text" id="invite-room" placeholder="Leave empty for auto-generated" />
         <label for="invite-date">Meeting date &amp; time</label>
         <input type="datetime-local" id="invite-date" />
-        <button type="button" class="btn-invite" onclick="sendInvite()">Send Invitation via Email</button>
+        <button type="button" class="btn-invite" onclick="sendInvite()">Send Request to Risto</button>
       </div>
 
       <p class="footer-text">
@@ -316,6 +316,7 @@
   <script src="https://meet.jit.si/external_api.js"></script>
   <script>
     const JITSI_DOMAIN = 'meet.jit.si';
+    const INVITE_API_BASE = window.location.origin === 'file://' ? 'http://localhost:8080' : 'https://api.dws6.com';
     let jitsiApi = null;
 
     // Check URL hash for room name: #room=dws6-hannamari-20260313
@@ -414,49 +415,40 @@
       });
     }
 
-    function emailInviteFromMeeting() {
+    async function emailInviteFromMeeting() {
       const roomName = document.getElementById('room-badge').textContent;
       const directUrl = 'https://' + JITSI_DOMAIN + '/' + encodeURIComponent(roomName);
       const shareUrl = document.getElementById('share-url').value;
-      openEmailInvite('', roomName, directUrl, shareUrl, '');
+      const requesterEmail = document.getElementById('invite-email').value.trim();
+      await submitInviteRequest({ requesterEmail, roomName, directUrl, shareUrl, dateStr: '' });
     }
 
-    function sendInvite() {
-      const email = document.getElementById('invite-email').value.trim();
-      if (!email) { showToast('Please enter an email address'); return; }
+    async function sendInvite() {
+      const requesterEmail = document.getElementById('invite-email').value.trim();
+      if (!requesterEmail) { showToast('Please enter your email address'); return; }
       const roomInput = document.getElementById('invite-room').value.trim();
       const roomName = roomInput ? sanitizeRoomName(roomInput) : 'dws6-' + Math.random().toString(36).substring(2, 10);
       const dateInput = document.getElementById('invite-date').value;
       const directUrl = 'https://' + JITSI_DOMAIN + '/' + encodeURIComponent(roomName);
       const shareUrl = window.location.origin + window.location.pathname + '#room=' + encodeURIComponent(roomName);
       const dateStr = dateInput ? new Date(dateInput).toLocaleString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'To be confirmed';
-      openEmailInvite(email, roomName, directUrl, shareUrl, dateStr);
+      await submitInviteRequest({ requesterEmail, roomName, directUrl, shareUrl, dateStr });
     }
 
-    function openEmailInvite(to, roomName, directUrl, shareUrl, dateStr) {
-      const subject = 'Video Meeting Invitation — ' + roomName;
-      const body = [
-        'You are invited to a video meeting.',
-        '',
-        dateStr ? 'When: ' + dateStr : '',
-        'Room: ' + roomName,
-        '',
-        'Join directly in your browser (no account needed):',
-        directUrl,
-        '',
-        'Or join via Firehorse Meeting page:',
-        shareUrl,
-        '',
-        '---',
-        'Free · End-to-end encrypted · Powered by Jitsi Meet',
-        'Lifetime Oy · DWS IQ',
-      ].filter(Boolean).join('\n');
-
-      const mailto = 'mailto:' + encodeURIComponent(to)
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
-      window.open(mailto, '_blank');
-      showToast('Email client opened');
+    async function submitInviteRequest(payload) {
+      try {
+        const res = await fetch(INVITE_API_BASE + '/api/v1/booking/meet-invite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || 'Failed to send invite request');
+        showToast('Invite request sent to Risto');
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Failed to send invite request';
+        showToast(message);
+      }
     }
 
     function showToast(msg) {
