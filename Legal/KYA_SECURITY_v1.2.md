@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 07.08.2026 | Changes: §3.1: A:n katto [0, 0.25] kirjattu kaavaan ja selvennetty etta 0.25 on katto ei kerroin (P0-3). Lisatty kaksi hard killia jotka edeltavat kaavaa: Capability Manifest (allekirjoitus + TTL) ja IDV-tila (status + TTL); `unknown` kaatuu kiinni. Ennen 07.08.2026 IDV-tila ei ollut syote lainkaan, joten ihmisen todennuksen peruutus ei liikuttanut pistetta (katselmus Osa B, B1). Rajat raportoidaan itsenaisesti ATSBreakdownissa.
 - Version: 1.8 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §12 Agentic Commerce Mandate Gating — Enforcement (v1.9), syncing the KYA_STANDARD_v1.md §14 mandate-gate rule into the enforcement/violation side — extends the §9.2 KYA Violation sequence with mandate revocation, documents the §14.5 evidence chain backed by `supabase/migrations/074_kya_mandate_evidence_chain.sql` (`kya_mandate_events` append-only hash chain, `kya_tenant_gating_profiles` tighten-only floor enforcement). Renumbered §12 Conclusion → §13
 - Version: 1.7 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added §11 Systems Inventory & Policy Gate — KYA absorbs the governance/inventory responsibility for Aegis-tier customers where no EU-incorporated alternative to Credo AI / Holistic AI / OneTrust / IBM Watsonx Governance exists. Defines ai_systems_registry, governance_policies, policy_decisions, deployment_approvals tables. Renumbered §11 Conclusion → §12. Companion to `DWS_ARTICLE_12_LOGGING_STANDARD.md` and `Store/PRODUCT_THEMIS.md`. Triggered by Nokia Defence demo need
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in §8.1 D&O Insurance — softened "safe harbor" positioning to "deployer evidence infrastructure (Art. 12 + Art. 26) for D&O AI-governance coverage — not a categorical safe harbor"; corrected Art. 99 citation to Art. 99(4) per PR #976 sweep pattern
@@ -240,14 +241,23 @@ D = DENIED path access attempts
 **The V > 0 Hard Stop (v1.4 CRITICAL):** If `V > 0`, the autoresearch improvement factor `A` is **automatically nullified** in the companion optimization standard. You cannot optimize your way out of a security violation. This is enforced at the ATS engine level:
 
 ```
-ATS_Final = ATS_Base × (1 + A)    where A = 0 if V > 0
+ATS_Final = ATS_Base × (1 + A)    where A ∈ [0, 0.25], and A = 0 if V > 0
 ```
+
+`0.25` is a **cap on A**, not a multiplier — in the superseded additive form the number after `A×` was a coefficient. Canonical definition of A, its cap, and its validation gates: `KYA_OPTIMIZATION_v1.4.md` §3.
 
 An agent may be highly "optimal" (high A) but fundamentally "leaky" (moderate V). Under the previous additive formula, such an agent could maintain a high score. The multiplicative formula with the V > 0 gate eliminates this inflation vector entirely.
 
 **Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with the autoresearch improvement factor. The A factor is only active when `V = 0` (zero violations). A must be validated against the Industry Proxy Metric (Optimization §9) to prevent agents "marking their own homework." This security standard uses `ATS_Base` without the A factor — security scoring is never inflatable by optimization performance.
 
-**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
+**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls. The shipped engine computes `ATS_Base` only; A is applied by the autoresearch orchestrator layer, never inside the security baseline.
+
+**Two hard kills precede the formula** and are not expressed in it. Either yields `ATS = 0` outright:
+
+1. **Capability Manifest** — signature unverified, or past `signedAt + ttlSeconds` (REG-2).
+2. **IDV state** — the human principal's status is not `verified`, or the attestation is past `verifiedAt + ttlSeconds` (IDV-1 / IDV-3 / IDV-4). A status of `unknown` fails closed: an absent or unusable IDV signal is never read as permission (KYA-S1 v1.3 TRS-5).
+
+The two limbs are reported independently in `ATSBreakdown` (`manifestValid` / `idvValid`) so an operator can see which control fired. Added 07.08.2026 — before that, IDV state was not an input at all and revoking the human principal left the score untouched (`Legal/KYA_S1_REVIEW_v1.3_PROPOSAL.md` Part B, finding B1).
 
 ### 3.2 KYA Trust Score Ranges
 

@@ -7,8 +7,9 @@
  * - Skip detection (agent answered without tool use)
  * - Aggregated metrics for adaptation priority framework
  *
- * Buffered writes: events accumulate in memory and flush to Supabase
- * every 50 events or 30 seconds (whichever first). Non-blocking.
+ * Buffered writes: events accumulate in memory and flush to the internal
+ * Postgres pool (DGX Spark) every 50 events or 30 seconds (whichever first).
+ * Non-blocking.
  *
  * Code-Version: 1.1
  * Introduced-In: PR-TBD (ASTA Phase 1)
@@ -23,6 +24,7 @@
  *   See migration 066_tool_telemetry_genai.sql.
  */
 
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import type { ToolMetrics, ToolTelemetryEvent } from './telemetry.types.js';
 
@@ -53,60 +55,90 @@ class ToolTelemetryService {
     }
   }
 
-  /** Flush buffered events to Supabase. */
+  /** Flush buffered events to the internal Postgres pool. */
   async flush(): Promise<void> {
     if (this.buffer.length === 0) return;
 
     const batch = this.buffer.splice(0);
 
     try {
-      const { createClient } = await import('@supabase/supabase-js');
-      const url = process.env.SUPABASE_URL;
-      const key = process.env.SUPABASE_SERVICE_KEY;
-      if (!url || !key) {
-        logger.debug('Telemetry flush skipped — Supabase not configured');
+      const pool = getInternalDbPool();
+      if (!pool) {
+        logger.debug('Telemetry flush skipped — internal Postgres not configured');
         return;
       }
 
-      const client = createClient(url, key);
-      const rows = batch.map((e) => {
-        const g = e.genAi;
-        return {
-          agent_name: e.agentName,
-          tool_name: e.toolName,
-          org_id: e.orgId,
-          session_id: e.sessionId,
-          outcome: e.outcome,
-          duration_ms: e.durationMs,
-          error_message: e.errorMessage || null,
-          is_retry: e.isRetry,
-          retry_count: e.retryCount,
-          chain_position: e.chainPosition,
-          chain_length: e.chainLength,
-          iteration_index: e.iterationIndex,
-          created_at: e.timestamp,
-          trace_id: e.traceId ?? null,
-          span_id: e.spanId ?? null,
-          gen_ai_system: g?.system ?? null,
-          gen_ai_operation_name: g?.operationName ?? null,
-          gen_ai_request_model: g?.requestModel ?? null,
-          gen_ai_response_model: g?.responseModel ?? null,
-          gen_ai_request_max_tokens: g?.requestMaxTokens ?? null,
-          gen_ai_request_temperature: g?.requestTemperature ?? null,
-          gen_ai_request_top_p: g?.requestTopP ?? null,
-          gen_ai_usage_input_tokens: g?.usageInputTokens ?? null,
-          gen_ai_usage_output_tokens: g?.usageOutputTokens ?? null,
-          gen_ai_response_finish_reasons: g?.responseFinishReasons ?? null,
-          gen_ai_response_id: g?.responseId ?? null,
-        };
-      });
+      const columns = [
+        'agent_name',
+        'tool_name',
+        'org_id',
+        'session_id',
+        'outcome',
+        'duration_ms',
+        'error_message',
+        'is_retry',
+        'retry_count',
+        'chain_position',
+        'chain_length',
+        'iteration_index',
+        'created_at',
+        'trace_id',
+        'span_id',
+        'gen_ai_system',
+        'gen_ai_operation_name',
+        'gen_ai_request_model',
+        'gen_ai_response_model',
+        'gen_ai_request_max_tokens',
+        'gen_ai_request_temperature',
+        'gen_ai_request_top_p',
+        'gen_ai_usage_input_tokens',
+        'gen_ai_usage_output_tokens',
+        'gen_ai_response_finish_reasons',
+        'gen_ai_response_id',
+      ];
 
-      const { error } = await client.from('tool_telemetry').insert(rows);
-      if (error) {
-        logger.warn('Telemetry flush insert failed', { error: error.message, batchSize: batch.length });
-      } else {
-        logger.debug('Telemetry flushed', { count: batch.length });
-      }
+      const values: unknown[] = [];
+      const valuePlaceholders = batch
+        .map((e) => {
+          const g = e.genAi;
+          const row = [
+            e.agentName,
+            e.toolName,
+            e.orgId,
+            e.sessionId,
+            e.outcome,
+            e.durationMs,
+            e.errorMessage || null,
+            e.isRetry,
+            e.retryCount,
+            e.chainPosition,
+            e.chainLength,
+            e.iterationIndex,
+            e.timestamp,
+            e.traceId ?? null,
+            e.spanId ?? null,
+            g?.system ?? null,
+            g?.operationName ?? null,
+            g?.requestModel ?? null,
+            g?.responseModel ?? null,
+            g?.requestMaxTokens ?? null,
+            g?.requestTemperature ?? null,
+            g?.requestTopP ?? null,
+            g?.usageInputTokens ?? null,
+            g?.usageOutputTokens ?? null,
+            g?.responseFinishReasons ?? null,
+            g?.responseId ?? null,
+          ];
+          const placeholders = row.map((_, i) => `$${values.length + i + 1}`).join(', ');
+          values.push(...row);
+          return `(${placeholders})`;
+        })
+        .join(', ');
+
+      const sql = `INSERT INTO tool_telemetry (${columns.join(', ')}) VALUES ${valuePlaceholders}`;
+
+      await pool.query(sql, values);
+      logger.debug('Telemetry flushed', { count: batch.length });
     } catch (err) {
       logger.warn('Telemetry flush exception', { error: String(err), batchSize: batch.length });
     }
@@ -118,29 +150,36 @@ class ToolTelemetryService {
     const windowEnd = new Date().toISOString();
 
     try {
-      const { createClient } = await import('@supabase/supabase-js');
-      const url = process.env.SUPABASE_URL;
-      const key = process.env.SUPABASE_SERVICE_KEY;
-      if (!url || !key) {
+      const pool = getInternalDbPool();
+      if (!pool) {
         return this.emptyMetrics(windowStart, windowEnd);
       }
 
-      const client = createClient(url, key);
-      const { data, error } = await client
-        .from('tool_telemetry')
-        .select('outcome, duration_ms, session_id')
-        .eq('agent_name', agentName)
-        .gte('created_at', windowStart);
+      const result = await pool
+        .query(
+          `SELECT outcome, duration_ms, session_id FROM tool_telemetry
+           WHERE agent_name = $1 AND created_at >= $2`,
+          [agentName, windowStart],
+        )
+        .catch((err: Error) => {
+          logger.warn('Telemetry getMetrics query failed', { error: err.message });
+          return null;
+        });
 
-      if (error || !data) {
-        logger.warn('Telemetry getMetrics query failed', { error: error?.message });
+      if (!result) {
         return this.emptyMetrics(windowStart, windowEnd);
       }
 
-      const rows = data as Array<{ outcome: string; duration_ms: number; session_id: string }>;
+      const rows = result.rows as Array<{
+        outcome: string;
+        duration_ms: number;
+        session_id: string;
+      }>;
       const sessions = new Set(rows.map((r) => r.session_id));
       const successCount = rows.filter((r) => r.outcome === 'success').length;
-      const failureCount = rows.filter((r) => r.outcome === 'error' || r.outcome === 'timeout').length;
+      const failureCount = rows.filter(
+        (r) => r.outcome === 'error' || r.outcome === 'timeout',
+      ).length;
       const partialCount = rows.filter((r) => r.outcome === 'partial').length;
       const skipCount = rows.filter((r) => r.outcome === 'skip').length;
       const totalInvocations = rows.length - skipCount;

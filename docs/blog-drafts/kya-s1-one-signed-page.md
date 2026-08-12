@@ -3,15 +3,16 @@ Slug: kya-s1-one-signed-page
 Title: KYA-S1 — One Signed Page for the Agent in Your Vendor File
 Language: en
 Target: onelifetime.world/posts/kya-s1-one-signed-page.html
-Date: 2026-08-04
+Date: 2026-08-06
+Note: Reopened per DWS_BLOG_STANDARD's "any post-approval edit reopens the loop" — HIC correction (06.08.2026): KYA-S1 is a Specification, not a "standard" (no standards-body consensus process). "vendor standard" -> "vendor specification" throughout, version bumped v1.2 -> v1.3 to match Legal/KYA_S1.md.
 
 # KYA-S1 — one signed page for the agent in your vendor file
 
-Standards · Buyer Note · 4 August 2026 · Risto Anton Päärni · Espoo, Finland
+Standards · Buyer Note · 6 August 2026 · Risto Anton Päärni · Espoo, Finland
 
 ## The news, in one line
 
-Today we publish KYA-S1 v1.2 — a vendor standard for autonomous-agent identity and behavior,
+Today we publish KYA-S1 v1.3 — a vendor specification for autonomous-agent identity and behavior,
 written so a single signed page can sit in your procurement folder next to SOC 2 and ISO 27001.
 Draft, open for public comment until 4 November 2026.
 
@@ -23,7 +24,7 @@ SOC 2 Type 2. ISO 27001. FedRAMP, where it applies. CSRD evidence. A signed page
 date for the next renewal. That folder is how an enterprise decides who is allowed inside the
 network.
 
-Autonomous agents need a line in that folder. There was not yet a standard that fit the slot. So
+Autonomous agents need a line in that folder. There was not yet a specification that fit the slot. So
 we wrote one.
 
 ## What lands in the folder
@@ -35,7 +36,7 @@ attested, the propagation SLAs, and a renewal date.
 Two signatures. Seven controls, each ticked by someone who is not us. A renewal date the
 procurement team can put in a calendar.
 
-That is what KYA-S1 is for. The rest of the standard exists to make that page mean something.
+That is what KYA-S1 is for. The rest of the specification exists to make that page mean something.
 
 ## The seven things the assessor checks
 
@@ -72,9 +73,9 @@ PRV — Provenance. "Can you replay the decision, two years from now, for an aud
 fact carries its source, timestamp, confidence and policy version. Every consequential decision is
 replayable from inputs, state, model version and policy version.
 
-## What the EU AI Act changed two days ago
+## What the EU AI Act changed on 2 August 2026
 
-Article 50 started to apply on 2 August 2026. That is worth being precise about, because three
+Article 50 started to apply that day. That is worth being precise about, because three
 different duties are involved and they are not interchangeable.
 
 Article 12 is record-keeping — logging sufficient for traceability across the system's lifetime.
@@ -85,22 +86,22 @@ interest where nobody assumed editorial responsibility.
 
 KYA-S1 sits near all three. PRV is nearest to Article 12. IDV, TC4 and TRS are nearest to Article 14. PRV-3 watermarking is nearest to Article 50.
 
-Near is not the same as equal, and we say so in the standard. A KYA-S1 attestation produces
+Near is not the same as equal, and we say so in the specification. A KYA-S1 attestation produces
 evidence relevant to those articles. It does not discharge them. Any vendor — us included — who
 says "we are KYA-S1 aligned, therefore we are EU AI Act compliant" is selling something that is not
-true. Article 50 has three exceptions the standard does not encode, and whether a system is
+true. Article 50 has three exceptions the specification does not encode, and whether a system is
 high-risk at all is a separate assessment that enforces from December 2027.
 
 ## Why no self-attestation, including our own
 
-Anyone can write a standard. The standard is only worth the assessor who signs against it.
+Anyone can write a specification. The specification is only worth the assessor who signs against it.
 
 So KYA-S1 disallows self-attestation in every control domain. The evidence has to be a third-party
 audit, signed platform telemetry, architecture documentation reviewed by an independent assessor,
 or a contractual SLA with a defined measurement method. Pick at least one, per domain, per year.
 
 And the rule binds the house that wrote it. Lifetime Oy will not self-issue a KYA-S1 letter for the
-DWS IQ Platform. Until an independent assessor signs one, we claim no tier. What is in the standard
+DWS IQ Platform. Until an independent assessor signs one, we claim no tier. What is in the specification
 under our name is an architecture description, not an attestation.
 
 ## Bronze, Silver, Gold
@@ -141,9 +142,9 @@ The three extension domains — fault attribution, continuous trust score, decis
 no analogue in any of those layers, because the problems they answer only exist once an autonomous
 agent is the actor.
 
-## Read the standard
+## Read the specification
 
-KYA-S1 v1.2, full text: Legal/KYA_S1.md in the dws6 repository.
+KYA-S1 v1.3, full text: Legal/KYA_S1.md in the dws6 repository.
 Where it sits in our posture: the DWS Compliance Hub at dws10.com/compliance/.
 Comments during the window: risto.paarni@lifetime.fi.
 

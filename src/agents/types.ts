@@ -57,11 +57,27 @@ export interface NotifyConfig {
   maxPerDay: number;
 }
 
+/**
+ * Ex-ante KYA authorization verdict, injected by a runtime gate (KYA sandbox
+ * bridge, HIL queue) — never LLM- or user-supplied. Structurally compatible
+ * with `KYAVerdict` in `../observability/tracing.js`; kept as a local type
+ * here so `types.ts` does not import the observability module.
+ */
+export interface RuntimeKYAVerdict {
+  decision: 'allowed' | 'denied';
+  /** KYA session trust score at gate time (0-100); also used as memory ATS */
+  trustScore?: number;
+  policyVersion?: string;
+  gate?: string;
+}
+
 /** Runtime policy attached to AgentContext for tool-level enforcement */
 export interface AgentRuntimeContext {
   name: string;
   autonomyPhase: AutonomyPhase;
   notify?: NotifyConfig;
+  /** Real KYA verdict from the runtime gate, when one has already been issued */
+  kya?: RuntimeKYAVerdict;
 }
 
 /** Tracks session taint from prior RED tool calls */

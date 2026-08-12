@@ -397,14 +397,40 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>edge-node-gn100</g:id>
-      <g:title>Acer Veriton GN100 — EU Sovereign Edge AI Node</g:title>
-      <g:description>&lt;p&gt;Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;EU air-gapped sovereign AI inference&lt;/li&gt;&lt;li&gt;20 cores / 120 GiB RAM per node&lt;/li&gt;&lt;li&gt;Minimum 2 units — €7,998 total&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Control Room — Acer Veriton GN100 + NVIDIA Model Install</g:title>
+      <g:description>&lt;p&gt;When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €4,299 hardware&lt;/li&gt;&lt;li&gt;NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)&lt;/li&gt;&lt;li&gt;Choose your model bundle: VPK Ops · Compliance · Construction · Custom&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>3999 EUR</g:price>
+      <g:price>5294 EUR</g:price>
       <g:brand>Acer</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LF-SITROOM-001</g:id>
+      <g:title>Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle</g:title>
+      <g:description>&lt;p&gt;When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).&lt;/p&gt;&lt;ul&gt;&lt;li&gt;2× Acer Veriton GN100 bridged (40 cores · 256 GB unified memory · NVIDIA ConnectX-7 200 Gbps link) — 2× €4,299 hardware&lt;/li&gt;&lt;li&gt;NVIDIA model installation for the bridged pair — €1,495 (tensor-parallel sharding, dual-node Article 12 log replica, failover)&lt;/li&gt;&lt;li&gt;Wider model selection: vision, acoustic, language, reasoning, voice — all NVIDIA NIMs&lt;/li&gt;&lt;li&gt;Choose your bundle: VPK Drone Defense · Crisis Coordination · Compliance + Defence · Full Sovereign&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/situation-room.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>10093 EUR</g:price>
+      <g:brand>Acer</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LF-DGX-SPARK</g:id>
+      <g:title>DGX Spark — NVIDIA-branded Sovereign Edge AI + Install &amp; Service</g:title>
+      <g:description>&lt;p&gt;NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €4,999 hardware (Finnish EMEA pricing)&lt;/li&gt;&lt;li&gt;On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)&lt;/li&gt;&lt;li&gt;Pair two for 405 B-param models over the ConnectX-7 200 Gbps link&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dgx-spark.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>5994 EUR</g:price>
+      <g:brand>NVIDIA</g:brand>
       <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>

@@ -101,6 +101,9 @@ export class MercuryAgent extends BaseAgent {
       }))
       .filter((r) => r.result !== null);
 
+    // Index by label for O(1) result extraction.
+    const successfulByLabel = new Map(successful.map((r) => [r.label, r]));
+
     const llmResponse = await this.callLLM(
       `You are Mercury, Logistics & Operations Intelligence for Climate IQ.
 
@@ -151,9 +154,9 @@ Return JSON: {
         bottlenecks: synthesis.bottlenecks,
         alternatives: synthesis.alternatives,
         operationalBriefing: synthesis.operationalBriefing,
-        logistics: successful.find((r) => r.label === 'logistics')?.result?.result || null,
-        qualityGate: successful.find((r) => r.label === 'quality-gate')?.result?.result || null,
-        schedule: successful.find((r) => r.label === 'schedule-genius')?.result?.result || null,
+        logistics: successfulByLabel.get('logistics')?.result?.result ?? null,
+        qualityGate: successfulByLabel.get('quality-gate')?.result?.result ?? null,
+        schedule: successfulByLabel.get('schedule-genius')?.result?.result ?? null,
       },
       confidence: successful.length / Math.max(tasks.length, 1),
       reasoning: `Mercury assessed ${successful.length} operational dimensions for project ${projectId}. Delivery forecast: ${synthesis.deliveryForecast}. Delay: ${synthesis.delayDays} days.`,

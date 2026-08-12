@@ -13,7 +13,11 @@
  *
  * @section DWS_SECURITY_STANDARD §18.3
  * @see Legal/KYA_SECURITY_v1.2.md §3 (ATS base formula)
- * @see Legal/KYA_OPTIMIZATION_v1.4.md §3 (ATS with autoresearch A×0.25 extension)
+ * @see Legal/KYA_S1.md §6.2 TRS-1 (IDV state is a required scoring input)
+ * @see Legal/KYA_OPTIMIZATION_v1.4.md §3 (canonical ATS: ATS_Final = ATS_Base × (1 + A),
+ *      A capped at 0.25, A = 0 when V > 0). This engine computes ATS_Base ONLY — the A
+ *      factor is applied by the autoresearch orchestrator, never inside the security
+ *      baseline, so optimization performance can never inflate a security score.
  * @see Legal/KYA_STANDARD_v1.md §14 (Agentic Commerce Mandate Gating — evaluateMandateGate)
  */
 
@@ -21,6 +25,8 @@ import { z } from 'zod';
 import type {
   ATSBreakdown,
   ATSResult,
+  IdvState,
+  IdvStatus,
   AttestationInput,
   CapabilityManifest,
   IssuedAttestation,
@@ -40,11 +46,6 @@ const VIOLATION_PENALTY = 0.25;
 /** Points deducted per DENIED path access attempt */
 const OVERREACH_PENALTY = 0.05;
 
-/** Latency threshold (ms) above which a penalty is applied */
-const LATENCY_THRESHOLD_MS = 500;
-
-/** Penalty for avg latency exceeding threshold */
-const LATENCY_PENALTY = 0.1;
 
 /** KYA score threshold for GO decision (normalized) */
 const GO_THRESHOLD = 0.5;
@@ -55,21 +56,53 @@ const GO_THRESHOLD = 0.5;
  * Calculates the Agent Trust Score for a subagent session.
  *
  * Pull from Firehorse telemetry logs to compute a weighted score
- * incorporating violations, latency, manifest integrity, and
- * permission overreach.
+ * incorporating violations, manifest integrity, and permission overreach.
+ *
+ * Latency is deliberately NOT a scoring input: a slow agent is not an
+ * untrustworthy one, and routing infrastructure degradation through the
+ * authorization value hides it (KYA audit P1-1). Latency is measured and
+ * reported as telemetry only — see `avgLatency` in the returned breakdown.
  *
  * @param manifest - Signed Capability Manifest for the session
  * @param telemetry - Firehorse telemetry log entries for the session
+ * @param idv - Verification state of the human principal bound to the session.
+ *              Required, not optional: an omitted IDV signal must fail closed,
+ *              and an optional parameter would let callers silently opt out of
+ *              the very control this input exists to provide (TRS-5).
  * @returns ATSResult with score, breakdown, and GO/NO_GO decision
  */
-export function calculateATS(manifest: CapabilityManifest, telemetry: TelemetryEntry[]): ATSResult {
+export function calculateATS(
+  manifest: CapabilityManifest,
+  telemetry: TelemetryEntry[],
+  idv: IdvState,
+): ATSResult {
   const now = new Date().toISOString();
 
   // Hard kill: unsigned or expired manifest
   const manifestExpired =
     Date.now() > new Date(manifest.signedAt).getTime() + manifest.ttlSeconds * 1000;
 
-  if (!manifest.signature.verified || manifestExpired) {
+  const manifestValid = manifest.signature.verified && !manifestExpired;
+
+  // Hard kill: the human principal is not verified, or the attestation is stale.
+  //
+  // This is the IDV limb of TRS-1. Without it the score expresses only the
+  // agent's own conduct, so revoking the human's authorization would leave it
+  // untouched — the chain would appear to break in the diagram while continuing
+  // to authorize action in fact. `unknown` fails closed by construction: an
+  // absent or unusable IDV signal is never read as permission (TRS-5).
+  const idvFresh =
+    isFiniteTimestamp(idv.verifiedAt) &&
+    idv.ttlSeconds > 0 &&
+    Date.now() <= new Date(idv.verifiedAt).getTime() + idv.ttlSeconds * 1000;
+
+  const idvValid = idv.status === 'verified' && idvFresh;
+
+  // Report 'expired' when the only defect is staleness, so telemetry
+  // distinguishes a lapsed re-attestation (IDV-3) from a revocation (IDV-4).
+  const idvStatus: IdvStatus = idv.status === 'verified' && !idvFresh ? 'expired' : idv.status;
+
+  if (!manifestValid || !idvValid) {
     return buildResult(
       0.0,
       {
@@ -77,10 +110,13 @@ export function calculateATS(manifest: CapabilityManifest, telemetry: TelemetryE
         violationPenalty: 0,
         latencyPenalty: 0,
         overreachPenalty: 0,
-        manifestValid: false,
+        manifestValid,
         violationCount: 0,
         deniedAttemptCount: 0,
         avgLatencyMs: 0,
+        idvValid,
+        idvStatus,
+        humanPrincipalId: idv.humanPrincipalId,
       },
       now,
     );
@@ -93,15 +129,11 @@ export function calculateATS(manifest: CapabilityManifest, telemetry: TelemetryE
   const violationPenalty = violations.length * VIOLATION_PENALTY;
   score -= violationPenalty;
 
-  // 2. Latency/SLA health
+  // 2. Latency/SLA health (Observability only - latency penalty removed for compatibility)
   let avgLatency = 0;
-  let latencyPenalty = 0;
+  const latencyPenalty = 0;
   if (telemetry.length > 0) {
     avgLatency = telemetry.reduce((sum, l) => sum + l.latency, 0) / telemetry.length;
-    if (avgLatency > LATENCY_THRESHOLD_MS) {
-      latencyPenalty = LATENCY_PENALTY;
-      score -= latencyPenalty;
-    }
   }
 
   // 3. Permission overreach (denied path access attempts)
@@ -123,9 +155,17 @@ export function calculateATS(manifest: CapabilityManifest, telemetry: TelemetryE
       violationCount: violations.length,
       deniedAttemptCount: deniedAttempts.length,
       avgLatencyMs: Math.round(avgLatency),
+      idvValid: true,
+      idvStatus: 'verified',
+      humanPrincipalId: idv.humanPrincipalId,
     },
     now,
   );
+}
+
+/** True when `value` parses to a real instant — guards against malformed IDV timestamps. */
+function isFiniteTimestamp(value: string): boolean {
+  return Number.isFinite(new Date(value).getTime());
 }
 
 // ============ HELPERS ============

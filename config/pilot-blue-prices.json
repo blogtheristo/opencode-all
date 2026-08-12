@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-14T14:00:00Z",
-  "version": "1.1",
-  "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation. v1.1: no override changes; bump allows the pilot HTML to be re-rendered with the three new T3 brand bundles (DWS365-CMP-T3, FH-SKILL-T3, AC365-T3) added to the labor-anchored catalog at priceVersion 1.15.",
+  "lastUpdated": "2026-07-06T00:00:00Z",
+  "version": "1.2",
+  "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation. v1.2: added LF-SITROOM-001 and LF-DGX-SPARK procurement entries (previously missing entirely); fixed stale 'Minimum 2 units' note on edge-node-gn100, which is now a 1-unit SKU. v1.1: no override changes; bump allows the pilot HTML to be re-rendered with the three new T3 brand bundles (DWS365-CMP-T3, FH-SKILL-T3, AC365-T3) added to the labor-anchored catalog at priceVersion 1.15.",
   "products": {
     "DWS-IQ-006": {
       "bluePrice": 0,
@@ -135,9 +135,25 @@
       "bluePrice": null,
       "bluePriceSetup": null,
       "blueType": "procurement",
-      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost before quoting. Minimum 2 units. Never publish buy-in price.",
+      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost before quoting. Single-unit Control Room SKU (bundled Green price already reflects 1 unit + install). Never publish buy-in price.",
       "maxPilotMonths": 12,
-      "blueVersion": "1.1"
+      "blueVersion": "1.2"
+    },
+    "LF-SITROOM-001": {
+      "bluePrice": null,
+      "bluePriceSetup": null,
+      "blueType": "procurement",
+      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost before quoting. 2-bridged-unit Situation Room bundle (Green price already reflects 2 units + install). Never publish buy-in price.",
+      "maxPilotMonths": 12,
+      "blueVersion": "1.0"
+    },
+    "LF-DGX-SPARK": {
+      "bluePrice": null,
+      "bluePriceSetup": null,
+      "blueType": "procurement",
+      "blueNote": "Blue pricing is buy-in cost from procurement — contact procurement for current landed cost (Acer + any NVIDIA partner-channel discount) before quoting. Never publish buy-in price.",
+      "maxPilotMonths": 12,
+      "blueVersion": "1.0"
     }
   }
 }

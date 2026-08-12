@@ -1,0 +1,447 @@
+<!doctype html>
+<!--
+  KYA-S1 — One Signed Page for the Agent in Your Vendor File
+  Language: en
+  Slug: kya-s1-one-signed-page
+  Date: 2026-08-06
+  Owner: Lifetime Oy
+  Note: Standards / Buyer Note field note. HIC-approved 2026-08-06.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KYA-S1 — One Signed Page for the Agent in Your Vendor File</title>
+    <meta
+      name="description"
+      content="KYA-S1 v1.5 — a vendor specification for autonomous-agent identity and behavior, written so a single signed page can sit in your procurement folder next to SOC 2 and ISO 27001. Draft, open for public comment until 4 November 2026."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-08-06" />
+    <meta
+      property="og:title"
+      content="KYA-S1 — One Signed Page for the Agent in Your Vendor File"
+    />
+    <meta
+      property="og:description"
+      content="Seven controls, two signatures, a renewal date — and no self-attestation, including our own."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://onelifetime.world/posts/kya-s1-one-signed-page.html" />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-08-06" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Standards" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="KYA-S1 — One Signed Page for the Agent in Your Vendor File"
+    />
+    <meta
+      name="twitter:description"
+      content="Seven controls, two signatures, a renewal date — and no self-attestation, including our own."
+    />
+    <link rel="canonical" href="https://onelifetime.world/posts/kya-s1-one-signed-page.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/kya-s1-one-signed-page.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/kya-s1-one-signed-page.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+      .control-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 20px 0;
+        color: #e2e8f0;
+      }
+      .control-box strong.tag {
+        color: #d4a843;
+        font-weight: 700;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "KYA-S1 — One Signed Page for the Agent in Your Vendor File",
+        "description": "KYA-S1 v1.5 — a vendor specification for autonomous-agent identity and behavior, written so a single signed page can sit in your procurement folder next to SOC 2 and ISO 27001.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-08-06",
+        "mainEntityOfPage": "https://onelifetime.world/posts/kya-s1-one-signed-page.html",
+        "articleSection": "Standards",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Standards &middot; Buyer Note</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            KYA-S1 — one signed page for the agent in your vendor file
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            6 August 2026 &middot; Risto Anton P&auml;&auml;rni &middot; Espoo, Finland
+          </p>
+        </header>
+
+        <aside class="mb-8 p-4 rounded-lg" style="border-left:4px solid #64748b;background:rgba(100,116,139,0.10)">
+          <p class="text-sm" style="color:#cbd5e1;margin:0">
+            <strong>Update (10 August 2026):</strong> KYA-S1 is a specification, not a standard.
+            The current version is v1.5, which added the TRS-4, TRS-5, PRV-4, TC4-5 and FLT-4
+            controls and renamed the assurance levels to KYA-AL1 / KYA-AL2 / KYA-AL3. Version
+            numbers named in this post refer to what was current when it was published.
+          </p>
+        </aside>
+
+        <h2>The news, in one line</h2>
+        <p>
+          Today we publish KYA-S1 v1.2 — a vendor specification for autonomous-agent identity and
+          behavior, written so a single signed page can sit in your procurement folder next to SOC 2
+          and ISO 27001. Draft, open for public comment until 4 November 2026.
+        </p>
+
+        <h2>The opener</h2>
+        <p>Procurement keeps a folder. Every enterprise vendor lives in it.</p>
+        <p>
+          SOC 2 Type 2. ISO 27001. FedRAMP, where it applies. CSRD evidence. A signed page per line,
+          and a date for the next renewal. That folder is how an enterprise decides who is allowed
+          inside the network.
+        </p>
+        <p>
+          Autonomous agents need a line in that folder. There was not yet a standard that fit the
+          slot. So we wrote one.
+        </p>
+
+        <h2>What lands in the folder</h2>
+        <p>
+          One page. Signed by the vendor and by a qualified independent assessor. Renewed on a fixed
+          cadence. It carries the vendor and assessor names, the assessment date, the seven controls
+          attested, the propagation SLAs, and a renewal date.
+        </p>
+        <p>
+          Two signatures. Seven controls, each ticked by someone who is not us. A renewal date the
+          procurement team can put in a calendar.
+        </p>
+        <p>
+          That is what KYA-S1 is for. The rest of the specification exists to make that page mean
+          something.
+        </p>
+
+        <h2>The seven things the assessor checks</h2>
+        <p>Each control is a question the buyer asks before the agent gets to act on their data.</p>
+
+        <div class="control-box">
+          <strong class="tag">IDV — Identity Verification.</strong> "Is every action traceable to a
+          verified human?" Biometric verification at session start. Cryptographic binding between
+          the human, the agent, and every downstream tool call. Re-attestation on privilege change.
+          Revocation propagates across the fleet inside the tier's SLA.
+        </div>
+        <div class="control-box">
+          <strong class="tag">BHM — Behavioral Modeling.</strong> "Has the agent been red-teamed for
+          what attackers actually try?" A behavioral baseline per agent class. Continuous
+          adversarial simulation against prompt injection, MCP poisoning, agent-chain hijack, and
+          jailbreak via chained tool calls. Guardrails block deviations at runtime and emit signed
+          telemetry on every block.
+        </div>
+        <div class="control-box">
+          <strong class="tag">REG — Agent Registry.</strong> "Can you tell me, right now, every
+          agent touching our data?" A live registry of every agent instance, the human it is bound
+          to, the capabilities it declared before activation, and the model version it runs.
+          Queryable across the whole fleet. Works disconnected and reconciles on sync.
+        </div>
+        <div class="control-box">
+          <strong class="tag">TC4 — Trust Collapse and Chain Termination.</strong> "When something
+          goes wrong, how fast can you stop it?" Detect the collapse, terminate the offending agent
+          and every agent it spawned, propagate fleet-wide inside the SLA, and preserve the decision
+          trace for the post-mortem.
+        </div>
+        <div class="control-box">
+          <strong class="tag">FLT — Fault Attribution.</strong> "If we end up in court, who is
+          responsible for what?" A defined taxonomy — model, logic, integration, operator, policy —
+          applied to every incident within 72 hours of close. Liability stops being an argument and
+          becomes a lookup.
+        </div>
+        <div class="control-box">
+          <strong class="tag">TRS — Trust Score.</strong> "Is authorization continuous, or did
+          someone tick a box last quarter?" A live quantitative score per session. Consequential
+          actions are blocked when the score falls below documented thresholds. Every score change
+          is logged with the inputs that moved it.
+        </div>
+        <div class="control-box">
+          <strong class="tag">PRV — Provenance.</strong> "Can you replay the decision, two years
+          from now, for an auditor?" Every stored fact carries its source, timestamp, confidence and
+          policy version. Every consequential decision is replayable from inputs, state, model
+          version and policy version.
+        </div>
+
+        <h2>What the EU AI Act changed on 2 August 2026</h2>
+        <p>
+          Article 50 started to apply that day. That is worth being precise about, because three
+          different duties are involved and they are not interchangeable.
+        </p>
+        <p>
+          Article 12 is record-keeping — logging sufficient for traceability across the system's
+          lifetime. Article 14 is human oversight — a natural person who can understand, oversee and
+          override. Article 50 is marking and labelling — 50(2) binds providers to machine-readable
+          marking, and 50(4) binds deployers to label deep fakes and AI text published to inform the
+          public on matters of public interest where nobody assumed editorial responsibility.
+        </p>
+        <p>
+          KYA-S1 sits near all three. PRV is nearest to Article 12. IDV, TC4 and TRS are nearest to
+          Article 14. PRV-3 watermarking is nearest to Article 50.
+        </p>
+        <p>
+          Near is not the same as equal, and we say so in the specification. A KYA-S1 attestation
+          produces evidence relevant to those articles. It does not discharge them. Any vendor — us
+          included — who says "we are KYA-S1 aligned, therefore we are EU AI Act compliant" is
+          selling something that is not true. Article 50 has three exceptions the specification does not
+          encode, and whether a system is high-risk at all is a separate assessment that enforces
+          from December 2027.
+        </p>
+
+        <h2>Why no self-attestation, including our own</h2>
+        <p>
+          Anyone can write a standard. The standard is only worth the assessor who signs against it.
+        </p>
+        <p>
+          So KYA-S1 disallows self-attestation in every control domain. The evidence has to be a
+          third-party audit, signed platform telemetry, architecture documentation reviewed by an
+          independent assessor, or a contractual SLA with a defined measurement method. Pick at
+          least one, per domain, per year.
+        </p>
+        <p>
+          And the rule binds the house that wrote it. Lifetime Oy will not self-issue a KYA-S1
+          letter for the DWS IQ Platform. Until an independent assessor signs one, we claim no tier.
+          What is in the specification under our name is an architecture description, not an attestation.
+        </p>
+
+        <h2>Bronze, Silver, Gold</h2>
+        <p>
+          The tiers differ mostly in how many seconds it takes a vendor to do the hard things:
+          revoke a verified human, terminate a compromised chain, propagate that across the fleet.
+          Bronze is fifteen minutes. Silver is five. Gold is sixty seconds, with an independent
+          assessor across all seven domains.
+        </p>
+        <p>
+          A vendor claiming KYA-S1 names the tier, the assessor and the assessment date in the same
+          line. Anything less is marketing.
+        </p>
+
+        <h2>The short version</h2>
+        <p>
+          Autonomous agents take consequential action, so procurement needs written accountability:
+          who is behind the agent, what it can do, and how it is stopped.
+        </p>
+        <p>
+          KYA-S1 is the one signed page that answers those three questions — seven controls, two
+          signatures, a renewal date.
+        </p>
+        <p>
+          No self-attestation. The page is only worth the name on the second signature line — and we
+          hold ourselves to that before we ask anyone else to.
+        </p>
+        <p>Draft open for public comment until 4 November 2026.</p>
+
+        <h2>For engineers — how this sits next to other standards</h2>
+        <p>
+          SOC 2 and ISO 27001 attest the organisation. ISO/IEC 42001 attests the AI management
+          system. FedRAMP attests the platform. Software supply-chain regimes — SBOM standards,
+          vulnerability management, including Palantir's recently published MA-S2 — attest the code.
+          KYA-S1 attests the agent running on top of all of it.
+        </p>
+        <p>
+          The four core domains were structured to read easily for engineers already working with
+          supply-chain attestation regimes. That is the whole of the relationship: structural
+          inspiration and public credit. No joint programme, no co-attestation, nothing agreed with
+          Palantir.
+        </p>
+        <p>
+          The three extension domains — fault attribution, continuous trust score, decision
+          provenance — have no analogue in any of those layers, because the problems they answer
+          only exist once an autonomous agent is the actor.
+        </p>
+
+        <h2>Read the specification</h2>
+        <p>
+          KYA-S1 v1.2, full text: <code>Legal/KYA_S1.md</code> in the dws6 repository.<br />
+          Where it sits in our posture: the DWS Compliance Hub at
+          <a href="https://dws10.com/compliance/">dws10.com/compliance/</a>.<br />
+          Comments during the window:
+          <a href="mailto:risto.paarni@lifetime.fi">risto.paarni@lifetime.fi</a>.
+        </p>
+
+        <h2>Read next</h2>
+        <ul>
+          <li>
+            <a href="/posts/kya-standard-v1-5-what-changed.html"
+              >KYA Standard v1.5 — what changed since the v1 field note</a
+            >
+          </li>
+          <li>
+            <a href="/posts/mcp-apps-identity-spine.html"
+              >MCP Apps extends the frontier — KYA is the identity spine</a
+            >
+          </li>
+          <li>
+            <a href="/posts/redhat-sovereign-move-three-tiers.html"
+              >Red Hat's EU sovereign move — and the three tiers beneath it</a
+            >
+          </li>
+        </ul>
+
+        <p style="margin-top: 40px">
+          <em
+            >Risto Anton P&auml;&auml;rni &mdash; Founder, CEO, Lifetime Oy &middot; Editor in
+            Chief, Lifetime Scope Journal.</em
+          >
+        </p>
+
+        <div
+          class="mt-16 p-8 rounded-lg"
+          style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2)"
+        >
+          <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0">
+            Subscribe to Lifetime Scope Journal
+          </h3>
+          <p class="text-sm text-gray-400 mb-4">
+            Weekly insights on EU compliance, AI agents, and industrial transformation.
+          </p>
+          <a
+            href="https://dws10.com/contact/"
+            class="inline-block px-6 py-2 rounded text-sm font-bold"
+            style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff"
+            >Subscribe</a
+          >
+        </div>
+      </article>
+    </main>
+
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

@@ -1,9 +1,10 @@
 /**
  * Command Audit Logger — EU AI Act Article 12 command-execution trail
  *
- * Writes append-only, hash-chained audit events to command_audit_log (Supabase,
- * europe-north1) for every command/skill routed through the OpenClaw and NemoClaw
- * bridges. Implements the `command.invoke` / `command.result` event types of the
+ * Writes append-only, hash-chained audit events to command_audit_log (self-hosted
+ * Postgres on DGX Spark — dws-postgres) for every command/skill routed through the
+ * OpenClaw and NemoClaw bridges. Implements the `command.invoke` / `command.result`
+ * event types of the
  * §3 mandatory schema in DWS_ARTICLE_12_LOGGING_STANDARD.md.
  *
  * Two events per command, sharing a trace_id:
@@ -18,9 +19,9 @@
  */
 
 import { createHash, randomUUID } from 'node:crypto';
-import { type SupabaseClient } from '@supabase/supabase-js';
+import { type Pool } from 'pg';
 import { scrubObject, type PIIType } from '../agents/pii-scrubber.js';
-import { getSupabaseClient } from '../config/supabase.js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -102,34 +103,33 @@ export function digestOf(value: unknown): string {
   return createHash('sha256').update(canonicalize(value)).digest('hex');
 }
 
-// ─── Supabase implementation ────────────────────────────────────────────────
+// ─── Internal Postgres implementation ───────────────────────────────────────
 
 export class CommandAuditLogger implements CommandAuditSink {
-  private supabase: SupabaseClient;
+  private pool: Pool;
 
-  constructor(supabase?: SupabaseClient) {
-    // Reuse the shared service-role client so env-var resolution
-    // (SUPABASE_SERVICE_KEY || SUPABASE_SERVICE_ROLE_KEY) and the Vitest gating
-    // (disabled in tests unless ENABLE_SUPABASE_IN_TESTS=true) stay in one place.
-    const client = supabase ?? getSupabaseClient();
-    if (!client) {
+  constructor(pool?: Pool) {
+    // Reuse the shared internal-ops pool so env-var resolution (INTERNAL_DB_URL)
+    // and the Vitest gating (disabled in tests unless ENABLE_INTERNAL_DB_IN_TESTS=true)
+    // stay in one place.
+    const p = pool ?? getInternalDbPool();
+    if (!p) {
       throw new Error(
-        'CommandAuditLogger: Supabase service-role client unavailable ' +
-          '(set SUPABASE_URL + SUPABASE_SERVICE_KEY)',
+        'CommandAuditLogger: internal Postgres pool unavailable (set INTERNAL_DB_URL)',
       );
     }
-    this.supabase = client;
+    this.pool = p;
   }
 
   /**
-   * Returns a logger only when a Supabase service-role client is available,
+   * Returns a logger only when the internal Postgres pool is available,
    * otherwise null. Lets the NemoClaw bridge wire Article 12 logging in
-   * production without forcing a DB dependency on unit tests (getSupabaseClient
-   * returns null under Vitest unless ENABLE_SUPABASE_IN_TESTS=true).
+   * production without forcing a DB dependency on unit tests (getInternalDbPool
+   * returns null under Vitest unless ENABLE_INTERNAL_DB_IN_TESTS=true).
    */
   static fromEnvOrNull(): CommandAuditLogger | null {
-    const client = getSupabaseClient();
-    return client ? new CommandAuditLogger(client) : null;
+    const pool = getInternalDbPool();
+    return pool ? new CommandAuditLogger(pool) : null;
   }
 
   async logInvocation(entry: CommandInvocation): Promise<{ traceId: string }> {
@@ -138,56 +138,66 @@ export class CommandAuditLogger implements CommandAuditSink {
     // storing dictionary-attackable hashes of raw PII (e.g. emails).
     const { scrubbed, manifest } = scrubObject(entry.params);
 
-    const row = {
-      event_type: 'command.invoke',
-      bridge: entry.bridge,
-      trace_id: traceId,
-      agent_id: entry.agentId,
-      operator_id: entry.operatorId ?? null,
-      org_id: entry.orgId ?? null,
-      kya_session_id: entry.kyaSessionId ?? null,
-      skill: entry.skill,
-      caller_ats: entry.callerAts ?? null,
-      minimum_ats: entry.minimumAts ?? null,
-      input_digest: digestOf(scrubbed),
-      decision: entry.decision,
-      denied_reason: entry.deniedReason ?? null,
-      pii_types_found: manifest.typesFound as PIIType[],
-      pii_replacement_count: manifest.replacementCount,
-      model_version: entry.modelVersion ?? null,
-      risk_classification: entry.riskClassification ?? 'high',
-    };
-
-    const { error } = await this.supabase.from('command_audit_log').insert(row);
-    if (error) {
+    try {
+      await this.pool.query(
+        `INSERT INTO command_audit_log (
+           event_type, bridge, trace_id, agent_id, operator_id, org_id,
+           kya_session_id, skill, caller_ats, minimum_ats, input_digest,
+           decision, denied_reason, pii_types_found, pii_replacement_count,
+           model_version, risk_classification
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)`,
+        [
+          'command.invoke',
+          entry.bridge,
+          traceId,
+          entry.agentId,
+          entry.operatorId ?? null,
+          entry.orgId ?? null,
+          entry.kyaSessionId ?? null,
+          entry.skill,
+          entry.callerAts ?? null,
+          entry.minimumAts ?? null,
+          digestOf(scrubbed),
+          entry.decision,
+          entry.deniedReason ?? null,
+          manifest.typesFound as PIIType[],
+          manifest.replacementCount,
+          entry.modelVersion ?? null,
+          entry.riskClassification ?? 'high',
+        ],
+      );
+    } catch (err) {
       // Fail-closed: surface to the caller so the command is blocked.
-      throw new Error(`CommandAuditLogger.logInvocation failed: ${error.message}`);
+      throw new Error(`CommandAuditLogger.logInvocation failed: ${(err as Error).message}`);
     }
     return { traceId };
   }
 
   async logResult(entry: CommandResult): Promise<void> {
-    const row = {
-      event_type: 'command.result',
-      // Identity carried from the invoke event so each row is self-describing.
-      bridge: entry.bridge,
-      agent_id: entry.agentId,
-      skill: entry.skill,
-      trace_id: entry.traceId,
-      output_digest: entry.output === undefined ? null : digestOf(entry.output),
-      success: entry.success,
-      error_text: entry.errorText ?? null,
-      duration_ms: entry.durationMs ?? null,
-    };
-
-    const { error } = await this.supabase.from('command_audit_log').insert(row);
-
-    if (error) {
+    try {
+      await this.pool.query(
+        `INSERT INTO command_audit_log (
+           event_type, bridge, agent_id, skill, trace_id, output_digest,
+           success, error_text, duration_ms
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+        [
+          'command.result',
+          entry.bridge,
+          entry.agentId,
+          entry.skill,
+          entry.traceId,
+          entry.output === undefined ? null : digestOf(entry.output),
+          entry.success,
+          entry.errorText ?? null,
+          entry.durationMs ?? null,
+        ],
+      );
+    } catch (err) {
       // Best-effort: the command already executed and the invoke event is
       // persisted. Fail loud (Rule 12) but do not crash the response.
       logger.error('CommandAuditLogger.logResult failed', {
         traceId: entry.traceId,
-        error: error.message,
+        error: (err as Error).message,
       });
     }
   }

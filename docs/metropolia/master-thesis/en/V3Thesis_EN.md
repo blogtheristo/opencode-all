@@ -6,9 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.97
+Version: 3.99
 Sessions & Modifications:
 
+- Version: 3.99 | Tool: Claude Code | Session: claude/kya-audit-update | Date: 10.08.2026 | Changes: Added §10.29 (KYA Audit and Reference Implementation Hardening). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.49 / Key Contribution #54, added in the same lockstep. Records the 10.08.2026 KYA audit which hardened the reference implementation by: (1) restricting proactive advisor-phase nudges to `compliance`, `customer-sat`, and `sitesense` while other agents remain `silent_pilot` by default, (2) removing latency from ATS (Agent Trust Score) scoring while retaining it as observability-only telemetry to prevent scoring instability, and (3) separating the live registered-agent count (69) from the 88 capabilities/roles claim to prevent evidence drift. Lockstep 3.98->3.99.
+- Version: 3.98 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Added §10.17 (Extending Article 50(4) Labelling to AI-Drafted and Machine-Translated Text). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.48 / Key Contribution #53, added in the same lockstep. Records the first live test of the DWS_BLOG_STANDARD §3.2.1 four-condition reviewer-credit policy against a real multi-language publish (the arvonluonnin-ajurit-2026 five-language blog post, EN/FI agent-drafted, SV/DE/FR Gemini-drafted on HIC instruction): all five removal conditions unmet at publish time, so all five ship with the AI-content notice; the build script (scripts/build-arvonluonnin-ajurit-post.mjs) attaches the notice from a per-language table rather than per-post authoring; and the finding that the HIC's conversational draft approval (Rule 13/§3.3 publication gate) does not on its own satisfy the separate reviewer-credit labelling gate. Companion: docs/BLOG_STANDARD.md §3 (#49-53); docs/KONSULTOINNIN_KASIKIRJA_2026.md v1.11. Lockstep 3.97->3.98.
 - Version: 3.97 | Tool: Claude Code (Fable) | Session: claude/agent-factory-research-audit-l6hks2 | Date: 03.08.2026 | Changes: Added §10.28 (Trajectory-Aware Model Escalation: The DWS Factory Router). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.47 / Key Contribution #52, added in the same lockstep. Records the audit-driven adopt/adapt decision on codejunkie99/sageroute (REJECT deployment: external decision-API egress, first-party OAuth client impersonation, 2-day-old codebase; ADAPT the deterministic core), the shipped src/factory/ architecture (dual-wire evidence recovery, deterministic detectors, guarded one-way ladder continue->switch_model->restart_clean->escalate_human with budget-stop, capability-before-retry, and asymmetric-hysteresis guardrails, external verdict API replaced by a transparent local heuristic — EU-sovereign by construction), verification (15 intent tests, full suite unchanged), and productization (factory:route CLI with verdict exit codes, /factory-route skill). Companion: docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md. Lockstep 3.96->3.97.
 
 - Version: 3.96 | Tool: Claude Code (Opus 5) | Session: claude/thesis-unlock-and-truth-fix | Date: 01.08.2026 | Changes: Added §10.16 (EU AI Act Article 50 Content Marking — Implementation). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.46 / Key Contribution #51, added in the same lockstep. Records the Article 50 audit of all four public surfaces, the shipped in-media compositing of the EU AI GENERATED icon (ffmpeg overlay, poster and WebM derived from the marked master, each composite verified visually rather than assumed from an exit code), the negative result that a presentation-layer overlay is a caption rather than a marking because the placement requirement is survival of redistribution, and the decision to RETIRE the AI-persona portraits rather than label content already scheduled for replacement. Also fixed pre-existing truth-claim drift surfaced by truth-lint once these files entered lint scope: superseded three-capital references now carry a pointer to the 4P Capital Classes rather than being rewritten (Rule 12), value-metric phrasings reworded with the claim unchanged, and industry counts separated into EU regulatory scope (sectors, number retained) versus DWS platform coverage (canonical captain-hats term). Lockstep 3.95->3.96.
@@ -2325,14 +2327,14 @@ DWS6 answers a different question: "How do I run enterprise industrial AI agents
 
 **Six competitive differentiators identified:**
 
-| #   | DWS6 Advantage                                                               | ECC Equivalent                    | Research Significance                                                |
-| --- | ---------------------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- |
+| #   | DWS6 Advantage                                                               | ECC Equivalent                    | Research Significance                                                    |
+| --- | ---------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
 | 1   | **Domain-specific skills** encoding EU regulation                            | Generic language/framework skills | Domain knowledge as competitive moat — not replicable by skill inventory |
-| 2   | **Six-layer information architecture** (L0-L6) controlling context injection | Operates at L2-L3 only            | Deeper control over agent behavior at every layer                    |
-| 3   | **Hard gates** (verification-gate, design-first, dual-folder-sync)           | Advisory-only skills              | Structural enforcement vs behavioral suggestion                      |
-| 4   | **Trust boundary zones** (GREEN/YELLOW/RED) with action classification       | Secret scanning only              | Risk-proportionate automation — not binary allow/deny                |
-| 5   | **gstack workflow** with enforced role separation                            | Independent unorchestrated skills | Cognitive mode switching prevents tunnel vision                      |
-| 6   | **Agent-first product rule** (5-gate shipping checklist)                     | Developer convenience tools       | Skills as product interfaces, not developer tooling                  |
+| 2   | **Six-layer information architecture** (L0-L6) controlling context injection | Operates at L2-L3 only            | Deeper control over agent behavior at every layer                        |
+| 3   | **Hard gates** (verification-gate, design-first, dual-folder-sync)           | Advisory-only skills              | Structural enforcement vs behavioral suggestion                          |
+| 4   | **Trust boundary zones** (GREEN/YELLOW/RED) with action classification       | Secret scanning only              | Risk-proportionate automation — not binary allow/deny                    |
+| 5   | **gstack workflow** with enforced role separation                            | Independent unorchestrated skills | Cognitive mode switching prevents tunnel vision                          |
+| 6   | **Agent-first product rule** (5-gate shipping checklist)                     | Developer convenience tools       | Skills as product interfaces, not developer tooling                      |
 
 **Key research finding:** The ECC framework optimizes for **breadth** (136 skills × multiple languages × multiple IDEs), while DWS6 optimizes for **depth** (21 skills × deep EU regulatory knowledge × structural enforcement). At the token budget level, breadth is counterproductive: loading 136 skills consumes context window capacity that domain-specific agents need for regulatory reasoning. The DWS6 design constraint of <150 words per discipline skill is not a limitation — it is a token budget optimization that enables deeper domain reasoning within the same context window.
 
@@ -3609,11 +3611,33 @@ The persona portraits were resolved differently. Because the AI-persona team sec
 
 > A transparency marking implemented at the presentation layer is not a marking; it is a caption.
 
-Article 50's placement requirement is, in engineering terms, a demand for **provenance that survives egress** — the same property C2PA content credentials assert for media and the same property the Article 12 evidence chain requires of agent logs. A label that lives in the rendering context cannot satisfy it. Any marking implementation must therefore be evaluated against the question *"does this survive download and re-share?"*, and only in-media compositing (or a cryptographically bound sidecar the consuming surface is obliged to honour) passes.
+Article 50's placement requirement is, in engineering terms, a demand for **provenance that survives egress** — the same property C2PA content credentials assert for media and the same property the Article 12 evidence chain requires of agent logs. A label that lives in the rendering context cannot satisfy it. Any marking implementation must therefore be evaluated against the question _"does this survive download and re-share?"_, and only in-media compositing (or a cryptographically bound sidecar the consuming surface is obliged to honour) passes.
 
 The corresponding operational finding is that **deployer-side labelling, not provider-side watermarking, is the near-term binding constraint**: the half of Article 50 that is cheap to implement and immediately verifiable by a regulator is the half with no grace period.
 
 _Field note: `docs/field-notes/2026-07-31-article-50-transparency-marking-audit.md` and `docs/field-notes/2026-08-01-persona-retirement-and-reveal.md`. Scientific restatement and the obligation–capability analysis: PHD_FIREHORSE §14.46 (Key Contribution #51)._
+
+---
+
+## 10.17 Extending Article 50(4) Labelling to AI-Drafted and Machine-Translated Text
+
+### 10.17.1 Motivation
+
+§10.16 addressed AI-generated media. On 6 August 2026 a five-language field-note post (EN/FI/SV/DE/FR) was drafted, approved, and published — `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`, mapping directly to the value-creation-drivers content of `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §2.1/§2.2. The EN and FI variants were agent-drafted; SV, DE and FR were produced by an external LLM (Google Gemini) on HIC instruction and adapted into the page templates. No variant had a named human reviewer before publication, and all five carry regulatory content in the body text itself (Article 12/50 dates, CBAM, ETS2, KYA-S1). This raised the question §10.16 left open for text rather than media: does the same deployer duty, and the same design rule, apply?
+
+### 10.17.2 Implementation: default-on labelling as a build-time invariant
+
+`DWS_BLOG_STANDARD.md` §3.2.1 already specified a stricter-than-statutory four-condition test for removing a label (named reviewer, demonstrated amend/reject authority, publicly reachable contact, explicit removal action) — written after §10.16's media work, never yet exercised against a live publish. This session was the first test: `scripts/build-arvonluonnin-ajurit-post.mjs` renders all five approved drafts (`docs/blog-drafts/arvonluonnin-ajurit-2026*.md`) to HTML and unconditionally injects a per-language `<aside class="ai-notice">` immediately after `</header>`, before the article body — sourced from a per-language notice table in the script rather than authored per post. None of the four removal conditions had been met for any of the five pages at publish time, so all five ship with the notice.
+
+One implementation detail mattered in practice: the HIC's own conversational approval of the drafts (satisfying the Rule 13 / §3.3 publication gate) was initially treated as if it also cleared the labelling question. It does not. The publication gate asks "did a human read and approve this text before it ships"; the labelling gate asks "is there a named, publicly-reachable, accountable reviewer credited on this specific page." The first happened; the second did not. Both drafts and the build script were corrected to keep the notice on for all five pages rather than assume the conversational approval discharged the labelling duty.
+
+### 10.17.3 The engineering rule this produced
+
+> A publication-approval gate and a content-provenance labelling gate are not the same instrument, even when the same person operates both in the same conversation.
+
+The corollary of §10.16's compositing rule ("mark the artefact, not the page") for a multi-language text pipeline is: **attach the label at build time from a table, not at authoring time by memory.** A human author asked to remember a label on five separately-drafted pages will forget it on at least one; a build script that cannot render a page without consulting the notice table cannot forget. This is the same move as compositing the EU icon into video frames — moving the invariant from human memory into the artefact-producing pipeline.
+
+_Companion artefact: `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`; `scripts/build-arvonluonnin-ajurit-post.mjs`; registered `docs/BLOG_STANDARD.md` §3 (#49–53). Scientific restatement and the obligation–capability analysis: PHD_FIREHORSE §14.48 (Key Contribution #53)._
 
 ---
 

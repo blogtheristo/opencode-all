@@ -225,6 +225,11 @@ const posts = [
     date: '10 Jul 2026',
   },
   {
+    file: 'greg-isenberg-agents-need-a-signature.html',
+    title: 'Greg Isenberg Is Right About Agents. The Hard Part Is a Signature.',
+    date: 'Jul 2026',
+  },
+  {
     file: 'ai-supercomputing-meets-eda-sovereign-design.html',
     title: 'AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.',
     date: '17 Jul 2026',
@@ -238,6 +243,96 @@ const posts = [
     file: 'harness-paywall-depth-arbitrage.html',
     title: 'The Harness Paywall',
     date: '30 Jul 2026',
+  },
+  {
+    file: 'arvonluonnin-ajurit-2026.html',
+    title: 'Six Drivers of Value — and the Research Behind Them',
+    date: '6 Aug 2026',
+  },
+  {
+    file: 'kya-s1-one-signed-page.html',
+    title: 'KYA-S1 — One Signed Page for the Agent in Your Vendor File',
+    date: '6 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.html',
+    title: 'Know Your Agent (KYA-S1) — One Signed Page for the AI That Touches Your Data',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.fi.html',
+    title: 'Tunne agenttisi (KYA-S1) — Yksi allekirjoitettu sivu tekoälystä',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.sv.html',
+    title: 'Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.de.html',
+    title: 'Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'know-your-agent-kya-s1.fr.html',
+    title: 'Connaissez votre agent (KYA-S1) — Une page signée sur l\'IA',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-kyc-seven-questions.fi.html',
+    title: 'KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'eu-ai-act-article-14-hic.fi.html',
+    title: 'EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'agent-classes-copilot-vs-dws-iq.fi.html',
+    title: 'Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html',
+    title: 'KYA-S1 ja BPMN 2.0: luottamustaso ohjaa teollisuusprosessia',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html',
+    title: 'KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html',
+    title: '72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV)',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-ecosystem-roadmap.fi.html',
+    title: 'KYA-S1 Ekosysteemi & Tuotanto-Roadmap',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'lifetime-world-model-state-register.fi.html',
+    title: 'Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'agentic-commerce-autonomous-payments.fi.html',
+    title: 'Agentic Commerce -protokollat & Autonomiset Maksut',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'eudi-wallet-eidas2-human-identity.fi.html',
+    title: 'Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0',
+    date: '8 Aug 2026',
+  },
+  {
+    file: 'kya-s1-sanasto-glossary.fi.html',
+    title: 'KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto',
+    date: '9 Aug 2026',
   },
 ];
 
@@ -308,9 +403,29 @@ function buildSocialShare(post) {
                 </div>`;
 }
 
+/**
+ * Language of a post file, from its filename: `foo.fi.html` -> 'fi', `foo.html` -> 'en'.
+ * The posts array interleaves languages, so a flat idx-1/idx+1 walk sends a reader from
+ * an English post to a Finnish one. Prev/next must stay inside one language; switching
+ * language is the vertical language bar's job, driven by the hreflang alternates.
+ */
+function langOf(file) {
+  const m = file.match(/\.([a-z]{2})\.html$/);
+  return m ? m[1] : 'en';
+}
+
+function neighbours(idx) {
+  const lang = langOf(posts[idx].file);
+  const sameLang = posts.filter((p) => langOf(p.file) === lang);
+  const i = sameLang.findIndex((p) => p.file === posts[idx].file);
+  return {
+    prev: i > 0 ? sameLang[i - 1] : null,
+    next: i >= 0 && i < sameLang.length - 1 ? sameLang[i + 1] : null,
+  };
+}
+
 function buildNavBlock(idx) {
-  const prev = idx > 0 ? posts[idx - 1] : null;
-  const next = idx < posts.length - 1 ? posts[idx + 1] : null;
+  const { prev, next } = neighbours(idx);
 
   const prevHtml = prev
     ? `<a href="/posts/${prev.file}" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
@@ -386,8 +501,9 @@ for (let i = 0; i < posts.length; i++) {
   html = html.replace(marker, navBlock + marker);
 
   fs.writeFileSync(filePath, html, 'utf-8');
+  const nb = neighbours(i);
   console.log(
-    `OK: ${posts[i].file} (prev: ${i > 0 ? posts[i - 1].file : 'none'} | next: ${i < posts.length - 1 ? posts[i + 1].file : 'none'})`,
+    `OK: ${posts[i].file} [${langOf(posts[i].file)}] (prev: ${nb.prev ? nb.prev.file : 'none'} | next: ${nb.next ? nb.next.file : 'none'})`,
   );
   updated++;
 }

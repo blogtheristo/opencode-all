@@ -19,6 +19,7 @@
 import { readdir, readFile, stat } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import {
   getLeadsSummary,
@@ -760,6 +761,7 @@ async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
 /**
  * Inbound web leads captured from the public sites (footer newsletter,
  * /free-audit/, contact). Surfaces new ones so they enter the sales pipeline.
+ * Stays on Supabase (Tier 2 — inbound external data per three-tier policy).
  * Note: requires migration 070_web_leads.sql to be applied.
  */
 async function collectWebLeads(): Promise<WebLeadsData> {
@@ -845,10 +847,10 @@ function getSupabaseRestConfig(): { url: string; key: string } | null {
 }
 
 /**
- * Upsert a HIL todo into Supabase via PostgREST.
+ * Upsert a HIL todo into the internal Postgres pool (DGX Spark).
  * Uses dedup_key for idempotency — safe to call on every briefing run.
  * When done_at is NULL a new todo is created; if the dedup_key already exists
- * and is still open the row is left untouched (on_conflict=ignore).
+ * and is still open the row is left untouched (ON CONFLICT DO NOTHING).
  */
 async function upsertHilTodo(todo: {
   category: string;
@@ -856,21 +858,16 @@ async function upsertHilTodo(todo: {
   context: Record<string, unknown>;
   dedup_key: string;
 }): Promise<void> {
-  const cfg = getSupabaseRestConfig();
-  if (!cfg) return;
-  const { url, key } = cfg;
+  const pool = getInternalDbPool();
+  if (!pool) return;
 
   try {
-    await fetch(`${url}/rest/v1/hil_todos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        Prefer: 'resolution=ignore-duplicates', // don't overwrite existing open todos
-      },
-      body: JSON.stringify(todo),
-    });
+    await pool.query(
+      `INSERT INTO hil_todos (category, description, context, dedup_key)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (dedup_key) DO NOTHING`,
+      [todo.category, todo.description, todo.context, todo.dedup_key],
+    );
   } catch {
     // best-effort — a failing upsert must not break the briefing
   }
@@ -1084,23 +1081,16 @@ async function collectHilTodos(): Promise<HilTodosData> {
 
   // 4. Fetch all open todos from the table (oldest first)
   try {
-    const openResp = await fetch(
-      `${supabaseUrl}/rest/v1/hil_todos` +
-        `?select=id,category,description,context,done_token,created_at` +
-        `&done_at=is.null` +
-        `&order=created_at.asc` +
-        `&limit=20`,
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-        },
-      },
-    );
-
-    if (openResp.ok) {
-      const todos = (await openResp.json()) as HilTodo[];
-      return { todos, backendUrl };
+    const pool = getInternalDbPool();
+    if (pool) {
+      const result = await pool.query<HilTodo>(
+        `SELECT id, category, description, context, done_token, created_at
+         FROM hil_todos
+         WHERE done_at IS NULL
+         ORDER BY created_at ASC
+         LIMIT 20`,
+      );
+      return { todos: result.rows, backendUrl };
     }
   } catch {
     // best-effort
@@ -1255,26 +1245,24 @@ export async function collectCockpitData(): Promise<CockpitData> {
 }
 
 async function supabaseUpsertHeartbeat(): Promise<void> {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key) return;
+  const pool = getInternalDbPool();
+  if (!pool) return;
 
   try {
-    await fetch(`${url}/rest/v1/system_heartbeat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        Prefer: 'resolution=merge-duplicates',
-      },
-      body: JSON.stringify({
-        id: 'dws6',
-        last_beat: new Date().toISOString(),
-        source: 'morning-briefing',
-        version: process.env.npm_package_version || 'unknown',
-      }),
-    });
+    await pool.query(
+      `INSERT INTO system_heartbeat (id, last_beat, source, version)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (id) DO UPDATE SET
+         last_beat = EXCLUDED.last_beat,
+         source = EXCLUDED.source,
+         version = EXCLUDED.version`,
+      [
+        'dws6',
+        new Date().toISOString(),
+        'morning-briefing',
+        process.env.npm_package_version || 'unknown',
+      ],
+    );
   } catch (err) {
     logger.warn('Heartbeat upsert failed', {
       error: err instanceof Error ? err.message : 'unknown',

@@ -39,8 +39,7 @@ export class GenAISolutionArchitectAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'heavy',
-      autonomyPhase: 'advisor',
-      notify: { channels: ['in_app'], maxPerHour: 3, maxPerDay: 10 },
+      autonomyPhase: 'silent_pilot',
     });
     this.soulPrompt = SOUL;
   }
