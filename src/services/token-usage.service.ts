@@ -256,18 +256,24 @@ async function getEventsForPeriod(
 
   if (pool) {
     try {
-      const params: unknown[] = [userId, periodStart];
-      let sql = `SELECT organization_id, user_id, event_id, dedupe_key, provider, product, model,
-                        prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id,
-                        task_id, created_at
-                 FROM token_usage_events
-                 WHERE user_id = $1 AND created_at >= $2`;
-      if (sessionId) {
-        params.push(sessionId);
-        sql += ` AND session_id = $${params.length}`;
-      }
+      const result = sessionId
+        ? await pool.query(
+            `SELECT organization_id, user_id, event_id, dedupe_key, provider, product, model,
+                    prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id,
+                    task_id, created_at
+             FROM token_usage_events
+             WHERE user_id = $1 AND created_at >= $2 AND session_id = $3`,
+            [userId, periodStart, sessionId],
+          )
+        : await pool.query(
+            `SELECT organization_id, user_id, event_id, dedupe_key, provider, product, model,
+                    prompt_tokens, completion_tokens, cached_tokens, cost_eur, session_id,
+                    task_id, created_at
+             FROM token_usage_events
+             WHERE user_id = $1 AND created_at >= $2`,
+            [userId, periodStart],
+          );
 
-      const result = await pool.query(sql, params);
       return result.rows.map(fromSnakeCaseRow);
     } catch (err) {
       logger.warn('Failed reading token usage events from internal Postgres', {
