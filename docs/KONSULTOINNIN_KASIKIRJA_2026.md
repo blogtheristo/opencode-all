@@ -354,6 +354,23 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 
 **Hinnoittelu-periaate:** Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.) Koko tuotevalikoima: [dws10.com](https://dws10.com)
 
+### Arvoketju: demosta tuotantoon
+
+Outokummulle ei tarjota Public Demoa tai Free/Trial-versiota sellaisenaan varsinaisena tuotteena. DEMO-alusta on myynnin väline, ei luottamuksellisten asiakasprosessien tuotantoympäristö.
+
+Suositeltu arvoketju:
+
+1. **Public Demo** — ei asiakkaan dataa, vain ohjattu esimerkki.
+2. **Free Cloud Trial** — synteettinen tai rajattu esimerkkidata, ei tuotantodokumentteja eikä luottamuksellista aineistoa. Tämä madaltaa laitteistoon liittyvää aloituskynnystä.
+3. **Paid Industrial Pilot** — eristetty asiakastila, DPA, käyttöoikeudet, lokitus ja määritelty data- ja poistopolitiikka. Tässä voidaan käyttää asiakkaan hyväksymää rajattua aineistoa.
+4. **Production** — käyttö-/kutsuperusteinen veloitus, alustamaksu ja vuosittainen minimisitoumus. Deployment voi olla EU-pilvi, hybrid tai edge.
+
+Free-version lupaus rajataan: asiakas näkee, miten agentti tuottaa evidenssipaketin, mutta ei tuo koko tehdasdataansa kokeiluympäristöön.
+
+Outokummulle suositus on 30 päivän cloud-pilotti, jossa testataan yksi tarkka käyttötapaus, esimerkiksi 304L/Tornio-päästöevidenssi, rajatulla datalla. Jos käyttö toistuu ja tulos kelpaa procurement- tai CBAM-työnkulkuun, siirrytään maksulliseen tuotantoon.
+
+Kaupallinen johtopäätös: ensimmäinen Outokumpu-pilotti kannattaa rakentaa ensisijaisesti suoraan yhden tehtaan tai prosessin sisäiseksi työkaluksi, ei jälleenmyyntipalveluksi. Näin validoidaan ensin todellinen käyttäjäarvo, datan hallinta, evidenssin hyväksyttävyys ja tuotantoon siirtymisen ehdot. Jälleenmyytävä palvelumalli voidaan rakentaa vasta, kun käyttötapaus on todistettu.
+
 ### Kyvykkyyden hinnoittelumalli (hybridi)
 
 Kyvykkyyttä hinnoitellaan kolmella tasolla asiakassegmentin ja ostotavan mukaan. Mallit täydentävät toisiaan — token-pohjaisuus ei korvaa kk-tilausta vaan avaa matalamman kynnyksen ja marketplace-segmentit:
