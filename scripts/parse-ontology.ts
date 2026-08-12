@@ -200,9 +200,11 @@ function validateForbiddenHasScopeRef(rows: SeedRecord[]) {
 
 function sortDeterministically(rows: SeedRecord[]): SeedRecord[] {
   return [...rows].sort((a, b) => {
-    const conceptCmp = a.concept_id.localeCompare(b.concept_id);
-    if (conceptCmp !== 0) return conceptCmp;
-    return a.scope_type.localeCompare(b.scope_type);
+    if (a.concept_id < b.concept_id) return -1;
+    if (a.concept_id > b.concept_id) return 1;
+    if (a.scope_type < b.scope_type) return -1;
+    if (a.scope_type > b.scope_type) return 1;
+    return 0;
   });
 }
 

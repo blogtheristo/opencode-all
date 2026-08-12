@@ -3,7 +3,7 @@ starlette>=1.0.1
 h11>=0.16.0
 uvicorn[standard]>=0.27.0
 pydantic>=2.5.0
-python-multipart>=0.0.6
+python-multipart>=0.0.32
 supabase>=2.3.0
 python-dotenv>=1.2.2  # >=1.2.2: set_key symlink-overwrite fix
 httpx>=0.26.0

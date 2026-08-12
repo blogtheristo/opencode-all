@@ -12,13 +12,14 @@ PyJWT>=2.10.0
 
 # OAuth - security updates
 oauthlib>=3.3.0
+authlib>=1.7.2
 
 # Image processing for prompt injection detection
 Pillow>=11.3.0
 pytesseract>=0.3.10
 
 # Database security
-pg8000>=1.31.2
+pg8000>=1.31.5
 
 # Web security
 Flask>=3.0.0
