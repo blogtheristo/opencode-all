@@ -588,7 +588,7 @@
                                     <ul class="ironclad-submenu">
                                         <li><a href="${contentBase}lifetime-fleet/">Fleet Overview</a></li>
                                         <li><a href="${contentBase}lifetime-fleet/optimus-v3/">Optimus V3</a></li>
-                                        <li><a href="${contentBase}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA ISV Partner</a></li>
+                                        <li><a href="${contentBase}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA infrastructure</a></li>
                                     </ul>
                                 </li>
                             </ul>

@@ -47,7 +47,6 @@ Operated by Lifetime Oy (Business ID 0772407-9), Espoo, Finland. Canonical domai
 - [Logistics & Supply Chain Solutions | DWS IQ Platform](https://dws10.com/logistics/): Logistics & Supply Chain Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.
 - [Manufacturing Solutions | DWS IQ Platform](https://dws10.com/manufacturing/): Manufacturing Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.
 - [Mining & Heavy Industry Solutions | DWS IQ Platform](https://dws10.com/mining/): Mining & Heavy Industry Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.
-- [NVIDIA Inception — Lifetime Oy preparation | DWS IQ](https://dws10.com/nvidia-inception/): Lifetime Oy
 - [Partner Ecosystem & Certified Partners | DWS IQ 6 | Lifetime Oy](https://dws10.com/partners/): DWS IQ Partner Ecosystem. 3-tier sovereign AI platform with 3x3 partner matrix: Aegis, Sovereign Infra, Connect. EU climate compliance, industrial AI partnerships.
 - [Sovereign-Stack Playbooks — 25 EU-Regulated Industries | DWS IQ](https://dws10.com/playbooks/): One playbook per EU-regulated industry: the four hard failures of cloud-only LLMs, the recommended DWS sovereign topology, three named workflows, and a 36-month TCO line. Start with Defence / dual-use.
 - [Press Releases | DWS IQ 6 — Lifetime Oy](https://dws10.com/press-releases/): Press releases from Lifetime Oy, maker of DWS IQ 6 — the deep tech climate compliance platform for 16 EU regulated industries.
