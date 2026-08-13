@@ -44,18 +44,42 @@ detect_profile() {
     return
   fi
 
+  # DGX Spark. Hostname is the weakest signal here - the actual box answers to
+  # "gn100-cb5d", which matches none of spark/dgx - so identify the hardware
+  # instead and treat the hostname as a fallback hint.
+  local dmi=""
+  [ -r /sys/devices/virtual/dmi/id/product_name ] &&
+    dmi="$(tr '[:upper:]' '[:lower:]' < /sys/devices/virtual/dmi/id/product_name)"
+  case "${dmi}" in
+    *gn100*|*"veriton gn100"*) echo "dgx-spark"; return ;;
+  esac
+
+  # GB10 Superchip: arm64 with a working NVIDIA driver. No x86 dev box and no
+  # cloud container in this fleet matches both.
+  if [ "$(uname -m)" = "aarch64" ] && command -v nvidia-smi >/dev/null 2>&1; then
+    echo "dgx-spark"
+    return
+  fi
+
   local host
   host="$(hostname | tr '[:upper:]' '[:lower:]')"
   case "${host}" in
-    *spark*|*dgx*) echo "dgx-spark"; return ;;
+    *spark*|*dgx*|*gn100*) echo "dgx-spark"; return ;;
   esac
 
-  if [ -f /etc/apt/sources.list.d/cros.list ] || [ -n "${SOMMELIER_VERSION:-}" ]; then
+  # Crostini. Any one of these is enough; the sommelier socket is the most
+  # reliable, since it exists in every Linux-on-ChromeOS container.
+  if [ -f /etc/apt/sources.list.d/cros.list ] ||
+     [ -n "${SOMMELIER_VERSION:-}" ] ||
+     [ -e /dev/.cros_milestone ] ||
+     [ -S /run/sommelier.sock ] ||
+     grep -qi crostini /etc/os-release 2>/dev/null; then
     echo "chromebook"
     return
   fi
 
-  echo "ERROR: could not detect the environment. Pass a profile explicitly," >&2
+  echo "ERROR: could not detect the environment (host=$(hostname), arch=$(uname -m))." >&2
+  echo "       Pass a profile explicitly, or set DWS_CLAUDE_PROFILE." >&2
   echo "       e.g. ./scripts/sync-claude-env.sh apply chromebook" >&2
   exit 1
 }
