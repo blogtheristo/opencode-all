@@ -1,6 +1,6 @@
-# Boardy Audit: ENGINEERING WORKFLOW & HIL GATE
+# Boardy Audit: Engineering Workflow & HIL Gate
 
-## KYA-S1 WP3.2 -liite, v0.1
+## KYA-S1 v1.5 -spesifikaatioluonnoksen WP3.2-liite, v0.1
 
 ***
 
@@ -10,14 +10,14 @@ Version: 0.1
 
 Sessions & Modifications:
 
-- Version: 0.1 | Tool: Gemini 3.7 Flash | Session: boardy-audit-wp3-2 | Date: 14.08.2026 | Changes: Alustava KYA-S1 WP3.2 -liitedokumentaatio ja Boardy-auditointipohja: paikallinen edge-kehitys (DGX Spark OpenCode 1.18.18 + Ollama [DeepSeek V4 Flash, Qwen3 Coder, Nemotron-3-Super]), GitHub Copilot CLI -orkestrointi, Google Gemini 3.7 Flash HIL -laatuportti sekä Claude Code hot standby -eskalointi.
+- Version: 0.1 | Tool: Gemini 3.7 Flash | Session: boardy-audit-wp3-2 | Date: 14.08.2026 | Changes: KYA-S1 v1.5 -spesifikaatioluonnoksen WP3.2-liitedokumentaatio ja Boardy-auditointipohja: paikallinen edge-kehitys (DGX Spark OpenCode 1.18.18 + Ollama [DeepSeek V4 Flash, Qwen3 Coder, Nemotron-3-Super]), GitHub Copilot CLI -orkestrointi, Google Gemini 3.7 Flash HIL -laatuportti sekä Claude Code hot standby -eskalointi. Tarkennettu normatiivisen spesifikaatioluonnoksen ja testihypoteesien terminologia.
 
 Document Status:
 
 - Last Modified: 14.08.2026
 - Language: Finnish
 - Publication Status: DRAFT
-- Document Type: KYA-S1 Specification Appendix (WP3.2)
+- Document Type: KYA-S1 Specification Draft Appendix (WP3.2)
 
 ***
 
@@ -77,6 +77,8 @@ pm run build ja yksikkötestit onnistuvat virheittä.
 ---
 
 ## 5. KYA-S1-yhteys
+
+Kyse ei ole standardista. KYA-S1 on edelleen normatiivinen spesifikaatioluonnos, jonka vaatimukset ovat testihypoteeseja. Liite määrittelee kehitys-, review- ja HIL-testauksen työnkulun spesifikaatiota vasten.
 
 Workflow toteuttaa käytännössä jäljitettävyyden, version sidonnan, ympäristön hallinnan, fail-closed-ajattelun ja toistettavan audit trailin (EU AI Act artikla 12). Tämä dokumentti kuvaa kehitys- ja testausprosessia. Se ei ole väite riippumattomasta tuotantovalidoinnista, sertifioinnista tai lopullisesta standardista.
 
