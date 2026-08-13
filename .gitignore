@@ -204,3 +204,4 @@ Admin/Acer-Veriton-GN100/training/cache/
 !Admin/Acer-Veriton-GN100/training/.env.training.example
 .opencode/settings.local.json
 .opencode/failover.log
+.claude/archive/
