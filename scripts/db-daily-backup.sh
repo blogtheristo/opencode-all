@@ -105,6 +105,7 @@ fi
 
 # Re-read after env load
 LOCAL_BACKUP_DIR="${BACKUP_LOCAL_DIR:-/tmp/dws6-backup}"
+STATUS_FILE="$LOCAL_BACKUP_DIR/.backup-status.json"
 
 # ---------------------------------------------------------------------------
 # Show status and exit
