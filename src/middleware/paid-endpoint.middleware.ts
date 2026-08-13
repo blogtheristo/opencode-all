@@ -73,6 +73,10 @@ export function paidEndpointMiddleware(endpoint: string) {
 
     try {
       const supabase = getSupabaseClient();
+      if (!supabase) {
+        throw new Error('Supabase client unavailable - cannot verify API key');
+      }
+
       const { data: keyRow, error } = await supabase
         .from('api_keys')
         .select('id, user_id, revoked, expires_at, tier, scopes')
@@ -144,6 +148,14 @@ export interface PaidCallLogEntry {
 export async function logPaidCall(entry: PaidCallLogEntry): Promise<void> {
   try {
     const supabase = getSupabaseClient();
+    if (!supabase) {
+      logger.error('logPaidCall: Supabase client unavailable - call not logged', {
+        requestId: entry.requestId,
+        endpoint: entry.endpoint,
+      });
+      return;
+    }
+
     await supabase.from('paid_endpoint_log').insert({
       request_id: entry.requestId,
       key_id: entry.keyId ?? null,

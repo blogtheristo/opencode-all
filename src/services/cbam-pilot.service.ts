@@ -162,7 +162,27 @@ export interface CBAMPilotResponse {
     signed_by: string;
     kya_tier: 'S1';
     fault_attribution: 'requester' | 'evidence_gap' | 'system' | null;
-    body_hash: string;        // SHA-256 of the result JSON, excluding signature block
+
+    /**
+     * How body_hash was produced.
+     *   'hmac-sha256'          — keyed, tamper-evident (CBAM_SIGNING_KEY is set)
+     *   'sha256-digest-unkeyed' — integrity checksum ONLY. Anyone can recompute
+     *                             it, so it proves the body was not corrupted in
+     *                             transit but proves nothing about origin.
+     */
+    algorithm: 'hmac-sha256' | 'sha256-digest-unkeyed';
+
+    /** Identifier of the signing key. null when unkeyed. */
+    key_id: string | null;
+
+    /**
+     * True when algorithm is unkeyed, i.e. this envelope is NOT a signature and
+     * must not be relied on as evidence of authorship for a CBAM submission.
+     */
+    integrity_only: boolean;
+
+    /** HMAC or digest over the result JSON, excluding this signature block. */
+    body_hash: string;
   };
 }
 
@@ -238,6 +258,54 @@ const STANDARD_CITATIONS = [
   { reg: 'EU 2023/1773', article: '4', note: 'CBAM default emission factors' },
 ] as const;
 
+// ============ DEFAULT FACTOR COMPARISON ============
+
+/**
+ * Show what a verified supplier factor saves against the CBAM default.
+ *
+ * Only emitted for imports whose installation_id resolves in PRODUCER_REGISTRY,
+ * so every number traces to a recorded EPD rather than to an unverified value
+ * supplied by the caller. Where a sector publishes several CBAM defaults we take
+ * the LOWEST one, which yields the smallest defensible savings figure - a
+ * regulatory filing should never overstate a claimed reduction.
+ *
+ * Imports with no registry match are omitted rather than estimated.
+ */
+function buildDefaultFactorComparison(
+  result: CBAMCalculationResult,
+  imports: CBAMPilotImport[],
+  certificatePrice: number,
+): DefaultFactorComparison[] {
+  const comparisons: DefaultFactorComparison[] = [];
+
+  result.importBreakdown.forEach((breakdown, index) => {
+    const installationId = imports[index]?.installation_id;
+    if (!installationId) return;
+
+    const producer = lookupProducer(installationId);
+    if (!producer) return;
+
+    const sectorDefaults = getFactorsForSector(breakdown.sector, 'cbam');
+    if (sectorDefaults.length === 0) return;
+
+    const cbamDefaultFactor = Math.min(...sectorDefaults.map((f) => f.factor));
+    const emissionsSaved = (cbamDefaultFactor - producer.verified_factor) * breakdown.quantity;
+
+    comparisons.push({
+      product: breakdown.product,
+      installation_id: installationId,
+      supplier_factor: producer.verified_factor,
+      cbam_default_factor: cbamDefaultFactor,
+      quantity_t: breakdown.quantity,
+      emissions_saved_tco2e: Math.round(emissionsSaved * 1000) / 1000,
+      cost_saved_eur: Math.round(emissionsSaved * certificatePrice * 100) / 100,
+      factor_source: producer.factor_source,
+    });
+  });
+
+  return comparisons;
+}
+
 // ============ MAIN SERVICE ============
 
 export function runCBAMCalculation(
@@ -263,8 +331,10 @@ export function runCBAMCalculation(
         declared_purpose: req.requester?.declared_purpose ?? '',
         authority: req.requester?.authority ?? '',
         authority_status: 'declared_unverified',
+        installation_ids_referenced: [],
       },
       result: null,
+      default_factor_comparison: [],
       confidence: 0,
       uses_default_factors: false,
       citations: [...STANDARD_CITATIONS],
@@ -276,14 +346,13 @@ export function runCBAMCalculation(
       },
     };
 
-    const bodyHash = hashBody(unsigned);
     return {
       ...unsigned,
       signature: {
         signed_by: `dws-cbam-agent-v${CALC_VERSION}`,
         kya_tier: 'S1',
         fault_attribution: 'requester',
-        body_hash: bodyHash,
+        ...signBody(unsigned),
       },
     };
   }
@@ -306,6 +375,17 @@ export function runCBAMCalculation(
     }
   }
 
+  // Only installation ids that actually resolve in PRODUCER_REGISTRY count as
+  // referenced. An unmatched id is a declared string, not verified authority.
+  const referencedInstallationIds = [
+    ...new Set(
+      req.declaration.imports
+        .map((i) => i.installation_id)
+        .filter((id): id is string => typeof id === 'string' && id.length > 0)
+        .filter((id) => lookupProducer(id) !== undefined),
+    ),
+  ];
+
   const unsigned: Omit<CBAMPilotResponse, 'signature'> = {
     schema: 'dws-cbam-calculation-v1',
     request_id: requestId,
@@ -317,9 +397,16 @@ export function runCBAMCalculation(
       agent_id: req.requester.agent_id,
       declared_purpose: req.requester.declared_purpose,
       authority: req.requester.authority,
-      authority_status: 'declared_unverified',
+      authority_status:
+        referencedInstallationIds.length > 0 ? 'installation_referenced' : 'declared_unverified',
+      installation_ids_referenced: referencedInstallationIds,
     },
     result: calcResult,
+    default_factor_comparison: buildDefaultFactorComparison(
+      calcResult,
+      req.declaration.imports,
+      certificatePrice,
+    ),
     confidence,
     uses_default_factors: calcResult.usesDefaultValues,
     citations: [...STANDARD_CITATIONS],
@@ -327,18 +414,54 @@ export function runCBAMCalculation(
     refusal_path: null,
   };
 
-  const bodyHash = hashBody(unsigned);
   return {
     ...unsigned,
     signature: {
       signed_by: `dws-cbam-agent-v${CALC_VERSION}`,
       kya_tier: 'S1',
       fault_attribution: null,
-      body_hash: bodyHash,
+      ...signBody(unsigned),
     },
   };
 }
 
-function hashBody(body: object): string {
-  return crypto.createHash('sha256').update(JSON.stringify(body)).digest('hex');
+/** Key id surfaced alongside the signature so verifiers know what to check. */
+const SIGNING_KEY_ID = process.env.CBAM_SIGNING_KEY_ID ?? 'dws-cbam-pilot';
+
+interface BodySignature {
+  algorithm: 'hmac-sha256' | 'sha256-digest-unkeyed';
+  key_id: string | null;
+  integrity_only: boolean;
+  body_hash: string;
+}
+
+/**
+ * Produce the tamper-evidence field for a CBAM evidence envelope.
+ *
+ * When CBAM_SIGNING_KEY is set this is a real keyed HMAC-SHA256 that a third
+ * party holding the key can verify. When it is not set we fall back to a plain
+ * SHA-256 digest — but we label it honestly (integrity_only: true) rather than
+ * presenting an unkeyed hash as a signature. An unkeyed hash is recomputable by
+ * anyone who can alter the body, so it carries no attribution weight and must
+ * not be mistaken for one in a regulatory filing.
+ */
+function signBody(body: object): BodySignature {
+  const canonical = JSON.stringify(body);
+  const key = process.env.CBAM_SIGNING_KEY;
+
+  if (key && key.length > 0) {
+    return {
+      algorithm: 'hmac-sha256',
+      key_id: SIGNING_KEY_ID,
+      integrity_only: false,
+      body_hash: crypto.createHmac('sha256', key).update(canonical).digest('hex'),
+    };
+  }
+
+  return {
+    algorithm: 'sha256-digest-unkeyed',
+    key_id: null,
+    integrity_only: true,
+    body_hash: crypto.createHash('sha256').update(canonical).digest('hex'),
+  };
 }

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://opencode.dev/schema/settings.json",
+  "_comment": "OpenCode platform settings — primary IDE for DWS IQ 6. MCP configuration compatible with .claude/settings.json; both enable dws-gateway-local + dws-agents-local for seamless platform switching.",
+  "env": {
+    "DISABLE_BUG_COMMAND": 0,
+    "DISABLE_AUTO_UPDATE": 0,
+    "OPENCODE_PRIMARY": "true",
+    "CLAUDE_FALLBACK": "true"
+  },
+  "cleanupPeriodDays": 180,
+  "disableAllHooks": false,
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(python -c:*)",
+      "Bash(python:*)",
+      "Bash(node:*)",
+      "Bash(ls:*)",
+      "Bash(cat)",
+      "Read(**)",
+      "Edit(**)",
+      "Write(**)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo *)",
+      "Bash(sudo:*)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*secret*)",
+      "Read(**/*credentials*)",
+      "Bash(printenv)",
+      "Bash(printenv:*)",
+      "Bash(env)",
+      "Bash(cat .env)",
+      "Bash(cat .env.*)"
+    ]
+  },
+  "enabledMcpServers": ["dws-gateway-local", "dws-agents-local"],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-start.sh\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/pretooluse-guard.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/secret-scan.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/log-commands.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/sql-safety-guard.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/protect-files.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/secret-scan.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/blog-draft-gate.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/md-restore-version-delimiters.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/secret-output-scan.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-stop.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/token-usage-record.sh\""
+          }
+        ]
+      }
+    ]
+  },
+  "platform_strategy": {
+    "primary_runtime": "opencode",
+    "fallback_runtime": "claude",
+    "mcp_compatibility": "shared",
+    "handoff_mechanism": ".claude/handoffs/<branch>.md"
+  }
+}
