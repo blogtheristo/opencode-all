@@ -11,7 +11,8 @@
       "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__update_event",
       "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__generate",
       "Bash(mkdir -p docs/assets/images)",
-      "Bash(mkdir -p .claude/handoffs/claude && git status --short)"
+      "Bash(mkdir -p .claude/handoffs/claude && git status --short)",
+      "Bash(sed -i 's|\\\\$CLAUDE_PROJECT_DIR/.claude/hooks/|${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/|g' .claude/settings.json && git diff .claude/settings.json | head -50)"
     ],
     "defaultMode": "bypassPermissions"
   },
