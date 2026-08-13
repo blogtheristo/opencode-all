@@ -60,6 +60,13 @@
 - [ ] Audit CI/CD workflows — flag jobs with explicit Claude Code dependencies
 - [ ] Document each classification in `docs/CLAUDE_CODE_STANDBY_PROTOCOL.md`
 
+## Pull Request
+
+**PR #1831:** OpenCode-primary platform strategy + configuration layer  
+https://github.com/blogtheristo/dws6/pull/1831
+
+Created via Claude Code UI. All commits to this branch automatically update the PR.
+
 ## Co-Authored
 
 Session co-authored by GitHub Copilot
