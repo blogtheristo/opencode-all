@@ -1,0 +1,88 @@
+# Cloudflare Workflows - DWS deploy pipelines
+#
+# This worker was source-only until now: without a wrangler config it could not
+# be deployed, which is why the unauthenticated approval endpoint was never
+# actually exposed. Both guarded endpoints fail closed, so the worker is inert
+# until WORKFLOW_API_TOKEN is set.
+#
+# Secrets (never put these in this file - it is committed):
+#   npx wrangler secret put GITHUB_WEBHOOK_SECRET -c cloudflare-workflows/wrangler.toml
+#   npx wrangler secret put WORKFLOW_API_TOKEN    -c cloudflare-workflows/wrangler.toml
+#
+# Deploy:
+#   npx wrangler deploy -c cloudflare-workflows/wrangler.toml
+#
+# account_id comes from the CLOUDFLARE_ACCOUNT_ID environment variable so that
+# it is not hardcoded here.
+
+name = "dws-workflows"
+main = "src/index.ts"
+compatibility_date = "2026-08-13"
+compatibility_flags = ["nodejs_compat"]
+
+workers_dev = false
+
+# ---------------------------------------------------------------------------
+# Workflow bindings - one per class re-exported from src/index.ts
+# ---------------------------------------------------------------------------
+
+[[workflows]]
+binding = "OUTOKUMPU_DEV_WORKFLOW"
+name = "outokumpu-dev"
+class_name = "OutokumpuDevWorkflow"
+
+[[workflows]]
+binding = "OUTOKUMPU_PROD_WORKFLOW"
+name = "outokumpu-prod"
+class_name = "OutokumpuProdWorkflow"
+
+[[workflows]]
+binding = "NCC_DEV_WORKFLOW"
+name = "ncc-dev"
+class_name = "NccDevWorkflow"
+
+[[workflows]]
+binding = "NCC_PROD_WORKFLOW"
+name = "ncc-prod"
+class_name = "NccProdWorkflow"
+
+[[workflows]]
+binding = "KEMIRA_DEV_WORKFLOW"
+name = "kemira-dev"
+class_name = "KemiraDevWorkflow"
+
+[[workflows]]
+binding = "KEMIRA_PROD_WORKFLOW"
+name = "kemira-prod"
+class_name = "KemiraProdWorkflow"
+
+[[workflows]]
+binding = "DWS6_COM_DEV_WORKFLOW"
+name = "dws6-com-dev"
+class_name = "Dws6ComDevWorkflow"
+
+[[workflows]]
+binding = "DWS6_COM_PROD_WORKFLOW"
+name = "dws6-com-prod"
+class_name = "Dws6ComProdWorkflow"
+
+[[workflows]]
+binding = "DWS10_COM_DEV_WORKFLOW"
+name = "dws10-com-dev"
+class_name = "Dws10ComDevWorkflow"
+
+[[workflows]]
+binding = "DWS10_COM_PROD_WORKFLOW"
+name = "dws10-com-prod"
+class_name = "Dws10ComProdWorkflow"
+
+[[workflows]]
+binding = "ONELIFETIME_WORLD_DEV_WORKFLOW"
+name = "onelifetime-world-dev"
+class_name = "OnelifetimeWorldDevWorkflow"
+
+[[workflows]]
+binding = "ONELIFETIME_WORLD_PROD_WORKFLOW"
+name = "onelifetime-world-prod"
+class_name = "OnelifetimeWorldProdWorkflow"
+

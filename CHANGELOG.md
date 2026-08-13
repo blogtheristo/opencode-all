@@ -9,6 +9,13 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- OpenCode primary-runtime handoff pack (Phases 1-4): root `opencode.json`
+  with real OpenCode schema, DGX Spark Ollama tunnel endpoint
+  (`http://127.0.0.1:11435/v1`), `CLAUDE.md` loaded through `instructions`,
+  retired invalid draft preserved as `.opencode/opencode.json_OLD.bak`,
+  runtime-policy guidance in `CLAUDE.md`, and VS Code OpenCode tasks for
+  tunnel start, tunnel test, config debug, and TUI launch.
+
 - DWS Factory Router (`src/factory/`): evidence-based cheap→strong model
   escalation for agent runs. Deterministic detectors (action/observation
   loops, repeated error classes, ping-pong, rewrite-retest thrash,
