@@ -1,76 +1,48 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "name": "DWS IQ 6 — OpenCode Primary Runtime",
-  "version": "1.0.0",
-  "created": "2026-08-13",
-  "description": "OpenCode primary IDE for DWS IQ development, with Ollama local inference and shared MCP servers. Failover to Claude Code via .claude/handoffs/<branch>.md.",
-  "instructions": "CLAUDE.md",
-  "model": "nemotron-3-super",
-  "small_model": "qwen3-coder:30b",
-  "provider": "ollama",
-  "ollama": {
-    "host": "192.168.101.113",
-    "port": 11434,
-    "models": ["nemotron-3-super", "qwen3-coder:30b"],
-    "tunnel_port": 11435,
-    "health_check_url": "/api/tags"
-  },
-  "permission": {
-    "bash": {
-      "git": "allow",
-      "python": "allow",
-      "node": "allow",
-      "cat": {
-        "pattern": ".env",
-        "value": "deny"
+  "instructions": [
+    "CLAUDE.md"
+  ],
+  "shell": "pwsh",
+  "model": "ollama-local/qwen3-coder:30b",
+  "small_model": "ollama-local/qwen3-coder:30b",
+  "provider": {
+    "ollama-local": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama Local (DGX Spark tunnel)",
+      "options": {
+        "baseURL": "http://127.0.0.1:11435/v1"
       },
-      "curl": {
-        "pattern": "| sh",
-        "value": "deny"
-      },
-      "rm": {
-        "pattern": "-rf",
-        "value": "ask"
-      },
-      "sudo": "deny"
-    },
-    ".claude": "ask",
-    "Read": {
-      ".env": "deny",
-      "**/*secret*": "deny",
-      "**/*credentials*": "deny"
+      "models": {
+        "qwen3-coder:30b": {
+          "name": "qwen3-coder:30b",
+          "tool_call": true,
+          "temperature": true
+        }
+      }
     }
   },
   "mcp": {
+    "dws-agents-local": {
+      "type": "remote",
+      "url": "http://localhost:3001/mcp",
+      "enabled": true,
+      "timeout": 10000
+    },
     "dws-gateway-local": {
       "type": "local",
-      "url": "stdio:///home/user/dws6/mcp-servers/dws-gateway/dist/index.js"
-    },
-    "dws-agents-local": {
-      "type": "local",
-      "url": "stdio:///home/user/dws6/mcp-servers/dws-agents/dist/index.js"
-    },
-    "github": {
-      "type": "remote",
-      "oauth": true
-    },
-    "google-drive": {
-      "type": "remote",
-      "oauth": true
-    },
-    "figma": {
-      "type": "remote",
-      "oauth": true
-    },
-    "supabase": {
-      "type": "remote",
-      "env_var": "SUPABASE_API_KEY"
+      "command": [
+        "python",
+        "mcp-servers\\cloud-run-gateway\\server.py",
+        "--transport",
+        "stdio"
+      ],
+      "environment": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+      },
+      "enabled": true,
+      "timeout": 10000
     }
-  },
-  "failover": {
-    "method": "manual",
-    "handoff_file": ".claude/handoffs/<branch>.md",
-    "documentation": "docs/DGX_DEPLOYMENT.md § Failover Procedure",
-    "note": "Platform switch from OpenCode to Claude Code is manual and documented. Health checks are automatic; actual switching is human-driven to preserve state and logs."
   }
 }
