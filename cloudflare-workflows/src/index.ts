@@ -14,6 +14,8 @@
  * Environment bindings (configured in wrangler.toml):
  *   - One Workflow binding per entry in WORKFLOW_REGISTRY
  *   - GITHUB_WEBHOOK_SECRET   — validates incoming GitHub payloads
+ *   - WORKFLOW_API_TOKEN      — bearer token guarding the approval and
+ *                               status endpoints; both fail closed if unset
  *   - KV namespace CF_CACHE   — optional build cache
  */
 
@@ -67,6 +69,8 @@ interface Env {
   ONELIFETIME_WORLD_PROD_WORKFLOW: WorkflowBinding;
   // Secrets
   GITHUB_WEBHOOK_SECRET: string;
+  /** Bearer token required by the approval and status endpoints. */
+  WORKFLOW_API_TOKEN: string;
 }
 
 // Minimal Cloudflare Workflows binding interface
@@ -237,6 +241,10 @@ async function handleApproval(request: Request, url: URL, env: Env): Promise<Res
     return json({ error: 'Method not allowed' }, 405);
   }
 
+  if (!isAuthorized(request, env)) {
+    return json({ error: 'Unauthorized' }, 401);
+  }
+
   const instanceId = url.pathname.split('/').pop() ?? '';
   const body = (await request.json()) as Partial<ApprovalGatePayload>;
 
@@ -279,6 +287,10 @@ async function handleStatus(request: Request, url: URL, env: Env): Promise<Respo
     return json({ error: 'Method not allowed' }, 405);
   }
 
+  if (!isAuthorized(request, env)) {
+    return json({ error: 'Unauthorized' }, 401);
+  }
+
   const instanceId = url.pathname.split('/').pop() ?? '';
   const allBindings = Object.keys(env).filter((k) => k.endsWith('_WORKFLOW')) as Array<keyof Env>;
 
@@ -314,6 +326,12 @@ async function verifyGitHubSignature(
   signature: string,
   secret: string,
 ): Promise<boolean> {
+  // Fail closed: an unset secret must never authenticate a payload. Without
+  // this guard TextEncoder.encode(undefined) yields the literal key "undefined",
+  // which any caller can reproduce.
+  if (typeof secret !== 'string' || secret.length === 0) return false;
+  if (!signature.startsWith('sha256=')) return false;
+
   try {
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
@@ -329,6 +347,38 @@ async function verifyGitHubSignature(
   } catch {
     return false;
   }
+}
+
+/**
+ * Bearer-token gate for the approval and status endpoints.
+ *
+ * Fails closed: if WORKFLOW_API_TOKEN is not bound, every request is rejected.
+ * A deploy-approval endpoint reachable without a configured secret is strictly
+ * worse than one that is unreachable.
+ */
+function isAuthorized(request: Request, env: Env): boolean {
+  const expected = env.WORKFLOW_API_TOKEN;
+  if (typeof expected !== 'string' || expected.length === 0) return false;
+
+  const header = request.headers.get('authorization') ?? '';
+  const prefix = 'Bearer ';
+  if (!header.startsWith(prefix)) return false;
+
+  return timingSafeEqual(header.slice(prefix.length), expected);
+}
+
+/** Constant-time string comparison. */
+function timingSafeEqual(a: string, b: string): boolean {
+  const encoder = new TextEncoder();
+  const aBytes = encoder.encode(a);
+  const bBytes = encoder.encode(b);
+
+  let diff = aBytes.length ^ bBytes.length;
+  const width = Math.max(aBytes.length, bBytes.length);
+  for (let i = 0; i < width; i += 1) {
+    diff |= (aBytes[i] ?? 0) ^ (bBytes[i] ?? 0);
+  }
+  return diff === 0;
 }
 
 function hexToUint8Array(hex: string): Uint8Array {

@@ -38,11 +38,60 @@
         "stdio"
       ],
       "environment": {
-        "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        "SUPABASE_URL": "{env:SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "{env:SUPABASE_SERVICE_KEY}"
       },
       "enabled": true,
       "timeout": 10000
     }
+  },
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "npm run build": "allow",
+      "npm test*": "allow",
+      "sudo*": "deny",
+      "*sudo *": "deny",
+      "rm -rf /*": "deny",
+      "rm -rf ~*": "deny",
+      "rm -rf*": "deny",
+      "*curl*|*sh*": "deny",
+      "*curl*|*bash*": "deny",
+      "*wget*|*sh*": "deny",
+      "env": "deny",
+      "printenv*": "deny",
+      "*git push*--force*": "deny",
+      "*git push -f*": "deny",
+      "cat .env": "deny",
+      "cat .env.*": "deny",
+      "*.env*": "deny"
+    },
+    "read": {
+      "*": "allow",
+      ".env": "deny",
+      ".env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/*secret*": "deny",
+      "**/*credentials*": "deny",
+      "**/*.pem": "deny",
+      "**/*.key": "deny",
+      "**/id_rsa*": "deny"
+    },
+    "edit": {
+      "*": "ask",
+      ".env": "deny",
+      ".env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/*secret*": "deny",
+      "**/*credentials*": "deny",
+      "**/*.pem": "deny",
+      "**/*.key": "deny"
+    },
+    "webfetch": "allow"
   }
 }

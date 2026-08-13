@@ -96,7 +96,7 @@ Thumbs.db
 !.claude/handoffs/
 !.claude/hooks/
 !.claude/settings.json
-!.claude/settings.local.json
+!.claude/settings.local.json.example
 !.claude/archive/
 !.claude/commands/
 !.claude/commands/*.md

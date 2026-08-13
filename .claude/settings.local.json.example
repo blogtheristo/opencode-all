@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "Template for .claude/settings.local.json — machine-only overrides. Copy to .claude/settings.local.json (git-ignored) and edit. Do NOT set permissions.defaultMode to bypassPermissions: it disables every deny rule in .claude/settings.json for this machine, including the secret-file and destructive-command guards.",
+  "permissions": {
+    "allow": []
+  },
+  "enabledMcpjsonServers": ["dws-gateway-local", "dws-agents-local"]
+}

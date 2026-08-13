@@ -162,7 +162,27 @@ export interface CBAMPilotResponse {
     signed_by: string;
     kya_tier: 'S1';
     fault_attribution: 'requester' | 'evidence_gap' | 'system' | null;
-    body_hash: string;        // SHA-256 of the result JSON, excluding signature block
+
+    /**
+     * How body_hash was produced.
+     *   'hmac-sha256'          — keyed, tamper-evident (CBAM_SIGNING_KEY is set)
+     *   'sha256-digest-unkeyed' — integrity checksum ONLY. Anyone can recompute
+     *                             it, so it proves the body was not corrupted in
+     *                             transit but proves nothing about origin.
+     */
+    algorithm: 'hmac-sha256' | 'sha256-digest-unkeyed';
+
+    /** Identifier of the signing key. null when unkeyed. */
+    key_id: string | null;
+
+    /**
+     * True when algorithm is unkeyed, i.e. this envelope is NOT a signature and
+     * must not be relied on as evidence of authorship for a CBAM submission.
+     */
+    integrity_only: boolean;
+
+    /** HMAC or digest over the result JSON, excluding this signature block. */
+    body_hash: string;
   };
 }
 
@@ -276,14 +296,13 @@ export function runCBAMCalculation(
       },
     };
 
-    const bodyHash = hashBody(unsigned);
     return {
       ...unsigned,
       signature: {
         signed_by: `dws-cbam-agent-v${CALC_VERSION}`,
         kya_tier: 'S1',
         fault_attribution: 'requester',
-        body_hash: bodyHash,
+        ...signBody(unsigned),
       },
     };
   }
@@ -327,18 +346,54 @@ export function runCBAMCalculation(
     refusal_path: null,
   };
 
-  const bodyHash = hashBody(unsigned);
   return {
     ...unsigned,
     signature: {
       signed_by: `dws-cbam-agent-v${CALC_VERSION}`,
       kya_tier: 'S1',
       fault_attribution: null,
-      body_hash: bodyHash,
+      ...signBody(unsigned),
     },
   };
 }
 
-function hashBody(body: object): string {
-  return crypto.createHash('sha256').update(JSON.stringify(body)).digest('hex');
+/** Key id surfaced alongside the signature so verifiers know what to check. */
+const SIGNING_KEY_ID = process.env.CBAM_SIGNING_KEY_ID ?? 'dws-cbam-pilot';
+
+interface BodySignature {
+  algorithm: 'hmac-sha256' | 'sha256-digest-unkeyed';
+  key_id: string | null;
+  integrity_only: boolean;
+  body_hash: string;
+}
+
+/**
+ * Produce the tamper-evidence field for a CBAM evidence envelope.
+ *
+ * When CBAM_SIGNING_KEY is set this is a real keyed HMAC-SHA256 that a third
+ * party holding the key can verify. When it is not set we fall back to a plain
+ * SHA-256 digest — but we label it honestly (integrity_only: true) rather than
+ * presenting an unkeyed hash as a signature. An unkeyed hash is recomputable by
+ * anyone who can alter the body, so it carries no attribution weight and must
+ * not be mistaken for one in a regulatory filing.
+ */
+function signBody(body: object): BodySignature {
+  const canonical = JSON.stringify(body);
+  const key = process.env.CBAM_SIGNING_KEY;
+
+  if (key && key.length > 0) {
+    return {
+      algorithm: 'hmac-sha256',
+      key_id: SIGNING_KEY_ID,
+      integrity_only: false,
+      body_hash: crypto.createHmac('sha256', key).update(canonical).digest('hex'),
+    };
+  }
+
+  return {
+    algorithm: 'sha256-digest-unkeyed',
+    key_id: null,
+    integrity_only: true,
+    body_hash: crypto.createHash('sha256').update(canonical).digest('hex'),
+  };
 }

@@ -84,13 +84,24 @@ DGX_HOST="0.0.0.0"
 
 echo "[DGX] Starting NVIDIA NIM services..."
 
+# Image pinning is mandatory. A mutable :latest tag on a container that runs
+# with --gpus all and receives NGC_API_KEY means a compromised or rotated
+# upstream tag silently gains GPU access and the key on the next restart.
+# Resolve the digest once, verify it, then pin it here:
+#   docker buildx imagetools inspect nvcr.io/nvidia/nim:<version> --format '{{.Manifest.Digest}}'
+#   cosign verify nvcr.io/nvidia/nim@<digest> --certificate-identity-regexp '.*' \
+#     --certificate-oidc-issuer-regexp '.*'
+# Record the digest and its verification date in docs/field-notes/ when bumping.
+NIM_IMAGE="${NIM_IMAGE:?set NIM_IMAGE to a digest-pinned nvcr.io/nvidia/nim@sha256:... reference}"
+HEALTH_IMAGE="${HEALTH_IMAGE:?set HEALTH_IMAGE to a digest-pinned alpine@sha256:... reference}"
+
 # Start NIM inference service (example: LLaMA)
 docker run -d \
   --name=nim-llama \
   --gpus all \
   -e NGC_API_KEY="${NGC_API_KEY}" \
   -p ${DGX_PORT}:8000 \
-  nvcr.io/nvidia/nim:latest \
+  "${NIM_IMAGE}" \
   --model-repository=/opt/nim/models \
   --backend=vllm
 
@@ -100,7 +111,7 @@ docker run -d \
   -p 8081:8081 \
   -v /tmp/dgx-health:/logs \
   --restart=unless-stopped \
-  alpine:latest \
+  "${HEALTH_IMAGE}" \
   sh -c "while true; do curl -s http://localhost:8000/v1/models || echo 'unhealthy' >> /logs/health.txt; sleep 10; done"
 
 echo "[DGX] NIM services started. Listening on :${DGX_PORT}"
