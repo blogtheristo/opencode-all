@@ -32,7 +32,7 @@
     "dws-gateway-local": {
       "type": "local",
       "command": [
-        "python3",
+        ".venv/bin/python",
         "mcp-servers/cloud-run-gateway/server.py",
         "--transport",
         "stdio"
