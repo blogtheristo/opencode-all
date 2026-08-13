@@ -34,15 +34,19 @@
 
 - [x] Create `docs/CLAUDE_CODE_MIGRATION_STRATEGY.md`
 - [x] Update this handoff with clarified scope
-- [ ] Update `AGENTS.md` §1 — define OpenCode + DGX primary runtime
-- [ ] Update `AI_AGENT_GUIDELINES.md` — runtime-selection rules + escalation
+- [x] Update `AGENTS.md` §1 — define OpenCode + DGX primary runtime
+- [x] Update `AI_AGENT_GUIDELINES.md` — runtime-selection rules + escalation
+- [x] Commit Phase 1A (4258bdc3)
 
-### Phase 1B: Configuration Layer (Next Turn)
+### Phase 1B: Configuration Layer (Turn 2 — Complete)
 
-- [ ] Create `.opencode/` directory structure
-- [ ] Create `opencode.json` — models, permissions, agents, minimal MCP
-- [ ] Create `.opencode/settings.json` — OpenCode-specific defaults
-- [ ] Create `.opencode/settings.local.json` (template for users)
+- [x] Create `.opencode/` directory structure
+- [x] Create `opencode.json` — models, permissions, agents, minimal MCP
+- [x] Create `.opencode/settings.json` — OpenCode-specific defaults (mirrors `.claude/settings.json`)
+- [x] Create `.opencode/settings.local.json` (template for users)
+- [x] Fix hook paths in `.claude/settings.json` to use `${CLAUDE_PROJECT_DIR:-.}` fallback
+- [x] Add `.opencode/` entries to `.gitignore`
+- [x] Commit Phase 1B (c7ce9b4c)
 
 ### Phase 2: Deployment & Failover (Turn 3)
 
