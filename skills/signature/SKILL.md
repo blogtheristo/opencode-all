@@ -6,12 +6,11 @@ description: >
   email, letter, intro note, signature block, From line, author field, or
   any first-person communication on behalf of the user. Single source of
   truth — overrides any other spelling, title, or contact data.
-trigger:
+triggers:
   - drafting any email, letter, or outreach note
   - any artifact ending with a signature block or "From:" line
   - any first-person prose attributed to the user
-  - skills/agents: investor-outreach, email, lsj-publish, multilingual,
-    designer, and any future *-outreach skill MUST call this skill first
+  - "skills/agents: investor-outreach, email, lsj-publish, multilingual, designer, and any future *-outreach skill MUST call this skill first"
 ---
 
 # Sender Identity (Authoritative)
