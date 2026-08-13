@@ -93,6 +93,42 @@ Chat output is for the HIC to **decide and act**, not to watch the agent think.
 
 **What compounds:** CLAUDE.md as institutional memory across sessions; eval-driven changes, not vibe-driven; checkpoints over speed; explicit conflicts over silent blending; discipline over the next framework; one repo, one rules file, no exceptions.
 
+## Runtime Platform Policy (OpenCode Primary, Claude Code Standby)
+
+**Default runtime:** OpenCode + DGX Spark (Ollama local inference, 192.168.101.113:11434).
+
+**When to use OpenCode (primary):**
+
+- Interactive development and coding (new features, bug fixes, refactoring)
+- All scheduled jobs (scripts, cron tasks, agent runs)
+- Long-running agentic loops with memory
+- Tasks that benefit from local GPU acceleration
+
+**When to use Claude Code (hot standby):**
+
+- OpenCode unavailable (DGX offline, network failure, config error)
+- Extended thinking tasks (Claude's thinking mode for complex reasoning)
+- Failover after manual review (via `.claude/handoffs/<branch>.md` state file)
+
+**Critical:** Both platforms load `CLAUDE.md` via `instructions` key in `opencode.json` / `.claude/settings.json`. This ensures:
+
+- Non-Negotiable Rules (blog-gate, noreply, secret-egress, etc.) enforce on all platforms
+- Engineering Discipline (12 Rules) apply identically
+- DWS security posture is never weakened by platform choice
+- Handoff state is human-readable and git-persisted
+
+**MCP Interface Compatibility:** Skills written for OpenCode require zero code changes to run on Claude Code. Both platforms expose identical MCP servers (dws-gateway-local, dws-agents-local, github, google-drive, figma, supabase) and permissions (bash, read, write). A skill malfunction on OpenCode is a code bug, not a platform difference.
+
+**Failover Procedure (Manual):**
+
+1. Detect OpenCode issue (health check failure, timeout, config error)
+2. Log incident to `.opencode/failover.log`
+3. Update `.claude/handoffs/<branch>.md` with current state (branch, task, checkpoint)
+4. Switch to Claude Code session with same branch and handoff file
+5. Resume work from handoff checkpoint
+6. Investigate OpenCode issue in parallel (docs/DGX_DEPLOYMENT.md)
+7. Return to OpenCode when operational
+
 ## Resolver — Standards Documents
 
 **Always load first** (meta-standards consulted before any task):

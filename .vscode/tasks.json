@@ -84,10 +84,7 @@
     },
     {
       "label": "Full Sync (Proton + Supabase)",
-      "dependsOn": [
-        "Sync to Proton Drive",
-        "Backup to Supabase Storage"
-      ],
+      "dependsOn": ["Sync to Proton Drive", "Backup to Supabase Storage"],
       "dependsOrder": "sequence",
       "group": "none",
       "problemMatcher": []
@@ -154,6 +151,51 @@
         "-File",
         "${workspaceFolder}/scripts/Sync-ToProton.ps1",
         "-GeneratePDFs"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "OpenCode: Check Ollama health",
+      "type": "shell",
+      "command": "curl",
+      "args": ["-s", "http://192.168.101.113:11434/api/tags"],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "OpenCode: Verify config schema",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "-e",
+        "const config = require('${workspaceFolder}/opencode.json'); console.log('✓ Schema:', config.$schema); console.log('✓ Model:', config.model); console.log('✓ Provider:', config.provider); console.log('✓ Instructions:', config.instructions); console.log('✓ MCP servers:', Object.keys(config.mcp).join(', ')); console.log('✓ Config valid');"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "OpenCode: Prepare failover (snapshot state)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "git branch -a && echo '---' && git status && echo '---' && echo 'Failover state prepared. Update .claude/handoffs/claude-code-migration-plan-g24eht.md with checkpoint before switching to Claude Code.'"
       ],
       "group": "none",
       "presentation": {
