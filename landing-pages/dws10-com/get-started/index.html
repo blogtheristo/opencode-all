@@ -294,7 +294,7 @@
             const safeFeatures = rec.features.map(f => '<li>' + escapeHtml(f) + '</li>').join('');
             const mailtoSubject = encodeURIComponent('DWS IQ Inquiry: ' + rec.name + ' for ' + answers.industry);
             const mailtoBody = encodeURIComponent('Industry: ' + answers.industry + ' | Priority: ' + answers.priority + ' | Team size: ' + answers.size + ' | Recommended: ' + rec.name);
-            const mailtoHref = escapeHtml('mailto:offer@lifetime.fi?subject=' + mailtoSubject + '&body=' + mailtoBody);
+            const mailtoHref = escapeHtml('https://dws10.com/contact/?subject=' + mailtoSubject + '&body=' + mailtoBody);
 
             let altsHTML = '';
             if (rec.alts && rec.alts.length) {

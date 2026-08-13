@@ -869,7 +869,7 @@
         </div>
         <div>
           <h3>Contact</h3>
-          <p>Sales: <a id="lSales" href="mailto:sales@lifetime.fi">sales@lifetime.fi</a></p>
+          <p>Sales: <a id="lSales" href="https://dws10.com/contact/">sales@lifetime.fi</a></p>
           <p>Phone requests via email.</p>
           <p>
             For a signed quote on this price list, email sales with the product IDs in the leftmost
@@ -1033,7 +1033,7 @@
           if (gov.owner) document.getElementById("lOwner").textContent = gov.owner;
           if (gov.salesEmail) {
             var a = document.getElementById("lSales");
-            a.href = "mailto:" + gov.salesEmail;
+            a.href = "https://dws10.com/contact/";
             a.textContent = gov.salesEmail;
           }
 
@@ -1114,7 +1114,7 @@
                       "</small>"
                     : "";
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
-                  var isMailto = rawDetails.indexOf("mailto:") === 0;
+                  var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
@@ -1132,7 +1132,7 @@
                     pid +
                     '" title="Book a meeting">Book&nbsp;Meeting</a>';
                   var emailBtn =
-                    '<a class="act-email" href="mailto:sales@lifetime.fi?subject=Enquiry%3A%20' +
+                    '<a class="act-email" href="https://dws10.com/contact/?subject=Enquiry%3A%20' +
                     pname +
                     '" title="Email sales">Email</a>';
                   var btns =
@@ -1214,7 +1214,7 @@
             '<div class="error"><p>Could not load price list: ' +
             escapeHtml(msg) +
             "</p>" +
-            '<p style="margin-top:10px">Please refresh, or email <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a>.</p></div>';
+            '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
         fetch("../config/products.json", { cache: "no-store" })

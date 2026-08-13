@@ -51,7 +51,7 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
     <h2>New Captain's Table Application</h2>
     <table style="border-collapse:collapse;font-family:sans-serif;">
       <tr><td style="padding:8px;font-weight:bold;">Name</td><td style="padding:8px;">${escapeHtml(name)}</td></tr>
-      <tr><td style="padding:8px;font-weight:bold;">Email</td><td style="padding:8px;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+      <tr><td style="padding:8px;font-weight:bold;">Email</td><td style="padding:8px;"><a href="https://dws10.com/contact/">${escapeHtml(email)}</a></td></tr>
       <tr><td style="padding:8px;font-weight:bold;">Company</td><td style="padding:8px;">${escapeHtml(company || '—')}</td></tr>
       <tr><td style="padding:8px;font-weight:bold;">Seat Type</td><td style="padding:8px;">${escapeHtml(seat_type)}</td></tr>
       <tr><td style="padding:8px;font-weight:bold;">Industry</td><td style="padding:8px;">${escapeHtml(industry)}</td></tr>

@@ -181,7 +181,7 @@
           // Fallback: mailto handoff
           msg.className = 'dws-ps-msg ok';
           msg.innerHTML =
-            'Opening your email client as a fallback — <a href="mailto:press@onelifetime.world?subject=Subscribe%20' +
+            'Opening your email client as a fallback — <a href="https://dws10.com/contact/?subject=Subscribe%20' +
             encodeURIComponent(site) +
             '&body=Please%20add%20' +
             encodeURIComponent(email) +

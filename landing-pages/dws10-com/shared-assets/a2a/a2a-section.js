@@ -76,7 +76,7 @@
             </div>\n\
         </div>\n\
         <div class="a2a-cta">\n\
-            <a href="mailto:a2a@lifetime.fi?subject=A2A%20Agent%20Integration%20%E2%80%94%20' + encodeURIComponent(industry) + '" class="a2a-btn-primary">\n\
+            <a href="https://dws10.com/contact/" class="a2a-btn-primary">\n\
                 Bring Your Own Agent\n\
             </a>\n\
             <a href="/architecture/" class="a2a-btn-secondary">View A2A Architecture</a>\n\

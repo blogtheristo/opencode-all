@@ -122,7 +122,7 @@ function DashboardFooter() {
             <a href="/api" className="hover:text-gray-700">
               API
             </a>
-            <a href="mailto:risto@lifetime.fi" className="hover:text-gray-700">
+            <a href="https://dws10.com/contact/" className="hover:text-gray-700">
               Support
             </a>
           </div>

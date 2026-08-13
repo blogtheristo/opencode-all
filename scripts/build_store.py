@@ -196,7 +196,7 @@ def generate_html(product):
         <div class="content">
             {product["html_content"]}
         </div>
-        <a href="mailto:risto@lifetime.fi?subject=Order Inquiry: {product["title"]} ({product["sku"]})" class="buy-btn">Contact Sales to Order</a>
+        <a href="https://dws10.com/contact/?subject=Order Inquiry: {product["title"]} ({product["sku"]})" class="buy-btn">Contact Sales to Order</a>
     </div>
     {footer_html}
 </body>

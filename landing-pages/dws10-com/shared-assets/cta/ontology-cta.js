@@ -125,9 +125,7 @@
           Start a Pilot Conversation\
           <span class="ont-cta-small">Teams · WhatsApp · Jitsi — your choice</span>\
         </a>\
-        <a href="mailto:' +
-    EMAIL_TO +
-    '?subject=' +
+        <a href="https://dws10.com/contact/?subject=' +
     encodeURIComponent('Request: LWM Sovereign Ontology Pilot Delivery Plan') +
     '&body=' +
     encodeURIComponent(
