@@ -1,0 +1,68 @@
+{
+  "$schema": "https://opencode.dev/schema/opencode.json",
+  "_description": "OpenCode platform configuration — primary IDE/runtime for DWS IQ 6 development. Mirrors .claude/settings.json for MCP compatibility.",
+  "name": "DWS IQ 6 — OpenCode Primary Runtime",
+  "version": "1.0.0",
+  "created": "2026-08-13",
+  "platform": "opencode",
+  "environment": {
+    "PRIMARY_RUNTIME": "opencode",
+    "FALLBACK_RUNTIME": "claude",
+    "DGX_HOST": "localhost",
+    "DGX_PORT": "8080",
+    "DISABLE_AUTO_UPDATE": 0,
+    "DISABLE_BUG_COMMAND": 0
+  },
+  "models": {
+    "primary": {
+      "provider": "nvidia",
+      "model": "nim-inference-local",
+      "context_window": 131072,
+      "max_tokens": 4096,
+      "description": "Local NVIDIA NIM microservices on DGX Spark (Grace Blackwell, 1 PFLOPS FP4)"
+    },
+    "fallback": {
+      "provider": "anthropic",
+      "model": "claude-opus-5",
+      "context_window": 1048576,
+      "max_tokens": 4096,
+      "description": "Claude API fallback (active when OpenCode unavailable)"
+    }
+  },
+  "permissions": {
+    "allow": ["Bash(git:*)", "Bash(python:*)", "Bash(node:*)", "Read(**)", "Edit(**)", "Write(**)"],
+    "deny": ["Bash(sudo:*)", "Bash(rm -rf /)", "Read(.env)", "Read(.env.*)"]
+  },
+  "mcp_servers": {
+    "local": ["dws-gateway-local", "dws-agents-local"],
+    "shared_with_claude": ["github", "google-drive", "figma", "supabase"]
+  },
+  "runtime_selection": {
+    "interactive_development": "opencode",
+    "scheduled_jobs": "opencode",
+    "long_running_loops": "opencode",
+    "extended_thinking": "claude",
+    "failover": "claude"
+  },
+  "deployment": {
+    "dgx_spark": {
+      "hostname": "dgx-spark-01.dws.local",
+      "port": 8080,
+      "models": ["nvidia/nim-llama", "nvidia/nim-nemotron", "nvidia/nim-embeddings"],
+      "health_check_url": "/v1/health",
+      "health_check_interval_seconds": 30
+    }
+  },
+  "failover": {
+    "auto_retry_on_dgx_failure": true,
+    "retry_count": 2,
+    "fallback_to_claude_on_exhaustion": true,
+    "failover_log": ".opencode/failover.log"
+  },
+  "handoff_protocol": {
+    "state_file": ".claude/handoffs/<branch>.md",
+    "serialization_format": "markdown",
+    "requires_manual_switch": true,
+    "description": "State is git-persisted in .claude/handoffs/<branch>.md; platform switches are manual via documented procedure (DGX_DEPLOYMENT.md)"
+  }
+}
