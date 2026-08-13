@@ -258,6 +258,54 @@ const STANDARD_CITATIONS = [
   { reg: 'EU 2023/1773', article: '4', note: 'CBAM default emission factors' },
 ] as const;
 
+// ============ DEFAULT FACTOR COMPARISON ============
+
+/**
+ * Show what a verified supplier factor saves against the CBAM default.
+ *
+ * Only emitted for imports whose installation_id resolves in PRODUCER_REGISTRY,
+ * so every number traces to a recorded EPD rather than to an unverified value
+ * supplied by the caller. Where a sector publishes several CBAM defaults we take
+ * the LOWEST one, which yields the smallest defensible savings figure - a
+ * regulatory filing should never overstate a claimed reduction.
+ *
+ * Imports with no registry match are omitted rather than estimated.
+ */
+function buildDefaultFactorComparison(
+  result: CBAMCalculationResult,
+  imports: CBAMPilotImport[],
+  certificatePrice: number,
+): DefaultFactorComparison[] {
+  const comparisons: DefaultFactorComparison[] = [];
+
+  result.importBreakdown.forEach((breakdown, index) => {
+    const installationId = imports[index]?.installation_id;
+    if (!installationId) return;
+
+    const producer = lookupProducer(installationId);
+    if (!producer) return;
+
+    const sectorDefaults = getFactorsForSector(breakdown.sector, 'cbam');
+    if (sectorDefaults.length === 0) return;
+
+    const cbamDefaultFactor = Math.min(...sectorDefaults.map((f) => f.factor));
+    const emissionsSaved = (cbamDefaultFactor - producer.verified_factor) * breakdown.quantity;
+
+    comparisons.push({
+      product: breakdown.product,
+      installation_id: installationId,
+      supplier_factor: producer.verified_factor,
+      cbam_default_factor: cbamDefaultFactor,
+      quantity_t: breakdown.quantity,
+      emissions_saved_tco2e: Math.round(emissionsSaved * 1000) / 1000,
+      cost_saved_eur: Math.round(emissionsSaved * certificatePrice * 100) / 100,
+      factor_source: producer.factor_source,
+    });
+  });
+
+  return comparisons;
+}
+
 // ============ MAIN SERVICE ============
 
 export function runCBAMCalculation(
@@ -283,8 +331,10 @@ export function runCBAMCalculation(
         declared_purpose: req.requester?.declared_purpose ?? '',
         authority: req.requester?.authority ?? '',
         authority_status: 'declared_unverified',
+        installation_ids_referenced: [],
       },
       result: null,
+      default_factor_comparison: [],
       confidence: 0,
       uses_default_factors: false,
       citations: [...STANDARD_CITATIONS],
@@ -325,6 +375,17 @@ export function runCBAMCalculation(
     }
   }
 
+  // Only installation ids that actually resolve in PRODUCER_REGISTRY count as
+  // referenced. An unmatched id is a declared string, not verified authority.
+  const referencedInstallationIds = [
+    ...new Set(
+      req.declaration.imports
+        .map((i) => i.installation_id)
+        .filter((id): id is string => typeof id === 'string' && id.length > 0)
+        .filter((id) => lookupProducer(id) !== undefined),
+    ),
+  ];
+
   const unsigned: Omit<CBAMPilotResponse, 'signature'> = {
     schema: 'dws-cbam-calculation-v1',
     request_id: requestId,
@@ -336,9 +397,16 @@ export function runCBAMCalculation(
       agent_id: req.requester.agent_id,
       declared_purpose: req.requester.declared_purpose,
       authority: req.requester.authority,
-      authority_status: 'declared_unverified',
+      authority_status:
+        referencedInstallationIds.length > 0 ? 'installation_referenced' : 'declared_unverified',
+      installation_ids_referenced: referencedInstallationIds,
     },
     result: calcResult,
+    default_factor_comparison: buildDefaultFactorComparison(
+      calcResult,
+      req.declaration.imports,
+      certificatePrice,
+    ),
     confidence,
     uses_default_factors: calcResult.usesDefaultValues,
     citations: [...STANDARD_CITATIONS],
