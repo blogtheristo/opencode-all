@@ -619,7 +619,7 @@ cost_tracking:
 **Terminology.** Two execution substrates exist (or are being evaluated) for running DWS agent workloads:
 
 - **Claude Managed Agents** — Anthropic's hosted agent-execution service (public beta as of this writing, `managed-agents-2026-04-01`). Anthropic runs the session/sandbox/tool loop on its own infrastructure; DWS sends events and receives results. Distinct from the raw Messages API, the Tool Runner (`client.beta.messages.tool_runner`, self-hosted loop), and the Claude Agent SDK (self-hosted library) — see Anthropic documentation for the full surface comparison.
-- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the Godagent architecture (`docs/Deputy-Agents-Architecture.md`) running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
+- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the self-hosted agent architecture documented in `docs/Deputy-Agents-Architecture.md`, running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
 
 ### 8.1 Comparison
 
@@ -670,7 +670,7 @@ This mirrors the standing decision already recorded for Firehorse Dreaming (`.cl
 
 Only after Phase 1 produces real cost/latency numbers: decide whether Claude Managed Agents becomes a standing overflow tier for exempt agents (burst capacity when DGX Spark's queue/VRAM is saturated) or gets shelved. Do not pre-build multi-agent Managed Agents routing before that data exists (Rule 2 — simplicity first).
 
-**Explicitly out of scope for Managed Agents (stays on DGX by design):** all Godagent/industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
+**Explicitly out of scope for Managed Agents (stays on DGX by design):** all self-hosted industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
 
 ---
 
@@ -781,7 +781,7 @@ cd mcp-hub && python server.py
 - [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Internal agents
 - [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agents
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
-- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents (Godagent) architecture, referenced in §8
+- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
 - [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
 
 ---
