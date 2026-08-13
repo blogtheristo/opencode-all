@@ -11,8 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.99
+Version: 4.00
 Sessions & Modifications:
+
+- Version: 4.00 | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added §14.50 (Harness/model separation, sovereign local orchestration, and negative MCP capability) and Key Contribution #55. Scientific framing per the §1.4 scope rule; implementation counterpart is V3Thesis §10.30, added in the same lockstep. Lockstep 3.99->4.00.
 
 - Version: 3.99 | Tool: Claude Code | Session: claude/kya-audit-update | Date: 10.08.2026 | Changes: Added §14.49 (KYA Governance, Autonomy Phasing, and Evidence Drift) and Key Contribution #54. Market-signal/scientific framing per the §1.4 scope rule. Signal: KYA audit on 10.08.2026. Finding 1 identifies the restriction of proactive advisor-phase nudges to a vetted subset (compliance, customer-sat, sitesense) as a necessary governance constraint for enterprise AI adoption, leaving others in silent_pilot. Finding 2 clarifies that performance metrics like latency serve as observability telemetry rather than direct inputs to trust scoring (ATS) to ensure scoring stability. Finding 3 highlights the epistemological separation of implemented system state (69 live registered agents) from conceptual market claims (88 capabilities/roles) as a required anti-drift measure. Companion: V3Thesis §10.29, added in the same lockstep. Lockstep 3.98->3.99.
 - Version: 3.98 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Added §14.48 (The Text-Provenance Extension: Machine Translation as a Second Obligation-Capability Instance) and Key Contribution #53. Market-signal/scientific framing per the §1.4 scope rule. Signal: the arvonluonnin-ajurit-2026 five-language blog post (EN/FI agent-drafted, SV/DE/FR produced by an external LLM on HIC instruction), published 06.08.2026 with no named human reviewer on any variant. Finding 1 extends the §14.46 obligation-capability split from AI-generated media to AI-drafted/machine-translated text, since Article 50(4)'s no-human-review/no-accountable-person test does not distinguish authorship modality. Finding 2 shows the DWS_BLOG_STANDARD §3.2.1 default-on four-condition reviewer-credit policy operationally sufficient, and demonstrates by first-party test that a conversational publication-approval gate (Rule 13/§3.3) does not on its own satisfy it — the two are non-substitutable governance layers. Finding 3 generalises §14.46's compositing principle (mark the artefact, not the page) from single-media overlay to a deterministic multi-language build-pipeline invariant (scripts/build-arvonluonnin-ajurit-post.mjs). Companion: onelifetime.world/posts/arvonluonnin-ajurit-2026\*.html; docs/BLOG_STANDARD.md #49-53. Implementation counterpart: V3Thesis §10.17, added in the same lockstep. Lockstep 3.97->3.98.
@@ -319,7 +321,7 @@ Current status is made explicit:
 
 I would be glad to discuss this draft with you online or in person. I can send a concise 2-3 page version in advance.
 
-Kind regards,  
+Kind regards,
 Risto Anton Päärni
 
 ### 1.7 Ontology — Etymology and Philosophical Background
@@ -3728,3 +3730,15 @@ DWS IQ does not build public consumer chat. It deploys bounded fleets of special
 _Document generated using Firehorse Operations Model with Claude Code_
 _Last updated: 17.07.2026_
 _Version: 3.83 (unified with Metropolia V3Thesis; lockstep from this point)_
+
+### 14.50 Harness/Model Separation, Sovereign Local Orchestration, and Negative Capability
+
+The DGX Spark runtime alignment supplies a concrete test of the sovereignty thesis: the harness and the model are separable governance objects. OpenCode 1.18.18 is the primary execution harness, Ollama is the local/open-model boundary, and Claude Code is retained as hot standby. This permits model improvement, including adoption of newer NVIDIA weights, without making the operator's policy, skills, or evidence boundary provider-dependent.
+
+The architecture also demonstrates that sovereignty is defined by verified paths, not by the number of configured integrations. The local MCP gateway is usable through the project virtualenv and a compatible MCP SDK 1.x range. The separate `dws-agents-local` SSE service remains disabled because its port-3001 listener is absent. That refusal to invent a substitute endpoint is a governance result: an unavailable egress path is recorded as unavailable rather than represented as a healthy but unverified capability.
+
+This creates a useful distinction for enterprise AI systems. **Positive capability** is a tool path that has passed connection and dependency checks; **negative capability** is the deliberate preservation of a boundary where the evidence is insufficient. The latter is not a missing feature to hide in product language. It is an auditable part of the deployment posture, especially where an apparently connected MCP server could move customer data or agent actions across a jurisdictional boundary.
+
+**Research contribution.** Extends the sovereignty map from storage and inference location to harness composition and tool-egress evidence. It shows that local model choice, standby-provider choice, and MCP availability can be governed independently, while the explicit refusal to enable an unverified service becomes a measurable control rather than an operational inconvenience.
+
+**Key Contribution #55.** Harness/model separation is a sovereignty primitive: OpenCode plus local/open inference can remain the primary path while Claude Code stays hot standby, and a verified MCP gateway can be enabled without treating an unavailable SSE service as healthy. This establishes negative capability, an explicitly preserved unavailable boundary, as part of the auditable deployment state, not as undocumented technical debt. _Companion: V3Thesis §10.30; `docs/field-notes/2026-08-13-opencode-dgx-runtime-alignment.md`._
