@@ -1,6 +1,10 @@
 ---
 name: contentms
-description: Firehorse Content DMS (Evidence Vault) — upload certificates, search the vault, track expirations, run HIL review of AI-drafted content, publish artifacts (blog posts, legal docs) to onelifetime.world. Use when user says "upload to vault", "evidence vault", "DMS", "content manager", "when does cert expire", "approve draft", "publish blog post", "HIL review", or mentions ISO/CSRD/ETS certificates, learning content, or artifact distribution.
+description: >
+  Firehorse Content DMS (Evidence Vault) — upload certificates, search the vault, track
+  expirations, run HIL review of AI-drafted content, publish artifacts to onelifetime.world. Use
+  when user says "evidence vault", "DMS", "when does cert expire", "approve draft", "publish
+  blog post", or mentions ISO/CSRD/ETS certificates or artifact distribution.
 ---
 
 Interact with the Firehorse Content DMS (aka Evidence Vault) via the HTTP API at `/api/v1/content/*` (22 endpoints, mounted in `src/app.ts`).

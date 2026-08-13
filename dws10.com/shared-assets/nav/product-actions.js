@@ -59,7 +59,7 @@
       '<a class="pa-book" href="/book/?service=demo&amp;product=' +
       encodeURIComponent(pid) +
       '" title="Book a meeting">Book&nbsp;Meeting</a>' +
-      '<a class="pa-email" href="mailto:sales@lifetime.fi?subject=' +
+      '<a class="pa-email" href="https://dws10.com/contact/?subject=' +
       subject +
       '" title="Email sales">Email</a>' +
       '<a class="pa-store" href="/buy/" title="Browse the store">Store</a>' +

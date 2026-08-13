@@ -1,12 +1,10 @@
 ---
 name: mgd-report
 description: >
-  Use when reporting the DWS north-star metric — Monthly Governed Decisions (MGD)
-  plus Customer-Retained Capital (CRC). Says "MGD", "monthly governed decisions",
-  "north-star number", "governed decisions this quarter", "MGD report", "is MGD up
-  or down", "MGD per customer". Wraps the deterministic scripts/compute-mgd.mjs and
-  renders the number with a trend, per customer. Fails loud on the schema gap rather
-  than reporting a proxy.
+  Use when reporting the DWS north-star metric — Monthly Governed Decisions (MGD) plus Customer-
+  Retained Capital (CRC). Says "MGD", "monthly governed decisions", "north-star number", "MGD
+  report". Wraps the deterministic scripts/compute-mgd.mjs, renders the number with trend per
+  customer, and fails loud on the schema gap rather than reporting a proxy.
 argument-hint: "optional: CUSTOMER=<org_id> RANGE=<current-quarter|YYYY-Qn|from..to>"
 allowed-tools: [Read, Bash]
 ---

@@ -7,6 +7,7 @@
 # >= lets pip resolve a FastAPI that pulls a fixed Starlette. Smoke-test the hub
 # server after any resolution change before deploy.
 fastapi>=0.115.12
+h11>=0.16.0
 uvicorn[standard]==0.34.2
 
 # HTTP client

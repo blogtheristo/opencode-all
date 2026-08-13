@@ -131,8 +131,41 @@ for dir in "${PACKAGE_DIRS[@]}"; do
   fi
 done
 
+# --- IOC denylist check (Shai-Hulud family, added Aug 2026) ---
+# Greps every lockfile for known-compromised package@version pairs listed in
+# scripts/security/npm-ioc-denylist.txt. A hit is a confirmed supply-chain
+# compromise in the tree: fail loud (exit 2), never report-only.
+DENYLIST_FILE="$REPO_ROOT/scripts/security/npm-ioc-denylist.txt"
+ioc_hits=()
+if [[ -f "$DENYLIST_FILE" ]]; then
+  echo ""
+  echo "[dependabot-audit] Checking lockfiles against IOC denylist..."
+  while IFS= read -r entry; do
+    entry="${entry%%#*}"; entry="${entry//[[:space:]]/}"
+    [[ -z "$entry" ]] && continue
+    pkg="${entry%@*}"   # keeps scope: @scope/name@1.2.3 -> @scope/name
+    ver="${entry##*@}"
+    for dir in "${PACKAGE_DIRS[@]}"; do
+      lock="$REPO_ROOT/$dir/package-lock.json"
+      [[ -f "$lock" ]] || continue
+      hit=$(jq -r --arg p "$pkg" --arg v "$ver" \
+        '.packages // {} | to_entries[]
+         | select((.key | endswith("node_modules/" + $p)) and (.value.version == $v))
+         | .key' "$lock" 2>/dev/null)
+      if [[ -n "$hit" ]]; then
+        ioc_hits+=("{\"directory\": \"$dir\", \"package\": \"$entry\"}")
+        echo "  !! IOC HIT: $entry pinned in $dir — COMPROMISED VERSION IN TREE"
+      fi
+    done
+  done < "$DENYLIST_FILE"
+  echo "[dependabot-audit] IOC check done: ${#ioc_hits[@]} hit(s)"
+else
+  echo "  WARNING: IOC denylist missing at $DENYLIST_FILE — check skipped (fail-loud: this line is the record)"
+fi
+
 # Build report
 results_json=$(printf '%s\n' "${results[@]}" | jq -s '.' 2>/dev/null || echo '[]')
+ioc_json=$([[ ${#ioc_hits[@]} -gt 0 ]] && printf '%s\n' "${ioc_hits[@]}" | jq -s '.' 2>/dev/null || echo '[]')
 fixes_json=$(printf '%s\n' "${fix_applied[@]}" | jq -R -s 'split("\n") | map(select(length > 0))' 2>/dev/null || echo '[]')
 
 report=$(cat <<REPORT_EOF
@@ -148,6 +181,7 @@ report=$(cat <<REPORT_EOF
     "total_all": $((total_critical + total_high + total_moderate + total_low))
   },
   "directories": $results_json,
+  "ioc_hits": $ioc_json,
   "fixes_applied": $fixes_json
 }
 REPORT_EOF
@@ -164,10 +198,21 @@ echo "  Moderate:             $total_moderate"
 echo "  Low:                  $total_low"
 echo "  Autofix:              $([[ "$AUTOFIX" == "1" ]] && echo 'ENABLED' || echo 'disabled (default)')"
 echo "  Fixes applied:        ${#fix_applied[@]}"
+echo "  IOC denylist hits:    ${#ioc_hits[@]}"
 
 if [[ "$total_critical" -gt 0 ]]; then
   echo ""
   echo "  CRITICAL vulnerabilities detected — manual review required!"
+fi
+
+if [[ ${#ioc_hits[@]} -gt 0 ]]; then
+  echo ""
+  echo "  !! KNOWN-COMPROMISED PACKAGE VERSION(S) PINNED IN LOCKFILE(S) !!"
+  echo "  Supply-chain incident: do NOT install; quarantine the tree, rotate"
+  echo "  npm/GitHub/AWS/Vault credentials on any host that installed it."
+  echo "  Denylist: scripts/security/npm-ioc-denylist.txt"
+  echo "[dependabot-audit] Report: $REPORT_FILE"
+  exit 2
 fi
 
 # Auto-commit only when explicit autofix was on AND we actually applied changes.

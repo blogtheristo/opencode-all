@@ -29,6 +29,9 @@ fi
 
 OUT_BASE="${2:-${INPUT%.md}}"
 TITLE="$(basename "$OUT_BASE")"
+# Document language for the HTML lang attribute (accessibility tooling reads it;
+# pandoc otherwise emits an empty lang=""). Third positional arg, defaults to en.
+DOC_LANG="${3:-en}"
 
 if ! command -v pandoc >/dev/null 2>&1; then
   echo "pandoc not installed. Run: apt-get install -y pandoc" >&2
@@ -41,11 +44,17 @@ fi
 # explicitly where to look.
 INPUT_DIR="$(cd "$(dirname "$INPUT")" && pwd)"
 
+# --wrap=none keeps each source line intact in the HTML output. Truth-lint
+# excuses deprecated phrases only when the historical marker ("superseded",
+# "formerly", …) sits on the SAME line; pandoc's default re-wrapping splits
+# phrase and marker onto different lines and turns allowed WARNs into FAILs.
 pandoc "$INPUT" \
   --standalone \
   --embed-resources \
+  --wrap=none \
   --resource-path="$INPUT_DIR" \
   --metadata title="$TITLE" \
+  --metadata lang="$DOC_LANG" \
   -o "${OUT_BASE}.html"
 
 pandoc "$INPUT" \

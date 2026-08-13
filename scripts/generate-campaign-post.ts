@@ -170,7 +170,7 @@ function buildLikeFeedback(day: number, lang: 'en' | 'fi'): string {
       ];
 
   const feedbackBtns = buttons.map(b =>
-    `<a href="mailto:feedback@dws10.com?subject=${encodeURIComponent(b.subject)}" class="px-4 py-2 rounded text-xs font-medium" style="background: rgba(30, 41, 59, 0.8); color: #94a3b8; border: 1px solid rgba(71, 85, 105, 0.4);">${b.label}</a>`
+    `<a href="https://dws10.com/contact/?subject=${encodeURIComponent(b.subject)}" class="px-4 py-2 rounded text-xs font-medium" style="background: rgba(30, 41, 59, 0.8); color: #94a3b8; border: 1px solid rgba(71, 85, 105, 0.4);">${b.label}</a>`
   ).join('\n                    ');
 
   return `

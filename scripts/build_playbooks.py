@@ -513,7 +513,7 @@ def build_footer_html(meta: dict) -> str:
         '<div><b>Y-tunnus / VAT</b><br/>0772407-9 / FI07724079</div>'
         '<div><b>Address</b><br/>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</div>'
         '<div><b>Contact</b><br/>Risto Anton Paarni · '
-        '<a href="mailto:risto.paarni@lifetime.fi">risto.paarni@lifetime.fi</a></div>'
+        '<a href="https://dws10.com/contact/">risto.paarni@lifetime.fi</a></div>'
         f'<div><b>Document reference</b><br/>{docref}</div>'
         f'<div><b>Effective</b><br/>{meta.get("effective", date.today().isoformat())}</div>'
         '</div>'

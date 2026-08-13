@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // firehorse-memory-write.mjs — Dual-write a Firehorse Dreaming memory note to
-// the canonical Firehorse CMS (Supabase firehorse_memory table) after the
-// local .md file has been written by /promote-proposal.
+// the canonical Firehorse CMS (internal Postgres firehorse_memory table, DGX
+// Spark — dws-postgres) after the local .md file has been written by
+// /promote-proposal.
 //
 // Insert-only / immutable: if the topic already exists, this script inserts a
 // new row with version = previous + 1. The local file is the always-available
@@ -18,10 +19,9 @@
 //     [--dry-run]
 //
 // Env (required unless --dry-run):
-//   SUPABASE_URL          e.g. https://<project>.supabase.co
-//   SUPABASE_SERVICE_KEY  service role key (RED zone secret — never log)
+//   INTERNAL_DB_URL       Postgres connection string for dws-postgres (DGX Spark)
 //
-// Exit codes: 0 ok, 2 bad args, 3 missing env, 4 fetch failure, 5 schema mismatch.
+// Exit codes: 0 ok, 2 bad args, 3 missing env, 4 query failure, 5 schema mismatch.
 //
 // This script does NOT touch the on-disk .md file. /promote-proposal writes
 // that first; this is the second leg of the dual write. Idempotency: the
@@ -30,6 +30,9 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import pg from 'pg';
+
+const { Pool } = pg;
 
 function parseArgs(argv) {
   const args = { dryRun: false, source: 'clawdbot-dream-curate' };
@@ -56,7 +59,7 @@ const args = parseArgs(process.argv);
 
 if (args.help) {
   console.log(
-    'firehorse-memory-write — POST a memory note to Supabase firehorse_memory.\n' +
+    'firehorse-memory-write — write a memory note to internal Postgres firehorse_memory.\n' +
       'Required: --topic, --title, --body-file. See script header for full usage.',
   );
   process.exit(0);
@@ -93,7 +96,7 @@ if (args.dryRun) {
       {
         ok: true,
         dryRun: true,
-        endpoint: '(SUPABASE_URL)/rest/v1/firehorse_memory',
+        endpoint: '(INTERNAL_DB_URL)/firehorse_memory',
         payloadKeys: Object.keys(payload),
         topic: payload.topic,
         title: payload.title,
@@ -109,57 +112,48 @@ if (args.dryRun) {
   process.exit(0);
 }
 
-const { SUPABASE_URL, SUPABASE_SERVICE_KEY } = process.env;
-if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+const { INTERNAL_DB_URL } = process.env;
+if (!INTERNAL_DB_URL) {
   fail(3, {
     error: 'Missing env',
-    need: ['SUPABASE_URL', 'SUPABASE_SERVICE_KEY'],
-    hint: 'Use --dry-run to test without env. If running production: ensure both env vars are set in the environment that invokes /promote-proposal.',
+    need: ['INTERNAL_DB_URL'],
+    hint: 'Use --dry-run to test without env. If running production: ensure INTERNAL_DB_URL is set in the environment that invokes /promote-proposal.',
   });
 }
+
+const pool = new Pool({ connectionString: INTERNAL_DB_URL });
 
 // Compute next version: SELECT max(version) for this topic, +1.
 async function nextVersion(topic) {
-  const url = `${SUPABASE_URL}/rest/v1/firehorse_memory?topic=eq.${encodeURIComponent(topic)}&select=version&order=version.desc&limit=1`;
-  const res = await fetch(url, {
-    headers: {
-      apikey: SUPABASE_SERVICE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-    },
-  });
-  if (!res.ok) throw new Error(`version probe failed: ${res.status} ${await res.text()}`);
-  const rows = await res.json();
-  return rows.length === 0 ? 1 : rows[0].version + 1;
+  const result = await pool.query(
+    'SELECT version FROM firehorse_memory WHERE topic = $1 ORDER BY version DESC LIMIT 1',
+    [topic],
+  );
+  return result.rows.length === 0 ? 1 : result.rows[0].version + 1;
 }
 
 async function insertRow(row) {
-  const url = `${SUPABASE_URL}/rest/v1/firehorse_memory`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      apikey: SUPABASE_SERVICE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-      'Content-Type': 'application/json',
-      Prefer: 'return=representation',
-    },
-    body: JSON.stringify(row),
-  });
-  if (!res.ok) {
-    const txt = await res.text();
-    if (res.status === 404 || /firehorse_memory/.test(txt)) {
-      throw Object.assign(new Error(`Table missing? ${res.status}: ${txt}`), {
-        schemaMissing: true,
-      });
-    }
-    throw new Error(`insert failed: ${res.status} ${txt}`);
-  }
-  return res.json();
+  const result = await pool.query(
+    `INSERT INTO firehorse_memory (
+       topic, title, body, source, source_session_id, source_proposal_path, version
+     ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+     RETURNING id, topic, version, created_at`,
+    [
+      row.topic,
+      row.title,
+      row.body,
+      row.source,
+      row.source_session_id,
+      row.source_proposal_path,
+      row.version,
+    ],
+  );
+  return result.rows[0];
 }
 
 try {
   const version = await nextVersion(args.topic);
-  const inserted = await insertRow({ ...payload, version });
-  const row = Array.isArray(inserted) ? inserted[0] : inserted;
+  const row = await insertRow({ ...payload, version });
   console.log(
     JSON.stringify(
       {
@@ -173,11 +167,14 @@ try {
       2,
     ),
   );
+  await pool.end();
 } catch (err) {
-  if (err.schemaMissing) {
+  await pool.end().catch(() => {});
+  // Postgres error code 42P01 = undefined_table
+  if (err.code === '42P01') {
     fail(5, {
       error: 'firehorse_memory table not found',
-      hint: 'Apply supabase/migrations/065_firehorse_memory.sql first. See .claude/clawdbot/proposals/migration-065-firehorse-memory.md for the SQL.',
+      hint: 'Apply the ported 065_firehorse_memory migration on dws-postgres first. See .claude/clawdbot/proposals/migration-065-firehorse-memory.md for the SQL.',
       detail: err.message,
     });
   }

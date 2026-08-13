@@ -7,7 +7,7 @@
     <item>
       <g:id>DWS-IQ-006</g:id>
       <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a fleet of skilled agents across 10 LWM ontology classes and 16 captain hats covering 25+ EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Orchestrates a fleet of skilled agents across 10 LWM ontology classes, MCP-native with CLI access&lt;/li&gt;&lt;li&gt;Amplify Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Orchestrates a governed skilled-agent fleet with KYA/Article-12 traceability, MCP-native with CLI access&lt;/li&gt;&lt;li&gt;Amplify Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-iq-006.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
@@ -175,19 +175,6 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
-      <g:id>m365-consultancy</g:id>
-      <g:title>Microsoft 365 Agent Consultancy</g:title>
-      <g:description>&lt;p&gt;Build Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams, and Office using the Microsoft 365 Agents Toolkit (ATK) — the evolution of Teams Toolkit. Zero-configuration approach with built-in M365 identity, Microsoft Graph, and Azure integration. 8 hours of expert engagement.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Declarative &amp; Custom Engine Agents for M365 Copilot&lt;/li&gt;&lt;li&gt;Teams conversational agents with Microsoft Teams SDK&lt;/li&gt;&lt;li&gt;Office Add-ins for Excel, Word, PowerPoint and Outlook&lt;/li&gt;&lt;li&gt;Zero-configuration M365 identity + Microsoft Graph&lt;/li&gt;&lt;li&gt;Deploy to Azure with ATK templates&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/m365-consultancy.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1200 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
       <g:id>ai-agent-engineering</g:id>
       <g:title>AI &amp; Agent Engineering — Outcome-Backed Hourly</g:title>
       <g:description>&lt;p&gt;Senior AI engineer on demand — but billed against captain-hat outcomes, not consultant hours. €200/h backstop; we prefer the outcome-priced SKUs (€49 site safety scan, €499 LCA report, €999 CSRD gap) because you only pay when the artefact ships. Skip the 3-month hiring cycle and the T&amp;M lock-in.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Senior AI engineer (Claude Code, Codex, Azure AI)&lt;/li&gt;&lt;li&gt;Outcome-priced default; €200/h backstop on request&lt;/li&gt;&lt;li&gt;No T&amp;M lock-in — pay per shipped artefact&lt;/li&gt;&lt;/ul&gt;</g:description>
@@ -228,8 +215,8 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>business-mentor-30</g:id>
-      <g:title>Business Mentor - AI Strategy 30 Hours</g:title>
-      <g:description>&lt;p&gt;30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;30 hours strategic AI mentoring&lt;/li&gt;&lt;li&gt;12-month flexible schedule&lt;/li&gt;&lt;li&gt;Leadership AI transformation&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Claude Code AI Coaching — 30 Hours</g:title>
+      <g:description>&lt;p&gt;30 hours of strategic Claude Code coaching, scheduled on your terms. Covers AI strategy, business process redesign with agents, and Claude Code adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation with Claude Code.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;30 hours strategic Claude Code coaching&lt;/li&gt;&lt;li&gt;12-month flexible schedule&lt;/li&gt;&lt;li&gt;Leadership Claude Code adoption&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/business-mentor-30.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
@@ -280,26 +267,13 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>professional-web-pages</g:id>
-      <g:title>Atk-apu pk-yritykselle</g:title>
-      <g:description>&lt;p&gt;Pk-yrityksen IT-tuki yhdellä numerolla. Tuntipankki 10 h hintaan 75 €/h + alv, käytetään 6 kk sisällä. Sisältää työasema- ja sähköpostituen, tietoturvan perusteet, varmuuskopiot, kuljetus- ja toimialakohtaisen IT-tuen, laskutuskytkennät, AI-avusteisen toimiston sekä kotisivut tarpeen mukaan. Vain suomenkielinen palvelu.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Tuntipankki 10 h × 75 €/h, voimassa 6 kk&lt;/li&gt;&lt;li&gt;Työasema-, sähköposti- ja tietoturvatuki&lt;/li&gt;&lt;li&gt;Kuljetusalan IT, laskutus, AI-toimisto, kotisivut&lt;/li&gt;&lt;li&gt;Etätuki sisältyy, vain suomenkielinen palvelu&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Kotisivut pk-yritykselle</g:title>
+      <g:description>&lt;p&gt;Ammattimainen verkkosivu pk-yritykselle — livenä 12 tunnissa. Sama toimintamalli, jolla rakensimme cari.fi:n asiakkaallemme. Kerrot mitä yrityksesi tarvitsee, me hoidamme loput.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Livenä 12 tunnissa tilauksesta&lt;/li&gt;&lt;li&gt;Suunniteltu pk-yrityksen verkkonäkyvyydelle&lt;/li&gt;&lt;li&gt;Toimiva esimerkki: cari.fi&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/professional-web-pages.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>750 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>secure-email-proton</g:id>
-      <g:title>Protonmail Secure Email &amp; Domains Implementation</g:title>
-      <g:description>&lt;p&gt;GDPR-compliant email in one business day. Full Proton Business Suite — encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;GDPR-compliant encrypted email&lt;/li&gt;&lt;li&gt;NIS2 &amp; EU AI Act compliant&lt;/li&gt;&lt;li&gt;Operational in 1 business day&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/secure-email-proton.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>499 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -326,32 +300,6 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2500 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>digital-design-gold</g:id>
-      <g:title>Digital Design Gold</g:title>
-      <g:description>&lt;p&gt;Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository — brand assets, marketing collateral, campaign visuals, and analytics dashboards — all governed by your brand standard. From identity system to live campaign intelligence in one engagement.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complete brand asset system&lt;/li&gt;&lt;li&gt;Campaign visual library&lt;/li&gt;&lt;li&gt;Live analytics dashboards&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/digital-design-gold.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2499 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>cloud-ready-teams</g:id>
-      <g:title>EU On-Demand AI &amp; Cloud Engineers (Sovereign)</g:title>
-      <g:description>&lt;p&gt;Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by the full agent-capability library — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Pillar 3: disruption-free continuity with Keskeytyslaskuri&lt;/li&gt;&lt;li&gt;Full agent-capability library backing EU-resident engineers&lt;/li&gt;&lt;li&gt;Sovereign by construction — engineer + data both in EU&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/cloud-ready-teams.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>950 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1805,19 +1753,6 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:availability>in_stock</g:availability>
       <g:price>9990 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>FLEET-VIP-001</g:id>
-      <g:title>Lifetime VIP AI Services</g:title>
-      <g:description>&lt;p&gt;Premium mobility and edge robotics, on call. First-class Uber Comfort and Uber Priority transport for your team and guests, plus NVIDIA Connect edge device services for robotics solutions — managed end-to-end by Lifetime Fleet, the physical “hands” of the DWS IQ platform. Inference stays local and EU-sovereign at the edge (NVIDIA Jetson Orin · Grace Blackwell). One annual fee, billed once. Finnish / EU B2B (VAT 0% reverse charge).&lt;/p&gt;&lt;ul&gt;&lt;li&gt;First-class Uber Comfort &amp; Uber Priority transport — booked and managed for you&lt;/li&gt;&lt;li&gt;NVIDIA Connect edge device services for robotics solutions (Jetson Orin · Grace Blackwell)&lt;/li&gt;&lt;li&gt;EU-sovereign by design — local inference, your data stays in Europe&lt;/li&gt;&lt;li&gt;One-time annual VIP fee — ≈ 2 months free vs monthly&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/fleet-vip-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/lifetime-fleet/LifetimeFleetCare.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2990 EUR</g:price>
-      <g:brand>Lifetime Fleet</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>

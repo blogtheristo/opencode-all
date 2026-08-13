@@ -1,0 +1,5712 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>DWS7_ROADMAP_v1.7.1</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">DWS7_ROADMAP_v1.7.1</h1>
+</header>
+<h1 id="dws7-roadmap-from-pilot-to-16-paying-industrial-customers">DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers</h1>
+<blockquote>
+<p><strong>Document Standard:</strong> DWS Document Standard v2.0 <strong>Version:</strong> 1.7.1 <strong>Status:</strong> Living Document (auto-tracked weekly) <strong>Created:</strong> 2026-02-12 <strong>Updated:</strong> 2026-08-06 — Positioning content shipped: the six commercial value-creation drivers (capabilities/orchestration, regulation/compliance, industry knowledge, economics/scale, cultural differentiation, continuous learning — canonical source <code>docs/KONSULTOINNIN_KASIKIRJA_2026.md</code> §2.1) published as a 5-language blog post (<code>onelifetime.world/posts/arvonluonnin-ajurit-2026*.html</code>, <code>docs/BLOG_STANDARD.md</code> #49–53). No PR/phase content changed — this is a go-to-market artifact, not a product PR. Previously: 2026-05-31 — CEO reshape (Cortex AI-native framing): rewrote Executive Summary around the “Cortex Orchestrator + AI Actions layer for EU industrial carbon” thesis (DWS owns layer 5 — signed regulatory filings — while horizontals commoditize layers 1–4); added Cortex-shift framing to Phase 2.6; pulled EUTL transaction-verified Scope 3 forward from DWS 8 (new PR 093I, was 8-041 single-entity slice); Firehorse agents re-chartered as ledger-native (see <code>AI_AGENT_GUIDELINES.md</code> §2 LedgerNativeAgentOutput contract). Phase 2 56→57 PRs, total 261→262. Previously: 2026-05-23 — Added Phase 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D): product-surface scaffold, LWM V2 NIM container, Control Room ↔︎ Situation Room federation, KYA TC-3 access control. Sits next to §4.5 eIDAS 2.0 &amp; Trust Services (added separately via #1376). Decision record: <code>docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md</code> (V2 timing pin) and <code>docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md</code> (two-budget split). Previously: 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md <strong>Timeline:</strong> Q1 2026 → Q4 2027 (22 months) <strong>Target:</strong> DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable</p>
+</blockquote>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p><strong>Positioning (the one sentence):</strong> DWS IQ 7 is the <strong>Cortex Orchestrator + AI Actions layer for EU industrial carbon</strong> — the only platform that turns an LLM answer into a <em>signed, sovereign regulatory filing</em>.</p>
+<p>The industry is converging on one stack: Data → Unified Platform → Semantic/Vector → Frontier LLM → Orchestrator → AI Actions. Snowflake Cortex, Databricks Mosaic, and Palantir AIP commoditize layers 1–4 across 2026–2027. DWS owns <strong>layer 5</strong>: the carbon balance sheet, the iXBRL signature, and the EU AI Act Article 12 lineage attached to every entry. Old BI ended at a dashboard; AI-native Cortex ends at an answer; <strong>DWS ends at a <em>filed</em> CSRD report, a <em>settled</em> CBAM declaration, and a <em>posted</em> journal entry in the customer’s ERP</strong> — on hardware in the customer’s building, with no data leaving the EU. Cortex generates text; DWS posts journal entries.</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 44%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cortex Layer</th>
+<th>DWS equivalent</th>
+<th>Defensibility vs a horizontal Cortex deployment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unified Data Platform</td>
+<td>18-source carbon data mesh (EUTL, ENTSO-E, EFRAG XBRL, PRODCOM)</td>
+<td>HIGH — no curated EU regulatory corpus off the shelf</td>
+</tr>
+<tr class="even">
+<td>Semantic / Vector</td>
+<td>pgvector + ESRS/CBAM/ETS ontology (82 disclosures)</td>
+<td>MEDIUM — replicable, but the ontology is the asset</td>
+</tr>
+<tr class="odd">
+<td>Frontier LLMs</td>
+<td>Groq + Nemotron 3 Super on Acer GN100</td>
+<td>LOW on raw intelligence, HIGH on sovereign local inference</td>
+</tr>
+<tr class="even">
+<td>Orchestrator</td>
+<td>Brain–Memory–Body–Hands + 15 ledger-native Firehorse agents</td>
+<td>MEDIUM — same shape, domain-specialized output contract</td>
+</tr>
+<tr class="odd">
+<td>AI Actions / Outcomes</td>
+<td>Signed iXBRL filing, ledger entry, ERP GL writeback</td>
+<td>HIGH — Cortex stops at the answer; DWS finishes the action</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Proof targets (Q4 2027 GA):</strong> 16 paying industrial customers (steel, cement, chemicals, construction, energy), €72K MRR, ISO 27001 certified, ledger-backed CSRD/CBAM artifacts demonstrable end-to-end.</p>
+<p>DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, <strong>15 AI agents</strong>, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, <strong>38 CI/CD workflows</strong>, and <strong>52 database migrations</strong>. The gap between today (two enterprise pilots contracted Q1/2026 at €29,950 each) and the Q4/2027 target of a production platform with 16 paying industrial customers and growing profits requires disciplined execution across <strong>265 planned pull requests</strong> organized in 6 phases.</p>
+<p><strong>Actual velocity (audited 2026-03-15):</strong> 342 PRs already merged (#132→#829), 1,846 total commits. March 2026 pace: 10 PRs/day, 43 commits/day. The 251-PR roadmap plan has been exceeded in raw PR count, but many PRs are feature additions, fixes, and infrastructure — the roadmap PRs represent specific product milestones that are tracked below.</p>
+<p><strong>Why 261, not 500:</strong> Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 261 PRs over 22 months = ~12 PRs/week — ambitious but achievable with AI-assisted development. Current velocity (10 PRs/day) exceeds this target.</p>
+<hr />
+<h2 id="competitive-positioning">Competitive Positioning</h2>
+<p>DWS7 exploits <strong>4 gaps no competitor fills:</strong></p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 51%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Gap</th>
+<th>Opportunity</th>
+<th>Competitors Missing It</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Unified Fit-for-55 platform</strong></td>
+<td>Single platform for ETS + CBAM + CSRD + ESR across 25+ industries</td>
+<td>Everyone specializes in one regulation</td>
+</tr>
+<tr class="even">
+<td><strong>IoT-to-compliance pipeline</strong></td>
+<td>Sensor data → verified regulatory filings, no manual steps</td>
+<td>Schneider does IoT, Persefoni does reporting — nobody bridges them</td>
+</tr>
+<tr class="odd">
+<td><strong>Agentic AI compliance</strong></td>
+<td>Multi-agent autonomous compliance checking + report generation</td>
+<td>CO2 AI and Schneider are exploring; nobody has shipped it</td>
+</tr>
+<tr class="even">
+<td><strong>Sovereign on-premise AI</strong></td>
+<td>Compliance workloads that cannot leave the customer’s premises — local inference on dedicated hardware, EU data residency guaranteed by physics not policy</td>
+<td>Every SaaS competitor routes data through US cloud APIs; nobody ships on-premise AI inference as a standard offering</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market size:</strong> Carbon accounting software market grows from $24.3B (2025) to $191.2B (2035) at 22.9% CAGR. Only 13.5% of EU businesses use AI — massive adoption runway.</p>
+<hr />
+<h2 id="infrastructure-assets">Infrastructure Assets</h2>
+<p>Physical and cloud infrastructure already in place entering Phase 1. These are not roadmap PRs — they are existing capital that de-risks execution.</p>
+<h3 id="compute">Compute</h3>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 20%" />
+<col style="width: 48%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Specs</th>
+<th>Role</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Acer Veriton GN100</strong></td>
+<td>NVIDIA GB10 Grace Blackwell, 128 GB unified LPDDR5x, 20 CPU cores (10× X925 + 10× A725), Ubuntu 24.04 LTS</td>
+<td>Local AI inference (Nemotron 3 Super primary, Qwen3-Coder 30B fast, OpenClaw agent runtime), Climate LLM inference for PR 161 fine-tuned adapter (training runs on EU-sovereign cloud GPU — Spark is inference-only), sovereign on-premise product offering</td>
+<td>In-house, operational. See <code>Admin/Acer-Veriton-GN100/README.md</code> and <code>docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md</code>.</td>
+</tr>
+<tr class="even">
+<td><strong>NVIDIA Jetson Orin Nano</strong></td>
+<td>Edge AI module, JetPack SDK</td>
+<td>Factory/site edge agent deployment (PR 154), offline IoT-to-compliance</td>
+<td>Roadmap target deployment</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cloud">Cloud</h3>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 31%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Provider</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EU Cloud backend</td>
+<td>Google Cloud Run (<code>europe-north1</code>)</td>
+<td>Express API, AI agents, EU data residency</td>
+</tr>
+<tr class="even">
+<td>Database</td>
+<td>Supabase (EU)</td>
+<td>PostgreSQL + Auth + Realtime + pgvector</td>
+</tr>
+<tr class="odd">
+<td>CDN / Edge</td>
+<td>Cloudflare Pages + Workers</td>
+<td>Landing pages, dashboard SPA, edge API</td>
+</tr>
+<tr class="even">
+<td>Full Sov. layer</td>
+<td>EU Cloud overlay</td>
+<td>EU AI Act Article 12 logging, reasoning lineage (Phase 2+)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-gn100-enables-for-the-roadmap">What GN100 enables for the roadmap</h3>
+<ul>
+<li><strong>PR 161 (Climate LLM):</strong> LoRA fine-tune on Nemotron 3 Super; training on EU-sovereign cloud GPU (Spark is inference-only per Saiyam Pathak 2026-03-13), adapter deploys to the Spark for ~19.5 tok/s local inference, no production data leaving premises at inference time</li>
+<li><strong>Sovereign on-premise AI gap:</strong> The 4th competitive gap (above) is real because this hardware already exists, and the local Brain is now Nemotron 3 Super (~4.5× faster than dense Llama 70B on the same hardware)</li>
+<li><strong>Groq risk mitigation:</strong> Immediate local inference fallback via Nemotron 3 Super (~87 GB Q4_K_M) and Qwen3-Coder 30B (~19 GB Q4 MoE) on the Spark — no cloud dependency, no per-token cost</li>
+<li><strong>OpenClaw agent runtime:</strong> Local autonomous-agent surface for confidential workloads (healthcare / finance / legal / defense data, code review on private repos, 256K-context long-document reasoning) — see <code>DWS_DEPLOYMENT_STANDARD.md</code> Surfaces table</li>
+<li><strong>EU AI Act Article 12:</strong> All local inference workloads log to sovereignty audit layer — compliance-by-default</li>
+</ul>
+<hr />
+<h2 id="phase-overview">Phase Overview</h2>
+<table>
+<colgroup>
+<col style="width: 3%" />
+<col style="width: 10%" />
+<col style="width: 27%" />
+<col style="width: 1%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Period</th>
+<th>Theme</th>
+<th>PRs</th>
+<th>Milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>Feb–Apr 2026</td>
+<td><strong>Launch &amp; Stabilize</strong></td>
+<td>45</td>
+<td>V1.0 production launch, first 3 paying customers</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td>May–Jul 2026</td>
+<td><strong>Compliance Engine + Carbon Balance Sheet</strong></td>
+<td>57</td>
+<td>Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger, EUTL-verified Scope 3</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td>Aug–Oct 2026</td>
+<td><strong>Scale &amp; Harden</strong></td>
+<td>48</td>
+<td>8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td>Nov 2026–Jan 2027</td>
+<td><strong>Intelligence Layer</strong></td>
+<td>40</td>
+<td>Agentic AI workflows, IoT pipeline live, <strong>Situation Room ships (LWM V2)</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td>Feb–May 2027</td>
+<td><strong>Market Expansion</strong></td>
+<td>44</td>
+<td>16 customers, supplier portal, partner ecosystem, open-source agent framework</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td>Jun–Dec 2027</td>
+<td><strong>DWS7 Release</strong></td>
+<td>32</td>
+<td>V7.0 GA, investor metrics dashboard, profitability</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-1-launch-stabilize-febapr-2026-45-prs">Phase 1: Launch &amp; Stabilize (Feb–Apr 2026) — 45 PRs</h2>
+<h3 id="phase-1-progress-audited-2026-03-15">Phase 1 Progress (Audited 2026-03-15)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 9%" />
+<col style="width: 48%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Area</th>
+<th>Planned</th>
+<th>Actual Status</th>
+<th>Readiness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Testing Foundation (PRs 001–012)</td>
+<td>12 PRs</td>
+<td>17 test files exist, no coverage gate yet</td>
+<td>55%</td>
+</tr>
+<tr class="even">
+<td>Backend Hardening (PRs 013–022)</td>
+<td>10 PRs</td>
+<td>Express running, JWT+Helmet, email dual-transport</td>
+<td>75%</td>
+</tr>
+<tr class="odd">
+<td>Dashboard Production (PRs 023–033)</td>
+<td>11 PRs</td>
+<td>v9-react working, missing error boundaries/loading</td>
+<td>60%</td>
+</tr>
+<tr class="even">
+<td>Deployment &amp; DevOps (PRs 034–040)</td>
+<td>7 PRs</td>
+<td>38 CI/CD workflows, no staging env</td>
+<td>85%</td>
+</tr>
+<tr class="odd">
+<td>Customer Onboarding (PRs 041–045)</td>
+<td>5 PRs</td>
+<td>Auth exists, no wizard or welcome flow</td>
+<td>40%</td>
+</tr>
+<tr class="even">
+<td><strong>Phase 1 Total</strong></td>
+<td><strong>45 PRs</strong></td>
+<td><strong>Mixed — infra ahead, onboarding behind</strong></td>
+<td><strong>65%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key finding:</strong> Infrastructure (CI/CD, email, agents, MCP) is ahead of schedule. Customer-facing features (onboarding, dashboard resilience, compliance engine) are behind. The platform is strong but the product experience is incomplete.</p>
+<h3 id="testing-foundation-prs-001012">1.1 Testing Foundation (PRs 001–012)</h3>
+<p>The codebase has <del>3</del> 17 test files. Coverage gate still missing — this remains a top risk.</p>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 37%" />
+<col style="width: 6%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>001</td>
+<td>Add Vitest coverage config and CI gate</td>
+<td>P0</td>
+<td>Configure coverage thresholds (60% min), add to CI pipeline</td>
+</tr>
+<tr class="even">
+<td>002</td>
+<td>Unit tests for auth service (register, login, JWT)</td>
+<td>P0</td>
+<td>Cover all auth flows: registration, login, password reset, token refresh</td>
+</tr>
+<tr class="odd">
+<td>003</td>
+<td>Unit tests for climate-assistant service</td>
+<td>P0</td>
+<td>Test Groq integration, budget tracking, tier system, topic filtering</td>
+</tr>
+<tr class="even">
+<td>004</td>
+<td>Unit tests for climate-assistant-gated service</td>
+<td>P0</td>
+<td>Test lead capture, tier escalation, rate limits per tier</td>
+</tr>
+<tr class="odd">
+<td>005</td>
+<td>Unit tests for email service and templates</td>
+<td>P1</td>
+<td>Test Resend integration, template rendering, variable substitution</td>
+</tr>
+<tr class="even">
+<td>006</td>
+<td>Unit tests for ERP base connector</td>
+<td>P1</td>
+<td>Test connection lifecycle, retry logic, auth header injection</td>
+</tr>
+<tr class="odd">
+<td>007</td>
+<td>Unit tests for Firehorse state machine</td>
+<td>P1</td>
+<td>Test all state transitions, invalid transitions, event handling</td>
+</tr>
+<tr class="even">
+<td>008</td>
+<td>Unit tests for Firehorse sales pipeline</td>
+<td>P1</td>
+<td>Test lead progression, scoring, pipeline stage management</td>
+</tr>
+<tr class="odd">
+<td>009</td>
+<td>Integration tests for auth routes (Supertest)</td>
+<td>P0</td>
+<td>Full HTTP request/response testing for /api/v1/auth/*</td>
+</tr>
+<tr class="even">
+<td>010</td>
+<td>Integration tests for climate-assistant routes</td>
+<td>P0</td>
+<td>HTTP tests for both public and gated assistant endpoints</td>
+</tr>
+<tr class="odd">
+<td>011</td>
+<td>Integration tests for webhook routes</td>
+<td>P1</td>
+<td>Test Resend webhook signature validation, event processing</td>
+</tr>
+<tr class="even">
+<td>012</td>
+<td>Add E2E smoke test suite for critical paths</td>
+<td>P0</td>
+<td>Login → dashboard → climate query → logout happy path</td>
+</tr>
+</tbody>
+</table>
+<h3 id="backend-hardening-prs-013022">1.2 Backend Hardening (PRs 013–022)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 36%" />
+<col style="width: 6%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>013</td>
+<td>Structured error handling middleware</td>
+<td>P0</td>
+<td>Replace ad-hoc try/catch with centralized error handler, error codes</td>
+</tr>
+<tr class="even">
+<td>014</td>
+<td>Request validation middleware with Zod</td>
+<td>P0</td>
+<td>Replace express-validator with Zod schemas matching frontend</td>
+</tr>
+<tr class="odd">
+<td>015</td>
+<td>API versioning strategy (v1/v2 coexistence)</td>
+<td>P1</td>
+<td>Standardize versioned routes, deprecation headers</td>
+</tr>
+<tr class="even">
+<td>016</td>
+<td>Health check endpoint with dependency status</td>
+<td>P0</td>
+<td>/health returns Supabase, Redis, Groq connectivity status</td>
+</tr>
+<tr class="odd">
+<td>017</td>
+<td>Graceful shutdown improvements</td>
+<td>P1</td>
+<td>Drain connections, complete in-flight requests, close DB pools</td>
+</tr>
+<tr class="even">
+<td>018</td>
+<td>Request/response logging with correlation IDs</td>
+<td>P0</td>
+<td>Pino structured logs with trace IDs for debugging</td>
+</tr>
+<tr class="odd">
+<td>019</td>
+<td>API rate limiting per tenant (not just global)</td>
+<td>P1</td>
+<td>Tenant-aware rate limits using organization_id</td>
+</tr>
+<tr class="even">
+<td>020</td>
+<td>Database connection pooling optimization</td>
+<td>P1</td>
+<td>Configure Supabase connection pool for production load</td>
+</tr>
+<tr class="odd">
+<td>021</td>
+<td>Environment config validation on startup</td>
+<td>P0</td>
+<td>Zod schema validates all required env vars before server starts</td>
+</tr>
+<tr class="even">
+<td>022</td>
+<td>OpenAPI/Swagger spec generation</td>
+<td>P1</td>
+<td>Auto-generate API docs from route definitions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dashboard-v10-production-readiness-prs-023033">1.3 Dashboard v10 Production Readiness (PRs 023–033)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 39%" />
+<col style="width: 6%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>023</td>
+<td>Dashboard error boundaries and fallback UI</td>
+<td>P0</td>
+<td>React error boundaries for each major section</td>
+</tr>
+<tr class="even">
+<td>024</td>
+<td>Loading states and skeleton screens</td>
+<td>P0</td>
+<td>Consistent loading UX across all data-fetching components</td>
+</tr>
+<tr class="odd">
+<td>025</td>
+<td>Dashboard responsive layout (tablet + mobile)</td>
+<td>P0</td>
+<td>Tailwind responsive breakpoints for all dashboard pages</td>
+</tr>
+<tr class="even">
+<td>026</td>
+<td>Real-time data with Supabase subscriptions</td>
+<td>P1</td>
+<td>Live updates for signals, agent status, metrics</td>
+</tr>
+<tr class="odd">
+<td>027</td>
+<td>Dashboard navigation and routing</td>
+<td>P0</td>
+<td>React Router with protected routes, breadcrumbs</td>
+</tr>
+<tr class="even">
+<td>028</td>
+<td>Carbon tracking page: chart components</td>
+<td>P1</td>
+<td>Recharts/Visx charts for emissions over time, by scope</td>
+</tr>
+<tr class="odd">
+<td>029</td>
+<td>Settings page: organization management</td>
+<td>P1</td>
+<td>Org profile, member invites, role management UI</td>
+</tr>
+<tr class="even">
+<td>030</td>
+<td>Settings page: notification preferences</td>
+<td>P2</td>
+<td>Email digest frequency, alert thresholds</td>
+</tr>
+<tr class="odd">
+<td>031</td>
+<td>Report viewer: PDF preview and download</td>
+<td>P1</td>
+<td>In-browser PDF rendering for compliance reports</td>
+</tr>
+<tr class="even">
+<td>032</td>
+<td>Agent chat: conversation history</td>
+<td>P1</td>
+<td>Persist and reload previous climate assistant conversations</td>
+</tr>
+<tr class="odd">
+<td>033</td>
+<td>Dashboard accessibility audit and fixes</td>
+<td>P1</td>
+<td>WCAG 2.1 AA: keyboard nav, screen reader, contrast</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deployment-devops-prs-034040">1.4 Deployment &amp; DevOps (PRs 034–040)</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 43%" />
+<col style="width: 6%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>034</td>
+<td>Staging environment on Cloud Run</td>
+<td>P0</td>
+<td>Separate staging project with production-like config</td>
+</tr>
+<tr class="even">
+<td>035</td>
+<td>Database migration CI pipeline</td>
+<td>P0</td>
+<td>Auto-run pending migrations on deploy, rollback on failure</td>
+</tr>
+<tr class="odd">
+<td>036</td>
+<td>Frontend build + deploy pipeline (Cloudflare Pages)</td>
+<td>P0</td>
+<td>v10-react auto-deploys on merge to main</td>
+</tr>
+<tr class="even">
+<td>037</td>
+<td>Sentry/error tracking integration</td>
+<td>P1</td>
+<td>Client + server error capture with source maps</td>
+</tr>
+<tr class="odd">
+<td>038</td>
+<td>Uptime monitoring (Checkly or equivalent)</td>
+<td>P1</td>
+<td>Synthetic checks for API, dashboard, landing pages</td>
+</tr>
+<tr class="even">
+<td>039</td>
+<td>Log aggregation setup (Grafana Loki or Cloud Logging)</td>
+<td>P1</td>
+<td>Centralized log search across services</td>
+</tr>
+<tr class="odd">
+<td>040</td>
+<td>Secrets rotation runbook and automation</td>
+<td>P2</td>
+<td>Documented process + script for rotating all API keys</td>
+</tr>
+</tbody>
+</table>
+<h3 id="customer-onboarding-prs-041045">1.5 Customer Onboarding (PRs 041–045)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 35%" />
+<col style="width: 6%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>041</td>
+<td>Customer onboarding wizard (multi-step form)</td>
+<td>P0</td>
+<td>Industry selection → company profile → ERP connection → first report</td>
+</tr>
+<tr class="even">
+<td>042</td>
+<td>Welcome email sequence (3-email drip)</td>
+<td>P1</td>
+<td>Day 0: welcome, Day 3: first steps, Day 7: check-in</td>
+</tr>
+<tr class="odd">
+<td>043</td>
+<td>In-app guided tour (first-time user)</td>
+<td>P1</td>
+<td>Highlight key features on first login</td>
+</tr>
+<tr class="even">
+<td>044</td>
+<td>Customer-facing API documentation</td>
+<td>P1</td>
+<td>Interactive API docs for programmatic access</td>
+</tr>
+<tr class="odd">
+<td>045</td>
+<td>SLA monitoring dashboard (internal)</td>
+<td>P2</td>
+<td>Track uptime, response times, error rates per customer</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-2-compliance-engine-mayjul-2026-57-prs">Phase 2: Compliance Engine (May–Jul 2026) — 57 PRs</h2>
+<h3 id="eu-ets-module-prs-046057">2.1 EU ETS Module (PRs 046–057)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 40%" />
+<col style="width: 6%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>046</td>
+<td>ETS installation registry data model</td>
+<td>P0</td>
+<td>Supabase schema for installations, permits, activity data</td>
+</tr>
+<tr class="even">
+<td>047</td>
+<td>ETS emission calculation engine (Scope 1)</td>
+<td>P0</td>
+<td>Standard + fallback calculation methods per activity type</td>
+</tr>
+<tr class="odd">
+<td>048</td>
+<td>ETS free allowance tracker (2026–2034 phase-out)</td>
+<td>P0</td>
+<td>Model annual free allocation reduction per sector</td>
+</tr>
+<tr class="even">
+<td>049</td>
+<td>ETS allowance price integration (live market data)</td>
+<td>P1</td>
+<td>Daily EUA price fetch from ICE/EEX; store history</td>
+</tr>
+<tr class="odd">
+<td>050</td>
+<td>ETS financial exposure calculator</td>
+<td>P0</td>
+<td>Project carbon cost based on allocation shortfall × market price</td>
+</tr>
+<tr class="even">
+<td>051</td>
+<td>ETS MRV report generator (monitoring plan format)</td>
+<td>P0</td>
+<td>Auto-generate Monitoring, Reporting, Verification documents</td>
+</tr>
+<tr class="odd">
+<td>052</td>
+<td>ETS verification workflow</td>
+<td>P1</td>
+<td>Status tracking: draft → submitted → verified → approved</td>
+</tr>
+<tr class="even">
+<td>053</td>
+<td>ETS compliance calendar with deadline alerts</td>
+<td>P1</td>
+<td>Key dates: Mar 31 report, Apr 30 surrender, Sep 30 verification</td>
+</tr>
+<tr class="odd">
+<td>054</td>
+<td>ETS sector benchmarks (cement, steel, chemicals)</td>
+<td>P1</td>
+<td>Pre-loaded benchmark values for 25+ industries</td>
+</tr>
+<tr class="even">
+<td>055</td>
+<td>ETS allowance trading decision support</td>
+<td>P2</td>
+<td>Buy/sell recommendation based on position and price forecast</td>
+</tr>
+<tr class="odd">
+<td>056</td>
+<td>ETS historical emissions dashboard</td>
+<td>P1</td>
+<td>Year-over-year trend visualization, target vs actual</td>
+</tr>
+<tr class="even">
+<td>057</td>
+<td>ETS export to national registry XML format</td>
+<td>P1</td>
+<td>Generate submission-ready XML for EU Transaction Log</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cbam-module-prs-058067">2.2 CBAM Module (PRs 058–067)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 37%" />
+<col style="width: 6%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>058</td>
+<td>CBAM product classification (CN codes)</td>
+<td>P0</td>
+<td>Map imported products to CBAM-covered categories</td>
+</tr>
+<tr class="even">
+<td>059</td>
+<td>CBAM embedded emissions calculator</td>
+<td>P0</td>
+<td>Direct + indirect emissions per product, default values fallback</td>
+</tr>
+<tr class="odd">
+<td>060</td>
+<td>CBAM supplier data collection portal</td>
+<td>P0</td>
+<td>Self-service portal for non-EU suppliers to submit emissions data</td>
+</tr>
+<tr class="even">
+<td>061</td>
+<td>CBAM quarterly report generator</td>
+<td>P0</td>
+<td>Transitional period report format (2026)</td>
+</tr>
+<tr class="odd">
+<td>062</td>
+<td>CBAM certificate cost estimator</td>
+<td>P1</td>
+<td>Calculate CBAM certificate obligation based on import volume</td>
+</tr>
+<tr class="even">
+<td>063</td>
+<td>CBAM country-of-origin carbon price adjustment</td>
+<td>P1</td>
+<td>Deduct carbon price already paid in country of origin</td>
+</tr>
+<tr class="odd">
+<td>064</td>
+<td>CBAM customs data integration</td>
+<td>P1</td>
+<td>Import customs declarations to auto-populate CBAM data</td>
+</tr>
+<tr class="even">
+<td>065</td>
+<td>CBAM supplier verification workflow</td>
+<td>P1</td>
+<td>Track supplier data quality, flag missing/suspicious data</td>
+</tr>
+<tr class="odd">
+<td>066</td>
+<td>CBAM financial impact dashboard</td>
+<td>P1</td>
+<td>Visualize CBAM cost by product, supplier, country</td>
+</tr>
+<tr class="even">
+<td>067</td>
+<td>CBAM definitive period preparation (2026+)</td>
+<td>P2</td>
+<td>Schema and logic for post-transitional CBAM requirements</td>
+</tr>
+</tbody>
+</table>
+<h3 id="csrdesrs-module-prs-068077">2.3 CSRD/ESRS Module (PRs 068–077)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 38%" />
+<col style="width: 6%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>068</td>
+<td>ESRS data point registry</td>
+<td>P0</td>
+<td>Complete ESRS disclosure requirements mapped to data fields</td>
+</tr>
+<tr class="even">
+<td>069</td>
+<td>ESRS E1 Climate: GHG emissions data collection</td>
+<td>P0</td>
+<td>Scope 1/2/3 data entry with calculation helpers</td>
+</tr>
+<tr class="odd">
+<td>070</td>
+<td>ESRS E1 Climate: transition plan template</td>
+<td>P0</td>
+<td>Structured template for climate transition plan</td>
+</tr>
+<tr class="even">
+<td>071</td>
+<td>ESRS double materiality assessment tool</td>
+<td>P1</td>
+<td>Guided assessment: impact materiality + financial materiality</td>
+</tr>
+<tr class="odd">
+<td>072</td>
+<td>ESRS report builder (multi-standard)</td>
+<td>P0</td>
+<td>Assemble ESRS disclosures into compliant report format</td>
+</tr>
+<tr class="even">
+<td>073</td>
+<td>ESRS data validation rules engine</td>
+<td>P1</td>
+<td>Cross-check data points for consistency and completeness</td>
+</tr>
+<tr class="odd">
+<td>074</td>
+<td>ESRS gap analysis dashboard</td>
+<td>P1</td>
+<td>Show readiness percentage per disclosure requirement</td>
+</tr>
+<tr class="even">
+<td>075</td>
+<td>ESRS audit trail for all data entries</td>
+<td>P0</td>
+<td>Immutable log of who changed what, when, with evidence</td>
+</tr>
+<tr class="odd">
+<td>076</td>
+<td>ESRS value chain (Scope 3) data collection</td>
+<td>P1</td>
+<td>Supplier engagement + estimation methods for upstream/downstream</td>
+</tr>
+<tr class="even">
+<td>077</td>
+<td>ESRS XBRL tagging for digital filing</td>
+<td>P2</td>
+<td>Auto-tag disclosures for ESEF digital reporting</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eu-ai-act-compliance-prs-078083">2.4 EU AI Act Compliance (PRs 078–083)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 36%" />
+<col style="width: 6%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>078</td>
+<td>Article 12 automatic logging framework</td>
+<td>P0</td>
+<td>Structured log every AI decision: input, output, model, confidence</td>
+</tr>
+<tr class="even">
+<td>079</td>
+<td>Reasoning lineage documentation per AI output</td>
+<td>P0</td>
+<td>Chain-of-thought trace from input → processing → recommendation</td>
+</tr>
+<tr class="odd">
+<td>080</td>
+<td>AI model registry with version tracking</td>
+<td>P1</td>
+<td>Track which model version produced which outputs</td>
+</tr>
+<tr class="even">
+<td>081</td>
+<td>Human-in-the-loop override mechanism</td>
+<td>P0</td>
+<td>Allow users to override any AI recommendation with audit trail</td>
+</tr>
+<tr class="odd">
+<td>082</td>
+<td>AI transparency disclosures in UI</td>
+<td>P1</td>
+<td>Clear labeling of AI-generated content, confidence indicators</td>
+</tr>
+<tr class="even">
+<td>083</td>
+<td>AI risk assessment documentation</td>
+<td>P1</td>
+<td>FRIA (Fundamental Rights Impact Assessment) for high-risk uses</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cross-regulation-features-prs-084093">2.5 Cross-Regulation Features (PRs 084–093)</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 51%" />
+<col style="width: 5%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>084</td>
+<td>Unified compliance calendar (all regulations)</td>
+<td>P0</td>
+<td>Single view of all deadlines across ETS, CBAM, CSRD</td>
+</tr>
+<tr class="even">
+<td>085</td>
+<td>Cross-regulation data sharing layer</td>
+<td>P1</td>
+<td>Emissions data entered once, used across ETS + CBAM + CSRD</td>
+</tr>
+<tr class="odd">
+<td>086</td>
+<td>Regulation change tracker (auto-detect updates)</td>
+<td>P2</td>
+<td>Monitor EUR-Lex for regulatory amendments</td>
+</tr>
+<tr class="even">
+<td>087</td>
+<td>Multi-entity compliance (group reporting)</td>
+<td>P1</td>
+<td>Parent + subsidiary consolidation for CSRD group reporting</td>
+</tr>
+<tr class="odd">
+<td>088</td>
+<td>Compliance status API for ERP integration</td>
+<td>P1</td>
+<td>Push compliance status back to SAP/IFS/Dynamics</td>
+</tr>
+<tr class="even">
+<td>089</td>
+<td>Notification engine (email + in-app + webhook)</td>
+<td>P0</td>
+<td>Configurable alerts for deadlines, data gaps, threshold breaches</td>
+</tr>
+<tr class="odd">
+<td>090</td>
+<td>Compliance evidence vault</td>
+<td>P1</td>
+<td>Secure document storage linked to specific disclosures</td>
+</tr>
+<tr class="even">
+<td>091</td>
+<td>Industry-specific compliance templates (batch 1: cement, steel, chemicals)</td>
+<td>P0</td>
+<td>Pre-configured for top 3 industries</td>
+</tr>
+<tr class="odd">
+<td>092</td>
+<td>Industry-specific compliance templates (batch 2: aluminum, fertilizers, hydrogen)</td>
+<td>P1</td>
+<td>Next 3 CBAM-covered industries</td>
+</tr>
+<tr class="even">
+<td>093</td>
+<td>Regulatory readiness score per customer</td>
+<td>P1</td>
+<td>Weighted score across all applicable regulations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="carbon-balance-sheet-debit-credit-compliance-ledger-prs-093a093i">2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093I)</h3>
+<p><strong>Cortex-shift framing:</strong> This subsection is DWS’s “AI Actions” layer (see Executive Summary). A horizontal Cortex/Mosaic/AIP deployment can generate a carbon dashboard from a Snowflake notebook by Q3 2026; what it cannot do is post a signed, source-traced journal entry that reconciles ETS + CBAM + CSRD into one auditable balance. The ledger is the line item neither competitor can replicate without rebuilding their agent layer. It must ship in DWS7 Phase 2 — 2028 (DWS 8) is too late.</p>
+<p><strong>Why now (not DWS 8):</strong> The debit-credit ledger is the Series A story. Investors fund infrastructure, not features. A persistent carbon balance sheet that unifies ETS + CBAM + CSRD into one auditable ledger is the moat — and it must be demonstrable before fundraising.</p>
+<p><strong>Foundation:</strong> The in-memory <code>costBreakdownToLedger()</code> transform already ships in DWS 6 (<code>src/compliance/debit-credit-ledger.ts</code>). Phase 2.6 persists it, adds dual-unit accounting, and connects it to the compliance modules above.</p>
+<p><strong>The pitch:</strong> <em>“From ‘How do we guess our footprint?’ to ‘How do we reconcile our carbon balance sheet?’”</em></p>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 8%" />
+<col style="width: 1%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>093A</td>
+<td>Persistent carbon ledger table</td>
+<td>P0</td>
+<td>Immutable append-only ledger in Supabase. Schema: <code>(id, org_id, entry_type, category, amount_eur, amount_tco2e, regulation, source_id, verified, description, created_at)</code>. RLS enforced. No UPDATE/DELETE — corrections are reverse entries. Builds on PR 075 (audit trail) and PR 097 (mutation logging)</td>
+</tr>
+<tr class="even">
+<td>093B</td>
+<td>Dual-unit entries (EUR + tCO2e)</td>
+<td>P0</td>
+<td>Every compliance entry carries both financial (EUR) and physical (tCO2e) amounts. Carbon price at time of entry preserved for audit trail. ETS surrender = debit (EUR + tCO2e). Free allocation = credit. CBAM certificate = debit. Links PR 050 (ETS financial exposure) to PR 062 (CBAM certificate cost) through the same ledger</td>
+</tr>
+<tr class="odd">
+<td>093C</td>
+<td>Chart of carbon accounts</td>
+<td>P1</td>
+<td>Standardized account structure mapping to ESRS E1: Scope 1 Direct (ETS), Scope 2 Indirect (grid), Scope 3 Upstream (CBAM imports), Scope 3 Downstream, Offsets/Credits, Free Allocation. Every entry in PRs 046–093 maps to one account. CFO sees a balance sheet, not a spreadsheet</td>
+</tr>
+<tr class="even">
+<td>093D</td>
+<td>ETS ↔︎ CBAM ↔︎ CSRD cross-regulation reconciliation</td>
+<td>P0</td>
+<td>The same tonne of CO2e that appears as an ETS surrender debit for a steel mill becomes a CBAM embedded emission for the importer, becomes a CSRD Scope 3 upstream disclosure for the buyer. One ledger entry, three regulatory views. Transforms PR 085 (cross-regulation data sharing) from data copying to ledger reconciliation</td>
+</tr>
+<tr class="odd">
+<td>093E</td>
+<td>Ledger-native compliance scoring</td>
+<td>P0</td>
+<td>Refactor scoring engine to read from ledger entries instead of computing from scratch. Score = f(ledger balance). Deterministic, auditable, reproducible. Every score traces back to specific debit/credit entries with source citations</td>
+</tr>
+<tr class="even">
+<td>093F</td>
+<td>Carbon balance dashboard (CFO view)</td>
+<td>P1</td>
+<td>Balance sheet view: total carbon liabilities (debits) vs carbon assets (credits, free allocation, offsets). Net carbon position. Trend over time. Drill down by regulation, scope, entity. This is the investor demo screen</td>
+</tr>
+<tr class="odd">
+<td>093G</td>
+<td>ERP GL sync (carbon → financial ledger)</td>
+<td>P1</td>
+<td>Push carbon ledger entries to SAP/IFS/Dynamics general ledger as line items. Carbon costs appear in the financial P&amp;L alongside material costs. Bi-directional: ERP purchase orders generate CBAM debit entries automatically. Builds on PR 088 (compliance status API) and PRs 129–137 (ERP connectors)</td>
+</tr>
+<tr class="even">
+<td>093H</td>
+<td>XBRL/iXBRL export from ledger</td>
+<td>P1</td>
+<td>Export carbon balance sheet to ESRS-compliant XBRL for regulatory filing. Machine-readable CSRD reports. Extends PR 077 (XBRL tagging) with full ledger-backed data. EFRAG taxonomy auto-mapped from chart of carbon accounts</td>
+</tr>
+<tr class="odd">
+<td>093I</td>
+<td>EUTL transaction-verified Scope 3 factors</td>
+<td>P0</td>
+<td>Pulled forward from DWS 8 (was 8-041, single-entity slice). Replace CBAM Reg. 2023/1773 default emission factors with actual verified emissions from the EUTL installation record when the supplier is identifiable. Moves activity-based estimates (±15%) toward transaction-verified accuracy (±3%). The cross-customer network-effect version (one customer’s verified data improving another’s ledger) remains in DWS 8 (8-041). This is the sales wedge: “your CBAM number is traced to EUTL installation DE-123456, not a sector average”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What this enables for fundraising:</strong></p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Investor Question</th>
+<th>Answer with Carbon Balance Sheet</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“What’s your moat?”</td>
+<td>Double-entry carbon bookkeeping across ETS + CBAM + CSRD. No competitor has this.</td>
+</tr>
+<tr class="even">
+<td>“How sticky is this?”</td>
+<td>Carbon ledger is the system of record. Same switching cost as changing your ERP.</td>
+</tr>
+<tr class="odd">
+<td>“What’s the TAM?”</td>
+<td>Every EU company filing CSRD needs a carbon balance sheet. 50,000+ companies by 2028.</td>
+</tr>
+<tr class="even">
+<td>“How do you expand?”</td>
+<td>More industries on the ledger = cross-vertical intelligence. Network effect.</td>
+</tr>
+<tr class="odd">
+<td>“Show me the product.”</td>
+<td>CFO dashboard: carbon liabilities, assets, net position, regulatory drill-down (PR 093F).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-3-scale-harden-augoct-2026-48-prs">Phase 3: Scale &amp; Harden (Aug–Oct 2026) — 48 PRs</h2>
+<h3 id="security-certifications-prs-094103">3.1 Security Certifications (PRs 094–103)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 36%" />
+<col style="width: 6%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>094</td>
+<td>ISO 27001 gap analysis and remediation plan</td>
+<td>P0</td>
+<td>Map current controls against ISO 27001 Annex A</td>
+</tr>
+<tr class="even">
+<td>095</td>
+<td>Information security policy documents</td>
+<td>P0</td>
+<td>ISMS policies: access control, data classification, incident response</td>
+</tr>
+<tr class="odd">
+<td>096</td>
+<td>Role-based access control (RBAC) enforcement</td>
+<td>P0</td>
+<td>Enforce org-level permissions on every API endpoint</td>
+</tr>
+<tr class="even">
+<td>097</td>
+<td>Audit logging for all data mutations</td>
+<td>P0</td>
+<td>Record every create/update/delete with user, timestamp, old/new value</td>
+</tr>
+<tr class="odd">
+<td>098</td>
+<td>Data encryption at rest (Supabase TDE)</td>
+<td>P1</td>
+<td>Enable transparent data encryption on all sensitive tables</td>
+</tr>
+<tr class="even">
+<td>099</td>
+<td>Penetration test remediation (external vendor)</td>
+<td>P0</td>
+<td>Fix findings from scheduled pentest</td>
+</tr>
+<tr class="odd">
+<td>100</td>
+<td>SOC 2 Type I evidence collection</td>
+<td>P1</td>
+<td>Automated evidence gathering for SOC 2 controls</td>
+</tr>
+<tr class="even">
+<td>101</td>
+<td>Vulnerability management process</td>
+<td>P1</td>
+<td>Triage, SLA, and remediation workflow for security findings</td>
+</tr>
+<tr class="odd">
+<td>102</td>
+<td>Data retention and deletion policies</td>
+<td>P1</td>
+<td>GDPR-compliant retention schedules, automated purge jobs</td>
+</tr>
+<tr class="even">
+<td>103</td>
+<td>Third-party risk assessment framework</td>
+<td>P2</td>
+<td>Vendor security questionnaire for Groq, Supabase, Cloudflare</td>
+</tr>
+</tbody>
+</table>
+<h3 id="multi-tenancy-isolation-prs-104111">3.2 Multi-Tenancy &amp; Isolation (PRs 104–111)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 38%" />
+<col style="width: 6%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>104</td>
+<td>Row-level security (RLS) policies for all tables</td>
+<td>P0</td>
+<td>Enforce tenant isolation at database level</td>
+</tr>
+<tr class="even">
+<td>105</td>
+<td>Tenant-scoped API middleware</td>
+<td>P0</td>
+<td>Inject org_id into every query from JWT claims</td>
+</tr>
+<tr class="odd">
+<td>106</td>
+<td>Tenant data export (GDPR data portability)</td>
+<td>P1</td>
+<td>Export all customer data in machine-readable format</td>
+</tr>
+<tr class="even">
+<td>107</td>
+<td>Tenant provisioning automation</td>
+<td>P1</td>
+<td>API to create new org with default config, admin user, sample data</td>
+</tr>
+<tr class="odd">
+<td>108</td>
+<td>Tenant usage metering</td>
+<td>P0</td>
+<td>Track API calls, AI queries, storage per org for billing</td>
+</tr>
+<tr class="even">
+<td>109</td>
+<td>Tenant-level rate limiting</td>
+<td>P1</td>
+<td>Different rate limits per plan tier (starter/pro/enterprise)</td>
+</tr>
+<tr class="odd">
+<td>110</td>
+<td>Cross-tenant data leak prevention tests</td>
+<td>P0</td>
+<td>Automated tests verifying tenant A cannot access tenant B data</td>
+</tr>
+<tr class="even">
+<td>111</td>
+<td>Tenant admin dashboard (customer self-service)</td>
+<td>P1</td>
+<td>Manage users, roles, billing, API keys within their org</td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-reliability-prs-112120">3.3 Performance &amp; Reliability (PRs 112–120)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 40%" />
+<col style="width: 6%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>112</td>
+<td>API response time benchmarks and optimization</td>
+<td>P1</td>
+<td>Target: p95 &lt; 200ms for reads, &lt; 500ms for writes</td>
+</tr>
+<tr class="even">
+<td>113</td>
+<td>Database query optimization (slow query analysis)</td>
+<td>P1</td>
+<td>Identify and optimize queries &gt; 100ms</td>
+</tr>
+<tr class="odd">
+<td>114</td>
+<td>Redis caching layer for frequent queries</td>
+<td>P1</td>
+<td>Cache compliance status, dashboard metrics, user preferences</td>
+</tr>
+<tr class="even">
+<td>115</td>
+<td>CDN configuration for static assets</td>
+<td>P1</td>
+<td>Cloudflare caching rules for dashboard, landing pages</td>
+</tr>
+<tr class="odd">
+<td>116</td>
+<td>Load testing suite (k6 or Artillery)</td>
+<td>P0</td>
+<td>Simulate 100 concurrent users across key workflows</td>
+</tr>
+<tr class="even">
+<td>117</td>
+<td>Auto-scaling configuration (Cloud Run)</td>
+<td>P1</td>
+<td>Min/max instances, CPU/memory thresholds</td>
+</tr>
+<tr class="odd">
+<td>118</td>
+<td>Database backup verification (restore test)</td>
+<td>P0</td>
+<td>Monthly automated restore test to verify backup integrity</td>
+</tr>
+<tr class="even">
+<td>119</td>
+<td>Circuit breaker for external services</td>
+<td>P1</td>
+<td>Graceful degradation when Groq, Supabase, or ERP APIs fail</td>
+</tr>
+<tr class="odd">
+<td>120</td>
+<td>Zero-downtime deployment pipeline</td>
+<td>P1</td>
+<td>Blue-green or canary deploy on Cloud Run</td>
+</tr>
+</tbody>
+</table>
+<h3 id="billing-subscription-prs-121128">3.4 Billing &amp; Subscription (PRs 121–128)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 33%" />
+<col style="width: 6%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>121</td>
+<td>Subscription plan data model</td>
+<td>P0</td>
+<td>Plans: Starter (€500/mo), Professional (€2,000/mo), Enterprise (€5,000+/mo)</td>
+</tr>
+<tr class="even">
+<td>122</td>
+<td>Stripe subscription integration</td>
+<td>P0</td>
+<td>Create/update/cancel subscriptions, webhook handlers</td>
+</tr>
+<tr class="odd">
+<td>123</td>
+<td>Usage-based billing calculation</td>
+<td>P1</td>
+<td>Metered billing for AI queries, API calls above plan limits</td>
+</tr>
+<tr class="even">
+<td>124</td>
+<td>Invoice generation and history</td>
+<td>P1</td>
+<td>Monthly invoices with line items, downloadable PDF</td>
+</tr>
+<tr class="odd">
+<td>125</td>
+<td>Plan upgrade/downgrade flow</td>
+<td>P1</td>
+<td>Self-service plan changes with proration</td>
+</tr>
+<tr class="even">
+<td>126</td>
+<td>Billing dashboard (customer-facing)</td>
+<td>P1</td>
+<td>Current plan, usage, invoices, payment method management</td>
+</tr>
+<tr class="odd">
+<td>127</td>
+<td>Dunning management (failed payment handling)</td>
+<td>P2</td>
+<td>Retry logic, grace period, account suspension flow</td>
+</tr>
+<tr class="even">
+<td>128</td>
+<td>Revenue analytics dashboard (internal)</td>
+<td>P1</td>
+<td>MRR, churn, expansion revenue, LTV tracking</td>
+</tr>
+</tbody>
+</table>
+<h3 id="erp-integration-depth-prs-129137">3.5 ERP Integration Depth (PRs 129–137)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 38%" />
+<col style="width: 7%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>129</td>
+<td>SAP S/4HANA bidirectional sync (production)</td>
+<td>P0</td>
+<td>Tested, production-ready SAP connector with real customer</td>
+</tr>
+<tr class="even">
+<td>130</td>
+<td>IFS Cloud connector (full implementation)</td>
+<td>P0</td>
+<td>Complete IFS integration for Nordic manufacturing customers</td>
+</tr>
+<tr class="odd">
+<td>131</td>
+<td>Monitor ERP connector (full implementation)</td>
+<td>P1</td>
+<td>Nordic SME market — key competitive differentiator</td>
+</tr>
+<tr class="even">
+<td>132</td>
+<td>Microsoft Dynamics 365 BC connector</td>
+<td>P1</td>
+<td>Most common ERP for EU mid-market</td>
+</tr>
+<tr class="odd">
+<td>133</td>
+<td>ERP data mapping UI (customer self-service)</td>
+<td>P1</td>
+<td>Visual field mapping editor for custom ERP configurations</td>
+</tr>
+<tr class="even">
+<td>134</td>
+<td>ERP sync status dashboard</td>
+<td>P1</td>
+<td>Show last sync time, errors, data quality scores per entity</td>
+</tr>
+<tr class="odd">
+<td>135</td>
+<td>ERP webhook receiver for real-time events</td>
+<td>P2</td>
+<td>React to ERP changes instantly instead of polling</td>
+</tr>
+<tr class="even">
+<td>136</td>
+<td>ERP integration test suite</td>
+<td>P0</td>
+<td>Mock-based tests for all 6 ERP connectors</td>
+</tr>
+<tr class="odd">
+<td>137</td>
+<td>ERP connector SDK documentation</td>
+<td>P2</td>
+<td>Guide for partners to build custom connectors</td>
+</tr>
+</tbody>
+</table>
+<h3 id="aegis-k8s-ai-inference-infrastructure-prs-137a137d">3.6 Aegis K8s AI Inference Infrastructure (PRs 137A–137D)</h3>
+<blockquote>
+<p><strong>Source:</strong> KubeCon + CloudNativeCon Europe 2026 research (field note: <code>2026-03-30-kubecon-eu-2026-k8s-ai-inference.md</code>) <strong>Context:</strong> 82% K8s AI adoption vs 7% daily production use. $255B inference market by 2030. 67% of AI compute is inference. These PRs close the adoption-production gap for Aegis defence/sovereign customers.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>137A</td>
+<td>Aegis inference autoscaling (HPA + KEDA)</td>
+<td>P0</td>
+<td>K8s Horizontal Pod Autoscaler policies for Aegis agents based on inference queue depth. KEDA scalers for GPU workload metrics. Ensures elastic scaling under variable inference load — defence customers have bursty workloads (crisis response, satellite pass windows). Target: scale 0→N agents in &lt;30s.</td>
+</tr>
+<tr class="even">
+<td>137B</td>
+<td>Multi-model GPU sharing via MIG</td>
+<td>P1</td>
+<td>NVIDIA Multi-Instance GPU (MIG) configuration for L40S nodes on UpCloud UKS. Run multiple Aegis agents (ComplianceAgent, SovereigntyMonitor, ArgusAgent) on a single GPU with isolated VRAM partitions. Target: reduce per-customer GPU cost from €376/mo to &lt;€200/mo.</td>
+</tr>
+<tr class="odd">
+<td>137C</td>
+<td>K8s-native model versioning CRDs</td>
+<td>P1</td>
+<td>Custom Resource Definitions for model deployments on Aegis K8s clusters. Blue/green model updates for compliance agents without downtime. Model rollback in &lt;60s. Critical for Article 12 audit continuity — every model version change must be logged with reasoning lineage.</td>
+</tr>
+<tr class="even">
+<td>137D</td>
+<td>Edge-cloud inference split (Jetson + K8s)</td>
+<td>P2</td>
+<td>Hybrid inference architecture combining Jetson Orin Nano edge inference with UpCloud K8s cloud inference. Model routing based on classification level, latency requirements, and data sovereignty constraints. Defence field operations need local inference for classified workloads + cloud inference for cross-vertical intelligence.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-4-intelligence-layer-nov-2026jan-2027-40-prs">Phase 4: Intelligence Layer (Nov 2026–Jan 2027) — 40 PRs</h2>
+<h3 id="agentic-ai-workflows-prs-138150">4.1 Agentic AI Workflows (PRs 138–150)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 41%" />
+<col style="width: 6%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>138</td>
+<td>Agent orchestration engine (Temporal.io integration)</td>
+<td>P0</td>
+<td>Durable, resumable multi-agent workflows</td>
+</tr>
+<tr class="even">
+<td>139</td>
+<td>Compliance checking agent</td>
+<td>P0</td>
+<td>Autonomous scan of customer data against regulation thresholds</td>
+</tr>
+<tr class="odd">
+<td>140</td>
+<td>Data collection agent</td>
+<td>P0</td>
+<td>Auto-pull missing data from connected ERPs and IoT sensors</td>
+</tr>
+<tr class="even">
+<td>141</td>
+<td>Report generation agent</td>
+<td>P0</td>
+<td>Autonomous ETS/CBAM/CSRD report drafting from collected data</td>
+</tr>
+<tr class="odd">
+<td>142</td>
+<td>Anomaly detection agent</td>
+<td>P1</td>
+<td>Flag unusual emissions spikes, data quality issues</td>
+</tr>
+<tr class="even">
+<td>143</td>
+<td>Deadline reminder agent</td>
+<td>P1</td>
+<td>Proactive notifications before compliance deadlines</td>
+</tr>
+<tr class="odd">
+<td>144</td>
+<td>Supplier outreach agent</td>
+<td>P1</td>
+<td>Auto-send CBAM data requests to suppliers, track responses</td>
+</tr>
+<tr class="even">
+<td>145</td>
+<td>Agent execution dashboard</td>
+<td>P0</td>
+<td>Real-time view of running agents, their status, outputs</td>
+</tr>
+<tr class="odd">
+<td>146</td>
+<td>Agent approval workflow (human-in-the-loop)</td>
+<td>P0</td>
+<td>Queue agent outputs for human review before submission</td>
+</tr>
+<tr class="even">
+<td>147</td>
+<td>Agent performance analytics</td>
+<td>P1</td>
+<td>Track agent accuracy, execution time, human override rate</td>
+</tr>
+<tr class="odd">
+<td>148</td>
+<td>Multi-agent pipeline builder (visual)</td>
+<td>P2</td>
+<td>Drag-and-drop agent workflow construction</td>
+</tr>
+<tr class="even">
+<td>149</td>
+<td>Agent notification system</td>
+<td>P1</td>
+<td>Alert users when agents complete, fail, or need input</td>
+</tr>
+<tr class="odd">
+<td>150</td>
+<td>Agent retry and error recovery</td>
+<td>P1</td>
+<td>Automatic retry with exponential backoff, dead letter queue</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iot-to-compliance-pipeline-prs-151160">4.2 IoT-to-Compliance Pipeline (PRs 151–160)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 39%" />
+<col style="width: 6%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>151</td>
+<td>IoT data ingestion API</td>
+<td>P0</td>
+<td>High-throughput endpoint for sensor data (MQTT → REST bridge)</td>
+</tr>
+<tr class="even">
+<td>152</td>
+<td>Sensor data normalization layer</td>
+<td>P0</td>
+<td>Standardize diverse sensor formats into unified schema</td>
+</tr>
+<tr class="odd">
+<td>153</td>
+<td>Real-time emissions calculation from sensor data</td>
+<td>P0</td>
+<td>Convert energy/fuel/process readings to CO2e in real-time</td>
+</tr>
+<tr class="even">
+<td>154</td>
+<td>Jetson Orin Nano edge agent deployment</td>
+<td>P1</td>
+<td>Package and deploy inference models to edge devices</td>
+</tr>
+<tr class="odd">
+<td>155</td>
+<td>Edge-to-cloud data sync with conflict resolution</td>
+<td>P1</td>
+<td>Handle offline periods, reconcile when connectivity restored</td>
+</tr>
+<tr class="even">
+<td>156</td>
+<td>Sensor health monitoring dashboard</td>
+<td>P1</td>
+<td>Track sensor connectivity, data quality, calibration status</td>
+</tr>
+<tr class="odd">
+<td>157</td>
+<td>Automated MRV from sensor data</td>
+<td>P0</td>
+<td>Generate Monitoring/Reporting/Verification docs from live data</td>
+</tr>
+<tr class="even">
+<td>158</td>
+<td>Sensor data to ETS submission pipeline</td>
+<td>P1</td>
+<td>End-to-end: sensor → calculation → verification → XML export</td>
+</tr>
+<tr class="odd">
+<td>159</td>
+<td>IoT device provisioning and management</td>
+<td>P1</td>
+<td>Register, configure, update edge devices remotely</td>
+</tr>
+<tr class="even">
+<td>160</td>
+<td>Predictive maintenance from sensor patterns</td>
+<td>P2</td>
+<td>ML model for equipment failure prediction</td>
+</tr>
+</tbody>
+</table>
+<h3 id="climate-llm-enhancement-prs-161170">4.3 Climate LLM Enhancement (PRs 161–170)</h3>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 6%" />
+<col style="width: 1%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>161</td>
+<td>Fine-tuned climate LLM (LoRA on Nemotron 3 Super)</td>
+<td>P1</td>
+<td>Domain-specific model trained on EU regulation corpus. Base model: NVIDIA Nemotron 3 Super (<code>nemotron_h_moe</code>, 123.6B total / 12.7B active, Mamba-2 + attention + Latent MoE, pretrained NVFP4). LoRA training runs on EU-sovereign cloud GPU (DGX Cloud Frankfurt / Scaleway H100/H200) — the DGX Spark is an inference rig, not a training rig. The trained LoRA adapter then deploys to the Spark for inference at ~19.5 tok/s Q4_K_M (~4.5× dense Llama 3.3 70B). Re-based from Llama 3.3 70B (2026-05-16) — see <code>docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md</code> §Model Routing Strategy for the new Primary tier rationale. Training framework: NeMo / NeMo RL (NVIDIA released recipes; see Saiyam Pathak 2026-03-13 DGX Spark write-up).</td>
+</tr>
+<tr class="even">
+<td>162</td>
+<td>RAG pipeline for regulation knowledge base</td>
+<td>P0</td>
+<td>Retrieve relevant regulation text for AI responses</td>
+</tr>
+<tr class="odd">
+<td>163</td>
+<td>Multi-language climate assistant (EN, FI, DE, SV, NO)</td>
+<td>P1</td>
+<td>Localized responses for Nordic + DACH markets</td>
+</tr>
+<tr class="even">
+<td>164</td>
+<td>Climate assistant conversation memory</td>
+<td>P1</td>
+<td>Context-aware follow-up questions across sessions</td>
+</tr>
+<tr class="odd">
+<td>165</td>
+<td>Climate assistant source citations</td>
+<td>P0</td>
+<td>Every AI answer cites specific regulation article/section</td>
+</tr>
+<tr class="even">
+<td>166</td>
+<td>Climate assistant confidence scoring</td>
+<td>P1</td>
+<td>Show certainty level, flag when human expert needed</td>
+</tr>
+<tr class="odd">
+<td>167</td>
+<td>Regulation comparison tool (AI-powered)</td>
+<td>P2</td>
+<td>“What changed between CSRD draft and final?” style queries</td>
+</tr>
+<tr class="even">
+<td>168</td>
+<td>Climate scenario modeling assistant</td>
+<td>P1</td>
+<td>“What if carbon price reaches €150?” financial projections</td>
+</tr>
+<tr class="odd">
+<td>169</td>
+<td>Batch query API for programmatic access</td>
+<td>P1</td>
+<td>Process multiple compliance questions via API</td>
+</tr>
+<tr class="even">
+<td>170</td>
+<td>Climate assistant feedback loop</td>
+<td>P1</td>
+<td>Users rate answers, feedback improves model over time</td>
+</tr>
+</tbody>
+</table>
+<h3 id="analytics-reporting-prs-171177">4.4 Analytics &amp; Reporting (PRs 171–177)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 39%" />
+<col style="width: 6%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>171</td>
+<td>Executive summary dashboard</td>
+<td>P0</td>
+<td>C-level view: compliance status, financial exposure, trend</td>
+</tr>
+<tr class="even">
+<td>172</td>
+<td>Drill-down analytics (by site, product, scope)</td>
+<td>P1</td>
+<td>Interactive charts with filter/group/export</td>
+</tr>
+<tr class="odd">
+<td>173</td>
+<td>Custom report builder</td>
+<td>P1</td>
+<td>Users define own report templates with drag-and-drop fields</td>
+</tr>
+<tr class="even">
+<td>174</td>
+<td>Scheduled report delivery (email + SFTP)</td>
+<td>P1</td>
+<td>Automated weekly/monthly report distribution</td>
+</tr>
+<tr class="odd">
+<td>175</td>
+<td>Benchmark comparison (industry peers)</td>
+<td>P2</td>
+<td>Anonymized comparison against similar companies</td>
+</tr>
+<tr class="even">
+<td>176</td>
+<td>Carbon reduction tracking vs targets</td>
+<td>P0</td>
+<td>SBTi target progress visualization</td>
+</tr>
+<tr class="odd">
+<td>177</td>
+<td>Board-ready ESG presentation export</td>
+<td>P1</td>
+<td>PowerPoint/PDF export formatted for board meetings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eidas-2.0-trust-services-prs-tbd-call-conditional">4.5 eIDAS 2.0 &amp; Trust Services (PRs TBD — call-conditional)</h3>
+<p>Added to support DIGITAL-2026-AI-DATA-10 grant deliverable. Not counted in the 40 PR Phase 4 total; triggered when EUDI Wallet Large Scale Pilots reach production in target jurisdictions (Finland, Germany). See <code>docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md</code> §3 requirement #7.</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 36%" />
+<col style="width: 4%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TBD</td>
+<td>EUDI Wallet relying-party integration (OIDC4VP / ISO 18013-5)</td>
+<td>P1</td>
+<td>Authenticate natural + legal persons via wallet-issued PIDs when submitting compliance data</td>
+</tr>
+<tr class="even">
+<td>TBD</td>
+<td>Qualified Electronic Seal (QSeal) on compliance submissions</td>
+<td>P1</td>
+<td>Apply QTSP-issued seals to ETS / CBAM / CSRD reports per eIDAS 2.0</td>
+</tr>
+<tr class="odd">
+<td>TBD</td>
+<td>Qualified Electronic Ledger integration</td>
+<td>P2</td>
+<td>Tamper-evident audit trail for regulatory submissions via qualified ledger (eIDAS 2.0 Art. 45h)</td>
+</tr>
+<tr class="even">
+<td>TBD</td>
+<td>EUDI Wallet verification at Supplier Portal onboarding</td>
+<td>P2</td>
+<td>Verify supplier legal identity via wallet-issued LPID at Phase 5 Supplier Portal (PR 178) sign-up</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Trigger condition:</strong> European Commission EUDI Wallet rollout — LSPs (Large Scale Pilots) reaching GA in FI/DE. Track via EU Digital Identity Wallet Toolbox + national wallet providers (FI: DVV, DE: Bundesdruckerei).</p>
+<h3 id="situation-room-strategic-command-surface-prs-177a177d">4.6 Situation Room — Strategic Command Surface (PRs 177A–177D)</h3>
+<p><strong>Strategic context:</strong> Situation Room is the productized strategic-command surface that sits above per-customer Control Rooms (which run LWM1 / V1 per-industry models locally on Acer Veriton GN-100). Situation Room consumes <strong>LWM V2</strong> (omnimodal, NVFP4-native, ≥100B class) for cross-room reasoning. V2 ships in Phase 4 per <code>docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md</code>. Earlier roadmap drafts left this surface implicit inside Phase 4.1 Agentic AI Workflows; pinning it as its own subsection 4.6 prevents slip into Phase 5+ and gives the work explicit ownership. See <code>docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md</code> for the two-budget split that separates V1 fine-tune economics (cheap A100 cloud, Train Model TM-001 SKU) from V2 pretrain economics (Blackwell silicon, Enterprise Model Training EMT-001 SKU).</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 19%" />
+<col style="width: 2%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>177A</td>
+<td>Situation Room product surface scaffold</td>
+<td>P0</td>
+<td>React dashboard component + backend API. Strategic-command view consuming LWM V2 inference. Parallel to Control Room field-ops view, not a replacement — Control Rooms continue to run LWM V1 per-industry models locally per customer site.</td>
+</tr>
+<tr class="even">
+<td>177B</td>
+<td>LWM V2 inference container (NVFP4 native, Blackwell)</td>
+<td>P0</td>
+<td>NVIDIA NIM container packaging LWM V2 with NVFP4 weights for B100 / B200 / GB10 deployment. Inference-only; V2 training pipeline scoped in NVFP4 lab note. ~28 GB on disk (NVFP4), fits single Acer GN-100 or DGX Spark chassis.</td>
+</tr>
+<tr class="odd">
+<td>177C</td>
+<td>Control Room → Situation Room federation</td>
+<td>P1</td>
+<td>Cross-room data flow: per-site Control Room state aggregated into Situation Room strategic view. Per-customer privacy boundaries enforced via KYA chain-of-custody; cross-customer queries gated by Aegis tier.</td>
+</tr>
+<tr class="even">
+<td>177D</td>
+<td>Situation Room access control (KYA TC-3 + Article 12 audit)</td>
+<td>P0</td>
+<td>KYA TC-3 strategic-command trust tier (above TC-2 field-ops default). Multi-party approval for cross-customer queries. Full EU AI Act Article 12 reasoning lineage logged for every Situation Room session.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Owners / dependencies:</strong></p>
+<ul>
+<li>Depends on V2 pretraining (separate workstream, see NVFP4 lab note)</li>
+<li>Depends on PR 137A–137D Aegis K8s inference infra (Phase 3.6)</li>
+<li>Depends on KYA v1.4 (already in place, internal)</li>
+<li>Unblocks: Situation Room product SKU (Store catalog entry, separate PR in Phase 5 marketing track)</li>
+</ul>
+<hr />
+<h2 id="phase-5-market-expansion-febmay-2027-44-prs">Phase 5: Market Expansion (Feb–May 2027) — 44 PRs</h2>
+<h3 id="supplier-cbam-portal-prs-178186">5.1 Supplier CBAM Portal (PRs 178–186)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 32%" />
+<col style="width: 7%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>178</td>
+<td>Supplier self-registration portal</td>
+<td>P0</td>
+<td>Non-EU manufacturers register to provide emissions data</td>
+</tr>
+<tr class="even">
+<td>179</td>
+<td>Supplier data entry wizard</td>
+<td>P0</td>
+<td>Guided emissions data collection with calculation helpers</td>
+</tr>
+<tr class="odd">
+<td>180</td>
+<td>Supplier verification workflow</td>
+<td>P1</td>
+<td>Review and approve supplier-submitted data</td>
+</tr>
+<tr class="even">
+<td>181</td>
+<td>Supplier communication hub</td>
+<td>P1</td>
+<td>In-app messaging between importers and their suppliers</td>
+</tr>
+<tr class="odd">
+<td>182</td>
+<td>Supplier data quality scoring</td>
+<td>P1</td>
+<td>Rate completeness, consistency, timeliness of supplier data</td>
+</tr>
+<tr class="even">
+<td>183</td>
+<td>Supplier bulk invite (CSV/API)</td>
+<td>P1</td>
+<td>Importers invite hundreds of suppliers at once</td>
+</tr>
+<tr class="odd">
+<td>184</td>
+<td>Supplier dashboard (their view)</td>
+<td>P1</td>
+<td>Suppliers see which importers need their data, deadlines</td>
+</tr>
+<tr class="even">
+<td>185</td>
+<td>Supplier freemium model</td>
+<td>P2</td>
+<td>Free for suppliers, paid features for advanced analytics</td>
+</tr>
+<tr class="odd">
+<td>186</td>
+<td>Supplier network effect analytics</td>
+<td>P2</td>
+<td>Track how supplier adoption drives importer retention</td>
+</tr>
+</tbody>
+</table>
+<h3 id="industry-vertical-deepening-prs-187198">5.2 Industry Vertical Deepening (PRs 187–198)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 43%" />
+<col style="width: 6%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>187</td>
+<td>Construction industry module (EN 15978 deep integration)</td>
+<td>P0</td>
+<td>Full lifecycle carbon assessment for building projects</td>
+</tr>
+<tr class="even">
+<td>188</td>
+<td>Steel industry module (ETS + CBAM specifics)</td>
+<td>P0</td>
+<td>BF-BOF vs EAF routes, scrap ratios, free allowance calc</td>
+</tr>
+<tr class="odd">
+<td>189</td>
+<td>Cement industry module</td>
+<td>P0</td>
+<td>Clinker ratio, alternative fuels, process emissions</td>
+</tr>
+<tr class="even">
+<td>190</td>
+<td>Chemicals industry module</td>
+<td>P1</td>
+<td>Crackers, polymerization, GHG intensity per product</td>
+</tr>
+<tr class="odd">
+<td>191</td>
+<td>Aluminum industry module</td>
+<td>P1</td>
+<td>Smelting emissions, anode effects, electricity source</td>
+</tr>
+<tr class="even">
+<td>192</td>
+<td>Manufacturing (general) module</td>
+<td>P1</td>
+<td>Machine-level energy tracking, OEE integration</td>
+</tr>
+<tr class="odd">
+<td>193</td>
+<td>Logistics &amp; transport module</td>
+<td>P1</td>
+<td>Fleet emissions, route optimization, ReFuelEU</td>
+</tr>
+<tr class="even">
+<td>194</td>
+<td>Energy production module</td>
+<td>P1</td>
+<td>Generation mix, grid emission factors, renewable certificates</td>
+</tr>
+<tr class="odd">
+<td>195</td>
+<td>Mining industry module</td>
+<td>P2</td>
+<td>Extraction emissions, processing, rehabilitation</td>
+</tr>
+<tr class="even">
+<td>196</td>
+<td>Healthcare facilities module</td>
+<td>P2</td>
+<td>Energy-intensive medical equipment, waste management</td>
+</tr>
+<tr class="odd">
+<td>197</td>
+<td>Real estate &amp; buildings module</td>
+<td>P1</td>
+<td>EPBD compliance, EPC integration, renovation roadmap</td>
+</tr>
+<tr class="even">
+<td>198</td>
+<td>Public sector module</td>
+<td>P2</td>
+<td>Green public procurement, climate neutrality targets</td>
+</tr>
+</tbody>
+</table>
+<h3 id="partner-ecosystem-prs-199206">5.3 Partner Ecosystem (PRs 199–206)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 41%" />
+<col style="width: 6%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>199</td>
+<td>Partner API with OAuth2 authentication</td>
+<td>P1</td>
+<td>Secure API access for integration partners</td>
+</tr>
+<tr class="even">
+<td>200</td>
+<td>Partner portal (documentation + sandbox)</td>
+<td>P1</td>
+<td>Self-service partner onboarding with test environment</td>
+</tr>
+<tr class="odd">
+<td>201</td>
+<td>White-label configuration (branding per partner)</td>
+<td>P2</td>
+<td>Partners resell DWS7 under their brand</td>
+</tr>
+<tr class="even">
+<td>202</td>
+<td>Consulting partner dashboard</td>
+<td>P2</td>
+<td>Sustainability consultants manage multiple client accounts</td>
+</tr>
+<tr class="odd">
+<td>203</td>
+<td>Webhook event catalog for integrations</td>
+<td>P1</td>
+<td>Publish events partners can subscribe to</td>
+</tr>
+<tr class="even">
+<td>204</td>
+<td>Marketplace for industry templates</td>
+<td>P2</td>
+<td>Partners publish compliance templates to marketplace</td>
+</tr>
+<tr class="odd">
+<td>205</td>
+<td>Partner referral tracking</td>
+<td>P2</td>
+<td>Attribution for partner-sourced customers</td>
+</tr>
+<tr class="even">
+<td>206</td>
+<td>Integration with One Click LCA (bidirectional)</td>
+<td>P1</td>
+<td>Import LCA data, export compliance status</td>
+</tr>
+</tbody>
+</table>
+<h3 id="open-source-agent-framework-prs-207a207f">5.4 Open-Source Agent Framework (PRs 207A–207F)</h3>
+<p><strong>Strategic context:</strong> Research analysis in <code>docs/OPEN_DATA_SOURCES.md</code> §10 recommends open-sourcing the agent framework under Apache 2.0 while keeping compliance knowledge proprietary. Modeled after deepset/Haystack (EU-based, Apache 2.0, Airbus/LEGO/European Commission customers).</p>
+<p><strong>Core insight:</strong> The compliance knowledge is the moat, not the framework. Nobody forks your emission factors.</p>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 43%" />
+<col style="width: 5%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>207A</td>
+<td>Extract <code>@dws/agent-core</code> package (BaseAgent, types, event bus)</td>
+<td>P1</td>
+<td>Separate agent primitives into publishable npm package under Apache 2.0</td>
+</tr>
+<tr class="even">
+<td>207B</td>
+<td>Open-source ERP connectors (SAP, IFS, Dynamics adapters)</td>
+<td>P1</td>
+<td>Network effect — every contributed connector improves the platform</td>
+</tr>
+<tr class="odd">
+<td>207C</td>
+<td>Open-source MCP server implementations</td>
+<td>P1</td>
+<td>Aligns with AAIF (Linux Foundation), ecosystem interop with Claude/Anthropic</td>
+</tr>
+<tr class="even">
+<td>207D</td>
+<td>Open-source CLI tooling (<code>dws</code> command)</td>
+<td>P2</td>
+<td>Developer experience, bottom-up adoption, “try before you buy”</td>
+</tr>
+<tr class="odd">
+<td>207E</td>
+<td>Publish basic compliance rule parser (regulation → checklist)</td>
+<td>P2</td>
+<td>Demonstrates capability without exposing scoring engine</td>
+</tr>
+<tr class="even">
+<td>207F</td>
+<td>Community setup: CONTRIBUTING.md, issue templates, CI for open repo</td>
+<td>P1</td>
+<td>Clear open/proprietary boundaries from day one</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What stays proprietary (never open-source):</strong></p>
+<ul>
+<li>Multi-agent orchestration with compliance scoring (core IP)</li>
+<li>Validated regulatory knowledge bases (emission factors, ESRS registry, CBAM models)</li>
+<li>Lifetime World Model (EU Regulations + Industry Models)</li>
+<li>Enterprise governance (RBAC, audit trails, Article 12 logging)</li>
+<li>Report engine with signed reports</li>
+<li>Pre-built industrial sector workflows</li>
+</ul>
+<p><strong>Licensing:</strong> Apache 2.0 (not BSL). Maximizes EU public procurement compatibility, avoids fork risk (Redis→Valkey, HashiCorp→OpenTofu cautionary tales).</p>
+<p><strong>Year 1 targets:</strong> 5,000+ GitHub stars | 10,000+ npm weekly downloads | 50+ community contributors</p>
+<h3 id="mobile-accessibility-prs-207215">5.5 Mobile &amp; Accessibility (PRs 207–215)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 40%" />
+<col style="width: 7%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>207</td>
+<td>Mobile-responsive dashboard (PWA)</td>
+<td>P0</td>
+<td>Dashboard works on mobile browsers, installable as PWA</td>
+</tr>
+<tr class="even">
+<td>208</td>
+<td>Push notifications (web + mobile)</td>
+<td>P1</td>
+<td>Deadline reminders, agent completions, alerts</td>
+</tr>
+<tr class="odd">
+<td>209</td>
+<td>Offline data entry capability</td>
+<td>P1</td>
+<td>Collect data in offline mode, sync when connected</td>
+</tr>
+<tr class="even">
+<td>210</td>
+<td>React Native app: authentication flow</td>
+<td>P1</td>
+<td>Mobile login with biometrics support</td>
+</tr>
+<tr class="odd">
+<td>211</td>
+<td>React Native app: dashboard summary view</td>
+<td>P1</td>
+<td>Key metrics on mobile with pull-to-refresh</td>
+</tr>
+<tr class="even">
+<td>212</td>
+<td>React Native app: camera for evidence capture</td>
+<td>P2</td>
+<td>Photograph meters, documents for compliance evidence</td>
+</tr>
+<tr class="odd">
+<td>213</td>
+<td>Internationalization framework (i18n)</td>
+<td>P0</td>
+<td>Extract all UI strings, support EN/FI/DE/SV/NO</td>
+</tr>
+<tr class="even">
+<td>214</td>
+<td>Finnish localization</td>
+<td>P1</td>
+<td>Complete Finnish translation</td>
+</tr>
+<tr class="odd">
+<td>215</td>
+<td>German localization</td>
+<td>P1</td>
+<td>Complete German translation — DACH market entry</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-6-dws7-release-jundec-2027-36-prs">Phase 6: DWS7 Release (Jun–Dec 2027) — 36 PRs</h2>
+<h3 id="platform-maturity-prs-216225">6.1 Platform Maturity (PRs 216–225)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 40%" />
+<col style="width: 6%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>216</td>
+<td>Multi-region deployment (Finland + Germany)</td>
+<td>P1</td>
+<td>Active-active deployment for data residency compliance</td>
+</tr>
+<tr class="even">
+<td>217</td>
+<td>Disaster recovery runbook and automation</td>
+<td>P0</td>
+<td>RTO &lt; 4 hours, RPO &lt; 1 hour, automated failover</td>
+</tr>
+<tr class="odd">
+<td>218</td>
+<td>SOC 2 Type II audit preparation</td>
+<td>P0</td>
+<td>6-month observation period evidence collection</td>
+</tr>
+<tr class="even">
+<td>219</td>
+<td>ISO 27001 certification audit</td>
+<td>P0</td>
+<td>Final audit with certification body</td>
+</tr>
+<tr class="odd">
+<td>220</td>
+<td>Performance optimization (sub-100ms API reads)</td>
+<td>P1</td>
+<td>Edge caching, query optimization, connection pooling</td>
+</tr>
+<tr class="even">
+<td>221</td>
+<td>Feature flag system for gradual rollouts</td>
+<td>P1</td>
+<td>Per-tenant feature flags, A/B testing capability</td>
+</tr>
+<tr class="odd">
+<td>222</td>
+<td>Automated regression test suite (200+ tests)</td>
+<td>P0</td>
+<td>Comprehensive test suite covering all critical paths</td>
+</tr>
+<tr class="even">
+<td>223</td>
+<td>API backward compatibility guarantee (SemVer)</td>
+<td>P1</td>
+<td>Versioned API with 6-month deprecation windows</td>
+</tr>
+<tr class="odd">
+<td>224</td>
+<td>Customer success metrics dashboard</td>
+<td>P1</td>
+<td>NPS, health score, usage patterns, churn risk per customer</td>
+</tr>
+<tr class="even">
+<td>225</td>
+<td>DWS7 migration guide (v6 → v7)</td>
+<td>P0</td>
+<td>Step-by-step upgrade path for existing pilot customers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investor-financial-prs-226234">6.2 Investor &amp; Financial (PRs 226–234)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 37%" />
+<col style="width: 7%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>226</td>
+<td>Investor metrics API</td>
+<td>P1</td>
+<td>Programmatic access to ARR, MRR, churn, NRR, CAC, LTV</td>
+</tr>
+<tr class="even">
+<td>227</td>
+<td>Investor reporting dashboard</td>
+<td>P0</td>
+<td>Real-time metrics for board and investors</td>
+</tr>
+<tr class="odd">
+<td>228</td>
+<td>Revenue recognition automation</td>
+<td>P1</td>
+<td>ASC 606/IFRS 15 compliant revenue tracking</td>
+</tr>
+<tr class="even">
+<td>229</td>
+<td>Unit economics tracker</td>
+<td>P1</td>
+<td>Per-customer profitability, CAC payback, gross margin</td>
+</tr>
+<tr class="odd">
+<td>230</td>
+<td>Financial forecasting model integration</td>
+<td>P2</td>
+<td>Connect actuals to financial projections</td>
+</tr>
+<tr class="even">
+<td>231</td>
+<td>Customer cohort analysis</td>
+<td>P1</td>
+<td>Retention and expansion by cohort, industry, plan</td>
+</tr>
+<tr class="odd">
+<td>232</td>
+<td>ARR waterfall visualization</td>
+<td>P1</td>
+<td>New + expansion − contraction − churn = net ARR change</td>
+</tr>
+<tr class="even">
+<td>233</td>
+<td>Burn rate and runway calculator</td>
+<td>P2</td>
+<td>Real-time financial health monitoring</td>
+</tr>
+<tr class="odd">
+<td>234</td>
+<td>Board deck auto-generation</td>
+<td>P2</td>
+<td>Monthly board update from live metrics</td>
+</tr>
+</tbody>
+</table>
+<h3 id="advanced-features-prs-235247">6.3 Advanced Features (PRs 235–247)</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 38%" />
+<col style="width: 6%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>235</td>
+<td>Digital product passport integration (EU CPR)</td>
+<td>P1</td>
+<td>Construction product carbon data in standardized format</td>
+</tr>
+<tr class="even">
+<td>236</td>
+<td>Carbon credit marketplace connector</td>
+<td>P2</td>
+<td>Buy verified carbon credits directly from platform</td>
+</tr>
+<tr class="odd">
+<td>237</td>
+<td>Science-Based Targets initiative (SBTi) tracker</td>
+<td>P1</td>
+<td>Set and track SBTi-aligned reduction targets</td>
+</tr>
+<tr class="even">
+<td>238</td>
+<td>Scope 3 category-level automation</td>
+<td>P1</td>
+<td>Auto-calculate each Scope 3 category from ERP + supplier data</td>
+</tr>
+<tr class="odd">
+<td>239</td>
+<td>Decarbonization scenario planner</td>
+<td>P1</td>
+<td>Model “what if” scenarios: new equipment, fuel switch, efficiency</td>
+</tr>
+<tr class="even">
+<td>240</td>
+<td>Real-time carbon dashboard (live from IoT)</td>
+<td>P1</td>
+<td>Sub-minute emissions visualization from sensor network</td>
+</tr>
+<tr class="odd">
+<td>241</td>
+<td>Automated verification report preparation</td>
+<td>P1</td>
+<td>Pre-fill third-party verifier requirements</td>
+</tr>
+<tr class="even">
+<td>242</td>
+<td>Regulatory sandbox for testing new rules</td>
+<td>P2</td>
+<td>Simulate impact of proposed regulations before enforcement</td>
+</tr>
+<tr class="odd">
+<td>243</td>
+<td>Customer community portal</td>
+<td>P2</td>
+<td>Forum for customers to share best practices, templates</td>
+</tr>
+<tr class="even">
+<td>244</td>
+<td>API usage analytics and developer portal</td>
+<td>P1</td>
+<td>Track API consumption, provide interactive documentation</td>
+</tr>
+<tr class="odd">
+<td>245</td>
+<td>Advanced RBAC: custom roles and permissions</td>
+<td>P1</td>
+<td>Customers define their own role/permission combinations</td>
+</tr>
+<tr class="even">
+<td>246</td>
+<td>Bulk data import/export (CSV, Excel, API)</td>
+<td>P1</td>
+<td>Mass data operations for initial setup and migration</td>
+</tr>
+<tr class="odd">
+<td>247</td>
+<td>DWS IQ 7.0 GA release packaging</td>
+<td>P0</td>
+<td>Final release: changelog, migration, marketing, launch</td>
+</tr>
+</tbody>
+</table>
+<h3 id="multi-jurisdiction-infrastructure-prs-248251">6.4 Multi-Jurisdiction Infrastructure (PRs 248–251)</h3>
+<p><strong>Strategic context:</strong> DWS IQ 7 expands from 2 cloud tracks (EU Sovereign + US Cloud) to 4 jurisdictions. UAE target partner: G42 (Abu Dhabi sovereign AI cloud, Microsoft-partnered). ASEA partner TBD. See <code>docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md</code> for full decision record.</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 30%" />
+<col style="width: 3%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>248</td>
+<td>Jurisdiction router — data residency enforcement at onboarding</td>
+<td>P1</td>
+<td>Customer selects EU / US / UAE / ASEA at signup; all data routed and stored in selected zone from day 1</td>
+</tr>
+<tr class="even">
+<td>249</td>
+<td>UAE jurisdiction — G42 infrastructure integration</td>
+<td>P2</td>
+<td>Provision DWS IQ stack on G42 cloud; DIFC + ADGM compliance profile; UAE PDPL data processing agreement</td>
+</tr>
+<tr class="odd">
+<td>250</td>
+<td>ASEA jurisdiction — partner-ready infrastructure scaffold</td>
+<td>P2</td>
+<td>Region-agnostic scaffold deployable to Singapore/Malaysia/Indonesia; PDPA Singapore baseline compliance profile</td>
+</tr>
+<tr class="even">
+<td>251</td>
+<td>Per-jurisdiction sovereignty score + compliance profile engine</td>
+<td>P1</td>
+<td>Extend existing EU sovereignty scoring model to UAE and ASEA regulatory frameworks; unified score API across all 4 jurisdictions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="cli-evolution-cross-phase-50-prs">CLI Evolution (Cross-Phase, 50 PRs)</h2>
+<blockquote>
+<p><strong>Principle:</strong> If it can’t be done via <code>dws &lt;command&gt;</code>, it’s not shipped. <strong>Architecture:</strong> Zero dependencies. Pure Node.js. Pipeable. JSON-native. <strong>Entry point:</strong> <code>cli/src/cli.ts</code> | Package: <code>@dws/cli</code> <strong>Full roadmap:</strong> <code>docs/DWS7_CLI_ROADMAP.md</code></p>
+</blockquote>
+<h3 id="current-state-dws6-march-2026">Current State (DWS6, March 2026)</h3>
+<p>The DWS CLI ships with 31 registered agents, 4 workflows, MCP tool integration, 5 industry scenarios, and dual-mode output (human TTY / machine JSON). Zero runtime dependencies.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> agents                              <span class="co"># List all 31 agents</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> run compliance <span class="at">--input</span> <span class="st">&#39;{...}&#39;</span>      <span class="co"># Execute agent</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> workflow compliance-assessment      <span class="co"># Multi-agent workflow</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> discover carbon                     <span class="co"># Find by capability</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> mcp tools                           <span class="co"># MCP tool listing</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> scenario construction              <span class="co"># Industry quickstart</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;{}&#39;</span> <span class="kw">|</span> <span class="ex">dws</span> run compliance <span class="at">--stdin</span>  <span class="co"># Pipe JSON in</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">dws</span> status <span class="kw">|</span> <span class="ex">jq</span> .agents                 <span class="co"># Pipe JSON out</span></span></code></pre></div>
+<h3 id="cli-prs-mapped-to-phases">CLI PRs Mapped to Phases</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 18%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>CLI PRs</th>
+<th>Theme</th>
+<th>Key Deliverables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong> (Feb–Apr 2026)</td>
+<td>CLI-001 → CLI-008</td>
+<td>Safety &amp; observability</td>
+<td><code>--dry-run</code>, <code>--plan</code>, Y/n confirmation, <code>--trace</code>, <code>--verbose</code></td>
+</tr>
+<tr class="even">
+<td><strong>2</strong> (May–Jul 2026)</td>
+<td>CLI-009 → CLI-018</td>
+<td>Context &amp; memory</td>
+<td><code>dws history</code>, <code>--project</code> context injection, <code>--compact</code>, config files</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong> (Aug–Oct 2026)</td>
+<td>CLI-019 → CLI-026</td>
+<td>Model routing &amp; performance</td>
+<td><code>--model-tier fast/standard/reasoning</code>, parallel agent execution, <code>--timeout</code></td>
+</tr>
+<tr class="even">
+<td><strong>4</strong> (Nov–Jan 2027)</td>
+<td>CLI-027 → CLI-036</td>
+<td>Ecosystem &amp; extensibility</td>
+<td>Plugin system, <code>--format table/csv/yaml</code>, <code>dws batch run</code>, JSONL processing</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong> (Feb–May 2027)</td>
+<td>CLI-037 → CLI-044</td>
+<td>Enterprise &amp; compliance</td>
+<td><code>dws audit</code> (Article 12 export), <code>dws login</code> (OAuth), <code>dws org switch</code>, multi-tenant</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong> (Jun–Dec 2027)</td>
+<td>CLI-045 → CLI-050</td>
+<td>Edge &amp; IoT</td>
+<td><code>dws fleet list/deploy/logs</code>, <code>dws stream emissions</code>, WebSocket → JSONL piping</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-cli-safety-p0">Phase 1 CLI: Safety (P0)</h3>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 81%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLI-001</td>
+<td><code>--dry-run</code> flag for <code>dws run</code> — preview without execution</td>
+<td>50 LOC</td>
+</tr>
+<tr class="even">
+<td>CLI-002</td>
+<td><code>--plan</code> flag for <code>dws workflow</code> — show steps, no execute</td>
+<td>40 LOC</td>
+</tr>
+<tr class="odd">
+<td>CLI-005</td>
+<td>Y/n confirmation before workflow execution</td>
+<td>30 LOC</td>
+</tr>
+<tr class="even">
+<td>CLI-007</td>
+<td><code>--trace</code> flag — stream agentic loop iterations to stderr</td>
+<td>80 LOC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-2-cli-memory-p0p1">Phase 2 CLI: Memory (P0–P1)</h3>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 81%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLI-009</td>
+<td><code>dws history</code> — query execution log by project/agent</td>
+<td>80 LOC</td>
+</tr>
+<tr class="even">
+<td>CLI-010</td>
+<td><code>--project</code> flag — auto-inject last N results as context</td>
+<td>60 LOC</td>
+</tr>
+<tr class="odd">
+<td>CLI-015</td>
+<td>Config file loader (<code>~/.dws/config.json</code> + <code>.dws.json</code>)</td>
+<td>80 LOC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-5-cli-enterprise-p0">Phase 5 CLI: Enterprise (P0)</h3>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 80%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLI-037</td>
+<td><code>dws audit</code> — EU AI Act Article 12 execution log viewer</td>
+<td>100 LOC</td>
+</tr>
+<tr class="even">
+<td>CLI-040</td>
+<td><code>dws login</code> — device code OAuth flow</td>
+<td>150 LOC</td>
+</tr>
+<tr class="odd">
+<td>CLI-042</td>
+<td><code>dws org switch</code> / <code>dws org list</code> — multi-tenant context</td>
+<td>50 LOC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-constraints">Design Constraints</h3>
+<ol type="1">
+<li><strong>Zero dependencies</strong> — No npm packages. Pure Node.js + TypeScript.</li>
+<li><strong>JSON-native</strong> — Every command outputs valid JSON when piped. Human-friendly when TTY.</li>
+<li><strong>Pipeable</strong> — <code>dws discover compliance | dws run --first --stdin</code></li>
+<li><strong>Backward compatible</strong> — New flags are additive. Existing commands never break.</li>
+<li><strong>Offline-capable</strong> — <code>dws help</code>, <code>dws config</code>, <code>dws scenario</code> work without backend.</li>
+<li><strong>EU data residency</strong> — All data flows through EU endpoints by default.</li>
+</ol>
+<hr />
+<h2 id="pr-priority-distribution">PR Priority Distribution</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 6%" />
+<col style="width: 12%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Priority</th>
+<th>Count</th>
+<th>Percentage</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>P0</strong> (Must-have)</td>
+<td>78</td>
+<td>31.6%</td>
+<td>Blocks customer deployment or revenue</td>
+</tr>
+<tr class="even">
+<td><strong>P1</strong> (Should-have)</td>
+<td>118</td>
+<td>47.8%</td>
+<td>Significant value, can ship without temporarily</td>
+</tr>
+<tr class="odd">
+<td><strong>P2</strong> (Nice-to-have)</td>
+<td>51</td>
+<td>20.6%</td>
+<td>Enhances competitiveness, not blocking</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="prs-by-category">PRs by Category</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Count</th>
+<th>Phases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Testing &amp; Quality</td>
+<td>18</td>
+<td>1, 3, 6</td>
+</tr>
+<tr class="even">
+<td>Backend &amp; API</td>
+<td>14</td>
+<td>1, 3</td>
+</tr>
+<tr class="odd">
+<td>Frontend &amp; Dashboard</td>
+<td>18</td>
+<td>1, 4, 5</td>
+</tr>
+<tr class="even">
+<td>DevOps &amp; Infrastructure</td>
+<td>14</td>
+<td>1, 3, 6</td>
+</tr>
+<tr class="odd">
+<td>EU ETS Compliance</td>
+<td>12</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>CBAM Compliance</td>
+<td>10</td>
+<td>2, 5</td>
+</tr>
+<tr class="odd">
+<td>CSRD/ESRS Compliance</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>EU AI Act</td>
+<td>6</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Cross-Regulation</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Security &amp; Certifications</td>
+<td>16</td>
+<td>3, 6</td>
+</tr>
+<tr class="odd">
+<td>Multi-Tenancy</td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Billing &amp; Payments</td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>ERP Integrations</td>
+<td>9</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Agentic AI</td>
+<td>13</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>IoT Pipeline</td>
+<td>10</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Climate LLM</td>
+<td>10</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Analytics &amp; Reporting</td>
+<td>7</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Supplier Portal</td>
+<td>9</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Industry Verticals</td>
+<td>12</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Partner Ecosystem</td>
+<td>8</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Open-Source Agent Framework</td>
+<td>6</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Mobile &amp; i18n</td>
+<td>9</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Investor &amp; Financial</td>
+<td>9</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>Carbon Balance Sheet</td>
+<td>9</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Advanced Features</td>
+<td>13</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>262</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="revenue-milestones">Revenue Milestones</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Customers</th>
+<th>MRR Target</th>
+<th>Cumulative ARR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apr 2026 (Phase 1 done)</td>
+<td>3</td>
+<td>€8,500</td>
+<td>€102,000</td>
+</tr>
+<tr class="even">
+<td>Jul 2026 (Phase 2 done)</td>
+<td>5</td>
+<td>€15,000</td>
+<td>€180,000</td>
+</tr>
+<tr class="odd">
+<td>Oct 2026 (Phase 3 done)</td>
+<td>8</td>
+<td>€28,000</td>
+<td>€336,000</td>
+</tr>
+<tr class="even">
+<td>Jan 2027 (Phase 4 done)</td>
+<td>10</td>
+<td>€40,000</td>
+<td>€480,000</td>
+</tr>
+<tr class="odd">
+<td>May 2027 (Phase 5 done)</td>
+<td>14</td>
+<td>€56,000</td>
+<td>€672,000</td>
+</tr>
+<tr class="even">
+<td>Dec 2027 (DWS7 GA)</td>
+<td>16+</td>
+<td>€72,000+</td>
+<td>€864,000+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Assumptions:</strong> Average customer value €4,500/mo blended (mix of Starter, Pro, Enterprise). Lifetime Fleet revenue additive.</p>
+<hr />
+<h2 id="eu-funding-programs">EU Funding Programs</h2>
+<p>DWS7 is eligible for multiple EU funding instruments. These are non-dilutive and should be pursued in parallel with customer revenue.</p>
+<h3 id="active-upcoming-programs">Active &amp; Upcoming Programs</h3>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 14%" />
+<col style="width: 61%" />
+<col style="width: 1%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Program</th>
+<th>Funding</th>
+<th>Deadline Window</th>
+<th>DWS7 Fit</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Horizon Europe — Cluster 4: Digital, Industry &amp; Space</strong></td>
+<td>Up to €3M per project</td>
+<td>Rolling calls 2026-2027</td>
+<td>AI for industrial sustainability, multi-agent systems, edge AI</td>
+<td>4, 5</td>
+</tr>
+<tr class="even">
+<td><strong>Horizon Europe — Cluster 5: Climate, Energy &amp; Mobility</strong></td>
+<td>Up to €5M per project</td>
+<td>Rolling calls 2026-2027</td>
+<td>Climate compliance automation, IoT monitoring, ETS optimization</td>
+<td>2, 4</td>
+</tr>
+<tr class="odd">
+<td><strong>EIC Accelerator</strong></td>
+<td>Up to €2.5M grant + €15M equity</td>
+<td>Cut-off dates: Mar, Jun, Oct 2026</td>
+<td>Deep-tech AI platform with market traction, &lt;€5M revenue</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td><strong>Digital Europe Programme (DIGITAL)</strong></td>
+<td>€50K–€2M (€63.2M envelope announced)</td>
+<td>4 of 7 calls open, deadline 2026-10-01 — monitor for 3 more</td>
+<td>AI deployment in industry, cybersecurity, cloud-to-edge. Current open 4 are low DWS fit (medical-imaging, EDIC CSA, info-integrity cascading grants, D&amp;E CSA). See <code>docs/field-notes/2026-04-22-digital-europe-programme-ai-health-online-safety-call.md</code> §3.</td>
+<td>1, 4</td>
+</tr>
+<tr class="odd">
+<td><strong>DIGITAL-2026-AI-DATA-10 (AI Continent / Compliance)</strong></td>
+<td>Lump sum grant (3–4 projects)</td>
+<td><strong>Deadline 01 Oct 2026</strong></td>
+<td>Direct thesis match: automate EU regulatory reporting via trusted data sharing. One of the “3 more” DIGITAL topics referenced above. See <a href="docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md"><code>docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md</code></a>.</td>
+<td>2, 3</td>
+</tr>
+<tr class="even">
+<td><strong>EIC Pathfinder</strong></td>
+<td>Up to €4M</td>
+<td>Annual calls</td>
+<td>Novel multi-agent coordination, agentic AI for compliance</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td><strong>LIFE Programme — Clean Energy Transition</strong></td>
+<td>Up to €2M co-funding</td>
+<td>Annual calls Q1</td>
+<td>Tools for industrial decarbonization, ETS compliance</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><strong>InvestEU — Sustainable Infrastructure</strong></td>
+<td>Loan guarantees, equity</td>
+<td>Continuous via intermediaries</td>
+<td>Scale-up funding for climate-tech platforms</td>
+<td>5, 6</td>
+</tr>
+<tr class="odd">
+<td><strong>EU Innovation Fund</strong></td>
+<td>€50K–€7.5M (small-scale)</td>
+<td>Annual calls</td>
+<td>Technologies reducing industrial GHG emissions</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><strong>IPCEI — Cloud Infrastructure &amp; Services</strong></td>
+<td>National + EU co-funding</td>
+<td>Member state calls</td>
+<td>Sovereign cloud for EU compliance data</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td><strong>CEF Digital</strong></td>
+<td>Co-funding up to 75%</td>
+<td>Annual calls</td>
+<td>Cross-border digital infrastructure for compliance</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="national-programs-finland">National Programs (Finland)</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 17%" />
+<col style="width: 12%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Program</th>
+<th>Funding</th>
+<th>Agency</th>
+<th>DWS7 Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Business Finland — AI &amp; Digitalization</strong></td>
+<td>Up to €1M grant</td>
+<td>Business Finland</td>
+<td>AI-native compliance platform development</td>
+</tr>
+<tr class="even">
+<td><strong>Business Finland — Co-Innovation</strong></td>
+<td>Up to €2M (consortium)</td>
+<td>Business Finland</td>
+<td>Joint R&amp;D with industrial customers</td>
+</tr>
+<tr class="odd">
+<td><strong>Business Finland — Research to Business</strong></td>
+<td>Up to €500K</td>
+<td>Business Finland</td>
+<td>PhD thesis → commercial platform validation</td>
+</tr>
+<tr class="even">
+<td><strong>Business Finland — Tempo</strong></td>
+<td>Up to €50K (6 months)</td>
+<td>Business Finland</td>
+<td>Market validation for new industry verticals</td>
+</tr>
+<tr class="odd">
+<td><strong>Business Finland — Young Innovative Company (NIY)</strong></td>
+<td>Up to €1.25M over 3 years</td>
+<td>Business Finland</td>
+<td>If company &lt; 5 years, &lt; 50 employees</td>
+</tr>
+<tr class="even">
+<td><strong>Finnvera</strong></td>
+<td>Loans + guarantees</td>
+<td>Finnvera</td>
+<td>Growth capital, working capital</td>
+</tr>
+<tr class="odd">
+<td><strong>Climate Fund (Ilmastorahasto)</strong></td>
+<td>€1M–€20M equity/loan</td>
+<td>Ilmastorahasto</td>
+<td>Climate solutions at scale-up phase</td>
+</tr>
+<tr class="even">
+<td><strong>Academy of Finland</strong></td>
+<td>PhD/postdoc funding</td>
+<td>Academy of Finland</td>
+<td>PhD thesis research on AI + industrial compliance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eu-funding-roadmap-phase-mapping">EU Funding → Roadmap Phase Mapping</h3>
+<pre><code>Phase 1 (Feb-Apr 2026): Apply for Business Finland Tempo (market validation)
+Phase 2 (May-Jul 2026): Apply for LIFE Programme (compliance engine)
+Phase 3 (Aug-Oct 2026): Apply for EIC Accelerator (Oct 2026 cut-off)
+Phase 4 (Nov-Jan 2027): Apply for Horizon Europe Cluster 4 (agentic AI)
+Phase 5 (Feb-May 2027): Apply for EU Innovation Fund (IoT-to-compliance)
+Phase 6 (Jun-Dec 2027): Apply for InvestEU (scale-up infrastructure)</code></pre>
+<h3 id="funding-application-calendar">Funding Application Calendar</h3>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 25%" />
+<col style="width: 52%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Month</th>
+<th>Program</th>
+<th>Action</th>
+<th>Estimated Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mar 2026</td>
+<td>Business Finland Tempo</td>
+<td>Submit application</td>
+<td>€50K</td>
+</tr>
+<tr class="even">
+<td>Apr 2026</td>
+<td>Digital Europe Programme</td>
+<td>Reviewed: 4 of 7 topics open, none primary DWS fit — monitor for topics 5–7</td>
+<td>€200K–€500K (if fit)</td>
+</tr>
+<tr class="odd">
+<td>Apr 2026</td>
+<td>DIGITAL-2026-AI-DATA-10 (Compliance)</td>
+<td>Topic opens 21 Apr — confirmed primary fit, queue for Oct submission</td>
+<td>€200K–€500K</td>
+</tr>
+<tr class="even">
+<td>Jun 2026</td>
+<td>LIFE Programme</td>
+<td>Submit consortium proposal</td>
+<td>€500K–€1M</td>
+</tr>
+<tr class="odd">
+<td>Jul 2026</td>
+<td>Academy of Finland</td>
+<td>PhD funding application</td>
+<td>€150K (4 years)</td>
+</tr>
+<tr class="even">
+<td>Oct 2026</td>
+<td>DIGITAL-2026-AI-DATA-10 (Compliance)</td>
+<td>Submit by 01 Oct 17:00 Brussels</td>
+<td>Lump sum (3–4 projects)</td>
+</tr>
+<tr class="odd">
+<td>Oct 2026</td>
+<td>EIC Accelerator</td>
+<td>Submit full application</td>
+<td>€2.5M grant + equity</td>
+</tr>
+<tr class="even">
+<td>Nov 2026</td>
+<td>Horizon Europe Cluster 4</td>
+<td>Submit consortium proposal</td>
+<td>€500K–€1M (DWS share)</td>
+</tr>
+<tr class="odd">
+<td>Jan 2027</td>
+<td>EU Innovation Fund (small-scale)</td>
+<td>Submit application</td>
+<td>€2.5M</td>
+</tr>
+<tr class="even">
+<td>Mar 2027</td>
+<td>Business Finland Co-Innovation</td>
+<td>Submit with industrial partners</td>
+<td>€1M</td>
+</tr>
+<tr class="odd">
+<td>Jun 2027</td>
+<td>Climate Fund (Ilmastorahasto)</td>
+<td>Growth investment discussion</td>
+<td>€2M–€5M</td>
+</tr>
+</tbody>
+</table>
+<h3 id="total-non-dilutive-funding-potential-7m12m-2026-2027">Total Non-Dilutive Funding Potential: €7M–€12M (2026-2027)</h3>
+<p>This complements the investor SAFE (€150K @ €3.8M cap) and customer revenue. Funding applications become stronger as each phase delivers measurable results.</p>
+<hr />
+<h2 id="weekly-tracking">Weekly Tracking</h2>
+<p>This roadmap is tracked by the <code>roadmap-weekly-tracker.yml</code> GitHub Actions workflow:</p>
+<ul>
+<li>Runs every Monday at 08:00 UTC</li>
+<li>Counts PRs matching roadmap categories</li>
+<li>Updates progress in GitHub Issues</li>
+<li>Sends summary to team</li>
+</ul>
+<hr />
+<h2 id="risk-register">Risk Register</h2>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 1%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Risk</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regulation changes mid-implementation</td>
+<td>High</td>
+<td>Modular compliance engine, regulation change tracker (PR 086)</td>
+</tr>
+<tr class="even">
+<td>Key customer churn during pilot</td>
+<td>High</td>
+<td>Customer success metrics (PR 224), NPS tracking</td>
+</tr>
+<tr class="odd">
+<td>Security breach before ISO 27001</td>
+<td>Critical</td>
+<td>Daily security scans (existing), pentest (PR 099)</td>
+</tr>
+<tr class="even">
+<td>Groq API pricing increase</td>
+<td>Medium</td>
+<td>Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 / DGX Spark (NVIDIA GB10 Blackwell, in-house) provides immediate sovereign inference via Nemotron 3 Super (Primary) and Qwen3-Coder 30B (Fast) without cloud dependency. Compute-scarcity hedge: owned, EU-sited, fixed-power compute is increasingly valuable as hyperscalers compete for delivered GW.</td>
+</tr>
+<tr class="odd">
+<td>Edge AI hardware supply issues</td>
+<td>Medium</td>
+<td>Cloud-only fallback mode for IoT pipeline</td>
+</tr>
+<tr class="even">
+<td>Competitor acquires market share</td>
+<td>Medium</td>
+<td>Speed to market on unified Fit-for-55 platform; open-source framework (Phase 5.4) creates ecosystem gravity</td>
+</tr>
+<tr class="odd">
+<td>Team scaling challenges</td>
+<td>Medium</td>
+<td>AI-assisted development (Claude Code), modular architecture</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="success-criteria-for-dws7">Success Criteria for DWS7</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>16 paying industrial customers across 4+ industries</label></li>
+<li><label><input type="checkbox"></input>€72,000+ MRR (€864,000+ ARR)</label></li>
+<li><label><input type="checkbox"></input>ISO 27001 certified</label></li>
+<li><label><input type="checkbox"></input>SOC 2 Type II in progress</label></li>
+<li><label><input type="checkbox"></input>EU AI Act compliant</label></li>
+<li><label><input type="checkbox"></input>Full Fit-for-55 coverage (ETS + CBAM + CSRD)</label></li>
+<li><label><input type="checkbox"></input>&lt; 100ms p95 API response time</label></li>
+<li><label><input type="checkbox"></input>99.9% uptime SLA</label></li>
+<li><label><input type="checkbox"></input>200+ automated tests</label></li>
+<li><label><input type="checkbox"></input>3+ ERP integrations production-validated</label></li>
+<li><label><input type="checkbox"></input>IoT-to-compliance pipeline live at 2+ customer sites</label></li>
+<li><label><input type="checkbox"></input>Investor dashboard live with real-time metrics</label></li>
+<li><label><input type="checkbox"></input>Revolut balance growing month-over-month</label></li>
+</ul>
+<hr />
+<h2 id="phd-thesis-output-tohtorinväitöskirjan-tuotos">PhD Thesis Output / Tohtorinväitöskirjan tuotos</h2>
+<p>The DWS6 → DWS7 evolution is simultaneously an applied research project. Each phase produces publishable academic output in both English and Finnish.</p>
+<h3 id="thesis-framework-väitöskirjan-kehys">Thesis Framework / Väitöskirjan kehys</h3>
+<p><strong>EN:</strong> <em>“AI-Native Multi-Agent Platforms for Automated EU Climate Compliance in Industrial SMEs: From Prototype to Production”</em></p>
+<p><strong>FI:</strong> <em>“Tekoälynatiivit moniagenttialustat EU:n ilmastosäännöstenmukaisuuden automatisoimiseksi teollisissa pk-yrityksissä: Prototyypistä tuotantoon”</em></p>
+<p><strong>Institution / Oppilaitos:</strong> TBD (Aalto / Tampere / Metropolia continuation → doctoral) <strong>Author / Tekijä:</strong> Risto Anton Päärni <strong>Builds on / Perustuu:</strong> Master’s Thesis, Metropolia University of Applied Sciences (2026)</p>
+<h3 id="research-questions-tutkimuskysymykset">Research Questions / Tutkimuskysymykset</h3>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 45%" />
+<col style="width: 51%" />
+<col style="width: 2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>English</th>
+<th>Suomi</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1</td>
+<td>How can multi-agent AI systems autonomously execute EU climate compliance workflows for industrial SMEs?</td>
+<td>Miten moniagentti-tekoälyjärjestelmät voivat itsenäisesti suorittaa EU:n ilmastosäännöstenmukaisuustyönkulkuja teollisille pk-yrityksille?</td>
+<td>2, 4</td>
+</tr>
+<tr class="even">
+<td>RQ2</td>
+<td>What is the cost-effectiveness of edge AI (IoT-to-compliance) vs cloud-only approaches for continuous emissions monitoring?</td>
+<td>Mikä on reunatekoälyn (IoT-vaatimustenmukaisuus) kustannustehokkuus verrattuna pelkkään pilvipohjaiseen lähestymistapaan jatkuvassa päästöjen seurannassa?</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>RQ3</td>
+<td>How does a unified multi-regulation platform (ETS+CBAM+CSRD) reduce compliance overhead compared to point solutions?</td>
+<td>Miten yhtenäinen monisääntelyalusta (ETS+CBAM+CSRD) vähentää vaatimustenmukaisuuden ylikuormitusta verrattuna yksittäisratkaisuihin?</td>
+<td>2, 3, 5</td>
+</tr>
+<tr class="even">
+<td>RQ4</td>
+<td>What architectural patterns enable EU AI Act compliant reasoning lineage in production AI systems?</td>
+<td>Mitkä arkkitehtuurimallit mahdollistavat EU:n tekoälysäädöksen mukaisen päättelyketjun tuotanto-tekoälyjärjestelmissä?</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>RQ5</td>
+<td>How can AI-assisted software development (Claude Code, MCP) accelerate industrial platform delivery while maintaining security standards?</td>
+<td>Miten tekoälyavusteinen ohjelmistokehitys (Claude Code, MCP) voi nopeuttaa teollisten alustojen toimitusta säilyttäen turvallisuusstandardit?</td>
+<td>1–6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publications-per-phase-julkaisut-vaiheittain">Publications per Phase / Julkaisut vaiheittain</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 33%" />
+<col style="width: 40%" />
+<col style="width: 6%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Publication (EN)</th>
+<th>Julkaisu (FI)</th>
+<th>Type</th>
+<th>Target Venue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td><em>“From Pilot to Production: Testing Strategies for AI-Native Industrial Platforms”</em></td>
+<td><em>“Pilotista tuotantoon: Testausstrategiat tekoälynatiiveille teollisille alustoille”</em></td>
+<td>Conference paper</td>
+<td>ECSA 2026 / ICSE 2027</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td><em>“Automated EU Climate Compliance: A Multi-Regulation Engine for ETS, CBAM, and CSRD”</em></td>
+<td><em>“Automatisoitu EU:n ilmastovaatimustenmukaisuus: Monisääntelymoottori ETS:lle, CBAM:lle ja CSRD:lle”</em></td>
+<td>Journal article</td>
+<td>Journal of Cleaner Production</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td><em>“EU AI Act Article 12 in Practice: Reasoning Lineage for Industrial AI Systems”</em></td>
+<td><em>“EU:n tekoälysäädöksen artikla 12 käytännössä: Päättelyketju teollisissa tekoälyjärjestelmissä”</em></td>
+<td>Conference paper</td>
+<td>AIES 2027</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td><em>“Multi-Tenant Security Architecture for EU-Regulated Industrial SaaS”</em></td>
+<td><em>“Monivuokralaisen turvallisuusarkkitehtuuri EU-säännellylle teolliselle SaaS:lle”</em></td>
+<td>Workshop paper</td>
+<td>EuroS&amp;P 2027</td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td><em>“Agentic AI for Autonomous Climate Compliance: Multi-Agent Orchestration with Temporal.io”</em></td>
+<td><em>“Agenttinen tekoäly itsenäiseen ilmastovaatimustenmukaisuuteen: Moniagenttiorkestraatio Temporal.io:lla”</em></td>
+<td><strong>Core PhD chapter</strong></td>
+<td>Autonomous Agents and Multi-Agent Systems (JAAMAS)</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td><em>“IoT-to-Compliance: Bridging Real-Time Sensor Data and EU ETS Regulatory Filings”</em></td>
+<td><em>“IoT-vaatimustenmukaisuus: Reaaliaikaisen sensoridatan ja EU:n päästökauppajärjestelmän raportointisarjan yhdistäminen”</em></td>
+<td>Journal article</td>
+<td>Environmental Science &amp; Technology</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td><em>“Network Effects in B2B Climate Compliance: Supplier Portal Design for CBAM Data Exchange”</em></td>
+<td><em>“Verkostovaikutukset B2B-ilmastovaatimustenmukaisuudessa: Toimittajaportaalin suunnittelu CBAM-tietojenvaihtoon”</em></td>
+<td>Conference paper</td>
+<td>CSCW 2027</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td><em>“DWS IQ 7: A Longitudinal Case Study of AI-Native Platform Evolution for EU Industrial Compliance”</em></td>
+<td><em>“DWS IQ 7: Pitkittäistapaustutkimus tekoälynatiivista alustaevoluutiosta EU:n teolliseen vaatimustenmukaisuuteen”</em></td>
+<td><strong>PhD Dissertation</strong></td>
+<td>Doctoral thesis</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-collection-per-phase-tiedonkeruu-vaiheittain">Data Collection per Phase / Tiedonkeruu vaiheittain</h3>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 36%" />
+<col style="width: 45%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Data Source (EN)</th>
+<th>Tietolähde (FI)</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Test coverage metrics, deployment logs, bug reports</td>
+<td>Testikattavuusmittarit, käyttöönottologit, virheraporti</td>
+<td>Quantitative</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Compliance accuracy vs manual processes, time savings</td>
+<td>Vaatimustenmukaisuuden tarkkuus vs manuaaliset prosessit, ajansäästö</td>
+<td>Mixed methods</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Security audit results, pentest findings, SLA metrics</td>
+<td>Turvallisuustarkastusten tulokset, tietoturvatestauksen löydökset, SLA-mittarit</td>
+<td>Quantitative</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Agent execution logs, IoT sensor data, AI decision accuracy</td>
+<td>Agenttien suorituslogit, IoT-sensoridata, tekoälypäätösten tarkkuus</td>
+<td>Quantitative + case study</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Customer interviews (16 industrial customers), NPS, usage data</td>
+<td>Asiakashaastattelut (16 teollisuusasiakasta), NPS, käyttödata</td>
+<td>Qualitative + quantitative</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Full longitudinal dataset (22 months), financial metrics</td>
+<td>Täydellinen pitkittäisaineisto (22 kuukautta), taloudelliset mittarit</td>
+<td>Longitudinal case study</td>
+</tr>
+</tbody>
+</table>
+<h3 id="thesis-repository-structure-väitöskirjan-kansiorakenne">Thesis Repository Structure / Väitöskirjan kansiorakenne</h3>
+<pre><code>docs/
+├── thesis/                          # Multi-agent coordination (existing)
+├── metropolia/master-thesis/        # Master&#39;s thesis (existing, foundation)
+│   ├── en/V2Thesis_EN.md
+│   └── fi/V2Thesis_FI.md
+└── phd/                             # PhD thesis (new, generated from DWS7 phases)
+    ├── en/                          # English publications
+    │   ├── CH1_introduction.md
+    │   ├── CH2_literature_review.md
+    │   ├── CH3_testing_strategies.md      ← Phase 1
+    │   ├── CH4_compliance_engine.md       ← Phase 2
+    │   ├── CH5_eu_ai_act_practice.md      ← Phase 2
+    │   ├── CH6_security_architecture.md   ← Phase 3
+    │   ├── CH7_agentic_ai.md              ← Phase 4 (core)
+    │   ├── CH8_iot_to_compliance.md       ← Phase 4
+    │   ├── CH9_network_effects.md         ← Phase 5
+    │   ├── CH10_longitudinal_case.md      ← Phase 6
+    │   └── DISSERTATION_EN.md             ← Final compiled thesis
+    └── fi/                          # Finnish publications
+        ├── CH1_johdanto.md
+        ├── CH2_kirjallisuuskatsaus.md
+        ├── CH3_testausstrategiat.md       ← Vaihe 1
+        ├── CH4_vaatimustenmukaisuusmoottori.md  ← Vaihe 2
+        ├── CH5_eu_tekoalysaados.md        ← Vaihe 2
+        ├── CH6_turvallisuusarkkitehtuuri.md     ← Vaihe 3
+        ├── CH7_agenttinen_tekoaly.md      ← Vaihe 4 (ydin)
+        ├── CH8_iot_vaatimustenmukaisuus.md      ← Vaihe 4
+        ├── CH9_verkostovaikutukset.md     ← Vaihe 5
+        ├── CH10_pitkittaistapaustutkimus.md     ← Vaihe 6
+        └── VAITOSKIRJA_FI.md              ← Lopullinen koottu väitöskirja</code></pre>
+<h3 id="academic-timeline-akateeminen-aikataulu">Academic Timeline / Akateeminen aikataulu</h3>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 46%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Milestone (EN)</th>
+<th>Välitavoite (FI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apr 2026</td>
+<td>Submit Phase 1 conference paper</td>
+<td>Lähetä vaiheen 1 konferenssipaperi</td>
+</tr>
+<tr class="even">
+<td>Jul 2026</td>
+<td>Submit compliance engine journal article</td>
+<td>Lähetä vaatimustenmukaisuusmoottorin lehtiartikkeli</td>
+</tr>
+<tr class="odd">
+<td>Oct 2026</td>
+<td>PhD program application (with 2-3 published papers)</td>
+<td>Tohtoriohjelman hakemus (2-3 julkaistua paperia)</td>
+</tr>
+<tr class="even">
+<td>Jan 2027</td>
+<td>Submit agentic AI core chapter to JAAMAS</td>
+<td>Lähetä agenttinen tekoäly -ydinluku JAAMAS:iin</td>
+</tr>
+<tr class="odd">
+<td>May 2027</td>
+<td>Submit IoT-to-compliance article</td>
+<td>Lähetä IoT-vaatimustenmukaisuusartikkeli</td>
+</tr>
+<tr class="even">
+<td>Oct 2027</td>
+<td>Complete dissertation draft</td>
+<td>Väitöskirjaluonnoksen valmistuminen</td>
+</tr>
+<tr class="odd">
+<td>Dec 2027</td>
+<td>Submit PhD dissertation</td>
+<td>Väitöskirjan jättäminen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contribution-to-knowledge-panos-tietämykseen">Contribution to Knowledge / Panos tietämykseen</h3>
+<p><strong>EN:</strong> This research contributes the first longitudinal empirical study of an AI-native multi-agent platform purpose-built for EU industrial climate compliance, bridging the gap between theoretical multi-agent systems research and real-world deployment at 16 industrial sites. The novel IoT-to-compliance pipeline and EU AI Act reasoning lineage implementation provide reference architectures for the emerging field of autonomous regulatory compliance.</p>
+<p><strong>FI:</strong> Tämä tutkimus tuottaa ensimmäisen pitkittäisen empiirisen tutkimuksen tekoälynatiivista moniagenttialustasta, joka on rakennettu EU:n teolliseen ilmastovaatimustenmukaisuuteen, yhdistäen teoreettisen moniagenttijärjestelmätutkimuksen ja todellisen käyttöönoton 16 teollisuuskohteessa. Uudenlainen IoT-vaatimustenmukaisuusputki ja EU:n tekoälysäädöksen mukainen päättelyketjun toteutus tarjoavat referenssiarkkitehtuurit autonomisen sääntelynmukaisuuden kehittyvälle alalle.</p>
+<hr />
+<h2 id="weekly-correction-process">Weekly Correction Process</h2>
+<p>This roadmap is a <strong>living document</strong> — corrected every week based on real-world signals.</p>
+<h3 id="what-gets-corrected">What Gets Corrected</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 38%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Source</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Competitor moves</strong></td>
+<td>Competitor RSS feeds, Crunchbase, ProductHunt</td>
+<td>Re-prioritize PRs, add defensive PRs, drop obsoleted features</td>
+</tr>
+<tr class="even">
+<td><strong>Technology advances</strong></td>
+<td>GitHub Trending, HN, framework releases</td>
+<td>Swap libraries, adopt new patterns, update tech stack PRs</td>
+</tr>
+<tr class="odd">
+<td><strong>Regulation changes</strong></td>
+<td>EUR-Lex, European Commission, national registries</td>
+<td>Add/modify compliance PRs, shift phase timelines</td>
+</tr>
+<tr class="even">
+<td><strong>Customer feedback</strong></td>
+<td>Support tickets, NPS surveys, churn signals</td>
+<td>Promote P2→P1, add urgent PRs, re-scope features</td>
+</tr>
+<tr class="odd">
+<td><strong>Market data</strong></td>
+<td>Carbon price (EUA), industry reports, funding rounds</td>
+<td>Adjust financial projections, reprioritize industry verticals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="correction-workflow-every-monday">Correction Workflow (Every Monday)</h3>
+<ol type="1">
+<li><strong>08:00 UTC</strong> — <code>roadmap-weekly-tracker.yml</code> runs automatically</li>
+<li><strong>Gathers signals:</strong> PR progress, dependency updates, GitHub security alerts</li>
+<li><strong>Creates GitHub Issue</strong> with progress + signals requiring attention</li>
+<li><strong>Team reviews</strong> the issue, decides corrections</li>
+<li><strong>Corrections committed</strong> to <code>DWS7_ROADMAP.md</code> with changelog entry below</li>
+</ol>
+<h3 id="competitor-watch-list">Competitor Watch List</h3>
+<p>Track these competitors weekly for moves that affect our roadmap:</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 36%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Competitor</th>
+<th>Watch For</th>
+<th>Impact on DWS7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Persefoni</strong></td>
+<td>EU expansion, CBAM features, pricing changes</td>
+<td>If they launch EU CBAM → accelerate Phase 2 CBAM PRs</td>
+</tr>
+<tr class="even">
+<td><strong>Watershed</strong></td>
+<td>EU market entry, Scope 3 automation</td>
+<td>If they expand EU → deepen industry-specific moat</td>
+</tr>
+<tr class="odd">
+<td><strong>Sweep</strong></td>
+<td>CSRD features, SME pricing</td>
+<td>If they drop prices → adjust our Starter tier</td>
+</tr>
+<tr class="even">
+<td><strong>One Click LCA</strong></td>
+<td>Post-SimaPro integration, API partnerships</td>
+<td>If they open API → prioritize PR 206 (LCA integration)</td>
+</tr>
+<tr class="odd">
+<td><strong>Plan A</strong></td>
+<td>New certifications, industry modules</td>
+<td>If they add industrial → differentiate on IoT pipeline</td>
+</tr>
+<tr class="even">
+<td><strong>CO2 AI (BCG)</strong></td>
+<td>Agentic AI launch, enterprise deals</td>
+<td>If they ship agentic → accelerate Phase 4</td>
+</tr>
+<tr class="odd">
+<td><strong>Schneider Electric</strong></td>
+<td>EcoStruxure + sustainability convergence</td>
+<td>If they ship IoT-to-compliance → defend with speed</td>
+</tr>
+<tr class="even">
+<td><strong>SAP</strong></td>
+<td>Sustainability Control Tower updates</td>
+<td>If SAP adds CBAM native → pivot ERP integration strategy</td>
+</tr>
+<tr class="odd">
+<td><strong>Coolset / ClimEase</strong></td>
+<td>CBAM market share, pricing moves</td>
+<td>If CBAM tools commoditize → bundle as free tier feature</td>
+</tr>
+<tr class="even">
+<td><strong>Normative</strong></td>
+<td>Post-Eivee acquisition, Nordic expansion</td>
+<td>If they target Finland → accelerate local ERP connectors</td>
+</tr>
+</tbody>
+</table>
+<h3 id="big-tech-ai-platform-watch">Big Tech AI Platform Watch</h3>
+<p>These companies directly shape DWS7’s AI capabilities, infrastructure costs, and competitive landscape. Their moves can shift entire phases of the roadmap.</p>
+<h4 id="nvidia">NVIDIA</h4>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 26%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Jetson Orin updates</strong></td>
+<td>New Jetson modules, JetPack SDK releases, power efficiency improvements</td>
+<td>PR 154 (edge agent deployment), Phase 4 IoT pipeline</td>
+</tr>
+<tr class="even">
+<td><strong>CUDA / TensorRT</strong></td>
+<td>Inference optimization, new quantization methods</td>
+<td>Climate LLM fine-tuning performance (PR 161)</td>
+</tr>
+<tr class="odd">
+<td><strong>NIM (NVIDIA Inference Microservices)</strong></td>
+<td>Self-hosted inference containers, new model support</td>
+<td>Alternative to Groq for on-premise/edge inference</td>
+</tr>
+<tr class="even">
+<td><strong>Blackwell (GB10 / GN100)</strong></td>
+<td>New Blackwell-class GPU performance, VRAM, quantization improvements</td>
+<td>Directly impacts Acer Veriton GN100 capacity — affects which models run locally, Climate LLM fine-tuning throughput (PR 161), sovereign inference roadmap</td>
+</tr>
+<tr class="odd">
+<td><strong>Omniverse / Digital Twins</strong></td>
+<td>Industrial digital twin capabilities</td>
+<td>Future: factory/site digital twin integration</td>
+</tr>
+<tr class="even">
+<td><strong>Pricing &amp; supply</strong></td>
+<td>GPU availability, Jetson pricing changes</td>
+<td>Edge AI cost model, hardware procurement decisions</td>
+</tr>
+<tr class="odd">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="nvidia">@nvidia</span>, <span class="citation" data-cites="NVIDIAAIDev">@NVIDIAAIDev</span>, <span class="citation" data-cites="JetsonHacks">@JetsonHacks</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="google">Google</h4>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 35%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Gemini model releases</strong></td>
+<td>Gemini 2.5+, context window, tool-use improvements</td>
+<td>Multi-LLM strategy — Gemini as fallback/alternative to Claude</td>
+</tr>
+<tr class="even">
+<td><strong>Google Cloud Run</strong></td>
+<td>Pricing changes, new features, GPU support</td>
+<td>Primary backend deployment costs (Phase 1-6)</td>
+</tr>
+<tr class="odd">
+<td><strong>Vertex AI</strong></td>
+<td>Agent Builder, Vertex AI Search, grounding</td>
+<td>Potential alternative to MCP for agent orchestration</td>
+</tr>
+<tr class="even">
+<td><strong>BigQuery + sustainability</strong></td>
+<td>Carbon footprint datasets, public data programs</td>
+<td>Industry benchmark data for compliance (PR 175)</td>
+</tr>
+<tr class="odd">
+<td><strong>Google Cloud for Startups</strong></td>
+<td>Credits program changes, sustainability track</td>
+<td>Infrastructure credits (existing $135K+ potential)</td>
+</tr>
+<tr class="even">
+<td><strong>Colab / TPU</strong></td>
+<td>Training infrastructure, pricing</td>
+<td>Climate LLM fine-tuning compute costs (PR 161)</td>
+</tr>
+<tr class="odd">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="GoogleAI">@GoogleAI</span>, <span class="citation" data-cites="GoogleCloud">@GoogleCloud</span>, <span class="citation" data-cites="GeminiApp">@GeminiApp</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="microsoft">Microsoft</h4>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 29%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Azure OpenAI</strong></td>
+<td>GPT-5+, o3 reasoning models, pricing</td>
+<td>Competitive pressure on Claude-based architecture</td>
+</tr>
+<tr class="even">
+<td><strong>Dynamics 365 Sustainability</strong></td>
+<td>Native sustainability features in ERP</td>
+<td>If D365 adds CBAM/ETS native → pivot PR 132 strategy</td>
+</tr>
+<tr class="odd">
+<td><strong>Microsoft Sustainability Manager</strong></td>
+<td>Feature updates, industry modules</td>
+<td>Direct competitor for enterprise sustainability</td>
+</tr>
+<tr class="even">
+<td><strong>Copilot for Industry</strong></td>
+<td>Manufacturing, energy industry Copilots</td>
+<td>May set customer expectations for AI-assisted compliance</td>
+</tr>
+<tr class="odd">
+<td><strong>Azure IoT</strong></td>
+<td>Edge runtime updates, Digital Twins</td>
+<td>Alternative to AWS IoT Greengrass for edge deployment</td>
+</tr>
+<tr class="even">
+<td><strong>GitHub Copilot</strong></td>
+<td>Agent mode advances, workspace features</td>
+<td>Developer productivity competition</td>
+</tr>
+<tr class="odd">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="Microsoft">@Microsoft</span>, <span class="citation" data-cites="MSCloud">@MSCloud</span>, <span class="citation" data-cites="AzureIoT">@AzureIoT</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="ibm">IBM</h4>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 41%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>IBM Envizi</strong></td>
+<td>New ESG features, industry modules, pricing</td>
+<td>Direct competitor for enterprise carbon accounting</td>
+</tr>
+<tr class="even">
+<td><strong>watsonx.ai</strong></td>
+<td>New foundation models, industry models</td>
+<td>Alternative LLM for industrial-specific AI</td>
+</tr>
+<tr class="odd">
+<td><strong>watsonx.governance</strong></td>
+<td>AI governance tools, EU AI Act features</td>
+<td>Reference for our EU AI Act compliance (PRs 078-083)</td>
+</tr>
+<tr class="even">
+<td><strong>IBM Consulting</strong></td>
+<td>Sustainability practice announcements, partner deals</td>
+<td>May influence enterprise buyer expectations</td>
+</tr>
+<tr class="odd">
+<td><strong>Granite models</strong></td>
+<td>Open-source enterprise models</td>
+<td>Potential base model for climate LLM fine-tuning</td>
+</tr>
+<tr class="even">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="IBM">@IBM</span>, <span class="citation" data-cites="IBMResearch">@IBMResearch</span>, <span class="citation" data-cites="IBMSustain">@IBMSustain</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="aws">AWS</h4>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 41%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>AWS IoT Greengrass</strong></td>
+<td>Edge runtime updates, ML inference at edge</td>
+<td>Phase 4 IoT pipeline (PRs 151-160)</td>
+</tr>
+<tr class="even">
+<td><strong>Amazon Bedrock</strong></td>
+<td>New models, agent framework, knowledge bases</td>
+<td>Multi-LLM infrastructure alternative</td>
+</tr>
+<tr class="odd">
+<td><strong>AWS Sustainability</strong></td>
+<td>Customer Carbon Footprint Tool updates</td>
+<td>May commoditize basic carbon tracking</td>
+</tr>
+<tr class="even">
+<td><strong>SageMaker</strong></td>
+<td>Training cost reductions, new instance types</td>
+<td>Climate LLM training cost optimization</td>
+</tr>
+<tr class="odd">
+<td><strong>AWS Credits</strong></td>
+<td>Startup program, sustainability credits</td>
+<td>Infrastructure cost offset</td>
+</tr>
+<tr class="even">
+<td><strong>EU Region expansion</strong></td>
+<td>New EU regions, data residency guarantees</td>
+<td>Multi-region deployment options (PR 216)</td>
+</tr>
+<tr class="odd">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="awscloud">@awscloud</span>, <span class="citation" data-cites="AWSstartups">@AWSstartups</span>, <span class="citation" data-cites="AWSIoT">@AWSIoT</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="anthropic">Anthropic</h4>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 35%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Claude model releases</strong></td>
+<td>Claude 5+, capabilities, context window, pricing</td>
+<td>Core AI engine — every model upgrade improves all agents</td>
+</tr>
+<tr class="even">
+<td><strong>MCP (Model Context Protocol)</strong></td>
+<td>New tools, server spec changes, ecosystem growth</td>
+<td>MCP hub architecture (entire agent layer depends on this)</td>
+</tr>
+<tr class="odd">
+<td><strong>Claude Code</strong></td>
+<td>New features, agent SDK improvements</td>
+<td>Development velocity, worktree workflows</td>
+</tr>
+<tr class="even">
+<td><strong>Tool use improvements</strong></td>
+<td>Better structured output, parallel tool calls</td>
+<td>Agent reliability and performance</td>
+</tr>
+<tr class="odd">
+<td><strong>Pricing changes</strong></td>
+<td>API price drops/increases, new tiers</td>
+<td>Operating cost for climate assistant (PRs 046-177)</td>
+</tr>
+<tr class="even">
+<td><strong>Safety research</strong></td>
+<td>Constitutional AI updates, EU AI Act alignment</td>
+<td>Reasoning lineage compliance (PRs 078-083)</td>
+</tr>
+<tr class="odd">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="AnthropicAI">@AnthropicAI</span>, <span class="citation" data-cites="alexalbert">@alexalbert</span>__, <span class="citation" data-cites="aabornadel">@aabornadel</span> (Dario)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="openai">OpenAI</h4>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 36%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>GPT-5+ releases</strong></td>
+<td>New capabilities, reasoning, tool use</td>
+<td>Competitive pressure — customers may ask “why not GPT?”</td>
+</tr>
+<tr class="even">
+<td><strong>o3/o4 reasoning models</strong></td>
+<td>Reasoning capability, cost/performance tradeoffs</td>
+<td>May force us to offer multi-model choice</td>
+</tr>
+<tr class="odd">
+<td><strong>API pricing</strong></td>
+<td>Price drops that shift market expectations</td>
+<td>Pressure on our pricing if competitors use cheaper models</td>
+</tr>
+<tr class="even">
+<td><strong>Enterprise features</strong></td>
+<td>Data residency, compliance certifications</td>
+<td>Enterprise buyers may demand OpenAI model option</td>
+</tr>
+<tr class="odd">
+<td><strong>Agents / Swarm</strong></td>
+<td>Multi-agent frameworks, production deployment</td>
+<td>Reference architecture for our agentic AI (Phase 4)</td>
+</tr>
+<tr class="even">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="OpenAI">@OpenAI</span>, <span class="citation" data-cites="sama">@sama</span>, <span class="citation" data-cites="gabornadel">@gabornadel</span> (Greg Brockman)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="chinese-llms-deepseek-qwen-yi-baichuan">Chinese LLMs (DeepSeek, Qwen, Yi, Baichuan)</h4>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 31%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>Watch For</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>DeepSeek</strong></td>
+<td>V3+, R1 reasoning, open-source releases, cost leadership</td>
+<td>If DeepSeek quality matches Claude at 10x lower cost → evaluate for non-sensitive workloads</td>
+</tr>
+<tr class="even">
+<td><strong>Qwen (Alibaba)</strong></td>
+<td>Qwen 3+, multilingual EU language support</td>
+<td>Potential for Finnish/German/Swedish language tasks</td>
+</tr>
+<tr class="odd">
+<td><strong>Yi (01.AI)</strong></td>
+<td>New releases, commercial licensing</td>
+<td>Alternative for self-hosted inference</td>
+</tr>
+<tr class="even">
+<td><strong>EU data sovereignty concerns</strong></td>
+<td>EU regulatory stance on Chinese AI models</td>
+<td>May be blocked for EU compliance workloads — monitor closely</td>
+</tr>
+<tr class="odd">
+<td><strong>Cost disruption</strong></td>
+<td>If Chinese models commoditize LLM inference</td>
+<td>Could pressure DWS7 pricing model downward</td>
+</tr>
+<tr class="even">
+<td><strong>Open-source fine-tuning</strong></td>
+<td>Quality of open models for domain-specific tasks</td>
+<td>Base model selection for climate LLM (PR 161)</td>
+</tr>
+<tr class="odd">
+<td><strong>X accounts</strong></td>
+<td><span class="citation" data-cites="deepabornadel">@deepabornadel</span>, <span class="citation" data-cites="Alibaba_Qwen">@Alibaba_Qwen</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="platform-decision-matrix">Platform Decision Matrix</h4>
+<p>When a major platform announcement occurs, use this framework:</p>
+<pre><code>Big tech announcement detected →
+  1. Does it ENABLE something we couldn&#39;t do before?
+     └─ YES → Add adoption PR, estimate effort and timeline
+  2. Does it THREATEN our competitive position?
+     └─ YES → Evaluate: Can we integrate it? Switch to it? Or differentiate harder?
+  3. Does it change PRICING economics?
+     └─ YES → Re-model unit economics, adjust billing (PRs 121-128)
+  4. Does it shift CUSTOMER EXPECTATIONS?
+     └─ YES → Update roadmap priorities to match what customers now expect
+  5. Does it affect EU DATA SOVEREIGNTY?
+     └─ YES → Flag immediately — compliance is non-negotiable</code></pre>
+<h3 id="technology-watch-list-frameworks-infrastructure">Technology Watch List (Frameworks &amp; Infrastructure)</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 41%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technology</th>
+<th>Watch For</th>
+<th>Impact on DWS7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>React</strong></td>
+<td>React 20+, Server Components maturity</td>
+<td>Dashboard architecture decisions</td>
+</tr>
+<tr class="even">
+<td><strong>Vite</strong></td>
+<td>Major releases, new features</td>
+<td>Build tooling updates</td>
+</tr>
+<tr class="odd">
+<td><strong>Supabase</strong></td>
+<td>New features (vectors, branching, edge functions)</td>
+<td>Database architecture, new capabilities</td>
+</tr>
+<tr class="even">
+<td><strong>Temporal.io</strong></td>
+<td>SDK updates, new workflow patterns</td>
+<td>Agent orchestration improvements</td>
+</tr>
+<tr class="odd">
+<td><strong>Cloudflare</strong></td>
+<td>Workers AI, D1, new edge features</td>
+<td>Edge deployment strategy</td>
+</tr>
+<tr class="even">
+<td><strong>EU Digital Product Passport</strong></td>
+<td>Standard finalization, implementation guides</td>
+<td>PR 235 timing and scope</td>
+</tr>
+<tr class="odd">
+<td><strong>pgvector / embeddings</strong></td>
+<td>Performance improvements, new models</td>
+<td>RAG pipeline optimization (PR 162)</td>
+</tr>
+<tr class="even">
+<td><strong>LangChain / LlamaIndex</strong></td>
+<td>Agent framework updates, tool ecosystems</td>
+<td>Evaluate vs custom MCP implementation</td>
+</tr>
+<tr class="odd">
+<td><strong>Deno / Bun</strong></td>
+<td>Runtime performance, TypeScript support</td>
+<td>Future backend runtime consideration</td>
+</tr>
+<tr class="even">
+<td><strong>Tailwind CSS</strong></td>
+<td>v5+ major changes, new utility patterns</td>
+<td>Dashboard styling approach</td>
+</tr>
+</tbody>
+</table>
+<h3 id="industry-watch-list-16-eu-industries">Industry Watch List (16 EU Industries)</h3>
+<p>Each of DWS7’s 16 target industries has its own regulatory shifts, technology disruptions, and competitive dynamics. Track weekly.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 40%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Industry</th>
+<th>Key Regulation</th>
+<th>Watch For</th>
+<th>Signal Sources</th>
+<th>Roadmap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Construction</strong></td>
+<td>EPBD, CPR, EN 15978</td>
+<td>Digital product passports (Jul 2027), nearly-zero energy buildings mandate, One Click LCA moves</td>
+<td>European Commission DG GROW, BuildingSMART</td>
+<td>PRs 187, 235 timing</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Steel</strong></td>
+<td>ETS, CBAM</td>
+<td>Green steel premiums, H2-DRI adoption rates, ArcelorMittal/SSAB announcements</td>
+<td>Eurofer, World Steel Association</td>
+<td>PR 188 scope, free allowance calcs</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>Cement</strong></td>
+<td>ETS, CBAM</td>
+<td>Clinker substitution breakthroughs, CCUS deployment, Heidelberg/Holcim strategy</td>
+<td>CEMBUREAU, Global Cement Review</td>
+<td>PR 189 calculation methods</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Chemicals</strong></td>
+<td>ETS, REACH update</td>
+<td>Bio-based feedstock shifts, PFAS restriction proposals, BASF/Evonik pivots</td>
+<td>CEFIC, ECHA consultations</td>
+<td>PR 190 product scope</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Aluminum</strong></td>
+<td>ETS, CBAM</td>
+<td>Inert anode tech (Elysis), recycled content mandates, Hydro/Norsk Hydro moves</td>
+<td>European Aluminium, IAI</td>
+<td>PR 191 emission factors</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Manufacturing</strong></td>
+<td>EED, ETS for scope expansion</td>
+<td>Industry 4.0 + sustainability convergence, digital twin adoption</td>
+<td>Eurostat energy balances, VDMA</td>
+<td>PR 192 OEE integration</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>Logistics &amp; Transport</strong></td>
+<td>ReFuelEU, FuelEU Maritime</td>
+<td>SAF mandates (2% 2025 → 6% 2030), e-truck adoption, Maersk/DHL announcements</td>
+<td>IATA, IMO, IRU</td>
+<td>PR 193 fleet emissions</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>Energy Production</strong></td>
+<td>RED III, ETS</td>
+<td>Offshore wind expansion, nuclear renaissance, grid storage breakthroughs</td>
+<td>ENTSO-E, IRENA, IEA</td>
+<td>PR 194 generation mix</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><strong>Mining</strong></td>
+<td>CSRD, Taxonomy</td>
+<td>Critical raw materials act, ESG due diligence for minerals, Boliden/LKAB updates</td>
+<td>EIT RawMaterials, ICMM</td>
+<td>PR 195 extraction metrics</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><strong>Healthcare</strong></td>
+<td>CSRD, medical device regulation</td>
+<td>Sustainable healthcare initiatives, hospital energy optimization, Philips/Siemens Healthineers</td>
+<td>WHO green healthcare, HCWH Europe</td>
+<td>PR 196 facility tracking</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><strong>Real Estate</strong></td>
+<td>EPBD recast, Taxonomy</td>
+<td>Minimum Energy Performance Standards (MEPS 2030), renovation wave funding</td>
+<td>European Commission DG ENER, BPIE</td>
+<td>PR 197 EPC integration</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><strong>Public Sector</strong></td>
+<td>Green public procurement</td>
+<td>Net-zero government targets, climate-neutral cities mission (100 by 2030)</td>
+<td>EU Mission Cities, national procurement agencies</td>
+<td>PR 198 procurement tracking</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><strong>Financial Services</strong></td>
+<td>SFDR, DORA, Taxonomy</td>
+<td>Scope 3 financed emissions mandates, climate stress tests, ECB/EBA guidance</td>
+<td>ECB, EBA, ESMA</td>
+<td>New PR candidate: financed emissions module</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td><strong>Food &amp; Agriculture</strong></td>
+<td>CAP reform, LULUCF</td>
+<td>Farm-to-fork emissions, methane reduction tech, carbon farming credits</td>
+<td>DG AGRI, EEA</td>
+<td>New PR candidate: agricultural emissions</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td><strong>Textiles</strong></td>
+<td>ESPR, CSRD</td>
+<td>EU Strategy for Sustainable Textiles, digital product passports, H&amp;M/Inditex moves</td>
+<td>EURATEX, European Commission DG GROW</td>
+<td>New PR candidate: textile supply chain</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td><strong>ICT &amp; Data Centers</strong></td>
+<td>EED Art. 12, Code of Conduct</td>
+<td>Energy efficiency reporting obligations (from 2024), PUE mandates, hyperscaler sustainability reports</td>
+<td>European Commission JRC, EUDCA</td>
+<td>New PR candidate: data center emissions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="industry-signal-response-matrix">Industry Signal Response Matrix</h3>
+<p>When an industry signal fires, use this decision matrix:</p>
+<pre><code>Signal detected → Is it regulatory?
+  ├─ YES → Does it change compliance requirements?
+  │   ├─ YES → Add/modify compliance PR, adjust Phase 2-3 scope
+  │   └─ NO (just timeline shift) → Update deadline in compliance calendar
+  └─ NO → Is it competitive?
+      ├─ YES → Does a competitor now serve this industry better?
+      │   ├─ YES → Promote industry module PR to P0, add differentiation PRs
+      │   └─ NO → Log and monitor
+      └─ NO → Is it technology?
+          ├─ YES → Does it enable better/cheaper solution?
+          │   ├─ YES → Evaluate effort, add tech adoption PR if ROI &gt; 3x
+          │   └─ NO → Log for future consideration
+          └─ NO → Log in weekly report, review quarterly</code></pre>
+<h3 id="x-twitter-intelligence-feed">X (Twitter) Intelligence Feed</h3>
+<p>X has been a primary source of early signals for AI, climate-tech, and EU regulation. Track these accounts and topics weekly.</p>
+<h4 id="key-accounts-to-monitor">Key Accounts to Monitor</h4>
+<p><strong>AI &amp; Development:</strong></p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 48%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Account</th>
+<th>Why</th>
+<th>Signal Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="citation" data-cites="AnthropicAI">@AnthropicAI</span></td>
+<td>Claude model releases, MCP updates, safety research</td>
+<td>Tech: agent capabilities</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="kabornadel">@kabornadel</span> (Andrej Karpathy)</td>
+<td>AI development philosophy, agentic coding insights</td>
+<td>Tech: dev practices</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="dabornadel">@dabornadel</span> (Daniel San)</td>
+<td>Claude Code workflows, worktrees, Ghostty patterns</td>
+<td>Tech: dev tooling</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="OpenAI">@OpenAI</span></td>
+<td>GPT model advances, competitive pressure</td>
+<td>Competitor: AI models</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="GoogleAI">@GoogleAI</span></td>
+<td>Gemini updates, Vertex AI features</td>
+<td>Competitor: AI models</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="MetaAI">@MetaAI</span></td>
+<td>Llama releases, open-source LLM advances</td>
+<td>Tech: fine-tuning base</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="GroqInc">@GroqInc</span></td>
+<td>Inference speed improvements, new models</td>
+<td>Tech: LLM inference</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="suabornadel">@suabornadel</span></td>
+<td>Supabase features, edge functions, vectors</td>
+<td>Tech: database</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="temporalio">@temporalio</span></td>
+<td>Workflow orchestration patterns</td>
+<td>Tech: agent orchestration</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="CloudflareDev">@CloudflareDev</span></td>
+<td>Workers updates, edge AI, Pages features</td>
+<td>Tech: deployment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Climate-Tech &amp; Compliance:</strong></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 55%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Account</th>
+<th>Why</th>
+<th>Signal Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="citation" data-cites="EU_Commission">@EU_Commission</span></td>
+<td>Policy announcements, Fit-for-55 updates</td>
+<td>Regulation</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="EUClimateAction">@EUClimateAction</span></td>
+<td>ETS, CBAM implementation details</td>
+<td>Regulation</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="ABORNADEL">@ABORNADEL</span> (EEA)</td>
+<td>European environment data, emissions reports</td>
+<td>Industry data</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="PersefoniAI">@PersefoniAI</span></td>
+<td>Product launches, EU expansion signals</td>
+<td>Competitor</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="watershedclimate">@watershedclimate</span></td>
+<td>Feature announcements, enterprise wins</td>
+<td>Competitor</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="sweabornadel">@sweabornadel</span></td>
+<td>CSRD features, pricing moves</td>
+<td>Competitor</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="OneClickLCA">@OneClickLCA</span></td>
+<td>Construction LCA updates, SimaPro integration</td>
+<td>Competitor</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="PlanA_earth">@PlanA_earth</span></td>
+<td>German market moves, certifications</td>
+<td>Competitor</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="CarbonBrief">@CarbonBrief</span></td>
+<td>Carbon market analysis, policy explainers</td>
+<td>Market intelligence</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="BloombergNEF">@BloombergNEF</span></td>
+<td>Carbon price forecasts, clean energy data</td>
+<td>Market data</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="IEA">@IEA</span></td>
+<td>Global energy and emissions outlook</td>
+<td>Industry data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Industry Verticals:</strong></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 49%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Account</th>
+<th>Why</th>
+<th>Signal Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="citation" data-cites="ABORNADEL">@ABORNADEL</span> (Eurofer)</td>
+<td>Steel industry policy positions</td>
+<td>Industry: steel</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="CEMBUREAU">@CEMBUREAU</span></td>
+<td>Cement decarbonization progress</td>
+<td>Industry: cement</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="CEFIC_EU">@CEFIC_EU</span></td>
+<td>Chemical industry sustainability</td>
+<td>Industry: chemicals</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="ArcelorMittal">@ArcelorMittal</span></td>
+<td>Green steel announcements</td>
+<td>Industry: steel</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="HeidelbergCement">@HeidelbergCement</span></td>
+<td>Low-carbon cement tech</td>
+<td>Industry: cement</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="SSAB">@SSAB</span></td>
+<td>Fossil-free steel (HYBRIT) progress</td>
+<td>Industry: steel</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="Maersk">@Maersk</span></td>
+<td>Green shipping, methanol fuel adoption</td>
+<td>Industry: logistics</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="Schneider_EU">@Schneider_EU</span></td>
+<td>Industrial IoT + sustainability</td>
+<td>Competitor: IoT</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="SiemensInfra">@SiemensInfra</span></td>
+<td>Building X, digital twin updates</td>
+<td>Competitor: IoT</td>
+</tr>
+<tr class="even">
+<td><span class="citation" data-cites="NVIDIA">@NVIDIA</span></td>
+<td>Jetson updates, edge AI platform</td>
+<td>Tech: edge AI</td>
+</tr>
+</tbody>
+</table>
+<h4 id="x-signal-topics-search-weekly">X Signal Topics (Search Weekly)</h4>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Search Query</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&quot;EU ETS&quot; carbon price</code></td>
+<td>Track weekly EUA price sentiment</td>
+</tr>
+<tr class="even">
+<td><code>CBAM implementation 2026</code></td>
+<td>CBAM transitional period updates</td>
+</tr>
+<tr class="odd">
+<td><code>CSRD reporting software</code></td>
+<td>Competitor product launches</td>
+</tr>
+<tr class="even">
+<td><code>&quot;EU AI Act&quot; compliance</code></td>
+<td>Article 12 implementation guidance</td>
+</tr>
+<tr class="odd">
+<td><code>&quot;green steel&quot; OR &quot;fossil-free steel&quot;</code></td>
+<td>Steel industry decarbonization pace</td>
+</tr>
+<tr class="even">
+<td><code>&quot;digital product passport&quot; EU</code></td>
+<td>CPR implementation timeline</td>
+</tr>
+<tr class="odd">
+<td><code>Claude Code OR &quot;claude agent&quot;</code></td>
+<td>AI dev tooling advances</td>
+</tr>
+<tr class="even">
+<td><code>MCP &quot;model context protocol&quot;</code></td>
+<td>MCP ecosystem growth</td>
+</tr>
+<tr class="odd">
+<td><code>&quot;climate tech&quot; funding</code></td>
+<td>Competitor funding rounds</td>
+</tr>
+<tr class="even">
+<td><code>Supabase OR &quot;edge function&quot; release</code></td>
+<td>Infrastructure capabilities</td>
+</tr>
+</tbody>
+</table>
+<h4 id="x-signal-roadmap-action-process">X Signal → Roadmap Action Process</h4>
+<pre><code>1. Spot signal on X
+2. Log in weekly GitHub Issue (roadmap-tracker label)
+3. Assess: Does this change a PR priority, scope, or timeline?
+   ├─ YES → Commit correction to Correction Changelog with X post link
+   └─ NO → Archive in weekly report for quarterly review</code></pre>
+<h3 id="correction-changelog">Correction Changelog</h3>
+<p>Record every weekly correction here to maintain reasoning lineage.</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 3%" />
+<col style="width: 20%" />
+<col style="width: 55%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Date</th>
+<th>Correction</th>
+<th>Reason</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>W07</td>
+<td>2026-02-12</td>
+<td>Initial roadmap created</td>
+<td>Baseline: 247 PRs across 6 phases</td>
+<td>Codebase analysis + competitive research</td>
+</tr>
+<tr class="even">
+<td>W09</td>
+<td>2026-02-24</td>
+<td><strong>DWS7 Agent Modernization — 6 critical fixes implemented in DWS6</strong></td>
+<td>Ship now for DWS6 customers, not wait for DWS7 Phase 4. Accelerates PRs 078, 079, 138–150</td>
+<td>Session: claude/modernize-dws7-77v2B</td>
+</tr>
+<tr class="odd">
+<td>W12</td>
+<td>2026-03-16</td>
+<td><strong>NVIDIA GTC 2026 — 6 roadmap additions</strong></td>
+<td>NemoClaw/OpenClaw (Phase 2), Groq 3 LPU (Phase 3), cuDF structured data (Phase 3), Vera Rubin infra (Phase 4), DRIVE Hyperion fleet (Phase 5), DWS 8 roadmap created (Feynman 2028)</td>
+<td>Field note: 2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="nvidia-gtc-2026-technology-integration-plan">NVIDIA GTC 2026 — Technology Integration Plan</h2>
+<p><em>Added: 2026-03-16 | Session: claude/nvidia-gtc-2026-notes-cYO48</em> <em>Source: Jensen Huang GTC 2026 Keynote (March 16, 2026, SAP Center, San Jose)</em></p>
+<p>GTC 2026 announced 7 platform shifts. 5 directly impact DWS architecture. Items are mapped to existing phases — no new phases required.</p>
+<h3 id="gtc-2026-dws-7-mapping">GTC 2026 → DWS 7 Mapping</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 9%" />
+<col style="width: 1%" />
+<col style="width: 9%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>New PR</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Source Technology</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>248</td>
+<td>NemoClaw/OpenClaw agent sandbox evaluation</td>
+<td>P1</td>
+<td>NemoClaw stack</td>
+<td><strong>Closed 2026-05-16</strong>: Nemotron 3 Super selected as Climate LLM Primary tier on the Spark (replaces Llama 3.3 70B) — ~4.5× faster decode at Q4_K_M, native NVFP4 pretraining, <code>thinking</code> + tool-calling capabilities. OpenClaw wired into docker-compose as EU-sovereign local agent runtime. Remaining: OpenShell Runtime KYA-attested sandbox layer for L4 telemetry.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>249</td>
+<td>NVIDIA Agent Toolkit as MCP tool provider</td>
+<td>P2</td>
+<td>NemoClaw stack</td>
+<td>Integrate NVIDIA Agent Toolkit tools into DWS MCP server. Expands agent capabilities via NVIDIA-backed tooling</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>250</td>
+<td>Groq 3 LPU inference benchmarking</td>
+<td>P1</td>
+<td>Groq acquisition ($20B, full asset purchase)</td>
+<td>Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. NVIDIA now owns training AND inference silicon. Ships Q3 2026</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>251</td>
+<td>Vera Rubin infrastructure planning</td>
+<td>P2</td>
+<td>Vera Rubin platform</td>
+<td>Plan next-gen sovereign on-premise hardware. 10x perf/watt vs Blackwell. Monitor EU cloud availability (AWS/Azure/GCP). Shipping H2 2026</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>252</td>
+<td>DRIVE Hyperion fleet evaluation</td>
+<td>P3</td>
+<td>Autonomous driving</td>
+<td>Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>253</td>
+<td>cuDF pilot for compliance bulk assessment</td>
+<td>P2</td>
+<td>cuDF ($120B structured data)</td>
+<td>GPU-accelerated DataFrame processing on GN100 for bulk ETS/CBAM calculations (10,000+ records). Replace Pandas with cuDF in workflow/ and Firehorse/ Python pipelines. Complement pg_duckdb database-level acceleration</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Updated totals:</strong> 261 PRs (was 253) across 6 phases.</p>
+<h3 id="strategic-context">Strategic Context</h3>
+<ul>
+<li><strong>NVIDIA ISV Partnership:</strong> Lifetime Oy is approved NVIDIA Connect ISV Partner (2026-03-08). GTC announcements unlock: NemoClaw early access, Vera Rubin allocation via partner channel, Groq 3 beta testing, “Built on NVIDIA” co-marketing.</li>
+<li><strong>Groq dependency strengthened:</strong> DWS already uses Groq as provider in <code>src/agents/llm-client.ts</code>. NVIDIA’s $20B Groq acquisition aligns DWS inference stack with NVIDIA ecosystem. GN100 (Blackwell) provides independent fallback.</li>
+<li><strong>$1T order book:</strong> Combined Blackwell + Vera Rubin orders through 2027 signal sustained NVIDIA infrastructure investment — safe to build on.</li>
+</ul>
+<h3 id="dws-8-horizon-items-not-dws-7">DWS 8 Horizon Items (Not DWS 7)</h3>
+<p>These technologies are tracked for DWS 8 (2028+), not DWS 7:</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 57%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technology</th>
+<th>Why DWS 8</th>
+<th>Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Feynman architecture (Rosa CPU, LP40, BlueField-5)</td>
+<td>Purpose-built agentic CPU not available until 2028</td>
+<td>2028</td>
+</tr>
+<tr class="even">
+<td>Silicon photonics</td>
+<td>Optical interconnects for sovereign on-premise — lower power, higher density</td>
+<td>2028</td>
+</tr>
+<tr class="odd">
+<td>Space-1 orbital data centers</td>
+<td>Validates edge paradigm but no commercial application yet</td>
+<td>2029+</td>
+</tr>
+<tr class="even">
+<td>DLSS 5 neural rendering</td>
+<td>Gaming tech — only relevant if DWS builds Omniverse digital twin visualization</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>See <code>DWS8_ROADMAP.md</code> for full DWS 8 planning.</p>
+<hr />
+<h2 id="agent-evolution-roadmap">Agent Evolution Roadmap</h2>
+<p><em>Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B</em></p>
+<p>The DWS7 agent modernization was accelerated to ship in <strong>DWS6</strong> to enable customer acquisition now, not at DWS7 Phase 4 (Nov 2026). This section tracks what was implemented, what it maps to in the roadmap, and what remains.</p>
+<h3 id="delivered-in-dws6-2026-02-24">Delivered in DWS6 (2026-02-24)</h3>
+<p>These capabilities are <strong>production-ready in DWS6</strong> on branch <code>claude/modernize-dws7-77v2B</code>:</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 28%" />
+<col style="width: 19%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Capability</th>
+<th>Files</th>
+<th>Maps to PRs</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Observe-think-act agentic loop</strong></td>
+<td><code>src/agents/base.agent.ts</code> (<code>runLoop()</code>)</td>
+<td>PR 138 (partial), PR 079</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="even">
+<td><strong>Tool use / function calling</strong></td>
+<td><code>src/agents/tools.ts</code>, <code>types.ts</code></td>
+<td>PR 138 (partial), PR 140</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="odd">
+<td><strong>Multi-provider LLM client</strong> (Anthropic, Groq, OpenAI-compat)</td>
+<td><code>src/agents/llm-client.ts</code></td>
+<td>PR 161 (infrastructure)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="even">
+<td><strong>Agent-to-agent delegation</strong></td>
+<td><code>src/agents/index.ts</code> (delegate_to_agent)</td>
+<td>PR 138 (partial)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="odd">
+<td><strong>MCP Agent Server</strong> (/mcp endpoint, 22+ tools)</td>
+<td><code>src/mcp/agent-server.ts</code></td>
+<td>New — not in original roadmap</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="even">
+<td><strong>Event bus</strong> (in-process + Redis Streams)</td>
+<td><code>src/agents/event-bus.ts</code></td>
+<td>PR 149 (partial)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="odd">
+<td><strong>Workflow definitions &amp; executor</strong></td>
+<td><code>src/agents/workflows.ts</code></td>
+<td>PR 138 (partial)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="even">
+<td><strong>Article 12 loop iteration logging</strong></td>
+<td><code>base.agent.ts</code> (<code>logLoopIterations()</code>)</td>
+<td>PR 078, PR 079</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="odd">
+<td><strong>Delegation depth tracking</strong> (anti-loop)</td>
+<td><code>src/agents/index.ts</code></td>
+<td>PR 150 (partial)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="even">
+<td><strong>Agent discovery by capability</strong> (A2A)</td>
+<td><code>src/agents/index.ts</code> (<code>discoverAgents()</code>)</td>
+<td>New — A2A protocol prep</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="odd">
+<td><strong>SSRF protection on agent tools</strong></td>
+<td><code>src/agents/tools.ts</code> (domain allowlist)</td>
+<td>PR 103 (partial)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr class="even">
+<td><strong>Predefined workflows</strong> (compliance, construction, SEO)</td>
+<td><code>src/agents/workflows.ts</code></td>
+<td>PR 138 (partial)</td>
+<td>✅ Implemented</td>
+</tr>
+</tbody>
+</table>
+<h3 id="standards-updated-2026-02-24">Standards Updated (2026-02-24)</h3>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 31%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Standard</th>
+<th>Section Added</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>DWS_SECURITY_STANDARD.md</code> v1.3</td>
+<td>§16: Agent Event-Driven Arch, §17: MCP Tool Approval</td>
+<td>Security controls for new agent runtime</td>
+</tr>
+<tr class="even">
+<td><code>Admin/SECURITY_COMPLIANCE.md</code> v1.5</td>
+<td>Agent Runtime Security Controls</td>
+<td>Error handling, autonomy tiers, MCP endpoint security</td>
+</tr>
+<tr class="odd">
+<td><code>SITE_QUALITY_STANDARDS.md</code></td>
+<td>Agent-Driven UI Patterns</td>
+<td>Frontend patterns for agent results, workflows, events</td>
+</tr>
+<tr class="even">
+<td><code>docs/CLOUD_ENVIRONMENTS.md</code></td>
+<td>§13: MCP Agent Server</td>
+<td>Deployment, endpoints, event streaming architecture</td>
+</tr>
+<tr class="odd">
+<td><code>DWS7_ROADMAP.md</code></td>
+<td>Agent Evolution Roadmap (this section)</td>
+<td>Track what shipped early vs what remains</td>
+</tr>
+<tr class="even">
+<td><code>docs/DWS7_CLI_ROADMAP.md</code></td>
+<td>CLI Roadmap (50 PRs, 6 phases)</td>
+<td>Terminal-native agent platform: dry-run, memory, model routing, batch, fleet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-still-needs-dws7-phase-4">What Still Needs DWS7 Phase 4</h3>
+<p>These PRs are <strong>not yet implemented</strong> and remain in the Phase 4 timeline:</p>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 32%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PR</th>
+<th>Title</th>
+<th>Why Not Yet</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>138</td>
+<td>Temporal.io integration</td>
+<td>Workflow executor runs in-process; Temporal wiring needs infra provisioning</td>
+</tr>
+<tr class="even">
+<td>140</td>
+<td>Data collection agent</td>
+<td>Need ERP connectors (PRs 129-137) first</td>
+</tr>
+<tr class="odd">
+<td>141</td>
+<td>Report generation agent</td>
+<td>Need ESRS report builder (PR 072) first</td>
+</tr>
+<tr class="even">
+<td>142</td>
+<td>Anomaly detection agent</td>
+<td>Need IoT pipeline (PRs 151-153) first</td>
+</tr>
+<tr class="odd">
+<td>143</td>
+<td>Deadline reminder agent</td>
+<td>Need compliance calendar (PR 053) first</td>
+</tr>
+<tr class="even">
+<td>144</td>
+<td>Supplier outreach agent</td>
+<td>Need CBAM supplier portal (PR 060) first</td>
+</tr>
+<tr class="odd">
+<td>145</td>
+<td>Agent execution dashboard (UI)</td>
+<td>Frontend — need dashboard v10 completion (Phase 1.3)</td>
+</tr>
+<tr class="even">
+<td>146</td>
+<td>Agent approval workflow (UI)</td>
+<td>Frontend — need dashboard v10 + agent execution dashboard</td>
+</tr>
+<tr class="odd">
+<td>147</td>
+<td>Agent performance analytics</td>
+<td>Need execution data collected over time</td>
+</tr>
+<tr class="even">
+<td>148</td>
+<td>Multi-agent pipeline builder (visual)</td>
+<td>Complex UI — Phase 4 proper</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pr-acceleration-impact">PR Acceleration Impact</h3>
+<p>The DWS6 agent modernization <strong>accelerates 12 PRs</strong> from Phase 4 (Nov 2026) to Phase 1 (Feb 2026):</p>
+<pre><code>Original Phase 4 timeline:     Nov 2026 - Jan 2027
+Accelerated to DWS6 (now):     Feb 2026
+
+PRs affected:
+  078 (Article 12 logging)     — PARTIALLY COMPLETE (loop iteration logging)
+  079 (Reasoning lineage)      — PARTIALLY COMPLETE (agentic loop traces)
+  138 (Agent orchestration)    — PARTIALLY COMPLETE (in-process, no Temporal)
+  139 (Compliance agent)       — ALREADY EXISTS (enhanced with tool use)
+  145 (Agent execution dash)   — BACKEND READY (API endpoints exist)
+  146 (Agent approval workflow) — BACKEND READY (governance engine exists)
+  149 (Agent notification)     — PARTIALLY COMPLETE (event bus exists)
+  150 (Agent retry/recovery)   — PARTIALLY COMPLETE (graceful degradation)
+
+Net effect: -8 PRs from Phase 4, saving ~3 weeks of Phase 4 work
+Customer value: Agentic AI capabilities available NOW for pilot customers</code></pre>
+<h3 id="new-api-endpoints-dws6">New API Endpoints (DWS6)</h3>
+<p>These endpoints are <strong>live</strong> after the modernization and ready for customer-facing demos:</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 8%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Endpoint</th>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>POST /mcp</code></td>
+<td>JSON-RPC</td>
+<td>MCP protocol — external ADEs call agents as tools</td>
+</tr>
+<tr class="even">
+<td><code>GET /mcp/sse</code></td>
+<td>SSE</td>
+<td>Real-time agent event stream</td>
+</tr>
+<tr class="odd">
+<td><code>GET /mcp/health</code></td>
+<td>GET</td>
+<td>MCP server health</td>
+</tr>
+<tr class="even">
+<td><code>GET /api/agents/discover/:cap</code></td>
+<td>GET</td>
+<td>Find agents by capability</td>
+</tr>
+<tr class="odd">
+<td><code>GET /api/agents/workflows</code></td>
+<td>GET</td>
+<td>List predefined workflows</td>
+</tr>
+<tr class="even">
+<td><code>POST /api/agents/workflow/:name</code></td>
+<td>POST</td>
+<td>Trigger multi-agent workflow</td>
+</tr>
+<tr class="odd">
+<td><code>GET /api/agents/events</code></td>
+<td>GET</td>
+<td>Event bus history</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dws-7-mvp-v1-feature-list-audited-2026-03-15">DWS 7 MVP V1 Feature List (Audited 2026-03-15)</h2>
+<p>Complete feature inventory for DWS 7 MVP V1, based on codebase audit of 1,846 commits and 342 merged PRs.</p>
+<h3 id="shipped-features-working">Shipped Features (Working)</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 9%" />
+<col style="width: 86%" />
+<col style="width: 3%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Feature</th>
+<th>Components</th>
+<th>Readiness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Agent Swarm Platform</strong></td>
+<td>15 AI agents (8 platform + 7 specialized), BaseAgent framework, Nemotron 3 Super (Spark Primary) + Groq Llama 3.3 70B Versatile (cloud fallback)</td>
+<td>85%</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>MCP Orchestration</strong></td>
+<td>6 MCP servers, JSON-RPC 2.0, <code>/mcp</code> endpoint, SSE events, workflows</td>
+<td>80%</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>CLI Interface</strong></td>
+<td><code>dws agents</code>, <code>dws run</code>, <code>dws workflow</code>, structured JSON output</td>
+<td>75%</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>17 Claude Code Skills</strong></td>
+<td>/compliance-check, /agent-run, /workflow, /discover-agents, /site-safety, /carbon-analysis, /remote-control, /sovereignty-assess, /flow-status, /email, /plan-ceo-review, /plan-eng-review, /review, /ship, /browse, /retro, /simplify</td>
+<td>90%</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Backend API</strong></td>
+<td>Express/TS, JWT auth, Helmet, CORS, versioned routes</td>
+<td>75%</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Database</strong></td>
+<td>Supabase PostgreSQL, 52 migrations, pgvector, RLS, EU data residency (europe-north1)</td>
+<td>80%</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>Email System</strong></td>
+<td>SES SMTP primary + Resend fallback, templates, batch, webhook processing</td>
+<td>90%</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>CI/CD Pipeline</strong></td>
+<td>38 GitHub workflows, branch validation, security checks, auto-deploy</td>
+<td>85%</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><strong>Landing Pages</strong></td>
+<td>3 sites on Cloudflare Pages (dws10.com, dws6.com, onelifetime.world)</td>
+<td>85%</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><strong>DWS Store</strong></td>
+<td>4 products, YAML frontmatter, Google Merchant feed, ironclad-nav</td>
+<td>85%</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><strong>Security Framework</strong></td>
+<td>KYA governance standard, EU AI Act Article 12, GDPR, SRI hashes, schema drift checks</td>
+<td>80%</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><strong>Docker Infrastructure</strong></td>
+<td>hybrid compose, Lightpanda browser, Jitsi video, Cloud Run deployment</td>
+<td>70%</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><strong>Agent Browser</strong></td>
+<td>Lightpanda headless (Rust CDP), <code>/browse</code> skill for QA automation</td>
+<td>75%</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td><strong>Firehorse Report</strong></td>
+<td>Report engine (Python), European templates, PDF generation</td>
+<td>70%</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td><strong>Firehorse Omnichannel</strong></td>
+<td>Multi-channel communication, email sequences</td>
+<td>65%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="partial-features-in-progress">Partial Features (In Progress)</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 15%" />
+<col style="width: 41%" />
+<col style="width: 35%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Feature</th>
+<th>What Exists</th>
+<th>What’s Missing</th>
+<th>Readiness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>16</td>
+<td><strong>React Dashboard</strong></td>
+<td>v9-react, Vite 7, React 19, TailwindCSS, auth hook, pages</td>
+<td>Error boundaries, loading states, responsive layout</td>
+<td>60%</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td><strong>Compliance Engine</strong></td>
+<td>Compliance agent, CSRD/ETS/CBAM agents exist</td>
+<td>Real scoring engine, data models, calculators (stub data)</td>
+<td>45%</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td><strong>ERP Integrations</strong></td>
+<td>Connector scaffolding for SAP, IFS, Dynamics, Monitor, Visma, Jeeves</td>
+<td>Production-verified connections, data mapping</td>
+<td>50%</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td><strong>ESG Integrations</strong></td>
+<td>Worldfavor, PositionGreen connector stubs</td>
+<td>End-to-end data flow</td>
+<td>50%</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td><strong>Test Suite</strong></td>
+<td>17 test files, Vitest configured</td>
+<td>Coverage gate, integration tests, E2E smoke tests</td>
+<td>55%</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td><strong>Customer Onboarding</strong></td>
+<td>Auth (register/login/JWT)</td>
+<td>Onboarding wizard, welcome emails, first-run assessment</td>
+<td>30%</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td><strong>Firehorse Automation</strong></td>
+<td>Automation module, state machine</td>
+<td>Production workflows, trigger system</td>
+<td>60%</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td><strong>Firehorse ContentMS</strong></td>
+<td>DMS schema, templates</td>
+<td>Content pipeline, versioning</td>
+<td>55%</td>
+</tr>
+<tr class="odd">
+<td>24</td>
+<td><strong>ICEYE SAR Integration</strong></td>
+<td>Argus agent, trade integration module</td>
+<td>Live satellite data pipeline</td>
+<td>40%</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td><strong>Firehorse Mobile</strong></td>
+<td>Mobile app package (zip), Situation Control rooms</td>
+<td>Production build, app store deployment</td>
+<td>45%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="not-started-phase-2">Not Started (Phase 2+)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Feature</th>
+<th>Target Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>26</td>
+<td>Full Sovereignty EU AI Act compliance layer</td>
+<td>Phase 2</td>
+</tr>
+<tr class="even">
+<td>27</td>
+<td>Multi-tenancy / tenant isolation</td>
+<td>Phase 3</td>
+</tr>
+<tr class="odd">
+<td>28</td>
+<td>ISO 27001 / SOC 2 certification</td>
+<td>Phase 3</td>
+</tr>
+<tr class="even">
+<td>29</td>
+<td>IoT pipeline (Jetson Orin Nano)</td>
+<td>Phase 4</td>
+</tr>
+<tr class="odd">
+<td>30</td>
+<td>XBRL/XML regulatory export</td>
+<td>Phase 2</td>
+</tr>
+<tr class="even">
+<td>31</td>
+<td>Supplier self-service portal (CBAM)</td>
+<td>Phase 2</td>
+</tr>
+<tr class="odd">
+<td>32</td>
+<td>On-premise AI inference (GN100)</td>
+<td>Phase 3</td>
+</tr>
+<tr class="even">
+<td>33</td>
+<td>Temporal.io workflow orchestration</td>
+<td>Phase 4</td>
+</tr>
+<tr class="odd">
+<td>34</td>
+<td>Climate LLM fine-tuning</td>
+<td>Phase 4</td>
+</tr>
+<tr class="even">
+<td>35</td>
+<td>Partner ecosystem (5 partners)</td>
+<td>Phase 5</td>
+</tr>
+</tbody>
+</table>
+<h3 id="readiness-summary">Readiness Summary</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Scope</th>
+<th>Features</th>
+<th>Avg Readiness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Shipped (working)</td>
+<td>15 features</td>
+<td><strong>80%</strong></td>
+</tr>
+<tr class="even">
+<td>Partial (in progress)</td>
+<td>10 features</td>
+<td><strong>49%</strong></td>
+</tr>
+<tr class="odd">
+<td>Not started</td>
+<td>10 features</td>
+<td><strong>0%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>DWS IQ 6 V1 (Platform)</strong></td>
+<td><strong>25 features</strong></td>
+<td><strong>75%</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>DWS 7 MVP V1 (Full Product)</strong></td>
+<td><strong>35 features</strong></td>
+<td><strong>55%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="critical-path-to-ship">Critical Path to Ship</h3>
+<ol type="1">
+<li><strong>Compliance engine</strong> (45% → 80%) — Build CSRD data model + real scoring. This IS the product.</li>
+<li><strong>Dashboard resilience</strong> (60% → 80%) — Error boundaries, loading states. Enterprise-grade UX.</li>
+<li><strong>Customer onboarding</strong> (30% → 70%) — 4-step wizard. Without this, every customer needs hand-holding.</li>
+<li><strong>Test coverage</strong> (55% → 70%) — Coverage gate + critical path tests. Confidence to deploy.</li>
+<li><strong>1 ERP integration verified</strong> (50% → 75%) — Prove the data pipeline works end-to-end.</li>
+</ol>
+<hr />
+<p><em>This document is auto-tracked weekly. See <code>.github/workflows/roadmap-weekly-tracker.yml</code>.</em> <em>Last updated: 2026-03-15</em></p>
+</body>
+</html>

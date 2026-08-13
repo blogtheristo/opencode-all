@@ -1,0 +1,97 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "CLAUDE.md"
+  ],
+  "shell": "pwsh",
+  "model": "ollama-local/qwen3-coder:30b",
+  "small_model": "ollama-local/qwen3-coder:30b",
+  "provider": {
+    "ollama-local": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama Local (DGX Spark tunnel)",
+      "options": {
+        "baseURL": "http://127.0.0.1:11435/v1"
+      },
+      "models": {
+        "qwen3-coder:30b": {
+          "name": "qwen3-coder:30b",
+          "tool_call": true,
+          "temperature": true
+        }
+      }
+    }
+  },
+  "mcp": {
+    "dws-agents-local": {
+      "type": "remote",
+      "url": "http://localhost:3001/mcp",
+      "enabled": true,
+      "timeout": 10000
+    },
+    "dws-gateway-local": {
+      "type": "local",
+      "command": [
+        "python",
+        "mcp-servers\\cloud-run-gateway\\server.py",
+        "--transport",
+        "stdio"
+      ],
+      "environment": {
+        "SUPABASE_URL": "{env:SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "{env:SUPABASE_SERVICE_KEY}"
+      },
+      "enabled": true,
+      "timeout": 10000
+    }
+  },
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "npm run build": "allow",
+      "npm test*": "allow",
+      "sudo*": "deny",
+      "*sudo *": "deny",
+      "rm -rf /*": "deny",
+      "rm -rf ~*": "deny",
+      "rm -rf*": "deny",
+      "*curl*|*sh*": "deny",
+      "*curl*|*bash*": "deny",
+      "*wget*|*sh*": "deny",
+      "env": "deny",
+      "printenv*": "deny",
+      "*git push*--force*": "deny",
+      "*git push -f*": "deny",
+      "cat .env": "deny",
+      "cat .env.*": "deny",
+      "*.env*": "deny"
+    },
+    "read": {
+      "*": "allow",
+      ".env": "deny",
+      ".env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/*secret*": "deny",
+      "**/*credentials*": "deny",
+      "**/*.pem": "deny",
+      "**/*.key": "deny",
+      "**/id_rsa*": "deny"
+    },
+    "edit": {
+      "*": "ask",
+      ".env": "deny",
+      ".env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/*secret*": "deny",
+      "**/*credentials*": "deny",
+      "**/*.pem": "deny",
+      "**/*.key": "deny"
+    },
+    "webfetch": "allow"
+  }
+}

@@ -6,9 +6,14 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.95
+Version: 3.99
 Sessions & Modifications:
 
+- Version: 3.99 | Tool: Claude Code | Session: claude/kya-audit-update | Date: 10.08.2026 | Changes: Added §10.29 (KYA Audit and Reference Implementation Hardening). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.49 / Key Contribution #54, added in the same lockstep. Records the 10.08.2026 KYA audit which hardened the reference implementation by: (1) restricting proactive advisor-phase nudges to `compliance`, `customer-sat`, and `sitesense` while other agents remain `silent_pilot` by default, (2) removing latency from ATS (Agent Trust Score) scoring while retaining it as observability-only telemetry to prevent scoring instability, and (3) separating the live registered-agent count (69) from the 88 capabilities/roles claim to prevent evidence drift. Lockstep 3.98->3.99.
+- Version: 3.98 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Added §10.17 (Extending Article 50(4) Labelling to AI-Drafted and Machine-Translated Text). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.48 / Key Contribution #53, added in the same lockstep. Records the first live test of the DWS_BLOG_STANDARD §3.2.1 four-condition reviewer-credit policy against a real multi-language publish (the arvonluonnin-ajurit-2026 five-language blog post, EN/FI agent-drafted, SV/DE/FR Gemini-drafted on HIC instruction): all five removal conditions unmet at publish time, so all five ship with the AI-content notice; the build script (scripts/build-arvonluonnin-ajurit-post.mjs) attaches the notice from a per-language table rather than per-post authoring; and the finding that the HIC's conversational draft approval (Rule 13/§3.3 publication gate) does not on its own satisfy the separate reviewer-credit labelling gate. Companion: docs/BLOG_STANDARD.md §3 (#49-53); docs/KONSULTOINNIN_KASIKIRJA_2026.md v1.11. Lockstep 3.97->3.98.
+- Version: 3.97 | Tool: Claude Code (Fable) | Session: claude/agent-factory-research-audit-l6hks2 | Date: 03.08.2026 | Changes: Added §10.28 (Trajectory-Aware Model Escalation: The DWS Factory Router). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.47 / Key Contribution #52, added in the same lockstep. Records the audit-driven adopt/adapt decision on codejunkie99/sageroute (REJECT deployment: external decision-API egress, first-party OAuth client impersonation, 2-day-old codebase; ADAPT the deterministic core), the shipped src/factory/ architecture (dual-wire evidence recovery, deterministic detectors, guarded one-way ladder continue->switch_model->restart_clean->escalate_human with budget-stop, capability-before-retry, and asymmetric-hysteresis guardrails, external verdict API replaced by a transparent local heuristic — EU-sovereign by construction), verification (15 intent tests, full suite unchanged), and productization (factory:route CLI with verdict exit codes, /factory-route skill). Companion: docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md. Lockstep 3.96->3.97.
+
+- Version: 3.96 | Tool: Claude Code (Opus 5) | Session: claude/thesis-unlock-and-truth-fix | Date: 01.08.2026 | Changes: Added §10.16 (EU AI Act Article 50 Content Marking — Implementation). Implementation evidence per the Thesis Content Scope Rule; the scientific/market-signal counterpart is PHD_FIREHORSE §14.46 / Key Contribution #51, added in the same lockstep. Records the Article 50 audit of all four public surfaces, the shipped in-media compositing of the EU AI GENERATED icon (ffmpeg overlay, poster and WebM derived from the marked master, each composite verified visually rather than assumed from an exit code), the negative result that a presentation-layer overlay is a caption rather than a marking because the placement requirement is survival of redistribution, and the decision to RETIRE the AI-persona portraits rather than label content already scheduled for replacement. Also fixed pre-existing truth-claim drift surfaced by truth-lint once these files entered lint scope: superseded three-capital references now carry a pointer to the 4P Capital Classes rather than being rewritten (Rule 12), value-metric phrasings reworded with the claim unchanged, and industry counts separated into EU regulatory scope (sectors, number retained) versus DWS platform coverage (canonical captain-hats term). Lockstep 3.95->3.96.
 - Version: 3.95 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 (merged 30.07.2026, renumbered 3.92→3.95 on merge to avoid colliding with an independently-landed 3.92 from `claude/enterprise-ai-harness-0anl7s`) | Changes: Lockstep version bump across all 4 thesis files per the CLAUDE.md thesis rule. Substantive change is confined to the master's thesis target-customer list: the parenthetical "(EUR 7k MRR live)" attached to Uber/Bolt/Kela was a false traction claim — that ~€7k/month is services and transport revenue, not software revenue, and those parties are dispatch operators of the licensed transport operation in the Traficom-defined role, not software customers. Corrected against the new canonical source `docs/TRACTION_CANONICAL.md` (founder-confirmed 29.07.2026, registered as `DWS_TRUTH_STANDARD.md` §2 row 32). No PhD-scope content change — recorded here as a lockstep-only entry per the §1.4 master-vs-PhD scope rule.
 - Version: 3.94 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.93 -> 3.94 per the CLAUDE.md Thesis Rule. No content change here: the v3.94 correction (marginal token cost on owned hardware is bounded, not zero; and the six-metric requirement before the depth argument may be used as a commercial claim) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45.
 - Version: 3.93 | Tool: Claude Code | Session: claude/enterprise-ai-harness-0anl7s | Date: 30.07.2026 | Changes: Lockstep version bump 3.92 -> 3.93 per the CLAUDE.md Thesis Rule. No content change here: the v3.93 addition (the two-operational-profile split, the dimensionable-knee argument, and the compute-plus-jurisdiction coupling) is market-signal and scientific framing, and lives in PHD_FIREHORSE §14.45 Finding 5 / Key Contribution #50.
@@ -537,7 +542,7 @@ This conceptual model provides a replicable framework for other industrial AI st
 
 European industry faces unprecedented regulatory pressure through the EU's Fit for 55 package. This creates forced demand for climate compliance solutions across 20 industries.
 
-### 3.1.1 The 16 Industries Affected by Fit for 55
+### 3.1.1 The 16 Sectors Affected by Fit for 55
 
 The EU's Fit for 55 package mandates 55% net emissions reduction by 2030. This creates an unprecedented compliance burden on 20 industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory compliance.
 
@@ -1157,7 +1162,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 
 **Goal:** Industry-specific carbon footprint calculations with product recommendations
 
-### Industry Carbon Profiles (16 EU Industries)
+### Industry Carbon Profiles (16 EU Sectors)
 
 | Industry    | Primary Emissions           | Recommended Products            |
 | ----------- | --------------------------- | ------------------------------- |
@@ -1528,7 +1533,7 @@ A critical finding from the platform architecture work is that **no single open 
 
 Each enterprise tenant can have their Lifetime World Model trained on their own industry data with their chosen LLM as the base model.
 
-### 10.6.1 Why 16 Industries Make DWS IQ Stronger
+### 10.6.1 Why 16 Captain Hats Make DWS IQ Stronger
 
 From the customer's perspective, a platform covering 25+ EU industries is not complexity — it is **the competitive advantage they are buying**. The 25+-industry architecture creates compounding value that a single-industry platform cannot match:
 
@@ -2322,14 +2327,14 @@ DWS6 answers a different question: "How do I run enterprise industrial AI agents
 
 **Six competitive differentiators identified:**
 
-| #   | DWS6 Advantage                                                               | ECC Equivalent                    | Research Significance                                                |
-| --- | ---------------------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- |
-| 1   | **Domain-specific skills** encoding EU regulation                            | Generic language/framework skills | Domain knowledge as competitive moat — not replicable by skill count |
-| 2   | **Six-layer information architecture** (L0-L6) controlling context injection | Operates at L2-L3 only            | Deeper control over agent behavior at every layer                    |
-| 3   | **Hard gates** (verification-gate, design-first, dual-folder-sync)           | Advisory-only skills              | Structural enforcement vs behavioral suggestion                      |
-| 4   | **Trust boundary zones** (GREEN/YELLOW/RED) with action classification       | Secret scanning only              | Risk-proportionate automation — not binary allow/deny                |
-| 5   | **gstack workflow** with enforced role separation                            | Independent unorchestrated skills | Cognitive mode switching prevents tunnel vision                      |
-| 6   | **Agent-first product rule** (5-gate shipping checklist)                     | Developer convenience tools       | Skills as product interfaces, not developer tooling                  |
+| #   | DWS6 Advantage                                                               | ECC Equivalent                    | Research Significance                                                    |
+| --- | ---------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| 1   | **Domain-specific skills** encoding EU regulation                            | Generic language/framework skills | Domain knowledge as competitive moat — not replicable by skill inventory |
+| 2   | **Six-layer information architecture** (L0-L6) controlling context injection | Operates at L2-L3 only            | Deeper control over agent behavior at every layer                        |
+| 3   | **Hard gates** (verification-gate, design-first, dual-folder-sync)           | Advisory-only skills              | Structural enforcement vs behavioral suggestion                          |
+| 4   | **Trust boundary zones** (GREEN/YELLOW/RED) with action classification       | Secret scanning only              | Risk-proportionate automation — not binary allow/deny                    |
+| 5   | **gstack workflow** with enforced role separation                            | Independent unorchestrated skills | Cognitive mode switching prevents tunnel vision                          |
+| 6   | **Agent-first product rule** (5-gate shipping checklist)                     | Developer convenience tools       | Skills as product interfaces, not developer tooling                      |
 
 **Key research finding:** The ECC framework optimizes for **breadth** (136 skills × multiple languages × multiple IDEs), while DWS6 optimizes for **depth** (21 skills × deep EU regulatory knowledge × structural enforcement). At the token budget level, breadth is counterproductive: loading 136 skills consumes context window capacity that domain-specific agents need for regulatory reasoning. The DWS6 design constraint of <150 words per discipline skill is not a limitation — it is a token budget optimization that enables deeper domain reasoning within the same context window.
 
@@ -3280,7 +3285,7 @@ This section documents the implementation evidence for what the PhD thesis (§14
 
 #### 10.23.2 Token Capital — Measured Inventory (June 2026)
 
-Token capital is the reusable organisational asset produced by sustained AI-assisted operations. It is not the tokens consumed; it is the durable output that survives session boundaries and persists in codified form.
+Token capital is the reusable organisational asset produced by sustained AI-assisted operations. It is not the token spend; it is the durable output that survives session boundaries and persists in codified form.
 
 **Measured inventory as of June 2026:**
 
@@ -3347,15 +3352,15 @@ The June 2026 observation — the gym returning to the schedule — is the opera
 
 #### 10.23.6 Research Contribution
 
-The three-capital model, grounded in seven months of production HIL operations, provides three implementation-level contributions:
+The three-capital model (since superseded by the 4P Capital Classes), grounded in seven months of production HIL operations, provides three implementation-level contributions:
 
 1. **A measurable definition of the HIL → HIC transition** — specific per-domain preconditions (token capital threshold, human capital threshold, Control Room capital threshold) that can be instrumented and tracked, giving the transition an engineering definition rather than a management intuition.
 
-2. **A skills corpus as the primary KPI of agentic operating-model maturity** — the size, coverage, and invocation rate of the `skills/` corpus is a more operationally meaningful maturity indicator than agent count, model capability, or token spend.
+2. **A skills corpus as the primary KPI of agentic operating-model maturity** — the size, coverage, and invocation rate of the `skills/` corpus is a more operationally meaningful maturity indicator than agent headcount, model capability, or token spend.
 
 3. **The HIL phase as a planned capital formation programme** — reframing the seven-month HIL phase from a cost to an investment in three simultaneous capital forms changes how the phase should be resourced, measured, and communicated to stakeholders.
 
-**Key Contribution #32 — Three-Capital Accumulation Model: Implementation Evidence from Seven Months of Production HIL Operations:** The DWS IQ 6 production record (October 2025 – June 2026) provides the first empirical, multi-month implementation evidence for the theoretical three-capital model developed in §14.25. The token capital inventory (30+ skills, 150+ field notes, 50-agent foundry with Article 12 logging), the documented human capital deepening (pattern recognition, prompt calibration intuition, architectural judgment, failure mode literacy), and the Control Room capital (calibrated thresholds, validated HIL gates, populated Article 12 audit trail, tested multi-provider routing) together constitute a measurable baseline for what a production agentic operating model accumulates over a seven-month HIL phase. The contribution provides: (a) a set of per-capital measurable indicators that operationalise the theoretical model; (b) an engineering definition of the HIL → HIC transition with domain-specific preconditions; (c) the skills corpus as the primary KPI of agentic operating-model maturity. This contribution is positioned at the implementation horizon (current product scope) and is empirically grounded — the June 2026 transition event is a documented operational observable, not a projected milestone.
+**Key Contribution #32 — Three-Capital Accumulation Model: Implementation Evidence from Seven Months of Production HIL Operations:** The DWS IQ 6 production record (October 2025 – June 2026) provides the first empirical, multi-month implementation evidence for the theoretical three-capital model developed in §14.25 and since superseded by the 4P Capital Classes. The token capital inventory (30+ skills, 150+ field notes, 50-agent foundry with Article 12 logging), the documented human capital deepening (pattern recognition, prompt calibration intuition, architectural judgment, failure mode literacy), and the Control Room capital (calibrated thresholds, validated HIL gates, populated Article 12 audit trail, tested multi-provider routing) together constitute a measurable baseline for what a production agentic operating model accumulates over a seven-month HIL phase. The contribution provides: (a) a set of per-capital measurable indicators that operationalise the theoretical model; (b) an engineering definition of the HIL → HIC transition with domain-specific preconditions; (c) the skills corpus as the primary KPI of agentic operating-model maturity. This contribution is positioned at the implementation horizon (current product scope) and is empirically grounded — the June 2026 transition event is a documented operational observable, not a projected milestone.
 
 ---
 
@@ -3586,6 +3591,56 @@ The commercial conclusion follows directly, and it shapes what the platform sell
 
 ---
 
+## 10.16 EU AI Act Article 50 Content Marking — Implementation
+
+### 10.16.1 Motivation
+
+On 2 August 2026 the AI Office and national market surveillance authorities began enforcing the AI Act, and the Article 50 transparency obligations entered application. DWS publishes AI-generated media on its own public surfaces, which places it in the Article 50(4) **deployer** role: deepfakes and AI-generated text on matters of public interest published without human review must carry a clear and perceivable label. The obligation is not deferred — unlike the Article 50(2) provider marking duty, which the AI Omnibus defers to December 2026 for generative systems placed on the market before 2 August 2026, deepfake labelling received no equivalent grace period.
+
+An audit of every public DWS surface (`dws6.com`, `dws10.com`, `onelifetime.world`, `lifetime.fi`) identified the exposed assets: two AI-generated presenter videos and four AI-generated persona portraits.
+
+### 10.16.2 Implementation: the mark is composited into the media, not the page
+
+The first implementation attempt placed the EU **AI GENERATED** icon as an HTML/CSS overlay positioned above the `<video>` element. This satisfies perceivability while the visitor is on the page and fails the moment the artefact leaves it: a downloaded or re-shared copy carries no label, because the label was a property of the page rather than of the media.
+
+The shipped implementation composites the icon into the video frames before publication, using an `ffmpeg` overlay filter (icon scaled to ~22% of frame width, bottom-right, 24 px margin, present for the full duration), then derives the poster frame and the VP9/WebM fallback from the already-marked master so every delivered representation carries the mark. Each composite was verified visually — a frame extracted and inspected — before publication, rather than assumed from a successful exit code.
+
+The persona portraits were resolved differently. Because the AI-persona team section was being replaced by real named industry roles, the section was **retired** rather than labelled: removing the assets eliminated the exposure without investing marking effort in content scheduled for deletion. This is recorded because it is a general result — where exposed content is already slated for replacement, retirement dominates labelling on both cost and honesty.
+
+### 10.16.3 The engineering rule this produced
+
+> A transparency marking implemented at the presentation layer is not a marking; it is a caption.
+
+Article 50's placement requirement is, in engineering terms, a demand for **provenance that survives egress** — the same property C2PA content credentials assert for media and the same property the Article 12 evidence chain requires of agent logs. A label that lives in the rendering context cannot satisfy it. Any marking implementation must therefore be evaluated against the question _"does this survive download and re-share?"_, and only in-media compositing (or a cryptographically bound sidecar the consuming surface is obliged to honour) passes.
+
+The corresponding operational finding is that **deployer-side labelling, not provider-side watermarking, is the near-term binding constraint**: the half of Article 50 that is cheap to implement and immediately verifiable by a regulator is the half with no grace period.
+
+_Field note: `docs/field-notes/2026-07-31-article-50-transparency-marking-audit.md` and `docs/field-notes/2026-08-01-persona-retirement-and-reveal.md`. Scientific restatement and the obligation–capability analysis: PHD_FIREHORSE §14.46 (Key Contribution #51)._
+
+---
+
+## 10.17 Extending Article 50(4) Labelling to AI-Drafted and Machine-Translated Text
+
+### 10.17.1 Motivation
+
+§10.16 addressed AI-generated media. On 6 August 2026 a five-language field-note post (EN/FI/SV/DE/FR) was drafted, approved, and published — `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`, mapping directly to the value-creation-drivers content of `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §2.1/§2.2. The EN and FI variants were agent-drafted; SV, DE and FR were produced by an external LLM (Google Gemini) on HIC instruction and adapted into the page templates. No variant had a named human reviewer before publication, and all five carry regulatory content in the body text itself (Article 12/50 dates, CBAM, ETS2, KYA-S1). This raised the question §10.16 left open for text rather than media: does the same deployer duty, and the same design rule, apply?
+
+### 10.17.2 Implementation: default-on labelling as a build-time invariant
+
+`DWS_BLOG_STANDARD.md` §3.2.1 already specified a stricter-than-statutory four-condition test for removing a label (named reviewer, demonstrated amend/reject authority, publicly reachable contact, explicit removal action) — written after §10.16's media work, never yet exercised against a live publish. This session was the first test: `scripts/build-arvonluonnin-ajurit-post.mjs` renders all five approved drafts (`docs/blog-drafts/arvonluonnin-ajurit-2026*.md`) to HTML and unconditionally injects a per-language `<aside class="ai-notice">` immediately after `</header>`, before the article body — sourced from a per-language notice table in the script rather than authored per post. None of the four removal conditions had been met for any of the five pages at publish time, so all five ship with the notice.
+
+One implementation detail mattered in practice: the HIC's own conversational approval of the drafts (satisfying the Rule 13 / §3.3 publication gate) was initially treated as if it also cleared the labelling question. It does not. The publication gate asks "did a human read and approve this text before it ships"; the labelling gate asks "is there a named, publicly-reachable, accountable reviewer credited on this specific page." The first happened; the second did not. Both drafts and the build script were corrected to keep the notice on for all five pages rather than assume the conversational approval discharged the labelling duty.
+
+### 10.17.3 The engineering rule this produced
+
+> A publication-approval gate and a content-provenance labelling gate are not the same instrument, even when the same person operates both in the same conversation.
+
+The corollary of §10.16's compositing rule ("mark the artefact, not the page") for a multi-language text pipeline is: **attach the label at build time from a table, not at authoring time by memory.** A human author asked to remember a label on five separately-drafted pages will forget it on at least one; a build script that cannot render a page without consulting the notice table cannot forget. This is the same move as compositing the EU icon into video frames — moving the invariant from human memory into the artefact-producing pipeline.
+
+_Companion artefact: `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`; `scripts/build-arvonluonnin-ajurit-post.mjs`; registered `docs/BLOG_STANDARD.md` §3 (#49–53). Scientific restatement and the obligation–capability analysis: PHD_FIREHORSE §14.48 (Key Contribution #53)._
+
+---
+
 ## Bibliography (Oxford Notes-Bibliography Style) — v3.61
 
 Added in v3.61 (28.05.2026) to enumerate the canonical sources cited by the chapters of this master's thesis. Citation style is Oxford notes-bibliography: each footnote `[^N]` denotes one source; the chapter index that follows the list shows which chapter relies on which footnote. Chapters not listed in the index do not cite these sources.
@@ -3690,3 +3745,21 @@ External critique (Hakimi, 07.07.2026) identified the structural limit of this s
 The same-day answer extends the span vocabulary rather than adding a parallel system: `withAgentSpan` and `withLLMSpan` now accept a `KYAVerdict` (`decision`, `trustScore`, `policyVersion`, `gate`) and stamp `dws.kya.verdict` / `dws.kya.trust_score` / `dws.kya.policy_version` / `dws.kya.gate` alongside the `gen_ai.*` attributes, so one trace answers both questions — what fired, and under what authority it was allowed to fire. The load-bearing design decision is the default: a span with no verdict is stamped `dws.kya.verdict: "ungated"`, never left blank. Absence becomes a queryable finding — filtering the trace UI on `ungated` enumerates every execution path no gate cleared — instead of being indistinguishable from gated execution (Engineering Discipline Rule 12 applied to authorization coverage).
 
 The honest baseline this makes visible: as of v3.79 every production span reads `ungated`, because no call site yet threads the sandbox verdict through. The count of ungated spans _is_ the authorization-coverage gap metric; driving it to zero (verdict emission at the sandbox gate, threading through the agent runner and LLM client) is the named follow-up. Unit tests cover both the stamped-verdict and ungated-default paths. _Field note: `docs/field-notes/2026-07-07-hakimi-observability-vs-authorization.md`; scientific restatement: PHD_FIREHORSE §14.37.4._
+
+### 10.28 Trajectory-Aware Model Escalation: The DWS Factory Router
+
+DWS IQ 6 runs agents on a cost ladder: cheap models take every task first, and capability is bought only when evidence demands it. Until August 2026 that escalation was manual — an operator noticed a stuck session and re-ran it on a stronger model. This section records the implementation that mechanized the decision, and the audit-driven adopt/adapt path that produced it.
+
+#### 10.28.1 The adopt/adapt decision
+
+The candidate was SageRoute (codejunkie99/sageroute, MIT), a trajectory-aware routing proxy published July 2026. A source-level audit (field note `docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md`) found the deterministic core excellent and the deployment posture unacceptable for DWS on three grounds: every routing verdict shipped task-text and tool-output fragments to an external decision API (Levanto Sage) with no discoverable GDPR posture; the OAuth module impersonated first-party CLI clients to route consumer-subscription quota through the proxy — a provider-ToS violation vector; and the codebase was two days old with a single observed live escalation. The decision — REJECT deployment, ADAPT the deterministic pieces — was ratified by the HIC and shipped the same day as `src/factory/`.
+
+#### 10.28.2 Architecture
+
+The router is three pure stages, all offline. **Evidence recovery** maps both agent wire formats DWS encounters (Anthropic Messages `tool_use`/`tool_result` blocks and OpenAI Responses `function_call`/`function_call_output` items) onto one trajectory model: per-step tool name, argument digest, output digest, success flag, and a coarse comparable error class. **Deterministic detectors** then compute signals no model is consulted for (Engineering Discipline Rule 5): identical action+observation 3×, the same error class 3× back-to-back, ping-pong alternation 4×, write→failing-test thrash cycles, steps-since-progress (a rewrite is not progress; only a passing execution resets the counter), and budget burn. **The ladder** converts signals into one of four actions — `continue` → `switch_model` → `restart_clean` → `escalate_human` — behind guardrails: budget stop before any other logic, capability-before-retry (a cheap-tier restart becomes a switch while a switch remains), asymmetric hysteresis (the first cheap→strong hop fires on one bad checkpoint; disruptive actions need two agreeing ones), and a strictly one-way climb.
+
+The upstream design consulted a remote "calibrated confidence" API at the decision point; the DWS adaptation replaces that call with a transparent additive heuristic over the same signal report, making every verdict explainable from the evidence block and making the router EU-sovereign by construction — nothing leaves the machine. `escalate_human` is surfaced as a hard stop, which is the EU AI Act Article 14 intervention point expressed in the routing layer.
+
+#### 10.28.3 Verification and productization
+
+Fifteen tests assert detector and ladder intent (loop kinds, thrash counting that naive loop detection misses, gate calibration, hysteresis, one-way-ladder invariants, budget and switch/restart exhaustion); the full repository suite passed unchanged. The capability is agent-accessible per the Agent Productization Rule: `npm run factory:route` emits a structured JSON verdict with exit codes 0/2/3/4 so shell pipelines branch without parsing, and `/factory-route` registers the procedure as a skill. The engineering lesson mirrors §10.27's artifact–legitimacy gap from the consumer side: a 48-hour agent-written codebase can be distribution-grade in its deterministic core and simultaneously undeployable in its trust posture — the audit boundary, not the code quality, decided what was adopted.

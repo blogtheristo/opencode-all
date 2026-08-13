@@ -9,14 +9,18 @@
 > 3. **Ammatillinen kehitys ja hyvinvointi** — Jatkuvien oppimismahdollisuuksien, koulutuksen ja urakehityksen tarjoaminen työntekijöille. Työhyvinvoinnista ja osaamisen kehittämisestä huolehtiminen osana yrityskulttuuria.
 > 4. **Kyvykkyyksien jatkuva kehittäminen** — Konsultin ja agenttikyvykkyyksien yhteistyö tuottaa tuloksia, joita kumpikaan yksin ei saavuttaisi. Oppimissilmukat varmistavat, että jokainen toimeksianto on parempi kuin edellinen.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.81
+Version: 1.12
 
 Sessions & Modifications:
 
+- Version: 1.12 | Tool: Claude Code (Opus 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: §2.1 ajuri 1 (Kyvykkyydet & Orkestrointi) — lisätty kaksi HIC:n hyväksymää lausetta ennen mittaritaulukkoa: **Kapasiteetti** (määrällinen: 58 agenttia, 3 avointa mallia, 3 frontier-mallia, 88 kyvykkyyttä, 2 Lifetime World Modelia, 25 toimialaontologiaa) ja **Arvonluonti** (ei määriä; päättyy päätösvallan säilymiseen ihmisellä, EU AI Act 14 artikla). ”Zero rekrytointiviive” siirretty pääväitteestä avatuksi alaviitteeksi ja sidottu Keskeytyslaskurin todelliseen muuttujaan (`recruitmentMonths: 6` avainhenkilön lähtiessä, 0 lyhyessä katkossa — `lifetime.fi/laskuri`). Järjestys ja painotus Boardyn ohjeen mukaan (määrällinen kapasiteetti ensin, sitten arvonluonti, sitten päätösvalta). Uudet luvut rekisteröity `DWS_TRUTH_STANDARD.md` riviin 36 (v4.7).
+- Version: 1.11 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: §2.1/§2.2 content ("Arvonluonnin ajurit" — six commercial dimensions + academic value creation) published externally as a 5-language blog post (EN/FI/SV/DE/FR) at `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`, registered in `docs/BLOG_STANDARD.md` §3 (posts #49–53). Added cross-reference at the end of §2.2 pointing to the live post. No handbook content changed beyond the pointer — §2.1/§2.2 substance unchanged since v1.10.
+- Version: 1.10 | Tool: Claude Code (Haiku 4.5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 05.08.2026 | Changes: Lisätty §2.2 "Akateeminen Arvonluonti — Tieteellinen Vaikuttavuus & Tutkimuskatkos". Uusi osio dokumentoi Risto Anton Päärnen johtaman LUT-tutkimuskaaren neljä kriittistä tutkimuskysymystä: suvereenit AI-arkkitektuurit, luottamus & delegointi, turvallisuus vs. suorituskyky, luotettavat reunalaskenta-järjestelmät. Dokumentoitu institutionaaliset kumppanuudet (LUT, KTH TECoSA, Metropolia YAMK). Perustettu akateemisen ja kaupallisen toiminnan hallinnollinen eristys: tutkimus → avoin tieteellinen edistyminen, kauppa → tuotekehitys ja konsultointi (erillinen IP-omistus). Aikakausi 2026–2029, vaikuttavuus EU AI Act -politiikkaan ja tekniseen standardointiin.
+- Version: 1.9 | Tool: Claude Code (Haiku 4.5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 05.08.2026 | Changes: Lisätty uusi §2.1 "Arvonluonnin ajurit — kuusi pääulottuvuutta" (Value Creation Drivers — Six Core Dimensions). Kartoitettu 10 keskeistä arvonluonnin ajuria ja järjestetty ne kuuden strategisen ulottuvuuden alle: Kyvykkyydet & Orkestrointi, Sääntely & Compliance, Teollisuustieto & Muutos, Taloudellisuus & Skaalaus, Kulttuurinen Erottelu, Jatkuva Oppiminen. Jokaisen ajurin alle merkitty konkreettiset mittarit, viimeisimmät tiedot Q2-Q3 2026 (asiakaspysyvyys 100%, 6 maksavaa asiakasta, 58 agenttia, 88 kyvykkyyttä, CBAM-määräaika Q3 2026). Päivitetty tuotekatalogiksi ja hinnoitteluun liittyvät numerot vastaamaan current dws10.com/config/products.json (Climate IQ €4 990 käyttöönotto + €2 999/kk). Lisätty viittaukset EU AI Act Article 50 (voimaan 02.08.2026) ja KYA-S1-standardiin (uudella public-comment-windowilla 04.08.2026–04.11.2026). Säilytetty kaikki aiempi sisältö versioista 1.0–1.81; ei poistettu mitään, vaan laajennettu ymmärrystä arvonluonnista.
 - Version: 1.81 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC pyysi HTML-version luomista Learn-kansioon. Luotu `Learn/KONSULTOINNIN_KASIKIRJA_2026_v1.81.html` — versioitu arkistokopio brändätystä (`scripts/gen-handbook-html.cjs`, 2024-design) renderistä, samaa konventiota noudattaen kuin thesis-tiedostot (`Learn/PHD_FIREHORSE_*_v3.XX.html`, `Learn/V3Thesis_*_v3.XX.html`). Ei sisältömuutosta dokumenttiin — pelkkä arkistoiva rinnakkaiskopio.
 - Version: 1.80 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Tiedostonimi korjattu vastaamaan dokumentin omaa kanonista otsikkoa (rivi 1: "Konsultoinnin käsikirja 2026") — `KONSULTIN_KASIKIRJA_2026.md` → `KONSULTOINNIN_KASIKIRJA_2026.md` (`git mv`, historia säilytetty), samoin renderöidyt `Konsultin_kasikirja_2026.html`/`.docx` → `Konsultoinnin_kasikirja_2026.html`/`.docx`. Havaittu, kun HIC korjasi väärän nimimuodon CV-dokumentista (bids/ORK160826/CV_ORK160826_v172.md). Tiedostonimessä EI ole versiotagia — DWS_DOCUMENT_STANDARD.md §4.6:een lisätty tämä dokumentti nimeltä uudeksi poikkeukseksi (elävä, ~20 tiedostosta ristiviitattu sisäinen standardi; versiotagin upottaminen aiheuttaisi ristiviite-päivityksen jokaisella versionostolla, toisin kuin harvoin viitatuilla bid-artefakteilla kuten CV). Kaikki ~20 repo-laajuista ristiviittausta (mm. Admin/ADMIN_MANUAL.md, .claude/commands/dialog.md, thesis/PHD-dokumentit, docs/whitepapers/README.md, onelifetime.world/ + landing-pages-peili) päivitetty samassa commitissa.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — Konsultin käsikirja 2026 edition. Complete rewrite of the 2024 version (v0.16) to reflect Lifetime Oy's transformation from generic IT consulting to sovereign AI compliance platform. Retains Risto's strategic philosophy and practical consulting wisdom; modernizes product, technology, regulatory, and operational content.
@@ -45,12 +49,14 @@ Document Status:
 - Previous version: Konsultoinnin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
 - Publication Status: DRAFT — review before distribution
 
----
+***
 
 ## Sisällysluettelo / Table of Contents
 
 1. [Yrityksestämme / About Us](#1-yrityksestämme)
 2. [Missio, arvot, tarkoitus / Mission, Values, Purpose](#2-missio-arvot-tarkoitus)
+   - 2.1 [Arvonluonnin ajurit — kuusi pääulottuvuutta](#21-arvonluonnin-ajurit--kuusi-pääulottuvuutta)
+   - 2.2 [Akateeminen arvonluonti](#22-akateeminen-arvonluonti--tieteellinen-vaikuttavuus--tutkimuskatkos)
 3. [Tuotteemme / Our Products](#3-tuotteemme)
 4. [Kyvykkyysontologia / Capability Ontology](#4-kyvykkyysontologia--dws-iqn-tietämysrakenne)
 5. [Toimialat / Industries](#5-toimialat)
@@ -182,6 +188,127 @@ Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä
 
 ---
 
+## 2.1 Arvonluonnin ajurit — kuusi pääulottuvuutta
+
+Lifetime Oy:n liiketoimintaarvo rakentuu kymmenen keskeisen arvonluonnin ajurin varaan, jotka on järjestetty kuuden strategisen ulottuvuuden alle. Nämä ajurit kuvaavat, mistä DWS:n ja Lifetime Coachingin kilpailuetu syntyy ja miten asiakas hyötyy:
+
+### 1. Kyvykkyydet & Orkestrointi — Agenttidupleksointi ilman rekrytointia
+
+**Kapasiteetti (Q3 2026):** 58 agenttia, 3 avointa mallia ja 3 frontier-mallia rinnakkain, 88 kyvykkyyttä, 2 Lifetime World Modelia sekä toimialakohtaiset ontologiat 25 EU-säännellylle toimialalle — kaikki orkestroituna yhdeksi työnkuluksi asiakkaan omalla laitteistolla. Kun asiakas tarvitsee roolin, jota hänellä ei vielä ole, se aktivoidaan valmiista katalogista päivissä, ei kuudessa kuukaudessa.
+
+**Arvonluonti:** Kyvykkyys tulee taloon valmiina ja jää taloon: mallit, agentit ja toimialan oma tietorakenne toimivat yhtenä kokonaisuutena asiakkaan hallinnassa, päivittyvät sääntelyn mukana eivätkä lähde ovesta ulos kenenkään mukana. Päätösvalta pysyy ihmisellä — agentti valmistelee ja toistaa, ihminen ratkaisee. Se ei ole hidaste: se on juuri se kohta, joka tekee jäljestä auditoitavan (EU AI Act 14 artikla).
+
+> **”Zero rekrytointiviive” — avattuna.** Rekrytointiviive on aika tarpeen tunnistamisesta siihen, että uusi osaaja tuottaa työtä: hakuilmoitus, haastattelut, valinta, irtisanoutumisaika, perehdytys. Teollisuudessa tyypillisesti noin kuusi kuukautta. Keskeytyslaskuri (`lifetime.fi/laskuri`) laskee sen omana kustannuseränään: avainhenkilön lähtiessä kuusi kuukautta (`recruitmentMonths: 6`), lyhyessä katkossa nolla. Agenttikyvykkyys ajaa tuon erän nollaan — ei siksi, että ihminen korvattaisiin, vaan siksi, ettei työ seiso odottamassa rekrytointia. Selitys, ei pääväite.
+
+| Ajuri                                 | Mitattava suure                                 | Q2 2026        | Trendi                                                                              | Merkitys                                                                                                                                                                                                                     |
+| :------------------------------------ | :---------------------------------------------- | :------------- | :---------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Agenttikyvykkyyksien katalogi**     | 58 agenttia, 88 kyvykkyyttä                     | 58 ag / 88 kv  | ↑ Uudet agentit (Data Engineer, Change Management, Supply Chain Risk) lisätty Q1–Q2 | Asiakkaalla pääsy 88 rooliin rekrytoimatta ketään. Keskeytyslaskuri osoittaa kyvykkyyskatkoksen kustannukset (kontekstin uudelleenrakentaminen, momentum-menetys, avainhenkilöriski)                                         |
+| **Kyvykkyyksien peitto toimialoilla** | 25 EU-säänneltyä toimialaa                      | 25 / 25        | Pysyvä                                                                              | Perustuu Fit for 55 -sääntelyn toimialakategoriaan; uudet sääntöhyväksynnät (ETS2 2027, EPBD 2028) vievät peittoaluetta laajemmaksi                                                                                          |
+| **Orkestroinnin kypsyys**             | Moniagenttityönkulut (workflows 1–5 tuotantoon) | 5 workflow     | ↑ Keskityökalut tuotannossa; lisäksi ad-hoc orchestration (Atlas-agentti)           | Agentit eivät kulje irrallisia ratkaisuja — ne ketjuuntuvat ja keskustelevat. Esim. CBAM-ilmoitus: Emissions Data Analyst → Cassandra (ennuste) → Atlas (synteesi) → asiakkaalle raportti, ilman ihmisen väliintuloa välissä |
+| **Human-in-the-loop -periaate**       | % käytöistä, joissa ihminen vaatii hyväksynnän  | 95% (tuotanto) | Pysyvä                                                                              | Eettinen kärki: agentit eivät korvaa päätöksentekijää, vaan nopeuttavat sitä                                                                                                                                                 |
+
+**Mitä myydään:** Agenttikyvykkyydet tilattavina kuukausittain (Climate IQ €2 999/kk), kokeiluna (Enterprise Navigator €4 999 kertamaksu), tai lisäarvona (Skilled Agents alkaen €599/v). Asiakkaan henkilöstö ei vähenee — agentit tekevät rutiinin ja vapauttavat ihmisen strategisiin tehtäviin.
+
+### 2. Sääntely & Compliance — Automaatio ennen sääntelyvelvoitetta
+
+| Ajuri                             | Mitattava suure                                                           | Q2 2026      | Trendi                                                                 | Merkitys                                                                                                      |
+| :-------------------------------- | :------------------------------------------------------------------------ | :----------- | :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| **EU-sääntelyn kattavuus**        | 15 000+ EU-asiakirjaa indeksoituna, CELEX-viittaus jokaiselle päätökselle | 15k+         | ↑ Uudet asetukset (Article 50 voimaan 02.08.2026) päivittävät indeksiä | DWS osaa EU-sääntelyn ennen asiakasta — automaatio valmis kun sääntelyvelvoite syntyy                         |
+| **Compliance-loopit tuotannossa** | Article 12 auditointi (EU AI Act) + GDPR-yhteensopivuus + NIS2-valmius    | 3 / 3        | ↑ Article 50:n voimaantulo nyt lisää uusia auditoinnin velvoitteita    | Tuotannossa olemme EU AI Act Article 12:n mukaisen auditoinnin jo maaliskuusta 2026; sääntelymuutos ei yllätä |
+| **Compliance-määräaikakalenteri** | Chronos-agentti: EU-deadline-seuranta per toimiala                        | 25 toimialaa | Pysyvä                                                                 | Ei ainoastaan passiivia raportointia — proaktiivinen alert kun deadline lähestyy                              |
+| **Äskettäiset compliance-voitot** | Asiakkaan compliance-ajan vähennys (esim. Uber: 60h/kk → 8h/kk)           | 87% vähenemä | ↑ Kasvavat asiakkailla                                                 | Konkreettinen ROI: tunteja säästyy, riskitaso laskee                                                          |
+
+**Trendi:** CBAM-ilmoituskausi Q3 2026 (pakollisia uusia asiakkaita), ETS2 tammikuu 2027 (uusia vertikaaleja).
+
+### 3. Teollisuustieto & Muutos — Ontologiaoppimine ilman avainhenkilöriskiä
+
+| Ajuri                                      | Mitattava suure                                                                                     | Q2 2026                            | Trendi                                                             | Merkitys                                                                                                                                                                                                                                                               |
+| :----------------------------------------- | :-------------------------------------------------------------------------------------------------- | :--------------------------------- | :----------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Lifetime World Model (LWM) -ontologiat** | Asiakaskohtaiset ontologiat (Train Model SaaS), jotka sisältävät asiakkaan toimiala-/prosessitiedon | Käytössä 6 asiakkaalla             | ↑ Uudet ontologiat rakentuvat jokaisen uuden asiakashankkeen myötä | Tieto on asiakkaan hallussa, paikallisella serverillä (Control Room / Situation Room). Ei "mustaa laatikkoa" — asiakkaan osaajat rakentavat mallin itse NVIDIA AI Workbench -työkalulla                                                                                |
+| **Toimialaprosessien automatisointi**      | Esim. terästeollisuus: CBAM-hiilisisältöjen automaattinen hallinta (Vulcan-agentti)                 | 11 agenttia toimialakiinnittyneenä | ↑ Uudet agentti-pohjaiset ratkaisut jokaiseen toimialaongelmaan    | Perinteinen konsultointi: "Kela tarvitsee compliance-prosesseja" → 6 kk rekrytointi. DWS: Compliance Agent käyttävissä perjantaihin mennessä. Viivytetyn riskin vähenemä                                                                                               |
+| **Sääntelyn muutos & agenttien päivitys**  | LWM-ontologian jatkuva uudelleenkoulutus (tilauksen keskeinen osa)                                  | Automatic                          | Pysyvä                                                             | Kun EU-sääntely muuttuu, asiakas ei tarvitse uutta hanketta — agentti päivittyy. Sääntely-risk mittautuu ajan tasalla                                                                                                                                                  |
+| **Avainhenkilöriski: 0**                   | Tieto ontologiassa, ei henkilöissä; agentti ei lähde                                                | N/A                                | Pysyvä                                                             | Kilpailijavertailu: Normative (100 hlö), Sweep (200 hlö), Persefoni (300 hlö). DWS: ketterä ydintiimi (CEO Risto + Office Chief Lucille) + 58 agenttia + 50+ kumppaniverkosto. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja), ei rekrytoimalla (kuukausia) |
+
+### 4. Taloudellisuus & Skaalaus — Enterprise-kapasiteetti startup-kustannuksella
+
+| Ajuri                                            | Mitattava suure                                                                    | Q2 2026                          | Trendi                                      | Merkitys                                                                                                                                                                                      |
+| :----------------------------------------------- | :--------------------------------------------------------------------------------- | :------------------------------- | :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Kiinteät kustannukset**                        | Ydintiimin palkka (1 CEO, 1 Office Chief) + NVIDIA ISV / Red Hat AI kumppanuudet   | ~€10K/kk (ydin)                  | → Pysyvä                                    | Kilpailijat: Normative €10M/v ARR-tavoitteeseen, 100 hlö. DWS: €900K ARR-tavoitteeseen, 2 hlö + agentit + 50+ kumppani. Bruttokattavuus parempi ydintiimissä, skalautuvuus parempi agenteissa |
+| **Muuttuva liikevaihto**                         | Subscription (Climate IQ €2 999/kk) + implementation (€4 990–€89 990 kertamaksuja) | 6 asiakasta, €7k–14k MRR         | ↑ ARR ~€120–150K (Q2), tavoite €900K (2027) | Tuotepohjainen hinnoittelu, tilauspohjainen laskutus — julkishankintojen ystävällinen malli                                                                                                   |
+| **Hintaetu**                                     | Climate IQ hinta vs kilpailijat                                                    | €36K/v (€2 999/kk) vs €50–200K/v | Pysyvä                                      | Johtuu kevyestä rakenteesta: agentit + kumppaniverkosto, ei iso palkkalista                                                                                                                   |
+| **100% asiakaspysyvyys**                         | Customer Churn Rate                                                                | 0%                               | → Pysyvä                                    | 6 asiakasta, kaikki jatkavat (Kela, Uber Finland, Bolt Finland, NCC, + 2 nimetöntä). Nolla-churn = korkea LTV (asiakkaan elinarvoa)                                                           |
+| **Keskeytyskustannuslaskuri (Keskeytyslaskuri)** | Konkreettinen väline asiakkaalle näyttää compliance-katkon hinnaksi                | lifetime.fi/laskuri              | Pysyvä                                      | Myyntityökalu: asiakas näkee, mistä säästyy. Esim. 1 päivän compliance-katkos = €50K+ kontekstin uudelleenrakentamisen kustannukset + momentum-menetys + avainhenkilöriski                    |
+
+### 5. Kulttuurinen Erottelu — Eettinen AI, suomalaisten arvojen mukaan
+
+| Ajuri                                    | Mitattava suure                                                 | Q2 2026                                                                   | Trendi | Merkitys                                                                                                                                                                           |
+| :--------------------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------------ | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Rehellisyys & Läpinäkyvyys**           | Julkaistu hinta, ei piiloituja kustannuksia, Buffet-periaate    | Sama hinta kaikille                                                       | Pysyvä | Pohjoismainen arvostin: kilpailijat neuvottelevat, DWS ei. Luotto syntyy yhdessä kaupassa                                                                                          |
+| **Suvereniteetti**                       | Zero CLOUD Act -altistus, EU-data EU:ssa, asiakkaan hallinnassa | UpCloud Helsinki + NVIDIA DGX + Jetson                                    | Pysyvä | USA-pohjainen pilvialusta lukitsee asiakkaan; suvereeni alusta mahdollistaa vaihdon. Erityisesti kriittiselle infrastruktuurille ja puolustukselle                                 |
+| **Ihmiskeskeisyys**                      | "AI augmentoi, ei korvaa" — agentit eivät vähennä henkilöstöä   | Jokaisen kyvykkyyden myyntipuheen perusviesti                             | Pysyvä | Kilpailijavertailu: "AI automatisointi vähentää henkilöstöä" vs DWS "uusille kyvykkyyksille rinnalla, ei tilalle". Tahtotila on asiakkaan päätettävissä — DWS tuo vain kyvykkyyden |
+| **Suomalaisen design-filosofian mukaan** | Minimalismi, selkeys, "litet bättre" (vähemmän on enemmän)      | Handbook-sisällössä näkyvä (ei "disruption"-kieltä, vaan todisteet ensin) | Pysyvä | Markkinoinnissa vältetään USA:n "disruption"-retoriikka, koska pohjoismainen vakautumus arvostaa konservatiivisia väitteitä                                                        |
+
+### 6. Jatkuva Oppiminen — Gödel-silmukka tuotteessa
+
+| Ajuri                               | Mitattava suure                                                                                                                      | Q2 2026                           | Trendi         | Merkitys                                                                                                                                                                                                                                |
+| :---------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- | :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Retrospektiivi & oppimisilmukka** | Jokainen asiakasprojekti syöttää tulokset DWS:n oppimissilmukkaan (World Model Loop)                                                 | /retro -skilli, /learn -skilli    | Pysyvä         | Perinteinen konsultointiyritys: jokainen projekti on erillään, tieto ei siirry. DWS: jokainen projekti parantaa tuotetta. Esim. Uber-hankkeen compliance-automatisointi (87% aika-säästy) laajenee Climate IQ -tuotteeseen välittömästi |
+| **Agenttien prompt-optimointi**     | Autoresearch-looppi: agentit testautuvat, menevät läpi evals, prompt päivittyy                                                       | Käytössä /autoresearch -skillis   | ↑ Uusi Q2 2026 | Mallin parantaminen ilman uutta dataa — prompt-iteraatio on halvempaa kuin mallin vaihtaminen                                                                                                                                           |
+| **EU AI Act Article 14 -täyttymys** | Human-in-the-Loop -valvonta: jokainen substantiaalinen sessio dokumentoidaan HIC Learning Outcome -kenttänä (6-askelinen protokolla) | Käytössä DWS_LEARNING_STANDARD.md | Pysyvä         | Lainsäädännöllinen vaatimus tulee pakolliseksi 2026 loppuun mennessä. DWS:llä on jo protokolla sisäänrakennettu. Kilpailijat kiinni jäljessä                                                                                            |
+| **Tieto ei häviä**                  | KB (Knowledge Base) -integraatio, field notes, dokumentaatio Learn/HTML                                                              | Käytössä docs/kb/ ja Learn/       | Pysyvä         | Perinteinen: ohjaaja lähtee, tieto poistuu. DWS: jokainen insight dokumentoidaan. Asiakkaalle viedään dokumentit, ei vain raportti                                                                                                      |
+
+---
+
+## 2.2 Akateeminen Arvonluonti — Tieteellinen Vaikuttavuus & Tutkimuskatkos
+
+Lifetime Oy:n arvo ei rajoitu kaupalliseen maailmaan. Rinnakkain tuotekehitykselle ja konsultoinnille, Risto Anton Päärni johtaa akateemista tutkimuskaarta, joka syventää suvereenia tekoälyä, luottamusta ja autonomista järjestelmien turvallisuutta koskevaa tieteellistä ymmärrystä.
+
+### Tutkimuskysymykset (LUT Doctoral Track)
+
+Väitöskirjan tutkimuksen pääkysymykset kattavat neljä kriittistä tutkimusaluetta:
+
+1. **Suvereenit AI-arkkitektuurit** — Infrastruktuurin riippumattomuus, kryptografinen hallinto, alueellinen kontrolli. Kysymys: Kuinka rakennetaan tekoälyä, joka ei ole altis geopoliittisille voimille tai USA:n CLOUD Act -lainsäädännölle?
+
+2. **Luottamus & delegointi** — Mekanismit, jotka hallitsevat auktoriteettia, päätöksenteon mandaatteja ja varmennettua luottamusta autonomisiin AI-järjestelmiin. Kysymys: Millä perusteella ihminen voi delegoida päätöksiä AI:lle siten, että vastuullisuus pysyy selvänä?
+
+3. **Turvallisuus vs. Suorituskyky -kompromissit** — Kvantitatiiviset mallit, jotka tasapainoittavat reaaliaikaista operatiivista tehokkuutta vasten tiukasti määriteltyjä turvallisuusrajoitteita. Kysymys: Voidaanko mitata turvallisuutta numerisesti samalla kun järjestelmä toimii tuotannossa?
+
+4. **Luotettavat reunalaskenta-järjestelmät** — Reunasijaintien käyttöönottomenetelmät, jotka priorisoivat vikasietoisuutta, matala viive ja deterministisen luotettavuuden dynaamisissa ympäristöissä. Kysymys: Kuinka varmistamme, että paikallinen AI tuotannossa on yhtä nopea ja luotettava kuin keskitetty pilvi?
+
+### Institutionaaliset Kumppanuudet
+
+Tutkimustyö toteutetaan kolmen johtavan eurooppalaisen yliopiston ja tutkimuslaitoksen kanssa:
+
+- **LUT University (Lappeenranta-Lahti)** — Päätutkimuslaitos. Fokus: kvantti-turvallisen kryptografian arkkitehtuuri, järjestelmäturvallisuus, muodollisen doktoriväitöksen ohjaus. Laitos johtaa väitöskirja-prosessia ja antaa virallisen tutkintotodistuksen.
+
+- **KTH Royal Institute of Technology (Tukholma, TECoSA-ryhmä)** — Turvallisyyden argumentoinnin metodologia, tiukka testauksemenetelmät, hardware-in-the-loop-testauslaboratorio. KTH vahvistaa turvallisuus-väitteitä ja validoi reunalaskentalaiteiston rinnalla tuotantotestissä.
+
+- **Metropolia University of Applied Sciences (Helsinki)** — Sovellettu insinöörityö, nopea prototyyppien rakentaminen, Master's (YAMK) -tutkielma-projektien integraatio. Metropolia muuntaa tutkimustulokset käytännön insinööriksi ja tuotteen ominaisuuksiksi.
+
+### Hallinnollinen Eristys: Tutkimus ≠ Kaupallinen IP
+
+> **Kriittinen periaate:** Akateeminen tutkimus on tarkoituksellisesti ja ehdottomasti erotettu kaupallisesta omistuksesta (IP) ja pääoman keräämisestä.
+>
+> Tutkimuksen tulokset pyrkivät avoimeen tieteelliseen edistymiseen:
+>
+> - Vertaisarvioidut julkaisut tieteellisissä toimittajissa
+> - Avoin lähdekoodinen tutkimuskehys (ei patentit tai suljettu koodi)
+> - Yhteisölle jaetut tietokanavat (konferenssit, arkivaalipalvelut, workshop)
+>
+> Tämä erotus varmistaa tutkimuksen akateemisen rehellisyyden ja välttää intressiristiriitoja, joissa pääoman kerääminen voisi vääristää tieteellisiä johtopäätöksiä.
+
+### Aikakausi & Vaikuttavuus
+
+Akateemisen tutkimuksen aikakausi on 2026–2029 (3 vuotta). Tutkimuksella on mahdollisuus vaikuttaa:
+
+- **Eurooppalaisen AI-politiikan luomuksiin** — EU AI Act -sääntelyt, ehdotukset horisontaalin turvallisuusjakaumaan (horizontal governance).
+- **Tekniseen standardointiin** — Osallistuminen ETSI-, ISO- ja CEN-työryhmiin suvereaniuden teknisille vaatimuksille.
+- **Tuleviin kaupallisiin tuotteisiin** — Tutkimuksesta syntyvät havainnot syötetään takaisin DWS-tuotekehitykseen (mutta eivät siirrä patentteja tai omistusta).
+
+**Julkinen julkaisu (06.08.2026):** §2.1–§2.2:n sisältö on julkaistu blogikirjoituksena viidellä kielellä (EN/FI/SV/DE/FR) osoitteessa `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html` — ks. `docs/BLOG_STANDARD.md` §3 (postaukset #49–53).
+
+---
+
 ## 3. Tuotteemme
 
 ### DWS IQ 6 — Kolmiakselimalli
@@ -226,6 +353,23 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 - **Firehorse Content Management** — €2 999. Sisällönhallinta ja julkaisualusta.
 
 **Hinnoittelu-periaate:** Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.) Koko tuotevalikoima: [dws10.com](https://dws10.com)
+
+### Arvoketju: demosta tuotantoon
+
+Outokummulle ei tarjota Public Demoa tai Free/Trial-versiota sellaisenaan varsinaisena tuotteena. DEMO-alusta on myynnin väline, ei luottamuksellisten asiakasprosessien tuotantoympäristö.
+
+Suositeltu arvoketju:
+
+1. **Public Demo** — ei asiakkaan dataa, vain ohjattu esimerkki.
+2. **Free Cloud Trial** — synteettinen tai rajattu esimerkkidata, ei tuotantodokumentteja eikä luottamuksellista aineistoa. Tämä madaltaa laitteistoon liittyvää aloituskynnystä.
+3. **Paid Industrial Pilot** — eristetty asiakastila, DPA, käyttöoikeudet, lokitus ja määritelty data- ja poistopolitiikka. Tässä voidaan käyttää asiakkaan hyväksymää rajattua aineistoa.
+4. **Production** — käyttö-/kutsuperusteinen veloitus, alustamaksu ja vuosittainen minimisitoumus. Deployment voi olla EU-pilvi, hybrid tai edge.
+
+Free-version lupaus rajataan: asiakas näkee, miten agentti tuottaa evidenssipaketin, mutta ei tuo koko tehdasdataansa kokeiluympäristöön.
+
+Outokummulle suositus on 30 päivän cloud-pilotti, jossa testataan yksi tarkka käyttötapaus, esimerkiksi 304L/Tornio-päästöevidenssi, rajatulla datalla. Jos käyttö toistuu ja tulos kelpaa procurement- tai CBAM-työnkulkuun, siirrytään maksulliseen tuotantoon.
+
+Kaupallinen johtopäätös: ensimmäinen Outokumpu-pilotti kannattaa rakentaa ensisijaisesti suoraan yhden tehtaan tai prosessin sisäiseksi työkaluksi, ei jälleenmyyntipalveluksi. Näin validoidaan ensin todellinen käyttäjäarvo, datan hallinta, evidenssin hyväksyttävyys ja tuotantoon siirtymisen ehdot. Jälleenmyytävä palvelumalli voidaan rakentaa vasta, kun käyttötapaus on todistettu.
 
 ### Kyvykkyyden hinnoittelumalli (hybridi)
 

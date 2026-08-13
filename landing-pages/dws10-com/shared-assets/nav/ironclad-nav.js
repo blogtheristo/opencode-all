@@ -7,6 +7,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v4.3 — Compliance Hub ▸: added Vulnerability Disclosure Policy link (EU AI Act Art. 50 enforcement, 2 Aug 2026)
  * v4.2 — Solutions ▾: Industry Stack flyout (Industries Hub, DGX Spark, Situation Room, Control Room)
  * v4.1 — About ▾: removed dead "Team" link (no /team/ page exists on any site → 404)
  * v4.0 — Solutions ▾: Firehorse Production Engine added above Lifetime World Model V1
@@ -223,6 +224,13 @@
       de: 'Dual-Use & Verteidigung (Aegis)',
       fr: 'Double usage & Défense (Aegis)',
       en: 'Dual-Use & Defence (Aegis)',
+    },
+    vdp: {
+      fi: 'Haavoittuvuuksien ilmoituskäytäntö',
+      sv: 'Policy för sårbarhetsrapportering',
+      de: 'Richtlinie zur Offenlegung von Sicherheitslücken',
+      fr: 'Politique de divulgation des vulnérabilités',
+      en: 'Vulnerability Disclosure Policy',
     },
     'interruption-calc': {
       fi: 'Keskeytyslaskuri',
@@ -471,6 +479,7 @@
     'Compliance Hub': 'compliance',
     'Trust Center': 'trust-center',
     'Dual-Use & Defence (Aegis)': 'dual-use',
+    'Vulnerability Disclosure Policy': 'vdp',
     Keskeytyslaskuri: 'interruption-calc',
     'Integrations ▸': 'integrations-menu',
     'All Enterprise Integrations': 'all-integrations',
@@ -625,6 +634,7 @@
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}compliance/">Compliance Hub</a></li>
                                 <li><a href="${contentBase}compliance/trust-center/">Trust Center</a></li>
+                                <li><a href="${contentBase}compliance/vulnerability-disclosure-policy/">Vulnerability Disclosure Policy</a></li>
                                 <li><a href="${contentBase}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
