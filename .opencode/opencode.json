@@ -1,88 +1,76 @@
 {
-  "$schema": "https://opencode.dev/schema/opencode.json",
-  "_description": "OpenCode platform configuration — primary IDE/runtime for DWS IQ 6 development. Mirrors .claude/settings.json for MCP compatibility.",
+  "$schema": "https://opencode.ai/config.json",
   "name": "DWS IQ 6 — OpenCode Primary Runtime",
   "version": "1.0.0",
   "created": "2026-08-13",
-  "platform": "opencode",
-  "environment": {
-    "PRIMARY_RUNTIME": "opencode",
-    "FALLBACK_RUNTIME": "claude",
-    "DGX_HOST": "localhost",
-    "DGX_PORT": "8080",
-    "DISABLE_AUTO_UPDATE": 0,
-    "DISABLE_BUG_COMMAND": 0
+  "description": "OpenCode primary IDE for DWS IQ development, with Ollama local inference and shared MCP servers. Failover to Claude Code via .claude/handoffs/<branch>.md.",
+  "instructions": "CLAUDE.md",
+  "model": "nemotron-3-super",
+  "small_model": "qwen3-coder:30b",
+  "provider": "ollama",
+  "ollama": {
+    "host": "192.168.101.113",
+    "port": 11434,
+    "models": ["nemotron-3-super", "qwen3-coder:30b"],
+    "tunnel_port": 11435,
+    "health_check_url": "/api/tags"
   },
-  "models": {
-    "primary": {
-      "provider": "nvidia",
-      "model": "nim-inference-local",
-      "context_window": 131072,
-      "max_tokens": 4096,
-      "description": "Local NVIDIA NIM microservices on DGX Spark (Grace Blackwell, 1 PFLOPS FP4)"
+  "permission": {
+    "bash": {
+      "git": "allow",
+      "python": "allow",
+      "node": "allow",
+      "cat": {
+        "pattern": ".env",
+        "value": "deny"
+      },
+      "curl": {
+        "pattern": "| sh",
+        "value": "deny"
+      },
+      "rm": {
+        "pattern": "-rf",
+        "value": "ask"
+      },
+      "sudo": "deny"
     },
-    "fallback": {
-      "provider": "anthropic",
-      "model": "claude-opus-5",
-      "context_window": 1048576,
-      "max_tokens": 4096,
-      "description": "Claude API fallback (active when OpenCode unavailable)"
+    ".claude": "ask",
+    "Read": {
+      ".env": "deny",
+      "**/*secret*": "deny",
+      "**/*credentials*": "deny"
     }
   },
-  "permissions": {
-    "allow": ["Bash(git:*)", "Bash(python:*)", "Bash(node:*)", "Read(**)", "Edit(**)", "Write(**)"],
-    "deny": [
-      "Bash(sudo:*)",
-      "Bash(sudo *)",
-      "Bash(rm -rf /)",
-      "Bash(rm -rf ~)",
-      "Bash(rm -rf:*)",
-      "Bash(cat .env)",
-      "Bash(cat .env.*)",
-      "Bash(cat)",
-      "Read(.env)",
-      "Read(.env.*)",
-      "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Read(**/*secret*)",
-      "Read(**/*credentials*)",
-      "Bash(printenv)",
-      "Bash(printenv:*)",
-      "Bash(env)"
-    ]
-  },
-  "mcp_servers": {
-    "local": ["dws-gateway-local", "dws-agents-local"],
-    "shared_with_claude": ["github", "google-drive", "figma", "supabase"]
-  },
-  "runtime_selection": {
-    "interactive_development": "opencode",
-    "scheduled_jobs": "opencode",
-    "long_running_loops": "opencode",
-    "extended_thinking": "claude",
-    "failover": "claude"
-  },
-  "deployment": {
-    "dgx_spark": {
-      "hostname": "dgx-spark-01.dws.local",
-      "port": 8080,
-      "models": ["nvidia/nim-llama", "nvidia/nim-nemotron", "nvidia/nim-embeddings"],
-      "health_check_url": "/v1/health",
-      "health_check_interval_seconds": 30
+  "mcp": {
+    "dws-gateway-local": {
+      "type": "local",
+      "url": "stdio:///home/user/dws6/mcp-servers/dws-gateway/dist/index.js"
+    },
+    "dws-agents-local": {
+      "type": "local",
+      "url": "stdio:///home/user/dws6/mcp-servers/dws-agents/dist/index.js"
+    },
+    "github": {
+      "type": "remote",
+      "oauth": true
+    },
+    "google-drive": {
+      "type": "remote",
+      "oauth": true
+    },
+    "figma": {
+      "type": "remote",
+      "oauth": true
+    },
+    "supabase": {
+      "type": "remote",
+      "env_var": "SUPABASE_API_KEY"
     }
   },
   "failover": {
-    "health_check_auto_retry": true,
-    "health_check_retry_count": 2,
-    "health_check_retry_interval_seconds": 5,
-    "platform_switch_mode": "manual",
-    "failover_log": ".opencode/failover.log",
-    "description": "Health check retries are automatic (detects DGX unavailability). Platform switch to Claude Code requires manual intervention via .claude/handoffs/<branch>.md per DGX_DEPLOYMENT.md § Failover Procedure."
-  },
-  "handoff_protocol": {
-    "state_file": ".claude/handoffs/<branch>.md",
-    "serialization_format": "markdown",
-    "requires_manual_switch": true,
-    "description": "State is git-persisted in .claude/handoffs/<branch>.md; platform switches are manual via documented procedure (DGX_DEPLOYMENT.md)"
+    "method": "manual",
+    "handoff_file": ".claude/handoffs/<branch>.md",
+    "documentation": "docs/DGX_DEPLOYMENT.md § Failover Procedure",
+    "note": "Platform switch from OpenCode to Claude Code is manual and documented. Health checks are automatic; actual switching is human-driven to preserve state and logs."
   }
 }
