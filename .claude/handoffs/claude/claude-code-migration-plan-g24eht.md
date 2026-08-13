@@ -48,17 +48,17 @@
 - [x] Add `.opencode/` entries to `.gitignore`
 - [x] Commit Phase 1B (c7ce9b4c)
 
-### Phase 2: Deployment & Failover (Turn 3)
+### Phase 2: Deployment & Failover (Turn 3 — In Progress)
 
-- [ ] Create `docs/DGX_DEPLOYMENT.md` — installation, tmux operation, health checks
-- [ ] Create `.vscode/settings.json` — OpenCode Connector + remote DGX workflow
-- [ ] Audit `.claude/settings.json` — remove Claude-is-primary assumptions
+- [x] Create `docs/DGX_DEPLOYMENT.md` — installation, tmux operation, health checks, manual failover procedure
+- [x] Update `.vscode/settings.json` — OpenCode Connector + DGX health check + remote workflow config
+- [x] Audit `.claude/settings.json` — confirmed platform-neutral; no Claude-is-primary assumptions
 
-### Phase 3: Skills & Automation Classification (Turn 4)
+### Phase 3: Skills & Automation Classification (Turn 3 — In Progress)
 
-- [ ] Classify skills as: runtime-neutral, claude-portable, claude-specific, or dgx-scheduled
-- [ ] Audit CI/CD workflows — flag jobs with explicit Claude Code dependencies
-- [ ] Document each classification in `docs/CLAUDE_CODE_STANDBY_PROTOCOL.md`
+- [x] Create taxonomy: runtime-neutral, claude-portable, claude-specific, dgx-scheduled
+- [x] Document each classification in `docs/CLAUDE_CODE_STANDBY_PROTOCOL.md`
+- [ ] Audit CI/CD workflows — flag jobs with explicit Claude Code dependencies (Turn 4)
 
 ## Pull Request
 

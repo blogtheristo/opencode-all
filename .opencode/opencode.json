@@ -31,7 +31,25 @@
   },
   "permissions": {
     "allow": ["Bash(git:*)", "Bash(python:*)", "Bash(node:*)", "Read(**)", "Edit(**)", "Write(**)"],
-    "deny": ["Bash(sudo:*)", "Bash(rm -rf /)", "Read(.env)", "Read(.env.*)"]
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(sudo *)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf:*)",
+      "Bash(cat .env)",
+      "Bash(cat .env.*)",
+      "Bash(cat)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*secret*)",
+      "Read(**/*credentials*)",
+      "Bash(printenv)",
+      "Bash(printenv:*)",
+      "Bash(env)"
+    ]
   },
   "mcp_servers": {
     "local": ["dws-gateway-local", "dws-agents-local"],
@@ -54,10 +72,12 @@
     }
   },
   "failover": {
-    "auto_retry_on_dgx_failure": true,
-    "retry_count": 2,
-    "fallback_to_claude_on_exhaustion": true,
-    "failover_log": ".opencode/failover.log"
+    "health_check_auto_retry": true,
+    "health_check_retry_count": 2,
+    "health_check_retry_interval_seconds": 5,
+    "platform_switch_mode": "manual",
+    "failover_log": ".opencode/failover.log",
+    "description": "Health check retries are automatic (detects DGX unavailability). Platform switch to Claude Code requires manual intervention via .claude/handoffs/<branch>.md per DGX_DEPLOYMENT.md § Failover Procedure."
   },
   "handoff_protocol": {
     "state_file": ".claude/handoffs/<branch>.md",

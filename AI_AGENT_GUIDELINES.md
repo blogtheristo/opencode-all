@@ -171,18 +171,24 @@ Agent launching new work?
 
 ### Failover Procedure
 
-#### Automatic (Minimal)
+#### Health Check & Detection (Automatic)
 
-- Scheduled jobs on DGX: retry once on DGX, then fallback to Claude Code (documented in `DGX_DEPLOYMENT.md`)
-- Interactive sessions: manual switch via `.claude/handoffs/` (state already serialized)
+- DGX health check retries automatically (detects if DGX is down)
+- Scheduled jobs fail loud if health check exhausted (do not auto-switch platforms)
+- Humans investigate failure and decide next action
 
-#### Manual (Documented)
+#### Platform Switch (Manual)
 
-1. **Detect the issue:** `opencode --status` or `dgx-health-check` (script TBD)
-2. **Log it:** Add entry to `.claude/handoffs/<branch>.md` with timestamp and reason
-3. **Resume:** Copy working branch to Claude Code session, run same commands
-4. **Investigate:** Root-cause the OpenCode/DGX outage (document in field note)
-5. **Recover:** Once fixed, resume on OpenCode (new branches default to OpenCode)
+All actual platform switches from OpenCode → Claude Code are **manual and documented**:
+
+1. **Detect the issue:** `opencode --status` or `dgx-health-check` (script TBD); scheduled job failure alert
+2. **Decide:** Human determines cause (DGX down, network split, resource exhausted)
+3. **Switch:** Update `.claude/handoffs/<branch>.md` with reason and timestamp
+4. **Resume:** Copy working branch to Claude Code session, re-run same commands
+5. **Investigate:** Root-cause the failure (document in field note)
+6. **Recover:** Once DGX is fixed, resume on OpenCode; new branches default to OpenCode
+
+**Why manual:** Automatic platform switching creates silent data loss risk (job state, logs, partial results). Manual switching forces explicit capture of the failure and decision.
 
 ### MCP Interface Contract
 

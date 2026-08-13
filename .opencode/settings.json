@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.dev/schema/settings.json",
-  "_comment": "OpenCode platform settings — primary IDE for DWS IQ 6. Identical MCP configuration to .claude/settings.json for seamless platform switching.",
+  "_comment": "OpenCode platform settings — primary IDE for DWS IQ 6. MCP configuration compatible with .claude/settings.json; both enable dws-gateway-local + dws-agents-local for seamless platform switching.",
   "env": {
     "DISABLE_BUG_COMMAND": 0,
     "DISABLE_AUTO_UPDATE": 0,
@@ -22,10 +22,14 @@
       "Write(**)"
     ],
     "deny": [
-      "Bash(sudo:*)",
-      "Bash(sudo *)",
       "Bash(rm -rf /)",
       "Bash(rm -rf ~)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo *)",
+      "Bash(sudo:*)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)",
       "Read(.env)",
       "Read(.env.*)",
       "Read(**/.env)",
@@ -33,7 +37,10 @@
       "Read(**/*secret*)",
       "Read(**/*credentials*)",
       "Bash(printenv)",
-      "Bash(env)"
+      "Bash(printenv:*)",
+      "Bash(env)",
+      "Bash(cat .env)",
+      "Bash(cat .env.*)"
     ]
   },
   "enabledMcpServers": ["dws-gateway-local", "dws-agents-local"],

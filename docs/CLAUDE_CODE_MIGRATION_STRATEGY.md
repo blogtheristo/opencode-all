@@ -1,11 +1,21 @@
 # Claude Code Migration Strategy — OpenCode Primary
 
+---
+
+## VERSION AND AGENT HISTORY
+
+| Version | Agent                        | Date       | Change                                                                        |
+| ------- | ---------------------------- | ---------- | ----------------------------------------------------------------------------- |
+| 1.0     | Claude Code + GitHub Copilot | 2026-08-13 | Initial phase 1 strategy document; OpenCode primary, Claude Code hot standby. |
+
+**Document Status:** ACTIVE | **Last Modified:** 2026-08-13 | **Languages Available:** English
+
+---
+
 **Date:** 2026-08-13  
 **Status:** In Progress  
 **Owner:** Lifetime Oy  
 **Audience:** Engineering & Operations
-
----
 
 ## Executive Summary
 
