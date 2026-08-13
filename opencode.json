@@ -3,7 +3,7 @@
   "instructions": [
     "CLAUDE.md"
   ],
-  "shell": "pwsh",
+  "shell": "bash",
   "model": "ollama-local/qwen3-coder:30b",
   "small_model": "ollama-local/qwen3-coder:30b",
   "provider": {
@@ -26,14 +26,14 @@
     "dws-agents-local": {
       "type": "remote",
       "url": "http://localhost:3001/mcp",
-      "enabled": true,
+      "enabled": false,
       "timeout": 10000
     },
     "dws-gateway-local": {
       "type": "local",
       "command": [
-        "python",
-        "mcp-servers\\cloud-run-gateway\\server.py",
+        "python3",
+        "mcp-servers/cloud-run-gateway/server.py",
         "--transport",
         "stdio"
       ],
