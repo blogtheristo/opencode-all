@@ -39,7 +39,8 @@
       ],
       "environment": {
         "SUPABASE_URL": "{env:SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "{env:SUPABASE_SERVICE_KEY}"
+        "SUPABASE_SERVICE_KEY": "{env:SUPABASE_SERVICE_KEY}",
+        "GITHUB_TOKEN": "{env:GITHUB_TOKEN}"
       },
       "enabled": true,
       "timeout": 10000
@@ -67,7 +68,8 @@
       "*git push -f*": "deny",
       "cat .env": "deny",
       "cat .env.*": "deny",
-      "*.env*": "deny"
+      "*.env*": "deny",
+      "gh *": "allow"
     },
     "read": {
       "*": "allow",
