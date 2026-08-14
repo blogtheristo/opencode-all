@@ -22,7 +22,7 @@ _Part of the DWS IQ Industrial Intelligence suite — the governance control pla
 
 ## One-Liner
 
-Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.
+Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA specification: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.
 
 ## Why Now
 
@@ -46,7 +46,7 @@ A drop-in control plane that turns any DWS IQ deployment — or any open-standar
 
 ## Features
 
-- **KYA-compliant** — implements the open KYA standard; no vendor lock-in on the protocol layer
+- **KYA-compliant** — implements the open KYA specification; no vendor lock-in on the protocol layer
 - **Defence-grade audit** — hash-chained append-only ledger with per-event SHA-256 chain, court-defensible tamper evidence
 - **Cross-tier portable** — same control plane runs on Aegis Tier 1 sovereign infra, Tier 2 EU clouds, or Tier 3 hyperscalers
 - **EU-built, zero CLOUD Act** — no US-incorporated vendor in the Aegis-tier data path
