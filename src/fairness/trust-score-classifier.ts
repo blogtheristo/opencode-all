@@ -43,4 +43,6 @@ export function isTrustScoreSufficient(score: number, actionType: 'NOMINAL_ONLY'
     case 'DEGRADED_ALLOWED':
       return state !== 'FAIL_CLOSED';
   }
-}
+
+  const _exhaustive: never = actionType;
+  return false;
