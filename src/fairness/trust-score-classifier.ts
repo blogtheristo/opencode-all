@@ -1,5 +1,5 @@
 /**
- * KYA Standard Trust Score Classification
+ * KYA Specification Trust Score Classification
  * 
  * Classifies trust scores according to KYA-S1 thresholds:
  * - >= 0.85 = NOMINAL
