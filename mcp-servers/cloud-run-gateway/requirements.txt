@@ -2,7 +2,7 @@
 # Python 3.12+
 
 # MCP SDK (Streamable HTTP transport)
-mcp[cli]>=1.9.0
+mcp[cli]>=1.9.0,<2.0.0
 
 # Supabase client
 supabase>=2.13.0

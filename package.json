@@ -45,7 +45,7 @@
     "skills:check": "node scripts/skill-manifest-sync.mjs --check && node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code",
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
-    "validate:pricing": "tsx scripts/validate-pricing.ts",
+    "validate:pricing": "tsx scripts/validate-pricing.ts && node scripts/validate-product-publication.mjs",
     "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
     "factory:route": "tsx scripts/factory-route.ts",
     "test": "vitest",

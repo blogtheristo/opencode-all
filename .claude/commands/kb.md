@@ -9,14 +9,15 @@ Input: $ARGUMENTS (a subcommand + its argument — e.g. `ask "what does CSRD req
 
 ## Subcommands
 
-| Form                                     | What it does                                                                                        |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `/kb status`                             | Show raw count, wiki article count, health score, last compile/lint timestamps                      |
-| `/kb ingest <file>`                      | Copy a raw source into `kb/raw/` (auto-routes to `articles/`, `repos/`, `images/`, or `signals/`)   |
-| `/kb compile [--full]`                   | Compile `kb/raw/` → `kb/wiki/`: summaries, concepts, entities, regenerate all 3 indexes             |
-| `/kb ask "question" [--save]`            | Q&A against the compiled wiki; `--save` writes answer to `kb/wiki/reports/{slug}.md`                |
-| `/kb research "question"`                | Deep multi-hop research (longer timeout, writes to `kb/ephemeral/{slug}/`)                          |
-| `/kb lint`                               | Health check — find orphaned articles, broken backlinks, stale summaries                            |
+| Form                               | What it does                                                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `/kb status`                       | Show raw count, wiki article count, health score, last compile/lint timestamps                    |
+| `/kb ingest <file>`                | Copy a raw source into `kb/raw/` (auto-routes to `articles/`, `repos/`, `images/`, or `signals/`) |
+| `/kb compile [--full]`             | Compile `kb/raw/` → `kb/wiki/`: summaries, concepts, entities, regenerate all 3 indexes           |
+| `/kb ask "question" [--save]`      | Q&A against the compiled wiki; `--save` writes answer to `kb/wiki/reports/{slug}.md`              |
+| `/kb research "question"`          | Deep multi-hop research (longer timeout, writes to `kb/ephemeral/{slug}/`)                        |
+| `/kb lint`                         | Health check — find orphaned articles, broken backlinks, stale summaries                          |
+| `/kb graph "<entity or question>"` | Traverse the fact graph populated from concepts/entities on compile — multi-hop causal chains     |
 
 ## Steps
 
@@ -26,6 +27,7 @@ Input: $ARGUMENTS (a subcommand + its argument — e.g. `ask "what does CSRD req
 3. For `ask` and `research`, render the answer in-chat with citations back to wiki articles.
 4. For `compile`/`ingest`/`lint`/`status`, surface the key stats (articles added, health score, stale count).
 5. If `compile` runs and finds new raw sources but the user hasn't asked, offer to run `lint` after.
+6. For `graph`, resolve entity mentions in the argument via a naive `ILIKE` match against `graph_facts.subject`/`object` (no fuzzy/synonym matching in v1), then call `dws_graph_query` (or `dws mcp call dws_graph_query --args '{"entity":"...","max_hops":3}'`) and render the returned path(s) in chat.
 
 ## Folder layout (for reference)
 
@@ -62,6 +64,7 @@ kb/
 - Agent: `src/agents/kb.agent.ts`
 - Tools exposed to the LLM: `kb_list_raw`, `kb_read_file`, `kb_write_article`, `kb_list_wiki`, `kb_update_metadata`
 - Daily cleanup: `scripts/daily/kb-cleanup.sh` (auto-discovered by day-runner)
+- Fact graph: every `kb_write_article` under `wiki/concepts/**` or `wiki/entities/**` triggers `graph-extraction.service.ts` (local `qwen3-coder:30b`), persisting causal/relational triples to `graph_facts` (DGX-Spark-internal Postgres). Query via the `dws_graph_query` MCP tool → `graph.service.ts` → `graph_traverse()`. Single-tenant (`org_id='lifetime-internal'`) and `ILIKE`-only entity matching in v1 — see `infrastructure/dgx-spark/migrations/022_graph_facts.sql`.
 
 ## When NOT to use
 

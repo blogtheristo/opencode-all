@@ -4,14 +4,24 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.21
-  Effective: 2026-07-16
+  Version: 1.25
+  Effective: 2026-08-18
+  Next review: 2026-11-18
   Owner: Lifetime Oy (sales@lifetime.fi)
   Publication Status: ACTIVE
   Language: English (primary) · Suomi · Svenska · Deutsch · Français
   Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.25 | GitHub Copilot CLI | 2026-08-18 |
+        Published 49 non-BLUE, non-archived products plus subscriptions on the broad public price list.
+        Added visible Serious and Supporting labels; BLUE and archived records remain excluded from public sales.
+    - Version 1.23 | claude/updated-control-room-pricing-2026 | 2026-08-15 |
+        Revised Control Room pricing to reflect €8,008 for Acer Veriton GN100 and €6,109 for NVIDIA DGX Spark
+        Added separate pricing for hardware options with installation included.
+    - Version 1.22 | claude/situation-room-pricing-update | 2026-08-10 |
+        Updated Situation Room pricing to €11,598 for 2× hardware deployment (2× Acer Veriton GN100 or 2× NVIDIA DGX Spark)
+        Added pricing for different hardware configurations.
     - Version 1.21 | claude/scaleway-pricing-update-19g8df | 2026-07-16 |
         Added the "Choose your deployment" section: DWS IQ 6 delivered three ways —
         EU-Sovereign Cloud (Scaleway SaaS, from €4,999), Dedicated Sovereign Cloud
@@ -49,7 +59,7 @@
     - Prior history: see priceHistory[] in /config/products.json.
 
   Source of truth for pricing: /dws10.com/config/products.json (mirrored to
-  /landing-pages/dws10-com/config/products.json in the same commit).
+  /landing-pages/dws10-com/config/products.json in the same change).
   ============================================================================
 -->
 <html lang="en">
@@ -62,9 +72,9 @@
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.21" />
+    <meta name="dws-doc-version" content="1.25" />
     <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
-    <meta name="dws-doc-effective" content="2026-07-16" />
+    <meta name="dws-doc-effective" content="2026-08-18" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
@@ -208,6 +218,28 @@
       }
       .vat-banner strong {
         color: #6ee7b7;
+      }
+      .portfolio-note {
+        color: #bfdbfe;
+        font-size: 0.9rem;
+        margin-top: 14px;
+      }
+      .portfolio-badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+      .portfolio-badge.serious {
+        color: #fde68a;
+        border: 1px solid rgba(212, 168, 67, 0.55);
+        background: rgba(212, 168, 67, 0.12);
+      }
+      .portfolio-badge.supporting {
+        color: #bfdbfe;
+        border: 1px solid rgba(96, 165, 250, 0.45);
+        background: rgba(59, 130, 246, 0.1);
       }
 
       /* Category block */
@@ -505,6 +537,7 @@
           customers. EU intra-community supplies are reverse-charged against a valid EU VAT number.
           Quote valid <span id="mQuote">30 days</span>.
         </div>
+        <p class="portfolio-note">This broad public price list contains 49 non-BLUE, non-archived DWS products plus subscriptions. Every listed offer is marked <strong>Serious</strong> or <strong>Supporting</strong>; BLUE and archived records are not public sales offers.</p>
       </header>
 
       <!-- ============================================================
@@ -747,9 +780,9 @@
             <h3>Sovereign On-Premise — NVIDIA DGX</h3>
             <div class="deploy-price">Your hardware · you own the weights</div>
             <ul>
-              <li>Control Room (Acer Veriton GN100) €5,294 · DGX Spark €6,694</li>
-              <li>Situation Room (2× GN100) €10,093 · IGX Orin €11,990</li>
-              <li>+ NVIDIA Model Install €995/device · Sovereign Model Updates €299/mo</li>
+              <li>Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX Spark <span id="priceDgxSpark">catalog</span></li>
+              <li>Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin <span id="priceIgxOrin">catalog</span></li>
+              <li>+ NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign Model Updates <span id="priceModelUpdates">catalog</span></li>
               <li>Data never leaves your network · you own 100% of model weights</li>
             </ul>
             <div class="deploy-best">
@@ -777,7 +810,7 @@
             <tr>
               <td>Capital outlay</td>
               <td class="c-cloud">None — you rent capacity</td>
-              <td class="c-onprem">Hardware capex €5,294–€11,990 per node</td>
+              <td class="c-onprem">Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span id="priceHardwareHigh">catalog</span></td>
             </tr>
             <tr>
               <td>Running cost</td>
@@ -852,8 +885,8 @@
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
           <p>
-            DWS Document Standard version: <strong>1.21</strong> · Effective
-            <strong>2026-07-16</strong>
+            DWS Document Standard version: <strong>1.25</strong> · Effective
+            <strong>2026-08-18</strong>
           </p>
           <p style="margin-top: 6px">
             Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs
@@ -861,15 +894,14 @@
             NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.
           </p>
           <p style="margin-top: 6px">
-            v1.20 sovereign-hardware ladder (Finnish B2B): Jetson Nano €764 · Jetson NX €1,990 ·
-            Jetson AGX €2,694 · Control Room €5,294 · DGX Spark €6,694 · Situation Room €10,093 ·
-            IGX Orin €11,990 · NVIDIA Install €995/device · Sovereign Model Updates €299/mo.
+            Catalog version <strong>1.25</strong>. Current product and hardware prices load directly
+            from <code>dws10.com/config/products.json</code>.
           </p>
           <p>Source of truth: <code>dws10.com/config/products.json</code></p>
         </div>
         <div>
           <h3>Contact</h3>
-          <p>Sales: <a id="lSales" href="mailto:sales@lifetime.fi">sales@lifetime.fi</a></p>
+          <p>Sales: <a id="lSales" href="https://dws10.com/contact/">sales@lifetime.fi</a></p>
           <p>Phone requests via email.</p>
           <p>
             For a signed quote on this price list, email sales with the product IDs in the leftmost
@@ -891,6 +923,7 @@
           hardware: "Sovereign Hardware",
           "add-on": "Add-ons",
           subscription: "Required Subscriptions",
+          other: "Other Products",
         };
         var CATEGORY_ORDER = [
           "platform",
@@ -1016,6 +1049,45 @@
           var pl = data.priceList || {};
           var policy = pl.policy || {};
           var gov = pl.governance || {};
+          var portfolio = data.commercialPortfolio || {};
+          var seriousIds = portfolio.seriousProductIds;
+          if (!Array.isArray(seriousIds) || seriousIds.length !== 13) {
+            throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+          }
+          var seriousLookup = {};
+          seriousIds.forEach(function (id) { seriousLookup[id] = true; });
+          var catalogProducts = data.products || {};
+          var publicProducts = Object.keys(catalogProducts).map(function (key) {
+            return catalogProducts[key];
+          }).filter(function (product) {
+            return product && product.deploymentColor !== "blue" &&
+              product.archived !== true && product.productType !== "archived";
+          });
+          if (publicProducts.length !== 49) {
+            throw new Error("Expected 49 public products; found " + publicProducts.length);
+          }
+          seriousIds.forEach(function (id) {
+            var product = catalogProducts[id];
+            if (!product) throw new Error("Serious product missing: " + id);
+            if (product.deploymentColor === "blue" || product.archived === true || product.productType === "archived") {
+              throw new Error("Serious product is not public: " + id);
+            }
+          });
+
+          function writeCatalogPrice(elementId, product) {
+            if (!product || !Number.isFinite(Number(product.price))) {
+              throw new Error("Catalog price missing for " + elementId);
+            }
+            document.getElementById(elementId).textContent = eur(Number(product.price));
+          }
+          writeCatalogPrice("priceControlRoom", catalogProducts["edge-node-gn100"]);
+          writeCatalogPrice("priceDgxSpark", catalogProducts["LF-DGX-SPARK"]);
+          writeCatalogPrice("priceSituationRoom", catalogProducts["LF-SITROOM-001"]);
+          writeCatalogPrice("priceIgxOrin", catalogProducts["LF-IGX-ORIN"]);
+          writeCatalogPrice("priceNvidiaInstall", catalogProducts["LF-NVIDIA-INSTALL"]);
+          writeCatalogPrice("priceModelUpdates", (data.subscriptions || {})["LF-SOV-MODEL-SUB"]);
+          writeCatalogPrice("priceHardwareLow", catalogProducts["LF-DGX-SPARK"]);
+          writeCatalogPrice("priceHardwareHigh", catalogProducts["LF-IGX-ORIN"]);
 
           document.getElementById("mVersion").textContent = pl.version || "—";
           document.getElementById("mEffective").textContent = fmtDate(pl.effectiveDate);
@@ -1033,14 +1105,13 @@
           if (gov.owner) document.getElementById("lOwner").textContent = gov.owner;
           if (gov.salesEmail) {
             var a = document.getElementById("lSales");
-            a.href = "mailto:" + gov.salesEmail;
+            a.href = "https://dws10.com/contact/";
             a.textContent = gov.salesEmail;
           }
 
-          var products = data.products || {};
+          var products = Object.assign({}, catalogProducts);
           var subscriptions = data.subscriptions || {};
           var buckets = {};
-          var archived = [];
 
           // Merge subscriptions into the product map so they render in the
           // "Required Subscriptions" category on the live price list page.
@@ -1053,10 +1124,7 @@
           Object.keys(products).forEach(function (key) {
             var p = products[key];
             if (!p || typeof p !== "object") return;
-            if (p.productType === "archived") {
-              archived.push(p);
-              return;
-            }
+            if (p.archived === true || p.productType === "archived") return;
             // Public price list never shows Blue/pilot SKUs (T0 or
             // deploymentColor:"blue"). They remain in products.json
             // but render only on internal pilot list.
@@ -1100,11 +1168,12 @@
               "</span>" +
               "</div>" +
               '<table class="price-table"><thead><tr>' +
-              "<th>ID</th><th>Product</th><th>Price (EUR)</th><th>Unit</th>" +
+              "<th>ID</th><th>Class</th><th>Product</th><th>Price (EUR)</th><th>Unit</th>" +
               "<th>SKU / MPN</th><th>Actions</th>" +
               "</tr></thead><tbody>" +
               list
                 .map(function (p) {
+                  var portfolioClass = seriousLookup[p.id] ? "Serious" : "Supporting";
                   var priceCell =
                     p.price === 0 ? '<span style="color:#fbbf24">Free / POA</span>' : eur(p.price);
                   var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
@@ -1114,14 +1183,15 @@
                       "</small>"
                     : "";
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
-                  var isMailto = rawDetails.indexOf("mailto:") === 0;
+                  var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
-                  var cardBtn =
-                    '<a class="act-card" href="/buy/#product-' +
+                  var cardBtn = seriousLookup[p.id]
+                    ? '<a class="act-card" href="/buy/#product-' +
                     pid +
-                    '" title="Product card">Card</a>';
+                    '" title="Product card">Card</a>'
+                    : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
@@ -1132,7 +1202,7 @@
                     pid +
                     '" title="Book a meeting">Book&nbsp;Meeting</a>';
                   var emailBtn =
-                    '<a class="act-email" href="mailto:sales@lifetime.fi?subject=Enquiry%3A%20' +
+                    '<a class="act-email" href="https://dws10.com/contact/?subject=Enquiry%3A%20' +
                     pname +
                     '" title="Email sales">Email</a>';
                   var btns =
@@ -1145,6 +1215,8 @@
                     '<td class="col-id" data-label="ID">' +
                     escapeHtml(p.id || "") +
                     "</td>" +
+                    '<td data-label="Class"><span class="portfolio-badge ' +
+                    portfolioClass.toLowerCase() + '">' + portfolioClass + "</span></td>" +
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
@@ -1173,40 +1245,6 @@
             main.appendChild(block);
           });
 
-          if (archived.length) {
-            var a = document.createElement("section");
-            a.className = "cat-block";
-            a.innerHTML =
-              '<div class="cat-heading">' +
-              '<h2 style="color:#94a3b8">Retired (not for sale)</h2>' +
-              '<span class="cat-count">' +
-              archived.length +
-              " archived</span>" +
-              "</div>" +
-              '<p style="color:#94a3b8;font-size:0.85rem;margin-bottom:10px">' +
-              "Shown for historical reference only. Not available for new purchase. Contact sales for transition options." +
-              "</p>" +
-              '<table class="price-table"><thead><tr><th>ID</th><th>Product</th><th>Last list price</th></tr></thead><tbody>' +
-              archived
-                .map(function (p) {
-                  return (
-                    "<tr>" +
-                    '<td class="col-id" data-label="ID">' +
-                    escapeHtml(p.id || "") +
-                    "</td>" +
-                    '<td class="col-name" data-label="Product">' +
-                    escapeHtml(p.name || "") +
-                    "</td>" +
-                    '<td class="col-price" data-label="Price" style="color:#94a3b8">' +
-                    eur(p.price) +
-                    "</td>" +
-                    "</tr>"
-                  );
-                })
-                .join("") +
-              "</tbody></table>";
-            main.appendChild(a);
-          }
         }
 
         function fail(msg) {
@@ -1214,7 +1252,7 @@
             '<div class="error"><p>Could not load price list: ' +
             escapeHtml(msg) +
             "</p>" +
-            '<p style="margin-top:10px">Please refresh, or email <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a>.</p></div>';
+            '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
         fetch("../config/products.json", { cache: "no-store" })

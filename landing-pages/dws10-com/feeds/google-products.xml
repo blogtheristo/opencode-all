@@ -4,11 +4,11 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-08-05T06:15:10.298Z</lastBuildDate>
+    <lastBuildDate>2026-08-18T18:10:57.703Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-        <g:description>Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a fleet of skilled agents across 10 LWM ontology classes and 16 captain hats covering 25+ EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.</g:description>
+        <g:description>Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.</g:description>
         <g:link>https://dws10.com/products/dwsiq.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>4999.00 EUR</g:price>
@@ -472,11 +472,11 @@
     </item>
     <item>
         <g:id>edge-node-gn100</g:id>
-        <g:title>Control Room — Acer Veriton GN100 + NVIDIA Model Install</g:title>
-        <g:description>When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can&apos;t wait for a cloud round-trip. This is Plant Capital in the 4P sense: intelligence that operates inside your own building, not SaaS you log into — the sovereign edge half of the two-room Control Room + Situation Room stack. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+        <g:title>Control Room — Acer Veriton GN100</g:title>
+        <g:description>Customer-controlled sovereign AI hardware that operates inside your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), ready for a DWS IQ Control Room deployment. Hardware procurement is priced separately from NVIDIA model installation and support. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>5294.00 EUR</g:price>
+        <g:price>8008.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Acer</g:brand>
@@ -490,11 +490,11 @@
     </item>
     <item>
         <g:id>LF-SITROOM-001</g:id>
-        <g:title>Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle</g:title>
-        <g:description>When one node isn&apos;t enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Together with the Control Room it forms the two-room stack that carries your Plant Capital — intelligence that operates, not SaaS you rent. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+        <g:title>Situation Room — Two Sovereign AI Nodes</g:title>
+        <g:description>Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The €11,598 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/situation-room.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>10093.00 EUR</g:price>
+        <g:price>11598.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Acer</g:brand>
@@ -577,11 +577,11 @@
     </item>
     <item>
         <g:id>LF-DGX-SPARK</g:id>
-        <g:title>DGX Spark — NVIDIA-branded Sovereign Edge AI + Install &amp; Service</g:title>
-        <g:description>NVIDIA&apos;s own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.</g:description>
+        <g:title>DGX Spark — NVIDIA-Branded Sovereign Edge AI</g:title>
+        <g:description>NVIDIA&apos;s GB10 Grace Blackwell desktop AI workstation — the same silicon class as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm). The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/dgx-spark.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>6694.00 EUR</g:price>
+        <g:price>6109.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>NVIDIA</g:brand>
@@ -611,8 +611,8 @@
     </item>
     <item>
         <g:id>LF-IGX-ORIN</g:id>
-        <g:title>IGX Orin — Industrial / Medical Sovereign Edge + Install &amp; Service</g:title>
-        <g:description>The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distribution channel: PNY (NALA), Arrow AGC (EMEA), Leadtek (APAC). Includes on-site install + full Lifetime service wrap. Finnish / EU B2B price (VAT 0% reverse charge), set against EMEA distributor channel — not converted from US list.</g:description>
+        <g:title>IGX Orin — Industrial / Medical Sovereign Edge AI</g:title>
+        <g:description>Industrial-grade sovereign edge AI for medical, industrial, pharma and nuclear environments. Includes ECC memory, NVIDIA enterprise support life cycle through 2033, 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU. The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/igx-orin.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>11990.00 EUR</g:price>

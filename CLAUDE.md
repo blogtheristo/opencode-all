@@ -50,6 +50,15 @@ If any draft is produced without this exact spelling and title, treat it as a bu
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
 
+## Runtime Policy (OpenCode Primary, Claude Code Standby)
+
+- **Primary interactive runtime:** OpenCode with the DGX Spark Ollama tunnel.
+- **Hot standby runtime:** Claude Code stays fully configured and tested; do not remove `.claude/` hooks, settings, or handoff flows while OpenCode is primary.
+- **Shared rule source:** the root `opencode.json` must load `CLAUDE.md` via `instructions` so OpenCode and Claude Code execute against the same canonical policy file.
+- **Shared MCP contract:** keep the Win11 developer MCP surface aligned across `.mcp.json`, `opencode.json`, and `.claude/settings.json` for `dws-agents-local` and `dws-gateway-local`.
+- **Failover rule:** platform switching is manual. Capture branch state in `.claude/handoffs/<branch>.md` before handing work from OpenCode to Claude Code or back.
+- **Classification rule:** when adding automation, mark it explicitly as OpenCode-primary, Claude-only, or runtime-neutral in the governing doc or field note.
+
 ## Agent Response Format (HIC-Facing Output)
 
 Chat output is for the HIC to **decide and act**, not to watch the agent think.

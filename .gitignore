@@ -96,7 +96,10 @@ Thumbs.db
 !.claude/handoffs/
 !.claude/hooks/
 !.claude/settings.json
-!.claude/settings.local.json
+!.claude/settings.local.json.example
+!.claude/env/
+!.claude/env/*.json
+.claude/env/.backups/
 !.claude/archive/
 !.claude/commands/
 !.claude/commands/*.md
@@ -202,3 +205,6 @@ Admin/Acer-Veriton-GN100/training/datasets/
 Admin/Acer-Veriton-GN100/training/cache/
 # Keep the committed env template (the broad .env.* rule above would hide it)
 !Admin/Acer-Veriton-GN100/training/.env.training.example
+.opencode/settings.local.json
+.opencode/failover.log
+.claude/archive/

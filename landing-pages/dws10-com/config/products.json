@@ -312,7 +312,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -344,7 +344,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -376,7 +376,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -409,7 +409,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -441,7 +441,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -474,7 +474,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -506,7 +506,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": true,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -538,7 +538,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -570,7 +570,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -634,7 +634,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -666,7 +666,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -698,7 +698,7 @@
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -876,18 +876,18 @@
       "id": "edge-node-gn100",
       "gtin": null,
       "mpn": "LF-CTRLROOM-GN100-2026",
-      "name": "Control Room — Acer Veriton GN100 + NVIDIA Model Install",
+      "name": "Control Room — Acer Veriton GN100",
       "caption": "Single sovereign AI node — the command brain that lives in your building. Runs DWS IQ Control Room on NVIDIA edge.",
-      "price": 5294,
+      "price": 8008,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. This is Plant Capital in the 4P sense: intelligence that operates inside your own building, not SaaS you log into — the sovereign edge half of the two-room Control Room + Situation Room stack. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "Customer-controlled sovereign AI hardware that operates inside your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), ready for a DWS IQ Control Room deployment. Hardware procurement is priced separately from NVIDIA model installation and support. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €4,299 hardware",
-        "NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
-        "Choose your model bundle: VPK Ops · Compliance · Construction · Custom"
+        "1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €8,008 hardware",
+        "NVIDIA model installation — €995 one-time, purchased separately",
+        "Specialist configuration and support — €100/hour"
       ],
-      "priceNote": "€5,294 one-time · €4,299 hardware (Acer Veriton GN100, Finnish/EMEA channel) + €995 NVIDIA model installation · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€8,008 hardware only · installation €995 one-time · specialist support €100/hour · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -910,19 +910,19 @@
       "id": "LF-SITROOM-001",
       "gtin": null,
       "mpn": "LF-SITROOM-GN100-2026",
-      "name": "Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle",
+      "name": "Situation Room — Two Sovereign AI Nodes",
       "caption": "Two GN100 nodes bridged — when one screen isn't enough. Runs DWS IQ Control Room & Situation Room on NVIDIA edge.",
-      "price": 10093,
+      "price": 11598,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Together with the Control Room it forms the two-room stack that carries your Plant Capital — intelligence that operates, not SaaS you rent. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The €11,598 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "2× Acer Veriton GN100 bridged (40 cores · 256 GB unified memory · NVIDIA ConnectX-7 200 Gbps link) — 2× €4,299 hardware",
-        "NVIDIA model installation for the bridged pair — €1,495 (tensor-parallel sharding, dual-node Article 12 log replica, failover)",
-        "Wider model selection: vision, acoustic, language, reasoning, voice — all NVIDIA NIMs",
-        "Choose your bundle: VPK Drone Defense · Crisis Coordination · Compliance + Defence · Full Sovereign"
+        "2× selected sovereign AI hardware nodes, bridged — €11,598 hardware total",
+        "NVIDIA model installation for the bridged pair — €995 one-time, purchased separately",
+        "Specialist configuration and support — €100/hour",
+        "Wider model selection for vision, acoustic, language, reasoning and voice workloads"
       ],
-      "priceNote": "€10,093 one-time · 2× €4,299 hardware (bridged Acer Veriton GN100 pair) + €1,495 NVIDIA model install for the bridged pair · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€11,598 hardware only · installation €995 one-time · specialist support €100/hour · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1081,17 +1081,17 @@
       "id": "LF-DGX-SPARK",
       "gtin": null,
       "mpn": "LF-DGX-SPARK-2026",
-      "name": "DGX Spark — NVIDIA-branded Sovereign Edge AI + Install & Service",
-      "price": 6694,
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
+      "price": 6109,
       "currency": "EUR",
       "type": "one-time",
-      "description": "NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.",
+      "description": "NVIDIA's GB10 Grace Blackwell desktop AI workstation — the same silicon class as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm). The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €5,699 hardware (Finnish EMEA pricing; above NVIDIA USD 4,699 list, Feb 2026)",
-        "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
-        "Pair two for 405 B-param models over the ConnectX-7 200 Gbps link"
+        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €6,109 hardware",
+        "NVIDIA model installation — €995 one-time, purchased separately",
+        "Specialist configuration and support — €100/hour"
       ],
-      "priceNote": "€6,694 one-time · €5,699 hardware + €995 install · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€6,109 hardware only · installation €995 one-time · specialist support €100/hour · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1147,17 +1147,17 @@
       "id": "LF-IGX-ORIN",
       "gtin": null,
       "mpn": "LF-IGX-ORIN-2026",
-      "name": "IGX Orin — Industrial / Medical Sovereign Edge + Install & Service",
+      "name": "IGX Orin — Industrial / Medical Sovereign Edge AI",
       "price": 11990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distribution channel: PNY (NALA), Arrow AGC (EMEA), Leadtek (APAC). Includes on-site install + full Lifetime service wrap. Finnish / EU B2B price (VAT 0% reverse charge), set against EMEA distributor channel — not converted from US list.",
+      "description": "Industrial-grade sovereign edge AI for medical, industrial, pharma and nuclear environments. Includes ECC memory, NVIDIA enterprise support life cycle through 2033, 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU. The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "1× NVIDIA IGX Orin (12-core Arm Cortex-A78AE + Ampere GPU + 64 GB LPDDR5 ECC + 64 GB eMMC + NVDLA 2.0 + PVA v2) — €10,995 hardware (EMEA distributor, Finnish B2B)",
-        "10-year NVIDIA enterprise support life cycle (through 2033) — built for medical & industrial procurement",
-        "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + Isaac ROS + Holoscan-ready + MCP + Article 12)"
+        "1× NVIDIA IGX Orin (12-core Arm Cortex-A78AE + Ampere GPU + 64 GB LPDDR5 ECC + 64 GB eMMC + NVDLA 2.0 + PVA v2) — €11,990 hardware",
+        "10-year NVIDIA enterprise support life cycle through 2033",
+        "NVIDIA model installation €995 one-time; specialist support €100/hour"
       ],
-      "priceNote": "€11,990 one-time · €10,995 hardware + €995 install · dGPU (RTX PRO 6000) quoted separately · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€11,990 hardware only · installation €995 one-time · specialist support €100/hour · dGPU quoted separately · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -4497,12 +4497,12 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-07-30T00:00:00Z",
+  "lastUpdated": "2026-08-18T00:00:00Z",
   "priceVersion": "1.25",
   "priceList": {
-    "version": "1.23",
-    "effectiveDate": "2026-07-16",
-    "nextReviewDate": "2026-08-01",
+    "version": "1.25",
+    "effectiveDate": "2026-08-18",
+    "nextReviewDate": "2026-11-18",
     "policy": {
       "currency": "EUR",
       "vatTreatment": "B2B_VAT_0",
@@ -4519,7 +4519,85 @@
       "salesEmail": "sales@lifetime.fi"
     }
   },
+  "commercialPortfolio": {
+    "version": "1.25",
+    "effectiveDate": "2026-08-18",
+    "nextReviewDate": "2026-11-18",
+    "definitions": {
+      "serious": {
+        "description": "The fixed 13-product commercial portfolio. These products are the only products rendered on the primary DWS /buy/ surface.",
+        "publicSalesEligible": true,
+        "primarySurface": "/buy/"
+      },
+      "supporting": {
+        "description": "Every other non-BLUE, non-archived product. Supporting products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio.",
+        "publicSalesEligible": true,
+        "primarySurface": "/price-list/"
+      },
+      "blue": {
+        "description": "Internal, experimental or pilot catalog records identified by deploymentColor \"blue\". BLUE records require internal sign-off and are excluded from every public sales surface.",
+        "publicSalesEligible": false,
+        "activePublicationException": "BLUE records are active internal offers, not publicly saleable catalog products."
+      },
+      "archive": {
+        "description": "Retired records identified by archived true or productType \"archived\". Archived records are inactive and excluded from every public sales surface.",
+        "publicSalesEligible": false,
+        "active": false
+      }
+    },
+    "seriousProductIds": [
+      "DWS-EU-STARTER",
+      "DWS-EU-PILOT",
+      "DWS-AEGIS-PILOT-001",
+      "DWS-AEGIS-001",
+      "LIFETIME-BUNDLE-2026",
+      "DWS-CLIMATE-001",
+      "DWS-SOVEREIGN-DB-001",
+      "edge-node-gn100",
+      "LF-SITROOM-001",
+      "LF-DGX-SPARK",
+      "LF-IGX-ORIN",
+      "LF-NVIDIA-INSTALL",
+      "aws-consultancy"
+    ],
+    "surfaces": {
+      "buy": {
+        "domain": "dws10.com",
+        "path": "/buy/",
+        "classification": "serious",
+        "productSource": "commercialPortfolio.seriousProductIds",
+        "expectedProductCount": 13
+      },
+      "priceList": {
+        "domain": "dws10.com",
+        "path": "/price-list/",
+        "classification": "serious and supporting",
+        "productRule": "non-BLUE, non-archived products plus subscriptions",
+        "expectedProductCount": 49,
+        "includesSubscriptions": true
+      },
+      "lifetimeConsulting": {
+        "domain": "lifetime.fi",
+        "path": "/price-list/",
+        "classification": "supporting consulting packages",
+        "configPath": "/config/consulting-packages.json",
+        "supportedProductSource": "commercialPortfolio.seriousProductIds",
+        "expectedPackageCount": 13
+      }
+    }
+  },
   "priceHistory": [
+    {
+      "version": "1.25",
+      "date": "2026-08-18",
+      "author": "GitHub Copilot CLI",
+      "changes": [
+        "Published commercial portfolio governance for the fixed 13 serious products, the broad public price list, BLUE exclusions, archive exclusions and the 13 supporting Lifetime Oy consulting packages.",
+        "Aligned the live catalog with publication version 1.25: Control Room Acer hardware €8,008; DGX Spark hardware €6,109; Situation Room hardware pair €11,598; IGX Orin hardware €11,990.",
+        "Separated NVIDIA model installation (€995 one-time) and specialist support (€100/hour) from hardware prices.",
+        "Set priceList.version to 1.25 with effective date 2026-08-18 and next review 2026-11-18."
+      ]
+    },
     {
       "version": "1.25",
       "date": "2026-07-30",
