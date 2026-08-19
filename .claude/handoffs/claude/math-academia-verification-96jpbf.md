@@ -4,51 +4,48 @@
 
 HIC forwarded a public research note (Rishikesh Gajjala leaving math academia
 for Pramaana Labs / formal verification of LLM-discovered proofs) with no
-explicit instruction attached. Interpreted as a signal to capture per the
-Session Learning Outcome Rule and DWS_LEARNING_STANDARD — the note is
-independent external corroboration of the KYA "trust is the bottleneck, not
-intelligence" thesis already argued from the inside in the PhD thesis.
-HIC then asked (turn 2) to study `pramaanalabs.ai` directly, and (turn 3) to
-register a truth-standard entry for it — explicitly as recommendations, not
-hard gates — and to open a PR.
+explicit instruction attached. Captured per the Session Learning Outcome Rule
+as external corroboration of the KYA "trust is the bottleneck" thesis. HIC
+then asked to study `pramaanalabs.ai`, then to register a truth-standard
+entry as recommendations (not hard gates) and open a PR — done as PR #1855.
+Session-stop hook then blocked exit for a missing 2026-08-19 HIC Learning
+Outcome; produced one (this file + the four steps below) to clear it.
 
 ## State (done)
 
-- Field note: `docs/field-notes/2026-08-18-gajjala-math-academia-verification-signal.md`
-  (three passes: original capture, verification update, truth-registry note).
-- PHD_FIREHORSE_EN.md / \_FI.md: §14.51 + Key Contribution #56 (turn 1),
-  extended with §14.51.4 external-verification findings (turn 2). Version
-  4.00→4.02.
-- V3Thesis_EN.md / \_FI.md: lockstep-only version bumps, 4.00→4.02 (no
-  substantive content — market signal out of scope for the
-  implementation-focused master's thesis per §1.4).
-- `DWS_TRUTH_STANDARD.md` v4.7→4.8: registered **row 37** (Pramaana
-  Labs / RuleArena formal-verification signal) + matching §6 drift-log
-  entry. WARN-level recommendations only, no FAIL deprecated-phrase list
-  and no structured-mirror lint wiring — per explicit HIC instruction not
-  to gate a hypothetical. Verified `node scripts/lint-truth-claims.mjs`
-  still runs clean (0 fail, 0 warn) after the row was added.
-- `pramaanalabs.ai` direct fetch blocked by session egress policy;
-  corroborated instead via WebSearch — Pramaana Labs is a real $27M-seed
-  company (Khosla Ventures lead), Gajjala is a real credentialed
-  researcher (PhD IISc 2025, NYU Abu Dhabi postdoc) whose move to Pramaana
-  is self-reported/unconfirmed by a third party, and RuleArena (ACL 2025,
-  arXiv:2412.08972) is a real peer-reviewed benchmark — full detail in the
-  field note's Verification update section.
-- Learn/ HTML+DOCX regenerated for all 4 thesis files at v4.02 (pandoc
-  installed fresh in this sandbox both sessions — not persisted; re-install
-  if a future session needs to re-render).
-- `.claude/HANDOFF.md` HANDOFF HISTORY updated in turn 1 (trimmed oldest
-  line to hold 20); not touched again in turn 2/3.
+- PR **#1855** open: `https://github.com/blogtheristo/dws6/pull/1855`.
+- Field notes: `docs/field-notes/2026-08-18-gajjala-math-academia-verification-signal.md`
+  (three passes) and `docs/field-notes/2026-08-19-truth-standard-row37-recommendations-not-gates.md`
+  (the HIC Learning Outcome note for this session).
+- PHD_FIREHORSE_EN.md / \_FI.md §14.51 + §14.51.4, Key Contribution #56;
+  V3Thesis_EN/FI lockstep-only bump. All 4 thesis files → v4.02.
+- `DWS_TRUTH_STANDARD.md` v4.8: row 37 (Pramaana Labs / RuleArena signal),
+  WARN-level recommendations only, no FAIL list, no lint wiring by design
+  (`lint-truth-claims.mjs` confirmed clean).
+- `pramaanalabs.ai` fetch blocked by session egress both times; WebSearch
+  corroborated Pramaana Labs (real, $27M seed) and RuleArena (real, ACL 2025) from third-party sources instead. Gajjala's move to Pramaana
+  remains self-reported/unconfirmed.
+- HIC Learning Outcome for 2026-08-19 (this turn): field note above +
+  `Learn/2026-08-19-truth-standard-row37-recommendations-not-gates.html`
+  (rendered via `scripts/render-doc.sh`) + Drive export (Google Doc
+  `1YViWyJVTsm6BdGSaxQDX1wyEHFoXpMvoJ57e4dMN6Qw`) + one HIC question asked
+  in the field note (track Pramaana Labs ongoing, or leave as a one-off
+  signal?). KB update **partial**: `cli/node_modules` not installed in
+  this sandbox so `/kb ingest`/`compile` could not run via the CLI;
+  manually copied both 08-18 and 08-19 field notes into `kb/raw/signals/`
+  (the human-owned raw folder) so a future session's `/kb compile` picks
+  them up — `kb/kb.json` articleCount/lastCompile unchanged, compile did
+  not actually run. Calendar: N/A, no dated commitment this session.
 
 ## Next steps
 
-- PR to be opened this turn per HIC instruction.
-- Truth-standard row 37 is deliberately soft (WARN, no lint enforcement).
-  If a misstatement about DWS/Pramaana/RuleArena/formal verification is
-  ever actually observed in the wild, add a FAIL-level deprecated-phrase
-  list then, per §3A's own 3+-occurrence trigger — not before.
+- Awaiting HIC answer on the Pramaana-tracking question (field note above).
+- If a real DWS misstatement about formal verification/Pramaana/RuleArena
+  is ever observed, add a FAIL-level deprecated-phrase list to row 37 then
+  (§3A's 3+-occurrence trigger) — not pre-emptively.
+- A future session with working `cli/` tooling should run `dws kb compile`
+  to actually fold the two raw signal files into `kb/wiki/`.
 
 ## Blockers
 
-None. Commit done; push + PR pending this turn.
+None. This turn's changes need one more commit + push to PR #1855's branch.
