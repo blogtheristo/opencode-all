@@ -55,7 +55,7 @@
       store: 'Suvern\u00e4na AI-produkter f\u00f6r europeiska f\u00f6retag.',
       product: 'Din guldstandard f\u00f6r varum\u00e4rke, AI-agenter och produktionsmotor.',
       aegis:
-        'Suver\u00e4n industriell intelligens f\u00f6r dual-use-tillverkning \u2014 21 EU-branscher, noll CLOUD Act-exponering.',
+        'Suver\u00e4n industriell intelligens f\u00f6r dual-use-tillverkning \u2014 21 EU-branscher, noll CLOUD Act-exponering. Aegis \u00e4r en suver\u00e4n AI-plattform f\u00f6r en kund, byggd f\u00f6r dual-use-fabriker, tung industri och kritiska r\u00e5varuanl\u00e4ggningar. P\u00e5 dedikerad finnlandsk infrastruktur optimerar och s\u00e4krar den l\u00f6pande de anl\u00e4ggningar som f\u00f6rs\u00f6rjer Europas f\u00f6rsvarssektor \u2014 inga amerikanska molnberoenden, noll CLOUD Act-exponering.',
       coaching:
         'Coacha dina ingenj\u00f6rer att leverera med Claude Code \u2014 disciplinerad agentbaserad utveckling, EU-suver\u00e4n, redo f\u00f6r EU:s AI-f\u00f6rordning artikel 4.',
       versions:
@@ -70,7 +70,7 @@
       store: 'Souver\u00e4ne KI-Produkte f\u00fcr europ\u00e4ische Unternehmen.',
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
       aegis:
-        'Souver\u00e4ne industrielle Intelligenz f\u00fcr Dual-Use-Fertigung \u2014 21 EU-Branchen, null CLOUD-Act-Risiko.',
+        'Souver\u00e4ne industrielle Intelligenz f\u00fcr Dual-Use-Fertigung \u2014 21 EU-Branchen, null CLOUD-Act-Risiko. Aegis ist eine souver\u00e4ne KI-Plattform f\u00fcr einen einzelnen Mandanten, konzipiert f\u00fcr Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen. Auf dedizierter finnischer Infrastruktur optimiert und sichert sie laufend die Anlagen, die Europas Verteidigungssektor beliefern \u2014 keine US-Cloud-Abh\u00e4ngigkeiten, null CLOUD-Act-Risiko.',
       coaching:
         'Coachen Sie Ihre Entwickler, mit Claude Code zu liefern \u2014 disziplinierte agentenbasierte Entwicklung, EU-souver\u00e4n, bereit f\u00fcr Artikel 4 der EU-KI-Verordnung.',
       versions:
@@ -85,7 +85,7 @@
       store: 'Produits IA souverains pour les entreprises europ\u00e9ennes.',
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
       aegis:
-        'Intelligence industrielle souveraine pour la fabrication \u00e0 double usage \u2014 21 secteurs UE, z\u00e9ro exposition au CLOUD Act.',
+        'Intelligence industrielle souveraine pour la fabrication \u00e0 double usage \u2014 21 secteurs UE, z\u00e9ro exposition au CLOUD Act. Aegis est une plateforme d\u2019IA souveraine mono-locataire, con\u00e7ue pour les usines \u00e0 double usage, l\u2019industrie lourde et les installations de mati\u00e8res premi\u00e8res critiques. Sur une infrastructure finlandaise d\u00e9di\u00e9e, elle optimise et s\u00e9curise en continu les sites qui approvisionnent le secteur de la d\u00e9fense europ\u00e9en \u2014 aucune d\u00e9pendance au cloud am\u00e9ricain, z\u00e9ro exposition au CLOUD Act.',
       coaching:
         'Formez vos ing\u00e9nieurs \u00e0 livrer avec Claude Code \u2014 ing\u00e9nierie agentique disciplin\u00e9e, souveraine UE, pr\u00eate pour l\u2019article 4 du r\u00e8glement IA de l\u2019UE.',
       versions:
@@ -100,7 +100,7 @@
       store: 'Sovereign AI products for European enterprises.',
       product: 'Your brand Gold Standards, AI agents and Firehorse production engine.',
       aegis:
-        'Sovereign industrial intelligence for dual-use manufacturing — 21 EU industries, zero CLOUD Act exposure.',
+        'Sovereign industrial intelligence for dual-use manufacturing — 21 EU industries, zero CLOUD Act exposure. DWS IQ Aegis is a single-tenant sovereign AI platform engineered specifically for dual-use factories, heavy manufacturing, and critical raw-material infrastructure. Deployed on dedicated Finnish infrastructure, it continuously optimizes and secures the facilities that supply Europe’s defence sector — zero US cloud dependencies, zero CLOUD Act exposure.',
       coaching:
         'Coach your engineers to ship with Claude Code — disciplined agentic engineering, EU-sovereign, EU AI Act Article 4 ready.',
       versions: 'Control Room (1× GN100) €4,994 · Situation Room (2× bridged) €8,993',
