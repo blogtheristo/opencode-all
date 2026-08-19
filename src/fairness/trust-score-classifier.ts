@@ -1,48 +1,36 @@
 /**
- * KYA Standard Trust Score Classification
- * 
- * Classifies trust scores according to KYA-S1 thresholds:
- * - >= 0.85 = NOMINAL
- * - 0.60 to < 0.85 = DEGRADED  
- * - < 0.60 = FAIL_CLOSED
+ * KYA-S1 ATS permission bands from standards/kya-open/SPEC.md section 2.2.
  */
+export type AtsPermission = 'FULL_SANDBOX' | 'RESTRICTED' | 'SUSPENDED';
 
-export type TrustState = 'NOMINAL' | 'DEGRADED' | 'FAIL_CLOSED';
+export type AtsAction = 'FULL_SANDBOX_ONLY' | 'RESTRICTED_ALLOWED';
 
-/**
- * Classify a trust score according to KYA-S1 thresholds
- * @param score - The trust score to classify (0.0 to 1.0)
- * @returns The trust state classification
- */
-export function classifyTrustState(score: number): TrustState {
-  if (Number.isNaN(score) || score < 0 || score > 1) {
-    throw new Error(`Invalid trust score: ${score}. Must be between 0 and 1.`);
+export function classifyTrustState(score: number): AtsPermission {
+  if (!Number.isFinite(score) || score < 0 || score > 1) {
+    throw new RangeError(`Invalid trust score: ${score}. Must be a finite number between 0 and 1.`);
   }
-  
-  if (score >= 0.85) {
-    return 'NOMINAL';
-  } else if (score >= 0.60) {
-    return 'DEGRADED';
-  } else {
-    return 'FAIL_CLOSED';
+
+  if (score >= 0.8) {
+    return 'FULL_SANDBOX';
   }
+
+  if (score >= 0.5) {
+    return 'RESTRICTED';
+  }
+
+  return 'SUSPENDED';
 }
 
-/**
- * Check if a trust score is sufficient for a given action type
- * @param score - The trust score to check
- * @param actionType - The type of action requiring authorization
- * @returns Whether the score is sufficient
- */
-export function isTrustScoreSufficient(score: number, actionType: 'NOMINAL_ONLY' | 'DEGRADED_ALLOWED' = 'NOMINAL_ONLY'): boolean {
-  const state = classifyTrustState(score);
-  
-  switch (actionType) {
-    case 'NOMINAL_ONLY':
-      return state === 'NOMINAL';
-    case 'DEGRADED_ALLOWED':
-      return state !== 'FAIL_CLOSED';
-  }
+export function isTrustScoreSufficient(
+  score: number,
+  actionType: AtsAction = 'FULL_SANDBOX_ONLY',
+): boolean {
+  const permission = classifyTrustState(score);
 
-  const _exhaustive: never = actionType;
-  return false;
+  switch (actionType) {
+    case 'FULL_SANDBOX_ONLY':
+      return permission === 'FULL_SANDBOX';
+    case 'RESTRICTED_ALLOWED':
+      return permission !== 'SUSPENDED';
+  }
+}

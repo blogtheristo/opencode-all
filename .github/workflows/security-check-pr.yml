@@ -136,6 +136,7 @@ jobs:
       - name: Upload PR Scan Results
         uses: actions/upload-artifact@v4
         if: always()
+        continue-on-error: true
         with:
           name: pr-security-scan-${{ github.event.pull_request.number }}
           path: |

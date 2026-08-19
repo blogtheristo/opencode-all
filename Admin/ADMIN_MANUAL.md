@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.12
+Version: 3.13
 
 Sessions & Modifications:
+
+- Version: 3.13 | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added the DGX Spark OpenCode-primary runtime runbook: OpenCode 1.18.18 with Ollama/open-model routing for normal development and agents, Claude Code as hot standby, Linux PATH handling, MCP gateway virtualenv requirements, the MCP SDK `<2.0.0` compatibility pin, and the intentionally disabled `dws-agents-local` SSE service while port 3001 has no listener. Cross-refs: `opencode.json`, `mcp-servers/cloud-run-gateway/requirements.txt`, V3Thesis §10.30, PHD_FIREHORSE §14.50.
 
 - Version: 3.12 | Tool: Claude Code (Fable) | Session: claude/agent-factory-research-audit-l6hks2 | Date: 03.08.2026 | Changes: Added "DWS Factory Router (model escalation runbook)" section — offline evidence-based cheap->strong escalation ladder (src/factory/), CLI usage with verdict exit codes, detector and guardrail reference, tuning defaults, and the two upstream features deliberately not ported (external decision API, subscription-OAuth client impersonation). Cross-refs: field note 2026-08-03-agent-factory-sageroute-audit.md, V3Thesis §10.28, PHD_FIREHORSE §14.47.
 - Version: 3.11 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Documented the 4P Capital Classes model (Prompt / People / Plant / Perception) as the company's canonical capital model; added Related Documentation row; registered the future "4p-diligence" assessment lens (Agent Productization Rule). Canonical source: DWS_BRAND_STANDARD.md §23; DWS_TRUTH_STANDARD.md §2 row 25.
@@ -311,6 +313,40 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ---
 
+---
+
+## OpenCode Primary Runtime (DGX Spark)
+
+The verified DGX development posture is **OpenCode-primary** with Ollama and local/open models for normal development and agent work. Claude Code remains the hot standby for Claude-specific tooling, stronger fallback reasoning, or recovery when the local runtime is unavailable. This is a harness/model separation: changing the model does not change operator controls, repository policy, or the audit boundary.
+
+### Runtime and model roles
+
+| Role | Runtime | Operational rule |
+| --- | --- | --- |
+| Normal development and agents | OpenCode 1.18.18 -> Ollama (`11434`) | Prefer current NVIDIA/open models; do not hard-code retired `llama3.3:70b` as the default. |
+| Coding and smaller tasks | OpenCode model routing | Use the configured coding/smaller-work route (currently Qwen Coder where selected). |
+| Hot standby | Claude Code | Use when OpenCode/Ollama is unavailable or Claude tooling is required. |
+
+### DGX startup and verification
+
+```bash
+cd ~/dws6
+export PATH="$HOME/.opencode/bin:$PATH"
+opencode --version
+opencode debug config --pure
+opencode mcp list
+```
+
+OpenCode is installed at `/home/admin100/.opencode/bin/opencode`; non-login SSH shells may require the explicit PATH export. OpenCode 1.18.18 is the verified version on the Acer Veriton GN100.
+
+### MCP status and troubleshooting
+
+- `dws-gateway-local` uses `.venv/bin/python` and should report **connected**.
+- The gateway requires `mcp[cli]>=1.9.0,<2.0.0`; MCP SDK 2.x is incompatible with its `mcp.server.fastmcp` import path.
+- `dws-agents-local` is intentionally disabled while no service listens on `http://localhost:3001/mcp`; do not redirect it to an unverified port.
+- Install gateway dependencies into the project virtualenv with `python -m pip install -r mcp-servers/cloud-run-gateway/requirements.txt`.
+
+The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disabled port-3001 MCP service. `LSPs are disabled` is informational.
 ## Aspire Dashboard Observability (DGX Spark)
 
 The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
@@ -3694,6 +3730,6 @@ is a navigational snapshot, not a replacement for `git log`. Regenerate with
 
 ---
 
-**License:** Proprietary - Lifetime Oy  
-**Maintained by:** Lifetime Oy Development Team  
+**License:** Proprietary - Lifetime Oy
+**Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin

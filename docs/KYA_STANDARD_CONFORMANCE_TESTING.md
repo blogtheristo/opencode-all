@@ -1,60 +1,38 @@
-# KYA Standard Conformance Testing
+# KYA-S1 Specification Conformance Baseline
 
-## Overview
+## Scope
 
-This document describes the deterministic test suite and input snapshot framework for validating KYA (Know Your Agent) Standard conformance within the DWS IQ 6 platform. The testing framework provides auditable evidence of platform compliance with the KYA Standard's security requirements.
+This baseline tests the Agent Trust Score (ATS) permission bands defined by
+`standards/kya-open/SPEC.md` section 2.2. KYA-S1 is a specification, not a
+standard.
 
-## Test Suite Structure
+The suite currently verifies only:
 
-The KYA Standard conformance testing framework is organized around the seven core control domains defined in the KYA Standard:
+- ATS values at or above `0.80` receive `FULL_SANDBOX`.
+- ATS values from `0.50` through `0.79` receive `RESTRICTED`.
+- ATS values below `0.50` receive `SUSPENDED` and fail closed.
+- Non-finite and out-of-range ATS values are rejected.
+- Deterministic ATS fixtures match the production classifier.
 
-1. **IDV** - Identity Verification & Attestation
-2. **BHM** - Behavioral Modeling & Adversarial Simulation
-3. **REG** - Agent Registry & Capability Awareness
-4. **TC4** - Trust Collapse Response & Chain Termination
-5. **FLT** - Fault Attribution
-6. **TRS** - Trust Score & Continuous Authorization
-7. **PRV** - Memory & Decision Provenance
+It does not establish full KYA-S1 conformance. Capability-manifest signatures,
+mandate gating, evidence chains, verified-done attestations, revocation, and
+human-oversight controls require separate tests against production
+implementations before DWS may make a complete conformance claim.
 
-## Input Snapshots (WP3.2)
+## Files
 
-### Trust Score Snapshots
+- `src/fairness/trust-score-classifier.ts` implements the ATS permission bands.
+- `src/fairness/test-snapshots.ts` contains typed deterministic ATS fixtures.
+- `src/__tests__/kya-standard-conformance.test.ts` executes the baseline.
 
-The trust score test snapshots provide the input/output behavior for trust score calculations and validation:
+## Execution
 
-- `trs-001`: High trust score (0.95) classified as NOMINAL
-- `trs-002`: Medium trust score (0.75) classified as DEGRADED  
-- `trs-003`: Low trust score (0.55) classified as FAIL_CLOSED
-- `trs-004`: Boundary case at exact NOMINAL threshold (0.85)
-- `trs-005`: Boundary case at exact DEGRADED threshold (0.60)
-
-### Fault Attribution Snapshots
-
-The fault attribution test snapshots validate the platform's ability to properly attribute incidents:
-
-- `flt-001`: Model fault attribution with proper taxonomy
-- `flt-002`: Operator fault attribution with human decision provenance
-
-### Identity Verification Snapshots
-
-The identity verification test snapshots validate human identity binding:
-
-- `idv-001`: Valid identity verification with biometric liveness
-
-### Behavioral Modeling Snapshots
-
-The behavioral modeling test snapshots validate agent behavior patterns:
-
-- `bhm-001`: Normal behavioral pattern with expected tool call distribution
-
-## Test Execution
-
-All tests are deterministic and produce reproducible results. The test suite validates both structural requirements and behavioral assertions using the defined input snapshots.
-
-## Compliance Evidence
-
-This test suite provides deterministic, auditable evidence of KYA Standard conformance for the DWS IQ 6 platform. The framework supports both automated testing and manual verification of compliance claims.
+```bash
+npx vitest run src/__tests__/kya-standard-conformance.test.ts
+```
 
 ## Version History
 
-- **Version 1.0.0** - Initial implementation with core control domain tests and WP3.2 input snapshots
+- **Version 1.1.0** - Aligned terminology and ATS thresholds with the canonical
+  KYA-S1 specification; removed non-executable placeholder assertions.
+- **Version 1.0.0** - Initial draft.

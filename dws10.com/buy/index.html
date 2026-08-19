@@ -1,4 +1,18 @@
 <!doctype html>
+<!--
+  Document: dws10.com/buy/index.html
+  Version: 1.25
+  Effective: 2026-08-18
+  Publication Status: ACTIVE
+
+  Sessions & Modifications:
+    - Version 1.25 | GitHub Copilot CLI | 2026-08-18 |
+        Published the fixed 13-product serious portfolio from commercialPortfolio.seriousProductIds.
+        Removed buyPage selection and ungoverned fallback rendering; catalog failures now fail loud.
+
+  Source of truth for pricing: /dws10.com/config/products.json (mirrored to
+  /landing-pages/dws10-com/config/products.json in the same change).
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,6 +30,9 @@
       content="sovereign AI, EU AI, compliance tools, enterprise software, EU sovereignty, CLOUD Act free, DWS IQ, Lifetime Oy"
     />
     <meta name="author" content="Lifetime Oy" />
+    <meta name="dws-doc-version" content="1.25" />
+    <meta name="dws-doc-effective" content="2026-08-18" />
+    <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta name="dws-lang-stay" content="true" />
     <meta name="dws-default-locale" content="eu" />
@@ -276,6 +293,12 @@
         font-size: 0.9rem;
         color: #94a3b8;
         margin: 4px 0 0 0;
+      }
+      .catalog-version {
+        display: block;
+        margin-top: 6px;
+        color: #bfdbfe;
+        font-size: 0.78rem;
       }
       .store-identity-badges {
         display: flex;
@@ -1151,9 +1174,10 @@
       <div class="store-identity">
         <div class="store-identity-icon">&#127978;</div>
         <div class="store-identity-content">
-          <h2 class="store-identity-title">Sovereign AI for Enterprises and SMEs</h2>
+          <h2 class="store-identity-title">13 Serious DWS IQ Products</h2>
           <p class="store-identity-subtitle">
-            EU-sovereign products, compliance tools, and expert services for enterprises and SMEs.
+            The fixed primary commercial portfolio for EU-sovereign intelligence, compliance and edge deployment.
+            <span class="catalog-version" id="catalogVersion">Catalog version 1.25 · Effective 2026-08-18</span>
           </p>
         </div>
         <div class="store-identity-badges">
@@ -1438,7 +1462,7 @@
       <!-- Pagination 1/3 -->
       <nav class="pagination-bar" aria-label="Store pagination">
         <span class="label">Page</span>
-        <span class="is-current" aria-current="page">1 / 3 &mdash; DWS substance</span>
+        <span class="is-current" aria-current="page">1 / 3 &mdash; 13 serious products</span>
         <a href="./page2/">2 / 3 &mdash; Advisory &amp; Delivery &rarr;</a>
         <a href="./page3/">3 / 3 &mdash; Cloud &amp; AI Skills Specialists Consulting &rarr;</a>
       </nav>
@@ -1625,6 +1649,7 @@
       // Products configuration - loaded from external JSON
       let PRODUCTS = {};
       let CONFIG = {};
+      let COMMERCIAL_PORTFOLIO = {};
 
       // Load products from config file
       async function loadProducts() {
@@ -1635,56 +1660,42 @@
           const data = await response.json();
           PRODUCTS = data.products;
           CONFIG = data.settings;
+          COMMERCIAL_PORTFOLIO = data.commercialPortfolio || {};
+
+          const priceList = data.priceList || {};
+          const version = priceList.version || "1.25";
+          const effective = priceList.effectiveDate || "2026-08-18";
+          document.getElementById("catalogVersion").textContent =
+            "Catalog version " + version + " · Effective " + effective;
 
           renderProducts();
         } catch (error) {
           console.error("Error loading products:", error);
-          loadFallbackProducts();
+          document.getElementById("catalogVersion").textContent =
+            "Catalog unavailable — no products rendered";
+          document.getElementById("productGrid").innerHTML =
+            '<p style="color:#fecaca">Could not load the governed 13-product portfolio.</p>';
         }
       }
 
-      // Fallback products if JSON fails to load
-      function loadFallbackProducts() {
-        PRODUCTS = {
-          "climate-bundle": {
-            id: "climate-bundle",
-            name: "Climate Reporting Bundle",
-            price: 6500,
-            currency: "EUR",
-            type: "one-time",
-            description:
-              "Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.",
-            features: [
-              "DWS IQ + Firehorse Report + Workshop",
-              "First CSRD reporting deadline ready",
-              "Operational in 30 days",
-            ],
-            priceNote: "One-time",
-            revolutLink: "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
-            image: "../static/images/8_Industries.png",
-            detailsUrl: "../products/bundle.html",
-            featured: false,
-          },
-        };
-        CONFIG = {
-          revolutFallbackLink: "https://revolut.me/lifetimeoy",
-          paypalEmail: "risto.anton@lifetime.fi",
-        };
-        renderProducts();
-      }
 
-      // Page 1/3 filter — products with buyPage:1, ordered by buyPageOrder.
-      // Source of truth = config/products.json (productType + buyPage + buyPageOrder).
-      function getPageProducts(pageNumber) {
-        return Object.values(PRODUCTS)
-          .filter((p) => p.buyPage === pageNumber)
-          .sort((a, b) => (a.buyPageOrder || 999) - (b.buyPageOrder || 999));
+      // The primary /buy/ surface renders only the governed serious-product IDs.
+      function getSeriousProducts() {
+        const ids = COMMERCIAL_PORTFOLIO.seriousProductIds;
+        if (!Array.isArray(ids) || ids.length !== 13) {
+          throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+        }
+        const missing = ids.filter((id) => !PRODUCTS[id]);
+        if (missing.length) {
+          throw new Error("Serious products missing from catalog: " + missing.join(", "));
+        }
+        return ids.map((id) => PRODUCTS[id]);
       }
 
       function renderProducts() {
         const grid = document.getElementById("productGrid");
         grid.innerHTML = "";
-        const sortedProducts = getPageProducts(1);
+        const sortedProducts = getSeriousProducts();
         sortedProducts.forEach((product) => {
           const card = createProductCard(product);
           grid.appendChild(card);

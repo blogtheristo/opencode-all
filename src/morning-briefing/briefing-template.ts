@@ -319,7 +319,6 @@ function renderReplyMailto(
   color: string,
   token: string,
   command: string,
-  replyTo: string,
 ): string {
   const subject = `Re: [T:${token}] ${command}`;
   const body = `T:${token} ${command}\n\n--\nSent via Morning Briefing reply link.`;
@@ -399,8 +398,8 @@ function renderSendList(
         if (replyTo) {
           buttons +=
             ' &nbsp; ' +
-            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park', replyTo) +
-            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass', replyTo);
+            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park') +
+            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass');
         }
       }
 
