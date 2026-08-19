@@ -270,6 +270,16 @@
       '  flex-shrink: 0;',
       '  line-height: 1;',
       '}',
+      // Fade effects
+      '.dws-vlb-row.fade-out {',
+      '  opacity: 0;',
+      '  transition: opacity 1.5s ease-in-out;',
+      '  pointer-events: none;',
+      '}',
+      '.dws-vlb-row.fade-in {',
+      '  opacity: 1;',
+      '  transition: opacity 1.5s ease-in-out;',
+      '}',
       // Compact card strip
       '.dws-vlb-card {',
       '  border-top: 1px solid rgba(255,255,255,0.07);',
@@ -329,11 +339,21 @@
       var hrefAttr = stays ? '' : ' href="' + rowHref(l) + '"';
       var activeCls = isActive ? ' dws-vlb-active' : '';
       var mainText = hubHero ? hubHero[l.code] || l[textKey] : l[textKey];
+      
+      // Add fade classes for session-based language handling
+      var fadeCls = '';
+      if (!showAllLanguages && !isActive) {
+        fadeCls = ' fade-out';
+      } else if (showAllLanguages) {
+        fadeCls = ' fade-in';
+      }
+      
       return (
         '<' +
         tag +
         ' class="dws-vlb-row' +
         activeCls +
+        fadeCls +
         '"' +
         hrefAttr +
         ' lang="' +
@@ -366,10 +386,20 @@
           var lang = row.getAttribute('lang');
           localStorage.setItem('dws-lang', lang);
           currentLang = lang;
+          
+          // Remove fade-out class from all rows
           el.querySelectorAll('.dws-vlb-row').forEach(function (r) {
             r.classList.remove('dws-vlb-active');
+            r.classList.remove('fade-out');
           });
+          
+          // Add active class to clicked row
           row.classList.add('dws-vlb-active');
+          
+          // Add fade-in to clicked row (to make it visible)
+          row.classList.add('fade-in');
+          
+          // Dispatch event
           window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
           var navCode = document.querySelector('.ironclad-lang-code');
           if (navCode) navCode.textContent = lang.toUpperCase();
@@ -421,9 +451,32 @@
     document.body.insertBefore(section, document.body.firstChild);
   }
 
+  // Initialize with fade effects
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function() {
+      init();
+      // Add fade-in effect to all rows if this is the first visit
+      if (showAllLanguages) {
+        setTimeout(function() {
+          var rows = document.querySelectorAll('.dws-vlb-row');
+          rows.forEach(function(row) {
+            row.classList.remove('fade-out');
+            row.classList.add('fade-in');
+          });
+        }, 100);
+      }
+    });
   } else {
     init();
+    // Add fade-in effect to all rows if this is the first visit
+    if (showAllLanguages) {
+      setTimeout(function() {
+        var rows = document.querySelectorAll('.dws-vlb-row');
+        rows.forEach(function(row) {
+          row.classList.remove('fade-out');
+          row.classList.add('fade-in');
+        });
+      }, 100);
+    }
   }
 })();
