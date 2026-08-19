@@ -75,3 +75,105 @@ node --check <every inline <script> and shared-assets JS the Aegis pages load>
 ## Status: **PARTIAL**
 
 Typecheck, build, and the aegis-scoped unit tests are green. One BLOCKER (site-wide JS syntax error) was found and fixed with a proof-of-fix. Two HIGH findings (missing stylesheet asset, agent-name collision) remain open — one requires deploy-pipeline information this worktree cannot see, the other requires an HIC naming decision. Proceeding to Phase 2 with these two HIGHs carried forward as open blockers.
+
+***
+
+## Addendum — 2026-08-19: Aegis component inventory + orchestrator build
+
+FINDING-03 above is resolved: `src/agents/aegis.agent.ts` was renamed to
+`src/agents/vuln-patch-sla-triage.agent.ts` / `VulnPatchSlaTriageAgent` /
+registry id `vuln-patch-sla-triage` (commit `4a8d4941`), freeing the `aegis`
+name for the real product agent below.
+
+### Component inventory (read against actual code, not doc claims)
+
+Store/PRODUCT_AEGIS.md's "Agents Included" table names five core components.
+Each was checked by reading the file, not by trusting the doc or prior
+report text.
+
+| Component | Claim in doc | Finding | File |
+| --- | --- | --- | --- |
+| Argus | "Live" (orbital SAR labeling) | **Real, working code.** 756-line `ArgusAgent extends BaseAgent`, full `execute()`, SAR/AOI pipeline logic, no TODO/stub markers. | `src/agents/argus.agent.ts` |
+| SovereigntyMonitor | "Live" | **Real, working code.** 614-line `SovereigntyMonitorAgent extends BaseAgent`, scoring across weighted dimensions, tier classification, no TODO/stub markers. | `src/agents/sovereignty-monitor.agent.ts` |
+| Article12Logger | "Live" | **Real, working code**, but requires a live `INTERNAL_DB_URL` Postgres connection to function — throws at construction time if unset. 188 lines, two-phase pre-flight/post-flight audit write, no TODO/stub markers. Not previously wired into any agent named `aegis`. | `src/agents/article12-logger.ts` |
+| KYA Engine | "Live" (part of the governance loop) | **Real, working code.** `src/identity/kya-engine.ts` implements the Shanghai Model policy engine (`evaluateSignal`) mapping Shufti AML webhook signals to `UPDATE_SCORE` / `TERMINATE_CHAIN` / `REVAL_LEASH`. Separate `kya-standard-conformance.test.ts` exists and is in the passing suite. Not orchestrated by anything named `aegis` prior to this session. | `src/identity/kya-engine.ts` |
+| ComplianceAgent | "Live" | **Real, working code.** 580-line `ComplianceAgent extends BaseAgent` (dual-use export control + EU climate compliance gaps), no TODO/stub markers except two explicit doc-string gap notes (`'Carbon reporting not implemented'`, `'EU AI Act Article 12 automatic logging not implemented'` — these are *findings the agent itself reports*, not missing agent code). | `src/agents/compliance.agent.ts` |
+
+**Correction to the task brief's premise:** all five documented Aegis
+components already existed as real, non-stub code before this session. What
+did **not** exist was a single agent, registered under the `aegis` name,
+that composed them into one entry point — that name was occupied by the
+unrelated vulnerability-triage tool (FINDING-03). The task was therefore
+"build the orchestrator and close the HIC-control gaps," not "build five
+components from nothing."
+
+### What was built this session
+
+- **`src/agents/aegis.agent.ts`** — `AegisAgent extends BaseAgent`, registered
+  in `src/agents/index.ts` as `this.register(new AegisAgent())`, id `aegis`.
+  Composes `ArgusAgent`, `SovereigntyMonitorAgent`, `ComplianceAgent` per
+  action (`orbital-intelligence` / `sovereignty` / `compliance` / `assess`).
+  Scoped strictly to the product doc's "Live" row — the Physical
+  perception/action layer (Planned, 2026 Q4) is not implemented.
+- **Replay/nonce protection** — `sha256(sessionId + action + JSON(input))`
+  fingerprint, rejected on repeat within the same process.
+  **LIMITATION (PARTIAL, not PASS):** in-memory `Set`, per-process only —
+  does not survive a restart or dedupe across horizontally scaled
+  instances. A durable store (Redis/Postgres) is required for production.
+- **Tamper-evident audit chain** — `AegisAgent.getAuditChain()` /
+  `verifyAuditChain()`, SHA-256 hash-chained entries (`prevHash` linkage),
+  exposed via `action: 'audit-chain'`. Verified in
+  `src/__tests__/agents/aegis.test.ts` including a positive tamper-detection
+  test (mutating a stored entry breaks `verifyAuditChain()`).
+  **LIMITATION (PARTIAL, not PASS):** in-memory, per-process — does not
+  survive a restart. Durable, cross-restart tamper-evidence for the
+  platform-wide claim still depends on `Article12Logger`'s Postgres store.
+- **Best-effort Article 12 logging** — `AegisAgent` calls
+  `Article12Logger.logPreFlight`/`logPostFlight` (via `scrubObject()` for
+  the required `ScrubManifest`) on every composed execution. In this
+  sandbox `INTERNAL_DB_URL` is unset, so this call throws by design; Aegis
+  catches it, marks `metadata.article12.logged = false` with the error, and
+  still returns the sub-agent results and local audit-chain entry —
+  **BLOCKED in this environment** (no reachable Postgres), **implemented
+  and wired** in code for a production environment where `INTERNAL_DB_URL`
+  is set.
+- **`src/__tests__/agents/aegis.test.ts`** — 9 deterministic unit tests
+  (routing, replay rejection, cross-session non-collision, audit-chain
+  build + verify, tamper detection, Article-12 degraded-mode flag,
+  `audit-chain` action). No LLM mocking required — sub-agent LLM calls fall
+  back to `BaseAgent`'s documented "no provider configured" placeholder
+  path in this environment, same pattern as
+  `vuln-patch-sla-triage-vesta.test.ts`.
+
+### Still open / BLOCKED
+
+- **Article 12 persistence** — requires a live `INTERNAL_DB_URL` Postgres
+  instance not available in this sandbox. Code path exists and is tested
+  for its degraded-mode behavior; the actual write was never exercised
+  end-to-end here.
+- **Durable replay/audit-chain store** — current implementation is
+  in-memory/per-process by design (no Redis/Postgres credential available
+  here to build against). Flagged PARTIAL in both this report and
+  `HIC-REPORT.md`; not claimed as PASS.
+- **Offline/degraded control-room mode** (network-independent operation
+  described in `Store/PRODUCT_AEGIS.md`) — out of scope for this backend
+  orchestrator; that is an edge-deployment/infrastructure requirement, not
+  something a Node.js agent class can satisfy on its own. Remains BLOCKED,
+  see `HIC-REPORT.md` addendum.
+
+### Verification run this session
+
+```
+npx tsc --noEmit -p .        # 0 errors
+npm run build                # clean (tsc -p tsconfig.json)
+npx vitest run src/__tests__/agents/aegis.test.ts   # 9 passed
+npx vitest run src/__tests__                         # 1176 passed, 1 pre-existing
+                                                       # unrelated failure
+                                                       # (agent-registry.test.ts,
+                                                       # confirmed present on
+                                                       # this branch BEFORE this
+                                                       # session's changes via
+                                                       # git stash), 3 skipped
+```
+
+## Status: **PARTIAL** (unchanged headline; addendum adds the orchestrator work above)

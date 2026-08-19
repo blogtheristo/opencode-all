@@ -65,3 +65,66 @@ One BLOCKER was found and fixed in this session, but two HIGH findings remain op
 4. Add replay/nonce and tamper-evident audit-log controls before any Aegis-branded agent handles consequential (non-read-only) actions.
 5. Stand up a test environment so Phase 3 can be genuinely tested, not only code-reviewed.
 6. Link the live site to the orientation/pilot sales documents (FINDING-04) so the demo→pilot→order path is an actual navigable flow.
+
+***
+
+## Addendum — 2026-08-19: `aegis.agent.ts` built, FINDING-03 resolved
+
+Commit `4a8d4941` renamed the name-colliding agent
+(`VulnPatchSlaTriageAgent`, id `vuln-patch-sla-triage`), freeing `aegis`.
+`src/agents/aegis.agent.ts` (`AegisAgent`) now exists as the real orchestrator
+of `ArgusAgent` / `SovereigntyMonitorAgent` / `ComplianceAgent`, registered
+in `src/agents/index.ts`. Full detail: `CODE-QUALITY-REPORT.md` and
+`HIC-REPORT.md` addenda.
+
+### Updated phase status
+
+| Phase                | Status      | Change |
+| --------------------- | ----------- | ------ |
+| 1 — Code correctness | **PARTIAL** | unchanged (addendum added; no new BLOCKER) |
+| 2 — Playwright       | **PARTIAL** | unchanged (new agent's browser/API surface still needs a live backend to test) |
+| 3 — HIC controls     | **PARTIAL** | upgraded from BLOCKED — 2 of 3 named gaps (replay/nonce, tamper-evident audit log) closed to PARTIAL; offline/degraded-mode remains BLOCKED |
+
+### Release-blocking issues — updated
+
+1. **FINDING-01 (BLOCKER, FIXED)** — unchanged, see above.
+2. **FINDING-02 (HIGH, OPEN)** — unchanged, still needs HIC confirmation of the static-hosting build pipeline.
+3. **FINDING-03 (HIGH, RESOLVED this session)** — `aegis` id now points to `AegisAgent`, the real product orchestrator. No longer a release blocker.
+4. **HIC Phase 3 (upgraded BLOCKED → PARTIAL)** — replay/nonce protection and a tamper-evident audit chain are now implemented and unit-tested (`src/__tests__/agents/aegis.test.ts`, 9/9 passing), but both are **in-memory/per-process only** — not durable across a restart or multiple instances. Article 12 logging is wired into `AegisAgent` but was never exercised against a live Postgres in this sandbox (`INTERNAL_DB_URL` unset — degrades gracefully, confirmed by test, but unproven end-to-end). Offline/degraded-mode control-room operation remains **BLOCKED** — it is an edge-deployment/infrastructure requirement outside what a backend Node agent class can satisfy, and no edge/offline test environment exists in this sandbox.
+
+### New known risks / unaccepted assumptions (this session)
+
+- Replay-protection and audit-chain fingerprint/entry stores are `Set`/`Array` fields on the `AegisAgent` class, scoped to one Node process. A production deployment with more than one instance, or any process restart, loses all replay history and audit-chain continuity. **Must be backed by Redis/Postgres before this can be called a production control.**
+- `Article12Logger` integration was verified only in its degraded-mode (no-DB) branch. The actual write path (`logPreFlight`/`logPostFlight` against a real `article12_audit_log` table) has zero live-environment verification in this repo's history for the `aegis` agent specifically.
+- No new capability/permission-boundary enforcement was added at the route level — `POST /api/agents/aegis/execute` is still gated only by JWT auth + rate limit, not by a per-caller capability allowlist. Out of scope for this session (pre-existing gap, not new).
+
+### Verification commands added this session
+
+```bash
+cd /home/user/worktrees/aegis-release-readiness-audit
+npx tsc --noEmit -p .
+npm run build
+npx vitest run src/__tests__/agents/aegis.test.ts   # 9 passed
+npx vitest run src/__tests__                         # 1176 passed, 3 skipped,
+                                                       # 1 pre-existing unrelated
+                                                       # failure (confirmed present
+                                                       # before this session via
+                                                       # git stash)
+```
+
+## Recommendation: **NO RELEASE** (unchanged)
+
+FINDING-03 is resolved and two of three named HIC gaps moved from BLOCKED to
+PARTIAL, but per this audit's own release gate, RELEASE requires no open
+BLOCKER or HIGH across all three phases. FINDING-02 (HIGH) is still open,
+and Phase 3 still has one BLOCKED row (offline/degraded-mode) plus multiple
+PARTIAL rows with real, documented durability gaps (in-memory replay/audit
+state; unverified live-DB Article 12 write path). The updated priority order
+for corrective work:
+
+1. Resolve FINDING-02 (missing stylesheet) — unchanged, needs deploy-pipeline info.
+2. Back the replay-protection fingerprint set and the audit chain with a durable store (Redis/Postgres) before any Aegis-branded workflow relies on them in production.
+3. Provision a test `INTERNAL_DB_URL` Postgres instance and exercise `Article12Logger`'s actual write path end-to-end for the `aegis` agent — the degraded-mode fallback is proven, the happy path is not.
+4. Decide (HIC) whether offline/degraded-mode control-room operation is required before GA (per `Store/PRODUCT_AEGIS.md`, GA is September 2026) or is intentionally deferred — this backend repo cannot build edge/offline infrastructure on its own.
+5. Stand up a live API+DB+Redis+JWT test environment so the Playwright/HIC-level tests currently BLOCKED can finally run end-to-end.
+6. Link the live site to the orientation/pilot sales documents (FINDING-04) — unchanged.

@@ -49,3 +49,33 @@ Language bar (`vertical-lang-bar.js`) is present as a `<script defer>` on all 7 
 ## Status: **PARTIAL**
 
 The one reproducible browser-visible bug (site-wide `PAGEERROR`) is fixed and proven fixed via before/after Playwright runs. The 5 index pages could not reach a fully clean `load`/`networkidle` state in this sandboxed network — that ceiling is a documented environment limitation, not a product defect (screenshots confirm correct rendering). Forms, auth/session, and the sales-doc portion of the demo→pilot path have no live browser surface to exercise and are marked BLOCKED, not assumed passing.
+
+***
+
+## Addendum — 2026-08-19: `aegis.agent.ts` build, no re-run performed
+
+`src/agents/aegis.agent.ts` (`AegisAgent`, registry id `aegis`) was built this
+session (see `CODE-QUALITY-REPORT.md` addendum). This report's
+"Auth/session paths" row above already correctly identified the only
+user-facing surface for an `aegis`-named agent as the backend
+`POST /api/agents/aegis/execute` JWT API route, not a browser page.
+
+**No Playwright re-run was performed against that route this session**,
+because the precondition this report already named — a running API server +
+DB + Redis + a valid JWT — is still not available in this worktree. Standing
+one up was out of scope for a static-site/agent-code audit worktree and is
+not something this sandbox has credentials or infrastructure for. Faking a
+request/response pair for it would be fabricating evidence, which the
+audit's ground rules forbid.
+
+What *was* verified this session, at the code/unit level rather than the
+browser level: `src/__tests__/agents/aegis.test.ts` (9 tests, all passing)
+exercises `AegisAgent.execute()` directly — the same code path
+`routes.ts` calls when `POST /api/agents/aegis/execute` is hit — covering
+action routing, replay rejection, the audit chain, and Article-12
+degraded-mode behavior. This is unit-level confirmation the agent's logic
+works; it is not a substitute for the still-BLOCKED end-to-end browser/API
+test named above, which remains **BLOCKED — needs a running backend + DB +
+Redis + credentials the HIC controls.**
+
+## Status: **PARTIAL** (unchanged — see original status above; the new agent's browser-surface route is BLOCKED for the same reason already documented, not newly discovered)

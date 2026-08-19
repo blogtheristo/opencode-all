@@ -26,3 +26,41 @@ For each control: what HIC requires, what's implemented, and how it was verified
 ## Status: **BLOCKED**
 
 Required test environment (running API + DB + Redis + a real or seeded JWT, plus a live Article 12 log store) is not available in this worktree, and several controls (replay/nonce protection, tamper-evident audit trail, offline/degraded-mode execution) have no implementation to test in the first place. This phase cannot be marked PASS or even PARTIAL-with-confidence; it is BLOCKED pending HIC-provided test environment and a decision on FINDING-03 (which "aegis" is the one these controls are meant to protect).
+
+***
+
+## Addendum — 2026-08-19: gap closure after `aegis.agent.ts` build
+
+The `aegis` name/id is now the real orchestrator (`src/agents/aegis.agent.ts`,
+`AegisAgent`, registered in `src/agents/index.ts`), composing `ArgusAgent`,
+`SovereigntyMonitorAgent`, and `ComplianceAgent`. Re-evaluating the rows this
+report previously marked BLOCKED, against the new code:
+
+| Control | Status now | Evidence |
+| --- | --- | --- |
+| Evidence / provenance (Article 12) | **PARTIAL** (was PARTIAL, now wired) | `AegisAgent.logArticle12()` calls `Article12Logger.logPreFlight`/`logPostFlight` on every composed execution, via `scrubObject()` for the required `ScrubManifest`. Verified in code and by test (`aegis.test.ts`: "flags Article 12 logging as degraded when INTERNAL_DB_URL is not configured"). **Not PASS**: no live Postgres in this sandbox, so the actual DB write was never exercised — only the call path and its degraded-mode fallback were verified. |
+| Replay/nonce/version-binding/TOCTOU protection | **PARTIAL** (was BLOCKED, now implemented) | `AegisAgent` fingerprints every request as `sha256(sessionId + action + JSON(input))` and rejects an exact repeat within the same process (`aegis.test.ts`: replay rejection + cross-session non-collision tests, both passing). **Not PASS**: the fingerprint set is in-memory and per-process — it does not survive a restart and does not dedupe across horizontally scaled instances. A durable store (Redis/Postgres) is required before this can be called a production-grade replay control. |
+| Log integrity / audit trail | **PARTIAL** (was BLOCKED, now implemented) | `AegisAgent.getAuditChain()` / `verifyAuditChain()` — SHA-256 hash-chained entries, each linking to the previous entry's hash. `aegis.test.ts` includes a positive tamper-detection test: mutating a stored entry's field breaks `verifyAuditChain()` and reports the exact broken sequence number. **Not PASS**: in-memory, per-process — a restart clears the chain. Durable, cross-restart tamper evidence for the platform-wide claim still depends on `Article12Logger`'s Postgres store, which is itself untested end-to-end here (see row above). |
+| Outage / degraded-mode handling | **still BLOCKED** | Store/PRODUCT_AEGIS.md's offline/degraded requirement is about the **control-room deployment** continuing to operate (local execution, local evidence, no network dependency for the core outcome) when connectivity is lost — an edge-deployment/infrastructure property, not something a backend Node.js agent class can implement standalone. What *was* added: `AegisAgent` itself degrades gracefully when its own DB dependency (`Article12Logger`) is unreachable, rather than crashing or silently faking success — but that is "this agent tolerates one of its dependencies being down," not "the control-room keeps running with no network." The latter remains **BLOCKED — requires edge/offline architecture work outside this repo's Node backend, not available to build or test in this sandbox.** |
+| Capability/permission boundaries | unchanged — **PARTIAL** | Not touched this session; still route-level (`authenticateToken` + rate limit), not capability-scoped per agent. Out of scope for the `aegis.agent.ts` build task. |
+| Bounded execution / fail-closed | unchanged — **PARTIAL** | `AegisAgent.execute()` calls three sub-agents' `execute()` in sequence with no explicit timeout wrapper; each sub-agent's own LLM calls degrade to a placeholder when no provider key is configured (verified in this sandbox), but no hard timeout exists if a future provider call hangs. Not addressed — out of scope for this session's HIC-gap list. |
+| Human approval / kill-switch | unchanged — **PARTIAL** | `AegisAgent`'s actions are read-only assessments (orbital/sovereignty/compliance scoring), same as before — nothing consequential to kill mid-flight. KYA "kill authority" (`src/identity/kya-engine.ts`) exists but is not invoked by `AegisAgent`, since this orchestrator has no write/consequential action to gate. |
+| Scope-boundary overrun prevention | **improved — still PARTIAL** | `AegisAgent.execute()` validates `action` against a fixed `VALID_ACTIONS` allowlist and falls back to `'assess'` for anything unrecognized (no arbitrary-string passthrough into sub-agent dispatch logic, unlike the old `vuln-patch-sla-triage` agent's loose `input.action as string`). Still no Zod schema validation on the sub-agent-specific fields inside `input` — those pass through to the composed agents as-is. |
+
+### Summary
+
+Two of the three previously-BLOCKED controls (replay/nonce protection,
+tamper-evident audit log) now have a real, tested implementation and move
+to **PARTIAL** — genuinely better than BLOCKED, but their in-memory/
+per-process scope means they are not yet production-grade durable controls.
+The third (offline/degraded-mode control-room operation) remains
+**BLOCKED**: it is an edge-deployment/infrastructure requirement outside
+what a backend agent class in this repo can satisfy, and this sandbox has
+no edge hardware or offline test environment to build or verify it against.
+
+No row in this addendum is marked PASS. Per this audit's own rule, PASS
+requires evidence + test, not code existing in principle — the
+in-memory/per-process limitations and the untested live-DB path keep every
+touched row at PARTIAL.
+
+## Status: **PARTIAL** (upgraded from BLOCKED — two of three named gaps closed to PARTIAL; one remains BLOCKED)
