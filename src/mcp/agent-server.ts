@@ -26,6 +26,7 @@ import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
 import { memoryService } from '../agents/memory.service.js';
 import { factExtractionService } from '../agents/fact-extraction.service.js';
+import { graphService } from '../agents/graph.service.js';
 import { telemetryService } from '../agents/telemetry.service.js';
 import { checkpointService } from '../agents/session-checkpoint.service.js';
 import type { AgentContext } from '../agents/types.js';
@@ -119,6 +120,7 @@ function getExposedToolColor(toolName: string): ToolColor {
     case 'dws_tool_telemetry':
     case 'dws_session_checkpoint':
     case 'dws_extract_facts':
+    case 'dws_graph_query':
       return ToolColor.GREEN;
     case 'dws_events':
       return ToolColor.RED;
@@ -333,6 +335,25 @@ function buildToolList(): MCPToolDefinition[] {
         agent_name: { type: 'string', description: 'Agent name' },
       },
       required: ['session_id', 'agent_name'],
+    },
+  });
+
+  // Graph query tool — traverse the fact graph populated from kb/ compile
+  registerTool({
+    name: 'dws_graph_query',
+    description:
+      'Traverse the causal/relational fact graph populated from KB compile. max_hops=1 returns direct neighbors ("local search"); max_hops>1 walks a multi-hop causal chain in one call instead of several agent-loop iterations.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        entity: {
+          type: 'string',
+          description: 'Entity name to start traversal from (matched via ILIKE)',
+        },
+        max_hops: { type: 'number', description: 'Hop depth 1-5 (default: 1)' },
+        relation: { type: 'string', description: 'Filter to a specific relation (optional)' },
+      },
+      required: ['entity'],
     },
   });
 
@@ -554,7 +575,8 @@ function resolveMcpSessionId(
     req.header('mcp-session-id') ||
     (request.params?.sessionId as string | undefined) ||
     ((request.params?.arguments as Record<string, unknown> | undefined)?.sessionId as
-      string | undefined);
+      | string
+      | undefined);
 
   if (request.method === 'initialize') {
     const sessionId = issueMcpSessionId(userId, orgId);
@@ -677,6 +699,20 @@ async function executeToolCall(
       checkpointedAt: state.checkpointedAt,
       messageCount: state.messages.length,
       partialResultCount: state.partialResults.length,
+    };
+  }
+
+  // Graph query — traverse the fact graph
+  if (toolName === 'dws_graph_query') {
+    const result = await graphService.traverse(
+      context.orgId,
+      args.entity as string,
+      (args.max_hops as number) || 1,
+      args.relation as string | undefined,
+    );
+    return {
+      steps: result.steps,
+      durationMs: result.durationMs,
     };
   }
 
