@@ -85,6 +85,7 @@ import {
   ProjectManagerAgent,
 } from './consultant/index.js';
 import { HelpdeskAgent } from './helpdesk.agent.js';
+import { VersionAuditAgent } from './version-audit.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -336,6 +337,9 @@ export class AgentRegistry {
     if (process.env.HELPDESK_AGENT_ENABLED === 'true' || process.env.NODE_ENV !== 'production') {
       this.register(new HelpdeskAgent()); // Support triage — drafts reply + recommendation; never sends
     }
+
+    // Version audit agent
+    this.register(new VersionAuditAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
