@@ -1,30 +1,21 @@
 # INTRO_SISU_DEFENCE_C4IMOBILITY
 
-```
-<!--
-VERSION AND AGENT HISTORY
-Document: INTRO_SISU_DEFENCE_C4IMOBILITY.md
+***
+# VERSION AND AGENT HISTORY
+
 Version: 1.0
-Last-Updated: 2026-05-25
-Author: Risto Anton Päärni (Lifetime Oy)
-Agent: Claude Code (claude-opus-4-7)
-Purpose: Sales outreach case for Oy Sisu Auto Ab / Sisu Defence following
-         the Minister of Defence visit to Karjaa and the multi-party
-         Letter of Intent launching the C4IMobility cooperation program.
-         Wedge: C4IMobility binds command-and-control, communications,
-         computing, and intelligence to the mobile platform. That fusion
-         is an EU AI Act Annex III + NIS2 + sovereign-data problem before
-         it is a vehicle problem. DWS IQ provides the KYA-attested,
-         sovereign-NVIDIA governance layer the new program will need
-         from day one.
-Trigger-Event: Minister of Defence Antti Häkkänen visited Oy Sisu Auto Ab
-               in Karjaa. Key defence and research leaders signed a
-               Letter of Intent to launch the new C4IMobility cooperation
-               program. Hashtags reported: #Sisuauto #DefenceTech #Finland
-Branch: claude/sisu-defence-sales-outreach-dksO3
-Owner: risto.paarni@lifetime.fi
--->
-```
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code (claude-opus-4-7) | Session: claude/sisu-defence-sales-outreach-dksO3 | Date: 25.05.2026 | Changes: Initial creation — sales outreach case for Oy Sisu Auto Ab / Sisu Defence following the Karjaa C4IMobility LOI trigger.
+
+Document Status:
+  - Created: 25.05.2026
+  - Last Modified: 25.05.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
 
 ## Trigger event (why this file exists)
 
