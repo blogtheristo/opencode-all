@@ -86,7 +86,7 @@
       store: 'Produits IA souverains pour les entreprises europ\u00e9ennes.',
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
       aegis:
-        'Intelligence industrielle souveraine pour la fabrication à double usage. Aegis est une plateforme d\'IA souveraine mono-locataire, conçue pour les usines à double usage, l\'industrie lourde et les installations de matières premières critiques. Sur une infrastructure finlandaise dédiée, elle est conçue pour réduire la dépendance aux services cloud américains et l'exposition à la juridiction américaine, y compris les risques liés à la CLOUD Act. Le test de trois mois de la plateforme Aegis valide l\'exécution locale sur l\'infrastructure existante du client ou sur un appareil edge compact avant les investissements matériels majeurs. Le paiement du test est une partie de la stratégie de vente progressive et est entièrement crédité sur les coûts d\'intégration Aegis si le client continue dans les six mois.',
+        "Intelligence industrielle souveraine pour la fabrication à double usage. Aegis est une plateforme d'IA souveraine mono-locataire, conçue pour les usines à double usage, l'industrie lourde et les installations de matières premières critiques. Sur une infrastructure finlandaise dédiée, elle est conçue pour réduire la dépendance aux services cloud américains et l'exposition à la juridiction américaine, y compris les risques liés à la CLOUD Act. Le test de trois mois de la plateforme Aegis valide l'exécution locale sur l'infrastructure existante du client ou sur un appareil edge compact avant les investissements matériels majeurs. Le paiement du test est une partie de la stratégie de vente progressive et est entièrement crédité sur les coûts d'intégration Aegis si le client continue dans les six mois.",
       coaching:
         'Formez vos ing\u00e9nieurs \u00e0 livrer avec Claude Code \u2014 ing\u00e9nierie agentique disciplin\u00e9e, souveraine UE, pr\u00eate pour l\u2019article 4 du r\u00e8glement IA de l\u2019UE.',
       versions:
@@ -182,7 +182,7 @@
   })
     ? storedLang
     : 'en';
-    
+
   // Session-based language detection - show all languages initially if no selection
   var showAllLanguages = !storedLang;
 
@@ -339,7 +339,7 @@
       var hrefAttr = stays ? '' : ' href="' + rowHref(l) + '"';
       var activeCls = isActive ? ' dws-vlb-active' : '';
       var mainText = hubHero ? hubHero[l.code] || l[textKey] : l[textKey];
-      
+
       // Add fade classes for session-based language handling
       var fadeCls = '';
       if (!showAllLanguages && !isActive) {
@@ -347,7 +347,7 @@
       } else if (showAllLanguages) {
         fadeCls = ' fade-in';
       }
-      
+
       return (
         '<' +
         tag +
@@ -377,7 +377,9 @@
       );
     }).join('');
 
-    el.innerHTML = '<div class="dws-vlb-heading">\uD83C\uDF0D Sovereign by Design. Global by Choice.</div>' + rows;
+    el.innerHTML =
+      '<div class="dws-vlb-heading">\uD83C\uDF0D Sovereign by Design. Global by Choice.</div>' +
+      rows;
 
     // On stay pages (store/product): clicking switches active language in-place
     if (stays) {
@@ -386,19 +388,19 @@
           var lang = row.getAttribute('lang');
           localStorage.setItem('dws-lang', lang);
           currentLang = lang;
-          
+
           // Remove fade-out class from all rows
           el.querySelectorAll('.dws-vlb-row').forEach(function (r) {
             r.classList.remove('dws-vlb-active');
             r.classList.remove('fade-out');
           });
-          
+
           // Add active class to clicked row
           row.classList.add('dws-vlb-active');
-          
+
           // Add fade-in to clicked row (to make it visible)
           row.classList.add('fade-in');
-          
+
           // Dispatch event
           window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
           var navCode = document.querySelector('.ironclad-lang-code');
@@ -453,13 +455,13 @@
 
   // Initialize with fade effects
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       init();
       // Add fade-in effect to all rows if this is the first visit
       if (showAllLanguages) {
-        setTimeout(function() {
+        setTimeout(function () {
           var rows = document.querySelectorAll('.dws-vlb-row');
-          rows.forEach(function(row) {
+          rows.forEach(function (row) {
             row.classList.remove('fade-out');
             row.classList.add('fade-in');
           });
@@ -470,9 +472,9 @@
     init();
     // Add fade-in effect to all rows if this is the first visit
     if (showAllLanguages) {
-      setTimeout(function() {
+      setTimeout(function () {
         var rows = document.querySelectorAll('.dws-vlb-row');
-        rows.forEach(function(row) {
+        rows.forEach(function (row) {
           row.classList.remove('fade-out');
           row.classList.add('fade-in');
         });
