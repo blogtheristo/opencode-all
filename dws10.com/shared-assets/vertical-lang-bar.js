@@ -70,9 +70,9 @@
       store: 'Souver\u00e4ne KI-Produkte f\u00fcr europ\u00e4ische Unternehmen.',
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
       aegis:
-        'Souver\u00e4ne industrielle Intelligenz f\u00fcr Dual-Use-Fertigung \u2014 21 EU-Branchen, null CLOUD-Act-Risiko. Aegis ist eine souver\u00e4ne KI-Plattform f\u00fcr einen einzelnen Mandanten, konzipiert f\u00fcr Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen. Auf dedizierter finnischer Infrastruktur optimiert und sichert sie laufend die Anlagen, die Europas Verteidigungssektor beliefern \u2014 keine US-Cloud-Abh\u00e4ngigkeiten, null CLOUD-Act-Risiko.',
+        'Souveräne industrielle Intelligenz für die Dual-Use-Fertigung. Aegis ist eine Single-Tenant-KI-Plattform für Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen. Sie wird auf dedizierter finnischer Infrastruktur betrieben und ist darauf ausgelegt, die Abhängigkeit von US-Cloud-Diensten sowie die Exponierung gegenüber US-Recht, einschließlich Risiken im Zusammenhang mit dem US CLOUD Act, zu reduzieren. Der dreimonatige Aegis-Pilot validiert den lokalen Betrieb auf der vorhandenen Kundeninfrastruktur oder auf einem kompakten Edge-Gerät, bevor größere Hardwareinvestitionen erfolgen. Die Pilotgebühr ist Teil des stufenweisen Einführungsprozesses und wird vollständig auf das Aegis-Onboarding angerechnet, wenn der Kunde innerhalb von sechs Monaten fortfährt.',
       coaching:
-        'Coachen Sie Ihre Entwickler, mit Claude Code zu liefern \u2014 disziplinierte agentenbasierte Entwicklung, EU-souver\u00e4n, bereit f\u00fcr Artikel 4 der EU-KI-Verordnung.',
+        'Befähigen Sie Ihre Ingenieurteams mit Claude Code zu disziplinierter agentenbasierter Entwicklung, EU-souveräner Bereitstellung und einem Arbeitsrahmen, der die Anforderungen von Artikel 4 des EU AI Act berücksichtigt.',
       versions:
         'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
     },
