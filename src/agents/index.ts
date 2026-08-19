@@ -73,7 +73,7 @@ import { SmartFactoryAgent } from './smart-factory.agent.js';
 import { SalesManagerNewsletterAgent } from './sales-manager-newsletter.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
-import { AegisAgent } from './aegis.agent.js';
+import { VulnPatchSlaTriageAgent } from './vuln-patch-sla-triage.agent.js';
 import { VestaAgent } from './vesta.agent.js';
 // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
 import {
@@ -405,7 +405,7 @@ export class AgentRegistry {
     this.register(new SmartFactoryAgent());
     this.register(new SalesManagerNewsletterAgent()); // Stage 2: synthesize market_signals + news-to-signal into sales-manager.md format
     // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
-    this.register(new AegisAgent()); // Vulnerability & patch SLA triage
+    this.register(new VulnPatchSlaTriageAgent()); // Vulnerability & patch SLA triage
     this.register(new VestaAgent()); // Business-critical systems registry
 
     // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026 (total 60)

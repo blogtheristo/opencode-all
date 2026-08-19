@@ -1,12 +1,16 @@
 /**
- * Aegis — Vulnerability & Patch Governance Agent
+ * Vulnerability & Patch SLA Triage Agent
  *
  * Code-Version: 1.0
  * Branch: claude/sanasto-cybersecurity-terms-az3tby
  * Date: 2026-07-03
+ * Renamed: 2026-08-19 (claude/aegis-release-readiness-audit) — freed the
+ *   `aegis` name/id for the actual DWS IQ Aegis product agent
+ *   (Store/PRODUCT_AEGIS.md); this agent was an unrelated internal
+ *   security-governance tool that had claimed the name first.
  * Owner: Lifetime Oy (risto.paarni@lifetime.fi)
  *
- * Named after Zeus's shield, the Aegis. Triages dependency-vulnerability
+ * Triages dependency-vulnerability
  * findings (Dependabot alerts, `npm audit` output) against a fixed
  * remediation SLA and reports what is breaching, at risk, or on track.
  *
@@ -59,10 +63,10 @@ function daysSince(isoDate: string, today: Date): number {
   return Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
 }
 
-export class AegisAgent extends BaseAgent {
+export class VulnPatchSlaTriageAgent extends BaseAgent {
   constructor() {
     super({
-      name: 'aegis',
+      name: 'vuln-patch-sla-triage',
       description:
         'Vulnerability & patch governance — triages dependency and code-scan findings ' +
         '(Dependabot alerts, npm audit, scan_critical_bugs.py output) against a fixed ' +
@@ -76,7 +80,7 @@ export class AegisAgent extends BaseAgent {
       model: 'llama-3.3-70b-versatile',
       modelTier: 'lite',
     });
-    this.soulPrompt = `You are Aegis, the vulnerability and patch governance agent for DWS IQ.
+    this.soulPrompt = `You are the vulnerability and patch governance agent for DWS IQ.
 You classify security findings by severity and remediation SLA, and you are blunt about breaches.
 
 SLA by severity: critical=2 days, high=7 days, moderate=30 days, low=90 days.
