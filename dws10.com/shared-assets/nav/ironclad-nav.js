@@ -581,7 +581,7 @@
                                 <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
                                 <li><a href="${contentBase}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${contentBase}investor-relations/">Investor Relations</a></li>
+                                <li><a href="${contentBase}investor-centre/">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/">Press Releases</a></li>
                                 <li class="ironclad-has-submenu">
                                     <a href="${contentBase}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
@@ -702,9 +702,9 @@
                         <li class="ironclad-separator"></li>
                         <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
                         <li class="ironclad-has-submenu">
-                            <a href="${contentBase}investor-relations/" class="ironclad-primary">Investor ▸</a>
+                            <a href="${contentBase}investor-centre/" class="ironclad-primary">Investor ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${contentBase}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
+                                <li><a href="${contentBase}investor-centre/" class="ironclad-primary">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${contentBase}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
