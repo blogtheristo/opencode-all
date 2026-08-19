@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.01
+Version: 4.02
 Sessions & Modifications:
 
+- Version: 4.02 | Tool: Claude Code (Sonnet 5) | Session: claude/math-academia-verification-96jpbf | Date: 18.08.2026 | Changes: Lockstep version bump only — no master's-thesis content added. The substantive addition (§14.51.4, extending Key Contribution #56: third-party verification of Pramaana Labs via WebSearch — $27M Khosla Ventures-led seed, CEO Ranjan Rajagopalan, and the RuleArena ACL 2025 benchmark as new peer-reviewed corroborating evidence) is a market/scientific signal, out of scope for the implementation-focused master's thesis per §1.4. Companion: PHD_FIREHORSE_EN §14.51.4. Lockstep 4.01->4.02.
 - Version: 4.01 | Tool: Claude Code (Sonnet 5) | Session: claude/math-academia-verification-96jpbf | Date: 18.08.2026 | Changes: Lockstep version bump only — no master's-thesis content added. The substantive addition (§14.51, Key Contribution #56: the intelligence/trust decoupling as external confirmation of the KYA verification thesis, sourced from Rishikesh Gajjala's 2026-08-18 exit from math academia for Pramaana Labs formal verification) is a market/scientific signal, out of scope for the implementation-focused master's thesis per §1.4. Recorded here per the CLAUDE.md four-file lockstep rule. Companion: PHD_FIREHORSE_EN §14.51; `docs/field-notes/2026-08-18-gajjala-math-academia-verification-signal.md`. Lockstep 4.00->4.01.
 - Version: 4.00 | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added §10.30 (OpenCode-primary DGX runtime and MCP boundary). Records the verified OpenCode 1.18.18 + Ollama/open-model development path, Claude Code hot standby, Linux PATH handling, the gateway virtualenv, MCP SDK compatibility pin, and the explicit boundary created by disabling the unavailable port-3001 SSE service. Lockstep 3.99->4.00 with PHD_FIREHORSE §14.50 / Key Contribution #55.
 

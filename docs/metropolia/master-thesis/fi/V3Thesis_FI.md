@@ -6,9 +6,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.01
+Version: 4.02
 Sessions & Modifications:
 
+- Version: 4.02 | Tool: Claude Code (Sonnet 5) | Session: claude/math-academia-verification-96jpbf | Date: 18.08.2026 | Changes: Pelkkä lukkoaskeleen versiopäivitys — maisterityöhön ei lisätty sisältöä. Sisällöllinen lisäys (§14.51.4, laajentaen Avainkontribuutio #56: Pramaana Labsin kolmannen osapuolen vahvistus WebSearchilla — 27 M$ Khosla Ventures -vetoinen siemenrahoitus, toimitusjohtaja Ranjan Rajagopalan, ja RuleArena ACL 2025 -vertailuarvo uutena vertaisarvioituna näyttönä) on markkina-/tieteellinen signaali, joka on rajattu pois toteutuskeskeisestä maisterityöstä §1.4:n mukaisesti. Kumppani: PHD_FIREHORSE_FI §14.51.4. Lukkoaskel 4.01->4.02.
 - Version: 4.01 | Tool: Claude Code (Sonnet 5) | Session: claude/math-academia-verification-96jpbf | Date: 18.08.2026 | Changes: Pelkkä lukkoaskeleen versiopäivitys — maisterityöhön ei lisätty sisältöä. Sisällöllinen lisäys (§14.51, Avainkontribuutio #56: älykkyyden ja luottamuksen eriytyminen ulkoisena vahvistuksena KYA-verifiointiteesille, lähteenä Rishikesh Gajjalan 18.8.2026 ero matematiikan akatemiasta Pramaana Labsin formaaliverifiointityöhön) on markkina-/tieteellinen signaali, joka on rajattu pois toteutuskeskeisestä maisterityöstä §1.4:n mukaisesti. Kirjattu tähän CLAUDE.md:n neljän tiedoston lukkoaskelsäännön mukaisesti. Kumppani: PHD_FIREHORSE_FI §14.51; `docs/field-notes/2026-08-18-gajjala-math-academia-verification-signal.md`. Lukkoaskel 4.00->4.01.
 - Version: 4.00 | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Lisätty §10.30 (OpenCode-ensisijainen DGX-ajoympäristö ja MCP-raja). Kirjaa varmennetun OpenCode 1.18.18 + Ollama/avoimet mallit -kehityspolun, Claude Coden hot standby -roolin, Linux PATH -käsittelyn, gatewayn virtuaaliympäristön, MCP SDK -yhteensopivuuskiinnityksen ja käytöstä poistetun portin 3001 SSE-palvelun muodostaman eksplisiittisen rajan. Lukkoaskel 3.99->4.00 yhdessä PHD_FIREHORSE §14.50:n / Avainkontribuutio #55:n kanssa.
 
