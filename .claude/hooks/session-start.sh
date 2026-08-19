@@ -65,7 +65,7 @@ PY
 fi
 
 # Check for uncommitted changes from previous session
-DIRTY=$(git status --porcelain 2>/dev/null | head -5)
+DIRTY=$(git status --porcelain 2>/dev/null | sed -n '1,5p')
 if [ -n "$DIRTY" ]; then
   echo ""
   echo "WARNING: Uncommitted changes detected from previous session:"
@@ -99,7 +99,10 @@ elif [ "$BRANCH" != "unknown" ]; then
   echo "This looks like a fresh branch. Create this file at your first checkpoint"
   echo "(see .claude/HANDOFF.md for the protocol). Recent cross-branch history:"
   echo ""
-  awk '/^## HANDOFF HISTORY/{f=1} f' ".claude/HANDOFF.md" 2>/dev/null | tail -n +2 | head -8
+  awk '
+    /^## HANDOFF HISTORY/ { found=1; next }
+    found && count < 8 { print; count++ }
+  ' ".claude/HANDOFF.md" 2>/dev/null
 fi
 
 # Auto-discover and index all skills (Anthropic Skills paradigm)
