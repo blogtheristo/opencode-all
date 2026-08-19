@@ -143,6 +143,7 @@ try {
     foreach ($sha in $stashes) {
         if (-not $sha -or $pinned.ContainsKey($sha)) { continue }
         git update-ref "refs/stash-archive/$($sha.Substring(0,12))" $sha
+        if ($LASTEXITCODE -ne 0) { throw "git update-ref failed for stash $sha" }
         $pinned[$sha] = $true
         $new++
     }
