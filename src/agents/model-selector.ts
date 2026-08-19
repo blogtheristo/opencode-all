@@ -385,6 +385,7 @@ export const AGENT_TIER_MAP: Record<string, ModelTier> = {
   'competitor-surveillance': 'standard', // Market intelligence
   'content-brief': 'standard', // Content generation briefs
   'deepwiki-extractor': 'standard', // Document extraction
+  'graph-extract': 'standard', // Causal/relational triple extraction (graph engineering)
   'emissions-data-analyst': 'standard', // Emissions data processing
   'compliance-researcher': 'standard', // Regulatory research
   'sales-outreach': 'standard', // Sales email generation
