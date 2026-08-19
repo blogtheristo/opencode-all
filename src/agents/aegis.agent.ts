@@ -20,18 +20,19 @@
  *      invoke each sub-agent separately.
  *   2. Replay/nonce protection: a request is identified by
  *      sha256(sessionId + action + JSON(subInput)) and rejected if that
- *      exact fingerprint has already been executed in this process.
- *      LIMITATION: the nonce set is in-memory and per-process — it does
- *      not survive a restart and does not dedupe across horizontally
- *      scaled instances. A durable store (Redis/Postgres) is required for
- *      a production multi-instance deployment; this is PARTIAL, not PASS.
- *   3. A tamper-evident, hash-chained in-process audit trail
- *      (getAuditChain() / verifyAuditChain()) so every Aegis decision in a
- *      session can be shown not to have been altered after the fact.
- *      LIMITATION: in-memory, per-process — durable, cross-restart
- *      tamper-evidence requires Article12Logger's Postgres-backed store
- *      (see below). This is PARTIAL, not PASS, for the platform-wide
- *      "tamper-evident audit trail" HIC requirement.
+ *      exact fingerprint has already been recorded. Durable as of
+ *      2026-08-19 (see aegis-durable-store.ts) — backed by Postgres
+ *      (aegis_audit_chain, migration 023) via the shared internal-db.ts
+ *      pool, so replay protection survives a process restart and is shared
+ *      across horizontally scaled instances reading the same DGX Spark
+ *      Postgres. Degrades to the prior in-process-only behavior (with
+ *      `durable: false` surfaced on every entry) if that Postgres is
+ *      unreachable — see AegisDurableStore's degraded-mode notes.
+ *   3. A tamper-evident, hash-chained audit trail (getAuditChain() /
+ *      verifyAuditChain()) so every Aegis decision can be shown not to
+ *      have been altered after the fact. Durable as of 2026-08-19 for the
+ *      same reason as (2) — the hash-chain formula is unchanged, only the
+ *      persistence layer moved from an in-process Array to Postgres.
  *   4. Best-effort EU AI Act Article 12 logging via Article12Logger.
  *      Article12Logger throws if INTERNAL_DB_URL is not configured — that
  *      is treated as an expected degraded/offline condition here, not an
@@ -62,6 +63,7 @@ import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
 import { ComplianceAgent } from './compliance.agent.js';
 import { Article12Logger } from './article12-logger.js';
 import { scrubObject, type ScrubManifest } from './pii-scrubber.js';
+import { AegisDurableStore, type AegisAuditEntry } from './aegis-durable-store.js';
 import logger from '../utils/logger.js';
 
 type AegisAction = 'orbital-intelligence' | 'sovereignty' | 'compliance' | 'assess' | 'audit-chain';
@@ -74,28 +76,18 @@ const VALID_ACTIONS: AegisAction[] = [
   'audit-chain',
 ];
 
-/** One tamper-evident entry in this process's Aegis audit chain. */
-export interface AegisAuditEntry {
-  seq: number;
-  timestamp: string;
-  sessionId: string;
-  action: string;
-  /** sha256(sessionId + action + JSON(subInput)) — also the replay-protection key */
-  requestFingerprint: string;
-  /** sha256 of this entry's own fields (excluding entryHash) chained to prevHash */
-  entryHash: string;
-  prevHash: string;
-  resultSummary: string;
-}
+export type { AegisAuditEntry } from './aegis-durable-store.js';
 
 function sha256(input: string): string {
   return createHash('sha256').update(input).digest('hex');
 }
 
 export class AegisAgent extends BaseAgent {
-  // In-memory, per-process only — see file header LIMITATION notes.
-  private static seenFingerprints = new Set<string>();
-  private static auditChain: AegisAuditEntry[] = [];
+  // Durable as of 2026-08-19 — see aegis-durable-store.ts. A single store
+  // instance is shared across all AegisAgent instances in this process
+  // (matches the prior static-field sharing semantics) but every write/read
+  // goes through the Postgres-backed aegis_audit_chain table when reachable.
+  private static store = new AegisDurableStore();
 
   private argus = new ArgusAgent();
   private sovereigntyMonitor = new SovereigntyMonitorAgent();
@@ -131,62 +123,26 @@ You are explicit about degraded mode: if Article 12 logging failed (no DB reacha
 say so plainly in the response rather than silently dropping the evidence gap.`;
   }
 
-  /** Read-only accessor for tests / operators — this process's audit chain. */
-  static getAuditChain(): readonly AegisAuditEntry[] {
-    return AegisAgent.auditChain;
+  /**
+   * Read-only accessor for tests / operators — the audit chain, durable rows
+   * preferred (falls back to the in-process buffer only in degraded mode).
+   */
+  static async getAuditChain(): Promise<readonly AegisAuditEntry[]> {
+    return AegisAgent.store.getChain();
   }
 
-  /** Verify no entry in this process's audit chain has been altered out of band. */
-  static verifyAuditChain(): { valid: boolean; brokenAtSeq: number | null } {
-    let prevHash = '0'.repeat(64);
-    for (const entry of AegisAgent.auditChain) {
-      if (entry.prevHash !== prevHash) {
-        return { valid: false, brokenAtSeq: entry.seq };
-      }
-      const recomputed = sha256(
-        `${entry.seq}|${entry.timestamp}|${entry.sessionId}|${entry.action}|${entry.requestFingerprint}|${entry.prevHash}|${entry.resultSummary}`,
-      );
-      if (recomputed !== entry.entryHash) {
-        return { valid: false, brokenAtSeq: entry.seq };
-      }
-      prevHash = entry.entryHash;
-    }
-    return { valid: true, brokenAtSeq: null };
+  /** Verify the audit chain has not been altered out of band. */
+  static async verifyAuditChain(): Promise<{
+    valid: boolean;
+    brokenAtSeq: number | null;
+    durable: boolean;
+  }> {
+    return AegisAgent.store.verifyChain();
   }
 
   /** Test-only reset — production processes never need to clear this. */
   static _resetForTests(): void {
-    AegisAgent.seenFingerprints.clear();
-    AegisAgent.auditChain = [];
-  }
-
-  private appendAuditEntry(
-    sessionId: string,
-    action: string,
-    requestFingerprint: string,
-    resultSummary: string,
-  ): AegisAuditEntry {
-    const prevHash =
-      AegisAgent.auditChain.length > 0
-        ? AegisAgent.auditChain[AegisAgent.auditChain.length - 1].entryHash
-        : '0'.repeat(64);
-    const seq = AegisAgent.auditChain.length + 1;
-    const timestamp = new Date().toISOString();
-    const entryHash = sha256(
-      `${seq}|${timestamp}|${sessionId}|${action}|${requestFingerprint}|${prevHash}|${resultSummary}`,
-    );
-    const entry: AegisAuditEntry = {
-      seq,
-      timestamp,
-      sessionId,
-      action,
-      requestFingerprint,
-      entryHash,
-      prevHash,
-      resultSummary,
-    };
-    AegisAgent.auditChain.push(entry);
-    return entry;
+    AegisAgent.store.resetForTests();
   }
 
   /** Best-effort EU AI Act Article 12 logging. Never throws — degrades to a flagged failure. */
@@ -227,23 +183,24 @@ say so plainly in the response rather than silently dropping the evidence gap.`;
       : 'assess';
 
     if (action === 'audit-chain') {
-      const verification = AegisAgent.verifyAuditChain();
+      const verification = await AegisAgent.verifyAuditChain();
+      const entries = await AegisAgent.getAuditChain();
       return {
         agentName: this.config.name,
         result: {
           action,
-          entries: AegisAgent.getAuditChain(),
-          chainLength: AegisAgent.getAuditChain().length,
+          entries,
+          chainLength: entries.length,
           ...verification,
         },
         confidence: 1,
-        reasoning: `Audit chain has ${AegisAgent.getAuditChain().length} entr(y/ies); integrity ${verification.valid ? 'VALID' : 'BROKEN'}.`,
+        reasoning: `Audit chain has ${entries.length} entr(y/ies); integrity ${verification.valid ? 'VALID' : 'BROKEN'}${verification.durable ? '' : ' (DEGRADED — durable store unreachable, showing in-process buffer only)'}.`,
         recommendations: verification.valid
           ? []
           : [
-              `Audit chain integrity broken at seq ${verification.brokenAtSeq} — investigate before trusting this process's record.`,
+              `Audit chain integrity broken at seq ${verification.brokenAtSeq} — investigate before trusting this record.`,
             ],
-        metadata: { sessionId: context.sessionId, action },
+        metadata: { sessionId: context.sessionId, action, durable: verification.durable },
       };
     }
 
@@ -252,20 +209,25 @@ say so plainly in the response rather than silently dropping the evidence gap.`;
 
     const requestFingerprint = sha256(`${context.sessionId}|${action}|${JSON.stringify(subInput)}`);
 
-    if (AegisAgent.seenFingerprints.has(requestFingerprint)) {
+    const reservation = await AegisAgent.store.reserve(
+      context.sessionId,
+      action,
+      requestFingerprint,
+    );
+    if (reservation.replay) {
       return {
         agentName: this.config.name,
         result: { action, replay: true, requestFingerprint },
         confidence: 1,
         reasoning:
-          'Rejected: identical (sessionId, action, input) fingerprint already executed in this process — possible replay.',
+          'Rejected: identical (sessionId, action, input) fingerprint already recorded — possible replay.',
         recommendations: [
           'Issue a fresh request with a new sessionId or changed input if this is intentional.',
         ],
         metadata: { sessionId: context.sessionId, action, replayRejected: true },
       };
     }
-    AegisAgent.seenFingerprints.add(requestFingerprint);
+    const reservationHandle = reservation.handle;
 
     const subResponses: Record<string, AgentResponse> = {};
     const blocked: string[] = [];
@@ -300,12 +262,7 @@ say so plainly in the response rather than silently dropping the evidence gap.`;
       resultSummary || action,
     );
 
-    const auditEntry = this.appendAuditEntry(
-      context.sessionId,
-      action,
-      requestFingerprint,
-      resultSummary || action,
-    );
+    const auditEntry = await AegisAgent.store.finalize(reservationHandle, resultSummary || action);
 
     const confidences = Object.values(subResponses).map((r) => r.confidence);
     const overallConfidence =
@@ -319,7 +276,12 @@ say so plainly in the response rather than silently dropping the evidence gap.`;
     }
     if (!article12.logged) {
       recommendations.push(
-        `Article 12 evidence NOT persisted (degraded mode): ${article12.error}. Local audit-chain entry (seq ${auditEntry.seq}) still recorded.`,
+        `Article 12 evidence NOT persisted (degraded mode): ${article12.error}. Audit-chain entry (seq ${auditEntry.seq}, durable=${auditEntry.durable}) still recorded.`,
+      );
+    }
+    if (!auditEntry.durable) {
+      recommendations.push(
+        `Audit-chain durable store unreachable — entry (seq ${auditEntry.seq}) recorded in the in-process fallback buffer only and will NOT survive a restart. Check INTERNAL_DB_URL.`,
       );
     }
 
@@ -344,6 +306,7 @@ say so plainly in the response rather than silently dropping the evidence gap.`;
         auditChain: {
           seq: auditEntry.seq,
           entryHash: auditEntry.entryHash,
+          durable: auditEntry.durable,
         },
       },
     };

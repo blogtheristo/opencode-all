@@ -90,17 +90,21 @@ describe('AegisAgent', () => {
     expect(result.brokenAtSeq).toBeNull();
   });
 
-  it('detects a tampered audit chain entry', async () => {
+  it('detects a tampered audit chain entry (in-memory fallback path)', async () => {
+    // This test runs without INTERNAL_DB_URL, so the store is in degraded
+    // (in-memory fallback) mode — verifyAuditChain() reads back the fallback
+    // buffer, which this test mutates directly to prove tamper-detection.
     const agent = new AegisAgent();
     await agent.execute(testContext, { action: 'sovereignty' });
 
-    const chain = AegisAgent.getAuditChain();
+    const chain = await AegisAgent.getAuditChain();
     // Simulate tampering: mutate a field on the stored entry object directly.
     (chain[0] as { resultSummary: string }).resultSummary = 'tampered';
 
-    const verification = AegisAgent.verifyAuditChain();
+    const verification = await AegisAgent.verifyAuditChain();
     expect(verification.valid).toBe(false);
     expect(verification.brokenAtSeq).toBe(1);
+    expect(verification.durable).toBe(false);
   });
 
   it('flags Article 12 logging as degraded when INTERNAL_DB_URL is not configured', async () => {
