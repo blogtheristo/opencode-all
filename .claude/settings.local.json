@@ -12,7 +12,7 @@
       "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__generate",
       "Bash(mkdir -p docs/assets/images)",
       "Bash(mkdir -p .claude/handoffs/claude && git status --short)",
-      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://192.168.101.113:9999/health\" -TimeoutSec 10 -UseBasicParsing; \"HEALTHY: \" + $r.StatusCode + \" \" + $r.Content } catch { \"DOWN: \" + $_.Exception.Message })"
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://127.0.0.1:9999/health\" -TimeoutSec 10 -UseBasicParsing; \"HEALTHY: \" + $r.StatusCode + \" \" + $r.Content } catch { \"DOWN: \" + $_.Exception.Message })"
     ],
     "defaultMode": "bypassPermissions"
   },
