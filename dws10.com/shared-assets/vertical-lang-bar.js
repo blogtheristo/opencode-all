@@ -1,7 +1,7 @@
 /**
- * DWS10.com Vertical Language Bar v1.3
+ * DWS10.com Vertical Language Bar v1.4
  * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/aegis-multilingual-pages-3clsx0
- * Code-Version: 1.3
+ * Code-Version: 1.4
  * Branch: claude/aegis-multilingual-pages-3clsx0
  * Date: 2026-06-23
  * Owner: Lifetime Oy
@@ -26,6 +26,7 @@
  *        /products/claude-code-coaching; hardware version line hidden.
  * v1.5 — Added healthcare and industries contexts: per-language hero lines for
  *        /healthcare/ and /industries/ pages; hardware version line hidden.
+ * v1.6 — Added fade-out effect when user selects language; session-based language persistence.
  */
 (function () {
   'use strict';
@@ -181,6 +182,9 @@
   })
     ? storedLang
     : 'en';
+    
+  // Session-based language detection - show all languages initially if no selection
+  var showAllLanguages = !storedLang;
 
   // Detect page type from path
   var path = window.location.pathname;
