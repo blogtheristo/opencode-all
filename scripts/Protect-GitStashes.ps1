@@ -124,8 +124,10 @@ try {
 
     # -- 1. Stop git expiring stash reflogs ---------------------------------
     foreach ($pat in @('refs/stash', 'refs/stash-archive/*')) {
-        git config "gc.$pat.reflogExpire" never
-        git config "gc.$pat.reflogExpireUnreachable" never
+        git config "gc.`"$pat`".reflogExpire" never
+        if ($LASTEXITCODE -ne 0) { throw "git config reflogExpire failed for pattern: $pat" }
+        git config "gc.`"$pat`".reflogExpireUnreachable" never
+        if ($LASTEXITCODE -ne 0) { throw "git config reflogExpireUnreachable failed for pattern: $pat" }
     }
     Write-Ok "reflog expiry disabled for refs/stash and refs/stash-archive/*"
 
