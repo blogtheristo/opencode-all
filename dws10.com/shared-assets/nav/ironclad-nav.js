@@ -578,8 +578,8 @@
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}careers/">Careers</a></li>
                                 <li><a href="${contentBase}partners/">Partners</a></li>
-                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
-                                <li><a href="${contentBase}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
+                                <li><a href="${contentBase}investor-centre/captain/" style="color: #d4a843; font-weight: 600;">Captain</a></li>
+                                <li><a href="${contentBase}investor-centre/admiral/" style="color: #d4a843; font-weight: 600;">Admiral</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${contentBase}investor-centre/">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/">Press Releases</a></li>
@@ -707,8 +707,8 @@
                                 <li><a href="${contentBase}investor-centre/" class="ironclad-primary">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${contentBase}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
-                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
+                                <li><a href="${contentBase}investor-centre/admiral/" style="color: #ffd700; font-weight: 700;">⚓ Admiral</a></li>
+                                <li><a href="${contentBase}investor-centre/captain/" style="color: #d4a843; font-weight: 600;">Captain</a></li>
                                 <li><a href="${regulatoryNoticeHref}">Regulatory Notice</a></li>
                             </ul>
                         </li>
