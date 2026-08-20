@@ -554,6 +554,7 @@ or removing an agent.
 | `mnemosyne`                | Long-term memory oracle                           |
 | `panacea`                  | Self-improving / adaptive optimization            |
 | `quality-gate`             | Quality-gate / QA verification                    |
+| `hic-content-audit` | HicContentAuditAgent | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver | Llama 3.3 70B |
 | `version-audit` | VersionAuditAgent | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance  | Llama 3.3 70B |
 | `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
 | `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
