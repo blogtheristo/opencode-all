@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
 
+- Version: 2.9 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: **Extended §15.1 to the eight-field Business Case card** — the source and claim map becomes a mandatory eighth field per the production plan annex `docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md` §6: every claim classified (public source, company data, DWS analysis, hypothesis) and linked to evidence before writing. §15 now registers the DWS Content Production Standard (`DWS_CONTENT_PRODUCTION_STANDARD.md`) as the governing internal standard and the binary HIC pre-publication audit (13 points, APPROVED/CORRECTABLE, no exceptions; HIC remains the final responsible approver) per `DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`. Protected argumentation structure added to §15.4 (limitation → effect on decision → management measure → residual uncertainty → possible demo).
 - Version: 2.8 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 20.08.2026 | Changes: **Registered §15 (Lifetime Studios — Production Engine).** The 800-story system is now governed by the 25 × 5 content matrix (125 core topics) as individual Business Case cards with seven mandatory fields (industry+buyer, compliance situation, financial consequence, product, demo workflow, acceptance criterion, next step), cross-industry learning, five-language localization (≈4,000 versions), and the Outokumpu-model journalistic ground rules. Cross-reference: `docs/LIFETIME_STUDIOS_ADMIN.md`. Checklist §9 gains a card-distinctness check (prevent duplicate stories). Added the auto blog-index updater `scripts/update-blog-index.mjs` (idempotent, adds only posts ≥ newest listed date) to the tooling references.
 
 - Version: 2.7 | Tool: Claude Code (claude-opus-5) | Session: claude/ollama-orchestration-merge-047pj7 | Date: 27.07.2026 | Changes: **Made HIC review of blog text an absolute requirement (§3.3, new).** The HIC had asked many times to review blog entries as a copy-paste block before publication and it kept not happening — sessions published with nothing shown, drafted posts that were never published, or surfaced an audit summary instead of the words. Now a precondition, not a courtesy: `.claude/hooks/blog-draft-gate.sh` (PreToolUse, Edit|Write) blocks writes to `*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists and reads `Status: APPROVED`; `/blog-draft` is the loop (full text → ONE fenced code block → stop and ask → revise → explicit approval → publish); `session-stop.sh` back-stops by flagging published posts with no approved draft **and** drafts parked in `Status: DRAFT`. Escalated to **CLAUDE.md Non-Negotiable Rule 13** and mirrored to `GEMINI.md`, `.claude/hooks/session-start.sh` (surfaced every session), `/lsj-publish`, `scripts/weekly/lsj-publish-draft.sh` (cron drafts, never publishes), the hooks README and `docs/DWS_SKILLS_GUIDE.md` §6.5. Also registered §3.2.1 (mandatory AI-content label on machine-translated variants, EU AI Act Art. 50(4)) and §3.2 (multi-language convention). Limits stated rather than implied: a hook cannot verify a human read anything; generators and cron bypass it; hooks arm at session start, so the gate is inert in the session that adds it.
@@ -785,7 +786,7 @@ Ad placements are clearly labelled ("Sponsored by" / "Partner Content"). Paid ad
 
 The ad-hoc per-post workflow is governed by the systematic production engine documented in `docs/LIFETIME_STUDIOS_ADMIN.md`. Posts are produced from the 25 × 5 content matrix (125 core topics) as individual **Business Case cards**, not generic compliance articles.
 
-### 15.1 Business Case Card — Seven Mandatory Fields
+### 15.1 Business Case Card — Eight Mandatory Fields
 
 Every matrix row fixes exactly these fields before writing begins:
 
@@ -796,8 +797,9 @@ Every matrix row fixes exactly these fields before writing begins:
 5. One demo workflow
 6. One acceptance criterion or measurable outcome
 7. One next step: demo, discovery, or paid pilot
+8. **Source and claim map** — every claim classified (public source, company data, DWS analysis, hypothesis) and linked to evidence; binds the journalistic gate to the demo
 
-Example: "A stainless-steel producer, group compliance lead, installation-level emissions evidence missing from the CBAM and procurement chain, Aegis/AASS produces a traceable evidence packet, demo shows 304L/Tornio data handling and ERP transfer, next step is a 30-day paid pilot."
+The eighth field is the DWS Content Production Standard requirement that separates sourced research from marketing text; the full standard and its governing rules live in `DWS_CONTENT_PRODUCTION_STANDARD.md`, and the card structure in eight fields is detailed in the production-plan annex `docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md` §6. Example: "A stainless-steel producer, group compliance lead, installation-level emissions evidence missing from the CBAM and procurement chain, Aegis/AASS produces a traceable evidence packet, demo shows 304L/Tornio data handling and ERP transfer, next step is a 30-day paid pilot."
 
 ### 15.2 Cross-Industry Learning
 
@@ -810,6 +812,10 @@ Each flagship story is localized into five languages (FI/SV/DE/FR/EN); the same 
 ### 15.4 Journalistic Ground Rules (Outokumpu Model)
 
 Company-specific Business Cases are journalistic research: public sources only, sourced facts separated from analysis and hypotheses, no claims of law-breaking without public evidence, comment opportunity before publication, no implication of endorsement or customer relationship. Full line: `docs/LIFETIME_STUDIOS_ADMIN.md` §6.
+
+**Protected argumentation.** Every publication follows the standard structure: surface the limitation → open the effect on the decision → show the management measure → bound the residual uncertainty → offer the demo only as a natural continuation. Editorial principles: do not hide the limitation, do not exaggerate it, show how it is managed.
+
+**HIC pre-publication gate.** No material is published, localized for release, distributed, or fed into the ontology/World Model before the binary HIC audit passes: 13 checks, APPROVED only if all pass, otherwise CORRECTABLE with listed defects, no exceptions. HIC remains the final responsible approver; the agent never approves its own output. Checklist: `DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`.
 
 ### 15.5 Tooling
 

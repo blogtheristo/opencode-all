@@ -3,14 +3,15 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 2026-08-21 | Changes: Registered the DWS Content Production Standard as the governing internal standard and the production plan as the BLOG_STANDARD annex. The Business Case card is extended with the eighth mandatory field — source and claim map (every claim classified: public source, company data, DWS analysis or hypothesis, linked to evidence) — per `docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md` §6. Publication is gated by the binary HIC pre-publication audit (13 points, APPROVED/CORRECTABLE, no exceptions; HIC remains the final responsible approver) per `DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`. Protected argumentation is the required editorial structure: limitation → effect on decision → management measure → residual uncertainty → possible demo. Daily production rhythm: 4 flagship stories, 20 language versions, 4 LinkedIn + 4 Facebook long-tail versions.
   - Version: 1.0 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 2026-08-20 | Changes: Initial admin manual for Lifetime Studios — the content production machine that turns a single research topic into a complete expertise-and-sales package. Defines the 25 × 5 content matrix (125 core topics), the 800 flagship-story architecture, the Business Case card format, cross-industry learning, the ontology/graph/LWM self-reinforcing product model, and journalistic ground rules (Outokumpu model). Supersedes the ad-hoc 800-day production approach documented in `docs/field-notes/2026-04-19-lifetime-scope-journal-media-layer-strategy.md` for the *production engine* while keeping that note's distribution mechanics (LinkedIn newsletter, KPI targets).
 
 Document Status:
   - Created: 2026-08-20
-  - Last Modified: 2026-08-20
+  - Last Modified: 2026-08-21
   - Language: English (FI mirror terms where relevant)
   - Publication Status: ACTIVE (internal admin manual — private; public surface is onelifetime.world only)
 

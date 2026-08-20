@@ -13,10 +13,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.12
+Version: 1.13
 
 Sessions & Modifications:
 
+- Version: 1.13 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: §9 Myyntiperiaate 6 ("Todisteet ensin") — lisätty viittaus Lifetime Studiosin sisältö- ja tuotantostandardiin (DWS Content Production Standard): toisto rakentaa muistijäljen, evidenssi ansaitsee luottamuksen; sisältöjohtoisen myynnin 40-kosketuspisteen malli (erilaiset muodot, ei identtistä kopiointia) ja suojatun argumentaation rajoite-kehys. Liite B: lisätty `DWS_CONTENT_PRODUCTION_STANDARD.md`, `DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`, `docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md` ja `docs/LIFETIME_STUDIOS_ADMIN.md` konsultin tärkeimpien tiedostojen luetteloon. Liite C: lisätty termit Lifetime Studios, DWS Content Production Standard, suojattu argumentaatio, lähde- ja väitekartta, illusory truth effect.
 - Version: 1.12 | Tool: Claude Code (Opus 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: §2.1 ajuri 1 (Kyvykkyydet & Orkestrointi) — lisätty kaksi HIC:n hyväksymää lausetta ennen mittaritaulukkoa: **Kapasiteetti** (määrällinen: 58 agenttia, 3 avointa mallia, 3 frontier-mallia, 88 kyvykkyyttä, 2 Lifetime World Modelia, 25 toimialaontologiaa) ja **Arvonluonti** (ei määriä; päättyy päätösvallan säilymiseen ihmisellä, EU AI Act 14 artikla). ”Zero rekrytointiviive” siirretty pääväitteestä avatuksi alaviitteeksi ja sidottu Keskeytyslaskurin todelliseen muuttujaan (`recruitmentMonths: 6` avainhenkilön lähtiessä, 0 lyhyessä katkossa — `lifetime.fi/laskuri`). Järjestys ja painotus Boardyn ohjeen mukaan (määrällinen kapasiteetti ensin, sitten arvonluonti, sitten päätösvalta). Uudet luvut rekisteröity `DWS_TRUTH_STANDARD.md` riviin 36 (v4.7).
 - Version: 1.11 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: §2.1/§2.2 content ("Arvonluonnin ajurit" — six commercial dimensions + academic value creation) published externally as a 5-language blog post (EN/FI/SV/DE/FR) at `onelifetime.world/posts/arvonluonnin-ajurit-2026*.html`, registered in `docs/BLOG_STANDARD.md` §3 (posts #49–53). Added cross-reference at the end of §2.2 pointing to the live post. No handbook content changed beyond the pointer — §2.1/§2.2 substance unchanged since v1.10.
 - Version: 1.10 | Tool: Claude Code (Haiku 4.5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 05.08.2026 | Changes: Lisätty §2.2 "Akateeminen Arvonluonti — Tieteellinen Vaikuttavuus & Tutkimuskatkos". Uusi osio dokumentoi Risto Anton Päärnen johtaman LUT-tutkimuskaaren neljä kriittistä tutkimuskysymystä: suvereenit AI-arkkitektuurit, luottamus & delegointi, turvallisuus vs. suorituskyky, luotettavat reunalaskenta-järjestelmät. Dokumentoitu institutionaaliset kumppanuudet (LUT, KTH TECoSA, Metropolia YAMK). Perustettu akateemisen ja kaupallisen toiminnan hallinnollinen eristys: tutkimus → avoin tieteellinen edistyminen, kauppa → tuotekehitys ja konsultointi (erillinen IP-omistus). Aikakausi 2026–2029, vaikuttavuus EU AI Act -politiikkaan ja tekniseen standardointiin.
@@ -44,7 +45,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 28.06.2026
-- Last Modified: 02.07.2026
+- Last Modified: 21.08.2026
 - Language: Finnish / English (bilingual)
 - Previous version: Konsultoinnin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
 - Publication Status: DRAFT — review before distribution
@@ -871,6 +872,7 @@ Kuuntelun vaikeus on myyntityön suurin haaste. Konsultin on kuunneltava jokaist
 4. **Diagonal win:** Jokaisen roolin voitto sytyttää jonkun toisen voiton.
 5. **Julkaistu hinta:** Buffet-periaate — sama hinta kaikille.
 6. **Ei "disruption"-kieltä:** Pohjoismainen vaatimattomuus. Todisteet ensin.
+7. **Sisältö tekee työn (Lifetime Studios):** Toisto rakentaa muistijäljen, evidenssi ansaitsee luottamuksen. Jokainen myyntiä edeltävä sisältö noudattaa DWS Content Production Standardia — suojattu argumentaatio (rajoite → vaikutus → hallintakeino → jäännösepävarmuus → demo) pitää journalistisen uskottavuuden ja kaupallisen arvon samassa paketissa. Toisto jakelee saman varmennetun ydinväitteen eri muodoissa (~40 kosketuspistettä), ei kopioi samaa tekstiä.
 
 ### Signaaliperusteiset triggerit
 
@@ -1122,6 +1124,10 @@ Lifetime Oy:n alihankkijaverkosto kattaa 50+ asiantuntijayritystä, kumppanuudet
 - **`AI_AGENT_GUIDELINES.md`** — Agenttien kehittämisen ohjeet
 - **`Legal/KYA_STANDARD_v1.md`** — KYA-agenttihallintakehys
 - **`INDUSTRIES.md`** — 25 toimialan kanoninen rekisteri
+- **`DWS_CONTENT_PRODUCTION_STANDARD.md`** — Sisäinen sisällöntuotannon ohjausstandardi: lähde- ja väitekartta, suojattu argumentaatio, HIC-hyväksyntä, lokalisointi, ontologiafeedback
+- **`DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`** — HIC-julkaisuportin tarkistuslista (13 kohtaa, binäärinen APPROVED/CORRECTABLE)
+- **`docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md`** — Lifetime Studios -tuotantosuunnitelma (800 kantajuttua 200 päivässä, 125 ydinkorttia)
+- **`docs/LIFETIME_STUDIOS_ADMIN.md`** — Lifetime Studiosin ylläpito- ja tuotantokäytännöt
 
 ### Liite C: Sanasto
 
@@ -1142,6 +1148,11 @@ Lifetime Oy:n alihankkijaverkosto kattaa 50+ asiantuntijayritystä, kumppanuudet
 - **Signaalimyynti** — Outreach vain todellisilla signaaleilla
 - **Buffet-periaate** — Julkaistu hinta, sama kaikille
 - **Diagonal win** — Jokaisen roolin voitto sytyttää toisen voiton
+- **Lifetime Studios** — Lifetime Oy:n sisällöntuotantokone: 25 × 5 -sisältömatriisi (125 ydinkorttia) ja 800 kantajuttua viiteen kieleen
+- **DWS Content Production Standard** — Sisäinen standardi, joka erottaa DWS-sisällön tavallisesta markkinointisisällöstä: jokainen julkaisu on lähteistetty tutkimus- ja myyntifunnelin rakennusosa
+- **Suojattu argumentaatio** — Rajoite → vaikutus päätökseen → hallintakeino → jäännösepävarmuus → mahdollinen demo
+- **Lähde- ja väitekartta** — Jokaisen väitteen luokittelu (julkinen lähde, yrityksen data, DWS-analyysi, hypoteesi) ja sidos todisteisiin
+- **Illusory truth effect** — Toiston muistijälkivaikutus: toisto rakentaa muistijäljen, evidenssi ansaitsee luottamuksen
 
 ---
 
