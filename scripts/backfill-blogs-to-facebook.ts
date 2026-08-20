@@ -1,20 +1,28 @@
 #!/usr/bin/env npx tsx
 /**
- * Blog → Facebook Page Backfill
+ * Blog → Facebook Page pool scheduler
  *
- * Sends every published blog post on onelifetime.world to the configured
- * Facebook Page, using the shared facebook-publisher transport.
+ * Posts blog entries to the Lifetime Group Facebook page at a steady rate so
+ * all entries fit within the Page token's validity window (60 days by default).
+ *
+ * Pool design:
+ *   - All published blog posts are sorted newest-first.
+ *   - Each run posts up to N posts (default = ceil(pending / daysLeft)) so the
+ *     whole pool drains within the token window.
+ *   - A state file tracks which posts were already published (idempotent).
+ *
+ * State:  config/blog-facebook-pool.json  (gitignored — no secrets, but keeps
+ *         the publish log local; content is only slugs/URLs/timestamps).
  *
  * Usage:
- *   FACEBOOK_PAGE_ID=133022958190 FACEBOOK_PAGE_TOKEN=<token> \
- *     npx tsx scripts/backfill-blogs-to-facebook.ts
+ *   npx tsx scripts/backfill-blogs-to-facebook.ts            # normal run
+ *   npx tsx scripts/backfill-blogs-to-facebook.ts --dry-run  # preview only
+ *   npx tsx scripts/backfill-blogs-to-facebook.ts --limit 5  # cap posts this run
+ *   npx tsx scripts/backfill-blogs-to-facebook.ts --reset    # ignore prior state
+ *   npx tsx scripts/backfill-blogs-to-facebook.ts --plan     # print schedule only
  *
- * Optional flags:
- *   --dry-run    Print what would be posted without posting
- *   --limit N    Only process N posts (for testing)
- *   --since DATE Only posts newer than ISO date (e.g. 2026-01-01)
- *   --post ID    Only post the specific blog slug
- *   --reverse    Oldest first (default newest first)
+ * Env (from .env):
+ *   FACEBOOK_PAGE_ID, FACEBOOK_PAGE_TOKEN
  */
 
 import fs from 'node:fs';
@@ -23,6 +31,9 @@ import { publishToFacebook, isFacebookConfigured } from '../src/social-scheduler
 
 const POSTS_DIR = path.join(process.cwd(), 'onelifetime.world', 'posts');
 const SITE_URL = 'https://onelifetime.world/posts/';
+const STATE_FILE = path.join(process.cwd(), 'config', 'blog-facebook-pool.json');
+const TOKEN_DAYS = 60;
+const MIN_INTERVAL_MS = 15_000; // polite 15s between posts
 
 interface BlogPost {
   slug: string;
@@ -30,7 +41,13 @@ interface BlogPost {
   title: string;
   description: string;
   image: string | null;
-  sourceHtml: string;
+  /** Blog classification: 1 = serious (posted to FB/LSJ), 2 = not posted. */
+  cls: number;
+}
+
+interface PoolState {
+  published: Array<{ slug: string; url: string; publishedAt: string; postId?: string }>;
+  windowExpiresAt: string;
 }
 
 function extractOg(html: string, property: string): string | null {
@@ -64,22 +81,33 @@ function collectBlogPosts(): BlogPost[] {
     if (isDraftSlug(slug)) continue;
 
     const html = fs.readFileSync(file, 'utf8');
-    const title = extractOg(html, 'title') ?? extractTitle(html);
+    const title = extractOg(html, 'title') ?? html.match(/<title>([^<]*)<\/title>/i)?.[1]?.trim();
     const description = extractOg(html, 'description');
     const url = extractOg(html, 'url') ?? `${SITE_URL}${rel}`;
     const image = extractOg(html, 'image');
+    const cls = parseInt(html.match(/article:class" content="([12])"/)?.[1] ?? '2', 10);
 
     if (!title) continue;
-
-    posts.push({ slug, url, title, description: description ?? '', image, sourceHtml: html });
+    posts.push({ slug, url, title, description: description ?? '', image, cls });
   }
 
   return posts;
 }
 
-function extractTitle(html: string): string | null {
-  const m = html.match(/<title>([^<]*)<\/title>/i);
-  return m ? m[1].trim() : null;
+function loadState(): PoolState {
+  if (fs.existsSync(STATE_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')) as PoolState;
+    } catch {
+      /* fall through to fresh state */
+    }
+  }
+  return { published: [], windowExpiresAt: new Date(Date.now() + TOKEN_DAYS * 86400_000).toISOString() };
+}
+
+function saveState(state: PoolState) {
+  fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true });
+  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2) + '\n', 'utf8');
 }
 
 function buildPostContent(p: BlogPost): string {
@@ -90,58 +118,58 @@ function buildPostContent(p: BlogPost): string {
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
-  const reverse = args.includes('--reverse');
+  const planOnly = args.includes('--plan');
+  const reset = args.includes('--reset');
 
   let limit: number | null = null;
-  let since: string | null = null;
-  let onlySlug: string | null = null;
-
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--limit') limit = parseInt(args[i + 1] ?? '', 10);
-    if (args[i] === '--since') since = args[i + 1] ?? null;
-    if (args[i] === '--post') onlySlug = args[i + 1] ?? null;
   }
 
-  if (!dryRun && !isFacebookConfigured()) {
+  if (!dryRun && !planOnly && !isFacebookConfigured()) {
     console.error('ERROR: FACEBOOK_PAGE_ID / FACEBOOK_PAGE_TOKEN not set.');
-    console.error('Set them or run with --dry-run to preview.');
     process.exit(1);
   }
 
-  let posts = collectBlogPosts();
-  if (onlySlug) {
-    posts = posts.filter((p) => p.slug === onlySlug || p.slug.endsWith(`/${onlySlug}`) || p.slug === `${onlySlug}.html`);
-  }
-  if (since) {
-    const sinceTs = Date.parse(since);
-    posts = posts.filter((p) => {
-      const ts = fs.statSync(path.join(POSTS_DIR, `${p.slug}.html`)).mtimeMs;
-      return ts >= sinceTs;
-    });
-  }
-  posts.sort((a, b) => {
+  let state = reset ? { published: [], windowExpiresAt: new Date(Date.now() + TOKEN_DAYS * 86400_000).toISOString() } : loadState();
+
+  const posts = collectBlogPosts();
+  const bySlug = new Map(posts.map((p) => [p.slug, p]));
+  const publishedSlugs = new Set(state.published.map((p) => p.slug));
+  // Only class 1 (serious) posts go to the Facebook page / LSJ LinkedIn.
+  const pending = posts.filter((p) => !publishedSlugs.has(p.slug) && p.cls === 1);
+
+  // Sort newest-first by mtime of the source HTML
+  pending.sort((a, b) => {
     const ta = fs.statSync(path.join(POSTS_DIR, `${a.slug}.html`)).mtimeMs;
     const tb = fs.statSync(path.join(POSTS_DIR, `${b.slug}.html`)).mtimeMs;
-    return reverse ? ta - tb : tb - ta;
+    return tb - ta;
   });
-  if (limit && limit > 0) posts = posts.slice(0, limit);
 
-  console.log(`Blog posts found: ${posts.length}`);
-  console.log(`Mode: ${dryRun ? 'DRY RUN (nothing posted)' : 'LIVE'}\n`);
+  const now = Date.now();
+  const daysLeft = Math.max(1, Math.ceil((Date.parse(state.windowExpiresAt) - now) / 86400_000));
+  let perRun = Math.ceil(pending.length / daysLeft);
+  if (limit && limit > 0) perRun = Math.min(perRun, limit);
+
+  console.log(`Pool: ${pending.length} pending / ${daysLeft} days left → ${perRun} per run`);
+  console.log(`Window expires: ${state.windowExpiresAt}`);
+  console.log(`Mode: ${dryRun ? 'DRY RUN' : planOnly ? 'PLAN' : 'LIVE'}\n`);
+
+  const batch = pending.slice(0, perRun);
+
+  if (planOnly || dryRun) {
+    for (const p of batch) {
+      console.log(`  - ${p.slug}\n    ${p.title}\n    ${p.url}`);
+    }
+    console.log(`\nNext run would post ${batch.length}. Remaining after: ${pending.length - batch.length}.`);
+    return;
+  }
 
   let ok = 0;
   let failed = 0;
-
-  for (const p of posts) {
+  for (const p of batch) {
     const content = buildPostContent(p);
-    console.log(`- [${p.slug}]`);
-    console.log(`  ${p.title}`);
-    console.log(`  ${p.url}`);
-
-    if (dryRun) {
-      ok++;
-      continue;
-    }
+    console.log(`- ${p.slug}`);
 
     const result = await publishToFacebook({
       id: `blog-${p.slug}`,
@@ -151,25 +179,31 @@ async function main(): Promise<void> {
       content,
       image_url: p.image,
       scheduled_at: null,
-      source: 'blog-backfill',
+      source: 'blog-pool',
       approval_notes: null,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     });
 
     if (result.success) {
-      console.log(`  ✓ published: ${result.postUrl ?? result.postId}`);
+      console.log(`  ✓ ${result.postUrl ?? result.postId}`);
+      state.published.push({
+        slug: p.slug,
+        url: p.url,
+        publishedAt: new Date().toISOString(),
+        postId: result.postId,
+      });
+      saveState(state);
       ok++;
     } else {
       console.error(`  ✗ FAILED: ${result.error}`);
       failed++;
     }
 
-    // Be polite to Graph API rate limits
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, MIN_INTERVAL_MS));
   }
 
-  console.log(`\nDone. OK=${ok} Failed=${failed}`);
+  console.log(`\nDone. OK=${ok} Failed=${failed} Published total=${state.published.length}/${posts.length}`);
   if (failed > 0) process.exitCode = 1;
 }
 
