@@ -1,7 +1,7 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
-  "version": "1.0",
-  "updated": "2026-08-03",
+  "version": "1.1",
+  "updated": "2026-08-20",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
     {
@@ -27,143 +27,132 @@
     {
       "id": "chromebook-antigravity",
       "label": "Chromebook/Antigravity"
+    },
+    {
+      "id": "opencode-cli",
+      "label": "OpenCode CLI"
     }
   ],
   "profiles": {
     "slash-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "slash-command",
-        "local-tools"
-      ],
+      "transport": ["slash-command", "local-tools"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": true
       },
-      "note": "Repo-local slash command. Available in Claude Code CLI only."
+      "note": "Repo-local slash command. Available in Claude Code CLI and OpenCode CLI (.opencode/command/, generated)."
     },
     "slash-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": [
-        "slash-command",
-        "local-tools"
-      ],
+      "transport": ["slash-command", "local-tools"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": true
       },
       "note": "Internal automation. Pending HIL cross-surface verification."
     },
     "slash-dgx": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "slash-command",
-        "dgx-ssh"
-      ],
+      "transport": ["slash-command", "dgx-ssh"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": false
       },
-      "note": "Requires DGX Spark connectivity from Claude Code CLI."
+      "note": "Requires DGX Spark connectivity from Claude Code CLI. Claude-only: OpenCode already runs against the DGX tunnel directly, this command stays Claude-side to avoid a double-hop."
     },
     "slash-admin-antigravity": {
       "status": "active",
       "visibility": "admin-only",
-      "transport": [
-        "slash-command",
-        "gcloud",
-        "antigravity"
-      ],
+      "transport": ["slash-command", "gcloud", "antigravity"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": true
+        "chromebook-antigravity": true,
+        "opencode-cli": false
       },
-      "note": "Google admin@dws6.com environment tweaks only."
+      "note": "Google admin@dws6.com environment tweaks only. Claude-only."
     },
     "slash-deferred": {
       "status": "deferred",
       "visibility": "internal",
-      "transport": [
-        "slash-command"
-      ],
+      "transport": ["slash-command"],
       "surfaceSupport": {
         "win11-claude-cli": false,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": false
       },
       "note": "Skill spec exists, but the implementation/exposure path is not shipped."
     },
     "skill-pack-cli": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "skill-pack",
-        "local-files"
-      ],
+      "transport": ["skill-pack", "local-files"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": true
       },
-      "note": "Repo-local skill pack loaded by Claude Code in this repository."
+      "note": "Repo-local skill pack (plain markdown), readable directly by Claude Code or OpenCode in this repository."
     },
     "skill-pack-experimental": {
       "status": "experimental",
       "visibility": "internal",
-      "transport": [
-        "skill-pack",
-        "local-files"
-      ],
+      "transport": ["skill-pack", "local-files"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": true
       },
       "note": "Internal automation. Pending HIL cross-surface verification."
     },
     "discipline-gate": {
       "status": "active",
       "visibility": "internal",
-      "transport": [
-        "discipline-gate"
-      ],
+      "transport": ["discipline-gate"],
       "surfaceSupport": {
         "win11-claude-cli": true,
         "claude-desktop": false,
         "claude-ai-web": false,
         "claude-mobile-ios": false,
         "claude-mobile-android": false,
-        "chromebook-antigravity": false
+        "chromebook-antigravity": false,
+        "opencode-cli": true
       },
-      "note": "Repo-local hard gate enforced in Claude Code contexts."
+      "note": "Repo-local hard gate; the rule text (skills/<gate>/SKILL.md) is readable and enforceable in Claude Code or OpenCode contexts."
     }
   },
   "entries": [
