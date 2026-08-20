@@ -36,5 +36,15 @@
     "envVar": "META_PIXEL_ID",
     "middleware": "dws10.com/functions/_middleware.js",
     "status": "Luotu. Injektoidaan Cloudflare Pages -middlewarella."
+  },
+  "facebookApp": {
+    "name": "DWS IQ Store",
+    "appId": "2072010777010042",
+    "email": "risto.paarni@lifetime.fi",
+    "business": "Lifetime Group (unverified)",
+    "useCases": ["Threads API", "+1 use case"],
+    "threadsAppId": "2219408585458484",
+    "threadsDisplayName": "DWS IQ Store",
+    "purpose": "Page Access Token -haku blogijulkaisujen viemiseksi Lifetime Group -Facebook-sivulle (pages_manage_posts)"
   }
 }
