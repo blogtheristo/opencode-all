@@ -214,15 +214,20 @@ function splitFrontmatter(source) {
   return { frontmatter, body };
 }
 
+function yamlQuote(value) {
+  return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+}
+
 function buildOpenCodeCommand(entry) {
   const source = readFileSync(path.join(ROOT, entry.commandFile), 'utf8');
   const { frontmatter, body } = splitFrontmatter(source);
   const description = frontmatter.description ?? `${entry.name} (see ${entry.commandFile})`;
   return [
+    '---',
+    `description: ${yamlQuote(description)}`,
+    '---',
+    '',
     OPENCODE_GENERATED_HEADER,
-    '---',
-    `description: ${description}`,
-    '---',
     '',
     body.trimStart(),
   ].join('\n');
