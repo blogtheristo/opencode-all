@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
+
+- Version: 2.8 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 20.08.2026 | Changes: **Registered §15 (Lifetime Studios — Production Engine).** The 800-story system is now governed by the 25 × 5 content matrix (125 core topics) as individual Business Case cards with seven mandatory fields (industry+buyer, compliance situation, financial consequence, product, demo workflow, acceptance criterion, next step), cross-industry learning, five-language localization (≈4,000 versions), and the Outokumpu-model journalistic ground rules. Cross-reference: `docs/LIFETIME_STUDIOS_ADMIN.md`. Checklist §9 gains a card-distinctness check (prevent duplicate stories). Added the auto blog-index updater `scripts/update-blog-index.mjs` (idempotent, adds only posts ≥ newest listed date) to the tooling references.
 
 - Version: 2.7 | Tool: Claude Code (claude-opus-5) | Session: claude/ollama-orchestration-merge-047pj7 | Date: 27.07.2026 | Changes: **Made HIC review of blog text an absolute requirement (§3.3, new).** The HIC had asked many times to review blog entries as a copy-paste block before publication and it kept not happening — sessions published with nothing shown, drafted posts that were never published, or surfaced an audit summary instead of the words. Now a precondition, not a courtesy: `.claude/hooks/blog-draft-gate.sh` (PreToolUse, Edit|Write) blocks writes to `*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists and reads `Status: APPROVED`; `/blog-draft` is the loop (full text → ONE fenced code block → stop and ask → revise → explicit approval → publish); `session-stop.sh` back-stops by flagging published posts with no approved draft **and** drafts parked in `Status: DRAFT`. Escalated to **CLAUDE.md Non-Negotiable Rule 13** and mirrored to `GEMINI.md`, `.claude/hooks/session-start.sh` (surfaced every session), `/lsj-publish`, `scripts/weekly/lsj-publish-draft.sh` (cron drafts, never publishes), the hooks README and `docs/DWS_SKILLS_GUIDE.md` §6.5. Also registered §3.2.1 (mandatory AI-content label on machine-translated variants, EU AI Act Art. 50(4)) and §3.2 (multi-language convention). Limits stated rather than implied: a hook cannot verify a human read anything; generators and cron bypass it; hooks arm at session start, so the gate is inert in the session that adds it.
 - Version: 2.6 | Tool: Claude Code | Session: claude/eda-dws-iq-business-case-jm7p3g | Date: 17.07.2026 | Changes: Registered post #42 (`ai-supercomputing-meets-eda-sovereign-design.html`) — NVIDIA partner note extending the "sovereign edge is still a box" DGX Spark series (#32/#33/#34/#41) to Electronic Design Automation. Written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version): NVIDIA's "AI Supercomputing Meets EDA — from tools to agents" thesis (Timothy Costa) as the gift; the honest limit that RTL/netlists/foundry PDKs cannot leave the design perimeter (NDA + export control), so agentic EDA only ships on a customer-owned box. Companion to `docs/DGX_SPARK_4X_EDA_BUSINESS_CASE.md`. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector; reverted its unrelated re-stamp of 26 older posts' product-card copy to keep the change scoped to the new post and its prev-neighbour's (#41 Halos) nav link. Dual-folder synced to `landing-pages/onelifetime-world/`. Byline uses the correct "Risto Anton Päärni" umlaut spelling per CLAUDE.md Sender Identity (older posts carry the ASCII "Paarni" bug).
@@ -65,6 +67,7 @@ Document Status:
 12. [Editor-in-Chief Voice (Seth Godin House Style)](#12-editor-in-chief-voice-seth-godin-house-style)
 13. [Reader Polls](#13-reader-polls)
 14. [Ads & Sponsorship Slots](#14-ads--sponsorship-slots)
+15. [Lifetime Studios — Production Engine](#15-lifetime-studios--production-engine-systematic-800-story-system)
 
 ---
 
@@ -516,6 +519,7 @@ The script is located at `scripts/inject-blog-nav.cjs` and:
 - [ ] Commit source + landing-pages copy in SAME commit
 - [ ] Update this registry table (§3)
 - [ ] Never create posts as `.md` files (CLAUDE.md rule)
+- [ ] Verify the post's Business Case card fields (§15) are distinct from already-shipped stories
 
 ---
 
@@ -774,6 +778,47 @@ All prices EUR, B2B, VAT 0 % (EU reverse charge). Invoiced by Lifetime Oy, VAT F
 ### 14.5 Editorial policy
 
 Ad placements are clearly labelled ("Sponsored by" / "Partner Content"). Paid ads do not influence editorial content. The editor-in-chief approves all partners before activation.
+
+---
+
+## 15. Lifetime Studios — Production Engine (Systematic 800-Story System)
+
+The ad-hoc per-post workflow is governed by the systematic production engine documented in `docs/LIFETIME_STUDIOS_ADMIN.md`. Posts are produced from the 25 × 5 content matrix (125 core topics) as individual **Business Case cards**, not generic compliance articles.
+
+### 15.1 Business Case Card — Seven Mandatory Fields
+
+Every matrix row fixes exactly these fields before writing begins:
+
+1. One industry and one enterprise buyer
+2. One precise compliance situation
+3. One visible financial or operational consequence
+4. One DWS IQ product or technology solving the bounded problem
+5. One demo workflow
+6. One acceptance criterion or measurable outcome
+7. One next step: demo, discovery, or paid pilot
+
+Example: "A stainless-steel producer, group compliance lead, installation-level emissions evidence missing from the CBAM and procurement chain, Aegis/AASS produces a traceable evidence packet, demo shows 304L/Tornio data handling and ERP transfer, next step is a 30-day paid pilot."
+
+### 15.2 Cross-Industry Learning
+
+25 industries are built on the cross-learning model: the story shows what must be solved in the reader's own industry, how another industry solved a comparable problem, and what applies in their company. Every story ends with a CxO-level question, not a hard sell.
+
+### 15.3 Localization
+
+Each flagship story is localized into five languages (FI/SV/DE/FR/EN); the same structure is transformed into a blog post, a LinkedIn post, and a Facebook long-tail text. Target: 800 flagship stories → ≈4,000 language versions.
+
+### 15.4 Journalistic Ground Rules (Outokumpu Model)
+
+Company-specific Business Cases are journalistic research: public sources only, sourced facts separated from analysis and hypotheses, no claims of law-breaking without public evidence, comment opportunity before publication, no implication of endorsement or customer relationship. Full line: `docs/LIFETIME_STUDIOS_ADMIN.md` §6.
+
+### 15.5 Tooling
+
+| Tool | Purpose |
+| ---- | ------- |
+| `scripts/update-blog-index.mjs` | Automated `latestPosts` update in `blog/index.html` — adds only posts dated ≥ the list's newest date (preserves curation), idempotent, `--dry-run` support |
+| `scripts/inject-blog-nav.cjs` | Prev/next nav + share + product-card injection |
+| `scripts/backfill-blogs-to-facebook.ts` | Class 1 social pool: fi → Facebook, en → LinkedIn |
+| `src/social-scheduler/publisher.ts` | LinkedIn personal-channel publisher (`/v2/ugcPosts`) |
 
 ---
 

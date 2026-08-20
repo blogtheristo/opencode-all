@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-jarjestelmaan — Lifetime Scope Journal</title>
-    <meta name="description" content="Tekninen opas Model Context Protocol -standardista. Kuinka MCP mahdollistaa tekoalyagenttien turvallisen yhteyden SAP:hen, IFS:ään ja muihin ERP-jarjestelmiin.">
+    <title>MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-järjestelmään — Lifetime Scope Journal</title>
+    <meta name="description" content="Tekninen opas Model Context Protocol -standardista. Kuinka MCP mahdollistaa tekoalyagenttien turvallisen yhteyden SAP:hen, IFS:ään ja muihin ERP-järjestelmiin.">
     <meta name="author" content="Risto Anton">
-    <meta property="og:title" content="MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-jarjestelmaan">
+    <meta property="og:title" content="MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-järjestelmään">
     <meta property="og:description" content="Tekninen opas MCP-standardista ja ERP-integraatiosta.">
     <meta property="og:type" content="article">
     <meta property="article:class" content="2">
@@ -21,7 +21,7 @@
 
     <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/fi__day-010-mcp-protokolla-tekoaly-erp-yhteys.png" />
 
-    <meta name="twitter:title" content="MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-jarjestelmaan">
+    <meta name="twitter:title" content="MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-järjestelmään">
     <meta name="twitter:description" content="Tekninen opas MCP-standardista ja ERP-integraatiosta.">
     <link rel="alternate" hreflang="en" href="https://onelifetime.world/posts/en/day-010-mcp-protocol-connecting-ai-to-erp.html">
     <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/fi/day-010-mcp-protokolla-tekoaly-erp-yhteys.html">
@@ -36,7 +36,7 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org", "@type": "Article",
-        "headline": "MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-jarjestelmaan",
+        "headline": "MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-järjestelmään",
         "description": "Tekninen opas MCP-standardista ja ERP-integraatiosta.",
         "author": { "@type": "Person", "name": "Risto Anton", "url": "https://onelifetime.world" },
         "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
@@ -68,10 +68,10 @@
         <article class="max-w-3xl mx-auto px-4 py-12">
             <div class="flex items-center gap-3 mb-6">
                 <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(212, 168, 67, 0.15); color: #d4a843; border: 1px solid rgba(212, 168, 67, 0.25);">Tekoaly ja automaatio</span>
-                <span class="text-xs text-gray-500">Paiva 10 / 800</span>
+                <span class="text-xs text-gray-500">Päivä 10 / 800</span>
             </div>
 
-            <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: #e2e8f0;">MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-jarjestelmaan</h1>
+            <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: #e2e8f0;">MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-järjestelmään</h1>
 
             <div class="flex items-center gap-4 mb-8 text-sm text-gray-400">
                 <span>25. maaliskuuta 2026</span><span>&middot;</span><span>Risto Anton</span><span>&middot;</span><span>Lifetime Oy</span>
@@ -80,59 +80,59 @@
             <div class="w-16 h-0.5 mb-8" style="background: linear-gradient(90deg, #06b6d4, #2563eb);"></div>
 
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>Model Context Protocol (MCP) on avoin standardi, joka mahdollistaa tekoalyagenttien yhdistamisen ulkoisiin datalahtoisiin ja tyokaluihin. Anthropic julkaisi MCP:n vuoden 2024 lopussa, ja vuonna 2026 siita on tullut de facto -standardi agenttipohjaisissa integraatioissa. Mutta mita MCP kaytannossa tarkoittaa ERP-integraation nakokulmasta?</p>
+                <p>Model Context Protocol (MCP) on avoin standardi, joka mahdollistaa tekoalyagenttien yhdistamisen ulkoisiin datalahtoisiin ja työkaluihin. Anthropic julkaisi MCP:n vuoden 2024 lopussa, ja vuonna 2026 siitä on tullut de facto -standardi agenttipohjaisissa integraatioissa. Mutta mitä MCP käytännössä tarkoittaa ERP-integraation näkökulmasta?</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">MCP lyhyesti</h2>
-                <p>MCP on kommunikaatioprotokolla, joka maarittelee miten tekoalymalli (client) keskustelee ulkoisen palvelun (server) kanssa. Protokolla kayttaa JSON-RPC 2.0 -viestintaa ja tukee kolmea ydinkonseptia: tyokalut (tools), resurssit (resources) ja kehotteet (prompts).</p>
+                <p>MCP on kommunikaatioprotokolla, joka määrittelee miten tekoalymalli (client) keskustelee ulkoisen palvelun (server) kanssa. Protokolla käyttää JSON-RPC 2.0 -viestintaa ja tukee kolmea ydinkonseptia: työkalut (tools), resurssit (resources) ja kehotteet (prompts).</p>
 
-                <p>Tyokalut ovat toimintoja, joita agentti voi kutsua — esimerkiksi "hae myyntitilaukset talta kuukaudelta" tai "tarkista varastosaldo nimikkeelle X". Resurssit ovat tietoja, joita agentti voi lukea — kuten tilikartta, toimittajaluettelo tai tuotantosuunnitelma. Kehotteet ovat ennalta maariteltya ohjeita tietyille tehtaville.</p>
+                <p>Työkalut ovat toimintoja, joita agentti voi kutsua — esimerkiksi "hae myyntitilaukset talta kuukaudelta" tai "tarkista varastosaldo nimikkeelle X". Resurssit ovat tietoja, joita agentti voi lukea — kuten tilikartta, toimittajaluettelo tai tuotantosuunnitelma. Kehotteet ovat ennalta määriteltyä ohjeita tietyille tehtaville.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">ERP-yhteyden arkkitehtuuri</h2>
                 <p>DWS IQ -alustan ERP-integraatio rakentuu kerroksittain. Alimmalla tasolla on ERP-adapterikerros, joka muuntaa ERP:n oman rajapinnan (OData SAP:lle, REST IFS:lle, SOAP Dynamicsille) yhtenaiseksi MCP-rajapinnaksi.</p>
 
-                <p>Keskitasolla on MCP-palvelin, joka tarjoaa standardoidut tyokalut. Agentti ei tieda eika tarvitse tietaa, onko taustalla SAP vai IFS — se nayttaa samat tyokalut: lue_tilaukset, lue_nimikkeet, lue_asiakkaat, lue_varastosaldot, lue_energiankulutus.</p>
+                <p>Keskitasolla on MCP-palvelin, joka tarjoaa standardoidut työkalut. Agentti ei tieda eika tarvitse tietaa, onko taustalla SAP vai IFS — se nayttaa samat työkalut: lue_tilaukset, lue_nimikkeet, lue_asiakkaat, lue_varastosaldot, lue_energiankulutus.</p>
 
-                <p>Ylimmalla tasolla on agenttikerros, jossa erikoistuneet agentit kayttavat MCP-tyokaluja omiin tehtaviinsa. Vaatimustenmukaisuusagentti hakee paastodata, talousagentti hakee kustannustiedot, toimitusketjuagentti seuraa toimittajien tilannetta.</p>
+                <p>Ylimmalla tasolla on agenttikerros, jossa erikoistuneet agentit käyttävät MCP-työkaluja omiin tehtaviinsa. Vaatimustenmukaisuusagentti hakee päästödata, talousagentti hakee kustannustiedot, toimitusketjuagentti seuraa toimittajien tilannetta.</p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Turvallisuus ja kayttooikeushallinta</h2>
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Turvallisuus ja käyttöoikeushallinta</h2>
                 <p>ERP-data on yrityksen kriittisinta tietoa. MCP-integraatiossa turvallisuus on rakennettu jokaiseen kerrokseen.</p>
 
-                <p><strong>Autentikointi:</strong> MCP-palvelin vaatii JWT-tokenin jokaisesta pyynnosta. Token myonnetaan KYA-rekisteroidylle agentille, ja siihen on kirjattu agentin identiteetti, sallitut tyokalut ja voimassaoloaika.</p>
+                <p><strong>Autentikointi:</strong> MCP-palvelin vaatii JWT-tokenin jokaisesta pyynnosta. Token myonnetaan KYA-rekisteroidylle agentille, ja siihen on kirjattu agentin identiteetti, sallitut työkalut ja voimassaoloaika.</p>
 
-                <p><strong>Valtuutus:</strong> Jokainen tyokalu on sidottu ERP:n kayttooikeusroolichin. Jos agentti pyytaa dataa, johon silla ei ole oikeutta, pyynto hylätään ja tapahtuma kirjataan Firehorse-auditlokiin.</p>
+                <p><strong>Valtuutus:</strong> Jokainen työkalu on sidottu ERP:n käyttöoikeusrooliin. Jos agentti pyytää dataa, johon sillä ei ole oikeutta, pyynto hylätään ja tapahtuma kirjataan Firehorse-auditlokiin.</p>
 
                 <p><strong>Datansuodatus:</strong> MCP-adapterikerros suodattaa herkan datan automaattisesti. Henkilotunnuksia, pankkitilinumeroita tai salassapidettavia sopimustietoja ei koskaan palauteta agentille ilman nimenomasta lupaa.</p>
 
-                <p><strong>Auditointiketju:</strong> Jokainen MCP-pyynto ja vastaus tallennetaan muuttumattomaan Firehorse-lokiin. Tama mahdollistaa jalkikateen tarkistamisen: mita dataa agentti haki, milloin, mihin tarkoitukseen ja mita se tuotti vastauksena.</p>
+                <p><strong>Auditointiketju:</strong> Jokainen MCP-pyynto ja vastaus tallennetaan muuttumattomaan Firehorse-lokiin. Tämä mahdollistaa jalkikateen tarkistamisen: mitä dataa agentti haki, milloin, mihin tarkoitukseen ja mitä se tuotti vastauksena.</p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Kaytannon esimerkki: IFS Cloud -integraatio</h2>
-                <p>Suomalainen konepajayritys kayttaa IFS Cloud -jarjestelmaa. DWS IQ -integraatio toteutetaan kolmessa vaiheessa.</p>
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Käytännön esimerkki: IFS Cloud -integraatio</h2>
+                <p>Suomalainen konepajayritys käyttää IFS Cloud -järjestelmää. DWS IQ -integraatio toteutetaan kolmessa vaiheessa.</p>
 
-                <p>Ensimmaisessa vaiheessa (1 paiva) asennetaan MCP-adapterikerros, joka yhdistaa IFS:n REST API:in. Adapterin konfiguraatiossa maaritellaan IFS:n palvelinosoite, autentikointitiedot ja kaytettavat IFS-moduulit.</p>
+                <p>Ensimmaisessa vaiheessa (1 päivä) asennetaan MCP-adapterikerros, joka yhdistaa IFS:n REST API:in. Adapterin konfiguraatiossa määritellään IFS:n palvelinosoite, autentikointitiedot ja käytettävät IFS-moduulit.</p>
 
-                <p>Toisessa vaiheessa (2 paivaa) konfiguroidaan MCP-tyokalut: nimikkeisto, varastosaldot, tuotantotilaukset, energiankulutus. Jokainen tyokalu testataan aidolla datalla staging-ymparistossa.</p>
+                <p>Toisessa vaiheessa (2 päivää) konfiguroidaan MCP-työkalut: nimikkeisto, varastosaldot, tuotantotilaukset, energiankulutus. Jokainen työkalu testataan aidolla datalla staging-ymparistossa.</p>
 
-                <p>Kolmannessa vaiheessa (1 paiva) aktivoidaan agentit: vaatimustenmukaisuusagentti aloittaa paastodata keruun, talousagentti kustannusseurannan. Tuotantokaytto alkaa valvottuna — ensimmaisen viikon ajan ihminen tarkistaa jokaisen agentin tuotoksen.</p>
+                <p>Kolmannessa vaiheessa (1 päivä) aktivoidaan agentit: vaatimustenmukaisuusagentti aloittaa päästödata keruun, talousagentti kustannusseurannan. Tuotantokäyttö alkaa valvottuna — ensimmaisen viikon ajan ihminen tarkistaa jokaisen agentin tuotoksen.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">MCP vs. perinteiset integraatiot</h2>
-                <p>Perinteinen ERP-integraatio vaatii raskaita ETL-putkia, valimalleja ja kuukausien kehitystyota. MCP-lahestymistapa on kevyempi: agentit lukevat dataa reaaliaikaisesti, eika tarvita erillista tietovarastoa. Mutta MCP ei korvaa kaikkia integraatioita — raskas analytiikka ja historiallinen raportointi vaativat edelleen tietovaraston. MCP on parhaimmillaan reaaliaikaisessa datan haussa ja toimenpiteissa.</p>
+                <p>Perinteinen ERP-integraatio vaatii raskaita ETL-putkia, valimalleja ja kuukausien kehitystyötä. MCP-lähestymistapa on kevyempi: agentit lukevat dataa reaaliaikaisesti, eika tarvita erillista tietovarastoa. Mutta MCP ei korvaa kaikkia integraatioita — raskas analytiikka ja historiallinen raportointi vaativat edelleen tietovaraston. MCP on parhaimmillaan reaaliaikaisessa datan haussa ja toimenpiteissa.</p>
             </div>
 
             <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
                 <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Tilaa Lifetime Scope Journal</h3>
-                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-saantelyyn, tekoalyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
+                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-sääntelyyn, tekoalyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
                 <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">Tilaa</a>
             </div>
 
             <div class="mt-12">
-                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myos</h3>
+                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myös</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <a href="day-003-tekoalyagentit-korvaavat-manuaalisen-raportoinnin.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Paiva 3</span>
+                        <span class="text-xs text-cyan-400">Päivä 3</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Tekoalyagentit korvaavat manuaalisen raportoinnin</p>
                     </a>
                     <a href="day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Paiva 17</span>
+                        <span class="text-xs text-cyan-400">Päivä 17</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Vaatimustenmukaisuusagenttiparven rakentaminen</p>
                     </a>
                 </div>

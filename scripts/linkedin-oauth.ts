@@ -87,6 +87,7 @@ const SCOPES = [
   'profile',         // name + sub (member ID)
   'email',           // email address
   'w_member_social', // post on behalf of a person
+  'w_organization_social', // post on behalf of an organization / newsletter
 ].join(' ');
 
 // ============================================================================

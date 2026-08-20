@@ -28,10 +28,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { publishToFacebook, isFacebookConfigured } from '../src/social-scheduler/facebook-publisher.js';
+import { publishToLinkedIn, isLinkedInConfigured } from '../src/social-scheduler/publisher.js';
+import type { SocialPost as SocialPostInput } from '../src/social-scheduler/types.js';
 
 const POSTS_DIR = path.join(process.cwd(), 'onelifetime.world', 'posts');
 const SITE_URL = 'https://onelifetime.world/posts/';
 const STATE_FILE = path.join(process.cwd(), 'config', 'blog-facebook-pool.json');
+const STATE_FILE_LINKEDIN = path.join(process.cwd(), 'config', 'blog-linkedin-pool.json');
 const TOKEN_DAYS = 60;
 const MIN_INTERVAL_MS = 15_000; // polite 15s between posts
 
@@ -43,6 +46,8 @@ interface BlogPost {
   image: string | null;
   /** Blog classification: 1 = serious (posted to FB/LSJ), 2 = not posted. */
   cls: number;
+  /** Language from <html lang=""> (en, fi, de, fr, sv). */
+  lang: string;
 }
 
 interface PoolState {
@@ -86,18 +91,19 @@ function collectBlogPosts(): BlogPost[] {
     const url = extractOg(html, 'url') ?? `${SITE_URL}${rel}`;
     const image = extractOg(html, 'image');
     const cls = parseInt(html.match(/article:class" content="([12])"/)?.[1] ?? '2', 10);
+    const lang = html.match(/<html lang="([^"]*)"/)?.[1] ?? 'en';
 
     if (!title) continue;
-    posts.push({ slug, url, title, description: description ?? '', image, cls });
+    posts.push({ slug, url, title, description: description ?? '', image, cls, lang });
   }
 
   return posts;
 }
 
-function loadState(): PoolState {
-  if (fs.existsSync(STATE_FILE)) {
+function loadStateFile(stateFile: string): PoolState {
+  if (fs.existsSync(stateFile)) {
     try {
-      return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')) as PoolState;
+      return JSON.parse(fs.readFileSync(stateFile, 'utf8')) as PoolState;
     } catch {
       /* fall through to fresh state */
     }
@@ -105,9 +111,9 @@ function loadState(): PoolState {
   return { published: [], windowExpiresAt: new Date(Date.now() + TOKEN_DAYS * 86400_000).toISOString() };
 }
 
-function saveState(state: PoolState) {
-  fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true });
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2) + '\n', 'utf8');
+function saveStateFile(stateFile: string, state: PoolState) {
+  fs.mkdirSync(path.dirname(stateFile), { recursive: true });
+  fs.writeFileSync(stateFile, JSON.stringify(state, null, 2) + '\n', 'utf8');
 }
 
 function buildPostContent(p: BlogPost): string {
@@ -121,23 +127,45 @@ async function main(): Promise<void> {
   const planOnly = args.includes('--plan');
   const reset = args.includes('--reset');
 
+  let channel: 'facebook' | 'linkedin' = 'facebook';
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--channel' && args[i + 1] === 'linkedin') channel = 'linkedin';
+    if (args[i] === '--channel' && args[i + 1] === 'facebook') channel = 'facebook';
+  }
+
   let limit: number | null = null;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--limit') limit = parseInt(args[i + 1] ?? '', 10);
   }
 
-  if (!dryRun && !planOnly && !isFacebookConfigured()) {
-    console.error('ERROR: FACEBOOK_PAGE_ID / FACEBOOK_PAGE_TOKEN not set.');
-    process.exit(1);
+  const { isFacebookConfigured } = await import('../src/social-scheduler/facebook-publisher.js');
+  const { isLinkedInConfigured } = await import('../src/social-scheduler/publisher.js');
+
+  if (!dryRun && !planOnly) {
+    if (channel === 'facebook' && !isFacebookConfigured()) {
+      console.error('ERROR: FACEBOOK_PAGE_ID / FACEBOOK_PAGE_TOKEN not set.');
+      process.exit(1);
+    }
+    if (channel === 'linkedin' && !isLinkedInConfigured()) {
+      console.error('ERROR: LINKEDIN_ACCESS_TOKEN / LINKEDIN_AUTHOR_URN not set.');
+      process.exit(1);
+    }
   }
 
-  let state = reset ? { published: [], windowExpiresAt: new Date(Date.now() + TOKEN_DAYS * 86400_000).toISOString() } : loadState();
+  const stateFile = channel === 'linkedin' ? STATE_FILE_LINKEDIN : STATE_FILE;
+  let state = reset
+    ? { published: [], windowExpiresAt: new Date(Date.now() + TOKEN_DAYS * 86400_000).toISOString() }
+    : loadStateFile(stateFile);
 
   const posts = collectBlogPosts();
-  const bySlug = new Map(posts.map((p) => [p.slug, p]));
   const publishedSlugs = new Set(state.published.map((p) => p.slug));
-  // Only class 1 (serious) posts go to the Facebook page / LSJ LinkedIn.
-  const pending = posts.filter((p) => !publishedSlugs.has(p.slug) && p.cls === 1);
+  // Class 1 only. Facebook takes Finnish (ground truth), LinkedIn takes English.
+  const pending = posts.filter(
+    (p) =>
+      !publishedSlugs.has(p.slug) &&
+      p.cls === 1 &&
+      (channel === 'facebook' ? p.lang === 'fi' : p.lang === 'en'),
+  );
 
   // Sort newest-first by mtime of the source HTML
   pending.sort((a, b) => {
@@ -171,7 +199,7 @@ async function main(): Promise<void> {
     const content = buildPostContent(p);
     console.log(`- ${p.slug}`);
 
-    const result = await publishToFacebook({
+    const base: SocialPostInput = {
       id: `blog-${p.slug}`,
       platform: 'linkedin',
       category: 'product_update',
@@ -183,17 +211,23 @@ async function main(): Promise<void> {
       approval_notes: null,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-    });
+    };
+
+    const result =
+      channel === 'facebook'
+        ? await publishToFacebook(base)
+        : await publishToLinkedIn(base);
 
     if (result.success) {
-      console.log(`  ✓ ${result.postUrl ?? result.postId}`);
+      const postId = result.postId ?? result.postUrn;
+      console.log(`  ✓ ${postId}`);
       state.published.push({
         slug: p.slug,
         url: p.url,
         publishedAt: new Date().toISOString(),
-        postId: result.postId,
+        postId,
       });
-      saveState(state);
+      saveStateFile(stateFile, state);
       ok++;
     } else {
       console.error(`  ✗ FAILED: ${result.error}`);
