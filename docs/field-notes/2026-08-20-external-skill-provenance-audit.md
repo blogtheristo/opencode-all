@@ -62,3 +62,16 @@ Per the Skill Codification Rule ("Asked Twice = Failure") — this is the second
 ## Verdict
 
 No broken or renamed upstream skills found — nothing here blocks current operation. The real finding is a **provenance gap** (no version pins) and a **known, bounded drift** on the 14 gbrain imports (confirmed on 1, presumed on 13 by pattern), plus an open **adopt/decline decision** on ~29 unimported gstack commands.
+
+## Fixed — Finding 1 (2026-08-20, same day)
+
+Added a `**Source pin:**` line to all 15 externally-attributed files (the sooner-than-expected third occurrence of "is this stale" collapsed straight into codification rather than waiting for a literal third ask):
+
+- 14 gbrain skills: `garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20`.
+- `autoresearch`: dual pin for `karpathy/autoresearch` and `olelehmann1337/autoresearch-skill`, both "no upstream VERSION marker published; observed 2026-08-20."
+- 6 gstack commands (`review`, `ship`, `qa`, `retro`, `plan-review`, `browse`): `garrytan/gstack, no upstream VERSION marker published; observed 2026-08-20` — inserted after the H1 heading rather than in `description` frontmatter, to avoid bloating the OpenCode-generated command description. `.opencode/command/*.md` mirrors regenerated (`node scripts/skill-manifest-sync.mjs --opencode`) to pick these up.
+- `factory-route` untouched — its existing audit-linked provenance note already exceeds the new bar.
+
+`skillpack-check` (`skills/skillpack-check/scripts/validate-index.mjs`) gained a 4th invariant: any file with a "Based on"/"Adapted from" attribution must also carry a `**Source pin:**` line. Ran clean on all 15 stamped files (`pin=yes`); the ~29 pre-existing FAILs in the same run are unrelated guide/`AGENTS.md`/frontmatter registration gaps that predate this fix and are out of scope for Finding 1.
+
+Future audits: check `**Source pin:**` first before re-deriving drift manually — it won't tell you _how_ something drifted (still needs a spot-check like the `maintain` comparison above), but it tells you _when it was last checked_ and _against what_, which is the whole gap this closes.

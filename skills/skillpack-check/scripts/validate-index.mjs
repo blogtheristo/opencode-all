@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 // skillpack-check / validate-index.mjs
-// Verifies three invariants:
+// Verifies four invariants:
 //   1. Every skills/<name>/SKILL.md (or Risto_Skills.md) parses as YAML frontmatter
 //      and has at minimum `name` + `description`.
 //   2. Every skill folder name appears in docs/DWS_SKILLS_GUIDE.md.
 //   3. Every skill folder name appears in AGENTS.md.
+//   4. Any skill whose text carries a "Based on"/"Adapted from" external
+//      attribution also carries a "Source pin:" line (repo + version/state +
+//      observed date) — see docs/field-notes/2026-08-20-external-skill-provenance-audit.md
+//      Finding 1. Prevents provenance rotting silently after import.
 //
 // Flags: --json (machine-readable), --fix (append missing rows to registries).
 // Exit code: 0 if all invariants hold, non-zero otherwise.
@@ -98,18 +102,31 @@ const skills = listSkillFolders();
 const rows = [];
 let errors = 0;
 
+function hasExternalAttribution(text) {
+  return /Based on `[^`]+` in gbrain by Garry Tan|Adapted from \[/.test(text);
+}
+
+function hasSourcePin(text) {
+  return /\*\*Source pin:\*\*/.test(text);
+}
+
 for (const folder of skills) {
   const { fm, path } = loadSkillFrontmatter(folder);
   const fmOk = fm && fm.name && fm.description;
   const inGuide = fileContains(GUIDE_PATH, folder);
   const inAgents = fileContains(AGENTS_PATH, folder);
-  const ok = fmOk && inGuide && inAgents;
+  const text = readFileSync(path, 'utf-8');
+  const needsPin = hasExternalAttribution(text);
+  const pinOk = !needsPin || hasSourcePin(text);
+  const ok = fmOk && inGuide && inAgents && pinOk;
   if (!ok) errors++;
   rows.push({
     skill: folder,
     fmOk: !!fmOk,
     inGuide,
     inAgents,
+    pinOk,
+    needsPin,
     path,
   });
 }
@@ -143,11 +160,14 @@ if (asJson) {
   process.stdout.write(JSON.stringify({ total: skills.length, errors, rows }, null, 2) + '\n');
 } else {
   for (const r of rows) {
-    const status = r.fmOk && r.inGuide && r.inAgents ? 'OK  ' : 'FAIL';
+    const status = r.fmOk && r.inGuide && r.inAgents && r.pinOk ? 'OK  ' : 'FAIL';
     const guide = r.inGuide ? 'guide=yes' : 'guide=NO ';
     const agents = r.inAgents ? 'agents=yes' : 'agents=NO ';
     const fmflag = r.fmOk ? 'fm=yes' : 'fm=NO ';
-    process.stdout.write(`${status} ${r.skill.padEnd(24)} ${fmflag}  ${guide}  ${agents}\n`);
+    const pin = r.needsPin ? (r.pinOk ? 'pin=yes' : 'pin=NO ') : 'pin=n/a';
+    process.stdout.write(
+      `${status} ${r.skill.padEnd(24)} ${fmflag}  ${guide}  ${agents}  ${pin}\n`,
+    );
   }
   process.stdout.write(`---\n${skills.length} skills, ${errors} errors\n`);
 }

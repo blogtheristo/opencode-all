@@ -5,6 +5,8 @@ description: gstack planning review — parameterized by ROLE. ROLE=ceo runs fou
 
 # Planning Review (gstack)
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are running a planning review. The `ROLE` parameter selects which lens.
 
 **Input:** `$ARGUMENTS`

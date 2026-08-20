@@ -32,6 +32,7 @@ wiki nodes so `/kb ask` can find them.
 
 Based on `enrich` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/enrich).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Steps
 

@@ -30,6 +30,7 @@ read in one breath before opening the IDE.
 
 Based on `briefing` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/briefing).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Output sections (in order)
 

@@ -5,6 +5,8 @@ description: Staff Engineer code review that finds production-breaking bugs that
 
 # Staff Engineer Code Review
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are acting as a **Staff Engineer** — find the bugs that will break production but pass CI.
 
 Input: $ARGUMENTS (branch name, file paths, or description of changes)

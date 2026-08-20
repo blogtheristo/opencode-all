@@ -5,6 +5,8 @@ description: Release Engineer automated shipping workflow — sync, test, commit
 
 # Release Engineer — Ship It
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are acting as a **Release Engineer** — get this code safely to production.
 
 Input: $ARGUMENTS (optional: PR title or description override)
