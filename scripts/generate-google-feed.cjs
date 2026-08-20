@@ -54,6 +54,12 @@ function getImageLink(product) {
     return `${SITE_URL}${product.image}`;
 }
 
+function getAdditionalImageLink(product) {
+    if (!product.additionalImage) return null;
+    if (product.additionalImage.startsWith('http')) return product.additionalImage;
+    return `${SITE_URL}${product.additionalImage}`;
+}
+
 function formatPrice(price, currency) {
     return `${price.toFixed(2)} ${currency}`;
 }
@@ -76,6 +82,7 @@ function generateFeed() {
         const google = product.google || {};
         const link = getProductLink(product);
         const imageLink = getImageLink(product);
+        const additionalImageLink = getAdditionalImageLink(product);
 
         xml += `    <item>
         <g:id>${escapeXml(product.id)}</g:id>
@@ -83,7 +90,11 @@ function generateFeed() {
         <g:description>${escapeXml(product.description)}</g:description>
         <g:link>${escapeXml(link)}</g:link>
         <g:image_link>${escapeXml(imageLink)}</g:image_link>
-        <g:price>${formatPrice(product.price, product.currency)}</g:price>
+`;
+        if (additionalImageLink) {
+            xml += `        <g:additional_image_link>${escapeXml(additionalImageLink)}</g:additional_image_link>\n`;
+        }
+        xml += `        <g:price>${formatPrice(product.price, product.currency)}</g:price>
         <g:availability>${google.availability || 'in_stock'}</g:availability>
         <g:condition>${google.condition || 'new'}</g:condition>
         <g:brand>${escapeXml(google.brand || 'Lifetime')}</g:brand>

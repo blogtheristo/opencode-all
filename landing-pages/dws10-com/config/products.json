@@ -31,7 +31,8 @@
       "storeCategory": "platform",
       "version": "6",
       "buyPage": 1,
-      "buyPageOrder": 2
+      "buyPageOrder": 2,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "FH-AUTO-001": {
       "id": "FH-AUTO-001",
@@ -129,7 +130,8 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 3
+      "buyPageOrder": 3,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
@@ -162,7 +164,8 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 5
+      "buyPageOrder": 5,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "FH-SIGN-001": {
       "id": "FH-SIGN-001",
@@ -194,7 +197,8 @@
       },
       "storeCategory": "add-on",
       "buyPage": 1,
-      "buyPageOrder": 6
+      "buyPageOrder": 6,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
@@ -227,7 +231,8 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 7
+      "buyPageOrder": 7,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "consulting-hourly": {
       "id": "consulting-hourly",
@@ -356,7 +361,8 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 27
+      "buyPageOrder": 27,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
@@ -421,7 +427,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 10
+      "buyPageOrder": 10,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "ai-consultant-day": {
       "id": "ai-consultant-day",
@@ -518,7 +525,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 1,
-      "buyPageOrder": 5
+      "buyPageOrder": 5,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "firehorse-flow": {
       "id": "firehorse-flow",
@@ -550,7 +558,8 @@
       },
       "storeCategory": "digital",
       "buyPage": 2,
-      "buyPageOrder": 11
+      "buyPageOrder": 11,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "omnichannel-multimodal": {
       "id": "omnichannel-multimodal",
@@ -582,7 +591,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 5
+      "buyPageOrder": 5,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "professional-web-pages": {
       "id": "professional-web-pages",
@@ -614,7 +624,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 6
+      "buyPageOrder": 6,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "firehorse-data-services": {
       "id": "firehorse-data-services",
@@ -646,7 +657,8 @@
       },
       "storeCategory": "digital",
       "buyPage": 2,
-      "buyPageOrder": 8
+      "buyPageOrder": 8,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -678,7 +690,8 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 3,
-      "buyPageOrder": 5
+      "buyPageOrder": 5,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -710,7 +723,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 12
+      "buyPageOrder": 12,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "claude-code-coaching-3day": {
       "id": "claude-code-coaching-3day",
@@ -742,7 +756,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 13
+      "buyPageOrder": 13,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "claude-code-coaching-lecture": {
       "id": "claude-code-coaching-lecture",
@@ -774,7 +789,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 14
+      "buyPageOrder": 14,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "claude-code-coaching-workshop": {
       "id": "claude-code-coaching-workshop",
@@ -806,7 +822,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 15
+      "buyPageOrder": 15,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "claude-code-coaching-project": {
       "id": "claude-code-coaching-project",
@@ -838,7 +855,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 16
+      "buyPageOrder": 16,
+      "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "ai-consulting-agentic": {
       "id": "ai-consulting-agentic",
@@ -904,7 +922,8 @@
       "storeCategory": "hardware",
       "version": "2.0",
       "buyPage": 1,
-      "buyPageOrder": 11
+      "buyPageOrder": 11,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-SITROOM-001": {
       "id": "LF-SITROOM-001",
@@ -939,7 +958,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 12
+      "buyPageOrder": 12,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-COMPLIANCE-AMBULANCE-001": {
       "id": "LF-COMPLIANCE-AMBULANCE-001",
@@ -976,7 +996,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 13
+      "buyPageOrder": 13,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-NVIDIA-INSTALL": {
       "id": "LF-NVIDIA-INSTALL",
@@ -1009,7 +1030,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 13
+      "buyPageOrder": 13,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-JETSON-NANO": {
       "id": "LF-JETSON-NANO",
@@ -1042,7 +1064,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 14
+      "buyPageOrder": 14,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-JETSON-AGX": {
       "id": "LF-JETSON-AGX",
@@ -1075,7 +1098,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 15
+      "buyPageOrder": 15,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-DGX-SPARK": {
       "id": "LF-DGX-SPARK",
@@ -1108,7 +1132,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 16
+      "buyPageOrder": 16,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-JETSON-NX": {
       "id": "LF-JETSON-NX",
@@ -1141,7 +1166,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 17
+      "buyPageOrder": 17,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-IGX-ORIN": {
       "id": "LF-IGX-ORIN",
@@ -1174,7 +1200,8 @@
       "storeCategory": "hardware",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 18
+      "buyPageOrder": 18,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -1206,7 +1233,8 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 19
+      "buyPageOrder": 19,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
@@ -1271,7 +1299,8 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 3,
-      "buyPageOrder": 6
+      "buyPageOrder": 6,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-US-PILOT": {
       "id": "DWS-US-PILOT",
@@ -1304,7 +1333,8 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 3,
-      "buyPageOrder": 7
+      "buyPageOrder": 7,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-EU-STARTER": {
       "id": "DWS-EU-STARTER",
@@ -1337,7 +1367,8 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 20
+      "buyPageOrder": 20,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-EU-PILOT": {
       "id": "DWS-EU-PILOT",
@@ -1370,7 +1401,8 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 21
+      "buyPageOrder": 21,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-CLIMATE-001": {
       "id": "DWS-CLIMATE-001",
@@ -1403,7 +1435,8 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 10
+      "buyPageOrder": 10,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-AEGIS-001": {
       "id": "DWS-AEGIS-001",
@@ -1435,7 +1468,8 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 1
+      "buyPageOrder": 1,
+      "additionalImage": "/static/images/firehorse-aegis-head.png"
     },
     "DWS-AEGIS-PILOT-001": {
       "id": "DWS-AEGIS-PILOT-001",
@@ -1501,7 +1535,8 @@
         "Phase 2 — Workflow integration (weeks 6-9): the agent set that workflow requires and no more; read-only source-system integration; decision points mapped to the Article 12 record schema; degraded-mode behaviour and reconnect reconciliation implemented per the Phase 0 spec. Exit gate is the workflow running to completion online, accepted by its owner",
         "Phase 3 — Severed-uplink acceptance test (weeks 10-11): rehearsal run first with findings fixed, then the witnessed acceptance run under the agreed window. Binary gate — workflow completes, Article 12 record written locally with no gap, operator stops a running agent. All three, or the pilot reports a negative result",
         "Phase 4 — Sizing, report and decision (weeks 12-13): production hardware sizing derived from measured load rather than a spec sheet; deployment mode confirmed or revised against what the test showed; before/after report and written recommendation, including the recommendation not to proceed where the evidence supports it"
-      ]
+      ],
+      "additionalImage": "/static/images/firehorse-aegis-head.png"
     },
     "DWS-AEGIS-IMPL-001": {
       "id": "DWS-AEGIS-IMPL-001",
@@ -1541,7 +1576,8 @@
         "Phase 1 — Operational Audit (2 weeks, EUR 5,000): control-room workflow mapping, security boundary verification, risk analysis, edge hardware readiness assessment",
         "Phase 2 — Agent-in-Production (6 weeks, EUR 15,000): staged production deployment of the domain agents, local identity and Article 12 audit trail configuration, operator kill-switch training",
         "Phase 3 — LWM Integration (8 weeks, EUR 25,000): world-model telemetry synchronisation, CAD/BIM/SCADA data pipeline hookups, multi-site reporting"
-      ]
+      ],
+      "additionalImage": "/static/images/firehorse-aegis-head.png"
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -1584,7 +1620,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CMP-T1": {
       "id": "CMP-T1",
@@ -1627,7 +1664,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CMP-T2": {
       "id": "CMP-T2",
@@ -1670,7 +1708,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CMP-OC-STD": {
       "id": "CMP-OC-STD",
@@ -1713,7 +1752,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CMP-OC-ENT": {
       "id": "CMP-OC-ENT",
@@ -1756,7 +1796,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SS-T0": {
       "id": "SS-T0",
@@ -1799,7 +1840,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SS-T1": {
       "id": "SS-T1",
@@ -1842,7 +1884,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SS-T2": {
       "id": "SS-T2",
@@ -1885,7 +1928,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SS-OC-STD": {
       "id": "SS-OC-STD",
@@ -1928,7 +1972,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SS-OC-ENT": {
       "id": "SS-OC-ENT",
@@ -1971,7 +2016,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "MO-T0": {
       "id": "MO-T0",
@@ -2014,7 +2060,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "MO-T1": {
       "id": "MO-T1",
@@ -2057,7 +2104,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "MO-T2": {
       "id": "MO-T2",
@@ -2100,7 +2148,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "MO-OC-STD": {
       "id": "MO-OC-STD",
@@ -2143,7 +2192,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "MO-OC-ENT": {
       "id": "MO-OC-ENT",
@@ -2186,7 +2236,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "ED-T1": {
       "id": "ED-T1",
@@ -2229,7 +2280,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "ED-T2": {
       "id": "ED-T2",
@@ -2272,7 +2324,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SG-T1": {
       "id": "SG-T1",
@@ -2315,7 +2368,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SG-T2": {
       "id": "SG-T2",
@@ -2358,7 +2412,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CONSTR-T2": {
       "id": "CONSTR-T2",
@@ -2403,7 +2458,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LOG-T1": {
       "id": "LOG-T1",
@@ -2446,7 +2502,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LOG-T2": {
       "id": "LOG-T2",
@@ -2489,7 +2546,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SOV-T1": {
       "id": "SOV-T1",
@@ -2532,7 +2590,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SOV-T2": {
       "id": "SOV-T2",
@@ -2575,7 +2634,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "QG-T1": {
       "id": "QG-T1",
@@ -2618,7 +2678,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "QG-T2": {
       "id": "QG-T2",
@@ -2661,7 +2722,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CSAT-T1": {
       "id": "CSAT-T1",
@@ -2704,7 +2766,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CSAT-T2": {
       "id": "CSAT-T2",
@@ -2747,7 +2810,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-T1": {
       "id": "LF-T1",
@@ -2790,7 +2854,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LF-T2": {
       "id": "LF-T2",
@@ -2833,7 +2898,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CS-T1": {
       "id": "CS-T1",
@@ -2876,7 +2942,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CS-T2": {
       "id": "CS-T2",
@@ -2919,7 +2986,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SEO-T1": {
       "id": "SEO-T1",
@@ -2962,7 +3030,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SEO-T2": {
       "id": "SEO-T2",
@@ -3005,7 +3074,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DW-T1": {
       "id": "DW-T1",
@@ -3048,7 +3118,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DW-T2": {
       "id": "DW-T2",
@@ -3091,7 +3162,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "VIA-T1": {
       "id": "VIA-T1",
@@ -3134,7 +3206,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "VIA-T2": {
       "id": "VIA-T2",
@@ -3177,7 +3250,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "TH-T2": {
       "id": "TH-T2",
@@ -3220,7 +3294,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "ESG-T3": {
       "id": "ESG-T3",
@@ -3267,7 +3342,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "HSE-T3": {
       "id": "HSE-T3",
@@ -3313,7 +3389,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "CONSTR-T3": {
       "id": "CONSTR-T3",
@@ -3361,7 +3438,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "SOV-T3": {
       "id": "SOV-T3",
@@ -3407,7 +3485,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "GTM-T3": {
       "id": "GTM-T3",
@@ -3454,7 +3533,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "WF-T4": {
       "id": "WF-T4",
@@ -3498,7 +3578,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-MARS": {
       "id": "IND-MARS",
@@ -3547,7 +3628,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-HELIOS": {
       "id": "IND-HELIOS",
@@ -3596,7 +3678,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-VULCAN": {
       "id": "IND-VULCAN",
@@ -3645,7 +3728,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-TALOS": {
       "id": "IND-TALOS",
@@ -3694,7 +3778,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-GAIA": {
       "id": "IND-GAIA",
@@ -3743,7 +3828,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-CERES": {
       "id": "IND-CERES",
@@ -3792,7 +3878,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-NEPTUN": {
       "id": "IND-NEPTUN",
@@ -3841,7 +3928,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-PROM": {
       "id": "IND-PROM",
@@ -3890,7 +3978,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "IND-BESS": {
       "id": "IND-BESS",
@@ -3939,7 +4028,8 @@
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "LAND-AIL": {
       "id": "LAND-AIL",
@@ -4465,7 +4555,8 @@
         "brand": "DWS 365",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "FH-SKILL-T3": {
       "id": "FH-SKILL-T3",
@@ -4513,7 +4604,8 @@
         "brand": "Firehorse",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "AC365-T3": {
       "id": "AC365-T3",
@@ -4561,7 +4653,8 @@
         "brand": "Agentic Commerce 365",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "DWS-IQ-FREE-2026": {
       "id": "DWS-IQ-FREE-2026",
@@ -4594,7 +4687,8 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 1
+      "buyPageOrder": 1,
+      "additionalImage": "/DWS_IQ2026.png"
     },
     "AIS-EU-SOV-OC": {
       "id": "AIS-EU-SOV-OC",
