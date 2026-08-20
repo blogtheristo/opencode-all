@@ -25,6 +25,15 @@ Every agent operates by these. Full text + DWS bindings in CLAUDE.md.
 
 CONTEXT
 
+# Install the repo-local git hooks path (.githooks/pre-push runs gitleaks +
+# npm-audit + vitest locally per docs/CI_AUDIT.md's local-first CI model).
+# Previously only scripts/setup-git-hooks.ps1 did this (Windows-only), so
+# fresh clones / cloud sessions silently skipped local CI on every push.
+if [ -d ".githooks" ] && [ "$(git config --get core.hooksPath 2>/dev/null || true)" != ".githooks" ]; then
+  git config core.hooksPath ".githooks"
+  echo "[session-start] Installed core.hooksPath=.githooks (local CI: gitleaks, npm-audit, vitest on push)"
+fi
+
 # Check if budget env var is set
 if [ -n "${CLAUDE_AUTO_MODE_BUDGET:-}" ]; then
   echo "Token budget for this session: $CLAUDE_AUTO_MODE_BUDGET"

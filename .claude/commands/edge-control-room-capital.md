@@ -1,11 +1,6 @@
 ---
 name: edge-control-room-capital
-description: >
-  Use when assessing a firm's edge control-room capital — the physical sense-and-actuate
-  substrate it owns (edge devices, sensors, robots, Control Room / Situation Room) — and testing
-  whether real-world traces close the loop into token capital. Says "edge capital", "fleet
-  capital", "do our sensors feed the loop", "physical AI moat". Chains /human-capital → here →
-  /token-capital.
+description: "Assess a firm's edge control-room capital — physical sense-and-actuate substrate (devices, sensors, robots, Control Room). Chains /human-capital -> here -> /token-capital. Full detail: skills/edge-control-room-capital/SKILL.md."
 argument-hint: "firm or customer name, or a description of the edge / fleet / sensor estate"
 ---
 

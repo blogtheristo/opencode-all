@@ -87,24 +87,43 @@ const jobs: CronJob[] = [
     enabled: true,
   },
   {
+    // Disabled 2026-08-20 (HIC): repeated reports of stale/unhelpful content
+    // over an extended period. Stopped rather than left running until the
+    // underlying data-freshness problem is diagnosed and fixed -- do not
+    // re-enable without confirming the upstream data collectors (Supabase
+    // tables this pulls from) are actually populated with current data.
     name: 'morning-brief-v2',
     schedule: '0 4 * * 1-6',
     workflow: 'morning-briefing.yml',
     command: { executable: 'npx', args: ['tsx', 'scripts/send-morning-brief-v2.ts'] },
-    enabled: true,
+    enabled: false,
   },
   {
     name: 'construction-leads',
     schedule: '0 4 * * 1-6',
     workflow: 'construction-leads.yml',
-    command: { executable: 'node', args: ['-e', "fetch(process.env.DWS_BACKEND_URL + '/api/construction-leads/fetch', {method:'POST'}).then(r=>console.log(r.status))"], dwsBackendUrl: BACKEND_URL },
+    command: {
+      executable: 'node',
+      args: [
+        '-e',
+        "fetch(process.env.DWS_BACKEND_URL + '/api/construction-leads/fetch', {method:'POST'}).then(r=>console.log(r.status))",
+      ],
+      dwsBackendUrl: BACKEND_URL,
+    },
     enabled: true,
   },
   {
     name: 'outreach-digest',
     schedule: '5 4 * * 1-6',
     workflow: 'outreach-digest.yml',
-    command: { executable: 'node', args: ['-e', "fetch(process.env.DWS_BACKEND_URL + '/api/outreach/digest', {method:'POST'}).then(r=>console.log(r.status))"], dwsBackendUrl: BACKEND_URL },
+    command: {
+      executable: 'node',
+      args: [
+        '-e',
+        "fetch(process.env.DWS_BACKEND_URL + '/api/outreach/digest', {method:'POST'}).then(r=>console.log(r.status))",
+      ],
+      dwsBackendUrl: BACKEND_URL,
+    },
     enabled: true,
   },
   {
@@ -118,7 +137,14 @@ const jobs: CronJob[] = [
     name: 'captain-briefing',
     schedule: '30 5 * * 1-5',
     workflow: 'captain-briefing.yml',
-    command: { executable: 'node', args: ['-e', "fetch(process.env.DWS_BACKEND_URL + '/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))"], dwsBackendUrl: BACKEND_URL },
+    command: {
+      executable: 'node',
+      args: [
+        '-e',
+        "fetch(process.env.DWS_BACKEND_URL + '/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))",
+      ],
+      dwsBackendUrl: BACKEND_URL,
+    },
     enabled: true,
   },
   {
@@ -219,14 +245,22 @@ const jobs: CronJob[] = [
     name: 'security-audit-enhanced',
     schedule: '0 2 * * 1',
     workflow: 'security-audit-enhanced.yml',
-    command: { executable: 'npm', args: ['audit', '--json'], outputFile: '/app/logs/npm-audit.json' },
+    command: {
+      executable: 'npm',
+      args: ['audit', '--json'],
+      outputFile: '/app/logs/npm-audit.json',
+    },
     enabled: true,
   },
   {
     name: 'dependency-review',
     schedule: '0 0 * * 0',
     workflow: 'dependency_review.yml',
-    command: { executable: 'npm', args: ['audit', '--json'], outputFile: '/app/logs/dependency-review.json' },
+    command: {
+      executable: 'npm',
+      args: ['audit', '--json'],
+      outputFile: '/app/logs/dependency-review.json',
+    },
     enabled: true,
   },
 
@@ -240,7 +274,15 @@ const jobs: CronJob[] = [
     name: 'security-scan-biweekly',
     schedule: '30 2 1 * *',
     workflow: 'security-scan-biweekly.yml',
-    command: { executable: 'python3', args: ['scripts/scan_critical_bugs.py', '--full', '--output', '/app/logs/critical-bugs-report.md'] },
+    command: {
+      executable: 'python3',
+      args: [
+        'scripts/scan_critical_bugs.py',
+        '--full',
+        '--output',
+        '/app/logs/critical-bugs-report.md',
+      ],
+    },
     enabled: false,
   },
   // biweekly-auth-security-audit: not in this heartbeat-mirror list because its
@@ -300,7 +342,15 @@ function runJob(job: CronJob): void {
   execFile(
     job.command.executable,
     [...job.command.args],
-    { timeout: 300_000, cwd: '/app', maxBuffer: 10 * 1024 * 1024, env: { ...process.env, ...(job.command.dwsBackendUrl ? { DWS_BACKEND_URL: job.command.dwsBackendUrl } : {}) } },
+    {
+      timeout: 300_000,
+      cwd: '/app',
+      maxBuffer: 10 * 1024 * 1024,
+      env: {
+        ...process.env,
+        ...(job.command.dwsBackendUrl ? { DWS_BACKEND_URL: job.command.dwsBackendUrl } : {}),
+      },
+    },
     (err, stdout, stderr) => {
       const output = stdout + (stderr ? `\nSTDERR: ${stderr}` : '');
       if (job.command.outputFile) {

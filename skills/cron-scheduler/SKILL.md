@@ -34,6 +34,7 @@ the folder and runs them on its cadence.
 
 Based on `cron-scheduler` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/cron-scheduler).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Cadences
 
