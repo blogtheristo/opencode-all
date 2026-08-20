@@ -17,7 +17,7 @@
       "priceNote": "One-time deployment",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-IQ-006.png",
       "detailsUrl": "../products/dwsiq.html",
       "featured": true,
       "google": {
@@ -115,7 +115,7 @@
       "priceNote": "Per campaign cycle",
       "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/FH-OMNI-001.png",
       "detailsUrl": "../products/firehorse-omnichannel.html",
       "featured": false,
       "google": {
@@ -148,7 +148,7 @@
       "priceNote": "Per report template",
       "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/FH-RPT-001.png",
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
@@ -181,7 +181,7 @@
       "priceNote": "€199/year add-on — requires Firehorse Report",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/FH-SIGN-001.png",
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
@@ -213,7 +213,7 @@
       "priceNote": "Setup + migration",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/FH-CMS-001.png",
       "detailsUrl": "../products/firehorse-content-management.html",
       "featured": false,
       "google": {
@@ -246,7 +246,7 @@
       "priceNote": "Per hour, VAT excl.",
       "revolutLink": "https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3",
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/consulting-hourly.png",
       "detailsUrl": "../products/consulting.html",
       "featured": false,
       "google": {
@@ -279,7 +279,7 @@
       "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/consulting-fit55.png",
       "detailsUrl": "../products/consulting-fit55.html",
       "featured": true,
       "google": {
@@ -311,7 +311,7 @@
       "priceNote": "25 hours, valid 12 months",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/aws-consultancy.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -343,7 +343,7 @@
       "priceNote": "25 hours standard implementation",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/conversational-agent.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -375,7 +375,7 @@
       "priceNote": "Per hour",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/ai-agent-engineering.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -408,7 +408,7 @@
       "priceNote": "Project setup",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/lean-project.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -440,7 +440,7 @@
       "priceNote": "Per day, VAT excl.",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/ai-consultant-day.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -473,7 +473,7 @@
       "priceNote": "30 hours, valid 12 months",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/business-mentor-30.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -505,7 +505,7 @@
       "priceNote": "Workshop + coaching",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/firehorse-coach.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": true,
       "google": {
@@ -537,7 +537,7 @@
       "priceNote": "Setup + implementation",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/firehorse-flow.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -569,7 +569,7 @@
       "priceNote": "Monthly subscription",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/omnichannel-multimodal.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -601,7 +601,7 @@
       "priceNote": "Kiinteä pakettihinta",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/professional-web-pages.png",
       "detailsUrl": "../products/professional-web-pages.html",
       "featured": false,
       "google": {
@@ -633,7 +633,7 @@
       "priceNote": "Consultancy engagement",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/firehorse-data-services.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -665,7 +665,7 @@
       "priceNote": "Foundation package",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/devops-lead.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -697,7 +697,7 @@
       "priceNote": "3-day programme",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/ai-koulutus-3d.png",
       "detailsUrl": "https://dws10.com/contact/",
       "featured": false,
       "google": {
@@ -729,7 +729,7 @@
       "priceNote": "3-day programme · lecture + workshop",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/claude-code-coaching-3day.png",
       "detailsUrl": "../products/claude-code-coaching.html",
       "featured": true,
       "google": {
@@ -761,7 +761,7 @@
       "priceNote": "1-day in-house lecture",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/claude-code-coaching-lecture.png",
       "detailsUrl": "../products/claude-code-coaching.html",
       "featured": false,
       "google": {
@@ -793,7 +793,7 @@
       "priceNote": "2-day hands-on workshop",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/claude-code-coaching-workshop.png",
       "detailsUrl": "../products/claude-code-coaching.html",
       "featured": false,
       "google": {
@@ -825,7 +825,7 @@
       "priceNote": "From €7,500 · embedded project",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/products/claude-code-coaching-project.png",
       "detailsUrl": "../products/claude-code-coaching.html",
       "featured": false,
       "google": {
@@ -857,7 +857,7 @@
       "priceNote": "Assessment from €2,500 | Retainer 4x8h = €4,800",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/ai-consulting-agentic.png",
       "detailsUrl": "../products/ai-consulting.html",
       "featured": true,
       "google": {
@@ -890,7 +890,7 @@
       "priceNote": "€8,008 hardware only · installation €995 one-time · specialist support €100/hour · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/edge-node-gn100.png",
       "detailsUrl": "../products/edge-node-gn100.html",
       "featured": true,
       "google": {
@@ -925,7 +925,7 @@
       "priceNote": "€11,598 hardware only · installation €995 one-time · specialist support €100/hour · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-SITROOM-001.png",
       "detailsUrl": "../products/situation-room.html",
       "featured": true,
       "google": {
@@ -947,7 +947,7 @@
       "mpn": "LF-CMPL-AMBULANCE-2026",
       "name": "DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)",
       "caption": "The third room, on wheels. DWS IQ Control Room & Situation Room in a vehicle — energy-optimized NVIDIA Thor edge, built to your industry.",
-      "price": 0,
+      "price": 1,
       "currency": "EUR",
       "type": "one-time",
       "description": "DWS IQ Mobile Office — the \"Compliance Ambulance\". Brings sovereign Control Room / Situation Room capability to the site or to the patient on a vehicle platform. Because it runs on vehicle power, energy consumption is the governing design constraint: built on NVIDIA Blackwell-generation Thor edge (Jetson Thor / IGX Thor) for up to 3.5× better energy efficiency than the previous Orin generation, configurable 40–130 W. Medical and regulated deployments use IGX Thor with hardware functional safety (ISO 26262 / IEC 61508) and 10-year enterprise support. Built to spec per industry — construction (NCC), steel (Outokumpu), health care (HUS). Operated by Lifetime Fleet. Finnish / EU B2B (VAT 0% reverse charge). Price on application.",
@@ -962,7 +962,7 @@
       "priceNote": "Price on application (POA) — configured to your vehicle energy budget, industry and safety class. Finnish / EU B2B (VAT 0% reverse charge).",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-COMPLIANCE-AMBULANCE-001.png",
       "detailsUrl": "../products/dws-iq-compliance-ambulance.html",
       "featured": true,
       "google": {
@@ -995,7 +995,7 @@
       "priceNote": "€995 per edge device · already included in Control Room & Situation Room",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-NVIDIA-INSTALL.png",
       "detailsUrl": "../products/nvidia-model-install.html",
       "featured": false,
       "google": {
@@ -1028,7 +1028,7 @@
       "priceNote": "€764 one-time · €269 hardware + €495 install",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-JETSON-NANO.png",
       "detailsUrl": "../products/jetson-sensor.html",
       "featured": false,
       "google": {
@@ -1061,7 +1061,7 @@
       "priceNote": "€2,694 one-time · €2,199 hardware (NVIDIA AGX Orin 64 GB Dev Kit, EMEA channel) + €495 install · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-JETSON-AGX.png",
       "detailsUrl": "../products/jetson-sensor.html",
       "featured": false,
       "google": {
@@ -1094,7 +1094,7 @@
       "priceNote": "€6,109 hardware only · installation €995 one-time · specialist support €100/hour · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-DGX-SPARK.png",
       "detailsUrl": "../products/dgx-spark.html",
       "featured": false,
       "google": {
@@ -1127,7 +1127,7 @@
       "priceNote": "€1,990 one-time · €1,495 hardware + €495 install",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-JETSON-NX.png",
       "detailsUrl": "../products/jetson-sensor.html",
       "featured": false,
       "google": {
@@ -1160,7 +1160,7 @@
       "priceNote": "€11,990 hardware only · installation €995 one-time · specialist support €100/hour · dGPU quoted separately · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-IGX-ORIN.png",
       "detailsUrl": "../products/igx-orin.html",
       "featured": false,
       "google": {
@@ -1181,7 +1181,7 @@
       "gtin": null,
       "mpn": "SOVEREIGN-DB-2026",
       "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
-      "price": 0,
+      "price": 499,
       "currency": "EUR",
       "type": "one-time",
       "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
@@ -1193,7 +1193,7 @@
       "priceNote": "Assess: Free | Standard: €499/mo | Growth: €1,499/mo | Enterprise: €4,999/mo",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-SOVEREIGN-DB-001.png",
       "detailsUrl": "../products/sovereign-database.html",
       "featured": true,
       "google": {
@@ -1225,7 +1225,7 @@
       "priceNote": "Standard €1,500/mo | Growth €3,000/mo | Partner from €5,000/mo",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/sovereignty-cloud-consulting.png",
       "detailsUrl": "../products/sovereignty-cloud-consulting.html",
       "featured": true,
       "google": {
@@ -1257,7 +1257,7 @@
       "priceNote": "€299/mo + €990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-US-STARTER.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": false,
       "google": {
@@ -1290,7 +1290,7 @@
       "priceNote": "€799/mo + €2,490 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-US-PILOT.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": false,
       "google": {
@@ -1323,7 +1323,7 @@
       "priceNote": "€499/mo + €1,490 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-EU-STARTER.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": true,
       "google": {
@@ -1356,7 +1356,7 @@
       "priceNote": "€1,499/mo + €3,990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-EU-PILOT.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": true,
       "google": {
@@ -1389,7 +1389,7 @@
       "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free = €29,990",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-CLIMATE-001.png",
       "detailsUrl": "../products/climate-intelligence.html",
       "featured": true,
       "google": {
@@ -1422,7 +1422,7 @@
       "priceNote": "From €59,990 onboarding + one-time integration. Standard €999 | Defence €1,999 | Sovereign €4,999",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-aegis-head.png",
+      "image": "/static/images/products/DWS-AEGIS-001.png",
       "detailsUrl": "../products/aegis.html",
       "featured": true,
       "google": {
@@ -1457,7 +1457,7 @@
       "priceNote": "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at €59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-aegis-head.png",
+      "image": "/static/images/products/DWS-AEGIS-PILOT-001.png",
       "detailsUrl": "../products/aegis-pilot.html",
       "featured": false,
       "google": {
@@ -1522,7 +1522,7 @@
       "priceNote": "€45,000 for all three phases (Audit €5,000 + Agent-in-production €15,000 + LWM integration €25,000). ADDITIVE to Aegis onboarding (€59,990) and licence — NOT credited against them. Phase 3 is integration work outside onboarding scope.",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-aegis-head.png",
+      "image": "/static/images/products/DWS-AEGIS-IMPL-001.png",
       "detailsUrl": "../products/aegis-implementation.html",
       "featured": false,
       "google": {
@@ -1548,12 +1548,14 @@
       "sku": "CMP-T0",
       "mpn": "CMP-T0",
       "name": "Compliance Agent — Pilot (60 days)",
-      "price": 0,
+      "price": 1,
       "currency": "EUR",
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Junior compliance analyst",
         "fteCount": 0.25,
@@ -1569,7 +1571,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "Pilot — capped, watermarked",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CMP-T0.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1594,7 +1596,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Junior compliance analyst",
         "fteCount": 0.5,
@@ -1610,7 +1614,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CMP-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1635,7 +1639,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Senior compliance analyst",
         "fteCount": 0.8,
@@ -1651,7 +1657,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€2,999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CMP-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1676,7 +1682,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Compliance analyst",
         "fteCount": 0.05,
@@ -1692,7 +1700,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-outcome — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CMP-OC-STD.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1717,7 +1725,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Senior compliance analyst",
         "fteCount": 0.08,
@@ -1733,7 +1743,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€2,499 per-outcome — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CMP-OC-ENT.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1753,12 +1763,14 @@
       "sku": "SS-T0",
       "mpn": "SS-T0",
       "name": "SiteSense — Pilot (30 days, 1 site)",
-      "price": 0,
+      "price": 1,
       "currency": "EUR",
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.2,
@@ -1774,7 +1786,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "Pilot — capped, watermarked",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SS-T0.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1799,7 +1811,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.4,
@@ -1815,7 +1829,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SS-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1840,7 +1854,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.8,
@@ -1856,7 +1872,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€2,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SS-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1881,7 +1897,9 @@
       "type": "metered",
       "priceUnit": "per-site-per-day",
       "tier": "meter",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.01,
@@ -1897,7 +1915,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€49 per-site-per-day — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SS-OC-STD.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1922,7 +1940,9 @@
       "type": "metered",
       "priceUnit": "per-site-per-day",
       "tier": "meter",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.02,
@@ -1938,7 +1958,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€99 per-site-per-day — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SS-OC-ENT.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -1958,12 +1978,14 @@
       "sku": "MO-T0",
       "mpn": "MO-T0",
       "name": "Material Oracle — Pilot (60 days, 1 project)",
-      "price": 0,
+      "price": 1,
       "currency": "EUR",
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.2,
@@ -1979,7 +2001,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "Pilot — capped, watermarked",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/MO-T0.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2004,7 +2026,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.3,
@@ -2020,7 +2044,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,299 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/MO-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2045,7 +2069,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "Senior LCA analyst",
         "fteCount": 0.6,
@@ -2061,7 +2087,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/MO-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2086,7 +2112,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.03,
@@ -2102,7 +2130,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€499 per-outcome — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/MO-OC-STD.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2127,7 +2155,9 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": ["material-oracle"],
+      "agents": [
+        "material-oracle"
+      ],
       "replaces": {
         "role": "Senior LCA analyst",
         "fteCount": 0.05,
@@ -2143,7 +2173,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-outcome — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/MO-OC-ENT.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2168,7 +2198,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["emissions-data"],
+      "agents": [
+        "emissions-data"
+      ],
       "replaces": {
         "role": "ESG data analyst",
         "fteCount": 0.25,
@@ -2184,7 +2216,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/ED-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2209,7 +2241,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["emissions-data"],
+      "agents": [
+        "emissions-data"
+      ],
       "replaces": {
         "role": "ESG data analyst",
         "fteCount": 0.5,
@@ -2225,7 +2259,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/ED-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2250,7 +2284,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["schedule-genius"],
+      "agents": [
+        "schedule-genius"
+      ],
       "replaces": {
         "role": "Project planner",
         "fteCount": 0.3,
@@ -2266,7 +2302,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,299 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SG-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2291,7 +2327,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["schedule-genius"],
+      "agents": [
+        "schedule-genius"
+      ],
       "replaces": {
         "role": "Project planner",
         "fteCount": 0.6,
@@ -2307,7 +2345,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SG-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2332,7 +2370,11 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["sitesense", "material-oracle", "schedule-genius"],
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius"
+      ],
       "replaces": {
         "role": "Construction PM",
         "fteCount": 0.7,
@@ -2348,7 +2390,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€3,999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CONSTR-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2373,7 +2415,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["logistics"],
+      "agents": [
+        "logistics"
+      ],
       "replaces": {
         "role": "Logistics planner",
         "fteCount": 0.3,
@@ -2389,7 +2433,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,299 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LOG-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2414,7 +2458,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["logistics"],
+      "agents": [
+        "logistics"
+      ],
       "replaces": {
         "role": "Logistics planner",
         "fteCount": 0.5,
@@ -2430,7 +2476,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,799 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LOG-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2455,7 +2501,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["sovereignty"],
+      "agents": [
+        "sovereignty"
+      ],
       "replaces": {
         "role": "DPO assistant",
         "fteCount": 0.2,
@@ -2471,7 +2519,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,299 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SOV-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2496,7 +2544,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["sovereignty"],
+      "agents": [
+        "sovereignty"
+      ],
       "replaces": {
         "role": "DPO assistant",
         "fteCount": 0.5,
@@ -2512,7 +2562,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SOV-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2537,7 +2587,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["quality-gate"],
+      "agents": [
+        "quality-gate"
+      ],
       "replaces": {
         "role": "QA reviewer",
         "fteCount": 0.2,
@@ -2553,7 +2605,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/QG-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2578,7 +2630,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["quality-gate"],
+      "agents": [
+        "quality-gate"
+      ],
       "replaces": {
         "role": "QA reviewer",
         "fteCount": 0.4,
@@ -2594,7 +2648,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/QG-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2619,7 +2673,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["customer-sat"],
+      "agents": [
+        "customer-sat"
+      ],
       "replaces": {
         "role": "Customer success analyst",
         "fteCount": 0.15,
@@ -2635,7 +2691,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€599 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CSAT-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2660,7 +2716,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["customer-sat"],
+      "agents": [
+        "customer-sat"
+      ],
       "replaces": {
         "role": "Customer success analyst",
         "fteCount": 0.3,
@@ -2676,7 +2734,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CSAT-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2701,7 +2759,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["lead-feedback"],
+      "agents": [
+        "lead-feedback"
+      ],
       "replaces": {
         "role": "Sales analyst",
         "fteCount": 0.15,
@@ -2717,7 +2777,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€599 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2742,7 +2802,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["lead-feedback"],
+      "agents": [
+        "lead-feedback"
+      ],
       "replaces": {
         "role": "Sales analyst",
         "fteCount": 0.3,
@@ -2758,7 +2820,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/LF-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2783,7 +2845,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["competitor-surveillance"],
+      "agents": [
+        "competitor-surveillance"
+      ],
       "replaces": {
         "role": "Market analyst",
         "fteCount": 0.2,
@@ -2799,7 +2863,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€899 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CS-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2824,7 +2888,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["competitor-surveillance"],
+      "agents": [
+        "competitor-surveillance"
+      ],
       "replaces": {
         "role": "Market analyst",
         "fteCount": 0.4,
@@ -2840,7 +2906,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CS-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2865,7 +2931,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["seo-audit"],
+      "agents": [
+        "seo-audit"
+      ],
       "replaces": {
         "role": "SEO specialist",
         "fteCount": 0.1,
@@ -2881,7 +2949,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€599 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SEO-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2906,7 +2974,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["seo-audit"],
+      "agents": [
+        "seo-audit"
+      ],
       "replaces": {
         "role": "SEO specialist",
         "fteCount": 0.25,
@@ -2922,7 +2992,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SEO-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2947,7 +3017,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["deepwiki-extractor"],
+      "agents": [
+        "deepwiki-extractor"
+      ],
       "replaces": {
         "role": "Research analyst",
         "fteCount": 0.1,
@@ -2963,7 +3035,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€599 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DW-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -2988,7 +3060,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["deepwiki-extractor"],
+      "agents": [
+        "deepwiki-extractor"
+      ],
       "replaces": {
         "role": "Research analyst",
         "fteCount": 0.2,
@@ -3004,7 +3078,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€799 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DW-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3029,7 +3103,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": ["viability"],
+      "agents": [
+        "viability"
+      ],
       "replaces": {
         "role": "Strategy analyst",
         "fteCount": 0.2,
@@ -3045,7 +3121,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€999 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/VIA-T1.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3070,7 +3146,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["viability"],
+      "agents": [
+        "viability"
+      ],
       "replaces": {
         "role": "Strategy analyst",
         "fteCount": 0.4,
@@ -3086,7 +3164,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€1,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/VIA-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3111,7 +3189,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": ["themis"],
+      "agents": [
+        "themis"
+      ],
       "replaces": {
         "role": "Ops coordinator",
         "fteCount": 0.5,
@@ -3127,7 +3207,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€2,499 per-month — Blue/pilot",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/TH-T2.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3153,7 +3233,12 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["material-oracle", "emissions-data", "compliance", "themis"],
+      "agents": [
+        "material-oracle",
+        "emissions-data",
+        "compliance",
+        "themis"
+      ],
       "replaces": {
         "role": "ESG/Compliance lead",
         "fteCount": 1.75,
@@ -3169,7 +3254,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€6,999/mo — annual €69,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/ESG-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3195,7 +3280,11 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["sitesense", "compliance", "themis"],
+      "agents": [
+        "sitesense",
+        "compliance",
+        "themis"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 1.25,
@@ -3211,7 +3300,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€4,999/mo — annual €49,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/HSE-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3237,7 +3326,13 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["sitesense", "material-oracle", "schedule-genius", "logistics", "themis"],
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
       "replaces": {
         "role": "Construction PM and planner",
         "fteCount": 2,
@@ -3253,7 +3348,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€8,499/mo — annual €84,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/CONSTR-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3279,7 +3374,11 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["sovereignty", "compliance", "quality-gate"],
+      "agents": [
+        "sovereignty",
+        "compliance",
+        "quality-gate"
+      ],
       "replaces": {
         "role": "Compliance + 0.3 DPO",
         "fteCount": 1.3,
@@ -3295,7 +3394,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€5,499/mo — annual €54,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/SOV-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3321,7 +3420,12 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["seo-audit", "competitor-surveillance", "lead-feedback", "customer-sat"],
+      "agents": [
+        "seo-audit",
+        "competitor-surveillance",
+        "lead-feedback",
+        "customer-sat"
+      ],
       "replaces": {
         "role": "Marketing and CS analysts",
         "fteCount": 1.5,
@@ -3337,7 +3441,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€3,999/mo — annual €39,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/GTM-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3363,7 +3467,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T4",
-      "agents": ["all"],
+      "agents": [
+        "all"
+      ],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
         "fteCount": 7,
@@ -3379,7 +3485,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€19,990/mo — annual €199,900 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/WF-T4.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -3405,7 +3511,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "construction vertical SME",
         "fteCount": 0.3,
@@ -3421,14 +3529,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-MARS.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3449,7 +3560,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "energy vertical SME",
         "fteCount": 0.3,
@@ -3465,14 +3578,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-HELIOS.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3493,7 +3609,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "steel ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -3509,14 +3627,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-VULCAN.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3537,7 +3658,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "aluminium ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -3553,14 +3676,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-TALOS.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3581,7 +3707,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "cement ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -3597,14 +3725,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-GAIA.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3625,7 +3756,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "agri/circular vertical SME",
         "fteCount": 0.3,
@@ -3641,14 +3774,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-CERES.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3669,7 +3805,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "maritime ops vertical SME",
         "fteCount": 0.3,
@@ -3685,14 +3823,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-NEPTUN.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3713,7 +3854,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "hydrogen vertical SME",
         "fteCount": 0.3,
@@ -3729,14 +3872,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-PROM.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3757,7 +3903,9 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["industry-model"],
+      "agents": [
+        "industry-model"
+      ],
       "replaces": {
         "role": "battery storage vertical SME",
         "fteCount": 0.3,
@@ -3773,14 +3921,17 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/IND-BESS.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -3800,7 +3951,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "AI literacy programme manager",
         "fteCount": 0.4,
@@ -3819,7 +3972,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €34,990 · Y2+ €29,990/yr — engagement + 12-month CMP-T2",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-AIL.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -3844,7 +3997,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["compliance"],
+      "agents": [
+        "compliance"
+      ],
       "replaces": {
         "role": "Senior compliance lead",
         "fteCount": 0.6,
@@ -3863,7 +4018,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €39,990 · Y2+ €29,990/yr — engagement + 12-month CMP-T2",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-EUAI.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": true,
       "storeCategory": "advisory",
@@ -3890,7 +4045,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["sitesense"],
+      "agents": [
+        "sitesense"
+      ],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.7,
@@ -3909,7 +4066,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month SS-T2",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-HSE.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -3934,7 +4091,12 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["material-oracle", "emissions-data", "compliance", "themis"],
+      "agents": [
+        "material-oracle",
+        "emissions-data",
+        "compliance",
+        "themis"
+      ],
       "replaces": {
         "role": "ESG reporting lead",
         "fteCount": 1.5,
@@ -3953,7 +4115,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €89,990 · Y2+ €69,990/yr — engagement + 12-month ESG-T3",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-CSRD.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": true,
       "storeCategory": "advisory",
@@ -3980,7 +4142,10 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["material-oracle", "emissions-data"],
+      "agents": [
+        "material-oracle",
+        "emissions-data"
+      ],
       "replaces": {
         "role": "LCA specialist",
         "fteCount": 0.8,
@@ -3999,7 +4164,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €49,990 · Y2+ €39,990/yr — engagement + 12-month MO-T2",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-LCA.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -4024,7 +4189,11 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["sovereignty", "compliance", "quality-gate"],
+      "agents": [
+        "sovereignty",
+        "compliance",
+        "quality-gate"
+      ],
       "replaces": {
         "role": "Compliance + DPO",
         "fteCount": 1,
@@ -4043,7 +4212,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €69,990 · Y2+ €54,990/yr — engagement + 12-month SOV-T3",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-SOV.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": true,
       "storeCategory": "advisory",
@@ -4070,7 +4239,13 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["sitesense", "material-oracle", "schedule-genius", "logistics", "themis"],
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
       "replaces": {
         "role": "Construction PM and planner",
         "fteCount": 1.8,
@@ -4089,7 +4264,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €109,990 · Y2+ €84,990/yr — engagement + 12-month CONSTR-T3",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-OPS.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -4114,7 +4289,12 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["seo-audit", "competitor-surveillance", "lead-feedback", "customer-sat"],
+      "agents": [
+        "seo-audit",
+        "competitor-surveillance",
+        "lead-feedback",
+        "customer-sat"
+      ],
       "replaces": {
         "role": "GTM analyst team",
         "fteCount": 1.3,
@@ -4133,7 +4313,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €49,990 · Y2+ €39,990/yr — engagement + 12-month GTM-T3",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-GTM.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -4158,7 +4338,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["themis"],
+      "agents": [
+        "themis"
+      ],
       "replaces": {
         "role": "Ops coordinator",
         "fteCount": 0.5,
@@ -4177,7 +4359,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month TH-T2",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-THEMIS.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -4202,7 +4384,9 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": ["all"],
+      "agents": [
+        "all"
+      ],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
         "fteCount": 6.5,
@@ -4221,7 +4405,7 @@
         "Land overlay — engagement + 12-month agent attach"
       ],
       "priceNote": "Y1 €249,990 · Y2+ €199,990/yr — engagement + 12-month WF-T4",
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/LAND-WF.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "advisory",
@@ -4247,7 +4431,12 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["compliance", "sovereignty", "quality-gate", "themis"],
+      "agents": [
+        "compliance",
+        "sovereignty",
+        "quality-gate",
+        "themis"
+      ],
       "replaces": {
         "role": "Compliance officer + 0.3 DPO",
         "fteCount": 1.5,
@@ -4263,7 +4452,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€5,999/mo — annual €59,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS365-CMP-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -4289,7 +4478,13 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["lead-feedback", "customer-sat", "competitor-surveillance", "seo-audit", "themis"],
+      "agents": [
+        "lead-feedback",
+        "customer-sat",
+        "competitor-surveillance",
+        "seo-audit",
+        "themis"
+      ],
       "replaces": {
         "role": "Marketing/CS team lead",
         "fteCount": 1.4,
@@ -4305,7 +4500,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€5,499/mo — annual €54,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/FH-SKILL-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -4331,7 +4526,13 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": ["customer-sat", "viability", "schedule-genius", "logistics", "themis"],
+      "agents": [
+        "customer-sat",
+        "viability",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
       "replaces": {
         "role": "Commerce ops lead",
         "fteCount": 1.5,
@@ -4347,7 +4548,7 @@
         "Blue/pilot — internal sign-off required before quoting"
       ],
       "priceNote": "€6,499/mo — annual €64,990 (2 months free)",
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/AC365-T3.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": false,
       "storeCategory": "platform",
@@ -4367,7 +4568,7 @@
       "gtin": null,
       "mpn": "DWSIQ-FREE-2026",
       "name": "DWS IQ Free — 1 project, CSRD-ready",
-      "price": 0,
+      "price": 1,
       "currency": "EUR",
       "type": "subscription",
       "description": "Start your first CSRD project free. 1 active project, up to 50 ESG line items, 1 seat — audit-defensible output, EU-sovereign hosting, no credit card. Upgrade when you hit the cap or invite a teammate. Built for Sustainability Directors who need to start before the EU CSRD deadline.",
@@ -4379,7 +4580,7 @@
       "priceNote": "Free forever within caps · upgrade to DWS IQ Report (€1,999) on first cap breach",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/DWS_IQ2026.png",
+      "image": "/static/images/products/DWS-IQ-FREE-2026.png",
       "detailsUrl": "../products/dwsiq-free.html",
       "featured": true,
       "google": {
@@ -4444,7 +4645,7 @@
       "priceNote": "6 weeks fixed; refundable on KPI miss",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/products/AIS-OUTCOME-PILOT.png",
       "detailsUrl": "../products/skilled-agents.html",
       "featured": true,
       "google": {
@@ -4492,7 +4693,13 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }
@@ -4737,7 +4944,9 @@
       "version": "1.11",
       "date": "2026-05-10",
       "author": "claude/dynamic-deployment-pricing-LExxQ",
-      "changes": ["Add version field to all products (Green versions)"]
+      "changes": [
+        "Add version field to all products (Green versions)"
+      ]
     },
     {
       "version": "1.12",
