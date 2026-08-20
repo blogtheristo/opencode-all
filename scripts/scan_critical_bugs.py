@@ -200,7 +200,7 @@ class CriticalBugScanner:
             "patterns": [
                 (r"JSON\.parse\s*\([^)]*req\.(body|query)", "Unsafe JSON parse"),
                 # Pattern constructed to avoid triggering scanners on this file
-                (r"(?<![a-zA-Z0-9_])ev" + r"al\s*\(", "Use of eval()"),
+                (r"(?<![a-zA-Z0-9_.])ev" + r"al\s*\(", "Use of eval()"),
                 (r"pickle\.loads?\s*\(", "Unsafe pickle deserialization"),
                 (r"yaml\.load\s*\([^)]*Loader\s*=\s*yaml\.Loader", "Unsafe YAML load"),
             ],
