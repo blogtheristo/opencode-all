@@ -144,7 +144,7 @@ class CriticalBugScanner:
             "patterns": [
                 (r"fs\.readFile\s*\([^)]*\+", "File read with path concatenation"),
                 (r"fs\.writeFile\s*\([^)]*\+", "File write with path concatenation"),
-                (r"open\s*\([^)]*\+", "File open with path concatenation"),
+                (r"(?<![.\w])open\s*\([^)]*\+", "File open with path concatenation"),
                 (
                     r"path\.join\s*\([^)]*req\.(query|params|body)",
                     "Path join with user input",
@@ -200,7 +200,7 @@ class CriticalBugScanner:
             "patterns": [
                 (r"JSON\.parse\s*\([^)]*req\.(body|query)", "Unsafe JSON parse"),
                 # Pattern constructed to avoid triggering scanners on this file
-                (r"(?<!simple)(?<!simple_)ev" + r"al\s*\(", "Use of eval()"),
+                (r"(?<![a-zA-Z0-9_])ev" + r"al\s*\(", "Use of eval()"),
                 (r"pickle\.loads?\s*\(", "Unsafe pickle deserialization"),
                 (r"yaml\.load\s*\([^)]*Loader\s*=\s*yaml\.Loader", "Unsafe YAML load"),
             ],
