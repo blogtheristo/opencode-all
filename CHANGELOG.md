@@ -9,6 +9,25 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- OpenCode primary-runtime handoff pack (Phases 1-4): root `opencode.json`
+  with real OpenCode schema, DGX Spark Ollama tunnel endpoint
+  (`http://127.0.0.1:11435/v1`), `CLAUDE.md` loaded through `instructions`,
+  retired invalid draft preserved as `.opencode/opencode.json_OLD.bak`,
+  runtime-policy guidance in `CLAUDE.md`, and VS Code OpenCode tasks for
+  tunnel start, tunnel test, config debug, and TUI launch.
+
+- DWS Factory Router (`src/factory/`): evidence-based cheap→strong model
+  escalation for agent runs. Deterministic detectors (action/observation
+  loops, repeated error classes, ping-pong, rewrite-retest thrash,
+  steps-since-progress, budget burn) feed a one-way ladder
+  (`continue` → `switch_model` → `restart_clean` → `escalate_human`) with
+  budget-stop, capability-before-retry, and asymmetric-hysteresis
+  guardrails. Fully offline — no external decision service. CLI:
+  `npm run factory:route` (structured JSON + verdict exit codes); skill:
+  `/factory-route`. Adapted from codejunkie99/sageroute (MIT) per the
+  adopt/adapt decision in
+  `docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md`.
+
 - Labor-anchored product catalog (T0–T4, Blue/pilot) wired across
   `dws10.com/config/products.json` and the `landing-pages/` mirror.
 - 64 Blue/pilot SKUs: 39 single-agent rows (CMP / SS / MO / ED / SG /

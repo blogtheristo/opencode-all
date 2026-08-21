@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-05-31T15:36:50.612Z",
+  "window": {
+    "since": "90 days ago",
+    "until": "now",
+    "branch": "claude/agent-driven-dev-playbook-uduc7"
+  },
+  "totals": {
+    "commits": 114,
+    "agent_commits": 69,
+    "human_commits": 45,
+    "unknown_commits": 0,
+    "lines_changed": 26990208,
+    "agent_lines": 21185803
+  },
+  "leverage": {
+    "by_commits_pct": 60.5,
+    "by_lines_pct": 78.5
+  },
+  "defects": {
+    "fix_commits": 0,
+    "defect_rate_pct": 0,
+    "unstable_files": [
+      {
+        "path": "dws10.com/config/products.json",
+        "count": 19
+      },
+      {
+        "path": "landing-pages/dws10-com/config/products.json",
+        "count": 19
+      },
+      {
+        "path": "landing-pages/dws10-com/products/dws-iq-006.html",
+        "count": 17
+      },
+      {
+        "path": "CLAUDE.md",
+        "count": 17
+      },
+      {
+        "path": "landing-pages/dws10-com/products.csv",
+        "count": 17
+      },
+      {
+        "path": "landing-pages/dws10-com/products.xml",
+        "count": 17
+      },
+      {
+        "path": "landing-pages/dws10-com/products/expert-services.html",
+        "count": 17
+      },
+      {
+        "path": "AGENTS.md",
+        "count": 17
+      },
+      {
+        "path": "Firehorse/Omnichannel/Partners/EMAIL_DRAFT_OUTOKUMPU_HEIDI_PELTONEN.md",
+        "count": 17
+      },
+      {
+        "path": "docs/PHD_FIREHORSE_EN.md",
+        "count": 16
+      }
+    ]
+  },
+  "attribution": {
+    "agent_signal_breakdown": {
+      "trailer": 62,
+      "coauthor": 5,
+      "branch": 2,
+      "none": 45,
+      "squash-no-trailer": 0
+    }
+  },
+  "verdict": "Healthy: 60.5% agent-authored at 0% defect rate — leverage is compounding.",
+  "notes": "Heuristic. main squashes PRs to one committer, so agent share leans on the claude.ai/code session trailer + claude/* branch hints. PR-accurate enrichment available via GitHub MCP list_pull_requests (head branch + additions/deletions)."
+}

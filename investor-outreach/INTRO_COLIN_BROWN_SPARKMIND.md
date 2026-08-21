@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Colin Brown, Sparkmind Capital
-Version: 1.0
+Version: 1.1
 Date: 2026-03-25
 Author: Claude Opus 4 + Human Review
 Branch: claude/research-leworldmodel-r3VRA
@@ -8,6 +8,7 @@ Status: Final Draft
 Story Lock: Story A (Carbon Balance Sheet Infrastructure)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-25): Initial draft. Iterated 2x — moved sovereignty hook to opening line, cut generic "why I'm reaching out" framing, consolidated ask to podcast-first with one-pager support. Human approved.
 -->
 
@@ -64,7 +65,7 @@ Hi Colin,
 
 Risto Päärni, CEO of Lifetime Oy (Finland). EU companies that can't account for their carbon exposure can't secure their supply chains. That's the problem we solve.
 
-We built the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and Taxonomy. Every tonne tracked like every euro. 6 industrial customers live today (KELA, Taksi Helsinki, Uber Finland, Bolt Finland, Limo Helsinki, Sixt). The regulatory wave (Fit for 55, CBAM border adjustment, CSRD mandatory reporting) is creating forced adoption — this isn't optional software, it's sovereignty infrastructure.
+We built the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and Taxonomy. Every tonne tracked like every euro. Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); development is funded by ~€7,000/month of services and transport revenue, which is not software revenue. (KELA, Taksi Helsinki, Uber, Bolt, Limo Helsinki and Sixt are dispatch operators of our licensed transport business — commercial counterparties, not software customers.) The regulatory wave (Fit for 55, CBAM border adjustment, CSRD mandatory reporting) is creating forced adoption — this isn't optional software, it's sovereignty infrastructure.
 
 Your European Security Growth Fund thesis maps directly here. Energy security and material sovereignty converge at the carbon ledger. The compliance layer is becoming as strategically important as energy supply itself.
 

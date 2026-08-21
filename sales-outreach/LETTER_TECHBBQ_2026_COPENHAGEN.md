@@ -28,6 +28,8 @@ Context: TechBBQ 2026, Copenhagen. Ticket allocation based on programme
 
 ---
 
+> **Correction (29.07.2026):** This letter states "already in-market with paying customers, 100% retention". That is wrong on both counts → the truth is **two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)**, and **no retention rate is asserted at all** (no cohort data exists to support one). The company's ~€7,000/month is **services and transport revenue, not software revenue**; it puts Lifetime at cash break-even with a founder salary of €0. The "25 EU-regulated industries" figure is correct for the platform (the Aegis dual-use tier covers 21). Letter body preserved verbatim — no send confirmation is on file, so it is treated as sent correspondence. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
 Dear InvestEU Portal Team,
 
 I am writing to request a startup ticket to **TechBBQ 2026** in Copenhagen. As a Finnish deep-tech founder building EU compliance infrastructure, I see TechBBQ as the single Nordic gathering where the investors, corporates, and ecosystem partners we need are in one room — at exactly the moment our growth curve steepens.

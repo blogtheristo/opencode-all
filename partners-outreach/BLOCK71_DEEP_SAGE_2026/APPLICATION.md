@@ -1,47 +1,54 @@
 # BLOCK71 Deep SAGE 2026 — DWS IQ Application Draft
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/block71-deep-sage-2026-xNiom | Date: 25.05.2026 | Changes: Initial draft — Deep SAGE 2026 application narrative based on Steve Leong's community outreach. Programme fit, Singapore/ASEAN angle, application answers, scaling plan, S$500K use of funds.
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/block71-deep-sage-2026-xNiom | Date: 25.05.2026 | Changes: Initial draft — Deep SAGE 2026 application narrative based on Steve Leong's community outreach. Programme fit, Singapore/ASEAN angle, application answers, scaling plan, S$500K use of funds.
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — body preserved verbatim as sent correspondence (submitted 31.05.2026, rejected 15.07.2026); dated correction note added above the body covering €7k MRR, 6 paying customers, 100% retention, Uber/Bolt/Kela as customers, and NCC as reference customer.
 
 Session Links & References:
-  - Programme page: https://block71.co/programmes/deep-sage-2026/
-  - Community partner contact: Steve Leong (steveleonghw@nus.edu.sg)
-  - Partner: TIS Inc. (Japan) + NUS Enterprise
-  - Related: investor-outreach/EIC_STEP1_APPLICATION.md (sister application; reuse executive summary)
-  - Related: investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.md (positioning source)
+
+- Programme page: https://block71.co/programmes/deep-sage-2026/
+- Community partner contact: Steve Leong (steveleonghw@nus.edu.sg)
+- Partner: TIS Inc. (Japan) + NUS Enterprise
+- Related: investor-outreach/EIC_STEP1_APPLICATION.md (sister application; reuse executive summary)
+- Related: investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.md (positioning source)
 
 Document Status:
-  - Created: 25.05.2026
-  - Last Modified: 25.05.2026
-  - Language: English
-  - Publication Status: DRAFT — not yet submitted
-  - Classification: CONFIDENTIAL
+
+- Created: 25.05.2026
+- Last Modified: 25.05.2026
+- Language: English
+- Publication Status: SENT — submitted to BLOCK71 31.05.2026; rejected 15.07.2026. Body preserved verbatim; see the correction note below.
+- Classification: CONFIDENTIAL
 
 ***
 
+> **Correction (29.07.2026):** this application was submitted to BLOCK71 on 31 May 2026 (rejected 15 July 2026) and its body is preserved verbatim as sent correspondence. The traction claims in it are wrong and must not be reused. (1) "€7K MRR, 6 paying customers … 100% retention" (§Risk, §Traction Q1 2026, §Metrics, §Objection table) → two enterprise pilots were contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts; the ~€7,000/month is services and transport revenue (licensed transport operation + consulting), **not** software revenue, and puts the company at cash break-even with a founder salary of €0. (2) Uber Finland, Bolt Finland and Kela listed as paying customers / validation → they are **dispatch operators** in the role defined by Traficom, dispatching ride orders to Lifetime Fleet vehicles; commercial counterparties of the licensed transport operation, never customers of DWS IQ, Aegis, or any Lifetime software product. (3) "NCC: reference customer, construction vertical" → NCC is an **unlanded prospect** (ULTRA cohort), never a landed or reference customer. (4) "100% retention" → retired; no retention rate is asserted, because no cohort data exists. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
 ## Application Metadata
 
-| Field            | Value                                                   |
-| ---------------- | ------------------------------------------------------- |
-| Programme        | BLOCK71 Deep SAGE 2026                                  |
-| Partners         | TIS Inc. (Japan) × NUS Enterprise × BLOCK71 Singapore   |
-| Company          | Lifetime Oy                                             |
-| Product          | DWS IQ — EU Industrial Compliance Infrastructure        |
-| Y-tunnus         | 0772407-9                                               |
-| VAT              | FI07724079                                              |
-| HQ Country       | Finland (Espoo)                                         |
-| Stage            | Seed / Pre-Series A (SAFE round live)                   |
-| Sector match     | AI · Smart Cities (primary); Robotics (LWM edge HW)     |
-| Funding ask      | Up to S$500,000 from TIS (open to staged tranche)       |
-| Programme dates  | 12-week structured curriculum (cohort 2026)             |
-| Application due  | **31 May 2026** (6 days from today)                     |
-| Apply URL        | https://block71.co/programmes/deep-sage-2026/           |
-| Primary contact  | Risto Anton Päärni, CEO (risto.paarni@lifetime.fi)      |
+| Field           | Value                                                 |
+| --------------- | ----------------------------------------------------- |
+| Programme       | BLOCK71 Deep SAGE 2026                                |
+| Partners        | TIS Inc. (Japan) × NUS Enterprise × BLOCK71 Singapore |
+| Company         | Lifetime Oy                                           |
+| Product         | DWS IQ — EU Industrial Compliance Infrastructure      |
+| Y-tunnus        | 0772407-9                                             |
+| VAT             | FI07724079                                            |
+| HQ Country      | Finland (Espoo)                                       |
+| Stage           | Seed / Pre-Series A (SAFE round live)                 |
+| Sector match    | AI · Smart Cities (primary); Robotics (LWM edge HW)   |
+| Funding ask     | Up to S$500,000 from TIS (open to staged tranche)     |
+| Programme dates | 12-week structured curriculum (cohort 2026)           |
+| Application due | **31 May 2026** (6 days from today)                   |
+| Apply URL       | https://block71.co/programmes/deep-sage-2026/         |
+| Primary contact | Risto Anton Päärni, CEO (risto.paarni@lifetime.fi)    |
 
 ---
 
@@ -122,11 +129,11 @@ Three validated innovations, each with an academic citation track:
 
 ## 6. Market & Why Singapore / ASEAN Now
 
-| Year    | EU regulation pulse                              | EU TAM     | ASEAN-side exposure                           |
-| ------- | ------------------------------------------------ | ---------- | --------------------------------------------- |
-| 2026    | CSRD wave 1, CBAM operational                    | €2B        | Singapore trading houses, Japanese exporters  |
-| 2026–28 | Fit for 55, CSRD wave 2                          | €5B        | ASEAN steel, cement, aluminium                |
-| 2027–30 | EPBD, ETS expansion                              | €8B + €10B | Power, shipping, industrial heat              |
+| Year    | EU regulation pulse           | EU TAM     | ASEAN-side exposure                          |
+| ------- | ----------------------------- | ---------- | -------------------------------------------- |
+| 2026    | CSRD wave 1, CBAM operational | €2B        | Singapore trading houses, Japanese exporters |
+| 2026–28 | Fit for 55, CSRD wave 2       | €5B        | ASEAN steel, cement, aluminium               |
+| 2027–30 | EPBD, ETS expansion           | €8B + €10B | Power, shipping, industrial heat             |
 
 Total EU TAM: ~€25B over 10 years. The ASEAN-side compliance-data market (verified emissions for EU-bound exports) is unmeasured today and entirely greenfield. Deep SAGE puts DWS IQ in front of it before competition forms.
 
@@ -167,14 +174,14 @@ Three specific gaps Deep SAGE fills exactly:
 
 ## 10. Use of Funds — S$500K Tranche (Illustrative)
 
-| Line item                                                | S$       | Notes                                                                |
-| -------------------------------------------------------- | -------- | -------------------------------------------------------------------- |
-| Singapore entity setup + 1 ASEAN GTM lead (12 months)    | 220,000  | Hire post-cohort; mandate = TIS relationship + first ASEAN customers |
-| Pilot deployments (Jetson hardware + integration), 3 sites | 120,000  | Japanese manufacturer + Singapore trading house + 1 utility           |
-| CSRD/CBAM data partnerships in ASEAN                       | 60,000   | Local emission factor sources, port data integrations                 |
-| Compliance certifications (SOC2, ISO 27001 maintenance)    | 50,000   |                                                                      |
-| Marketing / events (Asia Tech x SG, regional Messe)        | 30,000   | Aligned with German Messe and PE meeting cadence already in plan      |
-| Reserve                                                    | 20,000   |                                                                      |
+| Line item                                                  | S$          | Notes                                                                |
+| ---------------------------------------------------------- | ----------- | -------------------------------------------------------------------- |
+| Singapore entity setup + 1 ASEAN GTM lead (12 months)      | 220,000     | Hire post-cohort; mandate = TIS relationship + first ASEAN customers |
+| Pilot deployments (Jetson hardware + integration), 3 sites | 120,000     | Japanese manufacturer + Singapore trading house + 1 utility          |
+| CSRD/CBAM data partnerships in ASEAN                       | 60,000      | Local emission factor sources, port data integrations                |
+| Compliance certifications (SOC2, ISO 27001 maintenance)    | 50,000      |                                                                      |
+| Marketing / events (Asia Tech x SG, regional Messe)        | 30,000      | Aligned with German Messe and PE meeting cadence already in plan     |
+| Reserve                                                    | 20,000      |                                                                      |
 | **Total**                                                  | **500,000** |                                                                      |
 
 ---
@@ -195,13 +202,13 @@ Three specific gaps Deep SAGE fills exactly:
 
 ## 12. Risks We Will Be Asked About (and Our Answer)
 
-| Risk                                                  | Mitigation                                                                                                   |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| MRR is small (€7K)                                    | Regulatory tailwind = forced purchases 2026–2030. Traction quality (100% retention, enterprise logos) > size. |
-| EU founder team without ASEAN experience              | This is the entire point of Deep SAGE. Fractional CXO + TIS solve it.                                        |
-| Competition from Watershed, Persefoni, Sweep          | None offer edge inference, none offer payment-agnostic recording, none cover CBAM + CSRD + ETS in one ledger.|
-| Hardware dependency (Jetson) creates supply risk      | NVIDIA Connect ISV status. Multi-SKU on-ramp (Orin Nano, Orin NX, Spark). Software runs on CPU-only fallback.|
-| EU regulatory uncertainty (CBAM scope changes)        | Architecture is rail-agnostic and obligation-agnostic. Scope changes are config, not rewrite.                |
+| Risk                                             | Mitigation                                                                                                    |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| MRR is small (€7K)                               | Regulatory tailwind = forced purchases 2026–2030. Traction quality (100% retention, enterprise logos) > size. |
+| EU founder team without ASEAN experience         | This is the entire point of Deep SAGE. Fractional CXO + TIS solve it.                                         |
+| Competition from Watershed, Persefoni, Sweep     | None offer edge inference, none offer payment-agnostic recording, none cover CBAM + CSRD + ETS in one ledger. |
+| Hardware dependency (Jetson) creates supply risk | NVIDIA Connect ISV status. Multi-SKU on-ramp (Orin Nano, Orin NX, Spark). Software runs on CPU-only fallback. |
+| EU regulatory uncertainty (CBAM scope changes)   | Architecture is rail-agnostic and obligation-agnostic. Scope changes are config, not rewrite.                 |
 
 ---
 

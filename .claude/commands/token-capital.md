@@ -1,6 +1,6 @@
 ---
 name: token-capital
-description: Inventories and scores a firm's token capital — the AI capability it builds and OWNS (private evals, private RL environments, knowledge base, the learning loop on top of models) — and runs the sovereignty test: can you swap the generalist model without losing company-veteran expertise? Use when user says "token capital", "learning loop", "do we own our AI IP", "hill climbing machine", "private evals", "swap the model", "is our AI capability ours or the vendor's". Pairs with /human-capital.
+description: "Assess a firm's token capital — owned AI capability: private evals, RL environments, the learning loop. Tests model-swap sovereignty. Pairs with /human-capital. Full detail: skills/token-capital/SKILL.md."
 argument-hint: "firm or customer name, or a description of the AI stack / loop to inventory"
 ---
 

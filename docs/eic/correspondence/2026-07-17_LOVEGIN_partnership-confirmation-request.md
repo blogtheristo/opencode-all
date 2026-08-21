@@ -1,21 +1,23 @@
 # Correspondence — Lovegin (Cubet): EIC partnership confirmation request
 
-***
+---
 
 ## VERSION AND AGENT HISTORY
 
-| Field          | Value                                                        |
-| -------------- | ------------------------------------------------------------ |
-| Version        | 1.0                                                          |
-| Date           | 2026-07-17                                                   |
-| Author         | Lifetime Oy                                                  |
-| Owner          | risto-001                                                    |
+| Field          | Value                                                                                                     |
+| -------------- | --------------------------------------------------------------------------------------------------------- |
+| Version        | 1.0                                                                                                       |
+| Date           | 2026-07-17                                                                                                |
+| Author         | Lifetime Oy                                                                                               |
+| Owner          | risto-001                                                                                                 |
 | Status         | **REPLIED 2026-07-17** — John will send the written confirmation; confirmation text + photo still pending |
-| Classification | Internal                                                     |
-| Branch         | claude/dl-18-7-delivery-7m1hnj                               |
-| Context        | EIC Accelerator Step 1 (Aug 4 batch) — team/partner evidence |
+| Classification | Internal                                                                                                  |
+| Branch         | claude/dl-18-7-delivery-7m1hnj                                                                            |
+| Context        | EIC Accelerator Step 1 (CONTINUOUS deadline 17.12.2026) — team/partner evidence                           |
 
-***
+---
+
+> **Correction note (2026-07-18):** the "Aug 4" deadline in the sent letters below reflected the earlier monthly-batch assumption. The real call is **continuous**, with a single deadline **17.12.2026 17:00 Brussels** (`HORIZON-EIC-2026-ACCELERATOR-01`, Lump Sum Grant). The sent letter bodies are preserved verbatim per §24 Correspondence Preservation — **no re-send is needed** (the partnership ask stands; the date was non-binding on Cubet). Forward-looking follow-up items below use the corrected deadline.
 
 **From:** Risto Anton Päärni (risto.paarni@lifetime.fi)
 **To:** lovegin@cubettech.com (John Lovegin, CEO, Cubet Techno Labs)
@@ -49,7 +51,8 @@ risto.paarni@lifetime.fi · +358 400 319 010
 >
 > Thank you very much. I shall send the email over confirmation.
 >
-> ------------------------------
+> ---
+>
 > Regards,
 > Lovegin John.
 > Mobile : 91-9895522518
@@ -65,6 +68,7 @@ Hi John,
 Thank you — much appreciated. Ahead of your confirmation, here's the scope we're hoping Cubet takes in the EIC project, so it's concrete on both sides. I'm attaching our pitch deck for context.
 
 We'd like Cubet as our **EU-controlled delivery partner** on the non-core engineering:
+
 - **Pilot-deployment operations and customer onboarding** (our 6 existing + new pilots);
 - **Integration and system testing**;
 - **Developer tooling, documentation, and release support**.
@@ -88,4 +92,4 @@ risto.paarni@lifetime.fi · +358 400 319 010
 - [ ] **Written confirmation email received** — paste verbatim here when it arrives (this is the citable artifact for the application).
 - [ ] Photo received (partnership deck slide).
 - [ ] **Ask (in reply thread / nudge): a group photo of the ~20-engineer delivery team** — visually substantiates the "standing bench of 20" claim on the deck. (Not in the original email; add when he replies.)
-- [ ] If no reply by ~2026-07-28, send a short polite nudge (deadline Aug 1).
+- [ ] If no reply by ~2026-07-28, send a short polite nudge (continuous deadline 17.12.2026 — earlier still preferred for the deck slide, but no batch pressure).

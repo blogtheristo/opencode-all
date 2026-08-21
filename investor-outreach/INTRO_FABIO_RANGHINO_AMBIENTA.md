@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Fabio Ranghino, Ambienta
-Version: 1.0
+Version: 1.1
 Date: 2026-04-22
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-draft-IM1GB
@@ -9,6 +9,7 @@ Story Lock: Story A — Carbon/compliance infrastructure (NO Aegis/defense — A
 Intro Type: Cold — LinkedIn InMail or warm intro via Federica Mallone
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-22): Initial draft. Fabio Ranghino — Partner & Head of Sustainability & Strategy at Ambienta SGR (Milan). The actual decision-maker for portfolio-wide sustainability tooling adoption at Ambienta. Identified during Federica Mallone INTRO research (v1.1 correction): Federica is Manager-level on his team, Ranghino owns the function. Strategy: prefer warm intro through Federica; fall back to direct LinkedIn InMail referencing Lens 2024 publication if Federica path stalls beyond 14 days.
 -->
 
@@ -70,7 +71,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Drawbacks / Mitigations
 
-- **Senior partner, high inbound volume.** Cold InMails from EUR 7K MRR seed founders rarely get a reply.
+- **Senior partner, high inbound volume.** Cold InMails from pre-seed founders at our scale rarely get a reply.
   - _Mitigation:_ Warm intro via Federica is the primary path. Cold path requires a Lens-publication hook + concrete portfolio-relevant data point in line one.
 - **Article 9 mandate excludes defense / dual-use.** Aegis, sovereignty, military, defense language is an instant fail.
   - _Mitigation:_ Hard suppression — Story A only. Do NOT send INVESTOR_MEMO_AEGIS.md. Do NOT mention dual-use, defense, sovereign-Aegis framing.
@@ -125,7 +126,7 @@ Why this is relevant to Ambienta:
 
 Concrete ask: one Ambienta industrial PortCo, 8-week pilot, source-cited CSRD report at the end. If the methodology holds up, we discuss a portfolio-wide standard.
 
-Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, two enterprise pilots contracted Q1/2026 (€59,900 booked), 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
 
 One-pager (Ambienta-tailored) attached. Happy to jump on 20 minutes if there's any overlap.
 

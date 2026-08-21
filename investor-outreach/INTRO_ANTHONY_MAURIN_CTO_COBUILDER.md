@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: CTO Co-Builder + Angel Intro Note — Anthony Maurin, Paris
-Version: 1.1
+Version: 1.2
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: Technical co-builder + angel check — stacks on SAFE round, not in 
 Intro Type: Warm (third party intro available)
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Repeat technical founder, just exited Volted.ai (acquired by Backbone late 2025). Built a node-based AI platform in 10 days to beta. Currently building open-source MCP server tooling — exact DWS IQ stack language. Full-stack: Solidity, Node.js, Python, C++. Paris-based. Currently deploying angel capital, not CTO-hunting. Pitch must be "co-builder + angel" not "hire." Fits as Track 3 of the CTO search alongside Mikko (Track 1, direct) and LinkedIn public pool (Track 2). If Anthony says yes as co-builder, the Mikko conversation reframes to advisory. If Mikko says yes first, Anthony becomes angel + technical advisor with first right on future CTO expansion. No double-promising the CTO seat.
 - v1.1 (2026-04-19): Tightened equity sequencing. Two tracks must NOT blur: (1) SAFE angel ticket closes FIRST — standard SAFE equity, no special terms. (2) Co-builder equity (2-3% contribution-milestone) only begins vesting AFTER code ships — no upfront grant, no signing bonus. Email and DM redrafted to reflect "angel first, build second" framing. Prevents the failure mode where Anthony commits capital but never ships code and still holds co-builder equity.
 -->
@@ -97,7 +98,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Anthony — saw your open-source MCP work, congrats on the Volted exit.
 
-I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act audit trail. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 on June 15.
+I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act audit trail. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). V1 launches at Arctic 15 on June 15.
 
 Not pitching you a CTO role — I know you're in angel mode. First ask is simple: would you take an angel ticket into our SAFE (EUR 3.8M cap, standard terms)? If yes and the architecture also pulls you in, we can open a separate conversation later about a contribution-milestone co-builder structure — but angel first, build second, no bundling. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
 
@@ -109,7 +110,7 @@ Hi Anthony,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because your open-source MCP work and the Volted exit put you in rare territory — a repeat technical founder, fluent in the exact stack we're shipping, and currently deploying angel capital.
 
-DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), EU AI Act reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 6 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
+DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), EU AI Act reasoning lineage, EU AI Act compliant from v0. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). V1 launches June 15 at Arctic 15, German Messe commercial push follows.
 
 **Why I'm writing:** I'm not recruiting you as CTO. You're deploying capital, you're in builder-mode, you just exited. The ask is sequenced — angel first, build second, no bundling:
 

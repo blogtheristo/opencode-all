@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Ferdinand Reynolds, SuperSeed Ventures
-Version: 1.0
+Version: 1.1
 Date: 2026-03-26
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/add-investor-profile-MzzNC
@@ -9,6 +9,7 @@ Story Lock: Story A (Carbon Balance Sheet Infrastructure)
 Intro Type: Warm (human has recent conversation, can make warm intro)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-26): Initial draft. Warm intro — human spoke with Ferdinand recently. Led with defence/manufacturing supply chain angle, connected carbon compliance to supply chain resilience. Nordics coverage is direct geographic fit.
 -->
 
@@ -85,7 +86,7 @@ EU manufacturers that can't account for their carbon exposure are losing supply 
 
 We're building the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and EU Taxonomy. Every tonne tracked like every euro. A fleet of skilled agents scoring compliance across 20 regulated industrial verticals — steel, cement, chemicals, aluminium, the sectors you invest in.
 
-6 paying customers today (€7K MRR, 100% retention). The regulatory wave is creating forced adoption: Fit for 55, CBAM phase-in, CSRD mandatory reporting. This isn't optional software — it's supply chain compliance infrastructure.
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); development is funded by ~€7,000/month of services and transport revenue, which is not software revenue. The regulatory wave is creating forced adoption: Fit for 55, CBAM phase-in, CSRD mandatory reporting. This isn't optional software — it's supply chain compliance infrastructure.
 
 We're raising €650K on a €3.8M SAFE cap. Launching V1 publicly at Arctic 15 in Helsinki on June 15.
 

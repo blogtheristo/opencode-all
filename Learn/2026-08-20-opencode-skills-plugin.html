@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-08-20-opencode-skills-plugin.html</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-08-20-opencode-skills-plugin.html</h1>
+</header>
+<h1 id="field-note-skills-registry-now-multiplayer-across-opencode-claude-code">Field Note — Skills Registry Now Multiplayer Across OpenCode + Claude Code</h1>
+<p>Date: 2026-08-20 Branch: <code>claude/multiplayer-ai-skills-plugin-hkb30u</code></p>
+<h2 id="what-happened">What happened</h2>
+<p>A shared tweet/article argued teams should package their best AI skills as a version-controlled, installable plugin so everyone gets the same SOPs instead of ten versions floating around Slack. The HIC’s instruction: apply this to DWS by making our skill library “understandable to OpenCode.”</p>
+<p>The gap: <code>CLAUDE.md</code>’s Runtime Policy already declares OpenCode the <em>primary</em> interactive runtime (DGX Spark tunnel) and Claude Code the hot standby — but <code>skills/manifest.json</code> had no <code>opencode</code> surface at all. All 6 tracked surfaces were Claude-only. The 41+ codified slash-command SOPs (<code>.claude/commands/*.md</code>) had zero presence in <code>.opencode/</code>. So on the runtime the org is supposed to be using first, none of the codified process existed — the exact “single-player AI” failure mode the article describes, just split across runtimes instead of across people.</p>
+<h2 id="what-changed">What changed</h2>
+<ul>
+<li><code>skills/manifest.json</code>: added <code>opencode-cli</code> as a 7th tracked surface; marked it <code>true</code> on every profile whose commands are plain repo-local slash commands or skill packs (45 of 48 commands, all 15 skill packs, all 3 discipline gates). Left <code>slash-dgx</code> (<code>train-model</code>, <code>ollama-spark</code>) and <code>slash-admin-antigravity</code> (<code>gcr-skill</code>) as OpenCode-<code>false</code> — those exist specifically to reach the DGX tunnel or Google admin scope <em>from Claude Code</em>; mirroring them into OpenCode (which already runs against that same tunnel) would be a redundant/confusing double-hop.</li>
+<li><code>scripts/skill-manifest-sync.mjs</code>: added an <code>--opencode</code> mode that generates <code>.opencode/command/*.md</code> from <code>.claude/commands/*.md</code> (frontmatter converted, body untouched), and extended <code>--check</code> to fail the build if <code>.opencode/command/</code> drifts from the manifest — same enforcement pattern already used for <code>.claude/commands/</code> and the Antigravity stubs.</li>
+<li>Generated 47 files under <code>.opencode/command/</code> — regenerated only, never hand-edited; source of truth stays <code>.claude/commands/</code> + the manifest.</li>
+<li><code>docs/DWS_SKILLS_GUIDE.md</code> §15.1: new “OpenCode CLI support” section explaining the mechanism and the three excluded commands; matrix regenerated with the new column.</li>
+</ul>
+<h2 id="insight">Insight</h2>
+<p>The Runtime Policy’s “shared rule source” pattern (both runtimes load <code>CLAUDE.md</code>) needed to extend one level down, to the skill/command layer, or the policy was aspirational rather than real. Generating from a single source (rather than hand-maintaining two directories) is what keeps this from becoming exactly the drift problem the article warns about — one manifest, one generator, one <code>--check</code> gate.</p>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>Verify at least one converted command (<code>review</code>, <code>ship</code>) actually runs correctly inside a live OpenCode session against the DGX tunnel — not yet done in this session (no OpenCode runtime available in this container).</li>
+<li>Consider whether skill packs (<code>skills/*/SKILL.md</code>) need an explicit index/registration in <code>opencode.json</code> itself, or whether “plain markdown, reachable via <code>instructions</code>” is sufficient in practice — currently assumed sufficient but unverified against real OpenCode skill-discovery behavior.</li>
+<li>8 blog drafts remain parked in <code>docs/blog-drafts/</code> awaiting HIC read/approval (Rule 13) — unrelated to this change, flagged separately by the session-stop hook.</li>
+</ul>
+<p>N/A for KB/Drive automation in this note — see decision-shaped question below; this is not a skip, both are being actioned this same turn.</p>
+</body>
+</html>

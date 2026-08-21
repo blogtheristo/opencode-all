@@ -18,9 +18,12 @@
     "diag:dws-api": "tsx scripts/test-dws-api.ts",
     "diag:mcp": "tsx scripts/test-mcp-http.ts",
     "diag:ollama": "tsx scripts/test-veriton-ollama.ts",
+    "train:deploy": "bash scripts/deploy-acer-training.sh deploy",
+    "train:status": "bash scripts/deploy-acer-training.sh status",
+    "train:smoke": "python3 -m pytest infrastructure/llm-training/tests -v",
     "diag:ses": "node --import tsx scripts/test-ses-smtp.ts",
-    "morning:briefing": "node --import tsx scripts/send-morning-briefing.ts",
-    "morning:briefing:force": "node --import tsx scripts/send-morning-briefing.ts --force",
+    "morning:briefing": "node --import tsx scripts/send-morning-brief-v2.ts",
+    "morning:briefing:force": "node --import tsx scripts/send-morning-brief-v2.ts --force",
     "ted:fetch": "node --import tsx scripts/ted-fetch.ts",
     "ted:outreach": "node --import tsx scripts/ted-outreach-send.ts",
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
@@ -42,7 +45,9 @@
     "skills:check": "node scripts/skill-manifest-sync.mjs --check && node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code",
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
-    "validate:pricing": "tsx scripts/validate-pricing.ts",
+    "validate:pricing": "tsx scripts/validate-pricing.ts && node scripts/validate-product-publication.mjs",
+    "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
+    "factory:route": "tsx scripts/factory-route.ts",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
@@ -55,7 +60,7 @@
     "@opentelemetry/semantic-conventions": "^1.28.0",
     "@supabase/supabase-js": "^2.39.0",
     "@upstash/redis": "^1.36.2",
-    "axios": "^1.15.2",
+    "axios": "^1.19.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -78,6 +83,9 @@
     "sharp": "^0.34.5",
     "stripe": "^22.1.0",
     "zod": "^4.3.6"
+  },
+  "overrides": {
+    "undici": "7.29.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

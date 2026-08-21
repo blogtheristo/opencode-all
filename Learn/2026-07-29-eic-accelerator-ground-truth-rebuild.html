@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-29-eic-accelerator-ground-truth-rebuild</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-29-eic-accelerator-ground-truth-rebuild</h1>
+</header>
+<h1 id="field-note-eic-accelerator-step-1-ground-truth-rebuild-caught-a-near-false-statement-to-the-commission">Field
+Note — EIC Accelerator Step 1: ground-truth rebuild caught a
+near-false-statement to the Commission</h1>
+<p><strong>Date:</strong> 2026-07-29 <strong>Session:</strong>
+<code>claude/eic-accelerator-2026-step1-bstysc</code> (PR #1700, merged
+<code>e0481cf7</code>) <strong>Type:</strong> Production-incident-style
+capture (grant-application claims, not code — same “silently drifted and
+would have broken in the real world” shape) <strong>Ontology
+tags:</strong> <code>#grants</code> <code>#eic</code>
+<code>#dual-use</code> <code>#truth-standard</code>
+<code>#learning-standard</code> <code>#kya</code></p>
+<hr />
+<h2 id="what-happened">What happened</h2>
+<p>A near-final EIC Accelerator 2026 Step 1 application (€2.5M grant,
+Lifetime Oy) was reviewed against a set of official call facts. Fixing
+the stated deadline model (a stale “Aug 4 monthly batch” assumption —
+the real call is continuous, deadline 17.12.2026 17:00 Brussels)
+surfaced a bigger problem: several of the pack’s core claims did not
+match reality, and two independent read-only ground-truth audits were
+run against the live repo, the production Supabase deployment, and the
+company’s own public product pages to find out how far the drift
+went.</p>
+<p><strong>What the audits found, verified against primary sources (not
+assumed):</strong></p>
+<ul>
+<li><strong>“DWS IQ Aegis — live, in production, with paying
+customers”</strong> was false. The company’s own
+<code>products.json</code> and public product page said
+<code>availability: &quot;preorder&quot;</code>, GA “August 2026” (later corrected
+to September 2026 with the founder).</li>
+<li><strong>“6 paying customers, €7k MRR, 100% retention since first
+paid deployment (Dec 2025)”</strong> was misattributed. The revenue is
+Lifetime Fleet — a licensed transport operation working with
+Traficom-regulated dispatch operators (commission-based) — not
+software/platform revenue. This exact confusion was <strong>already
+self-diagnosed</strong> in the repo months earlier as the cause of an
+Arctic15 rejection (“€7-14k MRR (Fleet) — a range, from the wrong
+division”) and a Defence Startup Fund rejection, and had never been
+fixed repo-wide.</li>
+<li><strong>“TRL 6-7”</strong> was not defensible as written;
+<strong>“TRL 5 completed, entering TRL 6”</strong> is, anchored on the
+KYA trust engine — which really does run in production (agent identity
+binding, session trust scoring, TC-4 “Leash Snap” revocation on a live
+API, Article-12 audit tables deployed to the production database). This
+is the one claim in the original pack that held up to full scrutiny, and
+it became the anchor of the rewritten narrative instead of Aegis.</li>
+<li><strong>The most serious finding:</strong> the founder recalled
+“NATO DIANA requested our pitch video and deck.” When traced to a
+source, this resolved to a <strong>different funder’s</strong> rejection
+letter (Riihimäen Tilat ja Kehitys Oy / RTOY, a municipal Defence
+Startup Fund, rejected 23 April 2026) that happened to name the same two
+missing artifacts. Had “DIANA requested materials” shipped into a
+Commission submission as written, it would have been a <strong>false
+statement to the European Commission</strong> in an active grant
+application.</li>
+</ul>
+<h2 id="the-insight">The insight</h2>
+<p><strong>A founder’s memory of a specific external event is not a
+citable source until it is dated and quoted.</strong> This applies with
+extra force when two similarly-named or adjacent organisations exist (a
+municipal fund vs. the international programme it feeds into — RTOY is
+genuinely the local gateway to NATO DIANA opportunities, which is why
+the conflation was easy to make in good faith). The fix that
+generalizes: draft the placeholder and the exact verifying question
+first; draft the sentence that depends on the answer only after the
+answer exists.</p>
+<p><strong>A second, independent insight:</strong> an internal document
+that already diagnoses its own drift (“Gap 9 — contradictions that will
+get caught in diligence”, “the wrong division”) is a higher-priority
+signal than a claim with no prior flag. The traction-claim drift had
+been correctly self-diagnosed by an earlier session and then never
+closed — it cost two funding rejections in the meantime.</p>
+<p><strong>What this session got right, worth repeating:</strong> two
+independent read-only audits before any external claim was touched; §24
+Correspondence Preservation applied throughout (sent letters kept
+verbatim, dated correction notes added instead of rewriting history);
+the dual-use engagement log’s <code>[TO FILL]</code> scaffold, which
+forces an explicit human answer before an external claim ships rather
+than letting the agent infer one; and — per the founder’s own explicit
+decision — <strong>not rushing</strong> an export-control classification
+opinion on a still-developing product, because a rushed opinion on a
+moving target would need redoing.</p>
+<h2 id="what-changed-pr-1700-merged-to-main">What changed (PR #1700,
+merged to main)</h2>
+<ul>
+<li>Deadline: continuous, 17.12.2026 17:00 Brussels (was: stale
+monthly-batch assumption).</li>
+<li>Aegis: stated as preorder, GA September 2026, pre-revenue (was:
+“live, in production”).</li>
+<li>Traction: detached from software — Lifetime Fleet transport +
+consulting revenue, explicitly not platform traction. Real software
+pipeline stated instead: two enterprise pilots contracted Q1/2026,
+active discussions (not “filed”) with Outokumpu and Kemira.</li>
+<li>TRL: “5 completed, entering 6”, anchored on the KYA engine.</li>
+<li>Dual-use declared (Part A tick box → YES) with an honest
+civil/defence asymmetry in a new §F7b, and export control scoped
+correctly to what the submission actually describes (§F6c) rather than
+the company’s full product roadmap.</li>
+<li>The DIANA claim removed entirely and replaced with a 12-month
+door-opening plan (<code>docs/eic/DIANA_DOOR_OPENING_PLAN.md</code>):
+DIANA’s 2027 cohort closed 3 July 2026, so the real near-term move is
+answering RTOY’s actual, given feedback — not inventing NATO-level
+interest that was never expressed.</li>
+<li>A wedge choice (ICEYE/SAR, proposed by the founder) was evaluated
+against the audit evidence and recommended against: the capability
+behind it is simulated in the codebase
+(<code>Math.random()</code>-generated satellite IDs), the internal ICEYE
+relationship status is self-contradictory, and it leads straight into
+the export-control question the founder chose not to rush. Quantum-safe
+/ secure-connectivity — real funded work, an exact fit for VTT’s stated
+DIANA-accelerator theme, and already the centre of the EIC narrative —
+was recommended instead.</li>
+</ul>
+<h2 id="next-steps">Next steps</h2>
+<ol type="1">
+<li>PIC / Participant Register registration for Lifetime Oy (Central
+Validation takes weeks; not yet started — the one real timeline risk
+left).</li>
+<li>Reply to Laura Manner-Raappana (RTOY) with the now-complete video +
+deck, answering her actual feedback.</li>
+<li>Fill
+<code>docs/eic/correspondence/2026-07_DUAL_USE_ENGAGEMENT_LOG.md</code>
+§2 (the 2-3 dual-use enterprise contacts).</li>
+<li>Resolve the parallel customer/MRR drift across
+<code>docs/investor/</code>, <code>docs/sales/</code>,
+<code>docs/board/</code>, <code>sales-outreach/</code>,
+<code>Store/</code> (a background reconciliation agent was launched for
+this; its completion status needs checking next session).</li>
+<li>Two rule proposals await human review in
+<code>docs/learning-loops/2026-07-29-this-session.md</code> (read-only
+per <code>/learn</code>) — an external-attribution rule for
+<code>DWS_TRUTH_STANDARD.md</code>, and an extension to the SWEEP
+COMPLETENESS rule already in
+<code>.claude/commands/truth-check.md</code>.</li>
+</ol>
+<p>See
+<code>.claude/handoffs/claude/eic-accelerator-2026-step1-bstysc.md</code>
+for full session state.</p>
+<hr />
+<h2 id="hic-learning-outcome-five-step-record">HIC Learning Outcome —
+five-step record</h2>
+<ol type="1">
+<li><strong>KB updated:</strong>
+<code>kb/wiki/concepts/external-attribution-claims-grant-applications.md</code>
+— the generalizable rule.</li>
+<li><strong>Field note:</strong> this file.</li>
+<li><strong>Learn/ HTML:</strong>
+<code>Learn/2026-07-29-eic-accelerator-ground-truth-rebuild.html</code>
+(+ <code>.docx</code>).</li>
+<li><strong>Drive export:</strong>
+<code>2026 DWS6/2026-07-29-eic-accelerator-ground-truth-rebuild</code> —
+https://docs.google.com/document/d/122T_Q4UGAgsDuKpYdE_jPkJjHFiLT10-GHXsK6sV5Tk/edit</li>
+<li><strong>HIC question:</strong> asked in the session reply (chat),
+per §10.1 — logged back here once answered.</li>
+</ol>
+</body>
+</html>

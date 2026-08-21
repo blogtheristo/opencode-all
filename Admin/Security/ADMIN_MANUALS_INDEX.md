@@ -22,7 +22,7 @@
 - EU AI Act classification (Limited Risk - Article 52)
 - NIS2 directive compliance for critical infrastructure
 - Lifetime Scope Signals protocol for agent coordination
-- Enterprise implementation guide (NCC, T2H)
+- Enterprise implementation guide (NCC, T2H — unlanded prospects, used as worked examples)
 - Custom agent creation with AgentFoundry
 - RBAC for agent permissions
 - Incident response for AI agent failures

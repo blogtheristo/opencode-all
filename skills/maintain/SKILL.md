@@ -28,6 +28,7 @@ already does for ephemeral, plus weekly wiki-level cleanup.
 
 Based on `maintain` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/maintain).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Steps
 

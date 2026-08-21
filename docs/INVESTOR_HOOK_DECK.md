@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
 
+- Version: 3.2 | Tool: Claude Code (Sonnet 5) | Session: claude/redact-aegis-customer-names | Date: 31.07.2026 | Changes: Reconciled seat tiers to the canonical structure from the 2026-07-29 Boardy investor pack (LD-2026-014, supersedes LD-2026-007): Fleet Admiral EUR 200K (was EUR 500K), Captain EUR 50K x 9 seats with an optional EUR 150K triple bundle (removed the separate "Industry Captain" tier — it was a duplicate label for the same seat). See `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`.
 - Version: 3.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Added Slide 4 — Qivalis payment rail + DWS IQ compliance ledger. Two-layer thesis. Scarcity + timing + strategic insight hook for Captain seats.
 - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added carbon balance sheet thesis as fundraising one-liner. Slide 1 now leads with "carbon balance sheet" framing. Added Slide 0 (one-liner). Updated moat to include debit-credit ledger and cross-vertical intelligence.
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries (was 16). Sales sprint June 15 – August 15.
@@ -89,16 +90,15 @@ AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. EUR 1
 
 ### Pick your seat. Fleet Admiral to Deputy Captain.
 
-**SAFE at EUR 3.8M valuation cap. 18% discount.**
+**SAFE at EUR 3.8M valuation cap. 20% discount.**
 
-| Tier                 | Investment  | Seats   | What you get                                                                                                    |
-| -------------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| **Fleet Admiral**    | EUR 500,000 | 1       | Strategic co-pilot. Board observer rights. First right of refusal on all follow-on rounds. Annual 1:1 strategy. |
-| **Captain**          | EUR 150,000 | Limited | Named industry leader. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access.    |
-| **Industry Captain** | EUR 50,000  | 8       | Named captain of one of 20 EU industries. Annual briefings. Industry-specific intelligence.                     |
-| **Deputy Captain**   | EUR 5,000   | 50      | Quarterly briefings. Upgrade path to Captain. Hard cap at 50.                                                   |
+| Tier               | Investment                            | Seats     | What you get                                                                                                                                                                                |
+| ------------------ | ------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Fleet Admiral**  | EUR 200,000                           | 1         | Strategic co-pilot. Board observer rights. First right of refusal on all follow-on rounds. Annual 1:1 strategy.                                                                             |
+| **Captain**        | EUR 50,000 (EUR 150,000 for a triple) | 9         | Named captain of one of 25 EU-regulated industries. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access. A triple bundles 3 seats — own 3 industries under one SAFE. |
+| **Deputy Captain** | EUR 5,000                             | Unlimited | Quarterly briefings. Upgrade path to Captain.                                                                                                                                               |
 
-**8 Industry Captain seats across 20 industries. First tranche gets the best terms.**
+**9 Captain seats across 20 industries — 3 as single seats, or bundle a triple for EUR 150,000. First tranche gets the best terms.**
 
 The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviation, Maritime, Road Transport, Construction, Agriculture, Waste Management, Aluminium, Pulp & Paper, Petroleum Refining, Food & Beverage, Glass & Ceramics, Mining, Telecommunications, Pharmaceuticals, Textiles, Water & Wastewater.
 
@@ -121,9 +121,9 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
-**When a seat is taken, it's gone. Deputy Captain capped at 50 seats.**
+**When a seat is taken, it's gone. Only 9 Captain seats.**
 
-Become Industry Captain: https://dws10.com/captain/index.html
+Become Captain: https://dws10.com/captain/index.html
 
 Contact: risto@lifetime.fi | linkedin.com/in/ristopaarni
 
@@ -159,8 +159,8 @@ CSRD Scope 3 booked, ETS account reconciled.
 BBVA Ventures and ING Ventures are the most natural strategic
 investors in Europe for a platform at this intersection.
 
-Industry Captain seats in Steel & Metals, Chemicals, and Cement
-open the conversation. 8 seats. Q2 2026.
+Captain seats in Steel & Metals, Chemicals, and Cement
+open the conversation. 9 seats. Q2 2026.
 
 **DWS IQ is the compliance ledger for Qivalis-era industrial payments.**
 

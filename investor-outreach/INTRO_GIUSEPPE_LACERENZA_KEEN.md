@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Giuseppe Lacerenza, Keen Venture Partners
-Version: 1.0
+Version: 1.1
 Date: 2026-03-26
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/add-investor-profile-MzzNC
@@ -9,6 +9,7 @@ Story Lock: Dual-use (Defence & Security + Carbon Compliance)
 Intro Type: Warm (human can make warm intro)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-26): Initial draft. Warm intro available. Led with dual-use/European security angle — carbon accounting as strategic sovereignty infrastructure. Giuseppe's McKinsey A&D background + NATO DIANA mentorship + defence fund thesis maps to Aegis/sovereignty positioning. Strongest defence-thesis fit in current pipeline.
 -->
 
@@ -88,7 +89,7 @@ Why this is a dual-use story:
 - **Carbon data is sovereign data.** The ability to independently audit industrial emissions without relying on US-hosted platforms is a strategic capability, not just a compliance exercise.
 - **EU AI Act compliant from day one.** We built our AI agent framework (Aegis) with Article 12 logging and reasoning lineage — the same transparency requirements that will apply to defence AI systems.
 
-6 paying customers today (€7K MRR, 100% retention). Launching V1 at Arctic 15 in Helsinki on June 15. Raising €650K on a €3.8M SAFE cap.
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); development is funded by ~€7,000/month of services and transport revenue, which is not software revenue. Launching V1 at Arctic 15 in Helsinki on June 15. Raising €650K on a €3.8M SAFE cap.
 
 I'd welcome 30 minutes to walk through the architecture and dual-use thesis. Your NATO DIANA perspective would sharpen our defence positioning.
 

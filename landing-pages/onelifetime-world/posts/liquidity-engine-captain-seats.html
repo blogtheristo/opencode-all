@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,55 +22,66 @@
     <meta name="twitter:description" content="$106B in secondary transactions in 2025. The binary exit model is dead. Captain seats offer a liquidity engine built into the SAFE.">
     <link rel="canonical" href="https://onelifetime.world/posts/liquidity-engine-captain-seats.html">
     <link rel="stylesheet" href="../static/css/style.css">
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/liquidity-engine-captain-seats.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .hero-glow {
-            text-shadow: 0 0 40px rgba(6, 182, 212, 0.3), 0 0 80px rgba(6, 182, 212, 0.1);
-        }
-        .insight-card {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
-            border: 1px solid rgba(96, 165, 250, 0.2);
-        }
-        .metric-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-        .metric-card:hover {
-            border-color: rgba(6, 182, 212, 0.5);
-            transform: translateY(-2px);
-        }
-        .compare-old {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-        }
-        .compare-new {
-            background: rgba(34, 197, 94, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-        }
-        .cta-card {
-            background: linear-gradient(135deg, rgba(212, 168, 67, 0.1) 0%, rgba(30, 41, 59, 0.95) 100%);
-            border: 1px solid rgba(212, 168, 67, 0.3);
-        }
-        .read-also-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(100, 116, 139, 0.3);
-            transition: border-color 0.3s ease, transform 0.2s ease;
-        }
-        .read-also-card:hover {
-            border-color: rgba(6, 182, 212, 0.5);
-            transform: translateY(-1px);
-        }
-        blockquote {
-            border-left: 3px solid #06b6d4;
-            padding-left: 1rem;
-            margin: 1.5rem 0;
-            font-style: italic;
-            color: #94a3b8;
-        }
+      .hero-glow {
+        text-shadow:
+          0 0 40px rgba(6, 182, 212, 0.3),
+          0 0 80px rgba(6, 182, 212, 0.1);
+      }
+      .insight-card {
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .metric-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .metric-card:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        transform: translateY(-2px);
+      }
+      .compare-old {
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
+      .compare-new {
+        background: rgba(34, 197, 94, 0.08);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+      }
+      .cta-card {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 168, 67, 0.1) 0%,
+          rgba(30, 41, 59, 0.95) 100%
+        );
+        border: 1px solid rgba(212, 168, 67, 0.3);
+      }
+      .read-also-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(100, 116, 139, 0.3);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .read-also-card:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        transform: translateY(-1px);
+      }
+      blockquote {
+        border-left: 3px solid #06b6d4;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #94a3b8;
+      }
     </style>
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "The Liquidity Engine: Why the VC Exit Model Is Broken and What Replaced It",
@@ -81,238 +92,357 @@
             "url": "https://onelifetime.world"
         },
         "publisher": {
-            "@type": "Organization",
-            "name": "Lifetime Oy",
-            "url": "https://dws10.com"
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
         },
         "datePublished": "2026-03-28",
         "mainEntityOfPage": "https://onelifetime.world/posts/liquidity-engine-captain-seats.html",
         "articleSection": "Investor Intelligence",
         "inLanguage": "en"
-    }
+      }
     </script>
-</head>
-<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
     </script>
 
-    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
-        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
-            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-            </button>
-            <a href="/" class="flex items-center">
-                <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
-            </a>
-            <a href="https://dws10.com" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded text-xs font-bold">
-                DWS10
-            </a>
-        </div>
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded text-xs font-bold"
+        >
+          DWS10
+        </a>
+      </div>
 
-        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
-            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
-            <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="https://lifetime.fi/" target="_blank" rel="noopener noreferrer" class="block py-1 hover:text-blue-400">Auditointi</a>
-                <a href="https://dws10.com" target="_blank" rel="noopener noreferrer" class="block py-1 hover:text-blue-400">DWS IQ 6</a>
-                <a href="#" class="block py-1 hover:text-blue-400">Lifetime Fleet</a>
-            </div>
-            <a href="/blog/" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded font-semibold">Blog</a>
-            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
-            <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="/blog/" class="block py-1 hover:text-blue-400">Lifetime Scope Journal</a>
-                <a href="/Partners/" class="block py-1 hover:text-blue-400">Partner Consortium</a>
-                <a href="/pledge/" class="block py-1 hover:text-blue-400">Sustainability Pledge</a>
-            </div>
-            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Store</a>
-            <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="https://dws10.com/buy" target="_blank" rel="noopener noreferrer" class="block py-1 hover:text-blue-400">DWS IQ Store</a>
-            </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Solutions</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a
+            href="https://lifetime.fi/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-1 hover:text-blue-400"
+            >Auditointi</a
+          >
+          <a
+            href="https://dws10.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-1 hover:text-blue-400"
+            >DWS IQ 6</a
+          >
+          <a href="#" class="block py-1 hover:text-blue-400">Lifetime Fleet</a>
         </div>
+        <a
+          href="/blog/"
+          class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded font-semibold"
+          >Blog</a
+        >
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >About Us</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a href="/blog/" class="block py-1 hover:text-blue-400">Lifetime Scope Journal</a>
+          <a href="/Partners/" class="block py-1 hover:text-blue-400">Partner Consortium</a>
+          <a href="/pledge/" class="block py-1 hover:text-blue-400">Sustainability Pledge</a>
+        </div>
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a
+            href="https://dws10.com/buy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-1 hover:text-blue-400"
+            >DWS IQ Store</a
+          >
+        </div>
+      </div>
     </nav>
 
     <main class="flex-grow">
-        <!-- Hero -->
-        <section class="py-16 px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <p class="text-blue-400 text-xs font-mono uppercase tracking-widest mb-3">Investor Intelligence &middot; 28 March 2026</p>
-                <h1 class="text-3xl md:text-4xl font-bold mb-6 hero-glow">
-                    The Liquidity Engine:<br>Why the VC Exit Model Is Broken<br>and What Replaced It
-                </h1>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-                    $106 billion in secondary transactions in 2025. The binary exit model is dead. Here&rsquo;s what replaced it &mdash; and why we built it into our SAFE.
-                </p>
+      <!-- Hero -->
+      <section class="py-16 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-blue-400 text-xs font-mono uppercase tracking-widest mb-3">
+            Investor Intelligence &middot; 28 March 2026
+          </p>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6 hero-glow">
+            The Liquidity Engine:<br />Why the VC Exit Model Is Broken<br />and What Replaced It
+          </h1>
+          <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+            $106 billion in secondary transactions in 2025. The binary exit model is dead.
+            Here&rsquo;s what replaced it &mdash; and why we built it into our SAFE.
+          </p>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="pb-16 px-4">
+        <article class="max-w-3xl mx-auto space-y-8">
+          <!-- Market Data Card -->
+          <div class="grid grid-cols-3 gap-4">
+            <div class="metric-card rounded-lg p-5 text-center">
+              <p class="text-2xl font-bold text-cyan-400">$106B</p>
+              <p class="text-xs text-gray-400 mt-1">Secondary Market<br />2025</p>
             </div>
-        </section>
+            <div class="metric-card rounded-lg p-5 text-center">
+              <p class="text-2xl font-bold text-cyan-400">$120B</p>
+              <p class="text-xs text-gray-400 mt-1">IPO Market<br />2025</p>
+            </div>
+            <div class="metric-card rounded-lg p-5 text-center">
+              <p class="text-2xl font-bold text-cyan-400">$140B</p>
+              <p class="text-xs text-gray-400 mt-1">M&amp;A Market<br />2025</p>
+            </div>
+          </div>
 
-        <!-- Content -->
-        <section class="pb-16 px-4">
-            <article class="max-w-3xl mx-auto space-y-8">
+          <div class="space-y-6 text-gray-300 leading-relaxed">
+            <h2 class="text-2xl font-bold text-white">The Old Playbook Is Dead</h2>
 
-                <!-- Market Data Card -->
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="metric-card rounded-lg p-5 text-center">
-                        <p class="text-2xl font-bold text-cyan-400">$106B</p>
-                        <p class="text-xs text-gray-400 mt-1">Secondary Market<br>2025</p>
-                    </div>
-                    <div class="metric-card rounded-lg p-5 text-center">
-                        <p class="text-2xl font-bold text-cyan-400">$120B</p>
-                        <p class="text-xs text-gray-400 mt-1">IPO Market<br>2025</p>
-                    </div>
-                    <div class="metric-card rounded-lg p-5 text-center">
-                        <p class="text-2xl font-bold text-cyan-400">$140B</p>
-                        <p class="text-xs text-gray-400 mt-1">M&amp;A Market<br>2025</p>
-                    </div>
-                </div>
+            <p>
+              In 2021, the playbook was simple: build, wait, exit. Binary. One big payday or
+              nothing.
+            </p>
 
-                <div class="space-y-6 text-gray-300 leading-relaxed">
+            <p>
+              Then interest rates moved. Companies stopped going public. LPs started asking where
+              their money was. <strong class="text-cyan-400">DPI collapsed.</strong>
+            </p>
 
-                    <h2 class="text-2xl font-bold text-white">The Old Playbook Is Dead</h2>
+            <p>The answer wasn&rsquo;t a new kind of company. It was a new kind of liquidity.</p>
 
-                    <p>
-                        In 2021, the playbook was simple: build, wait, exit. Binary. One big payday or nothing.
-                    </p>
+            <!-- Old vs New Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+              <div class="compare-old rounded-lg p-5">
+                <p class="text-red-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                  The Old Way
+                </p>
+                <ul class="space-y-2 text-sm text-gray-400">
+                  <li>&bull; Sell the whole stand at the end</li>
+                  <li>&bull; Wait 10 years for one big check</li>
+                  <li>&bull; Binary: win big or nothing</li>
+                  <li>&bull; IPO or bust</li>
+                </ul>
+              </div>
+              <div class="compare-new rounded-lg p-5">
+                <p class="text-green-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                  The New Way
+                </p>
+                <ul class="space-y-2 text-sm text-gray-400">
+                  <li>&bull; Sell one table, then two chairs, then the sign</li>
+                  <li>&bull; Get smaller checks every 2&ndash;3 years</li>
+                  <li>&bull; Continuous: always some money flowing</li>
+                  <li>&bull; Multiple exits, multiple timelines</li>
+                </ul>
+              </div>
+            </div>
 
-                    <p>
-                        Then interest rates moved. Companies stopped going public. LPs started asking where their money was. <strong class="text-cyan-400">DPI collapsed.</strong>
-                    </p>
+            <h2 class="text-2xl font-bold text-white mt-8">The Third Pillar of Private Capital</h2>
 
-                    <p>
-                        The answer wasn&rsquo;t a new kind of company. It was a new kind of liquidity.
-                    </p>
+            <p>
+              $106 billion in secondary transactions in 2025. Almost as large as the entire IPO
+              market. The secondary market didn&rsquo;t just grow &mdash;
+              <strong class="text-cyan-400">it became the third pillar of private capital.</strong>
+            </p>
 
-                    <!-- Old vs New Comparison -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
-                        <div class="compare-old rounded-lg p-5">
-                            <p class="text-red-400 text-xs font-semibold uppercase tracking-wider mb-3">The Old Way</p>
-                            <ul class="space-y-2 text-sm text-gray-400">
-                                <li>&bull; Sell the whole stand at the end</li>
-                                <li>&bull; Wait 10 years for one big check</li>
-                                <li>&bull; Binary: win big or nothing</li>
-                                <li>&bull; IPO or bust</li>
-                            </ul>
-                        </div>
-                        <div class="compare-new rounded-lg p-5">
-                            <p class="text-green-400 text-xs font-semibold uppercase tracking-wider mb-3">The New Way</p>
-                            <ul class="space-y-2 text-sm text-gray-400">
-                                <li>&bull; Sell one table, then two chairs, then the sign</li>
-                                <li>&bull; Get smaller checks every 2&ndash;3 years</li>
-                                <li>&bull; Continuous: always some money flowing</li>
-                                <li>&bull; Multiple exits, multiple timelines</li>
-                            </ul>
-                        </div>
-                    </div>
+            <p>
+              Tender offers. Continuation vehicles. GP-led restructurings. Investors stopped waiting
+              for the harvest and started selling at the farmers market.
+            </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-8">The Third Pillar of Private Capital</h2>
+            <!-- Three Tools -->
+            <div class="space-y-4 my-8">
+              <div class="metric-card rounded-lg p-5">
+                <p class="text-cyan-400 text-sm font-bold mb-1">1. Tender Offers</p>
+                <p class="text-sm text-gray-400">
+                  The company lets early employees and investors sell shares privately before any
+                  IPO. Like selling your cards to a collector before the tournament.
+                </p>
+              </div>
+              <div class="metric-card rounded-lg p-5">
+                <p class="text-cyan-400 text-sm font-bold mb-1">2. Continuation Vehicles</p>
+                <p class="text-sm text-gray-400">
+                  The fund manager says: &ldquo;I&rsquo;m not selling yet, but I&rsquo;ll let you
+                  cash out &mdash; new investors buy your spot.&rdquo; Musical chairs with money.
+                </p>
+              </div>
+              <div class="metric-card rounded-lg p-5">
+                <p class="text-cyan-400 text-sm font-bold mb-1">3. GP-Led Restructurings</p>
+                <p class="text-sm text-gray-400">
+                  The fund resets itself, moving the best companies into a new fund to hold them
+                  longer. The clock resets. The winners keep compounding.
+                </p>
+              </div>
+            </div>
 
-                    <p>
-                        $106 billion in secondary transactions in 2025. Almost as large as the entire IPO market. The secondary market didn&rsquo;t just grow &mdash; <strong class="text-cyan-400">it became the third pillar of private capital.</strong>
-                    </p>
+            <h2 class="text-2xl font-bold text-white mt-8">Why This Is Structural, Not Cyclical</h2>
 
-                    <p>
-                        Tender offers. Continuation vehicles. GP-led restructurings. Investors stopped waiting for the harvest and started selling at the farmers market.
-                    </p>
+            <p>This isn&rsquo;t a band-aid. It&rsquo;s a permanent shift:</p>
 
-                    <!-- Three Tools -->
-                    <div class="space-y-4 my-8">
-                        <div class="metric-card rounded-lg p-5">
-                            <p class="text-cyan-400 text-sm font-bold mb-1">1. Tender Offers</p>
-                            <p class="text-sm text-gray-400">The company lets early employees and investors sell shares privately before any IPO. Like selling your cards to a collector before the tournament.</p>
-                        </div>
-                        <div class="metric-card rounded-lg p-5">
-                            <p class="text-cyan-400 text-sm font-bold mb-1">2. Continuation Vehicles</p>
-                            <p class="text-sm text-gray-400">The fund manager says: &ldquo;I&rsquo;m not selling yet, but I&rsquo;ll let you cash out &mdash; new investors buy your spot.&rdquo; Musical chairs with money.</p>
-                        </div>
-                        <div class="metric-card rounded-lg p-5">
-                            <p class="text-cyan-400 text-sm font-bold mb-1">3. GP-Led Restructurings</p>
-                            <p class="text-sm text-gray-400">The fund resets itself, moving the best companies into a new fund to hold them longer. The clock resets. The winners keep compounding.</p>
-                        </div>
-                    </div>
+            <ul class="list-disc list-inside space-y-2 text-gray-400 ml-4">
+              <li>
+                <strong class="text-gray-300">Companies don&rsquo;t need to go public.</strong>
+                Private funding is abundant.
+              </li>
+              <li>
+                <strong class="text-gray-300">The 10-year fund lifecycle is broken.</strong>
+                Companies need 15+ years now.
+              </li>
+              <li>
+                <strong class="text-gray-300">Regulation made being public expensive.</strong>
+                Sarbanes-Oxley, quarterly reporting, activist investors.
+              </li>
+              <li>
+                <strong class="text-gray-300">Secondary markets have professionalized.</strong> More
+                liquid, more trusted, better infrastructure every year.
+              </li>
+            </ul>
 
-                    <h2 class="text-2xl font-bold text-white mt-8">Why This Is Structural, Not Cyclical</h2>
+            <p>
+              The IPO isn&rsquo;t dead. It&rsquo;s been
+              <strong class="text-cyan-400"
+                >demoted from &ldquo;the only exit&rdquo; to &ldquo;one option among
+                several.&rdquo;</strong
+              >
+            </p>
 
-                    <p>
-                        This isn&rsquo;t a band-aid. It&rsquo;s a permanent shift:
-                    </p>
+            <h2 class="text-2xl font-bold text-white mt-8">
+              What This Means for Early-Stage Founders Raising Today
+            </h2>
 
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 ml-4">
-                        <li><strong class="text-gray-300">Companies don&rsquo;t need to go public.</strong> Private funding is abundant.</li>
-                        <li><strong class="text-gray-300">The 10-year fund lifecycle is broken.</strong> Companies need 15+ years now.</li>
-                        <li><strong class="text-gray-300">Regulation made being public expensive.</strong> Sarbanes-Oxley, quarterly reporting, activist investors.</li>
-                        <li><strong class="text-gray-300">Secondary markets have professionalized.</strong> More liquid, more trusted, better infrastructure every year.</li>
-                    </ul>
+            <!-- Key Insight -->
+            <div class="insight-card rounded-lg p-6 my-6">
+              <p class="text-blue-300 text-xs font-semibold uppercase tracking-wider mb-2">
+                Captain Seat Model
+              </p>
+              <p class="text-white text-lg font-semibold">
+                A liquidity engine built into the SAFE.
+              </p>
+              <p class="text-gray-400 text-sm mt-2">
+                Not &ldquo;invest and wait 15 years.&rdquo; Invest into a live EU compliance
+                platform with traction, retention, and a clear path to Series A.
+              </p>
+            </div>
 
-                    <p>
-                        The IPO isn&rsquo;t dead. It&rsquo;s been <strong class="text-cyan-400">demoted from &ldquo;the only exit&rdquo; to &ldquo;one option among several.&rdquo;</strong>
-                    </p>
+            <p>
+              <strong class="text-white">8 seats. &euro;50K each. &euro;3.8M cap.</strong>
+            </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-8">What This Means for Early-Stage Founders Raising Today</h2>
+            <p>
+              Invest into a live EU compliance platform with two enterprise pilots contracted
+              Q1/2026 at &euro;29,950 each, and a Series A target at &euro;15M+ pre-money in
+              Q3&ndash;Q4 2026.
+            </p>
 
-                    <!-- Key Insight -->
-                    <div class="insight-card rounded-lg p-6 my-6">
-                        <p class="text-blue-300 text-xs font-semibold uppercase tracking-wider mb-2">Captain Seat Model</p>
-                        <p class="text-white text-lg font-semibold">A liquidity engine built into the SAFE.</p>
-                        <p class="text-gray-400 text-sm mt-2">Not &ldquo;invest and wait 15 years.&rdquo; Invest into a live EU compliance platform with traction, retention, and a clear path to Series A.</p>
-                    </div>
+            <blockquote>
+              The lemonade stand doesn&rsquo;t have to close for you to get your money back.
+              That&rsquo;s the Liquidity Engine. &#x1F34B;
+            </blockquote>
+          </div>
 
-                    <p>
-                        <strong class="text-white">8 seats. &euro;50K each. &euro;3.8M cap.</strong>
-                    </p>
+          <!-- CTA -->
+          <div class="cta-card rounded-lg p-8 text-center my-12">
+            <p class="text-xs font-mono uppercase tracking-widest mb-3" style="color: #d4a843">
+              Captain Seats &middot; DWS IQ 6
+            </p>
+            <h3 class="text-2xl font-bold text-white mb-3">
+              DWS IQ 6 launches publicly at Arctic 15
+            </h3>
+            <p class="text-gray-400 mb-2">Helsinki &middot; June 15, 2026</p>
+            <p class="text-gray-400 text-sm mb-6">
+              8 captain seats available. &euro;50K each. &euro;3.8M cap.
+            </p>
+            <a
+              href="https://dws10.com/captain/"
+              class="inline-block px-8 py-3 rounded font-bold text-sm"
+              style="background: linear-gradient(135deg, #d4a843, #b8860b); color: #0f172a"
+            >
+              View Captain Seats &rarr;
+            </a>
+          </div>
 
-                    <p>
-                        Invest into a live EU compliance platform with 6 paying customers, 100% retention, and a Series A target at &euro;15M+ pre-money in Q3&ndash;Q4 2026.
-                    </p>
+          <!-- Newsletter CTA -->
+          <div
+            class="mt-16 p-8 rounded-lg"
+            style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2)"
+          >
+            <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0">
+              Subscribe to Lifetime Scope Journal
+            </h3>
+            <p class="text-sm text-gray-400 mb-4">
+              Weekly insights on EU compliance, AI agents, and industrial transformation.
+            </p>
+            <a
+              href="https://dws10.com/contact/"
+              class="inline-block px-6 py-2 rounded text-sm font-bold"
+              style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff"
+            >
+              Subscribe
+            </a>
+          </div>
 
-                    <blockquote>
-                        The lemonade stand doesn&rsquo;t have to close for you to get your money back. That&rsquo;s the Liquidity Engine. &#x1F34B;
-                    </blockquote>
-
-                </div>
-
-                <!-- CTA -->
-                <div class="cta-card rounded-lg p-8 text-center my-12">
-                    <p class="text-xs font-mono uppercase tracking-widest mb-3" style="color: #d4a843;">Captain Seats &middot; DWS IQ 6</p>
-                    <h3 class="text-2xl font-bold text-white mb-3">DWS IQ 6 launches publicly at Arctic 15</h3>
-                    <p class="text-gray-400 mb-2">Helsinki &middot; June 15, 2026</p>
-                    <p class="text-gray-400 text-sm mb-6">8 captain seats available. &euro;50K each. &euro;3.8M cap.</p>
-                    <a href="https://dws10.com/captain/" class="inline-block px-8 py-3 rounded font-bold text-sm" style="background: linear-gradient(135deg, #d4a843, #b8860b); color: #0f172a;">
-                        View Captain Seats &rarr;
-                    </a>
-                </div>
-
-                <!-- Newsletter CTA -->
-                <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
-                    <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Subscribe to Lifetime Scope Journal</h3>
-                    <p class="text-sm text-gray-400 mb-4">Weekly insights on EU compliance, AI agents, and industrial transformation.</p>
-                    <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">
-                        Subscribe
-                    </a>
-                </div>
-
-                <!-- Related posts -->
-                <div class="mt-12">
-                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <a href="/posts/harness-engineering-investor-note.html" class="read-also-card rounded-lg p-4 block">
-                            <p class="text-xs text-blue-400 font-mono mb-1">Investor Intelligence</p>
-                            <p class="text-sm font-semibold text-gray-200">What Investors Should Know About Harness Engineering</p>
-                            <p class="text-xs text-gray-500 mt-1">15 March 2026</p>
-                        </a>
-                        <a href="/posts/buyers-note-harness-engineering.html" class="read-also-card rounded-lg p-4 block">
-                            <p class="text-xs text-blue-400 font-mono mb-1">Buyer Intelligence</p>
-                            <p class="text-sm font-semibold text-gray-200">Buyer&rsquo;s Note: Harness Engineering</p>
-                            <p class="text-xs text-gray-500 mt-1">March 2026</p>
-                        </a>
-                    </div>
-                </div>
-
-            </article>
-        </section>
+          <!-- Related posts -->
+          <div class="mt-12">
+            <h3 class="text-lg font-bold mb-4" style="color: #d4a843">Read Also</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a
+                href="/posts/harness-engineering-investor-note.html"
+                class="read-also-card rounded-lg p-4 block"
+              >
+                <p class="text-xs text-blue-400 font-mono mb-1">Investor Intelligence</p>
+                <p class="text-sm font-semibold text-gray-200">
+                  What Investors Should Know About Harness Engineering
+                </p>
+                <p class="text-xs text-gray-500 mt-1">15 March 2026</p>
+              </a>
+              <a
+                href="/posts/buyers-note-harness-engineering.html"
+                class="read-also-card rounded-lg p-4 block"
+              >
+                <p class="text-xs text-blue-400 font-mono mb-1">Buyer Intelligence</p>
+                <p class="text-sm font-semibold text-gray-200">
+                  Buyer&rsquo;s Note: Harness Engineering
+                </p>
+                <p class="text-xs text-gray-500 mt-1">March 2026</p>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
     </main>
 
     <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
@@ -338,7 +468,7 @@
                     <a href="https://twitter.com/intent/tweet?text=The%20Liquidity%20Engine%3A%20Captain%20Seats%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fliquidity-engine-captain-seats.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
                         <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
-                    <a href="mailto:?subject=The%20Liquidity%20Engine%3A%20Captain%20Seats&body=The%20Liquidity%20Engine%3A%20Captain%20Seats%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fliquidity-engine-captain-seats.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
                         <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     </a>
                     <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/liquidity-engine-captain-seats.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
@@ -378,14 +508,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-700 py-8 text-center text-xs text-gray-500" style="background: #0f172a;">
-        <p>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; Helsinki, Finland</p>
-        <p class="mt-1">
-            <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ Platform</a> &middot;
-            <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Store</a> &middot;
-            <a href="/blog/" class="text-blue-400 hover:underline">Blog</a> &middot;
-            <a href="/press/" class="text-blue-400 hover:underline">Press</a>
-        </p>
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; Helsinki, Finland</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ Platform</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Store</a> &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Blog</a> &middot;
+        <a href="/press/" class="text-blue-400 hover:underline">Press</a>
+      </p>
     </footer>
-</body>
+  </body>
 </html>

@@ -534,81 +534,111 @@ export const INDUSTRY_REGISTRY: readonly IndustryProfile[] = [
 /** Total industries served — must equal industries.json summary.industriesServedTotal. */
 export const INDUSTRIES_SERVED_TOTAL = INDUSTRY_REGISTRY.length;
 
-/** Resolve a profile by numeric id. */
+// ---------------------------------------------------------------------------
+// Module-level indexes — built once at import time, O(1) lookups thereafter.
+// ---------------------------------------------------------------------------
+
+/** O(1) lookup by canonical numeric id. */
+const _INDUSTRY_BY_ID: Map<number, IndustryProfile> = new Map(
+  INDUSTRY_REGISTRY.map((p) => [p.id, p]),
+);
+
+/** O(1) exact canonical-name lookup (lower-cased key). */
+const _INDUSTRY_BY_NAME_LOWER: Map<string, IndustryProfile> = new Map(
+  INDUSTRY_REGISTRY.map((p) => [p.name.toLowerCase(), p]),
+);
+
+/** Alias → canonical id mapping (built once). */
+const _ALIAS_TO_ID: ReadonlyMap<string, number> = new Map<string, number>([
+  ['steel', 2],
+  ['metals', 2],
+  ['cement', 3],
+  ['lime', 3],
+  ['chemicals', 4],
+  ['petrochemicals', 4],
+  ['aviation', 5],
+  ['airline', 5],
+  ['maritime', 6],
+  ['shipping', 6],
+  ['road', 7],
+  ['trucking', 7],
+  ['construction', 8],
+  ['buildings', 8],
+  ['agriculture', 9],
+  ['farming', 9],
+  ['livestock', 9],
+  ['waste', 10],
+  ['recycling', 10],
+  ['aluminium', 11],
+  ['aluminum', 11],
+  ['paper', 12],
+  ['pulp', 12],
+  ['refining', 13],
+  ['refinery', 13],
+  ['food', 14],
+  ['beverage', 14],
+  ['glass', 15],
+  ['ceramics', 15],
+  ['mining', 16],
+  ['quarrying', 16],
+  ['real estate', 17],
+  ['manufacturing', 18],
+  ['healthcare', 19],
+  ['hospital', 19],
+  ['finance', 20],
+  ['financial services', 20],
+  ['banking', 20],
+  ['government', 21],
+  ['public sector', 21],
+  ['shipbuilding', 22],
+  ['logistics', 23],
+  ['freight', 23],
+  ['data centre', 24],
+  ['data center', 24],
+  ['datacenter', 24],
+  ['hydrogen', 25],
+  ['h2', 25],
+  ['efuel', 25],
+]);
+
+/** Pre-computed list of industries without a dedicated pantheon agent. */
+const _INDUSTRIES_WITHOUT_DEDICATED_AGENT: readonly IndustryProfile[] = INDUSTRY_REGISTRY.filter(
+  (p) => p.dedicatedAgent === null,
+);
+
+// ---------------------------------------------------------------------------
+// Public API
+// ---------------------------------------------------------------------------
+
+/** Resolve a profile by numeric id. O(1). */
 export function getIndustryById(id: number): IndustryProfile | undefined {
-  return INDUSTRY_REGISTRY.find((p) => p.id === id);
+  return _INDUSTRY_BY_ID.get(id);
 }
 
 /**
  * Resolve a profile by a loose name/alias (case-insensitive substring either way).
  * Accepts canonical names ("Aviation") and common aliases ("steel", "datacenter").
+ * Exact name → O(1). Known alias → O(1). Fuzzy substring → O(n) fallback only.
  */
 export function getIndustryByName(query: string): IndustryProfile | undefined {
   const q = query.trim().toLowerCase();
   if (!q) return undefined;
-  // Exact canonical match first.
-  const exact = INDUSTRY_REGISTRY.find((p) => p.name.toLowerCase() === q);
+  // Exact canonical match — O(1).
+  const exact = _INDUSTRY_BY_NAME_LOWER.get(q);
   if (exact) return exact;
-  // Then alias map.
-  const alias: Record<string, number> = {
-    steel: 2,
-    metals: 2,
-    cement: 3,
-    lime: 3,
-    chemicals: 4,
-    petrochemicals: 4,
-    aviation: 5,
-    airline: 5,
-    maritime: 6,
-    shipping: 6,
-    road: 7,
-    trucking: 7,
-    construction: 8,
-    buildings: 8,
-    agriculture: 9,
-    farming: 9,
-    livestock: 9,
-    waste: 10,
-    recycling: 10,
-    aluminium: 11,
-    aluminum: 11,
-    paper: 12,
-    pulp: 12,
-    refining: 13,
-    refinery: 13,
-    food: 14,
-    beverage: 14,
-    glass: 15,
-    ceramics: 15,
-    mining: 16,
-    quarrying: 16,
-    'real estate': 17,
-    manufacturing: 18,
-    healthcare: 19,
-    hospital: 19,
-    finance: 20,
-    'financial services': 20,
-    banking: 20,
-    government: 21,
-    'public sector': 21,
-    shipbuilding: 22,
-    logistics: 23,
-    freight: 23,
-    'data centre': 24,
-    'data center': 24,
-    datacenter: 24,
-    hydrogen: 25,
-    h2: 25,
-    efuel: 25,
-  };
-  if (alias[q] !== undefined) return getIndustryById(alias[q]);
-  // Finally, fuzzy substring on canonical names.
+  // Known alias — O(1).
+  const aliasId = _ALIAS_TO_ID.get(q);
+  if (aliasId !== undefined) return _INDUSTRY_BY_ID.get(aliasId);
+  // Guard: single-character queries are too ambiguous for fuzzy matching and
+  // would match unpredictably on whichever industry appears first in the array.
+  if (q.length < 2) return undefined;
+  // Fuzzy substring on canonical names — O(n) fallback only for unrecognised inputs.
   return INDUSTRY_REGISTRY.find(
     (p) => p.name.toLowerCase().includes(q) || q.includes(p.name.toLowerCase()),
   );
 }
 
 /** Industries that lack a dedicated pantheon agent — the "offer more" target list. */
-export function industriesWithoutDedicatedAgent(): IndustryProfile[] {
-  return INDUSTRY_REGISTRY.filter((p) => p.dedicatedAgent === null);
+export function industriesWithoutDedicatedAgent(): readonly IndustryProfile[] {
+  return _INDUSTRIES_WITHOUT_DEDICATED_AGENT;
 }

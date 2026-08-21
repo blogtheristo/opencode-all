@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Marcel Dridje, EBAN / Sophia Business Angels
-Version: 1.1
+Version: 1.2
 Date: 2026-04-08
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/investor-outreach-contacts-5oVbz
@@ -9,6 +9,7 @@ Story Lock: B2B SaaS + European Angel Network + Enterprise IT
 Intro Type: Direct (1st degree LinkedIn connection)
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-08): Initial draft. 1st degree LinkedIn connection. EBAN board member, President Emeritus of Sophia Business Angels, 35 years Cisco/IBM, 4 startup exits, based in Doha bridging Europe-GCC. Network node: EBAN gives access to the entire European angel ecosystem. Led with enterprise IT background (Cisco/IBM) and B2B SaaS metrics.
 - v1.1 (2026-04-08): CONTACTED. LinkedIn DM sent with Gulf/GCC angle. Waiting for response.
 -->
@@ -79,6 +80,8 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 - Do NOT mention Fleet Admiral, robotics, Jetson, or world models
 
 ## Draft LinkedIn DM
+
+> **Correction (29.07.2026):** the message below claims software traction that was not real — "EUR/€ 7K MRR", "6 paying customers" and "100% retention". The ~€7,000/month is services and transport revenue, not software revenue; the company is at cash break-even with a founder salary of €0. The only contracted software business is two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). No retention rate is asserted. Sent correspondence is preserved verbatim per `DWS_DOCUMENT_STANDARD.md` §24. Canonical source: `docs/TRACTION_CANONICAL.md`.
 
 Hi Marcel — your EBAN and Sophia Business Angels work caught my eye. 35 years of enterprise IT is exactly the lens I'd value on this.
 

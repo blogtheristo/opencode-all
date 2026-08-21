@@ -6,7 +6,7 @@ Legend: **[A]** = actual (Lifetime Oy bookkeeping / KILA / filed bid) · **[M]**
 
 _Companion figures export (git-diffable, per Document Standard §24.2): [`BOARDY_BUDGET_2026-2029_V3.csv`](./BOARDY_BUDGET_2026-2029_V3.csv)._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -16,13 +16,13 @@ Sessions & Modifications:
 
 - Version: 3.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Created the **repository source-of-truth copy** of the V3 (22.07.2026 actuals-anchored) budget that previously existed only as a Google Drive export ("DWS IQ — 2026-2029 Budget V3 (Boardy 29 Jul 2026)"). Content transcribed verbatim from the founder-provided board pack; no figures altered. This closes a data-drift gap (export-without-repo-copy). Canonical GM frame confirmed here — 85% at list, 80% conservative stress floor — reconciled against `docs/investor/data-room-2026Q2/PRICING_MODEL.md` §2/§4.
 
----
+***
 
 ## Current state (mid-2026) — ACTUAL [A]
 
 | Item             | Value                                                                                                                                              |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Revenue          | €7,000 MRR · 6 paying customers · 0% churn (F_Liite3 / F_Liite5, Lemonsoft)                                                                        |
+| Revenue          | ~€7,000/mo **services and transport revenue** (licensed transport operation + consulting) — F_Liite3 / F_Liite5, Lemonsoft. **Not software MRR.** Software: €59,900 of Q1/26 pilot contract value (2 × €29,950) + four smaller landed accounts. No churn/retention rate asserted — no cohort data. Canonical: `docs/TRACTION_CANONICAL.md` |
 | Monthly cash out | ~€7,000/mo → **BREAK-EVEN**. 7k in, 7k out (founder-confirmed). We barely stay afloat.                                                             |
 | Founder salary   | €0 — founder funds personal living separately (taxi days). The 100 €/h in the R&D-capitalization file is an **IMPUTED** accounting rate, NOT cash. |
 | Team             | founder (hands-on, €0 salary) + Office Chief/HIC + Cubet Techno Labs (project-billed subcontractor) + governed AI agents                           |
@@ -55,8 +55,8 @@ Sessions & Modifications:
 
 | Item       | Value                                                                                                                                                                                                 |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bid        | ORK/1462/2026 — AI Expert Services framework, Ministry of Justice; €1.7M framework ref; BID FILED, awaiting (`docs/sales/WINNING_SALES_STRATEGY.md`). Decision timing: check Hilma (no date on file). |
-| If awarded | recurring revenue + Cubet becomes a paid partner. Government sovereign-AI validation (peer to Kela).                                                                                                  |
+| Bid        | ORK/1462/2026 — AI Expert Services framework, Ministry of Justice; €1.7M framework ref; **BID IN PREPARATION — submission deadline 14.8.2026** (`bids/ORK160826/ORK160826_ALIHANKKIJA_EN.md`). Not filed. |
+| If awarded | recurring revenue + Cubet becomes a paid partner. Would be the **first Finnish government software reference** — Kela is a dispatch counterparty of the transport operation, not a software customer.  |
 
 ## Forward plan — MODELED [M]
 
@@ -102,7 +102,7 @@ Cash-flow positive from **~2028**.
 
 ## Flags for the board
 
-1. **Break-even today** on €7k MRR with €0 founder salary — the plan below break-even is FUNDED growth, not survival spend.
+1. **Break-even today** on ~€7k/mo of services and transport revenue (not software MRR) with €0 founder salary — the plan below break-even is FUNDED growth, not survival spend.
 2. **Equity cure = R&D capitalization €594k** (KILA-confirmed), €494k still to book — plus a further ~€100-150k from 2026 work (fiscal 2026).
 3. **Near-term cost lever = consolidate cloud** (Supabase/Cloudflare/GCP/GitHub). Pull exact €/mo from Lemonsoft.
 4. **ORK** (€1.7M framework, filed) is the biggest single revenue catalyst in the pipeline — track the award.

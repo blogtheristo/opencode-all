@@ -33,6 +33,8 @@ Purpose: Record the corrected cost/model architecture for the Ollama-boss
 | **T2 hardest ≈5%** | novel architecture, subtle correctness/security, ambiguous product calls | **Opus 5 via API key** ($5/$25) *or* Sonnet 5 (Pro, interactive) | per-token, no cap | Anthropic API / Pro |
 | **T3 human routine coding** | mechanical KEEP_REVIEW fixes, rebases, edits | Cursor Pro's included cheaper model | Cursor Pro flat | Cursor on DGX |
 
+> **Correction (30.07.2026, external review).** The `€0/token` in the T0/T1 rows above means **no external per-token bill** — it does not mean free. Electricity, hardware amortisation, model serving, maintenance and finite throughput capacity remain part of the cost base. The table is left as written (Rule 12) but the figure must not be quoted as zero cost in any customer, investor or public document. Canonical wording: `PHD_FIREHORSE §14.45` Finding 5.
+
 ### Do we need two Ollama models? **Yes — one big boss + one small worker.**
 - The boss (72B) is wasted on trivial worker classification; the worker (7B) is too weak to orchestrate. Splitting them is exactly what `src/agents/model-selector.ts` already encodes (LITE = qwen2.5:7b; HEAVY = qwen 32B local).
 - Both fit resident on GN-100: 72B Q4 ≈ 40–48 GB + 7B ≈ 5 GB + KV/overhead ≪ 98 GB.

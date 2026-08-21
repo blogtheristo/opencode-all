@@ -16,7 +16,7 @@
  * scripts/weekly/market-research.sh's self-commit pattern.
  */
 
-import { execSync } from 'child_process';
+import { execFileSync, execSync } from 'child_process';
 import { readFile, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -133,23 +133,29 @@ async function writeToKnowledgeBase(edition: string, editionDate: string): Promi
 
 function commitAndPush(version: string, editionDate: string): void {
   try {
-    execSync(`git config user.name "DGX Spark"`, { cwd: REPO_ROOT });
-    execSync(`git config user.email "risto@onelifetime.world"`, { cwd: REPO_ROOT });
-    execSync(`git add docs/market-research/sales-manager.md`, { cwd: REPO_ROOT });
+    execFileSync('git', ['config', 'user.name', 'DGX Spark'], { cwd: REPO_ROOT });
+    execFileSync('git', ['config', 'user.email', 'risto@onelifetime.world'], { cwd: REPO_ROOT });
+    execFileSync('git', ['add', 'docs/market-research/sales-manager.md'], { cwd: REPO_ROOT });
 
-    const diffCheck = execSync(`git diff --cached --quiet; echo $?`, {
-      cwd: REPO_ROOT,
-      encoding: 'utf-8',
-    }).trim();
-    if (diffCheck === '0') {
+    const hasStagedChanges = (() => {
+      try {
+        execFileSync('git', ['diff', '--cached', '--quiet'], { cwd: REPO_ROOT });
+        return false;
+      } catch {
+        return true;
+      }
+    })();
+    if (!hasStagedChanges) {
       log('No changes to commit');
       return;
     }
 
-    execSync(`git commit -m "chore(sales-manager): auto edition ${editionDate} (v${version})"`, {
-      cwd: REPO_ROOT,
-    });
-    execSync(`git push origin main`, { cwd: REPO_ROOT });
+    execFileSync(
+      'git',
+      ['commit', '-m', `chore(sales-manager): auto edition ${editionDate} (v${version})`],
+      { cwd: REPO_ROOT },
+    );
+    execFileSync('git', ['push', 'origin', 'main'], { cwd: REPO_ROOT });
     log(`Committed and pushed v${version}`);
   } catch (err) {
     log(

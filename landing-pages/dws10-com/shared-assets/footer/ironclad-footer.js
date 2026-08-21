@@ -19,6 +19,10 @@
 (function () {
   'use strict';
 
+  // Duplicate-include guard (parity with ironclad-nav.js / vertical-lang-bar.js)
+  if (window.__ironcladFooterLoaded) return;
+  window.__ironcladFooterLoaded = true;
+
   const hostname = window.location.hostname;
   const onDws10 = hostname === 'dws10.com' || hostname === 'www.dws10.com';
   // Footer pages physically live on dws10.com. When this footer is embedded on
@@ -28,6 +32,396 @@
   const contentBase = onDws10 ? '' : 'https://dws10.com';
   const regulatoryNoticeHref = onDws10 ? '/regulatory-notice/' : 'https://dws10.com/legal/';
   const privacyPolicyHref = onDws10 ? '/privacy-policy/' : 'https://dws10.com/privacy-policy/';
+
+  // 5-language i18n translations for footer (v2.0)
+  var FOOTER_I18N = {
+    'built-finland': {
+      fi: 'Rakennettu Suomessa · EU:n suvereeni tekoäly · Suomen lainkäyttöalue',
+      sv: 'Byggt i Finland · EU-suverän AI · Finsk jurisdiktion',
+      de: 'Made in Finland · EU-souveräne KI · Finnische Gerichtsbarkeit',
+      fr: 'Conçu en Finlande · IA souveraine UE · Juridiction finlandaise',
+      en: 'Built in Finland · EU Sovereign AI · Finnish Jurisdiction',
+    },
+    'col-products': {
+      fi: 'Tuotteet',
+      sv: 'Produkter',
+      de: 'Produkte',
+      fr: 'Produits',
+      en: 'Products',
+    },
+    'col-industries': {
+      fi: 'Kaksikäyttöteollisuus',
+      sv: 'Dubbla användningsområden',
+      de: 'Dual-Use-Industrien',
+      fr: 'Industries à double usage',
+      en: 'Dual Use Industries',
+    },
+    'col-platform': {
+      fi: 'Alusta',
+      sv: 'Plattform',
+      de: 'Plattform',
+      fr: 'Plateforme',
+      en: 'Platform',
+    },
+    'col-compliance': {
+      fi: 'Vaatimustenmukaisuus',
+      sv: 'Regelefterlevnad',
+      de: 'Compliance',
+      fr: 'Conformité',
+      en: 'Compliance',
+    },
+    'col-help': {
+      fi: 'Apua & Yritys',
+      sv: 'Hjälp & Företag',
+      de: 'Hilfe & Unternehmen',
+      fr: 'Aide & Entreprise',
+      en: 'Help & Company',
+    },
+    'platform-products': {
+      fi: 'Alusta & Tuotteet',
+      sv: 'Plattform & Produkter',
+      de: 'Plattform & Produkte',
+      fr: 'Plateforme & Produits',
+      en: 'Platform & Products',
+    },
+    'ai-cloud': {
+      fi: 'Tekoäly & Pilvipalvelut',
+      sv: 'AI & Molntjänster',
+      de: 'KI & Cloud-Beratung',
+      fr: 'IA & Cloud',
+      en: 'AI & Cloud Consulting',
+    },
+    advisory: {
+      fi: 'Asiantuntijaneuvonta & Koulutus',
+      sv: 'Expertråd & Utbildning',
+      de: 'Expertenberatung & Schulung',
+      fr: 'Conseil expert & Formation',
+      en: 'Expert Advisory & Training',
+    },
+    'digital-services': {
+      fi: 'Digitaaliset palvelut',
+      sv: 'Digitala tjänster',
+      de: 'Digitale Dienste',
+      fr: 'Services numériques',
+      en: 'Digital Services',
+    },
+    'enterprise-offers': {
+      fi: 'Yritystarjoukset',
+      sv: 'Företagserbjudanden',
+      de: 'Unternehmensangebote',
+      fr: 'Offres entreprise',
+      en: 'Enterprise Offers',
+    },
+    'all-industries': {
+      fi: 'Kaikki toimialat & Aegis',
+      sv: 'Alla branscher & Aegis',
+      de: 'Alle Branchen & Aegis',
+      fr: 'Tous les secteurs & Aegis',
+      en: 'All Industries & Aegis',
+    },
+    construction: {
+      fi: 'Rakentaminen',
+      sv: 'Bygg',
+      de: 'Bauwesen',
+      fr: 'Construction',
+      en: 'Construction',
+    },
+    energy: { fi: 'Energia', sv: 'Energi', de: 'Energie', fr: 'Énergie', en: 'Energy' },
+    manufacturing: {
+      fi: 'Valmistus',
+      sv: 'Tillverkning',
+      de: 'Fertigung',
+      fr: 'Fabrication',
+      en: 'Manufacturing',
+    },
+    'real-estate': {
+      fi: 'Kiinteistöt',
+      sv: 'Fastigheter',
+      de: 'Immobilien',
+      fr: 'Immobilier',
+      en: 'Real Estate',
+    },
+    logistics: {
+      fi: 'Logistiikka',
+      sv: 'Logistik',
+      de: 'Logistik',
+      fr: 'Logistique',
+      en: 'Logistics',
+    },
+    healthcare: {
+      fi: 'Terveydenhuolto',
+      sv: 'Hälsovård',
+      de: 'Gesundheitswesen',
+      fr: 'Santé',
+      en: 'Healthcare',
+    },
+    'financial-services': {
+      fi: 'Rahoituspalvelut',
+      sv: 'Finanstjänster',
+      de: 'Finanzdienstleistungen',
+      fr: 'Services financiers',
+      en: 'Financial Services',
+    },
+    'public-sector': {
+      fi: 'Julkinen sektori',
+      sv: 'Offentlig sektor',
+      de: 'Öffentlicher Sektor',
+      fr: 'Secteur public',
+      en: 'Public Sector',
+    },
+    login: { fi: 'Kirjaudu', sv: 'Logga in', de: 'Anmelden', fr: 'Connexion', en: 'Login' },
+    dashboard: {
+      fi: 'Kojelauta',
+      sv: 'Instrumentpanel',
+      de: 'Dashboard',
+      fr: 'Tableau de bord',
+      en: 'Dashboard',
+    },
+    architecture: {
+      fi: 'Arkkitehtuuri',
+      sv: 'Arkitektur',
+      de: 'Architektur',
+      fr: 'Architecture',
+      en: 'Architecture',
+    },
+    fit55: {
+      fi: 'Fit for 55',
+      sv: 'Fit for 55',
+      de: 'Fit for 55',
+      fr: 'Fit for 55',
+      en: 'Fit for 55',
+    },
+    csrd: {
+      fi: 'CSRD-raportointi',
+      sv: 'CSRD-rapportering',
+      de: 'CSRD-Berichterstattung',
+      fr: 'Reporting CSRD',
+      en: 'CSRD Reporting',
+    },
+    'eu-ai-act': {
+      fi: 'EU:n tekoälylaki',
+      sv: 'EU:s AI-lag',
+      de: 'EU-KI-Verordnung',
+      fr: "Loi européenne sur l'IA",
+      en: 'EU AI Act',
+    },
+    'regulatory-notice': {
+      fi: 'Sääntelyilmoitus',
+      sv: 'Regulatoriskt meddelande',
+      de: 'Regulatorischer Hinweis',
+      fr: 'Avis réglementaire',
+      en: 'Regulatory Notice',
+    },
+    'dual-use': {
+      fi: 'Kaksikäyttö',
+      sv: 'Dubbel användning',
+      de: 'Dual-Use',
+      fr: 'Double usage',
+      en: 'Dual Use',
+    },
+    'carbon-calc': {
+      fi: 'Hiililaskuri',
+      sv: 'Koldioxidkalkylator',
+      de: 'CO₂-Rechner',
+      fr: 'Calculateur carbone',
+      en: 'Carbon Calculator',
+    },
+    'interruption-calc': {
+      fi: 'Keskeytyslaskuri',
+      sv: 'Avbrottsberäknare',
+      de: 'Unterbrechungsrechner',
+      fr: "Calculateur d'interruption",
+      en: 'Interruption Calculator',
+    },
+    consulting: {
+      fi: 'Konsultointi',
+      sv: 'Konsulttjänster',
+      de: 'Beratung',
+      fr: 'Conseil',
+      en: 'Lifetime Consulting',
+    },
+    careers: { fi: 'Rekrytointi', sv: 'Karriär', de: 'Karriere', fr: 'Carrières', en: 'Careers' },
+    partners: { fi: 'Kumppanit', sv: 'Partners', de: 'Partner', fr: 'Partenaires', en: 'Partners' },
+    'investor-relations': {
+      fi: 'Sijoittajasuhteet',
+      sv: 'Investerarrelationer',
+      de: 'Investor Relations',
+      fr: 'Relations investisseurs',
+      en: 'Investor Relations',
+    },
+    community: {
+      fi: 'Yhteisö',
+      sv: 'Gemenskap',
+      de: 'Community',
+      fr: 'Communauté',
+      en: 'Community',
+    },
+    support: { fi: 'Tuki', sv: 'Support', de: 'Support', fr: 'Support', en: 'Support' },
+    sales: { fi: 'Myynti', sv: 'Försäljning', de: 'Vertrieb', fr: 'Ventes', en: 'Sales' },
+    'legal-hub': {
+      fi: 'Lakiasiat',
+      sv: 'Juridik',
+      de: 'Recht',
+      fr: 'Centre juridique',
+      en: 'Legal Hub',
+    },
+    'accepted-payments': {
+      fi: 'Hyväksytyt maksutavat:',
+      sv: 'Godkända betalningar:',
+      de: 'Akzeptierte Zahlungen:',
+      fr: 'Paiements acceptés :',
+      en: 'Accepted payments:',
+    },
+    'bank-transfer': {
+      fi: 'Tilisiirto',
+      sv: 'Banköverföring',
+      de: 'Banküberweisung',
+      fr: 'Virement bancaire',
+      en: 'Bank Transfer',
+    },
+    'get-it-on': {
+      fi: 'LATAA',
+      sv: 'HÄMTA PÅ',
+      de: 'JETZT BEI',
+      fr: 'TÉLÉCHARGER SUR',
+      en: 'GET IT ON',
+    },
+    ethics: {
+      fi: 'Arvostamme etiikkaa kaikessa toiminnassamme — DWS-tuotteet täydentävät ihmisiä, eivät koskaan korvaa juniorilahjakkuuksia tai ihmistä johtajana.',
+      sv: 'Vi värdesätter etik i allt vi gör — DWS-produkter förstärker människor, ersätter aldrig juniortalanger eller människan som befälhavare.',
+      de: 'Wir schätzen Ethik in allem, was wir tun — DWS-Produkte unterstützen Menschen, ersetzen niemals Nachwuchstalente oder den Menschen als Befehlshaber.',
+      fr: "Nous valorisons l'éthique dans tout ce que nous faisons — les produits DWS augmentent les personnes, ne remplaçant jamais les talents juniors ni l'humain aux commandes.",
+      en: 'We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command.',
+    },
+    'privacy-policy': {
+      fi: 'Tietosuojakäytäntö',
+      sv: 'Integritetspolicy',
+      de: 'Datenschutzrichtlinie',
+      fr: 'Politique de confidentialité',
+      en: 'Privacy Policy',
+    },
+    'return-policy': {
+      fi: 'Palautuskäytäntö',
+      sv: 'Returpolicy',
+      de: 'Rückgaberichtlinie',
+      fr: 'Politique de retour',
+      en: 'Return Policy',
+    },
+    'data-handling': {
+      fi: 'Tietojen käsittely',
+      sv: 'Datahantering',
+      de: 'Datenverarbeitung',
+      fr: 'Traitement des données',
+      en: 'Data Handling',
+    },
+    'data-security': {
+      fi: 'Tietoturva',
+      sv: 'Datasäkerhet',
+      de: 'Datensicherheit',
+      fr: 'Sécurité des données',
+      en: 'Data Security',
+    },
+    'investment-safety': {
+      fi: 'Sijoitusturvallisuus',
+      sv: 'Investeringssäkerhet',
+      de: 'Investitionssicherheit',
+      fr: 'Sécurité des investissements',
+      en: 'Investment Safety',
+    },
+  };
+
+  var FOOTER_TEXT_MAP = {
+    Products: 'col-products',
+    'Dual Use Industries': 'col-industries',
+    Platform: 'col-platform',
+    Compliance: 'col-compliance',
+    'Help & Company': 'col-help',
+    'Platform & Products': 'platform-products',
+    'AI & Cloud Consulting': 'ai-cloud',
+    'Expert Advisory & Training': 'advisory',
+    'Digital Services': 'digital-services',
+    'Enterprise Offers': 'enterprise-offers',
+    'All Industries & Aegis': 'all-industries',
+    Construction: 'construction',
+    Energy: 'energy',
+    Manufacturing: 'manufacturing',
+    'Real Estate': 'real-estate',
+    Logistics: 'logistics',
+    Healthcare: 'healthcare',
+    'Financial Services': 'financial-services',
+    'Public Sector': 'public-sector',
+    Login: 'login',
+    Dashboard: 'dashboard',
+    Architecture: 'architecture',
+    'Fit for 55': 'fit55',
+    'CSRD Reporting': 'csrd',
+    'EU AI Act': 'eu-ai-act',
+    'Regulatory Notice': 'regulatory-notice',
+    'Dual Use': 'dual-use',
+    'Carbon Calculator': 'carbon-calc',
+    Keskeytyslaskuri: 'interruption-calc',
+    'Lifetime Consulting': 'consulting',
+    Careers: 'careers',
+    Partners: 'partners',
+    'Investor Relations': 'investor-relations',
+    Community: 'community',
+    Support: 'support',
+    Sales: 'sales',
+    'Legal Hub': 'legal-hub',
+    'Privacy Policy': 'privacy-policy',
+    'Return Policy': 'return-policy',
+    'Data Handling': 'data-handling',
+    'Data Security': 'data-security',
+    'Investment Safety': 'investment-safety',
+    'Accepted payments:': 'accepted-payments',
+    'Bank Transfer': 'bank-transfer',
+  };
+
+  function applyFooterLang(lang) {
+    var footer = document.querySelector('.ironclad-footer');
+    if (!footer) return;
+    footer.querySelectorAll('[data-i18n-footer]').forEach(function (el) {
+      // Never clobber elements that hold nested markup
+      if (el.children.length) return;
+      var key = el.getAttribute('data-i18n-footer');
+      var tr = FOOTER_I18N[key];
+      if (tr && tr[lang]) el.textContent = tr[lang];
+    });
+    var finlandDiv = footer.querySelector('.ironclad-footer-finland');
+    if (finlandDiv) {
+      var nodes = finlandDiv.childNodes;
+      for (var i = nodes.length - 1; i >= 0; i--) {
+        if (nodes[i].nodeType === 3 && nodes[i].nodeValue.trim()) {
+          var trF = FOOTER_I18N['built-finland'];
+          if (trF && trF[lang]) nodes[i].nodeValue = '\n        ' + trF[lang] + '\n    ';
+          break;
+        }
+      }
+    }
+    var ethicsDiv = footer.querySelector('.ironclad-footer-principle');
+    if (ethicsDiv && !ethicsDiv.children.length) {
+      var trE = FOOTER_I18N['ethics'];
+      if (trE && trE[lang]) ethicsDiv.textContent = trE[lang];
+    }
+    var getBadge = footer.querySelector('.ironclad-footer-app-badge-text span:first-child');
+    if (getBadge) {
+      var trG = FOOTER_I18N['get-it-on'];
+      if (trG && trG[lang]) getBadge.textContent = trG[lang];
+    }
+  }
+
+  function tagFooterElements() {
+    var footer = document.querySelector('.ironclad-footer');
+    if (!footer) return;
+    footer.querySelectorAll('a, h4, span').forEach(function (el) {
+      if (el.children.length) return;
+      var text = el.textContent.trim();
+      var key = FOOTER_TEXT_MAP[text];
+      if (key && !el.getAttribute('data-i18n-footer')) {
+        el.setAttribute('data-i18n-footer', key);
+      }
+    });
+  }
 
   // Newsletter capture — writes inbound leads to the shared Supabase web_leads
   // table via the public anon key (same pattern as the /captain/ inquiry form).
@@ -118,7 +512,7 @@
             <a href="${contentBase}/buy/page2/">AI &amp; Cloud Consulting</a>
             <a href="${contentBase}/buy/page3/">Expert Advisory &amp; Training</a>
             <a href="${contentBase}/buy/page4/">Digital Services</a>
-            <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
+            <a href="https://dws10.com/contact/">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Industries</h4>
@@ -151,6 +545,7 @@
             <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
             <a href="${contentBase}/dual-use/">Dual Use</a>
             <a href="${contentBase}/calculator/">Carbon Calculator</a>
+            <a href="https://lifetime.fi/laskuri/">Keskeytyslaskuri</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Help &amp; Company</h4>
@@ -160,8 +555,8 @@
             <a href="${contentBase}/investor-relations/">Investor Relations</a>
             <a href="https://onelifetime.world">Community</a>
             <a href="https://onelifetime.world/blog/">LSJ Business Blog</a>
-            <a href="mailto:support@lifetime.fi">Support</a>
-            <a href="mailto:sales@lifetime.fi">Sales</a>
+            <a href="https://dws10.com/contact/">Support</a>
+            <a href="https://dws10.com/contact/">Sales</a>
             <a href="${contentBase}/legal/">Legal Hub</a>
         </div>
     </div>
@@ -223,6 +618,15 @@
     wrapper.innerHTML = footerHTML.trim();
     var footerEl = wrapper.firstElementChild;
     document.body.appendChild(footerEl);
+
+    // i18n: tag and translate footer elements
+    tagFooterElements();
+    applyFooterLang(localStorage.getItem('dws-lang') || 'en');
+
+    window.addEventListener('dws-lang-change', function (e) {
+      var lang = e.detail && e.detail.lang;
+      if (lang) applyFooterLang(lang);
+    });
 
     wireNewsletter();
   }

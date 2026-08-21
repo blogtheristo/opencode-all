@@ -201,6 +201,7 @@ Kaksi vaihtoehtoa, kumpikin rehellinen:
 ## Liittyvät
 
 - `docs/lut/2026-07-14-letter-smolander-six-questions.md` — **lähetetty kirje, lukituksen lähde**
+- `docs/lut/2026-07-25-memo-smolander-question-status.md` — **päivitysmuistio, DRAFT.** Sisältää RQ5 v3:n ehdotuksena. ⚠️ **Sen lähettäminen *on* lukitussäännön 3 ulkoinen teko** — jos §4 lähetetään, tämä tiedosto on päivitettävä v2:ksi samassa liikkeessä, ei jälkikäteen
 - `docs/field-notes/2026-07-14-lut-smolander-six-questions-letter-sent.md` — sanatarkka lähetetty versio
 - `docs/lut/2026-07-14-lut-doctoral-research-plan.md` — 10-sivuinen muistio, kirjeen liite
 - `docs/phd/PHD_RESEARCH_QUESTIONS_RESCOPE_PROPOSAL.md` — sarja B, ei sovellettu

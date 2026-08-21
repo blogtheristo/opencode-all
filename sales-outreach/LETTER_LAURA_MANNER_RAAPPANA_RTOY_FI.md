@@ -22,6 +22,7 @@ Recipient: Laura Manner-Raappana, Yritysneuvoja / Business Advisor,
 Context: Vastaus Defence Startup Fund -päätökseen (hakemus jätetty 26.3.2026,
          vastaanottaja Markus Rankka). Hylätty tällä kierroksella.
          v1.0 oli virheellisesti osoitettu "Diana Riihimäki" — korjattu v2.0:ssa.
+- Version: 4.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — "logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; MRR 7 000 €/kk, 100 % retentio" replaced with dispatch-operator + services-and-transport-revenue framing; Nokia replaced with "puolustusalan päähankkija" (NDA). Letter is a draft (pre-send checklist unticked), so the body was edited rather than annotated.
 -->
 
 # Vastaus: Laura Manner-Raappana (Riihimäen Tilat ja Kehitys Oy)
@@ -56,7 +57,7 @@ Erityinen lisäarvo puolustusalalle: ainoa EU-suvereeni alusta, joka kattaa sek�
 Selkeytämme painopisteen yksiselitteisesti: olemme **tuotelähtöinen** yhtiö.
 
 - **Ydin (skaalautuva tuote):** DWS IQ Aegis -ohjelmisto ja Lifetime Fleet IoT -laitepaketit. Tähän kohdistuu kehitys ja haettava rahoitus.
-- **Projekti-/konsultointityö** toimii ainoastaan rahoittavana siltana ja referenssikanavana tuotteeseen — ei itsenäisenä painopisteenä. Nykyinen tulorahoitus (logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; MRR 7 000 €/kk, 100 % retentio) rahoittaa tuotekehitystä ja matching-osuuden. Esitämme tämän jaon seuraavassa hakemuksessa eksplisiittisellä kaaviolla.
+- **Projekti-/konsultointityö** toimii ainoastaan rahoittavana siltana ja referenssikanavana tuotteeseen — ei itsenäisenä painopisteenä. Nykyinen tulorahoitus — **~7 000 €/kk palvelu- ja kuljetusliikevaihtoa (ei ohjelmistoliikevaihtoa)**, jolla yhtiö on kassavirtatasapainossa perustajan palkalla 0 € — rahoittaa tuotekehitystä ja matching-osuuden. Kela, Uber, Bolt ja Taksi Helsinki ovat **välityspalveluoperaattoreita** (Traficomin määrittelemä rooli): luvanvaraisen kuljetusliiketoimintamme kaupallisia vastapuolia, eivät DWS IQ:n tai Aegiksen ohjelmistoasiakkaita. Ohjelmistopuolen tilaus: **kaksi yritysasiakaspilottia sovittu Q1/2026**, 29 950 € kumpikin (59 900 € kirjattu). Esitämme tämän jaon seuraavassa hakemuksessa eksplisiittisellä kaaviolla.
 
 **4. Riihimäki-sitoumus (ennallaan ja vahva).**
 Sitoumus on edelleen täysi: siirrämme pääkonttorin Espoosta Riihimäelle ja perustajat muuttavat paikkakunnalle — täysi läsnäolo DEFINE-ekosysteemissä, ei sivutoimipiste.
@@ -64,7 +65,7 @@ Sitoumus on edelleen täysi: siirrämme pääkonttorin Espoosta Riihimäelle ja 
 **5. Edistyminen hakemuksen jälkeen (konkreettista vetoa puolustusalalla).**
 Hakemuksen jättämisen jälkeen olemme edenneet juuri palautteenne osoittamaan suuntaan:
 
-- **Nokia — DWS IQ Aegis × Nokia × DEFINE -keskustelut** Tommi Haapalan (Senior Advisor, Nokia) kanssa; salassapitosopimus (NDA) voimassa 14.4.2026 alkaen. Jaoimme Nokialle räätälöidyn Aegis-esitteen. (Keskustelujen sisältö on luottamuksellinen, mutta vahvistamme mielellämme yhteistyön olemassaolon.)
+- **DWS IQ Aegis × puolustusalan päähankkija × DEFINE -keskustelut** käynnissä; salassapitosopimus (NDA) voimassa 14.4.2026 alkaen. Jaoimme vastapuolelle räätälöidyn Aegis-esitteen. (Vastapuoli ja keskustelujen sisältö ovat luottamuksellisia, mutta vahvistamme mielellämme yhteistyön olemassaolon.)
 - **Aegis-esite ja kaksikielinen (FI/EN) puolustus-playbook** on tuotettu ja päivitetty — sama materiaali on nyt valmiina liitettäväksi täydennettyyn hakemukseen.
 
 Nämä osoittavat, että puolustusalan lisäarvo ei ole vain suunnitelma vaan etenevää, todennettavaa vetoa DEFINE-ekosysteemissä.

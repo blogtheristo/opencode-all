@@ -15,7 +15,8 @@ allowed-tools: [Bash, Read]
 **Report type:** EN 15978 Carbon Footprint Report
 **Agent:** `src/firehorse/report-module.ts` (format: `carbon-footprint`)
 **Feeds from:** `src/agents/material-oracle.agent.ts` (embodied carbon per material)
-**API:** `curl -X POST http://localhost:3000/firehorse/reports/generate -H "Content-Type: application/json" -d '{"format":"carbon-footprint","input":{"project":"...","materials":[...]}}'`
+**CLI:** `dws firehorse-report --format carbon-footprint --input '{"organizationId":"org-1","industry":"construction","periodStart":"2025-01-01","periodEnd":"2025-12-31"}'`
+**API:** `POST /api/v1/firehorse/reports/generate` with `{"format":"carbon-footprint","organizationId":"...","industry":"...","periodStart":"...","periodEnd":"..."}`
 
 ## What This Skill Knows
 

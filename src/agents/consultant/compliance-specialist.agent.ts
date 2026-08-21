@@ -38,8 +38,7 @@ export class ComplianceSpecialistAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'standard',
-      autonomyPhase: 'advisor',
-      notify: { channels: ['email', 'in_app'], maxPerHour: 5, maxPerDay: 15 },
+      autonomyPhase: 'silent_pilot',
     });
     this.soulPrompt = SOUL;
   }

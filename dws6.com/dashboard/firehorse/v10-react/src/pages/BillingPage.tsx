@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../components/Toast';
 
 interface Plan {
   id: string;
@@ -45,6 +46,7 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 export function BillingPage() {
   const navigate = useNavigate();
   const { session } = useAuth();
+  const { toast } = useToast();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPlan, setCurrentPlan] = useState<string>('free');
@@ -226,6 +228,9 @@ export function BillingPage() {
       return;
     }
     setCheckoutLoading(plan.id);
+    const origin = window.location.origin;
+    const return_url = `${origin}/payment/success?plan=${plan.tier}`;
+    const cancel_url = `${origin}/payment/cancel?plan=${plan.tier}`;
     try {
       const res = await fetch(`${API_BASE}/api/v1/payments/subscribe`, {
         method: 'POST',
@@ -236,21 +241,31 @@ export function BillingPage() {
         body: JSON.stringify({
           plan: plan.tier as 'pro' | 'enterprise',
           payment_provider: provider,
+          return_url,
+          cancel_url,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
         const msg = data?.message || data?.error || 'Payment service unavailable';
-        alert(msg);
+        toast({ type: 'error', title: 'Checkout failed', message: msg });
         return;
       }
       if (data?.payment_url) {
         window.location.href = data.payment_url;
       } else {
-        alert('No payment URL received. Please contact support.');
+        toast({
+          type: 'error',
+          title: 'Checkout failed',
+          message: 'No payment URL received. Please contact support.',
+        });
       }
     } catch {
-      alert('Unable to start checkout. Please try again or contact support.');
+      toast({
+        type: 'error',
+        title: 'Checkout unavailable',
+        message: 'Unable to start checkout. Please try again or contact support.',
+      });
     } finally {
       setCheckoutLoading(null);
     }
@@ -350,7 +365,7 @@ export function BillingPage() {
                     {checkoutLoading === plan.id ? '...' : 'Upgrade with Revolut'}
                   </button>
                   <a
-                    href={`mailto:risto@lifetime.fi?subject=DWS%20IQ%20Upgrade%20to%20${plan.name}`}
+                    href={`https://dws10.com/contact/?subject=DWS%20IQ%20Upgrade%20to%20${plan.name}`}
                     className="block text-center text-sm text-gray-500 hover:text-gray-700"
                   >
                     Or contact us to upgrade

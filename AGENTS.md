@@ -80,6 +80,65 @@ The MCP Hub (`mcp-hub/server.py`) supports three workflow patterns:
 2. **Reflection Pattern**: Self-review and iterative improvement
 3. **Sequential Pattern**: Step-by-step task execution with dependencies
 
+### Runtime Selection: OpenCode + DGX Primary, Claude Code Standby
+
+> **Platform Strategy (2026-08-13):** OpenCode + DGX Spark is the default runtime for all new development and scheduled agent work. Claude Code serves as a **hot standby** (<10% usage) for rapid recovery if OpenCode is unavailable.
+
+#### Primary Platform
+
+**OpenCode + VS Code** (default runtime)
+
+- **Inference backend:** DGX Spark (NVIDIA Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x)
+- **IDE:** VS Code with OpenCode Connector + remote DGX development
+- **MCP servers:** Identical config to Claude Code (`.opencode/settings.json`)
+- **Usage pattern:** All new interactive development, skill iteration, ad-hoc debugging
+
+**When to use:**
+
+- New feature branches or refactoring work
+- One-off analysis, reporting, or data extraction
+- Scheduled background jobs (cron, CI/CD pipelines)
+- Long-running agent loops (>1 hour execution)
+- Any work that can be serialized into `.claude/handoffs/` for later resumption
+
+#### Standby Platform
+
+**Claude Code** (<10% usage, hot standby)
+
+- **Inference backend:** Claude API (Anthropic)
+- **IDE:** Claude Code CLI / Web / IDE extensions
+- **MCP servers:** Identical config to OpenCode (`.claude/settings.json`)
+- **Usage pattern:** Failover only; not the default for new work
+
+**When to use:**
+
+- OpenCode/DGX unavailable or degraded
+- Rapid session recovery (continue interrupted work via `.claude/handoffs/`)
+- Complex reasoning tasks requiring Claude's extended thinking
+- Any work already in-flight on Claude Code (do not force migration mid-task)
+
+#### Switching Criteria
+
+| Scenario                   | Action                         | Rationale                                                   |
+| -------------------------- | ------------------------------ | ----------------------------------------------------------- |
+| Starting new work          | Use OpenCode + DGX             | Standard default runtime                                    |
+| OpenCode MCP fails         | Resume in Claude Code          | Pre-tested failover path, same MCP config                   |
+| DGX node offline           | Failover to Claude             | Continuity; use `.claude/handoffs/` to hand off             |
+| Extended thinking needed   | Optionally use Claude          | Claude's reasoning > OpenCode for complex analysis          |
+| Session interrupted        | Resume via `.claude/handoffs/` | State already serialized; platform-agnostic switch          |
+| Scheduled job fails on DGX | Retry on Claude                | Scheduled-task failover (documented in `DGX_DEPLOYMENT.md`) |
+
+#### MCP Interface Compatibility
+
+Both platforms share identical MCP server configurations:
+
+- `dws-gateway-local`
+- `dws-agents-local`
+- GitHub, Google Drive, Figma, Supabase (if applicable)
+- Custom enterprise tools (MCP server listings in `.mcp.json`)
+
+**Guarantee:** A skill or routine written for OpenCode requires zero changes to run on Claude Code, provided it does not rely on platform-specific features (e.g., DGX GPU access).
+
 ---
 
 ## 2. Lifetime Scope Signals Protocol
@@ -495,6 +554,8 @@ or removing an agent.
 | `mnemosyne`                | Long-term memory oracle                           |
 | `panacea`                  | Self-improving / adaptive optimization            |
 | `quality-gate`             | Quality-gate / QA verification                    |
+| `hic-content-audit` | HicContentAuditAgent | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver | Llama 3.3 70B |
+| `version-audit` | VersionAuditAgent | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance  | Llama 3.3 70B |
 | `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
 | `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
 | `outreach-improver`        | OutreachImproverAgent                             | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                                                                                                                                  | Llama 3.3 70B |
@@ -560,7 +621,7 @@ cost_tracking:
 **Terminology.** Two execution substrates exist (or are being evaluated) for running DWS agent workloads:
 
 - **Claude Managed Agents** — Anthropic's hosted agent-execution service (public beta as of this writing, `managed-agents-2026-04-01`). Anthropic runs the session/sandbox/tool loop on its own infrastructure; DWS sends events and receives results. Distinct from the raw Messages API, the Tool Runner (`client.beta.messages.tool_runner`, self-hosted loop), and the Claude Agent SDK (self-hosted library) — see Anthropic documentation for the full surface comparison.
-- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the Godagent architecture (`docs/Deputy-Agents-Architecture.md`) running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
+- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the self-hosted agent architecture documented in `docs/Deputy-Agents-Architecture.md`, running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
 
 ### 8.1 Comparison
 
@@ -611,7 +672,7 @@ This mirrors the standing decision already recorded for Firehorse Dreaming (`.cl
 
 Only after Phase 1 produces real cost/latency numbers: decide whether Claude Managed Agents becomes a standing overflow tier for exempt agents (burst capacity when DGX Spark's queue/VRAM is saturated) or gets shelved. Do not pre-build multi-agent Managed Agents routing before that data exists (Rule 2 — simplicity first).
 
-**Explicitly out of scope for Managed Agents (stays on DGX by design):** all Godagent/industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
+**Explicitly out of scope for Managed Agents (stays on DGX by design):** all self-hosted industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
 
 ---
 
@@ -722,7 +783,7 @@ cd mcp-hub && python server.py
 - [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Internal agents
 - [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agents
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
-- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents (Godagent) architecture, referenced in §8
+- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
 - [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
 
 ---
@@ -768,6 +829,6 @@ Root backend has `"lint": "echo \"No linter configured\""` — no real linter. D
 ---
 
 **Document Version:** 1.1  
-**Last Updated:** July 20, 2026  
+**Last Updated:** August 20, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026

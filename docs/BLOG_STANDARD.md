@@ -4,9 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.9
 
 Sessions & Modifications:
+
+- Version: 2.9 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: **Extended §15.1 to the eight-field Business Case card** — the source and claim map becomes a mandatory eighth field per the production plan annex `docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md` §6: every claim classified (public source, company data, DWS analysis, hypothesis) and linked to evidence before writing. §15 now registers the DWS Content Production Standard (`DWS_CONTENT_PRODUCTION_STANDARD.md`) as the governing internal standard and the binary HIC pre-publication audit (13 points, APPROVED/CORRECTABLE, no exceptions; HIC remains the final responsible approver) per `DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`. Protected argumentation structure added to §15.4 (limitation → effect on decision → management measure → residual uncertainty → possible demo).
+- Version: 2.8 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 20.08.2026 | Changes: **Registered §15 (Lifetime Studios — Production Engine).** The 800-story system is now governed by the 25 × 5 content matrix (125 core topics) as individual Business Case cards with seven mandatory fields (industry+buyer, compliance situation, financial consequence, product, demo workflow, acceptance criterion, next step), cross-industry learning, five-language localization (≈4,000 versions), and the Outokumpu-model journalistic ground rules. Cross-reference: `docs/LIFETIME_STUDIOS_ADMIN.md`. Checklist §9 gains a card-distinctness check (prevent duplicate stories). Added the auto blog-index updater `scripts/update-blog-index.mjs` (idempotent, adds only posts ≥ newest listed date) to the tooling references.
 
 - Version: 2.7 | Tool: Claude Code (claude-opus-5) | Session: claude/ollama-orchestration-merge-047pj7 | Date: 27.07.2026 | Changes: **Made HIC review of blog text an absolute requirement (§3.3, new).** The HIC had asked many times to review blog entries as a copy-paste block before publication and it kept not happening — sessions published with nothing shown, drafted posts that were never published, or surfaced an audit summary instead of the words. Now a precondition, not a courtesy: `.claude/hooks/blog-draft-gate.sh` (PreToolUse, Edit|Write) blocks writes to `*/posts/*.html` unless `docs/blog-drafts/<slug>.md` exists and reads `Status: APPROVED`; `/blog-draft` is the loop (full text → ONE fenced code block → stop and ask → revise → explicit approval → publish); `session-stop.sh` back-stops by flagging published posts with no approved draft **and** drafts parked in `Status: DRAFT`. Escalated to **CLAUDE.md Non-Negotiable Rule 13** and mirrored to `GEMINI.md`, `.claude/hooks/session-start.sh` (surfaced every session), `/lsj-publish`, `scripts/weekly/lsj-publish-draft.sh` (cron drafts, never publishes), the hooks README and `docs/DWS_SKILLS_GUIDE.md` §6.5. Also registered §3.2.1 (mandatory AI-content label on machine-translated variants, EU AI Act Art. 50(4)) and §3.2 (multi-language convention). Limits stated rather than implied: a hook cannot verify a human read anything; generators and cron bypass it; hooks arm at session start, so the gate is inert in the session that adds it.
 - Version: 2.6 | Tool: Claude Code | Session: claude/eda-dws-iq-business-case-jm7p3g | Date: 17.07.2026 | Changes: Registered post #42 (`ai-supercomputing-meets-eda-sovereign-design.html`) — NVIDIA partner note extending the "sovereign edge is still a box" DGX Spark series (#32/#33/#34/#41) to Electronic Design Automation. Written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version): NVIDIA's "AI Supercomputing Meets EDA — from tools to agents" thesis (Timothy Costa) as the gift; the honest limit that RTL/netlists/foundry PDKs cannot leave the design perimeter (NDA + export control), so agentic EDA only ships on a customer-owned box. Companion to `docs/DGX_SPARK_4X_EDA_BUSINESS_CASE.md`. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector; reverted its unrelated re-stamp of 26 older posts' product-card copy to keep the change scoped to the new post and its prev-neighbour's (#41 Halos) nav link. Dual-folder synced to `landing-pages/onelifetime-world/`. Byline uses the correct "Risto Anton Päärni" umlaut spelling per CLAUDE.md Sender Identity (older posts carry the ASCII "Paarni" bug).
@@ -65,6 +68,7 @@ Document Status:
 12. [Editor-in-Chief Voice (Seth Godin House Style)](#12-editor-in-chief-voice-seth-godin-house-style)
 13. [Reader Polls](#13-reader-polls)
 14. [Ads & Sponsorship Slots](#14-ads--sponsorship-slots)
+15. [Lifetime Studios — Production Engine](#15-lifetime-studios--production-engine-systematic-800-story-system)
 
 ---
 
@@ -126,55 +130,79 @@ The language bar (`shared-assets/lang-bar.js`, v1.1+) auto-injects all 5 buttons
 
 Chronological order. Update this table when adding/removing posts.
 
-| #   | File                                                 | Title                                                                                                                           | Date        |
-| --- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| 1   | `business-case-logistics.html`                       | Business Case: The Intelligent Fleet Pilot                                                                                      | Dec 2025    |
-| 2   | `kya-standard-v1.html`                               | Field Note: KYA Standard for Autonomous Control Rooms                                                                           | Mar 2026    |
-| 3   | `eu-regulation-harness-engineering.html`             | EU Regulation Makes Better AI                                                                                                   | 14 Mar 2026 |
-| 4   | `eu-ai-act-compliance-ready.html`                    | EU AI Act: Compliance Ready                                                                                                     | 15 Mar 2026 |
-| 5   | `buyers-note-harness-engineering.html`               | Buyer's Note: Harness Engineering                                                                                               | 15 Mar 2026 |
-| 6   | `harness-engineering-investor-note.html`             | Investor Note: Harness Engineering                                                                                              | 15 Mar 2026 |
-| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html`            | NVIDIA GTC 2026: Industrial AI Roadmaps                                                                                         | 16 Mar 2026 |
-| 8   | `validated-mock-data-principle.html`                 | The Validated Mock Data Principle                                                                                               | 16 Mar 2026 |
-| 9   | `closing-the-bom-gap-cad-erp-sync.html`              | Closing the BOM Gap: CAD-ERP Sync                                                                                               | 26 Mar 2026 |
-| 10  | `liquidity-engine-captain-seats.html`                | The Liquidity Engine: Captain Seats                                                                                             | 28 Mar 2026 |
-| 11  | `core-resilience-hybrid-threats.html`                | CORE: The EU Model That Maps Every Hybrid Threat                                                                                | 16 Apr 2026 |
-| 12  | `solid-layers-aiven-scaleway-kya.html`               | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry                                                                           | 22 Apr 2026 |
-| 13  | `mcp-apps-identity-spine.html`                       | MCP Apps Extends the Frontier — KYA Identity Spine                                                                              | 22 Apr 2026 |
-| 14  | `redhat-sovereign-move-three-tiers.html`             | Red Hat's EU Sovereign Move — and the Three Tiers                                                                               | 23 Apr 2026 |
-| 15  | `fpe-dark-mode-construction-wedge.html`              | FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure                                                           | 27 Apr 2026 |
-| 16  | `dws-ontology-standard-v1.html`                      | DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars                                            | 29 Apr 2026 |
-| 17  | `baseten-inference-engineering-300m.html`            | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now                                                    | 7 May 2026  |
-| 18  | `eu-policy-backed-capital-bankable-sovereignty.html` | The Strike Price State — Five Things Europe Just Made Official                                                                  | 7 May 2026  |
-| 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV)                                        | 15 May 2026 |
-| 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible                               | 17 May 2026 |
-| 21  | `point-it-at-the-ontology.html`                      | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)                                                       | 5 Jun 2026  |
-| 22  | `your-model-cant-beat-your-noise-floor.html`         | Your Model Can't Beat Your Noise Floor — Evaluation, Clean Labels, the Shannon Bound (EN, Ontology Series)                      | 15 Jun 2026 |
-| 23  | `your-model-cant-beat-your-noise-floor.fi.html`      | Mallisi ei voita kohinatasoasi — arviointi, puhtaat nimiöt, Shannon-raja (FI, Ontology Series)                                  | 15 Jun 2026 |
-| 24  | `four-capital-classes.html`                          | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                               | 19 Jun 2026 |
-| 25  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
-| 26  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
-| 27  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
-| 28  | `lifetime-world-model-three-piece-loop.html`         | The Three-Piece Loop — Lifetime World Model V1 for Control Rooms (EN, vision/architecture, with reference code)                 | 23 Jun 2026 |
-| 29  | `four-learning-paradigms-world-model.html`           | The Four Learning Paradigms Behind a World Model — RL, reward learning, supervised/generative, self-supervised (EN)             | 23 Jun 2026 |
-| 30  | `lifetime-world-model-three-piece-loop.fi.html`      | Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI parity of #28)                                                  | 23 Jun 2026 |
-| 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
-| 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
-| 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
-| 34  | `nvidia-jetson-thor-physical-ai.html`                | NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It. (EN, NVIDIA partner note)           | 26 Jun 2026 |
-| 35  | `industrial-intelligence-weekly-2026-06-28.html`     | Industrial Intelligence Weekly — Five Signals from the Regulated Economy (EN, market intelligence newsletter)                   | 28 Jun 2026 |
-| 36  | `brexit-interdependence-moat-us-eu.html`             | Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit (EN, sovereignty essay)                       | 30 Jun 2026 |
-| 37  | `brexit-interdependence-moat-us-eu.fi.html`          | Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI parity of #36)                                 | 30 Jun 2026 |
-| 38  | `tiedon-vanheneminen-sensoridata-retention.html`     | Tiedon vanheneminen — sensoridatan tallennusstrategia Control Roomissa ja Situation Roomissa (FI, field note, data governance)  | 1 Jul 2026  |
-| 39  | `the-moats-we-hand-you.html`                         | The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places (EN, sovereignty stance)                    | 1 Jul 2026  |
-| 40  | `the-moats-we-hand-you.fi.html`                      | Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI parity of #39)                                | 1 Jul 2026  |
-| 41  | `nvidia-halos-robotics-physical-ai-safety.html`      | NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking. (EN, NVIDIA partner note)         | 10 Jul 2026 |
-| 42  | `ai-supercomputing-meets-eda-sovereign-design.html`  | AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building. (EN, NVIDIA partner note / DGX Spark series) | 17 Jul 2026 |
-| 43  | `ala-treenaa-base-mallia-omista-evidenssikerros.html` | Älä treenaa base-mallia, omista evidenssikerros — adoptoi avoin sovereign-komponentti, investoi omistettuun evidenssisilmukkaan; NVIDIA-supply-riski nimettynä (FI) | 26 Jul 2026 |
-| 44  | `dont-train-a-base-model-own-the-evidence-layer.html` | Don't train a base model. Own the evidence layer. (EN parity of #43 — canonical `x-default`) | 26 Jul 2026 |
-| 45  | `dont-train-a-base-model-own-the-evidence-layer.sv.html` | Träna inte basmodellen, äg evidenslagret (SV parity of #43) | 26 Jul 2026 |
-| 46  | `dont-train-a-base-model-own-the-evidence-layer.de.html` | Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht (DE parity of #43) | 26 Jul 2026 |
-| 47  | `dont-train-a-base-model-own-the-evidence-layer.fr.html` | N'entraînez pas le modèle de base, possédez la couche de preuve (FR parity of #43) | 26 Jul 2026 |
+| #   | File                                                     | Title                                                                                                                                                                    | Date        |
+| --- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| 1   | `business-case-logistics.html`                           | Business Case: The Intelligent Fleet Pilot                                                                                                                               | Dec 2025    |
+| 2   | `kya-standard-v1.html`                                   | Field Note: KYA Standard for Autonomous Control Rooms                                                                                                                    | Mar 2026    |
+| 3   | `eu-regulation-harness-engineering.html`                 | EU Regulation Makes Better AI                                                                                                                                            | 14 Mar 2026 |
+| 4   | `eu-ai-act-compliance-ready.html`                        | EU AI Act: Compliance Ready                                                                                                                                              | 15 Mar 2026 |
+| 5   | `buyers-note-harness-engineering.html`                   | Buyer's Note: Harness Engineering                                                                                                                                        | 15 Mar 2026 |
+| 6   | `harness-engineering-investor-note.html`                 | Investor Note: Harness Engineering                                                                                                                                       | 15 Mar 2026 |
+| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html`                | NVIDIA GTC 2026: Industrial AI Roadmaps                                                                                                                                  | 16 Mar 2026 |
+| 8   | `validated-mock-data-principle.html`                     | The Validated Mock Data Principle                                                                                                                                        | 16 Mar 2026 |
+| 9   | `closing-the-bom-gap-cad-erp-sync.html`                  | Closing the BOM Gap: CAD-ERP Sync                                                                                                                                        | 26 Mar 2026 |
+| 10  | `liquidity-engine-captain-seats.html`                    | The Liquidity Engine: Captain Seats                                                                                                                                      | 28 Mar 2026 |
+| 11  | `core-resilience-hybrid-threats.html`                    | CORE: The EU Model That Maps Every Hybrid Threat                                                                                                                         | 16 Apr 2026 |
+| 12  | `solid-layers-aiven-scaleway-kya.html`                   | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry                                                                                                                    | 22 Apr 2026 |
+| 13  | `mcp-apps-identity-spine.html`                           | MCP Apps Extends the Frontier — KYA Identity Spine                                                                                                                       | 22 Apr 2026 |
+| 14  | `redhat-sovereign-move-three-tiers.html`                 | Red Hat's EU Sovereign Move — and the Three Tiers                                                                                                                        | 23 Apr 2026 |
+| 15  | `fpe-dark-mode-construction-wedge.html`                  | FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure                                                                                                    | 27 Apr 2026 |
+| 16  | `dws-ontology-standard-v1.html`                          | DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars                                                                                     | 29 Apr 2026 |
+| 17  | `baseten-inference-engineering-300m.html`                | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now                                                                                             | 7 May 2026  |
+| 18  | `eu-policy-backed-capital-bankable-sovereignty.html`     | The Strike Price State — Five Things Europe Just Made Official                                                                                                           | 7 May 2026  |
+| 19  | `fire-brigades-drone-defense-units.html`                 | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV)                                                                                 | 15 May 2026 |
+| 20  | `moat-is-not-the-model.html`                             | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible                                                                        | 17 May 2026 |
+| 21  | `point-it-at-the-ontology.html`                          | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)                                                                                                | 5 Jun 2026  |
+| 22  | `your-model-cant-beat-your-noise-floor.html`             | Your Model Can't Beat Your Noise Floor — Evaluation, Clean Labels, the Shannon Bound (EN, Ontology Series)                                                               | 15 Jun 2026 |
+| 23  | `your-model-cant-beat-your-noise-floor.fi.html`          | Mallisi ei voita kohinatasoasi — arviointi, puhtaat nimiöt, Shannon-raja (FI, Ontology Series)                                                                           | 15 Jun 2026 |
+| 24  | `four-capital-classes.html`                              | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                                                                        | 19 Jun 2026 |
+| 25  | `software-vs-world-model.html`                           | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                                                          | 20 Jun 2026 |
+| 26  | `ontologia-tiimin-aivoissa.html`                         | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                                                            | 20 Jun 2026 |
+| 27  | `the-ontology-lives-in-the-team.html`                    | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series)                                          | 20 Jun 2026 |
+| 28  | `lifetime-world-model-three-piece-loop.html`             | The Three-Piece Loop — Lifetime World Model V1 for Control Rooms (EN, vision/architecture, with reference code)                                                          | 23 Jun 2026 |
+| 29  | `four-learning-paradigms-world-model.html`               | The Four Learning Paradigms Behind a World Model — RL, reward learning, supervised/generative, self-supervised (EN)                                                      | 23 Jun 2026 |
+| 30  | `lifetime-world-model-three-piece-loop.fi.html`          | Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI parity of #28)                                                                                           | 23 Jun 2026 |
+| 31  | `four-learning-paradigms-world-model.fi.html`            | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                                                                | 23 Jun 2026 |
+| 32  | `nvidia-vera-rubin-ai-factory.html`                      | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                                                                | 24 Jun 2026 |
+| 33  | `eu-sovereign-ai-factories-35-supercomputers.html`       | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)                                                       | 25 Jun 2026 |
+| 34  | `nvidia-jetson-thor-physical-ai.html`                    | NVIDIA Jetson Thor — The Supercomputer Moves Onto the Robot. The Governance Sits Beside It. (EN, NVIDIA partner note)                                                    | 26 Jun 2026 |
+| 35  | `industrial-intelligence-weekly-2026-06-28.html`         | Industrial Intelligence Weekly — Five Signals from the Regulated Economy (EN, market intelligence newsletter)                                                            | 28 Jun 2026 |
+| 36  | `brexit-interdependence-moat-us-eu.html`                 | Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit (EN, sovereignty essay)                                                                | 30 Jun 2026 |
+| 37  | `brexit-interdependence-moat-us-eu.fi.html`              | Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI parity of #36)                                                                          | 30 Jun 2026 |
+| 38  | `tiedon-vanheneminen-sensoridata-retention.html`         | Tiedon vanheneminen — sensoridatan tallennusstrategia Control Roomissa ja Situation Roomissa (FI, field note, data governance)                                           | 1 Jul 2026  |
+| 39  | `the-moats-we-hand-you.html`                             | The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places (EN, sovereignty stance)                                                             | 1 Jul 2026  |
+| 40  | `the-moats-we-hand-you.fi.html`                          | Vallihaudat ovat sinun, eivät meidän — suvereniteetti vs. keskinäisriippuvuus (FI parity of #39)                                                                         | 1 Jul 2026  |
+| 41  | `nvidia-halos-robotics-physical-ai-safety.html`          | NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking. (EN, NVIDIA partner note)                                                  | 10 Jul 2026 |
+| 42  | `ai-supercomputing-meets-eda-sovereign-design.html`      | AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building. (EN, NVIDIA partner note / DGX Spark series)                                       | 17 Jul 2026 |
+| 43  | `ala-treenaa-base-mallia-omista-evidenssikerros.html`    | Älä treenaa base-mallia, omista evidenssikerros — adoptoi avoin sovereign-komponentti, investoi omistettuun evidenssisilmukkaan; NVIDIA-supply-riski nimettynä (FI)      | 26 Jul 2026 |
+| 44  | `dont-train-a-base-model-own-the-evidence-layer.html`    | Don't train a base model. Own the evidence layer. (EN parity of #43 — canonical `x-default`)                                                                             | 26 Jul 2026 |
+| 45  | `dont-train-a-base-model-own-the-evidence-layer.sv.html` | Träna inte basmodellen, äg evidenslagret (SV parity of #43)                                                                                                              | 26 Jul 2026 |
+| 46  | `dont-train-a-base-model-own-the-evidence-layer.de.html` | Trainieren Sie kein Base-Modell, besitzen Sie die Evidenzschicht (DE parity of #43)                                                                                      | 26 Jul 2026 |
+| 47  | `dont-train-a-base-model-own-the-evidence-layer.fr.html` | N'entraînez pas le modèle de base, possédez la couche de preuve (FR parity of #43)                                                                                       | 26 Jul 2026 |
+| 48  | `harness-paywall-depth-arbitrage.html`                   | The Harness Paywall — the harness is the durable layer, its token intensity is the paywall, and bounded sovereign compute is the resolution (EN, architecture/economics) | 30 Jul 2026 |
+| 49  | `arvonluonnin-ajurit-2026.html`                          | Six Drivers of Value — and the Research Behind Them (EN, canonical `x-default`)                                                                                          | 6 Aug 2026  |
+| 50  | `arvonluonnin-ajurit-2026.fi.html`                       | Kuusi arvonluonnin ajuria — ja tutkimus niiden takana (FI parity of #49)                                                                                                 | 6 Aug 2026  |
+| 51  | `arvonluonnin-ajurit-2026.sv.html`                       | Värdeskapande drivkrafter — sex huvuddimensioner, och forskningen bakom dem (SV parity of #49)                                                                           | 6 Aug 2026  |
+| 52  | `arvonluonnin-ajurit-2026.de.html`                       | Wertschöpfungstreiber — sechs Hauptdimensionen, und die Forschung dahinter (DE parity of #49)                                                                            | 6 Aug 2026  |
+| 53  | `arvonluonnin-ajurit-2026.fr.html`                       | Leviers de création de valeur — six dimensions clés, et la recherche qui les sous-tend (FR parity of #49)                                                                | 6 Aug 2026  |
+| 54  | `kya-s1-one-signed-page.html`                            | KYA-S1 — One Signed Page for the Agent in Your Vendor File (EN, Standards / Buyer Note)                                                                                  | 6 Aug 2026  |
+| 55 | `know-your-agent-kya-s1.html` | Know Your Agent (KYA-S1) — One Signed Page for the AI That Touches Your Data (EN, series 1/12) | 8 Aug 2026  |
+| 56 | `know-your-agent-kya-s1.fi.html` | Tunne agenttisi (KYA-S1) — Yksi allekirjoitettu sivu tekoälystä (FI, sarja 1/12) | 8 Aug 2026  |
+| 57 | `know-your-agent-kya-s1.sv.html` | Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data (SV, serie 1/12) | 8 Aug 2026  |
+| 58 | `know-your-agent-kya-s1.de.html` | Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI (DE, Serie 1/12) | 8 Aug 2026  |
+| 59 | `know-your-agent-kya-s1.fr.html` | Connaissez votre agent (KYA-S1) — Une page signée sur l'IA (FR, série 1/12) | 8 Aug 2026  |
+| 60 | `kya-kyc-seven-questions.fi.html` | KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä (FI, sarja 2/12) | 8 Aug 2026  |
+| 61 | `eu-ai-act-article-14-hic.fi.html` | EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita (FI, sarja 3/12) | 8 Aug 2026  |
+| 62 | `agent-classes-copilot-vs-dws-iq.fi.html` | Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit (FI, sarja 4/12) | 8 Aug 2026  |
+| 63 | `kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html` | KYA-S1 ja BPMN 2.0: luottamustaso ohjaa teollisuusprosessia (FI, sarja 5/12) | 8 Aug 2026  |
+| 64 | `bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html` | KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta (FI, sarja 6/12) | 8 Aug 2026  |
+| 65 | `flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html` | 72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV) (FI, sarja 7/12) | 8 Aug 2026  |
+| 66 | `kya-s1-ecosystem-roadmap.fi.html` | KYA-S1 Ekosysteemi & Tuotanto-Roadmap (FI, sarja 8/12) | 8 Aug 2026  |
+| 67 | `lifetime-world-model-state-register.fi.html` | Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti (FI, sarja 9/12) | 8 Aug 2026  |
+| 68 | `agentic-commerce-autonomous-payments.fi.html` | Agentic Commerce -protokollat & Autonomiset Maksut (FI, sarja 10/12) | 8 Aug 2026  |
+| 69 | `eudi-wallet-eidas2-human-identity.fi.html` | Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0 (FI, sarja 11/12) | 8 Aug 2026  |
+| 70 | `kya-s1-sanasto-glossary.fi.html` | KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto (FI, sarja 12/12) | 9 Aug 2026  |
+| 71 | `greg-isenberg-agents-need-a-signature.html` | Greg Isenberg Is Right About Agents. The Hard Part Is a Signature. (EN field note; agent infrastructure, KYA as the shared layer, honest limit: credential mints unsigned). **EN on tämän postauksen ground truth** — käännökset johdetaan EN-versiosta. | 24 Jul 2026 |
 
 ---
 
@@ -228,11 +256,11 @@ a per-language `canonical`, and a visible language switcher before `</body>`.
 
 **Registration — this deliberately differs from §3.1:**
 
-| Surface | What goes in |
-| --- | --- |
-| `latestPosts` (blog index) | **EN and FI only.** PAGE_SIZE is 5; listing five languages would make page 1 a single post. |
-| `scripts/inject-blog-nav.cjs` `posts` | **The master only.** |
-| §3 Post Registry above | **Every variant**, each marked `(<LANG> parity of #<master>)`. |
+| Surface                               | What goes in                                                                                |
+| ------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `latestPosts` (blog index)            | **EN and FI only.** PAGE_SIZE is 5; listing five languages would make page 1 a single post. |
+| `scripts/inject-blog-nav.cjs` `posts` | **The master only.**                                                                        |
+| §3 Post Registry above                | **Every variant**, each marked `(<LANG> parity of #<master>)`.                              |
 
 Rationale: the prev/next chain is a reading order. A German reader should not be handed an unrelated
 English post as "next", and the chain's length must not depend on how many languages a post has. The
@@ -241,7 +269,7 @@ translated pages inherit the master's nav block with their own URL and share tit
 discoverable through `hreflang`, the language switcher, and the §3 registry.
 
 **Known limitation:** the variants are machine translations built to canonical regulatory terms
-(EU AI Act = *asetus* / *Verordnung* / *règlement* — a regulation, never a directive). They have not
+(EU AI Act = _asetus_ / _Verordnung_ / _règlement_ — a regulation, never a directive). They have not
 had native-speaker or legal review. Record that in the PR, do not imply otherwise.
 
 ### 3.2.1 AI-content labelling is mandatory — EU AI Act Article 50(4)
@@ -257,10 +285,10 @@ language) and controlled by `aiNotice.langs` in the target config.
 
 **Two states, and only two:**
 
-| State | What the page carries | When |
-| --- | --- | --- |
-| **Minimum (default)** | The AI-content notice | Any page no named human has reviewed |
-| **Exemption** | No notice; a named reviewer credited on the page | Only after the review below actually happened |
+| State                 | What the page carries                            | When                                          |
+| --------------------- | ------------------------------------------------ | --------------------------------------------- |
+| **Minimum (default)** | The AI-content notice                            | Any page no named human has reviewed          |
+| **Exemption**         | No notice; a named reviewer credited on the page | Only after the review below actually happened |
 
 **Removing the label from a language is not an editorial preference — it is a legal claim.**
 
@@ -290,7 +318,7 @@ lookalike would misrepresent an official mark. Two things to know if the icon is
 - The Commission's **user testing found the icon performs better when paired with a text label**
   than alone, so the icon complements this notice rather than replacing it.
 - There are **three icon classes** (Basic / Fully AI-Generated / Partially AI-Modified) and which
-  one fits a *machine translation* is unsettled — the source text is human-written, the target text
+  one fits a _machine translation_ is unsettled — the source text is human-written, the target text
   is entirely AI-produced. Decide it with the HIC; do not pick one by feel. See
   `DWS_TRUTH_STANDARD.md` §2G.
 
@@ -346,7 +374,7 @@ through Bash/node and are never seen by the hook; that is deliberate, since they
 approved text, and it is also the way around the gate. Do not use a generator to dodge the draft step.
 
 **Second purpose — Article 50(4) evidence.** The draft file's `Status: APPROVED` + `Reviewed-By` is
-the artefact that evidences the *editorial responsibility* limb of the EU AI Act Article 50(4) text
+the artefact that evidences the _editorial responsibility_ limb of the EU AI Act Article 50(4) text
 test (`DWS_TRUTH_STANDARD.md` §2G). It turns the exemption from an assertion into a record with a
 name and a date. A post with no draft file has no evidence of review — which is exactly the state
 that requires a label.
@@ -492,6 +520,7 @@ The script is located at `scripts/inject-blog-nav.cjs` and:
 - [ ] Commit source + landing-pages copy in SAME commit
 - [ ] Update this registry table (§3)
 - [ ] Never create posts as `.md` files (CLAUDE.md rule)
+- [ ] Verify the post's Business Case card fields (§15) are distinct from already-shipped stories
 
 ---
 
@@ -750,6 +779,52 @@ All prices EUR, B2B, VAT 0 % (EU reverse charge). Invoiced by Lifetime Oy, VAT F
 ### 14.5 Editorial policy
 
 Ad placements are clearly labelled ("Sponsored by" / "Partner Content"). Paid ads do not influence editorial content. The editor-in-chief approves all partners before activation.
+
+---
+
+## 15. Lifetime Studios — Production Engine (Systematic 800-Story System)
+
+The ad-hoc per-post workflow is governed by the systematic production engine documented in `docs/LIFETIME_STUDIOS_ADMIN.md`. Posts are produced from the 25 × 5 content matrix (125 core topics) as individual **Business Case cards**, not generic compliance articles.
+
+### 15.1 Business Case Card — Eight Mandatory Fields
+
+Every matrix row fixes exactly these fields before writing begins:
+
+1. One industry and one enterprise buyer
+2. One precise compliance situation
+3. One visible financial or operational consequence
+4. One DWS IQ product or technology solving the bounded problem
+5. One demo workflow
+6. One acceptance criterion or measurable outcome
+7. One next step: demo, discovery, or paid pilot
+8. **Source and claim map** — every claim classified (public source, company data, DWS analysis, hypothesis) and linked to evidence; binds the journalistic gate to the demo
+
+The eighth field is the DWS Content Production Standard requirement that separates sourced research from marketing text; the full standard and its governing rules live in `DWS_CONTENT_PRODUCTION_STANDARD.md`, and the card structure in eight fields is detailed in the production-plan annex `docs/LIFETIME_STUDIOS_PRODUCTION_PLAN.md` §6. Example: "A stainless-steel producer, group compliance lead, installation-level emissions evidence missing from the CBAM and procurement chain, Aegis/AASS produces a traceable evidence packet, demo shows 304L/Tornio data handling and ERP transfer, next step is a 30-day paid pilot."
+
+### 15.2 Cross-Industry Learning
+
+25 industries are built on the cross-learning model: the story shows what must be solved in the reader's own industry, how another industry solved a comparable problem, and what applies in their company. Every story ends with a CxO-level question, not a hard sell.
+
+### 15.3 Localization
+
+Each flagship story is localized into five languages (FI/SV/DE/FR/EN); the same structure is transformed into a blog post, a LinkedIn post, and a Facebook long-tail text. Target: 800 flagship stories → ≈4,000 language versions.
+
+### 15.4 Journalistic Ground Rules (Outokumpu Model)
+
+Company-specific Business Cases are journalistic research: public sources only, sourced facts separated from analysis and hypotheses, no claims of law-breaking without public evidence, comment opportunity before publication, no implication of endorsement or customer relationship. Full line: `docs/LIFETIME_STUDIOS_ADMIN.md` §6.
+
+**Protected argumentation.** Every publication follows the standard structure: surface the limitation → open the effect on the decision → show the management measure → bound the residual uncertainty → offer the demo only as a natural continuation. Editorial principles: do not hide the limitation, do not exaggerate it, show how it is managed.
+
+**HIC pre-publication gate.** No material is published, localized for release, distributed, or fed into the ontology/World Model before the binary HIC audit passes: 13 checks, APPROVED only if all pass, otherwise CORRECTABLE with listed defects, no exceptions. HIC remains the final responsible approver; the agent never approves its own output. Checklist: `DWS_CONTENT_PRODUCTION_STANDARD_HIC_AUDIT.md` / `_EN.md`.
+
+### 15.5 Tooling
+
+| Tool | Purpose |
+| ---- | ------- |
+| `scripts/update-blog-index.mjs` | Automated `latestPosts` update in `blog/index.html` — adds only posts dated ≥ the list's newest date (preserves curation), idempotent, `--dry-run` support |
+| `scripts/inject-blog-nav.cjs` | Prev/next nav + share + product-card injection |
+| `scripts/backfill-blogs-to-facebook.ts` | Class 1 social pool: fi → Facebook, en → LinkedIn |
+| `src/social-scheduler/publisher.ts` | LinkedIn personal-channel publisher (`/v2/ugcPosts`) |
 
 ---
 

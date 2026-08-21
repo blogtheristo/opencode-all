@@ -352,7 +352,7 @@ export function invoiceTemplate(invoiceId: string, amount: number, currency: str
     </table>
     <p style="margin: 0; font-size: 14px; color: #9ca3af; line-height: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
       If you have questions about this invoice, contact our billing team at
-      <a href="mailto:billing@dws6.com" style="color: #60a5fa; text-decoration: underline;">billing@dws6.com</a>.
+      <a href="https://dws10.com/contact/" style="color: #60a5fa; text-decoration: underline;">billing@dws6.com</a>.
     </p>
   `;
   return baseLayout(`Invoice ${invoiceId} - DWS IQ 6`, body);
@@ -515,8 +515,9 @@ export function investorOutreachTemplate(
     </p>
     <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
       I'm Risto Anton Päärni, Founder, CEO of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
-      platform for ${escapedIndustry}. We have €7k MRR, 5 paying customers with 100% retention,
-      and are raising a SAFE round at a €3.8M cap.
+      platform for ${escapedIndustry}. We contracted two enterprise pilots in Q1/2026 at €29,950 each,
+      the company runs at cash break-even on its services and transport revenue with a founder salary
+      of €0, and we are raising a SAFE round at a €3.8M cap.
     </p>
 
     <!-- Key metrics card -->
@@ -750,7 +751,7 @@ export function bookingAdminNotificationTemplate(variables: {
             </tr>
             <tr>
               <td style="font-size: 14px; color: #60a5fa; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-                <a href="mailto:${variables.customerEmail}" style="color: #60a5fa; text-decoration: none;">${escapeHtml(variables.customerEmail)}</a>
+                <a href="https://dws10.com/contact/" style="color: #60a5fa; text-decoration: none;">${escapeHtml(variables.customerEmail)}</a>
               </td>
             </tr>
             <tr>

@@ -69,6 +69,14 @@ Structured JSON, always with:
 - Restricted environments (e.g. Claude Code remote sessions) may block EU data
   hosts at the network-policy layer (HTTP 403 on CONNECT). `status` reports
   this; use `--demo` for demos, never fake live data.
+- **Confirmed, not hypothetical:** two independent Claude Code cloud sessions
+  (2026-07-06, 2026-07-14) both hit CONNECT 403 on all three upstreams
+  (avoindata.prh.fi, opendata.fmi.fi, data.europa.eu). The agent-proxy relay
+  log classifies this as `connect_rejected` — an organization egress-policy
+  denial, not a transient fault. Do not re-attempt live verification from a
+  Claude Code cloud session; use a local dev machine, DGX Spark, or another
+  runner outside that egress policy. See the Live Verification Log in
+  docs/lab-notes/2026-07-06-inspire-european-data-portal-geospatial.md.
 - If all onboard upstreams fail, the command exits non-zero with the full
   provenance error list on stderr.
 

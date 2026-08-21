@@ -9,7 +9,7 @@ Story Lock: Sovereign EU C2/data layer + dual-use manufacturing intelligence —
 Language: EN
 
 AGENT HISTORY:
-- v1.0 (2026-06-23): Created the DIANA-facing pitch business case for DWS IQ Aegis. Folds in the Frankenburg Riga FieldFoundry customer case (CASE_FRANKENBURG_RIGA.md) as the flagship dual-use business case and the Kusti Salm / NATO Innovation Fund wedge (WEDGE_NIF_KUSTI_SALM_AEGIS.md) as the DIANA→NIF funding-pipeline warm path. Extends the one-page EU_SOVEREIGN_C2_DATA_LAYER_BRIEF.md (the existing DIANA/DEFINE one-pager) into a full business case. DIANA eligibility, EDIP Article 9, ICEYE/Argus and pricing sourced to Store/PRODUCT_AEGIS.md and INVESTOR_MEMO_AEGIS.md; DIANA→NIF pipeline to docs/field-notes/2026-03-25; Salm roles to his LinkedIn (user-provided).
+- v1.0 (2026-06-23): Created the DIANA-facing pitch business case for DWS IQ Aegis. Folds in the Frankenburg Riga FieldFoundry illustrative target case (CASE_FRANKENBURG_RIGA.md) as the flagship dual-use business case and the Kusti Salm / NATO Innovation Fund wedge (WEDGE_NIF_KUSTI_SALM_AEGIS.md) as the DIANA→NIF funding-pipeline warm path. Extends the one-page EU_SOVEREIGN_C2_DATA_LAYER_BRIEF.md (the existing DIANA/DEFINE one-pager) into a full business case. DIANA eligibility, EDIP Article 9, ICEYE/Argus and pricing sourced to Store/PRODUCT_AEGIS.md and INVESTOR_MEMO_AEGIS.md; DIANA→NIF pipeline to docs/field-notes/2026-03-25; Salm roles to his LinkedIn (user-provided).
 - v1.1 (2026-07-23): Folded in the eastern-flank IRIS² play — Poland's €656M RRF contribution (signed Warsaw 21.07.2026) as sovereign backhaul for the edge-cloud split and a Polish go-to-market beachhead, plus the Macron/von der Leyen "European preference" procurement tailwind. Ties Frankenburg's Poland FieldFoundry to Poland's new sovereign IRIS² segment. Sourced to docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md and partners-outreach/IRIS2_POLAND_SOVEREIGN_LAYER_BRIEF.md.
 -->
 
@@ -19,7 +19,7 @@ AGENT HISTORY:
 **From:** Lifetime Oy (Y-tunnus 0772407-9, Espoo, Finland) · DWS IQ Aegis
 **Date:** 2026-06-23 · **Version:** 1.0 · **Classification:** Partner Confidential
 
-> **One line:** Aegis is the EU-sovereign data + agent-governance layer the dual-use industrial base needs to be procurement-ready — a DIANA challenge fit, already mapped onto a live NATO-shaped customer (Frankenburg), with a warm path into the NATO Innovation Fund through its own board.
+> **One line:** Aegis is the EU-sovereign data + agent-governance layer the dual-use industrial base needs to be procurement-ready — a DIANA challenge fit, with a worked target case mapped onto a NATO-shaped prospect (Frankenburg — **an illustrative target, not a customer: there is no contract, pilot or engagement**), and a warm path into the NATO Innovation Fund through its own board.
 
 ---
 
@@ -56,7 +56,7 @@ A second marquee target sits under the same relationship: **Milrem Robotics** (E
 
 DIANA's value is not only the accelerator — it is the **pipeline into the NATO Innovation Fund**. Aegis already has a warm path into that pipeline:
 
-**Kusti Salm** is simultaneously **CEO of Frankenburg** (the flagship customer above), **Chairman of the Milrem Robotics supervisory board** (the second customer), and a **Member of the NATO Innovation Fund board** (Strategy remit) — and formerly **Permanent Secretary of Estonia's Ministry of Defence**. One person links the customer, the second customer, the NIF board, and the top of Estonian defence procurement — with a warm LinkedIn path (~29 mutual connections).
+**Kusti Salm** is simultaneously **CEO of Frankenburg** (the flagship target above — a prospect, not a customer), **Chairman of the Milrem Robotics supervisory board** (the second target, likewise not a customer), and a **Member of the NATO Innovation Fund board** (Strategy remit) — and formerly **Permanent Secretary of Estonia's Ministry of Defence**. One person links both targets, the NIF board, and the top of Estonian defence procurement — with a warm LinkedIn path (~29 mutual connections).
 
 → The wedge: **`investor-outreach/WEDGE_NIF_KUSTI_SALM_AEGIS.md`**. Land Frankenburg commercially → a NIF director is a first-hand Aegis reference → the DIANA→NIF funding pipeline runs warm, not cold.
 
@@ -83,7 +83,7 @@ A DIANA challenge / cohort fit and test-centre validation for the **EU-sovereign
 - `partners-outreach/EU_SOVEREIGN_C2_DATA_LAYER_BRIEF.md` — the DIANA/DEFINE one-pager (this business case extends it)
 - `partners-outreach/IRIS2_POLAND_SOVEREIGN_LAYER_BRIEF.md` — Poland IRIS² sovereign-layer partner brief (eastern-flank beachhead)
 - `docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md` — Warsaw IRIS² signing field note (five-path connection analysis)
-- `sales-outreach/CASE_FRANKENBURG_RIGA.md` — flagship customer case (Aegis × Frankenburg)
+- `sales-outreach/CASE_FRANKENBURG_RIGA.md` — flagship **illustrative target** case (Aegis × Frankenburg). That document states explicitly that it does not claim an existing contract, pilot or engagement.
 - `investor-outreach/WEDGE_NIF_KUSTI_SALM_AEGIS.md` — DIANA→NIF funding-pipeline wedge (Kusti Salm)
 - `investor-outreach/INVESTOR_MEMO_AEGIS.md` — defence-first investor memo
 - `Store/PRODUCT_AEGIS.md` — canonical product spec (pricing, agents, DIANA eligibility)

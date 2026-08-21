@@ -175,17 +175,38 @@
     }).join('');
 
     el.innerHTML =
-      '<div class="lifetime-vlb-heading">🌍 Agents · Loops · Workflows &mdash; 5 Languages</div>' +
-      rows;
+      '<div class="lifetime-vlb-heading">🌍 Sovereign by Design. Global by Choice.</div>' + rows;
 
     el.querySelectorAll('.lifetime-vlb-row').forEach(function (row) {
       row.addEventListener('click', function (e) {
         var lang = row.getAttribute('lang');
         if (ALLOWED_LANGS.indexOf(lang) === -1) return;
+
+        // Pages with their own in-page i18n (data-i18n) translate in place.
+        // Only en/fi/sv have dedicated homepage subdirectories; de/fr do not,
+        // so navigating their href would 404 — translate in place instead.
+        var hasInPageI18n = !!document.querySelector('[data-i18n]');
+        var LANGS_WITH_SUBDIRS = ['fi', 'sv', 'en'];
+        var willNavigate = !hasInPageI18n && LANGS_WITH_SUBDIRS.indexOf(lang) !== -1;
+
         localStorage.setItem('dws-lang', lang);
+
+        if (willNavigate) {
+          // Let the anchor navigate to the language subdirectory; the target
+          // page renders in the stored language. No event dispatch — avoids a
+          // flash of translated nav/footer before the page unloads.
+          return;
+        }
+
+        // Translate in place: suppress navigation and notify nav/footer/page.
+        e.preventDefault();
         window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
         var navCode = document.querySelector('.ironclad-lang-code');
         if (navCode) navCode.textContent = lang.toUpperCase();
+        el.querySelectorAll('.lifetime-vlb-row').forEach(function (r) {
+          r.classList.remove('lifetime-vlb-active');
+        });
+        row.classList.add('lifetime-vlb-active');
       });
       row.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {

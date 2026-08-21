@@ -21,9 +21,13 @@ import logger from '../utils/logger.js';
 import type { SocialPost } from './types.js';
 
 const LINKEDIN_API_BASE = 'https://api.linkedin.com';
-const LINKEDIN_VERSION = '202401';
 const LINKEDIN_PUBLISH_TIMEOUT_MS = 45_000;
 const LINKEDIN_USERINFO_TIMEOUT_MS = 15_000;
+
+// The active publish endpoint for w_member_social tokens. The newer
+// /rest/posts endpoint requires a product-version header that is not active
+// for this app; /v2/ugcPosts is verified working (returns a share URN).
+const LINKEDIN_POST_ENDPOINT = '/v2/ugcPosts';
 
 // ============================================================================
 // TYPES
@@ -31,15 +35,15 @@ const LINKEDIN_USERINFO_TIMEOUT_MS = 15_000;
 
 interface LinkedInPostBody {
   author: string;
-  commentary: string;
-  visibility: 'PUBLIC' | 'CONNECTIONS';
-  distribution: {
-    feedDistribution: 'MAIN_FEED' | 'NONE';
-    targetEntities: unknown[];
-    thirdPartyDistributionChannels: unknown[];
-  };
   lifecycleState: 'PUBLISHED' | 'DRAFT';
-  isReshareDisabledByAuthor: boolean;
+  specificContent: {
+    'com.linkedin.ugc.ShareContent': {
+      shareCommentary: { text: string };
+      shareMediaCategory: 'NONE' | 'ARTICLE' | 'IMAGE';
+      media?: Array<{ status: string; description: { text: string } }>;
+    };
+  };
+  visibility: { 'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' | 'CONNECTIONS' };
 }
 
 export interface PublishResult {
@@ -69,40 +73,37 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
 
   const body: LinkedInPostBody = {
     author: authorUrn,
-    commentary: post.content,
-    visibility: 'PUBLIC',
-    distribution: {
-      feedDistribution: 'MAIN_FEED',
-      targetEntities: [],
-      thirdPartyDistributionChannels: [],
-    },
     lifecycleState: 'PUBLISHED',
-    isReshareDisabledByAuthor: false,
+    specificContent: {
+      'com.linkedin.ugc.ShareContent': {
+        shareCommentary: { text: post.content },
+        shareMediaCategory: 'NONE',
+      },
+    },
+    visibility: { 'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' },
   };
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), LINKEDIN_PUBLISH_TIMEOUT_MS);
   try {
-    const response = await fetch(`${LINKEDIN_API_BASE}/rest/posts`, {
+    const response = await fetch(`${LINKEDIN_API_BASE}${LINKEDIN_POST_ENDPOINT}`, {
       method: 'POST',
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'LinkedIn-Version': LINKEDIN_VERSION,
-        'X-Restli-Protocol-Version': '2.0.0',
       },
       body: JSON.stringify(body),
     });
 
     if (response.ok) {
-      // LinkedIn returns the post URN in the x-restli-id header
-      const postUrn = response.headers.get('x-restli-id') ?? undefined;
+      const data = (await response.json()) as { id?: string };
+      const postUrn = data.id;
       if (!postUrn) {
         logger.warn('LinkedIn publish missing post URN', { postId: post.id });
         return {
           success: false,
-          error: 'LinkedIn response did not include a post URN (x-restli-id header missing)',
+          error: 'LinkedIn response did not include a post URN',
         };
       }
       logger.info('LinkedIn post published', { postId: post.id, postUrn });

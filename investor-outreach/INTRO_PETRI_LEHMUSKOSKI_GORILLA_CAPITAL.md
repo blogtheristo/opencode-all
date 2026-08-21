@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Brief (2 pp) — Petri Lehmuskoski, Gorilla Capital
-Version: 1.0
+Version: 1.1
 Date: 2026-06-25
 Author: Claude Code + Human Review
 Branch: claude/hallitustyo-lifetime-johtaminen-jhyekf
@@ -11,6 +11,7 @@ Round: ~EUR 150k SAFE (see sales-outreach/150kSAFE-closing-plan.md)
 Source facts: Learn/022_LT_DueDiligence_CleanReport_2026.md (DD clean report) — prospect recorded there §3
 Note: Prospect only — no term sheet, no instrument signed, not in cap table.
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-06-25): Created as a 2-page investor brief for Petri Lehmuskoski (Founding Partner, Gorilla Capital). Wedge = his published thesis that most Nordic tech exits are trade sales / customer-funded and boards should optimize the real endpoint and acquirability, not an IPO/VC playbook. Lifetime Oy is precisely that profile: 100% founder-owned, no SAFEs/options, capitalized R&D, early pilot MRR, EU-sovereign compliance moat. Facts anchored to the DD clean report; round size from the SAFE closing plan; unverified items left out, not invented.
 -->
 
@@ -47,7 +48,7 @@ Petri has publicly argued that most Nordic startup boards optimize the **wrong e
 
 - **Clean, simple cap table.** 100% founder-owned (Risto Anton Paarni), **no SAFEs signed, no options, no convertibles, no passive/VC shareholders**. No dilution overhang to underwrite.
 - **Capital-efficient by construction.** **No human employees** — the company runs via the founder, AI agents, and partner teams. Zero payroll and zero employment liabilities mean a low, controllable burn.
-- **Customer-funded growth motion.** 0 € / 30–60-day pilots as the land motion, converting to subscription. Early commercial traction in logistics at **~€7k–14k MRR per pilot**. Growth is meant to come from customers, not from the next round — exactly the model Petri argues boards should protect.
+- **Customer-funded growth motion.** 0 € / 30–60-day pilots as the land motion, converting to subscription. Early commercial traction: **two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)**; ~€7,000/month of services and transport revenue (not software revenue) funds development. Growth is meant to come from customers, not from the next round — exactly the model Petri argues boards should protect.
 - **Real product, real storefront.** `dws10.com/buy` — 100+ SKUs priced from a single source of truth (DWS IQ 6 from €4,999; pilots €0).
 - **Documented R&D base.** €594,000 of product-development cost capitalized by board decision 31.12.2025 (KPL 5:8 / IAS 38).
 - **High acquirability.** Single EU entity, in-house IP (DWS IQ, Firehorse, "Lifetime World Model"), Tier-1 tech partnerships carried forward (IBM, AWS, Google Cloud, RedHat, Confluent). The one open technical item before a term sheet is the **founder→company IP assignment** (templates drafted, counsel review pending) — a known, closable gap, not a structural problem.
@@ -74,7 +75,7 @@ Hi Petri,
 
 Your post on Nordic boards optimizing the wrong endpoint stopped me — because you described Lifetime Oy more accurately than most of our own decks do.
 
-We're an EU-sovereign AI compliance company (DWS IQ 6 — Fit for 55, CSRD, CBAM, NIS2, EU AI Act across 25 regulated industries). But the part that matches your thesis is the _shape_: 100% founder-owned, no SAFEs or options signed, no payroll, customer-funded pilots already at ~€7–14k MRR each, capitalized R&D, and an exit path that is far more likely a trade sale than an IPO. We're building for **acquirability**, not for a venture-scale fantasy.
+We're an EU-sovereign AI compliance company (DWS IQ 6 — Fit for 55, CSRD, CBAM, NIS2, EU AI Act across 25 regulated industries). But the part that matches your thesis is the _shape_: 100% founder-owned, no SAFEs or options signed, no payroll, two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), capitalized R&D, and an exit path that is far more likely a trade sale than an IPO. We're building for **acquirability**, not for a venture-scale fantasy.
 
 We're opening a small (~€150k) SAFE to close the diligence pack and ride the 02.08.2026 EU AI Act enforcement window. I'd value 30 minutes — not just for the capital, but because the board-value model you publish is the one we've literally written into our governance charter.
 

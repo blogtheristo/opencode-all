@@ -171,6 +171,126 @@
         font-size: 0.85rem;
         color: #94a3b8;
       }
+      .ont-wp-form {
+        display: none;
+        background: rgba(30, 41, 59, 0.95);
+        border: 1px solid rgba(74, 222, 128, 0.25);
+        border-radius: 10px;
+        padding: 24px;
+        margin-top: 14px;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
+      .ont-wp-form.visible {
+        display: block;
+      }
+      .ont-wp-form label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #cbd5e1;
+        margin-bottom: 4px;
+        margin-top: 12px;
+      }
+      .ont-wp-form label:first-child {
+        margin-top: 0;
+      }
+      .ont-wp-form input[type="text"],
+      .ont-wp-form input[type="email"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(15, 23, 42, 0.8);
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .ont-wp-form input:focus {
+        border-color: #60a5fa;
+      }
+      .ont-wp-form input.error {
+        border-color: #f87171;
+      }
+      .ont-wp-form .ont-wp-error {
+        color: #f87171;
+        font-size: 0.78rem;
+        margin-top: 4px;
+        display: none;
+      }
+      .ont-wp-form .ont-wp-error.visible {
+        display: block;
+      }
+      .ont-wp-consent {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 14px;
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        line-height: 1.4;
+        cursor: pointer;
+      }
+      .ont-wp-consent input[type="checkbox"] {
+        width: auto;
+        margin-top: 2px;
+        flex-shrink: 0;
+        accent-color: #4ade80;
+      }
+      .ont-wp-consent a {
+        color: #60a5fa;
+        text-decoration: underline;
+      }
+      .ont-wp-submit {
+        width: 100%;
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        background: #4ade80;
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        transition: opacity 0.2s;
+      }
+      .ont-wp-submit:hover {
+        opacity: 0.9;
+      }
+      .ont-wp-submit:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .ont-wp-note {
+        font-size: 0.72rem;
+        color: #64748b;
+        margin-top: 8px;
+        text-align: center;
+      }
+      .ont-wp-success {
+        display: none;
+        text-align: center;
+        padding: 20px;
+      }
+      .ont-wp-success.visible {
+        display: block;
+      }
+      .ont-wp-success p {
+        color: #4ade80;
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+      }
+      .ont-wp-success .ont-wp-detail {
+        color: #94a3b8;
+        font-size: 0.82rem;
+        font-weight: 400;
+      }
       a.back-link {
         color: #94a3b8;
         text-decoration: none;
@@ -577,7 +697,7 @@
             >
           </a>
           <a
-            href="mailto:risto@lifetime.fi?subject=Request%3A%20LWM%20Sovereign%20Ontology%20Pilot%20Delivery%20Plan&body=Please%20send%20the%20Ontology%20Pilot%20Delivery%20Plan%20for%20our%20review.%0A%0ACompany%3A%20%0AIndustry%3A%20%0AKey%20regulatory%20exposure%3A%20%0A"
+            href="https://dws10.com/contact/"
             class="cta-btn-outline"
           >
             Request Pilot Delivery Plan
@@ -585,21 +705,73 @@
               >Receive a customized pilot scope, timeline, and NVIDIA hardware specification</span
             >
           </a>
-          <a
-            href="https://wa.me/358400319010?text=I%27d%20like%20to%20receive%20the%20LWM%20Sovereign%20Ontology%20whitepaper."
-            class="cta-btn-ghost"
-            target="_blank"
-          >
+          <button type="button" class="cta-btn-ghost" id="ont-wp-toggle">
             Learn More &mdash; Request the Whitepaper
             <span class="cta-btn-sub"
               >LWM Sovereign Ontology &mdash; the full thesis, architecture, and 25-industry
               ontology library</span
             >
-          </a>
+          </button>
+        </div>
+        <div class="ont-wp-form" id="ont-wp-form">
+          <label for="ont-wp-name">Full Name</label>
+          <input
+            type="text"
+            id="ont-wp-name"
+            placeholder="e.g. Matti Virtanen"
+            autocomplete="name"
+            required
+          />
+          <label for="ont-wp-email">Work Email</label>
+          <input
+            type="email"
+            id="ont-wp-email"
+            placeholder="matti.virtanen@company.com"
+            autocomplete="email"
+            required
+          />
+          <div class="ont-wp-error" id="ont-wp-email-err">
+            Enterprise email required. Free providers (Gmail, Outlook, Yahoo, etc.) are not
+            accepted.
+          </div>
+          <label for="ont-wp-company">Company Name</label>
+          <input
+            type="text"
+            id="ont-wp-company"
+            placeholder="e.g. Outokumpu Oyj"
+            autocomplete="organization"
+            required
+          />
+          <label class="ont-wp-consent" for="ont-wp-consent">
+            <input type="checkbox" id="ont-wp-consent" required />
+            <span
+              >I agree to the
+              <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and
+              consent to being contacted about this request.</span
+            >
+          </label>
+          <div class="ont-wp-error" id="ont-wp-consent-err">
+            Please agree to the Privacy Policy to continue.
+          </div>
+          <button type="button" class="ont-wp-submit" id="ont-wp-submit">
+            Send Me the Whitepaper
+          </button>
+          <p class="ont-wp-note">
+            We will send the whitepaper to your work email within one business day. No spam, no
+            sequences.
+          </p>
+        </div>
+        <div class="ont-wp-success" id="ont-wp-success">
+          <p>Request received.</p>
+          <span class="ont-wp-detail"
+            >The LWM Sovereign Ontology whitepaper will be sent to your work email within one
+            business day.</span
+          >
         </div>
         <p class="cta-contact">risto@lifetime.fi &middot; Lifetime Oy &middot; Helsinki, Finland</p>
       </div>
     </div>
+    <script src="../shared-assets/cta/ontology-cta-inline.js" defer></script>
     <script src="../shared-assets/footer/ironclad-footer.js"></script>
   </body>
 </html>

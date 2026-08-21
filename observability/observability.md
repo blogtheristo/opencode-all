@@ -292,7 +292,7 @@ Customer Request
 }
 ```
 
-**Consequence**: €7k MRR but no visibility into margin per customer.
+**Consequence**: ~€7k/month of services and transport revenue (not software MRR) but no visibility into margin per customer.
 
 #### Gap 3: No MCP Tool Call Visibility (HIGH)
 

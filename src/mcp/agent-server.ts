@@ -26,13 +26,15 @@ import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
 import { memoryService } from '../agents/memory.service.js';
 import { factExtractionService } from '../agents/fact-extraction.service.js';
+import { graphService } from '../agents/graph.service.js';
 import { telemetryService } from '../agents/telemetry.service.js';
 import { checkpointService } from '../agents/session-checkpoint.service.js';
 import type { AgentContext } from '../agents/types.js';
-import type { ToolSafetyContext } from '../agents/types.js';
+import type { ToolSafetyState } from '../agents/types.js';
 import type { MemoryType } from '../agents/memory.types.js';
 import { MCPToolRegistry, ToolColor } from './security/tool-colors.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
+import { contentMcpTools } from '../contentms/index.js';
 
 // ============ SUPPORTED WORKFLOWS REGISTRY ============
 // Single source of truth — used in tool descriptions, validation, and error messages.
@@ -65,7 +67,7 @@ interface MCPResponse {
   error?: { code: number; message: string; data?: unknown };
 }
 
-const mcpToolSafetyBySession = new Map<string, ToolSafetyContext>();
+const mcpToolSafetyBySession = new Map<string, ToolSafetyState>();
 const issuedMcpSessions = new Map<string, Set<string>>();
 
 function getMcpSessionNamespace(userId: string, orgId: string): string {
@@ -118,6 +120,7 @@ function getExposedToolColor(toolName: string): ToolColor {
     case 'dws_tool_telemetry':
     case 'dws_session_checkpoint':
     case 'dws_extract_facts':
+    case 'dws_graph_query':
       return ToolColor.GREEN;
     case 'dws_events':
       return ToolColor.RED;
@@ -335,6 +338,25 @@ function buildToolList(): MCPToolDefinition[] {
     },
   });
 
+  // Graph query tool — traverse the fact graph populated from kb/ compile
+  registerTool({
+    name: 'dws_graph_query',
+    description:
+      'Traverse the causal/relational fact graph populated from KB compile. max_hops=1 returns direct neighbors ("local search"); max_hops>1 walks a multi-hop causal chain in one call instead of several agent-loop iterations.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        entity: {
+          type: 'string',
+          description: 'Entity name to start traversal from (matched via ILIKE)',
+        },
+        max_hops: { type: 'number', description: 'Hop depth 1-5 (default: 1)' },
+        relation: { type: 'string', description: 'Filter to a specific relation (optional)' },
+      },
+      required: ['entity'],
+    },
+  });
+
   // Fact extraction tool
   registerTool({
     name: 'dws_extract_facts',
@@ -403,6 +425,19 @@ function buildToolList(): MCPToolDefinition[] {
             },
             required: ['input'],
           },
+    });
+  }
+
+  // Content DMS tools — Evidence Vault: upload, search, HIL review, publish.
+  // NOTE: these are not yet present in MCPToolRegistry.TOOL_CLASSIFICATIONS
+  // (src/mcp/security/tool-colors.ts), so registerTool() will currently skip
+  // them with a warning until each tool gets an explicit RED/BLUE/GREEN risk
+  // classification — see PR-1208 follow-up.
+  for (const tool of contentMcpTools) {
+    registerTool({
+      name: tool.name,
+      description: `[DWS Content DMS] ${tool.description}`,
+      inputSchema: tool.inputSchema as MCPToolDefinition['inputSchema'],
     });
   }
 
@@ -539,7 +574,9 @@ function resolveMcpSessionId(
     req.header('x-mcp-session-id') ||
     req.header('mcp-session-id') ||
     (request.params?.sessionId as string | undefined) ||
-    ((request.params?.arguments as Record<string, unknown> | undefined)?.sessionId as string | undefined);
+    ((request.params?.arguments as Record<string, unknown> | undefined)?.sessionId as
+      | string
+      | undefined);
 
   if (request.method === 'initialize') {
     const sessionId = issueMcpSessionId(userId, orgId);
@@ -547,7 +584,10 @@ function resolveMcpSessionId(
   }
 
   if (!providedSessionId) {
-    return { error: 'Missing MCP session. Call initialize first and send X-MCP-Session-ID on subsequent requests.' };
+    return {
+      error:
+        'Missing MCP session. Call initialize first and send X-MCP-Session-ID on subsequent requests.',
+    };
   }
 
   const knownSessions = issuedMcpSessions.get(namespace);
@@ -662,6 +702,20 @@ async function executeToolCall(
     };
   }
 
+  // Graph query — traverse the fact graph
+  if (toolName === 'dws_graph_query') {
+    const result = await graphService.traverse(
+      context.orgId,
+      args.entity as string,
+      (args.max_hops as number) || 1,
+      args.relation as string | undefined,
+    );
+    return {
+      steps: result.steps,
+      durationMs: result.durationMs,
+    };
+  }
+
   // Fact extraction
   if (toolName === 'dws_extract_facts') {
     return factExtractionService.extract({
@@ -685,6 +739,13 @@ async function executeToolCall(
         return rest;
       })();
     return agentRegistry.executeAgent(agentName, context, input);
+  }
+
+  // Content DMS tools — route to contentMcpTools registry by exact name match
+  if (toolName.startsWith('contentms_')) {
+    const tool = contentMcpTools.find((t) => t.name === toolName);
+    if (!tool) throw new Error(`Unknown content tool: ${toolName}`);
+    return tool.handler(args);
   }
 
   throw new Error(`Unknown tool: ${toolName}`);

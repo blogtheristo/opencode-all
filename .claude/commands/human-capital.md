@@ -1,6 +1,6 @@
 ---
 name: human-capital
-description: Inventories and scores a firm's (or customer's) human capital — the knowledge, judgment, relationships, ingenuity, and pattern recognition of its people — and flags which of it is being captured into the AI learning loop versus left at risk of commoditisation. Use when user says "human capital", "encode our experts", "company veteran expertise", "what knowledge are we losing", "tacit knowledge inventory", "is our judgment being captured". Pairs with /token-capital.
+description: "Assess a firm's human capital — knowledge, judgment, relationships, and whether it's captured into the AI learning loop or left to commoditisation. Pairs with /token-capital. Full detail: skills/human-capital/SKILL.md."
 argument-hint: "firm or customer name, or a description of the org / team to inventory"
 ---
 

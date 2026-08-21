@@ -303,7 +303,7 @@ ${renderVat(pl.vatReference)}
   </div>
   <div>
     <h3>Contact</h3>
-    <p>Sales: <a href="mailto:${esc(gov.salesEmail || 'sales@lifetime.fi')}">${esc(gov.salesEmail || 'sales@lifetime.fi')}</a></p>
+    <p>Sales: <a href="https://dws10.com/contact/">Contact sales</a></p>
     <p>Quote this snapshot by its version number: <strong>v${esc(version)}</strong>.</p>
   </div>
 </footer>

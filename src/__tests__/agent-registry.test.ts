@@ -176,4 +176,18 @@ describe('Default agent configs', () => {
       expect(agent.name).toMatch(/^[a-z][a-z0-9-]*$/);
     }
   });
+
+  it('only compliance, customer-sat, and sitesense are above silent_pilot', () => {
+    const registry = new AgentRegistry();
+    const agents = registry.listAgents();
+    
+    const allowedAboveSilentPilot = ['compliance', 'customer-sat', 'sitesense'];
+    
+    for (const agent of agents) {
+      const phase = (agent as any).autonomyPhase || 'silent_pilot';
+      if (phase !== 'silent_pilot') {
+        expect(allowedAboveSilentPilot).toContain(agent.name);
+      }
+    }
+  });
 });

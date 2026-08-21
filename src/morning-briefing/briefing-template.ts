@@ -319,11 +319,10 @@ function renderReplyMailto(
   color: string,
   token: string,
   command: string,
-  replyTo: string,
 ): string {
   const subject = `Re: [T:${token}] ${command}`;
   const body = `T:${token} ${command}\n\n--\nSent via Morning Briefing reply link.`;
-  const url = `mailto:${encodeURIComponent(replyTo)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const url = `https://dws10.com/contact/?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#fff;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
 }
 
@@ -399,8 +398,8 @@ function renderSendList(
         if (replyTo) {
           buttons +=
             ' &nbsp; ' +
-            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park', replyTo) +
-            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass', replyTo);
+            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park') +
+            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass');
         }
       }
 
@@ -715,7 +714,7 @@ function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
           <span style="color: #555;"> — ${esc(inq.industry)}</span>
         </div>
         <div style="font-size: 11px; color: #888; margin-top: 2px;">
-          <a href="mailto:${esc(inq.email)}" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
+          <a href="https://dws10.com/contact/" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
           &nbsp;|&nbsp; ${time}
         </div>
         ${msgLine}
@@ -771,7 +770,7 @@ function renderWebLeadsHtml(data: WebLeadsData): string {
           <strong>${esc(who)}</strong>${ctxLine}
         </div>
         <div style="font-size: 11px; color: #888; margin-top: 2px;">
-          <a href="mailto:${esc(lead.email)}" style="color: #60a5fa; text-decoration: none;">${esc(lead.email)}</a>
+          <a href="https://dws10.com/contact/" style="color: #60a5fa; text-decoration: none;">${esc(lead.email)}</a>
           &nbsp;|&nbsp; ${time}
         </div>
         ${msgLine}

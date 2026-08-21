@@ -1,0 +1,437 @@
+<!doctype html>
+<!--
+  Connaissez votre agent (KYA-S1)
+  Language: fr
+  Slug: know-your-agent-kya-s1.fr
+  Date: 2026-08-08
+  Owner: Lifetime Oy
+  Note: KYA-S1 series part 1/11. HIC-approved 2026-08-09. Draft: docs/blog-drafts/know-your-agent-kya-s1.fr.md
+-->
+<html lang="fr">
+  <head>
+    <meta property="article:class" content="2">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connaissez votre agent (KYA-S1) — Série KYA-S1 · Partie 1/12</title>
+    <meta name="description" content="Une page signée sur l&#x27;IA, dans le dossier de sécurité qui touche vos données. KYA-S1 v1.5 : IDV, REG/BHM, TC4 — pas d&#x27;auto-évaluation, niveaux d&#x27;assurance KYA-AL1/AL2/AL3." />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-08-08" />
+    <meta property="og:title" content="Connaissez votre agent (KYA-S1)" />
+    <meta property="og:description" content="Un agent d&#x27;IA autonome n&#x27;est pas un simple logiciel. C&#x27;est un acteur — et il lui faut sa propre page signée." />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://onelifetime.world/posts/know-your-agent-kya-s1.fr.html" />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/know-your-agent-kya-s1.fr.png" />
+    <meta property="article:published_time" content="2026-08-08" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Standards" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/know-your-agent-kya-s1.fr.png">
+
+    <meta name="twitter:title" content="Connaissez votre agent (KYA-S1)" />
+    <meta name="twitter:description" content="Un agent d&#x27;IA autonome n&#x27;est pas un simple logiciel. C&#x27;est un acteur — et il lui faut sa propre page signée." />
+    <link rel="canonical" href="https://onelifetime.world/posts/know-your-agent-kya-s1.fr.html" />
+    <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/know-your-agent-kya-s1.fi.html" />
+    <link rel="alternate" hreflang="en" href="https://onelifetime.world/posts/know-your-agent-kya-s1.html" />
+    <link rel="alternate" hreflang="sv" href="https://onelifetime.world/posts/know-your-agent-kya-s1.sv.html" />
+    <link rel="alternate" hreflang="de" href="https://onelifetime.world/posts/know-your-agent-kya-s1.de.html" />
+    <link rel="alternate" hreflang="fr" href="https://onelifetime.world/posts/know-your-agent-kya-s1.fr.html" />
+    <link rel="alternate" hreflang="x-default" href="https://onelifetime.world/posts/know-your-agent-kya-s1.html" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+      .control-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 20px 0;
+        color: #e2e8f0;
+      }
+      .control-box strong.tag {
+        color: #d4a843;
+        font-weight: 700;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "KYA-S1 — One Signed Page for the Agent in Your Vendor File",
+        "description": "KYA-S1 v1.2 — a vendor standard for autonomous-agent identity and behavior, written so a single signed page can sit in your procurement folder next to SOC 2 and ISO 27001.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-08-06",
+        "mainEntityOfPage": "https://onelifetime.world/posts/kya-s1-one-signed-page.html",
+        "articleSection": "Standards",
+        "inLanguage": "en"
+      }
+    </script>
+
+    <style>
+      .kya-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+      .kya-map li { margin: 0; }
+      .kya-card { display: flex; gap: 11px; align-items: flex-start; height: 100%; padding: 13px 14px;
+        background: #111c2e; border: 1px solid #22344f; border-left: 3px solid var(--kya-a);
+        border-radius: 7px; text-decoration: none; transition: border-color .16s, transform .16s, background .16s; }
+      a.kya-card:hover { background: #16233a; border-color: var(--kya-a); transform: translateY(-2px); }
+      a.kya-card:focus-visible { outline: 2px solid var(--kya-a); outline-offset: 2px; }
+      .kya-card[aria-current="page"] { background: #16233a; box-shadow: inset 0 0 0 1px var(--kya-a); }
+      .kya-n { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--kya-a); color: #08111d;
+        font-weight: 800; font-size: .78rem; display: flex; align-items: center; justify-content: center; }
+      .kya-map li::before, .kya-map li::marker { content: none !important; display: none !important; }
+      .kya-card > span:last-child { display: block; min-width: 0; }
+      .kya-t { display: block; font-size: .93rem; font-weight: 700; color: #f1f5f9; line-height: 1.25; }
+      .kya-d { display: block; font-size: .8rem; color: #93a7c0; line-height: 1.4; margin-top: 3px; }
+      .kya-card.kya-soon { opacity: .45; cursor: default; }
+      .kya-soon .kya-d::after { content: " · " attr(data-soon); }
+      @media (prefers-reduced-motion: reduce) { a.kya-card:hover { transform: none; } }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Série KYA-S1 &middot; Partie 1/12</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Connaissez votre agent (KYA-S1)
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            8 août 2026 &middot; Risto Anton P&auml;&auml;rni &middot; Espoo
+          </p>
+        </header>
+
+<blockquote>
+<p><strong>Traduction par IA.</strong> Ce document a été traduit par IA
+à partir de la version maîtresse finnoise (Ground Truth). En cas
+d’interprétation juridique ou technique, la version finnoise
+prévaut.</p>
+</blockquote>
+<h2
+id="introduction-lia-prend-des-décisions-mais-qui-en-porte-la-responsabilité">Introduction
+: l’IA prend des décisions — mais qui en porte la responsabilité ?</h2>
+<p>Les dossiers d’achat des entreprises et de l’administration publique
+contiennent aujourd’hui une pile substantielle de documents signés. Au
+niveau organisationnel, il y a les certificats SOC 2 Type 2 et ISO/IEC
+27001. Pour les données et la protection de la vie privée, il y a les
+preuves GDPR et CSRD. Pour la sécurité de la plateforme et
+l’infrastructure, on peut présenter FedRAMP ou une homologation de cloud
+souverain.</p>
+<p>Un document critique manque pourtant au dossier d’achat : une page
+signée pour l’agent d’IA autonome.</p>
+<p>Lorsque l’IA passe de la génération de texte à des actions autonomes
+— exécuter du code, appeler des API, effectuer des transactions
+financières et piloter des procédés industriels physiques — l’ancienne
+sécurité logicielle ne suffit plus.</p>
+<p>Un agent d’IA autonome n’est pas un simple logiciel. C’est un acteur.
+C’est pourquoi chaque agent exige une identité vérifiée qui lui est
+propre, un mandat d’action ainsi qu’un frein d’urgence immédiat.</p>
+<h2
+id="une-page-pour-le-dossier-fournisseur-kya-s1-v1.3-specification">Une
+page pour le dossier fournisseur (KYA-S1 v1.3 Specification)</h2>
+<p>KYA-S1 (Know Your Agent Security Specification v1.3) est une
+proposition de norme de sécurité qui vérifie le comportement à
+l’exécution et l’identité des agents d’IA. Elle se condense en trois
+questions claires auxquelles tout fournisseur doit pouvoir répondre
+avant qu’un agent n’accède aux données du client :</p>
+<p><strong>Qui se trouve derrière l’agent ? (IDV — Identity
+Verification)</strong> Chaque décision prise par l’agent et chaque outil
+qu’il demande doit être traçable jusqu’à un humain vérifié
+cryptographiquement (le HIC — l’humain qui commande).</p>
+<p><strong>Que peut-il faire, et que fait-il en ce moment même ? (REG
+&amp; BHM)</strong> L’agent doit disposer d’un manifeste de capacités
+déclaré avant l’activation (REG), qu’il ne peut pas dépasser à
+l’exécution, ainsi que d’une surveillance comportementale continue (BHM)
+pour détecter les écarts.</p>
+<p><strong>Comment l’arrêter en cas de défaillance ? (TC4 — Chain
+Termination)</strong> Si le niveau de confiance de l’agent s’effondre ou
+qu’un écart survient, toute la chaîne d’agents doit pouvoir être
+éliminée de façon atomique dans les limites d’une réponse SLA bornée
+dans le temps (leash snap).</p>
+<h2 id="pas-dauto-évaluation-3-evidence-meta-rule">Pas d’auto-évaluation
+(§3 Evidence Meta-Rule)</h2>
+<p>Le plus grand piège de la gestion des fournisseurs est
+l’auto-évaluation (self-attestation). Le §3 de la spécification KYA-S1
+interdit absolument la déclaration propre du fournisseur :</p>
+<blockquote>
+<p><strong>Règle (§3) :</strong> l’auto-évaluation n’est pas une preuve
+recevable de conformité à KYA-S1. Le papier vaut exactement ce que vaut
+le nom inscrit sur sa seconde ligne de signature.</p>
+</blockquote>
+<p>Seuls sont recevables comme preuve un rapport d’audit d’un tiers
+accrédité (par exemple un auditeur SOC 2 ou une entreprise de red team
+accréditée) ou une télémétrie de plateforme vérifiée cryptographiquement
+et conservée dans un registre de journaux immuable.</p>
+<p>Cette règle lie aussi l’auteur de la spécification : Lifetime Oy ne
+délivrera pas de certificat KYA-S1 à sa propre plateforme DWS IQ avant
+qu’un évaluateur externe indépendant ne l’ait signé.</p>
+<h2 id="niveaux-dassurance-kya-al-assurance-levels">Niveaux d’assurance
+KYA-AL (Assurance Levels)</h2>
+<p>Les niveaux d’assurance KYA-AL du secteur définissent la fréquence
+d’audit et le délai de réponse SLA :</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Niveau d’assurance</th>
+<th>Fréquence d’audit</th>
+<th>Profondeur de preuve exigée</th>
+<th>Délai de réponse SLA (IDV &amp; TC4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>KYA-AL1 (Standard)</strong></td>
+<td>Audit annuel</td>
+<td>Audit tiers sur au moins 1 domaine + télémétrie signée</td>
+<td>max. 15 minutes</td>
+</tr>
+<tr class="even">
+<td><strong>KYA-AL2 (Enhanced)</strong></td>
+<td>Trimestriel</td>
+<td>Audit sur les domaines IDV et BHM + 12 mois de télémétrie
+signée</td>
+<td>max. 5 minutes</td>
+</tr>
+<tr class="odd">
+<td><strong>KYA-AL3 (Critical)</strong></td>
+<td>Continu, en temps réel</td>
+<td>Évaluateur externe sur les 7 domaines + SLA signé</td>
+<td>max. 60 secondes</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="couplage-direct-à-leu-ai-act-4">Couplage direct à l’EU AI Act
+(§4)</h2>
+<p>La spécification KYA-S1 produit des éléments directement exploitables
+au regard des obligations du règlement européen sur l’IA :</p>
+<ul>
+<li><strong>Article 12 (Journalisation) :</strong> le contrôle PRV de
+KYA-S1 produit la reproductibilité des décisions (PRV-2) et un
+historique immuable.</li>
+<li><strong>Article 14 (Contrôle humain / HIC) :</strong> l’IDV, le TC4,
+le TRS et le PRV-4 de KYA-S1 garantissent un véritable pouvoir humain de
+commandement et d’annulation.</li>
+<li><strong>Article 50 (Transparence) :</strong> le PRV-3 de KYA-S1
+produit un marquage de provenance vérifiable pour les sorties.</li>
+</ul>
+<p><strong>La limite honnête :</strong> la conformité à KYA-S1 n’est
+pas, en soi, une conformité à l’EU AI Act. Elle donne à l’acheteur une
+preuve technique solide que le comportement de l’agent à l’exécution
+satisfait à la lettre de la loi.</p>
+<h2 id="en-bref">En bref</h2>
+<ul>
+<li><strong>Une page signée :</strong> un agent autonome a besoin de son
+propre document de sécurité.</li>
+<li><strong>Un contrôle réel :</strong> KYA-S1 garantit le rattachement
+d’un responsable humain à l’agent (IDV), la restriction à l’exécution
+(REG/BHM) et un frein d’urgence sans délai (TC4).</li>
+<li><strong>Pas d’auto-évaluation (§3) :</strong> seules la signature
+d’un évaluateur indépendant ou une télémétrie cryptographique sont
+acceptées comme preuve.</li>
+<li><strong>Niveaux d’assurance AL :</strong> AL1, AL2 et AL3
+définissent la vitesse de réaction exigée, de 15 minutes jusqu’à 60
+secondes.</li>
+</ul>
+<h2 id="voir-les-autres-parties-de-la-série">Voir les autres parties de
+la série</h2>
+<ul class="kya-map">
+<li><a class="kya-card" href="/posts/know-your-agent-kya-s1.fr.html" style="--kya-a:#4da3ff" aria-current="page"><span class="kya-n">1</span><span><span class="kya-t">Know Your Agent (KYA-S1)</span><span class="kya-d" data-soon="à venir">One signed page in the security file</span></span></a></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#4da3ff"><span class="kya-n">2</span><span><span class="kya-t">The KYC equivalent for AI</span><span class="kya-d" data-soon="à venir">Seven critical KYA questions</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#4da3ff"><span class="kya-n">3</span><span><span class="kya-t">EU AI Act Article 14 (HIC)</span><span class="kya-d" data-soon="à venir">Human oversight vs. agent autonomy</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#4da3ff"><span class="kya-n">4</span><span><span class="kya-t">Agent classes</span><span class="kya-d" data-soon="à venir">Copilot vs. industrial background agents</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#f0b429"><span class="kya-n">5</span><span><span class="kya-t">KYA-S1 and BPMN 2.0</span><span class="kya-d" data-soon="à venir">Trust level steers an industrial process</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#f0b429"><span class="kya-n">6</span><span><span class="kya-t">KYA-S1 v1.3 × BPMN 2.0</span><span class="kya-d" data-soon="à venir">Atomic Lease Token and fail-closed</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#f0b429"><span class="kya-n">7</span><span><span class="kya-t">When something goes wrong</span><span class="kya-d" data-soon="à venir">72-hour fault classification and decision replay</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#f0b429"><span class="kya-n">8</span><span><span class="kya-t">Ecosystem &amp; roadmap</span><span class="kya-d" data-soon="à venir">Phased adoption in procurement</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#39d3a5"><span class="kya-n">9</span><span><span class="kya-t">Lifetime World Model</span><span class="kya-d" data-soon="à venir">A global state register and memory</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#39d3a5"><span class="kya-n">10</span><span><span class="kya-t">Agentic commerce</span><span class="kya-d" data-soon="à venir">Autonomous payments and the emergency brake</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#39d3a5"><span class="kya-n">11</span><span><span class="kya-t">eWallet EU &amp; eIDAS 2.0</span><span class="kya-d" data-soon="à venir">Human base identity as the authorizer</span></span></span></li>
+<li><span class="kya-card kya-soon" style="--kya-a:#39d3a5"><span class="kya-n">12</span><span><span class="kya-t">KYA-S1 glossary</span><span class="kya-d" data-soon="à venir">Concepts and terms in five languages</span></span></span></li>
+</ul>
+
+        <hr style="border:none;border-top:1px solid rgba(148,163,184,.25);margin:2.5rem 0 1.25rem" />
+        <p>
+          <strong>Risto Anton P&auml;&auml;rni</strong><br />
+          Founder, CEO, Lifetime Oy<br />
+          R&eacute;dacteur en chef, Lifetime Scope Journal
+        </p>
+
+      </article>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <span></span>
+                    <span></span>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fknow-your-agent-kya-s1.fr.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Connaissez%20votre%20agent%20(KYA-S1)%20%E2%80%94%20Une%20page%20sign%C3%A9e%20sur%20l'IA%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fknow-your-agent-kya-s1.fr.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/know-your-agent-kya-s1.fr.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-xs text-gray-500">18+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 # EU Funding Brief — EIC Accelerator Open 2026 (KYA v2 + Agentic Commerce)
 
-***
+---
 
 ## VERSION AND AGENT HISTORY
 
@@ -42,23 +42,25 @@ Cubet headcount set to founder-confirmed **ca. 70** (filings ~73).
 
 ## 1. Call Identification (verified 2026-07-15)
 
-| Field                | Value                                                                                                                                                                   |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Programme            | Horizon Europe — European Innovation Council                                                                                                                            |
-| Instrument           | **EIC Accelerator Open** (also: Challenges, separate budget)                                                                                                            |
-| 2026 budget          | €414M (Open) + €220M (Challenges)                                                                                                                                       |
-| Grant component      | ≤ **€2.5M** lump sum, **70%** of eligible costs, innovation activities TRL 6–8, ≤24 months                                                                              |
-| Equity component     | **€1M–€10M** (minimum raised from €0.5M→€1M in 2026); grant-only and grant-first options exist under Open                                                               |
-| Applicant            | **Single SME** — no consortium required                                                                                                                                 |
-| Step 1               | **Rolling** — 12-page form + 10-slide deck + 3-min video; batched first Tuesday of each month; 4 remote evaluators; **≥3 GO** → invited to Step 2; result in ~4–6 weeks |
-| Step 2 cut-offs 2026 | Jan 7 · Mar 4 · May 6 · Jul 8 · **Sep 2** · **Nov 4** (bimonthly from 2026)                                                                                             |
-| After Step 2         | Jury interview → grant agreement preparation. **Cash realistically lands H1–mid 2027.**                                                                                 |
+| Field                | Value                                                                                                                                                                                                             |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Programme            | Horizon Europe — European Innovation Council                                                                                                                                                                      |
+| Instrument           | **EIC Accelerator Open** (also: Challenges, separate budget)                                                                                                                                                      |
+| 2026 budget          | €414M (Open) + €220M (Challenges)                                                                                                                                                                                 |
+| Grant component      | ≤ **€2.5M** lump sum, **70%** of eligible costs, innovation activities TRL 6–8, ≤24 months                                                                                                                        |
+| Equity component     | **€1M–€10M** (minimum raised from €0.5M→€1M in 2026); grant-only and grant-first options exist under Open                                                                                                         |
+| Applicant            | **Single SME** — no consortium required                                                                                                                                                                           |
+| Step 1               | **CONTINUOUS** — 12-page form + 10-slide deck + 3-min video; **deadline 17.12.2026 17:00 Brussels** (no batch/first-Tuesday/cut-off); 4 remote evaluators; **≥3 GO** → invited to Step 2; result in ~4–6 weeks    |
+| Step 2 cut-offs 2026 | Jan 7 · Mar 4 · May 6 · Jul 8 · **Sep 2** · **Nov 4** (bimonthly from 2026) — **verify against Guide v6.0** before relying on a specific date (Step 1 deadline is the continuous 17.12.2026, separate from these) |
+| After Step 2         | Jury interview → grant agreement preparation. **Cash realistically lands H1–mid 2027.**                                                                                                                           |
 
-**Timeline honesty:** Step 1 submitted mid-July → GO ~late Aug → **Sep 2 Step 2 is
-a sprint with no slack**; **Nov 4 is the realistic Step 2 target**. EIC is the
-serious-money track, not a €100K-in-weeks bridge. The bridge function of Step 1
-is different: a GO within weeks is a **credibility signal** usable with investors
-(SAFE round) — not cash.
+**Timeline honesty:** Step 1 is **continuously open until 17.12.2026 17:00
+Brussels** — there is no monthly batch. Submitting well ahead of the cap (target
+autumn 2026) leaves slack; a GO arrives ~4–6 weeks after submission, then Step 2
+(full proposal) follows on its own cut-off schedule. EIC is the serious-money
+track, not a €100K-in-weeks bridge. The bridge function of Step 1 is different: a
+GO within weeks is a **credibility signal** usable with investors (SAFE round) —
+not cash.
 
 ---
 
@@ -204,17 +206,18 @@ Finland) so the partners strengthen rather than dent the sovereignty story;
 
 ## 7. Next Steps
 
-| #   | Action                                                                                                                                                                                                                                                                                                                                                                 | Owner      | Target date |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------- |
-| 1   | ~~Download Guide for Applicants v6.0 + Step 1 template from EIC portal~~ **in progress 2026-07-17** — Step 1 online-form fill packet built (`docs/eic/EIC_STEP1_FILL_PACKET.md`, paste-ready per field; grant-only €2.5M + Lifetime Oy FI locked). Remaining on-portal action for Risto: log into EU Login, download Guide v6.0 template, confirm exact field labels/limits vs the packet.                                                                                                     | Risto      | 2026-07-18  |
-| 2   | ~~Draft Step 1: 12-page form~~ **done 2026-07-15** → `docs/EIC_STEP1_DRAFT_KYA_2026.md` (v0.9); remaining: trim to form limits                                                                                                                                                                                                                                         | Risto + AI | 2026-07-25  |
-| 3   | 10-slide pitch deck (reuse `investor-outreach/` deck assets)                                                                                                                                                                                                                                                                                                           | Risto + AI | 2026-07-28  |
-| 4   | 3-minute video (founder to camera + product capture)                                                                                                                                                                                                                                                                                                                   | Risto      | 2026-07-31  |
-| 4a  | **EUIPO SME Fund 2026 Voucher 3 (Patents): APPLY** — up to €3,500 reimbursement (50–75% by cost line) incl. external patent-attorney drafting fees. Grant decision MUST precede incurred costs; Vouchers 1–2 already exhausted, first-come-first-served. Lifetime has prior SME Fund experience (2021 trademark application note on file)                              | Risto      | 2026-07-22  |
-| 4b  | **IPR counsel: shortlist + book intro** (none on record in repo — candidates: Berggren, Kolster, Papula-Nevinpat, Boco IP; LUT innovation services as academic route). Intro calls fine now; **sign engagement only after SME Fund Voucher 3 decision** so drafting fees are reimbursable. Filing/scoping needed before first published milestone (Taler M1 / EIC M12) | Risto      | 2026-07-31  |
-| 5   | **Submit Step 1** (rolling; batched first Tuesday of month → Aug 4 batch)                                                                                                                                                                                                                                                                                              | Risto      | 2026-08-01  |
-| 6   | On GO (~early Sep): decide Step 2 cut-off — Sep 2 impossible → **Nov 4**                                                                                                                                                                                                                                                                                               | Risto      | on GO       |
-| 7   | Step 2 full proposal + jury prep                                                                                                                                                                                                                                                                                                                                       | Risto + AI | 2026-10-20  |
+| #   | Action                                                                                                                                                                                                                                                                                                                                                                                     | Owner      | Target date |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ----------- |
+| 1   | ~~Download Guide for Applicants v6.0 + Step 1 template from EIC portal~~ **in progress 2026-07-17** — Step 1 online-form fill packet built (`docs/eic/EIC_STEP1_FILL_PACKET.md`, paste-ready per field; grant-only €2.5M + Lifetime Oy FI locked). Remaining on-portal action for Risto: log into EU Login, download Guide v6.0 template, confirm exact field labels/limits vs the packet. | Risto      | 2026-07-18  |
+| 2   | ~~Draft Step 1: 12-page form~~ **done 2026-07-15** → `docs/EIC_STEP1_DRAFT_KYA_2026.md` (v0.9); remaining: trim to form limits                                                                                                                                                                                                                                                             | Risto + AI | 2026-07-25  |
+| 3   | 10-slide pitch deck (reuse `investor-outreach/` deck assets)                                                                                                                                                                                                                                                                                                                               | Risto + AI | 2026-07-28  |
+| 4   | 3-minute video (founder to camera + product capture)                                                                                                                                                                                                                                                                                                                                       | Risto      | 2026-07-31  |
+| 4a  | **EUIPO SME Fund 2026 Voucher 3 (Patents): APPLY** — up to €3,500 reimbursement (50–75% by cost line) incl. external patent-attorney drafting fees. Grant decision MUST precede incurred costs; Vouchers 1–2 already exhausted, first-come-first-served. Lifetime has prior SME Fund experience (2021 trademark application note on file)                                                  | Risto      | 2026-07-22  |
+| 4b  | **IPR counsel: shortlist + book intro** (none on record in repo — candidates: Berggren, Kolster, Papula-Nevinpat, Boco IP; LUT innovation services as academic route). Intro calls fine now; **sign engagement only after SME Fund Voucher 3 decision** so drafting fees are reimbursable. Filing/scoping needed before first published milestone (Taler M1 / EIC M12)                     | Risto      | 2026-07-31  |
+| 4c  | **Participant Register: register Lifetime Oy → obtain + validate PIC.** Mandatory step in the submission wizard (list the participant); Central Validation (SME self-declaration, VAT, legal-entity docs) can take weeks and must complete before grant signature. Also **designate the EU Login contact person who both creates and submits** the application.                            | Risto      | 2026-09-01  |
+| 5   | **Submit Step 1** (CONTINUOUS; deadline **17.12.2026 17:00 Brussels** — no batch/cut-off). Submit well ahead of the cap.                                                                                                                                                                                                                                                                   | Risto      | 2026-11-15  |
+| 6   | On GO (~4–6 wks after submit): begin Step 2 (full proposal) on its own cut-off schedule — confirm the applicable Step 2 cut-off against Guide v6.0                                                                                                                                                                                                                                         | Risto      | on GO       |
+| 7   | Step 2 full proposal + jury prep                                                                                                                                                                                                                                                                                                                                                           | Risto + AI | 2026-10-20  |
 
 ---
 

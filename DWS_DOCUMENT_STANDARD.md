@@ -4,11 +4,14 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.13
+Version: 2.15
 
 Sessions & Modifications:
 
-- Version: 2.13 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Merged origin/main (v2.12). Added §25 (Universal Document Footer — mandatory: version · date · © Lifetime Oy all-rights-reserved · Business Confidentiality clause at the bottom of every document; footer version lockstep with the §2 header) and §26 (Repository-First, Then Export — anti-drift: an export with no repository source-of-truth is a drift incident; repo .md, plus .csv for financial models, is the master; §26.4 requires cloud export TITLES to lead with the version number for Drive manageability). Authored as §23/§24 on this branch pre-merge; renumbered to §25/§26 because main already holds §22 (Multimodal), §23 (Whitepaper), §24 (Correspondence Preservation). Internal cross-references repointed to main's §23 Whitepaper. No content lost from either side; ToC updated.
+- Version: 2.15 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
+- Version: 2.14 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 23.07.2026 | Changes: Refined §4.7 — the exported-deliverable prefix is now the **full version number** (`2.0_`, `1.0_`, `1.9.1_`) rather than `V<MAJOR>_`, so minor bumps stay distinguishable in short-name lists. Founder compact shorthand (`1.91_kya`) recorded as an accepted equivalent. Match rule tightened to full `MAJOR.MINOR[.PATCH]`.
+- Version: 2.13a | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 22.07.2026 | Changes: Added §4.7 Exported / Shared Deliverable Naming — Version-First Prefix. Codifies that deliverables exported or shared outside the repo (Google Drive docs, PDFs, presentation exports) carry a leading `V<MAJOR>_` prefix so the version stays visible in short-name lists that truncate the tail (Drive, mobile, file pickers), while in-repo files keep the §4.6 `_vN` suffix. Prefix major must equal the header `Version:` major (same match rule as §4.6). Requested by the founder after the LUT/PhD Drive set grew past a screen.
+- Version: 2.13b | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Merged origin/main (v2.12). Added §25 (Universal Document Footer — mandatory: version · date · © Lifetime Oy all-rights-reserved · Business Confidentiality clause at the bottom of every document; footer version lockstep with the §2 header) and §26 (Repository-First, Then Export — anti-drift: an export with no repository source-of-truth is a drift incident; repo .md, plus .csv for financial models, is the master; §26.4 requires cloud export TITLES to lead with the version number for Drive manageability). Authored as §23/§24 on this branch pre-merge; renumbered to §25/§26 because main already holds §22 (Multimodal), §23 (Whitepaper), §24 (Correspondence Preservation). Internal cross-references repointed to main's §23 Whitepaper. No content lost from either side; ToC updated.
 - Version: 2.12 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Merged origin/main (v2.11) into this branch. Both sides had independently claimed §23 after diverging from §22 (Multimodal Document Assets): main renumbered the Whitepaper Standard to §23 (main v2.7), while this branch had added Correspondence Preservation as §23. Resolved by keeping main's §22 (Multimodal Document Assets) and §23 (Whitepaper Standard) intact and renumbering this branch's Correspondence Preservation section (and its subsections) to §24. No content lost from either side; ToC updated to 22 Multimodal / 23 Whitepaper / 24 Correspondence Preservation.
 - Version: 2.6 | Tool: Claude Code | Session: claude/dl-18-7-delivery-7m1hnj | Date: 17.07.2026 | Changes: Added Correspondence Preservation (renumbered to §24 in the v2.12 merge) — codifies "always save letters": every outbound letter/email/intro note/formal message sent on behalf of Lifetime Oy must be saved to the repo as a dated markdown file (AS SENT, with From/To/Subject/date, VERSION AND AGENT HISTORY status, and a follow-up tracker) under a context-scoped `correspondence/` path. Sender identity + phone must match the CLAUDE.md Sender Identity Rule. Triggered by the EIC/Cubet partnership-confirmation email to John Lovegin (saved to `docs/eic/correspondence/`). Added to the ToC.
 - Version: 2.11
@@ -448,6 +451,31 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 **Exemption 1 — frozen archival snapshots:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Paarni_155.md`, `CV/CV_Risto_Paarni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
 
 **Exemption 2 — heavily cross-referenced living standards:** a document that is (a) revised frequently and (b) cross-referenced by exact filename from many other files may keep an **un-versioned filename** (no `_vX` tag at all) instead of embedding a version tag, if embedding one would force a rename-plus-reference-update ripple across the repo on every single edit. Example: `docs/KONSULTOINNIN_KASIKIRJA_2026.md` — ~20 cross-references repo-wide (Admin Manual, thesis/PhD chapters, whitepapers, `.claude/commands/dialog.md`, public site pages under `onelifetime.world/` and its `landing-pages/` mirror) as of 14.07.2026. Contrast with a bid CV, which typically has 0–1 cross-references and so pays the §4.6 rename cost cheaply. When in doubt, count real cross-references before deciding: few → embed the version (§4.6 default); many → this exemption, keep the base name stable and let `Version:` inside the file be the single source of truth for "which revision is this."
+
+### 4.7 Exported / Shared Deliverable Naming — Version-First Prefix
+
+**Rule:** any deliverable **exported or shared outside the repo** — Google Drive documents, PDFs, presentation exports, files handed directly to a person — must put the **full version number first, as a prefix**: `<VERSION>_<Name>`, where `<VERSION>` is the document's exact `Version:` value (e.g. `2.0_`, `1.0_`, `1.9.1_`).
+
+**Examples:**
+
+```
+1.0_Supervisor Statement — Smolander (EN)
+2.0_20-Minute Call Prep — Kari Smolander
+1.0_Vaitoskirjan tutkimuskysymykset — nykyinen vs paivitetty (FI)
+1.9.1_KYA_Standard            (Drive export of the v1.9.1 standard)
+```
+
+The founder's compact shorthand — dropping the inner dot, e.g. `1.91_kya` for a v1.9.1 doc — is an accepted equivalent where a single leading decimal reads cleaner; keep it consistent within a set.
+
+**Why this exists:** short-name lists (Google Drive, file pickers, mobile) truncate the **tail** of a filename — so a trailing `_v2` (the §4.6 in-repo suffix) is exactly the part that disappears from view. A leading `2.0_` stays visible, so a human scanning the Drive list sees at a glance which revision they are looking at without opening the file — and, because it carries the **full** version (not just the major), a minor bump like `1.0_ → 1.1_` is distinguishable in the same list. (Requested by the founder 22.07.2026 after the LUT/PhD Drive set grew past a screen; refined to full-version precision 23.07.2026.)
+
+**Scope and relationship to §4.6:**
+
+- **In-repo files keep the §4.6 suffix convention** (`NAME_..._vN.md`) — directory tools show the full name and the suffix sorts sibling versions together.
+- **Exported / shared deliverables use this §4.7 prefix** (`<VERSION>_Name`). The prefix **must equal** the source document's header `Version:` value exactly (full `MAJOR.MINOR[.PATCH]`) — the same "filename must not lie" match rule as §4.6, now at full precision.
+- When the same document exists both in-repo and as a Drive export, the repo file carries the **suffix** and the Drive copy carries the **prefix**; both state the same version number.
+
+**On version bump:** every header `Version:` bump re-exports with the new number prefix (a v1.0→v1.1 minor update ships as `1.1_Name`, a v1→v2 as `2.0_Name`). Trash or archive the superseded Drive copy so the short-name list shows exactly one current version per deliverable.
 
 ---
 

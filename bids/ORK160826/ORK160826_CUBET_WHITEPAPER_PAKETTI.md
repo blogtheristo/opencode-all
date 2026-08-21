@@ -24,11 +24,11 @@ ask for branded HTML or PDF exports as needed.
 
 - **European Sovereign Industrial Intelligence v1.0** — `Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html`
   Why data stays in the EU/EEA and what "sovereign AI" means in practice.
-- **KYA Standard — IDV Provider Certification v1.0** — `Learn/KYA-IDV-CERT-Whitepaper-v1.0.html`
+- **KYA Specification — IDV Provider Certification v1.0** — `Learn/KYA-IDV-CERT-Whitepaper-v1.0.html`
   (published: `dws10.com/kya-standard/whitepaper/`) — Know Your Agent governance: cryptographic agent
   identity, Firecracker MicroVM isolation, <125 ms kill authority, the audit basis for every AI action.
 - **Shufti KYA whitepaper** — `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md` — identity-verification
-  provider certification under the KYA standard.
+  provider certification under the KYA specification.
 
 ## 3. The engagement-specific annexes (this bid)
 

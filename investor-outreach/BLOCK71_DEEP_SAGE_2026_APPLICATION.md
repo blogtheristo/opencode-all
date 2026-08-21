@@ -1,13 +1,13 @@
 # BLOCK71 Singapore — Deep SAGE 2026 Application Draft
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.1 | Tool: Claude Code | Session: claude/block71-deep-sage-2026-Trqr5 | Date: 26.05.2026 | Changes: Switched applying entity from Lifetime Oy (Finland) to DWS OÜ (Estonia) per founder direction. Added Group Structure section (§0.1) clarifying DWS OÜ as Estonian trading entity + Lifetime Oy as Finnish operating/IP entity. Reframed sovereignty narrative to "EU-sovereign (Estonia + Finland), 100% EU/EEA-owned". Group-traction presentation of metrics. Placeholders inserted for OÜ registry code, VAT, address pending founder fill-in.
 - Version: 1.0 | Tool: Claude Code | Session: claude/block71-deep-sage-2026-Trqr5 | Date: 26.05.2026 | Changes: Initial draft — Deep SAGE 2026 application (NUS Enterprise × TIS Inc. × BLOCK71). 12-week Fractional CXO programme, S$500K funding access, Seed to Pre-Series A. Built on canonical DWS IQ materials (INVESTOR_MEMO v4.3, SHORT_INTRO v2.0, EIC_STEP1_APPLICATION v1.0, investor-pitch-deck v1.1, V3Thesis_EN v3.30.50)
 
@@ -33,7 +33,7 @@ Source Materials:
 - Block71 programme page: https://block71.co/programmes/deep-sage-2026/ (gated — confirm form fields against live page before submission)
 - Inbound email: Steve Leong, Community and Engagement Manager, BLOCK71 Singapore (NUS Enterprise) — 26.05.2026
 
----
+***
 
 ## ⚠ Deadline
 
@@ -73,7 +73,7 @@ Source Materials:
 We apply as **DWS OÜ (Estonia)** — our trading and international expansion entity — within a two-company EU/EEA group:
 
 - **DWS OÜ (Estonia)** — applying entity for Deep SAGE 2026. Holds the international expansion vehicle, will host the Singapore Pte. Ltd. subsidiary spun up from the programme, and is the contracting counterparty for Asia commercial activity.
-- **Lifetime Oy (Finland, Y-tunnus 0772407-9)** — operating entity. Houses the founder, the IP, the current paying customers (Uber FI, Bolt FI, Kela), the academic partnerships (Metropolia, LUT), and the EU regulatory work to date.
+- **Lifetime Oy (Finland, Y-tunnus 0772407-9)** — operating entity. Houses the founder, the IP, the licensed transport operation whose dispatch-operator counterparties are Uber FI, Bolt FI and Kela (commercial counterparties of that operation, not software customers), the two enterprise pilots contracted Q1/2026, the academic partnerships (Metropolia, LUT), and the EU regulatory work to date.
 
 Both entities are 100% EU/EEA-owned, founder-controlled, and aligned under a single product strategy (DWS IQ Climate Intelligence Services and Solutions). The traction figures presented below are **group figures** reflecting work delivered across both entities. No outside capital sits in either entity today.
 
@@ -93,7 +93,7 @@ Today, 50,000+ EU companies are required to file CBAM declarations, CSRD sustain
 
 DWS IQ replaces the spreadsheet with a ledger. Every industrial transaction — a steel import, an ETS allowance surrender, a Scope 3 emission — produces a journal entry in the same second the payment clears. Three compounding moats: (1) the first double-entry **carbon balance sheet** infrastructure; (2) **edge AI at €17,000/year** on NVIDIA Jetson hardware, where cloud equivalents cost €350,000; (3) **payment-agnostic compliance recording** that survives SEPA, Qivalis, MAS-supervised rails, and future CBDC instruments.
 
-Today: **€7K MRR, 6 paying customers, 100% retention, 21 AI agents in production across 32 products, 20 EU-regulated industries.** EU sovereign by design (Aiven Helsinki). NVIDIA Connect ISV Partner. Microsoft Founders Hub L4. Peachscore Cohort 25. Master's thesis live at Metropolia University (2026); PhD continuation at LUT (2027).
+Today: **two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue), company at cash break-even with founder salary €0; 21 AI agents in production across 32 products, 20 EU-regulated industries.** EU sovereign by design (Aiven Helsinki). NVIDIA Connect ISV Partner. Microsoft Founders Hub L4. Peachscore Cohort 25. Master's thesis live at Metropolia University (2026); PhD continuation at LUT (2027).
 
 Asia is the next frontier — Singapore Carbon Tax (S$25/tCO₂e from 2024, S$45 from 2026), Korea K-ETS, Japan GX-ETS (2026), China national ETS expansion. The ledger doesn't care which regulator wrote the rule. Deep SAGE positions DWS IQ at the centre of that wave.
 
@@ -159,9 +159,9 @@ Replicate time: 3–5 years per pillar. The network effect is in the verified em
 
 | Metric                 | Value                                                          |
 | ---------------------- | -------------------------------------------------------------- |
-| MRR                    | €7,000 (live run-rate)                                         |
-| Paying customers       | 6 (Uber FI, Bolt FI, Kela, plus 3 industrial)                  |
-| Retention              | 100% (zero churn)                                              |
+| Services + transport revenue | ~€7,000/month — not software revenue; cash break-even, founder salary €0 |
+| Software revenue       | €0 (pre-revenue)                                               |
+| Contracted enterprise pilots | 2 (Q1/2026, €29,950 each, €59,900 booked)                |
 | Annual value per logo  | €70,000 – €120,000                                             |
 | Production AI agents   | 21                                                             |
 | Shipped products       | 32                                                             |
@@ -210,7 +210,7 @@ We did not pick Deep SAGE because it is an accelerator. We picked it because the
 
 ## 10. Team
 
-- **Risto Anton Päärni — Founder & CEO.** 35+ years industrial software, SAP integration, AI infrastructure. Master's thesis (Metropolia, 2026) on AI harness engineering. PhD continuation (LUT, 2027). NVIDIA Connect ISV Partner. Microsoft Founders Hub L4. Bootstrapped to €7K MRR with zero prior VC.
+- **Risto Anton Päärni — Founder & CEO.** 35+ years industrial software, SAP integration, AI infrastructure. Master's thesis (Metropolia, 2026) on AI harness engineering. PhD continuation (LUT, 2027). NVIDIA Connect ISV Partner. Microsoft Founders Hub L4. Bootstrapped on ~€7,000/month of services and transport revenue (not software revenue), with zero prior VC.
 - **Lucille Santiago — Logistics & Office.**
 - **Academic advisors:** Hannamari Robertsson (ESG & Business Consulting); Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University).
 - **Hiring intent post-Deep SAGE:** senior technical hire (Q3 2026), fractional CFO (immediate via Deep SAGE), fractional CRO for Asia (immediate via Deep SAGE).
@@ -274,7 +274,7 @@ The S$500K plugs into the active €650K SAFE bridge to Series A. Indicative all
 
 - Regulation is live (CBAM operational 2026, CSRD Wave 1 2026, Singapore Carbon Tax at S$45 from 2026, Japan GX-ETS mandatory 2026).
 - Customers have budget (mandatory line item — penalties dwarf software cost).
-- Product is live (€7K MRR, 100% retention, no churn).
+- Product is live; two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked).
 - The Asia ledger window opens *now* and closes when local incumbents copy our architecture (2027–2028).
 - The right partner stack for the Asia move is BLOCK71 + TIS + NUS — and Deep SAGE 2026 is the only programme that bundles all three.
 

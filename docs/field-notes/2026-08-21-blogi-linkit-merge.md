@@ -1,3 +1,0 @@
-# 2026-08-21 — blogi-linkit merge-conflict resolution (in progress)
-
-N/A — session not yet complete. Task: fix merge conflicts on `claude/blogi-linkit-kohteet-f1j1cm` (PR #1764, LSJ blog content audit) against `origin/main` and merge into `claude/blogi-linkit-merge-errors-wedpz8`. 148 conflicting files, both sides carry real independent work (price removal + Finnish diacritic fixes vs. hero images/CSP/i18n nav/contact-form on main), so resolution was delegated to a background agent working in an isolated git worktree to merge both sides' intent file-by-file rather than blind ours/theirs. This note will be superseded with the real outcome (files resolved, push SHA, any residual risk) once that agent reports back.

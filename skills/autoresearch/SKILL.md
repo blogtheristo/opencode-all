@@ -4,6 +4,8 @@
 
 **Purpose:** Autonomously optimize DWS Claude Code skills by running them repeatedly, scoring outputs against binary evaluations, mutating prompts, and retaining improvements. Adapted from [Karpathy's autoresearch](https://github.com/karpathy/autoresearch) and [olelehmann1337/autoresearch-skill](https://github.com/olelehmann1337/autoresearch-skill) for the DWS skill system.
 
+**Source pin:** karpathy/autoresearch and olelehmann1337/autoresearch-skill, no upstream VERSION marker published for either; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 ---
 
 ## Input Contract

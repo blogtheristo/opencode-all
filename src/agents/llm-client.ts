@@ -19,7 +19,7 @@
 
 import logger from '../utils/logger.js';
 import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse, ModelTier } from './types.js';
-import { selectModel } from './model-selector.js';
+import { OLLAMA_DEPLOYED_MODELS, selectModel } from './model-selector.js';
 import type { ModelSelection } from './model-selector.js';
 import { recordLLMResponse, withLLMSpan } from '../observability/tracing.js';
 
@@ -107,7 +107,8 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
         provider: 'ollama-local',
         apiKey: 'ollama', // Ollama doesn't require auth
         baseUrl: process.env.OLLAMA_BASE_URL, // e.g. http://localhost:11434/v1
-        model: agentModel || 'qwen2.5:32b',
+        // Default must be a model the box actually has (drift incident 31.07.2026).
+        model: agentModel || OLLAMA_DEPLOYED_MODELS.deep,
         maxTokens: 4096,
         temperature: 0.3,
         kvCacheCompression:

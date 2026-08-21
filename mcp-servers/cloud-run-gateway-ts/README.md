@@ -38,7 +38,7 @@ After deploy, point **`mcp-hub-ts`** at this service with **`DWS_GATEWAY_URL`** 
 
 Same Secret Manager bindings as the Python gateway: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `GITHUB_TOKEN`, `MCP_GATEWAY_API_KEY`.
 
-## Deploy on DGX Spark (priority 1 — zero marginal cost, EU-sovereign)
+## Deploy on DGX Spark (priority 1 — no external per-token billing, EU-sovereign)
 
 Per `docs/CLOUD_ENVIRONMENTS.md` §12.9, DGX Spark is the preferred host for this gateway ahead of Cloud Run. This container is now defined as the `mcp-gateway` service in `infrastructure/dgx-spark/docker-compose.yml` and starts automatically with the rest of the DGX stack — no code change needed to bring it up. Two things remain, both outside this repo:
 

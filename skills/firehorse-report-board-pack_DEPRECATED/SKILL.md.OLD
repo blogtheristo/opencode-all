@@ -14,7 +14,8 @@ allowed-tools: [Bash, Read]
 
 **Report type:** Board Pack (climate compliance executive summary)
 **Agent:** `src/firehorse/report-module.ts` (format: `board-pack`)
-**CLI:** `dws run firehorse-report --format board-pack --input '{"company":"...","period":"Q1-2026"}'`
+**CLI:** `dws firehorse-report --format board-pack --input '{"organizationId":"org-1","industry":"steel","periodStart":"2026-01-01","periodEnd":"2026-03-31"}'`
+**API:** `POST /api/v1/firehorse/reports/generate` with `{"format":"board-pack","organizationId":"...","industry":"...","periodStart":"...","periodEnd":"..."}`
 **Signature:** DocuSign eSignature via `src/firehorse/signed-reports.ts`
 
 ## What This Skill Knows

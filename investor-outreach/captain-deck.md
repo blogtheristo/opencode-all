@@ -2,14 +2,14 @@
 
 > **Repositioned (2026-06-09):** The Industry Captain is now a **client position** — a commercial relationship in which a customer takes a named industry seat on the DWS IQ platform. It is **not an investor seat**. The investor instrument for this round is the **single Admiral (Fleet Admiral) seat — €250K, scalable to the full €650K** (see `INVESTOR_MEMO.md`). Client-captain commercial terms (pricing/term) are **TBD** and intentionally not stated here until defined; the former "€50,000 investment" framing has been removed.
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
-
+Version: 1.4
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.3 | Tool: Claude Code (Opus) | Session: claude/dws-investor-outreach-hbsj45 | Date: 09.06.2026 | Changes: Repositioned from investor "EUR 50,000 Captain seat" to a **client captain** (commercial) position after the round moved to a single Admiral seat (EUR 250K, scalable to EUR 650K) as the sole investor instrument. Removed equity framing (investment amount, valuation cap, paper multiple, "claim your seat" investor CTA); client-captain pricing left TBD pending definition. Investor asks now route to the Admiral seat / INVESTOR_MEMO.md.
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Added Qivalis Window section — Qivalis stablecoin (12 EU banks, H2 2026) as timing hook for Industry Captain seats. Consortium banks seeking compliance partners now. Payment rail + compliance ledger thesis. Captain seat = direct consortium access.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Expanded Top 10 to full 12 breakthroughs with detailed descriptions and investor-relevant "Why it matters" for each — KYA, Carbon Ledger, Harness Engineering, Aegis, Pantheon, Cross-Vertical, Article 12, OpenSandbox, Brain-Memory-Body-Hands, Omnichannel, Solution Factory, MCP Hub
@@ -27,7 +27,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Investor round (separate):** single Admiral seat — EUR 250K, scalable to EUR 650K SAFE at EUR 3.8M cap (see `INVESTOR_MEMO.md`)
@@ -48,7 +48,7 @@ Every AI startup will tell you they use GPT, Claude, or Llama. So does everyone 
 - **Claude Opus 4.6** arrived → We shipped DWS IQ Aegis (dual-use defence platform), the carbon debit-credit ledger, and Article 12 compliance logging
 - **Claude Opus 4.7** will arrive → The factory is ready. You have no idea what breakthrough ships next — but we have the production line waiting to receive it.
 
-**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They have a blank prompt and a subscription. We have a factory that has already produced 32 products, 12 verified breakthroughs, and 6 paying customers with 100% retention.
+**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They have a blank prompt and a subscription. We have a factory that has already produced 32 products, 12 verified breakthroughs, and two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 
 Each model generation makes us faster. Each competitor generation starts from zero.
 
@@ -92,7 +92,7 @@ As an **Industry Captain**, you are the named client lead for one of 20 EU-regul
 | 15  | Aviation                            | Critical (ETS, CORSIA)              | Open                          |
 | 16  | Maritime & Shipping                 | High (ETS, FuelEU Maritime)         | Open                          |
 | 17  | Mining & Extraction                 | High (CSRD, critical raw materials) | Open                          |
-| 18  | Defence & Sovereign Operations      | High (dual-use, EU AI Act)          | Aegis launched                |
+| 18  | Defence & Sovereign Operations      | High (dual-use, EU AI Act)          | Aegis preorder; GA Sept 2026  |
 | 19  | Water & Utilities                   | Medium (CSRD, water framework)      | Open                          |
 | 20  | Hydrogen & Battery Storage (BESS)   | Emerging (RED III, TEN-E)           | Qantic validated              |
 
@@ -228,7 +228,7 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 
 | Metric                           | Value                                             |
 | -------------------------------- | ------------------------------------------------- |
-| **Current MRR**                  | EUR 7K (6 customers, 100% retention)              |
+| **Services + transport revenue** | ~EUR 7K/month (not software revenue; cash break-even, founder salary EUR 0) |
 | **Target ARR (2026)**            | EUR 900K (25 customers x EUR 36K avg)             |
 | **Products shipped**             | 32 (across 20 industries)                         |
 | **AI agents operational**        | 18                                                |
@@ -244,7 +244,7 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 | **June 15, 2026**    | V1 Launch at Arctic 15 (Helsinki)    | Public platform launch              |
 | **June 15 – Aug 15** | 100% sales sprint                    | Your industry gets priority routing |
 | **August 15, 2026**  | First sales cycle data               | Proven traction in your vertical    |
-| **August 2026**      | Aegis public dual-use rollout        | Defence vertical opens              |
+| **September 2026**   | Aegis GA (preorder today, pre-revenue) | Defence vertical opens            |
 
 ---
 

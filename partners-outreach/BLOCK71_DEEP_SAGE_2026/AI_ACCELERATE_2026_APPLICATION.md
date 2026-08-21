@@ -1,6 +1,6 @@
 # AI Accelerate 2026 — Application Draft (Lifetime Oy / DWS IQ)
 
----
+***
 
 ## VERSION AND AGENT HISTORY
 
@@ -16,6 +16,8 @@
 | Branch         | claude/ngi-sargasso-gber-i2l47d                                                                                                     |
 | Deadline       | **31 Jul 2026** — slot Jul 28–30 after EIC Step 1 freeze                                                                            |
 | Sources        | `docs/EIC_STEP1_DRAFT_KYA_2026.md` (claims), `APPLICATION.md` (Deep SAGE ASEAN/CBAM spine), field note 2026-07-15 (reviewer signal) |
+
+- Version: 0.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired "6 paying customers / €7k MRR / 100% retention", restated €7k as services + transport revenue, Aegis restated as preorder (GA Sept 2026), headcount restated as two-person core + contracted bench under NDA.
 
 **v0.2 changelog (2026-07-15) — Boardy draft merged, Rule 7 applied:**
 ADOPTED: MAS/EU-AI-Act compliance-bridge framing; MAS-regulated financial
@@ -39,7 +41,7 @@ narrative or the Deep SAGE application — no new claims. Lead with agentic
 commerce per the reviewer signal (Jit Singh attended Stripe's Agentic
 Commerce Breakfast Briefing; see field note).
 
----
+***
 
 ## Singapore Market Entry (application section — paste-ready)
 
@@ -75,8 +77,12 @@ from ASEAN into the EU needs a CBAM declaration with verified
 embedded-emissions data. Singapore is the regional control point — the HQ
 for the trading houses, MNCs, and system integrators that route those
 exports. DWS IQ already does this work in Europe: deterministic compliance
-scoring across ETS, CBAM, CSRD and the EU AI Act, running for 6 paying
-customers at €7k MRR with 100% retention since launch. A Singapore foothold
+scoring across ETS, CBAM, CSRD and the EU AI Act. Two enterprise pilots were
+contracted in Q1/2026 at €29,950 each (€59,900 booked), plus four smaller
+landed accounts. Separately, Lifetime Oy runs ~€7,000/month of services and
+transport revenue (licensed transport operation + consulting) — **not**
+software revenue; it puts the company at cash break-even with a founder
+salary of €0. A Singapore foothold
 puts that engine adjacent to ASEAN-side CBAM demand — the exporters who
 must produce verified data with no EU-side tooling of their own.
 
@@ -90,8 +96,9 @@ both; Singapore is the only city where both markets concentrate.
 - **KYA-2** gives agent-initiated transactions the identity, bounded
   mandate, and replayable audit that AI-governance-conscious regulators
   expect — built once for the EU AI Act, portable to Singapore's framework.
-- **DWS IQ Aegis** (edge-deployed, sovereign-hosted — shipped product, not
-  roadmap) fits Singapore's data-residency expectations out of the box:
+- **DWS IQ Aegis** (edge-deployed, sovereign-hosted — preorder; GA
+  September 2026; pre-revenue) fits Singapore's data-residency expectations
+  out of the box:
   inference and evidence stay in-jurisdiction.
 - The **EU AI Act Article-12 logging pipeline is live today**, giving
   Singapore-bound deployments immediate regulatory-grade record-keeping
@@ -121,10 +128,10 @@ both; Singapore is the only city where both markets concentrate.
    build from Helsinki: warm access to the Singapore payments and commerce
    ecosystem now defining agent-driven transactions.
 4. **Delivery capacity without relocation risk.** Execution is not gated on
-   Nordic headcount: a founder-led core plus **100+ contracted engineers
-   across two certified partners** (both under NDA, both actively
-   delivering today — one in Kochi, three time zones from Singapore)
-   means APAC delivery hours are already in the network.
+   Nordic headcount: a **two-person core** (Founder/CEO + Office Chief) plus
+   a **contracted engineering bench under NDA** across two certified partners
+   (both actively delivering today — one in Kochi, three time zones from
+   Singapore) means APAC delivery hours are already in the network.
 5. **Milestones (10-week programme horizon).** Weeks 1–3: Singapore ICP
    validation, 30 named accounts across both waves. Weeks 4–6: first pilot
    signed (agentic-commerce mandate pilot preferred). Weeks 7–9: second
@@ -134,15 +141,16 @@ both; Singapore is the only city where both markets concentrate.
 
 ### What we ask from the programme
 
-Not product help — the platform is shipped and revenue-generating. We need
+Not product help — the platform is shipped and running contracted enterprise
+pilots. We need
 what Singapore uniquely offers: ecosystem access to the agentic-commerce
 platforms and trading houses concentrated there, mentorship on APAC
 enterprise sales motion, and the credibility of the BLOCK71 × Microsoft
 umbrella when we walk into rooms where a Finnish SME is an unknown. In
 exchange, the cohort gets the one thing none of the payment rails have
 built: the trust standard that makes agent-driven commerce auditable —
-developed in the EU, proven with paying customers, and brought to the
-region where agentic commerce is being decided.
+developed in the EU, proven with contracted enterprise pilots, and brought
+to the region where agentic commerce is being decided.
 
 **This is not generic AI expansion. It is sovereign compliance
 infrastructure entering a jurisdiction that already values the same

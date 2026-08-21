@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+PROMPT="${*:-}"; [[ -z "$PROMPT" ]] && { echo "Usage: dws <prompt>"; exit 1; }
+
+SOV_ROOT="$HOME/workspace/sovereign"
+CWD="$(pwd)"
+
+is_sensitive() {
+  echo "$1" | grep -Eiq '(secret|token|api[_-]?key|password|private key|itar|ear|classified|cui|export control|ssn|phi|hipaa|pci|pii|gdpr|regulated|customer data|production dump)'
+}
+
+if [[ "$CWD" == "$SOV_ROOT"* ]] || is_sensitive "$PROMPT"; then
+  exec "$HOME/bin/dws-local" "$PROMPT"
+else
+  exec "$HOME/bin/dws-cloud" "$PROMPT"
+fi

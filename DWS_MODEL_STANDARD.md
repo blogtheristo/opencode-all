@@ -240,7 +240,7 @@ A new model joins the Slate, or an existing one changes status, only by passing 
 **Inputs required.**
 1. **Empirical evidence** — a field note in `docs/field-notes/` documenting first-hand testing on at least one DWS hardware target (3090, 5090, Veriton GN-100, or DGX Spark). The 2026-05-18 field note is the reference example.
 2. **License & provenance review** — origin entity, weights license, redistribution terms. CN-origin models require an additional defence-segment carve-out statement.
-3. **Bench against the incumbent** — on the standing DWS agent eval set (TODO: register set in `evals/`), the candidate must beat or match the incumbent for the cell it targets. Regressions block promotion.
+3. **Bench against the incumbent** — on the standing DWS agent eval set (`evals/`; seed: `evals/industry_baseline.jsonl`, scored by `infrastructure/llm-training/scripts/evaluate.py`), the candidate must beat or match the incumbent for the cell it targets. Regressions block promotion.
 4. **Article 12 lineage check** — confirm the model's invocations can be logged per `DWS_ARTICLE_12_LOGGING_STANDARD.md`.
 
 **Decision.**

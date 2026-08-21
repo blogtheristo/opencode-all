@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Christiaan van Steenbergen, NeuroCluster
-Version: 1.0
+Version: 1.1
 Date: 2026-04-08
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/investor-outreach-contacts-5oVbz
@@ -9,6 +9,7 @@ Story Lock: EU Sovereignty + Regulated Infrastructure + Sovereign AI Stack
 Intro Type: Warm (Boardy + personal conversation)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-08): Initial draft. Warm intro via Boardy, human spoke with him recently. Led with sovereign AI infrastructure alignment — both building EU-sovereign stacks for regulated industries with zero US hyperscaler dependency. Strongest alignment of any contact in pipeline.
 -->
 
@@ -90,7 +91,7 @@ Why I think there's something here beyond a good conversation:
 - **Same customers.** Your utilities and TSOs face the same Fit for 55 compliance wave as our construction and manufacturing customers. The carbon balance sheet is horizontal infrastructure across all regulated verticals.
 - **Same investors.** Sovereignty-focused VCs looking at your €5-6M round are the same ones who should see our €650K SAFE at €3.8M cap. Cross-referral is natural.
 
-Current numbers: €7K MRR, 6 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
+Current numbers: ~€7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). V1 launches at Arctic 15 in Helsinki on June 15.
 
 I'd like to explore whether there's a partnership angle (our agents on your infrastructure), a co-go-to-market play (joint offering for regulated industries), or simply mutual investor introductions. All three have value.
 

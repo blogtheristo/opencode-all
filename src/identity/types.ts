@@ -55,6 +55,43 @@ export type TelemetryEvent =
   | 'SESSION_START'
   | 'SESSION_END';
 
+// ============ IDENTITY VERIFICATION STATE (KYA-S1 IDV) ============
+
+/**
+ * Verification status of the human principal the agent session is bound to.
+ *
+ * Only 'verified' authorizes autonomous action. Everything else — including
+ * 'unknown' — is a hard kill, per KYA-S1 v1.5 TRS-5 (fail-closed): the absence
+ * of a usable IDV signal must never be read as permission.
+ *
+ * @see Legal/KYA_S1.md §5.1 (IDV-1…IDV-4), §6.2 (TRS-1 documented inputs)
+ */
+export type IdvStatus = 'verified' | 'revoked' | 'expired' | 'unknown';
+
+/**
+ * IDV state for the session, as reported by the identity authority.
+ *
+ * This is a TRS-1 required input: without it the trust score cannot claim to
+ * express continuous authorization, because a revocation of the human
+ * principal would leave the score untouched.
+ */
+export interface IdvState {
+  status: IdvStatus;
+  /** Verified human principal bound to this session (IDV-2 binding subject) */
+  humanPrincipalId: string;
+  /** When the principal was last successfully verified (ISO-8601) */
+  verifiedAt: string;
+  /**
+   * Re-attestation window in seconds. Past `verifiedAt + ttlSeconds` the
+   * verification is stale and no longer authorizes action (IDV-3).
+   */
+  ttlSeconds: number;
+  /** IDV provider that produced the attestation (Shufti / Veriff / Signicat / EUDI …) */
+  provider?: string;
+  /** Level of assurance asserted by the provider, e.g. 'high' for eIDAS LoA High */
+  levelOfAssurance?: string;
+}
+
 // ============ AGENT TRUST SCORE ============
 
 /** Result of an ATS calculation */
@@ -70,12 +107,20 @@ export interface ATSResult {
 export interface ATSBreakdown {
   baseScore: number;
   violationPenalty: number;
+  /** Legacy compatibility field. Latency penalty was removed from ATS scoring. */
   latencyPenalty: number;
   overreachPenalty: number;
   manifestValid: boolean;
   violationCount: number;
   deniedAttemptCount: number;
+  /** Observability only. Latency no longer affects ATS scoring. */
   avgLatencyMs: number;
+  /** True only when the human principal is verified and the attestation is fresh */
+  idvValid: boolean;
+  /** Reported IDV status at calculation time — 'unknown' when no signal was usable */
+  idvStatus: IdvStatus;
+  /** Verified human principal the score is bound to, when one is known */
+  humanPrincipalId?: string;
 }
 
 export type PermissionLevel = 'full' | 'restricted' | 'suspended' | 'frozen';

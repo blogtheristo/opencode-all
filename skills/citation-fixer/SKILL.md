@@ -26,6 +26,7 @@ standards, INTRO drafts, wiki entries.
 
 Based on `citation-fixer` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/citation-fixer).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## In scope
 
