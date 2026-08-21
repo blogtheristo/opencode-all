@@ -12,15 +12,15 @@ market intelligence. Treat the counts as point-in-time (pre-fix) measurements.
 
 ## What the audit found
 
-| Class | Scale | Root cause |
-| ----- | ----- | ---------- |
-| Finnish ä/ö flattened to a/o | 22 public pages | one generator run in Mar–Apr 2026 lost UTF-8 |
-| False regulatory claims | 4 posts | Article 12 retention, Article 50 applicability date |
-| Price drift against canon | 1 post | Aegis Sovereign quoted €12,999; canon is custom-priced |
-| Deprecated agent count | 15 files | "18+ AI agents" in the shared CTA block |
-| Author identity inconsistent | 111 files | three spellings, incl. `Paarni` without umlauts |
-| Posts absent from sitemap | 113 of 113 | sitemap generator never covered `/posts/` |
-| Unapproved drafts publicly reachable | 2 | `_DRAFT` files served at their live URL |
+| Class                                | Scale           | Root cause                                             |
+| ------------------------------------ | --------------- | ------------------------------------------------------ |
+| Finnish ä/ö flattened to a/o         | 22 public pages | one generator run in Mar–Apr 2026 lost UTF-8           |
+| False regulatory claims              | 4 posts         | Article 12 retention, Article 50 applicability date    |
+| Price drift against canon            | 1 post          | Aegis Sovereign quoted €12,999; canon is custom-priced |
+| Deprecated agent count               | 15 files        | "18+ AI agents" in the shared CTA block                |
+| Author identity inconsistent         | 111 files       | three spellings, incl. `Paarni` without umlauts        |
+| Posts absent from sitemap            | 113 of 113      | sitemap generator never covered `/posts/`              |
+| Unapproved drafts publicly reachable | 2               | `_DRAFT` files served at their live URL                |
 
 ## The transferable lessons
 
@@ -38,7 +38,7 @@ publish needs a check that reads it in its own language.
 
 **A repair pass over natural-language content needs a negative control.** The fix
 (`scripts/fix-fi-diacritics.mjs`) validates each of its ~300 rules against corpora that
-are *already correct* — the clean Finnish posts and all the English posts. A rule that
+are _already correct_ — the clean Finnish posts and all the English posts. A rule that
 fires there would corrupt correct text, so it is rejected before any file is written.
 That inversion is what made an otherwise unreviewable blind rewrite safe. Reusable
 pattern for any bulk content transform.
@@ -50,7 +50,7 @@ list's own document header said the same. Only English existed. Both were correc
 
 ## Cross-references
 
-- `DWS_TRUTH_STANDARD.md` rows 19 (agent count), 21 (moats), 31 (Article 50 labelling)
+- `DWS_TRUTH_STANDARD.md` rows 19 ("agent count"), 21 (moats), 31 (Article 50 labelling)
 - `DWS_ARTICLE_12_LOGGING_STANDARD.md` §4 — retention minimums (6 months, Art. 26(6))
 - `Store/PRODUCT_AEGIS.md` §tier table — Aegis pricing
 - `docs/BLOG_STANDARD.md` §3.3 — the draft gate the two `_DRAFT` files bypassed

@@ -1,6 +1,6 @@
 # LSJ Blog Content Audit — 2026-07-29
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -10,7 +10,7 @@ Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/blogi-linkit-kohteet-f1j1cm | Date: 29.07.2026 | Changes: Initial audit. Full sweep of all 115 published posts on `onelifetime.world/posts/**` plus `/blog/index.html` for currency, factual accuracy, and style. Findings only — no content edits applied.
 
-***
+---
 
 Document Status:
 
@@ -20,7 +20,7 @@ Document Status:
 - Document Type: Audit report
 - Owner: Risto Anton Päärni
 
-***
+---
 
 ## 1. Scope and method
 
@@ -29,10 +29,10 @@ Document Status:
 **Checks run:**
 
 - `scripts/lint-truth-claims.mjs` over the full corpus (from repo root, so the mirrors load) — **0 fail / 0 warn**.
-- Canonical-fact reconciliation against `DWS_TRUTH_STANDARD.md` (agent count, industry count, moats, capital classes), `dws10.com/config/products.json` + `Store/PRODUCT_AEGIS.md` (prices), `Legal/KYA_STANDARD_v1.md` (KYA version), `DWS_ARTICLE_12_LOGGING_STANDARD.md` (retention).
+- Canonical-fact reconciliation against `DWS_TRUTH_STANDARD.md` ("agent count", industry count, moats, capital classes), `dws10.com/config/products.json` + `Store/PRODUCT_AEGIS.md` (prices), `Legal/KYA_STANDARD_v1.md` (KYA version), `DWS_ARTICLE_12_LOGGING_STANDARD.md` (retention).
 - Mechanical sweeps: author-name spelling, email addresses, price strings, numeric claims, Finnish orthography, internal link targets, sitemap coverage, AI-disclosure coverage, publication metadata.
 
-**Not covered:** external factual claims that need an online source (vendor specs, third-party funding rounds, quoted benchmark numbers). Those are listed in §5 as *verify before reuse*, not asserted as errors.
+**Not covered:** external factual claims that need an online source (vendor specs, third-party funding rounds, quoted benchmark numbers). Those are listed in §5 as _verify before reuse_, not asserted as errors.
 
 ## 2. Blockers
 
@@ -63,7 +63,7 @@ Canonical (`Store/PRODUCT_AEGIS.md` §tier table): Aegis Standard €59,990 + �
 
 `eu-regulation-harness-engineering.html`, `harness-engineering-investor-note.html`, `buyers-note-harness-engineering.html`.
 
-DWS's own `DWS_ARTICLE_12_LOGGING_STANDARD.md` §4 sets the minimum at **6 months** (Art. 26(6)); the 10-year figure belongs to serious-incident reports (Art. 73). There is no seven-year period anywhere in the AI Act's logging regime. The buyer's-note version turns it into a procurement question — *"Can you show me the audit trail for any agent action from the last 7 years?"* — which invites a customer to test us against a requirement that does not exist.
+DWS's own `DWS_ARTICLE_12_LOGGING_STANDARD.md` §4 sets the minimum at **6 months** (Art. 26(6)); the 10-year figure belongs to serious-incident reports (Art. 73). There is no seven-year period anywhere in the AI Act's logging regime. The buyer's-note version turns it into a procurement question — _"Can you show me the audit trail for any agent action from the last 7 years?"_ — which invites a customer to test us against a requirement that does not exist.
 
 ### F2 — "Article 50 … Live now … active today" (1 post)
 
@@ -71,9 +71,9 @@ DWS's own `DWS_ARTICLE_12_LOGGING_STANDARD.md` §4 sets the minimum at **6 month
 
 Article 50 applies from **2 August 2026** (Art. 113) — as registered in our own `DWS_TRUTH_STANDARD.md` §2G. On the publication date the claim was wrong. It becomes true on 2 Aug 2026, four days from this audit, so the cheapest fix is to restate it as a date rather than as "today".
 
-### F3 — Deprecated agent count "18+ AI agents" (14 posts)
+### F3 — Deprecated "agent count" "18+ AI agents" (14 posts)
 
-The CTA block carries *"18+ AI agents for EU compliance automation"*. Canonical is **50 production agents** (`src/agents/AGENT_ROSTER.json`, Truth Standard row 19), and `18+ Industry Agents` is a logged drift incident. The lint misses this because its deprecated-phrase list contains only the `Industry Agents` wording — the `AI agents` variant slips through.
+The CTA block carries _"18+ AI agents for EU compliance automation"_. Canonical is **50 production agents** (`src/agents/AGENT_ROSTER.json`, Truth Standard row 19), and `18+ Industry Agents` is a logged drift incident. The lint misses this because its deprecated-phrase list contains only the `Industry Agents` wording — the `AI agents` variant slips through.
 
 Affected (all recent, so it is in the current template): `ai-supercomputing-meets-eda-sovereign-design`, `ala-treenaa-base-mallia-omista-evidenssikerros`, `brexit-interdependence-moat-us-eu` (EN+FI), `dont-train-a-base-model-own-the-evidence-layer` (EN/DE/FR/SV), `eu-sovereign-ai-factories-35-supercomputers`, `industrial-intelligence-weekly-2026-06-28`, `nvidia-halos-robotics-physical-ai-safety`, `nvidia-jetson-thor-physical-ai`, `the-moats-we-hand-you` (EN+FI).
 
@@ -91,17 +91,17 @@ An absolute conformity claim against a regulation whose high-risk obligations ha
 
 ### F6 — "DWS IQ 6 exceeds 95% on the OpenAI Agent Harness Index"
 
-`eu-regulation-harness-engineering.html` headline and `<meta description>`. There is no OpenAI-published "Agent Harness Index"; the body correctly calls it *"our current assessment"* against OpenAI's eight harness principles. The headline promotes an internal self-score to an external benchmark. This is also the exact pattern the MGD/CRC doctrine names as an anti-game (*benchmark scores / model rankings* as a headline metric, Truth Standard row 29).
+`eu-regulation-harness-engineering.html` headline and `<meta description>`. There is no OpenAI-published "Agent Harness Index"; the body correctly calls it _"our current assessment"_ against OpenAI's eight harness principles. The headline promotes an internal self-score to an external benchmark. This is also the exact pattern the MGD/CRC doctrine names as an anti-game (_"benchmark scores"_ / _"model rankings"_ as a headline metric, Truth Standard row 29).
 
 ## 4. Style and consistency
 
 ### S1 — Author name: three variants, one correct
 
-| Variant | Files |
-| --- | --- |
-| `Risto Anton Päärni` (correct) | 10 |
-| `Risto Anton Paarni` (no umlauts) | 46 |
-| `Risto Anton` (surname dropped) | 65 |
+| Variant                           | Files |
+| --------------------------------- | ----- |
+| `Risto Anton Päärni` (correct)    | 10    |
+| `Risto Anton Paarni` (no umlauts) | 46    |
+| `Risto Anton` (surname dropped)   | 65    |
 
 Occurs in visible bylines, `<meta name="author">`, and JSON-LD `author.name`, so it also propagates into search results and share cards. `CLAUDE.md` §Sender Identity is explicit: `paarni` without umlauts is permitted **only** inside an email address. One file carries both spellings.
 

@@ -37,13 +37,13 @@ the field note that carried the false claim rather than editing it away.
 
 ## 2. The five-step Learning Standard record
 
-| # | Step | State |
-| - | ---- | ----- |
-| 1 | Update the knowledge base (`kb/`) | Done — `kb/raw/signals/2026-07-29-lsj-content-audit.md` |
-| 2 | Field note | This file |
-| 3 | `Learn/` HTML | Done — `Learn/2026-07-29-lsj-content-audit.html` |
-| 4 | Drive export | **N/A — the Google Drive MCP server is disconnected in this session.** Repo remains source-of-truth (§2E); export owed on the next session that has Drive. |
-| 5 | One decision-shaped question to the HIC | §6 below |
+| #   | Step                                    | State                                                                                                                                                      |
+| --- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Update the knowledge base (`kb/`)       | Done — `kb/raw/signals/2026-07-29-lsj-content-audit.md`                                                                                                    |
+| 2   | Field note                              | This file                                                                                                                                                  |
+| 3   | `Learn/` HTML                           | Done — `Learn/2026-07-29-lsj-content-audit.html`                                                                                                           |
+| 4   | Drive export                            | **N/A — the Google Drive MCP server is disconnected in this session.** Repo remains source-of-truth (§2E); export owed on the next session that has Drive. |
+| 5   | One decision-shaped question to the HIC | §6 below                                                                                                                                                   |
 
 ## 3. What was actually wrong
 
@@ -71,18 +71,18 @@ reference from the clean Finnish posts.
 
 ### Six false claims
 
-| Claim | Was | Canonical |
-| ----- | --- | --------- |
-| Article 12 retention | "at least 7 years" (3 posts) | 6 months, Art. 26(6) — `DWS_ARTICLE_12_LOGGING_STANDARD.md` §4 |
-| Article 50 | "Live now · active today", published 7 May 2026 | applies 2 Aug 2026, Art. 113 |
-| Aegis Sovereign | €12,999 | Custom + €4,999/mo — `Store/PRODUCT_AEGIS.md` |
-| Agent count | "18+ AI agents" (15 files) | 50 production agents |
-| KYA version | hero said v1.7, same page said v1.5 | v1.5 public / 1.11 internal |
-| Conformity | "100% EU AI Act compliant" (3 posts) | what is actually built |
+| Claim                | Was                                             | Canonical                                                      |
+| -------------------- | ----------------------------------------------- | -------------------------------------------------------------- |
+| Article 12 retention | "at least 7 years" (3 posts)                    | 6 months, Art. 26(6) — `DWS_ARTICLE_12_LOGGING_STANDARD.md` §4 |
+| Article 50           | "Live now · active today", published 7 May 2026 | applies 2 Aug 2026, Art. 113                                   |
+| Aegis Sovereign      | €12,999                                         | Custom + €4,999/mo — `Store/PRODUCT_AEGIS.md`                  |
+| "Agent count"        | "18+ AI agents" (15 files)                      | 50 production agents                                           |
+| KYA version          | hero said v1.7, same page said v1.5             | v1.5 public / 1.11 internal                                    |
+| Conformity           | "100% EU AI Act compliant" (3 posts)            | what is actually built                                         |
 
 The Article 12 one is the one that could have cost money: the buyer's note turned it
-into a procurement question — *"can you show me the audit trail from the last 7
-years?"* — inviting a customer to test us against a requirement that does not exist.
+into a procurement question — _"can you show me the audit trail from the last 7
+years?"_ — inviting a customer to test us against a requirement that does not exist.
 
 ### The price list
 
