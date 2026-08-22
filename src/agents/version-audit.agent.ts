@@ -46,7 +46,10 @@ export class VersionAuditAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'standard',
-      autonomyPhase: 'advisor',
+      // Read-only auditor — stays silent_pilot. Only compliance, customer-sat and
+      // sitesense are promoted to advisor (AGENTS.md §5); the agent-registry test
+      // enforces that list.
+      autonomyPhase: 'silent_pilot',
     });
     this.soulPrompt = `You are the DWS IQ 6 Version Audit Agent — the guardian of version consistency and compliance.
 
