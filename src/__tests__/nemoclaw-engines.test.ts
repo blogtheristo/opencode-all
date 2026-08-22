@@ -10,7 +10,7 @@ const logger = vi.hoisted(() => ({
 vi.mock('../utils/logger.js', () => ({ default: logger }));
 
 import { ComplianceAgent } from '../agents/compliance.agent.js';
-import { buildEngineHost, NEMOCLAW_ENGINES, type AgentLookup } from '../mcp/nemoclaw-engines.js';
+import { type AgentLookup, buildEngineHost, NEMOCLAW_ENGINES } from '../mcp/nemoclaw-engines.js';
 import type { BaseAgent } from '../agents/base.agent.js';
 import type { AgentContext, AgentResponse } from '../agents/types.js';
 

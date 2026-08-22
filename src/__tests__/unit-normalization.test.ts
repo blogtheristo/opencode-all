@@ -166,7 +166,7 @@ describe('The 240x concrete bug — regression test', () => {
 
 describe('EC3 API unit compatibility', () => {
   it('all EC3 unit strings resolve to valid canonical units', () => {
-    for (const [ec3Unit, canonical] of Object.entries(EC3_UNIT_MAP)) {
+    for (const [_ec3Unit, canonical] of Object.entries(EC3_UNIT_MAP)) {
       expect(['kg', 'm3', 'm2', 'm', 'tonne', 'piece']).toContain(canonical);
     }
   });
@@ -186,7 +186,7 @@ describe('EC3 API unit compatibility', () => {
 
 describe('density table data quality', () => {
   it('all densities are positive and physically plausible', () => {
-    for (const [name, { density }] of Object.entries(MATERIAL_DENSITIES)) {
+    for (const [_name, { density }] of Object.entries(MATERIAL_DENSITIES)) {
       expect(density).toBeGreaterThan(0);
       // No construction material exceeds 10,000 kg/m³
       expect(density).toBeLessThan(10000);
@@ -194,7 +194,7 @@ describe('density table data quality', () => {
   });
 
   it('all area densities are positive', () => {
-    for (const [name, { areaDensity }] of Object.entries(AREA_DENSITIES)) {
+    for (const [_name, { areaDensity }] of Object.entries(AREA_DENSITIES)) {
       expect(areaDensity).toBeGreaterThan(0);
     }
   });

@@ -15,10 +15,10 @@ vi.mock('../agents/event-bus.js', () => ({
   eventBus: { emit: vi.fn().mockResolvedValue(undefined), subscribe: vi.fn() },
 }));
 
-import { evaluateGate, shouldNudgeNow, getSignal } from '../agents/signal-catalogue.js';
-import { isPhaseAtLeast, AUTONOMY_PHASE_RANK } from '../agents/autonomy.js';
+import { evaluateGate, getSignal, shouldNudgeNow } from '../agents/signal-catalogue.js';
+import { AUTONOMY_PHASE_RANK, isPhaseAtLeast } from '../agents/autonomy.js';
 import { nudgeService } from '../agents/nudge.service.js';
-import { normalizeAction, handleResponse } from '../agents/nudge-response-handler.js';
+import { handleResponse, normalizeAction } from '../agents/nudge-response-handler.js';
 
 describe('Worth-Interrupting Gate (2x2)', () => {
   it('high confidence + high urgency → act_now', () => {

@@ -107,7 +107,7 @@ export interface TradeProduct {
   // Metadata
   createdAt: Date;
   updatedAt: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // ============================================================================
@@ -190,7 +190,7 @@ export interface ImportShipment {
 
   createdAt: Date;
   updatedAt: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // ============================================================================
@@ -210,5 +210,5 @@ export interface TradeSupplier {
   status: 'active' | 'pending_audit' | 'suspended';
   createdAt: Date;
   updatedAt: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }

@@ -4,11 +4,11 @@
  * API endpoints for managing ERP integrations
  */
 
-import { Router, Request, Response } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { body, param, query, validationResult } from 'express-validator';
 import { ERPIntegrationService } from './service.js';
 import { approvalGate } from './approval-gate.js';
-import { ERPProvider, EntityType } from './types.js';
+import { EntityType, ERPProvider } from './types.js';
 
 const router = Router();
 const erpService = new ERPIntegrationService();
@@ -17,7 +17,7 @@ const erpService = new ERPIntegrationService();
 // Validation Middleware
 // ============================================================================
 
-const validateRequest = (req: Request, res: Response, next: Function) => {
+const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -57,10 +57,10 @@ router.post(
         success: true,
         data: integration,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -88,10 +88,10 @@ router.post(
           connected: isConnected,
         },
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -115,10 +115,10 @@ router.get(
         success: true,
         data: integrations,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -143,7 +143,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const { organizationId, provider, since, requestApproval } = req.body;
-      const userId = (req as any).user?.id || 'system';
+      const userId = req.user?.id || 'system';
 
       // Request approval for sync if required
       if (requestApproval) {
@@ -180,10 +180,10 @@ router.post(
         success: result.success,
         data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -211,10 +211,10 @@ router.post(
         success: result.success,
         data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -242,10 +242,10 @@ router.post(
         success: result.success,
         data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -273,10 +273,10 @@ router.post(
         success: result.success,
         data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -303,10 +303,10 @@ router.get(
         success: true,
         data: pending,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -323,7 +323,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const { requestId } = req.params;
-      const userId = (req as any).user?.id || 'unknown';
+      const userId = req.user?.id || 'unknown';
 
       const request = await approvalGate.approve(requestId, userId);
 
@@ -331,10 +331,10 @@ router.post(
         success: true,
         data: request,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(400).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -352,7 +352,7 @@ router.post(
     try {
       const { requestId } = req.params;
       const { reason } = req.body;
-      const userId = (req as any).user?.id || 'unknown';
+      const userId = req.user?.id || 'unknown';
 
       const request = await approvalGate.reject(requestId, userId, reason);
 
@@ -360,10 +360,10 @@ router.post(
         success: true,
         data: request,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(400).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -393,10 +393,10 @@ router.get(
         success: true,
         data: request,
       });
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -423,10 +423,10 @@ router.get(
         success: true,
         data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -451,15 +451,15 @@ router.post(
           results,
           summary: {
             total: results.length,
-            found: results.filter((r: any) => r.found).length,
-            notFound: results.filter((r: any) => !r.found).length,
+            found: results.filter((r) => r.found).length,
+            notFound: results.filter((r) => !r.found).length,
           },
         },
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -480,10 +480,10 @@ router.get('/registry', async (_req: Request, res: Response) => {
         totalRegistered: companies.length,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: error instanceof Error ? error.message : String(error),
     });
   }
 });
@@ -509,10 +509,10 @@ router.get(
           count: companies.length,
         },
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -549,10 +549,10 @@ router.get(
         success: true,
         data: history,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -577,10 +577,10 @@ router.post(
         success: true,
         message: 'Webhook processed',
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   },

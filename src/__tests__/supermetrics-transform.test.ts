@@ -4,9 +4,9 @@
 
 import { describe, expect, it } from 'vitest';
 import {
-  toSearchConsoleQueries,
-  toContentPerformance,
   DWS_SEO_ICP_PROFILE,
+  toContentPerformance,
+  toSearchConsoleQueries,
 } from '../integrations/supermetrics/transform.js';
 
 describe('toSearchConsoleQueries', () => {

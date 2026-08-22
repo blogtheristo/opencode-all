@@ -5,7 +5,7 @@
  * Validates agent listing, discovery, and execution request validation.
  */
 
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import express from 'express';
 import request from 'supertest';
 
@@ -16,7 +16,6 @@ beforeAll(async () => {
   process.env.NODE_ENV = 'test';
 
   // Import auth service to generate a test token
-  const AuthService = (await import('../../services/auth.service.js')).default;
   const agentRoutes = (await import('../../agents/routes.js')).default;
   const complianceRoutes = (await import('../../routes/compliance.routes.js')).default;
 

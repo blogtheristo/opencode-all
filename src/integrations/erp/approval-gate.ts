@@ -14,7 +14,7 @@
 
 import pino from 'pino';
 import { EventEmitter } from 'events';
-import { ERPProvider, EntityType, SyncResult } from './types.js';
+import { EntityType, type ERPProvider, type SyncResult } from './types.js';
 import emailService from '../../services/email.service.js';
 
 const logger = pino({ name: 'erp-approval-gate' });
@@ -64,7 +64,7 @@ export interface ApprovalRequest {
   };
 
   // Preview data
-  previewData?: any;
+  previewData?: unknown;
 
   // Execution
   executionStartedAt?: Date;
@@ -118,7 +118,7 @@ export class ApprovalGateManager extends EventEmitter {
       estimatedImpact?: string;
       affectedSystems?: string[];
       rollbackPlan?: string;
-      previewData?: any;
+      previewData?: unknown;
     },
   ): Promise<ApprovalRequest> {
     const riskLevel = this.assessRiskLevel(entityType, operationType, details.recordCount);

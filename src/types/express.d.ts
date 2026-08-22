@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import type Stripe from 'stripe';
 
 declare global {
   namespace Express {
@@ -6,11 +6,16 @@ declare global {
       user?: {
         id: string;
         email: string;
-        [key: string]: any;
+        [key: string]: unknown;
       };
       rawBody?: Buffer;
-      stripeEvent?: any;
-      storeWebhookResult?: (result: any) => void;
+      stripeEvent?: Stripe.Event;
+      storeWebhookResult?: (result: unknown) => void;
+      correlationId?: string;
+      timedout?: boolean;
+      webhookEvent?: unknown;
     }
   }
 }
+
+export {};

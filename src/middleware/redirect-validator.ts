@@ -10,7 +10,7 @@
  * Owner: Claude Code
  */
 
-import { type Request, type Response, type NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 
 export class RedirectValidator {
@@ -79,8 +79,8 @@ export class RedirectValidator {
    * Sanitize redirect URL, returning default if unsafe.
    */
   static sanitizeRedirect(url: string | null | undefined, defaultValue = '/'): string {
-    if (this.isSafeRedirect(url)) {
-      return url!;
+    if (url && this.isSafeRedirect(url)) {
+      return url;
     }
     return defaultValue;
   }

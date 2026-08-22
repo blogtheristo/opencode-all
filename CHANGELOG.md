@@ -7,6 +7,40 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- **Code-quality hardening (2026-08-22):**
+  - Logging hygiene: all 186 stray `console.*` calls in `src/` replaced with
+    the pino logger (`src/utils/logger.ts`). Intentional exceptions:
+    `src/cloudflare/**` (edge runtime) and the last-resort stderr fallback in
+    `src/agents/article12-logger.ts`.
+  - ESLint debt eliminated: ~766 warnings → 8 documented exceptions
+    (`no-explicit-any`, `no-non-null-assertion`, `no-unused-vars`,
+    `consistent-type-imports`, `eqeqeq`, `sort-imports`, and the legacy-debt
+    buckets all at zero). Paid-off rules promoted from `warn` to `error` in
+    `eslint.config.mjs`.
+  - Environment config centralized in `src/config/env.ts` (dotenv loads at
+    first import, zod-validated snapshot, `getEnv()` / `refreshEnv()`).
+    Fixes the ES-module import-ordering bug where `auth.service.ts`
+    evaluated before `dotenv.config()` ran — `npm run dev` no longer needs
+    pre-exported env vars.
+
+### Added
+
+- `src/config/env.ts` — centralized zod-validated environment configuration.
+- `docs/backlog/CODE_TODO_LEDGER.md` — triage of all 26 real code TODOs
+  (billing notifications cluster, email-webhook contact lifecycle, ERP sync gaps).
+- `standards/README.md` — index of root-level standard documents (deliberately
+  not relocated; 800+ name references repo-wide).
+
+### Removed
+
+- Dead weight archived to `Archive/deprecated-2026-08/`: `worktrees_OLD/`,
+  `merge_tmp/`, `dws6.com.backup_now/`, duplicate root `Blogisarja_OLD.jpg`,
+  and unused `_OLD` route/service modules (`dashboard.routes_OLD.ts`,
+  `notification.routes_OLD.ts`, `logger.service_OLD.ts`,
+  `upstash-redis.service_OLD.ts`).
+
 ### Added
 
 - OpenCode primary-runtime handoff pack (Phases 1-4): root `opencode.json`

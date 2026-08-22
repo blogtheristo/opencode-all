@@ -18,7 +18,7 @@
  */
 
 import crypto from 'crypto';
-import { calculateCBAM, isCBAMCovered, type CBAMDeclaration, type CBAMCalculationResult, type CBAMImport } from '../compliance/cbam-calculator.js';
+import { calculateCBAM, type CBAMCalculationResult, type CBAMDeclaration, type CBAMImport, isCBAMCovered } from '../compliance/cbam-calculator.js';
 import { CBAM_CERTIFICATE_PRICE_EUR, getFactorsForSector } from '../compliance/emission-factors.js';
 
 export const CALC_VERSION = '1.0.0';

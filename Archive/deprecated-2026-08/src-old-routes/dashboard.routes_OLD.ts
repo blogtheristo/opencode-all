@@ -67,7 +67,11 @@ interface DashboardSummary {
  */
 router.get('/summary', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.userId!;
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
 
     // Fetch usage stats. UsageMeteringService returns:
     //   { tier, tierName, period, usage: { apiCalls, assistantMessages, reportExports }, recentActivity }

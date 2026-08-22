@@ -10,13 +10,14 @@
  */
 
 import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  VismaConfig,
-  SyncResult,
   EntityType,
-  MachineData,
-  OEEMetrics,
+  ERPProvider,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
+  type VismaConfig,
 } from '../types.js';
 
 export class VismaConnector extends BaseERPConnector {
@@ -42,12 +43,13 @@ export class VismaConnector extends BaseERPConnector {
     this.accessToken = response.data.access_token;
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     if (!this.accessToken) {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     config.headers['ipp-company-id'] = this.vismaConfig.companyId;
     return config;
@@ -68,7 +70,7 @@ export class VismaConnector extends BaseERPConnector {
     const operation = this.createSyncOperation('default', EntityType.PRODUCTION_ORDER, 'from_erp');
 
     try {
-      const response = await this.get<any[]>('/controller/api/v1/productionorder');
+      const response = await this.get<unknown[]>('/controller/api/v1/productionorder');
       operation.recordsProcessed = response.length;
       return this.createSyncResult(operation, true);
     } catch (error) {

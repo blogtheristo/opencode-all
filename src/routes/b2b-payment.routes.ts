@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
@@ -139,14 +139,14 @@ router.post('/orders', requireAuth, async (req: Request, res: Response, next: Ne
       return res.status(500).json({ error: 'Failed to fetch product pricing' });
     }
 
-    const products = JSON.parse(await productsData.text());
-    const product = products.find((p: any) => p.id === product_id);
+    const products = JSON.parse(await productsData.text()) as { data?: Array<{ id?: string; price?: number; [key: string]: unknown }> };
+    const product = products.data?.find((p) => p.id === product_id);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const productPriceCents = Math.round(product.price * 100);
+    const productPriceCents = Math.round((product.price as number) * 100);
 
     // Validate deposit doesn't exceed product price
     if (deposit_amount_cents > productPriceCents) {

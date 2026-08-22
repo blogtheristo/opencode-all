@@ -10,7 +10,7 @@
  * Owner: Lifetime Oy
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock node-cron before importing scheduler
 const mockSchedule = vi.fn(() => ({ stop: vi.fn() }));
@@ -37,7 +37,7 @@ vi.mock('../utils/logger.js', () => ({
 }));
 
 describe('MemoryScheduler', () => {
-  let MemoryScheduler: typeof import('../agents/memory.scheduler.js').MemoryScheduler;
+  let MemoryScheduler: typeof MemoryScheduler;
 
   beforeEach(async () => {
     vi.clearAllMocks();

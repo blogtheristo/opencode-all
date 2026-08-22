@@ -95,15 +95,15 @@ router.post(
         usage: response.usage,
         timestamp: new Date().toISOString(),
       });
-    } catch (error: any) {
+    } catch (error) {
       logger.error('Admin support chat error', {
         userId: req.userId,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       });
 
       return res.status(500).json({
         error: 'Admin Support Error',
-        message: error.message || 'Failed to process admin support request',
+        message: error instanceof Error ? error.message : String(error) || 'Failed to process admin support request',
       });
     }
   },

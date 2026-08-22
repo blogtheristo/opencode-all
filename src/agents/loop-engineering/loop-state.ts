@@ -11,10 +11,10 @@
  * are for human review of the running loop.
  */
 
-import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname } from 'path';
 import logger from '../../utils/logger.js';
-import type { LoopStateFile, LoopCycleRecord, CheckerFinding, LoopStatus } from './types.js';
+import type { CheckerFinding, LoopCycleRecord, LoopStateFile, LoopStatus } from './types.js';
 
 const EURO_PER_TOKEN_IN = 0.000003; // ~$3/MTok input (Sonnet-class)
 const EURO_PER_TOKEN_OUT = 0.000015; // ~$15/MTok output

@@ -92,8 +92,8 @@ async function getTodaysUsage(): Promise<DailyUsage | null> {
     }
 
     return result.rows[0] as DailyUsage;
-  } catch (error: any) {
-    logger.error('Exception fetching usage', { error: error.message });
+  } catch (error) {
+    logger.error('Exception fetching usage', { error: error instanceof Error ? error.message : String(error) });
     return null; // Fail-open on exception
   }
 }
@@ -158,8 +158,8 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
     });
 
     return usage;
-  } catch (error: any) {
-    logger.error('Exception tracking usage', { error: error.message });
+  } catch (error) {
+    logger.error('Exception tracking usage', { error: error instanceof Error ? error.message : String(error) });
     return null;
   }
 }
@@ -284,18 +284,22 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
         dailyBudget: DAILY_BUDGET_USD,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     // Rate limit — return friendly message rather than throwing
-    if (error.code === 'RATE_LIMITED') {
-      logger.warn('All providers rate-limited', { message: error.message });
+    const isRateLimited =
+      typeof error === 'object' && error !== null && 'code' in error && (error as { code: unknown }).code === 'RATE_LIMITED';
+    if (isRateLimited) {
+      logger.warn('All providers rate-limited', { message: error instanceof Error ? error.message : String(error) });
       return {
         content:
           "I'm currently rate-limited by my inference providers. Please try again in a minute.",
         model: 'rate-limited',
       };
     }
-    logger.error('Inference error (all providers failed)', { error: error.message });
-    throw new Error(error.message || 'Failed to process message. Please try again.');
+    logger.error('Inference error (all providers failed)', { error: error instanceof Error ? error.message : String(error) });
+    throw new Error(error instanceof Error ? error.message : String(error) || 'Failed to process message. Please try again.', {
+      cause: error,
+    });
   }
 }
 
@@ -368,9 +372,9 @@ async function callInference(
 
   if (rateLimited) {
     const finalError = lastError as Error | null;
-    const err: any = new Error(finalError?.message || 'All providers rate-limited');
-    err.code = 'RATE_LIMITED';
-    throw err;
+    throw Object.assign(new Error(finalError?.message || 'All providers rate-limited'), {
+      code: 'RATE_LIMITED',
+    });
   }
   throw (lastError as Error | null) || new Error('No inference provider available');
 }
@@ -395,7 +399,7 @@ async function callNIM(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const err: any = new Error(
+    const err: Error & { code?: string } = new Error(
       `NVIDIA NIM API error (${response.status}): ${JSON.stringify(errorData)}`,
     );
     if (response.status === 429) err.code = 'RATE_LIMITED';
@@ -437,7 +441,9 @@ async function callGroq(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const err: any = new Error(`Groq API error (${response.status}): ${JSON.stringify(errorData)}`);
+    const err: Error & { code?: string } = new Error(
+      `Groq API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
     if (response.status === 429) err.code = 'RATE_LIMITED';
     else if (response.status >= 500) err.code = 'RETRYABLE';
     throw err;

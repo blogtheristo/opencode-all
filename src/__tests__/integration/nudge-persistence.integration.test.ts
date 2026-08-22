@@ -21,6 +21,7 @@
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { randomUUID } from 'node:crypto';
+import type { getSupabaseClient } from '../../config/supabase.js';
 
 const RUN =
   process.env.ENABLE_SUPABASE_IN_TESTS === 'true' &&
@@ -33,9 +34,9 @@ const ORG = `itest-nudge-${randomUUID()}`;
 describe.skipIf(!RUN)('Nudge persistence (Supabase-backed)', () => {
   // Imported dynamically AFTER the gate so the in-memory suite is unaffected
   // and the module captures a real client at load.
-  let nudgeService: typeof import('../../agents/nudge.service.js').nudgeService;
+  let nudgeService: typeof nudgeService;
   let supabase: NonNullable<
-    ReturnType<typeof import('../../config/supabase.js').getSupabaseClient>
+    ReturnType<typeof getSupabaseClient>
   >;
 
   const base = {

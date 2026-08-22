@@ -13,7 +13,7 @@
  * Owner: Lifetime Oy
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import { gtmEventLogger } from '../services/gtm-event-logger.js';
 import logger from '../utils/logger.js';

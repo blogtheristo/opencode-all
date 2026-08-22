@@ -77,12 +77,12 @@ import { VestaAgent } from './vesta.agent.js';
 // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
 import {
   AIScopingConsultantAgent,
-  DWSDeploymentEngineerAgent,
   ComplianceSpecialistAgent,
+  DevOpsEngineerAgent,
+  DWSDeploymentEngineerAgent,
   EdgeAIEngineerAgent,
   EnterpriseModelEngineerAgent,
   GenAISolutionArchitectAgent,
-  DevOpsEngineerAgent,
   ProjectManagerAgent,
 } from './consultant/index.js';
 import { HelpdeskAgent } from './helpdesk.agent.js';

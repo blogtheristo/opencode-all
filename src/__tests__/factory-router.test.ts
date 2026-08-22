@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import {
-  DEFAULT_FACTORY_CONFIG,
   classifyError,
   computeSignals,
   decide,
+  DEFAULT_FACTORY_CONFIG,
   extractTrajectoryFromBody,
   extractTrajectoryFromMessages,
+  type FactoryRouterConfig,
   freshLadderState,
   interventionProbability,
-  stripSystemReminders,
-  type FactoryRouterConfig,
   type SignalInputs,
+  stripSystemReminders,
   type Trajectory,
 } from '../factory/index.js';
 

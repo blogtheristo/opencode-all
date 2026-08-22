@@ -203,7 +203,7 @@ function meetingPageHtml(roomName: string, jitsiDomain: string): string {
 </html>`;
 }
 
-function lobbyPageHtml(jitsiDomain: string): string {
+function lobbyPageHtml(_jitsiDomain: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

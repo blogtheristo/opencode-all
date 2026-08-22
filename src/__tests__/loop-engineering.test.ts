@@ -7,19 +7,19 @@
  *   #3 budget restore preserves output tokens (EUR-cap integrity)
  */
 
-import { describe, expect, it, afterEach } from 'vitest';
-import { existsSync, rmSync, mkdtempSync } from 'fs';
+import { afterEach, describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import {
-  createInitialState,
-  writeState,
-  readState,
   appendCycle,
+  createInitialState,
   estimateCostEur,
+  readState,
+  writeState,
 } from '../agents/loop-engineering/loop-state.js';
 import { LoopBudget } from '../agents/loop-engineering/loop-budget.js';
-import type { LoopStateFile, LoopCycleRecord } from '../agents/loop-engineering/types.js';
+import type { LoopCycleRecord, LoopStateFile } from '../agents/loop-engineering/types.js';
 
 const tmpFiles: string[] = [];
 

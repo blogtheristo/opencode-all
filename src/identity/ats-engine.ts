@@ -25,10 +25,10 @@ import { z } from 'zod';
 import type {
   ATSBreakdown,
   ATSResult,
-  IdvState,
-  IdvStatus,
   AttestationInput,
   CapabilityManifest,
+  IdvState,
+  IdvStatus,
   IssuedAttestation,
   MandateGateDecision,
   MandateGateRequest,

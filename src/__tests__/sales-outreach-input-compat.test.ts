@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SalesOutreachAgent } from '../agents/sales-outreach.agent.js';
+import type { AgentContext } from '../agents/types.js';
 
 vi.mock('../utils/logger.js', () => ({
   default: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
-const CONTEXT: import('../agents/types.js').AgentContext = {
+const CONTEXT: AgentContext = {
   userId: 'test-user',
   orgId: 'test-org',
   sessionId: 'test-session',

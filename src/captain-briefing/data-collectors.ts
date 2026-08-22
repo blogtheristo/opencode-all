@@ -124,7 +124,7 @@ async function supabaseFetch<T>(path: string): Promise<T | null> {
       return null;
     }
 
-    return response.json() as Promise<T>;
+    return (await response.json()) as T;
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.warn('Captain briefing Supabase fetch error', { path, error: msg });

@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  lookupIndustryProfile,
   computeSectorMetric,
-  safMandatePct,
-  parseGridIntensityResponse,
+  lookupIndustryProfile,
   parseCarbonPriceResponse,
+  parseGridIntensityResponse,
+  safMandatePct,
 } from '../agents/industry-tools.js';
 
 describe('industry_profile_lookup', () => {

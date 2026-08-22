@@ -227,10 +227,12 @@ export async function listContent(
   if (filter.category) items = items.filter((i) => i.category === filter.category);
   if (filter.visibility) items = items.filter((i) => i.visibility === filter.visibility);
   if (filter.regulation_tag) {
-    items = items.filter((i) => i.regulation_tags?.includes(filter.regulation_tag!));
+    const regulationTag = filter.regulation_tag;
+    items = items.filter((i) => i.regulation_tags?.includes(regulationTag));
   }
   if (filter.custom_tag) {
-    items = items.filter((i) => i.custom_tags?.includes(filter.custom_tag!));
+    const customTag = filter.custom_tag;
+    items = items.filter((i) => i.custom_tags?.includes(customTag));
   }
   if (filter.search) {
     const q = filter.search.toLowerCase();
@@ -446,7 +448,7 @@ export async function getSharedContent(token: string): Promise<ContentItem | nul
 
       // Security: do not expose all share links (and their tokens) via shared access
       // Only return a sanitized view of the content item without `shared_links`.
-      const { shared_links, ...sanitizedItem } = item;
+      const { shared_links: _shared_links, ...sanitizedItem } = item;
       return sanitizedItem as ContentItem;
     }
   }

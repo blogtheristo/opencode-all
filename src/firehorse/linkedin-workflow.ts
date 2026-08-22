@@ -4,7 +4,8 @@
  */
 
 import { db } from './database';
-import { Lead } from './types';
+import { type Lead } from './types';
+import logger from '../utils/logger.js';
 
 // ============================================================================
 // LINKEDIN CONNECTION WORKFLOW
@@ -36,7 +37,7 @@ export async function markLinkedInRequestSent(
     performed_by: 'Risto',
   });
 
-  console.log(`✅ LinkedIn connection request sent to lead ${lead_id}`);
+  logger.info(`✅ LinkedIn connection request sent to lead ${lead_id}`);
 }
 
 /**
@@ -52,7 +53,7 @@ export async function markLinkedInAccepted(lead_id: string): Promise<void> {
     performed_by: 'System',
   });
 
-  console.log(`✅ LinkedIn connection accepted for lead ${lead_id}`);
+  logger.info(`✅ LinkedIn connection accepted for lead ${lead_id}`);
 }
 
 /**
@@ -70,7 +71,7 @@ export async function sendLinkedInFollowUpDM(
     performed_by: 'Risto',
   });
 
-  console.log(`✅ LinkedIn DM sent to lead ${lead_id}`);
+  logger.info(`✅ LinkedIn DM sent to lead ${lead_id}`);
 }
 
 /**

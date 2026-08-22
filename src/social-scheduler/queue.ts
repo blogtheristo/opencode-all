@@ -40,7 +40,7 @@ async function supabaseFetch<T>(
       return null;
     }
 
-    return response.json() as Promise<T>;
+    return (await response.json()) as T;
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.warn('Social queue Supabase fetch error', { path, error: msg });

@@ -13,14 +13,15 @@
  */
 
 import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  IFSCloudConfig,
-  SyncResult,
   EntityType,
-  IFSAsset,
-  OEEMetrics,
-  MachineData,
+  ERPProvider,
+  type IFSAsset,
+  type IFSCloudConfig,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
 } from '../types.js';
 
 export class IFSCloudConnector extends BaseERPConnector {
@@ -57,7 +58,9 @@ export class IFSCloudConnector extends BaseERPConnector {
     }
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     if (
       !this.accessToken ||
       !this.tokenExpiresAt ||
@@ -66,7 +69,6 @@ export class IFSCloudConnector extends BaseERPConnector {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     return config;
   }
@@ -94,7 +96,7 @@ export class IFSCloudConnector extends BaseERPConnector {
       if (since) {
         params.$filter = `DateModified gt datetime'${since.toISOString()}'`;
       }
-      const response = await this.get<{ value: any[] }>(
+      const response = await this.get<{ value: unknown[] }>(
         '/main/ifsapplications/projection/v1/ShopOrderHandling.svc/ShopOrders',
         { params },
       );
@@ -178,7 +180,7 @@ export class IFSCloudConnector extends BaseERPConnector {
         return this.createSyncResult(operation, true);
       } else {
         // Pull scheduled maintenance from IFS
-        const response = await this.get<{ value: any[] }>(
+        const response = await this.get<{ value: unknown[] }>(
           "/main/ifsapplications/projection/v1/ActiveWorkOrder.svc/WorkOrders?$filter=State eq 'WORKSTARTED' or State eq 'RELEASED'",
         );
 
@@ -196,7 +198,21 @@ export class IFSCloudConnector extends BaseERPConnector {
    */
   async syncAssets(): Promise<IFSAsset[]> {
     try {
-      const response = await this.get<{ value: any[] }>(
+      interface IFSObjectRaw {
+        ObjectId: string;
+        ObjectDescription: string;
+        ObjectType: string;
+        ObjectCategory: string;
+        Manufacturer?: string;
+        ModelDesignation?: string;
+        SerialNo?: string;
+        LocationId: string;
+        OperationalStatus?: string;
+        FunctionalObjectId?: string;
+        MaintenanceOrganization?: string;
+        Criticality?: string;
+      }
+      const response = await this.get<{ value: IFSObjectRaw[] }>(
         '/main/ifsapplications/projection/v1/EquipmentObject.svc/EquipmentObjects',
       );
 
@@ -211,11 +227,11 @@ export class IFSCloudConnector extends BaseERPConnector {
         model: obj.ModelDesignation,
         serialNumber: obj.SerialNo,
         location: obj.LocationId,
-        status: this.mapIFSObjectStatus(obj.OperationalStatus),
+        status: this.mapIFSObjectStatus(obj.OperationalStatus ?? ''),
         functionalObjectId: obj.FunctionalObjectId,
         maintenanceOrganization: obj.MaintenanceOrganization,
         operationalStatus: obj.OperationalStatus,
-        criticality: this.mapCriticality(obj.Criticality),
+        criticality: this.mapCriticality(obj.Criticality ?? 'C'),
       }));
     } catch (error) {
       this.logger.error({ error }, 'Failed to sync assets from IFS');
@@ -224,7 +240,7 @@ export class IFSCloudConnector extends BaseERPConnector {
   }
 
   private mapIFSObjectStatus(status: string): 'operational' | 'maintenance' | 'down' | 'retired' {
-    const statusMap: Record<string, any> = {
+    const statusMap: Record<string, IFSAsset['status']> = {
       INOPERATION: 'operational',
       UNDERMAINTENANCE: 'maintenance',
       OUTOFOPERATION: 'down',
@@ -234,7 +250,7 @@ export class IFSCloudConnector extends BaseERPConnector {
   }
 
   private mapCriticality(criticality: string): 'low' | 'medium' | 'high' | 'critical' {
-    const criticalityMap: Record<string, any> = {
+    const criticalityMap: Record<string, IFSAsset['criticality']> = {
       A: 'critical',
       B: 'high',
       C: 'medium',

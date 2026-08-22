@@ -167,22 +167,24 @@ function toSnakeCaseRow(event: StoredTokenUsageEvent) {
   };
 }
 
-function fromSnakeCaseRow(row: any): StoredTokenUsageEvent {
+type TokenUsageRow = Record<string, unknown>;
+
+function fromSnakeCaseRow(row: TokenUsageRow): StoredTokenUsageEvent {
   return {
-    userId: row.user_id,
-    organizationId: row.organization_id ?? null,
-    eventId: row.event_id ?? undefined,
-    provider: row.provider,
-    product: row.product,
-    model: row.model,
-    promptTokens: row.prompt_tokens,
-    completionTokens: row.completion_tokens,
-    cachedTokens: row.cached_tokens,
+    userId: row.user_id as string,
+    organizationId: (row.organization_id ?? null) as string | null,
+    eventId: (row.event_id ?? undefined) as string | undefined,
+    provider: row.provider as StoredTokenUsageEvent['provider'],
+    product: row.product as StoredTokenUsageEvent['product'],
+    model: row.model as string,
+    promptTokens: row.prompt_tokens as number,
+    completionTokens: row.completion_tokens as number,
+    cachedTokens: row.cached_tokens as number,
     costEur: Number(row.cost_eur),
-    sessionId: row.session_id,
-    taskId: row.task_id,
-    timestamp: row.created_at,
-    dedupeKey: row.dedupe_key,
+    sessionId: row.session_id as string,
+    taskId: row.task_id as string,
+    timestamp: row.created_at as string,
+    dedupeKey: row.dedupe_key as string,
   };
 }
 
@@ -214,7 +216,16 @@ async function getBudgetFromDb(userId: string): Promise<TokenBudget | null> {
     return null;
   }
 
-  let data: any;
+  let data:
+    | {
+        daily_limit_tokens: number;
+        monthly_limit_tokens: number;
+        monthly_limit_eur: number;
+        hard_cap: boolean;
+        notify_thresholds: number[];
+        updated_at: string;
+      }
+    | undefined;
   try {
     const result = await pool.query(
       `SELECT daily_limit_tokens, monthly_limit_tokens, monthly_limit_eur, hard_cap,
@@ -564,6 +575,7 @@ export const tokenUsageService = {
         } catch (err) {
           throw new Error(
             `Failed writing token usage events: ${err instanceof Error ? err.message : String(err)}`,
+            { cause: err },
           );
         }
       }

@@ -9,7 +9,7 @@
  * "ungated" default.
  */
 
-import { describe, it, expect, beforeAll, afterEach } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { context, trace } from '@opentelemetry/api';
 import { AsyncHooksContextManager } from '@opentelemetry/context-async-hooks';
 import {

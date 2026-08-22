@@ -83,7 +83,8 @@ export interface SignalInputs {
 function trailingStreak<T>(items: readonly T[], predicate: (item: T) => boolean): number {
   let streak = 0;
   for (let i = items.length - 1; i >= 0; i--) {
-    if (!predicate(items[i]!)) break;
+    const item = items[i];
+    if (item === undefined || !predicate(item)) break;
     streak += 1;
   }
   return streak;
@@ -109,7 +110,7 @@ function answered(steps: readonly TrajectoryStep[]): TrajectoryStep[] {
  */
 function fileKey(step: TrajectoryStep): string {
   const m = step.argsPreview.match(/"(?:file_path|path|filename|file)"\s*:\s*"([^"]+)"/);
-  return m ? m[1]! : step.argsDigest;
+  return m?.[1] ?? step.argsDigest;
 }
 
 function detectLoops(report: SignalReport, steps: readonly TrajectoryStep[]): void {
@@ -179,8 +180,7 @@ function detectLoops(report: SignalReport, steps: readonly TrajectoryStep[]): vo
  */
 function stepsSinceProgress(steps: readonly TrajectoryStep[]): number {
   let lastProgress = 0;
-  for (let i = 0; i < steps.length; i++) {
-    const step = steps[i]!;
+  for (const [i, step] of steps.entries()) {
     if (step.ok && isExec(step)) lastProgress = i + 1;
   }
   return Math.max(0, steps.length - lastProgress);
@@ -239,7 +239,9 @@ export function computeSignals(trajectory: Trajectory, inputs: SignalInputs): Si
   report.distinctErrorClasses = [
     ...new Set(failures.map((step) => step.errorClass).filter(Boolean)),
   ].sort();
-  if (failures.length > 0) report.lastErrorPreview = failures[failures.length - 1]!.outputPreview;
+  if (failures.length > 0) {
+    report.lastErrorPreview = failures.at(-1)?.outputPreview ?? '';
+  }
 
   const recent = steps.slice(-RECENT_WINDOW);
   if (recent.length > 0) {
@@ -254,7 +256,7 @@ export function computeSignals(trajectory: Trajectory, inputs: SignalInputs): Si
   report.verificationsRun = execs.length;
   report.failedVerifications = execs.filter((step) => !step.ok).length;
   report.consecutiveFailedVerifications = trailingStreak(execs, (step) => !step.ok);
-  report.lastVerificationPassed = execs.length > 0 ? execs[execs.length - 1]!.ok : null;
+  report.lastVerificationPassed = execs.at(-1)?.ok ?? null;
   report.rewriteRetestCycles = rewriteRetestCycles(steps);
   report.stepsSinceProgress = stepsSinceProgress(steps);
   report.recentActions = recent.map(

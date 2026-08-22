@@ -7,23 +7,23 @@
  * broken — which is exactly what they catch.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
 import {
   generateLendingApplicants,
-  HELD_OUT_APPLICANTS,
   hashDataset,
+  HELD_OUT_APPLICANTS,
   type LendingApplicant,
 } from '../synthetic-data/lending-applicants.js';
 import { decideLoan } from '../fairness/financed-decision.js';
 import {
-  measureCounterfactualFairness,
   generateCounterfactual,
+  measureCounterfactualFairness,
 } from '../fairness/counterfactual-fairness.js';
-import { buildFairnessArtifact, artifactContentHash } from '../fairness/fairness-artifact.js';
+import { artifactContentHash, buildFairnessArtifact } from '../fairness/fairness-artifact.js';
 import { emitSignedFairnessReport } from '../fairness/emit-signed-fairness-report.js';
 
 const FIXED_TS = '2026-06-23T00:00:00.000Z';

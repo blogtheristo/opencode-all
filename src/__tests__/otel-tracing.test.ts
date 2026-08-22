@@ -6,7 +6,7 @@
  * OTLP exporter — those are wiring concerns proven by `npm run build`.
  */
 
-import { describe, it, expect, beforeAll, afterEach, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { context, trace } from '@opentelemetry/api';
 import { AsyncHooksContextManager } from '@opentelemetry/context-async-hooks';
 import {
@@ -17,12 +17,12 @@ import {
 
 import {
   currentTraceIds,
+  recordLLMResponse,
   withAgentSpan,
   withLLMSpan,
   withToolSpan,
   withWorkflowSpan,
   withWorkflowStepSpan,
-  recordLLMResponse,
 } from '../observability/tracing.js';
 import { initOtel, isOtelEnabled, shutdownOtel } from '../observability/otel.js';
 

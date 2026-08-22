@@ -184,9 +184,9 @@ class EmailQueueService {
       try {
         await this.redis.xgroup('CREATE', STREAM_KEY, GROUP_NAME, '0', 'MKSTREAM');
         logger.info('Email outbox consumer group created', { group: GROUP_NAME });
-      } catch (err: any) {
+      } catch (err) {
         // BUSYGROUP = group already exists — expected on restart
-        if (!err.message?.includes('BUSYGROUP')) {
+        if (!(err instanceof Error ? err.message : String(err)).includes('BUSYGROUP')) {
           throw err;
         }
       }
@@ -195,8 +195,8 @@ class EmailQueueService {
       try {
         await this.redis.xgroup('CREATE', INBOX_STREAM_KEY, INBOX_GROUP_NAME, '0', 'MKSTREAM');
         logger.info('Email inbox consumer group created', { group: INBOX_GROUP_NAME });
-      } catch (err: any) {
-        if (!err.message?.includes('BUSYGROUP')) {
+      } catch (err) {
+        if (!(err instanceof Error ? err.message : String(err)).includes('BUSYGROUP')) {
           throw err;
         }
       }
@@ -268,9 +268,12 @@ class EmailQueueService {
       });
 
       // Persist to Supabase email_queue for audit
-      await this.logToSupabase(messageId!, email, 'queued');
+      if (!messageId) {
+        throw new Error('Redis XADD returned no message id');
+      }
+      await this.logToSupabase(messageId, email, 'queued');
 
-      return messageId!;
+      return messageId;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Failed to enqueue email — sending directly', { error: msg, to: email.to });
@@ -360,6 +363,8 @@ class EmailQueueService {
    * Process a single stream message: attempt delivery, ACK or retry.
    */
   private async processMessage(id: string, msg: StreamMessage): Promise<void> {
+    const redis = this.redis;
+    if (!redis) return;
     const attempts = parseInt(msg.attempts || '0', 10) + 1;
 
     try {
@@ -380,7 +385,7 @@ class EmailQueueService {
       });
 
       // ACK: remove from pending
-      await this.redis!.xack(STREAM_KEY, GROUP_NAME, id);
+      await redis.xack(STREAM_KEY, GROUP_NAME, id);
 
       // Update Supabase status
       await this.updateSupabaseStatus(id, 'sent');
@@ -403,7 +408,7 @@ class EmailQueueService {
         });
 
         await this.moveToDlq(id, msg, errorMsg);
-        await this.redis!.xack(STREAM_KEY, GROUP_NAME, id);
+        await redis.xack(STREAM_KEY, GROUP_NAME, id);
         await this.updateSupabaseStatus(id, 'failed', errorMsg);
       } else {
         // Increment attempt count for next retry
@@ -418,7 +423,7 @@ class EmailQueueService {
 
         // Update attempt count on the stream entry
         try {
-          await this.redis!.xadd(
+          await redis.xadd(
             STREAM_KEY,
             '*',
             'to',
@@ -439,7 +444,7 @@ class EmailQueueService {
             msg.enqueuedAt,
           );
           // ACK the original (we re-enqueued with updated attempts)
-          await this.redis!.xack(STREAM_KEY, GROUP_NAME, id);
+          await redis.xack(STREAM_KEY, GROUP_NAME, id);
         } catch {
           // If re-enqueue fails, PEL will reclaim the original
         }
@@ -579,7 +584,10 @@ class EmailQueueService {
         subject: email.subject,
       });
 
-      return messageId!;
+      if (!messageId) {
+        throw new Error('Redis XADD returned no message id');
+      }
+      return messageId;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Failed to enqueue inbound email — processing directly', { error: msg });
@@ -666,6 +674,8 @@ class EmailQueueService {
    * Process a single inbound stream message: invoke handler, ACK or DLQ.
    */
   private async processInboundMessage(id: string, fields: Record<string, string>): Promise<void> {
+    const redis = this.redis;
+    if (!redis) return;
     const attempts = parseInt(fields.attempts || '0', 10) + 1;
 
     const email: InboundEmail = {
@@ -685,7 +695,7 @@ class EmailQueueService {
       }
 
       // ACK: remove from pending
-      await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+      await redis.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
 
       logger.info('Inbound email processed from inbox stream', {
         messageId: id,
@@ -706,7 +716,7 @@ class EmailQueueService {
 
         // Move to inbox DLQ
         try {
-          await this.redis!.xadd(
+          await redis.xadd(
             INBOX_DLQ_KEY,
             '*',
             'originalId',
@@ -732,7 +742,7 @@ class EmailQueueService {
           logger.error('Failed to write inbound to DLQ', { error: (dlqErr as Error).message });
         }
 
-        await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+        await redis.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
       } else {
         logger.warn('Inbound email processing failed — will retry', {
           messageId: id,
@@ -742,7 +752,7 @@ class EmailQueueService {
         });
 
         try {
-          await this.redis!.xadd(
+          await redis.xadd(
             INBOX_STREAM_KEY,
             '*',
             'from',
@@ -766,7 +776,7 @@ class EmailQueueService {
             'receivedAt',
             new Date().toISOString(),
           );
-          await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+          await redis.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
         } catch (requeueErr) {
           const requeueError = requeueErr instanceof Error ? requeueErr.message : 'Unknown error';
           logger.error('Failed to requeue inbound email for retry', {

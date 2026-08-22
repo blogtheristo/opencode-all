@@ -4,9 +4,9 @@
  * Integration with Worldfavor for ESG data collection and sustainability reporting
  */
 
-import axios, { AxiosInstance } from 'axios';
+import axios, { type AxiosInstance } from 'axios';
 import pino from 'pino';
-import { ESGProvider, ESGIntegrationConfig, CarbonEmissionData, SustainabilityReport } from './types';
+import { type CarbonEmissionData, type ESGIntegrationConfig, type SustainabilityReport } from './types';
 
 const logger = pino({ name: 'worldfavor-connector' });
 

@@ -15,7 +15,7 @@ import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
 import { MCPToolRegistry, ToolColor } from '../mcp/security/tool-colors.js';
 import { authorizeToolCall } from '../security/runtime-auth.js';
-import { currentTraceIds, withToolSpan, type KYAVerdict } from '../observability/tracing.js';
+import { currentTraceIds, type KYAVerdict, withToolSpan } from '../observability/tracing.js';
 import type { AgentContext, ToolCall, ToolDefinition, ToolResult } from './types.js';
 
 // ============ TOOL EXECUTOR ============

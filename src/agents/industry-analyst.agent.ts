@@ -27,8 +27,8 @@ import type { AgentContext, AgentResponse } from './types.js';
 import {
   getIndustryById,
   getIndustryByName,
-  industriesWithoutDedicatedAgent,
   INDUSTRIES_SERVED_TOTAL,
+  industriesWithoutDedicatedAgent,
   type IndustryProfile,
 } from './data/industry-registry.js';
 
@@ -128,7 +128,7 @@ export class IndustryAnalystAgent extends BaseAgent {
     });
 
     // Delegate to the compliance agent for the regulatory base score, like the pantheon does.
-    let complianceResult: AgentResponse | null = null;
+    let complianceResult: AgentResponse | null;
     try {
       const { agentRegistry } = await import('./index.js');
       complianceResult = await agentRegistry.executeAgent('compliance', context, {

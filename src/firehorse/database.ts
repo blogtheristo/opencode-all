@@ -5,13 +5,15 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { type EmailTemplate, EventType, type Lead, type LeadState, type ReplyIntent, type TaskType } from './types';
+import logger from '../utils/logger.js';
 
 // ============================================================================
 // DATABASE CLIENT
 // ============================================================================
 
 class FirehorseDatabase {
-  private supabase: SupabaseClient;
+  /** Public so webhook routes can reuse the shared client (lazy Proxy singleton). */
+  readonly supabase: SupabaseClient;
 
   constructor() {
     const supabaseUrl = process.env.SUPABASE_URL;
@@ -36,7 +38,7 @@ class FirehorseDatabase {
       .single();
 
     if (error) {
-      console.error('Error fetching lead:', error);
+      logger.error('Error fetching lead:', error);
       return null;
     }
 
@@ -50,7 +52,7 @@ class FirehorseDatabase {
       .limit(limit);
 
     if (error) {
-      console.error('Error fetching new leads:', error);
+      logger.error('Error fetching new leads:', error);
       return [];
     }
 
@@ -61,7 +63,7 @@ class FirehorseDatabase {
     const { data, error } = await this.supabase.from('firehorse_cold2_candidates').select('*');
 
     if (error) {
-      console.error('Error fetching Cold 2 candidates:', error);
+      logger.error('Error fetching Cold 2 candidates:', error);
       return [];
     }
 
@@ -72,7 +74,7 @@ class FirehorseDatabase {
     const { data, error } = await this.supabase.from('firehorse_cold3_candidates').select('*');
 
     if (error) {
-      console.error('Error fetching Cold 3 candidates:', error);
+      logger.error('Error fetching Cold 3 candidates:', error);
       return [];
     }
 
@@ -145,7 +147,7 @@ class FirehorseDatabase {
   async createEvent(params: {
     lead_id: string;
     event_type: EventType;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }): Promise<void> {
     const { lead_id, event_type, metadata = {} } = params;
 
@@ -196,7 +198,7 @@ class FirehorseDatabase {
       .single();
 
     if (error) {
-      console.error('Error fetching template:', error);
+      logger.error('Error fetching template:', error);
       return null;
     }
 
@@ -212,7 +214,7 @@ class FirehorseDatabase {
     });
 
     if (error) {
-      console.error('Error fetching country context:', error);
+      logger.error('Error fetching country context:', error);
       return '';
     }
 
@@ -237,7 +239,7 @@ class FirehorseDatabase {
       .gte('created_at', todayStart.toISOString());
 
     if (error) {
-      console.error('Error fetching today send count:', error);
+      logger.error('Error fetching today send count:', error);
       throw new Error(`Failed to fetch today's send count: ${error.message}`);
     }
 

@@ -492,26 +492,26 @@ function recordToRow(r: NudgeRecord): Record<string, unknown> {
   };
 }
 
-function rowToRecord(row: Record<string, any>): NudgeRecord {
+function rowToRecord(row: Record<string, unknown>): NudgeRecord {
   return {
-    id: row.id,
-    orgId: row.org_id,
-    signalKey: row.signal_key,
-    entityId: row.entity_id,
-    agentName: row.agent_name,
-    recipientRole: row.recipient_role,
-    tier: row.tier,
-    gateDecision: row.gate_decision,
-    channels: row.channels ?? [],
-    status: row.status,
-    subject: row.subject,
-    body: row.body,
-    actionOptions: row.action_options ?? [],
-    createdAt: row.created_at,
-    escalateAt: row.escalate_at,
-    resolvedAt: row.resolved_at ?? undefined,
-    resolution: row.resolution ?? undefined,
-    metadata: row.metadata ?? {},
+    id: String(row.id),
+    orgId: String(row.org_id),
+    signalKey: String(row.signal_key),
+    entityId: String(row.entity_id),
+    agentName: String(row.agent_name),
+    recipientRole: String(row.recipient_role),
+    tier: row.tier as NudgeRecord['tier'],
+    gateDecision: row.gate_decision as NudgeRecord['gateDecision'],
+    channels: (row.channels ?? []) as NudgeRecord['channels'],
+    status: row.status as NudgeRecord['status'],
+    subject: String(row.subject),
+    body: String(row.body),
+    actionOptions: (row.action_options ?? []) as string[],
+    createdAt: String(row.created_at),
+    escalateAt: String(row.escalate_at),
+    resolvedAt: (row.resolved_at ?? undefined) as string | undefined,
+    resolution: (row.resolution ?? undefined) as string | undefined,
+    metadata: (row.metadata ?? {}) as Record<string, unknown>,
   };
 }
 

@@ -10,13 +10,14 @@
  */
 
 import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  Dynamics365Config,
-  SyncResult,
+  type Dynamics365Config,
   EntityType,
-  MachineData,
-  OEEMetrics,
+  ERPProvider,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
 } from '../types.js';
 
 export class Dynamics365Connector extends BaseERPConnector {
@@ -47,7 +48,9 @@ export class Dynamics365Connector extends BaseERPConnector {
     this.tokenExpiresAt = new Date(Date.now() + response.data.expires_in * 1000);
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     if (
       !this.accessToken ||
       !this.tokenExpiresAt ||
@@ -56,7 +59,6 @@ export class Dynamics365Connector extends BaseERPConnector {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     return config;
   }
@@ -85,7 +87,7 @@ export class Dynamics365Connector extends BaseERPConnector {
           ? '/api/v2.0/productionOrders'
           : '/data/ProductionOrders';
 
-      const response = await this.get<{ value: any[] }>(endpoint);
+      const response = await this.get<{ value: unknown[] }>(endpoint);
       operation.recordsProcessed = response.value.length;
 
       return this.createSyncResult(operation, true);
