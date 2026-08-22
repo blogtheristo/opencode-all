@@ -1,0 +1,61 @@
+{
+  "branch": "lsj-blog-langbar",
+  "checks": [
+    {
+      "duration_ms": 3,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 5164,
+      "name": "vitest",
+      "notes": "",
+      "output_sha256": "b84b50939d00b299938ca53e51949f68626d062bccaa0210168df7121b106ceb",
+      "pass": true
+    },
+    {
+      "duration_ms": 16198,
+      "name": "gitleaks-full",
+      "notes": "",
+      "output_sha256": "78666d689050664e5d4e1a360c7ae3dd75190e54b2954218694bae350c1b97ae",
+      "pass": true
+    },
+    {
+      "duration_ms": 403,
+      "name": "npm-audit-root",
+      "notes": "exit=1",
+      "output_sha256": "fa6f7bbc61f0f3b5427cf82103ce212028e67374dff83df7d9ac7d34a759a916",
+      "pass": false
+    },
+    {
+      "duration_ms": 4,
+      "name": "ruff-check",
+      "notes": "",
+      "output_sha256": "9f5928c053a10eb972f7d6721e23a30bf4fd62e209f2fac522d8d0d85b9ca414",
+      "pass": true
+    },
+    {
+      "duration_ms": 4,
+      "name": "ruff-format-check",
+      "notes": "",
+      "output_sha256": "9f5928c053a10eb972f7d6721e23a30bf4fd62e209f2fac522d8d0d85b9ca414",
+      "pass": true
+    }
+  ],
+  "checks_failed": 1,
+  "checks_passed": 5,
+  "checks_total": 6,
+  "commit_sha": "31886d66ddcf04bc80d912961b25ef84c8d8944b",
+  "duration_ms": 21816,
+  "overall_pass": false,
+  "prev_record_hash": "566bd05d61ee85d95adb8e727fb97f12930b6e48d7472528ffa93b6a6106a3e5",
+  "repo": "blogtheristo/dws6",
+  "runner": "admin100@gn100-cb5d",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "6e4ed6bb78579bda831b9d27709d62ea0a1672439ec62185308ab3ec7010d4ac",
+  "trigger_kind": "pre-push",
+  "ts": "2026-08-22T00:54:37Z"
+}
