@@ -21,7 +21,6 @@ import logger from '../utils/logger.js';
 import type { SocialPost } from './types.js';
 
 const LINKEDIN_API_BASE = 'https://api.linkedin.com';
-const LINKEDIN_VERSION = '202401';
 const LINKEDIN_PUBLISH_TIMEOUT_MS = 45_000;
 const LINKEDIN_USERINFO_TIMEOUT_MS = 15_000;
 
