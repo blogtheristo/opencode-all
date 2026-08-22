@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.13
+Version: 3.14
 
 Sessions & Modifications:
+
+- Version: 3.14 | Tool: OpenCode (x-preview-f-free) | Session: meta-whatsapp-catalog / pr-1867 | Date: 22.08.2026 | Changes: Recorded the 2026-08-22 service-account-key hygiene incident and closed the GCR chapter. Findings: a key-shaped file `gcp-sa-key-new.json` was found untracked-but-unignored at repo root; it had been previously tracked and tree-deleted by remediation commit `6a99c3d4a`, but its blob remains reachable in remote branch history — HIC decision (22.08.2026): GCR is no longer used by DWS, so no key-dependent integration exists; rotate/delete the underlying key if it was ever real. Hardened `.gitignore` with `gcp-sa-*.json` and `*sa-key*.json` patterns so no future session can `git add -A` a key file. Re-affirmed v3.0 policy: service-account JSON keys are prohibited (`constraints/iam.disableServiceAccountKeyCreation`); Workload Identity Federation remains the only sanctioned CI auth path for Cloud Run failover/staging deploys. Public information-gap audit recorded at `Admin/PUBLIC_INFO_GAP_AUDIT_2026-08-22.md`.
 
 - Version: 3.13 | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added the DGX Spark OpenCode-primary runtime runbook: OpenCode 1.18.18 with Ollama/open-model routing for normal development and agents, Claude Code as hot standby, Linux PATH handling, MCP gateway virtualenv requirements, the MCP SDK `<2.0.0` compatibility pin, and the intentionally disabled `dws-agents-local` SSE service while port 3001 has no listener. Cross-refs: `opencode.json`, `mcp-servers/cloud-run-gateway/requirements.txt`, V3Thesis §10.30, PHD_FIREHORSE §14.50.
 
@@ -3076,7 +3078,7 @@ The `.gitignore` file contains patterns to prevent sensitive data from being com
 | ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | **Confidential Business Data** | `/confidential/`, `/secrets/`, `/investor-materials/`, `*.confidential.*`, `*-confidential.*` | Internal business documents, investor materials, strategic plans |
 | **Customer Data**              | `/customer-data/`, `/pilot-data/`, `/ncc-data/`, `/t2h-data/`                                 | GDPR-protected customer information and pilot project data       |
-| **API Keys & Credentials**     | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json`                    | API keys, service accounts, local environment secrets            |
+| **API Keys & Credentials**     | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json`, `gcp-sa-*.json`, `*sa-key*.json` | API keys, service accounts, local environment secrets            |
 | **Financial Models**           | `*financial-model*.xlsx`, `*roi-calculator*.xlsx`, `*cap-table*.xlsx`                         | Sensitive financial projections and capitalization data          |
 | **Proprietary Algorithms**     | `/dws-core/proprietary/`, `/algorithms/confidential/`                                         | DWS IQ trade secrets and confidential algorithms                 |
 | **Admin Documentation**        | Admin/, admin/                                                                                | Admin manual, installation guides (ProtonDrive only)             |
