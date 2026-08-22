@@ -245,20 +245,11 @@ describe('errorHandler', () => {
     );
   });
 
-  it('hides message for non-operational 500 errors', () => {
-    const err = Errors.internal('DB password leaked');
-    const req = mockReq();
-    const res = mockRes();
-    const next = vi.fn();
-
-    errorHandler(err, req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(500);
-    const response = (res.json as any).mock.calls[0][0];
-    expect(response.message).toBe('An unexpected error occurred');
-    // Sensitive message should NOT leak
-    expect(response.message).not.toContain('password');
-  });
+  // NOTE (2026-08-22): 'hides message for non-operational 500 errors' and
+  // 'handles plain Error objects as 500' were removed — they failed
+  // intermittently under full-suite parallelism (passed reliably in
+  // isolation). Deterministic replacements live in the
+  // 'errorHandler sanitization (isolated)' block below.
 
   it('includes correlationId from request headers', () => {
     const err = Errors.badRequest('test');
@@ -271,15 +262,42 @@ describe('errorHandler', () => {
     const response = (res.json as any).mock.calls[0][0];
     expect(response.correlationId).toBe('abc-123');
   });
+});
 
-  it('handles plain Error objects as 500', () => {
-    const err = new Error('something unexpected');
-    const req = mockReq();
-    const res = mockRes();
-    const next = vi.fn();
+// ============ errorHandler sanitization (isolated) ============
+// Self-contained mocks created per-test (no shared helpers) so the tests are
+// immune to cross-file mock/env pollution under vitest parallelism.
+describe('errorHandler sanitization (isolated)', () => {
+  const freshMocks = () => ({
+    req: { headers: {}, log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() } },
+    res: {
+      status: vi.fn().mockReturnThis(),
+      json: vi.fn(),
+    },
+    next: vi.fn(),
+  });
 
-    errorHandler(err, req, res, next);
+  it('hides message for non-operational 500 errors', () => {
+    const { req, res, next } = freshMocks();
+    const err = new Error('DB password leaked') as any;
+    err.isOperational = false;
+
+    errorHandler(err as any, req as any, res as any, next);
 
     expect(res.status).toHaveBeenCalledWith(500);
+    expect(next).not.toHaveBeenCalled();
+    const response = res.json.mock.calls[0][0];
+    expect(response.message).toBe('An unexpected error occurred');
+    expect(JSON.stringify(response)).not.toContain('password');
+  });
+
+  it('handles plain Error objects as 500', () => {
+    const { req, res, next } = freshMocks();
+    const err = new Error('something unexpected');
+
+    errorHandler(err, req as any, res as any, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalled();
   });
 });
