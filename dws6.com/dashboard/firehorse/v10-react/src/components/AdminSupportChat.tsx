@@ -69,7 +69,7 @@ export function AdminSupportChat() {
   }
 
   return (
-    <div className="rounded-lg border border-amber-500/30 bg-gray-900/60">
+    <div className="rounded-lg border border-amber-500/30 bg-surface/60">
       <div className="border-b border-amber-500/20 px-4 py-3">
         <h3 className="text-sm font-semibold text-amber-200">Admin Support Chat</h3>
         <p className="mt-1 text-xs text-amber-100/70">Backend-enforced admin/owner access</p>
@@ -84,8 +84,8 @@ export function AdminSupportChat() {
             <div
               className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
                 message.role === 'user'
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-gray-950'
-                  : 'border border-amber-500/20 bg-gray-900 text-gray-100'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-foreground'
+                  : 'border border-amber-500/20 bg-surface text-foreground'
               }`}
             >
               <p className="whitespace-pre-wrap">{message.content}</p>
@@ -112,13 +112,13 @@ export function AdminSupportChat() {
               }
             }}
             placeholder="Ask admin support..."
-            className="flex-1 rounded-lg border border-amber-500/20 bg-gray-900 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="flex-1 rounded-lg border border-amber-500/20 bg-surface px-3 py-2 text-sm text-white placeholder-fg-muted focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-500"
             disabled={loading}
           />
           <button
             onClick={() => void handleSend()}
             disabled={loading || !input.trim()}
-            className="rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-2 text-sm font-medium text-gray-950 transition-colors hover:from-amber-400 hover:to-yellow-400 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:from-amber-400 hover:to-yellow-400 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Send
           </button>

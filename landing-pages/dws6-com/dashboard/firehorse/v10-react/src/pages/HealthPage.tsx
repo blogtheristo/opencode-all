@@ -25,7 +25,7 @@ interface ServiceCheck {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  checking: 'bg-gray-500',
+  checking: 'bg-background0',
   healthy: 'bg-green-500',
   degraded: 'bg-amber-500',
   down: 'bg-red-500',
@@ -114,7 +114,7 @@ export function HealthPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">System Health</h1>
+          <h1 className="text-2xl font-bold text-foreground">System Health</h1>
           <p className={`text-sm font-medium mt-1 ${overallColor}`}>{overallStatus}</p>
         </div>
         <div className="text-right">
@@ -125,7 +125,7 @@ export function HealthPage() {
             Refresh
           </button>
           {lastChecked && (
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-fg-muted mt-1">
               Last checked: {lastChecked.toLocaleTimeString()}
             </p>
           )}
@@ -142,16 +142,16 @@ export function HealthPage() {
                   service.status === 'checking' ? 'animate-pulse' : ''
                 }`} />
                 <div>
-                  <p className="font-medium text-gray-900">{service.name}</p>
-                  <p className="text-xs text-gray-500">{service.endpoint}</p>
+                  <p className="font-medium text-foreground">{service.name}</p>
+                  <p className="text-xs text-fg-muted">{service.endpoint}</p>
                 </div>
               </div>
               <div className="text-right">
                 {service.latencyMs !== undefined && (
-                  <p className="text-sm font-mono text-gray-600">{service.latencyMs}ms</p>
+                  <p className="text-sm font-mono text-fg-muted">{service.latencyMs}ms</p>
                 )}
                 {service.detail && (
-                  <p className="text-xs text-gray-500">{service.detail}</p>
+                  <p className="text-xs text-fg-muted">{service.detail}</p>
                 )}
               </div>
             </div>
@@ -162,27 +162,27 @@ export function HealthPage() {
       {/* Health Details */}
       {healthData && (
         <div className="card">
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">Server Info</h2>
+          <h2 className="text-lg font-semibold text-foreground mb-3">Server Info</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <p className="text-xs text-gray-500">Status</p>
-              <p className="text-sm font-medium text-gray-900">{healthData.status}</p>
+              <p className="text-xs text-fg-muted">Status</p>
+              <p className="text-sm font-medium text-foreground">{healthData.status}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Version</p>
-              <p className="text-sm font-medium text-gray-900">{healthData.version || 'N/A'}</p>
+              <p className="text-xs text-fg-muted">Version</p>
+              <p className="text-sm font-medium text-foreground">{healthData.version || 'N/A'}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Uptime</p>
-              <p className="text-sm font-medium text-gray-900">
+              <p className="text-xs text-fg-muted">Uptime</p>
+              <p className="text-sm font-medium text-foreground">
                 {healthData.uptime
                   ? `${Math.floor(healthData.uptime / 3600)}h ${Math.floor((healthData.uptime % 3600) / 60)}m`
                   : 'N/A'}
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Agents</p>
-              <p className="text-sm font-medium text-gray-900">{healthData.agents ?? 'N/A'}</p>
+              <p className="text-xs text-fg-muted">Agents</p>
+              <p className="text-sm font-medium text-foreground">{healthData.agents ?? 'N/A'}</p>
             </div>
           </div>
         </div>

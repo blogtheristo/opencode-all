@@ -315,13 +315,13 @@ export function EC3DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+    <div className="min-h-dvh bg-background text-foreground p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Page Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-white">EC3 Material Database</h1>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-fg-muted mt-1">
               BuildingTransparency EPD Data &middot; Material Oracle Integration
             </p>
           </div>
@@ -330,10 +330,10 @@ export function EC3DashboardPage() {
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border ${
                 ec3Connected
                   ? 'bg-green-900/40 text-green-300 border-green-700/50'
-                  : 'bg-gray-800 text-gray-400 border-gray-700'
+                  : 'bg-fg-muted/10 text-fg-muted border-border'
               }`}
             >
-              <span className={`w-2 h-2 rounded-full ${ec3Connected ? 'bg-green-400' : 'bg-gray-500'}`} />
+              <span className={`w-2 h-2 rounded-full ${ec3Connected ? 'bg-green-400' : 'bg-background0'}`} />
               {ec3Connected ? 'EC3 Connected' : 'EC3 Offline (Mock Data)'}
             </span>
           </div>
@@ -341,49 +341,49 @@ export function EC3DashboardPage() {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-            <p className="text-sm text-gray-400">Material Categories</p>
+          <div className="bg-surface border border-border rounded-xl p-5">
+            <p className="text-sm text-fg-muted">Material Categories</p>
             <p className="text-3xl font-bold text-white mt-1">{MOCK_CATEGORIES.length}</p>
-            <p className="text-xs text-gray-500 mt-1">{categoriesWithData} with EPD data</p>
+            <p className="text-xs text-fg-muted mt-1">{categoriesWithData} with EPD data</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-            <p className="text-sm text-gray-400">Total EPDs</p>
+          <div className="bg-surface border border-border rounded-xl p-5">
+            <p className="text-sm text-fg-muted">Total EPDs</p>
             <p className="text-3xl font-bold text-white mt-1">{totalEpds.toLocaleString()}</p>
-            <p className="text-xs text-gray-500 mt-1">Nordic + DE geography filter</p>
+            <p className="text-xs text-fg-muted mt-1">Nordic + DE geography filter</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-            <p className="text-sm text-gray-400">High Confidence</p>
+          <div className="bg-surface border border-border rounded-xl p-5">
+            <p className="text-sm text-fg-muted">High Confidence</p>
             <p className="text-3xl font-bold text-green-400 mt-1">{highConfidenceCount}</p>
-            <p className="text-xs text-gray-500 mt-1">of {MOCK_CATEGORIES.length} categories (10+ EPDs)</p>
+            <p className="text-xs text-fg-muted mt-1">of {MOCK_CATEGORIES.length} categories (10+ EPDs)</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-            <p className="text-sm text-gray-400">Data Source</p>
+          <div className="bg-surface border border-border rounded-xl p-5">
+            <p className="text-sm text-fg-muted">Data Source</p>
             <p className="text-lg font-bold text-white mt-1">EC3 openEPD</p>
-            <p className="text-xs text-gray-500 mt-1">buildingtransparency.org</p>
+            <p className="text-xs text-fg-muted mt-1">buildingtransparency.org</p>
           </div>
         </div>
 
         {/* GWP Comparison Chart */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+        <div className="bg-surface border border-border rounded-xl p-5">
           <h2 className="text-lg font-semibold text-white mb-1">GWP by Material Category</h2>
-          <p className="text-xs text-gray-400 mb-4">Median A1-A3 embodied carbon (kgCO2e/kg) &middot; Sorted low to high</p>
+          <p className="text-xs text-fg-muted mb-4">Median A1-A3 embodied carbon (kgCO2e/kg) &middot; Sorted low to high</p>
           <div style={{ height: 320 }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 60 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: '#9ca3af', fontSize: 11 }}
+                  tick={{ fill: 'var(--fg-muted)', fontSize: 11, fontFamily: 'IBM Plex Mono, monospace' }}
                   angle={-35}
                   textAnchor="end"
                   interval={0}
                 />
                 <YAxis
-                  tick={{ fill: '#9ca3af', fontSize: 11 }}
-                  label={{ value: 'kgCO2e/kg', angle: -90, position: 'insideLeft', fill: '#6b7280', fontSize: 11 }}
+                  tick={{ fill: 'var(--fg-muted)', fontSize: 11, fontFamily: 'IBM Plex Mono, monospace' }}
+                  label={{ value: 'kgCO2e/kg', angle: -90, position: 'insideLeft', fill: 'var(--fg-muted)', fontSize: 11 }}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', color: '#f3f4f6' }}
+                  contentStyle={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--foreground)' }}
                   formatter={(value: number | string | undefined, name: string | undefined) => {
                     const labels: Record<string, string> = { median: 'Median', p10: 'P10 (low)', p90: 'P90 (high)' };
                     return [
@@ -407,7 +407,7 @@ export function EC3DashboardPage() {
           </div>
           <div className="flex items-center gap-4 mt-3 justify-center">
             {Object.entries(CONFIDENCE_CONFIG).map(([key, cfg]) => (
-              <div key={key} className="flex items-center gap-1.5 text-xs text-gray-400">
+              <div key={key} className="flex items-center gap-1.5 text-xs text-fg-muted">
                 <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: BAR_COLORS[key] }} />
                 {cfg.label} ({cfg.description})
               </div>
@@ -424,7 +424,7 @@ export function EC3DashboardPage() {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                 confidenceFilter === level
                   ? 'bg-primary-600 text-white'
-                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  : 'bg-fg-muted/10 text-fg-muted hover:bg-fg-muted/20'
               }`}
             >
               {level === 'all' ? 'All Confidence' : `${CONFIDENCE_CONFIG[level].label} (${CONFIDENCE_CONFIG[level].description})`}
@@ -433,10 +433,10 @@ export function EC3DashboardPage() {
         </div>
 
         {/* Category Stats Table */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
-          <div className="p-5 border-b border-gray-800">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
+          <div className="p-5 border-b border-border">
             <h2 className="text-lg font-semibold text-white">Category Statistics</h2>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-fg-muted mt-1">
               GWP A1-A3 per kg &middot; {sorted.length} categories &middot; Click row for details
             </p>
           </div>
@@ -444,31 +444,31 @@ export function EC3DashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-800">
+                <tr className="border-b border-border">
                   <th
-                    className="text-left px-4 py-3 text-gray-400 font-medium cursor-pointer hover:text-gray-200"
+                    className="text-left px-4 py-3 text-fg-muted font-medium cursor-pointer hover:text-foreground"
                     onClick={() => handleSort('materialName')}
                   >
                     Material{sortIcon('materialName')}
                   </th>
-                  <th className="text-left px-3 py-3 text-gray-400 font-medium">EC3 Category</th>
+                  <th className="text-left px-3 py-3 text-fg-muted font-medium">EC3 Category</th>
                   <th
-                    className="text-right px-3 py-3 text-gray-400 font-medium cursor-pointer hover:text-gray-200"
+                    className="text-right px-3 py-3 text-fg-muted font-medium cursor-pointer hover:text-foreground"
                     onClick={() => handleSort('epdCount')}
                   >
                     EPDs{sortIcon('epdCount')}
                   </th>
                   <th
-                    className="text-right px-3 py-3 text-gray-400 font-medium cursor-pointer hover:text-gray-200"
+                    className="text-right px-3 py-3 text-fg-muted font-medium cursor-pointer hover:text-foreground"
                     onClick={() => handleSort('gwpMedian')}
                   >
                     Median GWP{sortIcon('gwpMedian')}
                   </th>
-                  <th className="text-right px-3 py-3 text-gray-400 font-medium">P10</th>
-                  <th className="text-right px-3 py-3 text-gray-400 font-medium">P90</th>
-                  <th className="text-right px-3 py-3 text-gray-400 font-medium">Range</th>
+                  <th className="text-right px-3 py-3 text-fg-muted font-medium">P10</th>
+                  <th className="text-right px-3 py-3 text-fg-muted font-medium">P90</th>
+                  <th className="text-right px-3 py-3 text-fg-muted font-medium">Range</th>
                   <th
-                    className="text-center px-3 py-3 text-gray-400 font-medium cursor-pointer hover:text-gray-200"
+                    className="text-center px-3 py-3 text-fg-muted font-medium cursor-pointer hover:text-foreground"
                     onClick={() => handleSort('confidence')}
                   >
                     Confidence{sortIcon('confidence')}
@@ -482,29 +482,29 @@ export function EC3DashboardPage() {
                   return (
                     <Fragment key={cat.category}>
                       <tr
-                        className={`border-b border-gray-800/50 cursor-pointer transition-colors ${
-                          isExpanded ? 'bg-gray-800/40' : 'hover:bg-gray-800/30'
+                        className={`border-b border-border/50 cursor-pointer transition-colors ${
+                          isExpanded ? 'bg-fg-muted/10/40' : 'hover:bg-fg-muted/10/30'
                         }`}
                         onClick={() => setExpandedCategory(isExpanded ? null : cat.category)}
                       >
                         <td className="px-4 py-3">
                           <span className="font-medium text-white">{cat.materialName}</span>
                         </td>
-                        <td className="px-3 py-3 text-gray-400 text-xs font-mono">{cat.category}</td>
-                        <td className="text-right px-3 py-3 tabular-nums text-gray-300">{cat.epdCount.toLocaleString()}</td>
+                        <td className="px-3 py-3 text-fg-muted text-xs font-mono">{cat.category}</td>
+                        <td className="text-right px-3 py-3 tabular-nums text-fg-muted">{cat.epdCount.toLocaleString()}</td>
                         <td className="text-right px-3 py-3 tabular-nums font-medium text-white">
                           {cat.epdCount > 0 ? cat.gwpPerKg.median.toFixed(3) : '-'}
                         </td>
-                        <td className="text-right px-3 py-3 tabular-nums text-gray-400">
+                        <td className="text-right px-3 py-3 tabular-nums text-fg-muted">
                           {cat.epdCount > 0 ? cat.gwpPerKg.p10.toFixed(3) : '-'}
                         </td>
-                        <td className="text-right px-3 py-3 tabular-nums text-gray-400">
+                        <td className="text-right px-3 py-3 tabular-nums text-fg-muted">
                           {cat.epdCount > 0 ? cat.gwpPerKg.p90.toFixed(3) : '-'}
                         </td>
                         <td className="text-right px-3 py-3">
                           {cat.epdCount > 0 ? (
                             <div className="inline-flex items-center gap-1">
-                              <div className="w-16 bg-gray-700 rounded-full h-1.5 relative">
+                              <div className="w-16 bg-fg-muted/20 rounded-full h-1.5 relative">
                                 <div
                                   className="absolute h-1.5 rounded-full bg-primary-500"
                                   style={{
@@ -515,7 +515,7 @@ export function EC3DashboardPage() {
                               </div>
                             </div>
                           ) : (
-                            <span className="text-gray-600">-</span>
+                            <span className="text-fg-muted">-</span>
                           )}
                         </td>
                         <td className="text-center px-3 py-3">
@@ -526,55 +526,55 @@ export function EC3DashboardPage() {
                       </tr>
                       {/* Expanded Detail Row */}
                       {isExpanded && (
-                        <tr className="border-b border-gray-800/50 bg-gray-800/20">
+                        <tr className="border-b border-border/50 bg-fg-muted/10/20">
                           <td colSpan={8} className="px-4 py-4">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div>
-                                <p className="text-xs text-gray-400 mb-2 font-medium">GWP Statistics (kgCO2e/kg)</p>
+                                <p className="text-xs text-fg-muted mb-2 font-medium">GWP Statistics (kgCO2e/kg)</p>
                                 <div className="space-y-1.5 text-xs">
                                   <div className="flex justify-between">
-                                    <span className="text-gray-400">Mean</span>
+                                    <span className="text-fg-muted">Mean</span>
                                     <span className="text-white tabular-nums">{cat.gwpPerKg.mean.toFixed(3)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-400">Median</span>
+                                    <span className="text-fg-muted">Median</span>
                                     <span className="text-white tabular-nums font-medium">{cat.gwpPerKg.median.toFixed(3)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-400">Min</span>
-                                    <span className="text-gray-300 tabular-nums">{cat.gwpPerKg.min.toFixed(3)}</span>
+                                    <span className="text-fg-muted">Min</span>
+                                    <span className="text-fg-muted tabular-nums">{cat.gwpPerKg.min.toFixed(3)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-400">Max</span>
-                                    <span className="text-gray-300 tabular-nums">{cat.gwpPerKg.max.toFixed(3)}</span>
+                                    <span className="text-fg-muted">Max</span>
+                                    <span className="text-fg-muted tabular-nums">{cat.gwpPerKg.max.toFixed(3)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-400">P10 - P90</span>
-                                    <span className="text-gray-300 tabular-nums">{cat.gwpPerKg.p10.toFixed(3)} - {cat.gwpPerKg.p90.toFixed(3)}</span>
+                                    <span className="text-fg-muted">P10 - P90</span>
+                                    <span className="text-fg-muted tabular-nums">{cat.gwpPerKg.p10.toFixed(3)} - {cat.gwpPerKg.p90.toFixed(3)}</span>
                                   </div>
                                 </div>
                               </div>
                               <div>
-                                <p className="text-xs text-gray-400 mb-2 font-medium">Top Manufacturers</p>
+                                <p className="text-xs text-fg-muted mb-2 font-medium">Top Manufacturers</p>
                                 <div className="space-y-1">
                                   {cat.topManufacturers.length > 0 ? cat.topManufacturers.map((m) => (
-                                    <p key={m} className="text-xs text-gray-300">{m}</p>
+                                    <p key={m} className="text-xs text-fg-muted">{m}</p>
                                   )) : (
-                                    <p className="text-xs text-gray-500">No data</p>
+                                    <p className="text-xs text-fg-muted">No data</p>
                                   )}
                                 </div>
                               </div>
                               <div>
-                                <p className="text-xs text-gray-400 mb-2 font-medium">Geography Coverage</p>
+                                <p className="text-xs text-fg-muted mb-2 font-medium">Geography Coverage</p>
                                 <div className="flex flex-wrap gap-1.5">
                                   {cat.geographies.length > 0 ? cat.geographies.map((g) => (
-                                    <span key={g} className="text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded">{g}</span>
+                                    <span key={g} className="text-xs bg-fg-muted/20 text-fg-muted px-2 py-0.5 rounded">{g}</span>
                                   )) : (
-                                    <p className="text-xs text-gray-500">No data</p>
+                                    <p className="text-xs text-fg-muted">No data</p>
                                   )}
                                 </div>
                                 <div className="mt-3">
-                                  <p className="text-xs text-gray-400 mb-1 font-medium">Confidence</p>
+                                  <p className="text-xs text-fg-muted mb-1 font-medium">Confidence</p>
                                   <span className={`text-xs font-medium px-2 py-1 rounded-full border ${cfg.bg} ${cfg.color} ${cfg.border}`}>
                                     {cfg.label} — {cfg.description}
                                   </span>
@@ -593,8 +593,8 @@ export function EC3DashboardPage() {
         </div>
 
         {/* Attribution & Data Source */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
-          <p className="text-xs text-gray-500">
+        <div className="bg-surface/50 border border-border rounded-xl p-4">
+          <p className="text-xs text-fg-muted">
             EPD data provided by Building Transparency EC3 (buildingtransparency.org).
             GWP values normalized to kgCO2e/kg using DWS unit normalization (EN 1991-1-1 density tables).
             Confidence scoring: high (10+ EPDs), medium (3-9 EPDs), low (1-2 EPDs), none (no data).

@@ -300,7 +300,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
     data.erpConnection.type !== 'api';
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4 py-8">
+    <div className="min-h-dvh bg-background flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-lg">
         {/* Header */}
         <div className="text-center mb-6">
@@ -308,18 +308,18 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
             <span className="text-white font-bold text-xl">D</span>
           </div>
           <h1 className="text-xl font-bold text-white">Welcome to DWS IQ 7</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-fg-muted text-sm mt-1">
             Set up your climate intelligence in 3 minutes
           </p>
         </div>
 
         {/* Progress bar */}
         <div className="mb-6">
-          <div className="flex justify-between text-xs text-gray-500 mb-2">
+          <div className="flex justify-between text-xs text-fg-muted mb-2">
             <span>Step {step} of 5</span>
             <span>{Math.round(progressPercent)}%</span>
           </div>
-          <div className="w-full bg-gray-800 rounded-full h-1.5">
+          <div className="w-full bg-fg-muted/10 rounded-full h-1.5">
             <div
               className="bg-blue-500 h-1.5 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${progressPercent}%` }}
@@ -329,7 +329,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
             {STEP_LABELS.map((label, i) => (
               <span
                 key={label}
-                className={`text-xs ${i + 1 <= step ? 'text-blue-400 font-medium' : 'text-gray-600'}`}
+                className={`text-xs ${i + 1 <= step ? 'text-blue-400 font-medium' : 'text-fg-muted'}`}
               >
                 {label}
               </span>
@@ -338,12 +338,12 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
         </div>
 
         {/* Card */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
+        <div className="bg-surface border border-border rounded-2xl p-6 sm:p-8">
           {/* Step 1: Industry Selection */}
           {step === 1 && (
             <div>
               <h2 className="text-lg font-semibold text-white mb-1">Select your industry</h2>
-              <p className="text-sm text-gray-400 mb-5">
+              <p className="text-sm text-fg-muted mb-5">
                 We'll tailor compliance checks to your sector
               </p>
 
@@ -356,7 +356,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     className={`flex items-center gap-2 px-3 py-3 rounded-lg text-left text-sm transition-all ${
                       data.industry === ind.id
                         ? 'bg-blue-600/20 border-2 border-blue-500 text-white'
-                        : 'bg-gray-800 border-2 border-transparent text-gray-300 hover:border-gray-600'
+                        : 'bg-fg-muted/10 border-2 border-transparent text-fg-muted hover:border-border'
                     }`}
                   >
                     <span className="text-lg shrink-0">{ind.icon}</span>
@@ -371,13 +371,13 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
           {step === 2 && (
             <div>
               <h2 className="text-lg font-semibold text-white mb-1">Company details</h2>
-              <p className="text-sm text-gray-400 mb-5">
+              <p className="text-sm text-fg-muted mb-5">
                 Help us calibrate your compliance requirements
               </p>
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="ob-company" className="block text-sm text-gray-300 mb-1">
+                  <label htmlFor="ob-company" className="block text-sm text-fg-muted mb-1">
                     Company name
                   </label>
                   <input
@@ -386,13 +386,13 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     required
                     value={data.companyName}
                     onChange={(e) => setData((prev) => ({ ...prev, companyName: e.target.value }))}
-                    className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2.5 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="e.g. SSAB, Outokumpu, YIT"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Company size</label>
+                  <label className="block text-sm text-fg-muted mb-2">Company size</label>
                   <div className="grid grid-cols-2 gap-2">
                     {COMPANY_SIZES.map((size) => (
                       <button
@@ -402,25 +402,25 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                         className={`px-3 py-3 rounded-lg text-left transition-all ${
                           data.companySize === size.id
                             ? 'bg-blue-600/20 border-2 border-blue-500 text-white'
-                            : 'bg-gray-800 border-2 border-transparent text-gray-300 hover:border-gray-600'
+                            : 'bg-fg-muted/10 border-2 border-transparent text-fg-muted hover:border-border'
                         }`}
                       >
                         <p className="text-sm font-medium">{size.label}</p>
-                        <p className="text-xs text-gray-500">{size.tag}</p>
+                        <p className="text-xs text-fg-muted">{size.tag}</p>
                       </button>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="ob-country" className="block text-sm text-gray-300 mb-1">
+                  <label htmlFor="ob-country" className="block text-sm text-fg-muted mb-1">
                     Country
                   </label>
                   <select
                     id="ob-country"
                     value={data.country}
                     onChange={(e) => setData((prev) => ({ ...prev, country: e.target.value }))}
-                    className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2.5 bg-fg-muted/10 border border-border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select country</option>
                     {COUNTRIES.map((c) => (
@@ -432,7 +432,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                 </div>
 
                 <div>
-                  <label htmlFor="ob-revenue" className="block text-sm text-gray-300 mb-1">
+                  <label htmlFor="ob-revenue" className="block text-sm text-fg-muted mb-1">
                     Annual revenue (optional)
                   </label>
                   <select
@@ -441,7 +441,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     onChange={(e) =>
                       setData((prev) => ({ ...prev, annualRevenue: e.target.value }))
                     }
-                    className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2.5 bg-fg-muted/10 border border-border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Prefer not to say</option>
                     <option value="under-1m">Under €1M</option>
@@ -460,7 +460,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
           {step === 3 && (
             <div>
               <h2 className="text-lg font-semibold text-white mb-1">Connect your ERP</h2>
-              <p className="text-sm text-gray-400 mb-5">
+              <p className="text-sm text-fg-muted mb-5">
                 AI-amplified data collection from your business systems
               </p>
 
@@ -473,18 +473,18 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all ${
                       data.erpConnection?.type === erp.id
                         ? 'bg-blue-600/20 border-2 border-blue-500 text-white'
-                        : 'bg-gray-800 border-2 border-transparent text-gray-300 hover:border-gray-600'
+                        : 'bg-fg-muted/10 border-2 border-transparent text-fg-muted hover:border-border'
                     }`}
                   >
                     <div className="text-left">
                       <span className="text-sm font-medium block">{erp.label}</span>
-                      <span className="text-xs text-gray-500">{erp.desc}</span>
+                      <span className="text-xs text-fg-muted">{erp.desc}</span>
                     </div>
                     <span
                       className={`w-5 h-5 rounded border-2 flex items-center justify-center text-xs transition-all ${
                         data.erpConnection?.type === erp.id
                           ? 'bg-blue-500 border-blue-500 text-white'
-                          : 'border-gray-600'
+                          : 'border-border'
                       }`}
                     >
                       {data.erpConnection?.type === erp.id && '✓'}
@@ -495,11 +495,11 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
 
               {/* ERP configuration fields (shown when ERP type selected) */}
               {needsErpHost && (
-                <div className="space-y-3 mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                <div className="space-y-3 mt-4 p-4 bg-fg-muted/10/50 rounded-lg border border-border">
                   <h3 className="text-sm font-medium text-white">Connection details</h3>
 
                   <div>
-                    <label htmlFor="erp-host" className="block text-xs text-gray-400 mb-1">
+                    <label htmlFor="erp-host" className="block text-xs text-fg-muted mb-1">
                       API endpoint
                     </label>
                     <input
@@ -508,19 +508,19 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                       value={data.erpConnection?.host || ''}
                       onChange={(e) => updateErpField('host', e.target.value)}
                       placeholder="https://your-erp.example.com/api"
-                      className="w-full px-3 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 bg-surface border border-border rounded-lg text-white text-sm placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="erp-auth" className="block text-xs text-gray-400 mb-1">
+                    <label htmlFor="erp-auth" className="block text-xs text-fg-muted mb-1">
                       Authentication
                     </label>
                     <select
                       id="erp-auth"
                       value={data.erpConnection?.authMethod || 'api-key'}
                       onChange={(e) => updateErpField('authMethod', e.target.value)}
-                      className="w-full px-3 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 bg-surface border border-border rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       {AUTH_METHODS.map((m) => (
                         <option key={m.id} value={m.id}>
@@ -531,7 +531,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                   </div>
 
                   <div>
-                    <label htmlFor="erp-tenant" className="block text-xs text-gray-400 mb-1">
+                    <label htmlFor="erp-tenant" className="block text-xs text-fg-muted mb-1">
                       Tenant ID (optional)
                     </label>
                     <input
@@ -540,7 +540,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                       value={data.erpConnection?.tenantId || ''}
                       onChange={(e) => updateErpField('tenantId', e.target.value)}
                       placeholder="your-tenant-id"
-                      className="w-full px-3 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 bg-surface border border-border rounded-lg text-white text-sm placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
@@ -548,7 +548,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     type="button"
                     onClick={testErpConnection}
                     disabled={erpTesting || !data.erpConnection?.host}
-                    className="w-full py-2 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-700/50 text-white text-sm font-medium rounded-lg transition-colors"
+                    className="w-full py-2 bg-fg-muted/20 hover:bg-fg-muted disabled:bg-fg-muted/20/50 text-white text-sm font-medium rounded-lg transition-colors"
                   >
                     {erpTesting ? 'Testing connection...' : 'Test Connection'}
                   </button>
@@ -568,8 +568,8 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
               )}
 
               {data.erpConnection?.type === 'manual' && (
-                <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-                  <p className="text-xs text-gray-400">
+                <div className="mt-4 p-4 bg-fg-muted/10/50 rounded-lg border border-border">
+                  <p className="text-xs text-fg-muted">
                     You can upload Excel/CSV files or enter data manually in the dashboard. ERP
                     integration can be configured later in Settings.
                   </p>
@@ -582,7 +582,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
           {step === 4 && (
             <div>
               <h2 className="text-lg font-semibold text-white mb-1">Regulatory focus</h2>
-              <p className="text-sm text-gray-400 mb-5">
+              <p className="text-sm text-fg-muted mb-5">
                 Which EU regulations apply to your business?
               </p>
 
@@ -595,12 +595,12 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     className={`px-3 py-3 rounded-lg text-left transition-all ${
                       data.regulations.includes(reg.id)
                         ? 'bg-blue-600/20 border-2 border-blue-500 text-white'
-                        : 'bg-gray-800 border-2 border-transparent text-gray-300 hover:border-gray-600'
+                        : 'bg-fg-muted/10 border-2 border-transparent text-fg-muted hover:border-border'
                     }`}
                   >
                     <p className="text-sm font-bold">{reg.label}</p>
-                    <p className="text-xs text-gray-400 leading-tight">{reg.desc}</p>
-                    <p className="text-xs text-gray-600 mt-1">Due: {reg.deadline}</p>
+                    <p className="text-xs text-fg-muted leading-tight">{reg.desc}</p>
+                    <p className="text-xs text-fg-muted mt-1">Due: {reg.deadline}</p>
                   </button>
                 ))}
               </div>
@@ -611,20 +611,20 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
           {step === 5 && (
             <form onSubmit={handleFinish}>
               <h2 className="text-lg font-semibold text-white mb-1">Your Baseline Assessment</h2>
-              <p className="text-sm text-gray-400 mb-5">Here's your compliance starting point</p>
+              <p className="text-sm text-fg-muted mb-5">Here's your compliance starting point</p>
 
               {reportLoading ? (
                 <div className="text-center py-12">
                   <div className="inline-block w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-3" />
-                  <p className="text-sm text-gray-400">Analyzing your compliance profile...</p>
+                  <p className="text-sm text-fg-muted">Analyzing your compliance profile...</p>
                 </div>
               ) : baselineReport ? (
                 <div className="space-y-4">
                   {/* Score */}
-                  <div className="text-center p-4 bg-gray-800/50 rounded-lg">
+                  <div className="text-center p-4 bg-fg-muted/10/50 rounded-lg">
                     <div className="text-4xl font-bold text-white mb-1">
                       {baselineReport.overallScore}
-                      <span className="text-lg text-gray-500">/100</span>
+                      <span className="text-lg text-fg-muted">/100</span>
                     </div>
                     <p className="text-sm text-yellow-400">
                       Gaps identified — typical for new accounts
@@ -636,7 +636,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     {baselineReport.regulationGaps.map((gap) => (
                       <div
                         key={gap.regulationId}
-                        className="flex items-center justify-between px-3 py-2 bg-gray-800 rounded-lg"
+                        className="flex items-center justify-between px-3 py-2 bg-fg-muted/10 rounded-lg"
                       >
                         <div>
                           <span className="text-sm font-medium text-white">{gap.regulation}</span>
@@ -650,43 +650,43 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                             {gap.gapCount} gaps
                           </span>
                         </div>
-                        <span className="text-xs text-gray-500">Due {gap.nextDeadline}</span>
+                        <span className="text-xs text-fg-muted">Due {gap.nextDeadline}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Summary */}
-                  <div className="bg-gray-800/50 rounded-lg p-4">
+                  <div className="bg-fg-muted/10/50 rounded-lg p-4">
                     <h3 className="text-sm font-medium text-white mb-2">Setup summary</h3>
-                    <div className="text-xs text-gray-400 space-y-1">
+                    <div className="text-xs text-fg-muted space-y-1">
                       <p>
                         Industry:{' '}
-                        <span className="text-gray-200">
+                        <span className="text-foreground">
                           {INDUSTRIES.find((i) => i.id === data.industry)?.label || '-'}
                         </span>
                       </p>
                       <p>
-                        Company: <span className="text-gray-200">{data.companyName || '-'}</span>
+                        Company: <span className="text-foreground">{data.companyName || '-'}</span>
                       </p>
                       <p>
                         Size:{' '}
-                        <span className="text-gray-200">
+                        <span className="text-foreground">
                           {COMPANY_SIZES.find((s) => s.id === data.companySize)?.label || '-'}
                         </span>
                       </p>
                       <p>
-                        Country: <span className="text-gray-200">{data.country || '-'}</span>
+                        Country: <span className="text-foreground">{data.country || '-'}</span>
                       </p>
                       <p>
                         ERP:{' '}
-                        <span className="text-gray-200">
+                        <span className="text-foreground">
                           {ERP_SYSTEMS.find((e) => e.id === data.erpConnection?.type)?.label ||
                             'None'}
                         </span>
                       </p>
                       <p>
                         Regulations:{' '}
-                        <span className="text-gray-200">
+                        <span className="text-foreground">
                           {data.regulations
                             .map((r) => REGULATIONS.find((reg) => reg.id === r)?.label)
                             .join(', ') || '-'}
@@ -702,7 +702,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                     </h3>
                     <ul className="space-y-1">
                       {baselineReport.nextSteps.map((s, i) => (
-                        <li key={i} className="text-xs text-gray-300 flex items-start gap-2">
+                        <li key={i} className="text-xs text-fg-muted flex items-start gap-2">
                           <span className="text-blue-500 mt-0.5">→</span>
                           {s}
                         </li>
@@ -729,7 +729,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                 <button
                   type="button"
                   onClick={() => setStep((step - 1) as Step)}
-                  className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
+                  className="text-sm text-fg-muted hover:text-foreground transition-colors"
                 >
                   Back
                 </button>
@@ -737,7 +737,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
                 <button
                   type="button"
                   onClick={onSkip}
-                  className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                  className="text-sm text-fg-muted hover:text-fg-muted transition-colors"
                 >
                   Skip setup
                 </button>
@@ -756,7 +756,7 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
         </div>
 
         {/* Footer */}
-        <p className="text-center text-gray-600 text-xs mt-6">
+        <p className="text-center text-fg-muted text-xs mt-6">
           You can change all settings later in Settings
         </p>
       </div>

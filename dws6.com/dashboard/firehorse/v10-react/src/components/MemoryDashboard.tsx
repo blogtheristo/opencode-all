@@ -246,13 +246,13 @@ export function MemoryDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Agent Memory</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-2xl font-bold text-foreground">Agent Memory</h2>
+          <p className="text-sm text-fg-muted mt-1">
             Confidence decay, audit trail, and memory health
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-fg-muted">
             Updated {lastRefresh.toLocaleTimeString()}
           </span>
           <button onClick={loadStats} className="btn-secondary text-sm">
@@ -327,14 +327,14 @@ function StatCard({
     warning: 'border-amber-200 bg-amber-50',
     danger: 'border-red-200 bg-red-50',
     info: 'border-cyan-200 bg-cyan-50',
-    muted: 'border-gray-200 bg-gray-50',
+    muted: 'border-border bg-background',
   };
 
   return (
     <div className={`rounded-xl border p-4 ${colorMap[color]}`}>
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
-      <p className="text-xs text-gray-500 mt-1">{detail}</p>
+      <p className="text-sm text-fg-muted">{label}</p>
+      <p className="text-2xl font-bold text-foreground mt-1">{value}</p>
+      <p className="text-xs text-fg-muted mt-1">{detail}</p>
     </div>
   );
 }
@@ -342,8 +342,8 @@ function StatCard({
 function DecayCurveChart({ data }: { data: MemoryStats['decayCurve'] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">Confidence Decay Curve</h3>
-      <p className="text-xs text-gray-500 mb-4">
+      <h3 className="text-lg font-semibold text-foreground mb-1">Confidence Decay Curve</h3>
+      <p className="text-xs text-fg-muted mb-4">
         Exponential decay: halfLife=90 days. c(t) = halfLife / (halfLife + t)
       </p>
       <ResponsiveContainer width="100%" height={280}>
@@ -403,7 +403,7 @@ function DecayCurveChart({ data }: { data: MemoryStats['decayCurve'] }) {
 function TypeDistributionChart({ data }: { data: MemoryStats['typeDistribution'] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Memory Type Distribution</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Memory Type Distribution</h3>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>
           <Pie
@@ -438,7 +438,7 @@ function TypeDistributionChart({ data }: { data: MemoryStats['typeDistribution']
               className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: TYPE_COLORS[item.type] || CHART_COLORS.muted }}
             />
-            <span className="text-xs text-gray-600">{item.type}</span>
+            <span className="text-xs text-fg-muted">{item.type}</span>
           </div>
         ))}
       </div>
@@ -449,7 +449,7 @@ function TypeDistributionChart({ data }: { data: MemoryStats['typeDistribution']
 function ConfidenceHistogram({ data }: { data: MemoryStats['confidenceDistribution'] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Confidence Distribution</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Confidence Distribution</h3>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -475,7 +475,7 @@ function ConfidenceHistogram({ data }: { data: MemoryStats['confidenceDistributi
           </Bar>
         </BarChart>
       </ResponsiveContainer>
-      <p className="text-xs text-gray-500 text-center mt-2">
+      <p className="text-xs text-fg-muted text-center mt-2">
         Memories below 0.1 are auto-forgotten by decay scheduler
       </p>
     </div>
@@ -485,7 +485,7 @@ function ConfidenceHistogram({ data }: { data: MemoryStats['confidenceDistributi
 function AccessPatternsChart({ data }: { data: MemoryStats['accessPatterns'] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Memory Operations (7 days)</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Memory Operations (7 days)</h3>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -512,29 +512,29 @@ function AuditTrailTable({ entries }: { entries: AuditEntry[] }) {
       forget: 'bg-red-100 text-red-800',
       extract: 'bg-violet-100 text-violet-800',
     };
-    return colors[op] || 'bg-gray-100 text-gray-800';
+    return colors[op] || 'bg-border text-foreground';
   };
 
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Audit Trail</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Recent Audit Trail</h3>
       {entries.length === 0 ? (
-        <p className="text-sm text-gray-500 text-center py-8">No audit entries yet</p>
+        <p className="text-sm text-fg-muted text-center py-8">No audit entries yet</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-2 px-3 text-gray-500 font-medium">Time</th>
-                <th className="text-left py-2 px-3 text-gray-500 font-medium">Operation</th>
-                <th className="text-left py-2 px-3 text-gray-500 font-medium">Agent</th>
-                <th className="text-left py-2 px-3 text-gray-500 font-medium">Reason</th>
+              <tr className="border-b border-border">
+                <th className="text-left py-2 px-3 text-fg-muted font-medium">Time</th>
+                <th className="text-left py-2 px-3 text-fg-muted font-medium">Operation</th>
+                <th className="text-left py-2 px-3 text-fg-muted font-medium">Agent</th>
+                <th className="text-left py-2 px-3 text-fg-muted font-medium">Reason</th>
               </tr>
             </thead>
             <tbody>
               {entries.map((entry) => (
-                <tr key={entry.id} className="border-b border-gray-100 last:border-0">
-                  <td className="py-2 px-3 text-gray-500 whitespace-nowrap">
+                <tr key={entry.id} className="border-b border-border last:border-0">
+                  <td className="py-2 px-3 text-fg-muted whitespace-nowrap">
                     {new Date(entry.created_at).toLocaleString('en', {
                       month: 'short',
                       day: 'numeric',
@@ -547,10 +547,10 @@ function AuditTrailTable({ entries }: { entries: AuditEntry[] }) {
                       {entry.operation}
                     </span>
                   </td>
-                  <td className="py-2 px-3 text-gray-700 font-mono text-xs">
+                  <td className="py-2 px-3 text-foreground font-mono text-xs">
                     {entry.agent_id}
                   </td>
-                  <td className="py-2 px-3 text-gray-500 text-xs truncate max-w-[200px]">
+                  <td className="py-2 px-3 text-fg-muted text-xs truncate max-w-[200px]">
                     {entry.reason || '-'}
                   </td>
                 </tr>
@@ -569,17 +569,17 @@ function MemoryLoadingSkeleton() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="card animate-pulse">
-            <div className="h-3 bg-gray-200 rounded w-1/2 mb-3"></div>
-            <div className="h-7 bg-gray-200 rounded w-3/4 mb-2"></div>
-            <div className="h-2 bg-gray-200 rounded w-1/3"></div>
+            <div className="h-3 bg-fg-muted/20 rounded w-1/2 mb-3"></div>
+            <div className="h-7 bg-fg-muted/20 rounded w-3/4 mb-2"></div>
+            <div className="h-2 bg-fg-muted/20 rounded w-1/3"></div>
           </div>
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {[...Array(2)].map((_, i) => (
           <div key={i} className="card animate-pulse">
-            <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
-            <div className="h-64 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-fg-muted/20 rounded w-1/3 mb-4"></div>
+            <div className="h-64 bg-fg-muted/20 rounded"></div>
           </div>
         ))}
       </div>

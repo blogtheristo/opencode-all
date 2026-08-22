@@ -341,7 +341,7 @@ const products = [
   {
     name: 'DWS IQ Platform',
     price: '\u20ac4,999',
-    desc: '18+ AI agents for EU compliance automation',
+    desc: '69+ AI agents for EU compliance automation',
     url: 'https://dws10.com/products/dwsiq.html',
     badge: 'Flagship',
   },

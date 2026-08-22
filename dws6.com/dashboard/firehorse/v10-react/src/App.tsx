@@ -5,8 +5,11 @@
 
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { MotionConfig, motion } from 'motion/react';
 import { useAuth } from './hooks/useAuth';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeToggle } from './components/ThemeToggle';
 import { MetricsHeader } from './components/MetricsHeader';
 import { ProjectCard } from './components/ProjectCard';
 import { ClimateAssistant } from './components/ClimateAssistant';
@@ -60,7 +63,7 @@ const NotFoundPage = lazy(() =>
 function PageLoader() {
   return (
     <div className="flex items-center justify-center py-20" role="status" aria-label="Loading page">
-      <div className="animate-pulse text-gray-500">Loading...</div>
+      <div className="animate-pulse text-fg-muted">Loading...</div>
     </div>
   );
 }
@@ -73,8 +76,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-pulse text-gray-500">Loading...</div>
+      <div className="min-h-dvh flex items-center justify-center bg-background">
+        <div className="animate-pulse text-fg-muted">Loading...</div>
       </div>
     );
   }
@@ -91,8 +94,8 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-pulse text-gray-500">Loading...</div>
+      <div className="min-h-dvh flex items-center justify-center bg-background">
+        <div className="animate-pulse text-fg-muted">Loading...</div>
       </div>
     );
   }
@@ -106,23 +109,23 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 
 function DashboardFooter() {
   return (
-    <footer className="mt-12 py-6 border-t border-gray-200">
+    <footer className="mt-12 py-6 border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-fg-muted">
           <p>&copy; 2026 DWS IQ &middot; Climate Intelligence Platform</p>
           <div className="flex items-center gap-4">
             <a
               href="https://dws10.com/get-started/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gray-700"
+              className="hover:text-foreground"
             >
               Documentation
             </a>
-            <a href="/api" className="hover:text-gray-700">
+            <a href="/api" className="hover:text-foreground">
               API
             </a>
-            <a href="https://dws10.com/contact/" className="hover:text-gray-700">
+            <a href="https://dws10.com/contact/" className="hover:text-foreground">
               Support
             </a>
           </div>
@@ -164,8 +167,8 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div className="min-h-dvh bg-background">
+      <header className="bg-surface border-b border-border sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between gap-4">
             <div
@@ -185,8 +188,8 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
                 <span className="text-white font-bold text-lg">D</span>
               </div>
               <div className="min-w-0">
-                <h1 className="text-xl font-bold text-gray-900 leading-tight">DWS IQ Dashboard</h1>
-                <p className="text-xs text-gray-500 leading-tight">Climate Intelligence · V10</p>
+                <h1 className="text-xl font-bold text-foreground leading-tight">DWS IQ Dashboard</h1>
+                <p className="text-xs text-fg-muted leading-tight">Climate Intelligence · V10</p>
               </div>
             </div>
             <div className="hidden md:flex items-center gap-2">
@@ -201,6 +204,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
               </button>
             </div>
             <div className="flex items-center gap-2 shrink-0">
+              <ThemeToggle />
               <div className="hidden md:block">
                 <ProfileMenu user={user} onSignOut={signOut} onNavigate={handleNavigate} />
               </div>
@@ -288,8 +292,8 @@ function DashboardWithPanels() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div className="min-h-dvh bg-background">
+      <header className="bg-surface border-b border-border sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between gap-4">
             <div
@@ -309,8 +313,8 @@ function DashboardWithPanels() {
                 <span className="text-white font-bold text-lg">D</span>
               </div>
               <div className="min-w-0">
-                <h1 className="text-xl font-bold text-gray-900 leading-tight">DWS IQ Dashboard</h1>
-                <p className="text-xs text-gray-500 leading-tight">Climate Intelligence · V10</p>
+                <h1 className="text-xl font-bold text-foreground leading-tight">DWS IQ Dashboard</h1>
+                <p className="text-xs text-fg-muted leading-tight">Climate Intelligence · V10</p>
               </div>
             </div>
             <div className="hidden md:flex items-center gap-2">
@@ -341,13 +345,13 @@ function DashboardWithPanels() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="flex bg-gray-100 rounded-lg p-1">
+              <div className="flex bg-border rounded-lg p-1">
                 <button
                   onClick={() => setViewMode('projects')}
                   className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'projects'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-surface text-foreground shadow-sm'
+                      : 'text-fg-muted hover:text-foreground'
                   }`}
                 >
                   Projects
@@ -356,8 +360,8 @@ function DashboardWithPanels() {
                   onClick={() => setViewMode('insights')}
                   className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
                     viewMode === 'insights'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-surface text-foreground shadow-sm'
+                      : 'text-fg-muted hover:text-foreground'
                   }`}
                 >
                   Insights
@@ -370,6 +374,7 @@ function DashboardWithPanels() {
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
+              <ThemeToggle />
               <div className="hidden md:block">
                 <ProfileMenu user={user} onSignOut={signOut} onNavigate={handleNavigate} />
               </div>
@@ -406,11 +411,11 @@ function DashboardWithPanels() {
               {viewMode === 'projects' ? (
                 <>
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold text-gray-900">
+                    <h2 className="text-lg font-semibold text-foreground">
                       Projects ({projects.length})
                     </h2>
                     <div className="flex items-center gap-2">
-                      <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
+                      <select className="text-sm border border-border rounded-lg bg-surface px-3 py-1.5">
                         <option>All Status</option>
                         <option>Green</option>
                         <option>Amber</option>
@@ -423,25 +428,30 @@ function DashboardWithPanels() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {[...Array(4)].map((_, i) => (
                         <div key={i} className="card animate-pulse">
-                          <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                          <div className="h-20 bg-gray-200 rounded mb-4"></div>
-                          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                          <div className="h-4 bg-fg-muted/20 rounded w-3/4 mb-4"></div>
+                          <div className="h-20 bg-fg-muted/20 rounded mb-4"></div>
+                          <div className="h-4 bg-fg-muted/20 rounded w-1/2"></div>
                         </div>
                       ))}
                     </div>
                   ) : projects.length === 0 ? (
                     <div className="card text-center py-12">
-                      <p className="text-gray-500 mb-4">No projects found</p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-fg-muted mb-4">No projects found</p>
+                      <p className="text-sm text-fg-muted">
                         Connect to Supabase to view your portfolio
                       </p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <motion.div
+                      className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                    >
                       {projects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                       ))}
-                    </div>
+                    </motion.div>
                   )}
                 </>
               ) : (
@@ -465,8 +475,10 @@ function DashboardWithPanels() {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <CommandPalette />
+    <ThemeProvider>
+      <MotionConfig reducedMotion="user">
+        <ErrorBoundary>
+          <CommandPalette />
       <Routes>
         <Route
           path="/login"
@@ -640,7 +652,9 @@ function App() {
           }
         />
       </Routes>
-    </ErrorBoundary>
+      </ErrorBoundary>
+      </MotionConfig>
+    </ThemeProvider>
   );
 }
 

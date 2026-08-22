@@ -130,11 +130,11 @@ const PRIORITY_CONFIG: Record<GapPriority, { badge: string; label: string }> = {
   critical: { badge: 'bg-red-100 text-red-700',      label: 'Critical' },
   high:     { badge: 'bg-orange-100 text-orange-700', label: 'High' },
   medium:   { badge: 'bg-amber-100 text-amber-700',   label: 'Medium' },
-  low:      { badge: 'bg-gray-100 text-gray-600',     label: 'Low' },
+  low:      { badge: 'bg-border text-fg-muted',     label: 'Low' },
 };
 
 const GAP_STATUS_CONFIG: Record<GapStatus, { label: string; cls: string }> = {
-  'open':        { label: 'Open',        cls: 'bg-gray-100 text-gray-500' },
+  'open':        { label: 'Open',        cls: 'bg-border text-fg-muted' },
   'in-progress': { label: 'In Progress', cls: 'bg-blue-100 text-blue-600' },
   'done':        { label: 'Done',        cls: 'bg-emerald-100 text-emerald-600' },
 };
@@ -146,12 +146,12 @@ function PillarRow({ pillar }: { pillar: Pillar }) {
       <span className="text-xl leading-none mt-0.5">{pillar.icon}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
-          <span className="font-semibold text-sm text-gray-900">{pillar.name}</span>
+          <span className="font-semibold text-sm text-foreground">{pillar.name}</span>
           <span className={`inline-block w-2 h-2 rounded-full ${cfg.dot}`} />
-          <span className="text-xs text-gray-500">{cfg.label}</span>
+          <span className="text-xs text-fg-muted">{cfg.label}</span>
         </div>
-        <p className="text-xs text-gray-600 leading-snug">{pillar.detail}</p>
-        <p className="text-xs text-gray-400 mt-0.5 leading-snug">{pillar.meta}</p>
+        <p className="text-xs text-fg-muted leading-snug">{pillar.detail}</p>
+        <p className="text-xs text-fg-muted mt-0.5 leading-snug">{pillar.meta}</p>
       </div>
     </div>
   );
@@ -183,7 +183,7 @@ function GapCard({
   };
 
   return (
-    <div className={`rounded-lg border bg-white p-3 transition-shadow hover:shadow-sm ${gap.status === 'done' ? 'opacity-60' : ''}`}>
+    <div className={`rounded-lg border bg-surface p-3 transition-shadow hover:shadow-sm ${gap.status === 'done' ? 'opacity-60' : ''}`}>
       {/* Top row */}
       <div className="flex items-start gap-2">
         <button
@@ -193,7 +193,7 @@ function GapCard({
               ? 'bg-emerald-500 border-emerald-500 text-white'
               : gap.status === 'in-progress'
               ? 'border-blue-400 bg-blue-50'
-              : 'border-gray-300 bg-white'
+              : 'border-border bg-surface'
           }`}
           title="Cycle status"
         >
@@ -210,10 +210,10 @@ function GapCard({
               {sCfg.label}
             </span>
           </div>
-          <p className={`text-sm font-medium text-gray-800 leading-snug ${gap.status === 'done' ? 'line-through' : ''}`}>
+          <p className={`text-sm font-medium text-foreground leading-snug ${gap.status === 'done' ? 'line-through' : ''}`}>
             {gap.title}
           </p>
-          <p className="text-xs text-gray-500 mt-0.5 leading-snug">{gap.description}</p>
+          <p className="text-xs text-fg-muted mt-0.5 leading-snug">{gap.description}</p>
         </div>
       </div>
 
@@ -229,7 +229,7 @@ function GapCard({
 
         {expanded && (
           <div className="mt-2 relative">
-            <pre className="text-xs bg-gray-50 border border-gray-200 rounded p-2.5 whitespace-pre-wrap leading-relaxed text-gray-700 max-h-40 overflow-y-auto">
+            <pre className="text-xs bg-background border border-border rounded p-2.5 whitespace-pre-wrap leading-relaxed text-foreground max-h-40 overflow-y-auto">
               {gap.prompt}
             </pre>
             <button
@@ -237,7 +237,7 @@ function GapCard({
               className={`absolute top-2 right-2 text-xs px-2 py-0.5 rounded transition-colors ${
                 copied
                   ? 'bg-emerald-100 text-emerald-700'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  : 'bg-surface border border-border text-fg-muted hover:bg-background'
               }`}
             >
               {copied ? '✓ Copied' : 'Copy'}
@@ -266,13 +266,13 @@ export function ClaudeCodePanel() {
   return (
     <div className="card flex flex-col gap-0 p-0 overflow-hidden">
       {/* Panel header */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-3">
+      <div className="bg-gradient-to-r from-surface to-border px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-lg">⚙️</span>
             <div>
               <h3 className="text-sm font-semibold text-white leading-none">Repo Engineering Health</h3>
-              <p className="text-xs text-gray-400 mt-0.5">Claude Code · Five Pillars · Gap Analysis</p>
+              <p className="text-xs text-fg-muted mt-0.5">Claude Code · Five Pillars · Gap Analysis</p>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs">
@@ -289,7 +289,7 @@ export function ClaudeCodePanel() {
       <div className="p-4 overflow-y-auto max-h-[calc(100vh-220px)] flex flex-col gap-5">
         {/* ── Five Pillars ──────────────────────────────────────────── */}
         <section>
-          <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+          <h4 className="text-xs font-semibold text-fg-muted uppercase tracking-wider mb-2">
             Five Pillars
           </h4>
           <div className="flex flex-col gap-2">
@@ -300,7 +300,7 @@ export function ClaudeCodePanel() {
         {/* ── Gap Analysis TODO ──────────────────────────────────────── */}
         <section>
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <h4 className="text-xs font-semibold text-fg-muted uppercase tracking-wider">
               Gap Analysis — ToDo
             </h4>
             <div className="flex items-center gap-1">
@@ -311,7 +311,7 @@ export function ClaudeCodePanel() {
                   className={`text-xs px-2 py-0.5 rounded transition-colors ${
                     filter === f
                       ? 'bg-primary-100 text-primary-700 font-medium'
-                      : 'text-gray-400 hover:text-gray-600'
+                      : 'text-fg-muted hover:text-fg-muted'
                   }`}
                 >
                   {f === 'all' ? 'All' : GAP_STATUS_CONFIG[f].label}
@@ -329,11 +329,11 @@ export function ClaudeCodePanel() {
               />
             ))}
             {filtered.length === 0 && (
-              <p className="text-xs text-gray-400 text-center py-4">No items in this filter</p>
+              <p className="text-xs text-fg-muted text-center py-4">No items in this filter</p>
             )}
           </div>
 
-          <p className="text-xs text-gray-400 mt-3 text-center leading-relaxed">
+          <p className="text-xs text-fg-muted mt-3 text-center leading-relaxed">
             Click checkbox to cycle Open → In Progress → Done.<br />
             Expand any item to copy its Claude Code prompt.
           </p>

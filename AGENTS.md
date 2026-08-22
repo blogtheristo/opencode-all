@@ -768,8 +768,13 @@ cd mcp-hub && python server.py
 
 ### Timeline
 
+> **Stale as of 2026-08-22:** the Feb 23, 2026 launch countdown below predates the
+> launch window and is no longer maintained here. Current roadmap lives in
+> `DWS7_ROADMAP.md` / `DWS8_ROADMAP.md` / `DWS9_ROADMAP.md`. Retained per Rule 12
+> until the V1.0 completion table above is formally retired.
+
 - **Launch Date:** February 23, 2026
-- **Days Remaining:** 51
+- **Days Remaining:** 51 (frozen — countdown expired)
 - **Estimated Work:** 41-56 days
 - **Buffer:** -5 to 10 days
 
@@ -813,22 +818,23 @@ Or source the `.env` file properly in your shell. The `.env.example` has these p
 
 ### Known pre-existing issues
 
-- **TypeScript build (`npm run build`)**: Has pre-existing type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts`. The project uses `tsx watch` for dev, not `tsc`.
+- **TypeScript build (`npm run build`)**: Clean as of 2026-08-22 (`tsc --noEmit` passes; `npm run typecheck`). Earlier type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts` have been resolved.
 - **Dashboard ESLint (`npm run lint` in v10-react)**: Missing `parent-module` transitive dependency from `import-fresh` → ESLint 9.39 issue. Does not affect Vite dev server or build.
+- **Backend ESLint**: Configured as of 2026-08-22 (`eslint.config.mjs`, `npm run lint` / `lint:fix`). Legacy-debt rules run at `warn` so the gate is green while debt is paid down — do not add new errors.
 - **Redis warnings**: Backend logs Redis connection errors at startup (expected without Redis running). The app degrades gracefully.
 - **Supabase "degraded"**: Without real Supabase credentials, `/health` reports degraded status. The server still starts and responds to requests.
 
 ### Tests
 
-Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. 53/56 test files pass; 4 failures are pre-existing in the compliance-agent-integration suite.
+Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. As of 2026-08-22: 100 test files pass (1 skipped), 1154 tests pass (3 skipped) — the previously failing compliance-agent-integration suite has been fixed.
 
 ### Lint
 
-Root backend has `"lint": "echo \"No linter configured\""` — no real linter. Dashboard linting has the upstream dependency issue noted above.
+Root backend now has a real ESLint flat config (`eslint.config.mjs`) — run `npm run lint` / `npm run lint:fix`. Dashboard linting has the upstream dependency issue noted above.
 
 ---
 
-**Document Version:** 1.1  
+**Document Version:** 1.2  
 **Last Updated:** August 22, 2026  
 **Status:** Active  
-**Next Review:** January 10, 2026
+**Next Review:** October 10, 2026

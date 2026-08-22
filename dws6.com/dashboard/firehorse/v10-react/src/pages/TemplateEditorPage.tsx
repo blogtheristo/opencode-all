@@ -156,8 +156,8 @@ export function TemplateEditorPage() {
     <div className="max-w-6xl mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Report Template Editor</h1>
-          <p className="text-gray-500 mt-1">Create and edit Firehorse report templates (EN 15978, RT Card, etc.)</p>
+          <h1 className="text-2xl font-bold text-foreground">Report Template Editor</h1>
+          <p className="text-fg-muted mt-1">Create and edit Firehorse report templates (EN 15978, RT Card, etc.)</p>
         </div>
         <div className="flex gap-2">
           <button type="button" onClick={startCreate} className="btn-primary">
@@ -172,11 +172,11 @@ export function TemplateEditorPage() {
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-4">
           <div className="card p-4">
-            <h2 className="font-semibold text-gray-900 mb-3">Your Templates</h2>
+            <h2 className="font-semibold text-foreground mb-3">Your Templates</h2>
             {loading ? (
-              <div className="text-gray-500">Loading...</div>
+              <div className="text-fg-muted">Loading...</div>
             ) : templates.length === 0 && !createMode ? (
-              <p className="text-gray-500 text-sm">No custom templates yet. Create one to get started.</p>
+              <p className="text-fg-muted text-sm">No custom templates yet. Create one to get started.</p>
             ) : (
               <ul className="space-y-1">
                 {templates.map(t => (
@@ -184,7 +184,7 @@ export function TemplateEditorPage() {
                     <button
                       type="button"
                       onClick={() => selectTemplate(t)}
-                      className={`w-full text-left px-3 py-2 rounded text-sm ${selected?.id === t.id ? 'bg-primary-100 text-primary-800' : 'hover:bg-gray-100'}`}
+                      className={`w-full text-left px-3 py-2 rounded text-sm ${selected?.id === t.id ? 'bg-primary-100 text-primary-800' : 'hover:bg-border'}`}
                     >
                       {t.template_name}
                     </button>
@@ -200,7 +200,7 @@ export function TemplateEditorPage() {
             {(selected || createMode) ? (
               <>
                 <div className="flex justify-between items-center mb-3">
-                  <h2 className="font-semibold text-gray-900">{createMode ? 'New Template' : selected?.template_name}</h2>
+                  <h2 className="font-semibold text-foreground">{createMode ? 'New Template' : selected?.template_name}</h2>
                   <div className="flex gap-2">
                     <button type="button" onClick={handleSave} disabled={saving} className="btn-primary">
                       {saving ? 'Saving...' : 'Save'}
@@ -216,16 +216,16 @@ export function TemplateEditorPage() {
                 <textarea
                   value={jsonText}
                   onChange={e => setJsonText(e.target.value)}
-                  className="w-full h-96 font-mono text-sm p-3 border border-gray-200 rounded bg-gray-50"
+                  className="w-full h-96 font-mono text-sm p-3 border border-border rounded bg-background"
                   placeholder="Template JSON config..."
                   spellCheck={false}
                 />
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-fg-muted mt-2">
                   Follow Firehorse template schema. See Firehorse/templates/template_config.schema.json for reference.
                 </p>
               </>
             ) : (
-              <div className="text-gray-500 py-12 text-center">
+              <div className="text-fg-muted py-12 text-center">
                 Select a template or create a new one.
               </div>
             )}

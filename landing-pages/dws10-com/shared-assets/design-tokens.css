@@ -1,0 +1,61 @@
+/* ============================================
+   DWS IQ — SHARED DESIGN TOKENS
+   Canonical source: /DESIGN_SYSTEM.md v0.1
+   SessionID: dws6-design-system-2026-08-22
+
+   Link this file BEFORE any property-specific CSS.
+   Do NOT redefine palette values in page-level styles.
+   ============================================ */
+
+:root {
+    /* Primary — Gamma Enterprise Blue */
+    --color-accent: #0066cc;
+    --color-accent-dark: #0052a3;
+    --color-primary-50: #eff6fc;
+    --color-primary-100: #d8e9f9;
+    --color-primary-200: #b3d3f2;
+    --color-primary-300: #84b7e9;
+    --color-primary-400: #4d95de;
+    --color-primary-500: #1a77d2;
+    --color-primary-600: #0066cc;
+    --color-primary-700: #0052a3;
+    --color-primary-800: #00407e;
+    --color-primary-900: #002e5c;
+
+    /* Semantic surfaces (light) */
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --foreground: #0f172a;
+    --fg-muted: #64748b;
+    --border-color: #e2e8f0;
+
+    /* Feedback */
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+
+    /* Color-blind-safe chart palette */
+    --chart-1: #0066cc;
+    --chart-2: #e8871a;
+    --chart-3: #58508d;
+    --chart-4: #00a3a3;
+    --chart-5: #bc5090;
+
+    /* Typography — IBM Plex (standard per DESIGN_SYSTEM.md §2) */
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    /* Motion tokens */
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --duration-fast: 150ms;
+    --duration-feedback: 200ms;
+}
+
+/* Dark surfaces — opt-in via html[data-theme="dark"] or .dark */
+.dark {
+    --background: #0b1220;
+    --surface: #101a2c;
+    --foreground: #e5e7eb;
+    --fg-muted: #94a3b8;
+    --border-color: #1e293b;
+}

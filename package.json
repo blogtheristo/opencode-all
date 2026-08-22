@@ -41,7 +41,9 @@
     "build": "tsc -p tsconfig.json",
     "build:whitepapers": "python3 scripts/build-whitepapers.py",
     "sync:landing-pages": "node scripts/sync-landing-pages.js",
-    "lint": "echo \"No linter configured\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "skills:check": "node scripts/skill-manifest-sync.mjs --check && node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code",
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
@@ -88,6 +90,7 @@
     "undici": "7.29.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
@@ -102,11 +105,14 @@
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
     "@vitest/ui": "^4.1.9",
+    "eslint": "^10.9.0",
+    "globals": "^17.11.0",
     "jsdom": "^29.1.1",
     "supabase": "^2.95.5",
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.6.3",
+    "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.9"
   }
 }

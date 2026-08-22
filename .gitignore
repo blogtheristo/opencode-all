@@ -213,3 +213,9 @@ opencode.json.save
 .copilot-worktrees/
 .claude/archive/
 config/blog-facebook-pool.json
+
+# housekeeping 2026-08-22
+result.txt
+*.save
+.ci-audit/
+__pycache__/

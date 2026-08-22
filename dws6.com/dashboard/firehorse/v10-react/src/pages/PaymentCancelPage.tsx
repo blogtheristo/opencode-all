@@ -24,14 +24,14 @@ export function PaymentCancelPage() {
   const planLabel = plan ? PLAN_LABELS[plan] || plan : '';
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-background flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         {/* Cancel card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div className="bg-surface rounded-2xl shadow-lg p-8 text-center">
           {/* Icon */}
-          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-border flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-gray-400"
+              className="w-8 h-8 text-fg-muted"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -46,18 +46,18 @@ export function PaymentCancelPage() {
             </svg>
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Payment Cancelled</h1>
-          <p className="text-gray-500 mb-2">
+          <h1 className="text-2xl font-bold text-foreground mb-2">Payment Cancelled</h1>
+          <p className="text-fg-muted mb-2">
             No charges were made.
             {planLabel && (
               <>
                 {' '}
-                Your <span className="font-medium text-gray-700">{planLabel}</span> upgrade was not
+                Your <span className="font-medium text-foreground">{planLabel}</span> upgrade was not
                 processed.
               </>
             )}
           </p>
-          <p className="text-sm text-gray-400 mb-8">
+          <p className="text-sm text-fg-muted mb-8">
             You can upgrade any time from the Billing page.
           </p>
 
@@ -77,11 +77,11 @@ export function PaymentCancelPage() {
         </div>
 
         {/* Support note */}
-        <p className="text-center text-xs text-gray-400 mt-4">
+        <p className="text-center text-xs text-fg-muted mt-4">
           Had trouble?{' '}
           <a
             href="https://dws10.com/contact/"
-            className="underline hover:text-gray-600"
+            className="underline hover:text-fg-muted"
           >
             Contact support
           </a>

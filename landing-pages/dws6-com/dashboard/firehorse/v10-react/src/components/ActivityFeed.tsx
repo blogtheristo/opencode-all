@@ -18,7 +18,7 @@ const TYPE_CONFIG: Record<ActivityItem['type'], { icon: string; color: string }>
   agent_run: { icon: '\u2699', color: 'bg-blue-100 text-blue-700' },
   compliance: { icon: '\u2611', color: 'bg-green-100 text-green-700' },
   report: { icon: '\u{1F4C4}', color: 'bg-purple-100 text-purple-700' },
-  login: { icon: '\u{1F464}', color: 'bg-gray-100 text-gray-600' },
+  login: { icon: '\u{1F464}', color: 'bg-border text-fg-muted' },
   alert: { icon: '\u26A0', color: 'bg-amber-100 text-amber-700' },
 };
 
@@ -88,8 +88,8 @@ export function ActivityFeed() {
   return (
     <div className="card">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-gray-900">Recent Activity</h3>
-        <span className="text-xs text-gray-400">{activities.length} events</span>
+        <h3 className="text-sm font-semibold text-foreground">Recent Activity</h3>
+        <span className="text-xs text-fg-muted">{activities.length} events</span>
       </div>
 
       <div className="space-y-1">
@@ -99,19 +99,19 @@ export function ActivityFeed() {
             <div
               key={item.id}
               className={`flex items-start gap-3 py-2 ${
-                idx < activities.length - 1 ? 'border-b border-gray-100' : ''
+                idx < activities.length - 1 ? 'border-b border-border' : ''
               }`}
             >
               <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs shrink-0 ${config.color}`}>
                 {config.icon}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-900 font-medium truncate">{item.title}</p>
+                <p className="text-sm text-foreground font-medium truncate">{item.title}</p>
                 {item.detail && (
-                  <p className="text-xs text-gray-500 truncate">{item.detail}</p>
+                  <p className="text-xs text-fg-muted truncate">{item.detail}</p>
                 )}
               </div>
-              <span className="text-xs text-gray-400 shrink-0 whitespace-nowrap">
+              <span className="text-xs text-fg-muted shrink-0 whitespace-nowrap">
                 {timeAgo(item.timestamp)}
               </span>
             </div>

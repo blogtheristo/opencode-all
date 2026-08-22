@@ -87,10 +87,10 @@ export function PaymentSuccessPage() {
   }, [session?.user?.id, plan]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-background flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         {/* Success card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div className="bg-surface rounded-2xl shadow-lg p-8 text-center">
           {/* Icon */}
           <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
             <svg
@@ -109,8 +109,8 @@ export function PaymentSuccessPage() {
             </svg>
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Payment Successful</h1>
-          <p className="text-gray-500 mb-6">
+          <h1 className="text-2xl font-bold text-foreground mb-2">Payment Successful</h1>
+          <p className="text-fg-muted mb-6">
             You are now on the <span className="font-semibold text-primary-700">{planLabel}</span>{' '}
             plan.
           </p>
@@ -118,7 +118,7 @@ export function PaymentSuccessPage() {
           {/* Subscription status indicator */}
           <div className="mb-6">
             {polling && !confirmed ? (
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center justify-center gap-2 text-sm text-fg-muted">
                 <div className="w-3 h-3 rounded-full border-2 border-primary-500 border-t-transparent animate-spin" />
                 Activating subscription…
               </div>
@@ -128,20 +128,20 @@ export function PaymentSuccessPage() {
                 Subscription active
               </div>
             ) : (
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-fg-muted">
                 Subscription activating — this may take a few minutes.
               </div>
             )}
           </div>
 
           {/* Plan features summary */}
-          <div className="bg-gray-50 rounded-xl p-4 mb-6 text-left">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+          <div className="bg-background rounded-xl p-4 mb-6 text-left">
+            <p className="text-xs font-semibold text-fg-muted uppercase tracking-wide mb-3">
               Your {planLabel} plan includes
             </p>
             <ul className="space-y-2">
               {features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-gray-700">
+                <li key={f} className="flex items-start gap-2 text-sm text-foreground">
                   <svg
                     className="w-4 h-4 text-green-500 mt-0.5 shrink-0"
                     fill="none"
@@ -178,11 +178,11 @@ export function PaymentSuccessPage() {
         </div>
 
         {/* Support note */}
-        <p className="text-center text-xs text-gray-400 mt-4">
+        <p className="text-center text-xs text-fg-muted mt-4">
           Questions?{' '}
           <a
             href="https://dws10.com/contact/"
-            className="underline hover:text-gray-600"
+            className="underline hover:text-fg-muted"
           >
             Contact support
           </a>
