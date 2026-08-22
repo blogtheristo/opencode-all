@@ -213,7 +213,7 @@ This document defines the handover package from the development team (Lifetime O
 | Google Gemini | Outbound | REST API | Active | `src/` |
 | Groq API | Outbound | REST API | Active | `src/` |
 | Cloudflare Workers | Bidirectional | HTTP/Edge | Active | `dws10.com/`, `dws6.com/` |
-| Resend (Email) | Outbound | REST API | Active | `src/` |
+| Amazon SES (Email, SMTP) | Outbound | SMTP | Active | `src/` (Resend banned per LD-2026-008) |
 
 ### 6.2 Connectors Available (Require Customer Configuration)
 

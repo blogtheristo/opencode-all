@@ -11,7 +11,7 @@ VERSION AND AGENT HISTORY
 - Frequency: Weekly (every Friday)
 - Editions: English + Finnish (separate editions)
 - Content: Top 5 posts of the week + 1 product spotlight
-- Transport: Amazon SES (primary) → Resend (fallback)
+- Transport: Amazon SES only (Resend permanently banned — LOCKED_DECISIONS LD-2026-008)
 - Sender: risto@onelifetime.world
 - Subscriber table: newsletter_subscribers (Supabase)
 

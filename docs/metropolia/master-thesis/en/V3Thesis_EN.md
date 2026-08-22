@@ -6,10 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.01
+Version: 4.02
 Sessions & Modifications:
 
-- Version: 4.01 [Latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Added §10.31 (Lifetime Studios — the expertise and content production machine). Implementation-side content per the master-vs-PhD scope rule: the 25 × 5 content matrix (125 core topics), Business Case cards with seven mandatory fields, cross-industry learning, five-language localization (≈4,000 versions), the Outokumpu-model journalistic ground rules, and the self-reinforcing ontology/graph/LWM product model with its explicit boundary. Implementation evidence: `docs/LIFETIME_STUDIOS_ADMIN.md`, `docs/BLOG_STANDARD.md` §15, onelifetime.world publishing engine. Lockstep 4.00->4.01.
+- Version: 4.02 [Latest] | Tool: OpenCode (x-preview-f-free) | Session: pr-1867 admin-docs audit | Date: 22.08.2026 | Changes: Added additive update note to §10.11 intro — email transport originally written as Resend migrated to Amazon SES (SMTP) after the 2026-03-26 incident and LD-2026-008 permanent ban. Original formulation preserved per Rule 12; no structural changes. Lockstep 4.01->4.02.
+
+- Version: 4.01 [not latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Added §10.31 (Lifetime Studios — the expertise and content production machine). Implementation-side content per the master-vs-PhD scope rule: the 25 × 5 content matrix (125 core topics), Business Case cards with seven mandatory fields, cross-industry learning, five-language localization (≈4,000 versions), the Outokumpu-model journalistic ground rules, and the self-reinforcing ontology/graph/LWM product model with its explicit boundary. Implementation evidence: `docs/LIFETIME_STUDIOS_ADMIN.md`, `docs/BLOG_STANDARD.md` §15, onelifetime.world publishing engine. Lockstep 4.00->4.01.
 
 - Version: 4.00 [not latest] | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added §10.30 (OpenCode-primary DGX runtime and MCP boundary). Records the verified OpenCode 1.18.18 + Ollama/open-model development path, Claude Code hot standby, Linux PATH handling, the gateway virtualenv, MCP SDK compatibility pin, and the explicit boundary created by disabling the unavailable port-3001 SSE service. Lockstep 3.99->4.00 with PHD_FIREHORSE §14.50 / Key Contribution #55.
 
@@ -2029,6 +2031,8 @@ The original PR sequence (254→255→256→257→258→259) was reordered based
 _Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig_
 
 Three production AI agents that automate the CEO's daily operational rhythm, fully integrated into the Firehorse platform (GitHub Actions cron, Supabase, Resend).
+
+> **Update (22.08.2026):** The email delivery layer described below as Resend was migrated to Amazon SES (SMTP) after the 2026-03-26 security incident permanently banned Resend (`docs/LOCKED_DECISIONS.md` LD-2026-008). The agents' logic and scheduling are unchanged; only the transport differs from the text as originally written.
 
 ### 10.11.1 Captain Pre-Briefing Agent
 

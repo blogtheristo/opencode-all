@@ -6,10 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.01
+Version: 4.02
 Sessions & Modifications:
 
-- Version: 4.01 [Latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Lisätty §10.31 (Lifetime Studios — asiantuntijuus- ja sisältötuotantokone). Toteutuspuolen sisältö master-vs-PhD-skooppisäännön mukaisesti: 25 × 5 -sisältömatriisi (125 ydinaihetta), Business Case -kortit seitsemällä pakollisella kentällä, ristiinoppiminen, viisikielinen lokalisointi (≈4 000 versiota), Outokumpu-mallin journalistiset reunaehdot ja itsevahvistuva ontologia/graafi/LWM -tuotemalli eksplisiittisine rajoineen. Toteutusnäyttö: `docs/LIFETIME_STUDIOS_ADMIN.md`, `docs/BLOG_STANDARD.md` §15, onelifetime.world-julkaisukone. Lukkoaskel 4.00->4.01.
+- Version: 4.02 [Latest] | Tool: OpenCode (x-preview-f-free) | Session: pr-1867 admin-docs audit | Date: 22.08.2026 | Changes: Lisätty lisäysluontoinen päivitysmerkintä lukuun 10.11 — Resend-sähköpostikuljetus korvattu Amazon SESillä (SMTP) 26.03.2026 poikkeaman ja LD-2026-008 kiellon jälkeen. Alkuperäinen muotoilu säilytetty säännön 12 mukaisesti; ei rakennemuutoksia. Lockstep 4.01->4.02.
+
+- Version: 4.01 [not latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Lisätty §10.31 (Lifetime Studios — asiantuntijuus- ja sisältötuotantokone). Toteutuspuolen sisältö master-vs-PhD-skooppisäännön mukaisesti: 25 × 5 -sisältömatriisi (125 ydinaihetta), Business Case -kortit seitsemällä pakollisella kentällä, ristiinoppiminen, viisikielinen lokalisointi (≈4 000 versiota), Outokumpu-mallin journalistiset reunaehdot ja itsevahvistuva ontologia/graafi/LWM -tuotemalli eksplisiittisine rajoineen. Toteutusnäyttö: `docs/LIFETIME_STUDIOS_ADMIN.md`, `docs/BLOG_STANDARD.md` §15, onelifetime.world-julkaisukone. Lukkoaskel 4.00->4.01.
 
 - Version: 4.00 [not latest] | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Lisätty §10.30 (OpenCode-ensisijainen DGX-ajoympäristö ja MCP-raja). Kirjaa varmennetun OpenCode 1.18.18 + Ollama/avoimet mallit -kehityspolun, Claude Coden hot standby -roolin, Linux PATH -käsittelyn, gatewayn virtuaaliympäristön, MCP SDK -yhteensopivuuskiinnityksen ja käytöstä poistetun portin 3001 SSE-palvelun muodostaman eksplisiittisen rajan. Lukkoaskel 3.99->4.00 yhdessä PHD_FIREHORSE §14.50:n / Avainkontribuutio #55:n kanssa.
 
@@ -2020,6 +2022,8 @@ Faktojen poiminta yksinään luo _passiivista tietoa_. Kolme lisäkerrosta vaadi
 _Käyttöönotettu: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig_
 
 Kolme tuotantoagenttia automatisoivat toimitusjohtajan päivittäisen operatiivisen rytmin — GitHub Actions cron, Supabase ja Resend.
+
+> **Päivitys (22.08.2026):** Alla kuvattu Resend-sähköpostikuljetuskerros on korvattu Amazon SESillä (SMTP) 26.03.2026 tietoturvapoikkeaman jälkeen, jolloin Resend pysyvästi kiellettiin (`docs/LOCKED_DECISIONS.md` LD-2026-008). Agenttien logiikka ja ajastus ovat ennallaan; vain kuljetustapa eroaa alkuperäisestä tekstistä.
 
 ### 10.11.1 Captain Pre-Briefing -agetti
 

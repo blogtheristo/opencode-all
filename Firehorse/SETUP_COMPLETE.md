@@ -90,7 +90,7 @@ Follow the **[QUICK_START.md](QUICK_START.md)** guide:
 4. **Install dependencies** (2 min)
    ```bash
    cd Firehorse/Automation
-   npm install @supabase/supabase-js dotenv @sendgrid/mail
+   npm install @supabase/supabase-js dotenv nodemailer
    ```
 
 5. **Create campaign script** (10 min)
@@ -228,7 +228,7 @@ Follow the **[QUICK_START.md](QUICK_START.md)** guide:
 
 ### What You'll Use
 - **Database**: Supabase (PostgreSQL)
-- **Email**: SendGrid / Mailgun / AWS SES
+- **Email**: Amazon SES (SMTP only — Resend/SendGrid banned per CLAUDE.md Rule 4 / LD-2026-008)
 - **Automation**: Node.js scripts
 - **Scheduling**: Cron / Task Scheduler / Cloud Functions
 - **Analytics**: Supabase + Custom dashboards
@@ -236,7 +236,7 @@ Follow the **[QUICK_START.md](QUICK_START.md)** guide:
 
 ### Required Accounts
 - ✅ Supabase (free tier works)
-- ✅ Email service (SendGrid free: 100/day)
+- ✅ Email service (Amazon SES SMTP configured)
 - ✅ Node.js installed locally
 - ✅ Domain with DNS access
 
@@ -252,7 +252,7 @@ All guides are in the `Firehorse/` folder:
 
 ### External Resources
 - **Supabase**: https://supabase.com/docs
-- **SendGrid**: https://docs.sendgrid.com
+- **AWS SES**: https://docs.aws.amazon.com/ses/
 - **Node.js**: https://nodejs.org/docs
 
 ### Community Best Practices

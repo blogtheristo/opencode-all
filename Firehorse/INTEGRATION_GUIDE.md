@@ -291,7 +291,7 @@ function getSevenDaysAgo() {
 }
 
 async function sendEmail(contact) {
-  // Implement with your email service (SendGrid, Mailgun, etc.)
+  // Implement with your email service (Amazon SES SMTP — the only sanctioned transport)
   // Include tracking parameters in links
 }
 
@@ -453,7 +453,7 @@ node daily-report.js
 ## Support & Resources
 
 - **Supabase Docs**: https://supabase.com/docs
-- **Email Service**: Choose SendGrid, Mailgun, or AWS SES
+- **Email Service**: Amazon SES (SMTP only — Resend/SendGrid banned per CLAUDE.md Rule 4)
 - **Scheduling**: Cron, Task Scheduler, or Cloud Functions
 - **Analytics**: Built-in Supabase analytics + custom dashboards
 

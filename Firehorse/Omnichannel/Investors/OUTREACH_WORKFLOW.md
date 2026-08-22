@@ -582,7 +582,7 @@ These channels convert faster than cold DMs for Fleet Admiral and Captain seats:
 ### Required Tools
 
 1. **Supabase**: Database for contacts and campaign tracking
-2. **Email Service**: Amazon SES (primary) / Resend (fallback)
+2. **Email Service**: Amazon SES (SMTP only — Resend permanently banned per LD-2026-008)
 3. **Node.js**: Automation scripts
 4. **Cron / Task Scheduler**: Daily campaign execution
 5. **Analytics**: Supabase + custom dashboards
