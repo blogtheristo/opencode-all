@@ -12,6 +12,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import crypto from 'crypto';
 import express from 'express';
 import request from 'supertest';
+import type { nudgeService } from '../agents/nudge.service.js';
 
 // In-memory nudge store; quiet event bus.
 vi.mock('../config/supabase.js', () => ({ getSupabaseClient: () => null }));
@@ -22,7 +23,7 @@ vi.mock('../agents/event-bus.js', () => ({
 const SECRET = 'test-nudge-webhook-secret';
 
 let app: express.Express;
-let nudgeService: typeof import('../agents/nudge.service.js').nudgeService;
+let nudgeService: typeof nudgeService;
 
 beforeAll(async () => {
   process.env.NUDGE_WEBHOOK_SECRET = SECRET;

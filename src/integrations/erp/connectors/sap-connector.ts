@@ -10,6 +10,7 @@
  */
 
 import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
   EntityType,
   ERPProvider,
@@ -33,8 +34,9 @@ export class SAPConnector extends BaseERPConnector {
     this.logger.info('SAP authentication configured');
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
-    config.headers = config.headers || {};
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     config.headers['Authorization'] = `Basic ${Buffer.from(
       `${this.sapConfig.username}:${this.sapConfig.password}`,
     ).toString('base64')}`;
@@ -66,7 +68,7 @@ export class SAPConnector extends BaseERPConnector {
         params.$filter = `LastChangeDate gt datetime'${since.toISOString()}'`;
       }
 
-      const response = await this.get<{ d: { results: any[] } }>(
+      const response = await this.get<{ d: { results: unknown[] } }>(
         `${odataPath}/API_PRODUCTION_ORDER_2_SRV/A_ProductionOrder`,
         { params },
       );
@@ -103,13 +105,13 @@ export class SAPConnector extends BaseERPConnector {
     try {
       if (direction === 'from_erp') {
         // Pull maintenance notifications from SAP PM
-        const response = await this.get<{ d: { results: any[] } }>(
+        const response = await this.get<{ d: { results: unknown[] } }>(
           '/sap/opu/odata/sap/API_MAINTNOTIFICATION/MaintenanceNotification',
         );
         operation.recordsProcessed = response.d.results.length;
       }
       return this.createSyncResult(operation, true);
-    } catch (error) {
+    } catch {
       return this.createSyncResult(operation, false);
     }
   }

@@ -15,20 +15,40 @@
 
 import { BaseERPConnector } from './base-connector.js';
 import {
-  ERPProvider,
-  MonitorERPConfig,
-  SyncResult,
+  type CostTransaction,
   EntityType,
-  ProductionOrder,
-  MonitorProductionOrder,
-  MaterialRequirement,
-  MachineData,
-  OEEMetrics,
-  MaintenanceEvent,
-  InventoryTransaction,
-  CostTransaction,
+  ERPProvider,
+  type InventoryTransaction,
+  type MachineData,
+  type MaintenanceEvent,
+  type MaterialRequirement,
+  type MonitorERPConfig,
+  type OEEMetrics,
+  type ProductionOrder,
+  type SyncOperation,
+  type SyncResult,
 } from './types.js';
 import { getSupabaseClient } from '../../config/supabase.js';
+import type { InternalAxiosRequestConfig } from 'axios';
+
+interface MonitorProductionOrderRaw {
+  id: string;
+  order_number: string;
+  article_number: string;
+  article_name: string;
+  quantity: number;
+  unit: string;
+  scheduled_start: string;
+  scheduled_end: string;
+  actual_start?: string;
+  actual_end?: string;
+  status: string;
+  priority?: number;
+  work_center_id?: string;
+  estimated_cost?: number;
+  actual_cost?: number;
+  customer_order_number?: string;
+}
 
 export class MonitorERPConnector extends BaseERPConnector {
   private accessToken?: string;
@@ -71,11 +91,13 @@ export class MonitorERPConnector extends BaseERPConnector {
       );
     } catch (error) {
       this.logger.error({ error }, 'Authentication failed');
-      throw new Error('Failed to authenticate with Monitor ERP');
+      throw new Error('Failed to authenticate with Monitor ERP', { cause: error });
     }
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     // Check if token is expired or about to expire (within 5 minutes)
     if (
       !this.accessToken ||
@@ -85,7 +107,6 @@ export class MonitorERPConnector extends BaseERPConnector {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     config.headers['X-Monitor-Company-Id'] = this.monitorConfig.companyId;
 
@@ -99,7 +120,7 @@ export class MonitorERPConnector extends BaseERPConnector {
   async testConnection(): Promise<boolean> {
     try {
       await this.authenticate();
-      const response = await this.get<{ status: string; company: any }>('/api/v1/company/info');
+      const response = await this.get<{ status: string; company: unknown }>('/api/v1/company/info');
       this.logger.info({ company: response.company }, 'Connection test successful');
       return true;
     } catch (error) {
@@ -123,7 +144,7 @@ export class MonitorERPConnector extends BaseERPConnector {
       this.logger.info({ since }, 'Syncing production orders from Monitor ERP');
 
       // Build query parameters
-      const params: any = {
+      const params: Record<string, string | number> = {
         limit: 100,
         status: 'released,in_progress', // Only sync active orders
       };
@@ -134,7 +155,7 @@ export class MonitorERPConnector extends BaseERPConnector {
 
       // Fetch production orders from Monitor
       const response = await this.get<{
-        data: MonitorProductionOrder[];
+        data: MonitorProductionOrderRaw[];
         pagination: { total: number; hasMore: boolean };
       }>('/api/v1/production/orders', { params });
 
@@ -252,7 +273,7 @@ export class MonitorERPConnector extends BaseERPConnector {
         data,
         50, // Batch size
         async (batch) => {
-          return await this.post<any[]>('/api/v1/production/machine-data/batch', {
+          return await this.post<unknown[]>('/api/v1/production/machine-data/batch', {
             data: batch.map((d) => this.transformMachineData(d)),
           });
         },
@@ -350,7 +371,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     }
   }
 
-  private async pushMaintenanceToERP(operation: any): Promise<SyncResult> {
+  private async pushMaintenanceToERP(operation: SyncOperation): Promise<SyncResult> {
     // Fetch pending maintenance events from DWS database
     let events: MaintenanceEvent[] = [];
     const client = getSupabaseClient();
@@ -391,10 +412,19 @@ export class MonitorERPConnector extends BaseERPConnector {
     return this.createSyncResult(operation, operation.recordsFailed === 0);
   }
 
-  private async pullMaintenanceFromERP(operation: any): Promise<SyncResult> {
-    const response = await this.get<{ data: any[] }>('/api/v1/maintenance/work-orders', {
-      params: { status: 'scheduled,in_progress' },
-    });
+  private async pullMaintenanceFromERP(operation: SyncOperation): Promise<SyncResult> {
+    interface MonitorMaintenanceWorkOrder {
+      id?: string;
+      work_order_id?: string;
+      status?: string;
+      [key: string]: unknown;
+    }
+    const response = await this.get<{ data: MonitorMaintenanceWorkOrder[] }>(
+      '/api/v1/maintenance/work-orders',
+      {
+        params: { status: 'scheduled,in_progress' },
+      },
+    );
 
     operation.recordsProcessed = response.data.length;
 
@@ -402,7 +432,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     const client = getSupabaseClient();
     if (client && response.data.length > 0) {
       const { error } = await client.from('erp_maintenance_orders').upsert(
-        response.data.map((wo: any) => ({
+        response.data.map((wo) => ({
           external_id: wo.id || wo.work_order_id,
           provider: 'monitor',
           status: wo.status,
@@ -429,9 +459,20 @@ export class MonitorERPConnector extends BaseERPConnector {
    */
   async syncMaterialRequirements(productionOrderId: string): Promise<MaterialRequirement[]> {
     try {
-      const response = await this.get<{ data: any[] }>(
-        `/api/v1/production/orders/${productionOrderId}/materials`,
-      );
+      const response = await this.get<{
+        data: Array<{
+          id: string;
+          material_id: string;
+          material_name: string;
+          required_quantity: number;
+          unit: string;
+          available_quantity?: number;
+          allocated_quantity?: number;
+          required_date: string;
+          status: MaterialRequirement['status'];
+          warehouse_location?: string;
+        }>;
+      }>(`/api/v1/production/orders/${productionOrderId}/materials`);
 
       return response.data.map((item) => ({
         id: item.id,
@@ -526,7 +567,7 @@ export class MonitorERPConnector extends BaseERPConnector {
   // Data Transformation Methods
   // ============================================================================
 
-  private transformProductionOrder(monitorOrder: any): ProductionOrder {
+  private transformProductionOrder(monitorOrder: MonitorProductionOrderRaw): ProductionOrder {
     return {
       id: monitorOrder.id,
       orderNumber: monitorOrder.order_number,
@@ -550,7 +591,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     };
   }
 
-  private transformToMonitorOrder(order: ProductionOrder): any {
+  private transformToMonitorOrder(order: ProductionOrder): Record<string, unknown> {
     return {
       article_number: order.productId,
       quantity: order.quantity,
@@ -562,7 +603,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     };
   }
 
-  private transformMachineData(data: MachineData): any {
+  private transformMachineData(data: MachineData): Record<string, unknown> {
     return {
       machine_id: data.machineId,
       timestamp: data.timestamp.toISOString(),
@@ -578,7 +619,7 @@ export class MonitorERPConnector extends BaseERPConnector {
   private mapMonitorStatus(
     status: string,
   ): 'planned' | 'released' | 'in_progress' | 'completed' | 'cancelled' {
-    const statusMap: Record<string, any> = {
+    const statusMap: Record<string, ProductionOrder['status']> = {
       planned: 'planned',
       released: 'released',
       started: 'in_progress',

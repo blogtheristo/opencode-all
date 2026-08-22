@@ -5,18 +5,18 @@
  * when governance facts change, and the script FAILS LOUD rather than proxying
  * when the schema cannot express governance.
  */
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 // @ts-expect-error — plain .mjs script, no type declarations by design.
 import {
-  computeMgd,
   classify,
-  isValidLineage,
-  SchemaGapError,
-  REQUIRED_FIELDS,
+  computeMgd,
   isUndefinedColumnError,
+  isValidLineage,
+  REQUIRED_FIELDS,
+  SchemaGapError,
   schemaGapReport,
 } from '../../scripts/compute-mgd.mjs';
 

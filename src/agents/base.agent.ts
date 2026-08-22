@@ -14,26 +14,27 @@
  * All concrete agents extend this class and implement the abstract execute() method.
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
-import { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
-import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { createLLMClient, createLLMClientForAgent, type LLMClient } from './llm-client.js';
+import { BUILTIN_TOOLS, executeTools } from './tools.js';
 import { isPhaseAtLeast } from './autonomy.js';
 import type {
   AgentConfig,
   AgentContext,
-  AgentResponse,
   AgentExecutionLog,
-  GovernancePolicy,
-  PolicyCheckResult,
+  AgentLoopConfig,
+  AgentLoopIteration,
+  AgentResponse,
   GovernanceAuditEntry,
+  GovernancePolicy,
+  LLMMessage,
+  LLMResponse,
+  PolicyCheckResult,
   SandboxContext,
   ToolDefinition,
-  LLMResponse,
-  AgentLoopIteration,
-  AgentLoopConfig,
 } from './types.js';
-import { buildSDKSandboxConfig, validateNIS2Compliance, getSandboxStage } from '../sandbox/index.js';
+import { buildSDKSandboxConfig, getSandboxStage, validateNIS2Compliance } from '../sandbox/index.js';
 import type { SDKSandboxConfig } from '../sandbox/index.js';
 
 export abstract class BaseAgent {
@@ -146,7 +147,7 @@ export abstract class BaseAgent {
     }
 
     // Build initial conversation
-    const messages: import('./types.js').LLMMessage[] = [
+    const messages: LLMMessage[] = [
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userMessage },
     ];
@@ -334,12 +335,12 @@ export abstract class BaseAgent {
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
       };
-    } catch (err: any) {
-      logger.error('LLM call failed', { agent: this.config.name, error: err.message });
+    } catch (err) {
+      logger.error('LLM call failed', { agent: this.config.name, error: err instanceof Error ? err.message : String(err) });
       return {
         content: JSON.stringify({
           summary: 'LLM call failed - analysis based on deterministic logic only',
-          error: err.message,
+          error: err instanceof Error ? err.message : String(err),
         }),
         model: 'error',
         inputTokens: 0,
@@ -369,10 +370,10 @@ export abstract class BaseAgent {
           error: error.message,
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       logger.warn('Exception writing agent execution log', {
         agent: log.agent_name,
-        error: err.message,
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
@@ -551,8 +552,8 @@ export abstract class BaseAgent {
 
     try {
       await client.from('governance_audit').insert(audit);
-    } catch (err: any) {
-      logger.debug('Failed to log governance audit', { error: err.message });
+    } catch (err) {
+      logger.debug('Failed to log governance audit', { error: err instanceof Error ? err.message : String(err) });
     }
   }
 

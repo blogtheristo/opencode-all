@@ -332,7 +332,7 @@ Respond with STRICT JSON only matching the schema in the system prompt.`;
   }
 
   private parseTriage(raw: string, policy: PolicyChunk[]): HelpdeskTriageResult {
-    let parsed: Record<string, unknown> = {};
+    let parsed: Record<string, unknown>;
     try {
       const trimmed = raw
         .trim()

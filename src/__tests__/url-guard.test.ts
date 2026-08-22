@@ -11,7 +11,7 @@
  *   - Bad scheme + invalid URL
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // dns/promises is invoked lazily inside assertPublicUrl
 vi.mock('node:dns/promises', () => ({

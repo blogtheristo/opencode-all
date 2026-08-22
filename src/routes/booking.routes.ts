@@ -13,7 +13,7 @@
  */
 
 import { type Request, type Response, Router } from 'express';
-import { body, param, validationResult, query } from 'express-validator';
+import { body, param, query, validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
 import { sendEmail } from '../utils/send-email.js';

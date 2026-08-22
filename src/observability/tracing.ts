@@ -15,7 +15,7 @@
  * Agent code does not need to check whether tracing is enabled.
  */
 
-import { SpanKind, SpanStatusCode, trace, type Span } from '@opentelemetry/api';
+import { type Span, SpanKind, SpanStatusCode, trace } from '@opentelemetry/api';
 
 const TRACER_NAME = 'dws-iq-7';
 

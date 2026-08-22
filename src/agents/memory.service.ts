@@ -19,20 +19,20 @@ import type { Pool } from 'pg';
 import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import type {
-  MemoryItem,
-  MemoryStoreInput,
-  MemoryStoreResult,
-  MemoryRecallInput,
-  MemoryRecallResult,
+  ConsolidationResult,
+  DuplicatePair,
+  MemoryCacheEntry,
   MemoryForgetInput,
   MemoryForgetResult,
+  MemoryItem,
+  MemoryProfile,
+  MemoryRecallInput,
+  MemoryRecallResult,
+  MemoryStoreInput,
+  MemoryStoreResult,
   MemorySupersedeInput,
   MemorySupersedeResult,
-  MemoryProfile,
-  MemoryCacheEntry,
   ProfileFact,
-  DuplicatePair,
-  ConsolidationResult,
 } from './memory.types.js';
 
 // ============ SQL HELPERS ============
@@ -362,7 +362,7 @@ export class MemoryService {
     const vectorWeight = input.vectorWeight ?? 0.7;
     const textWeight = input.textWeight ?? 0.3;
 
-    let memories: MemoryItem[] = [];
+    let memories: MemoryItem[];
     let searchMethod: 'vector' | 'text' | 'hybrid' = 'hybrid';
 
     if (embedding) {

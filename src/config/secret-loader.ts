@@ -241,7 +241,7 @@ export async function loadSecrets(): Promise<void> {
 
   logger.info(`Secret loader: provider=${provider}`);
 
-  let vaultSecrets: Record<string, string> = {};
+  let vaultSecrets: Record<string, string>;
 
   try {
     if (provider === 'aiven') {

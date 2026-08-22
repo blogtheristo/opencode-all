@@ -18,11 +18,11 @@ import logger from '../utils/logger.js';
 import { sendEmail } from '../utils/send-email.js';
 import { getNudgeTemplate, isMaxedOut } from './cadence.js';
 import type {
+  DigestThread,
   EnrichedThread,
   OutreachPipeline,
   OutreachStatus,
   StatusBucket,
-  DigestThread,
 } from './types.js';
 
 const PIPELINES: OutreachPipeline[] = ['investor', 'customer', 'partner'];
@@ -62,7 +62,7 @@ function daysBetween(from: string, to: string): number {
 // SUPABASE — one query, threads only
 // ============================================================================
 
-async function supabaseFetch(path: string, options: RequestInit = {}): Promise<any> {
+async function supabaseFetch(path: string, options: RequestInit = {}): Promise<unknown> {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
 
@@ -92,7 +92,7 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 async function getAllActiveThreads(): Promise<EnrichedThread[]> {
   return supabaseFetch(
     `v_outreach_enriched?status=not.in.(converted,passed,parked)&order=pipeline.asc,next_action_date.asc`,
-  );
+  ) as Promise<EnrichedThread[]>;
 }
 
 // ============================================================================

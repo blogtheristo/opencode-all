@@ -1,18 +1,18 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import {
+  createDiffusionGemmaClient,
   DEFAULT_DIFFUSIONGEMMA_MODEL,
   DIFFUSIONGEMMA_MODEL_ID,
   DIFFUSIONGEMMA_SPEC,
   DIFFUSIONGEMMA_THROUGHPUT,
   MAX_BLOCK_TOKENS,
-  createDiffusionGemmaClient,
   resolveDiffusionGemmaBaseUrl,
   resolveDiffusionGemmaConfig,
   resolveDiffusionGemmaModel,
   resolveDiffusionParams,
 } from '../agents/diffusiongemma.js';
 import {
-  OLLAMA_DEPLOYED_MODELS, MODEL_CATALOG, selectModel } from '../agents/model-selector.js';
+  MODEL_CATALOG, OLLAMA_DEPLOYED_MODELS, selectModel } from '../agents/model-selector.js';
 
 const ENV_KEYS = [
   'DIFFUSIONGEMMA_BASE_URL',
@@ -36,14 +36,14 @@ const originalEnv = Object.fromEntries(ENV_KEYS.map((key) => [key, process.env[k
 >;
 
 function clearEnv(): void {
-  for (const key of ENV_KEYS) delete process.env[key];
+  for (const key of ENV_KEYS) Reflect.deleteProperty(process.env, key);
 }
 
 function resetEnv(): void {
   for (const key of ENV_KEYS) {
     const original = originalEnv[key];
     if (original === undefined) {
-      delete process.env[key];
+      Reflect.deleteProperty(process.env, key);
     } else {
       process.env[key] = original;
     }

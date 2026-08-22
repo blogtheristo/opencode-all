@@ -24,7 +24,11 @@ router.use(authenticateToken);
  */
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.userId!;
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
     const limit = Math.min(parseInt(req.query.limit as string) || 20, 100);
     const offset = parseInt(req.query.offset as string) || 0;
 
@@ -46,7 +50,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
  */
 router.get('/unread', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const count = await notificationService.getUnreadCount(req.userId!);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const count = await notificationService.getUnreadCount(userId);
     res.json({ unread: count });
   } catch (err) {
     next(err);
@@ -59,7 +68,12 @@ router.get('/unread', async (req: Request, res: Response, next: NextFunction) =>
  */
 router.patch('/:id/read', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const success = await notificationService.markRead(req.userId!, req.params.id);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const success = await notificationService.markRead(userId, req.params.id);
 
     if (!success) {
       res.status(404).json({ error: 'Notification not found' });
@@ -78,7 +92,12 @@ router.patch('/:id/read', async (req: Request, res: Response, next: NextFunction
  */
 router.post('/read-all', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const count = await notificationService.markAllRead(req.userId!);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const count = await notificationService.markAllRead(userId);
     res.json({ message: 'All notifications marked as read', count });
   } catch (err) {
     next(err);

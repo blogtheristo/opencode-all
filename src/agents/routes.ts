@@ -92,8 +92,8 @@ router.get('/', authenticateToken, (_req: Request, res: Response) => {
       count: agents.length,
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
-    logger.error('Failed to list agents', { error: err.message });
+  } catch (err) {
+    logger.error('Failed to list agents', { error: err instanceof Error ? err.message : String(err) });
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list agents',
@@ -127,8 +127,8 @@ router.get('/:name', authenticateToken, (req: Request, res: Response, next: expr
       agent: agent.getConfig(),
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
-    logger.error('Failed to get agent details', { error: err.message, agent: req.params.name });
+  } catch (err) {
+    logger.error('Failed to get agent details', { error: err instanceof Error ? err.message : String(err), agent: req.params.name });
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get agent details',
@@ -181,24 +181,24 @@ router.post(
         result,
         timestamp: new Date().toISOString(),
       });
-    } catch (err: any) {
+    } catch (err) {
       logger.error('Agent execution failed', {
         agent: name,
-        error: err.message,
+        error: err instanceof Error ? err.message : String(err),
         userId: context.userId,
       });
 
       // Distinguish "not found" from execution errors
-      if (err.message.includes('not found')) {
+      if (err instanceof Error ? err.message : String(err).includes('not found')) {
         return res.status(404).json({
           error: 'Not Found',
-          message: err.message,
+          message: err instanceof Error ? err.message : String(err),
         });
       }
 
       return res.status(500).json({
         error: 'Agent Execution Error',
-        message: err.message || 'An unexpected error occurred during agent execution',
+        message: err instanceof Error ? err.message : String(err) || 'An unexpected error occurred during agent execution',
       });
     }
   },
@@ -248,17 +248,17 @@ router.post(
         durationMs: Date.now() - startTime,
         timestamp: new Date().toISOString(),
       });
-    } catch (err: any) {
-      if (err.message.includes('not found')) {
+    } catch (err) {
+      if (err instanceof Error ? err.message : String(err).includes('not found')) {
         return res.status(404).json({
           error: 'Not Found',
-          message: err.message,
+          message: err instanceof Error ? err.message : String(err),
         });
       }
 
       return res.status(500).json({
         error: 'Agent Execution Error',
-        message: err.message || 'An unexpected error occurred during agent execution',
+        message: err instanceof Error ? err.message : String(err) || 'An unexpected error occurred during agent execution',
       });
     }
   },
@@ -317,17 +317,17 @@ router.post(
         durationMs: Date.now() - startTime,
         timestamp: new Date().toISOString(),
       });
-    } catch (err: any) {
-      if (err.message.includes('not found')) {
+    } catch (err) {
+      if (err instanceof Error ? err.message : String(err).includes('not found')) {
         return res.status(404).json({
           error: 'Not Found',
-          message: err.message,
+          message: err instanceof Error ? err.message : String(err),
         });
       }
 
       return res.status(500).json({
         error: 'Agent Chat Error',
-        message: err.message || 'An unexpected error occurred',
+        message: err instanceof Error ? err.message : String(err) || 'An unexpected error occurred',
       });
     }
   },
@@ -350,8 +350,8 @@ router.get('/discover/:capability', authenticateToken, (req: Request, res: Respo
       count: agents.length,
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
-    logger.error('Agent discovery failed', { error: err.message });
+  } catch (err) {
+    logger.error('Agent discovery failed', { error: err instanceof Error ? err.message : String(err) });
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to discover agents',
@@ -378,8 +378,8 @@ router.get('/workflows', authenticateToken, (_req: Request, res: Response) => {
       count: workflows.length,
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
-    logger.error('Failed to list workflows', { error: err.message });
+  } catch (err) {
+    logger.error('Failed to list workflows', { error: err instanceof Error ? err.message : String(err) });
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list workflows',
@@ -441,16 +441,16 @@ router.post(
         },
         timestamp: new Date().toISOString(),
       });
-    } catch (err: any) {
+    } catch (err) {
       logger.error('Workflow execution failed', {
         workflow: name,
-        error: err.message,
+        error: err instanceof Error ? err.message : String(err),
         userId: context.userId,
       });
 
       return res.status(500).json({
         error: 'Workflow Execution Error',
-        message: err.message || 'An unexpected error occurred during workflow execution',
+        message: err instanceof Error ? err.message : String(err) || 'An unexpected error occurred during workflow execution',
       });
     }
   },
@@ -478,8 +478,8 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
       pattern: pattern || '*',
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
-    logger.error('Failed to get events', { error: err.message });
+  } catch (err) {
+    logger.error('Failed to get events', { error: err instanceof Error ? err.message : String(err) });
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get events',

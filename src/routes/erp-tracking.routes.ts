@@ -4,8 +4,9 @@
  * POST /api/erp/track/* endpoints
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { erpTrackingService } from '../services/erp-tracking.service.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
@@ -55,7 +56,7 @@ router.post('/connection-started', async (req: Request, res: Response): Promise<
     res.json({ success: true, message: 'Connection start logged' });
     return;
   } catch (error) {
-    console.error('ERP tracking error:', error);
+    logger.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
     return;
   }
@@ -105,7 +106,7 @@ router.post('/connection-test', async (req: Request, res: Response): Promise<voi
     res.json({ success: true, message: 'Connection test logged' });
     return;
   } catch (error) {
-    console.error('ERP tracking error:', error);
+    logger.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
     return;
   }
@@ -129,7 +130,7 @@ router.post('/field-mapping', async (req: Request, res: Response): Promise<void>
     res.json({ success: true, message: 'Field mapping logged' });
     return;
   } catch (error) {
-    console.error('ERP tracking error:', error);
+    logger.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
     return;
   }
@@ -167,7 +168,7 @@ router.post('/sync-activated', async (req: Request, res: Response): Promise<void
     res.json({ success: true, message: 'Sync activation logged' });
     return;
   } catch (error) {
-    console.error('ERP tracking error:', error);
+    logger.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
     return;
   }
@@ -191,7 +192,7 @@ router.post('/error', async (req: Request, res: Response): Promise<void> => {
     res.json({ success: true, message: 'Error logged' });
     return;
   } catch (error) {
-    console.error('ERP tracking error:', error);
+    logger.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
     return;
   }

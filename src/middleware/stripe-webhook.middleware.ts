@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import crypto from 'crypto';
+import type Stripe from 'stripe';
 import logger from '../utils/logger.js';
 
 /**
@@ -12,10 +13,7 @@ import logger from '../utils/logger.js';
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
 
-interface VerifiedRequest extends Request {
-  rawBody?: Buffer;
-  stripeEvent?: any;
-}
+type VerifiedRequest = Request;
 
 /**
  * Verify Stripe webhook signature
@@ -92,7 +90,7 @@ export function verifyStripeWebhook(req: VerifiedRequest, res: Response, next: N
     }
 
     // Parse JSON and attach to request
-    req.stripeEvent = JSON.parse(rawBody.toString('utf-8'));
+    req.stripeEvent = JSON.parse(rawBody.toString('utf-8')) as Stripe.Event;
 
     logger.info('Stripe webhook verified', {
       event_type: req.stripeEvent.type,
@@ -113,7 +111,7 @@ export function verifyStripeWebhook(req: VerifiedRequest, res: Response, next: N
  * Uses in-memory Map (for single-instance) or Redis (for distributed)
  */
 
-const processedWebhooks = new Map<string, { timestamp: number; result: any }>();
+const processedWebhooks = new Map<string, { timestamp: number; result: unknown }>();
 const IDEMPOTENCY_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
 export async function idempotencyCheck(req: VerifiedRequest, res: Response, next: NextFunction) {
@@ -137,7 +135,7 @@ export async function idempotencyCheck(req: VerifiedRequest, res: Response, next
   }
 
   // Store this request for potential retry
-  (req as any).storeWebhookResult = (result: any) => {
+  req.storeWebhookResult = (result: unknown) => {
     processedWebhooks.set(eventId, {
       timestamp: Date.now(),
       result,

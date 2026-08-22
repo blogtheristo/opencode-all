@@ -7,7 +7,7 @@
 import cron, { type ScheduledTask } from 'node-cron';
 import pino from 'pino';
 import { ERPIntegrationService } from './service.js';
-import { ERPProvider } from './types.js';
+import { type ERPProvider } from './types.js';
 import { getSupabaseClient } from '../../config/supabase.js';
 
 const logger = pino({ name: 'erp-scheduler' });

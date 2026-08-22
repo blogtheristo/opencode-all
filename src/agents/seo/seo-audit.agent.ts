@@ -98,7 +98,7 @@ export class SeoAuditAgent extends BaseAgent {
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
 
       await this.logExecution({
@@ -110,7 +110,7 @@ export class SeoAuditAgent extends BaseAgent {
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

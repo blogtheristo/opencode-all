@@ -1,9 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import {
-  verifyStripeWebhook,
   idempotencyCheck,
-  stripeRateLimit,
   preserveRawBody,
+  stripeRateLimit,
+  verifyStripeWebhook,
 } from '../middleware/stripe-webhook.middleware.js';
 import logger from '../utils/logger.js';
 import { supabase } from '../services/supabase.service.js';
@@ -33,8 +33,11 @@ router.post(
   stripeRateLimit,
   async (req: Request, res: Response) => {
     try {
-      const event = (req as any).stripeEvent;
-      const storeResult = (req as any).storeWebhookResult;
+      const event = req.stripeEvent;
+      const storeResult = req.storeWebhookResult;
+      if (!event || !storeResult) {
+        return res.status(400).json({ error: 'Webhook event missing' });
+      }
 
       logger.info('Processing Stripe webhook', {
         event_type: event.type,

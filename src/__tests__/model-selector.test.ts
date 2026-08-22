@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {
-  MODEL_CATALOG,
-  OLLAMA_DEPLOYED_MODELS,
   escalateToClaude,
   estimateLocalModelDiskUsage,
   isProviderAvailable,
+  MODEL_CATALOG,
   modelFitsDepth,
+  OLLAMA_DEPLOYED_MODELS,
   selectModel,
 } from '../agents/model-selector.js';
 
@@ -30,7 +30,7 @@ function resetEnv(): void {
   for (const key of ENV_KEYS) {
     const original = originalEnv[key];
     if (original === undefined) {
-      delete process.env[key];
+      Reflect.deleteProperty(process.env, key);
     } else {
       process.env[key] = original;
     }

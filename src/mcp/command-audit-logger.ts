@@ -20,7 +20,7 @@
 
 import { createHash, randomUUID } from 'node:crypto';
 import { type Pool } from 'pg';
-import { scrubObject, type PIIType } from '../agents/pii-scrubber.js';
+import { type PIIType, scrubObject } from '../agents/pii-scrubber.js';
 import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 
@@ -168,7 +168,10 @@ export class CommandAuditLogger implements CommandAuditSink {
       );
     } catch (err) {
       // Fail-closed: surface to the caller so the command is blocked.
-      throw new Error(`CommandAuditLogger.logInvocation failed: ${(err as Error).message}`);
+      throw new Error(
+        `CommandAuditLogger.logInvocation failed: ${(err as Error).message}`,
+        { cause: err },
+      );
     }
     return { traceId };
   }

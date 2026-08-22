@@ -90,7 +90,7 @@ export interface Event {
   id: string;
   lead_id: string;
   event_type: EventType;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   created_at: Date;
 }
 
@@ -184,7 +184,7 @@ export interface ChangeStateAction {
 export interface LogEventAction {
   event_type: EventType;
   lead_id: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CreateTaskAction {

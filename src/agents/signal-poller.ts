@@ -22,9 +22,9 @@ import { getSupabaseClient } from '../config/supabase.js';
 import { eventBus } from './event-bus.js';
 import { nudgeService } from './nudge.service.js';
 import {
-  SIGNAL_CATALOGUE,
   evaluateGate,
   shouldNudgeNow,
+  SIGNAL_CATALOGUE,
   type SignalDefinition,
 } from './signal-catalogue.js';
 
@@ -59,13 +59,21 @@ const evaluateSiteSafety: SignalEvaluator = async () => {
       .eq('shift_active', true)
       .limit(50);
     if (error || !data) return [];
-    return data.map((r: any) => ({
-      orgId: r.org_id,
-      entityId: r.site_id,
+    return data.map(
+      (
+        r: {
+          org_id: string;
+          site_id: string;
+          safety_score: number;
+        },
+      ) => ({
+        orgId: r.org_id,
+        entityId: r.site_id,
       subject: `Site ${r.site_id} safety score ${r.safety_score}/100`,
       body: `Safety score ${r.safety_score}/100 during an active shift — below the safe operating floor. Recommend pausing elevated/crane work. Confirm or override?`,
-      metadata: { safetyScore: r.safety_score },
-    }));
+        metadata: { safetyScore: r.safety_score },
+      }),
+    );
   } catch {
     return [];
   }
@@ -82,13 +90,21 @@ const evaluateCustomerInactive: SignalEvaluator = async () => {
       .lt('last_login_at', cutoff)
       .limit(50);
     if (error || !data) return [];
-    return data.map((r: any) => ({
-      orgId: r.org_id,
-      entityId: r.customer_id,
+    return data.map(
+      (
+        r: {
+          org_id: string;
+          customer_id: string;
+          last_login_at: string;
+        },
+      ) => ({
+        orgId: r.org_id,
+        entityId: r.customer_id,
       subject: `Customer ${r.customer_id} inactive 14+ days`,
       body: `No login since ${String(r.last_login_at).slice(0, 10)}. Recommend a check-in to protect renewal. Confirm or override?`,
-      metadata: { lastLoginAt: r.last_login_at },
-    }));
+        metadata: { lastLoginAt: r.last_login_at },
+      }),
+    );
   } catch {
     return [];
   }
@@ -165,7 +181,7 @@ export class SignalPoller {
       const evaluator = EVALUATORS[signal.key];
       if (!evaluator) continue;
 
-      let breaches: SignalBreach[] = [];
+      let breaches: SignalBreach[];
       try {
         breaches = await evaluator(signal);
       } catch (err) {

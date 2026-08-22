@@ -13,7 +13,6 @@
  */
 
 import { db } from './database';
-import { Lead, LeadCountry } from './types';
 
 // ============================================================================
 // DAILY SEND LIMITS

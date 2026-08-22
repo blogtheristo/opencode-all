@@ -820,21 +820,26 @@ Or source the `.env` file properly in your shell. The `.env.example` has these p
 
 - **TypeScript build (`npm run build`)**: Clean as of 2026-08-22 (`tsc --noEmit` passes; `npm run typecheck`). Earlier type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts` have been resolved.
 - **Dashboard ESLint (`npm run lint` in v10-react)**: Missing `parent-module` transitive dependency from `import-fresh` → ESLint 9.39 issue. Does not affect Vite dev server or build.
-- **Backend ESLint**: Configured as of 2026-08-22 (`eslint.config.mjs`, `npm run lint` / `lint:fix`). Legacy-debt rules run at `warn` so the gate is green while debt is paid down — do not add new errors.
+- **Backend ESLint**: Configured 2026-08-22 (`eslint.config.mjs`, `npm run lint` / `lint:fix`). The ~766-warning legacy debt was paid down to **8 documented exceptions** on 2026-08-22 and the paid-off rules promoted to `error` — new violations of those rules now fail the gate. Remaining warns: static-only classes with test-coupled public APIs (×5), Express `namespace` type augmentation (×2), one Cloudflare edge-runtime console (×1). Do not add new errors.
 - **Redis warnings**: Backend logs Redis connection errors at startup (expected without Redis running). The app degrades gracefully.
 - **Supabase "degraded"**: Without real Supabase credentials, `/health` reports degraded status. The server still starts and responds to requests.
+- ~~**dotenv import-ordering bug**:~~ RESOLVED 2026-08-22. `src/config/env.ts` now loads dotenv at first import and validates via zod; `app.ts` imports it before anything else, so `npm run dev` no longer requires pre-exported env vars. Services that read env at module load should use `getEnv()` from `../config/env.js`.
 
 ### Tests
 
-Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. As of 2026-08-22: 100 test files pass (1 skipped), 1154 tests pass (3 skipped) — the previously failing compliance-agent-integration suite has been fixed.
+Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. As of 2026-08-22: 102 test files pass (1 skipped), 1164 tests pass (3 skipped) — the previously failing compliance-agent-integration suite has been fixed. Coverage: `npm run test:coverage` (v8 provider; thresholds 60% statements / 50% branches / 55% functions / 60% lines).
 
 ### Lint
 
-Root backend now has a real ESLint flat config (`eslint.config.mjs`) — run `npm run lint` / `npm run lint:fix`. Dashboard linting has the upstream dependency issue noted above.
+Root backend has a real ESLint flat config (`eslint.config.mjs`) — run `npm run lint` / `npm run lint:fix`. As of 2026-08-22 the gate is strict: 0 errors / 8 documented warnings. Dashboard linting has the upstream dependency issue noted above.
+
+### Code TODOs
+
+All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LEDGER.md`](docs/backlog/CODE_TODO_LEDGER.md) — largest cluster is billing lifecycle notifications (13 items). Audit with `rg -n "// TODO" src`.
 
 ---
 
-**Document Version:** 1.2  
+**Document Version:** 1.3  
 **Last Updated:** August 22, 2026  
 **Status:** Active  
 **Next Review:** October 10, 2026

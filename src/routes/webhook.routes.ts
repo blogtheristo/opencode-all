@@ -19,16 +19,24 @@
  *   - Idempotency via provider_message_id UNIQUE constraint
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import logger from '../utils/logger.js';
 import {
+  isAuthorizedSender,
   parseReplyText,
   parseSubjectCommand,
-  isAuthorizedSender,
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
+
+interface OutreachThreadRow {
+  id: string;
+  pipeline: string;
+  status: string;
+  person_id: string | null;
+  org_id: string | null;
+}
 import { emailQueue } from '../services/email-queue.service.js';
-import { sendEmail, escapeHtml } from '../utils/send-email.js';
+import { escapeHtml, sendEmail } from '../utils/send-email.js';
 
 const router: Router = express.Router();
 
@@ -36,7 +44,7 @@ const router: Router = express.Router();
 // SUPABASE HELPERS
 // ============================================================================
 
-async function supabaseFetch(path: string, options: RequestInit = {}): Promise<any> {
+async function supabaseFetch(path: string, options: RequestInit = {}): Promise<unknown> {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
 
@@ -163,9 +171,9 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
 
   // 2. Idempotency: insert into inbound_emails. ON CONFLICT DO NOTHING.
   try {
-    const existing = await supabaseFetch(
+    const existing = (await supabaseFetch(
       `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}&select=id&limit=1`,
-    );
+    )) as unknown[];
 
     if (existing.length > 0) {
       logger.info('Webhook: duplicate message_id, skipping', { messageId });
@@ -243,11 +251,11 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
   }
 
   // 5. Lookup thread by token
-  let thread: any;
+  let thread: OutreachThreadRow;
   try {
-    const threads = await supabaseFetch(
+    const threads = (await supabaseFetch(
       `outreach_threads?thread_token=eq.${encodeURIComponent(command.token)}&select=id,pipeline,status,person_id,org_id&limit=1`,
-    );
+    )) as OutreachThreadRow[];
 
     if (threads.length === 0) {
       const errorMsg = `Token T:${command.token} not found`;
@@ -354,8 +362,8 @@ function extractEmail(from: string): string | null {
   return match ? match[1] : from.includes('@') ? from.trim() : null;
 }
 
-function buildUpdateFields(command: UpdateCommand, currentStatus: string): Record<string, any> {
-  const fields: Record<string, any> = {};
+function buildUpdateFields(command: UpdateCommand, currentStatus: string): Record<string, unknown> {
+  const fields: Record<string, unknown> = {};
   const today = new Date().toISOString().split('T')[0];
 
   if (command.action === 'status' && command.status) {
@@ -417,10 +425,10 @@ function buildSummary(command: UpdateCommand): string {
 }
 
 async function logActivity(
-  thread: any | null,
+  thread: OutreachThreadRow | null,
   outcome: string,
   description: string,
-  rawPayload: any,
+  rawPayload: unknown,
 ): Promise<void> {
   try {
     await supabaseFetch('outreach_activities', {
@@ -445,7 +453,7 @@ async function logActivity(
   }
 }
 
-async function updateInboundEmail(messageId: string, fields: Record<string, any>): Promise<void> {
+async function updateInboundEmail(messageId: string, fields: Record<string, unknown>): Promise<void> {
   try {
     await supabaseFetch(`inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}`, {
       method: 'PATCH',

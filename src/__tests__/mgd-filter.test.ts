@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { evaluateMgd, countMgd, MGD_CRITERIA, type MgdCandidate } from '../agents/mgd-filter.js';
+import { describe, expect, it } from 'vitest';
+import { countMgd, evaluateMgd, MGD_CRITERIA, type MgdCandidate } from '../agents/mgd-filter.js';
 
 /**
  * These tests assert the *intent* of the MGD audit-grade filter (field note

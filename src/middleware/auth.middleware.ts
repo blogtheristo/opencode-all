@@ -373,7 +373,7 @@ export const loginRateLimit = () => {
 export const authLogger = (req: Request, res: Response, next: NextFunction) => {
   const originalSend = res.send;
 
-  res.send = function (data: any) {
+  res.send = function (data: unknown) {
     if (req.path.includes('/auth/')) {
       logger.info('Auth route accessed', {
         method: req.method,

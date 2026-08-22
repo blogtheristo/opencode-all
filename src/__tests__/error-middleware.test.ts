@@ -6,7 +6,7 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { NextFunction, type Request, type Response } from 'express';
+import { type Request, type Response } from 'express';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { requestTimeout } from '../middleware/request-timeout.js';
 import { AppError, errorHandler, Errors } from '../middleware/error-handler.js';
@@ -138,11 +138,11 @@ describe('requestTimeout', () => {
   it('does not fire timeout if response finishes in time', () => {
     const middleware = requestTimeout(100);
     const req = mockReq();
-    const listeners: Record<string, Function> = {};
+    const listeners: Record<string, (...args: unknown[]) => unknown> = {};
     const res = {
       ...mockRes(),
       headersSent: false,
-      on: vi.fn((event: string, cb: Function) => {
+      on: vi.fn((event: string, cb: (...args: unknown[]) => unknown) => {
         listeners[event] = cb;
       }),
     } as unknown as Response;

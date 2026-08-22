@@ -3,7 +3,7 @@
  * Generates formatted reports (Markdown, HTML) for PDF/email delivery
  */
 
-import { InvestorReportData } from './types';
+import { type InvestorReportData } from './types';
 
 // ============================================================================
 // TEMPLATE GENERATOR
@@ -51,7 +51,7 @@ export class TemplateGenerator {
     const markdown = this.generateMarkdown(data);
 
     // Simple Markdown to HTML conversion (in production, use a proper library like marked.js)
-    let html = markdown
+    const html = markdown
       .replace(/^### (.+)$/gm, '<h3>$1</h3>')
       .replace(/^## (.+)$/gm, '<h2>$1</h2>')
       .replace(/^# (.+)$/gm, '<h1>$1</h1>')

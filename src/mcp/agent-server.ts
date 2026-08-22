@@ -399,17 +399,17 @@ function buildToolList(): MCPToolDefinition[] {
     registerTool({
       name: `dws_${agent.name.replace(/-/g, '_')}`,
       description: `[DWS IQ Agent] ${agent.description}. Capabilities: ${agent.capabilities.join(', ')}. Model: ${agent.model}.`,
-      inputSchema: hasSchema
+      inputSchema: hasSchema && agent.inputSchema
         ? {
             type: 'object',
             properties: {
-              ...agent.inputSchema!.properties,
+              ...agent.inputSchema.properties,
               projectId: {
                 type: 'string',
                 description: 'Project identifier (optional, defaults to "mcp-session")',
               },
             },
-            required: agent.inputSchema!.required,
+            required: agent.inputSchema.required,
           }
         : {
             type: 'object',

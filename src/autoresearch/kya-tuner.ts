@@ -13,14 +13,13 @@
  * Audit: Firehorse JSONL (EU AI Act Article 12)
  */
 
-// @ts-ignore — firehorse module exists at runtime
-import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audit-schema';
-// @ts-ignore
+import {
+  createOptimizationEvent,
+  evaluateOptimization,
+  type OptimizationDecisionEvent,
+} from '../firehorse/audit-schema';
 import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya';
 import logger from '../utils/logger.js';
-
-// Type placeholder while firehorse module is excluded from build
-type OptimizationDecisionEvent = any;
 
 // ============================================================================
 // TUNABLE PARAMETERS (autoresearch target — agent modifies these)
