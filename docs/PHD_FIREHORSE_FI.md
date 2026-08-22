@@ -11,10 +11,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.01
+Version: 4.02
 Sessions & Modifications:
 
-- Version: 4.01 [Latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Lukkokohtainen versionosto 4.00 -> 4.01 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md:n opinnäytetyösäännön mukaan. v4.01:n substanssisisältö (Lifetime Studios -tuotantokone — 25 × 5 -sisältömatriisi, Business Case -kortit, ristiinoppiminen, 800 kantajuttua viiteen kieleen lokalisoituna, Outokumpu-mallin journalistiset reunaehdot, itsevahvistuva ontologia/graafi/LWM-tuotemalli) on toteutuspuolen sisältöä ja kuuluu §1.4 master-vs-PhD-skooppisäännön mukaan V3Thesis §10.31:een (EN ja FI). Ei PhD-skoopin sisältömuutosta; merkitty tähän vain lukkokohtaisena versionostona. Kumppani: docs/LIFETIME_STUDIOS_ADMIN.md.
+- Version: 4.02 [Latest] | Tool: OpenCode (x-preview-f-free) | Session: pr-1867 admin-docs audit | Date: 22.08.2026 | Changes: Lockstep-korotus 4.01 -> 4.02 kaikissa 4 opinnäytetiedostossa. Sisällöllinen muutos on lisäysluontoinen säännön 12 päivitysmerkintä V3Thesis EN/FI tuotantoagenttien johdantoon (Resend-kuljetus korvattu Amazon SES SMTP:llä, LD-2026-008); ei tohtoritason sisältömuutoksia.
+
+- Version: 4.01 [not latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Lukkokohtainen versionosto 4.00 -> 4.01 kaikissa 4 opinnäytetyötiedostossa CLAUDE.md:n opinnäytetyösäännön mukaan. v4.01:n substanssisisältö (Lifetime Studios -tuotantokone — 25 × 5 -sisältömatriisi, Business Case -kortit, ristiinoppiminen, 800 kantajuttua viiteen kieleen lokalisoituna, Outokumpu-mallin journalistiset reunaehdot, itsevahvistuva ontologia/graafi/LWM-tuotemalli) on toteutuspuolen sisältöä ja kuuluu §1.4 master-vs-PhD-skooppisäännön mukaan V3Thesis §10.31:een (EN ja FI). Ei PhD-skoopin sisältömuutosta; merkitty tähän vain lukkokohtaisena versionostona. Kumppani: docs/LIFETIME_STUDIOS_ADMIN.md.
 
 - Version: 4.00 [not latest] | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Lisätty §14.50 (Valjakka/malli-erottelu, suvereeni paikallinen orkestrointi ja MCP:n negatiivinen kyvykkyys) sekä Avainkontribuutio #55. Tieteellinen kehystys §1.4-skooppisäännön mukaisesti; toteutusvastine on samassa lukkoaskelessa lisätty V3Thesis §10.30. Lukkoaskel 3.99->4.00.
 

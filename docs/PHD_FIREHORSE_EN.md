@@ -11,10 +11,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.01
+Version: 4.02
 Sessions & Modifications:
 
-- Version: 4.01 [Latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Lockstep version bump 4.00 -> 4.01 across all 4 thesis files per the CLAUDE.md thesis rule. The v4.01 substantive content (Lifetime Studios production engine — 25 × 5 content matrix, Business Case cards, cross-industry learning, 800 flagship stories localized to five languages, Outokumpu-model journalistic ground rules, self-reinforcing ontology/graph/LWM product model) is implementation-side content and per the §1.4 master-vs-PhD scope rule lives in V3Thesis §10.31 (both EN and FI). No PhD-scope content change; recorded here as a lockstep-only entry. Companion: docs/LIFETIME_STUDIOS_ADMIN.md.
+- Version: 4.02 [Latest] | Tool: OpenCode (x-preview-f-free) | Session: pr-1867 admin-docs audit | Date: 22.08.2026 | Changes: Lockstep-korotus 4.01 -> 4.02 kaikissa 4 opinnäytetiedostossa. Sisällöllinen muutos on lisäysluontoinen säännön 12 päivitysmerkintä V3Thesis EN/FI tuotantoagenttien johdantoon (Resend-kuljetus korvattu Amazon SES SMTP:llä, LD-2026-008); ei tohtoritason sisältömuutoksia.
+
+- Version: 4.01 [not latest] | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 21.08.2026 | Changes: Lockstep version bump 4.00 -> 4.01 across all 4 thesis files per the CLAUDE.md thesis rule. The v4.01 substantive content (Lifetime Studios production engine — 25 × 5 content matrix, Business Case cards, cross-industry learning, 800 flagship stories localized to five languages, Outokumpu-model journalistic ground rules, self-reinforcing ontology/graph/LWM product model) is implementation-side content and per the §1.4 master-vs-PhD scope rule lives in V3Thesis §10.31 (both EN and FI). No PhD-scope content change; recorded here as a lockstep-only entry. Companion: docs/LIFETIME_STUDIOS_ADMIN.md.
 
 - Version: 4.00 [not latest] | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added §14.50 (Harness/model separation, sovereign local orchestration, and negative MCP capability) and Key Contribution #55. Scientific framing per the §1.4 scope rule; implementation counterpart is V3Thesis §10.30, added in the same lockstep. Lockstep 3.99->4.00.
 
@@ -1479,6 +1481,8 @@ Fact extraction creates passive knowledge. The Firehorse operating model require
 _Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig_
 
 Three production agents automate the CEO's daily operational loop — GitHub Actions cron, Supabase data layer, Resend delivery.
+
+> **Update (22.08.2026):** Email delivery has since been migrated from Resend to Amazon SES (SMTP) following the 2026-03-26 incident that permanently banned Resend (`docs/LOCKED_DECISIONS.md` LD-2026-008); agent logic is unchanged.
 
 | Agent                       | Trigger                 | Role                                                                 |
 | --------------------------- | ----------------------- | -------------------------------------------------------------------- |

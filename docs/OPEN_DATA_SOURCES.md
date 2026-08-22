@@ -377,7 +377,7 @@ const customerComplianceProcess: ProcessConfig = {
 | **Escalation chains** | Email to admin | PagerDuty, OpsGenie, customer's own chain |
 | **Reporting cadence** | Quarterly CSRD cycle | Customer's own schedule (monthly, weekly, event-driven) |
 | **Data validation** | DWS schema validation | Customer's own business rules + edge case handling |
-| **Notification channels** | Email (SES/Resend) | Slack, Teams, customer webhook, SMS |
+| **Notification channels** | Email (Amazon SES) | Slack, Teams, customer webhook, SMS |
 | **Audit trail** | DWS sovereignty audit logging | Customer's own SIEM (Splunk, Sentinel, QRadar) |
 
 **How it works:**

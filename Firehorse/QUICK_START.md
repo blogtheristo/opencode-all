@@ -7,7 +7,7 @@ This guide will help you launch your first investor outreach campaign today.
 ## Prerequisites
 
 - ✅ Supabase account (free tier works)
-- ✅ Email service account (SendGrid, Mailgun, or similar)
+- ✅ Amazon SES SMTP credentials (SES is the only sanctioned transport — Resend/SendGrid banned per CLAUDE.md Rule 4)
 - ✅ Node.js installed (for automation)
 - ✅ List of investor contacts
 
@@ -69,8 +69,10 @@ Create `Firehorse/Automation/.env`:
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-service-role-key
 
-# Email (example for SendGrid)
-EMAIL_API_KEY=your-sendgrid-api-key
+# Email (Amazon SES SMTP only — Resend/SendGrid banned per CLAUDE.md Rule 4)
+SMTP_HOST=email-smtp.eu-north-1.amazonaws.com
+SMTP_USER=your-ses-smtp-username
+SMTP_PASS=your-ses-smtp-password
 EMAIL_FROM=investors@dws10.com
 EMAIL_FROM_NAME=DWS6 Team
 
@@ -84,7 +86,7 @@ SEND_HOUR=9
 ```bash
 cd Firehorse/Automation
 npm init -y
-npm install @supabase/supabase-js dotenv @sendgrid/mail
+npm install @supabase/supabase-js dotenv nodemailer
 ```
 
 ### Step 5: Create Simple Campaign Script (10 minutes)
@@ -94,11 +96,15 @@ Create `Firehorse/Automation/simple-campaign.js`:
 ```javascript
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 
 // Configure
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-sgMail.setApiKey(process.env.EMAIL_API_KEY);
+const mailer = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: 587,
+  auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+});
 
 async function sendCampaign() {
   console.log('🚀 Starting campaign...\n');
@@ -138,7 +144,7 @@ async function sendCampaign() {
       };
       
       // Send email
-      await sgMail.send(email);
+      await mailer.sendMail(email);
       
       // Log to Supabase
       await supabase.from('campaign_logs').insert({
@@ -233,7 +239,7 @@ You should see:
 ### "Cannot find module '@supabase/supabase-js'"
 ```bash
 cd Firehorse/Automation
-npm install @supabase/supabase-js dotenv @sendgrid/mail
+npm install @supabase/supabase-js dotenv nodemailer
 ```
 
 ### "Unauthorized" error from Supabase
@@ -278,7 +284,7 @@ Evening (6 PM):
 ## Support Resources
 
 - **Supabase Docs**: https://supabase.com/docs
-- **SendGrid Docs**: https://docs.sendgrid.com
+- **AWS SES Docs**: https://docs.aws.amazon.com/ses/
 - **Node.js Docs**: https://nodejs.org/docs
 
 ## Metrics to Track

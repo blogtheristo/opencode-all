@@ -103,7 +103,7 @@ Start with these documents:
 ### Prerequisites
 
 - Supabase account (database)
-- Email service (SendGrid, Mailgun, etc.)
+- Email service (Amazon SES, SMTP only)
 - Node.js (for automation)
 - Domain with DNS access (for tracking)
 
@@ -233,7 +233,7 @@ Follow-up Automation
 ### External Resources
 
 - Supabase: https://supabase.com/docs
-- SendGrid: https://docs.sendgrid.com
+- AWS SES: https://docs.aws.amazon.com/ses/
 - Node.js: https://nodejs.org/docs
 
 ### Best Practices

@@ -377,7 +377,7 @@ All outreach emails route through the existing Firehorse email infrastructure:
 |-----------|-------------------|
 | **Queue email** | `POST /api/v1/email/send` (async via Redis Streams) |
 | **Direct email** | `POST /api/v1/email/send-direct` (immediate) |
-| **Provider** | Resend (primary) → SendGrid (fallback) |
+| **Provider** | Amazon SES (SMTP only — Resend/SendGrid banned per CLAUDE.md Rule 4 / LD-2026-008) |
 | **Source tracking** | `source: "outreach"` |
 | **Audit trail** | Supabase `email_logs` + `email_queue` tables |
 | **Daily digest** | Automatic Mon-Fri 06:00 via `daily-digest.ts` |
