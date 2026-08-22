@@ -1,0 +1,61 @@
+{
+  "branch": "pr-1867",
+  "checks": [
+    {
+      "duration_ms": 4,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 12773,
+      "name": "vitest",
+      "notes": "exit=1",
+      "output_sha256": "4559985cf062a076d6c2571ae6408bbf5d4c52586e8ec9e00e3cd05d27f86d00",
+      "pass": false
+    },
+    {
+      "duration_ms": 16644,
+      "name": "gitleaks-full",
+      "notes": "",
+      "output_sha256": "f853e2858db968adbf854a2c1d9c91ee9f4d160f2a1f4c81c62a47aa943b6234",
+      "pass": true
+    },
+    {
+      "duration_ms": 415,
+      "name": "npm-audit-root",
+      "notes": "exit=1",
+      "output_sha256": "fa6f7bbc61f0f3b5427cf82103ce212028e67374dff83df7d9ac7d34a759a916",
+      "pass": false
+    },
+    {
+      "duration_ms": 5,
+      "name": "ruff-check",
+      "notes": "",
+      "output_sha256": "9f5928c053a10eb972f7d6721e23a30bf4fd62e209f2fac522d8d0d85b9ca414",
+      "pass": true
+    },
+    {
+      "duration_ms": 4,
+      "name": "ruff-format-check",
+      "notes": "",
+      "output_sha256": "9f5928c053a10eb972f7d6721e23a30bf4fd62e209f2fac522d8d0d85b9ca414",
+      "pass": true
+    }
+  ],
+  "checks_failed": 2,
+  "checks_passed": 4,
+  "checks_total": 6,
+  "commit_sha": "a93cc06bb7ec86817ea1684eefec8724bf711329",
+  "duration_ms": 29904,
+  "overall_pass": false,
+  "prev_record_hash": "b7dd7dfc5f10f51acb719b5cc0a4164467fb37a9bbcf30ee13fc1486881289d8",
+  "repo": "blogtheristo/dws6",
+  "runner": "admin100@gn100-cb5d",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "1e5b3c9eaa683f801c95ddfbbf8605a18751839b81c0bd45e6e07af328a23fbc",
+  "trigger_kind": "pre-push",
+  "ts": "2026-08-22T00:00:29Z"
+}

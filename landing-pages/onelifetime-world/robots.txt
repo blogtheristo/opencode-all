@@ -4,7 +4,7 @@
 User-agent: *
 Disallow: /community-login/
 Disallow: /assistant/
-Disallow: /out (
+Disallow: /out/
 Disallow: /upsell-map/
 Allow: /
 
