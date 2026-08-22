@@ -51,7 +51,12 @@
     "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
     "factory:route": "tsx scripts/factory-route.ts",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:run": "vitest run",
+    "test:unit": "vitest run --exclude 'tests/integration/**'",
+    "test:integration": "vitest run tests/integration",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "db:test:rls": "pg_prove supabase/tests/rls/*.sql"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
@@ -104,6 +109,7 @@
     "@types/nodemailer": "^8.0.0",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^4.1.11",
     "@vitest/ui": "^4.1.9",
     "eslint": "^10.9.0",
     "globals": "^17.11.0",

@@ -17,7 +17,9 @@
 | Backend lint     | GREEN — ESLint flat config, 0 errors / ~766 warnings (legacy debt, tracked) |
 | npm audit        | CLEAN — 0 vulnerabilities (sharp 0.35.3, nanoid fixed) |
 | Local CI hook    | ACTIVE — vitest + gitleaks + npm audit + ruff on push |
-| CI gates         | test-on-pr.yml: tsc + vitest + eslint + secret scan |
+| CI gates         | test-on-pr.yml: tsc + vitest + eslint + secret scan; DGX→GHA runner failover |
+| Test tiers       | `test:unit` (fast gate) / `test:integration` (`tests/integration/`) / `test:coverage` |
+| Flake detection  | Weekly flake-detector.yml: suite ×3 shuffled |
 
 ## Recent changes
 
