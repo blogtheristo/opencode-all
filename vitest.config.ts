@@ -5,6 +5,12 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     setupFiles: ['./src/__tests__/setup.ts'],
+    // Isolation guards: restore spies and unstub env/globals after every
+    // test so cross-file pollution can't produce order-dependent flakes
+    // (see STATUS.md follow-up history on error-middleware.test.ts).
+    restoreMocks: true,
+    unstubEnvs: true,
+    unstubGlobals: true,
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
