@@ -737,6 +737,10 @@ These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` f
 ### Common Commands
 
 ```bash
+# Agent Worktree Isolation (WORKTREE_POLICY.md — MANDATORY for agent commits)
+# Agents never commit from the primary checkout; each task gets its own worktree:
+scripts/new-opencode-worktree.sh <task-name> [base-branch] [--launch]
+
 # V1.0 Agent Coordination
 cd .workflows/agents
 node coordinator.cjs status           # All agent statuses
