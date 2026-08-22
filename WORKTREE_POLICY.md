@@ -53,7 +53,23 @@ Index races like this will recur as long as agents commit from the shared checko
 | In-repo `.opencode/worktrees/`  | ❌ Rejected — must be gitignored forever; grep/lint/audit tooling repeatedly tripped on `.claude/worktrees/` residue historically |
 | Shared primary checkout         | ❌ Rejected — caused the 2026-08-22 incident        |
 
-## 4. Relationship to existing conventions
+## 4. Claude Code hot standby (per-branch)
+
+Per AGENTS.md §Runtime Selection, Claude Code is the **hot standby** for any branch
+OpenCode works with. Worktree isolation must not break failover:
+
+1. **Every `opencode/<task>` branch must be Claude-resumable.** Before a session ends,
+   serialize state into `.claude/handoffs/<task>.md` **inside the worktree** (task,
+   decisions, next steps). Handoffs are platform-agnostic by design.
+2. **Failover procedure:** `cd ~/.opencode-worktrees/dws6/<task-name> && claude`.
+   Both platforms share identical MCP server configs (AGENTS.md guarantee), so no
+   reconfiguration is needed.
+3. **Do not switch platforms mid-commit.** Resume first (handoff), then continue.
+4. **Cleanup only after** the PR is merged AND the handoff file is archived
+   (`docs/archive/` or deleted — it must not block `git worktree remove`; untracked
+   files require `--force`, which is expected).
+
+## 5. Relationship to existing conventions
 
 | Tool         | Convention                              | Script                            |
 | ------------ | --------------------------------------- | --------------------------------- |
@@ -62,7 +78,7 @@ Index races like this will recur as long as agents commit from the shared checko
 | Copilot      | `.copilot-worktrees/` (in-repo, ignored)| IDE-managed                       |
 | Cursor       | `.cursor/worktrees.json` setup commands | IDE-managed                       |
 
-## 5. Enforcement
+## 6. Enforcement
 
 - **Soft (now):** this document + AGENTS.md pointer; session-start guidance tells
   agents to create a worktree before making changes.
@@ -70,7 +86,7 @@ Index races like this will recur as long as agents commit from the shared checko
   `git push` when `pwd` resolves to the primary checkout (path allowlist), plus a
   `pre-commit` hook warning when `git rev-parse --git-common-dir` != `$(pwd)/.git`.
 
-## 6. References
+## 7. References
 
 - Incident: commit `dca623b3c` (2026-08-22) — cross-agent index sweep
 - Prior art: `.claude/hooks/auto-commit_DEPRECATED.sh` (deprecated after the
