@@ -33,6 +33,7 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
+import smartFactoryRoutes from './routes/smart-factory.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
 import supportRoutes from './routes/support.routes.js';
@@ -304,6 +305,10 @@ app.use('/api/v1/outreach', outreachRoutes);
 
 // Outreach quick-send (send emails to prospects, admin key auth)
 app.use('/api/v1/outreach', outreachSendRoutes);
+
+// Smart Factory for Sales — catalog → prospect matching → multi-channel outreach → call booking
+// (shared secret auth via X-Smart-Factory-Key)
+app.use('/api/v1/smart-factory', smartFactoryRoutes);
 
 // Firehorse Omnichannel Pilot (sales automation, signals, lead management)
 app.use('/api/v1/firehorse', firehorseRoutes);
