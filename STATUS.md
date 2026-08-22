@@ -47,4 +47,5 @@
 4. Remaining root-level markdown still needs a second decluttering pass (101 files; standards + active guides kept intentionally — see `standards/README.md` for why standards stay at root).
 5. Dashboard (v10-react) ESLint upstream dep issue (`parent-module`) — unresolved.
 6. RESOLVED 2026-08-22: flaky `error-middleware.test.ts` tests rewritten as isolated, per-test-mock versions in the 'errorHandler sanitization (isolated)' block — no shared helpers, immune to cross-file pollution under parallelism.
+7. **Direct Postgres creds stale**: `DATABASE_URL` in `.env.local` fails auth (`password authentication failed`) — the app itself uses the REST API and is unaffected. Provision fresh direct-Postgres creds to enable the RLS gate: `npm run db:test:rls` (runner + pgTAP twin in `supabase/tests/rls/`). Runner exits 2 on bad creds (fail loud, no fake green).
 7. Billing TODO cluster is the largest tracked gap — 13 unwired Stripe lifecycle notifications in `docs/backlog/CODE_TODO_LEDGER.md` (Cluster 1).
