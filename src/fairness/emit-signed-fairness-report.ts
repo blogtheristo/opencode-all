@@ -25,18 +25,18 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 
 import {
-  measureCounterfactualFairness,
   type FairnessConfig,
   type FairnessResult,
+  measureCounterfactualFairness,
 } from './counterfactual-fairness.js';
 import {
-  buildFairnessArtifact,
   artifactToMarkdown,
+  buildFairnessArtifact,
   type FairnessArtifact,
 } from './fairness-artifact.js';
 import { hashDataset, type LendingApplicant } from '../synthetic-data/lending-applicants.js';
 import { Article12Logger } from '../agents/article12-logger.js';
-import { SignedReportService, type ReportSigner } from '../firehorse/signed-reports.js';
+import { type ReportSigner, SignedReportService } from '../firehorse/signed-reports.js';
 
 const AGENT_ID = 'financed-decision-fairness';
 const REGULATION_IDS = ['EU-AI-ACT-ART-10', 'EU-AI-ACT-ANNEX-III'];

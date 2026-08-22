@@ -554,6 +554,7 @@ or removing an agent.
 | `mnemosyne`                | Long-term memory oracle                           |
 | `panacea`                  | Self-improving / adaptive optimization            |
 | `quality-gate`             | Quality-gate / QA verification                    |
+| `hic-content-audit` | HicContentAuditAgent | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver | Llama 3.3 70B |
 | `version-audit` | VersionAuditAgent | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance  | Llama 3.3 70B |
 | `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
 | `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
@@ -767,8 +768,13 @@ cd mcp-hub && python server.py
 
 ### Timeline
 
+> **Stale as of 2026-08-22:** the Feb 23, 2026 launch countdown below predates the
+> launch window and is no longer maintained here. Current roadmap lives in
+> `DWS7_ROADMAP.md` / `DWS8_ROADMAP.md` / `DWS9_ROADMAP.md`. Retained per Rule 12
+> until the V1.0 completion table above is formally retired.
+
 - **Launch Date:** February 23, 2026
-- **Days Remaining:** 51
+- **Days Remaining:** 51 (frozen — countdown expired)
 - **Estimated Work:** 41-56 days
 - **Buffer:** -5 to 10 days
 
@@ -812,22 +818,28 @@ Or source the `.env` file properly in your shell. The `.env.example` has these p
 
 ### Known pre-existing issues
 
-- **TypeScript build (`npm run build`)**: Has pre-existing type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts`. The project uses `tsx watch` for dev, not `tsc`.
+- **TypeScript build (`npm run build`)**: Clean as of 2026-08-22 (`tsc --noEmit` passes; `npm run typecheck`). Earlier type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts` have been resolved.
 - **Dashboard ESLint (`npm run lint` in v10-react)**: Missing `parent-module` transitive dependency from `import-fresh` → ESLint 9.39 issue. Does not affect Vite dev server or build.
+- **Backend ESLint**: Configured 2026-08-22 (`eslint.config.mjs`, `npm run lint` / `lint:fix`). The ~766-warning legacy debt was paid down to **8 documented exceptions** on 2026-08-22 and the paid-off rules promoted to `error` — new violations of those rules now fail the gate. Remaining warns: static-only classes with test-coupled public APIs (×5), Express `namespace` type augmentation (×2), one Cloudflare edge-runtime console (×1). Do not add new errors.
 - **Redis warnings**: Backend logs Redis connection errors at startup (expected without Redis running). The app degrades gracefully.
 - **Supabase "degraded"**: Without real Supabase credentials, `/health` reports degraded status. The server still starts and responds to requests.
+- ~~**dotenv import-ordering bug**:~~ RESOLVED 2026-08-22. `src/config/env.ts` now loads dotenv at first import and validates via zod; `app.ts` imports it before anything else, so `npm run dev` no longer requires pre-exported env vars. Services that read env at module load should use `getEnv()` from `../config/env.js`.
 
 ### Tests
 
-Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. 53/56 test files pass; 4 failures are pre-existing in the compliance-agent-integration suite.
+Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. As of 2026-08-22: 102 test files pass (1 skipped), 1164 tests pass (3 skipped) — the previously failing compliance-agent-integration suite has been fixed. Coverage: `npm run test:coverage` (v8 provider; thresholds 60% statements / 50% branches / 55% functions / 60% lines).
 
 ### Lint
 
-Root backend has `"lint": "echo \"No linter configured\""` — no real linter. Dashboard linting has the upstream dependency issue noted above.
+Root backend has a real ESLint flat config (`eslint.config.mjs`) — run `npm run lint` / `npm run lint:fix`. As of 2026-08-22 the gate is strict: 0 errors / 8 documented warnings. Dashboard linting has the upstream dependency issue noted above.
+
+### Code TODOs
+
+All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LEDGER.md`](docs/backlog/CODE_TODO_LEDGER.md) — largest cluster is billing lifecycle notifications (13 items). Audit with `rg -n "// TODO" src`.
 
 ---
 
-**Document Version:** 1.1  
-**Last Updated:** August 19, 2026  
+**Document Version:** 1.3  
+**Last Updated:** August 22, 2026  
 **Status:** Active  
-**Next Review:** January 10, 2026
+**Next Review:** October 10, 2026

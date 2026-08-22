@@ -7,7 +7,7 @@
  * - Agent response contract validation
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock external dependencies before imports
 vi.mock('../utils/logger.js', () => ({

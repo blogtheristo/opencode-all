@@ -143,7 +143,26 @@ export class SovereigntyMonitorAgent extends BaseAgent {
   }
 
   private normalizeInput(input: Record<string, unknown>): SovereigntyInput {
-    const raw = input as Record<string, any>;
+    const raw = input as SovereigntyInput & {
+      hostname?: string;
+      endpoint?: string;
+      cloudProvider?: string;
+      cloud?: string;
+      dataCenter?: string;
+      location?: string;
+      encryption_at_rest?: boolean;
+      encryption_in_transit?: boolean;
+      ssl?: boolean;
+      rls?: boolean;
+      rls_enabled?: boolean;
+      rls_coverage?: number;
+      backup_region?: string;
+      access_control_method?: string;
+      access_control?: string;
+      dsar?: boolean;
+      right_to_deletion?: boolean;
+      consent?: boolean;
+    };
     return {
       host: raw.host ?? raw.hostname ?? raw.endpoint ?? undefined,
       provider: raw.provider ?? raw.cloudProvider ?? raw.cloud ?? undefined,
@@ -301,7 +320,7 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -312,7 +331,7 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

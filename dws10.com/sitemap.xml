@@ -44,8 +44,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dws10.com/captain/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://dws10.com/investor-centre/captain/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -140,8 +140,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dws10.com/fleet-admiral/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://dws10.com/investor-centre/admiral/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -188,7 +188,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dws10.com/investor-relations/</loc>
+    <loc>https://dws10.com/investor-centre/</loc>
     <lastmod>2026-05-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

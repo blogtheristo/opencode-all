@@ -17,7 +17,7 @@
 
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
-import type { CheckerResult, CheckerFinding, FindingSeverity } from './types.js';
+import type { CheckerFinding, CheckerResult, FindingSeverity } from './types.js';
 import logger from '../../utils/logger.js';
 
 interface CheckerInput {

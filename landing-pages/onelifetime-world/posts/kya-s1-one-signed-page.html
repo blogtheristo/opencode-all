@@ -9,6 +9,7 @@
 -->
 <html lang="en">
   <head>
+    <meta property="article:class" content="2">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KYA-S1 — One Signed Page for the Agent in Your Vendor File</title>
@@ -30,11 +31,13 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://onelifetime.world/posts/kya-s1-one-signed-page.html" />
     <meta property="og:site_name" content="Lifetime Scope Journal" />
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/kya-s1-one-signed-page.png" />
     <meta property="article:published_time" content="2026-08-06" />
     <meta property="article:author" content="Risto Anton Päärni" />
     <meta property="article:section" content="Standards" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/kya-s1-one-signed-page.png">
+
     <meta
       name="twitter:title"
       content="KYA-S1 — One Signed Page for the Agent in Your Vendor File"
@@ -234,8 +237,8 @@
           inside the network.
         </p>
         <p>
-          Autonomous agents need a line in that folder. There was not yet a standard that fit the
-          slot. So we wrote one.
+          Autonomous agents need a line in that folder. There was not yet an attestation
+          specification that fit the slot. So we wrote one.
         </p>
 
         <h2>What lands in the folder</h2>
@@ -341,12 +344,12 @@
           What is in the specification under our name is an architecture description, not an attestation.
         </p>
 
-        <h2>Bronze, Silver, Gold</h2>
+        <h2>KYA-AL1, KYA-AL2, KYA-AL3</h2>
         <p>
           The tiers differ mostly in how many seconds it takes a vendor to do the hard things:
           revoke a verified human, terminate a compromised chain, propagate that across the fleet.
-          Bronze is fifteen minutes. Silver is five. Gold is sixty seconds, with an independent
-          assessor across all seven domains.
+          KYA-AL1 (Standard) is fifteen minutes. KYA-AL2 (Enhanced) is five. KYA-AL3 (Critical) is
+          sixty seconds, with an independent assessor across all seven domains.
         </p>
         <p>
           A vendor claiming KYA-S1 names the tier, the assessor and the assessment date in the same

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-08-22-blogi-linkit-pr1867-ci-drive</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-08-22-blogi-linkit-pr1867-ci-drive</h1>
+</header>
+<h1 id="driving-pr-1867-blogi-linkit-merge-to-green">2026-08-22 — Driving PR #1867 (blogi-linkit merge) to green</h1>
+<p><strong>What happened.</strong> Continuation of the 2026-08-21 merge-conflict resolution (see <code>docs/field-notes/2026-08-21-blogi-linkit-merge.md</code>). A PR (#1867) was opened from <code>claude/blogi-linkit-merge-errors-wedpz8</code> into <code>main</code> via the Claude Code UI; this session subscribed to its GitHub activity and drove it to green:</p>
+<ul>
+<li>Fixed <code>truth-lint</code> CI failure (<code>--changed</code> mode caught deprecated-phrase mentions in audit/field-note/KB docs that needed quoting as mentions, not live claims).</li>
+<li>Fixed <code>test</code> CI failure: two orphaned test files (<code>dashboard-routes.test.ts</code>, <code>upsell-rules.test.ts</code>) imported modules a prior dead-code sweep (<code>e71b64624</code>, already on <code>main</code>) had archived to <code>_OLD</code> without checking test files. Retired the tests the same way, matching repo convention.</li>
+<li>Audited a HIC-raised concern that the PR description referenced a stale price-list version (v1.21) while the live site is v1.25. Confirmed no actual pricing regression: the PR’s file content matches <code>main</code>’s current v1.25 byte-for-byte; only doc comments and i18n hreflang links were added. Updated the PR description to remove the stale version reference and state the verified fact.</li>
+<li>Absorbed ~20 turns of a self-perpetuating loop where <code>Admin/Security/CRITICAL_BUGS_REPORT.md</code> regenerates its timestamp on every pre-push scan, triggering the stop-hook’s “uncommitted changes” check every turn. Considered gitignoring it but the repo’s own <code>.gitignore</code> states a narrow tracked-by-default principle (only secrets/build-artifacts/OS-junk are ignored); kept committing the 1-line diff each time instead, per that convention.</li>
+</ul>
+<p><strong>Insight.</strong> The <code>git-check</code> and <code>session-stop</code> hooks in this container see pre-existing untracked stray files (<code>gcp-sa-key-new.json</code> looking like a live GCP credential, plus ~9 other files a prior dead-code sweep archived to <code>_OLD</code> but which still sit un-renamed and untracked in this shared working directory) as “substantive changes” needing a field note every session, even though this session never touched them. They were deliberately left uncommitted throughout — one looks like a credential and must not be committed blind.</p>
+<p><strong>Next steps.</strong> PR #1867 is green and mergeable as of this note. No merge was performed — that decision belongs to the HIC per the branch protocol (“never push to a different branch without explicit permission” extends to not auto-merging on their behalf).</p>
+<p><strong>HIC action:</strong> <code>gcp-sa-key-new.json</code> (repo root, untracked, unignored) should be reviewed and rotated/removed from the working directory if it’s a live key — it keeps surfacing in every session’s dirty-file scan and is one <code>git add -A</code> away from being committed by a less careful future session.</p>
+</body>
+</html>

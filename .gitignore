@@ -21,6 +21,8 @@ env100326.mcp
 .mcp.json
 credentials.json
 service-account-*.json
+*sa-key*.json
+gcp-sa-*.json
 google-services.json
 claude_config.json
 SFTP_SECRETS.py
@@ -207,4 +209,13 @@ Admin/Acer-Veriton-GN100/training/cache/
 !Admin/Acer-Veriton-GN100/training/.env.training.example
 .opencode/settings.local.json
 .opencode/failover.log
+opencode.json.save
+.copilot-worktrees/
 .claude/archive/
+config/blog-facebook-pool.json
+
+# housekeeping 2026-08-22
+result.txt
+*.save
+.ci-audit/
+__pycache__/

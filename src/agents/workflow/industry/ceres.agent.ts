@@ -71,7 +71,7 @@ export class CeresAgent extends BaseAgent {
       created_at: new Date().toISOString(),
     });
 
-    let complianceResult: AgentResponse | null = null;
+    let complianceResult: AgentResponse | null;
     try {
       complianceResult = await agentRegistry.executeAgent('compliance', context, {
         projectId: context.projectId,

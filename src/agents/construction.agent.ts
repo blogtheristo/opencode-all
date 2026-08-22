@@ -666,8 +666,8 @@ export class ConstructionAgent extends BaseAgent {
     }
 
     const orchestrated = Object.entries(delegatedResults)
-      .filter(([, r]) => r !== null)
-      .map(([name, r]) => `${name} (confidence: ${r!.confidence})`);
+      .filter((entry): entry is [string, AgentResponse] => entry[1] !== null)
+      .map(([name, r]) => `${name} (confidence: ${r.confidence})`);
 
     return {
       result: {
@@ -680,8 +680,8 @@ export class ConstructionAgent extends BaseAgent {
         delegatedAgents: orchestrated,
         delegatedResults: Object.fromEntries(
           Object.entries(delegatedResults)
-            .filter(([, r]) => r !== null)
-            .map(([name, r]) => [name, { confidence: r!.confidence, result: r!.result }]),
+            .filter((entry): entry is [string, AgentResponse] => entry[1] !== null)
+            .map(([name, r]) => [name, { confidence: r.confidence, result: r.result }]),
         ),
         recommendationCount: uniqueRecs.length,
       },

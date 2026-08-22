@@ -78,7 +78,7 @@
 │                                ▼                                        │
 │  ┌──────────────────────────────────────────────────────────────────┐ │
 │  │  STEP 3: Send Emails                                             │ │
-│  │  • Send via email service (SendGrid/Mailgun)                     │ │
+│  │  • Send via Amazon SES (SMTP)                                    │ │
 │  │  • Include tracking pixel for opens                              │ │
 │  │  • Include UTM parameters for clicks                             │ │
 │  │  • Handle errors and retries                                     │ │
@@ -109,7 +109,7 @@
 │                                                                          │
 │  ┌──────────────────────────────────────────────────────────────────┐ │
 │  │                     Email Service Provider                        │ │
-│  │                  (SendGrid / Mailgun / AWS SES)                  │ │
+│  │                  (Amazon SES, SMTP only)                  │ │
 │  ├──────────────────────────────────────────────────────────────────┤ │
 │  │                                                                   │ │
 │  │  • Send transactional emails                                     │ │
@@ -297,20 +297,20 @@ Future: Multi-channel (Email + Social + Content + Events)
 
 ### Infrastructure
 - **Database**: Supabase (PostgreSQL)
-- **Email**: SendGrid / Mailgun / AWS SES
+- **Email**: Amazon SES (SMTP only — Resend/SendGrid banned per CLAUDE.md Rule 4)
 - **Automation**: Node.js + Cron / Cloud Functions
 - **Hosting**: Existing dws10.com
 - **Analytics**: Supabase + Custom dashboards
 
 ### Accounts Needed
 - ✅ Supabase (free tier: 500MB, 2GB bandwidth)
-- ✅ SendGrid (free tier: 100 emails/day)
+- ✅ Amazon SES (SMTP credentials configured)
 - ✅ Domain with DNS access (for SPF/DKIM)
 - ✅ Node.js environment (local or cloud)
 
 ### Cost Estimate
 - **Supabase**: $0/month (free tier)
-- **SendGrid**: $0/month (free tier) or $15/month (40k emails)
+- **Amazon SES**: $0.10 per 1,000 emails
 - **Hosting**: $0 (using existing)
 - **Total**: $0-15/month
 

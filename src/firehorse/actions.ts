@@ -98,7 +98,7 @@ export async function sendEmail(action: SendEmailAction): Promise<void> {
     lead_id,
   });
 
-  console.log(`Email sent to ${lead.email} using template ${template_id}`);
+  logger.info(`Email sent to ${lead.email} using template ${template_id}`);
 }
 
 /**
@@ -176,7 +176,7 @@ export async function changeState(action: ChangeStateAction): Promise<void> {
     metadata: { new_state },
   });
 
-  console.log(`Lead ${lead_id} state changed to ${new_state}`);
+  logger.info(`Lead ${lead_id} state changed to ${new_state}`);
 }
 
 /**
@@ -191,7 +191,7 @@ export async function logEvent(action: LogEventAction): Promise<void> {
     metadata,
   });
 
-  console.log(`Event ${event_type} logged for lead ${lead_id}`);
+  logger.info(`Event ${event_type} logged for lead ${lead_id}`);
 }
 
 /**
@@ -214,7 +214,7 @@ export async function createTask(action: CreateTaskAction): Promise<void> {
     metadata: { task_type, owner },
   });
 
-  console.log(`Task created for lead ${lead_id}, owner: ${owner}`);
+  logger.info(`Task created for lead ${lead_id}, owner: ${owner}`);
 }
 
 // ============================================================================

@@ -1,3 +1,4 @@
+import logger from './logger.js';
 /**
  * GTM Client Utility — DWS IQ 6/7
  *
@@ -43,7 +44,7 @@ class GTMClient {
     if (this.initialized) return;
 
     // Initialize data layer
-    window.dataLayer = window.dataLayer || [];
+    const dataLayer = (window.dataLayer = window.dataLayer || []);
 
     // Inject GTM script
     const scriptId = 'gtm-container';
@@ -59,7 +60,7 @@ class GTMClient {
     window.gtag =
       window.gtag ||
       ((...args: unknown[]) => {
-        window.dataLayer!.push(args);
+        dataLayer.push(args);
       });
     window.gtag('js', new Date());
     window.gtag('config', this.containerId, {
@@ -76,7 +77,7 @@ class GTMClient {
    */
   push(event: GTMEvent): void {
     if (!this.initialized) {
-      console.warn('GTMClient not initialized — call init() first');
+      logger.warn('GTMClient not initialized — call init() first');
       return;
     }
     window.dataLayer.push(event);

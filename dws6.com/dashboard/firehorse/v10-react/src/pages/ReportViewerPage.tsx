@@ -108,12 +108,12 @@ export function ReportViewerPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+      <div className="min-h-dvh bg-background text-foreground p-6">
         <div className="max-w-7xl mx-auto space-y-6">
-          <div className="h-8 bg-gray-800 rounded w-48 animate-pulse" />
+          <div className="h-8 bg-fg-muted/10 rounded w-48 animate-pulse" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-48 bg-gray-800 rounded-xl animate-pulse" />
+              <div key={i} className="h-48 bg-fg-muted/10 rounded-xl animate-pulse" />
             ))}
           </div>
         </div>
@@ -122,20 +122,20 @@ export function ReportViewerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+    <div className="min-h-dvh bg-background text-foreground p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Page Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-white">Report Viewer</h1>
-            <p className="text-sm text-gray-400 mt-1">Firehorse Report Engine &middot; {reports.length} reports</p>
+            <p className="text-sm text-fg-muted mt-1">Firehorse Report Engine &middot; {reports.length} reports</p>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => navigate('/templates')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-700 text-gray-300 hover:bg-gray-600"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-fg-muted/20 text-fg-muted hover:bg-fg-muted"
             >
               Edit Templates
             </button>
@@ -146,7 +146,7 @@ export function ReportViewerPage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   filterType === type
                     ? 'bg-primary-600 text-white'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    : 'bg-fg-muted/10 text-fg-muted hover:bg-fg-muted/20'
                 }`}
               >
                 {type}
@@ -157,15 +157,15 @@ export function ReportViewerPage() {
 
         {/* Report Cards Grid */}
         {filteredReports.length === 0 ? (
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
-            <p className="text-gray-500">No reports found for the selected filter.</p>
+          <div className="bg-surface border border-border rounded-xl p-12 text-center">
+            <p className="text-fg-muted">No reports found for the selected filter.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredReports.map((report) => (
               <div
                 key={report.id}
-                className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex flex-col justify-between hover:border-gray-700 transition-colors"
+                className="bg-surface border border-border rounded-xl p-5 flex flex-col justify-between hover:border-border transition-colors"
               >
                 {/* Card Header */}
                 <div>
@@ -179,13 +179,13 @@ export function ReportViewerPage() {
                   </div>
 
                   <h3 className="text-base font-semibold text-white mb-1 line-clamp-2">{report.title}</h3>
-                  <p className="text-xs text-gray-500">{report.project_name} &middot; {report.period}</p>
+                  <p className="text-xs text-fg-muted">{report.project_name} &middot; {report.period}</p>
                 </div>
 
                 {/* Card Footer */}
-                <div className="mt-4 pt-3 border-t border-gray-800">
+                <div className="mt-4 pt-3 border-t border-border">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-fg-muted">
                       {new Date(report.created_at).toLocaleDateString('en-GB', {
                         day: 'numeric',
                         month: 'short',
@@ -193,14 +193,14 @@ export function ReportViewerPage() {
                       })}
                     </span>
                     {report.file_size_kb > 0 && (
-                      <span className="text-xs text-gray-500">{report.file_size_kb} KB</span>
+                      <span className="text-xs text-fg-muted">{report.file_size_kb} KB</span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handlePreview(report)}
-                      className="flex-1 px-3 py-1.5 text-xs font-medium text-gray-300 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                      className="flex-1 px-3 py-1.5 text-xs font-medium text-fg-muted bg-fg-muted/10 rounded-lg hover:bg-fg-muted/20 transition-colors"
                     >
                       Preview
                     </button>
@@ -304,18 +304,18 @@ function ReportPreviewModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-gray-900 border border-gray-700 rounded-xl w-full max-w-4xl mx-4 max-h-[90vh] flex flex-col">
+      <div className="bg-surface border border-border rounded-xl w-full max-w-4xl mx-4 max-h-[90vh] flex flex-col">
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-800">
+        <div className="flex items-center justify-between p-5 border-b border-border">
           <div>
             <h2 className="text-lg font-semibold text-white">{report.title}</h2>
-            <p className="text-xs text-gray-400 mt-0.5">
+            <p className="text-xs text-fg-muted mt-0.5">
               {report.type} &middot; {report.project_name} &middot; {report.period}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
+            className="p-2 text-fg-muted hover:text-white rounded-lg hover:bg-fg-muted/10 transition-colors"
             aria-label="Close preview"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -328,7 +328,7 @@ function ReportPreviewModal({
         <div className="flex-1 overflow-hidden min-h-[400px]">
           {previewType === 'loading' && (
             <div className="flex items-center justify-center h-full">
-              <div className="animate-pulse text-gray-500 text-sm">Loading preview...</div>
+              <div className="animate-pulse text-fg-muted text-sm">Loading preview...</div>
             </div>
           )}
 
@@ -344,34 +344,34 @@ function ReportPreviewModal({
 
           {previewType === 'fallback' && (
             <div className="p-6 overflow-y-auto h-full">
-              <div className="bg-gray-800 rounded-lg p-6 max-w-2xl mx-auto">
+              <div className="bg-fg-muted/10 rounded-lg p-6 max-w-2xl mx-auto">
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`w-3 h-3 rounded-full ${
                     report.status === 'complete' ? 'bg-green-400' :
                     report.status === 'generating' ? 'bg-yellow-400 animate-pulse' :
                     'bg-red-400'
                   }`} />
-                  <span className="text-sm text-gray-300 font-medium">{STATUS_LABELS[report.status]}</span>
+                  <span className="text-sm text-fg-muted font-medium">{STATUS_LABELS[report.status]}</span>
                 </div>
 
                 <h3 className="text-white font-semibold text-lg mb-2">{report.title}</h3>
 
                 <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mt-4">
                   <div>
-                    <dt className="text-gray-500">Type</dt>
-                    <dd className="text-gray-200">{report.type}</dd>
+                    <dt className="text-fg-muted">Type</dt>
+                    <dd className="text-foreground">{report.type}</dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">Project</dt>
-                    <dd className="text-gray-200">{report.project_name}</dd>
+                    <dt className="text-fg-muted">Project</dt>
+                    <dd className="text-foreground">{report.project_name}</dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">Period</dt>
-                    <dd className="text-gray-200">{report.period}</dd>
+                    <dt className="text-fg-muted">Period</dt>
+                    <dd className="text-foreground">{report.period}</dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">Generated</dt>
-                    <dd className="text-gray-200">
+                    <dt className="text-fg-muted">Generated</dt>
+                    <dd className="text-foreground">
                       {new Date(report.created_at).toLocaleDateString('en-GB', {
                         day: 'numeric', month: 'short', year: 'numeric',
                       })}
@@ -379,14 +379,14 @@ function ReportPreviewModal({
                   </div>
                   {report.file_size_kb > 0 && (
                     <div>
-                      <dt className="text-gray-500">File Size</dt>
-                      <dd className="text-gray-200">{report.file_size_kb} KB</dd>
+                      <dt className="text-fg-muted">File Size</dt>
+                      <dd className="text-foreground">{report.file_size_kb} KB</dd>
                     </div>
                   )}
                 </dl>
 
                 {report.status !== 'complete' && (
-                  <p className="text-xs text-gray-500 mt-4">
+                  <p className="text-xs text-fg-muted mt-4">
                     {report.status === 'generating'
                       ? 'This report is still being generated. Check back shortly.'
                       : 'Report generation failed. Please retry or contact support.'}
@@ -398,10 +398,10 @@ function ReportPreviewModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-gray-800 flex justify-end gap-2">
+        <div className="p-4 border-t border-border flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-300 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+            className="px-4 py-2 text-sm text-fg-muted bg-fg-muted/10 rounded-lg hover:bg-fg-muted/20 transition-colors"
           >
             Close
           </button>

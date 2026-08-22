@@ -206,7 +206,7 @@
           Daily insights on EU compliance, AI agents, ERP transition, and industrial transformation.
           Published in English and Finnish.
         </p>
-        <!-- Lifetime Scope Monthly — LinkedIn Newsletter CTA -->
+        <!-- Lifetime Scope Monthly — LinkedIn Newsletter CTA + Facebook -->
         <div class="flex flex-col items-center gap-2 mt-8">
           <a
             class="libutton"
@@ -214,6 +214,14 @@
             target="_blank"
             rel="noopener"
             >Subscribe on LinkedIn</a
+          >
+          <a
+            href="https://www.facebook.com/LifetimeOy"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 text-center px-4 rounded-2xl text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            style="background: #1877f2; width: 200px; height: 32px; text-decoration: none !important"
+            >Follow on Facebook</a
           >
           <p class="text-xs" style="color: var(--text-secondary)">
             Lifetime Scope Monthly — Best Blog Entry of the Month
@@ -359,128 +367,20 @@
       </section>
       <script>
         (function () {
-          var latestPosts = [
-            {
-              url: "/posts/kya-s1-sanasto-glossary.fi.html",
-              title: "KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto",
-              date: "9 August 2026",
+          var latestPosts = [            {
+              url: "/posts/dws-iq-resilience-on-build.fi.html",
+              title: "DWS IQ 6 — Jatkuvuus rakennusvaiheessa",
+              date: "20 Aug 2026",
             },
             {
-              url: "/posts/eudi-wallet-eidas2-human-identity.fi.html",
-              title: "Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0",
-              date: "8 August 2026",
+              url: "/posts/ai-vendor-dependency-part-2.html",
+              title: "How to Govern AI Workflows Once They Reach the Factory",
+              date: "19 Aug 2026",
             },
             {
-              url: "/posts/agentic-commerce-autonomous-payments.fi.html",
-              title: "Agentic Commerce -protokollat & Autonomiset Maksut",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/lifetime-world-model-state-register.fi.html",
-              title: "Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/kya-s1-ecosystem-roadmap.fi.html",
-              title: "KYA-S1 Ekosysteemi & Tuotanto-Roadmap",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.fi.html",
-              title: "72 tunnin virheluokittelu (FLT) ja päätöksen toistaminen (PRV)",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/bpmn-xml-trs-portti-riskiluokka-lease-fail-closed.fi.html",
-              title: "KYA-S1 v1.3 × BPMN 2.0: Lease Token, fail-closed, TRS-laskenta",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia.fi.html",
-              title: "KYA-S1 ja BPMN 2.0: luottamustaso ohjaa teollisuusprosessia",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/agent-classes-copilot-vs-dws-iq.fi.html",
-              title: "Agenttiluokat: GitHub Copilot vs. DWS IQ -tausta-agentit",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/eu-ai-act-article-14-hic.fi.html",
-              title: "EU AI Act Artikla 14 (HIC) ja agenttien itsenäisyyden ristiriita",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/kya-kyc-seven-questions.fi.html",
-              title: "KYC:n vastine tekoälylle — Seitsemän kriittistä KYA-kysymystä",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/know-your-agent-kya-s1.html",
-              title: "Know Your Agent (KYA-S1) — One Signed Page for the AI That Touches Your Data",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/know-your-agent-kya-s1.fi.html",
-              title: "Tunne agenttisi (KYA-S1) — Yksi allekirjoitettu sivu tekoälystä",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/know-your-agent-kya-s1.sv.html",
-              title: "Känn din agent (KYA-S1) — En signerad sida om den AI som rör dina data",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/know-your-agent-kya-s1.de.html",
-              title: "Kenne deinen Agenten (KYA-S1) — Eine unterschriebene Seite über die KI",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/know-your-agent-kya-s1.fr.html",
-              title: "Connaissez votre agent (KYA-S1) — Une page signée sur l'IA",
-              date: "8 August 2026",
-            },
-            {
-              url: "/posts/kya-s1-one-signed-page.html",
-              title: "KYA-S1 — One Signed Page for the Agent in Your Vendor File",
-              date: "6 August 2026",
-            },
-            {
-              url: "/posts/arvonluonnin-ajurit-2026.html",
-              title: "Six Drivers of Value — and the Research Behind Them",
-              date: "6 August 2026",
-            },
-            {
-              url: "/posts/arvonluonnin-ajurit-2026.fi.html",
-              title: "Kuusi arvonluonnin ajuria — ja tutkimus niiden takana (FI)",
-              date: "6 August 2026",
-            },
-            {
-              url: "/posts/harness-paywall-depth-arbitrage.html",
-              title: "The Harness Paywall",
-              date: "30 July 2026",
-            },
-            {
-              url: "/posts/dont-train-a-base-model-own-the-evidence-layer.html",
-              title: "Don't train a base model. Own the evidence layer.",
-              date: "26 July 2026",
-            },
-            {
-              url: "/posts/ala-treenaa-base-mallia-omista-evidenssikerros.html",
-              title: "Älä treenaa base-mallia, omista evidenssikerros (FI)",
-              date: "26 July 2026",
-            },
-            {
-              url: "/posts/greg-isenberg-agents-need-a-signature.html",
-              title:
-                "Greg Isenberg Is Right About Agents. The Hard Part Is a Signature.",
-              date: "24 July 2026",
-            },
-            {
-              url: "/posts/ai-supercomputing-meets-eda-sovereign-design.html",
-              title:
-                "AI Supercomputing Meets EDA — The Design Agents Arrive. The IP Stays in the Building.",
-              date: "17 July 2026",
+              url: "/posts/ai-vendor-dependency.html",
+              title: "How to Reduce AI Vendor Dependency in Regulated Industrial Workflows",
+              date: "19 Aug 2026",
             },
             {
               url: "/posts/nvidia-halos-robotics-physical-ai-safety.html",
@@ -637,7 +537,7 @@
             },
             {
               url: "/posts/fpe-dark-mode-construction-wedge.html",
-              title: "FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure",
+              title: "FPE · The Construction Wedge — Reducing Weakest-Link Failure",
               date: "27 Apr 2026",
             },
             {
@@ -663,7 +563,7 @@
             },
             {
               url: "/posts/kya-standard-v1-5-what-changed.html",
-              title: "KYA Specification v1.5 — What Changed Since the v1 Field Note",
+              title: "KYA Standard v1.5 — What Changed Since the v1 Field Note",
               date: "19 Apr 2026",
             },
             {
@@ -718,8 +618,13 @@
             },
             {
               url: "/posts/kya-standard-v1.html",
-              title: "Field Note: KYA Specification for Autonomous Control Rooms",
+              title: "Field Note: KYA Standard for Autonomous Control Rooms",
               date: "14 Mar 2026",
+            },
+            {
+              url: "/posts/business-case-logistics.html",
+              title: "Business Case: The Intelligent Fleet Pilot",
+              date: "07 Dec 2025",
             },
           ];
           var PAGE_SIZE = 5;
@@ -789,6 +694,192 @@
       </script>
 
       <div class="mt-8 grid gap-6 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
+                <a
+          href="/posts/sovereignty-field-note-2-three-pillars.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(34, 211, 238, 0.4)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Sovereignty</span>
+                <span class="tag-badge">Field Note #2</span>
+                <span class="tag-badge">EU / US / SG</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                Sovereignty Field Note #2 — The Three Pillars Every Global Enterprise Faces
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                Data, Technology and Operational sovereignty across three jurisdictions, mapped to KYA's four tracks and the post-quantum cutover.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-05-28" class="text-xs" style="color: var(--text-secondary)"
+                >May 28, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="/posts/sovereignty-field-note-2-three-pillars.fi.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(34, 211, 238, 0.4)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Suvereniteetti</span>
+                <span class="tag-badge">Kenttämuistio #2</span>
+                <span class="tag-badge">Suomeksi</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                Suvereniteetin kenttämuistio #2 — Digitaalisen suvereniteetin kolme tasoa
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                Data-, teknologia- ja operatiivinen suvereniteetti kolmella lainkäyttöalueella — sama malli suomeksi.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-05-28" class="text-xs" style="color: var(--text-secondary)"
+                >28. toukokuuta 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="/posts/six-notes-to-the-commission.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(148, 163, 184, 0.35)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Policy</span>
+                <span class="tag-badge">EU Commission</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                Six Notes to the Commission
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                What a builder inside the regulated economy would tell Brussels about making EU AI rules work in practice.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-05-13" class="text-xs" style="color: var(--text-secondary)"
+                >May 13, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="/posts/iceye-jgi-sar-conservation-signals.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(148, 163, 184, 0.35)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">ICEYE</span>
+                <span class="tag-badge">SAR</span>
+                <span class="tag-badge">Conservation</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                ICEYE + Jane Goodall Institute — What SAR-for-Conservation Signals
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                A Finnish SAR constellation pointed at forest loss, and what that says about orbital evidence in regulated industry.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-04-23" class="text-xs" style="color: var(--text-secondary)"
+                >April 23, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="/posts/interruption-cost-hidden-tax-ai-operations.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(148, 163, 184, 0.35)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Operations</span>
+                <span class="tag-badge">Cost Model</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                The Interruption Cost Crisis — The Hidden Tax on AI Operations
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                What every context switch actually costs once agents are in the loop, and where the tax shows up in the P&amp;L.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-06-27" class="text-xs" style="color: var(--text-secondary)"
+                >June 27, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="/posts/fire-brigades-drone-defense-units.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(212, 168, 67, 0.4)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Defence</span>
+                <span class="tag-badge">Drones</span>
+                <span class="tag-badge">Dual-Use</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                Fire Brigades as Drone Defense Units
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                Finland has 33 regional rescue services and 13,000 active volunteers already on call tonight. Also in Finnish and Swedish.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-05-15" class="text-xs" style="color: var(--text-secondary)"
+                >May 15, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="/posts/dont-train-a-base-model-own-the-evidence-layer.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+          style="border-color: rgba(139, 92, 246, 0.4)"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Evidence Layer</span>
+                <span class="tag-badge">EN / FI / DE / FR / SV</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                Don't Train a Base Model. Own the Evidence Layer
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                The base model commoditizes every month; the loop does not. Published in five languages.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2026-07-26" class="text-xs" style="color: var(--text-secondary)"
+                >July 26, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
         <!-- Outokumpu Tornio — Sovereign Industrial Intelligence (TOP) -->
         <a
           href="/posts/sovereign-intelligence-outokumpu-tornio.html"
@@ -906,7 +997,7 @@
           </div>
         </a>
 
-        <!-- Post 2: KYA Specification -->
+        <!-- Post 2: KYA Standard -->
         <a
           href="/posts/kya-standard-v1.html"
           class="post-card flex flex-col rounded-lg overflow-hidden"
@@ -914,12 +1005,12 @@
           <div class="flex-1 p-6 flex flex-col justify-between">
             <div class="flex-1">
               <div class="flex flex-wrap gap-2 mb-3">
-                <span class="tag-badge">KYA Specification</span>
+                <span class="tag-badge">KYA Standard</span>
                 <span class="tag-badge">Security</span>
                 <span class="tag-badge">Autonomous AI</span>
               </div>
               <p class="text-xl font-semibold" style="color: var(--text-primary)">
-                Field Note: Establishing the KYA Specification for Autonomous Control Rooms
+                Field Note: Establishing the KYA Standard for Autonomous Control Rooms
               </p>
               <p class="mt-3 text-sm" style="color: var(--text-secondary)">
                 Verify the Human. Sandbox the Agent. Secure the Intent. A new governance layer for
@@ -957,6 +1048,35 @@
             <div class="mt-6">
               <time datetime="2026-02-07" class="text-xs" style="color: var(--text-secondary)"
                 >February 07, 2026</time
+              >
+            </div>
+          </div>
+        </a>
+
+        <!-- Post 4: Business Case Logistics -->
+        <a
+          href="/posts/business-case-logistics.html"
+          class="post-card flex flex-col rounded-lg overflow-hidden"
+        >
+          <div class="flex-1 p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="tag-badge">Case Study</span>
+                <span class="tag-badge">Logistics</span>
+                <span class="tag-badge">Uber</span>
+                <span class="tag-badge">Bolt</span>
+              </div>
+              <p class="text-xl font-semibold" style="color: var(--text-primary)">
+                Business Case: The Intelligent Fleet Pilot
+              </p>
+              <p class="mt-3 text-sm" style="color: var(--text-secondary)">
+                The Challenge: Fragmented Urban Logistics. In the high-pressure environment of
+                Nordic urban logistics, companies face a trilemma.
+              </p>
+            </div>
+            <div class="mt-6">
+              <time datetime="2025-12-07" class="text-xs" style="color: var(--text-secondary)"
+                >December 07, 2025</time
               >
             </div>
           </div>
@@ -1235,7 +1355,7 @@
               Contact
             </h3>
             <p class="text-sm" style="color: var(--text-secondary)">
-              <a href="https://dws10.com/contact/" style="color: var(--text-accent)"
+              <a href="mailto:risto.paarni@lifetime.fi" style="color: var(--text-accent)"
                 >risto.paarni@lifetime.fi</a
               ><br />
               <span class="block mt-2 text-xs" style="color: #64748b">VAT FI07724079</span>

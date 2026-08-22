@@ -17,21 +17,22 @@ import { CheckerAgent } from './checker.agent.js';
 import { LoopBudget } from './loop-budget.js';
 import { runSafetyGate } from './loop-safety-gate.js';
 import {
+  appendCycle,
   createInitialState,
   readState,
-  writeState,
-  appendCycle,
-  updateOpenFindings,
   setStatus,
+  updateOpenFindings,
+  writeState,
 } from './loop-state.js';
 import type {
-  LoopConfig,
-  LoopResult,
-  LoopCycleRecord,
   CheckerFinding,
+  CheckerResult,
+  LoopConfig,
+  LoopCycleRecord,
+  LoopResult,
   LoopStateFile,
 } from './types.js';
-import type { AgentContext } from '../types.js';
+import type { AgentContext, LLMMessage, LLMResponse } from '../types.js';
 
 export class LoopOrchestrator {
   private checker: CheckerAgent;
@@ -142,7 +143,7 @@ export class LoopOrchestrator {
         verificationBar: state.verificationBar,
       });
 
-      const checkerResult = checkerResponse.result as unknown as import('./types.js').CheckerResult;
+      const checkerResult = checkerResponse.result as unknown as CheckerResult;
 
       // Charge checker tokens to budget
       budget.charge(checkerResult.tokensIn, checkerResult.tokensOut);
@@ -240,7 +241,7 @@ export class LoopOrchestrator {
       };
     }
 
-    const messages: import('../types.js').LLMMessage[] = [
+    const messages: LLMMessage[] = [
       { role: 'system', content: maker.systemPrompt },
       { role: 'user', content: instruction },
     ];
@@ -259,7 +260,7 @@ export class LoopOrchestrator {
         break;
       }
 
-      let response: import('../types.js').LLMResponse;
+      let response: LLMResponse;
       try {
         response = await client.chat(messages);
       } catch (err) {

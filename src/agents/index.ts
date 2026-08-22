@@ -63,6 +63,7 @@ import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
 import { IndustryAnalystAgent } from './industry-analyst.agent.js';
+import { HicContentAuditAgent } from './hic-content-audit.agent.js';
 import { OutreachLeadFinderAgent } from './outreach-lead-finder.agent.js';
 import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js';
 import { OutreachExecutorAgent } from './outreach-executor.agent.js';
@@ -76,12 +77,12 @@ import { VestaAgent } from './vesta.agent.js';
 // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
 import {
   AIScopingConsultantAgent,
-  DWSDeploymentEngineerAgent,
   ComplianceSpecialistAgent,
+  DevOpsEngineerAgent,
+  DWSDeploymentEngineerAgent,
   EdgeAIEngineerAgent,
   EnterpriseModelEngineerAgent,
   GenAISolutionArchitectAgent,
-  DevOpsEngineerAgent,
   ProjectManagerAgent,
 } from './consultant/index.js';
 import { HelpdeskAgent } from './helpdesk.agent.js';
@@ -311,6 +312,9 @@ export class AgentRegistry {
     // Universal industry coverage — one parameterized agent for all 25 industries,
     // closing the gap for the 12 without a dedicated pantheon specialist.
     this.register(new IndustryAnalystAgent());
+    // DWS Content Production Standard — binary HIC pre-publication gate (13 points,
+    // APPROVED / CORRECTABLE, no exceptions; HIC remains the final approver).
+    this.register(new HicContentAuditAgent());
     // Outreach Pipeline — 4-step DGX Spark-powered B2B outreach (2026-06-15)
     this.register(new OutreachLeadFinderAgent()); // Step 1: find + score EU leads
     this.register(new OutreachMessageCrafterAgent()); // Step 2: craft personalized email + LinkedIn drafts

@@ -15,7 +15,7 @@
  * Owner: Lifetime Oy
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import logger from '../utils/logger.js';
 import { emailTrackingService } from '../services/email-tracking.service.js';
 import { getSupabaseClient } from '../config/supabase.js';

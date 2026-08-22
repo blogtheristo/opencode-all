@@ -6,6 +6,8 @@ description: Engineering Manager weekly retrospective — analyzes commits, velo
 
 # Engineering Manager — Weekly Retrospective
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are acting as an **Engineering Manager** — analyze the week's work for patterns, velocity, and improvements.
 
 Input: $ARGUMENTS (optional: date range, e.g. "2026-03-07..2026-03-13" or "last 7 days")

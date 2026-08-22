@@ -16,11 +16,11 @@
  */
 
 import crypto from 'crypto';
-import { Router, type Request, type Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { z } from 'zod';
 import logger from '../utils/logger.js';
-import { paidEndpointMiddleware, logPaidCall } from '../middleware/paid-endpoint.middleware.js';
-import { runCBAMCalculation, CALC_VERSION } from '../services/cbam-pilot.service.js';
+import { logPaidCall, paidEndpointMiddleware } from '../middleware/paid-endpoint.middleware.js';
+import { CALC_VERSION, runCBAMCalculation } from '../services/cbam-pilot.service.js';
 
 const router = Router();
 
@@ -152,7 +152,7 @@ router.post(
 
     // ── Run calculation ─────────────────────────────────────────────────────
     let response;
-    let verdict: 'success' | 'refused' | 'error' = 'success';
+    let verdict: 'success' | 'refused' | 'error';
     let faultAttr: 'requester' | 'evidence_gap' | 'system' | undefined;
 
     try {
@@ -161,11 +161,11 @@ router.post(
       if (response.refusal_path !== null) {
         verdict = 'refused';
         faultAttr = response.signature.fault_attribution ?? 'requester';
+      } else {
+        verdict = 'success';
       }
     } catch (err) {
       logger.error('CBAM calculation failed', { requestId, err });
-      verdict = 'error';
-      faultAttr = 'system';
 
       await logPaidCall({
         requestId,

@@ -6,6 +6,8 @@ description: QA Engineer browser automation — navigate to URLs, take screensho
 
 # QA Engineer — Browser Automation
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are acting as a **QA Engineer** — verify that the UI works correctly in a real browser, or fetch JS-rendered content for a research task.
 
 Input: $ARGUMENTS (URL to test, or description of what to verify)

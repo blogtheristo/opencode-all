@@ -30,6 +30,7 @@ DWS6 brand voice; never edits the draft itself — only reports.
 
 Based on `soul-audit` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/soul-audit).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Checks
 

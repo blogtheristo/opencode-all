@@ -25,6 +25,15 @@ Every agent operates by these. Full text + DWS bindings in CLAUDE.md.
 
 CONTEXT
 
+# Install the repo-local git hooks path (.githooks/pre-push runs gitleaks +
+# npm-audit + vitest locally per docs/CI_AUDIT.md's local-first CI model).
+# Previously only scripts/setup-git-hooks.ps1 did this (Windows-only), so
+# fresh clones / cloud sessions silently skipped local CI on every push.
+if [ -d ".githooks" ] && [ "$(git config --get core.hooksPath 2>/dev/null || true)" != ".githooks" ]; then
+  git config core.hooksPath ".githooks"
+  echo "[session-start] Installed core.hooksPath=.githooks (local CI: gitleaks, npm-audit, vitest on push)"
+fi
+
 # Check if budget env var is set
 if [ -n "${CLAUDE_AUTO_MODE_BUDGET:-}" ]; then
   echo "Token budget for this session: $CLAUDE_AUTO_MODE_BUDGET"
@@ -65,7 +74,7 @@ PY
 fi
 
 # Check for uncommitted changes from previous session
-DIRTY=$(git status --porcelain 2>/dev/null | head -5)
+DIRTY=$(git status --porcelain 2>/dev/null | sed -n '1,5p')
 if [ -n "$DIRTY" ]; then
   echo ""
   echo "WARNING: Uncommitted changes detected from previous session:"
@@ -99,7 +108,10 @@ elif [ "$BRANCH" != "unknown" ]; then
   echo "This looks like a fresh branch. Create this file at your first checkpoint"
   echo "(see .claude/HANDOFF.md for the protocol). Recent cross-branch history:"
   echo ""
-  awk '/^## HANDOFF HISTORY/{f=1} f' ".claude/HANDOFF.md" 2>/dev/null | tail -n +2 | head -8
+  awk '
+    /^## HANDOFF HISTORY/ { found=1; next }
+    found && count < 8 { print; count++ }
+  ' ".claude/HANDOFF.md" 2>/dev/null
 fi
 
 # Auto-discover and index all skills (Anthropic Skills paradigm)

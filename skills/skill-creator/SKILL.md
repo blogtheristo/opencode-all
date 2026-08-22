@@ -30,6 +30,7 @@ writes-pages:
 
 Based on `skill-creator` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/skill-creator).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Scaffolding contract
 

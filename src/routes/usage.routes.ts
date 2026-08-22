@@ -90,7 +90,12 @@ const handleValidationErrors = (req: Request, res: Response): boolean => {
  */
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const stats = await UsageMeteringService.getUsageStats(req.userId!);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const stats = await UsageMeteringService.getUsageStats(userId);
 
     res.json({
       ...stats,
@@ -122,7 +127,12 @@ router.post('/tokens/ingest', ingestValidation, async (req: Request, res: Respon
   }
 
   try {
-    const result = await tokenUsageService.ingestEvents(req.userId!, req.body.events);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const result = await tokenUsageService.ingestEvents(userId, req.body.events);
     res.status(201).json({
       ...result,
       timestamp: new Date().toISOString(),
@@ -142,9 +152,14 @@ router.get('/tokens/summary', summaryValidation, async (req: Request, res: Respo
   }
 
   try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
     const periodDays =
       typeof req.query.periodDays === 'string' ? Number.parseInt(req.query.periodDays, 10) : 30;
-    const summary = await tokenUsageService.getSummary(req.userId!, periodDays);
+    const summary = await tokenUsageService.getSummary(userId, periodDays);
     res.json({
       ...summary,
       timestamp: new Date().toISOString(),
@@ -167,11 +182,16 @@ router.get(
   }
 
     try {
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
       const periodDays =
         typeof req.query.periodDays === 'string' ? Number.parseInt(req.query.periodDays, 10) : 30;
       const sessionId = typeof req.query.sessionId === 'string' ? req.query.sessionId : undefined;
       const recommendationResult = await tokenUsageService.getRecommendations(
-        req.userId!,
+        userId,
         periodDays,
         sessionId,
       );
@@ -196,7 +216,12 @@ router.post('/tokens/budgets', budgetValidation, async (req: Request, res: Respo
   }
 
   try {
-    const budget = await tokenUsageService.setBudget(req.userId!, {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const budget = await tokenUsageService.setBudget(userId, {
       dailyLimitTokens: req.body.dailyLimitTokens,
       monthlyLimitTokens: req.body.monthlyLimitTokens,
       monthlyLimitEur: req.body.monthlyLimitEur,
@@ -217,9 +242,14 @@ router.post('/tokens/budgets', budgetValidation, async (req: Request, res: Respo
  * GET /api/v1/usage/tokens/budgets
  * Get configured token budget for the authenticated user.
  */
-router.get('/tokens/budgets', async (_req: Request, res: Response, next: NextFunction) => {
+router.get('/tokens/budgets', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const budget = await tokenUsageService.getBudget(_req.userId!);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const budget = await tokenUsageService.getBudget(userId);
     res.json({
       budget,
       timestamp: new Date().toISOString(),

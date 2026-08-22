@@ -1,13 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import {
-  INDUSTRY_REGISTRY,
-  INDUSTRIES_SERVED_TOTAL,
   getIndustryById,
   getIndustryByName,
+  INDUSTRIES_SERVED_TOTAL,
   industriesWithoutDedicatedAgent,
+  INDUSTRY_REGISTRY,
 } from '../../agents/data/industry-registry.js';
 import { IndustryAnalystAgent } from '../../agents/industry-analyst.agent.js';
 

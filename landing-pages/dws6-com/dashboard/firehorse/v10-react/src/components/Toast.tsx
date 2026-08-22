@@ -55,11 +55,11 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: (id: string)
         <span className="text-white text-lg mt-0.5">{style.icon === 'check_circle' ? '\u2713' : style.icon === 'error' ? '\u2717' : style.icon === 'warning' ? '\u26A0' : '\u2139'}</span>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-white">{toast.title}</p>
-          {toast.message && <p className="text-xs text-gray-300 mt-0.5">{toast.message}</p>}
+          {toast.message && <p className="text-xs text-fg-muted mt-0.5">{toast.message}</p>}
         </div>
         <button
           onClick={() => onDismiss(toast.id)}
-          className="text-gray-400 hover:text-white transition-colors text-lg leading-none"
+          className="text-fg-muted hover:text-white transition-colors text-lg leading-none"
           aria-label="Dismiss"
         >
           &times;

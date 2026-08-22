@@ -7,7 +7,7 @@
 import pino from 'pino';
 import { getSupabaseClient } from '../../config/supabase.js';
 import { gtmEventLogger } from '../../services/gtm-event-logger.js';
-import { BaseERPConnector } from './base-connector.js';
+import { type BaseERPConnector } from './base-connector.js';
 import { MonitorERPConnector } from './monitor-connector.js';
 import { IFSCloudConnector } from './connectors/ifs-connector.js';
 import { Dynamics365Connector } from './connectors/dynamics365-connector.js';
@@ -15,24 +15,31 @@ import { SAPConnector } from './connectors/sap-connector.js';
 import { VismaConnector } from './connectors/visma-connector.js';
 import { JeevesConnector } from './connectors/jeeves-connector.js';
 import {
+  type Dynamics365Config,
+  type EntityType,
+  type ERPConnectionConfig,
+  type ERPIntegrationSettings,
   ERPProvider,
-  ERPConnectionConfig,
-  ERPIntegrationSettings,
-  SyncSettings,
-  FieldMapping,
-  SyncResult,
-  SyncOperation,
-  MachineData,
-  OEEMetrics,
-  ERPWebhookEvent,
+  type ERPWebhookEvent,
+  type FieldMapping,
+  type IFSCloudConfig,
+  type JeevesConfig,
+  type MachineData,
+  type MonitorERPConfig,
+  type OEEMetrics,
+  type SAPConfig,
+  type SyncOperation,
+  type SyncResult,
+  type SyncSettings,
+  type VismaConfig,
 } from './types.js';
 import {
+  type CompanyERPEntry,
+  type CompanyLookupResult,
+  getAllRegisteredCompanies,
+  getCompaniesByProvider,
   resolveCompanyERP,
   resolveCompanyERPBatch,
-  getCompaniesByProvider,
-  getAllRegisteredCompanies,
-  CompanyLookupResult,
-  CompanyERPEntry,
 } from './company-registry.js';
 
 const logger = pino({ name: 'erp-integration-service' });
@@ -267,7 +274,10 @@ export class ERPIntegrationService {
   /**
    * Handle webhook events from ERP systems
    */
-  async handleWebhook(provider: ERPProvider, event: any): Promise<void> {
+  async handleWebhook(
+    provider: ERPProvider,
+    event: { type?: string; entityType: EntityType; entityId: string; [key: string]: unknown },
+  ): Promise<void> {
     try {
       logger.info({ provider, eventType: event.type }, 'Received ERP webhook');
 
@@ -275,7 +285,7 @@ export class ERPIntegrationService {
       const webhookEvent: ERPWebhookEvent = {
         id: this.generateId(),
         provider,
-        eventType: event.type,
+        eventType: event.type ?? 'unknown',
         entityType: event.entityType,
         entityId: event.entityId,
         timestamp: new Date(),
@@ -358,22 +368,22 @@ export class ERPIntegrationService {
   private createConnector(provider: ERPProvider, config: ERPConnectionConfig): BaseERPConnector {
     switch (provider) {
       case ERPProvider.MONITOR:
-        return new MonitorERPConnector(config as any);
+        return new MonitorERPConnector(config as unknown as MonitorERPConfig);
 
       case ERPProvider.IFS:
-        return new IFSCloudConnector(config as any);
+        return new IFSCloudConnector(config as unknown as IFSCloudConfig);
 
       case ERPProvider.DYNAMICS_365:
-        return new Dynamics365Connector(config as any);
+        return new Dynamics365Connector(config as unknown as Dynamics365Config);
 
       case ERPProvider.SAP:
-        return new SAPConnector(config as any);
+        return new SAPConnector(config as unknown as SAPConfig);
 
       case ERPProvider.VISMA:
-        return new VismaConnector(config as any);
+        return new VismaConnector(config as unknown as VismaConfig);
 
       case ERPProvider.JEEVES:
-        return new JeevesConnector(config as any);
+        return new JeevesConnector(config as unknown as JeevesConfig);
 
       default:
         throw new Error(`Unsupported ERP provider: ${provider}`);

@@ -5,7 +5,7 @@
  * Validates request validation, response shapes, and error handling.
  */
 
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import express from 'express';
 import request from 'supertest';
 

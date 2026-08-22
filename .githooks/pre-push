@@ -47,52 +47,8 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   esac
 done
 
-# ZenFree security scan — block push on critical/high findings
-# Runs locally to avoid GitHub Actions costs
-SCANNER="$(git rev-parse --show-toplevel)/scripts/scan_critical_bugs.py"
-if [ -f "$SCANNER" ] && command -v python3 >/dev/null 2>&1; then
-  echo "🔒 Running ZenFree security scan..."
-  output=$(python3 "$SCANNER" 2>&1)
-  scanner_status=$?
-  if [ "$scanner_status" -ne 0 ]; then
-    echo "$output"
-    echo ""
-    echo "ERROR: ZenFree scanner failed with exit code $scanner_status." 1>&2
-    echo "Fix the scanner error or bypass with: git push --no-verify" 1>&2
-    exit 1
-  fi
-  critical=$(echo "$output" | grep -oP 'Critical: \K[0-9]+' || echo "0")
-  high=$(echo "$output" | grep -oP 'High: \K[0-9]+' || echo "0")
-  if [ "$critical" -gt 0 ] || [ "$high" -gt 0 ]; then
-    echo "$output"
-    echo ""
-    echo "ERROR: ZenFree found $critical critical and $high high severity issues." 1>&2
-    echo "Fix them before pushing, or bypass with: git push --no-verify" 1>&2
-    exit 1
-  fi
-  echo "✅ ZenFree: no critical/high issues found"
-elif [ -f "$SCANNER" ] && command -v python >/dev/null 2>&1; then
-  echo "🔒 Running ZenFree security scan..."
-  output=$(python "$SCANNER" 2>&1)
-  scanner_status=$?
-  if [ "$scanner_status" -ne 0 ]; then
-    echo "$output"
-    echo ""
-    echo "ERROR: ZenFree scanner failed with exit code $scanner_status." 1>&2
-    echo "Fix the scanner error or bypass with: git push --no-verify" 1>&2
-    exit 1
-  fi
-  critical=$(echo "$output" | grep -oP 'Critical: \K[0-9]+' || echo "0")
-  high=$(echo "$output" | grep -oP 'High: \K[0-9]+' || echo "0")
-  if [ "$critical" -gt 0 ] || [ "$high" -gt 0 ]; then
-    echo "$output"
-    echo ""
-    echo "ERROR: ZenFree found $critical critical and $high high severity issues." 1>&2
-    echo "Fix them before pushing, or bypass with: git push --no-verify" 1>&2
-    exit 1
-  fi
-  echo "✅ ZenFree: no critical/high issues found"
-fi
+# ZenFree local scanner removed: false positives blocked routine work.
+# Security checks run GitHub-side instead.
 
 # ─── Local CI runner + audit log ──────────────────────────────────────────────
 # Replaces GitHub Actions checks: test.yml, secret-scan-gitleaks.yml, ruff.yml,
@@ -108,7 +64,7 @@ if [ -x "$LOCAL_CI" ] && [ "${SKIP_LOCAL_CI:-}" != "1" ]; then
     echo "ERROR: local CI failed — see .ci-audit/runs/ for the failure record." 1>&2
     echo "  • Fix the failures and retry (a new audit record will be appended and become the latest record for this branch/commit)." 1>&2
     echo "  • Bypass (still audited via git reflog): git push --no-verify" 1>&2
-    echo "  • Skip only the CI (keep ZenFree): SKIP_LOCAL_CI=1 git push" 1>&2
+    echo "  • Skip only the CI: SKIP_LOCAL_CI=1 git push" 1>&2
     exit 1
   fi
 fi

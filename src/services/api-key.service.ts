@@ -70,18 +70,18 @@ function generateRawKey(): string {
 }
 
 // Map Supabase row (snake_case) to ApiKeyRecord (camelCase)
-export function rowToRecord(row: any): ApiKeyRecord {
+export function rowToRecord(row: Record<string, unknown>): ApiKeyRecord {
   return {
-    id: row.id,
-    userId: row.user_id,
-    name: row.name,
-    prefix: row.prefix,
-    hash: row.hash,
-    scopes: row.scopes,
-    createdAt: row.created_at,
-    lastUsedAt: row.last_used_at,
-    expiresAt: row.expires_at,
-    revoked: row.revoked,
+    id: row.id as string,
+    userId: row.user_id as string,
+    name: row.name as string,
+    prefix: row.prefix as string,
+    hash: row.hash as string,
+    scopes: row.scopes as string[],
+    createdAt: row.created_at as string,
+    lastUsedAt: row.last_used_at as string | null,
+    expiresAt: row.expires_at as string | null,
+    revoked: row.revoked as boolean,
   };
 }
 
@@ -91,7 +91,7 @@ export const ApiKeyService = {
 
     // Validate scopes
     for (const scope of scopes) {
-      if (!VALID_SCOPES.includes(scope as any)) {
+      if (!(VALID_SCOPES as readonly string[]).includes(scope)) {
         throw new Error(`Invalid scope: ${scope}. Valid scopes: ${VALID_SCOPES.join(', ')}`);
       }
     }

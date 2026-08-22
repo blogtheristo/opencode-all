@@ -193,6 +193,10 @@ If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four to
 
 Also regenerate `Learn/` versioned HTML outputs. Never delete old thesis HTML versions.
 
+**Canonical source of truth:** the four `docs/` files above are the ONLY editable thesis sources. `Learn/V3Thesis_EN.md` and `Learn/V3Thesis_FI.md` are stale copies (drifted to v3.83 while docs/ is newer) — never edit them; they serve no tooling purpose (the generator reads `docs/` paths directly). When in doubt, always edit the `docs/` paths listed above.
+
+**Latest marker convention:** every `VERSION AND AGENT HISTORY` entry carries an explicit marker. The newest entry is labelled `[Latest]`; when a new version is created, the previously-newest entry is relabelled `[not latest]` and the new entry gets `[Latest]`. The top `Version:` field plus the `[Latest]` marker together identify the current version — a file whose newest entry does NOT carry `[Latest]` is stale and must not be edited.
+
 ### Thesis Autonomy Boundary (HIC decision, 01.08.2026)
 
 **Additive** thesis content is GREEN on **all four** files — a new `§x.y` section plus its Key Contribution and the lockstep version bump. This replaces the earlier rule that treated all master's-thesis content as RED; the risk being guarded against was never additive content, and the old boundary stopped the thesis tracking the work actually being done.

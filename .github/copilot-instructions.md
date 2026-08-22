@@ -187,7 +187,7 @@ dist/, build/            # Build artifacts
 ## Common Pitfalls and Workarounds
 
 ### Issue: TypeScript Build Fails with "Cannot find name 'process'"
-**Cause:** Missing @types/node dependency  
+**Cause:** Missing the Node.js type definitions package  
 **Fix:** Ensure `npm install` was run first. The error appears if you build before installing dependencies.
 
 ### Issue: Morning Briefing Runs Twice During DST Transitions

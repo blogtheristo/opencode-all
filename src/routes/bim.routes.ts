@@ -71,7 +71,7 @@ const validateRequest = (req: Request, res: Response): boolean => {
     res.status(400).json({
       error: 'Validation failed',
       details: errors.array().map((e) => ({
-        field: e.type === 'field' ? (e as any).path : 'unknown',
+        field: e.type === 'field' ? e.path : 'unknown',
         message: e.msg,
       })),
     });
@@ -122,6 +122,12 @@ router.post(
   async (req: Request, res: Response) => {
     if (!validateRequest(req, res)) return;
 
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
     try {
       const {
         org_id,
@@ -135,7 +141,7 @@ router.post(
         file_format,
       } = req.body;
 
-      if (!(await assertOrgMember(req.userId!, org_id, res))) return;
+      if (!(await assertOrgMember(userId, org_id, res))) return;
 
       const { data, error } = await sb()
         .from('bim_projects')
@@ -177,6 +183,11 @@ router.post(
 // GET /api/bim/projects — List projects for an org
 // ============================================================================
 router.get('/projects', authenticateToken, async (req: Request, res: Response) => {
+  const userId = req.userId;
+  if (!userId) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
   try {
     const orgId = req.query.org_id as string;
     if (!orgId) {
@@ -184,7 +195,7 @@ router.get('/projects', authenticateToken, async (req: Request, res: Response) =
       return;
     }
 
-    if (!(await assertOrgMember(req.userId!, orgId, res))) return;
+    if (!(await assertOrgMember(userId, orgId, res))) return;
 
     const { data, error } = await sb()
       .from('bim_projects')
@@ -215,6 +226,12 @@ router.get(
   async (req: Request, res: Response) => {
     if (!validateRequest(req, res)) return;
 
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
     try {
       const { data: project, error: projErr } = await sb()
         .from('bim_projects')
@@ -227,7 +244,7 @@ router.get(
         return;
       }
 
-      if (!(await assertOrgMember(req.userId!, project.org_id, res))) return;
+      if (!(await assertOrgMember(userId, project.org_id, res))) return;
 
       // Fetch associated carbon calculation (latest)
       const { data: carbon } = await sb()
@@ -268,6 +285,12 @@ router.post(
   async (req: Request, res: Response) => {
     if (!validateRequest(req, res)) return;
 
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
     try {
       const { projectId } = req.params;
 
@@ -283,10 +306,10 @@ router.post(
         return;
       }
 
-      if (!(await assertOrgMember(req.userId!, project.org_id, res))) return;
+      if (!(await assertOrgMember(userId, project.org_id, res))) return;
 
       // Build calculation row from EN 15978 stage values
-      const calcRow: Record<string, any> = {
+      const calcRow: Record<string, unknown> = {
         bim_project_id: projectId,
       };
       for (const stage of EN15978_STAGES) {

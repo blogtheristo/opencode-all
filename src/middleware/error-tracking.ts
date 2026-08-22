@@ -28,13 +28,18 @@ interface ErrorTrackingConfig {
   profilesSampleRate?: number;
 }
 
+interface SentryEventLike {
+  request?: { url?: string };
+  [key: string]: unknown;
+}
+
 interface SentryLike {
-  init: (config: any) => void;
-  captureException: (error: Error, context?: any) => string;
+  init: (config: Record<string, unknown>) => void;
+  captureException: (error: Error, context?: Record<string, unknown>) => string;
   captureMessage: (message: string, level?: string) => string;
   setUser: (user: { id: string; email?: string } | null) => void;
   setupExpressErrorHandler: (app: Express) => void;
-  startSpan: (options: any, callback: () => any) => any;
+  startSpan: (options: Record<string, unknown>, callback: () => unknown) => unknown;
   isInitialized: () => boolean;
 }
 
@@ -75,8 +80,9 @@ export async function initErrorTracking(app?: Express): Promise<boolean> {
     sentry.init({
       ...config,
       // Filter out health check noise
-      beforeSend(event: any) {
-        if (event?.request?.url?.includes('/health') || event?.request?.url?.includes('/livez')) {
+      beforeSend(event: SentryEventLike | null) {
+        const url = event?.request?.url;
+        if (typeof url === 'string' && (url.includes('/health') || url.includes('/livez'))) {
           return null;
         }
         return event;
@@ -115,7 +121,7 @@ export async function initErrorTracking(app?: Express): Promise<boolean> {
 /**
  * Capture an exception. Works with or without Sentry.
  */
-export function captureException(error: Error, context?: Record<string, any>): string {
+export function captureException(error: Error, context?: Record<string, unknown>): string {
   const eventId = `local-${Date.now().toString(36)}`;
 
   if (sentry) {
@@ -179,8 +185,8 @@ export function errorTrackingMiddleware() {
     captureException(err, {
       method: req.method,
       url: req.originalUrl,
-      correlationId: (req as any).correlationId,
-      userId: (req as any).user?.id,
+      correlationId: req.correlationId,
+      userId: req.user?.id,
     });
     next(err);
   };

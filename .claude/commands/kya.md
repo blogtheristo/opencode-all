@@ -2,14 +2,7 @@
 name: kya
 version: 2.0
 date: 2026-05-07
-description: >
-  Know Your Agent + Inference (KYA+I) — runtime safety controls for agent sessions
-  and inference jurisdiction. Check trust score, inference jurisdiction score (IJS),
-  provider chain, or trigger a TC-4 Leash Snap. Use when user says "kya status",
-  "trust score", "leash snap", "terminate agent chain", "kill the agent", "kya snap",
-  "revoke agent", "TC-4", "inference jurisdiction", "IJS score", "where is inference
-  running", "CLOUD Act check", "EU inference", or wants to check/terminate an
-  autonomous agent session or audit its inference provider chain.
+description: 'KYA+I runtime safety controls for agent sessions and inference jurisdiction. Check trust score, IJS, provider chain, or trigger a TC-4 leash snap. Use when user says "kya status", "trust score", "leash snap", "kill the agent", "IJS score", or "inference jurisdiction".'
 ---
 
 Execute KYA+I safety controls against a running agent session via the DWS CLI.
@@ -19,15 +12,21 @@ KYA+I extends: _where does this agent think, and can I legally trust that locati
 
 Input: $ARGUMENTS (session ID + subcommand — see table below)
 
+Also triggers on: "terminate agent chain", "kya snap", "revoke agent", "TC-4",
+"where is inference running", "CLOUD Act check", "EU inference" — trimmed from
+the frontmatter `description` by `/skill-cleaner` (2026-08-20, budget was at
+94.7% of the 2% skills cap) but the capability is unchanged; these phrases
+still route here.
+
 ## Subcommands
 
-| Form                                                           | What it does                                                                                |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `/kya status <session_id>`                                     | Trust score + identity binding for a session                                                |
-| `/kya inference <session_id>`                                  | ⚠️ **Planned — not yet implemented.** Will provide IJS, provider chain, CLOUD Act flags.   |
-| `/kya snap <session_id> --reason <CODE>`                       | TC-4 Leash Snap — chain termination with forensic dump. DESTRUCTIVE.                        |
-| `/kya snap <session_id> --reason <CODE> --force-cascade --yes` | Cascade termination to all child agents, skip confirmation                                  |
-| `/kya snap <session_id> --reason <CODE> --dry-run`             | Preview termination payload without executing — SAFE, use first                             |
+| Form                                                           | What it does                                                                             |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `/kya status <session_id>`                                     | Trust score + identity binding for a session                                             |
+| `/kya inference <session_id>`                                  | ⚠️ **Planned — not yet implemented.** Will provide IJS, provider chain, CLOUD Act flags. |
+| `/kya snap <session_id> --reason <CODE>`                       | TC-4 Leash Snap — chain termination with forensic dump. DESTRUCTIVE.                     |
+| `/kya snap <session_id> --reason <CODE> --force-cascade --yes` | Cascade termination to all child agents, skip confirmation                               |
+| `/kya snap <session_id> --reason <CODE> --dry-run`             | Preview termination payload without executing — SAFE, use first                          |
 
 ## Steps
 

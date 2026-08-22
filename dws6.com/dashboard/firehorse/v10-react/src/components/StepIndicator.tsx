@@ -43,7 +43,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                   ${isClickable ? 'cursor-pointer' : 'cursor-default'}
                   ${isCurrent ? 'text-primary-400' : ''}
                   ${isCompleted ? 'text-green-400' : ''}
-                  ${!isCurrent && !isCompleted ? 'text-gray-500' : ''}
+                  ${!isCurrent && !isCompleted ? 'text-fg-muted' : ''}
                 `}
               >
                 {/* Step number / check */}
@@ -53,7 +53,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                     transition-all duration-200
                     ${isCurrent ? 'bg-primary-600 text-white ring-2 ring-primary-400/30' : ''}
                     ${isCompleted ? 'bg-green-600 text-white' : ''}
-                    ${!isCurrent && !isCompleted ? 'bg-gray-700 text-gray-400' : ''}
+                    ${!isCurrent && !isCompleted ? 'bg-fg-muted/20 text-fg-muted' : ''}
                   `}
                 >
                   {isCompleted ? (
@@ -74,7 +74,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                 <div
                   className={`
                     flex-1 h-0.5 mx-2 transition-colors
-                    ${isCompleted ? 'bg-green-600' : 'bg-gray-700'}
+                    ${isCompleted ? 'bg-green-600' : 'bg-fg-muted/20'}
                   `}
                 />
               )}

@@ -28,11 +28,12 @@ export interface OAuthTokens {
   scope?: string;
 }
 
-export class MCPOAuthHandler {
-  /**
-   * Discover OAuth authorization server metadata.
-   */
-  static async discoverAuthorizationServer(mcpServerUrl: string): Promise<Record<string, any>> {
+/**
+ * Discover OAuth authorization server metadata.
+ */
+export async function discoverAuthorizationServer(
+  mcpServerUrl: string,
+): Promise<Record<string, unknown>> {
     const wellKnownUrl = `${mcpServerUrl}/.well-known/oauth-authorization-server`;
 
     try {
@@ -43,18 +44,18 @@ export class MCPOAuthHandler {
       logger.error(`Failed to discover OAuth server at ${wellKnownUrl}:`, error);
       throw error;
     }
-  }
+}
 
-  /**
-   * Dynamically register OAuth client with MCP server.
-   */
-  static async registerClient(
+/**
+ * Dynamically register OAuth client with MCP server.
+ */
+export async function registerClient(
     mcpServerUrl: string,
     redirectUri: string,
     clientName?: string
   ): Promise<OAuthClient> {
-    const metadata = await this.discoverAuthorizationServer(mcpServerUrl);
-    const registrationEndpoint = metadata.registration_endpoint;
+    const metadata = await discoverAuthorizationServer(mcpServerUrl);
+    const registrationEndpoint = metadata.registration_endpoint as string | undefined;
 
     if (!registrationEndpoint) {
       throw new Error(`MCP server at ${mcpServerUrl} does not support dynamic client registration`);
@@ -75,5 +76,4 @@ export class MCPOAuthHandler {
       logger.error(`Failed to register OAuth client at ${registrationEndpoint}:`, error);
       throw error;
     }
-  }
 }

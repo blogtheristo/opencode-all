@@ -44,8 +44,13 @@ router.post(
   validate({ body: CreateKeySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
       const result = await ApiKeyService.create({
-        userId: req.userId!,
+        userId,
         name: req.body.name,
         scopes: req.body.scopes,
         expiresInDays: req.body.expiresInDays,
@@ -79,7 +84,12 @@ router.post(
  */
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const keys = await ApiKeyService.list(req.userId!);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const keys = await ApiKeyService.list(userId);
 
     res.json({
       keys,
@@ -98,7 +108,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const keyId = req.params.id;
-    const revoked = await ApiKeyService.revoke(req.userId!, keyId);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const revoked = await ApiKeyService.revoke(userId, keyId);
 
     if (!revoked) {
       res.status(404).json({ error: 'API key not found or already revoked' });

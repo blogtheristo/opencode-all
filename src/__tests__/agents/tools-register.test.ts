@@ -5,7 +5,7 @@
  * emit a warn-level log rather than silently overwriting the original handler.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // vi.mock is hoisted — factory must not reference top-level variables.
 vi.mock('../../utils/logger.js', () => ({
@@ -28,7 +28,7 @@ process.env.SUPABASE_URL = 'https://test.supabase.co';
 process.env.SUPABASE_SERVICE_KEY = 'test-key';
 
 import logger from '../../utils/logger.js';
-import { registerToolHandler, executeTool } from '../../agents/tools.js';
+import { executeTool, registerToolHandler } from '../../agents/tools.js';
 import { registerToolPolicy } from '../../security/runtime-auth.js';
 import type { AgentContext } from '../../agents/types.js';
 

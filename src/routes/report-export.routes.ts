@@ -55,9 +55,15 @@ router.post(
   validate({ body: ExportSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+
       // Check usage limits before generating
       const usageResult = await UsageMeteringService.recordUsage(
-        req.userId!,
+        userId,
         'report_export',
         '/api/v1/reports/export',
       );
@@ -101,7 +107,12 @@ router.post(
   validate({ body: ScheduleSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const schedule = await ReportExportService.createSchedule(req.userId!, req.body);
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      const schedule = await ReportExportService.createSchedule(userId, req.body);
 
       res.status(201).json({
         message: 'Report schedule created',
@@ -119,7 +130,12 @@ router.post(
  */
 router.get('/schedules', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const scheduleList = await ReportExportService.listSchedules(req.userId!);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const scheduleList = await ReportExportService.listSchedules(userId);
 
     res.json({
       schedules: scheduleList,
@@ -136,7 +152,12 @@ router.get('/schedules', async (req: Request, res: Response, next: NextFunction)
  */
 router.delete('/schedule/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const deleted = await ReportExportService.deleteSchedule(req.userId!, req.params.id);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const deleted = await ReportExportService.deleteSchedule(userId, req.params.id);
 
     if (!deleted) {
       res.status(404).json({ error: 'Schedule not found' });
@@ -155,7 +176,12 @@ router.delete('/schedule/:id', async (req: Request, res: Response, next: NextFun
  */
 router.patch('/schedule/:id/toggle', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const schedule = await ReportExportService.toggleSchedule(req.userId!, req.params.id);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const schedule = await ReportExportService.toggleSchedule(userId, req.params.id);
 
     if (!schedule) {
       res.status(404).json({ error: 'Schedule not found' });

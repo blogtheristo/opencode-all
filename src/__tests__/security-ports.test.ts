@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { Request, Response } from 'express';
 
-import { ModernCSRFProtection, csrfProtectionMiddleware } from '../middleware/csrf-protection.js';
+import { csrfProtectionMiddleware, ModernCSRFProtection } from '../middleware/csrf-protection.js';
 import { RedirectValidator, validateRedirectMiddleware } from '../middleware/redirect-validator.js';
 import { ImagePromptInjectionDetector } from '../mcp/security/image-sanitizer.js';
 import { MCPToolRegistry, ToolColor } from '../mcp/security/tool-colors.js';

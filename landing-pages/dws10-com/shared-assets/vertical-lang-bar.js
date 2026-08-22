@@ -1,7 +1,7 @@
 /**
- * DWS10.com Vertical Language Bar v1.3
+ * DWS10.com Vertical Language Bar v1.4
  * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/aegis-multilingual-pages-3clsx0
- * Code-Version: 1.3
+ * Code-Version: 1.4
  * Branch: claude/aegis-multilingual-pages-3clsx0
  * Date: 2026-06-23
  * Owner: Lifetime Oy
@@ -26,6 +26,7 @@
  *        /products/claude-code-coaching; hardware version line hidden.
  * v1.5 — Added healthcare and industries contexts: per-language hero lines for
  *        /healthcare/ and /industries/ pages; hardware version line hidden.
+ * v1.6 — Added fade-out effect when user selects language; session-based language persistence.
  */
 (function () {
   'use strict';
@@ -40,7 +41,7 @@
       store: 'Suvereeneja AI-tuotteita eurooppalaisille yrityksille.',
       product: 'Kultainen br\u00e4ndistandardisi, teko\u00e4lyagentit ja tuotantokone.',
       aegis:
-        'Suvereeni teollinen \u00e4ly kaksik\u00e4ytt\u00f6iseen valmistukseen \u2014 21 EU-toimialaa, nolla CLOUD Act -altistusta.',
+        'Suvereeni teollinen \u00e4ly kaksik\u00e4ytt\u00f6iseen valmistukseen \u2014 21 EU-toimialaa, nolla CLOUD Act -altistusta. Aegis tarjoaa suvereenin teollisen \u00e4lyn, joka on suunniteltu erityisesti kaksik\u00e4ytt\u00f6isille tehtaille, raskaalle teollisuudelle ja kriittisille raaka-ainelaitoksille. Se optimoi ja turvaa jatkuvasti Euroopan puolustussektoria palvelevat laitokset \u2014 ei riippuvuutta yhdysvaltalaisesta pilvest\u00e4, nolla CLOUD Act -altistusta. Aegis on yhden vuokralaisen suvereeni teko\u00e4lyalusta, joka on suunniteltu kaksik\u00e4ytt\u00f6isille tehtaille, raskaalle teollisuudelle ja kriittisille raaka-ainelaitoksille. Omistetussa suomalaisessa infrastruktuurissa se optimoi ja turvaa jatkuvasti Euroopan puolustussektoria palvelevat laitokset \u2014 ei riippuvuutta yhdysvaltalaisesta pilvest\u00e4, nolla CLOUD Act -altistusta.',
       coaching:
         'Valmenna insin\u00f6\u00f6risi toimittamaan Claude Codella \u2014 kurinalaista agenttipohjaista ohjelmistokehityst\u00e4, EU-suvereenisti, EU AI Act 4 artiklan mukaisesti.',
       versions:
@@ -55,7 +56,7 @@
       store: 'Suvern\u00e4na AI-produkter f\u00f6r europeiska f\u00f6retag.',
       product: 'Din guldstandard f\u00f6r varum\u00e4rke, AI-agenter och produktionsmotor.',
       aegis:
-        'Suver\u00e4n industriell intelligens f\u00f6r dual-use-tillverkning \u2014 21 EU-branscher, noll CLOUD Act-exponering.',
+        'Suverän industriell intelligens för dual-use-tillverkning. Aegis är en suverän AI-plattform för en kund, utvecklad för dual-use-fabriker, tung industri och kritiska råvaruanläggningar. Plattformen distribueras på dedikerad finsk infrastruktur och är utformad för att minska beroendet av amerikanska molntjänster och exponeringen mot amerikansk jurisdiktion, inklusive risker kopplade till US CLOUD Act. Den tre månader långa Aegis-piloten validerar lokal drift på kundens befintliga infrastruktur eller på en kompakt edge-enhet innan större hårdvaruinvesteringar görs. Pilotbetalningen är en del av den stegvisa införsäljningen och krediteras fullt mot Aegis-onboarding om kunden går vidare inom sex månader.',
       coaching:
         'Coacha dina ingenj\u00f6rer att leverera med Claude Code \u2014 disciplinerad agentbaserad utveckling, EU-suver\u00e4n, redo f\u00f6r EU:s AI-f\u00f6rordning artikel 4.',
       versions:
@@ -70,9 +71,9 @@
       store: 'Souver\u00e4ne KI-Produkte f\u00fcr europ\u00e4ische Unternehmen.',
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
       aegis:
-        'Souver\u00e4ne industrielle Intelligenz f\u00fcr Dual-Use-Fertigung \u2014 21 EU-Branchen, null CLOUD-Act-Risiko.',
+        'Souveräne industrielle Intelligenz für die Dual-Use-Fertigung. Aegis ist eine Single-Tenant-KI-Plattform für Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen. Sie wird auf dedizierter finnischer Infrastruktur betrieben und ist darauf ausgelegt, die Abhängigkeit von US-Cloud-Diensten sowie die Exponierung gegenüber US-Recht, einschließlich Risiken im Zusammenhang mit dem US CLOUD Act, zu reduzieren. Der dreimonatige Aegis-Pilot validiert den lokalen Betrieb auf der vorhandenen Kundeninfrastruktur oder auf einem kompakten Edge-Gerät, bevor größere Hardwareinvestitionen erfolgen. Die Pilotgebühr ist Teil des stufenweisen Einführungsprozesses und wird vollständig auf das Aegis-Onboarding angerechnet, wenn der Kunde innerhalb von sechs Monaten fortfährt.',
       coaching:
-        'Coachen Sie Ihre Entwickler, mit Claude Code zu liefern \u2014 disziplinierte agentenbasierte Entwicklung, EU-souver\u00e4n, bereit f\u00fcr Artikel 4 der EU-KI-Verordnung.',
+        'Befähigen Sie Ihre Ingenieurteams mit Claude Code zu disziplinierter agentenbasierter Entwicklung, EU-souveräner Bereitstellung und einem Arbeitsrahmen, der die Anforderungen von Artikel 4 des EU AI Act berücksichtigt.',
       versions:
         'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
     },
@@ -85,7 +86,7 @@
       store: 'Produits IA souverains pour les entreprises europ\u00e9ennes.',
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
       aegis:
-        'Intelligence industrielle souveraine pour la fabrication \u00e0 double usage \u2014 21 secteurs UE, z\u00e9ro exposition au CLOUD Act.',
+        'Intelligence industrielle souveraine pour la fabrication à double usage. Aegis est une plateforme d\'IA souveraine mono-locataire, conçue pour les usines à double usage, l\'industrie lourde et les installations de matières premières critiques. Sur une infrastructure finlandaise dédiée, elle est conçue pour réduire la dépendance aux services cloud américains et l'exposition à la juridiction américaine, y compris les risques liés à la CLOUD Act. Le test de trois mois de la plateforme Aegis valide l\'exécution locale sur l\'infrastructure existante du client ou sur un appareil edge compact avant les investissements matériels majeurs. Le paiement du test est une partie de la stratégie de vente progressive et est entièrement crédité sur les coûts d\'intégration Aegis si le client continue dans les six mois.',
       coaching:
         'Formez vos ing\u00e9nieurs \u00e0 livrer avec Claude Code \u2014 ing\u00e9nierie agentique disciplin\u00e9e, souveraine UE, pr\u00eate pour l\u2019article 4 du r\u00e8glement IA de l\u2019UE.',
       versions:
@@ -100,7 +101,7 @@
       store: 'Sovereign AI products for European enterprises.',
       product: 'Your brand Gold Standards, AI agents and Firehorse production engine.',
       aegis:
-        'Sovereign industrial intelligence for dual-use manufacturing — 21 EU industries, zero CLOUD Act exposure.',
+        'Sovereign industrial intelligence for dual-use manufacturing. DWS IQ Aegis is a single-tenant sovereign AI platform engineered specifically for dual-use factories, heavy manufacturing, and critical raw-material infrastructure. Deployed on dedicated Finnish infrastructure, it is designed to reduce dependency on American cloud services and exposure to American jurisdiction, including risks associated with the US CLOUD Act. The three-month Aegis pilot validates local execution on existing customer infrastructure or a compact edge appliance prior to major hardware investments. The pilot payment is part of the staged sales strategy and is fully credited against Aegis onboarding costs if the customer proceeds within six months.',
       coaching:
         'Coach your engineers to ship with Claude Code — disciplined agentic engineering, EU-sovereign, EU AI Act Article 4 ready.',
       versions: 'Control Room (1× GN100) €4,994 · Situation Room (2× bridged) €8,993',
@@ -181,6 +182,9 @@
   })
     ? storedLang
     : 'en';
+    
+  // Session-based language detection - show all languages initially if no selection
+  var showAllLanguages = !storedLang;
 
   // Detect page type from path
   var path = window.location.pathname;
@@ -266,6 +270,16 @@
       '  flex-shrink: 0;',
       '  line-height: 1;',
       '}',
+      // Fade effects
+      '.dws-vlb-row.fade-out {',
+      '  opacity: 0;',
+      '  transition: opacity 1.5s ease-in-out;',
+      '  pointer-events: none;',
+      '}',
+      '.dws-vlb-row.fade-in {',
+      '  opacity: 1;',
+      '  transition: opacity 1.5s ease-in-out;',
+      '}',
       // Compact card strip
       '.dws-vlb-card {',
       '  border-top: 1px solid rgba(255,255,255,0.07);',
@@ -325,11 +339,21 @@
       var hrefAttr = stays ? '' : ' href="' + rowHref(l) + '"';
       var activeCls = isActive ? ' dws-vlb-active' : '';
       var mainText = hubHero ? hubHero[l.code] || l[textKey] : l[textKey];
+      
+      // Add fade classes for session-based language handling
+      var fadeCls = '';
+      if (!showAllLanguages && !isActive) {
+        fadeCls = ' fade-out';
+      } else if (showAllLanguages) {
+        fadeCls = ' fade-in';
+      }
+      
       return (
         '<' +
         tag +
         ' class="dws-vlb-row' +
         activeCls +
+        fadeCls +
         '"' +
         hrefAttr +
         ' lang="' +
@@ -362,10 +386,20 @@
           var lang = row.getAttribute('lang');
           localStorage.setItem('dws-lang', lang);
           currentLang = lang;
+          
+          // Remove fade-out class from all rows
           el.querySelectorAll('.dws-vlb-row').forEach(function (r) {
             r.classList.remove('dws-vlb-active');
+            r.classList.remove('fade-out');
           });
+          
+          // Add active class to clicked row
           row.classList.add('dws-vlb-active');
+          
+          // Add fade-in to clicked row (to make it visible)
+          row.classList.add('fade-in');
+          
+          // Dispatch event
           window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
           var navCode = document.querySelector('.ironclad-lang-code');
           if (navCode) navCode.textContent = lang.toUpperCase();
@@ -417,9 +451,32 @@
     document.body.insertBefore(section, document.body.firstChild);
   }
 
+  // Initialize with fade effects
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function() {
+      init();
+      // Add fade-in effect to all rows if this is the first visit
+      if (showAllLanguages) {
+        setTimeout(function() {
+          var rows = document.querySelectorAll('.dws-vlb-row');
+          rows.forEach(function(row) {
+            row.classList.remove('fade-out');
+            row.classList.add('fade-in');
+          });
+        }, 100);
+      }
+    });
   } else {
     init();
+    // Add fade-in effect to all rows if this is the first visit
+    if (showAllLanguages) {
+      setTimeout(function() {
+        var rows = document.querySelectorAll('.dws-vlb-row');
+        rows.forEach(function(row) {
+          row.classList.remove('fade-out');
+          row.classList.add('fade-in');
+        });
+      }, 100);
+    }
   }
 })();

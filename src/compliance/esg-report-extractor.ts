@@ -84,7 +84,9 @@ Rules:
  * Extract key metrics from report text using pattern matching.
  * Fast, deterministic fallback when LLM is unavailable.
  */
-export function extractWithPatterns(text: string): Partial<ExtractionResult> {
+export function extractWithPatterns(
+  text: string,
+): Omit<Partial<ExtractionResult>, 'scoringInput'> & { scoringInput: ComplianceScoringInput } {
   const extractedValues: ExtractedValue[] = [];
   const warnings: string[] = [];
 
@@ -153,18 +155,6 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
     /(?:employees?|workforce|headcount|FTE)[:\s]+(?:approximately\s+)?([0-9,.]+)/i,
   );
   void (employeeMatch ? parseInt(employeeMatch[1].replace(/,/g, ''), 10) : 0);
-
-  // Revenue
-  const revenueMatch = text.match(
-    /(?:revenue|turnover|net\s+sales)[:\s]+(?:EUR|€)\s*([0-9,.]+)\s*(million|billion|M|B)?/i,
-  );
-  let revenue = 0;
-  if (revenueMatch) {
-    revenue = parseFloat(revenueMatch[1].replace(/,/g, ''));
-    const multiplier = revenueMatch[2];
-    if (multiplier && /million|M/i.test(multiplier)) revenue *= 1_000_000;
-    if (multiplier && /billion|B/i.test(multiplier)) revenue *= 1_000_000_000;
-  }
 
   // Boolean measures
   const hasTransitionPlan =
@@ -295,7 +285,7 @@ export async function extractComplianceData(
     reportText.match(/(?:fiscal|reporting|financial)\s+year\s+(\d{4})/i) ||
     reportText.match(/(?:20[2-3]\d)\s+(?:sustainability|ESG|annual)\s+report/i);
   const reportingYear = yearMatch
-    ? parseInt(yearMatch[1] || yearMatch[0].match(/20[2-3]\d/)![0], 10)
+    ? parseInt(yearMatch[1] || yearMatch[0].match(/20[2-3]\d/)?.[0] || '', 10) || 2025
     : 2025;
 
   const result: ExtractionResult = {
@@ -303,7 +293,7 @@ export async function extractComplianceData(
     industry,
     country,
     reportingYear,
-    scoringInput: patternResult.scoringInput!,
+    scoringInput: patternResult.scoringInput,
     extractedValues: patternResult.extractedValues || [],
     confidence: patternResult.confidence || 0.3,
     warnings: patternResult.warnings || [],

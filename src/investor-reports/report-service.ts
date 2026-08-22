@@ -3,9 +3,18 @@
  * Aggregates metrics, generates reports, handles PDF/email delivery
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { metricsService } from './metrics-calculation';
-import { InvestorReportData, ReportPeriod, KeyEvent } from './types';
+import {
+  type ARRMetrics,
+  type CashMetrics,
+  type CustomerMetrics,
+  type InvestorReportData,
+  type KeyEvent,
+  type MRRMetrics,
+  type PipelineMetrics,
+  ReportPeriod,
+} from './types';
 
 // ============================================================================
 // REPORT SERVICE
@@ -165,7 +174,7 @@ export class ReportService {
     const contractWins: KeyEvent[] = (signedContracts || []).map((contract) => ({
       date: new Date(contract.signed_date),
       title: `Contract signed: ${contract.title}`,
-      description: `${(contract.customers as any)?.name || 'Customer'} signed for €${contract.total_value}`,
+      description: `${(contract.customers as { name?: string } | null)?.name || 'Customer'} signed for €${contract.total_value}`,
       impact: `€${contract.total_value} TCV`,
       category: 'customer' as const,
     }));
@@ -217,13 +226,21 @@ export class ReportService {
 
       if (events) {
         milestones.push(
-          ...events.map((e: any) => ({
-            date: new Date(e.event_date),
-            title: e.title || e.description,
-            description: e.description,
-            category: e.category || 'product',
-            impact: e.impact,
-          })),
+          ...events.map(
+            (e: {
+              event_date: string;
+              title?: string;
+              description?: string;
+              category?: string;
+              impact?: string;
+            }) => ({
+              date: new Date(e.event_date),
+              title: (e.title || e.description) as string,
+              description: e.description as string,
+              category: (e.category || 'product') as KeyEvent['category'],
+              impact: e.impact,
+            }),
+          ),
         );
       }
     } catch {
@@ -281,11 +298,11 @@ export class ReportService {
    * Generate founder letter (3-4 bullet points)
    */
   private generateFounderLetter(data: {
-    mrrMetrics: any;
-    arrMetrics: any;
-    customerMetrics: any;
-    pipelineMetrics: any;
-    cashMetrics: any;
+    mrrMetrics: MRRMetrics;
+    arrMetrics: ARRMetrics;
+    customerMetrics: CustomerMetrics;
+    pipelineMetrics: PipelineMetrics;
+    cashMetrics: CashMetrics;
     keyWins: KeyEvent[];
   }): string {
     const { mrrMetrics, customerMetrics, pipelineMetrics, keyWins } = data;
@@ -326,10 +343,10 @@ export class ReportService {
    * Generate executive summary (1-2 sentences)
    */
   private generateExecutiveSummary(data: {
-    mrrMetrics: any;
-    arrMetrics: any;
-    customerMetrics: any;
-    cashMetrics: any;
+    mrrMetrics: MRRMetrics;
+    arrMetrics: ARRMetrics;
+    customerMetrics: CustomerMetrics;
+    cashMetrics: CashMetrics;
   }): string {
     const { mrrMetrics, customerMetrics, cashMetrics } = data;
 
@@ -342,7 +359,7 @@ export class ReportService {
   /**
    * Generate outlook (next 1-3 months)
    */
-  private generateOutlook(data: { pipelineMetrics: any; cashMetrics: any }): string {
+  private generateOutlook(data: { pipelineMetrics: PipelineMetrics; cashMetrics: CashMetrics }): string {
     const { pipelineMetrics, cashMetrics } = data;
 
     const sections: string[] = [];

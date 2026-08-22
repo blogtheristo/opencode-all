@@ -11,9 +11,9 @@ vi.mock('../utils/logger.js', () => ({ default: logger }));
 
 import { ComplianceAgent } from '../agents/compliance.agent.js';
 import {
-  NemoClawSkillHost,
-  agentToSkillManifest,
   adaptAgentResponseToSkillResult,
+  agentToSkillManifest,
+  NemoClawSkillHost,
 } from '../mcp/nemoclaw-skill-host.js';
 import type { AgentContext } from '../agents/types.js';
 

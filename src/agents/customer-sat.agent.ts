@@ -223,7 +223,7 @@ Respond as JSON with keys: "strategy" (string), "nextBestActions" (string[])`,
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -234,7 +234,7 @@ Respond as JSON with keys: "strategy" (string), "nextBestActions" (string[])`,
         input: input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -300,7 +300,7 @@ Respond as JSON with keys: "strategy" (string), "nextBestActions" (string[])`,
     interactions: number,
   ): number {
     // Base churn from health score (inverted sigmoid-like curve)
-    let churnScore = 0;
+    let churnScore: number;
 
     // Health score inversely predicts churn
     if (healthScore >= 80) churnScore = 0.05;

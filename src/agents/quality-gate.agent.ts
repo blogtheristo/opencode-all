@@ -104,7 +104,25 @@ export class QualityGateAgent extends BaseAgent {
 
   /** Normalize loose input into the strict QualityGateInput shape */
   private normalizeInput(input: Record<string, unknown>): QualityGateInput {
-    const raw = input as Record<string, any>;
+    const raw = input as {
+      projectId?: string;
+      project_id?: string;
+      repository?: string;
+      project?: string;
+      deployTarget?: string;
+      deploy_target?: string;
+      target?: string;
+      check?: string;
+      testResults?: Partial<QualityGateInput['testResults']>;
+      test_results?: Partial<QualityGateInput['testResults']>;
+      tests?: Partial<QualityGateInput['testResults']>;
+      securityScan?: Partial<QualityGateInput['securityScan']>;
+      security_scan?: Partial<QualityGateInput['securityScan']>;
+      security?: Partial<QualityGateInput['securityScan']>;
+      buildStatus?: string;
+      build_status?: string;
+      build?: string;
+    };
     const tests = raw.testResults ?? raw.test_results ?? raw.tests ?? {};
     const scan = raw.securityScan ?? raw.security_scan ?? raw.security ?? {};
     return {
@@ -283,7 +301,7 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -294,7 +312,7 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

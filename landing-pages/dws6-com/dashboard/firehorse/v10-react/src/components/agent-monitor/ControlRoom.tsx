@@ -17,10 +17,10 @@ function HealthBar({ label, value, max, color, unit }: { label: string; value: n
   return (
     <div>
       <div className="flex justify-between text-[10px] mb-1">
-        <span className="text-gray-400">{label}</span>
-        <span className="text-gray-300 font-mono">{value}{unit}</span>
+        <span className="text-fg-muted">{label}</span>
+        <span className="text-fg-muted font-mono">{value}{unit}</span>
       </div>
-      <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
+      <div className="h-1.5 bg-fg-muted/20 rounded-full overflow-hidden">
         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: color }} />
       </div>
     </div>
@@ -32,14 +32,14 @@ function AgentCard({ agent }: { agent: MonitorAgent }) {
     working: { bg: 'border-green-500/30', dot: 'bg-green-400 animate-pulse', text: 'text-green-400' },
     idle: { bg: 'border-yellow-500/30', dot: 'bg-yellow-400', text: 'text-yellow-400' },
     break: { bg: 'border-orange-500/30', dot: 'bg-orange-400', text: 'text-orange-400' },
-    offline: { bg: 'border-gray-600', dot: 'bg-gray-500', text: 'text-gray-500' },
+    offline: { bg: 'border-border', dot: 'bg-fg-muted', text: 'text-fg-muted' },
     alert: { bg: 'border-red-500/30', dot: 'bg-red-400 animate-pulse', text: 'text-red-400' },
   };
 
   const cfg = statusConfig[agent.status];
 
   return (
-    <div className={`bg-gray-800/80 border ${cfg.bg} rounded-lg p-3 hover:bg-gray-800 transition-colors`}>
+    <div className={`bg-fg-muted/10/80 border ${cfg.bg} rounded-lg p-3 hover:bg-fg-muted/10 transition-colors`}>
       {/* Header row */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ function AgentCard({ agent }: { agent: MonitorAgent }) {
           </div>
           <div>
             <div className="text-xs font-semibold text-white">{agent.name}</div>
-            <div className="text-[10px] text-gray-500 capitalize">{agent.role.replace('-', ' ')}</div>
+            <div className="text-[10px] text-fg-muted capitalize">{agent.role.replace('-', ' ')}</div>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
@@ -63,42 +63,42 @@ function AgentCard({ agent }: { agent: MonitorAgent }) {
       {/* Current task */}
       {agent.currentTask ? (
         <div className="mb-2">
-          <div className="text-[10px] text-gray-400 truncate mb-1">{agent.currentTask.title}</div>
+          <div className="text-[10px] text-fg-muted truncate mb-1">{agent.currentTask.title}</div>
           <div className="flex items-center gap-2">
-            <div className="flex-1 h-1 bg-gray-700 rounded-full overflow-hidden">
+            <div className="flex-1 h-1 bg-fg-muted/20 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{ width: `${agent.currentTask.progress}%`, backgroundColor: agent.avatar.color }}
               />
             </div>
-            <span className="text-[10px] text-gray-400 font-mono w-8 text-right">{agent.currentTask.progress}%</span>
+            <span className="text-[10px] text-fg-muted font-mono w-8 text-right">{agent.currentTask.progress}%</span>
           </div>
         </div>
       ) : (
-        <div className="mb-2 text-[10px] text-gray-600 italic">No active task</div>
+        <div className="mb-2 text-[10px] text-fg-muted italic">No active task</div>
       )}
 
       {/* Metrics row */}
       <div className="grid grid-cols-4 gap-1">
         <div className="text-center">
-          <div className="text-[9px] text-gray-500">CPU</div>
+          <div className="text-[9px] text-fg-muted">CPU</div>
           <div className={`text-[11px] font-mono font-bold ${agent.cpu > 80 ? 'text-red-400' : agent.cpu > 50 ? 'text-yellow-400' : 'text-green-400'}`}>
             {agent.cpu}%
           </div>
         </div>
         <div className="text-center">
-          <div className="text-[9px] text-gray-500">MEM</div>
+          <div className="text-[9px] text-fg-muted">MEM</div>
           <div className={`text-[11px] font-mono font-bold ${agent.memory > 80 ? 'text-red-400' : agent.memory > 50 ? 'text-yellow-400' : 'text-green-400'}`}>
             {agent.memory}%
           </div>
         </div>
         <div className="text-center">
-          <div className="text-[9px] text-gray-500">Tasks</div>
-          <div className="text-[11px] font-mono font-bold text-gray-300">{agent.tasksCompleted}</div>
+          <div className="text-[9px] text-fg-muted">Tasks</div>
+          <div className="text-[11px] font-mono font-bold text-fg-muted">{agent.tasksCompleted}</div>
         </div>
         <div className="text-center">
-          <div className="text-[9px] text-gray-500">Up</div>
-          <div className="text-[11px] font-mono font-bold text-gray-300">{agent.uptime}h</div>
+          <div className="text-[9px] text-fg-muted">Up</div>
+          <div className="text-[11px] font-mono font-bold text-fg-muted">{agent.uptime}h</div>
         </div>
       </div>
     </div>
@@ -118,26 +118,26 @@ function ActivityFeed({ activities }: { activities: AgentActivity[] }) {
   };
 
   return (
-    <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-3">
+    <div className="bg-fg-muted/10/80 border border-border rounded-lg p-3">
       <div className="flex items-center justify-between mb-3">
-        <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wide">Live Activity Feed</h4>
+        <h4 className="text-xs font-semibold text-fg-muted uppercase tracking-wide">Live Activity Feed</h4>
         <div className="flex items-center gap-1">
           <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-[9px] text-gray-500">LIVE</span>
+          <span className="text-[9px] text-fg-muted">LIVE</span>
         </div>
       </div>
 
       <div className="space-y-2 max-h-64 overflow-y-auto scrollbar-hide">
         {activities.map(activity => (
-          <div key={activity.id} className="flex items-start gap-2 py-1 border-b border-gray-700/50 last:border-0">
+          <div key={activity.id} className="flex items-start gap-2 py-1 border-b border-border/50 last:border-0">
             <div
               className="w-1 h-1 rounded-full mt-1.5 shrink-0"
               style={{ backgroundColor: agentColors[activity.agentId] || '#6b7280' }}
             />
             <div className="flex-1 min-w-0">
-              <div className="text-[11px] text-gray-300 leading-tight truncate">{activity.action}</div>
+              <div className="text-[11px] text-fg-muted leading-tight truncate">{activity.action}</div>
               <div className="flex items-center gap-2 mt-0.5">
-                <span className="text-[9px] text-gray-500">
+                <span className="text-[9px] text-fg-muted">
                   {activity.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
                 {activity.severity !== 'info' && (
@@ -160,9 +160,9 @@ export function ControlRoom({ agents, health, activities }: ControlRoomProps) {
   const healthColor = health.overallStatus === 'healthy' ? '#22c55e' : health.overallStatus === 'degraded' ? '#eab308' : '#ef4444';
 
   return (
-    <div className="bg-gray-900 rounded-xl border border-gray-700 p-5">
+    <div className="bg-surface rounded-xl border border-border p-5">
       {/* System health banner */}
-      <div className="flex items-center justify-between mb-5 pb-4 border-b border-gray-700">
+      <div className="flex items-center justify-between mb-5 pb-4 border-b border-border">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full animate-pulse" style={{ backgroundColor: healthColor }} />
@@ -182,19 +182,19 @@ export function ControlRoom({ agents, health, activities }: ControlRoomProps) {
         <div className="flex items-center gap-6">
           <div className="text-center">
             <div className="text-lg font-bold text-white font-mono">{health.activeAgents}/{health.totalAgents}</div>
-            <div className="text-[9px] text-gray-500 uppercase">Active</div>
+            <div className="text-[9px] text-fg-muted uppercase">Active</div>
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-white font-mono">{health.alertCount}</div>
-            <div className="text-[9px] text-gray-500 uppercase">Alerts</div>
+            <div className="text-[9px] text-fg-muted uppercase">Alerts</div>
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-white font-mono">{health.tasksThroughput}</div>
-            <div className="text-[9px] text-gray-500 uppercase">Tasks/hr</div>
+            <div className="text-[9px] text-fg-muted uppercase">Tasks/hr</div>
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-white font-mono">{health.avgResponseTime}ms</div>
-            <div className="text-[9px] text-gray-500 uppercase">Avg Response</div>
+            <div className="text-[9px] text-fg-muted uppercase">Avg Response</div>
           </div>
         </div>
       </div>
@@ -213,8 +213,8 @@ export function ControlRoom({ agents, health, activities }: ControlRoomProps) {
         {/* Right sidebar */}
         <div className="space-y-4">
           {/* System resources */}
-          <div className="bg-gray-800/80 border border-gray-700 rounded-lg p-3">
-            <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wide mb-3">System Resources</h4>
+          <div className="bg-fg-muted/10/80 border border-border rounded-lg p-3">
+            <h4 className="text-xs font-semibold text-fg-muted uppercase tracking-wide mb-3">System Resources</h4>
             <div className="space-y-3">
               <HealthBar label="Avg CPU Load" value={Math.round(agents.reduce((s, a) => s + a.cpu, 0) / agents.length)} max={100} color="#3b82f6" unit="%" />
               <HealthBar label="Avg Memory" value={Math.round(agents.reduce((s, a) => s + a.memory, 0) / agents.length)} max={100} color="#a855f7" unit="%" />

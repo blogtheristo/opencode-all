@@ -29,8 +29,16 @@ FILE_PATH=$(json_get "tool_input.file_path" "")
 CONTENT=$(json_get "tool_input.content" "")
 NEW_STRING=$(json_get "tool_input.new_string" "")
 
+# MultiEdit puts the actual edited text in tool_input.edits[].new_string, not
+# a top-level tool_input.new_string (which json_get above always finds empty
+# for MultiEdit) — without this, MultiEdit writes bypassed every check below.
+EDITS_NEW_STRINGS=""
+if command -v jq >/dev/null 2>&1; then
+  EDITS_NEW_STRINGS=$(printf '%s' "$INPUT" | jq -r '[.tool_input.edits[]?.new_string] | join("\n")' 2>/dev/null)
+fi
+
 # Combine the payload we will scan
-PAYLOAD="${CONTENT}${NEW_STRING}"
+PAYLOAD="${CONTENT}${NEW_STRING}${EDITS_NEW_STRINGS}"
 
 # Only guard Write/Edit operations
 case "$TOOL_NAME" in

@@ -22,7 +22,7 @@ let queuePath: string;
 // env capture inside linkedin-pending.ts picks up the correct path.
 async function importModule() {
   vi.resetModules();
-  return await import('../firehorse/linkedin-pending.js');
+  return import('../firehorse/linkedin-pending.js');
 }
 
 const DRAFT_INPUT = {

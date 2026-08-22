@@ -120,34 +120,6 @@
     },
     careers: { fi: 'Rekrytointi', sv: 'Karriär', de: 'Karriere', fr: 'Carrières', en: 'Careers' },
     partners: { fi: 'Kumppanit', sv: 'Partners', de: 'Partner', fr: 'Partenaires', en: 'Partners' },
-    'industry-captains': {
-      fi: 'Toimialakapteenit',
-      sv: 'Branschkaptener',
-      de: 'Branchenkapitäne',
-      fr: 'Capitaines sectoriels',
-      en: 'Industry Captains',
-    },
-    'fleet-admiral': {
-      fi: 'Laivastoamiraali',
-      sv: 'Flottamiral',
-      de: 'Flottenadmiral',
-      fr: 'Amiral de flotte',
-      en: 'Fleet Admiral',
-    },
-    'fleet-admiral-icon': {
-      fi: '⚓ Laivastoamiraali',
-      sv: '⚓ Flottamiral',
-      de: '⚓ Flottenadmiral',
-      fr: '⚓ Amiral de flotte',
-      en: '⚓ Fleet Admiral',
-    },
-    'investor-relations': {
-      fi: 'Sijoittajasuhteet',
-      sv: 'Investerarrelationer',
-      de: 'Investor Relations',
-      fr: 'Relations investisseurs',
-      en: 'Investor Relations',
-    },
     'press-releases': {
       fi: 'Lehdistötiedotteet',
       sv: 'Pressmeddelanden',
@@ -368,13 +340,6 @@
       fr: 'Investisseur ▸',
       en: 'Investor ▸',
     },
-    'captain-seats': {
-      fi: 'Kapteenipaikat',
-      sv: 'Kaptenplatser',
-      de: 'Kapitänsplätze',
-      fr: 'Sièges de capitaine',
-      en: 'Industry Captain Seats',
-    },
     'regulatory-notice': {
       fi: 'Sääntelyilmoitus',
       sv: 'Regulatoriskt meddelande',
@@ -464,10 +429,6 @@
     'Company ▸': 'company',
     Careers: 'careers',
     Partners: 'partners',
-    'Industry Captains': 'industry-captains',
-    'Fleet Admiral': 'fleet-admiral',
-    '⚓ Fleet Admiral': 'fleet-admiral-icon',
-    'Investor Relations': 'investor-relations',
     'Press Releases': 'press-releases',
     'Legal Hub': 'legal-hub',
     'Solutions ▾': 'solutions-menu',
@@ -502,7 +463,6 @@
     'Partner Program': 'partner-program',
     '📅 Book Meeting': 'book-meeting',
     'Investor ▸': 'investor',
-    'Industry Captain Seats': 'captain-seats',
     'Regulatory Notice': 'regulatory-notice',
     'Lifetime Group ▸': 'lifetime-group',
     'DWS Roadmap': 'roadmap',
@@ -578,10 +538,10 @@
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}careers/">Careers</a></li>
                                 <li><a href="${contentBase}partners/">Partners</a></li>
-                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
-                                <li><a href="${contentBase}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
+                                <li><a href="${contentBase}investor-centre/captain/" style="color: #d4a843; font-weight: 600;">Captain</a></li>
+                                <li><a href="${contentBase}investor-centre/admiral/" style="color: #d4a843; font-weight: 600;">Admiral</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${contentBase}investor-relations/">Investor Relations</a></li>
+                                <li><a href="${contentBase}investor-centre/">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/">Press Releases</a></li>
                                 <li class="ironclad-has-submenu">
                                     <a href="${contentBase}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
@@ -702,13 +662,13 @@
                         <li class="ironclad-separator"></li>
                         <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
                         <li class="ironclad-has-submenu">
-                            <a href="${contentBase}investor-relations/" class="ironclad-primary">Investor ▸</a>
+                            <a href="${contentBase}investor-centre/" class="ironclad-primary">Investor ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${contentBase}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
+                                <li><a href="${contentBase}investor-centre/" class="ironclad-primary">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${contentBase}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
-                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
+                                <li><a href="${contentBase}investor-centre/admiral/" style="color: #ffd700; font-weight: 700;">⚓ Admiral</a></li>
+                                <li><a href="${contentBase}investor-centre/captain/" style="color: #d4a843; font-weight: 600;">Captain</a></li>
                                 <li><a href="${regulatoryNoticeHref}">Regulatory Notice</a></li>
                             </ul>
                         </li>

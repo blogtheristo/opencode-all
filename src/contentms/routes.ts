@@ -47,6 +47,7 @@ import {
 } from './audit.js';
 import {
   ArtifactType,
+  type ContentFilter,
   ContentFilterSchema,
   ContentStatus,
   CreateContentSchema,
@@ -55,6 +56,7 @@ import {
   ShareLinkRequestSchema,
   UpdateContentSchema,
 } from './types.js';
+
 
 const router = Router();
 
@@ -172,7 +174,7 @@ router.get(
   validate({ query: SearchQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { q, organization_id, limit } = req.query as any;
+      const { q, organization_id, limit } = req.query as unknown as z.infer<typeof SearchQuerySchema>;
       const result = await searchContent(q, organization_id, limit);
       res.json(result);
     } catch (err) {
@@ -190,7 +192,7 @@ router.get(
   validate({ query: ExpiringQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { organization_id, days } = req.query as any;
+      const { organization_id, days } = req.query as unknown as z.infer<typeof ExpiringQuerySchema>;
       const items = await getExpiringCertificates(organization_id, days);
       res.json({ items, count: items.length, within_days: days });
     } catch (err) {
@@ -208,7 +210,7 @@ router.get(
   validate({ query: LearningQuerySchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { organization_id, language, limit } = req.query as any;
+      const { organization_id, language, limit } = req.query as unknown as z.infer<typeof LearningQuerySchema>;
       const posts = await getPublishedLearning(organization_id, language, limit);
       res.json({ posts, count: posts.length });
     } catch (err) {
@@ -242,7 +244,7 @@ router.get(
   validate({ query: ContentFilterSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const items = await listContent(req.query as any);
+      const items = await listContent(req.query as unknown as ContentFilter);
       res.json({ items, count: items.length });
     } catch (err) {
       next(err);

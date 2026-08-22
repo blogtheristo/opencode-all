@@ -117,8 +117,8 @@ export const BillingForm: React.FC<BillingFormProps> = ({
       <div className="space-y-6">
         {/* Header */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-gray-900">Company Details</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold text-foreground">Company Details</h1>
+          <p className="text-fg-muted">
             Enter your company information for billing and invoice purposes
           </p>
         </div>
@@ -163,7 +163,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
           <div>
             <label
               htmlFor="company_name"
-              className="block text-sm font-semibold text-gray-900 mb-2"
+              className="block text-sm font-semibold text-foreground mb-2"
             >
               Company Name *
             </label>
@@ -177,7 +177,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               className={`w-full px-4 py-3 rounded-lg border-2 transition-colors ${
                 errors.company_name
                   ? 'border-red-300 bg-red-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500'
+                  : 'border-border bg-surface hover:border-border focus:border-blue-500'
               } focus:outline-none focus:ring-2 focus:ring-blue-100`}
               disabled={isLoading}
             />
@@ -188,7 +188,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
 
           {/* VAT Number */}
           <div>
-            <label htmlFor="vat_number" className="block text-sm font-semibold text-gray-900 mb-2">
+            <label htmlFor="vat_number" className="block text-sm font-semibold text-foreground mb-2">
               VAT Number *
             </label>
             <input
@@ -201,19 +201,19 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               className={`w-full px-4 py-3 rounded-lg border-2 transition-colors ${
                 errors.vat_number
                   ? 'border-red-300 bg-red-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500'
+                  : 'border-border bg-surface hover:border-border focus:border-blue-500'
               } focus:outline-none focus:ring-2 focus:ring-blue-100`}
               disabled={isLoading}
             />
             {errors.vat_number && <p className="mt-1 text-sm text-red-600">{errors.vat_number}</p>}
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-fg-muted">
               Format: 2-letter country code + 8+ digits (e.g., FI12345678)
             </p>
           </div>
 
           {/* Business ID (Optional) */}
           <div>
-            <label htmlFor="business_id" className="block text-sm font-semibold text-gray-900 mb-2">
+            <label htmlFor="business_id" className="block text-sm font-semibold text-foreground mb-2">
               Business ID (Optional)
             </label>
             <input
@@ -223,17 +223,17 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               value={formData.business_id || ''}
               onChange={handleChange}
               placeholder="e.g., 1234567-8"
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface hover:border-border focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isLoading}
             />
-            <p className="mt-1 text-xs text-gray-500">Finnish Y-tunnus format (e.g., 1234567-8)</p>
+            <p className="mt-1 text-xs text-fg-muted">Finnish Y-tunnus format (e.g., 1234567-8)</p>
           </div>
 
           {/* Billing Address */}
           <div>
             <label
               htmlFor="billing_address"
-              className="block text-sm font-semibold text-gray-900 mb-2"
+              className="block text-sm font-semibold text-foreground mb-2"
             >
               Billing Address *
             </label>
@@ -247,7 +247,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               className={`w-full px-4 py-3 rounded-lg border-2 transition-colors ${
                 errors.billing_address
                   ? 'border-red-300 bg-red-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500'
+                  : 'border-border bg-surface hover:border-border focus:border-blue-500'
               } focus:outline-none focus:ring-2 focus:ring-blue-100`}
               disabled={isLoading}
             />
@@ -259,7 +259,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
           {/* City & Postal Code */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="city" className="block text-sm font-semibold text-gray-900 mb-2">
+              <label htmlFor="city" className="block text-sm font-semibold text-foreground mb-2">
                 City *
               </label>
               <input
@@ -272,7 +272,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
                 className={`w-full px-4 py-3 rounded-lg border-2 transition-colors ${
                   errors.city
                     ? 'border-red-300 bg-red-50'
-                    : 'border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500'
+                    : 'border-border bg-surface hover:border-border focus:border-blue-500'
                 } focus:outline-none focus:ring-2 focus:ring-blue-100`}
                 disabled={isLoading}
               />
@@ -281,7 +281,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
             <div>
               <label
                 htmlFor="postal_code"
-                className="block text-sm font-semibold text-gray-900 mb-2"
+                className="block text-sm font-semibold text-foreground mb-2"
               >
                 Postal Code *
               </label>
@@ -295,7 +295,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
                 className={`w-full px-4 py-3 rounded-lg border-2 transition-colors ${
                   errors.postal_code
                     ? 'border-red-300 bg-red-50'
-                    : 'border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500'
+                    : 'border-border bg-surface hover:border-border focus:border-blue-500'
                 } focus:outline-none focus:ring-2 focus:ring-blue-100`}
                 disabled={isLoading}
               />
@@ -307,7 +307,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
 
           {/* Country */}
           <div>
-            <label htmlFor="country" className="block text-sm font-semibold text-gray-900 mb-2">
+            <label htmlFor="country" className="block text-sm font-semibold text-foreground mb-2">
               Country *
             </label>
             <select
@@ -315,7 +315,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               name="country"
               value={formData.country || 'FI'}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface hover:border-border focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isLoading}
             >
               <option value="FI">Finland (FI)</option>
@@ -341,7 +341,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
           <div>
             <label
               htmlFor="contact_email"
-              className="block text-sm font-semibold text-gray-900 mb-2"
+              className="block text-sm font-semibold text-foreground mb-2"
             >
               Contact Email *
             </label>
@@ -355,7 +355,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               className={`w-full px-4 py-3 rounded-lg border-2 transition-colors ${
                 errors.contact_email
                   ? 'border-red-300 bg-red-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500'
+                  : 'border-border bg-surface hover:border-border focus:border-blue-500'
               } focus:outline-none focus:ring-2 focus:ring-blue-100`}
               disabled={isLoading}
             />
@@ -368,7 +368,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
           <div>
             <label
               htmlFor="contact_phone"
-              className="block text-sm font-semibold text-gray-900 mb-2"
+              className="block text-sm font-semibold text-foreground mb-2"
             >
               Contact Phone (Optional)
             </label>
@@ -379,7 +379,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
               value={formData.contact_phone || ''}
               onChange={handleChange}
               placeholder="e.g., +358 9 1234 5678"
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 bg-white hover:border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface hover:border-border focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isLoading}
             />
           </div>
@@ -427,7 +427,7 @@ export const BillingForm: React.FC<BillingFormProps> = ({
           </div>
 
           {/* Footer Text */}
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-fg-muted text-center">
             Your company information is encrypted and securely stored. We use it only for invoicing
             purposes.
           </p>

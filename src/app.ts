@@ -7,15 +7,16 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
-import dotenv from 'dotenv';
-dotenv.config();
+// Centralized env config — MUST be the first import: loads .env before any
+// statically imported module reads process.env at module-load time.
+import './config/env.js';
 
 // Initialize OTel before any module that may emit spans (agent registry,
 // llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
 import { initOtel, shutdownOtel } from './observability/otel.js';
 initOtel();
 
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
@@ -104,12 +105,14 @@ const shutdownFirehorsePilot = (): void => {
 };
 // ================================================================
 
-dotenv.config();
-
 // ============ VAULT BOOTSTRAP ============
 // Pull secrets from configured vault (Aiven / GCP Secret Manager) into
 // process.env before validation. No-op if VAULT_PROVIDER is not set.
 await loadSecrets();
+
+// Re-validate env snapshot after vault injection
+const { refreshEnv } = await import('./config/env.js');
+refreshEnv();
 
 // ============ STARTUP VALIDATION ============
 

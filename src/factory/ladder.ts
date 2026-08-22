@@ -24,9 +24,9 @@
 
 import type { SignalReport } from './detectors.js';
 import {
-  isFactoryAction,
   type FactoryAction,
   type FactoryRouterConfig,
+  isFactoryAction,
   type LadderState,
   type Verdict,
 } from './types.js';
@@ -129,7 +129,7 @@ export function decide(
     const ranked = (Object.entries(probabilities) as Array<[FactoryAction, number]>)
       .filter(([name]) => name !== 'continue')
       .sort((a, b) => b[1] - a[1]);
-    proposed = ranked.length > 0 ? ranked[0]![0] : 'switch_model';
+    proposed = ranked.length > 0 ? (ranked.at(0)?.[0] ?? 'switch_model') : 'switch_model';
   }
 
   const out = verdict({

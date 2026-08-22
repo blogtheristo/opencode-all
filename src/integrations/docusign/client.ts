@@ -14,13 +14,13 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  DocuSignConfig,
+  type CreateEnvelopeRequest,
+  type DocuSignConfig,
   DocuSignEnvironment,
-  CreateEnvelopeRequest,
-  EnvelopeResult,
-  EnvelopeStatus,
-  EnvelopeStatusResult,
-  Recipient,
+  type EnvelopeResult,
+  type EnvelopeStatus,
+  type EnvelopeStatusResult,
+  type Recipient,
   RecipientType,
   SignatureType,
 } from './types';
@@ -37,16 +37,18 @@ export class DocuSignClient {
   private tokenExpiresAt: number = 0;
 
   constructor(config: DocuSignConfig) {
+    const basePath = config.environment === DocuSignEnvironment.DEMO
+      ? DEMO_BASE_PATH
+      : PROD_BASE_PATH;
+    const oauthBasePath = config.environment === DocuSignEnvironment.DEMO
+      ? DEMO_OAUTH_PATH
+      : PROD_OAUTH_PATH;
     this.config = {
       ...config,
-      basePath: config.environment === DocuSignEnvironment.DEMO
-        ? DEMO_BASE_PATH
-        : PROD_BASE_PATH,
-      oauthBasePath: config.environment === DocuSignEnvironment.DEMO
-        ? DEMO_OAUTH_PATH
-        : PROD_OAUTH_PATH,
+      basePath,
+      oauthBasePath,
     };
-    this.basePath = this.config.basePath!;
+    this.basePath = basePath;
   }
 
   /**
@@ -135,7 +137,7 @@ export class DocuSignClient {
     this.accessToken = tokenData.access_token;
     this.tokenExpiresAt = Date.now() + (tokenData.expires_in * 1000);
 
-    return this.accessToken!;
+    return this.accessToken;
   }
 
   /**

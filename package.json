@@ -22,8 +22,8 @@
     "train:status": "bash scripts/deploy-acer-training.sh status",
     "train:smoke": "python3 -m pytest infrastructure/llm-training/tests -v",
     "diag:ses": "node --import tsx scripts/test-ses-smtp.ts",
-    "morning:briefing": "node --import tsx scripts/send-morning-briefing.ts",
-    "morning:briefing:force": "node --import tsx scripts/send-morning-briefing.ts --force",
+    "morning:briefing": "node --import tsx scripts/send-morning-brief-v2.ts",
+    "morning:briefing:force": "node --import tsx scripts/send-morning-brief-v2.ts --force",
     "ted:fetch": "node --import tsx scripts/ted-fetch.ts",
     "ted:outreach": "node --import tsx scripts/ted-outreach-send.ts",
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
@@ -41,7 +41,9 @@
     "build": "tsc -p tsconfig.json",
     "build:whitepapers": "python3 scripts/build-whitepapers.py",
     "sync:landing-pages": "node scripts/sync-landing-pages.js",
-    "lint": "echo \"No linter configured\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "skills:check": "node scripts/skill-manifest-sync.mjs --check && node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code",
     "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
@@ -49,7 +51,12 @@
     "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",
     "factory:route": "tsx scripts/factory-route.ts",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:run": "vitest run",
+    "test:unit": "vitest run --exclude 'tests/integration/**'",
+    "test:integration": "vitest run tests/integration",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "db:test:rls": "pg_prove supabase/tests/rls/*.sql"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
@@ -80,7 +87,7 @@
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
     "playwright": "^1.49.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.3",
     "stripe": "^22.1.0",
     "zod": "^4.3.6"
   },
@@ -88,6 +95,7 @@
     "undici": "7.29.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
@@ -101,12 +109,16 @@
     "@types/nodemailer": "^8.0.0",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^4.1.11",
     "@vitest/ui": "^4.1.9",
+    "eslint": "^10.9.0",
+    "globals": "^17.11.0",
     "jsdom": "^29.1.1",
     "supabase": "^2.95.5",
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.6.3",
+    "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.9"
   }
 }

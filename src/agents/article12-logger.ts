@@ -121,6 +121,7 @@ export class Article12Logger {
     } catch (err) {
       throw new Error(
         `Article12Logger.logPreFlight failed: ${err instanceof Error ? err.message : String(err)}`,
+        { cause: err },
       );
     }
   }

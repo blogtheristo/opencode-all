@@ -3,16 +3,17 @@
  * MRR, ARR, Runway, Churn, Pipeline Analytics
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import logger from '../utils/logger.js';
 import {
-  MRRMetrics,
-  ARRMetrics,
-  CustomerMetrics,
-  PipelineMetrics,
-  CashMetrics,
-  UnitEconomics,
-  MonthlyMetricsSummary,
-  CurrentMRRByCustomer,
+  type ARRMetrics,
+  type CashMetrics,
+  type CurrentMRRByCustomer,
+  type CustomerMetrics,
+  type MonthlyMetricsSummary,
+  type MRRMetrics,
+  type PipelineMetrics,
+  type UnitEconomics,
 } from './types';
 
 // ============================================================================
@@ -49,7 +50,7 @@ export class MetricsCalculationService {
       .single();
 
     if (currentError && currentError.code !== 'PGRST116') {
-      console.error('Error fetching current MRR:', currentError);
+      logger.error('Error fetching current MRR:', currentError);
     }
 
     // Get previous month metrics
@@ -60,7 +61,7 @@ export class MetricsCalculationService {
       .single();
 
     if (previousError && previousError.code !== 'PGRST116') {
-      console.error('Error fetching previous MRR:', previousError);
+      logger.error('Error fetching previous MRR:', previousError);
     }
 
     const currentMRR = currentData?.mrr || 0;
@@ -344,10 +345,7 @@ export class MetricsCalculationService {
         .gte('created_at', new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString());
 
       if (expenses && expenses.length > 0) {
-        const totalSpend = expenses.reduce(
-          (sum: number, e: any) => sum + Math.abs(e.amount || 0),
-          0,
-        );
+        const totalSpend = expenses.reduce((sum, e) => sum + Math.abs(e.amount || 0), 0);
         const monthlySpend = totalSpend / 3; // 90-day window → monthly average
         const newCustomersPerMonth =
           customers.filter(
@@ -449,7 +447,7 @@ export class MetricsCalculationService {
       .order('current_mrr', { ascending: false });
 
     if (error) {
-      console.error('Error fetching MRR by customer:', error);
+      logger.error('Error fetching MRR by customer:', error);
       return [];
     }
 
@@ -463,7 +461,7 @@ export class MetricsCalculationService {
       .limit(limit);
 
     if (error) {
-      console.error('Error fetching monthly metrics summary:', error);
+      logger.error('Error fetching monthly metrics summary:', error);
       return [];
     }
 

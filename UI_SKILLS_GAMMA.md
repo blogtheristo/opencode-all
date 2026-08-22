@@ -13,8 +13,23 @@ Opinionated constraints for building better interfaces with AI agents across the
 ### Core Requirements
 
 **MUST** use Tailwind CSS defaults (spacing, radius, shadows) before custom values
-- **Gamma Exception:** Build-time Tailwind config required for production (no CDN)
-- **MUST** use `tailwind.config.ts` with proper purging for optimal bundle size
+- **Gamma Exception:** Build-time Tailwind required for production (no CDN)
+- **Updated 2026-08-22:** The dashboard uses **Tailwind CSS v4** with CSS-first
+  configuration (`@theme` blocks in `src/index.css`). Do NOT create a v3-style
+  `tailwind.config.js/ts` — that file has been removed. Design tokens live in CSS and in
+  [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md).
+- **MUST** consume design tokens (`bg-background`, `bg-surface`, `text-foreground`,
+  `text-fg-muted`, `border-border`, `primary-*`, `chart-*`) instead of hardcoded grays or
+  hex surface colors
+
+**MUST** use IBM Plex Sans / IBM Plex Mono as the platform fonts
+- **Added 2026-08-22:** Self-hosted via `@fontsource/ibm-plex-sans` and
+  `@fontsource/ibm-plex-mono`. Inter is retired; do not add new Inter `<link>` tags.
+  See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) §2.
+
+**MUST** support dark mode via class-based tokens
+- **Added 2026-08-22:** `html.dark` toggled by `ThemeProvider`; semantic surface tokens
+  switch automatically. Never hardcode light-only colors (`bg-white`, `text-gray-900`).
 
 **MUST** use `motion/react` (formerly framer-motion) when JavaScript animation is required
 - **Gamma Requirement:** All dashboard animations must use motion/react
@@ -22,13 +37,14 @@ Opinionated constraints for building better interfaces with AI agents across the
 
 **MUST** use `cn` utility (clsx + tailwind-merge) for class logic
 ```typescript
-import { cn } from '@/lib/utils';
+// Dashboard: import { cn } from './lib/utils';  (no path alias configured)
+import { cn } from './lib/utils';
 
 <div className={cn(
   "base-classes",
   condition && "conditional-classes",
   className
-)} />
+) } />
 ```
 
 **NEVER** mix inline styles with Tailwind classes
@@ -470,25 +486,25 @@ shadow-xl   // Maximum elevation (dropdowns over content)
 
 ## Migration from Current State
 
-### Phase 1 (Q1 2026) - Gamma Launch Preparation
-- [ ] Migrate from Tailwind CDN to build-time config
-- [ ] Add `motion/react` to dashboard components
-- [ ] Standardize on Radix UI primitives
-- [ ] Implement fixed z-index scale
-- [ ] Add `aria-label` to all icon buttons
+### Phase 1 (Q1 2026) - Gamma Launch Preparation ✅ Completed 2026-08-22
+- [x] Migrate from Tailwind CDN to build-time config (now Tailwind v4 CSS-first)
+- [x] Add `motion/react` to dashboard components (`MotionConfig reducedMotion="user"`)
+- [x] Standardize on Radix UI primitives (dialog, alert-dialog, dropdown-menu, tabs installed)
+- [x] Implement fixed z-index scale
+- [x] Add `aria-label` to all icon buttons (ongoing at component level)
 
-### Phase 2 (Q2 2026) - Accessibility & Performance
-- [ ] Migrate all inline styles to Tailwind classes
+### Phase 2 (Q2 2026 → rolled into Q3 2026) - Accessibility & Performance
+- [x] Migrate inline styles to tokens in the React dashboard (gray-* sweep complete; marketing HTML migration continues)
 - [ ] Add `text-balance` to all headings
-- [ ] Add `tabular-nums` to all numeric data
-- [ ] Implement `prefers-reduced-motion` support
-- [ ] Audit and fix WCAG 2.2 compliance issues
+- [x] Add `tabular-nums` to all numeric data (charts use Plex Mono ticks)
+- [x] Implement `prefers-reduced-motion` support (CSS + MotionConfig)
+- [ ] Audit and fix WCAG 2.2 compliance issues (see DESIGN_AUDIT_REPORT_2026-08.md)
 
 ### Phase 3 (Q3 2026) - Polish & Optimization
 - [ ] Review and optimize bundle size
-- [ ] Implement proper skeleton loading states
+- [x] Implement proper skeleton loading states
 - [ ] Add AlertDialog for all destructive actions
-- [ ] Standardize animation timing across platform
+- [x] Standardize animation timing across platform
 
 ---
 

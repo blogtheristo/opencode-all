@@ -216,7 +216,7 @@ npm run dev
 | System | Integration |
 |--------|------------|
 | **Supabase** | PostgreSQL storage + pgvector semantic search (persistent memory) |
-| **Email Service** | SES → Resend digest delivery |
+| **Email Service** | Amazon SES (SMTP) digest delivery — Resend banned per LD-2026-008 |
 | **MCP Hub** | 18 tools discoverable via tools/list |
 | **DWS IQ Dashboard** | Evidence Vault widget (stats, expiring, recent) |
 | **onelifetime.world** | Blog posts → /posts/, Legal docs → /legal/ (via artifact publisher) |

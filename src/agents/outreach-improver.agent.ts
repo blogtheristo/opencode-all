@@ -27,7 +27,7 @@
  * Tier: 1 (read-only analysis + file write — no outbound communication)
  */
 
-import { writeFile, mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
