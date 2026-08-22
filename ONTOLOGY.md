@@ -611,10 +611,16 @@ dws_iq6:
     - Steel & Metals
 
   20_moat_fortress:
+    # NOTE (2026-08-22, truth-standard reconciliation): rows 2 and 3 below describe
+    # *aspirational validation paths*, not landed references. Per DWS_TRUTH_STANDARD.md
+    # row 33 / docs/TRACTION_CANONICAL.md: Kela is a Traficom-defined dispatch operator of
+    # the licensed transport operation — never a customer or endorser of any software
+    # product; NCC is a prospect, not a reference. Do not cite either as validation in
+    # public copy generated from this ontology.
     tier_1_impossible:
       - "1. EU/Nordic Operations + Single Market Access (450M consumers)"
-      - "2. Government Validation (Kela)"
-      - "3. NCC Reference"
+      - "2. Government Validation (Kela) — ASPIRATIONAL; Kela is a dispatch operator, not a validator/customer"
+      - "3. NCC Reference — ASPIRATIONAL; NCC is a prospect, not a reference"
       - "4. InvestEU Portal Acknowledgment + EU Competitiveness Alignment"
       - "5. Tech Stack Partnerships (NVIDIA, Google, AWS, Groq)"
     tier_2_very_hard:
@@ -1519,28 +1525,28 @@ Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.s
     },
     {
       "concept_id": "carbon_balance",
-      "scope_type": "customer",
+      "scope_type": "dispatch_operator",
       "scope_ref": "kela",
       "locale": "fi",
       "policy_level": "preferred",
       "preferred_term": "kuljetuksen päästötase",
-      "definition_override": "KELA-kuljetusten CO2-seuranta per matka"
+      "definition_override": "KELA-reimuttujen kuljetusten CO2-seuranta per matka (Kela on Traficom-määrittelemä läpiajomääräävä taksiliikenteessä — ei DWS:n ohjelmistotuotteen asiakas)"
     },
     {
       "concept_id": "sovereignty",
-      "scope_type": "customer",
-      "scope_ref": "kela",
+      "scope_type": "platform",
+      "scope_ref": "dws_iq",
       "locale": "fi",
       "policy_level": "required",
       "preferred_term": "EU-suvereniteetti",
-      "definition_override": "KELA vaatii EU-sovereign hosting, ei US-infra"
+      "definition_override": "EU-suvereeni hosting vaaditaan; US-infrastruktuuri suljetaan pois (CLOUD Act)"
     }
   ],
   "forbidden_rules": [
     {
       "concept_id": "physical_ai",
       "scope_type": "customer",
-      "forbidden_in": ["kela", "defense_context"],
+      "forbidden_in": ["defense_context"],
       "locales": ["en"],
       "preferred_term": "Physical AI",
       "definition_override": "Forbidden in this context; use regulatory intelligence engine"

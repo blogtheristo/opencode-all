@@ -81,8 +81,8 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
       {/* Dashboard header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold text-gray-900">Agent Monitor</h2>
-          <p className="text-xs text-gray-500">
+          <h2 className="text-lg font-bold text-foreground">Agent Monitor</h2>
+          <p className="text-xs text-fg-muted">
             Real-time view of all AI agents and their work status
           </p>
         </div>
@@ -92,15 +92,15 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
       </div>
 
       {/* View tabs */}
-      <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+      <div className="flex items-center gap-1 bg-border rounded-lg p-1">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setView(tab.id)}
             className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all ${
               view === tab.id
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'bg-surface text-foreground shadow-sm'
+                : 'text-fg-muted hover:text-foreground'
             }`}
           >
             <span className="block">{tab.label}</span>
@@ -119,10 +119,10 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
       )}
       {view === 'runner' && <AgentRunner />}
       {view === 'drift' && (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+        <div className="bg-surface border border-border rounded-xl p-4">
           <div className="mb-3">
-            <h3 className="text-sm font-semibold text-gray-100">Confidence Drift</h3>
-            <p className="text-[10px] text-gray-500">
+            <h3 className="text-sm font-semibold text-foreground">Confidence Drift</h3>
+            <p className="text-[10px] text-fg-muted">
               Daily mean confidence per agent — highlights inflection dates
             </p>
           </div>

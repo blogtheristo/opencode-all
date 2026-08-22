@@ -72,14 +72,14 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className="min-h-dvh bg-background flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Branding */}
         <div className="text-center mb-8">
@@ -87,20 +87,20 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
             <span className="text-white font-bold text-2xl">D</span>
           </div>
           <h1 className="text-2xl font-bold text-white">DWS IQ 6</h1>
-          <p className="text-gray-400 text-sm mt-1">Climate Intelligence Platform</p>
+          <p className="text-fg-muted text-sm mt-1">Climate Intelligence Platform</p>
         </div>
 
         {/* Card */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <div className="bg-surface border border-border rounded-2xl p-8">
           {/* Tabs */}
-          <div className="flex mb-6 bg-gray-800 rounded-lg p-1">
+          <div className="flex mb-6 bg-fg-muted/10 rounded-lg p-1">
             <button
               type="button"
               onClick={() => switchTab('signin')}
               className={`flex-1 py-2 text-sm font-medium rounded-md transition-colors ${
                 activeTab === 'signin'
-                  ? 'bg-gray-700 text-white'
-                  : 'text-gray-400 hover:text-gray-300'
+                  ? 'bg-fg-muted/20 text-white'
+                  : 'text-fg-muted hover:text-fg-muted'
               }`}
             >
               Sign In
@@ -110,8 +110,8 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
               onClick={() => switchTab('register')}
               className={`flex-1 py-2 text-sm font-medium rounded-md transition-colors ${
                 activeTab === 'register'
-                  ? 'bg-gray-700 text-white'
-                  : 'text-gray-400 hover:text-gray-300'
+                  ? 'bg-fg-muted/20 text-white'
+                  : 'text-fg-muted hover:text-fg-muted'
               }`}
             >
               Create Account
@@ -136,7 +136,7 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
           {activeTab === 'signin' && (
             <form onSubmit={handleSignIn} className="space-y-4">
               <div>
-                <label htmlFor="signin-email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="signin-email" className="block text-sm font-medium text-fg-muted mb-1">
                   Email
                 </label>
                 <input
@@ -145,13 +145,13 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="you@company.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="signin-password" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="signin-password" className="block text-sm font-medium text-fg-muted mb-1">
                   Password
                 </label>
                 <input
@@ -160,7 +160,7 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                   required
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your password"
                 />
               </div>
@@ -177,7 +177,7 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                 <button
                   type="button"
                   onClick={onResetPassword}
-                  className="w-full text-sm text-gray-400 hover:text-gray-300 transition-colors"
+                  className="w-full text-sm text-fg-muted hover:text-fg-muted transition-colors"
                 >
                   Forgot your password?
                 </button>
@@ -189,7 +189,7 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
           {activeTab === 'register' && (
             <form onSubmit={handleSignUp} className="space-y-4">
               <div>
-                <label htmlFor="register-name" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="register-name" className="block text-sm font-medium text-fg-muted mb-1">
                   Full Name
                 </label>
                 <input
@@ -198,13 +198,13 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                   required
                   value={fullName}
                   onChange={e => setFullName(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Jane Doe"
                 />
               </div>
 
               <div>
-                <label htmlFor="register-email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="register-email" className="block text-sm font-medium text-fg-muted mb-1">
                   Email
                 </label>
                 <input
@@ -213,13 +213,13 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="you@company.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="register-password" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="register-password" className="block text-sm font-medium text-fg-muted mb-1">
                   Password
                 </label>
                 <input
@@ -229,13 +229,13 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                   minLength={8}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Minimum 8 characters"
                 />
               </div>
 
               <div>
-                <label htmlFor="register-org" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="register-org" className="block text-sm font-medium text-fg-muted mb-1">
                   Organization
                 </label>
                 <input
@@ -244,7 +244,7 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
                   required
                   value={orgName}
                   onChange={e => setOrgName(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Acme Corp"
                 />
               </div>
@@ -261,7 +261,7 @@ export function LoginPage({ onResetPassword }: LoginPageProps) {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-gray-600 text-xs mt-6">
+        <p className="text-center text-fg-muted text-xs mt-6">
           &copy; 2026 DWS IQ &middot; Climate Intelligence Platform
         </p>
       </div>

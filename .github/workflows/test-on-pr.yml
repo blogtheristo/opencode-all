@@ -80,6 +80,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run ESLint
+        run: npm run lint
+
       - name: Check for security patterns
         run: |
           echo "Checking for hardcoded secrets..."

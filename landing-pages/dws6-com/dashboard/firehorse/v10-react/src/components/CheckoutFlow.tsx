@@ -142,7 +142,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
   // =========================================================================
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+    <div className="min-h-dvh bg-gradient-to-br from-background to-border py-12 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Progress Bar */}
         <div className="mb-12">
@@ -167,7 +167,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                               'stripe-invoice',
                             ].indexOf(currentStep) > arr.indexOf(item)
                           ? 'bg-green-600 text-white'
-                          : 'bg-gray-200 text-gray-600'
+                          : 'bg-fg-muted/20 text-fg-muted'
                     }`}
                   >
                     {[
@@ -187,7 +187,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                       idx + 1
                     )}
                   </div>
-                  <span className="text-xs font-medium text-gray-600">{item.label}</span>
+                  <span className="text-xs font-medium text-fg-muted">{item.label}</span>
                 </div>
                 {idx < arr.length - 1 && (
                   <div
@@ -199,7 +199,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                         'stripe-invoice',
                       ].indexOf(currentStep) > arr.indexOf(item)
                         ? 'bg-green-600'
-                        : 'bg-gray-200'
+                        : 'bg-fg-muted/20'
                     }`}
                   />
                 )}
@@ -233,20 +233,20 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
 
         {/* STEP 1: Product Selection */}
         {currentStep === 'product-selection' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Review Your Order</h2>
+          <div className="bg-surface rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-bold mb-6 text-foreground">Review Your Order</h2>
 
             <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6 mb-8">
-              <h3 className="font-semibold text-lg text-gray-900 mb-2">{product.name}</h3>
-              <p className="text-gray-600 mb-4">{product.description}</p>
+              <h3 className="font-semibold text-lg text-foreground mb-2">{product.name}</h3>
+              <p className="text-fg-muted mb-4">{product.description}</p>
               <div className="text-3xl font-bold text-blue-600">
                 €{(product.price / 100).toFixed(2)}
               </div>
             </div>
 
             <div className="space-y-4 mb-8">
-              <h3 className="font-semibold text-gray-900">Flexible Payment Options</h3>
-              <p className="text-gray-600">
+              <h3 className="font-semibold text-foreground">Flexible Payment Options</h3>
+              <p className="text-fg-muted">
                 Choose how much to deposit now. We'll invoice you for the remainder after your
                 company information is confirmed.
               </p>
@@ -259,13 +259,13 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                     <button
                       key={fraction}
                       onClick={() => handleContinueToDeposit(product.price * fraction)}
-                      className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors text-left"
+                      className="p-4 border-2 border-border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors text-left"
                     >
-                      <div className="font-semibold text-gray-900">€{amount.toFixed(2)} now</div>
-                      <div className="text-sm text-gray-600">
+                      <div className="font-semibold text-foreground">€{amount.toFixed(2)} now</div>
+                      <div className="text-sm text-fg-muted">
                         €{(remainder / 100).toFixed(2)} on invoice
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-fg-muted mt-1">
                         {Math.round(fraction * 100)}% deposit
                       </div>
                     </button>
@@ -274,7 +274,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
               </div>
 
               <div className="border-t pt-4">
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   Or enter a custom amount
                 </label>
                 <div className="flex gap-2">
@@ -286,9 +286,9 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                     value={depositAmount / 100}
                     onChange={(e) => setDepositAmount(parseFloat(e.target.value) * 100)}
                     placeholder="0.00"
-                    className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none"
+                    className="flex-1 px-4 py-2 border-2 border-border rounded-lg focus:border-blue-500 focus:outline-none"
                   />
-                  <span className="py-2 text-gray-600">€</span>
+                  <span className="py-2 text-fg-muted">€</span>
                 </div>
               </div>
             </div>
@@ -305,20 +305,20 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
 
         {/* STEP 2: Revolut Deposit */}
         {currentStep === 'revolut-deposit' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Pay Deposit via Revolut</h2>
+          <div className="bg-surface rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-bold mb-6 text-foreground">Pay Deposit via Revolut</h2>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
               <div className="flex items-baseline gap-4 mb-4">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Deposit Amount</p>
+                  <p className="text-sm text-fg-muted mb-1">Deposit Amount</p>
                   <div className="text-4xl font-bold text-blue-600">
                     €{(depositAmount / 100).toFixed(2)}
                   </div>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-600 mb-1">Remaining to Invoice</p>
-                  <div className="text-2xl font-semibold text-gray-900">
+                  <p className="text-sm text-fg-muted mb-1">Remaining to Invoice</p>
+                  <div className="text-2xl font-semibold text-foreground">
                     €{((product.price - depositAmount) / 100).toFixed(2)}
                   </div>
                 </div>
@@ -326,12 +326,12 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
             </div>
 
             <div className="space-y-4 mb-8">
-              <h3 className="font-semibold text-gray-900">Next Steps</h3>
+              <h3 className="font-semibold text-foreground">Next Steps</h3>
               <ol className="space-y-3 list-decimal list-inside">
-                <li className="text-gray-700">Click below to open Revolut checkout</li>
-                <li className="text-gray-700">Complete payment in Revolut</li>
-                <li className="text-gray-700">Return here and enter your company details</li>
-                <li className="text-gray-700">Receive invoice for remaining amount</li>
+                <li className="text-foreground">Click below to open Revolut checkout</li>
+                <li className="text-foreground">Complete payment in Revolut</li>
+                <li className="text-foreground">Return here and enter your company details</li>
+                <li className="text-foreground">Receive invoice for remaining amount</li>
               </ol>
             </div>
 
@@ -349,15 +349,15 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
 
         {/* STEP 3: Billing Information */}
         {currentStep === 'billing-info' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="bg-surface rounded-lg shadow-lg p-8">
             <BillingForm onSuccess={handleBillingSuccess} onError={setError} />
           </div>
         )}
 
         {/* STEP 4: Stripe Invoice */}
         {currentStep === 'stripe-invoice' && order && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Complete Your Payment</h2>
+          <div className="bg-surface rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-bold mb-6 text-foreground">Complete Your Payment</h2>
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
               <div className="flex items-center gap-3 mb-4">
@@ -374,10 +374,10 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
             </div>
 
             <div className="space-y-4 mb-8">
-              <h3 className="font-semibold text-gray-900">Invoice Summary</h3>
+              <h3 className="font-semibold text-foreground">Invoice Summary</h3>
               <div className="space-y-2 border-t border-b py-4">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Product Price</span>
+                  <span className="text-fg-muted">Product Price</span>
                   <span className="font-semibold">
                     €{(order.product_price_cents / 100).toFixed(2)}
                   </span>
@@ -394,7 +394,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                 </div>
               </div>
 
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-fg-muted">
                 Your invoice has been generated and sent to your email. Click below to review and
                 pay the remaining amount via Stripe.
               </p>
@@ -410,7 +410,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
               Open Stripe Invoice
             </button>
 
-            <p className="text-xs text-gray-500 text-center mt-4">
+            <p className="text-xs text-fg-muted text-center mt-4">
               Payment methods: Credit Card, Bank Transfer (SEPA), iDEAL, Klarna
             </p>
           </div>
@@ -418,7 +418,7 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
 
         {/* STEP 5: Completed */}
         {currentStep === 'completed' && (
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          <div className="bg-surface rounded-lg shadow-lg p-8 text-center">
             <svg
               className="w-16 h-16 text-green-600 mx-auto mb-4"
               fill="currentColor"
@@ -430,8 +430,8 @@ export const CheckoutFlow: React.FC<CheckoutFlowProps> = ({ product, onComplete 
                 clipRule="evenodd"
               />
             </svg>
-            <h2 className="text-3xl font-bold mb-2 text-gray-900">Payment Complete!</h2>
-            <p className="text-gray-600 mb-8">Your service is now active and ready to use.</p>
+            <h2 className="text-3xl font-bold mb-2 text-foreground">Payment Complete!</h2>
+            <p className="text-fg-muted mb-8">Your service is now active and ready to use.</p>
             <button
               onClick={onComplete}
               className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"

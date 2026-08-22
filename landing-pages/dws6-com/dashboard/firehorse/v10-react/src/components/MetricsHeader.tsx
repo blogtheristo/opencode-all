@@ -31,8 +31,8 @@ export function MetricsHeader() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="metric-card animate-pulse">
-            <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
-            <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+            <div className="h-4 bg-fg-muted/20 rounded w-1/2 mb-2"></div>
+            <div className="h-8 bg-fg-muted/20 rounded w-3/4"></div>
           </div>
         ))}
       </div>
@@ -49,8 +49,8 @@ export function MetricsHeader() {
       <div className="metric-card hover:shadow-md transition-shadow">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 font-medium">Total Projects</p>
-            <p className="text-3xl font-bold text-gray-900 mt-1">
+            <p className="text-sm text-fg-muted font-medium">Total Projects</p>
+            <p className="text-3xl font-bold text-foreground mt-1">
               {metrics.total_projects}
             </p>
           </div>
@@ -69,8 +69,8 @@ export function MetricsHeader() {
       <div className="metric-card hover:shadow-md transition-shadow">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 font-medium">Avg SPI</p>
-            <p className="text-3xl font-bold text-gray-900 mt-1">
+            <p className="text-sm text-fg-muted font-medium">Avg SPI</p>
+            <p className="text-3xl font-bold text-foreground mt-1">
               {metrics.avg_spi.toFixed(2)}
             </p>
           </div>
@@ -78,7 +78,7 @@ export function MetricsHeader() {
             <span className="text-2xl">📊</span>
           </div>
         </div>
-        <p className="text-xs text-gray-500 mt-3">
+        <p className="text-xs text-fg-muted mt-3">
           Schedule Performance Index
         </p>
       </div>
@@ -87,8 +87,8 @@ export function MetricsHeader() {
       <div className="metric-card hover:shadow-md transition-shadow">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 font-medium">Avg CPI</p>
-            <p className="text-3xl font-bold text-gray-900 mt-1">
+            <p className="text-sm text-fg-muted font-medium">Avg CPI</p>
+            <p className="text-3xl font-bold text-foreground mt-1">
               {metrics.avg_cpi.toFixed(2)}
             </p>
           </div>
@@ -96,7 +96,7 @@ export function MetricsHeader() {
             <span className="text-2xl">💰</span>
           </div>
         </div>
-        <p className="text-xs text-gray-500 mt-3">
+        <p className="text-xs text-fg-muted mt-3">
           Cost Performance Index
         </p>
       </div>
@@ -105,8 +105,8 @@ export function MetricsHeader() {
       <div className="metric-card hover:shadow-md transition-shadow">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 font-medium">Carbon Impact</p>
-            <p className="text-3xl font-bold text-gray-900 mt-1">
+            <p className="text-sm text-fg-muted font-medium">Carbon Impact</p>
+            <p className="text-3xl font-bold text-foreground mt-1">
               {(metrics.total_carbon_saved / 1000).toFixed(1)}t
             </p>
           </div>
@@ -114,7 +114,7 @@ export function MetricsHeader() {
             <span className="text-2xl">🌍</span>
           </div>
         </div>
-        <p className="text-xs text-gray-500 mt-3">
+        <p className="text-xs text-fg-muted mt-3">
           CO₂e tracked (EN 15978)
         </p>
       </div>
