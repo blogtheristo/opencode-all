@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suvereeni tietokanta-arkkitehtuuri: Tekninen opas — Lifetime Scope Journal</title>
-    <meta name="description" content="PostgreSQL, pgvector ja EU-infrastruktuuri. Kuinka rakentaa suvereeni tietokanta-arkkitehtuuri, joka tayttaa GDPR:n ja dataresidenssin vaatimukset.">
-    <meta name="author" content="Risto Anton">
+    <meta name="description" content="PostgreSQL, pgvector ja EU-infrastruktuuri. Kuinka rakentaa suvereeni tietokanta-arkkitehtuuri, joka täyttää GDPR:n ja dataresidenssin vaatimukset.">
+    <meta name="author" content="Risto Anton Päärni">
     <meta property="og:title" content="Suvereeni tietokanta-arkkitehtuuri: Tekninen opas">
     <meta property="og:description" content="PostgreSQL, pgvector ja EU-infrastruktuuri suvereeniin datanhallintaan.">
     <meta property="og:type" content="article">
@@ -14,7 +14,7 @@
     <meta property="og:url" content="https://onelifetime.world/posts/fi/day-012-suvereeni-tietokanta-arkkitehtuuriopas.html">
     <meta property="og:site_name" content="Lifetime Scope Journal">
     <meta property="article:published_time" content="2026-03-27">
-    <meta property="article:author" content="Risto Anton">
+    <meta property="article:author" content="Risto Anton Päärni">
     <meta property="article:section" content="Suvereeni teknologia">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/fi__day-012-suvereeni-tietokanta-arkkitehtuuriopas.png">
@@ -38,7 +38,7 @@
         "@context": "https://schema.org", "@type": "Article",
         "headline": "Suvereeni tietokanta-arkkitehtuuri: Tekninen opas",
         "description": "PostgreSQL, pgvector ja EU-infrastruktuuri suvereeniin datanhallintaan.",
-        "author": { "@type": "Person", "name": "Risto Anton", "url": "https://onelifetime.world" },
+        "author": { "@type": "Person", "name": "Risto Anton Päärni", "url": "https://onelifetime.world" },
         "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
         "datePublished": "2026-03-27",
         "mainEntityOfPage": "https://onelifetime.world/posts/fi/day-012-suvereeni-tietokanta-arkkitehtuuriopas.html",
@@ -74,47 +74,47 @@
             <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: #e2e8f0;">Suvereeni tietokanta-arkkitehtuuri: Tekninen opas</h1>
 
             <div class="flex items-center gap-4 mb-8 text-sm text-gray-400">
-                <span>27. maaliskuuta 2026</span><span>&middot;</span><span>Risto Anton</span><span>&middot;</span><span>Lifetime Oy</span>
+                <span>27. maaliskuuta 2026</span><span>&middot;</span><span>Risto Anton Päärni</span><span>&middot;</span><span>Lifetime Oy</span>
             </div>
 
             <div class="w-16 h-0.5 mb-8" style="background: linear-gradient(90deg, #06b6d4, #2563eb);"></div>
 
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>Suvereeni tietokanta-arkkitehtuuri ei ole vain dataresidenssia — se on kokonaisvaltainen lähestymistapa, jossa data, paasynhallinta, salaus ja auditointiketju ovat taysin eurooppalaisessa hallinnassa. Tässä oppaassa käymme lapi teknisen toteutuksen PostgreSQL-pohjaisena.</p>
+                <p>Suvereeni tietokanta-arkkitehtuuri ei ole vain dataresidenssia — se on kokonaisvaltainen lähestymistapa, jossa data, pääsynhallinta, salaus ja auditointiketju ovat täysin eurooppalaisessa hallinnassa. Tässä oppaassa käymme läpi teknisen toteutuksen PostgreSQL-pohjaisena.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Miksi PostgreSQL?</h2>
-                <p>PostgreSQL on avoimen lahdekoodin relaatiotietokanta, jolla ei ole yksittäistä omistajaa. Tämä on kriittinen ero verrattuna esimerkiksi Oracle Databaseen tai Microsoft SQL Serveriin, jotka ovat yhdysvaltalaisten yritysten tuotteita ja siten CLOUD Actin piirissa.</p>
+                <p>PostgreSQL on avoimen lähdekoodin relaatiotietokanta, jolla ei ole yksittäistä omistajaa. Tämä on kriittinen ero verrattuna esimerkiksi Oracle Databaseen tai Microsoft SQL Serveriin, jotka ovat yhdysvaltalaisten yritysten tuotteita ja siten CLOUD Actin piirissä.</p>
 
                 <p>PostgreSQL tarjoaa kaikki yrityskäyttöön tarvittavat ominaisuudet: ACID-transaktiot, rivitason turvallisuus (RLS), laajennettavuus, JSON-tuki, maantieteellinen data (PostGIS) ja vektorihaun (pgvector). Suorituskyky on vertailukelpoinen kaupallisten tietokantojen kanssa.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Arkkitehtuurin kerrokset</h2>
                 <p><strong>Infrakerros:</strong> PostgreSQL asennetaan eurooppalaiselle palveluntarjoajalle. DWS IQ käyttää Supabasea Google Cloud europe-north1 -alueella (Hamina) ja Hetzneria (Helsinki) varmuuskopiointiin. Molemmat datakeskukset ovat fyysisesti Suomessa.</p>
 
-                <p><strong>Tietokantakerros:</strong> Tietokanta konfiguroitaan rivitason turvallisuudella (RLS). Jokainen taulu sisaltaa RLS-politiikat, jotka määräävät kuka saa lukea ja kirjoittaa mitakin rivejaa. Tämä tarkoittaa, että vaikka joku saisi suoran yhteyden tietokantaan, han nakee vain ne rivit, joihin hanella on oikeus.</p>
+                <p><strong>Tietokantakerros:</strong> Tietokanta konfiguroitaan rivitason turvallisuudella (RLS). Jokainen taulu sisältää RLS-politiikat, jotka määräävät kuka saa lukea ja kirjoittaa mitäkin rivejä. Tämä tarkoittaa, että vaikka joku saisi suoran yhteyden tietokantaan, hän näkee vain ne rivit, joihin hänellä on oikeus.</p>
 
-                <p><strong>Salauskerros:</strong> Data salataan sekä siirron aikana (TLS 1.3) että levolla (AES-256). Supabase Vault mahdollistaa arkaluonteisten tietojen — avainten, tunnusten, salasanojen — säilyttämisen erillisessa, salatussa varastossa, johon on erillinen paasynhallinta.</p>
+                <p><strong>Salauskerros:</strong> Data salataan sekä siirron aikana (TLS 1.3) että levolla (AES-256). Supabase Vault mahdollistaa arkaluonteisten tietojen — avainten, tunnusten, salasanojen — säilyttämisen erillisessä, salatussa varastossa, johon on erillinen pääsynhallinta.</p>
 
-                <p><strong>Auditointikerros:</strong> Firehorse-audit tallentaa jokaisen tietokantaoperaation muuttumattomaan lokiin. Kuka teki mitä, milloin ja mistä IP-osoitteesta. Lokit säilytetään erilaisessa tallennuspaikassa kuin itse data — jos tietokanta kompromitoidaan, audit trail säilyy eheana.</p>
+                <p><strong>Auditointikerros:</strong> Firehorse-audit tallentaa jokaisen tietokantaoperaation muuttumattomaan lokiin. Kuka teki mitä, milloin ja mistä IP-osoitteesta. Lokit säilytetään erilaisessa tallennuspaikassa kuin itse data — jos tietokanta kompromitoidaan, audit trail säilyy ehjänä.</p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">pgvector: Tekoalyn muisti</h2>
-                <p>Tekoalyagentit tarvitsevat vektorihakukannan tehokkaaseen semanttiseen hakuun. pgvector-laajennus lisää PostgreSQL:aan vektorityypin ja lahimmän naapurin hakualgortmit (IVFFlat, HNSW).</p>
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">pgvector: Tekoälyn muisti</h2>
+                <p>Tekoälyagentit tarvitsevat vektorihakukannan tehokkaaseen semanttiseen hakuun. pgvector-laajennus lisää PostgreSQL:aan vektorityypin ja lähimmän naapurin hakualgoritmit (IVFFlat, HNSW).</p>
 
-                <p>Käytännössä tämä tarkoittaa, että kaikki tekoalyagentin tarvitsema tieto — dokumentit, sääntelytekstit, aiemmat raportit — voidaan tallentaa samaan tietokantaan kuin liiketoimintadata. Ei tarvita erillista vektoritietokantaa (Pinecone, Weaviate), joka olisi jalkeen yksi ulkoinen riippuvuus lisää.</p>
+                <p>Käytännössä tämä tarkoittaa, että kaikki tekoälyagentin tarvitsema tieto — dokumentit, sääntelytekstit, aiemmat raportit — voidaan tallentaa samaan tietokantaan kuin liiketoimintadata. Ei tarvita erillistä vektoritietokantaa (Pinecone, Weaviate), joka olisi jälkeen yksi ulkoinen riippuvuus lisää.</p>
 
-                <p>Suvereeniteetin näkökulmasta tämä on merkittävää: koko tekoalypinothan — data, mallin konteksti, muisti — pysyy EU:ssa.</p>
+                <p>Suvereeniteetin näkökulmasta tämä on merkittävää: koko tekoälypinothan — data, mallin konteksti, muisti — pysyy EU:ssa.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Käytännön toteutus</h2>
-                <p>Suvereeni tietokanta-arkkitehtuuri toteutetaan vaiheittain. Ensimmaisessa vaiheessa perustetaan Supabase-instanssi europe-north1 -alueelle ja konfiguroidaan RLS-politiikat. Toisessa vaiheessa aktivoidaan pgvector ja siirretaan dokumenttiaineisto vektorimuotoon. Kolmannessa vaiheessa konfiguroidaan Firehorse-auditointi ja Vault-salaus. Neljannessa vaiheessa testataan koko putki: agentti hakee dataa, kaesittelee sen ja tuottaa raportin — kaikki EU:ssa.</p>
+                <p>Suvereeni tietokanta-arkkitehtuuri toteutetaan vaiheittain. Ensimmäisessä vaiheessa perustetaan Supabase-instanssi europe-north1 -alueelle ja konfiguroidaan RLS-politiikat. Toisessa vaiheessa aktivoidaan pgvector ja siirretaan dokumenttiaineisto vektorimuotoon. Kolmannessa vaiheessa konfiguroidaan Firehorse-auditointi ja Vault-salaus. Neljännessä vaiheessa testataan koko putki: agentti hakee dataa, käsittelee sen ja tuottaa raportin — kaikki EU:ssa.</p>
 
-                <p>Koko prosessi kestaa tyypillisesti 2-4 viikkoa, riippuen olemassa olevan datan määrästä ja rakenteesta.</p>
+                <p>Koko prosessi kestää tyypillisesti 2-4 viikkoa, riippuen olemassa olevan datan määrästä ja rakenteesta.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Kustannusvertailu</h2>
-                <p>Suvereeni PostgreSQL-arkkitehtuuri ei ole kalliimpi kuin yhdysvaltalainen pilvipalvelu. Supabase Pro -taso maksaa 25 dollaria kuukaudessa. Hetzner-palvelin varmuuskopiointiin 10-20 euroa kuukaudessa. Vertailun vuoksi: Azure SQL Database vastaavalla kapasiteetilla maksaa 150-300 euroa kuukaudessa — ja sisaltaa CLOUD Act -riskin kaupan paalle.</p>
+                <p>Suvereeni PostgreSQL-arkkitehtuuri ei ole kalliimpi kuin yhdysvaltalainen pilvipalvelu. Supabase Pro -taso maksaa 25 dollaria kuukaudessa. Hetzner-palvelin varmuuskopiointiin 10-20 euroa kuukaudessa. Vertailun vuoksi: Azure SQL Database vastaavalla kapasiteetilla maksaa 150-300 euroa kuukaudessa — ja sisältää CLOUD Act -riskin kaupan paalle.</p>
             </div>
 
             <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
                 <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Tilaa Lifetime Scope Journal</h3>
-                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-sääntelyyn, tekoalyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
+                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-sääntelyyn, tekoälyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
                 <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">Tilaa</a>
             </div>
 
