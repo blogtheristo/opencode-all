@@ -18,7 +18,6 @@
  *   https://developers.facebook.com/docs/graph-api/reference/page/feed
  */
 
-import logger from '../utils/logger.js';
 import type { SocialPost } from './types.js';
 
 const FB_API_BASE = 'https://graph.facebook.com';
