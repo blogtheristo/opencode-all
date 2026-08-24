@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-02-05-claude-code-agent-teams-vs-subagents</title><style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem; color: #24292f; background: #fff; }
+h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 6px; font-size: 85%; }
+pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #d0d7de; padding: 6px 13px; }
+th { background: #f6f8fa; }
+blockquote { border-left: 4px solid #d0d7de; margin: 0; padding: 0 1em; color: #57606a; }
+a { color: #0969da; }
+</style></head>
+<body><h1>Claude Code Agent Teams, Subagents &amp; Cowork: Architecture Comparison</h1>
+<hr />
+<h1>VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: silly-bassi | Date: 05.02.2026 | Changes: Initial field note analyzing Claude Code Agent Teams feature</p>
+<p>Document Status:
+  - Created: 05.02.2026
+  - Last Modified: 05.02.2026
+  - Language: English
+  - Publication Status: ACTIVE
+  - Document Type: Field Note / Technical Analysis</p>
+<p>Related Documents:
+  - docs/thesis/MULTI_AGENT_COORDINATION_EN.md
+  - AgentFoundry/DEPLOYMENT_GUIDE.md
+  - docs/architecture/03-ORCHESTRATION-LAYER.md</p>
+<hr />
+<h2>Summary</h2>
+<p>This field note analyzes Anthropic's agent architecture options for Claude:
+1. <strong>Agent Teams</strong> (Experimental) - Multiple independent Claude instances coordinating
+2. <strong>Subagents</strong> (Production) - Lightweight focused agents within a session
+3. <strong>Cowork</strong> (Research Preview) - Claude Code for non-technical users with plugins</p>
+<p>Understanding these options is critical for DWS6's AgentFoundry architecture decisions.</p>
+<p><strong>Sources:</strong>
+- https://code.claude.com/docs/en/agent-teams
+- https://simonwillison.net/2026/Jan/12/claude-cowork/</p>
+<hr />
+<h2>Key Concepts</h2>
+<h3>Agent Teams (New - Experimental)</h3>
+<p>Agent Teams allow coordinating multiple <strong>independent</strong> Claude Code instances:</p>
+<ul>
+<li><strong>Team Lead</strong>: Main session that creates, spawns, and coordinates teammates</li>
+<li><strong>Teammates</strong>: Separate Claude instances with their own context windows</li>
+<li><strong>Shared Task List</strong>: Centralized work items that teammates claim and complete</li>
+<li><strong>Mailbox</strong>: Inter-agent messaging system</li>
+</ul>
+<h3>Subagents (Existing)</h3>
+<p>Subagents run <strong>within</strong> a single session:</p>
+<ul>
+<li>Results return to the caller only</li>
+<li>Cannot communicate with each other</li>
+<li>Main agent manages all work</li>
+<li>Lower token cost (results summarized)</li>
+</ul>
+<hr />
+<h2>Feature Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Subagents</th>
+<th>Agent Teams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Context</strong></td>
+<td>Own window, results return to caller</td>
+<td>Own window, fully independent</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Report back to main agent only</td>
+<td>Teammates message each other directly</td>
+</tr>
+<tr>
+<td><strong>Coordination</strong></td>
+<td>Main agent manages all</td>
+<td>Shared task list, self-coordination</td>
+</tr>
+<tr>
+<td><strong>Best For</strong></td>
+<td>Focused tasks where only result matters</td>
+<td>Complex work requiring discussion</td>
+</tr>
+<tr>
+<td><strong>Token Cost</strong></td>
+<td>Lower (summarized results)</td>
+<td>Higher (each teammate = separate instance)</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>Production</td>
+<td>Experimental</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Best Use Cases for Agent Teams</h2>
+<p>Based on the documentation, agent teams excel at:</p>
+<ol>
+<li><strong>Research and Review</strong>: Multiple investigators exploring different aspects simultaneously</li>
+<li><strong>New Modules/Features</strong>: Each teammate owns a separate piece</li>
+<li><strong>Debugging with Competing Hypotheses</strong>: Test different theories in parallel</li>
+<li><strong>Cross-Layer Coordination</strong>: Frontend, backend, tests owned by different teammates</li>
+</ol>
+<h3>Example: Parallel Code Review</h3>
+<pre class="codehilite"><code>Create an agent team to review PR #142. Spawn three reviewers:
+- One focused on security implications
+- One checking performance impact
+- One validating test coverage
+Have them each review and report findings.
+</code></pre>
+
+<h3>Example: Debugging with Competing Hypotheses</h3>
+<pre class="codehilite"><code>Users report the app exits after one message instead of staying connected.
+Spawn 5 agent teammates to investigate different hypotheses. Have them talk to
+each other to try to disprove each other's theories, like a scientific
+debate. Update the findings doc with whatever consensus emerges.
+</code></pre>
+
+<hr />
+<h2>Architecture Details</h2>
+<h3>Team Structure</h3>
+<pre class="codehilite"><code>┌─────────────────┐
+│   Team Lead     │ ← Creates team, spawns teammates, coordinates work
+└────────┬────────┘
+         │
+    ┌────┴────┬────────────┐
+    │         │            │
+┌───┴───┐ ┌───┴───┐ ┌──────┴──────┐
+│ Agent │ │ Agent │ │    Agent    │
+│   A   │ │   B   │ │      C      │
+└───────┘ └───────┘ └─────────────┘
+    ↑         ↑           ↑
+    └─────────┴───────────┘
+         Inter-agent messaging
+</code></pre>
+
+<h3>Storage Locations</h3>
+<ul>
+<li><strong>Team Config</strong>: <code>~/.claude/teams/{team-name}/config.json</code></li>
+<li><strong>Task List</strong>: <code>~/.claude/tasks/{team-name}/</code></li>
+</ul>
+<h3>Display Modes</h3>
+<ol>
+<li><strong>In-process</strong> (default): All teammates in main terminal, use Shift+Up/Down to select</li>
+<li><strong>Split panes</strong>: Each teammate in own pane (requires tmux or iTerm2)</li>
+</ol>
+<hr />
+<h2>Enabling Agent Teams</h2>
+<pre class="codehilite"><code class="language-json">// settings.json
+{
+  &quot;env&quot;: {
+    &quot;CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS&quot;: &quot;1&quot;
+  }
+}
+</code></pre>
+
+<p>Or set environment variable:</p>
+<pre class="codehilite"><code class="language-bash">export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+</code></pre>
+
+<hr />
+<h2>Implications for DWS6 AgentFoundry</h2>
+<h3>Current DWS6 Architecture</h3>
+<p>DWS6 uses a three-tier agent ecosystem:
+- <strong>Category A</strong>: Development agents (10) - Sprint-based
+- <strong>Category B</strong>: Internal operations (7) - Continuous
+- <strong>Category C</strong>: Customer-facing (5+) - Phased deployment</p>
+<h3>Recommended Approach</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-task automation</td>
+<td>Subagents</td>
+</tr>
+<tr>
+<td>Multi-file refactoring</td>
+<td>Agent Teams</td>
+</tr>
+<tr>
+<td>Code review (security, performance, tests)</td>
+<td>Agent Teams</td>
+</tr>
+<tr>
+<td>Customer support agents</td>
+<td>Subagents (cost-effective)</td>
+</tr>
+<tr>
+<td>Research/investigation</td>
+<td>Agent Teams</td>
+</tr>
+<tr>
+<td>Sales automation (Apollo, LinkedIn)</td>
+<td>Subagents</td>
+</tr>
+<tr>
+<td>Complex debugging</td>
+<td>Agent Teams</td>
+</tr>
+</tbody>
+</table>
+<h3>Integration with MCP Hub</h3>
+<p>The DWS6 MCP Hub (port 8765) already coordinates agents. Agent Teams could complement this by:</p>
+<ol>
+<li><strong>Development Phase</strong>: Use Agent Teams for parallel feature development</li>
+<li><strong>Review Phase</strong>: Spawn security, performance, and test reviewers</li>
+<li><strong>Production</strong>: Use subagents for cost-effective operations</li>
+</ol>
+<h3>Proposed Hybrid Architecture</h3>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────────┐
+│                     DWS6 AGENT ORCHESTRATION                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │  MCP HUB (Port 8765)                                      │  │
+│  │  - Temporal.io workflow orchestration                     │  │
+│  │  - Agent activity logging (Supabase)                      │  │
+│  │  - Session persistence                                    │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                            │                                     │
+│           ┌────────────────┼────────────────┐                   │
+│           ▼                ▼                ▼                   │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
+│  │  SUBAGENTS  │  │AGENT TEAMS │  │   CUSTOMER AGENTS       │ │
+│  │  (Quick,    │  │(Complex,   │  │   (AgentFoundry)        │ │
+│  │   focused)  │  │ parallel)  │  │                         │ │
+│  ├─────────────┤  ├─────────────┤  ├─────────────────────────┤ │
+│  │ • Research  │  │ • PR Review │  │ • Sales AI (Sonnet)     │ │
+│  │ • Validation│  │ • Debugging │  │ • Support (Llama 3.1)   │ │
+│  │ • One-shot  │  │ • Refactor  │  │ • Compliance (Haiku)    │ │
+│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<hr />
+<h2>Limitations to Note</h2>
+<p>Current experimental limitations:
+- No session resumption with in-process teammates
+- Task status can lag behind
+- Shutdown can be slow
+- One team per session
+- No nested teams
+- Lead is fixed (cannot transfer leadership)
+- Split panes require tmux or iTerm2</p>
+<hr />
+<h2>Recommendations for DWS6</h2>
+<h3>Immediate (Can Enable Now)</h3>
+<ol>
+<li>
+<p><strong>Enable experimentally</strong> for development sessions:
+   <code>json
+   // .claude/settings.json
+   {
+     "env": {
+       "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+     }
+   }</code></p>
+</li>
+<li>
+<p><strong>Use for code reviews</strong>: Security + Performance + Tests reviewers</p>
+</li>
+<li>
+<p><strong>Use for complex debugging</strong>: Competing hypothesis investigation</p>
+</li>
+</ol>
+<h3>Short-term (Q1 2026)</h3>
+<ol>
+<li><strong>Document patterns</strong>: Create AgentFoundry playbooks for team vs subagent decisions</li>
+<li><strong>Monitor costs</strong>: Track token usage differences between approaches</li>
+<li><strong>Integrate with MCP Hub</strong>: Log team activities alongside subagent activities</li>
+</ol>
+<h3>Medium-term (Q2 2026)</h3>
+<ol>
+<li><strong>Evaluate GA status</strong>: Reassess when agent teams exit experimental</li>
+<li><strong>Customer agent migration</strong>: Consider if customer-facing agents benefit from teams</li>
+<li><strong>Temporal.io integration</strong>: Orchestrate team spawning through Temporal workflows</li>
+</ol>
+<hr />
+<hr />
+<h2>Appendix: Claude Cowork (January 2026)</h2>
+<h3>What is Claude Cowork?</h3>
+<p>Claude Cowork is Anthropic's general-purpose agent tool - essentially "Claude Code for the rest of your work". It repackages Claude Code for non-technical users through a dedicated tab in the Claude Desktop app.</p>
+<h3>Key Features</h3>
+<ul>
+<li><strong>Filesystem Sandbox</strong>: Users designate a specific folder where Claude can read/modify files</li>
+<li><strong>Natural Language Interface</strong>: No terminal knowledge required</li>
+<li><strong>Containerized Execution</strong>: Uses Apple's VZVirtualMachine framework (Linux container)</li>
+<li><strong>Autonomous Task Execution</strong>: Multi-step tasks with user consent</li>
+</ul>
+<h3>Availability</h3>
+<table>
+<thead>
+<tr>
+<th>Plan</th>
+<th>Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Max ($100-200/mo)</td>
+<td>Full access</td>
+</tr>
+<tr>
+<td>Pro ($20/mo)</td>
+<td>Full access</td>
+</tr>
+<tr>
+<td>Free</td>
+<td>Waitlist</td>
+</tr>
+</tbody>
+</table>
+<h3>Use Cases</h3>
+<ul>
+<li>Expense reports from receipt photos</li>
+<li>Media file management</li>
+<li>Document analysis and drafting</li>
+<li>Social media scanning</li>
+<li>Conversation analysis</li>
+</ul>
+<h3>Plugins (February 2026)</h3>
+<p>Anthropic added plugin support for specialized workflows:
+- <strong>Legal Plugin</strong>: Contract analysis, document review
+- <strong>Sales Plugin</strong>: CRM integration, lead analysis
+- <strong>Finance Plugin</strong>: Financial document processing</p>
+<h3>Relevance to DWS6</h3>
+<table>
+<thead>
+<tr>
+<th>Cowork Feature</th>
+<th>DWS6 Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Document analysis</td>
+<td>Climate compliance document scanning</td>
+</tr>
+<tr>
+<td>File organization</td>
+<td>Carbon report consolidation</td>
+</tr>
+<tr>
+<td>Multi-step tasks</td>
+<td>EN 15978 calculation workflows</td>
+</tr>
+<tr>
+<td>Plugins</td>
+<td>Potential DWS6 compliance plugin</td>
+</tr>
+</tbody>
+</table>
+<h3>DWS6 Plugin Opportunity</h3>
+<p>A <strong>DWS6 Compliance Plugin</strong> for Claude Cowork could offer:
+- EU regulation document scanning (CSRD, EPBD, ETS, CBAM)
+- Carbon footprint calculation from receipts/invoices
+- Compliance checklist generation
+- Integration with Firehorse Report</p>
+<p><strong>Market Opportunity</strong>: 16 EU industries need simplified compliance tools. Non-technical sustainability managers could use Cowork + DWS6 plugin instead of full dashboard.</p>
+<h3>Security Considerations</h3>
+<ul>
+<li>Filesystem sandboxing isolates from host system</li>
+<li>Prompt injection risk from internet content</li>
+<li>Avoid sensitive files (API keys, credentials)</li>
+<li>Monitor for suspicious activities</li>
+</ul>
+<hr />
+<h2>References</h2>
+<ul>
+<li><a href="https://code.claude.com/docs/en/agent-teams">Claude Code Agent Teams Documentation</a></li>
+<li><a href="https://code.claude.com/docs/en/sub-agents">Claude Code Subagents Documentation</a></li>
+<li><a href="https://simonwillison.net/2026/Jan/12/claude-cowork/">First impressions of Claude Cowork</a> - Simon Willison</li>
+<li><a href="https://techcrunch.com/2026/01/12/anthropics-new-cowork-tool-offers-claude-code-without-the-code/">Anthropic's Cowork Tool</a> - TechCrunch</li>
+<li><a href="https://www.pymnts.com/news/artificial-intelligence/2026/anthropic-says-new-cowork-plugins-tailor-claude-specific-job-functions/">Anthropic Cowork Plugins</a> - PYMNTS</li>
+<li>DWS6 Multi-Agent Coordination: <code>docs/thesis/MULTI_AGENT_COORDINATION_EN.md</code></li>
+<li>AgentFoundry Deployment: <code>AgentFoundry/DEPLOYMENT_GUIDE.md</code></li>
+</ul>
+<hr />
+<h2>Action Items</h2>
+<ul>
+<li>[ ] Enable agent teams in worktree settings</li>
+<li>[ ] Test with next PR review</li>
+<li>[ ] Update thesis documentation with comparison</li>
+<li>[ ] Create decision matrix for team vs subagent selection</li>
+<li>[ ] Document token cost comparison</li>
+</ul>
+<hr />
+<p><strong>Document Version:</strong> 1.0
+<strong>Field Note Type:</strong> Technical Analysis
+<strong>Author:</strong> Claude Code Session silly-bassi</p></body></html>

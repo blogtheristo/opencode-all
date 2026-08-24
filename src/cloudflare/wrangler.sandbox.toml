@@ -1,0 +1,152 @@
+# DWS IQ Multi-Tenant Sandbox Manager - Cloudflare Configuration
+# 
+# This configures the Workers for Platforms sandbox manager that provides
+# isolated execution environments for enterprise customers.
+#
+# Deployment: npx wrangler deploy -c wrangler.sandbox.toml
+# Local dev:  npx wrangler dev -c wrangler.sandbox.toml
+#
+# @version 1.0.0
+# @license Proprietary - Lifetime Oy
+
+name = "dws-iq-tenant-sandbox"
+main = "tenant-sandbox.ts"
+compatibility_date = "2024-12-01"
+
+# ============================================================================
+# Worker Settings
+# ============================================================================
+
+[build]
+command = "npm run build:sandbox"
+
+[build.upload]
+format = "modules"
+main = "./dist/tenant-sandbox.js"
+
+# ============================================================================
+# Environment Variables (non-secrets)
+# ============================================================================
+
+[vars]
+MCP_HUB_ORIGIN = "https://mcp-hub.dws10.com"
+ENVIRONMENT = "production"
+
+# ============================================================================
+# Secrets (set via wrangler secret put)
+# ============================================================================
+# Required secrets:
+# - ADMIN_API_KEY: Admin API authentication
+# - ANTHROPIC_API_KEY: Shared Claude API key
+#
+# Set with: npx wrangler secret put ADMIN_API_KEY -c wrangler.sandbox.toml
+
+# ============================================================================
+# Workers for Platforms (Dispatch Namespace)
+# ============================================================================
+
+[[dispatch_namespaces]]
+binding = "DISPATCHER"
+namespace = "dws-iq-tenant-workers"
+
+# ============================================================================
+# KV Namespaces
+# ============================================================================
+
+[[kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-id"  # Replace with actual KV namespace ID
+preview_id = "tenant-config-kv-preview-id"
+
+# ============================================================================
+# Analytics Engine (Usage Metering)
+# ============================================================================
+
+[[analytics_engine_datasets]]
+binding = "USAGE_METRICS"
+dataset = "dws_iq_tenant_usage"
+
+# ============================================================================
+# Routes & Custom Domains
+# ============================================================================
+
+[[routes]]
+pattern = "sandbox.dws10.com/*"
+zone_name = "dws10.com"
+
+[[routes]]
+pattern = "tenant.dws10.com/*"
+zone_name = "dws10.com"
+
+# ============================================================================
+# EU Data Residency
+# ============================================================================
+
+[placement]
+mode = "smart"
+
+# ============================================================================
+# Observability
+# ============================================================================
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+
+# ============================================================================
+# Development Environment
+# ============================================================================
+
+[env.development]
+name = "dws-iq-tenant-sandbox-dev"
+vars = { MCP_HUB_ORIGIN = "http://localhost:8765", ENVIRONMENT = "development" }
+
+[[env.development.kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-dev-id"
+
+[[env.development.dispatch_namespaces]]
+binding = "DISPATCHER"
+namespace = "dws-iq-tenant-workers-dev"
+
+# ============================================================================
+# Staging Environment
+# ============================================================================
+
+[env.staging]
+name = "dws-iq-tenant-sandbox-staging"
+vars = { MCP_HUB_ORIGIN = "https://mcp-hub-staging.dws10.com", ENVIRONMENT = "staging" }
+
+[[env.staging.kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-staging-id"
+
+[[env.staging.dispatch_namespaces]]
+binding = "DISPATCHER"
+namespace = "dws-iq-tenant-workers-staging"
+
+# ============================================================================
+# Production Environment
+# ============================================================================
+
+[env.production]
+name = "dws-iq-tenant-sandbox"
+vars = { MCP_HUB_ORIGIN = "https://mcp-hub.dws10.com", ENVIRONMENT = "production" }
+
+[[env.production.kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-prod-id"
+
+[[env.production.dispatch_namespaces]]
+binding = "DISPATCHER"
+namespace = "dws-iq-tenant-workers"
+
+# ============================================================================
+# Limits
+# ============================================================================
+
+[limits]
+cpu_ms = 30000  # 30 seconds for sandbox management operations

@@ -1,0 +1,1909 @@
+<!doctype html>
+<!--
+  DWS Document Standard — HTML mirror
+  Document: dws10.com/products/edge-node-gn100.html  (Control Room product)
+  Version: 2.0  ·  Effective: 2026-05-17  ·  Status: ACTIVE
+  Owner: Lifetime Oy
+  Session: claude/add-hardware-products-MY7X7
+  Pricing source of truth: /dws10.com/config/products.json → "edge-node-gn100"
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control Room — Acer Veriton GN100 + NVIDIA Model Install | DWS IQ</title>
+    <meta
+      name="description"
+      content="Sovereign control room hardware: 1× Acer Veriton GN100 + on-site NVIDIA model installation. €5,294 turnkey. Built for VPK-style operations command. EU air-gapped. Pick your model bundle."
+    />
+    <meta
+      name="keywords"
+      content="Control Room, Acer Veriton GN100, edge AI, sovereign AI, on-premise AI, NVIDIA model install, VPK, DWS IQ 6, Lifetime Fleet"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta name="dws-doc-version" content="2.0" />
+    <meta name="dws-doc-effective" content="2026-05-17" />
+    <meta name="dws-doc-status" content="ACTIVE" />
+    <meta name="dws-lang-stay" content="true" />
+    <meta property="og:title" content="Control Room — Acer Veriton GN100 + NVIDIA Model Install" />
+    <meta
+      property="og:description"
+      content="1× Acer Veriton GN100 + NVIDIA model installation. €5,294. EU air-gapped, sovereign control room hardware."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/products/edge-node-gn100.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://dws10.com/products/edge-node-gn100.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <meta property="product:price:amount" content="5294.00" />
+    <meta property="product:price:currency" content="EUR" />
+    <meta property="product:availability" content="in stock" />
+    <meta property="product:condition" content="new" />
+    <meta property="product:brand" content="Acer" />
+    <meta property="product:retailer_item_id" content="LF-CTRLROOM-GN100-2026" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Control Room — Acer Veriton GN100 + NVIDIA Model Install",
+        "description": "Sovereign control room hardware: 1× Acer Veriton GN100 (20 cores, 120 GiB RAM) + on-site NVIDIA model installation. Choose a model bundle (VPK Ops, Compliance, Construction, Custom). EU air-gapped. €5,294 turnkey.",
+        "sku": "LF-CTRLROOM-GN100-2026",
+        "mpn": "LF-CTRLROOM-GN100-2026",
+        "brand": { "@type": "Brand", "name": "Acer" },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://dws10.com/products/edge-node-gn100.html",
+          "priceCurrency": "EUR",
+          "price": "5294.00",
+          "priceValidUntil": "2026-12-31",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": { "@type": "Organization", "name": "Lifetime Oy" }
+        }
+      }
+    </script>
+    <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+    <script src="/shared-assets/vertical-lang-bar.js" defer></script>
+    <style>
+      :root {
+        --color-primary: #0a1628;
+        --color-accent: #0066cc;
+        --color-eu-blue: #003399;
+        --color-eu-gold: #ffcc00;
+        --color-success: #0d7a3e;
+        --color-white: #ffffff;
+        --color-gray-50: #f8fafc;
+        --color-gray-100: #f1f5f9;
+        --color-gray-200: #e2e8f0;
+        --color-gray-500: #64748b;
+        --color-gray-600: #475569;
+        --color-gray-700: #334155;
+        --color-gray-900: #0f172a;
+        /* NVIDIA brand colors — used on hardware product pages */
+        --nvidia-green: #76b900;
+        --nvidia-green-dark: #5a8c00;
+        --nvidia-green-soft: rgba(118, 185, 0, 0.12);
+        --nvidia-black: #000000;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      .nvidia-strip {
+        background: linear-gradient(
+          90deg,
+          var(--nvidia-black) 0%,
+          #0a0a0a 50%,
+          var(--nvidia-black) 100%
+        );
+        border-top: 2px solid var(--nvidia-green);
+        border-bottom: 2px solid var(--nvidia-green);
+        color: #fff;
+        padding: 14px 20px;
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.03em;
+      }
+      .nvidia-strip strong {
+        color: var(--nvidia-green);
+        font-weight: 700;
+      }
+      .nvidia-strip a {
+        color: var(--nvidia-green);
+        text-decoration: none;
+      }
+      .nvidia-strip a:hover {
+        text-decoration: underline;
+      }
+      .nvidia-badge {
+        display: inline-block;
+        background: var(--nvidia-green);
+        color: var(--nvidia-black);
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .nvidia-card {
+        background: var(--nvidia-black);
+        color: #fff;
+        border-left: 6px solid var(--nvidia-green);
+        border-radius: 0 12px 12px 0;
+        padding: 24px 28px;
+        margin: 28px 0;
+      }
+      .nvidia-card h3 {
+        color: var(--nvidia-green);
+        margin-top: 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+      .nvidia-card p {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .nvidia-card ul li {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .product-price-nv {
+        color: var(--nvidia-green) !important;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        color: var(--color-gray-900);
+        background: var(--color-white);
+      }
+      .product-hero {
+        background: linear-gradient(135deg, #0a1628 0%, #001a4d 100%);
+        color: #ffffff;
+        padding: 80px 20px 60px;
+        text-align: center;
+      }
+      .product-badge {
+        display: inline-block;
+        background: rgba(255, 204, 0, 0.15);
+        border: 1px solid rgba(255, 204, 0, 0.4);
+        color: #ffcc00;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      .product-title {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 800;
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+      .product-title .highlight {
+        color: #ffcc00;
+      }
+      .product-subtitle {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 720px;
+        margin: 0 auto 32px;
+      }
+      .price-block {
+        margin: 24px 0;
+      }
+      .product-price {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #4ade80;
+      }
+      .price-min {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 4px;
+      }
+      .product-cta-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .btn-primary {
+        padding: 14px 32px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #0066cc, #0052a3);
+        color: #fff;
+        transition: all 0.3s;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+      }
+      .btn-secondary {
+        padding: 14px 32px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: all 0.3s;
+      }
+      .btn-secondary:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--color-eu-blue);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--color-gray-700);
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+      p {
+        color: var(--color-gray-600);
+        margin-bottom: 16px;
+      }
+      ul {
+        padding-left: 24px;
+        margin-bottom: 16px;
+      }
+      li {
+        color: var(--color-gray-600);
+        margin-bottom: 8px;
+      }
+      strong {
+        color: var(--color-gray-900);
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--color-gray-200);
+        margin: 40px 0;
+      }
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.9375rem;
+      }
+      .spec-table th,
+      .spec-table td {
+        border: 1px solid var(--color-gray-200);
+        padding: 12px 16px;
+        text-align: left;
+      }
+      .spec-table th {
+        background: var(--color-gray-100);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-gray-600);
+      }
+      .spec-table td {
+        background: var(--color-white);
+      }
+      .spec-table tr:hover td {
+        background: var(--color-gray-50);
+      }
+      .callout {
+        border-left: 4px solid var(--color-eu-blue);
+        padding: 16px 20px;
+        margin: 24px 0;
+        background: rgba(0, 51, 153, 0.04);
+        border-radius: 0 8px 8px 0;
+      }
+      .callout-warning {
+        border-left-color: #b45309;
+        background: rgba(180, 83, 9, 0.04);
+      }
+      .fb-card {
+        background: #f9fafb;
+        border: 1px solid var(--color-gray-200);
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin: 32px 0;
+      }
+      .fb-card h3 {
+        color: var(--color-eu-blue);
+        margin-top: 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+      .fb-card ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+      .fb-card li {
+        padding-left: 1.4em;
+        position: relative;
+      }
+      .fb-card li::before {
+        content: "*";
+        position: absolute;
+        left: 0;
+        color: var(--color-eu-gold);
+        font-weight: 700;
+      }
+      .bundle-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .bundle-card {
+        border: 2px solid var(--color-gray-200);
+        border-radius: 10px;
+        padding: 18px 20px;
+        background: #fff;
+      }
+      .bundle-card h4 {
+        color: var(--color-eu-blue);
+        margin-bottom: 8px;
+        font-size: 0.98rem;
+      }
+      .bundle-card p {
+        font-size: 0.875rem;
+        margin-bottom: 0;
+      }
+      .pricing-box {
+        background: linear-gradient(135deg, #0a1628, #152238);
+        color: #fff;
+        border-radius: 16px;
+        padding: 40px;
+        text-align: center;
+        margin: 32px 0;
+      }
+      .pricing-box h2 {
+        color: #ffcc00;
+        margin-top: 0;
+      }
+      .pricing-total {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #4ade80;
+        margin: 16px 0 4px;
+      }
+      .pricing-breakdown {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 24px;
+      }
+      .pricing-box .btn-primary {
+        font-size: 1.1rem;
+        padding: 16px 40px;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--color-gray-500);
+        font-size: 0.875rem;
+        margin-bottom: 32px;
+      }
+      .back-link:hover {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+      /* Boardy hero — consistent across all hardware pages */
+      .boardy-hero {
+        max-width: 760px;
+        margin: 18px auto 22px;
+        text-align: center;
+      }
+      .boardy-tagline {
+        font-size: 0.82rem;
+        letter-spacing: 0.16em;
+        color: rgba(255, 255, 255, 0.78);
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(118, 185, 0, 0.35);
+      }
+      .boardy-sub {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.86);
+        line-height: 1.55;
+        margin: 0 auto;
+        max-width: 700px;
+        font-weight: 400;
+      }
+      .boardy-sub strong {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nvidia-strip">
+      <strong>BUILT ON NVIDIA</strong> · CUDA · TensorRT-LLM · NVIDIA-optimised Qwen / Llama /
+      Whisper · <strong>former NVIDIA Connect programme member (programme closed; NVIDIA programme application history unavailable)</strong>
+    </div>
+    <section class="product-hero">
+      <div class="nvidia-badge">BUILT ON NVIDIA · CUDA · TensorRT-LLM</div>
+      <div class="product-badge">🖥️ Lifetime Fleet — Sovereign Control Room</div>
+      <h1 class="product-title">
+        <span class="highlight">Control Room</span><br />Acer Veriton GN100 + NVIDIA Model Install
+      </h1>
+      <div class="boardy-hero">
+        <div class="boardy-tagline">On-site sovereign AI hardware for regulated work.</div>
+        <p class="boardy-sub">
+          Cloud-only LLMs break on jurisdiction, logging, and control. DWS ships the NVIDIA stack
+          on-site, with customer-owned hardware, bridged inference, and auditable handoff.
+        </p>
+      </div>
+      <p class="product-subtitle">
+        When your team needs a sovereign AI brain that lives in your own building — not in someone
+        else's cloud. One Acer Veriton GN100, NVIDIA model stack installed on-site, configured for
+        how you actually work. Built for places like VPK (vapaapalokunta) where decisions can't wait
+        for a cloud round-trip.
+      </p>
+      <div class="price-block">
+        <div class="product-price product-price-nv">€5,294</div>
+        <div class="price-min">
+          1× Acer Veriton GN100 (€4,299) + NVIDIA model installation (€995) · turnkey
+        </div>
+      </div>
+      <div class="product-cta-group">
+        <a
+          href="https://dws10.com/contact/"
+          class="btn-primary"
+          >Order Control Room →</a
+        >
+        <a href="situation-room.html" class="btn-secondary">Compare with Situation Room →</a>
+      </div>
+    </section>
+    <section
+      class="moat-block"
+      id="sovereign-moat"
+      aria-label="Sovereign moat — why this is hard to copy"
+    >
+      <style>
+        .moat-block {
+          background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+          border-top: 4px solid #76b900;
+          border-bottom: 4px solid #003399;
+          margin: 0 0 40px 0;
+          padding: 48px 20px 56px;
+          font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+        }
+        .moat-block .moat-inner {
+          max-width: 1040px;
+          margin: 0 auto;
+        }
+        .moat-block .moat-header {
+          text-align: center;
+          margin-bottom: 32px;
+        }
+        .moat-block .moat-tag {
+          display: inline-block;
+          background: #76b900;
+          color: #000000;
+          padding: 6px 14px;
+          border-radius: 4px;
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          margin-bottom: 14px;
+        }
+        .moat-block h2.moat-title {
+          font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+          font-weight: 800;
+          color: #0a1628;
+          margin: 0 0 14px;
+          line-height: 1.2;
+        }
+        .moat-block h2.moat-title .moat-accent {
+          color: #003399;
+        }
+        .moat-block .moat-lead {
+          color: #475569;
+          max-width: 740px;
+          margin: 0 auto;
+          font-size: 1.02rem;
+          line-height: 1.55;
+        }
+        .moat-block h3.moat-section-h {
+          font-size: 1.25rem;
+          font-weight: 800;
+          color: #003399;
+          margin: 36px 0 12px;
+          padding-bottom: 8px;
+          border-bottom: 2px solid #e2e8f0;
+        }
+        .moat-block h3.moat-section-h .moat-num {
+          color: #76b900;
+          font-weight: 900;
+          margin-right: 8px;
+        }
+        .moat-block p {
+          color: #475569;
+          line-height: 1.55;
+          margin-bottom: 12px;
+        }
+        .moat-block strong {
+          color: #0a1628;
+        }
+        .moat-block table.moat-tbl {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 12px 0 8px;
+          font-size: 0.93rem;
+          background: #ffffff;
+        }
+        .moat-block table.moat-tbl th,
+        .moat-block table.moat-tbl td {
+          border: 1px solid #e2e8f0;
+          padding: 11px 14px;
+          text-align: left;
+          vertical-align: top;
+        }
+        .moat-block table.moat-tbl th {
+          background: #000000;
+          color: #76b900;
+          font-weight: 700;
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+        .moat-block table.moat-tbl tr:hover td {
+          background: #f8fafc;
+        }
+        .moat-block ul.moat-ul {
+          padding-left: 22px;
+          margin: 10px 0 14px;
+        }
+        .moat-block ul.moat-ul li {
+          color: #475569;
+          margin-bottom: 7px;
+          line-height: 1.5;
+        }
+        .moat-block .industries-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 12px;
+          margin: 16px 0;
+        }
+        .moat-block .industries-grid > div {
+          background: #ffffff;
+          border-left: 3px solid #76b900;
+          padding: 12px 16px;
+          font-size: 0.88rem;
+          color: #475569;
+          line-height: 1.45;
+          border-radius: 0 6px 6px 0;
+          box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+        .moat-block .industries-grid > div strong {
+          color: #003399;
+        }
+        .moat-block .industries-grid > div.industry-flagship {
+          border-left-color: #003399;
+          background: #f1f5fb;
+        }
+        .moat-block .moat-callout {
+          background: rgba(118, 185, 0, 0.08);
+          border-left: 5px solid #76b900;
+          padding: 14px 18px;
+          margin: 18px 0;
+          border-radius: 0 8px 8px 0;
+          color: #0a1628;
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+        @media (max-width: 640px) {
+          .moat-block {
+            padding: 36px 16px 44px;
+          }
+          .moat-block h3.moat-section-h {
+            font-size: 1.1rem;
+          }
+          .moat-block table.moat-tbl {
+            font-size: 0.85rem;
+          }
+          .moat-block table.moat-tbl th,
+          .moat-block table.moat-tbl td {
+            padding: 9px 10px;
+          }
+        }
+      </style>
+
+      <div class="moat-inner">
+        <div class="moat-header">
+          <span class="moat-tag">The Moat</span>
+          <h2 class="moat-title">
+            NVIDIA makes it possible.<br /><span class="moat-accent"
+              >EU-sovereign deployment makes it defensible.</span
+            >
+          </h2>
+          <p class="moat-lead">
+            NVIDIA is the <strong>credibility layer</strong> — production silicon and models
+            customers already trust. The actual <strong>moat</strong> is what surrounds the box:
+            jurisdiction, ownership, bridged architecture, auditable handoff, and a Finnish service
+            team. Common LLM vendors can copy model access. They cannot easily copy the
+            jurisdiction, the install, the compliance trail, or the service wrapper.
+          </p>
+        </div>
+
+        <h3 class="moat-section-h">
+          <span class="moat-num">1.</span>Why cloud-only LLMs fail in regulated environments
+        </h3>
+        <p>
+          OpenAI, Anthropic, Google Vertex, Mistral cloud — every cloud-only LLM hits the same four
+          hard failures the moment the workload sits inside an EU-regulated industry:
+        </p>
+        <table class="moat-tbl">
+          <thead>
+            <tr>
+              <th>Failure mode</th>
+              <th>Why it kills the use case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>CLOUD Act exposure</strong></td>
+              <td>
+                US-incorporated cloud means US law can compel access to your customer data. Defence,
+                healthcare, dual-use, critical infrastructure: instant deal-breaker.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>GDPR Article 5(f) &amp; Schrems II</strong></td>
+              <td>
+                Customer data crossing to a third-country processor without an adequate lawful basis
+                is automatic GDPR liability.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>NIS2 — 24 h incident report</strong></td>
+              <td>
+                Critical entities (energy, water, transport, finance, health, digital, public admin)
+                must report incidents in 24 h. You can't reconstruct what the model did when the
+                logs live in someone else's cloud.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>EU AI Act Article 12 logging</strong></td>
+              <td>
+                Required immutable record-keeping for high-risk AI. Cloud LLMs don't surface prompt
+                / response / decision logs at the granularity an inspector demands.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="moat-callout">
+          Across all 25 regulated EU industries below the pattern is identical:
+          <strong>the workload cannot legally live on someone else's cloud.</strong>
+        </div>
+
+        <h3 class="moat-section-h">
+          <span class="moat-num">2.</span>Why the on-site NVIDIA stack matters — the credibility
+          layer
+        </h3>
+        <p>
+          NVIDIA does the credibility work. Buying this stack is buying the same NVIDIA components
+          NVIDIA itself ships — not a research project, not a custom-silicon bet, not vendor risk.
+          Customers, inspectors, and procurement teams already trust the NVIDIA name. That's
+          <em>half the sales conversation gone</em> before we walk in.
+        </p>
+        <ul class="moat-ul">
+          <li>
+            <strong>NVIDIA GB10 Grace Blackwell silicon</strong> — current-generation production
+            silicon (1 PFLOPS FP4, 128 GB LPDDR5x unified, 273 GB/s)
+          </li>
+          <li>
+            <strong>CUDA + NVIDIA drivers</strong> — locked at known-good revisions, validated by
+            NVIDIA
+          </li>
+          <li>
+            <strong>NVIDIA TensorRT-LLM</strong> — the same production inference kernels
+            hyperscalers run
+          </li>
+          <li>
+            <strong>NVIDIA NIM microservices — Llama Nemotron family</strong> — Nano (real-time),
+            Super (single-GPU high-accuracy), Ultra (data-center-grade) agentic reasoning
+          </li>
+          <li>
+            <strong>NVIDIA Cosmos world foundation models</strong> — Cosmos Reason 2 (spatiotemporal
+            VLM), Cosmos Predict 2.5, Cosmos Transfer 2.5 (Cosmos 3 announced)
+          </li>
+          <li>
+            <strong>Cosmos Nemotron VLMs + Nemotron Speech / RAG / Safety</strong> — vision, voice,
+            retrieval, guardrails — NVIDIA-curated NIMs
+          </li>
+          <li>
+            <strong>NVIDIA Isaac ROS + CV-CUDA</strong> — sensor fusion + accelerated vision
+            pipelines
+          </li>
+          <li>
+            <strong>NVIDIA Aerial Omniverse</strong> — operational-area digital twin for scenario
+            rehearsal &amp; after-action review
+          </li>
+          <li>
+            <strong
+              >Lifetime Oy is
+              <span style="color: #76b900; font-weight: 700"
+                >NVIDIA Developer</span
+              >
+              and an
+              <span style="color: #76b900; font-weight: 700"
+                >former NVIDIA Connect programme member (programme closed; NVIDIA programme application history unavailable)</span
+              ></strong
+            >
+            — sovereign EU edge AI track
+          </li>
+        </ul>
+
+        <h3 class="moat-section-h">
+          <span class="moat-num">3.</span>What the customer actually gets — the deliverable
+        </h3>
+        <p>
+          Itemised. No black box. Customer signs off on what arrived, what is installed, and what
+          gets pushed each month.
+        </p>
+        <table class="moat-tbl">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>What it is</th>
+              <th>When</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NVIDIA hardware</strong></td>
+              <td>
+                Acer Veriton GN100 (or DGX Spark / Veriton 2000 / customer-supplied NVIDIA-capable)
+                — pre-imaged, customer-owned
+              </td>
+              <td>Day 0</td>
+            </tr>
+            <tr>
+              <td><strong>On-site install</strong></td>
+              <td>
+                Lifetime engineer: validates CUDA drivers, loads NVIDIA NIM bundle, brings up local
+                MCP endpoint, sanity-tests first inference end-to-end
+              </td>
+              <td>Day 0–1</td>
+            </tr>
+            <tr>
+              <td><strong>Operator training drill</strong></td>
+              <td>
+                30-min scenario rehearsal with your team · signed install protocol · runbook
+                handover
+              </td>
+              <td>Day 1</td>
+            </tr>
+            <tr>
+              <td><strong>Article 12 immutable log</strong></td>
+              <td>
+                Live from minute one · 7-year retention · cryptographic hash chain · sealable for
+                inspector handover
+              </td>
+              <td>Day 1</td>
+            </tr>
+            <tr>
+              <td><strong>Monthly NVIDIA refresh</strong></td>
+              <td>
+                New Llama Nemotron NIMs, Cosmos checkpoints, Nemotron Speech, TensorRT-LLM kernels,
+                GB10-tuned quantization
+              </td>
+              <td>Monthly</td>
+            </tr>
+            <tr>
+              <td><strong>Weekly security backports</strong></td>
+              <td>
+                CUDA driver patches, container CVE fixes, OpenSandbox + Ubuntu 24.04 LTS updates
+              </td>
+              <td>Weekly</td>
+            </tr>
+            <tr>
+              <td><strong>Daily hotfixes (when needed)</strong></td>
+              <td>
+                Zero-day CVE patches, NVIDIA driver hotfixes, model-side jailbreak mitigations —
+                pushed within 24 h
+              </td>
+              <td>As needed</td>
+            </tr>
+            <tr>
+              <td><strong>24/7 technical support</strong></td>
+              <td>
+                Named Finnish engineer · SLA sized to your operation · production incidents covered
+              </td>
+              <td>Ongoing</td>
+            </tr>
+            <tr>
+              <td><strong>Warranty servicing</strong></td>
+              <td>
+                We handle hardware warranty for you (Acer GN100 RMA paperwork, swap-out
+                coordination, redeploy)
+              </td>
+              <td>Ongoing</td>
+            </tr>
+            <tr>
+              <td><strong>Remote configuration</strong></td>
+              <td>
+                Bundle switches, patches, OS updates over your secure tunnel — sovereign always
+              </td>
+              <td>Ongoing</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="moat-section-h">
+          <span class="moat-num">3b.</span>What you can build on top — your sovereign Linux platform
+        </h3>
+        <p>
+          You're not buying a sealed appliance. The GN100 ships with a full
+          <strong>Ubuntu 24.04 LTS</strong> stack you own and extend. Cron jobs, systemd timers,
+          Docker compose stacks, custom Python services, REST gateways — anything that runs on Linux
+          runs here, alongside the NVIDIA model stack.
+        </p>
+        <table class="moat-tbl">
+          <thead>
+            <tr>
+              <th>Build capability</th>
+              <th>What customers actually do with it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ubuntu 24.04 LTS — full Linux platform</strong></td>
+              <td>
+                Root access. Standard apt / systemd / cron / journald — everything your DevOps
+                already knows. Pre-imaged but never sealed.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>cron / systemd timer workflows</strong></td>
+              <td>
+                Schedule nightly ETL into the Article 12 log · 06:00 dispatch-readiness report ·
+                weekly Nemotron RAG re-index of your SOPs · monthly CSRD evidence bundle export.
+                Workflow scheduling is built-in.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Docker / Docker Compose + OpenSandbox</strong></td>
+              <td>
+                Drop in your own containers next to the NVIDIA NIMs — internal microservices, custom
+                ETL, in-house ML models. OpenSandbox keeps them isolated from each other and from
+                the NIM stack.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Local MCP server</strong></td>
+              <td>
+                Wire Claude Code / your IDE / your dispatcher app to the box over your internal
+                network. No internet hop. Customer-supplied MCP tools mount alongside ours.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Pre-installed toolchain</strong></td>
+              <td>
+                PyTorch, Jupyter, Ollama, vLLM, TensorRT-LLM, NVIDIA NIMs — ready out of the box.
+                Bring your own libraries via apt / pip / conda.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Article 12 log API</strong></td>
+              <td>
+                HTTP API for read-only access to the immutable log. Wire it to your SIEM, your CSRD
+                platform, your inspector portal. The log is yours; the API is documented.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>REST / webhook gateway</strong></td>
+              <td>
+                Expose any agent or model as an internal HTTP endpoint for your ERP, dispatcher,
+                ticketing system — sovereign, on-prem, no third-party API call.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Bring-your-own model</strong></td>
+              <td>
+                Drop a custom fine-tune (Llama / Mistral / Qwen variants) into the NVIDIA NIM
+                runtime alongside the curated bundle. The box doesn't care whether the weights came
+                from NVIDIA or you.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Air-gap switchable</strong></td>
+              <td>
+                Firewall policy can cut external network at any time. Update tunnel opens only when
+                you allow it; otherwise the box runs fully offline for as long as you want.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="moat-callout">
+          <strong>This is the Linux moat inside the moat.</strong> SaaS LLM vendors don't ship you a
+          Linux platform you can extend. Sovereign LLM vendors do — because the box is yours, and
+          Linux is yours.
+        </div>
+
+        <h3 class="moat-section-h">
+          <span class="moat-num">4.</span>Why this is hard to copy — the actual moat
+        </h3>
+        <p>
+          Six layers. Each is hard. The combination is harder. This is what the customer is really
+          buying — and why a cloud LLM vendor can't compete on the same axis.
+        </p>
+        <table class="moat-tbl">
+          <thead>
+            <tr>
+              <th>Moat layer</th>
+              <th>Why it's hard to copy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>EU-sovereign jurisdiction</strong></td>
+              <td>
+                Lifetime Oy is Finnish-registered (Y-tunnus 0772407-9), EU-based. A US or non-EU
+                vendor cannot credibly sell "EU sovereign" to a defence ministry, a NIS2 operator,
+                or a CER critical entity. Jurisdiction can't be cloned.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Customer-owned hardware</strong></td>
+              <td>
+                The customer owns the box. We don't host anything. CLOUD Act exposure and Schrems II
+                concerns die in one move. A SaaS vendor can't replicate this without reinventing
+                themselves as a hardware vendor — and most won't.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Bridged inference architecture</strong></td>
+              <td>
+                The GN100 ConnectX-7 bridge for 405 B-param models, TensorRT-LLM tensor parallel,
+                and Article 12 log replication across nodes — that's months of engineering against a
+                specific hardware topology. Cloud vendors don't optimise for "your customer's
+                two-node cluster".
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Auditable handoff</strong></td>
+              <td>
+                Signed install protocol + Article 12 cryptographic log + operator drill =
+                inspector-friendly out of the box. Most AI vendors leave compliance evidence as the
+                customer's homework. We make it the install deliverable.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Service wrapper depth</strong></td>
+              <td>
+                Operator training + 24/7 named-engineer support + warranty servicing + remote
+                configuration — a Finnish team that answers the phone. Copy that without a Finnish
+                team, an EU office, and a regulated-industry customer base.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Front-line feedback loop</strong></td>
+              <td>
+                VPK / industry-specific operator notes → next month's NVIDIA NIM bundle. Field
+                experience in EU-regulated operations compounds month over month. New entrants start
+                at month zero.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="moat-section-h">
+          <span class="moat-num">25.</span>regulated EU industries — same problem, same answer
+        </h3>
+        <p>
+          The pattern repeats across every EU-regulated industry. Sovereign on-site NVIDIA stack +
+          service wrapper. Different bundle per industry, same moat.
+        </p>
+        <div class="industries-grid">
+          <div>
+            <strong>1. Construction</strong><br />Site safety dispatch (SiteSense vision + Whisper +
+            Llama Nemotron Super) · EPBD / CSRD report generation · BIM-aware reasoning
+          </div>
+          <div>
+            <strong>2. Cement</strong><br />Emissions intensity (kgCO₂ / t cement) · ETS allowance
+            calculation · CBAM exports · kiln anomaly detection
+          </div>
+          <div>
+            <strong>3. Steel</strong><br />CBAM origin tracking · energy carrier optimisation · ETS
+            · scrap composition vision
+          </div>
+          <div>
+            <strong>4. Aluminium</strong><br />CBAM imports compliance · smelter energy logs · ETS ·
+            pot-line vision QA
+          </div>
+          <div>
+            <strong>5. Chemicals</strong><br />REACH dossier drafting · hazardous incident response
+            triage · process safety event RAG
+          </div>
+          <div>
+            <strong>6. Pharmaceuticals</strong><br />GMP batch release Article 12 · clinical trial
+            protocol compliance · GxP sovereign log
+          </div>
+          <div>
+            <strong>7. Healthcare (hospitals)</strong><br />Local-data triage assist · GDPR-safe
+            dictation (Nemotron Speech) · sovereign EHR Q&amp;A
+          </div>
+          <div class="industry-flagship">
+            <strong>8. Defence / dual-use</strong><br />Drone detection (YOLOv8-x + acoustic +
+            Cosmos Reason 2) · export-control screening · Reg 2021/821 reasoning
+          </div>
+          <div>
+            <strong>9. Energy / electricity grid</strong><br />Balancing forecasts · NIS2 24 h
+            incident reports · sovereign DSO/TSO telemetry
+          </div>
+          <div>
+            <strong>10. Oil &amp; gas</strong><br />Pipeline anomaly detection · sanctions screening
+            · sovereign well-log RAG
+          </div>
+          <div>
+            <strong>11. Nuclear</strong><br />IAEA reporting prep · operational safety log analysis
+            · air-gapped reactor twin
+          </div>
+          <div>
+            <strong>12. Water utilities</strong><br />Leak detection on local SCADA · sovereign
+            customer + meter data · NIS2 incident logging
+          </div>
+          <div>
+            <strong>13. Telecommunications</strong><br />NIS2 24 h incident reports · sovereign
+            call-metadata analysis · BGP / DNS anomaly triage
+          </div>
+          <div>
+            <strong>14. Banking / finance</strong><br />DORA operational resilience · MiFID II
+            call-log review · sovereign KYC RAG
+          </div>
+          <div>
+            <strong>15. Insurance</strong><br />Claims triage on local PII · fraud signal detection
+            · sovereign claimant document Q&amp;A
+          </div>
+          <div>
+            <strong>16. Maritime / shipping</strong><br />MRV CO₂ reporting · port operations
+            dispatch · sovereign AIS &amp; cargo manifests
+          </div>
+          <div>
+            <strong>17. Aviation</strong><br />EU ETS aviation reporting · NOTAM-aware dispatch ·
+            sovereign passenger / crew data
+          </div>
+          <div>
+            <strong>18. Rail</strong><br />Predictive maintenance · ERTMS sovereign telemetry · NIS2
+            incident reports
+          </div>
+          <div>
+            <strong>19. Logistics &amp; customs</strong><br />Declaration assist · dual-use export
+            checking · sovereign carrier manifests
+          </div>
+          <div>
+            <strong>20. Agriculture</strong><br />CAP compliance · traceability of crop inputs ·
+            EUDR due diligence
+          </div>
+          <div>
+            <strong>21. Food processing</strong><br />HACCP audit assist · allergen tracing ·
+            sovereign batch genealogy
+          </div>
+          <div>
+            <strong>22. Forestry / pulp &amp; paper</strong><br />EUDR deforestation due diligence ·
+            chain of custody · sovereign harvest plans
+          </div>
+          <div>
+            <strong>23. Mining</strong><br />CRMA reporting (critical raw materials) · safety
+            dispatch · sovereign assay data
+          </div>
+          <div class="industry-flagship">
+            <strong>24. Government / civil defence (VPK)</strong><br />Drone defence dual-use ·
+            dispatch + incident report generation · sovereign citizen data
+          </div>
+          <div>
+            <strong>25. Education / research</strong><br />Sovereign research data · intra-EU
+            collaboration without cloud LLMs · EU AI Act literacy training
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <a href="../buy/" class="back-link">← Back to Store</a>
+
+
+      <!-- DWS IQ deployment options banner (added 2026-07-16) -->
+      <aside class="dws-deploy-banner" aria-label="DWS IQ deployment options" style="margin:16px 0;padding:12px 16px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.28);border-left:3px solid #38bdf8;border-radius:8px;font-size:0.9rem;line-height:1.6;color:#cbd5e1;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
+        <strong style="color:#e2e8f0;">One platform, three deployments:</strong>
+        <a href="/products/cloud-pricing.html" style="color:#7dd3fc;">EU-Sovereign Cloud</a> &middot;
+        <a href="/products/aegis.html" style="color:#7dd3fc;">Dedicated Cloud (Aegis)</a> &middot;
+        <a href="/products/dgx-spark.html" style="color:#7dd3fc;">Own NVIDIA DGX</a>
+        &mdash; rent sovereign capacity or own the machine.
+        <a href="/price-list/#deployment" style="color:#6ee7b7;font-weight:600;white-space:nowrap;">Compare deployments &rarr;</a>
+      </aside>
+      <div class="fb-card">
+        <h3>Description</h3>
+        <p>
+          When sovereign AI matters and the network doesn't always cooperate. Whether you're running
+          the operations bridge of a vapaapalokunta (VPK) on a Saturday alarm, coordinating a CSRD
+          audit week, or just keeping your customer data physically inside your own walls — Control
+          Room gives you the brain on the desk, not in the cloud.
+        </p>
+        <ul>
+          <li>
+            Run a full DWS IQ 6 agent stack locally on one Acer Veriton GN100 (20 cores, 120 GiB
+            RAM)
+          </li>
+          <li>
+            NVIDIA models installed on-site by a Lifetime engineer — sanity-tested, MCP endpoint
+            live before we leave
+          </li>
+          <li>
+            Pick the model bundle that fits your work: VPK Ops, Compliance, Construction, or Custom
+          </li>
+          <li>
+            Zero CLOUD Act exposure — the hardware, the data, and the audit log stay in your
+            building
+          </li>
+        </ul>
+      </div>
+
+      <h2>What's in the box — itemised</h2>
+      <p>
+        Two line items make up the €5,294 turnkey price. Both ship together; you can also buy the
+        install separately if you already own NVIDIA-capable hardware.
+      </p>
+      <div class="bundle-grid">
+        <div class="bundle-card" style="border-color: var(--color-eu-blue)">
+          <h4>1. Acer Veriton GN100 — Sovereign Edge AI Node</h4>
+          <p style="margin-bottom: 6px">
+            <strong>€3,999</strong> · NVIDIA GB10 Grace Blackwell SoC · 20 cores · 120 GiB unified
+            memory · Ubuntu 24.04 LTS pre-imaged · 230 V EU plug.
+          </p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0">
+            The hardware substrate. EU air-gapped, customer-owned, zero CLOUD Act exposure.
+          </p>
+        </div>
+        <div
+          class="bundle-card"
+          style="border-color: var(--nvidia-green); background: var(--nvidia-green-soft)"
+        >
+          <h4 style="color: var(--nvidia-green-dark)">
+            2. NVIDIA Model Installation —
+            <a href="nvidia-model-install.html" style="color: var(--nvidia-green-dark)"
+              >view product →</a
+            >
+          </h4>
+          <p style="margin-bottom: 6px">
+            <strong style="color: var(--nvidia-green-dark)">€995</strong> · On-site engineer · CUDA
+            + NVIDIA drivers validated · NVIDIA NIM microservices · model bundle of your choice
+            loaded and sanity-tested · MCP endpoint live · Article 12 log started.
+          </p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0">
+            The service that turns the box into something your operator can actually use on day one.
+            Included here; <a href="nvidia-model-install.html">also sold standalone</a> for adding
+            nodes later.
+          </p>
+        </div>
+      </div>
+
+      <h2>How we install it (on-site, in one visit)</h2>
+      <ol style="padding-left: 24px">
+        <li>
+          <strong>Pre-flight (remote):</strong> we confirm site power, network segmentation, and
+          which model bundle you've picked. You ship us the room dimensions; we ship the right cable
+          kit.
+        </li>
+        <li>
+          <strong>On-site delivery:</strong> Lifetime engineer arrives with the Acer Veriton GN100
+          pre-imaged with Ubuntu 24.04 LTS, Docker, OpenSandbox isolation layer, and your chosen
+          bundle's NVIDIA / CUDA drivers.
+        </li>
+        <li>
+          <strong>Model installation:</strong> NVIDIA driver stack validated, model weights loaded
+          onto local NVMe, quantization checked, OpenSandbox containers spun up. First inference
+          call tested end-to-end.
+        </li>
+        <li>
+          <strong>MCP endpoint live:</strong> local Model Context Protocol endpoint exposed only on
+          your internal network. Claude Code, your IDE, or your dispatcher app connects directly —
+          no internet hop.
+        </li>
+        <li>
+          <strong>Article 12 logging on:</strong> immutable audit log starts writing to local NVMe
+          from minute one. Replicated to your SIEM if you have one.
+        </li>
+        <li>
+          <strong>Sign-off:</strong> we run a 30-minute drill with your operator. You sign the
+          install protocol. We leave you the runbook.
+        </li>
+      </ol>
+
+      <h2>Key models for Control Room use</h2>
+      <p>
+        The Acer Veriton GN100 has the headroom to run a quantized 72B-class language model
+        alongside specialist models for voice, vision, and embeddings. Bundle picks are tuned to the
+        operational reality of a control room.
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Role in the control room</th>
+            <th>Footprint (quantized)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Qwen 2.5 72B (QLoRA)</strong></td>
+            <td>
+              Primary reasoning model — incident summaries, regulatory Q&amp;A, multi-step
+              decisions. Domain-fine-tuned on Finnish + EU regulatory corpus.
+            </td>
+            <td>~40 GiB RAM</td>
+          </tr>
+          <tr>
+            <td><strong>Llama 3.1 8B Instruct</strong></td>
+            <td>
+              Fast triage and structured-output tasks (form-filling, JSON extraction,
+              classification).
+            </td>
+            <td>~6 GiB RAM</td>
+          </tr>
+          <tr>
+            <td><strong>Whisper-large-v3 (FI/SV)</strong></td>
+            <td>
+              Voice → text for radio chatter, dispatcher calls, debriefs. Finnish &amp; Swedish
+              first-class.
+            </td>
+            <td>~3 GiB RAM</td>
+          </tr>
+          <tr>
+            <td><strong>BGE-M3 embeddings</strong></td>
+            <td>
+              Local RAG over your SOPs, runbooks, regulatory PDFs — no document ever leaves the
+              building.
+            </td>
+            <td>~1 GiB RAM</td>
+          </tr>
+          <tr>
+            <td><strong>Optional: YOLOv8-s (vision)</strong></td>
+            <td>
+              Light vision model for camera feeds (e.g. VPK garage door, perimeter, weather cam).
+            </td>
+            <td>~0.5 GiB RAM</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>VPK example — Sovereign control room for a volunteer fire brigade</h2>
+      <div class="callout">
+        <strong>The scenario:</strong> A vapaapalokunta gets an alarm at 02:14. The duty officer
+        needs to call the right crew, check the response zone, log the dispatch — and have an audit
+        trail that survives an EU oversight visit. The internet is flaky in the kalustohalli. Doing
+        this through a cloud LLM is not a plan.
+      </div>
+      <p>Here's how Control Room covers it without leaving the building:</p>
+      <ul>
+        <li>
+          <strong>Voice in:</strong> Whisper-large-v3 transcribes the duty officer's situation
+          report straight from a USB mic — Finnish, dialect-tolerant, fully local.
+        </li>
+        <li>
+          <strong>Dispatch reasoning:</strong> Qwen 2.5 72B reads the transcript + the brigade's
+          roster + the response SOPs, suggests crew composition and equipment list. Operator
+          confirms or overrides.
+        </li>
+        <li>
+          <strong>SMS / Virve text:</strong> structured-output model formats the dispatch message
+          and pushes it to the radio gateway. No cloud LLM in the loop.
+        </li>
+        <li>
+          <strong>Log:</strong> every prompt, every response, every operator decision lands in the
+          Article 12 immutable log on local NVMe. 7-year retention. Sealable for incident review.
+        </li>
+        <li>
+          <strong>Replay later:</strong> after the call, the same Control Room helps the brigade
+          write the official incident report from the captured transcript and dispatch log — in
+          minutes, not hours.
+        </li>
+      </ul>
+
+      <h2>Pick your model bundle</h2>
+      <p>
+        One device, one install fee — but you choose which models we tune for. Pick at order time,
+        switch later (subscription required).
+      </p>
+      <div class="bundle-grid">
+        <div class="bundle-card">
+          <h4>VPK Operations</h4>
+          <p>
+            Qwen 72B + Whisper FI/SV + BGE-M3 + YOLOv8-s. Built for dispatch, debrief, perimeter
+            camera, and incident reporting in Finnish.
+          </p>
+        </div>
+        <div class="bundle-card">
+          <h4>Compliance</h4>
+          <p>
+            Qwen 72B regulatory-tuned + DocStruct (PDF parsing) + EUR-Lex retrieval. Built for CSRD,
+            CBAM, EU AI Act Article 12 evidence work.
+          </p>
+        </div>
+        <div class="bundle-card">
+          <h4>Construction</h4>
+          <p>
+            Qwen 72B + SiteSense vision (PPE, crane envelope) + schedule reasoning + BIM-aware
+            embeddings. Built for site office command.
+          </p>
+        </div>
+        <div class="bundle-card">
+          <h4>Custom</h4>
+          <p>
+            Tell us which models matter to your operation; we scope and bundle during onboarding.
+            Common picks: legal, healthcare triage, energy ops.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="nvidia-card">
+        <h3>The NVIDIA stack on this box</h3>
+        <p>
+          Control Room is end-to-end NVIDIA on the inference side. We install and tune the full
+          sovereign stack on-site so you don't have to:
+        </p>
+        <ul>
+          <li>
+            <strong>CUDA + NVIDIA drivers</strong> — validated against the bundle's models, locked
+            at a known-good revision per release.
+          </li>
+          <li>
+            <strong>TensorRT-LLM / vLLM</strong> — production inference kernels for Qwen, Llama,
+            Whisper, BGE, with speculative decoding where it pays off.
+          </li>
+          <li>
+            <strong>NVIDIA NIM-style microservices (optional)</strong> — packaged, versioned,
+            sovereign — no model call leaves your building.
+          </li>
+          <li>
+            <strong>NVIDIA-optimised quantization</strong> — AWQ / GGUF Q4-K-M tuned for your
+            specific GPU configuration.
+          </li>
+        </ul>
+        <p
+          style="
+            margin-top: 14px;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+          "
+        >
+          Lifetime Oy is a
+          <strong style="color: var(--nvidia-green)">NVIDIA programme</strong> applicant — sovereign
+          EU edge AI track. Partner enquiries:
+          <a href="https://dws10.com/contact/" style="color: var(--nvidia-green)"
+            >risto@onelifetime.world</a
+          >.
+        </p>
+      </div>
+
+      <h2>The moat is the NVIDIA models — running sovereign on your box</h2>
+      <div class="callout">
+        <strong>The hardware is the carrier. The moat is the NVIDIA model stack.</strong> Anyone can
+        buy a GN100. The hard part is having NVIDIA's proprietary model stack —
+        <strong>Llama Nemotron NIMs (Nano / Super / Ultra)</strong>,
+        <strong>Cosmos Reason 2 / Predict 2.5 / Transfer 2.5</strong>,
+        <strong>Cosmos Nemotron VLMs</strong>, <strong>Nemotron Speech</strong>,
+        <strong>Nemotron RAG</strong>, <strong>Isaac ROS</strong>, <strong>CV-CUDA</strong>,
+        <strong>TensorRT-LLM</strong> — installed, tuned, and refreshed on it, sovereign, in your
+        building, with a service relationship behind it. That's what €299/mo (<a
+          href="../buy/#LF-SOV-MODEL-SUB"
+          >Sovereign Model Updates</a
+        >) buys you — and that's what cloud LLMs can't sell you.
+      </div>
+      <p>
+        You pay €5,294 once for the box and the install. Then €299/mo keeps NVIDIA's proprietary
+        model stack rising on the same box — without you changing the hardware.
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>NVIDIA model / component shipped each month</th>
+            <th>Why your token economics rise on the same GN100</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>Llama Nemotron NIMs</strong><br />Nano (edge / real-time), Super (single-GPU
+              high-accuracy), Ultra (data-center-grade) — packaged, versioned, sovereign
+            </td>
+            <td>
+              These are NVIDIA's flagship agentic-reasoning open NIMs. Customers can't pip-install
+              them with EU sovereignty intact. We ship them onto your box, refreshed monthly.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Cosmos world foundation models</strong><br />Cosmos Reason 2 (spatiotemporal
+              VLM, chain-of-thought), Cosmos Predict 2.5 (future-state generation), Cosmos Transfer
+              2.5 (photorealistic physics simulation)
+            </td>
+            <td>
+              The basis for spatial-temporal reasoning. New Cosmos checkpoints land here sovereign
+              the moment they're released on NGC. Cosmos 3 is on the roadmap.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Cosmos Nemotron VLMs &amp; Nemotron Speech</strong><br />Vision-language NIMs
+              + leaderboard-topping ASR for FI/SV/EN dispatch
+            </td>
+            <td>
+              Dispatch transcription, image understanding, multimodal Q&amp;A — all NVIDIA NIMs, all
+              local, all refreshed monthly.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Nemotron RAG &amp; Safety NIMs</strong><br />Multimodal retrieval-augmented
+              generation + safety guardrails
+            </td>
+            <td>
+              Local RAG over your SOPs and runbooks + safety filtering — NVIDIA-curated, sovereign,
+              never queries an external API.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>NVIDIA Isaac ROS &amp; CV-CUDA</strong><br />Multi-sensor calibration, fusion
+              pipeline, accelerated vision kernels
+            </td>
+            <td>
+              For control-room camera and sensor pipelines — the NVIDIA-optimised path is faster and
+              cheaper-per-frame than anything we could write ourselves.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>TensorRT-LLM kernels for GB10</strong><br />FP4/FP8 paths on Grace Blackwell,
+              speculative decoding, optimised attention
+            </td>
+            <td>
+              Tokens/sec on the same GN100 trend up every release — sometimes 2–3× on a single jump
+              when a new kernel lands.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>NVIDIA-tuned quantization for GB10</strong><br />AWQ / GGUF Q4-K-M weights
+              tuned for the exact Grace Blackwell pair
+            </td>
+            <td>
+              NVIDIA + Lifetime co-tune for the GB10. The same 70B-class Nemotron runs in less RAM,
+              leaving headroom for a second model alongside.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Front-line feedback loop</strong><br />Operator notes from your dispatch desk
+              → next NIM bundle
+            </td>
+            <td>
+              Your VPK dispatch notes / CSRD audit pain → fed back into the next month's NVIDIA NIM
+              bundle for your operation. The system adapts to <em>you</em>.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        This is also why we sell the box once and the NVIDIA model subscription forever. Hardware
+        depreciates. NVIDIA's NIM catalogue keeps growing. Your token economics keep rising. The
+        customer who renews compounds the gain.
+      </p>
+
+      <h2>Why you need a subscription — the NVIDIA update cadence</h2>
+      <div class="callout">
+        <strong>NVIDIA ships fast. You can't keep up by hand.</strong> NVIDIA NIM feature branches
+        release <strong>monthly</strong> with new models and security fixes. Production branches get
+        <strong>30-day scheduled security updates</strong>. Critical CVEs land as
+        <strong>roll-forward hotfixes</strong> — sometimes weekly, sometimes daily. If your edge box
+        isn't on a subscription, it falls behind in weeks, not years.
+      </div>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Cadence</th>
+            <th>What lands</th>
+            <th>Why it's not optional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Monthly</strong></td>
+            <td>
+              New NIM versions (Llama Nemotron releases, Cosmos checkpoints, Nemotron Speech / RAG /
+              Safety updates), new model bundles, TensorRT-LLM kernel refresh, quantization updates
+            </td>
+            <td>
+              This is the rising-token-economics curve. Skip a month, your competitor's box is a
+              month faster than yours.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Weekly</strong></td>
+            <td>
+              Security backports (CUDA driver patches, container CVE fixes, OpenSandbox + Ubuntu LTS
+              updates), minor model patches, bug fixes
+            </td>
+            <td>
+              Edge AI boxes in regulated industry (NIS2 / CER / EU AI Act) need a documented patch
+              cadence. Weekly = inspector-friendly.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Daily hotfixes (when needed)</strong></td>
+            <td>
+              Zero-day CVE patches, NVIDIA driver hotfixes for critical issues, model-side jailbreak
+              / prompt-injection fixes
+            </td>
+            <td>
+              When NVIDIA ships an emergency CUDA / driver fix, you can't wait for next month's
+              release. We push it within 24 h over your secure tunnel.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500)">
+        All updates ship over your secure tunnel — sovereign always. Nothing about the update
+        process needs your data to leave the building.
+      </p>
+
+      <hr />
+
+      <h2>Full service — not just hardware</h2>
+      <p>
+        You're not buying a beige box. You're buying a relationship with a Finnish team that keeps
+        the brain alive in your building. Every Control Room ships with full service bundled into
+        the install + subscription:
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>What you get</th>
+            <th>Where it lives</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Operator training</strong></td>
+            <td>
+              30-minute install drill, scenario rehearsal (VPK dispatch / CSRD audit / your
+              runbook), remote refresher sessions every quarter, runbook handover. Your operator
+              signs off before we leave.
+            </td>
+            <td>Included in install (€995)</td>
+          </tr>
+          <tr>
+            <td><strong>24/7 technical support</strong></td>
+            <td>
+              Named Lifetime contact for production incidents. SLAs sized to your operation. No
+              ticketing-system black hole — a Finnish engineer answers.
+            </td>
+            <td>Sovereign Model Updates Subscription (€299/mo)</td>
+          </tr>
+          <tr>
+            <td><strong>Warranty servicing</strong></td>
+            <td>
+              We handle the Acer Veriton GN100 warranty for you — diagnostics, RMA paperwork,
+              swap-out coordination, redeploy. You don't talk to a vendor support queue.
+            </td>
+            <td>Sovereign Model Updates Subscription (€299/mo)</td>
+          </tr>
+          <tr>
+            <td><strong>Remote configuration</strong></td>
+            <td>
+              Model bundle changes, security patches, OS updates, MCP endpoint tweaks — all pushed
+              over your secure tunnel. Sovereign always: nothing leaves your building unless you
+              decide so.
+            </td>
+            <td>Sovereign Model Updates Subscription (€299/mo)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500)">
+        If you cancel the subscription, the box still works — your data and audit log stay yours.
+        You just stop getting LLM updates, support, warranty handling, and remote config. The
+        relationship is opt-in, every month.
+      </p>
+
+      <hr />
+
+      <h2>Hardware Specification — Acer Veriton GN100</h2>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500)">
+        Verified against Acer's official launch (Oct 2025) and current 2026 stock. Customer-supplied
+        NVIDIA-capable hardware is also supported — see
+        <a href="nvidia-model-install.html">NVIDIA Model Install</a>.
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Specification</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>NVIDIA chip</strong></td>
+            <td>
+              <strong>NVIDIA GB10 Grace Blackwell Superchip</strong> — 5th-gen Tensor Cores,
+              next-gen CUDA cores
+            </td>
+          </tr>
+          <tr>
+            <td><strong>AI performance</strong></td>
+            <td>Up to <strong>1 PFLOPS FP4</strong> AI performance</td>
+          </tr>
+          <tr>
+            <td><strong>CPU</strong></td>
+            <td>
+              <strong>20-core Arm</strong>: 10× Cortex-X925 @ 4 GHz + 10× Cortex-A725 @ 2.8 GHz
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Unified memory</strong></td>
+            <td>
+              <strong>128 GB LPDDR5x</strong> · 273 GB/s bandwidth (CPU+GPU share the same pool)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Storage</strong></td>
+            <td>
+              Up to <strong>4× 4 TB self-encrypting M.2 NVMe SSD</strong> — fast model loading,
+              on-device Article 12 log
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Network</strong></td>
+            <td>
+              1× RJ-45 LAN + <strong>NVIDIA ConnectX-7 NIC</strong> (lets two GN100s be linked for
+              405 B-param models — that's the Situation Room SKU)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Wireless</strong></td>
+            <td>Wi-Fi 7 · Bluetooth 5.1</td>
+          </tr>
+          <tr>
+            <td><strong>I/O</strong></td>
+            <td>4× USB 3.2 Type-C · 1× HDMI 2.1b · Kensington lock</td>
+          </tr>
+          <tr>
+            <td><strong>Form factor</strong></td>
+            <td>
+              <strong>150 × 150 × 50.5 mm · &lt; 1.5 kg</strong> — fits a kalustohalli cabinet or
+              any control room shelf
+            </td>
+          </tr>
+          <tr>
+            <td><strong>OS / software</strong></td>
+            <td>
+              NVIDIA AI software stack preloaded · we re-image with Ubuntu 24.04 LTS + DWS IQ 6 at
+              install · supports PyTorch, Jupyter, Ollama, vLLM, TensorRT-LLM out of the box
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Power</strong></td>
+            <td>Standard EU 230 V — efficient compared to a rack server, site-deployable</td>
+          </tr>
+          <tr>
+            <td><strong>Hardware price</strong></td>
+            <td>
+              <strong>€3,999</strong> (Acer launch price, EMEA) — independent of our €995 install
+              service
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Other Acer hardware we can deliver instead</h3>
+      <p>
+        The GN100 is our default — but if your workload is different, we can deliver the install
+        service on these alternatives too:
+      </p>
+      <ul>
+        <li>
+          <strong>Acer Veriton RA100 AI Mini Workstation</strong> (CES 2026) — AMD Ryzen AI Max+
+          395, AMD Radeon 8060S, 50 NPU TOPS, 60 TFLOPS, Windows 11 Copilot+ PC. Non-NVIDIA path —
+          useful when the workload is more design / rendering than LLM inference.
+        </li>
+        <li>
+          <strong>Acer Veriton 2000 Large Tower</strong> (CES 2026) — Intel Core Ultra 9 Series 2 +
+          NVIDIA GeForce RTX 5080. For SMB AI-assisted content creation alongside the sovereign
+          agent stack.
+        </li>
+        <li>
+          <strong>NVIDIA DGX Spark</strong> — same GB10 Grace Blackwell as the GN100, NVIDIA's own
+          SKU at €4,699 (price increased Feb 2026). We support DGX Spark deployments under the
+          standalone NVIDIA Model Install service.
+        </li>
+      </ul>
+
+      <hr />
+
+      <h2>EU AI Act &amp; sovereignty fit</h2>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Requirement</th>
+            <th>How Control Room solves it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Article 12 — Record-keeping</strong></td>
+            <td>All AI events written to on-device NVMe. Never leave premises.</td>
+          </tr>
+          <tr>
+            <td><strong>GDPR Article 5(f)</strong></td>
+            <td>
+              Customer/dispatch data processed in customer-owned hardware. Zero third-party
+              processor.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>NIS2 — Critical infrastructure</strong></td>
+            <td>Air-gap switchable. Network-segmented. Incident logs stay on premise.</td>
+          </tr>
+          <tr>
+            <td><strong>CLOUD Act immunity</strong></td>
+            <td>Hardware owned by customer in EU jurisdiction. US law cannot compel access.</td>
+          </tr>
+          <tr>
+            <td><strong>Defense / VPK / healthcare</strong></td>
+            <td>
+              Sensitive use cases that public cloud can't host — operational because nothing
+              transits external networks.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr />
+
+      <h2>Data retention — for your administrator</h2>
+      <p>
+        Control Room ships with a default, four-layer retention schedule. Your administrator owns
+        and can adjust it per ontology class; nothing is retained "just in case."
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Content</th>
+            <th>Default retention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1 — Raw sensor stream (hot)</td>
+            <td>Unprocessed sensor signal (temperature, emissions, camera, IoT telemetry)</td>
+            <td>72 hours, on-device NVMe only</td>
+          </tr>
+          <tr>
+            <td>2 — Ontologised summary (warm)</td>
+            <td>LWM-structured events, no raw signal</td>
+            <td>13 months (year-over-year CSRD/CBAM/ETS comparison)</td>
+          </tr>
+          <tr>
+            <td>3 — Compliance audit trail</td>
+            <td>EU AI Act Article 12 log — hash-chained, immutable</td>
+            <td>7 years</td>
+          </tr>
+          <tr>
+            <td>4 — Situation Room rollup</td>
+            <td>Aggregated, site-level summary sent upstream (never raw data)</td>
+            <td>24 months, rolling window</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.9rem; opacity: 0.8">
+        Full policy detail:
+        <a href="https://onelifetime.world/posts/tiedon-vanheneminen-sensoridata-retention.html"
+          >Field Note — Tiedon vanheneminen</a
+        >. Review access rights and ontology ownership quarterly — see the Control Room admin
+        checklist in your onboarding pack.
+      </p>
+
+      <div class="pricing-box">
+        <h2>Control Room — Turnkey</h2>
+        <div class="pricing-total">€5,294</div>
+        <div class="pricing-breakdown">
+          €4,299 hardware + €995 NVIDIA model installation · VAT excl. · DWS IQ subscription
+          separate
+        </div>
+        <ul
+          style="
+            list-style: none;
+            text-align: left;
+            max-width: 520px;
+            margin: 0 auto 24px;
+            padding: 0;
+          "
+        >
+          <li style="color: rgba(255, 255, 255, 0.85); margin-bottom: 10px">
+            * 1× Acer Veriton GN100 (20 cores / 120 GiB RAM)
+          </li>
+          <li style="color: rgba(255, 255, 255, 0.85); margin-bottom: 10px">
+            * NVIDIA driver stack + model bundle of your choice installed on-site
+          </li>
+          <li style="color: rgba(255, 255, 255, 0.85); margin-bottom: 10px">
+            * OpenSandbox agent isolation + local MCP endpoint live
+          </li>
+          <li style="color: rgba(255, 255, 255, 0.85); margin-bottom: 10px">
+            * Article 12 immutable log active from day one
+          </li>
+          <li style="color: rgba(255, 255, 255, 0.85); margin-bottom: 10px">
+            * 30-minute operator drill + signed install protocol
+          </li>
+          <li style="color: rgba(255, 255, 255, 0.85)">
+            * Recommended add-on: Sovereign Model Updates Subscription (€299/mo)
+          </li>
+        </ul>
+        <a
+          href="https://dws10.com/contact/"
+          class="btn-primary"
+          >Order Now — Contact Risto</a
+        >
+      </div>
+
+      <p style="font-size: 0.875rem; color: var(--color-gray-500); text-align: center">
+        Hardware sourced and configured by Lifetime Oy. Delivery lead time: 2–4 weeks within EU.
+        Need redundancy? See the <a href="situation-room.html">Situation Room (2× bridged)</a>.
+        Volume pricing for 3+ nodes:
+        <a href="https://dws10.com/contact/">risto@onelifetime.world</a>.
+      </p>
+    </div>
+
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+  </body>
+</html>

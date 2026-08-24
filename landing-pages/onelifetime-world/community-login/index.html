@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OneLifetime Community Login | Join the Ecosystem</title>
+    <meta
+      name="description"
+      content="Login to OneLifetime Community - Connect with innovators, access exclusive resources, and shape the future of intelligent industries."
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        color: #f1f5f9;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header */
+      header {
+        background: #1e293b;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+        padding: 16px 0;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #f1f5f9;
+        font-weight: 700;
+      }
+
+      .logo img {
+        height: 40px;
+        width: auto;
+      }
+
+      .header-links {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .header-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+
+      .header-links a:hover {
+        color: #60a5fa;
+      }
+
+      /* Main Container */
+      .login-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+      }
+
+      .login-container {
+        width: 100%;
+        max-width: 420px;
+      }
+
+      .login-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 16px;
+        padding: 44px 36px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .logo-section {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+
+      .logo-img {
+        height: 50px;
+        margin-bottom: 16px;
+      }
+
+      .logo-img img {
+        height: 50px;
+        width: auto;
+      }
+
+      .title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+        color: #94a3b8;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #cbd5e1;
+        margin-bottom: 7px;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.5);
+        color: #f1f5f9;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      input[type="email"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: #60a5fa;
+        background: rgba(15, 23, 42, 0.8);
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+      }
+
+      input::placeholder {
+        color: #475569;
+      }
+
+      .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+
+      .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        accent-color: #60a5fa;
+      }
+
+      .forgot-password {
+        color: #60a5fa;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .forgot-password:hover {
+        color: #93c5fd;
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 11px 14px;
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 14px;
+      }
+
+      .login-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+      }
+
+      .login-button:disabled {
+        background: #64748b;
+        cursor: not-allowed;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      .divider-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(96, 165, 250, 0.2);
+      }
+
+      .divider-text {
+        margin: 0 10px;
+      }
+
+      .social-login {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .social-button {
+        padding: 9px 14px;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.5);
+        color: #cbd5e1;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .social-button:hover {
+        background: rgba(96, 165, 250, 0.1);
+        border-color: #60a5fa;
+        color: #93c5fd;
+      }
+
+      .signup-link {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 13px;
+      }
+
+      .signup-link a {
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .signup-link a:hover {
+        color: #93c5fd;
+      }
+
+      .benefits {
+        background: rgba(96, 165, 250, 0.05);
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #cbd5e1;
+        line-height: 1.8;
+      }
+
+      .benefits-title {
+        color: #93c5fd;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .benefits ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .benefits li {
+        padding-left: 20px;
+        position: relative;
+        margin-bottom: 6px;
+      }
+
+      .benefits li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #60a5fa;
+        font-weight: bold;
+      }
+
+      @media (max-width: 640px) {
+        .login-card {
+          padding: 28px 20px;
+        }
+
+        .title {
+          font-size: 22px;
+        }
+
+        .benefits {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo">
+          <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" />
+        </a>
+        <div class="header-links">
+          <a href="/">Home</a>
+          <a href="https://dws10.com">DWS IQ Platform</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Login Container -->
+    <div class="login-wrapper">
+      <div class="login-container">
+        <div class="login-card">
+          <div class="logo-section">
+            <div class="logo-img">
+              <img src="../OneLifetime+Logo.png" alt="OneLifetime Community" />
+            </div>
+            <div class="title">Community Login</div>
+            <div class="subtitle">Connect with the OneLifetime Ecosystem</div>
+          </div>
+
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••••••"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+
+            <div class="remember-forgot">
+              <label class="remember-me">
+                <input type="checkbox" name="remember" />
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-button" id="loginBtn">Sign In</button>
+          </form>
+
+          <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-text">Or join with</div>
+            <div class="divider-line"></div>
+          </div>
+
+          <div class="social-login">
+            <button type="button" class="social-button">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+              Google
+            </button>
+            <button type="button" class="social-button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.39v-1.2h-2.84v8.37h2.84v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.84M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77"
+                />
+              </svg>
+              LinkedIn
+            </button>
+          </div>
+
+          <div class="signup-link">
+            New to OneLifetime? <a href="/community-signup/">Create account</a>
+          </div>
+
+          <div class="benefits">
+            <div class="benefits-title">Community Benefits</div>
+            <ul>
+              <li>Access exclusive insights</li>
+              <li>Connect with peers</li>
+              <li>Learn from experts</li>
+              <li>Shape the future</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+      const loginBtn = document.getElementById("loginBtn");
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const rememberMe = document.querySelector('input[name="remember"]').checked;
+
+        loginBtn.disabled = true;
+        loginBtn.innerHTML = "Signing in...";
+
+        try {
+          const response = await fetch("/api/v1/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password, rememberMe, communityMode: true }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("token", data.token);
+            if (rememberMe) {
+              localStorage.setItem("rememberMe", "true");
+            }
+            window.location.href = "/community/";
+          } else {
+            alert("Login failed. Please try again.");
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Connection error. Please try again.");
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Sign In";
+        }
+      });
+
+      // Check for stored token on page load
+      window.addEventListener("load", () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          window.location.href = "/community/";
+        }
+      });
+    </script>
+  </body>
+</html>

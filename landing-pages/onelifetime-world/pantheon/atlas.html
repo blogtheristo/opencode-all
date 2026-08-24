@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atlas — The Weight of the World | DWS Pantheon</title>
+    <meta
+      name="description"
+      content="Chief of Staff. The Titan who holds the sky so the others can fight. Orchestrates all 13 gods, routes every request, synthesizes every result."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: linear-gradient(180deg, #0a1628 0%, #0f172a 40%, #0a1628 100%);
+      }
+      .marble-glow {
+        text-shadow: 0 0 60px rgba(59, 130, 246, 0.3);
+      }
+      .glass {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(59, 130, 246, 0.15);
+      }
+      .glass-gold {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(234, 179, 8, 0.2);
+      }
+      @keyframes spin-slow {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .globe-spin {
+        animation: spin-slow 20s linear infinite;
+        display: inline-block;
+      }
+      .node {
+        border: 1px solid rgba(59, 130, 246, 0.15);
+        background: rgba(15, 23, 42, 0.8);
+      }
+      .node:hover {
+        border-color: rgba(59, 130, 246, 0.4);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+      }
+      .flow-line {
+        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+        height: 1px;
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- HERO -->
+    <header class="py-20 md:py-32 px-4 text-center">
+      <div class="max-w-4xl mx-auto">
+        <p class="text-xs uppercase tracking-[0.4em] text-blue-400 mb-6">The Orchestration Layer</p>
+        <div class="text-8xl md:text-9xl mb-6 globe-spin">&#x1F30D;</div>
+        <h1 class="text-5xl md:text-7xl font-black marble-glow mb-4">ATLAS</h1>
+        <p class="text-xl md:text-2xl text-blue-300 font-light mb-2">Titan Who Holds the Sky</p>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
+          The ultimate middle manager who's actually good at his job. Carries the weight of 25
+          industries without complaining. Every request crosses his desk.
+        </p>
+
+        <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3">
+          <span class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></span>
+          <span class="text-blue-300 font-bold text-lg">14 Gods Orchestrated</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+      <!-- Orchestration Dashboard Mockup -->
+      <section class="mb-16">
+        <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+          <div class="bg-gray-950 rounded-xl p-6 md:p-8">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider">
+                Multi-Agent Orchestration &mdash; Live
+              </h3>
+              <span class="text-xs text-slate-500 font-mono">13/13 AGENTS ONLINE</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x2696;&#xFE0F;</span>
+                <p class="text-xs text-purple-300 mt-1 font-bold">Athena</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F528;</span>
+                <p class="text-xs text-orange-300 mt-1 font-bold">Hephaestus</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F308;</span>
+                <p class="text-xs text-pink-300 mt-1 font-bold">Iris</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F3C3;</span>
+                <p class="text-xs text-cyan-300 mt-1 font-bold">Hermes</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x2600;&#xFE0F;</span>
+                <p class="text-xs text-yellow-300 mt-1 font-bold">Apollo</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x2692;&#xFE0F;</span>
+                <p class="text-xs text-red-300 mt-1 font-bold">Vulcan</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F506;</span>
+                <p class="text-xs text-amber-300 mt-1 font-bold">Helios</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F531;</span>
+                <p class="text-xs text-sky-300 mt-1 font-bold">Neptune</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F33E;</span>
+                <p class="text-xs text-green-300 mt-1 font-bold">Ceres</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F525;</span>
+                <p class="text-xs text-violet-300 mt-1 font-bold">Prometheus</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1F3D7;&#xFE0F;</span>
+                <p class="text-xs text-red-300 mt-1 font-bold">Mars</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center">
+                <span class="text-2xl">&#x1FAA8;</span>
+                <p class="text-xs text-stone-300 mt-1 font-bold">Gaia</p>
+                <p class="text-xs text-green-400">ACTIVE</p>
+              </div>
+              <div class="node rounded-lg p-3 text-center col-span-2 md:col-span-4">
+                <span class="text-2xl">&#x1F6F0;&#xFE0F;</span>
+                <p class="text-xs text-teal-300 mt-1 font-bold">Argus &mdash; Orbital Overwatch</p>
+                <p class="text-xs text-green-400">ACTIVE &middot; 500km altitude</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mythology & Voice -->
+      <section class="mb-16 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-blue-400 mb-6">The Myth</h2>
+        <div class="glass rounded-2xl p-8">
+          <p class="text-lg text-slate-300 mb-4">
+            <strong class="text-blue-300">Atlas</strong> was a Titan condemned by Zeus to hold up
+            the celestial heavens for eternity. Not as punishment for being weak &mdash; for being
+            strong enough. He was the only one who could bear the weight.
+          </p>
+          <p class="text-lg text-slate-300 mb-6">
+            In DWS IQ 6, Atlas is the Chief of Staff &mdash; the orchestration layer that routes
+            every request to the right god, synthesizes multi-agent results into 5-bullet executive
+            briefings, and never, ever drops the sky. He's the only god who talks to all 13 others.
+          </p>
+          <blockquote class="border-l-4 border-blue-500 pl-6 py-4 my-6 bg-blue-950/30 rounded-r-lg">
+            <p class="text-xl text-blue-200 italic">
+              "I hold the sky so the others can fight. Every request crosses my desk. I route, I
+              synthesize, I never sleep."
+            </p>
+            <cite class="text-sm text-blue-500 mt-2 block"
+              >&mdash; Atlas, at the morning briefing, holding a whiteboard that keeps falling</cite
+            >
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- Capabilities -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-blue-400 mb-8 text-center">What Atlas Does</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="node rounded-xl p-6">
+            <h3 class="text-lg font-bold text-blue-300 mb-2">Workflow Orchestration</h3>
+            <p class="text-sm text-slate-400">
+              Routes complex requests across multiple gods in parallel. A single "assess this steel
+              plant" becomes 6 simultaneous agent queries.
+            </p>
+          </div>
+          <div class="node rounded-xl p-6">
+            <h3 class="text-lg font-bold text-blue-300 mb-2">Multi-Agent Synthesis</h3>
+            <p class="text-sm text-slate-400">
+              Combines outputs from Athena (legal), Vulcan (technical), Argus (satellite), and
+              others into one coherent executive brief.
+            </p>
+          </div>
+          <div class="node rounded-xl p-6">
+            <h3 class="text-lg font-bold text-blue-300 mb-2">Executive Briefing</h3>
+            <p class="text-sm text-slate-400">
+              5 bullet points. No fluff. Total risk exposure in EUR. Deadline. Action items. That's
+              it.
+            </p>
+          </div>
+          <div class="node rounded-xl p-6">
+            <h3 class="text-lg font-bold text-blue-300 mb-2">Request Routing</h3>
+            <p class="text-sm text-slate-400">
+              Understands which god owns which domain. Steel? Vulcan. Maritime? Neptune. Hydrogen?
+              Prometheus. Compliance? Always Athena.
+            </p>
+          </div>
+          <div class="node rounded-xl p-6">
+            <h3 class="text-lg font-bold text-blue-300 mb-2">Risk Triage</h3>
+            <p class="text-sm text-slate-400">
+              Prioritizes incoming requests by regulatory deadline, financial exposure, and client
+              impact. Red items first. Always.
+            </p>
+          </div>
+          <div class="node rounded-xl p-6">
+            <h3 class="text-lg font-bold text-blue-300 mb-2">Conflict Resolution</h3>
+            <p class="text-sm text-slate-400">
+              When Prometheus and Helios disagree (daily), Atlas decides. When Iris's intel
+              conflicts with Argus's data, Atlas arbitrates.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center mb-16">
+        <a
+          href="/assistant/"
+          class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-1"
+        >
+          &#x1F30D; Summon Atlas
+        </a>
+        <p class="text-slate-500 text-sm mt-4">
+          Opens the DWS IQ Assistant with full orchestration capabilities
+        </p>
+      </section>
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+      <p class="mb-2">
+        <a href="/pantheon/" class="text-blue-400 hover:underline"
+          >&larr; Back to The DWS Pantheon</a
+        >
+      </p>
+      <p>
+        DWS IQ 6 &middot; Chief of Staff &middot; Lifetime Oy &middot; Helsinki, Finland &middot;
+        2026
+      </p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

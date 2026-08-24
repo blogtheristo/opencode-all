@@ -1,0 +1,58 @@
+name: Update Store Feed
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Store/**'
+      - 'dws10.com/config/products.json'
+      - 'scripts/build_store.py'
+      - 'scripts/generate-google-feed.cjs'
+      - 'scripts/sync-nvidia-isv.cjs'
+      - 'dws10.com/config/nvidia-isv.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml markdown defusedxml
+
+      - name: Generate Store Feed and Pages (Python)
+        run: |
+          python scripts/build_store.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Generate Google Merchant XML Feed
+        run: |
+          node scripts/generate-google-feed.cjs
+          cp landing-pages/dws10-com/feeds/google-products.xml dws10.com/feeds/google-products.xml
+
+      - name: Sync NVIDIA ISV page data
+        run: |
+          node scripts/sync-nvidia-isv.cjs
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add landing-pages/dws10-com/products.xml landing-pages/dws10-com/products.csv landing-pages/dws10-com/products/ landing-pages/dws10-com/feeds/google-products.xml dws10.com/feeds/google-products.xml dws10.com/config/nvidia-isv.json landing-pages/dws10-com/config/nvidia-isv.json landing-pages/dws10-com/lifetime-fleet/nvidia-isv/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: Update Store Feed, Google Merchant, and NVIDIA ISV sync" && git push)
+

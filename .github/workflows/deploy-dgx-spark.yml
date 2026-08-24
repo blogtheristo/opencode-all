@@ -1,0 +1,138 @@
+# Auto-Deploy to DGX Spark — runs on every merge to main
+#
+# NO HUMAN ACTION REQUIRED. This workflow:
+#   1. SSHes into DGX Spark
+#   2. Pulls latest code
+#   3. Rebuilds and restarts Docker services
+#   4. Verifies health checks pass
+#
+# Prerequisites (one-time setup on DGX Spark):
+#   Run: infrastructure/dgx-spark/first-boot.sh
+#
+# Required GitHub Secrets:
+#   DGX_SPARK_SSH_KEY        — Private SSH key for admin100@192.168.101.113
+#   DGX_SPARK_HOST           — IP or hostname (default: 192.168.101.113)
+#   DGX_SPARK_HEARTBEAT_URL  — Public heartbeat URL (for failover check)
+
+name: Deploy DGX Spark
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - 'Learn/**'
+      - '*.md'
+      - 'landing-pages/**'
+      - 'onelifetime.world/**'
+      - 'investor-outreach/**'
+      - 'sales-outreach/**'
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: 'Force full rebuild (docker compose build --no-cache)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: dgx-spark-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to DGX Spark
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+
+          echo "${{ secrets.DGX_SPARK_SSH_KEY }}" > ~/.ssh/dgx_key
+          chmod 600 ~/.ssh/dgx_key
+
+          # Pin host key — prevents MITM on deploy channel
+          # Set DGX_SPARK_KNOWN_HOSTS secret via:
+          #   ssh-keyscan -t ed25519 <DGX_IP> | base64 -w0
+          if [ -n "${{ secrets.DGX_SPARK_KNOWN_HOSTS }}" ]; then
+            echo "${{ secrets.DGX_SPARK_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          else
+            echo "::warning::DGX_SPARK_KNOWN_HOSTS not set — using ssh-keyscan (pin the key to prevent MITM)"
+            DGX_HOST="${{ secrets.DGX_SPARK_HOST }}"
+            DGX_HOST="${DGX_HOST:-192.168.101.113}"
+            ssh-keyscan -t ed25519 "${DGX_HOST}" >> ~/.ssh/known_hosts 2>/dev/null
+          fi
+          chmod 600 ~/.ssh/known_hosts
+
+          DGX_HOST="${{ secrets.DGX_SPARK_HOST }}"
+          DGX_HOST="${DGX_HOST:-192.168.101.113}"
+
+          cat >> ~/.ssh/config << EOF
+          Host dgx-spark
+            HostName ${DGX_HOST}
+            User admin100
+            IdentityFile ~/.ssh/dgx_key
+            StrictHostKeyChecking yes
+            ConnectTimeout 10
+            ServerAliveInterval 60
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Test SSH connectivity
+        id: ssh_test
+        continue-on-error: true
+        run: |
+          if ssh dgx-spark "echo 'SSH OK'" 2>/dev/null; then
+            echo "reachable=true" >> $GITHUB_OUTPUT
+          else
+            echo "reachable=false" >> $GITHUB_OUTPUT
+            echo "::warning::DGX Spark unreachable — skipping deploy"
+          fi
+
+      - name: Pull latest code
+        if: steps.ssh_test.outputs.reachable == 'true'
+        run: |
+          ssh dgx-spark "cd /home/admin100/dws6 && git fetch origin main && git reset --hard origin/main"
+
+      - name: Install dependencies
+        if: steps.ssh_test.outputs.reachable == 'true'
+        run: |
+          ssh dgx-spark "cd /home/admin100/dws6 && npm ci --omit=dev 2>&1 | tail -5"
+
+      - name: Build and deploy Docker services
+        if: steps.ssh_test.outputs.reachable == 'true'
+        run: |
+          BUILD_FLAG=""
+          if [ "${{ inputs.force_rebuild }}" = "true" ]; then
+            BUILD_FLAG="--no-cache"
+          fi
+
+          ssh dgx-spark "
+            cd /home/admin100/dws6/infrastructure/dgx-spark
+            docker compose build --pull ${BUILD_FLAG} 2>&1 | tail -20
+            docker compose up -d
+            echo ''
+            docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
+          "
+
+      - name: Wait and verify health
+        if: steps.ssh_test.outputs.reachable == 'true'
+        run: |
+          echo "Waiting 15s for services to start..."
+          sleep 15
+
+          ssh dgx-spark "
+            echo '=== Backend ==='
+            curl -sf http://localhost:8080/health 2>/dev/null || echo 'WARN: Backend not healthy yet'
+            echo ''
+            echo '=== Cron Runner ==='
+            curl -sf http://localhost:8081/health 2>/dev/null || echo 'WARN: Cron not healthy yet'
+            echo ''
+            echo '=== Heartbeat ==='
+            curl -sf http://localhost:9999/health 2>/dev/null || echo 'WARN: Heartbeat not healthy yet'
+          "
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/dgx_key

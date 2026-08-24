@@ -1,0 +1,79 @@
+name: No-Delete Guard (auto-restore branches)
+
+on:
+  delete:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  restore-branch-if-deleted:
+    # Only for branch deletions (not tags)
+    if: ${{ github.event.ref_type == 'branch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-restore deleted branch from last known PR head SHA
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deletedBranch = context.payload.ref;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            core.warning(`Branch deletion detected: ${deletedBranch}`);
+
+            // Find the most recent PR (any state) that used this branch as its head.
+            // This still works even if the branch is deleted, because the PR metadata retains head SHA.
+            let prs = [];
+            try {
+              const res = await github.rest.pulls.list({
+                owner,
+                repo,
+                state: "all",
+                head: `${owner}:${deletedBranch}`,
+                per_page: 10,
+              });
+              prs = res.data || [];
+            } catch (e) {
+              core.warning(`Failed to list PRs for head ${owner}:${deletedBranch}: ${e.message}`);
+            }
+
+            if (!prs.length) {
+              core.warning(
+                `No PR metadata found for deleted branch ${deletedBranch}. ` +
+                `Cannot auto-restore without a known commit SHA.`
+              );
+              return;
+            }
+
+            // Use the most recently updated PR to get the latest head SHA for the branch.
+            prs.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+            const pr = prs[0];
+            const sha = pr.head && pr.head.sha;
+
+            if (!sha) {
+              core.warning(`PR #${pr.number} has no head SHA; cannot restore branch ${deletedBranch}.`);
+              return;
+            }
+
+            const ref = `refs/heads/${deletedBranch}`;
+
+            // Recreate the deleted branch ref at that SHA.
+            // If the branch already exists (race), do nothing.
+            try {
+              await github.rest.git.createRef({
+                owner,
+                repo,
+                ref,
+                sha,
+              });
+              core.notice(`Restored branch ${deletedBranch} at ${sha} using PR #${pr.number}.`);
+            } catch (e) {
+              if (e.status === 422) {
+                core.notice(`Branch ${deletedBranch} already exists or ref is invalid; nothing to do.`);
+                return;
+              }
+              throw e;
+            }
+

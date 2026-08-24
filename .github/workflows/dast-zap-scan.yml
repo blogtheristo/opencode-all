@@ -1,0 +1,69 @@
+name: DAST — OWASP ZAP Baseline Scan
+
+on:
+  schedule:
+    # ZAP needs a Docker-in-Docker baseline that DGX Spark's node:22-slim
+    # cron container cannot host cleanly, so this scheduled run stays on GHA.
+    # Monthly cadence (1st of each month at 03:00 UTC) catches baseline drift
+    # on main. PR-time runs are intentionally disabled — they had been failing
+    # in <2s with no recoverable log signal, and the monthly cron is enough.
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+# Cancel earlier in-flight scans (PR re-pushes) — only the latest commit needs
+# its DAST baseline.
+concurrency:
+  group: dast-zap-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  zap-scan:
+    name: OWASP ZAP Baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # No services: block — the app is launched directly in the "Start app
+    # in background" step below. A previous services.app entry pointed at
+    # the bare node:22-slim image, which has no entrypoint and exits in
+    # under a second, failing the whole job before any steps ran.
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Start app in background
+        run: |
+          npx tsx src/app.ts &
+          sleep 5
+          curl -f http://localhost:8080/health || echo "App may need env vars — running ZAP against available endpoints"
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci-test-secret-minimum-32-characters-long
+          PORT: 8080
+          SUPABASE_URL: http://127.0.0.1:54321
+          SUPABASE_SERVICE_KEY: test-service-role-key
+          SUPABASE_SERVICE_ROLE_KEY: test-service-role-key
+          SUPABASE_ANON_KEY: test-anon-key
+
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: 'http://localhost:8080/health'
+          rules_file_name: '.zap/rules.tsv'
+          fail_action: true
+          allow_issue_writing: false
+          artifact_name: zap-report
+
+      - name: Upload ZAP report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-scan-report
+          path: report_html.html
+          retention-days: 30

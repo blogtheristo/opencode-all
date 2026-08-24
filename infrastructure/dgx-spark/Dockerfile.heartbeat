@@ -1,0 +1,22 @@
+# DWS Heartbeat — Lightweight health aggregator
+# Reports DGX Spark status; GitHub Actions checks this before running
+#
+# Code-Version: 1.0.0
+# Date: 2026-03-29
+
+FROM node:24-slim
+
+WORKDIR /app
+
+RUN npm install -g tsx && npm cache clean --force
+
+RUN groupadd -r dws && useradd -r -g dws -m -d /home/dws -s /bin/false dws
+
+COPY heartbeat.ts ./
+
+RUN chown -R dws:dws /app /home/dws
+USER dws
+
+EXPOSE 9999
+
+CMD ["npx", "tsx", "heartbeat.ts"]

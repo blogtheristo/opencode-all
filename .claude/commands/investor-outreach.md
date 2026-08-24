@@ -1,0 +1,148 @@
+---
+name: investor-outreach
+description: Use when adding, triaging, or following up investor intro notes for the DWS IQ 6 SAFE round. Supports add, list, triage, ready, followup, and status.
+---
+
+Generate, triage, and track investor intro notes in `investor-outreach/` for the DWS IQ 6 SAFE round.
+
+Usage: `/investor-outreach <action> [arguments]`
+
+Input: $ARGUMENTS
+
+## Actions
+
+### add — Draft a new INTRO file from match metadata
+
+```
+/investor-outreach add name="Alex Ingrisano" firm="Avantgard Group" role="Co-founder & Managing Partner" ticket="syndicate" focus="dual-use + industrial" linkedin=https://... warm=true drawback="Madrid-based, limited Nordic network"
+```
+
+Creates `investor-outreach/INTRO_<NAME>_<FIRM>.md` from the house template (see `INTRO_LAURA_RAGGL_ROI_VENTURES.md` as canonical reference). Required fields: `name`, `firm`, `linkedin`. Recommended: `role`, `ticket`, `stage`, `focus`, `warm` (true/false), `drawback`, `exclusions`.
+
+### list — Show all INTRO files with status
+
+```
+/investor-outreach list
+/investor-outreach list status=WARM
+/investor-outreach list status=CONTACTED
+```
+
+Parses the `Status:` field from each `INTRO_*.md` header. Returns a table: name, firm, status, intro type, last modified.
+
+### triage — Re-rank INTRO files by current focus
+
+```
+/investor-outreach triage focus="messe-germany"
+/investor-outreach triage focus="pe-meeting"
+/investor-outreach triage focus="sovereignty"
+```
+
+Scores each INTRO against the active focus and returns a priority queue. Default focus: `messe-germany` (German industrial CFOs, construction/manufacturing, dual-use). Flags any file whose current strategy reads as "entrepreneur networking" and needs reframing.
+
+### ready — Show what's actionable today
+
+```
+/investor-outreach ready
+```
+
+Returns INTROs where: `Status: WARM` AND no `CONTACTED` marker. These are the daily send queue. Targets the tracker's "5 emails before 10am" rule in `daily-outreach-tracker.md`.
+
+### followup — Generate a follow-up draft
+
+```
+/investor-outreach followup name="Laura Raggl" days=7
+```
+
+For any INTRO with `Status: CONTACTED` and no reply after N days, drafts a short follow-up DM/email that references the last touch and adds ONE new data point (V1 launch countdown, new customer, Messe update). Appends as a new section to the file — does not overwrite the original draft.
+
+### status — Show one investor's full state
+
+```
+/investor-outreach status name="Aris Kefalogiannis"
+```
+
+Returns the full INTRO file header + AGENT HISTORY + next-steps checklist state.
+
+## Steps
+
+1. Parse action from $ARGUMENTS (first word)
+2. For **add**:
+   - Validate required fields (`name`, `firm`, `linkedin`)
+   - Derive filename: `INTRO_<FIRST>_<LAST>_<FIRM_SLUG>.md` (UPPERCASE, underscores, no spaces)
+   - Read `INTRO_LAURA_RAGGL_ROI_VENTURES.md` as structural reference
+   - Populate: VERSION AND AGENT HISTORY block, Target Profile table, Fit Assessment (3-7 points), Drawbacks/Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps
+   - Status rules: `warm=true` → `Status: WARM`. Exclusions that block the core thesis → `Status: HOLD` with reactivation triggers. Otherwise → `Status: COLD`
+   - Write file to `investor-outreach/<filename>.md`
+3. For **list**: glob `investor-outreach/INTRO_*.md`, parse `Status:` header, render table
+4. For **triage**: score each INTRO against focus keywords (messe-germany: `industrial|construction|manufacturing|DACH|dual-use`; pe-meeting: `PE|private equity|LP|liquidity|captain seat`; sovereignty: `sovereign|defense|Aegis|CLOUD Act|EU AI Act`). Return ranked list with match highlights.
+5. For **ready**: filter `list` output to `WARM` and not `CONTACTED`
+6. For **followup**: read the target INTRO, draft short follow-up referencing `Status:` date + one new datapoint from the project state, append as new section
+7. For **status**: cat the INTRO header + AGENT HISTORY + parse Next Steps checkboxes
+
+## House Template Rules
+
+Every INTRO file MUST contain:
+
+- **VERSION AND AGENT HISTORY** block (DWS Document Standard header)
+- **Status** field: `WARM | COLD | CONTACTED | HOLD | DECLINED`
+- **Story Lock** field — which story we pitch (Story A carbon / Story B Aegis / mixed)
+- **Intro Type** field — Warm / Cold / Blocked
+- **Target Profile table** — name, role, fund, ticket, stage, focus, location, intro type, LinkedIn
+- **Fit Assessment** — 3-7 numbered alignment points
+- **Drawbacks / Mitigations** — explicit acknowledgment of mandate walls + how we address them
+- **Strategy** — what to lead with, what to hide, attachment policy
+- **Draft LinkedIn DM** — short, first touch
+- **Draft Email** — long form, one-pager + data attached
+- **Attachments to Send** — checklist including what NOT to send
+- **Next Steps** — checklist
+
+## Focus Doctrine (2026-04-19)
+
+- **Target buyer:** investors at PE meetings + German Messe buyers (construction/manufacturing CFOs who sign EUR 25K+ contracts)
+- **Not a target:** entrepreneur-networking circuits, generic pitch competitions
+- **V1 launch:** Arctic 15, Helsinki, June 15, 2026
+- **Round:** EUR 650K SAFE at EUR 3.8M cap
+- **Captain seats:** EUR 50K, up to EUR 150K triple
+- **Messe hook:** First German sales data available August 15 — investors who commit pre-Messe enter at seed valuation ahead of that data drop
+
+## Exclusion Rules (always apply)
+
+When drafting the **Strategy** section, enforce:
+
+- Funds that exclude **defense/dual-use** → suppress Aegis, sovereignty, military, defense language entirely
+- Funds that exclude **climate tools** → reframe as "regulatory compliance infrastructure" (legal mandate), not "climate solution"
+- Funds with **solo-founder** blockers → either HOLD the intro or lead with operator track record + named advisors + paying customers
+- Funds with **geographic preferences** (e.g. Greek/Austrian/French founders) → acknowledge directly, let thesis fit carry the conversation, don't pretend the preference doesn't exist
+- Do NOT mention Boardy in any external communication
+- Do NOT mention Fleet Admiral, robotics, Jetson, or world models in V1-era investor pitches
+
+## Banned Phrases
+
+Replace these phrases whenever found in drafts:
+
+| Banned                       | Replace with                                   |
+| ---------------------------- | ---------------------------------------------- |
+| "climate tool"               | "regulatory compliance infrastructure"         |
+| "ESG software"               | "EU compliance automation"                     |
+| "disrupt"                    | (delete, replace with specific claim)          |
+| "revolutionary"              | (delete)                                       |
+| "save the planet"            | "meet legal reporting deadlines"               |
+
+## When NOT to use
+
+- Sending an actual email → use `/email` after the INTRO draft is finalized
+- Running compliance analysis for an investor's portfolio → use `/compliance-check`
+- Generating a full investor memo (not a 1-to-1 note) → edit `INVESTOR_MEMO.md` directly
+- Pulling a public investor list from search → this skill works from matches the user provides, it does not scrape sources
+- Entrepreneur-community networking (accelerators, demo days) → not in scope; this skill is for the SAFE investor funnel only
+
+## Related Files
+
+- `investor-outreach/README.md` — folder overview
+- `investor-outreach/daily-outreach-tracker.md` — 5-emails-before-10am accountability
+- `investor-outreach/INVESTOR_MEMO.md` — v5.2 full memo
+- `investor-outreach/INVESTOR_MEMO_ONE_PAGER.md` — first-touch attachment
+- `investor-outreach/INVESTOR_MEMO_AEGIS.md` — dual-use angle (do NOT send to funds that exclude defense)
+- `investor-outreach/ARCTIC15_CAPTAIN_SEAT_TARGETS.md` — Arctic 15 brand-moment list
+- `investor-outreach/PE_INSIGHTS_CAPTAIN_SEAT_OUTREACH.md` — PE meeting target list
+- `investor-outreach/INVESTOR_OBJECTION_HANDLING.md` — common pushbacks + responses

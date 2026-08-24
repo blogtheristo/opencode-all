@@ -1,0 +1,163 @@
+# DWS IQ Claude Agent Worker - Cloudflare Configuration
+# 
+# This configures the Claude Agent SDK worker for secure, isolated execution
+# in Cloudflare's edge network with EU data residency.
+#
+# Deployment: npx wrangler deploy
+# Local dev:  npx wrangler dev
+#
+# @version 1.0.0
+# @license Proprietary - Lifetime Oy
+
+name = "dws-iq-agent"
+main = "worker-agent.ts"
+compatibility_date = "2024-12-01"
+
+# ============================================================================
+# Account Configuration
+# ============================================================================
+# Set via environment or wrangler login
+# account_id = "your-cloudflare-account-id"
+
+# ============================================================================
+# Worker Settings
+# ============================================================================
+
+# Use bundled module format for ES modules
+[build]
+command = "npm run build:worker"
+
+[build.upload]
+format = "modules"
+main = "./dist/worker-agent.js"
+
+# ============================================================================
+# Environment Variables (non-secrets)
+# ============================================================================
+
+[vars]
+MCP_HUB_ORIGIN = "https://mcp-hub.dws10.com"
+ENVIRONMENT = "production"
+LOG_LEVEL = "info"
+
+# ============================================================================
+# Secrets (set via wrangler secret put)
+# ============================================================================
+# Required secrets:
+# - ANTHROPIC_API_KEY: Claude API key
+# - MCP_HUB_API_KEY: Backend authentication
+#
+# Set with: npx wrangler secret put ANTHROPIC_API_KEY
+
+# ============================================================================
+# KV Namespaces
+# ============================================================================
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "rate-limit-kv-id"  # Replace with actual KV namespace ID
+preview_id = "rate-limit-kv-preview-id"
+
+# ============================================================================
+# Durable Objects
+# ============================================================================
+
+[durable_objects]
+bindings = [
+  { name = "AGENT_SESSION", class_name = "AgentSession" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["AgentSession"]
+
+# ============================================================================
+# Analytics Engine (Usage Metering)
+# ============================================================================
+
+[[analytics_engine_datasets]]
+binding = "USAGE_METRICS"
+dataset = "dws_iq_agent_usage"
+
+# ============================================================================
+# EU Data Residency & Routing
+# ============================================================================
+
+# Restrict to EU region for GDPR compliance
+[placement]
+mode = "smart"
+
+# Route hints for EU traffic
+[[routes]]
+pattern = "agent.dws10.com/*"
+zone_name = "dws10.com"
+
+[[routes]]
+pattern = "agent.onelifetime.world/*"
+zone_name = "onelifetime.world"
+
+# ============================================================================
+# Development Environment
+# ============================================================================
+
+[env.development]
+name = "dws-iq-agent-dev"
+vars = { MCP_HUB_ORIGIN = "http://localhost:8765", ENVIRONMENT = "development", LOG_LEVEL = "debug" }
+
+[[env.development.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "rate-limit-kv-dev-id"
+
+# ============================================================================
+# Staging Environment
+# ============================================================================
+
+[env.staging]
+name = "dws-iq-agent-staging"
+vars = { MCP_HUB_ORIGIN = "https://mcp-hub-staging.dws10.com", ENVIRONMENT = "staging", LOG_LEVEL = "info" }
+
+[[env.staging.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "rate-limit-kv-staging-id"
+
+# ============================================================================
+# Production Environment
+# ============================================================================
+
+[env.production]
+name = "dws-iq-agent"
+vars = { MCP_HUB_ORIGIN = "https://mcp-hub.dws10.com", ENVIRONMENT = "production", LOG_LEVEL = "warn" }
+
+[[env.production.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "rate-limit-kv-prod-id"
+
+# ============================================================================
+# Observability
+# ============================================================================
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+
+# ============================================================================
+# Limits & Performance
+# ============================================================================
+
+# CPU time limit (50ms standard, 30s for Unbound)
+# Using standard tier for cost efficiency
+# Upgrade to Unbound if long-running agent tasks are needed
+
+[limits]
+cpu_ms = 30000  # 30 seconds for agent execution
+
+# ============================================================================
+# Tail Workers (Optional - for logging/monitoring)
+# ============================================================================
+# Uncomment to enable tail worker for centralized logging
+# 
+# [[tail_consumers]]
+# service = "dws-iq-agent-logger"

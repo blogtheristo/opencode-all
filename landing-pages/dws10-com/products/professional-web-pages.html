@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kotisivut pk-yritykselle | Lifetime Firehorse™ Store</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
+         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
+         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
+      body {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 880px;
+        margin: 40px auto;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
+        flex-grow: 1;
+      }
+      h1 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+      }
+      .tagline {
+        color: #cbd5e1;
+        font-size: 1.05rem;
+        margin-bottom: 24px;
+      }
+      .price {
+        font-size: 2rem;
+        color: #4ade80;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      .price-unit {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+        margin-top: 32px;
+        font-size: 1.25rem;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 24px;
+        margin: 14px 0;
+      }
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
+      }
+      a.buy-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        padding: 14px 26px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
+      }
+      a.alt-btn {
+        display: inline-block;
+        background: transparent;
+        color: #60a5fa;
+        border: 1px solid #60a5fa;
+        padding: 13px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.back-link {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+      }
+      .nav-header {
+        background: #1e293b;
+        padding: 20px;
+        border-bottom: 1px solid #334155;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: #60a5fa;
+      }
+      .badge {
+        display: inline-block;
+        background: #1d4ed8;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+      }
+      .note {
+        background: rgba(96, 165, 250, 0.1);
+        border-left: 3px solid #60a5fa;
+        padding: 14px 16px;
+        border-radius: 4px;
+        margin: 18px 0;
+        color: #cbd5e1;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-header">
+      <a href="../../" class="nav-brand">DWS IQ Platform</a>
+      <div class="nav-links">
+        <a href="../../">Etusivu</a>
+        <a href="../../buy/">Store</a>
+      </div>
+    </div>
+    <div class="container">
+      <a href="../" class="back-link">← Takaisin kauppaan</a>
+      <span class="badge">VAIN SUOMEKSI</span>
+      <h1>Kotisivut pk-yritykselle</h1>
+      <p class="tagline">
+        Ammattimainen verkkosivu, livenä 12 tunnissa. Sama toimintamalli, jolla rakensimme cari.fi:n
+        asiakkaallemme.
+      </p>
+      <div class="price">750 €</div>
+      <div class="price-unit">Kiinteä pakettihinta</div>
+
+      <h2>Mitä saat</h2>
+      <div class="grid">
+        <div>✅ Ammattimainen verkkosivu yrityksellesi</div>
+        <div>✅ Livenä 12 tunnissa tilauksesta</div>
+        <div>✅ Suunniteltu pk-yrityksen verkkonäkyvyydelle</div>
+        <div>✅ Toimiva esimerkki: cari.fi</div>
+      </div>
+
+      <div class="note">
+        Kerrot mitä yrityksesi tarvitsee, me hoidamme loput — ei teknistä selittelyä, vain valmis
+        verkkosivu.
+      </div>
+
+      <div class="cta-row">
+        <a href="https://dws10.com/book" class="buy-btn">📅 Varaa 30 min veloitukseton kartoitus</a>
+        <a href="https://cari.fi" class="alt-btn" target="_blank" rel="noopener"
+          >🌐 Katso esimerkki: cari.fi</a
+        >
+      </div>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 18px">
+        Osa Lifetimen palvelukokonaisuutta — sama EU-suvereeni AI-toimisto ja DWS IQ Industrial
+        Intelligence -alusta, pk-yrityksen mittakaavassa.
+      </p>
+      <p class="page-version">Kotisivut pk-yritykselle — page v2.0 · 2026-08-05</p>
+    </div>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem">
+      <p><strong>LIFETIME OY</strong> · Y-tunnus 0772407-9 · ALV FI07724079</p>
+      <p>Laidunmaanraitti 2 A 25, 02330 Espoo · risto.paarni@lifetime.fi</p>
+      <p style="margin-top: 16px">
+        <strong>Sääntely:</strong> GDPR, DSA, NIS2 ja EU AI Act -mukainen toiminta.
+      </p>
+      <p style="margin-top: 20px">Copyright © 2026 Lifetime Oy. Kaikki oikeudet pidätetään.</p>
+    </footer>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+  </body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Field Note: Acer Veriton GN100 - Docker and CUDA Validation</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Field Note: Acer Veriton GN100 - Docker and CUDA
+Validation</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#field-note-acer-veriton-gn100-docker-cuda-validation"
+id="toc-field-note-acer-veriton-gn100-docker-cuda-validation">Field
+Note: Acer Veriton GN100 — Docker + CUDA Validation</a></li>
+<li><a href="#version-and-agent-history"
+id="toc-version-and-agent-history">VERSION AND AGENT HISTORY</a>
+<ul>
+<li><a href="#ontology-tags" id="toc-ontology-tags">Ontology
+Tags</a></li>
+<li><a href="#related-documents" id="toc-related-documents">Related
+Documents</a></li>
+<li><a href="#context" id="toc-context">Context</a></li>
+<li><a href="#hardware-and-platform-findings"
+id="toc-hardware-and-platform-findings">Hardware and Platform
+Findings</a>
+<ul>
+<li><a href="#live-host-verification"
+id="toc-live-host-verification">Live host verification</a></li>
+<li><a href="#gpu-verification" id="toc-gpu-verification">GPU
+verification</a></li>
+</ul></li>
+<li><a href="#docker-validation-steps"
+id="toc-docker-validation-steps">Docker Validation Steps</a>
+<ul>
+<li><a href="#step-1-cuda-base-image-validation"
+id="toc-step-1-cuda-base-image-validation">Step 1: CUDA base image
+validation</a></li>
+<li><a href="#result" id="toc-result">Result</a></li>
+<li><a href="#interpretation"
+id="toc-interpretation">Interpretation</a></li>
+</ul></li>
+<li><a href="#pytorch-test-and-validation"
+id="toc-pytorch-test-and-validation">PyTorch Test and Validation</a>
+<ul>
+<li><a href="#attempt-1-generic-pytorch-image-failure"
+id="toc-attempt-1-generic-pytorch-image-failure">Attempt 1: Generic
+PyTorch image failure</a></li>
+<li><a href="#failure" id="toc-failure">Failure</a></li>
+<li><a href="#root-cause" id="toc-root-cause">Root cause</a></li>
+<li><a href="#attempt-2-nvidia-pytorch-container-success"
+id="toc-attempt-2-nvidia-pytorch-container-success">Attempt 2: NVIDIA
+PyTorch container success</a></li>
+<li><a href="#interpretation-1"
+id="toc-interpretation-1">Interpretation</a></li>
+</ul></li>
+<li><a href="#manifest-inspection-and-container-strategy"
+id="toc-manifest-inspection-and-container-strategy">Manifest Inspection
+and Container Strategy</a></li>
+<li><a href="#engineering-decision"
+id="toc-engineering-decision">Engineering Decision</a>
+<ul>
+<li><a href="#standard-runtime-decision"
+id="toc-standard-runtime-decision">Standard runtime decision</a></li>
+<li><a href="#arm64-first-container-policy"
+id="toc-arm64-first-container-policy">ARM64-first container
+policy</a></li>
+<li><a href="#pytorch-strategy-for-gn100"
+id="toc-pytorch-strategy-for-gn100">PyTorch strategy for GN100</a></li>
+</ul></li>
+<li><a href="#note-on-repository-drift"
+id="toc-note-on-repository-drift">Note on Repository Drift</a></li>
+<li><a href="#operational-notes" id="toc-operational-notes">Operational
+Notes</a></li>
+<li><a href="#next-steps" id="toc-next-steps">Next Steps</a></li>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="field-note-acer-veriton-gn100-docker-cuda-validation">Field
+Note: Acer Veriton GN100 — Docker + CUDA Validation</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.1</p>
+<p>Sessions &amp; Modifications: - Version: 1.1 | Tool: Claude Code |
+Date: 11.03.2026 | Changes: Added successful NVIDIA PyTorch ARM64
+container validation on GN100, documented GB10 support warning, and
+updated PyTorch baseline recommendation - Version: 1.0 | Tool: Claude
+Code | Date: 11.03.2026 | Changes: Initial creation — document GN100
+Docker GPU validation, ARM64 host confirmation, PyTorch image
+architecture mismatch, and ARM64-first container policy</p>
+<p>Session Links &amp; References: - View on GitHub:
+https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md</p>
+<p>Document Status: - Created: 11.03.2026 - Last Modified: 11.03.2026 -
+Language: English - Languages Available: English - Publication Status:
+ACTIVE - Document Type: Field Note / Lab Validation</p>
+<hr />
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe &gt; Finland &gt; Helsinki
+(Lab)</li>
+<li><strong>Sector:</strong> Technology &gt; Edge AI &gt; Infrastructure
+&gt; Docker/CUDA Validation</li>
+<li><strong>Entities:</strong> Acer Veriton GN100, NVIDIA GB10, Docker,
+NVIDIA Container Toolkit, CUDA, PyTorch, DWS IQ 6</li>
+<li><strong>Temporal Context:</strong> 2026-Q1, GN100 runtime
+validation</li>
+<li><strong>Confidence:</strong> High</li>
+</ul>
+<h2 id="related-documents">Related Documents</h2>
+<ul>
+<li><code>Admin/Acer-Veriton-GN100/README.md</code></li>
+<li><code>docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md</code></li>
+<li><code>docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md</code></li>
+<li><code>DWS_SECURITY_STANDARD.md</code></li>
+</ul>
+<h2 id="context">Context</h2>
+<p>This field note records a GN100 validation session focused on Docker
+GPU runtime readiness, CUDA container execution, and the correct
+container strategy for PyTorch on this host.</p>
+<p>The immediate trigger was a failed Docker GPU container launch that
+initially reported:</p>
+<pre class="text"><code>nvidia-container-cli: detection error: nvml error: gpu requires reset</code></pre>
+<p>The later validation sequence showed that the problem was transient.
+The host GPU recovered, Docker GPU passthrough worked, and the remaining
+PyTorch issue turned out to be an image architecture mismatch rather
+than a runtime failure.</p>
+<h2 id="hardware-and-platform-findings">Hardware and Platform
+Findings</h2>
+<h3 id="live-host-verification">Live host verification</h3>
+<p>The following commands established the actual host platform:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> info <span class="at">--format</span> <span class="st">&#39;{{.OSType}}/{{.Architecture}}&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">uname</span> <span class="at">-m</span></span></code></pre></div>
+<p>Observed result:</p>
+<pre class="text"><code>linux/aarch64
+aarch64</code></pre>
+<p>This confirms GN100 must be treated as an <strong>ARM64 /
+aarch64</strong> machine for container selection.</p>
+<h3 id="gpu-verification">GPU verification</h3>
+<p>The host <code>nvidia-smi</code> output showed:</p>
+<ul>
+<li><code>NVIDIA-SMI 580.126.09</code></li>
+<li><code>Driver Version: 580.126.09</code></li>
+<li><code>CUDA Version: 13.0</code></li>
+<li>GPU name: <code>NVIDIA GB10</code></li>
+<li>Kernel family already documented elsewhere as
+<code>6.17.0-1008-nvidia</code></li>
+</ul>
+<p>The full <code>nvidia-smi</code> table rendered successfully, which
+confirms that the GPU was healthy at the time of verification.</p>
+<h2 id="docker-validation-steps">Docker Validation Steps</h2>
+<h3 id="step-1-cuda-base-image-validation">Step 1: CUDA base image
+validation</h3>
+<p>This command succeeded:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--gpus</span> all nvidia/cuda:12.8.0-runtime-ubuntu24.04 nvidia-smi</span></code></pre></div>
+<h3 id="result">Result</h3>
+<p>The container printed a full <code>nvidia-smi</code> table from
+inside Docker.</p>
+<h3 id="interpretation">Interpretation</h3>
+<p>This validates all of the following on GN100:</p>
+<ul>
+<li>Docker can access the NVIDIA GPU</li>
+<li>NVIDIA Container Toolkit handoff is working</li>
+<li>CUDA userspace from the container can talk to the host driver</li>
+<li>GN100 is usable as a Docker-based GPU runtime for local
+workloads</li>
+</ul>
+<h2 id="pytorch-test-and-validation">PyTorch Test and Validation</h2>
+<h3 id="attempt-1-generic-pytorch-image-failure">Attempt 1: Generic
+PyTorch image failure</h3>
+<p>This command failed:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--gpus</span> all pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime python <span class="at">-c</span> <span class="st">&quot;import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0))&quot;</span></span></code></pre></div>
+<h3 id="failure">Failure</h3>
+<p>The relevant output was:</p>
+<pre class="text"><code>WARNING: The requested image&#39;s platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+exec /opt/conda/bin/python: exec format error</code></pre>
+<h3 id="root-cause">Root cause</h3>
+<p>This was <strong>not</strong> a CUDA or Docker GPU runtime
+problem.</p>
+<p>It was an <strong>image architecture mismatch</strong>:</p>
+<ul>
+<li>Host platform: <code>linux/aarch64</code></li>
+<li>Pulled image platform: <code>linux/amd64</code></li>
+</ul>
+<p>The <code>exec format error</code> is the expected failure when an
+x86_64 container lands on an ARM64 host without the right execution
+path.</p>
+<h3 id="attempt-2-nvidia-pytorch-container-success">Attempt 2: NVIDIA
+PyTorch container success</h3>
+<p>This command succeeded with an NVIDIA NGC image that publishes an
+ARM64 variant:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--gpus</span> all nvcr.io/nvidia/pytorch:25.02-py3 python3 <span class="at">-c</span> <span class="st">&quot;import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0)); print(torch.version.cuda)&quot;</span></span></code></pre></div>
+<p>Observed result:</p>
+<pre class="text"><code>WARNING: Detected NVIDIA GB10 GPU, which may not yet be supported in this version of the container
+2.7.0a0+ecf3bae40a.nv25.02
+True
+NVIDIA GB10
+12.8</code></pre>
+<h3 id="interpretation-1">Interpretation</h3>
+<p>This confirms the practical PyTorch baseline on GN100:</p>
+<ul>
+<li><code>nvcr.io/nvidia/pytorch:25.02-py3</code> runs on this ARM64
+host</li>
+<li>PyTorch can see CUDA successfully</li>
+<li>PyTorch can see the <code>NVIDIA GB10</code> device from inside the
+container</li>
+<li>Container CUDA userspace version is <code>12.8</code></li>
+</ul>
+<p>The container emits a compatibility warning for
+<code>NVIDIA GB10</code>, so this result should be treated as
+<strong>working with caution</strong> rather than full formal support.
+The warning did not block PyTorch CUDA detection or device access during
+this session.</p>
+<h2 id="manifest-inspection-and-container-strategy">Manifest Inspection
+and Container Strategy</h2>
+<p>During the session, manifest inspection was used to confirm that
+candidate images must publish an ARM64 variant before they are
+considered valid for GN100.</p>
+<p>The working policy from this session is:</p>
+<ol type="1">
+<li>Validate new GPU/container work first with a known-good CUDA base
+image.</li>
+<li>Verify image manifests before adopting framework containers.</li>
+<li>Prefer native <code>linux/arm64</code> images on GN100.</li>
+<li>Do not treat <code>pytorch/pytorch</code> tags as safe by default on
+this machine.</li>
+<li>Prefer validated NVIDIA NGC PyTorch images over generic upstream
+PyTorch images on GN100.</li>
+</ol>
+<h2 id="engineering-decision">Engineering Decision</h2>
+<h3 id="standard-runtime-decision">Standard runtime decision</h3>
+<p>For GN100, <strong>Docker is the standard local runtime</strong>
+for:</p>
+<ul>
+<li>GPU validation</li>
+<li>Edge agent isolation</li>
+<li>Local CUDA workload testing</li>
+<li>Future model-serving and framework experiments</li>
+</ul>
+<h3 id="arm64-first-container-policy">ARM64-first container policy</h3>
+<p>For this host:</p>
+<ul>
+<li>Prefer images with a native <code>linux/arm64</code> manifest</li>
+<li>Check uncertain images with:</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> manifest inspect <span class="op">&lt;</span>image<span class="op">&gt;</span>:<span class="op">&lt;</span>tag<span class="op">&gt;</span></span></code></pre></div>
+<ul>
+<li>Avoid <code>--platform linux/amd64</code> for real CUDA/PyTorch work
+on GN100</li>
+<li>Treat <code>nvidia/cuda:12.8.0-runtime-ubuntu24.04</code> as the
+known-good baseline image</li>
+</ul>
+<h3 id="pytorch-strategy-for-gn100">PyTorch strategy for GN100</h3>
+<p>Validated baseline:</p>
+<ol type="1">
+<li><code>nvcr.io/nvidia/pytorch:25.02-py3</code> is confirmed working
+on GN100 for basic CUDA/PyTorch detection.</li>
+<li>Keep the GB10 warning in mind when testing performance-sensitive or
+advanced features.</li>
+</ol>
+<p>Preferred order going forward:</p>
+<ol type="1">
+<li>Use <code>nvcr.io/nvidia/pytorch:&lt;tag&gt;</code> when the tag
+includes an ARM64 manifest.</li>
+<li>If suitable NVIDIA PyTorch images are unavailable, build from
+<code>nvidia/cuda:12.8.0-runtime-ubuntu24.04</code>.</li>
+<li>Avoid generic <code>pytorch/pytorch</code> images unless manifest
+inspection confirms ARM64 support.</li>
+</ol>
+<h2 id="note-on-repository-drift">Note on Repository Drift</h2>
+<p>This session also exposed a documentation drift issue: older GN100
+notes included generic or conflicting hardware summaries, such as
+<code>CPU: 20 cores</code>, which are not specific enough for
+platform-sensitive engineering work.</p>
+<p>For GN100, the authoritative source order is now:</p>
+<ol type="1">
+<li>Live host verification from the device</li>
+<li><code>docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md</code></li>
+<li><code>Admin/Acer-Veriton-GN100/README.md</code></li>
+</ol>
+<h2 id="operational-notes">Operational Notes</h2>
+<ul>
+<li><code>nvidia-ctk runtime configure --runtime=docker</code> requires
+<code>sudo</code> to modify <code>/etc/docker/daemon.json</code></li>
+<li>A temporary <code>gpu requires reset</code> state can clear without
+permanent Docker reconfiguration if the host GPU returns to a healthy
+state</li>
+<li>Container-local timestamps may differ from host local time if the
+container defaults to UTC</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Test an ARM64-capable
+NVIDIA PyTorch image on GN100</label></li>
+<li><label><input type="checkbox" />If needed, build a GN100-specific
+PyTorch image from the known-good CUDA base</label></li>
+<li><label><input type="checkbox" />Keep GN100 architecture notes
+synchronized between this field note and the admin README</label></li>
+</ul>
+<h2 id="summary">Summary</h2>
+<p>The GN100 Docker/CUDA session ended with a positive infrastructure
+result:</p>
+<ul>
+<li>The host is confirmed as <code>aarch64 / ARM64</code></li>
+<li>Docker GPU passthrough works</li>
+<li>CUDA base image execution works</li>
+<li><code>nvcr.io/nvidia/pytorch:25.02-py3</code> works on GN100 for
+basic CUDA/PyTorch validation</li>
+<li>The generic <code>pytorch/pytorch</code> failure was caused by an
+<code>amd64</code> image on an ARM64 host</li>
+<li>Current caveat: the NVIDIA container warns that <code>GB10</code>
+may not yet be fully supported in this release</li>
+<li>GN100 should follow an ARM64-first Docker image policy going
+forward</li>
+</ul>
+</body>
+</html>

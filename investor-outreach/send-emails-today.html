@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Emails Today - Human-in-Loop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .big-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 30px;
+            transition: transform 0.2s;
+        }
+
+        .big-button:hover {
+            transform: scale(1.02);
+        }
+
+        .big-button:active {
+            transform: scale(0.98);
+        }
+
+        .email-card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .email-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .email-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .copy-button {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #38a169;
+        }
+
+        .copy-button.copied {
+            background: #2d3748;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .field-value {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .gmail-button {
+            background: #ea4335;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .gmail-button:hover {
+            background: #d33426;
+        }
+
+        .progress {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .progress-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .instructions {
+            background: #fff5f5;
+            border-left: 4px solid #f56565;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .instructions h3 {
+            color: #c53030;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #742a2a;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .settings {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .settings input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Send 5 Emails Today</h1>
+        <p class="subtitle">Human-in-Loop Edition - No templates, just action</p>
+
+        <div class="settings">
+            <h3 style="margin-bottom: 15px;">Quick Settings</h3>
+            <input type="text" id="yourName" placeholder="Your Name (e.g., Risto Päärni)" value="Risto Päärni">
+            <input type="email" id="yourEmail" placeholder="Your Email (e.g., risto@lifetime.fi)" value="risto@lifetime.fi">
+            <input type="url" id="calendlyLink" placeholder="Calendly Link (e.g., https://calendly.com/...)" value="https://calendly.com/risto-lifetime/investor-15min">
+        </div>
+
+        <button class="big-button" onclick="generateEmails()">
+            ⚡ GENERATE TODAY'S 5 EMAILS
+        </button>
+
+        <div id="instructions" class="instructions hidden">
+            <h3>📧 How to send these emails (10 minutes):</h3>
+            <ol>
+                <li>Click "Copy All" button on each email below</li>
+                <li>Open <a href="https://gmail.com" target="_blank">Gmail</a> and click "Compose"</li>
+                <li>Paste into Gmail (TO, SUBJECT, BODY will auto-fill)</li>
+                <li>Review quickly and click Send</li>
+                <li>Repeat for all 5 emails</li>
+            </ol>
+        </div>
+
+        <div id="progress" class="progress hidden">
+            <p class="progress-text">Emails Sent: <span id="sentCount">0</span> / 5</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+            </div>
+        </div>
+
+        <div id="emails"></div>
+    </div>
+
+    <script>
+        // Sample investor data (replace with real data from CSV or API)
+        const SAMPLE_INVESTORS = [
+            {
+                name: "Chris Neuman",
+                email: "chris.neuman@example.com",
+                focus: "Urban tech / Emissions reduction"
+            },
+            {
+                name: "Simon Mantkelow",
+                email: "simon@example.com",
+                focus: "Sustainability / Methane detection"
+            },
+            {
+                name: "James Green",
+                email: "james@greenangelsyndicate.com",
+                focus: "Sustainability / Climate tech"
+            },
+            {
+                name: "Test Investor",
+                email: "test@example.com",
+                focus: "Climate tech"
+            },
+            {
+                name: "Sample Angel",
+                email: "sample@example.com",
+                focus: "Nordic B2B SaaS"
+            }
+        ];
+
+        const EMAIL_TEMPLATES = [
+            {
+                subject: "DWS IQ 6 – €500K Seed closing Q2",
+                body: `Hi {firstName},
+
+I'm raising €500K Seed for DWS IQ 6 (edge AI for EU carbon compliance).
+
+Traction:
+• ~€7,000/month services and transport revenue (not software revenue) — cash break-even, founder salary €0
+• Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked)
+• Clear path to €281K profit in 12 months
+
+15-min call to share pilot results? {calendlyLink}
+
+Best,
+{yourName}
+{yourEmail}`
+            },
+            {
+                subject: "Quick question – DWS IQ 6 Seed round",
+                body: `Hi {firstName},
+
+Raising €500K Seed for DWS IQ 6 (climate AI platform).
+
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue).
+
+Quick 15-min call? {calendlyLink}
+
+Best,
+{yourName}`
+            },
+            {
+                subject: "DWS IQ 6 – Nordic climate AI raising €500K",
+                body: `Hi {firstName},
+
+DWS IQ 6: Edge AI for EU carbon compliance (CSRD, Fit for 55).
+
+Traction: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue).
+
+Raising €500K Seed. 15 min to walk through? {calendlyLink}
+
+Best,
+{yourName}`
+            },
+            {
+                subject: "Climate AI platform – €500K Seed round",
+                body: `Hi {firstName},
+
+€500K Seed for DWS IQ 6 (edge AI for Nordic construction carbon compliance).
+
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue).
+
+Call this week? {calendlyLink}
+
+Best,
+{yourName}`
+            },
+            {
+                subject: "DWS IQ 6 investor call – €500K Seed",
+                body: `Hi {firstName},
+
+DWS IQ 6 is raising €500K Seed for edge AI carbon compliance platform.
+
+Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue).
+
+15 min to share pilot results? {calendlyLink}
+
+Best,
+{yourName}
+{yourEmail}`
+            }
+        ];
+
+        let emailsSent = 0;
+
+        function getFirstName(fullName) {
+            return fullName.split(' ')[0];
+        }
+
+        function generateEmails() {
+            const yourName = document.getElementById('yourName').value || 'Risto Päärni';
+            const yourEmail = document.getElementById('yourEmail').value || 'risto@lifetime.fi';
+            const calendlyLink = document.getElementById('calendlyLink').value || 'https://calendly.com/risto-lifetime/investor-15min';
+
+            const emailsDiv = document.getElementById('emails');
+            emailsDiv.innerHTML = '';
+
+            document.getElementById('instructions').classList.remove('hidden');
+            document.getElementById('progress').classList.remove('hidden');
+
+            SAMPLE_INVESTORS.slice(0, 5).forEach((investor, index) => {
+                const template = EMAIL_TEMPLATES[index % EMAIL_TEMPLATES.length];
+                const firstName = getFirstName(investor.name);
+
+                const subject = template.subject;
+                const body = template.body
+                    .replace(/{firstName}/g, firstName)
+                    .replace(/{yourName}/g, yourName)
+                    .replace(/{yourEmail}/g, yourEmail)
+                    .replace(/{calendlyLink}/g, calendlyLink);
+
+                const emailCard = createEmailCard(index + 1, investor.email, subject, body, investor.name, investor.focus);
+                emailsDiv.appendChild(emailCard);
+            });
+        }
+
+        function createEmailCard(number, to, subject, body, investorName, focus) {
+            const card = document.createElement('div');
+            card.className = 'email-card';
+            card.innerHTML = `
+                <div class="email-header">
+                    <span class="email-number">Email #${number}</span>
+                    <button class="copy-button" onclick="copyEmail(${number}, '${to}', '${escapeHtml(subject)}', this)">
+                        📋 Copy All
+                    </button>
+                </div>
+                <div class="field">
+                    <div class="field-label">To</div>
+                    <div class="field-value">${to}</div>
+                </div>
+                <div class="field">
+                    <div class="field-label">Subject</div>
+                    <div class="field-value">${subject}</div>
+                </div>
+                <div class="field">
+                    <div class="field-label">Body</div>
+                    <div class="field-value">${body}</div>
+                </div>
+                <div style="margin-top: 10px; color: #718096; font-size: 12px;">
+                    Investor: ${investorName} | Focus: ${focus}
+                </div>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}"
+                   target="_blank"
+                   class="gmail-button"
+                   onclick="markAsSent()">
+                    📧 Open in Gmail
+                </a>
+            `;
+
+            card.dataset.body = body;
+            return card;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        function copyEmail(number, to, subject, button) {
+            const card = button.closest('.email-card');
+            const body = card.dataset.body;
+
+            const fullEmail = `TO: ${to}\nSUBJECT: ${subject}\n\n${body}`;
+
+            navigator.clipboard.writeText(fullEmail).then(() => {
+                button.textContent = '✅ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = '📋 Copy All';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function markAsSent() {
+            emailsSent++;
+            document.getElementById('sentCount').textContent = emailsSent;
+            const percentage = (emailsSent / 5) * 100;
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = Math.round(percentage) + '%';
+
+            if (emailsSent === 5) {
+                setTimeout(() => {
+                    alert('🎉 Congratulations! You sent 5 emails today!\n\nDo the same tomorrow. That\'s how you raise €150K.');
+                }, 500);
+            }
+        }
+
+        // Auto-generate on page load (remove this if you want manual click)
+        // window.onload = generateEmails;
+    </script>
+</body>
+</html>

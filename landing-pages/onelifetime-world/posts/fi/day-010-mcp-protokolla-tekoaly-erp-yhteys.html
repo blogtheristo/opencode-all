@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP-protokolla: Tekoälyagenttien yhdistäminen ERP-järjestelmään — Lifetime Scope Journal</title>
+    <meta name="description" content="Tekninen opas Model Context Protocol -standardista. Kuinka MCP mahdollistaa tekoälyagenttien turvallisen yhteyden SAP:hen, IFS:ään ja muihin ERP-järjestelmiin.">
+    <meta name="author" content="Risto Anton Päärni">
+    <meta property="og:title" content="MCP-protokolla: Tekoälyagenttien yhdistäminen ERP-järjestelmään">
+    <meta property="og:description" content="Tekninen opas MCP-standardista ja ERP-integraatiosta.">
+    <meta property="og:type" content="article">
+    <meta property="article:class" content="2">
+    <meta property="og:locale" content="fi_FI">
+    <meta property="og:url" content="https://onelifetime.world/posts/fi/day-010-mcp-protokolla-tekoäly-erp-yhteys.html">
+    <meta property="og:site_name" content="Lifetime Scope Journal">
+    <meta property="article:published_time" content="2026-03-25">
+    <meta property="article:author" content="Risto Anton Päärni">
+    <meta property="article:section" content="Tekoäly ja automaatio">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MCP-protokolla: Tekoälyagenttien yhdistäminen ERP-järjestelmään">
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/fi__day-010-mcp-protokolla-tekoaly-erp-yhteys.png">
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/fi__day-010-mcp-protokolla-tekoaly-erp-yhteys.png" />
+    <meta name="twitter:description" content="Tekninen opas MCP-standardista ja ERP-integraatiosta.">
+    <link rel="alternate" hreflang="en" href="https://onelifetime.world/posts/en/day-010-mcp-protocol-connecting-ai-to-erp.html">
+    <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/fi/day-010-mcp-protokolla-tekoaly-erp-yhteys.html">
+    <link rel="canonical" href="https://onelifetime.world/posts/fi/day-010-mcp-protokolla-tekoaly-erp-yhteys.html">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../shared-assets/lang-bar.js"></script>
+    <style>
+        .pillar-card { background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.2); transition: border-color 0.3s ease, transform 0.3s ease; }
+        .pillar-card:hover { border-color: rgba(6, 182, 212, 0.5); transform: translateY(-2px); }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": "MCP-protokolla: Tekoalyagenttien yhdistaminen ERP-järjestelmään",
+        "description": "Tekninen opas MCP-standardista ja ERP-integraatiosta.",
+        "author": { "@type": "Person", "name": "Risto Anton Päärni", "url": "https://onelifetime.world" },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-03-25",
+        "mainEntityOfPage": "https://onelifetime.world/posts/fi/day-010-mcp-protokolla-tekoaly-erp-yhteys.html",
+        "articleSection": "Tekoaly ja automaatio", "inLanguage": "fi"
+    }
+    </script>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+    <script>function toggleMobileMenu() { var menu = document.getElementById('mobileMenu'); menu.classList.toggle('hidden'); }</script>
+
+    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
+        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Valikko"><span class="w-6 h-0.5 bg-gray-400 block"></span><span class="w-6 h-0.5 bg-gray-400 block"></span><span class="w-6 h-0.5 bg-gray-400 block"></span></button>
+            <a href="/" class="flex items-center"><img src="../../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);"></a>
+            <a href="https://dws10.com/buy" class="text-xs font-bold px-3 py-1 rounded" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a;">Kauppa</a>
+        </div>
+        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+            <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Blogi</a>
+            <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Press</a>
+            <a href="https://dws10.com" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">DWS IQ -alusta</a>
+            <a href="https://dws10.com/buy" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Kauppa</a>
+            <a href="https://lifetime.fi" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Lifetime Consulting</a>
+        </div>
+    </nav>
+
+    <main class="flex-1">
+        <article class="max-w-3xl mx-auto px-4 py-12">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(212, 168, 67, 0.15); color: #d4a843; border: 1px solid rgba(212, 168, 67, 0.25);">Tekoäly ja automaatio</span>
+                <span class="text-xs text-gray-500">Päivä 10 / 800</span>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: #e2e8f0;">MCP-protokolla: Tekoälyagenttien yhdistäminen ERP-järjestelmään</h1>
+
+            <div class="flex items-center gap-4 mb-8 text-sm text-gray-400">
+                <span>25. maaliskuuta 2026</span><span>&middot;</span><span>Risto Anton Päärni</span><span>&middot;</span><span>Lifetime Oy</span>
+            </div>
+
+            <div class="w-16 h-0.5 mb-8" style="background: linear-gradient(90deg, #06b6d4, #2563eb);"></div>
+
+            <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
+                <p>Model Context Protocol (MCP) on avoin standardi, joka mahdollistaa tekoälyagenttien yhdistämisen ulkoisiin datalahtoisiin ja työkaluihin. Anthropic julkaisi MCP:n vuoden 2024 lopussa, ja vuonna 2026 siitä on tullut de facto -standardi agenttipohjaisissa integraatioissa. Mutta mitä MCP käytännössä tarkoittaa ERP-integraation näkökulmasta?</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">MCP lyhyesti</h2>
+                <p>MCP on kommunikaatioprotokolla, joka määrittelee miten tekoälymalli (client) keskustelee ulkoisen palvelun (server) kanssa. Protokolla käyttää JSON-RPC 2.0 -viestintaa ja tukee kolmea ydinkonseptia: työkalut (tools), resurssit (resources) ja kehotteet (prompts).</p>
+
+                <p>Työkalut ovat toimintoja, joita agentti voi kutsua — esimerkiksi "hae myyntitilaukset tältä kuukaudelta" tai "tarkista varastosaldo nimikkeelle X". Resurssit ovat tietoja, joita agentti voi lukea — kuten tilikartta, toimittajaluettelo tai tuotantosuunnitelma. Kehotteet ovat ennalta määriteltyä ohjeita tietyille tehtäville.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">ERP-yhteyden arkkitehtuuri</h2>
+                <p>DWS IQ -alustan ERP-integraatio rakentuu kerroksittain. Alimmalla tasolla on ERP-adapterikerros, joka muuntaa ERP:n oman rajapinnan (OData SAP:lle, REST IFS:lle, SOAP Dynamicsille) yhtenäiseksi MCP-rajapinnaksi.</p>
+
+                <p>Keskitasolla on MCP-palvelin, joka tarjoaa standardoidut työkalut. Agentti ei tieda eika tarvitse tietää, onko taustalla SAP vai IFS — se näyttää samat työkalut: lue_tilaukset, lue_nimikkeet, lue_asiakkaat, lue_varastosaldot, lue_energiankulutus.</p>
+
+                <p>Ylimmalla tasolla on agenttikerros, jossa erikoistuneet agentit käyttävät MCP-työkaluja omiin tehtäviinsä. Vaatimustenmukaisuusagentti hakee päästödata, talousagentti hakee kustannustiedot, toimitusketjuagentti seuraa toimittajien tilannetta.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Turvallisuus ja käyttöoikeushallinta</h2>
+                <p>ERP-data on yrityksen kriittisinta tietoa. MCP-integraatiossa turvallisuus on rakennettu jokaiseen kerrokseen.</p>
+
+                <p><strong>Autentikointi:</strong> MCP-palvelin vaatii JWT-tokenin jokaisesta pyynnöstä. Token myönnetään KYA-rekisteroidylle agentille, ja siihen on kirjattu agentin identiteetti, sallitut työkalut ja voimassaoloaika.</p>
+
+                <p><strong>Valtuutus:</strong> Jokainen työkalu on sidottu ERP:n käyttöoikeusrooleihin. Jos agentti pyytää dataa, johon sillä ei ole oikeutta, pyyntö hylätään ja tapahtuma kirjataan Firehorse-auditlokiin.</p>
+
+                <p><strong>Datansuodatus:</strong> MCP-adapterikerros suodattaa herkän datan automaattisesti. Henkilötunnuksia, pankkitilinumeroita tai salassapidettavia sopimustietoja ei koskaan palauteta agentille ilman nimenomasta lupaa.</p>
+
+                <p><strong>Auditointiketju:</strong> Jokainen MCP-pyyntö ja vastaus tallennetaan muuttumattomaan Firehorse-lokiin. Tämä mahdollistaa jälkikäteen tarkistamisen: mitä dataa agentti haki, milloin, mihin tarkoitukseen ja mitä se tuotti vastauksena.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Käytännön esimerkki: IFS Cloud -integraatio</h2>
+                <p>Suomalainen konepajayritys käyttää IFS Cloud -järjestelmää. DWS IQ -integraatio toteutetaan kolmessa vaiheessa.</p>
+
+                <p>Ensimmäisessä vaiheessa (1 päivä) asennetaan MCP-adapterikerros, joka yhdistää IFS:n REST API:in. Adapterin konfiguraatiossa määritellään IFS:n palvelinosoite, autentikointitiedot ja käytettävät IFS-moduulit.</p>
+
+                <p>Toisessa vaiheessa (2 päivää) konfiguroidaan MCP-työkalut: nimikkeisto, varastosaldot, tuotantotilaukset, energiankulutus. Jokainen työkalu testataan aidolla datalla staging-ympäristössä.</p>
+
+                <p>Kolmannessa vaiheessa (1 päivä) aktivoidaan agentit: vaatimustenmukaisuusagentti aloittaa päästödata keruun, talousagentti kustannusseurannan. Tuotantokäyttö alkaa valvottuna — ensimmäisen viikon ajan ihminen tarkistaa jokaisen agentin tuotoksen.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">MCP vs. perinteiset integraatiot</h2>
+                <p>Perinteinen ERP-integraatio vaatii raskaita ETL-putkia, välimalleja ja kuukausien kehitystyota. MCP-lähestymistapa on kevyempi: agentit lukevat dataa reaaliaikaisesti, eika tarvita erillistä tietovarastoa. Mutta MCP ei korvaa kaikkia integraatioita — raskas analytiikka ja historiallinen raportointi vaativat edelleen tietovaraston. MCP on parhaimmillaan reaaliaikaisessa datan haussa ja toimenpiteissa.</p>
+            </div>
+
+            <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
+                <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Tilaa Lifetime Scope Journal</h3>
+                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-sääntelyyn, tekoälyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
+                <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">Tilaa</a>
+            </div>
+
+            <div class="mt-12">
+                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myös</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="day-003-tekoalyagentit-korvaavat-manuaalisen-raportoinnin.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Päivä 3</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Tekoälyagentit korvaavat manuaalisen raportoinnin</p>
+                    </a>
+                    <a href="day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Päivä 17</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Vaatimustenmukaisuusagenttiparven rakentaminen</p>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="border-t border-gray-700 py-8 text-center text-xs text-gray-500" style="background: #0f172a;">
+        <p>&copy; 2026 Lifetime Oy &middot; ALV FI07724079 &middot; Helsinki, Suomi</p>
+        <p class="mt-1">
+            <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ -alusta</a> &middot;
+            <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Kauppa</a> &middot;
+            <a href="/blog/" class="text-blue-400 hover:underline">Blogi</a> &middot;
+            <a href="/press/" class="text-blue-400 hover:underline">Press</a>
+        </p>
+    </footer>
+</body>
+</html>

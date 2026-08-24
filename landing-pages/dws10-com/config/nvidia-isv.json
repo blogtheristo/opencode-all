@@ -1,0 +1,59 @@
+{
+  "_comment": "Former NVIDIA Connect programme member; programme closed — synced by scripts/sync-nvidia-isv.cjs",
+  "lastUpdated": "2026-08-18",
+  "partner": {
+    "status": "Former NVIDIA Connect programme member; programme closed",
+    "verifyUrl": "https://www.nvidia.com/en-us/about-nvidia/partners/partner-locator/",
+    "company": "Lifetime Oy"
+  },
+  "products": {
+    "platform": {
+      "id": "DWS-IQ-006",
+      "name": "DWS IQ Platform",
+      "version": "6"
+    },
+    "forensicReport": {
+      "name": "Firehorse Report V2",
+      "type": "Forensic Compliance Auditing"
+    },
+    "worldModel": {
+      "name": "Lifetime World Model",
+      "acronym": "LWM"
+    }
+  },
+  "hardware": {
+    "compute": {
+      "name": "Acer GN-100",
+      "soc": "NVIDIA GB10 Grace Blackwell",
+      "memory": "128 GB LPDDR5X unified",
+      "os": "DGX Ubuntu",
+      "power": "230V EU plug",
+      "deployed": "One unit operational in Finland"
+    },
+    "edge": {
+      "name": "NVIDIA Jetson Orin Nano",
+      "latency": "Sub-10ms",
+      "use": "Real-time sensor fusion, PLC telemetry ingest"
+    }
+  },
+  "nvidiaTech": [
+    "NVIDIA Grace Blackwell (GB10 SoC)",
+    "NVIDIA Jetson Orin Nano",
+    "NVIDIA Aerial Omniverse",
+    "NVIDIA Cosmos",
+    "TensorRT-LLM",
+    "CUDA Toolkit",
+    "CV-CUDA",
+    "VLM-Llama",
+    "Llama 3 70B Instruct NIM",
+    "DGX Ubuntu"
+  ],
+  "compliance": [
+    "EU AI Act Article 12",
+    "CSRD",
+    "Fit for 55",
+    "CBAM",
+    "NIS2",
+    "Annex III biometric logging"
+  ]
+}

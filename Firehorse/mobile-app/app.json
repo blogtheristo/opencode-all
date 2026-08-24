@@ -1,0 +1,73 @@
+{
+  "expo": {
+    "name": "Firehorse Mobile",
+    "slug": "firehorse-mobile",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#005293"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dws6.firehorse",
+      "buildNumber": "2.0.0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#005293"
+      },
+      "package": "com.dws6.firehorse",
+      "versionCode": 2,
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "BLUETOOTH",
+        "BLUETOOTH_ADMIN",
+        "BLUETOOTH_CONNECT",
+        "BLUETOOTH_SCAN",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ],
+      "googleServicesFile": "./google-services.json",
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "firehorse-mobile-dws6"
+      }
+    },
+    "owner": "dws6",
+    "privacy": "public",
+    "description": "Firehorse Mobile by DWS IQ 6 — Complete construction management suite for Nordic industry. Omnichannel sales pipeline, campaign automation, worksite diary (RT 16-10660), receipt inspection with BIM + AI, EN 15978 carbon reporting, field operations Control Room, and strategic Situation Room. Offline-first with auto-sync. Fit for 55 compliant. EU AI Act ready.",
+    "primaryColor": "#005293",
+    "plugins": [
+      "expo-camera",
+      "expo-location",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#005293"
+        }
+      ]
+    ]
+  }
+}

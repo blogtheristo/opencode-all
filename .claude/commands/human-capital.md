@@ -1,0 +1,21 @@
+---
+name: human-capital
+description: "Assess a firm's human capital — knowledge, judgment, relationships, and whether it's captured into the AI learning loop or left to commoditisation. Pairs with /token-capital. Full detail: skills/human-capital/SKILL.md."
+argument-hint: "firm or customer name, or a description of the org / team to inventory"
+---
+
+Run a Human Capital inventory & capture assessment.
+
+Load and follow the full procedure in `skills/human-capital/SKILL.md`. Canonical framework:
+`docs/field-notes/2026-06-15-human-token-capital.md`.
+
+Input: $ARGUMENTS (firm / customer / team, or a natural-language description).
+
+## Steps
+
+1. Read `skills/human-capital/SKILL.md` and apply it.
+2. Scope the org/team/role(s); reference customer roles by R-ID from `DWS_ROLES_REGISTRY.md`.
+3. Inventory the five dimensions (knowledge, judgment, relationships, ingenuity, pattern recognition).
+4. Score capture rate (flowing into the loop vs trapped in heads/scrollback) and flag commoditisation risk.
+5. Emit the Output-contract block; recommend the encode path (SKILL.md | kb/raw | eval | workflow) per high-value item.
+6. Suggest running `/token-capital` next — human capital sets direction; token capital compounds it.

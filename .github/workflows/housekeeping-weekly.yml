@@ -1,0 +1,195 @@
+# Workflow: Weekly Housekeeping Audit
+# Version: v1
+# Created: 2026-02-21
+# Last Modified: 2026-02-21
+# Purpose: Automated housekeeping checks per HOUSEKEEPING_POLICY.md
+# Schedule: Weekly on Sunday at 03:00 UTC
+# Dependencies: None
+# Maintainer: Development Team
+
+# VERSION HISTORY:
+# v1 (2026-02-21): Initial creation — public path audit, Learn/ staleness, workflow health, branch hygiene
+
+name: Weekly Housekeeping Audit
+
+on:
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark is primary (scripts/weekly/housekeeping-audit.sh)
+  # Was: cron '0 3 * * 0' (Sunday at 03:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  housekeeping:
+    name: Housekeeping Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # DGX Spark runs scripts/weekly/housekeeping-audit.sh as primary
+      # (auto-discovered by day-runner.sh). This GHA workflow is failover only.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Skip if DGX is primary
+        if: steps.failover.outputs.dgx_alive == 'true'
+        run: |
+          echo "DGX Spark is healthy — housekeeping runs there. Exiting."
+          exit 0
+
+      # ──────────────────────────────────────────────
+      # CHECK 1: Public path .md enforcement (Rule 9)
+      # ──────────────────────────────────────────────
+      - name: Audit public paths for .md files
+        if: steps.failover.outputs.dgx_alive != 'true'
+        id: public-md
+        run: |
+          echo "## Public Path .md Audit" > /tmp/housekeeping-report.md
+          echo "" >> /tmp/housekeeping-report.md
+
+          MD_FILES=$(find dws10.com dws6.com onelifetime.world landing-pages \
+            -name "*.md" -type f 2>/dev/null || true)
+
+          if [ -z "$MD_FILES" ]; then
+            echo "**Status:** PASS — No .md files found in public deployment paths." >> /tmp/housekeeping-report.md
+            echo "md_count=0" >> $GITHUB_OUTPUT
+          else
+            COUNT=$(echo "$MD_FILES" | wc -l)
+            echo "**Status:** FAIL — Found $COUNT .md files in public paths!" >> /tmp/housekeeping-report.md
+            echo "" >> /tmp/housekeeping-report.md
+            echo '```' >> /tmp/housekeeping-report.md
+            echo "$MD_FILES" >> /tmp/housekeeping-report.md
+            echo '```' >> /tmp/housekeeping-report.md
+            echo "md_count=$COUNT" >> $GITHUB_OUTPUT
+          fi
+
+      # ──────────────────────────────────────────────
+      # CHECK 2: Learn/ folder staleness check
+      # ──────────────────────────────────────────────
+      - name: Audit Learn/ folder
+        if: steps.failover.outputs.dgx_alive != 'true'
+        id: learn-audit
+        run: |
+          echo "" >> /tmp/housekeeping-report.md
+          echo "---" >> /tmp/housekeeping-report.md
+          echo "## Learn/ Folder Audit" >> /tmp/housekeeping-report.md
+          echo "" >> /tmp/housekeeping-report.md
+
+          if [ ! -d "Learn" ]; then
+            echo "**Status:** WARN — Learn/ folder not found." >> /tmp/housekeeping-report.md
+          else
+            HTML_COUNT=$(find Learn -name "*.html" -type f | wc -l)
+            MD_COUNT=$(find Learn -name "*.md" -type f | wc -l)
+            VERSIONED=$(find Learn -name "*_v*.html" -type f | wc -l)
+
+            echo "| Metric | Count |" >> /tmp/housekeeping-report.md
+            echo "|--------|-------|" >> /tmp/housekeeping-report.md
+            echo "| HTML files (total) | $HTML_COUNT |" >> /tmp/housekeeping-report.md
+            echo "| Versioned HTML files | $VERSIONED |" >> /tmp/housekeeping-report.md
+            echo "| Markdown source files | $MD_COUNT |" >> /tmp/housekeeping-report.md
+
+            # Check for stale HTMLs (older than 30 days)
+            STALE=$(find Learn -name "*.html" -type f -mtime +30 | wc -l)
+            if [ "$STALE" -gt 0 ]; then
+              echo "" >> /tmp/housekeeping-report.md
+              echo "**Stale HTMLs (>30 days old):** $STALE files may need regeneration." >> /tmp/housekeeping-report.md
+            fi
+          fi
+
+      # ──────────────────────────────────────────────
+      # CHECK 3: Branch hygiene
+      # ──────────────────────────────────────────────
+      - name: Audit branches
+        if: steps.failover.outputs.dgx_alive != 'true'
+        id: branch-audit
+        run: |
+          echo "" >> /tmp/housekeeping-report.md
+          echo "---" >> /tmp/housekeeping-report.md
+          echo "## Branch Hygiene" >> /tmp/housekeeping-report.md
+          echo "" >> /tmp/housekeeping-report.md
+
+          REMOTE_BRANCHES=$(git branch -r --no-merged origin/main 2>/dev/null | grep -v HEAD | wc -l)
+          MERGED_BRANCHES=$(git branch -r --merged origin/main 2>/dev/null | grep -v HEAD | grep -v main | wc -l)
+
+          echo "| Metric | Count |" >> /tmp/housekeeping-report.md
+          echo "|--------|-------|" >> /tmp/housekeeping-report.md
+          echo "| Unmerged remote branches | $REMOTE_BRANCHES |" >> /tmp/housekeeping-report.md
+          echo "| Merged remote branches (can clean) | $MERGED_BRANCHES |" >> /tmp/housekeeping-report.md
+
+      # ──────────────────────────────────────────────
+      # CHECK 4: Workflow health summary
+      # ──────────────────────────────────────────────
+      - name: Audit workflow files
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: |
+          echo "" >> /tmp/housekeeping-report.md
+          echo "---" >> /tmp/housekeeping-report.md
+          echo "## Workflow Health" >> /tmp/housekeeping-report.md
+          echo "" >> /tmp/housekeeping-report.md
+
+          TOTAL=$(find .github/workflows -name "*.yml" -type f | wc -l)
+          SCHEDULED=$(grep -rl "schedule:" .github/workflows/ | wc -l)
+          ON_PR=$(grep -rl "pull_request:" .github/workflows/ | wc -l)
+          MANUAL=$(grep -rl "workflow_dispatch:" .github/workflows/ | wc -l)
+
+          echo "| Metric | Count |" >> /tmp/housekeeping-report.md
+          echo "|--------|-------|" >> /tmp/housekeeping-report.md
+          echo "| Total workflows | $TOTAL |" >> /tmp/housekeeping-report.md
+          echo "| Scheduled (cron) | $SCHEDULED |" >> /tmp/housekeeping-report.md
+          echo "| PR-triggered | $ON_PR |" >> /tmp/housekeeping-report.md
+          echo "| Manual dispatch enabled | $MANUAL |" >> /tmp/housekeeping-report.md
+
+      # ──────────────────────────────────────────────
+      # CHECK 5: docs/archive/ inventory
+      # ──────────────────────────────────────────────
+      - name: Audit archive folder
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: |
+          echo "" >> /tmp/housekeeping-report.md
+          echo "---" >> /tmp/housekeeping-report.md
+          echo "## Archive Inventory" >> /tmp/housekeeping-report.md
+          echo "" >> /tmp/housekeeping-report.md
+
+          if [ -d "docs/archive" ]; then
+            for dir in docs/archive/*/; do
+              if [ -d "$dir" ]; then
+                DIRNAME=$(basename "$dir")
+                COUNT=$(find "$dir" -type f | wc -l)
+                echo "| \`$DIRNAME/\` | $COUNT files |" >> /tmp/housekeeping-report.md
+              fi
+            done
+          else
+            echo "**Status:** No docs/archive/ folder found." >> /tmp/housekeeping-report.md
+          fi
+
+      # ──────────────────────────────────────────────
+      # Create issue with report
+      # ──────────────────────────────────────────────
+      - name: Create housekeeping report issue
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('/tmp/housekeeping-report.md', 'utf8');
+            const mdCount = '${{ steps.public-md.outputs.md_count }}';
+            const date = new Date().toISOString().split('T')[0];
+
+            const status = mdCount === '0' ? 'PASS' : 'FAIL';
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Housekeeping Audit ${date} [${status}]`,
+              body: `# Weekly Housekeeping Audit Report\n\n**Date:** ${date}\n**Triggered by:** ${context.eventName}\n\n${report}\n\n---\n*Generated by housekeeping-weekly.yml v1*`,
+              labels: ['housekeeping', 'automated']
+            });

@@ -1,0 +1,105 @@
+name: Golden Principle Scan
+
+on:
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark cron-runner mirrors this job
+  # Was: cron '30 6 * * 1' (Monday 06:30 UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  golden-principle-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # DGX Spark cron-runner mirrors this job (cron-runner.ts: golden-principle-scan).
+      # Skip if DGX is alive — this workflow is GHA-failover only.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Run Golden Principle Scanner
+        if: steps.failover.outputs.dgx_alive != 'true'
+        id: scan
+        run: |
+          set +e
+          node scripts/golden-principle-check.mjs --json > golden-principle-report.json 2>&1
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+
+          # Also generate human-readable report
+          node scripts/golden-principle-check.mjs > golden-principle-report.txt 2>&1 || true
+          echo "--- Report ---"
+          cat golden-principle-report.txt
+
+      - name: Create issue if violations found
+        if: steps.failover.outputs.dgx_alive != 'true' && steps.scan.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('golden-principle-report.txt', 'utf-8');
+
+            // Check if an open issue already exists
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'golden-principle-violation',
+              state: 'open',
+            });
+
+            const title = 'Golden Principle violations detected';
+            const body = [
+              '## Golden Principle Scan Report',
+              '',
+              '```',
+              report,
+              '```',
+              '',
+              '**Action required:** Fix the violations listed above.',
+              '',
+              'Run `node scripts/golden-principle-check.mjs` locally to see details.',
+              '',
+              `Generated: ${new Date().toISOString()}`,
+            ].join('\n');
+
+            if (issues.length > 0) {
+              // Update existing issue with a comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issues[0].number,
+                body: body,
+              });
+              console.log(`Updated existing issue #${issues[0].number}`);
+            } else {
+              // Create new issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['golden-principle-violation'],
+              });
+              console.log('Created new golden-principle-violation issue');
+            }
+
+      - name: Upload report artifact
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-principle-report
+          path: |
+            golden-principle-report.json
+            golden-principle-report.txt

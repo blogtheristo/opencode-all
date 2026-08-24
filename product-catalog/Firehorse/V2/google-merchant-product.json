@@ -1,0 +1,226 @@
+{
+  "product_data_version": "2.0",
+  "last_updated": "2026-01-23",
+  "merchant_id": "lifetime-oy",
+  "feed_label": "EN",
+  "target_country": "FI",
+  "content_language": "en",
+
+  "product": {
+    "id": "FIREHORSE-V2-2026",
+    "offerId": "FIREHORSE-V2-FORENSIC",
+    "title": "Firehorse V2 - Forensic AI Platform for Fit for 55 Compliance",
+    "description": "Forensic 'Situation Room' for construction Fit for 55 compliance. Transforms raw spatial data from DWS Lifetime World Model into sovereign, executive-ready compliance audits. Generates 1,000+ page technical reports in 75 seconds via NVIDIA Aerial Omniverse Digital Twin and TensorRT-LLM. Solves data gap via Cosmos predictive world-states. 100% verifiable visibility into carbon output, safety, and logistics without cloud risk.",
+
+    "link": "https://dws10.com/products/firehorse-reports.html",
+    "mobileLink": "https://dws10.com/products/firehorse-reports.html",
+    "imageLink": "https://dws10.com/Firehorse2026.png",
+    "additionalImageLinks": [],
+
+    "contentLanguage": "en",
+    "targetCountry": "FI",
+    "channel": "online",
+    "availability": "in_stock",
+    "availabilityDate": "2026-02-01",
+    "expirationDate": "2027-12-31",
+
+    "price": {
+      "value": "15000.00",
+      "currency": "EUR"
+    },
+    "salePrice": null,
+    "salePriceEffectiveDate": null,
+
+    "costOfGoodsSold": {
+      "value": "3000.00",
+      "currency": "EUR"
+    },
+
+    "googleProductCategory": "Business & Industrial > Business Services > Consulting Services",
+    "productTypes": [
+      "Software > Enterprise Software > Compliance Reporting",
+      "Software > Construction Technology > Forensic AI",
+      "Professional Services > Audit Services > Automated Compliance"
+    ],
+
+    "brand": "Lifetime Oy",
+    "mpn": "FIREHORSE-V2-2026",
+    "gtin": null,
+    "identifierExists": true,
+
+    "condition": "new",
+    "adult": false,
+    "multipack": 1,
+    "isBundle": false,
+    "energyEfficiencyClass": null,
+
+    "ageGroup": null,
+    "color": "#76B900",
+    "gender": null,
+    "material": null,
+    "pattern": null,
+    "size": null,
+    "sizeType": null,
+    "sizeSystem": null,
+
+    "itemGroupId": "FIREHORSE-FAMILY",
+    "productDetail": [
+      {
+        "sectionName": "Report Generation",
+        "attributeName": "Speed",
+        "attributeValue": "75 seconds for 1,000+ page audit"
+      },
+      {
+        "sectionName": "Technology",
+        "attributeName": "Framework",
+        "attributeValue": "NVIDIA Aerial Omniverse Digital Twin"
+      },
+      {
+        "sectionName": "AI Engine",
+        "attributeName": "Pattern Recognition",
+        "attributeValue": "Llama3 70B Instruct NIM"
+      },
+      {
+        "sectionName": "Deployment",
+        "attributeName": "Type",
+        "attributeValue": "On-premise sovereign stack (Acer GN-100)"
+      },
+      {
+        "sectionName": "Compliance",
+        "attributeName": "Coverage",
+        "attributeValue": "Fit for 55, CSRD, EPBD, ETS, CBAM"
+      }
+    ],
+
+    "productHighlights": [
+      "75-second forensic compliance audits (vs 2-4 weeks manual)",
+      "NVIDIA Aerial CUDA RAN for 5G sensor data capture",
+      "Cosmos predictive world-states fill data gaps",
+      "VLM-Llama visual grounding for digital twin verification",
+      "100% on-premise processing (zero cloud risk)",
+      "€150k annual savings vs manual audit firms"
+    ],
+
+    "shipping": [
+      {
+        "country": "FI",
+        "service": "Digital Delivery",
+        "price": {
+          "value": "0.00",
+          "currency": "EUR"
+        }
+      },
+      {
+        "country": "EU",
+        "service": "Per-Audit Report Delivery",
+        "price": {
+          "value": "0.00",
+          "currency": "EUR"
+        }
+      }
+    ],
+
+    "shippingWeight": {
+      "value": null,
+      "unit": null
+    },
+
+    "shippingLength": null,
+    "shippingWidth": null,
+    "shippingHeight": null,
+
+    "shipsFromCountry": "FI",
+    "transitTimeLabel": "Immediate digital delivery",
+
+    "maxHandlingTime": 1,
+    "minHandlingTime": 0,
+
+    "taxes": [
+      {
+        "country": "FI",
+        "region": null,
+        "rate": 24.0,
+        "taxShip": false
+      }
+    ],
+
+    "customLabel0": "Forensic AI",
+    "customLabel1": "Compliance Audit",
+    "customLabel2": "Fit for 55",
+    "customLabel3": "Physical AI",
+    "customLabel4": "NVIDIA Inception",
+
+    "promotionIds": [],
+
+    "includedDestinations": [
+      "SurfacesAcrossGoogle",
+      "Shopping",
+      "DisplayAds",
+      "LocalInventoryAds"
+    ],
+
+    "excludedDestinations": [],
+
+    "pause": "ads",
+
+    "lifestyleImageLinks": [],
+
+    "certifications": [
+      {
+        "certificationAuthority": "NVIDIA",
+        "certificationName": "Inception Program Member",
+        "certificationCode": "PENDING-2026"
+      }
+    ],
+
+    "structuredTitle": {
+      "digitalSourceType": "trained_algorithmic_media",
+      "content": "Firehorse V2 - 75-Second Forensic AI Compliance Platform for Construction"
+    },
+
+    "structuredDescription": {
+      "digitalSourceType": "trained_algorithmic_media",
+      "content": "Forensic AI platform generating 1,000+ page Fit for 55 compliance audits in 75 seconds. Built on NVIDIA Aerial Omniverse Digital Twin with Aerial CUDA Accelerated RAN for 5G sensor capture. Integrates Llama3 70B NIM for pattern recognition and Cosmos for predictive world-states. VLM-Llama visual grounding ensures perfect digital twin accuracy. On-premise sovereign stack eliminates cloud risk while delivering €150k annual audit cost savings."
+    },
+
+    "subscriptionCost": {
+      "period": "year",
+      "periodLength": 1,
+      "amount": {
+        "value": "25000.00",
+        "currency": "EUR"
+      }
+    }
+  },
+
+  "pricing_models": {
+    "per_audit": {
+      "price": "15000.00",
+      "currency": "EUR",
+      "description": "One-time forensic compliance audit"
+    },
+    "annual_subscription": {
+      "price": "25000.00",
+      "currency": "EUR",
+      "description": "Unlimited audits for one active site per year"
+    },
+    "enterprise_license": {
+      "price": "250000.00",
+      "currency": "EUR",
+      "description": "Unlimited sites, white-label option"
+    }
+  },
+
+  "metadata": {
+    "source": "product-catalog/Firehorse/V2/",
+    "version": "2.0",
+    "created_by": "Claude Session r6bU3",
+    "created_date": "2026-01-23",
+    "nvidia_inception_status": "Preparing Application",
+    "development_stage": "Developing",
+    "pilot_sites": 0,
+    "target_pilot_sites_q2_2026": 5,
+    "replaces_version": "V1",
+    "brand_color": "#76B900"
+  }
+}

@@ -1,0 +1,646 @@
+<!doctype html>
+<!--
+  Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu
+  Code-Version: 1.0
+  Branch: claude/add-drone-defense-units-ttSoy
+  Date: 2026-05-15
+  Owner: Lifetime Oy
+  Languages: en (canonical), fi, sv
+  Related:
+    - docs/field-notes/2026-04-15-finland-drone-strategy-lifetime-fleet.md
+    - docs/field-notes/2026-04-01-yakovenko-drone-industrial-darwinism-interceptor-signal.md
+    - posts/core-resilience-hybrid-threats.html
+-->
+<html lang="sv">
+  <head>
+    <meta property="article:class" content="2">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brandkårer som drönarförsvarsenheter — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Finland har 33 regionala räddningsverk, över 700 frivilliga brandkårer (FBK) och cirka 13 000 aktiva frivilliga. Drönarförsvar är en minutfråga. Tre skäl varför brandkårsnätet är landets naturliga första-skikts C-UAS — och vad vi inte lovar för mycket."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-05-15" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu"
+    />
+    <meta
+      property="og:description"
+      content="Snabb insats. Lokal kännedom. Failover. Varför Finlands brandkårer och FBK är det naturliga första-skikts drönarförsvaret."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="sv_SE" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="fi_FI" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/brandkarer-dronarforsvars-enheter.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/brandkarer-dronarforsvars-enheter.png" />
+    <meta property="article:published_time" content="2026-05-15" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Försvar" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/brandkarer-dronarforsvars-enheter.png">
+
+    <meta
+      name="twitter:title"
+      content="Brandkårer som drönarförsvarsenheter"
+    />
+    <meta
+      name="twitter:description"
+      content="Tre skäl: snabb insats, lokal kännedom, failover."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/brandkarer-dronarforsvars-enheter.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/fire-brigades-drone-defense-units.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/palokunnat-droonitorjuntayksikot.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/brandkarer-dronarforsvars-enheter.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/fire-brigades-drone-defense-units.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .callout {
+        background: rgba(6, 182, 212, 0.07);
+        border-left: 3px solid #06b6d4;
+        border-radius: 4px;
+      }
+      .callout-gold {
+        background: rgba(212, 168, 67, 0.08);
+        border-left: 3px solid #d4a843;
+        border-radius: 4px;
+      }
+      .reason-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .reason-card:hover {
+        border-color: rgba(6, 182, 212, 0.45);
+        transform: translateY(-2px);
+      }
+      .version-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        background: rgba(6, 182, 212, 0.15);
+        color: #67e8f9;
+        border: 1px solid rgba(6, 182, 212, 0.35);
+      }
+      .lang-bar {
+        display: inline-flex;
+        gap: 0.25rem;
+        font-size: 0.75rem;
+      }
+      .lang-bar a {
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        color: #94a3b8;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+      }
+      .lang-bar a:hover {
+        color: #67e8f9;
+        border-color: rgba(6, 182, 212, 0.5);
+      }
+      .lang-bar a.active {
+        color: #0f172a;
+        background: #67e8f9;
+        border-color: #67e8f9;
+        font-weight: 700;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu",
+        "description": "Varför Finlands räddningsverk och frivilliga brandkårer är det naturliga första-skikts C-UAS-skiktet.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-05-15",
+        "mainEntityOfPage": "https://onelifetime.world/posts/brandkarer-dronarforsvars-enheter.html",
+        "articleSection": "Försvar",
+        "inLanguage": "sv"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Meny">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Butik</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ-plattform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Butik</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12">
+        <header class="mb-8">
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <span class="version-chip">Försvar &middot; Fältnotis</span>
+            <div class="lang-bar" aria-label="Språk">
+              <a href="/posts/fire-brigades-drone-defense-units.html" hreflang="en">EN</a>
+              <a href="/posts/palokunnat-droonitorjuntayksikot.html" hreflang="fi">FI</a>
+              <a class="active" href="/posts/brandkarer-dronarforsvars-enheter.html" hreflang="sv"
+                >SV</a
+              >
+            </div>
+          </div>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Brandkårer som drönarförsvarsenheter &mdash; tre skäl att bygga nätverket nu
+          </h1>
+          <p class="mt-3 text-sm" style="color: #94a3b8">
+            <time datetime="2026-05-15">15 maj 2026</time> &middot; av Risto Anton Päärni
+          </p>
+        </header>
+
+        <aside class="ai-notice" role="note" aria-label="AI-genererat innehåll" style="margin:0 0 1.75rem;padding:0.85rem 1.1rem;border-left:3px solid #94a3b8;background:rgba(30,41,59,0.55);color:#cbd5e1;font-size:0.85rem;line-height:1.6">
+          <strong style="color:#f1f5f9">AI-genererat innehåll</strong> &middot; Den här sidan är en maskinöversättning av det engelska originalet och har inte granskats av en mänsklig översättare. Den engelska versionen är den text som gäller.
+            <a href="/posts/fire-brigades-drone-defense-units.html" hreflang="en" lang="en" style="color:#22d3ee;text-decoration:underline">Läs det engelska originalet &rarr;</a>
+        </aside>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">Nyheten på en rad</p>
+          <p class="mb-2">
+            Finlands nationella drönarstrategi (2026&ndash;2030) pekar ut dual-use
+            Drone-as-a-Service som modellen för civila och militära myndigheter. Ukrainafronten
+            lär samma läxa snabbare. De som står närmast himlen är redan organiserade, utbildade
+            och i beredskap ikväll &mdash; de bär gula hjälmar.
+          </p>
+          <p class="text-xs" style="color: #94a3b8">
+            Källor: Finlands nationella UxS-strategi, 2026; DWS-fältnotiser 15 april 2026 och 1
+            april 2026.
+          </p>
+        </section>
+
+        <p class="mb-6 text-lg leading-relaxed" style="color: #cbd5e1">
+          Goda nyheter kommer redan organiserade.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Finland har 33 regionala räddningsverk, över 700 frivilliga brandkårer (FBK) och cirka
+          13 000 aktiva frivilliga. De är i beredskap ikväll. Att göra dem till landets
+          första-skikts drönarförsvarsnätverk är ingen ny byggsten. Det är en liten utbyggnad
+          ovanpå en befintlig.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Och eftersom man inte bygger ett nätverk genom att hurra för det, här är den ärliga
+          delen.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          1. Snabb insats &mdash; minuter, inte timmar
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          En drönare över en transformatorstation ger minuter av beslutstid, inte timmar. En
+          nationell C-UAS-enhet, hur välutrustad som helst, kan inte vara på 700 platser
+          samtidigt. FBK är det redan. Genomsnittlig larm-till-plats: 6&ndash;10 minuter. Det är
+          det mått hotet faktiskt har.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #d4a843">
+            Hur klockan ser ut
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm" style="color: #cbd5e1">
+            <li>Liten kommersiell UAS i 60 km/h täcker 5 km på fem minuter.</li>
+            <li>
+              Nationell C-UAS-rotorflygning från en enda bas: 20&ndash;40 minuter.
+            </li>
+            <li>FBK larm-till-plats i egen kommun: 6&ndash;10 minuter i snitt.</li>
+            <li>
+              De första ögonen på en fientlig farkost är inte de som kommer efter starten. Det är
+              de som redan står på stationen.
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          2. Lokala förhållanden &mdash; vinden, skogen, ledningarna
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          En drönarförsvarsenhet måste läsa himlen som en lokalbo läser vädret. Var faller en
+          skadad farkost? Vilken skogsväg är farbar i april? Vilken transformatorstation matar
+          sjukhuset, vilken matar mejeriet? FBK svarar på dessa varje helg.
+        </p>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          En nationell operatör som flyger in för första gången behöver en timme bara för att
+          lära sig det som lokalbon kan utantill. I en drönarincident är den timmen incidenten.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #d4a843">
+            Vad &rdquo;lokal kännedom&rdquo; faktiskt betyder
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm" style="color: #cbd5e1">
+            <li>
+              Mikroklimat: GPS-drift från norrsken, havsdimmans tidsfönster,
+              sjö-effekt-snökorridorer.
+            </li>
+            <li>
+              Terräng: vilka skogsgläntor släpper igenom en lågflygande farkost, vilka öppna ytor
+              fungerar som säkra nätfångstpunkter.
+            </li>
+            <li>
+              Civil belastning: skolvägar, ambulanskorridorer, pimpelfiskeplatser där människor
+              står under varje skräpkägla.
+            </li>
+            <li>
+              Kritisk infrastruktur: vilken station, mast eller pumpstation ligger på vilken
+              matning, och vad faller om den faller.
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          3. Failover &mdash; 700 noder slår en
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Centraliserade system fallerar centralt. Distribuerade system degraderas mjukt. Om en
+          enskild störning slår ut regional kommunikation, eller en enda kommandonod ifrågasätts,
+          fortsätter ett nät med 700 noder att fungera.
+        </p>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Ukrainalärdomen är samma lärdom som internet lärde 1969: överlevnad är en egenskap hos
+          topologin, inte hos någon enskild nod. Det starkaste motdrönarsystemet är det som inte
+          har en enda punkt att attackera.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #d4a843">
+            Varför redundans är själva produkten
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm" style="color: #cbd5e1">
+            <li>
+              33 räddningsverk + 700+ FBK = över 700 stationer med oberoende kraft, oberoende
+              kommunikationsreserv, oberoende utlarmning.
+            </li>
+            <li>
+              Tappa en nod: 0,14 % av nationell täckning förlorad. Tappa en bataljon: hela
+              sektorns täckning förlorad.
+            </li>
+            <li>
+              Det lokala nätet fortsätter upptäcka och avspärra även när den nationella länken
+              ligger nere. När länken kommer tillbaka synkroniseras upptäckterna uppåt.
+            </li>
+            <li>
+              Så här överlevde nätet 1939&ndash;1944. Så här överlever himlen 2026.
+            </li>
+          </ul>
+        </div>
+
+        <section class="callout-gold p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #d4a843">
+            Vad FBK-modellen inte lovar &mdash; och varför det spelar roll
+          </p>
+          <p class="mb-2">
+            FBK är första insats, inte slutlig lösning. Modellen utgår från att den nationella
+            nivån fortfarande äger långdistansidentifiering, avsiktsbedömning, kinetiskt
+            ingripande över småkommersiell UAS, samt gränsöverskridande deconfliction med
+            Ryssland, NATO och EASA U-space.
+          </p>
+          <p class="mb-0">
+            FBK-skiktet är ögonen, avspärrningen och de första minuterna. Det är inte den
+            kinetiska lösningen mot en fastvingsinkräktare. Vi lovar inte mer av den frivilliges
+            mandat än det bär.
+          </p>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Var DWS passar ovanpå räddningsskiktet
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Hjältarna är redan i tjänst. Vi lägger till agentskiktet ovanpå dem &mdash; inte
+          enheten under dem.
+        </p>
+
+        <ul class="list-disc pl-6 space-y-2 mb-8 text-sm" style="color: #cbd5e1">
+          <li>
+            <strong>Ett enda surfplattegränssnitt</strong> &mdash; Fleet Commander triagevy,
+            KYA-bunden till en verifierad operatör. Samma arbetsflöde som dejourerande redan
+            använder för brand och SAR.
+          </li>
+          <li>
+            <strong>Lokal beräkning först</strong> &mdash; upptäckt och klassificering körs på
+            stationens kantnod. Fungerar utan länk. Synkroniseras när länken kommer tillbaka.
+          </li>
+          <li>
+            <strong>EASA U-space-integration</strong> &mdash; så att den nationella nivån ser det
+            den lokala ser, med lokal tidsstämpel och lokal proveniens.
+          </li>
+          <li>
+            <strong>EU AI Act artikel 12 resonemangsspår</strong> &mdash; varje upptäckt bär ett
+            manipulationssäkrat spår. Tillåtligt i domstol, försvarbart vid revision.
+          </li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Ett konkret exempel &mdash; en karelsk kväll klockan 19.42
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          En drönare, kommersiell klass, 60 km/h, låg höjd. Korsar östgränsen norr om Imatra.
+          Oidentifierad. Färdriktning längs Saimens strand mot ett vattenkraftverk.
+        </p>
+
+        <div class="reason-card rounded-lg p-5 mb-8">
+          <p class="text-xs font-bold uppercase tracking-wider mb-3" style="color: #d4a843">
+            Tidslinje: från larm till stängt fall
+          </p>
+          <ul class="space-y-3 text-sm" style="color: #cbd5e1">
+            <li>
+              <strong style="color: #67e8f9">Sekund 0.</strong> Imatra gränsbevakningens radar
+              målar målet. Larmet går.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Sekund 12 &mdash; Control Room (fält).</strong>
+              Dejourerande vid Joutseno FBK ser larmet på sin surfplatta. Fleet Commander
+              triagevyn visar tre saker samtidigt: målbanan, lokal vind (nordväst, 4&nbsp;m/s) och
+              närmaste stations ankomsttid 6 minuter. KYA binder dejourerandes identitet till
+              fallet &mdash; allt härifrån bär hennes namn.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Sekund 18 &mdash; SiteSense-agenten.</strong> Lägger
+              målbanan över den lokala infrakartan. Vattenkraftverk. 220&nbsp;kV-linje. Skolgård
+              800&nbsp;m åt sidan. Dejourerande ser samma skärm &mdash; samma resonemangskedja,
+              samma bevis.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minut 1:30 &mdash; Situation Room (strategiskt).</strong>
+              Helsingfors ser samma mål i en större ram. Finns det andra just nu? Ja, två: Kotka
+              och Villmanstrand. Detta är en svärm, inte en enskild. Themis-agenten öppnar ett
+              fall och drar igång tre parallella fältuppdrag.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minut 4.</strong> Joutseno-enheten är på plats.
+              Avspärrning igång. Lokala ögon, lokalt nät, lokalt beslut.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minut 6:30.</strong> Den nationella C-UAS-enheten
+              (Karelens flygflottilj) får bilden Themis byggde: tre mål, tre lokala
+              avspärrningar, GPS, lokal beviskedja. Inget dubbelarbete. Inga frågor om vem som såg
+              vad, när.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minut 9.</strong> Flygflottiljen tar det kinetiska
+              ansvaret. Joutseno håller avspärrningen. Trafiken flyter &mdash; ingen autonom
+              enhet hade klarat ensam, ingen nationell hade hunnit ensam.
+            </li>
+            <li>
+              <strong style="color: #67e8f9">Minut 22.</strong> Fallet stängt. EU AI Act artikel
+              12-resonemangsspår sparat från tolv agenter och tre människor. Granskbart om en
+              månad, ett år eller ett decennium.
+            </li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl font-bold mt-8 mb-3" style="color: #f1f5f9">
+          Vad Control Room och Situation Room var för sig levererar
+        </h3>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          <strong>Control Room</strong> (lokal) gör en sak bra: omvandlar larmet till ett beslut
+          på minuter, med lokal kännedom i loopen och beslutet spårbart.
+        </p>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          <strong>Situation Room</strong> (strategisk) gör en annan sak bra: ser svärmen, inte den
+          enskilda, och sömmar samman 700 lokala noder till en bild utan att frysa någon av dem
+          under tiden.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Tillsammans gör de en tredje sak som ingen klarar ensam: håller lokal aktör och
+          nationell helhetsbild i samma arbetsflöde &mdash; under samma KYA-rot, samma
+          resonemangskedja, samma gemensamma bild.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Varför vi inte centraliserar detta
+        </h2>
+
+        <p class="mb-4 leading-relaxed" style="color: #cbd5e1">
+          Frestelsen är alltid att centralisera. En enda C-UAS-bataljon, en enda kommandonod, en
+          enda upphandling. Det ser snyggt ut i PowerPoint. Det förlorar dag ett.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Djupförsvar är inte ett slagord. Det är det som överlevde 2022&ndash;2026 på östfronten.
+          Finlands strategi pekar redan ut dual-use DaaS. Den institutionella formen &mdash;
+          räddningsverken plus FBK &mdash; finns på plats. Lägg till agentskiktet ovanpå, inte
+          enheten under.
+        </p>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">Kortversionen</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>
+              Finland har redan 33 räddningsverk, 700+ FBK, cirka 13 000 utbildade frivilliga.
+            </li>
+            <li>
+              Drönarförsvar är ett minutspel. Bara distribuerade enheter hinner på minuter.
+            </li>
+            <li>Lokal kännedom om terräng, vind och infrastruktur kan inte köpas.</li>
+            <li>
+              Ett nät med 700 noder degraderas mjukt där en enda bataljon havererar helt.
+            </li>
+            <li>
+              Fleet Commander lägger till agent- och identitetsskiktet. Hjältarna är redan i
+              tjänst.
+            </li>
+          </ul>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Läs vidare</h2>
+
+        <ul class="list-disc pl-6 space-y-2 mb-10 text-sm" style="color: #cbd5e1">
+          <li>
+            <a href="/posts/core-resilience-hybrid-threats.html" class="text-cyan-400 hover:underline"
+              >CORE &mdash; EU-modellen som kartlägger varje hybridhot</a
+            >
+          </li>
+          <li>
+            <a href="/posts/kya-standard-v1.html" class="text-cyan-400 hover:underline"
+              >KYA-spesifikaatioen v1 &mdash; bindning av agenthandlingar till verifierad människa</a
+            >
+          </li>
+          <li>
+            <a href="/posts/solid-layers-aiven-scaleway-kya.html" class="text-cyan-400 hover:underline"
+              >Våra lager är solida &mdash; Aiven, Scaleway, KYA + Foundry</a
+            >
+          </li>
+        </ul>
+
+        <hr class="border-slate-700 my-8" />
+
+        <p class="text-sm" style="color: #94a3b8">
+          Risto Anton Päärni<br />
+          <em>vd, Lifetime Oy &middot; chefredaktör, Lifetime Scope Journal</em>
+        </p>
+      </article>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/palokunnat-droonitorjuntayksikot.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt</span>
+                    </a>
+                    <a href="/posts/moat-is-not-the-model.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fbrandkarer-dronarforsvars-enheter.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Brandk%C3%A5rer%20som%20dr%C3%B6narf%C3%B6rsvarsenheter%20%E2%80%94%20tre%20sk%C3%A4l%20att%20bygga%20n%C3%A4tverket%20nu%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fbrandkarer-dronarforsvars-enheter.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/brandkarer-dronarforsvars-enheter.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <p class="text-xs mb-4"><a href="https://dws10.com/price-list/sv/" style="color:#22d3ee;text-decoration:underline">Se prislistan &rarr;</a></p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Priser i prislistan</p>
+                            <p class="text-xs text-gray-500">AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Priser i prislistan</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; moms FI07724079 &middot; Helsingfors, Finland</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ-plattform</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Butik</a> &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Journal</a>
+      </p>
+    </footer>
+  </body>
+</html>

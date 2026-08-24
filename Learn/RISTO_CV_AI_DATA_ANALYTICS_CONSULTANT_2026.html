@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="generator" content="Claude Code (claude-sonnet-4-6)" />
+    <meta name="version" content="1.0" />
+    <meta name="date" content="2026-05-05" />
+    <meta
+      name="description"
+      content="Consultant profile — AI-driven Data & Analytics Development. Risto Anton Päärni, Lifetime Oy."
+    />
+    <title>Risto Anton Päärni — AI Data & Analytics Consultant</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #1a1a2e;
+        background: #f8f9fb;
+        padding: 32px 16px;
+      }
+
+      .page {
+        max-width: 820px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid #dde3ec;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      /* ── Header ── */
+      .header {
+        background: #0a1628;
+        color: #ffffff;
+        padding: 32px 40px 28px;
+      }
+
+      .header-meta {
+        font-size: 11px;
+        color: #7b9fc8;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 12px;
+      }
+
+      .header h1 {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+      }
+
+      .header .role {
+        font-size: 15px;
+        color: #a8c4e8;
+        margin-bottom: 16px;
+      }
+
+      .header .contact {
+        font-size: 12px;
+        color: #7b9fc8;
+      }
+
+      .header .contact a {
+        color: #a8c4e8;
+        text-decoration: none;
+      }
+
+      .header .contact span {
+        margin: 0 6px;
+        opacity: 0.4;
+      }
+
+      /* ── Brief response banner ── */
+      .brief-banner {
+        background: #e8f0fb;
+        border-left: 4px solid #1a56db;
+        padding: 16px 40px;
+        font-size: 13px;
+        color: #0a1628;
+        line-height: 1.5;
+      }
+
+      .brief-banner strong {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #1a56db;
+        margin-bottom: 4px;
+      }
+
+      /* ── Body ── */
+      .body {
+        padding: 32px 40px;
+      }
+
+      /* ── Section ── */
+      h2 {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #1a56db;
+        border-bottom: 1px solid #dde3ec;
+        padding-bottom: 6px;
+        margin: 28px 0 14px;
+      }
+
+      h2:first-of-type {
+        margin-top: 0;
+      }
+
+      /* ── KPI match table ── */
+      .match-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .match-table th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #f0f4fb;
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #0a1628;
+        border-bottom: 2px solid #dde3ec;
+      }
+
+      .match-table td {
+        padding: 9px 10px;
+        border-bottom: 1px solid #eef1f6;
+        vertical-align: top;
+      }
+
+      .match-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .check {
+        color: #0d7f3f;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1;
+      }
+
+      /* ── Skills grid ── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .skill-card {
+        border: 1px solid #dde3ec;
+        border-radius: 4px;
+        padding: 12px 14px;
+      }
+
+      .skill-card strong {
+        display: block;
+        font-size: 12px;
+        color: #0a1628;
+        margin-bottom: 4px;
+      }
+
+      .skill-card p {
+        font-size: 12px;
+        color: #4a5568;
+        line-height: 1.45;
+      }
+
+      /* ── Timeline ── */
+      .timeline {
+        list-style: none;
+      }
+
+      .timeline li {
+        position: relative;
+        padding: 10px 0 10px 20px;
+        border-bottom: 1px solid #f0f2f7;
+        font-size: 13px;
+      }
+
+      .timeline li:last-child {
+        border-bottom: none;
+      }
+
+      .timeline li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: #1a56db;
+        font-size: 11px;
+        top: 12px;
+      }
+
+      .timeline li strong {
+        display: block;
+        color: #0a1628;
+        font-size: 13px;
+      }
+
+      .timeline li span.year {
+        font-size: 11px;
+        color: #6b7694;
+        font-weight: 600;
+        margin-right: 6px;
+      }
+
+      /* ── Proof points ── */
+      .proof-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .proof-stat {
+        flex: 0 0 auto;
+        background: #0a1628;
+        color: #ffffff;
+        border-radius: 4px;
+        padding: 10px 16px;
+        text-align: center;
+        min-width: 80px;
+      }
+
+      .proof-stat .num {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1;
+        color: #a8c4e8;
+      }
+
+      .proof-stat .label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        opacity: 0.7;
+        margin-top: 3px;
+      }
+
+      .proof-text {
+        flex: 1;
+        font-size: 13px;
+        color: #2d3748;
+        line-height: 1.55;
+        padding-top: 2px;
+      }
+
+      /* ── Tag pills ── */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 4px;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 2px 9px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        background: #e8f0fb;
+        color: #1a56db;
+      }
+
+      .tag.green {
+        background: #e6f7ef;
+        color: #0d7f3f;
+      }
+
+      .tag.gold {
+        background: #fef6e0;
+        color: #92680a;
+      }
+
+      /* ── Logistics block ── */
+      .logistics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 6px;
+      }
+
+      .log-item {
+        background: #f0f4fb;
+        border-radius: 4px;
+        padding: 12px 14px;
+        font-size: 12px;
+      }
+
+      .log-item .log-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #6b7694;
+        margin-bottom: 3px;
+      }
+
+      .log-item .log-value {
+        font-weight: 700;
+        color: #0a1628;
+        font-size: 13px;
+      }
+
+      /* ── Education ── */
+      .edu-list {
+        list-style: none;
+        font-size: 13px;
+      }
+
+      .edu-list li {
+        padding: 6px 0;
+        border-bottom: 1px solid #f0f2f7;
+        color: #2d3748;
+      }
+
+      .edu-list li:last-child {
+        border-bottom: none;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        background: #f0f4fb;
+        border-top: 1px solid #dde3ec;
+        padding: 14px 40px;
+        font-size: 11px;
+        color: #6b7694;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer a {
+        color: #1a56db;
+        text-decoration: none;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+        .page {
+          border: none;
+          border-radius: 0;
+          max-width: 100%;
+        }
+        .header {
+          background: #fff;
+          color: #1b1f2a;
+          box-shadow: none;
+        }
+        .header-meta,
+        .header h1,
+        .role,
+        .contact,
+        .contact a {
+          color: #1b1f2a;
+        }
+        .contact a {
+          text-decoration: underline;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- ── Header ── -->
+      <div class="header">
+        <div class="header-meta">
+          Consultant Profile · AI-Driven Data &amp; Analytics Development
+        </div>
+        <h1>Risto Anton Päärni</h1>
+        <div class="role">
+          AI Architect &amp; Data Analytics Enablement Consultant · Founder &amp; CEO, Lifetime Oy
+        </div>
+        <div class="contact">
+          <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a>
+          <span>|</span>
+          <a href="tel:+358400319010">+358 400 319 010</a>
+          <span>|</span>
+          <a href="https://linkedin.com/in/ristopaarni" target="_blank" rel="noopener noreferrer"
+            >linkedin.com/in/ristopaarni</a
+          >
+          <span>|</span>
+          Lifetime Oy · Y-tunnus 0772407-9
+        </div>
+      </div>
+
+      <!-- ── Brief match banner ── -->
+      <div class="brief-banner">
+        <strong>Response to Brief</strong>
+        You are looking for a consultant who can land KPIs, coach teams on AI adoption, and drive
+        20–1000% improvements in data &amp; analytics workflows. I have done exactly this — for 35
+        years across industrial IT, and for the past 3 years specifically inside AI-native and
+        agentic development environments. I write Python and Claude tooling daily, deploy cloud data
+        pipelines, and have built production AI orchestration that replaces manual ETL loops.
+        Finnish native. Fluent English. Helsinki area. Available 50–75%.
+      </div>
+
+      <div class="body">
+        <!-- ── Requirements match ── -->
+        <h2>Requirements Match</h2>
+        <table class="match-table">
+          <thead>
+            <tr>
+              <th style="width: 42%">Brief Requirement</th>
+              <th style="width: 44%">My Fit</th>
+              <th style="width: 14%; text-align: center">Match</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data science with AI workflows — Python, Databricks, R, Claude tools</td>
+              <td>
+                Daily Python development; Claude Code + MCP orchestration in production; agentic ETL
+                pipelines; R for statistical validation in compliance models
+              </td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>ETL with AI assistance — Matillion+Maia, dbt+Claude, cloud data engineering</td>
+              <td>
+                dbt+Claude workflow deployed in DWS IQ 6 data layer; AWS Glue + Lambda ETL
+                migrations; cloud-native pipeline architecture (GCP, AWS, Azure)
+              </td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Understanding of AI in D&amp;A development processes</td>
+              <td>
+                Built and operate a 16+ agent AI orchestration platform; train teams on AI-native
+                development practices via AGENTS.md workshops
+              </td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Snowflake / Databricks platforms (beneficial)</td>
+              <td>
+                Snowflake data modelling for regulatory reporting; Databricks integration context
+                via EU compliance pipelines; MLflow experiment tracking
+              </td>
+              <td style="text-align: center"><span class="check">◑</span></td>
+            </tr>
+            <tr>
+              <td>Data science / MLOps — AI-native development</td>
+              <td>
+                AI-native SDLC: Claude Code harness, MCP tool layer, automated scoring; production
+                model monitoring + drift detection in EU compliance context
+              </td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Large datasets &amp; cloud-based solutions</td>
+              <td>
+                EU ETS / CBAM / CSRD regulatory datasets; IoT telemetry pipelines on NVIDIA Jetson →
+                AWS IoT Greengrass; pgvector + Supabase for vector workloads
+              </td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Process management — effective AI practices for D&amp;A teams</td>
+              <td>
+                Designed and documented DWS AI development standards (AGENTS.md, Skills harness);
+                run adoption workshops with cross-functional teams
+              </td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Finnish practically mandatory · Fluent English</td>
+              <td>Finnish native · English fluent (business, technical, written, spoken)</td>
+              <td style="text-align: center"><span class="check">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Core expertise ── -->
+        <h2>Core Technical Expertise</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <strong>AI-Native Data Development</strong>
+            <p>
+              Python + Claude Code for automated ETL generation, data validation, and anomaly
+              detection. dbt models authored with AI assistance. Prompt-to-pipeline workflows that
+              cut development cycles by 60–80%.
+            </p>
+          </div>
+          <div class="skill-card">
+            <strong>Cloud Data Engineering</strong>
+            <p>
+              AWS (Glue, S3, RDS, IoT Greengrass), GCP (Cloud Run, BigQuery), Azure (Data Factory).
+              Multi-cloud architecture: right service for the right data workload. EU data residency
+              by design.
+            </p>
+          </div>
+          <div class="skill-card">
+            <strong>Agentic Orchestration &amp; MCP</strong>
+            <p>
+              16+ TypeScript/Python agents in production. Model Context Protocol (MCP) for tool-use;
+              Claude, Gemini, Groq as model backends. Agent-to-agent delegation with deterministic
+              scoring.
+            </p>
+          </div>
+          <div class="skill-card">
+            <strong>KPI Design &amp; AI Adoption Frameworks</strong>
+            <p>
+              Structured AI maturity assessment for engineering teams. KPI baselines, adoption
+              ladders, and measurable OKRs for AI tool usage — from first prompt to autonomous
+              workflow.
+            </p>
+          </div>
+          <div class="skill-card">
+            <strong>Data Science &amp; MLOps</strong>
+            <p>
+              Statistical compliance modelling (EU ETS benchmarks, CBAM factors, ESRS). MLflow
+              experiment tracking. AI-assisted feature engineering. Production model monitoring with
+              drift alerts.
+            </p>
+          </div>
+          <div class="skill-card">
+            <strong>Team Enablement &amp; Best Practices</strong>
+            <p>
+              AGENTS.md methodology workshops; pair-programming with AI tools; code review
+              governance. Translates abstract AI potential into concrete team workflows with
+              measurable output.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Tech tags ── -->
+        <div class="tags" style="margin-top: 16px">
+          <span class="tag">Python</span>
+          <span class="tag">Claude Code</span>
+          <span class="tag">MCP</span>
+          <span class="tag">dbt</span>
+          <span class="tag">AWS Glue</span>
+          <span class="tag">Databricks</span>
+          <span class="tag">Snowflake</span>
+          <span class="tag">PostgreSQL / pgvector</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Docker</span>
+          <span class="tag">MLflow</span>
+          <span class="tag">R</span>
+          <span class="tag">SQL</span>
+          <span class="tag green">Finnish native</span>
+          <span class="tag green">English fluent</span>
+          <span class="tag gold">Remote + Helsinki 1×/week</span>
+        </div>
+
+        <!-- ── Consulting track record ── -->
+        <h2>Consulting Track Record</h2>
+        <ul class="timeline">
+          <li>
+            <span class="year">2021–2026</span>
+            <strong>Founder &amp; CEO — Lifetime Oy · DWS IQ 6 Platform</strong>
+            Built an enterprise AI agent platform from the ground up: 16+ autonomous agents, EU
+            regulatory compliance scoring, cloud data pipelines, and MCP-based tooling. Still writes
+            production Python and TypeScript daily.
+          </li>
+          <li>
+            <span class="year">2024–2026</span>
+            <strong>AI-Native Development Methodology — AGENTS.md</strong>
+            Designed and documented the DWS AI development standard adopted across all Lifetime Oy
+            engineering. Workshops delivered to cross-functional teams on Claude Code, prompt
+            engineering, and agentic ETL.
+          </li>
+          <li>
+            <span class="year">2023–2025</span>
+            <strong>Edge AI Data Pipeline — NVIDIA Jetson + AWS IoT Greengrass</strong>
+            Deployed real-time IoT telemetry pipeline: Jetson Orin Nano edge inference → AWS IoT
+            Greengrass → S3 → analytics layer. EUR 333k annual savings vs cloud-only architecture.
+          </li>
+          <li>
+            <span class="year">2022–2025</span>
+            <strong>EU Compliance Data Modelling — ETS, CBAM, CSRD, ESRS</strong>
+            Structured large-scale regulatory datasets (emission factors, sector benchmarks, 82 ESRS
+            disclosures). Built ETL pipelines sourced from EUR-Lex, EEA GHG Inventory, Eurostat SBS
+            — production-grade, audit-ready.
+          </li>
+          <li>
+            <span class="year">1991–2021</span>
+            <strong>35 Years Industrial IT — ERP Migrations &amp; Factory Data Systems</strong>
+            End-to-end data system experience: factory floors, SCADA integrations, SAP/Dynamics/IFS
+            ERP migrations, and cloud architecture for Scandinavian manufacturers.
+          </li>
+        </ul>
+
+        <!-- ── Proof points ── -->
+        <h2>Proof Points</h2>
+
+        <div class="proof-row">
+          <div class="proof-stat">
+            <div class="num">35</div>
+            <div class="label">Years IT</div>
+          </div>
+          <div class="proof-text">
+            Three-and-a-half decades from factory floor data systems to AI-native cloud
+            architectures. Not a slide consultant — I debug production pipelines.
+          </div>
+        </div>
+
+        <div class="proof-row">
+          <div class="proof-stat">
+            <div class="num">16+</div>
+            <div class="label">Agents</div>
+          </div>
+          <div class="proof-text">
+            Production-grade autonomous agents running against EU regulated industry datasets.
+            Claude + Python + MCP orchestration, not prototype demos.
+          </div>
+        </div>
+
+        <div class="proof-row">
+          <div class="proof-stat">
+            <div class="num">500+</div>
+            <div class="label">Commits</div>
+          </div>
+          <div class="proof-text">
+            Active GitHub history — code review-ready architectures, CI/CD pipelines, and
+            AI-assisted development workflows committed and shipped.
+          </div>
+        </div>
+
+        <div class="proof-row">
+          <div class="proof-stat">
+            <div class="num">10×</div>
+            <div class="label">Cost cut</div>
+          </div>
+          <div class="proof-text">
+            Typical outcome when migrating Lambda/container stacks to Claude Platform on AWS. KPI
+            improvement methodology is built on real delivery numbers.
+          </div>
+        </div>
+
+        <!-- ── Approach to this role ── -->
+        <h2>How I Would Approach This Engagement</h2>
+
+        <table class="match-table">
+          <thead>
+            <tr>
+              <th style="width: 30%">Phase</th>
+              <th>What I Deliver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Week 1–2 · Baseline</strong></td>
+              <td>
+                AI maturity assessment per team: current tool usage, workflow gaps, blocker
+                inventory. Output: scored maturity map with team-level starting KPIs.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Week 3–4 · KPI Design</strong></td>
+              <td>
+                Define measurable KPIs per team and use case (20%→1000% targets depend on maturity
+                delta). Tie to concrete D&amp;A workflow metrics: time-to-insight, pipeline error
+                rate, AI-assisted code share, ETL rework frequency.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Month 2–3 · Enablement</strong></td>
+              <td>
+                Hands-on workshops: dbt+Claude, Python AI workflows, prompt engineering for data
+                tasks. Pair with engineers on real pipelines — not slide decks.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Month 3+ · Governance</strong></td>
+              <td>
+                Establish best-practice playbook, review cadence, and self-sustaining AI adoption
+                habits. Teams own the KPIs; I make them stick.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Education ── -->
+        <h2>Education &amp; Credentials</h2>
+        <ul class="edu-list">
+          <li>
+            <strong>M.Sc. (Tech), Industrial Management</strong> — Engineering &amp; business
+            operations intersection; thesis on AI-driven industrial systems
+          </li>
+          <li>
+            <strong>Program memberships:</strong> Microsoft Founders Hub · NVIDIA Inception · GitHub
+            Enterprise · Peachscore Accelerator
+          </li>
+          <li>
+            <strong>Regulatory credentials:</strong> 3 InvestEU Portal listings (DWS 3, 4, 6 —
+            INPO-20254383); ISO 27001 / SOC 2 / EU AI Act Article 12 roadmap in progress
+          </li>
+          <li>
+            <strong>Languages:</strong> Finnish (native) · English (fluent) · Swedish (fluent)
+          </li>
+        </ul>
+
+        <!-- ── Logistics ── -->
+        <h2>Availability &amp; Logistics</h2>
+        <div class="logistics">
+          <div class="log-item">
+            <div class="log-label">Location</div>
+            <div class="log-value">Remote + Helsinki 1×/week</div>
+          </div>
+          <div class="log-item">
+            <div class="log-label">Allocation</div>
+            <div class="log-value">50–75% · Flexible</div>
+          </div>
+          <div class="log-item">
+            <div class="log-label">Start</div>
+            <div class="log-value">May 2026 · Negotiable</div>
+          </div>
+          <div class="log-item">
+            <div class="log-label">Languages</div>
+            <div class="log-value">Finnish &amp; English</div>
+          </div>
+          <div class="log-item">
+            <div class="log-label">Rate</div>
+            <div class="log-value">€1,500/day · €200/h</div>
+          </div>
+          <div class="log-item">
+            <div class="log-label">Company</div>
+            <div class="log-value">Lifetime Oy (VAT 0%)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Footer ── -->
+      <div class="footer">
+        <span>
+          Risto Anton Päärni · risto@lifetime.fi · +358 400 319 010 · Lifetime Oy · Y-tunnus
+          0772407-9
+        </span>
+        <span>Document v1.0 · 05 May 2026 · Generated by Claude Code (claude-sonnet-4-6)</span>
+      </div>
+    </div>
+  </body>
+</html>

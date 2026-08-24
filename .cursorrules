@@ -1,0 +1,19 @@
+# DWS6 Cursor Rules
+
+## Required Reading Before UI Changes
+
+Before making any UI changes, you MUST consult these files:
+
+- `DWS_BRAND_STANDARD.md` — Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges
+- `DWS_DOCUMENT_STANDARD.md` — Document formatting, sections, metadata
+- `UI_SKILLS_GAMMA.md` — Tailwind, Radix UI, accessibility, animations
+- `CLAUDE.md` — Full project context, architecture, security rules
+
+## Key Rules
+
+1. **Hamburger Menu:** Only ONE version exists at `shared-assets/nav/hamburger-menu.js`. Never duplicate inline.
+2. **Dual Folder Rule:** Landing pages exist in TWO locations (e.g. `dws10.com/` and `landing-pages/dws10-com/`). Update BOTH.
+3. **Dark Theme:** All DWS pages use dark theme tokens from DWS_BRAND_STANDARD.md.
+4. **Store Categories:** Products use `storeCategory` field in `config/products.json` (platform, ai-cloud, advisory, digital).
+5. **Touch Targets:** Minimum 48px on mobile (WCAG 2.2 AAA).
+6. **Security:** Never commit .env files, API keys, or Admin/ folder contents.

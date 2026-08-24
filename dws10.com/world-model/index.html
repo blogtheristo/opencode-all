@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifetime World Model V1 | Europe's Sovereign Industrial Intelligence | DWS IQ 6</title>
+    <meta
+      name="description"
+      content="Europe's first Sovereign Industrial Intelligence engine. Air-gapped physical AI that commands complex industrial operations, respects physical laws, and leads European regulatory environments — from inside your network boundary."
+    />
+    <meta
+      name="keywords"
+      content="sovereign industrial intelligence, physical AI, sovereign AI, NVIDIA DGX, world model, European industry, air-gapped AI, on-premise AI, industrial AI, EU AI Act, CBAM, dual-use"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Lifetime World Model V1 | Europe's Sovereign Industrial Intelligence"
+    />
+    <meta
+      property="og:description"
+      content="Air-gapped physical AI for European heavy industry. Trained on-prem. Data never leaves. Your model is yours."
+    />
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="https://dws10.com/world-model/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Europe's Sovereign Industrial Intelligence" />
+    <meta
+      name="twitter:description"
+      content="Air-gapped physical AI for European heavy industry. Your data stays. Your model is yours."
+    />
+    <link rel="canonical" href="https://dws10.com/world-model/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <style>
+      :root {
+        --accent-blue: #60a5fa;
+        --accent-green: #4ade80;
+        --accent-amber: #fbbf24;
+        --accent-purple: #a78bfa;
+        --surface: rgba(30, 41, 59, 0.5);
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        line-height: 1.7;
+        color: var(--text);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 100px 0 70px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(167, 139, 250, 0.15);
+        color: var(--accent-purple);
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 28px;
+        border: 1px solid rgba(167, 139, 250, 0.3);
+        letter-spacing: 0.04em;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+      }
+
+      .hero h1 span {
+        color: var(--accent-blue);
+      }
+
+      .hero p.subtitle {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        max-width: 620px;
+        margin: 0 auto 12px;
+        line-height: 1.7;
+      }
+
+      .hero-powered {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 24px;
+        letter-spacing: 0.03em;
+      }
+
+      .hero-powered strong {
+        color: var(--accent-green);
+      }
+
+      /* Sections */
+      section {
+        padding: 72px 0;
+      }
+
+      section + section {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+
+      h2 span {
+        color: var(--accent-blue);
+      }
+
+      .section-lead {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        line-height: 1.7;
+      }
+
+      .section-body {
+        color: var(--text-muted);
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .section-body p + p {
+        margin-top: 16px;
+      }
+
+      .section-body strong {
+        color: var(--text);
+      }
+
+      /* Guarantee items */
+      .guarantee-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 28px;
+      }
+
+      .guarantee-list li {
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        font-size: 1rem;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .guarantee-list li::before {
+        content: "\2713";
+        color: var(--accent-green);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* Case study */
+      .case-label {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent-amber);
+        margin-bottom: 12px;
+      }
+
+      /* Not SaaS callout */
+      .not-saas-line {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      /* CTA */
+      .cta-section {
+        text-align: center;
+        padding: 80px 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .cta-section h2 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+
+      .cta-sub {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        margin-bottom: 36px;
+      }
+
+      .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .cta-btn {
+        display: block;
+        background: var(--accent-blue);
+        color: #0f172a;
+        padding: 18px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.05rem;
+        transition: opacity 0.2s;
+      }
+
+      .cta-btn:hover {
+        opacity: 0.9;
+      }
+
+      .cta-btn-outline {
+        display: block;
+        color: var(--accent-blue);
+        border: 2px solid var(--accent-blue);
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background 0.2s;
+      }
+
+      .cta-btn-outline:hover {
+        background: rgba(96, 165, 250, 0.1);
+      }
+
+      .cta-btn-ghost {
+        display: block;
+        color: var(--accent-green);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background 0.2s;
+      }
+
+      .cta-btn-ghost:hover {
+        background: rgba(74, 222, 128, 0.08);
+      }
+
+      .cta-btn-sub {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+        font-weight: 400;
+      }
+
+      .cta-contact {
+        margin-top: 24px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+        .hero {
+          padding: 60px 0 50px;
+        }
+        section {
+          padding: 50px 0;
+        }
+        .cta-buttons {
+          max-width: 100%;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Lifetime World Model V1 (LWM)",
+        "description": "Europe's first Sovereign Industrial Intelligence engine. Air-gapped physical AI for 25 EU-regulated industries on NVIDIA hardware.",
+        "brand": { "@type": "Brand", "name": "DWS IQ Platform" },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "category": "Sovereign Industrial Intelligence",
+        "offers": {
+          "@type": "Offer",
+          "name": "Enterprise License",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/PreOrder",
+          "description": "Sovereign on-premise industrial intelligence deployment. Contact for consultation."
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">Lifetime World Model V1</div>
+        <h1>Europe's Sovereign <span>Industrial Intelligence</span></h1>
+        <p class="subtitle">
+          The era of generic, cloud-dependent AI is over for heavy industry. LWM V1 is an air-gapped
+          physical AI foundation built to command complex industrial operations, respect physical
+          laws, and lead European regulatory environments &mdash; from inside your network boundary.
+        </p>
+        <p class="hero-powered">
+          Natively powered by <strong>NVIDIA</strong>. Deployed globally by
+          <strong>Lifetime Oy</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- The Architecture of Command -->
+    <section>
+      <div class="container">
+        <h2>The Architecture of <span>Command</span></h2>
+        <div class="section-body">
+          <p>
+            Sovereign Industrial Intelligence is built on a dual-helix architecture:
+            <strong>Operational DNA</strong> (thermodynamic profiles, acoustic signatures, shift
+            patterns, process workflows) and <strong>Regulatory DNA</strong> (CBAM, CSRD, EU AI Act
+            Art.&nbsp;12, NIS2). One governed model that internalises both &mdash; on-site,
+            air-gapped &mdash; so compliance becomes a native byproduct of operational awareness.
+          </p>
+        </div>
+        <ul class="guarantee-list">
+          <li>
+            <strong>Zero Cloud Dependency.</strong> The model trains and executes entirely on your
+            NVIDIA hardware. Every byte of operational telemetry stays inside your walls. Finnish
+            jurisdiction only &mdash; no CLOUD Act, no FISA 702.
+          </li>
+          <li>
+            <strong>Compound Returns.</strong> Every shift, every sensor reading, every operational
+            decision makes the model smarter. After twelve months your factory&rsquo;s intelligence
+            is a permanent corporate asset that no competitor can copy, rent, or reverse-engineer.
+          </li>
+          <li>
+            <strong>Unreplicable Moat.</strong> Per-site unique model trained where the data lives.
+            You own 100% of the resulting model weights. The moat is not the model &mdash; it is
+            whose data trained it.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Industrial Intelligence in Action -->
+    <section>
+      <div class="container">
+        <span class="case-label">Industrial Intelligence in Action</span>
+        <h2>The Tornio <span>Paradigm</span></h2>
+        <div class="section-body">
+          <p>
+            At Outokumpu's Tornio Stainless Steel Mill, the Lifetime World Model doesn't just
+            analyze data &mdash; it internalizes the physical reality of the facility.
+          </p>
+          <p>
+            By running an entirely air-gapped training cascade on local NVIDIA hardware, the model
+            learns the unique thermodynamic profiles, acoustic signatures, and operational workflows
+            of high-energy electric arc furnaces. It automates complex compliance logging for the EU
+            AI Act and CBAM as a <strong>native byproduct of its operational awareness</strong>.
+          </p>
+          <p>The data stays in the mill. The intelligence stays in the boardroom.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- This Is Not SaaS -->
+    <section>
+      <div class="container">
+        <h2>This Is <span>Not SaaS</span></h2>
+        <p class="not-saas-line">
+          You cannot build an unassailable corporate moat on a subscription basis.
+        </p>
+        <div class="section-body">
+          <p>
+            SaaS platforms force you to export your proprietary operational DNA to external servers,
+            effectively subsidizing a generic model that will eventually be sold back to your
+            rivals.
+          </p>
+          <p>
+            <strong
+              >We don't rent you software. We deploy permanent cognitive infrastructure that you own
+              outright.</strong
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to See What <span>Sovereign Intelligence</span> Looks Like?</h2>
+        <p class="cta-sub">
+          One conversation. We assess your operational topology, regulatory exposure, and deployment
+          timeline.
+        </p>
+        <div class="cta-buttons">
+          <a
+            href="https://wa.me/358400319010?text=I%27m%20interested%20in%20Sovereign%20Industrial%20Intelligence.%20Can%20we%20set%20up%20a%20pilot%20conversation%3F"
+            class="cta-btn"
+            target="_blank"
+            >Start a Pilot Conversation
+            <span class="cta-btn-sub"
+              >Teams &middot; WhatsApp &middot; Jitsi &mdash; your choice</span
+            >
+          </a>
+          <a
+            href="https://dws10.com/contact/"
+            class="cta-btn-outline"
+            >Request Pilot Delivery Plan
+            <span class="cta-btn-sub"
+              >Receive a customized pilot scope, timeline, and NVIDIA hardware specification</span
+            >
+          </a>
+          <a
+            href="https://wa.me/358400319010?text=I%27d%20like%20to%20receive%20the%20European%20Sovereign%20Industrial%20Intelligence%20whitepaper."
+            class="cta-btn-ghost"
+            target="_blank"
+            >Learn More &mdash; Request the Whitepaper
+            <span class="cta-btn-sub"
+              >European Sovereign Industrial Intelligence &mdash; the full thesis, architecture, and
+              25-industry model library</span
+            >
+          </a>
+        </div>
+        <p class="cta-contact">risto@lifetime.fi &middot; Lifetime Oy &middot; Helsinki, Finland</p>
+      </div>
+    </section>
+
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

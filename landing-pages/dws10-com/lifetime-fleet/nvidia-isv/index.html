@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Developer | DWS IQ Platform</title>
+    <meta name="description" content="DWS IQ runs on certified NVIDIA Developer — no custom driver work, no compatibility risk. NVIDIA brings the compute, DWS IQ brings the compliance.">
+    <meta name="keywords" content="NVIDIA Developer, Grace Blackwell, Jetson Orin, GN-100, edge AI, DWS IQ, industrial AI, EU compliance">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="NVIDIA Developer | DWS IQ Platform">
+    <meta property="og:description" content="NVIDIA brings the compute, DWS IQ brings the compliance. Two certified layers, one integration.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/lifetime-fleet/nvidia-isv/">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NVIDIA Developer | DWS IQ Platform">
+    <meta name="twitter:description" content="NVIDIA brings the compute, DWS IQ brings the compliance. Two certified layers, one integration.">
+    <link rel="canonical" href="https://dws10.com/lifetime-fleet/nvidia-isv/">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    <style>
+        :root {
+            --nvidia-green: #76b900;
+            --nvidia-green-dim: rgba(118, 185, 0, 0.15);
+            --nvidia-green-border: rgba(118, 185, 0, 0.3);
+            --nvidia-black: #000000;
+            --nvidia-dark: #1a1a1a;
+            --gold: #d4a843;
+            --gold-light: #f0d78c;
+            --gold-dim: rgba(212, 168, 67, 0.15);
+            --gold-border: rgba(212, 168, 67, 0.4);
+            --dark: #0a0a0a;
+            --dark-card: rgba(26, 26, 26, 0.8);
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --blue: #60a5fa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: #000000;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 70px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(118,185,0,0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 50% 100%, rgba(212,168,67,0.06) 0%, transparent 50%),
+                        #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--nvidia-green), var(--gold), var(--nvidia-green), transparent);
+        }
+        .hero-badge {
+            display: inline-block;
+            color: var(--gold-light);
+            border: 1px solid var(--gold-border);
+            background: var(--gold-dim);
+            border-radius: 20px;
+            padding: 8px 22px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            animation: badge-glow 3s ease-in-out infinite;
+        }
+        @keyframes badge-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212,168,67,0.15); }
+            50% { box-shadow: 0 0 30px rgba(212,168,67,0.3); }
+        }
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #c49b38 70%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            line-height: 1.15;
+            font-weight: 800;
+        }
+        .hero h1 .nvidia-text {
+            background: linear-gradient(135deg, var(--nvidia-green), #8fd400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-partner-line {
+            font-size: 1.1rem;
+            color: var(--nvidia-green);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero-sub {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 36px;
+        }
+        .hero-value {
+            font-size: 1.05rem;
+            color: var(--text);
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(20,20,20,0.95));
+            border: 1px solid var(--nvidia-green-border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: left;
+            position: relative;
+        }
+        .hero-value::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--nvidia-green-border), var(--gold-border), var(--nvidia-green-border));
+            z-index: -1;
+        }
+        .hero-value strong { color: var(--nvidia-green); }
+
+        /* Sections */
+        .section {
+            padding: 60px 20px;
+            background: var(--nvidia-black);
+            border-top: 1px solid rgba(118,185,0,0.08);
+        }
+        .section-label {
+            color: var(--nvidia-green);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .section h2 {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .section-intro {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            max-width: 750px;
+            margin-bottom: 40px;
+        }
+
+        /* Hardware Stack Diagram */
+        .stack-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .stack-layer {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            align-items: stretch;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-bottom: none;
+        }
+        .stack-layer:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .stack-label {
+            padding: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .stack-detail {
+            padding: 20px;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+        .stack-detail strong { color: var(--text); }
+        .layer-compliance { background: rgba(245,158,11,0.06); }
+        .layer-compliance .stack-label { color: #f59e0b; }
+        .layer-ai { background: rgba(96,165,250,0.06); }
+        .layer-ai .stack-label { color: #60a5fa; }
+        .layer-compute { background: var(--nvidia-green-dim); }
+        .layer-compute .stack-label { color: var(--nvidia-green); }
+        .layer-edge { background: rgba(16,185,129,0.06); }
+        .layer-edge .stack-label { color: #10b981; }
+        .layer-robot { background: rgba(239,68,68,0.06); }
+        .layer-robot .stack-label { color: #ef4444; }
+
+        /* Grid Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(15,15,15,0.95));
+            border: 1px solid rgba(118,185,0,0.12);
+            border-radius: 12px;
+            padding: 28px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+        .card:hover {
+            border-color: var(--nvidia-green-border);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            color: var(--text);
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+        .card p { color: var(--text-dim); font-size: 0.95rem; }
+        .card-icon { font-size: 1.6rem; margin-bottom: 12px; }
+
+        /* Co-sell */
+        .cosell {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            align-items: center;
+            gap: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cosell-side {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(15,15,15,0.95));
+            border: 1px solid rgba(118,185,0,0.12);
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+        }
+        .cosell-plus {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--nvidia-green);
+        }
+        .cosell-side h3 { margin-bottom: 8px; }
+        .cosell-side .cosell-tag {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .tag-nvidia { color: var(--nvidia-green); border: 1px solid var(--nvidia-green-border); }
+        .tag-dws { color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
+        .cosell-result {
+            text-align: center;
+            margin-top: 32px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(15,15,15,0.95));
+            border: 1px solid var(--nvidia-green-border);
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cosell-result p { color: var(--text); font-size: 1.1rem; }
+        .cosell-result strong { color: var(--nvidia-green); }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px 80px;
+            background: var(--nvidia-black);
+            border-top: 1px solid rgba(118,185,0,0.08);
+        }
+        .cta-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        .cta-section p {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .cta-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-links a {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+        .cta-links a:hover { opacity: 0.85; }
+        .btn-nvidia { background: var(--nvidia-green); color: #000; }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.2); color: var(--text); }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 20px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--text); }
+
+        @media (max-width: 768px) {
+            .hero { padding: 80px 20px 50px; }
+            .hero h1 { font-size: 2rem; }
+            .stack-layer { grid-template-columns: 1fr; }
+            .stack-label { border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .stack-detail { border-left: none; }
+            .cosell { grid-template-columns: 1fr; gap: 16px; }
+            .cosell-plus { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/lifetime-fleet/" class="back-link">← Lifetime Fleet</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">✦ Official NVIDIA Developer ✦</div>
+        <h1>We Are <span class="nvidia-text">NVIDIA</span> Developer</h1>
+        <div class="hero-partner-line">Lifetime Oy — NVIDIA Developer 2026</div>
+        <p class="hero-sub">DWS IQ Platform runs on certified NVIDIA Developer. Two validated layers, one seamless integration — no compatibility risk.</p>
+        <div class="hero-value">
+            DWS IQ runs on <strong>certified NVIDIA Developer</strong> — from Grace Blackwell edge clusters to Jetson robotics modules. When an OEM or system integrator sees "NVIDIA Developer", it means: <strong>tested, validated, and supported through NVIDIA's official ecosystem.</strong>
+        </div>
+    </section>
+
+    <!-- HARDWARE STACK -->
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Hardware Architecture</div>
+            <h2>The Compute Stack — Edge to Robot</h2>
+            <p class="section-intro">
+                Every layer runs on NVIDIA silicon. Every layer stays on-premises. No cloud dependency for any operational function.
+            </p>
+
+            <div class="stack-diagram">
+                <div class="stack-layer layer-compliance">
+                    <div class="stack-label">🛡️ Compliance</div>
+                    <div class="stack-detail">
+                        <strong>DWS IQ Platform</strong> — EU AI Act Article 12 logging, CSRD reporting, Fit for 55 automation. The compliance wrapper that makes everything below it legally deployable in EU regulated industry.
+                    </div>
+                </div>
+                <div class="stack-layer layer-ai">
+                    <div class="stack-label">🧠 AI Orchestration</div>
+                    <div class="stack-detail">
+                        <strong>16 specialist LLMs</strong> running locally via Grok conductor. Multi-agent reasoning with full audit trail. Zero tokens leave the premises.
+                    </div>
+                </div>
+                <div class="stack-layer layer-compute">
+                    <div class="stack-label">⚡ Compute Cluster</div>
+                    <div class="stack-detail">
+                        <strong>Acer Veriton GN100</strong> — NVIDIA GB10 Grace Blackwell SoC · 128 GB LPDDR5X unified memory · DGX Ubuntu · 230V EU plug. Industrial-grade AI workstation at partner rates. Now <strong style="color: var(--nvidia-green);">productised</strong> in two turnkey SKUs:
+                        <ul style="margin-top: 10px; padding-left: 22px; font-size: 0.92rem; color: var(--text-dim);">
+                            <li><a href="/products/edge-node-gn100.html" style="color: var(--nvidia-green);"><strong>Control Room</strong></a> — 1× GN100 + NVIDIA model install — €4,994</li>
+                            <li><a href="/products/situation-room.html" style="color: var(--nvidia-green);"><strong>Situation Room</strong></a> — 2× bridged GN100 + NVIDIA model bundle — €8,993 (dual-use ready)</li>
+                            <li><a href="/products/nvidia-model-install.html" style="color: var(--nvidia-green);"><strong>NVIDIA Model Install</strong></a> — add-on service — €995 per device</li>
+                            <li><strong>Sovereign Model Updates</strong> — €299/mo — LLM updates + 24/7 support + warranty + remote configuration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="stack-layer layer-edge">
+                    <div class="stack-label">📡 Edge Inference</div>
+                    <div class="stack-detail">
+                        <strong>NVIDIA Jetson Orin Nano</strong> — Real-time sensor fusion, PLC telemetry ingest, local prediction engine. Sub-10ms control loop for robot coordination.
+                    </div>
+                </div>
+                <div class="stack-layer layer-robot">
+                    <div class="stack-label">🤖 Physical Execution</div>
+                    <div class="stack-detail">
+                        <strong>Optimus V3 + fleet robots</strong> — Commands arrive over local JSON-RPC 2.0 via GbE VLAN. Hardware safe-stop on disconnect. EU AI Act Annex III biometric logging when cameras are active.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT ISV STATUS MEANS FOR YOU -->
+    <section class="section">
+        <div class="container">
+            <div class="section-label">What This Means for Your Integration</div>
+            <h2>Zero Compatibility Risk</h2>
+            <p class="section-intro">
+                NVIDIA Developer status isn't a logo. It's a technical validation that removes integration friction for every party in the stack.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>Partner Network Access</h3>
+                    <p>NVIDIA actively connects ISV partners with hardware OEMs and system integrators. Warm introductions into exactly the robot manufacturer relationships we're building.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✅</div>
+                    <h3>Certified Infrastructure</h3>
+                    <p>DWS IQ is validated against NVIDIA's driver stack, CUDA toolkit, and container runtime. No custom patches, no version pinning surprises.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📢</div>
+                    <h3>Co-Marketing Channel</h3>
+                    <p>NVIDIA promotes ISV partners through their industrial AI and robotics content channels. DWS IQ gets visibility in front of the OEM audience that matters.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔮</div>
+                    <h3>Early Hardware Access</h3>
+                    <p>Blackwell successors, Jetson roadmap updates, new edge deployment architectures — ISV partners get specs before general availability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CO-SELL ANGLE -->
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Co-Sell Architecture</div>
+            <h2>Two Certified Layers, One Integration</h2>
+            <p class="section-intro">
+                An OEM plugs a robot into this stack and gets both compute certification and EU regulatory compliance in one integration. No second vendor needed.
+            </p>
+
+            <div class="cosell">
+                <div class="cosell-side">
+                    <span class="cosell-tag tag-nvidia">NVIDIA</span>
+                    <h3>The Compute Layer</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">Grace Blackwell silicon · CUDA · Jetson · DGX software stack · Driver certification · Hardware ecosystem</p>
+                </div>
+                <div class="cosell-plus">+</div>
+                <div class="cosell-side">
+                    <span class="cosell-tag tag-dws">DWS IQ</span>
+                    <h3>The Compliance Layer</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">EU AI Act Article 12 · CSRD · Fit for 55 · CBAM · NIS2 · Annex III biometric logging · Sovereign data residency</p>
+                </div>
+            </div>
+            <div class="cosell-result">
+                <p>OEMs don't want to build compliance from scratch. System integrators don't want driver compatibility risk. <strong>This stack eliminates both.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Ready to Integrate?</h2>
+        <p>DWS IQ's NVIDIA-certified compute layer is open for robot OEMs, system integrators, and industrial automation partners.</p>
+        <div class="cta-links">
+            <a href="https://dws10.com/contact/" class="btn-nvidia">Book a Technical Integration Call →</a>
+            <a href="/lifetime-fleet/optimus-v3/" class="btn-outline">View Optimus V3 Partnership →</a>
+            <a href="/lifetime-fleet/" class="btn-outline">← Back to Fleet</a>
+        </div>
+    </section>
+
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+
+</html>

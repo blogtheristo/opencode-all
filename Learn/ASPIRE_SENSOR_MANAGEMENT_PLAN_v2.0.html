@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sensor-Powered SiteSense Plan v2.0</title><style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem; color: #24292f; background: #fff; }
+h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h3 { margin-top: 1.5em; }
+code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 6px; font-size: 85%; }
+pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #d0d7de; padding: 6px 13px; }
+th { background: #f6f8fa; }
+blockquote { border-left: 4px solid #d0d7de; margin: 0; padding: 0 1em; color: #57606a; }
+a { color: #0969da; }
+.version-banner { display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; margin-bottom: 2rem; font-size: 0.9rem; }
+.version-banner .title { font-weight: 600; }
+.version-badge { background: #f5c518; color: #1a1a2e; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; }
+.version-banner .meta { text-align: right; font-size: 0.8rem; opacity: 0.85; }
+</style></head>
+<body>
+
+<div class="version-banner">
+  <span class="title">Sensor-Powered SiteSense Plan</span>
+  <span class="version-badge">v2.0</span>
+  <span class="meta">Lifetime Oy &middot; 2026-03-19 &middot; Learn/ (private)</span>
+</div>
+
+<h1>Sensor-Powered SiteSense — Edge Sensor Management for DWS IQ 6</h1>
+
+<h2>Problem</h2>
+
+<p>DWS agents make safety and compliance decisions on <strong>manually-entered sensor data</strong>. SiteSense (<code>src/agents/sitesense.agent.ts:47-56</code>) requires human operators to type temperature, humidity, and wind speed — unreliable, slow, and un-auditable. This blocks agent autonomy and makes audit trails legally weak ("the operator said it was 22°C").</p>
+
+<h2>Solution</h2>
+
+<p>A lightweight TypeScript sensor collector on the GN100 edge node that:</p>
+</ul>
+
+<p>No new language runtimes. No new orchestration layers. Just a TypeScript service, a database schema, and agent tools.</p>
+
+<h2>Architecture</h2>
+
+<pre><code>  Sensors / Scripts / Firehorse App
+<p>           |</p>
+<p>     HTTP POST /api/sensors/readings</p>
+<p>           |</p>
+<p>  ┌────────────────────┐</p>
+<p>  │  sensor-collector   │  (new TypeScript service)</p>
+<p>  │  Express + OTEL     │</p>
+<p>  └────────┬───────────┘</p>
+<p>           |</p>
+<p>  ┌────────────────────┐</p>
+<p>  │  TimescaleDB        │  (existing edge PG on GN100)</p>
+<p>  │  sensor_readings    │  (hypertable + compression)</p>
+<p>  │  sensor_hourly      │  (continuous aggregate)</p>
+<p>  └────────┬───────────┘</p>
+<p>           |</p>
+<p>  ┌────────────────────┐</p>
+<p>  │  Agent Query Tools  │  (in src/agents/tools.ts)</p>
+<p>  │  - query_sensor_*   │</p>
+<p>  │  - list_sensor_*    │</p>
+<p>  └────────┬───────────┘</p>
+<p>           |</p>
+<p>  ┌────────────────────┐</p>
+<p>  │  SiteSense Agent    │  auto-populates from sensors</p>
+<p>  │  (existing)         │  fallback: manual input</p>
+<p>  └────────────────────┘</p>
+</code></pre>
+
+<p><strong>What's NOT in this plan:</strong> .NET Aspire AppHost, MQTT, Supabase cloud sync, GPS, energy meters, cameras, Langfuse integration. These earn their place after this phase proves value.</p>
+
+<h2>Implementation — Single Phase (2 weeks, ~25h)</h2>
+
+<h3>Week 1: Schema + Collector + Tools</h3>
+
+<p>#### 1.1 TimescaleDB Sensor Schema</p>
+
+<p>Extend existing edge PostgreSQL on GN100 (<code>Admin/Acer-Veriton-GN100/postgres/init.sql</code> already has TimescaleDB enabled).</p>
+
+<pre><code class="language-sql">-- Sensor readings hypertable
+<p>CREATE TABLE IF NOT EXISTS sensor_readings (</p>
+<p>    time        TIMESTAMPTZ NOT NULL,</p>
+<p>    device_id   TEXT NOT NULL,</p>
+<p>    sensor_type TEXT NOT NULL,</p>
+<p>    value       DOUBLE PRECISION NOT NULL,</p>
+<p>    unit        TEXT NOT NULL,</p>
+<p>    metadata    JSONB DEFAULT '{}',</p>
+<p>    quality     SMALLINT DEFAULT 100  -- 0-100 data quality score</p>
+<p>);</p>
+
+<p>SELECT create_hypertable('sensor_readings', 'time', if_not_exists => TRUE);</p>
+
+<p>-- Compression: 7-day policy</p>
+<p>ALTER TABLE sensor_readings SET (</p>
+<p>    timescaledb.compress,</p>
+<p>    timescaledb.compress_segmentby = 'device_id,sensor_type'</p>
+<p>);</p>
+<p>SELECT add_compression_policy('sensor_readings', INTERVAL '7 days',</p>
+<p>    if_not_exists => TRUE);</p>
+
+<p>-- Hourly continuous aggregate</p>
+<p>CREATE MATERIALIZED VIEW IF NOT EXISTS sensor_hourly</p>
+<p>WITH (timescaledb.continuous) AS</p>
+<p>SELECT</p>
+<p>    time_bucket('1 hour', time) AS bucket,</p>
+<p>    device_id,</p>
+<p>    sensor_type,</p>
+<p>    AVG(value) AS avg_value,</p>
+<p>    MIN(value) AS min_value,</p>
+<p>    MAX(value) AS max_value,</p>
+<p>    COUNT(*) AS reading_count</p>
+<p>FROM sensor_readings</p>
+<p>GROUP BY bucket, device_id, sensor_type;</p>
+
+<p>-- Indexes for agent query patterns</p>
+<p>CREATE INDEX IF NOT EXISTS idx_sensor_latest</p>
+<p>    ON sensor_readings (device_id, sensor_type, time DESC);</p>
+</code></pre>
+
+<p>#### 1.2 Sensor Collector Service (TypeScript)</p>
+
+<p>New service at <code>src/sensor-collector/</code>:</p>
+
+<table><tr><td>File</td><td>Purpose</td></tr></table>
+<p>|------|---------|</p>
+<table><tr><td><code>src/sensor-collector/package.json</code></td><td>Dependencies: express, pg, @opentelemetry/sdk-node</td></tr>
+<tr><td><code>src/sensor-collector/src/index.ts</code></td><td>Express app entry point</td></tr>
+<tr><td><code>src/sensor-collector/src/routes/readings.ts</code></td><td><code>POST /api/sensors/readings</code> — validate + batch insert</td></tr>
+<tr><td><code>src/sensor-collector/src/storage/timescale-writer.ts</code></td><td>pg pool, batch insert, connection retry</td></tr>
+<tr><td><code>src/sensor-collector/src/storage/offline-buffer.ts</code></td><td>SQLite fallback when TimescaleDB unavailable</td></tr>
+<tr><td><code>src/sensor-collector/tsconfig.json</code></td><td>TypeScript config</td></tr></table>
+
+<p><strong>Endpoint spec:</strong></p>
+<pre><code>POST /api/sensors/readings
+<p>Content-Type: application/json</p>
+
+<p>{</p>
+<p>  "readings": [</p>
+<p>    {</p>
+<p>      "device_id": "gn100-helsinki-01",</p>
+<p>      "sensor_type": "temperature",</p>
+<p>      "value": 18.5,</p>
+<p>      "unit": "celsius",</p>
+<p>      "time": "2026-03-19T10:30:00Z",</p>
+<p>      "metadata": { "location": "site-A", "floor": 3 }</p>
+<p>    }</p>
+<p>  ]</p>
+<p>}</p>
+
+<p>Response: 201 { "inserted": 1 }</p>
+</code></pre>
+
+<p><strong>Validation:</strong> Zod schema. Reject readings older than 24h or with invalid sensor_type. Valid types: <code>temperature</code>, <code>humidity</code>, <code>wind_speed</code>, <code>pressure</code>, <code>noise</code>, <code>dust</code>, <code>vibration</code>, <code>light</code>.</p>
+
+<p><strong>Offline buffer:</strong> When TimescaleDB connection fails, write to local SQLite (<code>/tmp/sensor-buffer.db</code>). Background job retries every 60s.</p>
+
+<p>#### 1.3 Agent Sensor Query Tools</p>
+
+<p>Add to <code>src/agents/tools.ts</code>:</p>
+
+<table><tr><td>Tool</td><td>Input</td><td>Output</td></tr></table>
+<p>|------|-------|--------|</p>
+<table><tr><td><code>query_sensor_latest</code></td><td><code>{ device_id, sensor_type }</code></td><td>Latest reading with timestamp</td></tr>
+<tr><td><code>query_sensor_aggregate</code></td><td><code>{ device_id, sensor_type, hours }</code></td><td>avg/min/max for time range</td></tr>
+<tr><td><code>list_sensor_devices</code></td><td><code>{}</code></td><td>Array of <code>{ device_id, sensor_types[], last_seen }</code></td></tr></table>
+
+<p>#### 1.4 CLI Commands</p>
+
+<p>Add to <code>cli/src/cli.ts</code>:</p>
+
+<pre><code class="language-bash">dws sensors push --device gn100-helsinki-01 --type temperature --value 18.5 --unit celsius
+<p>dws sensors query --device gn100-helsinki-01 --type temperature --latest</p>
+<p>dws sensors devices</p>
+</code></pre>
+
+<h3>Week 2: SiteSense Integration + Hero Demo</h3>
+
+<p>#### 2.1 SiteSense Auto-Populate</p>
+
+<p>Modify <code>src/agents/sitesense.agent.ts</code>:</p>
+</ul>
+
+<p>#### 2.2 Hero Demo</p>
+
+<p>The moment that proves this works:</p>
+
+<pre><code class="language-bash"># 1. Push sensor data (simulating a real sensor)
+<p>dws sensors push --device site-helsinki-01 --type temperature --value 18.5 --unit celsius</p>
+<p>dws sensors push --device site-helsinki-01 --type humidity --value 65 --unit percent</p>
+<p>dws sensors push --device site-helsinki-01 --type wind_speed --value 11.2 --unit m/s</p>
+
+<h1>2. Run SiteSense — it auto-populates from sensors</h1>
+<p>dws run sitesense --input '{"siteId": "site-helsinki-01", "metrics": {"workers": 12, "incidents": 0}}'</p>
+
+<h1>Output includes real sensor data + safety score + audit provenance</h1>
+</code></pre>
+
+<p>The operator only provides worker count and incident count. Temperature, humidity, and wind speed come from live sensors automatically.</p>
+
+<h2>Files to Create/Modify</h2>
+
+<table><tr><td>File</td><td>Action</td><td>Lines (est.)</td></tr></table>
+<p>|------|--------|-------------|</p>
+<table><tr><td><code>Admin/Acer-Veriton-GN100/postgres/init-sensors.sql</code></td><td><strong>Create</strong> — sensor schema</td><td>~40</td></tr>
+<tr><td><code>src/sensor-collector/package.json</code></td><td><strong>Create</strong></td><td>~25</td></tr>
+<tr><td><code>src/sensor-collector/tsconfig.json</code></td><td><strong>Create</strong></td><td>~15</td></tr>
+<tr><td><code>src/sensor-collector/src/index.ts</code></td><td><strong>Create</strong> — entry point</td><td>~50</td></tr>
+<tr><td><code>src/sensor-collector/src/routes/readings.ts</code></td><td><strong>Create</strong> — HTTP handler</td><td>~80</td></tr>
+<tr><td><code>src/sensor-collector/src/storage/timescale-writer.ts</code></td><td><strong>Create</strong> — PG writer</td><td>~60</td></tr>
+<tr><td><code>src/sensor-collector/src/storage/offline-buffer.ts</code></td><td><strong>Create</strong> — SQLite fallback</td><td>~50</td></tr>
+<tr><td><code>src/agents/tools.ts</code></td><td><strong>Modify</strong> — add 3 sensor query tools</td><td>~80</td></tr>
+<tr><td><code>src/agents/sitesense.agent.ts</code></td><td><strong>Modify</strong> — auto-populate from sensors</td><td>~30</td></tr>
+<tr><td><code>cli/src/cli.ts</code></td><td><strong>Modify</strong> — add <code>dws sensors</code> commands</td><td>~40</td></tr>
+<tr><td><code>src/__tests__/sensor-tools.test.ts</code></td><td><strong>Create</strong> — tool unit tests</td><td>~60</td></tr>
+<tr><td><strong>Total</strong></td><td>| <strong>~530 lines</strong></td></tr></table>
+
+<h2>EU Compliance</h2>
+
+<table><tr><td>Data Location</td><td>Content</td><td>Compliance</td></tr></table>
+<p>|---------------|---------|------------|</p>
+<table><tr><td>Edge GN100, Helsinki</td><td>Raw sensor readings</td><td>GDPR — data never leaves Finland</td></tr>
+<tr><td>Local SQLite buffer</td><td>Temporary offline cache</td><td>Auto-deleted after sync</td></tr></table>
+
+<p>KYA Standard v1.4: sensor readings attached to agent execution logs for court-defensible audit trail. Every SiteSense decision links to the exact <code>sensor_readings</code> rows that informed it.</p>
+
+<h2>Cost Estimate</h2>
+
+<table><tr><td>Item</td><td>Hours</td><td>Cost (EUR 95/h)</td></tr></table>
+<p>|------|-------|-----------------|</p>
+<table><tr><td>Schema + collector service</td><td>10h</td><td>EUR 950</td></tr>
+<tr><td>Agent tools + CLI</td><td>8h</td><td>EUR 760</td></tr>
+<tr><td>SiteSense integration</td><td>4h</td><td>EUR 380</td></tr>
+<tr><td>Tests + hero demo</td><td>3h</td><td>EUR 285</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>25h</strong></td><td><strong>EUR 2,375</strong></td></tr></table>
+
+<p>Infrastructure cost: EUR 0 additional (TimescaleDB open source, edge hardware deployed).</p>
+
+<h2>Deep Tech Moat Impact</h2>
+
+</ul>
+
+<h2>Risks and Mitigations</h2>
+
+<table><tr><td>Risk</td><td>Likelihood</td><td>Mitigation</td></tr></table>
+<p>|------|-----------|------------|</p>
+<table><tr><td>No real sensors yet (chicken-and-egg)</td><td>High</td><td>CLI <code>dws sensors push</code> enables scripted/simulated data. Real sensors plug in via same HTTP POST.</td></tr>
+<tr><td>Edge PG capacity on GN100</td><td>Low</td><td>120 GiB RAM, TimescaleDB compression 10-20x.</td></tr>
+<tr><td>Offline buffer data loss</td><td>Low</td><td>SQLite WAL mode, 60s retry, logged warnings.</td></tr></table>
+
+<h2>Verification Plan</h2>
+
+</ul>
+
+<h2>Future Phases (NOT committed — earn the right)</h2>
+
+<p>These are documented for context only. Each requires its own CEO review before starting:</p>
+
+</ul>
+
+<h2>Sources</h2>
+
+</ul>
+
+
+</body>
+</html>

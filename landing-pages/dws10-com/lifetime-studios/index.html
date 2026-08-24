@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifetime Studios | All DWS Projects | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Lifetime Studios — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta name="keywords" content="lifetime studios, creative studio, design, development" />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Lifetime Studios | All DWS Projects | Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="Lifetime Studios — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/lifetime-studios/index.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lifetime Studios | All DWS Projects | Lifetime Oy" />
+    <meta
+      name="twitter:description"
+      content="Lifetime Studios — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <link rel="canonical" href="https://dws10.com/lifetime-studios/index.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Gamma Enterprise Styles -->
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=11" />
+
+    <style>
+      /* Studios Specific Styles */
+      .studios-hero {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        color: white;
+        padding: 100px 20px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .studios-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(circle at 30% 70%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 70% 30%, rgba(0, 102, 204, 0.15) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .studios-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #9333ea 0%, #ec4899 50%, #f97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .studios-hero p {
+        font-size: 1.3rem;
+        color: #94a3b8;
+        max-width: 700px;
+        margin: 0 auto 30px;
+      }
+
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 3rem;
+        font-weight: 800;
+        color: white;
+      }
+
+      .stat-label {
+        color: #94a3b8;
+        font-size: 0.95rem;
+      }
+
+      /* Projects Section */
+      .projects-section {
+        background: #f8fafc;
+        padding: 80px 20px;
+      }
+
+      .projects-section h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        color: #0a1628;
+        margin-bottom: 15px;
+      }
+
+      .projects-section .intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 50px;
+        color: #64748b;
+        font-size: 1.1rem;
+      }
+
+      /* Category Tabs */
+      .category-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .category-tab {
+        padding: 12px 25px;
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 30px;
+        color: #64748b;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .category-tab:hover,
+      .category-tab.active {
+        background: #0066cc;
+        border-color: #0066cc;
+        color: white;
+      }
+
+      /* Projects Grid */
+      .projects-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+      }
+
+      .project-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .project-.project-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .project-icon.agent {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+      }
+      .project-icon.platform {
+        background: linear-gradient(135deg, rgba(0, 102, 204, 0.2), rgba(0, 102, 204, 0.1));
+      }
+      .project-icon.product {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
+      }
+      .project-icon.infra {
+        background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(147, 51, 234, 0.1));
+      }
+      .project-icon.ux {
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.1));
+      }
+
+      .project-version {
+        background: #f1f5f9;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #64748b;
+      }
+
+      .project-card h3 {
+        font-size: 1.25rem;
+        color: #0a1628;
+        margin-bottom: 10px;
+      }
+
+      .project-card p {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .project-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .project-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .status-dot.active {
+        background: #10b981;
+      }
+      .status-dot.waiting {
+        background: #f59e0b;
+      }
+      .status-dot.planned {
+        background: #94a3b8;
+      }
+      .status-dot.running {
+        background: #0066cc;
+      }
+
+      .github-link {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #64748b;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s ease;
+      }
+
+      .github-link:hover {
+        color: #0a1628;
+      }
+
+      /* Category Badges */
+      .category-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .badge-agent {
+        background: rgba(255, 215, 0, 0.2);
+        color: #b8860b;
+      }
+      .badge-platform {
+        background: rgba(0, 102, 204, 0.2);
+        color: #0066cc;
+      }
+      .badge-product {
+        background: rgba(16, 185, 129, 0.2);
+        color: #059669;
+      }
+      .badge-infra {
+        background: rgba(147, 51, 234, 0.2);
+        color: #7c3aed;
+      }
+      .badge-ux {
+        background: rgba(236, 72, 153, 0.2);
+        color: #db2777;
+      }
+
+      /* Phase Indicator */
+      .phase-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #f1f5f9;
+        padding: 3px 10px;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-left: 10px;
+      }
+
+      /* Admin Login Section (Hidden by default) */
+      .admin-section {
+        background: #0a1628;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .admin-section h2 {
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .admin-section p {
+        color: #94a3b8;
+        margin-bottom: 30px;
+      }
+
+      .admin-btn {
+        background: linear-gradient(135deg, #9333ea, #7c3aed);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .admin-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(147, 51, 234, 0.4);
+      }
+
+      /* Workflow Proposal Banner */
+      .workflow-banner {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 12px;
+        padding: 20px 30px;
+        margin: 40px auto;
+        max-width: 900px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .workflow-banner-icon {
+        font-size: 2.5rem;
+      }
+
+      .workflow-banner-text h4 {
+        color: #0a1628;
+        margin-bottom: 5px;
+      }
+
+      .workflow-banner-text p {
+        color: #64748b;
+        margin: 0;
+        font-size: 0.95rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-stats {
+          gap: 30px;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .workflow-banner {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Enterprise Navigation - Gamma Light Header -->
+    <style>
+      nav li:hover > .dropdown {
+        display: block !important;
+      }
+      nav .has-submenu:hover > .submenu {
+        display: block !important;
+      }
+    </style>
+
+    <!-- Hero -->
+    <section class="studios-hero">
+      <h1>Lifetime Studios</h1>
+      <p>
+        At <strong>Lifetime Studios</strong>, our team carefully hand-crafts and validates every
+        <strong>AI agent candidate</strong> for the <strong>Lifetime Agent Foundry</strong>. Every
+        accepted agent becomes a <strong>High Quality Workflow (HQW)</strong> and a tracked project
+        inside the <strong>DWS IQ</strong> product family—managed end-to-end across its full
+        lifetime with <strong>Lifetime Scope Signals</strong>, and led by
+        <strong>Human-in-the-Loop</strong>.
+      </p>
+
+      <div
+        style="
+          max-width: 900px;
+          margin: 30px auto 0;
+          text-align: left;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        "
+      >
+        <p style="margin: 0 0 14px; color: #e2e8f0; font-size: 1.05rem; line-height: 1.7">
+          <span style="color: #ffd700; font-weight: 800">
+            The Best of our Agents and Artefacts are accepted into the Lifetime Agent Foundry.
+          </span>
+          They can be <strong>open-sourced</strong>, <strong>licensed</strong>, or
+          <strong>delivered</strong> as part of an enterprise customer rollout—ensuring high
+          enterprise security and quality standards are met:
+        </p>
+        <ul
+          style="
+            margin: 0;
+            padding-left: 18px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1.02rem;
+          "
+        >
+          <li>
+            <strong>SOC 2 Type II readiness:</strong> SOC 2 CI/CD V1 implemented — auditable change
+            control, build/release gates, and automated evidence capture across security,
+            availability, and confidentiality controls.
+          </li>
+          <li>
+            <strong>ISO 27001 alignment:</strong> ISMS-aligned policies, risk management, and
+            continuous improvement.
+          </li>
+          <li>
+            <strong>GDPR + EU data residency:</strong> privacy-by-design, data minimization, and
+            EU-hosting options where applicable.
+          </li>
+          <li>
+            <strong>NIS2 readiness:</strong> implemented governance + risk management controls,
+            centralized logging/monitoring, and an incident response process with runbooks and
+            escalation for reportable events (incl. supplier/supply-chain considerations).
+          </li>
+          <li>
+            <strong>EU AI Act compliance by design:</strong> documentation, transparency, and risk
+            controls for AI features as applicable.
+          </li>
+          <li>
+            <strong>Identity &amp; access security:</strong> least-privilege RBAC implemented;
+            strong authentication enforced; and audit logs captured for access and privileged
+            changes.
+          </li>
+          <li>
+            <strong>Lifetime Scope Signals:</strong> milestone-based agent gating
+            (READY/COMPLETE/BLOCKED) to coordinate work, reduce risk, and keep end-to-end
+            traceability.
+          </li>
+          <li>
+            <strong>Monitoring & incident response:</strong> centralized logs, alerting, runbooks,
+            and post-incident review.
+          </li>
+          <li>
+            <strong>Vulnerability management:</strong> SAST + dependency scanning, remediation SLAs,
+            and patch discipline.
+          </li>
+          <li>
+            <strong>Secure SDLC:</strong> threat modeling, code review, change control, and release
+            discipline.
+          </li>
+          <li>
+            <strong>Data protection:</strong> encryption in transit and at rest; key management
+            practices.
+          </li>
+          <li>
+            <strong>Backup & recovery:</strong> backup strategy with recovery testing (RPO/RTO
+            targets defined per environment).
+          </li>
+          <li>
+            <strong>Vendor & supply-chain risk:</strong> dependency governance, secrets hygiene, and
+            third-party risk review for critical providers.
+          </li>
+          <li>
+            <strong>Enterprise delivery:</strong> documentation, rollout playbooks, and handover
+            support for customer security teams.
+          </li>
+        </ul>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-value">120+</div>
+          <div class="stat-label">Agents &amp; Artefacts</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">4</div>
+          <div class="stat-label">Active Phases</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">51</div>
+          <div class="stat-label">Days to Launch</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Running Now</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow Banner -->
+    <section style="background: #f8fafc; padding: 40px 20px 0">
+      <div class="workflow-banner">
+        <div class="workflow-banner-icon">⚡</div>
+        <div class="workflow-banner-text">
+          <h4>Agent → Project Workflow</h4>
+          <p>
+            Every new agent is automatically proposed as a project and added to this registry.
+            Projects sync to Supabase with version tracking, GitHub status, and deployment state.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+      <h2>📦 Project Registry</h2>
+      <p class="intro">
+        The detailed Lifetime Studios Agent &amp; Artefact registry is <strong>not public</strong>.
+        It is available only to <strong>approved investors</strong> after login.
+      </p>
+
+      <!-- Category Tabs -->
+      <div class="category-tabs">
+        <div class="category-tab active">All Projects</div>
+        <div class="category-tab">🤖 AI Agents</div>
+        <div class="category-tab">🔲 Platform</div>
+        <div class="category-tab">📦 Products</div>
+        <div class="category-tab">🔌 Infrastructure</div>
+        <div class="category-tab">🎨 UX Design</div>
+      </div>
+
+      <!-- Investor Gate (public page redaction) -->
+      <div class="workflow-banner" style="margin-top: 10px">
+        <div class="workflow-banner-icon">🔒</div>
+        <div class="workflow-banner-text">
+          <h4>Approved Investors Only</h4>
+          <p>
+            The detailed Agent &amp; Artefact list (names, versions, repos, milestones) is
+            restricted. Please sign in to view the registry.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px">
+            <a href="../investor-relations/" class="admin-btn" style="text-decoration: none"
+              >→ Investor Relations &amp; Sign-in</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section class="admin-section">
+      <h2>🔐 Admin Access</h2>
+      <p>
+        Detailed project status, GitHub integration, and deployment controls require admin
+        authentication.
+      </p>
+      <a href="../client-portal/" class="admin-btn">Login to Admin Portal</a>
+    </section>
+
+    <!-- Footer -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

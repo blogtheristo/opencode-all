@@ -1,0 +1,51 @@
+{
+  "items": [
+    {
+      "projectId": "PRJ-001",
+      "name": "HQ Expansion",
+      "region": "Nordics",
+      "phase": "execution",
+      "spi": 0.94,
+      "cpi": 0.96,
+      "percentComplete": 58,
+      "daysAheadBehind": -5,
+      "safetyStatus": "amber",
+      "qualityStatus": "red",
+      "riskLevel": "red"
+    },
+    {
+      "projectId": "PRJ-002",
+      "name": "Office Retrofit",
+      "region": "Central Europe",
+      "phase": "planning",
+      "spi": 1.02,
+      "cpi": 0.98,
+      "percentComplete": 12,
+      "daysAheadBehind": 3,
+      "safetyStatus": "green",
+      "qualityStatus": "green",
+      "riskLevel": "green"
+    },
+    {
+      "projectId": "PRJ-003",
+      "name": "Industrial Warehouse",
+      "region": "Eastern Europe",
+      "phase": "execution",
+      "spi": 0.88,
+      "cpi": 0.91,
+      "percentComplete": 42,
+      "daysAheadBehind": -8,
+      "safetyStatus": "red",
+      "qualityStatus": "amber",
+      "riskLevel": "red"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pageSize": 20,
+    "total": 47,
+    "totalPages": 3
+  },
+  "asOf": "2025-12-23T08:00:00Z"
+}
+

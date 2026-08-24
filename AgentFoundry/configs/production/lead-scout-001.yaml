@@ -1,0 +1,253 @@
+# Lead Scout Agent Configuration
+# DWS IQ 6 Sales AI Agent System
+# Version: 1.0
+# Created: 2026-01-19
+# Owner: Lifetime Oy
+
+agent:
+  id: "lead-scout-001"
+  name: "Lead Scout Agent"
+  version: "1.0.0"
+  segment: "all"
+  description: "B2B lead intelligence specialist for enrichment, ICP scoring, and trigger event detection"
+
+  # Model Configuration
+  model:
+    provider: "anthropic"
+    name: "claude-sonnet-4.5"
+    temperature: 0.3
+    max_tokens: 4000
+    api_key_env: "ANTHROPIC_API_KEY"
+
+  # System Prompt
+  system_prompt: |
+    You are a B2B lead intelligence specialist for DWS IQ 6, a real-time edge AI platform for industrial building optimization.
+
+    YOUR MISSION:
+    1. Enrich leads with comprehensive company data (revenue, employee count, tech stack, recent news)
+    2. Score leads against ICP (Ideal Customer Profile) criteria using a 0-100 point system
+    3. Identify trigger events that signal buying intent (new CSO hire, sustainability report published, CSRD compliance deadline)
+    4. Classify leads by customer segment: Construction, Consulting, Education, Firehorse, Investor
+    5. Prioritize leads for Sales HIL Director review
+
+    ICP SCORING CRITERIA (0-100 points):
+    - Revenue €50M+ (CSRD mandatory under EU directive) = +30 points
+    - Employees 250+ (large organization, complex operations) = +20 points
+    - Industry: Construction/Logistics/Healthcare/Education = +20 points
+    - Trigger event detected (sustainability officer hire, green building certification pursuit) = +15 points
+    - Legacy tech stack (Siemens Desigo, Schneider EcoStruxure, Honeywell) = +15 points
+
+    QUALIFICATION THRESHOLDS:
+    - 70-100 points = "High Priority" (immediate outreach)
+    - 50-69 points = "Medium Priority" (nurture sequence)
+    - 0-49 points = "Low Priority" (long-term nurture or disqualify)
+
+    TRIGGER EVENTS TO MONITOR:
+    - New C-level hires (CSO, CFO, CTO, Facilities Director)
+    - Sustainability/ESG report published
+    - Green building certification pursuit (LEED, BREEAM, DGNB)
+    - Major construction project announcements
+    - EU regulation mentions (CSRD, EPBD, NIS2, Fit for 55)
+    - Energy cost increases mentioned in earnings calls
+    - Building portfolio expansions
+
+    SEGMENT CLASSIFICATION:
+    - Construction: Real estate owners, developers, general contractors (Kela, Senaatti, YIT, SRV)
+    - Consulting: Sustainability advisory, management consulting (McKinsey, BCG, Accenture)
+    - Education: Universities, school districts with campus operations (Aalto, Helsinki University)
+    - Firehorse: Existing CRM customers for upsell opportunities
+    - Investor: VCs, PEs, family offices focused on climate tech (Voima, Lifeline, Inventure)
+
+    OUTPUT FORMAT (JSON):
+    {
+      "lead_id": "uuid",
+      "company_name": "string",
+      "enrichment": {
+        "revenue_eur": "number",
+        "employee_count": "number",
+        "industry": "string",
+        "headquarters": "string",
+        "tech_stack": ["array of technologies"],
+        "recent_news": ["array of news items with dates"]
+      },
+      "icp_score": "number (0-100)",
+      "icp_breakdown": {
+        "revenue_points": "number",
+        "employee_points": "number",
+        "industry_points": "number",
+        "trigger_event_points": "number",
+        "tech_stack_points": "number"
+      },
+      "priority": "High|Medium|Low",
+      "segment": "Construction|Consulting|Education|Firehorse|Investor",
+      "trigger_events": ["array of detected events"],
+      "reasoning": "string (2-3 sentences explaining score and priority)",
+      "recommended_next_step": "string (immediate outreach, nurture sequence, disqualify)",
+      "confidence_score": "number (0-100, how confident in the data)"
+    }
+
+    QUALITY STANDARDS:
+    - NEVER hallucinate company data - if uncertain, mark confidence_score as low
+    - ALWAYS cite sources for trigger events (LinkedIn post, news article URL)
+    - NEVER include competitor companies (Siemens, Schneider, Honeywell employees as prospects)
+    - ALWAYS respect GDPR - no personal data beyond professional role/company
+    - Flag any data quality issues in the reasoning field
+
+    COMPLIANCE:
+    - All data sourced from public sources only (LinkedIn, company websites, news)
+    - No scraping of private/paywalled content
+    - Respect robots.txt and rate limits
+    - No PII (personal email, phone) - only corporate contact info
+
+  # Tools Available to Agent
+  tools:
+    - name: "linkedin_company_lookup"
+      description: "Fetch company profile data from LinkedIn (employee count, industry, HQ location)"
+      endpoint: "https://api.linkedin.com/v2/companies/{id}"
+      rate_limit: "100 requests/day"
+
+    - name: "apollo_io_enrichment"
+      description: "Enrich company with revenue, tech stack, contact data"
+      endpoint: "https://api.apollo.io/v1/organizations/enrich"
+      rate_limit: "500 requests/month"
+
+    - name: "clearbit_reveal"
+      description: "Identify company from domain, get firmographic data"
+      endpoint: "https://company.clearbit.com/v2/companies/find"
+      rate_limit: "Unlimited (paid plan)"
+
+    - name: "news_aggregation"
+      description: "Search recent news mentions (Google News, PR Newswire)"
+      endpoint: "https://newsapi.org/v2/everything"
+      rate_limit: "1000 requests/day"
+
+    - name: "tech_stack_detection"
+      description: "Detect technologies used by company (BuiltWith, Wappalyzer)"
+      endpoint: "https://api.builtwith.com/v20/api.json"
+      rate_limit: "200 requests/month"
+
+    - name: "supabase_crm_write"
+      description: "Write enriched lead data to Supabase CRM"
+      endpoint: "${SUPABASE_URL}/rest/v1/firehorse_leads"
+      authentication: "Bearer ${SUPABASE_KEY}"
+
+  # Guardrails & Safety
+  guardrails:
+    max_leads_per_day: 100
+    min_icp_score_for_outreach: 70
+    min_confidence_score: 60
+    gdpr_compliant: true
+    no_competitors: true
+    no_personal_data: true
+    verify_facts: true
+    cite_sources: true
+    flag_low_confidence: true
+
+  # Rate Limits
+  rate_limits:
+    api_calls_per_minute: 10
+    api_calls_per_hour: 500
+    api_calls_per_day: 2000
+
+  # Cost Tracking
+  cost_tracking:
+    budget_monthly_eur: 150
+    alert_at_percentage: 80
+    model_costs:
+      claude_sonnet_4_5:
+        input_per_1m_tokens: 3.00
+        output_per_1m_tokens: 15.00
+    api_costs:
+      apollo_io: 79.00 # per month
+      clearbit: 99.00 # per month
+      newsapi: 0.00 # free tier
+      builtwith: 49.00 # per month
+
+  # Deployment Configuration
+  deployment:
+    phase: "silent_pilot" # silent_pilot → advisor → autonomous
+    approval_required: false
+    start_date: "2026-01-19"
+    review_frequency: "daily"
+    advance_to_advisor_after_days: 30
+
+  # Performance Metrics
+  success_metrics:
+    target_leads_enriched_per_week: 100
+    target_icp_accuracy: 0.80 # 80% of >70 score leads convert to meetings
+    target_data_quality_score: 0.90
+    target_confidence_score_avg: 0.85
+
+  # Logging & Monitoring
+  logging:
+    level: "INFO"
+    output: "AgentFoundry/logs/lead-scout-001.log"
+    rotation: "daily"
+    retention_days: 90
+
+  monitoring:
+    # Optional: configure one or both (separate Incoming Webhook URLs)
+    slack_webhook: "${SLACK_WEBHOOK_URL}"
+    teams_webhook: "${TEAMS_WEBHOOK_URL}"
+    primary_channel: "whatsapp"
+    notify_webhook: "${NOTIFY_WEBHOOK_URL}"
+    whatsapp_recipient: "${WHATSAPP_DEFAULT_RECIPIENT}"
+    alert_on_error: true
+    alert_on_budget_threshold: true
+    daily_summary: true
+
+  # Database Schema
+  output_table:
+    name: "firehorse_leads"
+    columns:
+      - lead_id: "uuid PRIMARY KEY"
+      - company_name: "text NOT NULL"
+      - contact_email: "text"
+      - contact_name: "text"
+      - contact_title: "text"
+      - revenue_eur: "numeric"
+      - employee_count: "integer"
+      - industry: "text"
+      - headquarters: "text"
+      - icp_score: "integer CHECK (icp_score >= 0 AND icp_score <= 100)"
+      - priority: "text CHECK (priority IN ('High', 'Medium', 'Low'))"
+      - segment: "text CHECK (segment IN ('Construction', 'Consulting', 'Education', 'Firehorse', 'Investor'))"
+      - trigger_events: "jsonb"
+      - enrichment_data: "jsonb"
+      - confidence_score: "numeric"
+      - created_at: "timestamp DEFAULT now()"
+      - updated_at: "timestamp DEFAULT now()"
+      - agent_id: "text DEFAULT 'lead-scout-001'"
+
+  # Lifetime Scope Signals
+  signals:
+    emits:
+      - "[LEAD-SCOUT-001]:READY:lead-enriched:{lead_id}"
+      - "[LEAD-SCOUT-001]:COMPLETE:daily-batch:{date}"
+      - "[LEAD-SCOUT-001]:ERROR:enrichment-failed:{reason}"
+    listens:
+      - "[OUTREACH-001]:READY:sequence-triggered:{lead_id}" # Confirmation that outreach started
+
+# Notes for Sales HIL Director
+notes: |
+  WEEK 1 SILENT PILOT CHECKLIST:
+  1. Verify API keys are set in environment (ANTHROPIC_API_KEY, APOLLO_API_KEY, etc.)
+  2. Monitor AgentFoundry/logs/lead-scout-001.log daily
+  3. Review enrichment quality: Check 10-20 leads manually for accuracy
+  4. Tune ICP scoring: Adjust point values if scores don't match intuition
+  5. Track costs: Should stay well under €150/month budget
+  6. Advance to Advisor mode after 30 days if metrics hit targets
+
+  SAMPLE LEADS TO TEST (Week 1):
+  - Kela (Finnish Social Insurance Institution) - Construction segment
+  - Senaatti (Senate Properties) - Construction segment
+  - YIT Oyj - Construction segment
+  - McKinsey & Company (Nordic office) - Consulting segment
+  - Aalto University - Education segment
+
+  EXPECTED OUTCOMES (Week 1):
+  - 100 leads enriched
+  - 30-40 "High Priority" leads (ICP 70+)
+  - 50-60 "Medium Priority" leads (ICP 50-69)
+  - 10-20 "Low Priority" leads (ICP <50)
+  - 0 errors, 0 GDPR violations

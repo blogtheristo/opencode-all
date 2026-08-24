@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta property="article:class" content="2">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Investor Note: What You Should Know About Harness Engineering - OneLifetime.World</title>
+    <meta property="article:published_time" content="2026-03-15T08:00:00+02:00" />
+    <meta
+      name="description"
+      content="Investor briefing on harness engineering — the architectural moat behind DWS IQ 6. OpenAI proved the system around the model matters more than the model. We built that system for EU-regulated industries."
+    />
+    <meta
+      name="keywords"
+      content="harness engineering, AI investment, EU AI Act, agent harness, DWS IQ 6, industrial AI, regulatory moat, OpenAI, enterprise AI, Lifetime Oy"
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-03-15" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Investor Note: What You Should Know About Harness Engineering"
+    />
+    <meta
+      property="og:description"
+      content="OpenAI proved the system around the model matters more than the model itself. DWS IQ 6 built that system for 25 EU-regulated industries — with compliance as an architectural advantage, not a cost centre."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/harness-engineering-investor-note.html"
+    />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/harness-engineering-investor-note.png" />
+    <meta property="og:site_name" content="OneLifetime.World" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/harness-engineering-investor-note.png">
+
+    <meta
+      name="twitter:title"
+      content="Investor Note: What You Should Know About Harness Engineering"
+    />
+    <meta
+      name="twitter:description"
+      content="OpenAI proved the system around the model matters more than the model. DWS IQ 6 built that system for EU-regulated industries."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/harness-engineering-investor-note.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="../ultra/ultra-styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .group:hover .group-hover\:block {
+        display: block !important;
+      }
+      #desktopNav {
+        display: none !important;
+      }
+      .hero-glow {
+        text-shadow:
+          0 0 40px rgba(6, 182, 212, 0.3),
+          0 0 80px rgba(6, 182, 212, 0.1);
+      }
+      .metric-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .metric-card:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        transform: translateY(-2px);
+      }
+      .insight-card {
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .read-also-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(100, 116, 139, 0.3);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .read-also-card:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        transform: translateY(-1px);
+      }
+      .ontology-tag {
+        display: inline-block;
+        font-size: 0.65rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        border: 1px solid rgba(100, 116, 139, 0.4);
+        color: #94a3b8;
+        margin-right: 4px;
+        margin-bottom: 4px;
+      }
+      blockquote {
+        border-left: 3px solid #06b6d4;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded text-xs font-bold"
+        >
+          DWS10
+        </a>
+      </div>
+
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Solutions</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a
+            href="https://lifetime.fi/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-1 hover:text-blue-400"
+            >Auditointi</a
+          >
+          <a
+            href="https://dws10.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-1 hover:text-blue-400"
+            >DWS IQ 6</a
+          >
+          <a href="#" class="block py-1 hover:text-blue-400">Lifetime Fleet</a>
+        </div>
+        <a
+          href="/blog/"
+          class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded font-semibold"
+          >Blog</a
+        >
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >About Us</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a href="/blog/" class="block py-1 hover:text-blue-400">Lifetime Scope Journal</a>
+          <a href="/Partners/" class="block py-1 hover:text-blue-400">Partner Consortium</a>
+          <a href="/pledge/" class="block py-1 hover:text-blue-400">Sustainability Pledge</a>
+        </div>
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a
+            href="https://dws10.com/buy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-1 hover:text-blue-400"
+            >DWS IQ Store</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-grow">
+      <!-- Hero -->
+      <section class="py-16 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-blue-400 text-xs font-mono uppercase tracking-widest mb-3">
+            Investor Intelligence &middot; 15 March 2026
+          </p>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6 hero-glow">
+            What Investors Should Know<br />About Harness Engineering
+          </h1>
+          <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+            OpenAI proved the system around the model matters more than the model itself. We built
+            that system for 25 EU-regulated industries.
+          </p>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="pb-16 px-4">
+        <article class="max-w-3xl mx-auto space-y-8">
+          <!-- Key Insight -->
+          <div class="insight-card rounded-lg p-6">
+            <p class="text-blue-300 text-xs font-semibold uppercase tracking-wider mb-2">
+              Key Investor Insight
+            </p>
+            <p class="text-white text-lg font-semibold">
+              The model does not solve. The harness solves.
+            </p>
+            <p class="text-gray-400 text-sm mt-2">
+              OpenAI's own research showed their model improved from 52.8% to 66.5% with zero model
+              changes &mdash; only system-level improvements. The competitive moat is in the
+              harness, not the model.
+            </p>
+          </div>
+
+          <div class="space-y-6 text-gray-300 leading-relaxed">
+            <h2 class="text-2xl font-bold text-white">What Is Harness Engineering?</h2>
+
+            <p>
+              In February 2026, OpenAI published their <em>Harness Engineering</em> framework,
+              describing how they built a product with one million lines of code without writing a
+              single line manually. Their finding was clear:
+              <strong class="text-cyan-400"
+                >the system surrounding the AI model &mdash; the harness &mdash; determines
+                performance more than the model itself.</strong
+              >
+            </p>
+
+            <p>
+              For investors, this is a fundamental shift in how to evaluate AI companies. Model
+              access is commoditising. The harness &mdash; the system of prompts, guardrails,
+              quality gates, knowledge architecture, and enforcement mechanisms &mdash; is where
+              durable competitive advantage lives.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-8">Why This Matters for DWS IQ 6</h2>
+
+            <p>
+              DWS IQ 6 has independently developed what we call a
+              <strong class="text-cyan-400"
+                >seven-layer information architecture (L0&ndash;L6)</strong
+              >
+              that formalises the harness concept for EU-regulated industries. This goes beyond what
+              OpenAI has published:
+            </p>
+
+            <ul class="list-disc list-inside space-y-2 text-gray-400 ml-4">
+              <li>
+                <strong class="text-gray-300">L0 Platform Model</strong> &mdash; Base LLM
+                capabilities (model-agnostic)
+              </li>
+              <li>
+                <strong class="text-gray-300">L1 System Prompt</strong> &mdash; Session-level
+                instructions
+              </li>
+              <li>
+                <strong class="text-gray-300">L2 Standards (JIT)</strong> &mdash; On-demand
+                regulatory standard loading
+              </li>
+              <li>
+                <strong class="text-gray-300">L3 Task Context</strong> &mdash; Current task
+                specification
+              </li>
+              <li>
+                <strong class="text-gray-300">L4 Auto-Learned State</strong> &mdash; Persistent
+                agent memory (DWS innovation)
+              </li>
+              <li>
+                <strong class="text-gray-300">L5 Governance &amp; Oversight</strong> &mdash; Human
+                and automated review loops
+              </li>
+              <li>
+                <strong class="text-gray-300">L6 Tool Result Injection</strong> &mdash; 15&ndash;47%
+                better compliance (DWS innovation)
+              </li>
+            </ul>
+
+            <p>
+              Layers L4 and L6 are proprietary innovations. They are not present in OpenAI's
+              published framework and represent defensible IP.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-8">The Regulatory Moat</h2>
+
+            <p>
+              Most AI platforms treat EU compliance as a cost centre. DWS IQ 6 treats it as an
+              <strong class="text-cyan-400">architectural advantage</strong>. The EU AI Act
+              requires:
+            </p>
+
+            <ul class="list-disc list-inside space-y-2 text-gray-400 ml-4">
+              <li>
+                <strong class="text-gray-300">Article 12:</strong> AI operation logging for at least
+                6 months
+              </li>
+              <li>
+                <strong class="text-gray-300">Article 14:</strong> Human oversight for high-risk AI
+                systems
+              </li>
+              <li>
+                <strong class="text-gray-300">Article 15:</strong> Accuracy, robustness, and
+                cybersecurity
+              </li>
+            </ul>
+
+            <p>
+              These requirements forced us to build better harness design from day one. The result:
+              agents that are both more capable and more auditable than systems that treat
+              compliance as optional. Competitors who build without these constraints will need to
+              retrofit &mdash; NIST shift-left research puts that cost multiplier at 5&ndash;30x
+              depending on when gaps are caught.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-8">DWS Agent Harness Index</h2>
+
+            <p>
+              We assessed DWS IQ 6 against all eight OpenAI harness engineering principles. These
+              scores are self-assessed and published transparently:
+            </p>
+          </div>
+
+          <!-- Scores Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">95%</div>
+              <div class="text-xs text-gray-400 mt-1">AGENTS.md as Map</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">95%</div>
+              <div class="text-xs text-gray-400 mt-1">Boring Technology</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">95%</div>
+              <div class="text-xs text-gray-400 mt-1">Quality Gates</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">90%</div>
+              <div class="text-xs text-gray-400 mt-1">Arch Enforcement</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">98%</div>
+              <div class="text-xs text-gray-400 mt-1">Knowledge in Repo</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">90%</div>
+              <div class="text-xs text-gray-400 mt-1">Agent Code Review</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">95%</div>
+              <div class="text-xs text-gray-400 mt-1">Compounding Returns</div>
+            </div>
+            <div class="metric-card rounded-lg p-4 text-center">
+              <div class="text-lg font-bold text-green-400">95%</div>
+              <div class="text-xs text-gray-400 mt-1">Env Designers</div>
+            </div>
+          </div>
+
+          <div class="space-y-6 text-gray-300 leading-relaxed">
+            <div class="insight-card rounded-lg p-5 mt-4">
+              <p class="text-gray-300">
+                <strong class="text-white">Overall: 94.1%</strong> &mdash; exceeding the 80%
+                threshold OpenAI identified as the inflection point where harness design begins to
+                compound returns.
+              </p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-white mt-8">KYA: The Hardware Trust Layer</h2>
+
+            <p>
+              The harness governs <em>what agents know and how they reason</em>. Our
+              <strong class="text-cyan-400">KYA (Know Your Agent) Standard</strong> governs
+              <em>what agents are allowed to do and who is accountable</em>. Together they form a
+              complete governance stack:
+            </p>
+
+            <ul class="list-disc list-inside space-y-2 text-gray-400 ml-4">
+              <li>
+                <strong class="text-gray-300">Harness L2</strong> defines agent behaviour rules
+                &rarr; <strong class="text-gray-300">KYA Capability Manifest</strong> enforces
+                resource boundaries at hardware level
+              </li>
+              <li>
+                <strong class="text-gray-300">Harness L6</strong> re-anchors agent reasoning every
+                call &rarr; <strong class="text-gray-300">KYA Forensic Accountability</strong> logs
+                every syscall to Firehorse with 7-year retention
+              </li>
+              <li>
+                <strong class="text-gray-300">Hardware isolation</strong> via Firecracker MicroVMs
+                &mdash; every agent sandboxed, zero shared kernel
+              </li>
+            </ul>
+
+            <p>
+              This combination &mdash; harness + KYA &mdash; satisfies EU AI Act Article 14 (human
+              oversight) and Article 12 (operation logging) at the architectural level, not as a
+              reporting layer.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-8">Investment Thesis Implications</h2>
+
+            <div class="space-y-4">
+              <div class="insight-card rounded-lg p-5">
+                <p class="text-blue-300 text-xs font-semibold uppercase tracking-wider mb-1">
+                  Defensibility
+                </p>
+                <p class="text-gray-300 text-sm">
+                  The harness is model-agnostic. DWS IQ 6 works with Claude, Gemini, Groq, and
+                  LlamaStack. Switching models does not degrade the harness. This makes the platform
+                  resilient to model commoditisation.
+                </p>
+              </div>
+              <div class="insight-card rounded-lg p-5">
+                <p class="text-blue-300 text-xs font-semibold uppercase tracking-wider mb-1">
+                  Market Timing
+                </p>
+                <p class="text-gray-300 text-sm">
+                  EU AI Act enforcement begins August 2026. NIST shift-left research puts the
+                  retrofit cost multiplier at 5&ndash;30x depending on when gaps are caught.
+                  First-mover advantage in regulated AI is structural, not incremental.
+                </p>
+              </div>
+              <div class="insight-card rounded-lg p-5">
+                <p class="text-blue-300 text-xs font-semibold uppercase tracking-wider mb-1">TAM</p>
+                <p class="text-gray-300 text-sm">
+                  25 EU-regulated industries. Every company deploying AI agents in these sectors
+                  will need a compliant harness. The question is whether they build or buy &mdash;
+                  and building takes 18&ndash;24 months they no longer have.
+                </p>
+              </div>
+            </div>
+
+            <blockquote>
+              The model does not solve. The harness solves. And EU regulation builds better
+              harnesses.
+            </blockquote>
+          </div>
+
+          <!-- CTA -->
+          <div class="text-center py-8 mt-4 border-t border-gray-700">
+            <p class="text-gray-300 mb-6 text-lg">
+              Interested in the full technical thesis and financials?
+            </p>
+            <a
+              href="https://dws10.com/contact/"
+              class="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-lg font-bold text-base hover:from-blue-500 hover:to-blue-700 transition-all"
+            >
+              Request Investor Briefing
+            </a>
+            <p class="text-gray-500 text-sm mt-4">
+              investor@dws10.com &middot; Lifetime Oy, Helsinki
+            </p>
+          </div>
+
+          <!-- Source reference -->
+          <div class="mt-8 pt-8 border-t border-gray-700">
+            <p class="text-sm text-gray-500">
+              <strong class="text-gray-400">Sources:</strong>
+              OpenAI, "Harness Engineering" (Feb 2026); Martin Fowler, "Harness Engineering" (2026);
+              EU AI Act (Regulation 2024/1689); DWS IQ 6 internal harness assessment
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+              <strong class="text-gray-400">Author:</strong> Risto Anton Päärni, Founder, CEO, Lifetime Oy
+            </p>
+            <p class="text-sm text-gray-500 mt-1">
+              <strong class="text-gray-400">Published:</strong> 15 March 2026, Helsinki
+            </p>
+          </div>
+
+          <!-- Read Also -->
+          <div class="mt-12 pt-8 border-t border-gray-700">
+            <h3 class="text-lg font-bold text-white mb-6">Read Also</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <a
+                href="/posts/eu-regulation-harness-engineering.html"
+                class="read-also-card rounded-lg p-5 block no-underline"
+              >
+                <p class="text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  For Buyers
+                </p>
+                <p class="text-white font-semibold text-sm mb-2">
+                  EU Regulation Makes Better AI. Not Slower AI.
+                </p>
+                <p class="text-gray-500 text-xs mb-3">
+                  What compliance officers, ops leads, and procurement heads need to know before
+                  August 2026.
+                </p>
+                <div>
+                  <span class="ontology-tag">EU AI Act</span>
+                  <span class="ontology-tag">Compliance</span>
+                  <span class="ontology-tag">NIS2</span>
+                  <span class="ontology-tag">Procurement</span>
+                </div>
+              </a>
+              <a
+                href="/posts/kya-standard-v1.html"
+                class="read-also-card rounded-lg p-5 block no-underline"
+              >
+                <p class="text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  Technical Deep-Dive
+                </p>
+                <p class="text-white font-semibold text-sm mb-2">
+                  Establishing the KYA Specification for Autonomous Control Rooms
+                </p>
+                <p class="text-gray-500 text-xs mb-3">
+                  Hardware-level agent governance: MicroVM isolation, forensic accountability, and
+                  the Capability Manifest.
+                </p>
+                <div>
+                  <span class="ontology-tag">KYA</span>
+                  <span class="ontology-tag">Security</span>
+                  <span class="ontology-tag">MicroVM</span>
+                  <span class="ontology-tag">Firehorse</span>
+                </div>
+              </a>
+              <a
+                href="/posts/business-case-logistics.html"
+                class="read-also-card rounded-lg p-5 block no-underline"
+              >
+                <p class="text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  Industry Case
+                </p>
+                <p class="text-white font-semibold text-sm mb-2">
+                  Business Case: AI-Driven Logistics Optimisation
+                </p>
+                <p class="text-gray-500 text-xs mb-3">
+                  How DWS IQ agents reduce costs and improve compliance in EU logistics operations.
+                </p>
+                <div>
+                  <span class="ontology-tag">Logistics</span>
+                  <span class="ontology-tag">ROI</span>
+                  <span class="ontology-tag">Fit for 55</span>
+                  <span class="ontology-tag">Operations</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/buyers-note-harness-engineering.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">Buyer’s Note: Harness Engineering</span>
+                    </a>
+                    <a href="/posts/nvidia-gtc-2026-dws-roadmap-impact.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">NVIDIA GTC 2026: Industrial AI Roadmaps</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fharness-engineering-investor-note.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Investor%20Note%3A%20Harness%20Engineering%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fharness-engineering-investor-note.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/harness-engineering-investor-note.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <p class="text-xs mb-4"><a href="https://dws10.com/price-list/" style="color:#22d3ee;text-decoration:underline">See the price list &rarr;</a></p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
+                            <p class="text-xs text-gray-500">AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+        <p class="mt-1">
+          <a href="/" class="text-cyan-400/60 hover:text-cyan-400">onelifetime.world</a> &middot;
+          <a href="https://dws10.com" class="text-cyan-400/60 hover:text-cyan-400">dws10.com</a>
+          &middot;
+          <a
+            href="https://dws10.com/investor-relations/"
+            class="text-cyan-400/60 hover:text-cyan-400"
+            >Investor Relations</a
+          >
+          &middot;
+          <a href="/blog/" class="text-cyan-400/60 hover:text-cyan-400">Blog</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

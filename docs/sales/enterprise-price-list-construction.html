@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Price List — Construction Compliance Platform | Lifetime Oy</title>
+    <style>
+        /* Self-hosted Inter — no external network requests (confidential document) */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('../../docs/assets/fonts/Inter-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('../../docs/assets/fonts/Inter-Medium.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('../../docs/assets/fonts/Inter-SemiBold.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('../../docs/assets/fonts/Inter-Bold.ttf') format('truetype');
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #1a202c;
+            background: white;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0f172a;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 18pt;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .header .doc-meta {
+            text-align: right;
+            font-size: 8.5pt;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .header .doc-meta strong { color: #0f172a; }
+
+        h2 {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 24px 0 12px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Tier cards */
+        .tier {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            page-break-inside: avoid;
+        }
+
+        .tier.recommended {
+            border: 2px solid #1e3a5f;
+            background: #f8fafc;
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .tier-name {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .tier-price {
+            font-size: 15pt;
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+
+        .tier-scope {
+            font-size: 9pt;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .tier ul {
+            margin: 0 0 0 18px;
+            font-size: 9.5pt;
+        }
+
+        .tier li { margin-bottom: 3px; }
+
+        .badge {
+            display: inline-block;
+            font-size: 7.5pt;
+            font-weight: 700;
+            color: white;
+            background: #1e3a5f;
+            padding: 2px 8px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        /* Add-ons table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 16px 0;
+            font-size: 9.5pt;
+        }
+
+        thead th {
+            background: #0f172a;
+            color: white;
+            padding: 6px 10px;
+            text-align: left;
+            font-size: 8.5pt;
+            font-weight: 600;
+        }
+
+        tbody td {
+            padding: 6px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) { background: #f8fafc; }
+
+        .terms {
+            font-size: 8.5pt;
+            color: #64748b;
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+
+        .terms h3 {
+            font-size: 9.5pt;
+            color: #0f172a;
+            font-weight: 600;
+            margin: 12px 0 4px 0;
+        }
+
+        .vendor-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-top: 16px;
+            font-size: 9pt;
+            page-break-inside: avoid;
+        }
+
+        .vendor-box strong { color: #0f172a; }
+
+        .footer {
+            font-size: 7.5pt;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .highlight-note {
+            background: #fffbeb;
+            border-left: 3px solid #fbbf24;
+            padding: 10px 14px;
+            margin: 12px 0;
+            font-size: 9pt;
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div>
+        <h1>Enterprise Price List</h1>
+        <div style="font-size: 10pt; color: #1e3a5f; font-weight: 600; margin-top: 4px;">Construction Compliance Platform &mdash; DWS IQ</div>
+    </div>
+    <div class="doc-meta">
+        <strong>Lifetime Oy</strong><br>
+        Document: LT-PL-2026-004<br>
+        Valid from: 1 April 2026<br>
+        Valid until: 31 December 2026<br>
+        Classification: Confidential
+    </div>
+</div>
+
+<h2>Platform Tiers</h2>
+
+<div class="tier">
+    <div class="tier-header">
+        <div class="tier-name">Enterprise Navigator <span style="font-weight: 400; font-size: 9pt; color: #64748b;">(Pilot)</span></div>
+        <div class="tier-price">EUR 24,900</div>
+    </div>
+    <div class="tier-scope">One-time. 1 country, 3 reference projects, 4-week delivery.</div>
+    <ul>
+        <li>Full data audit of existing ERP + BIM data sources</li>
+        <li>ERP connector setup (Visma, IFS, or Dynamics &mdash; read-only access)</li>
+        <li>EN 15978 lifecycle carbon calculation on 3 reference projects</li>
+        <li>ESRS E1 disclosure draft (CSRD-ready)</li>
+        <li>EPBD-ready building carbon assessment (per-building, whole-life)</li>
+        <li>EU Taxonomy alignment calculation (CapEx/OpEx)</li>
+        <li>Data gap analysis report</li>
+        <li>Team training session (2 hours)</li>
+    </ul>
+</div>
+
+<div class="tier recommended">
+    <div class="tier-header">
+        <div class="tier-name">Enterprise Premium <span class="badge">RECOMMENDED</span></div>
+        <div class="tier-price">EUR 49,900/year</div>
+    </div>
+    <div class="tier-scope">Annual subscription. All 3 Nordic jurisdictions (NO/DK/FI), unlimited projects.</div>
+    <ul>
+        <li>Everything in Enterprise Navigator</li>
+        <li>Multi-jurisdiction ERP connectors (all country instances)</li>
+        <li>Real-time carbon monitoring dashboard for sustainability team</li>
+        <li>Automated alerts at carbon budget thresholds</li>
+        <li>Quarterly compliant reports (ESRS E1, EPBD, EU Taxonomy)</li>
+        <li>Regulatory update service (emission factor refresh, directive amendments)</li>
+        <li>Dedicated support (email, 24-hour response SLA)</li>
+    </ul>
+</div>
+
+<div class="tier">
+    <div class="tier-header">
+        <div class="tier-name">Enterprise Nordic <span style="font-weight: 400; font-size: 9pt; color: #64748b;">(Full Deployment)</span></div>
+        <div class="tier-price">EUR 89,900/year</div>
+    </div>
+    <div class="tier-scope">Annual subscription. Custom enterprise deployment with dedicated resources.</div>
+    <ul>
+        <li>Everything in Enterprise Premium</li>
+        <li>Custom SLA (4-hour response, 99.9% uptime guarantee)</li>
+        <li>Private cloud option (EU-hosted, single-tenant, CLOUD Act free)</li>
+        <li>Dedicated integration engineer (named resource)</li>
+        <li>BIM/IFC direct integration (Tekla Structures, Revit)</li>
+        <li>Custom emission factor validation for proprietary materials</li>
+        <li>Board-level reporting package (quarterly ESG executive summary)</li>
+        <li>Priority access to new regulatory modules</li>
+    </ul>
+</div>
+
+<h2>Add-On Modules</h2>
+
+<table>
+    <thead>
+        <tr><th>Module</th><th>Price</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Firehorse Report Module</strong></td>
+            <td>EUR 9,900/year</td>
+            <td>Signed PDF compliance reports with full audit trail. Suitable for CSRD third-party assurance.</td>
+        </tr>
+        <tr>
+            <td><strong>SiteSense Agent</strong> (per site)</td>
+            <td>EUR 14,900/site/year</td>
+            <td>Edge AI for real-time construction site monitoring. NVIDIA Jetson Orin hardware, computer vision, IoT sensors.</td>
+        </tr>
+        <tr>
+            <td><strong>Additional ERP Connector</strong></td>
+            <td>EUR 4,900 (one-time)</td>
+            <td>Setup for ERP systems beyond the primary connector (e.g., Unit4, SAP, Monitor ERP).</td>
+        </tr>
+        <tr>
+            <td><strong>Additional Country</strong></td>
+            <td>EUR 9,900/year</td>
+            <td>Extend multi-jurisdiction coverage beyond NO/DK/FI (e.g., Sweden, Germany, Poland).</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="highlight-note">
+    <strong>Typical first-year investment (Enterprise Navigator + Premium):</strong> EUR 74,800.<br>
+    Replaces: manual LCA consulting (EUR 60&ndash;80K), One Click LCA multi-country licenses (EUR 15&ndash;30K), 1&ndash;2 FTE sustainability analyst positions (EUR 70&ndash;120K each). Net first-year saving: EUR 70&ndash;155K.
+</div>
+
+<h2>Commercial Terms</h2>
+
+<div class="terms">
+    <h3>Payment</h3>
+    Enterprise Navigator: 50% on contract signature, 50% on delivery of first compliant report.<br>
+    Annual subscriptions: invoiced annually in advance. Net 30 days.
+
+    <h3>Contract Duration</h3>
+    Enterprise Navigator: one-time engagement (4 weeks).<br>
+    Enterprise Premium / Nordic: minimum 12-month term, auto-renews annually with 90-day notice to cancel.
+
+    <h3>Data Hosting</h3>
+    EU-hosted (Google Cloud europe-north1, Finland). GDPR compliant. No US CLOUD Act exposure on standard deployment. Private cloud option available on Enterprise Nordic tier.
+
+    <h3>Data Processing</h3>
+    Data Processing Agreement (DPA) provided as standard annex to all contracts. GDPR Article 28 compliant.
+
+    <h3>Currency</h3>
+    All prices in EUR, exclusive of VAT. VAT applied per Finnish law (ALV 25.5%) for EU customers without valid VAT ID.
+
+    <h3>Price Validity</h3>
+    This price list is valid 1 April &ndash; 31 December 2026. Lifetime Oy reserves the right to adjust pricing for contracts signed after this period.
+</div>
+
+<div class="vendor-box">
+    <strong>Vendor Information</strong><br><br>
+    <strong>Company:</strong> Lifetime Oy<br>
+    <strong>Business Identity Code (Y-tunnus):</strong> 0772407-9<br>
+    <strong>VAT ID (ALV-tunnus):</strong> FI07724079<br>
+    <strong>Registered Address:</strong> Laidunmaanraitti 2 A 25, 02330 Espoo, Finland<br>
+    <strong>CEO:</strong> Risto Anton P&auml;&auml;rni<br>
+    <strong>Contact:</strong> risto@lifetime.fi<br>
+    <strong>IBAN:</strong> Available on request<br>
+    <strong>Trade Register:</strong> Finnish Patent and Registration Office (PRH)
+</div>
+
+<h2>Procurement Checklist</h2>
+
+<table>
+    <thead>
+        <tr><th>Document</th><th>Status</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Enterprise Price List</td><td>This document</td><td>Valid 1 Apr &ndash; 31 Dec 2026</td></tr>
+        <tr><td>Technical Brief</td><td>Available</td><td>CSRD + EPBD + Fit for 55 Compliance Architecture</td></tr>
+        <tr><td>Data Processing Agreement (DPA)</td><td>Available</td><td>GDPR Article 28 compliant, standard annex</td></tr>
+        <tr><td>Security Documentation</td><td>Available</td><td>EU hosting, encryption, access controls, RLS</td></tr>
+        <tr><td>NDA (if required)</td><td>Available</td><td>Mutual, EU Trade Secrets Directive compliant, Finnish law</td></tr>
+        <tr><td>Vendor Qualification Form</td><td>On request</td><td>Will complete customer's standard vendor form</td></tr>
+        <tr><td>Insurance Certificate</td><td>On request</td><td>Professional liability insurance</td></tr>
+        <tr><td>References</td><td>On request</td><td>Nordic construction industry references</td></tr>
+    </tbody>
+</table>
+
+<div class="footer">
+    &copy; Lifetime Oy 2026. All rights reserved. | Y-tunnus: 0772407-9 | VAT: FI07724079 | Confidential
+</div>
+
+</body>
+</html>

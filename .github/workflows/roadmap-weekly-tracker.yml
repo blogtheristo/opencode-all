@@ -1,0 +1,237 @@
+name: DWS7 Roadmap Weekly Tracker
+
+on:
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/roadmap-tracker.sh)
+  # Was: cron '0 8 * * 1' (Monday 08:00 UTC)
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  track-roadmap-progress:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Count roadmap PRs by phase
+        id: count
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          WEEK=$(date -u '+%Y-W%V')
+          echo "# DWS7 Roadmap Weekly Report — $WEEK" > report.md
+          echo "" >> report.md
+          echo "**Generated:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> report.md
+          echo "" >> report.md
+
+          # Count total merged PRs
+          TOTAL_MERGED=$(gh pr list --repo ${{ github.repository }} --state merged --limit 500 --json number | jq length)
+          TOTAL_OPEN=$(gh pr list --repo ${{ github.repository }} --state open --limit 500 --json number | jq length)
+          PROGRESS=$(( TOTAL_MERGED * 100 / 247 ))
+
+          echo "## Overall Progress" >> report.md
+          echo "" >> report.md
+          echo "| Metric | Count |" >> report.md
+          echo "|--------|-------|" >> report.md
+          echo "| Total PRs merged | $TOTAL_MERGED |" >> report.md
+          echo "| Open PRs | $TOTAL_OPEN |" >> report.md
+          echo "| Roadmap target | 247 |" >> report.md
+          echo "| Progress | ${PROGRESS}% |" >> report.md
+          echo "" >> report.md
+
+          # Progress bar
+          FILLED=$(( PROGRESS / 5 ))
+          EMPTY=$(( 20 - FILLED ))
+          BAR=$(printf '█%.0s' $(seq 1 $FILLED 2>/dev/null) 2>/dev/null || echo "")
+          BAR="${BAR}$(printf '░%.0s' $(seq 1 $EMPTY 2>/dev/null) 2>/dev/null || echo "")"
+          echo "Progress: \`[$BAR] ${PROGRESS}%\`" >> report.md
+          echo "" >> report.md
+
+          # Count by category labels
+          echo "## Progress by Category" >> report.md
+          echo "" >> report.md
+          echo "| Category | Merged | Open | Target |" >> report.md
+          echo "|----------|--------|------|--------|" >> report.md
+
+          declare -A TARGETS
+          TARGETS[testing]=18 TARGETS[backend]=14 TARGETS[frontend]=18 TARGETS[devops]=14
+          TARGETS[compliance-ets]=12 TARGETS[compliance-cbam]=10 TARGETS[compliance-csrd]=10
+          TARGETS[eu-ai-act]=6 TARGETS[security]=16 TARGETS[multi-tenancy]=8
+          TARGETS[billing]=8 TARGETS[erp-integration]=9 TARGETS[agentic-ai]=13
+          TARGETS[iot-pipeline]=10 TARGETS[climate-llm]=10 TARGETS[analytics]=7
+          TARGETS[supplier-portal]=9 TARGETS[industry-vertical]=12 TARGETS[partner]=8
+          TARGETS[mobile]=9 TARGETS[investor]=9 TARGETS[advanced]=13
+
+          for LABEL in testing backend frontend devops compliance-ets compliance-cbam compliance-csrd eu-ai-act security multi-tenancy billing erp-integration agentic-ai iot-pipeline climate-llm analytics supplier-portal industry-vertical partner mobile investor advanced; do
+            MERGED=$(gh pr list --repo ${{ github.repository }} --state merged --label "$LABEL" --limit 500 --json number 2>/dev/null | jq length 2>/dev/null || echo 0)
+            OPEN=$(gh pr list --repo ${{ github.repository }} --state open --label "$LABEL" --limit 500 --json number 2>/dev/null | jq length 2>/dev/null || echo 0)
+            TARGET=${TARGETS[$LABEL]:-"-"}
+            echo "| $LABEL | $MERGED | $OPEN | $TARGET |" >> report.md
+          done
+
+          echo "" >> report.md
+
+          # Phase tracking based on date
+          CURRENT_DATE=$(date -u '+%Y-%m-%d')
+          echo "## Phase Timeline" >> report.md
+          echo "" >> report.md
+          echo "| Phase | Period | PRs | Status |" >> report.md
+          echo "|-------|--------|-----|--------|" >> report.md
+
+          PHASES=("Phase 1: Launch & Stabilize|Feb-Apr 2026|45|2026-05-01"
+                  "Phase 2: Compliance Engine|May-Jul 2026|48|2026-08-01"
+                  "Phase 3: Scale & Harden|Aug-Oct 2026|44|2026-11-01"
+                  "Phase 4: Intelligence Layer|Nov 2026-Jan 2027|40|2027-02-01"
+                  "Phase 5: Market Expansion|Feb-May 2027|38|2027-06-01"
+                  "Phase 6: DWS7 Release|Jun-Dec 2027|32|2027-12-31")
+
+          PREV_END=""
+          for PHASE in "${PHASES[@]}"; do
+            IFS='|' read -r NAME PERIOD PRS END <<< "$PHASE"
+            if [ -z "$PREV_END" ] || [[ "$CURRENT_DATE" > "$PREV_END" ]] || [[ "$CURRENT_DATE" == "$PREV_END" ]]; then
+              if [[ "$CURRENT_DATE" < "$END" ]]; then
+                echo "| $NAME | $PERIOD | $PRS | **ACTIVE** |" >> report.md
+                PREV_END="$END"
+                continue
+              fi
+              echo "| $NAME | $PERIOD | $PRS | Done |" >> report.md
+            else
+              echo "| $NAME | $PERIOD | $PRS | Upcoming |" >> report.md
+            fi
+            PREV_END="$END"
+          done
+
+          echo "" >> report.md
+
+          # Recent PRs merged
+          echo "## Recent PRs (Last 7 Days)" >> report.md
+          echo "" >> report.md
+          WEEK_AGO=$(date -u -d '7 days ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u -v-7d '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || echo "2026-02-05T00:00:00Z")
+          RECENT=$(gh pr list --repo ${{ github.repository }} --state merged --limit 20 --json number,title,mergedAt \
+            --jq ".[] | select(.mergedAt >= \"$WEEK_AGO\") | \"- #\(.number) \(.title)\"" 2>/dev/null || echo "")
+          if [ -z "$RECENT" ]; then
+            echo "- No PRs merged this week" >> report.md
+          else
+            echo "$RECENT" >> report.md
+          fi
+
+          echo "" >> report.md
+
+      - name: Gather technology signals
+        id: tech
+        run: |
+          echo "## Technology & Competitor Signals" >> report.md
+          echo "" >> report.md
+          echo "Automated signals that may require roadmap correction:" >> report.md
+          echo "" >> report.md
+
+          # Check for dependency updates available
+          echo "### Dependency Updates Available" >> report.md
+          echo "" >> report.md
+
+          if [ -f "package.json" ]; then
+            # Check for outdated npm packages (key ones only)
+            npm outdated --json 2>/dev/null | jq -r '
+              to_entries[] |
+              select(.key | test("react|vite|typescript|tailwindcss|@supabase|express|zod|helmet")) |
+              "| \(.key) | \(.value.current) | \(.value.latest) |"
+            ' > outdated.txt 2>/dev/null || true
+
+            if [ -s outdated.txt ]; then
+              echo "| Package | Current | Latest |" >> report.md
+              echo "|---------|---------|--------|" >> report.md
+              cat outdated.txt >> report.md
+            else
+              echo "All key dependencies are up to date." >> report.md
+            fi
+          fi
+
+          echo "" >> report.md
+
+          # Check for GitHub security alerts
+          echo "### Security Alerts" >> report.md
+          echo "" >> report.md
+
+          ALERTS=$(gh api repos/${{ github.repository }}/dependabot/alerts --jq '[.[] | select(.state == "open")] | length' 2>/dev/null || echo "0")
+          CRITICAL=$(gh api repos/${{ github.repository }}/dependabot/alerts --jq '[.[] | select(.state == "open" and .security_advisory.severity == "critical")] | length' 2>/dev/null || echo "0")
+          HIGH=$(gh api repos/${{ github.repository }}/dependabot/alerts --jq '[.[] | select(.state == "open" and .security_advisory.severity == "high")] | length' 2>/dev/null || echo "0")
+
+          echo "| Severity | Open Alerts |" >> report.md
+          echo "|----------|-------------|" >> report.md
+          echo "| Critical | $CRITICAL |" >> report.md
+          echo "| High | $HIGH |" >> report.md
+          echo "| Total Open | $ALERTS |" >> report.md
+          echo "" >> report.md
+
+          if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
+            echo "**ACTION REQUIRED:** Critical/High security alerts need attention before proceeding with roadmap PRs." >> report.md
+            echo "" >> report.md
+          fi
+
+          # Competitor tracking section (manual input markers)
+          echo "### Competitor & Market Signals (Manual Review Needed)" >> report.md
+          echo "" >> report.md
+          echo "Check these sources weekly and note relevant changes:" >> report.md
+          echo "" >> report.md
+          echo "| Source | What to Check | Link |" >> report.md
+          echo "|--------|---------------|------|" >> report.md
+          echo "| EU ETS Carbon Price | Current EUA price, trend direction | [ICE EUA Futures](https://www.theice.com/products/197/EUA-Futures) |" >> report.md
+          echo "| EUR-Lex | New Fit-for-55 implementing acts | [EUR-Lex](https://eur-lex.europa.eu/) |" >> report.md
+          echo "| Crunchbase | Competitor funding rounds | [Climate-tech](https://www.crunchbase.com/hub/climate-tech-companies) |" >> report.md
+          echo "| Persefoni Blog | Product updates, EU expansion | [Blog](https://www.persefoni.com/blog) |" >> report.md
+          echo "| Watershed Updates | EU features, Scope 3 tools | [Watershed](https://watershed.com) |" >> report.md
+          echo "| Sweep Updates | CSRD updates, pricing | [Sweep](https://www.sweep.net/blog) |" >> report.md
+          echo "| One Click LCA News | SimaPro integration, API | [OCLCA](https://www.oneclicklca.com/resources/) |" >> report.md
+          echo "| Anthropic Blog | Claude updates, MCP changes | [Anthropic](https://www.anthropic.com/news) |" >> report.md
+          echo "| React Blog | React 20+, new patterns | [React](https://react.dev/blog) |" >> report.md
+          echo "| Supabase Blog | New features, edge functions | [Supabase](https://supabase.com/blog) |" >> report.md
+          echo "" >> report.md
+
+          echo "### Recommended Corrections This Week" >> report.md
+          echo "" >> report.md
+          echo "*Fill in after reviewing signals above:*" >> report.md
+          echo "" >> report.md
+          echo "- [ ] PR re-prioritizations: (none detected automatically)" >> report.md
+          echo "- [ ] New PRs to add: (none detected automatically)" >> report.md
+          echo "- [ ] PRs to drop/defer: (none detected automatically)" >> report.md
+          echo "- [ ] Tech stack changes: (see dependency updates above)" >> report.md
+          echo "" >> report.md
+
+          echo "---" >> report.md
+          echo "" >> report.md
+          echo "*See \`DWS7_ROADMAP.md\` for full roadmap. Corrections should be committed to the Correction Changelog section.*" >> report.md
+
+      - name: Create or update tracking issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          WEEK=$(date -u '+%Y-W%V')
+          TITLE="DWS7 Roadmap Progress — $WEEK"
+
+          # Ensure labels exist
+          gh label create "roadmap-tracker" --repo ${{ github.repository }} --color "0E8A16" --description "Weekly DWS7 roadmap progress tracking" 2>/dev/null || true
+          gh label create "needs-correction" --repo ${{ github.repository }} --color "D93F0B" --description "Roadmap needs correction based on signals" 2>/dev/null || true
+
+          # Check if issue for this week exists
+          EXISTING=$(gh issue list --repo ${{ github.repository }} --label "roadmap-tracker" --search "$TITLE" --json number --jq '.[0].number' 2>/dev/null || echo "")
+
+          if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
+            gh issue comment "$EXISTING" --repo ${{ github.repository }} --body-file report.md
+          else
+            gh issue create \
+              --repo ${{ github.repository }} \
+              --title "$TITLE" \
+              --body-file report.md \
+              --label "roadmap-tracker"
+          fi

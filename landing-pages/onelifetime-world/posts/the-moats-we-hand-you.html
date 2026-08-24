@@ -1,0 +1,555 @@
+<!doctype html>
+<!--
+  The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places
+  Code-Version: 1.0
+  Introduced-In: PR-claude/ai-sovereignty-research-9eshgd
+  Branch: claude/ai-sovereignty-research-9eshgd
+  Date: 2026-07-01
+  Owner: Lifetime Oy
+  Related:
+    - /posts/moat-is-not-the-model.html
+    - /posts/four-capital-classes.html
+    - /posts/the-ontology-lives-in-the-team.html
+    - /posts/eu-sovereign-ai-factories-35-supercomputers.html
+  Source: DWS field note docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md
+-->
+<html lang="en">
+  <head>
+    <meta property="article:class" content="1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places
+    </title>
+    <meta
+      name="description"
+      content="A moat that only protects the vendor is a trap for the customer. Sovereignty vs. interdependence in nineteen places — the moats we build so the customer owns them: local jurisdiction, sovereignty as segmentation, near-zero exit cost, owned weights and data, and the rest of the stack."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-07-01" />
+    <meta
+      property="og:title"
+      content="The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places"
+    />
+    <meta
+      property="og:description"
+      content="Most AI moats protect the seller. We build the other kind — nineteen places where owning the thing beats renting it, and we hand them to the customer."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://onelifetime.world/posts/the-moats-we-hand-you.html" />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/the-moats-we-hand-you.png" />
+    <meta property="article:published_time" content="2026-07-01" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Sovereignty" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/the-moats-we-hand-you.png">
+
+    <meta
+      name="twitter:title"
+      content="The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence"
+    />
+    <meta
+      name="twitter:description"
+      content="Most AI moats protect the seller. We build the other kind — nineteen places where owning beats renting, handed to the customer."
+    />
+    <link rel="canonical" href="https://onelifetime.world/posts/the-moats-we-hand-you.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/the-moats-we-hand-you.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/the-moats-we-hand-you.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/the-moats-we-hand-you.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://onelifetime.world/posts/the-moats-we-hand-you.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://onelifetime.world/posts/the-moats-we-hand-you.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/the-moats-we-hand-you.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .callout {
+        background: rgba(6, 182, 212, 0.07);
+        border-left: 3px solid #06b6d4;
+        border-radius: 4px;
+      }
+      .callout-gold {
+        background: rgba(212, 168, 67, 0.08);
+        border-left: 3px solid #d4a843;
+        border-radius: 4px;
+      }
+      .callout-green {
+        background: rgba(118, 185, 0, 0.08);
+        border-left: 3px solid #76b900;
+        border-radius: 4px;
+      }
+      .version-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        background: rgba(118, 185, 0, 0.15);
+        color: #a3e635;
+        border: 1px solid rgba(118, 185, 0, 0.35);
+      }
+      .layer-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        transition:
+          border-color 0.3s ease,
+          transform 0.2s ease;
+      }
+      .layer-card:hover {
+        border-color: rgba(118, 185, 0, 0.55);
+        transform: translateY(-2px);
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places",
+        "description": "A stance note on the difference between a moat that protects the vendor and a moat the customer owns, framed as sovereignty vs. interdependence across nineteen places.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
+        "datePublished": "2026-07-01",
+        "mainEntityOfPage": "https://onelifetime.world/posts/the-moats-we-hand-you.html",
+        "articleSection": "Sovereignty",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12">
+        <header class="mb-8">
+          <span class="version-chip">Sovereignty &middot; Stance</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            The moats are yours, not ours.
+          </h1>
+          <p class="mt-3 text-lg leading-relaxed" style="color: #cbd5e1">
+            Sovereignty vs. interdependence, in nineteen places.
+          </p>
+          <p class="mt-3 text-sm" style="color: #94a3b8">
+            <time datetime="2026-07-01">1 Jul 2026</time> &middot; by Risto Anton Päärni
+          </p>
+        </header>
+
+        <section class="callout-green p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #a3e635">The stance, in one line</p>
+          <p class="mb-0">
+            A moat that only protects the vendor is a trap for the customer. We build the other kind
+            &mdash; nineteen places where owning the thing beats renting it &mdash; and we hand them
+            to you.
+          </p>
+        </section>
+
+        <p class="mb-6 text-lg leading-relaxed" style="color: #cbd5e1">
+          Most AI moats protect the seller.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          The vendor gets the lock-in. You get the bill and the dependency. The deeper you go, the
+          harder it is to leave &mdash; and that difficulty is sold to you as loyalty.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          And because a moat you cannot hold is not yours, here is the honest part. We build moats
+          the customer owns. The whole design has one spine: sovereignty vs. interdependence.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Sovereignty vs. interdependence
+        </h2>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Interdependence is sold as efficiency. It is priced as control.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Every dependency is a lever a counterparty can pull. It pulls hardest at renewal, at
+          scale, under pressure &mdash; the moment you can least afford it.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Sovereignty is not going it alone. It is owning the levers that decide your fate, and
+          depending on others only where the dependency is reversible at near-zero cost. Every moat
+          below is one of those levers.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Three we start with &mdash; all local
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #a3e635">
+              1 &middot; Local jurisdiction
+            </p>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #cbd5e1">
+              Be legally native to your own regime. A foreign vendor can move iron; it cannot move
+              its jurisdiction of origin to sit inside yours.
+            </p>
+          </div>
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #a3e635">
+              2 &middot; Sovereignty is segmentation
+            </p>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #cbd5e1">
+              Sovereignty is not one product. It is the axis that segments the market, locally.
+              Different jurisdictions need different depths &mdash; and that is the price ladder.
+            </p>
+          </div>
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #a3e635">
+              3 &middot; Near-zero exit cost
+            </p>
+            <p class="mt-2 text-sm leading-relaxed" style="color: #cbd5e1">
+              Interdependence wins the full sovereignty-exit cost. We built and maintain our own
+              libraries, so ours is near zero &mdash; and we pass that freedom to you.
+            </p>
+          </div>
+        </div>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          The third one is the tell. The real question is never the licence you stop paying. It is
+          the full cost to leave: the libraries you no longer understand, the maintenance muscle you
+          let atrophy, the integrations that only ever ran on the vendor's terms.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Interdependence accrues that cost quietly, then hands you the whole bill at once. Because
+          we build and maintain the stack ourselves, we can walk away from any single vendor for
+          almost nothing. The sovereign party is the one who can leave &mdash; so it never has to.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">The other sixteen</h2>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          The three above open the stack. Sixteen more complete it. They group into four moves: own
+          it, prove it, compound it, position it.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #67e8f9">Own it</p>
+            <ul
+              class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed"
+              style="color: #cbd5e1"
+            >
+              <li><strong>4 Weights.</strong> You own, export, and retrain your own model.</li>
+              <li><strong>5 Data residency.</strong> Your data stays on substrate you control.</li>
+              <li>
+                <strong>6 Substrate integrity.</strong> Hardware isolation below the agent's OS.
+              </li>
+            </ul>
+          </div>
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #67e8f9">
+              Prove it
+            </p>
+            <ul
+              class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed"
+              style="color: #cbd5e1"
+            >
+              <li>
+                <strong>7 Court-defensible evidence.</strong> Article 12 audit trail, not a promise.
+              </li>
+              <li><strong>8 Testable conformance.</strong> A sovereignty claim you can audit.</li>
+              <li>
+                <strong>9 Linguistic provenance.</strong> Claims resolve to a legal term of record.
+              </li>
+            </ul>
+          </div>
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #67e8f9">
+              Compound it
+            </p>
+            <ul
+              class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed"
+              style="color: #cbd5e1"
+            >
+              <li><strong>10 Capital efficiency.</strong> Owned substrate beats capital volume.</li>
+              <li>
+                <strong>11 Domain knowledge.</strong> A model trained on your industry, not the web.
+              </li>
+              <li>
+                <strong>12 Compounding alpha.</strong> Each cycle re-enters your own substrate.
+              </li>
+              <li>
+                <strong>13 Operational maturity.</strong> Calibrated oversight time can't be bought.
+              </li>
+            </ul>
+          </div>
+          <div class="layer-card rounded-lg p-4">
+            <p class="text-xs font-bold uppercase tracking-wider" style="color: #67e8f9">
+              Position it
+            </p>
+            <ul
+              class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed"
+              style="color: #cbd5e1"
+            >
+              <li><strong>14 Regulatory depth.</strong> Regulation as a feature, not a tax.</li>
+              <li>
+                <strong>15 Connector, not competitor.</strong> We compose with your platforms.
+              </li>
+              <li>
+                <strong>16 Sovereign upstream.</strong> EU-trained provenance where a partner
+                supplies it.
+              </li>
+              <li>
+                <strong>17 Post-quantum readiness.</strong> The crypto transition, priced in early.
+              </li>
+              <li>
+                <strong>18 Track-record epistemics.</strong> Decisions from what is right, not who
+                is liked.
+              </li>
+              <li><strong>19 Standardization.</strong> Owning the spec others conform to.</li>
+            </ul>
+          </div>
+        </div>
+
+        <section class="callout-gold p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #d4a843">Where each moat honestly stands</p>
+          <p class="mb-2">
+            Not all nineteen are shipping at the same depth, and saying otherwise is the fastest way
+            to lose a European buyer's trust.
+          </p>
+          <p class="mb-0">
+            Moats 1&ndash;13 run in production today. Moat 16 depends on a partner's EU upstream
+            &mdash; ours where they supply it, not a claim we make alone. Moat 17 is readiness, not
+            a finished migration. Moat 19 is a standard we have <em>proposed</em>, not one the
+            industry has ratified. We would rather name the tier than inflate it.
+          </p>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">
+          Why we hand the moat to you
+        </h2>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          Because a moat around us is only worth what it costs you to stay. A moat around you is
+          worth what it saves you when everything else moves.
+        </p>
+
+        <p class="mb-6 leading-relaxed" style="color: #cbd5e1">
+          The moats are not independent. Jurisdiction makes segmentation legible. Owning your
+          libraries is what makes owning your weights and your data possible. Substrate integrity is
+          what makes the evidence hold up. Copy any single one and you have a feature. Hold the
+          stack and you have a position.
+        </p>
+
+        <section class="callout p-5 rounded mb-10 text-sm" style="color: #cbd5e1">
+          <p class="font-semibold mb-2" style="color: #67e8f9">The short version</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Most AI moats protect the seller. We build the kind the customer owns.</li>
+            <li>
+              The spine is sovereignty vs. interdependence &mdash; own the levers that decide your
+              fate.
+            </li>
+            <li>Start local: your jurisdiction, your segmentation, your near-zero exit cost.</li>
+            <li>Then own it, prove it, compound it, position it &mdash; sixteen more places.</li>
+            <li>We name the tier each moat is at. The stack is the moat, not any one line.</li>
+          </ul>
+        </section>
+
+        <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #f1f5f9">Read next</h2>
+
+        <ul class="list-disc pl-6 space-y-2 mb-10 text-sm" style="color: #cbd5e1">
+          <li>
+            <a href="/posts/moat-is-not-the-model.html" class="text-cyan-400 hover:underline"
+              >The moat is not the model &mdash; NVIDIA makes it possible, EU-sovereign deployment
+              makes it defensible</a
+            >
+          </li>
+          <li>
+            <a href="/posts/four-capital-classes.html" class="text-cyan-400 hover:underline"
+              >Prompt, People, Plant, Perception &mdash; the four capital classes of the agentic
+              era</a
+            >
+          </li>
+          <li>
+            <a
+              href="/posts/the-ontology-lives-in-the-team.html"
+              class="text-cyan-400 hover:underline"
+              >The ontology lives in the team &mdash; why acquisition cannot extract it</a
+            >
+          </li>
+          <li>
+            <a
+              href="/posts/eu-sovereign-ai-factories-35-supercomputers.html"
+              class="text-cyan-400 hover:underline"
+              >Europe's AI factory came home &mdash; and why the edge still needs a box</a
+            >
+          </li>
+        </ul>
+
+        <hr class="border-slate-700 my-8" />
+
+        <p class="text-sm" style="color: #94a3b8">
+          Risto Anton Päärni<br />
+          <em>Founder, CEO, Lifetime Oy &middot; Editor in Chief, Lifetime Scope Journal</em>
+        </p>
+      </article>
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/tiedon-vanheneminen-sensoridata-retention.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)</span>
+                    </a>
+                    <a href="/posts/nvidia-halos-robotics-physical-ai-safety.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">NVIDIA Halos for Robotics — The Robot Gets Certified. The Evidence Still Has to Keep Talking.</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fthe-moats-we-hand-you.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=The%20Moats%20Are%20Yours%2C%20Not%20Ours%20%E2%80%94%20Sovereignty%20vs.%20Interdependence%2C%20in%20Nineteen%20Places%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fthe-moats-we-hand-you.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/the-moats-we-hand-you.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <p class="text-xs mb-4"><a href="https://dws10.com/price-list/" style="color:#22d3ee;text-decoration:underline">See the price list &rarr;</a></p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
+                            <p class="text-xs text-gray-500">50 production agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; Helsinki, Finland</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ Platform</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Store</a> &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Journal</a>
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWS IQ 6 | Theta - AI-First Design | Lifetime Oy</title>
+    <meta name="description" content="DWS IQ 6 — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="theta design, design variant">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="DWS IQ 6 | Theta - AI-First Design | Lifetime Oy">
+    <meta property="og:description" content="DWS IQ 6 — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/theta/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DWS IQ 6 | Theta - AI-First Design | Lifetime Oy">
+    <meta name="twitter:description" content="DWS IQ 6 — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/theta/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Anime.js for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <!-- React & ReactDOM via CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="stylesheet" href="../gamma/ultra-styles.css">
+    <link rel="stylesheet" href="theta-styles.css">
+</head>
+<body>
+    <!-- Include Gamma Navigation -->
+<style>
+        nav li:hover > .dropdown {
+            display: block !important;
+        }
+        nav .dropdown a:hover {
+            color: #0066cc !important;
+        }
+        nav .has-submenu:hover > .submenu {
+            display: block !important;
+        }
+        nav .submenu li:hover {
+            background: #f8fafc;
+        }
+    </style>
+
+    <!-- Main Content: AI Chat Interface -->
+    <div id="theta-root"></div>
+
+    <!-- React Component -->
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        function ThetaApp() {
+            const [messages, setMessages] = useState([
+                {
+                    id: '1',
+                    role: 'assistant',
+                    content: 'Hello! I\'m your **DWS IQ Climate Intelligence Assistant**. I can help you with:\n\n- 🧮 **EN 15978** carbon calculations\n- 📊 **CSRD** compliance reporting\n- 🏗️ **EPBD** building certifications\n- 💶 **ETS** emissions monitoring\n- 🌍 **CBAM** border regulations\n\nWhat would you like to know?'
+                }
+            ]);
+            const [input, setInput] = useState('');
+            const [isLoading, setIsLoading] = useState(false);
+            const messagesEndRef = useRef(null);
+
+            useEffect(() => {
+                // Animate on mount
+                anime({
+                    targets: '.theta-container',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 1000,
+                    easing: 'easeOutExpo'
+                });
+
+                anime({
+                    targets: '.theta-badge',
+                    scale: [0, 1],
+                    duration: 800,
+                    delay: 300,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+            }, []);
+
+            useEffect(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [messages]);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                if (!input.trim()) return;
+
+                const userMessage = {
+                    id: Date.now().toString(),
+                    role: 'user',
+                    content: input
+                };
+
+                setMessages(prev => [...prev, userMessage]);
+                setInput('');
+                setIsLoading(true);
+
+                // Simulate AI response
+                setTimeout(() => {
+                    const aiResponse = {
+                        id: (Date.now() + 1).toString(),
+                        role: 'assistant',
+                        content: generateResponse(input)
+                    };
+                    setMessages(prev => [...prev, aiResponse]);
+                    setIsLoading(false);
+
+                    // Animate new message
+                    anime({
+                        targets: '.chat-message:last-child',
+                        opacity: [0, 1],
+                        translateX: [-20, 0],
+                        duration: 500,
+                        easing: 'easeOutQuad'
+                    });
+                }, 1000);
+            };
+
+            const generateResponse = (query) => {
+                const lowerQuery = query.toLowerCase();
+
+                if (lowerQuery.includes('carbon') || lowerQuery.includes('co2')) {
+                    return '🧮 For **carbon calculations** using EN 15978:\n\n1. Specify material type (concrete, steel, timber, etc.)\n2. Quantity in standard units (m³, tonnes, m²)\n3. Project location for regional factors\n\nExample: 500m³ of concrete C30/37 in Finland ≈ 117 tonnes CO₂e\n\nWould you like a detailed breakdown?';
+                } else if (lowerQuery.includes('csrd') || lowerQuery.includes('compliance')) {
+                    return '📊 **CSRD Compliance** requirements:\n\n- Double materiality assessment\n- Scope 1, 2, 3 emissions reporting\n- Climate transition plan\n- Governance disclosures\n\nI can help you generate audit-ready reports. Which aspect would you like to explore?';
+                } else if (lowerQuery.includes('epbd')) {
+                    return '🏗️ **EPBD Certification** process:\n\n- Energy performance assessment\n- Building envelope analysis\n- HVAC system evaluation\n- Renewable energy integration\n\nI can guide you through the certification steps. What type of building are you working on?';
+                } else {
+                    return `I understand you're asking about "${query}". \n\nI can help with:\n- Carbon footprint calculations\n- Regulatory compliance (CSRD, EPBD, ETS, CBAM)\n- Sustainability reporting\n- Climate risk assessment\n\nCould you provide more details about what you need?`;
+                }
+            };
+
+            const renderMarkdown = (text) => {
+                return text
+                    .split('\n')
+                    .map((line, i) => {
+                        if (line.includes('**')) {
+                            const parts = line.split('**');
+                            return React.createElement('p', { key: i },
+                                parts.map((part, j) =>
+                                    j % 2 === 1
+                                        ? React.createElement('strong', { key: j }, part)
+                                        : part
+                                )
+                            );
+                        } else if (line.trim().startsWith('-')) {
+                            return React.createElement('li', { key: i }, line.replace(/^-\s*/, ''));
+                        } else if (line.trim()) {
+                            return React.createElement('p', { key: i }, line);
+                        }
+                        return null;
+                    });
+            };
+
+            return (
+                <div className="theta-hero">
+                    <div className="hero-background">
+                        <div className="hero-gradient"></div>
+                        <div className="hero-grid"></div>
+                    </div>
+
+                    <div className="theta-container">
+                        <div className="theta-badge">
+                            <span className="badge-dot" style={{animation: 'pulse 2s ease-in-out infinite'}}></span>
+                            <span>🤖 AI-Powered Climate Intelligence</span>
+                        </div>
+
+                        <div className="theta-chat-container">
+                            <div className="theta-chat-header">
+                                <div className="chat-header-left">
+                                    <div className="chat-avatar">🤖</div>
+                                    <div>
+                                        <h2>Climate Assistant</h2>
+                                        <p>DWS IQ AI · Powered by Claude Sonnet 4</p>
+                                    </div>
+                                </div>
+                                <div className="chat-status">
+                                    <span className="status-dot"></span>
+                                    <span>Online</span>
+                                </div>
+                            </div>
+
+                            <div className="theta-chat-messages">
+                                {messages.map((message, index) => (
+                                    <div
+                                        key={message.id}
+                                        className={`chat-message ${message.role}`}
+                                        style={{
+                                            animationDelay: `${index * 0.1}s`
+                                        }}
+                                    >
+                                        {message.role === 'assistant' ? (
+                                            <div className="message-content prose">
+                                                {renderMarkdown(message.content)}
+                                            </div>
+                                        ) : (
+                                            <div className="message-content">
+                                                {message.content}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+
+                                {isLoading && (
+                                    <div className="chat-message assistant">
+                                        <div className="loading-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div ref={messagesEndRef} />
+                            </div>
+
+                            <form className="theta-chat-input" onSubmit={handleSubmit}>
+                                <div className="quick-suggestions">
+                                    <button type="button" onClick={() => setInput('Calculate carbon for 500m³ of concrete')}>
+                                        💡 Carbon calculation
+                                    </button>
+                                    <button type="button" onClick={() => setInput('Check CSRD compliance')}>
+                                        ✅ CSRD compliance
+                                    </button>
+                                    <button type="button" onClick={() => setInput('Generate EPBD certificate')}>
+                                        📋 EPBD report
+                                    </button>
+                                </div>
+
+                                <div className="input-group">
+                                    <input
+                                        type="text"
+                                        value={input}
+                                        onChange={(e) => setInput(e.target.value)}
+                                        placeholder="Ask about carbon calculations, compliance, reports..."
+                                        disabled={isLoading}
+                                    />
+                                    <button type="submit" disabled={isLoading || !input.trim()}>
+                                        {isLoading ? '...' : '📤'}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div className="theta-stats">
+                            <div className="stat-card">
+                                <div className="stat-icon">⚡</div>
+                                <div className="stat-value">200ms</div>
+                                <div className="stat-label">Response Time</div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon">🎯</div>
+                                <div className="stat-value">99.9%</div>
+                                <div className="stat-label">Accuracy</div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon">🌍</div>
+                                <div className="stat-value">24/7</div>
+                                <div className="stat-label">Availability</div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon">🔒</div>
+                                <div className="stat-value">EU</div>
+                                <div className="stat-label">Data Residency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<ThetaApp />, document.getElementById('theta-root'));
+    </script>
+
+    <!-- Footer -->
+<script src="/shared-assets/nav/ironclad-nav.js"></script>
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

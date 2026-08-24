@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-02-06-brockman-agentic-software-development</title><style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem; color: #24292f; background: #fff; }
+h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 6px; font-size: 85%; }
+pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #d0d7de; padding: 6px 13px; }
+th { background: #f6f8fa; }
+blockquote { border-left: 4px solid #d0d7de; margin: 0; padding: 0 1em; color: #57606a; }
+a { color: #0969da; }
+</style></head>
+<body><h1>Greg Brockman on Retooling Teams for Agentic Software Development</h1>
+<hr />
+<h1>VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: claude/add-ai-consulting-guidance-pDsPu | Date: 06.02.2026 | Changes: Initial field note capturing Greg Brockman's agentic development guidance</p>
+<p>Document Status:
+  - Created: 06.02.2026
+  - Last Modified: 06.02.2026
+  - Language: English
+  - Publication Status: ACTIVE
+  - Document Type: Field Note / Industry Intelligence</p>
+<p>Related Documents:
+  - docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md
+  - CLAUDE.md (AI Agent Behavior Guidelines)
+  - docs/architecture/00-MASTER-BLUEPRINT.md
+  - agentic-ai-saas-implementation-guide-en.md</p>
+<hr />
+<h2>Summary</h2>
+<p>Greg Brockman (OpenAI co-founder) published guidance on how OpenAI is retooling their teams towards agentic software development. The key thesis: <strong>software development is undergoing a renaissance</strong>, and every company faces the same opportunity now. Navigating it well — like with cloud computing or the Internet — requires careful thought, not just adoption.</p>
+<p>This is directly relevant to DWS6's AI consulting practice. We use both Claude (Anthropic) and Codex (OpenAI) in our workflows, and this field note captures actionable wisdom we can apply internally and offer as consulting guidance to clients.</p>
+<hr />
+<h2>Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Global (Silicon Valley origin, EU application)</li>
+<li><strong>Sector:</strong> Technology &gt; Software Development &gt; AI-Augmented Engineering</li>
+<li><strong>Entities:</strong> OpenAI, Greg Brockman, Codex, Claude Code, Anthropic, DWS IQ 6</li>
+<li><strong>Temporal Context:</strong> 2026-Q1, Post-Codex 5.2, Agentic Development Era</li>
+<li><strong>Confidence:</strong> High (first-party source from OpenAI leadership)</li>
+</ul>
+<hr />
+<h2>The Core Insight</h2>
+<p>OpenAI's internal experience: prior to Codex 5.2, teams used it for unit tests. Now it writes essentially all the code and handles much of their operations and debugging. The gap between teams who have made this leap and those who haven't is usually <strong>not about model capability</strong> — it's about organizational readiness, workflow design, and cultural adoption.</p>
+<p>This mirrors what DWS6 sees with clients: the tools (Claude Code, Codex, Cursor) are capable enough. The bottleneck is always <strong>how teams integrate them</strong>.</p>
+<hr />
+<h2>Brockman's 6-Point Framework for Agentic Development</h2>
+<h3>Target State (by March 31, 2026)</h3>
+<ol>
+<li><strong>Agent-first interaction</strong>: For any technical task, the tool of first resort for humans is interacting with an agent rather than using an editor or terminal</li>
+<li><strong>Safe-by-default</strong>: The default way humans utilize agents is explicitly evaluated as safe, but also productive enough that most workflows do not need additional permissions</li>
+</ol>
+<h3>The 6 Action Items</h3>
+<h4>1. Try the Tools — Actively, Not Passively</h4>
+<ul>
+<li>Designate an <strong>"agents captain"</strong> per team — the person responsible for thinking about how agents integrate into the team's workflow</li>
+<li>Share experiences in designated internal channels</li>
+<li>Run company-wide agent hackathons</li>
+<li>Many people got stuck thinking "is there any way it could do X" rather than just trying</li>
+</ul>
+<p><strong>DWS6 Application:</strong> We run both Claude Code and Codex sessions. Our agents captain role maps to the existing AgentFoundry architecture owner. We recommend clients designate the same role.</p>
+<h4>2. Create Skills and AGENTS.md</h4>
+<ul>
+<li>Create and maintain an <code>AGENTS.md</code> (or <code>CLAUDE.md</code>) for every project</li>
+<li>Update it whenever the agent does something wrong or struggles with a task</li>
+<li>Write skills for anything you get the agent to do, and commit them to a shared repository</li>
+</ul>
+<p><strong>DWS6 Application:</strong> Our <code>CLAUDE.md</code> serves this purpose. The Karpathy principles in our CLAUDE.md are a direct implementation of this pattern. We maintain field notes (this directory) as our institutional memory of what agents struggle with.</p>
+<h4>3. Inventory and Make Accessible Internal Tools</h4>
+<ul>
+<li>Maintain a list of tools your team relies on</li>
+<li>Make them agent-accessible (CLI or MCP server)</li>
+</ul>
+<p><strong>DWS6 Application:</strong> Our <code>mcp-hub/</code> and <code>mcp-servers/</code> directories implement this directly. The MCP (Model Context Protocol) architecture gives agents access to Supabase, ERP integrations, and internal tools. This is a key differentiator in our consulting offering.</p>
+<h4>4. Structure Codebases to Be Agent-First</h4>
+<ul>
+<li>Write tests that are quick to run</li>
+<li>Create high-quality interfaces between components</li>
+<li>This is still emerging territory with models changing fast</li>
+</ul>
+<p><strong>DWS6 Application:</strong> Our Vitest setup, TypeScript strict mode, and Zod schema validation are agent-friendly patterns. Interface-first design (as in our API contracts) makes code more parseable by agents. We advise clients to adopt similar patterns.</p>
+<h4>5. Say No to Slop</h4>
+<ul>
+<li>Managing AI-generated code at scale is an emerging problem</li>
+<li>Ensure some human is accountable for any code that gets merged</li>
+<li>Maintain at least the same code review bar as for human-written code</li>
+<li>Make sure the author understands what they're submitting</li>
+</ul>
+<p><strong>DWS6 Application:</strong> Our CLAUDE.md already addresses this with the Karpathy principles: "Ensure that some human is accountable" maps to "You are the hands; the human is the architect." Our pre-commit hooks and PR-based workflow enforce human review.</p>
+<h4>6. Work on Basic Infrastructure</h4>
+<ul>
+<li>Build observability for agent work</li>
+<li>Track not just committed code but the agent trajectories that led to them</li>
+<li>Centrally manage the tools that agents can use</li>
+</ul>
+<p><strong>DWS6 Application:</strong> Our AgentFoundry deployment infrastructure, MCP Hub session management, and the EU AI Act Article 12 logging requirements all address this. We're building "Reasoning Lineage" documentation that tracks AI decision chains — which goes beyond what Brockman describes.</p>
+<hr />
+<h2>The Cultural Dimension</h2>
+<p>Brockman emphasizes this is <strong>not just a technical change but a deep cultural change</strong> with downstream implications. Key quote:</p>
+<blockquote>
+<p>"Every company faces the same opportunity now, and navigating it well — just like with cloud computing or the Internet — requires careful thought."</p>
+</blockquote>
+<p>This is the foundation of DWS6's AI consulting offering. Technical tool adoption is straightforward. The hard part is:</p>
+<ol>
+<li><strong>Organizational readiness</strong> — Agents captain role, team workflows, permission models</li>
+<li><strong>Quality governance</strong> — Preventing "functionally-correct but poorly-maintainable code"</li>
+<li><strong>Infrastructure investment</strong> — Observability, trajectory tracking, central tool management</li>
+<li><strong>Cultural shift</strong> — Moving from "editor-first" to "agent-first" as the default interaction</li>
+</ol>
+<hr />
+<h2>DWS6 Competitive Advantage: Dual-Agent Practice</h2>
+<p>DWS6 is distinctive in that we actively use <strong>both</strong> major agentic coding platforms:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Provider</th>
+<th>DWS6 Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>Anthropic</td>
+<td>Primary development agent, CLAUDE.md governance, MCP integration</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>OpenAI</td>
+<td>Parallel agent sessions, code generation, operations tasks</td>
+</tr>
+<tr>
+<td><strong>Cursor</strong></td>
+<td>Cursor Inc.</td>
+<td>IDE-integrated AI assistance</td>
+</tr>
+</tbody>
+</table>
+<p>This dual-agent experience means:
+- We understand the strengths and tradeoffs of each platform
+- We can recommend the right tool for different organizational contexts
+- We've built workflows that work across agent ecosystems
+- Our consulting advice is vendor-neutral and experience-based</p>
+<hr />
+<h2>Consulting Implications: What We Offer Clients</h2>
+<p>Based on Brockman's framework and our own experience, DWS6 can offer AI consulting across all six dimensions:</p>
+<h3>1. Agentic Development Assessment</h3>
+<ul>
+<li>Evaluate current team workflows and agent adoption maturity</li>
+<li>Identify quick wins and blockers</li>
+<li>Benchmark against Brockman's target state</li>
+</ul>
+<h3>2. AGENTS.md / CLAUDE.md Workshop</h3>
+<ul>
+<li>Help teams create and maintain agent instruction files</li>
+<li>Transfer our Karpathy-principles-based approach</li>
+<li>Set up skills repositories</li>
+</ul>
+<h3>3. Tool Accessibility Audit</h3>
+<ul>
+<li>Inventory internal tools and assess agent-accessibility</li>
+<li>Design MCP server architecture for internal tooling</li>
+<li>Implement CLI wrappers for agent consumption</li>
+</ul>
+<h3>4. Agent-First Codebase Restructuring</h3>
+<ul>
+<li>Assess codebase readiness for agentic development</li>
+<li>Implement quick-running test suites</li>
+<li>Design clean component interfaces</li>
+<li>Set up TypeScript strict mode, Zod validation, interface-first patterns</li>
+</ul>
+<h3>5. AI Code Quality Governance</h3>
+<ul>
+<li>Design code review processes for AI-generated code</li>
+<li>Set up pre-commit hooks and automated quality gates</li>
+<li>Train reviewers on AI-specific code review patterns</li>
+<li>Establish accountability frameworks</li>
+</ul>
+<h3>6. Agentic Infrastructure Setup</h3>
+<ul>
+<li>Deploy observability for agent workflows</li>
+<li>Set up trajectory tracking (agent actions that led to code changes)</li>
+<li>Implement central agent tool management</li>
+<li>EU AI Act Article 12 compliance logging</li>
+</ul>
+<hr />
+<h2>Key Quotes</h2>
+<blockquote>
+<p>"Prior to then, they could use Codex for unit tests; now it writes essentially all the code and does a great deal of their operations and debugging. Not everyone has yet made that leap, but it's usually because of factors besides the capability of the model."</p>
+<p>"Adopting tools like Codex is not just a technical but also a deep cultural change, with a lot of downstream implications to figure out."</p>
+<p>"Every company faces the same opportunity now, and navigating it well — just like with cloud computing or the Internet — requires careful thought."</p>
+</blockquote>
+<hr />
+<h2>Action Items</h2>
+<ul>
+<li>[ ] Reference this field note in AI consulting product page</li>
+<li>[ ] Update CLAUDE.md to cross-reference Brockman's agents captain concept</li>
+<li>[ ] Create "Agentic Development Assessment" consulting offering</li>
+<li>[ ] Build workshop materials for AGENTS.md/CLAUDE.md creation</li>
+<li>[ ] Add AI consulting service to dws10.com product catalog</li>
+<li>[ ] Develop pricing model for AI consulting engagements</li>
+</ul>
+<hr />
+<h2>Next Steps</h2>
+<ol>
+<li><strong>Create AI consulting product page</strong> on dws10.com showing this capability</li>
+<li><strong>Develop workshop curriculum</strong> based on Brockman's 6-point framework</li>
+<li><strong>Document internal practices</strong> that demonstrate we practice what we preach</li>
+<li><strong>Price the offering</strong> — this sits alongside existing hourly (EUR 350/hr) and retainer (EUR 5,000/mo) services</li>
+</ol>
+<hr />
+<p><strong>Document Version:</strong> 1.0
+<strong>Field Note Type:</strong> Industry Intelligence / Competitive Analysis
+<strong>Source:</strong> Greg Brockman (OpenAI), February 2026</p></body></html>

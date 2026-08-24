@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firehorse Production Engine — Dark Mode | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="FPE — the Firehorse Production Engine. Leading people means avoiding weakest-link failure and protecting continuity, ownership, compliance, governance, and improvement. A dark-mode briefing for CEO, HR, CFO, and CIO."
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#05070d" />
+    <meta property="og:title" content="Firehorse Production Engine — Dark Mode" />
+    <meta
+      property="og:description"
+      content="The system should survive the operator. FPE makes operating knowledge auditable, ownable, and harder to lose."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://lifetime.fi/firehorse-production-engine/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="Lifetime Oy" />
+    <link rel="canonical" href="https://lifetime.fi/firehorse-production-engine/" />
+    <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
+    <style>
+      :root {
+        /* Darker than lifetime.fi base — executive briefing tone */
+        --bg-primary: #05070d;
+        --bg-secondary: #0a0d16;
+        --bg-surface: rgba(13, 17, 28, 0.85);
+        --bg-surface-strong: rgba(8, 11, 20, 0.95);
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --border-strong: rgba(184, 134, 11, 0.18);
+        --text-primary: #e2e8f0;
+        --text-secondary: #8b95a8;
+        --text-muted: #5a6478;
+        --text-accent: #60a5fa;
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+        --color-warn: #c84b4b;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        min-height: 100vh;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Hero — deeper, quieter than lifetime.fi/ */
+      .hero {
+        min-height: 92vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse at 20% 30%, rgba(184, 134, 11, 0.06) 0%, transparent 55%),
+          radial-gradient(ellipse at 80% 70%, rgba(96, 165, 250, 0.03) 0%, transparent 55%),
+          linear-gradient(165deg, #05070d 0%, #0a0d16 50%, #05070d 100%);
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(184, 134, 11, 0.018) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(184, 134, 11, 0.018) 1px, transparent 1px);
+        background-size: 80px 80px;
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 860px;
+        padding: 140px 24px 80px;
+        text-align: center;
+      }
+
+      .hero-overline {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 3.5px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.6rem, 5.8vw, 4.4rem);
+        font-weight: 800;
+        line-height: 1.05;
+        margin-bottom: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-accent {
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-tagline {
+        font-size: clamp(1.05rem, 2.3vw, 1.3rem);
+        color: var(--text-secondary);
+        max-width: 660px;
+        margin: 24px auto 36px;
+        line-height: 1.75;
+        font-weight: 400;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-gold {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 36px;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #05070d;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: var(--radius-full);
+        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.22);
+        transition: all var(--transition-base);
+      }
+
+      .btn-gold:hover {
+        box-shadow: 0 15px 40px rgba(184, 134, 11, 0.32);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 36px;
+        background: transparent;
+        color: var(--text-primary);
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1.5px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-full);
+        transition: all var(--transition-base);
+      }
+
+      .btn-outline:hover {
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      /* Sections */
+      .section {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 96px 24px;
+      }
+
+      .section-divider {
+        border: none;
+        border-top: 1px solid var(--border-subtle);
+        margin: 0;
+      }
+
+      .section-label {
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+
+      .section-body {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        max-width: 720px;
+      }
+
+      .section-body strong {
+        color: var(--text-primary);
+      }
+
+      /* The Five Protections */
+      .protect-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 900px) {
+        .protect-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .protect-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 24px 18px;
+        text-align: center;
+      }
+
+      .protect-card .protect-num {
+        font-size: 0.7rem;
+        color: var(--color-gold);
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+      }
+
+      .protect-card h4 {
+        font-size: 0.95rem;
+        color: var(--text-primary);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .protect-card p {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        line-height: 1.55;
+      }
+
+      /* Executive briefing block */
+      .exec-section {
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(184, 134, 11, 0.05) 0%, transparent 60%),
+          var(--bg-secondary);
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .exec-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 48px;
+      }
+
+      @media (max-width: 768px) {
+        .exec-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .exec-card {
+        background: var(--bg-surface-strong);
+        border: 1px solid var(--border-subtle);
+        border-left: 3px solid var(--color-gold);
+        border-radius: var(--radius-lg);
+        padding: 32px 28px;
+        transition: all var(--transition-base);
+      }
+
+      .exec-card:hover {
+        border-color: var(--border-strong);
+        border-left-color: var(--color-gold-light);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+      }
+
+      .exec-role {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .exec-role-tag {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--color-gold-light);
+        background: rgba(184, 134, 11, 0.1);
+        border: 1px solid rgba(184, 134, 11, 0.25);
+        padding: 4px 10px;
+        border-radius: var(--radius-full);
+        letter-spacing: 1px;
+      }
+
+      .exec-role-name {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+
+      .exec-quote {
+        font-size: 1.05rem;
+        color: var(--text-primary);
+        line-height: 1.7;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .exec-quote::before {
+        content: '"';
+        color: var(--color-gold);
+        font-size: 2rem;
+        line-height: 0;
+        position: relative;
+        top: 8px;
+        margin-right: 4px;
+      }
+
+      .exec-quote::after {
+        content: '"';
+        color: var(--color-gold);
+        font-size: 2rem;
+        line-height: 0;
+        position: relative;
+        top: 8px;
+        margin-left: 4px;
+      }
+
+      /* Connect-back to lifetime.fi narrative */
+      .connect-box {
+        background: var(--bg-surface);
+        border: 1px solid rgba(184, 134, 11, 0.18);
+        border-radius: var(--radius-xl);
+        padding: 40px 36px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .connect-box {
+          padding: 28px 22px;
+        }
+      }
+
+      .connect-box h3 {
+        font-size: 1.25rem;
+        color: var(--color-gold-light);
+        margin-bottom: 14px;
+      }
+
+      .connect-box p {
+        font-size: 0.98rem;
+        color: var(--text-secondary);
+        line-height: 1.75;
+        margin-bottom: 12px;
+      }
+
+      .connect-box strong {
+        color: var(--text-primary);
+      }
+
+      .connect-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .connect-link {
+        font-size: 0.85rem;
+        color: var(--color-gold);
+        text-decoration: none;
+        border: 1px solid rgba(184, 134, 11, 0.25);
+        padding: 8px 14px;
+        border-radius: var(--radius-md);
+        transition: all var(--transition-base);
+      }
+
+      .connect-link:hover {
+        background: rgba(184, 134, 11, 0.08);
+        color: var(--color-gold-light);
+      }
+
+      /* Footer */
+      .corp-footer {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 24px 80px;
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 40px;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .footer-inner {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+
+      .footer-col h4 {
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+      }
+
+      .footer-col p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 8px;
+      }
+
+      .footer-col a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.85rem;
+        display: block;
+        padding: 4px 0;
+        transition: color var(--transition-base);
+      }
+
+      .footer-col a:hover {
+        color: var(--text-primary);
+      }
+
+      .footer-legal {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-subtle);
+        font-size: 0.74rem;
+        color: var(--text-muted);
+      }
+
+      /* Market signal — construction layoff anchors */
+      .signal-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 36px;
+      }
+      @media (max-width: 768px) {
+        .signal-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .signal-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 22px 22px;
+      }
+      .signal-card .signal-name {
+        font-size: 0.95rem;
+        color: var(--text-primary);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .signal-card .signal-meta {
+        font-size: 0.78rem;
+        color: var(--color-gold);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+      }
+      .signal-card p {
+        font-size: 0.86rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+      .signal-card .signal-source {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+
+      /* Calculator */
+      .calc-box {
+        background: var(--bg-surface-strong);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-xl);
+        padding: 36px 32px;
+        margin-top: 36px;
+      }
+      @media (max-width: 768px) {
+        .calc-box {
+          padding: 24px 20px;
+        }
+      }
+      .calc-row {
+        display: grid;
+        grid-template-columns: 1.4fr 2fr 1fr;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+      @media (max-width: 768px) {
+        .calc-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+      }
+      .calc-row label {
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+      .calc-row input[type="range"] {
+        width: 100%;
+        accent-color: var(--color-gold);
+        background: transparent;
+      }
+      .calc-row .calc-val {
+        font-size: 0.95rem;
+        color: var(--color-gold-light);
+        font-weight: 700;
+        text-align: right;
+      }
+      @media (max-width: 768px) {
+        .calc-row .calc-val {
+          text-align: left;
+        }
+      }
+      .calc-out {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-strong);
+      }
+      .calc-out-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 10px 0;
+        font-size: 0.92rem;
+        color: var(--text-secondary);
+      }
+      .calc-out-row .calc-num {
+        font-size: 1.05rem;
+        color: var(--text-primary);
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .calc-out-row.calc-out-headline {
+        border-top: 1px solid var(--border-subtle);
+        margin-top: 8px;
+        padding-top: 16px;
+        font-size: 1rem;
+        color: var(--text-primary);
+      }
+      .calc-out-row.calc-out-headline .calc-num {
+        font-size: 1.4rem;
+        color: var(--color-gold-light);
+      }
+      .calc-source {
+        margin-top: 18px;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* Offer block */
+      .offer-box {
+        background: linear-gradient(
+          165deg,
+          rgba(184, 134, 11, 0.05) 0%,
+          var(--bg-surface-strong) 100%
+        );
+        border: 1px solid rgba(184, 134, 11, 0.28);
+        border-radius: var(--radius-xl);
+        padding: 44px 40px;
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 36px;
+        align-items: center;
+      }
+      @media (max-width: 768px) {
+        .offer-box {
+          grid-template-columns: 1fr;
+          padding: 28px 22px;
+          gap: 24px;
+        }
+      }
+      .offer-box h3 {
+        font-size: 1.4rem;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        letter-spacing: -0.01em;
+      }
+      .offer-box .offer-line {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .offer-box .offer-line strong {
+        color: var(--text-primary);
+      }
+      .offer-box ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .offer-box ul li {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        padding: 6px 0 6px 22px;
+        position: relative;
+        line-height: 1.55;
+      }
+      .offer-box ul li::before {
+        content: "·";
+        color: var(--color-gold);
+        font-weight: 700;
+        position: absolute;
+        left: 8px;
+        top: 4px;
+        font-size: 1.2rem;
+      }
+      .offer-side {
+        text-align: center;
+        padding: 24px 16px;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-lg);
+      }
+      .offer-side .offer-price {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: var(--color-gold-light);
+        letter-spacing: -0.02em;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .offer-side .offer-price-note {
+        font-size: 0.74rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 18px;
+      }
+      .offer-side .btn-gold {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+      }
+      .offer-side .offer-sub {
+        font-size: 0.74rem;
+        color: var(--text-muted);
+        margin-top: 12px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Ironclad unified navigation (auto-injects, domain-aware) -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div class="hero-overline">Firehorse Production Engine &middot; Executive Briefing</div>
+        <h1>The system should<br /><span class="hero-accent">survive the operator.</span></h1>
+        <p class="hero-tagline">
+          With FPE, leading people means avoiding the weakest-link failure and protecting
+          <strong>continuity</strong>, <strong>ownership</strong>, <strong>compliance</strong>,
+          <strong>governance</strong>, and <strong>improvement</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#executives" class="btn-gold">Executive Briefing</a>
+          <a href="https://dws10.com/buy/" class="btn-outline">Explore Firehorse</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Calculator — moved to top; 90% scale; max investment €10M -->
+    <section class="section" id="calculator" style="zoom: 0.9">
+      <div class="section-label">Exposure Calculator</div>
+      <h2 class="section-title">Your numbers. Your conservative range.</h2>
+      <div class="section-body">
+        <p>
+          Three sliders. Public-source coefficients only. The output is a
+          <strong>conservative range</strong> for one wrong-layoff event in one AI-bound workflow
+          &mdash; not a worst-case headline. We do not claim your full AI investment back; the model
+          assumes partial restart and probability-weighted compliance / breach exposure.
+        </p>
+      </div>
+
+      <div class="calc-box">
+        <div class="calc-row">
+          <label for="ai-investment">AI investment to date (per workflow)</label>
+          <input
+            type="range"
+            id="ai-investment"
+            min="50000"
+            max="10000000"
+            step="100000"
+            value="200000"
+          />
+          <span class="calc-val" id="ai-investment-val">&euro;200,000</span>
+        </div>
+        <div class="calc-row">
+          <label for="ai-salary">Operator annual salary</label>
+          <input type="range" id="ai-salary" min="60000" max="200000" step="5000" value="110000" />
+          <span class="calc-val" id="ai-salary-val">&euro;110,000</span>
+        </div>
+        <div class="calc-row">
+          <label for="ai-criticality">Workflow criticality (compliance + revenue weight)</label>
+          <input type="range" id="ai-criticality" min="1" max="5" step="1" value="3" />
+          <span class="calc-val" id="ai-criticality-val">3 / 5</span>
+        </div>
+
+        <div class="calc-out">
+          <div class="calc-out-row">
+            <span>Replacement &amp; ramp (90&ndash;200% of salary)</span>
+            <span class="calc-num" id="out-replace">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Productivity gap (~9 months at 50%)</span>
+            <span class="calc-num" id="out-prod">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Workflow restart cost (20&ndash;40% of investment)</span>
+            <span class="calc-num" id="out-restart">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Compliance / audit-trail exposure (probability-weighted)</span>
+            <span class="calc-num" id="out-comp">&mdash;</span>
+          </div>
+          <div class="calc-out-row calc-out-headline">
+            <span>Conservative range &mdash; one wrong layoff, one workflow</span>
+            <span class="calc-num" id="out-total">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>FPE Continuity Pack &mdash; one critical workflow, 30 days</span>
+            <span class="calc-num">&euro;14,999</span>
+          </div>
+        </div>
+
+        <div class="calc-source">
+          Coefficients: SHRM and Center for American Progress replacement-cost benchmarks
+          (90&ndash;213% of salary, conservative band 90&ndash;200%); Gallup ramp-up data (50%
+          productivity for ~6 months after a 12-week vacancy); Gartner 2024 AI value-capture
+          statistics for partial restart bands; EU AI Act Reg. (EU) 2024/1689 Art. 99 capped at
+          probability-weighted mid-cap exposure (not the headline cap). Numbers are illustrative;
+          substitute your own salary, investment, and criticality for a defensible internal
+          estimate.
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- The Five Protections -->
+    <section class="section">
+      <div class="section-label">What FPE Protects</div>
+      <h2 class="section-title">Five protections against the weakest link.</h2>
+      <div class="section-body">
+        <p>
+          The Firehorse Production Engine is the operating layer beneath every Skilled Agent and
+          every Industrial Specialist Workflow. It exists for one reason:
+          <strong>no single person leaving should ever break the company</strong>. Operating
+          knowledge is captured, signed, audited, and transferable.
+        </p>
+      </div>
+
+      <div class="protect-grid">
+        <div class="protect-card">
+          <div class="protect-num">01</div>
+          <h4>Continuity</h4>
+          <p>Operations continue when a key operator is absent or replaced.</p>
+        </div>
+        <div class="protect-card">
+          <div class="protect-num">02</div>
+          <h4>Ownership</h4>
+          <p>Every workflow has a named owner and a documented successor.</p>
+        </div>
+        <div class="protect-card">
+          <div class="protect-num">03</div>
+          <h4>Compliance</h4>
+          <p>EU AI Act Article 12 logging, CSRD, CBAM, NIS2 &mdash; baked in, not bolted on.</p>
+        </div>
+        <div class="protect-card">
+          <div class="protect-num">04</div>
+          <h4>Governance</h4>
+          <p>KYA agent governance ties every action to a verified human identity.</p>
+        </div>
+        <div class="protect-card">
+          <div class="protect-num">05</div>
+          <h4>Improvement</h4>
+          <p>Every cycle leaves the system measurably better &mdash; Toyota kaizen for AI.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Executive briefing -->
+    <section class="section exec-section" id="executives">
+      <div class="section-label">Executive Briefing &middot; Dark Mode</div>
+      <h2 class="section-title">Four readings of the same risk.</h2>
+      <div class="section-body">
+        <p>
+          The CEO sees ownership. HR sees the silent exit. The CFO sees fragility on the balance
+          sheet. The CIO sees an operator-bound system.
+          <strong>FPE answers all four in one production engine</strong>, the same way a Toyota line
+          answers quality, safety, throughput, and cost in one system.
+        </p>
+      </div>
+
+      <div class="exec-grid">
+        <div class="exec-card">
+          <div class="exec-role">
+            <span class="exec-role-tag">CEO</span>
+            <span class="exec-role-name">Chief Executive Officer</span>
+          </div>
+          <p class="exec-quote">
+            With FPE, weak ownership is the real enemy. One person leaving should not break
+            continuity, compliance, governance, or improvement.
+          </p>
+        </div>
+
+        <div class="exec-card">
+          <div class="exec-role">
+            <span class="exec-role-tag">HR</span>
+            <span class="exec-role-name">Head of People</span>
+          </div>
+          <p class="exec-quote">
+            Without FPE, people risk becomes a silent failure mode. Knowledge walks out the door,
+            and the system goes with it.
+          </p>
+        </div>
+
+        <div class="exec-card">
+          <div class="exec-role">
+            <span class="exec-role-tag">CFO</span>
+            <span class="exec-role-name">Chief Financial Officer</span>
+          </div>
+          <p class="exec-quote">
+            If continuity depends on one person, you are carrying hidden fragility. FPE reduces
+            weakest-link failure and protects the value already built.
+          </p>
+        </div>
+
+        <div class="exec-card">
+          <div class="exec-role">
+            <span class="exec-role-tag">CIO</span>
+            <span class="exec-role-name">Chief Information Officer</span>
+          </div>
+          <p class="exec-quote">
+            The system should survive the operator. FPE makes operating knowledge auditable,
+            ownable, and harder to lose.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Market signal — Construction layoffs 2024-2025 -->
+    <section class="section" id="market-signal">
+      <div class="section-label">Market Signal &middot; Construction 2024&ndash;2025</div>
+      <h2 class="section-title">
+        EU construction is mid-correction. The wrong layoff costs more now.
+      </h2>
+      <div class="section-body">
+        <p>
+          Finnish construction employment dropped sharply in 2023&ndash;2024, with multiple mid-cap
+          firms in restructuring or co-determination. When cost-cutting hits a team that just spent
+          12&ndash;18 months building AI workflows, the operator who built the workflow is often the
+          one let go. The workflow stops with them.
+        </p>
+        <p style="margin-top: 14px">
+          The four signals below are public &mdash; stock-exchange notices, official statistics,
+          court filings. We do not list private cases.
+          <strong>The pattern, not the headline number, is what matters for FPE pricing.</strong>
+        </p>
+      </div>
+
+      <div class="signal-grid">
+        <div class="signal-card">
+          <div class="signal-name">Lehto Group</div>
+          <div class="signal-meta">Bankruptcy filing &middot; March 2024</div>
+          <p>
+            Finnish listed construction company filed for bankruptcy. Workforce affected across
+            multiple Finnish sites. Public press coverage extensive.
+          </p>
+          <div class="signal-source">
+            Source: Helsinki District Court filing 2024; Helsingin Sanomat / Reuters reporting March
+            2024.
+          </div>
+        </div>
+        <div class="signal-card">
+          <div class="signal-name">YIT Oyj</div>
+          <div class="signal-meta">Co-determination rounds &middot; 2023&ndash;2024</div>
+          <p>
+            Finland&rsquo;s largest construction company announced multiple co-determination
+            negotiations during the 2023&ndash;2024 housing-market downturn, including reductions at
+            Finnish operations.
+          </p>
+          <div class="signal-source">
+            Source: YIT Oyj stock-exchange releases (Nasdaq Helsinki) 2023&ndash;2024.
+          </div>
+        </div>
+        <div class="signal-card">
+          <div class="signal-name">SRV Group</div>
+          <div class="signal-meta">Restructuring announcements &middot; 2024</div>
+          <p>
+            Finnish listed construction group announced operational restructuring with workforce
+            impact during the 2024 sector correction.
+          </p>
+          <div class="signal-source">
+            Source: SRV Group stock-exchange releases (Nasdaq Helsinki) 2024.
+          </div>
+        </div>
+        <div class="signal-card">
+          <div class="signal-name">Statistics Finland &middot; sector aggregate</div>
+          <div class="signal-meta">Construction employment &middot; 2023&ndash;2024</div>
+          <p>
+            Aggregate construction-sector employment showed sharp year-on-year decline through
+            2023&ndash;2024 across building and civil engineering.
+          </p>
+          <div class="signal-source">
+            Source: Tilastokeskus (Statistics Finland) Labour Force Survey, sector breakdown 2024.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Offer -->
+    <section class="section" id="offer">
+      <div class="section-label">The Offer &middot; Early Learning</div>
+      <h2 class="section-title">Reduce weakest-link failure in your 5 most critical workflows.</h2>
+      <div class="section-body">
+        <p>
+          You invested in AI. <strong>One bad layoff can wipe out that value.</strong> FPE costs
+          <strong>&euro;14,999</strong> to reduce weakest-link failure in
+          <strong>5 critical workflows</strong> &mdash; pick the most critical first; the other four
+          follow inside the same 30 days. Each becomes operator-independent &mdash; KYA-signed, EU
+          AI Act Article 12 logged, with a named owner and a named successor. CFO sign-off direct,
+          under the &euro;15k procurement threshold.
+        </p>
+        <p style="margin-top: 14px">
+          <strong>We are early learning.</strong> First Construction Edition cohort (April&ndash;Q2
+          2026) is small on purpose. The price holds while we co-build the playbook with the first
+          customers; the playbook is what gets productised next.
+        </p>
+      </div>
+
+      <div class="offer-box">
+        <div class="offer-content">
+          <h3>Firehorse FPE Continuity Pack &middot; Construction Edition</h3>
+          <p class="offer-line">
+            Start with the workflow whose owner is on the way out, or whose absence would stall the
+            most revenue or compliance the fastest. <strong>That one earns the next four</strong>,
+            inside the same 30-day pack &mdash; not later, not behind a second invoice.
+          </p>
+          <ul>
+            <li>5 critical operator-bound workflows mapped, owned, made operator-independent</li>
+            <li>Pick the most critical first &mdash; the other four follow inside the same pack</li>
+            <li>Named owner + named successor, signed under KYA, on every workflow</li>
+            <li>EU AI Act Article 12 audit log on every action</li>
+            <li>30-day signed continuity audit (CFO + board readable)</li>
+            <li>Bolts onto Firehorse Starter V2 engine and your existing AI investment</li>
+            <li>
+              Construction scope: BIM, cost estimation, schedule, CSRD, CBAM, EN 15978 carbon, site
+              safety, procurement
+            </li>
+          </ul>
+        </div>
+        <div class="offer-side">
+          <div class="offer-price">&euro;14,999</div>
+          <div class="offer-price-note">B2B &middot; VAT 0% reverse charge</div>
+          <a
+            href="https://dws10.com/contact/"
+            class="btn-gold"
+            >Book the 30-day pack</a
+          >
+          <div class="offer-sub">
+            One-time. CFO-direct. No board approval needed under &euro;15k threshold.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Connect to lifetime.fi narrative -->
+    <section class="section">
+      <div class="section-label">Where FPE Sits</div>
+      <h2 class="section-title">Inside the Toyota Production System for EU Carbon Compliance.</h2>
+      <div class="section-body">
+        <p>
+          Lifetime Oy is the <strong>creator of the Firehorse Product Line</strong> and the
+          <strong>DWS IQ Product Platform</strong>. We help clients convert complex industrial
+          enterprise challenges into operational dual-use compliance solutions &mdash; hardware and
+          software AI consultancy combined with Smart Factory design and rollout. FPE is the
+          production engine that makes those outcomes inevitable.
+        </p>
+      </div>
+
+      <div class="connect-box">
+        <h3>FPE in the Brain &middot; Memory &middot; Body &middot; Hands architecture</h3>
+        <p>
+          <strong>Body.</strong> FPE lives inside <strong>Firehorse</strong>, the distribution
+          vehicle that carries Skilled Agents into every connected ERP store &mdash; IFS, Visma,
+          SAP, Monitor, Jeeves. The Brain orchestrates. Memory holds the EU regulatory model.
+          <strong>FPE is how outcomes ship, survive turnover, and get audited.</strong>
+        </p>
+        <p>
+          Not dashboards. Not reports. Not consulting hours. <strong>Production outcomes</strong>,
+          owned by name, signed by KYA, logged under EU AI Act Article 12, and improved every cycle.
+        </p>
+        <div class="connect-links">
+          <a href="/" class="connect-link">&larr; Back to Lifetime Oy</a>
+          <a href="https://dws10.com/buy/" class="connect-link">Firehorse Product Line</a>
+          <a href="https://dws10.com/dual-use/" class="connect-link">DWS IQ Aegis</a>
+          <a href="https://dws10.com/fleet-admiral/" class="connect-link">Fleet Admiral</a>
+          <a href="https://dws10.com/contact/" class="connect-link">Book a consultation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="corp-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Lifetime Oy</h4>
+          <p>
+            Creator of the Firehorse Product Line and DWS IQ Product Platform &mdash; the Toyota
+            Production System for dual-use EU carbon compliance. HW+SW AI consultancy and Smart
+            Factory rollouts. Based in Espoo.
+          </p>
+          <p style="margin-top: 12px">
+            <strong style="color: var(--text-primary)">Risto Anton P&auml;&auml;rni</strong><br />
+            Founder &amp; CEO<br />
+            M.Sc. (Tech), Industrial Management<br />
+            risto@onelifetime.world
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Platforms</h4>
+          <a href="https://dws10.com">DWS IQ Platform</a>
+          <a href="https://dws10.com/dual-use/">DWS IQ Aegis</a>
+          <a href="https://dws10.com/buy/">Product Store</a>
+          <a href="https://dws10.com/fleet-admiral/">Fleet Admiral</a>
+          <a href="https://dws10.com/captain/">Industry Captains</a>
+          <a href="https://onelifetime.world">Lifetime World</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="https://dws10.com/terms/">Terms of Service</a>
+          <a href="https://dws10.com/privacy-policy/">Privacy Policy</a>
+          <a href="https://dws10.com/legal/">Legal Hub</a>
+          <a href="https://dws10.com/compliance/">Compliance</a>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <p>&copy; 2026 Lifetime Oy &middot; Y-tunnus 0772407-9 &middot; VAT FI07724079</p>
+        <p>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var fmt = function (n) {
+          return "€" + Math.round(n).toLocaleString("en-IE");
+        };
+        var fmtRange = function (lo, hi) {
+          return fmt(lo) + " – " + fmt(hi);
+        };
+        var inv = document.getElementById("ai-investment");
+        var sal = document.getElementById("ai-salary");
+        var crit = document.getElementById("ai-criticality");
+        if (!inv || !sal || !crit) return;
+        var invVal = document.getElementById("ai-investment-val");
+        var salVal = document.getElementById("ai-salary-val");
+        var critVal = document.getElementById("ai-criticality-val");
+        var outReplace = document.getElementById("out-replace");
+        var outProd = document.getElementById("out-prod");
+        var outRestart = document.getElementById("out-restart");
+        var outComp = document.getElementById("out-comp");
+        var outTotal = document.getElementById("out-total");
+        function calc() {
+          var i = +inv.value;
+          var s = +sal.value;
+          var c = +crit.value;
+          invVal.textContent = fmt(i);
+          salVal.textContent = fmt(s);
+          critVal.textContent = c + " / 5";
+          var replaceLo = 0.9 * s;
+          var replaceHi = 2.0 * s;
+          var prodLo = 0.5 * s * (9 / 12) * 0.85;
+          var prodHi = 0.5 * s * (9 / 12) * 1.15;
+          var restartLo = 0.2 * i;
+          var restartHi = 0.4 * i;
+          var compBase = 50000 + (c - 1) * 25000;
+          var compLo = compBase * 0.5;
+          var compHi = compBase * 1.5;
+          var totalLo = replaceLo + prodLo + restartLo + compLo;
+          var totalHi = replaceHi + prodHi + restartHi + compHi;
+          outReplace.textContent = fmtRange(replaceLo, replaceHi);
+          outProd.textContent = fmtRange(prodLo, prodHi);
+          outRestart.textContent = fmtRange(restartLo, restartHi);
+          outComp.textContent = fmtRange(compLo, compHi);
+          outTotal.textContent = fmtRange(totalLo, totalHi);
+        }
+        inv.addEventListener("input", calc);
+        sal.addEventListener("input", calc);
+        crit.addEventListener("input", calc);
+        calc();
+      })();
+    </script>
+  </body>
+</html>

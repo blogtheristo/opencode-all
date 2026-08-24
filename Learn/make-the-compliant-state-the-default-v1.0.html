@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make the Compliant State the Default — Lifetime Oy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      body { font-family: 'Inter','Segoe UI',Tahoma,Geneva,Verdana,sans-serif; max-width: 900px; margin: 0 auto; padding: 0 20px 60px; line-height: 1.7; color: #1a1a2e; background: #fafafa; }
+      h1 { color: #0f172a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; }
+      h2 { color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 40px; }
+      h3 { color: #334155; margin-top: 28px; } h4 { color: #475569; }
+      code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+      table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+      th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
+      th { background: #1e3a5f; color: white; } tr:nth-child(even) { background: #f8fafc; }
+      blockquote { border-left: 4px solid #fbbf24; margin: 20px 0; padding: 10px 20px; background: #fffbeb; color: #334155; }
+      a { color: #2563eb; } strong { color: #0f172a; } li { margin: 4px 0; }
+      hr { border: none; border-top: 1px solid #e2e8f0; margin: 32px 0; }
+      .dws-version-banner { background: #1e293b; color: #e2e8f0; padding: 14px 24px; margin: 0 -20px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; }
+      .dws-version-badge { background: #fbbf24; color: #0f172a; font-weight: 700; padding: 4px 14px; border-radius: 20px; font-size: 0.9rem; letter-spacing: 0.04em; }
+      .dws-version-meta { color: #94a3b8; font-size: 0.8rem; } .dws-version-title { color: #e2e8f0; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <div class="dws-version-banner">
+      <span class="dws-version-title">Make the Compliant State the Default</span>
+      <span class="dws-version-badge">v1.0</span>
+      <span class="dws-version-meta">Lifetime Oy · whitepaper</span>
+    </div>
+    <p>&lt;!-- VERSION AND AGENT HISTORY Document: make-the-compliant-state-the-default.md Version: 1.0 Last-Updated: 2026-07-27 Author: Risto Anton Päärni (Lifetime Oy) Agent: Claude Code Purpose: Canonical DWS rule for turning a repeatedly-broken discipline into a mechanism. Extracted from two failures found the same day — the missing AI-content label and the missing blog draft review. Introduced-In: PR #1758 (branch claude/ollama-orchestration-merge-047pj7) Code-Version: 1.0 Branch: claude/ollama-orchestration-merge-047pj7 Date: 2026-07-27 Owner: risto.paarni@lifetime.fi --&gt;</p>
+    <h1>Make the Compliant State the Default</h1>
+    <p><strong>Version:</strong> 1.0 · <strong>Status:</strong> Active · <strong>Scope:</strong> any rule an agent is expected to follow repeatedly</p>
+    <h2 id="the-rule">The rule</h2>
+    <blockquote><strong>A step you have to remember is a step that will be missing on the entry that matters.</strong></blockquote>
+    <p>If a discipline has failed more than once, do not restate it more firmly. Restating is what already failed. Change which state the tooling produces <strong>by default</strong>, so the compliant outcome is what happens when nobody does anything special, and the non-compliant outcome is what requires deliberate effort.</p>
+    <p>Stated as a test: <strong>what does the tool emit if the agent forgets?</strong> If the answer is "the wrong thing", the rule is not implemented — it is merely written down.</p>
+    <h2 id="where-this-came-from-2026-07-27-two-instances-in-one-session">Where this came from (2026-07-27, two instances in one session)</h2>
+    <table>
+    <thead>
+    <tr>
+    <th>Discipline</th>
+    <th>How it failed</th>
+    <th>What "default" became</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>EU AI Act Art. 50(4) label on machine-translated pages</td>
+    <td>Would have been added by hand, per page, per language — i.e. eventually not at all</td>
+    <td>The i18n builder <strong>emits the label</strong>; a config list removes it per language once a named human reviews</td>
+    </tr>
+    <tr>
+    <td>HIC reads blog text before publication</td>
+    <td>Asked for many times over months. Sessions published with nothing shown, drafted posts that were never published, or showed an audit summary instead of the words</td>
+    <td>A PreToolUse hook <strong>blocks the publish</strong> unless an approved draft exists</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Both had been *stated* clearly before. Neither had been *defaulted*. The HIC's own summary of the second one — "sometimes container publish without showing me anything, sometimes entry is never published, almost never i get to see the text" — is what an unenforced rule looks like from the outside: not defiance, drift.</p>
+    <h2 id="the-four-properties-of-a-real-gate">The four properties of a real gate</h2>
+    <ol>
+    <li><strong>It produces the compliant artefact itself.</strong> Not a reminder to produce it.</li>
+    <li><strong>It fails loud and blocks</strong>, rather than warning into a log nobody reads (Rule 12).</li>
+    <li><strong>Its limits are written where it is defined.</strong> Every mechanism has holes — a hook that</li>
+    </ol>
+    <p>only sees <code>Edit</code>/<code>Write</code> misses generators and cron; a hook only arms at session start. Name the holes in the hook header, or someone will mistake coverage for safety.</p>
+    <ol>
+    <li><strong>The rule is also stated where each hole is.</strong> In DWS terms: the escalation from a standard</li>
+    </ol>
+    <p>section to a <code>CLAUDE.md</code> Non-Negotiable, mirrored into <code>GEMINI.md</code>, <code>session-start.sh</code>, the cron script, and every command that could publish. <strong>A bypass is not permission.</strong></p>
+    <h2 id="the-honesty-clause">The honesty clause</h2>
+    <p>A mechanism can force an artefact to exist. It <strong>cannot</strong> verify a human read it, meant it, or agreed. Say so where the mechanism is defined. A gate that is described as guaranteeing more than it does is worse than no gate, because it ends the conversation about the residual risk.</p>
+    <p>The corollary for agents: <strong>the gate does not discharge the duty to ask.</strong> It makes forgetting expensive; it does not make asking optional.</p>
+    <h2 id="anti-pattern">Anti-pattern</h2>
+    <p>Adding a stronger adjective to a rule that is already being broken — "<strong>always</strong> show the draft", "<strong>never</strong> forget the label". If emphasis worked, the rule would have worked. Reach for the emphasis only *after* the default is fixed, and then only to cover the holes the mechanism cannot reach.</p>
+    <h2 id="companions">Companions</h2>
+    <ul>
+    <li><code>docs/field-notes/2026-07-27-i18n-as-data-five-language-publishing.md</code> — both instances, in full</li>
+    <li><code>docs/BLOG_STANDARD.md</code> §3.3 (draft gate) and §3.2.1 (AI-content label)</li>
+    <li><code>DWS_TRUTH_STANDARD.md</code> §2G — the Article 50(4) duty the label discharges</li>
+    <li><code>CLAUDE.md</code> Non-Negotiable Rule 13 · <code>.claude/hooks/blog-draft-gate.sh</code></li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWS6 Dashboard Hub</title>
+    <style>
+        body { font-family: Inter, -apple-system, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+        .btn { display: inline-block; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight: 600; border: 1px solid #3b82f6; color: #bfdbfe; background: transparent; cursor: pointer; }
+        .btn:hover { background: #1d4ed8; color: #fff; }
+        .muted { color: #94a3b8; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #334155; }
+        .status-ok { color: #22c55e; }
+        .status-warn { color: #f59e0b; }
+        .status-err { color: #ef4444; }
+        .hidden { display: none; }
+        .progress-row { margin: 10px 0; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.95rem; }
+        .progress-track { width: 100%; height: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 999px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); }
+        .pill { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 0.8rem; border: 1px solid #334155; color: #cbd5e1; }
+        .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <div class="container">
+        <div class="card">
+            <h1>Dashboard Hub</h1>
+            <p id="authLine" class="muted">Checking login status...</p>
+            <button class="btn" onclick="handleLogout()">Logout</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Control Room</h3>
+                <p class="muted">APIs, sensors, robots, alerts, and safe workflow launch.</p>
+                <a class="btn" href="/dashboard/control-room/">Open Control Room</a>
+            </div>
+            <div class="card">
+                <h3>Situation Room</h3>
+                <p class="muted">Decision timeline, risk summaries, and briefing actions.</p>
+                <a class="btn" href="/dashboard/situation-room/">Open Situation Room</a>
+            </div>
+            <div class="card">
+                <h3>V10</h3>
+                <p class="muted">Cross-domain experience on dws10 dashboard.</p>
+                <a class="btn" href="https://dws10.com/dashboard/">Open V10</a>
+            </div>
+            <div class="card">
+                <h3>V9</h3>
+                <p class="muted">Legacy V9 interface for continuity.</p>
+                <a class="btn" href="/dashboard/v9/">Open V9</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Agents & Status</h2>
+            <p id="agentDataSource" class="muted">Loading real-time agent status...</p>
+            <table>
+                <thead><tr><th>Agent</th><th>Status</th><th>Last Signal</th><th>Action</th></tr></thead>
+                <tbody id="agentRows"></tbody>
+            </table>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Project Delivery Status</h2>
+                <p class="muted" id="deliveryTimestamp"></p>
+                <div id="deliveryProgress"></div>
+            </div>
+
+            <div class="card">
+                <h2>Morning Brief</h2>
+                <p id="briefStatus" class="muted">Scheduler: external trigger (GitHub Actions / cron)</p>
+                <p id="briefLastSuccess" class="muted">Last successful brief: not recorded yet</p>
+                <p class="muted">Manual trigger available for admin with API key.</p>
+                <div id="briefAdminActions" class="row hidden">
+                    <button class="btn" id="sendBriefBtn">Send Brief Now</button>
+                    <span class="pill">Admin only</span>
+                </div>
+            </div>
+
+            <div class="card hidden" id="upsellBanner" data-source="src/services/upsell-rules.ts">
+                <h2>Next step</h2>
+                <p class="muted" id="upsellReason">No upsell trigger fired yet.</p>
+                <div class="row">
+                    <span class="pill" id="upsellSku">—</span>
+                    <a class="btn" id="upsellLink" href="https://dws10.com/price-list/">View on price list</a>
+                </div>
+                <p class="muted" style="margin-top:8px; font-size:0.78rem;">
+                    Rule output from upsell-rules.ts §5. One banner only — no nags.
+                </p>
+            </div>
+
+            <div class="card hidden" id="containerCard">
+                <h2>Admin: Container Status</h2>
+                <p class="muted">Operational view for admin users.</p>
+                <table>
+                    <thead><tr><th>Container</th><th>Status</th><th>Source</th></tr></thead>
+                    <tbody id="containerRows"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { getCurrentUser, getUserRole } from '../shared/js/supabase-client.js';
+        import { logout, handleOAuthCallback } from '../shared/js/auth-handler.js';
+
+        const DELIVERY_STATUS_FALLBACK = {
+            timestamp: '2026-03-02',
+            mvp: 72,
+            v1: 46,
+            dws7: 58
+        };
+
+        const FALLBACK_AGENTS = [
+            { name: 'compliance', status: 'ok', signal: 'READY:policy-check' },
+            { name: 'quality-gate', status: 'ok', signal: 'COMPLETE:preflight' },
+            { name: 'sitesense', status: 'warn', signal: 'DEGRADED:signal-delay' },
+            { name: 'schedule-genius', status: 'ok', signal: 'READY:dispatch-plan' }
+        ];
+
+        const CONTAINERS = [
+            { name: 'api-backend', status: 'unknown', source: 'runtime' },
+            { name: 'mcp-hub', status: 'unknown', source: 'runtime' },
+            { name: 'email-queue', status: 'unknown', source: 'runtime' },
+            { name: 'agent-workers', status: 'unknown', source: 'runtime' }
+        ];
+
+        function statusClass(status) {
+            if (status === 'ok' || status === 'up') return 'status-ok';
+            if (status === 'warn' || status === 'degraded') return 'status-warn';
+            return 'status-err';
+        }
+
+        function renderAgents(agents) {
+            const rows = document.getElementById('agentRows');
+            rows.innerHTML = agents.map(a => `
+                <tr>
+                    <td>${a.name}</td>
+                    <td class="${statusClass(a.status)}">${String(a.status).toUpperCase()}</td>
+                    <td>${a.signal || 'N/A'}</td>
+                    <td><button class="btn" data-agent="${a.name}">Launch</button></td>
+                </tr>
+            `).join('');
+
+            rows.querySelectorAll('button[data-agent]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const agent = btn.getAttribute('data-agent');
+                    alert(`MVP safe launch stub: ${agent}`);
+                });
+            });
+        }
+
+        async function loadAgentStatus() {
+            const sourceLine = document.getElementById('agentDataSource');
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/agents', {
+                    headers: token ? { Authorization: `Bearer ${token}` } : {}
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API ${response.status}`);
+                }
+
+                const data = await response.json();
+                const liveAgents = (data.agents || []).map(a => ({
+                    name: a.name,
+                    status: 'ok',
+                    signal: (a.capabilities && a.capabilities[0]) ? `CAP:${a.capabilities[0]}` : 'ONLINE'
+                }));
+
+                renderAgents(liveAgents);
+                sourceLine.textContent = `Live data from /api/agents · ${liveAgents.length} agents`;
+            } catch (_error) {
+                renderAgents(FALLBACK_AGENTS);
+                sourceLine.textContent = 'Fallback status (API auth not available in this session)';
+            }
+        }
+
+        function renderDeliveryStatus(status) {
+            const s = status || DELIVERY_STATUS_FALLBACK;
+            document.getElementById('deliveryTimestamp').textContent = `Snapshot: ${s.timestamp} · investor view`;
+            const progress = [
+                { label: 'MVP Completion', value: s.mvp },
+                { label: 'V1 Completion', value: s.v1 },
+                { label: 'DWS7 Implementation', value: s.dws7 }
+            ];
+
+            document.getElementById('deliveryProgress').innerHTML = progress.map(item => `
+                <div class="progress-row">
+                    <div class="progress-label"><span>${item.label}</span><span class="pill">${item.value}%</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width:${item.value}%"></div></div>
+                </div>
+            `).join('');
+        }
+
+        async function loadContainerStatus() {
+            const rows = document.getElementById('containerRows');
+            const containerData = [...CONTAINERS];
+            try {
+                const health = await fetch('/health');
+                if (health.ok) {
+                    containerData[0].status = 'up';
+                    containerData[0].source = '/health';
+                } else {
+                    containerData[0].status = 'degraded';
+                    containerData[0].source = '/health';
+                }
+            } catch (_error) {
+                containerData[0].status = 'down';
+                containerData[0].source = '/health';
+            }
+
+            rows.innerHTML = containerData.map(c => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td class="${statusClass(c.status)}">${String(c.status).toUpperCase()}</td>
+                    <td>${c.source}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function sendMorningBriefNow() {
+            const briefStatus = document.getElementById('briefStatus');
+            const briefLastSuccess = document.getElementById('briefLastSuccess');
+            const adminKey = prompt('Enter ADMIN_API_KEY to send morning brief now:');
+            if (!adminKey) {
+                briefStatus.textContent = 'Manual send cancelled.';
+                return;
+            }
+
+            briefStatus.textContent = 'Sending morning brief...';
+            try {
+                const response = await fetch('/api/v1/morning-briefing/send', {
+                    method: 'POST',
+                    headers: {
+                        'x-admin-key': adminKey
+                    }
+                });
+
+                if (!response.ok) {
+                    const err = await response.json().catch(() => ({}));
+                    throw new Error(err.message || `HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                const sentAt = data.timestamp || new Date().toISOString();
+                localStorage.setItem('dws6_last_brief_success', sentAt);
+                briefStatus.textContent = `Morning brief sent at ${sentAt}`;
+                briefLastSuccess.textContent = `Last successful brief: ${new Date(sentAt).toLocaleString()}`;
+            } catch (error) {
+                briefStatus.textContent = `Manual send failed: ${error.message}`;
+            }
+        }
+
+        function renderBriefHistory() {
+            const briefLastSuccess = document.getElementById('briefLastSuccess');
+            const last = localStorage.getItem('dws6_last_brief_success');
+            if (last) {
+                briefLastSuccess.textContent = `Last successful brief: ${new Date(last).toLocaleString()}`;
+            }
+        }
+
+        async function loadDeliveryStatus() {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch('/api/v1/dashboard/delivery-status', {
+                    headers: token ? { Authorization: `Bearer ${token}` } : {}
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    renderDeliveryStatus(data);
+                    return;
+                }
+            } catch (_e) { /* fallback */ }
+            renderDeliveryStatus(DELIVERY_STATUS_FALLBACK);
+        }
+
+        await loadDeliveryStatus();
+        renderBriefHistory();
+        await loadAgentStatus();
+        renderUpsellBanner();
+
+        function renderUpsellBanner() {
+            // Reads a server-rendered recommendation from window.__UPSELL or
+            // sessionStorage. The recommendation object is produced by
+            // src/services/upsell-rules.ts; the API/SSR layer wires it in.
+            // Render only when a recommendation exists — no banner = no nag.
+            let rec = null;
+            try {
+                if (window.__UPSELL && typeof window.__UPSELL === 'object') {
+                    rec = window.__UPSELL;
+                } else {
+                    const raw = sessionStorage.getItem('dws.upsell');
+                    if (raw) rec = JSON.parse(raw);
+                }
+            } catch (_e) { rec = null; }
+            if (!rec || !rec.nextSku) return;
+            const banner = document.getElementById('upsellBanner');
+            if (!banner) return;
+            document.getElementById('upsellReason').textContent = rec.reason || '';
+            document.getElementById('upsellSku').textContent = rec.nextSku;
+            const link = document.getElementById('upsellLink');
+            link.href = 'https://dws10.com/price-list/#product-' + encodeURIComponent(rec.nextSku);
+            banner.classList.remove('hidden');
+        }
+
+        await handleOAuthCallback();
+        const user = await getCurrentUser();
+        if (!user) {
+            document.getElementById('authLine').textContent = 'Not logged in. Redirecting to login...';
+            setTimeout(() => window.location.href = '/login/', 1200);
+        } else {
+            const role = await getUserRole();
+            document.getElementById('authLine').textContent = `Logged in as ${user.email} | role: ${role || 'unassigned'}`;
+            if (role === 'backoffice_admin') {
+                document.getElementById('containerCard').classList.remove('hidden');
+                document.getElementById('briefAdminActions').classList.remove('hidden');
+                await loadContainerStatus();
+                document.getElementById('sendBriefBtn').addEventListener('click', sendMorningBriefNow);
+            }
+        }
+
+        window.handleLogout = async function() {
+            await logout();
+            window.location.href = '/login/';
+        };
+    </script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

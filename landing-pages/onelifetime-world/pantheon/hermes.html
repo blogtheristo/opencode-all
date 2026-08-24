@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes — The Velocity Engine | DWS Pantheon</title>
+    <meta name="description" content="Logistics & Operations Intelligence. Supply chain optimization, schedule risk, quality gates. Your critical path has 3 days of float. That's not enough.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(180deg, #021a2e 0%, #0a1628 30%, #0f172a 100%); }
+        .glow-cyan { text-shadow: 0 0 50px rgba(6, 182, 212, 0.4); }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(6, 182, 212, 0.15); }
+        @keyframes flow-line {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .flow-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+            background-size: 200% 100%;
+            animation: flow-line 3s linear infinite;
+        }
+        @keyframes route-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .route-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #06b6d4;
+            animation: route-pulse 2s ease infinite;
+        }
+        .bottleneck {
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            background: rgba(234, 179, 8, 0.05);
+        }
+        .critical-path { border-left: 3px solid #ef4444; }
+        .on-track { border-left: 3px solid #22c55e; }
+        .at-risk { border-left: 3px solid #eab308; }
+        @keyframes speed-blur {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateX(200%); opacity: 0; }
+        }
+        .speed-line {
+            position: absolute;
+            height: 1px;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+            animation: speed-blur 2s linear infinite;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- HERO: The Winged Logistics Hub -->
+    <header class="relative overflow-hidden py-20 md:py-32 px-4 text-center">
+        <!-- Speed lines -->
+        <div class="speed-line" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="speed-line" style="top: 40%; left: 30%; animation-delay: 0.5s;"></div>
+        <div class="speed-line" style="top: 60%; left: 50%; animation-delay: 1s;"></div>
+        <div class="speed-line" style="top: 80%; left: 20%; animation-delay: 1.5s;"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <p class="text-xs uppercase tracking-[0.4em] text-cyan-400 mb-6">The Winged Logistics Hub</p>
+            <div class="text-8xl md:text-9xl mb-6">&#x1F3C3;</div>
+            <h1 class="text-5xl md:text-7xl font-black glow-cyan mb-4">HERMES</h1>
+            <p class="text-xl md:text-2xl text-cyan-300 font-light mb-2">God of Boundaries, Routes &amp; Commerce</p>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">Crossed every boundary, knew every route. The fastest of the gods &mdash; now optimizing your supply chain before you even know there's a problem.</p>
+
+            <!-- KPI Badge -->
+            <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3">
+                <span class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></span>
+                <span class="text-cyan-300 font-bold text-lg">Minimal Dwell Time</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+
+        <!-- Live Flow Map Mockup -->
+        <section class="mb-16">
+            <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+                <div class="bg-gray-950 rounded-xl p-6 md:p-8 relative">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-bold text-cyan-400 uppercase tracking-wider">Live Flow &mdash; Global Trade Routes</h3>
+                        <span class="text-xs text-slate-500 font-mono">LIVE &middot; 14,847 containers tracked</span>
+                    </div>
+
+                    <!-- Route visualization -->
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="route-dot"></div>
+                                <span class="text-sm text-cyan-300 font-bold">Shanghai</span>
+                                <div class="flow-line flex-1"></div>
+                                <span class="text-sm text-cyan-300 font-bold">Suez</span>
+                                <div class="flow-line flex-1"></div>
+                                <span class="text-sm text-cyan-300 font-bold">Rotterdam</span>
+                                <div class="route-dot"></div>
+                            </div>
+                            <div class="ml-8 text-xs text-slate-500 font-mono">ETA: 18d 4h &middot; Status: ON TIME &middot; 2,400 TEU</div>
+                        </div>
+
+                        <div class="bottleneck rounded-lg p-4">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="route-dot" style="background: #eab308"></div>
+                                <span class="text-sm text-yellow-300 font-bold">Port of Rotterdam</span>
+                                <span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-0.5 rounded">CONGESTION</span>
+                            </div>
+                            <p class="text-sm text-slate-400 ml-8">Dwell time: <strong class="text-yellow-300">+14 hours</strong> above baseline. Wind advisory active. 3 berths unavailable.</p>
+                            <p class="text-xs text-cyan-400 ml-8 mt-2">&#x26A1; Hermes: Rerouting 400 containers to Athena-approved alternate routes via Antwerp</p>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="route-dot"></div>
+                                <span class="text-sm text-cyan-300 font-bold">Hamburg</span>
+                                <div class="flow-line flex-1"></div>
+                                <span class="text-sm text-cyan-300 font-bold">Rail Hub Berlin</span>
+                                <div class="flow-line flex-1"></div>
+                                <span class="text-sm text-cyan-300 font-bold">Warsaw</span>
+                                <div class="route-dot"></div>
+                            </div>
+                            <div class="ml-8 text-xs text-slate-500 font-mono">ETA: 2d 8h &middot; Status: ON TIME &middot; 180 wagons &middot; Intermodal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mythology & Voice -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-cyan-400 mb-6">The Myth</h2>
+            <div class="glass rounded-2xl p-8">
+                <p class="text-lg text-slate-300 mb-4"><strong class="text-cyan-300">Hermes</strong> was the messenger of the gods, the guide of souls, and the patron of travelers, merchants, and thieves. He invented the lyre on the day he was born, stole Apollo's cattle before lunch, and talked his way out of punishment by dinner.</p>
+                <p class="text-lg text-slate-300 mb-6">In DWS IQ 6, Hermes optimizes the arteries of global trade. He doesn't just track shipments &mdash; he predicts bottlenecks, reroutes around them, and quantifies the cost of every delay in days, euros, and tonnes.</p>
+                <blockquote class="border-l-4 border-cyan-500 pl-6 py-4 my-6 bg-cyan-950/30 rounded-r-lg">
+                    <p class="text-xl text-cyan-200 italic">"Your critical path has 3 days of float. You think that's enough? It's not. Let me show you what happens when that steel delivery slips and your CSRD deadline doesn't."</p>
+                    <cite class="text-sm text-cyan-500 mt-2 block">&mdash; Hermes, to a supply chain director who thought buffers were for software engineers</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-cyan-400 mb-8 text-center">Capabilities</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F4E6;</div>
+                    <h3 class="text-lg font-bold text-cyan-300 mb-2">Logistics Optimization</h3>
+                    <p class="text-sm text-slate-400">Multi-modal route optimization across sea, rail, and road. Accounts for port congestion, weather windows, and regulatory constraints.</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x26A0;&#xFE0F;</div>
+                    <h3 class="text-lg font-bold text-cyan-300 mb-2">Supply Chain Risk</h3>
+                    <p class="text-sm text-slate-400">Identifies single points of failure, concentration risk, and climate-exposed routes. Quantifies exposure in concrete units.</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F4C8;</div>
+                    <h3 class="text-lg font-bold text-cyan-300 mb-2">Schedule Critical Path</h3>
+                    <p class="text-sm text-slate-400">Maps dependencies across procurement, manufacturing, and delivery. Flags when schedule risk hits regulatory deadlines (CBAM, CSRD).</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x2705;</div>
+                    <h3 class="text-lg font-bold text-cyan-300 mb-2">Quality Gate Assessment</h3>
+                    <p class="text-sm text-slate-400">Validates that deliverables meet specification at each handover point. Integrates with Hephaestus for site-level material verification.</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F3AF;</div>
+                    <h3 class="text-lg font-bold text-cyan-300 mb-2">Delivery Milestone Tracking</h3>
+                    <p class="text-sm text-slate-400">Real-time milestone tracking with variance analysis. Expresses all delays in days, EUR impact, and compliance consequences.</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F310;</div>
+                    <h3 class="text-lg font-bold text-cyan-300 mb-2">Cross-God Coordination</h3>
+                    <p class="text-sm text-slate-400">Routes data to Neptune (maritime), Mars (construction delivery), and Athena (regulatory deadlines) automatically when conflicts arise.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Fans -->
+        <section class="mb-16 max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-cyan-400 mb-8 text-center">The Fans</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-3xl">&#x1F4CA;</span>
+                        <div>
+                            <h3 class="text-lg font-bold text-cyan-300">The Optimizer</h3>
+                            <p class="text-xs text-slate-500">Supply Chain Directors</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">They lose sleep over "Just-in-Time" inventory and live in fear of the one supplier in Shenzhen that makes the component nobody else does. Hermes finds the backup route before the crisis hits.</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-3xl">&#x1F680;</span>
+                        <div>
+                            <h3 class="text-lg font-bold text-cyan-300">The Freight Hacker</h3>
+                            <p class="text-xs text-slate-500">Logistics Startups</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">Looking to exploit gaps in competitor shipping lanes. Hermes doesn't just find the fastest route &mdash; he finds the one nobody else is using.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center mb-16">
+            <a href="/assistant/" class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-cyan-500/20 transition-all hover:-translate-y-1">
+                &#x1F3C3; Summon Hermes
+            </a>
+            <p class="text-slate-500 text-sm mt-4">Opens the DWS IQ Assistant with Hermes logistics capabilities</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+        <p class="mb-2"><a href="/pantheon/" class="text-cyan-400 hover:underline">&larr; Back to The DWS Pantheon</a></p>
+        <p>DWS IQ 6 &middot; Logistics & Operations Intelligence &middot; Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

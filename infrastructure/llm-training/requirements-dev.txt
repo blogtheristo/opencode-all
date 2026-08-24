@@ -1,0 +1,14 @@
+# LLM training pipeline — dev/test dependencies
+# =============================================================================
+# For running the pipeline tests locally / in CI where a Python ML env exists:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements-dev.txt
+#   pytest infrastructure/llm-training/tests -v
+#
+# The tests importorskip the heavy stack, so a bare host skips them cleanly.
+# =============================================================================
+
+-r requirements.txt
+
+pytest>=8.0
+pytest-timeout>=2.3

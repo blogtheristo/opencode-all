@@ -1,0 +1,3 @@
+# .gitleaksignore — fingerprints of known false positives
+# Add gitleaks finding fingerprints here to suppress them.
+# Run: ./gitleaks detect --source . --no-git -v  to get fingerprints.
