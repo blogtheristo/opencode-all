@@ -105,7 +105,10 @@ describe('industry-registry — resolution', () => {
 describe('IndustryAnalystAgent', () => {
   const agent = new IndustryAnalystAgent();
 
-  it('returns a valid AgentResponse for a gap industry (Aviation) without LLM/Supabase', async () => {
+  // 20s timeout: agent.execute does registry + KB work; the default 5s flakes
+  // when the full suite runs in parallel on a loaded box (e.g. DGX with the
+  // opencode-all engine active).
+  it('returns a valid AgentResponse for a gap industry (Aviation) without LLM/Supabase', { timeout: 20_000 }, async () => {
     const res = await agent.execute(context, { industryId: 5 });
     expect(res.agentName).toBe('industry-analyst');
     expect(res.result.industry).toBe('Aviation');
