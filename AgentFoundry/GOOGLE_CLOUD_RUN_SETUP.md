@@ -47,7 +47,7 @@ Google Cloud Run will host:
 | **Groq**                        | GROQ_API_KEY               | https://console.groq.com                | $0.59/1M tokens (cheaper!) |
 | **Apollo.io**                   | APOLLO_API_KEY             | https://apollo.io/settings/integrations | $290/year                  |
 | **Clearbit is part of Hubspot** | CLEARBIT_API_KEY           | https://clearbit.com/pricing            | $99/month                  |
-| **Resend**                      | RESEND_API_KEY             | https://resend.com/api-keys             | $10/month                  |
+| **Amazon SES (SMTP)**           | SMTP_USER, SMTP_PASS, SMTP_HOST | https://console.aws.amazon.com/ses/     | Pay-as-you-go               |
 | **Supabase**                    | SUPABASE_URL, SUPABASE_KEY | https://supabase.com/dashboard          | Included in DWS project    |
 
 ### 3. Install Google Cloud SDK
