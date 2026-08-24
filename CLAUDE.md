@@ -281,6 +281,7 @@ Rules:
 - **Integrity anchor**: the git history of the file IS the tamper-evident log; the `Audit trail` line points at it. Never fabricate a commit hash — commit first, or omit the hash entirely.
 - **No secrets in evidence lines** (Non-Negotiable Rules 1–2): no tokens, DSNs, keys, PII.
 - **Do not falsify or carry forward stale evidence**: if you did not make the change, do not claim it. A wrong provenance record violates Art. 12 more than a missing one — mark `Evidence: unknown` rather than guessing (Rule 12 fail-loud).
+- **Thesis/research files**: stamping or structural edits are refused by default and require explicit human override (`--force-thesis`). When content changes remarkably, the change is made as a **new thesis version** per the Thesis Rule — lockstep four-file version bump plus a new `VERSION AND AGENT HISTORY` entry carrying `[Latest]` — never by silently rewriting the existing version in place.
 - Enforcement/checker: `scripts/evidence-audit.mjs <paths…>` reports files missing the `// Evidence:` line. Run on changed files before commit.
 
 ## Security Coding Rules

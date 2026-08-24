@@ -2,8 +2,9 @@
 // Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
 // Audit trail: git log -- scripts/evidence-stamp.mjs
 // Update engine: stamps code + doc artifacts with the CLAUDE.md Code Evidence Layer
-// header (EU AI Act Art. 12-14 provenance). Thesis files are refused unless
-// --force-thesis (structural RED zone per Thesis Autonomy Boundary).
+// header (EU AI Act Art. 12-14 provenance). Thesis/research files are refused by
+// default; remarkable content changes go through a NEW thesis version per the
+// Thesis Rule (lockstep bump + [Latest] history entry), never in-place rewrites.
 import { readFileSync, writeFileSync, statSync, readdirSync } from 'node:fs';
 import { resolve } from "node:path";
 
@@ -39,7 +40,7 @@ const evidenceLine = (comment) =>
 function stampFile(rel) {
   const abs = resolve(rel);
   if (THESIS.test(rel) && !FORCE_THESIS) {
-    console.log(`  REFUSED (thesis RED zone, use --force-thesis): ${rel}`);
+    console.log(`  REFUSED (thesis/research file: stamping refused by default; remarkable content changes require a NEW thesis version per the Thesis Rule — human override: --force-thesis): ${rel}`);
     skipped++;
     return;
   }
