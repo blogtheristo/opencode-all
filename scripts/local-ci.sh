@@ -23,7 +23,10 @@
 
 set -uo pipefail
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Resolve to the CALLER's repository top (linked worktree when pushing from
+# one), never the main checkout — otherwise the gate tests the wrong tree
+# (incident 2026-08-24: PR #1888 push verified a dirty unrelated checkout).
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
 AUDIT_DIR="$REPO_ROOT/.ci-audit/runs"
