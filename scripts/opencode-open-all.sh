@@ -84,6 +84,36 @@ req = urllib.request.Request(
     f"http://{os.environ['ASPIRE_IP']}:18890/v1/logs", data=json.dumps(doc).encode(),
     headers={"Content-Type": "application/json", "x-otlp-api-key": key or ""})
 urllib.request.urlopen(req, timeout=3)
+
+# Trace: one root span per finished agent -> populates the Traces tab.
+import secrets
+now = time.time_ns()
+span = {"traceId": secrets.token_hex(16), "spanId": secrets.token_hex(8), "name": "agent.finished",
+        "kind": 1, "startTimeUnixNano": str(now - 1_000_000), "endTimeUnixNano": str(now),
+        "attributes": [{"key": "agent.name", "value": {"stringValue": msg.split("'")[1] if "'" in msg else msg}},
+                       {"key": "hic.action", "value": {"stringValue": "review-and-merge"}}],
+        "status": {"code": 1}}
+tdoc = {"resourceSpans": [{"resource": {"attributes": [
+        {"key": "service.name", "value": {"stringValue": "opencode-all"}}]},
+    "scopeSpans": [{"scope": {"name": "opencode-all"}, "spans": [span]}]}]}
+req = urllib.request.Request(
+    f"http://{os.environ['ASPIRE_IP']}:18890/v1/traces", data=json.dumps(tdoc).encode(),
+    headers={"Content-Type": "application/json", "x-otlp-api-key": key or ""})
+urllib.request.urlopen(req, timeout=3)
+
+# Metric: monotonic counter tick per finished agent -> populates the Metrics tab.
+tnow = time.time_ns()
+mdoc = {"resourceMetrics": [{"resource": {"attributes": [
+        {"key": "service.name", "value": {"stringValue": "opencode-all"}}]},
+    "scopeMetrics": [{"scope": {"name": "opencode-all"}, "metrics": [{
+        "name": "opencode_all.agents_finished", "unit": "1",
+        "sum": {"dataPoints": [{"startTimeUnixNano": str(tnow - 1_000_000),
+                                "timeUnixNano": str(tnow), "asDouble": 1}],
+                "aggregationTemporality": 2, "isMonotonic": True}}]}]}]}
+req = urllib.request.Request(
+    f"http://{os.environ['ASPIRE_IP']}:18890/v1/metrics", data=json.dumps(mdoc).encode(),
+    headers={"Content-Type": "application/json", "x-otlp-api-key": key or ""})
+urllib.request.urlopen(req, timeout=3)
 PYEOF
 }
 
