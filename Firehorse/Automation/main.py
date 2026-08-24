@@ -521,7 +521,7 @@ async def _send_whatsapp_notification(
         "channel": "whatsapp",
         "to": _redact_recipient(to_number),
         "template": WHATSAPP_TEMPLATE_NAME,
-        "metadata": {"delivery": "meta-cloud-api"} if metadata is not None else {},
+        "metadata": {**(metadata or {}), "delivery": "meta-cloud-api"},
     }
 
 
