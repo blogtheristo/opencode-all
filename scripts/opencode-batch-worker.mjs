@@ -38,13 +38,16 @@ Steps:
 
 # Batch Cleanup Handoff — <original title>
 - Session: <session id>
-- Status: COMPLETED | NEEDS-HUMAN | BLOCKED
-- Work finished this run: <one line>
+- Changed files: <explicit list, or "none">
+- Tests run: <named commands executed> -> <pass/fail result>
+- Unresolved risks: <list, or "none">
 - Next-session prompt:
 \`\`\`
 <copy-paste prompt for a fresh session if anything remains, otherwise "nothing remains">
 \`\`\`
+- Status: GREEN | NEEDS-HUMAN | FAILED
 
+A handoff file proves existence only — it is not proof of correct completion.
 4. End your turn with one line stating which Status you wrote.`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -207,7 +210,7 @@ function cmdLifecycle() {
   if (transitions.length) console.log(`${transitions.length} transition(s) logged -> .workflows/opencode-all/lifecycle.jsonl`);
 }
 
-async function ensureHandoff(entry) {
+async function ensureHandoff(entry, stopReason) {
   const hf = join(HANDOFF_DIR, `${entry.id}.md`);
   if (existsSync(hf)) return 'agent-written';
   let lastText = '';
@@ -227,12 +230,16 @@ async function ensureHandoff(entry) {
       }
     }
   } catch {}
-  const status = /Status:\s*(COMPLETED|NEEDS-HUMAN|BLOCKED)/m.exec(lastText)?.[1] ?? 'NEEDS-HUMAN';
+  const status = /Status:\s*(GREEN|COMPLETED|NEEDS-HUMAN|FAILED|BLOCKED)/m.exec(lastText)?.[1];
+  const normalized = status === 'COMPLETED' ? 'GREEN' : status === 'BLOCKED' ? 'NEEDS-HUMAN' : status;
+  const provisional = !stopReason || stopReason === 'unknown'
+    ? '\n- Completion: evidence-based PROVISIONAL (ACP terminal state unavailable — stopReason undefined). Handoff existence is not proof of correct completion.'
+    : `\n- Completion: ACP stopReason=${stopReason}`;
   writeFileSync(
     hf,
-    `# Batch Cleanup Handoff — ${entry.title ?? entry.id}\n- Session: ${entry.id}\n- Status: ${status}\n- Work finished this run: batch worker closed out this halted session; see last assistant message below.\n\n## Last assistant message\n\n${lastText || '(none captured)'}\n`
+    `# Batch Cleanup Handoff — ${entry.title ?? entry.id}\n- Session: ${entry.id}\n- Status: ${normalized ?? 'NEEDS-HUMAN'}${provisional}\n\n## Last assistant message\n\n${lastText || '(none captured)'}\n`
   );
-  return `worker-fallback (${status})`;
+  return `worker-fallback (${normalized ?? 'NEEDS-HUMAN'})`;
 }
 
 async function runBatches() {
@@ -244,7 +251,21 @@ async function runBatches() {
   } else {
     mkdirSync(QUEUE_DIR, { recursive: true });
     started = new Date().toISOString();
-    writeFileSync(ENGINE_FILE, JSON.stringify({ started, lifetimeDays: opt.lifetimeDays }));
+    writeFileSync(
+      ENGINE_FILE,
+      JSON.stringify(
+        {
+          started,
+          lifetimeDays: opt.lifetimeDays,
+          owner: 'Risto Anton Päärni (HIC)',
+          reason: 'Containment control: bounded autonomous cleanup window per HIC instruction 2026-08-24',
+          renewalCriteria: 'HIC explicit approval + new LD entry before deadline',
+          killCriteria: 'model auth failure unresolvable by fallback, queue empty for 7 consecutive days, or HIC kill command',
+        },
+        null,
+        2
+      )
+    );
   }
   const deadline = Date.parse(started) + opt.lifetimeDays * 86_400_000;
   do {
@@ -282,7 +303,7 @@ async function runBatches() {
             }),
           ]);
           clearTimeout(timer);
-          const how = await ensureHandoff(entry);
+          const how = await ensureHandoff(entry, stopReason);
           cur.status = 'done';
           cur.stopReason = String(stopReason);
           console.log(`  done, stopReason=${stopReason}, handoff=${how} -> ${HANDOFF_DIR}/${entry.id}.md`);

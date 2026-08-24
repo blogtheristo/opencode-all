@@ -265,6 +265,8 @@ Every deliverable PNG (chart, roadmap, screenshot handed to the user) is rendere
 
 Every code file an agent creates or substantively modifies carries a **provenance header comment** (1–3 lines, placed directly under the shebang). This is the code-side counterpart of the Document Standard's tool+model block and the repo's Article 12 hash-chain audit: it makes "who/what produced this code, when, under which model" auditable per file, so any later session can trace code history back to the sessions that wrote it.
 
+**Boundary:** these headers **support traceability and quality evidence** — they do not by themselves establish EU AI Act compliance, ISO conformance, audit readiness, or production safety. Legal applicability of Arts. 12–14 depends on the system and its deployment context, not on the presence of a comment.
+
 Required fields — accuracy, completeness, timeliness, traceability per ISO/IEC 25012 data-quality model:
 
 ```
