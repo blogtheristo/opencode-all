@@ -29,7 +29,6 @@
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
     "ted:learning": "node --import tsx scripts/ted-learning-weekly.ts",
     "ted:daily": "node --import tsx scripts/ted-daily-pipeline.ts",
-    "smart-factory:daily": "node --import tsx scripts/smart-factory-daily.ts",
     "funding:rss": "node --import tsx scripts/eu-funding-rss.ts",
     "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
@@ -62,8 +61,10 @@
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/context-async-hooks": "^1.30.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.220.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.220.0",
     "@opentelemetry/resources": "^2.9.0",
+    "@opentelemetry/sdk-metrics": "^2.10.0",
     "@opentelemetry/sdk-trace-node": "^2.9.0",
     "@opentelemetry/semantic-conventions": "^1.28.0",
     "@supabase/supabase-js": "^2.39.0",
