@@ -502,45 +502,31 @@ function cmdReconcile() {
   // entries whose worktree is gone but whose generated branch lingers block
   // every retry ("branch already exists without worktree").
   //
-  // HIC decision 2026-08-24: reconcile NEVER deletes by default. Default is a
-  // report-only dry run; deletion requires --clean AND provable emptiness
-  // (zero commits beyond baseline). Branches with commits are always
-  // preserved and reported NEEDS-HUMAN.
-  const cleanMode = args.includes('--clean');
+  // HIC decision 2026-08-24: reconcile NEVER deletes by default. The approval
+  // flag (--clean) flows from this call site INTO removeOrphanBranch —
+  // deletion is impossible without it, even inside the helper. Default run
+  // is a report-only dry pass with zero git mutation.
+  const cleanupOrphans = args.includes('--clean');
   let orphansCleaned = 0;
-  let orphansCleanable = 0;
+  const orphanReported = [];
   const orphanKept = [];
   for (const e of out) {
     if (e.state !== 'FAILED' || !e.branch) continue;
     if (!e.baselineCommit) continue; // no baseline = cannot prove emptiness, skip
     const wtPath = join(REPO, '.worktrees', 'opencode-all', e.id);
     if (existsSync(wtPath)) continue; // worktree alive — not an orphan
-
-    // Non-destructive classification first — no git mutation while reporting.
-    let listing = '';
-    try {
-      listing = execFileSync('git', ['branch', '--list', e.branch], { cwd: REPO, encoding: 'utf8' }).trim();
-    } catch { continue; }
-    if (!listing) continue; // branch already gone — nothing to do
-    const count = branchCommitCount(REPO, e.branch, e.baselineCommit);
-    if (count !== 0) {
-      orphanKept.push(`${e.branch} (${e.id}) has ${count < 0 ? 'UNKNOWN' : count} commit(s) beyond baseline — NEEDS-HUMAN`);
-      continue;
-    }
-    // Provably empty orphan.
-    if (cleanMode) {
-      execFileSync('git', ['branch', '-D', e.branch], { cwd: REPO });
+    const outcome = removeOrphanBranch(REPO, e.branch, e.baselineCommit, cleanupOrphans);
+    if (outcome === 'deleted') {
       orphansCleaned++;
-      console.log(`reconcile: --clean removed empty orphan branch ${e.branch} (${e.id})`);
-    } else {
-      orphansCleanable++;
+      console.log(`reconcile: cleaned empty orphan branch ${e.branch} (${e.id})`);
+    } else if (outcome === 'kept-has-commits') {
+      orphanKept.push(`${e.branch} (${e.id}) has commits beyond baseline — NEEDS-HUMAN`);
+    } else if (outcome === 'empty-reported') {
+      orphanReported.push(`${e.branch} (${e.id}) is empty, cleanup not approved`);
     }
   }
-  if (cleanMode) {
-    console.log(`reconcile: --clean removed ${orphansCleaned} empty orphan branch(es), ${orphanKept.length} preserved with commits`);
-  } else {
-    console.log(`reconcile: REPORT-ONLY — ${orphansCleanable} empty orphan branch(es) cleanable, ${orphanKept.length} preserved with commits (deletion needs --clean after human review)`);
-  }
+  console.log(`reconcile: ${orphansCleaned} empty orphan branch(es) cleaned, ${orphanReported.length} reported, ${orphanKept.length} preserved with commits`);
+  for (const r of orphanReported) console.log(`reconcile: REPORT ${r}`);
   for (const k of orphanKept) console.error(`reconcile: PRESERVED ${k}`);
 
   if (violations.length) {
@@ -895,12 +881,16 @@ async function createWorktree(entry, ctx = {}) {
 }
 
 function removeWorktreePath(worktreePath, ctx = {}) {
-  if (!worktreePath || !existsSync(worktreePath)) return;
+  // Returns true when the path is gone afterwards (or never existed);
+  // callers must treat false as "removal failed" and stop deleting anything.
+  if (!worktreePath || !existsSync(worktreePath)) return true;
   try {
     execFileSync('git', ['worktree', 'remove', '--force', worktreePath], { cwd: ctx.repo ?? REPO });
     console.log(`  [worktree] removed: ${worktreePath}`);
+    return !existsSync(worktreePath);
   } catch (e) {
     console.error(`  [worktree] remove FAILED (left in place): ${e.message}`);
+    return false;
   }
 }
 
@@ -936,9 +926,20 @@ function cleanupWorktreeAfterFailure(cur, resumed = false, ctx = {}) {
     console.log(`  [worktree] preserved for review (has diff): ${cur.worktreePath}`);
     return 'kept-for-review';
   }
-  removeWorktreePath(cur.worktreePath, ctx);
+  const worktreeRemoved = removeWorktreePath(cur.worktreePath, ctx);
+  if (!worktreeRemoved) {
+    // Removal failed: the worktree is still there — do not touch the branch.
+    cur.worktreeState = 'kept-removal-failed';
+    cur.stopReason = 'needs-human';
+    console.log(`  [worktree] kept (removal failed), NEEDS-HUMAN: ${cur.worktreePath}`);
+    return 'kept-removal-failed';
+  }
   const branch = cur.branch ?? `opencode/${cur.id}`;
-  const outcome = removeOrphanBranch(ctx.repo ?? REPO, branch, cur.baselineCommit);
+  // allowDelete=true here is the self-healing core of this fix: this path
+  // just verified a zero-diff tree and successfully removed its OWN freshly
+  // created worktree. Batch cleanup of OLD orphans never takes this route —
+  // that goes through reconcile, where deletion needs --clean.
+  const outcome = removeOrphanBranch(ctx.repo ?? REPO, branch, cur.baselineCommit, true);
   if (outcome === 'kept-has-commits') {
     // Paradox guard: working tree showed no diff but the branch has commits.
     // Preserve the branch and escalate — do not retry over live work.
@@ -963,7 +964,7 @@ function branchCommitCount(repo, branch, baseline) {
   }
 }
 
-function removeOrphanBranch(repo, branch, baseline) {
+function removeOrphanBranch(repo, branch, baseline, allowDelete = false) {
   let listing;
   try {
     listing = execFileSync('git', ['branch', '--list', branch], { cwd: repo, encoding: 'utf8' }).trim();
@@ -973,6 +974,7 @@ function removeOrphanBranch(repo, branch, baseline) {
   if (!listing) return 'absent';
   const count = branchCommitCount(repo, branch, baseline);
   if (count !== 0) return 'kept-has-commits'; // includes -1 unknown: never delete on doubt
+  if (!allowDelete) return 'empty-reported'; // report-only mode: cleanup not approved
   execFileSync('git', ['branch', '-D', branch], { cwd: repo });
   return 'deleted';
 }
@@ -1004,7 +1006,7 @@ if (invokedDirectly) {
     else if (cmd === 'reconcile') cmdReconcile();
     else if (cmd === 'run') await runBatches();
     else {
-      console.log('usage: opencode-batch-worker.mjs <enqueue|run|status|lifecycle|reconcile> [--batch N] [--loop] [--dry-run] [--timeout MIN] [--interval MIN]');
+      console.log('usage: opencode-batch-worker.mjs <enqueue|run|status|lifecycle|reconcile> [--batch N] [--loop] [--dry-run] [--timeout MIN] [--interval MIN] [--clean: reconcile only — remove provably-empty orphan branches after human review]');
       process.exit(1);
     }
   })();

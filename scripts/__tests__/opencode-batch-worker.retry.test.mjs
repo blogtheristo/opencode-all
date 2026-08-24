@@ -20,7 +20,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const { createWorktree, cleanupWorktreeAfterFailure } = await import(
+const { createWorktree, cleanupWorktreeAfterFailure, removeOrphanBranch } = await import(
   '../../scripts/opencode-batch-worker.mjs'
 );
 
@@ -103,19 +103,70 @@ describe('opencode-all retry path (DDM-v1 §10)', () => {
     git(wt.path, 'add', '.');
     git(wt.path, 'commit', '-qm', 'agent work');
 
-    // Force the no-diff paradox guard: pretend the tree was clean.
-    const probe = {
-      ...entry,
-      worktreePath: wt.path,
-      baselineCommit: wt.baseline,
-      worktreeHasDiffOverride: true,
-    };
     // Real diff exists here, so call the branch policy directly to prove
     // the preservation half of the contract at the git layer.
-    const { removeOrphanBranch } = await import('../../scripts/opencode-batch-worker.mjs');
     expect(removeOrphanBranch(f.repo, entry.branch, wt.baseline)).toBe('kept-has-commits');
     expect(git(f.repo, 'branch', '--list', entry.branch)).toContain(entry.branch);
-    void probe;
+  });
+
+  it('removeOrphanBranch without approval reports but never deletes a provably empty branch', () => {
+    const f = fixture();
+    const id = 'ses_test0004ffe';
+    git(f.repo, 'branch', `opencode/${id}`);
+
+    // Default (no allowDelete): report-only — branch must survive.
+    expect(removeOrphanBranch(f.repo, `opencode/${id}`, f.baseline)).toBe('empty-reported');
+    expect(git(f.repo, 'branch', '--list', `opencode/${id}`)).toContain(id);
+
+    // Explicit approval deletes exactly the provably empty branch.
+    expect(removeOrphanBranch(f.repo, `opencode/${id}`, f.baseline, true)).toBe('deleted');
+    expect(git(f.repo, 'branch', '--list', `opencode/${id}`)).toBe('');
+  });
+
+  it('unreadable rev-list (-1) preserves the branch even with approval', () => {
+    const f = fixture();
+    const id = 'ses_test0005ffe';
+    git(f.repo, 'branch', `opencode/${id}`);
+    // Nonexistent baseline makes rev-list fail -> count -1 -> never delete.
+    expect(removeOrphanBranch(f.repo, `opencode/${id}`, '0000000000000000000000000000000000000000', true)).toBe(
+      'kept-has-commits'
+    );
+    expect(git(f.repo, 'branch', '--list', `opencode/${id}`)).toContain(id);
+  });
+
+  it('worktree removal failure blocks orphan-branch deletion and escalates NEEDS-HUMAN', async () => {
+    const f = fixture();
+    const entry = entryFor(f.repo, f.baseline, 'ses_test0006ffe');
+    const ctx = { repo: f.repo };
+    const wtRoot = join(f.repo, '.worktrees', 'opencode-all');
+
+    const wt = await createWorktree(entry, ctx);
+    entry.worktreePath = wt.path;
+    entry.baselineCommit = wt.baseline;
+
+    // Make unlinking the worktree impossible: strip write permission from
+    // the parent directory so `git worktree remove` cannot complete.
+    const rootMode = 0o555;
+    let failedRemoval = false;
+    try {
+      execFileSync('chmod', ['555', wtRoot]);
+      const outcome = cleanupWorktreeAfterFailure(entry, false, ctx);
+      if (outcome === 'kept-removal-failed') {
+        failedRemoval = true;
+        expect(entry.worktreeState).toBe('kept-removal-failed');
+        expect(entry.stopReason).toBe('needs-human');
+        // The critical assertion: removal failure must gate branch deletion.
+        expect(git(f.repo, 'branch', '--list', entry.branch)).toContain(entry.branch);
+      }
+      // Some filesystems (running as dir owner with CAP overrides) still
+      // allow the unlink; in that case the normal removed-no-diff contract
+      // applies and this test degrades to the base case.
+      if (!failedRemoval) {
+        expect(outcome).toBe('removed-no-diff');
+      }
+    } finally {
+      execFileSync('chmod', ['755', wtRoot]);
+    }
   });
 
   it('queue-entry metadata survives a full failed attempt + cleanup cycle', async () => {
