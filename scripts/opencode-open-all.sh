@@ -12,10 +12,11 @@ KILL=false
 STATUS=false
 WATCH=false
 WATCH_INTERVAL="${OPENCODE_ALL_WATCH_INTERVAL:-30}"
+AUTO=false
 STATE_DIR="${HOME}/.local/state/opencode-all"
 
 usage() {
-  echo "usage: opencode-all [--dry-run] [--max N] [--pick] [--kill] [--status] [--watch [SECONDS]] [-n|--name TMUX_SESSION]"
+  echo "usage: opencode-all [--dry-run] [--max N] [--pick] [--kill] [--status] [--watch [SECONDS]] [--auto] [-n|--name TMUX_SESSION]"
   exit 1
 }
 
@@ -28,12 +29,19 @@ while [[ $# -gt 0 ]]; do
     --kill) KILL=true; shift ;;
     --status) STATUS=true; shift ;;
     --watch) WATCH=true; shift; [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]] && { WATCH_INTERVAL="$1"; shift; } ;;
+    --auto) AUTO=true; shift ;;
     *) usage ;;
   esac
 done
 
 REPO="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 REPO="${REPO:-/home/admin100/dws6}"
+# Auto-approve non-denied permissions for resumed opencode sessions (--auto).
+# Repo hard denies (sudo, rm -rf, .env reads, force-push...) still apply.
+# Claude Code windows are NOT touched — its skip-permissions mode has no
+# deny-layer backstop, so it stays opt-out of this flag by design.
+AUTO_FLAG=""
+$AUTO && AUTO_FLAG="--auto"
 TMP="$(mktemp -d /tmp/opencode/openall.XXXXXX)"
 trap 'rm -rf "$TMP"' EXIT
 
@@ -43,6 +51,42 @@ PLAN="$TMP/plan.tsv"
 # --- status / watch modes: report each agent's situation and alert the HIC
 # when a session finishes (ready for review & merge). Read the persisted plan
 # from the last real run; never scan live here.
+
+# Push a yellow (WARN) row into the Aspire dashboard structured-log table so
+# merge-ready alerts are visible at http://192.168.101.113:18888 alongside
+# everything else on the box. Best-effort: silently skips if docker/python3
+# or the dashboard are unavailable.
+notify_aspire() { # <message>
+  local msg="$1" ip=""
+  command -v python3 >/dev/null 2>&1 || return 0
+  command -v docker >/dev/null 2>&1 || return 0
+  ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' aspire-dashboard 2>/dev/null)
+  [[ -n "$ip" ]] || return 0
+  ASPIRE_IP="$ip" ASPIRE_MSG="$msg" ASPIRE_REPO="$REPO" python3 - <<'PYEOF' || true
+import json, os, time, urllib.request
+
+msg = os.environ["ASPIRE_MSG"]
+key = None
+envfile = os.path.join(os.environ.get("ASPIRE_REPO", ""), "infrastructure/dgx-spark/.otlp-common.env")
+try:
+    with open(envfile) as fh:
+        for line in fh:
+            if line.startswith("DASHBOARD__OTLP__PRIMARYAPIKEY="):
+                key = line.strip().split("=", 1)[1]
+except OSError:
+    pass
+rec = {"timeUnixNano": str(time.time_ns()), "severityNumber": 13, "severityText": "Warn",
+       "body": {"stringValue": msg}}
+doc = {"resourceLogs": [{"resource": {"attributes": [
+        {"key": "service.name", "value": {"stringValue": "opencode-all"}}]},
+    "scopeLogs": [{"scope": {"name": "opencode-all"}, "logRecords": [rec]}]}]}
+req = urllib.request.Request(
+    f"http://{os.environ['ASPIRE_IP']}:18890/v1/logs", data=json.dumps(doc).encode(),
+    headers={"Content-Type": "application/json", "x-otlp-api-key": key or ""})
+urllib.request.urlopen(req, timeout=3)
+PYEOF
+}
+
 state_of() { # <kind> <target>  ->  finished | working | gone
   local kind="$1" target="$2" r=""
   case "$kind" in
@@ -100,7 +144,8 @@ run_watch() {
       local st; st=$(state_of "$kind" "$target")
       if [[ "$st" == "finished" ]]; then
         echo "$target" >> "$seen"
-        local msg="✅ AGENT FINISHED — HIC: review '$name' and confirm MERGE ($(date +%H:%M))"
+        local msg="✅ AGENT FINISHED: '$name' — HIC: review & confirm MERGE | cmd: opencode-all --status ($(date +%H:%M))"
+        notify_aspire "$msg"
         printf '\a'
         tmux display-message -t "$TMUX_NAME" "$msg" 2>/dev/null || true
         echo "$msg" >> "$alerts"
@@ -238,8 +283,8 @@ while IFS=$'\t' read -r kind target name _updated; do
     resume)
       cat > "$wscript" <<EOF
 cd "$REPO"
-echo "[resuming $target]"
-exec opencode -s "$target"
+echo "[resuming $target${AUTO:+ — auto-approve}]"
+exec opencode $AUTO_FLAG -s "$target"
 EOF
       ;;
     clauderesume)
@@ -253,7 +298,7 @@ EOF
       cat > "$wscript" <<EOF
 cd "$REPO"
 echo "[post-merge handoff: $target]"
-exec opencode run -i --title "$name" "\$(cat "$target")"
+exec opencode run $AUTO_FLAG -i --title "$name" "\$(cat "$target")"
 EOF
       ;;
   esac
